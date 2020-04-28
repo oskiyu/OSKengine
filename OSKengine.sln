@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OSKengine", "..\..\..\Docum
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lua", "..\..\..\Documents\Visual Studio 2019\Projects\Project1\Lua\Lua.vcxproj", "{4F0962C5-C44C-4F8F-8CE7-630321F36D1B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "enet", "..\..\..\Documents\Visual Studio 2019\Projects\Project1\enet\enet.vcxproj", "{9AD0E296-E2D3-4F3A-B0E1-43B51B025CC6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "enet", "enet\enet.vcxproj", "{9AD0E296-E2D3-4F3A-B0E1-43B51B025CC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
