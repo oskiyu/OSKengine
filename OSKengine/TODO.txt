@@ -1,0 +1,62 @@
+
+-Transform SoundEntity
+
+>9
+enums
+drawstring-> \n \t auto-\n limites
+drawSprite
+
+>10
+Texturas en .xd
+Load shader from string (.h)
+OSK::Color
+RenderAPI settings
+
+>11
+Animation
+Sprite rotation
+
+>12
+Vector2, Vector3, Vector4
+-OSK_VEC_2, etc.
+
+>13
+Pause audio
+UI
+MouseState cleanup
+MousePos desde abajo izquierda
+windowAPI set mouse pos
+DrawText anchor middle
+
+>14
+User interface:
+  -IUserInterfaceHasChildren.
+  -IUserInterfaceImage.
+  -IUserInterfaceMouseInput.
+  -IUserInterfaceText.
+  -Panel.
+  -ImageUI.
+  -TextUI.
+  -Checkbox.
+  -BaseUIElement: funciones básicas, el resto en 'interfaces'.
+  -Removed I_UIHasText.
+
+RenderAPI:
+  -DrawString rework.
+
+FileIO:
+  -ReadFile, SaveFile.
+
+AudioAPI:
+  -Camera3D*.
+  -Update().
+  -PlayAudio: audio sin posición 3D.
+  -PlayAudio3D.
+
+OSK::Log:
+  -MessageType: INFO, WARNING, BAD_ERROR, CRITICAL_ERROR, COMMAND, DEBUG.
+  -DebugLog().
+
+>15
+Vulkan API
+Log class

@@ -1,0 +1,860 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="OSK::Camera3D" Collapsed="true">
+    <Position X="23" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAEAAAAIIABAAAAACAAAADgAAAAEACAICQAQAAAAI=</HashCode>
+      <FileName>Camera3D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::Mesh" Collapsed="true">
+    <Position X="17.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAgQAAEEAAAAAAAAAAAAAAAAAAAAAEQAAAAAEACA=</HashCode>
+      <FileName>Mesh.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::Model" Collapsed="true">
+    <Position X="19.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AUAAAAQAAAAAAAAIAgAAAEAAAAIAAggAAAgAAgAAAAA=</HashCode>
+      <FileName>Model.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::RenderAPI" Collapsed="true">
+    <Position X="21.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAoBjQEhGBBgQIkMEBAQIEgGkLBCRIACICAABFAAE=</HashCode>
+      <FileName>RenderAPI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::Shader" Collapsed="true">
+    <Position X="23" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QBAAAAgQCAAAAgAAAAAAAAAAAAAEAAAcAAkAAAA4AAE=</HashCode>
+      <FileName>Shader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::Animation" Collapsed="true">
+    <Position X="17.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAEgAAAAAQBIAAgAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Animation.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::Bone" Collapsed="true">
+    <Position X="21.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAIAgBAAAACAIAQAAAAEAAAIAgAAAAAACAA=</HashCode>
+      <FileName>Bone.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::Skeleton" Collapsed="true">
+    <Position X="24.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQBAQAAAAAAAAAAACAAAAAAAACiAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Skeleton.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::WindowAPI" Collapsed="true">
+    <Position X="21.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UUDAAAgsABBAIAEAAIQQAAQAhAEQAAGIIzIAUE6AqAg=</HashCode>
+      <FileName>WindowAPI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::Transform" Collapsed="true">
+    <Position X="19.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgCAIKAwAEIAAAQAAAAEAggMCAEAAkQAyJA=</HashCode>
+      <FileName>Transform.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::AudioAPI" Collapsed="true">
+    <Position X="19.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAiAAAAgAAAAAAAAAIAIAAAAAAAAAAAAAEEIAQ=</HashCode>
+      <FileName>AudioAPI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::SoundEntity" Collapsed="true">
+    <Position X="17.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAABACAAIAAABAQAAAAAgAAAACAAABAABA=</HashCode>
+      <FileName>SoundEntity.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::ContentAPI" Collapsed="true">
+    <Position X="24.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgEQBAACAAQAAAAQADIAAAIBAAAAAAAAAgAAQAEAAw=</HashCode>
+      <FileName>ContentAPI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::UI::BaseUIElement" Collapsed="true">
+    <Position X="38.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAEAABAAACUkAAUAAAQIACIARiCAAEASAACAAAAAA=</HashCode>
+      <FileName>BaseUIElement.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::UI::Button" Collapsed="true">
+    <Position X="40.5" Y="3.25" Width="1.5" />
+    <InheritanceLine Type="OSK::UI::BaseUIElement" ManuallyRouted="true">
+      <Path>
+        <Point X="39" Y="1.312" />
+        <Point X="39" Y="2.758" />
+        <Point X="39.167" Y="2.758" Type="JumpStart" />
+        <Point X="39.333" Y="2.758" Type="JumpEnd" />
+        <Point X="41.25" Y="2.758" />
+        <Point X="41.25" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+    <InheritanceLine Type="OSK::UI::IUserInterfaceImage" ManuallyRouted="true">
+      <Path>
+        <Point X="48.625" Y="1.312" />
+        <Point X="48.625" Y="2.031" />
+        <Point X="44.458" Y="2.031" Type="JumpStart" />
+        <Point X="44.292" Y="2.031" Type="JumpEnd" />
+        <Point X="41.25" Y="2.031" />
+        <Point X="41.25" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Button.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::IUserInterfaceHasText" Collapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAACIAAAAAAAAAAIAIAAAAAAACAAAAAA=</HashCode>
+      <FileName>I_UIHasText.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::FileIO" Collapsed="true">
+    <Position X="23.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>FileIO.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::UI::Image" Collapsed="true">
+    <Position X="42.25" Y="3.25" Width="1.5" />
+    <InheritanceLine Type="OSK::UI::BaseUIElement" ManuallyRouted="true">
+      <Path>
+        <Point X="39" Y="1.312" />
+        <Point X="39" Y="1.762" />
+        <Point X="39.104" Y="1.762" />
+        <Point X="39.104" Y="2.676" />
+        <Point X="39.167" Y="2.676" Type="JumpStart" />
+        <Point X="39.333" Y="2.676" Type="JumpEnd" />
+        <Point X="41.167" Y="2.676" Type="JumpStart" />
+        <Point X="41.333" Y="2.676" Type="JumpEnd" />
+        <Point X="43" Y="2.676" />
+        <Point X="43" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+    <InheritanceLine Type="OSK::UI::IUserInterfaceImage" ManuallyRouted="true">
+      <Path>
+        <Point X="48.625" Y="1.312" />
+        <Point X="48.625" Y="2.624" />
+        <Point X="44.458" Y="2.624" Type="JumpStart" />
+        <Point X="44.292" Y="2.624" Type="JumpEnd" />
+        <Point X="43" Y="2.624" />
+        <Point X="43" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAABIAAAAAAAAAAAA=</HashCode>
+      <FileName>ImageUI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::UI::IUserInterfaceHasChildren" Collapsed="true">
+    <Position X="45.5" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAABAgAAAAAEAAAAAABCAAAAAQAAAAAAAQA=</HashCode>
+      <FileName>IUserInterfaceHasChildren.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::UI::IUserInterfaceImage" Collapsed="true">
+    <Position X="47.75" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAgAABAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>IUserInterfaceImage.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::UI::IUserInterfaceText" Collapsed="true">
+    <Position X="43.5" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAgCIEAAAAAAAAQAAIAAAAAAACAAAAAA=</HashCode>
+      <FileName>IUserInterfaceText.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::UI::Panel" Collapsed="true">
+    <Position X="38.5" Y="3.25" Width="1.5" />
+    <InheritanceLine Type="OSK::UI::BaseUIElement" ManuallyRouted="true">
+      <Path>
+        <Point X="39" Y="1.312" />
+        <Point X="39" Y="1.828" />
+        <Point X="38.863" Y="1.828" Type="JumpStart" />
+        <Point X="38.697" Y="1.828" Type="JumpEnd" />
+        <Point X="38.451" Y="1.828" />
+        <Point X="38.451" Y="2.875" />
+        <Point X="39.25" Y="2.875" />
+        <Point X="39.25" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+    <InheritanceLine Type="OSK::UI::IUserInterfaceImage" ManuallyRouted="true">
+      <Path>
+        <Point X="48.625" Y="1.312" />
+        <Point X="48.625" Y="2.374" />
+        <Point X="44.458" Y="2.374" Type="JumpStart" />
+        <Point X="44.292" Y="2.374" Type="JumpEnd" />
+        <Point X="41.333" Y="2.374" Type="JumpStart" />
+        <Point X="41.167" Y="2.374" Type="JumpEnd" />
+        <Point X="39.25" Y="2.374" />
+        <Point X="39.25" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+    <InheritanceLine Type="OSK::UI::IUserInterfaceHasChildren" ManuallyRouted="true">
+      <Path>
+        <Point X="46.5" Y="1.312" />
+        <Point X="46.5" Y="1.793" />
+        <Point X="44.458" Y="1.793" Type="JumpStart" />
+        <Point X="44.292" Y="1.793" Type="JumpEnd" />
+        <Point X="39.25" Y="1.793" />
+        <Point X="39.25" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>IAAAAAABAAAAAgAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Panel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OSK::UI::Text" Collapsed="true">
+    <Position X="36.25" Y="3.25" Width="1.5" />
+    <InheritanceLine Type="OSK::UI::BaseUIElement" ManuallyRouted="true">
+      <Path>
+        <Point X="39" Y="1.312" />
+        <Point X="39" Y="1.71" />
+        <Point X="38.78" Y="1.71" />
+        <Point X="38.78" Y="2.519" />
+        <Point X="38.535" Y="2.519" Type="JumpStart" />
+        <Point X="38.368" Y="2.519" Type="JumpEnd" />
+        <Point X="37" Y="2.519" />
+        <Point X="37" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+    <InheritanceLine Type="OSK::UI::IUserInterfaceText" ManuallyRouted="true">
+      <Path>
+        <Point X="44.375" Y="1.312" />
+        <Point X="44.375" Y="1.576" />
+        <Point X="39.083" Y="1.576" Type="JumpStart" />
+        <Point X="38.917" Y="1.576" Type="JumpEnd" />
+        <Point X="37" Y="1.576" />
+        <Point X="37" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>TextUI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="OSK::Skybox" Collapsed="true">
+    <Position X="23" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Skybox.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="OSK::Texture" Collapsed="true">
+    <Position X="24.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Texture.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="OSK::Vertex" Collapsed="true">
+    <Position X="23" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAgAAIAAAAAAAAIABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Vertex.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="OSK::DirectionalLight" Collapsed="true">
+    <Position X="19.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAIAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>DirectionalLight.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="OSK::PointLight" Collapsed="true">
+    <Position X="21.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAYAAAgAAAAAAAAAAAAAAAIAAAAAAgAIAAAgAAAAAA=</HashCode>
+      <FileName>PointLight.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="OSK::Material" Collapsed="true">
+    <Position X="17.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAQAAAAAAAgAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Material.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="OSK::Font" Collapsed="true">
+    <Position X="21.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAIAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Font.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="OSK::FontChar" Collapsed="true">
+    <Position X="23" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIIAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FontChar.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="OSK::KeyboardState" Collapsed="true">
+    <Position X="24.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAQAAAAAAAAAAAAAAAAAAAAQAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>KeyboardState.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="OSK::MouseState" Collapsed="true">
+    <Position X="19.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AGAAAAAAEgABAAAkAAAAAAAAGEAAAEAABAAAAAAAAAA=</HashCode>
+      <FileName>MouseState.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="OSK::Color" Collapsed="true">
+    <Position X="17.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAAgAAAAAAAAAAAAAAABAAAAAggBAAAAA=</HashCode>
+      <FileName>Color.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="OSK::Vector2" Collapsed="true">
+    <Position X="17.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAGAFAAAAAAACAABAAAAAAAgAAAAYAA=</HashCode>
+      <FileName>Vector2.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="OSK::Vector3" Collapsed="true">
+    <Position X="19.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAIAAAAGAEAAAAAAACAABAAAAAACgAAAAYAE=</HashCode>
+      <FileName>Vector3.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="OSK::Vector4" Collapsed="true">
+    <Position X="21.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAEAAAAAAAAAIAAAAAAAhAABEBAAgAAAIYIU=</HashCode>
+      <FileName>Vector4.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0037_2" Collapsed="true">
+    <Position X="16.5" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAEAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0037_3" Collapsed="true">
+    <Position X="12.5" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAEAIAYAgAAgAAAAAAAhAAAAABACA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0037_5" Collapsed="true">
+    <Position X="20.5" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAABAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0037_7" Collapsed="true">
+    <Position X="20.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIIAAAAAAIAAACCAAAAAAAEAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0037_8" Collapsed="true">
+    <Position X="8.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgACBABEAAIAQEDEggMAAIBgAAgAAABAIBAQAAiAgg=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0037_10" Collapsed="true">
+    <Position X="4.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEEAAAAAAAAAAQAAAAAAAACAIABAIAAAgAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0037_11" Collapsed="true">
+    <Position X="16.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIIAAAAgIAAAACCAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0037_12" Collapsed="true">
+    <Position X="12.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAQAAAIEAJAAgAgAAAgAAAAAAIAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0037_13" Collapsed="true">
+    <Position X="16.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0037_14" Collapsed="true">
+    <Position X="8.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAQAAAAAAAAAAAAAAAIAAAIAAIAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0037_16" Collapsed="true">
+    <Position X="4.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAEAAAAAAACAQAAAAAAAAAAAgAAAAAKAABAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0037_17" Collapsed="true">
+    <Position X="12.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAIAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="PFNWGLGETPROCADDRESSPROC_PRIVATE" Collapsed="true">
+    <Position X="21.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\Dev\GLAD\src\glad.c</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLXGETPROCADDRESSPROC_PRIVATE" Collapsed="true">
+    <Position X="19.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\Dev\GLAD\src\glad.c</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="oskFloat_t" Collapsed="true">
+    <Position X="13" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OSKtypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="oskFloatPrecise_t" Collapsed="true">
+    <Position X="17.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OSKtypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="result_t" Collapsed="true">
+    <Position X="24.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OSKtypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="keyState_t" Collapsed="true">
+    <Position X="24.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OSKtypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="keyCode_t" Collapsed="true">
+    <Position X="23" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OSKtypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="vertexIndex_t" Collapsed="true">
+    <Position X="24.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OSKtypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="vertexArrayObject_t" Collapsed="true">
+    <Position X="23" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OSKtypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="bufferObject_t" Collapsed="true">
+    <Position X="17.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OSKtypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="cameraVar_t" Collapsed="true">
+    <Position X="15.25" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OSKtypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="deltaTime_t" Collapsed="true">
+    <Position X="15.5" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OSKtypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="mouseVar_t" Collapsed="true">
+    <Position X="14.25" Y="6.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OSKtypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="buttonState_t" Collapsed="true">
+    <Position X="21.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OSKtypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="buttonCode_t" Collapsed="true">
+    <Position X="19.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OSKtypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="textureCode_t" Collapsed="true">
+    <Position X="19.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OSKtypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbi_uc" Collapsed="true">
+    <Position X="24.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbi_us" Collapsed="true">
+    <Position X="17.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbi__uint16" Collapsed="true">
+    <Position X="21.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbi__int16" Collapsed="true">
+    <Position X="17.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbi__uint32" Collapsed="true">
+    <Position X="23" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbi__int32" Collapsed="true">
+    <Position X="19.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="validate_uint32" Collapsed="true">
+    <Position X="21.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="resample_row_func" Collapsed="true">
+    <Position X="23" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="bitFlags_t" Collapsed="true">
+    <Position X="23" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OSKtypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbi_io_callbacks" Collapsed="true">
+    <Position X="16.5" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbi__context" Collapsed="true">
+    <Position X="12.5" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbi__result_info" Collapsed="true">
+    <Position X="20.5" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbi__huffman" Collapsed="true">
+    <Position X="20.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbi__jpeg" Collapsed="true">
+    <Position X="8.5" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbi__resample" Collapsed="true">
+    <Position X="4.5" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbi__zhuffman" Collapsed="true">
+    <Position X="16.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbi__zbuf" Collapsed="true">
+    <Position X="12.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbi__pngchunk" Collapsed="true">
+    <Position X="16.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbi__png" Collapsed="true">
+    <Position X="8.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbi__bmp_data" Collapsed="true">
+    <Position X="4.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbi__pic_packet" Collapsed="true">
+    <Position X="12.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="OSK::Anchor" Collapsed="true">
+    <Position X="17.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAGAAABAAAABAgAAIAABAIAA=</HashCode>
+      <FileName>AnchorEnum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OSK::ButtonState" Collapsed="true">
+    <Position X="21.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ButtonStatesEnum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OSK::Directions" Collapsed="true">
+    <Position X="23" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAgAAAAAAAAAAAAICAAAgAIAAAAAAAAA=</HashCode>
+      <FileName>DirectionsEnum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OSK::Key" Collapsed="true">
+    <Position X="24.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YkQCPAQSYZADAhCIEAxsBAyEgyciCAgmoAkgvv//ZUU=</HashCode>
+      <FileName>KeysEnum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OSK::KeyState" Collapsed="true">
+    <Position X="17.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>KeyStatesEnum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OSK::ModelFormat" Collapsed="true">
+    <Position X="19.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>ModelFormat.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OSK::ButtonCode" Collapsed="true">
+    <Position X="19.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAACAAAAAAAAAAAAAAAAQAAAACAQABAAAAAIAAgGAA=</HashCode>
+      <FileName>ButtonCodeEnum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OSK::MouseMovementMode" Collapsed="true">
+    <Position X="23" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MouseMovementInputModeEnum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OSK::MouseVisibility" Collapsed="true">
+    <Position X="24.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>MouseVisibilityEnum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OSK::MouseInputMode" Collapsed="true">
+    <Position X="21.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>OverallMouseInputModeEnum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OSK::RenderMode" Collapsed="true">
+    <Position X="17.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RenderModeEnum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OSK::RenderOutput" Collapsed="true">
+    <Position X="19.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAgAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>RenderOutputImageEnum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OSK::RenderSettings" Collapsed="true">
+    <Position X="21.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAIAAAAAAAIAAAAAAAQAAAAAAAEAAAAAAEAA=</HashCode>
+      <FileName>RenderSettingsEnum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OSK::TextRenderingLimit" Collapsed="true">
+    <Position X="23" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAIAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>TextRenderingLimitActionsEnum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OSK::UIAnchorType" Collapsed="true">
+    <Position X="24.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UIAnchorTypeEnum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OSK::UIInterfacesBitFlags" Collapsed="true">
+    <Position X="17.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UIInterfacesBitFlags.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="__unnamed_enum_0037_1" Collapsed="true">
+    <Position X="23" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAABAAAAAAAAAAEAAABAAAAAAAIAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="__unnamed_enum_0037_4" Collapsed="true">
+    <Position X="26.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="__unnamed_enum_0037_6" Collapsed="true">
+    <Position X="23" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAgAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="__unnamed_enum_0037_15" Collapsed="true">
+    <Position X="24.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAECAAAABAAIAAAAAAAhAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stbi_image.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OSK::AnchorTextTo" Collapsed="true">
+    <Position X="24.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>AnchorTextToEnum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OSK::LogMessageLevels" Collapsed="true">
+    <Position X="26.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgABAAAAAAAAIEAAAAAAAAAEAAAAABAAAAAA=</HashCode>
+      <FileName>LogMessageLevelsEnum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

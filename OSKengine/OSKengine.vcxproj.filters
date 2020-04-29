@@ -1,0 +1,523 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de origen">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine">
+      <UniqueIdentifier>{e34fb8e6-0f98-47de-a2c3-7d1a6c50020d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI">
+      <UniqueIdentifier>{98f19c8c-15e5-4b22-804b-e9e121214133}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Lights">
+      <UniqueIdentifier>{39442691-43c4-4e10-9909-40149cdd4cde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Materials">
+      <UniqueIdentifier>{3789e923-d7d0-47dd-852c-5e6e7cc9399e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Fonts">
+      <UniqueIdentifier>{7698b838-f9ef-402d-a217-7178f406a6d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\TP">
+      <UniqueIdentifier>{af478f25-28ef-4ec1-bce1-740df7b6e4aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Util">
+      <UniqueIdentifier>{4b2e2d8c-1f21-4940-a06b-6b4fe6a89351}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\WindowAPI">
+      <UniqueIdentifier>{f01300ef-1d16-41d3-ae83-424b308c44b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\GameAPI">
+      <UniqueIdentifier>{e5097ee5-b53a-4a4c-b229-bf0a4dd4c58a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\AudioAPI">
+      <UniqueIdentifier>{5bfbcd96-822d-48b2-9480-ef8292bf4c3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\ContentAPI">
+      <UniqueIdentifier>{5c4ee935-5da8-466c-9b9c-5c37f6438ef2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Enums">
+      <UniqueIdentifier>{24b6b6fc-3f80-4b3b-a4b3-dee90d02709c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Game">
+      <UniqueIdentifier>{ec6b06f9-05bb-47ae-992f-29aa393b4b0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine">
+      <UniqueIdentifier>{e4054336-90a8-4d4d-bc5b-ce844b21090f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\WindowAPI">
+      <UniqueIdentifier>{f2c71e99-1fd8-4770-a427-09ebaab64631}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI">
+      <UniqueIdentifier>{dbb302c3-36d5-4430-991b-4c39b1ad8469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\TP">
+      <UniqueIdentifier>{1d953185-2f9b-458c-a7d1-a0828881f705}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Util">
+      <UniqueIdentifier>{4d4935f2-634c-4e04-891a-c98d1760d6d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\GameAPI">
+      <UniqueIdentifier>{49556dca-5a66-4dda-a960-b3d5893b3ba7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\AudioAPI">
+      <UniqueIdentifier>{134c860b-e08b-4c92-ab3a-5547f4e6c596}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\ContentAPI">
+      <UniqueIdentifier>{544346b8-5d50-4eff-9aea-cbbb9a4893ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Animation">
+      <UniqueIdentifier>{4a44f44e-e465-4160-a4a2-c35327d0ac66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\Animation">
+      <UniqueIdentifier>{bf6cf0ed-6f4c-4ab0-8eb1-760c42f88870}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\GameAPI\Collision">
+      <UniqueIdentifier>{9713196e-dd58-45e7-b736-d30a9d54a375}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\GameAPI\Collision">
+      <UniqueIdentifier>{9836cbcb-0d38-42ee-973e-171c2b10c89e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Types">
+      <UniqueIdentifier>{545ad141-7588-4c39-ac0b-05f1b89dd9da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Types">
+      <UniqueIdentifier>{dd35476c-fc05-4790-b431-017ddd9bd200}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\UI">
+      <UniqueIdentifier>{c6f8a8b1-8fac-4acb-a954-d28bfbcb129d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\UI">
+      <UniqueIdentifier>{5639788c-e215-4de7-b727-be03af3ab882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Interfaces">
+      <UniqueIdentifier>{04da55f0-8365-4953-a77e-c006a1a27014}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Vulkan">
+      <UniqueIdentifier>{5e7c6d3e-7f5d-4d42-b766-6fdcf81fef0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Vulkan">
+      <UniqueIdentifier>{08ef48a2-e166-4d25-a7c3-ef940779a6a7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Dev\GLAD\src\glad.c">
+      <Filter>Archivos de origen\OSKengine\TP</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowAPI.cpp">
+      <Filter>Archivos de origen\OSKengine\WindowAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardState.cpp">
+      <Filter>Archivos de origen\OSKengine\WindowAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderAPI.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera3D.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseState.cpp">
+      <Filter>Archivos de origen\OSKengine\WindowAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentAPI.cpp">
+      <Filter>Archivos de origen\OSKengine\ContentAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioAPI.cpp">
+      <Filter>Archivos de origen\OSKengine\AudioAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundEntity.cpp">
+      <Filter>Archivos de origen\OSKengine\AudioAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Archivos de origen\OSKengine\GameAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Archivos de origen\OSKengine\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="ToString.cpp">
+      <Filter>Archivos de origen\OSKengine\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Bone.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision2D.cpp">
+      <Filter>Archivos de origen\OSKengine\GameAPI\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Archivos de origen\OSKengine\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Archivos de origen\OSKengine\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Archivos de origen\OSKengine\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector4.cpp">
+      <Filter>Archivos de origen\OSKengine\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseUIElement.cpp">
+      <Filter>Archivos de origen\OSKengine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Archivos de origen\OSKengine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FileIO.cpp">
+      <Filter>Archivos de origen\OSKengine\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="IUserInterfaceText.cpp">
+      <Filter>Archivos de origen\OSKengine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="IUserInterfaceImage.cpp">
+      <Filter>Archivos de origen\OSKengine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageUI.cpp">
+      <Filter>Archivos de origen\OSKengine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TextUI.cpp">
+      <Filter>Archivos de origen\OSKengine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>Archivos de origen\OSKengine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="IUserInterfaceHasChildren.cpp">
+      <Filter>Archivos de origen\OSKengine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="IUserInterfaceMouseInput.cpp">
+      <Filter>Archivos de origen\OSKengine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Checkbox.cpp">
+      <Filter>Archivos de origen\OSKengine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanTools.cpp">
+      <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="QueryFamilyIndices.cpp">
+      <Filter>Archivos de origen\OSKengine\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanBuffer.cpp">
+      <Filter>Archivos de origen\OSKengine\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanCommandBuffer.cpp">
+      <Filter>Archivos de origen\OSKengine\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanCommandPool.cpp">
+      <Filter>Archivos de origen\OSKengine\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanDescriptorSet.cpp">
+      <Filter>Archivos de origen\OSKengine\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanDevice.cpp">
+      <Filter>Archivos de origen\OSKengine\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanGraphicsPipeline.cpp">
+      <Filter>Archivos de origen\OSKengine\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanImage.cpp">
+      <Filter>Archivos de origen\OSKengine\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanInstance.cpp">
+      <Filter>Archivos de origen\OSKengine\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanModel.cpp">
+      <Filter>Archivos de origen\OSKengine\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanRenderpass.cpp">
+      <Filter>Archivos de origen\OSKengine\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanSwapchain.cpp">
+      <Filter>Archivos de origen\OSKengine\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanSurface.cpp">
+      <Filter>Archivos de origen\OSKengine\Vulkan</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="WindowAPI.h">
+      <Filter>Archivos de encabezado\OSKengine\WindowAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardState.h">
+      <Filter>Archivos de encabezado\OSKengine\WindowAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderAPI.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentAPI.h">
+      <Filter>Archivos de encabezado\OSKengine\ContentAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera3D.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseState.h">
+      <Filter>Archivos de encabezado\OSKengine\WindowAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="stbi_image.h">
+      <Filter>Archivos de encabezado\OSKengine\TP</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionalLight.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioAPI.h">
+      <Filter>Archivos de encabezado\OSKengine\AudioAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundEntity.h">
+      <Filter>Archivos de encabezado\OSKengine\AudioAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLight.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Archivos de encabezado\OSKengine\GameAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="FontChar.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="ToString.h">
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionsEnum.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderModeEnum.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderOutputImageEnum.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="KeysEnum.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyStatesEnum.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonStatesEnum.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="OverallMouseInputModeEnum.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseVisibilityEnum.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseMovementInputModeEnum.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="TextRenderingLimitActionsEnum.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="AnchorEnum.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="OSKtypes.h">
+      <Filter>Archivos de encabezado\OSKengine</Filter>
+    </ClInclude>
+    <ClInclude Include="OSKmacros.h">
+      <Filter>Archivos de encabezado\OSKengine</Filter>
+    </ClInclude>
+    <ClInclude Include="OSKsettings.h">
+      <Filter>Archivos de encabezado\OSKengine</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders.h">
+      <Filter>Archivos de encabezado\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelFormat.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSettingsEnum.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Bone.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision2D.h">
+      <Filter>Archivos de encabezado\OSKengine\GameAPI\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector4.h">
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseUIElement.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIAnchorTypeEnum.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonCodeEnum.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="UIInterfacesBitFlags.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Panel.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSettingsBitFlags.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="AnchorTextToEnum.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="FileIO.h">
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="LogMessageLevelsEnum.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="IUserInterfaceText.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="IUserInterfaceImage.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageUI.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TextUI.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="IUserInterfaceHasChildren.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="IUserInterfaceMouseInput.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Checkbox.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanTools.h">
+      <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanInitializers.hpp">
+      <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="QueueFamilyIndices.h">
+      <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanGraphicsPipeline.h">
+      <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanGame.hpp">
+      <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanDescriptorSet.h">
+      <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsAPIenum.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanBuffer.h">
+      <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanCommandBuffer.h">
+      <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanCommandPool.h">
+      <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanDevice.h">
+      <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanImage.h">
+      <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanInstance.h">
+      <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanModel.h">
+      <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanRenderpass.h">
+      <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanSwapchain.h">
+      <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanSurface.h">
+      <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanUniformBufferObject.h">
+      <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+</Project>
