@@ -2,6 +2,7 @@
 
 ## Documentación de enet.
 
+
 ### Crear un servidor.
 
 ```cpp
@@ -23,6 +24,7 @@ address.port = 1234; //Puerto.
 
 server = enet_host_create(&address, 32, 2, 0, 0);
 ```
+
 
 ### Procesar mensajes recibidos.
 
@@ -65,6 +67,7 @@ while (msg_status > 0) {
 
 ```
 
+
 ### Enviar mensaje desde el servidor a todos los clientes.
 
 ```cpp
@@ -90,6 +93,7 @@ enet_host_broadcast(server, 0, packet);
 enet_host_flush(server);
 
 ```
+
 
 ### Enviar mensaje a una conexión en particluar.
 
@@ -117,6 +121,7 @@ enet_host_flush(server);
 
 ```
 
+
 ### Desconectarse de un servidor.
 
 ```cpp
@@ -131,6 +136,7 @@ ENetPeer* server = nullptr;
 enet_peer_disconnect(server, 0);
 
 ```
+
 
 ### Crear un cliente.
 
@@ -149,6 +155,7 @@ ENetHost* client = nullptr;
 client = enet_host_create(nullptr, 1, 2, 0, 0);
 
 ```
+
 
 ### Conectarse a un servidor.
 
