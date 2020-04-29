@@ -23,6 +23,7 @@
     <ProjectGuid>{9AD0E296-E2D3-4F3A-B0E1-43B51B025CC6}</ProjectGuid>
     <RootNamespace>enet</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>OSKnet</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -150,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.hpp" />
+    <ClInclude Include="MessageType.h" />
     <ClInclude Include="Server.hpp" />
   </ItemGroup>
   <ItemGroup>

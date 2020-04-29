@@ -5,7 +5,7 @@
 #include "OSKtypes.h"
 #include "Log.h"
 
-/**/
+/*
 #include "VulkanGame.hpp"
 
 int program() {
@@ -48,7 +48,7 @@ int main() {
 
 /**/
 
-/*
+/**/
 #include <glad/glad.h>
 #include <glfw3.h>
 
@@ -134,6 +134,7 @@ int xd() {
 
 	//Cámara
 	OSK::Camera3D Camera = OSK::Camera3D(0.0f, 0.0f, 0.0f);
+	Camera.Window = &windowAPI;
 	Camera.Speed = 5;
 
 	//Shaders
