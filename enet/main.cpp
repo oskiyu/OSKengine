@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+#include "OSKnet.hpp"
 #include "Client.h"
 #include "Server.h"
 #include "Encoder.hpp"
@@ -52,8 +53,7 @@ namespace OSK::NET {
 
 		bool run = true;
 
-		enet_initialize();
-		atexit(enet_deinitialize);
+		OSK::NET::GlobalInit();
 
 #ifdef SERVER
 
@@ -114,6 +114,7 @@ namespace OSK::NET {
 
 		client.Disconnect();
 #endif
+		OSK::NET::GlobalShutdown();
 
 		return 0;
 	}

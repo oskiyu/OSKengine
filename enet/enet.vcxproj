@@ -156,6 +156,7 @@
     <ClInclude Include="Client.h" />
     <ClInclude Include="Encoder.hpp" />
     <ClInclude Include="MessageType.h" />
+    <ClInclude Include="OSKnet.hpp" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="SafeExecute.h" />
     <ClInclude Include="Server.h" />

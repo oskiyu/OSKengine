@@ -5,6 +5,8 @@ namespace OSK::NET {
 	void Server::Setup(const uint32_t& ip, const uint32_t& port) {
 		address.host = ip;
 		address.port = port;
+
+		id = 0;
 	}
 
 
@@ -37,58 +39,56 @@ namespace OSK::NET {
 
 	void Server::ProccessMessages() {
 		while (enet_host_service(server, &message, 0) > 0) {
-			std::cout << "MSG" << std::endl;
-
+			
 			switch (message.type) {
 
-			case ENET_EVENT_TYPE_CONNECT:
-				OSKnet_safe_callback_execute<>(new_connection_callback, message);
-				break;
+				case ENET_EVENT_TYPE_CONNECT:
+					OSKnet_safe_callback_execute<>(new_connection_callback, message);
+				
+					client_id_map[message.peer] = id++;
+					id_client_map[id] = message.peer;
 
-			case ENET_EVENT_TYPE_RECEIVE: {
-				OSKnet_safe_callback_execute<>(message_received_callback, message);
+					break;
 
-				//Destruir el mensaje una vez ha sido inspeccionado.
-				enet_packet_destroy(message.packet);
-				}
-				break;
+				case ENET_EVENT_TYPE_RECEIVE: {
+					OSKnet_safe_callback_execute<>(message_received_callback, message);
 
-			case ENET_EVENT_TYPE_DISCONNECT: {
-				OSKnet_safe_callback_execute<>(disconnection_callback, message);
+					//Destruir el mensaje una vez ha sido inspeccionado.
+					enet_packet_destroy(message.packet);
+					}
+					break;
 
-				message.peer->data = nullptr;
-				}
-				break;
+				case ENET_EVENT_TYPE_DISCONNECT: {
+					OSKnet_safe_callback_execute<>(disconnection_callback, message);
+
+					id_client_map.erase(GetID(message.peer));
+					client_id_map.erase(message.peer);
+
+					message.peer->data = nullptr;
+					}
+					break;
 
 			}
 		}
 	}
 
 
-	/*void Server::SendMessageToAll(Packet* message, const uint32_t& channel) {
-		std::string buffer = (char*)message->ID;
-		buffer.append(message->Data);
-		std::cout << "ENCODE: " << message->Data << " -> " << buffer.c_str() << std::endl;
-		ENetPacket* packet = enet_packet_create(buffer.c_str(), buffer.length(), 0);
-		enet_host_broadcast(server, 0, packet);
-
-		outgoing_messages++;
-	}*/
-
-
 	void Server::SendMessageToAll(const char* message, const uint32_t& channel) {
 		ENetPacket* packet = enet_packet_create(message, strlen(message) + 1, 0);
-		enet_host_broadcast(server, 0, packet);
 
-		outgoing_messages++;
+		enet_host_broadcast(server, 0, packet);
+	}
+
+
+	void Server::SendMessageToClient(const char* message, ENetPeer* client, const uint32_t& channel) {
+		ENetPacket* packet = enet_packet_create(message, strlen(message) + 1, 0);
+		
+		enet_peer_send(client, channel, packet);
 	}
 
 
 	void Server::Flush() {
-		if (outgoing_messages > 0)
-			enet_host_flush(server);
-
-		outgoing_messages = 0;
+		enet_host_flush(server);
 	}
 
 

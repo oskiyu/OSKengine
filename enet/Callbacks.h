@@ -12,6 +12,6 @@ namespace OSK::NET {
 
 	typedef OSKnet_message_callback OSKnet_message_received_callback;
 
-	typedef void (*OSKnet_new_connection_callback) (const ENetEvent& msg);
+	typedef OSKnet_message_callback OSKnet_new_connection_callback;
 
 }
