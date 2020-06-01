@@ -7,8 +7,6 @@
 #include "Callbacks.h"
 #include "SafeExecute.h"
 
-#include "Packet.h"
-#include "Encoder.hpp"
 #include <map>
 #include "Types.h"
 
@@ -16,6 +14,10 @@ namespace OSK::NET {
 
 	constexpr uint32_t SERVER_IP_ANY = 0;
 
+
+	//Representa un servidor.
+	//Otros clientes se pueden unir a este servidor.
+	//El servidor almacena una lista con los clientes conectados.
 	class Server {
 
 	public:
@@ -55,30 +57,30 @@ namespace OSK::NET {
 
 		//Envía un mensaje a todos los clientes conectados.
 		//Los mensajes se introducen en una cola para ser enviados.
-		//-message: datos a enviar.
+		//-message: mensaje a enviar.
 		//-channel: canal por el que se va a enviar el mensaje.
-		void SendMessageToAll(const char* message, const uint32_t& channel = 0);
+		void SendMessageToAll(Message&, const uint32_t& channel = 0);
 
 
 		//Envía un mensaje a un cliente en particular.
 		//El mensaje se introduce en una cola para ser enviado.
-		//-message: datos a enviar.
+		//-message: mensaje a enviar.
 		//-clientID: ID del cliente al que se le va a enviar el mensaje.
 		//-channel: canal por el que se va a enviar el mensaje.
-		inline void SendMessageToClient(const char* message, const clientID_t& clientID, const uint32_t& channel = 0) {
+		inline void SendMessageToClient(Message& message, const clientID_t& clientID, const uint32_t& channel = 0) {
 			SendMessageToClient(message, GetClient(clientID), channel);
 		}
 
 
 		//Envía un mensaje a un cliente en particular.
 		//El mensaje se introduce en una cola para ser enviado.
-		//-message: datos a enviar.
+		//-message: mensaje a enviar.
 		//-client: cliente al que se le va a enviar el mensaje.
 		//-channel: canal por el que se va a enviar el mensaje.
-		void SendMessageToClient(const char* message, ENetPeer* client, const uint32_t& channel = 0);
+		void SendMessageToClient(Message&, ENetPeer* client, const uint32_t& channel = 0);
 
 
-		//Envía todos los mensajes.
+		//Envía todos los mensajes que están en la cola para ser enviados.
 		void Flush();
 
 

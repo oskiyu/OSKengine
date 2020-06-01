@@ -2,16 +2,27 @@
 
 #include <enet/enet.h>
 
-#include "Packet.h"
+#include "Message.hpp"
 
 namespace OSK::NET {
 
-	typedef void (*OSKnet_message_callback) (const ENetEvent& message);
+	//Callback general para procesar mensajes.
+	typedef void (*OSKnet_message_callback) (Message& message);
 
+
+	//Callback para procesar desconexiones.
+	//-void nombre(const ENetEvent& message).
 	typedef OSKnet_message_callback OSKnet_disconnect_callback;
 
+
+	//Callback para procesar mensajes.
+	//-void nombre(const ENetEvent& message).
 	typedef OSKnet_message_callback OSKnet_message_received_callback;
 
+
+
+	//Callback para procesar nuevas conexiones.
+	//-void nombre(const ENetEvent& message).
 	typedef OSKnet_message_callback OSKnet_new_connection_callback;
 
 }

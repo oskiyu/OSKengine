@@ -2,8 +2,11 @@
 
 namespace OSK::NET {
 
-	typedef char packetStructCode_t;
+	//Código de los mensajes.
+	typedef unsigned char messageCode_t;
 
-	typedef uint32_t& clientID_t;
+
+	//ID de los clientes.
+	typedef unsigned int clientID_t;
 
 }

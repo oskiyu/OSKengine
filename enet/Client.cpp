@@ -38,15 +38,17 @@ namespace OSK::NET {
 
 	void Client::ProccessMessages() {
 		while (enet_host_service(client, &message, 0) > 0) {
-			std::cout << "MSG" << std::endl;
+
+			Message oskMsg{ message };
+
 			switch (message.type) {
 
 			case ENET_EVENT_TYPE_CONNECT:
-				OSKnet_safe_callback_execute<>(new_connection_callback, message);
+				OSKnet_safe_callback_execute<>(new_connection_callback, oskMsg);
 				break;
 
 			case ENET_EVENT_TYPE_RECEIVE: {
-				OSKnet_safe_callback_execute<>(message_received_callback, message);
+				OSKnet_safe_callback_execute<>(message_received_callback, oskMsg);
 
 				//Destruir el mensaje una vez ha sido inspeccionado.
 				enet_packet_destroy(message.packet);
@@ -54,7 +56,7 @@ namespace OSK::NET {
 				break;
 
 			case ENET_EVENT_TYPE_DISCONNECT: {
-				OSKnet_safe_callback_execute<>(disconnection_callback, message);
+				OSKnet_safe_callback_execute<>(disconnection_callback, oskMsg);
 
 				message.peer->data = nullptr;
 			}
@@ -65,19 +67,15 @@ namespace OSK::NET {
 	}
 
 
-	void Client::SendMessage(const char* message, const uint32_t& channel) {
-		ENetPacket* packet = enet_packet_create(message, strlen(message) + 1, 0);
+	void Client::SendMessage(Message& message, const uint32_t& channel) {
+		auto msg = message.GetRawDataToBeSent();
+		ENetPacket* packet = enet_packet_create(msg, strlen(msg) + 1, 0);
 		enet_peer_send(connected_server, channel, packet);
-
-		outgoing_messages++;
 	}
 
 
 	void Client::Flush() {
-		if (outgoing_messages > 0)
-			enet_host_flush(client);
-
-		outgoing_messages = 0;
+		enet_host_flush(client);
 	}
 
 
