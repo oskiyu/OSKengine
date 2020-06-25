@@ -14,11 +14,11 @@ namespace OSK::VULKAN {
 
 	struct VulkanBuffer {
 
-		VkBuffer Buffer;
+		VkBuffer Buffer = VK_NULL_HANDLE;
 
-		VkDeviceMemory BufferMemory;
+		VkDeviceMemory BufferMemory = VK_NULL_HANDLE;
 
-		VkDeviceSize BufferSize;
+		VkDeviceSize BufferSize = 0;
 
 		void CreateBuffer(const VulkanDevice& device, VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties);
 

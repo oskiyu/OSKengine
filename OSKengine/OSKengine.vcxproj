@@ -209,6 +209,7 @@
     <ClInclude Include="ContentAPI.h" />
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="DirectionsEnum.h" />
+    <ClInclude Include="EXP_MeshBone.hpp" />
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontChar.h" />

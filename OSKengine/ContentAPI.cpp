@@ -26,99 +26,139 @@ namespace OSK {
 
 	void ContentAPI::LoadModel(Model& model, const std::string& path) {
 
+		//Si ha sido cargado, reset.
 		if (model.IsLoaded) {
 			model.Meshes.clear();
 		}
 
-		if (model.IsLoaded) {
-			model.Meshes.clear();
-		}
-
+		//Directorio del modelo y las texturas.
 		auto direct = path.substr(0, path.find_last_of('/'));
+
+		//Carga las texturas.
 		LoadTexture(model.Diffuse, direct + "/td");
 		LoadTexture(model.Specular, direct + "/ts");
 
+		//Importador de assimp.
 		static Assimp::Importer importer;
 
+		//Escena de assimp: modelo.
 		auto scene = importer.ReadFile(path.c_str(), aiProcess_Triangulate | aiProcess_FlipUVs);
+
+		//Error-handling.
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
 			Logger::Log(LogMessageLevels::BAD_ERROR, "cargar modelo " + path, __LINE__);
+
 			return;
 		}
 
+		//Nodos: información sobre los meshes.
 		std::vector<aiNode*> nodes;
+
+		//Carga todos los nodos.
 		addNode(scene->mRootNode, nodes);
 
+		//Animaciones.
+		//Cada nodo representa una animación de un hueso.
 		std::vector<aiNodeAnim*> nodesAnim;
+
+		//Cargar animaciones.
 		if (scene->mNumAnimations > 0) {
 			for (int32_t i = 0; i < scene->mAnimations[0]->mNumChannels; i++) {
 				nodesAnim.push_back(scene->mAnimations[0]->mChannels[i]);
 			}
 		}
 
+		//Por cada mesh.
 		for (uint32_t i = 0; i < scene->mNumMeshes; i++) {
+
+			//Cargar huesos.
 			for (uint32_t b = 0; b < scene->mMeshes[i]->mNumBones; b++) {
 				model.Skeletal = true;
 
+				//Hueso formato assimp.
 				auto aibone = scene->mMeshes[i]->mBones[b];
+
+				//Nombre clave del hueso.
 				std::string boneName = aibone->mName.data;
 
+				//Matriz original.
 				auto from = aibone->mOffsetMatrix;
+
+				//Matriz formato OpenGL.
 				glm::mat4 to;
 
+				//Conversión de la matriz.
 				to[0][0] = from.a1; to[1][0] = from.a2; to[2][0] = from.a3; to[3][0] = from.a4;
 				to[0][1] = from.b1; to[1][1] = from.b2; to[2][1] = from.b3; to[3][1] = from.b4;
 				to[0][2] = from.c1; to[1][2] = from.c2; to[2][2] = from.c3; to[3][2] = from.c4;
 				to[0][3] = from.d1; to[1][3] = from.d2; to[2][3] = from.d3; to[3][3] = from.d4;
 
+				//Transform del hueso.
+				//Usa la matriz en formato OpenGL.
 				Transform transform = Transform(to);
 
+				//HUeso formato OSK.
 				Bone bone = Bone(model.Skeleton.Bones.size(), boneName);
 				bone.Transform = transform;
+				bone.transf = to;
 
+				//Establece el nodo con la información del hueso.
 				for (uint32_t j = 0; j < nodes.size(); j++) {
 					if (nodes[j]->mName.data == boneName) {
 						bone.AINode = nodes[j];
+
+						break;
 					}
 				}
 
+				//Establece la animación del hueso.
 				for (uint32_t j = 0; j < nodesAnim.size(); j++) {
 					if (nodesAnim[j]->mNodeName.data == boneName) {
 						bone.AINodeAnim = nodesAnim[j];
+
+						break;
 					}
 				}
 
+				//Añade el hueso al esqueleto.
 				model.Skeleton.Bones.push_back(bone);
 			}
 		}
 
 		if (model.Skeletal) {
-			for (uint32_t i = 0; i < model.Skeleton.Bones.size(); i++) {
-				if (model.Skeleton.Bones[i].AINode == nullptr) {
-					Logger::Log(LogMessageLevels::BAD_ERROR, "nulltpr: AINode: " + std::to_string(i), __LINE__);
-					continue;
-				}
-				if (model.Skeleton.Bones[i].AINodeAnim == nullptr) {
-					Logger::Log(LogMessageLevels::BAD_ERROR, "AINodeAnim: " + std::to_string(i), __LINE__);
-					continue;
-				}
 
-				auto parentName = model.Skeleton.Bones[i].AINode->mParent->mName.data;
-				for (uint32_t n = 0; n < model.Skeleton.Bones.size(); n++) {
-					if (model.Skeleton.Bones[n].Name == parentName) {
-						model.Skeleton.Bones[i].Transform.AttachTo(&model.Skeleton.Bones[n].Transform);
+			//Juntar los huesos con sus padres.
+			for (uint32_t i = 0; i < model.Skeleton.Bones.size(); i++) {
+
+				//Error-handling.
+				if (model.Skeleton.Bones[i].AINode == nullptr)
+					Logger::Log(LogMessageLevels::BAD_ERROR, "nulltpr: AINode: " + std::to_string(i), __LINE__);
+
+				//Si el hueso no tiene ninguna animación...
+				if (model.Skeleton.Bones[i].AINodeAnim == nullptr)
+					Logger::Log(LogMessageLevels::DEBUG, "AINodeAnim: " + std::to_string(i), __LINE__);
+
+				//Nombre del hueso padre.
+				const auto parentName = model.Skeleton.Bones[i].AINode->mParent->mName.data;
+
+				//"Atar" el hueso a su padre.
+				/*for (uint32_t p = 0; p < model.Skeleton.Bones.size(); p++) {
+					if (model.Skeleton.Bones[p].Name == parentName) {
+						model.Skeleton.Bones[i].Transform.AttachTo(&model.Skeleton.Bones[p].Transform);
+						static int c = 0;
+						c++;
+						Logger::DebugLog("ATADO: "+ std::to_string(c) + "/" + std::to_string(model.Skeleton.Bones.size()));
+
 						break;
 					}
-				}
+
+					model.Skeleton.Bones[i].Transform.AttachTo(&model.Skeleton.Bones[0].Transform);
+				}*/
 			}
 		}
 
+		//Carga los meshes.
 		processMeshes(scene->mRootNode, scene, model);
-
-		if (model.Skeletal) {
-			model.Skeleton.Update(0.0f);
-		}
-
 
 		model.IsLoaded = true;
 
@@ -263,57 +303,14 @@ namespace OSK {
 			vShaderFile.close();
 			fShaderFile.close();
 
-			vertexCode = vShaderStream.str();
-			fragmentCode = fShaderStream.str();
+			LoadShaderFromSourceCode(shader, vShaderStream.str(), fShaderStream.str());
 		}
 
 		catch (std::ifstream::failure e) {
 			Logger::Log(LogMessageLevels::BAD_ERROR, "Shader(): ", __LINE__);
+
 			return;
 		}
-
-		const char* vShaderCode = vertexCode.c_str();
-		const char* fShaderCode = fragmentCode.c_str();
-
-		unsigned int vertex;
-		unsigned int fragment;
-
-		int success;
-		char infoLog[512];
-
-		vertex = glCreateShader(GL_VERTEX_SHADER);
-		glShaderSource(vertex, 1, &vShaderCode, NULL);
-		glCompileShader(vertex);
-
-		glGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
-		if (!success) {
-			glGetShaderInfoLog(vertex, 512, NULL, infoLog);
-			Logger::Log(LogMessageLevels::BAD_ERROR, "vertex shader compile: " + std::string(vertexPath) + "/" + infoLog, __LINE__);
-		}
-
-		fragment = glCreateShader(GL_FRAGMENT_SHADER);
-		glShaderSource(fragment, 1, &fShaderCode, NULL);
-		glCompileShader(fragment);
-
-		glGetShaderiv(fragment, GL_COMPILE_STATUS, &success);
-		if (!success) {
-			glGetShaderInfoLog(fragment, 512, NULL, infoLog);
-			Logger::Log(LogMessageLevels::BAD_ERROR, "shader compile: " + std::string(fragmentPath) + "/" + infoLog, __LINE__);
-		}
-
-		shader.ProgramID = glCreateProgram();
-		glAttachShader(shader.ProgramID, vertex);
-		glAttachShader(shader.ProgramID, fragment);
-		glLinkProgram(shader.ProgramID);
-
-		glGetProgramiv(shader.ProgramID, GL_LINK_STATUS, &success);
-		if (!success) {
-			glGetProgramInfoLog(shader.ProgramID, 512, NULL, infoLog);
-			Logger::Log(LogMessageLevels::BAD_ERROR, "shader program linking: " + std::string(infoLog), __LINE__);
-		}
-
-		glDeleteShader(vertex);
-		glDeleteShader(fragment);
 	}
 
 
@@ -564,6 +561,7 @@ namespace OSK {
 			else {
 				vertex.TexCoords = Vector2(0.0f, 0.0f);
 			}
+			vertex.ID = i;
 
 			vertices.push_back(vertex);
 		}
@@ -571,13 +569,39 @@ namespace OSK {
 		if (model.Skeletal) {
 			for (uint32_t i = 0; i < mesh->mNumBones; i++) {
 				auto aibone = mesh->mBones[i];
+				auto boneName = std::string(aibone->mName.data);
 
+				/**/
+				uint32_t boneID = 0;
+				for (int32_t j = 0; j < model.Skeleton.Bones.size(); j++) {
+					if (model.Skeleton.Bones[j].Name == boneName) {
+						boneID = j;
+
+						break;
+					}
+				}
+				
+				for (int32_t j = 0; j < aibone->mNumWeights; j++) {
+					uint32_t vertexID = aibone->mWeights[j].mVertexId;
+					float weight = aibone->mWeights[j].mWeight;
+
+					for (auto& v : vertices) {
+						if (v.ID != vertexID)
+							continue;
+
+						v.AddBoneData(boneID, weight);
+						
+						break;
+					}
+				}
+				/**/
+				/*
 				for (uint32_t j = 0; j < aibone->mNumWeights; j++) {
 					aiVertexWeight vertexWeight = aibone->mWeights[j];
 
 					int32_t startVertexID = vertexWeight.mVertexId;
 
-					for (uint32_t k = 0; k < OSK::__VERTEX::MAX_BONES_AMOUNT; k++) {
+					for	(uint32_t k = 0; k < OSK::__VERTEX::MAX_BONES_AMOUNT; k++) {
 						if (vertices[startVertexID].BoneWeights[k] == 0.0f) {
 							for (uint32_t l = 0; l < model.Skeleton.Bones.size(); l++) {
 								if (model.Skeleton.Bones[l].Name == aibone->mName.data) {
@@ -595,6 +619,7 @@ namespace OSK {
 						}
 					}
 				}
+				*/
 			}
 		}
 
@@ -613,20 +638,17 @@ namespace OSK {
 	void ContentAPI::addNode(aiNode* node, std::vector<aiNode*>& nodes) {
 		nodes.push_back(node);
 
-		for (uint32_t i = 0; i < node->mNumChildren; i++) {
+		for (uint32_t i = 0; i < node->mNumChildren; i++)
 			addNode(node->mChildren[i], nodes);
-		}
 	}
 
 
 	void ContentAPI::processMeshes(aiNode* node, const aiScene* scene, Model& model) {
-		for (uint32_t i = 0; i < node->mNumMeshes; i++) {
+		for (uint32_t i = 0; i < node->mNumMeshes; i++)
 			processMesh(scene->mMeshes[node->mMeshes[i]], scene, model);
-		}
 
-		for (uint32_t i = 0; i < node->mNumChildren; i++) {
+		for (uint32_t i = 0; i < node->mNumChildren; i++)
 			processMeshes(node->mChildren[i], scene, model);
-		}
 	}
 	
 }

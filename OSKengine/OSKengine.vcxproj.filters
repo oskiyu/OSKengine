@@ -109,6 +109,9 @@
     <Filter Include="Archivos de origen\OSKengine\Vulkan">
       <UniqueIdentifier>{08ef48a2-e166-4d25-a7c3-ef940779a6a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Animation\EXp">
+      <UniqueIdentifier>{093becbc-4253-416f-9ce4-f27d61951afa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -511,6 +514,9 @@
     </ClInclude>
     <ClInclude Include="VulkanUniformBufferObject.h">
       <Filter>Archivos de encabezado\OSKengine\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="EXP_MeshBone.hpp">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Animation\EXp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -19,12 +19,15 @@ struct packetTextMessage_t {
 };
 
 struct packetVectorMessage_t {
-	int X;
-	int Y;
-	int Z;
-};
+		int X;
+		int Y;
+		int Z;
+	} packet;
 
-//#define NO_NET
+
+
+
+#define NO_NET
 
 #ifndef NO_NET
 
@@ -49,7 +52,13 @@ namespace OSK::NET {
 		std::cout << "DATA = " << msg.GetRawData() << std::endl;
 		std::cout << "ID = " << msg.GetMessageCode() << std::endl;	
 
-		std::cout << "FLOATS: " << msg.CastFromMessageData<packetVectorMessage_t>(0, sizeof(packetVectorMessage_t)).X << std::endl;
+		int num = 0;
+		num = *reinterpret_cast<int*>(msg.GetNormalizedData(0, sizeof(int)));
+		std::cout << num << std::endl;
+		num = *reinterpret_cast<int*>(msg.GetNormalizedData(sizeof(int), sizeof(int)));
+		std::cout << num << std::endl;
+		num = *reinterpret_cast<int*>(msg.GetNormalizedData(sizeof(int) * 2, sizeof(int)));
+		std::cout << num << std::endl;
 
 		send_message = true;
 	}
@@ -64,7 +73,21 @@ namespace OSK::NET {
 
 		Message msg{};
 		msg.SetCode(3);
-		msg.AddData("XDXDXDXD");
+
+		packetVectorMessage_t p;
+		p.X = 3;
+		p.Y = 4;
+		p.Z = 5;
+
+		msg.AddData(p.X);
+		msg.AddData(p.Y);
+		msg.AddData(p.Z);
+
+		const char* data = reinterpret_cast<const char*>(&p);
+		std::cout << "DATA_T" << data << std::endl;
+		std::cout << "DATA[0]" << data[0] << std::endl;
+		std::cout << "DATA[1]" << data[sizeof(int)] << std::endl;
+		std::cout << "DATA[2]" << data[sizeof(int) * 2] << std::endl;
 
 		ENetEvent e{};
 		ENetPacket* packet = new ENetPacket{};
@@ -73,8 +96,8 @@ namespace OSK::NET {
 		e.packet->dataLength = strlen(msg.GetRawDataToBeSent()) + 1;
 		Message out{ e };
 
-		std::cout << "ORIGINAL: " << msg.GetRawDataToBeSent() << std::endl;
 		std::cout << "ORIGINAL-UCHAR*: " << (unsigned char*)msg.GetRawDataToBeSent() << std::endl;
+		std::cout << "ORIGINAL-DATA-LENGTH: " << e.packet->dataLength << "/" << strlen(msg.GetRawDataToBeSent()) + 1 << std::endl;
 
 		std::cout << "SENT: " << e.packet->data << std::endl;
 
@@ -83,6 +106,10 @@ namespace OSK::NET {
 		std::cout << "STRING DATA = " << std::string(out.GetRawData()) << std::endl;
 		std::cout << "NORMALIZED DATA = " << out.GetNormalizedData() << std::endl;
 
+		char* ndata = out.GetNormalizedData(0, sizeof(packetVectorMessage_t));
+		packetVectorMessage_t xd = *reinterpret_cast<packetVectorMessage_t*>(ndata);
+		std::cout << "VECTOR DATA = " << xd.X << std::endl;
+		
 		delete packet;
 
 #endif // NO_N
@@ -104,12 +131,12 @@ namespace OSK::NET {
 			server.ProccessMessages();
 
 			if (send_message) {
-
 				Message msg{};
 				msg.SetCode(0); 
-				msg.AddData((char*)12);
-				msg.AddData((char*)24);
-				msg.AddData((char*)36);
+
+				msg.Append(std::to_string(4));
+				msg.Append(std::to_string(5));
+				msg.Append(std::to_string(6));
 
 				server.SendMessageToAll(msg);
 
@@ -138,8 +165,12 @@ namespace OSK::NET {
 			if (send_message) {
 
 				Message msg{};
-				msg.SetCode(3);
-				msg.AddData("XDXXDXDD");
+				msg.SetCode(0);
+
+				packetVectorMessage_t p{ 7, 8, 9 };
+				msg.AddData(7);
+				msg.AddData(8);
+				msg.AddData(9);
 
 				client.SendMessage(msg);
 				

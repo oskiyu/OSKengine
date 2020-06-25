@@ -63,7 +63,7 @@ namespace OSK::VULKAN {
 			'VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP' = triángulos, con indexing
 
 		*/
-		inputAssembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST; //Triángulos
+		inputAssembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP; //Triángulos
 		inputAssembly.primitiveRestartEnable = VK_FALSE;
 
 		//Viewport

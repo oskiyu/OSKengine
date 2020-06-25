@@ -132,19 +132,19 @@ namespace OSK {
 		glBindTexture(GL_TEXTURE_2D, model.Diffuse.ID);
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, model.Specular.ID);
+
 		sceneShader->SetModel(transform.ModelMatrix);
 		if (model.Skeletal) {
 			sceneShader->SetBool("Skeleton", true);
-			model.Skeleton.Update(deltaTime);
 
 			for (uint32_t i = 0; i < MAX_BONES_AMOUNT; i++) {
 				glm::mat4 boneModel = glm::mat4(1.0f);
 
-				if (i < model.Skeleton.Bones.size()) {
+				if (i < model.Skeleton.Bones.size())
 					boneModel = model.Skeleton.Bones[i].Transform.ModelMatrix;
-				}
 
 				sceneShader->SetMat4("bones[" + std::to_string(i) + "]", boneModel);
+
 			}
 		}
 		else {

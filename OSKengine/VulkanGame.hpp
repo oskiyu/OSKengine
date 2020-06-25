@@ -133,7 +133,8 @@ namespace OSK::VULKAN {
 			swapchain.CreateSyncObjects(device);
 
 			model.LoadModel(device, &CommandPool, GraphicsQueue, "models/cube/cube.obj");
-			model.ModelTransform.SetPosition(Vector3(+5, -5, -5));
+			model.ModelTransform.SetPosition(Vector3(0, 0, 0));
+			model.ModelTransform.SetScale(0.01f);
 		}
 
 		void Draw() {

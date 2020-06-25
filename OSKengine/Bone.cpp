@@ -27,9 +27,8 @@ namespace OSK {
 
 
 	void Bone::UpdateTransform(const float_t& time) {
-		if (!AINodeAnim) {
+		if (!AINodeAnim)
 			return;
-		}
 
 		Transform.Position = GetInterpolatedPosition(time);
 		Transform.Rotation = GetInterpolatedRotation(time);
@@ -88,7 +87,7 @@ namespace OSK {
 
 		glm::quat out = glm::slerp(r1, r2, factor);
 
-		return Vector3(glm::eulerAngles(out) * (3.14f));
+		return Vector3(glm::eulerAngles(out));// *(3.14f));
 	}
 
 

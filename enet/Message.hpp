@@ -3,8 +3,11 @@
 #include "Types.h"
 
 #include <string>
+#include <stdexcept>
 
 #include <enet/enet.h>
+
+#define OSK_NET_USE_STRING
 
 namespace OSK::NET {
 
@@ -107,6 +110,36 @@ namespace OSK::NET {
 			sendMessage.append(data);
 		}
 
+		template <typename T> inline void AddData(const T& structToSend) {
+#ifndef OSK_NET_USE_STRING
+			std::cout << "AddData: " << &structToSend << " SIZE: " << sizeof(T) << std::endl;
+
+			char* oldData = nullptr;
+			if (c_message != nullptr) {
+				oldData = new char[messageLength];
+				memcpy(oldData, c_message, messageLength);
+			}
+			char* newData = new char[messageLength + sizeof(T)];
+
+			if (c_message != nullptr)
+				strncpy(newData, oldData, messageLength);
+
+			memcpy((void*)newData[messageLength], &structToSend, sizeof(T));
+
+			Clear();
+			messageLength += sizeof(T);
+			c_message = new char[messageLength];
+			strncpy(c_message, newData, messageLength);
+
+			if (c_message != nullptr)
+				delete[] oldData;
+
+			delete[] newData;
+#else
+			throw new std::runtime_error("ERROR: AddData<T> not supported with OSK_NET_USE_STRING");
+#endif
+		}
+
 
 		//INTERNAL.
 		//Obtiene la información que será enviada.
@@ -120,6 +153,11 @@ namespace OSK::NET {
 			strcpy(c_message, buffer.c_str());
 
 			return (const char*)c_message;
+		}
+
+
+		inline void Append(const std::string& data) {
+			sendMessage.append(data);
 		}
 
 
@@ -138,6 +176,8 @@ namespace OSK::NET {
 		std::string sendMessage = "";
 
 		char* c_message = nullptr;
+
+		size_t messageLength = 0;
 
 		//Código del mensaje a enviar.
 		messageCode_t code = 0;

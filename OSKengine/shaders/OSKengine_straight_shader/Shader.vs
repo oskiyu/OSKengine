@@ -1,13 +1,13 @@
 #version 330 core
 
 #define BONES_PER_VERTEX 12
-#define MAX_BONES 32
+#define MAX_BONES 100
 
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec3 aNor;
 layout (location = 2) in vec2 aTexCoords;
 layout (location = 3) in float boneID[BONES_PER_VERTEX];
-layout (location = 3) in float boneWeights[BONES_PER_VERTEX];
+layout (location = 4) in float boneWeights[BONES_PER_VERTEX];
 
 uniform mat4 model;
 uniform mat4 view;
@@ -21,11 +21,15 @@ out vec3 Normal;
 out vec2 TexCoords;
 
 void main() {
+	bool wasAffected = false;
+
 	mat4 bonesTransform = mat4(1.0);
 	if (Skeleton){
 		bonesTransform = mat4(0.0);
 		for (int i = BONES_PER_VERTEX; i > 0; i--){
 			bonesTransform += bones[int(boneID[i])] * boneWeights[i];
+			if (boneWeights[i] > 1)
+			wasAffected = true;
 		}
 	}
 

@@ -44,6 +44,9 @@ namespace OSK {
 		Transform Transform;
 
 
+		glm::mat4 transf{};
+
+
 		std::string Name;
 
 

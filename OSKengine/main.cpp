@@ -12,7 +12,7 @@ int program() {
 	OSK::WindowAPI* windowAPI = new OSK::WindowAPI();
 	windowAPI->SetWindow(1280, 720, "OSKengine Vk", OSK::GraphicsAPI::VULKAN);
 
-	OSK::Camera3D Camera = OSK::Camera3D(0.0f, 0.0f, 0.0f);
+	OSK::Camera3D Camera = OSK::Camera3D(-10.0f, -10.0f, -10.0f);
 	Camera.Speed = 5;
 	Camera.Window = windowAPI;
 
@@ -151,7 +151,8 @@ int xd() {
 	//Modelo
 	OSK::Model model = OSK::Model(OSK::Vector3(10, 0, 0), OSK::Vector3(0.01f), OSK::Vector3(0.0f));
 	//contentAPI.LoadModel(model, "models/cube/cube.obj");
-	contentAPI.LoadModel(model, "models/anim2/goblin.dae");
+	//contentAPI.LoadModel(model, "models/anim2/goblin.dae");
+	contentAPI.LoadModel(model, "models/anim/boblampclean.md5mesh");
 
 	OSK::Transform transform = OSK::Transform();
 	transform.SetPosition(OSK::Vector3(0, 1, 0));
@@ -357,6 +358,7 @@ int xd() {
 		SceneShader.SetDirectionalLight(directionalLight);
 		SceneShader.SetMaterial(material);
 
+		model.Skeleton.Update(DeltaTime);
 		renderAPI.DrawModel(model, DeltaTime);
 		//renderAPI.DrawModel(model, transform, DeltaTime);
 

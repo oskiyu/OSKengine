@@ -13,7 +13,7 @@
 
 namespace OSK {
 
-	constexpr uint32_t MAX_BONES_AMOUNT = 32;
+	constexpr uint32_t MAX_BONES_AMOUNT = 100;
 
 	class Skeleton {
 
@@ -40,13 +40,13 @@ namespace OSK {
 		void Update(const deltaTime_t& deltaTime);
 
 
-		std::map<std::string, uint32_t> BoneMapping;
-
-
 		std::vector<Bone> Bones;
 
 
-		uint32_t NumberOfBones = 0;
+		std::map<std::string, uint32_t> BoneMap;
+
+
+		Bone GetBoneByID(const uint32_t& ID) const;
 
 	private:
 

@@ -37,14 +37,17 @@ namespace OSK {
 		glEnableVertexAttribArray(2);
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
 		
+		//glEnableVertexAttribArray(3);
+		//glVertexAttribPointer(3, 1, GL_INT, GL_FALSE, sizeof(int32_t), (void*)offsetof(Vertex, BoneID));
+
 		for (uint32_t i = 0; i < OSK::__VERTEX::MAX_BONES_AMOUNT; i++) {
 			glVertexAttribPointer(3 + i, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(offsetof(Vertex, BoneID) + sizeof(float_t) * i));
 			glEnableVertexAttribArray(3 + i);
 		}
 
 		for (uint32_t i = 0; i < OSK::__VERTEX::MAX_BONES_AMOUNT; i++) {
-			glVertexAttribPointer(9 + i, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(offsetof(Vertex, BoneWeights) + sizeof(float_t) * i));
-			glEnableVertexAttribArray(3 + i);
+			glVertexAttribPointer(3 + 6 + i, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(offsetof(Vertex, BoneWeights) + sizeof(float_t) * i));
+			glEnableVertexAttribArray(3 + 6 + i);
 		}
 
 		glBindVertexArray(0);

@@ -33,14 +33,14 @@ namespace OSK {
 	}
 
 
-	Bone* Skeleton::GetBone(const std::string& name) {
+	/*Bone* Skeleton::GetBone(const std::string& name) {
 		for (auto i : Bones) {
 			if (i.Name == name)
 				return &i;
 		}
 
 		return nullptr;
-	}
+	}*/
 
 
 	void Skeleton::StopAnimation() {
@@ -69,11 +69,19 @@ namespace OSK {
 			}
 		}
 
-		for (int32_t i = 0; i < Bones.size(); i++) {
-			Bones[i].UpdateTransform(time);
+		for (auto &b : Bones) {
+			b.UpdateTransform(time);
+			b.Transform.UpdateModel();
 		}
+	}
 
-		Bones[0].Transform.UpdateModel();
+
+	Bone Skeleton::GetBoneByID(const uint32_t& ID) const {
+		for (auto b : Bones)
+			if (b.ID == ID)
+				return b;
+
+		return Bones[0];
 	}
 
 }
