@@ -10,6 +10,8 @@ struct Vertex {
 	glm::vec2 Position;
 	//Color.
 	glm::vec3 Color;
+	//Coordenadas.
+	glm::vec2 TextureCoordinates;
 
 	//Atributos que se pasan a la GPU.
 	static VkVertexInputBindingDescription GetBindingDescription() {
@@ -23,8 +25,8 @@ struct Vertex {
 	}
 
 	//Atributos que se pasan a la GPU.
-	static std::array<VkVertexInputAttributeDescription, 2> GetAttributeDescriptions() {
-		std::array<VkVertexInputAttributeDescription, 2> attributeDesc{};
+	static std::array<VkVertexInputAttributeDescription, 3> GetAttributeDescriptions() {
+		std::array<VkVertexInputAttributeDescription, 3> attributeDesc{};
 
 		//Posición.
 		attributeDesc[0].binding = 0;
@@ -37,6 +39,12 @@ struct Vertex {
 		attributeDesc[1].location = 1;
 		attributeDesc[1].format = VK_FORMAT_R32G32B32_SFLOAT;
 		attributeDesc[1].offset = offsetof(Vertex, Color);
+
+		//Texcoords.
+		attributeDesc[2].binding = 0;
+		attributeDesc[2].location = 2;
+		attributeDesc[2].format = VK_FORMAT_R32G32_SFLOAT;
+		attributeDesc[2].offset = offsetof(Vertex, TextureCoordinates);
 
 		return attributeDesc;
 	}

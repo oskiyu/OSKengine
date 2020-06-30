@@ -22,13 +22,15 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="PushConstants.h" />
+    <ClInclude Include="stb_image.h" />
     <ClInclude Include="UBO.h" />
     <ClInclude Include="VulkanBuffer.h" />
-    <ClInclude Include="Object.hpp" />
+    <ClInclude Include="VulkanObject.hpp" />
     <ClInclude Include="QueueFamilyIndices.hpp" />
     <ClInclude Include="SwapchainSupportDetails.hpp" />
     <ClInclude Include="Vertex.hpp" />
-    <ClInclude Include="VulkanRenderer.h" />
+    <ClInclude Include="VulkanImage.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
