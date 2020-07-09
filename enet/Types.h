@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Macros.h"
 namespace OSK::NET {
 
 	//Código de los mensajes.

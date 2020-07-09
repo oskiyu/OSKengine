@@ -1,3 +1,4 @@
+#include "Macros.h"
 //#define OSK_DLL
 #ifndef OSK_DLL
 
@@ -13,25 +14,11 @@
 #include "StructReg.h"
 #include "Types.h"
 
-
-struct packetTextMessage_t {
-	const char* Message;
-};
-
-struct packetVectorMessage_t {
-		int X;
-		int Y;
-		int Z;
-	} packet;
-
-
-
-
-#define NO_NET
+//#define NO_NET
 
 #ifndef NO_NET
 
-#define SERVER
+//#define SERVER
 
 #ifndef SERVER
 #define CLIENT
@@ -53,11 +40,11 @@ namespace OSK::NET {
 		std::cout << "ID = " << msg.GetMessageCode() << std::endl;	
 
 		int num = 0;
-		num = *reinterpret_cast<int*>(msg.GetNormalizedData(0, sizeof(int)));
+		num = *reinterpret_cast<int*>(msg.GetData(0, sizeof(int)));
 		std::cout << num << std::endl;
-		num = *reinterpret_cast<int*>(msg.GetNormalizedData(sizeof(int), sizeof(int)));
+		num = *reinterpret_cast<int*>(msg.GetData(sizeof(int), sizeof(int)));
 		std::cout << num << std::endl;
-		num = *reinterpret_cast<int*>(msg.GetNormalizedData(sizeof(int) * 2, sizeof(int)));
+		num = *reinterpret_cast<int*>(msg.GetData(sizeof(int) * 2, sizeof(int)));
 		std::cout << num << std::endl;
 
 		send_message = true;
@@ -167,10 +154,9 @@ namespace OSK::NET {
 				Message msg{};
 				msg.SetCode(0);
 
-				packetVectorMessage_t p{ 7, 8, 9 };
-				msg.AddData(7);
-				msg.AddData(8);
-				msg.AddData(9);
+				msg.AddData("7");
+				msg.AddData("8");
+				msg.AddData("9");
 
 				client.SendMessage(msg);
 				

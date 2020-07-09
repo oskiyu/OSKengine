@@ -2,8 +2,9 @@
 
 #include <enet/enet.h>
 
-#include "Message.hpp"
+#include "Message.h"
 #include "Callbacks.h"
+#include "Macros.h"
 
 namespace OSK::NET {
 

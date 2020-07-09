@@ -9,6 +9,7 @@
 
 #include <map>
 #include "Types.h"
+#include "Macros.h"
 
 namespace OSK::NET {
 
@@ -18,7 +19,7 @@ namespace OSK::NET {
 	//Representa un servidor.
 	//Otros clientes se pueden unir a este servidor.
 	//El servidor almacena una lista con los clientes conectados.
-	class Server {
+	class OSKAPI_CALL Server {
 
 	public:
 
@@ -79,7 +80,7 @@ namespace OSK::NET {
 		//-channel: canal por el que se va a enviar el mensaje.
 		void SendMessageToClient(Message&, ENetPeer* client, const uint32_t& channel = 0);
 
-
+		
 		//Envía todos los mensajes que están en la cola para ser enviados.
 		void Flush();
 

@@ -2,7 +2,8 @@
 
 #include <enet/enet.h>
 
-#include "Message.hpp"
+#include "Macros.h"
+#include "Message.h"
 
 namespace OSK::NET {
 

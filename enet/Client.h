@@ -4,6 +4,7 @@
 
 #include <iostream>
 
+#include "Macros.h"
 #include "Callbacks.h"
 #include "SafeExecute.h"
 
@@ -12,7 +13,7 @@
 namespace OSK::NET {
 
 	//representa un cliente que puede conectarse a un servidor.
-	class Client {
+	class OSKAPI_CALL Client {
 
 	public:
 
