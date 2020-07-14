@@ -1,16 +1,23 @@
 #pragma once
 
 #include <optional>
+#include <cstdint>
+
+#include "OSKmacros.h"
 
 namespace OSK::VULKAN {
 
-	struct QueueFamilyIndices {
+	struct OSKAPI_CALL QueueFamilyIndices {
 
-		std::optional<unsigned int> GraphicsFamily;
+		//Cola gráfica.
+		std::optional<uint32_t> GraphicsFamily;
 
-		std::optional<unsigned int> PresentFamily; //surface support
+		//Cola de presentación.
+		//(Pueden no ser la misma).
+		std::optional<uint32_t> PresentFamily;
 
-		bool IsComplete();
+		//¿Hay alguna cola?
+		bool IsComplete() const;
 
 	};
 

@@ -16,7 +16,7 @@
 namespace OSK {
 
 	//Shader para el renderizado.
-	class Shader {
+	class OSKAPI_CALL Shader {
 
 	public:
 

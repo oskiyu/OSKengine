@@ -14,7 +14,7 @@
 namespace OSK {
 
 	//Clase para la reproducción de sonidos.
-	class AudioAPI {
+	class OSKAPI_CALL AudioAPI {
 
 	public:
 

@@ -9,7 +9,7 @@
 namespace OSK {
 
 	//Representa un vector 3D.
-	struct Vector3 {
+	struct OSKAPI_CALL Vector3 {
 
 		//Crea un vector 3D nulo { 0, 0, 0 }.
 		Vector3();

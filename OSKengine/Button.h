@@ -18,7 +18,7 @@
 namespace OSK::UI {
 
 	//Botón (interfaz de usuario).
-	class Button : public BaseUIElement, public IUserInterfaceImage, public IUserInterfaceText, public IUserInterfaceMouseInput {
+	class OSKAPI_CALL Button : public BaseUIElement, public IUserInterfaceImage, public IUserInterfaceText, public IUserInterfaceMouseInput {
 
 	public:
 
@@ -32,6 +32,10 @@ namespace OSK::UI {
 
 		//Renderiza el botón.
 		void Draw(const RenderAPI& renderer) override;
+
+
+		//Renderiza el botón.
+		void Draw(SpriteBatch& spriteBatch) override;
 
 	protected:
 

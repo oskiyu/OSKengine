@@ -11,14 +11,15 @@
 #include "AnchorEnum.h"
 #include "UIAnchorTypeEnum.h"
 #include "RenderAPI.h"
-#include "Texture.h"
+#include "OldTexture.h"
 #include "UIInterfacesBitFlags.h"
+#include "SpriteBatch.h"
 
 namespace OSK::UI {
 	
 	OSK_INFO_DO_NOT_TOUCH
 	//Clase base para cualquier elemento de interfaz de usuario.
-	class BaseUIElement {
+	class OSKAPI_CALL BaseUIElement {
 
 	public:
 
@@ -27,7 +28,12 @@ namespace OSK::UI {
 
 
 		//Dibuja el elemento de UI.
+		//DEPRECATED.
 		virtual void Draw(const RenderAPI& renderer) = 0;
+
+
+		//Dibuja el elemento de UI.
+		virtual void Draw(SpriteBatch& spriteBatch) = 0;
 
 
 		//Actualiza la posición de este elemento dentro de los límites del elemento <element>.

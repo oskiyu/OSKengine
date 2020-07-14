@@ -12,7 +12,7 @@
 namespace OSK {
 
 	//Representa una luz direccional.
-	struct DirectionalLight {
+	struct OSKAPI_CALL DirectionalLight {
 
 		//Dirección de la luz.
 		Vector3 Direction;

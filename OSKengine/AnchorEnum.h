@@ -8,7 +8,7 @@
 namespace OSK {
 
 	//Tipos de anclaje.
-	enum class Anchor {
+	enum class OSKAPI_CALL Anchor {
 		TOP_LEFT,
 		TOP_RIGHT,
 		BOTTOM_LEFT,

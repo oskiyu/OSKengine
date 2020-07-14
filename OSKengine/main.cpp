@@ -5,23 +5,127 @@
 #include "OSKtypes.h"
 #include "Log.h"
 
-/*
-#include "VulkanGame.hpp"
+/**/
+#include "VulkanRenderer.h"
+#include "Camera2D.h"
+#include "Sprite.h"
+#include "Panel.h"
+#include "Button.h"
 
 int program() {
 	OSK::WindowAPI* windowAPI = new OSK::WindowAPI();
 	windowAPI->SetWindow(1280, 720, "OSKengine Vk", OSK::GraphicsAPI::VULKAN);
 
-	OSK::Camera3D Camera = OSK::Camera3D(-10.0f, -10.0f, -10.0f);
-	Camera.Speed = 5;
-	Camera.Window = windowAPI;
+	OSK::VulkanRenderer RenderAPI{};
+	RenderAPI.Window = windowAPI;
+	RenderAPI.Settings.MaxTextures = 1024;
+	RenderAPI.SetPresentMode(OSK::PresentMode::VSYNC);
+	RenderAPI.FPSlimit = 120;
+	RenderAPI.Init(OSK::RenderMode::RENDER_MODE_2D_AND_3D, "XD", OSK::Version{ 0, 0, 0 });
+	
+	OSK::Sprite texture{};
+	RenderAPI.LoadSprite(&texture, "models/cube/td.png");
 
-	OSK::VULKAN::VulkanGame vkGame{};
-	vkGame.window = windowAPI;
-	vkGame.swapchain.Camera = &Camera;
-	vkGame.Start();
-	vkGame.MainLoop();
-	vkGame.Destroy();
+	OSK::Font fuente{};
+	RenderAPI.LoadFont(fuente, "Fonts/arial.ttf", 20);
+
+	std::cout << fuente.Characters.at('a').Bearing.Y << std::endl;
+	std::cout << fuente.Characters.at('b').Bearing.Y << std::endl;
+
+	OSK::SpriteBatch spriteBatch = RenderAPI.CreateSpriteBatch();
+	spriteBatch.DrawSprite(texture);
+
+	RenderAPI.SubmitSpriteBatch(spriteBatch);
+	RenderAPI.DefaultCamera2D.UseTargetSize = true;
+	texture.SetPosition(OSK::Vector2(20, 20));
+	texture.SetSize(OSK::Vector2(100, 100));
+
+	//UI
+	OSK::UI::Panel* mainUI = new OSK::UI::Panel(OSK::Vector4(0.0f));
+	mainUI->FillParent = true;
+
+	//windowAPI->SetUserInterface(mainUI);
+	mainUI->SetSprite(texture);
+
+	OSK::UI::Button* playButton = new OSK::UI::Button(OSK::Vector4(20, 0, 50, 51));
+	playButton->SetSprite(texture);
+	playButton->ElementAnchor = OSK::Anchor::BOTTOM_LEFT;
+	playButton->OnLeftClick = ([&windowAPI, &mainUI] { windowAPI->SetMouseMode(OSK::MouseInputMode::ALWAYS_RETURN); mainUI->IsActive = false; });
+	playButton->OnWheelChange = [](float val) { OSK::Logger::Log(OSK::LogMessageLevels::INFO, std::to_string(val)); };
+	playButton->Texto = "PLAY";
+	playButton->TextAnchor = OSK::Anchor::CENTER;
+	//playButton->OnMouseHover = [&sonido, &audioAPI]() { audioAPI.PlayAudio(sonido); };
+	//playButton->OnMouseUnhover = []() { OSK::Logger::Log(OSK::LogMessageLevels::INFO, "NOT MouseHover!"); };
+	playButton->TextFont = &fuente;
+
+	mainUI->AddElement(playButton);
+
+	OSK::UI::Button* exitButton = new OSK::UI::Button(OSK::Vector4(20, 20, 50, 51));
+	exitButton->SetSprite(texture);
+	exitButton->ElementAnchor = OSK::Anchor::TOP_RIGHT;
+	exitButton->TextAnchor = OSK::Anchor::CENTER;
+	exitButton->OnLeftClick = ([&windowAPI] { windowAPI->Close(); });
+	exitButton->Texto = "EXIT";
+	exitButton->TextFont = &fuente;
+
+	mainUI->AddElement(exitButton);
+	//
+	OSK::KeyboardState OldKS = {};
+	OSK::KeyboardState NewKS = {};
+	windowAPI->UpdateKeyboardState(OldKS);
+	windowAPI->UpdateKeyboardState(NewKS);
+	double deltaTime = 0.0;
+
+	float FPS = 0.0f;
+	float totalDeltaTime = 0.0f;
+	int count = 0;
+	while (!windowAPI->WindowShouldClose()) {
+		double startTime = windowAPI->GetTime();
+		windowAPI->PollEvents();
+		windowAPI->UpdateKeyboardState(NewKS);
+
+		if (NewKS.IsKeyDown(OSK::Key::UP))
+			texture.SetPosition(texture.GetPosition() + OSK::Vector2(0, -150) * deltaTime);
+		if (NewKS.IsKeyDown(OSK::Key::DOWN))
+			texture.SetPosition(texture.GetPosition() + OSK::Vector2(0, 150) * deltaTime);
+		if (NewKS.IsKeyDown(OSK::Key::LEFT))
+			texture.SetPosition(texture.GetPosition() + OSK::Vector2(-150, 0) * deltaTime);
+		if (NewKS.IsKeyDown(OSK::Key::RIGHT))
+			texture.SetPosition(texture.GetPosition() + OSK::Vector2(150, 0) * deltaTime);
+
+		if (NewKS.IsKeyDown(OSK::Key::V) && OldKS.IsKeyUp(OSK::Key::V))
+			RenderAPI.SetPresentMode(OSK::PresentMode::VSYNC);
+		if (NewKS.IsKeyDown(OSK::Key::B) && OldKS.IsKeyUp(OSK::Key::B))
+			RenderAPI.SetPresentMode(OSK::PresentMode::VSYNC_TRIPLE_BUFFER);
+
+		totalDeltaTime += deltaTime;
+		count++;
+		if (totalDeltaTime > 1.0f) {
+			FPS = count;
+			count = 0;
+
+			totalDeltaTime = 0.0f;
+		}
+
+		//Draw();
+		{
+			spriteBatch.Clear();
+			spriteBatch.DrawSprite(texture);
+			spriteBatch.DrawString(fuente, "FPS: " + std::to_string((int)FPS), 0.75f, OSK::Vector2(0, 5), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+			spriteBatch.DrawString(fuente, "OSKengine " + std::string(OSK::ENGINE_VERSION), 0.75f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
+			//mainUI->Draw(spriteBatch);
+
+			RenderAPI.SubmitSpriteBatch(spriteBatch);
+		}
+
+		RenderAPI.RenderFrame();
+
+		OldKS = NewKS;
+		double endTime = windowAPI->GetTime();
+		deltaTime = endTime - startTime;
+	}
+
+	RenderAPI.Close();
 
 	delete windowAPI;
 
@@ -31,8 +135,6 @@ int program() {
 int main() {
 
 	OSK::Logger::Start();
-
-	program();
 
 	try {
 		program();
@@ -48,7 +150,7 @@ int main() {
 
 /**/
 
-/**/
+/*
 #include <glad/glad.h>
 #include <glfw3.h>
 

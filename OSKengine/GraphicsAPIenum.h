@@ -8,11 +8,11 @@
 namespace OSK {
 
 	//Botones del ratón.
-	enum class GraphicsAPI {
+	enum class OSKAPI_CALL GraphicsAPI {
 		OPENGL,
 		VULKAN
 	};
 
-	std::string ToString(const GraphicsAPI& graphicsAPI);
+	std::string OSKAPI_CALL ToString(const GraphicsAPI& graphicsAPI);
 
 }

@@ -8,7 +8,7 @@
 namespace OSK {
 
 	//Enum con las teclas del teclado.
-	enum class Key {
+	enum class OSKAPI_CALL Key {
 		SPACE,
 		APOSTROPHE,
 		COMMA,
@@ -62,6 +62,7 @@ namespace OSK {
 		ESCAPE,
 		ENTER,
 		TAB,
+		BACKSPACE,
 		INSERT,
 		DEL,
 		RIGHT,

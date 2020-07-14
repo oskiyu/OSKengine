@@ -9,7 +9,7 @@
 #include "Bone.h"
 #include "Skeleton.h"
 #include "Mesh.h"
-#include "Texture.h"
+#include "OldTexture.h"
 #include "Transform.h"
 
 #include <glm.hpp>
@@ -21,7 +21,7 @@
 namespace OSK {
 
 	//Modelo 3D.
-	class Model {
+	class OSKAPI_CALL Model {
 
 	public:
 
@@ -52,12 +52,12 @@ namespace OSK {
 
 		//Textura del modelo.
 		//Textura principal.
-		Texture Diffuse;
+		OldTexture Diffuse;
 
 
 		//Textura del modelo.
 		//Textura del "brillo".
-		Texture Specular;
+		OldTexture Specular;
 
 
 		//Esqueleto del modelo.

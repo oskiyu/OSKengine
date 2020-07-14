@@ -11,7 +11,7 @@
 namespace OSK {
 
 	OSK_INFO_STATIC
-	class FileIO {
+	class OSKAPI_CALL FileIO {
 	
 	public:
 

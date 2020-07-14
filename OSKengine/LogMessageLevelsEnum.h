@@ -6,7 +6,7 @@
 namespace OSK {
 
 	//Gravedad de los mensajes de Log().
-	enum class LogMessageLevels {
+	enum class OSKAPI_CALL LogMessageLevels {
 		INFO,
 		WARNING,
 		BAD_ERROR,

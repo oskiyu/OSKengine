@@ -10,7 +10,7 @@
 namespace OSK {
 
 	//Material para el renderizado 3D.
-	struct Material	{
+	struct OSKAPI_CALL Material	{
 
 		//OpenGL.
 		OSK_INFO_DO_NOT_TOUCH

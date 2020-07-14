@@ -11,7 +11,7 @@ namespace OSK::UI {
 
 	OSK_INFO_INTERNAL
 	//Interfaz para elementos de UI que tienen elementos hijos.
-	class IUserInterfaceHasChildren {
+	class OSKAPI_CALL IUserInterfaceHasChildren {
 
 	public:
 
@@ -21,6 +21,10 @@ namespace OSK::UI {
 
 		//Renderiza los elementos hijos.
 		void Draw(const RenderAPI& renderer);
+
+
+		//Renderiza los elementos hijos.
+		void Draw(SpriteBatch& spriteBatch);
 
 
 		//Añade un nuevo elemento hijo.

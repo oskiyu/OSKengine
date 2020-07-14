@@ -23,6 +23,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PushConstants.h" />
+    <ClInclude Include="RenderMode.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="UBO.h" />
     <ClInclude Include="VulkanBuffer.h" />
@@ -31,6 +33,8 @@
     <ClInclude Include="SwapchainSupportDetails.hpp" />
     <ClInclude Include="Vertex.hpp" />
     <ClInclude Include="VulkanImage.h" />
+    <ClInclude Include="VulkanRenderer.h" />
+    <ClInclude Include="VulkanToString.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

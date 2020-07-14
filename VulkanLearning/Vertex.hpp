@@ -7,7 +7,7 @@
 
 struct Vertex {
 	//Position.
-	glm::vec2 Position;
+	glm::vec3 Position;
 	//Color.
 	glm::vec3 Color;
 	//Coordenadas.
@@ -31,7 +31,7 @@ struct Vertex {
 		//Posición.
 		attributeDesc[0].binding = 0;
 		attributeDesc[0].location = 0;
-		attributeDesc[0].format = VK_FORMAT_R32G32_SFLOAT;
+		attributeDesc[0].format = VK_FORMAT_R32G32B32_SFLOAT;
 		attributeDesc[0].offset = offsetof(Vertex, Position);
 
 		//Color.

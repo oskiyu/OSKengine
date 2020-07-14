@@ -2,19 +2,9 @@
 
 namespace OSK {
 
-	void Vertex::AddBoneData(const uint32_t& boneID, const float_t& boneWeight) {
-		for (uint32_t i = 0; i < __VERTEX::MAX_BONES_AMOUNT; i++) {
-			if (BoneWeights[i] == 0.0) {
-				BoneID[i] = boneID;
-				BoneWeights[i] = boneWeight;
-
-				return;
-			}
-		}
-	}
-
 	VkVertexInputBindingDescription Vertex::GetBindingDescription() {
-		VkVertexInputBindingDescription bindingDescription = {};
+		VkVertexInputBindingDescription bindingDescription{};
+
 		bindingDescription.binding = 0;
 		bindingDescription.stride = sizeof(Vertex);
 		bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
@@ -22,34 +12,29 @@ namespace OSK {
 		return bindingDescription;
 	}
 
+
 	std::array<VkVertexInputAttributeDescription, 3> Vertex::GetAttributeDescriptions() {
-		std::array<VkVertexInputAttributeDescription, 3> attributeDescriptions = {};
+		std::array<VkVertexInputAttributeDescription, 3> attributeDesc{};
 
-		//(0) = position
-		attributeDescriptions[0].binding = 0;
-		attributeDescriptions[0].location = 0;
-		attributeDescriptions[0].format = VK_FORMAT_R32G32B32_SFLOAT;
-		attributeDescriptions[0].offset = offsetof(Vertex, Position);
+		//Posición.
+		attributeDesc[0].binding = 0;
+		attributeDesc[0].location = 0;
+		attributeDesc[0].format = VK_FORMAT_R32G32B32_SFLOAT;
+		attributeDesc[0].offset = offsetof(Vertex, Position);
 
-		//(1) = normal
-		attributeDescriptions[1].binding = 0;
-		attributeDescriptions[1].location = 1;
-		attributeDescriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT;
-		attributeDescriptions[1].offset = offsetof(Vertex, Normal);
+		//Color.
+		attributeDesc[1].binding = 0;
+		attributeDesc[1].location = 1;
+		attributeDesc[1].format = VK_FORMAT_R32G32B32_SFLOAT;
+		attributeDesc[1].offset = offsetof(Vertex, Color);
 
-		//(2) = texcoords
-		attributeDescriptions[2].binding = 0;
-		attributeDescriptions[2].location = 2;
-		attributeDescriptions[2].format = VK_FORMAT_R32G32_SFLOAT;
-		attributeDescriptions[2].offset = offsetof(Vertex, TexCoords);
+		//Texcoords.
+		attributeDesc[2].binding = 0;
+		attributeDesc[2].location = 2;
+		attributeDesc[2].format = VK_FORMAT_R32G32_SFLOAT;
+		attributeDesc[2].offset = offsetof(Vertex, TextureCoordinates);
 
-		/*//(3) = bones
-		attributeDescriptions[2].binding = 0; TODO
-		attributeDescriptions[2].location = 2;
-		attributeDescriptions[2].format = VK_FORMAT_R32G32_SFLOAT;
-		attributeDescriptions[2].offset = offsetof(Vertex, BoneID);*/
-
-		return attributeDescriptions;
+		return attributeDesc;
 	}
 
 }

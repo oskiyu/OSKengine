@@ -7,4 +7,13 @@ namespace OSK::UI {
 			renderer.DrawTexture(*ImageTexture, base.GetRectangle().GetRectanglePosition(), base.GetRectangle().GetRectangleSize(), ImageColor * base.Opacity);
 	}
 
+	void IUserInterfaceImage::Draw(SpriteBatch& spriteBatch, const BaseUIElement& base) {
+		spriteBatch.DrawSprite(Image);
+	}
+
+	void IUserInterfaceImage::SetSprite(Sprite sprite) {
+		Image = sprite;
+		Image.SetRectangle(*Rectangle);
+	}
+
 }

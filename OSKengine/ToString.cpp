@@ -37,9 +37,9 @@ namespace OSK {
 
 
 	OSK_INFO_GLOBAL
-	OSK::Vector2 GetTextSize(const std::string& texto, Font& fuente, const Vector2& size) {
+	OSK::Vector2 GetTextSize(const std::string& texto, OldFont& fuente, const Vector2& size) {
 		//Char que se tomará como referencia en cuanto al tamaño de las letras.
-		FontChar reference = fuente.Characters['A'];
+		OldFontChar reference = fuente.Characters['A'];
 		std::string::const_iterator iterador;
 
 		if (texto == "")
@@ -50,7 +50,7 @@ namespace OSK {
 		float_t sizeY = reference.Bearing.y * size.Y + reference.Size.y * size.Y;
 
 		for (iterador = texto.begin(); iterador != texto.end(); iterador++) {
-			FontChar character = fuente.Characters[*iterador];
+			OldFontChar character = fuente.Characters[*iterador];
 			if (*iterador == '\n') {
 				if (temporalSizeX > sizeX) {
 					sizeX = temporalSizeX;
@@ -83,7 +83,7 @@ namespace OSK {
 
 
 	OSK_INFO_GLOBAL
-	Vector2 GetTextSize(const std::string& texto, Font& fuente, const float_t& size) {
+	Vector2 GetTextSize(const std::string& texto, OldFont& fuente, const float_t& size) {
 		return GetTextSize(texto, fuente, Vector2(size));
 	}
 

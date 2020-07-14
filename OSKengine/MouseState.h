@@ -14,7 +14,7 @@ namespace OSK {
 	constexpr buttonCode_t NUMBER_OF_BUTTONS = 8;
 
 	//Struct que almacena el estado del ratón en un determinado momento.
-	struct MouseState {
+	struct OSKAPI_CALL MouseState {
 
 	public:
 

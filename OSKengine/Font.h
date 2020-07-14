@@ -1,30 +1,20 @@
 #pragma once
 
-#include "OSKsettings.h"
-#include "OSKmacros.h"
-#include "OSKtypes.h"
-#include "Log.h"
-
-#include "FontChar.h"
-
-#include <ft2build.h>
-#include FT_FREETYPE_H
-
 #include <map>
+#include "FontChar.h"
 
 namespace OSK {
 
-	//Una fuente para el renderizado de texto.
-	struct Font {
+	struct OSKAPI_CALL Font {
 
-		//Carácteres de la fuente.
+		//Espacios a los que equivale '\t'.
+		const static int SPACES_PER_TAB = 4;
+
+		Vector2 GetTextSize(const std::string& texto, const Vector2& size) const;
+
 		std::map<char, FontChar> Characters;
 
-		//Tamaño de la fuente.
-		int32_t Size;
-
-		//True si la fuente ha sido cargada y está lista para usarse.
-		bool IsLoaded = false;
+		uint32_t Size;
 
 	};
 

@@ -25,7 +25,7 @@ namespace OSK {
 
 
 	//Clase para la creación y uso de una ventana.
-	class WindowAPI {
+	class OSKAPI_CALL WindowAPI {
 
 	public:
 		GraphicsAPI UsedGraphicsAPI = GraphicsAPI::OPENGL;
@@ -116,6 +116,9 @@ namespace OSK {
 
 
 		void SetUserInterface(UI::BaseUIElement* ui);
+
+
+		Vector4 GetRectangle() const;
 
 
 		//Obtiene el tiempo actual.

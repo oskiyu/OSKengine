@@ -9,7 +9,7 @@ namespace OSK {
 
 	//Modo de renderizado.
 	OSK_INFO_OBSOLETE
-	enum class RenderMode {
+	enum class OSKAPI_CALL OldRenderMode {
 		STRAIGHT
 	};
 

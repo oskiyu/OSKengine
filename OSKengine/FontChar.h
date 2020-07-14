@@ -1,30 +1,17 @@
 #pragma once
 
-#include "OSKsettings.h"
-#include "OSKmacros.h"
-#include "OSKtypes.h"
-#include "Log.h"
-
-#include <glm.hpp>
+#include "Sprite.h"
+#include "Vector2.h"
 
 namespace OSK {
 
-	//Representa un carácter de una fuente.
-	OSK_INFO_READ_ONLY
-	OSK_INFO_DO_NOT_TOUCH
-	struct FontChar	{
+	struct OSKAPI_CALL FontChar {
 
-		//ID del carácter.
-		OSK_INFO_DO_NOT_TOUCH
-		uint32_t ID;
+		Sprite sprite{};
 
-		//Tamaño del carácter.
-		glm::ivec2 Size;
+		Vector2 Size;
+		Vector2 Bearing;
 
-		//Bearing del carácter.
-		glm::ivec2 Bearing;
-
-		//Advance del carácter.
 		uint32_t Advance;
 
 	};

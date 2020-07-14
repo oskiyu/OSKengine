@@ -13,7 +13,7 @@ namespace OSK::UI {
 
 	//Checkbox (interfaz de usuario).
 	//Representa un 'botón' sin texto que puede ser activado o desactivado.
-	class Checkbox : public BaseUIElement, public IUserInterfaceImage, public IUserInterfaceMouseInput {
+	class OSKAPI_CALL Checkbox : public BaseUIElement, public IUserInterfaceImage, public IUserInterfaceMouseInput {
 
 	public:
 
@@ -27,6 +27,10 @@ namespace OSK::UI {
 
 		//Renderiza el checkbox.
 		void Draw(const RenderAPI& renderer) override;
+
+
+		//Renderiza el checkbox.
+		void Draw(SpriteBatch& spriteBatch) override;
 
 
 		//Puntero al bool que representará el estado del checkbox.

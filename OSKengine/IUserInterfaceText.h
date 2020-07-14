@@ -9,13 +9,15 @@
 
 #include "BaseUIElement.h"
 #include "AnchorEnum.h"
+#include "OldFont.h"
+#include "SpriteBatch.h"
 #include "Font.h"
 
 namespace OSK::UI {
 
 	OSK_INFO_INTERNAL
 	//Interfaz para elementos de UI que tienen texto.
-	class IUserInterfaceText {
+	class OSKAPI_CALL IUserInterfaceText {
 
 	public:
 
@@ -24,7 +26,12 @@ namespace OSK::UI {
 
 
 		//Renderiza el texto.
+		//DEPRECATED.
 		void Draw(const RenderAPI& renderer, const BaseUIElement& base);
+
+
+		//Renderiza el texto.
+		void Draw(SpriteBatch& spriteBatch, const BaseUIElement& base);
 
 
 		//Texto a renderizar, si <LinkedText> == nullptr.
@@ -38,6 +45,10 @@ namespace OSK::UI {
 
 		//Punto de anclaje del texto.
 		Anchor TextAnchor = Anchor::CENTER;
+
+
+		//Fuente del texto.
+		OldFont* OldTextFont = nullptr;
 
 
 		//Fuente del texto.

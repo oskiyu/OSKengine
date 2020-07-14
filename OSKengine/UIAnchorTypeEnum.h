@@ -7,7 +7,7 @@
 
 namespace OSK {
 
-	enum class UIAnchorType {
+	enum class OSKAPI_CALL UIAnchorType {
 		WINDOW,
 		PARENT
 	};

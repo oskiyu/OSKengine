@@ -1,6 +1,17 @@
 #pragma once
 
-#include <glm.hpp>
+//#define OSK_RELEASE_DLL
+//#define OSK_DLL_EXPORT
+
+#ifdef OSK_RELEASE_DLL
+#ifdef OSK_DLL_EXPORT
+#define OSKAPI_CALL _declspec(dllexport)
+#else
+#define OSKAPI_CALL _declspec(dllimport)
+#endif
+#else
+#define OSKAPI_CALL
+#endif
 
 #define OSK_VULKAN
 
@@ -26,9 +37,9 @@
 
 #define OSK_INFO_DO_NOT_TOUCH OSK_INFO_INTERNAL
 
-#define OSK_NOT_IMPLEMENTED(info, line) OSK::Log("ERROR: " + std::string(info) + " aún no se ha implementado.", line)
+#define OSK_NOT_IMPLEMENTED(info, line) OSK::Logger::Log(OSK::LogMessageLevels::CRITICAL_ERROR, std::string(info) + " aún no se ha implementado.", line)
 
-#define OSK_OBSOLETE(info, line) OSK::Log("WARNING: " + std::string(info) + "está obsoleto.", line)
+#define OSK_OBSOLETE(info, line) OSK::Logger::Log(OSK::LogMessageLevels::WARNING, std::string(info) + "está obsoleto.", line)
 
 #ifdef OSK_RELEASE
 #define OSK_LOAD_XD

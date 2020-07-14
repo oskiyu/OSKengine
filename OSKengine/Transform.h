@@ -17,7 +17,7 @@ namespace OSK {
 
 	//Clase que almacena el 'transform' de un objeto en un mundo 3D.
 	//Posición, escala y rotación.
-	class Transform {
+	class OSKAPI_CALL Transform {
 
 	public:
 

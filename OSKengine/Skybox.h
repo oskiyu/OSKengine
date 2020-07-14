@@ -9,7 +9,7 @@ namespace OSK {
 
 	//Textura en forma de cubemap.
 	//Skybox.
-	struct Skybox {
+	struct OSKAPI_CALL Skybox {
 
 	public:
 

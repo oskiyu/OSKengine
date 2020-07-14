@@ -30,6 +30,9 @@
 #include <fstream>
 #include <string>
 #include "PushConstants.h"
+#include "VulkanToString.hpp"
+#include "RenderMode.h"
+#include "Scene.h"
 
 //Tamaño inicial de la ventana.
 constexpr int32_t INIT_WINDOW_WIDTH = 800;
@@ -45,9 +48,9 @@ class VulkanGame {
 
 public:
 
-	void Run() {
+	void Run(const RenderMode& renderMode) {
 		InitWindow();
-		InitVulkan();
+		InitVulkan(renderMode);
 		MainLoop();
 		Close();
 	}
@@ -61,8 +64,6 @@ private:
 
 		//Para que no use OpenGL.
 		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-		//TODO: resize support.
-		//glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
 		//Creamos la ventana.
 		ventana = glfwCreateWindow(INIT_WINDOW_WIDTH, INIT_WINDOW_HEIGHT, "Vulkan", nullptr, nullptr);
@@ -74,7 +75,7 @@ private:
 
 
 	//Inicializa Vulkan.
-	void InitVulkan() {
+	void InitVulkan(const RenderMode& renderMode) {
 		CreateInstance();
 		SetupDebugConsole();
 		CreateSurface();
@@ -84,28 +85,34 @@ private:
 		CreateSwapchainImageViews();
 		CreateRenderPass();
 		CreateDescriptorSetLayout();
-		CreateGraphicsPipeline();
-		CreateFramebuffers();
+
+		if (renderMode == RenderMode::RENDER_MODE_2D || renderMode == RenderMode::RENDER_MODE_2D_AND_3D)
+			CreateGraphicsPipeline2D();
+
+		if (renderMode == RenderMode::RENDER_MODE_3D || renderMode == RenderMode::RENDER_MODE_2D_AND_3D)
+			CreateGraphicsPipeline3D();
+
 		CreateCommandPool();
+		CreateDepthResources();
+		CreateFramebuffers();
 		CreateGlobalImageSampler();
 		CreateUniformBuffers();
 		CreateDescriptorPool();
 		CreateSyncObjects();
-		//CreateDescriptorSets();
 
 		CreateTextureImage(&texture, "Img/td.png");
 
 		VulkanObject obj{};
 		obj.Texture = &texture;
-		objects.push_back(VulkanObject{});
+		objects.push_back(obj);
 
 		obj.Vertices = {
-			{{-1.5f, -0.25f}, {1.0f, 0.0f, 1.0f}, {2.0f, 0.0f}},
-			{{1.5f, -0.25f}, {0.0f, 1.0f, 1.0f}, {0.0f, 0.0f}},
-			{{1.5f, 0.25f}, {1.0f, 0.0f, 1.0f}, {0.0f, 2.0f}},
-			{{-1.5f, 0.25f}, {1.0f, 1.0f, 1.0f}, {2.0f, 2.0f}}
+			{{-1.5f, -0.25f, 0}, {1.0f, 0.0f, 1.0f}, {2.0f, 0.0f}},
+			{{1.5f, -0.25f, 0}, {0.0f, 1.0f, 1.0f}, {0.0f, 0.0f}},
+			{{1.5f, 0.25f, 0}, {1.0f, 0.0f, 1.0f}, {0.0f, 2.0f}},
+			{{-1.5f, 0.25f, 0}, {1.0f, 1.0f, 1.0f}, {2.0f, 2.0f}}
 		};
-		objects.push_back(obj);
+		//objects.push_back(obj);
 
 		for (auto& i : objects) {
 			CreateVertexBuffer(&i);
@@ -118,11 +125,23 @@ private:
 		CreateCommandBuffers();
 	}
 
-
+	int ispressed = false;
 	void MainLoop() {
+		double lastTime = glfwGetTime();
+		double currTime = lastTime;
 		while (!glfwWindowShouldClose(ventana)) {
 			glfwPollEvents();
+			currTime = glfwGetTime();
+
+			for (int i = 0; i < objects.size(); i++)
+				UpdateObjectConstants(&objects[i], currTime - lastTime, i);
+
+			lastTime = glfwGetTime();
 			Draw();
+
+			if (!ispressed && glfwGetKey(ventana, GLFW_KEY_ENTER) == GLFW_PRESS)
+				ShowProfilingResults();
+			ispressed = glfwGetKey(ventana, GLFW_KEY_ENTER);
 		}
 
 		vkDeviceWaitIdle(LogicalDevice);
@@ -146,11 +165,7 @@ private:
 			DestroyBuffer(i.IndexBuffer);
 		}
 
-		for (uint32_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
-			vkDestroySemaphore(LogicalDevice, ImageAvailableSemaphores[i], nullptr);
-			vkDestroySemaphore(LogicalDevice, RenderFinishedSemaphores[i], nullptr);
-			vkDestroyFence(LogicalDevice, InFlightFences[i], nullptr);
-		}
+		DestroySyncObjects();
 
 		vkDestroyCommandPool(LogicalDevice, CommandPool, nullptr);
 
@@ -473,7 +488,7 @@ private:
 
 
 	//Crea el graphics pipeline.
-	void CreateGraphicsPipeline() {
+	void CreateGraphicsPipeline3D() {
 		//Código de los shaders.
 		const std::vector<char> vertexCode = ReadFile("Shaders/vert.spv");
 		const std::vector<char> fragmentCode = ReadFile("Shaders/frag.spv");
@@ -494,7 +509,7 @@ private:
 		fragmentShaderStageInfo.stage = VK_SHADER_STAGE_FRAGMENT_BIT;
 		fragmentShaderStageInfo.module = fragmentModule;
 		fragmentShaderStageInfo.pName = "main";
-		
+
 		VkPipelineShaderStageCreateInfo shaderStages[] = { vertexShaderStageInfo, fragmentShaderStageInfo };
 
 		//Información que le pasamos a los shaders.
@@ -583,7 +598,19 @@ private:
 		colorBlending.blendConstants[0] = 0.0f;
 		colorBlending.blendConstants[1] = 0.0f;
 		colorBlending.blendConstants[2] = 0.0f;
-		colorBlending.blendConstants[3] = 0.0f; 
+		colorBlending.blendConstants[3] = 0.0f;
+
+		VkPipelineDepthStencilStateCreateInfo depthStencilCreateInfo{};
+		depthStencilCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+		depthStencilCreateInfo.depthTestEnable = VK_TRUE;
+		depthStencilCreateInfo.depthWriteEnable = VK_TRUE;
+		depthStencilCreateInfo.depthCompareOp = VK_COMPARE_OP_LESS;
+		depthStencilCreateInfo.depthBoundsTestEnable = VK_FALSE;
+		depthStencilCreateInfo.minDepthBounds = 0.0f;
+		depthStencilCreateInfo.maxDepthBounds = 1.0f;
+		depthStencilCreateInfo.stencilTestEnable = VK_FALSE;
+		depthStencilCreateInfo.front = {};
+		depthStencilCreateInfo.back = {};
 
 		//PipelineLayout
 		VkPushConstantRange pushConstRange{};
@@ -596,9 +623,9 @@ private:
 		pipelineLayoutInfo.setLayoutCount = 1;
 		pipelineLayoutInfo.pSetLayouts = &DescriptorSetLayout;
 		pipelineLayoutInfo.pushConstantRangeCount = 1;
-		pipelineLayoutInfo.pPushConstantRanges = &pushConstRange; 
+		pipelineLayoutInfo.pPushConstantRanges = &pushConstRange;
 
-		VkResult result = vkCreatePipelineLayout(LogicalDevice, &pipelineLayoutInfo, nullptr, &PipelineLayout);
+		VkResult result = vkCreatePipelineLayout(LogicalDevice, &pipelineLayoutInfo, nullptr, &PipelineLayout3D);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear pipelielayout.");
 
@@ -611,16 +638,186 @@ private:
 		pipelineInfo.pViewportState = &viewportState;
 		pipelineInfo.pRasterizationState = &rasterizer;
 		pipelineInfo.pMultisampleState = &multisampling;
-		pipelineInfo.pDepthStencilState = nullptr;
+		pipelineInfo.pDepthStencilState = &depthStencilCreateInfo;
 		pipelineInfo.pColorBlendState = &colorBlending;
 		pipelineInfo.pDynamicState = nullptr;
-		pipelineInfo.layout = PipelineLayout;
+		pipelineInfo.layout = PipelineLayout3D;
 		pipelineInfo.renderPass = RenderPass;
 		pipelineInfo.subpass = 0;
-		pipelineInfo.basePipelineHandle = nullptr; 
+		pipelineInfo.basePipelineHandle = nullptr;
 		pipelineInfo.basePipelineIndex = -1;
 
-		result = vkCreateGraphicsPipelines(LogicalDevice, nullptr, 1, &pipelineInfo, nullptr, &GraphicsPipeline);
+		result = vkCreateGraphicsPipelines(LogicalDevice, nullptr, 1, &pipelineInfo, nullptr, &GraphicsPipeline3D);
+		if (result != VK_SUCCESS)
+			throw std::runtime_error("ERROR: crear pipeline.");
+
+		//Cleanup.
+		vkDestroyShaderModule(LogicalDevice, vertexModule, nullptr);
+		vkDestroyShaderModule(LogicalDevice, fragmentModule, nullptr);
+	}
+
+
+	//Crea el graphics pipeline.
+	void CreateGraphicsPipeline2D() {
+		//Código de los shaders.
+		const std::vector<char> vertexCode = ReadFile("Shaders/2D/vert.spv");
+		const std::vector<char> fragmentCode = ReadFile("Shaders/2D/frag.spv");
+
+		//Shader modules.
+		VkShaderModule vertexModule = GetShaderModule(vertexCode);
+		VkShaderModule fragmentModule = GetShaderModule(fragmentCode);
+
+		//Crear los shaders.
+		VkPipelineShaderStageCreateInfo vertexShaderStageInfo{};
+		vertexShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+		vertexShaderStageInfo.stage = VK_SHADER_STAGE_VERTEX_BIT;
+		vertexShaderStageInfo.module = vertexModule;
+		vertexShaderStageInfo.pName = "main";
+
+		VkPipelineShaderStageCreateInfo fragmentShaderStageInfo{};
+		fragmentShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+		fragmentShaderStageInfo.stage = VK_SHADER_STAGE_FRAGMENT_BIT;
+		fragmentShaderStageInfo.module = fragmentModule;
+		fragmentShaderStageInfo.pName = "main";
+
+		VkPipelineShaderStageCreateInfo shaderStages[] = { vertexShaderStageInfo, fragmentShaderStageInfo };
+
+		//Información que le pasamos a los shaders.
+		//Vértices.
+		const auto bindingDesc = Vertex::GetBindingDescription();
+		const auto attribDesc = Vertex::GetAttributeDescriptions();
+
+		VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
+		vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+		vertexInputInfo.vertexBindingDescriptionCount = 1;
+		vertexInputInfo.pVertexBindingDescriptions = &bindingDesc;
+		vertexInputInfo.vertexAttributeDescriptionCount = static_cast<uint32_t>(attribDesc.size());
+		vertexInputInfo.pVertexAttributeDescriptions = attribDesc.data();
+
+		//Primitivos a dibujar.
+		VkPipelineInputAssemblyStateCreateInfo inputAssembly{};
+		inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
+		inputAssembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+		inputAssembly.primitiveRestartEnable = VK_FALSE;
+
+		//Viewport: tamaño de la imagen que se va a renderizar.
+		VkViewport viewport{};
+		viewport.x = 0.0f;
+		viewport.y = 0.0f;
+		viewport.width = (float)SwapchainExtent.width;
+		viewport.height = (float)SwapchainExtent.height;
+		viewport.minDepth = 0.0f;
+		viewport.maxDepth = 1.0f;
+
+		//Tijeras: renderizamos todo.
+		VkRect2D scissor{};
+		scissor.offset = { 0, 0 };
+		scissor.extent = SwapchainExtent;
+
+		VkPipelineViewportStateCreateInfo viewportState{};
+		viewportState.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+		viewportState.viewportCount = 1;
+		viewportState.pViewports = &viewport;
+		viewportState.scissorCount = 1;
+		viewportState.pScissors = &scissor;
+
+		VkPipelineRasterizationStateCreateInfo rasterizer{};
+		rasterizer.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
+		rasterizer.depthClampEnable = VK_FALSE; //FALSE: si el objeto está fuera de los límites no se renderiza.
+		rasterizer.rasterizerDiscardEnable = VK_FALSE;
+		//Modo de polígonos:
+		//	VK_POLYGON_MODE_FILL
+		//	VK_POLYGON_MODE_LINE
+		//	VK_POLYGON_MODE_POINT: vértice -> punto.
+		rasterizer.polygonMode = VK_POLYGON_MODE_FILL;
+		rasterizer.lineWidth = 1.0f;
+		rasterizer.cullMode = VK_CULL_MODE_NONE;
+		rasterizer.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
+		rasterizer.depthBiasEnable = VK_FALSE;
+		rasterizer.depthBiasConstantFactor = 0.0f;
+		rasterizer.depthBiasClamp = 0.0f;
+		rasterizer.depthBiasSlopeFactor = 0.0f;
+
+		//MSAA (disabled).
+		VkPipelineMultisampleStateCreateInfo multisampling{};
+		multisampling.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
+		multisampling.sampleShadingEnable = VK_FALSE;
+		multisampling.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
+		multisampling.minSampleShading = 1.0f;
+		multisampling.pSampleMask = nullptr;
+		multisampling.alphaToCoverageEnable = VK_FALSE;
+		multisampling.alphaToOneEnable = VK_FALSE;
+
+		//Qué hacer al sobreesxribir un píxel.
+		VkPipelineColorBlendAttachmentState colorBlendAttachment{};
+		colorBlendAttachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
+		colorBlendAttachment.blendEnable = VK_TRUE;
+		colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
+		colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
+		colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;
+		colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+		colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
+		colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;
+
+		VkPipelineColorBlendStateCreateInfo colorBlending{};
+		colorBlending.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
+		colorBlending.logicOpEnable = VK_FALSE;
+		colorBlending.logicOp = VK_LOGIC_OP_COPY;
+		colorBlending.attachmentCount = 1;
+		colorBlending.pAttachments = &colorBlendAttachment;
+		colorBlending.blendConstants[0] = 0.0f;
+		colorBlending.blendConstants[1] = 0.0f;
+		colorBlending.blendConstants[2] = 0.0f;
+		colorBlending.blendConstants[3] = 0.0f;
+
+		VkPipelineDepthStencilStateCreateInfo depthStencilCreateInfo{};
+		depthStencilCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+		depthStencilCreateInfo.depthTestEnable = VK_FALSE;
+		depthStencilCreateInfo.depthWriteEnable = VK_FALSE;
+		depthStencilCreateInfo.depthCompareOp = VK_COMPARE_OP_LESS;
+		depthStencilCreateInfo.depthBoundsTestEnable = VK_FALSE;
+		depthStencilCreateInfo.minDepthBounds = 0.0f;
+		depthStencilCreateInfo.maxDepthBounds = 1.0f;
+		depthStencilCreateInfo.stencilTestEnable = VK_FALSE;
+		depthStencilCreateInfo.front = {};
+		depthStencilCreateInfo.back = {};
+
+		//PipelineLayout
+		VkPushConstantRange pushConstRange{};
+		pushConstRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
+		pushConstRange.offset = 0;
+		pushConstRange.size = sizeof(PushConst);
+
+		VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
+		pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
+		pipelineLayoutInfo.setLayoutCount = 1;
+		pipelineLayoutInfo.pSetLayouts = &DescriptorSetLayout;
+		pipelineLayoutInfo.pushConstantRangeCount = 1;
+		pipelineLayoutInfo.pPushConstantRanges = &pushConstRange;
+
+		VkResult result = vkCreatePipelineLayout(LogicalDevice, &pipelineLayoutInfo, nullptr, &PipelineLayout2D);
+		if (result != VK_SUCCESS)
+			throw std::runtime_error("ERROR: crear pipelielayout.");
+
+		VkGraphicsPipelineCreateInfo pipelineInfo{};
+		pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+		pipelineInfo.stageCount = 2;
+		pipelineInfo.pStages = shaderStages;
+		pipelineInfo.pVertexInputState = &vertexInputInfo;
+		pipelineInfo.pInputAssemblyState = &inputAssembly;
+		pipelineInfo.pViewportState = &viewportState;
+		pipelineInfo.pRasterizationState = &rasterizer;
+		pipelineInfo.pMultisampleState = &multisampling;
+		pipelineInfo.pDepthStencilState = &depthStencilCreateInfo;
+		pipelineInfo.pColorBlendState = &colorBlending;
+		pipelineInfo.pDynamicState = nullptr;
+		pipelineInfo.layout = PipelineLayout2D;
+		pipelineInfo.renderPass = RenderPass;
+		pipelineInfo.subpass = 0;
+		pipelineInfo.basePipelineHandle = nullptr;
+		pipelineInfo.basePipelineIndex = -1;
+
+		result = vkCreateGraphicsPipelines(LogicalDevice, nullptr, 1, &pipelineInfo, nullptr, &GraphicsPipeline2D);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear pipeline.");
 
@@ -652,6 +849,20 @@ private:
 		colorAttachmentRef.attachment = 0;
 		colorAttachmentRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
 
+		VkAttachmentDescription depthAttachment{};
+		depthAttachment.format = GetDepthFormat();
+		depthAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
+		depthAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+		depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+		depthAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+		depthAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+		depthAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+		depthAttachment.finalLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+
+		VkAttachmentReference depthAttachmentRef{};
+		depthAttachmentRef.attachment = 1;
+		depthAttachmentRef.layout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+
 		VkSubpassDependency dependency{};
 		dependency.srcSubpass = VK_SUBPASS_EXTERNAL;
 		dependency.dstSubpass = 0;
@@ -665,11 +876,13 @@ private:
 		subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
 		subpass.colorAttachmentCount = 1;
 		subpass.pColorAttachments = &colorAttachmentRef;
+		subpass.pDepthStencilAttachment = &depthAttachmentRef;
 
+		const std::array<VkAttachmentDescription, 2> attachments = { colorAttachment, depthAttachment };
 		VkRenderPassCreateInfo renderPassInfo{};
 		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
-		renderPassInfo.attachmentCount = 1;
-		renderPassInfo.pAttachments = &colorAttachment;
+		renderPassInfo.attachmentCount = attachments.size();
+		renderPassInfo.pAttachments = attachments.data();
 		renderPassInfo.subpassCount = 1;
 		renderPassInfo.pSubpasses = &subpass;
 		renderPassInfo.dependencyCount = 1;
@@ -679,7 +892,7 @@ private:
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear renderpass.");
 	}
-
+		
 
 	//Crea los framebuffers.
 	void CreateFramebuffers() {
@@ -687,15 +900,16 @@ private:
 
 		//Crear los framebuffers.
 		for (size_t i = 0; i < SwapchainImageViews.size(); i++) {
-			VkImageView attachments[] = {
-				SwapchainImageViews[i]
+			std::array<VkImageView, 2> attachments = {
+				SwapchainImageViews[i],
+				DepthImage.View
 			};
 
 			VkFramebufferCreateInfo framebufferInfo{};
 			framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
 			framebufferInfo.renderPass = RenderPass;
-			framebufferInfo.attachmentCount = 1;
-			framebufferInfo.pAttachments = attachments;
+			framebufferInfo.attachmentCount = attachments.size();
+			framebufferInfo.pAttachments = attachments.data();
 			framebufferInfo.width = SwapchainExtent.width;
 			framebufferInfo.height = SwapchainExtent.height;
 			framebufferInfo.layers = 1;
@@ -726,8 +940,8 @@ private:
 
 	//Crea los command buffers.
 	void CreateCommandBuffers() {
-		CommandBuffers.clear();
-		CommandBuffers.resize(Framebuffers.size());
+		if (CommandBuffers.size() != Framebuffers.size())
+			CommandBuffers.resize(Framebuffers.size());
 
 		VkCommandBufferAllocateInfo allocInfo{};
 		allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
@@ -768,13 +982,13 @@ private:
 		CreateImageView(img, VK_FORMAT_R8G8B8A8_SRGB);
 	}
 
-	void CreateImageView(VulkanImage* img, VkFormat format) const {
+	void CreateImageView(VulkanImage* img, VkFormat format, VkImageAspectFlags aspect = VK_IMAGE_ASPECT_COLOR_BIT) const {
 		VkImageViewCreateInfo viewInfo{};
 		viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 		viewInfo.image = img->Image;
 		viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
 		viewInfo.format = format;
-		viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+		viewInfo.subresourceRange.aspectMask = aspect;
 		viewInfo.subresourceRange.baseMipLevel = 0;
 		viewInfo.subresourceRange.levelCount = 1;
 		viewInfo.subresourceRange.baseArrayLayer = 0;
@@ -830,10 +1044,10 @@ private:
 		imageInfo.extent.depth = 1;
 		imageInfo.mipLevels = 1;
 		imageInfo.arrayLayers = 1;
-		imageInfo.format = VK_FORMAT_R8G8B8A8_SRGB;
-		imageInfo.tiling = VK_IMAGE_TILING_OPTIMAL;
+		imageInfo.format = format;
+		imageInfo.tiling = tiling;
 		imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-		imageInfo.usage = VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT;
+		imageInfo.usage = usage;
 		imageInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 		imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
 		imageInfo.flags = 0;
@@ -848,7 +1062,7 @@ private:
 		VkMemoryAllocateInfo allocInfo{};
 		allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
 		allocInfo.allocationSize = memRequirements.size;
-		allocInfo.memoryTypeIndex = GetMemoryType(memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+		allocInfo.memoryTypeIndex = GetMemoryType(memRequirements.memoryTypeBits, properties);
 
 		result = vkAllocateMemory(LogicalDevice, &allocInfo, nullptr, &image->Memory);
 		if (result != VK_SUCCESS)
@@ -859,6 +1073,7 @@ private:
 
 	void UpdateCommandBuffers() {
 		//Grabar los comandos.
+		double oldTime = glfwGetTime();
 		for (size_t i = 0; i < CommandBuffers.size(); i++) {
 			vkResetCommandBuffer(CommandBuffers[i], 0);
 			VkCommandBufferBeginInfo beginInfo{};
@@ -877,26 +1092,32 @@ private:
 			renderPassInfo.framebuffer = Framebuffers[i];
 			renderPassInfo.renderArea.offset = { 0, 0 };
 			renderPassInfo.renderArea.extent = SwapchainExtent;
-			VkClearValue clearColor = { 0.0f, 0.0f, 0.0f, 1.0f };
-			renderPassInfo.clearValueCount = 1;
-			renderPassInfo.pClearValues = &clearColor;
+			std::array<VkClearValue, 2> clearValues = {};	
+			clearValues[0] = { 0.0f, 0.0f, 0.0f, 1.0f }; //Color.
+			clearValues[1] = { 1.0f, 0.0f }; //Depth.
+			renderPassInfo.clearValueCount = clearValues.size();
+			renderPassInfo.pClearValues = clearValues.data();
 
 			//Comenzar el renderizado.
 			vkCmdBeginRenderPass(CommandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
-			vkCmdBindPipeline(CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, GraphicsPipeline);
+			vkCmdBindPipeline(CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, GraphicsPipeline3D);
 			
 			VulkanImage* lastImg = nullptr;
 			for (const auto& obj : objects) {
+				double time = glfwGetTime();
+
 				VkBuffer vertexBuffers[] = { obj.VertexBuffer.Buffer };
 				VkDeviceSize offsets[] = { 0 };
 				if (obj.Texture != lastImg) {
-					vkCmdBindDescriptorSets(CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, PipelineLayout, 0, 1, &obj.DescriptorSets[i], 0, nullptr);
+					vkCmdBindDescriptorSets(CommandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, PipelineLayout3D, 0, 1, &obj.DescriptorSets[i], 0, nullptr);
 					lastImg = obj.Texture;
 				}
 				vkCmdBindVertexBuffers(CommandBuffers[i], 0, 1, vertexBuffers, offsets);
 				vkCmdBindIndexBuffer(CommandBuffers[i], obj.IndexBuffer.Buffer, 0, VK_INDEX_TYPE_UINT16);
-				vkCmdPushConstants(CommandBuffers[i], PipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst), &obj.PushConstant);
+				vkCmdPushConstants(CommandBuffers[i], PipelineLayout3D, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst), &obj.PushConstant);
 				vkCmdDrawIndexed(CommandBuffers[i], static_cast<uint32_t>(obj.Indices.size()), 1, 0, 0, 0);
+
+				Profiling.LastPerObjectCommandBufferTime = glfwGetTime() - time;
 			}
 
 			vkCmdEndRenderPass(CommandBuffers[i]);
@@ -904,12 +1125,20 @@ private:
 			if (result != VK_SUCCESS)
 				throw std::runtime_error("ERROR: grabar renderpass.");
 		}
+
+		Profiling.LastUpdateCommandBuffersTime = glfwGetTime() - oldTime;
+	}
+
+	void ShowProfilingResults() {
+		std::cout << "UpdateCommandBuffers(" << CommandBuffers.size() << "): " << Profiling.LastUpdateCommandBuffersTime << std::endl;
+		std::cout << "Single object draw call: " << Profiling.LastPerObjectCommandBufferTime << std::endl;
+		std::cout << "Copy UBO: " << Profiling.LastCopyUBOTime << std::endl;
 	}
 
 	void DestroyImage(VulkanImage& img) const {
+		vkDestroyImageView(LogicalDevice, img.View, nullptr);
 		vkDestroyImage(LogicalDevice, img.Image, nullptr);
 		vkFreeMemory(LogicalDevice, img.Memory, nullptr);
-		vkDestroyImageView(LogicalDevice, img.View, nullptr);
 	}
 
 	VkCommandBuffer BeginSingleTimeCommandBuffer() const {
@@ -1046,16 +1275,35 @@ private:
 		}
 	}
 
+	void DestroySyncObjects() {
+		for (uint32_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
+			vkDestroySemaphore(LogicalDevice, ImageAvailableSemaphores[i], nullptr);
+			vkDestroySemaphore(LogicalDevice, RenderFinishedSemaphores[i], nullptr);
+			vkDestroyFence(LogicalDevice, InFlightFences[i], nullptr);
+
+			InFlightFences[i] = nullptr;
+		}
+	}
 
 	//
 	void CloseSwapchain() {
+		DestroyImage(DepthImage);
+
 		for (const auto& i : Framebuffers)
 			vkDestroyFramebuffer(LogicalDevice, i, nullptr);
 
-		vkFreeCommandBuffers(LogicalDevice, CommandPool, static_cast<uint32_t>(CommandBuffers.size()), CommandBuffers.data());
+		if (GraphicsPipeline3D != nullptr)
+			vkDestroyPipeline(LogicalDevice, GraphicsPipeline3D, nullptr);
 
-		vkDestroyPipeline(LogicalDevice, GraphicsPipeline, nullptr);
-		vkDestroyPipelineLayout(LogicalDevice, PipelineLayout, nullptr);
+		if (GraphicsPipeline2D != nullptr)
+			vkDestroyPipeline(LogicalDevice, GraphicsPipeline2D, nullptr);
+
+		if (PipelineLayout2D != nullptr)
+			vkDestroyPipelineLayout(LogicalDevice, PipelineLayout2D, nullptr);
+
+		if (PipelineLayout3D != nullptr)
+			vkDestroyPipelineLayout(LogicalDevice, PipelineLayout3D, nullptr);
+
 		vkDestroyRenderPass(LogicalDevice, RenderPass, nullptr);
 
 		for (const auto& i : SwapchainImageViews)
@@ -1067,11 +1315,11 @@ private:
 
 	//Recrea el swapchain (al cambiar el tamaño de la ventana).
 	void RecreateSwapchain() {
-		//Si está minimizado, esperar.
 		int width = 0;
 		int height = 0;
 		glfwGetFramebufferSize(ventana, &width, &height);
 
+		//Si está minimizado, esperar.
 		while (width == 0 || height == 0) {
 			glfwGetFramebufferSize(ventana, &width, &height);
 			glfwWaitEvents();
@@ -1084,12 +1332,12 @@ private:
 		CreateSwapchain();
 		CreateSwapchainImageViews();
 		CreateRenderPass();
-		CreateGraphicsPipeline();
+		if (GraphicsPipeline2D != nullptr)
+			CreateGraphicsPipeline2D();
+		if (GraphicsPipeline3D != nullptr)
+			CreateGraphicsPipeline3D();
+		CreateDepthResources();
 		CreateFramebuffers();
-		CreateUniformBuffers();
-		CreateDescriptorPool();
-		CreateDescriptorSets();
-		CreateCommandBuffers();
 	}
 
 
@@ -1111,7 +1359,6 @@ private:
 	void Draw() {
 		double oldTime = glfwGetTime();
 
-		UpdateCommandBuffers();
 		vkWaitForFences(LogicalDevice, 1, &InFlightFences[CurrentFrame], VK_TRUE, UINT64_MAX);
 
 		//Repreenta cual es la imagen que se va a renderizar.
@@ -1121,18 +1368,13 @@ private:
 		VkResult result = vkAcquireNextImageKHR(LogicalDevice, Swapchain, UINT64_MAX, ImageAvailableSemaphores[CurrentFrame], VK_NULL_HANDLE, &imageID);
 
 		//La ventana ha cambiado de tamaño.
-		if (result == VK_ERROR_OUT_OF_DATE_KHR || HasFramebufferBeenResized) {
+		if (result == VK_ERROR_OUT_OF_DATE_KHR) {
 			RecreateSwapchain();
-			HasFramebufferBeenResized = false;
-
+			
 			return;
 		}
-		else if (result != VK_SUCCESS)
+		else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR)
 			throw std::runtime_error("ERROR: obtener imagen.");
-
-		UpdateUBO(imageID);
-		for (int i = 0; i  < objects.size(); i++)
-			UpdateObjectConstants(&objects[i], i);
 
 		if (ImagesInFlight[imageID] != nullptr)
 			vkWaitForFences(LogicalDevice, 1, &ImagesInFlight[imageID], VK_TRUE, UINT64_MAX);
@@ -1156,6 +1398,9 @@ private:
 		submitInfo.pSignalSemaphores = signalSemaphores;
 
 		vkResetFences(LogicalDevice, 1, &InFlightFences[CurrentFrame]);
+
+		UpdateUBO(imageID);
+		UpdateCommandBuffers();
 
 		result = vkQueueSubmit(GraphicsQ, 1, &submitInfo, InFlightFences[CurrentFrame]);
 		if (result != VK_SUCCESS)
@@ -1183,8 +1428,6 @@ private:
 		double newTime = glfwGetTime();
 
 		vkQueueWaitIdle(PresentQ);
-
-		//glfwSetWindowTitle(ventana, std::to_string(1 / (newTime - oldTime)).c_str());
 
 		CurrentFrame = (CurrentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
 		//std::cout << "FPS: " << 1 / (newTime - oldTime) << std::endl;
@@ -1242,6 +1485,34 @@ private:
 		vkFreeMemory(LogicalDevice, buffer.Memory, nullptr);
 	}
 
+	void CreateDepthResources() {
+		VkFormat depthFormat = GetDepthFormat();
+		CreateImage(SwapchainExtent.width, SwapchainExtent.height, &DepthImage, depthFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+		CreateImageView(&DepthImage, depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT);
+	}
+
+	bool FormatHasStencilComponent(VkFormat format) const {
+		return format == VK_FORMAT_D32_SFLOAT_S8_UINT || format == VK_FORMAT_D24_UNORM_S8_UINT;
+	}
+
+	VkFormat GetDepthFormat() const {
+		return GetSupportedFormat({ VK_FORMAT_D32_SFLOAT, VK_FORMAT_D32_SFLOAT_S8_UINT, VK_FORMAT_D24_UNORM_S8_UINT }, VK_IMAGE_TILING_OPTIMAL, VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
+	}
+
+	VkFormat GetSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features) const {
+		for (VkFormat format : candidates) {
+			VkFormatProperties properties;
+			vkGetPhysicalDeviceFormatProperties(GPU, format, &properties);
+
+			if (tiling == VK_IMAGE_TILING_LINEAR && (properties.linearTilingFeatures & features) == features)
+				return format;
+
+			if (tiling == VK_IMAGE_TILING_OPTIMAL && (properties.optimalTilingFeatures & features) == features)
+				return format;
+		}
+
+		throw std::runtime_error("ERROR: GetDepthSupportedFormat");
+	}
 
 	void CreateDescriptorSetLayout() {
 		//UBO.
@@ -1358,7 +1629,8 @@ private:
 
 
 	void CreateDescriptorSets() {
-		DescriptorSets.resize(SwapchainImages.size());
+		if (DescriptorSets.size() != SwapchainImages.size())
+			DescriptorSets.resize(SwapchainImages.size());
 
 		std::vector<VkDescriptorSetLayout> layouts(SwapchainImages.size(), DescriptorSetLayout);
 		VkDescriptorSetAllocateInfo allocInfo{};
@@ -1415,6 +1687,7 @@ private:
 		auto currentTime = std::chrono::high_resolution_clock::now();
 		float time = std::chrono::duration<float, std::chrono::seconds::period>(currentTime - startTime).count();
 
+		double oldTime = glfwGetTime();
 		UniformBufferObject ubo{};
 		ubo.View = glm::lookAt(glm::vec3(2.0f, 2.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		ubo.Projection = glm::perspective(glm::radians(45.0f), SwapchainExtent.width / (float)SwapchainExtent.height, 0.1f, 10.0f);
@@ -1426,6 +1699,7 @@ private:
 			memcpy(data, &ubo, sizeof(ubo));
 			vkUnmapMemory(LogicalDevice, UniformBuffers[i].Memory);
 		}
+		Profiling.LastCopyUBOTime = glfwGetTime() - oldTime;
 	}
 
 
@@ -1491,6 +1765,10 @@ private:
 		swapchainSupported = !swapchainDetails.PresentModes.empty() && !swapchainDetails.Formats.empty();
 
 		std::cout << "GPU: " << gpuProperties.deviceName << std::endl;
+		std::cout << "Drivers: " << gpuProperties.driverVersion << std::endl;
+		std::cout << "Supported present modes: " << std::endl;
+		for (const auto& i : swapchainDetails.PresentModes)
+			std::cout << "\t" << ToString(i) << std::endl;
 
 		VkPhysicalDeviceFeatures supportedFeatures;
 		vkGetPhysicalDeviceFeatures(gpu, &supportedFeatures);
@@ -1522,7 +1800,7 @@ private:
 	}
 
 
-	/*			OBJECTS			*/		
+	//			OBJECTS			//		
 	//Crea el vertex buffer de un objecto.
 	void CreateVertexBuffer(VulkanObject* object) {
 		VkDeviceSize size = sizeof(Vertex) * object->Vertices.size();
@@ -1563,15 +1841,13 @@ private:
 	}	
 
 	//Actualiza el UBO.
-	void UpdateObjectConstants(VulkanObject* object, const uint32_t& index = 0) {
-		static auto startTime = std::chrono::high_resolution_clock::now();
+	void UpdateObjectConstants(VulkanObject* object, float time, const uint32_t& index = 0) {
+		//if (object->PushConstant.Is2D)
+			//return;
 
-		auto currentTime = std::chrono::high_resolution_clock::now();
-		float time = std::chrono::duration<float, std::chrono::seconds::period>(currentTime - startTime).count();
-
-		object->PushConstant.Model = glm::rotate(glm::mat4(1.0f), time * glm::radians(90.0f + 15 * index), glm::vec3(0.0f, 0.0f, 1.0f));
+		object->PushConstant.Model = glm::rotate(object->PushConstant.Model,  glm::radians(time * 60.0f * (index + 1)), glm::vec3(0.0f, 0.0f, 1.0f));
 	}
-	/*							*/	
+	//							//	
 
 
 	//Obtiene las colas disponibles en una GPU.
@@ -1655,15 +1931,15 @@ private:
 	//	VK_PRESENT_MODE_FIFO_RELAXED_KHR: VSync, tearing.
 	//	VK_PRESENT_MODE_MAILBOX_KHR: "triple buffer".
 	VkPresentModeKHR GetPresentMode(const std::vector<VkPresentModeKHR>& modes) const {
-		return VK_PRESENT_MODE_IMMEDIATE_KHR;
-		//Preferir triple buffer.
+		VkPresentModeKHR finalPresentMode = VK_PRESENT_MODE_FIFO_KHR;
+
 		for (const auto& mode : modes)
 			if (mode == VK_PRESENT_MODE_MAILBOX_KHR)
-				return mode;
+				finalPresentMode = mode;
 
-		//Siempre va a estar soportado.
-		//return VK_PRESENT_MODE_FIFO_KHR;
-		return VK_PRESENT_MODE_FIFO_KHR;
+		std::cout << "Present mode selected: " << ToString(finalPresentMode) << std::endl;
+
+		return finalPresentMode;
 	}
 
 
@@ -1780,6 +2056,7 @@ private:
 	//Para comandos que presentan la imagen en la superficie de la ventana.
 	VkQueue PresentQ;
 
+	bool Recreating = true;
 
 	//Superficie sobre la cual se renderiza.
 	VkSurfaceKHR Surface;
@@ -1802,10 +2079,12 @@ private:
 
 
 	//Pipeline.
-	VkPipeline GraphicsPipeline;
+	VkPipeline GraphicsPipeline2D = nullptr;
+	VkPipeline GraphicsPipeline3D = nullptr;
 
 	//PipelineLayout: cómo le pasamos info a la GPU.
-	VkPipelineLayout PipelineLayout;
+	VkPipelineLayout PipelineLayout2D;
+	VkPipelineLayout PipelineLayout3D;
 
 	//RenderPass.
 	VkRenderPass RenderPass;
@@ -1833,8 +2112,15 @@ private:
 
 	uint32_t CurrentFrame = 0;
 
-
+	bool UseDdepthRes = false;
 	bool HasFramebufferBeenResized = false;
+
+	struct {
+		double LastUpdateCommandBuffersTime = 0.0f;
+		double LastSubmitQueueTime = 0.0f;
+		double LastPerObjectCommandBufferTime = 0.0f;
+		double LastCopyUBOTime = 0.0f;
+	} Profiling;
 
 	//Buffers de UBO.
 	//Almacenan los datos de UniformBufferObject.
@@ -1851,6 +2137,8 @@ private:
 
 	VkSampler GlobalImageSampler;
 
+
+	VulkanImage DepthImage;
 
 	//Uniform buffer object.
 	//Almacena información que cambia una vez cada frame.
@@ -1890,7 +2178,7 @@ int main() {
 	VulkanGame game;
 	
 	try {
-		game.Run();
+		game.Run(RenderMode::RENDER_MODE_2D_AND_3D);
 	}
 	catch (const std::exception& e) {
 		std::cerr << e.what() << std::endl;

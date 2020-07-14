@@ -8,7 +8,7 @@
 namespace OSK {
 
 	//Direcciones de movimiento.
-	enum class Directions {
+	enum class OSKAPI_CALL Directions {
 		FORWARD,
 		BACKWARDS,
 		LEFT,

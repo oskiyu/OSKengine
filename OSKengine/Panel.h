@@ -12,7 +12,7 @@
 namespace OSK::UI {
 
 	//Panel (interfaz de usuario).
-	class Panel : public BaseUIElement, public IUserInterfaceImage, public IUserInterfaceHasChildren {
+	class OSKAPI_CALL Panel : public BaseUIElement, public IUserInterfaceImage, public IUserInterfaceHasChildren {
 
 	public:
 
@@ -25,7 +25,12 @@ namespace OSK::UI {
 
 
 		//Renderiza el panel.
+		//DEPRECATED.
 		void Draw(const RenderAPI& renderer) override;
+
+
+		//Renderiza el panel.
+		void Draw(SpriteBatch& spriteBatch) override;
 
 
 		//Actualiza su posición respecto al elemento <element>.

@@ -6,13 +6,14 @@
 #include "Log.h"
 
 #include "BaseUIElement.h"
-#include "Texture.h"
+#include "OldTexture.h"
+#include "SpriteBatch.h"
 
 namespace OSK::UI {
 
 	OSK_INFO_INTERNAL
 	//Interfaz para elementos de UI que tienen imagen.
-	class IUserInterfaceImage {
+	class OSKAPI_CALL IUserInterfaceImage {
 
 	public:
 		
@@ -21,7 +22,15 @@ namespace OSK::UI {
 
 
 		//Renderiza la imagen.
+		//DEPRECATED.
 		void Draw(const RenderAPI& renderer, const BaseUIElement& base);
+
+
+		//Renderiza la imagen.
+		void Draw(SpriteBatch& spriteBatch, const BaseUIElement& base);
+
+
+		void SetSprite(Sprite sprite);
 
 
 		//Color de la imagen.
@@ -29,7 +38,14 @@ namespace OSK::UI {
 
 
 		//Textura a renderizar.
-		Texture* ImageTexture = nullptr;
+		//DEPRECATED.
+		OldTexture* ImageTexture = nullptr;
+
+
+		Sprite Image{};
+
+
+		Vector4* Rectangle = nullptr;
 		
 	};
 

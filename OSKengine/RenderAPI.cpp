@@ -158,7 +158,7 @@ namespace OSK {
 	}
 	
 
-	void RenderAPI::DrawString(Font& fuente, const float_t& size, const std::string& texto, const Vector2& position, const Color& color, const Anchor& screenAnchor, const Vector4& reference,const TextRenderingLimit& limitAction, const float_t& sizeXlimit, const float_t& limitOffset) const {
+	void RenderAPI::DrawString(OldFont& fuente, const float_t& size, const std::string& texto, const Vector2& position, const Color& color, const Anchor& screenAnchor, const Vector4& reference,const TextRenderingLimit& limitAction, const float_t& sizeXlimit, const float_t& limitOffset) const {
 		if (textShader == nullptr || textShader->ProgramID == 0) {
 			OSK::Logger::Log(LogMessageLevels::BAD_ERROR, "textShader no ha sido cargada.", __LINE__);
 			return;
@@ -191,7 +191,7 @@ namespace OSK {
 			float_t textSizeX = 0.0f;
 
 			for (auto c = texto.begin(); c != texto.end(); c++) {
-				FontChar character = fuente.Characters[*c];
+				OldFontChar character = fuente.Characters[*c];
 				if (*c == '\n') {
 					textSizeX = 0;
 				}
@@ -214,7 +214,7 @@ namespace OSK {
 		float_t y = finalPosition.Y;
 		for (auto c = finalText.begin(); c != finalText.end(); c++) {
 
-			FontChar character = fuente.Characters[*c];
+			OldFontChar character = fuente.Characters[*c];
 			if (*c == '\n') {
 				y -= character.Size.y * size + character.Bearing.y;
 				x = finalPosition.X;
@@ -266,7 +266,7 @@ namespace OSK {
 	}
 
 
-	void RenderAPI::DrawTexture(const Texture& texture, const Vector2& position, const Vector2& size, const Color& color, const Vector4& texCoords, const float_t& rotation, const Vector2 origin) const {
+	void RenderAPI::DrawTexture(const OldTexture& texture, const Vector2& position, const Vector2& size, const Color& color, const Vector4& texCoords, const float_t& rotation, const Vector2 origin) const {
 		if (spriteShader == nullptr || spriteShader->ProgramID == 0) {
 			Logger::Log(LogMessageLevels::BAD_ERROR, "spriteShader no ha sido cargado.", __LINE__);
 			return;

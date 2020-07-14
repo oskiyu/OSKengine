@@ -70,11 +70,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\Dev\VulkanSDK\1.1.121.0\Include;D:\Dev\freetype-2.10.1\include;D:\Dev\OpenAL\include;C:\Program Files\Assimp\include;D:\Dev\glm\glm;D:\Dev\GLAD\include;D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\include\GLFW;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Dev\VulkanSDK\1.2.131.2\Include;D:\Dev\freetype-2.10.1\include;D:\Dev\OpenAL\include;C:\Program Files\Assimp\include;D:\Dev\glm\glm;D:\Dev\GLAD\include;D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\include\GLFW;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Dev\OpenAL\libs\Win64;D:\Dev\assimp-4.1.0\assimp-4.1.0\lib\Debug;D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\lib-vc2019;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>D:\Dev\VulkanSDK\1.1.121.0\Include;D:\Dev\freetype-2.10.1\include;D:\Dev\OpenAL\include;C:\Program Files\Assimp\include;D:\Dev\glm\glm;D:\Dev\GLAD\include;D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\include\GLFW;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Dev\VulkanSDK\1.2.131.2\Include;D:\Dev\freetype-2.10.1\include;D:\Dev\OpenAL\include;C:\Program Files\Assimp\include;D:\Dev\glm\glm;D:\Dev\GLAD\include;D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\include\GLFW;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Dev\OpenAL\libs\Win64;D:\Dev\assimp-4.1.0\assimp-4.1.0\lib\Debug;D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\lib-vc2019;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -95,7 +95,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>vulkan-1.lib;freetype.lib;OpenAL32.lib;assimp.lib;assimp-vc140-mt.lib;glfw3.lib;OpenGL32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
-      <AdditionalLibraryDirectories>D:\Dev\VulkanSDK\1.1.121.0\Lib;D:\Dev\freetype-2.10.1\objs\x64\Debug;C:\Program Files\Assimp\lib\x64;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Dev\VulkanSDK\1.2.131.2\Lib;D:\Dev\freetype-2.10.1\objs\x64\Debug;C:\Program Files\Assimp\lib\x64;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -122,7 +122,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>vulkan-1.lib;freetype.lib;OpenAL32.lib;assimp.lib;assimp-vc140-mt.lib;glfw3.lib;OpenGL32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\Dev\VulkanSDK\1.1.121.0\Lib;D:\Dev\freetype-2.10.1\objs\x64\Debug;C:\Program Files\Assimp\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Dev\VulkanSDK\1.2.131.2\Lib;D:\Dev\freetype-2.10.1\objs\x64\Debug;C:\Program Files\Assimp\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ShowProgress>LinkVerbose</ShowProgress>
     </Link>
   </ItemDefinitionGroup>
@@ -147,12 +147,15 @@
     <ClCompile Include="BaseUIElement.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Camera3D.cpp" />
     <ClCompile Include="Checkbox.cpp" />
     <ClCompile Include="Collision2D.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="ContentAPI.cpp" />
     <ClCompile Include="D:\Dev\GLAD\src\glad.c" />
+    <ClCompile Include="Font.cpp" />
+    <ClCompile Include="SpriteBatch.cpp" />
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="ImageUI.cpp" />
     <ClCompile Include="IUserInterfaceHasChildren.cpp" />
@@ -166,31 +169,21 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="MouseState.cpp" />
     <ClCompile Include="Panel.cpp" />
-    <ClCompile Include="QueryFamilyIndices.cpp" />
+    <ClCompile Include="QueueFamilyIndices.cpp" />
     <ClCompile Include="RenderAPI.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="SoundEntity.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="TextUI.cpp" />
     <ClCompile Include="ToString.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Vector4.cpp" />
+    <ClCompile Include="OldVertex.cpp" />
     <ClCompile Include="Vertex.cpp" />
-    <ClCompile Include="VulkanBuffer.cpp" />
-    <ClCompile Include="VulkanCommandBuffer.cpp" />
-    <ClCompile Include="VulkanCommandPool.cpp" />
-    <ClCompile Include="VulkanDescriptorSet.cpp" />
-    <ClCompile Include="VulkanDevice.cpp" />
-    <ClCompile Include="VulkanGraphicsPipeline.cpp" />
-    <ClCompile Include="VulkanImage.cpp" />
-    <ClCompile Include="VulkanInstance.cpp" />
-    <ClCompile Include="VulkanModel.cpp" />
-    <ClCompile Include="VulkanRenderpass.cpp" />
-    <ClCompile Include="VulkanSurface.cpp" />
-    <ClCompile Include="VulkanSwapchain.cpp" />
-    <ClCompile Include="VulkanTools.cpp" />
+    <ClCompile Include="VulkanRenderer.cpp" />
     <ClCompile Include="WindowAPI.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +195,7 @@
     <ClInclude Include="Bone.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonStatesEnum.h" />
+    <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Camera3D.h" />
     <ClInclude Include="Checkbox.h" />
     <ClInclude Include="Collision2D.h" />
@@ -209,11 +203,20 @@
     <ClInclude Include="ContentAPI.h" />
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="DirectionsEnum.h" />
-    <ClInclude Include="EXP_MeshBone.hpp" />
-    <ClInclude Include="FileIO.h" />
+    <ClInclude Include="DrawCommand.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontChar.h" />
+    <ClInclude Include="SpriteBatch.h" />
+    <ClInclude Include="EXP_MeshBone.hpp" />
+    <ClInclude Include="FileIO.h" />
+    <ClInclude Include="OldFont.h" />
+    <ClInclude Include="OldFontChar.h" />
+    <ClInclude Include="GPUinfo.h" />
     <ClInclude Include="GraphicsAPIenum.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="VulkanBuffer.h" />
+    <ClInclude Include="VulkanImage.h" />
     <ClInclude Include="ImageUI.h" />
     <ClInclude Include="IUserInterfaceHasChildren.h" />
     <ClInclude Include="IUserInterfaceImage.h" />
@@ -238,8 +241,10 @@
     <ClInclude Include="OverallMouseInputModeEnum.h" />
     <ClInclude Include="Panel.h" />
     <ClInclude Include="PointLight.h" />
+    <ClInclude Include="PresentMode.h" />
     <ClInclude Include="QueueFamilyIndices.h" />
     <ClInclude Include="RenderAPI.h" />
+    <ClInclude Include="RenderMode.h" />
     <ClInclude Include="RenderModeEnum.h" />
     <ClInclude Include="RenderOutputImageEnum.h" />
     <ClInclude Include="RenderSettingsBitFlags.h" />
@@ -250,9 +255,10 @@
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="SoundEntity.h" />
     <ClInclude Include="stbi_image.h" />
+    <ClInclude Include="SwapchainSupportDetails.h" />
     <ClInclude Include="TextUI.h" />
     <ClInclude Include="TextRenderingLimitActionsEnum.h" />
-    <ClInclude Include="Texture.h" />
+    <ClInclude Include="OldTexture.h" />
     <ClInclude Include="ToString.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="UIAnchorTypeEnum.h" />
@@ -260,23 +266,11 @@
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vector4.h" />
+    <ClInclude Include="Version.h" />
+    <ClInclude Include="OldVertex.h" />
     <ClInclude Include="Vertex.h" />
-    <ClInclude Include="VulkanBuffer.h" />
-    <ClInclude Include="VulkanCommandBuffer.h" />
-    <ClInclude Include="VulkanCommandPool.h" />
-    <ClInclude Include="VulkanDescriptorSet.h" />
-    <ClInclude Include="VulkanDevice.h" />
-    <ClInclude Include="VulkanGame.hpp" />
-    <ClInclude Include="VulkanGraphicsPipeline.h" />
-    <ClInclude Include="VulkanImage.h" />
-    <ClInclude Include="VulkanInitializers.hpp" />
-    <ClInclude Include="VulkanInstance.h" />
-    <ClInclude Include="VulkanModel.h" />
-    <ClInclude Include="VulkanRenderpass.h" />
-    <ClInclude Include="VulkanSurface.h" />
-    <ClInclude Include="VulkanSwapchain.h" />
-    <ClInclude Include="VulkanTools.h" />
-    <ClInclude Include="VulkanUniformBufferObject.h" />
+    <ClInclude Include="VulkanRenderer.h" />
+    <ClInclude Include="VulkanRenderizableObject.h" />
     <ClInclude Include="WindowAPI.h" />
   </ItemGroup>
   <ItemGroup>

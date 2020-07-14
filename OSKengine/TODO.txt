@@ -60,3 +60,4 @@ OSK::Log:
 >15
 Vulkan API
 Log class
+Color toGLM

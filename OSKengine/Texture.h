@@ -1,26 +1,19 @@
 #pragma once
 
-#include "OSKsettings.h"
-#include "OSKmacros.h"
-#include "OSKtypes.h"
-#include "Log.h"
+#include "VulkanImage.h"
+#include <vector>
 
 namespace OSK {
 
-	//Una textura.
-	struct Texture {
+	class VulkanRenderer;
 
-	public:
+	struct OSKAPI_CALL Texture {
+		friend class VulkanRenderer;
 
-		//OpenGL.
-		OSK_INFO_DO_NOT_TOUCH
-			textureCode_t ID;
+	private:
+		VULKAN::VulkanImage image{};
 
-		//Tamaño de la textura.
-		Vector2 Size;
-
-		//True si la textura ha sido cargada y está lista para usarse.
-		bool IsLoaded = false;
+		std::vector<VkDescriptorSet> DescriptorSets{};
 
 	};
 

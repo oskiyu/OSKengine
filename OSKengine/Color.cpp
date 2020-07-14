@@ -34,6 +34,10 @@ namespace OSK {
 		return Color(Red, Green, Blue, value);
 	}
 
+	glm::vec4 Color::ToGLM() const {
+		return glm::vec4(Red, Green, Blue, Alpha);
+	}
+
 	void Color::Update(float_t r, float_t g, float_t b) {
 		Red = r;
 		Green = g;

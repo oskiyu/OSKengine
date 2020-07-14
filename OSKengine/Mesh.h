@@ -6,14 +6,14 @@
 #include "Log.h"
 
 #include "Shader.h"
-#include "Vertex.h"
+#include "OldVertex.h"
 
 #include <vector>
 
 namespace OSK {
 
 	//Almacena una malla.
-	class Mesh {
+	class OSKAPI_CALL Mesh {
 
 	public:
 
@@ -21,7 +21,7 @@ namespace OSK {
 		//Las mallas pertenecen a un modelo 3D (OSK::Model).
 		//Son creadas por un ContentAPI, al cargar un modelo 3D.
 		OSK_INFO_DO_NOT_TOUCH
-			Mesh(const std::vector<Vertex>&, const std::vector<vertexIndex_t>&);
+			Mesh(const std::vector<OldVertex>&, const std::vector<vertexIndex_t>&);
 
 
 		//Destruye la malla.
@@ -29,7 +29,7 @@ namespace OSK {
 
 
 		//Vértices de la malla.
-		std::vector<Vertex> Vertices;
+		std::vector<OldVertex> Vertices;
 
 
 		//Índices de los vértices de la pantalla.

@@ -15,7 +15,7 @@ namespace OSK {
 	
 
 	//Almacena el estado del teclado en un determinado instante.
-	struct KeyboardState {
+	struct OSKAPI_CALL KeyboardState {
 
 	public:
 

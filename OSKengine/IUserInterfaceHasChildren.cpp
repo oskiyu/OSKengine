@@ -18,6 +18,17 @@ namespace OSK::UI {
 	}
 
 
+	void IUserInterfaceHasChildren::Draw(SpriteBatch& spriteBatch) {
+		if (base == nullptr)
+			return;
+
+		for (auto i : Children) {
+			if (i != nullptr && i->IsActive && i->IsVisible)
+				i->Draw(spriteBatch);
+		}
+	}
+
+
 	void IUserInterfaceHasChildren::AddElement(BaseUIElement* element) {
 		if (base == nullptr)
 			return;

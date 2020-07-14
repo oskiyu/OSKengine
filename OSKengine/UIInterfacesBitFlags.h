@@ -7,7 +7,7 @@
 
 namespace OSK {
 
-	enum UIInterfacesBitFlags {
+	enum OSKAPI_CALL UIInterfacesBitFlags {
 		UIHasText = 1 << 0,
 		UIHasTexture = 1 << 1
 	};

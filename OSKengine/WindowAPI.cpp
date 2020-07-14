@@ -3,6 +3,7 @@
 #include "BaseUIElement.h"
 #include "IUserInterfaceHasChildren.h"
 #include "IUserInterfaceMouseInput.h"
+#include "IUserInterfaceImage.h"
 
 namespace OSK {
 
@@ -234,8 +235,17 @@ namespace OSK {
 	void WindowAPI::SetUserInterface(UI::BaseUIElement* ui) {
 		UserInterface = ui;
 		
-		if (ui->FillParent)
+		if (ui->FillParent) {
 			ui->SetRectangle(Vector4(0, 0, ScreenSizeX, ScreenSizeY));
+			/*if (auto var = reinterpret_cast<UI::IUserInterfaceImage*>(ui)) {
+				var->SetSprite(var->Image);
+			}*/
+		}
+	}
+
+
+	Vector4 WindowAPI::GetRectangle() const {
+		return Vector4(0, 0, ScreenSizeX, ScreenSizeY);
 	}
 
 
@@ -265,9 +275,6 @@ namespace OSK {
 		ScreenSizeX = sizex;
 		ScreenSizeY = sizey;
 
-#ifdef OSK_USE_INFO_LOGS
-		OSK::Logger::Log(LogMessageLevels::INFO, "updated viewport: " + std::to_string(sizex) + ":" + std::to_string(sizey));
-#endif
 		if (sizey != 0)
 			ScreenRatio = static_cast<float_t>(sizex) / static_cast<float_t>(sizey);
 

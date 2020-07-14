@@ -6,7 +6,7 @@
 
 struct SwapchainSupportDetails {
 	//Capacidades de la superficie.
-	VkSurfaceCapabilitiesKHR SurfaceCapabilities;
+	VkSurfaceCapabilitiesKHR SurfaceCapabilities{};
 
 	//Formatos.
 	std::vector<VkSurfaceFormatKHR> Formats;

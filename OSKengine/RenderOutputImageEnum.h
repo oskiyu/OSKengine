@@ -8,7 +8,7 @@
 namespace OSK {
 
 	//Tipo de output del renderizado.
-	enum class RenderOutput {
+	enum class OSKAPI_CALL RenderOutput {
 		SCENE,
 		NORMALS,
 		POSITION

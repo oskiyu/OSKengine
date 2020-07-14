@@ -8,7 +8,7 @@
 namespace OSK {
 
 	//Indica qué hacer cuando el texto sobrepasa el límite de renderizado.
-	enum class TextRenderingLimit {
+	enum class OSKAPI_CALL TextRenderingLimit {
 
 		//No haer nada.
 		DO_NOTHING,

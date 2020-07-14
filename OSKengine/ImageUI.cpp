@@ -3,7 +3,7 @@
 namespace OSK::UI {
 
 	Image::Image(const Vector4& rectangle) : BaseUIElement(rectangle) {
-
+		Rectangle = &this->rectangle;
 	}
 
 	Image::~Image() {
@@ -12,6 +12,10 @@ namespace OSK::UI {
 
 	void Image::Draw(const RenderAPI& renderer) {
 		IUserInterfaceImage::Draw(renderer, *this);
+	}
+
+	void Image::Draw(SpriteBatch& spriteBatch) {
+		IUserInterfaceImage::Draw(spriteBatch, *this);
 	}
 
 }

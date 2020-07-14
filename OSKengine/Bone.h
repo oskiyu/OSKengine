@@ -13,7 +13,7 @@
 namespace OSK {
 
 	//Clase que define un bone para la animación 3D.
-	class Bone {
+	class OSKAPI_CALL Bone {
 
 	public:
 

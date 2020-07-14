@@ -19,7 +19,7 @@
 namespace OSK {
 	
 	//Cámara para un mundo tridimensional.
-	class Camera3D {
+	class OSKAPI_CALL Camera3D {
 
 	public:
 

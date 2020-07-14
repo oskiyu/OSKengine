@@ -15,7 +15,7 @@ namespace OSK {
 
 	constexpr uint32_t MAX_BONES_AMOUNT = 100;
 
-	class Skeleton {
+	class OSKAPI_CALL Skeleton {
 
 	public:
 

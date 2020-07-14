@@ -9,7 +9,7 @@
 #include "AnchorTextToEnum.h"
 #include "Camera3D.h"
 #include "Color.h"
-#include "Font.h"
+#include "OldFont.h"
 #include "Model.h"
 #include "PointLight.h"
 #include "RenderModeEnum.h"
@@ -29,7 +29,7 @@ namespace OSK {
 	constexpr uint32_t MAX_LIGHTS = 32;
 	
 	//Clase para el renderizado.
-	class RenderAPI {
+	class OSKAPI_CALL RenderAPI {
 
 	public:
 
@@ -99,7 +99,7 @@ namespace OSK {
 		//<screenAnchor>: establece el origen de coordenadas desde el que se calcula la posición del texto.
 		//<limitAction>: establece que ocurre cuando el texto sale de la pantalla.
 		//<sizeXlimit>: si > 0, establece, en píxeles, el límite sobre el cual se aplica <limitAction>.
-		void DrawString(Font& fuente, const float_t& size, const std::string& texto, const Vector2& position, const Color &color = Color(1.0f, 1.0f, 1.0f), const Anchor& screenAnchor = Anchor::BOTTOM_LEFT, const Vector4& reference = Vector4(-1.0f), const TextRenderingLimit& limitAction = TextRenderingLimit::DO_NOTHING, const float_t& sizeXlimit = 0, const float_t& limitOffset = 10) const;
+		void DrawString(OldFont& fuente, const float_t& size, const std::string& texto, const Vector2& position, const Color &color = Color(1.0f, 1.0f, 1.0f), const Anchor& screenAnchor = Anchor::BOTTOM_LEFT, const Vector4& reference = Vector4(-1.0f), const TextRenderingLimit& limitAction = TextRenderingLimit::DO_NOTHING, const float_t& sizeXlimit = 0, const float_t& limitOffset = 10) const;
 
 
 		//Renderiza una imagen 2D.
@@ -110,7 +110,7 @@ namespace OSK {
 		//<texCoords>: rectángulo que selecciona la parte de la textura que se va a renderizar, en píxeles. Si texCoords.x > 0: se renderiza la imagen completa.
 		//<rotation>: rotación que se le aplica a la textura sobre su centro de rotación (<origin>), en grados.
 		//<origin>: centro de rotación, en píxeles desde la esquina inferior derecha de la imagen.
-		void DrawTexture(const Texture& texture, const Vector2& position, const Vector2& size, const Color& color = Color(1.0f, 1.0f, 1.0f), const Vector4& texCoords = Vector4(-1.0f), const float_t& rotation = 0, const Vector2 origin = Vector2(0.0f, 0.0f)) const;
+		void DrawTexture(const OldTexture& texture, const Vector2& position, const Vector2& size, const Color& color = Color(1.0f, 1.0f, 1.0f), const Vector4& texCoords = Vector4(-1.0f), const float_t& rotation = 0, const Vector2 origin = Vector2(0.0f, 0.0f)) const;
 
 
 		void DrawUserInterface();
@@ -215,7 +215,7 @@ namespace OSK {
 
 		bufferObject_t renderBufferObject;
 
-		Texture renderTexture;
+		OldTexture renderTexture;
 
 		vertexArrayObject_t quadVAO;
 

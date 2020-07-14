@@ -5,13 +5,13 @@
 #include "OSKtypes.h"
 #include "Log.h"
 
-#include "Font.h"
+#include "OldFont.h"
 #include "Model.h"
 #include "ModelFormat.h"
 #include "Shader.h"
 #include "Skybox.h"
 #include "SoundEntity.h"
-#include "Texture.h"
+#include "OldTexture.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -23,7 +23,7 @@
 namespace OSK {
 
 	//Clase que carga el contenido del juego.
-	class ContentAPI {
+	class OSKAPI_CALL ContentAPI {
 
 	public:
 
@@ -40,7 +40,7 @@ namespace OSK {
 
 
 		//Carga una textura desde el directorio en la que se encuentra.
-		void LoadTexture(Texture& texture, const std::string& path);
+		void LoadTexture(OldTexture& texture, const std::string& path);
 
 
 		//Carga un Skybox desde 6 texturas individuales.
@@ -61,7 +61,7 @@ namespace OSK {
 
 
 		//Carga una fuente.
-		void LoadFont(Font& fuente, const std::string& source, const int32_t size = 48);
+		void LoadFont(OldFont& fuente, const std::string& source, const int32_t size = 48);
 
 
 		//Directorio base.

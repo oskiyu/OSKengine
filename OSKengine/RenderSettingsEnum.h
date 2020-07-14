@@ -8,7 +8,7 @@
 namespace OSK {
 
 	//Ajustes del renderizado.
-	enum class RenderSettings {
+	enum class OSKAPI_CALL RenderSettings {
 		DYNAMIC_RES,
 		ENABLE_BLEND,
 		ENABLE_CULL_FACE,

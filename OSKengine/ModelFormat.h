@@ -8,7 +8,7 @@
 namespace OSK {
 
 	//Formatos para la carga de modelos.
-	enum class ModelFormat {
+	enum class OSKAPI_CALL ModelFormat {
 		OBJ
 	};
 

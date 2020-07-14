@@ -12,7 +12,7 @@
 namespace OSK {
 
 	//Clase que almacena un sonido para su reproducción con AudioAPI.
-	class SoundEntity {
+	class OSKAPI_CALL SoundEntity {
 
 	public:
 

@@ -13,7 +13,7 @@ namespace OSK::UI {
 
 	OSK_INFO_INTERNAL
 	//Interfaz para elementos de UI que soportan input por ratón.
-	class IUserInterfaceMouseInput {
+	class OSKAPI_CALL IUserInterfaceMouseInput {
 
 	public:
 		

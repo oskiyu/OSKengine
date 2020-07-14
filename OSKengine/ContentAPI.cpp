@@ -1,9 +1,9 @@
 #include "ContentAPI.h"
 
-#ifndef OSK_LOAD_XD
+//#ifndef OSK_LOAD_XD
 #define STB_IMAGE_IMPLEMENTATION
 #include "stbi_image.h"
-#endif
+//#endif
 
 #include <al.h>
 #include <assimp/matrix4x4.h>
@@ -166,7 +166,7 @@ namespace OSK {
 	}
 
 
-	void ContentAPI::LoadTexture(Texture& texture, const std::string& path) {
+	void ContentAPI::LoadTexture(OldTexture& texture, const std::string& path) {
 		unsigned int ID;
 		glGenTextures(1, &ID);
 
@@ -428,7 +428,7 @@ namespace OSK {
 	}
 
 
-	void ContentAPI::LoadFont(Font& fuente, const std::string& source, const int32_t size) {
+	void ContentAPI::LoadFont(OldFont& fuente, const std::string& source, const int32_t size) {
 		static FT_Library ftLibrary = nullptr;
 		if (ftLibrary == nullptr) {
 			if (FT_Init_FreeType(&ftLibrary)) {
@@ -465,13 +465,13 @@ namespace OSK {
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-			FontChar ch = {
+			OldFontChar ch = {
 				texture,
 				glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
 				glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
 				face->glyph->advance.x
 			};
-			fuente.Characters.insert(std::pair<GLuint, FontChar>(c, ch));
+			fuente.Characters.insert(std::pair<GLuint, OldFontChar>(c, ch));
 		}
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -523,11 +523,11 @@ namespace OSK {
 
 
 	void ContentAPI::processMesh(aiMesh* mesh, const aiScene* scene, Model& model) {
-		std::vector<Vertex> vertices;
+		std::vector<OldVertex> vertices;
 		std::vector<vertexIndex_t> indices;
 
 		for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
-			Vertex vertex;
+			OldVertex vertex;
 			Vector3 vector;
 
 			if (mesh->mVertices != nullptr) {

@@ -11,7 +11,7 @@
 namespace OSK {
 
 	//Representa un vector con 4 coordenadas (Rectangle).
-	struct Vector4 {
+	struct OSKAPI_CALL Vector4 {
 
 		//Crea un vector 4D nulo { 0, 0, 0, 0 }.
 		Vector4();

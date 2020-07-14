@@ -7,7 +7,7 @@
 
 namespace OSK {
 
-	class Animation {
+	class OSKAPI_CALL Animation {
 
 	public:
 

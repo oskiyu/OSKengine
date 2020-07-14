@@ -10,7 +10,7 @@ namespace OSK {
 	//Indica el estado de una tecla del teclado.
 	// PRESSED
 	// RELEASED
-	enum class KeyState {
+	enum class OSKAPI_CALL KeyState {
 		RELEASED,
 		PRESSED
 	};

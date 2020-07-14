@@ -11,7 +11,7 @@
 namespace OSK::UI {
 
 	//Una imagen (interfaz de usuario).
-	class Image : public BaseUIElement, public IUserInterfaceImage {
+	class OSKAPI_CALL Image : public BaseUIElement, public IUserInterfaceImage {
 
 	public:
 
@@ -24,7 +24,12 @@ namespace OSK::UI {
 
 
 		//Renderiza la imagen.
+		//DEPRECATED.
 		void Draw(const RenderAPI& renderer) override;
+
+
+		//Renderiza la imagen.
+		void Draw(SpriteBatch& spriteBatch) override;
 		
 	private:
 

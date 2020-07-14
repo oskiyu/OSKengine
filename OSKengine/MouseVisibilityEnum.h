@@ -8,7 +8,7 @@
 namespace OSK {
 
 	//Visibilidad del ratón.
-	enum class MouseVisibility {
+	enum class OSKAPI_CALL MouseVisibility {
 		VISIBLE,
 		HIDDEN
 	};

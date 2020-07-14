@@ -11,7 +11,7 @@ namespace OSK {
 
 	OSK_INFO_STATIC
 	//Clase para Log.
-	class Logger {
+	class OSKAPI_CALL Logger {
 
 	public:
 

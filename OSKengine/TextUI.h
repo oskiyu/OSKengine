@@ -11,7 +11,7 @@
 namespace OSK::UI {
 
 	//Texto (interfaz de usuario).
-	class Text : public BaseUIElement, public IUserInterfaceText {
+	class OSKAPI_CALL Text : public BaseUIElement, public IUserInterfaceText {
 
 	public:
 
@@ -24,7 +24,12 @@ namespace OSK::UI {
 
 
 		//Renderiza el texto.
+		//DEPRECATED.
 		void Draw(const RenderAPI& renderer) override;
+
+
+		//Renderiza el texto.
+		void Draw(SpriteBatch& spriteBatch) override;
 
 	};
 

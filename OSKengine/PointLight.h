@@ -11,7 +11,7 @@
 namespace OSK {
 	
 	//Representa una luz puntual.
-	struct PointLight {
+	struct OSKAPI_CALL PointLight {
 
 		//Transform de la luz.
 		Transform LightTransform;
