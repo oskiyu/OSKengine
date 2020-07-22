@@ -25,41 +25,45 @@ namespace OSK {
 		//Inicializa el renderizador.
 		void Init(const RenderMode& mode, const std::string& appName, const Version& gameVersion);
 
-
+		//Renderiza el frame.
 		void RenderFrame();
+
+		//Renderiza la interfaz de usuario de la ventana asociada.
+		void DrawUserInterface(SpriteBatch& spriteBatch) const;
+
 
 		//Establece el modo de presentación deseado.
 		//Recrea el swapchain si es necesario.
 		void SetPresentMode(const PresentMode& mode);
 
-
+		//Obtiene el modo de presentación actual.
 		PresentMode GetCurrentPresentMode() const;
 
-
+		//Recarga los shaders.
 		void ReloadShaders();
 
-				
+		//Cierra el renderizador.		
 		void Close();
 
-
+		//Carga una textura.
 		Texture* LoadTexture(const std::string& path);
 
-
+		//Carga un sprite.
 		void LoadSprite(Sprite* texture, const std::string& path);
 
-
+		//Establece el spriteBatch que se va a renderizar al llamar a RenderFrame().
 		void SubmitSpriteBatch(const SpriteBatch& spriteBatch);
 
-
+		//Actualiza el UBO.
 		void UpdateDefaultUBO(void* ubo);
 
 
 		void RecreateSwapchain();
 
-
+		//Carga una fuente.
 		void LoadFont(Font& fuente, const std::string& source, uint32_t size);
 
-
+		//Crea un spriteBatch.
 		SpriteBatch CreateSpriteBatch();
 
 
@@ -81,13 +85,13 @@ namespace OSK {
 
 		std::vector<VkCommandBuffer> CommandBuffers;
 
-
+		//Camera bidimensional.
 		Camera2D DefaultCamera2D;
 
-
+		//Ventana asociada.
 		WindowAPI* Window = nullptr;
 
-
+		//Límite de FPS.
 		float FPSlimit = INFINITE;
 
 	private:
@@ -165,6 +169,8 @@ namespace OSK {
 		void destroyTexture(Texture* texture) const;
 
 		void destroyAllTextures();
+
+		void destroyAllSprites();
 
 		VULKAN::VulkanImage createImageFromBitMap(uint32_t width, uint32_t height, uint8_t* pixels);
 
@@ -296,7 +302,7 @@ namespace OSK {
 		std::unordered_map<std::string, Texture*> textureFromString = {};
 		std::vector<Texture> textures = {};
 
-		std::vector<VULKAN::VulkanBuffer*> buffers = {};
+		std::vector<Sprite*> sprites = {};
 
 		bool hasBeenInit = false;
 	};

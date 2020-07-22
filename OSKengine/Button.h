@@ -23,7 +23,7 @@ namespace OSK::UI {
 	public:
 
 		//Crea un botón en el área <rectangle>.
-		Button(const Vector4& rectangle);
+		Button();
 
 
 		//Destruye el botón.

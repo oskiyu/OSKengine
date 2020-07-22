@@ -298,7 +298,7 @@ namespace OSK {
 
 	void WindowAPI::mouseInput(double_t posX, double_t posY) {
 		mouseState.PositionX = static_cast<float_t>(posX);
-		mouseState.PositionY = ScreenSizeY - static_cast<float_t>(posY);
+		mouseState.PositionY = /*ScreenSizeY -*/ static_cast<float_t>(posY);
 		mouseState.RelativePositionX = mouseState.PositionX / static_cast<float_t>(ScreenSizeX);
 		mouseState.RelativePositionY = mouseState.PositionY / static_cast<float_t>(ScreenSizeY);
 	}

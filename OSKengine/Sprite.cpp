@@ -3,52 +3,27 @@
 
 namespace OSK {
 
-	void Sprite::SetPosition(const Vector2& pos) {
-		rectangle.X = pos.X;
-		rectangle.Y = pos.Y;
+	void Sprite::SetTexCoords(const Vector4& texCoords) {
+		Vector4 finalTexCoords = texCoords / Vector4(texture->sizeX, texture->sizeY, texture->sizeX, texture->sizeY);
 
-		updateModel();
+		Vertices[0].TextureCoordinates.x = finalTexCoords.X;
+		Vertices[0].TextureCoordinates.y = finalTexCoords.Y;
+		Vertices[1].TextureCoordinates.x = finalTexCoords.Z;
+		Vertices[1].TextureCoordinates.y = finalTexCoords.Y;
+		Vertices[2].TextureCoordinates.x = finalTexCoords.Z;
+		Vertices[2].TextureCoordinates.y = finalTexCoords.W;
+		Vertices[3].TextureCoordinates.x = finalTexCoords.X;
+		Vertices[3].TextureCoordinates.y = finalTexCoords.W;
+		hasChanged = true;
 	}
 
-	void Sprite::SetSize(const Vector2& size) {
-		rectangle.Z = size.X;
-		rectangle.W = size.Y;
-
-		updateModel();
+	void Sprite::SetTexCoords(const float& x, const float& y, const float& width, const float& hegith) {
+		SetTexCoords(Vector4(x, y, width, hegith));
 	}
 
-	void Sprite::SetRectangle(const Vector4& rec) {
-		rectangle = rec;
-
-		updateModel();
-	}
-
-	Vector2 Sprite::GetPosition() const {
-		return rectangle.GetRectanglePosition();
-	}
-
-	Vector2 Sprite::GetSize() const {
-		return rectangle.GetRectangleSize();
-	}
-
-	Vector4 Sprite::GetRectangle() const {
-		return rectangle;
-	}
-
-	void Sprite::updateModel() {
-		model = glm::mat4(1.0f);
-
-		model = glm::translate(model, glm::vec3(rectangle.GetRectanglePosition().X, rectangle.GetRectanglePosition().Y, 0.0f));
-
-		model = glm::translate(model, glm::vec3(0.5f * rectangle.GetRectangleSize().X, 0.5f * rectangle.GetRectangleSize().Y, 0.0f));
-		model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::translate(model, glm::vec3(-0.5f * rectangle.GetRectangleSize().X, -0.5f * rectangle.GetRectangleSize().Y, 0.0f));
-
-		model = glm::scale(model, glm::vec3(rectangle.GetRectangleSize().X, rectangle.GetRectangleSize().Y, 1.0f));
-	}
-
-	PushConst2D Sprite::getPushConst() const {
-		return PushConst2D{ model, color.ToGLM() };
+	PushConst2D Sprite::getPushConst() {
+		SpriteTransform.UpdateModel();
+		return PushConst2D{ SpriteTransform.ModelMatrix, color.ToGLM() };
 	}
 
 }

@@ -255,6 +255,9 @@
     <ClCompile Include="Font.cpp">
       <Filter>Archivos de origen\OSKengine\VulkanRenderer\Font</Filter>
     </ClCompile>
+    <ClCompile Include="Transform2D.cpp">
+      <Filter>Archivos de origen\OSKengine\GameAPI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowAPI.h">
@@ -512,6 +515,12 @@
     <ClInclude Include="FontChar.h">
       <Filter>Archivos de encabezado\OSKengine\VulkanRenderer\Font</Filter>
     </ClInclude>
+    <ClInclude Include="Transform2D.h">
+      <Filter>Archivos de encabezado\OSKengine\GameAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODO.txt" />
@@ -519,5 +528,10 @@
   <ItemGroup>
     <None Include="cpp.hint" />
     <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="OSKengine.rc">
+      <Filter>Archivos de recursos</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

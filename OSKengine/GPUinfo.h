@@ -7,6 +7,7 @@
 
 namespace OSK::VULKAN {
 
+	//Información de una GPU.
 	struct OSKAPI_CALL GPUinfo {
 		VkPhysicalDeviceProperties Properties;
 		VkPhysicalDeviceFeatures Features;

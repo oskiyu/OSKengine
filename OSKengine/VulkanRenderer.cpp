@@ -16,6 +16,9 @@
 #include "stbi_image.h"
 #include "Sprite.h"
 #include "SpriteBatch.h"
+#include "BaseUIElement.h"
+
+#include "WindowAPI.h"
 
 #include <ft2build.h>
 #include <thread>
@@ -235,6 +238,12 @@ void VulkanRenderer::RenderFrame() {
 }
 
 
+void VulkanRenderer::DrawUserInterface(SpriteBatch& spriteBatch) const {
+	if (Window->UserInterface != nullptr && Window->UserInterface->IsActive && Window->UserInterface->IsVisible)
+		Window->UserInterface->Draw(spriteBatch);
+}
+
+
 SpriteBatch VulkanRenderer::CreateSpriteBatch() {
 	SpriteBatch spriteBatch{};
 	spriteBatch.renderer = this;
@@ -255,6 +264,8 @@ Texture* VulkanRenderer::LoadTexture(const std::string& path) {
 
 	stbi_uc* pixels = stbi_load(path.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
 	VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels;
+	loadedTexture.sizeX = width;
+	loadedTexture.sizeY = height;
 
 	VulkanBuffer stagingBuffer;
 	createBuffer(&stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
@@ -325,15 +336,14 @@ void VulkanRenderer::LoadFont(Font& fuente, const std::string& source, uint32_t 
 
 		FontChar character{};
 		character.sprite.texture = &textures.back();
-		character.sprite.Vertices[0].TextureCoordinates.x = -1.0f;
-		character.sprite.Vertices[3].TextureCoordinates.x = -1.0f;
 		createSpriteVertexBuffer(&character.sprite);
 		createSpriteIndexBuffer(&character.sprite);
 		character.Size = Vector2(face->glyph->bitmap.width, face->glyph->bitmap.rows);
 		character.Bearing = Vector2(face->glyph->bitmap_left, face->glyph->bitmap_top);
 		character.Advance = face->glyph->advance.x;
-		
+
 		fuente.Characters[c] = character;
+		sprites.push_back(&fuente.Characters[c].sprite);
 
 		lastFace = face;
 	}
@@ -349,6 +359,8 @@ void VulkanRenderer::LoadSprite(Sprite* sprite, const std::string& path) {
 
 	createSpriteVertexBuffer(sprite);
 	createSpriteIndexBuffer(sprite);
+
+	sprites.push_back(sprite);
 }
 
 
@@ -1255,11 +1267,14 @@ void VulkanRenderer::Close() {
 	closeSwapchain();
 
 	destroyAllTextures();
+	destroyAllSprites();
 
 	vkDestroySampler(LogicalDevice, GlobalImageSampler, nullptr);
 
 	for (auto& i : UniformBuffers2D)
 		destroyBuffer(&i);
+
+	vkDestroyCommandPool(LogicalDevice, CommandPool, nullptr);
 
 	vkDestroyDescriptorSetLayout(LogicalDevice, DescriptorSetLayout, nullptr);
 	vkDestroyDescriptorPool(LogicalDevice, DescriptorPool, nullptr);
@@ -1406,6 +1421,10 @@ void VulkanRenderer::destroyImage(VulkanImage* img) const {
 
 
 void VulkanRenderer::updateCommandBuffers() {
+	for (auto& i : currentSpriteBatch.spritesToDraw)
+		if (i.hasChanged)
+			updateSpriteVertexBuffer(&i);
+
 	for (size_t i = 0; i < CommandBuffers.size(); i++) {
 		vkResetCommandBuffer(CommandBuffers[i], 0);
 		VkCommandBufferBeginInfo beginInfo{};
@@ -1568,6 +1587,8 @@ void VulkanRenderer::updateSpriteVertexBuffer(Sprite* sprite) const {
 	vkMapMemory(LogicalDevice, sprite->VertexBuffer.Memory, 0, size, 0, &data);
 	memcpy(data, sprite->Vertices.data(), (size_t)size);
 	vkUnmapMemory(LogicalDevice, sprite->VertexBuffer.Memory);
+
+	sprite->hasChanged = false;
 }
 
 
@@ -1770,6 +1791,14 @@ void VulkanRenderer::destroyTexture(Texture* texture) const {
 void VulkanRenderer::destroyAllTextures() {
 	for (auto& i : textures)
 		destroyTexture(&i);
+}
+
+
+void VulkanRenderer::destroyAllSprites() {
+	for (auto& i : sprites) {
+		destroyBuffer(&i->VertexBuffer);
+		destroyBuffer(&i->IndexBuffer);
+	}
 }
 
 

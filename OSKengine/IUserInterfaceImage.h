@@ -41,10 +41,10 @@ namespace OSK::UI {
 		//DEPRECATED.
 		OldTexture* ImageTexture = nullptr;
 
-
+		//Imagen a renderizar.
 		Sprite Image{};
 
-
+		//Posición base.
 		Vector4* Rectangle = nullptr;
 		
 	};

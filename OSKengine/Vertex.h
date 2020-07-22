@@ -8,6 +8,7 @@
 
 namespace OSK {
 
+	//Vértice.
 	struct OSKAPI_CALL Vertex {
 		//Position.
 		glm::vec3 Position;

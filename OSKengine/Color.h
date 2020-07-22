@@ -54,26 +54,34 @@ namespace OSK {
 		//Representa la opacidad del color.
 		float_t Alpha;
 
+		//Colores por defecto:
+
+		//Color negro.
 		static inline Color BLACK() {
 			return Color(0.0f, 0.0f, 0.0f);
 		}
 
+		//Color blanco.
 		static inline Color WHITE() {
 			return Color(1.0f);
 		}
 
+		//Color azul.
 		static inline Color BLUE() {
 			return Color(0.0f, 1.0f, 1.0f);
 		}
 
+		//Color morado.
 		static inline Color PURPLE() {
 			return Color(1.0f, 0.0f, 1.0f);
 		}
 
+		//Color rojo.
 		static inline Color RED() {
 			return Color(1.0f, 0.0f, 0.0f);
 		}
 
+		//Color amarillo.
 		static inline Color YELLOW() {
 			return Color(1.0f, 1.0f, 0.0f);
 		}

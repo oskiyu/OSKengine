@@ -2,7 +2,7 @@
 
 namespace OSK::UI {
 
-	Button::Button(const Vector4& rectangle) : BaseUIElement(rectangle), IUserInterfaceMouseInput(this) {
+	Button::Button() : BaseUIElement(Vector4{ 0.0f }), IUserInterfaceMouseInput(this) {
 		Rectangle = &this->rectangle;
 	}
 

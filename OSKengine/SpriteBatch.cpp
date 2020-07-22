@@ -81,8 +81,8 @@ namespace OSK {
 			float posX = x + character.Bearing.X * size;
 			float posY = y - (character.Bearing.Y) * size;
 
-			character.sprite.SetPosition(Vector2((int)posX, (int)posY));
-			character.sprite.SetSize(Vector2((int)sizeX, (int)sizeY));
+			character.sprite.SpriteTransform.SetPosition(Vector2((int)posX, (int)posY));
+			character.sprite.SpriteTransform.SetScale(Vector2((int)sizeX, (int)sizeY));
 			character.sprite.color = color;
 
 			DrawSprite(character.sprite);

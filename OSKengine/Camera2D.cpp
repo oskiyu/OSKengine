@@ -17,7 +17,16 @@ namespace OSK {
 		if (!UseTargetSize)
 			TargetSize = window->GetRectangle().GetRectangleSize();
 		
-		projection = glm::ortho(0.0f, TargetSize.X, 0.0f, TargetSize.Y, -1.0f, 1.0f);
+		CameraTransform.UpdateModel();
+		projection = glm::ortho(CameraTransform.GlobalPosition.X, TargetSize.X, CameraTransform.GlobalPosition.Y, TargetSize.Y, -1.0f, 1.0f);
+	}
+
+	Vector2 Camera2D::PointInWindowToPointInWorld(const Vector2& point) const {
+		Vector2 relative = Vector2(0);
+		relative.X = point.X / window->ScreenSizeX;
+		relative.Y = point.Y / window->ScreenSizeY;
+
+		return relative * TargetSize;
 	}
 
 	UniformBuffer2D Camera2D::getUBO() {
