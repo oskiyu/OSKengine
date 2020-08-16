@@ -12,7 +12,8 @@ namespace OSK {
 		BAD_ERROR,
 		CRITICAL_ERROR,
 		COMMAND,
-		DEBUG
+		DEBUG,
+		NO
 	};
 
 }

@@ -1,10 +1,2 @@
-INFO: max luces puntuales: 32
-INFO: Textura cargada: models/cube/td
-INFO: Textura cargada: models/cube/ts
-INFO: Modelo cargado: models/cube/cube.obj
-INFO: audio cargado: audio/bounce.wav
-INFO: updated viewport: 1920.000000:1080.000000
-INFO: updated viewport: 1920.000000:1080.000000
-INFO: NOT MouseHover!
-INFO: xd xd xd10
+INFO: Vulkan
 

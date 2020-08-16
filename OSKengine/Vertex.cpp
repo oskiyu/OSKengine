@@ -13,8 +13,8 @@ namespace OSK {
 	}
 
 
-	std::array<VkVertexInputAttributeDescription, 3> Vertex::GetAttributeDescriptions() {
-		std::array<VkVertexInputAttributeDescription, 3> attributeDesc{};
+	std::array<VkVertexInputAttributeDescription, OSK_VERTEX_ATTRIBUTES_COUNT> Vertex::GetAttributeDescriptions() {
+		std::array<VkVertexInputAttributeDescription, OSK_VERTEX_ATTRIBUTES_COUNT> attributeDesc{};
 
 		//Posición.
 		attributeDesc[0].binding = 0;
@@ -33,6 +33,25 @@ namespace OSK {
 		attributeDesc[2].location = 2;
 		attributeDesc[2].format = VK_FORMAT_R32G32_SFLOAT;
 		attributeDesc[2].offset = offsetof(Vertex, TextureCoordinates);
+
+		//Normales.
+		attributeDesc[3].binding = 0;
+		attributeDesc[3].location = 3;
+		attributeDesc[3].format = VK_FORMAT_R32G32B32_SFLOAT;
+		attributeDesc[3].offset = offsetof(Vertex, Normals);
+
+		//Anim:
+		//Weights.
+		attributeDesc[4].binding = 0;
+		attributeDesc[4].location = 4;
+		attributeDesc[4].format = VK_FORMAT_R32G32B32A32_SFLOAT;
+		attributeDesc[4].offset = offsetof(Vertex, BoneWeights);
+
+		//IDs.
+		attributeDesc[5].binding = 0;
+		attributeDesc[5].location = 5;
+		attributeDesc[5].format = VK_FORMAT_R32G32B32A32_SINT;
+		attributeDesc[5].offset = offsetof(Vertex, BondeIDs);
 
 		return attributeDesc;
 	}

@@ -13,8 +13,17 @@
 #include "Texture.h"
 #include "SpriteBatch.h"
 #include "Camera2D.h"
+#include "Camera3D.h"
 #include <unordered_map>
 #include "Font.h"
+#include "AnimatedModel.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
+#include "Model.h"
+#include "GraphicsPipeline.h"
+#include "DescriptorLayout.h"
 
 namespace OSK {
 
@@ -23,7 +32,7 @@ namespace OSK {
 	public:
 		
 		//Inicializa el renderizador.
-		void Init(const RenderMode& mode, const std::string& appName, const Version& gameVersion);
+		OskResult Init(const RenderMode& mode, const std::string& appName, const Version& gameVersion);
 
 		//Renderiza el frame.
 		void RenderFrame();
@@ -48,6 +57,14 @@ namespace OSK {
 		//Carga una textura.
 		Texture* LoadTexture(const std::string& path);
 
+		TempModelData GetModelTempData(const std::string& path, const float_t& scale = 1.0f) const;
+
+		ModelData* LoadModel(const std::string& path, const float_t& scale = 1.0f);
+
+		ModelData* CreateModel(const std::vector<Vertex>& vertices, const std::vector<vertexIndex_t>& indices);
+
+		void LoadAnimatedModel(AnimatedModel& model, const std::string& path);
+
 		//Carga un sprite.
 		void LoadSprite(Sprite* texture, const std::string& path);
 
@@ -57,7 +74,6 @@ namespace OSK {
 		//Actualiza el UBO.
 		void UpdateDefaultUBO(void* ubo);
 
-
 		void RecreateSwapchain();
 
 		//Carga una fuente.
@@ -66,16 +82,23 @@ namespace OSK {
 		//Crea un spriteBatch.
 		SpriteBatch CreateSpriteBatch();
 
+		GraphicsPipeline* CreateNewGraphicsPipeline(const std::string& vertexPath, const std::string& fragmentPath) const;
+		DescriptorLayout* CreateNewDescriptorLayout() const;
+		DescriptorSet* CreateNewDescriptorSet() const;
+		
+		void CreateBuffer(VulkanBuffer& buffer, VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags prop) const;
+
+		void DestroyBuffer(VulkanBuffer& buffer) const;
+
+		//Copia el contenido de un buffer a otro buffer.
+		void CopyBuffer(VulkanBuffer& source, VulkanBuffer& destination, VkDeviceSize size, VkDeviceSize sourceOffset = 0, VkDeviceSize destinationOffset = 0) const;
 
 		struct {
 			std::string VertexShaderPath2D = "Shaders/2D/vert.spv";
 			std::string FragmentShaderPath2D = "Shaders/2D/frag.spv";
 
-			std::string VertexShaderPath3D = "Shaders/vert.spv";
-			std::string FragmentShaderPath3D = "Shaders/frag.spv";
-
-			//size_t DefaultPushConstantsSize;
-			//size_t DefaultUBOSize;
+			std::string VertexShaderPath3D = "Shaders/Vk/vert.spv";
+			std::string FragmentShaderPath3D = "Shaders/Vk/frag.spv";
 
 			uint32_t MaxTextures = 32;
 
@@ -86,7 +109,8 @@ namespace OSK {
 		std::vector<VkCommandBuffer> CommandBuffers;
 
 		//Camera bidimensional.
-		Camera2D DefaultCamera2D;
+		Camera2D DefaultCamera2D{};
+		Camera3D DefaultCamera3D{0, 0, 0};
 
 		//Ventana asociada.
 		WindowAPI* Window = nullptr;
@@ -118,9 +142,9 @@ namespace OSK {
 
 		void createDescriptorSetLayout();
 
-		void createGraphicsPipeline2D();
+		OskResult createGraphicsPipeline2D();
 
-		void createGraphicsPipeline3D();
+		OskResult createGraphicsPipeline3D();
 
 		void createCommandPool();
 
@@ -146,11 +170,7 @@ namespace OSK {
 
 		void closeSwapchain();
 
-		void createBuffer(VULKAN::VulkanBuffer* buffer, VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags prop) const;
-
-		void destroyBuffer(VULKAN::VulkanBuffer* buffer) const;
-
-		void copyBufferToImage(VULKAN::VulkanBuffer* buffer, VULKAN::VulkanImage* img, const uint32_t& width, const uint32_t& height) const;
+		void copyBufferToImage(VulkanBuffer* buffer, VULKAN::VulkanImage* img, const uint32_t& width, const uint32_t& height) const;
 
 		void transitionImageLayout(VULKAN::VulkanImage* img, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout) const;
 
@@ -174,17 +194,12 @@ namespace OSK {
 
 		VULKAN::VulkanImage createImageFromBitMap(uint32_t width, uint32_t height, uint8_t* pixels);
 
-		//Copia el contenido de un buffer a otro buffer.
-		void copyBuffer(VULKAN::VulkanBuffer source, VULKAN::VulkanBuffer destination, VkDeviceSize size, VkDeviceSize sourceOffset = 0, VkDeviceSize destinationOffset = 0) const;
-
 		VkCommandBuffer beginSingleTimeCommandBuffer() const;
 
 		void endSingleTimeCommandBuffer(VkCommandBuffer cmdBuffer) const;
 
 		//Obtiene el tipo de memoria indicado.
 		uint32_t getMemoryType(const uint32_t& memoryTypeFilter, VkMemoryPropertyFlags flags) const;
-
-		VkShaderModule getShaderModule(const std::vector<char>& code) const;
 
 		VULKAN::SwapchainSupportDetails getSwapchainSupportDetails(VkPhysicalDevice gpu) const;
 
@@ -212,11 +227,11 @@ namespace OSK {
 
 		VULKAN::VulkanImage DepthImage;
 
-		VkDescriptorPool DescriptorPool;
+		//VkDescriptorPool DescriptorPool;
+		//VkDescriptorSetLayout DescriptorSetLayout;
+		DescriptorLayout* DescLayout;
 
-		//std::vector<VULKAN::VulkanBuffer> defaultUniformBuffers;
-
-		std::vector<VULKAN::VulkanBuffer> UniformBuffers2D;
+		std::vector<VulkanBuffer> UniformBuffers;
 
 		//Debug messages.
 		static VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData);
@@ -275,22 +290,16 @@ namespace OSK {
 		//Renderpass.
 		VkRenderPass Renderpass;
 
-		VkPipeline GraphicsPipeline2D;
-		VkPipeline GraphicsPipeline3D;
-
-		VkPipelineLayout PipelineLayout2D;
-		VkPipelineLayout PipelineLayout3D;
+		GraphicsPipeline* GraphicsPipeline2D;
+		GraphicsPipeline* GraphicsPipeline3D;
 
 		VkCommandPool CommandPool;
 
 		VkSampler GlobalImageSampler;
 
-		VkDescriptorSetLayout DescriptorSetLayout;
 
 		//Nos permite imprimir mensajes de las capas de validación.
 		VkDebugUtilsMessengerEXT debugConsole;
-
-		VULKAN::VulkanRenderizableObject sprite;
 
 		struct {
 			bool hasFramebufferBeenResized = false;
@@ -301,10 +310,17 @@ namespace OSK {
 		
 		std::unordered_map<std::string, Texture*> textureFromString = {};
 		std::vector<Texture> textures = {};
+		std::vector<ModelData*> modelDatas = {};
+		std::unordered_map<std::string, ModelData*> modelDataFromPath = {};
 
 		std::vector<Sprite*> sprites = {};
 
 		bool hasBeenInit = false;
+
+		static Assimp::Importer GlobalImporter;
+		const static int AssimpFlags = aiProcess_Triangulate;
+
+		VkPhysicalDeviceMemoryProperties memProperties;
 	};
 
 }

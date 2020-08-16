@@ -6,7 +6,7 @@
 #include "Log.h"
 
 #include "OldFont.h"
-#include "Model.h"
+#include "OldModel.h"
 #include "ModelFormat.h"
 #include "Shader.h"
 #include "Skybox.h"
@@ -36,7 +36,7 @@ namespace OSK {
 
 
 		//Carga un modelo desde el directorio en el que se encuentra.
-		void LoadModel(Model& model, const std::string& path);
+		void LoadModel(OldModel& model, const std::string& path);
 
 
 		//Carga una textura desde el directorio en la que se encuentra.
@@ -81,11 +81,11 @@ namespace OSK {
 
 	private:
 
-		void processNode(aiNode*, const aiScene*, Model&);
+		void processNode(aiNode*, const aiScene*, OldModel&);
 
-		void processMesh(aiMesh*, const aiScene*, Model&);
+		void processMesh(aiMesh*, const aiScene*, OldModel&);
 
-		void processMeshes(aiNode*, const aiScene*, Model&);
+		void processMeshes(aiNode*, const aiScene*, OldModel&);
 
 		void addNode(aiNode*, std::vector<aiNode*>&);
 

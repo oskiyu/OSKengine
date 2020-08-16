@@ -11,9 +11,13 @@ namespace OSK::UI {
 		spriteBatch.DrawSprite(Image);
 	}
 
+	void IUserInterfaceImage::UpdatePosition() {
+		Image.SpriteTransform.SetPosition(Rectangle->GetRectanglePosition());
+		Image.SpriteTransform.SetScale(Rectangle->GetRectangleSize());
+	}
+
 	void IUserInterfaceImage::SetSprite(Sprite sprite) {
 		Image = sprite;
-
 
 		Image.SpriteTransform.SetPosition(Rectangle->GetRectanglePosition());
 		Image.SpriteTransform.SetScale(Rectangle->GetRectangleSize());

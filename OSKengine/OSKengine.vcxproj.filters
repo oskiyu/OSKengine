@@ -147,12 +147,6 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Archivos de origen\OSKengine\LegacyRenderAPI</Filter>
     </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>Archivos de origen\OSKengine\LegacyRenderAPI</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera3D.cpp">
-      <Filter>Archivos de origen\OSKengine\LegacyRenderAPI</Filter>
-    </ClCompile>
     <ClCompile Include="MouseState.cpp">
       <Filter>Archivos de origen\OSKengine\WindowAPI</Filter>
     </ClCompile>
@@ -240,9 +234,6 @@
     <ClCompile Include="OldVertex.cpp">
       <Filter>Archivos de origen\OSKengine\LegacyRenderAPI</Filter>
     </ClCompile>
-    <ClCompile Include="Vertex.cpp">
-      <Filter>Archivos de origen\OSKengine\VulkanRenderer</Filter>
-    </ClCompile>
     <ClCompile Include="Sprite.cpp">
       <Filter>Archivos de origen\OSKengine\VulkanRenderer</Filter>
     </ClCompile>
@@ -257,6 +248,36 @@
     </ClCompile>
     <ClCompile Include="Transform2D.cpp">
       <Filter>Archivos de origen\OSKengine\GameAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="OldCamera3D.cpp">
+      <Filter>Archivos de origen\OSKengine\LegacyRenderAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera3D.cpp">
+      <Filter>Archivos de origen\OSKengine\VulkanRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="OldModel.cpp">
+      <Filter>Archivos de origen\OSKengine\LegacyRenderAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Archivos de origen\OSKengine\VulkanRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedModel.cpp">
+      <Filter>Archivos de origen\OSKengine\VulkanRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanBuffer.cpp">
+      <Filter>Archivos de origen\OSKengine\VulkanRenderer\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="DescriptorLayout.cpp">
+      <Filter>Archivos de origen\OSKengine\VulkanRenderer\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="DescriptorSet.cpp">
+      <Filter>Archivos de origen\OSKengine\VulkanRenderer\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsPipeline.cpp">
+      <Filter>Archivos de origen\OSKengine\VulkanRenderer\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>Archivos de origen\OSKengine\VulkanRenderer\Vulkan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -276,12 +297,6 @@
       <Filter>Archivos de encabezado\OSKengine\ContentAPI</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>Archivos de encabezado\OSKengine\LegacyRenderAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Archivos de encabezado\OSKengine\LegacyRenderAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera3D.h">
       <Filter>Archivos de encabezado\OSKengine\LegacyRenderAPI</Filter>
     </ClInclude>
     <ClInclude Include="MouseState.h">
@@ -473,9 +488,6 @@
     <ClInclude Include="OldVertex.h">
       <Filter>Archivos de encabezado\OSKengine\LegacyRenderAPI</Filter>
     </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer</Filter>
-    </ClInclude>
     <ClInclude Include="VulkanImage.h">
       <Filter>Archivos de encabezado\OSKengine\VulkanRenderer\Vulkan</Filter>
     </ClInclude>
@@ -520,6 +532,45 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="OldCamera3D.h">
+      <Filter>Archivos de encabezado\OSKengine\LegacyRenderAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera3D.h">
+      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="OldModel.h">
+      <Filter>Archivos de encabezado\OSKengine\LegacyRenderAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="UBO.h">
+      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="PushConst3D.h">
+      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedModel.h">
+      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="DescriptorLayout.h">
+      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="DescriptorSet.h">
+      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsPipeline.h">
+      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderpass.h">
+      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="LightsUBO.h">
+      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

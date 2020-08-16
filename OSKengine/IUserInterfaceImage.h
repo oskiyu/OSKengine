@@ -33,6 +33,9 @@ namespace OSK::UI {
 		void SetSprite(Sprite sprite);
 
 
+		void UpdatePosition();
+
+
 		//Color de la imagen.
 		Color ImageColor = Color(1.0f);
 

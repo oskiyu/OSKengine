@@ -39,13 +39,13 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -94,9 +94,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>vulkan-1.lib;freetype.lib;OpenAL32.lib;assimp.lib;assimp-vc140-mt.lib;glfw3.lib;OpenGL32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <EntryPointSymbol>
-      </EntryPointSymbol>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
       <AdditionalLibraryDirectories>D:\Dev\VulkanSDK\1.2.131.2\Lib;D:\Dev\freetype-2.10.1\objs\x64\Debug;C:\Program Files\Assimp\lib\x64;</AdditionalLibraryDirectories>
+      <NoEntryPoint>false</NoEntryPoint>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatedModel.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AudioAPI.cpp" />
     <ClCompile Include="BaseUIElement.cpp" />
@@ -150,6 +151,11 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Camera3D.cpp" />
+    <ClCompile Include="DescriptorLayout.cpp" />
+    <ClCompile Include="DescriptorSet.cpp" />
+    <ClCompile Include="GraphicsPipeline.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="OldCamera3D.cpp" />
     <ClCompile Include="Checkbox.cpp" />
     <ClCompile Include="Collision2D.cpp" />
     <ClCompile Include="Color.cpp" />
@@ -167,7 +173,7 @@
     <ClCompile Include="KeyboardState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="OldModel.cpp" />
     <ClCompile Include="MouseState.cpp" />
     <ClCompile Include="Panel.cpp" />
     <ClCompile Include="QueueFamilyIndices.cpp" />
@@ -185,12 +191,14 @@
     <ClCompile Include="Vector4.cpp" />
     <ClCompile Include="OldVertex.cpp" />
     <ClCompile Include="Vertex.cpp" />
+    <ClCompile Include="VulkanBuffer.cpp" />
     <ClCompile Include="VulkanRenderer.cpp" />
     <ClCompile Include="WindowAPI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnchorEnum.h" />
     <ClInclude Include="AnchorTextToEnum.h" />
+    <ClInclude Include="AnimatedModel.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AudioAPI.h" />
     <ClInclude Include="BaseUIElement.h" />
@@ -199,6 +207,12 @@
     <ClInclude Include="ButtonStatesEnum.h" />
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Camera3D.h" />
+    <ClInclude Include="DescriptorLayout.h" />
+    <ClInclude Include="DescriptorSet.h" />
+    <ClInclude Include="GraphicsPipeline.h" />
+    <ClInclude Include="LightsUBO.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="OldCamera3D.h" />
     <ClInclude Include="Checkbox.h" />
     <ClInclude Include="Collision2D.h" />
     <ClInclude Include="Color.h" />
@@ -208,6 +222,8 @@
     <ClInclude Include="DrawCommand.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontChar.h" />
+    <ClInclude Include="PushConst3D.h" />
+    <ClInclude Include="Renderpass.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="EXP_MeshBone.hpp" />
@@ -219,6 +235,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform2D.h" />
+    <ClInclude Include="UBO.h" />
     <ClInclude Include="VulkanBuffer.h" />
     <ClInclude Include="VulkanImage.h" />
     <ClInclude Include="ImageUI.h" />
@@ -233,7 +250,7 @@
     <ClInclude Include="LogMessageLevelsEnum.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
-    <ClInclude Include="Model.h" />
+    <ClInclude Include="OldModel.h" />
     <ClInclude Include="ModelFormat.h" />
     <ClInclude Include="ButtonCodeEnum.h" />
     <ClInclude Include="MouseMovementInputModeEnum.h" />

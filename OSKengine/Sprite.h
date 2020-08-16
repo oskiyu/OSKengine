@@ -46,8 +46,8 @@ namespace OSK {
 
 		float_t rotation = 0.0f;
 
-		VULKAN::VulkanBuffer VertexBuffer;
-		VULKAN::VulkanBuffer IndexBuffer;
+		VulkanBuffer VertexBuffer;
+		VulkanBuffer IndexBuffer;
 
 		std::vector<Vertex> Vertices = {
 			{{0, 0, 0}, {1.0f, 1.0f, 1.0f}, {0, 0}},

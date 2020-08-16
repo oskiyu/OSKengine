@@ -7,11 +7,6 @@
 
 namespace OSK {
 
-	//UBO 2D.
-	struct OSKAPI_CALL UniformBuffer2D {
-		glm::mat4 projection;
-	};
-
 	//Cámara para un mundo de dos dimensiones.
 	class OSKAPI_CALL Camera2D {
 		friend class VulkanRenderer;
@@ -41,8 +36,6 @@ namespace OSK {
 		Vector2 TargetSize{};
 
 	private:
-
-		UniformBuffer2D getUBO();
 
 		WindowAPI* window = nullptr;
 

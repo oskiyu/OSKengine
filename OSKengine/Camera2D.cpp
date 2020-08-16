@@ -29,8 +29,4 @@ namespace OSK {
 		return relative * TargetSize;
 	}
 
-	UniformBuffer2D Camera2D::getUBO() {
-		return UniformBuffer2D{ projection };
-	}
-
 }

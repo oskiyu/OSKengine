@@ -113,12 +113,12 @@ namespace OSK {
 	}
 
 
-	void RenderAPI::DrawModel(Model& model, const deltaTime_t& deltaTime) {
+	void RenderAPI::DrawModel(OldModel& model, const deltaTime_t& deltaTime) {
 		DrawModel(model, model.ModelTransform, deltaTime);
 	}
 
 
-	void RenderAPI::DrawModel(Model& model, const Transform& transform, const deltaTime_t& deltaTime) {
+	void RenderAPI::DrawModel(OldModel& model, const Transform& transform, const deltaTime_t& deltaTime) {
 		if (sceneShader == nullptr || screenShader->ProgramID == 0) {
 			OSK::Logger::Log(LogMessageLevels::BAD_ERROR, "sceneShader no ha sido cargada.", __LINE__);
 			return;
@@ -351,7 +351,7 @@ namespace OSK {
 	}
 
 
-	void RenderAPI::SetCamera3D(Camera3D* camera) {
+	void RenderAPI::SetCamera3D(OldCamera3D* camera) {
 		this->camera = camera;
 	}
 

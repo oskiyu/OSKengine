@@ -11,6 +11,10 @@ namespace OSK::UI {
 
 	}
 
+	void Button::SetPositionRelativeTo(BaseUIElement* element) {
+		BaseUIElement::SetPositionRelativeTo(element);
+		IUserInterfaceImage::UpdatePosition();
+	}
 
 	void Button::Draw(const RenderAPI& renderer) {
 		IUserInterfaceImage::Draw(renderer, *this);

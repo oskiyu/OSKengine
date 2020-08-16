@@ -1,39 +1,34 @@
 #include "Model.h"
 
-#include <gtc/matrix_transform.hpp>
-
 namespace OSK {
 
-	Model::Model(const Vector3& position, const Vector3& size, const Vector3& rotation) {
-		ModelTransform = Transform();
-
-		ModelTransform.UseModelMatrix = true;
-
-		ModelTransform.Position = position;
-		ModelTransform.Scale = size;
-		ModelTransform.Rotation = rotation;
-
-		ModelTransform.UpdateModel();
+	void Model::Bind(VkCommandBuffer commandBuffer) const {
+		Data->Bind(commandBuffer);
 	}
 
+	void Model::PushConstants(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline) {
+		PushConst = GetPushConst();
+		vkCmdPushConstants(commandBuffer, pipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &PushConst);
+	}	
 
-	Model::~Model() {
-
+	void Model::Draw(VkCommandBuffer commandBuffer) const {
+		vkCmdDrawIndexed(commandBuffer, static_cast<uint32_t>(Data->IndicesCount), 1, 0, 0, 0);
 	}
 
-
-	void Model::SetPosition(const OSK::Vector3& position) {
-		ModelTransform.SetPosition(position);
+	void ModelData::Bind(VkCommandBuffer commandBuffer) const {
+		const VkDeviceSize offsets[] = { 0 };
+		vkCmdBindVertexBuffers(commandBuffer, 0, 1, &VertexBuffer.Buffer, offsets);
+		vkCmdBindIndexBuffer(commandBuffer, IndexBuffer.Buffer, 0, VK_INDEX_TYPE_UINT32);
 	}
 
+	PushConst3D Model::GetPushConst() const {
+		if (ModelTransform == nullptr)
+			return{};
 
-	void Model::SetScale(const OSK::Vector3& size) {
-		ModelTransform.SetScale(size);
-	}
+		PushConst3D pushConst{};
+		pushConst.model = ModelTransform->ModelMatrix;
 
-
-	void Model::SetRotation(const OSK::Vector3& rotation) {
-		ModelTransform.SetRotation(rotation);
+		return pushConst;
 	}
 
 }

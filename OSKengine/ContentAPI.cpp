@@ -24,7 +24,7 @@ namespace OSK {
 	}
 
 
-	void ContentAPI::LoadModel(Model& model, const std::string& path) {
+	void ContentAPI::LoadModel(OldModel& model, const std::string& path) {
 
 		//Si ha sido cargado, reset.
 		if (model.IsLoaded) {
@@ -73,6 +73,7 @@ namespace OSK {
 
 			//Cargar huesos.
 			for (uint32_t b = 0; b < scene->mMeshes[i]->mNumBones; b++) {
+				std::cout << "BONE" << std::endl;
 				model.Skeletal = true;
 
 				//Hueso formato assimp.
@@ -482,7 +483,7 @@ namespace OSK {
 	}
 
 
-	void ContentAPI::processNode(aiNode* node, const aiScene* scene, Model& model) {
+	void ContentAPI::processNode(aiNode* node, const aiScene* scene, OldModel& model) {
 		/*for (unsigned int i = 0; i < node->mNumMeshes; i++) {
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 			for (uint32_t j = 0; j < mesh->mNumBones; j++) {
@@ -522,7 +523,7 @@ namespace OSK {
 	}
 
 
-	void ContentAPI::processMesh(aiMesh* mesh, const aiScene* scene, Model& model) {
+	void ContentAPI::processMesh(aiMesh* mesh, const aiScene* scene, OldModel& model) {
 		std::vector<OldVertex> vertices;
 		std::vector<vertexIndex_t> indices;
 
@@ -643,7 +644,7 @@ namespace OSK {
 	}
 
 
-	void ContentAPI::processMeshes(aiNode* node, const aiScene* scene, Model& model) {
+	void ContentAPI::processMeshes(aiNode* node, const aiScene* scene, OldModel& model) {
 		for (uint32_t i = 0; i < node->mNumMeshes; i++)
 			processMesh(scene->mMeshes[node->mMeshes[i]], scene, model);
 

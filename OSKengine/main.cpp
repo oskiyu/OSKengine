@@ -3,6 +3,10 @@
 #include "OSKtypes.h"
 #include "Log.h"
 
+#ifndef INFINITE
+#define INFINITE 0xFFFFFFFF
+#endif
+
 #ifndef OSK_RELEASE_DLL
 
 /**/
@@ -11,17 +15,25 @@
 #include "Sprite.h"
 #include "Panel.h"
 #include "Button.h"
+#include "ToString.h"
+#include "Log.h"
 
 int program() {
 	OSK::WindowAPI* windowAPI = new OSK::WindowAPI();
 	windowAPI->SetWindow(1280, 720, "OSKengine Vk", OSK::GraphicsAPI::VULKAN);
+	windowAPI->SetMouseMovementMode(OSK::MouseMovementMode::RAW);
+	windowAPI->SetMouseMode(OSK::MouseInputMode::ALWAYS_RETURN);
 
 	OSK::VulkanRenderer RenderAPI{};
 	RenderAPI.Window = windowAPI;
 	RenderAPI.Settings.MaxTextures = 1024;
 	RenderAPI.SetPresentMode(OSK::PresentMode::VSYNC);
 	RenderAPI.FPSlimit = INFINITE;
-	RenderAPI.Init(OSK::RenderMode::RENDER_MODE_2D, "XD", OSK::Version{ 0, 0, 0 });
+	OskResult result = RenderAPI.Init(OSK::RenderMode::RENDER_MODE_2D_AND_3D, "XD", OSK::Version{ 0, 0, 0 });
+	if (result != OskResult::SUCCESS) {
+		OSK_SHOW_TRACE();
+		return (int)result;
+	}
 
 	OSK::Sprite texture{};
 	RenderAPI.LoadSprite(&texture, "models/cube/td.png");
@@ -29,20 +41,18 @@ int program() {
 	OSK::Font fuente{};
 	RenderAPI.LoadFont(fuente, "Fonts/arial.ttf", 20);
 
-	std::cout << fuente.Characters.at('a').Bearing.Y << std::endl;
-	std::cout << fuente.Characters.at('b').Bearing.Y << std::endl;
-
 	OSK::SpriteBatch spriteBatch = RenderAPI.CreateSpriteBatch();
 	spriteBatch.DrawSprite(texture);
 
 	RenderAPI.SubmitSpriteBatch(spriteBatch);
-	RenderAPI.DefaultCamera2D.UseTargetSize = true;
+	RenderAPI.DefaultCamera2D.UseTargetSize = false;
 	texture.SpriteTransform.SetPosition({ 20, 20 });
-	texture.SpriteTransform.SetScale({ 100, 100 });
+	texture.SpriteTransform.SetScale({ -100, 100 });
 	texture.SetTexCoords(0, 0, 50, 80);
 
 	//UI
-	OSK::UI::Panel* mainUI = new OSK::UI::Panel({ 0.0f });
+	/*OSK::UI::Panel* mainUI = new OSK::UI::Panel({ 0.0f });
+	std::cout << mainUI->Children.size() << std::endl;
 	mainUI->FillParent = true;
 
 	windowAPI->SetUserInterface(mainUI);
@@ -65,10 +75,10 @@ int program() {
 	mainUI->AddElement(exitButton);
 	exitButton->SetRectangle({ 20, 20, 50, 51 });
 	exitButton->SetSprite(texture);
-	exitButton->TextAnchor = OSK::Anchor::CENTER;
+	exitButton->TextAnchor = OSK::Anchor::BOTTOM_RIGHT;
 	exitButton->OnLeftClick = ([&windowAPI] { windowAPI->Close(); });
 	exitButton->Texto = "EXIT";
-	exitButton->TextFont = &fuente;
+	exitButton->TextFont = &fuente;*/
 
 	//
 	OSK::KeyboardState OldKS = {};
@@ -91,6 +101,9 @@ int program() {
 		windowAPI->UpdateKeyboardState(NewKS);
 		windowAPI->UpdateMouseState(NewMS);
 
+		if (NewKS.IsKeyDown(OSK::Key::F11) && OldKS.IsKeyUp(OSK::Key::F11))
+			windowAPI->SetFullscreen(!windowAPI->IsFullscreen);
+
 		if (NewKS.IsKeyDown(OSK::Key::UP))
 			texture.SpriteTransform.AddPosition(OSK::Vector2(0, -150) * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::DOWN))
@@ -99,6 +112,19 @@ int program() {
 			texture.SpriteTransform.AddPosition(OSK::Vector2(-150, 0) * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::RIGHT))
 			texture.SpriteTransform.AddPosition(OSK::Vector2(150, 0) * deltaTime);
+
+		if (NewKS.IsKeyDown(OSK::Key::W))
+			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(RenderAPI.DefaultCamera3D.Front * 10 * deltaTime);
+		if (NewKS.IsKeyDown(OSK::Key::S))
+			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(-RenderAPI.DefaultCamera3D.Front * 10 * deltaTime);
+		if (NewKS.IsKeyDown(OSK::Key::A))
+			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(-RenderAPI.DefaultCamera3D.Right * 10 * deltaTime);
+		if (NewKS.IsKeyDown(OSK::Key::D))
+			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(RenderAPI.DefaultCamera3D.Right * 10 * deltaTime);
+
+		mouseVar_t deltaX = NewMS.PositionX - OldMS.PositionX;
+		mouseVar_t deltaY = NewMS.PositionY - OldMS.PositionY;
+		RenderAPI.DefaultCamera3D.Girar(deltaX, -deltaY);
 
 		if (NewKS.IsKeyDown(OSK::Key::V) && OldKS.IsKeyUp(OSK::Key::V))
 			RenderAPI.SetPresentMode(OSK::PresentMode::VSYNC);
@@ -125,7 +151,13 @@ int program() {
 			spriteBatch.DrawSprite(texture);
 			spriteBatch.DrawString(fuente, "FPS: " + std::to_string((int)FPS), 0.75f, OSK::Vector2(0, 5), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
 			spriteBatch.DrawString(fuente, "OSKengine " + std::string(OSK::ENGINE_VERSION), 0.75f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
-			RenderAPI.DrawUserInterface(spriteBatch);
+
+			//spriteBatch.DrawString(fuente, "3D POS: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Position), 0.75f, OSK::Vector2(0, 25), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+			//spriteBatch.DrawString(fuente, "3D ROT: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Rotation), 0.75f, OSK::Vector2(0, 40), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+			//spriteBatch.DrawString(fuente, "3D FRONT: " + OSK::ToString(RenderAPI.DefaultCamera3D.Front), 0.75f, OSK::Vector2(0, 55), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+			//spriteBatch.DrawString(fuente, "3D ROT: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Rotation), 0, 75f, OSK::Vector2(0, 35), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+
+			//RenderAPI.DrawUserInterface(spriteBatch);
 
 			RenderAPI.SubmitSpriteBatch(spriteBatch);
 		}
@@ -141,9 +173,9 @@ int program() {
 	RenderAPI.Close();
 
 	delete windowAPI;
-	delete mainUI;
-	delete playButton;
-	delete exitButton;
+	//delete mainUI;
+	//delete playButton;
+	//delete exitButton;
 
 	return 0;
 }
@@ -251,7 +283,7 @@ int xd() {
 	OSK::MouseState NewMS = {};
 
 	//Cámara
-	OSK::Camera3D Camera = OSK::Camera3D(0.0f, 0.0f, 0.0f);
+	OSK::OldCamera3D Camera = OSK::OldCamera3D(0.0f, 0.0f, 0.0f);
 	Camera.Window = &windowAPI;
 	Camera.Speed = 5;
 
@@ -267,10 +299,10 @@ int xd() {
 	OSK::DirectionalLight directionalLight = OSK::DirectionalLight { OSK::Vector3(-0.7f, -0.8f, -0.4f), OSK::Color(1.0f, 1.0f, 1.0f), 1.0f };
 
 	//Modelo
-	OSK::Model model = OSK::Model(OSK::Vector3(10, 0, 0), OSK::Vector3(0.01f), OSK::Vector3(0.0f));
+	OSK::OldModel model = OSK::OldModel(OSK::Vector3(10, 0, 0), OSK::Vector3(0.01f), OSK::Vector3(0.0f));
 	//contentAPI.LoadModel(model, "models/cube/cube.obj");
-	//contentAPI.LoadModel(model, "models/anim2/goblin.dae");
-	contentAPI.LoadModel(model, "models/anim/boblampclean.md5mesh");
+	contentAPI.LoadModel(model, "models/anim2/goblin.dae");
+	//contentAPI.LoadModel(model, "models/anim/boblampclean.md5mesh");
 
 	OSK::Transform transform = OSK::Transform();
 	transform.SetPosition(OSK::Vector3(0, 1, 0));
@@ -278,7 +310,7 @@ int xd() {
 
 	//transform.AttachTo(&model.Skeleton.Bones[3].Transform);
 
-	OSK::Font fuente = OSK::Font();
+	OSK::OldFont fuente = OSK::OldFont();
 	contentAPI.LoadFont(fuente, "Fonts/arial.ttf", 12);
 
 	OSK::Shader textShader = OSK::Shader();
@@ -354,7 +386,7 @@ int xd() {
 
 	model.Skeleton.PlayAnimation(new OSK::Animation("main", 0, 245, 0.34, 10, true));
 	
-	OSK::UI::Panel* mainUI = new OSK::UI::Panel(OSK::Vector4(0.0f));
+	/*OSK::UI::Panel* mainUI = new OSK::UI::Panel(OSK::Vector4(0.0f));
 	mainUI->ImageTexture = &model.Diffuse;
 	mainUI->FillParent = true;
 
@@ -369,7 +401,7 @@ int xd() {
 	playButton->TextAnchor = OSK::Anchor::CENTER;
 	playButton->OnMouseHover = [&sonido, &audioAPI]() { audioAPI.PlayAudio(sonido); };
 	playButton->OnMouseUnhover = []() { OSK::Logger::Log(OSK::LogMessageLevels::INFO, "NOT MouseHover!"); };
-	playButton->TextFont = &fuente;
+	playButton->OldTextFont = &fuente;
 
 	mainUI->AddElement(playButton);
 
@@ -379,7 +411,7 @@ int xd() {
 	exitButton->TextAnchor = OSK::Anchor::CENTER;
 	exitButton->OnLeftClick = ([&windowAPI] { windowAPI.Close(); });
 	exitButton->Texto = "EXIT";
-	exitButton->TextFont = &fuente;
+	exitButton->OldTextFont = &fuente;
 
 	mainUI->AddElement(exitButton);
 
@@ -411,7 +443,7 @@ int xd() {
 		audioAPI.Update();
 		
 		if (OldKS.IsKeyDown(OSK::Key::ESCAPE) && NewKS.IsKeyUp(OSK::Key::ESCAPE)) {
-			mainUI->IsActive = true;
+			//mainUI->IsActive = true;
 			windowAPI.SetMouseMode(OSK::MouseInputMode::NORMAL);
 			windowAPI.CenterMouse();
 		}
@@ -505,10 +537,10 @@ int xd() {
 	OSK::Log(OSK::LogMessageLevels::COMMAND, OSK_LOG_COMMAND_SAVE_LOG);
 #endif
 
-	delete mainUI;
-	delete playButton;
-	delete exitButton;
-	delete checkbox;
+	//delete mainUI;
+	//delete playButton;
+	//delete exitButton;
+	//delete checkbox;
 
 	windowAPI.~WindowAPI();
 	renderAPI.~RenderAPI();

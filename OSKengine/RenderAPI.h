@@ -7,10 +7,10 @@
 
 #include "AnchorEnum.h"
 #include "AnchorTextToEnum.h"
-#include "Camera3D.h"
+#include "OldCamera3D.h"
 #include "Color.h"
 #include "OldFont.h"
-#include "Model.h"
+#include "OldModel.h"
 #include "PointLight.h"
 #include "RenderModeEnum.h"
 #include "RenderOutputImageEnum.h"
@@ -80,15 +80,15 @@ namespace OSK {
 
 
 		//Establece la cámara desde la que se renderizará un mundo 3D en la pantalla seleccionada.
-		void SetCamera3D(Camera3D* camera);
+		void SetCamera3D(OldCamera3D* camera);
 
 
 		//Renderiza un modelo.
-		void DrawModel(Model& model, const deltaTime_t& deltaTime);
+		void DrawModel(OldModel& model, const deltaTime_t& deltaTime);
 
 
 		//Renderiza un usando el transform dado.
-		void DrawModel(Model& model, const OSK::Transform& transform, const deltaTime_t& deltaTime);
+		void DrawModel(OldModel& model, const OSK::Transform& transform, const deltaTime_t& deltaTime);
 
 
 		//Renderiza un texto.
@@ -195,7 +195,7 @@ namespace OSK {
 
 		WindowAPI* window = nullptr;
 
-		OSK::Camera3D* camera = nullptr;
+		OSK::OldCamera3D* camera = nullptr;
 
 		Shader* sceneShader = nullptr;
 

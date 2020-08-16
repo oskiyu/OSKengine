@@ -2,6 +2,7 @@
 
 #include "VulkanImage.h"
 #include <vector>
+#include "DescriptorSet.h"
 
 namespace OSK {
 
@@ -18,7 +19,7 @@ namespace OSK {
 		uint32_t sizeX = 0;
 		uint32_t sizeY = 0;
 
-		std::vector<VkDescriptorSet> DescriptorSets{};
+		DescriptorSet* Descriptor;
 
 	};
 

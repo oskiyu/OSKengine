@@ -1,91 +1,62 @@
 #pragma once
 
-#include "OSKsettings.h"
-#include "OSKmacros.h"
-#include "OSKtypes.h"
-#include "Log.h"
-
-#include "Animation.h"
-#include "Bone.h"
-#include "Skeleton.h"
-#include "Mesh.h"
-#include "OldTexture.h"
+#include "VulkanBuffer.h"
 #include "Transform.h"
-
-#include <glm.hpp>
-
-#include <string>
-#include <map>
+#include "PushConst3D.h"
+#include "GraphicsPipeline.h"
+#include "Vertex.h"
 #include <vector>
 
 namespace OSK {
 
-	//Modelo 3D.
-	class OSKAPI_CALL Model {
+	//Vértices e índices de un modelo.
+	struct TempModelData {
+		//Vértices.
+		std::vector<Vertex> Vertices;
+		//Índices.
+		std::vector<vertexIndex_t> Indices;
+	};
+
+
+	//Información de un modelo.
+	//Contiene los buffers de los vértices y los índices.
+	//Se almacena en la clase VulkanRenderer.
+	struct ModelData {
 
 	public:
 
-		//Establece un modelo 3D.
-		//Tamaño: size (escala en { x, y, z } por separado).
-		//Rotación: rotation { x, y, z }
-		Model(const Vector3& position, const Vector3& size, const Vector3& rotation);
+		void Bind(VkCommandBuffer commandBuffer) const;
+
+		VulkanBuffer VertexBuffer;
+
+		VulkanBuffer IndexBuffer;
+
+		//Número de índices.
+		size_t IndicesCount = 0;
+	};
 
 
-		//Destruye el modelo.
-		~Model();
+	//Representa un modelo 3D.
+	class Model {
 
+	public:
 
-		//Establece la posición del modelo.
-		//También actualiza la matriz del modelo.
-		void SetPosition(const Vector3& position);
+		void Bind(VkCommandBuffer commandBuffer) const;
 
+		void PushConstants(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline);
 
-		//Establece el tamaño del modelo.
-		//También actualiza la matriz del modelo.
-		void SetScale(const Vector3& size);
+		void Draw(VkCommandBuffer commandBuffer) const;
 
+		//Buffers del modelo.
+		ModelData* Data;
 
-		//Establece la rotación del modelo.
-		//También actualiza la matriz del modelo.
-		void SetRotation(const Vector3& rotation);
+		//Transform3D del modelo.
+		Transform* ModelTransform;
 
+		//Obtiene el Push Constant con la matriz del modelo.
+		PushConst3D GetPushConst() const;
 
-		//Textura del modelo.
-		//Textura principal.
-		OldTexture Diffuse;
-
-
-		//Textura del modelo.
-		//Textura del "brillo".
-		OldTexture Specular;
-
-
-		//Esqueleto del modelo.
-		OSK_INFO_DO_NOT_TOUCH
-			Skeleton Skeleton;
-
-
-		//Mallas del modelo.
-		OSK_INFO_DO_NOT_TOUCH
-			std::vector<Mesh> Meshes;
-
-
-		//Matriz del modelo.
-		//   Se actualiza sola al usar las siguientes funciones:
-		//-SetPosition();
-		//-SetSize();
-		//-SetRotation();
-		OSK_INFO_READ_ONLY
-			Transform ModelTransform;
-
-
-		//True si el modelo ha sido cargado y está listo para usarse.
-		bool IsLoaded = false;
-
-
-		//True si el modelo usa animaciones.
-		bool Skeletal = false;
-
+		PushConst3D PushConst{};
 	};
 
 }

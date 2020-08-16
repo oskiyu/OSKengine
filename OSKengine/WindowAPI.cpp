@@ -283,6 +283,9 @@ namespace OSK {
 				UserInterface->SetRectangle(Vector4(0, 0, ScreenSizeX, ScreenSizeY));
 
 			UserInterface->SetPositionRelativeTo(nullptr);
+
+			if (auto var = reinterpret_cast<UI::IUserInterfaceHasChildren*>(UserInterface))
+				var->UpdateChildrenPositions();
 		}
 
 		ViewportShouldBeUpdated = true;
