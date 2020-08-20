@@ -24,6 +24,7 @@
 #include "Model.h"
 #include "GraphicsPipeline.h"
 #include "DescriptorLayout.h"
+#include "LightsUBO.h"
 
 namespace OSK {
 
@@ -56,10 +57,13 @@ namespace OSK {
 
 		//Carga una textura.
 		Texture* LoadTexture(const std::string& path);
+		ModelTexture* LoadModelTexture(const std::string& path);
 
 		TempModelData GetModelTempData(const std::string& path, const float_t& scale = 1.0f) const;
 
-		ModelData* LoadModel(const std::string& path, const float_t& scale = 1.0f);
+		ModelData* LoadModelData(const std::string& path, const float_t& scale = 1.0f);
+
+		void LoadModel(Model& model, const std::string& path);
 
 		ModelData* CreateModel(const std::vector<Vertex>& vertices, const std::vector<vertexIndex_t>& indices);
 
@@ -70,9 +74,6 @@ namespace OSK {
 
 		//Establece el spriteBatch que se va a renderizar al llamar a RenderFrame().
 		void SubmitSpriteBatch(const SpriteBatch& spriteBatch);
-
-		//Actualiza el UBO.
-		void UpdateDefaultUBO(void* ubo);
 
 		void RecreateSwapchain();
 
@@ -85,6 +86,11 @@ namespace OSK {
 		GraphicsPipeline* CreateNewGraphicsPipeline(const std::string& vertexPath, const std::string& fragmentPath) const;
 		DescriptorLayout* CreateNewDescriptorLayout() const;
 		DescriptorSet* CreateNewDescriptorSet() const;
+		
+		//Phong lighting.
+		GraphicsPipeline* CreateNewPhongPipeline(const std::string& vertexPath, const std::string& fragmentPath) const;
+		DescriptorLayout* CreateNewPhongDescriptorLayout() const;
+		void CreateNewPhongDescriptorSet(ModelTexture* texture) const;
 		
 		void CreateBuffer(VulkanBuffer& buffer, VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags prop) const;
 
@@ -318,9 +324,18 @@ namespace OSK {
 		bool hasBeenInit = false;
 
 		static Assimp::Importer GlobalImporter;
-		const static int AssimpFlags = aiProcess_Triangulate;
+		const static int AssimpFlags = aiProcess_Triangulate | aiProcess_GenNormals;
 
 		VkPhysicalDeviceMemoryProperties memProperties;
+
+		DescriptorLayout* PhongDescriptorLayout = nullptr;
+
+		//game
+		LightUBO lights{};
+		std::vector<VulkanBuffer> LightsUniformBuffers;
+
+		/*NEW SYNC*/
+		VkFence* fences = nullptr;
 	};
 
 }

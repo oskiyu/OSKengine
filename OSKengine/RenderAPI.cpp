@@ -389,7 +389,7 @@ namespace OSK {
 
 		sceneShader->SetInt32("NumberOfPointLights", PointLights.size());
 		for (uint32_t i = 0; i < PointLights.size(); i++) {
-			sceneShader->SetVec3("pointLights[" + std::to_string(i) + "].Position", PointLights[i]->LightTransform.GlobalPosition);
+			//sceneShader->SetVec3("pointLights[" + std::to_string(i) + "].Position", PointLights[i]->LightTransform.GlobalPosition);
 			sceneShader->SetColor("pointLights[" + std::to_string(i) + "].Color", PointLights[i]->Color);
 			sceneShader->SetFloat("pointLights[" + std::to_string(i) + "].Constant", PointLights[i]->Constant);
 			sceneShader->SetFloat("pointLights[" + std::to_string(i) + "].Linear", PointLights[i]->Linear);

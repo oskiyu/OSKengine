@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm.hpp>
+#include <vector>
 
 namespace OSK{
 
@@ -9,7 +10,9 @@ namespace OSK{
 		alignas(16) glm::mat4 projection;
 		alignas(16) glm::mat4 projection2D;
 
-		 glm::mat4 bones[64]{glm::mat4(1.0f)};
+		alignas(16) glm::mat4 bones[64]{glm::mat4(1.0f)};
+
+		alignas(16) glm::vec3 cameraPos;
 	};
 
 }

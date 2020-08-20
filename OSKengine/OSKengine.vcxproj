@@ -154,6 +154,7 @@
     <ClCompile Include="DescriptorLayout.cpp" />
     <ClCompile Include="DescriptorSet.cpp" />
     <ClCompile Include="GraphicsPipeline.cpp" />
+    <ClCompile Include="LightsUBO.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="OldCamera3D.cpp" />
     <ClCompile Include="Checkbox.cpp" />
@@ -222,6 +223,7 @@
     <ClInclude Include="DrawCommand.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontChar.h" />
+    <ClInclude Include="PhongLighting.hpp" />
     <ClInclude Include="PushConst3D.h" />
     <ClInclude Include="Renderpass.h" />
     <ClInclude Include="resource.h" />

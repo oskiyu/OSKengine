@@ -15,7 +15,7 @@ namespace OSK {
 		Vector2 Size;
 		Vector2 Bearing;
 
-		uint32_t Advance;
+		uint32_t Advance = 0;
 
 	};
 

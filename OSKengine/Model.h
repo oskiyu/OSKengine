@@ -5,6 +5,7 @@
 #include "PushConst3D.h"
 #include "GraphicsPipeline.h"
 #include "Vertex.h"
+#include "Texture.h"
 #include <vector>
 
 namespace OSK {
@@ -52,6 +53,8 @@ namespace OSK {
 
 		//Transform3D del modelo.
 		Transform* ModelTransform;
+
+		ModelTexture* texture = nullptr;
 
 		//Obtiene el Push Constant con la matriz del modelo.
 		PushConst3D GetPushConst() const;

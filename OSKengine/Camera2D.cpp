@@ -9,7 +9,7 @@ namespace OSK {
 
 	Camera2D::Camera2D(WindowAPI* window) {
 		this->window = window;
-		TargetSize = Vector2(window->ScreenSizeX, window->ScreenSizeY);
+		TargetSize = Vector2((float_t)window->ScreenSizeX, (float_t)window->ScreenSizeY);
 		Update();
 	}
 

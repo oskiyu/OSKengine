@@ -1,5 +1,7 @@
 #pragma once
 
+#include "OSKmacros.h"
+
 #include <vulkan/vulkan.h>
 
 #include "PointLight.h"
@@ -10,25 +12,22 @@
 
 namespace OSK {
 
-	struct LightUBO {
+	class LightUBO {
+
+	public:
 
 		DirectionalLight Directional{};
 		std::vector<PointLight> Points{};
 
-		void* data = nullptr;
-		bool isInit = false;
+		inline const size_t PointsSize() const {
+			return Points.size() * sizeof(PointLight);
+		}
 
 		inline const size_t Size() const {
-			return sizeof(DirectionalLight) + Points.size() * sizeof(PointLight);
+			return sizeof(DirectionalLight) + PointsSize();
 		}
 
-		void UpdateBuffer(VulkanBuffer& buffer) {
-
-		}
-
-		const void* GetData() const {
-			return data;
-		}
+		void UpdateBuffer(VkDevice logicalDevice, VulkanBuffer& buffer) const;
 
 	};
 

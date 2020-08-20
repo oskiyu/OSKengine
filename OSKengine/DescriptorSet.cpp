@@ -27,7 +27,6 @@ namespace OSK {
 		VkResult result = vkAllocateDescriptorSets(logicalDevice, &allocInfo, VulkanDescriptorSets.data());
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear descriptor sets.");
-
 	}
 
 	void DescriptorSet::AddUniformBuffers(std::vector<VulkanBuffer> buffers, const uint32_t& binding, const size_t& size) {

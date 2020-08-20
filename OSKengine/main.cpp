@@ -19,6 +19,7 @@
 #include "Log.h"
 
 int program() {
+	
 	OSK::WindowAPI* windowAPI = new OSK::WindowAPI();
 	windowAPI->SetWindow(1280, 720, "OSKengine Vk", OSK::GraphicsAPI::VULKAN);
 	windowAPI->SetMouseMovementMode(OSK::MouseMovementMode::RAW);
@@ -114,13 +115,13 @@ int program() {
 			texture.SpriteTransform.AddPosition(OSK::Vector2(150, 0) * deltaTime);
 
 		if (NewKS.IsKeyDown(OSK::Key::W))
-			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(RenderAPI.DefaultCamera3D.Front * 10 * deltaTime);
+			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(RenderAPI.DefaultCamera3D.Front * 1 * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::S))
-			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(-RenderAPI.DefaultCamera3D.Front * 10 * deltaTime);
+			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(-RenderAPI.DefaultCamera3D.Front * 1 * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::A))
-			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(-RenderAPI.DefaultCamera3D.Right * 10 * deltaTime);
+			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(-RenderAPI.DefaultCamera3D.Right * 1 * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::D))
-			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(RenderAPI.DefaultCamera3D.Right * 10 * deltaTime);
+			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(RenderAPI.DefaultCamera3D.Right * 1 * deltaTime);
 
 		mouseVar_t deltaX = NewMS.PositionX - OldMS.PositionX;
 		mouseVar_t deltaY = NewMS.PositionY - OldMS.PositionY;
@@ -152,10 +153,10 @@ int program() {
 			spriteBatch.DrawString(fuente, "FPS: " + std::to_string((int)FPS), 0.75f, OSK::Vector2(0, 5), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
 			spriteBatch.DrawString(fuente, "OSKengine " + std::string(OSK::ENGINE_VERSION), 0.75f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
 
-			//spriteBatch.DrawString(fuente, "3D POS: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Position), 0.75f, OSK::Vector2(0, 25), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
-			//spriteBatch.DrawString(fuente, "3D ROT: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Rotation), 0.75f, OSK::Vector2(0, 40), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
-			//spriteBatch.DrawString(fuente, "3D FRONT: " + OSK::ToString(RenderAPI.DefaultCamera3D.Front), 0.75f, OSK::Vector2(0, 55), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
-			//spriteBatch.DrawString(fuente, "3D ROT: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Rotation), 0, 75f, OSK::Vector2(0, 35), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+			spriteBatch.DrawString(fuente, "3D POS: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Position), 0.75f, OSK::Vector2(0, 25), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+			spriteBatch.DrawString(fuente, "3D ROT: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Rotation), 0.75f, OSK::Vector2(0, 40), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+			spriteBatch.DrawString(fuente, "3D FRONT: " + OSK::ToString(RenderAPI.DefaultCamera3D.Front), 0.75f, OSK::Vector2(0, 55), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+			//spriteBatch.DrawString(fuente, "3D ROT: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Rotation), 0.75f, OSK::Vector2(0, 35), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
 
 			//RenderAPI.DrawUserInterface(spriteBatch);
 
@@ -329,7 +330,7 @@ int xd() {
 
 
 	OSK::PointLight LuzPuntual = {};
-	LuzPuntual.LightTransform.SetPosition(OSK::Vector3(0, 0, 0));
+	//LuzPuntual.LightTransform.SetPosition(OSK::Vector3(0, 0, 0));
 	LuzPuntual.Radius = 100;
 	LuzPuntual.Color = OSK::Color(0.0f, 1.0f, 1.0f);
 	LuzPuntual.Intensity = 1.0f;
@@ -337,10 +338,10 @@ int xd() {
 	LuzPuntual.Linear = 0.09f;
 	LuzPuntual.Quadratic = 0.032f;
 
-	LuzPuntual.LightTransform.AttachTo(&Camera.CameraTransform);
+	//LuzPuntual.LightTransform.AttachTo(&Camera.CameraTransform);
 
 	OSK::PointLight LuzPuntual2 = {};
-	LuzPuntual2.LightTransform.SetPosition(OSK::Vector3(0, 1, 0));
+	//LuzPuntual2.LightTransform.SetPosition(OSK::Vector3(0, 1, 0));
 	LuzPuntual2.Radius = 100;
 	LuzPuntual2.Color = OSK::Color(1.0f, 0.0f, 1.0f);
 	LuzPuntual2.Intensity = 1.0f;
@@ -349,14 +350,14 @@ int xd() {
 	LuzPuntual2.Quadratic = 0.032f;
 
 	OSK::PointLight LuzPuntual3 = {};
-	LuzPuntual3.LightTransform.SetPosition(OSK::Vector3(0, 0, 4));
+	//LuzPuntual3.LightTransform.SetPosition(OSK::Vector3(0, 0, 4));
 	LuzPuntual3.Radius = 1000;
 	LuzPuntual3.Color = OSK::Color(0.0f, 0.0f, 1.0f);
 	LuzPuntual3.Intensity = 1.0f;
 	LuzPuntual3.Constant = 1.0f;
 	LuzPuntual3.Linear = 0.09f;
 	LuzPuntual3.Quadratic = 0.032f;
-	LuzPuntual3.LightTransform.AttachTo(&model.ModelTransform);
+	//LuzPuntual3.LightTransform.AttachTo(&model.ModelTransform);
 
 	OSK::Color fpsColor = OSK::Color(1.0f, 1.0f, 1.0f) * 0.5f;
 	
@@ -386,13 +387,13 @@ int xd() {
 
 	model.Skeleton.PlayAnimation(new OSK::Animation("main", 0, 245, 0.34, 10, true));
 	
-	/*OSK::UI::Panel* mainUI = new OSK::UI::Panel(OSK::Vector4(0.0f));
+	OSK::UI::Panel* mainUI = new OSK::UI::Panel(OSK::Vector4(0.0f));
 	mainUI->ImageTexture = &model.Diffuse;
 	mainUI->FillParent = true;
 
 	windowAPI.SetUserInterface(mainUI);
 
-	OSK::UI::Button* playButton = new OSK::UI::Button(OSK::Vector4(20, 0, 50, 51));
+	OSK::UI::Button* playButton = new OSK::UI::Button();
 	playButton->ImageTexture = &model.Specular;
 	playButton->ElementAnchor = OSK::Anchor::CENTER_RIGHT;
 	playButton->OnLeftClick = ([&windowAPI, &mainUI] { windowAPI.SetMouseMode(OSK::MouseInputMode::ALWAYS_RETURN); mainUI->IsActive = false; });
@@ -405,7 +406,7 @@ int xd() {
 
 	mainUI->AddElement(playButton);
 
-	OSK::UI::Button* exitButton = new OSK::UI::Button(OSK::Vector4(20, 20, 50, 51));
+	OSK::UI::Button* exitButton = new OSK::UI::Button();
 	exitButton->ImageTexture = &model.Specular;
 	exitButton->ElementAnchor = OSK::Anchor::TOP_RIGHT;
 	exitButton->TextAnchor = OSK::Anchor::CENTER;

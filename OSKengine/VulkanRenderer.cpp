@@ -101,6 +101,17 @@ VkSurfaceFormatKHR getSwapchainFormat(const std::vector<VkSurfaceFormatKHR>& for
 
 OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appName, const Version& gameVersion) {
 	renderMode = mode;
+	
+	lights.Points.resize(16);
+	lights.Points.push_back({});
+	lights.Points[0].Radius = 2;
+	lights.Points[0].Color = OSK::Color(0.0f, 1.0f, 1.0f);
+	lights.Points[0].Intensity = 2.0f;
+	lights.Points[0].Constant = 1.0f;
+	lights.Points[0].Linear = 0.09f;
+	lights.Points[0].Quadratic = 0.032f;
+	lights.Points[0].Position = { 5, 5, 5 };
+	lights.Directional = DirectionalLight{ OSK::Vector3(-0.7f, 0.8f, -0.4f), OSK::Color(1.0f, 0.9f, 1.0f), 2.0f };
 
 	createInstance(appName, gameVersion);
 	setupDebugConsole();
@@ -111,6 +122,8 @@ OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appNam
 	createSwapchainImageViews();
 	createRenderpass();
 	createDescriptorSetLayout();
+
+	PhongDescriptorLayout = CreateNewPhongDescriptorLayout();
 
 	OskResult result = createGraphicsPipeline2D();
 	if (result != OskResult::SUCCESS) {
@@ -150,7 +163,7 @@ OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appNam
 	plane = CreateModel(Vertices, Indices);
 	//LoadAnimatedModel(model, "models/anim2/goblin.dae");
 	//LoadAnimatedModel(model, "models/anim/boblampclean.md5mesh");
-	model.Data = LoadModel("models/cube/cube.obj");
+	LoadModel(model, "models/cube/cube.obj");
 
 	hasBeenInit = true;
 
@@ -179,36 +192,40 @@ void VulkanRenderer::ReloadShaders() {
 void VulkanRenderer::RenderFrame() {
 	double startTime = glfwGetTime();
 
-	vkWaitForFences(LogicalDevice, 1, &InFlightFences[renderVars.currentImage], VK_TRUE, UINT64_MAX);
-	
-	DefaultCamera2D.Update();
-	DefaultCamera3D.updateVectors();
-	//model.Update(0.016f);
-	for (size_t i = 0; i < UniformBuffers.size(); i++) {
-		void* data;
-		vkMapMemory(LogicalDevice, UniformBuffers[i].Memory, 0, sizeof(UBO), 0, &data);
-		UBO ubo{};
-		ubo.view = DefaultCamera3D.GetView();
-		ubo.projection = DefaultCamera3D.GetProjection();
-		ubo.projection2D = DefaultCamera2D.projection;
+	{
+		DefaultCamera2D.Update();
+		DefaultCamera3D.updateVectors();
+		for (size_t i = 0; i < UniformBuffers.size(); i++) {
+			void* data;
+			vkMapMemory(LogicalDevice, UniformBuffers[i].Memory, 0, sizeof(UBO), 0, &data);
+			UBO ubo{};
+			ubo.view = DefaultCamera3D.GetView();
+			ubo.projection = DefaultCamera3D.GetProjection();
+			ubo.projection2D = DefaultCamera2D.projection;
+			ubo.cameraPos = DefaultCamera3D.CameraTransform.GlobalPosition.ToGLM();
 
-		for (uint32_t i = 0; i < OSK_ANIM_MAX_BONES; i++)
-			ubo.bones[i] = glm::mat4(1.0f);
+			for (uint32_t i = 0; i < OSK_ANIM_MAX_BONES; i++)
+				ubo.bones[i] = glm::mat4(1.0f);
 
-		//for (uint32_t i = 0; i < model.BoneTransforms.size(); i++)
-			//ubo.bones[i] = glm::transpose(glm::make_mat4(&model.BoneTransforms[i].a1));
+			memcpy(data, &ubo, sizeof(UBO));
+			vkUnmapMemory(LogicalDevice, UniformBuffers[i].Memory);
+		}
 
-		memcpy(data, &ubo, sizeof(UBO));
-		vkUnmapMemory(LogicalDevice, UniformBuffers[i].Memory);
+		lights.Points[0].Position = DefaultCamera3D.CameraTransform.GlobalPosition.ToGLM();
+		for (auto& i : LightsUniformBuffers)
+			lights.UpdateBuffer(LogicalDevice, i);
+
+		if (Settings.AutoUpdateCommandBuffers)
+			updateCommandBuffers();
 	}
-
-	if (Settings.AutoUpdateCommandBuffers)
-		updateCommandBuffers();
 	//Repreenta cual es la imagen que se va a renderizar.
-	uint32_t imageID = 0;
+	uint32_t nextImageIndex = 0;
 
+	vkWaitForFences(LogicalDevice, 1, &fences[renderVars.currentImage], VK_TRUE, UINT64_MAX);
 	//Adquiere la siguiente imágen sobre la que se va a renderizar.
-	VkResult result = vkAcquireNextImageKHR(LogicalDevice, Swapchain, UINT64_MAX, ImageAvailableSemaphores[renderVars.currentImage], VK_NULL_HANDLE, &imageID);
+	VkResult result = vkAcquireNextImageKHR(LogicalDevice, Swapchain, UINT64_MAX, ImageAvailableSemaphores[0], VK_NULL_HANDLE, &nextImageIndex);
+	vkWaitForFences(LogicalDevice, 1, &fences[nextImageIndex], VK_TRUE, UINT64_MAX);
+	vkResetFences(LogicalDevice, 1, &fences[nextImageIndex]);
 
 	//La ventana ha cambiado de tamaño.
 	if (result == VK_ERROR_OUT_OF_DATE_KHR) {
@@ -219,30 +236,34 @@ void VulkanRenderer::RenderFrame() {
 	else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR)
 		throw std::runtime_error("ERROR: obtener imagen.");
 
-	if (ImagesInFlight[imageID] != nullptr)
-		vkWaitForFences(LogicalDevice, 1, &ImagesInFlight[imageID], VK_TRUE, UINT64_MAX);
-	ImagesInFlight[imageID] = InFlightFences[renderVars.currentImage];
+	//if (ImagesInFlight[nextImageIndex] != VK_NULL_HANDLE) {
+	//	vkWaitForFences(LogicalDevice, 1, &ImagesInFlight[nextImageIndex], VK_TRUE, UINT64_MAX);
+	//}
+	//ImagesInFlight[nextImageIndex] = InFlightFences[renderVars.currentImage];
 
 	VkSubmitInfo submitInfo{};
 	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 
 	//Esperar a que la imagen esté disponible antes de renderizar.
-	VkSemaphore waitSemaphores[] = { ImageAvailableSemaphores[renderVars.currentImage] };
+	VkSemaphore waitSemaphores[] = { ImageAvailableSemaphores[0] };
 	VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
 	submitInfo.waitSemaphoreCount = 1;
 	submitInfo.pWaitSemaphores = waitSemaphores;
 	submitInfo.pWaitDstStageMask = waitStages;
+	submitInfo.pSignalSemaphores = &ImageAvailableSemaphores[0];
+	submitInfo.signalSemaphoreCount = 1;
+	
 	submitInfo.commandBufferCount = 1;
-	submitInfo.pCommandBuffers = &CommandBuffers[imageID];
+	submitInfo.pCommandBuffers = &CommandBuffers[nextImageIndex];
 
 	//Semáforos a los que vamos a avisar cuando se termine de renderizar la imagen.
-	VkSemaphore signalSemaphores[] = { RenderFinishedSemaphores[renderVars.currentImage] };
+	VkSemaphore signalSemaphores[] = { RenderFinishedSemaphores[0] };
 	submitInfo.signalSemaphoreCount = 1;
 	submitInfo.pSignalSemaphores = signalSemaphores;
 
-	vkResetFences(LogicalDevice, 1, &InFlightFences[renderVars.currentImage]);
+	//vkResetFences(LogicalDevice, 1, &fences[nextImageIndex]);
 
-	result = vkQueueSubmit(GraphicsQ, 1, &submitInfo, InFlightFences[renderVars.currentImage]);
+	result = vkQueueSubmit(GraphicsQ, 1, &submitInfo, fences[nextImageIndex]);
 	if (result != VK_SUCCESS)
 		throw std::runtime_error("ERROR: submit queue.");
 
@@ -254,9 +275,10 @@ void VulkanRenderer::RenderFrame() {
 	VkSwapchainKHR swapChains[] = { Swapchain };
 	presentInfo.swapchainCount = 1;
 	presentInfo.pSwapchains = swapChains;
-	presentInfo.pImageIndices = &imageID;
+	presentInfo.pImageIndices = &nextImageIndex;
 	presentInfo.pResults = nullptr;
 
+	vkWaitForFences(LogicalDevice, 1, &fences[nextImageIndex], VK_TRUE, UINT64_MAX);
 	result = vkQueuePresentKHR(PresentQ, &presentInfo);
 
 	//La ventana ha cambiado de tamaño.
@@ -265,7 +287,7 @@ void VulkanRenderer::RenderFrame() {
 		renderVars.hasFramebufferBeenResized = false;
 	}
 
-	vkQueueWaitIdle(PresentQ);
+	//vkQueueWaitIdle(PresentQ);
 
 	renderVars.currentImage = (renderVars.currentImage + 1) % MAX_FRAMES_IN_FLIGHT;
 
@@ -303,6 +325,41 @@ DescriptorSet* VulkanRenderer::CreateNewDescriptorSet() const {
 	return new DescriptorSet(LogicalDevice, SwapchainImages.size());
 }
 
+//Phong lighting.
+GraphicsPipeline* VulkanRenderer::CreateNewPhongPipeline(const std::string& vertexPath, const std::string& fragmentPath) const {
+	GraphicsPipeline* phongPipeline = CreateNewGraphicsPipeline(vertexPath, fragmentPath);
+	phongPipeline->SetViewport({ 0, 0, (float)SwapchainExtent.width, (float)SwapchainExtent.height });
+	phongPipeline->SetRasterizer(VK_FALSE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_FRONT_BIT, VK_FRONT_FACE_CLOCKWISE);
+	phongPipeline->SetMSAA(VK_FALSE, VK_SAMPLE_COUNT_1_BIT);
+	phongPipeline->SetDepthStencil(true);
+	phongPipeline->SetPushConstants(VK_SHADER_STAGE_VERTEX_BIT, sizeof(PushConst3D));
+	phongPipeline->SetLayout(&PhongDescriptorLayout->VulkanDescriptorSetLayout);
+	phongPipeline->Create(Renderpass);
+
+	return phongPipeline;
+}
+
+DescriptorLayout* VulkanRenderer::CreateNewPhongDescriptorLayout() const {
+	DescriptorLayout* descLayout = CreateNewDescriptorLayout();
+	descLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
+	descLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
+	descLayout->AddBinding(2, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_FRAGMENT_BIT);
+	descLayout->AddBinding(3, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
+	descLayout->Create(Settings.MaxTextures);
+
+	return descLayout;
+}
+
+void VulkanRenderer::CreateNewPhongDescriptorSet(ModelTexture* texture) const {
+	texture->PhongDescriptorSet = CreateNewDescriptorSet();
+	texture->PhongDescriptorSet->SetDescriptorLayout(PhongDescriptorLayout);
+	texture->PhongDescriptorSet->AddUniformBuffers(UniformBuffers, 0, sizeof(UBO));
+	texture->PhongDescriptorSet->AddImage(&texture->Albedo, GlobalImageSampler, 1);
+	texture->PhongDescriptorSet->AddUniformBuffers(LightsUniformBuffers, 2, lights.Size());
+	texture->PhongDescriptorSet->AddImage(&texture->Specular, GlobalImageSampler, 3);
+	texture->PhongDescriptorSet->Create();
+}
+
 Texture* VulkanRenderer::LoadTexture(const std::string& path) {
 	if (textureFromString.find(path) != textureFromString.end())
 		return textureFromString[path];
@@ -326,15 +383,15 @@ Texture* VulkanRenderer::LoadTexture(const std::string& path) {
 	vkUnmapMemory(LogicalDevice, stagingBuffer.Memory);
 
 	stbi_image_free(pixels);
-	createImage(&loadedTexture.image, width, height, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+	createImage(&loadedTexture.Albedo, width, height, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
 
-	transitionImageLayout(&loadedTexture.image, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
-	copyBufferToImage(&stagingBuffer, &loadedTexture.image, width, height);
-	transitionImageLayout(&loadedTexture.image, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+	transitionImageLayout(&loadedTexture.Albedo, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+	copyBufferToImage(&stagingBuffer, &loadedTexture.Albedo, width, height);
+	transitionImageLayout(&loadedTexture.Albedo, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 
 	DestroyBuffer(stagingBuffer);
 
-	createImageView(&loadedTexture.image, VK_FORMAT_R8G8B8A8_SRGB);
+	createImageView(&loadedTexture.Albedo, VK_FORMAT_R8G8B8A8_SRGB);
 
 	createDescriptorSets(&loadedTexture);
 
@@ -344,6 +401,71 @@ Texture* VulkanRenderer::LoadTexture(const std::string& path) {
 	return textureFromString[path];
 }
 
+ModelTexture* OSK::VulkanRenderer::LoadModelTexture(const std::string& rootPath) {
+	ModelTexture* loadedTexture = new ModelTexture();
+	
+	//Albedo.
+	{
+		int width;
+		int height;
+		int nChannels;
+
+		std::string path = rootPath + "/td.png";
+		stbi_uc* pixels = stbi_load(path.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
+		VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels;
+		loadedTexture->sizeX = width;
+		loadedTexture->sizeY = height;
+
+		VulkanBuffer stagingBuffer;
+		CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		void* data;
+		vkMapMemory(LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
+		memcpy(data, pixels, static_cast<size_t>(size));
+		vkUnmapMemory(LogicalDevice, stagingBuffer.Memory);
+
+		stbi_image_free(pixels);
+		createImage(&loadedTexture->Albedo, width, height, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+
+		transitionImageLayout(&loadedTexture->Albedo, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+		copyBufferToImage(&stagingBuffer, &loadedTexture->Albedo, width, height);
+		transitionImageLayout(&loadedTexture->Albedo, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+
+		DestroyBuffer(stagingBuffer);
+
+		createImageView(&loadedTexture->Albedo, VK_FORMAT_R8G8B8A8_SRGB);
+	}
+	//Specular
+	{
+		int width;
+		int height;
+		int nChannels;
+
+		std::string path = rootPath + "/ts.png";
+		stbi_uc* pixels = stbi_load(path.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
+		VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels;
+		
+		VulkanBuffer stagingBuffer;
+		CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		void* data;
+		vkMapMemory(LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
+		memcpy(data, pixels, static_cast<size_t>(size));
+		vkUnmapMemory(LogicalDevice, stagingBuffer.Memory);
+
+		stbi_image_free(pixels);
+		createImage(&loadedTexture->Specular, width, height, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+
+		transitionImageLayout(&loadedTexture->Specular, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+		copyBufferToImage(&stagingBuffer, &loadedTexture->Specular, width, height);
+		transitionImageLayout(&loadedTexture->Specular, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+
+		DestroyBuffer(stagingBuffer);
+
+		createImageView(&loadedTexture->Specular, VK_FORMAT_R8G8B8A8_SRGB);
+	}
+	CreateNewPhongDescriptorSet(loadedTexture);
+
+	return loadedTexture;
+}
 
 TempModelData VulkanRenderer::GetModelTempData(const std::string& path, const float_t& scale) const {
 	const aiScene* scene;
@@ -359,10 +481,14 @@ TempModelData VulkanRenderer::GetModelTempData(const std::string& path, const fl
 			Vertex vertex{};
 			glm::vec3 vec3 = glm::make_vec3(&scene->mMeshes[i]->mVertices[v].x) * scale;
 			vertex.Position = vec3;
-			if (scene->mMeshes[i]->mNormals != nullptr) {
-				vec3 = glm::make_vec3(&scene->mMeshes[i]->mNormals->x);
-				vertex.Normals = vec3;
-			}
+			
+			vertex.Normals.x = scene->mMeshes[i]->mNormals[v].x;
+			vertex.Normals.y = -scene->mMeshes[i]->mNormals[v].y;
+			vertex.Normals.z = scene->mMeshes[i]->mNormals[v].z;
+
+			std::cout << "NORMALS: " << vertex.Normals.x << ":" <<
+				vertex.Normals.y << ":" << vertex.Normals.z << std::endl;
+
 			vertex.TextureCoordinates = glm::make_vec2(&scene->mMeshes[i]->mTextureCoords[0][v].x);
 
 			if (scene->mMeshes[i]->HasVertexColors(0))
@@ -396,7 +522,7 @@ TempModelData VulkanRenderer::GetModelTempData(const std::string& path, const fl
 }
 
 
-ModelData* VulkanRenderer::LoadModel(const std::string& path, const float_t& scale) {
+ModelData* VulkanRenderer::LoadModelData(const std::string& path, const float_t& scale) {
 	if (modelDataFromPath.find(path) != modelDataFromPath.end())
 		return modelDataFromPath.at(path);
 
@@ -406,6 +532,13 @@ ModelData* VulkanRenderer::LoadModel(const std::string& path, const float_t& sca
 	modelDataFromPath[path] = m;
 
 	return m;
+}
+
+
+void VulkanRenderer::LoadModel(Model& model, const std::string& path) {
+	model.Data = LoadModelData(path);
+	auto direct = path.substr(0, path.find_last_of('/'));
+	model.texture = LoadModelTexture(direct);
 }
 
 
@@ -546,7 +679,7 @@ void VulkanRenderer::LoadFont(Font& fuente, const std::string& source, uint32_t 
 		numberOfPixels += face->glyph->bitmap.width * face->glyph->bitmap.rows;
 		Texture texture{};
 		VulkanImage image = createImageFromBitMap(face->glyph->bitmap.width, face->glyph->bitmap.rows, face->glyph->bitmap.buffer);
-		texture.image = image;
+		texture.Albedo = image;
 		createDescriptorSets(&texture);
 
 		textures.push_back(texture);
@@ -916,8 +1049,10 @@ void VulkanRenderer::createRenderpass() {
 
 void VulkanRenderer::createDescriptorSetLayout() {
 	DescLayout = CreateNewDescriptorLayout();
-	DescLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
+	DescLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT); //ALBEDO
 	DescLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
+	DescLayout->AddBinding(2, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_FRAGMENT_BIT);
+	DescLayout->AddBinding(3, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
 	DescLayout->Create(Settings.MaxTextures);
 }
 
@@ -939,18 +1074,9 @@ OskResult VulkanRenderer::createGraphicsPipeline2D() {
 
 
 OskResult VulkanRenderer::createGraphicsPipeline3D() {
-	GraphicsPipeline3D = CreateNewGraphicsPipeline(Settings.VertexShaderPath3D, Settings.FragmentShaderPath3D);
-	GraphicsPipeline3D->SetViewport({ 0, 0, (float)SwapchainExtent.width, (float)SwapchainExtent.height });
-	GraphicsPipeline3D->SetRasterizer(VK_FALSE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_FRONT_BIT, VK_FRONT_FACE_CLOCKWISE);
-	GraphicsPipeline3D->SetMSAA(VK_FALSE, VK_SAMPLE_COUNT_1_BIT);
-	GraphicsPipeline3D->SetDepthStencil(true);
-	GraphicsPipeline3D->SetPushConstants(VK_SHADER_STAGE_VERTEX_BIT, sizeof(PushConst3D));
-	GraphicsPipeline3D->SetLayout(&DescLayout->VulkanDescriptorSetLayout);
-	OskResult result = GraphicsPipeline3D->Create(Renderpass);
-	if (result != OskResult::SUCCESS)
-		OSK_SHOW_TRACE();
+	GraphicsPipeline3D = CreateNewPhongPipeline(Settings.VertexShaderPath3D, Settings.FragmentShaderPath3D);
 
-	return result;
+	return OskResult::SUCCESS;
 }
 
 
@@ -1044,6 +1170,12 @@ void VulkanRenderer::createDefaultUniformBuffers() {
 
 	for (uint32_t i = 0; i < UniformBuffers.size(); i++)
 		CreateBuffer(UniformBuffers[i], size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+	
+	size = lights.Size();
+	LightsUniformBuffers.resize(SwapchainImages.size());
+
+	for (uint32_t i = 0; i < LightsUniformBuffers.size(); i++)
+		CreateBuffer(LightsUniformBuffers[i], size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 }
 
 
@@ -1079,6 +1211,11 @@ void VulkanRenderer::createSyncObjects() {
 		result = vkCreateFence(LogicalDevice, &fenceInfo, nullptr, &InFlightFences[i]);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear semáforo [2].");
+	}
+
+	fences = new VkFence[SwapchainImages.size()];
+	for (uint32_t i = 0; i < SwapchainImages.size(); i++) {
+		vkCreateFence(LogicalDevice, &fenceInfo, nullptr, &fences[i]);
 	}
 }
 
@@ -1318,18 +1455,13 @@ void VulkanRenderer::updateCommandBuffers() {
 		//3D
 		{
 			GraphicsPipeline3D->Bind(CommandBuffers[i]);
-			plane->Bind(CommandBuffers[i]);
-			currentSpriteBatch.spritesToDraw[0].texture->Descriptor->Bind(CommandBuffers[i], GraphicsPipeline3D, i);
-			
-			glm::mat4 mModel = glm::mat4(1.0f);
-			mModel = glm::scale(mModel, glm::vec3(1));
-			PushConst3D pConst = { mModel };
-			vkCmdPushConstants(CommandBuffers[i], GraphicsPipeline3D->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pConst);
-			
-			vkCmdDrawIndexed(CommandBuffers[i], static_cast<uint32_t>(plane->IndicesCount), 1, 0, 0, 0);
 
 			model.Bind(CommandBuffers[i]);
-			model.Draw(CommandBuffers[i]);
+			model.texture->PhongDescriptorSet->Bind(CommandBuffers[i], GraphicsPipeline3D, i);
+			PushConst3D push;
+			push.model = glm::mat4(1.0);
+			vkCmdPushConstants(CommandBuffers[i], GraphicsPipeline3D->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &push);
+			model.Draw(CommandBuffers[i]);			
 		}
 		//3D
 
@@ -1625,13 +1757,14 @@ void VulkanRenderer::createDescriptorSets(Texture* texture) const {
 	texture->Descriptor = CreateNewDescriptorSet();
 	texture->Descriptor->SetDescriptorLayout(DescLayout);
 	texture->Descriptor->AddUniformBuffers(UniformBuffers, 0, sizeof(UBO));
-	texture->Descriptor->AddImage(&texture->image, GlobalImageSampler, 1);
+	texture->Descriptor->AddImage(&texture->Albedo, GlobalImageSampler, 1);
+	texture->Descriptor->AddUniformBuffers(LightsUniformBuffers, 2, sizeof(LightUBO));
 	texture->Descriptor->Create();
 }
 
 
 void VulkanRenderer::destroyTexture(Texture* texture) const {
-	destroyImage(&texture->image);
+	destroyImage(&texture->Albedo);
 	texture = nullptr;
 }
 

@@ -41,8 +41,17 @@
 
 #define OSK_OBSOLETE(info, line) OSK::Logger::Log(OSK::LogMessageLevels::WARNING, std::string(info) + "está obsoleto.", line)
 
+#define OSK_WARNING_OBSOLETE_STR ": warning: la función " __FUNCTION__ " está obsoleta."
+
 #ifdef OSK_RELEASE
 #define OSK_LOAD_XD
 #else
 #define OSK_SAVE_XD
 #endif
+
+inline void* osk_add_ptr_offset(void* originalPointer, const size_t& offset) {
+	unsigned char* __osk_bytePtr = reinterpret_cast<unsigned char*>(originalPointer);
+	__osk_bytePtr += offset;
+	
+	return reinterpret_cast<void*>(__osk_bytePtr);
+}

@@ -14,12 +14,30 @@ namespace OSK {
 		friend class Sprite;
 
 	private:
-		VULKAN::VulkanImage image{};
+		VULKAN::VulkanImage Albedo{};
 
 		uint32_t sizeX = 0;
 		uint32_t sizeY = 0;
 
 		DescriptorSet* Descriptor;
+		DescriptorSet* PhongDescriptorSet = nullptr;
+		DescriptorSet* PBR_DescriptorSet = nullptr;
+
+	};
+
+
+	struct OSKAPI_CALL ModelTexture {
+		friend class VulkanRenderer;
+
+	private:
+		VULKAN::VulkanImage Albedo{};
+		VULKAN::VulkanImage Specular{};
+
+		uint32_t sizeX = 0;
+		uint32_t sizeY = 0;
+
+		DescriptorSet* PhongDescriptorSet = nullptr;
+		DescriptorSet* PBR_DescriptorSet = nullptr;
 
 	};
 

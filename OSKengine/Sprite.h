@@ -17,7 +17,7 @@ namespace OSK {
 	};
 
 	//Representa un sprite, una textura con un transform.
-	struct OSKAPI_CALL Sprite {
+	class OSKAPI_CALL Sprite {
 		friend class VulkanRenderer;
 
 	public:
@@ -32,7 +32,7 @@ namespace OSK {
 		Transform2D SpriteTransform;
 
 		//Textura que se renderiza en este sprite.
-		Texture* texture;
+		Texture* texture = nullptr;
 
 		//Color del sprite.
 		Color color = Color(1.0f);

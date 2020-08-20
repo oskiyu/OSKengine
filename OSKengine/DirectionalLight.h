@@ -15,14 +15,14 @@ namespace OSK {
 	struct OSKAPI_CALL DirectionalLight {
 
 		//Dirección de la luz.
-		Vector3 Direction;
+		alignas(16) Vector3 Direction;
 
 		//Color de la luz.
-		Color Color;
+		alignas(16) Color Color;
 
 		//Intensidad de la luz.
 		//(0.0 - 1.0)
-		float_t Intensity;
+		alignas(16) float_t Intensity;
 
 	};
 
