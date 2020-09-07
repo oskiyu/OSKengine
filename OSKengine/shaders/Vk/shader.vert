@@ -35,8 +35,7 @@ void main() {
     bonesMat += camera.bones[inBoneIDs[1]] * inBoneWeights[1];
     bonesMat += camera.bones[inBoneIDs[2]] * inBoneWeights[2];
     bonesMat += camera.bones[inBoneIDs[3]] * inBoneWeights[3];
-    if (bonesMat == mat4(0.0))
-        bonesMat = mat4(1.0);
+
     gl_Position = camera.proj * camera.view * model.model * bonesMat * vec4(inPosition, 1.0);
     fragPos = (model.model * bonesMat * vec4(inPosition, 1.0)).xyz;
     fragNormal = inNormal;

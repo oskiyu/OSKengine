@@ -233,7 +233,7 @@ namespace OSK {
 	}
 
 
-	void ContentAPI::LoadSkybox(Skybox& skybox, const std::array<std::string, 6> faces) {
+	void ContentAPI::LoadSkybox(OldSkybox& skybox, const std::array<std::string, 6> faces) {
 		glGenTextures(1, &skybox.ID);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, skybox.ID);
 

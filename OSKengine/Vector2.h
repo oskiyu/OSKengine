@@ -9,74 +9,153 @@
 namespace OSK {
 
 	//Representa un vector 2D.
-	struct OSKAPI_CALL Vector2 {
+	template <typename T> struct Vector2_t {
 
 		//Crea un vector 2D nulo { 0, 0 }.
-		Vector2();
+		Vector2_t() {
+			X = 0;
+			Y = 0;
+		}
 
 		//Crea una instancia del Vector2.
-		Vector2(const float_t& x, const float_t& y);
+		Vector2_t(const T& x, const T& y) {
+			X = x;
+			Y = y;
+		}
 
 		//Crea una instancia del Vector2 en la que X e Y tienen en mismo valor.
-		//<value>: valor para X e Y.
-		Vector2(const float_t& value);
+		Vector2_t(const T& value) {
+			X = value;
+			Y = value;
+		}
 
 		//Crea un vector 2D con los parámetros de vec.
-		Vector2(const glm::vec2& vec);
+		Vector2_t(const glm::vec2& vec) {
+			X = vec.x;
+			Y = vec.y;
+		}
+
 
 		//Operación Vector2 + Vector2.
 		//X1 + X2; Y1 + Y2.
-		Vector2 operator+(const Vector2& vec) const;
-
+		inline Vector2_t operator+(const Vector2_t& vec) const {
+			return Vector2_t(X + vec.X, Y + vec.Y);
+		}
+		
 		//Negación del Vector2.
 		//-X; -Y.
-		Vector2 operator-() const;
-
+		inline Vector2_t operator-() const {
+			return Vector2_t(-X, -Y);
+		}
+		
 		//Operación Vector2 - Vector2.
 		//X1 - X2; Y1 - Y2.
-		Vector2 operator-(const Vector2& vec) const;
-
+		inline Vector2_t operator-(const Vector2_t& vec) const {
+			return Vector2_t(X - vec.X, Y - vec.Y);
+		}
+		
 		//Operación Vector2 * Vector2.
 		//X1 * X2; Y1 * Y2.
-		Vector2 operator*(const Vector2& vec) const;
-
+		inline Vector2_t operator*(const Vector2_t& vec) const {
+			return Vector2_t(X * vec.X, Y * vec.Y);
+		}
+		
 		//Operación Vector2 * float_t.
 		//X * value; Y * value.
-		Vector2 operator*(const float_t& value) const;
-
-		//Operación Vector2 / Vector2.
-		//X = vec.X; Y = vec.Y.
-		Vector2 operator/(const Vector2& value) const;
+		inline Vector2_t operator*(const T& value) const {
+			return Vector2_t(X * value, Y * value);
+		}
 
 		//Operación Vector2 / float_t.
 		//X = value; Y = value.
-		Vector2 operator/(const float_t& value) const;
+		inline Vector2_t operator/(const T& value) const {
+			return Vector2_t(X / value, Y / value);
+		}
+
+		//Operación Vector2 / Vector2.
+		//X = vec.X; Y = vec.Y.
+		inline Vector2_t operator/(const Vector2_t& vec) const {
+			return Vector2(X / vec.X, Y / vec.Y);
+		}
 
 		//Módulo del vector.
 		//Obtiene la longitud del vector.
-		float_t GetLength() const;
+		inline T GetLength() const {
+			return glm::sqrt(X * X + Y * Y);
+		}
 
 		//Obtiene la distancia entre la posición representada por este vector y por el vector <vec>.
-		float_t GetDistanceTo(const Vector2& vec) const;
+		inline T GetDistanceTo(const Vector2_t& vec) const {
+			T dx = X - vec.X;
+			T dy = Y - vec.Y;
+
+			return glm::sqrt(dx * dx + dy * dy);
+		}
 
 		//Producto escalar de dos vectores.
-		float_t Dot(const Vector2& vec) const;
+		inline T Dot(const Vector2_t& vec) const {
+			return X * vec.X + Y * vec.Y;
+		}
 
 		//Devuelve un vector 2D normalizado con la misma dirección que este.
-		Vector2 GetNormalized() const;
+		Vector2_t GetNormalized() const {
+			T length = GetLength();
 
-		//Normaliza el vector 2D para que su módulo (GetLength()) sea 1.
-		void Normalize();
+			return Vector2_t(X / length, Y / length);
+		}
+
+		//Normaliza este vector 2D para que su módulo (GetLength()) sea 1.
+		void Normalize() {
+			T length = GetLength();
+
+			X /= length;
+			Y /= length;
+		}
 
 		//OSK::Vector2 a glm::vec2.
-		glm::vec2 ToGLM() const;
+		inline glm::vec2 ToGLM() const {
+			return glm::vec2(X, Y);
+		}
+
+		//OSK::Vector2 a glm::vec.
+		inline glm::vec<2, T> ToGLM_T() const {
+			return glm::vec<2, T>(X, Y);
+		}
+
+		template <typename P> inline Vector2_t<P> ToVec2() const {
+			return Vector2_t<P>(X, Y);
+		}
+
+		inline Vector2_t<float_t> ToVector2f() const {
+			return ToVec2<float>();
+		}
+
+		inline Vector2_t<double_t> ToVector2d() const {
+			return ToVec2<double_t>();
+		}
+
+		inline Vector2_t<int32_t> ToVector2i() const {
+			return ToVec2<int32_t>();
+		}
+
+		inline Vector2_t<uint32_t> ToVector2ui() const {
+			return ToVec2<uint32_t>();
+		}
 
 		//Representa la primera coordenada.
-		float_t X;
+		T X;
 
 		//Representa la segunda coordenada.
-		float_t Y;
+		T Y;
 
 	};
+
+
+	typedef Vector2_t<float_t> Vector2;
+
+	typedef Vector2_t<float_t> Vector2f;
+	typedef Vector2_t<double_t> Vector2d;
+	typedef Vector2_t<int32_t> Vector2i;
+	typedef Vector2_t<uint32_t> Vector2ui;
 
 }

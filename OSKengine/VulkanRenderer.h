@@ -21,18 +21,24 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#include "Renderpass.h"
 #include "Model.h"
 #include "GraphicsPipeline.h"
 #include "DescriptorLayout.h"
 #include "LightsUBO.h"
+#include "Skybox.h"
 
 namespace OSK {
 
 	class OSKAPI_CALL VulkanRenderer {
 
 	public:
-		
+	
+
 		//Inicializa el renderizador.
+		//	<mode>: modo de renderizado (2D / 2D + 3D).
+		//	<appName>: nombre del juego.
+		//	<gameVersion>: versión del juego.
 		OskResult Init(const RenderMode& mode, const std::string& appName, const Version& gameVersion);
 
 		//Renderiza el frame.
@@ -44,6 +50,7 @@ namespace OSK {
 
 		//Establece el modo de presentación deseado.
 		//Recrea el swapchain si es necesario.
+		//	<mode>: modo de presentación objetivo.
 		void SetPresentMode(const PresentMode& mode);
 
 		//Obtiene el modo de presentación actual.
@@ -52,51 +59,126 @@ namespace OSK {
 		//Recarga los shaders.
 		void ReloadShaders();
 
+
 		//Cierra el renderizador.		
 		void Close();
 
-		//Carga una textura.
+
+		//Carga una textura 2D (para un sprite).
+		//	<path>: ruta de la textura (incluyendo la extensión de la imagen).
 		Texture* LoadTexture(const std::string& path);
+
+
+		//Carga una textura 2D (para un modelo 3D).
+		//	<path>: ruta de la textura (incluyendo la extensión de la imagen).
 		ModelTexture* LoadModelTexture(const std::string& path);
 
+
+		//Carga los vértices y los índices de un modelo 3D.
+		//	<path>: ruta del modelo (incluyendo la extensión del modelo).
+		//	<scala>: escala del modelo 3D.
 		TempModelData GetModelTempData(const std::string& path, const float_t& scale = 1.0f) const;
 
+
+		//Carga un modelo 3D con sus buffers creados.
+		//Solamente existe una instancia de ModelData* por cada <path>.
+		//	<path>: ruta del modelo (incluyendo la extensión del modelo).
+		//	<scala>: escala del modelo 3D.
 		ModelData* LoadModelData(const std::string& path, const float_t& scale = 1.0f);
 
+
+		//Carga un modelo 3D.
+		//Las texturas del modelo deben estar en la misma carpeta que el modelo.
+		//	<model>: modelo a cargar.
+		//	<path>: ruta del modelo (incluyendo la extensión del modelo).
 		void LoadModel(Model& model, const std::string& path);
 
+		void LoadSkybox(Skybox& skybox, const std::string& path);
+
+
+		//Crea un modelo 3D a partir de sus vértices y sus índices.
+		//	<vértices>: vértices.
+		//	<índices>: índices (vertexIndex_t).
 		ModelData* CreateModel(const std::vector<Vertex>& vertices, const std::vector<vertexIndex_t>& indices);
 
+
+		//Carga un modelo 3D animado.
+		//	<model>: modelo animado a cargar.
+		//	<path>: ruta del modelo (incluyendo la extensión del modelo).
 		void LoadAnimatedModel(AnimatedModel& model, const std::string& path);
 
+
 		//Carga un sprite.
+		//	<texture>: sprite a cargar.
+		//	<path>: ruta de la textura (incluyendo la extensión).
 		void LoadSprite(Sprite* texture, const std::string& path);
 
 		//Establece el spriteBatch que se va a renderizar al llamar a RenderFrame().
+		//	<spriteBatch>: spriteBatch que se renderizará.
 		void SubmitSpriteBatch(const SpriteBatch& spriteBatch);
 
+		//Recrea el swapchain.
 		void RecreateSwapchain();
 
 		//Carga una fuente.
+		//	<font>: fuente a cargar.
+		//	<source>: ruta del archivo (incluyendo la extensión).
+		//	<size>: tamaño al que se va a cargar la fuente, en píxeles.
 		void LoadFont(Font& fuente, const std::string& source, uint32_t size);
 
 		//Crea un spriteBatch.
 		SpriteBatch CreateSpriteBatch();
 
+
+		//Crea un nuevo graphics pipeline vacío.
+		//	<vertexPath>: ruta del shader de vértices.
+		//	<fragmentPath>: ruta del shader de fragmento.
 		GraphicsPipeline* CreateNewGraphicsPipeline(const std::string& vertexPath, const std::string& fragmentPath) const;
+
+		//Crea un nuevo descriptor layout vacío.
 		DescriptorLayout* CreateNewDescriptorLayout() const;
+
+		//Crea un nuevo descriptor set vacío.
 		DescriptorSet* CreateNewDescriptorSet() const;
 		
 		//Phong lighting.
-		GraphicsPipeline* CreateNewPhongPipeline(const std::string& vertexPath, const std::string& fragmentPath) const;
-		DescriptorLayout* CreateNewPhongDescriptorLayout() const;
-		void CreateNewPhongDescriptorSet(ModelTexture* texture) const;
 		
+		//Crea un nuevo graphics pipeline configurado para el motor de iluminación PHONG.
+		//	<vertexPath>: ruta del shader PHONG de vértices.
+		//	<fragmentPath>: ruta del shader PHONG de fragmento.
+		GraphicsPipeline* CreateNewPhongPipeline(const std::string& vertexPath, const std::string& fragmentPath) const;
+
+		//Crea un nuevo descriptor layout configurado para usarse con el motor de iluminación PHONG.
+		DescriptorLayout* CreateNewPhongDescriptorLayout() const;
+
+		//Crea el descriptor set de PHONG para la textura de un modelo 3D.
+		//	<texture>: textura a la que se le configurará su descriptor set de PHONG.
+		void CreateNewPhongDescriptorSet(ModelTexture* texture) const;
+
+		//Skybox.
+		GraphicsPipeline* CreateNewSkyboxPipeline(const std::string& vertexPath, const std::string& fragmentPath) const;
+		DescriptorLayout* CreateNewSkyboxDescriptorLayout() const;
+		void CreateNewSkyboxDescriptorSet(SkyboxTexture* texture) const;
+		
+		//Crea un buffer que almacenará información en la GPU.
+		//	<buffer>: buffer que se va a crear.
+		//	<size>: tamaño del buffer.
+		//	<usage>: el uso que se le dará al buffer.
+		//	<prop>: propiedades de memoria que necesitará el buffer.
+		//
+		//Para destruir un buffer, llamar a VulkanRenderer::DestroyBuffer.
 		void CreateBuffer(VulkanBuffer& buffer, VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags prop) const;
 
+		//Destruye un buffer, liberando la memoria que tenía asignada en la GPU.
+		//	<buffer>: buffer a destruir.
 		void DestroyBuffer(VulkanBuffer& buffer) const;
 
 		//Copia el contenido de un buffer a otro buffer.
+		//	<source>: buffer fuente.
+		//	<destination>: buffer al que se copiará la información.
+		//	<size>: tamaño de la información que se va a copiar (puede no ser el mismo tamaño que el de los buffers).
+		//	<sourceOffset = 0>: offset sobre la informacíon del buffer fuente.
+		//	<destinationOffset = 0>: offset sobre el buffer destino.
 		void CopyBuffer(VulkanBuffer& source, VulkanBuffer& destination, VkDeviceSize size, VkDeviceSize sourceOffset = 0, VkDeviceSize destinationOffset = 0) const;
 
 		struct {
@@ -170,7 +252,7 @@ namespace OSK {
 
 		void createImage(VULKAN::VulkanImage* image, const uint32_t& width, const uint32_t& height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties);
 
-		void createImageView(VULKAN::VulkanImage* img, VkFormat format, VkImageAspectFlags aspect = VK_IMAGE_ASPECT_COLOR_BIT) const;
+		void createImageView(VULKAN::VulkanImage* img, VkFormat format, VkImageAspectFlags aspect = VK_IMAGE_ASPECT_COLOR_BIT, VkImageViewType type = VK_IMAGE_VIEW_TYPE_2D) const;
 
 		void destroyImage(VULKAN::VulkanImage* img) const;
 
@@ -294,10 +376,11 @@ namespace OSK {
 		VkQueue PresentQ;
 
 		//Renderpass.
-		VkRenderPass Renderpass;
+		VULKAN::Renderpass* renderpass;
 
 		GraphicsPipeline* GraphicsPipeline2D;
 		GraphicsPipeline* GraphicsPipeline3D;
+		GraphicsPipeline* SkyboxGraphicsPipeline;
 
 		VkCommandPool CommandPool;
 
@@ -329,6 +412,7 @@ namespace OSK {
 		VkPhysicalDeviceMemoryProperties memProperties;
 
 		DescriptorLayout* PhongDescriptorLayout = nullptr;
+		DescriptorLayout* SkyboxDescriptorLayout = nullptr;
 
 		//game
 		LightUBO lights{};

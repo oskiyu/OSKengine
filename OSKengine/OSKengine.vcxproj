@@ -163,6 +163,7 @@
     <ClCompile Include="ContentAPI.cpp" />
     <ClCompile Include="D:\Dev\GLAD\src\glad.c" />
     <ClCompile Include="Font.cpp" />
+    <ClCompile Include="Renderpass.cpp" />
     <ClCompile Include="SpriteBatch.cpp" />
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="ImageUI.cpp" />
@@ -184,6 +185,7 @@
     <ClCompile Include="SoundEntity.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="TextUI.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="ToString.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Transform2D.cpp" />
@@ -193,6 +195,7 @@
     <ClCompile Include="OldVertex.cpp" />
     <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="VulkanBuffer.cpp" />
+    <ClCompile Include="VulkanImage.cpp" />
     <ClCompile Include="VulkanRenderer.cpp" />
     <ClCompile Include="WindowAPI.cpp" />
   </ItemGroup>
@@ -223,10 +226,10 @@
     <ClInclude Include="DrawCommand.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontChar.h" />
-    <ClInclude Include="PhongLighting.hpp" />
     <ClInclude Include="PushConst3D.h" />
     <ClInclude Include="Renderpass.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="EXP_MeshBone.hpp" />
     <ClInclude Include="FileIO.h" />
@@ -275,7 +278,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Shaders.h" />
     <ClInclude Include="Skeleton.h" />
-    <ClInclude Include="Skybox.h" />
+    <ClInclude Include="OldSkybox.h" />
     <ClInclude Include="SoundEntity.h" />
     <ClInclude Include="stbi_image.h" />
     <ClInclude Include="SwapchainSupportDetails.h" />

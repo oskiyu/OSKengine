@@ -11,91 +11,176 @@
 namespace OSK {
 
 	//Representa un vector con 4 coordenadas (Rectangle).
-	struct OSKAPI_CALL Vector4 {
+	template <typename T> struct Vector4_t {
 
 		//Crea un vector 4D nulo { 0, 0, 0, 0 }.
-		Vector4();
+		Vector4_t() {
+			X = (T)0;
+			Y = (T)0;
+			Z = (T)0;
+			W = (T)0;
+		}
 
 		//Crea un vector 4D.
-		Vector4(const float_t& x, const float_t& y, const float_t& z, const float_t& w);
+		Vector4_t(const T& x, const T& y, const T& z, const T& w) {
+			X = x;
+			Y = y;
+			Z = z;
+			W = w;
+		}
 
 		//Crea una instancia del Vector2 en la que X, Y, Z y W tienen en mismo valor.
 		//<value>: valor para X, Y, Z y W.
-		Vector4(const float_t& value);
+		Vector4_t(const T& value) {
+			X = value;
+			Y = value;
+			Z = value;
+			W = value;
+		}
 
 		//Crea un vector 4D con los parámetros de vec.
-		Vector4(const glm::vec4& vec);
+		Vector4_t(const glm::vec4& vec) {
+			X = vec.x;
+			Y = vec.y;
+			Z = vec.z;
+			W = vec.w;
+		}
 
 		//Operación Vector4 + Vector4.
 		//X1 + X2; Y1 + Y2, Z1 + Z2, W1 + W2.
-		Vector4 operator+(const Vector4& vec) const;
+		Vector4_t operator+(const Vector4_t& vec) const {
+			return Vector4_t(X + vec.X, Y + vec.Y, Z + vec.Z, W + vec.W);
+		}
 
 		//Negación del Vector4.
 		//-X; -Y; -Z; -W.
-		Vector4 operator-() const;
+		Vector4_t operator-() const {
+			return Vector4_t(-X, -Y, -Z, -W);
+		}
 
 		//Operación Vector4 - Vector4.
 		//X1 - X2; Y1 - Y2; Z1 - Z2, W1 - W2.
-		Vector4 operator-(const Vector4& vec) const;
+		Vector4_t operator-(const Vector4_t& vec) const {
+			return Vector4_t(X - vec.X, Y - vec.Y, Z - vec.Z, W - vec.W);
+		}
 
 		//Operación Vector4 * Vector4.
 		//X1 * X2; Y1 * Y2; Z1 * Z2; W1 * W2.
-		Vector4 operator*(const Vector4& vec) const;
+		Vector4_t operator*(const Vector4_t& vec) const {
+			return Vector4_t(X * vec.X, Y * vec.Y, Z * vec.Z, W * vec.W);
+		}
 
 		//Operación Vector4 * float.
 		//X * value; Y * value; Z * value; W * value.
-		Vector4 operator*(const float_t& value) const;
+		Vector4_t operator*(const T& value) const {
+			return Vector4_t(X * value, Y * value, Z * value, W * value);
+		}
 
 		//Operación Vector4 / Vector4.
 		//X / vec.X; Y / vec.Y, Z / vec.Z, W / vec.W.
-		Vector4 operator/(const Vector4& vec) const;
+		Vector4_t operator/(const Vector4_t& vec) const {
+			return Vector4_t(X / vec.X, Y / vec.Y, Z / vec.Z, W / vec.W);
+		}
 
 		//Operación Vector4 / float_t.
 		//X / value; Y / value; Z / value; W / value.
-		Vector4 operator/(const float_t& value) const;
+		Vector4_t operator/(const T& value) const {
+			return Vector4_t(X / value, Y / value, Z / value, W / value);
+		}
 
 		//Obtiene la posición del rectángulo (X, Y).
-		Vector2 GetRectanglePosition() const;
+		Vector2_t<T> GetRectanglePosition() const {
+			return Vector2_t<T>(X, Y);
+		}
 
 		//Obtiene el tamaño del rectángulo (Z, W).
-		Vector2 GetRectangleSize() const;
+		Vector2_t<T> GetRectangleSize() const {
+			return Vector2_t<T>(Z, W);
+		}
 
 		//Obtiene la anchura del rectángulo (Z).
-		float_t GetRectangleWidth() const;
+		inline T GetRectangleWidth() const {
+			return Z;
+		}
 
 		//Obtiene la altura del rectángulo (W).
-		float_t GetRectangleHeight() const;
+		inline T GetRectangleHeight() const {
+			return W;
+		}
 
 		//Obtiene el tope del rectángulo (Y + W).
-		float_t GetRectangleTop() const;
+		inline T GetRectangleTop() const {
+			return Y + W;
+		}
 
 		//Obtiene el lateral derecho del tectángulo (X + Z).
-		float_t GetRectangleRight() const;
+		inline T GetRectangleRight() const {
+			return X + Z;
+		}
 
-		Vector2 GetRectangleMiddlePoint() const;
+		Vector2_t<T> GetRectangleMiddlePoint() const {
+			return Vector2_t<T>(X + GetRectangleWidth() / 2, Y + GetRectangleHeight() / 2);
+		}
 
 		//Retorna 'true' si los dos rectángulos se tocan.
-		bool Intersects(const Vector4& vec) const;
+		inline bool Intersects(const Vector4_t& vec) const {
+			return X < vec.X + vec.Z && X + Z > vec.X && Y < vec.Y + vec.W && W + Y > vec.Y;
+		}
 
 		//OSK::Vector4 a glm::vec4.
-		glm::vec4 ToGLM() const;
+		inline glm::vec4 ToGLM() const {
+			return glm::vec4(X, Y, Z, W);
+		}
+
+		//OSK::Vector4 a glm::vec.
+		inline glm::vec<4, T> ToGLM_T() const {
+			return glm::vec<4, T>(X, Y, Z, W);
+		}
+
+		template <typename P> inline Vector4_t<P> ToVec4() const {
+			return Vector4_t<P>(X, Y, Z, W);
+		}
+
+		inline Vector4_t<float_t> ToVector4f() const {
+			return ToVec4<float>();
+		}
+
+		inline Vector4_t<double_t> ToVector4d() const {
+			return ToVec4<double_t>();
+		}
+
+		inline Vector4_t<int32_t> ToVector4i() const {
+			return ToVec4<int32_t>();
+		}
+
+		inline Vector4_t<uint32_t> ToVector4ui() const {
+			return ToVec4<uint32_t>();
+		}
 
 		//Primera coordenada.
 		//Posición X del rectángulo.
-		float_t X;
+		T X;
 
 		//Segunda coordenada.
 		//Posición Y del rectángulo.
-		float_t Y;
+		T Y;
 
 		//Tercera coordenada.
 		//Ancho del rectángulo.
-		float_t Z;
+		T Z;
 
 		//Cuarta coordenada.
 		//Alto del rectángulo.
-		float_t W;
+		T W;
 
 	};
+
+	typedef Vector4_t<float_t> Vector4;
+
+	typedef Vector4_t<int32_t> Vector4i;
+	typedef Vector4_t<uint32_t> Vector4ui;
+	typedef Vector4_t<float_t> Vector4f;
+	typedef Vector4_t<double_t> Vector4d;
+
 
 }

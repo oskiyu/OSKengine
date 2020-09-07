@@ -9,6 +9,10 @@
 
 #include "OSKtypes.h"
 
+namespace OSK::VULKAN {
+	class Renderpass;
+}
+
 namespace OSK {
 
 	class GraphicsPipeline {
@@ -31,7 +35,7 @@ namespace OSK {
 
 		void SetLayout(VkDescriptorSetLayout* layout);
 
-		OskResult Create(VkRenderPass renderpass);
+		OskResult Create(VULKAN::Renderpass* renderpass);
 
 		void Bind(VkCommandBuffer commandBuffer) const;
 
@@ -92,7 +96,7 @@ namespace OSK {
 		VkVertexInputBindingDescription vertexBindingDesc;
 		std::array<VkVertexInputAttributeDescription, OSK_VERTEX_ATTRIBUTES_COUNT> vertexInputDesc;
 
-		VkRenderPass targetRenderpass;
+		VULKAN::Renderpass* targetRenderpass = nullptr;
 
 	};
 

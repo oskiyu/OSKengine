@@ -346,7 +346,7 @@ namespace OSK {
 	}
 
 
-	void RenderAPI::SetSkybox(const Skybox& skybox) {
+	void RenderAPI::SetSkybox(const OldSkybox& skybox) {
 		this->skybox = skybox;
 	}
 

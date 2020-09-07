@@ -7,18 +7,18 @@
 namespace OSK {
 
 	Camera3D::Camera3D(const cameraVar_t& posX, const cameraVar_t& posY, const cameraVar_t posZ) {
-		CameraTransform = Transform();
-		CameraTransform.Position = Vector3(posX, posY, posZ);
-		CameraTransform.Scale = Vector3(1.0f);
+		CameraTransform = Transform_t<double>();
+		CameraTransform.Position = Vector3_t<double>(posX, posY, posZ);
+		CameraTransform.Scale = Vector3_t<double>(1.0f);
 
 		updateVectors();
 	}
 
 
-	Camera3D::Camera3D(const Vector3& position, const Vector3& up) {
-		CameraTransform = Transform();
+	Camera3D::Camera3D(const Vector3_t<double>& position, const Vector3_t<double>& up) {
+		CameraTransform = Transform_t<double>();
 		CameraTransform.Position = position;
-		CameraTransform.Scale = Vector3(1.0f);
+		CameraTransform.Scale = Vector3_t<double>(1.0f);
 		this->Up = up;
 
 		updateVectors();
@@ -28,7 +28,7 @@ namespace OSK {
 
 	}
 
-	void Camera3D::Girar(const float& xoffset, const float& yoffset, const bool& constraint) {
+	void Camera3D::Girar(const double& xoffset, const double& yoffset, const bool& constraint) {
 		float Sensitivity = 0.25f;
 		mouseVar_t finalX = CameraTransform.Rotation.X - static_cast<mouseVar_t>(yoffset) * Sensitivity;
 		mouseVar_t finalY = CameraTransform.Rotation.Y + static_cast<mouseVar_t>(xoffset) * Sensitivity;
@@ -52,7 +52,7 @@ namespace OSK {
 		updateVectors();
 	}
 
-	void Camera3D::SetFoV(const cameraVar_t& fov) {
+	void Camera3D::SetFoV(const double& fov) {
 		FieldOfView = fov;
 		if (FieldOfView <= FoVLimitDown)
 			FieldOfView = FoVLimitDown;
@@ -61,14 +61,14 @@ namespace OSK {
 	}
 
 
-	void Camera3D::AddFoV(const cameraVar_t& fov) {
+	void Camera3D::AddFoV(const double& fov) {
 		SetFoV(FieldOfView - fov);
 	}
 
 	void Camera3D::updateVectors() {
 		CameraTransform.UpdateModel();
 
-		Vector3 front;
+		Vector3_t<double> front;
 		front.X = cos(glm::radians(CameraTransform.GlobalRotation.X)) * cos(glm::radians(CameraTransform.GlobalRotation.Y));
 		front.Y = sin(glm::radians(CameraTransform.GlobalRotation.X));
 		front.Z = cos(glm::radians(CameraTransform.GlobalRotation.X)) * sin(glm::radians(CameraTransform.GlobalRotation.Y));

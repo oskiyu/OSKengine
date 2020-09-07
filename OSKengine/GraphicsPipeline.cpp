@@ -2,6 +2,7 @@
 
 #include "FileIO.h"
 #include "Log.h"
+#include "Renderpass.h"
 
 namespace OSK {
 
@@ -139,7 +140,7 @@ namespace OSK {
 		layoutHasBeenSet = true;
 	}
 
-	OskResult GraphicsPipeline::Create(VkRenderPass renderpass) {
+	OskResult GraphicsPipeline::Create(VULKAN::Renderpass* renderpass) {
 		OskResult res = loadShaders();
 		if (res != OskResult::SUCCESS) {
 			OSK_SHOW_TRACE();
@@ -193,7 +194,7 @@ namespace OSK {
 		pipelineInfo.pColorBlendState = &colorBlending;
 		pipelineInfo.pDynamicState = nullptr;
 		pipelineInfo.layout = VulkanPipelineLayout;
-		pipelineInfo.renderPass = targetRenderpass;
+		pipelineInfo.renderPass = targetRenderpass->VulkanRenderpass;
 		pipelineInfo.subpass = 0;
 		pipelineInfo.basePipelineHandle = nullptr;
 		pipelineInfo.basePipelineIndex = -1;

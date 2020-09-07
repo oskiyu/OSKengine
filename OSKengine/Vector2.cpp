@@ -2,7 +2,7 @@
 
 namespace OSK {
 
-	Vector2::Vector2() {
+	/*Vector2::Vector2() {
 		X = 0;
 		Y = 0;
 	}
@@ -80,6 +80,6 @@ namespace OSK {
 
 	glm::vec2 Vector2::ToGLM() const {
 		return glm::vec2(X, Y);
-	}
+	}*/
 
 }

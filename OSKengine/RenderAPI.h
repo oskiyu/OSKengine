@@ -16,7 +16,7 @@
 #include "RenderOutputImageEnum.h"
 #include "RenderSettingsEnum.h"
 #include "Shader.h"
-#include "Skybox.h"
+#include "OldSkybox.h"
 #include "TextRenderingLimitActionsEnum.h"
 #include "Transform.h"
 #include "WindowAPI.h"
@@ -76,7 +76,7 @@ namespace OSK {
 
 
 		//Establece el skybox a usar.
-		void SetSkybox(const Skybox& skybox);
+		void SetSkybox(const OldSkybox& skybox);
 
 
 		//Establece la cámara desde la que se renderizará un mundo 3D en la pantalla seleccionada.
@@ -207,7 +207,7 @@ namespace OSK {
 
 		OSK::Shader* spriteShader = nullptr;
 
-		OSK::Skybox skybox;
+		OSK::OldSkybox skybox;
 
 		bufferObject_t frameBufferObject;
 

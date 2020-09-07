@@ -282,6 +282,15 @@
     <ClCompile Include="LightsUBO.cpp">
       <Filter>Archivos de origen\OSKengine\VulkanRenderer</Filter>
     </ClCompile>
+    <ClCompile Include="VulkanImage.cpp">
+      <Filter>Archivos de origen\OSKengine\VulkanRenderer\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Archivos de origen\OSKengine\VulkanRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderpass.cpp">
+      <Filter>Archivos de origen\OSKengine\VulkanRenderer\Vulkan</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowAPI.h">
@@ -325,9 +334,6 @@
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Archivos de encabezado\OSKengine\GameAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="Skybox.h">
-      <Filter>Archivos de encabezado\OSKengine\LegacyRenderAPI</Filter>
     </ClInclude>
     <ClInclude Include="Log.h">
       <Filter>Archivos de encabezado\OSKengine\Util</Filter>
@@ -575,7 +581,10 @@
     <ClInclude Include="LightsUBO.h">
       <Filter>Archivos de encabezado\OSKengine\VulkanRenderer</Filter>
     </ClInclude>
-    <ClInclude Include="PhongLighting.hpp">
+    <ClInclude Include="OldSkybox.h">
+      <Filter>Archivos de encabezado\OSKengine\LegacyRenderAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="Skybox.h">
       <Filter>Archivos de encabezado\OSKengine\VulkanRenderer</Filter>
     </ClInclude>
   </ItemGroup>

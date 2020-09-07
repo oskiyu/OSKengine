@@ -3,6 +3,10 @@
 
 namespace OSK {
 
+	Sprite::~Sprite() {
+		
+	}
+
 	void Sprite::SetTexCoords(const Vector4& texCoords) {
 		Vector4 finalTexCoords = texCoords / Vector4(texture->sizeX, texture->sizeY, texture->sizeX, texture->sizeY);
 

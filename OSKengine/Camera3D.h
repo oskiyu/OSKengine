@@ -24,7 +24,7 @@ namespace OSK {
 		//Crea una cámara.
 		//<position>: posición de la cámara.
 		//<up>: vector 3D que determina los ejes de coordenadas de la cámara.
-		Camera3D(const Vector3& position, const Vector3& up);
+		Camera3D(const Vector3_t<double>& position, const Vector3_t<double>& up);
 
 
 		//Destruye la cámara.
@@ -34,15 +34,15 @@ namespace OSK {
 		//Gira la cámara.
 		//<pitch>: ángulo en Y.
 		//<yaw>: ángulo en X.
-		void Girar(const float_t& pitch, const float_t& yaw, const bool& constraint = true);
+		void Girar(const double& pitch, const double& yaw, const bool& constraint = true);
 
 
 		//Establece el FoV de la cámara, si está en los límites de FoV.
-		void SetFoV(const float_t& fov);
+		void SetFoV(const double& fov);
 
 
 		//Añade FoV a la cámara.
-		void AddFoV(const float_t& fov);
+		void AddFoV(const double& fov);
 
 
 		glm::mat4 GetProjection() const;
@@ -66,25 +66,25 @@ namespace OSK {
 
 		//Vector dirección de la cámara.
 		OSK_INFO_DO_NOT_TOUCH
-			Vector3 Front = OSK::Vector3(0.0f, 0.0f, -1.0f);
+			Vector3_t<double> Front = OSK::Vector3_t<double>(0.0, 0.0, -1.0);
 
 
 		//Vector 'arriba' de la cámara.
 		OSK_INFO_DO_NOT_TOUCH
-			Vector3 Up = OSK::Vector3(0.0f, 1.0f, 0.0f);
+			Vector3_t<double> Up = OSK::Vector3_t<double>(0.0, 1.0, 0.0);
 
 
 		//Vector 'derecho' de la cámara.
 		OSK_INFO_DO_NOT_TOUCH
-			Vector3 Right;
+			Vector3_t<double> Right;
 
 
 		//Vector 'arriba' del mundo. { 0, 1, 0 }
-		const Vector3 WorldUp = OSK::Vector3(0.0f, 1.0f, 0.0f);
+		const Vector3_t<double> WorldUp = OSK::Vector3_t<double>(0.0f, 1.0f, 0.0f);
 
 
 		//Transform de la cámara.
-		Transform CameraTransform;
+		Transform_t<double> CameraTransform;
 
 
 		WindowAPI* Window;

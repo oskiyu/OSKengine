@@ -8,7 +8,7 @@ namespace OSK {
 
 	class VulkanRenderer;
 
-	//Textura.
+	//Textura 2D.
 	struct OSKAPI_CALL Texture {
 		friend class VulkanRenderer;
 		friend class Sprite;
@@ -26,10 +26,16 @@ namespace OSK {
 	};
 
 
+	//Textura para 3D.
 	struct OSKAPI_CALL ModelTexture {
 		friend class VulkanRenderer;
 
+	public:
+		~ModelTexture();
+
 	private:
+		ModelTexture(VkDevice logicalDevice);
+
 		VULKAN::VulkanImage Albedo{};
 		VULKAN::VulkanImage Specular{};
 
@@ -39,6 +45,19 @@ namespace OSK {
 		DescriptorSet* PhongDescriptorSet = nullptr;
 		DescriptorSet* PBR_DescriptorSet = nullptr;
 
+		VkDevice logicalDevice;
+
+	};
+
+
+	struct OSKAPI_CALL SkyboxTexture {
+		friend class VulkanRenderer;
+
+	private:
+		VULKAN::VulkanImage texture{};
+		
+		DescriptorSet* Descriptor;
+		
 	};
 
 }

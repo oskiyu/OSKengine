@@ -9,7 +9,7 @@
 #include "OldModel.h"
 #include "ModelFormat.h"
 #include "Shader.h"
-#include "Skybox.h"
+#include "OldSkybox.h"
 #include "SoundEntity.h"
 #include "OldTexture.h"
 
@@ -44,7 +44,7 @@ namespace OSK {
 
 
 		//Carga un Skybox desde 6 texturas individuales.
-		void LoadSkybox(Skybox& skybox, const std::array<std::string, 6> faces);
+		void LoadSkybox(OldSkybox& skybox, const std::array<std::string, 6> faces);
 
 
 		//Carga un shader desde un archivo.

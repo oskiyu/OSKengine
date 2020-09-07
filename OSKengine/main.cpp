@@ -18,8 +18,14 @@
 #include "ToString.h"
 #include "Log.h"
 
+template <typename T> struct Vector3_t {
+	T x;
+	T y;
+	T z;
+};
+
 int program() {
-	
+
 	OSK::WindowAPI* windowAPI = new OSK::WindowAPI();
 	windowAPI->SetWindow(1280, 720, "OSKengine Vk", OSK::GraphicsAPI::VULKAN);
 	windowAPI->SetMouseMovementMode(OSK::MouseMovementMode::RAW);
@@ -87,6 +93,9 @@ int program() {
 	OSK::MouseState OldMS = {};
 	OSK::MouseState NewMS = {};
 
+	OSK::Vector4i vec(0, 1, 2, 3);
+	OSK::Vector4f a= vec.ToVector4f();
+
 	windowAPI->UpdateKeyboardState(OldKS);
 	windowAPI->UpdateKeyboardState(NewKS);
 	windowAPI->UpdateMouseState(OldMS);
@@ -153,13 +162,10 @@ int program() {
 			spriteBatch.DrawString(fuente, "FPS: " + std::to_string((int)FPS), 0.75f, OSK::Vector2(0, 5), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
 			spriteBatch.DrawString(fuente, "OSKengine " + std::string(OSK::ENGINE_VERSION), 0.75f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
 
-			spriteBatch.DrawString(fuente, "3D POS: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Position), 0.75f, OSK::Vector2(0, 25), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
-			spriteBatch.DrawString(fuente, "3D ROT: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Rotation), 0.75f, OSK::Vector2(0, 40), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
-			spriteBatch.DrawString(fuente, "3D FRONT: " + OSK::ToString(RenderAPI.DefaultCamera3D.Front), 0.75f, OSK::Vector2(0, 55), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
-			//spriteBatch.DrawString(fuente, "3D ROT: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Rotation), 0.75f, OSK::Vector2(0, 35), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
-
-			//RenderAPI.DrawUserInterface(spriteBatch);
-
+			spriteBatch.DrawString(fuente, "3D POS: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Position.ToGLM()), 0.75f, OSK::Vector2(0, 25), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+			spriteBatch.DrawString(fuente, "3D ROT: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Rotation.ToGLM()), 0.75f, OSK::Vector2(0, 40), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+			spriteBatch.DrawString(fuente, "3D FRONT: " + OSK::ToString(RenderAPI.DefaultCamera3D.Front.ToGLM()), 0.75f, OSK::Vector2(0, 55), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+			
 			RenderAPI.SubmitSpriteBatch(spriteBatch);
 		}
 

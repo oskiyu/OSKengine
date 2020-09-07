@@ -22,6 +22,8 @@ namespace OSK {
 
 	public:
 
+		~Sprite();
+
 		//Establece la región de la textura que se renderizará en este sprite.
 		void SetTexCoords(const Vector4& texCoords);
 
@@ -61,6 +63,7 @@ namespace OSK {
 		};
 
 		bool hasChanged = false;
+		
 	};
 
 }

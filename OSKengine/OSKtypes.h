@@ -54,7 +54,7 @@ typedef uint32_t bufferObject_t;
 //Define la precisión de las variables de posición, ángulo, zoom, velocidad y sensibilidad de la cámara.
 // <oskFloat_t>: precisión normal (float_t)
 // <oskFloatPrecise_t>: precisión alta (double)
-typedef oskFloat_t cameraVar_t;
+typedef double cameraVar_t;
 
 
 //[oskFloat_t]

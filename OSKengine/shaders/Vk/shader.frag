@@ -51,8 +51,6 @@ void main() {
 		float distance = length(lights.points[i].Position - fragPos);
 		//if (lights.points[i].Radius < distance)
 			//continue;
-		//if (lights.points[i].Intensity == 0.0)
-			//break;
 
 		final += calculate_point_light(lights.points[i], norm, fragPos, viewDir);
     }
@@ -72,7 +70,12 @@ vec3 calculate_dir_light(DirLight light, vec3 normal, vec3 viewDir) {
 	vec3 reflectDir = reflect(-lightDir, normal);
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32/*material.Shininess*/) * light.Intensity;
 
-	return light.Ambient.xyz * vec3(texture(diffuseTexture, TexCoords).xyz * 0.025 + vec3(texture(diffuseTexture, TexCoords).xyz) * diff * light.Intensity + spec * light.Intensity * vec3(texture(specularTexture, TexCoords)));
+	//Siempre se ve un poco aunque sea.
+	vec3 outputColor = light.Ambient.xyz * vec3(texture(diffuseTexture, TexCoords)) * (0.025 + light.Intensity * 0.1);
+
+	outputColor += vec3(texture(diffuseTexture, TexCoords).xyz) * diff * light.Intensity + spec * light.Intensity * vec3(texture(specularTexture, TexCoords));
+	
+	return outputColor * light.Ambient.xyz;
 }
 
 vec3 calculate_point_light(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir) {
@@ -89,6 +92,7 @@ vec3 calculate_point_light(PointLight light, vec3 normal, vec3 fragPos, vec3 vie
 	float distance = length(light.Position - fragPos) / 5;
 	float attenuation = 1.0 / (light.Constant + light.Linear * distance + light.Quadratic * (distance * distance));
 	
+	//attenuation = (attenuation > 1) + (attenuation < 1 && attenuation > 0) * attenuation;;
 	if (attenuation > 1)
 		attenuation = 1;
 	if (attenuation < 0)

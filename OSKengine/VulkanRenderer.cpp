@@ -104,14 +104,14 @@ OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appNam
 	
 	lights.Points.resize(16);
 	lights.Points.push_back({});
-	lights.Points[0].Radius = 2;
+	lights.Points[0].Radius = 50;
 	lights.Points[0].Color = OSK::Color(0.0f, 1.0f, 1.0f);
 	lights.Points[0].Intensity = 2.0f;
 	lights.Points[0].Constant = 1.0f;
 	lights.Points[0].Linear = 0.09f;
 	lights.Points[0].Quadratic = 0.032f;
 	lights.Points[0].Position = { 5, 5, 5 };
-	lights.Directional = DirectionalLight{ OSK::Vector3(-0.7f, 0.8f, -0.4f), OSK::Color(1.0f, 0.9f, 1.0f), 2.0f };
+	lights.Directional = DirectionalLight{ OSK::Vector3(-0.7f, 0.8f, -0.4f), OSK::Color::RED(), 2.0f };
 
 	createInstance(appName, gameVersion);
 	setupDebugConsole();
@@ -124,6 +124,7 @@ OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appNam
 	createDescriptorSetLayout();
 
 	PhongDescriptorLayout = CreateNewPhongDescriptorLayout();
+	SkyboxDescriptorLayout = CreateNewSkyboxDescriptorLayout();
 
 	OskResult result = createGraphicsPipeline2D();
 	if (result != OskResult::SUCCESS) {
@@ -135,6 +136,8 @@ OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appNam
 		OSK_SHOW_TRACE();
 		return result;
 	}
+
+	//SkyboxGraphicsPipeline = CreateNewSkyboxPipeline();
 
 	createCommandPool();
 	createDepthResources();
@@ -326,6 +329,7 @@ DescriptorSet* VulkanRenderer::CreateNewDescriptorSet() const {
 }
 
 //Phong lighting.
+
 GraphicsPipeline* VulkanRenderer::CreateNewPhongPipeline(const std::string& vertexPath, const std::string& fragmentPath) const {
 	GraphicsPipeline* phongPipeline = CreateNewGraphicsPipeline(vertexPath, fragmentPath);
 	phongPipeline->SetViewport({ 0, 0, (float)SwapchainExtent.width, (float)SwapchainExtent.height });
@@ -334,7 +338,7 @@ GraphicsPipeline* VulkanRenderer::CreateNewPhongPipeline(const std::string& vert
 	phongPipeline->SetDepthStencil(true);
 	phongPipeline->SetPushConstants(VK_SHADER_STAGE_VERTEX_BIT, sizeof(PushConst3D));
 	phongPipeline->SetLayout(&PhongDescriptorLayout->VulkanDescriptorSetLayout);
-	phongPipeline->Create(Renderpass);
+	phongPipeline->Create(renderpass);
 
 	return phongPipeline;
 }
@@ -358,6 +362,36 @@ void VulkanRenderer::CreateNewPhongDescriptorSet(ModelTexture* texture) const {
 	texture->PhongDescriptorSet->AddUniformBuffers(LightsUniformBuffers, 2, lights.Size());
 	texture->PhongDescriptorSet->AddImage(&texture->Specular, GlobalImageSampler, 3);
 	texture->PhongDescriptorSet->Create();
+}
+
+GraphicsPipeline* VulkanRenderer::CreateNewSkyboxPipeline(const std::string& vertexPath, const std::string& fragmentPath) const {
+	GraphicsPipeline* skyboxPipeline = CreateNewGraphicsPipeline(vertexPath, fragmentPath);
+	skyboxPipeline->SetViewport({ 0, 0, (float)SwapchainExtent.width, (float)SwapchainExtent.height });
+	skyboxPipeline->SetRasterizer(VK_FALSE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_NONE, VK_FRONT_FACE_CLOCKWISE);
+	skyboxPipeline->SetMSAA(VK_FALSE, VK_SAMPLE_COUNT_1_BIT);
+	skyboxPipeline->SetDepthStencil(true);
+	//skyboxPipeline->SetPushConstants(VK_SHADER_STAGE_VERTEX_BIT, sizeof(PushConst3D));
+	skyboxPipeline->SetLayout(&SkyboxDescriptorLayout->VulkanDescriptorSetLayout);
+	skyboxPipeline->Create(renderpass);
+
+	return skyboxPipeline;
+}
+
+DescriptorLayout* VulkanRenderer::CreateNewSkyboxDescriptorLayout() const {
+	DescriptorLayout* descLayout = CreateNewDescriptorLayout();
+	descLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
+	descLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
+	descLayout->Create(Settings.MaxTextures);
+
+	return descLayout;
+}
+
+void VulkanRenderer::CreateNewSkyboxDescriptorSet(SkyboxTexture* texture) const {
+	texture->Descriptor = CreateNewDescriptorSet();
+	texture->Descriptor->SetDescriptorLayout(SkyboxDescriptorLayout);
+	texture->Descriptor->AddUniformBuffers(UniformBuffers, 0, sizeof(UBO));
+	texture->Descriptor->AddImage(&texture->texture, GlobalImageSampler, 1);
+	texture->Descriptor->Create();
 }
 
 Texture* VulkanRenderer::LoadTexture(const std::string& path) {
@@ -402,7 +436,7 @@ Texture* VulkanRenderer::LoadTexture(const std::string& path) {
 }
 
 ModelTexture* OSK::VulkanRenderer::LoadModelTexture(const std::string& rootPath) {
-	ModelTexture* loadedTexture = new ModelTexture();
+	ModelTexture* loadedTexture = new ModelTexture(LogicalDevice);
 	
 	//Albedo.
 	{
@@ -486,9 +520,6 @@ TempModelData VulkanRenderer::GetModelTempData(const std::string& path, const fl
 			vertex.Normals.y = -scene->mMeshes[i]->mNormals[v].y;
 			vertex.Normals.z = scene->mMeshes[i]->mNormals[v].z;
 
-			std::cout << "NORMALS: " << vertex.Normals.x << ":" <<
-				vertex.Normals.y << ":" << vertex.Normals.z << std::endl;
-
 			vertex.TextureCoordinates = glm::make_vec2(&scene->mMeshes[i]->mTextureCoords[0][v].x);
 
 			if (scene->mMeshes[i]->HasVertexColors(0))
@@ -539,6 +570,73 @@ void VulkanRenderer::LoadModel(Model& model, const std::string& path) {
 	model.Data = LoadModelData(path);
 	auto direct = path.substr(0, path.find_last_of('/'));
 	model.texture = LoadModelTexture(direct);
+}
+
+
+void VulkanRenderer::LoadSkybox(Skybox& skybox, const std::string& path) {
+	skybox.texture = new SkyboxTexture{};
+
+	int width;
+	int height;
+	int nChannels;
+
+	std::string finalPath = path + "/right.jpg";
+
+	stbi_uc* pixels = stbi_load(finalPath.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
+	VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels * 6;
+	stbi_image_free(pixels);
+
+	stbi_uc* finalPixels = new stbi_uc[width * height * nChannels * 6];
+
+	finalPath = path + "/right.jpg";
+	pixels = stbi_load(finalPath.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
+	memcpy(&finalPixels[0], pixels, size / 6);
+	stbi_image_free(pixels);
+
+	finalPath = path + "/left.jpg";
+	pixels = stbi_load(finalPath.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
+	memcpy(&finalPixels[size / 6], pixels, size / 6);
+	stbi_image_free(pixels);
+
+	finalPath = path + "/top.jpg";
+	pixels = stbi_load(finalPath.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
+	memcpy(&finalPixels[(size / 6) * 2], pixels, size / 6);
+	stbi_image_free(pixels);
+
+	finalPath = path + "/bottom.jpg";
+	pixels = stbi_load(finalPath.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
+	memcpy(&finalPixels[(size / 6) * 3], pixels, size / 6);
+	stbi_image_free(pixels);
+
+	finalPath = path + "/front.jpg";
+	pixels = stbi_load(finalPath.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
+	memcpy(&finalPixels[(size / 6) * 4], pixels, size / 6);
+	stbi_image_free(pixels);
+
+	finalPath = path + "/back.jpg";
+	pixels = stbi_load(finalPath.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
+	memcpy(&finalPixels[(size / 6) * 5], pixels, size / 6);
+	stbi_image_free(pixels);
+	
+
+	VulkanBuffer stagingBuffer;
+	CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+	void* data;
+	vkMapMemory(LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
+	memcpy(data, finalPixels, static_cast<size_t>(size));
+	vkUnmapMemory(LogicalDevice, stagingBuffer.Memory);
+
+	createImage(&skybox.texture->texture, width * 6, height, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+
+	transitionImageLayout(&skybox.texture->texture, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+	copyBufferToImage(&stagingBuffer, &skybox.texture->texture, width, height);
+	transitionImageLayout(&skybox.texture->texture, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+
+	DestroyBuffer(stagingBuffer);
+
+	createImageView(&skybox.texture->texture, VK_FORMAT_R8G8B8A8_SRGB);
+
+	//CreateNewSkyboxDescriptorSet(skybox.texture);
 }
 
 
@@ -982,68 +1080,29 @@ void VulkanRenderer::createSwapchainImageViews() {
 
 
 void VulkanRenderer::createRenderpass() {
-	//Un solo buffer (una imagen).
-	VkAttachmentDescription colorAttachment{};
-	colorAttachment.format = SwapchainFormat;
-	colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
-	//LoadOp: qué se hace al renderizarsobre  una imagen.
-	//	VK_ATTACHMENT_LOAD_OP_LOAD: se conserva lo que había antes.
-	//	VK_ATTACHMENT_LOAD_OP_CLEAR: se limpia.
-	//	VK_ATTACHMENT_LOAD_OP_DONT_CARE: da igual.
-	colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
-	colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
-	//Stencil.
-	colorAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-	colorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-	colorAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-	colorAttachment.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+	renderpass = new Renderpass(LogicalDevice);
 
-	VkAttachmentReference colorAttachmentRef{};
-	colorAttachmentRef.attachment = 0;
-	colorAttachmentRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+	RenderpassAttachment clrAttachment{};
+	clrAttachment.AddAttachment(SwapchainFormat, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR);
+	clrAttachment.CreateReference(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
 
-	VkAttachmentDescription depthAttachment{};
-	depthAttachment.format = getDepthFormat();
-	depthAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
-	depthAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
-	depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-	depthAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-	depthAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-	depthAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-	depthAttachment.finalLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+	RenderpassAttachment dpthAttachment{};
+	dpthAttachment.AddAttachment(getDepthFormat(), VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
+	dpthAttachment.CreateReference(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
 
-	VkAttachmentReference depthAttachmentRef{};
-	depthAttachmentRef.attachment = 1;
-	depthAttachmentRef.layout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+	std::vector<RenderpassAttachment> attchments = { clrAttachment };
 
-	VkSubpassDependency dependency{};
-	dependency.srcSubpass = VK_SUBPASS_EXTERNAL;
-	dependency.dstSubpass = 0;
-	dependency.srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-	dependency.srcAccessMask = 0;
-	dependency.dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-	dependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+	RenderpassSubpass sbPass{};
+	sbPass.SetColorAttachments(attchments);
+	sbPass.SetDepthStencilAttachment(dpthAttachment);
+	sbPass.SetPipelineBindPoint();
+	sbPass.Set(VK_SUBPASS_EXTERNAL, 0, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT, 0, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT, VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT);
 
-	//Subpasses.
-	VkSubpassDescription subpass{};
-	subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
-	subpass.colorAttachmentCount = 1;
-	subpass.pColorAttachments = &colorAttachmentRef;
-	subpass.pDepthStencilAttachment = &depthAttachmentRef;
-
-	const std::array<VkAttachmentDescription, 2> attachments = { colorAttachment, depthAttachment };
-	VkRenderPassCreateInfo renderPassInfo{};
-	renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
-	renderPassInfo.attachmentCount = attachments.size();
-	renderPassInfo.pAttachments = attachments.data();
-	renderPassInfo.subpassCount = 1;
-	renderPassInfo.pSubpasses = &subpass;
-	renderPassInfo.dependencyCount = 1;
-	renderPassInfo.pDependencies = &dependency;
-
-	VkResult result = vkCreateRenderPass(LogicalDevice, &renderPassInfo, nullptr, &Renderpass);
-	if (result != VK_SUCCESS)
-		throw std::runtime_error("ERROR: crear renderpass.");
+	renderpass->SetMSAA(VK_SAMPLE_COUNT_1_BIT);
+	renderpass->AddSubpass(sbPass);
+	renderpass->AddAttachment(clrAttachment);
+	renderpass->AddAttachment(dpthAttachment);
+	renderpass->Create();
 }
 
 
@@ -1065,7 +1124,7 @@ OskResult VulkanRenderer::createGraphicsPipeline2D() {
 	GraphicsPipeline2D->SetDepthStencil(false);
 	GraphicsPipeline2D->SetPushConstants(VK_SHADER_STAGE_VERTEX_BIT, sizeof(PushConst2D));
 	GraphicsPipeline2D->SetLayout(&DescLayout->VulkanDescriptorSetLayout);
-	OskResult result = GraphicsPipeline2D->Create(Renderpass);
+	OskResult result = GraphicsPipeline2D->Create(renderpass);
 	if (result != OskResult::SUCCESS)
 		OSK_SHOW_TRACE();
 
@@ -1114,7 +1173,7 @@ void VulkanRenderer::createFramebuffers() {
 
 		VkFramebufferCreateInfo framebufferInfo{};
 		framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-		framebufferInfo.renderPass = Renderpass;
+		framebufferInfo.renderPass = renderpass->VulkanRenderpass;
 		framebufferInfo.attachmentCount = attachments.size();
 		framebufferInfo.pAttachments = attachments.data();
 		framebufferInfo.width = SwapchainExtent.width;
@@ -1244,8 +1303,6 @@ void VulkanRenderer::closeSwapchain() {
 	delete GraphicsPipeline2D;
 	delete GraphicsPipeline3D;
 
-	vkDestroyRenderPass(LogicalDevice, Renderpass, nullptr);
-
 	for (const auto& i : SwapchainImageViews)
 		vkDestroyImageView(LogicalDevice, i, nullptr);
 
@@ -1277,6 +1334,8 @@ void VulkanRenderer::Close() {
 	vkDestroyCommandPool(LogicalDevice, CommandPool, nullptr);
 
 	delete DescLayout;
+
+	delete renderpass;
 
 	for (uint32_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
 		vkDestroySemaphore(LogicalDevice, ImageAvailableSemaphores[i], nullptr);
@@ -1313,10 +1372,13 @@ void VulkanRenderer::RecreateSwapchain() {
 	createSwapchain();
 	createSwapchainImageViews();
 	createRenderpass();
-	if (GraphicsPipeline2D != nullptr)
+	if (GraphicsPipeline2D != nullptr) {
 		createGraphicsPipeline2D();
-	if (GraphicsPipeline3D != nullptr)
+	
+	}
+	if (GraphicsPipeline3D != nullptr) {
 		createGraphicsPipeline3D();
+	}
 	createDepthResources();
 	createFramebuffers();
 
@@ -1357,11 +1419,11 @@ void VulkanRenderer::DestroyBuffer(VulkanBuffer& buffer) const {
 }
 
 
-void VulkanRenderer::createImageView(VulkanImage* img, VkFormat format, VkImageAspectFlags aspect) const {
+void VulkanRenderer::createImageView(VulkanImage* img, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type) const {
 	VkImageViewCreateInfo viewInfo{};
 	viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 	viewInfo.image = img->Image;
-	viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
+	viewInfo.viewType = type;
 	viewInfo.format = format;
 	viewInfo.subresourceRange.aspectMask = aspect;
 	viewInfo.subresourceRange.baseMipLevel = 0;
@@ -1438,9 +1500,10 @@ void VulkanRenderer::updateCommandBuffers() {
 		//Comenzar el renderpass.
 		VkRenderPassBeginInfo renderPassInfo{};
 		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-		renderPassInfo.renderPass = Renderpass;
+		renderPassInfo.renderPass = renderpass->VulkanRenderpass;
 		renderPassInfo.framebuffer = Framebuffers[i];
 		renderPassInfo.renderArea.offset = { 0, 0 };
+
 		renderPassInfo.renderArea.extent = SwapchainExtent;
 		std::array<VkClearValue, 2> clearValues = {};
 		clearValues[0] = { 0.0f, 0.0f, 0.0f, 1.0f }; //Color.
