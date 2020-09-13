@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Texture.h"
+#include "Model.h"
 
 namespace OSK {
 
@@ -9,6 +10,8 @@ namespace OSK {
 	public:
 
 		SkyboxTexture* texture = nullptr;
+
+		static ModelData* Model;
 
 	};
 

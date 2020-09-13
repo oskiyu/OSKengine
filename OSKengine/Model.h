@@ -28,6 +28,8 @@ namespace OSK {
 
 		void Bind(VkCommandBuffer commandBuffer) const;
 
+		void Draw(VkCommandBuffer commandBuffer) const;
+
 		VulkanBuffer VertexBuffer;
 
 		VulkanBuffer IndexBuffer;

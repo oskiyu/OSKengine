@@ -127,7 +127,7 @@ namespace OSK {
 		this->descriptorSetLayout = layout;
 		pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
 		pipelineLayoutInfo.setLayoutCount = 1;
-		pipelineLayoutInfo.pSetLayouts = layout;
+		pipelineLayoutInfo.pSetLayouts = this->descriptorSetLayout;
 		if (pushConstantsHaveBeenSet) {
 			pipelineLayoutInfo.pushConstantRangeCount = 1;
 			pipelineLayoutInfo.pPushConstantRanges = &pushConstRange;

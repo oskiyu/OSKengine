@@ -17,10 +17,6 @@
 #include <unordered_map>
 #include "Font.h"
 #include "AnimatedModel.h"
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-
 #include "Renderpass.h"
 #include "Model.h"
 #include "GraphicsPipeline.h"
@@ -28,9 +24,13 @@
 #include "LightsUBO.h"
 #include "Skybox.h"
 
+#include "ContentManager.h"
+
 namespace OSK {
 
 	class OSKAPI_CALL VulkanRenderer {
+
+		friend class ContentManager;
 
 	public:
 	
@@ -64,55 +64,6 @@ namespace OSK {
 		void Close();
 
 
-		//Carga una textura 2D (para un sprite).
-		//	<path>: ruta de la textura (incluyendo la extensión de la imagen).
-		Texture* LoadTexture(const std::string& path);
-
-
-		//Carga una textura 2D (para un modelo 3D).
-		//	<path>: ruta de la textura (incluyendo la extensión de la imagen).
-		ModelTexture* LoadModelTexture(const std::string& path);
-
-
-		//Carga los vértices y los índices de un modelo 3D.
-		//	<path>: ruta del modelo (incluyendo la extensión del modelo).
-		//	<scala>: escala del modelo 3D.
-		TempModelData GetModelTempData(const std::string& path, const float_t& scale = 1.0f) const;
-
-
-		//Carga un modelo 3D con sus buffers creados.
-		//Solamente existe una instancia de ModelData* por cada <path>.
-		//	<path>: ruta del modelo (incluyendo la extensión del modelo).
-		//	<scala>: escala del modelo 3D.
-		ModelData* LoadModelData(const std::string& path, const float_t& scale = 1.0f);
-
-
-		//Carga un modelo 3D.
-		//Las texturas del modelo deben estar en la misma carpeta que el modelo.
-		//	<model>: modelo a cargar.
-		//	<path>: ruta del modelo (incluyendo la extensión del modelo).
-		void LoadModel(Model& model, const std::string& path);
-
-		void LoadSkybox(Skybox& skybox, const std::string& path);
-
-
-		//Crea un modelo 3D a partir de sus vértices y sus índices.
-		//	<vértices>: vértices.
-		//	<índices>: índices (vertexIndex_t).
-		ModelData* CreateModel(const std::vector<Vertex>& vertices, const std::vector<vertexIndex_t>& indices);
-
-
-		//Carga un modelo 3D animado.
-		//	<model>: modelo animado a cargar.
-		//	<path>: ruta del modelo (incluyendo la extensión del modelo).
-		void LoadAnimatedModel(AnimatedModel& model, const std::string& path);
-
-
-		//Carga un sprite.
-		//	<texture>: sprite a cargar.
-		//	<path>: ruta de la textura (incluyendo la extensión).
-		void LoadSprite(Sprite* texture, const std::string& path);
-
 		//Establece el spriteBatch que se va a renderizar al llamar a RenderFrame().
 		//	<spriteBatch>: spriteBatch que se renderizará.
 		void SubmitSpriteBatch(const SpriteBatch& spriteBatch);
@@ -120,11 +71,6 @@ namespace OSK {
 		//Recrea el swapchain.
 		void RecreateSwapchain();
 
-		//Carga una fuente.
-		//	<font>: fuente a cargar.
-		//	<source>: ruta del archivo (incluyendo la extensión).
-		//	<size>: tamaño al que se va a cargar la fuente, en píxeles.
-		void LoadFont(Font& fuente, const std::string& source, uint32_t size);
 
 		//Crea un spriteBatch.
 		SpriteBatch CreateSpriteBatch();
@@ -188,6 +134,9 @@ namespace OSK {
 			std::string VertexShaderPath3D = "Shaders/Vk/vert.spv";
 			std::string FragmentShaderPath3D = "Shaders/Vk/frag.spv";
 
+			std::string SkyboxVertexPath = "shaders/VK_Skybox/vert.spv";
+			std::string SkyboxFragmentPath = "shaders/VK_Skybox/frag.spv";
+
 			uint32_t MaxTextures = 32;
 
 			bool AutoUpdateCommandBuffers = true;
@@ -206,6 +155,8 @@ namespace OSK {
 		//Límite de FPS.
 		float FPSlimit = INFINITE;
 
+
+		ContentManager* Content = new ContentManager(this);
 	private:
 
 		//Crea la instancia de Vulkan.
@@ -250,9 +201,9 @@ namespace OSK {
 
 		void createCommandBuffers();
 
-		void createImage(VULKAN::VulkanImage* image, const uint32_t& width, const uint32_t& height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties);
+		void createImage(VULKAN::VulkanImage* image, const uint32_t& width, const uint32_t& height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, const uint32_t& arrayLevels = 1, VkImageCreateFlagBits flags = (VkImageCreateFlagBits)0, const uint32_t& mipLevels = 1);
 
-		void createImageView(VULKAN::VulkanImage* img, VkFormat format, VkImageAspectFlags aspect = VK_IMAGE_ASPECT_COLOR_BIT, VkImageViewType type = VK_IMAGE_VIEW_TYPE_2D) const;
+		void createImageView(VULKAN::VulkanImage* img, VkFormat format, VkImageAspectFlags aspect = VK_IMAGE_ASPECT_COLOR_BIT, VkImageViewType type = VK_IMAGE_VIEW_TYPE_2D, const uint32_t& layerCount = 1, const uint32_t& mipLevels = 1) const;
 
 		void destroyImage(VULKAN::VulkanImage* img) const;
 
@@ -260,7 +211,7 @@ namespace OSK {
 
 		void copyBufferToImage(VulkanBuffer* buffer, VULKAN::VulkanImage* img, const uint32_t& width, const uint32_t& height) const;
 
-		void transitionImageLayout(VULKAN::VulkanImage* img, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout) const;
+		void transitionImageLayout(VULKAN::VulkanImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, const uint32_t& mipLevels = 1, const uint32_t& arrayLevels = 1) const;
 
 		void updateCommandBuffers();
 
@@ -275,10 +226,6 @@ namespace OSK {
 		void updateSpriteVertexBuffer(Sprite* obj) const;
 
 		void destroyTexture(Texture* texture) const;
-
-		void destroyAllTextures();
-
-		void destroyAllSprites();
 
 		VULKAN::VulkanImage createImageFromBitMap(uint32_t width, uint32_t height, uint8_t* pixels);
 
@@ -397,17 +344,8 @@ namespace OSK {
 
 		SpriteBatch currentSpriteBatch{};
 		
-		std::unordered_map<std::string, Texture*> textureFromString = {};
-		std::vector<Texture> textures = {};
-		std::vector<ModelData*> modelDatas = {};
-		std::unordered_map<std::string, ModelData*> modelDataFromPath = {};
-
-		std::vector<Sprite*> sprites = {};
 
 		bool hasBeenInit = false;
-
-		static Assimp::Importer GlobalImporter;
-		const static int AssimpFlags = aiProcess_Triangulate | aiProcess_GenNormals;
 
 		VkPhysicalDeviceMemoryProperties memProperties;
 
@@ -420,6 +358,8 @@ namespace OSK {
 
 		/*NEW SYNC*/
 		VkFence* fences = nullptr;
+
+		Skybox LevelSkybox{};
 	};
 
 }

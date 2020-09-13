@@ -122,22 +122,28 @@ namespace OSK {
 			return glm::vec<2, T>(X, Y);
 		}
 
+		//Devuelve un vector con variables de distinto tipo.
+		//P = nuevo tipo de las variables.
 		template <typename P> inline Vector2_t<P> ToVec2() const {
 			return Vector2_t<P>(X, Y);
 		}
 
+		//Devuelve un Vector2f a partir de este.
 		inline Vector2_t<float_t> ToVector2f() const {
 			return ToVec2<float>();
 		}
 
+		//Devuelve un Vector2d a partir de este.
 		inline Vector2_t<double_t> ToVector2d() const {
 			return ToVec2<double_t>();
 		}
 
+		//Devuelve un Vector2i a partir de este.
 		inline Vector2_t<int32_t> ToVector2i() const {
 			return ToVec2<int32_t>();
 		}
 
+		//Devuelve un Vector2ui a partir de este.
 		inline Vector2_t<uint32_t> ToVector2ui() const {
 			return ToVec2<uint32_t>();
 		}
@@ -151,11 +157,25 @@ namespace OSK {
 	};
 
 
+	//Representa un vector 2D.
+	//Precisión = float.
 	typedef Vector2_t<float_t> Vector2;
 
+	
+	//Representa un vector 2D.
+	//Precisión = float.
 	typedef Vector2_t<float_t> Vector2f;
+
+	//Representa un vector 2D.
+	//Precisión = double.
 	typedef Vector2_t<double_t> Vector2d;
+
+	//Representa un vector 2D.
+	//Precisión = int32.
 	typedef Vector2_t<int32_t> Vector2i;
+
+	//Representa un vector 2D.
+	//Precisión = uint32.
 	typedef Vector2_t<uint32_t> Vector2ui;
 
 }

@@ -12,6 +12,7 @@ namespace OSK {
 	struct OSKAPI_CALL Texture {
 		friend class VulkanRenderer;
 		friend class Sprite;
+		friend class ContentManager;
 
 	private:
 		VULKAN::VulkanImage Albedo{};
@@ -29,6 +30,7 @@ namespace OSK {
 	//Textura para 3D.
 	struct OSKAPI_CALL ModelTexture {
 		friend class VulkanRenderer;
+		friend class ContentManager;
 
 	public:
 		~ModelTexture();
@@ -52,6 +54,7 @@ namespace OSK {
 
 	struct OSKAPI_CALL SkyboxTexture {
 		friend class VulkanRenderer;
+		friend class ContentManager;
 
 	private:
 		VULKAN::VulkanImage texture{};

@@ -133,22 +133,28 @@ namespace OSK {
 			return glm::vec<3, T>(X, Y, Z);
 		}
 
+		//Devuelve un vector con variables de distinto tipo.
+		//P = nuevo tipo de las variables.
 		template <typename P> inline Vector3_t<P> ToVec3() const {
 			return Vector3_t<P>(X, Y, Z);
 		}
 
+		//Devuelve un Vector3f a partir de este.
 		inline Vector3_t<float_t> ToVector3f() const {
 			return ToVec3<float>();
 		}
 
+		//Devuelve un Vector3d a partir de este.
 		inline Vector3_t<double_t> ToVector3d() const {
 			return ToVec3<double_t>();
 		}
 
+		//Devuelve un Vector3i a partir de este.
 		inline Vector3_t<int32_t> ToVector3i() const {
 			return ToVec3<int32_t>();
 		}
 
+		//Devuelve un Vector3ui a partir de este.
 		inline Vector3_t<uint32_t> ToVector3ui() const {
 			return ToVec3<uint32_t>();
 		}
@@ -164,12 +170,26 @@ namespace OSK {
 
 	};
 
-
+	
+	//Representa un vector 3D.
+	//Precisión = float.
 	typedef Vector3_t<float_t> Vector3;
 
+
+	//Representa un vector 3D.
+	//Precisión = float.
 	typedef Vector3_t<float_t> Vector3f;
+	
+	//Representa un vector 3D.
+	//Precisión = double.
 	typedef Vector3_t<double_t> Vector3d;
+	
+	//Representa un vector 3D.
+	//Precisión = int32.
 	typedef Vector3_t<int32_t> Vector3i;
+	
+	//Representa un vector 3D.
+	//Precisión = uint32.
 	typedef Vector3_t<uint32_t> Vector3ui;
 
 }

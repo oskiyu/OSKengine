@@ -118,6 +118,7 @@ namespace OSK {
 			return X + Z;
 		}
 
+		//Punto central del rectángulo.
 		Vector2_t<T> GetRectangleMiddlePoint() const {
 			return Vector2_t<T>(X + GetRectangleWidth() / 2, Y + GetRectangleHeight() / 2);
 		}
@@ -137,22 +138,28 @@ namespace OSK {
 			return glm::vec<4, T>(X, Y, Z, W);
 		}
 
+		//Devuelve un vector con variables de distinto tipo.
+		//P = nuevo tipo de las variables.
 		template <typename P> inline Vector4_t<P> ToVec4() const {
 			return Vector4_t<P>(X, Y, Z, W);
 		}
 
+		//Devuelve un Vector4f a partir de este.
 		inline Vector4_t<float_t> ToVector4f() const {
 			return ToVec4<float>();
 		}
 
+		//Devuelve un Vector4d a partir de este.
 		inline Vector4_t<double_t> ToVector4d() const {
 			return ToVec4<double_t>();
 		}
 
+		//Devuelve un Vector4i a partir de este.
 		inline Vector4_t<int32_t> ToVector4i() const {
 			return ToVec4<int32_t>();
 		}
 
+		//Devuelve un Vector4ui a partir de este.
 		inline Vector4_t<uint32_t> ToVector4ui() const {
 			return ToVec4<uint32_t>();
 		}
@@ -175,12 +182,27 @@ namespace OSK {
 
 	};
 
+
+	//Representa un vector 4D.
+	//Precisión = float.
 	typedef Vector4_t<float_t> Vector4;
 
-	typedef Vector4_t<int32_t> Vector4i;
-	typedef Vector4_t<uint32_t> Vector4ui;
+	
+	//Representa un vector 4D.
+	//Precisión = float.
 	typedef Vector4_t<float_t> Vector4f;
+	
+	//Representa un vector 4D.
+	//Precisión = double.
 	typedef Vector4_t<double_t> Vector4d;
+	
+	//Representa un vector 4D.
+	//Precisión = int32.
+	typedef Vector4_t<int32_t> Vector4i;
+	
+	//Representa un vector 4D.
+	//Precisión = uint32.
+	typedef Vector4_t<uint32_t> Vector4ui;
 
 
 }

@@ -27,6 +27,9 @@
 #include "Camera3D.h"
 #include FT_FREETYPE_H
 
+#include <ktx.h>
+#include <ktxvulkan.h>
+
 using namespace OSK;
 using namespace OSK::VULKAN;
 
@@ -35,8 +38,7 @@ constexpr uint32_t MAX_FRAMES_IN_FLIGHT = 2;
 Model model{};
 ModelData* plane{};
 
-
-Assimp::Importer VulkanRenderer::GlobalImporter;
+Model skyboxModel{};
 
 VkPresentModeKHR translatePresentMode(const PresentMode& mode) {
 	switch (mode) {
@@ -98,7 +100,6 @@ VkSurfaceFormatKHR getSwapchainFormat(const std::vector<VkSurfaceFormatKHR>& for
 	return formats[0];
 }
 
-
 OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appName, const Version& gameVersion) {
 	renderMode = mode;
 	
@@ -137,7 +138,7 @@ OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appNam
 		return result;
 	}
 
-	//SkyboxGraphicsPipeline = CreateNewSkyboxPipeline();
+	SkyboxGraphicsPipeline = CreateNewSkyboxPipeline("shaders/VK_Skybox/vert.spv", "shaders/VK_Skybox/frag.spv");
 
 	createCommandPool();
 	createDepthResources();
@@ -148,8 +149,8 @@ OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appNam
 	createSyncObjects();
 	createCommandBuffers();
 
-	textures.reserve(Settings.MaxTextures);
-	textureFromString.reserve(Settings.MaxTextures);
+	Skybox::Model = Content->LoadModelData("models/Skybox/cube.obj");
+	Content->LoadSkybox(LevelSkybox, "skybox/skybox.ktx");
 
 	DefaultCamera2D = Camera2D(Window);
 	DefaultCamera3D.Window = Window;
@@ -163,10 +164,11 @@ OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appNam
 	const std::vector<vertexIndex_t> Indices = {
 		0, 1, 2, 2, 3, 0
 	};
-	plane = CreateModel(Vertices, Indices);
+	plane = Content->CreateModel(Vertices, Indices);
 	//LoadAnimatedModel(model, "models/anim2/goblin.dae");
 	//LoadAnimatedModel(model, "models/anim/boblampclean.md5mesh");
-	LoadModel(model, "models/cube/cube.obj");
+	Content->LoadModel(model, "models/cube/cube.obj");
+	skyboxModel.Data = Content->LoadModelData("models/cube/cube.obj");
 
 	hasBeenInit = true;
 
@@ -369,8 +371,7 @@ GraphicsPipeline* VulkanRenderer::CreateNewSkyboxPipeline(const std::string& ver
 	skyboxPipeline->SetViewport({ 0, 0, (float)SwapchainExtent.width, (float)SwapchainExtent.height });
 	skyboxPipeline->SetRasterizer(VK_FALSE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_NONE, VK_FRONT_FACE_CLOCKWISE);
 	skyboxPipeline->SetMSAA(VK_FALSE, VK_SAMPLE_COUNT_1_BIT);
-	skyboxPipeline->SetDepthStencil(true);
-	//skyboxPipeline->SetPushConstants(VK_SHADER_STAGE_VERTEX_BIT, sizeof(PushConst3D));
+	skyboxPipeline->SetDepthStencil(false);
 	skyboxPipeline->SetLayout(&SkyboxDescriptorLayout->VulkanDescriptorSetLayout);
 	skyboxPipeline->Create(renderpass);
 
@@ -392,423 +393,6 @@ void VulkanRenderer::CreateNewSkyboxDescriptorSet(SkyboxTexture* texture) const 
 	texture->Descriptor->AddUniformBuffers(UniformBuffers, 0, sizeof(UBO));
 	texture->Descriptor->AddImage(&texture->texture, GlobalImageSampler, 1);
 	texture->Descriptor->Create();
-}
-
-Texture* VulkanRenderer::LoadTexture(const std::string& path) {
-	if (textureFromString.find(path) != textureFromString.end())
-		return textureFromString[path];
-
-	Texture loadedTexture{};
-			
-	int width;
-	int height;
-	int nChannels;
-
-	stbi_uc* pixels = stbi_load(path.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
-	VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels;
-	loadedTexture.sizeX = width;
-	loadedTexture.sizeY = height;
-
-	VulkanBuffer stagingBuffer;
-	CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-	void* data;
-	vkMapMemory(LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
-	memcpy(data, pixels, static_cast<size_t>(size));
-	vkUnmapMemory(LogicalDevice, stagingBuffer.Memory);
-
-	stbi_image_free(pixels);
-	createImage(&loadedTexture.Albedo, width, height, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-
-	transitionImageLayout(&loadedTexture.Albedo, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
-	copyBufferToImage(&stagingBuffer, &loadedTexture.Albedo, width, height);
-	transitionImageLayout(&loadedTexture.Albedo, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-
-	DestroyBuffer(stagingBuffer);
-
-	createImageView(&loadedTexture.Albedo, VK_FORMAT_R8G8B8A8_SRGB);
-
-	createDescriptorSets(&loadedTexture);
-
-	textures.push_back(loadedTexture);
-	textureFromString[path] = &textures.back();
-	
-	return textureFromString[path];
-}
-
-ModelTexture* OSK::VulkanRenderer::LoadModelTexture(const std::string& rootPath) {
-	ModelTexture* loadedTexture = new ModelTexture(LogicalDevice);
-	
-	//Albedo.
-	{
-		int width;
-		int height;
-		int nChannels;
-
-		std::string path = rootPath + "/td.png";
-		stbi_uc* pixels = stbi_load(path.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
-		VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels;
-		loadedTexture->sizeX = width;
-		loadedTexture->sizeY = height;
-
-		VulkanBuffer stagingBuffer;
-		CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-		void* data;
-		vkMapMemory(LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
-		memcpy(data, pixels, static_cast<size_t>(size));
-		vkUnmapMemory(LogicalDevice, stagingBuffer.Memory);
-
-		stbi_image_free(pixels);
-		createImage(&loadedTexture->Albedo, width, height, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-
-		transitionImageLayout(&loadedTexture->Albedo, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
-		copyBufferToImage(&stagingBuffer, &loadedTexture->Albedo, width, height);
-		transitionImageLayout(&loadedTexture->Albedo, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-
-		DestroyBuffer(stagingBuffer);
-
-		createImageView(&loadedTexture->Albedo, VK_FORMAT_R8G8B8A8_SRGB);
-	}
-	//Specular
-	{
-		int width;
-		int height;
-		int nChannels;
-
-		std::string path = rootPath + "/ts.png";
-		stbi_uc* pixels = stbi_load(path.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
-		VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels;
-		
-		VulkanBuffer stagingBuffer;
-		CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-		void* data;
-		vkMapMemory(LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
-		memcpy(data, pixels, static_cast<size_t>(size));
-		vkUnmapMemory(LogicalDevice, stagingBuffer.Memory);
-
-		stbi_image_free(pixels);
-		createImage(&loadedTexture->Specular, width, height, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-
-		transitionImageLayout(&loadedTexture->Specular, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
-		copyBufferToImage(&stagingBuffer, &loadedTexture->Specular, width, height);
-		transitionImageLayout(&loadedTexture->Specular, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-
-		DestroyBuffer(stagingBuffer);
-
-		createImageView(&loadedTexture->Specular, VK_FORMAT_R8G8B8A8_SRGB);
-	}
-	CreateNewPhongDescriptorSet(loadedTexture);
-
-	return loadedTexture;
-}
-
-TempModelData VulkanRenderer::GetModelTempData(const std::string& path, const float_t& scale) const {
-	const aiScene* scene;
-
-	scene = GlobalImporter.ReadFile(path.c_str(), AssimpFlags);
-
-	std::vector<Vertex> Vertices;
-
-	//Meshes.
-	for (uint32_t i = 0; i < scene->mNumMeshes; i++) {
-		//Vertices.
-		for (uint32_t v = 0; v < scene->mMeshes[i]->mNumVertices; v++) {
-			Vertex vertex{};
-			glm::vec3 vec3 = glm::make_vec3(&scene->mMeshes[i]->mVertices[v].x) * scale;
-			vertex.Position = vec3;
-			
-			vertex.Normals.x = scene->mMeshes[i]->mNormals[v].x;
-			vertex.Normals.y = -scene->mMeshes[i]->mNormals[v].y;
-			vertex.Normals.z = scene->mMeshes[i]->mNormals[v].z;
-
-			vertex.TextureCoordinates = glm::make_vec2(&scene->mMeshes[i]->mTextureCoords[0][v].x);
-
-			if (scene->mMeshes[i]->HasVertexColors(0))
-				vertex.Color = glm::make_vec3(&scene->mMeshes[i]->mColors[0][v].r);
-			else
-				vertex.Color = Color::WHITE().ToGLM();
-
-			vertex.Position.y *= -1.0f;
-
-			Vertices.push_back(vertex);
-		}
-	}
-
-	std::vector<vertexIndex_t> indices{};
-	//Meshes.
-	for (uint32_t i = 0; i < scene->mNumMeshes; i++) {
-		uint32_t indexBase = static_cast<uint32_t>(indices.size());
-		//Vertices.
-		for (uint32_t f = 0; f < scene->mMeshes[i]->mNumFaces; f++) {
-			for (uint32_t ind = 0; ind < 3; ind++) {
-				indices.push_back(scene->mMeshes[i]->mFaces[f].mIndices[ind] + indexBase);
-			}
-		}
-	}
-
-	TempModelData data{};
-	data.Vertices = Vertices;
-	data.Indices = indices;
-
-	return data;
-}
-
-
-ModelData* VulkanRenderer::LoadModelData(const std::string& path, const float_t& scale) {
-	if (modelDataFromPath.find(path) != modelDataFromPath.end())
-		return modelDataFromPath.at(path);
-
-	TempModelData data = GetModelTempData(path, scale);
-
-	ModelData* m = CreateModel(data.Vertices, data.Indices);
-	modelDataFromPath[path] = m;
-
-	return m;
-}
-
-
-void VulkanRenderer::LoadModel(Model& model, const std::string& path) {
-	model.Data = LoadModelData(path);
-	auto direct = path.substr(0, path.find_last_of('/'));
-	model.texture = LoadModelTexture(direct);
-}
-
-
-void VulkanRenderer::LoadSkybox(Skybox& skybox, const std::string& path) {
-	skybox.texture = new SkyboxTexture{};
-
-	int width;
-	int height;
-	int nChannels;
-
-	std::string finalPath = path + "/right.jpg";
-
-	stbi_uc* pixels = stbi_load(finalPath.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
-	VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels * 6;
-	stbi_image_free(pixels);
-
-	stbi_uc* finalPixels = new stbi_uc[width * height * nChannels * 6];
-
-	finalPath = path + "/right.jpg";
-	pixels = stbi_load(finalPath.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
-	memcpy(&finalPixels[0], pixels, size / 6);
-	stbi_image_free(pixels);
-
-	finalPath = path + "/left.jpg";
-	pixels = stbi_load(finalPath.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
-	memcpy(&finalPixels[size / 6], pixels, size / 6);
-	stbi_image_free(pixels);
-
-	finalPath = path + "/top.jpg";
-	pixels = stbi_load(finalPath.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
-	memcpy(&finalPixels[(size / 6) * 2], pixels, size / 6);
-	stbi_image_free(pixels);
-
-	finalPath = path + "/bottom.jpg";
-	pixels = stbi_load(finalPath.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
-	memcpy(&finalPixels[(size / 6) * 3], pixels, size / 6);
-	stbi_image_free(pixels);
-
-	finalPath = path + "/front.jpg";
-	pixels = stbi_load(finalPath.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
-	memcpy(&finalPixels[(size / 6) * 4], pixels, size / 6);
-	stbi_image_free(pixels);
-
-	finalPath = path + "/back.jpg";
-	pixels = stbi_load(finalPath.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
-	memcpy(&finalPixels[(size / 6) * 5], pixels, size / 6);
-	stbi_image_free(pixels);
-	
-
-	VulkanBuffer stagingBuffer;
-	CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-	void* data;
-	vkMapMemory(LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
-	memcpy(data, finalPixels, static_cast<size_t>(size));
-	vkUnmapMemory(LogicalDevice, stagingBuffer.Memory);
-
-	createImage(&skybox.texture->texture, width * 6, height, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-
-	transitionImageLayout(&skybox.texture->texture, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
-	copyBufferToImage(&stagingBuffer, &skybox.texture->texture, width, height);
-	transitionImageLayout(&skybox.texture->texture, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-
-	DestroyBuffer(stagingBuffer);
-
-	createImageView(&skybox.texture->texture, VK_FORMAT_R8G8B8A8_SRGB);
-
-	//CreateNewSkyboxDescriptorSet(skybox.texture);
-}
-
-
-ModelData* VulkanRenderer::CreateModel(const std::vector<Vertex>& vertices, const std::vector<vertexIndex_t>& indices) {
-	ModelData* model = new ModelData;
-	
-	//Vertex buffer.
-	{
-		size_t size = vertices.size() * sizeof(Vertex);
-		VulkanBuffer stagingBuffer;
-		CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-
-		void* data;
-		vkMapMemory(LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
-		memcpy(data, vertices.data(), size);
-		vkUnmapMemory(LogicalDevice, stagingBuffer.Memory);
-
-		CreateBuffer(model->VertexBuffer, size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-
-		CopyBuffer(stagingBuffer, model->VertexBuffer, size);
-
-		DestroyBuffer(stagingBuffer);
-	}
-	//Index buffer.
-	{
-		size_t size = indices.size() * sizeof(vertexIndex_t);
-		VulkanBuffer stagingBuffer;
-		CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-
-		void* data;
-		vkMapMemory(LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
-		memcpy(data, indices.data(), size);
-		vkUnmapMemory(LogicalDevice, stagingBuffer.Memory);
-
-		CreateBuffer(model->IndexBuffer, size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-
-		CopyBuffer(stagingBuffer, model->IndexBuffer, size);
-
-		DestroyBuffer(stagingBuffer);
-
-		model->IndicesCount = indices.size();
-	}
-
-	modelDatas.push_back(model);
-
-	return modelDatas[modelDatas.size() - 1];
-}
-
-
-void VulkanRenderer::LoadAnimatedModel(AnimatedModel& model, const std::string& path) {
-	TempModelData modelData = GetModelTempData(path, 1);
-
-	model.scene = GlobalImporter.ReadFile(path.c_str(), AssimpFlags);
-	model.SetAnimation(0);
-
-	model.GlobalInverseTransform = model.scene->mRootNode->mTransformation;
-	model.GlobalInverseTransform.Inverse();
-	model.Bones.resize(modelData.Vertices.size());
-
-	uint32_t vertexBase = 0;
-	for (uint32_t m = 0; m < model.scene->mNumMeshes; m++) {
-		const aiMesh* mesh = model.scene->mMeshes[m];
-		for (uint32_t i = 0; i < mesh->mNumBones; i++) {
-			uint32_t index = 0;
-			std::string name(mesh->mBones[i]->mName.data);
-
-			if (model.BoneMapping.find(name) == model.BoneMapping.end()) {
-				index = model.NumBones;
-				model.NumBones++;
-				BoneInfo bone;
-				model.BoneInfos.push_back(bone);
-				model.BoneInfos[index].Offset = mesh->mBones[i]->mOffsetMatrix;
-				model.BoneMapping[name] = index;
-			}
-			else {
-				index = model.BoneMapping[name];
-			}
-
-			for (uint32_t w = 0; w < mesh->mBones[i]->mNumWeights; w++) {
-				//CHANGED
-				uint32_t vertexID = vertexBase + mesh->mBones[i]->mWeights[w].mVertexId;
-				model.Bones[vertexID].Add(index, mesh->mBones[i]->mWeights[w].mWeight);
-				//std::cout << "ADDED BONE DATA FOR VERTEX: " << vertexID << " W: " << mesh->mBones[i]->mWeights[w].mWeight << std::endl;
-			}
-		}
-		vertexBase += mesh->mNumVertices;
-	}
-	model.BoneTransforms.resize(model.NumBones);
-
-	for (uint32_t i = 0; i < modelData.Vertices.size(); i++) {
-		for (uint32_t b = 0; b < OSK_ANIM_MAX_BONES_PER_VERTEX; b++) {
-			modelData.Vertices[i].BondeIDs[b] = model.Bones[i].IDs[b];
-			modelData.Vertices[i].BoneWeights[b] = model.Bones[i].Weights[b];
-		}
-	}
-
-	model.Data = CreateModel(modelData.Vertices, modelData.Indices);
-	model.SetAnimation(0);
-
-	model.Update(0);
-}
-
-
-void VulkanRenderer::LoadFont(Font& fuente, const std::string& source, uint32_t size) {
-	static FT_Library ftLib = nullptr;
-	if (ftLib == nullptr)
-		if (FT_Init_FreeType(&ftLib))
-			throw std::runtime_error("ERROR: cargar fuente.");
-
-	FT_Face face;
-
-	FT_Error result = FT_New_Face(ftLib, source.c_str(), 0, &face);;
-	if (result)
-		Logger::Log(LogMessageLevels::BAD_ERROR, "cargar fuente " + source, __LINE__);
-
-	FT_Set_Pixel_Sizes(face, 0, size);
-
-	FT_Face lastFace = nullptr;
-	uint8_t* data = nullptr;
-	size_t numberOfPixels = 0;
-	for (uint8_t c = 0; c < 255; c++) {
-		if (FT_Load_Char(face, c, FT_LOAD_RENDER)) {
-			Logger::Log(LogMessageLevels::BAD_ERROR, "freetype: load glyph: " + std::to_string(c) + " de " + source, __LINE__);
-			continue;
-		}
-
-		if (face->glyph->bitmap.width <= 0 || face->glyph->bitmap.rows <= 0) {
-			FontChar character{};
-			character.sprite.texture = nullptr;
-			character.Size = Vector2(lastFace->glyph->bitmap.width, lastFace->glyph->bitmap.rows);
-			character.Bearing = Vector2(lastFace->glyph->bitmap_left, lastFace->glyph->bitmap_top);
-			character.Advance = lastFace->glyph->advance.x;
-
-			fuente.Characters[c] = character;
-
-			continue;
-		}
-		numberOfPixels += face->glyph->bitmap.width * face->glyph->bitmap.rows;
-		Texture texture{};
-		VulkanImage image = createImageFromBitMap(face->glyph->bitmap.width, face->glyph->bitmap.rows, face->glyph->bitmap.buffer);
-		texture.Albedo = image;
-		createDescriptorSets(&texture);
-
-		textures.push_back(texture);
-
-		FontChar character{};
-		character.sprite.texture = &textures.back();
-		createSpriteVertexBuffer(&character.sprite);
-		createSpriteIndexBuffer(&character.sprite);
-		character.Size = Vector2(face->glyph->bitmap.width, face->glyph->bitmap.rows);
-		character.Bearing = Vector2(face->glyph->bitmap_left, face->glyph->bitmap_top);
-		character.Advance = face->glyph->advance.x;
-
-		fuente.Characters[c] = character;
-		sprites.push_back(&fuente.Characters[c].sprite);
-
-		lastFace = face;
-	}
-
-	FT_Done_Face(face);
-
-	fuente.Size = size;
-}
-
-
-void VulkanRenderer::LoadSprite(Sprite* sprite, const std::string& path) {
-	sprite->texture = LoadTexture(path);
-
-	createSpriteVertexBuffer(sprite);
-	createSpriteIndexBuffer(sprite);
-
-	sprites.push_back(sprite);
 }
 
 
@@ -1302,6 +886,7 @@ void VulkanRenderer::closeSwapchain() {
 
 	delete GraphicsPipeline2D;
 	delete GraphicsPipeline3D;
+	delete SkyboxGraphicsPipeline;
 
 	for (const auto& i : SwapchainImageViews)
 		vkDestroyImageView(LogicalDevice, i, nullptr);
@@ -1313,27 +898,22 @@ void VulkanRenderer::closeSwapchain() {
 void VulkanRenderer::Close() {
 	closeSwapchain();
 
-	destroyAllTextures();
-	destroyAllSprites();
-
-	for (auto& i : modelDatas) {
-		DestroyBuffer(i->VertexBuffer);
-		DestroyBuffer(i->IndexBuffer);
-
-		delete i;
-	}
-
-	modelDatas.clear();
-	modelDataFromPath.clear();
+	//Content->Unload();
+	delete Content;
 
 	vkDestroySampler(LogicalDevice, GlobalImageSampler, nullptr);
 
 	for (auto& i : UniformBuffers)
 		DestroyBuffer(i);
 
+	for (auto& i : LightsUniformBuffers)
+		DestroyBuffer(i);
+
 	vkDestroyCommandPool(LogicalDevice, CommandPool, nullptr);
 
 	delete DescLayout;
+	delete PhongDescriptorLayout;
+	delete SkyboxDescriptorLayout;
 
 	delete renderpass;
 
@@ -1341,6 +921,7 @@ void VulkanRenderer::Close() {
 		vkDestroySemaphore(LogicalDevice, ImageAvailableSemaphores[i], nullptr);
 		vkDestroySemaphore(LogicalDevice, RenderFinishedSemaphores[i], nullptr);
 		vkDestroyFence(LogicalDevice, InFlightFences[i], nullptr);
+		vkDestroyFence(LogicalDevice, fences[i], nullptr);
 	}
 
 	vkDestroyDevice(LogicalDevice, nullptr);
@@ -1372,17 +953,13 @@ void VulkanRenderer::RecreateSwapchain() {
 	createSwapchain();
 	createSwapchainImageViews();
 	createRenderpass();
-	if (GraphicsPipeline2D != nullptr) {
-		createGraphicsPipeline2D();
 	
-	}
-	if (GraphicsPipeline3D != nullptr) {
-		createGraphicsPipeline3D();
-	}
+	createGraphicsPipeline2D();
+	createGraphicsPipeline3D();
+	SkyboxGraphicsPipeline = CreateNewSkyboxPipeline(Settings.SkyboxVertexPath, Settings.SkyboxFragmentPath);
+
 	createDepthResources();
 	createFramebuffers();
-
-	Logger::DebugLog("Recreated swapchain.");
 }
 
 
@@ -1419,7 +996,7 @@ void VulkanRenderer::DestroyBuffer(VulkanBuffer& buffer) const {
 }
 
 
-void VulkanRenderer::createImageView(VulkanImage* img, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type) const {
+void VulkanRenderer::createImageView(VulkanImage* img, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, const uint32_t& layerCount, const uint32_t& mipLevels) const {
 	VkImageViewCreateInfo viewInfo{};
 	viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 	viewInfo.image = img->Image;
@@ -1427,9 +1004,9 @@ void VulkanRenderer::createImageView(VulkanImage* img, VkFormat format, VkImageA
 	viewInfo.format = format;
 	viewInfo.subresourceRange.aspectMask = aspect;
 	viewInfo.subresourceRange.baseMipLevel = 0;
-	viewInfo.subresourceRange.levelCount = 1;
+	viewInfo.subresourceRange.levelCount = mipLevels;
 	viewInfo.subresourceRange.baseArrayLayer = 0;
-	viewInfo.subresourceRange.layerCount = 1;
+	viewInfo.subresourceRange.layerCount = layerCount;
 
 	VkResult result = vkCreateImageView(LogicalDevice, &viewInfo, nullptr, &img->View);
 	if (result != VK_SUCCESS)
@@ -1437,22 +1014,22 @@ void VulkanRenderer::createImageView(VulkanImage* img, VkFormat format, VkImageA
 }
 
 
-void VulkanRenderer::createImage(VulkanImage* image, const uint32_t& width, const uint32_t& height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties) {
+void VulkanRenderer::createImage(VulkanImage* image, const uint32_t& width, const uint32_t& height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, const uint32_t& arrayLevels, VkImageCreateFlagBits flags, const uint32_t& mipLevels) {
 	VkImageCreateInfo imageInfo{};
 	imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
-	imageInfo.imageType = VK_IMAGE_TYPE_2D;
+	imageInfo.imageType = VK_IMAGE_TYPE_2D;//VK_IMAGE_VIEW_TYPE_CUBE
 	imageInfo.extent.width = static_cast<uint32_t>(width);
 	imageInfo.extent.height = static_cast<uint32_t>(height);
 	imageInfo.extent.depth = 1;
-	imageInfo.mipLevels = 1;
-	imageInfo.arrayLayers = 1;
+	imageInfo.mipLevels = mipLevels;
+	imageInfo.arrayLayers = arrayLevels;
 	imageInfo.format = format;
 	imageInfo.tiling = tiling;
 	imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 	imageInfo.usage = usage;
 	imageInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 	imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
-	imageInfo.flags = 0;
+	imageInfo.flags = flags;
 
 	VkResult result = vkCreateImage(LogicalDevice, &imageInfo, nullptr, &image->Image);
 	if (result != VK_SUCCESS)
@@ -1515,6 +1092,15 @@ void VulkanRenderer::updateCommandBuffers() {
 		vkCmdBeginRenderPass(CommandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 		Texture* lastImg = nullptr;
 
+		//Skybox:
+		{
+			SkyboxGraphicsPipeline->Bind(CommandBuffers[i]);
+
+			Skybox::Model->Bind(CommandBuffers[i]);
+			LevelSkybox.texture->Descriptor->Bind(CommandBuffers[i], SkyboxGraphicsPipeline, i);
+			Skybox::Model->Draw(CommandBuffers[i]);
+		}
+
 		//3D
 		{
 			GraphicsPipeline3D->Bind(CommandBuffers[i]);
@@ -1527,7 +1113,7 @@ void VulkanRenderer::updateCommandBuffers() {
 			model.Draw(CommandBuffers[i]);			
 		}
 		//3D
-
+		
 		//2D
 		if (!currentSpriteBatch.spritesToDraw.empty()) {
 			GraphicsPipeline2D->Bind(CommandBuffers[i]);
@@ -1549,7 +1135,7 @@ void VulkanRenderer::updateCommandBuffers() {
 		
 		}
 		//2D
-
+		
 		vkCmdEndRenderPass(CommandBuffers[i]);
 		result = vkEndCommandBuffer(CommandBuffers[i]);
 		if (result != VK_SUCCESS)
@@ -1578,9 +1164,9 @@ VulkanImage VulkanRenderer::createImageFromBitMap(uint32_t width, uint32_t heigh
 	memcpy(data, nPixels.data(), static_cast<size_t>(imageSize));
 	vkUnmapMemory(LogicalDevice, stagingBuffer.Memory);
 
-	transitionImageLayout(&image, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+	transitionImageLayout(&image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
 	copyBufferToImage(&stagingBuffer, &image, width, height);
-	transitionImageLayout(&image, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+	transitionImageLayout(&image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 
 	DestroyBuffer(stagingBuffer);
 
@@ -1750,7 +1336,7 @@ void VulkanRenderer::copyBufferToImage(VulkanBuffer* buffer, VulkanImage* img, c
 }
 
 
-void VulkanRenderer::transitionImageLayout(VulkanImage* img, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout) const {
+void VulkanRenderer::transitionImageLayout(VulkanImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, const uint32_t& mipLevels, const uint32_t& arrayLevels) const {
 	VkCommandBuffer cmdBuffer = beginSingleTimeCommandBuffer();
 
 	VkImageMemoryBarrier barrier{};
@@ -1762,9 +1348,9 @@ void VulkanRenderer::transitionImageLayout(VulkanImage* img, VkFormat format, Vk
 	barrier.image = img->Image;
 	barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
 	barrier.subresourceRange.baseMipLevel = 0;
-	barrier.subresourceRange.levelCount = 1;
+	barrier.subresourceRange.levelCount = mipLevels;
 	barrier.subresourceRange.baseArrayLayer = 0;
-	barrier.subresourceRange.layerCount = 1;
+	barrier.subresourceRange.layerCount = arrayLevels;
 	barrier.srcAccessMask = 0;
 	barrier.dstAccessMask = 0;
 
@@ -1829,20 +1415,6 @@ void VulkanRenderer::createDescriptorSets(Texture* texture) const {
 void VulkanRenderer::destroyTexture(Texture* texture) const {
 	destroyImage(&texture->Albedo);
 	texture = nullptr;
-}
-
-
-void VulkanRenderer::destroyAllTextures() {
-	for (auto& i : textures)
-		destroyTexture(&i);
-}
-
-
-void VulkanRenderer::destroyAllSprites() {
-	for (auto& i : sprites) {
-		DestroyBuffer(i->VertexBuffer);
-		DestroyBuffer(i->IndexBuffer);
-	}
 }
 
 

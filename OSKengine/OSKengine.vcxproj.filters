@@ -183,15 +183,6 @@
     <ClCompile Include="Color.cpp">
       <Filter>Archivos de origen\OSKengine\Types</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2.cpp">
-      <Filter>Archivos de origen\OSKengine\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3.cpp">
-      <Filter>Archivos de origen\OSKengine\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector4.cpp">
-      <Filter>Archivos de origen\OSKengine\Types</Filter>
-    </ClCompile>
     <ClCompile Include="BaseUIElement.cpp">
       <Filter>Archivos de origen\OSKengine\UI</Filter>
     </ClCompile>
@@ -290,6 +281,12 @@
     </ClCompile>
     <ClCompile Include="Renderpass.cpp">
       <Filter>Archivos de origen\OSKengine\VulkanRenderer\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>Archivos de origen\OSKengine\VulkanRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentManager.cpp">
+      <Filter>Archivos de origen\OSKengine\VulkanRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -585,6 +582,9 @@
       <Filter>Archivos de encabezado\OSKengine\LegacyRenderAPI</Filter>
     </ClInclude>
     <ClInclude Include="Skybox.h">
+      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentManager.h">
       <Filter>Archivos de encabezado\OSKengine\VulkanRenderer</Filter>
     </ClInclude>
   </ItemGroup>
