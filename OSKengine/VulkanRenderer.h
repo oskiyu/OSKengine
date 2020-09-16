@@ -25,6 +25,7 @@
 #include "Skybox.h"
 
 #include "ContentManager.h"
+#include "RenderizableScene.h"
 
 namespace OSK {
 
@@ -127,6 +128,10 @@ namespace OSK {
 		//	<destinationOffset = 0>: offset sobre el buffer destino.
 		void CopyBuffer(VulkanBuffer& source, VulkanBuffer& destination, VkDeviceSize size, VkDeviceSize sourceOffset = 0, VkDeviceSize destinationOffset = 0) const;
 
+		std::vector<VkCommandBuffer> GetCommandBuffers();
+
+		void SetRenderizableScene(RenderizableScene* scene);
+
 		struct {
 			std::string VertexShaderPath2D = "Shaders/2D/vert.spv";
 			std::string FragmentShaderPath2D = "Shaders/2D/frag.spv";
@@ -155,8 +160,16 @@ namespace OSK {
 		//Límite de FPS.
 		float FPSlimit = INFINITE;
 
+		VULKAN::Renderpass* renderpass;
+
+		GraphicsPipeline* GraphicsPipeline2D;
+		GraphicsPipeline* GraphicsPipeline3D;
+		GraphicsPipeline* SkyboxGraphicsPipeline;
 
 		ContentManager* Content = new ContentManager(this);
+
+		RenderizableScene* Scene;
+
 	private:
 
 		//Crea la instancia de Vulkan.
@@ -323,11 +336,6 @@ namespace OSK {
 		VkQueue PresentQ;
 
 		//Renderpass.
-		VULKAN::Renderpass* renderpass;
-
-		GraphicsPipeline* GraphicsPipeline2D;
-		GraphicsPipeline* GraphicsPipeline3D;
-		GraphicsPipeline* SkyboxGraphicsPipeline;
 
 		VkCommandPool CommandPool;
 
@@ -358,8 +366,6 @@ namespace OSK {
 
 		/*NEW SYNC*/
 		VkFence* fences = nullptr;
-
-		Skybox LevelSkybox{};
 	};
 
 }

@@ -15,6 +15,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include "Heightmap.h"
 
 
 namespace OSK {
@@ -88,6 +89,11 @@ namespace OSK {
 		//	<model>: modelo animado a cargar.
 		//	<path>: ruta del modelo (incluyendo la extensión del modelo).
 		void LoadAnimatedModel(AnimatedModel& model, const std::string& path);
+
+		//Carga un heightmap.
+		//	<map>: heightmap a cargar.
+		//	<path>: ruta del archivo (con extensión).
+		void LoadHeightmap(Heightmap& map, const std::string& path);
 
 		//Elimina todos los recursos almacenados.
 		void Unload();

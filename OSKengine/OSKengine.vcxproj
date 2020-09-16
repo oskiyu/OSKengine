@@ -164,6 +164,7 @@
     <ClCompile Include="ContentAPI.cpp" />
     <ClCompile Include="D:\Dev\GLAD\src\glad.c" />
     <ClCompile Include="Font.cpp" />
+    <ClCompile Include="RenderizableScene.cpp" />
     <ClCompile Include="Renderpass.cpp" />
     <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="SpriteBatch.cpp" />
@@ -186,6 +187,7 @@
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="SoundEntity.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TextUI.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="ToString.cpp" />
@@ -214,6 +216,7 @@
     <ClInclude Include="DescriptorSet.h" />
     <ClInclude Include="GraphicsPipeline.h" />
     <ClInclude Include="ContentManager.h" />
+    <ClInclude Include="Heightmap.h" />
     <ClInclude Include="LightsUBO.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="OldCamera3D.h" />
@@ -228,6 +231,7 @@
     <ClInclude Include="FontChar.h" />
     <ClInclude Include="PushConst3D.h" />
     <ClInclude Include="Renderpass.h" />
+    <ClInclude Include="RenderizableScene.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="SpriteBatch.h" />
@@ -238,6 +242,7 @@
     <ClInclude Include="GPUinfo.h" />
     <ClInclude Include="GraphicsAPIenum.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Terrain.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="UBO.h" />

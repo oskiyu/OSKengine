@@ -13,30 +13,54 @@ namespace OSK {
 
 	ContentManager::ContentManager(VulkanRenderer* renderer) {
 		this->renderer = renderer;
+
+		Textures = {};
+		ModelTextures = {};
+		SkyboxTextures = {};
+		ModelDatas = {};
+		Sprites = {};
+
+		TextureFromPath = {};
+		ModelTextureFromPath = {};
+		SkyboxTextureFromPath = {};
+		ModelDataFromPath = {};
+
+		std::cout << "Created content manager." << std::endl;
 	}
 
 	ContentManager::~ContentManager() {
 		Unload();
+		std::cout << "Deleted content manager." << std::endl;
 	}
 
 	void ContentManager::Unload() {
-		for (auto& i : Textures) {
-			renderer->destroyImage(&i->Albedo);
-			delete i;
+		if (!Textures.empty()) {
+			for (auto& i : Textures) {
+				renderer->destroyImage(&i->Albedo);
+				delete i;
+			}
 		}
-		for (auto& i : ModelTextures)
-			delete i;
-		for (auto& i : SkyboxTextures) {
-			renderer->destroyImage(&i->texture);
-			delete i;
-		}
-		for (auto& i : ModelDatas)
-			delete i;
 
+		if (!ModelTextures.empty())
+			for (auto& i : ModelTextures)
+				delete i;
 		
-		for (auto& i : Sprites) {
-			renderer->DestroyBuffer(i->VertexBuffer);
-			renderer->DestroyBuffer(i->IndexBuffer);
+		if (!SkyboxTextures.empty()) {
+			for (auto& i : SkyboxTextures) {
+				renderer->destroyImage(&i->texture);
+				delete i;
+			}
+		}
+
+		if (!ModelDatas.empty())
+			for (auto& i : ModelDatas)
+				delete i;
+
+		if (!Sprites.empty()) {
+			for (auto& i : Sprites) {
+				renderer->DestroyBuffer(i->VertexBuffer);
+				renderer->DestroyBuffer(i->IndexBuffer);
+			}
 		}
 		
 		Textures.clear();
@@ -49,6 +73,7 @@ namespace OSK {
 		ModelTextureFromPath.clear();
 		SkyboxTextureFromPath.clear();
 		ModelDataFromPath.clear();
+		std::cout << "Unloaded content manager." << std::endl;
 	}
 
 	Texture* ContentManager::LoadTexture(const std::string& path) {
@@ -480,6 +505,38 @@ namespace OSK {
 		FT_Done_Face(face);
 
 		fuente.Size = size;
+	}
+
+	void ContentManager::LoadHeightmap(Heightmap& map, const std::string& path) {
+		int width;
+		int height;
+		int nChannels;
+
+		stbi_uc* pixels = stbi_load(path.c_str(), &width, &height, &nChannels, STBI_grey);
+		VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels;
+		map.Size.X = width;
+		map.Size.Y = height;
+
+		map.Data = new uint8_t[width * height];
+		memcpy(map.Data, pixels, sizeof(uint8_t) * width * height);
+
+		/*VulkanBuffer stagingBuffer;
+		renderer->CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		void* data;
+		vkMapMemory(renderer->LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
+		memcpy(data, pixels, static_cast<size_t>(size));
+		vkUnmapMemory(renderer->LogicalDevice, stagingBuffer.Memory);
+
+		renderer->createImage(&loadedTexture->Albedo, width, height, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+
+		renderer->transitionImageLayout(&loadedTexture->Albedo, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+		renderer->copyBufferToImage(&stagingBuffer, &loadedTexture->Albedo, width, height);
+		renderer->transitionImageLayout(&loadedTexture->Albedo, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+
+		renderer->DestroyBuffer(stagingBuffer);
+
+		renderer->createImageView(&loadedTexture->Albedo, VK_FORMAT_R8G8B8A8_SRGB);*/
+		stbi_image_free(pixels);
 	}
 
 }

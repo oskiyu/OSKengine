@@ -35,10 +35,6 @@ using namespace OSK::VULKAN;
 
 constexpr uint32_t MAX_FRAMES_IN_FLIGHT = 2;
 
-Model model{};
-ModelData* plane{};
-
-Model skyboxModel{};
 
 VkPresentModeKHR translatePresentMode(const PresentMode& mode) {
 	switch (mode) {
@@ -150,12 +146,12 @@ OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appNam
 	createCommandBuffers();
 
 	Skybox::Model = Content->LoadModelData("models/Skybox/cube.obj");
-	Content->LoadSkybox(LevelSkybox, "skybox/skybox.ktx");
+	//Content->LoadSkybox(LevelSkybox, "skybox/skybox.ktx");
 
 	DefaultCamera2D = Camera2D(Window);
 	DefaultCamera3D.Window = Window;
 
-	const std::vector<Vertex> Vertices = {
+	/*const std::vector<Vertex> Vertices = {
 			{{-1, -1, -1}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}, {0.0f, 0.0f, 0.0f}},
 			{{1, -1, -1}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}},
 			{{1, 1, -1}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}, {0.0f, 0.0f, 0.0f}},
@@ -163,12 +159,10 @@ OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appNam
 	};
 	const std::vector<vertexIndex_t> Indices = {
 		0, 1, 2, 2, 3, 0
-	};
-	plane = Content->CreateModel(Vertices, Indices);
+	};*/
+	//plane = Content->CreateModel(Vertices, Indices);
 	//LoadAnimatedModel(model, "models/anim2/goblin.dae");
 	//LoadAnimatedModel(model, "models/anim/boblampclean.md5mesh");
-	Content->LoadModel(model, "models/cube/cube.obj");
-	skyboxModel.Data = Content->LoadModelData("models/cube/cube.obj");
 
 	hasBeenInit = true;
 
@@ -335,7 +329,7 @@ DescriptorSet* VulkanRenderer::CreateNewDescriptorSet() const {
 GraphicsPipeline* VulkanRenderer::CreateNewPhongPipeline(const std::string& vertexPath, const std::string& fragmentPath) const {
 	GraphicsPipeline* phongPipeline = CreateNewGraphicsPipeline(vertexPath, fragmentPath);
 	phongPipeline->SetViewport({ 0, 0, (float)SwapchainExtent.width, (float)SwapchainExtent.height });
-	phongPipeline->SetRasterizer(VK_FALSE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_FRONT_BIT, VK_FRONT_FACE_CLOCKWISE);
+	phongPipeline->SetRasterizer(VK_FALSE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_NONE, VK_FRONT_FACE_CLOCKWISE);
 	phongPipeline->SetMSAA(VK_FALSE, VK_SAMPLE_COUNT_1_BIT);
 	phongPipeline->SetDepthStencil(true);
 	phongPipeline->SetPushConstants(VK_SHADER_STAGE_VERTEX_BIT, sizeof(PushConst3D));
@@ -898,7 +892,6 @@ void VulkanRenderer::closeSwapchain() {
 void VulkanRenderer::Close() {
 	closeSwapchain();
 
-	//Content->Unload();
 	delete Content;
 
 	vkDestroySampler(LogicalDevice, GlobalImageSampler, nullptr);
@@ -958,6 +951,13 @@ void VulkanRenderer::RecreateSwapchain() {
 	createGraphicsPipeline3D();
 	SkyboxGraphicsPipeline = CreateNewSkyboxPipeline(Settings.SkyboxVertexPath, Settings.SkyboxFragmentPath);
 
+	if (Scene != nullptr) {
+		Scene->PhongPipeline = GraphicsPipeline3D;
+		Scene->SkyboxPipeline = SkyboxGraphicsPipeline;
+
+		Scene->SetGraphicsPipeline(GraphicsPipeline3D);
+	}
+
 	createDepthResources();
 	createFramebuffers();
 }
@@ -987,6 +987,11 @@ void VulkanRenderer::CreateBuffer(VulkanBuffer& buffer, VkDeviceSize size, VkBuf
 		throw std::runtime_error("ERROR: alloc mem.");
 
 	vkBindBufferMemory(LogicalDevice, buffer.Buffer, buffer.Memory, 0);
+}
+
+
+void VulkanRenderer::SetRenderizableScene(RenderizableScene* scene) {
+	Scene = scene;
 }
 
 
@@ -1058,6 +1063,44 @@ void VulkanRenderer::destroyImage(VulkanImage* img) const {
 }
 
 
+std::vector<VkCommandBuffer> VulkanRenderer::GetCommandBuffers() {
+	for (auto& i : currentSpriteBatch.spritesToDraw)
+		if (i.hasChanged)
+			updateSpriteVertexBuffer(&i);
+
+	for (size_t i = 0; i < CommandBuffers.size(); i++) {
+		vkResetCommandBuffer(CommandBuffers[i], 0);
+		VkCommandBufferBeginInfo beginInfo{};
+		beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+		beginInfo.flags = 0;
+		beginInfo.pInheritanceInfo = nullptr;
+
+		VkResult result = vkBeginCommandBuffer(CommandBuffers[i], &beginInfo);
+		if (result != VK_SUCCESS)
+			throw std::runtime_error("ERROR: grabar command buffer.");
+
+		//Comenzar el renderpass.
+		VkRenderPassBeginInfo renderPassInfo{};
+		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+		renderPassInfo.renderPass = renderpass->VulkanRenderpass;
+		renderPassInfo.framebuffer = Framebuffers[i];
+		renderPassInfo.renderArea.offset = { 0, 0 };
+
+		renderPassInfo.renderArea.extent = SwapchainExtent;
+		std::array<VkClearValue, 2> clearValues = {};
+		clearValues[0] = { 0.0f, 0.0f, 0.0f, 1.0f }; //Color.
+		clearValues[1] = { 1.0f, 0.0f }; //Depth.
+		renderPassInfo.clearValueCount = clearValues.size();
+		renderPassInfo.pClearValues = clearValues.data();
+
+		//Comenzar el renderizado.
+		vkCmdBeginRenderPass(CommandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+	}
+
+	return CommandBuffers;
+}
+
+
 void VulkanRenderer::updateCommandBuffers() {
 	for (auto& i : currentSpriteBatch.spritesToDraw)
 		if (i.hasChanged)
@@ -1092,13 +1135,16 @@ void VulkanRenderer::updateCommandBuffers() {
 		vkCmdBeginRenderPass(CommandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 		Texture* lastImg = nullptr;
 
+		if (Scene != nullptr) {
+			Scene->Draw(CommandBuffers[i], i);
+		}
+
 		//Skybox:
-		{
+		/*{
 			SkyboxGraphicsPipeline->Bind(CommandBuffers[i]);
 
-			Skybox::Model->Bind(CommandBuffers[i]);
-			LevelSkybox.texture->Descriptor->Bind(CommandBuffers[i], SkyboxGraphicsPipeline, i);
-			Skybox::Model->Draw(CommandBuffers[i]);
+			LevelSkybox.Bind(CommandBuffers[i], SkyboxGraphicsPipeline, i);
+			LevelSkybox.Draw(CommandBuffers[i]);
 		}
 
 		//3D
@@ -1111,7 +1157,7 @@ void VulkanRenderer::updateCommandBuffers() {
 			push.model = glm::mat4(1.0);
 			vkCmdPushConstants(CommandBuffers[i], GraphicsPipeline3D->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &push);
 			model.Draw(CommandBuffers[i]);			
-		}
+		}*/
 		//3D
 		
 		//2D

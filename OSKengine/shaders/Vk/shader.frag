@@ -55,9 +55,8 @@ void main() {
 		final += calculate_point_light(lights.points[i], norm, fragPos, viewDir);
     }
 	
-	//outColor = vec4(vec3(dot(norm, viewDir)), 1.0);
+	//outColor = vec4(vec3(dot(norm, viewDir)) * 0.5 + final * 0.5, 1.0);
 	outColor = vec4(final, 1.0);
-	//outColor = vec4(vec3(length(fragPos - cameraPos)) / 10, 1.0);
 }
 
 vec3 calculate_dir_light(DirLight light, vec3 normal, vec3 viewDir) {

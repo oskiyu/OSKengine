@@ -35,9 +35,6 @@ namespace OSK {
 	public:
 		~ModelTexture();
 
-	private:
-		ModelTexture(VkDevice logicalDevice);
-
 		VULKAN::VulkanImage Albedo{};
 		VULKAN::VulkanImage Specular{};
 
@@ -47,6 +44,9 @@ namespace OSK {
 		DescriptorSet* PhongDescriptorSet = nullptr;
 		DescriptorSet* PBR_DescriptorSet = nullptr;
 
+	private:
+		ModelTexture(VkDevice logicalDevice);
+
 		VkDevice logicalDevice;
 
 	};
@@ -55,6 +55,7 @@ namespace OSK {
 	struct OSKAPI_CALL SkyboxTexture {
 		friend class VulkanRenderer;
 		friend class ContentManager;
+		friend class Skybox;
 
 	private:
 		VULKAN::VulkanImage texture{};

@@ -26,12 +26,22 @@ namespace OSK {
 
 	public:
 
-		void Bind(VkCommandBuffer commandBuffer) const;
+		//Enlaza los vértices y los índices del modelo.
+		inline void Bind(VkCommandBuffer commandBuffer) const {
+			const VkDeviceSize offsets[] = { 0 };
+			vkCmdBindVertexBuffers(commandBuffer, 0, 1, &VertexBuffer.Buffer, offsets);
+			vkCmdBindIndexBuffer(commandBuffer, IndexBuffer.Buffer, 0, VK_INDEX_TYPE_UINT32);
+		}
 
-		void Draw(VkCommandBuffer commandBuffer) const;
+		//Renderiza el modelo, individualmente.
+		inline void Draw(VkCommandBuffer commandBuffer) const {
+			vkCmdDrawIndexed(commandBuffer, static_cast<uint32_t>(IndicesCount), 1, 0, 0, 0);
+		}
 
+		//Vértices del modelo.
 		VulkanBuffer VertexBuffer;
 
+		//Índices del modelo.
 		VulkanBuffer IndexBuffer;
 
 		//Número de índices.
@@ -44,11 +54,21 @@ namespace OSK {
 
 	public:
 
-		void Bind(VkCommandBuffer commandBuffer) const;
+		//Enlaza los vértices y los índices del modelo.
+		inline void Bind(VkCommandBuffer commandBuffer) const {
+			Data->Bind(commandBuffer);
+		}
 
-		void PushConstants(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline);
+		//Envía las constantes 3D a la GPU.
+		inline void PushConstants(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline) {
+			PushConst = GetPushConst();
+			vkCmdPushConstants(commandBuffer, pipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &PushConst);
+		}
 
-		void Draw(VkCommandBuffer commandBuffer) const;
+		//Renderiza el modelo, individualmente.
+		inline void Draw(VkCommandBuffer commandBuffer) const {
+			Data->Draw(commandBuffer);
+		}
 
 		//Buffers del modelo.
 		ModelData* Data;
@@ -56,12 +76,23 @@ namespace OSK {
 		//Transform3D del modelo.
 		Transform* ModelTransform;
 
+		//Textura del modelo.
 		ModelTexture* texture = nullptr;
 
 		//Obtiene el Push Constant con la matriz del modelo.
-		PushConst3D GetPushConst() const;
+		inline PushConst3D GetPushConst() const {
+			if (ModelTransform == nullptr)
+				return{ glm::mat4(1.0f) };
 
+			PushConst3D pushConst{};
+			pushConst.model = ModelTransform->ModelMatrix;
+
+			return pushConst;
+		}
+
+		//Constantes 3D.
 		PushConst3D PushConst{};
+
 	};
 
 }

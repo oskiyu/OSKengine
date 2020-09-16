@@ -124,6 +124,12 @@
     <Filter Include="Archivos de origen\OSKengine\OpenGLRenderer\Animation">
       <UniqueIdentifier>{bf6cf0ed-6f4c-4ab0-8eb1-760c42f88870}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\VulkanRenderer\Terrain">
+      <UniqueIdentifier>{49b23290-011f-4172-99b6-a43320cad0dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\VulkanRenderer\Terrain">
+      <UniqueIdentifier>{a4506cf0-5f68-483b-b7fb-3be8ec827547}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -287,6 +293,12 @@
     </ClCompile>
     <ClCompile Include="ContentManager.cpp">
       <Filter>Archivos de origen\OSKengine\VulkanRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderizableScene.cpp">
+      <Filter>Archivos de origen\OSKengine\VulkanRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>Archivos de origen\OSKengine\VulkanRenderer\Terrain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -586,6 +598,15 @@
     </ClInclude>
     <ClInclude Include="ContentManager.h">
       <Filter>Archivos de encabezado\OSKengine\VulkanRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderizableScene.h">
+      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Heightmap.h">
+      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer\Terrain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

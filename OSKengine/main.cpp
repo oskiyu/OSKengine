@@ -43,6 +43,19 @@ int program() {
 	OSK::Font fuente{};
 	RenderAPI.Content->LoadFont(fuente, "Fonts/arial.ttf", 20);
 
+	OSK::RenderizableScene* Scene = new OSK::RenderizableScene(&RenderAPI);
+
+	//
+	OSK::Model model{};
+	OSK::ModelData* plane{};
+	RenderAPI.Content->LoadModel(model, "models/cube/cube.obj");
+	Scene->AddModel(&model);
+	Scene->LoadSkybox("skybox/skybox.ktx");
+	Scene->LoadTerrain("heightmaps/Heightmap.png", { 1 }, 6.5f);
+
+	RenderAPI.SetRenderizableScene(Scene);
+	//
+
 	OSK::SpriteBatch spriteBatch = RenderAPI.CreateSpriteBatch();
 	spriteBatch.DrawSprite(texture);
 
@@ -119,13 +132,13 @@ int program() {
 			texture.SpriteTransform.AddPosition(OSK::Vector2(150, 0) * deltaTime);
 
 		if (NewKS.IsKeyDown(OSK::Key::W))
-			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(RenderAPI.DefaultCamera3D.Front * 1 * deltaTime);
+			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(RenderAPI.DefaultCamera3D.Front * 3 * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::S))
-			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(-RenderAPI.DefaultCamera3D.Front * 1 * deltaTime);
+			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(-RenderAPI.DefaultCamera3D.Front * 3 * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::A))
-			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(-RenderAPI.DefaultCamera3D.Right * 1 * deltaTime);
+			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(-RenderAPI.DefaultCamera3D.Right * 3 * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::D))
-			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(RenderAPI.DefaultCamera3D.Right * 1 * deltaTime);
+			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(RenderAPI.DefaultCamera3D.Right * 3 * deltaTime);
 
 		mouseVar_t deltaX = NewMS.PositionX - OldMS.PositionX;
 		mouseVar_t deltaY = NewMS.PositionY - OldMS.PositionY;
@@ -140,6 +153,10 @@ int program() {
 			OSK::Vector2 mousePos = RenderAPI.DefaultCamera2D.PointInWindowToPointInWorld(NewMS.GetMouseRectangle().GetRectanglePosition());
 			std::cout << "X: " << mousePos.X << "; Y: " << mousePos.Y << std::endl;
 		}
+
+		float x = RenderAPI.DefaultCamera3D.CameraTransform.Position.X;
+		float y = RenderAPI.DefaultCamera3D.CameraTransform.Position.Z;
+		RenderAPI.DefaultCamera3D.CameraTransform.Position.Y = Scene->terreno->GetHeight({ x, y }) - 2;
 
 		totalDeltaTime += deltaTime;
 		count++;
@@ -157,7 +174,7 @@ int program() {
 			spriteBatch.DrawString(fuente, "FPS: " + std::to_string((int)FPS), 0.75f, OSK::Vector2(0, 5), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
 			spriteBatch.DrawString(fuente, "OSKengine " + std::string(OSK::ENGINE_VERSION), 0.75f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
 
-			//spriteBatch.DrawString(fuente, "3D POS: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Position.ToGLM()), 0.75f, OSK::Vector2(0, 25), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+			spriteBatch.DrawString(fuente, "3D POS: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Position.ToGLM()), 0.75f, OSK::Vector2(0, 25), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
 			//spriteBatch.DrawString(fuente, "3D ROT: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Rotation.ToGLM()), 0.75f, OSK::Vector2(0, 40), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
 			//spriteBatch.DrawString(fuente, "3D FRONT: " + OSK::ToString(RenderAPI.DefaultCamera3D.Front.ToGLM()), 0.75f, OSK::Vector2(0, 55), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
 			
@@ -172,7 +189,11 @@ int program() {
 		deltaTime = endTime - startTime;
 	}
 
+	OSK::Logger::DebugLog("A");
+	delete Scene;
+	OSK::Logger::DebugLog("B");
 	RenderAPI.Close();
+	OSK::Logger::DebugLog("C");
 
 	delete windowAPI;
 	//delete mainUI;
