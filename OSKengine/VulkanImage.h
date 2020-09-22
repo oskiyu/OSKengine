@@ -13,6 +13,8 @@ namespace OSK::VULKAN {
 		VkDeviceMemory Memory;
 		//Cómo se accede a la imagen.
 		VkImageView View;
+		//Sampler
+		VkSampler Sampler;
 
 		VkDevice* logicalDevice;
 

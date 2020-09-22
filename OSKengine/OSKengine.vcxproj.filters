@@ -130,6 +130,12 @@
     <Filter Include="Archivos de origen\OSKengine\VulkanRenderer\Terrain">
       <UniqueIdentifier>{a4506cf0-5f68-483b-b7fb-3be8ec827547}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Collision">
+      <UniqueIdentifier>{181fb2d0-79c7-48f2-a547-2f892c8be69c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Collision">
+      <UniqueIdentifier>{5878de30-6c2d-43f1-ab2e-4f64ac65d1b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -299,6 +305,12 @@
     </ClCompile>
     <ClCompile Include="Terrain.cpp">
       <Filter>Archivos de origen\OSKengine\VulkanRenderer\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionSphere.cpp">
+      <Filter>Archivos de origen\OSKengine\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionBox.cpp">
+      <Filter>Archivos de origen\OSKengine\Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -607,6 +619,12 @@
     </ClInclude>
     <ClInclude Include="Heightmap.h">
       <Filter>Archivos de encabezado\OSKengine\VulkanRenderer\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionBox.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionSphere.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -151,6 +151,8 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Camera3D.cpp" />
+    <ClCompile Include="CollisionBox.cpp" />
+    <ClCompile Include="CollisionSphere.cpp" />
     <ClCompile Include="DescriptorLayout.cpp" />
     <ClCompile Include="DescriptorSet.cpp" />
     <ClCompile Include="GraphicsPipeline.cpp" />
@@ -212,6 +214,8 @@
     <ClInclude Include="ButtonStatesEnum.h" />
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Camera3D.h" />
+    <ClInclude Include="CollisionBox.h" />
+    <ClInclude Include="CollisionSphere.h" />
     <ClInclude Include="DescriptorLayout.h" />
     <ClInclude Include="DescriptorSet.h" />
     <ClInclude Include="GraphicsPipeline.h" />

@@ -236,6 +236,7 @@ namespace OSK {
 			int width;
 			int height;
 			int nChannels;
+			uint32_t mipLevels;
 
 			std::string path = rootPath + "/td.png";
 			stbi_uc* pixels = stbi_load(path.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
@@ -243,6 +244,8 @@ namespace OSK {
 			loadedTexture->sizeX = width;
 			loadedTexture->sizeY = height;
 
+			mipLevels = getMaxMipLevels(width, height);
+
 			VulkanBuffer stagingBuffer;
 			renderer->CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 			void* data;
@@ -251,25 +254,31 @@ namespace OSK {
 			vkUnmapMemory(renderer->LogicalDevice, stagingBuffer.Memory);
 
 			stbi_image_free(pixels);
-			renderer->createImage(&loadedTexture->Albedo, width, height, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+			renderer->createImage(&loadedTexture->Albedo, width, height, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, mipLevels);
 
 			renderer->transitionImageLayout(&loadedTexture->Albedo, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
 			renderer->copyBufferToImage(&stagingBuffer, &loadedTexture->Albedo, width, height);
-			renderer->transitionImageLayout(&loadedTexture->Albedo, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+			CreateMipmaps(loadedTexture->Albedo, { loadedTexture->sizeX, loadedTexture->sizeY }, mipLevels);
+			CreateImageSampler(loadedTexture->Albedo, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, mipLevels);
 
 			renderer->DestroyBuffer(stagingBuffer);
 
-			renderer->createImageView(&loadedTexture->Albedo, VK_FORMAT_R8G8B8A8_SRGB);
+			renderer->createImageView(&loadedTexture->Albedo, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, mipLevels);
 		}
 		//Specular
 		{
 			int width;
 			int height;
 			int nChannels;
+			uint32_t mipLevels;
 
 			std::string path = rootPath + "/ts.png";
 			stbi_uc* pixels = stbi_load(path.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
 			VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels;
+			loadedTexture->sizeX = width;
+			loadedTexture->sizeY = height;
+
+			mipLevels = getMaxMipLevels(width, height);
 
 			VulkanBuffer stagingBuffer;
 			renderer->CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
@@ -279,17 +288,18 @@ namespace OSK {
 			vkUnmapMemory(renderer->LogicalDevice, stagingBuffer.Memory);
 
 			stbi_image_free(pixels);
-			renderer->createImage(&loadedTexture->Specular, width, height, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+			renderer->createImage(&loadedTexture->Specular, width, height, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, mipLevels);
 
 			renderer->transitionImageLayout(&loadedTexture->Specular, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
 			renderer->copyBufferToImage(&stagingBuffer, &loadedTexture->Specular, width, height);
-			renderer->transitionImageLayout(&loadedTexture->Specular, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+			CreateMipmaps(loadedTexture->Specular, { loadedTexture->sizeX, loadedTexture->sizeY }, mipLevels);
+			CreateImageSampler(loadedTexture->Specular, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, mipLevels);
 
 			renderer->DestroyBuffer(stagingBuffer);
 
-			renderer->createImageView(&loadedTexture->Specular, VK_FORMAT_R8G8B8A8_SRGB);
+			renderer->createImageView(&loadedTexture->Specular, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, mipLevels);
 		}
-		renderer->CreateNewPhongDescriptorSet(loadedTexture);
+		renderer->CreateNewPhongDescriptorSet(loadedTexture, loadedTexture->Albedo.Sampler, loadedTexture->Specular.Sampler);
 
 		ModelTextures.push_back(loadedTexture);
 		ModelTextureFromPath[rootPath] = ModelTextures.back();
@@ -520,23 +530,106 @@ namespace OSK {
 		map.Data = new uint8_t[width * height];
 		memcpy(map.Data, pixels, sizeof(uint8_t) * width * height);
 
-		/*VulkanBuffer stagingBuffer;
-		renderer->CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-		void* data;
-		vkMapMemory(renderer->LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
-		memcpy(data, pixels, static_cast<size_t>(size));
-		vkUnmapMemory(renderer->LogicalDevice, stagingBuffer.Memory);
-
-		renderer->createImage(&loadedTexture->Albedo, width, height, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-
-		renderer->transitionImageLayout(&loadedTexture->Albedo, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
-		renderer->copyBufferToImage(&stagingBuffer, &loadedTexture->Albedo, width, height);
-		renderer->transitionImageLayout(&loadedTexture->Albedo, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-
-		renderer->DestroyBuffer(stagingBuffer);
-
-		renderer->createImageView(&loadedTexture->Albedo, VK_FORMAT_R8G8B8A8_SRGB);*/
 		stbi_image_free(pixels);
+	}
+
+	void ContentManager::CreateImageSampler(VULKAN::VulkanImage& image, VkFilter filter, VkSamplerAddressMode addressMode, const uint32_t& mipLevels) {
+		//Info del sampler.
+		VkSamplerCreateInfo samplerInfo{};
+		samplerInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
+		//Filtro:
+		//	VK_FILTER_LINEAR: suavizado.
+		//	VK_FILTER_NEAREST: pixelado.
+		samplerInfo.minFilter = filter;
+		samplerInfo.magFilter = filter;
+		//AddressMode: como se accede a la imagen con TexCoords fuera de los límites.
+		samplerInfo.addressModeU = addressMode;
+		samplerInfo.addressModeV = addressMode;
+		samplerInfo.addressModeW = addressMode;
+
+		samplerInfo.anisotropyEnable = VK_TRUE;
+		samplerInfo.maxAnisotropy = 16.0f;
+
+		samplerInfo.borderColor = VK_BORDER_COLOR_INT_OPAQUE_BLACK;
+
+		samplerInfo.unnormalizedCoordinates = VK_FALSE;
+
+		samplerInfo.compareEnable = VK_FALSE;
+		samplerInfo.compareOp = VK_COMPARE_OP_ALWAYS;
+
+		samplerInfo.mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR;
+		samplerInfo.minLod = 0.0f;
+		samplerInfo.maxLod = mipLevels;
+		samplerInfo.mipLodBias = 0.0f;
+
+		VkResult result = vkCreateSampler(renderer->LogicalDevice, &samplerInfo, nullptr, &image.Sampler);
+		if (result != VK_SUCCESS)
+			throw std::runtime_error("ERROR: crear sampler." + std::to_string(result));
+	}
+
+	void ContentManager::CreateMipmaps(VULKAN::VulkanImage& image, const Vector2ui& size, const uint32_t& levels) {
+		VkCommandBuffer cmdBuffer = renderer->beginSingleTimeCommandBuffer();
+
+		VkImageMemoryBarrier barrier{};
+		barrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
+		barrier.image = image.Image;
+		barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+		barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+		barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+		barrier.subresourceRange.baseArrayLayer = 0;
+		barrier.subresourceRange.layerCount = 1;
+		barrier.subresourceRange.levelCount = 1;
+
+		int32_t mipWidth = size.X;
+		int32_t mipHeight = size.Y;
+
+		for (uint32_t i = 1; i < levels; i++) {
+			barrier.subresourceRange.baseMipLevel = i - 1;
+			barrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
+			barrier.newLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
+			barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+			barrier.dstAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
+
+			vkCmdPipelineBarrier(cmdBuffer, VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT, 0, 0, nullptr, 0, nullptr, 1, &barrier);
+
+			VkImageBlit blit{};
+			blit.srcOffsets[0] = { 0, 0, 0 };
+			blit.srcOffsets[1] = { mipWidth, mipHeight, 1 };
+			blit.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+			blit.srcSubresource.mipLevel = i - 1;
+			blit.srcSubresource.baseArrayLayer = 0;
+			blit.srcSubresource.layerCount = 1;
+			blit.dstOffsets[0] = { 0, 0, 0 };
+			blit.dstOffsets[1] = { mipWidth > 1 ? mipWidth / 2 : 1, mipHeight > 1 ? mipHeight / 2 : 1, 1 };
+			blit.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+			blit.dstSubresource.mipLevel = i;
+			blit.dstSubresource.baseArrayLayer = 0;
+			blit.dstSubresource.layerCount = 1;
+
+			vkCmdBlitImage(cmdBuffer, image.Image, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, image.Image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &blit, VK_FILTER_LINEAR);
+
+			barrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
+			barrier.newLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+			barrier.srcAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
+			barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
+
+			vkCmdPipelineBarrier(cmdBuffer, VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT, 0, 0, nullptr, 0, nullptr, 1, &barrier);
+
+			if (mipWidth > 1)
+				mipWidth /= 2;
+			if (mipHeight > 1)
+				mipHeight /= 2;
+		}
+
+		barrier.subresourceRange.baseMipLevel = levels - 1;
+		barrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
+		barrier.newLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+		barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+		barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
+
+		vkCmdPipelineBarrier(cmdBuffer, VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT, 0, 0, nullptr, 0, nullptr, 1, &barrier);
+
+		renderer->endSingleTimeCommandBuffer(cmdBuffer);
 	}
 
 }

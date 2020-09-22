@@ -95,6 +95,19 @@ namespace OSK {
 		//	<path>: ruta del archivo (con extensión).
 		void LoadHeightmap(Heightmap& map, const std::string& path);
 
+		//Crea el image sampler de una imagen.
+		//	<image>: imagen.
+		//	<filter>: filtro (LINEAR: suave / NEAREST: pixelado).
+		//	<addressMode>: ¿qué pasas si accedemos a TexCoords fuera de (-1, 1)?
+		//	<mipLevels>: niveles del mipmap.
+		void CreateImageSampler(VULKAN::VulkanImage& image, VkFilter filter, VkSamplerAddressMode addressMode, const uint32_t& mipLevels);
+
+		//Crea mipmaps para una imagen.
+		//	<image>: imagen.
+		//	<size>: tamaño de la imagen original (uint32_t).
+		//	<mipLevels>: niveles del mipmap.
+		void CreateMipmaps(VULKAN::VulkanImage& image, const Vector2ui& size, const uint32_t& levels);
+
 		//Elimina todos los recursos almacenados.
 		void Unload();
 
@@ -118,6 +131,9 @@ namespace OSK {
 		std::unordered_map<std::string, SkyboxTexture*> SkyboxTextureFromPath = {};
 		std::unordered_map<std::string, ModelData*> ModelDataFromPath = {};
 
+		inline const uint32_t getMaxMipLevels(const uint32_t& width, const uint32_t& height) const {
+			std::floor(std::log2(std::max(width, height))) + 1;
+		}
 
 		bool hasBeenCleared = false;
 		VulkanRenderer* renderer;

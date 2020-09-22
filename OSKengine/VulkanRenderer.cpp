@@ -111,7 +111,10 @@ OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appNam
 	lights.Directional = DirectionalLight{ OSK::Vector3(-0.7f, 0.8f, -0.4f), OSK::Color::RED(), 2.0f };
 
 	createInstance(appName, gameVersion);
-	setupDebugConsole();
+
+	if (checkValidationLayers())
+		setupDebugConsole();
+
 	createSurface();
 	getGPU();
 	createLogicalDevice();
@@ -350,13 +353,13 @@ DescriptorLayout* VulkanRenderer::CreateNewPhongDescriptorLayout() const {
 	return descLayout;
 }
 
-void VulkanRenderer::CreateNewPhongDescriptorSet(ModelTexture* texture) const {
+void VulkanRenderer::CreateNewPhongDescriptorSet(ModelTexture* texture, VkSampler albedoSampler, VkSampler specularSampler) const {
 	texture->PhongDescriptorSet = CreateNewDescriptorSet();
 	texture->PhongDescriptorSet->SetDescriptorLayout(PhongDescriptorLayout);
 	texture->PhongDescriptorSet->AddUniformBuffers(UniformBuffers, 0, sizeof(UBO));
-	texture->PhongDescriptorSet->AddImage(&texture->Albedo, GlobalImageSampler, 1);
+	texture->PhongDescriptorSet->AddImage(&texture->Albedo, albedoSampler, 1);
 	texture->PhongDescriptorSet->AddUniformBuffers(LightsUniformBuffers, 2, lights.Size());
-	texture->PhongDescriptorSet->AddImage(&texture->Specular, GlobalImageSampler, 3);
+	texture->PhongDescriptorSet->AddImage(&texture->Specular, specularSampler, 3);
 	texture->PhongDescriptorSet->Create();
 }
 
@@ -395,44 +398,76 @@ void VulkanRenderer::SubmitSpriteBatch(const SpriteBatch& spriteBatch) {
 }
 
 
+bool VulkanRenderer::checkValidationLayers() {
+	uint32_t layerCount;
+	vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
+
+	std::vector<VkLayerProperties> availableLayers(layerCount);
+	vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.data());
+	
+	//Capas de validación.
+	const std::vector<const char*> validationLayers = {
+		"VK_LAYER_KHRONOS_validation"
+	};
+
+	for (const char* layerName : validationLayers) {
+		bool layerFound = false;
+
+		for (const auto& layerProperties : availableLayers) {
+			if (strcmp(layerName, layerProperties.layerName) == 0) {
+				layerFound = true;
+				break;
+			}
+		}
+
+		if (!layerFound)
+			return false;
+	}
+
+	return true;
+}
+
+
 void VulkanRenderer::createInstance(const std::string& appName, const Version& gameVersion) {
-		//Información de la app.
-		VkApplicationInfo appInfo{};
-		appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-		appInfo.pApplicationName = appName.c_str();
-		appInfo.applicationVersion = VK_MAKE_VERSION((int)gameVersion.Mayor, (int)gameVersion.Menor, (int)gameVersion.Parche);
-		appInfo.pEngineName = "OSKengine";
-		appInfo.engineVersion = VK_MAKE_VERSION((int)ENGINE_VERSION_MAYOR_NUMERIC, (int)ENGINE_VERSION_MINOR, 0);
-		appInfo.apiVersion = VK_API_VERSION_1_2;
+	//Información de la app.
+	VkApplicationInfo appInfo{};
+	appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
+	appInfo.pApplicationName = appName.c_str();
+	appInfo.applicationVersion = VK_MAKE_VERSION((int)gameVersion.Mayor, (int)gameVersion.Menor, (int)gameVersion.Parche);
+	appInfo.pEngineName = "OSKengine";
+	appInfo.engineVersion = VK_MAKE_VERSION((int)ENGINE_VERSION_MAYOR_NUMERIC, (int)ENGINE_VERSION_MINOR, 0);
+	appInfo.apiVersion = VK_API_VERSION_1_2;
 
-		//Create info.
-		VkInstanceCreateInfo createInfo{};
-		createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-		createInfo.pApplicationInfo = &appInfo;
+	//Create info.
+	VkInstanceCreateInfo createInfo{};
+	createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
+	createInfo.pApplicationInfo = &appInfo;
 
-		//Establecemos las extensiones.
-		//Extensiones de la ventana.
-		uint32_t glfwExtensionCount = 0;
-		const char** glfwExtensions;
-		glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+	//Establecemos las extensiones.
+	//Extensiones de la ventana.
+	uint32_t glfwExtensionCount = 0;
+	const char** glfwExtensions;
+	glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
 
-		//Extensiones totales.
-		std::vector<const char*> extensions(glfwExtensions, glfwExtensions + glfwExtensionCount);
+	//Extensiones totales.
+	std::vector<const char*> extensions(glfwExtensions, glfwExtensions + glfwExtensionCount);
 
 #ifdef OSK_DEBUG
-		extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+	extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
 #endif
 
-		createInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
-		createInfo.ppEnabledExtensionNames = extensions.data();
-		createInfo.enabledLayerCount = 0;
-		createInfo.pNext = nullptr;
+	createInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
+	createInfo.ppEnabledExtensionNames = extensions.data();
+	createInfo.enabledLayerCount = 0;
+	createInfo.pNext = nullptr;
 
 #ifdef OSK_DEBUG
-		//Capas de validación.
-		const std::vector<const char*> validationLayers = {
-			"VK_LAYER_KHRONOS_validation"
-		};
+	//Capas de validación.
+	const std::vector<const char*> validationLayers = {
+		"VK_LAYER_KHRONOS_validation"
+	};
+
+	if (checkValidationLayers()) {
 
 		createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
 		createInfo.ppEnabledLayerNames = validationLayers.data();
@@ -444,20 +479,21 @@ void VulkanRenderer::createInstance(const std::string& appName, const Version& g
 		debugConsoleCreateInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
 		debugConsoleCreateInfo.pfnUserCallback = DebugCallback;
 		debugConsoleCreateInfo.pNext = (VkDebugUtilsMessengerEXT*)&debugConsoleCreateInfo;
+	}
 #endif
 
-		Logger::DebugLog("Extensiones del renderizador: ");
-		for (const auto& i : extensions)
-			Logger::DebugLog(i);
-		Logger::DebugLog("Capas de validación del renderizador: ");
-		for (const auto& i : extensions)
-			Logger::DebugLog(i);
+	Logger::DebugLog("Extensiones del renderizador: ");
+	for (const auto& i : extensions)
+		Logger::DebugLog(i);
+	Logger::DebugLog("Capas de validación del renderizador: ");
+	for (const auto& i : extensions)
+		Logger::DebugLog(i);
 
-		//Crear la instancia y error-handling.
-		VkResult result = vkCreateInstance(&createInfo, nullptr, &Instance);
-		if (result != VK_SUCCESS)
-			throw std::runtime_error("Crear instancia de Vulkan." + std::to_string(result));
-	}
+	//Crear la instancia y error-handling.
+	VkResult result = vkCreateInstance(&createInfo, nullptr, &Instance);
+	if (result != VK_SUCCESS)
+		throw std::runtime_error("Crear instancia de Vulkan." + std::to_string(result));
+}
 
 
 void VulkanRenderer::setupDebugConsole() {
@@ -477,13 +513,13 @@ void VulkanRenderer::setupDebugConsole() {
 
 
 void VulkanRenderer::createSurface() {
-		//Obtener la superficie.
-		VkResult result = glfwCreateWindowSurface(Instance, Window->GetGLFWWindow(), nullptr, &Surface);
+	//Obtener la superficie.
+	VkResult result = glfwCreateWindowSurface(Instance, Window->GetGLFWWindow(), nullptr, &Surface);
 
-		//Error-handling.
-		if (result != VK_SUCCESS)
-			throw std::runtime_error("ERROR: crear superficie.");
-	}
+	//Error-handling.
+	if (result != VK_SUCCESS)
+		throw std::runtime_error("ERROR: crear superficie.");
+}
 
 
 void VulkanRenderer::getGPU() {

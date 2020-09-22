@@ -154,10 +154,6 @@ int program() {
 			std::cout << "X: " << mousePos.X << "; Y: " << mousePos.Y << std::endl;
 		}
 
-		float x = RenderAPI.DefaultCamera3D.CameraTransform.Position.X;
-		float y = RenderAPI.DefaultCamera3D.CameraTransform.Position.Z;
-		RenderAPI.DefaultCamera3D.CameraTransform.Position.Y = Scene->terreno->GetHeight({ x, y }) - 2;
-
 		totalDeltaTime += deltaTime;
 		count++;
 		if (totalDeltaTime > 1.0f) {

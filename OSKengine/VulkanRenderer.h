@@ -100,7 +100,7 @@ namespace OSK {
 
 		//Crea el descriptor set de PHONG para la textura de un modelo 3D.
 		//	<texture>: textura a la que se le configurará su descriptor set de PHONG.
-		void CreateNewPhongDescriptorSet(ModelTexture* texture) const;
+		void CreateNewPhongDescriptorSet(ModelTexture* texture, VkSampler albedoSampler, VkSampler specularSampler) const;
 
 		//Skybox.
 		GraphicsPipeline* CreateNewSkyboxPipeline(const std::string& vertexPath, const std::string& fragmentPath) const;
@@ -171,6 +171,8 @@ namespace OSK {
 		RenderizableScene* Scene;
 
 	private:
+
+		bool checkValidationLayers();
 
 		//Crea la instancia de Vulkan.
 		void createInstance(const std::string& appName, const Version& gameVersion);

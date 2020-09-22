@@ -97,6 +97,16 @@ namespace OSK {
 			return glm::sqrt(dx * dx + dy * dy + dz * dz);
 		}
 
+		//Obtiene la distancia entre la posición representada por este vector y por el vector <vec>.
+		//Al cuadrado.
+		T GetDistanceTo2(const Vector3_t& vec) const {
+			T dx = X - vec.X;
+			T dy = Y - vec.Y;
+			T dz = Z - vec.Z;
+
+			return dx * dx + dy * dy + dz * dz;
+		}
+
 		//Obtiene el producto escalar entre este vector y el vector <vec>.
 		T Dot(const Vector3_t& vec) const {
 			return X * vec.X + Y * vec.Y + Z * vec.Z;
