@@ -25,12 +25,16 @@ namespace OSK {
 
 	//Devuelve un string con los datos del vector 2D.
 	OSK_INFO_GLOBAL
-		std::string OSKAPI_CALL ToString(const Vector2& vector2);
+		template <typename T> std::string ToString(const Vector2_t<T>& vec) {
+		return "{ " + std::to_string(vec.X) + "; " + std::to_string(vec.Y) + "}";
+	}
 
 
 	//Devuelve un string con los datos del vector 3D.
 	OSK_INFO_GLOBAL
-		std::string OSKAPI_CALL ToString(const Vector3& vector3);
+	template <typename T> std::string ToString(const Vector3_t<T>& vec) {
+		return "{ " + std::to_string(vec.X) + "; " + std::to_string(vec.Y) + "; " + std::to_string(vec.Z) + "}";
+	}
 
 
 	//Devuelve un string con los datos del vector 2D.
@@ -40,7 +44,9 @@ namespace OSK {
 
 	//Devuelve un string con los datos del vector 4D.
 	OSK_INFO_GLOBAL
-		std::string OSKAPI_CALL ToString(const Vector4& vector4);
+	template <typename T> std::string ToString(const Vector4_t<T>& vec) {
+		return "{ " + std::to_string(vec.X) + "; " + std::to_string(vec.Y) + "; " + std::to_string(vec.Z) + "; " + std::to_string(vec.W) + "}";
+	}
 
 
 	//Devuelve un string con la posición, tamaño y rotación de un transform.

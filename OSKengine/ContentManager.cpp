@@ -24,13 +24,10 @@ namespace OSK {
 		ModelTextureFromPath = {};
 		SkyboxTextureFromPath = {};
 		ModelDataFromPath = {};
-
-		std::cout << "Created content manager." << std::endl;
 	}
 
 	ContentManager::~ContentManager() {
 		Unload();
-		std::cout << "Deleted content manager." << std::endl;
 	}
 
 	void ContentManager::Unload() {

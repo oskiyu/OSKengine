@@ -131,8 +131,11 @@ namespace OSK {
 		std::unordered_map<std::string, SkyboxTexture*> SkyboxTextureFromPath = {};
 		std::unordered_map<std::string, ModelData*> ModelDataFromPath = {};
 
+		//El máximo número de mipmaps que se puede generar para una textura.
+		//	<width>: ancho de la textura.
+		//	<height>: alto de la textura.
 		inline const uint32_t getMaxMipLevels(const uint32_t& width, const uint32_t& height) const {
-			std::floor(std::log2(std::max(width, height))) + 1;
+			return std::floor(std::log2(std::max(width, height))) + 1;
 		}
 
 		bool hasBeenCleared = false;

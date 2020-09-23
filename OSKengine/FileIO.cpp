@@ -59,4 +59,10 @@ namespace OSK {
 		return buffer;
 	}
 
+	bool FileIO::FileExists(const std::string& path) {
+		std::ifstream stream(path);
+
+		return stream.good();
+	}
+
 }

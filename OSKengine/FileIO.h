@@ -29,6 +29,10 @@ namespace OSK {
 		//	<filename>: ruta del archivo.
 		static std::vector<char> ReadBinaryFromFile(const std::string& filename);
 
+		//Comprueba si un archivo existe.
+		//	<path>: ruta del archivo.
+		static bool FileExists(const std::string& path);
+
 	};
 
 }
