@@ -1,4 +1,5 @@
 #include "DescriptorSet.h"
+#include "GraphicsPipeline.h"
 
 namespace OSK {
 

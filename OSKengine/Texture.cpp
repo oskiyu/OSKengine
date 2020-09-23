@@ -1,5 +1,7 @@
 #include "Texture.h"
 
+#include "DescriptorSet.h"
+
 namespace OSK {
 
 	ModelTexture::ModelTexture(VkDevice logicalDevice) {

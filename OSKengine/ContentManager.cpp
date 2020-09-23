@@ -6,10 +6,14 @@
 #include <ktx.h>
 
 #include "VulkanImage.h"
+#include "FileIO.h"
 
 namespace OSK {
 
 	Assimp::Importer ContentManager::GlobalImporter;
+
+	const std::string ContentManager::DEFAULT_TEXTURE_PATH = "assets/engine/default_texture";
+	ModelTexture* ContentManager::DefaultTexture = nullptr;
 
 	ContentManager::ContentManager(VulkanRenderer* renderer) {
 		this->renderer = renderer;

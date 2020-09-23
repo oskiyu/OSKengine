@@ -126,6 +126,11 @@ OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appNam
 	PhongDescriptorLayout = CreateNewPhongDescriptorLayout();
 	SkyboxDescriptorLayout = CreateNewSkyboxDescriptorLayout();
 
+	createCommandPool();
+	createGlobalImageSampler();
+	createDefaultUniformBuffers();
+	ContentManager::DefaultTexture = Content->LoadModelTexture(ContentManager::DEFAULT_TEXTURE_PATH);
+
 	OskResult result = createGraphicsPipeline2D();
 	if (result != OskResult::SUCCESS) {
 		OSK_SHOW_TRACE();
@@ -139,33 +144,16 @@ OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appNam
 
 	SkyboxGraphicsPipeline = CreateNewSkyboxPipeline("shaders/VK_Skybox/vert.spv", "shaders/VK_Skybox/frag.spv");
 
-	createCommandPool();
 	createDepthResources();
 	createFramebuffers();
-	createGlobalImageSampler();
-	createDefaultUniformBuffers();
 	createDescriptorPool();
 	createSyncObjects();
 	createCommandBuffers();
 
 	Skybox::Model = Content->LoadModelData("models/Skybox/cube.obj");
-	//Content->LoadSkybox(LevelSkybox, "skybox/skybox.ktx");
 
 	DefaultCamera2D = Camera2D(Window);
 	DefaultCamera3D.Window = Window;
-
-	/*const std::vector<Vertex> Vertices = {
-			{{-1, -1, -1}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}, {0.0f, 0.0f, 0.0f}},
-			{{1, -1, -1}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}},
-			{{1, 1, -1}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}, {0.0f, 0.0f, 0.0f}},
-			{{-1, 1, -1}, {1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}, {0.0f, 0.0f, 0.0f}}
-	};
-	const std::vector<vertexIndex_t> Indices = {
-		0, 1, 2, 2, 3, 0
-	};*/
-	//plane = Content->CreateModel(Vertices, Indices);
-	//LoadAnimatedModel(model, "models/anim2/goblin.dae");
-	//LoadAnimatedModel(model, "models/anim/boblampclean.md5mesh");
 
 	hasBeenInit = true;
 
@@ -338,6 +326,11 @@ GraphicsPipeline* VulkanRenderer::CreateNewPhongPipeline(const std::string& vert
 	phongPipeline->SetPushConstants(VK_SHADER_STAGE_VERTEX_BIT, sizeof(PushConst3D));
 	phongPipeline->SetLayout(&PhongDescriptorLayout->VulkanDescriptorSetLayout);
 	phongPipeline->Create(renderpass);
+
+	phongPipeline->DefaultTexture = new ModelTexture(LogicalDevice);
+	memcpy(phongPipeline->DefaultTexture, ContentManager::DefaultTexture, sizeof(ModelTexture));
+
+	CreateNewPhongDescriptorSet(phongPipeline->DefaultTexture, phongPipeline->DefaultTexture->Albedo.Sampler, phongPipeline->DefaultTexture->Specular.Sampler);
 
 	return phongPipeline;
 }

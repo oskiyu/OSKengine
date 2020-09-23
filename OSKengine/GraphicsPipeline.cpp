@@ -3,6 +3,7 @@
 #include "FileIO.h"
 #include "Log.h"
 #include "Renderpass.h"
+#include "DescriptorSet.h"
 
 namespace OSK {
 
@@ -40,6 +41,9 @@ namespace OSK {
 		clearShaders();
 		vkDestroyPipeline(logicalDevice, VulkanPipeline, nullptr);
 		vkDestroyPipelineLayout(logicalDevice, VulkanPipelineLayout, nullptr);
+
+		if (DefaultTexture != nullptr)
+			delete DefaultTexture;
 	}
 
 	void GraphicsPipeline::SetViewport(const Vector4& size, const Vector2& depthMinMax) {

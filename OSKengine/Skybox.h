@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include "Model.h"
 #include "GraphicsPipeline.h"
+#include "DescriptorSet.h"
 
 namespace OSK {
 

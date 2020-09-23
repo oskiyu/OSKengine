@@ -32,6 +32,7 @@ namespace OSK {
 	class OSKAPI_CALL VulkanRenderer {
 
 		friend class ContentManager;
+		friend class RenderizableScene;
 
 	public:
 	

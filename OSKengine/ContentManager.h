@@ -27,6 +27,8 @@ namespace OSK {
 	//Pueden usarse varios, para cargar recursos por lotes que tienen el mismo periodo de vida.
 	struct ContentManager {
 
+		static const std::string DEFAULT_TEXTURE_PATH;
+
 		//Crea un ContentManager vacío.
 		//	<renderer>: renderizador del juego.
 		ContentManager(VulkanRenderer* renderer);
@@ -111,6 +113,7 @@ namespace OSK {
 		//Elimina todos los recursos almacenados.
 		void Unload();
 
+		static ModelTexture* DefaultTexture;
 
 	private:
 

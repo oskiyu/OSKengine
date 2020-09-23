@@ -8,16 +8,22 @@
 #include <vector>
 
 #include "OSKtypes.h"
+#include "Texture.h"
+#include "DescriptorSet.h"
 
 namespace OSK::VULKAN {
 	class Renderpass;
 }
 
+
 namespace OSK {
 
+	class DescriptorSet;
+	
 	class GraphicsPipeline {
 
 		friend class VulkanRenderer;
+		friend class RenderizableScene;
 
 	public:
 
@@ -57,6 +63,8 @@ namespace OSK {
 
 		std::string vertexPath;
 		std::string fragmentPath;
+
+		ModelTexture* DefaultTexture = nullptr;
 
 		VkShaderModule createShaderModule(const std::vector<char>& code) const;
 

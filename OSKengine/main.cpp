@@ -51,7 +51,7 @@ int program() {
 	RenderAPI.Content->LoadModel(model, "models/cube/cube.obj");
 	Scene->AddModel(&model);
 	Scene->LoadSkybox("skybox/skybox.ktx");
-	Scene->LoadTerrain("heightmaps/Heightmap.png", { 1 }, 6.5f);
+	Scene->LoadHeightmap("heightmaps/Heightmap.png", { 1 }, 6.5f);
 
 	RenderAPI.SetRenderizableScene(Scene);
 	//

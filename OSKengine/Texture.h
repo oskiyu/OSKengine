@@ -2,11 +2,11 @@
 
 #include "VulkanImage.h"
 #include <vector>
-#include "DescriptorSet.h"
 
 namespace OSK {
 
 	class VulkanRenderer;
+	class DescriptorSet;
 
 	//Textura 2D.
 	struct OSKAPI_CALL Texture {

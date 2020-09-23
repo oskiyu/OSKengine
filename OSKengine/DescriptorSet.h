@@ -6,9 +6,10 @@
 #include "DescriptorLayout.h"
 #include "VulkanBuffer.h"
 #include "VulkanImage.h"
-#include "GraphicsPipeline.h"
 
 namespace OSK {
+
+	class GraphicsPipeline;
 
 	//Un descriptor set describe, de manera concisa, cómo se pasa la información de la CPU a la GPU de un objeto en concreto.
 	//Tiene información extra, como detalles sobre los buffers y las imágenes.
