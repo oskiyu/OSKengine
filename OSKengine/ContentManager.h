@@ -27,6 +27,8 @@ namespace OSK {
 	//Pueden usarse varios, para cargar recursos por lotes que tienen el mismo periodo de vida.
 	struct ContentManager {
 
+		friend class VulkanRenderer;
+
 		static const std::string DEFAULT_TEXTURE_PATH;
 
 		//Crea un ContentManager vacío.
@@ -96,19 +98,6 @@ namespace OSK {
 		//	<map>: heightmap a cargar.
 		//	<path>: ruta del archivo (con extensión).
 		void LoadHeightmap(Heightmap& map, const std::string& path);
-
-		//Crea el image sampler de una imagen.
-		//	<image>: imagen.
-		//	<filter>: filtro (LINEAR: suave / NEAREST: pixelado).
-		//	<addressMode>: ¿qué pasas si accedemos a TexCoords fuera de (-1, 1)?
-		//	<mipLevels>: niveles del mipmap.
-		void CreateImageSampler(VULKAN::VulkanImage& image, VkFilter filter, VkSamplerAddressMode addressMode, const uint32_t& mipLevels);
-
-		//Crea mipmaps para una imagen.
-		//	<image>: imagen.
-		//	<size>: tamaño de la imagen original (uint32_t).
-		//	<mipLevels>: niveles del mipmap.
-		void CreateMipmaps(VULKAN::VulkanImage& image, const Vector2ui& size, const uint32_t& levels);
 
 		//Elimina todos los recursos almacenados.
 		void Unload();

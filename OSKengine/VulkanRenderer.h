@@ -27,12 +27,15 @@
 #include "ContentManager.h"
 #include "RenderizableScene.h"
 
+#include "VulkanImageGen.h"
+
 namespace OSK {
 
 	class OSKAPI_CALL VulkanRenderer {
 
 		friend class ContentManager;
 		friend class RenderizableScene;
+		friend class VULKAN::VulkanImageGen;
 
 	public:
 	
@@ -217,17 +220,7 @@ namespace OSK {
 
 		void createCommandBuffers();
 
-		void createImage(VULKAN::VulkanImage* image, const uint32_t& width, const uint32_t& height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, const uint32_t& arrayLevels = 1, VkImageCreateFlagBits flags = (VkImageCreateFlagBits)0, const uint32_t& mipLevels = 1);
-
-		void createImageView(VULKAN::VulkanImage* img, VkFormat format, VkImageAspectFlags aspect = VK_IMAGE_ASPECT_COLOR_BIT, VkImageViewType type = VK_IMAGE_VIEW_TYPE_2D, const uint32_t& layerCount = 1, const uint32_t& mipLevels = 1) const;
-
-		void destroyImage(VULKAN::VulkanImage* img) const;
-
 		void closeSwapchain();
-
-		void copyBufferToImage(VulkanBuffer* buffer, VULKAN::VulkanImage* img, const uint32_t& width, const uint32_t& height) const;
-
-		void transitionImageLayout(VULKAN::VulkanImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, const uint32_t& mipLevels = 1, const uint32_t& arrayLevels = 1) const;
 
 		void updateCommandBuffers();
 
@@ -240,10 +233,6 @@ namespace OSK {
 		void createSpriteIndexBuffer(Sprite* obj) const;
 
 		void updateSpriteVertexBuffer(Sprite* obj) const;
-
-		void destroyTexture(Texture* texture) const;
-
-		VULKAN::VulkanImage createImageFromBitMap(uint32_t width, uint32_t height, uint8_t* pixels);
 
 		VkCommandBuffer beginSingleTimeCommandBuffer() const;
 

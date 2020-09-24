@@ -6,6 +6,7 @@
 
 #include "ToString.h"
 #include "Heightmap.h"
+#include "CollisionBox.h"
 
 #include <cstdlib>
 
@@ -42,6 +43,9 @@ namespace OSK {
 		//	<point>: coordenadas (en el mapa) del vértice.
 		float_t GetVertexHeight(const Vector2i& point) const;
 
+		//Obtiene la CollisionBox que contiene el terreno.
+		CollisionBox GetCollisionBox() const;
+
 		//Modelo 3D del terreno.
 		ModelData* terrainModel = nullptr;
 
@@ -51,6 +55,8 @@ namespace OSK {
 		Vector2f QuadSize = { 1.0f };
 		Vector2f MapSizeInWorlds{ 0.0f };
 		float_t BaseHeight = 0.0f;
+
+		CollisionBox Box{};
 
 		ContentManager* Content = nullptr;
 

@@ -312,6 +312,9 @@
     <ClCompile Include="CollisionBox.cpp">
       <Filter>Archivos de origen\OSKengine\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="VulkanImageGen.cpp">
+      <Filter>Archivos de origen\OSKengine\VulkanRenderer\Vulkan</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowAPI.h">
@@ -625,6 +628,9 @@
     </ClInclude>
     <ClInclude Include="CollisionSphere.h">
       <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanImageGen.h">
+      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer\Vulkan</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

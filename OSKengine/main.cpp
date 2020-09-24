@@ -185,16 +185,11 @@ int program() {
 		deltaTime = endTime - startTime;
 	}
 
-	OSK::Logger::DebugLog("A");
 	delete Scene;
-	OSK::Logger::DebugLog("B");
+
 	RenderAPI.Close();
-	OSK::Logger::DebugLog("C");
 
 	delete windowAPI;
-	//delete mainUI;
-	//delete playButton;
-	//delete exitButton;
 
 	return 0;
 }

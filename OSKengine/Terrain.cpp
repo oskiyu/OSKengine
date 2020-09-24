@@ -46,9 +46,9 @@ namespace OSK {
 				if (x > 0)
 					left = GetVertexHeight({ (int)x - 1, (int)y });
 				if (y < MapSizeInQuads.Y)
-					top = GetVertexHeight({ (int)x + 1,(int)y });
+					top = GetVertexHeight({ (int)x,(int)y + 1});
 				if (y > 0)
-					bot = GetVertexHeight({ (int)x + 1, (int)y });
+					bot = GetVertexHeight({ (int)x, (int)y -1 });
 
 				normal = { left - right, 2, top - bot };
 				v.Normals = -normal.GetNormalized().ToGLM();
@@ -76,6 +76,10 @@ namespace OSK {
 				indices.push_back(index2);
 			}
 		}
+
+		Box.Position = { 0.0f };
+		Box.Position.Y = BaseHeight;
+		Box.Size = { MapSizeInWorlds.X, maxHeight, MapSizeInWorlds.Y };
 
 		terrainModel = Content->CreateModel(vertices, indices);
 	}
@@ -145,6 +149,10 @@ namespace OSK {
 			return BaseHeight;
 
 		return Map.Data[index] * HeightMultiply;
+	}
+
+	CollisionBox Terrain::GetCollisionBox() const {
+		return Box;
 	}
 
 	const float Terrain::barryCentric(const Vector3f& p1, const Vector3f& p2, const Vector3f& p3, const Vector2f& pos) const {

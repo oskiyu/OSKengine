@@ -199,6 +199,7 @@
     <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="VulkanBuffer.cpp" />
     <ClCompile Include="VulkanImage.cpp" />
+    <ClCompile Include="VulkanImageGen.cpp" />
     <ClCompile Include="VulkanRenderer.cpp" />
     <ClCompile Include="WindowAPI.cpp" />
   </ItemGroup>
@@ -304,6 +305,7 @@
     <ClInclude Include="Version.h" />
     <ClInclude Include="OldVertex.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="VulkanImageGen.h" />
     <ClInclude Include="VulkanRenderer.h" />
     <ClInclude Include="VulkanRenderizableObject.h" />
     <ClInclude Include="WindowAPI.h" />
