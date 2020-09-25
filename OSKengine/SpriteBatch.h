@@ -28,7 +28,7 @@ namespace OSK {
 		//	<screenAnchor>: establece el origen de coordenadas desde el que se calcula la posición del texto.
 		//	<limitAction>: establece que ocurre cuando el texto sale de la pantalla.
 		//	<sizeXlimit>: si > 0, establece, en píxeles, el límite sobre el cual se aplica <limitAction>.
-		void DrawString(const Font& fuente, const std::string& texto, const float_t& size, const Vector2& position, const Color& color = Color(1.0f), const Anchor& screenAnchor = Anchor::TOP_LEFT, const Vector4& reference = Vector4(-1.0f), const TextRenderingLimit& limitAction = TextRenderingLimit::DO_NOTHING, const float_t& sizeXlimit = 0, const float_t& limitOffset = 10);
+		void DrawString(const Font* fuente, const std::string& texto, const float_t& size, const Vector2& position, const Color& color = Color(1.0f), const Anchor& screenAnchor = Anchor::TOP_LEFT, const Vector4& reference = Vector4(-1.0f), const TextRenderingLimit& limitAction = TextRenderingLimit::DO_NOTHING, const float_t& sizeXlimit = 0, const float_t& limitOffset = 10);
 
 		//Vacía el spriteBatch.
 		void Clear();

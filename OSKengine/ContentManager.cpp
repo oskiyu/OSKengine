@@ -9,6 +9,7 @@
 #include "FileIO.h"
 
 #include "VulkanImageGen.h"
+#include <al.h>
 
 using namespace OSK::VULKAN;
 
@@ -39,46 +40,44 @@ namespace OSK {
 	}
 
 	void ContentManager::Unload() {
-		if (!Textures.empty()) {
-			for (auto& i : Textures) {
-				i->Albedo.Destroy();
-				delete i;
-			}
+		for (auto& i : Textures) {
+			i->Albedo.Destroy();
+			delete i;
 		}
 
-		if (!ModelTextures.empty())
-			for (auto& i : ModelTextures)
-				delete i;
-		
-		if (!SkyboxTextures.empty()) {
-			for (auto& i : SkyboxTextures) {
-				i->texture.Destroy();
-				delete i;
-			}
+		for (auto& i : ModelTextures)
+			delete i;
+
+		for (auto& i : SkyboxTextures) {
+			i->texture.Destroy();
+			delete i;
 		}
 
-		if (!ModelDatas.empty())
-			for (auto& i : ModelDatas)
-				delete i;
+		for (auto& i : ModelDatas)
+			delete i;
 
-		if (!Sprites.empty()) {
-			for (auto& i : Sprites) {
-				renderer->DestroyBuffer(i->VertexBuffer);
-				renderer->DestroyBuffer(i->IndexBuffer);
-			}
+		for (auto& i : Sprites) {
+			renderer->DestroyBuffer(i->VertexBuffer);
+			renderer->DestroyBuffer(i->IndexBuffer);
 		}
-		
+
+		for (auto& i : Sounds)
+			delete i;
+
 		Textures.clear();
 		ModelTextures.clear();
 		SkyboxTextures.clear();
 		ModelDatas.clear();
 		Sprites.clear();
+		Fonts.clear();
+		Sounds.clear();
 
 		TextureFromPath.clear();
 		ModelTextureFromPath.clear();
 		SkyboxTextureFromPath.clear();
 		ModelDataFromPath.clear();
-		std::cout << "Unloaded content manager." << std::endl;
+		FontsFromPath.clear();
+		SoundsFromPath.clear();
 	}
 
 	Texture* ContentManager::LoadTexture(const std::string& path) {
@@ -396,57 +395,67 @@ namespace OSK {
 		model.texture = LoadModelTexture(direct);
 	}
 
-	void ContentManager::LoadAnimatedModel(AnimatedModel& model, const std::string& path) {
+	AnimatedModel* ContentManager::LoadAnimatedModel(const std::string& path) {
+		if (AnimatedModelFromPath.find(path) != AnimatedModelFromPath.end())
+			return AnimatedModelFromPath[path];
+
+		AnimatedModel* model = new AnimatedModel();
+
 		TempModelData modelData = GetModelTempData(path);
 
-		model.scene = GlobalImporter.ReadFile(path.c_str(), AssimpFlags);
-		model.SetAnimation(0);
+		model->scene = GlobalImporter.ReadFile(path.c_str(), AssimpFlags);
+		model->SetAnimation(0);
 
-		model.GlobalInverseTransform = model.scene->mRootNode->mTransformation;
-		model.GlobalInverseTransform.Inverse();
-		model.Bones.resize(modelData.Vertices.size());
+		model->GlobalInverseTransform = model->scene->mRootNode->mTransformation;
+		model->GlobalInverseTransform.Inverse();
+		model->Bones.resize(modelData.Vertices.size());
 
 		uint32_t vertexBase = 0;
-		for (uint32_t m = 0; m < model.scene->mNumMeshes; m++) {
-			const aiMesh* mesh = model.scene->mMeshes[m];
+		for (uint32_t m = 0; m < model->scene->mNumMeshes; m++) {
+			const aiMesh* mesh = model->scene->mMeshes[m];
 			for (uint32_t i = 0; i < mesh->mNumBones; i++) {
 				uint32_t index = 0;
 				std::string name(mesh->mBones[i]->mName.data);
 
-				if (model.BoneMapping.find(name) == model.BoneMapping.end()) {
-					index = model.NumBones;
-					model.NumBones++;
+				if (model->BoneMapping.find(name) == model->BoneMapping.end()) {
+					index = model->NumBones;
+					model->NumBones++;
 					BoneInfo bone;
-					model.BoneInfos.push_back(bone);
-					model.BoneInfos[index].Offset = mesh->mBones[i]->mOffsetMatrix;
-					model.BoneMapping[name] = index;
+					model->BoneInfos.push_back(bone);
+					model->BoneInfos[index].Offset = mesh->mBones[i]->mOffsetMatrix;
+					model->BoneMapping[name] = index;
 				}
 				else {
-					index = model.BoneMapping[name];
+					index = model->BoneMapping[name];
 				}
 
 				for (uint32_t w = 0; w < mesh->mBones[i]->mNumWeights; w++) {
 					//CHANGED
 					uint32_t vertexID = vertexBase + mesh->mBones[i]->mWeights[w].mVertexId;
-					model.Bones[vertexID].Add(index, mesh->mBones[i]->mWeights[w].mWeight);
+					model->Bones[vertexID].Add(index, mesh->mBones[i]->mWeights[w].mWeight);
 					//std::cout << "ADDED BONE DATA FOR VERTEX: " << vertexID << " W: " << mesh->mBones[i]->mWeights[w].mWeight << std::endl;
 				}
 			}
 			vertexBase += mesh->mNumVertices;
 		}
-		model.BoneTransforms.resize(model.NumBones);
+		model->BoneTransforms.resize(model->NumBones);
 
 		for (uint32_t i = 0; i < modelData.Vertices.size(); i++) {
 			for (uint32_t b = 0; b < OSK_ANIM_MAX_BONES_PER_VERTEX; b++) {
-				modelData.Vertices[i].BondeIDs[b] = model.Bones[i].IDs[b];
-				modelData.Vertices[i].BoneWeights[b] = model.Bones[i].Weights[b];
+				modelData.Vertices[i].BondeIDs[b] = model->Bones[i].IDs[b];
+				modelData.Vertices[i].BoneWeights[b] = model->Bones[i].Weights[b];
 			}
 		}
 
-		model.Data = CreateModel(modelData.Vertices, modelData.Indices);
-		model.SetAnimation(0);
+		model->Data = CreateModel(modelData.Vertices, modelData.Indices);
+		model->SetAnimation(0);
 
-		model.Update(0);
+		model->Update(0);
+
+		AnimatedModels.push_back(model);
+		AnimatedModelFromPath[path] = model;
+
+		return model;
 	}
 
 	void ContentManager::LoadSprite(Sprite& sprite, const std::string& path) {
@@ -458,7 +467,12 @@ namespace OSK {
 		Sprites.push_back(&sprite);
 	}
 
-	void ContentManager::LoadFont(Font& fuente, const std::string& source, uint32_t size) {
+	Font* ContentManager::LoadFont(const std::string& source, uint32_t size) {
+		if (FontsFromPath.find(source) != FontsFromPath.end())
+			return FontsFromPath[source];
+
+		Font* fuente = new Font();
+
 		static FT_Library ftLib = nullptr;
 		if (ftLib == nullptr)
 			if (FT_Init_FreeType(&ftLib))
@@ -488,7 +502,7 @@ namespace OSK {
 				character.Bearing = Vector2(lastFace->glyph->bitmap_left, lastFace->glyph->bitmap_top);
 				character.Advance = lastFace->glyph->advance.x;
 
-				fuente.Characters[c] = character;
+				fuente->Characters[c] = character;
 
 				continue;
 			}
@@ -510,16 +524,21 @@ namespace OSK {
 			character.Bearing = Vector2(face->glyph->bitmap_left, face->glyph->bitmap_top);
 			character.Advance = face->glyph->advance.x;
 
-			fuente.Characters[c] = character;
+			fuente->Characters[c] = character;
 
 			lastFace = face;
 
-			Sprites.push_back(&fuente.Characters[c].sprite);
+			Sprites.push_back(&fuente->Characters[c].sprite);
 		}
 
 		FT_Done_Face(face);
 
-		fuente.Size = size;
+		fuente->Size = size;
+
+		FontsFromPath[source] = fuente;
+		Fonts.push_back(fuente);
+
+		return fuente;
 	}
 
 	void ContentManager::LoadHeightmap(Heightmap& map, const std::string& path) {
@@ -536,6 +555,76 @@ namespace OSK {
 		memcpy(map.Data, pixels, sizeof(uint8_t) * width * height);
 
 		stbi_image_free(pixels);
+	}
+
+	SoundEntity* ContentManager::LoadSoundEntity(const std::string& path) {
+		if(SoundsFromPath.find(path) != SoundsFromPath.end())
+			return SoundsFromPath[path];
+
+		SoundEntity* sound = new SoundEntity();
+
+		std::ifstream file(path.c_str(), std::ifstream::binary);
+
+		if (!file.is_open())
+			throw std::runtime_error("ERROR: el archivo " + path + "no existe.");
+
+		char chunkId[5] = "\0";
+		uint32_t size = 0;
+		file.read(chunkId, 4);
+		file.read((char*)&size, 4);
+
+		chunkId[4] = '\0';
+
+		file.read(chunkId, 4);
+
+		chunkId[4] = '\0';
+
+		file.read(chunkId, 4);
+		file.read((char*)&size, 4);
+
+		short formatTag = 0;
+		short channels = 0;
+		int samplesPerSec = 0;
+		int averageBytesPerSec = 0;
+		short blockAlign = 0;
+		short bitsPerSample = 0;
+
+		file.read((char*)&formatTag, 2);
+		file.read((char*)&channels, 2);
+		file.read((char*)&samplesPerSec, 4);
+		file.read((char*)&averageBytesPerSec, 4);
+		file.read((char*)&blockAlign, 2);
+		file.read((char*)&bitsPerSample, 2);
+
+		if (size > 16) {
+			file.seekg((int)file.tellg() + (size - 16));
+		}
+
+		file.read(chunkId, 4);
+		file.read((char*)&size, 4);
+
+		chunkId[4] = '\0';
+
+		unsigned char* data = new unsigned char[size];
+
+		file.read((char*)data, size);
+
+		//Crear el audio.
+		alGenBuffers(1, &sound->BufferID);
+		alBufferData(sound->BufferID, (channels == 2) ? AL_FORMAT_STEREO16 : AL_FORMAT_MONO16, data, size, samplesPerSec);
+
+		alGenSources(1, &sound->SourceID);
+		alSourcei(sound->SourceID, AL_BUFFER, sound->BufferID);
+
+		delete[] data;
+		data = NULL;
+
+		file.close();
+
+		Sounds.push_back(sound);
+		SoundsFromPath[path] = sound;
+
+		return sound;
 	}
 
 }

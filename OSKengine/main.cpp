@@ -40,8 +40,8 @@ int program() {
 	OSK::Sprite texture{};
 	RenderAPI.Content->LoadSprite(texture, "models/cube/td.png");
 
-	OSK::Font fuente{};
-	RenderAPI.Content->LoadFont(fuente, "Fonts/arial.ttf", 20);
+	OSK::Font* fuente = nullptr;
+	fuente = RenderAPI.Content->LoadFont("Fonts/arial.ttf", 20);
 
 	OSK::RenderizableScene* Scene = new OSK::RenderizableScene(&RenderAPI);
 

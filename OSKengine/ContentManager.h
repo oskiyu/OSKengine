@@ -16,7 +16,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include "Heightmap.h"
-
+#include "SoundEntity.h"
 
 namespace OSK {
 
@@ -76,7 +76,7 @@ namespace OSK {
 		//	<font>: fuente a cargar.
 		//	<source>: ruta del archivo (incluyendo la extensión).
 		//	<size>: tamaño al que se va a cargar la fuente, en píxeles.
-		void LoadFont(Font& fuente, const std::string& source, uint32_t size);
+		Font* LoadFont(const std::string& source, uint32_t size);
 
 		//Carga un skybox.
 		//	<skybox>: skybox a cargar.
@@ -92,12 +92,15 @@ namespace OSK {
 		//Carga un modelo 3D animado.
 		//	<model>: modelo animado a cargar.
 		//	<path>: ruta del modelo (incluyendo la extensión del modelo).
-		void LoadAnimatedModel(AnimatedModel& model, const std::string& path);
+		AnimatedModel* LoadAnimatedModel(const std::string& path);
 
 		//Carga un heightmap.
 		//	<map>: heightmap a cargar.
 		//	<path>: ruta del archivo (con extensión).
+		//El heightmap NO es propiedad del ContentManager y no se eliminará al llamar a Unload().
 		void LoadHeightmap(Heightmap& map, const std::string& path);
+
+		SoundEntity* LoadSoundEntity(const std::string& path);
 
 		//Elimina todos los recursos almacenados.
 		void Unload();
@@ -114,14 +117,23 @@ namespace OSK {
 		std::vector<SkyboxTexture*> SkyboxTextures = {};
 		//Almacena los vértices y los índices de los modelos 3D.
 		std::vector<ModelData*> ModelDatas = {};
+		//Almacena los vértices y los índices de los modelos 3D animados.
+		std::vector<AnimatedModel*> AnimatedModels = {};
 		//Almacena referencias a los sprites.
 		std::vector<Sprite*> Sprites = {};
+		//Almacena referencias a las fuentes.
+		std::vector<Font*> Fonts = {};
+		//Almacena referencias a los sonidos.
+		std::vector<SoundEntity*> Sounds = {};
 		
 		//HASH-MAPS.
 		std::unordered_map<std::string, Texture*> TextureFromPath = {};
 		std::unordered_map<std::string, ModelTexture*> ModelTextureFromPath = {};
 		std::unordered_map<std::string, SkyboxTexture*> SkyboxTextureFromPath = {};
 		std::unordered_map<std::string, ModelData*> ModelDataFromPath = {};
+		std::unordered_map<std::string, AnimatedModel*> AnimatedModelFromPath = {};
+		std::unordered_map<std::string, Font*> FontsFromPath = {};
+		std::unordered_map<std::string, SoundEntity*> SoundsFromPath = {};
 
 		//El máximo número de mipmaps que se puede generar para una textura.
 		//	<width>: ancho de la textura.

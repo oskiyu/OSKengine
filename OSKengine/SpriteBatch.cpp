@@ -13,12 +13,12 @@ namespace OSK {
 		spritesToDraw.push_back(sprite);
 	}
 
-	void SpriteBatch::DrawString(const Font& fuente, const std::string& texto, const float_t& size, const Vector2& position, const Color& color, const Anchor& screenAnchor, const Vector4& reference, const TextRenderingLimit& limitAction, const float_t& sizeXlimit, const float_t& limitOffset) {
+	void SpriteBatch::DrawString(const Font* fuente, const std::string& texto, const float_t& size, const Vector2& position, const Color& color, const Anchor& screenAnchor, const Vector4& reference, const TextRenderingLimit& limitAction, const float_t& sizeXlimit, const float_t& limitOffset) {
 		AnchorTextTo to = AnchorTextTo::SCREEN;
 		if (reference.X > 0.0f)
 			to = AnchorTextTo::UI_ELEMENT;
 
-		Vector2 textSize = fuente.GetTextSize(texto, Vector2(size));
+		Vector2 textSize = fuente->GetTextSize(texto, Vector2(size));
 		Vector2 finalPosition = GetTextPosition(position, textSize, screenAnchor, to, reference);
 
 		std::string finalText = texto;
@@ -32,7 +32,7 @@ namespace OSK {
 			float_t textSizeX = 0.0f;
 
 			for (auto c = texto.begin(); c != texto.end(); c++) {
-				FontChar character = fuente.Characters.at(*c);
+				FontChar character = fuente->Characters.at(*c);
 				if (*c == '\n') {
 					textSizeX = 0;
 				}
@@ -52,10 +52,10 @@ namespace OSK {
 
 		//Render:
 		float_t x = finalPosition.X;
-		float_t y = finalPosition.Y + fuente.Characters.at('A').Size.Y * size;
+		float_t y = finalPosition.Y + fuente->Characters.at('A').Size.Y * size;
 		for (auto c = finalText.begin(); c != finalText.end(); c++) {
 
-			FontChar character = fuente.Characters.at(*c);
+			FontChar character = fuente->Characters.at(*c);
 			if (*c == '\n') {
 				y += character.Size.Y * size + character.Bearing.Y;
 				x = finalPosition.X;

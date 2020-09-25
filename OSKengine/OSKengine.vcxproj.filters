@@ -297,9 +297,6 @@
     <ClCompile Include="Skybox.cpp">
       <Filter>Archivos de origen\OSKengine\VulkanRenderer</Filter>
     </ClCompile>
-    <ClCompile Include="ContentManager.cpp">
-      <Filter>Archivos de origen\OSKengine\VulkanRenderer</Filter>
-    </ClCompile>
     <ClCompile Include="RenderizableScene.cpp">
       <Filter>Archivos de origen\OSKengine\VulkanRenderer</Filter>
     </ClCompile>
@@ -314,6 +311,9 @@
     </ClCompile>
     <ClCompile Include="VulkanImageGen.cpp">
       <Filter>Archivos de origen\OSKengine\VulkanRenderer\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentManager.cpp">
+      <Filter>Archivos de origen\OSKengine\ContentAPI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -611,9 +611,6 @@
     <ClInclude Include="Skybox.h">
       <Filter>Archivos de encabezado\OSKengine\VulkanRenderer</Filter>
     </ClInclude>
-    <ClInclude Include="ContentManager.h">
-      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer</Filter>
-    </ClInclude>
     <ClInclude Include="RenderizableScene.h">
       <Filter>Archivos de encabezado\OSKengine\VulkanRenderer</Filter>
     </ClInclude>
@@ -631,6 +628,9 @@
     </ClInclude>
     <ClInclude Include="VulkanImageGen.h">
       <Filter>Archivos de encabezado\OSKengine\VulkanRenderer\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentManager.h">
+      <Filter>Archivos de encabezado\OSKengine\ContentAPI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
