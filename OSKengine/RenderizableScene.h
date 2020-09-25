@@ -9,6 +9,8 @@
 #include "GraphicsPipeline.h"
 #include "LightsUBO.h"
 #include "Terrain.h"
+#include "DescriptorLayout.h"
+#include "DescriptorSet.h"
 
 namespace OSK {
 
@@ -27,6 +29,30 @@ namespace OSK {
 		//Destruye la escena.
 		~RenderizableScene();
 
+		//Crea el descriptor layout de la escena.
+		//Por defecto crea un PHONG descriptor layout.
+		virtual void CreateDescriptorLayout();
+
+		//Establece las propiedades de las luces de la escena.
+		//El número de luces NO puede cambiar.
+		//Por defecto: 16 luces puntuales.
+		virtual void SetupLightsUBO();
+
+		//Crea un descriptor set para la textura dada.
+		//	<texture>: textura del modelo.
+		//Por defecto crea un PHONG descriptor set.
+		virtual void CreateDescriptorSet(ModelTexture* texture) const;
+
+		//Crea el GraphicsPipeline de la escena.
+		//Por defecto crea un PHONG GraphicsPipeline.
+		virtual void SetGraphicsPipeline();
+
+		//Recrea el GraphicsPipeline.
+		void RecreateGraphicsPipeline();
+
+		//Actualiza los uniform buffers de la GPU que contienten información sobre las luces de la escena.
+		void UpdateLightsBuffers();
+
 		//Añade un modelo a la escena.
 		//	<model>: modelo.
 		void AddModel(Model* model);
@@ -38,17 +64,6 @@ namespace OSK {
 		//Carga el skybox que usará esta escena.
 		//	<path>: ruta del archivo.
 		void LoadSkybox(const std::string& path);
-
-		//Establece la GraphicsPipeline que usará esta escena.
-		//	<pipeline>: pipeline.
-		void SetGraphicsPipeline(GraphicsPipeline* pipeline);
-
-		//Crea un descriptor set PHONG que usará el LughtsUBO de esta escena.
-		//	<texture>: textura del modelo.
-		//	<albedoSampler>: sampler de la textura (albedo).
-		//	<specularSampler>: sampler de la textura (specular).
-		void CreatePhongDescriptorSet(ModelTexture* texture, VkSampler albedoSampler, VkSampler specularSampler) const;
-		//virtual void CreateDescriptorSet(ModelTexture* texture) const = 0;
 
 		//Renderiza la escena.
 		void Draw(VkCommandBuffer cmdBuffer, const uint32_t& iteration);
@@ -65,10 +80,11 @@ namespace OSK {
 
 	protected:
 
-		GraphicsPipeline* CurrentGraphicsPipeline = nullptr;
+		void InitLightsBuffers();
 
-		GraphicsPipeline* PhongPipeline = nullptr;
-		GraphicsPipeline* PBR_Pipeline = nullptr;
+		DescriptorLayout* PhongDescriptorLayout = nullptr;
+
+		GraphicsPipeline* CurrentGraphicsPipeline = nullptr;
 		GraphicsPipeline* SkyboxPipeline = nullptr;
 
 		ContentManager* Content = nullptr;
@@ -76,6 +92,8 @@ namespace OSK {
 		std::vector<VulkanBuffer> LightsUniformBuffers;
 
 	private:
+
+		ModelTexture* DefaultTexture = nullptr;
 
 		Skybox skybox;
 

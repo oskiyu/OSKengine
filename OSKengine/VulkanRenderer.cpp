@@ -99,17 +99,6 @@ VkSurfaceFormatKHR getSwapchainFormat(const std::vector<VkSurfaceFormatKHR>& for
 OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appName, const Version& gameVersion) {
 	renderMode = mode;
 	
-	lights.Points.resize(16);
-	lights.Points.push_back({});
-	lights.Points[0].Radius = 50;
-	lights.Points[0].Color = OSK::Color(0.0f, 1.0f, 1.0f);
-	lights.Points[0].Intensity = 2.0f;
-	lights.Points[0].Constant = 1.0f;
-	lights.Points[0].Linear = 0.09f;
-	lights.Points[0].Quadratic = 0.032f;
-	lights.Points[0].Position = { 5, 5, 5 };
-	lights.Directional = DirectionalLight{ OSK::Vector3(-0.7f, 0.8f, -0.4f), OSK::Color::RED(), 2.0f };
-
 	VulkanImageGen::SetRenderer(this);
 
 	createInstance(appName, gameVersion);
@@ -148,7 +137,6 @@ OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appNam
 
 	createDepthResources();
 	createFramebuffers();
-	createDescriptorPool();
 	createSyncObjects();
 	createCommandBuffers();
 
@@ -202,10 +190,6 @@ void VulkanRenderer::RenderFrame() {
 			memcpy(data, &ubo, sizeof(UBO));
 			vkUnmapMemory(LogicalDevice, UniformBuffers[i].Memory);
 		}
-
-		lights.Points[0].Position = DefaultCamera3D.CameraTransform.GlobalPosition.ToGLM();
-		for (auto& i : LightsUniformBuffers)
-			lights.UpdateBuffer(LogicalDevice, i);
 
 		if (Settings.AutoUpdateCommandBuffers)
 			updateCommandBuffers();
@@ -985,12 +969,8 @@ void VulkanRenderer::RecreateSwapchain() {
 	createGraphicsPipeline3D();
 	SkyboxGraphicsPipeline = CreateNewSkyboxPipeline(Settings.SkyboxVertexPath, Settings.SkyboxFragmentPath);
 
-	if (Scene != nullptr) {
-		Scene->PhongPipeline = GraphicsPipeline3D;
-		Scene->SkyboxPipeline = SkyboxGraphicsPipeline;
-
-		Scene->SetGraphicsPipeline(GraphicsPipeline3D);
-	}
+	if (Scene != nullptr)
+		Scene->RecreateGraphicsPipeline();
 
 	createDepthResources();
 	createFramebuffers();

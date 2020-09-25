@@ -171,8 +171,6 @@ int program() {
 			spriteBatch.DrawString(fuente, "OSKengine " + std::string(OSK::ENGINE_VERSION), 0.75f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
 
 			spriteBatch.DrawString(fuente, "3D POS: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Position), 0.75f, OSK::Vector2(0, 25), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
-			//spriteBatch.DrawString(fuente, "3D ROT: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Rotation.ToGLM()), 0.75f, OSK::Vector2(0, 40), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
-			//spriteBatch.DrawString(fuente, "3D FRONT: " + OSK::ToString(RenderAPI.DefaultCamera3D.Front.ToGLM()), 0.75f, OSK::Vector2(0, 55), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
 			
 			RenderAPI.SubmitSpriteBatch(spriteBatch);
 		}
