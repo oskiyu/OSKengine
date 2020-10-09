@@ -170,6 +170,8 @@ void VulkanRenderer::ReloadShaders() {
 
 
 void VulkanRenderer::RenderFrame() {
+	renderP_Unit.Start();
+
 	double startTime = glfwGetTime();
 
 	{
@@ -270,8 +272,9 @@ void VulkanRenderer::RenderFrame() {
 	double endTime = glfwGetTime();
 
 	double targetMS = 1 / FPSlimit;
-	if ((endTime - startTime) < targetMS)
-		std::this_thread::sleep_for(std::chrono::milliseconds((long)(targetMS * 1000 - (endTime - startTime) * 1000)));
+	renderP_Unit.End();
+	//if ((endTime - startTime) < targetMS)
+		//std::this_thread::sleep_for(std::chrono::milliseconds((long)(targetMS * 1000 - (endTime - startTime) * 1000)));
 }
 
 
@@ -1054,6 +1057,8 @@ std::vector<VkCommandBuffer> VulkanRenderer::GetCommandBuffers() {
 
 
 void VulkanRenderer::updateCommandBuffers() {
+	updateCmdP_Unit.Start();
+
 	for (auto& i : currentSpriteBatch.spritesToDraw)
 		if (i.hasChanged)
 			updateSpriteVertexBuffer(&i);
@@ -1138,6 +1143,8 @@ void VulkanRenderer::updateCommandBuffers() {
 		result = vkEndCommandBuffer(CommandBuffers[i]);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: grabar renderpass.");
+
+		updateCmdP_Unit.End();
 	}
 }
 

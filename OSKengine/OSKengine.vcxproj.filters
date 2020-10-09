@@ -136,6 +136,12 @@
     <Filter Include="Archivos de origen\OSKengine\Collision">
       <UniqueIdentifier>{5878de30-6c2d-43f1-ab2e-4f64ac65d1b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Physics">
+      <UniqueIdentifier>{f268862f-d7ef-4e05-aaa7-194891f84173}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Physics">
+      <UniqueIdentifier>{08502ebb-da6e-4cf3-b4f3-3a96033eafc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -315,6 +321,18 @@
     <ClCompile Include="ContentManager.cpp">
       <Filter>Archivos de origen\OSKengine\ContentAPI</Filter>
     </ClCompile>
+    <ClCompile Include="ProfilingUnit.cpp">
+      <Filter>Archivos de origen\OSKengine\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Profiler.cpp">
+      <Filter>Archivos de origen\OSKengine\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="OBB.cpp">
+      <Filter>Archivos de origen\OSKengine\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Archivos de origen\OSKengine\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowAPI.h">
@@ -406,9 +424,6 @@
     </ClInclude>
     <ClInclude Include="OSKsettings.h">
       <Filter>Archivos de encabezado\OSKengine</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders.h">
-      <Filter>Archivos de encabezado\Game</Filter>
     </ClInclude>
     <ClInclude Include="ModelFormat.h">
       <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
@@ -631,6 +646,33 @@
     </ClInclude>
     <ClInclude Include="ContentManager.h">
       <Filter>Archivos de encabezado\OSKengine\ContentAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsEntity.h">
+      <Filter>Archivos de encabezado\OSKengine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsScene.h">
+      <Filter>Archivos de encabezado\OSKengine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicalEntityType.h">
+      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionInfo.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionPlane.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Profiler.h">
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="ProfilingUnit.h">
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="OBB.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

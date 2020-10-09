@@ -28,6 +28,7 @@
 #include "RenderizableScene.h"
 
 #include "VulkanImageGen.h"
+#include "ProfilingUnit.h"
 
 namespace OSK {
 
@@ -173,6 +174,9 @@ namespace OSK {
 		ContentManager* Content = new ContentManager(this);
 
 		RenderizableScene* Scene;
+
+		ProfilingUnit renderP_Unit{ "Render frame" };
+		ProfilingUnit updateCmdP_Unit{ "Update command buffers" };
 
 	private:
 

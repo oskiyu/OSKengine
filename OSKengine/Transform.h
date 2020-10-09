@@ -32,11 +32,11 @@ namespace OSK {
 			ModelMatrix = OSK_MAKE_GLM_MAT4(P)((P)1);
 
 			Position = Vector3_t<P>(0);
-			Scale = Vector3_t<P>(0);
+			Scale = Vector3_t<P>(1);
 			Rotation = Vector3_t<P>(0);
 
 			GlobalPosition = Vector3_t<P>(0);
-			GlobalScale = Vector3_t<P>(0);
+			GlobalScale = Vector3_t<P>(1);
 			GlobalRotation = Vector3_t<P>(0);
 
 			PositionOffset = Vector3_t<P>(0);
@@ -135,6 +135,21 @@ namespace OSK {
 		void SetRotation(const Vector3_t<P>& rotation) {
 			Rotation = rotation;
 
+			if (Rotation.X > 360.0f)
+				Rotation.X -= 360.0f;
+			else if (Rotation.X < -360.0f)
+				Rotation.X += 360.0f;
+
+			if (Rotation.Y > 360.0f)
+				Rotation.Y -= 360.0f;
+			else if (Rotation.Y < -360.0f)
+				Rotation.Y += 360.0f;
+
+			if (Rotation.Z > 360.0f)
+				Rotation.Z -= 360.0f;
+			if (Rotation.Z < -360.0f)
+				Rotation.Z += 360.0f;
+
 			UpdateModel();
 		}
 
@@ -159,71 +174,6 @@ namespace OSK {
 
 		//Actualiza la matriz modelo.
 		void UpdateModel() {
-			/*struct transform {
-				Transform* t = nullptr;
-				uint32_t nextChild = 0;
-			} current{ this, 0 };
-
-			std::vector<transform> stack;
-
-			uint32_t currentIt = 0;
-			const uint32_t maxIt = 10;
-
-			while (current.t != nullptr) {
-				current.t->GlobalRotation = current.t->Rotation + current.t->RotationOffset;
-				current.t->GlobalPosition = current.t->Position + current.t->PositionOffset;
-				current.t->GlobalScale = current.t->Scale;
-				if (current.t->UseParentScale)
-					current.t->GlobalScale = current.t->GlobalScale + current.t->ScaleOffset;
-
-				current.t->ModelMatrix = glm::mat4(1);
-
-				current.t->ModelMatrix = glm::translate(current.t->ModelMatrix, current.t->PositionOffset.ToGLM());
-
-				current.t->ModelMatrix = glm::rotate(current.t->ModelMatrix, glm::radians(current.t->RotationOffset.X), glm::vec3(1.0f, 0.0f, 0.0f));
-				current.t->ModelMatrix = glm::rotate(current.t->ModelMatrix, glm::radians(current.t->RotationOffset.Y), glm::vec3(0.0f, 1.0f, 0.0f));
-				current.t->ModelMatrix = glm::rotate(current.t->ModelMatrix, glm::radians(current.t->RotationOffset.Z), glm::vec3(0.0f, 0.0f, 1.0f));
-
-				current.t->GlobalPosition = Vector3(current.t->ModelMatrix * Vector4(current.t->Position.X, current.t->Position.Y, current.t->Position.Z, 1.0f).ToGLM());
-
-				current.t->ModelMatrix = glm::translate(current.t->ModelMatrix, current.t->Position.ToGLM());
-				current.t->ModelMatrix = glm::scale(current.t->ModelMatrix, current.t->GlobalScale.ToGLM());
-
-				current.t->ModelMatrix = glm::rotate(current.t->ModelMatrix, glm::radians(current.t->Rotation.X), glm::vec3(1.0f, 0.0f, 0.0f));
-				current.t->ModelMatrix = glm::rotate(current.t->ModelMatrix, glm::radians(current.t->Rotation.Y), glm::vec3(0.0f, 1.0f, 0.0f));
-				current.t->ModelMatrix = glm::rotate(current.t->ModelMatrix, glm::radians(current.t->Rotation.Z), glm::vec3(0.0f, 0.0f, 1.0f));
-
-				currentIt++;
-				if (currentIt > maxIt)
-					break;
-
-				if (!isSkeletal) {
-					if (current.t->isParent) {
-						if (current.nextChild < current.t->ChildTransforms.size()) {
-							transform next{ current.t->ChildTransforms[current.nextChild], 0 };
-
-							current.nextChild++;
-							stack.push_back(current);
-
-							next.t->RotationOffset = current.t->GlobalRotation;
-							next.t->PositionOffset = current.t->GlobalPosition;
-							next.t->ScaleOffset = current.t->GlobalScale;
-							current = next;
-
-							continue;
-						}
-					}
-				}
-
-				current.t = nullptr;
-
-				if (stack.size() > 0) {
-					current = stack[stack.size() - 1];
-					stack.pop_back();
-				}
-			}*/
-
-
 			GlobalRotation = Rotation + RotationOffset;
 			GlobalPosition = Position + PositionOffset;
 			GlobalScale = Scale;
@@ -240,7 +190,7 @@ namespace OSK {
 
 			GlobalPosition = Vector3_t<P>(ModelMatrix * Vector4(Position.X, Position.Y, Position.Z, 1).ToGLM());
 
-			ModelMatrix = glm::translate(ModelMatrix, Position.ToGLM_T());
+			ModelMatrix = glm::translate(ModelMatrix, GlobalPosition.ToGLM_T());
 
 			ModelMatrix = glm::scale(ModelMatrix, GlobalScale.ToGLM_T());
 

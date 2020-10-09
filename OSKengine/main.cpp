@@ -18,8 +18,22 @@
 #include "ToString.h"
 #include "Log.h"
 
+#include "PhysicsScene.h"
+
+#include "Profiler.h"
+
+#include "OBB.h"
+
+struct Entity {
+	Entity(){}
+	OSK::Transform transform;
+	OSK::Model Model;
+	OSK::PhysicsEntity Physics;
+};
 
 int program() {
+
+	OSK::Profiler Profiler{};
 
 	OSK::WindowAPI* windowAPI = new OSK::WindowAPI();
 	windowAPI->SetWindow(1280, 720, "OSKengine Vk", OSK::GraphicsAPI::VULKAN);
@@ -48,10 +62,57 @@ int program() {
 	//
 	OSK::Model model{};
 	OSK::ModelData* plane{};
-	RenderAPI.Content->LoadModel(model, "models/cube/cube.obj");
-	Scene->AddModel(&model);
+	//RenderAPI.Content->LoadModel(model, "models/cube/cube.obj");
+	//Scene->AddModel(&model);
 	Scene->LoadSkybox("skybox/skybox.ktx");
-	Scene->LoadHeightmap("heightmaps/Heightmap.png", { 1 }, 6.5f);
+	Scene->LoadHeightmap("heightmaps/Heightmap.png", { 1 }, 5);
+
+	//
+	Entity A;
+	A.transform.SetPosition({ 1, 0, 0 });
+	RenderAPI.Content->LoadModel(A.Model, "models/cube/cube.obj");
+	A.Physics.EntityTransform = &A.transform;
+	A.Model.ModelTransform = &A.transform;
+	A.Physics.Mass = 5;
+	A.Physics.SetLinearVelocity({ 0, 0, 0  });
+	A.Physics.Collision.type = OSK::BroadColliderType::BOX_AABB;
+	A.Physics.Collision.BroadCollider.Box.Size = { 2.0f };
+	//A.Physics.AngularVelocity = { A.Physics.GetTorque({ 0, -1, 0 }, { 10, 0, 0 }) };
+
+	OSK::PhysicsScene P_scene;
+	P_scene.Entities.push_back(&A.Physics);
+	P_scene.Terreno = Scene->terreno;
+
+	Scene->AddModel(&A.Model);
+
+	Entity B;
+	B.transform.SetPosition({ 10, 0, 0 });
+	B.Physics.Mass = 50;
+	B.Physics.SetLinearVelocity({ -0, 0, 0 });
+	RenderAPI.Content->LoadModel(B.Model, "models/cube/cube.obj");
+	B.Physics.EntityTransform = &B.transform;
+	B.Model.ModelTransform = &B.transform;
+	A.Physics.Collision.type = OSK::BroadColliderType::BOX_AABB;
+	A.Physics.Collision.BroadCollider.Box.Size = { 2.0f };
+	OSK::OBB box1;
+	box1.BoxTransform.AttachTo(&A.transform);
+	OSK::OBB box2;
+	box2.BoxTransform.AttachTo(&B.transform);
+
+	//B.Physics.AngularVelocity = { B.Physics.GetTorque({ 0, -1, 0 }, { 10, 0, 0 }) };
+
+	P_scene.Entities.push_back(&B.Physics);
+
+	OSK::ProfilingUnit mainDrawUnit{ "Main Draw()" };
+	OSK::ProfilingUnit mainUpdateUnit{ "Main Update()" };
+
+	Profiler.AddProfilingUnit(&P_scene.pUnit);
+	Profiler.AddProfilingUnit(&RenderAPI.renderP_Unit);
+	Profiler.AddProfilingUnit(&RenderAPI.updateCmdP_Unit);
+	Profiler.AddProfilingUnit(&mainDrawUnit);
+	Profiler.AddProfilingUnit(&mainUpdateUnit);
+
+	Scene->AddModel(&B.Model);
 
 	RenderAPI.SetRenderizableScene(Scene);
 	//
@@ -101,19 +162,18 @@ int program() {
 	OSK::MouseState OldMS = {};
 	OSK::MouseState NewMS = {};
 
-	OSK::Vector4i vec(0, 1, 2, 3);
-	OSK::Vector4f a= vec.ToVector4f();
-
 	windowAPI->UpdateKeyboardState(OldKS);
 	windowAPI->UpdateKeyboardState(NewKS);
 	windowAPI->UpdateMouseState(OldMS);
 	windowAPI->UpdateMouseState(NewMS);
-	double deltaTime = 0.0;
+	double deltaTime = 0.016;
 
 	float FPS = 0.0f;
 	float totalDeltaTime = 0.0f;
 	int count = 0;
 	while (!windowAPI->WindowShouldClose()) {
+		mainUpdateUnit.Start();
+
 		double startTime = windowAPI->GetTime();
 		windowAPI->PollEvents();
 		windowAPI->UpdateKeyboardState(NewKS);
@@ -122,27 +182,56 @@ int program() {
 		if (NewKS.IsKeyDown(OSK::Key::F11) && OldKS.IsKeyUp(OSK::Key::F11))
 			windowAPI->SetFullscreen(!windowAPI->IsFullscreen);
 
+		const float SPEED = 3.0f;
+
+		if (NewKS.IsKeyDown(OSK::Key::ESCAPE))
+			windowAPI->Close();
+
 		if (NewKS.IsKeyDown(OSK::Key::UP))
-			texture.SpriteTransform.AddPosition(OSK::Vector2(0, -150) * deltaTime);
+			A.transform.AddPosition(OSK::Vector3f(3, 0, 0) * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::DOWN))
-			texture.SpriteTransform.AddPosition(OSK::Vector2(0, 150) * deltaTime);
+			A.transform.AddPosition(OSK::Vector3f(-3, 0, 0) * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::LEFT))
-			texture.SpriteTransform.AddPosition(OSK::Vector2(-150, 0) * deltaTime);
+			A.transform.AddPosition(OSK::Vector3f(0, 0, -3) * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::RIGHT))
-			texture.SpriteTransform.AddPosition(OSK::Vector2(150, 0) * deltaTime);
+			A.transform.AddPosition(OSK::Vector3f(0, 0, 3) * deltaTime);
+
+		if (NewKS.IsKeyDown(OSK::Key::Z))
+			A.transform.AddRotation(OSK::Vector3f(60, 0, 0) * deltaTime);
+		if (NewKS.IsKeyDown(OSK::Key::X))
+			A.transform.AddRotation(OSK::Vector3f(0, 60, 0) * deltaTime);
+		if (NewKS.IsKeyDown(OSK::Key::C))
+			A.transform.AddRotation(OSK::Vector3f(0, 0, 60) * deltaTime);
 
 		if (NewKS.IsKeyDown(OSK::Key::W))
-			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(RenderAPI.DefaultCamera3D.Front * 3 * deltaTime);
+			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(RenderAPI.DefaultCamera3D.Front * SPEED * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::S))
-			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(-RenderAPI.DefaultCamera3D.Front * 3 * deltaTime);
+			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(-RenderAPI.DefaultCamera3D.Front * SPEED * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::A))
-			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(-RenderAPI.DefaultCamera3D.Right * 3 * deltaTime);
+			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(-RenderAPI.DefaultCamera3D.Right * SPEED * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::D))
-			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(RenderAPI.DefaultCamera3D.Right * 3 * deltaTime);
+			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(RenderAPI.DefaultCamera3D.Right * SPEED * deltaTime);
+
+		if (NewKS.IsKeyDown(OSK::Key::P) && OldKS.IsKeyUp(OSK::Key::P))
+			Profiler.ShowData();
 
 		mouseVar_t deltaX = NewMS.PositionX - OldMS.PositionX;
 		mouseVar_t deltaY = NewMS.PositionY - OldMS.PositionY;
 		RenderAPI.DefaultCamera3D.Girar(deltaX, -deltaY);
+
+		P_scene.Simulate(deltaTime);
+		//P_scene.DetectCollisions(deltaTime);
+		P_scene.ResolveColisions();
+
+		static bool previousCollision = false;
+		
+		const bool Collision = box1.Intersects(box2);
+		if (Collision && !previousCollision)
+			OSK::Logger::DebugLog("OBB INTERSECTION START.");
+		if (!Collision && previousCollision)
+			OSK::Logger::DebugLog("OBB INTERSECTION END.");
+
+		previousCollision = Collision;
 
 		if (NewKS.IsKeyDown(OSK::Key::V) && OldKS.IsKeyUp(OSK::Key::V))
 			RenderAPI.SetPresentMode(OSK::PresentMode::VSYNC);
@@ -162,17 +251,22 @@ int program() {
 
 			totalDeltaTime = 0.0f;
 		}
+		mainUpdateUnit.End();
 
 		//Draw();
 		{
+			mainDrawUnit.Start();
+			Scene->Lights.Points[0].Position = RenderAPI.DefaultCamera3D.CameraTransform.GlobalPosition.ToVector3f().ToGLM();
+
 			spriteBatch.Clear();
 			spriteBatch.DrawSprite(texture);
 			spriteBatch.DrawString(fuente, "FPS: " + std::to_string((int)FPS), 0.75f, OSK::Vector2(0, 5), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
 			spriteBatch.DrawString(fuente, "OSKengine " + std::string(OSK::ENGINE_VERSION), 0.75f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
 
-			spriteBatch.DrawString(fuente, "3D POS: " + OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.Position), 0.75f, OSK::Vector2(0, 25), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+			spriteBatch.DrawString(fuente, "3D POS: " + OSK::ToString(B.transform.GlobalPosition), 0.75f, OSK::Vector2(0, 25), OSK::Color::WHITE(), OSK::Anchor::TOP_LEFT);
 			
 			RenderAPI.SubmitSpriteBatch(spriteBatch);
+			mainDrawUnit.End();
 		}
 
 		RenderAPI.RenderFrame();

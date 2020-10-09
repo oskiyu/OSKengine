@@ -151,6 +151,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Camera3D.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionBox.cpp" />
     <ClCompile Include="CollisionSphere.cpp" />
     <ClCompile Include="DescriptorLayout.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="ContentManager.cpp" />
     <ClCompile Include="LightsUBO.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="OBB.cpp" />
     <ClCompile Include="OldCamera3D.cpp" />
     <ClCompile Include="Checkbox.cpp" />
     <ClCompile Include="Collision2D.cpp" />
@@ -166,6 +168,8 @@
     <ClCompile Include="ContentAPI.cpp" />
     <ClCompile Include="D:\Dev\GLAD\src\glad.c" />
     <ClCompile Include="Font.cpp" />
+    <ClCompile Include="Profiler.cpp" />
+    <ClCompile Include="ProfilingUnit.cpp" />
     <ClCompile Include="RenderizableScene.cpp" />
     <ClCompile Include="Renderpass.cpp" />
     <ClCompile Include="Skybox.cpp" />
@@ -215,7 +219,10 @@
     <ClInclude Include="ButtonStatesEnum.h" />
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Camera3D.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionBox.h" />
+    <ClInclude Include="CollisionInfo.h" />
+    <ClInclude Include="CollisionPlane.h" />
     <ClInclude Include="CollisionSphere.h" />
     <ClInclude Include="DescriptorLayout.h" />
     <ClInclude Include="DescriptorSet.h" />
@@ -224,6 +231,7 @@
     <ClInclude Include="Heightmap.h" />
     <ClInclude Include="LightsUBO.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="OBB.h" />
     <ClInclude Include="OldCamera3D.h" />
     <ClInclude Include="Checkbox.h" />
     <ClInclude Include="Collision2D.h" />
@@ -234,6 +242,11 @@
     <ClInclude Include="DrawCommand.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontChar.h" />
+    <ClInclude Include="PhysicalEntityType.h" />
+    <ClInclude Include="PhysicsEntity.h" />
+    <ClInclude Include="PhysicsScene.h" />
+    <ClInclude Include="Profiler.h" />
+    <ClInclude Include="ProfilingUnit.h" />
     <ClInclude Include="PushConst3D.h" />
     <ClInclude Include="Renderpass.h" />
     <ClInclude Include="RenderizableScene.h" />
@@ -286,7 +299,6 @@
     <ClInclude Include="RenderSettingsBitFlags.h" />
     <ClInclude Include="RenderSettingsEnum.h" />
     <ClInclude Include="Shader.h" />
-    <ClInclude Include="Shaders.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="OldSkybox.h" />
     <ClInclude Include="SoundEntity.h" />

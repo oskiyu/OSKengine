@@ -84,6 +84,8 @@ namespace OSK {
 			if (ModelTransform == nullptr)
 				return{ glm::mat4(1.0f) };
 
+			ModelTransform->UpdateModel();
+
 			PushConst3D pushConst{};
 			pushConst.model = ModelTransform->ModelMatrix;
 

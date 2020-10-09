@@ -5,7 +5,7 @@
 namespace OSK {
 
 	CollisionBox::CollisionBox() {
-
+		Size = { 1.0f };
 	}
 
 	CollisionBox::CollisionBox(const Vector3f& position, const Vector3f& size) {
