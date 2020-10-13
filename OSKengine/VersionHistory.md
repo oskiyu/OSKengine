@@ -3,19 +3,19 @@
 ## Alpha 0 (2019.12.3a)
 
 ###### WindowAPI:
-- **NUEVO**: WindowAPI.
+- WindowAPI.
     - Interfaz con GLFW.
     - Carga de OpenGL.
     - Actualiza los valores de un KeyboardState.
-- **NUEVO**: Keyboard Input.
+- Keyboard Input.
     - KeyboardState.
 
 ###### OpenGL RenderAPI:
-- **NUEVO**: RenderAPI.
+- RenderAPI.
     - Inicializa OpenGL.
     - Opciones disponibles: `BLEND`, `CULL_FACE`, `DEPTH_TEST`, `STENCIL_TEST`, `MULTISAMPLE`.
     - Aún no es funcional.
-- **NUEVO**: Shader.
+- Shader.
     - Interfaz con un shader de `GLSL`.
     - Carga a partir de un archivo.
     - Soporta los tipos: `bool`, `int`, `float`, `mat4`, `vec2`, `vec3`, `vec4`.
@@ -27,9 +27,9 @@
 - `keyCode_t` (`int`).
 
 ###### Util:
-- **NUEVO**: DebugOutput.
+- DebugOutput.
     - Muestra un mensaje por la consola.
-- **NUEVO**: Exit. 
+- Exit. 
     - Termina la ejecución mostrando un mensaje.
 
 
@@ -37,7 +37,7 @@
 
 ###### WindowAPI:
 - Mouse Input.
-    - **NUEVO**: MouseState:
+    - MouseState:
         - Mantiene información sobre la posición y los botones pulsados en el ratón.
         - También matiene información del scroll.
 - WindowAPI:
@@ -46,19 +46,19 @@
         - Puede actualizar otros MouseState.
         
 ###### OpenGL RenderAPI:
-- **NUEVO**: Vertex: posición, vector normal y TexCoords.
-- **NUEVO**: Mesh.
+- Vertex: posición, vector normal y TexCoords.
+- Mesh.
     - Se crea a partir de una lista de vértices.
     - Se dibuja a si mismo.
-- **NUEVO**: Model.
+- Model.
     - Se carga a través de un archivo (**aún no implementado**):
     - Tiene su propia matriz modelo, con su propia posición, rotación (**aún no implementado**) y escala.
-- **NUEVO**: Camera3D.
+- Camera3D.
     - Tiene la capacidad de girar y moverse por si misma.
     - Se maneja mediante el `enum CameraDirection`.
     
 ###### ContentAPI:
-- **NUEVO**: ContentAPI (**aún no implementado**).
+- ContentAPI (**aún no implementado**).
 
 ###### Types:
 Añadidos `typedef`s para algunas variables de OpenGL y para las variables del MouseState.
@@ -73,9 +73,13 @@ Añadidos `typedef`s para algunas variables de OpenGL y para las variables del Mo
 
 ###### Util:
 - **ELIMINADO:** `DebugOutput` (sustituido por *Log*);
-- **NUEVO**: Log: 
+- Log: 
     - Muestra el mensaje por la consola (DEBUG) o guardándolo en un archivo .txt (RELEASE).
     - Se guarda con el comando *"CMD: SAVE"*.
+
+    
+## Alpha 2 (2019.12.4a)
+
 
 ## 2020.10.13a
 
