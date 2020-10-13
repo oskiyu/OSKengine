@@ -6,12 +6,14 @@
 
 #include <glm.hpp>
 
-#include "Vector2.h"
+#include "Vector2.hpp"
 
 namespace OSK {
 
 	//Representa un vector con 4 coordenadas (Rectangle).
 	template <typename T> struct Vector4_t {
+
+	public:
 
 		//Crea un vector 4D nulo { 0, 0, 0, 0 }.
 		Vector4_t() {
@@ -52,6 +54,15 @@ namespace OSK {
 			return Vector4_t(X + vec.X, Y + vec.Y, Z + vec.Z, W + vec.W);
 		}
 
+		//Operación Vector4 += Vector4.
+		//X1 + X2; Y1 + Y2, Z1 + Z2, W1 + W2.
+		//Modifica el vector.
+		Vector4_t& operator+=(const Vector4_t& vec) {
+			*this = operator+(vec);
+			
+			return *this;
+		}
+
 		//Negación del Vector4.
 		//-X; -Y; -Z; -W.
 		Vector4_t operator-() const {
@@ -64,10 +75,28 @@ namespace OSK {
 			return Vector4_t(X - vec.X, Y - vec.Y, Z - vec.Z, W - vec.W);
 		}
 
+		//Operación Vector4 -= Vector4.
+		//X1 - X2; Y1 - Y2; Z1 - Z2, W1 - W2.
+		//Modifica el vector.
+		Vector4_t& operator-=(const Vector4_t& vec) {
+			*this = operator-(vec);
+
+			return *this;
+		}
+
 		//Operación Vector4 * Vector4.
 		//X1 * X2; Y1 * Y2; Z1 * Z2; W1 * W2.
 		Vector4_t operator*(const Vector4_t& vec) const {
 			return Vector4_t(X * vec.X, Y * vec.Y, Z * vec.Z, W * vec.W);
+		}
+
+		//Operación Vector4 *= Vector4.
+		//X1 * X2; Y1 * Y2; Z1 * Z2, W1 * W2.
+		//Modifica el vector.
+		Vector4_t& operator*=(const Vector4_t& vec) {
+			*this = operator*(vec);
+
+			return *this;
 		}
 
 		//Operación Vector4 * float.
@@ -76,16 +105,55 @@ namespace OSK {
 			return Vector4_t(X * value, Y * value, Z * value, W * value);
 		}
 
+		//Operación Vector4 *= T.
+		//X1 * value; Y1 * value; Z1 * value, W1 * value.
+		//Modifica el vector.
+		Vector4_t& operator*=(const T& value) {
+			*this = operator*(value);
+
+			return *this;
+		}
+
 		//Operación Vector4 / Vector4.
 		//X / vec.X; Y / vec.Y, Z / vec.Z, W / vec.W.
 		Vector4_t operator/(const Vector4_t& vec) const {
 			return Vector4_t(X / vec.X, Y / vec.Y, Z / vec.Z, W / vec.W);
 		}
 
+		//Operación Vector4 /= Vector4.
+		//X1 / X2; Y1 / Y2; Z1 / Z2, W1 / W2.
+		//Modifica el vector.
+		Vector4_t& operator/=(const Vector4_t& vec) {
+			*this = operator/(vec);
+
+			return *this;
+		}
+
 		//Operación Vector4 / float_t.
 		//X / value; Y / value; Z / value; W / value.
 		Vector4_t operator/(const T& value) const {
 			return Vector4_t(X / value, Y / value, Z / value, W / value);
+		}
+
+		//Operación Vector4 /= T.
+		//X1 / value; Y1 / value; Z1 / value, W1 / value.
+		//Modifica el vector.
+		Vector4_t& operator/=(const T& value) {
+			*this = operator/(value);
+
+			return *this;
+		}
+
+		//Comparación.
+		//True si todos los componentes son iguales.
+		bool operator==(const Vector4_t& vec) const {
+			return X == vec.X && Y == vec.Y && Z == vec.Z && W == vec.W;
+		}
+
+		//Comparación.
+		//True si no todos los componentes son iguales.
+		bool operator!=(const Vector4_t& vec) const {
+			return !operator==(vec);
 		}
 
 		//Obtiene la posición del rectángulo (X, Y).

@@ -61,3 +61,58 @@ OSK::Log:
 Vulkan API
 Log class
 Color toGLM
+
+>
+ContentManager:
+*ContentManager vector -> list
+
+Types:
+*VectorElementPtr_t
+
+**DynamicArray
+*General SAT_Collider
+**Fake SAT_Face
+*SAT_Collider face optimization
+*Transform improvements.
+*Terrain: improved normal generation.
+
+*SHADERS:
+*PHONG SHADER SET
+*BUGIFX: normals are properly calculated.
+*La parte SPECULAR ya no emite más brillo que la parte DIFFUSE.
+*ATTENUATION: constant = 1, linear = 0.1, quadratic depende del radio.
+*OPTIMIZATION: si un frag está fuera del radio, no se calcula su pointlight.
+*BUGFIX: pointLights info.
+
+/***********************************************************************************/
+2020.10.13a
+
+CollisionSystem:
+-Eliminado OBB.
+-SAT_Collider:
+   -Número indefinido de caras, con un número indefinido de puntos cada una.
+   -Deduplicación de puntos.
+   -Optimización de caras (cálculos de ejes).
+   -Optimización para elementos de posición/rotación/escala estáticos.
+-SAT_Projection.
+-SAT_CollisionInfo: cálculo de MTV.
+
+ContentManager:
+-std::vector<*> -> std::list<*>.
+
+RenderAPI:
+-Terreno:
+   -Cálculo más fiable de normales.
+-PHONG SHADER SET:
+   -Normales calculadas correctamente.
+   -La parte specular refleja menos luz.
+   -ATTENUATION más fiel.
+   -Los frags fuera del radio de luces puntuales ya no se calculan.
+
+Transform:
+-Cálculo de matriz más correcto.
+-Posición global calculada correctamente.
+
+-Bugfix: cargar nuevos elementos en un ContentManager no hará que se pierdan los punteros a los elementos antes cargados.
+-Bugfix: la posición global se calcula correctamente para Transforms atados a otros.
+-Bugfix: las normales del terreno se calculan mejor.

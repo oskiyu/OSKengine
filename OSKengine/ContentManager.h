@@ -18,6 +18,8 @@
 #include "Heightmap.h"
 #include "SoundEntity.h"
 
+#include <list>
+
 namespace OSK {
 
 	class VulkanRenderer;
@@ -110,21 +112,21 @@ namespace OSK {
 	private:
 
 		//Almacena las texturas 2D.
-		std::vector<Texture*> Textures = {};
+		std::list<Texture*> Textures = {};
 		//Almacena las texturas de modelos.
-		std::vector<ModelTexture*> ModelTextures = {};
+		std::list<ModelTexture*> ModelTextures = {};
 		//Almacena las texturas de Skybox.
-		std::vector<SkyboxTexture*> SkyboxTextures = {};
+		std::list<SkyboxTexture*> SkyboxTextures = {};
 		//Almacena los vértices y los índices de los modelos 3D.
-		std::vector<ModelData*> ModelDatas = {};
+		std::list<ModelData*> ModelDatas = {};
 		//Almacena los vértices y los índices de los modelos 3D animados.
-		std::vector<AnimatedModel*> AnimatedModels = {};
+		std::list<AnimatedModel*> AnimatedModels = {};
 		//Almacena referencias a los sprites.
-		std::vector<Sprite*> Sprites = {};
+		std::list<Sprite*> Sprites = {};
 		//Almacena referencias a las fuentes.
-		std::vector<Font*> Fonts = {};
+		std::list<Font*> Fonts = {};
 		//Almacena referencias a los sonidos.
-		std::vector<SoundEntity*> Sounds = {};
+		std::list<SoundEntity*> Sounds = {};
 		
 		//HASH-MAPS.
 		std::unordered_map<std::string, Texture*> TextureFromPath = {};

@@ -4,9 +4,9 @@
 #include <cmath>
 
 #include "Color.h"
-#include "Vector2.h"
-#include "Vector3.h"
-#include "Vector4.h"
+#include "Vector2.hpp"
+#include "Vector3.hpp"
+#include "Vector4.hpp"
 
 //[float_t]
 //Precisión normal.
@@ -91,6 +91,9 @@ typedef uint32_t textureCode_t;
 
 
 typedef uint32_t bitFlags_t;
+
+
+typedef uint32_t VectorElementPtr_t;
 
 
 enum class OskResult {

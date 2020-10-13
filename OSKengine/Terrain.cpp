@@ -41,17 +41,17 @@ namespace OSK {
 				float top = altura;
 				float bot = altura;
 
-				if (x < MapSizeInQuads.X)
-					right = GetVertexHeight({ (int)x + 1, (int)y });
-				if (x > 0)
-					left = GetVertexHeight({ (int)x - 1, (int)y });
-				if (y < MapSizeInQuads.Y)
-					top = GetVertexHeight({ (int)x,(int)y + 1});
-				if (y > 0)
-					bot = GetVertexHeight({ (int)x, (int)y -1 });
+				const int32_t nX = x;
+				const int32_t nY = y;
+				//const Vector3f thisheight = 
+				Vector3f R = { (nX + 1) * QuadSize.X, GetVertexHeight({ nX + 1, nY }), (nY)*QuadSize.Y };
+				Vector3f L = { (nX - 1) * QuadSize.X, GetVertexHeight({ nX - 1, nY }), (nY)*QuadSize.Y };
+				Vector3f T = { (nX) * QuadSize.X, GetVertexHeight({ nX, nY + 1 }), (nY + 1)*QuadSize.Y };
+				Vector3f B = { (nX) * QuadSize.X, GetVertexHeight({ nX + 1, nY - 1 }), (nY - 1)*QuadSize.Y };
+				
+				normal = (L - R).Cross(T - B).GetNormalized();
 
-				normal = { left - right, 2, top - bot };
-				v.Normals = -normal.GetNormalized().ToGLM();
+				v.Normals = -normal.ToGLM();
 
 				vertices.push_back(v);
 			}

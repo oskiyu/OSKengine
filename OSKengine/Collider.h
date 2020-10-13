@@ -2,7 +2,8 @@
 
 #include "CollisionBox.h"
 #include "CollisionSphere.h"
-#include "OBB.h"
+#include "SAT_Collider.h"
+#include "SAT_CollisionInfo.h"
 
 #include "PhysicalEntityType.h"
 #include "CollisionInfo.h"
@@ -59,9 +60,10 @@ namespace OSK {
 		//	<other>: el otro Collider.
 		bool IsColliding(const Collider& other) const;
 
-	private:
+		Transform transform;
+//	private:
 
-		std::vector<OBB> OBBs{};
+		std::vector<Collision::SAT_Collider> OBBs{};
 
 	};
 

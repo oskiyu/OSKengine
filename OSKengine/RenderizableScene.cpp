@@ -41,14 +41,12 @@ namespace OSK {
 	void RenderizableScene::SetupLightsUBO() {
 		Lights.Points.resize(16);
 		Lights.Points.push_back({});
-		Lights.Points[0].Radius = 50;
-		Lights.Points[0].Color = OSK::Color(0.0f, 1.0f, 1.0f);
-		Lights.Points[0].Intensity = 2.0f;
-		Lights.Points[0].Constant = 1.0f;
-		Lights.Points[0].Linear = 0.09f;
-		Lights.Points[0].Quadratic = 0.032f;
+		Lights.Points[0].infos.y = 100;
+		Lights.Points[0].Color = OSK::Color(0.0f, 1.0f, 1.0f).ToGLM();
+		Lights.Points[0].infos.x = 2.0f;
 		Lights.Points[0].Position = { 5, 5, 5 };
-		Lights.Directional = DirectionalLight{ OSK::Vector3(-0.7f, 0.8f, -0.4f), OSK::Color::RED(), 1 };
+		
+		Lights.Directional = DirectionalLight{ OSK::Vector3(-1, 1, 0), OSK::Color::RED(), 1 };
 	}
 
 	void RenderizableScene::InitLightsBuffers() {

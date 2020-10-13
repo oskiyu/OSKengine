@@ -17,15 +17,15 @@ namespace OSK {
 		alignas(16) glm::vec3 Position;
 
 		//Color de la luz.
-		alignas(16) Color Color;
+		alignas(16) glm::vec4 Color;
 
 		//Intensidad de la luz.
-		alignas(16) float_t Intensity;
+		alignas(16) glm::vec4 infos;
 
 		//Radio de alcance de la luz.
-		alignas(16) float_t Radius;
+		//alignas(16) float_t Radius;
 
-		//Variables de la luz.
+/**		//Variables de la luz.
 		//Ecuación constante.
 		alignas(16) float_t Constant;
 
@@ -35,7 +35,7 @@ namespace OSK {
 
 		//Variables de la luz.
 		//Ecuación cuadrática.
-		alignas(16) float_t Quadratic;
+		alignas(16) float_t Quadratic;*/
 
 	};
 

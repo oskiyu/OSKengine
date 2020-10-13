@@ -226,7 +226,7 @@ namespace OSK {
 
 		ModelDatas.push_back(model);
 
-		return ModelDatas[ModelDatas.size() - 1];
+		return model;
 	}
 
 	ModelTexture* ContentManager::LoadModelTexture(const std::string& rootPath) {

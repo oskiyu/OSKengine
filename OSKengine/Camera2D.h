@@ -1,7 +1,7 @@
 #pragma once
 
 #include "WindowAPI.h"
-#include "Vector2.h"
+#include "Vector2.hpp"
 #include "Transform2D.h"
 #include <glm.hpp>
 

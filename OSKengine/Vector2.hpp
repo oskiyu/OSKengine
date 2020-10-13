@@ -9,7 +9,9 @@
 namespace OSK {
 
 	//Representa un vector 2D.
-	template <typename T> struct Vector2_t {
+	template <typename T> class Vector2_t {
+
+	public:
 
 		//Crea un vector 2D nulo { 0, 0 }.
 		Vector2_t() {
@@ -41,6 +43,16 @@ namespace OSK {
 		inline Vector2_t operator+(const Vector2_t& vec) const {
 			return Vector2_t(X + vec.X, Y + vec.Y);
 		}
+
+		//Operación Vector2 += Vector2.
+		//X1 + X2; Y1 + Y2.
+		//Modifica este vector.
+		inline Vector2_t& operator+=(const Vector2_t& vec) {
+			X += vec.X;
+			Y += vec.Y;
+
+			return *this;
+		}
 		
 		//Negación del Vector2.
 		//-X; -Y.
@@ -53,11 +65,31 @@ namespace OSK {
 		inline Vector2_t operator-(const Vector2_t& vec) const {
 			return Vector2_t(X - vec.X, Y - vec.Y);
 		}
+
+		//Operación Vector2 -= Vector2.
+		//X1 - X2; Y1 - Y2.
+		//Modifica este vector.
+		inline Vector2_t& operator-=(const Vector2_t& vec) {
+			X -= vec.X;
+			Y -= vec.Y;
+
+			return *this;
+		}
 		
 		//Operación Vector2 * Vector2.
 		//X1 * X2; Y1 * Y2.
 		inline Vector2_t operator*(const Vector2_t& vec) const {
 			return Vector2_t(X * vec.X, Y * vec.Y);
+		}
+
+		//Operación Vector2 *= Vector2.
+		//X1 * X2; Y1 * Y2.
+		//Modifica este vector.
+		inline Vector2_t& operator*=(const Vector2_t& vec) {
+			X *= vec.X;
+			Y *= vec.Y;
+
+			return *this;
 		}
 		
 		//Operación Vector2 * float_t.
@@ -66,16 +98,58 @@ namespace OSK {
 			return Vector2_t(X * value, Y * value);
 		}
 
+		//Operación Vector2 * float_t.
+		//X * value; Y * value.
+		//Modifica este vector.
+		inline Vector2_t& operator*=(const T& value) {
+			X *= value;
+			Y *= value;
+
+			return *this;
+		}
+
 		//Operación Vector2 / float_t.
 		//X = value; Y = value.
 		inline Vector2_t operator/(const T& value) const {
 			return Vector2_t(X / value, Y / value);
 		}
 
+		//Operación Vector2 /= Vector2.
+		//X = vec.X; Y = vec.Y.
+		//Modifica este vector.
+		inline Vector2_t& operator/=(const Vector2_t& vec) {
+			X /= vec.X;
+			Y /= vec.Y;
+
+			return *this;
+		}
+
 		//Operación Vector2 / Vector2.
 		//X = vec.X; Y = vec.Y.
 		inline Vector2_t operator/(const Vector2_t& vec) const {
 			return Vector2(X / vec.X, Y / vec.Y);
+		}
+
+		//Operación Vector2 /= float_t.
+		//X = value; Y = value.
+		//Modifica este vector.
+		inline Vector2_t& operator/=(const T& value) {
+			X /= value;
+			Y /= value;
+
+			return *this;
+		}
+
+		//Comparación.
+		//True si todos los componentes son iguales.
+		bool operator==(const Vector2_t& vec) const {
+			return X == vec.X && Y == vec.Y;
+		}
+
+		//Comparación.
+		//True si no todos los componentes son iguales.
+		bool operator!=(const Vector2_t& vec) const {
+			return !operator==(vec);
 		}
 
 		//Módulo del vector.

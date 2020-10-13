@@ -182,21 +182,33 @@ namespace OSK {
 
 			ModelMatrix = OSK_MAKE_GLM_MAT4(P)((P)1);
 
+			//OFFSET:
+
+			//Posición offset.
 			ModelMatrix = glm::translate(ModelMatrix, PositionOffset.ToGLM_T());
 
+			//Rotación offset.
 			ModelMatrix = glm::rotate(ModelMatrix, (P)glm::radians((P)RotationOffset.X), OSK_MAKE_GLM_VEC3(P)((P)1, (P)0, (P)0));
 			ModelMatrix = glm::rotate(ModelMatrix, (P)glm::radians((P)RotationOffset.Y), OSK_MAKE_GLM_VEC3(P)((P)0, (P)1, (P)0));
 			ModelMatrix = glm::rotate(ModelMatrix, (P)glm::radians((P)RotationOffset.Z), OSK_MAKE_GLM_VEC3(P)((P)0, (P)0, (P)1));
 
-			GlobalPosition = Vector3_t<P>(ModelMatrix * Vector4(Position.X, Position.Y, Position.Z, 1).ToGLM());
+			//GlobalPosition = Vector3_t<P>(ModelMatrix * Vector4(Position.X, Position.Y, Position.Z, 1).ToGLM());
 
-			ModelMatrix = glm::translate(ModelMatrix, GlobalPosition.ToGLM_T());
+			//LOCAL.
 
+			//Posición local.
+			ModelMatrix = glm::translate(ModelMatrix, Position.ToGLM_T());
+
+			//Escala local.
 			ModelMatrix = glm::scale(ModelMatrix, GlobalScale.ToGLM_T());
 
+			//Rotación local.
 			ModelMatrix = glm::rotate(ModelMatrix, (P)glm::radians(Rotation.X), OSK_MAKE_GLM_VEC3(P)((P)1, (P)0, (P)0));
 			ModelMatrix = glm::rotate(ModelMatrix, (P)glm::radians(Rotation.Y), OSK_MAKE_GLM_VEC3(P)((P)0, (P)1, (P)0));
 			ModelMatrix = glm::rotate(ModelMatrix, (P)glm::radians(Rotation.Z), OSK_MAKE_GLM_VEC3(P)((P)0, (P)0, (P)1));
+
+			//Obtener posición final.
+			GlobalPosition = Vector3_t<P>(ModelMatrix * Vector4(0, 0, 0, 1).ToGLM());
 
 			if (isParent) {
 				for (uint32_t i = 0; i < ChildTransforms.size(); i++) {

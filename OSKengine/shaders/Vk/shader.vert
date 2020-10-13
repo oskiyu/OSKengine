@@ -38,7 +38,7 @@ void main() {
 
     gl_Position = camera.proj * camera.view * model.model * bonesMat * vec4(inPosition, 1.0);
     fragPos = (model.model * bonesMat * vec4(inPosition, 1.0)).xyz;
-    fragNormal = (model.model * bonesMat * vec4(inNormal, 1.0)).xyz;
+    fragNormal = mat3(transpose(inverse(model.model * bonesMat))) * inNormal;
     fragTexCoords = inTexCoords;
     cameraPos = camera.cameraPos;
 }

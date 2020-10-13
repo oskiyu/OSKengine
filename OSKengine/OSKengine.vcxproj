@@ -160,7 +160,6 @@
     <ClCompile Include="ContentManager.cpp" />
     <ClCompile Include="LightsUBO.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="OBB.cpp" />
     <ClCompile Include="OldCamera3D.cpp" />
     <ClCompile Include="Checkbox.cpp" />
     <ClCompile Include="Collision2D.cpp" />
@@ -172,6 +171,7 @@
     <ClCompile Include="ProfilingUnit.cpp" />
     <ClCompile Include="RenderizableScene.cpp" />
     <ClCompile Include="Renderpass.cpp" />
+    <ClCompile Include="SAT_Collider.cpp" />
     <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="SpriteBatch.cpp" />
     <ClCompile Include="FileIO.cpp" />
@@ -226,12 +226,12 @@
     <ClInclude Include="CollisionSphere.h" />
     <ClInclude Include="DescriptorLayout.h" />
     <ClInclude Include="DescriptorSet.h" />
+    <ClInclude Include="DynamicArray.h" />
     <ClInclude Include="GraphicsPipeline.h" />
     <ClInclude Include="ContentManager.h" />
     <ClInclude Include="Heightmap.h" />
     <ClInclude Include="LightsUBO.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="OBB.h" />
     <ClInclude Include="OldCamera3D.h" />
     <ClInclude Include="Checkbox.h" />
     <ClInclude Include="Collision2D.h" />
@@ -251,6 +251,9 @@
     <ClInclude Include="Renderpass.h" />
     <ClInclude Include="RenderizableScene.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SAT_Collider.h" />
+    <ClInclude Include="SAT_CollisionInfo.h" />
+    <ClInclude Include="SAT_Projection.hpp" />
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="EXP_MeshBone.hpp" />
@@ -264,6 +267,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="UBO.h" />
+    <ClInclude Include="VectorUtil.h" />
     <ClInclude Include="VulkanBuffer.h" />
     <ClInclude Include="VulkanImage.h" />
     <ClInclude Include="ImageUI.h" />
@@ -311,9 +315,9 @@
     <ClInclude Include="Transform.h" />
     <ClInclude Include="UIAnchorTypeEnum.h" />
     <ClInclude Include="UIInterfacesBitFlags.h" />
-    <ClInclude Include="Vector2.h" />
-    <ClInclude Include="Vector3.h" />
-    <ClInclude Include="Vector4.h" />
+    <ClInclude Include="Vector2.hpp" />
+    <ClInclude Include="Vector3.hpp" />
+    <ClInclude Include="Vector4.hpp" />
     <ClInclude Include="Version.h" />
     <ClInclude Include="OldVertex.h" />
     <ClInclude Include="Vertex.h" />

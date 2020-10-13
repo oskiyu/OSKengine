@@ -40,7 +40,10 @@ namespace OSK {
 			for (uint32_t a = 0; a < Entities.size(); a++) {
 				for (uint32_t b = a + 1; b < Entities.size(); b++) {
 					if (Entities[a]->Collision.IsColliding(Entities[b]->Collision)) {
-					/*	const CollisionInfo info = Entities[a]->Collision.GetCollisionInfo(&Entities[b]->Collision);
+						const Collision::SAT_CollisionInfo info = Entities[a]->Collision.OBBs[0].GetCollisionInfo(Entities[b]->Collision.OBBs[0]);
+
+						if (!info.IsColliding)
+							continue;
 
 						const float momentoA = Entities[a]->Velocity.GetLenght() * Entities[a]->Mass;
 						const float momentoB = Entities[b]->Velocity.GetLenght() * Entities[a]->Mass;
@@ -48,13 +51,15 @@ namespace OSK {
 						const float forceA = momentoB * (1 / deltaTime);
 						const float forceB = momentoA * (1 / deltaTime);
 
-						Vector3f forceForA = info.A_to_B_Direction;
-						Entities[a]->ApplyForce(forceForA * forceA);
-						Entities[a]->AngularVelocity = Entities[a]->AngularVelocity + Entities[a]->GetTorque(info.A_to_B_Direction, Entities[a]->Velocity * forceA);
+						//Vector3f forceForA = info.A_to_B_Direction;
+						//Entities[a]->ApplyForce(forceForA * forceA);
+						//Entities[a]->AngularVelocity = Entities[a]->AngularVelocity + Entities[a]->GetTorque(info.A_to_B_Direction, Entities[a]->Velocity * forceA);
 
-						Vector3f forceForB = info.B_to_A_Direction;
-						Entities[b]->ApplyForce(forceForB * forceB);
-						Entities[b]->AngularVelocity = Entities[b]->AngularVelocity + Entities[b]->GetTorque(info.B_to_A_Direction, Entities[b]->Velocity * forceB);*/
+						//Vector3f forceForB = info.B_to_A_Direction;
+						//Entities[b]->ApplyForce(forceForB * forceB);
+						//Entities[b]->AngularVelocity = Entities[b]->AngularVelocity + Entities[b]->GetTorque(info.B_to_A_Direction, Entities[b]->Velocity * forceB);
+
+						Entities[a]->EntityTransform->AddPosition(info.MinimunTranslationVector);
 					}
 				}
 			}

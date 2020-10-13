@@ -142,6 +142,15 @@
     <Filter Include="Archivos de origen\OSKengine\Physics">
       <UniqueIdentifier>{08502ebb-da6e-4cf3-b4f3-3a96033eafc7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Collision\SAT">
+      <UniqueIdentifier>{acc0ab00-5a32-4f09-8cfb-12f7c8367df1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Collision\SAT">
+      <UniqueIdentifier>{e3d458f7-5052-4e81-a601-7ef68aeacac8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Collections">
+      <UniqueIdentifier>{59222c19-129b-47c1-8583-882a62e7579b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -327,11 +336,11 @@
     <ClCompile Include="Profiler.cpp">
       <Filter>Archivos de origen\OSKengine\Util</Filter>
     </ClCompile>
-    <ClCompile Include="OBB.cpp">
-      <Filter>Archivos de origen\OSKengine\Collision</Filter>
-    </ClCompile>
     <ClCompile Include="Collider.cpp">
       <Filter>Archivos de origen\OSKengine\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="SAT_Collider.cpp">
+      <Filter>Archivos de origen\OSKengine\Collision\SAT</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -444,15 +453,6 @@
       <Filter>Archivos de encabezado\OSKengine\GameAPI\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Color.h">
-      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector4.h">
       <Filter>Archivos de encabezado\OSKengine\Types</Filter>
     </ClInclude>
     <ClInclude Include="BaseUIElement.h">
@@ -671,8 +671,29 @@
     <ClInclude Include="ProfilingUnit.h">
       <Filter>Archivos de encabezado\OSKengine\Util</Filter>
     </ClInclude>
-    <ClInclude Include="OBB.h">
-      <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
+    <ClInclude Include="SAT_Collider.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision\SAT</Filter>
+    </ClInclude>
+    <ClInclude Include="SAT_CollisionInfo.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision\SAT</Filter>
+    </ClInclude>
+    <ClInclude Include="SAT_Projection.hpp">
+      <Filter>Archivos de encabezado\OSKengine\Collision\SAT</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorUtil.h">
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicArray.h">
+      <Filter>Archivos de encabezado\OSKengine\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.hpp">
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.hpp">
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector4.hpp">
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

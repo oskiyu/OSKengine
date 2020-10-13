@@ -22,10 +22,11 @@
 
 #include "Profiler.h"
 
-#include "OBB.h"
+#include "SAT_Collider.h"
+
+using namespace OSK::Collections;
 
 struct Entity {
-	Entity(){}
 	OSK::Transform transform;
 	OSK::Model Model;
 	OSK::PhysicsEntity Physics;
@@ -69,7 +70,7 @@ int program() {
 
 	//
 	Entity A;
-	A.transform.SetPosition({ 1, 0, 0 });
+	A.transform.SetPosition({ 2, -5, 2 });
 	RenderAPI.Content->LoadModel(A.Model, "models/cube/cube.obj");
 	A.Physics.EntityTransform = &A.transform;
 	A.Model.ModelTransform = &A.transform;
@@ -77,6 +78,10 @@ int program() {
 	A.Physics.SetLinearVelocity({ 0, 0, 0  });
 	A.Physics.Collision.type = OSK::BroadColliderType::BOX_AABB;
 	A.Physics.Collision.BroadCollider.Box.Size = { 2.0f };
+	A.Physics.Collision.transform.AttachTo(&A.transform);
+	OSK::Collision::SAT_Collider box1 = OSK::Collision::SAT_Collider::CreateOBB();
+	box1.BoxTransform.AttachTo(&A.transform);
+	//A.Physics.Collision.OBBs.push_back(box1);
 	//A.Physics.AngularVelocity = { A.Physics.GetTorque({ 0, -1, 0 }, { 10, 0, 0 }) };
 
 	OSK::PhysicsScene P_scene;
@@ -86,18 +91,18 @@ int program() {
 	Scene->AddModel(&A.Model);
 
 	Entity B;
-	B.transform.SetPosition({ 10, 0, 0 });
-	B.Physics.Mass = 50;
-	B.Physics.SetLinearVelocity({ -0, 0, 0 });
+	B.transform.SetPosition({ 10, -20, 2 });
+	B.Physics.Mass = 5;
+	B.Physics.SetLinearVelocity({ 0, 0, 0 });
 	RenderAPI.Content->LoadModel(B.Model, "models/cube/cube.obj");
 	B.Physics.EntityTransform = &B.transform;
 	B.Model.ModelTransform = &B.transform;
-	A.Physics.Collision.type = OSK::BroadColliderType::BOX_AABB;
-	A.Physics.Collision.BroadCollider.Box.Size = { 2.0f };
-	OSK::OBB box1;
-	box1.BoxTransform.AttachTo(&A.transform);
-	OSK::OBB box2;
+	B.Physics.Collision.type = OSK::BroadColliderType::BOX_AABB;
+	B.Physics.Collision.BroadCollider.Box.Size = { 2.0f };
+	OSK::Collision::SAT_Collider box2 = OSK::Collision::SAT_Collider::CreateOBB();;
 	box2.BoxTransform.AttachTo(&B.transform);
+	B.Physics.Collision.transform.AttachTo(&B.transform);
+	//B.Physics.Collision.OBBs.push_back(box2);
 
 	//B.Physics.AngularVelocity = { B.Physics.GetTorque({ 0, -1, 0 }, { 10, 0, 0 }) };
 
@@ -126,37 +131,6 @@ int program() {
 	texture.SpriteTransform.SetScale({ -100, 100 });
 	texture.SetTexCoords(0, 0, 50, 80);
 
-	//UI
-	/*OSK::UI::Panel* mainUI = new OSK::UI::Panel({ 0.0f });
-	std::cout << mainUI->Children.size() << std::endl;
-	mainUI->FillParent = true;
-
-	windowAPI->SetUserInterface(mainUI);
-	mainUI->SetSprite(texture);
-
-	OSK::UI::Button* playButton = new OSK::UI::Button();
-	playButton->ElementAnchor = OSK::Anchor::BOTTOM_LEFT;
-	mainUI->AddElement(playButton);
-	playButton->SetRectangle({ 20, 0, 50, 51 });
-	playButton->SetSprite(texture);
-	playButton->OnLeftClick = ([&windowAPI, &mainUI] { windowAPI->SetMouseMode(OSK::MouseInputMode::ALWAYS_RETURN); mainUI->IsActive = false; });
-	playButton->OnWheelChange = [](float val) { OSK::Logger::Log(OSK::LogMessageLevels::INFO, std::to_string(val)); };
-	playButton->Texto = "PLAY";
-	playButton->TextAnchor = OSK::Anchor::CENTER;
-	playButton->TextFont = &fuente;
-
-
-	OSK::UI::Button* exitButton = new OSK::UI::Button();
-	exitButton->ElementAnchor = OSK::Anchor::TOP_RIGHT;
-	mainUI->AddElement(exitButton);
-	exitButton->SetRectangle({ 20, 20, 50, 51 });
-	exitButton->SetSprite(texture);
-	exitButton->TextAnchor = OSK::Anchor::BOTTOM_RIGHT;
-	exitButton->OnLeftClick = ([&windowAPI] { windowAPI->Close(); });
-	exitButton->Texto = "EXIT";
-	exitButton->TextFont = &fuente;*/
-
-	//
 	OSK::KeyboardState OldKS = {};
 	OSK::KeyboardState NewKS = {};
 	OSK::MouseState OldMS = {};
@@ -212,26 +186,24 @@ int program() {
 		if (NewKS.IsKeyDown(OSK::Key::D))
 			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(RenderAPI.DefaultCamera3D.Right * SPEED * deltaTime);
 
-		if (NewKS.IsKeyDown(OSK::Key::P) && OldKS.IsKeyUp(OSK::Key::P))
+		if (NewKS.IsKeyDown(OSK::Key::P) && OldKS.IsKeyUp(OSK::Key::P)) {
 			Profiler.ShowData();
+		}
 
 		mouseVar_t deltaX = NewMS.PositionX - OldMS.PositionX;
 		mouseVar_t deltaY = NewMS.PositionY - OldMS.PositionY;
 		RenderAPI.DefaultCamera3D.Girar(deltaX, -deltaY);
 
 		P_scene.Simulate(deltaTime);
-		//P_scene.DetectCollisions(deltaTime);
 		P_scene.ResolveColisions();
 
-		static bool previousCollision = false;
+		box1.TransformPoints();
+		box2.TransformPoints();
+		const OSK::Collision::SAT_CollisionInfo info = box1.GetCollisionInfo(box2);
 		
-		const bool Collision = box1.Intersects(box2);
-		if (Collision && !previousCollision)
-			OSK::Logger::DebugLog("OBB INTERSECTION START.");
-		if (!Collision && previousCollision)
-			OSK::Logger::DebugLog("OBB INTERSECTION END.");
-
-		previousCollision = Collision;
+		if (info.IsColliding) {
+			B.transform.AddPosition(info.MinimunTranslationVector);
+		}
 
 		if (NewKS.IsKeyDown(OSK::Key::V) && OldKS.IsKeyUp(OSK::Key::V))
 			RenderAPI.SetPresentMode(OSK::PresentMode::VSYNC);
@@ -256,6 +228,7 @@ int program() {
 		//Draw();
 		{
 			mainDrawUnit.Start();
+			RenderAPI.DefaultCamera3D.updateVectors();
 			Scene->Lights.Points[0].Position = RenderAPI.DefaultCamera3D.CameraTransform.GlobalPosition.ToVector3f().ToGLM();
 
 			spriteBatch.Clear();

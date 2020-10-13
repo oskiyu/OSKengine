@@ -2,7 +2,7 @@
 
 #include <vulkan/vulkan.h>
 #include "VulkanImage.h"
-#include "Vector2.h"
+#include "Vector2.hpp"
 #include "VulkanBuffer.h"
 
 namespace OSK {

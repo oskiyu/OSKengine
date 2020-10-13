@@ -390,13 +390,13 @@ namespace OSK {
 		sceneShader->SetInt32("NumberOfPointLights", PointLights.size());
 		for (uint32_t i = 0; i < PointLights.size(); i++) {
 			//sceneShader->SetVec3("pointLights[" + std::to_string(i) + "].Position", PointLights[i]->LightTransform.GlobalPosition);
-			sceneShader->SetColor("pointLights[" + std::to_string(i) + "].Color", PointLights[i]->Color);
-			sceneShader->SetFloat("pointLights[" + std::to_string(i) + "].Constant", PointLights[i]->Constant);
+		//	sceneShader->SetColor("pointLights[" + std::to_string(i) + "].Color", PointLights[i]->Color);
+	/*		sceneShader->SetFloat("pointLights[" + std::to_string(i) + "].Constant", PointLights[i]->Constant);
 			sceneShader->SetFloat("pointLights[" + std::to_string(i) + "].Linear", PointLights[i]->Linear);
 			sceneShader->SetFloat("pointLights[" + std::to_string(i) + "].Quadratic", PointLights[i]->Quadratic);
 			sceneShader->SetFloat("pointLights[" + std::to_string(i) + "].Radius", PointLights[i]->Radius);
 			sceneShader->SetFloat("pointLights[" + std::to_string(i) + "].Intensity", PointLights[i]->Intensity);
-		}
+		*/}
 
 		glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 		glEnable(GL_DEPTH_TEST);

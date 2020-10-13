@@ -27,7 +27,7 @@ void Collider::SetBroadCollider(const CollisionBox& box) {
 
 bool Collider::IsColliding(const Collider& other) const {
 	//BROAD PHASE.
-	if (type == BroadColliderType::BOX_AABB) { //Este collider tiene un AABB box.
+	/*if (type == BroadColliderType::BOX_AABB) { //Este collider tiene un AABB box.
 		if (other.type == BroadColliderType::BOX_AABB) {//El otro collider tiene un AABB box.
 			if (!BroadCollider.Box.Intersects(other.BroadCollider.Box))
 				return false;
@@ -46,12 +46,14 @@ bool Collider::IsColliding(const Collider& other) const {
 			if (!BroadCollider.Sphere.Intersects(other.BroadCollider.Sphere))
 				return false;
 		}
-	}
+	}*/
 
-	for (const auto& i : OBBs)
-		for (const auto& j : other.OBBs)
-			if (i.Intersects(j))
-				return true;
+	//for (const auto& i : OBBs)
+		//for (const auto& j : other.OBBs)
+			//if (i.Intersects(j))
+				//return true;
+	if (OBBs[0].Intersects(other.OBBs[0]))
+		return true;
 
 	return false;
 }

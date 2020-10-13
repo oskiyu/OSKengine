@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Sprite.h"
-#include "Vector2.h"
+#include "Vector2.hpp"
 
 namespace OSK {
 

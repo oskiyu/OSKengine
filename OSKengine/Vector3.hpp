@@ -9,7 +9,9 @@
 namespace OSK {
 
 	//Representa un vector 3D.
-	template <typename T> struct Vector3_t {
+	template <typename T> class Vector3_t {
+
+	public:
 
 		//Crea un vector 3D nulo { 0, 0, 0 }.
 		Vector3_t() {
@@ -46,6 +48,16 @@ namespace OSK {
 			return Vector3_t(X + vec.X, Y + vec.Y, Z + vec.Z);
 		}
 
+		//Operación Vector3 += Vector3.
+		//X1 + X2; Y1 + Y2, Z1 + Z2.
+		//Modifica este vector.
+		Vector3_t& operator+=(const Vector3_t& vec) {
+			X += vec.X;
+			Y += vec.Y;
+			Z += vec.Z;
+			return *this;
+		}
+
 		//Negación del Vector3.
 		//-X; -Y; -Z.
 		Vector3_t operator-() const {
@@ -58,16 +70,48 @@ namespace OSK {
 			return Vector3_t(X - vec.X, Y - vec.Y, Z - vec.Z);
 		}
 
+		//Operación Vector3 -= Vector3.
+		//X1 - X2; Y1 - Y2, Z1 - Z2.
+		//Modifica este vector.
+		Vector3_t& operator-=(const Vector3_t& vec) {
+			X -= vec.X;
+			Y -= vec.Y;
+			Z -= vec.Z;
+
+			return *this;
+		}
+
 		//Operación Vector3 * Vector3.
 		//X1 * X2; Y1 * Y2; Z1 * Z2.
 		Vector3_t operator*(const Vector3_t& vec) const {
 			return Vector3_t(X * vec.X, Y * vec.Y, Z * vec.Z);
 		}
 
-		//Operación Vector3 * float.
+		//Operación Vector3 *= Vector3.
+		//X1 * X2; Y1 * Y2, Z1 * Z2.
+		//Modifica este vector.
+		Vector3_t& operator*=(const Vector3_t& vec) {
+			X *= vec.X;
+			Y *= vec.Y;
+			Z *= vec.Z;
+
+			return *this;
+		}
+
+		//Operación Vector3 * T.
 		//X * value; Y * value; Z * value.
 		Vector3_t operator*(const T& value) const {
 			return Vector3_t(X * value, Y * value, Z * value);
+		}
+
+		//Operación Vector3 *= T.
+		//X1 - X2; Y1 - Y2, Z1 - Z2.
+		//Modifica este vector.
+		Vector3_t& operator*=(const T& value) {
+			X *= value;
+			Y *= value;
+			Z *= value;
+			return *this;
 		}
 
 		//Operación Vector3 / Vector3.
@@ -76,10 +120,44 @@ namespace OSK {
 			return Vector3_t(X / vec.X, Y / vec.Y, Z / vec.Z);
 		}
 
+		//Operación Vector3 /= Vector3.
+		//X1 / X2; Y1 / Y2, Z1 / Z2.
+		//Modifica este vector.
+		Vector3_t& operator/=(const Vector3_t& vec) {
+			X /= vec;
+			Y /= vec;
+			Z /= vec;
+
+			return *this;
+		}
+
 		//Operación Vector3 / float_t.
 		//X / value; Y / value; Z / value.
 		Vector3_t operator/(const T& value) const {
 			return Vector3_t(X / value, Y / value, Z / value);
+		}
+
+		//Operación Vector3 /= T.
+		//X1 / value; Y1 / value, Z1 / Z2value
+		//Modifica este vector.
+		Vector3_t& operator/=(const T& value) {
+			X /= value;
+			Y /= value;
+			Z /= value;
+
+			return *this;
+		}
+
+		//Comparación.
+		//True si todos los componentes son iguales.
+		bool operator==(const Vector3_t& vec) const {
+			return X == vec.X && Y == vec.Y && Z == vec.Z;
+		}
+
+		//Comparación.
+		//True si no todos los componentes son iguales.
+		bool operator!=(const Vector3_t& vec) const {
+			return !operator==(vec);
 		}
 
 		//Módulo del vector.
