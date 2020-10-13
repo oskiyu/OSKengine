@@ -3,18 +3,19 @@
 ## Alpha 0 (2019.12.3a)
 
 ###### WindowAPI:
-- WindowAPI.
+- **NUEVO**: WindowAPI.
     - Interfaz con GLFW.
     - Carga de OpenGL.
     - Actualiza los valores de un KeyboardState.
-- Keyboard Input: KeyboardState.
+- **NUEVO**: Keyboard Input.
+    - KeyboardState.
 
 ###### OpenGL RenderAPI:
-- RenderAPI.
+- **NUEVO**: RenderAPI.
     - Inicializa OpenGL.
     - Opciones disponibles: `BLEND`, `CULL_FACE`, `DEPTH_TEST`, `STENCIL_TEST`, `MULTISAMPLE`.
     - Aún no es funcional.
-- Shader.
+- **NUEVO**: Shader.
     - Interfaz con un shader de `GLSL`.
     - Carga a partir de un archivo.
     - Soporta los tipos: `bool`, `int`, `float`, `mat4`, `vec2`, `vec3`, `vec4`.
@@ -23,18 +24,20 @@
 ###### Types:
 - `result_t` (`bool`).
 - `keyState_t` (`bool`).
-- `keyCode_t` (int).
+- `keyCode_t` (`int`).
 
 ###### Util:
-- DebugOutput. muestra un mensaje por la consola.
-- Exit. termina la ejecución mostrando un mensaje.
+- **NUEVO**: DebugOutput.
+    - Muestra un mensaje por la consola.
+- **NUEVO**: Exit. 
+    - Termina la ejecución mostrando un mensaje.
 
 
 ## Alpha 1 (2019.12.4a)
 
 ###### WindowAPI:
 - Mouse Input.
-    - MouseState:
+    - **NUEVO**: MouseState:
         - Mantiene información sobre la posición y los botones pulsados en el ratón.
         - También matiene información del scroll.
 - WindowAPI:
@@ -43,22 +46,22 @@
         - Puede actualizar otros MouseState.
         
 ###### OpenGL RenderAPI:
-- Vertex: posición, vector normal y TexCoords.
-- Mesh.
+- **NUEVO**: Vertex: posición, vector normal y TexCoords.
+- **NUEVO**: Mesh.
     - Se crea a partir de una lista de vértices.
     - Se dibuja a si mismo.
-- Model.
+- **NUEVO**: Model.
     - Se carga a través de un archivo (**aún no implementado**):
     - Tiene su propia matriz modelo, con su propia posición, rotación (**aún no implementado**) y escala.
-- Camera3D.
+- **NUEVO**: Camera3D.
     - Tiene la capacidad de girar y moverse por si misma.
     - Se maneja mediante el `enum CameraDirection`.
     
 ###### ContentAPI:
-- ContentAPI (**aún no implementado**).
+- **NUEVO**: ContentAPI (**aún no implementado**).
 
 ###### Types:
-- Añadidos `typedef`s para algunas variables de OpenGL y para las variables del MouseState.
+Añadidos `typedef`s para algunas variables de OpenGL y para las variables del MouseState.
 - `vertexIndex_t` (`uint32_t `).
 - `vertexArrayObject_t` (`uint32_t `).
 - `bufferObject_t` (`uint32_t `).
@@ -70,14 +73,14 @@
 
 ###### Util:
 - **ELIMINADO:** `DebugOutput` (sustituido por *Log*);
-- Log: 
+- **NUEVO**: Log: 
     - Muestra el mensaje por la consola (DEBUG) o guardándolo en un archivo .txt (RELEASE).
     - Se guarda con el comando *"CMD: SAVE"*.
 
 ## 2020.10.13a
 
 ###### CollisionSystem:
-- Eliminado *OBB*.
+- **ELIMINADO:**: OBB.
 - SAT_Collider:
     - Número indefinido de caras, con un número indefinido de puntos cada una.
     - Deduplicación de puntos.
