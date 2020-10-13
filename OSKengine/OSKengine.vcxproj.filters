@@ -702,6 +702,7 @@
   <ItemGroup>
     <None Include="cpp.hint" />
     <None Include="ClassDiagram.cd" />
+    <None Include="VersionHistory.md" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="OSKengine.rc">
