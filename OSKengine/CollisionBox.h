@@ -37,6 +37,10 @@ namespace OSK {
 		//Position + Size.
 		Vector3f GetMax() const;
 
+		//Obtiene la posición de la esquina contraria al origen.
+		//Position - Size.
+		Vector3f GetMin() const;
+
 		//Posición de la caja.
 		Vector3f Position;
 

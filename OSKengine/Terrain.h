@@ -49,12 +49,14 @@ namespace OSK {
 		//Modelo 3D del terreno.
 		ModelData* terrainModel = nullptr;
 
-	private:
-
 		Vector2ui MapSizeInQuads{ 0 };
 		Vector2f QuadSize = { 1.0f };
 		Vector2f MapSizeInWorlds{ 0.0f };
 		float_t BaseHeight = 0.0f;
+
+		float_t FrictionCoefficient = 1.0f;
+
+	private:
 
 		CollisionBox Box{};
 

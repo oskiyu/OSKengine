@@ -38,4 +38,8 @@ namespace OSK {
 		return Position + Size;
 	}
 
+	Vector3f CollisionBox::GetMin() const {
+		return Position - Size;
+	}
+
 }

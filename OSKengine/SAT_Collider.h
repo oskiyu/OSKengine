@@ -36,11 +36,7 @@ namespace OSK::Collision {
 
 		static SAT_Collider CreateOBB();
 
-	private:
-		
-		inline const bool isAllStatic() const {
-			return staticRotation && staticPosition && staticScale;
-		}
+		std::vector<Vector3f> GetPoints() const;
 
 		inline std::vector<Vector3f> GetAxes() const {
 			std::vector<Vector3f> axes = {};
@@ -53,9 +49,13 @@ namespace OSK::Collision {
 			return axes;
 		}
 
-		Vector3f GetAxisFromFace(const SAT_Face& face) const;
+	private:
+		
+		inline const bool isAllStatic() const {
+			return staticRotation && staticPosition && staticScale;
+		}
 
-		std::vector<Vector3f> GetPoints() const;
+		Vector3f GetAxisFromFace(const SAT_Face& face) const;
 
 		SAT_Projection ProjectToAxis(const Vector3f& axis) const;
 

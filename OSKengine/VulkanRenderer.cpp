@@ -940,7 +940,8 @@ void VulkanRenderer::Close() {
 
 	vkDestroyDevice(LogicalDevice, nullptr);
 #ifdef OSK_DEBUG
-	DestroyDebugUtilsMessengerEXT(Instance, debugConsole, nullptr);
+	if (checkValidationLayers())
+		DestroyDebugUtilsMessengerEXT(Instance, debugConsole, nullptr);
 #endif
 	vkDestroySurfaceKHR(Instance, Surface, nullptr);
 

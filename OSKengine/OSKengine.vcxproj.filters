@@ -342,6 +342,12 @@
     <ClCompile Include="SAT_Collider.cpp">
       <Filter>Archivos de origen\OSKengine\Collision\SAT</Filter>
     </ClCompile>
+    <ClCompile Include="RayCast.cpp">
+      <Filter>Archivos de origen\OSKengine\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsScene.cpp">
+      <Filter>Archivos de origen\OSKengine\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowAPI.h">
@@ -694,6 +700,12 @@
     </ClInclude>
     <ClInclude Include="Vector4.hpp">
       <Filter>Archivos de encabezado\OSKengine\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="RayCast.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

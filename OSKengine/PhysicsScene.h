@@ -4,8 +4,10 @@
 #include "Terrain.h"
 
 #include "ProfilingUnit.h"
+#include "RayCast.h"
 
 #include <vector>
+#include "SAT_CollisionInfo.h"
 
 namespace OSK {
 
@@ -13,79 +15,23 @@ namespace OSK {
 
 	public:
 
-		void Simulate(const float_t& deltaTime, const float_t& step = 1.0f) {
-			pUnit.Start();
-
-			const float finalDelta = deltaTime * step;
-
-			for (auto& i : Entities) {
-				if (i->Type == PhysicalEntityType::STATIC)
-					continue;
-
-				i->ApplyForce(ConstForce);
-				Vector3f accel = i->GetAcceleration();
-
-				i->Velocity = i->Velocity + accel * finalDelta;
-				i->EntityTransform->AddPosition(i->Velocity * finalDelta);
-				i->Force = { 0.0f };
-
-				i->AngularVelocity = i->AngularVelocity + i->AngularAcceleration * finalDelta;
-				i->EntityTransform->AddRotation(i->AngularVelocity * finalDelta);
-
-				i->Collision.BroadCollider.Box.Position = i->EntityTransform->GlobalPosition;
-			}
+		OSK::Terrain* FloorTerrain = nullptr;
+		
+		inline void AddEntity(PhysicsEntity* entity) {
+			Entities.push_back(entity);
 		}
 
-		void DetectCollisions(const deltaTime_t& deltaTime) {
-			for (uint32_t a = 0; a < Entities.size(); a++) {
-				for (uint32_t b = a + 1; b < Entities.size(); b++) {
-					if (Entities[a]->Collision.IsColliding(Entities[b]->Collision)) {
-						const Collision::SAT_CollisionInfo info = Entities[a]->Collision.OBBs[0].GetCollisionInfo(Entities[b]->Collision.OBBs[0]);
+		void Simulate(const deltaTime_t& deltaTime, const deltaTime_t& step);
 
-						if (!info.IsColliding)
-							continue;
+		Vector3f GlobalAcceleration = { 0.0f, 9.8f, 0.0f };
 
-						const float momentoA = Entities[a]->Velocity.GetLenght() * Entities[a]->Mass;
-						const float momentoB = Entities[b]->Velocity.GetLenght() * Entities[a]->Mass;
-						const float momentoTotal = momentoA + momentoB;
-						const float forceA = momentoB * (1 / deltaTime);
-						const float forceB = momentoA * (1 / deltaTime);
+	private:
 
-						//Vector3f forceForA = info.A_to_B_Direction;
-						//Entities[a]->ApplyForce(forceForA * forceA);
-						//Entities[a]->AngularVelocity = Entities[a]->AngularVelocity + Entities[a]->GetTorque(info.A_to_B_Direction, Entities[a]->Velocity * forceA);
+		std::vector<PhysicsEntity*> Entities = {};
 
-						//Vector3f forceForB = info.B_to_A_Direction;
-						//Entities[b]->ApplyForce(forceForB * forceB);
-						//Entities[b]->AngularVelocity = Entities[b]->AngularVelocity + Entities[b]->GetTorque(info.B_to_A_Direction, Entities[b]->Velocity * forceB);
+		void simulateEntity(PhysicsEntity* entity, const deltaTime_t& delta);
 
-						Entities[a]->EntityTransform->AddPosition(info.MinimunTranslationVector);
-					}
-				}
-			}
-		}
-
-		void ResolveColisions() {
-			for (auto& a : Entities) {
-				const float terrainHeight = Terreno->GetHeight({ a->EntityTransform->GlobalPosition.X, a->EntityTransform->GlobalPosition.Z });
-
-				if (a->EntityTransform->GlobalPosition.Y > terrainHeight) {
-					a->EntityTransform->Position.Y = terrainHeight;
-					//a->Velocity.Y = 0;
-				}
-			}
-
-			pUnit.End();
-		}
-
-		Vector3f ConstForce = { 0, 9.8f, 0 };
-		//Vector3f ConstForce = { 0, 0, 0 };
-
-		std::vector<PhysicsEntity*> Entities;
-
-		Terrain* Terreno = nullptr;
-
-		ProfilingUnit pUnit{"OSK::PhysicsScene"};
+		void resolveCollisions(PhysicsEntity* a, PhysicsEntity* b, const ColliderCollisionInfo& info, const deltaTime_t& delta);
 
 	};
 

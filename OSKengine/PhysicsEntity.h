@@ -9,39 +9,34 @@ namespace OSK {
 
 		PhysicalEntityType Type = PhysicalEntityType::MOVABLE;
 
+		bool CanMoveX_p = true;
+		bool CanMoveX_n = true;
+
+		bool CanMoveY_p = true;
+		bool CanMoveY_n = true;
+
+		bool CanMoveZ_p = true;
+		bool CanMoveZ_n = true;
+
 		Transform* EntityTransform;
 
 		Collider Collision;
 
-		Vector3f Velocity;
-		Vector3f Force;
-		Vector3f AngularAcceleration;
-		Vector3f AngularVelocity;
-		
-		float_t Mass;
+		Vector3f Velocity = { 0.0f };
+		Vector3f AngularVelocity = { 0.0f };
 
-		inline Vector3f GetAcceleration() const {
-			return Force / Mass;
-		}
-
-		inline Vector3f GetTorque(const Vector3f& posOfForce, const Vector3f& force) const {
+		inline static Vector3f GetTorque(const Vector3f& posOfForce, const Vector3f& force) {
 			return posOfForce.Cross(force);
 		}
 
-		inline void ApplyTorque(const Vector3f& torque) {
-			AngularAcceleration = AngularAcceleration + torque;
-		}
+		float Mass = 10.0f;
 
-		inline void ApplyForce(const Vector3f& force) {
-			Force = Force + force;
-		}
+		void ApplyForce(const Vector3f& relativePosition, const Vector3f& force, const float& delta) {
+			float diff = 1 - relativePosition.GetNormalized().Dot(force.GetNormalized());
 
-		inline void AddLinearVelocity(const Vector3f& delta) {
-			Velocity = Velocity + delta;
-		}
+			Velocity += force * diff * delta / Mass;
 
-		inline void SetLinearVelocity(const Vector3f& velocity) {
-			Velocity = velocity;
+			AngularVelocity += GetTorque(relativePosition, force) * (1 - diff) * delta;
 		}
 
 	};

@@ -10,6 +10,15 @@
 
 namespace OSK {
 
+
+	struct ColliderCollisionInfo {
+		bool IsColliding = false;
+		bool IsBroadColliderColliding = false;
+		Collision::SAT_Collider* SAT_1 = nullptr;
+		Collision::SAT_Collider* SAT_2 = nullptr;
+	};
+
+
 	//Tipos de BroadCollider.
 	enum class BroadColliderType {
 		BOX_AABB,
@@ -42,6 +51,8 @@ namespace OSK {
 		//	<box>: caja que será el broad collider.
 		void SetBroadCollider(const CollisionBox& box);
 
+		void SetPosition(const Vector3f& pos);
+
 		//BroadCollider.
 		union __BroadCollider_t {
 			CollisionBox Box;
@@ -58,10 +69,11 @@ namespace OSK {
 
 		//Devuelve true si este Collider está tocando a otro.
 		//	<other>: el otro Collider.
-		bool IsColliding(const Collider& other) const;
+		bool IsColliding(Collider& other);
+
+		ColliderCollisionInfo GetCollisionInfo(Collider& other);
 
 		Transform transform;
-//	private:
 
 		std::vector<Collision::SAT_Collider> OBBs{};
 

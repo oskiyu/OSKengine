@@ -125,3 +125,48 @@ Añadidos `typedef`s para algunas variables de OpenGL y para las variables del Mo
 - **Bugfix:** la posición global se calcula correctamente para Transforms atados a otros.
 - **Bugfix:** las normales del terreno se calculan mejor.
 - **Bugfix:** las normales se calculan correctamente en los shader para cualquier objeto con `<model != mat4(1.0)>`.
+
+
+## 2020.10.15a
+
+###### PhysicsEngine:
+- PhysicsEntity (**REWORK**):
+    - Eliminados *fuerza* y *aceleración angular*.
+    - Ahora mantiene información sobre si puede o no moverse en los ejes X, Y y Z.
+    - **WIP**: `<ApplyForce>`: aplica una fuerza sobre un punto de la entidad.
+- PhysicsScene (**REWORK**):
+    - Tiene información sobre el terreno (que ahora tiene un coeficiente de rozamiento).
+    - Primero simula todas las entidades, después resuelve colisiones.
+    - Las entitdades ya no pueden tener velocidad hacia el suelo si ya están en la superficie del terreno.
+    - La rotación de las entidades disminuye con el tiempo.
+    - El *MTV* de una colisión se aplica a ambas entidades, siempre que ninguna de ellas tenga movimiento limitado.
+        - Si una de ellas tenga movimiento limitado, todo el MTV se aplica a la otra entidad.
+    - Se aplica movimiento a las dos entidades de una colisión, dependiendo de su velocidad y masa.
+    - Se aplica rotación a las dos entidades de una colisión (rotación esférica).
+
+###### CollisionSystem:
+- ColliderCollisionInfo.
+    - Contiene información sobre una colisión *Collider*-*Collider*:
+        - IsBroadColliding.
+        - SAT_1 & SAT_2: SAT_Colliders que están colisionando.
+- Collider:
+    - Ahora calcula correctamente las colisiones *Collider*-*Collider*.
+    - Añadido `<SetPosition>`, para poder establecer la posición del *BroadCollider* independientemente del tipo que sea.
+- CollisionBox:
+    - Añadido `<GetMin>` para obtener la esquina contraria a `GetTop`.
+- RayCast.
+    - Efectua un *raycast* contra un `SAT_Collider`.
+    - A partir del origen del rayo y su dirección.
+    - Sin límite de longitud.
+    - Devuelve la información: 
+        - Si hay intersección (`<true>` o `<false>`).
+        - Distancia desde el origen del rayo (si ha habido intersección).
+        
+###### Util:
+- Math:
+    - Añadido `<CompareFloats>`, para comparar la igualdad de dos `float`s.
+
+###### Bugfixes:
+- **Bugfix**: *OSKengine* ya no crashea al cerrarse habiendo sido iniciado en modo **DEBUG** sin tener acceso a las capas de validación.
+- **Bugfix**: `Collider.IsColliding` y `Collider.GetCollisionInfo` ya calculan correctamente las colisiones.
+- **Bugfix**: Las entitdades ya no pueden tener velocidad hacia el suelo si ya están en la superficie del terreno.
