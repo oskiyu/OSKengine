@@ -19,7 +19,7 @@
 namespace OSK {
 	
 	//Cámara para un mundo tridimensional.
-	class OSKAPI_CALL OldCamera3D {
+	/*class OSKAPI_CALL OldCamera3D {
 
 	public:
 
@@ -111,6 +111,6 @@ namespace OSK {
 
 		void updateVectors();
 
-	};
+	};*/
 
 }

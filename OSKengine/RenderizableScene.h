@@ -17,7 +17,7 @@ namespace OSK {
 	class VulkanRenderer;
 
 	//Representa una escena que se puede renderizar.
-	class RenderizableScene {
+	class OSKAPI_CALL RenderizableScene {
 
 		friend class VulkanRenderer;
 
@@ -74,9 +74,11 @@ namespace OSK {
 		//	<maxHegith>: altura máxima del terreno.
 		void LoadHeightmap(const std::string& path, const Vector2f& quadSize, const float_t& maxHeight);
 		
+		//UBO de las luces.
 		LightUBO Lights = {};
 
-		Terrain* terreno;
+		//Terreno que se va a renderizar.
+		Terrain* Terreno = nullptr;
 
 	protected:
 

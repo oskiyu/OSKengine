@@ -10,6 +10,7 @@
 
 #include <alc.h>
 #include <glm.hpp>
+#include "Camera3D.h"
 
 namespace OSK {
 
@@ -31,7 +32,7 @@ namespace OSK {
 
 
 		//Establece la cámara como entidad 'listener' del AudioAPI.
-		void SetCamera3D(OldCamera3D* camera);
+		void SetCamera3D(Camera3D* camera);
 
 
 		//Establece la velocidad a la que se mueve la entidad 'listener' (la cámara).
@@ -67,7 +68,7 @@ namespace OSK {
 
 		ALCcontext* context = nullptr;
 
-		OldCamera3D* camera = nullptr;
+		Camera3D* camera = nullptr;
 
 	};
 

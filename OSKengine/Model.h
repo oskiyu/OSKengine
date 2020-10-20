@@ -11,7 +11,7 @@
 namespace OSK {
 
 	//Vértices e índices de un modelo.
-	struct TempModelData {
+	struct OSKAPI_CALL TempModelData {
 		//Vértices.
 		std::vector<Vertex> Vertices;
 		//Índices.
@@ -22,7 +22,7 @@ namespace OSK {
 	//Información de un modelo.
 	//Contiene los buffers de los vértices y los índices.
 	//Se almacena en la clase VulkanRenderer.
-	struct ModelData {
+	struct OSKAPI_CALL ModelData {
 
 	public:
 
@@ -50,7 +50,7 @@ namespace OSK {
 
 
 	//Representa un modelo 3D.
-	class Model {
+	class OSKAPI_CALL Model {
 
 	public:
 

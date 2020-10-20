@@ -7,11 +7,9 @@ namespace OSK {
 	OldModel::OldModel(const Vector3& position, const Vector3& size, const Vector3& rotation) {
 		ModelTransform = Transform();
 
-		ModelTransform.UseModelMatrix = true;
-
-		ModelTransform.Position = position;
-		ModelTransform.Scale = size;
-		ModelTransform.Rotation = rotation;
+		ModelTransform.LocalPosition = position;
+		ModelTransform.LocalScale = size;
+		//ModelTransform.Rotation = rotation;
 
 		ModelTransform.UpdateModel();
 	}
@@ -33,7 +31,7 @@ namespace OSK {
 
 
 	void OldModel::SetRotation(const OSK::Vector3& rotation) {
-		ModelTransform.SetRotation(rotation);
+		//ModelTransform.SetRotation(rotation);
 	}
 
 }

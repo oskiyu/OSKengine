@@ -1,6 +1,9 @@
 #pragma once
 
-#include "Vector3.hpp"
+#include "OSKsettings.h"
+#include "OSKmacros.h"
+#include "OSKtypes.h"
+#include "Log.h"
 
 namespace OSK {
 
@@ -8,7 +11,7 @@ namespace OSK {
 
 	//Representa un volumen 3D.
 	//Puede usarse para detectar colisiones.
-	struct CollisionBox {
+	struct OSKAPI_CALL CollisionBox {
 
 	public:
 

@@ -21,14 +21,18 @@ void PhysicsScene::Simulate(const deltaTime_t& deltaTime, const deltaTime_t& ste
 }
 
 void PhysicsScene::simulateEntity(PhysicsEntity* entity, const deltaTime_t& delta) {
-	entity->Velocity += (GlobalAcceleration / entity->Mass) * delta;
+	if (entity->Type == PhysicalEntityMobilityType::STATIC)
+		return;
+	
+	if (SimulateFlags & PHYSICAL_SCENE_SIMULATE_ACCEL)
+		entity->Velocity += (GlobalAcceleration / entity->Mass) * delta;
 
 	if (FloorTerrain) {
 		const float height = FloorTerrain->GetHeight({ entity->EntityTransform->GlobalPosition.X , entity->EntityTransform->GlobalPosition.Z });
 		if (entity->EntityTransform->GlobalPosition.Y > height) {
 			entity->Velocity.Y = 0;
 			entity->CanMoveY_p = false;
-			entity->EntityTransform->Position.Y = height;
+			entity->EntityTransform->LocalPosition.Y = height;
 
 			const float multiply = entity->Mass / 3 * FloorTerrain->FrictionCoefficient;
 
@@ -42,23 +46,6 @@ void PhysicsScene::simulateEntity(PhysicsEntity* entity, const deltaTime_t& delt
 			if (entity->Velocity.Z < 0)
 				entity->Velocity.Z += delta * multiply;
 
-
-			/*	if (entity->AngularVelocity.X > 0)
-					entity->AngularVelocity.X -= delta * multiply * 90;
-				if (entity->AngularVelocity.X < 0)
-					entity->AngularVelocity.X += delta * multiply * 90;
-
-				if (entity->AngularVelocity.Y > 0)
-					entity->AngularVelocity.Y -= delta * multiply * 90;
-				if (entity->AngularVelocity.Y < 0)
-					entity->AngularVelocity.Y += delta * multiply * 90;
-
-				if (entity->AngularVelocity.Z > 0)
-					entity->AngularVelocity.Z -= delta * multiply * 90;
-				if (entity->AngularVelocity.Z < 0)
-					entity->AngularVelocity.Z += delta * multiply * 90;*/
-
-					//	entity->AngularVelocity -= entity->AngularVelocity * delta * multiply;
 			entity->AngularVelocity *= (1 - delta);
 		}
 		else {
@@ -81,175 +68,177 @@ void PhysicsScene::simulateEntity(PhysicsEntity* entity, const deltaTime_t& delt
 	if (!entity->CanMoveZ_n && entity->Velocity.Z < 0)
 		entity->Velocity.Z = 0;
 
-	entity->EntityTransform->AddPosition(entity->Velocity * delta);
-	entity->EntityTransform->AddRotation(entity->AngularVelocity * delta);
+	if (SimulateFlags & PHYSICAL_SCENE_SIMULATE_VELOCITY)
+		entity->EntityTransform->AddPosition(entity->Velocity * delta);
+
+	if (SimulateFlags & PHYSICAL_SCENE_SIMULATE_ROTATION)
+		entity->EntityTransform->RotateWorldSpace(entity->AngularVelocity.GetLenght() * delta, entity->AngularVelocity);
+
 	entity->Collision.SetPosition(entity->EntityTransform->GlobalPosition);
 
-	entity->AngularVelocity *= (1 - (delta * delta));
+	if (SimulateFlags & PHYSICAL_SCENE_SIMULATE_ROTATION)
+		entity->AngularVelocity *= (1 - (delta * delta));
 }
 
 void PhysicsScene::resolveCollisions(PhysicsEntity* a, PhysicsEntity* b, const ColliderCollisionInfo& info, const deltaTime_t& delta) {
 	const Collision::SAT_CollisionInfo satInfo = info.SAT_1->GetCollisionInfo(*info.SAT_2);
 
-	const Vector3f MTV = satInfo.MinimunTranslationVector;
+	Vector3f MTV = satInfo.MinimunTranslationVector;
 
+	//Vectores A->B y B->A.
 	const Vector3f A_To_B = b->EntityTransform->GlobalPosition - a->EntityTransform->GlobalPosition;
 	const Vector3f B_To_A = -A_To_B;
 
+	//MTVs para A y B.
 	Vector3f MTV_ForA = -MTV / 2;
 	Vector3f MTV_ForB = MTV / 2;
 
 	Vector3f aVelocity = A_To_B.GetNormalized() * b->Velocity.GetLenght() * delta;
-	Vector3f bVelocity = A_To_B.GetNormalized() * a->Velocity.GetLenght() * delta;
+	Vector3f bVelocity = B_To_A.GetNormalized() * a->Velocity.GetLenght() * delta;
 
 #pragma region MTV correction.
 
-	if (!a->CanMoveX_p && MTV.X > 0) {
-		MTV_ForA.X = 0;
-		MTV_ForB.X *= 2;
-
-		aVelocity.X = 0;
-		bVelocity.X = 0;
+	if (a->Type == PhysicalEntityMobilityType::STATIC) {
+		MTV_ForA = 0.0f;
+		MTV_ForB = MTV;
 	}
-	if (!a->CanMoveX_n && MTV.X < 0) {
-		MTV_ForA.X = 0;
-		MTV_ForB.X *= 2;
-
-		aVelocity.X = 0;
-		bVelocity.X = 0;
+	else if(b->Type == PhysicalEntityMobilityType::STATIC) {
+		MTV_ForA = -MTV;
+		MTV_ForB = 0.0f;
 	}
-	if (!b->CanMoveX_p && MTV.X > 0) {
-		MTV_ForA.X *= 2;
-		MTV_ForB.X = 0;
+	else {
+		if (!a->CanMoveX_p && MTV.X > 0) {
+			MTV_ForA.X = 0;
+			MTV_ForB.X *= 2;
 
-		aVelocity.X = 0;
-		bVelocity.X = 0;
-	}
-	if (!b->CanMoveX_n && MTV.X < 0) {
-		MTV_ForA.X *= 2;
-		MTV_ForB.X = 0;
+			aVelocity.X = 0;
+			bVelocity.X = 0;
+		}
+		if (!a->CanMoveX_n && MTV.X < 0) {
+			MTV_ForA.X = 0;
+			MTV_ForB.X *= 2;
 
-		aVelocity.X = 0;
-		bVelocity.X = 0;
-	}
+			aVelocity.X = 0;
+			bVelocity.X = 0;
+		}
+		if (!b->CanMoveX_p && MTV.X > 0) {
+			MTV_ForA.X *= 2;
+			MTV_ForB.X = 0;
 
-	if (!a->CanMoveY_p && MTV.Y > 0) {
-		MTV_ForA.Y = 0;
-		MTV_ForB.Y *= 2;
+			aVelocity.X = 0;
+			bVelocity.X = 0;
+		}
+		if (!b->CanMoveX_n && MTV.X < 0) {
+			MTV_ForA.X *= 2;
+			MTV_ForB.X = 0;
 
-		aVelocity.Y = 0;
-		bVelocity.Y = 0;
-	}
-	if (!a->CanMoveY_n && MTV.Y < 0) {
-		MTV_ForA.Y = 0;
-		MTV_ForB.Y *= 2;
+			aVelocity.X = 0;
+			bVelocity.X = 0;
+		}
 
-		aVelocity.Y = 0;
-		bVelocity.Y = 0;
-	}
-	if (!b->CanMoveY_p && MTV.X > 0) {
-		MTV_ForA.Y *= 2;
-		MTV_ForB.Y = 0;
+		if (!a->CanMoveY_p && MTV.Y > 0) {
+			MTV_ForA.Y = 0;
+			MTV_ForB.Y *= 2;
 
-		aVelocity.Y = 0;
-		bVelocity.Y = 0;
-	}
-	if (!b->CanMoveY_n && MTV.X < 0) {
-		MTV_ForA.Y *= 2;
-		MTV_ForB.Y = 0;
+			aVelocity.Y = 0;
+			bVelocity.Y = 0;
+		}
+		if (!a->CanMoveY_n && MTV.Y < 0) {
+			MTV_ForA.Y = 0;
+			MTV_ForB.Y *= 2;
 
-		aVelocity.Y = 0;
-		bVelocity.Y = 0;
-	}
+			aVelocity.Y = 0;
+			bVelocity.Y = 0;
+		}
+		if (!b->CanMoveY_p && MTV.X > 0) {
+			MTV_ForA.Y *= 2;
+			MTV_ForB.Y = 0;
 
-	if (!a->CanMoveZ_p && MTV.Z > 0) {
-		MTV_ForA.Z = 0;
-		MTV_ForB.Z *= 2;
+			aVelocity.Y = 0;
+			bVelocity.Y = 0;
+		}
+		if (!b->CanMoveY_n && MTV.X < 0) {
+			MTV_ForA.Y *= 2;
+			MTV_ForB.Y = 0;
 
-		aVelocity.Z = 0;
-		bVelocity.Z = 0;
-	}
-	if (!a->CanMoveZ_n && MTV.Z < 0) {
-		MTV_ForA.Z = 0;
-		MTV_ForB.Z *= 2;
+			aVelocity.Y = 0;
+			bVelocity.Y = 0;
+		}
 
-		aVelocity.Z = 0;
-		bVelocity.Z = 0;
-	}
-	if (!b->CanMoveZ_p && MTV.Z > 0) {
-		MTV_ForA.Z *= 2;
-		MTV_ForB.Z = 0;
+		if (!a->CanMoveZ_p && MTV.Z > 0) {
+			MTV_ForA.Z = 0;
+			MTV_ForB.Z *= 2;
 
-		aVelocity.Z = 0;
-		bVelocity.Z = 0;
-	}
-	if (!b->CanMoveZ_n && MTV.Z < 0) {
-		MTV_ForA.Z *= 2;
-		MTV_ForB.Z = 0;
+			aVelocity.Z = 0;
+			bVelocity.Z = 0;
+		}
+		if (!a->CanMoveZ_n && MTV.Z < 0) {
+			MTV_ForA.Z = 0;
+			MTV_ForB.Z *= 2;
 
-		aVelocity.Z = 0;
-		bVelocity.Z = 0;
+			aVelocity.Z = 0;
+			bVelocity.Z = 0;
+		}
+		if (!b->CanMoveZ_p && MTV.Z > 0) {
+			MTV_ForA.Z *= 2;
+			MTV_ForB.Z = 0;
+
+			aVelocity.Z = 0;
+			bVelocity.Z = 0;
+		}
+		if (!b->CanMoveZ_n && MTV.Z < 0) {
+			MTV_ForA.Z *= 2;
+			MTV_ForB.Z = 0;
+
+			aVelocity.Z = 0;
+			bVelocity.Z = 0;
+		}
 	}
 
 #pragma endregion
 
-	a->EntityTransform->AddPosition(MTV_ForA);
-	b->EntityTransform->AddPosition(MTV_ForB);
+	if (a->ResponseFlags & PHYSICAL_ENTITY_RESPONSE_MOVE_MTV)
+		a->EntityTransform->AddPosition(MTV_ForA);
+	if (b->ResponseFlags & PHYSICAL_ENTITY_RESPONSE_MOVE_MTV)
+		b->EntityTransform->AddPosition(MTV_ForB);
 
-	Vector3f pointA = A_To_B / info.SAT_2->BoxTransform.GlobalScale;
-	Vector3f pointB = B_To_A / info.SAT_1->BoxTransform.GlobalScale;
+	if (ResolveFlags & PHYSICAL_SCENE_RESOLVE_ROTATION) {
+		if (a->Type == PhysicalEntityMobilityType::MOVABLE && a->ResponseFlags & PHYSICAL_ENTITY_RESPONSE_ROTATE && b->InteractionFlags & PHYSICAL_ENTITY_INTERACTION_GIVE_ROTATION) {
 
-	Vector3f rotA = 0.0f;
-	Vector3f rotB = 0.0f;
+			Vector3f rotA = 0.0f;
 
-	rotA = PhysicsEntity::GetTorque(pointA, MTV_ForA.GetNormalized()) * 360 * delta;
-	rotB = PhysicsEntity::GetTorque(pointB, MTV_ForB.GetNormalized()) * 360 * delta;
+			//Rotación.
+			const Vector3f pointA = satInfo.PointA;
+			
+			rotA += PhysicsEntity::GetTorque(pointA, B_To_A.GetNormalized()) * 3 * delta;
 
-	//
-	const Vector3f projectionTo = MTV_ForA.GetNormalized();
-	std::vector<Vector3f> points = {};
-	float currentProjection = std::numeric_limits<float>::min();
-	for (const auto& i : info.SAT_2->GetPoints()) {
-		const Vector3f p = i - info.SAT_2->BoxTransform.GlobalPosition;
-		float proj = p.Dot(projectionTo);
+			a->EntityTransform->RotateWorldSpace(1 / a->Mass, rotA);
 
-		if (CompareFloats(proj, currentProjection)) {
-			points.push_back(p);
-		}
-		else if (proj > currentProjection) {
-			points.clear();
-			points.push_back(p);
-			currentProjection = proj;
-		}
-	}
-
-	if (points.size() == 1) {
-		pointA = points[0];
-		pointB = -points[0];
-	}
-	else {
-		Vector3f average = { 0.0f };
-		for (const auto& i : points) {
-			average += i / points.size();
+			a->AngularVelocity += (rotA);
 		}
 
-		pointB = average;
+		if (b->Type == PhysicalEntityMobilityType::MOVABLE && b->ResponseFlags & PHYSICAL_ENTITY_RESPONSE_ROTATE && a->InteractionFlags & PHYSICAL_ENTITY_INTERACTION_GIVE_ROTATION) {
 
-		pointA = info.SAT_1->BoxTransform.GlobalPosition - (average + info.SAT_2->BoxTransform.GlobalPosition);
+			Vector3f rotB = 0.0f;
+
+			//Rotación.
+			const Vector3f pointB = satInfo.PointB;
+
+			rotB += PhysicsEntity::GetTorque(pointB, A_To_B.GetNormalized()) * 3 * delta;
+
+			b->EntityTransform->RotateWorldSpace(1 / b->Mass, rotB);
+
+			b->AngularVelocity += (rotB);
+		}
+
 	}
 
-	//rotA += PhysicsEntity::GetTorque(pointA, -MTV_ForA.GetNormalized()) * 360 * delta * d;
-	//rotB += PhysicsEntity::GetTorque(pointB, MTV_ForB.GetNormalized()) * 360 * delta * d;
 
-	a->EntityTransform->AddRotation(rotA / a->Mass);
-	b->EntityTransform->AddRotation(rotB / b->Mass);
+	if (ResolveFlags & PHYSICAL_SCENE_RESOLVE_ACCEL) {
+		if (a->Type == PhysicalEntityMobilityType::MOVABLE && a->ResponseFlags & PHYSICAL_ENTITY_RESPONSE_ACCEL && b->InteractionFlags & PHYSICAL_ENTITY_INTERACTION_GIVE_ACCEL)
+			a->Velocity += MTV_ForA.GetNormalized() * a->Mass * b->Velocity.GetLenght() * delta / a->Mass;
 
-	a->AngularVelocity += (rotA / a->Mass);
-	b->AngularVelocity += (rotB / b->Mass);
-
-	a->Velocity += B_To_A.GetNormalized() * a->Mass * b->Velocity.GetLenght() * delta / a->Mass;
-	b->Velocity += A_To_B.GetNormalized() * b->Mass * a->Velocity.GetLenght() * delta / b->Mass;
-
-	//a->ApplyForce(pointA, MTV_ForA.GetNormalized(), delta);
-	//b->ApplyForce(pointB, MTV_ForB.GetNormalized(), delta);
+		if (b->Type == PhysicalEntityMobilityType::MOVABLE && b->ResponseFlags & PHYSICAL_ENTITY_RESPONSE_ACCEL && a->InteractionFlags & PHYSICAL_ENTITY_INTERACTION_GIVE_ACCEL)
+			b->Velocity += MTV_ForB.GetNormalized() * b->Mass * a->Velocity.GetLenght() * delta / b->Mass;
+	}
 }

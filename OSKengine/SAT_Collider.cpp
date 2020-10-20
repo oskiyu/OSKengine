@@ -1,13 +1,11 @@
 #include "SAT_Collider.h"
 #include "ToString.h"
+#include "Math.h"
+
+#include <array>
 
 using namespace OSK;
 using namespace OSK::Collision;
-using namespace OSK::Collections;
-
-SAT_Collider::~SAT_Collider() {
-
-}
 
 void SAT_Collider::OptimizeFaces() {
 	std::vector<SAT_Face> faces = {};
@@ -60,27 +58,13 @@ void SAT_Collider::AddFace(const Vector3f points[], const uint32_t& size) {
 }
 
 void SAT_Collider::TransformPoints() {
-	if (isAllStatic())
+	if (IsStatic)
 		return;
 
-	glm::mat4 initMat = glm::mat4(1.0f);
-
-	if (!staticPosition)
-		initMat = glm::translate(initMat, BoxTransform.GlobalPosition.ToGLM());
-
-	if (!staticRotation) {
-		initMat = glm::rotate(initMat, glm::radians(BoxTransform.GlobalRotation.X), { 1.0f, 0.0f, 0.0f });
-		initMat = glm::rotate(initMat, glm::radians(BoxTransform.GlobalRotation.Y), { 0.0f, 1.0f, 0.0f });
-		initMat = glm::rotate(initMat, glm::radians(BoxTransform.GlobalRotation.Z), { 0.0f, 0.0f, 1.0f });
-	}
-
-	if (!staticScale)
-		initMat = glm::scale(initMat, BoxTransform.GlobalScale.ToGLM());
-
-	const glm::vec4 positionMult = { 0.0f, 0.0f, 0.0f, 1.0f };
+	const static glm::vec4 positionMult = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 	for (uint32_t i = 0; i < Points.size(); i++) {
-		glm::mat4 mat = glm::translate(initMat, Points[i].ToGLM());
+		glm::mat4 mat = glm::translate(BoxTransform.ModelMatrix, Points[i].ToGLM());
 		TransformedPoints[i] = Vector3f(mat * positionMult);
 	}
 }
@@ -147,15 +131,119 @@ SAT_CollisionInfo SAT_Collider::GetCollisionInfo(const SAT_Collider& other) cons
 		}
 	}
 
+	const Vector3f MTV = smallestAxis.GetNormalized() * currentOverlap;
+
+#pragma region Cálculo de puntos de colisión.
+
+	const Vector3f projectionToOther = -MTV.GetNormalized();
+	const Vector3f projectionToThis = MTV.GetNormalized();
+	Vector3f pointA;
+	Vector3f pointB;
+
+	std::vector<Vector3f> pointsOther = {};
+	std::vector<Vector3f> pointsThis = {};
+
+	float currentProjectionOther = std::numeric_limits<float>::min();
+	float currentProjectionThis = std::numeric_limits<float>::min();
+
+	for (const auto& i : other.GetPoints()) {
+		const Vector3f p = i - other.BoxTransform.GlobalPosition;
+		float proj = p.Dot(projectionToOther);
+
+		if (CompareFloats(proj, currentProjectionOther)) {
+			pointsOther.push_back(p);
+		}
+		else if (proj > currentProjectionOther) {
+			pointsOther.clear();
+			pointsOther.push_back(p);
+			currentProjectionOther = proj;
+		}
+	}
+
+	for (const auto& i : GetPoints()) {
+		const Vector3f p = i - BoxTransform.GlobalPosition;
+		float proj = p.Dot(projectionToThis);
+
+		if (CompareFloats(proj, currentProjectionThis)) {
+			pointsThis.push_back(p);
+		}
+		else if (proj > currentProjectionThis) {
+			pointsThis.clear();
+			pointsThis.push_back(p);
+			currentProjectionThis = proj;
+		}
+	}
+
+	if (pointsThis.size() == 1) {
+		pointA = pointsThis[0];
+		pointB = pointA + BoxTransform.GlobalPosition - other.BoxTransform.GlobalPosition;
+	}
+	else if (pointsOther.size() == 1) {
+		pointB = pointsOther[0];
+		pointA = pointB + other.BoxTransform.GlobalPosition - BoxTransform.GlobalPosition;
+	}
+	else {
+		if (pointsThis.size() < pointsOther.size()) {
+			Vector3f averageThis = { 0.0f };
+			for (const auto& i : pointsThis)
+				averageThis += i / pointsThis.size();
+
+			pointA = averageThis;
+
+			pointB = pointA + BoxTransform.GlobalPosition - other.BoxTransform.GlobalPosition;
+		}
+		else  if (pointsThis.size() > pointsOther.size()) {
+			Vector3f averageOther = { 0.0f };
+			for (const auto& i : pointsOther)
+				averageOther += i / pointsOther.size();
+
+			pointB = averageOther;
+		
+			pointA = pointB + other.BoxTransform.GlobalPosition - BoxTransform.GlobalPosition;
+		}
+		else {
+			Vector3f average = { 0.0f };
+			const int number = pointsThis.size() + pointsOther.size();
+
+			for (const auto& i : pointsThis)
+				average += i / number;
+
+			for (const auto& i : pointsOther) {
+				Vector3f aPoint = i + other.BoxTransform.GlobalPosition - BoxTransform.GlobalPosition;
+				average += aPoint / number;
+			}
+
+			pointA = average;
+			pointB = pointA + BoxTransform.GlobalPosition - other.BoxTransform.GlobalPosition;
+		}
+
+	}
+
+#pragma endregion
+
 	SAT_CollisionInfo output{};
 	output.IsColliding = true;
+	output.Axis = smallestAxis;
 	output.MinimunTranslationVector = smallestAxis.GetNormalized() * currentOverlap;
+	output.PointA = pointA;
+	output.PointB = pointB;
 
 	return output;
 }
 
 std::vector<Vector3f> SAT_Collider::GetPoints() const {
 	return TransformedPoints;
+}
+
+std::vector<Vector3f> SAT_Collider::GetAxes() const {
+	std::vector<Vector3f> axes = {};
+	axes.reserve(Faces.size());
+
+	for (const auto& i : Faces) {
+		axes.push_back(GetAxisFromFace(i));
+	}
+
+	return axes;
 }
 
 SAT_Projection SAT_Collider::ProjectToAxis(const Vector3f& axis) const {

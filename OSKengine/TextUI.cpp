@@ -10,10 +10,10 @@ namespace OSK::UI {
 
 	}
 
-	void Text::Draw(const RenderAPI& renderer) {
+	/*void Text::Draw(const RenderAPI& renderer) {
 		IUserInterfaceText::Draw(renderer, *this);
 	}
-
+	*/
 	void Text::Draw(SpriteBatch& spriteBatch) {
 		IUserInterfaceText::Draw(spriteBatch, *this);
 	}

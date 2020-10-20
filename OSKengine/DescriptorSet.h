@@ -1,5 +1,10 @@
 #pragma once
 
+#include "OSKsettings.h"
+#include "OSKmacros.h"
+#include "OSKtypes.h"
+#include "Log.h"
+
 #include <vulkan/vulkan.h>
 #include <vector>
 
@@ -13,7 +18,7 @@ namespace OSK {
 
 	//Un descriptor set describe, de manera concisa, cómo se pasa la información de la CPU a la GPU de un objeto en concreto.
 	//Tiene información extra, como detalles sobre los buffers y las imágenes.
-	class DescriptorSet {
+	class OSKAPI_CALL DescriptorSet {
 
 		friend class VulkanRenderer;
 

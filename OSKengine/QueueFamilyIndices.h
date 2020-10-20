@@ -1,9 +1,12 @@
 #pragma once
 
+#include "OSKsettings.h"
+#include "OSKmacros.h"
+#include "OSKtypes.h"
+#include "Log.h"
+
 #include <optional>
 #include <cstdint>
-
-#include "OSKmacros.h"
 
 namespace OSK::VULKAN {
 

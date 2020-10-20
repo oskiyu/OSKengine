@@ -25,9 +25,6 @@
 #include "SAT_Collider.h"
 #include "RayCast.h"
 
-using namespace OSK::Collections;
-
-
 /**/
 class Entity {
 
@@ -49,13 +46,13 @@ public:
 private:
 	void setup() {
 		Physics.EntityTransform = &Transform;
-		Physics.Collision.transform.AttachTo(&Transform);
+		Physics.Collision.ColliderTransform.AttachTo(&Transform);
 		model.ModelTransform = &Transform;
 
 		auto box = OSK::Collision::SAT_Collider::CreateOBB();
-		Physics.Collision.OBBs.push_back(box);
-		Physics.Collision.OBBs.back().BoxTransform.AttachTo(&Transform);
-		Physics.Collision.type = OSK::BroadColliderType::BOX_AABB;
+		Physics.Collision.SatColliders.push_back(box);
+		Physics.Collision.SatColliders.back().BoxTransform.AttachTo(&Transform);
+		Physics.Collision.BroadType = OSK::BroadColliderType::BOX_AABB;
 		Physics.Collision.BroadCollider.Box.Size = { 5.0f };
 	}
 };
@@ -75,7 +72,7 @@ int program() {
 	RenderAPI.Settings.MaxTextures = 1024;
 	RenderAPI.SetPresentMode(OSK::PresentMode::VSYNC);
 	RenderAPI.FPSlimit = INFINITE;
-	OskResult result = RenderAPI.Init(OSK::RenderMode::RENDER_MODE_2D_AND_3D, "XD", OSK::Version{ 0, 0, 0 });
+	OskResult result = RenderAPI.Init(OSK::RenderMode::RENDER_MODE_2D_AND_3D, "OSKengine", OSK::Version{ 0, 0, 0 });
 	if (result != OskResult::SUCCESS) {
 		OSK_SHOW_TRACE();
 		return (int)result;
@@ -93,6 +90,10 @@ int program() {
 	OSK::Model model{};
 	Scene->LoadSkybox("skybox/skybox.ktx");
 	Scene->LoadHeightmap("heightmaps/Heightmap.png", { 1 }, 5);
+	RenderAPI.Content->LoadModel(model, "models/cube/cube.obj");
+	model.ModelTransform = new OSK::Transform();
+	model.ModelTransform->SetScale(0.5f);
+	//Scene->AddModel(&model);
 	//Scene->terreno->FrictionCoefficient = 0;
 
 	OSK::ProfilingUnit mainDrawUnit{ "Main Draw()" };
@@ -109,14 +110,15 @@ int program() {
 
 	Entity EntityA(OSK::Vector3f{ 0.0f });
 	RenderAPI.Content->LoadModel(EntityA.model, "models/cube/cube.obj");
+	//EntityA.Physics.Type = OSK::PhysicalEntityMobilityType::STATIC;
 	Entity EntityB(OSK::Vector3f{ 0.0f, -5.0f, 0.0f });
 	RenderAPI.Content->LoadModel(EntityB.model, "models/cube/cube.obj");
-	EntityB.Transform.SetRotation({ 20, 0, 0 });
+	EntityB.Transform.RotateWorldSpace(20.0f, { 1, 0, 0 });
 
 	OSK::PhysicsScene PhysicsScene;
 	PhysicsScene.AddEntity(&EntityA.Physics);
 	PhysicsScene.AddEntity(&EntityB.Physics);
-	PhysicsScene.FloorTerrain = Scene->terreno;
+	PhysicsScene.FloorTerrain = Scene->Terreno;
 
 	Scene->AddModel(&EntityA.model);
 	Scene->AddModel(&EntityB.model);
@@ -164,21 +166,21 @@ int program() {
 			windowAPI->Close();
 
 		if (NewKS.IsKeyDown(OSK::Key::UP))
-			EntityA.Physics.Velocity = OSK::Vector3f(3, 0, 0);
+			EntityA.Physics.EntityTransform->AddPosition(OSK::Vector3f(3, 0, 0) * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::DOWN))
-			EntityA.Physics.Velocity = OSK::Vector3f(-3, 0, 0);
+			EntityA.Physics.EntityTransform->AddPosition(OSK::Vector3f(-3, 0, 0) * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::LEFT))
-			EntityA.Physics.Velocity = OSK::Vector3f(0, 0, -3);
+			EntityA.Physics.EntityTransform->AddPosition(OSK::Vector3f(0, 0, -3) * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::RIGHT))
-			EntityA.Physics.Velocity = OSK::Vector3f(0, 0, 3);
+			EntityA.Physics.EntityTransform->AddPosition(OSK::Vector3f(0, 0, 3) * deltaTime);
 
-		if (NewKS.IsKeyDown(OSK::Key::Z))
-			EntityA.Transform.AddRotation(OSK::Vector3f(60, 0, 0) * deltaTime);
-		if (NewKS.IsKeyDown(OSK::Key::X))
-			EntityA.Transform.AddRotation(OSK::Vector3f(0, 60, 0) * deltaTime);
-		if (NewKS.IsKeyDown(OSK::Key::C))
-			EntityA.Transform.AddRotation(OSK::Vector3f(0, 0, 60) * deltaTime);
-
+		if (NewKS.IsKeyDown(OSK::Key::Z)) {
+			EntityA.Transform.RotateWorldSpace(deltaTime * 2, { 0, 1, 0 });
+		}
+		if (NewKS.IsKeyDown(OSK::Key::X)) {
+			EntityA.Transform.RotateWorldSpace(deltaTime  * 2, { 1, 0, 0 });
+		}
+		
 		if (NewKS.IsKeyDown(OSK::Key::W))
 			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(RenderAPI.DefaultCamera3D.Front * SPEED * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::S))
@@ -205,10 +207,8 @@ int program() {
 		if (NewKS.IsKeyDown(OSK::Key::B) && OldKS.IsKeyUp(OSK::Key::B))
 			RenderAPI.SetPresentMode(OSK::PresentMode::VSYNC_TRIPLE_BUFFER);
 
-		if (NewKS.IsKeyDown(OSK::Key::ENTER) && OldKS.IsKeyUp(OSK::Key::ENTER)) {
-			OSK::Vector2 mousePos = RenderAPI.DefaultCamera2D.PointInWindowToPointInWorld(NewMS.GetMouseRectangle().GetRectanglePosition());
-			std::cout << "X: " << mousePos.X << "; Y: " << mousePos.Y << std::endl;
-		}
+		auto info = EntityA.Physics.Collision.SatColliders[0].GetCollisionInfo(EntityB.Physics.Collision.SatColliders[0]);
+		model.ModelTransform->SetPosition(EntityA.Transform.GlobalPosition + info.PointA);
 
 		totalDeltaTime += deltaTime;
 		count++;
@@ -231,9 +231,9 @@ int program() {
 			spriteBatch.DrawString(fuente, "FPS: " + std::to_string((int)FPS), 0.75f, OSK::Vector2(0, 5), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
 			spriteBatch.DrawString(fuente, "OSKengine " + std::string(OSK::ENGINE_VERSION), 0.75f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
 			
-			auto info = OSK::RayCast::CastRay(RenderAPI.DefaultCamera3D.CameraTransform.GlobalPosition.ToVector3f(), RenderAPI.DefaultCamera3D.Front.ToVector3f(), EntityA.Physics.Collision.OBBs[0]);
+			auto info = OSK::RayCast::CastRay(RenderAPI.DefaultCamera3D.CameraTransform.GlobalPosition.ToVector3f(), RenderAPI.DefaultCamera3D.Front.ToVector3f(), EntityA.Physics.Collision.SatColliders[0]);
 			
-			spriteBatch.DrawString(fuente, OSK::ToString(info.IsColliding) + "; dist= " + std::to_string(info.DistanceFromOrigin), 0.75f, OSK::Vector2(0, 25), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+			spriteBatch.DrawString(fuente, OSK::ToString(EntityB.Transform.GlobalPosition), 0.75f, OSK::Vector2(0, 25), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
 
 			RenderAPI.SubmitSpriteBatch(spriteBatch);
 			mainDrawUnit.End();

@@ -1,32 +1,44 @@
 #pragma once
 
+#include "OSKsettings.h"
+#include "OSKmacros.h"
+#include "OSKtypes.h"
+#include "Log.h"
+
 #include "CollisionBox.h"
 #include "CollisionSphere.h"
 #include "SAT_Collider.h"
 #include "SAT_CollisionInfo.h"
 
 #include "PhysicalEntityType.h"
-#include "CollisionInfo.h"
 
 namespace OSK {
 
 
-	struct ColliderCollisionInfo {
+	//Estructura que contiene información de una colisión entre Colliders.
+	struct OSKAPI_CALL ColliderCollisionInfo {
+		//True si hay colisión.
 		bool IsColliding = false;
+		//True si hay colisión entre los BroadColliders.
+		//No tiene por qué suponer una colisión real.
 		bool IsBroadColliderColliding = false;
+		//Primer sat que colisiona.
 		Collision::SAT_Collider* SAT_1 = nullptr;
+		//Segundo sat que colisiona.
 		Collision::SAT_Collider* SAT_2 = nullptr;
 	};
 
 
 	//Tipos de BroadCollider.
-	enum class BroadColliderType {
+	enum class OSKAPI_CALL BroadColliderType {
+		//AABB.
 		BOX_AABB,
+		//Esfera.
 		SPHERE
 	};
 
-	//Representa un Collider para detección de colisiones 3D.
-	class Collider {
+	//Representa un Collider para la detección de colisiones 3D.
+	class OSKAPI_CALL Collider {
 
 	public:
 
@@ -51,13 +63,18 @@ namespace OSK {
 		//	<box>: caja que será el broad collider.
 		void SetBroadCollider(const CollisionBox& box);
 
+		//Establece la posición del BroadCollider, sea del tipo que sea.
+		//	<pos>: posición.
 		void SetPosition(const Vector3f& pos);
 
 		//BroadCollider.
-		union __BroadCollider_t {
+		union OSKAPI_CALL __BroadCollider_t {
+			//AABB.
 			CollisionBox Box;
+			//Esfera.
 			CollisionSphere Sphere;
 
+			//Inicia el BroadCollider (vacío).
 			inline __BroadCollider_t() {
 				memset(this, 0, sizeof(*this));
 			}
@@ -65,17 +82,21 @@ namespace OSK {
 		} BroadCollider;
 
 		//Tipo de BroadCollider actual.
-		BroadColliderType type = BroadColliderType::BOX_AABB;
+		BroadColliderType BroadType = BroadColliderType::BOX_AABB;
 
 		//Devuelve true si este Collider está tocando a otro.
 		//	<other>: el otro Collider.
 		bool IsColliding(Collider& other);
 
+		//Obtiene la información de la colisión entre este Collider y otro.
+		//	<other>: otro collider.
 		ColliderCollisionInfo GetCollisionInfo(Collider& other);
 
-		Transform transform;
+		//Transform del collider.
+		Transform ColliderTransform;
 
-		std::vector<Collision::SAT_Collider> OBBs{};
+		//SAT_Colliders que contiene este collider.
+		std::vector<Collision::SAT_Collider> SatColliders{};
 
 	};
 

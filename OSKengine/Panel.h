@@ -26,7 +26,7 @@ namespace OSK::UI {
 
 		//Renderiza el panel.
 		//DEPRECATED.
-		void Draw(const RenderAPI& renderer) override;
+		//void Draw(const RenderAPI& renderer) override;
 
 
 		//Renderiza el panel.

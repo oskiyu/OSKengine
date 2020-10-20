@@ -416,7 +416,7 @@ void VulkanRenderer::createInstance(const std::string& appName, const Version& g
 	appInfo.pApplicationName = appName.c_str();
 	appInfo.applicationVersion = VK_MAKE_VERSION((int)gameVersion.Mayor, (int)gameVersion.Menor, (int)gameVersion.Parche);
 	appInfo.pEngineName = "OSKengine";
-	appInfo.engineVersion = VK_MAKE_VERSION((int)ENGINE_VERSION_MAYOR_NUMERIC, (int)ENGINE_VERSION_MINOR, 0);
+	appInfo.engineVersion = VK_MAKE_VERSION((int)ENGINE_VERSION_STAGE_NUMERIC, (int)ENGINE_VERSION_MINOR, (int)ENGINE_VERSION_BUILD_NUMERIC);
 	appInfo.apiVersion = VK_API_VERSION_1_2;
 
 	//Create info.

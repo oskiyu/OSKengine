@@ -16,17 +16,17 @@ Collider::Collider(const Vector3f& boxPosition, const Vector3f& boxSize) {
 }
 
 void Collider::SetBroadCollider(const CollisionSphere& sphere) {
-	type = BroadColliderType::SPHERE;
+	BroadType = BroadColliderType::SPHERE;
 	BroadCollider.Sphere = sphere;
 }
 
 void Collider::SetBroadCollider(const CollisionBox& box) {
-	type = BroadColliderType::BOX_AABB;
+	BroadType = BroadColliderType::BOX_AABB;
 	BroadCollider.Box = box;
 }
 
 void Collider::SetPosition(const Vector3f& pos) {
-	if (type == BroadColliderType::BOX_AABB)
+	if (BroadType == BroadColliderType::BOX_AABB)
 		BroadCollider.Box.Position = pos;
 	else
 		BroadCollider.Sphere.Position = pos;
@@ -43,10 +43,10 @@ ColliderCollisionInfo Collider::GetCollisionInfo(Collider& other) {
 		goto return_p;
 	
 	//BROAD PHASE.
-	if (type == BroadColliderType::BOX_AABB) { //Este collider tiene un AABB box.
-		BroadCollider.Box.Position = transform.GlobalPosition;
+	if (BroadType == BroadColliderType::BOX_AABB) { //Este collider tiene un AABB box.
+		BroadCollider.Box.Position = ColliderTransform.GlobalPosition;
 
-		if (other.type == BroadColliderType::BOX_AABB) {//El otro collider tiene un AABB box.
+		if (other.BroadType == BroadColliderType::BOX_AABB) {//El otro collider tiene un AABB box.
 			if (!BroadCollider.Box.Intersects(other.BroadCollider.Box))
 				goto return_p;
 		}
@@ -56,9 +56,9 @@ ColliderCollisionInfo Collider::GetCollisionInfo(Collider& other) {
 		}
 	}
 	else {//Este collider tiene una esfera.
-		BroadCollider.Sphere.Position = transform.GlobalPosition;
+		BroadCollider.Sphere.Position = ColliderTransform.GlobalPosition;
 		
-		if (other.type == BroadColliderType::BOX_AABB) {//El otro collider tiene un AABB box.
+		if (other.BroadType == BroadColliderType::BOX_AABB) {//El otro collider tiene un AABB box.
 			if (!BroadCollider.Sphere.Intersects(other.BroadCollider.Box))
 				goto return_p;
 		}
@@ -70,9 +70,9 @@ ColliderCollisionInfo Collider::GetCollisionInfo(Collider& other) {
 	
 	info.IsBroadColliderColliding = true;
 
-	for (auto& i : OBBs) {
+	for (auto& i : SatColliders) {
 		i.TransformPoints();
-		for (auto& j : other.OBBs) {
+		for (auto& j : other.SatColliders) {
 			j.TransformPoints();
 			if (&i == &j)
 				continue;

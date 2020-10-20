@@ -1,12 +1,17 @@
 #pragma once
 
+#include "OSKsettings.h"
+#include "OSKmacros.h"
+#include "OSKtypes.h"
+#include "Log.h"
+
 #include <vulkan/vulkan.h>
 #include <vector>
 
 namespace OSK {
 
 	//Un descriptor layout describe, a grandes rasgos, cómo se pasa la información de la CPU a la GPU.
-	class DescriptorLayout {
+	class OSKAPI_CALL DescriptorLayout {
 
 		friend class VulkanRenderer;
 

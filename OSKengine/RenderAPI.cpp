@@ -6,7 +6,7 @@
 #include "BaseUIElement.h"
 
 namespace OSK {
-
+/*
 	RenderAPI::RenderAPI() {
 
 	}
@@ -396,7 +396,7 @@ namespace OSK {
 			sceneShader->SetFloat("pointLights[" + std::to_string(i) + "].Quadratic", PointLights[i]->Quadratic);
 			sceneShader->SetFloat("pointLights[" + std::to_string(i) + "].Radius", PointLights[i]->Radius);
 			sceneShader->SetFloat("pointLights[" + std::to_string(i) + "].Intensity", PointLights[i]->Intensity);
-		*/}
+		}
 
 		glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 		glEnable(GL_DEPTH_TEST);
@@ -594,7 +594,7 @@ namespace OSK {
 		}
 
 		for (auto i : element->Children)
-			drawUIElement(i);*/
+			drawUIElement(i);
 	}
 
 
@@ -624,5 +624,5 @@ namespace OSK {
 				return Vector2(refr.X + position.X, refr.Y + position.Y);
 		}
 	}
-
+	*/
 }

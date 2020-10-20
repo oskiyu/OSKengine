@@ -23,7 +23,7 @@ namespace OSK::UI {
 
 		//Renderiza la imagen.
 		//DEPRECATED.
-		void Draw(const RenderAPI& renderer, const BaseUIElement& base);
+		//void Draw(const RenderAPI& renderer, const BaseUIElement& base);
 
 
 		//Renderiza la imagen.

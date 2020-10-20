@@ -32,7 +32,7 @@ namespace OSK::UI {
 		void SetPositionRelativeTo(BaseUIElement* element) override;
 
 		//Renderiza el botón.
-		void Draw(const RenderAPI& renderer) override;
+		//void Draw(const RenderAPI& renderer) override;
 
 
 		//Renderiza el botón.

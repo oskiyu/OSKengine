@@ -4,7 +4,7 @@
 
 namespace OSK {
 
-	struct PushConst3D {
+	struct OSKAPI_CALL PushConst3D {
 		alignas(16) glm::mat4 model;
 	};
 

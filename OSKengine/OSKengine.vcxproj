@@ -170,6 +170,7 @@
     <ClCompile Include="PhysicsScene.cpp" />
     <ClCompile Include="Profiler.cpp" />
     <ClCompile Include="ProfilingUnit.cpp" />
+    <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RayCast.cpp" />
     <ClCompile Include="RenderizableScene.cpp" />
     <ClCompile Include="Renderpass.cpp" />
@@ -223,8 +224,6 @@
     <ClInclude Include="Camera3D.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionBox.h" />
-    <ClInclude Include="CollisionInfo.h" />
-    <ClInclude Include="CollisionPlane.h" />
     <ClInclude Include="CollisionSphere.h" />
     <ClInclude Include="DescriptorLayout.h" />
     <ClInclude Include="DescriptorSet.h" />
@@ -251,6 +250,7 @@
     <ClInclude Include="Profiler.h" />
     <ClInclude Include="ProfilingUnit.h" />
     <ClInclude Include="PushConst3D.h" />
+    <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RayCast.h" />
     <ClInclude Include="Renderpass.h" />
     <ClInclude Include="RenderizableScene.h" />

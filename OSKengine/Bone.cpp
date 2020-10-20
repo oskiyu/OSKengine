@@ -3,6 +3,8 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <gtx/euler_angles.hpp>
 
+#include "Quaternion.h"
+
 namespace OSK {
 
 	Bone::Bone(int32_t ID, std::string name) {
@@ -30,8 +32,8 @@ namespace OSK {
 		if (!AINodeAnim)
 			return;
 
-		Transform.Position = GetInterpolatedPosition(time);
-		Transform.Rotation = GetInterpolatedRotation(time);
+		Transform.LocalPosition = GetInterpolatedPosition(time);
+		Transform.Rotation = Quaternion::CreateFromEulerAngles(GetInterpolatedRotation(time));
 	}
 
 

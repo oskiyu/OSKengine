@@ -24,7 +24,7 @@ namespace OSK {
 		//Crea una cámara.
 		//<position>: posición de la cámara.
 		//<up>: vector 3D que determina los ejes de coordenadas de la cámara.
-		Camera3D(const Vector3_t<double>& position, const Vector3_t<double>& up);
+		Camera3D(const Vector3f& position, const Vector3f& up);
 
 
 		//Destruye la cámara.
@@ -44,10 +44,10 @@ namespace OSK {
 		//Añade FoV a la cámara.
 		void AddFoV(const double& fov);
 
-
+		//Obtiene la matriz proyección de la cámara.
 		glm::mat4 GetProjection() const;
 
-
+		//Obtiene la matriz view de la cámara.
 		glm::mat4 GetView() const;
 
 
@@ -66,28 +66,32 @@ namespace OSK {
 
 		//Vector dirección de la cámara.
 		OSK_INFO_DO_NOT_TOUCH
-			Vector3_t<double> Front = OSK::Vector3_t<double>(0.0, 0.0, -1.0);
+			Vector3f  Front = Vector3f(0.0, 0.0, -1.0);
 
 
 		//Vector 'arriba' de la cámara.
 		OSK_INFO_DO_NOT_TOUCH
-			Vector3_t<double> Up = OSK::Vector3_t<double>(0.0, 1.0, 0.0);
+			Vector3f Up = Vector3f(0.0, 1.0, 0.0);
 
 
 		//Vector 'derecho' de la cámara.
 		OSK_INFO_DO_NOT_TOUCH
-			Vector3_t<double> Right;
+			Vector3f Right;
 
 
 		//Vector 'arriba' del mundo. { 0, 1, 0 }
-		const Vector3_t<double> WorldUp = OSK::Vector3_t<double>(0.0f, 1.0f, 0.0f);
+		const Vector3f WorldUp = Vector3f(0.0f, 1.0f, 0.0f);
 
 
 		//Transform de la cámara.
-		Transform_t<double> CameraTransform;
+		Transform CameraTransform;
 
 
 		WindowAPI* Window;
+
+		float AngleX = 0.0f;
+
+		float AngleY = 0.0f;
 
 		void updateVectors();
 	private:

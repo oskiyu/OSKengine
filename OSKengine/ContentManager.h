@@ -1,5 +1,10 @@
 #pragma once
 
+#include "OSKsettings.h"
+#include "OSKmacros.h"
+#include "OSKtypes.h"
+#include "Log.h"
+
 #include "Texture.h"
 #include "Model.h"
 #include "AnimatedModel.h"
@@ -27,10 +32,11 @@ namespace OSK {
 	//ContentManager es una clase que se encarga de cargar los recursos del juego.
 	//Almacena los recursos que se hayan cargado, y los elimina al cerrarse (o al llamar a Unload()).
 	//Pueden usarse varios, para cargar recursos por lotes que tienen el mismo periodo de vida.
-	struct ContentManager {
+	struct OSKAPI_CALL ContentManager {
 
 		friend class VulkanRenderer;
 
+		//Directorio en el que se guarda la textura por defecto.
 		static const std::string DEFAULT_TEXTURE_PATH;
 
 		//Crea un ContentManager vacío.
@@ -107,6 +113,7 @@ namespace OSK {
 		//Elimina todos los recursos almacenados.
 		void Unload();
 
+		//Textura por defecto.
 		static ModelTexture* DefaultTexture;
 
 	private:

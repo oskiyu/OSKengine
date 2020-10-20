@@ -348,6 +348,9 @@
     <ClCompile Include="PhysicsScene.cpp">
       <Filter>Archivos de origen\OSKengine\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>Archivos de origen\OSKengine\Types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowAPI.h">
@@ -665,12 +668,6 @@
     <ClInclude Include="PhysicalEntityType.h">
       <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionInfo.h">
-      <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionPlane.h">
-      <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
-    </ClInclude>
     <ClInclude Include="Profiler.h">
       <Filter>Archivos de encabezado\OSKengine\Util</Filter>
     </ClInclude>
@@ -706,6 +703,9 @@
     </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

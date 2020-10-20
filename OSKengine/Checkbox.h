@@ -26,7 +26,7 @@ namespace OSK::UI {
 
 
 		//Renderiza el checkbox.
-		void Draw(const RenderAPI& renderer) override;
+		//void Draw(const RenderAPI& renderer) override;
 
 
 		//Renderiza el checkbox.

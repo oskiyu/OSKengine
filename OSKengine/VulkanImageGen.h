@@ -1,8 +1,12 @@
 #pragma once
 
+#include "OSKsettings.h"
+#include "OSKmacros.h"
+#include "OSKtypes.h"
+#include "Log.h"
+
 #include <vulkan/vulkan.h>
 #include "VulkanImage.h"
-#include "Vector2.hpp"
 #include "VulkanBuffer.h"
 
 namespace OSK {
@@ -13,6 +17,7 @@ namespace OSK {
 
 namespace OSK::VULKAN {
 
+	//Clase estática para el manejo de imágenes de Vulkan.
 	class OSKAPI_CALL VulkanImageGen {
 
 	public:
@@ -49,10 +54,25 @@ namespace OSK::VULKAN {
 		//	<mipLevels>: niveles del mipmap.
 		static void CreateMipmaps(VulkanImage& image, const Vector2ui& size, const uint32_t& levels);
 
+		//Copia el contenido de un buffer a una imagen.
+		//	<buffer>: buffer que contiene la imagen.
+		//	<img>: imagen.
+		//	<width>: ancho de la imagen.
+		//	<height>: alto de la imagen.
 		static void CopyBufferToImage(VulkanBuffer* buffer, VULKAN::VulkanImage* img, const uint32_t& width, const uint32_t& height);
 
+		//Cambia el layout de una imagen.
+		//	<img>: imagen.
+		//	<oldLayout>: layout actual de la imagen.
+		//	<newLayout>: próximo layout de la igen.
+		//	<mipLevels>: miplevels.
+		//	<arrayLevels>: arrayLevels.
 		static void TransitionImageLayout(VulkanImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, const uint32_t& mipLevels, const uint32_t& arrayLevels);
 
+		//Crea una imagen a partir de un bitmap.
+		//	<width>: ancho del bitmap.
+		//	<height>: alto del bitmap.
+		//	<pixels>: bitmap.
 		static VulkanImage CreateImageFromBitMap(uint32_t width, uint32_t height, uint8_t* pixels);
 
 

@@ -8,7 +8,7 @@
 namespace OSK {
 
 	//Representa un skybox.
-	class Skybox {
+	class OSKAPI_CALL Skybox {
 
 		friend class VulkanRenderer;
 		friend class ContentManager;

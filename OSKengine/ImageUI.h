@@ -25,7 +25,7 @@ namespace OSK::UI {
 
 		//Renderiza la imagen.
 		//DEPRECATED.
-		void Draw(const RenderAPI& renderer) override;
+	//	void Draw(const RenderAPI& renderer) override;
 
 
 		//Renderiza la imagen.

@@ -28,7 +28,7 @@ namespace OSK::UI {
 
 		//Dibuja el elemento de UI.
 		//DEPRECATED.
-		virtual void Draw(const RenderAPI& renderer) = 0;
+		//virtual void Draw(const RenderAPI& renderer) = 0;
 
 		//Dibuja el elemento de UI.
 		virtual void Draw(SpriteBatch& spriteBatch) = 0;

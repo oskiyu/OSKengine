@@ -96,7 +96,7 @@ namespace OSK {
 
 				//Transform del hueso.
 				//Usa la matriz en formato OpenGL.
-				Transform transform = Transform(to);
+				Transform transform = {};// Transform(to);
 
 				//HUeso formato OSK.
 				Bone bone = Bone(model.Skeleton.Bones.size(), boneName);

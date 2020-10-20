@@ -1,7 +1,7 @@
 #include "OldCamera3D.h"
 
 namespace OSK {
-
+	/*
 	OldCamera3D::OldCamera3D(const cameraVar_t& posX, const cameraVar_t& posY, const cameraVar_t posZ) {
 		CameraTransform = Transform();
 		CameraTransform.Position = Vector3(posX, posY, posZ);
@@ -42,8 +42,10 @@ namespace OSK {
 
 
 	void OldCamera3D::Girar(const double& xoffset, const double& yoffset, const bool& constraint) {
-		mouseVar_t finalX = CameraTransform.Rotation.X - static_cast<mouseVar_t>(yoffset) * Sensitivity;
-		mouseVar_t finalY = CameraTransform.Rotation.Y + static_cast<mouseVar_t>(xoffset) * Sensitivity;
+		Vector3f rot = glm::eulerAngles(CameraTransform.Rotation.Quat);
+
+		mouseVar_t finalX = rot.X - static_cast<mouseVar_t>(yoffset) * Sensitivity;
+		mouseVar_t finalY = rot.Y + static_cast<mouseVar_t>(xoffset) * Sensitivity;
 
 		if (constraint) {
 			if (finalX > 89.0f) {
@@ -54,7 +56,9 @@ namespace OSK {
 			}
 		}
 
-		CameraTransform.Rotation.X = finalX;
+		CameraTransform.Rotation.FromEulerAngles({ finalX , finalY, 0.0f });
+		
+		/*CameraTransform.Rotation.X = finalX;
 		CameraTransform.Rotation.Y = finalY;
 
 		if (CameraTransform.Rotation.Y > 0.0f)
@@ -100,5 +104,5 @@ namespace OSK {
 	glm::mat4 OldCamera3D::GetProjection() const {
 		return glm::perspective(glm::radians(static_cast<float_t>(FieldOfView)), Window->ScreenRatio, 0.1f, 100.0f);
 	}
-
+	*/
 }

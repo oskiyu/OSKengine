@@ -2,8 +2,10 @@
 
 #include <vulkan/vulkan.h>
 
+#include "OSKsettings.h"
 #include "OSKmacros.h"
 #include "OSKtypes.h"
+#include "Log.h"
 
 namespace OSK {
 

@@ -81,6 +81,8 @@ Añadidos `typedef`s para algunas variables de OpenGL y para las variables del Mo
 ## Alpha 2 (2019.12.4a)
 
 
+###### 
+
 ## 2020.10.13a
 
 ###### CollisionSystem:
@@ -170,3 +172,63 @@ Añadidos `typedef`s para algunas variables de OpenGL y para las variables del Mo
 - **Bugfix**: *OSKengine* ya no crashea al cerrarse habiendo sido iniciado en modo **DEBUG** sin tener acceso a las capas de validación.
 - **Bugfix**: `Collider.IsColliding` y `Collider.GetCollisionInfo` ya calculan correctamente las colisiones.
 - **Bugfix**: Las entitdades ya no pueden tener velocidad hacia el suelo si ya están en la superficie del terreno.
+
+
+## Alpha 16 (2020.10.20a)
+
+- Añadido soporte para DLL (`<OSKAPI_CALL>`) a todos los elementos que no lo tenían.
+- Primeros pasos para dejar el soporte OpenGL oficialmente.
+- Añadida documentación a clases que aún no tenían.
+- Normalizados los `#include` en varios archivos.
+
+###### Types:
+- Transform:
+    - Mejora global.
+    - Ya no es un `template`, siemrpe usa `<float>`.
+    - Ahora usa `Quaternion` en vez de ángulos euclídeos.
+    - Permite la rotación tanto en ejes locales como en ejes del mundo.
+    - Ya no almacena independientemente:
+        - Offsets de rotación y posición.
+        - Rotación global.
+    - Ahora usa la matriz padre para hacer los cálculos.
+    - Renombrados *Position* y *Scale* a *LocalPosition* y *LocalScale*.
+    - Ya no tiene u constructor a partir de una matriz, ni tiene comportamiento distinto para esqueletos.
+
+- Quaternion:
+    - Representa la orientación de u objeto.
+    - Puede rotar, tanto en ejes locales como del mundo.
+
+###### PhysicsEngine:
+- PhysicsEntity:
+    - Puede calcular la velocidad lineal de un punto.
+    - Se puede configurar su comportamiento en el motor de físicas (`<PhysicalEntityResponseBitFlags>`):
+        - Respuesta ante colisiones: moverse (*MTV*), aceleración y rotación.
+        - Respuesta que produce a otras entidades en colisiones: aceleración y rotación.
+- PhysicsEngine:
+    - Mejorada la respuesta de respuesta de rotación:
+        - Ya no es rotación esférica.
+        - Toma en cuenta el punto de colisión.
+        - Velocidad de rotación independiente de la masa de la otra entidad.
+    - Se puede su comportamiento:
+        - Simulación: `<PhysicalSceneSimulateBitFlags>`:
+            - Movimiento, rotación y aceleración (global).
+        - Respuesta de colisiones (`<PhysicalEntityInteractionBitFlags>`):
+            - Aceleración y rotación.
+###### CollisionSystem:
+- SAT Collider:
+    - `<GetCollisionInfo>` ahora calcula el punto de colisión.
+    -  Ya no se puede especificar si la rotación/posición/escala son estáticos, solo hay un único `<IsStatic>` que incluye las tres anteriores.
+- SAT Collision info:
+    - Ahora incluye cual es el punto de colisión, tanto en A como en B.
+    - Ahora incluye cual es el eje del MTV.
+    
+###### RenderAPI:
+- Camera3D:
+    - Ahora usa `float` en vez de `double`.
+    - Ahora almacena la rotación en X e Y de manera local.
+
+###### AudioAPI:
+- Ahora usa la *Camera3D*, en vez de *OldCamera3D*.
+
+###### UserInterface:
+- Ya no utiliza el renderizador de legado.

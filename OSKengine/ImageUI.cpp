@@ -10,9 +10,9 @@ namespace OSK::UI {
 
 	}
 
-	void Image::Draw(const RenderAPI& renderer) {
+/*	void Image::Draw(const RenderAPI& renderer) {
 		IUserInterfaceImage::Draw(renderer, *this);
-	}
+	}*/
 
 	void Image::Draw(SpriteBatch& spriteBatch) {
 		IUserInterfaceImage::Draw(spriteBatch, *this);

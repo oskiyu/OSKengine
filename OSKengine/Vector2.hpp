@@ -9,7 +9,7 @@
 namespace OSK {
 
 	//Representa un vector 2D.
-	template <typename T> class Vector2_t {
+	template <typename T> class OSKAPI_CALL Vector2_t {
 
 	public:
 

@@ -15,7 +15,7 @@ namespace OSK {
 
 	//Calse que representa un terreno 3D.
 	//Este terreno se construye a partir de un heightmap.
-	class Terrain {
+	class OSKAPI_CALL Terrain {
 
 		friend class RenderizableScene;
 
@@ -49,11 +49,19 @@ namespace OSK {
 		//Modelo 3D del terreno.
 		ModelData* terrainModel = nullptr;
 
+		//Número de quads del mapa { X, Y }.
 		Vector2ui MapSizeInQuads{ 0 };
+
+		//Tamaño de cada quad, en unidades del mundo.
 		Vector2f QuadSize = { 1.0f };
+
+		//Tamaño del mapa, en unidades del mundo.
 		Vector2f MapSizeInWorlds{ 0.0f };
+
+		//Altura base del mapa.
 		float_t BaseHeight = 0.0f;
 
+		//Fricción del mapa (para el motor de físicas).
 		float_t FrictionCoefficient = 1.0f;
 
 	private:

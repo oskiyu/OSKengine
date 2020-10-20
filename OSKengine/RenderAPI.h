@@ -28,7 +28,7 @@ namespace OSK {
 	//Numero máximo de luces puntuales soportadas.
 	constexpr uint32_t MAX_LIGHTS = 32;
 	
-	//Clase para el renderizado.
+/*	//Clase para el renderizado.
 	class OSKAPI_CALL RenderAPI {
 
 	public:
@@ -287,6 +287,6 @@ namespace OSK {
 			 1.0f, -1.0f,  1.0f
 		};
 
-	};
+	};*/
 
 }

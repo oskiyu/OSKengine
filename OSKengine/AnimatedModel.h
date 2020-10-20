@@ -9,13 +9,13 @@
 namespace OSK {
 
 
-	struct AnimUBO {
+	struct OSKAPI_CALL AnimUBO {
 		glm::mat4* Bones;
 	};
 
 
 	//Contiene los huesos a los que está ligado un vértice.
-	struct VertexBoneData {
+	struct OSKAPI_CALL VertexBoneData {
 		
 		//ID de los huesos.
 		std::array<uint32_t, OSK_ANIM_MAX_BONES_PER_VERTEX> IDs;
@@ -31,7 +31,7 @@ namespace OSK {
 
 	//El propio hueso.
 	//Contiene las matrices del hueso.
-	struct BoneInfo {
+	struct OSKAPI_CALL BoneInfo {
 
 		BoneInfo();
 
@@ -45,7 +45,7 @@ namespace OSK {
 
 
 	//Representa un modelo 3D con animaciones.
-	class AnimatedModel : public Model {
+	class OSKAPI_CALL AnimatedModel : public Model {
 
 	public:
 
@@ -82,6 +82,8 @@ namespace OSK {
 		deltaTime_t time = 0.0f;
 		//Actualiza el modelo 3D (lo anima).
 		void Update(const float_t& deltaTime);
+
+	private:
 
 		const aiNodeAnim* FindNodeAnim(const aiAnimation* animation, const std::string& nodeName) const;
 

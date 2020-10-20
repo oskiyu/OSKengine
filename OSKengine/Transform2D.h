@@ -1,7 +1,10 @@
 #pragma once
 
-#include "Vector2.hpp"
-#include "Vector4.hpp"
+#include "OSKsettings.h"
+#include "OSKmacros.h"
+#include "OSKtypes.h"
+#include "Log.h"
+
 #include <vector>
 
 namespace OSK {

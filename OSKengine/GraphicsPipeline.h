@@ -1,5 +1,10 @@
 #pragma once
 
+#include "OSKsettings.h"
+#include "OSKmacros.h"
+#include "OSKtypes.h"
+#include "Log.h"
+
 #include <vulkan/vulkan.h>
 #include <string>
 
@@ -20,31 +25,56 @@ namespace OSK {
 
 	class DescriptorSet;
 	
-	class GraphicsPipeline {
+	//Represnta un graphics pipeline.
+	class OSKAPI_CALL GraphicsPipeline {
 
 		friend class VulkanRenderer;
 		friend class RenderizableScene;
 
 	public:
 
+		//Destruye el graphics pipeline.
 		~GraphicsPipeline();
 
+		//Establece el viewport del pipeline.
+		//	<size>: tamaño de la imagen rederizada del pipeline.
+		//	<depthMinMax>: mínimo y máximo de la profundidad de la imagen.
 		void SetViewport(const Vector4& size, const Vector2& depthMinMax = { 0.0f, 1.0f });
 
+		//Establece las opciones de rasterizado.
+		//	<renderObjectsOutsideRange>: true si se van a renderizar elementos que no saldrán en la imagen final.
+		//	<polygonMode>: modo de pilígono (fill, lines, etc.).
+		//	<cullMode>: modo de culling de los triángulos.
+		//	<frontFaceType>: cúal es el frente del triángulo.
 		void SetRasterizer(const VkBool32& renderObjectsOutsideRange, VkPolygonMode polygonMode, VkCullModeFlagBits cullMode, VkFrontFace frontFaceType);
 
+		//Establece si se va a usar MSAA  o no.
+		//	<use>: true si se va a usar.
+		//	<samples: número de samples de MSAA.
 		void SetMSAA(VkBool32 use, VkSampleCountFlagBits samples);
 
+		//Establece si se va a usar información de depth/stencil.
 		void SetDepthStencil(bool use); 
 
+		//Establece la configuración de push constants.
+		//	<shaderStage>: shader en el que se va a usar el push constant.
+		//	<size>: tamaño en bytes del push constant.
+		//	<offset>: offset.
 		void SetPushConstants(VkShaderStageFlagBits shaderStage, uint32_t size, uint32_t offset = 0);
 
+		//Establece el layout que va a seguir el pipeline.
+		//	<layout>: layout.
 		void SetLayout(VkDescriptorSetLayout* layout);
 
+		//Crea el pipeline.
+		//	<renderpass>: renderpass sobre el que se va a usar el pipeline.
 		OskResult Create(VULKAN::Renderpass* renderpass);
 
+		//Enlaza este pipeline para su uso.
+		//	<commandBuffer>: commandbuffer.
 		void Bind(VkCommandBuffer commandBuffer) const;
 
+		//Recarga los shaders.
 		OskResult ReloadShaders();
 
 		VkPipeline VulkanPipeline;

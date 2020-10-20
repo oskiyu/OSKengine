@@ -45,7 +45,7 @@ namespace OSK {
 	}
 
 
-	void AudioAPI::SetCamera3D(OldCamera3D* camera) {
+	void AudioAPI::SetCamera3D(Camera3D* camera) {
 		this->camera = camera;
 	}
 

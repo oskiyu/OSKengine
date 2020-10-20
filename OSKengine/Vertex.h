@@ -4,7 +4,10 @@
 #include <glm.hpp>
 #include <array>
 
+#include "OSKsettings.h"
 #include "OSKmacros.h"
+#include "OSKtypes.h"
+#include "Log.h"
 
 #define OSK_ANIM_MAX_BONES 64
 #define OSK_ANIM_MAX_BONES_PER_VERTEX 4

@@ -27,7 +27,7 @@ namespace OSK::UI {
 
 		//Renderiza el texto.
 		//DEPRECATED.
-		void Draw(const RenderAPI& renderer, const BaseUIElement& base);
+	//	void Draw(const RenderAPI& renderer, const BaseUIElement& base);
 
 
 		//Renderiza el texto.

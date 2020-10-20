@@ -5,7 +5,7 @@
 
 namespace OSK{
 
-	struct UBO {
+	struct OSKAPI_CALL UBO {
 		alignas(16) glm::mat4 view;
 		alignas(16) glm::mat4 projection;
 		alignas(16) glm::mat4 projection2D;

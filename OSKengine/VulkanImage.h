@@ -1,7 +1,11 @@
 #pragma once
 
-#include <vulkan/vulkan.h>
+#include "OSKsettings.h"
 #include "OSKmacros.h"
+#include "OSKtypes.h"
+#include "Log.h"
+
+#include <vulkan/vulkan.h>
 
 namespace OSK::VULKAN {
 

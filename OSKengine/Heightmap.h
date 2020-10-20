@@ -6,7 +6,7 @@ namespace OSK {
 
 	//Representa un heightmap.
 	//Para su uso en Terrain.
-	struct Heightmap {
+	struct OSKAPI_CALL Heightmap {
 
 		//Crea el heightmap.
 		Heightmap() {

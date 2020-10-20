@@ -32,7 +32,8 @@ namespace OSK {
 
 	OSK_INFO_GLOBAL 
 	std::string ToString(const OSK::Transform& transform) {
-		return "Position: " + ToString(transform.GlobalPosition) + " (" + ToString(transform.PositionOffset) + " + " + ToString(transform.Position) + ")\n" + "Rotation: " + ToString(transform.GlobalRotation) + " (" + ToString(transform.RotationOffset) + " + " + ToString(transform.Rotation) + ")\n" + "Scale: " + ToString(transform.GlobalScale);
+		//return "Position: " + ToString(transform.GlobalPosition) + " (" + ToString(transform.PositionOffset) + " + " + ToString(transform.Position) + ")\n" + "Rotation: " + ToString(transform.GlobalRotation) + " (" + ToString(transform.RotationOffset) + " + " + ToString(transform.Rotation) + ")\n" + "Scale: " + ToString(transform.GlobalScale);
+		return "";
 	}
 
 

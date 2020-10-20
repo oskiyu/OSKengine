@@ -24,8 +24,8 @@ namespace OSK {
 
 	RenderizableScene::~RenderizableScene() {
 		delete Content;
-		if (terreno != nullptr)
-			delete terreno;
+		if (Terreno != nullptr)
+			delete Terreno;
 		delete PhongDescriptorLayout;
 	}
 
@@ -100,13 +100,13 @@ namespace OSK {
 	}
 
 	void RenderizableScene::LoadHeightmap(const std::string& path, const Vector2f& quadSize, const float_t& maxHeight) {
-		if (terreno != nullptr) {
-			delete terreno;
-			terreno = nullptr;
+		if (Terreno != nullptr) {
+			delete Terreno;
+			Terreno = nullptr;
 		}
-		terreno = new Terrain(Content);
+		Terreno = new Terrain(Content);
 
-		terreno->CreateMesh(path, quadSize, maxHeight);
+		Terreno->CreateMesh(path, quadSize, maxHeight);
 	}
 
 	void RenderizableScene::Draw(VkCommandBuffer cmdBuffer, const uint32_t& iteration) {
@@ -131,12 +131,12 @@ namespace OSK {
 			i->Draw(cmdBuffer);
 		}
 
-		if (terreno != nullptr && terreno->terrainModel != nullptr) {
+		if (Terreno != nullptr && Terreno->terrainModel != nullptr) {
 			DefaultTexture->PhongDescriptorSet->Bind(cmdBuffer, CurrentGraphicsPipeline, iteration);
-			terreno->terrainModel->Bind(cmdBuffer);
+			Terreno->terrainModel->Bind(cmdBuffer);
 			PushConst3D pushConst{ glm::mat4(1.0f) };
 			vkCmdPushConstants(cmdBuffer, CurrentGraphicsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
-			terreno->terrainModel->Draw(cmdBuffer);
+			Terreno->terrainModel->Draw(cmdBuffer);
 		}
 
 	}

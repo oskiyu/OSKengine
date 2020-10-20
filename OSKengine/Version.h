@@ -1,5 +1,10 @@
 #pragma once
 
+#include "OSKsettings.h"
+#include "OSKmacros.h"
+#include "OSKtypes.h"
+#include "Log.h"
+
 namespace OSK {
 
 	//Representa una versión.
