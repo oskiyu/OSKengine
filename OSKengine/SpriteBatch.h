@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vulkan/vulkan.h>
-#include <vector>
+#include <queue>
 #include "DrawCommand.h"
 #include "Texture.h"
 #include "Sprite.h"
@@ -41,7 +41,12 @@ namespace OSK {
 
 		VulkanRenderer* renderer = nullptr;
 
-		std::vector<Sprite> spritesToDraw{};
+		//2.7
+		//170
+		//vs
+		//2.5
+		//190
+		std::deque<Sprite> spritesToDraw{};
 
 	};
 

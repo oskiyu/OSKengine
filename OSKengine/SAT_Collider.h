@@ -59,11 +59,11 @@ namespace OSK::Collision {
 		//Para la optimización de transformación de puntos.
 		bool IsStatic = false;
 
+		SAT_Projection ProjectToAxis(const Vector3f& axis) const;
+
 	private:
 		
 		Vector3f GetAxisFromFace(const SAT_Face& face) const;
-
-		SAT_Projection ProjectToAxis(const Vector3f& axis) const;
 
 		std::vector<Vector3f> Points = {};
 		std::vector<Vector3f> TransformedPoints = {};

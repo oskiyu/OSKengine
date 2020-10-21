@@ -10,7 +10,7 @@ namespace OSK {
 	}
 
 	void SpriteBatch::DrawSprite(Sprite sprite) {
-		spritesToDraw.push_back(sprite);
+		spritesToDraw.push_front(sprite);
 	}
 
 	void SpriteBatch::DrawString(const Font* fuente, const std::string& texto, const float_t& size, const Vector2& position, const Color& color, const Anchor& screenAnchor, const Vector4& reference, const TextRenderingLimit& limitAction, const float_t& sizeXlimit, const float_t& limitOffset) {

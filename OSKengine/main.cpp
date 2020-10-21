@@ -89,7 +89,7 @@ int program() {
 	//
 	OSK::Model model{};
 	Scene->LoadSkybox("skybox/skybox.ktx");
-	Scene->LoadHeightmap("heightmaps/Heightmap.png", { 1 }, 5);
+	Scene->LoadHeightmap("heightmaps/Heightmap.png", { 5.0f }, 25);
 	RenderAPI.Content->LoadModel(model, "models/cube/cube.obj");
 	model.ModelTransform = new OSK::Transform();
 	model.ModelTransform->SetScale(0.5f);
@@ -108,10 +108,10 @@ int program() {
 
 #pragma region Physics testing.
 
-	Entity EntityA(OSK::Vector3f{ 0.0f });
+	Entity EntityA(OSK::Vector3f{ 0.0f , -20.0f, 0.0f });
 	RenderAPI.Content->LoadModel(EntityA.model, "models/cube/cube.obj");
 	//EntityA.Physics.Type = OSK::PhysicalEntityMobilityType::STATIC;
-	Entity EntityB(OSK::Vector3f{ 0.0f, -5.0f, 0.0f });
+	Entity EntityB(OSK::Vector3f{ 0.0f, -25.0f, 0.0f });
 	RenderAPI.Content->LoadModel(EntityB.model, "models/cube/cube.obj");
 	EntityB.Transform.RotateWorldSpace(20.0f, { 1, 0, 0 });
 
@@ -133,7 +133,7 @@ int program() {
 	RenderAPI.DefaultCamera2D.UseTargetSize = false;
 	texture.SpriteTransform.SetPosition(windowAPI->GetRectangle().GetRectangleMiddlePoint());
 	texture.SpriteTransform.SetScale({ -5, 5 });
-	texture.SetTexCoords(0, 0, 50, 80);
+	texture.SetTexCoords(0, 0, 100, 100);
 
 	OSK::KeyboardState OldKS = {};
 	OSK::KeyboardState NewKS = {};
@@ -157,8 +157,10 @@ int program() {
 		windowAPI->UpdateKeyboardState(NewKS);
 		windowAPI->UpdateMouseState(NewMS);
 
-		if (NewKS.IsKeyDown(OSK::Key::F11) && OldKS.IsKeyUp(OSK::Key::F11))
+		if (NewKS.IsKeyDown(OSK::Key::F11) && OldKS.IsKeyUp(OSK::Key::F11)) {
 			windowAPI->SetFullscreen(!windowAPI->IsFullscreen);
+			texture.SpriteTransform.SetPosition(windowAPI->GetRectangle().GetRectangleMiddlePoint());
+		}
 
 		const float SPEED = 3.0f;
 
@@ -192,8 +194,11 @@ int program() {
 
 		if (NewKS.IsKeyDown(OSK::Key::P) && OldKS.IsKeyUp(OSK::Key::P)) {
 			Profiler.ShowData();
-			EntityA.Transform.SetPosition(OSK::Vector3f{ 5.0f, 0.0f, 5.0f });
-			EntityB.Transform.SetPosition(OSK::Vector3f{ 5.0f, -5.0f, 5.0f });
+			EntityA.Transform.SetPosition(OSK::Vector3f{ 5.0f, 0.0f + Scene->Terreno->GetHeight({5.0f}), 5.0f });
+			EntityB.Transform.SetPosition(OSK::Vector3f{ 5.0f, -5.0f + Scene->Terreno->GetHeight({5.0f}), 5.0f });
+
+			OSK::Logger::DebugLog(ToString(EntityA.Transform.GlobalPosition));
+			OSK::Logger::DebugLog(ToString(EntityB.Transform.GlobalPosition));
 		}
 
 		PhysicsScene.Simulate(deltaTime, 1.0f);
@@ -233,7 +238,7 @@ int program() {
 			
 			auto info = OSK::RayCast::CastRay(RenderAPI.DefaultCamera3D.CameraTransform.GlobalPosition.ToVector3f(), RenderAPI.DefaultCamera3D.Front.ToVector3f(), EntityA.Physics.Collision.SatColliders[0]);
 			
-			spriteBatch.DrawString(fuente, OSK::ToString(EntityB.Transform.GlobalPosition), 0.75f, OSK::Vector2(0, 25), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+			spriteBatch.DrawString(fuente, OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.GlobalPosition), 0.75f, OSK::Vector2(0, 25), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
 
 			RenderAPI.SubmitSpriteBatch(spriteBatch);
 			mainDrawUnit.End();

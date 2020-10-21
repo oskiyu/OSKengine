@@ -54,6 +54,23 @@ namespace OSK {
 		//Representa qué hará el motor de físicas cuando se produzca una colisión.
 		bitFlags_t ResolveFlags = PHYSICAL_SCENE_RESOLVE_ACCEL | PHYSICAL_SCENE_RESOLVE_ROTATION;
 
+		//Indica qué hará el motor de físicas al detectar una colisión con el terreno.
+		PhysicalSceneTerrainResolveType TerrainColissionType = PhysicalSceneTerrainResolveType::RESOLVE_DETAILED;
+
+		//La precisión con la que se calcula la colisión SAT - Triángulo.
+		//Cuanto mayor sea, menos triángulos se comprobarán.
+		//SIEMPRE DEBE SER MAYOR QUE 1.
+		//Sólo para PhysicalSceneTerrainResolveType::PHYSICAL_SCENE_RESOLVE_DETAILED;
+		int32_t TerrainCollisionDetectionPrecision = 1;
+
+		//Distancia mínima que debe de haber entre la entidad y el suelo para que se produzca respuesta.
+		//Sólo para PhysicalSceneTerrainResolveType::PHYSICAL_SCENE_RESOLVE_DETAILED;
+		float TerrainCollisionDelta = 0.2f;
+
+		//Si es true, sólo se calculará una colisión por frame
+		//Sólo para PhysicalSceneTerrainResolveType::PHYSICAL_SCENE_RESOLVE_DETAILED;
+		bool TerrainCollisionDetectionSingleTimePerFrame = false;
+
 	private:
 
 		std::vector<PhysicsEntity*> Entities = {};
@@ -61,6 +78,14 @@ namespace OSK {
 		void simulateEntity(PhysicsEntity* entity, const deltaTime_t& delta);
 
 		void resolveCollisions(PhysicsEntity* a, PhysicsEntity* b, const ColliderCollisionInfo& info, const deltaTime_t& delta);
+
+		void checkTerrainCollision(PhysicsEntity* entity, const deltaTime_t& delta);
+
+		void resolveTerrainCollision(PhysicsEntity* entity, const Collision::SAT_CollisionInfo& info, const Vector3f& triangleNormal, const deltaTime_t& delta);
+
+		void resolveTerrainCollisionAABB(PhysicsEntity* entity, const deltaTime_t& delta, const CollisionBox& box);
+
+		void resolveTerrainCollisionRotation(PhysicsEntity* entity, const Collision::SAT_CollisionInfo& info, const Vector3f& triangleNormal, const deltaTime_t& delta);
 
 	};
 

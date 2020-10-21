@@ -51,4 +51,14 @@ namespace OSK {
 		PHYSICAL_SCENE_RESOLVE_ROTATION = 1 << 1
 	};
 
+	//Indica qué hará el motor de físicas al detectar una colisión con el terreno.
+	enum class OSKAPI_CALL PhysicalSceneTerrainResolveType {
+		//No hace nada.
+		DO_NOTHING,
+		//Resuelve una colisión compleja, incluyendo rotación.
+		RESOLVE_DETAILED,
+		//Simplemente cambia la posición Y de la entidad.
+		CHANGE_HEIGHT_ONLY
+	};
+
 }

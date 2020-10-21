@@ -1093,41 +1093,19 @@ void VulkanRenderer::updateCommandBuffers() {
 		vkCmdBeginRenderPass(CommandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 		Texture* lastImg = nullptr;
 
-		if (Scene != nullptr) {
+		if (Scene != nullptr)
 			Scene->Draw(CommandBuffers[i], i);
-		}
 
-		//Skybox:
-		/*{
-			SkyboxGraphicsPipeline->Bind(CommandBuffers[i]);
-
-			LevelSkybox.Bind(CommandBuffers[i], SkyboxGraphicsPipeline, i);
-			LevelSkybox.Draw(CommandBuffers[i]);
-		}
-
-		//3D
-		{
-			GraphicsPipeline3D->Bind(CommandBuffers[i]);
-
-			model.Bind(CommandBuffers[i]);
-			model.texture->PhongDescriptorSet->Bind(CommandBuffers[i], GraphicsPipeline3D, i);
-			PushConst3D push;
-			push.model = glm::mat4(1.0);
-			vkCmdPushConstants(CommandBuffers[i], GraphicsPipeline3D->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &push);
-			model.Draw(CommandBuffers[i]);			
-		}*/
-		//3D
-		
 		//2D
 		if (!currentSpriteBatch.spritesToDraw.empty()) {
 			GraphicsPipeline2D->Bind(CommandBuffers[i]);
 			vkCmdBindIndexBuffer(CommandBuffers[i], currentSpriteBatch.spritesToDraw[0].IndexBuffer.Buffer, 0, VK_INDEX_TYPE_UINT16);
-	
-			for (Sprite sprite : currentSpriteBatch.spritesToDraw) {
+
+			for (auto& sprite : currentSpriteBatch.spritesToDraw) {
 				VkBuffer vertexBuffers[] = { sprite.VertexBuffer.Buffer };
 				VkDeviceSize offsets[] = { 0 };
 				vkCmdBindVertexBuffers(CommandBuffers[i], 0, 1, vertexBuffers, offsets);
-				
+
 				if (sprite.texture != lastImg) {
 					sprite.texture->Descriptor->Bind(CommandBuffers[i], GraphicsPipeline2D, i);
 					lastImg = sprite.texture;
@@ -1136,7 +1114,6 @@ void VulkanRenderer::updateCommandBuffers() {
 				vkCmdPushConstants(CommandBuffers[i], GraphicsPipeline2D->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
 				vkCmdDrawIndexed(CommandBuffers[i], static_cast<uint32_t>(sprite.Indices.size()), 1, 0, 0, 0);
 			}
-		
 		}
 		//2D
 		

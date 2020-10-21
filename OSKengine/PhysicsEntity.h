@@ -47,6 +47,9 @@ namespace OSK {
 		//Masa de la entidad.
 		float Mass = 10.0f;
 
+		//Distancia entre el centro de gravedad y el punto más bajo de la entidad.
+		float Height = 0.0f;
+
 		//Respuesta ante colisiones de esta entidad.
 		bitFlags_t ResponseFlags = PHYSICAL_ENTITY_RESPONSE_MOVE_MTV | PHYSICAL_ENTITY_RESPONSE_ACCEL | PHYSICAL_ENTITY_RESPONSE_ROTATE;
 
@@ -63,6 +66,8 @@ namespace OSK {
 		inline Vector3f GetPointLinearVelocity(const Vector3f& point) const {
 			return Velocity + AngularVelocity.Cross(point);
 		}
+
+		bool IsOnFloor = false;
 
 	};
 

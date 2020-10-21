@@ -232,3 +232,27 @@ Añadidos `typedef`s para algunas variables de OpenGL y para las variables del Mo
 
 ###### UserInterface:
 - Ya no utiliza el renderizador de legado.
+
+
+## Alpha 16.1 (2020.10.21a)
+
+###### PhysicsEngine:
+- Ahora calcula colisiones con el terreno. Hay tres modalidades:
+    - `<PhysicalSceneTerrainResolveType::DO_NOTHING>`: ignora cualquier colisión.
+    - `<PhysicalSceneTerrainResolveType::CHANGE_HEIGHT_ONLY>`: simplemente cambia la posición de la entidad para que no termine por debajo del terreno.
+        - Igual que funcionaba antes, pero ahora se puede indicar la distancia desde el centro de la entidad y el punto que se compara con el terreno.
+    - `<PhysicalSceneTerrainResolveType::RESOLVE_DETAILED>`.
+        - Detección y resolución de colisiones avanzada.
+        - Computacionalmente caro.
+        - Aplica cambio de posición y rotación.
+        - Funciona bien juando el tamaño de las entidades y los *quads* del terreno son comparables.
+        - Dispone de optimizaciones:
+            - `<TerrainCollisionDetectionPrecision>`: para valores mayores que 1, disminuye el número de triángulos que se comparan (4 veces menos por cada unidad).
+            - `<TerrainCollisionDetectionSingleTimePerFrame>`: una vez que se produzca una colisión, ignora el resto hasta el siguiente frame.
+        - Puede configurarse un margen de error, para evitar comportamientos erráticos.
+
+###### RenderAPI:
+- SpriteBatch:
+    - Ahora usa `std::deque` en vez de `std::vector`.
+        - Evita excesivos movimientos de memoria.
+        - Aumento de rendimiento: +10% para 176 elementos.
