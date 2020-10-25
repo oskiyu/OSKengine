@@ -42,6 +42,7 @@ namespace OSK {
 		//Retorna 'false' si hay un error.
 		result_t SetWindow(const int32_t& sizeX, const int32_t& sizeY, const std::string& name, const GraphicsAPI& graphicsAPI);
 
+		//void SetWindowIcon(const std::string& iconPath);
 
 		//Carga OpenGL.
 		//Retorna 'false' si hay un error.

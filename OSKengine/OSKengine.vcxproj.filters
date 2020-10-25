@@ -151,6 +151,12 @@
     <Filter Include="Archivos de encabezado\OSKengine\Collections">
       <UniqueIdentifier>{59222c19-129b-47c1-8583-882a62e7579b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\VulkanRenderer\SpriteRendering">
+      <UniqueIdentifier>{fd8b8838-6121-458b-8e69-d1c456857d82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\VulkanRenderer\SpriteRendering">
+      <UniqueIdentifier>{c6f0b7e7-24a0-49ea-993c-a59f55f03f50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -350,6 +356,9 @@
     </ClCompile>
     <ClCompile Include="Quaternion.cpp">
       <Filter>Archivos de origen\OSKengine\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="ReservedText.cpp">
+      <Filter>Archivos de origen\OSKengine\VulkanRenderer\SpriteRendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -707,6 +716,15 @@
     <ClInclude Include="Quaternion.h">
       <Filter>Archivos de encabezado\OSKengine\Types</Filter>
     </ClInclude>
+    <ClInclude Include="stbi_image_write.h">
+      <Filter>Archivos de encabezado\OSKengine\TP</Filter>
+    </ClInclude>
+    <ClInclude Include="ReservedText.h">
+      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer\SpriteRendering</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteContainer.h">
+      <Filter>Archivos de encabezado\OSKengine\VulkanRenderer\SpriteRendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODO.txt" />
@@ -720,5 +738,10 @@
     <ResourceCompile Include="OSKengine.rc">
       <Filter>Archivos de recursos</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\OSKengine_icon_lowres.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
   </ItemGroup>
 </Project>

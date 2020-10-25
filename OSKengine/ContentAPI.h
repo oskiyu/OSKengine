@@ -76,7 +76,7 @@ namespace OSK {
 			std::string TextureDirectory = "/textures";
 			   
 
-		//Si es true, cada contenido que cargue será exportado como un .xd.
+		//Si es true, cada contenido que se cargue será exportado como un .xd.
 		bool ExportAsXd = true;
 
 	private:
@@ -88,12 +88,6 @@ namespace OSK {
 		void processMeshes(aiNode*, const aiScene*, OldModel&);
 
 		void addNode(aiNode*, std::vector<aiNode*>&);
-
-		/*aiNode* findAiNode(const std::string& name);
-
-		aiNodeAnim* findAiNodeAnim(const std::string& name);
-
-		OSK::Bone* findBone(const std::string& name);*/
 
 	};
 

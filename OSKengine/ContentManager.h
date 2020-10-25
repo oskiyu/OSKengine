@@ -80,6 +80,9 @@ namespace OSK {
 		//	<path>: ruta de la textura (incluyendo la extensión).
 		void LoadSprite(Sprite& sprite, const std::string& path);
 
+		//Crea un sprite vacío.
+		void CreateSprite(Sprite& sprite);
+
 		//Carga una fuente.
 		//	<font>: fuente a cargar.
 		//	<source>: ruta del archivo (incluyendo la extensión).

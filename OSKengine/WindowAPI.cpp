@@ -5,6 +5,8 @@
 #include "IUserInterfaceMouseInput.h"
 #include "IUserInterfaceImage.h"
 
+#include "stbi_image.h"
+
 namespace OSK {
 
 	WindowAPI::WindowAPI() {
@@ -78,10 +80,25 @@ namespace OSK {
 		glfwSetFramebufferSizeCallback(window, WindowAPI::defaultFramebufferSizeCallback);
 		glfwSetCursorPosCallback(window, mouseInputCallback);
 		glfwSetScrollCallback(window, mouseScrollCallback);
+
 		
+
+#ifndef OSK_DEBUG
+		SetFullscreen(true);
+#endif // !OSK_DEBUG
+
 		return true;
 	}
 
+	/*void WindowAPI::SetWindowIcon(const std::string& iconPath) {
+		GLFWimage icons[1];
+		int sizeX;
+		int sizeY;
+		int nChannels;
+		icons[0].pixels = stbi_load(iconPath.c_str(), &sizeX, &sizeY, 0, 4);
+		glfwSetWindowIcon(window, 1, icons);
+		stbi_image_free(icons[0].pixels);
+	}*/
 
 	void WindowAPI::SetOpenGLVersion(const int32_t& mayor, const int32_t& menor) {
 		openGlVersionMayor = mayor;

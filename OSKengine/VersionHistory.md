@@ -256,3 +256,33 @@ Añadidos `typedef`s para algunas variables de OpenGL y para las variables del Mo
     - Ahora usa `std::deque` en vez de `std::vector`.
         - Evita excesivos movimientos de memoria.
         - Aumento de rendimiento: +10% para 176 elementos.
+
+
+## 2020.10.25a
+
+- Comienzo de la marca **OSK** y **OSKengine**: añadidos iconos de ventana y de inicio.
+- Optimizaciones para el renderizado de texto.
+
+###### ContentManager:
+- Ahora las fuentes se cargan en una sola textura, en vez de usar una textura por cada caracter.
+- Ahora puede inicializar los buffers de un sprite vacío.
+    - Serán destruidos por el ContentManager.
+
+###### RenderAPI:
+- ReservedText.
+    - Permite reservar memoria para almacenar los sprites de un texto.
+    - Puede asignarse memoria mediante `<Reserve()>` o `<SetText>`.
+- SpriteBatch:
+    - Renderizado de texto:
+        - Permite renderizar *ReservedText*s.
+        - Puede precalcular *ReservedText*s, para precalcularlo una sola vez, en vez de cada frame.
+        - Optimización: no se renderizarán caracteres que estén fuera de la pantalla.
+        - Optimización: se reserva memoria para los sprites de todo un texto de una vez (*SpriteContainer*) en vez de uno a uno.
+    - Optimización: tanto para texto como para sprite, se usa *SpritreContainer* en vez de *Sprite*.
+- SpriteContainer:
+    - Permite almacenar juntos varios sprites que se van a renderizar.
+    - Sólo se modifica la memoria una vez por container, en vez de una vez por sprite.
+- Sprite: los indices y el index buffer son ahora estáticos.
+
+###### Bugfixes:
+- **Bugfix**: las *texcoords* de los sprites se establecen correctamente (X, Y, WIDTH, HEIGHT en vez de X1, Y1, X2, Y2).

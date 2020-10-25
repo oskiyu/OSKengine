@@ -51,7 +51,7 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,15,0,0
+ FILEVERSION 0,16,1,0
  PRODUCTVERSION 1,0,0,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
@@ -68,13 +68,13 @@ BEGIN
         BLOCK "0c0a04b0"
         BEGIN
             VALUE "CompanyName", "OSK"
-            VALUE "FileDescription", "OSKengine 0.15"
-            VALUE "FileVersion", "0.15.0.0"
+            VALUE "FileDescription", "OSKengine Alpha 16.1"
+            VALUE "FileVersion", "0.16.1.0"
             VALUE "InternalName", "OSKengine.dll"
             VALUE "LegalCopyright", "Copyright (C) 2019-2020"
             VALUE "OriginalFilename", "OSKengine.dll"
-            VALUE "ProductName", "OSKengine 0.15"
-            VALUE "ProductVersion", "0.15.0"
+            VALUE "ProductName", "OSKengine Alpha 16.1"
+            VALUE "ProductVersion", "0.16.1 2020.10.21a"
         END
     END
     BLOCK "VarFileInfo"
@@ -83,6 +83,19 @@ BEGIN
     END
 END
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON1               ICON                    "Resources\\OSKengine_icon_lowres_64.ico"
+IDI_ICON2               ICON                    "Resources\\OSKengine_icon_lowres_48.ico"
+IDI_ICON3               ICON                    "Resources\\OSKengine_icon_lowres_32.ico"
+IDI_ICON4               ICON                    "Resources\\OSKengine_icon_lowres_16.ico"
+GLFW_ICON               ICON                    "Resources\\OSKengine_icon_lowres_32.ico"
 #endif    // Español (España, alfabetización internacional) resources
 /////////////////////////////////////////////////////////////////////////////
 

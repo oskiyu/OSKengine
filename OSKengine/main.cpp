@@ -60,6 +60,15 @@ private:
 
 int program() {
 
+	bool showStartup = true;
+#ifndef OSK_DEBUG
+	showStartup = true;
+#endif
+
+	float OSKshow = 1.25f;
+	float OSKengine_show = 1.25f;
+	//
+
 	OSK::Profiler Profiler{};
 
 	OSK::WindowAPI* windowAPI = new OSK::WindowAPI();
@@ -81,10 +90,15 @@ int program() {
 	OSK::Sprite texture{};
 	RenderAPI.Content->LoadSprite(texture, "models/cube/td.png");
 
-	OSK::Font* fuente = nullptr;
-	fuente = RenderAPI.Content->LoadFont("Fonts/arial.ttf", 20);
+	OSK::Font* fuente = RenderAPI.Content->LoadFont("Fonts/arial.ttf", 20);
+
+	OSK::Font* showFont = nullptr;
+	showFont = RenderAPI.Content->LoadFont("Fonts/AGENCYB.ttf", 40);
 
 	OSK::RenderizableScene* Scene = new OSK::RenderizableScene(&RenderAPI);
+
+	if (!showStartup)
+		RenderAPI.SetRenderizableScene(Scene);
 
 	//
 	OSK::Model model{};
@@ -97,14 +111,15 @@ int program() {
 	//Scene->terreno->FrictionCoefficient = 0;
 
 	OSK::ProfilingUnit mainDrawUnit{ "Main Draw()" };
+	OSK::ProfilingUnit drawStringUnit{ "StringMemory" };
 	OSK::ProfilingUnit mainUpdateUnit{ "Main Update()" };
 	Profiler.AddProfilingUnit(&RenderAPI.renderP_Unit);
 	Profiler.AddProfilingUnit(&RenderAPI.updateCmdP_Unit);
 	Profiler.AddProfilingUnit(&mainDrawUnit);
 	Profiler.AddProfilingUnit(&mainUpdateUnit);
+	Profiler.AddProfilingUnit(&drawStringUnit);
 
-	RenderAPI.SetRenderizableScene(Scene);
-	//
+	OSK::SpriteBatch spriteBatch = RenderAPI.CreateSpriteBatch();
 
 #pragma region Physics testing.
 
@@ -125,9 +140,15 @@ int program() {
 
 #pragma endregion
 
+	RenderAPI.OSKengineIconSprite.SpriteTransform.SetPosition({ 5.0f });
+	RenderAPI.OSKengineIconSprite.SpriteTransform.SetScale({ 48.0f });
 
-	OSK::SpriteBatch spriteBatch = RenderAPI.CreateSpriteBatch();
-	spriteBatch.DrawSprite(texture);
+	if (showStartup) {
+		RenderAPI.OSK_IconSprite.SpriteTransform.SetPosition(windowAPI->GetRectangle().GetRectangleMiddlePoint() - OSK::Vector2f(256.0f) / 2);
+		RenderAPI.OSK_IconSprite.SpriteTransform.SetScale({ 256.0f });
+		RenderAPI.OSKengineIconSprite.SpriteTransform.SetPosition(windowAPI->GetRectangle().GetRectangleMiddlePoint() - OSK::Vector2f(256.0f) / 2);
+		RenderAPI.OSKengineIconSprite.SpriteTransform.SetScale({ 256.0f });
+	}
 
 	RenderAPI.SubmitSpriteBatch(spriteBatch);
 	RenderAPI.DefaultCamera2D.UseTargetSize = false;
@@ -146,6 +167,16 @@ int program() {
 	windowAPI->UpdateMouseState(NewMS);
 	double deltaTime = 0.016;
 
+	OSK::ReservedText textoLargo;
+	textoLargo.SetText("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+	spriteBatch.PrecalculateText(showFont, textoLargo, 1.0f, OSK::Vector2(0, 35), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+
+	OSK::ReservedText CopyrightText;
+	CopyrightText.SetText("OSKengine " + std::string(OSK::ENGINE_VERSION));
+	spriteBatch.PrecalculateText(showFont, CopyrightText, 0.5f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
+
+	OSK::ReservedText PosText;
+
 	float FPS = 0.0f;
 	float totalDeltaTime = 0.0f;
 	int count = 0;
@@ -157,9 +188,32 @@ int program() {
 		windowAPI->UpdateKeyboardState(NewKS);
 		windowAPI->UpdateMouseState(NewMS);
 
+		if (showStartup) {
+			if (OSKshow > 0.0f) {
+				OSKshow -= deltaTime;
+				RenderAPI.OSK_IconSprite.SpriteTransform.SetPosition(windowAPI->GetRectangle().GetRectangleMiddlePoint() - OSK::Vector2f(256.0f) / 2);
+				RenderAPI.OSK_IconSprite.SpriteTransform.SetScale({ 256.0f });
+			}
+			else if (OSKengine_show > 0.0f) {
+				OSKengine_show -= deltaTime;
+				RenderAPI.OSKengineIconSprite.SpriteTransform.SetPosition(windowAPI->GetRectangle().GetRectangleMiddlePoint() - OSK::Vector2f(256.0f) / 2);
+				RenderAPI.OSKengineIconSprite.SpriteTransform.SetScale({ 256.0f });
+			}
+			else {
+				RenderAPI.OSKengineIconSprite.SpriteTransform.SetPosition({ 5.0f });
+				RenderAPI.OSKengineIconSprite.SpriteTransform.SetScale({ 48.0f });
+
+				RenderAPI.SetRenderizableScene(Scene);
+
+				showStartup = false;
+			}
+		}
+
 		if (NewKS.IsKeyDown(OSK::Key::F11) && OldKS.IsKeyUp(OSK::Key::F11)) {
 			windowAPI->SetFullscreen(!windowAPI->IsFullscreen);
 			texture.SpriteTransform.SetPosition(windowAPI->GetRectangle().GetRectangleMiddlePoint());
+			RenderAPI.DefaultCamera2D.TargetSize = windowAPI->GetRectangle().GetRectangleSize();
+			spriteBatch.PrecalculateText(showFont, CopyrightText, 0.5f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
 		}
 
 		const float SPEED = 3.0f;
@@ -193,6 +247,7 @@ int program() {
 			RenderAPI.DefaultCamera3D.CameraTransform.AddPosition(RenderAPI.DefaultCamera3D.Right * SPEED * deltaTime);
 
 		if (NewKS.IsKeyDown(OSK::Key::P) && OldKS.IsKeyUp(OSK::Key::P)) {
+			OSK::Logger::Log(OSK::LogMessageLevels::INFO, "FPS: " + std::to_string(FPS));
 			Profiler.ShowData();
 			EntityA.Transform.SetPosition(OSK::Vector3f{ 5.0f, 0.0f + Scene->Terreno->GetHeight({5.0f}), 5.0f });
 			EntityB.Transform.SetPosition(OSK::Vector3f{ 5.0f, -5.0f + Scene->Terreno->GetHeight({5.0f}), 5.0f });
@@ -232,13 +287,28 @@ int program() {
 			Scene->Lights.Points[0].Position = RenderAPI.DefaultCamera3D.CameraTransform.GlobalPosition.ToVector3f().ToGLM();
 
 			spriteBatch.Clear();
-			spriteBatch.DrawSprite(texture);
-			spriteBatch.DrawString(fuente, "FPS: " + std::to_string((int)FPS), 0.75f, OSK::Vector2(0, 5), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
-			spriteBatch.DrawString(fuente, "OSKengine " + std::string(OSK::ENGINE_VERSION), 0.75f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
-			
-			auto info = OSK::RayCast::CastRay(RenderAPI.DefaultCamera3D.CameraTransform.GlobalPosition.ToVector3f(), RenderAPI.DefaultCamera3D.Front.ToVector3f(), EntityA.Physics.Collision.SatColliders[0]);
-			
-			spriteBatch.DrawString(fuente, OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.GlobalPosition), 0.75f, OSK::Vector2(0, 25), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+			if (showStartup) {
+				if (OSKshow > 0.0f) {
+					spriteBatch.DrawSprite(RenderAPI.OSK_IconSprite);
+				}
+				else if (OSKengine_show > 0.0f) {
+					spriteBatch.DrawString(showFont, "Powered by:", 1.0f, OSK::Vector2(0, -150), OSK::Color(0.02f), OSK::Anchor::CENTER);
+					spriteBatch.DrawSprite(RenderAPI.OSKengineIconSprite);
+				}
+			}
+			else {
+
+				spriteBatch.DrawSprite(texture);
+				spriteBatch.DrawSprite(RenderAPI.OSKengineIconSprite);
+
+				spriteBatch.DrawString(showFont, "FPS: " + std::to_string((int)FPS), 0.5f, OSK::Vector2(0, 5), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+				spriteBatch.DrawString(CopyrightText);
+
+				auto info = OSK::RayCast::CastRay(RenderAPI.DefaultCamera3D.CameraTransform.GlobalPosition.ToVector3f(), RenderAPI.DefaultCamera3D.Front.ToVector3f(), EntityA.Physics.Collision.SatColliders[0]);
+
+				PosText.SetText(OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.GlobalPosition));
+				spriteBatch.DrawString(showFont, PosText, 0.5f, OSK::Vector2(0, 25), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
+			}
 
 			RenderAPI.SubmitSpriteBatch(spriteBatch);
 			mainDrawUnit.End();

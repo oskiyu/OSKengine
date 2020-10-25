@@ -14,11 +14,11 @@ namespace OSK {
 		friend class Sprite;
 		friend class ContentManager;
 
-	private:
-		VULKAN::VulkanImage Albedo{};
-
 		uint32_t sizeX = 0;
 		uint32_t sizeY = 0;
+
+	private:
+		VULKAN::VulkanImage Albedo{};
 
 		DescriptorSet* Descriptor;
 		DescriptorSet* PhongDescriptorSet = nullptr;

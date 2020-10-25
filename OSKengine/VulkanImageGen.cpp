@@ -237,19 +237,22 @@ namespace OSK::VULKAN {
 		CreateImage(&image, { width, height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
 
 		VkDeviceSize imageSize = (VkDeviceSize)width * height * 4;
-		std::vector<uint8_t> nPixels{};
-		for (int i = 0; i < imageSize / 4; i++) {
-			nPixels.push_back(pixels[i]);
-			nPixels.push_back(pixels[i]);
-			nPixels.push_back(pixels[i]);
-			nPixels.push_back(pixels[i]);
+		uint8_t* nPixels = nullptr;
+		std::vector<uint8_t> pixls;
+		pixls.reserve(imageSize);
+		for (int i = 0; i < width * height; i++) {
+			pixls.push_back(pixels[i]);
+			pixls.push_back(pixels[i]);
+			pixls.push_back(pixels[i]);
+			pixls.push_back(pixels[i]);
 		}
+		nPixels = pixls.data();
 		VulkanBuffer stagingBuffer{};
 		renderer->CreateBuffer(stagingBuffer, imageSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 
 		void* data;
 		vkMapMemory(renderer->LogicalDevice, stagingBuffer.Memory, 0, imageSize, 0, &data);
-		memcpy(data, nPixels.data(), static_cast<size_t>(imageSize));
+		memcpy(data, nPixels, static_cast<size_t>(imageSize));
 		vkUnmapMemory(renderer->LogicalDevice, stagingBuffer.Memory);
 
 		TransitionImageLayout(&image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, 1);

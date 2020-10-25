@@ -1,12 +1,2 @@
 INFO: Vulkan
-INFO: PROFILER: 
-INFO: 	Render frame: 16.330242ms
-INFO: 	Update command buffers: 0.210762ms
-INFO: 	Main Draw(): 0.283241ms
-INFO: 	Main Update(): 0.099659ms
-INFO: PROFILER: 
-INFO: 	Render frame: 0.578880ms
-INFO: 	Update command buffers: 0.046730ms
-INFO: 	Main Draw(): 0.061989ms
-INFO: 	Main Update(): 0.023842ms
 

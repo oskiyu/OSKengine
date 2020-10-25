@@ -5,11 +5,15 @@
 #include "stbi_image.h"
 #include <ktx.h>
 
+#include "ToString.h"
 #include "VulkanImage.h"
 #include "FileIO.h"
 
 #include "VulkanImageGen.h"
 #include <al.h>
+
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stbi_image_write.h"
 
 using namespace OSK::VULKAN;
 
@@ -58,7 +62,6 @@ namespace OSK {
 
 		for (auto& i : Sprites) {
 			renderer->DestroyBuffer(i->VertexBuffer);
-			renderer->DestroyBuffer(i->IndexBuffer);
 		}
 
 		for (auto& i : Sounds)
@@ -462,8 +465,12 @@ namespace OSK {
 		sprite.texture = LoadTexture(path);
 
 		renderer->createSpriteVertexBuffer(&sprite);
-		renderer->createSpriteIndexBuffer(&sprite);
 
+		Sprites.push_back(&sprite);
+	}
+
+	void ContentManager::CreateSprite(Sprite& sprite) {
+		renderer->createSpriteVertexBuffer(&sprite);
 		Sprites.push_back(&sprite);
 	}
 
@@ -480,57 +487,106 @@ namespace OSK {
 
 		FT_Face face;
 
-		FT_Error result = FT_New_Face(ftLib, source.c_str(), 0, &face);;
+		FT_Error result = FT_New_Face(ftLib, source.c_str(), 0, &face);
 		if (result)
 			Logger::Log(LogMessageLevels::BAD_ERROR, "cargar fuente " + source, __LINE__);
 
 		FT_Set_Pixel_Sizes(face, 0, size);
 
 		FT_Face lastFace = nullptr;
+
+		uint32_t numberOfPixels = 0;
+
+		struct __face {
+			uint8_t* data = nullptr;
+			uint32_t sizeX;
+			uint32_t sizeY;
+
+			uint32_t left;
+			uint32_t top;
+
+			uint32_t advanceX;
+		};
+
+		//Font info.
+		Texture* fontTexture = new Texture();
+		uint32_t textureSizeX = 0;
+		uint32_t textureSizeY = 0;
 		uint8_t* data = nullptr;
-		size_t numberOfPixels = 0;
-		for (uint8_t c = 0; c < 255; c++) {
+		
+		__face faces[255];
+
+		for (uint32_t c = 0; c < 255; c++) {
 			if (FT_Load_Char(face, c, FT_LOAD_RENDER)) {
 				Logger::Log(LogMessageLevels::BAD_ERROR, "freetype: load glyph: " + std::to_string(c) + " de " + source, __LINE__);
 				continue;
 			}
 
-			if (face->glyph->bitmap.width <= 0 || face->glyph->bitmap.rows <= 0) {
-				FontChar character{};
-				character.sprite.texture = nullptr;
-				character.Size = Vector2(lastFace->glyph->bitmap.width, lastFace->glyph->bitmap.rows);
-				character.Bearing = Vector2(lastFace->glyph->bitmap_left, lastFace->glyph->bitmap_top);
-				character.Advance = lastFace->glyph->advance.x;
+			faces[c].sizeX = face->glyph->bitmap.width;
+			faces[c].sizeY = face->glyph->bitmap.rows;
 
-				fuente->Characters[c] = character;
+			faces[c].left = face->glyph->bitmap_left;
+			faces[c].top = face->glyph->bitmap_top;
 
-				continue;
-			}
-			numberOfPixels += face->glyph->bitmap.width * face->glyph->bitmap.rows;
-			Texture* texture = new Texture();
-			VULKAN::VulkanImage image = VulkanImageGen::CreateImageFromBitMap(face->glyph->bitmap.width, face->glyph->bitmap.rows, face->glyph->bitmap.buffer);
-			texture->Albedo = image;
-			renderer->createDescriptorSets(texture);
+			faces[c].advanceX = face->glyph->advance.x;
 
-			Textures.push_back(texture);
+			faces[c].data = new uint8_t[faces[c].sizeX * faces[c].sizeY];
 
-			FontChar character{};
-			character.sprite.texture = Textures.back();
-
-			renderer->createSpriteVertexBuffer(&character.sprite);
-			renderer->createSpriteIndexBuffer(&character.sprite);
-
-			character.Size = Vector2(face->glyph->bitmap.width, face->glyph->bitmap.rows);
-			character.Bearing = Vector2(face->glyph->bitmap_left, face->glyph->bitmap_top);
-			character.Advance = face->glyph->advance.x;
-
-			fuente->Characters[c] = character;
-
-			lastFace = face;
-
-			Sprites.push_back(&fuente->Characters[c].sprite);
+			memcpy(faces[c].data, face->glyph->bitmap.buffer, faces[c].sizeX * faces[c].sizeY);
 		}
 
+		for (uint32_t c = 0; c < 255; c++) {
+			textureSizeX += faces[c].sizeX;
+
+			if (faces[c].sizeY > textureSizeY)
+				textureSizeY = faces[c].sizeY;
+		}
+
+		numberOfPixels = textureSizeX * textureSizeY;
+		data = new uint8_t[numberOfPixels];
+		memset(data, 255, numberOfPixels);
+
+		uint32_t currentX = 0;
+		for (uint32_t c = 0; c < 255; c++) {
+			for (uint32_t i = 0; i < faces[c].sizeY; i++) {
+				memcpy(&data[currentX + textureSizeX * i], &faces[c].data[faces[c].sizeX * i], faces[c].sizeX);
+			}
+
+			currentX += faces[c].sizeX;
+		}
+
+		VULKAN::VulkanImage image = VulkanImageGen::CreateImageFromBitMap(textureSizeX, textureSizeY, data);
+
+		fontTexture->sizeX = textureSizeX;
+		fontTexture->sizeY = textureSizeY;
+		fontTexture->Albedo = image;
+		renderer->createDescriptorSets(fontTexture);
+
+		Textures.push_back(fontTexture);
+
+		currentX = 0;
+		for (uint32_t c = 0; c < 255; c++) {
+			FontChar character{};
+			character.sprite.texture = fontTexture;
+
+			character.Size = Vector2(faces[c].sizeX, faces[c].sizeY);
+			character.Bearing = Vector2(faces[c].left, faces[c].top);
+			character.Advance = faces[c].advanceX;
+			
+			fuente->Characters[c] = character;
+
+			renderer->createSpriteVertexBuffer(&fuente->Characters[c].sprite);
+
+			fuente->Characters[c].sprite.SetTexCoordsInPercent(Vector4f{ (float)currentX / textureSizeX, 0, (float)faces[c].sizeX / textureSizeX, (float)faces[c].sizeY / textureSizeY });
+
+			Sprites.push_back(&fuente->Characters[c].sprite);
+
+			currentX += faces[c].sizeX;
+		}
+
+		for (uint32_t i = 0; i < 255; i++)
+			delete[] faces[i].data;
+	
 		FT_Done_Face(face);
 
 		fuente->Size = size;

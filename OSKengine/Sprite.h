@@ -20,6 +20,7 @@ namespace OSK {
 	class OSKAPI_CALL Sprite {
 		friend class VulkanRenderer;
 		friend class ContentManager;
+		friend class SpriteBatch;
 
 	public:
 
@@ -27,6 +28,8 @@ namespace OSK {
 
 		//Establece la región de la textura que se renderizará en este sprite.
 		void SetTexCoords(const Vector4& texCoords);
+
+		void SetTexCoordsInPercent(const Vector4f& texCoords);
 
 		//Establece la región de la textura que se renderizará en este sprite.
 		void SetTexCoords(const float& x, const float& y, const float& width, const float& hegith);
@@ -41,6 +44,9 @@ namespace OSK {
 		Color color = Color(1.0f);
 
 	private:
+
+		bool isOutOfScreen = false;
+
 		PushConst2D getPushConst();
 
 		glm::mat4 model = glm::mat4(1);
@@ -50,7 +56,8 @@ namespace OSK {
 		float_t rotation = 0.0f;
 
 		VulkanBuffer VertexBuffer;
-		VulkanBuffer IndexBuffer;
+
+		static VulkanBuffer IndexBuffer;
 
 		std::vector<Vertex> Vertices = {
 			{{0, 0, 0}, {1.0f, 1.0f, 1.0f}, {0, 0}},
@@ -59,9 +66,7 @@ namespace OSK {
 			{{0, 1, 0}, {1.0f, 1.0f, 1.0f}, {0, 1}}
 		};
 
-		std::array<uint16_t, 6> Indices = {
-			0, 1, 2, 2, 3, 0
-		};
+		static std::array<uint16_t, 6> Indices;
 
 		bool hasChanged = false;
 		

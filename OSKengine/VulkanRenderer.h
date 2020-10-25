@@ -178,7 +178,15 @@ namespace OSK {
 		ProfilingUnit renderP_Unit{ "Render frame" };
 		ProfilingUnit updateCmdP_Unit{ "Update command buffers" };
 
+		Sprite OSKengineIconSprite;
+		Sprite OSK_IconSprite;
+
+
 	private:
+
+		void createSpriteVertexBuffer(Sprite* obj) const;
+
+		void createSpriteIndexBuffer() const;
 
 		bool checkValidationLayers();
 
@@ -231,10 +239,6 @@ namespace OSK {
 		void createVertexBuffer(VULKAN::VulkanRenderizableObject* obj) const;
 
 		void createIndexBuffer(VULKAN::VulkanRenderizableObject* obj) const;
-
-		void createSpriteVertexBuffer(Sprite* obj) const;
-
-		void createSpriteIndexBuffer(Sprite* obj) const;
 
 		void updateSpriteVertexBuffer(Sprite* obj) const;
 

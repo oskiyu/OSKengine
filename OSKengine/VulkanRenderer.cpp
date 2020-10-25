@@ -140,12 +140,17 @@ OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appNam
 	createSyncObjects();
 	createCommandBuffers();
 
+	createSpriteIndexBuffer();
+
 	Skybox::Model = Content->LoadModelData("models/Skybox/cube.obj");
 
 	DefaultCamera2D = Camera2D(Window);
 	DefaultCamera3D.Window = Window;
 
 	hasBeenInit = true;
+
+	Content->LoadSprite(OSKengineIconSprite, "Resources/OSKengine_icon_lowres.png");
+	Content->LoadSprite(OSK_IconSprite, "Resources/OSK_icon_lowres.png");
 
 	return OskResult::SUCCESS;
 }
@@ -388,7 +393,7 @@ bool VulkanRenderer::checkValidationLayers() {
 	
 	//Capas de validación.
 	const std::vector<const char*> validationLayers = {
-		"VK_LAYER_KHRONOS_validation"
+		"VK_LAYER_LUNARG_standard_validation"
 	};
 
 	for (const char* layerName : validationLayers) {
@@ -445,7 +450,7 @@ void VulkanRenderer::createInstance(const std::string& appName, const Version& g
 #ifdef OSK_DEBUG
 	//Capas de validación.
 	const std::vector<const char*> validationLayers = {
-		"VK_LAYER_KHRONOS_validation"
+		"VK_LAYER_LUNARG_standard_validation"
 	};
 
 	if (checkValidationLayers()) {
@@ -493,6 +498,8 @@ void VulkanRenderer::setupDebugConsole() {
 	VkResult result = CreateDebugUtilsMessengerEXT(Instance, &createInfo, nullptr, &debugConsole);
 	if (result != VK_SUCCESS)
 		Logger::Log(LogMessageLevels::BAD_ERROR, "ERROR: no se puede iniciar la consola de capas de validación.");
+
+	Logger::DebugLog("Capas de validación activas.");
 #endif
 }
 
@@ -923,6 +930,8 @@ void VulkanRenderer::Close() {
 	for (auto& i : LightsUniformBuffers)
 		DestroyBuffer(i);
 
+	DestroyBuffer(Sprite::IndexBuffer);
+
 	vkDestroyCommandPool(LogicalDevice, CommandPool, nullptr);
 
 	delete DescLayout;
@@ -1020,9 +1029,18 @@ void VulkanRenderer::DestroyBuffer(VulkanBuffer& buffer) const {
 
 
 std::vector<VkCommandBuffer> VulkanRenderer::GetCommandBuffers() {
-	for (auto& i : currentSpriteBatch.spritesToDraw)
-		if (i.hasChanged)
-			updateSpriteVertexBuffer(&i);
+	for (auto& i : currentSpriteBatch.spritesToDraw) {
+		if (i.number == 1) {
+			if (i.sprites->hasChanged)
+				updateSpriteVertexBuffer(i.sprites);
+		}
+		else {
+			for (uint32_t it = 0; it < i.number; it++) {
+				if (i.sprites[it].hasChanged)
+					updateSpriteVertexBuffer(&i.sprites[it]);
+			}
+		}
+	}
 
 	for (size_t i = 0; i < CommandBuffers.size(); i++) {
 		vkResetCommandBuffer(CommandBuffers[i], 0);
@@ -1060,9 +1078,18 @@ std::vector<VkCommandBuffer> VulkanRenderer::GetCommandBuffers() {
 void VulkanRenderer::updateCommandBuffers() {
 	updateCmdP_Unit.Start();
 
-	for (auto& i : currentSpriteBatch.spritesToDraw)
-		if (i.hasChanged)
-			updateSpriteVertexBuffer(&i);
+	for (auto& i : currentSpriteBatch.spritesToDraw) {
+		if (i.number == 1) {
+			if (i.sprites->hasChanged)
+				updateSpriteVertexBuffer(i.sprites);
+		}
+		else {
+			for (uint32_t it = 0; it < i.number; it++) {
+				if (i.sprites[it].hasChanged)
+					updateSpriteVertexBuffer(&i.sprites[it]);
+			}
+		}
+	}
 
 	for (size_t i = 0; i < CommandBuffers.size(); i++) {
 		vkResetCommandBuffer(CommandBuffers[i], 0);
@@ -1084,7 +1111,7 @@ void VulkanRenderer::updateCommandBuffers() {
 
 		renderPassInfo.renderArea.extent = SwapchainExtent;
 		std::array<VkClearValue, 2> clearValues = {};
-		clearValues[0] = { 0.0f, 0.0f, 0.0f, 1.0f }; //Color.
+		clearValues[0] = { 0.8f, 0.8f, 0.8f, 1.0f }; //Color.
 		clearValues[1] = { 1.0f, 0.0f }; //Depth.
 		renderPassInfo.clearValueCount = clearValues.size();
 		renderPassInfo.pClearValues = clearValues.data();
@@ -1099,20 +1126,47 @@ void VulkanRenderer::updateCommandBuffers() {
 		//2D
 		if (!currentSpriteBatch.spritesToDraw.empty()) {
 			GraphicsPipeline2D->Bind(CommandBuffers[i]);
-			vkCmdBindIndexBuffer(CommandBuffers[i], currentSpriteBatch.spritesToDraw[0].IndexBuffer.Buffer, 0, VK_INDEX_TYPE_UINT16);
+			vkCmdBindIndexBuffer(CommandBuffers[i], Sprite::IndexBuffer.Buffer, 0, VK_INDEX_TYPE_UINT16);
+			const uint32_t indicesSize = Sprite::Indices.size();
 
 			for (auto& sprite : currentSpriteBatch.spritesToDraw) {
-				VkBuffer vertexBuffers[] = { sprite.VertexBuffer.Buffer };
-				VkDeviceSize offsets[] = { 0 };
-				vkCmdBindVertexBuffers(CommandBuffers[i], 0, 1, vertexBuffers, offsets);
+				if (sprite.number == 1) {
+					if (sprite.sprites->isOutOfScreen)
+						continue;
 
-				if (sprite.texture != lastImg) {
-					sprite.texture->Descriptor->Bind(CommandBuffers[i], GraphicsPipeline2D, i);
-					lastImg = sprite.texture;
+					VkBuffer vertexBuffers[] = { sprite.sprites->VertexBuffer.Buffer };
+					VkDeviceSize offsets[] = { 0 };
+					vkCmdBindVertexBuffers(CommandBuffers[i], 0, 1, vertexBuffers, offsets);
+
+					if (sprite.sprites->texture != lastImg) {
+						sprite.sprites->texture->Descriptor->Bind(CommandBuffers[i], GraphicsPipeline2D, i);
+						lastImg = sprite.sprites->texture;
+					}
+					PushConst2D pConst = sprite.sprites->getPushConst();
+					vkCmdPushConstants(CommandBuffers[i], GraphicsPipeline2D->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
+					vkCmdDrawIndexed(CommandBuffers[i], indicesSize, 1, 0, 0, 0);
 				}
-				PushConst2D pConst = sprite.getPushConst();
-				vkCmdPushConstants(CommandBuffers[i], GraphicsPipeline2D->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
-				vkCmdDrawIndexed(CommandBuffers[i], static_cast<uint32_t>(sprite.Indices.size()), 1, 0, 0, 0);
+				else {
+					for (uint32_t spriteIt = 0; spriteIt < sprite.number; spriteIt++) {
+						if (sprite.sprites[spriteIt].texture == nullptr)
+							continue;
+						
+						if (sprite.sprites[spriteIt].isOutOfScreen)
+							continue;
+
+						VkBuffer vertexBuffers[] = { sprite.sprites[spriteIt].VertexBuffer.Buffer };
+						VkDeviceSize offsets[] = { 0 };
+						vkCmdBindVertexBuffers(CommandBuffers[i], 0, 1, vertexBuffers, offsets);
+
+						if (sprite.sprites[spriteIt].texture != lastImg) {
+							sprite.sprites[spriteIt].texture->Descriptor->Bind(CommandBuffers[i], GraphicsPipeline2D, i);
+							lastImg = sprite.sprites[spriteIt].texture;
+						}
+						PushConst2D pConst = sprite.sprites[spriteIt].getPushConst();
+						vkCmdPushConstants(CommandBuffers[i], GraphicsPipeline2D->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
+						vkCmdDrawIndexed(CommandBuffers[i], indicesSize, 1, 0, 0, 0);
+					}
+				}
 			}
 		}
 		//2D
@@ -1182,20 +1236,19 @@ void VulkanRenderer::createSpriteVertexBuffer(Sprite* sprite) const {
 	updateSpriteVertexBuffer(sprite);
 }
 
-
-void VulkanRenderer::createSpriteIndexBuffer(Sprite* sprite) const {
-	VkDeviceSize size = sizeof(sprite->Indices[0]) * sprite->Indices.size();
+void VulkanRenderer::createSpriteIndexBuffer() const {
+	VkDeviceSize size = sizeof(Sprite::Indices[0]) * Sprite::Indices.size();
 
 	VulkanBuffer stagingBuffer;
 	CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 
 	void* data;
 	vkMapMemory(LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
-	memcpy(data, sprite->Indices.data(), (size_t)size);
+	memcpy(data, Sprite::Indices.data(), (size_t)size);
 	vkUnmapMemory(LogicalDevice, stagingBuffer.Memory);
 
-	CreateBuffer(sprite->IndexBuffer, size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-	CopyBuffer(stagingBuffer, sprite->IndexBuffer, size);
+	CreateBuffer(Sprite::IndexBuffer, size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+	CopyBuffer(stagingBuffer, Sprite::IndexBuffer, size);
 
 	DestroyBuffer(stagingBuffer);
 }
