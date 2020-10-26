@@ -18,7 +18,7 @@ namespace OSK {
 
 	//Representa un sprite, una textura con un transform.
 	class OSKAPI_CALL Sprite {
-		friend class VulkanRenderer;
+		friend class RenderAPI;
 		friend class ContentManager;
 		friend class SpriteBatch;
 

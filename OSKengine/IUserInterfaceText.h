@@ -9,7 +9,6 @@
 
 #include "BaseUIElement.h"
 #include "AnchorEnum.h"
-#include "OldFont.h"
 #include "SpriteBatch.h"
 #include "Font.h"
 
@@ -23,12 +22,6 @@ namespace OSK::UI {
 
 		//Destructor de la interfaz.
 		virtual ~IUserInterfaceText() = default;
-
-
-		//Renderiza el texto.
-		//DEPRECATED.
-	//	void Draw(const RenderAPI& renderer, const BaseUIElement& base);
-
 
 		//Renderiza el texto.
 		void Draw(SpriteBatch& spriteBatch, const BaseUIElement& base);
@@ -45,10 +38,6 @@ namespace OSK::UI {
 
 		//Punto de anclaje del texto.
 		Anchor TextAnchor = Anchor::CENTER;
-
-
-		//Fuente del texto.
-		OldFont* OldTextFont = nullptr;
 
 
 		//Fuente del texto.

@@ -22,12 +22,6 @@ namespace OSK::UI {
 		//Destruye la imagen.
 		~Image();
 
-
-		//Renderiza la imagen.
-		//DEPRECATED.
-	//	void Draw(const RenderAPI& renderer) override;
-
-
 		//Renderiza la imagen.
 		void Draw(SpriteBatch& spriteBatch) override;
 		

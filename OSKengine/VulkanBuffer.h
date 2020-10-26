@@ -12,7 +12,7 @@ namespace OSK {
 	//Buffer de Vulkan.
 	struct OSKAPI_CALL VulkanBuffer {
 
-		friend class VulkanRenderer;
+		friend class RenderAPI;
 
 	public:
 

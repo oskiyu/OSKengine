@@ -73,7 +73,7 @@ namespace OSK::VULKAN {
 	class OSKAPI_CALL Renderpass {
 
 		friend class GraphicsPipeline;
-		friend class VulkanRenderer;
+		friend class RenderAPI;
 
 	public:
 

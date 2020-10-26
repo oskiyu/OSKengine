@@ -12,12 +12,6 @@ namespace OSK::UI {
 	}
 
 
-	/*void Panel::Draw(const RenderAPI& renderer) {
-		IUserInterfaceImage::Draw(renderer, *this);
-		IUserInterfaceHasChildren::Draw(renderer);
-	}*/
-
-
 	void Panel::Draw(SpriteBatch& spriteBatch) {
 		IUserInterfaceImage::Draw(spriteBatch, *this);
 		IUserInterfaceHasChildren::Draw(spriteBatch);

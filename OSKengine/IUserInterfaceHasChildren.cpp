@@ -7,17 +7,6 @@ namespace OSK::UI {
 	}
 
 
-	/*void IUserInterfaceHasChildren::Draw(const RenderAPI& renderer) {
-		if (base == nullptr)
-			return;
-
-		for (auto i : Children) {
-			if (i != nullptr && i->IsActive && i->IsVisible)
-				i->Draw(renderer);
-		}
-	}*/
-
-
 	void IUserInterfaceHasChildren::Draw(SpriteBatch& spriteBatch) {
 		if (base == nullptr)
 			return;

@@ -32,7 +32,7 @@
 
 namespace OSK {
 
-	class OSKAPI_CALL VulkanRenderer {
+	class OSKAPI_CALL RenderAPI {
 
 		friend class ContentManager;
 		friend class RenderizableScene;

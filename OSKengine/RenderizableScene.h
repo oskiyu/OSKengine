@@ -14,17 +14,17 @@
 
 namespace OSK {
 
-	class VulkanRenderer;
+	class RenderAPI;
 
 	//Representa una escena que se puede renderizar.
 	class OSKAPI_CALL RenderizableScene {
 
-		friend class VulkanRenderer;
+		friend class RenderAPI;
 
 	public:
 
 		//Crea una nueva escena.
-		RenderizableScene(VulkanRenderer* renderer);
+		RenderizableScene(RenderAPI* renderer);
 
 		//Destruye la escena.
 		~RenderizableScene();
@@ -102,7 +102,7 @@ namespace OSK {
 		std::vector<Model*> Models = {};
 		std::vector<AnimatedModel*> AnimatedModels = {};
 
-		VulkanRenderer* renderer;
+		RenderAPI* renderer;
 
 		bool isPropetaryOfTerrain = true;
 

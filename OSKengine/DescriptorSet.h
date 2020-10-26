@@ -20,7 +20,7 @@ namespace OSK {
 	//Tiene información extra, como detalles sobre los buffers y las imágenes.
 	class OSKAPI_CALL DescriptorSet {
 
-		friend class VulkanRenderer;
+		friend class RenderAPI;
 
 	public:
 

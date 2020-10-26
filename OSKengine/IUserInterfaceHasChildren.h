@@ -20,10 +20,6 @@ namespace OSK::UI {
 
 
 		//Renderiza los elementos hijos.
-	//	void Draw(const RenderAPI& renderer);
-
-
-		//Renderiza los elementos hijos.
 		void Draw(SpriteBatch& spriteBatch);
 
 

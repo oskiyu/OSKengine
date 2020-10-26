@@ -76,7 +76,7 @@ int program() {
 	windowAPI->SetMouseMovementMode(OSK::MouseMovementMode::RAW);
 	windowAPI->SetMouseMode(OSK::MouseInputMode::ALWAYS_RETURN);
 
-	OSK::VulkanRenderer RenderAPI{};
+	OSK::RenderAPI RenderAPI{};
 	RenderAPI.Window = windowAPI;
 	RenderAPI.Settings.MaxTextures = 1024;
 	RenderAPI.SetPresentMode(OSK::PresentMode::VSYNC);

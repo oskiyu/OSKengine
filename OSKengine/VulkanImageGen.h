@@ -11,7 +11,7 @@
 
 namespace OSK {
 
-	class VulkanRenderer;
+	class RenderAPI;
 
 }
 
@@ -24,7 +24,7 @@ namespace OSK::VULKAN {
 
 		//Establece el renderizador que usará esta clase.
 		//	<renderer>: renderizador.
-		static void SetRenderer(VulkanRenderer* renderer);
+		static void SetRenderer(RenderAPI* renderer);
 
 		//Crea una imagen de Vulkan.
 		//	<image>: imagen.
@@ -78,7 +78,7 @@ namespace OSK::VULKAN {
 
 	private:
 
-		static VulkanRenderer* renderer;
+		static RenderAPI* renderer;
 
 	};
 

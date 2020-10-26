@@ -144,10 +144,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimatedModel.cpp" />
-    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AudioAPI.cpp" />
     <ClCompile Include="BaseUIElement.cpp" />
-    <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Camera3D.cpp" />
@@ -160,11 +158,8 @@
     <ClCompile Include="ContentManager.cpp" />
     <ClCompile Include="LightsUBO.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="OldCamera3D.cpp" />
     <ClCompile Include="Checkbox.cpp" />
-    <ClCompile Include="Collision2D.cpp" />
     <ClCompile Include="Color.cpp" />
-    <ClCompile Include="ContentAPI.cpp" />
     <ClCompile Include="D:\Dev\GLAD\src\glad.c" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="PhysicsScene.cpp" />
@@ -187,14 +182,9 @@
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="KeyboardState.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="OldModel.cpp" />
     <ClCompile Include="MouseState.cpp" />
     <ClCompile Include="Panel.cpp" />
     <ClCompile Include="QueueFamilyIndices.cpp" />
-    <ClCompile Include="RenderAPI.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="SoundEntity.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Terrain.cpp" />
@@ -203,7 +193,6 @@
     <ClCompile Include="ToString.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Transform2D.cpp" />
-    <ClCompile Include="OldVertex.cpp" />
     <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="VulkanBuffer.cpp" />
     <ClCompile Include="VulkanImage.cpp" />
@@ -215,10 +204,8 @@
     <ClInclude Include="AnchorEnum.h" />
     <ClInclude Include="AnchorTextToEnum.h" />
     <ClInclude Include="AnimatedModel.h" />
-    <ClInclude Include="Animation.h" />
     <ClInclude Include="AudioAPI.h" />
     <ClInclude Include="BaseUIElement.h" />
-    <ClInclude Include="Bone.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonStatesEnum.h" />
     <ClInclude Include="Camera2D.h" />
@@ -235,11 +222,8 @@
     <ClInclude Include="LightsUBO.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="OldCamera3D.h" />
     <ClInclude Include="Checkbox.h" />
-    <ClInclude Include="Collision2D.h" />
     <ClInclude Include="Color.h" />
-    <ClInclude Include="ContentAPI.h" />
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="DirectionsEnum.h" />
     <ClInclude Include="DrawCommand.h" />
@@ -262,10 +246,7 @@
     <ClInclude Include="SAT_Projection.hpp" />
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="SpriteBatch.h" />
-    <ClInclude Include="EXP_MeshBone.hpp" />
     <ClInclude Include="FileIO.h" />
-    <ClInclude Include="OldFont.h" />
-    <ClInclude Include="OldFontChar.h" />
     <ClInclude Include="GPUinfo.h" />
     <ClInclude Include="GraphicsAPIenum.h" />
     <ClInclude Include="Sprite.h" />
@@ -287,9 +268,6 @@
     <ClInclude Include="Log.h" />
     <ClInclude Include="KeyboardState.h" />
     <ClInclude Include="LogMessageLevelsEnum.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="OldModel.h" />
     <ClInclude Include="ModelFormat.h" />
     <ClInclude Include="ButtonCodeEnum.h" />
     <ClInclude Include="MouseMovementInputModeEnum.h" />
@@ -303,21 +281,16 @@
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="PresentMode.h" />
     <ClInclude Include="QueueFamilyIndices.h" />
-    <ClInclude Include="RenderAPI.h" />
     <ClInclude Include="RenderMode.h" />
     <ClInclude Include="RenderModeEnum.h" />
     <ClInclude Include="RenderOutputImageEnum.h" />
     <ClInclude Include="RenderSettingsBitFlags.h" />
     <ClInclude Include="RenderSettingsEnum.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="Skeleton.h" />
-    <ClInclude Include="OldSkybox.h" />
     <ClInclude Include="SoundEntity.h" />
     <ClInclude Include="stbi_image.h" />
     <ClInclude Include="SwapchainSupportDetails.h" />
     <ClInclude Include="TextUI.h" />
     <ClInclude Include="TextRenderingLimitActionsEnum.h" />
-    <ClInclude Include="OldTexture.h" />
     <ClInclude Include="ToString.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="UIAnchorTypeEnum.h" />
@@ -326,7 +299,6 @@
     <ClInclude Include="Vector3.hpp" />
     <ClInclude Include="Vector4.hpp" />
     <ClInclude Include="Version.h" />
-    <ClInclude Include="OldVertex.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="VulkanImageGen.h" />
     <ClInclude Include="VulkanRenderer.h" />

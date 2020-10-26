@@ -24,11 +24,6 @@ namespace OSK::UI {
 		//Destruye el checkbox.
 		~Checkbox();
 
-
-		//Renderiza el checkbox.
-		//void Draw(const RenderAPI& renderer) override;
-
-
 		//Renderiza el checkbox.
 		void Draw(SpriteBatch& spriteBatch) override;
 

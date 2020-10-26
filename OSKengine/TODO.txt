@@ -116,3 +116,9 @@ Transform:
 -Bugfix: cargar nuevos elementos en un ContentManager no hará que se pierdan los punteros a los elementos antes cargados.
 -Bugfix: la posición global se calcula correctamente para Transforms atados a otros.
 -Bugfix: las normales del terreno se calculan mejor.
+
+-Drop OpenGL support.
+
+-Offscreen rendering.
+
+-Directional shadow mapping.

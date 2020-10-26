@@ -23,12 +23,6 @@ namespace OSK::UI {
 		//Destructor del panel.
 		~Panel();
 
-
-		//Renderiza el panel.
-		//DEPRECATED.
-		//void Draw(const RenderAPI& renderer) override;
-
-
 		//Renderiza el panel.
 		void Draw(SpriteBatch& spriteBatch) override;
 

@@ -96,7 +96,7 @@ VkSurfaceFormatKHR getSwapchainFormat(const std::vector<VkSurfaceFormatKHR>& for
 	return formats[0];
 }
 
-OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appName, const Version& gameVersion) {
+OskResult RenderAPI::Init(const RenderMode& mode, const std::string& appName, const Version& gameVersion) {
 	renderMode = mode;
 	
 	VulkanImageGen::SetRenderer(this);
@@ -156,7 +156,7 @@ OskResult VulkanRenderer::Init(const RenderMode& mode, const std::string& appNam
 }
 
 
-void VulkanRenderer::SetPresentMode(const PresentMode& mode) {
+void RenderAPI::SetPresentMode(const PresentMode& mode) {
 	targetPresentMode = mode;
 
 	if (hasBeenInit)
@@ -164,17 +164,17 @@ void VulkanRenderer::SetPresentMode(const PresentMode& mode) {
 }
 
 
-PresentMode VulkanRenderer::GetCurrentPresentMode() const {
+PresentMode RenderAPI::GetCurrentPresentMode() const {
 	return targetPresentMode;
 }
 
 
-void VulkanRenderer::ReloadShaders() {
+void RenderAPI::ReloadShaders() {
 	RecreateSwapchain();
 }
 
 
-void VulkanRenderer::RenderFrame() {
+void RenderAPI::RenderFrame() {
 	renderP_Unit.Start();
 
 	double startTime = glfwGetTime();
@@ -283,13 +283,13 @@ void VulkanRenderer::RenderFrame() {
 }
 
 
-void VulkanRenderer::DrawUserInterface(SpriteBatch& spriteBatch) const {
+void RenderAPI::DrawUserInterface(SpriteBatch& spriteBatch) const {
 	if (Window->UserInterface != nullptr && Window->UserInterface->IsActive && Window->UserInterface->IsVisible)
 		Window->UserInterface->Draw(spriteBatch);
 }
 
 
-SpriteBatch VulkanRenderer::CreateSpriteBatch() {
+SpriteBatch RenderAPI::CreateSpriteBatch() {
 	SpriteBatch spriteBatch{};
 	spriteBatch.renderer = this;
 
@@ -297,21 +297,21 @@ SpriteBatch VulkanRenderer::CreateSpriteBatch() {
 }
 
 
-GraphicsPipeline* VulkanRenderer::CreateNewGraphicsPipeline(const std::string& vertexPath, const std::string& fragmentPath) const {
+GraphicsPipeline* RenderAPI::CreateNewGraphicsPipeline(const std::string& vertexPath, const std::string& fragmentPath) const {
 	return new GraphicsPipeline(LogicalDevice, vertexPath, fragmentPath);
 }
 
-DescriptorLayout* VulkanRenderer::CreateNewDescriptorLayout() const {
+DescriptorLayout* RenderAPI::CreateNewDescriptorLayout() const {
 	return new DescriptorLayout(LogicalDevice, SwapchainImages.size());
 }
 
-DescriptorSet* VulkanRenderer::CreateNewDescriptorSet() const {
+DescriptorSet* RenderAPI::CreateNewDescriptorSet() const {
 	return new DescriptorSet(LogicalDevice, SwapchainImages.size());
 }
 
 //Phong lighting.
 
-GraphicsPipeline* VulkanRenderer::CreateNewPhongPipeline(const std::string& vertexPath, const std::string& fragmentPath) const {
+GraphicsPipeline* RenderAPI::CreateNewPhongPipeline(const std::string& vertexPath, const std::string& fragmentPath) const {
 	GraphicsPipeline* phongPipeline = CreateNewGraphicsPipeline(vertexPath, fragmentPath);
 	phongPipeline->SetViewport({ 0, 0, (float)SwapchainExtent.width, (float)SwapchainExtent.height });
 	phongPipeline->SetRasterizer(VK_FALSE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_FRONT_BIT, VK_FRONT_FACE_CLOCKWISE);
@@ -328,7 +328,7 @@ GraphicsPipeline* VulkanRenderer::CreateNewPhongPipeline(const std::string& vert
 	return phongPipeline;
 }
 
-DescriptorLayout* VulkanRenderer::CreateNewPhongDescriptorLayout() const {
+DescriptorLayout* RenderAPI::CreateNewPhongDescriptorLayout() const {
 	DescriptorLayout* descLayout = CreateNewDescriptorLayout();
 	descLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
 	descLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
@@ -339,7 +339,7 @@ DescriptorLayout* VulkanRenderer::CreateNewPhongDescriptorLayout() const {
 	return descLayout;
 }
 
-void VulkanRenderer::CreateNewPhongDescriptorSet(ModelTexture* texture, VkSampler albedoSampler, VkSampler specularSampler) const {
+void RenderAPI::CreateNewPhongDescriptorSet(ModelTexture* texture, VkSampler albedoSampler, VkSampler specularSampler) const {
 	texture->PhongDescriptorSet = CreateNewDescriptorSet();
 	texture->PhongDescriptorSet->SetDescriptorLayout(PhongDescriptorLayout);
 	texture->PhongDescriptorSet->AddUniformBuffers(UniformBuffers, 0, sizeof(UBO));
@@ -349,7 +349,7 @@ void VulkanRenderer::CreateNewPhongDescriptorSet(ModelTexture* texture, VkSample
 	texture->PhongDescriptorSet->Create();
 }
 
-GraphicsPipeline* VulkanRenderer::CreateNewSkyboxPipeline(const std::string& vertexPath, const std::string& fragmentPath) const {
+GraphicsPipeline* RenderAPI::CreateNewSkyboxPipeline(const std::string& vertexPath, const std::string& fragmentPath) const {
 	GraphicsPipeline* skyboxPipeline = CreateNewGraphicsPipeline(vertexPath, fragmentPath);
 	skyboxPipeline->SetViewport({ 0, 0, (float)SwapchainExtent.width, (float)SwapchainExtent.height });
 	skyboxPipeline->SetRasterizer(VK_FALSE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_NONE, VK_FRONT_FACE_CLOCKWISE);
@@ -361,7 +361,7 @@ GraphicsPipeline* VulkanRenderer::CreateNewSkyboxPipeline(const std::string& ver
 	return skyboxPipeline;
 }
 
-DescriptorLayout* VulkanRenderer::CreateNewSkyboxDescriptorLayout() const {
+DescriptorLayout* RenderAPI::CreateNewSkyboxDescriptorLayout() const {
 	DescriptorLayout* descLayout = CreateNewDescriptorLayout();
 	descLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
 	descLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
@@ -370,7 +370,7 @@ DescriptorLayout* VulkanRenderer::CreateNewSkyboxDescriptorLayout() const {
 	return descLayout;
 }
 
-void VulkanRenderer::CreateNewSkyboxDescriptorSet(SkyboxTexture* texture) const {
+void RenderAPI::CreateNewSkyboxDescriptorSet(SkyboxTexture* texture) const {
 	texture->Descriptor = CreateNewDescriptorSet();
 	texture->Descriptor->SetDescriptorLayout(SkyboxDescriptorLayout);
 	texture->Descriptor->AddUniformBuffers(UniformBuffers, 0, sizeof(UBO));
@@ -379,12 +379,12 @@ void VulkanRenderer::CreateNewSkyboxDescriptorSet(SkyboxTexture* texture) const 
 }
 
 
-void VulkanRenderer::SubmitSpriteBatch(const SpriteBatch& spriteBatch) {
+void RenderAPI::SubmitSpriteBatch(const SpriteBatch& spriteBatch) {
 	currentSpriteBatch = spriteBatch;
 }
 
 
-bool VulkanRenderer::checkValidationLayers() {
+bool RenderAPI::checkValidationLayers() {
 	uint32_t layerCount;
 	vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
 
@@ -414,7 +414,7 @@ bool VulkanRenderer::checkValidationLayers() {
 }
 
 
-void VulkanRenderer::createInstance(const std::string& appName, const Version& gameVersion) {
+void RenderAPI::createInstance(const std::string& appName, const Version& gameVersion) {
 	//Información de la app.
 	VkApplicationInfo appInfo{};
 	appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -486,7 +486,7 @@ void VulkanRenderer::createInstance(const std::string& appName, const Version& g
 }
 
 
-void VulkanRenderer::setupDebugConsole() {
+void RenderAPI::setupDebugConsole() {
 #ifdef OSK_DEBUG
 	VkDebugUtilsMessengerCreateInfoEXT createInfo = {};
 	createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
@@ -504,7 +504,7 @@ void VulkanRenderer::setupDebugConsole() {
 }
 
 
-void VulkanRenderer::createSurface() {
+void RenderAPI::createSurface() {
 	//Obtener la superficie.
 	VkResult result = glfwCreateWindowSurface(Instance, Window->GetGLFWWindow(), nullptr, &Surface);
 
@@ -514,7 +514,7 @@ void VulkanRenderer::createSurface() {
 }
 
 
-void VulkanRenderer::getGPU() {
+void RenderAPI::getGPU() {
 	//Obtiene el número de GPUs disponibles.
 	uint32_t count = 0;
 	vkEnumeratePhysicalDevices(Instance, &count, nullptr);
@@ -539,7 +539,7 @@ void VulkanRenderer::getGPU() {
 }
 
 
-void VulkanRenderer::createLogicalDevice() {
+void RenderAPI::createLogicalDevice() {
 	//Establecer las colas que vamos a usar.
 	QueueFamilyIndices indices = findQueueFamilies(GPU);
 
@@ -589,7 +589,7 @@ void VulkanRenderer::createLogicalDevice() {
 }
 
 
-void VulkanRenderer::createSwapchain() {
+void RenderAPI::createSwapchain() {
 	//Soporte del swapchain.
 	SwapchainSupportDetails swapchainDetails = getSwapchainSupportDetails(GPU);
 
@@ -659,7 +659,7 @@ void VulkanRenderer::createSwapchain() {
 }
 
 
-void VulkanRenderer::createSwapchainImageViews() {
+void RenderAPI::createSwapchainImageViews() {
 	SwapchainImageViews.resize(SwapchainImages.size());
 
 	//Por cada imagen...
@@ -685,7 +685,7 @@ void VulkanRenderer::createSwapchainImageViews() {
 }
 
 
-void VulkanRenderer::createRenderpass() {
+void RenderAPI::createRenderpass() {
 	renderpass = new Renderpass(LogicalDevice);
 
 	RenderpassAttachment clrAttachment{};
@@ -712,7 +712,7 @@ void VulkanRenderer::createRenderpass() {
 }
 
 
-void VulkanRenderer::createDescriptorSetLayout() {
+void RenderAPI::createDescriptorSetLayout() {
 	DescLayout = CreateNewDescriptorLayout();
 	DescLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT); //ALBEDO
 	DescLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
@@ -722,7 +722,7 @@ void VulkanRenderer::createDescriptorSetLayout() {
 }
 
 
-OskResult VulkanRenderer::createGraphicsPipeline2D() {
+OskResult RenderAPI::createGraphicsPipeline2D() {
 	GraphicsPipeline2D = CreateNewGraphicsPipeline(Settings.VertexShaderPath2D, Settings.FragmentShaderPath2D);
 	GraphicsPipeline2D->SetViewport({ 0, 0, (float)SwapchainExtent.width, (float)SwapchainExtent.height });
 	GraphicsPipeline2D->SetRasterizer(VK_FALSE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_NONE, VK_FRONT_FACE_CLOCKWISE);
@@ -738,14 +738,14 @@ OskResult VulkanRenderer::createGraphicsPipeline2D() {
 }
 
 
-OskResult VulkanRenderer::createGraphicsPipeline3D() {
+OskResult RenderAPI::createGraphicsPipeline3D() {
 	GraphicsPipeline3D = CreateNewPhongPipeline(Settings.VertexShaderPath3D, Settings.FragmentShaderPath3D);
 
 	return OskResult::SUCCESS;
 }
 
 
-void VulkanRenderer::createCommandPool() {
+void RenderAPI::createCommandPool() {
 	QueueFamilyIndices indices = findQueueFamilies(GPU);
 
 	//Para la graphics q.
@@ -760,14 +760,14 @@ void VulkanRenderer::createCommandPool() {
 }
 
 
-void VulkanRenderer::createDepthResources() {
+void RenderAPI::createDepthResources() {
 	VkFormat depthFormat = getDepthFormat();
 	VulkanImageGen::CreateImage(&DepthImage, { SwapchainExtent.width, SwapchainExtent.height }, depthFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
 	VulkanImageGen::CreateImageView(&DepthImage, depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
 }
 
 
-void VulkanRenderer::createFramebuffers() {
+void RenderAPI::createFramebuffers() {
 	Framebuffers.resize(SwapchainImageViews.size());
 
 	//Crear los framebuffers.
@@ -794,7 +794,7 @@ void VulkanRenderer::createFramebuffers() {
 }
 
 
-void VulkanRenderer::createGlobalImageSampler() {
+void RenderAPI::createGlobalImageSampler() {
 	VkSamplerCreateInfo samplerInfo{};
 	samplerInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
 	//	VK_FILTER_NEAREST: pixelado.
@@ -829,7 +829,7 @@ void VulkanRenderer::createGlobalImageSampler() {
 }
 
 
-void VulkanRenderer::createDefaultUniformBuffers() {
+void RenderAPI::createDefaultUniformBuffers() {
 	VkDeviceSize size = sizeof(UBO);
 	UniformBuffers.resize(SwapchainImages.size());
 
@@ -844,12 +844,12 @@ void VulkanRenderer::createDefaultUniformBuffers() {
 }
 
 
-void VulkanRenderer::createDescriptorPool() {
+void RenderAPI::createDescriptorPool() {
 
 }
 
 
-void VulkanRenderer::createSyncObjects() {
+void RenderAPI::createSyncObjects() {
 	ImageAvailableSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
 	RenderFinishedSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
 	InFlightFences.resize(MAX_FRAMES_IN_FLIGHT);
@@ -885,7 +885,7 @@ void VulkanRenderer::createSyncObjects() {
 }
 
 
-void VulkanRenderer::createCommandBuffers() {
+void RenderAPI::createCommandBuffers() {
 	CommandBuffers.resize(Framebuffers.size());
 
 	VkCommandBufferAllocateInfo allocInfo{};
@@ -900,7 +900,7 @@ void VulkanRenderer::createCommandBuffers() {
 }
 
 
-void VulkanRenderer::closeSwapchain() {
+void RenderAPI::closeSwapchain() {
 	DepthImage.Destroy();
 
 	for (const auto& i : Framebuffers)
@@ -917,7 +917,7 @@ void VulkanRenderer::closeSwapchain() {
 }
 
 
-void VulkanRenderer::Close() {
+void RenderAPI::Close() {
 	closeSwapchain();
 
 	delete Content;
@@ -959,7 +959,7 @@ void VulkanRenderer::Close() {
 }
 
 
-void VulkanRenderer::RecreateSwapchain() {
+void RenderAPI::RecreateSwapchain() {
 	int32_t width = 0;
 	int32_t height = 0;
 	glfwGetFramebufferSize(Window->GetGLFWWindow(), &width, &height);
@@ -990,7 +990,7 @@ void VulkanRenderer::RecreateSwapchain() {
 }
 
 
-void VulkanRenderer::CreateBuffer(VulkanBuffer& buffer, VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags prop) const {
+void RenderAPI::CreateBuffer(VulkanBuffer& buffer, VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags prop) const {
 	VkBufferCreateInfo bufferInfo{};
 	bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
 	bufferInfo.size = size;
@@ -1017,18 +1017,18 @@ void VulkanRenderer::CreateBuffer(VulkanBuffer& buffer, VkDeviceSize size, VkBuf
 }
 
 
-void VulkanRenderer::SetRenderizableScene(RenderizableScene* scene) {
+void RenderAPI::SetRenderizableScene(RenderizableScene* scene) {
 	Scene = scene;
 }
 
 
-void VulkanRenderer::DestroyBuffer(VulkanBuffer& buffer) const {
+void RenderAPI::DestroyBuffer(VulkanBuffer& buffer) const {
 	vkDestroyBuffer(LogicalDevice, buffer.Buffer, nullptr);
 	vkFreeMemory(LogicalDevice, buffer.Memory, nullptr);
 }
 
 
-std::vector<VkCommandBuffer> VulkanRenderer::GetCommandBuffers() {
+std::vector<VkCommandBuffer> RenderAPI::GetCommandBuffers() {
 	for (auto& i : currentSpriteBatch.spritesToDraw) {
 		if (i.number == 1) {
 			if (i.sprites->hasChanged)
@@ -1075,7 +1075,7 @@ std::vector<VkCommandBuffer> VulkanRenderer::GetCommandBuffers() {
 }
 
 
-void VulkanRenderer::updateCommandBuffers() {
+void RenderAPI::updateCommandBuffers() {
 	updateCmdP_Unit.Start();
 
 	for (auto& i : currentSpriteBatch.spritesToDraw) {
@@ -1182,7 +1182,7 @@ void VulkanRenderer::updateCommandBuffers() {
 
 
 
-void VulkanRenderer::createVertexBuffer(VulkanRenderizableObject* obj) const {
+void RenderAPI::createVertexBuffer(VulkanRenderizableObject* obj) const {
 	VkDeviceSize size = sizeof(Vertex) * obj->Vertices.size();
 	std::cout << size << std::endl;
 	//Buffer temporal CPU-GPU.
@@ -1203,7 +1203,7 @@ void VulkanRenderer::createVertexBuffer(VulkanRenderizableObject* obj) const {
 }
 
 
-void VulkanRenderer::createIndexBuffer(VulkanRenderizableObject* obj) const {
+void RenderAPI::createIndexBuffer(VulkanRenderizableObject* obj) const {
 	VkDeviceSize size = sizeof(obj->Indices[0]) * obj->Indices.size();
 
 	VulkanBuffer stagingBuffer;
@@ -1221,7 +1221,7 @@ void VulkanRenderer::createIndexBuffer(VulkanRenderizableObject* obj) const {
 }
 
 
-void VulkanRenderer::createSpriteVertexBuffer(Sprite* sprite) const {
+void RenderAPI::createSpriteVertexBuffer(Sprite* sprite) const {
 	VkDeviceSize size = sizeof(Vertex) * sprite->Vertices.size();
 
 	CreateBuffer(sprite->VertexBuffer, size, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
@@ -1236,7 +1236,7 @@ void VulkanRenderer::createSpriteVertexBuffer(Sprite* sprite) const {
 	updateSpriteVertexBuffer(sprite);
 }
 
-void VulkanRenderer::createSpriteIndexBuffer() const {
+void RenderAPI::createSpriteIndexBuffer() const {
 	VkDeviceSize size = sizeof(Sprite::Indices[0]) * Sprite::Indices.size();
 
 	VulkanBuffer stagingBuffer;
@@ -1254,7 +1254,7 @@ void VulkanRenderer::createSpriteIndexBuffer() const {
 }
 
 
-void VulkanRenderer::updateSpriteVertexBuffer(Sprite* sprite) const {
+void RenderAPI::updateSpriteVertexBuffer(Sprite* sprite) const {
 	VkDeviceSize size = sizeof(Vertex) * sprite->Vertices.size();
 
 	void* data;
@@ -1267,7 +1267,7 @@ void VulkanRenderer::updateSpriteVertexBuffer(Sprite* sprite) const {
 
 
 //Copia el contenido de un buffer a otro buffer.
-void VulkanRenderer::CopyBuffer(VulkanBuffer& source, VulkanBuffer& destination, VkDeviceSize size, VkDeviceSize sourceOffset, VkDeviceSize destinationOffset) const {
+void RenderAPI::CopyBuffer(VulkanBuffer& source, VulkanBuffer& destination, VkDeviceSize size, VkDeviceSize sourceOffset, VkDeviceSize destinationOffset) const {
 	VkCommandBuffer cmdBuffer = beginSingleTimeCommandBuffer();
 
 	VkBufferCopy copyRegion{};
@@ -1280,7 +1280,7 @@ void VulkanRenderer::CopyBuffer(VulkanBuffer& source, VulkanBuffer& destination,
 }
 
 
-VkCommandBuffer VulkanRenderer::beginSingleTimeCommandBuffer() const {
+VkCommandBuffer RenderAPI::beginSingleTimeCommandBuffer() const {
 	VkCommandBufferAllocateInfo allocInfo{};
 	allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
 	allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
@@ -1300,7 +1300,7 @@ VkCommandBuffer VulkanRenderer::beginSingleTimeCommandBuffer() const {
 }
 
 
-void VulkanRenderer::endSingleTimeCommandBuffer(VkCommandBuffer cmdBuffer) const {
+void RenderAPI::endSingleTimeCommandBuffer(VkCommandBuffer cmdBuffer) const {
 	vkEndCommandBuffer(cmdBuffer);
 
 	VkSubmitInfo submitInfo{};
@@ -1316,7 +1316,7 @@ void VulkanRenderer::endSingleTimeCommandBuffer(VkCommandBuffer cmdBuffer) const
 
 
 //Obtiene el tipo de memoria indicado.
-uint32_t VulkanRenderer::getMemoryType(const uint32_t& memoryTypeFilter, VkMemoryPropertyFlags flags) const {
+uint32_t RenderAPI::getMemoryType(const uint32_t& memoryTypeFilter, VkMemoryPropertyFlags flags) const {
 	//Tipos de memoria disponibles.
 	VkPhysicalDeviceMemoryProperties memProperties;
 	vkGetPhysicalDeviceMemoryProperties(GPU, &memProperties);
@@ -1331,12 +1331,12 @@ uint32_t VulkanRenderer::getMemoryType(const uint32_t& memoryTypeFilter, VkMemor
 }
 
 
-VkFormat VulkanRenderer::getDepthFormat() const {
+VkFormat RenderAPI::getDepthFormat() const {
 	return getSupportedFormat({ VK_FORMAT_D32_SFLOAT, VK_FORMAT_D32_SFLOAT_S8_UINT, VK_FORMAT_D24_UNORM_S8_UINT }, VK_IMAGE_TILING_OPTIMAL, VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
 }
 
 
-void VulkanRenderer::createDescriptorSets(Texture* texture) const {
+void RenderAPI::createDescriptorSets(Texture* texture) const {
 	texture->Descriptor = CreateNewDescriptorSet();
 	texture->Descriptor->SetDescriptorLayout(DescLayout);
 	texture->Descriptor->AddUniformBuffers(UniformBuffers, 0, sizeof(UBO));
@@ -1346,7 +1346,7 @@ void VulkanRenderer::createDescriptorSets(Texture* texture) const {
 }
 
 
-GPUinfo VulkanRenderer::getGPUinfo(VkPhysicalDevice gpu) const {
+GPUinfo RenderAPI::getGPUinfo(VkPhysicalDevice gpu) const {
 	GPUinfo info{};
 	info.GPU = gpu;
 	//Obtiene las propiedades de la gpu.
@@ -1369,7 +1369,7 @@ GPUinfo VulkanRenderer::getGPUinfo(VkPhysicalDevice gpu) const {
 }
 
 
-VkPresentModeKHR VulkanRenderer::getPresentMode(const std::vector<VkPresentModeKHR>& modes) const {
+VkPresentModeKHR RenderAPI::getPresentMode(const std::vector<VkPresentModeKHR>& modes) const {
 	VkPresentModeKHR finalPresentMode = VK_PRESENT_MODE_FIFO_KHR;
 	VkPresentModeKHR targetPresentMode = translatePresentMode(this->targetPresentMode);
 
@@ -1381,7 +1381,7 @@ VkPresentModeKHR VulkanRenderer::getPresentMode(const std::vector<VkPresentModeK
 }
 
 
-VkExtent2D VulkanRenderer::getSwapchainExtent(const VkSurfaceCapabilitiesKHR& capabilities) const {
+VkExtent2D RenderAPI::getSwapchainExtent(const VkSurfaceCapabilitiesKHR& capabilities) const {
 	//Si está inicializado, devolver.
 	if (capabilities.currentExtent.width != UINT32_MAX)
 		return capabilities.currentExtent;
@@ -1403,7 +1403,7 @@ VkExtent2D VulkanRenderer::getSwapchainExtent(const VkSurfaceCapabilitiesKHR& ca
 }
 
 
-VkFormat VulkanRenderer::getSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features) const {
+VkFormat RenderAPI::getSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features) const {
 	for (VkFormat format : candidates) {
 		VkFormatProperties properties;
 		vkGetPhysicalDeviceFormatProperties(GPU, format, &properties);
@@ -1419,7 +1419,7 @@ VkFormat VulkanRenderer::getSupportedFormat(const std::vector<VkFormat>& candida
 }
 
 
-SwapchainSupportDetails VulkanRenderer::getSwapchainSupportDetails(VkPhysicalDevice gpu) const {
+SwapchainSupportDetails RenderAPI::getSwapchainSupportDetails(VkPhysicalDevice gpu) const {
 	SwapchainSupportDetails details;
 
 	//Obtener las capacidades.
@@ -1445,7 +1445,7 @@ SwapchainSupportDetails VulkanRenderer::getSwapchainSupportDetails(VkPhysicalDev
 }
 
 
-QueueFamilyIndices VulkanRenderer::findQueueFamilies(VkPhysicalDevice gpu) const {
+QueueFamilyIndices RenderAPI::findQueueFamilies(VkPhysicalDevice gpu) const {
 	QueueFamilyIndices indices{};
 
 	//Número de colas.
@@ -1479,7 +1479,7 @@ QueueFamilyIndices VulkanRenderer::findQueueFamilies(VkPhysicalDevice gpu) const
 }
 
 
-VkResult VulkanRenderer::CreateDebugUtilsMessengerEXT(VkInstance instance, const VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkDebugUtilsMessengerEXT* pDebugMessenger) {
+VkResult RenderAPI::CreateDebugUtilsMessengerEXT(VkInstance instance, const VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkDebugUtilsMessengerEXT* pDebugMessenger) {
 		auto func = (PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
 
 		if (func != nullptr)
@@ -1489,7 +1489,7 @@ VkResult VulkanRenderer::CreateDebugUtilsMessengerEXT(VkInstance instance, const
 	}
 
 
-VkBool32 VulkanRenderer::DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
+VkBool32 RenderAPI::DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
 		//Message severity:
 		//	VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT: "diagnostic" message.
 		//	VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT: información.

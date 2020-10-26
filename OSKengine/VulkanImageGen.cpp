@@ -4,9 +4,9 @@
 
 namespace OSK::VULKAN {
 
-	VulkanRenderer* VulkanImageGen::renderer = nullptr;
+	RenderAPI* VulkanImageGen::renderer = nullptr;
 
-	void VulkanImageGen::SetRenderer(VulkanRenderer* renderer) {
+	void VulkanImageGen::SetRenderer(RenderAPI* renderer) {
 		VulkanImageGen::renderer = renderer;
 	}
 

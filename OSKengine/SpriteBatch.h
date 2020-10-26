@@ -18,7 +18,7 @@ namespace OSK {
 	//Clase para el renderizado 2D.
 	class OSKAPI_CALL SpriteBatch {
 		
-		friend class VulkanRenderer;
+		friend class RenderAPI;
 	
 	public:
 
@@ -69,7 +69,7 @@ namespace OSK {
 
 		Vector2 GetTextPosition(const Vector2& position, const Vector2& textSize, const Anchor& anchor, const AnchorTextTo& to, const Vector4& reference = Vector4(0.0f)) const;
 
-		VulkanRenderer* renderer = nullptr;
+		RenderAPI* renderer = nullptr;
 
 		//2.7
 		//170

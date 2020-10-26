@@ -11,11 +11,6 @@ namespace OSK::UI {
 
 	}
 
-
-	/*void Checkbox::Draw(const RenderAPI& renderer) {
-		IUserInterfaceImage::Draw(renderer, *this);
-	}*/
-
 	void Checkbox::Draw(SpriteBatch& spriteBatch) {
 		IUserInterfaceImage::Draw(spriteBatch, *this);
 	}

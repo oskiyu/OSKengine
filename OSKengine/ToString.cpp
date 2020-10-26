@@ -38,43 +38,6 @@ namespace OSK {
 
 
 	OSK_INFO_GLOBAL
-	OSK::Vector2 GetTextSize(const std::string& texto, OldFont& fuente, const Vector2& size) {
-		//Char que se tomará como referencia en cuanto al tamaño de las letras.
-		OldFontChar reference = fuente.Characters['A'];
-		std::string::const_iterator iterador;
-
-		if (texto == "")
-			return Vector2(0.0f);
-
-		float_t temporalSizeX = 0.0f;
-		float_t sizeX = 0.0f;
-		float_t sizeY = reference.Bearing.y * size.Y + reference.Size.y * size.Y;
-
-		for (iterador = texto.begin(); iterador != texto.end(); iterador++) {
-			OldFontChar character = fuente.Characters[*iterador];
-			if (*iterador == '\n') {
-				if (temporalSizeX > sizeX) {
-					sizeX = temporalSizeX;
-					temporalSizeX = 0;
-
-					sizeY += reference.Bearing.y * size.Y + reference.Size.y * size.Y;
-				}
-			}
-			if (*iterador == '\t') {
-				temporalSizeX += (character.Bearing.x * size.X + character.Size.x * size.X) * SPACES_PER_TAB;
-			}
-
-			temporalSizeX += character.Bearing.x * size.X + character.Size.x * size.X;
-		}
-
-		if (temporalSizeX > sizeX)
-			sizeX = temporalSizeX;
-
-		return Vector2(sizeX, sizeY);
-	}
-
-
-	OSK_INFO_GLOBAL
 	std::string ToString(const GraphicsAPI& graphicsAPI) {
 		if (graphicsAPI == GraphicsAPI::OPENGL)
 			return "OpenGL";
@@ -82,10 +45,5 @@ namespace OSK {
 		return "Vulkan";
 	}
 
-
-	OSK_INFO_GLOBAL
-	Vector2 GetTextSize(const std::string& texto, OldFont& fuente, const float_t& size) {
-		return GetTextSize(texto, fuente, Vector2(size));
-	}
 
 }

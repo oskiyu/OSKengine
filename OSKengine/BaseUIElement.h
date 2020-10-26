@@ -10,8 +10,6 @@
 
 #include "AnchorEnum.h"
 #include "UIAnchorTypeEnum.h"
-#include "RenderAPI.h"
-#include "OldTexture.h"
 #include "UIInterfacesBitFlags.h"
 #include "SpriteBatch.h"
 
@@ -25,10 +23,6 @@ namespace OSK::UI {
 
 		//Destruye el elemento de UI.
 		virtual ~BaseUIElement() = default;
-
-		//Dibuja el elemento de UI.
-		//DEPRECATED.
-		//virtual void Draw(const RenderAPI& renderer) = 0;
 
 		//Dibuja el elemento de UI.
 		virtual void Draw(SpriteBatch& spriteBatch) = 0;

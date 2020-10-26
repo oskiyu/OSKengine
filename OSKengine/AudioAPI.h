@@ -5,12 +5,11 @@
 #include "OSKtypes.h"
 #include "Log.h"
 
-#include "OldCamera3D.h"
 #include "SoundEntity.h"
+#include "Camera3D.h"
 
 #include <alc.h>
 #include <glm.hpp>
-#include "Camera3D.h"
 
 namespace OSK {
 

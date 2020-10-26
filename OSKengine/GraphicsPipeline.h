@@ -28,7 +28,7 @@ namespace OSK {
 	//Represnta un graphics pipeline.
 	class OSKAPI_CALL GraphicsPipeline {
 
-		friend class VulkanRenderer;
+		friend class RenderAPI;
 		friend class RenderizableScene;
 
 	public:

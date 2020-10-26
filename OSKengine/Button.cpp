@@ -16,11 +16,6 @@ namespace OSK::UI {
 		IUserInterfaceImage::UpdatePosition();
 	}
 
-	/*void Button::Draw(const RenderAPI& renderer) {
-		IUserInterfaceImage::Draw(renderer, *this);
-		IUserInterfaceText::Draw(renderer, *this);
-	}*/
-
 
 	void Button::Draw(SpriteBatch& spriteBatch) {
 		IUserInterfaceImage::Draw(spriteBatch, *this);

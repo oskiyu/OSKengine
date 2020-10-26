@@ -22,12 +22,6 @@ namespace OSK::UI {
 		//Destructor del texto.
 		~Text();
 
-
-		//Renderiza el texto.
-		//DEPRECATED.
-		//void Draw(const RenderAPI& renderer) override;
-
-
 		//Renderiza el texto.
 		void Draw(SpriteBatch& spriteBatch) override;
 

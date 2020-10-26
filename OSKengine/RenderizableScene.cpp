@@ -5,7 +5,7 @@
 
 namespace OSK {
 
-	RenderizableScene::RenderizableScene(VulkanRenderer* renderer) {
+	RenderizableScene::RenderizableScene(RenderAPI* renderer) {
 		this->renderer = renderer;
 
 		SkyboxPipeline = renderer->SkyboxGraphicsPipeline;

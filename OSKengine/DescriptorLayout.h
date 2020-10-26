@@ -13,7 +13,7 @@ namespace OSK {
 	//Un descriptor layout describe, a grandes rasgos, cómo se pasa la información de la CPU a la GPU.
 	class OSKAPI_CALL DescriptorLayout {
 
-		friend class VulkanRenderer;
+		friend class RenderAPI;
 
 	public:
 

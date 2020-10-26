@@ -12,6 +12,9 @@
 #include "VulkanImageGen.h"
 #include <al.h>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stbi_image.h"
+
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stbi_image_write.h"
 
@@ -24,7 +27,7 @@ namespace OSK {
 	const std::string ContentManager::DEFAULT_TEXTURE_PATH = "assets/engine/default_texture";
 	ModelTexture* ContentManager::DefaultTexture = nullptr;
 
-	ContentManager::ContentManager(VulkanRenderer* renderer) {
+	ContentManager::ContentManager(RenderAPI* renderer) {
 		this->renderer = renderer;
 
 		Textures = {};

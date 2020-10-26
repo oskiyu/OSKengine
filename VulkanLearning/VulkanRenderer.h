@@ -4,7 +4,7 @@
 
 namespace OSK {
 
-	class VulkanRenderer {
+	class RenderAPI {
 
 	public:
 

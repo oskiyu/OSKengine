@@ -6,7 +6,6 @@
 #include "Log.h"
 
 #include "BaseUIElement.h"
-#include "OldTexture.h"
 #include "SpriteBatch.h"
 
 namespace OSK::UI {
@@ -21,10 +20,6 @@ namespace OSK::UI {
 		virtual ~IUserInterfaceImage() = default;
 
 
-		//Renderiza la imagen.
-		//DEPRECATED.
-		//void Draw(const RenderAPI& renderer, const BaseUIElement& base);
-
 
 		//Renderiza la imagen.
 		void Draw(SpriteBatch& spriteBatch, const BaseUIElement& base);
@@ -38,11 +33,6 @@ namespace OSK::UI {
 
 		//Color de la imagen.
 		Color ImageColor = Color(1.0f);
-
-
-		//Textura a renderizar.
-		//DEPRECATED.
-		OldTexture* ImageTexture = nullptr;
 
 		//Imagen a renderizar.
 		Sprite Image{};

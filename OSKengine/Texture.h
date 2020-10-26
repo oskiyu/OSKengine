@@ -5,12 +5,12 @@
 
 namespace OSK {
 
-	class VulkanRenderer;
+	class RenderAPI;
 	class DescriptorSet;
 
 	//Textura 2D.
 	struct OSKAPI_CALL Texture {
-		friend class VulkanRenderer;
+		friend class RenderAPI;
 		friend class Sprite;
 		friend class ContentManager;
 
@@ -29,7 +29,7 @@ namespace OSK {
 
 	//Textura para 3D.
 	struct OSKAPI_CALL ModelTexture {
-		friend class VulkanRenderer;
+		friend class RenderAPI;
 		friend class ContentManager;
 
 	public:
@@ -53,7 +53,7 @@ namespace OSK {
 
 
 	struct OSKAPI_CALL SkyboxTexture {
-		friend class VulkanRenderer;
+		friend class RenderAPI;
 		friend class ContentManager;
 		friend class Skybox;
 

@@ -271,7 +271,7 @@ Añadidos `typedef`s para algunas variables de OpenGL y para las variables del Mo
 ###### RenderAPI:
 - ReservedText.
     - Permite reservar memoria para almacenar los sprites de un texto.
-    - Puede asignarse memoria mediante `<Reserve()>` o `<SetText>`.
+    - Puede asignarse memoria mediante `<Reserve()>` o `<SetText()>`.
 - SpriteBatch:
     - Renderizado de texto:
         - Permite renderizar *ReservedText*s.
@@ -286,3 +286,31 @@ Añadidos `typedef`s para algunas variables de OpenGL y para las variables del Mo
 
 ###### Bugfixes:
 - **Bugfix**: las *texcoords* de los sprites se establecen correctamente (X, Y, WIDTH, HEIGHT en vez de X1, Y1, X2, Y2).
+
+
+## 2020.10.26a
+- Eliminado oficialmente el soporte de OpenGL.
+
+###### OpenGL RenderAPI (**ELIMINADO**)
+- RenderAPI: **eliminado**.
+- Material: **eliminado**.
+- Shader: **eliminado**.
+- Mesh: **eliminado**.
+- OldModel: **eliminado**.
+- OldCamera: **eliminado**.
+- OldFont: **eliminado**.
+- OldVertex: **eliminado**.
+- RenderAPI: **eliminado**.
+- Animación esqueletal:
+    - Bone: **eliminado**.
+    - Skeleton: **eliminado**.
+    - Animation: **eliminado**.
+
+###### ContentAPI
+- ContentAPI: **eliminado** (reempazado por *ContentManager*).
+
+###### UserInterface
+- Ya no usa funciones del renderizador OpenGL.
+
+###### RenderAPI:
+- *VulkanRenderer* renombrado a *RenderAPI*.
