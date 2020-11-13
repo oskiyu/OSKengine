@@ -8,11 +8,11 @@ namespace OSK::NET {
 
 	//Inicializa OSK::NET.
 	//Necesario antes de hacer usar OSK::NET.
-	OSKAPI_CALL bool GlobalInit();
+	bool OSKAPI_CALL GlobalInit();
 
 
 	//Cierra OSK::NET.
 	//Necesario antes de salir del programa.
-	OSKAPI_CALL void GlobalShutdown();
+	void OSKAPI_CALL GlobalShutdown();
 
 }

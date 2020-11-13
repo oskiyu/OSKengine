@@ -109,7 +109,7 @@ namespace OSK {
 		vkUnmapMemory(renderer->LogicalDevice, stagingBuffer.Memory);
 
 		stbi_image_free(pixels);
-		VulkanImageGen::CreateImage(&loadedTexture->Albedo, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
+		VulkanImageGen::CreateImage(&loadedTexture->Albedo, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
 
 		VulkanImageGen::TransitionImageLayout(&loadedTexture->Albedo, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, 1);
 		VulkanImageGen::CopyBufferToImage(&stagingBuffer, &loadedTexture->Albedo, width, height);
@@ -264,7 +264,7 @@ namespace OSK {
 			vkUnmapMemory(renderer->LogicalDevice, stagingBuffer.Memory);
 
 			stbi_image_free(pixels);
-			VulkanImageGen::CreateImage(&loadedTexture->Albedo, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, mipLevels);
+			VulkanImageGen::CreateImage(&loadedTexture->Albedo, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, mipLevels);
 
 			VulkanImageGen::TransitionImageLayout(&loadedTexture->Albedo, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, mipLevels, 1);
 			VulkanImageGen::CopyBufferToImage(&stagingBuffer, &loadedTexture->Albedo, width, height);
@@ -298,7 +298,7 @@ namespace OSK {
 			vkUnmapMemory(renderer->LogicalDevice, stagingBuffer.Memory);
 
 			stbi_image_free(pixels);
-			VulkanImageGen::CreateImage(&loadedTexture->Specular, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, mipLevels);
+			VulkanImageGen::CreateImage(&loadedTexture->Specular, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, mipLevels);
 
 			VulkanImageGen::TransitionImageLayout(&loadedTexture->Specular, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, mipLevels, 1);
 			VulkanImageGen::CopyBufferToImage(&stagingBuffer, &loadedTexture->Specular, width, height);
@@ -309,7 +309,6 @@ namespace OSK {
 
 			VulkanImageGen::CreateImageView(&loadedTexture->Specular, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, mipLevels);
 		}
-		renderer->CreateNewPhongDescriptorSet(loadedTexture, loadedTexture->Albedo.Sampler, loadedTexture->Specular.Sampler);
 
 		ModelTextures.push_back(loadedTexture);
 		ModelTextureFromPath[rootPath] = ModelTextures.back();
@@ -547,7 +546,7 @@ namespace OSK {
 
 		numberOfPixels = textureSizeX * textureSizeY;
 		data = new uint8_t[numberOfPixels];
-		memset(data, 255, numberOfPixels);
+		memset(data, 0, numberOfPixels);
 
 		uint32_t currentX = 0;
 		for (uint32_t c = 0; c < 255; c++) {
@@ -580,7 +579,7 @@ namespace OSK {
 
 			renderer->createSpriteVertexBuffer(&fuente->Characters[c].sprite);
 
-			fuente->Characters[c].sprite.SetTexCoordsInPercent(Vector4f{ (float)currentX / textureSizeX, 0, (float)faces[c].sizeX / textureSizeX, (float)faces[c].sizeY / textureSizeY });
+			fuente->Characters[c].sprite.SetTexCoords(Vector4ui{ currentX, 0, faces[c].sizeX, faces[c].sizeY }.ToVector4f());
 
 			Sprites.push_back(&fuente->Characters[c].sprite);
 

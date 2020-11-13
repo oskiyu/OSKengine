@@ -47,14 +47,18 @@ namespace OSK::VULKAN {
 		description.pDepthStencilAttachment = &attachment.reference;
 	}
 
-	void RenderpassSubpass::Set(const uint32_t& srcSubpass, const uint32_t& dstSubpass, VkPipelineStageFlags sourceStageMask, VkAccessFlags sourceAccess, VkPipelineStageFlags destStageMask, VkAccessFlags destAccess){
-		dependency.srcSubpass = srcSubpass;
+	void RenderpassSubpass::AddDependency(SubpassDependency dependency) {
+		dependencies.push_back(dependency);
+	}
+
+	void RenderpassSubpass::Set(/*const uint32_t& srcSubpass, const uint32_t& dstSubpass, VkPipelineStageFlags sourceStageMask, VkAccessFlags sourceAccess, VkPipelineStageFlags destStageMask, VkAccessFlags destAccess*/){
+/*		dependency.srcSubpass = srcSubpass;
 		dependency.dstSubpass = dstSubpass;
 		dependency.srcStageMask = sourceStageMask;
 		dependency.srcAccessMask = sourceAccess;
 		dependency.dstStageMask = destStageMask;
 		dependency.dstAccessMask = destAccess;
-	}
+*/	}
 
 	Renderpass::Renderpass(VkDevice logicalDevice) {
 		this->logicalDevice = logicalDevice;
@@ -88,8 +92,10 @@ namespace OSK::VULKAN {
 			subpasses.push_back(i.description);
 
 		std::vector<VkSubpassDependency> subpassesDependencies;
-		for (auto& i : this->subpasses)
-			subpassesDependencies.push_back(i.dependency);
+		for (auto& i : this->subpasses) {
+			for (auto& d : i.dependencies)
+				subpassesDependencies.push_back(d.VulkanDependency);
+		}
 
 		VkRenderPassCreateInfo renderPassInfo{};
 		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;

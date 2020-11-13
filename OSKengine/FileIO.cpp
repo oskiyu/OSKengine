@@ -41,6 +41,7 @@ namespace OSK {
 
 		//Error handling
 		if (!file.is_open()) {
+			Logger::Log(LogMessageLevels::BAD_ERROR, "ERROR: abrir archivo " + filename);
 			throw std::runtime_error("ERROR: abrir archivo " + filename);
 		}
 

@@ -13,6 +13,7 @@ namespace OSK {
 	//Push constants de un sprite.
 	struct OSKAPI_CALL PushConst2D {
 		glm::mat4 model;
+		glm::mat4 camera = glm::mat4(1.0f);
 		glm::vec4 color = glm::vec4(1.0f);
 	};
 
@@ -47,7 +48,7 @@ namespace OSK {
 
 		bool isOutOfScreen = false;
 
-		PushConst2D getPushConst();
+		PushConst2D getPushConst(const glm::mat4& camera);
 
 		glm::mat4 model = glm::mat4(1);
 		

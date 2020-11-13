@@ -314,3 +314,40 @@ Añadidos `typedef`s para algunas variables de OpenGL y para las variables del Mo
 
 ###### RenderAPI:
 - *VulkanRenderer* renombrado a *RenderAPI*.
+
+
+## 2020.11.13a
+
+- *Validation layers* reactivados.
+- Renderizado a texturas.
+
+###### RenderAPI
+- RenderTarget (**WIP!**):
+    - Sirve para renderizar una imagen a una textura en vez de a la pantalla.
+    - Contiene:
+        - Sprite donde se renderiza.
+        - Framebuffers.
+        - Referencias a pipelines.
+
+- Framebuffer:
+    - Encapsula un framebuffer de Vulkan.
+
+- RenderAPI:
+    - Ahora renderiza por defecto a un render target.
+        - Puede renderizar a una resolución distinta a la final.
+    - Ya no tiene LightUBOs.
+    - Se pueden crear `<DescriptorSets>` para *n* elementos, en vez de para `<Settings.MaxTextures>` elementos.
+
+- VulkanImageGen:
+    - `<TransitionImageLayout`> ahora puede utilizar un Command Buffer que le pases, en vez del SingleTimeCommandBuffer por defecto.
+
+- RenderpassSubpass:
+    - Ahora puedes añadir varias dependencias.
+
+- 2D rendering:
+    - Ahora la cámara está embebida en los push constants.
+    - Los shaders 2D no usan la cámara del UBO.
+
+###### Bugfixes:
+- **Bugfix**: `<SkyboxDescriptorLayout.PoolSize = 1>`.
+- **Bugfix**: `<LoadModelTexture()>` ahora usa correctaments `<VK_IMAGE_USAGE_TRANSFER_SRC_BIT>` para generar los mipmaps.

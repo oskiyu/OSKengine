@@ -116,7 +116,7 @@ namespace OSK {
 
 		VkPipelineMultisampleStateCreateInfo multisampling{};
 
-		VkPipelineColorBlendAttachmentState colorBlendAttachment{};
+		std::vector<VkPipelineColorBlendAttachmentState> colorBlendAttachments{};
 		VkPipelineColorBlendStateCreateInfo colorBlending{};
 
 		VkPipelineDepthStencilStateCreateInfo depthStencilCreateInfo{};

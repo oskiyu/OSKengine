@@ -5,13 +5,13 @@
 
 namespace OSK {
 
-	RenderizableScene::RenderizableScene(RenderAPI* renderer) {
+	RenderizableScene::RenderizableScene(RenderAPI* renderer, uint32_t maxInitEntities) {
 		this->renderer = renderer;
 
-		SkyboxPipeline = renderer->SkyboxGraphicsPipeline;
+		SkyboxPipeline = renderer->DefaultSkyboxGraphicsPipeline;
 		SetGraphicsPipeline();
 
-		CreateDescriptorLayout();
+		CreateDescriptorLayout(maxInitEntities);
 		SetupLightsUBO();
 		InitLightsBuffers();
 		UpdateLightsBuffers();
@@ -29,13 +29,13 @@ namespace OSK {
 		delete PhongDescriptorLayout;
 	}
 
-	void RenderizableScene::CreateDescriptorLayout() {
+	void RenderizableScene::CreateDescriptorLayout(uint32_t maxSets) {
 		PhongDescriptorLayout = renderer->CreateNewDescriptorLayout();
 		PhongDescriptorLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
 		PhongDescriptorLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
 		PhongDescriptorLayout->AddBinding(2, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_FRAGMENT_BIT);
 		PhongDescriptorLayout->AddBinding(3, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
-		PhongDescriptorLayout->Create(renderer->Settings.MaxTextures);
+		PhongDescriptorLayout->Create(maxSets);
 	}
 
 	void RenderizableScene::SetupLightsUBO() {
@@ -96,7 +96,7 @@ namespace OSK {
 	void RenderizableScene::RecreateGraphicsPipeline() {
 		delete CurrentGraphicsPipeline;
 		SetGraphicsPipeline();
-		SkyboxPipeline = renderer->SkyboxGraphicsPipeline;
+		SkyboxPipeline = renderer->DefaultSkyboxGraphicsPipeline;
 	}
 
 	void RenderizableScene::LoadHeightmap(const std::string& path, const Vector2f& quadSize, const float_t& maxHeight) {

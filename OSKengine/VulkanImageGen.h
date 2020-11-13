@@ -41,6 +41,9 @@ namespace OSK::VULKAN {
 		//Crea un image view (cómo se accede a la imagen).
 		static void CreateImageView(VULKAN::VulkanImage* img, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, const uint32_t& layerCount, const uint32_t& mipLevels);
 
+		//Crea un image view (cómo se accede a la imagen).
+		static void CreateImageView(VkImageView* view, VkImage* image, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, const uint32_t& layerCount, const uint32_t& mipLevels);
+
 		//Crea el image sampler de una imagen.
 		//	<image>: imagen.
 		//	<filter>: filtro (LINEAR: suave / NEAREST: pixelado).
@@ -67,7 +70,8 @@ namespace OSK::VULKAN {
 		//	<newLayout>: próximo layout de la igen.
 		//	<mipLevels>: miplevels.
 		//	<arrayLevels>: arrayLevels.
-		static void TransitionImageLayout(VulkanImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, const uint32_t& mipLevels, const uint32_t& arrayLevels);
+		//	<cmdBuffer>: command buffer que se usará (si es nullptr, se creará uno).
+		static void TransitionImageLayout(VulkanImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, const uint32_t& mipLevels, const uint32_t& arrayLevels, VkCommandBuffer* cmdBuffer = nullptr);
 
 		//Crea una imagen a partir de un bitmap.
 		//	<width>: ancho del bitmap.

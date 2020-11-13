@@ -29,6 +29,9 @@
 
 #include "VulkanImageGen.h"
 #include "ProfilingUnit.h"
+#include "Framebuffer.h"
+
+#include "RenderTarget.h"
 
 namespace OSK {
 
@@ -37,9 +40,11 @@ namespace OSK {
 		friend class ContentManager;
 		friend class RenderizableScene;
 		friend class VULKAN::VulkanImageGen;
+		friend class VULKAN::Framebuffer;
 
 	public:
 	
+		RenderTarget target;
 
 		//Inicializa el renderizador.
 		//	<mode>: modo de renderizado (2D / 2D + 3D).
@@ -101,11 +106,7 @@ namespace OSK {
 		GraphicsPipeline* CreateNewPhongPipeline(const std::string& vertexPath, const std::string& fragmentPath) const;
 
 		//Crea un nuevo descriptor layout configurado para usarse con el motor de iluminación PHONG.
-		DescriptorLayout* CreateNewPhongDescriptorLayout() const;
-
-		//Crea el descriptor set de PHONG para la textura de un modelo 3D.
-		//	<texture>: textura a la que se le configurará su descriptor set de PHONG.
-		void CreateNewPhongDescriptorSet(ModelTexture* texture, VkSampler albedoSampler, VkSampler specularSampler) const;
+		DescriptorLayout* CreateNewPhongDescriptorLayout(uint32_t maxSets) const;
 
 		//Skybox.
 		GraphicsPipeline* CreateNewSkyboxPipeline(const std::string& vertexPath, const std::string& fragmentPath) const;
@@ -147,16 +148,15 @@ namespace OSK {
 			std::string SkyboxVertexPath = "shaders/VK_Skybox/vert.spv";
 			std::string SkyboxFragmentPath = "shaders/VK_Skybox/frag.spv";
 
-			uint32_t MaxTextures = 32;
-
 			bool AutoUpdateCommandBuffers = true;
 		} Settings;
 
 
 		std::vector<VkCommandBuffer> CommandBuffers;
 
-		//Camera bidimensional.
+		//Camaras.
 		Camera2D DefaultCamera2D{};
+		Camera2D RenderTargetCamera2D{};
 		Camera3D DefaultCamera3D{0, 0, 0};
 
 		//Ventana asociada.
@@ -167,9 +167,9 @@ namespace OSK {
 
 		VULKAN::Renderpass* renderpass;
 
-		GraphicsPipeline* GraphicsPipeline2D;
-		GraphicsPipeline* GraphicsPipeline3D;
-		GraphicsPipeline* SkyboxGraphicsPipeline;
+		GraphicsPipeline* DefaultGraphicsPipeline2D;
+		GraphicsPipeline* DefaultGraphicsPipeline3D;
+		GraphicsPipeline* DefaultSkyboxGraphicsPipeline;
 
 		ContentManager* Content = new ContentManager(this);
 
@@ -181,6 +181,10 @@ namespace OSK {
 		Sprite OSKengineIconSprite;
 		Sprite OSK_IconSprite;
 
+		Sprite RenderTargetSprite;
+		unsigned int RenderTargetSizeX = 1024;
+		unsigned int RenderTargetSizeY = 720;
+		float RenderResolutionMultiplier = 2.0f; //Record = 17.0f { 32640 x 18360 }
 
 	private:
 
@@ -320,7 +324,7 @@ namespace OSK {
 		//Logical device.
 		VkDevice LogicalDevice;
 
-		std::vector<VkFramebuffer> Framebuffers;
+		std::vector<VULKAN::Framebuffer*> Framebuffers;
 
 		//Sync.
 		//GPU to CPU.
@@ -360,12 +364,9 @@ namespace OSK {
 		DescriptorLayout* PhongDescriptorLayout = nullptr;
 		DescriptorLayout* SkyboxDescriptorLayout = nullptr;
 
-		//game
-		LightUBO lights{};
-		std::vector<VulkanBuffer> LightsUniformBuffers;
-
 		/*NEW SYNC*/
 		VkFence* fences = nullptr;
+		
 	};
 
 }

@@ -4,9 +4,11 @@
 #include <iostream>
 
 #include <OSKnet/Server.h>
+#include <OSKnet/OSKnet.hpp>
 
 int main()
 {
+    OSK::NET::GlobalInit();
     OSK::NET::Server server{};
     std::cout << "Hello World!\n";
 

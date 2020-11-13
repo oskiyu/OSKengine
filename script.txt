@@ -1,0 +1,8 @@
+@ECHO OFF
+ECHO Copiando archivos .h ...
+
+for /R C:\Users\Oscar\source\repos\OSKengine\OSKengine %%f in (*.h) do copy %%f C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\Includes\OSKengine
+
+ECHO Copiando archivos .hpp ...
+
+for /R C:\Users\Oscar\source\repos\OSKengine\OSKengine %%f in (*.hpp) do copy %%f C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\Includes\OSKengine

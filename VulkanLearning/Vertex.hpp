@@ -25,7 +25,7 @@ struct Vertex {
 	}
 
 	//Atributos que se pasan a la GPU.
-	static std::array<VkVertexInputAttributeDescription, 3> GetAttributeDescriptions() {
+	static std::array<VkVertexInputAttributeDescription, 3> GetAttributeDescriptions_FullVertex() {
 		std::array<VkVertexInputAttributeDescription, 3> attributeDesc{};
 
 		//Posición.

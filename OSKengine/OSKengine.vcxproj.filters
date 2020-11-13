@@ -37,9 +37,6 @@
     <Filter Include="Archivos de encabezado\OSKengine\Enums">
       <UniqueIdentifier>{24b6b6fc-3f80-4b3b-a4b3-dee90d02709c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Game">
-      <UniqueIdentifier>{ec6b06f9-05bb-47ae-992f-29aa393b4b0e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine">
       <UniqueIdentifier>{e4054336-90a8-4d4d-bc5b-ce844b21090f}</UniqueIdentifier>
     </Filter>
@@ -299,6 +296,12 @@
     </ClCompile>
     <ClCompile Include="ReservedText.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\SpriteRendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Framebuffer.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTarget.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -613,6 +616,12 @@
     </ClInclude>
     <ClInclude Include="SpriteContainer.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\SpriteRendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Framebuffer.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTarget.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

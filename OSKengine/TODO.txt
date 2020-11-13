@@ -118,7 +118,16 @@ Transform:
 -Bugfix: las normales del terreno se calculan mejor.
 
 -Drop OpenGL support.
-
--Offscreen rendering.
+>Createdescriptor layout -> specify max sets
+>Skybox desc layout pool size = 1
+>Validation layers: ON
+>RenderTarget
+>Framebuffer
+>CreateimageView(VkImageView, VkImage)
+>TransitionImageLayout: custom command buffer.
+>LoadModelTexture VK_IMAGE_USAGE_TRANSFER_SRC_BIT for blit
+>Framebuffer clear()
+>Vertex attributes diff
+>Offscreen rendering.
 
 -Directional shadow mapping.

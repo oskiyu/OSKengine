@@ -147,9 +147,13 @@ namespace OSK::VULKAN {
 	}
 
 	void VulkanImageGen::CreateImageView(VulkanImage* img, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, const uint32_t& layerCount, const uint32_t& mipLevels) {
+		CreateImageView(&img->View, &img->Image, format, aspect, type, layerCount, mipLevels);
+	}
+
+	void VulkanImageGen::CreateImageView(VkImageView* view, VkImage* image, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, const uint32_t& layerCount, const uint32_t& mipLevels) {
 		VkImageViewCreateInfo viewInfo{};
 		viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-		viewInfo.image = img->Image;
+		viewInfo.image = *image;
 		viewInfo.viewType = type;
 		viewInfo.format = format;
 		viewInfo.subresourceRange.aspectMask = aspect;
@@ -158,7 +162,7 @@ namespace OSK::VULKAN {
 		viewInfo.subresourceRange.baseArrayLayer = 0;
 		viewInfo.subresourceRange.layerCount = layerCount;
 
-		VkResult result = vkCreateImageView(renderer->LogicalDevice, &viewInfo, nullptr, &img->View);
+		VkResult result = vkCreateImageView(renderer->LogicalDevice, &viewInfo, nullptr, view);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear image view.");
 	}
@@ -188,8 +192,14 @@ namespace OSK::VULKAN {
 		renderer->endSingleTimeCommandBuffer(cmdBuffer);
 	}
 	
-	void VulkanImageGen::TransitionImageLayout(VulkanImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, const uint32_t& mipLevels, const uint32_t& arrayLevels) {
-		VkCommandBuffer cmdBuffer = renderer->beginSingleTimeCommandBuffer();
+	void VulkanImageGen::TransitionImageLayout(VulkanImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, const uint32_t& mipLevels, const uint32_t& arrayLevels, VkCommandBuffer* cmdBuffer) {
+		bool hasBeenProvided = true;
+		
+		if (!cmdBuffer) {
+			VkCommandBuffer temp = renderer->beginSingleTimeCommandBuffer();
+			cmdBuffer = &temp;
+			hasBeenProvided = false;
+		}
 
 		VkImageMemoryBarrier barrier{};
 		barrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
@@ -209,31 +219,54 @@ namespace OSK::VULKAN {
 		VkPipelineStageFlags sourceStage;
 		VkPipelineStageFlags destinationStage;
 
-		if (oldLayout == VK_IMAGE_LAYOUT_UNDEFINED && newLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL) {
-			barrier.srcAccessMask = 0;
-			barrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+		switch (oldLayout) {
+			case VK_IMAGE_LAYOUT_UNDEFINED:
+				barrier.srcAccessMask = 0;
+				sourceStage = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
+				break;
 
-			sourceStage = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
-			destinationStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
+			case VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL:
+				barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+				sourceStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
+				break;
+
+			case VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL:
+				barrier.srcAccessMask = VK_ACCESS_SHADER_READ_BIT;
+				sourceStage = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+				break;
+
+			case VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL:
+				barrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+				sourceStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+				break;
 		}
-		else if (oldLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL && newLayout == VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL) {
-			barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
-			barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
 
-			sourceStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
-			destinationStage = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+		switch (newLayout) {
+			case VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL:
+				barrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+				destinationStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
+				break;
+
+			case VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL:
+				barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
+				destinationStage = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+				break;
+
+			case VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL:
+				barrier.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+				destinationStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+				break;
 		}
-		else {
-			throw std::invalid_argument("unsupported layout transition!");
-		}
 
-		vkCmdPipelineBarrier(cmdBuffer, sourceStage, destinationStage, 0, 0, nullptr, 0, nullptr, 1, &barrier);
+		vkCmdPipelineBarrier(*cmdBuffer, sourceStage, destinationStage, 0, 0, nullptr, 0, nullptr, 1, &barrier);
 
-		renderer->endSingleTimeCommandBuffer(cmdBuffer);
+		if (!hasBeenProvided)
+			renderer->endSingleTimeCommandBuffer(*cmdBuffer);
 	}
 
 	VulkanImage VulkanImageGen::CreateImageFromBitMap(uint32_t width, uint32_t height, uint8_t* pixels) {
 		VulkanImage image{};
+		
 		CreateImage(&image, { width, height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
 
 		VkDeviceSize imageSize = (VkDeviceSize)width * height * 4;

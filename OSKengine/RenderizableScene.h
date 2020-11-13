@@ -24,14 +24,14 @@ namespace OSK {
 	public:
 
 		//Crea una nueva escena.
-		RenderizableScene(RenderAPI* renderer);
+		RenderizableScene(RenderAPI* renderer, uint32_t maxInitEntities);
 
 		//Destruye la escena.
 		~RenderizableScene();
 
 		//Crea el descriptor layout de la escena.
 		//Por defecto crea un PHONG descriptor layout.
-		virtual void CreateDescriptorLayout();
+		virtual void CreateDescriptorLayout(uint32_t maxSets);
 
 		//Establece las propiedades de las luces de la escena.
 		//El número de luces NO puede cambiar.
@@ -92,6 +92,7 @@ namespace OSK {
 		ContentManager* Content = nullptr;
 
 		std::vector<VulkanBuffer> LightsUniformBuffers;
+
 
 	private:
 

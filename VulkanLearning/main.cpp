@@ -515,7 +515,7 @@ private:
 		//Información que le pasamos a los shaders.
 		//Vértices.
 		const auto bindingDesc = Vertex::GetBindingDescription();
-		const auto attribDesc = Vertex::GetAttributeDescriptions();
+		const auto attribDesc = Vertex::GetAttributeDescriptions_FullVertex();
 
 		VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
 		vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
@@ -685,7 +685,7 @@ private:
 		//Información que le pasamos a los shaders.
 		//Vértices.
 		const auto bindingDesc = Vertex::GetBindingDescription();
-		const auto attribDesc = Vertex::GetAttributeDescriptions();
+		const auto attribDesc = Vertex::GetAttributeDescriptions_FullVertex();
 
 		VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
 		vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;

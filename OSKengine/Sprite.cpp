@@ -42,9 +42,9 @@ namespace OSK {
 		SetTexCoords(Vector4(x, y, width, hegith));
 	}
 
-	PushConst2D Sprite::getPushConst() {
+	PushConst2D Sprite::getPushConst(const glm::mat4& camera) {
 		SpriteTransform.UpdateModel();
-		return PushConst2D{ SpriteTransform.ModelMatrix, color.ToGLM() };
+		return PushConst2D{ SpriteTransform.ModelMatrix, camera, color.ToGLM() };
 	}
 
 }

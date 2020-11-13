@@ -71,11 +71,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\Program Files\KTX-Software\include;D:\Dev\VulkanSDK\1.2.131.2\Include;D:\Dev\freetype-2.10.1\include;D:\Dev\OpenAL\include;C:\Program Files\Assimp\include;D:\Dev\glm\glm;D:\Dev\GLAD\include;D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\include\GLFW;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Dev\OpenAL\libs\Win64;D:\Dev\assimp-4.1.0\assimp-4.1.0\lib\Debug;D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\lib-vc2019;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\LibDebug;D:\Dev\OpenAL\libs\Win64;D:\Dev\assimp-4.1.0\assimp-4.1.0\lib\Debug;D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\lib-vc2019;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Program Files\KTX-Software\include;D:\Dev\VulkanSDK\1.2.131.2\Include;D:\Dev\freetype-2.10.1\include;D:\Dev\OpenAL\include;C:\Program Files\Assimp\include;D:\Dev\glm\glm;D:\Dev\GLAD\include;D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\include\GLFW;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Dev\OpenAL\libs\Win64;D:\Dev\assimp-4.1.0\assimp-4.1.0\lib\Debug;D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\lib-vc2019;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\Lib;D:\Dev\OpenAL\libs\Win64;D:\Dev\assimp-4.1.0\assimp-4.1.0\lib\Debug;D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\lib-vc2019;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -154,6 +154,7 @@
     <ClCompile Include="CollisionSphere.cpp" />
     <ClCompile Include="DescriptorLayout.cpp" />
     <ClCompile Include="DescriptorSet.cpp" />
+    <ClCompile Include="Framebuffer.cpp" />
     <ClCompile Include="GraphicsPipeline.cpp" />
     <ClCompile Include="ContentManager.cpp" />
     <ClCompile Include="LightsUBO.cpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="RayCast.cpp" />
     <ClCompile Include="RenderizableScene.cpp" />
     <ClCompile Include="Renderpass.cpp" />
+    <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="ReservedText.cpp" />
     <ClCompile Include="SAT_Collider.cpp" />
     <ClCompile Include="Skybox.cpp" />
@@ -216,6 +218,7 @@
     <ClInclude Include="DescriptorLayout.h" />
     <ClInclude Include="DescriptorSet.h" />
     <ClInclude Include="DynamicArray.h" />
+    <ClInclude Include="Framebuffer.h" />
     <ClInclude Include="GraphicsPipeline.h" />
     <ClInclude Include="ContentManager.h" />
     <ClInclude Include="Heightmap.h" />
@@ -239,6 +242,7 @@
     <ClInclude Include="RayCast.h" />
     <ClInclude Include="Renderpass.h" />
     <ClInclude Include="RenderizableScene.h" />
+    <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="ReservedText.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SAT_Collider.h" />
