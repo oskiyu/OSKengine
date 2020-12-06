@@ -13,6 +13,10 @@ layout(binding = 0) uniform UniformBufferObject {
     vec3 cameraPos;
 } camera;
 
+layout(binding = 1) uniform DirLightsUBO {
+    mat4 lightMat;
+} DLight;
+
 layout (push_constant) uniform PushConst {
     mat4 model;
 } model;
@@ -29,6 +33,7 @@ layout(location = 0) out vec3 fragNormal;
 layout(location = 1) out vec2 fragTexCoords;
 layout(location = 2) out vec3 fragPos;
 layout(location = 3) out vec3 cameraPos;
+layout(location = 4) out vec4 lightSpace;
 
 void main() {
     mat4 bonesMat = camera.bones[inBoneIDs[0]] * inBoneWeights[0];
@@ -38,6 +43,7 @@ void main() {
 
     gl_Position = camera.proj * camera.view * model.model * bonesMat * vec4(inPosition, 1.0);
     fragPos = (model.model * bonesMat * vec4(inPosition, 1.0)).xyz;
+    lightSpace = DLight.lightMat * vec4(fragPos, 1.0);
     fragNormal = mat3(transpose(inverse(model.model * bonesMat))) * inNormal;
     fragTexCoords = inTexCoords;
     cameraPos = camera.cameraPos;

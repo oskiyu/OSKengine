@@ -2,11 +2,16 @@
 
 #include "VulkanRenderer.h"
 #include "AnchorTextToEnum.h"
+#include "Camera2D.h"
 
 namespace OSK {
 
 	SpriteBatch::SpriteBatch() {
 
+	}
+
+	SpriteBatch::~SpriteBatch() {
+		spritesToDraw.clear();
 	}
 
 	void SpriteBatch::DrawSprite(Sprite sprite) {
@@ -244,6 +249,10 @@ namespace OSK {
 			default:
 				return Vector2(refr.X + position.X, refr.Y + position.Y);
 		}
+	}
+
+	void SpriteBatch::SetCamera(const Camera2D& camera) {
+		cameraMat = camera.projection;
 	}
 
 	void SpriteBatch::Clear() {

@@ -7,18 +7,22 @@ namespace OSK {
 
 	RenderizableScene::RenderizableScene(RenderAPI* renderer, uint32_t maxInitEntities) {
 		this->renderer = renderer;
-
+		
 		SkyboxPipeline = renderer->DefaultSkyboxGraphicsPipeline;
 		SetGraphicsPipeline();
+
+		Content = new ContentManager(this->renderer);
+		shadowMap = new ShadowMap(renderer, Content);
+		shadowMap->Create({ 1024, 1024 });
 
 		CreateDescriptorLayout(maxInitEntities);
 		SetupLightsUBO();
 		InitLightsBuffers();
 		UpdateLightsBuffers();
 
-		Content = new ContentManager(this->renderer);
 
 		DefaultTexture = Content->LoadModelTexture(ContentManager::DEFAULT_TEXTURE_PATH);
+
 		CreateDescriptorSet(DefaultTexture);
 	}
 
@@ -27,32 +31,37 @@ namespace OSK {
 		if (Terreno != nullptr)
 			delete Terreno;
 		delete PhongDescriptorLayout;
+
+		delete shadowMap;
 	}
 
 	void RenderizableScene::CreateDescriptorLayout(uint32_t maxSets) {
 		PhongDescriptorLayout = renderer->CreateNewDescriptorLayout();
 		PhongDescriptorLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
-		PhongDescriptorLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
-		PhongDescriptorLayout->AddBinding(2, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_FRAGMENT_BIT);
-		PhongDescriptorLayout->AddBinding(3, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
+		PhongDescriptorLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
+		PhongDescriptorLayout->AddBinding(2, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
+		PhongDescriptorLayout->AddBinding(3, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_FRAGMENT_BIT);
+		PhongDescriptorLayout->AddBinding(4, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
+		PhongDescriptorLayout->AddBinding(5, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
 		PhongDescriptorLayout->Create(maxSets);
 	}
 
 	void RenderizableScene::SetupLightsUBO() {
 		Lights.Points.resize(16);
-		Lights.Points.push_back({});
-		Lights.Points[0].infos.y = 100;
-		Lights.Points[0].Color = OSK::Color(0.0f, 1.0f, 1.0f).ToGLM();
+		Lights.Points[0].Color = OSK::Color(1.0f, 1.0f, 1.0f).ToGLM();
 		Lights.Points[0].infos.x = 2.0f;
+		Lights.Points[0].infos.y = 200.0f;
 		Lights.Points[0].Position = { 5, 5, 5 };
 		
-		Lights.Directional = DirectionalLight{ OSK::Vector3(-1, 1, 0), OSK::Color::RED(), 1 };
+		const Color color = Color::RED();
+		Lights.Directional = DirectionalLight{ OSK::Vector3(-2, 4, 1), color, 1 };
+
+		shadowMap->Lights = &Lights;
 	}
 
 	void RenderizableScene::InitLightsBuffers() {
 		VkDeviceSize size = Lights.Size();
 		LightsUniformBuffers.resize(renderer->SwapchainImages.size());
-
 		for (uint32_t i = 0; i < LightsUniformBuffers.size(); i++)
 			renderer->CreateBuffer(LightsUniformBuffers[i], size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 	}
@@ -60,19 +69,27 @@ namespace OSK {
 	void RenderizableScene::CreateDescriptorSet(ModelTexture* texture) const {
 		if (texture->PhongDescriptorSet != nullptr)
 			delete texture->PhongDescriptorSet;
+		Logger::DebugLog("RSceneSet");
 
 		texture->PhongDescriptorSet = renderer->CreateNewDescriptorSet();
 		texture->PhongDescriptorSet->SetDescriptorLayout(PhongDescriptorLayout);
 		texture->PhongDescriptorSet->AddUniformBuffers(renderer->UniformBuffers, 0, sizeof(UBO));
-		texture->PhongDescriptorSet->AddImage(&texture->Albedo, texture->Albedo.Sampler, 1);
-		texture->PhongDescriptorSet->AddUniformBuffers(LightsUniformBuffers, 2, Lights.Size());
-		texture->PhongDescriptorSet->AddImage(&texture->Specular, texture->Specular.Sampler, 3);
+		texture->PhongDescriptorSet->AddUniformBuffers(shadowMap->DirShadowsUniformBuffers, 1, sizeof(DirLightShadowUBO));
+		texture->PhongDescriptorSet->AddImage(&texture->Albedo, texture->Albedo.Sampler, 2);
+		texture->PhongDescriptorSet->AddUniformBuffers(LightsUniformBuffers, 3, Lights.Size());
+		texture->PhongDescriptorSet->AddImage(&texture->Specular, texture->Specular.Sampler, 4);
+		texture->PhongDescriptorSet->AddImage(&shadowMap->DirShadows->RenderedSprite.texture->Albedo, shadowMap->DirShadows->RenderedSprite.texture->Albedo.Sampler, 5);
 		texture->PhongDescriptorSet->Create();
+
+		shadowMap->CreateDescriptorSet(texture);
 	}
 
 	void RenderizableScene::UpdateLightsBuffers() {
 		for (auto& i : LightsUniformBuffers)
 			Lights.UpdateBuffer(renderer->LogicalDevice, i);
+
+		shadowMap->Update();
+		shadowMap->UpdateBuffers();
 	}
 
 	void RenderizableScene::AddModel(Model* model) {
@@ -107,6 +124,50 @@ namespace OSK {
 		Terreno = new Terrain(Content);
 
 		Terreno->CreateMesh(path, quadSize, maxHeight);
+	}
+
+	void RenderizableScene::DrawShadows(VkCommandBuffer cmdBuffer, const uint32_t& iteration) {
+		VULKAN::VulkanImageGen::TransitionImageLayout(&shadowMap->DirShadows->RenderedSprite.texture->Albedo, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, 1, 1, &cmdBuffer);
+
+		VkRenderPassBeginInfo renderPassInfo{};
+		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+		renderPassInfo.renderPass = shadowMap->DirShadows->VRenderpass->VulkanRenderpass;
+		renderPassInfo.framebuffer = shadowMap->DirShadows->TargetFramebuffers[iteration]->framebuffer;
+		renderPassInfo.renderArea.offset = { 0, 0 };
+
+		renderPassInfo.renderArea.extent = { shadowMap->DirShadows->Size.X, shadowMap->DirShadows->Size.Y };
+		std::array<VkClearValue, 2> clearValues = {};
+		clearValues[0] = { 1.0f, 1.0f, 1.0f, 1.0f }; //Color.
+		clearValues[1] = { 1.0f, 0.0f }; //Depth.
+		renderPassInfo.clearValueCount = clearValues.size();
+		renderPassInfo.pClearValues = clearValues.data();
+
+		vkCmdBeginRenderPass(cmdBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+		shadowMap->ShadowsPipeline->Bind(cmdBuffer);
+
+		for (const auto& i : Models) {
+			i->Bind(cmdBuffer);
+
+			if (i->texture != nullptr)
+				i->texture->DirShadowsDescriptorSet->Bind(cmdBuffer, shadowMap->ShadowsPipeline, iteration);
+			else
+				DefaultTexture->DirShadowsDescriptorSet->Bind(cmdBuffer, shadowMap->ShadowsPipeline, iteration);
+
+			PushConst3D pushConst = i->GetPushConst();
+			vkCmdPushConstants(cmdBuffer, shadowMap->ShadowsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
+			i->Draw(cmdBuffer);
+		}
+
+		if (Terreno != nullptr && Terreno->terrainModel != nullptr) {
+			DefaultTexture->DirShadowsDescriptorSet->Bind(cmdBuffer, shadowMap->ShadowsPipeline, iteration);
+			Terreno->terrainModel->Bind(cmdBuffer);
+			PushConst3D pushConst{ glm::mat4(1.0f) };
+			vkCmdPushConstants(cmdBuffer, shadowMap->ShadowsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
+			Terreno->terrainModel->Draw(cmdBuffer);
+		}
+
+		vkCmdEndRenderPass(cmdBuffer);
+		VULKAN::VulkanImageGen::TransitionImageLayout(&shadowMap->DirShadows->RenderedSprite.texture->Albedo, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 1, 1, &cmdBuffer);
 	}
 
 	void RenderizableScene::Draw(VkCommandBuffer cmdBuffer, const uint32_t& iteration) {

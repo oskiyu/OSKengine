@@ -25,6 +25,12 @@
     <Filter Include="Archivos de origen\Types">
       <UniqueIdentifier>{393524b0-3785-47bc-9821-9740826d26d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Types\Vector2">
+      <UniqueIdentifier>{f7001d45-8703-4f34-ac6d-7de88e7b3905}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Types\Vector3">
+      <UniqueIdentifier>{75b8c053-1b19-4fbd-aad3-3f56fc623429}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioAPI.h">
@@ -39,10 +45,37 @@
     <ClInclude Include="Color.h">
       <Filter>Archivos de encabezado\Types</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2.hpp">
+    <ClInclude Include="Vector3.hpp">
       <Filter>Archivos de encabezado\Types</Filter>
     </ClInclude>
-    <ClInclude Include="Vector3.hpp">
+    <ClInclude Include="Vector2i.h">
+      <Filter>Archivos de encabezado\Types\Vector2</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2ui.h">
+      <Filter>Archivos de encabezado\Types\Vector2</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2d.h">
+      <Filter>Archivos de encabezado\Types\Vector2</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2f.h">
+      <Filter>Archivos de encabezado\Types\Vector2</Filter>
+    </ClInclude>
+    <ClInclude Include="OSKinfo.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3f.h">
+      <Filter>Archivos de encabezado\Types\Vector3</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3d.h">
+      <Filter>Archivos de encabezado\Types\Vector3</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3i.h">
+      <Filter>Archivos de encabezado\Types\Vector3</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3ui.h">
+      <Filter>Archivos de encabezado\Types\Vector3</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector4.h">
       <Filter>Archivos de encabezado\Types</Filter>
     </ClInclude>
   </ItemGroup>
@@ -51,6 +84,15 @@
       <Filter>Archivos de origen\AudioAPI</Filter>
     </ClCompile>
     <ClCompile Include="Color.cpp">
+      <Filter>Archivos de origen\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Archivos de origen\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="OSKsettings.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
       <Filter>Archivos de origen\Types</Filter>
     </ClCompile>
   </ItemGroup>

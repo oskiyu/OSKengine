@@ -130,4 +130,15 @@ Transform:
 >Vertex attributes diff
 >Offscreen rendering.
 
+----
+>CreateNewFramebuffer
+>RenderTarget formalizado
+>Render stage
+>Spritebatch destructor -> spritestodraw.clear()
+>Spritebatch set camera
+>Support for transition image layout to depth
+>Model texture memory leak fix (descriptorsets)
+>PhongPipeline renderiza bien a la resolucion target.
+
 -Directional shadow mapping.
+>Update to 1.2.154

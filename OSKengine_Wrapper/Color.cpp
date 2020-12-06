@@ -18,15 +18,12 @@ Color::Color(float value) : Wrapper(new OSK::Color(value)) {
 
 }
 
-Color^ Color::operator*(float value) {
-	Color^ output = gcnew Color();
-
-	OSK::Color* color = new OSK::Color();
+Color^ Color::operator*(Color^ dis, float value) {
+	Color^ output = gcnew Color(dis->Red, dis->Green, dis->Blue, value);
 	
-	*color = output->instance->operator*(value);
-
-	delete output->instance;
-	output->instance = color;
-
 	return output;
+}
+
+System::String^ Color::ToString() {
+	return "{ R: " + Red + "; G: " + Green + "; B: " + Blue + "; A: " + Alpha + " }";
 }

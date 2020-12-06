@@ -11,10 +11,18 @@
 #include "Terrain.h"
 #include "DescriptorLayout.h"
 #include "DescriptorSet.h"
+#include "RenderTarget.h"
+#include "GraphicsPipeline.h"
 
 namespace OSK {
 
 	class RenderAPI;
+
+
+	struct DirLightShadowUBO {
+		glm::mat4 DirLightMat = glm::mat4(1.0f);
+	};
+
 
 	//Representa una escena que se puede renderizar.
 	class OSKAPI_CALL RenderizableScene {
@@ -24,14 +32,14 @@ namespace OSK {
 	public:
 
 		//Crea una nueva escena.
-		RenderizableScene(RenderAPI* renderer);
+		RenderizableScene(RenderAPI* renderer, uint32_t maxInitEntities);
 
 		//Destruye la escena.
 		~RenderizableScene();
 
 		//Crea el descriptor layout de la escena.
 		//Por defecto crea un PHONG descriptor layout.
-		virtual void CreateDescriptorLayout();
+		virtual void CreateDescriptorLayout(uint32_t maxSets);
 
 		//Establece las propiedades de las luces de la escena.
 		//El número de luces NO puede cambiar.
@@ -65,6 +73,8 @@ namespace OSK {
 		//	<path>: ruta del archivo.
 		void LoadSkybox(const std::string& path);
 
+		void DrawShadows(VkCommandBuffer cmdBuffer, const uint32_t& iteration);
+
 		//Renderiza la escena.
 		void Draw(VkCommandBuffer cmdBuffer, const uint32_t& iteration);
 
@@ -76,6 +86,7 @@ namespace OSK {
 		
 		//UBO de las luces.
 		LightUBO Lights = {};
+		DirLightShadowUBO DirShadowsUBO = {};
 
 		//Terreno que se va a renderizar.
 		Terrain* Terreno = nullptr;
@@ -85,6 +96,7 @@ namespace OSK {
 		void InitLightsBuffers();
 
 		DescriptorLayout* PhongDescriptorLayout = nullptr;
+		DescriptorLayout* DirShadowDescriptorLayout = nullptr;
 
 		GraphicsPipeline* CurrentGraphicsPipeline = nullptr;
 		GraphicsPipeline* SkyboxPipeline = nullptr;
@@ -92,6 +104,10 @@ namespace OSK {
 		ContentManager* Content = nullptr;
 
 		std::vector<VulkanBuffer> LightsUniformBuffers;
+		std::vector<VulkanBuffer> DirShadowsUniformBuffers;
+
+		RenderTarget* DirShadows = nullptr;
+		GraphicsPipeline* ShadowsPipeline = nullptr;
 
 	private:
 

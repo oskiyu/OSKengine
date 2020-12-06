@@ -33,11 +33,11 @@ namespace OSK::VULKAN {
 
 		void Clear();
 
+		VkFramebuffer framebuffer;
+
 	private:
 
 		Framebuffer(OSK::RenderAPI* renderer);
-
-		VkFramebuffer framebuffer;
 
 		OSK::RenderAPI* renderer = nullptr;
 

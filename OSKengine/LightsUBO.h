@@ -36,7 +36,7 @@ namespace OSK {
 		//Actualiza el UBO.
 		//	<logicalDevice>: logicalDevice.
 		//	<buffer>: Vulkan buffer donde se almacena el UBO.
-		void UpdateBuffer(VkDevice logicalDevice, VulkanBuffer& buffer) const;
+		void UpdateBuffer(VkDevice logicalDevice, VulkanBuffer& buffer);
 
 	};
 

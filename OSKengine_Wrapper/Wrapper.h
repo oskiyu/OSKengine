@@ -18,6 +18,10 @@ public:
 			delete instance;
 	}
 
+	void SetNativeValue(T value) {
+		*instance = value;
+	}
+
 protected:
 
 	T* instance = nullptr;

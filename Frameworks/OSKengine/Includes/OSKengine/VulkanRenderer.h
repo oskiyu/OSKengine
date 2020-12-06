@@ -31,6 +31,9 @@
 #include "ProfilingUnit.h"
 #include "Framebuffer.h"
 
+#include "RenderTarget.h"
+#include "RenderStage.h"
+
 namespace OSK {
 
 	class OSKAPI_CALL RenderAPI {
@@ -42,6 +45,7 @@ namespace OSK {
 
 	public:
 	
+		RenderTarget* RTarget = CreateNewRenderTarget();
 
 		//Inicializa el renderizador.
 		//	<mode>: modo de renderizado (2D / 2D + 3D).
@@ -74,7 +78,9 @@ namespace OSK {
 
 		//Establece el spriteBatch que se va a renderizar al llamar a RenderFrame().
 		//	<spriteBatch>: spriteBatch que se renderizará.
-		void SubmitSpriteBatch(const SpriteBatch& spriteBatch);
+		void AddSpriteBatch(SpriteBatch* spriteBatch);
+
+		void RemoveSpriteBatch(SpriteBatch* spriteBatch);
 
 		//Recrea el swapchain.
 		void RecreateSwapchain();
@@ -103,11 +109,7 @@ namespace OSK {
 		GraphicsPipeline* CreateNewPhongPipeline(const std::string& vertexPath, const std::string& fragmentPath) const;
 
 		//Crea un nuevo descriptor layout configurado para usarse con el motor de iluminación PHONG.
-		DescriptorLayout* CreateNewPhongDescriptorLayout() const;
-
-		//Crea el descriptor set de PHONG para la textura de un modelo 3D.
-		//	<texture>: textura a la que se le configurará su descriptor set de PHONG.
-		void CreateNewPhongDescriptorSet(ModelTexture* texture, VkSampler albedoSampler, VkSampler specularSampler) const;
+		DescriptorLayout* CreateNewPhongDescriptorLayout(uint32_t maxSets) const;
 
 		//Skybox.
 		GraphicsPipeline* CreateNewSkyboxPipeline(const std::string& vertexPath, const std::string& fragmentPath) const;
@@ -135,6 +137,12 @@ namespace OSK {
 		//	<destinationOffset = 0>: offset sobre el buffer destino.
 		void CopyBuffer(VulkanBuffer& source, VulkanBuffer& destination, VkDeviceSize size, VkDeviceSize sourceOffset = 0, VkDeviceSize destinationOffset = 0) const;
 
+		VULKAN::Renderpass* CreateNewRenderpass();
+
+		RenderTarget* CreateNewRenderTarget();
+
+		VULKAN::Framebuffer* CreateNewFramebuffer();
+
 		std::vector<VkCommandBuffer> GetCommandBuffers();
 
 		void SetRenderizableScene(RenderizableScene* scene);
@@ -149,16 +157,15 @@ namespace OSK {
 			std::string SkyboxVertexPath = "shaders/VK_Skybox/vert.spv";
 			std::string SkyboxFragmentPath = "shaders/VK_Skybox/frag.spv";
 
-			uint32_t MaxTextures = 32;
-
 			bool AutoUpdateCommandBuffers = true;
 		} Settings;
 
 
 		std::vector<VkCommandBuffer> CommandBuffers;
 
-		//Camera bidimensional.
+		//Camaras.
 		Camera2D DefaultCamera2D{};
+		Camera2D RenderTargetCamera2D{};
 		Camera3D DefaultCamera3D{0, 0, 0};
 
 		//Ventana asociada.
@@ -169,9 +176,9 @@ namespace OSK {
 
 		VULKAN::Renderpass* renderpass;
 
-		GraphicsPipeline* GraphicsPipeline2D;
-		GraphicsPipeline* GraphicsPipeline3D;
-		GraphicsPipeline* SkyboxGraphicsPipeline;
+		GraphicsPipeline* DefaultGraphicsPipeline2D;
+		GraphicsPipeline* DefaultGraphicsPipeline3D;
+		GraphicsPipeline* DefaultSkyboxGraphicsPipeline;
 
 		ContentManager* Content = new ContentManager(this);
 
@@ -183,8 +190,30 @@ namespace OSK {
 		Sprite OSKengineIconSprite;
 		Sprite OSK_IconSprite;
 
+		unsigned int RenderTargetSizeX = 1024;
+		unsigned int RenderTargetSizeY = 720;
+		float RenderResolutionMultiplier = 2.0f; //Record = 17.0f { 32640 x 18360 }
+
+		void createDescriptorSets(Texture* texture) const;
+
+		void AddStage(RenderStage* stage);
+		void RemoveStage(RenderStage* stage);
+
+		void AddSingleTimeStage(RenderStage* stage);
+
+		VULKAN::VulkanImage DepthImage;
+
+		VkFormat getDepthFormat() const;
+
+		//Formato del swapchain.
+		VkFormat SwapchainFormat;
 
 	private:
+
+		std::list<RenderStage*> SingleTimeStages = {};
+		std::list<RenderStage*> Stages = {};
+
+		inline void DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, const uint32_t& iteration);
 
 		void createSpriteVertexBuffer(Sprite* obj) const;
 
@@ -234,6 +263,8 @@ namespace OSK {
 
 		void createCommandBuffers();
 
+		void createRenderTarget();
+
 		void closeSwapchain();
 
 		void updateCommandBuffers();
@@ -260,10 +291,6 @@ namespace OSK {
 
 		VkFormat getSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features) const;
 
-		VkFormat getDepthFormat() const;
-
-		void createDescriptorSets(Texture* texture) const;
-
 		//Obtiene el modo de presentación:
 		//Cómo se cambian las imágenes del swapchain.
 		//
@@ -274,8 +301,6 @@ namespace OSK {
 		VkPresentModeKHR getPresentMode(const std::vector<VkPresentModeKHR>& modes) const;
 
 		VkExtent2D getSwapchainExtent(const VkSurfaceCapabilitiesKHR& capabilities) const;
-
-		VULKAN::VulkanImage DepthImage;
 
 		//VkDescriptorPool DescriptorPool;
 		//VkDescriptorSetLayout DescriptorSetLayout;
@@ -303,9 +328,6 @@ namespace OSK {
 
 		//ImageViews del swapchain (cómo acceder a las imágenes).
 		std::vector<VkImageView> SwapchainImageViews;
-
-		//Formato del swapchain.
-		VkFormat SwapchainFormat;
 
 		//Tamaño del swapchain.
 		VkExtent2D SwapchainExtent;
@@ -362,12 +384,10 @@ namespace OSK {
 		DescriptorLayout* PhongDescriptorLayout = nullptr;
 		DescriptorLayout* SkyboxDescriptorLayout = nullptr;
 
-		//game
-		LightUBO lights{};
-		std::vector<VulkanBuffer> LightsUniformBuffers;
-
 		/*NEW SYNC*/
 		VkFence* fences = nullptr;
+		
+		RenderStage Stage;
 	};
 
 }

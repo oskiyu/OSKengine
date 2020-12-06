@@ -16,11 +16,11 @@ namespace OSK {
 
 	constexpr auto ENGINE_VERSION_ALPHANUMERIC = "Alpha 17*";
 
-	constexpr auto ENGINE_VERSION_BUILD = "2020.10.21a";
+	constexpr auto ENGINE_VERSION_BUILD = "2020.11.13a+";
 
-	constexpr auto ENGINE_VERSION_BUILD_NUMERIC = 20201025;
+	constexpr auto ENGINE_VERSION_BUILD_NUMERIC = 20201113;
 
-	constexpr auto ENGINE_VERSION = "0.17* build 2020.10.25a";
+	constexpr auto ENGINE_VERSION = "0.17* build 2020.11.13a+";
 
 	constexpr auto ENGINE_VERSION_TOTAL = 17;
 

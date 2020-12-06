@@ -8,12 +8,13 @@ namespace OSKengine {
 
 	public ref class Color : public Wrapper<OSK::Color> {
 
+	public:
 		Color();
 		Color(float r, float g, float b);
 		Color(float r, float g, float b, float a); 
 		Color(float value);
 
-		Color^ operator*(float value);
+		static Color^ operator*(Color^ dis, float value);
 
 		property float Red {
 	public:
@@ -51,6 +52,8 @@ namespace OSKengine {
 			instance->Alpha = val;
 		}
 		}
+
+		System::String^ ToString() override;
 
 	};
 

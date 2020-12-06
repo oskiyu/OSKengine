@@ -34,7 +34,13 @@ namespace OSK {
 		static VkVertexInputBindingDescription GetBindingDescription();
 
 		//Atributos que se pasan a la GPU.
-		static std::array<VkVertexInputAttributeDescription, OSK_VERTEX_ATTRIBUTES_COUNT> GetAttributeDescriptions();
+		static std::array<VkVertexInputAttributeDescription, OSK_VERTEX_ATTRIBUTES_COUNT> GetAttributeDescriptions_FullVertex();
+
+		//Atributos que se pasan a la GPU.
+		static std::array<VkVertexInputAttributeDescription, 4> GetAttributeDescriptions_PositionColorTexNormals();
+
+		//Atributos que se pasan a la GPU.
+		static std::array<VkVertexInputAttributeDescription, 3> GetAttributeDescriptions_PositionColorTex();
 
 	};
 }

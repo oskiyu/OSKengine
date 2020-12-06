@@ -13,13 +13,14 @@ namespace OSK {
 		friend class RenderAPI;
 		friend class Sprite;
 		friend class ContentManager;
+		friend class RenderTarget;
 
 		uint32_t sizeX = 0;
 		uint32_t sizeY = 0;
 
-	private:
 		VULKAN::VulkanImage Albedo{};
 
+	private:
 		DescriptorSet* Descriptor;
 		DescriptorSet* PhongDescriptorSet = nullptr;
 		DescriptorSet* PBR_DescriptorSet = nullptr;
@@ -42,6 +43,7 @@ namespace OSK {
 		uint32_t sizeY = 0;
 
 		DescriptorSet* PhongDescriptorSet = nullptr;
+		DescriptorSet* DirShadowsDescriptorSet = nullptr;
 		DescriptorSet* PBR_DescriptorSet = nullptr;
 
 	private:

@@ -14,6 +14,11 @@ namespace OSK {
 	ModelTexture::~ModelTexture() {
 		Albedo.Destroy();
 		Specular.Destroy();
+
+		if (PhongDescriptorSet)
+			delete PhongDescriptorSet;
+		if (DirShadowsDescriptorSet)
+			delete DirShadowsDescriptorSet;
 	}
 
 }

@@ -1,8 +1,10 @@
 #include "LightsUBO.h"
 
+#include <ext\matrix_clip_space.hpp>
+
 namespace OSK {
 
-	void LightUBO::UpdateBuffer(VkDevice logicalDevice, VulkanBuffer& buffer) const {
+	void LightUBO::UpdateBuffer(VkDevice logicalDevice, VulkanBuffer& buffer) {
 		void* data;
 		vkMapMemory(logicalDevice, buffer.Memory, 0, Size(), 0, &data);
 		memcpy(data, &Directional, sizeof(DirectionalLight));

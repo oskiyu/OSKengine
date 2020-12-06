@@ -18,3 +18,9 @@
 #else
 #define OSKAPI_CALL
 #endif
+
+#ifdef OSK_DLL
+#define ENET_IMPORT #include <enet/enet.h>
+#else
+#define ENET_IMPORT
+#endif

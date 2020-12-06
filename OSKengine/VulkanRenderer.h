@@ -32,6 +32,7 @@
 #include "Framebuffer.h"
 
 #include "RenderTarget.h"
+#include "RenderStage.h"
 
 namespace OSK {
 
@@ -39,12 +40,13 @@ namespace OSK {
 
 		friend class ContentManager;
 		friend class RenderizableScene;
+		friend class ShadowMap;
 		friend class VULKAN::VulkanImageGen;
 		friend class VULKAN::Framebuffer;
 
 	public:
 	
-		RenderTarget target;
+		RenderTarget* RTarget = CreateNewRenderTarget();
 
 		//Inicializa el renderizador.
 		//	<mode>: modo de renderizado (2D / 2D + 3D).
@@ -77,7 +79,9 @@ namespace OSK {
 
 		//Establece el spriteBatch que se va a renderizar al llamar a RenderFrame().
 		//	<spriteBatch>: spriteBatch que se renderizará.
-		void SubmitSpriteBatch(const SpriteBatch& spriteBatch);
+		void AddSpriteBatch(SpriteBatch* spriteBatch);
+
+		void RemoveSpriteBatch(SpriteBatch* spriteBatch);
 
 		//Recrea el swapchain.
 		void RecreateSwapchain();
@@ -134,6 +138,12 @@ namespace OSK {
 		//	<destinationOffset = 0>: offset sobre el buffer destino.
 		void CopyBuffer(VulkanBuffer& source, VulkanBuffer& destination, VkDeviceSize size, VkDeviceSize sourceOffset = 0, VkDeviceSize destinationOffset = 0) const;
 
+		VULKAN::Renderpass* CreateNewRenderpass();
+
+		RenderTarget* CreateNewRenderTarget();
+
+		VULKAN::Framebuffer* CreateNewFramebuffer();
+
 		std::vector<VkCommandBuffer> GetCommandBuffers();
 
 		void SetRenderizableScene(RenderizableScene* scene);
@@ -181,12 +191,30 @@ namespace OSK {
 		Sprite OSKengineIconSprite;
 		Sprite OSK_IconSprite;
 
-		Sprite RenderTargetSprite;
 		unsigned int RenderTargetSizeX = 1024;
 		unsigned int RenderTargetSizeY = 720;
 		float RenderResolutionMultiplier = 2.0f; //Record = 17.0f { 32640 x 18360 }
 
+		void createDescriptorSets(Texture* texture) const;
+
+		void AddStage(RenderStage* stage);
+		void RemoveStage(RenderStage* stage);
+
+		void AddSingleTimeStage(RenderStage* stage);
+
+		VULKAN::VulkanImage DepthImage;
+
+		VkFormat getDepthFormat() const;
+
+		//Formato del swapchain.
+		VkFormat SwapchainFormat;
+
 	private:
+
+		std::list<RenderStage*> SingleTimeStages = {};
+		std::list<RenderStage*> Stages = {};
+
+		inline void DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, const uint32_t& iteration);
 
 		void createSpriteVertexBuffer(Sprite* obj) const;
 
@@ -236,6 +264,8 @@ namespace OSK {
 
 		void createCommandBuffers();
 
+		void createRenderTarget();
+
 		void closeSwapchain();
 
 		void updateCommandBuffers();
@@ -262,10 +292,6 @@ namespace OSK {
 
 		VkFormat getSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features) const;
 
-		VkFormat getDepthFormat() const;
-
-		void createDescriptorSets(Texture* texture) const;
-
 		//Obtiene el modo de presentación:
 		//Cómo se cambian las imágenes del swapchain.
 		//
@@ -276,8 +302,6 @@ namespace OSK {
 		VkPresentModeKHR getPresentMode(const std::vector<VkPresentModeKHR>& modes) const;
 
 		VkExtent2D getSwapchainExtent(const VkSurfaceCapabilitiesKHR& capabilities) const;
-
-		VULKAN::VulkanImage DepthImage;
 
 		//VkDescriptorPool DescriptorPool;
 		//VkDescriptorSetLayout DescriptorSetLayout;
@@ -305,9 +329,6 @@ namespace OSK {
 
 		//ImageViews del swapchain (cómo acceder a las imágenes).
 		std::vector<VkImageView> SwapchainImageViews;
-
-		//Formato del swapchain.
-		VkFormat SwapchainFormat;
 
 		//Tamaño del swapchain.
 		VkExtent2D SwapchainExtent;
@@ -367,6 +388,7 @@ namespace OSK {
 		/*NEW SYNC*/
 		VkFence* fences = nullptr;
 		
+		RenderStage Stage;
 	};
 
 }

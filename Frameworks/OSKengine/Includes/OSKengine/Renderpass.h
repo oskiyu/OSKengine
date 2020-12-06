@@ -33,6 +33,16 @@ namespace OSK::VULKAN {
 
 	};
 
+
+	class OSKAPI_CALL SubpassDependency {
+
+	public:
+
+		VkSubpassDependency VulkanDependency;
+
+	};
+
+
 	//Representa un subpass.
 	class OSKAPI_CALL RenderpassSubpass {
 
@@ -53,6 +63,9 @@ namespace OSK::VULKAN {
 		//	<attachment>: attachment.
 		void SetDepthStencilAttachment(const RenderpassAttachment& attachment);
 
+		//Añade una dependencia al renderpass.
+		void AddDependency(SubpassDependency dependency);
+
 		//Crea el subpass.
 		//	<srcSubpass>: subpass anterior a este.
 		//	<dstSubpass>: subpass posterior a este.
@@ -60,14 +73,15 @@ namespace OSK::VULKAN {
 		//	<sourceAccess>: sourceAccess.
 		//	<destStageMask>: sourceAccess.
 		//	<destAccess>: sourceAccess.
-		void Set(const uint32_t& srcSubpass, const uint32_t& dstSubpass, VkPipelineStageFlags sourceStageMask, VkAccessFlags sourceAccess, VkPipelineStageFlags destStageMask, VkAccessFlags destAccess);
+		void Set(/*const uint32_t& srcSubpass, const uint32_t& dstSubpass, VkPipelineStageFlags sourceStageMask, VkAccessFlags sourceAccess, VkPipelineStageFlags destStageMask, VkAccessFlags destAccess*/);
 
-		VkSubpassDependency dependency{};
 		VkSubpassDescription description;
 
 		std::vector<VkAttachmentReference> references{};
+		std::vector<SubpassDependency> dependencies{};
 
 	};
+
 
 	//Representa un renderpass.
 	class OSKAPI_CALL Renderpass {

@@ -1,7 +1,130 @@
 #include "RenderTarget.h"
 
+#include "VulkanRenderer.h"
+
 using namespace OSK;
+using namespace OSK::VULKAN;
+
+
+RenderTarget::RenderTarget(RenderAPI* renderer) {
+	this->renderer = renderer;
+}
+
+RenderTarget::~RenderTarget() {
+	Clear(true);
+}
+
+void RenderTarget::CreateRenderpass(std::vector<RenderpassAttachment> colorAttachments, RenderpassAttachment* depthAttachment, VkSampleCountFlagBits msaa) {
+	if (VRenderpass)
+		delete VRenderpass;
+
+	VRenderpass = renderer->CreateNewRenderpass();
+	
+	RenderpassSubpass sbPass{};
+	sbPass.SetColorAttachments(colorAttachments);
+	if (depthAttachment)
+		sbPass.SetDepthStencilAttachment(*depthAttachment);
+	sbPass.SetPipelineBindPoint();
+	
+	SubpassDependency dep;
+	dep.VulkanDependency.srcSubpass = VK_SUBPASS_EXTERNAL;
+	dep.VulkanDependency.dstSubpass = 0;
+	dep.VulkanDependency.srcStageMask = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+	dep.VulkanDependency.srcAccessMask = VK_ACCESS_SHADER_READ_BIT;
+	dep.VulkanDependency.dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+	dep.VulkanDependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+	dep.VulkanDependency.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
+
+	SubpassDependency dep2;
+	dep2.VulkanDependency.srcSubpass = 0;
+	dep2.VulkanDependency.dstSubpass = VK_SUBPASS_EXTERNAL;
+	dep2.VulkanDependency.srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+	dep2.VulkanDependency.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+	dep2.VulkanDependency.dstStageMask = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+	dep2.VulkanDependency.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
+	dep2.VulkanDependency.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
+
+	sbPass.AddDependency(dep);
+	sbPass.AddDependency(dep2);
+	sbPass.Set();
+
+	VRenderpass->SetMSAA(msaa);
+	VRenderpass->AddSubpass(sbPass);
+	for (auto& i : colorAttachments)
+		VRenderpass->AddAttachment(i);
+	if (depthAttachment)
+		VRenderpass->AddAttachment(*depthAttachment);
+
+	VRenderpass->Create();
+}
+
+void RenderTarget::SetFormat(VkFormat format) {
+	Format = format;
+}
+
+void RenderTarget::TransitionToRenderTarget(VkCommandBuffer* cmdBuffer, VkImageLayout layout) {
+	VulkanImageGen::TransitionImageLayout(&RenderedSprite.texture->Albedo, VK_IMAGE_LAYOUT_UNDEFINED, layout, 1, 1, cmdBuffer);
+}
+
+void RenderTarget::TransitionToTexture(VkCommandBuffer* cmdBuffer) {
+	VulkanImageGen::TransitionImageLayout(&RenderedSprite.texture->Albedo, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 1, 1, cmdBuffer);
+}
+
+void RenderTarget::CreateFramebuffers(const uint32_t& numFb, VkImageView* images, const uint32_t& numViews) {
+	for (uint32_t i = 0; i < numFb; i++) {
+		TargetFramebuffers.push_back(renderer->CreateNewFramebuffer());
+		
+		for (uint32_t v = 0; v < numViews; v++)
+			TargetFramebuffers[i]->AddImageView(images[v]);
+
+		TargetFramebuffers[i]->Create(VRenderpass, Size.X, Size.Y);
+	}
+}
+
+void RenderTarget::SetSize(const uint32_t& sizeX, const uint32_t& sizeY, const bool& createColorImage, const bool& updatePipelines) {{}
+	Size.X = sizeX;
+	Size.Y = sizeY;
+
+	if (spriteHasBeenCreated && createColorImage) {
+		if (RenderedSprite.texture->Albedo.Image != VK_NULL_HANDLE)
+			RenderedSprite.texture->Albedo.Destroy();
+
+		VulkanImageGen::CreateImage(&RenderedSprite.texture->Albedo, Size, Format, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
+		VulkanImageGen::CreateImageView(&RenderedSprite.texture->Albedo, Format, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
+		renderer->createDescriptorSets(RenderedSprite.texture);
+	}
+
+	if (updatePipelines) {
+		for (auto& i : Pipelines) {
+			i->~GraphicsPipeline();
+			i->SetViewport({ 0, 0, (float)Size.X, (float)Size.Y });
+			i->Create(VRenderpass);
+		}
+	}
+
+	for (auto& i : TargetFramebuffers) {
+		i->Clear();
+		i->Create(VRenderpass, Size.X, Size.Y);
+	}
+}
 
 void RenderTarget::CreateSprite(ContentManager* content) {
 	content->CreateSprite(RenderedSprite);
+	RenderedSprite.texture = new Texture;
+	Content = content;
+
+	spriteHasBeenCreated = true;
+}
+
+void RenderTarget::Clear(bool complete) {
+	for (auto& i : TargetFramebuffers)
+		delete i;
+	TargetFramebuffers.clear();
+
+	for (auto& i : Pipelines)
+		delete i;
+	Pipelines.clear();
+
+	if (complete && VRenderpass)
+		delete VRenderpass;
 }

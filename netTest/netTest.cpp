@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include <OSKnet/Server.h>
-#include <OSKnet/OSKnet.hpp>
+#include <OSKnet/OSKnet.h>
 
 int main()
 {

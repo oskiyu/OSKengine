@@ -303,6 +303,12 @@
     <ClCompile Include="RenderTarget.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
     </ClCompile>
+    <ClCompile Include="RenderStage.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowMap.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowAPI.h">
@@ -621,6 +627,12 @@
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan</Filter>
     </ClInclude>
     <ClInclude Include="RenderTarget.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderStage.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowMap.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
     </ClInclude>
   </ItemGroup>

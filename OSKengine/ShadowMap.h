@@ -6,44 +6,68 @@
 #include "VulkanImage.h"
 #include "Renderpass.h"
 #include "GraphicsPipeline.h"
+#include "RenderTarget.h"
+#include "LightsUBO.h"
 
 namespace OSK {
 
+	struct DirLightShadowUBO {
+		alignas(16) glm::mat4 DirLightMat = glm::mat4(1.0f);
+	};
+
 	constexpr auto SHADOW_MAP_FORMAT = VK_FORMAT_D32_SFLOAT;
-	constexpr auto SHADOW_MAP_FILTER = VK_FILTER_LINEAR;
+	constexpr auto SHADOW_MAP_FILTER = VK_FILTER_NEAREST;
 
 	constexpr auto SHADOW_MAP_DEPTH_BIAS_CONSTANT = 1.25f;
 	constexpr auto SHADOW_MAP_DEPTH_BIAS_SLOPE = 1.75f;
 
-	struct OffscreenPass {
-		int32_t SizeX;
-		int32_t SizeY;
+	class ShadowMap {
 
-		VkFramebuffer Framebuffer;
+		friend class RenderizableScene;
 
-		VULKAN::VulkanImage Image;
-		VULKAN::Renderpass Renderpass;
+	public:
 
-		VkSampler DepthSampler;
-		VkDescriptorImageInfo ImageInfo;
-		GraphicsPipeline* Pipeline;
-	};
+		ShadowMap(RenderAPI* renderer, ContentManager* content);
 
-	struct ShadowMap {
+		~ShadowMap();
 
-		ShadowMap() {};
+		void Create(const Vector2ui& size);
 
-		Vector2ui ImageSize;
+		void Clear();
 
-		VULKAN::VulkanImage Image;
-		VULKAN::Renderpass* Renderpass;
+		void CreateDescriptorSet(ModelTexture* texture);
 
-		/*float_t DepthRangeNear = 1.0f;
-		float_t DepthRangeFar = 96.0f;
+		DirLightShadowUBO DirShadowsUBO = {};
 
-		const float_t LightFOV = 45.0f;
+		Vector2ui Size;
 
-		OffscreenPass Pass;*/
+		RenderTarget* DirShadows = nullptr;
+		DescriptorLayout* DirShadowDescriptorLayout = nullptr;
+		GraphicsPipeline* ShadowsPipeline = nullptr;
+
+		std::vector<VulkanBuffer> DirShadowsUniformBuffers;
+
+		float DepthRangeNear = 0.0f;
+		float DepthRangeFar = 100.0f;
+
+		float Density = 20;
+
+		LightUBO* Lights = nullptr;
+		
+		RenderAPI* renderer = nullptr;
+
+	private:
+
+		void CreateDescSets(uint32_t maxSets);
+		void CreateBuffers();
+		void UpdateBuffers();
+		void Update();
+
+		void CreateRenderpass();
+		void CreateFramebuffers();
+		void CreateGraphicsPipeline();
+
+		ContentManager* Content = nullptr;
 
 	};
 

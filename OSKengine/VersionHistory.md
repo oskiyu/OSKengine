@@ -351,3 +351,52 @@ Añadidos `typedef`s para algunas variables de OpenGL y para las variables del Mo
 ###### Bugfixes:
 - **Bugfix**: `<SkyboxDescriptorLayout.PoolSize = 1>`.
 - **Bugfix**: `<LoadModelTexture()>` ahora usa correctaments `<VK_IMAGE_USAGE_TRANSFER_SRC_BIT>` para generar los mipmaps.
+
+
+## 2020.12.6a
+
+###### RenderAPI
+
+Aztualizado a **Vulkan 1.2.154**.
+
+- ShadowMap:
+    - Implementa un sombreado de luz direccional.
+    - Contiene un `GraphicsPipeline`, `descriptor layout` y el `'RenderTarget'`.
+    - Pueden configurarse su resolución, densidad y distancia de renderizado.
+
+- RenderizableScene:
+    - Incluye un `ShadowMap`: renderiza sobras.
+
+- PHONG SHADER SET:
+    - Añadida niebla distante.
+    - Ahora calcula sobreado de luz direccional.
+        - Antiailasing 3x3.
+
+- RenderStage:
+    - Almacena una escena y spritebatches.
+    - Puede usarse para juntar llamadas de renderizado de distintas fuentes.
+
+- RenderAPI:
+    - Se pueden añadir y eliminar spritebatches al stage principal.
+    - `<CreateNewRenderpass()`>.
+    - `<CreateNewRenderTarget()`>.
+    - Almacena los stages principales y de un único uso.
+
+- RenderTarget:
+    - Formalizado:
+        - Funciones para crear sus elementos.
+        - Puede transicionar sus imágenes para ser usadas como target o como textura.
+
+- SpriteBatch:
+    - Puede tener una cámara específica, independiente al resto de spritebatches.
+
+- VulkanImageGen:
+    - `<TransitionImageLayout`> ahora soporta layouts de *depth_stencil*.
+
+- Misc:
+    - **EXPERIMENTAL**: `OSK::SafeDelete<>()`.
+
+###### Bugfixes
+- **Bugfix**: ahora las texturas eliminan sus descriptor sets al eliminarse.
+- **Bugfix**: ahora los graphics pipelines no intentan eliminar sus componentes que ya habían sido eliminados.
+- **Bugfix**: `'PhongPipeline` renderiza correctamente en la resolución objetivo.

@@ -1,14 +1,18 @@
 #pragma once
 
-#include <enet/enet.h>
-
 #include <iostream>
 
 #include "Macros.h"
 #include "Callbacks.h"
 #include "SafeExecute.h"
 
+#ifndef OSK_DLL
+#include <enet/enet.h>
+#endif
+
+#ifdef SendMessage
 #undef SendMessage
+#endif
 
 namespace OSK::NET {
 
@@ -65,6 +69,8 @@ namespace OSK::NET {
 
 	private:
 
+#ifndef OSK_DLL
+
 		//Dirección del server.
 		ENetAddress address = {};
 
@@ -94,6 +100,8 @@ namespace OSK::NET {
 
 		//Comprueba si está conectado.
 		bool is_connected = false;
+
+#endif
 
 	};
 

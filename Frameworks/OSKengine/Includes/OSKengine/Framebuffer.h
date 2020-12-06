@@ -31,17 +31,21 @@ namespace OSK::VULKAN {
 
 		void Create(VULKAN::Renderpass* renderpass, const uint32_t& sizeX, const uint32_t& sizeY);
 
+		void Clear();
+
+		VkFramebuffer framebuffer;
+
 	private:
 
 		Framebuffer(OSK::RenderAPI* renderer);
-
-		VkFramebuffer framebuffer;
 
 		OSK::RenderAPI* renderer = nullptr;
 
 		std::vector<VkImageView> attachments;
 
 		Vector2ui size;
+
+		bool isActive = false;
 
 	};
 

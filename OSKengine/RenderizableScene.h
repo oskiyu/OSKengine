@@ -11,6 +11,10 @@
 #include "Terrain.h"
 #include "DescriptorLayout.h"
 #include "DescriptorSet.h"
+#include "RenderTarget.h"
+#include "GraphicsPipeline.h"
+
+#include "ShadowMap.h"
 
 namespace OSK {
 
@@ -65,6 +69,8 @@ namespace OSK {
 		//	<path>: ruta del archivo.
 		void LoadSkybox(const std::string& path);
 
+		void DrawShadows(VkCommandBuffer cmdBuffer, const uint32_t& iteration);
+
 		//Renderiza la escena.
 		void Draw(VkCommandBuffer cmdBuffer, const uint32_t& iteration);
 
@@ -76,7 +82,6 @@ namespace OSK {
 		
 		//UBO de las luces.
 		LightUBO Lights = {};
-
 		//Terreno que se va a renderizar.
 		Terrain* Terreno = nullptr;
 
@@ -93,7 +98,6 @@ namespace OSK {
 
 		std::vector<VulkanBuffer> LightsUniformBuffers;
 
-
 	private:
 
 		ModelTexture* DefaultTexture = nullptr;
@@ -104,6 +108,7 @@ namespace OSK {
 		std::vector<AnimatedModel*> AnimatedModels = {};
 
 		RenderAPI* renderer;
+		ShadowMap* shadowMap = nullptr;
 
 		bool isPropetaryOfTerrain = true;
 

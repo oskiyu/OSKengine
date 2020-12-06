@@ -1,6 +1,6 @@
 #pragma once
 
-#define OSK_RELEASE_DLL
+//#define OSK_RELEASE_DLL
 #define OSK_DLL_EXPORT
 
 #ifdef OSK_RELEASE_DLL

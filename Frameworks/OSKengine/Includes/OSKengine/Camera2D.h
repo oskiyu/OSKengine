@@ -9,7 +9,9 @@ namespace OSK {
 
 	//Cámara para un mundo de dos dimensiones.
 	class OSKAPI_CALL Camera2D {
+
 		friend class RenderAPI;
+		friend class SpriteBatch;
 
 	public:
 

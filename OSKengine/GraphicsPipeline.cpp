@@ -276,8 +276,14 @@ namespace OSK {
 	}
 
 	void GraphicsPipeline::clearShaders() {
-		vkDestroyShaderModule(logicalDevice, vertexShaderModule, nullptr);
-		vkDestroyShaderModule(logicalDevice, fragmentShaderModule, nullptr);
+		if (vertexShaderModule != VK_NULL_HANDLE) {
+			vkDestroyShaderModule(logicalDevice, vertexShaderModule, nullptr);
+			vertexShaderModule = VK_NULL_HANDLE;
+		}
+		if (fragmentShaderModule != VK_NULL_HANDLE) {
+			vkDestroyShaderModule(logicalDevice, fragmentShaderModule, nullptr);
+			fragmentShaderModule = VK_NULL_HANDLE;
+		}
 	}
 
 	VkShaderModule GraphicsPipeline::createShaderModule(const std::vector<char>& code) const {

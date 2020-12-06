@@ -15,12 +15,18 @@
 
 namespace OSK {
 
+	class Camera2D;
+
 	//Clase para el renderizado 2D.
 	class OSKAPI_CALL SpriteBatch {
 		
 		friend class RenderAPI;
 	
 	public:
+
+		SpriteBatch();
+
+		~SpriteBatch();
 
 		//Dibuja un sprite.
 		void DrawSprite(Sprite sprite);
@@ -60,12 +66,12 @@ namespace OSK {
 		//	<sizeXlimit>: si > 0, establece, en píxeles, el límite sobre el cual se aplica <limitAction>.
 		void DrawString(const Font* fuente, const ReservedText& texto, const float_t& size, const Vector2& position, const Color& color = Color(1.0f), const Anchor& screenAnchor = Anchor::TOP_LEFT, const Vector4& reference = Vector4(-1.0f), const TextRenderingLimit& limitAction = TextRenderingLimit::DO_NOTHING, const float_t& sizeXlimit = 0, const float_t& limitOffset = 10);
 
+		void SetCamera(const Camera2D& camera);
+
 		//Vacía el spriteBatch.
 		void Clear();
 
 	private:
-
-		SpriteBatch();
 
 		Vector2 GetTextPosition(const Vector2& position, const Vector2& textSize, const Anchor& anchor, const AnchorTextTo& to, const Vector4& reference = Vector4(0.0f)) const;
 
@@ -77,6 +83,8 @@ namespace OSK {
 		//2.5
 		//190
 		std::deque<SpriteContainer> spritesToDraw{};
+
+		glm::mat4 cameraMat = glm::mat4(1.0f);
 
 	};
 

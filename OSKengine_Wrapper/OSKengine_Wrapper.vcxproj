@@ -42,11 +42,12 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CLRSupport>true</CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
+    <SpectreMitigation>false</SpectreMitigation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -75,9 +76,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\Includes;C:\Program Files\KTX-Software\include;D:\Dev\VulkanSDK\1.2.131.2\Include;D:\Dev\freetype-2.10.1\include;D:\Dev\OpenAL\include;C:\Program Files\Assimp\include;D:\Dev\glm\glm;D:\Dev\GLAD\include;D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\include\GLFW;$(IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>D:\Dev\assimp-4.1.0\assimp-4.1.0\lib\Debug;D:\Dev\freetype-2.10.1\objs\x64\Debug;D:\Dev\VulkanSDK\1.2.131.2\Lib;C:\Program Files\KTX-Software\lib;D:\Dev\OpenAL\libs\Win64;D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\lib-vc2019;C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\BinLibDebug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\Includes;C:\Program Files\KTX-Software\include;D:\Dev\VulkanSDK\1.2.131.2\Include;D:\Dev\freetype-2.10.1\include;D:\Dev\OpenAL\include;C:\Program Files\Assimp\include;D:\Dev\glm\glm;D:\Dev\GLAD\include;D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\include\GLFW;$(IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\LibDebug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -101,9 +104,10 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>OSKengine.lib</AdditionalDependencies>
+      <AdditionalDependencies>ktx.lib;vulkan-1.lib;freetype.lib;OpenAL32.lib;assimp-vc140-mt.lib;glfw3dll.lib;OSKengine.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -118,14 +122,26 @@
   <ItemGroup>
     <ClInclude Include="AudioAPI.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="OSKinfo.h" />
     <ClInclude Include="SoundEntity.h" />
-    <ClInclude Include="Vector2.hpp" />
+    <ClInclude Include="Vector2d.h" />
+    <ClInclude Include="Vector2f.h" />
+    <ClInclude Include="Vector2i.h" />
+    <ClInclude Include="Vector2ui.h" />
     <ClInclude Include="Vector3.hpp" />
+    <ClInclude Include="Vector3d.h" />
+    <ClInclude Include="Vector3f.h" />
+    <ClInclude Include="Vector3i.h" />
+    <ClInclude Include="Vector3ui.h" />
+    <ClInclude Include="Vector4.h" />
     <ClInclude Include="Wrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioAPI.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="OSKsettings.cpp" />
+    <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
