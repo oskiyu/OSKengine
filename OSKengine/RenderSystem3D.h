@@ -8,7 +8,7 @@
 
 namespace OSK {
 
-	class RenderSystem3D : public System {
+	class RenderSystem3D : public ECS::System {
 
 	public:
 				

@@ -225,8 +225,11 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="InputComponent.h" />
+    <ClInclude Include="InputSystem.h" />
     <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="RenderSystem3D.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="ShaderBindingType.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonStatesEnum.h" />

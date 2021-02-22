@@ -29,6 +29,7 @@
 #include "AudioAPI.h"
 #include "GameObject.h"
 #include "TransformComponent.h"
+#include "InputSystem.h"
 
 /**/
 class Entity : public OSK::GameObject {
@@ -46,6 +47,7 @@ public:
 	OSK::Transform* Transform = nullptr;
 
 private:
+
 	void setup() {
 		OSK::PhysicsComponent& physics = GetComponent<OSK::PhysicsComponent>();
 		Transform = &GetComponent<OSK::TransformComponent>().Transform3D;
@@ -58,9 +60,8 @@ private:
 		physics.Collision.SatColliders.back().BoxTransform.AttachTo(Transform);
 		physics.Collision.BroadType = OSK::BroadColliderType::BOX_AABB;
 		physics.Collision.BroadCollider.Box.Size = { 5.0f };
-
-		std::cout << "TRANSFORM" << Transform << std::endl;
 	}
+
 };
 /**/
 
@@ -70,15 +71,22 @@ int program() {
 
 	ECS.RegisterComponent<OSK::TransformComponent>();
 	ECS.RegisterComponent<OSK::PhysicsComponent>();
+	ECS.RegisterComponent<OSK::InputComponent>();
 
 	OSK::PhysicsScene* physicsScene = ECS.RegisterSystem<OSK::PhysicsScene>();
+	OSK::InputSystem* Input = ECS.RegisterSystem<OSK::InputSystem>();
 
 	OSK::Signature signature{};
 	signature.set(ECS.GetComponentType<OSK::PhysicsComponent>());
 	signature.set(ECS.GetComponentType<OSK::TransformComponent>());
 
 	ECS.SetSystemSignature<OSK::PhysicsScene>(signature);
-		
+
+	signature.reset();
+	signature.set(ECS.GetComponentType<OSK::InputComponent>());
+
+	ECS.SetSystemSignature<OSK::InputSystem>(signature);
+
 	bool showStartup = false;
 #ifndef OSK_DEBUG
 	showStartup = true;
@@ -94,6 +102,7 @@ int program() {
 	windowAPI->SetWindow(1280, 720, "OSKengine Vk");
 	windowAPI->SetMouseMovementMode(OSK::MouseMovementMode::RAW);
 	windowAPI->SetMouseMode(OSK::MouseInputMode::ALWAYS_RETURN);
+	Input->SetWindow(windowAPI);
 
 	OSK::RenderAPI RenderAPI{};
 	RenderAPI.Window = windowAPI;
@@ -144,6 +153,15 @@ int program() {
 	EntityA.Create(&ECS);
 	EntityA.GetComponent<OSK::TransformComponent>().Transform3D.SetPosition(OSK::Vector3f{ 0.0f , -20.0f, 0.0f });
 	
+	Input->RegisterInputEvent("MoveArriba");
+	Input->GetInputEvent("MoveArriba").LinkedKeys.push_back(OSK::Key::Q);
+
+	OSK::InputComponent inputC;
+	inputC.GetFunction("MoveArriba") = [EntityA]() {
+		EntityA.Transform->AddPosition({ 0.16f, 0, 0 });
+	};
+	EntityA.AddComponent<OSK::InputComponent>(inputC);
+
 	RenderAPI.Content->LoadModel(EntityA.model, "models/cube/cube.obj");
 
 	Entity EntityB; 
@@ -277,6 +295,7 @@ int program() {
 		}
 
 		ECS.OnTick(deltaTime);
+		Input->OnTick(1.0f);
 
 		mouseVar_t deltaX = NewMS.PositionX - OldMS.PositionX;
 		mouseVar_t deltaY = NewMS.PositionY - OldMS.PositionY;

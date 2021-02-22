@@ -695,6 +695,15 @@
     <ClInclude Include="GameObjectManager.h">
       <Filter>Archivos de encabezado\OSKengine\Engine\ECS</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="InputComponent.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSystem.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODO.txt" />
