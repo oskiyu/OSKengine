@@ -16,31 +16,22 @@
 
 #include <vector>
 
+#include "ECS.h"
+
 namespace OSK {
 
 	//Motor de físicas.
 	//Representa una escena en la que participan entidades físicass, que interaccionan entre sí.
-	class OSKAPI_CALL PhysicsScene {
+	class OSKAPI_CALL PhysicsScene : public ECS::System {
 
 	public:
+
+		void OnTick(deltaTime_t deltaTime) override;
 		
-		//Añade una entidad física a la escena.
-		//	<entity>: entidad a añadir.
-		inline void AddEntity(PhysicsEntity* entity) {
-			Entities.push_back(entity);
-		}
-
-		//Quita una entidad física de la escena.
-		//Si la entidad no está en la escena, no hace nada.
-		//	<entity>: entidad a quitar.
-		inline void RemoveEntity(PhysicsEntity* entity) {
-			Entities.erase(std::remove(Entities.begin(), Entities.end(), entity), Entities.end());
-		}
-
 		//Simula y resuelve las colisiones de la escena.
 		//	<deltaTime>: deltaTime.
 		//	<step>: multiplicador delta.
-		void Simulate(const deltaTime_t& deltaTime, const deltaTime_t& step);
+		void Simulate(deltaTime_t deltaTime, deltaTime_t step);
 
 		//Aceleración que sufren todas las entidades de la escena.
 		Vector3f GlobalAcceleration = { 0.0f, 9.8f, 0.0f };
@@ -73,19 +64,17 @@ namespace OSK {
 
 	private:
 
-		std::vector<PhysicsEntity*> Entities = {};
+		void simulateEntity(PhysicsComponent* entity, Transform* transform, deltaTime_t delta);
 
-		void simulateEntity(PhysicsEntity* entity, const deltaTime_t& delta);
+		void resolveCollisions(PhysicsComponent* a, PhysicsComponent* b, Transform* transformA, Transform* transformB, const ColliderCollisionInfo& info, deltaTime_t delta);
 
-		void resolveCollisions(PhysicsEntity* a, PhysicsEntity* b, const ColliderCollisionInfo& info, const deltaTime_t& delta);
+		void checkTerrainCollision(PhysicsComponent* entity, Transform* transform, deltaTime_t delta);
 
-		void checkTerrainCollision(PhysicsEntity* entity, const deltaTime_t& delta);
+		void resolveTerrainCollision(PhysicsComponent* entity, Transform* transform, const Collision::SAT_CollisionInfo& info, const Vector3f& triangleNormal, deltaTime_t delta);
 
-		void resolveTerrainCollision(PhysicsEntity* entity, const Collision::SAT_CollisionInfo& info, const Vector3f& triangleNormal, const deltaTime_t& delta);
+		void resolveTerrainCollisionAABB(PhysicsComponent* entity, Transform* transform, deltaTime_t delta, const CollisionBox& box);
 
-		void resolveTerrainCollisionAABB(PhysicsEntity* entity, const deltaTime_t& delta, const CollisionBox& box);
-
-		void resolveTerrainCollisionRotation(PhysicsEntity* entity, const Collision::SAT_CollisionInfo& info, const Vector3f& triangleNormal, const deltaTime_t& delta);
+		void resolveTerrainCollisionRotation(PhysicsComponent* entity, Transform* transform, const Collision::SAT_CollisionInfo& info, const Vector3f& triangleNormal, deltaTime_t delta);
 
 	};
 

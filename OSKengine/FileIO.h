@@ -10,7 +10,6 @@
 
 namespace OSK {
 
-	OSK_INFO_STATIC
 	//Clase que actúa de interfaz para la lectura y escritura de atchivos.
 	class OSKAPI_CALL FileIO {
 	

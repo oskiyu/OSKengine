@@ -11,7 +11,7 @@ ReservedText::~ReservedText() {
 	spriteContainer.Clear(true);
 }
 
-void ReservedText::Reserve(const uint32_t& length) {
+void ReservedText::Reserve(uint32_t length) {
 	spriteContainer.Clear(true);
 
 	spriteContainer.number = length;

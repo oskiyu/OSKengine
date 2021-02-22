@@ -21,7 +21,7 @@ namespace OSK {
 	constexpr auto SHADOW_MAP_DEPTH_BIAS_CONSTANT = 1.25f;
 	constexpr auto SHADOW_MAP_DEPTH_BIAS_SLOPE = 1.75f;
 
-	class ShadowMap {
+	class OSKAPI_CALL ShadowMap {
 
 		friend class RenderizableScene;
 

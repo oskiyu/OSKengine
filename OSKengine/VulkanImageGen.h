@@ -36,33 +36,33 @@ namespace OSK::VULKAN {
 		//	<arrayLevels>: niveles de array de la imagen (para arays de imágenes).
 		//	<flags> : 0.
 		//	<mipLevels>: mipLevels.
-		static void CreateImage(VULKAN::VulkanImage* image, const Vector2ui& size, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, const uint32_t& arrayLevels, VkImageCreateFlagBits flags, const uint32_t& mipLevels);
+		static void CreateImage(VULKAN::VulkanImage* image, const Vector2ui& size, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, uint32_t arrayLevels, VkImageCreateFlagBits flags, uint32_t mipLevels);
 
 		//Crea un image view (cómo se accede a la imagen).
-		static void CreateImageView(VULKAN::VulkanImage* img, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, const uint32_t& layerCount, const uint32_t& mipLevels);
+		static void CreateImageView(VULKAN::VulkanImage* img, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, uint32_t layerCount, uint32_t mipLevels);
 
 		//Crea un image view (cómo se accede a la imagen).
-		static void CreateImageView(VkImageView* view, VkImage* image, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, const uint32_t& layerCount, const uint32_t& mipLevels);
+		static void CreateImageView(VkImageView* view, VkImage* image, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, uint32_t layerCount, uint32_t mipLevels);
 
 		//Crea el image sampler de una imagen.
 		//	<image>: imagen.
 		//	<filter>: filtro (LINEAR: suave / NEAREST: pixelado).
 		//	<addressMode>: ¿qué pasas si accedemos a TexCoords fuera de (-1, 1)?
 		//	<mipLevels>: niveles del mipmap.
-		static void CreateImageSampler(VulkanImage& image, VkFilter filter, VkSamplerAddressMode addressMode, const uint32_t& mipLevels);
+		static void CreateImageSampler(VulkanImage& image, VkFilter filter, VkSamplerAddressMode addressMode, uint32_t mipLevels);
 
 		//Crea mipmaps para una imagen.
 		//	<image>: imagen.
 		//	<size>: tamaño de la imagen original (uint32_t).
 		//	<mipLevels>: niveles del mipmap.
-		static void CreateMipmaps(VulkanImage& image, const Vector2ui& size, const uint32_t& levels);
+		static void CreateMipmaps(VulkanImage& image, const Vector2ui& size, uint32_t levels);
 
 		//Copia el contenido de un buffer a una imagen.
 		//	<buffer>: buffer que contiene la imagen.
 		//	<img>: imagen.
 		//	<width>: ancho de la imagen.
 		//	<height>: alto de la imagen.
-		static void CopyBufferToImage(VulkanBuffer* buffer, VULKAN::VulkanImage* img, const uint32_t& width, const uint32_t& height);
+		static void CopyBufferToImage(VulkanBuffer* buffer, VULKAN::VulkanImage* img, uint32_t width, uint32_t height);
 
 		//Cambia el layout de una imagen.
 		//	<img>: imagen.
@@ -71,7 +71,7 @@ namespace OSK::VULKAN {
 		//	<mipLevels>: miplevels.
 		//	<arrayLevels>: arrayLevels.
 		//	<cmdBuffer>: command buffer que se usará (si es nullptr, se creará uno).
-		static void TransitionImageLayout(VulkanImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, const uint32_t& mipLevels, const uint32_t& arrayLevels, VkCommandBuffer* cmdBuffer = nullptr);
+		static void TransitionImageLayout(VulkanImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, uint32_t mipLevels, uint32_t arrayLevels, VkCommandBuffer* cmdBuffer = nullptr);
 
 		//Crea una imagen a partir de un bitmap.
 		//	<width>: ancho del bitmap.

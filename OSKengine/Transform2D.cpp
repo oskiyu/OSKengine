@@ -19,7 +19,7 @@ namespace OSK {
 		UpdateModel();
 	}
 
-	Transform2D::Transform2D(const Vector2& position, const Vector2& scale, const float& rotation) {
+	Transform2D::Transform2D(const Vector2& position, const Vector2& scale, float rotation) {
 		Position = position;
 		Scale = scale;
 		Rotation = rotation;
@@ -49,7 +49,7 @@ namespace OSK {
 		UpdateModel();
 	}
 
-	void Transform2D::SetRotation(const float& rotation) {
+	void Transform2D::SetRotation(float rotation) {
 		Rotation = rotation;
 		UpdateModel();
 	}
@@ -62,7 +62,7 @@ namespace OSK {
 		SetScale(Scale + scaleDelta);
 	}
 
-	void Transform2D::AddRotation(const float& rotationDelta) {
+	void Transform2D::AddRotation(float rotationDelta) {
 		SetRotation(Rotation + rotationDelta);
 	}
 

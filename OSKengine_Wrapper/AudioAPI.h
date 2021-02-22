@@ -11,7 +11,7 @@
 
 namespace OSKengine {
 
-	public ref class AudioAPI : public Wrapper<OSK::AudioAPI> {
+	public ref class AudioAPI : public Wrapper<OSK::AudioSystem> {
 
 	public:
 
@@ -23,14 +23,14 @@ namespace OSKengine {
 
 		void SetListenerSpeed(Vector3<float> speed);
 
-		void PlayAudio3D(SoundEntity% audio, bool bucle);
-		void PlayAudio(SoundEntity% audio, bool bucle);
+		void PlayAudio3D(SoundEmitterComponent% audio, bool bucle);
+		void PlayAudio(SoundEmitterComponent% audio, bool bucle);
 
-		void PauseAudio(SoundEntity% audio);
+		void PauseAudio(SoundEmitterComponent% audio);
 
-		void StopAudio(SoundEntity% audio);
+		void StopAudio(SoundEmitterComponent% audio);
 
-		void RestartAudio(SoundEntity% audio);*/
+		void RestartAudio(SoundEmitterComponent% audio);*/
 
 	};
 

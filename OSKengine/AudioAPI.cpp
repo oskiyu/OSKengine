@@ -4,7 +4,7 @@
 
 namespace OSK {
 
-	AudioAPI::AudioAPI() {
+	void AudioSystem::OnCreate() {
 		device = alcOpenDevice(NULL);
 		if (device == NULL) {
 			OSK::Logger::Log(LogMessageLevels::BAD_ERROR, "crear dispositivo de audo", __LINE__);
@@ -21,7 +21,7 @@ namespace OSK {
 	}
 
 
-	AudioAPI::~AudioAPI() {
+	void AudioSystem::OnRemove() {
 		if (context != nullptr) {
 			alcMakeContextCurrent(NULL);
 			alcDestroyContext(context);
@@ -32,7 +32,7 @@ namespace OSK {
 	}
 
 
-	void AudioAPI::Update() {
+	void AudioSystem::OnTick(deltaTime_t deltaTime) {
 		if (camera == nullptr)
 			return;
 
@@ -45,24 +45,24 @@ namespace OSK {
 	}
 
 
-	void AudioAPI::SetCamera3D(Camera3D* camera) {
+	void AudioSystem::SetCamera3D(Camera3D* camera) {
 		this->camera = camera;
 	}
 
 
-	void AudioAPI::SetListenerSpeed(const Vector3& speed) {
+	void AudioSystem::SetListenerSpeed(const Vector3& speed) {
 		alListener3f(AL_VELOCITY, speed.X, speed.Y, speed.Z);
 	}
 
 
-	void AudioAPI::PlayAudio3D(SoundEntity& audio, const bool& bucle) {
-		audio.SetPosition(audio.SoundTransform.GlobalPosition);
+	void AudioSystem::PlayAudio3D(SoundEmitterComponent& audio, bool bucle) {
+		//audio.SetPosition(audio.SoundTransform.GlobalPosition);
 		alSourcei(audio.SourceID, AL_LOOPING, bucle);
 		alSourcePlay(audio.SourceID);
 	}
 
 
-	void AudioAPI::PlayAudio(SoundEntity& audio, const bool& bucle) {
+	void AudioSystem::PlayAudio(SoundEmitterComponent& audio, bool bucle) {
 		if (camera != nullptr)
 			audio.SetPosition(camera->CameraTransform.GlobalPosition);
 
@@ -71,17 +71,17 @@ namespace OSK {
 	}
 
 
-	void AudioAPI::PauseAudio(const SoundEntity& audio) {
+	void AudioSystem::PauseAudio(const SoundEmitterComponent& audio) {
 		alSourcePause(audio.SourceID);
 	}
 
 
-	void AudioAPI::StopAudio(const SoundEntity& audio) {
+	/*void AudioSystem::StopAudio(const SoundEmitterComponent& audio) {
 		alSourcePause(audio.SourceID);
-	}
+	}*/
 
 
-	void AudioAPI::RestartAudio(const SoundEntity& audio) {
+	void AudioSystem::RestartAudio(const SoundEmitterComponent& audio) {
 		alSourceStop(audio.SourceID);
 		alSourcePlay(audio.SourceID);
 	}

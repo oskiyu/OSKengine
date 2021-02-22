@@ -38,7 +38,7 @@ namespace OSK {
 		SetTexCoordsInPercent(finalTexCoords);
 	}
 
-	void Sprite::SetTexCoords(const float& x, const float& y, const float& width, const float& hegith) {
+	void Sprite::SetTexCoords(float x, float y, float width, float hegith) {
 		SetTexCoords(Vector4(x, y, width, hegith));
 	}
 

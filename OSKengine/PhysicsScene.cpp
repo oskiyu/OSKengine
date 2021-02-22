@@ -1,44 +1,64 @@
 #include "PhysicsScene.h"
 
 #include "Math.h"
+#include "ECS.h"
+#include "TransformComponent.h"
+#include "CollisionComponent.h"
 
 using namespace OSK;
 using namespace OSK::Collision;
 
-void PhysicsScene::Simulate(const deltaTime_t& deltaTime, const deltaTime_t& step) {
+void PhysicsScene::OnTick(deltaTime_t deltaTime) {
+	Simulate(deltaTime, 1.0f);
+}
+
+void PhysicsScene::Simulate(deltaTime_t deltaTime, deltaTime_t step) {
 	const deltaTime_t delta = deltaTime * step;
 
-	for (auto& i : Entities)
-		simulateEntity(i, delta);
+	for (auto& i : Objects) {
+		PhysicsComponent* physics = &ECSsystem->GetComponent<PhysicsComponent>(i);
+		TransformComponent* transform = &ECSsystem->GetComponent<TransformComponent>(i);
 
-	for (uint32_t a = 0; a < Entities.size(); a++) {
-		for (uint32_t b = a + 1; b < Entities.size(); b++) {
-			ColliderCollisionInfo info = Entities[a]->Collision.GetCollisionInfo(Entities[b]->Collision);
+		simulateEntity(physics, &transform->Transform3D, delta);
+	}
+
+	for (auto a : Objects) {
+		for (auto b : Objects) {
+			if (a == b)
+				continue;
+
+			PhysicsComponent* physicsA = &ECSsystem->GetComponent<PhysicsComponent>(a);
+			PhysicsComponent* physicsB = &ECSsystem->GetComponent<PhysicsComponent>(b);
+
+			ColliderCollisionInfo info = physicsA->Collision.GetCollisionInfo(physicsB->Collision);
 
 			if (info.IsColliding)
-				resolveCollisions(Entities[a], Entities[b], info, delta);
+				resolveCollisions(physicsA, physicsB, &ECSsystem->GetComponent<TransformComponent>(a).Transform3D, &ECSsystem->GetComponent<TransformComponent>(b).Transform3D, info, delta);
 		}
 
 		if (FloorTerrain) {
+			PhysicsComponent* physics = &ECSsystem->GetComponent<PhysicsComponent>(a);
+			TransformComponent& transform = ECSsystem->GetComponent<TransformComponent>(a);
+
 			if (TerrainColissionType == PhysicalSceneTerrainResolveType::RESOLVE_DETAILED) {
-				checkTerrainCollision(Entities[a], delta);
+				checkTerrainCollision(physics, &transform.Transform3D, delta);
 			}
 			else if (TerrainColissionType == PhysicalSceneTerrainResolveType::CHANGE_HEIGHT_ONLY) {
-				const float terrainHeight = FloorTerrain->GetHeight({ Entities[a]->EntityTransform->GlobalPosition.X, Entities[a]->EntityTransform->GlobalPosition.Z }) + Entities[a]->Height;
-				if (Entities[a]->EntityTransform->GlobalPosition.Y > terrainHeight) {
-					Entities[a]->Velocity.Y = 0;
-					Entities[a]->CanMoveY_p = false;
-					Entities[a]->EntityTransform->LocalPosition.Y = terrainHeight;
+				const float terrainHeight = FloorTerrain->GetHeight({ transform.Transform3D.GlobalPosition.X, transform.Transform3D.GlobalPosition.Z }) + physics->Height;
+				if (transform.Transform3D.GlobalPosition.Y > terrainHeight) {
+					physics->Velocity.Y = 0;
+					physics->CanMoveY_p = false;
+					transform.Transform3D.LocalPosition.Y = terrainHeight;
 				}
 				else {
-					Entities[a]->CanMoveY_p = true;
+					physics->CanMoveY_p = true;
 				}
 			}
 		}
 	}
 }
 
-void PhysicsScene::simulateEntity(PhysicsEntity* entity, const deltaTime_t& delta) {
+void PhysicsScene::simulateEntity(PhysicsComponent* entity, Transform* transform, deltaTime_t delta) {
 	if (entity->Type == PhysicalEntityMobilityType::STATIC)
 		return;
 	
@@ -48,11 +68,11 @@ void PhysicsScene::simulateEntity(PhysicsEntity* entity, const deltaTime_t& delt
 	if (FloorTerrain) {
 		
 		if (TerrainColissionType == PhysicalSceneTerrainResolveType::RESOLVE_DETAILED) {
-			const float height = FloorTerrain->GetHeight({ entity->EntityTransform->GlobalPosition.X , entity->EntityTransform->GlobalPosition.Z });
-			if (entity->EntityTransform->GlobalPosition.Y > height) {
+			const float height = FloorTerrain->GetHeight({ transform->GlobalPosition.X , transform->GlobalPosition.Z });
+			if (transform->GlobalPosition.Y > height) {
 				entity->Velocity.Y = 0;
 				entity->CanMoveY_p = false;
-				entity->EntityTransform->LocalPosition.Y = height;
+				transform->LocalPosition.Y = height;
 
 				const float multiply = entity->Mass / 3 * FloorTerrain->FrictionCoefficient;
 
@@ -113,12 +133,12 @@ void PhysicsScene::simulateEntity(PhysicsEntity* entity, const deltaTime_t& delt
 		entity->Velocity.Z = 0;
 
 	if (SimulateFlags & PHYSICAL_SCENE_SIMULATE_VELOCITY)
-		entity->EntityTransform->AddPosition(entity->Velocity * delta);
+		transform->AddPosition(entity->Velocity * delta);
 
 	if (SimulateFlags & PHYSICAL_SCENE_SIMULATE_ROTATION)
-		entity->EntityTransform->RotateWorldSpace(entity->AngularVelocity.GetLenght() * delta, entity->AngularVelocity);
+		transform->RotateWorldSpace(entity->AngularVelocity.GetLenght() * delta, entity->AngularVelocity);
 
-	entity->Collision.SetPosition(entity->EntityTransform->GlobalPosition);
+	entity->Collision.SetPosition(transform->GlobalPosition);
 
 	if (SimulateFlags & PHYSICAL_SCENE_SIMULATE_ROTATION)
 		entity->AngularVelocity *= (1 - (delta * delta));
@@ -127,13 +147,13 @@ void PhysicsScene::simulateEntity(PhysicsEntity* entity, const deltaTime_t& delt
 		i.TransformPoints();
 }
 
-void PhysicsScene::resolveCollisions(PhysicsEntity* a, PhysicsEntity* b, const ColliderCollisionInfo& info, const deltaTime_t& delta) {
+void PhysicsScene::resolveCollisions(PhysicsComponent* a, PhysicsComponent* b, Transform* transformA, Transform* transformB, const ColliderCollisionInfo& info, deltaTime_t delta) {
 	const Collision::SAT_CollisionInfo satInfo = info.SAT_1->GetCollisionInfo(*info.SAT_2);
 
 	Vector3f MTV = satInfo.MinimunTranslationVector;
 
 	//Vectores A->B y B->A.
-	const Vector3f A_To_B = b->EntityTransform->GlobalPosition - a->EntityTransform->GlobalPosition;
+	const Vector3f A_To_B = transformB->GlobalPosition - transformA->GlobalPosition;
 	const Vector3f B_To_A = -A_To_B;
 
 	//MTVs para A y B.
@@ -245,9 +265,9 @@ void PhysicsScene::resolveCollisions(PhysicsEntity* a, PhysicsEntity* b, const C
 #pragma endregion
 
 	if (a->ResponseFlags & PHYSICAL_ENTITY_RESPONSE_MOVE_MTV)
-		a->EntityTransform->AddPosition(MTV_ForA);
+		transformA->AddPosition(MTV_ForA);
 	if (b->ResponseFlags & PHYSICAL_ENTITY_RESPONSE_MOVE_MTV)
-		b->EntityTransform->AddPosition(MTV_ForB);
+		transformB->AddPosition(MTV_ForB);
 
 	if (ResolveFlags & PHYSICAL_SCENE_RESOLVE_ROTATION) {
 		if (a->Type == PhysicalEntityMobilityType::MOVABLE && a->ResponseFlags & PHYSICAL_ENTITY_RESPONSE_ROTATE && b->InteractionFlags & PHYSICAL_ENTITY_INTERACTION_GIVE_ROTATION) {
@@ -257,9 +277,9 @@ void PhysicsScene::resolveCollisions(PhysicsEntity* a, PhysicsEntity* b, const C
 			//Rotación.
 			const Vector3f pointA = satInfo.PointA;
 			
-			rotA += PhysicsEntity::GetTorque(pointA, B_To_A.GetNormalized()) * 3 * delta;
+			rotA += PhysicsComponent::GetTorque(pointA, B_To_A.GetNormalized()) * 3 * delta;
 
-			a->EntityTransform->RotateWorldSpace(1 / a->Mass, rotA);
+			transformA->RotateWorldSpace(1 / a->Mass, rotA);
 
 			a->AngularVelocity += (rotA);
 		}
@@ -271,9 +291,9 @@ void PhysicsScene::resolveCollisions(PhysicsEntity* a, PhysicsEntity* b, const C
 			//Rotación.
 			const Vector3f pointB = satInfo.PointB;
 
-			rotB += PhysicsEntity::GetTorque(pointB, A_To_B.GetNormalized()) * 3 * delta;
+			rotB += PhysicsComponent::GetTorque(pointB, A_To_B.GetNormalized()) * 3 * delta;
 
-			b->EntityTransform->RotateWorldSpace(1 / b->Mass, rotB);
+			transformB->RotateWorldSpace(1 / b->Mass, rotB);
 
 			b->AngularVelocity += (rotB);
 		}
@@ -290,20 +310,20 @@ void PhysicsScene::resolveCollisions(PhysicsEntity* a, PhysicsEntity* b, const C
 	}
 }
 
-void PhysicsScene::checkTerrainCollision(PhysicsEntity* entity, const deltaTime_t& delta) {
+void PhysicsScene::checkTerrainCollision(PhysicsComponent* entity, Transform* transform, deltaTime_t delta) {
 	if (entity->Collision.BroadType == BroadColliderType::BOX_AABB) {
-		resolveTerrainCollisionAABB(entity, delta, entity->Collision.BroadCollider.Box);
+		resolveTerrainCollisionAABB(entity, transform, delta, entity->Collision.BroadCollider.Box);
 	}
 	else {
 		CollisionBox box;
 		box.Position = entity->Collision.BroadCollider.Sphere.Position;
 		box.Size = { entity->Collision.BroadCollider.Sphere.Radius };
 
-		resolveTerrainCollisionAABB(entity, delta, box);
+		resolveTerrainCollisionAABB(entity, transform, delta, box);
 	}
 }
 
-void PhysicsScene::resolveTerrainCollisionAABB(PhysicsEntity* entity, const deltaTime_t& delta, const CollisionBox& box) {
+void PhysicsScene::resolveTerrainCollisionAABB(PhysicsComponent* entity, Transform* transform, deltaTime_t delta, const CollisionBox& box) {
 	Vector2f worldMin = { box.GetMin().X + box.Size.X, box.GetMin().Z + box.Size.Z };
 	Vector2f worldMax = { box.GetMax().X + box.Size.X, box.GetMax().Z + box.Size.Z };
 
@@ -385,12 +405,12 @@ void PhysicsScene::resolveTerrainCollisionAABB(PhysicsEntity* entity, const delt
 
 						if (overlapping < TerrainCollisionDelta) {
 							entity->Velocity.Y = 0.0f;
-							resolveTerrainCollisionRotation(entity, info, normal, delta);
+							resolveTerrainCollisionRotation(entity, transform, info, normal, delta);
 
 							break;
 						}
 
-						resolveTerrainCollision(entity, info, normal, delta);
+						resolveTerrainCollision(entity, transform, info, normal, delta);
 
 						hasCollidedThisFrame = true;
 
@@ -435,12 +455,12 @@ void PhysicsScene::resolveTerrainCollisionAABB(PhysicsEntity* entity, const delt
 
 						if (overlapping < TerrainCollisionDelta) {
 							entity->Velocity.Y = 0.0f;
-							resolveTerrainCollisionRotation(entity, info, normal, delta);
+							resolveTerrainCollisionRotation(entity, transform, info, normal, delta);
 
 							break;
 						}
 
-						resolveTerrainCollision(entity, info, normal, delta);
+						resolveTerrainCollision(entity, transform, info, normal, delta);
 
 						hasCollidedThisFrame = true;
 
@@ -457,26 +477,26 @@ void PhysicsScene::resolveTerrainCollisionAABB(PhysicsEntity* entity, const delt
 	}
 }
 
-void PhysicsScene::resolveTerrainCollision(PhysicsEntity* entity, const SAT_CollisionInfo& info, const Vector3f& triangleNormal, const deltaTime_t& delta) {
+void PhysicsScene::resolveTerrainCollision(PhysicsComponent* entity, Transform* transform, const SAT_CollisionInfo& info, const Vector3f& triangleNormal, deltaTime_t delta) {
 	if (entity->ResponseFlags & PHYSICAL_ENTITY_RESPONSE_MOVE_MTV) {
-		entity->EntityTransform->AddPosition(triangleNormal);
+		transform->AddPosition(triangleNormal);
 	}
 
 	for (auto& i : entity->Collision.SatColliders)
 		i.TransformPoints();
 
-	resolveTerrainCollisionRotation(entity, info, triangleNormal, delta);
+	resolveTerrainCollisionRotation(entity, transform, info, triangleNormal, delta);
 }
 
-void PhysicsScene::resolveTerrainCollisionRotation(PhysicsEntity* entity, const Collision::SAT_CollisionInfo& info, const Vector3f& triangleNormal, const deltaTime_t& delta) {
+void PhysicsScene::resolveTerrainCollisionRotation(PhysicsComponent* entity, Transform* transform, const Collision::SAT_CollisionInfo& info, const Vector3f& triangleNormal, deltaTime_t delta) {
 	if (ResolveFlags & PHYSICAL_SCENE_RESOLVE_ROTATION) {
 		if (entity->ResponseFlags & PHYSICAL_ENTITY_RESPONSE_ROTATE) {
 			//Rotación.
 			const Vector3f pointA = info.PointA;
 
-			Vector3f rotA = PhysicsEntity::GetTorque(pointA, { 0.0f, -9.8f, 0.0f }) * delta * entity->Velocity.GetLenght();
+			Vector3f rotA = PhysicsComponent::GetTorque(pointA, { 0.0f, -9.8f, 0.0f }) * delta * entity->Velocity.GetLenght();
 
-			entity->EntityTransform->RotateWorldSpace(entity->Velocity.GetLenght(), rotA);
+			transform->RotateWorldSpace(entity->Velocity.GetLenght(), rotA);
 
 			entity->AngularVelocity += rotA;
 		}

@@ -4,7 +4,7 @@
 
 namespace OSK {
 
-	DescriptorLayout::DescriptorLayout(VkDevice logicalDevice, const uint32_t& swapchainCount) {
+	DescriptorLayout::DescriptorLayout(VkDevice logicalDevice, uint32_t swapchainCount) {
 		this->logicalDevice = logicalDevice;
 		swapchainImageCount = swapchainCount;
 	}
@@ -13,7 +13,7 @@ namespace OSK {
 		clear();
 	}
 
-	void DescriptorLayout::AddBinding(const uint32_t& binding, VkDescriptorType type, VkShaderStageFlags stage, const uint32_t& count) {
+	void DescriptorLayout::AddBinding(uint32_t binding, VkDescriptorType type, VkShaderStageFlags stage, uint32_t count) {
 		VkDescriptorSetLayoutBinding layoutBinding{};
 		layoutBinding.binding = binding;
 		layoutBinding.descriptorType = type;
@@ -30,7 +30,7 @@ namespace OSK {
 		descriptorPoolSizes.push_back(size);
 	}
 
-	void DescriptorLayout::Create(const uint32_t& maxSets) {
+	void DescriptorLayout::Create(uint32_t maxSets) {
 		VkDescriptorSetLayoutCreateInfo layoutInfo{};
 		layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
 		layoutInfo.bindingCount = descriptorLayoutBindings.size();

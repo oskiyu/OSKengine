@@ -32,9 +32,11 @@ namespace OSK {
 	//ContentManager es una clase que se encarga de cargar los recursos del juego.
 	//Almacena los recursos que se hayan cargado, y los elimina al cerrarse (o al llamar a Unload()).
 	//Pueden usarse varios, para cargar recursos por lotes que tienen el mismo periodo de vida.
-	struct OSKAPI_CALL ContentManager {
+	class OSKAPI_CALL ContentManager {
 
 		friend class RenderAPI;
+
+	public:
 
 		//Directorio en el que se guarda la textura por defecto.
 		static const std::string DEFAULT_TEXTURE_PATH;

@@ -19,7 +19,7 @@ namespace OSK {
 
 		//Clase que almacena el 'transform' de un objeto en un mundo 3D.
 		//Posición, escala y rotación.
-		Transform2D(const Vector2& position, const Vector2& scale, const float& rotation);
+		Transform2D(const Vector2& position, const Vector2& scale, float rotation);
 
 		//Destruye el transform.
 		~Transform2D();
@@ -34,7 +34,7 @@ namespace OSK {
 
 		//Establece la rotación del transform.
 		//También actualiza la matriz modelo.
-		void SetRotation(const float& scale);
+		void SetRotation(float scale);
 
 		//Cambia la posición del transform.
 		//También actualiza la matriz modelo.
@@ -46,7 +46,7 @@ namespace OSK {
 
 		//Cambia la rotación del transform.
 		//También actualiza la matriz modelo.
-		void AddRotation(const float& rotationDelta);
+		void AddRotation(float rotationDelta);
 
 		//Actualiza la matriz modelo.
 		//La matriz modelo es la información que se le envía a la GPU.
@@ -81,8 +81,7 @@ namespace OSK {
 		float Rotation;
 
 		//Matriz "model".
-		OSK_INFO_READ_ONLY
-			glm::mat4 ModelMatrix;
+		glm::mat4 ModelMatrix;
 
 		//Transformación padre.
 		Transform2D* ParentTransform;
@@ -105,7 +104,6 @@ namespace OSK {
 	private:
 
 		bool isAttached = false;
-
 		bool isParent = false;
 
 		Transform2D* parent = nullptr;

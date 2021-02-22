@@ -43,8 +43,15 @@ namespace OSK {
 
 	GraphicsPipeline::~GraphicsPipeline() {
 		clearShaders();
-		vkDestroyPipeline(logicalDevice, VulkanPipeline, nullptr);
-		vkDestroyPipelineLayout(logicalDevice, VulkanPipelineLayout, nullptr);
+
+		if (VulkanPipeline != VK_NULL_HANDLE) {
+			vkDestroyPipeline(logicalDevice, VulkanPipeline, nullptr);
+			VulkanPipeline = VK_NULL_HANDLE;
+		}
+		if (VulkanPipelineLayout != VK_NULL_HANDLE) {
+			vkDestroyPipelineLayout(logicalDevice, VulkanPipelineLayout, nullptr);
+			VulkanPipelineLayout = VK_NULL_HANDLE;
+		}
 	}
 
 	void GraphicsPipeline::SetViewport(const Vector4& size, const Vector2& depthMinMax) {
@@ -67,7 +74,7 @@ namespace OSK {
 		viewportHasBeenSet = true;
 	}
 
-	void GraphicsPipeline::SetRasterizer(const VkBool32& renderObjectsOutsideRange, VkPolygonMode polygonMode, VkCullModeFlagBits cullMode, VkFrontFace frontFaceType) {
+	void GraphicsPipeline::SetRasterizer(VkBool32 renderObjectsOutsideRange, VkPolygonMode polygonMode, VkCullModeFlagBits cullMode, VkFrontFace frontFaceType) {
 		rasterizer.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
 		rasterizer.depthClampEnable = renderObjectsOutsideRange; //FALSE: si el objeto está fuera de los límites no se renderiza.
 		rasterizer.rasterizerDiscardEnable = VK_FALSE;

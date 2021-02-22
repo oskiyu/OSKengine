@@ -20,7 +20,7 @@ void Framebuffer::AddImageView(VkImageView view) {
 	attachments.push_back(view);
 }
 
-void Framebuffer::Create(VULKAN::Renderpass* renderpass, const uint32_t& sizeX, const uint32_t& sizeY) {
+void Framebuffer::Create(VULKAN::Renderpass* renderpass, uint32_t sizeX, uint32_t sizeY) {
 	VkFramebufferCreateInfo framebufferInfo{};
 	framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
 	framebufferInfo.renderPass = renderpass->VulkanRenderpass;

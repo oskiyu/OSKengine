@@ -70,13 +70,13 @@ void Transform::ApplyRotation(const Quaternion& rotationDelta) {
 		SetRotation(q);
 	}
 
-void Transform::RotateLocalSpace(const float& angle, const Vector3f& axis) {
+void Transform::RotateLocalSpace(float angle, const Vector3f& axis) {
 		Rotation.Rotate_LocalSpace(angle, axis);
 
 		UpdateModel();
 	}
 
-void Transform::RotateWorldSpace(const float& angle, const Vector3f& axis) {
+void Transform::RotateWorldSpace(float angle, const Vector3f& axis) {
 		Rotation.Rotate_WorldSpace(angle, axis);
 
 		UpdateModel();

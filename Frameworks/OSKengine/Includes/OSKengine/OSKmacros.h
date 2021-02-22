@@ -55,3 +55,16 @@ inline void* osk_add_ptr_offset(void* originalPointer, const size_t& offset) {
 	
 	return reinterpret_cast<void*>(__osk_bytePtr);
 }
+
+namespace OSK {
+
+	template<typename T> inline void SafeDelete(T** ptr) {
+		if (*ptr != nullptr) {
+			delete* ptr;
+			*ptr = nullptr;
+		}
+	}
+
+#define OSK_SAFE_DELETE(ptr) SafeDelete(ptr);
+
+}

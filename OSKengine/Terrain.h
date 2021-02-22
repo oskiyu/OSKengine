@@ -33,7 +33,7 @@ namespace OSK {
 		//	<path>: ruta del heightmap.
 		//	<quadSize>: tamaño de cada cuadrado del terreno.
 		//	<maxHeight>: máxima altura del terreno.
-		void CreateMesh(const std::string& path, const Vector2f& quadSize, const float_t& maxHeight);
+		void CreateMesh(const std::string& path, const Vector2f& quadSize, float maxHeight);
 
 		//Obtiene la altura del terreno en un punto específico.
 		//	<point>: punto (en coordenadas del mundo).
@@ -73,7 +73,6 @@ namespace OSK {
 		Heightmap Map{};
 
 		float HeightMultiply = -5.0f / 255;
-
 		bool HasBeenLoaded = false;
 
 		const float barryCentric(const Vector3f& p1, const Vector3f& p2, const Vector3f& p3, const Vector2f& pos) const;

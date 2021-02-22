@@ -10,7 +10,7 @@ namespace OSK {
 
 	}
 
-	void Terrain::CreateMesh(const std::string& path, const Vector2f& quadSize, const float_t& maxHeight) {
+	void Terrain::CreateMesh(const std::string& path, const Vector2f& quadSize, float maxHeight) {
 		Content->LoadHeightmap(Map, path);
 		MapSizeInQuads = Map.Size;
 		QuadSize = quadSize;

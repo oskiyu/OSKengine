@@ -2,6 +2,6 @@
 
 using namespace OSKengine;
 
-AudioAPI::AudioAPI() : Wrapper(new OSK::AudioAPI) {
+AudioAPI::AudioAPI() : Wrapper(new OSK::AudioSystem) {
 	
 }

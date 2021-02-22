@@ -6,7 +6,7 @@
 
 namespace OSK {
 
-	Camera3D::Camera3D(const cameraVar_t& posX, const cameraVar_t& posY, const cameraVar_t posZ) {
+	Camera3D::Camera3D(cameraVar_t posX, cameraVar_t posY, cameraVar_t posZ) {
 		CameraTransform = Transform();
 		CameraTransform.LocalPosition = Vector3f(posX, posY, posZ);
 		CameraTransform.LocalScale = Vector3f(1.0f);
@@ -27,7 +27,7 @@ namespace OSK {
 
 	}
 
-	void Camera3D::Girar(const double& xoffset, const double& yoffset, const bool& constraint) {
+	void Camera3D::Girar(double xoffset, double yoffset, bool constraint) {
 		float Sensitivity = 0.25f;
 
 		AngleX += xoffset * Sensitivity;
@@ -48,7 +48,7 @@ namespace OSK {
 		updateVectors();
 	}
 
-	void Camera3D::SetFoV(const double& fov) {
+	void Camera3D::SetFoV(double fov) {
 		FieldOfView = fov;
 		if (FieldOfView <= FoVLimitDown)
 			FieldOfView = FoVLimitDown;
@@ -56,7 +56,7 @@ namespace OSK {
 			FieldOfView = FoVLimitUp;
 	}
 
-	void Camera3D::AddFoV(const double& fov) {
+	void Camera3D::AddFoV(double fov) {
 		SetFoV(FieldOfView - fov);
 	}
 

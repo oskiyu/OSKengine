@@ -7,7 +7,7 @@ Collider::Collider() {
 
 }
 
-Collider::Collider(const Vector3f& spherePosition, const float& sphereRadius) {
+Collider::Collider(const Vector3f& spherePosition, float sphereRadius) {
 	SetBroadCollider(CollisionSphere(spherePosition, sphereRadius));
 }
 

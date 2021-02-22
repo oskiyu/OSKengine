@@ -128,12 +128,11 @@
     <ClInclude Include="Vector2f.h" />
     <ClInclude Include="Vector2i.h" />
     <ClInclude Include="Vector2ui.h" />
-    <ClInclude Include="Vector3.hpp" />
     <ClInclude Include="Vector3d.h" />
     <ClInclude Include="Vector3f.h" />
     <ClInclude Include="Vector3i.h" />
     <ClInclude Include="Vector3ui.h" />
-    <ClInclude Include="Vector4.h" />
+    <ClInclude Include="Vector4f.h" />
     <ClInclude Include="Wrapper.h" />
   </ItemGroup>
   <ItemGroup>

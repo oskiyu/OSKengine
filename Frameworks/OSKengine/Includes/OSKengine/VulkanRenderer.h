@@ -40,6 +40,7 @@ namespace OSK {
 
 		friend class ContentManager;
 		friend class RenderizableScene;
+		friend class ShadowMap;
 		friend class VULKAN::VulkanImageGen;
 		friend class VULKAN::Framebuffer;
 

@@ -3,7 +3,7 @@
 
 namespace OSK {
 
-	DescriptorSet::DescriptorSet(VkDevice logicalDevice, const uint32_t& swapchainCount) {
+	DescriptorSet::DescriptorSet(VkDevice logicalDevice, uint32_t swapchainCount) {
 		this->logicalDevice = logicalDevice;
 		this->swapchainCount = swapchainCount;
 
@@ -30,7 +30,7 @@ namespace OSK {
 			throw std::runtime_error("ERROR: crear descriptor sets.");
 	}
 
-	void DescriptorSet::AddUniformBuffers(std::vector<VulkanBuffer> buffers, const uint32_t& binding, const size_t& size) {
+	void DescriptorSet::AddUniformBuffers(std::vector<VulkanBuffer> buffers, uint32_t binding, size_t size) {
 		for (uint32_t i = 0; i < VulkanDescriptorSets.size(); i++) {
 			VkDescriptorBufferInfo* bufferInfo = new VkDescriptorBufferInfo();
 			bufferInfo->buffer = buffers[i].Buffer;
@@ -54,7 +54,7 @@ namespace OSK {
 		}
 	}
 
-	void DescriptorSet::AddImage(VULKAN::VulkanImage* image, VkSampler sampler, const uint32_t& binding) {
+	void DescriptorSet::AddImage(VULKAN::VulkanImage* image, VkSampler sampler, uint32_t binding) {
 		for (uint32_t i = 0; i < VulkanDescriptorSets.size(); i++) {
 			VkDescriptorImageInfo* imageInfo = new VkDescriptorImageInfo();
 			imageInfo->imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
@@ -86,7 +86,7 @@ namespace OSK {
 		clear();
 	}
 
-	void DescriptorSet::Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, const uint32_t& iteration) const {
+	void DescriptorSet::Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration) const {
 		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->VulkanPipelineLayout, 0, 1, &VulkanDescriptorSets[iteration], 0, nullptr);
 	}
 

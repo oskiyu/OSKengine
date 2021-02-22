@@ -16,7 +16,7 @@ namespace OSK {
 	public:
 
 		//Enlaza el skybox - tanto el modelo como la textura.
-		inline void Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, const uint32_t& i) const {
+		inline void Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t i) const {
 			Skybox::Model->Bind(commandBuffer);
 			texture->Descriptor->Bind(commandBuffer, pipeline, i);
 		}

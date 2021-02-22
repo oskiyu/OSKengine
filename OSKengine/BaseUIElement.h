@@ -15,7 +15,6 @@
 
 namespace OSK::UI {
 	
-	OSK_INFO_DO_NOT_TOUCH
 	//Clase base para cualquier elemento de interfaz de usuario.
 	class OSKAPI_CALL BaseUIElement {
 

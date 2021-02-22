@@ -91,9 +91,6 @@
     <Filter Include="Archivos de origen\OSKengine\Collision\SAT">
       <UniqueIdentifier>{e3d458f7-5052-4e81-a601-7ef68aeacac8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\OSKengine\Collections">
-      <UniqueIdentifier>{59222c19-129b-47c1-8583-882a62e7579b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de encabezado\OSKengine\RenderAPI">
       <UniqueIdentifier>{8d7b5b8e-3a94-454e-ae0b-92a46c2f6f19}</UniqueIdentifier>
     </Filter>
@@ -126,6 +123,30 @@
     </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\SpriteRendering">
       <UniqueIdentifier>{c6f0b7e7-24a0-49ea-993c-a59f55f03f50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Material">
+      <UniqueIdentifier>{93b8764e-cf78-493e-aae4-96d6fcb9eb51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\Material">
+      <UniqueIdentifier>{9c8acd61-664a-42e9-84e0-ec83fa6e5215}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Shadows">
+      <UniqueIdentifier>{738bfe36-d8b5-4c65-b870-defb8ee95059}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\Shadows">
+      <UniqueIdentifier>{497b47eb-a57a-4d38-80e0-70c5fdfbf08e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Engine">
+      <UniqueIdentifier>{a56c1eaf-4985-486a-926c-bdae0af48a93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Engine\ECS">
+      <UniqueIdentifier>{2bd80faf-aa4c-47b8-a972-ad5a9b0d5b0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Engine\Systems">
+      <UniqueIdentifier>{5d405dd1-431b-40d0-a073-337518911624}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Engine\Components">
+      <UniqueIdentifier>{9e5e58f1-a963-4c92-b69f-9ee524e07d7b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -306,8 +327,14 @@
     <ClCompile Include="RenderStage.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
     </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
+    </ClCompile>
     <ClCompile Include="ShadowMap.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Shadows</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeShadowMap.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Shadows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -446,13 +473,7 @@
     <ClInclude Include="Checkbox.h">
       <Filter>Archivos de encabezado\OSKengine\UI</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicsAPIenum.h">
-      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="VulkanRenderer.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderMode.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
     </ClInclude>
     <ClInclude Include="Version.h">
@@ -478,12 +499,6 @@
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="VulkanRenderizableObject.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawCommand.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
@@ -590,12 +605,6 @@
     <ClInclude Include="SAT_Projection.hpp">
       <Filter>Archivos de encabezado\OSKengine\Collision\SAT</Filter>
     </ClInclude>
-    <ClInclude Include="VectorUtil.h">
-      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="DynamicArray.h">
-      <Filter>Archivos de encabezado\OSKengine\Collections</Filter>
-    </ClInclude>
     <ClInclude Include="Vector2.hpp">
       <Filter>Archivos de encabezado\OSKengine\Types</Filter>
     </ClInclude>
@@ -632,8 +641,59 @@
     <ClInclude Include="RenderStage.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
     </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderStage.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderBindingType.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
     <ClInclude Include="ShadowMap.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Shadows</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeShadowMap.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Shadows</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentArray.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentManager.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem3D.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshComponent.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponent.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionComponent.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\ECS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

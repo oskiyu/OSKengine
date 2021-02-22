@@ -96,9 +96,7 @@ VkSurfaceFormatKHR getSwapchainFormat(const std::vector<VkSurfaceFormatKHR>& for
 	return formats[0];
 }
 
-OskResult RenderAPI::Init(const RenderMode& mode, const std::string& appName, const Version& gameVersion) {
-	renderMode = mode;
-	
+OskResult RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 	VulkanImageGen::SetRenderer(this);
 
 	createInstance(appName, gameVersion);
@@ -188,8 +186,29 @@ Renderpass* RenderAPI::CreateNewRenderpass() {
 RenderTarget* RenderAPI::CreateNewRenderTarget() {
 	return new RenderTarget(this);
 }
+void RenderAPI::InitRenderTarget(RenderTarget* rtarget, ContentManager* content) {
+	rtarget->Size = { (uint32_t)Window->GetRectangle().GetRectangleWidth(), (uint32_t)Window->GetRectangle().GetRectangleHeight() };
+	rtarget->CreateSprite(content);
 
-void RenderAPI::SetPresentMode(const PresentMode& mode) {
+	//Image
+	VULKAN::VulkanImageGen::CreateImage(&rtarget->RenderedSprite.texture->Albedo, rtarget->Size, SwapchainFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
+	VULKAN::VulkanImageGen::CreateImageView(&rtarget->RenderedSprite.texture->Albedo, SwapchainFormat, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
+	VULKAN::VulkanImageGen::CreateImageSampler(rtarget->RenderedSprite.texture->Albedo, SHADOW_MAP_FILTER, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
+	createDescriptorSets(rtarget->RenderedSprite.texture);
+
+	//Renderpass
+	VULKAN::RenderpassAttachment rpassAttachment{};
+	rpassAttachment.AddAttachment(SwapchainFormat, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+	rpassAttachment.CreateReference(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+	std::vector<VULKAN::RenderpassAttachment> attchments = { };
+	rtarget->CreateRenderpass(attchments, &rpassAttachment);
+
+	//Framebuffers
+	rtarget->SetSize(rtarget->Size.X, rtarget->Size.Y, true, false);
+	rtarget->CreateFramebuffers(4, &rtarget->RenderedSprite.texture->Albedo.View, 1);
+}
+
+void RenderAPI::SetPresentMode(PresentMode mode) {
 	targetPresentMode = mode;
 
 	if (hasBeenInit)
@@ -1176,12 +1195,17 @@ void RenderAPI::AddSingleTimeStage(RenderStage* stage) {
 	SingleTimeStages.push_back(stage);
 }
 
-void RenderAPI::DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, const uint32_t& iteration) {
+void RenderAPI::DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, uint32_t iteration) {
 	if (stage->RTarget == nullptr)
 		return;
 	
 	if (stage->Scene != nullptr) {
+		stage->Scene->UpdateLightsBuffers();
+
 		stage->Scene->DrawShadows(cmdBuffer, iteration);
+
+		//for (auto& cubeMap : stage->Scene->cubeShadowMaps)
+			//stage->Scene->DrawPointShadows(cmdBuffer, iteration, cubeMap);
 	}
 
 	VkRenderPassBeginInfo renderPassInfo{};
@@ -1333,47 +1357,6 @@ void RenderAPI::updateCommandBuffers() {
 
 	SingleTimeStages.clear();
 }
-
-
-
-void RenderAPI::createVertexBuffer(VulkanRenderizableObject* obj) const {
-	VkDeviceSize size = sizeof(Vertex) * obj->Vertices.size();
-	std::cout << size << std::endl;
-	//Buffer temporal CPU-GPU.
-	VulkanBuffer stagingBuffer;
-	CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-
-	void* data;
-	vkMapMemory(LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
-	memcpy(data, obj->Vertices.data(), (size_t)size);
-	vkUnmapMemory(LogicalDevice, stagingBuffer.Memory);
-
-	//Buffer final en la GPU.
-	CreateBuffer(obj->VertexBuffer, size, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-
-	CopyBuffer(stagingBuffer, obj->VertexBuffer, size);
-
-	DestroyBuffer(stagingBuffer);
-}
-
-
-void RenderAPI::createIndexBuffer(VulkanRenderizableObject* obj) const {
-	VkDeviceSize size = sizeof(obj->Indices[0]) * obj->Indices.size();
-
-	VulkanBuffer stagingBuffer;
-	CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-
-	void* data;
-	vkMapMemory(LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
-	memcpy(data, obj->Indices.data(), (size_t)size);
-	vkUnmapMemory(LogicalDevice, stagingBuffer.Memory);
-
-	CreateBuffer(obj->IndexBuffer, size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-	CopyBuffer(stagingBuffer, obj->IndexBuffer, size);
-
-	DestroyBuffer(stagingBuffer);
-}
-
 
 void RenderAPI::createSpriteVertexBuffer(Sprite* sprite) const {
 	VkDeviceSize size = sizeof(Vertex) * sprite->Vertices.size();

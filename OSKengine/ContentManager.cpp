@@ -139,7 +139,7 @@ namespace OSK {
 		return m;
 	}
 
-	TempModelData ContentManager::GetModelTempData(const std::string& path, const float_t& scale) const {
+	TempModelData ContentManager::GetModelTempData(const std::string& path, float scale) const {
 		const aiScene* scene;
 
 		scene = GlobalImporter.ReadFile(path.c_str(), AssimpFlags);
@@ -615,11 +615,11 @@ namespace OSK {
 		stbi_image_free(pixels);
 	}
 
-	SoundEntity* ContentManager::LoadSoundEntity(const std::string& path) {
+	SoundEmitterComponent* ContentManager::LoadSoundEntity(const std::string& path) {
 		if(SoundsFromPath.find(path) != SoundsFromPath.end())
 			return SoundsFromPath[path];
 
-		SoundEntity* sound = new SoundEntity();
+		SoundEmitterComponent* sound = new SoundEmitterComponent();
 
 		std::ifstream file(path.c_str(), std::ifstream::binary);
 

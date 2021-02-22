@@ -10,7 +10,6 @@
 
 namespace OSK::UI {
 
-	OSK_INFO_INTERNAL
 	//Interfaz para elementos de UI que tienen imagen.
 	class OSKAPI_CALL IUserInterfaceImage {
 
@@ -35,7 +34,7 @@ namespace OSK::UI {
 		Color ImageColor = Color(1.0f);
 
 		//Imagen a renderizar.
-		Sprite Image{};
+		Sprite ImageSprite{};
 
 		//Posición base.
 		Vector4* Rectangle = nullptr;

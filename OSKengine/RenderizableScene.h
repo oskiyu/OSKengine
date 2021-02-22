@@ -15,6 +15,7 @@
 #include "GraphicsPipeline.h"
 
 #include "ShadowMap.h"
+#include "CubeShadowMap.h"
 
 namespace OSK {
 
@@ -69,16 +70,17 @@ namespace OSK {
 		//	<path>: ruta del archivo.
 		void LoadSkybox(const std::string& path);
 
-		void DrawShadows(VkCommandBuffer cmdBuffer, const uint32_t& iteration);
+		void DrawShadows(VkCommandBuffer cmdBuffer, uint32_t iteration);
+		void DrawPointShadows(VkCommandBuffer cmdBuffer, uint32_t iteration, CubeShadowMap* map);
 
 		//Renderiza la escena.
-		void Draw(VkCommandBuffer cmdBuffer, const uint32_t& iteration);
+		void Draw(VkCommandBuffer cmdBuffer, uint32_t iteration);
 
 		//Carga un heightmap y genera un terreno.
 		//	<path>: ruta del heightmap.
 		//	<quadSize>: tamaño de cada cuadro del terreno (distancia entre los vértices).
 		//	<maxHegith>: altura máxima del terreno.
-		void LoadHeightmap(const std::string& path, const Vector2f& quadSize, const float_t& maxHeight);
+		void LoadHeightmap(const std::string& path, const Vector2f& quadSize, float maxHeight);
 		
 		//UBO de las luces.
 		LightUBO Lights = {};
@@ -109,6 +111,7 @@ namespace OSK {
 
 		RenderAPI* renderer;
 		ShadowMap* shadowMap = nullptr;
+		std::vector<CubeShadowMap*> cubeShadowMaps;
 
 		bool isPropetaryOfTerrain = true;
 

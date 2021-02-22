@@ -1,5 +1,5 @@
 #include "Macros.h"
-//#define OSK_DLL
+#define OSK_DLL
 #ifndef OSK_DLL
 
 #include <enet/enet.h>

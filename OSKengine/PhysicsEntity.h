@@ -8,12 +8,13 @@
 #include "Transform.h"
 #include "Collider.h"
 #include "PhysicalEntityType.h"
+#include "Component.h"
 
 namespace OSK {
 
 	//Representa una entidad presente en una escena de físicas.
 	//Su posición y rotación son afectadas por otras entidades y por el motor de físicas.
-	struct OSKAPI_CALL PhysicsEntity {
+	struct OSKAPI_CALL PhysicsComponent : public Component {
 
 		//Representa si esta entidad se puede mover o no.
 		PhysicalEntityMobilityType Type = PhysicalEntityMobilityType::MOVABLE;
@@ -32,9 +33,6 @@ namespace OSK {
 		bool CanMoveZ_p = true;
 		//True si puede moverse en -Z.
 		bool CanMoveZ_n = true;
-
-		//Puntero al transform de la entidad.
-		Transform* EntityTransform = nullptr;
 
 		//Collider de la entidad.
 		Collider Collision;

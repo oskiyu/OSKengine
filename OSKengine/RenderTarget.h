@@ -32,9 +32,9 @@ namespace OSK {
 
 		void CreateRenderpass(std::vector<VULKAN::RenderpassAttachment> colorAttachments, VULKAN::RenderpassAttachment* depthAttachment, VkSampleCountFlagBits msaa = VK_SAMPLE_COUNT_1_BIT);
 
-		void CreateFramebuffers(const uint32_t& numFb, VkImageView* images, const uint32_t& numViews);
+		void CreateFramebuffers(uint32_t numFb, VkImageView* images, uint32_t numViews);
 
-		void SetSize(const uint32_t& sizeX, const uint32_t& sizeY, const bool& createColorImage = true, const bool& updatePipelines = true);
+		void SetSize(uint32_t sizeX, uint32_t sizeY, bool createColorImage = true, bool updatePipelines = true);
 
 		void CreateSprite(ContentManager* content);
 

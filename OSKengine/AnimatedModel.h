@@ -24,7 +24,7 @@ namespace OSK {
 		std::array<float_t, OSK_ANIM_MAX_BONES_PER_VERTEX> Weights;
 
 		//Liga un vértice con un hueso.
-		void Add(const uint32_t& id, const float_t& weight);
+		void Add(uint32_t id, float_t weight);
 
 	};
 
@@ -74,26 +74,26 @@ namespace OSK {
 		const aiScene* scene;
 
 		//Establece la animación activa.
-		void SetAnimation(const uint32_t& animID) {
+		void SetAnimation(uint32_t animID) {
 			Animation = scene->mAnimations[animID];
 		}
 
 
 		deltaTime_t time = 0.0f;
 		//Actualiza el modelo 3D (lo anima).
-		void Update(const float_t& deltaTime);
+		void Update(float deltaTime);
 
 	private:
 
 		const aiNodeAnim* FindNodeAnim(const aiAnimation* animation, const std::string& nodeName) const;
 
-		aiMatrix4x4 InterpolateTranslation(const float_t& time, const aiNodeAnim* node) const;
+		aiMatrix4x4 InterpolateTranslation(float time, const aiNodeAnim* node) const;
 	
-		aiMatrix4x4 InterpolateRotation(const float_t& time, const aiNodeAnim* node) const;
+		aiMatrix4x4 InterpolateRotation(float time, const aiNodeAnim* node) const;
 
-		aiMatrix4x4 InterpolateScale(const float_t& time, const aiNodeAnim* node) const;
+		aiMatrix4x4 InterpolateScale(float time, const aiNodeAnim* node) const;
 
-		void ReadNodeHierarchy(const float_t& animTime, const aiNode* node, const aiMatrix4x4& parent);
+		void ReadNodeHierarchy(float animTime, const aiNode* node, const aiMatrix4x4& parent);
 
 	};
 

@@ -8,7 +8,7 @@ namespace OSK {
 
 	}
 
-	CollisionSphere::CollisionSphere(const Vector3f& position, const float_t& radius) {
+	CollisionSphere::CollisionSphere(const Vector3f& position, float radius) {
 		Position = position;
 		Radius = radius;
 	}

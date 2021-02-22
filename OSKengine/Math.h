@@ -13,7 +13,7 @@ namespace OSK {
 	//	<a>: float 1.
 	//	<b>: float 2.
 	//	<epsilon>: límite de la comparación.
-	inline bool OSKAPI_CALL CompareFloats(const float& a, const float& b, const float& epsilon = std::numeric_limits<float>::epsilon() * 2) {
+	inline bool OSKAPI_CALL CompareFloats(float a, float b, float epsilon = std::numeric_limits<float>::epsilon() * 2) {
 		return std::abs(a - b) < epsilon;
 	}
 

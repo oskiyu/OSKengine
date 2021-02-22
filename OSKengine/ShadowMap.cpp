@@ -36,7 +36,6 @@ void ShadowMap::Create(const Vector2ui& size) {
 	VULKAN::VulkanImageGen::CreateImageSampler(DirShadows->RenderedSprite.texture->Albedo, SHADOW_MAP_FILTER, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
 	renderer->createDescriptorSets(DirShadows->RenderedSprite.texture);
 
-
 	CreateRenderpass();
 	CreateFramebuffers();
 	CreateBuffers();
@@ -107,7 +106,7 @@ void ShadowMap::CreateDescriptorSet(ModelTexture* texture) {
 
 	texture->DirShadowsDescriptorSet = renderer->CreateNewDescriptorSet();
 	texture->DirShadowsDescriptorSet->SetDescriptorLayout(DirShadowDescriptorLayout);
-	texture->DirShadowsDescriptorSet->AddUniformBuffers(renderer->UniformBuffers, 0, Lights->Size());
+	texture->DirShadowsDescriptorSet->AddUniformBuffers(renderer->UniformBuffers, 0, sizeof(UBO));
 	texture->DirShadowsDescriptorSet->AddUniformBuffers(DirShadowsUniformBuffers, 1, sizeof(DirLightShadowUBO));
 	texture->DirShadowsDescriptorSet->Create();
 }

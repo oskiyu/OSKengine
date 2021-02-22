@@ -25,18 +25,18 @@ namespace OSK {
 		//	<type>: tipo de informacío que se va a pasar (UBO, imagen, etc).
 		//	<stage>: shaders que podrán acceder a esta información (vertex, fragment, etc).
 		//	<count>: ???.
-		void AddBinding(const uint32_t& binding, VkDescriptorType type, VkShaderStageFlags stage, const uint32_t& count = 1);
+		void AddBinding(uint32_t binding, VkDescriptorType type, VkShaderStageFlags stage, uint32_t count = 1);
 		
 		//Crea el descriptor layout.
 		//	<maxSets>: número máximo de objetos que podrán usar este descriptor layout.
-		void Create(const uint32_t& maxSets);
+		void Create(uint32_t maxSets);
 
 		VkDescriptorSetLayout VulkanDescriptorSetLayout;
 		VkDescriptorPool VulkanDescriptorPool;
 
 	private:
 
-		DescriptorLayout(VkDevice logicalDevice, const uint32_t& swapchainCount);
+		DescriptorLayout(VkDevice logicalDevice, uint32_t swapchainCount);
 
 		void clear();
 

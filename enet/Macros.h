@@ -1,6 +1,6 @@
 #pragma once
 
-#define OSK_DLL
+//#define OSK_DLL
 #define OSK_DLL_EXPORT
 
 #define OSK_NET_VERSION_MAYOR_STR "Alpha"

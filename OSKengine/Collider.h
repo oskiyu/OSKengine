@@ -48,7 +48,7 @@ namespace OSK {
 		//Crea un collider cuyo BroadCollider será una esfera.
 		//	<spherePosition>: posición de la esfera.
 		//	<sphereRadius>: radio de la esfera.
-		Collider(const Vector3f& spherePosition, const float& sphereRadius);
+		Collider(const Vector3f& spherePosition, float sphereRadius);
 
 		//Crea un collider cuyo BroadCollider será una caja AABB.
 		//	<boxPosition>: posición de la caja.

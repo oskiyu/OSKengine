@@ -2,7 +2,6 @@
 
 #include <vulkan/vulkan.h>
 
-#include "RenderMode.h"
 #include "PresentMode.h"
 #include <string>
 #include "WindowAPI.h"
@@ -41,6 +40,7 @@ namespace OSK {
 		friend class ContentManager;
 		friend class RenderizableScene;
 		friend class ShadowMap;
+		friend class CubeShadowMap;
 		friend class VULKAN::VulkanImageGen;
 		friend class VULKAN::Framebuffer;
 
@@ -49,10 +49,9 @@ namespace OSK {
 		RenderTarget* RTarget = CreateNewRenderTarget();
 
 		//Inicializa el renderizador.
-		//	<mode>: modo de renderizado (2D / 2D + 3D).
 		//	<appName>: nombre del juego.
 		//	<gameVersion>: versión del juego.
-		OskResult Init(const RenderMode& mode, const std::string& appName, const Version& gameVersion);
+		OskResult Init(const std::string& appName, const Version& gameVersion);
 
 		//Renderiza el frame.
 		void RenderFrame();
@@ -64,7 +63,7 @@ namespace OSK {
 		//Establece el modo de presentación deseado.
 		//Recrea el swapchain si es necesario.
 		//	<mode>: modo de presentación objetivo.
-		void SetPresentMode(const PresentMode& mode);
+		void SetPresentMode(PresentMode mode);
 
 		//Obtiene el modo de presentación actual.
 		PresentMode GetCurrentPresentMode() const;
@@ -141,6 +140,7 @@ namespace OSK {
 		VULKAN::Renderpass* CreateNewRenderpass();
 
 		RenderTarget* CreateNewRenderTarget();
+		void InitRenderTarget(RenderTarget* rtarget, ContentManager* content);
 
 		VULKAN::Framebuffer* CreateNewFramebuffer();
 
@@ -214,7 +214,7 @@ namespace OSK {
 		std::list<RenderStage*> SingleTimeStages = {};
 		std::list<RenderStage*> Stages = {};
 
-		inline void DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, const uint32_t& iteration);
+		inline void DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, uint32_t iteration);
 
 		void createSpriteVertexBuffer(Sprite* obj) const;
 
@@ -270,10 +270,6 @@ namespace OSK {
 
 		void updateCommandBuffers();
 
-		void createVertexBuffer(VULKAN::VulkanRenderizableObject* obj) const;
-
-		void createIndexBuffer(VULKAN::VulkanRenderizableObject* obj) const;
-
 		void updateSpriteVertexBuffer(Sprite* obj) const;
 
 		VkCommandBuffer beginSingleTimeCommandBuffer() const;
@@ -314,9 +310,6 @@ namespace OSK {
 
 		//Carga la función necesaria para establecer la consola de capas de validación.
 		VkResult CreateDebugUtilsMessengerEXT(VkInstance instance, const VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkDebugUtilsMessengerEXT* pDebugMessenger);
-
-		//Modo de renderizado del motor.
-		RenderMode renderMode;
 
 		//Instancia de Vulkan.
 		VkInstance Instance;

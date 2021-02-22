@@ -10,7 +10,6 @@
 
 namespace OSK {
 
-	OSK_INFO_STATIC
 	//Clase para Log.
 	class OSKAPI_CALL Logger {
 
@@ -23,12 +22,12 @@ namespace OSK {
 		//Muestra el mensaje...
 		//DEBUG: por la consola.
 		//RELEASE: en LOG_LAST.txt.
-		static void Log(const LogMessageLevels& level, const std::string&, const int& = -1);
+		static void Log(const LogMessageLevels& level, const std::string&, int = -1);
 
 
 		//Muestra el mensaje por la consola.
 		//DEBUG ONLY.
-		static void DebugLog(const std::string&, const int& = -1);
+		static void DebugLog(const std::string&, int = -1);
 
 
 		//Cierra el Logger.

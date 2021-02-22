@@ -15,7 +15,7 @@ namespace OSK::Collision {
 		//Inicia los valores de una proyección.
 		//	<min>: valor mínimo de la proyección.
 		//	<max>: valor máximo de la proyección.
-		inline SAT_Projection(const float& min, const float& max) {
+		inline SAT_Projection(float min, float max) {
 			this->min = min;
 			this->max = max;
 		}
@@ -47,7 +47,6 @@ namespace OSK::Collision {
 	private:
 
 		float min;
-
 		float max;
 
 	};

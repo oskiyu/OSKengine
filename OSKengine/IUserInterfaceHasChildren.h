@@ -9,7 +9,6 @@
 
 namespace OSK::UI {
 
-	OSK_INFO_INTERNAL
 	//Interfaz para elementos de UI que tienen elementos hijos.
 	class OSKAPI_CALL IUserInterfaceHasChildren {
 

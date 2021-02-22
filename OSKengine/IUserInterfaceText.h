@@ -14,7 +14,6 @@
 
 namespace OSK::UI {
 
-	OSK_INFO_INTERNAL
 	//Interfaz para elementos de UI que tienen texto.
 	class OSKAPI_CALL IUserInterfaceText {
 

@@ -10,7 +10,7 @@ namespace OSK::VULKAN {
 		VulkanImageGen::renderer = renderer;
 	}
 
-	void VulkanImageGen::CreateImage(VULKAN::VulkanImage* image, const Vector2ui& size, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, const uint32_t& arrayLevels, VkImageCreateFlagBits flags, const uint32_t& mipLevels) {
+	void VulkanImageGen::CreateImage(VULKAN::VulkanImage* image, const Vector2ui& size, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, uint32_t arrayLevels, VkImageCreateFlagBits flags, uint32_t mipLevels) {
 		VkImageCreateInfo imageInfo{};
 		imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
 		imageInfo.imageType = VK_IMAGE_TYPE_2D;
@@ -47,7 +47,7 @@ namespace OSK::VULKAN {
 		image->logicalDevice = &renderer->LogicalDevice;
 	}
 
-	void VulkanImageGen::CreateImageSampler(VULKAN::VulkanImage& image, VkFilter filter, VkSamplerAddressMode addressMode, const uint32_t& mipLevels) {
+	void VulkanImageGen::CreateImageSampler(VULKAN::VulkanImage& image, VkFilter filter, VkSamplerAddressMode addressMode, uint32_t mipLevels) {
 		//Info del sampler.
 		VkSamplerCreateInfo samplerInfo{};
 		samplerInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
@@ -81,7 +81,7 @@ namespace OSK::VULKAN {
 			throw std::runtime_error("ERROR: crear sampler." + std::to_string(result));
 	}
 
-	void VulkanImageGen::CreateMipmaps(VULKAN::VulkanImage& image, const Vector2ui& size, const uint32_t& levels) {
+	void VulkanImageGen::CreateMipmaps(VULKAN::VulkanImage& image, const Vector2ui& size, uint32_t levels) {
 		VkCommandBuffer cmdBuffer = renderer->beginSingleTimeCommandBuffer();
 
 		VkImageMemoryBarrier barrier{};
@@ -146,11 +146,11 @@ namespace OSK::VULKAN {
 		renderer->endSingleTimeCommandBuffer(cmdBuffer);
 	}
 
-	void VulkanImageGen::CreateImageView(VulkanImage* img, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, const uint32_t& layerCount, const uint32_t& mipLevels) {
+	void VulkanImageGen::CreateImageView(VulkanImage* img, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, uint32_t layerCount, uint32_t mipLevels) {
 		CreateImageView(&img->View, &img->Image, format, aspect, type, layerCount, mipLevels);
 	}
 
-	void VulkanImageGen::CreateImageView(VkImageView* view, VkImage* image, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, const uint32_t& layerCount, const uint32_t& mipLevels) {
+	void VulkanImageGen::CreateImageView(VkImageView* view, VkImage* image, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, uint32_t layerCount, uint32_t mipLevels) {
 		VkImageViewCreateInfo viewInfo{};
 		viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 		viewInfo.image = *image;
@@ -167,7 +167,7 @@ namespace OSK::VULKAN {
 			throw std::runtime_error("ERROR: crear image view.");
 	}
 		
-	void VulkanImageGen::CopyBufferToImage(VulkanBuffer* buffer, VulkanImage* img, const uint32_t& width, const uint32_t& height) {
+	void VulkanImageGen::CopyBufferToImage(VulkanBuffer* buffer, VulkanImage* img, uint32_t width, uint32_t height) {
 		VkCommandBuffer cmdBuffer = renderer->beginSingleTimeCommandBuffer();
 
 		VkBufferImageCopy region{};
@@ -192,7 +192,7 @@ namespace OSK::VULKAN {
 		renderer->endSingleTimeCommandBuffer(cmdBuffer);
 	}
 	
-	void VulkanImageGen::TransitionImageLayout(VulkanImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, const uint32_t& mipLevels, const uint32_t& arrayLevels, VkCommandBuffer* cmdBuffer) {
+	void VulkanImageGen::TransitionImageLayout(VulkanImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, uint32_t mipLevels, uint32_t arrayLevels, VkCommandBuffer* cmdBuffer) {
 		bool hasBeenProvided = true;
 		
 		if (!cmdBuffer) {
@@ -285,7 +285,7 @@ namespace OSK::VULKAN {
 		uint8_t* nPixels = nullptr;
 		std::vector<uint8_t> pixls;
 		pixls.reserve(imageSize);
-		for (int i = 0; i < width * height; i++) {
+		for (uint32_t i = 0; i < width * height; i++) {
 			pixls.push_back(pixels[i]);
 			pixls.push_back(pixels[i]);
 			pixls.push_back(pixels[i]);

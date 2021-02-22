@@ -22,7 +22,7 @@ namespace OSK {
 		spritesToDraw.push_front(spr);
 	}
 
-	void SpriteBatch::DrawString(const Font* fuente, const std::string& texto, const float_t& size, const Vector2& position, const Color& color, const Anchor& screenAnchor, const Vector4& reference, const TextRenderingLimit& limitAction, const float_t& sizeXlimit, const float_t& limitOffset) {
+	void SpriteBatch::DrawString(const Font* fuente, const std::string& texto, float size, const Vector2& position, const Color& color, Anchor screenAnchor, const Vector4& reference, TextRenderingLimit limitAction, float sizeXlimit, float limitOffset) {
 		AnchorTextTo to = AnchorTextTo::SCREEN;
 		if (reference.X > 0.0f)
 			to = AnchorTextTo::UI_ELEMENT;
@@ -127,7 +127,7 @@ namespace OSK {
 		spritesToDraw.push_front(texto.spriteContainer);
 	}
 
-	void SpriteBatch::PrecalculateText(const Font* fuente, const ReservedText& texto, const float_t& size, const Vector2& position, const Color& color, const Anchor& screenAnchor, const Vector4& reference, const TextRenderingLimit& limitAction, const float_t& sizeXlimit, const float_t& limitOffset) {
+	void SpriteBatch::PrecalculateText(const Font* fuente, const ReservedText& texto, float size, const Vector2& position, const Color& color, Anchor screenAnchor, const Vector4& reference, TextRenderingLimit limitAction, float sizeXlimit, float limitOffset) {
 		AnchorTextTo to = AnchorTextTo::SCREEN;
 		if (reference.X > 0.0f)
 			to = AnchorTextTo::UI_ELEMENT;
@@ -219,7 +219,7 @@ namespace OSK {
 		}
 	}
 	
-	void SpriteBatch::DrawString(const Font* fuente, const ReservedText& texto, const float_t& size, const Vector2& position, const Color& color, const Anchor& screenAnchor, const Vector4& reference, const TextRenderingLimit& limitAction, const float_t& sizeXlimit, const float_t& limitOffset) {
+	void SpriteBatch::DrawString(const Font* fuente, const ReservedText& texto, float size, const Vector2& position, const Color& color, Anchor screenAnchor, const Vector4& reference, TextRenderingLimit limitAction, float sizeXlimit, float limitOffset) {
 		PrecalculateText(fuente, texto, size, position, color, screenAnchor, reference, limitAction, sizeXlimit, limitOffset);
 		DrawString(texto);
 	}

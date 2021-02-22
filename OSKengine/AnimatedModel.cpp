@@ -2,7 +2,7 @@
 
 namespace OSK {
 
-	void VertexBoneData::Add(const uint32_t& id, const float_t& weight) {
+	void VertexBoneData::Add(uint32_t id, float weight) {
 		for (uint32_t i = 0; i < OSK_ANIM_MAX_BONES_PER_VERTEX; i++) {
 			if (Weights[i] == 0.0f) {
 				IDs[i] = id;
@@ -20,7 +20,7 @@ namespace OSK {
 	}
 
 
-	void AnimatedModel::Update(const float_t& deltaTime) {
+	void AnimatedModel::Update(float deltaTime) {
 		if (Animation == nullptr)
 			return;
 
@@ -49,7 +49,7 @@ namespace OSK {
 		return nullptr;
 	}
 
-	aiMatrix4x4 AnimatedModel::InterpolateTranslation(const float_t& time, const aiNodeAnim* node)  const {
+	aiMatrix4x4 AnimatedModel::InterpolateTranslation(float time, const aiNodeAnim* node)  const {
 		aiVector3D translation;
 		if (node->mNumPositionKeys == 1)
 			translation = node->mPositionKeys[0].mValue;
@@ -79,7 +79,7 @@ namespace OSK {
 		return mat;
 	}
 
-	aiMatrix4x4 AnimatedModel::InterpolateRotation(const float_t& time, const aiNodeAnim* node) const {
+	aiMatrix4x4 AnimatedModel::InterpolateRotation(float time, const aiNodeAnim* node) const {
 		aiQuaternion rotation;
 		if (node->mNumRotationKeys == 1)
 			rotation = node->mRotationKeys[0].mValue;
@@ -108,7 +108,7 @@ namespace OSK {
 		return mat;
 	}
 
-	aiMatrix4x4 AnimatedModel::InterpolateScale(const float_t& time, const aiNodeAnim* node) const {
+	aiMatrix4x4 AnimatedModel::InterpolateScale(float time, const aiNodeAnim* node) const {
 		aiVector3D scale;
 		if (node->mNumScalingKeys == 1)
 			scale = node->mScalingKeys[0].mValue;
@@ -137,7 +137,7 @@ namespace OSK {
 		return mat;
 	}
 
-	void AnimatedModel::ReadNodeHierarchy(const float_t& animTime, const aiNode* node, const aiMatrix4x4& parent) {
+	void AnimatedModel::ReadNodeHierarchy(float animTime, const aiNode* node, const aiMatrix4x4& parent) {
 		std::string NodeName(node->mName.data);
 
 		aiMatrix4x4 NodeTransformation(node->mTransformation);

@@ -25,7 +25,7 @@ namespace OSK {
 		~ReservedText();
 
 		//Reserva memoria para un texto de <length> caracteres.
-		void Reserve(const uint32_t& length);
+		void Reserve(uint32_t length);
 
 		//Establece el texto.
 		//Puede llamar a Reserve() si es necesario.

@@ -14,7 +14,6 @@ namespace OSK {
 	std::string Logger::path = "";
 
 
-	OSK_INFO_STATIC
 	void Logger::Start(const std::string& targetPath) {
 		path = targetPath;
 
@@ -26,8 +25,7 @@ namespace OSK {
 	}
 
 
-	OSK_INFO_STATIC 
-	void Logger::Log(const LogMessageLevels& level, const std::string& msg, const int& line) {
+	void Logger::Log(const LogMessageLevels& level, const std::string& msg, int line) {
 		if (!hasBeenStarted)
 			throw std::runtime_error("OSK::Logger no ha sido inicializado. Usa Logger::Start() antes.");
 		
@@ -79,7 +77,6 @@ namespace OSK {
 	}
 
 
-	OSK_INFO_STATIC
 	void Logger::Save(const std::string& filename) {
 		if (!hasBeenStarted)
 			throw std::runtime_error("OSK::Logger no ha sido inicializado. Usa Logger::Start() antes.");
@@ -93,8 +90,6 @@ namespace OSK {
 #endif
 	}
 
-
-	OSK_INFO_STATIC
 	void Logger::Clear() {
 		if (!hasBeenStarted)
 			throw std::runtime_error("OSK::Logger no ha sido inicializado. Usa Logger::Start() antes.");
@@ -104,8 +99,6 @@ namespace OSK {
 #endif
 	}
 
-
-	OSK_INFO_STATIC
 	void Logger::Close() {
 		if (!hasBeenStarted)
 			throw std::runtime_error("OSK::Logger no ha sido inicializado. Usa Logger::Start() antes.");
@@ -116,9 +109,7 @@ namespace OSK {
 #endif
 	}
 
-
-	OSK_INFO_STATIC
-	void Logger::DebugLog(const std::string& message, const int& line) {
+	void Logger::DebugLog(const std::string& message, int line) {
 #ifdef OSK_DEBUG
 		Log(LogMessageLevels::DEBUG, message, line);
 #endif

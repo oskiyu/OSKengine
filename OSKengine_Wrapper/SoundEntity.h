@@ -8,11 +8,11 @@
 
 namespace OSKengine {
 
-	public ref class SoundEntity : public Wrapper<OSK::SoundEntity> {
+	public ref class SoundEntity : public Wrapper<OSK::SoundEmitterComponent> {
 
 	public:
 
-		SoundEntity() : Wrapper(new OSK::SoundEntity) {}
+		SoundEntity() : Wrapper(new OSK::SoundEmitterComponent) {}
 		/*
 		void SetPosition(Vector3<float> position);
 

@@ -31,6 +31,9 @@
     <Filter Include="Archivos de encabezado\Types\Vector3">
       <UniqueIdentifier>{75b8c053-1b19-4fbd-aad3-3f56fc623429}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Types\Vector4">
+      <UniqueIdentifier>{c7c16d6c-81f4-44c0-8ebc-05a3bef8c420}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioAPI.h">
@@ -43,9 +46,6 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Color.h">
-      <Filter>Archivos de encabezado\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.hpp">
       <Filter>Archivos de encabezado\Types</Filter>
     </ClInclude>
     <ClInclude Include="Vector2i.h">
@@ -75,8 +75,8 @@
     <ClInclude Include="Vector3ui.h">
       <Filter>Archivos de encabezado\Types\Vector3</Filter>
     </ClInclude>
-    <ClInclude Include="Vector4.h">
-      <Filter>Archivos de encabezado\Types</Filter>
+    <ClInclude Include="Vector4f.h">
+      <Filter>Archivos de encabezado\Types\Vector4</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,8 @@
 #pragma once
 
-#include "VulkanRenderizableObject.h"
+#include "VulkanBuffer.h"
+#include "Vertex.h"
+#include "Texture.h"
 
 #include <array>
 
@@ -33,7 +35,7 @@ namespace OSK {
 		void SetTexCoordsInPercent(const Vector4f& texCoords);
 
 		//Establece la región de la textura que se renderizará en este sprite.
-		void SetTexCoords(const float& x, const float& y, const float& width, const float& hegith);
+		void SetTexCoords(float x, float y, float width, float hegith);
 
 		//Transform del sprite.
 		Transform2D SpriteTransform;

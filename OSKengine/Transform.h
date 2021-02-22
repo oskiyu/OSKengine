@@ -51,10 +51,10 @@ namespace OSK {
 		void ApplyRotation(const Quaternion& rotationDelta);
 
 		//Rota el transform, usando un eje en espacio local.
-		void RotateLocalSpace(const float& angle, const Vector3f& axis);
+		void RotateLocalSpace(float angle, const Vector3f& axis);
 
 		//Rota el transform, usando un eje en espacio global.
-		void RotateWorldSpace(const float& angle, const Vector3f& axis);
+		void RotateWorldSpace(float angle, const Vector3f& axis);
 
 		//Actualiza la matriz modelo.
 		void UpdateModel();
@@ -81,8 +81,7 @@ namespace OSK {
 		Quaternion Rotation;
 
 		//Matriz "model".
-		OSK_INFO_READ_ONLY
-			glm::mat4 ModelMatrix;
+		glm::mat4 ModelMatrix;
 	
 		//Transformación padre.
 		Transform* ParentTransform;
@@ -95,7 +94,6 @@ namespace OSK {
 		static glm::mat4 toGlmMat(const aiMatrix4x4* src);
 
 		bool isAttached = false;
-
 		bool isParent = false;
 
 	};

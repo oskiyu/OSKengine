@@ -3,19 +3,19 @@
 namespace OSK::UI {
 
 	void IUserInterfaceImage::Draw(SpriteBatch& spriteBatch, const BaseUIElement& base) {
-		spriteBatch.DrawSprite(Image);
+		spriteBatch.DrawSprite(ImageSprite);
 	}
 
 	void IUserInterfaceImage::UpdatePosition() {
-		Image.SpriteTransform.SetPosition(Rectangle->GetRectanglePosition());
-		Image.SpriteTransform.SetScale(Rectangle->GetRectangleSize());
+		ImageSprite.SpriteTransform.SetPosition(Rectangle->GetRectanglePosition());
+		ImageSprite.SpriteTransform.SetScale(Rectangle->GetRectangleSize());
 	}
 
 	void IUserInterfaceImage::SetSprite(Sprite sprite) {
-		Image = sprite;
+		ImageSprite = sprite;
 
-		Image.SpriteTransform.SetPosition(Rectangle->GetRectanglePosition());
-		Image.SpriteTransform.SetScale(Rectangle->GetRectangleSize());
+		ImageSprite.SpriteTransform.SetPosition(Rectangle->GetRectanglePosition());
+		ImageSprite.SpriteTransform.SetScale(Rectangle->GetRectangleSize());
 	}
 
 }

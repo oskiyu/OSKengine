@@ -14,15 +14,11 @@
 #include "RenderTarget.h"
 #include "GraphicsPipeline.h"
 
+#include "ShadowMap.h"
+
 namespace OSK {
 
 	class RenderAPI;
-
-
-	struct DirLightShadowUBO {
-		glm::mat4 DirLightMat = glm::mat4(1.0f);
-	};
-
 
 	//Representa una escena que se puede renderizar.
 	class OSKAPI_CALL RenderizableScene {
@@ -86,8 +82,6 @@ namespace OSK {
 		
 		//UBO de las luces.
 		LightUBO Lights = {};
-		DirLightShadowUBO DirShadowsUBO = {};
-
 		//Terreno que se va a renderizar.
 		Terrain* Terreno = nullptr;
 
@@ -96,7 +90,6 @@ namespace OSK {
 		void InitLightsBuffers();
 
 		DescriptorLayout* PhongDescriptorLayout = nullptr;
-		DescriptorLayout* DirShadowDescriptorLayout = nullptr;
 
 		GraphicsPipeline* CurrentGraphicsPipeline = nullptr;
 		GraphicsPipeline* SkyboxPipeline = nullptr;
@@ -104,10 +97,6 @@ namespace OSK {
 		ContentManager* Content = nullptr;
 
 		std::vector<VulkanBuffer> LightsUniformBuffers;
-		std::vector<VulkanBuffer> DirShadowsUniformBuffers;
-
-		RenderTarget* DirShadows = nullptr;
-		GraphicsPipeline* ShadowsPipeline = nullptr;
 
 	private:
 
@@ -119,6 +108,7 @@ namespace OSK {
 		std::vector<AnimatedModel*> AnimatedModels = {};
 
 		RenderAPI* renderer;
+		ShadowMap* shadowMap = nullptr;
 
 		bool isPropetaryOfTerrain = true;
 

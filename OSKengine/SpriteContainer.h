@@ -35,7 +35,7 @@ namespace OSK {
 		}
 
 		//Elimina forzosamente los sprites.
-		void Clear(const bool& force) {
+		void Clear(bool force) {
 			if (false) {
 				Clear();
 			}

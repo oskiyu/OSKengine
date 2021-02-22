@@ -13,7 +13,6 @@ namespace OSK::UI {
 
 
 	void Panel::Draw(SpriteBatch& spriteBatch) {
-		IUserInterfaceImage::Draw(spriteBatch, *this);
 		IUserInterfaceHasChildren::Draw(spriteBatch);
 	}
 

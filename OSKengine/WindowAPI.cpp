@@ -25,33 +25,10 @@ namespace OSK {
 	}
 
 
-	result_t WindowAPI::LoadOpenGL() {
-		result_t result = static_cast<result_t>(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress));
-	
-		if (result) {
-			glViewport(0, 0, ScreenSizeX, ScreenSizeY);
-		}
-
-		return result;
-	}
-
-
-	result_t WindowAPI::SetWindow(const int32_t& sizeX, const int32_t& sizeY, const std::string& name, const GraphicsAPI& graphicsAPI) {
-		UsedGraphicsAPI = graphicsAPI;
-		if (UsedGraphicsAPI == GraphicsAPI::OPENGL) {
-			//Versión de OpenGL
-			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, openGlVersionMayor);
-			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, openGlVersionMinor);
-			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-			Logger::Log(LogMessageLevels::INFO, "OpenGL");
-		}
-		else if (UsedGraphicsAPI == GraphicsAPI::VULKAN) {
-			//Característias de la ventana
-			glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API); //Evita que use OpenGL
-			Logger::Log(LogMessageLevels::INFO, "Vulkan");
-		}
-
+	result_t WindowAPI::SetWindow(int32_t sizeX, int32_t sizeY, const std::string& name) {
+		//Característias de la ventana
+		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API); //Evita que use OpenGL
+		
 		//Crear ventana
 		window = glfwCreateWindow(sizeX, sizeY, name.c_str(), NULL, NULL);
 		if (window == NULL) {
@@ -70,9 +47,6 @@ namespace OSK {
 		if (ScreenSizeY != 0)
 			ScreenRatio = static_cast<float_t>(sizeX) / static_cast<float_t>(sizeY);
 
-		if (UsedGraphicsAPI == GraphicsAPI::OPENGL)
-			glfwMakeContextCurrent(window);
-
 		glfwSetWindowUserPointer(window, this);
 
 		monitor = glfwGetPrimaryMonitor();
@@ -84,7 +58,7 @@ namespace OSK {
 		
 
 #ifndef OSK_DEBUG
-		SetFullscreen(true);
+		//SetFullscreen(true);
 #endif // !OSK_DEBUG
 
 		return true;
@@ -99,22 +73,6 @@ namespace OSK {
 		glfwSetWindowIcon(window, 1, icons);
 		stbi_image_free(icons[0].pixels);
 	}*/
-
-	void WindowAPI::SetOpenGLVersion(const int32_t& mayor, const int32_t& menor) {
-		openGlVersionMayor = mayor;
-		openGlVersionMinor = menor;
-	}
-
-
-	void WindowAPI::SetMayorOpenGLVersion(const int32_t& version) {
-		openGlVersionMayor = version;
-	}
-
-
-	void WindowAPI::SetMinorOpenGLVersion(const int32_t& version) {
-		openGlVersionMinor = version;
-	}
-
 
 	bool WindowAPI::WindowShouldClose() {
 		updateMouseButtons();
@@ -182,12 +140,12 @@ namespace OSK {
 	}
 
 
-	void WindowAPI::SetMousePosition(const int32_t& posX, const int32_t& posY) {
+	void WindowAPI::SetMousePosition(int32_t posX, int32_t posY) {
 		glfwSetCursorPos(window, posX, posY);
 	}
 
 
-	void WindowAPI::SetMouseMode(const MouseInputMode& mode) {
+	void WindowAPI::SetMouseMode(MouseInputMode mode) {
 		if (mode == MouseInputMode::ALWAYS_RETURN)
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		else if (mode == MouseInputMode::NORMAL)
@@ -195,7 +153,7 @@ namespace OSK {
 	}
 
 
-	void WindowAPI::SetMouseVisibility(const MouseVisibility& mode) {
+	void WindowAPI::SetMouseVisibility(MouseVisibility mode) {
 		if (mode == MouseVisibility::VISIBLE)
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		else if (mode == MouseVisibility::HIDDEN)
@@ -203,7 +161,7 @@ namespace OSK {
 	}
 
 
-	void WindowAPI::SetMouseMovementMode(const MouseMovementMode& mode) {
+	void WindowAPI::SetMouseMovementMode(MouseMovementMode mode) {
 		if (mode == MouseMovementMode::RAW) {
 			if (glfwRawMouseMotionSupported())
 				glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
@@ -216,7 +174,7 @@ namespace OSK {
 	}
 
 
-	void WindowAPI::SetFullscreen(const bool& fullscreen) {
+	void WindowAPI::SetFullscreen(bool fullscreen) {
 		if (IsFullscreen == fullscreen)
 			return;
 
@@ -244,7 +202,7 @@ namespace OSK {
 	}
 
 
-	void WindowAPI::SetMousePosition(const uint32_t& x, const uint32_t& y) {
+	void WindowAPI::SetMousePosition(uint32_t x, uint32_t y) {
 		glfwSetCursorPos(window, x, y);
 	}
 
@@ -281,7 +239,7 @@ namespace OSK {
 	}
 
 
-	OSK_INFO_STATIC void WindowAPI::defaultFramebufferSizeCallback(GLFWwindow* win, int sizex, int sizey) {
+	void WindowAPI::defaultFramebufferSizeCallback(GLFWwindow* win, int sizex, int sizey) {
 		void* ptr = glfwGetWindowUserPointer(win);
 		if (WindowAPI * wndPtr = static_cast<OSK::WindowAPI*>(ptr))
 			wndPtr->resize(sizex, sizey);
@@ -309,7 +267,7 @@ namespace OSK {
 	}
 
 
-	OSK_INFO_STATIC void WindowAPI::mouseInputCallback(GLFWwindow* window, double posX, double posY) {
+	void WindowAPI::mouseInputCallback(GLFWwindow* window, double posX, double posY) {
 		void* ptr = glfwGetWindowUserPointer(window);
 		if (WindowAPI * wndPtr = static_cast<WindowAPI*>(ptr))
 			wndPtr->mouseInput(posX, posY);
@@ -324,7 +282,7 @@ namespace OSK {
 	}
 
 
-	OSK_INFO_STATIC void WindowAPI::mouseScrollCallback(GLFWwindow* window, double dX, double dY) {
+	void WindowAPI::mouseScrollCallback(GLFWwindow* window, double dX, double dY) {
 		void* ptr = glfwGetWindowUserPointer(window);
 		if (WindowAPI * wndPtr = static_cast<WindowAPI*>(ptr))
 			wndPtr->mouseScroll(dX, dY);

@@ -29,7 +29,7 @@ namespace OSK::VULKAN {
 		void AddImageView(VULKAN::VulkanImage* image);
 		void AddImageView(VkImageView view);
 
-		void Create(VULKAN::Renderpass* renderpass, const uint32_t& sizeX, const uint32_t& sizeY);
+		void Create(VULKAN::Renderpass* renderpass, uint32_t sizeX, uint32_t sizeY);
 
 		void Clear();
 

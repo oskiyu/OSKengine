@@ -21,7 +21,7 @@ namespace OSK {
 		//Crea una CollisionSphere.
 		//	<position>: posición de la esfera en el mundo.
 		//	<radius>: radio de la esfera.
-		CollisionSphere(const Vector3f& position, const float_t& radius);
+		CollisionSphere(const Vector3f& position, float radius);
 
 		//Comprueba si un punto está dentro de la esfera.
 		//	<point>: punto 3D.

@@ -34,13 +34,13 @@ namespace OSK {
 		//	<buffers>: buffers que almacenan la información que se usará en los shaders.
 		//	<binding>: binding del UBO en el shader.
 		//	<size>: tamaño del UBO.
-		void AddUniformBuffers(std::vector<VulkanBuffer> buffers, const uint32_t& binding, const size_t& size);
+		void AddUniformBuffers(std::vector<VulkanBuffer> buffers, uint32_t binding, size_t size);
 
 		//Registra una imagen.
 		//	<image>: imagen que se usará en los shaders.
 		//	<sampler>: sampler de la imagen.
 		//	<binding>: binding de la imagen en el shader.
-		void AddImage(VULKAN::VulkanImage* image, VkSampler sampler, const uint32_t& binding);
+		void AddImage(VULKAN::VulkanImage* image, VkSampler sampler, uint32_t binding);
 
 		//Crea el descriptor set.
 		//IMPORTANTE: debe llamarse antes a SetDescriptorLayout.
@@ -50,13 +50,13 @@ namespace OSK {
 		//	<commandBuffer>: CommandBuffer.
 		//	<pipeline>: pipeline con el que se está renderizando.
 		//	<iteration>: qué VulkanDescriptorSets se va a usar.
-		void Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, const uint32_t& iteration) const;
+		void Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration) const;
 
 		std::vector<VkDescriptorSet> VulkanDescriptorSets;
 
 	private:
 
-		DescriptorSet(VkDevice logicalDevice, const uint32_t& swapchainCount);
+		DescriptorSet(VkDevice logicalDevice, uint32_t swapchainCount);
 
 		void clear();
 

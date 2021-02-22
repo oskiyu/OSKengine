@@ -14,7 +14,7 @@
 namespace OSK::Collision {
 
 	//Lista de puntos que representan una cara.
-	typedef std::vector<VectorElementPtr_t> SAT_Face;
+	typedef std::vector<uint32_t> SAT_Face;
 
 	//Collider que usa el Teorema de Separación de Ejes.
 	//Puede tener n caras, cada una con m puntos.
@@ -28,7 +28,7 @@ namespace OSK::Collision {
 		//Añade una cara.
 		//	<points>: array de puntos.
 		//	<size>: número de puntos.
-		void AddFace(const Vector3f points[], const uint32_t& size);
+		void AddFace(const Vector3f points[], uint32_t size);
 
 		//Comprueba si este collider choca con otro.
 		//Más barato de ejecutar que GetCollisionInfo.

@@ -46,7 +46,7 @@ namespace OSK {
 		//	<polygonMode>: modo de pilígono (fill, lines, etc.).
 		//	<cullMode>: modo de culling de los triángulos.
 		//	<frontFaceType>: cúal es el frente del triángulo.
-		void SetRasterizer(const VkBool32& renderObjectsOutsideRange, VkPolygonMode polygonMode, VkCullModeFlagBits cullMode, VkFrontFace frontFaceType);
+		void SetRasterizer(VkBool32 renderObjectsOutsideRange, VkPolygonMode polygonMode, VkCullModeFlagBits cullMode, VkFrontFace frontFaceType);
 
 		//Establece si se va a usar MSAA  o no.
 		//	<use>: true si se va a usar.

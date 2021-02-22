@@ -43,9 +43,10 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
+    <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -88,13 +89,15 @@
       <PreprocessorDefinitions>OSK_RELEASE;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>D:\Dev\VulkanSDK\1.2.131.2\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>ktx.lib;vulkan-1.lib;freetype.lib;OpenAL32.lib;assimp.lib;assimp-vc140-mt.lib;glfw3.lib;OpenGL32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
       <AdditionalLibraryDirectories>C:\Program Files\KTX-Software\lib;D:\Dev\VulkanSDK\1.2.154.1\Lib;D:\Dev\freetype-2.10.1\objs\x64\Debug;C:\Program Files\Assimp\lib\x64;</AdditionalLibraryDirectories>
       <NoEntryPoint>false</NoEntryPoint>
     </Link>
@@ -119,6 +122,7 @@
       <PreprocessorDefinitions>OSK_DEBUG;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>D:\Dev\VulkanSDK\1.2.131.2\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,12 +156,14 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionBox.cpp" />
     <ClCompile Include="CollisionSphere.cpp" />
+    <ClCompile Include="CubeShadowMap.cpp" />
     <ClCompile Include="DescriptorLayout.cpp" />
     <ClCompile Include="DescriptorSet.cpp" />
     <ClCompile Include="Framebuffer.cpp" />
     <ClCompile Include="GraphicsPipeline.cpp" />
     <ClCompile Include="ContentManager.cpp" />
     <ClCompile Include="LightsUBO.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Checkbox.cpp" />
     <ClCompile Include="Color.cpp" />
@@ -210,6 +216,18 @@
     <ClInclude Include="AnimatedModel.h" />
     <ClInclude Include="AudioAPI.h" />
     <ClInclude Include="BaseUIElement.h" />
+    <ClInclude Include="CollisionComponent.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentArray.h" />
+    <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="CubeShadowMap.h" />
+    <ClInclude Include="ECS.h" />
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="MeshComponent.h" />
+    <ClInclude Include="RenderSystem3D.h" />
+    <ClInclude Include="ShaderBindingType.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonStatesEnum.h" />
     <ClInclude Include="Camera2D.h" />
@@ -219,19 +237,18 @@
     <ClInclude Include="CollisionSphere.h" />
     <ClInclude Include="DescriptorLayout.h" />
     <ClInclude Include="DescriptorSet.h" />
-    <ClInclude Include="DynamicArray.h" />
     <ClInclude Include="Framebuffer.h" />
     <ClInclude Include="GraphicsPipeline.h" />
     <ClInclude Include="ContentManager.h" />
     <ClInclude Include="Heightmap.h" />
     <ClInclude Include="LightsUBO.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Checkbox.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="DirectionsEnum.h" />
-    <ClInclude Include="DrawCommand.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontChar.h" />
     <ClInclude Include="PhysicalEntityType.h" />
@@ -251,19 +268,21 @@
     <ClInclude Include="SAT_Collider.h" />
     <ClInclude Include="SAT_CollisionInfo.h" />
     <ClInclude Include="SAT_Projection.hpp" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderStage.h" />
     <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="GPUinfo.h" />
-    <ClInclude Include="GraphicsAPIenum.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="stbi_image_write.h" />
+    <ClInclude Include="System.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform2D.h" />
+    <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="UBO.h" />
-    <ClInclude Include="VectorUtil.h" />
     <ClInclude Include="VulkanBuffer.h" />
     <ClInclude Include="VulkanImage.h" />
     <ClInclude Include="ImageUI.h" />
@@ -289,7 +308,6 @@
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="PresentMode.h" />
     <ClInclude Include="QueueFamilyIndices.h" />
-    <ClInclude Include="RenderMode.h" />
     <ClInclude Include="RenderModeEnum.h" />
     <ClInclude Include="RenderOutputImageEnum.h" />
     <ClInclude Include="RenderSettingsBitFlags.h" />
@@ -310,7 +328,6 @@
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="VulkanImageGen.h" />
     <ClInclude Include="VulkanRenderer.h" />
-    <ClInclude Include="VulkanRenderizableObject.h" />
     <ClInclude Include="WindowAPI.h" />
     <ClInclude Include="SpriteContainer.h" />
   </ItemGroup>

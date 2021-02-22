@@ -8,7 +8,7 @@
 #endif
 
 #ifndef OSK_RELEASE_DLL
-
+//mainCRTStartup
 /**/
 #include "VulkanRenderer.h"
 #include "Camera2D.h"
@@ -25,41 +25,60 @@
 #include "SAT_Collider.h"
 #include "RayCast.h"
 
+#include "ECS.h"
+#include "AudioAPI.h"
+#include "GameObject.h"
+#include "TransformComponent.h"
+
 /**/
-class Entity {
+class Entity : public OSK::GameObject {
 
 public:
 
-	Entity() {
+	void OnCreate() override {
+		AddComponent<OSK::PhysicsComponent>({});
+		AddComponent<OSK::TransformComponent>({});
+
 		setup();
 	}
 
-	Entity(OSK::Vector3f position) {
-		Transform.SetPosition(position);
-		setup();
-	}
-
-	OSK::PhysicsEntity Physics;
 	OSK::Model model;
-	OSK::Transform Transform;
+	OSK::Transform* Transform = nullptr;
 
 private:
 	void setup() {
-		Physics.EntityTransform = &Transform;
-		Physics.Collision.ColliderTransform.AttachTo(&Transform);
-		model.ModelTransform = &Transform;
+		OSK::PhysicsComponent& physics = GetComponent<OSK::PhysicsComponent>();
+		Transform = &GetComponent<OSK::TransformComponent>().Transform3D;
+
+		physics.Collision.ColliderTransform.AttachTo(Transform);
+		model.ModelTransform = Transform;
 
 		auto box = OSK::Collision::SAT_Collider::CreateOBB();
-		Physics.Collision.SatColliders.push_back(box);
-		Physics.Collision.SatColliders.back().BoxTransform.AttachTo(&Transform);
-		Physics.Collision.BroadType = OSK::BroadColliderType::BOX_AABB;
-		Physics.Collision.BroadCollider.Box.Size = { 5.0f };
+		physics.Collision.SatColliders.push_back(box);
+		physics.Collision.SatColliders.back().BoxTransform.AttachTo(Transform);
+		physics.Collision.BroadType = OSK::BroadColliderType::BOX_AABB;
+		physics.Collision.BroadCollider.Box.Size = { 5.0f };
+
+		std::cout << "TRANSFORM" << Transform << std::endl;
 	}
 };
 /**/
 
 int program() {
 
+	OSK::EntityComponentSystem ECS{};
+
+	ECS.RegisterComponent<OSK::TransformComponent>();
+	ECS.RegisterComponent<OSK::PhysicsComponent>();
+
+	OSK::PhysicsScene* physicsScene = ECS.RegisterSystem<OSK::PhysicsScene>();
+
+	OSK::Signature signature{};
+	signature.set(ECS.GetComponentType<OSK::PhysicsComponent>());
+	signature.set(ECS.GetComponentType<OSK::TransformComponent>());
+
+	ECS.SetSystemSignature<OSK::PhysicsScene>(signature);
+		
 	bool showStartup = false;
 #ifndef OSK_DEBUG
 	showStartup = true;
@@ -72,7 +91,7 @@ int program() {
 	OSK::Profiler Profiler{};
 
 	OSK::WindowAPI* windowAPI = new OSK::WindowAPI();
-	windowAPI->SetWindow(1280, 720, "OSKengine Vk", OSK::GraphicsAPI::VULKAN);
+	windowAPI->SetWindow(1280, 720, "OSKengine Vk");
 	windowAPI->SetMouseMovementMode(OSK::MouseMovementMode::RAW);
 	windowAPI->SetMouseMode(OSK::MouseInputMode::ALWAYS_RETURN);
 
@@ -80,7 +99,7 @@ int program() {
 	RenderAPI.Window = windowAPI;
 	RenderAPI.SetPresentMode(OSK::PresentMode::VSYNC);
 	RenderAPI.FPSlimit = INFINITE;
-	OskResult result = RenderAPI.Init(OSK::RenderMode::RENDER_MODE_2D_AND_3D, "OSKengine", OSK::Version{ 0, 0, 0 });
+	OskResult result = RenderAPI.Init("OSKengine", OSK::Version{ 0, 0, 0 });
 	if (result != OskResult::SUCCESS) {
 		OSK_SHOW_TRACE();
 		return (int)result;
@@ -106,8 +125,6 @@ int program() {
 	RenderAPI.Content->LoadModel(model, "models/cube/cube.obj");
 	model.ModelTransform = new OSK::Transform();
 	model.ModelTransform->SetScale(0.5f);
-	//Scene->AddModel(&model);
-	//Scene->terreno->FrictionCoefficient = 0;
 
 	OSK::ProfilingUnit mainDrawUnit{ "Main Draw()" };
 	OSK::ProfilingUnit drawStringUnit{ "StringMemory" };
@@ -123,17 +140,23 @@ int program() {
 
 #pragma region Physics testing.
 
-	Entity EntityA(OSK::Vector3f{ 0.0f , -20.0f, 0.0f });
+	Entity EntityA;
+	EntityA.Create(&ECS);
+	EntityA.GetComponent<OSK::TransformComponent>().Transform3D.SetPosition(OSK::Vector3f{ 0.0f , -20.0f, 0.0f });
+	
 	RenderAPI.Content->LoadModel(EntityA.model, "models/cube/cube.obj");
-	//EntityA.Physics.Type = OSK::PhysicalEntityMobilityType::STATIC;
-	Entity EntityB(OSK::Vector3f{ 0.0f, -25.0f, 0.0f });
-	RenderAPI.Content->LoadModel(EntityB.model, "models/cube/cube.obj");
-	EntityB.Transform.RotateWorldSpace(20.0f, { 1, 0, 0 });
 
-	OSK::PhysicsScene PhysicsScene;
-	PhysicsScene.AddEntity(&EntityA.Physics);
-	PhysicsScene.AddEntity(&EntityB.Physics);
-	PhysicsScene.FloorTerrain = Scene->Terreno;
+	Entity EntityB; 
+	EntityB.Create(&ECS);
+	EntityB.GetComponent<OSK::TransformComponent>().Transform3D.SetPosition(OSK::Vector3f{ 0.0f, -25.0f, 0.0f });
+	EntityB.GetComponent<OSK::TransformComponent>().Transform3D.RotateWorldSpace(20.0f, { 1, 0, 0 });
+
+	RenderAPI.Content->LoadModel(EntityB.model, "models/cube/cube.obj");
+
+	//OSK::PhysicsScene PhysicsScene;
+	//PhysicsScene.AddEntity(&EntityA.Physics);
+	//PhysicsScene.AddEntity(&EntityB.Physics);
+	physicsScene->FloorTerrain = Scene->Terreno;
 
 	Scene->AddModel(&EntityA.model);
 	Scene->AddModel(&EntityB.model);
@@ -154,7 +177,6 @@ int program() {
 	RenderAPI.DefaultCamera2D.UseTargetSize = false;
 	texture.SpriteTransform.SetPosition(windowAPI->GetRectangle().GetRectangleMiddlePoint());
 	texture.SpriteTransform.SetScale({ -5, 5 });
-	texture.SetTexCoords(0, 0, 100, 100);
 
 	OSK::KeyboardState OldKS = {};
 	OSK::KeyboardState NewKS = {};
@@ -172,10 +194,12 @@ int program() {
 	spriteBatch.PrecalculateText(showFont, CopyrightText, 1.0f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
 
 	OSK::ReservedText PosText;
-		
+
 	float FPS = 0.0f;
 	float totalDeltaTime = 0.0f;
 	int count = 0;
+
+	OSK::Logger::DebugLog("Start main loop");
 	while (!windowAPI->WindowShouldClose()) {
 		mainUpdateUnit.Start();
 
@@ -218,19 +242,19 @@ int program() {
 			windowAPI->Close();
 
 		if (NewKS.IsKeyDown(OSK::Key::UP))
-			EntityA.Physics.EntityTransform->AddPosition(OSK::Vector3f(3, 0, 0) * deltaTime);
+			EntityA.Transform->AddPosition(OSK::Vector3f(3, 0, 0) * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::DOWN))
-			EntityA.Physics.EntityTransform->AddPosition(OSK::Vector3f(-3, 0, 0) * deltaTime);
+			EntityA.Transform->AddPosition(OSK::Vector3f(-3, 0, 0) * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::LEFT))
-			EntityA.Physics.EntityTransform->AddPosition(OSK::Vector3f(0, 0, -3) * deltaTime);
+			EntityA.Transform->AddPosition(OSK::Vector3f(0, 0, -3) * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::RIGHT))
-			EntityA.Physics.EntityTransform->AddPosition(OSK::Vector3f(0, 0, 3) * deltaTime);
+			EntityA.Transform->AddPosition(OSK::Vector3f(0, 0, 3) * deltaTime);
 
 		if (NewKS.IsKeyDown(OSK::Key::Z)) {
-			EntityA.Transform.RotateWorldSpace(deltaTime * 2, { 0, 1, 0 });
+			EntityA.Transform->RotateWorldSpace(deltaTime * 2, { 0, 1, 0 });
 		}
 		if (NewKS.IsKeyDown(OSK::Key::X)) {
-			EntityA.Transform.RotateWorldSpace(deltaTime  * 2, { 1, 0, 0 });
+			EntityA.Transform->RotateWorldSpace(deltaTime  * 2, { 1, 0, 0 });
 		}
 		
 		if (NewKS.IsKeyDown(OSK::Key::W))
@@ -245,14 +269,14 @@ int program() {
 		if (NewKS.IsKeyDown(OSK::Key::P) && OldKS.IsKeyUp(OSK::Key::P)) {
 			OSK::Logger::Log(OSK::LogMessageLevels::INFO, "FPS: " + std::to_string(FPS));
 			Profiler.ShowData();
-			EntityA.Transform.SetPosition(OSK::Vector3f{ 5.0f, 0.0f + Scene->Terreno->GetHeight({5.0f}), 5.0f });
-			EntityB.Transform.SetPosition(OSK::Vector3f{ 5.0f, -5.0f + Scene->Terreno->GetHeight({5.0f}), 5.0f });
+			EntityA.Transform->SetPosition(OSK::Vector3f{ 5.0f, 0.0f + Scene->Terreno->GetHeight({5.0f}), 5.0f });
+			EntityB.Transform->SetPosition(OSK::Vector3f{ 5.0f, -5.0f + Scene->Terreno->GetHeight({5.0f}), 5.0f });
 
-			OSK::Logger::DebugLog(ToString(EntityA.Transform.GlobalPosition));
-			OSK::Logger::DebugLog(ToString(EntityB.Transform.GlobalPosition));
+			OSK::Logger::DebugLog(ToString(EntityA.Transform->GlobalPosition));
+			OSK::Logger::DebugLog(ToString(EntityB.Transform->GlobalPosition));
 		}
 
-		PhysicsScene.Simulate(deltaTime, 1.0f);
+		ECS.OnTick(deltaTime);
 
 		mouseVar_t deltaX = NewMS.PositionX - OldMS.PositionX;
 		mouseVar_t deltaY = NewMS.PositionY - OldMS.PositionY;
@@ -263,8 +287,8 @@ int program() {
 		if (NewKS.IsKeyDown(OSK::Key::B) && OldKS.IsKeyUp(OSK::Key::B))
 			RenderAPI.SetPresentMode(OSK::PresentMode::VSYNC_TRIPLE_BUFFER);
 
-		auto info = EntityA.Physics.Collision.SatColliders[0].GetCollisionInfo(EntityB.Physics.Collision.SatColliders[0]);
-		model.ModelTransform->SetPosition(EntityA.Transform.GlobalPosition + info.PointA);
+		//auto info = EntityA.Physics.Collision.SatColliders[0].GetCollisionInfo(EntityB.Physics.Collision.SatColliders[0]);
+		//model.ModelTransform->SetPosition(EntityA.Transform.Transform3D.GlobalPosition + info.PointA);
 
 		totalDeltaTime += deltaTime;
 		count++;
@@ -307,7 +331,9 @@ int program() {
 				
 				spriteBatch.DrawString(CopyrightText);
 
-				auto info = OSK::RayCast::CastRay(RenderAPI.DefaultCamera3D.CameraTransform.GlobalPosition.ToVector3f(), RenderAPI.DefaultCamera3D.Front.ToVector3f(), EntityA.Physics.Collision.SatColliders[0]);
+				//auto info = OSK::RayCast::CastRay(RenderAPI.DefaultCamera3D.CameraTransform.GlobalPosition.ToVector3f(), RenderAPI.DefaultCamera3D.Front.ToVector3f(), EntityA.Physics.Collision.SatColliders[0]);
+
+				RenderAPI.DrawUserInterface(spriteBatch);
 
 				PosText.SetText(OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.GlobalPosition));
 			}

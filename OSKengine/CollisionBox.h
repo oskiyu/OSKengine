@@ -31,7 +31,6 @@ namespace OSK {
 		//	<box>: otra caja.
 		bool Intersects(const CollisionBox& box) const;
 
-
 		//Comprueba si esta caja está en contacto con una CollisionSphere.
 		//	<sphere>: CollisionSphere.
 		bool Intersects(const CollisionSphere& sphere) const;

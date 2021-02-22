@@ -130,7 +130,7 @@ Transform:
 >Vertex attributes diff
 >Offscreen rendering.
 
-----
+---- 2020.12.6a
 >CreateNewFramebuffer
 >RenderTarget formalizado
 >Render stage
@@ -139,6 +139,41 @@ Transform:
 >Support for transition image layout to depth
 >Model texture memory leak fix (descriptorsets)
 >PhongPipeline renderiza bien a la resolucion target.
-
 -Directional shadow mapping.
 >Update to 1.2.154
+
+---- 
+Window-> removed graphicsapi / setopengl
+RenderAPI-> removed render mode
+removed rendermode
+removed graphics api enum
+
+removed VulkanRenderizableObject
+
+removed vectorutil.h
+removed drawcommand.h
+
+removed types:
+-vertexIndex_t
+-vertexArrayObject_t
+-bufferObject_t
+-textureCode_t
+-VectorElementPtr_t
+-oskFloat_t
+-oskFloatPrecise_t
+
+removed macros:
+-OSK_SAFE_DELETE
+-OSK_INFO_STATIC
+-OSK_INFO_GLOBAL
+-OSK_INFO_NOT_DEVELOPED
+-OSK_INFO_WIP
+-OSK_INFO_OBSOLETE
+-OSK_INFO_READ_ONLY
+-OSK_INFO_INTERNAL
+-OSK_INFO_DO_NOT_TOUCH
+
+-OSK_VULKAN
+-OSK_INCLUDE_GLAD
+
+Bugfix: pipeline delete

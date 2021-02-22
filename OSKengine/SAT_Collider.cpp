@@ -31,7 +31,7 @@ void SAT_Collider::OptimizeFaces() {
 	Faces = faces;
 }
 
-void SAT_Collider::AddFace(const Vector3f points[], const uint32_t& size) {
+void SAT_Collider::AddFace(const Vector3f points[], uint32_t size) {
 	Faces.push_back({});
 	SAT_Face* face = &Faces[Faces.size() - 1];
 

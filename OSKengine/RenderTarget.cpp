@@ -70,7 +70,7 @@ void RenderTarget::TransitionToTexture(VkCommandBuffer* cmdBuffer) {
 	VulkanImageGen::TransitionImageLayout(&RenderedSprite.texture->Albedo, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 1, 1, cmdBuffer);
 }
 
-void RenderTarget::CreateFramebuffers(const uint32_t& numFb, VkImageView* images, const uint32_t& numViews) {
+void RenderTarget::CreateFramebuffers(uint32_t numFb, VkImageView* images, uint32_t numViews) {
 	for (uint32_t i = 0; i < numFb; i++) {
 		TargetFramebuffers.push_back(renderer->CreateNewFramebuffer());
 		
@@ -81,7 +81,7 @@ void RenderTarget::CreateFramebuffers(const uint32_t& numFb, VkImageView* images
 	}
 }
 
-void RenderTarget::SetSize(const uint32_t& sizeX, const uint32_t& sizeY, const bool& createColorImage, const bool& updatePipelines) {{}
+void RenderTarget::SetSize(uint32_t sizeX, uint32_t sizeY, bool createColorImage, bool updatePipelines) {{}
 	Size.X = sizeX;
 	Size.Y = sizeY;
 

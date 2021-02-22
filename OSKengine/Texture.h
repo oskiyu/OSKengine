@@ -44,6 +44,7 @@ namespace OSK {
 
 		DescriptorSet* PhongDescriptorSet = nullptr;
 		DescriptorSet* DirShadowsDescriptorSet = nullptr;
+		DescriptorSet* PointShadowsDescriptorSet = nullptr;
 		DescriptorSet* PBR_DescriptorSet = nullptr;
 
 	private:
