@@ -148,6 +148,24 @@
     <Filter Include="Archivos de encabezado\OSKengine\Engine\Components">
       <UniqueIdentifier>{9e5e58f1-a963-4c92-b69f-9ee524e07d7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Game">
+      <UniqueIdentifier>{97621307-1509-4d13-9895-ae95b57786a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Engine">
+      <UniqueIdentifier>{067f2077-2e22-40dd-8bdd-42c67cae4911}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Engine\Systems">
+      <UniqueIdentifier>{ddb0b7c4-519c-4786-9200-a4df77444163}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Game">
+      <UniqueIdentifier>{2df74433-d93c-4915-8d86-102c156ee0ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\TP\ImGUI">
+      <UniqueIdentifier>{d74cf9bf-c6cc-4868-a0d0-c68aeb20c54f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\TP\ImGUI">
+      <UniqueIdentifier>{e47edb5c-b7f1-4389-9993-c55cda6e6ea1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -335,6 +353,39 @@
     </ClCompile>
     <ClCompile Include="CubeShadowMap.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\Shadows</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSystem3D.cpp">
+      <Filter>Archivos de origen\OSKengine\Engine\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="InputSystem.cpp">
+      <Filter>Archivos de origen\OSKengine\Engine\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Archivos de origen\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="OnTickSystem.cpp">
+      <Filter>Archivos de origen\OSKengine\Engine\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGUI.cpp">
+      <Filter>Archivos de origen\OSKengine\TP\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>Archivos de origen\OSKengine\TP\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>Archivos de origen\OSKengine\TP\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_tables.cpp">
+      <Filter>Archivos de origen\OSKengine\TP\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>Archivos de origen\OSKengine\TP\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_vulkan.cpp">
+      <Filter>Archivos de origen\OSKengine\TP\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_glfw.cpp">
+      <Filter>Archivos de origen\OSKengine\TP\ImGUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -659,9 +710,6 @@
     <ClInclude Include="CubeShadowMap.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\Shadows</Filter>
     </ClInclude>
-    <ClInclude Include="Engine.h">
-      <Filter>Archivos de encabezado\OSKengine\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Archivos de encabezado\OSKengine\Engine\ECS</Filter>
     </ClInclude>
@@ -683,12 +731,6 @@
     <ClInclude Include="RenderSystem3D.h">
       <Filter>Archivos de encabezado\OSKengine\Engine\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="MeshComponent.h">
-      <Filter>Archivos de encabezado\OSKengine\Engine\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="TransformComponent.h">
-      <Filter>Archivos de encabezado\OSKengine\Engine\Components</Filter>
-    </ClInclude>
     <ClInclude Include="CollisionComponent.h">
       <Filter>Archivos de encabezado\OSKengine\Engine\Components</Filter>
     </ClInclude>
@@ -703,6 +745,51 @@
     </ClInclude>
     <ClInclude Include="InputSystem.h">
       <Filter>Archivos de encabezado\OSKengine\Engine\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Archivos de encabezado\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelComponent.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="OnTickComponent.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Archivos de encabezado\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Components.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="OnTickSystem.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Game1.hpp">
+      <Filter>Archivos de encabezado\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_internal.h">
+      <Filter>Archivos de encabezado\OSKengine\TP\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_rectpack.h">
+      <Filter>Archivos de encabezado\OSKengine\TP\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_textedit.h">
+      <Filter>Archivos de encabezado\OSKengine\TP\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_truetype.h">
+      <Filter>Archivos de encabezado\OSKengine\TP\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imconfig.h">
+      <Filter>Archivos de encabezado\OSKengine\TP\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>Archivos de encabezado\OSKengine\TP\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_vulkan.h">
+      <Filter>Archivos de encabezado\OSKengine\TP\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_glfw.h">
+      <Filter>Archivos de encabezado\OSKengine\TP\ImGUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

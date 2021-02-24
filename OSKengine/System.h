@@ -9,6 +9,7 @@
 #include "Component.h"
 
 #include <set>
+#include <vulkan/vulkan.h>
 
 namespace OSK {
 	class EntityComponentSystem;
@@ -25,7 +26,14 @@ namespace OSK::ECS {
 
 		virtual void OnCreate() {}
 		virtual void OnTick(deltaTime_t deltaTime) {}
+		virtual void OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {}
 		virtual void OnRemove() {}
+
+		virtual Signature GetSystemSignature() {
+			Signature signature{};
+
+			return signature;
+		}
 
 		std::set<GameObjectID> Objects;
 
@@ -40,6 +48,12 @@ namespace OSK::ECS {
 		void OnTick(deltaTime_t deltaTime) {
 			for (auto& i : systems) {
 				i.second->OnTick(deltaTime);
+			}
+		}
+
+		void OnDraw(VkCommandBuffer cmdBuffer, uint32_t ix) {
+			for (auto& i : systems) {
+				i.second->OnDraw(cmdBuffer, ix);
 			}
 		}
 

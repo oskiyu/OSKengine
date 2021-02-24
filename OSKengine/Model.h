@@ -74,20 +74,17 @@ namespace OSK {
 		ModelData* Data;
 
 		//Transform3D del modelo.
-		Transform* ModelTransform;
+		Transform ModelTransform;
 
 		//Textura del modelo.
 		ModelTexture* texture = nullptr;
 
 		//Obtiene el Push Constant con la matriz del modelo.
-		inline PushConst3D GetPushConst() const {
-			if (ModelTransform == nullptr)
-				return{ glm::mat4(1.0f) };
-
-			ModelTransform->UpdateModel();
+		inline PushConst3D GetPushConst() {
+			ModelTransform.UpdateModel();
 
 			PushConst3D pushConst{};
-			pushConst.model = ModelTransform->ModelMatrix;
+			pushConst.model = ModelTransform.ModelMatrix;
 
 			return pushConst;
 		}

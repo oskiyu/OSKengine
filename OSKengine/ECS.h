@@ -11,6 +11,8 @@
 
 namespace OSK {
 
+	class GameObject;
+
 	class EntityComponentSystem {
 
 	public:
@@ -30,7 +32,13 @@ namespace OSK {
 			systemManager->OnTick(deltaTime);
 		}
 
+		void OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
+			systemManager->OnDraw(cmdBuffer, i);
+		}
+
 		ECS::GameObjectID CreateGameObject() {
+			ECS::GameObjectID id = objectManager->CreateGameObject();
+
 			return objectManager->CreateGameObject();
 		}
 		void DestroyGameObject(ECS::GameObjectID object) {
@@ -77,6 +85,7 @@ namespace OSK {
 		template <typename T> T* RegisterSystem() {
 			T* system = systemManager->CreateSystem<T>();
 			system->ECSsystem = this;
+			systemManager->SetSignature<T>(system->GetSystemSignature());
 			system->OnCreate();
 
 			return system;
@@ -84,6 +93,8 @@ namespace OSK {
 		template <typename T> void SetSystemSignature(Signature signature) {
 			systemManager->SetSignature<T>(signature);
 		}
+		
+		std::unordered_map<ECS::GameObjectID, GameObject*> GameObjects;
 
 	private:
 

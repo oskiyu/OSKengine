@@ -27,6 +27,7 @@ namespace OSK {
 	public:
 
 		void OnTick(deltaTime_t deltaTime) override;
+		Signature GetSystemSignature() override;
 		
 		//Simula y resuelve las colisiones de la escena.
 		//	<deltaTime>: deltaTime.

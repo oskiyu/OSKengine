@@ -3,8 +3,7 @@
 #include "ECS.h"
 
 #include "RenderizableScene.h"
-#include "MeshComponent.h"
-#include "TransformComponent.h"
+#include "RenderStage.h"
 
 namespace OSK {
 
@@ -12,7 +11,15 @@ namespace OSK {
 
 	public:
 				
+		void Init();
+		void OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) override;
+		void OnRemove() override;
+		Signature GetSystemSignature() override;
 
+		RenderAPI* Renderer = nullptr;
+
+		RenderizableScene* RScene = nullptr;
+		RenderStage Stage;
 
 	};
 

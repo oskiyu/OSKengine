@@ -6,6 +6,7 @@
 #include "Log.h"
 
 #include "ECS.h"
+#include "Transform.h"
 
 namespace OSK {
 
@@ -17,11 +18,12 @@ namespace OSK {
 		virtual ~GameObject() = default;
 
 		virtual void OnCreate() {}
-		virtual void OnTick(deltaTime_t deltaTime) {}
 		virtual void OnRemove() {}
 
 		//ID del objeto
 		ECS::GameObjectID ID;
+
+		Transform Transform3D{};
 
 		template <typename T> void AddComponent(T component) {
 			ECSsystem->AddComponent<T>(ID, component);
@@ -38,6 +40,7 @@ namespace OSK {
 			if (!hasBeenCreated) {
 				ID = ecs->CreateGameObject();
 				ECSsystem = ecs;
+				ECSsystem->GameObjects.insert({ ID, this });
 				OnCreate();
 			}
 
@@ -45,8 +48,13 @@ namespace OSK {
 		}
 
 		void Remove() {
-			if (ECSsystem)
+			if (ECSsystem) {
 				ECSsystem->DestroyGameObject(ID);
+
+				if (ECSsystem->GameObjects.find(ID) != ECSsystem->GameObjects.end()) {
+					ECSsystem->GameObjects.erase(ID);
+				}
+			}
 		}
 
 	private:

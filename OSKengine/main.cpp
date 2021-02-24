@@ -28,8 +28,9 @@
 #include "ECS.h"
 #include "AudioAPI.h"
 #include "GameObject.h"
-#include "TransformComponent.h"
 #include "InputSystem.h"
+
+#include "Game1.hpp"
 
 /**/
 class Entity : public OSK::GameObject {
@@ -38,26 +39,23 @@ public:
 
 	void OnCreate() override {
 		AddComponent<OSK::PhysicsComponent>({});
-		AddComponent<OSK::TransformComponent>({});
 
 		setup();
 	}
 
 	OSK::Model model;
-	OSK::Transform* Transform = nullptr;
 
 private:
 
 	void setup() {
 		OSK::PhysicsComponent& physics = GetComponent<OSK::PhysicsComponent>();
-		Transform = &GetComponent<OSK::TransformComponent>().Transform3D;
 
-		physics.Collision.ColliderTransform.AttachTo(Transform);
-		model.ModelTransform = Transform;
+		physics.Collision.ColliderTransform.AttachTo(&Transform3D);
+		//model.ModelTransform = &Transform3D;
 
 		auto box = OSK::Collision::SAT_Collider::CreateOBB();
 		physics.Collision.SatColliders.push_back(box);
-		physics.Collision.SatColliders.back().BoxTransform.AttachTo(Transform);
+		physics.Collision.SatColliders.back().BoxTransform.AttachTo(&Transform3D);
 		physics.Collision.BroadType = OSK::BroadColliderType::BOX_AABB;
 		physics.Collision.BroadCollider.Box.Size = { 5.0f };
 	}
@@ -69,23 +67,11 @@ int program() {
 
 	OSK::EntityComponentSystem ECS{};
 
-	ECS.RegisterComponent<OSK::TransformComponent>();
 	ECS.RegisterComponent<OSK::PhysicsComponent>();
 	ECS.RegisterComponent<OSK::InputComponent>();
 
 	OSK::PhysicsScene* physicsScene = ECS.RegisterSystem<OSK::PhysicsScene>();
 	OSK::InputSystem* Input = ECS.RegisterSystem<OSK::InputSystem>();
-
-	OSK::Signature signature{};
-	signature.set(ECS.GetComponentType<OSK::PhysicsComponent>());
-	signature.set(ECS.GetComponentType<OSK::TransformComponent>());
-
-	ECS.SetSystemSignature<OSK::PhysicsScene>(signature);
-
-	signature.reset();
-	signature.set(ECS.GetComponentType<OSK::InputComponent>());
-
-	ECS.SetSystemSignature<OSK::InputSystem>(signature);
 
 	bool showStartup = false;
 #ifndef OSK_DEBUG
@@ -132,8 +118,7 @@ int program() {
 	Scene->LoadSkybox("skybox/skybox.ktx");
 	Scene->LoadHeightmap("heightmaps/Heightmap.png", { 5.0f }, 35);
 	RenderAPI.Content->LoadModel(model, "models/cube/cube.obj");
-	model.ModelTransform = new OSK::Transform();
-	model.ModelTransform->SetScale(0.5f);
+	model.ModelTransform.SetScale(0.5f);
 
 	OSK::ProfilingUnit mainDrawUnit{ "Main Draw()" };
 	OSK::ProfilingUnit drawStringUnit{ "StringMemory" };
@@ -151,14 +136,14 @@ int program() {
 
 	Entity EntityA;
 	EntityA.Create(&ECS);
-	EntityA.GetComponent<OSK::TransformComponent>().Transform3D.SetPosition(OSK::Vector3f{ 0.0f , -20.0f, 0.0f });
+	EntityA.Transform3D.SetPosition(OSK::Vector3f{ 0.0f , -20.0f, 0.0f });
 	
 	Input->RegisterInputEvent("MoveArriba");
 	Input->GetInputEvent("MoveArriba").LinkedKeys.push_back(OSK::Key::Q);
 
 	OSK::InputComponent inputC;
-	inputC.GetFunction("MoveArriba") = [EntityA]() {
-		EntityA.Transform->AddPosition({ 0.16f, 0, 0 });
+	inputC.GetInputFunction("MoveArriba") = [&EntityA](deltaTime_t deltaTime) {
+		EntityA.Transform3D.AddPosition(OSK::Vector3f{ 3, 0, 0 } * deltaTime);
 	};
 	EntityA.AddComponent<OSK::InputComponent>(inputC);
 
@@ -166,8 +151,8 @@ int program() {
 
 	Entity EntityB; 
 	EntityB.Create(&ECS);
-	EntityB.GetComponent<OSK::TransformComponent>().Transform3D.SetPosition(OSK::Vector3f{ 0.0f, -25.0f, 0.0f });
-	EntityB.GetComponent<OSK::TransformComponent>().Transform3D.RotateWorldSpace(20.0f, { 1, 0, 0 });
+	EntityB.Transform3D.SetPosition(OSK::Vector3f{ 0.0f, -25.0f, 0.0f });
+	EntityB.Transform3D.RotateWorldSpace(20.0f, { 1, 0, 0 });
 
 	RenderAPI.Content->LoadModel(EntityB.model, "models/cube/cube.obj");
 
@@ -260,19 +245,19 @@ int program() {
 			windowAPI->Close();
 
 		if (NewKS.IsKeyDown(OSK::Key::UP))
-			EntityA.Transform->AddPosition(OSK::Vector3f(3, 0, 0) * deltaTime);
+			EntityA.Transform3D.AddPosition(OSK::Vector3f(3, 0, 0) * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::DOWN))
-			EntityA.Transform->AddPosition(OSK::Vector3f(-3, 0, 0) * deltaTime);
+			EntityA.Transform3D.AddPosition(OSK::Vector3f(-3, 0, 0) * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::LEFT))
-			EntityA.Transform->AddPosition(OSK::Vector3f(0, 0, -3) * deltaTime);
+			EntityA.Transform3D.AddPosition(OSK::Vector3f(0, 0, -3) * deltaTime);
 		if (NewKS.IsKeyDown(OSK::Key::RIGHT))
-			EntityA.Transform->AddPosition(OSK::Vector3f(0, 0, 3) * deltaTime);
+			EntityA.Transform3D.AddPosition(OSK::Vector3f(0, 0, 3) * deltaTime);
 
 		if (NewKS.IsKeyDown(OSK::Key::Z)) {
-			EntityA.Transform->RotateWorldSpace(deltaTime * 2, { 0, 1, 0 });
+			EntityA.Transform3D.RotateWorldSpace(deltaTime * 2, { 0, 1, 0 });
 		}
 		if (NewKS.IsKeyDown(OSK::Key::X)) {
-			EntityA.Transform->RotateWorldSpace(deltaTime  * 2, { 1, 0, 0 });
+			EntityA.Transform3D.RotateWorldSpace(deltaTime  * 2, { 1, 0, 0 });
 		}
 		
 		if (NewKS.IsKeyDown(OSK::Key::W))
@@ -287,15 +272,14 @@ int program() {
 		if (NewKS.IsKeyDown(OSK::Key::P) && OldKS.IsKeyUp(OSK::Key::P)) {
 			OSK::Logger::Log(OSK::LogMessageLevels::INFO, "FPS: " + std::to_string(FPS));
 			Profiler.ShowData();
-			EntityA.Transform->SetPosition(OSK::Vector3f{ 5.0f, 0.0f + Scene->Terreno->GetHeight({5.0f}), 5.0f });
-			EntityB.Transform->SetPosition(OSK::Vector3f{ 5.0f, -5.0f + Scene->Terreno->GetHeight({5.0f}), 5.0f });
+			EntityA.Transform3D.SetPosition(OSK::Vector3f{ 5.0f, 0.0f + Scene->Terreno->GetHeight({5.0f}), 5.0f });
+			EntityB.Transform3D.SetPosition(OSK::Vector3f{ 5.0f, -5.0f + Scene->Terreno->GetHeight({5.0f}), 5.0f });
 
-			OSK::Logger::DebugLog(ToString(EntityA.Transform->GlobalPosition));
-			OSK::Logger::DebugLog(ToString(EntityB.Transform->GlobalPosition));
+			OSK::Logger::DebugLog(ToString(EntityA.Transform3D.GlobalPosition));
+			OSK::Logger::DebugLog(ToString(EntityB.Transform3D.GlobalPosition));
 		}
 
 		ECS.OnTick(deltaTime);
-		Input->OnTick(1.0f);
 
 		mouseVar_t deltaX = NewMS.PositionX - OldMS.PositionX;
 		mouseVar_t deltaY = NewMS.PositionY - OldMS.PositionY;
@@ -382,7 +366,9 @@ int main() {
 	OSK::Logger::Start();
 
 	try {
-		program();
+		//program();
+		Game1 game;
+		game.Run();
 	}
 	catch (std::runtime_error& e) {
 		OSK::Logger::Log(OSK::LogMessageLevels::CRITICAL_ERROR, e.what());

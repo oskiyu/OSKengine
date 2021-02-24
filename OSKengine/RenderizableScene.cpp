@@ -76,7 +76,6 @@ namespace OSK {
 	void RenderizableScene::CreateDescriptorSet(ModelTexture* texture) const {
 		if (texture->PhongDescriptorSet != nullptr)
 			delete texture->PhongDescriptorSet;
-		Logger::DebugLog("RSceneSet");
 
 		texture->PhongDescriptorSet = renderer->CreateNewDescriptorSet();
 		texture->PhongDescriptorSet->SetDescriptorLayout(PhongDescriptorLayout);
@@ -140,47 +139,13 @@ namespace OSK {
 	}
 
 	void RenderizableScene::DrawShadows(VkCommandBuffer cmdBuffer, uint32_t iteration) {
-		VULKAN::VulkanImageGen::TransitionImageLayout(&shadowMap->DirShadows->RenderedSprite.texture->Albedo, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, 1, 1, &cmdBuffer);
-
-		VkRenderPassBeginInfo renderPassInfo{};
-		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-		renderPassInfo.renderPass = shadowMap->DirShadows->VRenderpass->VulkanRenderpass;
-		renderPassInfo.framebuffer = shadowMap->DirShadows->TargetFramebuffers[iteration]->framebuffer;
-		renderPassInfo.renderArea.offset = { 0, 0 };
-
-		renderPassInfo.renderArea.extent = { shadowMap->DirShadows->Size.X, shadowMap->DirShadows->Size.Y };
-		std::array<VkClearValue, 2> clearValues = {};
-		clearValues[0] = { 1.0f, 1.0f, 1.0f, 1.0f }; //Color.
-		clearValues[1] = { 1.0f, 0.0f }; //Depth.
-		renderPassInfo.clearValueCount = clearValues.size();
-		renderPassInfo.pClearValues = clearValues.data();
-
-		vkCmdBeginRenderPass(cmdBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
-		shadowMap->ShadowsPipeline->Bind(cmdBuffer);
+		PrepareDrawShadows(cmdBuffer, iteration);
 
 		for (const auto& i : Models) {
-			i->Bind(cmdBuffer);
-
-			if (i->texture != nullptr)
-				i->texture->DirShadowsDescriptorSet->Bind(cmdBuffer, shadowMap->ShadowsPipeline, iteration);
-			else
-				DefaultTexture->DirShadowsDescriptorSet->Bind(cmdBuffer, shadowMap->ShadowsPipeline, iteration);
-
-			PushConst3D pushConst = i->GetPushConst();
-			vkCmdPushConstants(cmdBuffer, shadowMap->ShadowsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
-			i->Draw(cmdBuffer);
+			DrawShadows(i, cmdBuffer, iteration);
 		}
 
-		if (Terreno != nullptr && Terreno->terrainModel != nullptr) {
-			DefaultTexture->DirShadowsDescriptorSet->Bind(cmdBuffer, shadowMap->ShadowsPipeline, iteration);
-			Terreno->terrainModel->Bind(cmdBuffer);
-			PushConst3D pushConst{ glm::mat4(1.0f) };
-			vkCmdPushConstants(cmdBuffer, shadowMap->ShadowsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
-			Terreno->terrainModel->Draw(cmdBuffer);
-		}
-
-		vkCmdEndRenderPass(cmdBuffer);
-		VULKAN::VulkanImageGen::TransitionImageLayout(&shadowMap->DirShadows->RenderedSprite.texture->Albedo, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 1, 1, &cmdBuffer);
+		EndDrawShadows(cmdBuffer, iteration);
 	}
 
 	void RenderizableScene::DrawPointShadows(VkCommandBuffer cmdBuffer, uint32_t iteration, CubeShadowMap* map) {
@@ -230,35 +195,90 @@ namespace OSK {
 	}
 
 	void RenderizableScene::Draw(VkCommandBuffer cmdBuffer, uint32_t iteration) {
+		PrepareDraw(cmdBuffer, iteration);
+
+		for (const auto& i : Models) {
+			Draw(i, cmdBuffer, iteration);
+		}
+
+		EndDraw(cmdBuffer, iteration);
+	}
+
+	//SYSTEM
+
+	void RenderizableScene::PrepareDrawShadows(VkCommandBuffer cmdBuffer, uint32_t i) {
+		VULKAN::VulkanImageGen::TransitionImageLayout(&shadowMap->DirShadows->RenderedSprite.texture->Albedo, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, 1, 1, &cmdBuffer);
+
+		VkRenderPassBeginInfo renderPassInfo{};
+		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+		renderPassInfo.renderPass = shadowMap->DirShadows->VRenderpass->VulkanRenderpass;
+		renderPassInfo.framebuffer = shadowMap->DirShadows->TargetFramebuffers[i]->framebuffer;
+		renderPassInfo.renderArea.offset = { 0, 0 };
+
+		renderPassInfo.renderArea.extent = { shadowMap->DirShadows->Size.X, shadowMap->DirShadows->Size.Y };
+		std::array<VkClearValue, 2> clearValues = {};
+		clearValues[0] = { 1.0f, 1.0f, 1.0f, 1.0f }; //Color.
+		clearValues[1] = { 1.0f, 0.0f }; //Depth.
+		renderPassInfo.clearValueCount = clearValues.size();
+		renderPassInfo.pClearValues = clearValues.data();
+
+		vkCmdBeginRenderPass(cmdBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+		shadowMap->ShadowsPipeline->Bind(cmdBuffer);
+	}
+	void RenderizableScene::DrawShadows(Model* model, VkCommandBuffer cmdBuffer, uint32_t i) {
+		model->Bind(cmdBuffer);
+
+		if (model->texture != nullptr)
+			model->texture->DirShadowsDescriptorSet->Bind(cmdBuffer, shadowMap->ShadowsPipeline, i);
+		else
+			DefaultTexture->DirShadowsDescriptorSet->Bind(cmdBuffer, shadowMap->ShadowsPipeline, i);
+
+		PushConst3D pushConst = model->GetPushConst();
+		vkCmdPushConstants(cmdBuffer, shadowMap->ShadowsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
+		model->Draw(cmdBuffer);
+	}
+	void RenderizableScene::EndDrawShadows(VkCommandBuffer cmdBuffer, uint32_t i) {
+		if (Terreno != nullptr && Terreno->terrainModel != nullptr) {
+			DefaultTexture->DirShadowsDescriptorSet->Bind(cmdBuffer, shadowMap->ShadowsPipeline, i);
+			Terreno->terrainModel->Bind(cmdBuffer);
+			PushConst3D pushConst{ glm::mat4(1.0f) };
+			vkCmdPushConstants(cmdBuffer, shadowMap->ShadowsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
+			Terreno->terrainModel->Draw(cmdBuffer);
+		}
+
+		vkCmdEndRenderPass(cmdBuffer);
+		VULKAN::VulkanImageGen::TransitionImageLayout(&shadowMap->DirShadows->RenderedSprite.texture->Albedo, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 1, 1, &cmdBuffer);
+	}
+
+	void RenderizableScene::PrepareDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 		SkyboxPipeline->Bind(cmdBuffer);
-		skybox.Bind(cmdBuffer, SkyboxPipeline, iteration);
+		skybox.Bind(cmdBuffer, SkyboxPipeline, i);
 		skybox.Draw(cmdBuffer);
 
 		CurrentGraphicsPipeline->Bind(cmdBuffer);
 
 		UpdateLightsBuffers();
+	}
+	void RenderizableScene::Draw(Model* model, VkCommandBuffer cmdBuffer, uint32_t i) {
+		model->Bind(cmdBuffer);
 
-		for (const auto& i : Models) {
-			i->Bind(cmdBuffer);
+		if (model->texture != nullptr)
+			model->texture->PhongDescriptorSet->Bind(cmdBuffer, CurrentGraphicsPipeline, i);
+		else
+			DefaultTexture->PhongDescriptorSet->Bind(cmdBuffer, CurrentGraphicsPipeline, i);
 
-			if (i->texture != nullptr)
-				i->texture->PhongDescriptorSet->Bind(cmdBuffer, CurrentGraphicsPipeline, iteration);
-			else
-				DefaultTexture->PhongDescriptorSet->Bind(cmdBuffer, CurrentGraphicsPipeline, iteration);
-
-			PushConst3D pushConst = i->GetPushConst();
-			vkCmdPushConstants(cmdBuffer, CurrentGraphicsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
-			i->Draw(cmdBuffer);
-		}
-
+		PushConst3D pushConst = model->GetPushConst();
+		vkCmdPushConstants(cmdBuffer, CurrentGraphicsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
+		model->Draw(cmdBuffer);
+	}
+	void RenderizableScene::EndDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 		if (Terreno != nullptr && Terreno->terrainModel != nullptr) {
-			DefaultTexture->PhongDescriptorSet->Bind(cmdBuffer, CurrentGraphicsPipeline, iteration);
+			DefaultTexture->PhongDescriptorSet->Bind(cmdBuffer, CurrentGraphicsPipeline, i);
 			Terreno->terrainModel->Bind(cmdBuffer);
 			PushConst3D pushConst{ glm::mat4(1.0f) };
 			vkCmdPushConstants(cmdBuffer, CurrentGraphicsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
 			Terreno->terrainModel->Draw(cmdBuffer);
 		}
-
 	}
 
 }

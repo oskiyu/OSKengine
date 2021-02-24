@@ -2,11 +2,19 @@
 
 #include "Math.h"
 #include "ECS.h"
-#include "TransformComponent.h"
 #include "CollisionComponent.h"
+#include "GameObject.h"
 
 using namespace OSK;
 using namespace OSK::Collision;
+
+Signature PhysicsScene::GetSystemSignature() {
+	Signature signature;
+
+	signature.set(ECSsystem->GetComponentType<OSK::PhysicsComponent>());
+
+	return signature;
+}
 
 void PhysicsScene::OnTick(deltaTime_t deltaTime) {
 	Simulate(deltaTime, 1.0f);
@@ -17,9 +25,9 @@ void PhysicsScene::Simulate(deltaTime_t deltaTime, deltaTime_t step) {
 
 	for (auto& i : Objects) {
 		PhysicsComponent* physics = &ECSsystem->GetComponent<PhysicsComponent>(i);
-		TransformComponent* transform = &ECSsystem->GetComponent<TransformComponent>(i);
+		Transform* transform = &ECSsystem->GameObjects[i]->Transform3D;
 
-		simulateEntity(physics, &transform->Transform3D, delta);
+		simulateEntity(physics, transform, delta);
 	}
 
 	for (auto a : Objects) {
@@ -33,22 +41,22 @@ void PhysicsScene::Simulate(deltaTime_t deltaTime, deltaTime_t step) {
 			ColliderCollisionInfo info = physicsA->Collision.GetCollisionInfo(physicsB->Collision);
 
 			if (info.IsColliding)
-				resolveCollisions(physicsA, physicsB, &ECSsystem->GetComponent<TransformComponent>(a).Transform3D, &ECSsystem->GetComponent<TransformComponent>(b).Transform3D, info, delta);
+				resolveCollisions(physicsA, physicsB, &ECSsystem->GameObjects[a]->Transform3D, &ECSsystem->GameObjects[b]->Transform3D, info, delta);
 		}
 
 		if (FloorTerrain) {
 			PhysicsComponent* physics = &ECSsystem->GetComponent<PhysicsComponent>(a);
-			TransformComponent& transform = ECSsystem->GetComponent<TransformComponent>(a);
+			Transform& transform = ECSsystem->GameObjects[a]->Transform3D;
 
 			if (TerrainColissionType == PhysicalSceneTerrainResolveType::RESOLVE_DETAILED) {
-				checkTerrainCollision(physics, &transform.Transform3D, delta);
+				checkTerrainCollision(physics, &transform, delta);
 			}
 			else if (TerrainColissionType == PhysicalSceneTerrainResolveType::CHANGE_HEIGHT_ONLY) {
-				const float terrainHeight = FloorTerrain->GetHeight({ transform.Transform3D.GlobalPosition.X, transform.Transform3D.GlobalPosition.Z }) + physics->Height;
-				if (transform.Transform3D.GlobalPosition.Y > terrainHeight) {
+				const float terrainHeight = FloorTerrain->GetHeight({ transform.GlobalPosition.X, transform.GlobalPosition.Z }) + physics->Height;
+				if (transform.GlobalPosition.Y > terrainHeight) {
 					physics->Velocity.Y = 0;
 					physics->CanMoveY_p = false;
-					transform.Transform3D.LocalPosition.Y = terrainHeight;
+					transform.LocalPosition.Y = terrainHeight;
 				}
 				else {
 					physics->CanMoveY_p = true;

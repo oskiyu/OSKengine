@@ -12,55 +12,32 @@ namespace OSK {
 
 	public:
 
-		void SetWindow(WindowAPI* window) {
-			this->window = window;
-		}
+		void SetWindow(WindowAPI* window);
 
-		void OnTick(deltaTime_t deltaTime) override {
-			window->UpdateKeyboardState(NewKS);
-			window->UpdateMouseState(NewMS);
+		void OnTick(deltaTime_t deltaTime) override;
+		Signature GetSystemSignature() override;
 
-			for (auto& i : events) {
-				auto& desc = i.second;
-
-				for (auto key : desc.LinkedKeys) {
-					if (NewKS.IsKeyDown(key)) {
-						executeFunction(desc.EventName);
-
-						break;
-					}
-				}
-
-				for (auto button : desc.LinkedButtons) {
-					if (NewMS.IsButtonDown(button)) {
-						executeFunction(desc.EventName);
-
-						break;
-					}
-				}
-			}
-
-			window->UpdateKeyboardState(OldKS);
-			window->UpdateMouseState(OldMS);
-		}
-
-		InputEvent& GetInputEvent(const std::string& e) {
+		inline InputEvent& GetInputEvent(const std::string& e) {
 			return events[e];
 		}
 
-		void RegisterInputEvent(const std::string& name) {
+		inline void RegisterInputEvent(const std::string& name) {
 			events.insert({ name, InputEvent{ name } });
+		}
+
+		inline OneTimeInputEvent& GetOneTimeInputEvent(const std::string& e) {
+			return oneTimeEvents[e];
+		}
+
+		inline void RegisterOneTimeInputEvent(const std::string& name) {
+			oneTimeEvents.insert({ name, OneTimeInputEvent{ name } });
 		}
 
 	private:
 
-		void executeFunction(std::string& name) {
-			for (auto& i : Objects) {
-				auto& input = ECSsystem->GetComponent<InputComponent>(i);
+		void executeFunction(std::string& name, deltaTime_t deltaTime);
 
-				input.ExecuteFunction(name);
-			}
-		}
+		void executeOneTimeFunction(std::string& name);
 
 		WindowAPI* window = nullptr;
 
@@ -70,6 +47,7 @@ namespace OSK {
 		MouseState NewMS;
 
 		std::unordered_map<std::string, InputEvent> events;
+		std::unordered_map<std::string, OneTimeInputEvent> oneTimeEvents;
 
 	};
 

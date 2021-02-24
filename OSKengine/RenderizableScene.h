@@ -87,6 +87,15 @@ namespace OSK {
 		//Terreno que se va a renderizar.
 		Terrain* Terreno = nullptr;
 
+		//SYSTEM
+		void PrepareDrawShadows(VkCommandBuffer cmdBuffer, uint32_t i);
+		void DrawShadows(Model* model, VkCommandBuffer cmdBuffer, uint32_t i);
+		void EndDrawShadows(VkCommandBuffer cmdBuffer, uint32_t i);
+
+		void PrepareDraw(VkCommandBuffer cmdBuffer, uint32_t i);
+		void Draw(Model* model, VkCommandBuffer cmdBuffer, uint32_t i);
+		void EndDraw(VkCommandBuffer cmdBuffer, uint32_t i);
+
 	protected:
 
 		void InitLightsBuffers();

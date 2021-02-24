@@ -33,7 +33,11 @@
 #include "RenderTarget.h"
 #include "RenderStage.h"
 
+class Game;
+
 namespace OSK {
+
+	class RenderSystem3D;
 
 	class OSKAPI_CALL RenderAPI {
 
@@ -43,6 +47,7 @@ namespace OSK {
 		friend class CubeShadowMap;
 		friend class VULKAN::VulkanImageGen;
 		friend class VULKAN::Framebuffer;
+		friend class Game;
 
 	public:
 	
@@ -209,12 +214,16 @@ namespace OSK {
 		//Formato del swapchain.
 		VkFormat SwapchainFormat;
 
+		RenderStage Stage;
+
+		inline void DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, uint32_t iteration);
+
+		RenderSystem3D* RSystem = nullptr;
+
 	private:
 
 		std::list<RenderStage*> SingleTimeStages = {};
 		std::list<RenderStage*> Stages = {};
-
-		inline void DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, uint32_t iteration);
 
 		void createSpriteVertexBuffer(Sprite* obj) const;
 
@@ -378,10 +387,12 @@ namespace OSK {
 		DescriptorLayout* PhongDescriptorLayout = nullptr;
 		DescriptorLayout* SkyboxDescriptorLayout = nullptr;
 
+		DescriptorLayout* ImGuiDescriptorLayout = nullptr;
+		VULKAN::Renderpass* ImGuiRenderpass = nullptr;
+
 		/*NEW SYNC*/
 		VkFence* fences = nullptr;
-		
-		RenderStage Stage;
+
 	};
 
 }

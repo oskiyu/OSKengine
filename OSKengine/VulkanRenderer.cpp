@@ -21,6 +21,7 @@
 #include "WindowAPI.h"
 #include <gtc/type_ptr.hpp>
 #include "Model.h"
+#include "RenderSystem3D.h"
 
 #include <ft2build.h>
 #include <thread>
@@ -253,7 +254,7 @@ void RenderAPI::RenderFrame() {
 			vkUnmapMemory(LogicalDevice, UniformBuffers[i].Memory);
 		}
 
-		if (Settings.AutoUpdateCommandBuffers)
+		//if (Settings.AutoUpdateCommandBuffers)
 			updateCommandBuffers();
 	}
 	//Repreenta cual es la imagen que se va a renderizar.
@@ -1315,6 +1316,10 @@ void RenderAPI::updateCommandBuffers() {
 
 		DrawStage(&Stage, CommandBuffers[i], i);
 		
+		if (RSystem) {
+			RSystem->OnDraw(CommandBuffers[i], i);
+		}
+
 		//Comenzar el renderpass.
 		VkRenderPassBeginInfo renderPassInfo{};
 		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;

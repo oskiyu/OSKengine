@@ -16,6 +16,7 @@ namespace OSK {
 	class OSKAPI_CALL RenderStage {
 
 		friend class RenderAPI;
+		friend class RenderSystem3D;
 
 	public:
 		
