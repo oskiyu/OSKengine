@@ -80,8 +80,6 @@ namespace OSK {
 
 		void CenterMouse();
 
-		void SetUserInterface(UI::BaseUIElement* ui);
-
 		Vector4 GetRectangle() const;
 
 		//Obtiene el tiempo actual.
@@ -146,12 +144,6 @@ namespace OSK {
 
 		void resize(double_t, double_t);
 
-		//TODO:
-		void updateUI(UI::BaseUIElement* element);
-
 	};
-
-
-	
-	
+		
 }

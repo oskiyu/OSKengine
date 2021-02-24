@@ -16,7 +16,6 @@
 #include "stbi_image.h"
 #include "Sprite.h"
 #include "SpriteBatch.h"
-#include "BaseUIElement.h"
 
 #include "WindowAPI.h"
 #include <gtc/type_ptr.hpp>
@@ -337,13 +336,6 @@ void RenderAPI::RenderFrame() {
 	//if ((endTime - startTime) < targetMS)
 		//std::this_thread::sleep_for(std::chrono::milliseconds((long)(targetMS * 1000 - (endTime - startTime) * 1000)));
 }
-
-
-void RenderAPI::DrawUserInterface(SpriteBatch& spriteBatch) const {
-	if (Window->UserInterface != nullptr && Window->UserInterface->IsActive && Window->UserInterface->IsVisible)
-		Window->UserInterface->Draw(spriteBatch);
-}
-
 
 SpriteBatch RenderAPI::CreateSpriteBatch() {
 	SpriteBatch spriteBatch{};

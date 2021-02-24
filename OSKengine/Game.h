@@ -14,11 +14,6 @@
 #include "RenderSystem3D.h"
 #include "OnTickSystem.h"
 
-#include "imconfig.h"
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_vulkan.h"
-
 class Game {
 
 public:
@@ -66,7 +61,6 @@ private:
 
 	void Init();
 	void SetupSystems();
-	void SetupIU();
 
 	void Close();
 

@@ -201,38 +201,8 @@
     <ClCompile Include="Color.cpp">
       <Filter>Archivos de origen\OSKengine\Types</Filter>
     </ClCompile>
-    <ClCompile Include="BaseUIElement.cpp">
-      <Filter>Archivos de origen\OSKengine\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Archivos de origen\OSKengine\UI</Filter>
-    </ClCompile>
     <ClCompile Include="FileIO.cpp">
       <Filter>Archivos de origen\OSKengine\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="IUserInterfaceText.cpp">
-      <Filter>Archivos de origen\OSKengine\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="IUserInterfaceImage.cpp">
-      <Filter>Archivos de origen\OSKengine\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageUI.cpp">
-      <Filter>Archivos de origen\OSKengine\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="TextUI.cpp">
-      <Filter>Archivos de origen\OSKengine\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Panel.cpp">
-      <Filter>Archivos de origen\OSKengine\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="IUserInterfaceHasChildren.cpp">
-      <Filter>Archivos de origen\OSKengine\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="IUserInterfaceMouseInput.cpp">
-      <Filter>Archivos de origen\OSKengine\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Checkbox.cpp">
-      <Filter>Archivos de origen\OSKengine\UI</Filter>
     </ClCompile>
     <ClCompile Include="VulkanRenderer.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
@@ -366,27 +336,6 @@
     <ClCompile Include="OnTickSystem.cpp">
       <Filter>Archivos de origen\OSKengine\Engine\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="ImGUI.cpp">
-      <Filter>Archivos de origen\OSKengine\TP\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_demo.cpp">
-      <Filter>Archivos de origen\OSKengine\TP\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_draw.cpp">
-      <Filter>Archivos de origen\OSKengine\TP\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_tables.cpp">
-      <Filter>Archivos de origen\OSKengine\TP\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_widgets.cpp">
-      <Filter>Archivos de origen\OSKengine\TP\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_impl_vulkan.cpp">
-      <Filter>Archivos de origen\OSKengine\TP\ImGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_impl_glfw.cpp">
-      <Filter>Archivos de origen\OSKengine\TP\ImGUI</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowAPI.h">
@@ -473,23 +422,14 @@
     <ClInclude Include="Color.h">
       <Filter>Archivos de encabezado\OSKengine\Types</Filter>
     </ClInclude>
-    <ClInclude Include="BaseUIElement.h">
-      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
-    </ClInclude>
     <ClInclude Include="UIAnchorTypeEnum.h">
       <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
     </ClInclude>
     <ClInclude Include="ButtonCodeEnum.h">
       <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
     </ClInclude>
     <ClInclude Include="UIInterfacesBitFlags.h">
       <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Panel.h">
-      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
     </ClInclude>
     <ClInclude Include="RenderSettingsBitFlags.h">
       <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
@@ -502,27 +442,6 @@
     </ClInclude>
     <ClInclude Include="LogMessageLevelsEnum.h">
       <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="IUserInterfaceText.h">
-      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="IUserInterfaceImage.h">
-      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageUI.h">
-      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="TextUI.h">
-      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="IUserInterfaceHasChildren.h">
-      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="IUserInterfaceMouseInput.h">
-      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Checkbox.h">
-      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
     </ClInclude>
     <ClInclude Include="VulkanRenderer.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
@@ -767,29 +686,11 @@
     <ClInclude Include="Game1.hpp">
       <Filter>Archivos de encabezado\Game</Filter>
     </ClInclude>
-    <ClInclude Include="imgui_internal.h">
-      <Filter>Archivos de encabezado\OSKengine\TP\ImGUI</Filter>
+    <ClInclude Include="UserInterfaceWindow.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
     </ClInclude>
-    <ClInclude Include="imstb_rectpack.h">
-      <Filter>Archivos de encabezado\OSKengine\TP\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_textedit.h">
-      <Filter>Archivos de encabezado\OSKengine\TP\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_truetype.h">
-      <Filter>Archivos de encabezado\OSKengine\TP\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="imconfig.h">
-      <Filter>Archivos de encabezado\OSKengine\TP\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui.h">
-      <Filter>Archivos de encabezado\OSKengine\TP\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui_impl_vulkan.h">
-      <Filter>Archivos de encabezado\OSKengine\TP\ImGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui_impl_glfw.h">
-      <Filter>Archivos de encabezado\OSKengine\TP\ImGUI</Filter>
+    <ClInclude Include="UserInterfaceElement.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

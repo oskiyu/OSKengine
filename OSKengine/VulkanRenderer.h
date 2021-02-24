@@ -32,6 +32,7 @@
 
 #include "RenderTarget.h"
 #include "RenderStage.h"
+#include <functional>
 
 class Game;
 
@@ -60,10 +61,6 @@ namespace OSK {
 
 		//Renderiza el frame.
 		void RenderFrame();
-
-		//Renderiza la interfaz de usuario de la ventana asociada.
-		void DrawUserInterface(SpriteBatch& spriteBatch) const;
-
 
 		//Establece el modo de presentación deseado.
 		//Recrea el swapchain si es necesario.
@@ -379,16 +376,12 @@ namespace OSK {
 
 		SpriteBatch currentSpriteBatch{};
 		
-
 		bool hasBeenInit = false;
 
 		VkPhysicalDeviceMemoryProperties memProperties;
 
 		DescriptorLayout* PhongDescriptorLayout = nullptr;
 		DescriptorLayout* SkyboxDescriptorLayout = nullptr;
-
-		DescriptorLayout* ImGuiDescriptorLayout = nullptr;
-		VULKAN::Renderpass* ImGuiRenderpass = nullptr;
 
 		/*NEW SYNC*/
 		VkFence* fences = nullptr;

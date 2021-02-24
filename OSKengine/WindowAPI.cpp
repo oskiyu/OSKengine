@@ -1,10 +1,5 @@
 #include "WindowAPI.h"
 
-#include "BaseUIElement.h"
-#include "IUserInterfaceHasChildren.h"
-#include "IUserInterfaceMouseInput.h"
-#include "IUserInterfaceImage.h"
-
 #include "stbi_image.h"
 
 namespace OSK {
@@ -89,8 +84,6 @@ namespace OSK {
 	void WindowAPI::PollEvents() {
 		glfwPollEvents();
 
-		updateUI(UserInterface);
-		
 		mouseState.OldScrollX = mouseState.ScrollX;
 		mouseState.OldScrollY = mouseState.ScrollY;
 	}
@@ -207,18 +200,6 @@ namespace OSK {
 	}
 
 
-	void WindowAPI::SetUserInterface(UI::BaseUIElement* ui) {
-		UserInterface = ui;
-		
-		if (ui->FillParent) {
-			ui->SetRectangle(Vector4(0, 0, ScreenSizeX, ScreenSizeY));
-			/*if (auto var = reinterpret_cast<UI::IUserInterfaceImage*>(ui)) {
-				var->SetSprite(var->Image);
-			}*/
-		}
-	}
-
-
 	Vector4 WindowAPI::GetRectangle() const {
 		return Vector4(0, 0, ScreenSizeX, ScreenSizeY);
 	}
@@ -253,15 +234,7 @@ namespace OSK {
 		if (sizey != 0)
 			ScreenRatio = static_cast<float_t>(sizex) / static_cast<float_t>(sizey);
 
-		if (UserInterface != nullptr) {
-			if (UserInterface->FillParent)
-				UserInterface->SetRectangle(Vector4(0, 0, ScreenSizeX, ScreenSizeY));
 
-			UserInterface->SetPositionRelativeTo(nullptr);
-
-			if (auto var = reinterpret_cast<UI::IUserInterfaceHasChildren*>(UserInterface))
-				var->UpdateChildrenPositions();
-		}
 
 		ViewportShouldBeUpdated = true;
 	}
@@ -298,21 +271,6 @@ namespace OSK {
 	void WindowAPI::updateMouseButtons() {
 		for (buttonCode_t i = 0; i < 8; i++) {
 			mouseState.ButtonStates[i] = static_cast<buttonState_t>(glfwGetMouseButton(window, i));
-		}
-	}
-
-
-	void WindowAPI::updateUI(UI::BaseUIElement* element) {
-		if (element == nullptr || !element->IsActive)
-			return;
-
-		if (auto var = dynamic_cast<UI::IUserInterfaceMouseInput*>(element)) {
-			var->Update(mouseState);
-		}
-
-		if (auto var = dynamic_cast<UI::IUserInterfaceHasChildren*>(element)) {
-			for (auto i : var->Children)
-				updateUI(i);
 		}
 	}
 

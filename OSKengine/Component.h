@@ -27,7 +27,6 @@ namespace OSK {
 		virtual ~Component() = default;
 
 		virtual void OnCreate() {}
-		virtual void OnTick(deltaTime_t deltaTime) {}
 		virtual void OnRemove() {}
 
 		//Tipo de componente.

@@ -13,8 +13,6 @@
 #include "VulkanRenderer.h"
 #include "Camera2D.h"
 #include "Sprite.h"
-#include "Panel.h"
-#include "Button.h"
 #include "ToString.h"
 #include "Log.h"
 
@@ -333,10 +331,6 @@ int program() {
 				spriteBatch.DrawString(fuente, "Output res: " + OSK::ToString((OSK::Vector2f(RenderAPI.RenderTargetSizeX, RenderAPI.RenderTargetSizeY) / RenderAPI.RenderResolutionMultiplier).ToVector2ui()), 1, OSK::Vector2(-100, 65), OSK::Color::WHITE(), OSK::Anchor::TOP_RIGHT);
 				
 				spriteBatch.DrawString(CopyrightText);
-
-				//auto info = OSK::RayCast::CastRay(RenderAPI.DefaultCamera3D.CameraTransform.GlobalPosition.ToVector3f(), RenderAPI.DefaultCamera3D.Front.ToVector3f(), EntityA.Physics.Collision.SatColliders[0]);
-
-				RenderAPI.DrawUserInterface(spriteBatch);
 
 				PosText.SetText(OSK::ToString(RenderAPI.DefaultCamera3D.CameraTransform.GlobalPosition));
 			}
