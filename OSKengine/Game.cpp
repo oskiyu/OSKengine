@@ -15,6 +15,7 @@ void Game::SetupRenderer() {
 	renderer->Window = window;
 	renderer->SetPresentMode(RendererCreateInfo.VSyncMode);
 	renderer->FPSlimit = RendererCreateInfo.FPSlimit;
+	renderer->RenderResolutionMultiplier = RendererCreateInfo.RendererResolution;
 	renderer->Init(RendererCreateInfo.GameName, RendererCreateInfo.GameVersion);
 }
 

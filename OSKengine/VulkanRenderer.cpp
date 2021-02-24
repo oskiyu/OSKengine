@@ -246,15 +246,11 @@ void RenderAPI::RenderFrame() {
 			ubo.projection2D = DefaultCamera2D.projection;
 			ubo.cameraPos = DefaultCamera3D.CameraTransform.GlobalPosition.ToGLM();
 
-			for (uint32_t i = 0; i < OSK_ANIM_MAX_BONES; i++)
-				ubo.bones[i] = glm::mat4(1.0f);
-
 			memcpy(data, &ubo, sizeof(UBO));
 			vkUnmapMemory(LogicalDevice, UniformBuffers[i].Memory);
 		}
 
-		//if (Settings.AutoUpdateCommandBuffers)
-			updateCommandBuffers();
+		updateCommandBuffers();
 	}
 	//Repreenta cual es la imagen que se va a renderizar.
 	uint32_t nextImageIndex = 0;
@@ -376,10 +372,11 @@ DescriptorLayout* RenderAPI::CreateNewPhongDescriptorLayout(uint32_t maxSets) co
 	DescriptorLayout* descLayout = CreateNewDescriptorLayout();
 	descLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
 	descLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
-	descLayout->AddBinding(2, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
-	descLayout->AddBinding(3, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_FRAGMENT_BIT);
-	descLayout->AddBinding(4, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
+	descLayout->AddBinding(2, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
+	descLayout->AddBinding(3, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
+	descLayout->AddBinding(4, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_FRAGMENT_BIT);
 	descLayout->AddBinding(5, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
+	descLayout->AddBinding(6, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
 	descLayout->Create(maxSets);
 
 	return descLayout;

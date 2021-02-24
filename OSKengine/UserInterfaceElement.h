@@ -15,6 +15,8 @@ namespace OSK {
 
 	public:
 
+		virtual ~UserInterfaceElement() = default;
+
 		void SetSize(const Vector2ui& size) {
 			area.Z = size.X;
 			area.W = size.Y;
@@ -33,6 +35,7 @@ namespace OSK {
 		Anchor AnchorReference = Anchor::TOP_LEFT;
 
 		void AddChildElement(UserInterfaceElement* element) {
+			element->Parent = this;
 			childElements.push_back(element);
 		}
 		void RemoveChildElement(UserInterfaceElement* element) {
@@ -44,9 +47,7 @@ namespace OSK {
 		bool IsActive = true;
 		bool ShouldFillParent = false;
 
-	protected:
-
-		virtual void OnTick(deltaTime_t deltaTime);
+		UserInterfaceElement* Parent = nullptr;
 
 	private:
 

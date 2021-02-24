@@ -10,6 +10,17 @@
 
 namespace OSK {
 
+	struct OSKAPI_CALL AnimUBO {
+
+		AnimUBO() {
+			for (auto& i : Bones) {
+				i = glm::mat4(1.0f);
+			}
+		}
+
+		std::array<glm::mat4, OSK_ANIM_MAX_BONES> Bones;
+	};
+		
 	//Vértices e índices de un modelo.
 	struct OSKAPI_CALL TempModelData {
 		//Vértices.
@@ -88,6 +99,19 @@ namespace OSK {
 
 			return pushConst;
 		}
+
+		inline void UpdateAnimUBO() {
+			for (auto& i : BonesUBOs) {
+				void* data;
+				vkMapMemory(LogicalDevice, i.Memory, 0, sizeof(glm::mat4) * BonesUBOdata.Bones.size(), 0, &data);
+				memcpy(data, BonesUBOdata.Bones.data(), sizeof(glm::mat4) * BonesUBOdata.Bones.size());
+				vkUnmapMemory(LogicalDevice, i.Memory);
+			}
+		}
+
+		AnimUBO BonesUBOdata;
+		std::vector<VulkanBuffer> BonesUBOs;
+		VkDevice LogicalDevice = VK_NULL_HANDLE;
 
 		//Constantes 3D.
 		PushConst3D PushConst{};

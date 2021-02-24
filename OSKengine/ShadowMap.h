@@ -35,7 +35,7 @@ namespace OSK {
 
 		void Clear();
 
-		void CreateDescriptorSet(ModelTexture* texture);
+		void CreateDescriptorSet(Model* model);
 
 		DirLightShadowUBO DirShadowsUBO = {};
 

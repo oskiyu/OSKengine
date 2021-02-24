@@ -53,6 +53,8 @@ public:
 
 		std::string GameName = "OSKengine Project";
 		OSK::Version GameVersion = { 0,0,0 };
+
+		float RendererResolution = 1.0f;
 	} RendererCreateInfo;
 
 	OSK::ContentManager* Content = nullptr;

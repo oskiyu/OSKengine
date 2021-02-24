@@ -283,6 +283,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="UBO.h" />
+    <ClInclude Include="UIButton.h" />
     <ClInclude Include="UserInterfaceElement.h" />
     <ClInclude Include="UserInterfaceWindow.h" />
     <ClInclude Include="VulkanBuffer.h" />

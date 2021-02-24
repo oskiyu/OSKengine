@@ -50,6 +50,10 @@ public:
 
 		InputSystem->RegisterOneTimeInputEvent("Exit");
 		InputSystem->GetOneTimeInputEvent("Exit").LinkedKeys.push_back(OSK::Key::ESCAPE);
+		InputSystem->RegisterOneTimeInputEvent("Fullscreen");
+		InputSystem->GetOneTimeInputEvent("Fullscreen").LinkedKeys.push_back(OSK::Key::F11);
+		InputSystem->RegisterOneTimeInputEvent("ChangeVSync");
+		InputSystem->GetOneTimeInputEvent("ChangeVSync").LinkedKeys.push_back(OSK::Key::F1);
 
 		OSK::InputComponent input;
 
@@ -69,16 +73,33 @@ public:
 			Exit();
 		};
 
+		input.GetOneTimeInputFunction("Fullscreen") = [this]() {
+			GetWindow()->SetFullscreen(!GetWindow()->IsFullscreen);
+		};
+		input.GetOneTimeInputFunction("ChangeVSync") = [this]() {
+			if (GetRenderer()->GetCurrentPresentMode() == OSK::PresentMode::VSYNC)
+				GetRenderer()->SetPresentMode(OSK::PresentMode::INMEDIATE);
+			else
+				GetRenderer()->SetPresentMode(OSK::PresentMode::VSYNC);
+		};
+
 		ControlsObject.Create(ECS);
 		ControlsObject.AddComponent<OSK::InputComponent>(input);
 
 		Cubes.push_back({});
 		Cubes.back().Create(ECS);
-		Cubes.back().GetComponent<OSK::ModelComponent>().AddModel("models/cube/cube.obj", Content);
+		//Cubes.back().GetComponent<OSK::ModelComponent>().AddModel("models/cube/cube.obj", Content);
+		Cubes.back().GetComponent<OSK::ModelComponent>().AddAnimatedModel("models/anim2/goblin2.dae", Content);
+		Cubes.back().GetComponent<OSK::ModelComponent>().AnimatedModels[0]->ModelTransform.SetScale({ 0.0005f });
+		Cubes.back().GetComponent<OSK::ModelComponent>().AnimatedModels[0]->ModelTransform.RotateWorldSpace(90.0f, { 1.0f, 0.0f, 0.0f });
 		Cubes.back().GetComponent<OSK::ModelComponent>().Link(&Cubes.back().Transform3D);
 
 		Player.Create(ECS);
-		Player.GetComponent<OSK::ModelComponent>().AddModel("models/cube/cube.obj", Content);
+		Player.GetComponent<OSK::ModelComponent>().AddAnimatedModel("models/anim2/goblin2.dae", Content);
+		//Player.GetComponent<OSK::ModelComponent>().AddModel("models/cube/cube.obj", Content);
+		Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0]->ModelTransform.SetScale({ 0.0005f });
+		Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0]->ModelTransform.RotateWorldSpace(90.0f, { 1.0f, 0.0f, 0.0f });
+		Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0]->AnimationSpeed = 2.0f;
 		Player.GetComponent<OSK::ModelComponent>().Link(&Player.Transform3D);
 		Player.Transform3D.AddPosition({ 20, 0, 0 });
 

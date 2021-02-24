@@ -46,7 +46,7 @@ namespace OSK {
 		//Crea un descriptor set para la textura dada.
 		//	<texture>: textura del modelo.
 		//Por defecto crea un PHONG descriptor set.
-		virtual void CreateDescriptorSet(ModelTexture* texture) const;
+		virtual void CreateDescriptorSet(Model* model) const;
 
 		//Crea el GraphicsPipeline de la escena.
 		//Por defecto crea un PHONG GraphicsPipeline.
@@ -112,6 +112,7 @@ namespace OSK {
 	private:
 
 		ModelTexture* DefaultTexture = nullptr;
+		std::vector<VulkanBuffer> defaultAnimUBOs;
 
 		Skybox skybox;
 

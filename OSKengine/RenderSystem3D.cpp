@@ -19,6 +19,18 @@ void RenderSystem3D::Init() {
 	Renderer->RSystem = this;
 }
 
+void RenderSystem3D::OnTick(deltaTime_t deltaTime) {
+	for (auto object : Objects) {
+		ModelComponent& comp = ECSsystem->GetComponent<ModelComponent>(object);
+
+		for (auto& model : comp.AnimatedModels) {
+			model->Update(deltaTime);
+
+			model->UpdateAnimUBO();
+		}
+	}
+}
+
 void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 	if (RScene != nullptr) {
 		RScene->UpdateLightsBuffers();
@@ -30,7 +42,7 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 
 			for (auto& model : comp.StaticMeshes) {
 				if (!model.texture->DirShadowsDescriptorSet) {
-					RScene->CreateDescriptorSet(model.texture);
+					RScene->CreateDescriptorSet(&model);
 				}
 
 				RScene->DrawShadows(&model, cmdBuffer, i);
@@ -38,7 +50,7 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 
 			for (auto& model : comp.AnimatedModels) {
 				if (!model->texture->DirShadowsDescriptorSet) {
-					RScene->CreateDescriptorSet(model->texture);
+					RScene->CreateDescriptorSet(model);
 				}
 
 				RScene->DrawShadows(model, cmdBuffer, i);

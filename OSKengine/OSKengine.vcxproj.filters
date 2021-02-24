@@ -692,6 +692,9 @@
     <ClInclude Include="UserInterfaceElement.h">
       <Filter>Archivos de encabezado\OSKengine\UI</Filter>
     </ClInclude>
+    <ClInclude Include="UIButton.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODO.txt" />

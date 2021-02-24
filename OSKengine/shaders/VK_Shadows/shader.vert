@@ -8,12 +8,15 @@ layout(binding = 0) uniform UniformBufferObject {
     mat4 view;
     mat4 proj;
     mat4 proj2D;
-    mat4 bones[MAX_BONES];
 
     vec3 cameraPos;
 } camera;
 
-layout(binding = 1) uniform Lights {
+layout(binding = 1) uniform Bones {
+    mat4 bones[MAX_BONES];
+} bones;
+
+layout(binding = 2) uniform Lights {
     mat4 lightMat;
 } lights;
 
@@ -33,10 +36,10 @@ layout(location = 0) out vec3 fragPos;
 layout(location = 1) out vec3 cameraPos;
 
 void main() {
-    mat4 bonesMat = camera.bones[inBoneIDs[0]] * inBoneWeights[0];
-    bonesMat += camera.bones[inBoneIDs[1]] * inBoneWeights[1];
-    bonesMat += camera.bones[inBoneIDs[2]] * inBoneWeights[2];
-    bonesMat += camera.bones[inBoneIDs[3]] * inBoneWeights[3];  
+    mat4 bonesMat = bones.bones[inBoneIDs[0]] * inBoneWeights[0];
+    bonesMat += bones.bones[inBoneIDs[1]] * inBoneWeights[1];
+    bonesMat += bones.bones[inBoneIDs[2]] * inBoneWeights[2];
+    bonesMat += bones.bones[inBoneIDs[3]] * inBoneWeights[3];  
 
     mat4 mat = lights.lightMat;
 

@@ -398,6 +398,13 @@ namespace OSK {
 		model.Data = LoadModelData(path);
 		auto direct = path.substr(0, path.find_last_of('/'));
 		model.texture = LoadModelTexture(direct);
+
+		model.LogicalDevice = renderer->LogicalDevice;
+		for (uint32_t i = 0; i < renderer->SwapchainImages.size(); i++) {
+			model.BonesUBOs.push_back({});
+			renderer->CreateBuffer(model.BonesUBOs[i], sizeof(AnimUBO), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT | VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT);
+		}
+		model.UpdateAnimUBO();
 	}
 
 	AnimatedModel* ContentManager::LoadAnimatedModel(const std::string& path) {
@@ -457,9 +464,19 @@ namespace OSK {
 
 		model->Update(0);
 
+		model->LogicalDevice = renderer->LogicalDevice;
+		for (uint32_t i = 0; i < renderer->SwapchainImages.size(); i++) {
+			model->BonesUBOs.push_back({});
+			renderer->CreateBuffer(model->BonesUBOs[i], sizeof(AnimUBO), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT | VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT);
+		}
+		model->UpdateAnimUBO();
+
 		AnimatedModels.push_back(model);
 		AnimatedModelFromPath[path] = model;
 
+		auto direct = path.substr(0, path.find_last_of('/'));
+		model->texture = LoadModelTexture(direct);
+		
 		return model;
 	}
 

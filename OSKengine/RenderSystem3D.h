@@ -13,6 +13,7 @@ namespace OSK {
 				
 		void Init();
 		void OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) override;
+		void OnTick(deltaTime_t deltaTime) override;
 		void OnRemove() override;
 		Signature GetSystemSignature() override;
 

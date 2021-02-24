@@ -49,6 +49,7 @@ namespace OSK {
 		friend class VULKAN::VulkanImageGen;
 		friend class VULKAN::Framebuffer;
 		friend class Game;
+		friend class RenderSystem3D;
 
 	public:
 	

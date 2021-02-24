@@ -1,4 +1,5 @@
 #include "AnimatedModel.h"
+#include "ToString.h"
 
 namespace OSK {
 
@@ -35,8 +36,10 @@ namespace OSK {
 		aiMatrix4x4 identity = aiMatrix4x4();
 		ReadNodeHierarchy(TimeInTicks, scene->mRootNode, identity);
 
-		for (uint32_t i = 0; i < BoneTransforms.size(); i++)
+		for (uint32_t i = 0; i < BoneTransforms.size(); i++) {
 			BoneTransforms[i] = BoneInfos[i].FinalTransformation;
+			BonesUBOdata.Bones[i] = AiToGLM(BoneTransforms[i]);
+		}
 	}
 
 	const aiNodeAnim* AnimatedModel::FindNodeAnim(const aiAnimation* animation, const std::string& nodeName) const {

@@ -30,7 +30,38 @@ namespace OSK {
 
 		DefaultTexture = Content->LoadModelTexture(ContentManager::DEFAULT_TEXTURE_PATH);
 
-		CreateDescriptorSet(DefaultTexture);
+#pragma region TERRAIN
+		for (uint32_t i = 0; i < renderer->SwapchainImages.size(); i++) {
+			defaultAnimUBOs.push_back({});
+			renderer->CreateBuffer(defaultAnimUBOs[i], sizeof(AnimUBO), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT | VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT);
+		}
+
+		DefaultTexture->PhongDescriptorSet = renderer->CreateNewDescriptorSet();
+		DefaultTexture->PhongDescriptorSet->SetDescriptorLayout(PhongDescriptorLayout);
+		DefaultTexture->PhongDescriptorSet->AddUniformBuffers(renderer->UniformBuffers, 0, sizeof(UBO));
+		DefaultTexture->PhongDescriptorSet->AddUniformBuffers(defaultAnimUBOs, 1, sizeof(AnimUBO));
+		DefaultTexture->PhongDescriptorSet->AddUniformBuffers(shadowMap->DirShadowsUniformBuffers, 2, sizeof(DirLightShadowUBO));
+		DefaultTexture->PhongDescriptorSet->AddImage(&DefaultTexture->Albedo, DefaultTexture->Albedo.Sampler, 3);
+		DefaultTexture->PhongDescriptorSet->AddUniformBuffers(LightsUniformBuffers, 4, Lights.Size());
+		DefaultTexture->PhongDescriptorSet->AddImage(&DefaultTexture->Specular, DefaultTexture->Specular.Sampler, 5);
+		DefaultTexture->PhongDescriptorSet->AddImage(&shadowMap->DirShadows->RenderedSprite.texture->Albedo, shadowMap->DirShadows->RenderedSprite.texture->Albedo.Sampler, 6);
+		DefaultTexture->PhongDescriptorSet->Create();
+
+		DefaultTexture->DirShadowsDescriptorSet = renderer->CreateNewDescriptorSet();
+		DefaultTexture->DirShadowsDescriptorSet->SetDescriptorLayout(shadowMap->DirShadowDescriptorLayout);
+		DefaultTexture->DirShadowsDescriptorSet->AddUniformBuffers(renderer->UniformBuffers, 0, sizeof(UBO));
+		DefaultTexture->DirShadowsDescriptorSet->AddUniformBuffers(defaultAnimUBOs, 1, sizeof(AnimUBO));
+		DefaultTexture->DirShadowsDescriptorSet->AddUniformBuffers(shadowMap->DirShadowsUniformBuffers, 2, sizeof(DirLightShadowUBO));
+		DefaultTexture->DirShadowsDescriptorSet->Create();
+
+		AnimUBO animUBO{};
+		for (auto& i : defaultAnimUBOs) {
+			void* data;
+			vkMapMemory(renderer->LogicalDevice, i.Memory, 0, sizeof(AnimUBO), 0, &data);
+			memcpy(data, animUBO.Bones.data(), sizeof(AnimUBO));
+			vkUnmapMemory(renderer->LogicalDevice, i.Memory);
+		}
+#pragma endregion
 	}
 
 	RenderizableScene::~RenderizableScene() {
@@ -46,10 +77,11 @@ namespace OSK {
 		PhongDescriptorLayout = renderer->CreateNewDescriptorLayout();
 		PhongDescriptorLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
 		PhongDescriptorLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
-		PhongDescriptorLayout->AddBinding(2, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
-		PhongDescriptorLayout->AddBinding(3, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_FRAGMENT_BIT);
-		PhongDescriptorLayout->AddBinding(4, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
+		PhongDescriptorLayout->AddBinding(2, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
+		PhongDescriptorLayout->AddBinding(3, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
+		PhongDescriptorLayout->AddBinding(4, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_FRAGMENT_BIT);
 		PhongDescriptorLayout->AddBinding(5, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
+		PhongDescriptorLayout->AddBinding(6, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
 		PhongDescriptorLayout->Create(maxSets);
 	}
 
@@ -73,22 +105,23 @@ namespace OSK {
 			renderer->CreateBuffer(LightsUniformBuffers[i], size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 	}
 
-	void RenderizableScene::CreateDescriptorSet(ModelTexture* texture) const {
-		if (texture->PhongDescriptorSet != nullptr)
-			delete texture->PhongDescriptorSet;
+	void RenderizableScene::CreateDescriptorSet(Model* model) const {
+		if (model->texture->PhongDescriptorSet != nullptr)
+			delete model->texture->PhongDescriptorSet;
 
-		texture->PhongDescriptorSet = renderer->CreateNewDescriptorSet();
-		texture->PhongDescriptorSet->SetDescriptorLayout(PhongDescriptorLayout);
-		texture->PhongDescriptorSet->AddUniformBuffers(renderer->UniformBuffers, 0, sizeof(UBO));
-		texture->PhongDescriptorSet->AddUniformBuffers(shadowMap->DirShadowsUniformBuffers, 1, sizeof(DirLightShadowUBO));
-		texture->PhongDescriptorSet->AddImage(&texture->Albedo, texture->Albedo.Sampler, 2);
-		texture->PhongDescriptorSet->AddUniformBuffers(LightsUniformBuffers, 3, Lights.Size());
-		texture->PhongDescriptorSet->AddImage(&texture->Specular, texture->Specular.Sampler, 4);
-		texture->PhongDescriptorSet->AddImage(&shadowMap->DirShadows->RenderedSprite.texture->Albedo, shadowMap->DirShadows->RenderedSprite.texture->Albedo.Sampler, 5);
-		texture->PhongDescriptorSet->Create();
+		model->texture->PhongDescriptorSet = renderer->CreateNewDescriptorSet();
+		model->texture->PhongDescriptorSet->SetDescriptorLayout(PhongDescriptorLayout);
+		model->texture->PhongDescriptorSet->AddUniformBuffers(renderer->UniformBuffers, 0, sizeof(UBO));
+		model->texture->PhongDescriptorSet->AddUniformBuffers(model->BonesUBOs, 1, sizeof(AnimUBO));
+		model->texture->PhongDescriptorSet->AddUniformBuffers(shadowMap->DirShadowsUniformBuffers, 2, sizeof(DirLightShadowUBO));
+		model->texture->PhongDescriptorSet->AddImage(&model->texture->Albedo, model->texture->Albedo.Sampler, 3);
+		model->texture->PhongDescriptorSet->AddUniformBuffers(LightsUniformBuffers, 4, Lights.Size());
+		model->texture->PhongDescriptorSet->AddImage(&model->texture->Specular, model->texture->Specular.Sampler, 5);
+		model->texture->PhongDescriptorSet->AddImage(&shadowMap->DirShadows->RenderedSprite.texture->Albedo, shadowMap->DirShadows->RenderedSprite.texture->Albedo.Sampler, 6);
+		model->texture->PhongDescriptorSet->Create();
 
-		shadowMap->CreateDescriptorSet(texture);
-		cubeShadowMaps[0]->CreateDescriptorSet(texture);
+		shadowMap->CreateDescriptorSet(model);
+		cubeShadowMaps[0]->CreateDescriptorSet(model->texture);
 	}
 
 	void RenderizableScene::UpdateLightsBuffers() {
@@ -106,7 +139,7 @@ namespace OSK {
 
 	void RenderizableScene::AddModel(Model* model) {
 		Models.push_back(model);
-		CreateDescriptorSet(model->texture);
+		CreateDescriptorSet(model);
 	}
 
 	void RenderizableScene::AddAnimatedModel(AnimatedModel* model) {

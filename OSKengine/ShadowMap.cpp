@@ -47,6 +47,7 @@ void ShadowMap::CreateDescSets(uint32_t maxSets) {
 	DirShadowDescriptorLayout = renderer->CreateNewDescriptorLayout();
 	DirShadowDescriptorLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
 	DirShadowDescriptorLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
+	DirShadowDescriptorLayout->AddBinding(2, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
 	DirShadowDescriptorLayout->Create(maxSets);
 }
 
@@ -100,13 +101,14 @@ void ShadowMap::CreateGraphicsPipeline() {
 	DirShadows->Pipelines.push_back(ShadowsPipeline);
 }
 
-void ShadowMap::CreateDescriptorSet(ModelTexture* texture) {
-	if (texture->DirShadowsDescriptorSet != nullptr)
-		delete texture->DirShadowsDescriptorSet;
+void ShadowMap::CreateDescriptorSet(Model* model) {
+	if (model->texture->DirShadowsDescriptorSet != nullptr)
+		delete model->texture->DirShadowsDescriptorSet;
 
-	texture->DirShadowsDescriptorSet = renderer->CreateNewDescriptorSet();
-	texture->DirShadowsDescriptorSet->SetDescriptorLayout(DirShadowDescriptorLayout);
-	texture->DirShadowsDescriptorSet->AddUniformBuffers(renderer->UniformBuffers, 0, sizeof(UBO));
-	texture->DirShadowsDescriptorSet->AddUniformBuffers(DirShadowsUniformBuffers, 1, sizeof(DirLightShadowUBO));
-	texture->DirShadowsDescriptorSet->Create();
+	model->texture->DirShadowsDescriptorSet = renderer->CreateNewDescriptorSet();
+	model->texture->DirShadowsDescriptorSet->SetDescriptorLayout(DirShadowDescriptorLayout);
+	model->texture->DirShadowsDescriptorSet->AddUniformBuffers(renderer->UniformBuffers, 0, sizeof(UBO));
+	model->texture->DirShadowsDescriptorSet->AddUniformBuffers(model->BonesUBOs, 1, sizeof(AnimUBO));
+	model->texture->DirShadowsDescriptorSet->AddUniformBuffers(DirShadowsUniformBuffers, 2, sizeof(DirLightShadowUBO));
+	model->texture->DirShadowsDescriptorSet->Create();
 }
