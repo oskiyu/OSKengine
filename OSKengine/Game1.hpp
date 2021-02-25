@@ -90,18 +90,20 @@ public:
 		Cubes.back().Create(ECS);
 		//Cubes.back().GetComponent<OSK::ModelComponent>().AddModel("models/cube/cube.obj", Content);
 		Cubes.back().GetComponent<OSK::ModelComponent>().AddAnimatedModel("models/anim2/goblin2.dae", Content);
-		Cubes.back().GetComponent<OSK::ModelComponent>().AnimatedModels[0]->ModelTransform.SetScale({ 0.0005f });
-		Cubes.back().GetComponent<OSK::ModelComponent>().AnimatedModels[0]->ModelTransform.RotateWorldSpace(90.0f, { 1.0f, 0.0f, 0.0f });
+		Cubes.back().GetComponent<OSK::ModelComponent>().AnimatedModels[0].ModelTransform.SetScale({ 0.00005f });
+		//Cubes.back().GetComponent<OSK::ModelComponent>().AnimatedModels[0].ModelTransform.RotateWorldSpace(90.0f, { 1.0f, 0.0f, 0.0f });
 		Cubes.back().GetComponent<OSK::ModelComponent>().Link(&Cubes.back().Transform3D);
 
 		Player.Create(ECS);
 		Player.GetComponent<OSK::ModelComponent>().AddAnimatedModel("models/anim2/goblin2.dae", Content);
 		//Player.GetComponent<OSK::ModelComponent>().AddModel("models/cube/cube.obj", Content);
-		Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0]->ModelTransform.SetScale({ 0.0005f });
-		Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0]->ModelTransform.RotateWorldSpace(90.0f, { 1.0f, 0.0f, 0.0f });
-		Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0]->AnimationSpeed = 2.0f;
+		Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0].ModelTransform.SetScale({ 0.00005f });
+		//Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0].ModelTransform.RotateWorldSpace(90.0f, { 1.0f, 0.0f, 0.0f });
+		Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0].AnimationSpeed = 2.0f;
 		Player.GetComponent<OSK::ModelComponent>().Link(&Player.Transform3D);
 		Player.Transform3D.AddPosition({ 20, 0, 0 });
+
+		GetRenderer()->DefaultCamera3D.CameraTransform.SetPosition(Player.Transform3D.GlobalPosition);
 
 		PhysicsSystem->TerrainColissionType = OSK::PhysicalSceneTerrainResolveType::CHANGE_HEIGHT_ONLY;
 	}

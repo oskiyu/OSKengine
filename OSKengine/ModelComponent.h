@@ -11,14 +11,15 @@ namespace OSK {
 	public:
 
 		std::vector<Model> StaticMeshes{};
-		std::vector<AnimatedModel*> AnimatedModels{};
+		std::vector<AnimatedModel> AnimatedModels{};
 
 		void AddModel(const std::string& path, ContentManager* content) {
 			StaticMeshes.push_back({});
 			content->LoadModel(StaticMeshes.back(), path);
 		}
 		void AddAnimatedModel(const std::string& path, ContentManager* content) {
-			AnimatedModels.push_back(content->LoadAnimatedModel(path));
+			AnimatedModels.push_back({});
+			content->LoadAnimatedModel(AnimatedModels.back(), path);
 		}
 
 		void Link(Transform* transform) {
@@ -26,7 +27,7 @@ namespace OSK {
 				i.ModelTransform.AttachTo(transform);
 
 			for (auto& i : AnimatedModels)
-				i->ModelTransform.AttachTo(transform);
+				i.ModelTransform.AttachTo(transform);
 		}
 
 		void Pack() {

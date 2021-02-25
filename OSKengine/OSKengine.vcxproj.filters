@@ -166,6 +166,9 @@
     <Filter Include="Archivos de origen\OSKengine\TP\ImGUI">
       <UniqueIdentifier>{e47edb5c-b7f1-4389-9993-c55cda6e6ea1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Animation">
+      <UniqueIdentifier>{9c2c9747-0b80-466b-9b32-264f8c7ad40d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -694,6 +697,12 @@
     </ClInclude>
     <ClInclude Include="UIButton.h">
       <Filter>Archivos de encabezado\OSKengine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="SAnimation.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="SNodeAnim.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

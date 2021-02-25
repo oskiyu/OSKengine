@@ -24,9 +24,9 @@ void RenderSystem3D::OnTick(deltaTime_t deltaTime) {
 		ModelComponent& comp = ECSsystem->GetComponent<ModelComponent>(object);
 
 		for (auto& model : comp.AnimatedModels) {
-			model->Update(deltaTime);
+			model.Update(deltaTime);
 
-			model->UpdateAnimUBO();
+			model.UpdateAnimUBO();
 		}
 	}
 }
@@ -49,11 +49,11 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 			}
 
 			for (auto& model : comp.AnimatedModels) {
-				if (!model->texture->DirShadowsDescriptorSet) {
-					RScene->CreateDescriptorSet(model);
+				if (!model.texture->DirShadowsDescriptorSet) {
+					RScene->CreateDescriptorSet(&model);
 				}
 
-				RScene->DrawShadows(model, cmdBuffer, i);
+				RScene->DrawShadows(&model, cmdBuffer, i);
 			}
 		}
 
@@ -89,7 +89,7 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 				RScene->Draw(&model, cmdBuffer, i);
 
 			for (auto& model : comp.AnimatedModels)
-				RScene->Draw(model, cmdBuffer, i);
+				RScene->Draw(&model, cmdBuffer, i);
 		}
 
 		RScene->EndDraw(cmdBuffer, i);

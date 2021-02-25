@@ -105,7 +105,7 @@ namespace OSK {
 		//Carga un modelo 3D animado.
 		//	<model>: modelo animado a cargar.
 		//	<path>: ruta del modelo (incluyendo la extensión del modelo).
-		AnimatedModel* LoadAnimatedModel(const std::string& path);
+		void LoadAnimatedModel(AnimatedModel& model, const std::string& path);
 
 		//Carga un heightmap.
 		//	<map>: heightmap a cargar.
@@ -132,7 +132,7 @@ namespace OSK {
 		//Almacena los vértices y los índices de los modelos 3D.
 		std::list<ModelData*> ModelDatas = {};
 		//Almacena los vértices y los índices de los modelos 3D animados.
-		std::list<AnimatedModel*> AnimatedModels = {};
+		//std::list<AnimatedModel*> AnimatedModels = {};
 		//Almacena referencias a los sprites.
 		std::list<Sprite*> Sprites = {};
 		//Almacena referencias a las fuentes.
@@ -155,6 +155,8 @@ namespace OSK {
 		inline const uint32_t getMaxMipLevels(const uint32_t& width, const uint32_t& height) const {
 			return std::floor(std::log2(std::max(width, height))) + 1;
 		}
+
+		Animation::SNode GetNodes(const aiNode* node);
 
 		bool hasBeenCleared = false;
 		RenderAPI* renderer;

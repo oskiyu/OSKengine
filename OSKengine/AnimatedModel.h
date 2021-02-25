@@ -7,6 +7,8 @@
 #include <assimp\scene.h>
 #include <gtc/type_ptr.hpp>
 
+#include "SAnimation.h"
+
 namespace OSK {
 
 	//Contiene los huesos a los que está ligado un vértice.
@@ -31,16 +33,18 @@ namespace OSK {
 		BoneInfo();
 
 		//Offset del hueso.
-		aiMatrix4x4 Offset;
+		glm::mat4 Offset;
 
 		//Transformación del hueso.
-		aiMatrix4x4 FinalTransformation;
+		glm::mat4 FinalTransformation;
 
 	};
 
 
 	//Representa un modelo 3D con animaciones.
 	class OSKAPI_CALL AnimatedModel : public Model {
+
+		friend class ContentManager;
 
 	public:
 
@@ -53,24 +57,27 @@ namespace OSK {
 		//Número de huesos.
 		uint32_t NumBones = 0;
 		
-		aiMatrix4x4 GlobalInverseTransform;
+		glm::mat4 GlobalInverseTransform;
 
 		//Información sobre que huesos tiene cada vértice.
 		std::vector<VertexBoneData> Bones;
 
 		//Matrices de los huesos.
-		std::vector<aiMatrix4x4> BoneTransforms;
+		std::vector<glm::mat4> BoneTransforms;
 
 		//Velocidad de la animación.
 		float_t AnimationSpeed = 0.75f;
 
 		//Animación actual.
-		aiAnimation* Animation;
-		const aiScene* scene;
+		//aiAnimation* Animation;
+		//aiScene* scene;
+		std::vector<OSK::Animation::SAnimation> Animations;
+		OSK::Animation::SAnimation CurrentAnimation;
 
 		//Establece la animación activa.
 		void SetAnimation(uint32_t animID) {
-			Animation = scene->mAnimations[animID];
+			//Animation = scene->mAnimations[animID];
+			CurrentAnimation = Animations[animID];
 		}
 
 		deltaTime_t time = 0.0f;
@@ -93,15 +100,17 @@ namespace OSK {
 
 	private:
 
-		const aiNodeAnim* FindNodeAnim(const aiAnimation* animation, const std::string& nodeName) const;
+		OSK::Animation::SNodeAnim FindNodeAnim(const OSK::Animation::SAnimation& animation, const std::string& nodeName);
 
-		aiMatrix4x4 InterpolateTranslation(float time, const aiNodeAnim* node) const;
+		glm::mat4 InterpolateTranslation(float time, const OSK::Animation::SNodeAnim& node) const;
 	
-		aiMatrix4x4 InterpolateRotation(float time, const aiNodeAnim* node) const;
+		glm::mat4 InterpolateRotation(float time, const OSK::Animation::SNodeAnim& node) const;
 
-		aiMatrix4x4 InterpolateScale(float time, const aiNodeAnim* node) const;
+		glm::mat4 InterpolateScale(float time, const OSK::Animation::SNodeAnim& node) const;
 
-		void ReadNodeHierarchy(float animTime, const aiNode* node, const aiMatrix4x4& parent);
+		void ReadNodeHierarchy(float animTime, OSK::Animation::SNode& animation, const glm::mat4& parent);
+
+		OSK::Animation::SNode RootNode;
 
 	};
 
