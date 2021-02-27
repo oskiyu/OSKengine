@@ -23,13 +23,13 @@ namespace OSK::Animation {
 
 	struct OSKAPI_CALL SNodeAnim {
 
-		~SNodeAnim() {
-			//if (PositionKeys)
-				//delete[] PositionKeys;
-			//if (PositionKeys)
-				//delete[] RotationKeys;
-			//if (PositionKeys)
-				//delete[] ScalingKeys;
+		void Clear() {
+			if (PositionKeys)
+				delete[] PositionKeys;
+			if (PositionKeys)
+				delete[] RotationKeys;
+			if (PositionKeys)
+				delete[] ScalingKeys;
 		}
 
 		std::string Name = "$NO";
@@ -48,9 +48,12 @@ namespace OSK::Animation {
 	};
 
 	struct OSKAPI_CALL SNode {
-		~SNode() {
-			//if (Children)
-				//delete[] Children;
+		void Clear() {
+			for (uint32_t i = 0; i < NumberOfChildren; i++)
+				Children[i].Clear();
+
+			if (Children)
+				delete[] Children;
 		}
 
 		std::string Name;

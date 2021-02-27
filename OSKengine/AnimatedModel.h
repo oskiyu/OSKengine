@@ -49,6 +49,9 @@ namespace OSK {
 	public:
 
 		~AnimatedModel() {
+			for (uint32_t i = 0; i < NumberOfAnimations; i++)
+				Animations[i].Clear();
+
 			SafeDeleteArray(&Animations);
 		}
 
@@ -70,12 +73,13 @@ namespace OSK {
 		//aiAnimation* Animation;
 		//aiScene* scene;
 		OSK::Animation::SAnimation* Animations = nullptr;
-		OSK::Animation::SAnimation CurrentAnimation;
+		uint32_t NumberOfAnimations = 0;
+		OSK::Animation::SAnimation* CurrentAnimation = nullptr;
 
 		//Establece la animación activa.
 		void SetAnimation(uint32_t animID) {
 			//Animation = scene->mAnimations[animID];
-			CurrentAnimation = Animations[animID];
+			CurrentAnimation = &Animations[animID];
 		}
 
 		deltaTime_t time = 0.0f;
@@ -98,7 +102,7 @@ namespace OSK {
 
 	private:
 
-		OSK::Animation::SNodeAnim FindNodeAnim(const OSK::Animation::SAnimation& animation, const std::string& nodeName);
+		OSK::Animation::SNodeAnim FindNodeAnim(const OSK::Animation::SAnimation* animation, const std::string& nodeName);
 
 		glm::mat4 InterpolateTranslation(float time, const OSK::Animation::SNodeAnim& node) const;
 	

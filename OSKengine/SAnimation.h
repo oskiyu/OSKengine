@@ -10,9 +10,12 @@
 namespace OSK::Animation {
 
 	struct OSKAPI_CALL SAnimation {
-		~SAnimation() {
-			//if (BoneChannels)
-				//delete[] BoneChannels;
+		void Clear() {
+			for (uint32_t i = 0; i < NumberOfChannels; i++)
+				BoneChannels[i].Clear();
+
+			if (BoneChannels)
+				delete[] BoneChannels;
 		}
 
 		std::string Name;
@@ -23,10 +26,6 @@ namespace OSK::Animation {
 
 		SNodeAnim* BoneChannels = nullptr;
 
-	};
-
-	struct OSKAPI_CALL SAnimationHolder {
-		std::vector<SAnimation> Animations;
 	};
 
 }

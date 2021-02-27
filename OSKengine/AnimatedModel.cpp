@@ -25,15 +25,15 @@ namespace OSK {
 
 	void AnimatedModel::Update(float deltaTime) {
 		time -= deltaTime * AnimationSpeed;
-		float TicksPerSecond = (float)(CurrentAnimation.TicksPerSecond != 0 ? CurrentAnimation.TicksPerSecond : 25.0f);
+		float TicksPerSecond = (float)(CurrentAnimation->TicksPerSecond != 0 ? CurrentAnimation->TicksPerSecond : 25.0f);
 		float TimeInTicks = time * TicksPerSecond;
 
-		if (TimeInTicks > (float)CurrentAnimation.Duration) {
+		if (TimeInTicks > (float)CurrentAnimation->Duration) {
 			time = 0;
 			TimeInTicks = 0;
 		}
 		if (TimeInTicks <= 0) {
-			TimeInTicks = (float)CurrentAnimation.Duration + TimeInTicks;
+			TimeInTicks = (float)CurrentAnimation->Duration + TimeInTicks;
 			time = TimeInTicks / TicksPerSecond;
 		}
 
@@ -44,9 +44,9 @@ namespace OSK {
 		}
 	}
 
-	SNodeAnim AnimatedModel::FindNodeAnim(const SAnimation& animation, const std::string& nodeName) {
-		for (uint32_t i = 0; i < animation.NumberOfChannels; i++) {
-			SNodeAnim node = animation.BoneChannels[i];
+	SNodeAnim AnimatedModel::FindNodeAnim(const SAnimation* animation, const std::string& nodeName) {
+		for (uint32_t i = 0; i < animation->NumberOfChannels; i++) {
+			SNodeAnim node = animation->BoneChannels[i];
 			if (node.Name == nodeName)
 				return node;
 		}
