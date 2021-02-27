@@ -22,26 +22,42 @@ namespace OSK::Animation {
 	};
 
 	struct OSKAPI_CALL SNodeAnim {
-		std::string Name;
 
-		uint32_t NumberOfPositionKeys;
-		std::vector<SVectorKey> PositionKeys;
+		~SNodeAnim() {
+			//if (PositionKeys)
+				//delete[] PositionKeys;
+			//if (PositionKeys)
+				//delete[] RotationKeys;
+			//if (PositionKeys)
+				//delete[] ScalingKeys;
+		}
 
-		uint32_t NumberOfRotationKeys;
-		std::vector<SQuaternionKey> RotationKeys;
+		std::string Name = "$NO";
 
-		uint32_t NumberOfScalingKeys;
-		std::vector<SVectorKey> ScalingKeys;
+		uint32_t NumberOfPositionKeys = 0;
+		SVectorKey* PositionKeys = nullptr;
+
+		uint32_t NumberOfRotationKeys = 0;
+		SQuaternionKey* RotationKeys = nullptr;
+
+		uint32_t NumberOfScalingKeys = 0;
+		SVectorKey* ScalingKeys = nullptr;
 
 		glm::mat4 Matrix;
 
 	};
 
 	struct OSKAPI_CALL SNode {
+		~SNode() {
+			//if (Children)
+				//delete[] Children;
+		}
+
 		std::string Name;
 		glm::mat4 Matrix = glm::mat4(1.0f);
 
-		std::vector<SNode> Children;
+		SNode* Children = nullptr;
+		uint32_t NumberOfChildren = 0;
 	};
 
 }

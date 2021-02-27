@@ -19,6 +19,7 @@ namespace OSK::VULKAN {
 		QueueFamilyIndices Families;
 		SwapchainSupportDetails ShapchainSupport;
 		VkPhysicalDevice GPU;
+		size_t minAlignment;
 		bool IsSuitable;
 	};
 

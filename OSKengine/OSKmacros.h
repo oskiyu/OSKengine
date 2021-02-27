@@ -41,4 +41,11 @@ namespace OSK {
 		}
 	}
 
+	template<typename T> inline void SafeDeleteArray(T** ptr) {
+		if (*ptr != nullptr) {
+			delete[]* ptr;
+			*ptr = nullptr;
+		}
+	}
+
 }

@@ -35,7 +35,7 @@ namespace OSK {
 
 		void Clear();
 
-		void CreateDescriptorSet(Model* model);
+		void CreateDescriptorSet(Model* model, const std::vector<VulkanBuffer>& bones);
 
 		DirLightShadowUBO DirShadowsUBO = {};
 

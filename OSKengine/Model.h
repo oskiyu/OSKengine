@@ -100,21 +100,23 @@ namespace OSK {
 			return pushConst;
 		}
 
-		inline void UpdateAnimUBO() {
-			for (auto& i : BonesUBOs) {
+		inline void UpdateAnimUBO(std::vector<VulkanBuffer>& buffers) {
+			for (auto& i : buffers) {
 				void* data;
-				vkMapMemory(LogicalDevice, i.Memory, 0, sizeof(glm::mat4) * BonesUBOdata.Bones.size(), 0, &data);
+				vkMapMemory(LogicalDevice, i.Memory, i.Alignment * AnimationBufferOffset, sizeof(glm::mat4) * NumberOfBones, 0, &data);
 				memcpy(data, BonesUBOdata.Bones.data(), sizeof(glm::mat4) * BonesUBOdata.Bones.size());
 				vkUnmapMemory(LogicalDevice, i.Memory);
 			}
 		}
 
+		uint32_t AnimationBufferOffset = 0;
+
 		AnimUBO BonesUBOdata;
-		std::vector<VulkanBuffer> BonesUBOs;
 		VkDevice LogicalDevice = VK_NULL_HANDLE;
 
 		//Constantes 3D.
 		PushConst3D PushConst{};
+		uint32_t NumberOfBones = 0;
 
 	};
 

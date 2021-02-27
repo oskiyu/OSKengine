@@ -31,15 +31,10 @@ namespace OSK {
 		DefaultTexture = Content->LoadModelTexture(ContentManager::DEFAULT_TEXTURE_PATH);
 
 #pragma region TERRAIN
-		for (uint32_t i = 0; i < renderer->SwapchainImages.size(); i++) {
-			defaultAnimUBOs.push_back({});
-			renderer->CreateBuffer(defaultAnimUBOs[i], sizeof(AnimUBO), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT | VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT);
-		}
-
 		DefaultTexture->PhongDescriptorSet = renderer->CreateNewDescriptorSet();
 		DefaultTexture->PhongDescriptorSet->SetDescriptorLayout(PhongDescriptorLayout);
 		DefaultTexture->PhongDescriptorSet->AddUniformBuffers(renderer->UniformBuffers, 0, sizeof(UBO));
-		DefaultTexture->PhongDescriptorSet->AddUniformBuffers(defaultAnimUBOs, 1, sizeof(AnimUBO));
+		DefaultTexture->PhongDescriptorSet->AddDynamicUniformBuffers(BonesUBOs, 1, sizeof(AnimUBO));
 		DefaultTexture->PhongDescriptorSet->AddUniformBuffers(shadowMap->DirShadowsUniformBuffers, 2, sizeof(DirLightShadowUBO));
 		DefaultTexture->PhongDescriptorSet->AddImage(&DefaultTexture->Albedo, DefaultTexture->Albedo.Sampler, 3);
 		DefaultTexture->PhongDescriptorSet->AddUniformBuffers(LightsUniformBuffers, 4, Lights.Size());
@@ -50,17 +45,9 @@ namespace OSK {
 		DefaultTexture->DirShadowsDescriptorSet = renderer->CreateNewDescriptorSet();
 		DefaultTexture->DirShadowsDescriptorSet->SetDescriptorLayout(shadowMap->DirShadowDescriptorLayout);
 		DefaultTexture->DirShadowsDescriptorSet->AddUniformBuffers(renderer->UniformBuffers, 0, sizeof(UBO));
-		DefaultTexture->DirShadowsDescriptorSet->AddUniformBuffers(defaultAnimUBOs, 1, sizeof(AnimUBO));
+		DefaultTexture->DirShadowsDescriptorSet->AddDynamicUniformBuffers(BonesUBOs, 1, sizeof(AnimUBO));
 		DefaultTexture->DirShadowsDescriptorSet->AddUniformBuffers(shadowMap->DirShadowsUniformBuffers, 2, sizeof(DirLightShadowUBO));
 		DefaultTexture->DirShadowsDescriptorSet->Create();
-
-		AnimUBO animUBO{};
-		for (auto& i : defaultAnimUBOs) {
-			void* data;
-			vkMapMemory(renderer->LogicalDevice, i.Memory, 0, sizeof(AnimUBO), 0, &data);
-			memcpy(data, animUBO.Bones.data(), sizeof(AnimUBO));
-			vkUnmapMemory(renderer->LogicalDevice, i.Memory);
-		}
 #pragma endregion
 	}
 
@@ -76,7 +63,7 @@ namespace OSK {
 	void RenderizableScene::CreateDescriptorLayout(uint32_t maxSets) {
 		PhongDescriptorLayout = renderer->CreateNewDescriptorLayout();
 		PhongDescriptorLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
-		PhongDescriptorLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
+		PhongDescriptorLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, VK_SHADER_STAGE_VERTEX_BIT);
 		PhongDescriptorLayout->AddBinding(2, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
 		PhongDescriptorLayout->AddBinding(3, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
 		PhongDescriptorLayout->AddBinding(4, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_FRAGMENT_BIT);
@@ -103,6 +90,17 @@ namespace OSK {
 		LightsUniformBuffers.resize(renderer->SwapchainImages.size());
 		for (uint32_t i = 0; i < LightsUniformBuffers.size(); i++)
 			renderer->CreateBuffer(LightsUniformBuffers[i], size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+
+		BonesUBOs.resize(renderer->SwapchainImages.size());
+		for (uint32_t i = 0; i < BonesUBOs.size(); i++) {
+			renderer->CreateDynamicUBO(BonesUBOs[i], sizeof(AnimUBO), 64);
+
+			void* data;
+			vkMapMemory(renderer->LogicalDevice, BonesUBOs[i].Memory, 0, sizeof(AnimUBO), 0, &data);
+			AnimUBO ubo{};
+			memcpy(data, &ubo, sizeof(AnimUBO));
+			vkUnmapMemory(renderer->LogicalDevice, BonesUBOs[i].Memory);
+		}
 	}
 
 	void RenderizableScene::CreateDescriptorSet(Model* model) const {
@@ -112,7 +110,7 @@ namespace OSK {
 		model->texture->PhongDescriptorSet = renderer->CreateNewDescriptorSet();
 		model->texture->PhongDescriptorSet->SetDescriptorLayout(PhongDescriptorLayout);
 		model->texture->PhongDescriptorSet->AddUniformBuffers(renderer->UniformBuffers, 0, sizeof(UBO));
-		model->texture->PhongDescriptorSet->AddUniformBuffers(model->BonesUBOs, 1, sizeof(AnimUBO));
+		model->texture->PhongDescriptorSet->AddDynamicUniformBuffers(BonesUBOs, 1, sizeof(AnimUBO));
 		model->texture->PhongDescriptorSet->AddUniformBuffers(shadowMap->DirShadowsUniformBuffers, 2, sizeof(DirLightShadowUBO));
 		model->texture->PhongDescriptorSet->AddImage(&model->texture->Albedo, model->texture->Albedo.Sampler, 3);
 		model->texture->PhongDescriptorSet->AddUniformBuffers(LightsUniformBuffers, 4, Lights.Size());
@@ -120,7 +118,7 @@ namespace OSK {
 		model->texture->PhongDescriptorSet->AddImage(&shadowMap->DirShadows->RenderedSprite.texture->Albedo, shadowMap->DirShadows->RenderedSprite.texture->Albedo.Sampler, 6);
 		model->texture->PhongDescriptorSet->Create();
 
-		shadowMap->CreateDescriptorSet(model);
+		shadowMap->CreateDescriptorSet(model, BonesUBOs);
 		cubeShadowMaps[0]->CreateDescriptorSet(model->texture);
 	}
 
@@ -262,9 +260,9 @@ namespace OSK {
 		model->Bind(cmdBuffer);
 
 		if (model->texture != nullptr)
-			model->texture->DirShadowsDescriptorSet->Bind(cmdBuffer, shadowMap->ShadowsPipeline, i);
+			model->texture->DirShadowsDescriptorSet->Bind(cmdBuffer, shadowMap->ShadowsPipeline, i, model->AnimationBufferOffset, BonesUBOs[0].Alignment);
 		else
-			DefaultTexture->DirShadowsDescriptorSet->Bind(cmdBuffer, shadowMap->ShadowsPipeline, i);
+			DefaultTexture->DirShadowsDescriptorSet->Bind(cmdBuffer, shadowMap->ShadowsPipeline, i, model->AnimationBufferOffset, BonesUBOs[0].Alignment);
 
 		PushConst3D pushConst = model->GetPushConst();
 		vkCmdPushConstants(cmdBuffer, shadowMap->ShadowsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
@@ -272,7 +270,7 @@ namespace OSK {
 	}
 	void RenderizableScene::EndDrawShadows(VkCommandBuffer cmdBuffer, uint32_t i) {
 		if (Terreno != nullptr && Terreno->terrainModel != nullptr) {
-			DefaultTexture->DirShadowsDescriptorSet->Bind(cmdBuffer, shadowMap->ShadowsPipeline, i);
+			DefaultTexture->DirShadowsDescriptorSet->Bind(cmdBuffer, shadowMap->ShadowsPipeline, i, 0, BonesUBOs[0].Alignment);
 			Terreno->terrainModel->Bind(cmdBuffer);
 			PushConst3D pushConst{ glm::mat4(1.0f) };
 			vkCmdPushConstants(cmdBuffer, shadowMap->ShadowsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
@@ -296,9 +294,9 @@ namespace OSK {
 		model->Bind(cmdBuffer);
 
 		if (model->texture != nullptr)
-			model->texture->PhongDescriptorSet->Bind(cmdBuffer, CurrentGraphicsPipeline, i);
+			model->texture->PhongDescriptorSet->Bind(cmdBuffer, CurrentGraphicsPipeline, i, model->AnimationBufferOffset, BonesUBOs[0].Alignment);
 		else
-			DefaultTexture->PhongDescriptorSet->Bind(cmdBuffer, CurrentGraphicsPipeline, i);
+			DefaultTexture->PhongDescriptorSet->Bind(cmdBuffer, CurrentGraphicsPipeline, i, model->AnimationBufferOffset, BonesUBOs[0].Alignment);
 
 		PushConst3D pushConst = model->GetPushConst();
 		vkCmdPushConstants(cmdBuffer, CurrentGraphicsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
@@ -306,7 +304,7 @@ namespace OSK {
 	}
 	void RenderizableScene::EndDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 		if (Terreno != nullptr && Terreno->terrainModel != nullptr) {
-			DefaultTexture->PhongDescriptorSet->Bind(cmdBuffer, CurrentGraphicsPipeline, i);
+			DefaultTexture->PhongDescriptorSet->Bind(cmdBuffer, CurrentGraphicsPipeline, i, 0, BonesUBOs[0].Alignment);
 			Terreno->terrainModel->Bind(cmdBuffer);
 			PushConst3D pushConst{ glm::mat4(1.0f) };
 			vkCmdPushConstants(cmdBuffer, CurrentGraphicsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);

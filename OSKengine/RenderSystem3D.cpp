@@ -26,7 +26,7 @@ void RenderSystem3D::OnTick(deltaTime_t deltaTime) {
 		for (auto& model : comp.AnimatedModels) {
 			model.Update(deltaTime);
 
-			model.UpdateAnimUBO();
+			model.UpdateAnimUBO(RScene->BonesUBOs);
 		}
 	}
 }
@@ -58,9 +58,6 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 		}
 
 		RScene->EndDrawShadows(cmdBuffer, i);
-
-		//for (auto& cubeMap : stage->Scene->cubeShadowMaps)
-			//stage->Scene->DrawPointShadows(cmdBuffer, iteration, cubeMap);
 	}
 
 	VkRenderPassBeginInfo renderPassInfo{};
@@ -85,11 +82,21 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 		for (auto object : Objects) {
 			ModelComponent& comp = ECSsystem->GetComponent<ModelComponent>(object);
 
-			for (auto& model : comp.StaticMeshes)
-				RScene->Draw(&model, cmdBuffer, i);
+			for (auto& model : comp.StaticMeshes) {
+				if (!model.texture->PhongDescriptorSet) {
+					RScene->CreateDescriptorSet(&model);
+				}
 
-			for (auto& model : comp.AnimatedModels)
 				RScene->Draw(&model, cmdBuffer, i);
+			}
+
+			for (auto& model : comp.AnimatedModels) {
+				if (!model.texture->PhongDescriptorSet) {
+					RScene->CreateDescriptorSet(&model);
+				}
+
+				RScene->Draw(&model, cmdBuffer, i);
+			}
 		}
 
 		RScene->EndDraw(cmdBuffer, i);

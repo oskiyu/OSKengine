@@ -31,6 +31,9 @@ namespace OSK {
 		//Memoria del buffer.
 		VkDeviceMemory Memory = VK_NULL_HANDLE;
 
+		size_t Size = 0;
+		uint32_t Alignment = 0;
+
 	private:
 
 	/*	VulkanBuffer(VkDevice device, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkPhysicalDeviceMemoryProperties gpuProps);

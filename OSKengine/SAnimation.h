@@ -10,6 +10,10 @@
 namespace OSK::Animation {
 
 	struct OSKAPI_CALL SAnimation {
+		~SAnimation() {
+			//if (BoneChannels)
+				//delete[] BoneChannels;
+		}
 
 		std::string Name;
 
@@ -17,7 +21,7 @@ namespace OSK::Animation {
 		deltaTime_t TicksPerSecond;
 		uint32_t NumberOfChannels;
 
-		std::vector<SNodeAnim> BoneChannels;
+		SNodeAnim* BoneChannels = nullptr;
 
 	};
 

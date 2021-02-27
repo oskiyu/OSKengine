@@ -46,7 +46,7 @@ void ShadowMap::Create(const Vector2ui& size) {
 void ShadowMap::CreateDescSets(uint32_t maxSets) {
 	DirShadowDescriptorLayout = renderer->CreateNewDescriptorLayout();
 	DirShadowDescriptorLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
-	DirShadowDescriptorLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
+	DirShadowDescriptorLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, VK_SHADER_STAGE_VERTEX_BIT);
 	DirShadowDescriptorLayout->AddBinding(2, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
 	DirShadowDescriptorLayout->Create(maxSets);
 }
@@ -101,14 +101,14 @@ void ShadowMap::CreateGraphicsPipeline() {
 	DirShadows->Pipelines.push_back(ShadowsPipeline);
 }
 
-void ShadowMap::CreateDescriptorSet(Model* model) {
+void ShadowMap::CreateDescriptorSet(Model* model, const std::vector<VulkanBuffer>& bones) {
 	if (model->texture->DirShadowsDescriptorSet != nullptr)
 		delete model->texture->DirShadowsDescriptorSet;
 
 	model->texture->DirShadowsDescriptorSet = renderer->CreateNewDescriptorSet();
 	model->texture->DirShadowsDescriptorSet->SetDescriptorLayout(DirShadowDescriptorLayout);
 	model->texture->DirShadowsDescriptorSet->AddUniformBuffers(renderer->UniformBuffers, 0, sizeof(UBO));
-	model->texture->DirShadowsDescriptorSet->AddUniformBuffers(model->BonesUBOs, 1, sizeof(AnimUBO));
+	model->texture->DirShadowsDescriptorSet->AddDynamicUniformBuffers(bones, 1, sizeof(AnimUBO));
 	model->texture->DirShadowsDescriptorSet->AddUniformBuffers(DirShadowsUniformBuffers, 2, sizeof(DirLightShadowUBO));
 	model->texture->DirShadowsDescriptorSet->Create();
 }

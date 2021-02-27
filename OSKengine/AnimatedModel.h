@@ -48,22 +48,20 @@ namespace OSK {
 
 	public:
 
+		~AnimatedModel() {
+			SafeDeleteArray(&Animations);
+		}
+
 		//Diccionario string(nombre del hueso) -> hueso.
 		std::map<std::string, uint32_t> BoneMapping;
 
 		//Huesos del esqueleto.
 		std::vector<BoneInfo> BoneInfos;
-
-		//Número de huesos.
-		uint32_t NumBones = 0;
-		
+				
 		glm::mat4 GlobalInverseTransform;
 
 		//Información sobre que huesos tiene cada vértice.
 		std::vector<VertexBoneData> Bones;
-
-		//Matrices de los huesos.
-		std::vector<glm::mat4> BoneTransforms;
 
 		//Velocidad de la animación.
 		float_t AnimationSpeed = 0.75f;
@@ -71,7 +69,7 @@ namespace OSK {
 		//Animación actual.
 		//aiAnimation* Animation;
 		//aiScene* scene;
-		std::vector<OSK::Animation::SAnimation> Animations;
+		OSK::Animation::SAnimation* Animations = nullptr;
 		OSK::Animation::SAnimation CurrentAnimation;
 
 		//Establece la animación activa.

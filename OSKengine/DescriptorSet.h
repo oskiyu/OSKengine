@@ -36,6 +36,12 @@ namespace OSK {
 		//	<size>: tamaño del UBO.
 		void AddUniformBuffers(std::vector<VulkanBuffer> buffers, uint32_t binding, size_t size);
 
+		//Registra un UBO.
+		//	<buffers>: buffers que almacenan la información que se usará en los shaders.
+		//	<binding>: binding del UBO en el shader.
+		//	<size>: tamaño del UBO.
+		void AddDynamicUniformBuffers(std::vector<VulkanBuffer> buffers, uint32_t binding, size_t size);
+
 		//Registra una imagen.
 		//	<image>: imagen que se usará en los shaders.
 		//	<sampler>: sampler de la imagen.
@@ -51,6 +57,14 @@ namespace OSK {
 		//	<pipeline>: pipeline con el que se está renderizando.
 		//	<iteration>: qué VulkanDescriptorSets se va a usar.
 		void Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration) const;
+
+		//Establece este descriptor set como el que se va a usar a partir de ahora en un CommandBuffer.
+		//	<commandBuffer>: CommandBuffer.
+		//	<pipeline>: pipeline con el que se está renderizando.
+		//	<iteration>: qué VulkanDescriptorSets se va a usar.
+		//	<dynamicOffset>: offset de la entidad del dynamic ubo.
+		//	<alignment>: alignment del dynamic ubo.
+		void Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration, uint32_t dynamicOffset, uint32_t alignment) const;
 
 		std::vector<VkDescriptorSet> VulkanDescriptorSets;
 

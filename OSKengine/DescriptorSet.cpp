@@ -54,6 +54,30 @@ namespace OSK {
 		}
 	}
 
+	void DescriptorSet::AddDynamicUniformBuffers(std::vector<VulkanBuffer> buffers, uint32_t binding, size_t size) {
+		for (uint32_t i = 0; i < VulkanDescriptorSets.size(); i++) {
+			VkDescriptorBufferInfo* bufferInfo = new VkDescriptorBufferInfo();
+			bufferInfo->buffer = buffers[i].Buffer;
+			bufferInfo->offset = 0;
+			bufferInfo->range = size;
+
+			VkWriteDescriptorSet descriptorWrite{};
+			descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+			descriptorWrite.dstSet = VulkanDescriptorSets[i];
+			descriptorWrite.dstBinding = binding; //Binding
+			descriptorWrite.dstArrayElement = 0;
+			descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;
+			descriptorWrite.descriptorCount = 1;
+			descriptorWrite.pBufferInfo = bufferInfo;
+			descriptorWrite.pImageInfo = nullptr;
+			descriptorWrite.pTexelBufferView = nullptr;
+
+			descriptorWrites[i].push_back(descriptorWrite);
+
+			bufferInfos.push_back(bufferInfo);
+		}
+	}
+
 	void DescriptorSet::AddImage(VULKAN::VulkanImage* image, VkSampler sampler, uint32_t binding) {
 		for (uint32_t i = 0; i < VulkanDescriptorSets.size(); i++) {
 			VkDescriptorImageInfo* imageInfo = new VkDescriptorImageInfo();
@@ -88,6 +112,12 @@ namespace OSK {
 
 	void DescriptorSet::Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration) const {
 		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->VulkanPipelineLayout, 0, 1, &VulkanDescriptorSets[iteration], 0, nullptr);
+	}
+
+	void DescriptorSet::Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration, uint32_t dynamicOffset, uint32_t alignment) const {
+		uint32_t finalOffset = dynamicOffset * alignment;
+
+		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->VulkanPipelineLayout, 0, 1, &VulkanDescriptorSets[iteration], 1, &finalOffset);
 	}
 
 	void DescriptorSet::clear() {

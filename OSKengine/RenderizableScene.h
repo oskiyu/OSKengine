@@ -25,6 +25,7 @@ namespace OSK {
 	class OSKAPI_CALL RenderizableScene {
 
 		friend class RenderAPI;
+		friend class RenderSystem3D;
 
 	public:
 
@@ -112,7 +113,8 @@ namespace OSK {
 	private:
 
 		ModelTexture* DefaultTexture = nullptr;
-		std::vector<VulkanBuffer> defaultAnimUBOs;
+
+		std::vector<VulkanBuffer> BonesUBOs;
 
 		Skybox skybox;
 

@@ -24,9 +24,10 @@ namespace OSK {
 
 
 	void AnimatedModel::Update(float deltaTime) {
-		time -= deltaTime;
+		time -= deltaTime * AnimationSpeed;
 		float TicksPerSecond = (float)(CurrentAnimation.TicksPerSecond != 0 ? CurrentAnimation.TicksPerSecond : 25.0f);
 		float TimeInTicks = time * TicksPerSecond;
+
 		if (TimeInTicks > (float)CurrentAnimation.Duration) {
 			time = 0;
 			TimeInTicks = 0;
@@ -38,9 +39,8 @@ namespace OSK {
 
 		ReadNodeHierarchy(TimeInTicks, RootNode, glm::mat4(1.0f));
 
-		for (uint32_t i = 0; i < BoneTransforms.size(); i++) {
-			BoneTransforms[i] = BoneInfos[i].FinalTransformation;
-			BonesUBOdata.Bones[i] = BoneTransforms[i];
+		for (uint32_t i = 0; i < BoneInfos.size(); i++) {
+			BonesUBOdata.Bones[i] = BoneInfos[i].FinalTransformation;
 		}
 	}
 
@@ -149,7 +149,7 @@ namespace OSK {
 
 		SNodeAnim pNodeAnim = FindNodeAnim(CurrentAnimation, NodeName);
 
-		if (pNodeAnim.Name != "") {
+		if (pNodeAnim.Name != "$NO") {
 			glm::mat4 matScale = InterpolateScale(animTime, pNodeAnim);
 			glm::mat4 matRotation = InterpolateRotation(animTime, pNodeAnim);
 			glm::mat4 matTranslation = InterpolateTranslation(animTime, pNodeAnim);
@@ -164,7 +164,7 @@ namespace OSK {
 			BoneInfos[BoneIndex].FinalTransformation = GlobalInverseTransform * GlobalTransformation * BoneInfos[BoneIndex].Offset;
 		}
 
-		for (uint32_t i = 0; i < node.Children.size(); i++)
+		for (uint32_t i = 0; i < node.NumberOfChildren; i++)
 			ReadNodeHierarchy(animTime, node.Children[i], GlobalTransformation);
 	}
 

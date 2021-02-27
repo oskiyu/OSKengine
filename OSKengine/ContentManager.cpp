@@ -401,15 +401,10 @@ namespace OSK {
 		model.texture = LoadModelTexture(direct);
 
 		model.LogicalDevice = renderer->LogicalDevice;
-		for (uint32_t i = 0; i < renderer->SwapchainImages.size(); i++) {
-			model.BonesUBOs.push_back({});
-			renderer->CreateBuffer(model.BonesUBOs[i], sizeof(AnimUBO), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT | VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT);
-		}
-		model.UpdateAnimUBO();
 	}
 
 	void ContentManager::LoadAnimatedModel(AnimatedModel& model, const std::string& path) {
-		//model.Data = LoadModelData(path);
+		static uint32_t animationCount = 1;
 
 		TempModelData modelData = GetModelTempData(path);
 
@@ -427,8 +422,8 @@ namespace OSK {
 				std::string name(mesh->mBones[i]->mName.data);
 
 				if (model.BoneMapping.find(name) == model.BoneMapping.end()) {
-					index = model.NumBones;
-					model.NumBones++;
+					index = model.NumberOfBones;
+					model.NumberOfBones++;
 					BoneInfo bone;
 					model.BoneInfos.push_back(bone);
 					model.BoneInfos[index].Offset = AnimatedModel::AiToGLM(mesh->mBones[i]->mOffsetMatrix);
@@ -439,15 +434,12 @@ namespace OSK {
 				}
 
 				for (uint32_t w = 0; w < mesh->mBones[i]->mNumWeights; w++) {
-					//CHANGED
 					uint32_t vertexID = vertexBase + mesh->mBones[i]->mWeights[w].mVertexId;
 					model.Bones[vertexID].Add(index, mesh->mBones[i]->mWeights[w].mWeight);
-					//std::cout << "ADDED BONE DATA FOR VERTEX: " << vertexID << " W: " << mesh->mBones[i]->mWeights[w].mWeight << std::endl;
 				}
 			}
 			vertexBase += mesh->mNumVertices;
 		}
-		model.BoneTransforms.resize(model.NumBones);
 
 		for (uint32_t i = 0; i < modelData.Vertices.size(); i++) {
 			for (uint32_t b = 0; b < OSK_ANIM_MAX_BONES_PER_VERTEX; b++) {
@@ -456,6 +448,7 @@ namespace OSK {
 			}
 		}
 
+		model.Animations = new SAnimation[scene->mNumAnimations];
 		for (uint32_t i = 0; i < scene->mNumAnimations; i++) {
 			auto aiAnim = scene->mAnimations[i];
 
@@ -465,21 +458,26 @@ namespace OSK {
 			animation.NumberOfChannels = aiAnim->mNumChannels;
 			animation.TicksPerSecond = aiAnim->mTicksPerSecond;
 
+			animation.NumberOfChannels = aiAnim->mNumChannels;
+			animation.BoneChannels = new SNodeAnim[animation.NumberOfChannels];
 			for (uint32_t ch = 0; ch < aiAnim->mNumChannels; ch++) {
 				auto channel = aiAnim->mChannels[ch];
 
 				Animation::SNodeAnim node;
 				node.Name = channel->mNodeName.C_Str();
 				node.NumberOfPositionKeys = channel->mNumPositionKeys;
+				node.PositionKeys = new SVectorKey[node.NumberOfPositionKeys];
 				node.NumberOfRotationKeys = channel->mNumRotationKeys;
+				node.RotationKeys = new SQuaternionKey[node.NumberOfRotationKeys];
 				node.NumberOfScalingKeys = channel->mNumScalingKeys;
+				node.ScalingKeys = new SVectorKey[node.NumberOfScalingKeys];
 
 				for (uint32_t key = 0; key < node.NumberOfPositionKeys; key++) {
 					Animation::SVectorKey newKey;
 					newKey.Time = channel->mPositionKeys[key].mTime;
 					Vector3f vec{ channel->mPositionKeys[key].mValue.x, channel->mPositionKeys[key].mValue.y, channel->mPositionKeys[key].mValue.z };
 					newKey.Value = vec;
-					node.PositionKeys.push_back(newKey);
+					node.PositionKeys[key] = newKey;
 				}
 
 				for (uint32_t key = 0; key < node.NumberOfPositionKeys; key++) {
@@ -491,7 +489,7 @@ namespace OSK {
 					quat.Quat.z = channel->mRotationKeys[key].mValue.z;
 					quat.Quat.w = channel->mRotationKeys[key].mValue.w;
 					newKey.Value = quat;
-					node.RotationKeys.push_back(newKey);
+					node.RotationKeys[key] = newKey;
 				}
 
 				for (uint32_t key = 0; key < node.NumberOfScalingKeys; key++) {
@@ -499,13 +497,13 @@ namespace OSK {
 					newKey.Time = channel->mScalingKeys[key].mTime;
 					Vector3f vec{ channel->mScalingKeys[key].mValue.x, channel->mScalingKeys[key].mValue.y, channel->mScalingKeys[key].mValue.z };
 					newKey.Value = vec;
-					node.ScalingKeys.push_back(newKey);
+					node.ScalingKeys[key] = newKey;
 				}
 
-				animation.BoneChannels.push_back(node);
+				animation.BoneChannels[ch] = node;
 			}
 
-			model.Animations.push_back(animation);
+			model.Animations[i] = animation;
 		}
 
 		model.Data = CreateModel(modelData.Vertices, modelData.Indices);
@@ -515,11 +513,8 @@ namespace OSK {
 		model.Update(0);
 
 		model.LogicalDevice = renderer->LogicalDevice;
-		for (uint32_t i = 0; i < renderer->SwapchainImages.size(); i++) {
-			model.BonesUBOs.push_back({});
-			renderer->CreateBuffer(model.BonesUBOs[i], sizeof(AnimUBO), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT | VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT);
-		}
-		model.UpdateAnimUBO();
+		model.AnimationBufferOffset = animationCount;
+		animationCount++;
 
 		auto direct = path.substr(0, path.find_last_of('/'));
 		model.texture = LoadModelTexture(direct);
@@ -529,9 +524,10 @@ namespace OSK {
 		SNode newNode;
 		newNode.Name = node->mName.C_Str();
 		newNode.Matrix = AnimatedModel::AiToGLM(node->mTransformation);
-		
+		newNode.Children = new SNode[node->mNumChildren];
+		newNode.NumberOfChildren = node->mNumChildren;
 		for (uint32_t i = 0; i < node->mNumChildren; i++) {
-			newNode.Children.push_back(GetNodes(node->mChildren[i]));
+			newNode.Children[i] = GetNodes(node->mChildren[i]);
 		}
 
 		return newNode;

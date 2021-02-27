@@ -371,7 +371,7 @@ GraphicsPipeline* RenderAPI::CreateNewPhongPipeline(const std::string& vertexPat
 DescriptorLayout* RenderAPI::CreateNewPhongDescriptorLayout(uint32_t maxSets) const {
 	DescriptorLayout* descLayout = CreateNewDescriptorLayout();
 	descLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
-	descLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
+	descLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, VK_SHADER_STAGE_VERTEX_BIT);
 	descLayout->AddBinding(2, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
 	descLayout->AddBinding(3, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
 	descLayout->AddBinding(4, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_FRAGMENT_BIT);
@@ -569,6 +569,7 @@ void RenderAPI::getGPU() {
 		gpus.push_back(getGPUinfo(gpu));
 
 	GPU = gpus[0].GPU;
+	GPU_Info = gpus[0];
 
 	if (GPU == nullptr)
 		Logger::Log(LogMessageLevels::CRITICAL_ERROR, " no se encuentra ninguna GPU compatible.");
@@ -1112,6 +1113,21 @@ void RenderAPI::CreateBuffer(VulkanBuffer& buffer, VkDeviceSize size, VkBufferUs
 		throw std::runtime_error("ERROR: alloc mem.");
 
 	vkBindBufferMemory(LogicalDevice, buffer.Buffer, buffer.Memory, 0);
+
+	buffer.Size = size;
+}
+
+void RenderAPI::CreateDynamicUBO(VulkanBuffer& buffer, VkDeviceSize sizeOfStruct, uint32_t numberOfInstances) const {
+	size_t minAlignment = GPU_Info.minAlignment;
+	size_t alignment = sizeOfStruct;
+	if (minAlignment > 0) {
+		alignment = (alignment + minAlignment - 1) & ~(minAlignment - 1);
+	}
+
+	size_t bufferSize = alignment * numberOfInstances;
+	buffer.Alignment = alignment;
+
+	CreateBuffer(buffer, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 }
 
 
@@ -1495,7 +1511,8 @@ GPUinfo RenderAPI::getGPUinfo(VkPhysicalDevice gpu) const {
 	swapchainSupported = !info.ShapchainSupport.PresentModes.empty() && !info.ShapchainSupport.Formats.empty();
 
 	info.IsSuitable = info.Families.IsComplete() && checkGPUextensionSupport(gpu) && swapchainSupported && info.Features.samplerAnisotropy;
-		
+	info.minAlignment = info.Properties.limits.minUniformBufferOffsetAlignment;
+
 	return info;
 }
 
