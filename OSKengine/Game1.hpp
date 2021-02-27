@@ -14,10 +14,6 @@ public:
 	}
 
 	void LoadContent() override {
-		SpriteBatch = GetRenderer()->CreateSpriteBatch();
-		SpriteBatch.SetCamera(GetRenderer()->DefaultCamera2D);
-		GetRenderer()->AddSpriteBatch(&SpriteBatch);
-
 		Fuente = Content->LoadFont("Fonts/AGENCYB.ttf", 20);
 		ShowFont = Content->LoadFont("Fonts/AGENCYB.ttf", 40);
 
@@ -86,16 +82,17 @@ public:
 		ControlsObject.Create(ECS);
 		ControlsObject.AddComponent<OSK::InputComponent>(input);
 
+		//ENTIDADES
 		Cubes.push_back({});
 		Cubes.back().Create(ECS);
 		Cubes.back().GetComponent<OSK::ModelComponent>().AddAnimatedModel("models/anim2/goblin2.dae", Content);
-		Cubes.back().GetComponent<OSK::ModelComponent>().AnimatedModels[0].ModelTransform.SetScale({ 0.00005f });
+		Cubes.back().GetComponent<OSK::ModelComponent>().AnimatedModels[0].ModelTransform.SetScale({ 0.000025f });
 		Cubes.back().GetComponent<OSK::ModelComponent>().Link(&Cubes.back().Transform3D);
 
 		Player.Create(ECS);
 		Player.GetComponent<OSK::ModelComponent>().AddAnimatedModel("models/anim2/goblin2.dae", Content);
-		Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0].ModelTransform.SetScale({ 0.00005f });
-		Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0].AnimationSpeed = 2.0f;
+		Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0].ModelTransform.SetScale({ 0.000025f });
+		Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0].AnimationSpeed = 0.5f;
 		Player.GetComponent<OSK::ModelComponent>().Link(&Player.Transform3D);
 		Player.Transform3D.AddPosition({ 40, 0, 0 });
 
@@ -115,8 +112,6 @@ public:
 
 		SpriteBatch.DrawSprite(GetRenderer()->OSKengineIconSprite);
 	}
-
-	OSK::SpriteBatch SpriteBatch;
 
 	OSK::Font* Fuente = nullptr;
 	OSK::Font* ShowFont = nullptr;

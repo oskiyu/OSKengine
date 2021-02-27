@@ -91,6 +91,8 @@ protected:
 	OSK::MouseState OldMS{};
 	OSK::MouseState NewMS{};
 
+	OSK::SpriteBatch SpriteBatch;
+
 };
 
 

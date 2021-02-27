@@ -509,6 +509,7 @@ namespace OSK {
 		model.Data = CreateModel(modelData.Vertices, modelData.Indices);
 		model.RootNode = GetNodes(scene->mRootNode);
 		model.SetAnimation(0);
+		model.SetupAnimationIndices();
 
 		model.Update(0);
 

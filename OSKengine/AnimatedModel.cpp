@@ -54,7 +54,7 @@ namespace OSK {
 		return SNodeAnim{};
 	}
 
-	glm::mat4 AnimatedModel::InterpolateTranslation(float time, const SNodeAnim& node)  const {
+	glm::mat4 AnimatedModel::GetPosition(float time, const SNodeAnim& node)  const {
 		Vector3f translation;
 		if (node.NumberOfPositionKeys == 1)
 			translation = node.PositionKeys[0].Value;
@@ -72,10 +72,10 @@ namespace OSK {
 
 			float delta = (time - (float)currentFrame.Time) / (float)(nextFrame.Time - currentFrame.Time);
 
-			const Vector3f& start = currentFrame.Value;
-			const Vector3f& end = nextFrame.Value;
+			Vector3f start = currentFrame.Value;
+			Vector3f end = nextFrame.Value;
 
-			translation = (start + (end - start) * delta);
+			translation = InterpolateVectors(start, end, delta);
 		}
 
 		glm::mat4 mat(1.0f);
@@ -84,7 +84,7 @@ namespace OSK {
 		return mat;
 	}
 
-	glm::mat4 AnimatedModel::InterpolateRotation(float time, const SNodeAnim& node) const {
+	glm::mat4 AnimatedModel::GetRotation(float time, const SNodeAnim& node) const {
 		Quaternion rotation;
 		if (node.NumberOfRotationKeys == 1)
 			rotation = node.RotationKeys[0].Value;
@@ -112,7 +112,7 @@ namespace OSK {
 		return rotation.ToMat4();
 	}
 
-	glm::mat4 AnimatedModel::InterpolateScale(float time, const SNodeAnim& node) const {
+	glm::mat4 AnimatedModel::GetScale(float time, const SNodeAnim& node) const {
 		Vector3f scale;
 		if (node.NumberOfScalingKeys == 1)
 			scale = node.ScalingKeys[0].Value;
@@ -130,10 +130,10 @@ namespace OSK {
 
 			float delta = (time - (float)currentFrame.Time) / (float)(nextFrame.Time - currentFrame.Time);
 
-			const Vector3f& start = currentFrame.Value;
-			const Vector3f& end = nextFrame.Value;
+			Vector3f start = currentFrame.Value;
+			Vector3f end = nextFrame.Value;
 
-			scale = (start + (end - start)* delta);
+			scale = InterpolateVectors(start, end, delta);
 		}
 
 		glm::mat4 mat(1.0f);
@@ -142,25 +142,37 @@ namespace OSK {
 		return mat;
 	}
 
-	void AnimatedModel::ReadNodeHierarchy(float animTime, SNode& node, const glm::mat4& parent) {
-		std::string& NodeName = node.Name;
+	void AnimatedModel::SetupAnimationIndices(SNode* node) {
+		for (uint32_t i = 0; i < CurrentAnimation->NumberOfChannels; i++) {
+			if (CurrentAnimation->BoneChannels[i].Name == node->Name) {
+				node->SNodeAnimIndex = i;
 
+				break;
+			}
+		}
+
+		for (uint32_t i = 0; i < node->NumberOfChildren; i++)
+			SetupAnimationIndices(&node->Children[i]);
+	}
+
+	void AnimatedModel::ReadNodeHierarchy(float animTime, SNode& node, const glm::mat4& parent) {
 		glm::mat4 NodeTransformation = glm::mat4(1.0f);
 
-		SNodeAnim pNodeAnim = FindNodeAnim(CurrentAnimation, NodeName);
+		if (node.SNodeAnimIndex != -1) {
+			SNodeAnim pNodeAnim = CurrentAnimation->BoneChannels[node.SNodeAnimIndex];
 
-		if (pNodeAnim.Name != "$NO") {
-			glm::mat4 matScale = InterpolateScale(animTime, pNodeAnim);
-			glm::mat4 matRotation = InterpolateRotation(animTime, pNodeAnim);
-			glm::mat4 matTranslation = InterpolateTranslation(animTime, pNodeAnim);
+			glm::mat4 matScale = GetScale(animTime, pNodeAnim);
+			glm::mat4 matRotation = GetRotation(animTime, pNodeAnim);
+			glm::mat4 matTranslation = GetPosition(animTime, pNodeAnim);
 
 			NodeTransformation = matTranslation * matRotation * matScale;
 		}
 
 		glm::mat4 GlobalTransformation = parent * NodeTransformation;
 
-		if (BoneMapping.find(NodeName) != BoneMapping.end()) {
-			uint32_t BoneIndex = BoneMapping[NodeName];
+		std::map<std::string, uint32_t>::iterator iterator = BoneMapping.find(node.Name);
+		if (iterator != BoneMapping.end()) {
+			uint32_t BoneIndex = iterator.operator*().second;
 			BoneInfos[BoneIndex].FinalTransformation = GlobalInverseTransform * GlobalTransformation * BoneInfos[BoneIndex].Offset;
 		}
 

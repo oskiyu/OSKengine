@@ -61,6 +61,8 @@ namespace OSK::Animation {
 
 		SNode* Children = nullptr;
 		uint32_t NumberOfChildren = 0;
+
+		int SNodeAnimIndex = -1;
 	};
 
 }

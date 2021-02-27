@@ -52,6 +52,10 @@ void Game::Init() {
 
 	SetupSystems();
 
+	SpriteBatch = GetRenderer()->CreateSpriteBatch();
+	SpriteBatch.SetCamera(GetRenderer()->DefaultCamera2D);
+	GetRenderer()->AddSpriteBatch(&SpriteBatch);
+
 	LoadContent();
 
 	PhysicsSystem->FloorTerrain = RenderSystem3D->RScene->Terreno;
@@ -102,7 +106,7 @@ void Game::MainLoop() {
 
 		//Update
 		ECS->OnTick(deltaTime);
-
+		
 		OnTick(deltaTime);
 
 		//FPS

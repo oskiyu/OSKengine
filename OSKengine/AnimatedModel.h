@@ -87,28 +87,26 @@ namespace OSK {
 		void Update(float deltaTime);
 
 		static inline glm::mat4 AiToGLM(const aiMatrix4x4& from) {
-			glm::mat4 to;
-
-
-			to[0][0] = (float)from.a1; to[0][1] = (float)from.b1;  to[0][2] = (float)from.c1; to[0][3] = (float)from.d1;
-			to[1][0] = (float)from.a2; to[1][1] = (float)from.b2;  to[1][2] = (float)from.c2; to[1][3] = (float)from.d2;
-			to[2][0] = (float)from.a3; to[2][1] = (float)from.b3;  to[2][2] = (float)from.c3; to[2][3] = (float)from.d3;
-			to[3][0] = (float)from.a4; to[3][1] = (float)from.b4;  to[3][2] = (float)from.c4; to[3][3] = (float)from.d4;
-
-			return to;
-
 			return glm::transpose(glm::make_mat4(&from.a1));
+		}
+
+		void SetupAnimationIndices() {
+			SetupAnimationIndices(&RootNode);
 		}
 
 	private:
 
+		void SetupAnimationIndices(OSK::Animation::SNode* node);
+
 		OSK::Animation::SNodeAnim FindNodeAnim(const OSK::Animation::SAnimation* animation, const std::string& nodeName);
 
-		glm::mat4 InterpolateTranslation(float time, const OSK::Animation::SNodeAnim& node) const;
-	
-		glm::mat4 InterpolateRotation(float time, const OSK::Animation::SNodeAnim& node) const;
+		glm::mat4 GetPosition(float time, const OSK::Animation::SNodeAnim& node) const;
+		glm::mat4 GetRotation(float time, const OSK::Animation::SNodeAnim& node) const;
+		glm::mat4 GetScale(float time, const OSK::Animation::SNodeAnim& node) const;
 
-		glm::mat4 InterpolateScale(float time, const OSK::Animation::SNodeAnim& node) const;
+		inline Vector3f InterpolateVectors(const Vector3f& vec1, const Vector3f& vec2, float delta) const {
+			return vec1 + (vec2 - vec1) * delta;
+		}
 
 		void ReadNodeHierarchy(float animTime, OSK::Animation::SNode& animation, const glm::mat4& parent);
 

@@ -1133,7 +1133,6 @@ void RenderAPI::CreateDynamicUBO(VulkanBuffer& buffer, VkDeviceSize sizeOfStruct
 
 void RenderAPI::SetRenderizableScene(RenderizableScene* scene) {
 	Scene = scene;
-	Stage.Scene = scene;
 }
 
 
@@ -1318,9 +1317,7 @@ void RenderAPI::updateCommandBuffers() {
 
 		for (auto& stage : Stages)
 			DrawStage(stage, CommandBuffers[i], i);
-
-		DrawStage(&Stage, CommandBuffers[i], i);
-		
+				
 		if (RSystem) {
 			RSystem->OnDraw(CommandBuffers[i], i);
 		}
@@ -1355,6 +1352,53 @@ void RenderAPI::updateCommandBuffers() {
 		PushConst2D pConst = RTarget->RenderedSprite.getPushConst(DefaultCamera2D.projection);
 		vkCmdPushConstants(CommandBuffers[i], DefaultGraphicsPipeline2D->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
 		vkCmdDrawIndexed(CommandBuffers[i], indicesSize, 1, 0, 0, 0);
+
+
+		for (auto& spriteBatch : Stage.SpriteBatches) {
+
+			if (!spriteBatch->spritesToDraw.empty()) {
+
+				Stage.RTarget->Pipelines[0]->Bind(CommandBuffers[i]);
+				vkCmdBindIndexBuffer(CommandBuffers[i], Sprite::IndexBuffer.Buffer, 0, VK_INDEX_TYPE_UINT16);
+				const uint32_t indicesSize = Sprite::Indices.size();
+
+				for (auto& sprite : spriteBatch->spritesToDraw) {
+					if (sprite.number == 1) {
+						if (sprite.sprites->isOutOfScreen)
+							continue;
+
+						VkBuffer vertexBuffers[] = { sprite.sprites->VertexBuffer.Buffer };
+						VkDeviceSize offsets[] = { 0 };
+						vkCmdBindVertexBuffers(CommandBuffers[i], 0, 1, vertexBuffers, offsets);
+
+						sprite.sprites->texture->Descriptor->Bind(CommandBuffers[i], Stage.RTarget->Pipelines[0], i);
+
+						PushConst2D pConst = sprite.sprites->getPushConst(spriteBatch->cameraMat);
+						vkCmdPushConstants(CommandBuffers[i], Stage.RTarget->Pipelines[0]->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
+						vkCmdDrawIndexed(CommandBuffers[i], indicesSize, 1, 0, 0, 0);
+					}
+					else {
+						for (uint32_t spriteIt = 0; spriteIt < sprite.number; spriteIt++) {
+							if (sprite.sprites[spriteIt].texture == nullptr)
+								continue;
+
+							if (sprite.sprites[spriteIt].isOutOfScreen)
+								continue;
+
+							VkBuffer vertexBuffers[] = { sprite.sprites[spriteIt].VertexBuffer.Buffer };
+							VkDeviceSize offsets[] = { 0 };
+							vkCmdBindVertexBuffers(CommandBuffers[i], 0, 1, vertexBuffers, offsets);
+
+							sprite.sprites[spriteIt].texture->Descriptor->Bind(CommandBuffers[i], Stage.RTarget->Pipelines[0], i);
+
+							PushConst2D pConst = sprite.sprites[spriteIt].getPushConst(spriteBatch->cameraMat);
+							vkCmdPushConstants(CommandBuffers[i], Stage.RTarget->Pipelines[0]->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
+							vkCmdDrawIndexed(CommandBuffers[i], indicesSize, 1, 0, 0, 0);
+						}
+					}
+				}
+			}
+		}
 
 		vkCmdEndRenderPass(CommandBuffers[i]);
 
