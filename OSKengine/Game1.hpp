@@ -10,15 +10,16 @@ class Game1 : public Game {
 public:
 
 	void OnCreate() override {
-		
+
 	}
 
 	void LoadContent() override {
 		Fuente = Content->LoadFont("Fonts/AGENCYB.ttf", 20);
 		ShowFont = Content->LoadFont("Fonts/AGENCYB.ttf", 40);
 
-		RenderSystem3D->RScene->LoadSkybox("skybox/skybox.ktx");
+		RenderSystem3D->RScene->LoadSkybox("skybox/sky");
 		RenderSystem3D->RScene->LoadHeightmap("heightmaps/Heightmap.png", { 5.0f }, 35);
+		RenderSystem3D->RScene->Lights.Directional.Color = OSK::Color(0.9f, 0.9f, 0.8f);
 
 		//INPUT SYSTEM
 		InputSystem->RegisterInputEvent("PlayerMoveFront");

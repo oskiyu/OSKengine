@@ -3,7 +3,6 @@
 #include "VulkanRenderer.h"
 #include <gtc\type_ptr.hpp>
 #include "stbi_image.h"
-#include <ktx.h>
 
 #include "ToString.h"
 #include "VulkanImage.h"
@@ -321,54 +320,64 @@ namespace OSK {
 		if (SkyboxTextureFromPath.find(path) != SkyboxTextureFromPath.end())
 			return SkyboxTextureFromPath[path];
 
+		const static std::vector<std::string> facesOrder = {
+			"/right.jpg",
+			"/left.jpg",
+			"/top.jpg",
+			"/bottom.jpg",
+			"/front.jpg",
+			"/back.jpg"
+		};
+
 		SkyboxTexture* texture = new SkyboxTexture();
 
-		ktxResult result;
-		ktxTexture* ktxtexture;
+		int width;
+		int height;
+		int nChannels;
 
-		result = ktxTexture_CreateFromNamedFile(path.c_str(), KTX_TEXTURE_CREATE_LOAD_IMAGE_DATA_BIT, &ktxtexture);
-		if (result != KTX_SUCCESS) {
-			Logger::Log(LogMessageLevels::BAD_ERROR, "cargar imagen: " + path + "; code: " + std::to_string(result));
-			return nullptr;
+		stbi_uc* totalImage = nullptr;
+
+		stbi_uc* pixels = stbi_load((path + facesOrder[0]).c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
+		nChannels = 4;
+		VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels;
+
+		totalImage = new stbi_uc[size * 6];
+
+		memcpy(totalImage, pixels, size);
+		stbi_image_free(pixels);
+
+		for (uint32_t i = 1; i < 6; i++) {
+			stbi_uc* _pixels = stbi_load((path + facesOrder[i]).c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
+			memcpy(totalImage + size * i, _pixels, size);
+			stbi_image_free(_pixels);
 		}
 
-		uint32_t width = ktxtexture->baseWidth;
-		uint32_t height = ktxtexture->baseHeight;
-		uint32_t levels = ktxtexture->numLevels;
-
-		ktx_uint8_t* ktxtexturedata = ktxTexture_GetData(ktxtexture);
-		ktx_size_t size = ktxTexture_GetDataSize(ktxtexture);
-
 		VulkanBuffer stagingBuffer;
-		renderer->CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-
+		renderer->CreateBuffer(stagingBuffer, size * 7, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 		void* data;
-		vkMapMemory(renderer->LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
-		memcpy(data, ktxtexturedata, static_cast<size_t>(size));
+		vkMapMemory(renderer->LogicalDevice, stagingBuffer.Memory, 0, size * 6, 0, &data);
+		memcpy(data, totalImage, size * 6);
 		vkUnmapMemory(renderer->LogicalDevice, stagingBuffer.Memory);
 
-		VulkanImageGen::CreateImage(&texture->texture, { width, height }, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 6, VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT, levels);
+		const uint32_t levels = 1;
+		VulkanImageGen::CreateImage(&texture->texture, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 6, VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT, levels);
 
 		VkCommandBuffer copyCmd = renderer->beginSingleTimeCommandBuffer();
-		std::vector<VkBufferImageCopy> bufferCopyRegions;
 		uint32_t offset = 0;
+		std::vector<VkBufferImageCopy> bufferCopyRegions;
 		for (uint32_t face = 0; face < 6; face++) {
-			for (uint32_t level = 0; level < levels; level++) {
-				ktx_size_t offset;
-				KTX_error_code ret = ktxTexture_GetImageOffset(ktxtexture, level, 0, face, &offset);
-				assert(ret == KTX_SUCCESS);
+			VkBufferImageCopy bufferCopyRegion = {};
+			bufferCopyRegion.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+			bufferCopyRegion.imageSubresource.mipLevel = 0;
+			bufferCopyRegion.imageSubresource.baseArrayLayer = face;
+			bufferCopyRegion.imageSubresource.layerCount = 1;
+			bufferCopyRegion.imageExtent.width = (uint32_t)width;
+			bufferCopyRegion.imageExtent.height = (uint32_t)height;
+			bufferCopyRegion.imageExtent.depth = 1;
+			bufferCopyRegion.bufferOffset = offset;
+			bufferCopyRegions.push_back(bufferCopyRegion);
 
-				VkBufferImageCopy bufferCopyRegion = {};
-				bufferCopyRegion.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-				bufferCopyRegion.imageSubresource.mipLevel = level;
-				bufferCopyRegion.imageSubresource.baseArrayLayer = face;
-				bufferCopyRegion.imageSubresource.layerCount = 1;
-				bufferCopyRegion.imageExtent.width = ktxtexture->baseWidth >> level;
-				bufferCopyRegion.imageExtent.height = ktxtexture->baseHeight >> level;
-				bufferCopyRegion.imageExtent.depth = 1;
-				bufferCopyRegion.bufferOffset = offset;
-				bufferCopyRegions.push_back(bufferCopyRegion);
-			}
+			offset += size;
 		}
 
 		VulkanImageGen::TransitionImageLayout(&texture->texture, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, levels, 6);
@@ -376,14 +385,13 @@ namespace OSK {
 		renderer->endSingleTimeCommandBuffer(copyCmd);
 		VulkanImageGen::TransitionImageLayout(&texture->texture, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,  VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, levels, 6);
 
-
 		renderer->DestroyBuffer(stagingBuffer);
 
-		VulkanImageGen::CreateImageView(&texture->texture, VK_FORMAT_R8G8B8A8_UNORM, 1U, VK_IMAGE_VIEW_TYPE_CUBE, 6, levels);
+		VulkanImageGen::CreateImageView(&texture->texture, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_CUBE, 6, levels);
 
 		renderer->CreateNewSkyboxDescriptorSet(texture);
 
-		ktxTexture_Destroy(ktxtexture);
+		delete[] totalImage;
 
 		SkyboxTextures.push_back(texture);
 		SkyboxTextureFromPath[path] = texture;

@@ -93,11 +93,11 @@ vec3 calculate_dir_light(DirLight light, vec3 normal, vec3 viewDir) {
 	vec3 lightDir = normalize(-light.Direction);
 	
 	//diffuse
-	float diff = max(dot(normal, lightDir), 0.0);
+	float diff = max(dot(normal, lightDir), 0.0) * light.Intensity;
 	
 	//specular
 	vec3 reflectDir = reflect(-lightDir, normal);
-	float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32/*material.Shininess*/);
+	float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32/*material.Shininess*/) * light.Intensity;
 
 	//Siempre se ve un poco aunque sea.
 	vec3 outputColor = light.Ambient.xyz * light.Intensity * (vec3(texture(diffuseTexture, TexCoords).xyz) * diff + spec * vec3(texture(specularTexture, TexCoords)));

@@ -19,20 +19,20 @@ namespace OSK {
 	public:
 
 		//Posición en X, en píxeles, respecto a la esquina superior izquierda.
-		double PositionX;
+		mouseVar_t PositionX;
 		//Posición en Y, en píxeles, respecto a la esquina superior izquierda.
-		double PositionY;
+		mouseVar_t PositionY;
 
 		//Posición en X, en porcentaje, reespecto a la esquina superior izquierda.
 		//Entre 0.0 y 1.0
 		//0.0 = borde izquierdo.
 		//1.0 = borde derecho.
-		double RelativePositionX;
+		mouseVar_t RelativePositionX;
 		//Posición en X, en porcentaje, reespecto a la esquina superior izquierda.
 		//Entre 0.0 y 1.0
 		//0.0 = borde izquierdo.
 		//1.0 = borde derecho.
-		double RelativePositionY;
+		mouseVar_t RelativePositionY;
 
 		//Rueda del ratón horizontal.
 		float_t ScrollX = 0.0f;

@@ -153,7 +153,7 @@ namespace OSK {
 		//	<width>: ancho de la textura.
 		//	<height>: alto de la textura.
 		inline const uint32_t getMaxMipLevels(const uint32_t& width, const uint32_t& height) const {
-			return std::floor(std::log2(std::max(width, height))) + 1;
+			return (uint32_t)std::floor(std::log2(std::max(width, height))) + 1;
 		}
 
 		Animation::SNode GetNodes(const aiNode* node);

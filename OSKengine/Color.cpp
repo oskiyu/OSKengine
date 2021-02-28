@@ -9,28 +9,28 @@ namespace OSK {
 		Alpha = 1.0f;
 	}
 
-	Color::Color(const float_t& r, const float_t& g, const float_t& b) {
+	Color::Color(float r, float g, float b) {
 		Red = r;
 		Green = g;
 		Blue = b;
 		Alpha = 1.0f;
 	}
 
-	Color::Color(const float_t& r, const float_t& g, const float_t& b, const float_t& a) {
+	Color::Color(float r, float g, float b, float a) {
 		Red = r;
 		Green = g;
 		Blue = b;
 		Alpha = a;
 	}
 
-	Color::Color(const float_t& value) {
+	Color::Color(float value) {
 		Red = value;
 		Green = value;
 		Blue = value;
 		Alpha = 1.0f;
 	}
 
-	Color Color::operator*(const float_t& value) const {
+	Color Color::operator*(float value) const {
 		return Color(Red, Green, Blue, value);
 	}
 
@@ -38,7 +38,7 @@ namespace OSK {
 		return glm::vec4(Red, Green, Blue, Alpha);
 	}
 
-	void Color::Update(float_t r, float_t g, float_t b) {
+	void Color::Update(float r, float g, float b) {
 		Red = r;
 		Green = g;
 		Blue = b;

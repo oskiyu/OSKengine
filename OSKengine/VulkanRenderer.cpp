@@ -27,9 +27,6 @@
 #include "Camera3D.h"
 #include FT_FREETYPE_H
 
-#include <ktx.h>
-#include <ktxvulkan.h>
-
 using namespace OSK;
 using namespace OSK::VULKAN;
 
@@ -1341,7 +1338,7 @@ void RenderAPI::updateCommandBuffers() {
 		
 		DefaultGraphicsPipeline2D->Bind(CommandBuffers[i]);
 		vkCmdBindIndexBuffer(CommandBuffers[i], Sprite::IndexBuffer.Buffer, 0, VK_INDEX_TYPE_UINT16);
-		const uint32_t indicesSize = Sprite::Indices.size();
+		const size_t indicesSize = Sprite::Indices.size();
 
 		VkBuffer vertexBuffers[] = { RTarget->RenderedSprite.VertexBuffer.Buffer };
 		VkDeviceSize offsets[] = { 0 };
@@ -1360,7 +1357,7 @@ void RenderAPI::updateCommandBuffers() {
 
 				Stage.RTarget->Pipelines[0]->Bind(CommandBuffers[i]);
 				vkCmdBindIndexBuffer(CommandBuffers[i], Sprite::IndexBuffer.Buffer, 0, VK_INDEX_TYPE_UINT16);
-				const uint32_t indicesSize = Sprite::Indices.size();
+				const size_t indicesSize = Sprite::Indices.size();
 
 				for (auto& sprite : spriteBatch->spritesToDraw) {
 					if (sprite.number == 1) {

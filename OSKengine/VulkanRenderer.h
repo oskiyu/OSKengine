@@ -185,7 +185,7 @@ namespace OSK {
 		WindowAPI* Window = nullptr;
 
 		//Límite de FPS.
-		float FPSlimit = INFINITE;
+		float FPSlimit = 9999.0f;
 
 		VULKAN::Renderpass* renderpass;
 
