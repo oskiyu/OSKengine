@@ -124,9 +124,9 @@ namespace OSK {
 		if (cleared)
 			return;
 
-		for (auto& i : bufferInfos)
+		for (auto i : bufferInfos)
 			delete i;
-		for (auto& i : imageInfos)
+		for (auto i : imageInfos)
 			delete i;
 
 		bufferInfos.clear();

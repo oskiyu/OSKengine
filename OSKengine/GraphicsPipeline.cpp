@@ -128,9 +128,12 @@ namespace OSK {
 	}
 
 	void GraphicsPipeline::SetPushConstants(VkShaderStageFlagBits shaderStage, uint32_t size, uint32_t offset) {
+		VkPushConstantRange pushConstRange{};
 		pushConstRange.stageFlags = shaderStage;
 		pushConstRange.offset = offset;
 		pushConstRange.size = size;
+
+		pushConstRanges.push_back(pushConstRange);
 
 		pushConstantsHaveBeenSet = true;
 	}
@@ -141,8 +144,8 @@ namespace OSK {
 		pipelineLayoutInfo.setLayoutCount = 1;
 		pipelineLayoutInfo.pSetLayouts = this->descriptorSetLayout;
 		if (pushConstantsHaveBeenSet) {
-			pipelineLayoutInfo.pushConstantRangeCount = 1;
-			pipelineLayoutInfo.pPushConstantRanges = &pushConstRange;
+			pipelineLayoutInfo.pushConstantRangeCount = pushConstRanges.size();
+			pipelineLayoutInfo.pPushConstantRanges = pushConstRanges.data();
 		}
 		else {
 			pipelineLayoutInfo.pushConstantRangeCount = 0;

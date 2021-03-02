@@ -14,16 +14,18 @@ namespace OSK {
 
 	//Push constants de un sprite.
 	struct OSKAPI_CALL PushConst2D {
-		glm::mat4 model;
-		glm::mat4 camera = glm::mat4(1.0f);
-		glm::vec4 color = glm::vec4(1.0f);
+		alignas(16) glm::mat4 model;
+		alignas(16) glm::mat4 camera = glm::mat4(1.0f);
+		alignas(16) glm::vec4 color = glm::vec4(1.0f);
 	};
 
 	//Representa un sprite, una textura con un transform.
 	class OSKAPI_CALL Sprite {
+
 		friend class RenderAPI;
 		friend class ContentManager;
 		friend class SpriteBatch;
+		friend class RenderSystem3D;
 
 	public:
 
@@ -62,6 +64,10 @@ namespace OSK {
 
 		static VulkanBuffer IndexBuffer;
 
+		bool hasChanged = false;
+
+	public:
+
 		std::vector<Vertex> Vertices = {
 			{{0, 0, 0}, {1.0f, 1.0f, 1.0f}, {0, 0}},
 			{{1, 0, 0}, {1.0f, 1.0f, 1.0f}, {1, 0}},
@@ -70,9 +76,7 @@ namespace OSK {
 		};
 
 		static std::array<uint16_t, 6> Indices;
-
-		bool hasChanged = false;
-		
+				
 	};
 
 }

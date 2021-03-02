@@ -20,7 +20,6 @@ namespace OSK {
 
 		VULKAN::VulkanImage Albedo{};
 
-	private:
 		DescriptorSet* Descriptor;
 		DescriptorSet* PhongDescriptorSet = nullptr;
 		DescriptorSet* PBR_DescriptorSet = nullptr;

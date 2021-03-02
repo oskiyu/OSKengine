@@ -268,6 +268,11 @@ namespace OSK::VULKAN {
 				barrier.dstAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT | VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
 				destinationStage = VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT;
 				break;
+
+			case VK_IMAGE_LAYOUT_PRESENT_SRC_KHR:
+				barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+				destinationStage = VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT;
+				break;
 		}
 
 		vkCmdPipelineBarrier(*cmdBuffer, sourceStage, destinationStage, 0, 0, nullptr, 0, nullptr, 1, &barrier);

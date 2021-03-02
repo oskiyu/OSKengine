@@ -18,8 +18,9 @@ namespace OSK {
 
 	//Clase para el renderizado 2D.
 	class OSKAPI_CALL SpriteBatch {
-		
+
 		friend class RenderAPI;
+		friend class RenderSystem3D;
 	
 	public:
 

@@ -169,8 +169,8 @@ OskResult RenderAPI::Init(const std::string& appName, const Version& gameVersion
 	RTarget->CreateSprite(Content);
 
 	createRenderTarget();
-
 	Stage.SetRenderTarget(RTarget, false);
+	InitPostProcessing();
 
 	return OskResult::SUCCESS;
 }
@@ -959,6 +959,7 @@ void RenderAPI::closeSwapchain() {
 
 void RenderAPI::Close() {
 	closeSwapchain();
+	ClosePostProcessing();
 
 	delete Content;
 
@@ -1036,6 +1037,8 @@ void RenderAPI::RecreateSwapchain() {
 	RTarget->Pipelines.clear();
 
 	createRenderTarget();
+
+	RecreatePostProcessing();
 }
 
 
@@ -1319,10 +1322,12 @@ void RenderAPI::updateCommandBuffers() {
 			RSystem->OnDraw(CommandBuffers[i], i);
 		}
 
-		//Comenzar el renderpass.
+		PostProcessingSettings.ScreenSizeX = (int)Window->ScreenSizeX;
+		PostProcessingSettings.ScreenSizeY = (int)Window->ScreenSizeY;
+
 		VkRenderPassBeginInfo renderPassInfo{};
 		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-		renderPassInfo.renderPass = renderpass->VulkanRenderpass;
+		renderPassInfo.renderPass = ScreenRenderpass->VulkanRenderpass;
 		renderPassInfo.framebuffer = Framebuffers[i]->framebuffer;
 		renderPassInfo.renderArea.offset = { 0, 0 };
 
@@ -1335,8 +1340,8 @@ void RenderAPI::updateCommandBuffers() {
 
 		//Comenzar el renderizado.
 		vkCmdBeginRenderPass(CommandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
-		
-		DefaultGraphicsPipeline2D->Bind(CommandBuffers[i]);
+
+		ScreenGraphicsPipeline->Bind(CommandBuffers[i]);
 		vkCmdBindIndexBuffer(CommandBuffers[i], Sprite::IndexBuffer.Buffer, 0, VK_INDEX_TYPE_UINT16);
 		const size_t indicesSize = Sprite::Indices.size();
 
@@ -1344,58 +1349,10 @@ void RenderAPI::updateCommandBuffers() {
 		VkDeviceSize offsets[] = { 0 };
 		vkCmdBindVertexBuffers(CommandBuffers[i], 0, 1, vertexBuffers, offsets);
 
-		RTarget->RenderedSprite.texture->Descriptor->Bind(CommandBuffers[i], DefaultGraphicsPipeline2D, i);
+		ScreenDescriptorSet->Bind(CommandBuffers[i], ScreenGraphicsPipeline, i);
 
-		PushConst2D pConst = RTarget->RenderedSprite.getPushConst(DefaultCamera2D.projection);
-		vkCmdPushConstants(CommandBuffers[i], DefaultGraphicsPipeline2D->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
+		vkCmdPushConstants(CommandBuffers[i], ScreenGraphicsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(PostProcessingSettings_t), &PostProcessingSettings);
 		vkCmdDrawIndexed(CommandBuffers[i], indicesSize, 1, 0, 0, 0);
-
-
-		for (auto& spriteBatch : Stage.SpriteBatches) {
-
-			if (!spriteBatch->spritesToDraw.empty()) {
-
-				Stage.RTarget->Pipelines[0]->Bind(CommandBuffers[i]);
-				vkCmdBindIndexBuffer(CommandBuffers[i], Sprite::IndexBuffer.Buffer, 0, VK_INDEX_TYPE_UINT16);
-				const size_t indicesSize = Sprite::Indices.size();
-
-				for (auto& sprite : spriteBatch->spritesToDraw) {
-					if (sprite.number == 1) {
-						if (sprite.sprites->isOutOfScreen)
-							continue;
-
-						VkBuffer vertexBuffers[] = { sprite.sprites->VertexBuffer.Buffer };
-						VkDeviceSize offsets[] = { 0 };
-						vkCmdBindVertexBuffers(CommandBuffers[i], 0, 1, vertexBuffers, offsets);
-
-						sprite.sprites->texture->Descriptor->Bind(CommandBuffers[i], Stage.RTarget->Pipelines[0], i);
-
-						PushConst2D pConst = sprite.sprites->getPushConst(spriteBatch->cameraMat);
-						vkCmdPushConstants(CommandBuffers[i], Stage.RTarget->Pipelines[0]->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
-						vkCmdDrawIndexed(CommandBuffers[i], indicesSize, 1, 0, 0, 0);
-					}
-					else {
-						for (uint32_t spriteIt = 0; spriteIt < sprite.number; spriteIt++) {
-							if (sprite.sprites[spriteIt].texture == nullptr)
-								continue;
-
-							if (sprite.sprites[spriteIt].isOutOfScreen)
-								continue;
-
-							VkBuffer vertexBuffers[] = { sprite.sprites[spriteIt].VertexBuffer.Buffer };
-							VkDeviceSize offsets[] = { 0 };
-							vkCmdBindVertexBuffers(CommandBuffers[i], 0, 1, vertexBuffers, offsets);
-
-							sprite.sprites[spriteIt].texture->Descriptor->Bind(CommandBuffers[i], Stage.RTarget->Pipelines[0], i);
-
-							PushConst2D pConst = sprite.sprites[spriteIt].getPushConst(spriteBatch->cameraMat);
-							vkCmdPushConstants(CommandBuffers[i], Stage.RTarget->Pipelines[0]->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
-							vkCmdDrawIndexed(CommandBuffers[i], indicesSize, 1, 0, 0, 0);
-						}
-					}
-				}
-			}
-		}
 
 		vkCmdEndRenderPass(CommandBuffers[i]);
 
@@ -1713,4 +1670,57 @@ VkBool32 RenderAPI::DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT message
 	Logger::Log(level, std::string(pCallbackData->pMessage) + "\n");
 
 	return VK_FALSE;
+}
+
+void RenderAPI::InitPostProcessing() {
+	//return;
+	FinalRenderTarget = CreateNewRenderTarget();
+	FinalRenderTarget->SetFormat(SwapchainFormat);
+	FinalRenderTarget->SetSize((uint32_t)Window->ScreenSizeX, (uint32_t)Window->ScreenSizeY);
+	FinalRenderTarget->CreateSprite(Content);
+
+	VULKAN::VulkanImageGen::CreateImage(&FinalRenderTarget->RenderedSprite.texture->Albedo, FinalRenderTarget->Size, SwapchainFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
+	VULKAN::VulkanImageGen::CreateImageView(&FinalRenderTarget->RenderedSprite.texture->Albedo, SwapchainFormat, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
+	VULKAN::VulkanImageGen::CreateImageSampler(FinalRenderTarget->RenderedSprite.texture->Albedo, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
+	VULKAN::VulkanImageGen::TransitionImageLayout(&FinalRenderTarget->RenderedSprite.texture->Albedo, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR, 1, 0);
+
+	VULKAN::VulkanImageGen::CreateImageSampler(RTarget->RenderedSprite.texture->Albedo, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
+
+	ScreenRenderpass = renderpass;
+
+	ScreenDescriptorLayout = CreateNewDescriptorLayout();
+	ScreenDescriptorLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
+	ScreenDescriptorLayout->Create(1);
+
+	ScreenDescriptorSet = CreateNewDescriptorSet();
+	ScreenDescriptorSet->SetDescriptorLayout(ScreenDescriptorLayout);
+	ScreenDescriptorSet->AddImage(&RTarget->RenderedSprite.texture->Albedo, RTarget->RenderedSprite.texture->Albedo.Sampler, 0);
+	ScreenDescriptorSet->Create();
+
+	ScreenGraphicsPipeline = CreateNewGraphicsPipeline("shaders/VK_Post/vert.spv", "shaders/VK_Post/frag.spv");
+	ScreenGraphicsPipeline->SetViewport({ -(float)SwapchainExtent.width, -(float)SwapchainExtent.height, (float)SwapchainExtent.width * 2, (float)SwapchainExtent.height * 2 });
+	ScreenGraphicsPipeline->SetRasterizer(VK_FALSE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_NONE, VK_FRONT_FACE_CLOCKWISE);
+	ScreenGraphicsPipeline->SetMSAA(VK_FALSE, VK_SAMPLE_COUNT_1_BIT);
+	ScreenGraphicsPipeline->SetDepthStencil(false);
+	ScreenGraphicsPipeline->SetPushConstants(VK_SHADER_STAGE_FRAGMENT_BIT, sizeof(PostProcessingSettings_t));
+	ScreenGraphicsPipeline->SetLayout(&ScreenDescriptorLayout->VulkanDescriptorSetLayout);
+	ScreenGraphicsPipeline->Create(ScreenRenderpass);
+
+	FinalRenderTarget->VRenderpass = ScreenRenderpass;
+	FinalRenderTarget->CreateFramebuffers(4, &FinalRenderTarget->RenderedSprite.texture->Albedo.View, 1);
+	//RTarget->RenderedSprite.SpriteTransform.SetPosition({ (Vector2f{(float)Window->ScreenSizeX, (float)Window->ScreenSizeY} *RenderResolutionMultiplier) / 2.0f });
+	//RTarget->RenderedSprite.SpriteTransform.SetScale(Vector2f{(float)Window->ScreenSizeX, (float)Window->ScreenSizeY} * RenderResolutionMultiplier);
+	updateSpriteVertexBuffer(&RTarget->RenderedSprite);
+}
+
+void RenderAPI::RecreatePostProcessing() {
+	ClosePostProcessing();
+	InitPostProcessing();
+}
+
+void RenderAPI::ClosePostProcessing() {
+	SafeDelete(&ScreenDescriptorLayout);
+	SafeDelete(&ScreenDescriptorSet);
+	SafeDelete(&ScreenGraphicsPipeline);
+	SafeDelete(&FinalRenderTarget);
 }

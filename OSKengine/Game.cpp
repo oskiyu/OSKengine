@@ -54,7 +54,7 @@ void Game::Init() {
 
 	SpriteBatch = GetRenderer()->CreateSpriteBatch();
 	SpriteBatch.SetCamera(GetRenderer()->DefaultCamera2D);
-	GetRenderer()->AddSpriteBatch(&SpriteBatch);
+	RenderSystem3D->Stage.AddSpriteBatch(&SpriteBatch);
 
 	LoadContent();
 

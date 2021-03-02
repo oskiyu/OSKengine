@@ -121,7 +121,7 @@ namespace OSK {
 
 		VkPipelineDepthStencilStateCreateInfo depthStencilCreateInfo{};
 
-		VkPushConstantRange pushConstRange{};
+		std::vector<VkPushConstantRange> pushConstRanges{};
 		VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
 
 		VkDescriptorSetLayout* descriptorSetLayout;

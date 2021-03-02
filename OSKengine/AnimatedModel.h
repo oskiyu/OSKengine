@@ -82,6 +82,16 @@ namespace OSK {
 			CurrentAnimation = &Animations[animID];
 		}
 
+		void SetAnimation(const std::string& name) {
+			for (uint32_t i = 0; i < NumberOfAnimations; i++) {
+				if (Animations[i].Name == name) {
+					CurrentAnimation = &Animations[i];
+
+					return;
+				}
+			}
+		}
+
 		deltaTime_t time = 0.0f;
 		//Actualiza el modelo 3D (lo anima).
 		void Update(float deltaTime);

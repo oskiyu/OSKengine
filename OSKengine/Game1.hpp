@@ -10,7 +10,7 @@ class Game1 : public Game {
 public:
 
 	void OnCreate() override {
-
+		//RendererCreateInfo.RendererResolution = 2.0f;
 	}
 
 	void LoadContent() override {
@@ -51,6 +51,8 @@ public:
 		InputSystem->GetOneTimeInputEvent("Fullscreen").LinkedKeys.push_back(OSK::Key::F11);
 		InputSystem->RegisterOneTimeInputEvent("ChangeVSync");
 		InputSystem->GetOneTimeInputEvent("ChangeVSync").LinkedKeys.push_back(OSK::Key::F1);
+		InputSystem->RegisterOneTimeInputEvent("ChangeFXAA");
+		InputSystem->GetOneTimeInputEvent("ChangeFXAA").LinkedKeys.push_back(OSK::Key::F2);
 
 		OSK::InputComponent input;
 
@@ -79,6 +81,12 @@ public:
 			else
 				GetRenderer()->SetPresentMode(OSK::PresentMode::VSYNC);
 		};
+		input.GetOneTimeInputFunction("ChangeFXAA") = [this]() {
+			if (GetRenderer()->PostProcessingSettings.UseFXAA)
+				GetRenderer()->PostProcessingSettings.UseFXAA = 0;
+			else
+				GetRenderer()->PostProcessingSettings.UseFXAA = 1;
+		};
 
 		ControlsObject.Create(ECS);
 		ControlsObject.AddComponent<OSK::InputComponent>(input);
@@ -98,6 +106,7 @@ public:
 		Player.Transform3D.AddPosition({ 40, 0, 0 });
 
 		GetRenderer()->DefaultCamera3D.CameraTransform.SetPosition(Player.Transform3D.GlobalPosition);
+		GetRenderer()->PostProcessingSettings.UseFXAA = 1;
 
 		PhysicsSystem->TerrainColissionType = OSK::PhysicalSceneTerrainResolveType::CHANGE_HEIGHT_ONLY;
 	}

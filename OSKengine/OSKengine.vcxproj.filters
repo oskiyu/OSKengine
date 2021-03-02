@@ -174,9 +174,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Dev\GLAD\src\glad.c">
-      <Filter>Archivos de origen\OSKengine\TP</Filter>
-    </ClCompile>
     <ClCompile Include="WindowAPI.cpp">
       <Filter>Archivos de origen\OSKengine\WindowAPI</Filter>
     </ClCompile>
@@ -703,6 +700,9 @@
     </ClInclude>
     <ClInclude Include="SNodeAnim.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="PostProcessingSettings.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

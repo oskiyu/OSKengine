@@ -32,6 +32,7 @@
 
 #include "RenderTarget.h"
 #include "RenderStage.h"
+#include "PostProcessingSettings.h"
 #include <functional>
 
 class Game;
@@ -205,7 +206,7 @@ namespace OSK {
 
 		unsigned int RenderTargetSizeX = 1024;
 		unsigned int RenderTargetSizeY = 720;
-		float RenderResolutionMultiplier = 2.0f; //Record = 17.0f { 32640 x 18360 }
+		float RenderResolutionMultiplier = 1.0f; //Record = 17.0f { 32640 x 18360 }
 
 		void createDescriptorSets(Texture* texture) const;
 
@@ -226,6 +227,8 @@ namespace OSK {
 		inline void DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, uint32_t iteration);
 
 		RenderSystem3D* RSystem = nullptr;
+
+		PostProcessingSettings_t PostProcessingSettings;
 
 	private:
 
@@ -393,6 +396,18 @@ namespace OSK {
 
 		DescriptorLayout* PhongDescriptorLayout = nullptr;
 		DescriptorLayout* SkyboxDescriptorLayout = nullptr;
+
+		//POST-PROCESSING
+		GraphicsPipeline* ScreenGraphicsPipeline = nullptr;
+		DescriptorLayout* ScreenDescriptorLayout = nullptr;
+		DescriptorSet* ScreenDescriptorSet = nullptr;
+		VULKAN::Renderpass* ScreenRenderpass = nullptr;
+
+		RenderTarget* FinalRenderTarget = nullptr;
+
+		void InitPostProcessing();
+		void RecreatePostProcessing();
+		void ClosePostProcessing();
 
 		/*NEW SYNC*/
 		VkFence* fences = nullptr;
