@@ -19,7 +19,8 @@ void CubeShadowMap::Clear() {
 	SafeDelete(&ShadowsPipeline);
 
 	for (auto& i : UBOs)
-		renderer->DestroyBuffer(i);
+		i.Free();
+
 	UBOs.clear();
 }
 
@@ -54,8 +55,11 @@ void CubeShadowMap::CreateDescSets(uint32_t maxSets) {
 void CubeShadowMap::CreateBuffers() {
 	VkDeviceSize size = sizeof(PointLightShadowUBO);
 	UBOs.resize(renderer->SwapchainImages.size());
-	for (uint32_t i = 0; i < UBOs.size(); i++)
-		renderer->CreateBuffer(UBOs[i], size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+
+	for (uint32_t i = 0; i < UBOs.size(); i++) {
+		UBOs[i] = renderer->CreateBuffer(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		UBOs[i].Allocate(size);
+	}
 }
 
 void CubeShadowMap::UpdateBuffers() {

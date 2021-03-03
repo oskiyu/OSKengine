@@ -351,6 +351,7 @@
     <ClInclude Include="Components.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="CubeShadowMap.h" />
+    <ClInclude Include="DynamicArray.hpp" />
     <ClInclude Include="ECS.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game1.hpp" />

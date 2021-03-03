@@ -88,18 +88,18 @@ namespace OSK {
 	void RenderizableScene::InitLightsBuffers() {
 		VkDeviceSize size = Lights.Size();
 		LightsUniformBuffers.resize(renderer->SwapchainImages.size());
-		for (uint32_t i = 0; i < LightsUniformBuffers.size(); i++)
-			renderer->CreateBuffer(LightsUniformBuffers[i], size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		for (uint32_t i = 0; i < LightsUniformBuffers.size(); i++) {
+			//renderer->CreateBuffer(LightsUniformBuffers[i], size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+			LightsUniformBuffers[i] = renderer->CreateBuffer(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+			LightsUniformBuffers[i].Allocate(size);
+		}
 
 		BonesUBOs.resize(renderer->SwapchainImages.size());
 		for (uint32_t i = 0; i < BonesUBOs.size(); i++) {
 			renderer->CreateDynamicUBO(BonesUBOs[i], sizeof(AnimUBO), 64);
 
-			void* data;
-			vkMapMemory(renderer->LogicalDevice, BonesUBOs[i].Memory, 0, sizeof(AnimUBO), 0, &data);
 			AnimUBO ubo{};
-			memcpy(data, &ubo, sizeof(AnimUBO));
-			vkUnmapMemory(renderer->LogicalDevice, BonesUBOs[i].Memory);
+			BonesUBOs[i].Write(&ubo, sizeof(AnimUBO));
 		}
 	}
 

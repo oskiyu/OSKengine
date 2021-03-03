@@ -20,7 +20,8 @@ void ShadowMap::Clear() {
 	SafeDelete(&ShadowsPipeline);
 
 	for (auto& i : DirShadowsUniformBuffers)
-		renderer->DestroyBuffer(i);
+		i.Free();
+
 	DirShadowsUniformBuffers.clear();
 }
 
@@ -54,8 +55,10 @@ void ShadowMap::CreateDescSets(uint32_t maxSets) {
 void ShadowMap::CreateBuffers() {
 	VkDeviceSize size = sizeof(DirLightShadowUBO);
 	DirShadowsUniformBuffers.resize(renderer->SwapchainImages.size());
-	for (uint32_t i = 0; i < DirShadowsUniformBuffers.size(); i++)
-		renderer->CreateBuffer(DirShadowsUniformBuffers[i], size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+	for (uint32_t i = 0; i < DirShadowsUniformBuffers.size(); i++) {
+		DirShadowsUniformBuffers[i] = renderer->CreateBuffer(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		DirShadowsUniformBuffers[i].Allocate(size);
+	}
 }
 
 void ShadowMap::UpdateBuffers() {

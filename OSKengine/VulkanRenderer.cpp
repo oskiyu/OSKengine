@@ -567,6 +567,7 @@ void RenderAPI::getGPU() {
 
 	GPU = gpus[0].GPU;
 	GPU_Info = gpus[0];
+	vkGetPhysicalDeviceMemoryProperties(GPU, &MemoryProperties);
 
 	if (GPU == nullptr)
 		Logger::Log(LogMessageLevels::CRITICAL_ERROR, " no se encuentra ninguna GPU compatible.");
@@ -878,8 +879,11 @@ void RenderAPI::createDefaultUniformBuffers() {
 	VkDeviceSize size = sizeof(UBO);
 	UniformBuffers.resize(SwapchainImages.size());
 
-	for (uint32_t i = 0; i < UniformBuffers.size(); i++)
-		CreateBuffer(UniformBuffers[i], size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+	for (uint32_t i = 0; i < UniformBuffers.size(); i++) {
+		//CreateBuffer(UniformBuffers[i], size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		UniformBuffers[i] = CreateBuffer(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		UniformBuffers[i].Allocate(size);
+	}
 }
 
 
@@ -968,9 +972,11 @@ void RenderAPI::Close() {
 	vkDestroySampler(LogicalDevice, GlobalImageSampler, nullptr);
 
 	for (auto& i : UniformBuffers)
-		DestroyBuffer(i);
+		//DestroyBuffer(i);
+		i.Free();
 
-	DestroyBuffer(Sprite::IndexBuffer);
+	//DestroyBuffer(Sprite::IndexBuffer);
+	Sprite::IndexBuffer.Free();
 
 	vkDestroyCommandPool(LogicalDevice, CommandPool, nullptr);
 
@@ -1075,7 +1081,7 @@ void RenderAPI::createRenderTarget() {
 	RTarget->Pipelines[0]->SetPushConstants(VK_SHADER_STAGE_VERTEX_BIT, sizeof(PushConst2D));
 	RTarget->Pipelines[0]->SetLayout(&DescLayout->VulkanDescriptorSetLayout);
 	RTarget->Pipelines[0]->Create(RTarget->VRenderpass);
-
+	
 	RTarget->Pipelines[1]->SetViewport({ 0, 0, (float)RenderTargetSizeX, (float)RenderTargetSizeY });
 	RTarget->Pipelines[1]->SetRasterizer(VK_FALSE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_FRONT_BIT, VK_FRONT_FACE_CLOCKWISE);
 	RTarget->Pipelines[1]->SetMSAA(VK_FALSE, VK_SAMPLE_COUNT_1_BIT);
@@ -1088,33 +1094,11 @@ void RenderAPI::createRenderTarget() {
 	RTarget->RenderedSprite.SpriteTransform.SetScale(Vector2ui{ RenderTargetSizeX, RenderTargetSizeY }.ToVector2f() / RenderResolutionMultiplier);
 }
 
+VulkanBuffer RenderAPI::CreateBuffer(VkBufferUsageFlags usage, VkMemoryPropertyFlags prop) const {
+	VulkanBuffer buffer;
+	buffer.Create(LogicalDevice, usage, prop, MemoryProperties);
 
-void RenderAPI::CreateBuffer(VulkanBuffer& buffer, VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags prop) const {
-	VkBufferCreateInfo bufferInfo{};
-	bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
-	bufferInfo.size = size;
-	bufferInfo.usage = usage;
-	bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
-
-	VkResult result = vkCreateBuffer(LogicalDevice, &bufferInfo, nullptr, &buffer.Buffer);
-	if (result != VK_SUCCESS)
-		throw std::runtime_error("ERROR: crear buffer.");
-
-	VkMemoryRequirements memRequirements;
-	vkGetBufferMemoryRequirements(LogicalDevice, buffer.Buffer, &memRequirements);
-
-	VkMemoryAllocateInfo allocInfo{};
-	allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
-	allocInfo.allocationSize = memRequirements.size;
-	allocInfo.memoryTypeIndex = getMemoryType(memRequirements.memoryTypeBits, prop);
-
-	result = vkAllocateMemory(LogicalDevice, &allocInfo, nullptr, &buffer.Memory);
-	if (result != VK_SUCCESS)
-		throw std::runtime_error("ERROR: alloc mem.");
-
-	vkBindBufferMemory(LogicalDevice, buffer.Buffer, buffer.Memory, 0);
-
-	buffer.Size = size;
+	return buffer;
 }
 
 void RenderAPI::CreateDynamicUBO(VulkanBuffer& buffer, VkDeviceSize sizeOfStruct, uint32_t numberOfInstances) const {
@@ -1125,22 +1109,16 @@ void RenderAPI::CreateDynamicUBO(VulkanBuffer& buffer, VkDeviceSize sizeOfStruct
 	}
 
 	size_t bufferSize = alignment * numberOfInstances;
-	buffer.Alignment = alignment;
 
-	CreateBuffer(buffer, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+	buffer = CreateBuffer(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+	buffer.Alignment = alignment;
+	buffer.Allocate(bufferSize);
 }
 
 
 void RenderAPI::SetRenderizableScene(RenderizableScene* scene) {
 	Scene = scene;
 }
-
-
-void RenderAPI::DestroyBuffer(VulkanBuffer& buffer) const {
-	vkDestroyBuffer(LogicalDevice, buffer.Buffer, nullptr);
-	vkFreeMemory(LogicalDevice, buffer.Memory, nullptr);
-}
-
 
 std::vector<VkCommandBuffer> RenderAPI::GetCommandBuffers() {
 	for (auto& i : currentSpriteBatch.spritesToDraw) {
@@ -1369,33 +1347,26 @@ void RenderAPI::updateCommandBuffers() {
 void RenderAPI::createSpriteVertexBuffer(Sprite* sprite) const {
 	VkDeviceSize size = sizeof(Vertex) * sprite->Vertices.size();
 
-	CreateBuffer(sprite->VertexBuffer, size, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-	/*VulkanBuffer stagingBuffer;
-	createBuffer(&stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-
-	void* data;
-	vkMapMemory(LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
-	memcpy(data, sprite->Vertices.data(), size);
-	vkUnmapMemory(LogicalDevice, stagingBuffer.Memory);*/
-
+	//CreateBuffer(sprite->VertexBuffer, size, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+	sprite->VertexBuffer = CreateBuffer(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+	sprite->VertexBuffer.Allocate(size);
+	
 	updateSpriteVertexBuffer(sprite);
 }
 
 void RenderAPI::createSpriteIndexBuffer() const {
 	VkDeviceSize size = sizeof(Sprite::Indices[0]) * Sprite::Indices.size();
 
-	VulkanBuffer stagingBuffer;
-	CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+	VulkanBuffer stagingBuffer = CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+	stagingBuffer.Allocate(size);
 
-	void* data;
-	vkMapMemory(LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
-	memcpy(data, Sprite::Indices.data(), (size_t)size);
-	vkUnmapMemory(LogicalDevice, stagingBuffer.Memory);
+	stagingBuffer.Write(Sprite::Indices.data(), size);
 
-	CreateBuffer(Sprite::IndexBuffer, size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+	Sprite::IndexBuffer = CreateBuffer(VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+	Sprite::IndexBuffer.Allocate(size);
 	CopyBuffer(stagingBuffer, Sprite::IndexBuffer, size);
 
-	DestroyBuffer(stagingBuffer);
+	stagingBuffer.Free();
 }
 
 
@@ -1463,11 +1434,8 @@ void RenderAPI::endSingleTimeCommandBuffer(VkCommandBuffer cmdBuffer) const {
 //Obtiene el tipo de memoria indicado.
 uint32_t RenderAPI::getMemoryType(const uint32_t& memoryTypeFilter, VkMemoryPropertyFlags flags) const {
 	//Tipos de memoria disponibles.
-	VkPhysicalDeviceMemoryProperties memProperties;
-	vkGetPhysicalDeviceMemoryProperties(GPU, &memProperties);
-
-	for (uint32_t i = 0; i < memProperties.memoryTypeCount; i++)
-		if (memoryTypeFilter & (1 << i) && (memProperties.memoryTypes[i].propertyFlags & flags) == flags)
+	for (uint32_t i = 0; i < MemoryProperties.memoryTypeCount; i++)
+		if (memoryTypeFilter & (1 << i) && (MemoryProperties.memoryTypes[i].propertyFlags & flags) == flags)
 			return i;
 
 	return -1;

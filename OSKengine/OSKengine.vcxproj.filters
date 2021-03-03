@@ -169,6 +169,9 @@
     <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Animation">
       <UniqueIdentifier>{9c2c9747-0b80-466b-9b32-264f8c7ad40d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Collections">
+      <UniqueIdentifier>{94d4a808-155a-427e-9ee1-afad04d1ee26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -703,6 +706,9 @@
     </ClInclude>
     <ClInclude Include="PostProcessingSettings.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicArray.hpp">
+      <Filter>Archivos de encabezado\OSKengine\Collections</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

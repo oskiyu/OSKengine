@@ -64,7 +64,7 @@ namespace OSK {
 			delete i;
 
 		for (auto& i : Sprites) {
-			renderer->DestroyBuffer(i->VertexBuffer);
+			i->VertexBuffer.Free();
 		}
 
 		for (auto& i : Sounds)
@@ -101,12 +101,10 @@ namespace OSK {
 		loadedTexture->sizeX = width;
 		loadedTexture->sizeY = height;
 
-		VulkanBuffer stagingBuffer;
-		renderer->CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-		void* data;
-		vkMapMemory(renderer->LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
-		memcpy(data, pixels, static_cast<size_t>(size));
-		vkUnmapMemory(renderer->LogicalDevice, stagingBuffer.Memory);
+		VulkanBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		stagingBuffer.Allocate(size);
+		
+		stagingBuffer.Write(pixels, size);
 
 		stbi_image_free(pixels);
 		VulkanImageGen::CreateImage(&loadedTexture->Albedo, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
@@ -115,7 +113,7 @@ namespace OSK {
 		VulkanImageGen::CopyBufferToImage(&stagingBuffer, &loadedTexture->Albedo, width, height);
 		VulkanImageGen::TransitionImageLayout(&loadedTexture->Albedo, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 1, 1);
 
-		renderer->DestroyBuffer(stagingBuffer);
+		stagingBuffer.Free();
 
 		VulkanImageGen::CreateImageView(&loadedTexture->Albedo, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
 
@@ -196,36 +194,32 @@ namespace OSK {
 		//Vertex buffer.
 		{
 			size_t size = vertices.size() * sizeof(Vertex);
-			VulkanBuffer stagingBuffer;
-			renderer->CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+			VulkanBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+			stagingBuffer.Allocate(size);
 
-			void* data;
-			vkMapMemory(renderer->LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
-			memcpy(data, vertices.data(), size);
-			vkUnmapMemory(renderer->LogicalDevice, stagingBuffer.Memory);
+			stagingBuffer.Write(vertices.data(), size);
 
-			renderer->CreateBuffer(model->VertexBuffer, size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-
+			model->VertexBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+			model->VertexBuffer.Allocate(size);
+			
 			renderer->CopyBuffer(stagingBuffer, model->VertexBuffer, size);
 
-			renderer->DestroyBuffer(stagingBuffer);
+			stagingBuffer.Free();
 		}
 		//Index buffer.
 		{
 			size_t size = indices.size() * sizeof(vertexIndex_t);
-			VulkanBuffer stagingBuffer;
-			renderer->CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+			VulkanBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+			stagingBuffer.Allocate(size);
 
-			void* data;
-			vkMapMemory(renderer->LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
-			memcpy(data, indices.data(), size);
-			vkUnmapMemory(renderer->LogicalDevice, stagingBuffer.Memory);
+			stagingBuffer.Write(indices.data(), size);
 
-			renderer->CreateBuffer(model->IndexBuffer, size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-
+			model->IndexBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+			model->IndexBuffer.Allocate(size);
+			
 			renderer->CopyBuffer(stagingBuffer, model->IndexBuffer, size);
 
-			renderer->DestroyBuffer(stagingBuffer);
+			stagingBuffer.Free();
 
 			model->IndicesCount = indices.size();
 		}
@@ -256,12 +250,10 @@ namespace OSK {
 
 			mipLevels = getMaxMipLevels(width, height);
 
-			VulkanBuffer stagingBuffer;
-			renderer->CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-			void* data;
-			vkMapMemory(renderer->LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
-			memcpy(data, pixels, static_cast<size_t>(size));
-			vkUnmapMemory(renderer->LogicalDevice, stagingBuffer.Memory);
+			VulkanBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+			stagingBuffer.Allocate(size);
+
+			stagingBuffer.Write(pixels, size);
 
 			stbi_image_free(pixels);
 			VulkanImageGen::CreateImage(&loadedTexture->Albedo, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, mipLevels);
@@ -271,7 +263,7 @@ namespace OSK {
 			VulkanImageGen::CreateMipmaps(loadedTexture->Albedo, { loadedTexture->sizeX, loadedTexture->sizeY }, mipLevels);
 			VulkanImageGen::CreateImageSampler(loadedTexture->Albedo, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, mipLevels);
 
-			renderer->DestroyBuffer(stagingBuffer);
+			stagingBuffer.Free();
 
 			VulkanImageGen::CreateImageView(&loadedTexture->Albedo, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, mipLevels);
 		}
@@ -290,12 +282,10 @@ namespace OSK {
 
 			mipLevels = getMaxMipLevels(width, height);
 
-			VulkanBuffer stagingBuffer;
-			renderer->CreateBuffer(stagingBuffer, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-			void* data;
-			vkMapMemory(renderer->LogicalDevice, stagingBuffer.Memory, 0, size, 0, &data);
-			memcpy(data, pixels, static_cast<size_t>(size));
-			vkUnmapMemory(renderer->LogicalDevice, stagingBuffer.Memory);
+			VulkanBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+			stagingBuffer.Allocate(size);
+			
+			stagingBuffer.Write(pixels, size);
 
 			stbi_image_free(pixels);
 			VulkanImageGen::CreateImage(&loadedTexture->Specular, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, mipLevels);
@@ -305,7 +295,7 @@ namespace OSK {
 			VulkanImageGen::CreateMipmaps(loadedTexture->Specular, { loadedTexture->sizeX, loadedTexture->sizeY }, mipLevels);
 			VulkanImageGen::CreateImageSampler(loadedTexture->Specular, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, mipLevels);
 
-			renderer->DestroyBuffer(stagingBuffer);
+			stagingBuffer.Free();
 
 			VulkanImageGen::CreateImageView(&loadedTexture->Specular, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, mipLevels);
 		}
@@ -352,12 +342,10 @@ namespace OSK {
 			stbi_image_free(_pixels);
 		}
 
-		VulkanBuffer stagingBuffer;
-		renderer->CreateBuffer(stagingBuffer, size * 7, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-		void* data;
-		vkMapMemory(renderer->LogicalDevice, stagingBuffer.Memory, 0, size * 6, 0, &data);
-		memcpy(data, totalImage, size * 6);
-		vkUnmapMemory(renderer->LogicalDevice, stagingBuffer.Memory);
+		VulkanBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		stagingBuffer.Allocate(size * 7);
+
+		stagingBuffer.Write(totalImage, size * 6);
 
 		const uint32_t levels = 1;
 		VulkanImageGen::CreateImage(&texture->texture, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 6, VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT, levels);
@@ -385,7 +373,7 @@ namespace OSK {
 		renderer->endSingleTimeCommandBuffer(copyCmd);
 		VulkanImageGen::TransitionImageLayout(&texture->texture, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,  VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, levels, 6);
 
-		renderer->DestroyBuffer(stagingBuffer);
+		stagingBuffer.Free();
 
 		VulkanImageGen::CreateImageView(&texture->texture, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_CUBE, 6, levels);
 

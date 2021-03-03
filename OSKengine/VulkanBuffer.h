@@ -19,11 +19,15 @@ namespace OSK {
 		VulkanBuffer() {}
 		~VulkanBuffer();
 
-		/*void Alloc(const size_t& size);
-		void Write(const void* data);
+		void Allocate(size_t size);
+		void MapMemory();
+		void MapMemory(size_t size, size_t offset);
+		void Write(const void* data, size_t size, size_t offset = 0);
+		void WriteMapped(const void* data, size_t size, size_t offset = 0);
+		void UnmapMemory();
 		void Free();
 
-		size_t Size = 0;*/
+		size_t Size = 0;
 
 		//Buffer.
 		VkBuffer Buffer = VK_NULL_HANDLE;
@@ -31,21 +35,21 @@ namespace OSK {
 		//Memoria del buffer.
 		VkDeviceMemory Memory = VK_NULL_HANDLE;
 
-		size_t Size = 0;
 		uint32_t Alignment = 0;
 
 	private:
 
-	/*	VulkanBuffer(VkDevice device, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkPhysicalDeviceMemoryProperties gpuProps);
+		void Create(VkDevice device, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkPhysicalDeviceMemoryProperties gpuProps);
 
-		VkDevice logicalDevice;
-		VkBufferUsageFlags usage;
-		VkMemoryPropertyFlags properties;
-		VkPhysicalDeviceMemoryProperties gpuProps;
+		VkDevice logicalDevice = VK_NULL_HANDLE;
+		VkBufferUsageFlags usage = VK_NULL_HANDLE;
+		VkMemoryPropertyFlags properties = 0;
+		VkPhysicalDeviceMemoryProperties gpuProps{};
 
 		uint32_t getMemoryType(const uint32_t& memoryTypeFilter);
 
-		bool inUse = false;*/
+		void* mappedData = nullptr;
+		bool isMapped = false;
 
 	};
 

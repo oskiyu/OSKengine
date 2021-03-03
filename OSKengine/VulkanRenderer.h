@@ -127,7 +127,9 @@ namespace OSK {
 		//	<prop>: propiedades de memoria que necesitará el buffer.
 		//
 		//Para destruir un buffer, llamar a VulkanRenderer::DestroyBuffer.
-		void CreateBuffer(VulkanBuffer& buffer, VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags prop) const;
+		//void CreateBuffer(VulkanBuffer& buffer, VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags prop) const;
+
+		VulkanBuffer CreateBuffer(VkBufferUsageFlags usage, VkMemoryPropertyFlags prop) const;
 
 		//Crea un buffer que almacenará información en la GPU.
 		//	<buffer>: buffer que se va a crear.
@@ -140,7 +142,7 @@ namespace OSK {
 
 		//Destruye un buffer, liberando la memoria que tenía asignada en la GPU.
 		//	<buffer>: buffer a destruir.
-		void DestroyBuffer(VulkanBuffer& buffer) const;
+		//void DestroyBuffer(VulkanBuffer& buffer) const;
 
 		//Copia el contenido de un buffer a otro buffer.
 		//	<source>: buffer fuente.
@@ -351,6 +353,7 @@ namespace OSK {
 		//GPU.
 		VkPhysicalDevice GPU;
 		VULKAN::GPUinfo GPU_Info{};
+		VkPhysicalDeviceMemoryProperties MemoryProperties;
 
 		//Superficie sobre la cual se renderiza las imágenes.
 		VkSurfaceKHR Surface;
