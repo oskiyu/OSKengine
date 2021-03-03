@@ -1707,9 +1707,8 @@ void RenderAPI::InitPostProcessing() {
 	ScreenGraphicsPipeline->Create(ScreenRenderpass);
 
 	FinalRenderTarget->VRenderpass = ScreenRenderpass;
-	FinalRenderTarget->CreateFramebuffers(4, &FinalRenderTarget->RenderedSprite.texture->Albedo.View, 1);
-	//RTarget->RenderedSprite.SpriteTransform.SetPosition({ (Vector2f{(float)Window->ScreenSizeX, (float)Window->ScreenSizeY} *RenderResolutionMultiplier) / 2.0f });
-	//RTarget->RenderedSprite.SpriteTransform.SetScale(Vector2f{(float)Window->ScreenSizeX, (float)Window->ScreenSizeY} * RenderResolutionMultiplier);
+	VkImageView views[] = { FinalRenderTarget->RenderedSprite.texture->Albedo.View, DepthImage.View };
+	FinalRenderTarget->CreateFramebuffers(4, views, 2);
 	updateSpriteVertexBuffer(&RTarget->RenderedSprite);
 }
 
