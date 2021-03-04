@@ -318,9 +318,6 @@
     <ClCompile Include="RenderStage.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
     </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
-    </ClCompile>
     <ClCompile Include="ShadowMap.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\Shadows</Filter>
     </ClCompile>
@@ -338,6 +335,9 @@
     </ClCompile>
     <ClCompile Include="OnTickSystem.cpp">
       <Filter>Archivos de origen\OSKengine\Engine\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialLayout.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -614,18 +614,6 @@
     <ClInclude Include="RenderStage.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
     </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderStage.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderBindingType.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
-    </ClInclude>
     <ClInclude Include="ShadowMap.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\Shadows</Filter>
     </ClInclude>
@@ -709,6 +697,18 @@
     </ClInclude>
     <ClInclude Include="DynamicArray.hpp">
       <Filter>Archivos de encabezado\OSKengine\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialLayout.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialBinding.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialInstance.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

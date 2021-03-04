@@ -197,6 +197,13 @@ namespace OSK {
 			return OskResult::ERROR_CREATE_PIPELINE_LAYOUT;
 		}
 
+		VkPipelineDynamicStateCreateInfo dynamicCreateInfo{};
+		dynamicCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
+		VkDynamicState states[] = { VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR };
+		dynamicCreateInfo.pDynamicStates = states;
+		dynamicCreateInfo.dynamicStateCount = 2;
+		dynamicCreateInfo.flags = 0;
+
 		pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
 		pipelineInfo.stageCount = 2;
 		pipelineInfo.pStages = shaderStages;
@@ -207,7 +214,7 @@ namespace OSK {
 		pipelineInfo.pMultisampleState = &multisampling;
 		pipelineInfo.pDepthStencilState = &depthStencilCreateInfo;
 		pipelineInfo.pColorBlendState = &colorBlending;
-		pipelineInfo.pDynamicState = nullptr;
+		pipelineInfo.pDynamicState = &dynamicCreateInfo;
 		pipelineInfo.layout = VulkanPipelineLayout;
 		pipelineInfo.renderPass = targetRenderpass->VulkanRenderpass;
 		pipelineInfo.subpass = 0;

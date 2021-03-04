@@ -35,6 +35,8 @@
 #include "PostProcessingSettings.h"
 #include <functional>
 
+#include "DynamicArray.hpp"
+
 class Game;
 
 namespace OSK {
@@ -121,14 +123,9 @@ namespace OSK {
 		void CreateNewSkyboxDescriptorSet(SkyboxTexture* texture) const;
 		
 		//Crea un buffer que almacenará información en la GPU.
-		//	<buffer>: buffer que se va a crear.
-		//	<size>: tamaño del buffer.
 		//	<usage>: el uso que se le dará al buffer.
 		//	<prop>: propiedades de memoria que necesitará el buffer.
 		//
-		//Para destruir un buffer, llamar a VulkanRenderer::DestroyBuffer.
-		//void CreateBuffer(VulkanBuffer& buffer, VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags prop) const;
-
 		VulkanBuffer CreateBuffer(VkBufferUsageFlags usage, VkMemoryPropertyFlags prop) const;
 
 		//Crea un buffer que almacenará información en la GPU.
@@ -139,10 +136,6 @@ namespace OSK {
 		//
 		//Para destruir un buffer, llamar a VulkanRenderer::DestroyBuffer.
 		void CreateDynamicUBO(VulkanBuffer& buffer, VkDeviceSize sizeOfStruct, uint32_t numberOfInstances) const;
-
-		//Destruye un buffer, liberando la memoria que tenía asignada en la GPU.
-		//	<buffer>: buffer a destruir.
-		//void DestroyBuffer(VulkanBuffer& buffer) const;
 
 		//Copia el contenido de un buffer a otro buffer.
 		//	<source>: buffer fuente.
@@ -231,6 +224,8 @@ namespace OSK {
 		RenderSystem3D* RSystem = nullptr;
 
 		PostProcessingSettings_t PostProcessingSettings;
+
+		void SetViewport(VkCommandBuffer& cmdBuffer, int32_t x = 0, int32_t y = 0, uint32_t sizeX = 0, uint32_t sizeY = 0) const;
 
 	private:
 
@@ -411,6 +406,26 @@ namespace OSK {
 		void InitPostProcessing();
 		void RecreatePostProcessing();
 		void ClosePostProcessing();
+
+		//Animation
+		struct {
+			void AddAnimatedModel(AnimatedModel* model) {
+				model->AnimationBufferOffset = AnimationCount;
+				AnimationCount++;
+				Models.Insert(model);
+			}
+
+			void RemoveAnimatedModel(AnimatedModel* model) {
+				if (!Models.HasElement(model))
+					return;
+
+				
+			}
+
+			DynamicArray<AnimatedModel*> Models{};
+			uint32_t AnimationCount = 1;
+			std::vector<AnimUBO> BoneUBOs{};
+		} AnimationSystem;
 
 		/*NEW SYNC*/
 		VkFence* fences = nullptr;

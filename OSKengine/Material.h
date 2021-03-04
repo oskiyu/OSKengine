@@ -1,58 +1,33 @@
 #pragma once
 
-#include "OSKmacros.h"
 #include "OSKsettings.h"
+#include "OSKmacros.h"
 #include "OSKtypes.h"
+#include "Log.h"
+
+#include "MaterialLayout.h"
+#include "MaterialInstance.h"
 
 #include "GraphicsPipeline.h"
-#include "DescriptorLayout.h"
-#include "Renderpass.h"
-#include "RenderTarget.h"
-#include "Shader.h"
-#include "ShaderBindingType.h"
-#include "ShaderStage.h"
+#include "VulkanRenderer.h"
 
 namespace OSK {
-
-
-	class OSKAPI_CALL MaterialInstance {
-
-		friend class Material;
-
-	public:
-
-	private:
-
-		DescriptorSet* Descriptor = nullptr;
-
-	};
-
 
 	class OSKAPI_CALL Material {
 
 	public:
 
-		void SetRenderer(RenderAPI* renderer);
-
-		void SetShaders(const Shader& shader);
-		void SetRenderTarget(RenderTarget* target);
-
-		void AddBinding(ShaderBindingType type, ShaderStage stage);
-		void AddVertexBinding(ShaderBindingType type);
-		void AddFragmentBinding(ShaderBindingType type);
-
-		void Create();
-		void CreateInstance(MaterialInstance* instance);
+		void Create() {
+			GPipeline = Renderer->CreateNewGraphicsPipeline(VertexPath, FragmentPath);
+		}
 
 	private:
 
-		RenderAPI* renderer = nullptr;
+		std::string VertexPath;
+		std::string FragmentPath;
 
 		GraphicsPipeline* GPipeline = nullptr;
-		DescriptorLayout* Layout = nullptr;
-		RenderTarget* RTarget = nullptr;
-
-		uint32_t bindingCount = 0;
+		RenderAPI* Renderer = nullptr;
 
 	};
 

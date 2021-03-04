@@ -76,6 +76,7 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 
 	Renderer->Stage.RTarget->TransitionToRenderTarget(&cmdBuffer);
 	vkCmdBeginRenderPass(cmdBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+	Renderer->SetViewport(cmdBuffer);
 
 	if (RScene != nullptr) {
 		RScene->PrepareDraw(cmdBuffer, i);

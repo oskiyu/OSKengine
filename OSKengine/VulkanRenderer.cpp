@@ -33,6 +33,27 @@ using namespace OSK::VULKAN;
 constexpr uint32_t MAX_FRAMES_IN_FLIGHT = 2;
 
 
+void RenderAPI::SetViewport(VkCommandBuffer& cmdBuffer, int32_t x, int32_t y, uint32_t sizeX, uint32_t sizeY) const {
+	VkViewport viewport{};
+	viewport.x = x;
+	viewport.y = y;
+	if (sizeX != 0)
+		viewport.width = sizeX;
+	else
+		viewport.width = Window->ScreenSizeX;
+	if (sizeY != 0)
+		viewport.height = sizeY;
+	else
+		viewport.height = Window->ScreenSizeY;
+	viewport.minDepth = 0.0f;
+	viewport.maxDepth = 1.0f;
+	vkCmdSetViewport(cmdBuffer, 0, 1, &viewport);
+	VkRect2D scissor{};
+	scissor.extent = { (uint32_t)viewport.width, (uint32_t)viewport.height };
+	scissor.offset = { 0, 0 };
+	vkCmdSetScissor(cmdBuffer, 0, 1, &scissor);
+}
+
 VkPresentModeKHR translatePresentMode(const PresentMode& mode) {
 	switch (mode) {
 		case PresentMode::INMEDIATE:
@@ -950,9 +971,9 @@ void RenderAPI::closeSwapchain() {
 		delete i;
 	Framebuffers.clear();
 
-	delete DefaultGraphicsPipeline2D;
+	/*delete DefaultGraphicsPipeline2D;
 	delete DefaultGraphicsPipeline3D;
-	delete DefaultSkyboxGraphicsPipeline;
+	delete DefaultSkyboxGraphicsPipeline;*/
 
 	for (const auto& i : SwapchainImageViews)
 		vkDestroyImageView(LogicalDevice, i, nullptr);
@@ -1027,23 +1048,22 @@ void RenderAPI::RecreateSwapchain() {
 	createSwapchainImageViews();
 	createRenderpass();
 	
-	createGraphicsPipeline2D();
+	/*createGraphicsPipeline2D();
 	createGraphicsPipeline3D();
-	DefaultSkyboxGraphicsPipeline = CreateNewSkyboxPipeline(Settings.SkyboxVertexPath, Settings.SkyboxFragmentPath);
+	DefaultSkyboxGraphicsPipeline = CreateNewSkyboxPipeline(Settings.SkyboxVertexPath, Settings.SkyboxFragmentPath);*/
 
-	if (Scene != nullptr)
-		Scene->RecreateGraphicsPipeline();
+	/*if (Scene != nullptr)
+		Scene->RecreateGraphicsPipeline();*/
 
 	createDepthResources();
 
 	createFramebuffers();
 
-	delete RTarget->Pipelines[0];
+	/*delete RTarget->Pipelines[0];
 	delete RTarget->Pipelines[1];
-	RTarget->Pipelines.clear();
+	RTarget->Pipelines.clear();*/
 
 	createRenderTarget();
-
 	RecreatePostProcessing();
 }
 
@@ -1207,6 +1227,8 @@ void RenderAPI::DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, uint32_
 	stage->RTarget->TransitionToRenderTarget(&cmdBuffer);
 	vkCmdBeginRenderPass(cmdBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
+	SetViewport(cmdBuffer);
+
 	if (stage->Scene != nullptr) {
 		stage->Scene->Draw(cmdBuffer, iteration);
 	}
@@ -1318,6 +1340,8 @@ void RenderAPI::updateCommandBuffers() {
 
 		//Comenzar el renderizado.
 		vkCmdBeginRenderPass(CommandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+
+		SetViewport(CommandBuffers[i], -(int32_t)Window->ScreenSizeX, -(int32_t)Window->ScreenSizeY, (uint32_t)Window->ScreenSizeX * 2, (uint32_t)Window->ScreenSizeY * 2);
 
 		ScreenGraphicsPipeline->Bind(CommandBuffers[i]);
 		vkCmdBindIndexBuffer(CommandBuffers[i], Sprite::IndexBuffer.Buffer, 0, VK_INDEX_TYPE_UINT16);

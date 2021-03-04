@@ -89,7 +89,6 @@ namespace OSK {
 		VkDeviceSize size = Lights.Size();
 		LightsUniformBuffers.resize(renderer->SwapchainImages.size());
 		for (uint32_t i = 0; i < LightsUniformBuffers.size(); i++) {
-			//renderer->CreateBuffer(LightsUniformBuffers[i], size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 			LightsUniformBuffers[i] = renderer->CreateBuffer(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 			LightsUniformBuffers[i].Allocate(size);
 		}
@@ -254,6 +253,9 @@ namespace OSK {
 		renderPassInfo.pClearValues = clearValues.data();
 
 		vkCmdBeginRenderPass(cmdBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+
+		renderer->SetViewport(cmdBuffer, 0, 0, shadowMap->Size.X, shadowMap->Size.Y);
+
 		shadowMap->ShadowsPipeline->Bind(cmdBuffer);
 	}
 	void RenderizableScene::DrawShadows(Model* model, VkCommandBuffer cmdBuffer, uint32_t i) {

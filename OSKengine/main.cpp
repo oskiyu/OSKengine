@@ -29,8 +29,7 @@
 #include "InputSystem.h"
 
 #include "Game1.hpp"
-
-/**/
+/*
 class Entity : public OSK::GameObject {
 
 public:
@@ -59,7 +58,7 @@ private:
 	}
 
 };
-/**/
+
 
 int program() {
 
@@ -354,13 +353,12 @@ int program() {
 
 	return 0;
 }
-
+*/
 int main() {
 
 	OSK::Logger::Start();
 
 	try {
-		//program();
 		Game1 game;
 		game.Run();
 	}

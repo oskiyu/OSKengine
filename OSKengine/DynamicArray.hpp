@@ -280,6 +280,41 @@ namespace OSK {
 			Size--;
 		}
 
+		/*
+		Elimina el elemento en la posición dada.
+		*/
+		inline void RemoveAndMoveLast(size_t index) {
+#ifdef OSK_DS_SAFE_MODE
+			if (index >= Capacity) {
+				std::string msg = "ERROR: DynamicArray: tried to remove element number " + std::to_string(index) + ", but there are only " + std::to_string(Capacity) + " reserved elements.";
+
+				throw std::runtime_error(msg);
+			}
+
+			if (index >= Size) {
+				std::string msg = "ERROR: DynamicArray: tried to remove element number " + std::to_string(index) + ", but there are only " + std::to_string(Size) + " elements.";
+
+				throw std::runtime_error(msg);
+			}
+
+			if (index < 0) {
+				std::string msg = "ERROR: DynamicArray: tried to remove element 0.";
+
+				throw std::runtime_error(msg);
+			}
+
+			if (!HasBeenInitialized()) {
+				std::string msg = "ERROR: DynamicArray: tried to remove element from an uninitialized array.";
+
+				throw std::runtime_error(msg);
+			}
+#endif // _DEBUG
+
+			At(index) = At(Size);
+
+			Size--;
+		}
+
 		inline void RemoveLast() {
 #ifdef OSK_DS_SAFE_MODE
 			if (!HasBeenInitialized()) {
@@ -350,6 +385,33 @@ namespace OSK {
 			it.Index = index;
 
 			return it;
+		}
+
+		/*
+		Devuelve la posición del elemento dado.
+		Devuelve Size + 1 si no está en el array.
+		*/
+		inline size_t GetPosition(const T& value) const noexcept {
+			for (size_t i = 0; i < Size; i++) {
+				if (At(i) == value) {
+					return i;
+				}
+			}
+
+			return Size + 1;
+		}
+
+		/*
+		Devuelve true si el array tiene el elemento dado.
+		*/
+		bool HasElement(const T& value) const noexcept {
+			for (size_t i = 0; i < Size; i++) {
+				if (At(i) == value) {
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		/*

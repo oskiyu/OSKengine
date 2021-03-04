@@ -102,10 +102,7 @@ namespace OSK {
 
 		inline void UpdateAnimUBO(std::vector<VulkanBuffer>& buffers) {
 			for (auto& i : buffers) {
-				void* data;
-				vkMapMemory(LogicalDevice, i.Memory, i.Alignment * AnimationBufferOffset, sizeof(glm::mat4) * NumberOfBones, 0, &data);
-				memcpy(data, BonesUBOdata.Bones.data(), sizeof(glm::mat4) * BonesUBOdata.Bones.size());
-				vkUnmapMemory(LogicalDevice, i.Memory);
+				i.Write(BonesUBOdata.Bones.data(), sizeof(glm::mat4) * BonesUBOdata.Bones.size(), i.Alignment * AnimationBufferOffset);
 			}
 		}
 

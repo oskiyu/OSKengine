@@ -299,7 +299,7 @@
     <ClCompile Include="ContentManager.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="LightsUBO.cpp" />
-    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MaterialLayout.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Font.cpp" />
@@ -359,6 +359,10 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="MaterialBinding.h" />
+    <ClInclude Include="MaterialInstance.h" />
+    <ClInclude Include="MaterialLayout.h" />
     <ClInclude Include="ModelComponent.h" />
     <ClInclude Include="OnTickComponent.h" />
     <ClInclude Include="OnTickSystem.h" />
@@ -366,7 +370,6 @@
     <ClInclude Include="RenderSystem3D.h" />
     <ClInclude Include="SAnimation.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="ShaderBindingType.h" />
     <ClInclude Include="ButtonStatesEnum.h" />
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Camera3D.h" />
@@ -380,7 +383,6 @@
     <ClInclude Include="ContentManager.h" />
     <ClInclude Include="Heightmap.h" />
     <ClInclude Include="LightsUBO.h" />
-    <ClInclude Include="Material.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Color.h" />
@@ -405,8 +407,6 @@
     <ClInclude Include="SAT_Collider.h" />
     <ClInclude Include="SAT_CollisionInfo.h" />
     <ClInclude Include="SAT_Projection.hpp" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="ShaderStage.h" />
     <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="SNodeAnim.h" />
