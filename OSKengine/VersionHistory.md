@@ -400,3 +400,249 @@ Aztualizado a **Vulkan 1.2.154**.
 - **Bugfix**: ahora las texturas eliminan sus descriptor sets al eliminarse.
 - **Bugfix**: ahora los graphics pipelines no intentan eliminar sus componentes que ya habían sido eliminados.
 - **Bugfix**: `'PhongPipeline` renderiza correctamente en la resolución objetivo.
+
+
+## 2021.2.22a
+
+Primera implementación de un sistema ECS.
+
+###### ECS
+
+- Component:
+    - OnCreate().
+    - OnTick().
+    - OnRemove().
+
+- ComponentArray:
+    - Almacena los componentes de un mismo tipo en un packed array.
+    - Todos los componentes estan enlazados al ID de un GameObject.
+
+- ComponentManager:
+    - Registra un componente.
+    - Obtiene el componente de un tipo de un GameObject.
+    - Añade / elimina un componente de un GameObject.
+
+- EntityComponentSystem: almacena referencias a:
+    - ComponentManager.
+    - SystemManager.
+    - GameObjectManager.
+
+- GameObject:
+    - Representa la entidad.
+    - OnCreate().
+    - OnTick().
+    - OnRemove().
+    - Puede añadirse / eliminarse componentes.
+
+- GameObjectManager:
+    - Puede crear y destruir objetos.
+
+- System:
+    - OnCreate().
+    - OnTick().
+    - OnRemove().
+
+- SystemManager:
+    - Registra sistemas y sus signatures (componentes necesarios).
+
+Sistemas creados:
+
+- RenderSystem3D
+
+###### WindowAPI
+ 
+- Ya no puede cargar OpenGL.
+
+###### AudioAPI
+
+Transformado en sistema.
+
+###### Physics
+
+Transformado en sistema.
+
+
+## 2021.2.22b
+
+###### ECS
+
+- InputSystem:
+    - Hace reaccionar a los componentes de input.
+    
+    - InputComponent:
+        - Reacciona a eventos de imput.
+        - Permite registrar funciones que se ejecutarán al producitse un evento con el mismo nombre.
+
+    -InputEvent: 
+        - Nombre.
+        - Teclas y botones enlazados.
+
+
+## 2021.2.25a
+
+Ahora las animaciones usan un formato interno.
+
+###### RenderAPI
+
+- Animaciones:
+    - SAnimation: representa una animación.
+        - Tiene los SNodeAnims.
+    - SNodeAnim: representa un nodo animado.
+        - Tiene los valores de posición, escala y rotación para los keyframes de la animación.
+    - SNode: representa un nodo.
+    - SVectorKey: representa un vector y su keyframe.
+    - SQuaternionKey: representa un vector y su keyframe.
+    - Ahora usan `glm::mat4`.
+    
+###### ContentAPI
+
+- ContentManager:
+    - LoadAnimatedModel():
+        - Carga la información de Assimp al formato interno.
+
+
+
+## 2021.2.27a
+
+Ahora las animaciones usan un buffer dinámico.
+
+- AnimatedModel:
+    - Se puede configurar la velocidad de la animación.
+    - Tiene el offset para acceder a su animación en el buffer.
+
+- DescriptorSet:
+    - Soporte para buffers dinámicos.
+
+- RenderAPI:
+    - Puede crear buffers dinámicos.
+
+###### ContentAPI
+
+- ContentManager:
+    - LoadAnimatedModel():
+        - Se le asigna a cada modelo un ID único que representa su animaciónn en el buffer dinámico.
+
+
+## 2021.2.27b
+
+###### Bugfixes
+- **Bugfix**: las estructuras de animación ya no tienen memory leaks.
+
+
+## 2021.2.27c
+
+###### RenderAPI
+
+- AnimatedModel:
+    - **Optimización:** ahora los nodos contienen un puntero hacia los nodos animados que le coresponden.
+    
+###### Bugfixes
+- **Bugfix**: ahora los framebuffers de efectos de post-procesamiento usan la imagen de profundidad.
+
+
+###### Game
+
+- Game:
+    -Ahora tiene su propio `SpriteBatch` por defecto.
+
+###### Bugfixes
+- **Bugfix**: ahora la escena principal no se renderiza dos veces.
+
+
+## 2021.2.28a
+
+Eliminada la libreria KTX.
+
+###### ContentAPI
+
+- ContentManager:
+    - LoadSkybox():
+        - Ya no usa el formato `.ktx`.
+        - Toma el path a las 6 imágenes del skybox.
+
+
+## 2021.3.2a
+
+###### RenderAPI
+
+- RenderAPI:
+    - Añadido soporte para postprocesamiento.
+    - Añadido FXAA.
+
+- RenderSystem3D: ahora renderiza el spritebatch.
+
+- GraphicsPipeline:
+    - Ahora puede aceptar más de un `PushConstant`.
+
+- AnimatedModel:
+    - SetAnimation(): ahora puede aceptar el nombre de la animación. 
+
+###### ECS
+
+- RenderSystem3D: ahora renderiza el spritebatch.
+
+###### Types
+
+- Quaternion:
+    - Interpolate()
+
+
+## 2021.3.3a
+
+###### Bugfixes
+- **Bugfix**: ahora los framebuffers de efectos de post-procesamiento usan la imagen de profundidad.
+
+
+## 2021.3.3b
+
+###### RenderAPI
+
+Ahora usa los nuevos VulkanBuffer.
+
+- VulkanBuffer:
+    - Ahora manejan ellos mismos sus operaciones, en vez de hacerse a través del RenderAPI.
+    - Write() / WriteMapped().
+    - Map() / Unmap().
+    - Allocate() / Destroy().
+    
+###### Colections
+
+- DynamicArray: añadido
+
+
+## 2021.3.4a
+
+###### RenderAPI
+
+Ahora usa viewports dinámicos, que se especifican una vez por renderpass.
+Primeras clases del sistema de materiales.
+
+- RenderAPI:
+    - `<SetViewport()>`: establece el viewport (por defecto, el tamaño de la ventana).
+    
+- Material System:
+    - Enum `<MaterialBindingType>`: `DATA_BUFFER`, `DYNAMIC_DATA_BUFFER`, `TEXTURE`.
+    - Enum `<MaterialBindingShaderStage >`: `VERTEX`, `FRAGMENT`.
+
+    - MaterialBinding: un binding del material (tipo + shader stage).
+
+    - MaterialInstance: almacena el descriptor set.
+
+    - MaterialPool: 
+        - Almacena los descriptor pools. 
+        - Se usa para crear instancias del material.
+        - Almacena una lista de MaterialPoolData.
+
+    - MaterialPoolData:
+        - Almacena un descriptor pool con 32 espacios.
+
+###### Colections
+
+- DynamiceArray:
+    - RemoveAndMoveLast: elimina un elemento y lo intercambia con el último.
+    - GetPosition: devuelve la posición en el array del elemento.
+    - HasElement: true si el elemento existe en el array.
+
+
+
+### TODO: 2021.2.24a,b,c
