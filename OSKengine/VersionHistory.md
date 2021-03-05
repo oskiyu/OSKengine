@@ -83,6 +83,7 @@ Añadidos `typedef`s para algunas variables de OpenGL y para las variables del Mo
 
 ###### 
 
+
 ## 2020.10.13a
 
 ###### CollisionSystem:
@@ -473,9 +474,55 @@ Transformado en sistema.
         - Reacciona a eventos de imput.
         - Permite registrar funciones que se ejecutarán al producitse un evento con el mismo nombre.
 
-    -InputEvent: 
+    - InputEvent: 
         - Nombre.
         - Teclas y botones enlazados.
+        
+
+## 2021.2.24a
+
+###### ECS
+   
+- GameObject:
+    - Ahora tiene Transform.
+
+- RenderSystem3D:
+    - Añadido método `OnDraw()`.
+    - Añadido `ModelComponent`.
+
+- InputSystem:
+    - Ahora diferencia entre eventos prolongados y eventos de una sola vez.
+
+- OnTickSystem: añadido.
+
+###### Game
+
+- Añadida clase base Game:
+    - Contiene el `ECS`.
+    - Métodos: `OnCreate()`, `LoadContent()`, `OnExit()`, `OnTick()`, `OnDraw()`. `` ``
+
+###### IMGI
+   
+- Añadido soporte (no completado).
+
+
+## 2021.2.24b
+
+###### RenderAPI
+
+- Eliminado soporte para interfaz de usuario.
+
+###### IMGI
+   
+- Eliminado.
+   
+
+## 2021.2.24b
+
+###### RenderAPI
+
+- Model:
+    - Ahora almacena su propio UBO para animaciones.
 
 
 ## 2021.2.25a
@@ -499,7 +546,6 @@ Ahora las animaciones usan un formato interno.
 - ContentManager:
     - LoadAnimatedModel():
         - Carga la información de Assimp al formato interno.
-
 
 
 ## 2021.2.27a
@@ -535,17 +581,14 @@ Ahora las animaciones usan un buffer dinámico.
 
 - AnimatedModel:
     - **Optimización:** ahora los nodos contienen un puntero hacia los nodos animados que le coresponden.
-    
-###### Bugfixes
-- **Bugfix**: ahora los framebuffers de efectos de post-procesamiento usan la imagen de profundidad.
-
 
 ###### Game
 
 - Game:
-    -Ahora tiene su propio `SpriteBatch` por defecto.
+    - Ahora tiene su propio `SpriteBatch` por defecto.
 
 ###### Bugfixes
+- **Bugfix**: ahora los framebuffers de efectos de post-procesamiento usan la imagen de profundidad.
 - **Bugfix**: ahora la escena principal no se renderiza dos veces.
 
 
@@ -642,7 +685,3 @@ Primeras clases del sistema de materiales.
     - RemoveAndMoveLast: elimina un elemento y lo intercambia con el último.
     - GetPosition: devuelve la posición en el array del elemento.
     - HasElement: true si el elemento existe en el array.
-
-
-
-### TODO: 2021.2.24a,b,c
