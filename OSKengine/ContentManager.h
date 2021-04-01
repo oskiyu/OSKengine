@@ -48,18 +48,10 @@ namespace OSK {
 		//Elimina el ContentManager.
 		//Llama a Unload().
 		~ContentManager();
-
-		//Carga una textura 2D (para un sprite).
-		//	<path>: ruta de la textura (incluyendo la extensión de la imagen).
+		
+		//TODO
 		Texture* LoadTexture(const std::string& path);
-
-		//Carga una textura 2D (para un modelo 3D).
-		//	<path>: ruta de la textura (incluyendo la extensión de la imagen).
-		ModelTexture* LoadModelTexture(const std::string& path);
-
-		//Carga un cubemap para un Skybox.
-		//	<path>: ruta de la textura (incluyendo la extensión de la imagen).
-		SkyboxTexture* LoadSkyboxTexture(const std::string& path);
+		Texture* LoadSkyboxTexture(const std::string& folderPath);
 
 		//Carga los vértices y los índices de un modelo 3D.
 		//	<path>: ruta del modelo (incluyendo la extensión del modelo).
@@ -119,16 +111,12 @@ namespace OSK {
 		void Unload();
 
 		//Textura por defecto.
-		static ModelTexture* DefaultTexture;
+		static Texture* DefaultTexture;
 
 	private:
 
-		//Almacena las texturas 2D.
+		//Almacena las texturas.
 		std::list<Texture*> Textures = {};
-		//Almacena las texturas de modelos.
-		std::list<ModelTexture*> ModelTextures = {};
-		//Almacena las texturas de Skybox.
-		std::list<SkyboxTexture*> SkyboxTextures = {};
 		//Almacena los vértices y los índices de los modelos 3D.
 		std::list<ModelData*> ModelDatas = {};
 		//Almacena los vértices y los índices de los modelos 3D animados.
@@ -142,8 +130,6 @@ namespace OSK {
 		
 		//HASH-MAPS.
 		std::unordered_map<std::string, Texture*> TextureFromPath = {};
-		std::unordered_map<std::string, ModelTexture*> ModelTextureFromPath = {};
-		std::unordered_map<std::string, SkyboxTexture*> SkyboxTextureFromPath = {};
 		std::unordered_map<std::string, ModelData*> ModelDataFromPath = {};
 		std::unordered_map<std::string, AnimatedModel*> AnimatedModelFromPath = {};
 		std::unordered_map<std::string, Font*> FontsFromPath = {};

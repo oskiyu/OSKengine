@@ -8,6 +8,8 @@
 #include "Texture.h"
 #include <vector>
 
+#include "MaterialInstance.h"
+
 namespace OSK {
 
 	struct OSKAPI_CALL AnimUBO {
@@ -87,8 +89,8 @@ namespace OSK {
 		//Transform3D del modelo.
 		Transform ModelTransform;
 
-		//Textura del modelo.
-		ModelTexture* texture = nullptr;
+		SharedPtr<MaterialInstance> ModelMaterial;
+		SharedPtr<MaterialInstance> ShadowMaterial;
 
 		//Obtiene el Push Constant con la matriz del modelo.
 		inline PushConst3D GetPushConst() {

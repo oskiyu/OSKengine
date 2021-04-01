@@ -5,6 +5,10 @@
 #include "OSKtypes.h"
 #include "Log.h"
 
+#include <vector>
+#include <vulkan/vulkan.h>
+#include <string>
+
 namespace OSK {
 
 	//Tipos de binding del material.
@@ -28,5 +32,13 @@ namespace OSK {
 	struct OSKAPI_CALL MaterialBinding {
 		MaterialBindingType Type;
 		MaterialBindingShaderStage Stage;
+		std::string BindingName = "";
 	};
+
+	typedef	std::vector<MaterialBinding> MaterialBindingLayout;
+
+	
+	VkDescriptorType GetVulkanBindingType(MaterialBindingType type);
+	VkShaderStageFlagBits GetVulkanShaderBinding(MaterialBindingShaderStage type);
+
 }

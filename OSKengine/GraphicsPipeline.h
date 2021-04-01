@@ -94,7 +94,7 @@ namespace OSK {
 		std::string vertexPath;
 		std::string fragmentPath;
 
-		ModelTexture* DefaultTexture = nullptr;
+		Texture* DefaultTexture = nullptr;
 
 		VkShaderModule createShaderModule(const std::vector<char>& code) const;
 

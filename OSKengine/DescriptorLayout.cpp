@@ -1,16 +1,14 @@
 #include "DescriptorLayout.h"
 
+#include "DescriptorPool.h"
+
 #include <stdexcept>
 
 namespace OSK {
 
-	DescriptorLayout::DescriptorLayout(VkDevice logicalDevice, uint32_t swapchainCount) {
-		this->logicalDevice = logicalDevice;
-		swapchainImageCount = swapchainCount;
-	}
-
 	DescriptorLayout::~DescriptorLayout() {
-		clear();
+		if (VulkanDescriptorSetLayout != VK_NULL_HANDLE)
+			vkDestroyDescriptorSetLayout(LogicalDevice, VulkanDescriptorSetLayout, nullptr);
 	}
 
 	void DescriptorLayout::AddBinding(uint32_t binding, VkDescriptorType type, VkShaderStageFlags stage, uint32_t count) {
@@ -21,39 +19,22 @@ namespace OSK {
 		layoutBinding.stageFlags = stage;
 		layoutBinding.pImmutableSamplers = nullptr;
 
-		descriptorLayoutBindings.push_back(layoutBinding);
-
-		VkDescriptorPoolSize size{};
-		size.type = type;
-		size.descriptorCount = swapchainImageCount;
-
-		descriptorPoolSizes.push_back(size);
+		DescriptorLayoutBindings.Insert(layoutBinding);
 	}
 
-	void DescriptorLayout::Create(uint32_t maxSets) {
+	void DescriptorLayout::AddBinding(VkDescriptorType type, VkShaderStageFlags stage) {
+		AddBinding(DescriptorLayoutBindings.GetSize(), type, stage);
+	}
+
+	void DescriptorLayout::Create() {
 		VkDescriptorSetLayoutCreateInfo layoutInfo{};
 		layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-		layoutInfo.bindingCount = descriptorLayoutBindings.size();
-		layoutInfo.pBindings = descriptorLayoutBindings.data();
+		layoutInfo.bindingCount = DescriptorLayoutBindings.GetSize();
+		layoutInfo.pBindings = DescriptorLayoutBindings.GetData();
 
-		VkResult result = vkCreateDescriptorSetLayout(logicalDevice, &layoutInfo, nullptr, &VulkanDescriptorSetLayout);
+		VkResult result = vkCreateDescriptorSetLayout(LogicalDevice, &layoutInfo, nullptr, &VulkanDescriptorSetLayout);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear descriptor set layout.");
-
-		VkDescriptorPoolCreateInfo poolInfo{};
-		poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-		poolInfo.poolSizeCount = descriptorPoolSizes.size();
-		poolInfo.pPoolSizes = descriptorPoolSizes.data();
-		poolInfo.maxSets = static_cast<uint32_t>(swapchainImageCount * maxSets);
-
-		result = vkCreateDescriptorPool(logicalDevice, &poolInfo, nullptr, &VulkanDescriptorPool);
-		if (result != VK_SUCCESS)
-			throw std::runtime_error("ERROR: crear descriptor pool.");
-	}
-
-	void DescriptorLayout::clear() {
-		vkDestroyDescriptorSetLayout(logicalDevice, VulkanDescriptorSetLayout, nullptr);
-		vkDestroyDescriptorPool(logicalDevice, VulkanDescriptorPool, nullptr);
 	}
 
 }

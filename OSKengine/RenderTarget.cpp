@@ -46,7 +46,6 @@ void RenderTarget::CreateRenderpass(std::vector<RenderpassAttachment> colorAttac
 
 	sbPass.AddDependency(dep);
 	sbPass.AddDependency(dep2);
-	sbPass.Set();
 
 	VRenderpass->SetMSAA(msaa);
 	VRenderpass->AddSubpass(sbPass);
@@ -56,6 +55,8 @@ void RenderTarget::CreateRenderpass(std::vector<RenderpassAttachment> colorAttac
 		VRenderpass->AddAttachment(*depthAttachment);
 
 	VRenderpass->Create();
+
+	renderer->GetMaterialSystem()->RegisterRenderpass(VRenderpass);
 }
 
 void RenderTarget::SetFormat(VkFormat format) {
@@ -63,11 +64,11 @@ void RenderTarget::SetFormat(VkFormat format) {
 }
 
 void RenderTarget::TransitionToRenderTarget(VkCommandBuffer* cmdBuffer, VkImageLayout layout) {
-	VulkanImageGen::TransitionImageLayout(&RenderedSprite.texture->Albedo, VK_IMAGE_LAYOUT_UNDEFINED, layout, 1, 1, cmdBuffer);
+	VulkanImageGen::TransitionImageLayout(&RenderedSprite.Texture2D->Image, VK_IMAGE_LAYOUT_UNDEFINED, layout, 1, 1, cmdBuffer);
 }
 
 void RenderTarget::TransitionToTexture(VkCommandBuffer* cmdBuffer) {
-	VulkanImageGen::TransitionImageLayout(&RenderedSprite.texture->Albedo, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 1, 1, cmdBuffer);
+	VulkanImageGen::TransitionImageLayout(&RenderedSprite.Texture2D->Image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 1, 1, cmdBuffer);
 }
 
 void RenderTarget::CreateFramebuffers(uint32_t numFb, VkImageView* images, uint32_t numViews) {
@@ -86,12 +87,13 @@ void RenderTarget::SetSize(uint32_t sizeX, uint32_t sizeY, bool createColorImage
 	Size.Y = sizeY;
 
 	if (spriteHasBeenCreated && createColorImage) {
-		if (RenderedSprite.texture->Albedo.Image != VK_NULL_HANDLE)
-			RenderedSprite.texture->Albedo.Destroy();
+		if (RenderedSprite.Texture2D->Image.Image != VK_NULL_HANDLE)
+			RenderedSprite.Texture2D->Image.Destroy();
 
-		VulkanImageGen::CreateImage(&RenderedSprite.texture->Albedo, Size, Format, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
-		VulkanImageGen::CreateImageView(&RenderedSprite.texture->Albedo, Format, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
-		renderer->createDescriptorSets(RenderedSprite.texture);
+		VulkanImageGen::CreateImage(&RenderedSprite.Texture2D->Image, Size, Format, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
+		VulkanImageGen::CreateImageView(&RenderedSprite.Texture2D->Image, Format, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
+		
+		RenderedSprite.UpdateMaterialTexture();
 	}
 
 	if (updatePipelines) {
@@ -110,8 +112,9 @@ void RenderTarget::SetSize(uint32_t sizeX, uint32_t sizeY, bool createColorImage
 
 void RenderTarget::CreateSprite(ContentManager* content) {
 	content->CreateSprite(RenderedSprite);
-	RenderedSprite.texture = new Texture;
+	RenderedSprite.Texture2D = new Texture();
 	Content = content;
+	RenderedSprite.SpriteMaterial = renderer->GetMaterialSystem()->GetMaterial(renderer->DefaultMaterial2D_Name)->CreateInstance();
 
 	spriteHasBeenCreated = true;
 }

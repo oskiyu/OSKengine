@@ -14,6 +14,8 @@
 #include "RenderSystem3D.h"
 #include "OnTickSystem.h"
 
+#include "UniquePtr.hpp"
+
 class Game {
 
 public:
@@ -68,9 +70,9 @@ private:
 
 	void MainLoop();
 
-	OSK::RenderAPI* renderer = nullptr;
-	OSK::WindowAPI* window = nullptr;
-	OSK::AudioSystem* audio = nullptr;
+	UniquePtr<OSK::RenderAPI> renderer;
+	UniquePtr<OSK::WindowAPI> window;
+	UniquePtr<OSK::AudioSystem> audio;
 
 	deltaTime_t Framerate = 0.0f;
 	deltaTime_t FramerateDeltaTime = 0.0f;
@@ -78,7 +80,7 @@ private:
 
 protected:
 
-	OSK::EntityComponentSystem* ECS = nullptr;
+	UniquePtr<OSK::EntityComponentSystem> ECS;
 
 	OSK::PhysicsScene* PhysicsSystem = nullptr;
 	OSK::InputSystem* InputSystem = nullptr;

@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "DescriptorLayout.h"
+#include "DescriptorPool.h"
 #include "VulkanBuffer.h"
 #include "VulkanImage.h"
 
@@ -28,7 +29,7 @@ namespace OSK {
 		~DescriptorSet();
 
 		//Establece el descriptor layout que define la comunicación CPU->GPU que va a usar este descriptor set.
-		void SetDescriptorLayout(DescriptorLayout* layout);
+		void Create(DescriptorLayout* layout, DescriptorPool* pool, bool allocate = true);
 
 		//Registra un UBO.
 		//	<buffers>: buffers que almacenan la información que se usará en los shaders.
@@ -50,7 +51,7 @@ namespace OSK {
 
 		//Crea el descriptor set.
 		//IMPORTANTE: debe llamarse antes a SetDescriptorLayout.
-		void Create();
+		void Update();
 
 		//Establece este descriptor set como el que se va a usar a partir de ahora en un CommandBuffer.
 		//	<commandBuffer>: CommandBuffer.
@@ -68,6 +69,12 @@ namespace OSK {
 
 		std::vector<VkDescriptorSet> VulkanDescriptorSets;
 
+		void Reset();
+
+		inline uint32_t GetBindingsCount() const {
+			return bindingsCount;
+		}
+
 	private:
 
 		DescriptorSet(VkDevice logicalDevice, uint32_t swapchainCount);
@@ -75,15 +82,18 @@ namespace OSK {
 		void clear();
 
 		DescriptorLayout* layout;
+		DescriptorPool* pool;
 		std::vector<std::vector<VkWriteDescriptorSet>> descriptorWrites{};
 
 		VkDevice logicalDevice;
-		uint32_t swapchainCount;
+		uint32_t swapchainCount = 0;
 
 		std::vector<VkDescriptorBufferInfo*> bufferInfos{};
 		std::vector<VkDescriptorImageInfo*> imageInfos{};
 
 		bool cleared = false;
+
+		uint32_t bindingsCount = 0;
 
 	};
 

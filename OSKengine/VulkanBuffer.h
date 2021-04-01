@@ -28,6 +28,7 @@ namespace OSK {
 		void Free();
 
 		size_t Size = 0;
+		size_t DynamicSize = 0;
 
 		//Buffer.
 		VkBuffer Buffer = VK_NULL_HANDLE;

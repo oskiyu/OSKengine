@@ -7,6 +7,7 @@
 #include "ToString.h"
 #include "Heightmap.h"
 #include "CollisionBox.h"
+#include "MaterialInstance.h"
 
 #include <cstdlib>
 
@@ -63,6 +64,9 @@ namespace OSK {
 
 		//Fricción del mapa (para el motor de físicas).
 		float_t FrictionCoefficient = 1.0f;
+
+		SharedPtr<MaterialInstance> TerrainMaterial;
+		SharedPtr<MaterialInstance> ShadowsMaterial;
 
 	private:
 

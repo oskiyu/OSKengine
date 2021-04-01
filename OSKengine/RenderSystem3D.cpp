@@ -14,10 +14,10 @@ Signature RenderSystem3D::GetSystemSignature() {
 }
 
 void RenderSystem3D::Init() {
-	RScene = new RenderizableScene(Renderer, 1024);
-	Renderer->SetRenderizableScene(RScene);
+	RScene = new RenderizableScene(Renderer);
 	Renderer->RSystem = this;
 	Stage.Scene = RScene;
+	RScene->TargetRenderpass = Renderer->Stage.RTarget->VRenderpass;
 }
 
 void RenderSystem3D::OnTick(deltaTime_t deltaTime) {
@@ -41,21 +41,11 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 		for (auto object : Objects) {
 			ModelComponent& comp = ECSsystem->GetComponent<ModelComponent>(object);
 
-			for (auto& model : comp.StaticMeshes) {
-				if (!model.texture->DirShadowsDescriptorSet) {
-					RScene->CreateDescriptorSet(&model);
-				}
-
+			for (auto& model : comp.StaticMeshes)
 				RScene->DrawShadows(&model, cmdBuffer, i);
-			}
 
-			for (auto& model : comp.AnimatedModels) {
-				if (!model.texture->DirShadowsDescriptorSet) {
-					RScene->CreateDescriptorSet(&model);
-				}
-
+			for (auto& model : comp.AnimatedModels)
 				RScene->DrawShadows(&model, cmdBuffer, i);
-			}
 		}
 
 		RScene->EndDrawShadows(cmdBuffer, i);
@@ -84,21 +74,12 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 		for (auto object : Objects) {
 			ModelComponent& comp = ECSsystem->GetComponent<ModelComponent>(object);
 
-			for (auto& model : comp.StaticMeshes) {
-				if (!model.texture->PhongDescriptorSet) {
-					RScene->CreateDescriptorSet(&model);
-				}
-
+			for (auto& model : comp.StaticMeshes)
 				RScene->Draw(&model, cmdBuffer, i);
-			}
 
-			for (auto& model : comp.AnimatedModels) {
-				if (!model.texture->PhongDescriptorSet) {
-					RScene->CreateDescriptorSet(&model);
-				}
-
+			for (auto& model : comp.AnimatedModels)
 				RScene->Draw(&model, cmdBuffer, i);
-			}
+			
 		}
 
 		RScene->EndDraw(cmdBuffer, i);
@@ -106,50 +87,35 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 
 	for (auto& spriteBatch : Stage.SpriteBatches) {
 
-		if (!spriteBatch->spritesToDraw.empty()) {
+		if (!spriteBatch->spritesToDraw.IsEmpty()) {
+			GraphicsPipeline* pipeline = Renderer->GetMaterialSystem()->GetMaterial(Renderer->DefaultMaterial2D_Name)->GetGraphicsPipeline(Renderer->Stage.RTarget->VRenderpass);
+			pipeline->Bind(cmdBuffer);
 
-			Renderer->Stage.RTarget->Pipelines[0]->Bind(cmdBuffer);
 			vkCmdBindIndexBuffer(cmdBuffer, Sprite::IndexBuffer.Buffer, 0, VK_INDEX_TYPE_UINT16);
 			const uint32_t indicesSize = Sprite::Indices.size();
 
+			DescriptorSet* previousDescSet = nullptr;
+
 			for (auto& sprite : spriteBatch->spritesToDraw) {
-				if (sprite.number == 1) {
-					if (sprite.sprites->isOutOfScreen)
-						continue;
+				if (!sprite.SpriteMaterial->HasBeenSet())
+					continue;
 
-					VkBuffer vertexBuffers[] = { sprite.sprites->VertexBuffer.Buffer };
-					VkDeviceSize offsets[] = { 0 };
-					vkCmdBindVertexBuffers(cmdBuffer, 0, 1, vertexBuffers, offsets);
+				VkBuffer vertexBuffers[] = { sprite.VertexBuffer };
+				VkDeviceSize offsets[] = { 0 };
+				vkCmdBindVertexBuffers(cmdBuffer, 0, 1, vertexBuffers, offsets);
 
-					sprite.sprites->texture->Descriptor->Bind(cmdBuffer, Renderer->Stage.RTarget->Pipelines[0], i);
-
-					PushConst2D pConst = sprite.sprites->getPushConst(spriteBatch->cameraMat);
-					vkCmdPushConstants(cmdBuffer, Renderer->Stage.RTarget->Pipelines[0]->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
-					vkCmdDrawIndexed(cmdBuffer, indicesSize, 1, 0, 0, 0);
+				DescriptorSet* newDescSet = sprite.SpriteMaterial->GetDescriptorSet();
+				if (previousDescSet != newDescSet) {
+					previousDescSet = newDescSet;
+					newDescSet->Bind(cmdBuffer, pipeline, i);
 				}
-				else {
-					for (uint32_t spriteIt = 0; spriteIt < sprite.number; spriteIt++) {
-						if (sprite.sprites[spriteIt].texture == nullptr)
-							continue;
 
-						if (sprite.sprites[spriteIt].isOutOfScreen)
-							continue;
-
-						VkBuffer vertexBuffers[] = { sprite.sprites[spriteIt].VertexBuffer.Buffer };
-						VkDeviceSize offsets[] = { 0 };
-						vkCmdBindVertexBuffers(cmdBuffer, 0, 1, vertexBuffers, offsets);
-
-						sprite.sprites[spriteIt].texture->Descriptor->Bind(cmdBuffer, Renderer->Stage.RTarget->Pipelines[0], i);
-
-						PushConst2D pConst = sprite.sprites[spriteIt].getPushConst(spriteBatch->cameraMat);
-						vkCmdPushConstants(cmdBuffer, Renderer->Stage.RTarget->Pipelines[0]->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
-						vkCmdDrawIndexed(cmdBuffer, indicesSize, 1, 0, 0, 0);
-					}
-				}
+				PushConst2D pConst = sprite.PConst;
+				vkCmdPushConstants(cmdBuffer, pipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
+				vkCmdDrawIndexed(cmdBuffer, indicesSize, 1, 0, 0, 0);
 			}
 		}
 	}
-
 
 	vkCmdEndRenderPass(cmdBuffer);
 	Renderer->Stage.RTarget->TransitionToTexture(&cmdBuffer);

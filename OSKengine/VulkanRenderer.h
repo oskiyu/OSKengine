@@ -20,6 +20,7 @@
 #include "Model.h"
 #include "GraphicsPipeline.h"
 #include "DescriptorLayout.h"
+#include "DescriptorPool.h"
 #include "LightsUBO.h"
 #include "Skybox.h"
 
@@ -34,6 +35,8 @@
 #include "RenderStage.h"
 #include "PostProcessingSettings.h"
 #include <functional>
+
+#include "MaterialSystem.h"
 
 #include "DynamicArray.hpp"
 
@@ -56,6 +59,10 @@ namespace OSK {
 
 	public:
 	
+		~RenderAPI() {
+			Close();
+		}
+
 		RenderTarget* RTarget = CreateNewRenderTarget();
 
 		//Inicializa el renderizador.
@@ -95,6 +102,12 @@ namespace OSK {
 		//Crea un spriteBatch.
 		SpriteBatch CreateSpriteBatch();
 
+		Material* CreateNewMaterial() {
+			Material* mat = new Material();
+			mat->SetRenderer(this);
+
+			return mat;
+		}
 
 		//Crea un nuevo graphics pipeline vacío.
 		//	<vertexPath>: ruta del shader de vértices.
@@ -102,26 +115,14 @@ namespace OSK {
 		GraphicsPipeline* CreateNewGraphicsPipeline(const std::string& vertexPath, const std::string& fragmentPath) const;
 
 		//Crea un nuevo descriptor layout vacío.
+		DescriptorPool* CreateNewDescriptorPool() const;
+
+		//Crea un nuevo descriptor layout vacío.
 		DescriptorLayout* CreateNewDescriptorLayout() const;
 
 		//Crea un nuevo descriptor set vacío.
 		DescriptorSet* CreateNewDescriptorSet() const;
-		
-		//Phong lighting.
-		
-		//Crea un nuevo graphics pipeline configurado para el motor de iluminación PHONG.
-		//	<vertexPath>: ruta del shader PHONG de vértices.
-		//	<fragmentPath>: ruta del shader PHONG de fragmento.
-		GraphicsPipeline* CreateNewPhongPipeline(const std::string& vertexPath, const std::string& fragmentPath) const;
-
-		//Crea un nuevo descriptor layout configurado para usarse con el motor de iluminación PHONG.
-		DescriptorLayout* CreateNewPhongDescriptorLayout(uint32_t maxSets) const;
-
-		//Skybox.
-		GraphicsPipeline* CreateNewSkyboxPipeline(const std::string& vertexPath, const std::string& fragmentPath) const;
-		DescriptorLayout* CreateNewSkyboxDescriptorLayout() const;
-		void CreateNewSkyboxDescriptorSet(SkyboxTexture* texture) const;
-		
+				
 		//Crea un buffer que almacenará información en la GPU.
 		//	<usage>: el uso que se le dará al buffer.
 		//	<prop>: propiedades de memoria que necesitará el buffer.
@@ -152,8 +153,6 @@ namespace OSK {
 
 		VULKAN::Framebuffer* CreateNewFramebuffer();
 
-		std::vector<VkCommandBuffer> GetCommandBuffers();
-
 		void SetRenderizableScene(RenderizableScene* scene);
 
 		struct {
@@ -171,6 +170,7 @@ namespace OSK {
 
 
 		std::vector<VkCommandBuffer> CommandBuffers;
+		std::vector<VulkanBuffer> UniformBuffers{};
 
 		//Camaras.
 		Camera2D DefaultCamera2D{};
@@ -185,10 +185,6 @@ namespace OSK {
 
 		VULKAN::Renderpass* renderpass;
 
-		GraphicsPipeline* DefaultGraphicsPipeline2D;
-		GraphicsPipeline* DefaultGraphicsPipeline3D;
-		GraphicsPipeline* DefaultSkyboxGraphicsPipeline;
-
 		ContentManager* Content = new ContentManager(this);
 
 		RenderizableScene* Scene;
@@ -202,8 +198,6 @@ namespace OSK {
 		unsigned int RenderTargetSizeX = 1024;
 		unsigned int RenderTargetSizeY = 720;
 		float RenderResolutionMultiplier = 1.0f; //Record = 17.0f { 32640 x 18360 }
-
-		void createDescriptorSets(Texture* texture) const;
 
 		void AddStage(RenderStage* stage);
 		void RemoveStage(RenderStage* stage);
@@ -227,7 +221,18 @@ namespace OSK {
 
 		void SetViewport(VkCommandBuffer& cmdBuffer, int32_t x = 0, int32_t y = 0, uint32_t sizeX = 0, uint32_t sizeY = 0) const;
 
+		const std::string DefaultMaterial2D_Name = "DefaultMaterial2D";
+		const std::string DefaultMaterial3D_Name = "DefaultMaterial3D";
+		const std::string DefaultSkyboxMaterial_Name = "DefaultSkyboxMaterial";
+		const std::string DefaultShadowsMaterial_Name = "DefaultShadowsMaterial";
+
+		MaterialSystem* GetMaterialSystem() {
+			return MSystem;
+		}
+
 	private:
+
+		MaterialSystem* MSystem = nullptr;
 
 		std::list<RenderStage*> SingleTimeStages = {};
 		std::list<RenderStage*> Stages = {};
@@ -260,10 +265,6 @@ namespace OSK {
 
 		void createDescriptorSetLayout();
 
-		OskResult createGraphicsPipeline2D();
-
-		OskResult createGraphicsPipeline3D();
-
 		void createCommandPool();
 
 		void createDepthResources();
@@ -287,6 +288,7 @@ namespace OSK {
 		void updateCommandBuffers();
 
 		void updateSpriteVertexBuffer(Sprite* obj) const;
+		void updateSpriteVertexBuffer(SpriteContainer& obj) const;
 
 		VkCommandBuffer beginSingleTimeCommandBuffer() const;
 
@@ -314,12 +316,6 @@ namespace OSK {
 		VkPresentModeKHR getPresentMode(const std::vector<VkPresentModeKHR>& modes) const;
 
 		VkExtent2D getSwapchainExtent(const VkSurfaceCapabilitiesKHR& capabilities) const;
-
-		//VkDescriptorPool DescriptorPool;
-		//VkDescriptorSetLayout DescriptorSetLayout;
-		DescriptorLayout* DescLayout;
-
-		std::vector<VulkanBuffer> UniformBuffers;
 
 		//Debug messages.
 		static VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData);
@@ -392,11 +388,9 @@ namespace OSK {
 
 		VkPhysicalDeviceMemoryProperties memProperties;
 
-		DescriptorLayout* PhongDescriptorLayout = nullptr;
-		DescriptorLayout* SkyboxDescriptorLayout = nullptr;
-
 		//POST-PROCESSING
 		GraphicsPipeline* ScreenGraphicsPipeline = nullptr;
+		DescriptorPool* ScreenDescriptorPool = nullptr;
 		DescriptorLayout* ScreenDescriptorLayout = nullptr;
 		DescriptorSet* ScreenDescriptorSet = nullptr;
 		VULKAN::Renderpass* ScreenRenderpass = nullptr;
@@ -410,6 +404,13 @@ namespace OSK {
 		//Animation
 		struct {
 			void AddAnimatedModel(AnimatedModel* model) {
+				if (!FreeSpaces.IsEmpty()) {
+					uint32_t index = FreeSpaces.Pop();
+					Models.Insert(model);
+					model->AnimationBufferOffset = index;
+
+					return;
+				}
 				model->AnimationBufferOffset = AnimationCount;
 				AnimationCount++;
 				Models.Insert(model);
@@ -419,12 +420,17 @@ namespace OSK {
 				if (!Models.HasElement(model))
 					return;
 
-				
+				uint32_t index = Models.GetPosition(model);
+				FreeSpaces.Push(index);
+
+				Models.Remove(index);
 			}
 
 			DynamicArray<AnimatedModel*> Models{};
 			uint32_t AnimationCount = 1;
 			std::vector<AnimUBO> BoneUBOs{};
+			Stack<uint32_t> FreeSpaces;
+			
 		} AnimationSystem;
 
 		/*NEW SYNC*/

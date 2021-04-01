@@ -15,9 +15,6 @@ void RenderStage::SetScene(RenderizableScene* scene) {
 }
 
 void RenderStage::SetRenderTarget(RenderTarget* rtarget, bool transferOwnership) {
-	if (isOwnerOfRTarget && RTarget)
-		delete RTarget;
-
 	isOwnerOfRTarget = transferOwnership;
 
 	RTarget = rtarget;
@@ -36,6 +33,5 @@ void RenderStage::RemoveAllSpriteBatches() {
 }
 
 void RenderStage::Clear() {
-	if (isOwnerOfRTarget)
-		delete RTarget;
+
 }

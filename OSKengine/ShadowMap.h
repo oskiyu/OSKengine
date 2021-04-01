@@ -35,8 +35,6 @@ namespace OSK {
 
 		void Clear();
 
-		void CreateDescriptorSet(Model* model, const std::vector<VulkanBuffer>& bones);
-
 		DirLightShadowUBO DirShadowsUBO = {};
 
 		Vector2ui Size;
@@ -58,14 +56,12 @@ namespace OSK {
 
 	private:
 
-		void CreateDescSets(uint32_t maxSets);
 		void CreateBuffers();
 		void UpdateBuffers();
 		void Update();
 
 		void CreateRenderpass();
 		void CreateFramebuffers();
-		void CreateGraphicsPipeline();
 
 		ContentManager* Content = nullptr;
 

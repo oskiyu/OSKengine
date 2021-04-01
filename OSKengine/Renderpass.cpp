@@ -51,21 +51,13 @@ namespace OSK::VULKAN {
 		dependencies.push_back(dependency);
 	}
 
-	void RenderpassSubpass::Set(/*const uint32_t& srcSubpass, const uint32_t& dstSubpass, VkPipelineStageFlags sourceStageMask, VkAccessFlags sourceAccess, VkPipelineStageFlags destStageMask, VkAccessFlags destAccess*/){
-/*		dependency.srcSubpass = srcSubpass;
-		dependency.dstSubpass = dstSubpass;
-		dependency.srcStageMask = sourceStageMask;
-		dependency.srcAccessMask = sourceAccess;
-		dependency.dstStageMask = destStageMask;
-		dependency.dstAccessMask = destAccess;
-*/	}
-
 	Renderpass::Renderpass(VkDevice logicalDevice) {
 		this->logicalDevice = logicalDevice;
 	}
 
 	Renderpass::~Renderpass() {
-		vkDestroyRenderPass(logicalDevice, VulkanRenderpass, nullptr);
+		if (logicalDevice && VulkanRenderpass)
+			vkDestroyRenderPass(logicalDevice, VulkanRenderpass, nullptr);
 	}
 
 	void Renderpass::SetMSAA(VkSampleCountFlagBits samples) {

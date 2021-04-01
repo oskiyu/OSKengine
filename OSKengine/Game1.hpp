@@ -88,21 +88,42 @@ public:
 				GetRenderer()->PostProcessingSettings.UseFXAA = 1;
 		};
 
-		ControlsObject.Create(ECS);
+		ControlsObject.Create(ECS.GetPointer());
 		ControlsObject.AddComponent<OSK::InputComponent>(input);
 
 		//ENTIDADES
 		Cubes.push_back({});
-		Cubes.back().Create(ECS);
-		Cubes.back().GetComponent<OSK::ModelComponent>().AddAnimatedModel("models/anim2/goblin2.dae", Content);
-		Cubes.back().GetComponent<OSK::ModelComponent>().AnimatedModels[0].ModelTransform.SetScale({ 0.000025f });
-		Cubes.back().GetComponent<OSK::ModelComponent>().Link(&Cubes.back().Transform3D);
+		Cubes.back().Create(ECS.GetPointer());
+		OSK::ModelComponent& model = Cubes.back().GetComponent<OSK::ModelComponent>();
+		model.AddAnimatedModel("models/anim2/goblin2.dae", Content);
+		model.AnimatedModels[0].ModelTransform.SetScale({ 0.000025f });
+		model.AnimatedModels[0].ModelMaterial = GetRenderer()->GetMaterialSystem()->GetMaterial(GetRenderer()->DefaultMaterial3D_Name)->CreateInstance();
+		model.AnimatedModels[0].ModelMaterial->SetBuffer(GetRenderer()->UniformBuffers);
+		model.AnimatedModels[0].ModelMaterial->SetDynamicBuffer(RenderSystem3D->RScene->BonesUBOs);
+		model.AnimatedModels[0].ModelMaterial->SetBuffer(RenderSystem3D->RScene->shadowMap->DirShadowsUniformBuffers);
+		model.AnimatedModels[0].ModelMaterial->SetTexture(Content->LoadTexture("models/anim2/td.png"));
+		model.AnimatedModels[0].ModelMaterial->SetBuffer(RenderSystem3D->RScene->LightsUniformBuffers);
+		model.AnimatedModels[0].ModelMaterial->SetTexture(Content->LoadTexture("models/anim2/ts.png"));
+		model.AnimatedModels[0].ModelMaterial->SetTexture(RenderSystem3D->RScene->shadowMap->DirShadows->RenderedSprite.Texture2D);
+		model.AnimatedModels[0].ModelMaterial->FlushUpdate();
+		
+		model.Link(&Cubes.back().Transform3D);
 
-		Player.Create(ECS);
+		Player.Create(ECS.GetPointer());
 		Player.GetComponent<OSK::ModelComponent>().AddAnimatedModel("models/anim2/goblin2.dae", Content);
 		Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0].ModelTransform.SetScale({ 0.000025f });
 		Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0].AnimationSpeed = 0.5f;
-		Player.GetComponent<OSK::ModelComponent>().Link(&Player.Transform3D);
+		OSK::ModelComponent& playerModel = Player.GetComponent<OSK::ModelComponent>();
+		playerModel.AnimatedModels[0].ModelMaterial = GetRenderer()->GetMaterialSystem()->GetMaterial(GetRenderer()->DefaultMaterial3D_Name)->CreateInstance();
+		playerModel.AnimatedModels[0].ModelMaterial->SetBuffer(GetRenderer()->UniformBuffers);
+		playerModel.AnimatedModels[0].ModelMaterial->SetDynamicBuffer(RenderSystem3D->RScene->BonesUBOs);
+		playerModel.AnimatedModels[0].ModelMaterial->SetBuffer(RenderSystem3D->RScene->shadowMap->DirShadowsUniformBuffers);
+		playerModel.AnimatedModels[0].ModelMaterial->SetTexture(Content->LoadTexture("models/anim2/td.png"));
+		playerModel.AnimatedModels[0].ModelMaterial->SetBuffer(RenderSystem3D->RScene->LightsUniformBuffers);
+		playerModel.AnimatedModels[0].ModelMaterial->SetTexture(Content->LoadTexture("models/anim2/ts.png"));
+		playerModel.AnimatedModels[0].ModelMaterial->SetTexture(RenderSystem3D->RScene->shadowMap->DirShadows->RenderedSprite.Texture2D);
+		playerModel.AnimatedModels[0].ModelMaterial->FlushUpdate();
+		playerModel.Link(&Player.Transform3D);
 		Player.Transform3D.AddPosition({ 40, 0, 0 });
 
 		GetRenderer()->DefaultCamera3D.CameraTransform.SetPosition(Player.Transform3D.GlobalPosition);
@@ -121,6 +142,7 @@ public:
 		SpriteBatch.Clear();
 
 		SpriteBatch.DrawSprite(GetRenderer()->OSKengineIconSprite);
+		SpriteBatch.DrawString(Fuente, "OSKengine " + std::string(OSK::ENGINE_VERSION), 1.0f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
 	}
 
 	OSK::Font* Fuente = nullptr;

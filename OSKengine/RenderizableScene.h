@@ -30,31 +30,15 @@ namespace OSK {
 	public:
 
 		//Crea una nueva escena.
-		RenderizableScene(RenderAPI* renderer, uint32_t maxInitEntities);
+		RenderizableScene(RenderAPI* renderer);
 
 		//Destruye la escena.
 		~RenderizableScene();
-
-		//Crea el descriptor layout de la escena.
-		//Por defecto crea un PHONG descriptor layout.
-		virtual void CreateDescriptorLayout(uint32_t maxSets);
 
 		//Establece las propiedades de las luces de la escena.
 		//El número de luces NO puede cambiar.
 		//Por defecto: 16 luces puntuales.
 		virtual void SetupLightsUBO();
-
-		//Crea un descriptor set para la textura dada.
-		//	<texture>: textura del modelo.
-		//Por defecto crea un PHONG descriptor set.
-		virtual void CreateDescriptorSet(Model* model) const;
-
-		//Crea el GraphicsPipeline de la escena.
-		//Por defecto crea un PHONG GraphicsPipeline.
-		virtual void SetGraphicsPipeline();
-
-		//Recrea el GraphicsPipeline.
-		void RecreateGraphicsPipeline();
 
 		//Actualiza los uniform buffers de la GPU que contienten información sobre las luces de la escena.
 		void UpdateLightsBuffers();
@@ -86,7 +70,7 @@ namespace OSK {
 		//UBO de las luces.
 		LightUBO Lights = {};
 		//Terreno que se va a renderizar.
-		Terrain* Terreno = nullptr;
+		UniquePtr<Terrain> Terreno;
 
 		//SYSTEM
 		void PrepareDrawShadows(VkCommandBuffer cmdBuffer, uint32_t i);
@@ -97,36 +81,34 @@ namespace OSK {
 		void Draw(Model* model, VkCommandBuffer cmdBuffer, uint32_t i);
 		void EndDraw(VkCommandBuffer cmdBuffer, uint32_t i);
 
+		VULKAN::Renderpass* TargetRenderpass = nullptr;
+		
+		UniquePtr<ShadowMap> shadowMap;
+		std::vector<VulkanBuffer> LightsUniformBuffers;
+
+		std::vector<VulkanBuffer> BonesUBOs;
+
+
 	protected:
 
 		void InitLightsBuffers();
 
-		DescriptorLayout* PhongDescriptorLayout = nullptr;
-
 		GraphicsPipeline* CurrentGraphicsPipeline = nullptr;
 		GraphicsPipeline* SkyboxPipeline = nullptr;
 
-		ContentManager* Content = nullptr;
-
-		std::vector<VulkanBuffer> LightsUniformBuffers;
+		UniquePtr<ContentManager> Content;
 
 	private:
-
-		ModelTexture* DefaultTexture = nullptr;
-
-		std::vector<VulkanBuffer> BonesUBOs;
-
 		Skybox skybox;
 
 		std::vector<Model*> Models = {};
 		std::vector<AnimatedModel*> AnimatedModels = {};
 
 		RenderAPI* renderer;
-		ShadowMap* shadowMap = nullptr;
 		std::vector<CubeShadowMap*> cubeShadowMaps;
 
 		bool isPropetaryOfTerrain = true;
-
+		
 	};
 
 }

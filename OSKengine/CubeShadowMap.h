@@ -51,7 +51,6 @@ namespace OSK {
 
 		void Create(const Vector2ui& size);
 		void Clear();
-		void CreateDescriptorSet(ModelTexture* texture);
 		void Update();
 
 		PointLightShadowUBO ShadowUBO;

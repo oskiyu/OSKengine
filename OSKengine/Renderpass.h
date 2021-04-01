@@ -66,15 +66,6 @@ namespace OSK::VULKAN {
 		//Añade una dependencia al renderpass.
 		void AddDependency(SubpassDependency dependency);
 
-		//Crea el subpass.
-		//	<srcSubpass>: subpass anterior a este.
-		//	<dstSubpass>: subpass posterior a este.
-		//	<sourceStageMask>: sourceStageMask.
-		//	<sourceAccess>: sourceAccess.
-		//	<destStageMask>: sourceAccess.
-		//	<destAccess>: sourceAccess.
-		void Set(/*const uint32_t& srcSubpass, const uint32_t& dstSubpass, VkPipelineStageFlags sourceStageMask, VkAccessFlags sourceAccess, VkPipelineStageFlags destStageMask, VkAccessFlags destAccess*/);
-
 		VkSubpassDescription description;
 
 		std::vector<VkAttachmentReference> references{};
@@ -109,7 +100,7 @@ namespace OSK::VULKAN {
 		//Crea el renderpass.
 		void Create();
 
-		VkRenderPass VulkanRenderpass;
+		VkRenderPass VulkanRenderpass = VK_NULL_HANDLE;
 
 	private:
 
@@ -122,7 +113,7 @@ namespace OSK::VULKAN {
 
 		VkSampleCountFlagBits samples = VK_SAMPLE_COUNT_1_BIT;
 
-		VkDevice logicalDevice;
+		VkDevice logicalDevice = VK_NULL_HANDLE;
 		
 		VkFormat swapchainFormat;
 

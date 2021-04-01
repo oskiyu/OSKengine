@@ -58,7 +58,7 @@ typedef int32_t buttonCode_t;
 
 //[uint32_t]
 //ID de una textura de OpenGL.
-//NO USAR: usar OSK::Texture u OSK::Skybox.
+//NO USAR: usar OSK::__Texture u OSK::Skybox.
 typedef uint32_t textureCode_t;
 
 //[uint32_t]

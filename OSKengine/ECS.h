@@ -8,6 +8,7 @@
 #include "System.h"
 #include "ComponentManager.h"
 #include "GameObjectManager.h"
+#include "UniquePtr.hpp"
 
 namespace OSK {
 
@@ -21,11 +22,6 @@ namespace OSK {
 			systemManager = new ECS::SystemManager();
 			componentManager = new ECS::ComponentManager();
 			objectManager = new ECS::GameObjectManager();
-		}
-		~EntityComponentSystem() {
-			delete systemManager;
-			delete componentManager;
-			delete objectManager;
 		}
 
 		void OnTick(deltaTime_t deltaTime) {
@@ -98,9 +94,9 @@ namespace OSK {
 
 	private:
 
-		ECS::SystemManager* systemManager = nullptr;
-		ECS::ComponentManager* componentManager = nullptr;
-		ECS::GameObjectManager* objectManager = nullptr;
+		UniquePtr<ECS::SystemManager> systemManager;
+		UniquePtr<ECS::ComponentManager> componentManager;
+		UniquePtr<ECS::GameObjectManager> objectManager;
 
 	};
 

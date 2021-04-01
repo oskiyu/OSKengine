@@ -8,12 +8,13 @@
 
 #include <initializer_list>
 
+#include "GrowthFactorType.h"
+
 namespace OSK {
 
 #ifdef _DEBUG
 #define OSK_DS_SAFE_MODE
 #endif // _DEBUG
-
 
 	/*
 	Dynamic array: array que puede cambiar de tamaño.
@@ -81,16 +82,6 @@ namespace OSK {
 			*/
 			DynamicArray* collection = nullptr;
 
-		};
-
-		/*
-		Comportamiento del array cuando no hay espacio:
-		-EXPONENTIAL: se amplia de manera exponencial (Capacity * Factor).
-		-EXPONENTIAL: se amplia de manera lineal (Capacity + Factor).
-		*/
-		enum class GrowthFactorType {
-			EXPONENTIAL,
-			LINEAL
 		};
 
 		/*
@@ -269,6 +260,7 @@ namespace OSK {
 				throw std::runtime_error(msg);
 			}
 #endif // _DEBUG
+			//At(index)->~T();
 
 			T* newData = (T*)malloc(sizeof(T) * (Capacity - index));
 
@@ -310,7 +302,7 @@ namespace OSK {
 			}
 #endif // _DEBUG
 
-			At(index) = At(Size);
+			At(index) = At(Size - 1);
 
 			Size--;
 		}
@@ -323,6 +315,7 @@ namespace OSK {
 				throw std::runtime_error(msg);
 			}
 #endif // _DEBUG
+			//At(Size)->~T();
 
 			Size--;
 		}
@@ -437,13 +430,14 @@ namespace OSK {
 		Reserva espacio para <size> elementos.
 		*/
 		void Allocate(size_t size) {
+			size_t oldCapacity = Capacity;
 			Capacity = size;
 
 			T* oldData = Data;
 			Data = (T*)malloc(sizeof(T) * size);
 
 			if (oldData) {
-				memcpy(Data, oldData, size * sizeof(T));
+				memcpy(Data, oldData, oldCapacity * sizeof(T));
 				free(oldData);
 			}
 		}

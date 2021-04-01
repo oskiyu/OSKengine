@@ -650,7 +650,7 @@ Ahora usa los nuevos VulkanBuffer.
     
 ###### Colections
 
-- DynamicArray: añadido
+- DynamicArray: añadido.
 
 
 ## 2021.3.4a
@@ -679,9 +679,130 @@ Primeras clases del sistema de materiales.
     - MaterialPoolData:
         - Almacena un descriptor pool con 32 espacios.
 
-###### Colections
+###### Collections
 
-- DynamiceArray:
+- DynamicArray:
     - RemoveAndMoveLast: elimina un elemento y lo intercambia con el último.
     - GetPosition: devuelve la posición en el array del elemento.
     - HasElement: true si el elemento existe en el array.
+
+
+## Alpha 17 (2021.4.1a)
+
+###### RenderAPI
+
+Introducido el sistema de materiales.
+
+- Material System:
+    - Material:
+        - Representa un tipo de material.
+        - Contiene:
+            - MaterialPool.
+            - DescriptorLayout.
+            - GraphicsPipelines (una por renderpass).
+            - Bindings.
+
+    - MaterialInstance:
+        - Ahora tiene funciones para establecer texturas o buffers.
+
+    - MaterialPoolData:
+        - Contiene un descriptor pool para 32 descriptor sets.
+        - Los descriptor sets se 'liberan' al eliminarse un MaterialInstance y se pueden reutilizar.
+
+    - MaterialPool:
+        - Contiene una lista de MaterialPoolData.
+
+    - MaterialSystem:
+        - Controla los materiales.
+        - Puede registrar materiales y renderpasses.
+
+    - MaterialBinding:
+        - Ahora almacena su nombre.
+        
+    - MaterialPipelineInfo:
+        - Información de un pipeline, para crearse en Material cada vez que se añada un renderpass.
+
+- DescriptorLayout:
+    - Ahora solo almacena el descriptor layout de vulkan, y los bindings.
+
+- DescriptorPool:
+    - Almacena el descriptor pool de vulkan.
+
+- DescriptorSet:
+    - Ahora puede actualizar sus valores.
+
+- RenderizableScene:
+    - Ya no almacena graphics pipelines ni descriptor layouts.
+    - Ya no puede crear descriptor sets.
+
+- RenderSystem3D:
+    - Ya no comprueba los descriptors sets de los modelos.
+
+- ShadowMap: 
+    - Ya no puede crear descriptor sets.
+
+- Sprite:
+    - `UpdateSpriteMaterial()`.
+
+- ReservedText:
+    - **ELIMINADO**.
+
+- SpriteBatch:
+    - Ahora usa `ArrayQueue`.
+    - Ya no renderiza `ReservedText`.
+
+- SpriteContainer:
+    - Ya no contiene uno o varios Sprites.
+    - Ahora contiene una copia de algunos aspectos de un Sprite en concreto.
+
+- Terrain:
+    - Ahora tiene materiales normal y de sombras.
+
+- Texture:
+    - Sólo contiene VulkanImage y tamaño.
+    
+- ModelTexture:
+    - **ELIMINADO**.
+
+- SkyboxTexture:
+    - **ELIMINADO**.
+
+- VulkanBuffer:
+    - Contiene el tamaño de cada estructura individual en un dynamic UBO.
+
+- RenderAPI:
+    - Ya no puede crear graphics pipelines de PHONG y Skybox.
+    - Ya no puede crear descriptor sets/layout de PHONG y Skybox.
+    - No almacena graphics pipelines.
+    - No almacena descriptor layouts.
+    - No crea graphics pipelines por defecto.
+    - Eliminado `GetCommandBuffers()`.
+    - Añadido MaterialSystem.
+
+- Model:
+    - Tiene dos materiales: normal y shadows.
+
+- Font:
+    - Ahora tiene su propio material.
+
+###### ContentAPI
+
+- ContentManager:
+    - `DefaultTexture`: ahora es de tipo <Texture>.
+    - `LoadModelTexture()`: **ELIMINADO**.
+    - `ModelTextures`, `SkyboxTextures`: **ELIMINADO**.
+        
+###### Colections
+
+- ArrayQueue: **añadido**.
+- ArrayStack: **añadido**.
+- LinkedList: **añadido**.
+  
+###### Memory
+
+- SharedPtr: **añadido**.
+- UniquePtr: **añadido**.
+
+###### Bugfixes
+- **Bugfix**: ahora eliminar el RenderAPI elimina correctamente sus contenidos.
+

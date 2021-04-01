@@ -10,7 +10,7 @@
 #include "AnchorTextToEnum.h"
 
 #include "SpriteContainer.h"
-#include "ReservedText.h"
+#include "ArrayQueue.hpp"
 
 namespace OSK {
 
@@ -41,31 +41,6 @@ namespace OSK {
 		//	<sizeXlimit>: si > 0, establece, en píxeles, el límite sobre el cual se aplica <limitAction>.
 		void DrawString(const Font* fuente, const std::string& texto, float size, const Vector2& position, const Color& color = Color(1.0f), Anchor screenAnchor = Anchor::TOP_LEFT, const Vector4& reference = Vector4(-1.0f), TextRenderingLimit limitAction = TextRenderingLimit::DO_NOTHING, float sizeXlimit = 0, float limitOffset = 10);
 		
-		//Precalcula un texto reservado.
-		//Debe llamarse sólamente cuando el texto (o su posición) cambie.
-		//	<fuente>: fuente del texto.
-		//	<texto>: texto que se renderiza.
-		//	<position>: posición en la que se renderiza el texto, en píxeles desde el ancla (<screenAnchor>), por defecto desde la esquina inferior izquierda de la pantalla.
-		//	<color>: color del texto.
-		//	<screenAnchor>: establece el origen de coordenadas desde el que se calcula la posición del texto.
-		//	<limitAction>: establece que ocurre cuando el texto sale de la pantalla.
-		//	<sizeXlimit>: si > 0, establece, en píxeles, el límite sobre el cual se aplica <limitAction>.
-		void PrecalculateText(const Font* fuente, const ReservedText& texto, float size, const Vector2& position, const Color& color = Color(1.0f), Anchor screenAnchor = Anchor::TOP_LEFT, const Vector4& reference = Vector4(-1.0f), TextRenderingLimit limitAction = TextRenderingLimit::DO_NOTHING, float sizeXlimit = 0, float limitOffset = 10);
-
-		//Dibuja un texto reservado.
-		//	<texto>: texto.
-		void DrawString(const ReservedText& texto);
-
-		//Precalcula y renderiza un texto reservado.
-		//	<fuente>: fuente del texto.
-		//	<texto>: texto que se renderiza.
-		//	<position>: posición en la que se renderiza el texto, en píxeles desde el ancla (<screenAnchor>), por defecto desde la esquina inferior izquierda de la pantalla.
-		//	<color>: color del texto.
-		//	<screenAnchor>: establece el origen de coordenadas desde el que se calcula la posición del texto.
-		//	<limitAction>: establece que ocurre cuando el texto sale de la pantalla.
-		//	<sizeXlimit>: si > 0, establece, en píxeles, el límite sobre el cual se aplica <limitAction>.
-		void DrawString(const Font* fuente, const ReservedText& texto, float size, const Vector2& position, const Color& color = Color(1.0f), Anchor screenAnchor = Anchor::TOP_LEFT, const Vector4& reference = Vector4(-1.0f), TextRenderingLimit limitAction = TextRenderingLimit::DO_NOTHING, float sizeXlimit = 0, float limitOffset = 10);
-
 		void SetCamera(const Camera2D& camera);
 
 		//Vacía el spriteBatch.
@@ -82,7 +57,7 @@ namespace OSK {
 		//vs
 		//2.5
 		//190
-		std::deque<SpriteContainer> spritesToDraw{};
+		ArrayQueue<SpriteContainer> spritesToDraw{};
 
 		glm::mat4 cameraMat = glm::mat4(1.0f);
 

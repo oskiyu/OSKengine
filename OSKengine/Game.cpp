@@ -12,7 +12,7 @@ void Game::SetupWindow() {
 void Game::SetupRenderer() {
 	renderer = new OSK::RenderAPI();
 
-	renderer->Window = window;
+	renderer->Window = window.GetPointer();
 	renderer->SetPresentMode(RendererCreateInfo.VSyncMode);
 	renderer->FPSlimit = RendererCreateInfo.FPSlimit;
 	renderer->RenderResolutionMultiplier = RendererCreateInfo.RendererResolution;
@@ -32,13 +32,13 @@ void Game::Run() {
 }
 
 OSK::RenderAPI* Game::GetRenderer() {
-	return renderer;
+	return renderer.GetPointer();
 }
 OSK::WindowAPI* Game::GetWindow() {
-	return window;
+	return window.GetPointer();
 }
 OSK::AudioSystem* Game::GetAudioSystem() {
-	return audio;
+	return audio.GetPointer();
 }
 deltaTime_t Game::GetFPS() {
 	return Framerate;
@@ -58,7 +58,7 @@ void Game::Init() {
 
 	LoadContent();
 
-	PhysicsSystem->FloorTerrain = RenderSystem3D->RScene->Terreno;
+	PhysicsSystem->FloorTerrain = RenderSystem3D->RScene->Terreno.GetPointer();
 
 	renderer->OSKengineIconSprite.SpriteTransform.SetPosition({ 5.0f });
 	renderer->OSKengineIconSprite.SpriteTransform.SetScale({ 48.f });
@@ -78,17 +78,18 @@ void Game::SetupSystems() {
 	RenderSystem3D = ECS->RegisterSystem<OSK::RenderSystem3D>();
 	OnTickSystem = ECS->RegisterSystem<OSK::OnTickSystem>();
 
-	InputSystem->SetWindow(window);
-	RenderSystem3D->Renderer = renderer;
+	InputSystem->SetWindow(window.GetPointer());
+	RenderSystem3D->Renderer = renderer.GetPointer();
 	RenderSystem3D->Init();
 }
 
 void Game::Close() {
-	delete renderer;
+	/*delete renderer;
 	delete window;
 	delete audio;
 
-	delete ECS;
+	delete ECS;*/
+	ECS.Delete();
 }
 
 void Game::Exit() {

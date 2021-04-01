@@ -15,13 +15,17 @@ namespace OSK {
 		clear();
 	}
 
-	void DescriptorSet::SetDescriptorLayout(DescriptorLayout* layout) {
+	void DescriptorSet::Create(DescriptorLayout* layout, DescriptorPool* pool, bool allocate) {
 		this->layout = layout;
+		this->pool = pool;
+
+		if (!allocate)
+			return;
 
 		std::vector<VkDescriptorSetLayout> layouts(swapchainCount, layout->VulkanDescriptorSetLayout);
 		VkDescriptorSetAllocateInfo allocInfo{};
 		allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-		allocInfo.descriptorPool = layout->VulkanDescriptorPool;
+		allocInfo.descriptorPool = pool->VulkanDescriptorPool;
 		allocInfo.descriptorSetCount = static_cast<uint32_t>(swapchainCount);
 		allocInfo.pSetLayouts = layouts.data();
 
@@ -52,6 +56,8 @@ namespace OSK {
 
 			bufferInfos.push_back(bufferInfo);
 		}
+
+		bindingsCount++;
 	}
 
 	void DescriptorSet::AddDynamicUniformBuffers(std::vector<VulkanBuffer> buffers, uint32_t binding, size_t size) {
@@ -76,6 +82,8 @@ namespace OSK {
 
 			bufferInfos.push_back(bufferInfo);
 		}
+
+		bindingsCount++;
 	}
 
 	void DescriptorSet::AddImage(VULKAN::VulkanImage* image, VkSampler sampler, uint32_t binding) {
@@ -100,9 +108,11 @@ namespace OSK {
 
 			imageInfos.push_back(imageInfo);
 		}
+
+		bindingsCount++;
 	}
 
-	void DescriptorSet::Create() {
+	void DescriptorSet::Update() {
 		for (uint32_t i = 0; i < descriptorWrites.size(); i++) {
 			vkUpdateDescriptorSets(logicalDevice, descriptorWrites[i].size(), descriptorWrites[i].data(), 0, nullptr);
 		}
@@ -119,6 +129,11 @@ namespace OSK {
 
 		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->VulkanPipelineLayout, 0, 1, &VulkanDescriptorSets[iteration], 1, &finalOffset);
 	}
+	
+	void DescriptorSet::Reset() {
+		clear();
+		bindingsCount = 0;
+	}
 
 	void DescriptorSet::clear() {
 		if (cleared)
@@ -129,7 +144,6 @@ namespace OSK {
 		for (auto i : imageInfos)
 			delete i;
 
-		bufferInfos.clear();
 		imageInfos.clear();
 
 		cleared = true;

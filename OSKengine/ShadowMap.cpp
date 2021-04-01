@@ -31,26 +31,18 @@ void ShadowMap::Create(const Vector2ui& size) {
 	DirShadows = renderer->CreateNewRenderTarget();
 	DirShadows->Size = Size;
 	DirShadows->CreateSprite(Content);
+	DirShadows->RenderedSprite.Texture2D->Size = Size;
 
-	VULKAN::VulkanImageGen::CreateImage(&DirShadows->RenderedSprite.texture->Albedo, Size, SHADOW_MAP_FORMAT, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
-	VULKAN::VulkanImageGen::CreateImageView(&DirShadows->RenderedSprite.texture->Albedo, SHADOW_MAP_FORMAT, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
-	VULKAN::VulkanImageGen::CreateImageSampler(DirShadows->RenderedSprite.texture->Albedo, SHADOW_MAP_FILTER, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
-	renderer->createDescriptorSets(DirShadows->RenderedSprite.texture);
-
+	VULKAN::VulkanImageGen::CreateImage(&DirShadows->RenderedSprite.Texture2D->Image, Size, SHADOW_MAP_FORMAT, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
+	VULKAN::VulkanImageGen::CreateImageView(&DirShadows->RenderedSprite.Texture2D->Image, SHADOW_MAP_FORMAT, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
+	VULKAN::VulkanImageGen::CreateImageSampler(DirShadows->RenderedSprite.Texture2D->Image, SHADOW_MAP_FILTER, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
+	DirShadows->RenderedSprite.UpdateMaterialTexture();
+	
 	CreateRenderpass();
 	CreateFramebuffers();
 	CreateBuffers();
-	CreateDescSets(1024);
-	CreateGraphicsPipeline();
 }
 
-void ShadowMap::CreateDescSets(uint32_t maxSets) {
-	DirShadowDescriptorLayout = renderer->CreateNewDescriptorLayout();
-	DirShadowDescriptorLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
-	DirShadowDescriptorLayout->AddBinding(1, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, VK_SHADER_STAGE_VERTEX_BIT);
-	DirShadowDescriptorLayout->AddBinding(2, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
-	DirShadowDescriptorLayout->Create(maxSets);
-}
 
 void ShadowMap::CreateBuffers() {
 	VkDeviceSize size = sizeof(DirLightShadowUBO);
@@ -88,30 +80,5 @@ void ShadowMap::CreateRenderpass() {
 
 void ShadowMap::CreateFramebuffers() {
 	DirShadows->SetSize(Size.X, Size.Y, false, false);
-	DirShadows->CreateFramebuffers(4, &DirShadows->RenderedSprite.texture->Albedo.View, 1);
-}
-
-void ShadowMap::CreateGraphicsPipeline() {
-	ShadowsPipeline = renderer->CreateNewGraphicsPipeline("shaders/VK_Shadows/vert.spv", "shaders/VK_Shadows/frag.spv");
-	ShadowsPipeline->SetViewport({ 0, 0, (float)Size.X, (float)Size.Y });
-	ShadowsPipeline->SetRasterizer(VK_FALSE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_BACK_BIT, VK_FRONT_FACE_CLOCKWISE); //VK_CULL_MODE_FRONT_BIT VK_CULL_MODE_NONE
-	ShadowsPipeline->SetMSAA(VK_FALSE, VK_SAMPLE_COUNT_1_BIT);
-	ShadowsPipeline->SetDepthStencil(true);
-	ShadowsPipeline->SetPushConstants(VK_SHADER_STAGE_VERTEX_BIT, sizeof(PushConst3D));
-	ShadowsPipeline->SetLayout(&DirShadowDescriptorLayout->VulkanDescriptorSetLayout);
-	ShadowsPipeline->Create(DirShadows->VRenderpass);
-
-	DirShadows->Pipelines.push_back(ShadowsPipeline);
-}
-
-void ShadowMap::CreateDescriptorSet(Model* model, const std::vector<VulkanBuffer>& bones) {
-	if (model->texture->DirShadowsDescriptorSet != nullptr)
-		delete model->texture->DirShadowsDescriptorSet;
-
-	model->texture->DirShadowsDescriptorSet = renderer->CreateNewDescriptorSet();
-	model->texture->DirShadowsDescriptorSet->SetDescriptorLayout(DirShadowDescriptorLayout);
-	model->texture->DirShadowsDescriptorSet->AddUniformBuffers(renderer->UniformBuffers, 0, sizeof(UBO));
-	model->texture->DirShadowsDescriptorSet->AddDynamicUniformBuffers(bones, 1, sizeof(AnimUBO));
-	model->texture->DirShadowsDescriptorSet->AddUniformBuffers(DirShadowsUniformBuffers, 2, sizeof(DirLightShadowUBO));
-	model->texture->DirShadowsDescriptorSet->Create();
+	DirShadows->CreateFramebuffers(4, &DirShadows->RenderedSprite.Texture2D->Image.View, 1);
 }

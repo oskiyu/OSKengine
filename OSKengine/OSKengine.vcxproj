@@ -94,6 +94,7 @@
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
+    <EnableASAN>true</EnableASAN>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -178,6 +179,7 @@
       <AdditionalIncludeDirectories>D:\Dev\VulkanSDK\1.2.131.2\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -292,6 +294,7 @@
     <ClCompile Include="CollisionSphere.cpp" />
     <ClCompile Include="CubeShadowMap.cpp" />
     <ClCompile Include="DescriptorLayout.cpp" />
+    <ClCompile Include="DescriptorPool.cpp" />
     <ClCompile Include="DescriptorSet.cpp" />
     <ClCompile Include="Framebuffer.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -299,7 +302,13 @@
     <ClCompile Include="ContentManager.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="LightsUBO.cpp" />
-    <ClCompile Include="MaterialLayout.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MaterialBinding.cpp" />
+    <ClCompile Include="MaterialInstance.cpp" />
+    <ClCompile Include="MaterialPipelineInfo.cpp" />
+    <ClCompile Include="MaterialPool.cpp" />
+    <ClCompile Include="MaterialPoolData.cpp" />
+    <ClCompile Include="MaterialSystem.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Font.cpp" />
@@ -314,7 +323,6 @@
     <ClCompile Include="RenderStage.cpp" />
     <ClCompile Include="RenderSystem3D.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
-    <ClCompile Include="ReservedText.cpp" />
     <ClCompile Include="SAT_Collider.cpp" />
     <ClCompile Include="ShadowMap.cpp" />
     <ClCompile Include="Skybox.cpp" />
@@ -343,6 +351,8 @@
     <ClInclude Include="AnchorEnum.h" />
     <ClInclude Include="AnchorTextToEnum.h" />
     <ClInclude Include="AnimatedModel.h" />
+    <ClInclude Include="ArrayQueue.hpp" />
+    <ClInclude Include="ArrayStack.h" />
     <ClInclude Include="AudioAPI.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="Component.h" />
@@ -351,18 +361,24 @@
     <ClInclude Include="Components.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="CubeShadowMap.h" />
+    <ClInclude Include="DescriptorPool.h" />
     <ClInclude Include="DynamicArray.hpp" />
     <ClInclude Include="ECS.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game1.hpp" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GrowthFactorType.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="LinkedList.hpp" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MaterialBinding.h" />
     <ClInclude Include="MaterialInstance.h" />
-    <ClInclude Include="MaterialLayout.h" />
+    <ClInclude Include="MaterialPipelineInfo.h" />
+    <ClInclude Include="MaterialPool.h" />
+    <ClInclude Include="MaterialPoolData.h" />
+    <ClInclude Include="MaterialSystem.h" />
     <ClInclude Include="ModelComponent.h" />
     <ClInclude Include="OnTickComponent.h" />
     <ClInclude Include="OnTickSystem.h" />
@@ -402,12 +418,12 @@
     <ClInclude Include="RenderizableScene.h" />
     <ClInclude Include="RenderStage.h" />
     <ClInclude Include="RenderTarget.h" />
-    <ClInclude Include="ReservedText.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SAT_Collider.h" />
     <ClInclude Include="SAT_CollisionInfo.h" />
     <ClInclude Include="SAT_Projection.hpp" />
     <ClInclude Include="ShadowMap.h" />
+    <ClInclude Include="SharedPtr.hpp" />
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="SNodeAnim.h" />
     <ClInclude Include="SpriteBatch.h" />
@@ -421,6 +437,7 @@
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="UBO.h" />
     <ClInclude Include="UIButton.h" />
+    <ClInclude Include="UniquePtr.hpp" />
     <ClInclude Include="UserInterfaceElement.h" />
     <ClInclude Include="UserInterfaceWindow.h" />
     <ClInclude Include="VulkanBuffer.h" />

@@ -100,9 +100,6 @@
     <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Font">
       <UniqueIdentifier>{67fa0a63-71d4-43cc-b48f-101ccc9026e5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Terrain">
-      <UniqueIdentifier>{49b23290-011f-4172-99b6-a43320cad0dc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\SpriteRendering">
       <UniqueIdentifier>{fd8b8838-6121-458b-8e69-d1c456857d82}</UniqueIdentifier>
     </Filter>
@@ -120,9 +117,6 @@
     </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\Terrain">
       <UniqueIdentifier>{a4506cf0-5f68-483b-b7fb-3be8ec827547}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\OSKengine\RenderAPI\SpriteRendering">
-      <UniqueIdentifier>{c6f0b7e7-24a0-49ea-993c-a59f55f03f50}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Material">
       <UniqueIdentifier>{93b8764e-cf78-493e-aae4-96d6fcb9eb51}</UniqueIdentifier>
@@ -171,6 +165,12 @@
     </Filter>
     <Filter Include="Archivos de encabezado\OSKengine\Collections">
       <UniqueIdentifier>{94d4a808-155a-427e-9ee1-afad04d1ee26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Vulkan\Terrain">
+      <UniqueIdentifier>{49b23290-011f-4172-99b6-a43320cad0dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Memory">
+      <UniqueIdentifier>{310ec2ab-d684-4479-9104-b05caa43caec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -306,9 +306,6 @@
     <ClCompile Include="Quaternion.cpp">
       <Filter>Archivos de origen\OSKengine\Types</Filter>
     </ClCompile>
-    <ClCompile Include="ReservedText.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\SpriteRendering</Filter>
-    </ClCompile>
     <ClCompile Include="Framebuffer.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\Vulkan</Filter>
     </ClCompile>
@@ -336,7 +333,28 @@
     <ClCompile Include="OnTickSystem.cpp">
       <Filter>Archivos de origen\OSKengine\Engine\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="MaterialLayout.cpp">
+    <ClCompile Include="MaterialPoolData.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialPool.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="DescriptorPool.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialBinding.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialInstance.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialPipelineInfo.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialSystem.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
     </ClCompile>
   </ItemGroup>
@@ -534,10 +552,10 @@
       <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
     </ClInclude>
     <ClInclude Include="Terrain.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Terrain</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan\Terrain</Filter>
     </ClInclude>
     <ClInclude Include="Heightmap.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Terrain</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan\Terrain</Filter>
     </ClInclude>
     <ClInclude Include="CollisionBox.h">
       <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
@@ -598,9 +616,6 @@
     </ClInclude>
     <ClInclude Include="stbi_image_write.h">
       <Filter>Archivos de encabezado\OSKengine\TP</Filter>
-    </ClInclude>
-    <ClInclude Include="ReservedText.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\SpriteRendering</Filter>
     </ClInclude>
     <ClInclude Include="SpriteContainer.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\SpriteRendering</Filter>
@@ -698,9 +713,6 @@
     <ClInclude Include="DynamicArray.hpp">
       <Filter>Archivos de encabezado\OSKengine\Collections</Filter>
     </ClInclude>
-    <ClInclude Include="MaterialLayout.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
-    </ClInclude>
     <ClInclude Include="MaterialBinding.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
     </ClInclude>
@@ -709,6 +721,39 @@
     </ClInclude>
     <ClInclude Include="Material.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrayStack.h">
+      <Filter>Archivos de encabezado\OSKengine\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedList.hpp">
+      <Filter>Archivos de encabezado\OSKengine\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialPoolData.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialPool.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="DescriptorPool.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialPipelineInfo.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialSystem.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedPtr.hpp">
+      <Filter>Archivos de encabezado\OSKengine\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="UniquePtr.hpp">
+      <Filter>Archivos de encabezado\OSKengine\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="GrowthFactorType.h">
+      <Filter>Archivos de encabezado\OSKengine\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrayQueue.hpp">
+      <Filter>Archivos de encabezado\OSKengine\Collections</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

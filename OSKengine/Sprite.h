@@ -10,6 +10,8 @@
 #include "Transform2D.h"
 #include "Color.h"
 
+#include "Material.h"
+
 namespace OSK {
 
 	//Push constants de un sprite.
@@ -26,6 +28,7 @@ namespace OSK {
 		friend class ContentManager;
 		friend class SpriteBatch;
 		friend class RenderSystem3D;
+		friend class SpriteContainer;
 
 	public:
 
@@ -39,11 +42,15 @@ namespace OSK {
 		//Establece la región de la textura que se renderizará en este sprite.
 		void SetTexCoords(float x, float y, float width, float hegith);
 
+		void UpdateMaterialTexture();
+
 		//Transform del sprite.
 		Transform2D SpriteTransform;
 
 		//Textura que se renderiza en este sprite.
-		Texture* texture = nullptr;
+		Texture* Texture2D = nullptr;
+
+		SharedPtr<MaterialInstance> SpriteMaterial;
 
 		//Color del sprite.
 		Color color = Color(1.0f);

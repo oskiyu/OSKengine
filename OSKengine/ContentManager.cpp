@@ -24,21 +24,17 @@ namespace OSK {
 
 	Assimp::Importer ContentManager::GlobalImporter;
 
-	const std::string ContentManager::DEFAULT_TEXTURE_PATH = "assets/engine/default_texture";
-	ModelTexture* ContentManager::DefaultTexture = nullptr;
+	const std::string ContentManager::DEFAULT_TEXTURE_PATH = "assets/engine/default_texture/default_texture.png";
+	Texture* ContentManager::DefaultTexture = nullptr;
 
 	ContentManager::ContentManager(RenderAPI* renderer) {
 		this->renderer = renderer;
 
 		Textures = {};
-		ModelTextures = {};
-		SkyboxTextures = {};
 		ModelDatas = {};
 		Sprites = {};
 
 		TextureFromPath = {};
-		ModelTextureFromPath = {};
-		SkyboxTextureFromPath = {};
 		ModelDataFromPath = {};
 	}
 
@@ -47,40 +43,26 @@ namespace OSK {
 	}
 
 	void ContentManager::Unload() {
-		for (auto& i : Textures) {
-			i->Albedo.Destroy();
+		for (auto& i : Textures)
 			delete i;
-		}
-
-		for (auto& i : ModelTextures)
-			delete i;
-
-		for (auto& i : SkyboxTextures) {
-			i->texture.Destroy();
-			delete i;
-		}
 
 		for (auto& i : ModelDatas)
 			delete i;
 
 		for (auto& i : Sprites) {
-			i->VertexBuffer.Free();
+			//i->VertexBuffer.Free();
 		}
 
 		for (auto& i : Sounds)
 			delete i;
 
 		Textures.clear();
-		ModelTextures.clear();
-		SkyboxTextures.clear();
 		ModelDatas.clear();
 		Sprites.clear();
 		Fonts.clear();
 		Sounds.clear();
 
 		TextureFromPath.clear();
-		ModelTextureFromPath.clear();
-		SkyboxTextureFromPath.clear();
 		ModelDataFromPath.clear();
 		FontsFromPath.clear();
 		SoundsFromPath.clear();
@@ -98,31 +80,112 @@ namespace OSK {
 
 		stbi_uc* pixels = stbi_load(path.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
 		VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels;
-		loadedTexture->sizeX = width;
-		loadedTexture->sizeY = height;
+		loadedTexture->Size.X = (uint32_t)width;
+		loadedTexture->Size.Y = (uint32_t)height;
 
 		VulkanBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 		stagingBuffer.Allocate(size);
-		
+
 		stagingBuffer.Write(pixels, size);
 
 		stbi_image_free(pixels);
-		VulkanImageGen::CreateImage(&loadedTexture->Albedo, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
+		uint32_t mipLevels = getMaxMipLevels(width, height);
+		VulkanImageGen::CreateImage(&loadedTexture->Image, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, mipLevels);
 
-		VulkanImageGen::TransitionImageLayout(&loadedTexture->Albedo, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, 1);
-		VulkanImageGen::CopyBufferToImage(&stagingBuffer, &loadedTexture->Albedo, width, height);
-		VulkanImageGen::TransitionImageLayout(&loadedTexture->Albedo, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 1, 1);
+		VulkanImageGen::TransitionImageLayout(&loadedTexture->Image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, mipLevels, 1);
+		VulkanImageGen::CopyBufferToImage(&stagingBuffer, &loadedTexture->Image, width, height);
+		VulkanImageGen::CreateMipmaps(loadedTexture->Image, { loadedTexture->Size.X, loadedTexture->Size.Y }, mipLevels);
+		VulkanImageGen::CreateImageSampler(loadedTexture->Image, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, mipLevels);
+		VulkanImageGen::TransitionImageLayout(&loadedTexture->Image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, mipLevels, 1);
 
 		stagingBuffer.Free();
 
-		VulkanImageGen::CreateImageView(&loadedTexture->Albedo, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
-
-		renderer->createDescriptorSets(loadedTexture);
+		VulkanImageGen::CreateImageView(&loadedTexture->Image, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, mipLevels);
 
 		Textures.push_back(loadedTexture);
 		TextureFromPath[path] = Textures.back();
 
 		return TextureFromPath[path];
+	}
+
+	Texture* ContentManager::LoadSkyboxTexture(const std::string& folderPath) {
+		if (TextureFromPath.find(folderPath) != TextureFromPath.end())
+			return TextureFromPath[folderPath];
+
+		Texture* texture = new Texture();
+
+		const static std::vector<std::string> facesOrder = {
+			"/right.jpg",
+			"/left.jpg",
+			"/top.jpg",
+			"/bottom.jpg",
+			"/front.jpg",
+			"/back.jpg"
+		};
+
+		int width;
+		int height;
+		int nChannels;
+
+		stbi_uc* totalImage = nullptr;
+
+		stbi_uc* pixels = stbi_load((folderPath + facesOrder[0]).c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
+		nChannels = 4;
+		VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels;
+
+		totalImage = new stbi_uc[size * 6];
+
+		memcpy(totalImage, pixels, size);
+		stbi_image_free(pixels);
+
+		for (uint32_t i = 1; i < 6; i++) {
+			stbi_uc* _pixels = stbi_load((folderPath + facesOrder[i]).c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
+			memcpy(totalImage + size * i, _pixels, size);
+			stbi_image_free(_pixels);
+		}
+
+		VulkanBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		stagingBuffer.Allocate(size * 7);
+
+		stagingBuffer.Write(totalImage, size * 6);
+
+		const uint32_t levels = 1;
+		VulkanImageGen::CreateImage(&texture->Image, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 6, VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT, levels);
+
+		VkCommandBuffer copyCmd = renderer->beginSingleTimeCommandBuffer();
+		uint32_t offset = 0;
+		std::vector<VkBufferImageCopy> bufferCopyRegions;
+		for (uint32_t face = 0; face < 6; face++) {
+			VkBufferImageCopy bufferCopyRegion = {};
+			bufferCopyRegion.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+			bufferCopyRegion.imageSubresource.mipLevel = 0;
+			bufferCopyRegion.imageSubresource.baseArrayLayer = face;
+			bufferCopyRegion.imageSubresource.layerCount = 1;
+			bufferCopyRegion.imageExtent.width = (uint32_t)width;
+			bufferCopyRegion.imageExtent.height = (uint32_t)height;
+			bufferCopyRegion.imageExtent.depth = 1;
+			bufferCopyRegion.bufferOffset = offset;
+			bufferCopyRegions.push_back(bufferCopyRegion);
+
+			offset += size;
+		}
+
+		VulkanImageGen::TransitionImageLayout(&texture->Image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, levels, 6);
+		vkCmdCopyBufferToImage(copyCmd, stagingBuffer.Buffer, texture->Image.Image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, bufferCopyRegions.size(), bufferCopyRegions.data());
+		renderer->endSingleTimeCommandBuffer(copyCmd);
+		VulkanImageGen::TransitionImageLayout(&texture->Image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, levels, 6);
+
+		stagingBuffer.Free();
+
+		VulkanImageGen::CreateImageView(&texture->Image, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_CUBE, 6, levels);
+		VulkanImageGen::CreateImageSampler(texture->Image, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
+
+		delete[] totalImage;
+
+		Textures.push_back(texture);
+		TextureFromPath[folderPath] = texture;
+
+		return TextureFromPath[folderPath];
 	}
 
 	ModelData* ContentManager::LoadModelData(const std::string& path) {
@@ -229,172 +292,16 @@ namespace OSK {
 		return model;
 	}
 
-	ModelTexture* ContentManager::LoadModelTexture(const std::string& rootPath) {
-		if (ModelTextureFromPath.find(rootPath) != ModelTextureFromPath.end())
-			return ModelTextureFromPath[rootPath];
-
-		ModelTexture* loadedTexture = new ModelTexture(renderer->LogicalDevice);
-
-		//Albedo.
-		{
-			int width;
-			int height;
-			int nChannels;
-			uint32_t mipLevels;
-
-			std::string path = rootPath + "/td.png";
-			stbi_uc* pixels = stbi_load(path.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
-			VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels;
-			loadedTexture->sizeX = width;
-			loadedTexture->sizeY = height;
-
-			mipLevels = getMaxMipLevels(width, height);
-
-			VulkanBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-			stagingBuffer.Allocate(size);
-
-			stagingBuffer.Write(pixels, size);
-
-			stbi_image_free(pixels);
-			VulkanImageGen::CreateImage(&loadedTexture->Albedo, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, mipLevels);
-
-			VulkanImageGen::TransitionImageLayout(&loadedTexture->Albedo, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, mipLevels, 1);
-			VulkanImageGen::CopyBufferToImage(&stagingBuffer, &loadedTexture->Albedo, width, height);
-			VulkanImageGen::CreateMipmaps(loadedTexture->Albedo, { loadedTexture->sizeX, loadedTexture->sizeY }, mipLevels);
-			VulkanImageGen::CreateImageSampler(loadedTexture->Albedo, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, mipLevels);
-
-			stagingBuffer.Free();
-
-			VulkanImageGen::CreateImageView(&loadedTexture->Albedo, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, mipLevels);
-		}
-		//Specular
-		{
-			int width;
-			int height;
-			int nChannels;
-			uint32_t mipLevels;
-
-			std::string path = rootPath + "/ts.png";
-			stbi_uc* pixels = stbi_load(path.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
-			VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels;
-			loadedTexture->sizeX = width;
-			loadedTexture->sizeY = height;
-
-			mipLevels = getMaxMipLevels(width, height);
-
-			VulkanBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-			stagingBuffer.Allocate(size);
-			
-			stagingBuffer.Write(pixels, size);
-
-			stbi_image_free(pixels);
-			VulkanImageGen::CreateImage(&loadedTexture->Specular, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, mipLevels);
-
-			VulkanImageGen::TransitionImageLayout(&loadedTexture->Specular, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, mipLevels, 1);
-			VulkanImageGen::CopyBufferToImage(&stagingBuffer, &loadedTexture->Specular, width, height);
-			VulkanImageGen::CreateMipmaps(loadedTexture->Specular, { loadedTexture->sizeX, loadedTexture->sizeY }, mipLevels);
-			VulkanImageGen::CreateImageSampler(loadedTexture->Specular, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, mipLevels);
-
-			stagingBuffer.Free();
-
-			VulkanImageGen::CreateImageView(&loadedTexture->Specular, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, mipLevels);
-		}
-
-		ModelTextures.push_back(loadedTexture);
-		ModelTextureFromPath[rootPath] = ModelTextures.back();
-
-		return ModelTextureFromPath[rootPath];
-	}
-
-	SkyboxTexture* ContentManager::LoadSkyboxTexture(const std::string& path) {
-		if (SkyboxTextureFromPath.find(path) != SkyboxTextureFromPath.end())
-			return SkyboxTextureFromPath[path];
-
-		const static std::vector<std::string> facesOrder = {
-			"/right.jpg",
-			"/left.jpg",
-			"/top.jpg",
-			"/bottom.jpg",
-			"/front.jpg",
-			"/back.jpg"
-		};
-
-		SkyboxTexture* texture = new SkyboxTexture();
-
-		int width;
-		int height;
-		int nChannels;
-
-		stbi_uc* totalImage = nullptr;
-
-		stbi_uc* pixels = stbi_load((path + facesOrder[0]).c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
-		nChannels = 4;
-		VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels;
-
-		totalImage = new stbi_uc[size * 6];
-
-		memcpy(totalImage, pixels, size);
-		stbi_image_free(pixels);
-
-		for (uint32_t i = 1; i < 6; i++) {
-			stbi_uc* _pixels = stbi_load((path + facesOrder[i]).c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
-			memcpy(totalImage + size * i, _pixels, size);
-			stbi_image_free(_pixels);
-		}
-
-		VulkanBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-		stagingBuffer.Allocate(size * 7);
-
-		stagingBuffer.Write(totalImage, size * 6);
-
-		const uint32_t levels = 1;
-		VulkanImageGen::CreateImage(&texture->texture, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 6, VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT, levels);
-
-		VkCommandBuffer copyCmd = renderer->beginSingleTimeCommandBuffer();
-		uint32_t offset = 0;
-		std::vector<VkBufferImageCopy> bufferCopyRegions;
-		for (uint32_t face = 0; face < 6; face++) {
-			VkBufferImageCopy bufferCopyRegion = {};
-			bufferCopyRegion.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-			bufferCopyRegion.imageSubresource.mipLevel = 0;
-			bufferCopyRegion.imageSubresource.baseArrayLayer = face;
-			bufferCopyRegion.imageSubresource.layerCount = 1;
-			bufferCopyRegion.imageExtent.width = (uint32_t)width;
-			bufferCopyRegion.imageExtent.height = (uint32_t)height;
-			bufferCopyRegion.imageExtent.depth = 1;
-			bufferCopyRegion.bufferOffset = offset;
-			bufferCopyRegions.push_back(bufferCopyRegion);
-
-			offset += size;
-		}
-
-		VulkanImageGen::TransitionImageLayout(&texture->texture, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, levels, 6);
-		vkCmdCopyBufferToImage(copyCmd, stagingBuffer.Buffer, texture->texture.Image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, bufferCopyRegions.size(), bufferCopyRegions.data());
-		renderer->endSingleTimeCommandBuffer(copyCmd);
-		VulkanImageGen::TransitionImageLayout(&texture->texture, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,  VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, levels, 6);
-
-		stagingBuffer.Free();
-
-		VulkanImageGen::CreateImageView(&texture->texture, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_CUBE, 6, levels);
-
-		renderer->CreateNewSkyboxDescriptorSet(texture);
-
-		delete[] totalImage;
-
-		SkyboxTextures.push_back(texture);
-		SkyboxTextureFromPath[path] = texture;
-		
-		return SkyboxTextureFromPath[path];
-	}
-
 	void ContentManager::LoadSkybox(Skybox& skybox, const std::string& path) {
-		skybox.texture = LoadSkyboxTexture(path);
+		skybox.Instance = renderer->GetMaterialSystem()->GetMaterial(renderer->DefaultSkyboxMaterial_Name)->CreateInstance();
+		skybox.Instance->SetBuffer("Camera", renderer->UniformBuffers);
+		skybox.Instance->SetTexture("Texture", LoadSkyboxTexture(path));
+		skybox.Instance->FlushUpdate();
 	}
 
 	void ContentManager::LoadModel(Model& model, const std::string& path) {
 		model.Data = LoadModelData(path);
 		auto direct = path.substr(0, path.find_last_of('/'));
-		model.texture = LoadModelTexture(direct);
 
 		model.LogicalDevice = renderer->LogicalDevice;
 	}
@@ -514,7 +421,6 @@ namespace OSK {
 		animationCount++;
 
 		auto direct = path.substr(0, path.find_last_of('/'));
-		model.texture = LoadModelTexture(direct);
 	}
 
 	SNode ContentManager::GetNodes(const aiNode* node) {
@@ -531,11 +437,11 @@ namespace OSK {
 	}
 
 	void ContentManager::LoadSprite(Sprite& sprite, const std::string& path) {
-		sprite.texture = LoadTexture(path);
-
-		renderer->createSpriteVertexBuffer(&sprite);
-
-		Sprites.push_back(&sprite);
+		CreateSprite(sprite);
+		sprite.Texture2D = LoadTexture(path);
+		sprite.SpriteMaterial = renderer->GetMaterialSystem()->GetMaterial(renderer->DefaultMaterial2D_Name)->CreateInstance();
+		sprite.UpdateMaterialTexture();
+		sprite.SpriteMaterial->FlushUpdate();
 	}
 
 	void ContentManager::CreateSprite(Sprite& sprite) {
@@ -626,27 +532,35 @@ namespace OSK {
 
 		VULKAN::VulkanImage image = VulkanImageGen::CreateImageFromBitMap(textureSizeX, textureSizeY, data);
 
-		fontTexture->sizeX = textureSizeX;
-		fontTexture->sizeY = textureSizeY;
-		fontTexture->Albedo = image;
-		renderer->createDescriptorSets(fontTexture);
+		fontTexture->Size.X = textureSizeX;
+		fontTexture->Size.Y = textureSizeY;
+		fontTexture->Image = image;
+		fontTexture->Image.Sampler = renderer->GlobalImageSampler;
 
 		Textures.push_back(fontTexture);
 
+		fuente->FontMaterial = renderer->GetMaterialSystem()->GetMaterial(renderer->DefaultMaterial2D_Name)->CreateInstance();
+		fuente->FontMaterial->SetTexture(fontTexture);
+		fuente->FontMaterial->FlushUpdate();
+
 		currentX = 0;
 		for (uint32_t c = 0; c < 255; c++) {
-			FontChar character{};
-			character.sprite.texture = fontTexture;
+			fuente->Characters[c] = {};
+
+			FontChar& character = fuente->Characters.at(c);
 
 			character.Size = Vector2(faces[c].sizeX, faces[c].sizeY);
 			character.Bearing = Vector2(faces[c].left, faces[c].top);
 			character.Advance = faces[c].advanceX;
 			
-			fuente->Characters[c] = character;
+			renderer->createSpriteVertexBuffer(&fuente->Characters[c].sprite);
+
+			fuente->Characters[c].sprite.Texture2D = fontTexture;
+			fuente->Characters[c].sprite.SetTexCoords(Vector4ui{ currentX, 0, faces[c].sizeX, faces[c].sizeY }.ToVector4f());
 
 			renderer->createSpriteVertexBuffer(&fuente->Characters[c].sprite);
 
-			fuente->Characters[c].sprite.SetTexCoords(Vector4ui{ currentX, 0, faces[c].sizeX, faces[c].sizeY }.ToVector4f());
+			fuente->Characters[c].sprite.SpriteMaterial = fuente->FontMaterial;
 
 			Sprites.push_back(&fuente->Characters[c].sprite);
 

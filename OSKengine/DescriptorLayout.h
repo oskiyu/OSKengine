@@ -8,14 +8,23 @@
 #include <vulkan/vulkan.h>
 #include <vector>
 
+#include "DynamicArray.hpp"
+
 namespace OSK {
+
+	class DescriptorPool;
 
 	//Un descriptor layout describe, a grandes rasgos, cómo se pasa la información de la CPU a la GPU.
 	class OSKAPI_CALL DescriptorLayout {
 
 		friend class RenderAPI;
+		friend class DescriptorPool;
 
 	public:
+
+		DescriptorLayout(VkDevice logicalDevice) : LogicalDevice(logicalDevice) {
+
+		}
 
 		//Destructor del descriptor layout.
 		~DescriptorLayout();
@@ -27,25 +36,18 @@ namespace OSK {
 		//	<count>: ???.
 		void AddBinding(uint32_t binding, VkDescriptorType type, VkShaderStageFlags stage, uint32_t count = 1);
 		
+		void AddBinding(VkDescriptorType type, VkShaderStageFlags stage);
+
 		//Crea el descriptor layout.
-		//	<maxSets>: número máximo de objetos que podrán usar este descriptor layout.
-		void Create(uint32_t maxSets);
+		void Create();
 
-		VkDescriptorSetLayout VulkanDescriptorSetLayout;
-		VkDescriptorPool VulkanDescriptorPool;
+		VkDescriptorSetLayout VulkanDescriptorSetLayout = VK_NULL_HANDLE;
+		
+		DescriptorPool* DPool = nullptr;
 
-	private:
+		DynamicArray<VkDescriptorSetLayoutBinding> DescriptorLayoutBindings{};
 
-		DescriptorLayout(VkDevice logicalDevice, uint32_t swapchainCount);
-
-		void clear();
-
-		std::vector<VkDescriptorSetLayoutBinding> descriptorLayoutBindings{};
-		std::vector<VkDescriptorPoolSize> descriptorPoolSizes{};
-
-		uint32_t swapchainImageCount;
-
-		VkDevice logicalDevice;
+		VkDevice LogicalDevice;
 
 	};
 

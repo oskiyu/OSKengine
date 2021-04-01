@@ -1528,7 +1528,7 @@ private:
 		uboLayoutBinding.pImmutableSamplers = nullptr;
 		uboLayoutBinding.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
 
-		//Texture.
+		//__Texture.
 		VkDescriptorSetLayoutBinding samplerLayoutBinding{};
 		samplerLayoutBinding.binding = 1;
 		samplerLayoutBinding.descriptorCount = 1;
@@ -3657,7 +3657,7 @@ private:
 		uboLayoutBinding.pImmutableSamplers = nullptr;
 		uboLayoutBinding.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
 
-		//Texture.
+		//__Texture.
 		VkDescriptorSetLayoutBinding samplerLayoutBinding{};
 		samplerLayoutBinding.binding = 1;
 		samplerLayoutBinding.descriptorCount = 1;

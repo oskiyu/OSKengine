@@ -5,6 +5,8 @@
 #include "GraphicsPipeline.h"
 #include "DescriptorSet.h"
 
+#include "MaterialInstance.h"
+
 namespace OSK {
 
 	//Representa un skybox.
@@ -18,7 +20,7 @@ namespace OSK {
 		//Enlaza el skybox - tanto el modelo como la textura.
 		inline void Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t i) const {
 			Skybox::Model->Bind(commandBuffer);
-			texture->Descriptor->Bind(commandBuffer, pipeline, i);
+			Instance->GetDescriptorSet()->Bind(commandBuffer, pipeline, i);
 		}
 
 		//Renderiza el skybox.
@@ -28,8 +30,7 @@ namespace OSK {
 
 	private:
 
-		//Textura del skybox.
-		SkyboxTexture* texture = nullptr;
+		SharedPtr<MaterialInstance> Instance;
 
 		//Modelo del skybox (un cubo).
 		//STATIC.

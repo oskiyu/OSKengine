@@ -33,13 +33,17 @@ namespace OSK {
 	}
 
 	void Sprite::SetTexCoords(const Vector4f& texCoords) {
-		Vector4f finalTexCoords = texCoords / Vector4f(texture->sizeX, texture->sizeY, texture->sizeX, texture->sizeY);
+		Vector4f finalTexCoords = texCoords / Vector4f(Texture2D->Size.X, Texture2D->Size.Y, Texture2D->Size.X, Texture2D->Size.Y);
 
 		SetTexCoordsInPercent(finalTexCoords);
 	}
 
 	void Sprite::SetTexCoords(float x, float y, float width, float hegith) {
 		SetTexCoords(Vector4(x, y, width, hegith));
+	}
+
+	void Sprite::UpdateMaterialTexture() {
+		SpriteMaterial->SetTexture("Texture", Texture2D);
 	}
 
 	PushConst2D Sprite::getPushConst(const glm::mat4& camera) {

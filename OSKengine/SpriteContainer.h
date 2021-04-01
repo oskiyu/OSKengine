@@ -9,47 +9,29 @@
 
 namespace OSK {
 
-	//Contiene varios sprites.
+	//Contiene un sprite.
 	struct OSKAPI_CALL SpriteContainer {
 		
-		//Sprites.
-		Sprite* sprites = nullptr;
-		
-		//Número de sprites que contiene.
-		uint32_t number = 0;
+		Color SpriteColor;
+		PushConst2D PConst;
+		VkBuffer VertexBuffer;
+		VkDeviceMemory VertexMemory;
 
-		//True si se eliminará automáticamente al renderizarse.
-		bool shouldBeCleared = true;
+		Vertex Vertices[4];
+		bool hasChanged;
 
-		//Elimina los sprites.
-		void Clear() {
-			if (sprites == nullptr || !shouldBeCleared)
-				return;
+		MaterialInstance* SpriteMaterial;
 
-			if (number == 1)
-				delete sprites;
-			else
-				delete[] sprites;
+		void Set(Sprite& sprite, glm::mat4 cameraMat) {
+			SpriteMaterial = sprite.SpriteMaterial.GetPointer();
+			SpriteColor = sprite.color;
+			PConst = sprite.getPushConst(cameraMat);
+			VertexBuffer = sprite.VertexBuffer.Buffer;
+			VertexMemory = sprite.VertexBuffer.Memory;
+			hasChanged = sprite.hasChanged;
 
-			sprites = nullptr;
-		}
-
-		//Elimina forzosamente los sprites.
-		void Clear(bool force) {
-			if (false) {
-				Clear();
-			}
-			else {
-				if (sprites == nullptr)
-					return;
-
-				if (number == 1)
-					delete sprites;
-				else
-					delete[] sprites;
-
-				sprites = nullptr;
-			}
+			for (uint32_t i = 0; i < 4; i++)
+				Vertices[i] = sprite.Vertices[i];
 		}
 
 	};

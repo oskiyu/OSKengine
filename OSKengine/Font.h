@@ -3,6 +3,8 @@
 #include <map>
 #include "FontChar.h"
 
+#include "MaterialInstance.h"
+
 namespace OSK {
 
 	//Fuente para el renderizado de texto.
@@ -16,6 +18,8 @@ namespace OSK {
 		std::map<char, FontChar> Characters;
 		//Tamaño de la fuente.
 		uint32_t Size;
+
+		SharedPtr<MaterialInstance> FontMaterial;
 
 	};
 
