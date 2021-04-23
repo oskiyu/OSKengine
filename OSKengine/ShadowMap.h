@@ -3,7 +3,7 @@
 #include <vulkan/vulkan.h>
 #include <cmath>
 
-#include "VulkanImage.h"
+#include "GPUImage.h"
 #include "Renderpass.h"
 #include "GraphicsPipeline.h"
 #include "RenderTarget.h"
@@ -11,58 +11,137 @@
 
 namespace OSK {
 
+	/// <summary>
+	/// Uniform buffer con la matriz de la cámara de la luz direccional.
+	/// </summary>
 	struct DirLightShadowUBO {
+
+		/// <summary>
+		/// Matriz de la cámara de la luz direccional.
+		/// </summary>
 		alignas(16) glm::mat4 DirLightMat = glm::mat4(1.0f);
+
 	};
 
+	/// <summary>
+	/// Formato de la imagen del shadow map.
+	/// </summary>
 	constexpr auto SHADOW_MAP_FORMAT = VK_FORMAT_D32_SFLOAT;
+
+	/// <summary>
+	/// Filtro de la imagen del shadow map.
+	/// </summary>
 	constexpr auto SHADOW_MAP_FILTER = VK_FILTER_NEAREST;
 
-	constexpr auto SHADOW_MAP_DEPTH_BIAS_CONSTANT = 1.25f;
-	constexpr auto SHADOW_MAP_DEPTH_BIAS_SLOPE = 1.75f;
 
+	/// <summary>
+	/// Clase que maneja el renderizado de sombras de una luz direccional.
+	/// Contiene un render target en el que se renderiza información de las sombras.
+	/// </summary>
 	class OSKAPI_CALL ShadowMap {
 
 		friend class RenderizableScene;
 
 	public:
 
+		/// <summary>
+		/// Crea un shadow map vacío.
+		/// </summary>
+		/// <param name="renderer">Renderizador.</param>
+		/// <param name="content">Content manager para cargar y descargar el render target.</param>
 		ShadowMap(RenderAPI* renderer, ContentManager* content);
 
+		/// <summary>
+		/// Limpia el shadow map.
+		/// </summary>
 		~ShadowMap();
 
+		/// <summary>
+		/// Crea el shadow map, con la resolución dada.
+		/// </summary>
+		/// <param name="size">Resolución del shadow map.</param>
 		void Create(const Vector2ui& size);
 
+		/// <summary>
+		/// Limpia el shadow map.
+		/// </summary>
 		void Clear();
 
+		/// <summary>
+		/// Información que se manda a la GPU para el renderizado de las sombras.
+		/// </summary>
 		DirLightShadowUBO DirShadowsUBO = {};
 
+		/// <summary>
+		/// Resolución del shadow map.
+		/// </summary>
 		Vector2ui Size;
 
+		/// <summary>
+		/// Render target sobre el que se renderiza las sombras.
+		/// </summary>
 		RenderTarget* DirShadows = nullptr;
-		DescriptorLayout* DirShadowDescriptorLayout = nullptr;
-		GraphicsPipeline* ShadowsPipeline = nullptr;
 
-		std::vector<VulkanBuffer> DirShadowsUniformBuffers;
+		/// <summary>
+		/// UBOs con el DirShadowsUBO.
+		/// </summary>
+		std::vector<GPUDataBuffer> DirShadowsUniformBuffers;
 
+		/// <summary>
+		/// Inicio del rango de la cámara para las sombras.
+		/// </summary>
 		float DepthRangeNear = 0.0f;
+
+		/// <summary>
+		/// Fin del rango de la cámara para las sombras.
+		/// </summary>
 		float DepthRangeFar = 100.0f;
 
+		/// <summary>
+		/// 
+		/// </summary>
 		float Density = 20;
 
+		/// <summary>
+		/// Referencia a la luz direccional original.
+		/// </summary>
 		LightUBO* Lights = nullptr;
 		
+		/// <summary>
+		/// Renderizador.
+		/// </summary>
 		RenderAPI* renderer = nullptr;
 
 	private:
 
+		/// <summary>
+		/// Crea los uniform buffers.
+		/// </summary>
 		void CreateBuffers();
+
+		/// <summary>
+		/// Actualiza los uniform buffers.
+		/// </summary>
 		void UpdateBuffers();
+
+		/// <summary>
+		/// Actualiza la cámara del shadow map.
+		/// </summary>
 		void Update();
 
+		/// <summary>
+		/// Crea el renderpass para el renderizado de las sombras.
+		/// </summary>
 		void CreateRenderpass();
+
+		/// <summary>
+		/// Crea los framebuffers para el renderizado de las sombras.
+		/// </summary>
 		void CreateFramebuffers();
 
+		/// <summary>
+		/// Referencia al content manager.
+		/// </summary>
 		ContentManager* Content = nullptr;
 
 	};

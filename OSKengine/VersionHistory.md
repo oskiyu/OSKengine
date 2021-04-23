@@ -804,5 +804,66 @@ Introducido el sistema de materiales.
 - UniquePtr: **añadido**.
 
 ###### Bugfixes
+
 - **Bugfix**: ahora eliminar el RenderAPI elimina correctamente sus contenidos.
 
+
+## 2021.4.23a
+
+Gran actualización de la documentación.
+Las dependencias están ahora localizadas dentro del proyecto.
+Los archivos .h con varias clases se han dividido en varios archivos .h.
+La gran mayoría de funciones en .h han sido movidas a .cpp.
+
+###### RenderAPI
+
+- RenderTarget:
+    - Ya no almacena pipelines.
+    
+- GPUDataBuffer:
+    - Renombrado <VulkanBuffer> a <GPUDataBuffer>.
+
+- GPUImage:
+    - Renombrado <VulkanImage> a <GPUImage>.
+    
+- Vertex:
+    - Ahora solo tiene un único `attributes description`.
+
+- DirectionsEnum: **ELIMINADO**.
+- ModelFormat: **ELIMINADO**
+- RenderMode **ELIMINADO**
+- RenderOutput **ELIMINADO**
+- Rendersettings **ELIMINADO**
+
+###### WindowAPI
+
+- WindowAPI:
+    - Ya no contiene información de una versión de OpenGL.
+    - **ELIMINADO** `SwapBuffers()` (OpenGL).
+
+- Renombrado <MouseMovementMode> a <MouseAccelerationMode>.
+
+###### ECS
+
+- GameObject:
+    - Renombrado <Create> a <Spawn>.
+    
+-Scene: **ELIMINADO**.
+    
+###### Memory
+
+- SafeDelete & SafeDeleteArray: ahora son parte de Memory.
+- AddPtrOffset: ahora es parte de Memory.
+
+###### OSK
+
+- OSK_SHOW_ERROR -> **ELIMINADO** (Usar Log).
+- OSKresult: **ELIMINADO**.
+- OSK_NOT_IMPLEMENTED: **ELIMINADO**.
+- OSK_OBSOLETE: **ELIMINADO**.
+
+- Ahora almacena la versión en el .dll (.cpp).
+
+###### Bugfixes
+
+- **Bugfix**: FileIO::ReadFromFile hace newline correctamente, en vez de añadir (int)'\n'.

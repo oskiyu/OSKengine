@@ -10,7 +10,7 @@ class Cube : public OSK::GameObject {
 public:
 
 	void OnCreate() override {
-		AddComponent<OSK::PhysicsComponent>({});
+		AddComponent<OSK::PhysicsComponent>(OSK::PhysicsComponent());
 
 		OSK::PhysicsComponent& physics = GetComponent<OSK::PhysicsComponent>();
 		
@@ -19,8 +19,7 @@ public:
 		auto box = OSK::Collision::SAT_Collider::CreateOBB();
 		physics.Collision.SatColliders.push_back(box);
 		physics.Collision.SatColliders.back().BoxTransform.AttachTo(&Transform3D);
-		physics.Collision.BroadType = OSK::BroadColliderType::BOX_AABB;
-		physics.Collision.BroadCollider.Box.Size = { 5.0f };
+		physics.Collision.SetBroadCollider(OSK::CollisionBox({ 0.0f }, { 5.0f }));
 
 		physics.Height = -1.0f;
 

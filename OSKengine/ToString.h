@@ -11,34 +11,46 @@
 
 namespace OSK {
 
-	//Espacios a los que equivale '\t'.
+	/// <summary>
+	/// Espacios a los que equivale '\t' al renderizar texto.
+	/// </summary>
 	constexpr auto SPACES_PER_TAB = 4;
 
 
-	//Devuelve un string según el valor del bool.
-	//true -> "TRUE"
-	//false -> "FALSE"
+	/// <summary>
+	/// Devuelve un string según el valor del bool.
+	/// false -> "FALSE"	
+	/// true -> "TRUE"
+	/// </summary>
+	/// <param name="value">Boolean.</param>
+	/// <returns>String.</returns>
 	std::string OSKAPI_CALL ToString(const bool& value);
 
-
-	//Devuelve un string con los datos del vector 2D.
+	/// <summary>
+	/// Devuelve un string con los datos del vector 2D.
+	/// </summary>
+	/// <param name="vec">Vector 2D.</param>
+	/// <returns>{ X; Y; Z }</returns>
 	template <typename T> std::string OSKAPI_CALL ToString(const Vector2_t<T>& vec) {
 		return "{ " + std::to_string(vec.X) + "; " + std::to_string(vec.Y) + "}";
 	}
 
-
-	//Devuelve un string con los datos del vector 3D.
+	/// <summary>
+	/// Devuelve un string con los datos del vector 3D.
+	/// </summary>
+	/// <param name="vec">Vector 3D.</param>
+	/// <returns>{ X; Y; Z }</returns>
 	template <typename T> std::string OSKAPI_CALL ToString(const Vector3_t<T>& vec) {
 		return "{ " + std::to_string(vec.X) + "; " + std::to_string(vec.Y) + "; " + std::to_string(vec.Z) + "}";
 	}
 
-	//Devuelve un string con los datos del vector 4D.
+	/// <summary>
+	/// Devuelve un string con los datos del vector 4D.
+	/// </summary>
+	/// <param name="vec">Vector 4D.</param>
+	/// <returns>{ X; Y; Z; W }</returns>
 	template <typename T> std::string OSKAPI_CALL ToString(const Vector4_t<T>& vec) {
 		return "{ " + std::to_string(vec.X) + "; " + std::to_string(vec.Y) + "; " + std::to_string(vec.Z) + "; " + std::to_string(vec.W) + "}";
 	}
-
-
-	//Devuelve un string con la posición, tamaño y rotación de un transform.
-	//std::string OSKAPI_CALL ToString(const Transform& transform);
 
 }

@@ -5,23 +5,29 @@
 Contiene un puntero al que pueden hacer referencia varios SharedPtr.
 Si el último SharedPtr que hace referencia a un puntero es desstruido, el puntero será eliminado.
 */
+
+/// <summary>
+/// Contiene un puntero al que pueden hacer referencia varios SharedPtr.
+/// Si el último SharedPtr que hace referencia a un puntero es desstruido, el puntero será eli
+/// </summary>
+/// <typeparam name="T">Tipo del puntero almacenado.</typeparam>
 template <typename T> class SharedPtr {
 
 public:
 
-	/*
-	Crea un SharedPtr vacío.
-	*/
+	/// <summary>
+	/// Crea un SharedPtr vacío.
+	/// </summary>
 	SharedPtr() {
 		instanceCount = new size_t;
 		*instanceCount = 0;
 	}
 
-	/*
-	Crea un SharedPtr con el puntero dado.
-
-	El puntero debe haberse creado con new.
-	*/
+	/// <summary>
+	/// Crea un SharedPtr con el puntero dado.
+	/// El puntero debe haberse creado con new.
+	/// </summary>
+	/// <param name="data">Puntero.</param>
 	SharedPtr(T* data) {
 		pointer = data;
 
@@ -29,25 +35,27 @@ public:
 		*instanceCount = 1;
 	}
 
-	/*
-	Destruye el SharedPtr.
-
-	Si es el último SharedPtr con este puntero, se eliminará el puntero.
-	*/
+	/// <summary>
+	/// Destruye el SharedPtr.
+	/// Si es el último SharedPtr con este puntero, se eliminará el puntero.
+	/// <summary/>
 	~SharedPtr() {
 		destructor();
 	}
 
-	/*
-	Crea un SharedPtr que compartirá su puntero con 'other'.
-	*/
+	/// <summary>
+	/// Crea un SharedPtr que compartirá su puntero con 'other'.
+	/// </summary>
+	/// <param name="other">Puntero compartido.</param>
 	SharedPtr(const SharedPtr& other) {
 		share(other);
 	}
 
-	/*
-	Este SharedPtr compartirá su puntero con 'other'.
-	*/
+	/// <summary>
+	/// Este SharedPtr compartirá su puntero con 'other'.
+	/// </summary>
+	/// <param name="other">Puntero compartido.</param>
+	/// <returns>Self</returns>
 	SharedPtr& operator=(const SharedPtr& other) {
 		destructor();
 
@@ -56,10 +64,10 @@ public:
 		return *this;
 	}
 
-
-	/*
-	El puntero de 'other' pasa a ser propiedad de este SharedPtr.
-	*/
+	/// <summary>
+	/// El puntero de 'other' pasa a ser propiedad de este SharedPtr.
+	/// </summary>
+	/// <param name="other">Otro puntero.</param>
 	SharedPtr(SharedPtr&& other) {
 		this->pointer = other.pointer;
 		this->instanceCount = other.instanceCount;
@@ -69,9 +77,11 @@ public:
 
 	}
 
-	/*
-	El puntero de 'other' pasa a ser propiedad de este SharedPtr.
-	*/
+	/// <summary>
+	/// El puntero de 'other' pasa a ser propiedad de este SharedPtr.
+	/// </summary>
+	/// <param name="other">Otro puntero.</param>
+	/// <returns>Self.</returns>
 	SharedPtr& operator=(SharedPtr&& other) noexcept {
 		destructor();
 
@@ -84,53 +94,59 @@ public:
 		return *this;
 	}
 
-	/*
-	Devuelve el número de SharedPtr que comparten el mismo puntero que este.
-	*/
+	/// <summary>
+	/// Devuelve el número de SharedPtr que comparten el mismo puntero que este.
+	/// </summary>
+	/// <returns>Número de instancias.</returns>
 	size_t GetInstanceCount() const {
 		return *instanceCount;
 	}
 
-	/*
-	Devuelve el puntero.
-	*/
+	/// <summary>
+	/// Devuelve el puntero nativo.
+	/// </summary>
+	/// <returns>Puntero.</returns>
 	T* GetPointer() const {
 		return pointer;
 	}
 
-	/*
-	Devuelve el puntero.
-	*/
+	/// <summary>
+	/// Devuelve el puntero nativo.
+	/// </summary>
+	/// <returns>Puntero.</returns>
 	T* operator->() const {
 		return GetPointer();
 	}
 
-	/*
-	Devuelve el valor.
-	*/
+	/// <summary>
+	/// Devuelve el valor apuntado por el puntero.
+	/// </summary>
+	/// <returns>Valor.</returns>
 	T& operator*() const {
 		return Get();
 	}
 
-	/*
-	Devuelve el valor.
-	*/
+	/// <summary>
+	/// Devuelve el valor apuntado por el puntero.
+	/// </summary>
+	/// <returns>Valor.</returns>
 	T& Get() const {
 		return *pointer;
 	}
 
-	/*
-	Devuelve true si el puntero no es null.
-	*/
+	/// <summary>
+	/// Devuelve true si el puntero no es null.
+	/// </summary>
+	/// <returns>Estado del puntero.</returns>
 	bool HasValue() const {
 		return pointer != nullptr;
 	}
 
 private:
 
-	/*
-	Destruye el SharedPtr.
-	*/
+	/// <summary>
+	/// Destruye el SharedPtr.
+	/// </summary>
 	void destructor() {
 		if (!instanceCount)
 			return;
@@ -144,9 +160,10 @@ private:
 		pointer = nullptr;
 	}
 
-	/*
-	Comparte el puntero de 'original'.
-	*/
+	/// <summary>
+	/// Comparte el puntero de 'original'.
+	/// </summary>
+	/// <param name="original">Puntero compartido.</param>
 	void share(const SharedPtr& original) {
 		pointer = original.pointer;
 		instanceCount = original.instanceCount;
@@ -155,9 +172,10 @@ private:
 			(*instanceCount)++;
 	}
 
-	/*
-	El puntero de 'other' pasa a ser propiedad de este SharedPtr.
-	*/
+	/// <summary>
+	/// El puntero de 'other' pasa a ser propiedad de este SharedPtr.
+	/// </summary>
+	/// <param name="other">Otro puntero.</param>
 	void move(SharedPtr&& other) {
 		this->pointer = other.pointer;
 		this->instanceCount = other.instanceCount;
@@ -166,9 +184,9 @@ private:
 		other.instanceCount = nullptr;
 	}
 
-	/*
-	Elimina los punteros.
-	*/
+	/// <summary>
+	/// Elimina los punteros.
+	/// </summary>
 	void finalDelete() {
 		if (pointer)
 			delete pointer;
@@ -176,184 +194,14 @@ private:
 		delete instanceCount;
 	}
 
-	/*
-	Puntero almacenado.
-	*/
+	/// <summary>
+	/// Puntero compartido.
+	/// </summary>
 	T* pointer = nullptr;
 
-	/*
-	Número de SharedPtr con este puntero.
-	*/
-	size_t* instanceCount = nullptr;
-
-};
-
-/*
-Contiene un array al que pueden hacer referencia varios SharedArrayPtr.
-Si el último SharedArrayPtr que hace referencia a un puntero es desstruido, el puntero será eliminado.
-*/
-template <typename T> class SharedArrayPtr {
-
-public:
-
-	/*
-	Crea un SharedArrayPtr vacío.
-	*/
-	SharedArrayPtr() {
-		instanceCount = new size_t;
-		*instanceCount = 0;
-	}
-
-	/*
-	Crea un SharedArrayPtr con el array dado.
-
-	El array debe haberse creado con new.
-	*/
-	SharedArrayPtr(T* data) {
-		pointer = data;
-
-		instanceCount = new size_t;
-		*instanceCount = 1;
-	}
-
-	/*
-	Destruye el SharedArrayPtr.
-
-	Si es el último SharedArrayPtr con este puntero, se eliminará el puntero.
-	*/
-	~SharedArrayPtr() {
-		destructor();
-	}
-
-	/*
-	Crea un SharedArrayPtr que compartirá su puntero con 'other'.
-	*/
-	SharedArrayPtr(const SharedArrayPtr& other) {
-		share(other);
-	}
-
-	/*
-	Este SharedArrayPtr compartirá su puntero con 'other'.
-	*/
-	SharedArrayPtr& operator=(const SharedArrayPtr& other) {
-		destructor();
-
-		share(other);
-
-		return *this;
-	}
-
-
-	/*
-	El array de 'other' pasa a ser propiedad de este SharedArrayPtr.
-	*/
-	SharedArrayPtr(SharedArrayPtr&& other) {
-		this->pointer = other.pointer;
-		this->instanceCount = other.instanceCount;
-
-		other.pointer = nullptr;
-		other.instanceCount = nullptr;
-
-	}
-
-	/*
-	El array de 'other' pasa a ser propiedad de este SharedArrayPtr.
-	*/
-	SharedArrayPtr& operator=(SharedArrayPtr&& other) noexcept {
-		destructor();
-
-		this->pointer = other.pointer;
-		this->instanceCount = other.instanceCount;
-
-		other.pointer = nullptr;
-		other.instanceCount = nullptr;
-
-		return *this;
-	}
-
-	/*
-	Devuelve el número de SharedArrayPtr que comparten el mismo puntero que este.
-	*/
-	size_t GetInstanceCount() const {
-		return *instanceCount;
-	}
-
-	/*
-	Devuelve el array.
-	*/
-	T* GetArray() const {
-		return pointer;
-	}
-
-	/*
-	Devuelve el valor en la posición 'i'.
-	*/
-	T& At(size_t i) const {
-		return pointer[i];
-	}
-
-	/*
-	Devuelve el valor en la posición 'i'.
-	*/
-	T& operator[](size_t i) const {
-		return At(i);
-	}
-
-private:
-
-	/*
-	Destruye el SharedArrayPtr.
-	*/
-	void destructor() {
-		if (!instanceCount)
-			return;
-
-		(*instanceCount)--;
-
-		if (*instanceCount == 0)
-			Delete();
-	}
-
-	/*
-	Comparte el puntero de 'original'.
-	*/
-	void share(const SharedArrayPtr& original) {
-		pointer = original.pointer;
-		instanceCount = original.instanceCount;
-
-		if (pointer != nullptr)
-			(*instanceCount)++;
-	}
-
-	/*
-	El array de 'other' pasa a ser propiedad de este SharedArrayPtr.
-	*/
-	void move(SharedArrayPtr&& other) {
-		this->pointer = other.pointer;
-		this->instanceCount = other.instanceCount;
-
-		other.pointer = nullptr;
-		other.instanceCount = nullptr;
-	}
-
-	/*
-	Elimina los punteros.
-	*/
-	void Delete() {
-		if (pointer)
-			delete[] pointer;
-
-		delete instanceCount;
-	}
-
-	/*
-	Puntero almacenado.
-	*/
-	T* pointer = nullptr;
-
-	/*
-	Número de SharedArrayPtr con este puntero.
-	*/
+	/// <summary>
+	/// Número de SharedPtr con este puntero.
+	/// </summary>
 	size_t* instanceCount = nullptr;
 
 };

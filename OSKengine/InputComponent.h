@@ -9,55 +9,54 @@
 
 namespace OSK {
 
-	struct OSKAPI_CALL InputEvent {
-
-		std::string EventName = "";
-
-		std::vector<Key> LinkedKeys;
-		std::vector<ButtonCode> LinkedButtons;
-
-	};
-
-	struct OSKAPI_CALL OneTimeInputEvent {
-
-		std::string EventName = "";
-
-		std::vector<Key> LinkedKeys;
-		std::vector<ButtonCode> LinkedButtons;
-
-	};
-
+	/// <summary>
+	/// Componente que permite a la entidad reaccionar al input del jugador.
+	/// </summary>
 	class OSKAPI_CALL InputComponent : public Component {
 				
 	public:
 
-		std::function<void(deltaTime_t)>& GetInputFunction(const std::string eventName) {
-			if (inputEvents.find(eventName) == inputEvents.end())
-				inputEvents.insert({ eventName, [](deltaTime_t deltaTime) {} });
+		/// <summary>
+		/// Devuelve la función que corresponde al input event dado.
+		/// La función está definida en este componente.
+		/// Esta función se puede definir.
+		/// </summary>
+		/// <param name="eventName">Nombre del evento.</param>
+		/// <returns>Función del evento.</returns>
+		std::function<void(deltaTime_t)>& GetInputFunction(const std::string& eventName);
 
-			return inputEvents[eventName];
-		}
-		std::function<void()>& GetOneTimeInputFunction(const std::string eventName) {
-			if (oneTimeInputEvents.find(eventName) == oneTimeInputEvents.end())
-				oneTimeInputEvents.insert({ eventName, []() {} });
+		/// <summary>
+		/// Devuelve la función que corresponde al input event dado.
+		/// La función está definida en este componente.
+		/// Esta función se puede definir.
+		/// </summary>
+		/// <param name="eventName">Nombre del evento.</param>
+		/// <returns>Función del evento.</returns>
+		std::function<void()>& GetOneTimeInputFunction(const std::string& eventName);
 
-			return oneTimeInputEvents[eventName];
-		}
+		/// <summary>
+		/// Ejecuta la función del evento de input dado.
+		/// </summary>
+		/// <param name="eventName">Nombre del evento.</param>
+		/// <param name="deltaTime">Delta.</param>
+		void ExecuteInputFunction(const std::string& eventName, deltaTime_t deltaTime);
 
-		void ExecuteInputFunction(const std::string& eventName, deltaTime_t deltaTime) {
-			if (inputEvents.find(eventName) != inputEvents.end()) {
-				GetInputFunction(eventName)(deltaTime);
-			}
-		}
-		void ExecuteOneTimeInputFunction(const std::string& eventName) {
-			if (oneTimeInputEvents.find(eventName) != oneTimeInputEvents.end()) {
-				GetOneTimeInputFunction(eventName)();
-			}
-		}
+		/// <summary>
+		/// Ejecuta la función del evento de input dado.
+		/// </summary>
+		/// <param name="eventName">Nombre del evento.</param>
+		void ExecuteOneTimeInputFunction(const std::string& eventName);
 
 	private:
 
+		/// <summary>
+		/// Eventos de input.
+		/// </summary>
 		std::unordered_map<std::string, std::function<void(deltaTime_t)>> inputEvents;
+
+		/// <summary>
+		/// Eventos de input de una sola vez.
+		/// </summary>
 		std::unordered_map<std::string, std::function<void()>> oneTimeInputEvents;
 
 	};

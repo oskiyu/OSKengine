@@ -33,5 +33,6 @@ void RenderStage::RemoveAllSpriteBatches() {
 }
 
 void RenderStage::Clear() {
-
+	if (isOwnerOfRTarget)
+		delete RTarget;
 }

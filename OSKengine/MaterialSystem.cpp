@@ -18,7 +18,8 @@ MaterialSystem::~MaterialSystem() {
 }
 
 void MaterialSystem::RegisterMaterial(const std::string& name) {
-	Material* material = Renderer->CreateNewMaterial();
+	Material* material = new Material();
+	material->SetRenderer(Renderer);
 
 	for (auto i : Renderpasses)
 		material->RenderpassesToRegister.push_back(i);

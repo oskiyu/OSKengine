@@ -12,57 +12,70 @@
 
 namespace OSK::ECS {
 
-	//ID de un objeto.
+	/// <summary>
+	/// ID de un objeto.
+	/// </summary>
 	typedef uint32_t GameObjectID;
 
-	//Máximo de objetos a guardar.
+	/// <summary>
+	/// Máximo de objetos a guardar.
+	/// </summary>
 	constexpr GameObjectID MAX_OBJECTS = 10000;
 
-	//Maneja todas las entidades.
+
+	/// <summary>
+	/// Clase que maneja los objetos y sus signatures.
+	/// </summary>
 	class GameObjectManager {
 
 	public:
 				
-		GameObjectManager() {
-			for (GameObjectID obj = 0; obj < MAX_OBJECTS; obj++) {
-				freeObjects.push(obj);
-			}
-		}
+		/// <summary>
+		/// Crea el manager vacío.
+		/// </summary>
+		GameObjectManager();
 
-		//Crea un objeto.
-		GameObjectID CreateGameObject() {
-			livingEnitites++;
+		/// <summary>
+		/// Registra un nuevo objeto.
+		/// </summary>
+		/// <returns>ID del nuevo objeto.</returns>
+		GameObjectID CreateGameObject();
 
-			GameObjectID ID = freeObjects.front();
-			
-			freeObjects.pop();
+		/// <summary>
+		/// Elimina un objeto.
+		/// </summary>
+		/// <param name="object">ID del objeto.</param>
+		void DestroyGameObject(GameObjectID object);
 
-			return ID;
-		}
-
-		//Elimina un objeto.
-		void DestroyGameObject(GameObjectID object) {
-			livingEnitites--;
-
-			signatures[object].reset();
-
-			freeObjects.push(object);
-		}
-
-		//Establece el signature (componentes que tiene).
-		void SetSignature(GameObjectID obj, Signature sign) {
-			signatures[obj] = sign;
-		}
-
-		//Obtiene los tipos de componentes que tiene.
-		Signature GetSignature(GameObjectID obj) {
-			return signatures[obj];
-		}
+		/// <summary>
+		/// Establece el signature (componentes que tiene).
+		/// </summary>
+		/// <param name="obj">ID del objeto.</param>
+		/// <param name="sign">Componentes que ocntiene.</param>
+		void SetSignature(GameObjectID obj, Signature sign);
+		
+		/// <summary>
+		/// Obtiene los tipos de componentes que tiene.
+		/// </summary>
+		/// <param name="obj">ID del objeto.</param>
+		/// <returns>Signature.</returns>
+		Signature GetSignature(GameObjectID obj) const;
 
 	private:
 
+		/// <summary>
+		/// IDs sin asignar.
+		/// </summary>
 		std::queue<GameObjectID> freeObjects;
+
+		/// <summary>
+		/// Signatures de los objetos.
+		/// </summary>
 		std::array<Signature, MAX_OBJECTS> signatures;
+
+		/// <summary>
+		/// Número de objetos creados.
+		/// </summary>
 		uint32_t livingEnitites = 0;
 
 	};

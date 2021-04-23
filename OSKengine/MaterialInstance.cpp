@@ -28,27 +28,27 @@ void MaterialInstance::SetTexture(const std::string& name, Texture* texture) {
 	SetTexture(texture, OwnerMaterial->GetBindingIndex(name));
 }
 
-void MaterialInstance::SetBuffer(std::vector<VulkanBuffer>& buffers) {
+void MaterialInstance::SetBuffer(std::vector<GPUDataBuffer>& buffers) {
 	SetBuffer(buffers, GetDescriptorSet()->GetBindingsCount());
 }
 
-void MaterialInstance::SetBuffer(std::vector<VulkanBuffer>& buffers, uint32_t binding) {
+void MaterialInstance::SetBuffer(std::vector<GPUDataBuffer>& buffers, uint32_t binding) {
 	GetDescriptorSet()->AddUniformBuffers(buffers, binding, buffers[0].Size);
 }
 
-void MaterialInstance::SetBuffer(const std::string& name, std::vector<VulkanBuffer>& buffers) {
+void MaterialInstance::SetBuffer(const std::string& name, std::vector<GPUDataBuffer>& buffers) {
 	SetBuffer(buffers, OwnerMaterial->GetBindingIndex(name));
 }
 
-void MaterialInstance::SetDynamicBuffer(std::vector<VulkanBuffer>& buffers) {
+void MaterialInstance::SetDynamicBuffer(std::vector<GPUDataBuffer>& buffers) {
 	SetDynamicBuffer(buffers, GetDescriptorSet()->GetBindingsCount());
 }
 
-void MaterialInstance::SetDynamicBuffer(std::vector<VulkanBuffer>& buffers, uint32_t binding) {
+void MaterialInstance::SetDynamicBuffer(std::vector<GPUDataBuffer>& buffers, uint32_t binding) {
 	GetDescriptorSet()->AddDynamicUniformBuffers(buffers, binding, buffers[0].DynamicSize);
 }
 
-void MaterialInstance::SetDynamicBuffer(const std::string& name, std::vector<VulkanBuffer>& buffers) {
+void MaterialInstance::SetDynamicBuffer(const std::string& name, std::vector<GPUDataBuffer>& buffers) {
 	SetDynamicBuffer(buffers, OwnerMaterial->GetBindingIndex(name));
 }
 

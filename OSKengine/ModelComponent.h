@@ -6,34 +6,43 @@
 
 namespace OSK {
 
+	/// <summary>
+	/// Componente que permite a una entidad tener modelos 3D.
+	/// </summary>
 	class ModelComponent : public Component {
 
 	public:
 
+		/// <summary>
+		/// Añade un modelo 3D al componente.
+		/// </summary>
+		/// <param name="path">Ruta del modelo (con extensión).</param>
+		/// <param name="content">Content manager con el que se va a cargar el modelo.</param>
+		void AddModel(const std::string& path, ContentManager* content);
+
+		/// <summary>
+		/// Añade un modelo 3D animado al componente.
+		/// </summary>
+		/// <param name="path">Ruta del modelo (con extensión).</param>
+		/// <param name="content">Content manager con el que se va a cargar el modelo.</param>
+		void AddAnimatedModel(const std::string& path, ContentManager* content);
+
+		/// <summary>
+		/// Enlaza los modelos 3D al transform dado.
+		/// Usado para enlazarlos al transform de la entidad.
+		/// </summary>
+		/// <param name="transform">Transform.</param>
+		void Link(Transform* transform);
+
+		/// <summary>
+		/// Modelos 3D.
+		/// </summary>
 		std::vector<Model> StaticMeshes{};
+
+		/// <summary>
+		/// Modelos 3D animados.
+		/// </summary>
 		std::vector<AnimatedModel> AnimatedModels{};
-
-		void AddModel(const std::string& path, ContentManager* content) {
-			StaticMeshes.push_back({});
-			content->LoadModel(StaticMeshes.back(), path);
-		}
-		void AddAnimatedModel(const std::string& path, ContentManager* content) {
-			AnimatedModels.push_back({});
-			content->LoadAnimatedModel(AnimatedModels.back(), path);
-		}
-
-		void Link(Transform* transform) {
-			for (auto& i : StaticMeshes)
-				i.ModelTransform.AttachTo(transform);
-
-			for (auto& i : AnimatedModels)
-				i.ModelTransform.AttachTo(transform);
-		}
-
-		void Pack() {
-			StaticMeshes.shrink_to_fit();
-			AnimatedModels.shrink_to_fit();
-		}
 
 	};
 

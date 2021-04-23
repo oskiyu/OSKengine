@@ -15,6 +15,10 @@ namespace OSK {
 		clear();
 	}
 
+	uint32_t DescriptorSet::GetBindingsCount() const {
+		return bindingsCount;
+	}
+
 	void DescriptorSet::Create(DescriptorLayout* layout, DescriptorPool* pool, bool allocate) {
 		this->layout = layout;
 		this->pool = pool;
@@ -34,7 +38,7 @@ namespace OSK {
 			throw std::runtime_error("ERROR: crear descriptor sets.");
 	}
 
-	void DescriptorSet::AddUniformBuffers(std::vector<VulkanBuffer> buffers, uint32_t binding, size_t size) {
+	void DescriptorSet::AddUniformBuffers(std::vector<GPUDataBuffer> buffers, uint32_t binding, size_t size) {
 		for (uint32_t i = 0; i < VulkanDescriptorSets.size(); i++) {
 			VkDescriptorBufferInfo* bufferInfo = new VkDescriptorBufferInfo();
 			bufferInfo->buffer = buffers[i].Buffer;
@@ -60,7 +64,7 @@ namespace OSK {
 		bindingsCount++;
 	}
 
-	void DescriptorSet::AddDynamicUniformBuffers(std::vector<VulkanBuffer> buffers, uint32_t binding, size_t size) {
+	void DescriptorSet::AddDynamicUniformBuffers(std::vector<GPUDataBuffer> buffers, uint32_t binding, size_t size) {
 		for (uint32_t i = 0; i < VulkanDescriptorSets.size(); i++) {
 			VkDescriptorBufferInfo* bufferInfo = new VkDescriptorBufferInfo();
 			bufferInfo->buffer = buffers[i].Buffer;
@@ -86,7 +90,7 @@ namespace OSK {
 		bindingsCount++;
 	}
 
-	void DescriptorSet::AddImage(VULKAN::VulkanImage* image, VkSampler sampler, uint32_t binding) {
+	void DescriptorSet::AddImage(VULKAN::GPUImage* image, VkSampler sampler, uint32_t binding) {
 		for (uint32_t i = 0; i < VulkanDescriptorSets.size(); i++) {
 			VkDescriptorImageInfo* imageInfo = new VkDescriptorImageInfo();
 			imageInfo->imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;

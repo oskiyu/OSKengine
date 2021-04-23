@@ -13,30 +13,67 @@ namespace OSK {
 
 	class DescriptorLayout;
 
+	/// <summary>
+	/// Descriptor pool: 
+	/// clase mediante la cual se crean descriptor sets.
+	/// Encapsula el descriptor pool nativo de Vulkan.
+	/// </summary>
 	class OSKAPI_CALL DescriptorPool {
 
 		friend class RenderAPI;
 
 	public:
 
-		DescriptorPool(VkDevice logicalDevice, uint32_t shapchainImageCount) : LogicalDevice(logicalDevice), SwapchainImageCount(shapchainImageCount) {
+		/// <summary>
+		/// Crea un descriptor pool.
+		/// </summary>
+		/// <param name="logicalDevice">Logical device del renderizador.</param>
+		/// <param name="shapchainImageCount">Número de imágenes del swapchain del renderizador.</param>
+		DescriptorPool(VkDevice logicalDevice, uint32_t shapchainImageCount);
 
-		}
-
+		/// <summary>
+		/// Destruye el descriptor pool (y por tanto, sus descriptor sets).
+		/// </summary>
 		~DescriptorPool();
 
+		/// <summary>
+		/// Añade un binding.
+		/// Se usa internamente al llamar a SetLayout.
+		/// </summary>
+		/// <param name="type"></param>
 		void AddBinding(VkDescriptorType type);
 
+		/// <summary>
+		/// Establece el layout que va a tener el descriptor pool.
+		/// </summary>
+		/// <param name="layout">Descriptor layout.</param>
 		void SetLayout(DescriptorLayout* layout);
 
+		/// <summary>
+		/// Crea el descriptor pool con tamaño para los sets dados.
+		/// </summary>
+		/// <param name="maxSets">Tamaño del pool.</param>
 		void Create(uint32_t maxSets);
 		
+		/// <summary>
+		/// Información del layout.
+		/// </summary>
 		DynamicArray<VkDescriptorPoolSize> DescriptorPoolSizes;
 
+		/// <summary>
+		/// Descriptor pool nativo de Vulkan.
+		/// </summary>
 		VkDescriptorPool VulkanDescriptorPool = VK_NULL_HANDLE;
 
-		uint32_t SwapchainImageCount;
-		VkDevice LogicalDevice;
+		/// <summary>
+		/// Número de imágenes del swapchain del renderizador.
+		/// </summary>
+		uint32_t SwapchainImageCount = 0;
+
+		/// <summary>
+		/// Número de imágenes del swapchain del renderizador.
+		/// </summary>
+		VkDevice LogicalDevice = VK_NULL_HANDLE;
 
 	};
 

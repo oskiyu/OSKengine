@@ -12,7 +12,7 @@ Framebuffer::Framebuffer(OSK::RenderAPI* renderer) {
 	this->renderer = renderer;
 }
 
-void Framebuffer::AddImageView(VULKAN::VulkanImage* image) {
+void Framebuffer::AddImageView(VULKAN::GPUImage* image) {
 	attachments.push_back(image->View);
 }
 

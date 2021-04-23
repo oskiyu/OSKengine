@@ -10,55 +10,75 @@
 
 namespace OSK {
 
-	//Clase para Log.
+	/// <summary>
+	/// Clase para Log.
+	/// </summary>
 	class OSKAPI_CALL Logger {
 
 	public:
 
-		//Inicializa el Logger.
-		//	<path>: directorio en el que se guarda el log (modo RELEASE).
+		/// <summary>
+		/// Inicializa el Logger.
+		/// </summary>
+		/// <param name="path">Directorio en el que se guarda el log (modo RELEASE).</param>
 		static void Start(const std::string& path = "");
 
-		//Muestra el mensaje...
-		//DEBUG: por la consola.
-		//RELEASE: en LOG_LAST.txt.
+		/// <summary>
+		/// Muestra el mensaje...
+		/// DEBUG: por la consola.
+		/// RELEASE: en LOG_LAST.txt.
+		/// </summary>
+		/// <param name="level">TIpo de mensaje.</param>
+		/// <param name="string">Mensaje.</param>
+		/// <param name="">Línea de código.</param>
 		static void Log(const LogMessageLevels& level, const std::string&, int = -1);
 
+		/// <summary>
+		/// Muestra el mensaje por la consola.
+		/// DEBUG ONLY.
+		/// </summary>
+		/// <param name="string">Mensaje.</param>
+		/// <param name="">Línea de código.</param>
+		static void DebugLog(const std::string& message, int line = -1);
 
-		//Muestra el mensaje por la consola.
-		//DEBUG ONLY.
-		static void DebugLog(const std::string&, int = -1);
-
-
-		//Cierra el Logger.
+		/// <summary>
+		/// Cierra el Logger.
+		/// </summary>
 		static void Close();
 
-
-		//Guarda el Logger (modo RELEASE).
+		/// <summary>
+		/// Guarda el Logger (modo RELEASE).
+		/// </summary>
+		/// <param name="filename">Línea de código.</param>
 		static void Save(const std::string& filename = "LOG_LAST.txt");
 
-
-		//Limpia el Logger (modo RELEASE).
+		/// <summary>
+		/// Limpia el Logger (modo RELEASE).
+		/// </summary>
 		static void Clear();
 
 	private:
 
+
+
+		/// <summary>
+		/// True si ha sido iniciado.
+		/// </summary>
 		static bool hasBeenStarted;
 
 #ifdef OSK_RELEASE
+		/// <summary>
+		/// Fichero de salida.
+		/// </summary>
 		static std::string output;
 #endif
 
+		/// <summary>
+		/// Output.
+		/// </summary>
 		static std::string path;
 
 	};
 
-#define OSK_GET_TRACE std::string("\tat: ") + std::string(__FUNCTION__) +  ", line " + std::to_string(__LINE__)
-#define OSK_SHOW_TRACE() OSK::Logger::Log(OSK::LogMessageLevels::NO, OSK_GET_TRACE)
-#define OSK_SHOW_ERROR(what) OSK::Logger::Log(OSK::LogMessageLevels::CRITICAL_ERROR, std::string(what) + "\n" + OSK_GET_TRACE)
-#define OSK_SHOW_WARNING(what) OSK::Logger::Log(OSK::LogMessageLevels::WARNING, std::string(what) + "\n" +OSK_GET_TRACE)
-			
-//#define OSK_CHECK(x) if (x != OSK::OskResult::SUCCESS) { OSK_SHOW_TRACE(); }
-//#define OSK_CHECK_RET(x) if (x != OSK::OskResult::SUCCESS) { OSK_SHOW_TRACE(); return x; }
-
 }
+	

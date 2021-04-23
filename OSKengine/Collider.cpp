@@ -3,10 +3,6 @@
 using namespace OSK;
 using namespace OSK::Collision;
 
-Collider::Collider() {
-
-}
-
 Collider::Collider(const Vector3f& spherePosition, float sphereRadius) {
 	SetBroadCollider(CollisionSphere(spherePosition, sphereRadius));
 }
@@ -34,6 +30,10 @@ void Collider::SetPosition(const Vector3f& pos) {
 
 bool Collider::IsColliding(Collider& other) {
 	return GetCollisionInfo(other).IsColliding;
+}
+
+BroadColliderType Collider::GetCurrentBroadColliderType() const {
+	return BroadType;
 }
 
 ColliderCollisionInfo Collider::GetCollisionInfo(Collider& other) {

@@ -5,64 +5,65 @@
 #include "OSKtypes.h"
 #include "Log.h"
 
-#include "Quaternion.h"
+#include "SVectorKey.h"
+#include "SQuaternionKey.h"
 
 #include <vector>
 
 namespace OSK::Animation {
 
-	struct OSKAPI_CALL SVectorKey {
-		deltaTime_t Time;
-		Vector3f Value;
-	};
-
-	struct OSKAPI_CALL SQuaternionKey {
-		deltaTime_t Time;
-		Quaternion Value;
-	};
-
+	/// <summary>
+	/// Representa un nodo animado:
+	/// sus keyframes (y sus valores)
+	/// y su matriz.
+	/// </summary>
 	struct OSKAPI_CALL SNodeAnim {
 
-		void Clear() {
-			if (PositionKeys)
-				delete[] PositionKeys;
-			if (PositionKeys)
-				delete[] RotationKeys;
-			if (PositionKeys)
-				delete[] ScalingKeys;
-		}
+		/// <summary>
+		/// Elimina el nodo.
+		/// </summary>
+		void Clear();
 
+		/// <summary>
+		/// Nombre del nodo.
+		/// </summary>
 		std::string Name = "$NO";
 
+		/// <summary>
+		/// Número de keyframes de posición.
+		/// </summary>
 		uint32_t NumberOfPositionKeys = 0;
+
+		/// <summary>
+		/// Keyframes de posición.
+		/// </summary>
 		SVectorKey* PositionKeys = nullptr;
 
+		/// <summary>
+		/// Número de keyframes de rotación.
+		/// </summary>
 		uint32_t NumberOfRotationKeys = 0;
+
+		/// <summary>
+		/// Keyframes de rotación.
+		/// </summary>
 		SQuaternionKey* RotationKeys = nullptr;
 
+		/// <summary>
+		/// Número de keyframes de escala.
+		/// </summary>
 		uint32_t NumberOfScalingKeys = 0;
+
+		/// <summary>
+		/// Keyframes de escala.
+		/// </summary>
 		SVectorKey* ScalingKeys = nullptr;
 
+		/// <summary>
+		/// Matriz del nodo animado.
+		/// </summary>
 		glm::mat4 Matrix;
 
-	};
-
-	struct OSKAPI_CALL SNode {
-		void Clear() {
-			for (uint32_t i = 0; i < NumberOfChildren; i++)
-				Children[i].Clear();
-
-			if (Children)
-				delete[] Children;
-		}
-
-		std::string Name;
-		glm::mat4 Matrix = glm::mat4(1.0f);
-
-		SNode* Children = nullptr;
-		uint32_t NumberOfChildren = 0;
-
-		int SNodeAnimIndex = -1;
 	};
 
 }

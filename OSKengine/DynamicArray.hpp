@@ -16,84 +16,94 @@ namespace OSK {
 #define OSK_DS_SAFE_MODE
 #endif // _DEBUG
 
-	/*
-	Dynamic array: array que puede cambiar de tamaño.
-	*/
+	/// <summary>
+	/// Dynamic array: array que puede cambiar de tamaño.
+	/// </summary>
+	/// <typeparam name="T">Tipo de elementos que van a ser almacenados.</typeparam>
 	template <typename T> class DynamicArray {
 
 	public:
 
-		/*
-		Clase que representa un elemento de un DynamicArray.
-		Se preserva aunque el array cambie de tamaño.
-		*/
+		/// <summary>
+		/// Clase que representa un elemento de un DynamicArray.
+		/// Se preserva aunque el array cambie de tamaño.
+		/// </summary>
 		class Iterator {
 
 			friend class DynamicArray;
 
 		public:
 
-			/*
-			Obtiene el valor al que apunta.
-			*/
+			/// <summary>
+			/// Obtiene el valor en la posición dada.
+			/// </summary>
+			/// <param name="index">Posición en el array.</param>
+			/// <returns>Valor en esa posición.</returns>
 			inline T& GetValue(size_t index) const {
 				return collection->At(index);
 			}
 
-			/*
-			Hace que el iterador apunte al siguiente elemento.
-			*/
+			/// <summary>
+			/// Hace que el iterador apunte al siguiente elemento.
+			/// </summary>
+			/// <returns>Self.</returns>
 			inline Iterator operator++ () {
 				Index++;
 
 				return *this;
 			}
 
-			/*
-			True si los dos iterators apuntan al mismo elemento del mismo array.
-			*/
+			/// <summary>
+			/// Comprueba si dos iteradores apuntan al mismo elemento de la misma colección.
+			/// </summary>
+			/// <param name="it">Otro iterador.</param>
+			/// <returns>True si los dos iterators apuntan al mismo elemento del mismo array.</returns>
 			inline bool operator== (const Iterator& it) const {
 				return Index == it.Index && collection == it.collection;
 			}
 
-			/*
-			True si los dos iterators no apuntan al mismo elemento del mismo array.
-			*/
+			/// <summary>
+			/// Comprueba si dos iteradores NO apuntan al mismo elemento de la misma colección.
+			/// </summary>
+			/// <param name="it">Otro iterador.</param>
+			/// <returns>True si los dos iterators NO apuntan al mismo elemento del mismo array.</returns>
 			inline bool operator!= (const Iterator& it) const {
 				return Index != it.Index || collection != it.collection;
 			}
 
-			/*
-			Get();
-			*/
+			/// <summary>
+			/// Obtiene el valor al que apunta.
+			/// </summary>
+			/// <returns>Valor al que apunta.</returns>
 			inline T& operator*() const {
 				return GetValue(Index);
 			}
 
 		private:
 
-			/*
-			Elemento al que apunta.
-			*/
+			/// <summary>
+			/// Elemento al que apunta.
+			/// </summary>
 			size_t Index = 0;
 
-			/*
-			DynArray al que pertenece.
-			*/
+			/// <summary>
+			/// Array al que pertenece.
+			/// </summary>
 			DynamicArray* collection = nullptr;
 
 		};
 
-		/*
-		Crea el dynamic array con espacio para <InitialSize> elementos.
-		*/
+		/// <summary>
+		/// Crea el dynamic array con espacio para <InitialSize> elementos.
+		/// </summary>
 		DynamicArray() {
 			Allocate(InitialSize);
 		}
 
-		/*
-		Crea el dynamic array con los elementos dados.
-		*/
+		/// <summary>
+		/// Crea el dynamic array con los elementos dados.
+		/// </summary>
+		/// <param name="list">Elementos iniciales.</param>
 		DynamicArray(const std::initializer_list<T>& list) {
 			Allocate(list.size());
 
@@ -102,16 +112,19 @@ namespace OSK {
 			}
 		}
 
-		/*
-		Constructor de copia.
-		*/
+		/// <summary>
+		/// Constructor de copia.
+		/// </summary>
+		/// <param name="arr">Array que se va a copiar.</param>
 		DynamicArray(const DynamicArray& arr) {
 			CopyContentFrom(arr);
 		}
 
-		/*
-		Copia el array.
-		*/
+		/// <summary>
+		/// Copia el array.
+		/// </summary>
+		/// <param name="arr">Array a copiar.</param>
+		/// <returns>Self.</returns>
 		DynamicArray& operator=(const DynamicArray& arr) {
 			if (&arr == this) {
 				return *this;
@@ -120,16 +133,17 @@ namespace OSK {
 			CopyContentFrom(arr);
 		}
 
-		/*
-		Destruye el array.
-		*/
+		/// <summary>
+		/// Destruye el array.
+		/// </summary>
 		~DynamicArray() {
 			Delete();
 		}
 
-		/*
-		Copia el array.
-		*/
+		/// <summary>
+		/// Copia los contenidos del array.
+		/// </summary>
+		/// <param name="arr">Array a copiar.</param>
 		void CopyContentFrom(const DynamicArray& arr) {
 			Delete();
 			Allocate(arr.Capacity);
@@ -140,10 +154,11 @@ namespace OSK {
 			GrowthFactorType = arr.GrowthFactorType;
 		}
 
-		/*
-		Inserta un elemento al array.
-		Puede cambiar de tamaño.
-		*/
+		/// <summary>
+		/// Inserta un elemento al array.
+		/// Puede cambiar de tamaño.
+		/// </summary>
+		/// <param name="element">Elemento a añadir.</param>
 		void Insert(const T& element) {
 			if (!HasBeenInitialized())
 				Allocate(InitialSize);
@@ -160,9 +175,10 @@ namespace OSK {
 			Size++;
 		}
 
-		/*
-		Añade los elementos de <arr> a este array.
-		*/
+		/// <summary>
+		/// Añade los elementos de arr a este array.
+		/// </summary>
+		/// <param name="arr">Elementos a añadir.</param>
 		void Concadenate(const DynamicArray& arr) {
 			size_t originalSize = Size;
 
@@ -176,31 +192,35 @@ namespace OSK {
 			memcpy(&Data[originalSize], arr.Data, sizeof(T) * arr.GetSize());
 		}
 
-		/*
-		Cambia el tamaño del array.
-		Los datos se conservan, siempre que se pueda.
-		*/
+		/// <summary>
+		/// Cambia el tamaño del array.
+		/// Los datos se conservan, siempre que se pueda.
+		/// </summary>
+		/// <param name="size">Nuevo tamaño del array.</param>
 		inline void Resize(size_t size) {
 			Allocate(size);
 		}
 
-		/*
-		Devuelve true si el array está vacío.
-		*/
+		/// <summary>
+		/// Devuelve true si el array está vacío.
+		/// </summary>
+		/// <returns>Estado del array.</returns>
 		inline bool IsEmpty() const noexcept {
 			return Size == 0;
 		}
 
-		/*
-		Vacía el array, sin liberar memoria.
-		*/
+		/// <summary>
+		/// Vacía el array, sin liberar memoria.
+		/// </summary>
 		inline void Empty() const noexcept {
 			Size = 0;
 		}
 
-		/*
-		Devuelve el elemento en la posición dada.
-		*/
+		/// <summary>
+		/// Devuelve el elemento en la posición dada.
+		/// </summary>
+		/// <param name="index">Posición del elemento.</param>
+		/// <returns>Elemento.</returns>
 		inline T& At(size_t index) const {
 #ifdef OSK_DS_SAFE_MODE
 			if (index >= Capacity) {
@@ -231,9 +251,10 @@ namespace OSK {
 			return Data[index];
 		}
 
-		/*
-		Elimina el elemento en la posición dada.
-		*/
+		/// <summary>
+		/// Elimina el elemento en la posición dada.
+		/// </summary>
+		/// <param name="index">Posición del elemento.</param>
 		inline void Remove(size_t index) {
 #ifdef OSK_DS_SAFE_MODE
 			if (index >= Capacity) {
@@ -260,7 +281,6 @@ namespace OSK {
 				throw std::runtime_error(msg);
 			}
 #endif // _DEBUG
-			//At(index)->~T();
 
 			T* newData = (T*)malloc(sizeof(T) * (Capacity - index));
 
@@ -272,9 +292,10 @@ namespace OSK {
 			Size--;
 		}
 
-		/*
-		Elimina el elemento en la posición dada.
-		*/
+		/// <summary>
+		/// Elimina el elemento en la posición dada. El último elemento del array pasa a su lugar.
+		/// </summary>
+		/// <param name="index">Posición del elemento.</param>
 		inline void RemoveAndMoveLast(size_t index) {
 #ifdef OSK_DS_SAFE_MODE
 			if (index >= Capacity) {
@@ -307,6 +328,9 @@ namespace OSK {
 			Size--;
 		}
 
+		/// <summary>
+		/// Elimina el último elemento del array.
+		/// </summary>
 		inline void RemoveLast() {
 #ifdef OSK_DS_SAFE_MODE
 			if (!HasBeenInitialized()) {
@@ -315,63 +339,71 @@ namespace OSK {
 				throw std::runtime_error(msg);
 			}
 #endif // _DEBUG
-			//At(Size)->~T();
 
 			Size--;
 		}
 
-		/*
-		Devuelve el elemento en la posición dada.
-		*/
+		/// <summary>
+		/// Devuelve el elemento en la posición dada.
+		/// </summary>
+		/// <param name="i">Posición en el array.</param>
+		/// <returns>Elemento.</returns>
 		inline T& operator[] (size_t i) const {
 			return At(i);
 		}
 
-		/*
-		Elimina el array, liberando memoria.
-		*/
+		/// <summary>
+		/// Elimina el array, liberando memoria.
+		/// </summary>
 		inline void Free() {
 			Delete();
 		}
 
-		/*
-		Devuelve el número de elementos almacenados.
-		*/
+		/// <summary>
+		/// Devuelve el número de elementos almacenados.
+		/// </summary>
+		/// <returns>Elementos en el array.</returns>
 		inline size_t GetSize() const noexcept {
 			return Size;
 		}
 
-		/*
-		Devuelve el número de elementos reservados.
-		*/
+		/// <summary>
+		/// Devuelve el número de elementos reservados.
+		/// </summary>
+		/// <returns>Espacio reservado.</returns>
 		inline size_t GetReservedSize() const noexcept {
 			return Capacity;
 		}
 
-		/*
-		Devuelve el array original.
-		*/
+		/// <summary>
+		/// Devuelve el array original.
+		/// </summary>
+		/// <returns>Array.</returns>
 		inline T* GetData() const noexcept {
 			return Data;
 		}
 
-		/*
-		Devuelve el iterador que apunta al primer elemento.
-		*/
+		/// <summary>
+		/// Devuelve el iterador que apunta al primer elemento.
+		/// </summary>
+		/// <returns>Primer iterador.</returns>
 		inline Iterator begin() noexcept {
 			return GetIterator(0);
 		}
 
-		/*
-		Devuelve el iterador que apunta al último elemento.
-		*/
+		/// <summary>
+		/// Devuelve el iterador que apunta al último elemento.
+		/// </summary>
+		/// <returns>Iterador final.</returns>
 		inline Iterator end() noexcept {
 			return GetIterator(Size);
 		}
 
-		/*
-		Devuelve el iterador que apunta a un elemento en particular.
-		*/
+		/// <summary>
+		/// Devuelve el iterador que apunta a un elemento en particular.
+		/// </summary>
+		/// <param name="index">Posición del elemento.</param>
+		/// <returns>Iterador.</returns>
 		inline Iterator GetIterator(size_t index) noexcept {
 			Iterator it;
 			it.collection = this;
@@ -380,10 +412,12 @@ namespace OSK {
 			return it;
 		}
 
-		/*
-		Devuelve la posición del elemento dado.
-		Devuelve Size + 1 si no está en el array.
-		*/
+		/// <summary>
+		/// Devuelve la posición del elemento dado.
+		/// Devuelve Size + 1 si no está en el array.
+		/// </summary>
+		/// <param name="value">Valor buscado.</param>
+		/// <returns>Su posición.</returns>
 		inline size_t GetPosition(const T& value) const noexcept {
 			for (size_t i = 0; i < Size; i++) {
 				if (At(i) == value) {
@@ -394,41 +428,42 @@ namespace OSK {
 			return Size + 1;
 		}
 
-		/*
-		Devuelve true si el array tiene el elemento dado.
-		*/
+		/// <summary>
+		/// Devuelve true si el array tiene el elemento dado.
+		/// </summary>
+		/// <param name="value">Valor buscado.</param>
+		/// <returns>True si está en el array.</returns>
 		bool HasElement(const T& value) const noexcept {
-			for (size_t i = 0; i < Size; i++) {
-				if (At(i) == value) {
+			for (size_t i = 0; i < Size; i++)
+				if (At(i) == value)
 					return true;
-				}
-			}
 
 			return false;
 		}
 
-		/*
-		Devuelve true si el array se ha inicializado.
-		*/
+		/// <summary>
+		/// Devuelve true si el array se ha inicializado.
+		/// </summary>
+		/// <returns>Estado del array.</returns>
 		inline bool HasBeenInitialized() const noexcept {
 			return Data != nullptr;
 		}
 
-		/*
-		Factor de crecimiento.
-		*/
+		/// <summary>
+		/// Factor de crecimiento.
+		/// </summary>
 		size_t GrowthFactor = 2;
-
-		/*
-		Comportamiento al aumentar de tamaño.
-		*/
+		/// <summary>
+		/// Comportamiento al aumentar de tamaño.
+		/// </summary>
 		GrowthFactorType GrowthFactorType = GrowthFactorType::EXPONENTIAL;
 
 	private:
 
-		/*
-		Reserva espacio para <size> elementos.
-		*/
+		/// <summary>
+		/// Reserva espacio para size elementos.
+		/// </summary>
+		/// <param name="size">Número de elementos.</param>
 		void Allocate(size_t size) {
 			size_t oldCapacity = Capacity;
 			Capacity = size;
@@ -442,9 +477,9 @@ namespace OSK {
 			}
 		}
 
-		/*
-		Elimina el array.
-		*/
+		/// <summary>
+		/// Elimina el array.
+		/// </summary>
 		void Delete() {
 			if (HasBeenInitialized()) {
 				free(Data);
@@ -454,25 +489,25 @@ namespace OSK {
 			Capacity = 0;
 			Size = 0;
 		}
-
-		/*
-		Array.
-		*/
+		
+		/// <summary>
+		/// Array.
+		/// </summary>
 		T* Data = nullptr;
 
-		/*
-		Número de espacios reservados.
-		*/
+		/// <summary>
+		/// Número de espacios reservados.
+		/// </summary>
 		size_t Capacity = 0;
 
-		/*
-		Elementos guardados.
-		*/
+		/// <summary>
+		/// Elementos guardados.
+		/// </summary>
 		size_t Size = 0;
 
-		/*
-		Tamaño inicial.
-		*/
+		/// <summary>
+		/// Tamaño inicial.
+		/// </summary>
 		const size_t InitialSize = 10;
 
 	};

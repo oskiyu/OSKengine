@@ -14,86 +14,160 @@
 
 namespace OSK {
 
-	//Clase que almacena el 'transform' de un objeto en un mundo 3D.
-	//Posición, escala y rotación.
+	/// <summary>
+	/// Clase que almacena el 'transform' de un objeto en un mundo 3D.
+	/// El transform contiene posición, escala y rotación.
+	/// A este transform se pueden enlazar otros transform ahijados,
+	/// de tal manera que al cambiar el transform padre,
+	/// el resto de transforms también ven sus variables cambiadas.
+	/// </summary>
 	class OSKAPI_CALL Transform {
 
 	public:
 
-		//Crea la clase.
+		/// <summary>
+		/// Transform por defecto.
+		/// </summary>
 		Transform();
 
-		//Crea la clase con la posición, escala y rotación establecidos.
-		Transform(const Vector3f& position, const Vector3f& scale, const Vector3f& rotation);
-			
-		//Destruye la clase.
-		~Transform();
-
-		//Establece la posición.
-		//También actualiza la matriz modelo.
+		/// <summary>
+		/// Crea el transform.
+		/// </summary>
+		/// <param name="position">Posición en el mundo.</param>
+		/// <param name="scale">Escala en el mundo.</param>
+		Transform(const Vector3f& position, const Vector3f& scale);
+		
+		/// <summary>
+		/// Establece la posición.
+		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// </summary>
+		/// <param name="position">Nueva posición respecto al padre.</param>
 		void SetPosition(const Vector3f& position);
 
-		//Establece la escala.
-		//También actualiza la matriz modelo.
+		/// <summary>
+		/// Establece la escala.
+		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// </summary>
+		/// <param name="scale">Nueva escala respecto al padre.</param>
 		void SetScale(const Vector3f& scale);
 
-		//Establece la rotación.
-		//También actualiza la matriz modelo.
+		/// <summary>
+		/// Establece la rotación.
+		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// </summary>
+		/// <param name="rotation">Nueva rotación respecto al padre.</param>
 		void SetRotation(const Quaternion& rotation);
 
-		//Suma un vector 3D a la posición.
+		/// <summary>
+		/// Suma el vector 3D a la posición.
+		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// </summary>
+		/// <param name="positionDelta">Posición a añadir.</param>
 		void AddPosition(const Vector3f& positionDelta);
 
-		//Suma un vector 3D a la escala.
+		/// <summary>
+		/// Suma un vector 3D a la escala.
+		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// </summary>
+		/// <param name="scaleDelta">Escala a añadir.</param>
 		void AddScale(const Vector3f& scaleDelta);
 
-		//Suma un quaternion a la rotación.
+		/// <summary>
+		/// Aplica una rotación al transform.
+		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// </summary>
+		/// <param name="rotationDelta">Rotación a aplicar.</param>
 		void ApplyRotation(const Quaternion& rotationDelta);
 
-		//Rota el transform, usando un eje en espacio local.
+		/// <summary>
+		/// Rota el transform respecto a sí mismo.
+		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// </summary>
+		/// <param name="angle">Ángulo.</param>
+		/// <param name="axis">Eje sobre el que se rota.</param>
 		void RotateLocalSpace(float angle, const Vector3f& axis);
 
-		//Rota el transform, usando un eje en espacio global.
+		/// <summary>
+		/// Rota el transform respecto al mundo.
+		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// </summary>
+		/// <param name="angle">Ángulo.</param>
+		/// <param name="axis">Eje sobre el que se rota.</param>
 		void RotateWorldSpace(float angle, const Vector3f& axis);
 
-		//Actualiza la matriz modelo.
+		/// <summary>
+		/// Actualiza la matriz modelo, y la de sus hijos.
+		/// </summary>
 		void UpdateModel();
 
-		//Establece el 'transform' baseTransform como base.
+		/// <summary>
+		/// Enlaza este transform a su nuevo transform padre.
+		/// </summary>
+		/// <param name="baseTransform">Tranform padre.</param>
 		void AttachTo(Transform* baseTransform);
 
-		//Elimina el 'transform' base.
+		/// <summary>
+		/// Libera este transform de su padre.
+		/// </summary>
 		void UnAttach();
 
-		//Vector posición en el mundo 3D.
+		/// <summary>
+		/// Vector posición en el mundo 3D.
+		/// </summary>
 		Vector3f GlobalPosition;
 
-		//Vector escala en el mundo 3D.
+		/// <summary>
+		/// Vector escala en el mundo 3D.
+		/// </summary>
 		Vector3f GlobalScale;
 
-		//Vector posición local.
+		/// <summary>
+		/// Posición respecto al padre.
+		/// </summary>
 		Vector3f LocalPosition;
 
-		//Vector escala local.
+		/// <summary>
+		/// Escala respecto al padre.
+		/// </summary>
 		Vector3f LocalScale;
 
-		//Orientación.
+		/// <summary>
+		/// Orientación.
+		/// </summary>
 		Quaternion Rotation;
 
-		//Matriz "model".
+		/// <summary>
+		/// Matriz modelo.
+		/// </summary>
 		glm::mat4 ModelMatrix;
 	
-		//Transformación padre.
-		Transform* ParentTransform;
+		/// <summary>
+		/// Transform padre.
+		/// </summary>
+		Transform* ParentTransform = nullptr;
 
-		//Transformaciones ahijadas.
+		/// <summary>
+		/// Transformaciones ahijadas.
+		/// </summary>
 		std::vector<Transform*> ChildTransforms;
 
 	private:
 
+		/// <summary>
+		/// Convierte la matriz de assimp en matriz de glm.
+		/// </summary>
+		/// <param name="src">Matriz assimp.</param>
+		/// <returns>Matriz glm.</returns>
 		static glm::mat4 toGlmMat(const aiMatrix4x4* src);
 
+		/// <summary>
+		/// True si tiene padre.
+		/// </summary>
 		bool isAttached = false;
+
+		/// <summary>
+		/// True si tiene ahijados.
+		/// </summary>
 		bool isParent = false;
 
 	};

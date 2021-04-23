@@ -16,8 +16,8 @@ Signature RenderSystem3D::GetSystemSignature() {
 void RenderSystem3D::Init() {
 	RScene = new RenderizableScene(Renderer);
 	Renderer->RSystem = this;
-	Stage.Scene = RScene;
-	RScene->TargetRenderpass = Renderer->Stage.RTarget->VRenderpass;
+	Stage.Scene = RScene.GetPointer();
+	RScene->TargetRenderpass = Renderer->GetMainRenderTarget()->VRenderpass;
 }
 
 void RenderSystem3D::OnTick(deltaTime_t deltaTime) {
@@ -33,7 +33,7 @@ void RenderSystem3D::OnTick(deltaTime_t deltaTime) {
 }
 
 void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
-	if (RScene != nullptr) {
+	if (RScene.HasValue()) {
 		RScene->UpdateLightsBuffers();
 
 		RScene->PrepareDrawShadows(cmdBuffer, i);
@@ -53,22 +53,22 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 
 	VkRenderPassBeginInfo renderPassInfo{};
 	renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-	renderPassInfo.renderPass = Renderer->Stage.RTarget->VRenderpass->VulkanRenderpass;
-	renderPassInfo.framebuffer = Renderer->Stage.RTarget->TargetFramebuffers[i]->framebuffer;
+	renderPassInfo.renderPass = Renderer->GetMainRenderTarget()->VRenderpass->VulkanRenderpass;
+	renderPassInfo.framebuffer = Renderer->GetMainRenderTarget()->TargetFramebuffers[i]->framebuffer;
 	renderPassInfo.renderArea.offset = { 0, 0 };
 
-	renderPassInfo.renderArea.extent = { Renderer->Stage.RTarget->Size.X, Renderer->Stage.RTarget->Size.Y };
+	renderPassInfo.renderArea.extent = { Renderer->GetMainRenderTarget()->Size.X, Renderer->GetMainRenderTarget()->Size.Y };
 	std::array<VkClearValue, 2> clearValues = {};
 	clearValues[0] = { 0.8f, 0.8f, 0.8f, 1.0f }; //Color.
 	clearValues[1] = { 1.0f, 0.0f }; //Depth.
 	renderPassInfo.clearValueCount = clearValues.size();
 	renderPassInfo.pClearValues = clearValues.data();
 
-	Renderer->Stage.RTarget->TransitionToRenderTarget(&cmdBuffer);
+	Renderer->GetMainRenderTarget()->TransitionToRenderTarget(&cmdBuffer);
 	vkCmdBeginRenderPass(cmdBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 	Renderer->SetViewport(cmdBuffer);
 
-	if (RScene != nullptr) {
+	if (RScene.HasValue()) {
 		RScene->PrepareDraw(cmdBuffer, i);
 
 		for (auto object : Objects) {
@@ -88,7 +88,7 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 	for (auto& spriteBatch : Stage.SpriteBatches) {
 
 		if (!spriteBatch->spritesToDraw.IsEmpty()) {
-			GraphicsPipeline* pipeline = Renderer->GetMaterialSystem()->GetMaterial(Renderer->DefaultMaterial2D_Name)->GetGraphicsPipeline(Renderer->Stage.RTarget->VRenderpass);
+			GraphicsPipeline* pipeline = Renderer->GetMaterialSystem()->GetMaterial(Renderer->DefaultMaterial2D_Name)->GetGraphicsPipeline(Renderer->GetMainRenderTarget()->VRenderpass);
 			pipeline->Bind(cmdBuffer);
 
 			vkCmdBindIndexBuffer(cmdBuffer, Sprite::IndexBuffer.Buffer, 0, VK_INDEX_TYPE_UINT16);
@@ -118,9 +118,5 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 	}
 
 	vkCmdEndRenderPass(cmdBuffer);
-	Renderer->Stage.RTarget->TransitionToTexture(&cmdBuffer);
-}
-
-void RenderSystem3D::OnRemove() {
-	delete RScene;
+	Renderer->GetMainRenderTarget()->TransitionToTexture(&cmdBuffer);
 }

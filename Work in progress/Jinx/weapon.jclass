@@ -1,0 +1,11 @@
+external damage
+external recoil
+external bullets
+
+set damage to 20
+set recoil to 5
+set bullets to 24
+
+public function Shoot
+	
+end

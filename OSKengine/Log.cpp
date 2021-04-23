@@ -24,7 +24,6 @@ namespace OSK {
 
 	}
 
-
 	void Logger::Log(const LogMessageLevels& level, const std::string& msg, int line) {
 		if (!hasBeenStarted)
 			throw std::runtime_error("OSK::Logger no ha sido inicializado. Usa Logger::Start() antes.");

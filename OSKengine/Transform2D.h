@@ -9,103 +9,173 @@
 
 namespace OSK {
 
+	/// <summary>
+	/// Clase que almacena el 'transform' de un objeto en un mundo 2D.
+	/// El transform contiene posición, escala y rotación.
+	/// A este transform se pueden enlazar otros transform ahijados,
+	/// de tal manera que al cambiar el transform padre,
+	/// el resto de transforms también ven sus variables cambiadas.
+	/// </summary>
 	class OSKAPI_CALL Transform2D {
 
 	public:
 
-		//Clase que almacena el 'transform' de un objeto en un mundo 3D.
-		//Posición, escala y rotación.
+		/// <summary>
+		/// Transform por defecto.
+		/// </summary>
 		Transform2D();
 
-		//Clase que almacena el 'transform' de un objeto en un mundo 3D.
-		//Posición, escala y rotación.
+		/// <summary>
+		/// Crea el transform.
+		/// </summary>
+		/// <param name="position">Posición en el mundo.</param>
+		/// <param name="scale">Escala en el mundo.</param>
+		/// <param name="rotation">Rotación en el mundo.</param>
 		Transform2D(const Vector2& position, const Vector2& scale, float rotation);
 
-		//Destruye el transform.
-		~Transform2D();
-
-		//Establece la posición del transform.
-		//También actualiza la matriz modelo.
+		/// <summary>
+		/// Establece la posición.
+		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// </summary>
+		/// <param name="position">Nueva posición respecto al padre.</param>
 		void SetPosition(const Vector2& position);
 
-		//Establece la escala del transform.
-		//También actualiza la matriz modelo.
+		/// <summary>
+		/// Establece la escala.
+		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// </summary>
+		/// <param name="scale">Nueva escala respecto al padre.</param>
 		void SetScale(const Vector2& scale);
 
-		//Establece la rotación del transform.
-		//También actualiza la matriz modelo.
-		void SetRotation(float scale);
+		/// <summary>
+		/// Establece la rotación del transform.
+		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// </summary>
+		/// <param name="rotation">Ángulo.</param>
+		void SetRotation(float rotation);
 
-		//Cambia la posición del transform.
-		//También actualiza la matriz modelo.
+		/// <summary>
+		/// Suma el vector 3D a la posición.
+		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// </summary>
+		/// <param name="positionDelta">Posición a añadir.</param>
 		void AddPosition(const Vector2& positionDelta);
 
-		//Cambia la escala del transform.
-		//También actualiza la matriz modelo.
+		/// <summary>
+		/// Suma un vector 3D a la escala.
+		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// </summary>
+		/// <param name="scaleDelta">Escala a añadir.</param>
 		void AddScale(const Vector2& scaleDelta);
 
-		//Cambia la rotación del transform.
-		//También actualiza la matriz modelo.
+		/// <summary>
+		/// Cambia la rotación del transform.
+		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// </summary>
+		/// <param name="rotationDelta">Ángulo añadido.</param>
 		void AddRotation(float rotationDelta);
 
-		//Actualiza la matriz modelo.
-		//La matriz modelo es la información que se le envía a la GPU.
+		/// <summary>
+		/// Actualiza la matriz modelo, y la de sus hijos.
+		/// </summary>
 		void UpdateModel();
 
-		//Establece el 'transform' baseTransform como base.
+		/// <summary>
+		/// Enlaza este transform a su nuevo transform padre.
+		/// </summary>
+		/// <param name="baseTransform">Tranform padre.</param>
 		void AttachTo(Transform2D* baseTransform);
 
-		//Elimina el 'transform' base.
+		/// <summary>
+		/// Libera este transform de su padre.
+		/// </summary>
 		void UnAttach();
 
-		//Devuelve un rectángulo con la posición y el tamaño de este transform.
+		/// <summary>
+		/// Devuelve un rectángulo con la posición y el tamaño de este transform.
+		/// </summary>
+		/// <returns>Rectángulo del transform.</returns>
 		Vector4 GetRectangle() const;
 
-
-		//Vector posición en el mundo 2D.
+		/// <summary>
+		/// Vector posición en el mundo 2D.
+		/// </summary>
 		Vector2 GlobalPosition;
 
-		//Vector escala en el mundo 2D.
+		/// <summary>
+		/// Vector escala en el mundo 2D.
+		/// </summary>
 		Vector2 GlobalScale;
 
-		//Rotación en el mundo 2D.
+		/// <summary>
+		/// Rotación en el mundo 2D.
+		/// </summary>
 		float GlobalRotation;
 
-		//Vector posición.
+		/// <summary>
+		/// Posición local.
+		/// </summary>
 		Vector2 Position;
 
-		//Vector escala.
+		/// <summary>
+		/// Escala local.
+		/// </summary>
 		Vector2 Scale;
 
-		//Vector rotación.
+		/// <summary>
+		/// Rotación local.
+		/// </summary>
 		float Rotation;
 
-		//Matriz "model".
+		/// <summary>
+		/// Matriz modelo.
+		/// </summary>
 		glm::mat4 ModelMatrix;
 
-		//Transformación padre.
+		/// <summary>
+		/// Transform padre.
+		/// </summary>
 		Transform2D* ParentTransform;
 
-		//Transformaciones ahijadas.
+		/// <summary>
+		/// Transformaciones ahijadas.
+		/// </summary>
 		std::vector<Transform2D*> ChildTransforms;
 
-		//Offset de la posición (del transform padre).
+		/// <summary>
+		/// Posición respecto al padre.
+		/// </summary>
 		Vector2 PositionOffset;
 
-		//Offset de la escala (del transform padre).
+		/// <summary>
+		/// Escala respecto al padre.
+		/// </summary>
 		Vector2 ScaleOffset;
 
-		//Offset de la rotación (del transform padre).
+		/// <summary>
+		/// Rotación respecto al padre.
+		/// </summary>
 		float RotationOffset;
 
-		//Establece si ha de heredar la escala padre.
+		/// <summary>
+		/// Establece si ha de heredar la escala padre.
+		/// </summary>
 		bool UseParentScale = false;
 
 	private:
-
+		/// <summary>
+		/// True si tiene padre.
+		/// </summary>
 		bool isAttached = false;
+
+		/// <summary>
+		/// True si tiene ahijados.
+		/// </summary>
 		bool isParent = false;
 
+		/// <summary>
+		/// Transform padre.
+		/// </summary>
 		Transform2D* parent = nullptr;
 
 	};

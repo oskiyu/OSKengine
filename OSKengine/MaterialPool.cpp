@@ -4,6 +4,10 @@
 
 using namespace OSK;
 
+MaterialPool::MaterialPool(RenderAPI* renderer) : Renderer(renderer) {
+
+}
+
 MaterialPool::~MaterialPool() {
 	//Free();
 }
@@ -51,4 +55,21 @@ void MaterialPool::AddNewData() {
 	newData.BaseSize = Datas.size() * MaterialPoolSize;
 
 	Datas.push_back(newData);
+}
+
+void MaterialPool::SetLayout(const MaterialBindingLayout& layout) {
+	Bindings = layout;
+}
+
+DescriptorSet* MaterialPool::GetDSet(uint32_t index) {
+	uint32_t bucket = index / MaterialPoolSize;
+	uint32_t offset = index % MaterialPoolSize;
+
+	return Datas[bucket].DescriptorSets[offset];
+}
+
+void MaterialPool::FreeSet(uint32_t index) {
+	uint32_t bucket = index / MaterialPoolSize;
+
+	Datas[bucket].FreeSpaces.Push(index);
 }

@@ -13,7 +13,7 @@ VkDescriptorType OSK::GetVulkanBindingType(OSK::MaterialBindingType type) {
 
 	}
 
-	return VK_DESCRIPTOR_TYPE_END_RANGE;
+	return VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 }
 
 VkShaderStageFlagBits OSK::GetVulkanShaderBinding(OSK::MaterialBindingShaderStage type) {

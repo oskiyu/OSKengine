@@ -10,7 +10,7 @@
 #include "MaterialBinding.h"
 #include "MaterialInstance.h"
 
-#include "ArrayStack.h"
+#include "Stack.hpp"
 #include "MaterialPoolData.h"
 
 namespace OSK {
@@ -18,55 +18,90 @@ namespace OSK {
 	class RenderAPI;
 	class Material;
 
-	//Pool de un material. Almacena los descriptor pools.
+	/// <summary>
+	/// Pool de un material.
+	/// Se encarga de crear material instances y de almacenar sus descriptor sets.
+	/// </summary>
 	class OSKAPI_CALL MaterialPool {
 
 		friend class Material;
 
 	public:
 
-		MaterialPool(RenderAPI* renderer) : Renderer(renderer) {
-			
-		}
+		/// <summary>
+		/// Crea el material pool.
+		/// </summary>
+		/// <param name="renderer">Renderizador.</param>
+		MaterialPool(RenderAPI* renderer);
 
+		/// <summary>
+		/// Destruye el material pool.
+		/// </summary>
 		~MaterialPool();
 
-		//Añade un binding al layout.
+		/// <summary>
+		/// Añade un binding al layout.
+		/// </summary>
+		/// <param name="binding">Tipo de binding.</param>
+		/// <param name="shaderStage">Stage del binding.</param>
 		void AddBinding(MaterialBindingType binding, MaterialBindingShaderStage shaderStage);
 
-		inline void SetBinding(const MaterialBindingLayout& layout) {
-			Bindings = layout;
-		}
+		/// <summary>
+		/// Establece el layout del material.
+		/// </summary>
+		/// <param name="layout">Layout.</param>
+		void SetLayout(const MaterialBindingLayout& layout);
 
-		//Crea y devuelve una nueva instancia del material.
+		/// <summary>
+		/// Crea y devuelve una nueva instancia del material.
+		/// </summary>
+		/// <returns>Nueva instancia.</returns>
 		MaterialInstance* CreateInstance();
 
-		//Libera todos los descriptor pools.
-		//No resetea el layout.
+		/// <summary>
+		/// Libera todos los descriptor pools.
+		/// No resetea el layout.
+		/// </summary>
 		void Free();
 
-		DescriptorSet* GetDSet(uint32_t index) {
-			uint32_t bucket = index / MaterialPoolSize;
-			uint32_t offset = index % MaterialPoolSize;
+		/// <summary>
+		/// Obtiene el descriptor set de un material instance.
+		/// </summary>
+		/// <param name="index">ID del material instance.</param>
+		/// <returns>Descriptor set.</returns>
+		DescriptorSet* GetDSet(uint32_t index);
 
-			return Datas[bucket].DescriptorSets[offset];
-		}
-
-		void FreeSet(uint32_t index) {
-			uint32_t bucket = index / MaterialPoolSize;
-			
-			Datas[bucket].FreeSpaces.Push(index);
-		}
+		/// <summary>
+		/// Libera el descriptor set de un material instance que ya no existe.
+		/// </summary>
+		/// <param name="index">ID del material instance.</param>
+		void FreeSet(uint32_t index);
 
 	private:
 
+		/// <summary>
+		/// Renderizador.
+		/// </summary>
 		RenderAPI* Renderer = nullptr;
+
+		/// <summary>
+		/// Layout del material.
+		/// </summary>
 		DescriptorLayout* Layout = nullptr;
 
+		/// <summary>
+		/// Añade un nuevo MaterialPoolData.
+		/// </summary>
 		void AddNewData();
 
-		/*LAYOUT*/
+		/// <summary>
+		/// Layout del material.
+		/// </summary>
 		MaterialBindingLayout Bindings = {};
+
+		/// <summary>
+		/// MaterialPoolDatas.
+		/// </summary>
 		std::vector<MaterialPoolData> Datas = {};
 
 	};

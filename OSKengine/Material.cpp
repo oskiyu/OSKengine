@@ -22,6 +22,15 @@ Material::~Material() {
 	}
 }
 
+void Material::SetRenderer(RenderAPI* renderer) {
+	Renderer = renderer;
+	Pool = new MaterialPool(renderer);
+}
+
+uint32_t Material::GetBindingIndex(const std::string& name) {
+	return BindingNameToBinding[name];
+}
+
 void Material::SetPipelineSettings(const MaterialPipelineCreateInfo& info) {
 	PipelineInfo = info;
 

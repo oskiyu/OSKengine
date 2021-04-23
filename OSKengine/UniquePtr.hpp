@@ -1,50 +1,70 @@
 #ifndef OSK_UNIQUE_PTR
 #define OSK_UNIQUE_PTR
 
-/*
-Es dueño de un puntero.
-El puntero es eliminado al destruirse el UniquePtr.
-*/
+/// <summary>
+/// Es dueño de un puntero.
+/// El puntero original es eliminado al destruirse el UniquePtr.
+/// </summary>
+/// <typeparam name="T">Tipo del puntero.</typeparam>
 template <typename T> class UniquePtr {
 
 public:
 
-	/*
-	Crea un UniquePtr vacío.
-	*/
+	/// <summary>
+	/// Crea un UniquePtr vacío.
+	/// </summary>
 	UniquePtr() {
 
 	}
 
-	/*
-	Crea un UniquePtr que será dueño de 'data'.
-	*/
+	/// <summary>
+	/// Crea un UniquePtr que será dueño de 'data'.
+	/// </summary>
+	/// <param name="data">Puntero original.</param>
 	UniquePtr(T* data) {
 		pointer = data;
 	}
 
-	/*
-	Elimina el puntero.
-	*/
+	/// <summary>
+	/// Destruye el puntero, eliminándolo.
+	/// <summary/>
 	~UniquePtr() {
 		Free();
 	}
 
+	/// <summary>
+	/// No se puede copiar.
+	/// </summary>
 	UniquePtr(const UniquePtr& other) = delete;
+
+	/// <summary>
+	/// No se puede copiar.
+	/// </summary>
 	UniquePtr& operator=(const UniquePtr& other) = delete;
 
+	/// <summary>
+	/// Este puntero será dueño del puntero de other.
+	/// </summary>
+	/// <param name="other">Otro puntero.</param>
 	UniquePtr(UniquePtr&& other) {
 		GetOwnership(other);
 	}
+
+	/// <summary>
+	/// Este puntero será dueño del puntero de other.
+	/// </summary>
+	/// <param name="other">Otro puntero.</param>
+	/// <returns>Self.</returns>
 	UniquePtr& operator=(UniquePtr&& other) {
 		GetOwnership(other);
 
 		return *this;
 	}
 
-	/*
-	Este UniquePtr se convierte en el dueño del puntero de 'other' (eliminando el anterior).
-	*/
+	/// <summary>
+	/// Este UniquePtr se convierte en el dueño del puntero de 'other' (eliminando el anterior).
+	/// </summary>
+	/// <param name="other">Otro puntero.</param>
 	void GetOwnership(UniquePtr& other) {
 		Free();
 
@@ -52,58 +72,67 @@ public:
 		other.pointer = nullptr;
 	}
 
-	/*
-	Cambia el puntero de este UniquePtr (eliminando el anterior).
-	*/
+	/// <summary>
+	/// Cambia el puntero de este UniquePtr (eliminando el anterior).
+	/// </summary>
+	/// <param name="newValue">Nuevo valor.</param>
 	void SetNewValue(T* newValue) {
 		Free();
 		pointer = newValue;
 	}
 
-	/*
-	Devuelve el puntero.
-	*/
+	/// <summary>
+	/// Devuelve el puntero nativo.
+	/// </summary>
+	/// <returns>Puntero.</returns>
 	T* GetPointer() const {
 		return pointer;
 	}
 
-	/*
-	Devuelve el valor apuntado por el puntero.
-	*/
+	/// <summary>
+	/// Devuelve el valor apuntado por el puntero.
+	/// </summary>
+	/// <returns>Valor.</returns>
 	T& GetValue() {
 		return *pointer;
 	}
 
-	/*
-	Devuelve el puntero.
-	*/
+	/// <summary>
+	/// Devuelve el puntero nativo.
+	/// </summary>
+	/// <returns>Puntero.</returns>
 	T* operator->() const {
 		return GetPointer();
 	}
 
-	/*
-	Devuelve el valor apuntado por el puntero.
-	*/
+	/// <summary>
+	/// Devuelve el valor apuntado por el puntero.
+	/// </summary>
+	/// <returns>Valor.</returns>
 	T& operator*() {
 		return GetValue();
 	}
 
-	/*
-	Devuelve true si el puntero no es nullptr.
-	*/
+	/// <summary>
+	/// Devuelve true si el puntero no es null.
+	/// </summary>
+	/// <returns>Estado del puntero.</returns>
 	bool HasValue() const {
 		return pointer != nullptr;
 	}
 
+	/// <summary>
+	/// Elimina el puntero.
+	/// </summary>
 	void Delete() {
 		Free();
 	}
 
 private:
 
-	/*
-	Elimina el puntero.
-	*/
+	/// <summary>
+	/// Elimina el puntero.
+	/// </summary>
 	void Free() {
 		if (pointer) {
 			delete pointer;
@@ -111,9 +140,9 @@ private:
 		}
 	}
 
-	/*
-	El puntero.
-	*/
+	/// <summary>
+	/// Puntero.
+	/// </summary>
 	T* pointer = nullptr;
 
 };

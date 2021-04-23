@@ -5,6 +5,7 @@
 #include "OSKtypes.h"
 #include "Log.h"
 
+#include "IComponentArray.h"
 #include "GameObjectManager.h"
 
 #include <array>
@@ -12,24 +13,20 @@
 
 namespace OSK::ECS {
 
-	//Clase base de un array de componentes.
-	class IComponentArray {
-
-	public:
-
-		virtual ~IComponentArray() = default;
-
-		virtual void GameObjectDestroyed(GameObjectID obj) = 0;
-
-	};
-
-
-	//Array de componentes de un tipo.
+	/// <summary>
+	/// Array de componentes de un tipo.
+	/// Contiene todos los componentes de un tipo de las entidades.
+	/// </summary>
+	/// <typeparam name="T">Componente.</typeparam>
 	template <typename T> class ComponentArray : public IComponentArray {
 
 	public:
 
-		//Añade un componente al array, perteneciente al objeto obj.
+		/// <summary>
+		/// Añade un componente al array, perteneciente al objeto obj.
+		/// </summary>
+		/// <param name="obj">ID de la entidad dueña.</param>
+		/// <param name="component">Componente.</param>
 		void InsertData(GameObjectID obj, T component) {
 			size_t newID = size;
 
@@ -40,7 +37,10 @@ namespace OSK::ECS {
 			size++;
 		}
 
-		//Elimina el componente del objeto.
+		/// <summary>
+		/// Elimina el componente del objeto.
+		/// </summary>
+		/// <param name="obj">ID del objeto.</param>
 		void RemoveData(GameObjectID obj) {
 			size_t id = objectToID[obj];
 			size_t lastID = size - 1;
@@ -57,12 +57,19 @@ namespace OSK::ECS {
 			size--;
 		}
 
-		//Obtiene el componente de un objeto.
+		/// <summary>
+		/// Obtiene el componente de un objeto.
+		/// </summary>
+		/// <param name="obj">ID del objeto.</param>
+		/// <returns>Componente del objeto.</returns>
 		T& GetData(GameObjectID obj) {
 			return componentArray[objectToID[obj]];
 		}
 
-		//Destruye el componente del objeto, si existe.
+		/// <summary>
+		/// Destruye el componente del objeto, si existe.
+		/// </summary>
+		/// <param name="obj">ID del objeto destruido.</param>
 		void GameObjectDestroyed(GameObjectID obj) override {
 			if (objectToID.find(obj) != objectToID.end()) {
 				RemoveData(obj);
@@ -71,10 +78,24 @@ namespace OSK::ECS {
 
 	private:
 
+		/// <summary>
+		/// Array de los componentes.
+		/// </summary>
 		std::array<T, MAX_OBJECTS> componentArray;
+
+		/// <summary>
+		/// ID del componente, a partir de un objeto.
+		/// </summary>
 		std::unordered_map<GameObjectID, size_t> objectToID;
+
+		/// <summary>
+		/// ID del objeto, a partir del componente.
+		/// </summary>
 		std::unordered_map<size_t, GameObjectID> idToObject;
 
+		/// <summary>
+		/// Componentes almacenados.
+		/// </summary>
 		size_t size = 0;
 
 	};

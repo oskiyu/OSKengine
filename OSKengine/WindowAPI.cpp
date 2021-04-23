@@ -75,12 +75,6 @@ namespace OSK {
 		return glfwWindowShouldClose(window);
 	}
 
-
-	void WindowAPI::SwapBuffers() {
-		glfwSwapBuffers(window);
-	}
-
-
 	void WindowAPI::PollEvents() {
 		glfwPollEvents();
 
@@ -141,7 +135,7 @@ namespace OSK {
 	void WindowAPI::SetMouseMode(MouseInputMode mode) {
 		if (mode == MouseInputMode::ALWAYS_RETURN)
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-		else if (mode == MouseInputMode::NORMAL)
+		else if (mode == MouseInputMode::FREE)
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}
 
@@ -154,14 +148,14 @@ namespace OSK {
 	}
 
 
-	void WindowAPI::SetMouseMovementMode(MouseMovementMode mode) {
-		if (mode == MouseMovementMode::RAW) {
+	void WindowAPI::SetMouseMovementMode(MouseAccelerationMode mode) {
+		if (mode == MouseAccelerationMode::RAW) {
 			if (glfwRawMouseMotionSupported())
 				glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 			else
 				Logger::Log(LogMessageLevels::WARNING, "raw mouse mode no soportado.", __LINE__);
 		} 
-		else if (mode == MouseMovementMode::ENABLE_PRECISSION) {
+		else if (mode == MouseAccelerationMode::ENABLE_PRECISSION) {
 			glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
 		}
 	}
@@ -193,12 +187,6 @@ namespace OSK {
 	void WindowAPI::Close() {
 		glfwSetWindowShouldClose(window, true);
 	}
-
-
-	void WindowAPI::SetMousePosition(uint32_t x, uint32_t y) {
-		glfwSetCursorPos(window, x, y);
-	}
-
 
 	Vector4 WindowAPI::GetRectangle() const {
 		return Vector4(0, 0, ScreenSizeX, ScreenSizeY);

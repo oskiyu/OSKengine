@@ -32,8 +32,8 @@ namespace OSK {
 	void RenderizableScene::SetupLightsUBO() {
 		Lights.Points.resize(16);
 		Lights.Points[0].Color = OSK::Color(1.0f, 1.0f, 1.0f).ToGLM();
-		Lights.Points[0].infos.x = 2.0f;
-		Lights.Points[0].infos.y = 200.0f;
+		Lights.Points[0].Information.x = 2.0f;
+		Lights.Points[0].Information.y = 200.0f;
 		Lights.Points[0].Position = { 5, 5, 5 };
 		
 		const Color color = Color::RED();
@@ -91,7 +91,7 @@ namespace OSK {
 		Terreno->CreateMesh(path, quadSize, maxHeight);
 
 		Terreno->TerrainMaterial = renderer->GetMaterialSystem()->GetMaterial(renderer->DefaultMaterial3D_Name)->CreateInstance();
-		Terreno->TerrainMaterial->SetBuffer("Camera", renderer->UniformBuffers);
+		Terreno->TerrainMaterial->SetBuffer("Camera", renderer->GetUniformBuffers());
 		Terreno->TerrainMaterial->SetDynamicBuffer("Animation", BonesUBOs);
 		Terreno->TerrainMaterial->SetBuffer("Model", shadowMap->DirShadowsUniformBuffers);
 		Terreno->TerrainMaterial->SetTexture("Albedo", Content->DefaultTexture);
@@ -189,8 +189,7 @@ namespace OSK {
 
 		renderer->SetViewport(cmdBuffer, 0, 0, shadowMap->Size.X, shadowMap->Size.Y);
 
-		shadowMap->ShadowsPipeline = renderer->GetMaterialSystem()->GetMaterial(renderer->DefaultShadowsMaterial_Name)->GetGraphicsPipeline(shadowMap->DirShadows->VRenderpass);
-		shadowMap->ShadowsPipeline->Bind(cmdBuffer);
+		renderer->GetMaterialSystem()->GetMaterial(renderer->DefaultShadowsMaterial_Name)->GetGraphicsPipeline(shadowMap->DirShadows->VRenderpass)->Bind(cmdBuffer);
 	}
 	void RenderizableScene::DrawShadows(Model* model, VkCommandBuffer cmdBuffer, uint32_t i) {
 		if (!model->ShadowMaterial.HasValue() || !model->ShadowMaterial->HasBeenSet())
@@ -198,18 +197,18 @@ namespace OSK {
 
 		model->Bind(cmdBuffer);
 
-		model->ShadowMaterial->GetDescriptorSet()->Bind(cmdBuffer, shadowMap->ShadowsPipeline, i, model->AnimationBufferOffset, BonesUBOs[0].Alignment);
+		model->ShadowMaterial->GetDescriptorSet()->Bind(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(renderer->DefaultShadowsMaterial_Name)->GetGraphicsPipeline(shadowMap->DirShadows->VRenderpass), i, model->AnimationBufferOffset, BonesUBOs[0].Alignment);
 
 		PushConst3D pushConst = model->GetPushConst();
-		vkCmdPushConstants(cmdBuffer, shadowMap->ShadowsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
+		vkCmdPushConstants(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(renderer->DefaultShadowsMaterial_Name)->GetGraphicsPipeline(shadowMap->DirShadows->VRenderpass)->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
 		model->Draw(cmdBuffer);
 	}
 	void RenderizableScene::EndDrawShadows(VkCommandBuffer cmdBuffer, uint32_t i) {
 		if (Terreno.HasValue() && Terreno->terrainModel != nullptr && Terreno->ShadowsMaterial.HasValue() && Terreno->ShadowsMaterial->HasBeenSet()) {
-			Terreno->TerrainMaterial->GetDescriptorSet()->Bind(cmdBuffer, shadowMap->ShadowsPipeline, i, 0, BonesUBOs[0].Alignment);
+			Terreno->TerrainMaterial->GetDescriptorSet()->Bind(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(renderer->DefaultShadowsMaterial_Name)->GetGraphicsPipeline(shadowMap->DirShadows->VRenderpass), i, 0, BonesUBOs[0].Alignment);
 			Terreno->terrainModel->Bind(cmdBuffer);
 			PushConst3D pushConst{ glm::mat4(1.0f) };
-			vkCmdPushConstants(cmdBuffer, shadowMap->ShadowsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
+			vkCmdPushConstants(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(renderer->DefaultShadowsMaterial_Name)->GetGraphicsPipeline(shadowMap->DirShadows->VRenderpass)->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
 			Terreno->terrainModel->Draw(cmdBuffer);
 		}
 

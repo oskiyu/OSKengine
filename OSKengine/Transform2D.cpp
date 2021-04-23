@@ -35,10 +35,6 @@ namespace OSK {
 		UpdateModel();
 	}
 
-	Transform2D::~Transform2D() {
-
-	}
-
 	void Transform2D::SetPosition(const Vector2& position) {
 		Position = position;
 		UpdateModel();

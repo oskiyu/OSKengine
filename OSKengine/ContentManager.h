@@ -22,6 +22,7 @@
 #include <assimp/postprocess.h>
 #include "Heightmap.h"
 #include "SoundEntity.h"
+#include "TempModelData.h"
 
 #include <list>
 
@@ -29,125 +30,241 @@ namespace OSK {
 
 	class RenderAPI;
 
-	//ContentManager es una clase que se encarga de cargar los recursos del juego.
-	//Almacena los recursos que se hayan cargado, y los elimina al cerrarse (o al llamar a Unload()).
-	//Pueden usarse varios, para cargar recursos por lotes que tienen el mismo periodo de vida.
+	/// <summary>
+	/// ContentManager es una clase que se encarga de cargar los recursos del juego.
+	/// Almacena los recursos que se hayan cargado, y los elimina al cerrarse (o al llamar a Unload()).
+	/// Pueden usarse varios, para cargar recursos por lotes que tienen el mismo periodo de vida.
+	/// </summary>
 	class OSKAPI_CALL ContentManager {
 
 		friend class RenderAPI;
 
 	public:
 
-		//Directorio en el que se guarda la textura por defecto.
+		/// <summary>
+		/// Directorio en el que se guarda la textura por defecto.
+		/// </summary>
 		static const std::string DEFAULT_TEXTURE_PATH;
 
-		//Crea un ContentManager vacío.
-		//	<renderer>: renderizador del juego.
+		/// <summary>
+		/// Crea un ContentManager vacío.
+		/// </summary>
+		/// <param name="renderer">Renderizador del juego.</param>
 		ContentManager(RenderAPI* renderer);
 
-		//Elimina el ContentManager.
-		//Llama a Unload().
+		/// <summary>
+		/// Elimina el ContentManager.
+		/// Llama a Unload().
+		/// <summary/>
 		~ContentManager();
 		
-		//TODO
+		/// <summary>
+		/// Carga y almacena una textura. 
+		/// Si la textura ya ha sido cargada por este ContentManager, devuelve la textura sin volver a cargarla.
+		/// </summary>
+		/// <param name="path">Localización de la textura (con extensión (por ejemplo, .png)).</param>
+		/// <returns>Puntero a la textura.</returns>
 		Texture* LoadTexture(const std::string& path);
+
+		/// <summary>
+		/// Carga y almacena una textura de skybox. 
+		/// Si la textura ya ha sido cargada por este ContentManager, devuelve la textura sin volver a cargarla.
+		/// La carpeta debe tener las imagenes tal que: <para/>
+		/// right.jpp		 <para/>
+		///	left.jpg		 <para/>
+		///	top.jpg			 <para/>
+		///	bottom.jpg		 <para/>
+		///	front.jpg		 <para/>
+		///	back.jpg		 <para/>
+		/// </summary>
+		/// <param name="path">Localización de las texturas (la carpeta).</param>
+		/// <returns>Puntero a la textura.</returns>
 		Texture* LoadSkyboxTexture(const std::string& folderPath);
 
-		//Carga los vértices y los índices de un modelo 3D.
-		//	<path>: ruta del modelo (incluyendo la extensión del modelo).
-		//	<scala>: escala del modelo 3D.
+		/// <summary>
+		/// Carga los vértices y los índices de un modelo 3D.
+		/// </summary>
+		/// <param name="path">Ruta del modelo (incluyendo la extensión del modelo).</param>
+		/// <param name="scale">Escala del modelo 3D.</param>
+		/// <returns>Data del modelo.</returns>
 		TempModelData GetModelTempData(const std::string& path, float scale = 1.0f) const;
 
-		//Crea un modelo 3D a partir de sus vértices y sus índices.
-		//	<vértices>: vértices.
-		//	<índices>: índices (vertexIndex_t).
+		/// <summary>
+		/// Crea un modelo 3D a partir de sus vértices y sus índices.
+		/// </summary>
+		/// <param name="vertices">Vértices.</param>
+		/// <param name="indices">Índices (vertexIndex_t).</param>
+		/// <returns>Data del modelo.</returns>
 		ModelData* CreateModel(const std::vector<Vertex>& vertices, const std::vector<vertexIndex_t>& indices);
 
-		//Carga un modelo 3D con sus buffers creados.
-		//Solamente existe una instancia de ModelData* por cada <path>.
-		//	<path>: ruta del modelo (incluyendo la extensión del modelo).
-		//	<scala>: escala del modelo 3D.
+		/// <summary>
+		/// Carga un modelo 3D.
+		/// Si el modelo ya ha sido cargada por este ContentManager, devuelve el modelo sin volver a cargarlo.
+		/// </summary>
+		/// <param name="path">Ruta del modelo (incluyendo la extensión del modelo).</param>
+		/// <returns>Modelo.</returns>
 		ModelData* LoadModelData(const std::string& path);
 
-		//Carga un sprite.
-		//	<sprite>: sprite a cargar.
-		//	<path>: ruta de la textura (incluyendo la extensión).
+		/// <summary>
+		/// Carga un sprite.
+		/// </summary>
+		/// <param name="sprite">Sprite a cargar.</param>
+		/// <param name="path">Ruta de la textura (incluyendo la extensión).</param>
 		void LoadSprite(Sprite& sprite, const std::string& path);
 
-		//Crea un sprite vacío.
+		/// <summary>
+		/// Crea un sprite vacío.
+		/// </summary>
+		/// <param name="sprite">Sprite</param>
 		void CreateSprite(Sprite& sprite);
 
-		//Carga una fuente.
-		//	<font>: fuente a cargar.
-		//	<source>: ruta del archivo (incluyendo la extensión).
-		//	<size>: tamaño al que se va a cargar la fuente, en píxeles.
+		/// <summary>
+		/// Carga una fuente.
+		/// Si la fuente ya ha sido cargada por este ContentManager, devuelve la fuente sin volver a cargarla.
+		/// </summary>
+		/// <param name="source">Ruta del archivo (incluyendo la extensión).</param>
+		/// <param name="size">Tamaño al que se va a cargar la fuente, en píxeles.</param>
+		/// <returns>Fuente.</returns>
 		Font* LoadFont(const std::string& source, uint32_t size);
 
-		//Carga un skybox.
-		//	<skybox>: skybox a cargar.
-		//	<path>: ruta de la textura (incluyendo la extensión).
+		/// <summary>
+		/// Carga un skybox.
+		/// </summary>
+		/// <param name="skybox">Skybox a cargar.</param>
+		/// <param name="path">Localización de las texturas (la carpeta).</param>
 		void LoadSkybox(Skybox& skybox, const std::string& path);
 
-		//Carga un modelo 3D.
-		//Las texturas del modelo deben estar en la misma carpeta que el modelo.
-		//	<model>: modelo a cargar.
-		//	<path>: ruta del modelo (incluyendo la extensión del modelo).
+		/// <summary>
+		/// Carga un modelo 3D.
+		/// Si el modelo ya ha sido cargada por este ContentManager, devuelve el modelo sin volver a cargarlo.
+		/// </summary>
+		/// <param name="path">Ruta del modelo (incluyendo la extensión del modelo).</param>
+		/// <returns>Modelo.</returns>
 		void LoadModel(Model& model, const std::string& path);
 
-		//Carga un modelo 3D animado.
-		//	<model>: modelo animado a cargar.
-		//	<path>: ruta del modelo (incluyendo la extensión del modelo).
+		/// <summary>
+		/// Carga un modelo 3D animado.
+		/// Si el modelo ya ha sido cargada por este ContentManager, devuelve el modelo sin volver a cargarlo.
+		/// </summary>
+		/// <param name="path">Ruta del modelo (incluyendo la extensión del modelo).</param>
+		/// <returns>Modelo.</returns>
 		void LoadAnimatedModel(AnimatedModel& model, const std::string& path);
 
-		//Carga un heightmap.
-		//	<map>: heightmap a cargar.
-		//	<path>: ruta del archivo (con extensión).
-		//El heightmap NO es propiedad del ContentManager y no se eliminará al llamar a Unload().
+		/// <summary>
+		/// Carga un heightmap.
+		/// El heightmap NO es propiedad del ContentManager y no se eliminará al llamar a Unload().
+		/// </summary>
+		/// <param name="map">Heightmap a cargar</param>
+		/// <param name="path">Ruta del archivo (con extensión).</param>
 		void LoadHeightmap(Heightmap& map, const std::string& path);
 
+		/// <summary>
+		/// Carga un sonido.
+		/// Si el sonido ya ha sido cargada por este ContentManager, devuelve el sonido sin volver a cargarlo.
+		/// </summary>
+		/// <param name="path">Ruta del sonido (con extensión).</param>
+		/// <returns>Sonido.</returns>
 		SoundEmitterComponent* LoadSoundEntity(const std::string& path);
 
-		//Elimina todos los recursos almacenados.
+		/// <summary>
+		/// Elimina todos los recursos almacenados.
+		/// </summary>
 		void Unload();
 
-		//Textura por defecto.
+		/// <summary>
+		/// Textura por defecto de OSKengine.
+		/// </summary>
 		static Texture* DefaultTexture;
 
 	private:
 
-		//Almacena las texturas.
+		/// <summary>
+		/// Almacena las texturas.
+		/// </summary>
 		std::list<Texture*> Textures = {};
-		//Almacena los vértices y los índices de los modelos 3D.
+
+		/// <summary>
+		/// Almacena los vértices y los índices de los modelos 3D.
+		/// </summary>
 		std::list<ModelData*> ModelDatas = {};
-		//Almacena los vértices y los índices de los modelos 3D animados.
-		//std::list<AnimatedModel*> AnimatedModels = {};
-		//Almacena referencias a los sprites.
+
+		/// <summary>
+		/// Almacena referencias a los sprites.
+		/// </summary>
 		std::list<Sprite*> Sprites = {};
-		//Almacena referencias a las fuentes.
+
+		/// <summary>
+		/// Alacena las fuentes.
+		/// </summary>
 		std::list<Font*> Fonts = {};
-		//Almacena referencias a los sonidos.
+		
+		/// <summary>
+		/// Almacena los sonidos.
+		/// </summary>
 		std::list<SoundEmitterComponent*> Sounds = {};
 		
 		//HASH-MAPS.
+
+		/// <summary>
+		/// Hashmap de las texturas.
+		/// </summary>
 		std::unordered_map<std::string, Texture*> TextureFromPath = {};
+
+		/// <summary>
+		/// Hashmap de los modelos.
+		/// </summary>
 		std::unordered_map<std::string, ModelData*> ModelDataFromPath = {};
+
+		/// <summary>
+		/// Hashmap de los modelos animados.
+		/// </summary>
 		std::unordered_map<std::string, AnimatedModel*> AnimatedModelFromPath = {};
+
+		/// <summary>
+		/// Hashmap de las fuentes.
+		/// </summary>
 		std::unordered_map<std::string, Font*> FontsFromPath = {};
+
+		/// <summary>
+		/// Hashmap de los sonidos.
+		/// </summary>
 		std::unordered_map<std::string, SoundEmitterComponent*> SoundsFromPath = {};
 
-		//El máximo número de mipmaps que se puede generar para una textura.
-		//	<width>: ancho de la textura.
-		//	<height>: alto de la textura.
-		inline const uint32_t getMaxMipLevels(const uint32_t& width, const uint32_t& height) const {
+		/// <summary>
+		/// El máximo número de mipmaps que se puede generar para una textura.
+		/// </summary>
+		/// <param name="width">Ancho de la textura.</param>
+		/// <param name="height">Alto de la textura.</param>
+		/// <returns>Número de mipmaps.</returns>
+		inline const uint32_t getMaxMipLevels(uint32_t width, uint32_t height) const {
 			return (uint32_t)std::floor(std::log2(std::max(width, height))) + 1;
 		}
 
+		/// <summary>
+		/// Devuelve los nodos en formato OSK a partir del nodo de assimp.
+		/// </summary>
+		/// <param name="node">Nodo assimp.</param>
+		/// <returns>Nodo formato OSK.</returns>
 		Animation::SNode GetNodes(const aiNode* node);
 
+		/// <summary>
+		/// True si el content manager se ha liberado.
+		/// </summary>
 		bool hasBeenCleared = false;
-		RenderAPI* renderer;
 
+		/// <summary>
+		/// Renderizador.
+		/// </summary>
+		RenderAPI* renderer = nullptr;
+
+		/// <summary>
+		/// Importador de assimp, para modelos 3D.
+		/// </summary>
 		static Assimp::Importer GlobalImporter;
+
+		/// <summary>
+		/// Flags de assimp.
+		/// </summary>
 		const static int AssimpFlags = aiProcess_Triangulate | aiProcess_GenNormals;
 
 	};

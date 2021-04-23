@@ -77,3 +77,19 @@ void InputSystem::executeOneTimeFunction(std::string& name) {
 		input.ExecuteOneTimeInputFunction(name);
 	}
 }
+
+InputEvent& InputSystem::GetInputEvent(const std::string& e) {
+	return events[e];
+}
+
+void InputSystem::RegisterInputEvent(const std::string& name) {
+	events.insert({ name, InputEvent{ name } });
+}
+
+OneTimeInputEvent& InputSystem::GetOneTimeInputEvent(const std::string& e) {
+	return oneTimeEvents[e];
+}
+
+void InputSystem::RegisterOneTimeInputEvent(const std::string& name) {
+	oneTimeEvents.insert({ name, OneTimeInputEvent{ name } });
+}

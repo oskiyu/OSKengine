@@ -10,32 +10,27 @@
 
 namespace OSK {
 	
-	//Representa una luz puntual.
+	/// <summary>
+	/// Representa una luz puntual.
+	/// </summary>
 	struct OSKAPI_CALL PointLight {
 
-		//Transform de la luz.
+		/// <summary>
+		/// Posición de la luz.
+		/// </summary>
 		alignas(16) glm::vec3 Position;
 
-		//Color de la luz.
+		/// <summary>
+		/// Color.
+		/// </summary>
 		alignas(16) glm::vec4 Color;
 
-		//Intensidad de la luz.
-		alignas(16) glm::vec4 infos;
-
-		//Radio de alcance de la luz.
-		//alignas(16) float_t Radius;
-
-/**		//Variables de la luz.
-		//Ecuación constante.
-		alignas(16) float_t Constant;
-
-		//Variables de la luz.
-		//Ecuación lineal.
-		alignas(16) float_t Linear;
-
-		//Variables de la luz.
-		//Ecuación cuadrática.
-		alignas(16) float_t Quadratic;*/
+		/// <summary>
+		/// Información de la luz: <para/>
+		/// x = Intensidad. <para/>
+		/// y = Radio. <para/>
+		/// </summary>
+		alignas(16) glm::vec4 Information;
 
 	};
 

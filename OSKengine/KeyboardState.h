@@ -10,32 +10,44 @@
 
 namespace OSK {
 
-	//Número de teclas soportadas.
+	/// <summary>
+	/// Número de teclas soportadas.
+	/// </summary>
 	constexpr keyCode_t NUMBER_OF_KEYS = 119;
 	
-	//Almacena el estado del teclado en un determinado instante.
+
+	/// <summary>
+	/// Almacena el estado del teclado en un determinado instante.
+	/// </summary>
 	struct OSKAPI_CALL KeyboardState {
 
 	public:
 
-		//Almacena los estados de todas las teclas.
+		/// <summary>
+		/// Almacena los estados de todas las teclas.
+		/// </summary>
 		keyState_t KeyStates[NUMBER_OF_KEYS];
 
-		//Retorna el estado de una tecla dada. (KeyState).
-		// RELEASED o PRESSED
+		/// <summary>
+		/// Retorna el estado de una tecla dada. (KeyState).
+		/// </summary>
+		/// <param name="key">Tecla del teclado.</param>
+		/// <returns>RELEASED o PRESSED.</returns>
 		KeyState GetKeyState(Key key);
 
-		//Comprueba si una tecla está siendo pulsada.
-		// 'true' = PRESSED
-		// 'false' = RELEASED
+		/// <summary>
+		/// Comprueba si una tecla está siendo pulsada.
+		/// </summary>
+		/// <param name="key">Tecla del teclado.</param>
+		/// <returns>'true' = PRESSED. 'false' = RELEASED.</returns>
 		keyState_t IsKeyDown(Key key);
 
-		//Comprueba si una tecla no está siendo pulsada.
-		// 'true' = RELEASED
-		// 'false' = PRESSED
+		/// <summary>
+		/// Comprueba si una tecla no está siendo pulsada.
+		/// </summary>
+		/// <param name="key">Tecla del teclado.</param>
+		/// <returns>'true' = RELEASED. 'false' = PRESSED.</returns>
 		keyState_t IsKeyUp(Key key);
-
-	private:
 
 	};
 

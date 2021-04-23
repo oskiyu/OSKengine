@@ -22,7 +22,7 @@ Transform::Transform() {
 		ParentTransform = nullptr;
 	}
 
-Transform::Transform(const Vector3f& position, const Vector3f& scale, const Vector3f& rotation) {
+Transform::Transform(const Vector3f& position, const Vector3f& scale) {
 		ModelMatrix = glm::mat4(1.0f);
 		LocalPosition = position;
 		LocalScale = scale;
@@ -31,10 +31,6 @@ Transform::Transform(const Vector3f& position, const Vector3f& scale, const Vect
 		ParentTransform = nullptr;
 
 		UpdateModel();
-	}
-	
-Transform::~Transform() {
-
 	}
 
 void Transform::SetPosition(const Vector3f& position) {

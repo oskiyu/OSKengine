@@ -5,23 +5,34 @@ using namespace OSK::Animation;
 
 namespace OSK {
 
-	void VertexBoneData::Add(uint32_t id, float weight) {
-		for (uint32_t i = 0; i < OSK_ANIM_MAX_BONES_PER_VERTEX; i++) {
-			if (Weights[i] == 0.0f) {
-				IDs[i] = id;
-				Weights[i] = weight;
+	AnimatedModel::~AnimatedModel() {
+		for (uint32_t i = 0; i < NumberOfAnimations; i++)
+			Animations[i].Clear();
+
+		Memory::SafeDeleteArray(&Animations);
+	}
+
+	void AnimatedModel::SetAnimation(uint32_t animID) {
+		CurrentAnimation = &Animations[animID];
+	}
+
+	void AnimatedModel::SetAnimation(const std::string& name) {
+		for (uint32_t i = 0; i < NumberOfAnimations; i++) {
+			if (Animations[i].Name == name) {
+				CurrentAnimation = &Animations[i];
 
 				return;
 			}
 		}
 	}
 
-
-	BoneInfo::BoneInfo() {
-		Offset = glm::mat4(1.0f);
-		FinalTransformation = glm::mat4(1.0f);
+	glm::mat4 AnimatedModel::AiToGLM(const aiMatrix4x4& from) {
+		return glm::transpose(glm::make_mat4(&from.a1));
 	}
 
+	void AnimatedModel::SetupAnimationIndices() {
+		SetupAnimationIndices(&RootNode);
+	}
 
 	void AnimatedModel::Update(float deltaTime) {
 		time -= deltaTime * AnimationSpeed;
@@ -52,6 +63,10 @@ namespace OSK {
 		}
 
 		return SNodeAnim{};
+	}
+
+	Vector3f AnimatedModel::InterpolateVectors(const Vector3f& vec1, const Vector3f& vec2, float delta) const {
+		return vec1 + (vec2 - vec1) * delta;
 	}
 
 	glm::mat4 AnimatedModel::GetPosition(float time, const SNodeAnim& node)  const {

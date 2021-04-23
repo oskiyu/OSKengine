@@ -5,7 +5,7 @@
 #include "stbi_image.h"
 
 #include "ToString.h"
-#include "VulkanImage.h"
+#include "GPUImage.h"
 #include "FileIO.h"
 
 #include "VulkanImageGen.h"
@@ -83,7 +83,7 @@ namespace OSK {
 		loadedTexture->Size.X = (uint32_t)width;
 		loadedTexture->Size.Y = (uint32_t)height;
 
-		VulkanBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		GPUDataBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 		stagingBuffer.Allocate(size);
 
 		stagingBuffer.Write(pixels, size);
@@ -144,7 +144,7 @@ namespace OSK {
 			stbi_image_free(_pixels);
 		}
 
-		VulkanBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		GPUDataBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 		stagingBuffer.Allocate(size * 7);
 
 		stagingBuffer.Write(totalImage, size * 6);
@@ -257,7 +257,7 @@ namespace OSK {
 		//Vertex buffer.
 		{
 			size_t size = vertices.size() * sizeof(Vertex);
-			VulkanBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+			GPUDataBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 			stagingBuffer.Allocate(size);
 
 			stagingBuffer.Write(vertices.data(), size);
@@ -272,7 +272,7 @@ namespace OSK {
 		//Index buffer.
 		{
 			size_t size = indices.size() * sizeof(vertexIndex_t);
-			VulkanBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+			GPUDataBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 			stagingBuffer.Allocate(size);
 
 			stagingBuffer.Write(indices.data(), size);
@@ -530,7 +530,7 @@ namespace OSK {
 			currentX += faces[c].sizeX;
 		}
 
-		VULKAN::VulkanImage image = VulkanImageGen::CreateImageFromBitMap(textureSizeX, textureSizeY, data);
+		VULKAN::GPUImage image = VulkanImageGen::CreateImageFromBitMap(textureSizeX, textureSizeY, data);
 
 		fontTexture->Size.X = textureSizeX;
 		fontTexture->Size.Y = textureSizeY;

@@ -2,7 +2,7 @@
 
 namespace OSK::VULKAN {
 
-	void VulkanImage::Destroy() {
+	void GPUImage::Destroy() {
 		if (Image != VK_NULL_HANDLE) {
 			vkDestroyImage(*logicalDevice, Image, nullptr);
 			Image = VK_NULL_HANDLE;

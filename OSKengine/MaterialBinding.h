@@ -11,34 +11,88 @@
 
 namespace OSK {
 
-	//Tipos de binding del material.
-	//
-	//	-DATA_BUFFER: buffer de datos: cada instancia tiene su propio buffer. (VK: uniform buffer).
-	//	-DYNAMICE_DATA_BUFFER: buffer de datos compartido por cada instancia. (VK: dynamic uniform buffer).
-	//	-TEXTURE: textura.
+	/// <summary>
+	/// Tipos de binding del material.
+	/// </summary>
 	enum class MaterialBindingType {
+
+		/// <summary>
+		/// Buffer de datos: cada instancia tiene su propio buffer. (VK: uniform buffer).
+		/// </summary>
 		DATA_BUFFER,
+
+		/// <summary>
+		/// Buffer de datos compartido por varias instancias. (VK: dynamic uniform buffer).
+		/// </summary>
 		DYNAMIC_DATA_BUFFER,
+
+		/// <summary>
+		/// Textura 2D.
+		/// </summary>
 		TEXTURE
+
 	};
 
-	//Stage del binding: en que shader se accede.
+
+	/// <summary>
+	/// Stage del binding: en que shader se accede.
+	/// </summary>
 	enum class MaterialBindingShaderStage {
+
+		/// <summary>
+		/// Vertex stage.
+		/// </summary>
 		VERTEX,
+
+		/// <summary>
+		/// Fragment stage.
+		/// </summary>
 		FRAGMENT
+
 	};
 
-	//Información de un binding de un material: tipo y shader al que se enlaza.
+
+	/// <summary>
+	/// Información de un binding de un material: tipo y shader al que se enlaza.
+	/// </summary>
 	struct OSKAPI_CALL MaterialBinding {
+
+		/// <summary>
+		/// Tipo de binding.
+		/// </summary>
 		MaterialBindingType Type;
+
+		/// <summary>
+		/// Stage del binding.
+		/// </summary>
 		MaterialBindingShaderStage Stage;
+
+		/// <summary>
+		/// Nombre del binding.
+		/// </summary>
 		std::string BindingName = "";
+
 	};
 
+
+	/// <summary>
+	/// Una lista de bindings crean un layout.
+	/// </summary>
 	typedef	std::vector<MaterialBinding> MaterialBindingLayout;
 
 	
+	/// <summary>
+	/// Devuelve el descriptor type en formato Vulkan.
+	/// </summary>
+	/// <param name="type">Tipo en formato OSK.</param>
+	/// <returns>Tipo en formato Vulkan.</returns>
 	VkDescriptorType GetVulkanBindingType(MaterialBindingType type);
+
+	/// <summary>
+	/// Devuelve el shader stage en formato Vulkan.
+	/// </summary>
+	/// <param name="type">Formato OSK.</param>
+	/// <returns>Formato Vulkan.</returns>
 	VkShaderStageFlagBits GetVulkanShaderBinding(MaterialBindingShaderStage type);
 
 }

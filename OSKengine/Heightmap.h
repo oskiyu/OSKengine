@@ -1,28 +1,32 @@
 #pragma once
 
+#include "OSKmacros.h"
+#include "OSKtypes.h"
+
 #include <cstdint>
 
 namespace OSK {
 
-	//Representa un heightmap.
-	//Para su uso en Terrain.
+	/// <summary>
+	/// Representa un heightmap:
+	/// una imagen 2D, en la que los píxeles representan la altura de un punto en el terreno.
+	/// Los puntos más bajos están en 0, y los más altos en 255.
+	/// </summary>
 	struct OSKAPI_CALL Heightmap {
 
-		//Crea el heightmap.
-		Heightmap() {
+		/// <summary>
+		/// Destruye el heightmap y su información.
+		/// </summary>
+		~Heightmap();
 
-		}
-
-		//Destruye el heightmap y su información.
-		~Heightmap() {
-			if (Data != nullptr)
-				delete[] Data;
-		}
-
-		//Píxeles del heightmap
+		/// <summary>
+		/// Píxeles del heightmap.
+		/// </summary>
 		uint8_t* Data = nullptr;
 
-		//Tamaño (en píxeles) del heightmap.
+		/// <summary>
+		/// Tamaño (en píxeles) de la imagen del heightmap.
+		/// </summary>
 		Vector2ui Size = { 0, 0 };
 
 	};

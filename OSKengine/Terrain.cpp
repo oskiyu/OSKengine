@@ -155,7 +155,7 @@ namespace OSK {
 		return Box;
 	}
 
-	const float Terrain::barryCentric(const Vector3f& p1, const Vector3f& p2, const Vector3f& p3, const Vector2f& pos) const {
+	float Terrain::barryCentric(const Vector3f& p1, const Vector3f& p2, const Vector3f& p3, const Vector2f& pos) const {
 		float det = (p2.Y - p3.Y) * (p1.X - p3.X) + (p3.X - p2.X) * (p1.Y - p3.Y);
 		float l1 = ((p2.Y - p3.Y) * (pos.X - p3.X) + (p3.X - p2.X) * (pos.Y - p3.Y)) / det;
 		float l2 = ((p3.Y - p1.Y) * (pos.X - p3.X) + (p1.X - p3.X) * (pos.Y - p3.Y)) / det;

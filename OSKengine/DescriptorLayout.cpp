@@ -6,6 +6,10 @@
 
 namespace OSK {
 
+	DescriptorLayout::DescriptorLayout(VkDevice logicalDevice) : LogicalDevice(logicalDevice) {
+
+	}
+
 	DescriptorLayout::~DescriptorLayout() {
 		if (VulkanDescriptorSetLayout != VK_NULL_HANDLE)
 			vkDestroyDescriptorSetLayout(LogicalDevice, VulkanDescriptorSetLayout, nullptr);

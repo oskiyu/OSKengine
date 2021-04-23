@@ -9,10 +9,13 @@
 
 namespace OSK {
 
-	//Compara dos floats.
-	//	<a>: float 1.
-	//	<b>: float 2.
-	//	<epsilon>: límite de la comparación.
+	/// <summary>
+	/// Compara dos floats.
+	/// </summary>
+	/// <param name="a">float 1.</param>
+	/// <param name="b">float 2.</param>
+	/// <param name="epsilon">Límite de la comparación.</param>
+	/// <returns>True si son comparables.</returns>
 	inline bool OSKAPI_CALL CompareFloats(float a, float b, float epsilon = std::numeric_limits<float>::epsilon() * 2) {
 		return std::abs(a - b) < epsilon;
 	}

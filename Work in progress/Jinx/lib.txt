@@ -1,0 +1,9 @@
+import core
+
+library OSKengine
+
+set public Version to "OSKXD"
+
+public function XDD
+	write line "Lib"
+end

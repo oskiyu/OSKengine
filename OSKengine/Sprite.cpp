@@ -8,7 +8,7 @@ namespace OSK {
 			0, 1, 2, 2, 3, 0
 	};
 
-	VulkanBuffer Sprite::IndexBuffer;
+	GPUDataBuffer Sprite::IndexBuffer;
 
 
 	Sprite::~Sprite() {
@@ -36,10 +36,6 @@ namespace OSK {
 		Vector4f finalTexCoords = texCoords / Vector4f(Texture2D->Size.X, Texture2D->Size.Y, Texture2D->Size.X, Texture2D->Size.Y);
 
 		SetTexCoordsInPercent(finalTexCoords);
-	}
-
-	void Sprite::SetTexCoords(float x, float y, float width, float hegith) {
-		SetTexCoords(Vector4(x, y, width, hegith));
 	}
 
 	void Sprite::UpdateMaterialTexture() {

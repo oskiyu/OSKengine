@@ -16,7 +16,7 @@
 #include "ToString.h"
 #include "Log.h"
 
-#include "PhysicsScene.h"
+#include "PhysicsSystem.h"
 
 #include "Profiler.h"
 

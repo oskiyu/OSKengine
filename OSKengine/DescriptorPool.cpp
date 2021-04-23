@@ -4,6 +4,10 @@
 
 using namespace OSK;
 
+DescriptorPool::DescriptorPool(VkDevice logicalDevice, uint32_t shapchainImageCount) : LogicalDevice(logicalDevice), SwapchainImageCount(shapchainImageCount) {
+
+}
+
 DescriptorPool::~DescriptorPool() {
 	if (VulkanDescriptorPool != VK_NULL_HANDLE)
 		vkDestroyDescriptorPool(LogicalDevice, VulkanDescriptorPool, nullptr);

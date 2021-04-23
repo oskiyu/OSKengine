@@ -14,7 +14,11 @@ namespace OSK {
 
 	class DescriptorPool;
 
-	//Un descriptor layout describe, a grandes rasgos, cómo se pasa la información de la CPU a la GPU.
+	/// <summary>
+	/// Un descriptor layout describe, a grandes rasgos, cómo se pasa la información de la CPU a la GPU.
+	/// Establece cuales son los bindings.
+	/// Encapsula el descriptor layout nativo de Vulkan.
+	/// </summary>
 	class OSKAPI_CALL DescriptorLayout {
 
 		friend class RenderAPI;
@@ -22,32 +26,58 @@ namespace OSK {
 
 	public:
 
-		DescriptorLayout(VkDevice logicalDevice) : LogicalDevice(logicalDevice) {
+		/// <summary>
+		/// Crea un descriptor layout vacío.
+		/// </summary>
+		/// <param name="logicalDevice">Logical device del renderizador.</param>
+		DescriptorLayout(VkDevice logicalDevice);
 
-		}
-
-		//Destructor del descriptor layout.
+		/// <summary>
+		/// Destruye el descriptor layout..
+		/// </summary>
 		~DescriptorLayout();
 
-		//Declara un nuevo bloque de información para la comunicación CPU -> GPU.
-		//	<binding>: binding del bloque en los shaders (0, 1, 2...).
-		//	<type>: tipo de informacío que se va a pasar (UBO, imagen, etc).
-		//	<stage>: shaders que podrán acceder a esta información (vertex, fragment, etc).
-		//	<count>: ???.
+		/// <summary>
+		/// Añade un nuveo binding.
+		/// </summary>
+		/// <param name="binding">Binding del bloque en los shaders (0, 1, 2...).</param>
+		/// <param name="type">Tipo de informacío que se va a pasar (UBO, imagen, etc).</param>
+		/// <param name="stage">Shaders que podrán acceder a esta información (vertex, fragment, etc).</param>
+		/// <param name="count">???</param>
 		void AddBinding(uint32_t binding, VkDescriptorType type, VkShaderStageFlags stage, uint32_t count = 1);
 		
+		/// <summary>
+		/// Añade un nuveo binding.
+		/// Su número será el siguiente no asignado.
+		/// </summary>
+		/// <param name="type">Tipo de informacío que se va a pasar (UBO, imagen, etc).</param>
+		/// <param name="stage">Shaders que podrán acceder a esta información (vertex, fragment, etc).</param>
 		void AddBinding(VkDescriptorType type, VkShaderStageFlags stage);
 
-		//Crea el descriptor layout.
+		/// <summary>
+		/// Crea el descriptor layout nativo de Vulkan..
+		/// </summary>
 		void Create();
 
+		/// <summary>
+		/// Descriptor layout nativo de Vulkan.
+		/// </summary>
 		VkDescriptorSetLayout VulkanDescriptorSetLayout = VK_NULL_HANDLE;
 		
+		/// <summary>
+		/// Descriptor pool, que contendrá los descriptor sets.
+		/// </summary>
 		DescriptorPool* DPool = nullptr;
 
+		/// <summary>
+		/// Lista de bindings del layout.
+		/// </summary>
 		DynamicArray<VkDescriptorSetLayoutBinding> DescriptorLayoutBindings{};
 
-		VkDevice LogicalDevice;
+		/// <summary>
+		/// Logical device del renderizador.
+		/// </summary>
+		VkDevice LogicalDevice = VK_NULL_HANDLE;
 
 	};
 

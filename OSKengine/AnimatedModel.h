@@ -8,118 +8,164 @@
 #include <gtc/type_ptr.hpp>
 
 #include "SAnimation.h"
+#include "VertexBoneData.h"
+#include "BoneInfo.h"
+
+#include "Memory.h"
 
 namespace OSK {
 
-	//Contiene los huesos a los que está ligado un vértice.
-	struct OSKAPI_CALL VertexBoneData {
-		
-		//ID de los huesos.
-		std::array<uint32_t, OSK_ANIM_MAX_BONES_PER_VERTEX> IDs;
-
-		//Pesos de los huesos.
-		std::array<float_t, OSK_ANIM_MAX_BONES_PER_VERTEX> Weights;
-
-		//Liga un vértice con un hueso.
-		void Add(uint32_t id, float_t weight);
-
-	};
-
-
-	//El propio hueso.
-	//Contiene las matrices del hueso.
-	struct OSKAPI_CALL BoneInfo {
-
-		BoneInfo();
-
-		//Offset del hueso.
-		glm::mat4 Offset;
-
-		//Transformación del hueso.
-		glm::mat4 FinalTransformation;
-
-	};
-
-
-	//Representa un modelo 3D con animaciones.
+	/// <summary>
+	/// Representa un modelo 3D con animaciones.
+	/// </summary>
 	class OSKAPI_CALL AnimatedModel : public Model {
 
 		friend class ContentManager;
 
 	public:
 
-		~AnimatedModel() {
-			for (uint32_t i = 0; i < NumberOfAnimations; i++)
-				Animations[i].Clear();
-
-			SafeDeleteArray(&Animations);
-		}
+		/// <summary>
+		/// Destruye el modelo.
+		/// </summary>
+		~AnimatedModel();
 
 		//Diccionario string(nombre del hueso) -> hueso.
+
+		/// <summary>
+		/// Map nombre del hueso -> hueso.
+		/// </summary>
 		std::map<std::string, uint32_t> BoneMapping;
 
-		//Huesos del esqueleto.
+		/// <summary>
+		/// Huesos del esqueleto.
+		/// </summary>
 		std::vector<BoneInfo> BoneInfos;
 				
+		/// <summary>
+		/// Transformación base de la animación.
+		/// </summary>
 		glm::mat4 GlobalInverseTransform;
 
 		//Información sobre que huesos tiene cada vértice.
+
+		/// <summary>
+		/// Información sobre que huesos tiene cada vértice.
+		/// </summary>
 		std::vector<VertexBoneData> Bones;
 
-		//Velocidad de la animación.
+		/// <summary>
+		/// Velocidad de la animación.
+		/// </summary>
 		float_t AnimationSpeed = 0.75f;
 
-		//Animación actual.
-		//aiAnimation* Animation;
-		//aiScene* scene;
+		/// <summary>
+		/// Animaciones disponibles.
+		/// </summary>
 		OSK::Animation::SAnimation* Animations = nullptr;
+
+		/// <summary>
+		/// Número de animaciones disponibles.
+		/// </summary>
 		uint32_t NumberOfAnimations = 0;
+
+		/// <summary>
+		/// Animación actual.
+		/// </summary>
 		OSK::Animation::SAnimation* CurrentAnimation = nullptr;
 
-		//Establece la animación activa.
-		void SetAnimation(uint32_t animID) {
-			//Animation = scene->mAnimations[animID];
-			CurrentAnimation = &Animations[animID];
-		}
+		/// <summary>
+		/// Establece la animación del modelo.
+		/// </summary>
+		/// <param name="animID">ID de la nueva animación.</param>
+		void SetAnimation(uint32_t animID);
 
-		void SetAnimation(const std::string& name) {
-			for (uint32_t i = 0; i < NumberOfAnimations; i++) {
-				if (Animations[i].Name == name) {
-					CurrentAnimation = &Animations[i];
-
-					return;
-				}
-			}
-		}
+		/// <summary>
+		/// Establece la animación del modelo.
+		/// </summary>
+		/// <param name="name">Nombre de la animación.</param>
+		void SetAnimation(const std::string& name);
 
 		deltaTime_t time = 0.0f;
-		//Actualiza el modelo 3D (lo anima).
+
+		/// <summary>
+		/// Actualiza el modelo 3D (lo anima).
+		/// </summary>
+		/// <param name="deltaTime">Delta.</param>
 		void Update(float deltaTime);
 
-		static inline glm::mat4 AiToGLM(const aiMatrix4x4& from) {
-			return glm::transpose(glm::make_mat4(&from.a1));
-		}
+		/// <summary>
+		/// Convierte una matriz formato Assimp a una matriz formato GLM.
+		/// </summary>
+		/// <param name="from"></param>
+		/// <returns></returns>
+		static glm::mat4 AiToGLM(const aiMatrix4x4& from);
 
-		void SetupAnimationIndices() {
-			SetupAnimationIndices(&RootNode);
-		}
+		/// <summary>
+		/// Carga el modelo animado.
+		/// </summary>
+		void SetupAnimationIndices();
 
 	private:
 
+		/// <summary>
+		/// Carga el modelo animado. Recursivo.
+		/// </summary>
+		/// <param name="node">Nodo padre.</param>
 		void SetupAnimationIndices(OSK::Animation::SNode* node);
 
+		/// <summary>
+		/// Devuelve el nodo animado buscado.
+		/// </summary>
+		/// <param name="animation">Animación en la que se va a buscar.</param>
+		/// <param name="nodeName">Nombre del nodo.</param>
+		/// <returns>Nodo (vacío si no se encuentra).</returns>
 		OSK::Animation::SNodeAnim FindNodeAnim(const OSK::Animation::SAnimation* animation, const std::string& nodeName);
 
+		/// <summary>
+		/// Obtiene la matriz de posición interpolada para el tiempo dado.
+		/// </summary>
+		/// <param name="time">Tiempo de la animación.</param>
+		/// <param name="node">Nodo del que se busca la posición.</param>
+		/// <returns>Matriz de posición</returns>
 		glm::mat4 GetPosition(float time, const OSK::Animation::SNodeAnim& node) const;
+
+		/// <summary>
+		/// Obtiene la matriz de rotación interpolada para el tiempo dado.
+		/// </summary>
+		/// <param name="time">Tiempo de la animación.</param>
+		/// <param name="node">Nodo del que se busca la posición.</param>
+		/// <returns>Matriz de posición</returns>
 		glm::mat4 GetRotation(float time, const OSK::Animation::SNodeAnim& node) const;
+
+		/// <summary>
+		/// Obtiene la matriz de escala interpolada para el tiempo dado.
+		/// </summary>
+		/// <param name="time">Tiempo de la animación.</param>
+		/// <param name="node">Nodo del que se busca la posición.</param>
+		/// <returns>Matriz de posición</returns>
 		glm::mat4 GetScale(float time, const OSK::Animation::SNodeAnim& node) const;
 
-		inline Vector3f InterpolateVectors(const Vector3f& vec1, const Vector3f& vec2, float delta) const {
-			return vec1 + (vec2 - vec1) * delta;
-		}
+		/// <summary>
+		/// Interpola dos vectores.
+		/// </summary>
+		/// <param name="vec1">Vector 1.</param>
+		/// <param name="vec2">Vector 2.</param>
+		/// <param name="delta">Coeficiente de interpolación.</param>
+		/// <returns>Vector interpolado.</returns>
+		Vector3f InterpolateVectors(const Vector3f& vec1, const Vector3f& vec2, float delta) const;
 
+		/// <summary>
+		/// Actualiza todos los huesos de la animación.
+		/// Recursivo.
+		/// </summary>
+		/// <param name="animTime">Tiempo de la animación.</param>
+		/// <param name="animation">Nodo.</param>
+		/// <param name="parent">Matriz padre.</param>
 		void ReadNodeHierarchy(float animTime, OSK::Animation::SNode& animation, const glm::mat4& parent);
 
+		/// <summary>
+		/// Nodo padre final.
+		/// </summary>
 		OSK::Animation::SNode RootNode;
 
 	};

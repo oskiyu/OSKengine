@@ -177,3 +177,13 @@ removed macros:
 -OSK_INCLUDE_GLAD
 
 Bugfix: pipeline delete
+
+/*-------------------
+
+REMOVED:
+	OSK_NOT_IMPLEMENTED
+	OSK_OBSOLETE
+	OSK_WARNING_OBSOLETE_STR
+
+	--
+	RenderTarget ya no almacena pipelines

@@ -4,7 +4,7 @@
 
 namespace OSK {
 
-	void LightUBO::UpdateBuffer(VkDevice logicalDevice, VulkanBuffer& buffer) {
+	void LightUBO::UpdateBuffer(VkDevice logicalDevice, GPUDataBuffer& buffer) {
 		buffer.MapMemory();
 		buffer.WriteMapped(&Directional, sizeof(DirectionalLight));
 		buffer.WriteMapped(Points.data(), PointsSize(), sizeof(DirectionalLight));

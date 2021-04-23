@@ -10,25 +10,36 @@
 
 namespace OSK {
 
-	//Clase que almacna unidades de profiling y puede mostrar sus valores por Logger.
-	//Para mostrar un mensaje distinto, crear una clase ahijada.
+	/// <summary>
+	/// Clase que almacna unidades de profiling y puede mostrar sus valores por Logger.
+	/// Para mostrar un mensaje distinto, crear una clase ahijada.
+	/// </summary>
 	class OSKAPI_CALL Profiler {
 
 	public:
 
-		//Añade una unidad de profiling.
-		//	<unit>: unidad a añadir.
+		/// <summary>
+		/// Añade una unidad de profiling.
+		/// </summary>
+		/// <param name="unit">Unidad a añadir.</param>
 		void AddProfilingUnit(ProfilingUnit* unit);
 
-		//Quita una unidad de profiling.
-		//	<unit>: unidad a quitar.
+		/// <summary>
+		/// Quita una unidad de profiling.
+		/// </summary>
+		/// <param name="unit">Unidad a quitar.</param>
 		void RemoveProfilingUnit(ProfilingUnit* unit);
 
-		//Muestra la información de las unidades a través del logger.
+		/// <summary>
+		/// Muestra la información de las unidades a través del logger.
+		/// </summary>
 		virtual void ShowData();
 
 	private:
 
+		/// <summary>
+		/// Unidades de profiling.
+		/// </summary>
 		std::vector<ProfilingUnit*> Units{};
 
 	};

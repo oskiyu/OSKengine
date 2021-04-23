@@ -10,7 +10,7 @@ namespace OSK::VULKAN {
 		VulkanImageGen::renderer = renderer;
 	}
 
-	void VulkanImageGen::CreateImage(VULKAN::VulkanImage* image, const Vector2ui& size, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, uint32_t arrayLevels, VkImageCreateFlagBits flags, uint32_t mipLevels) {
+	void VulkanImageGen::CreateImage(VULKAN::GPUImage* image, const Vector2ui& size, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, uint32_t arrayLevels, VkImageCreateFlagBits flags, uint32_t mipLevels) {
 		VkImageCreateInfo imageInfo{};
 		imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
 		imageInfo.imageType = VK_IMAGE_TYPE_2D;
@@ -47,7 +47,7 @@ namespace OSK::VULKAN {
 		image->logicalDevice = &renderer->LogicalDevice;
 	}
 
-	void VulkanImageGen::CreateImageSampler(VULKAN::VulkanImage& image, VkFilter filter, VkSamplerAddressMode addressMode, uint32_t mipLevels) {
+	void VulkanImageGen::CreateImageSampler(VULKAN::GPUImage& image, VkFilter filter, VkSamplerAddressMode addressMode, uint32_t mipLevels) {
 		//Info del sampler.
 		VkSamplerCreateInfo samplerInfo{};
 		samplerInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
@@ -81,7 +81,7 @@ namespace OSK::VULKAN {
 			throw std::runtime_error("ERROR: crear sampler." + std::to_string(result));
 	}
 
-	void VulkanImageGen::CreateMipmaps(VULKAN::VulkanImage& image, const Vector2ui& size, uint32_t levels) {
+	void VulkanImageGen::CreateMipmaps(VULKAN::GPUImage& image, const Vector2ui& size, uint32_t levels) {
 		VkCommandBuffer cmdBuffer = renderer->beginSingleTimeCommandBuffer();
 
 		VkImageMemoryBarrier barrier{};
@@ -146,7 +146,7 @@ namespace OSK::VULKAN {
 		renderer->endSingleTimeCommandBuffer(cmdBuffer);
 	}
 
-	void VulkanImageGen::CreateImageView(VulkanImage* img, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, uint32_t layerCount, uint32_t mipLevels) {
+	void VulkanImageGen::CreateImageView(GPUImage* img, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, uint32_t layerCount, uint32_t mipLevels) {
 		CreateImageView(&img->View, &img->Image, format, aspect, type, layerCount, mipLevels);
 	}
 
@@ -167,7 +167,7 @@ namespace OSK::VULKAN {
 			throw std::runtime_error("ERROR: crear image view.");
 	}
 		
-	void VulkanImageGen::CopyBufferToImage(VulkanBuffer* buffer, VulkanImage* img, uint32_t width, uint32_t height) {
+	void VulkanImageGen::CopyBufferToImage(GPUDataBuffer* buffer, GPUImage* img, uint32_t width, uint32_t height) {
 		VkCommandBuffer cmdBuffer = renderer->beginSingleTimeCommandBuffer();
 
 		VkBufferImageCopy region{};
@@ -192,7 +192,7 @@ namespace OSK::VULKAN {
 		renderer->endSingleTimeCommandBuffer(cmdBuffer);
 	}
 	
-	void VulkanImageGen::TransitionImageLayout(VulkanImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, uint32_t mipLevels, uint32_t arrayLevels, VkCommandBuffer* cmdBuffer) {
+	void VulkanImageGen::TransitionImageLayout(GPUImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, uint32_t mipLevels, uint32_t arrayLevels, VkCommandBuffer* cmdBuffer) {
 		bool hasBeenProvided = true;
 		
 		if (!cmdBuffer) {
@@ -281,8 +281,8 @@ namespace OSK::VULKAN {
 			renderer->endSingleTimeCommandBuffer(*cmdBuffer);
 	}
 
-	VulkanImage VulkanImageGen::CreateImageFromBitMap(uint32_t width, uint32_t height, uint8_t* pixels) {
-		VulkanImage image{};
+	GPUImage VulkanImageGen::CreateImageFromBitMap(uint32_t width, uint32_t height, uint8_t* pixels) {
+		GPUImage image{};
 		
 		CreateImage(&image, { width, height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
 
@@ -297,7 +297,7 @@ namespace OSK::VULKAN {
 			pixls.push_back(pixels[i]);
 		}
 		nPixels = pixls.data();
-		VulkanBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		GPUDataBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 		stagingBuffer.Allocate(imageSize);
 		
 		stagingBuffer.Write(nPixels, imageSize);

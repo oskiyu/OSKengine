@@ -82,7 +82,7 @@ void RenderTarget::CreateFramebuffers(uint32_t numFb, VkImageView* images, uint3
 	}
 }
 
-void RenderTarget::SetSize(uint32_t sizeX, uint32_t sizeY, bool createColorImage, bool updatePipelines) {{}
+void RenderTarget::SetSize(uint32_t sizeX, uint32_t sizeY, bool createColorImage) {
 	Size.X = sizeX;
 	Size.Y = sizeY;
 
@@ -95,15 +95,7 @@ void RenderTarget::SetSize(uint32_t sizeX, uint32_t sizeY, bool createColorImage
 		
 		RenderedSprite.UpdateMaterialTexture();
 	}
-
-	if (updatePipelines) {
-		for (auto& i : Pipelines) {
-			i->~GraphicsPipeline();
-			i->SetViewport({ 0, 0, (float)Size.X, (float)Size.Y });
-			i->Create(VRenderpass);
-		}
-	}
-
+	
 	for (auto& i : TargetFramebuffers) {
 		i->Clear();
 		i->Create(VRenderpass, Size.X, Size.Y);
@@ -123,10 +115,6 @@ void RenderTarget::Clear(bool complete) {
 	for (auto& i : TargetFramebuffers)
 		delete i;
 	TargetFramebuffers.clear();
-
-	for (auto& i : Pipelines)
-		delete i;
-	Pipelines.clear();
 
 	if (complete && VRenderpass)
 		delete VRenderpass;

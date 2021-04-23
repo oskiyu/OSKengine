@@ -166,11 +166,41 @@
     <Filter Include="Archivos de encabezado\OSKengine\Collections">
       <UniqueIdentifier>{94d4a808-155a-427e-9ee1-afad04d1ee26}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Vulkan\Terrain">
-      <UniqueIdentifier>{49b23290-011f-4172-99b6-a43320cad0dc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de encabezado\OSKengine\Memory">
       <UniqueIdentifier>{310ec2ab-d684-4479-9104-b05caa43caec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Memory">
+      <UniqueIdentifier>{852ea362-438e-4d13-adb2-2a4720cdf953}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Engine\Systems\Input">
+      <UniqueIdentifier>{b152ecdc-dd5f-4fe1-b97e-ff70ccb351cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Engine\Components">
+      <UniqueIdentifier>{f36db967-7b01-47b8-8809-62bb84fefb4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Engine\ECS">
+      <UniqueIdentifier>{de8264f7-26d2-4c05-a4e7-398a800ee472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\Animation">
+      <UniqueIdentifier>{95c1292f-8b86-4def-b0e4-7e9ad928c301}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Terrain">
+      <UniqueIdentifier>{49b23290-011f-4172-99b6-a43320cad0dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\SpriteRendering">
+      <UniqueIdentifier>{9f7d1334-6497-4261-81c1-e40fd50cb68e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Vulkan\Renderpass">
+      <UniqueIdentifier>{b33a0cc7-c4ca-4abc-8026-61cf79c081b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\Vulkan\Renderpass">
+      <UniqueIdentifier>{0c27290d-9185-4082-b56b-8be97ebbcf75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Model">
+      <UniqueIdentifier>{14c123d9-2b0b-4587-8eac-3d5d9cd987da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\Model">
+      <UniqueIdentifier>{e5612d88-c3c2-4d9c-a79a-b6da47eb856d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -260,9 +290,6 @@
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderpass.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\Vulkan</Filter>
     </ClCompile>
     <ClCompile Include="Skybox.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
@@ -357,6 +384,72 @@
     <ClCompile Include="MaterialSystem.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
     </ClCompile>
+    <ClCompile Include="OSKsettings.cpp">
+      <Filter>Archivos de origen\OSKengine</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory.cpp">
+      <Filter>Archivos de origen\OSKengine\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="SAT_Projection.cpp">
+      <Filter>Archivos de origen\OSKengine\Collision\SAT</Filter>
+    </ClCompile>
+    <ClCompile Include="InputComponent.cpp">
+      <Filter>Archivos de origen\OSKengine\Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelComponent.cpp">
+      <Filter>Archivos de origen\OSKengine\Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentManager.cpp">
+      <Filter>Archivos de origen\OSKengine\Engine\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS.cpp">
+      <Filter>Archivos de origen\OSKengine\Engine\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Archivos de origen\OSKengine\Engine\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectManager.cpp">
+      <Filter>Archivos de origen\OSKengine\Engine\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="System.cpp">
+      <Filter>Archivos de origen\OSKengine\Engine\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemManager.cpp">
+      <Filter>Archivos de origen\OSKengine\Engine\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="SAnimation.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="SNodeAnim.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="SNode.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteContainer.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\SpriteRendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Heightmap.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderpass.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Vulkan\Renderpass</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderpassSubpass.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Vulkan\Renderpass</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderpassAttachment.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Vulkan\Renderpass</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBoneData.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimUBO.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelData.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowAPI.h">
@@ -392,15 +485,6 @@
     <ClInclude Include="ToString.h">
       <Filter>Archivos de encabezado\OSKengine\Util</Filter>
     </ClInclude>
-    <ClInclude Include="DirectionsEnum.h">
-      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderModeEnum.h">
-      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderOutputImageEnum.h">
-      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="KeysEnum.h">
       <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
     </ClInclude>
@@ -416,7 +500,7 @@
     <ClInclude Include="MouseVisibilityEnum.h">
       <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="MouseMovementInputModeEnum.h">
+    <ClInclude Include="MouseAccelerationModeEnum.h">
       <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
     </ClInclude>
     <ClInclude Include="TextRenderingLimitActionsEnum.h">
@@ -434,22 +518,10 @@
     <ClInclude Include="OSKsettings.h">
       <Filter>Archivos de encabezado\OSKengine</Filter>
     </ClInclude>
-    <ClInclude Include="ModelFormat.h">
-      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderSettingsEnum.h">
-      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="Color.h">
       <Filter>Archivos de encabezado\OSKengine\Types</Filter>
     </ClInclude>
-    <ClInclude Include="UIAnchorTypeEnum.h">
-      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="ButtonCodeEnum.h">
-      <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="UIInterfacesBitFlags.h">
       <Filter>Archivos de encabezado\OSKengine\Enums</Filter>
     </ClInclude>
     <ClInclude Include="RenderSettingsBitFlags.h">
@@ -482,10 +554,10 @@
     <ClInclude Include="PresentMode.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
     </ClInclude>
-    <ClInclude Include="VulkanImage.h">
+    <ClInclude Include="GPUImage.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan</Filter>
     </ClInclude>
-    <ClInclude Include="VulkanBuffer.h">
+    <ClInclude Include="GPUDataBuffer.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
@@ -539,9 +611,6 @@
     <ClInclude Include="GraphicsPipeline.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan</Filter>
     </ClInclude>
-    <ClInclude Include="Renderpass.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan</Filter>
-    </ClInclude>
     <ClInclude Include="LightsUBO.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
     </ClInclude>
@@ -552,10 +621,10 @@
       <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
     </ClInclude>
     <ClInclude Include="Terrain.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan\Terrain</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Terrain</Filter>
     </ClInclude>
     <ClInclude Include="Heightmap.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan\Terrain</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Terrain</Filter>
     </ClInclude>
     <ClInclude Include="CollisionBox.h">
       <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
@@ -572,7 +641,7 @@
     <ClInclude Include="PhysicsEntity.h">
       <Filter>Archivos de encabezado\OSKengine\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsScene.h">
+    <ClInclude Include="PhysicsSystem.h">
       <Filter>Archivos de encabezado\OSKengine\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
@@ -662,9 +731,6 @@
     <ClInclude Include="GameObjectManager.h">
       <Filter>Archivos de encabezado\OSKengine\Engine\ECS</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Archivos de encabezado\OSKengine\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="InputComponent.h">
       <Filter>Archivos de encabezado\OSKengine\Engine\Components</Filter>
     </ClInclude>
@@ -722,7 +788,7 @@
     <ClInclude Include="Material.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
     </ClInclude>
-    <ClInclude Include="ArrayStack.h">
+    <ClInclude Include="Stack.hpp">
       <Filter>Archivos de encabezado\OSKengine\Collections</Filter>
     </ClInclude>
     <ClInclude Include="LinkedList.hpp">
@@ -754,6 +820,72 @@
     </ClInclude>
     <ClInclude Include="ArrayQueue.hpp">
       <Filter>Archivos de encabezado\OSKengine\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory.h">
+      <Filter>Archivos de encabezado\OSKengine\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderCollisionInfo.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="BroadColliderType.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="BroadColliderUnion.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="RayCastCollisionInfo.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="InputEvent.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\Systems\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="OneTimeInputEvent.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\Systems\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="IComponentArray.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemManager.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="SVectorKey.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="SQuaternionKey.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="SNode.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderpass.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan\Renderpass</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderpassAttachment.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan\Renderpass</Filter>
+    </ClInclude>
+    <ClInclude Include="SubpassDependency.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan\Renderpass</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderpassSubpass.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan\Renderpass</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBoneData.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneInfo.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimUBO.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="TempModelData.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelData.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="PushConst2D.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

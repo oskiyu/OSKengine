@@ -1,4 +1,4 @@
-#include "PhysicsScene.h"
+#include "PhysicsSystem.h"
 
 #include "Math.h"
 #include "ECS.h"
@@ -8,7 +8,7 @@
 using namespace OSK;
 using namespace OSK::Collision;
 
-Signature PhysicsScene::GetSystemSignature() {
+Signature PhysicsSystem::GetSystemSignature() {
 	Signature signature;
 
 	signature.set(ECSsystem->GetComponentType<OSK::PhysicsComponent>());
@@ -16,11 +16,11 @@ Signature PhysicsScene::GetSystemSignature() {
 	return signature;
 }
 
-void PhysicsScene::OnTick(deltaTime_t deltaTime) {
+void PhysicsSystem::OnTick(deltaTime_t deltaTime) {
 	Simulate(deltaTime, 1.0f);
 }
 
-void PhysicsScene::Simulate(deltaTime_t deltaTime, deltaTime_t step) {
+void PhysicsSystem::Simulate(deltaTime_t deltaTime, deltaTime_t step) {
 	const deltaTime_t delta = deltaTime * step;
 
 	for (auto& i : Objects) {
@@ -66,7 +66,7 @@ void PhysicsScene::Simulate(deltaTime_t deltaTime, deltaTime_t step) {
 	}
 }
 
-void PhysicsScene::simulateEntity(PhysicsComponent* entity, Transform* transform, deltaTime_t delta) {
+void PhysicsSystem::simulateEntity(PhysicsComponent* entity, Transform* transform, deltaTime_t delta) {
 	if (entity->Type == PhysicalEntityMobilityType::STATIC)
 		return;
 	
@@ -155,7 +155,7 @@ void PhysicsScene::simulateEntity(PhysicsComponent* entity, Transform* transform
 		i.TransformPoints();
 }
 
-void PhysicsScene::resolveCollisions(PhysicsComponent* a, PhysicsComponent* b, Transform* transformA, Transform* transformB, const ColliderCollisionInfo& info, deltaTime_t delta) {
+void PhysicsSystem::resolveCollisions(PhysicsComponent* a, PhysicsComponent* b, Transform* transformA, Transform* transformB, const ColliderCollisionInfo& info, deltaTime_t delta) {
 	const Collision::SAT_CollisionInfo satInfo = info.SAT_1->GetCollisionInfo(*info.SAT_2);
 
 	Vector3f MTV = satInfo.MinimunTranslationVector;
@@ -318,8 +318,8 @@ void PhysicsScene::resolveCollisions(PhysicsComponent* a, PhysicsComponent* b, T
 	}
 }
 
-void PhysicsScene::checkTerrainCollision(PhysicsComponent* entity, Transform* transform, deltaTime_t delta) {
-	if (entity->Collision.BroadType == BroadColliderType::BOX_AABB) {
+void PhysicsSystem::checkTerrainCollision(PhysicsComponent* entity, Transform* transform, deltaTime_t delta) {
+	if (entity->Collision.GetCurrentBroadColliderType() == BroadColliderType::BOX_AABB) {
 		resolveTerrainCollisionAABB(entity, transform, delta, entity->Collision.BroadCollider.Box);
 	}
 	else {
@@ -331,7 +331,7 @@ void PhysicsScene::checkTerrainCollision(PhysicsComponent* entity, Transform* tr
 	}
 }
 
-void PhysicsScene::resolveTerrainCollisionAABB(PhysicsComponent* entity, Transform* transform, deltaTime_t delta, const CollisionBox& box) {
+void PhysicsSystem::resolveTerrainCollisionAABB(PhysicsComponent* entity, Transform* transform, deltaTime_t delta, const CollisionBox& box) {
 	Vector2f worldMin = { box.GetMin().X + box.Size.X, box.GetMin().Z + box.Size.Z };
 	Vector2f worldMax = { box.GetMax().X + box.Size.X, box.GetMax().Z + box.Size.Z };
 
@@ -485,7 +485,7 @@ void PhysicsScene::resolveTerrainCollisionAABB(PhysicsComponent* entity, Transfo
 	}
 }
 
-void PhysicsScene::resolveTerrainCollision(PhysicsComponent* entity, Transform* transform, const SAT_CollisionInfo& info, const Vector3f& triangleNormal, deltaTime_t delta) {
+void PhysicsSystem::resolveTerrainCollision(PhysicsComponent* entity, Transform* transform, const SAT_CollisionInfo& info, const Vector3f& triangleNormal, deltaTime_t delta) {
 	if (entity->ResponseFlags & PHYSICAL_ENTITY_RESPONSE_MOVE_MTV) {
 		transform->AddPosition(triangleNormal);
 	}
@@ -496,7 +496,7 @@ void PhysicsScene::resolveTerrainCollision(PhysicsComponent* entity, Transform* 
 	resolveTerrainCollisionRotation(entity, transform, info, triangleNormal, delta);
 }
 
-void PhysicsScene::resolveTerrainCollisionRotation(PhysicsComponent* entity, Transform* transform, const Collision::SAT_CollisionInfo& info, const Vector3f& triangleNormal, deltaTime_t delta) {
+void PhysicsSystem::resolveTerrainCollisionRotation(PhysicsComponent* entity, Transform* transform, const Collision::SAT_CollisionInfo& info, const Vector3f& triangleNormal, deltaTime_t delta) {
 	if (ResolveFlags & PHYSICAL_SCENE_RESOLVE_ROTATION) {
 		if (entity->ResponseFlags & PHYSICAL_ENTITY_RESPONSE_ROTATE) {
 			//Rotación.

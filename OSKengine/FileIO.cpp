@@ -24,7 +24,7 @@ namespace OSK {
 		if (stream.is_open()) {
 			while (std::getline(stream, line)) {
 				ret.append(line);
-				ret.append(std::to_string('\n'));
+				ret.append("\n");
 			}
 		}
 		else
@@ -62,6 +62,11 @@ namespace OSK {
 
 	bool FileIO::FileExists(const std::string& path) {
 		std::ifstream stream(path);
+
+		bool output = stream.good();
+
+		if (stream.is_open())
+			stream.close();
 
 		return stream.good();
 	}

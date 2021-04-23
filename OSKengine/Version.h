@@ -7,14 +7,26 @@
 
 namespace OSK {
 
-	//Representa una versión.
+	/// <summary>
+	/// Representa una versión.
+	/// </summary>
 	struct OSKAPI_CALL Version {
-		//Versión mayor.
+
+		/// <summary>
+		/// Versión mayor.
+		/// </summary>
 		unsigned int Mayor;
-		//Versión menor.
+
+		/// <summary>
+		/// Versión menor.
+		/// </summary>
 		unsigned int Menor;
-		//Parche.
+
+		/// <summary>
+		/// Parche.
+		/// </summary>
 		unsigned int Parche;
+
 	};
 
 }

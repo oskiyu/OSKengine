@@ -59,7 +59,7 @@ namespace OSK {
 		GraphicsPipeline* ShadowsPipeline = nullptr;
 		std::array<RenderTarget*, 6> CubemapTargets;
 
-		std::vector<VulkanBuffer> UBOs;
+		std::vector<GPUDataBuffer> UBOs;
 
 		float DepthRangeNear = 0.0f;
 		float DepthRangeFar = 100.0f;

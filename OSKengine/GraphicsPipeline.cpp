@@ -155,46 +155,43 @@ namespace OSK {
 		layoutHasBeenSet = true;
 	}
 
-	OskResult GraphicsPipeline::Create(VULKAN::Renderpass* renderpass) {
-		OskResult res = loadShaders();
-		if (res != OskResult::SUCCESS) {
-			OSK_SHOW_TRACE();
-			return res;
-		}
+	void GraphicsPipeline::Create(VULKAN::Renderpass* renderpass) {
+		loadShaders();
 
 		targetRenderpass = renderpass;
 		
 		if (!viewportHasBeenSet) {
-			OSK_SHOW_ERROR("no se ha establecido el viewport.");
+			Logger::Log(LogMessageLevels::BAD_ERROR, "Mo se ha establecido el viewport.");
 			
-			return OskResult::ERROR_PIPELINE_VIEWPORT_NOT_SET;
+			return;
 		}
 		if (!layoutHasBeenSet) {
-			OSK_SHOW_ERROR("no se ha establecido el layout.");
+			Logger::Log(LogMessageLevels::BAD_ERROR, "Mo se ha establecido el layout.");
 		
-			return OskResult::ERROR_PIPELINE_LAYOUT_NOT_SET;
+			return;
 		}
 
 		if (!rasterizerHasBeenSet) {
-			OSK_SHOW_WARNING("no se ha establecido el rasterizador. Se establecerá el rasterizador por defecto.");
-			SetRasterizer(VK_TRUE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_NONE, VK_FRONT_FACE_CLOCKWISE);
+			Logger::Log(LogMessageLevels::BAD_ERROR, "Mo se ha establecido el rasterizador. Se establecerá el rasterizador por defecto.");
+				SetRasterizer(VK_TRUE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_NONE, VK_FRONT_FACE_CLOCKWISE);
 		}
 		
 		if (!msaaHasBeenSet) {
-			OSK_SHOW_WARNING("no se ha establecido MSAA. MSAA estará desactivado.");
+
+			Logger::Log(LogMessageLevels::BAD_ERROR, "Mo se ha establecido el MSAA. MSAA estará desactivado.");
 			SetMSAA(false, VK_SAMPLE_COUNT_1_BIT);
 		}
 
 		if (!depthStencilHasBeenSet) {
-			OSK_SHOW_WARNING("no se ha establecido el depth/stencil. Estará desactivado.");
+			Logger::Log(LogMessageLevels::BAD_ERROR, "Mo se ha establecido el depth/stencil. Estará desactivado.");
 			SetDepthStencil(false);
 		}
 
 		VkResult result = vkCreatePipelineLayout(logicalDevice, &pipelineLayoutInfo, nullptr, &VulkanPipelineLayout);
 		if (result != VK_SUCCESS) {
-			OSK_SHOW_ERROR("crear pipelielayout.");
+			Logger::Log(LogMessageLevels::BAD_ERROR, "Crear pipelielayout.");
 
-			return OskResult::ERROR_CREATE_PIPELINE_LAYOUT;
+			return;
 		}
 
 		VkPipelineDynamicStateCreateInfo dynamicCreateInfo{};
@@ -223,9 +220,9 @@ namespace OSK {
 
 		result = vkCreateGraphicsPipelines(logicalDevice, nullptr, 1, &pipelineInfo, nullptr, &VulkanPipeline);
 		if (result != VK_SUCCESS) {
-			OSK_SHOW_ERROR("crear pipeline.");
+			Logger::Log(LogMessageLevels::BAD_ERROR, "crear pipeline.");
 		
-			return OskResult::ERROR_CREATE_PIPELINE;
+			return;
 		}
 	}
 
@@ -233,7 +230,7 @@ namespace OSK {
 		vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, VulkanPipeline);
 	}
 
-	OskResult GraphicsPipeline::loadShaders() {
+	void GraphicsPipeline::loadShaders() {
 		//Código de los shaders.
 		const std::vector<char> vertexCode = FileIO::ReadBinaryFromFile(vertexPath);
 		const std::vector<char> fragmentCode = FileIO::ReadBinaryFromFile(fragmentPath);
@@ -243,9 +240,9 @@ namespace OSK {
 			fragmentShaderModule = createShaderModule(fragmentCode);
 		}
 		catch (std::exception& e) {
-			OSK_SHOW_ERROR("cargar shaders.");
+			Logger::Log(LogMessageLevels::BAD_ERROR, "cargar shaders.");
 
-			return OskResult::ERROR_LOAD_SHADERS;
+			return;
 		}
 
 		//Crear los shaders.
@@ -275,21 +272,12 @@ namespace OSK {
 		vertexInputInfo.vertexAttributeDescriptionCount = static_cast<uint32_t>(vertexInputDesc.size());
 		vertexInputInfo.pVertexAttributeDescriptions = vertexInputDesc.data();
 
-		return OskResult::SUCCESS;
+		return ;
 	}
 
-	OskResult GraphicsPipeline::ReloadShaders() {
+	void GraphicsPipeline::ReloadShaders() {
 		clearShaders();
-		OskResult result = loadShaders();
-		if (result != OskResult::SUCCESS) {
-			Logger::Log(LogMessageLevels::NO, OSK_GET_TRACE);
-			return result;
-		}
-		result = Create(targetRenderpass);
-		if (result != OskResult::SUCCESS)
-			Logger::Log(LogMessageLevels::NO, OSK_GET_TRACE);
-
-		return result;
+		loadShaders();
 	}
 
 	void GraphicsPipeline::clearShaders() {

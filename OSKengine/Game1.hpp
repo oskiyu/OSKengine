@@ -88,17 +88,17 @@ public:
 				GetRenderer()->PostProcessingSettings.UseFXAA = 1;
 		};
 
-		ControlsObject.Create(ECS.GetPointer());
+		ControlsObject.Spawn(ECS.GetPointer());
 		ControlsObject.AddComponent<OSK::InputComponent>(input);
 
 		//ENTIDADES
 		Cubes.push_back({});
-		Cubes.back().Create(ECS.GetPointer());
+		Cubes.back().Spawn(ECS.GetPointer());
 		OSK::ModelComponent& model = Cubes.back().GetComponent<OSK::ModelComponent>();
 		model.AddAnimatedModel("models/anim2/goblin2.dae", Content);
 		model.AnimatedModels[0].ModelTransform.SetScale({ 0.000025f });
 		model.AnimatedModels[0].ModelMaterial = GetRenderer()->GetMaterialSystem()->GetMaterial(GetRenderer()->DefaultMaterial3D_Name)->CreateInstance();
-		model.AnimatedModels[0].ModelMaterial->SetBuffer(GetRenderer()->UniformBuffers);
+		model.AnimatedModels[0].ModelMaterial->SetBuffer(GetRenderer()->GetUniformBuffers());
 		model.AnimatedModels[0].ModelMaterial->SetDynamicBuffer(RenderSystem3D->RScene->BonesUBOs);
 		model.AnimatedModels[0].ModelMaterial->SetBuffer(RenderSystem3D->RScene->shadowMap->DirShadowsUniformBuffers);
 		model.AnimatedModels[0].ModelMaterial->SetTexture(Content->LoadTexture("models/anim2/td.png"));
@@ -109,13 +109,13 @@ public:
 		
 		model.Link(&Cubes.back().Transform3D);
 
-		Player.Create(ECS.GetPointer());
+		Player.Spawn(ECS.GetPointer());
 		Player.GetComponent<OSK::ModelComponent>().AddAnimatedModel("models/anim2/goblin2.dae", Content);
 		Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0].ModelTransform.SetScale({ 0.000025f });
 		Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0].AnimationSpeed = 0.5f;
 		OSK::ModelComponent& playerModel = Player.GetComponent<OSK::ModelComponent>();
 		playerModel.AnimatedModels[0].ModelMaterial = GetRenderer()->GetMaterialSystem()->GetMaterial(GetRenderer()->DefaultMaterial3D_Name)->CreateInstance();
-		playerModel.AnimatedModels[0].ModelMaterial->SetBuffer(GetRenderer()->UniformBuffers);
+		playerModel.AnimatedModels[0].ModelMaterial->SetBuffer(GetRenderer()->GetUniformBuffers());
 		playerModel.AnimatedModels[0].ModelMaterial->SetDynamicBuffer(RenderSystem3D->RScene->BonesUBOs);
 		playerModel.AnimatedModels[0].ModelMaterial->SetBuffer(RenderSystem3D->RScene->shadowMap->DirShadowsUniformBuffers);
 		playerModel.AnimatedModels[0].ModelMaterial->SetTexture(Content->LoadTexture("models/anim2/td.png"));

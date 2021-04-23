@@ -73,7 +73,7 @@ void Game::SetupSystems() {
 	ECS->RegisterComponent<OSK::OnTickComponent>();
 	ECS->RegisterComponent<OSK::CollisionComponent>();
 
-	PhysicsSystem = ECS->RegisterSystem<OSK::PhysicsScene>();
+	PhysicsSystem = ECS->RegisterSystem<OSK::PhysicsSystem>();
 	InputSystem = ECS->RegisterSystem<OSK::InputSystem>();
 	RenderSystem3D = ECS->RegisterSystem<OSK::RenderSystem3D>();
 	OnTickSystem = ECS->RegisterSystem<OSK::OnTickSystem>();

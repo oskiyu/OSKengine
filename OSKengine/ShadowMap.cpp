@@ -16,8 +16,7 @@ ShadowMap::~ShadowMap() {
 }
 
 void ShadowMap::Clear() {
-	SafeDelete(&DirShadows);
-	SafeDelete(&ShadowsPipeline);
+	Memory::SafeDelete(&DirShadows);
 
 	for (auto& i : DirShadowsUniformBuffers)
 		i.Free();
@@ -79,6 +78,6 @@ void ShadowMap::CreateRenderpass() {
 }
 
 void ShadowMap::CreateFramebuffers() {
-	DirShadows->SetSize(Size.X, Size.Y, false, false);
+	DirShadows->SetSize(Size.X, Size.Y, false);
 	DirShadows->CreateFramebuffers(4, &DirShadows->RenderedSprite.Texture2D->Image.View, 1);
 }

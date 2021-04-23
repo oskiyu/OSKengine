@@ -2,26 +2,60 @@
 
 #define OSK_USE_INFO_LOGS //OSK::Log() se usará también con mensajes de información, no solo con errores. 
 
+#include <string>
+
 namespace OSK {
 
-	constexpr auto ENGINE_NAME = "OSKengine";
+	/// <summary>
+	/// Nombre de OSKengine.
+	/// </summary>
+	extern std::string ENGINE_NAME;
 
-	constexpr auto ENGINE_VERSION_STAGE = "Alpha";
+	/// <summary>
+	/// Versión mayor de OSKengine.
+	/// </summary>
+	extern std::string ENGINE_VERSION_STAGE;
 
-	constexpr auto ENGINE_VERSION_STAGE_NUMERIC = 0;
+	/// <summary>
+	/// Versión mayor de OSKengine, en número.
+	/// </summary>
+	extern int ENGINE_VERSION_STAGE_NUMERIC;
 
-	constexpr auto ENGINE_VERSION_NUMERIC = 17;
+	/// <summary>
+	/// Versión de OSKengine, en número.
+	/// </summary>
+	extern int ENGINE_VERSION_NUMERIC;
 
-	constexpr auto ENGINE_VERSION_MINOR = "17";
+	/// <summary>
+	/// Versión de OSKengine.
+	/// </summary>
+	extern std::string ENGINE_VERSION_MINOR;
 
-	constexpr auto ENGINE_VERSION_ALPHANUMERIC = "Alpha 17";
+	/// <summary>
+	/// Versión total.
+	/// </summary>
+	extern std::string ENGINE_VERSION_ALPHANUMERIC;
 
-	constexpr auto ENGINE_VERSION_BUILD = "2021.04.01a";
+	/// <summary>
+	/// Build de OSKengine.
+	/// YY.MM.DDn
+	/// </summary>
+	extern std::string ENGINE_VERSION_BUILD;
 
-	constexpr auto ENGINE_VERSION_BUILD_NUMERIC = 20210401;
+	/// <summary>
+	/// Build de OSKengine.
+	/// YYMMDDn
+	/// </summary>
+	extern int ENGINE_VERSION_BUILD_NUMERIC;
 	
-	constexpr auto ENGINE_VERSION = "0.17 build 2021.04.01a";
+	/// <summary>
+	/// Versión total.
+	/// </summary>
+	extern std::string ENGINE_VERSION;
 
-	constexpr auto ENGINE_VERSION_TOTAL = 17;
+	/// <summary>
+	/// Número de versión.
+	/// </summary>
+	extern int ENGINE_VERSION_TOTAL;
 
 }

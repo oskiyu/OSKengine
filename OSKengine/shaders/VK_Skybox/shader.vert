@@ -6,8 +6,6 @@
 layout(binding = 0) uniform UniformBufferObject {
     mat4 view;
     mat4 proj;
-    mat4 proj2D;
-    mat4 bones[MAX_BONES];
 
     vec3 cameraPos;
 } camera;

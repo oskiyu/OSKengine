@@ -7,10 +7,19 @@
 
 namespace OSK {
 
-	//Visibilidad del ratón.
+	/// <summary>
+	/// Tipos de visibilidad del ratón.
+	/// </summary>
 	enum class OSKAPI_CALL MouseVisibility {
+
+		/// <summary>
+		/// Visible.
+		/// </summary>
 		VISIBLE,
+
+		//Invisible.
 		HIDDEN
+
 	};
 
 }

@@ -6,142 +6,240 @@
 #include "Log.h"
 
 #include "KeyboardState.h"
-#include "MouseMovementInputModeEnum.h"
+#include "MouseAccelerationModeEnum.h"
 #include "MouseState.h"
 #include "MouseVisibilityEnum.h"
 #include "OverallMouseInputModeEnum.h"
 
-#include <glad/glad.h>
-#include <glfw3.h>
+#include <GLFW/glfw3.h>
 
 #include <string>
 
 namespace OSK {
 
 	namespace UI {
+
 		class BaseUIElement;
+
 	}
 
 
-	//Clase para la creación y uso de una ventana.
+	/// <summary>
+	/// Clase para la creación y uso de una ventana.
+	/// </summary>
 	class OSKAPI_CALL WindowAPI {
 
 	public:
 
-		//Crea una instancia WindowAPI.
+		/// <summary>
+		/// Crea una instancia WindowAPI.
+		/// </summary>
 		WindowAPI();
 
-		//Destruye la WindowAPI.
+		/// <summary>
+		/// Destruye la WindowAPI.
+		/// </summary>
 		~WindowAPI();
 
 		//Crea una ventana con tamaño { sizeX, sizeY } y con título { name }.
 		//Retorna 'false' si hay un error.
+
+		/// <summary>
+		/// Crea una ventana.
+		/// </summary>
+		/// <param name="sizeX">Tamaño en X.</param>
+		/// <param name="sizeY">Tamaño en Y.</param>
+		/// <param name="name">Título de la ventana.</param>
+		/// <returns>Retorna 'false' si hay un error.</returns>
 		result_t SetWindow(int32_t sizeX, int32_t sizeY, const std::string& name);
 
-		//Actualiza la ventana y retorna true si el programa ha de finalizar.
+		/// <summary>
+		/// Actualiza la ventana y retorna true si el programa ha de finalizar.
+		/// </summary>
+		/// <returns>True si el programa ha de finalizar.</returns>
 		bool WindowShouldClose();
 
-		//Intercambia los buffers de la ventana.
-		void SwapBuffers();
-
-		//Obtiene y actualiza el input (teclado/ratón, etc.).
+		/// <summary>
+		/// Obtiene y actualiza el input (teclado/ratón, etc...).
+		/// </summary>
 		void PollEvents();
 
-		//Actualiza el estado de un KeyboardState dado.
+		/// <summary>
+		/// Actualiza el estado de un KeyboardState dado.
+		/// </summary>
+		/// <param name="keyboard">Estado a actualizar.</param>
 		void UpdateKeyboardState(KeyboardState& keyboard);
 
 		//Actualiza el estado de un MouseState dado.
+
+		/// <summary>
+		/// Actualiza el estado de un MouseState dado.
+		/// </summary>
+		/// <param name="mouseState">MouseState a actualizar.</param>
 		void UpdateMouseState(MouseState& mouseState);
 
 		//Establece la posición del cursor, en píxeles.
+
+		/// <summary>
+		/// Establece la posición del cursor, en píxeles.
+		/// </summary>
+		/// <param name="posX">Posición X desde la esquina superior izquierda.</param>
+		/// <param name="posY">Posición Y desde la esquina superior izquierda.</param>
 		void SetMousePosition(int32_t posX, int32_t posY);
 
-		//Establece el modo del cursor.
-		//MouseInputMode::NORMAL: normal.
-	    //MouseInputMode::ALWAYS_RETURN: el ratón siempre se mantiene en el centro de la pantalla y es invisible.
+		/// <summary>
+		/// Establece el modo del cursor.
+		/// </summary>
+		/// <param name="mode">Modo de input del cursor.</param>
 		void SetMouseMode(MouseInputMode mode);
 
-		//Establece la precisión del mouse.
-		//WINDOWS: sin 'raw mouse option', con 'precisión del puntero'.
-		//RAW: sin 'precisión del puntero'.
-		void SetMouseMovementMode(MouseMovementMode mode);
+		/// <summary>
+		/// Establece la precisión del mouse.
+		/// </summary>
+		/// <param name="mode">Precisión del mouse.</param>
+		void SetMouseMovementMode(MouseAccelerationMode mode);
 
-		//Establece la visibilidad del cursor.
+		/// <summary>
+		/// Establece la visibilidad del cursor.
+		/// </summary>
+		/// <param name="mode">Nueva visibilidad.</param>
 		void SetMouseVisibility(MouseVisibility mode);
 
-		//Establece la pantalla completa (o no).
+		/// <summary>
+		/// Establece la pantalla completa.
+		/// </summary>
+		/// <param name="fullscreen">True si es pantalla completa.</param>
 		void SetFullscreen(bool fullscreen);
 
 		//Cierra la ventana.
+
+		/// <summary>
+		/// Cierra la ventana.
+		/// </summary>
 		void Close();
 
-		//TODO:
-		void SetMousePosition(uint32_t x, uint32_t y);
-
+		/// <summary>
+		/// Centra el mouse en el centro de la ventana.
+		/// </summary>
 		void CenterMouse();
 
+		/// <summary>
+		/// Devuelve un rectángulo con el tamaño de la ventana.
+		/// </summary>
+		/// <returns>Tamaño de la ventana.</returns>
 		Vector4 GetRectangle() const;
 
-		//Obtiene el tiempo actual.
+		/// <summary>
+		/// Obtiene el tiempo actual.
+		/// </summary>
+		/// <returns>Tiempo actual.</returns>
 		deltaTime_t GetTime();
 
-		//Tamaño de la ventana en el eje X (ancho).
-		//En píxeles.
+		/// <summary>
+		/// Tamaño de la ventana en el eje X (ancho).
+		/// </summary>
 		int32_t ScreenSizeX;
 
-		//Tamaño de la ventana en el eje Y (alto).
-		//En píxeles.
+		/// <summary>
+		/// Tamaño de la ventana en el eje Y (alto).
+		/// </summary>
 		int32_t ScreenSizeY;
 
-
-		//Ratio de aspecto de la ventana.
-		//En porcentaje de X respecto a Y (x/y).
+		/// <summary>
+		/// Ratio de aspecto de la ventana.
+		/// En porcentaje de X respecto a Y (x/y).
+		/// </summary>
 		float_t ScreenRatio;
 
 		//TODO:
 		UI::BaseUIElement* UserInterface = nullptr;
 
-		//GLFW.
+		/// <summary>
+		/// Obtiene la ventana nativa de GLFW.
+		/// </summary>
+		/// <returns>Ventana nativa.</returns>
 		GLFWwindow* GetGLFWWindow() const;
 
-		//True si está en pantalla completa
+		/// <summary>
+		/// True si está en pantalla completa.
+		/// </summary>
 		bool IsFullscreen = false;
 
-		//Si es true, el viewport debe ser actualizado.
+		/// <summary>
+		/// Si es true, el viewport debe ser actualizado.
+		/// </summary>
 		bool ViewportShouldBeUpdated;
 
 	private:
 
+		/// <summary>
+		/// Ventana nativa.
+		/// </summary>
 		GLFWwindow* window = nullptr;
 
+		/// <summary>
+		/// Monitor (para modo panattlla completa).
+		/// </summary>
 		GLFWmonitor* monitor = nullptr;
 		
-		int32_t openGlVersionMayor = 3;
-
-		int32_t openGlVersionMinor = 3;
-
+		/// <summary>
+		/// Posición en X antes de ponerse a pantalla completa.
+		/// </summary>
 		int32_t posXbackup;
 
+		/// <summary>
+		/// Posición en T antes de ponerse a pantalla completa.
+		/// </summary>
 		int32_t posYbackup;
 
+		/// <summary>
+		/// Tamaño en X antes de ponerse a pantalla completa.
+		/// </summary>
 		int32_t sizeXbackup;
 
+		/// <summary>
+		/// Tamaño en Y antes de ponerse a pantalla completa.
+		/// </summary>
 		int32_t sizeYbackup;
 
+		/// <summary>
+		/// Estado del ratón.
+		/// </summary>
 		MouseState mouseState;
 
+		/// <summary>
+		/// Actualiza los estados del ratón.
+		/// </summary>
 		void updateMouseButtons();
 
+		/// <summary>
+		/// Función que se ejecuta al moverse el ratón.
+		/// </summary>
 		static void mouseInputCallback(GLFWwindow*, double, double);
 
+		/// <summary>
+		/// Función que se ejecuta al moverse el ratón.
+		/// </summary>
 		void mouseInput(double_t, double_t);
 
+		/// <summary>
+		/// Función que se ejecuta al moverse la rueda del ratón.
+		/// </summary>
 		static void mouseScrollCallback(GLFWwindow*, double, double);
 
+		/// <summary>
+		/// Función que se ejecuta al moverse la rueda del ratón.
+		/// </summary>
 		void mouseScroll(double_t, double_t);
-
+		
+		/// <summary>
+		/// Función que se ejecuta al cambiar de tama´ño la ventana.
+		/// </summary>
 		static void defaultFramebufferSizeCallback(GLFWwindow*, int, int);
 
+		/// <summary>
+		/// Función que se ejecuta al cambiar de tamaño la ventana.
+		/// </summary>
 		void resize(double_t, double_t);
 
 	};

@@ -15,8 +15,8 @@ CubeShadowMap::~CubeShadowMap() {
 
 void CubeShadowMap::Clear() {
 	for (auto& i : CubemapTargets)
-		SafeDelete(&i);
-	SafeDelete(&ShadowsPipeline);
+		Memory::SafeDelete(&i);
+	Memory::SafeDelete(&ShadowsPipeline);
 
 	for (auto& i : UBOs)
 		i.Free();
@@ -91,7 +91,7 @@ void CubeShadowMap::CreateRenderpass() {
 
 void CubeShadowMap::CreateFramebuffers() {
 	for (auto i : CubemapTargets) {
-		i->SetSize(Size.X, Size.Y, false, false);
+		i->SetSize(Size.X, Size.Y, false);
 		i->CreateFramebuffers(4, &i->RenderedSprite.Texture2D->Image.View, 1);
 	}
 }
