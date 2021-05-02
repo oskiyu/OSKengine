@@ -7,12 +7,21 @@
 
 namespace OSK {
 
-	//Modo del ratón.
-	//NORMAL: normal.
-	//ALWAYS_RETURN: el ratón siempre se mantiene en el centro de la pantalla y es invisible.
+	/// <summary>
+	/// Comportamiento del ratón.
+	/// </summary>
 	enum class OSKAPI_CALL MouseInputMode {
-		NORMAL,
+
+		/// <summary>
+		/// El ratón se mueve libremente.
+		/// </summary>
+		FREE,
+
+		/// <summary>
+		/// El ratón siempre está en el centro de la pantalla.
+		/// </summary>
 		ALWAYS_RETURN
+
 	};
 
 }

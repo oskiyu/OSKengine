@@ -25,7 +25,7 @@ void PhysicsSystem::Simulate(deltaTime_t deltaTime, deltaTime_t step) {
 
 	for (auto& i : Objects) {
 		PhysicsComponent* physics = &ECSsystem->GetComponent<PhysicsComponent>(i);
-		Transform* transform = &ECSsystem->GameObjects[i]->Transform3D;
+		Transform* transform = &ECSsystem->GetGameObjectByID(i)->Transform3D;
 
 		simulateEntity(physics, transform, delta);
 	}
@@ -41,12 +41,12 @@ void PhysicsSystem::Simulate(deltaTime_t deltaTime, deltaTime_t step) {
 			ColliderCollisionInfo info = physicsA->Collision.GetCollisionInfo(physicsB->Collision);
 
 			if (info.IsColliding)
-				resolveCollisions(physicsA, physicsB, &ECSsystem->GameObjects[a]->Transform3D, &ECSsystem->GameObjects[b]->Transform3D, info, delta);
+				resolveCollisions(physicsA, physicsB, &ECSsystem->GetGameObjectByID(a)->Transform3D, &ECSsystem->GetGameObjectByID(b)->Transform3D, info, delta);
 		}
 
 		if (FloorTerrain) {
 			PhysicsComponent* physics = &ECSsystem->GetComponent<PhysicsComponent>(a);
-			Transform& transform = ECSsystem->GameObjects[a]->Transform3D;
+			Transform& transform = ECSsystem->GetGameObjectByID(a)->Transform3D;
 
 			if (TerrainColissionType == PhysicalSceneTerrainResolveType::RESOLVE_DETAILED) {
 				checkTerrainCollision(physics, &transform, delta);

@@ -11,9 +11,17 @@
 #include "GameObjectManager.h"
 #include "UniquePtr.hpp"
 
+#include <functional>
+
 namespace OSK {
 
 	class GameObject;
+
+	/// <summary>
+	/// Representa la función new GameObject,
+	/// que puede funcionar con cualquier subclase de GameObject.
+	/// </summary>
+	typedef std::function<GameObject*()> GameObjectCreateFunc;
 
 	/// <summary>
 	/// Clase que implementa un sistema ECS.
@@ -24,6 +32,12 @@ namespace OSK {
 	class EntityComponentSystem {
 
 	public:
+
+		/// <summary>
+		/// Destruye el ECS.
+		/// Elimina todos los game objects.
+		/// </summary>
+		~EntityComponentSystem();
 
 		/// <summary>
 		/// Crea el ECS.
@@ -44,18 +58,6 @@ namespace OSK {
 		/// <param name="cmdBuffer">Buffer de comandos de Vulkan.</param>
 		/// <param name="i">Iteración.</param>
 		void OnDraw(VkCommandBuffer cmdBuffer, uint32_t i);
-
-		/// <summary>
-		/// Crea un nuevo GameObject.
-		/// </summary>
-		/// <returns>ID del objeto.</returns>
-		ECS::GameObjectID CreateGameObject();
-
-		/// <summary>
-		/// Destruye un GameObject y sus componentes.
-		/// </summary>
-		/// <param name="object">ID del objeto.</param>
-		void DestroyGameObject(ECS::GameObjectID object);
 
 		/// <summary>
 		/// Registra un nuevo componente.
@@ -82,6 +84,16 @@ namespace OSK {
 			objectManager->SetSignature(object, signature);
 
 			systemManager->GameObjectSignatureChanged(object, signature);
+		}
+
+		/// <summary>
+		/// Devuelve si un objeto tiene un componente en concreto.
+		/// </summary>
+		/// <typeparam name="T">Componente.</typeparam>
+		/// <param name="object">Objeto.</param>
+		/// <returns>True si tiene el componente.</returns>
+		template <typename T> bool ObjectHasComponent(ECS::GameObjectID object) {
+			return objectManager->GetSignature(object).test(componentManager->GetComponentType<T>());
 		}
 
 		/// <summary>
@@ -144,11 +156,76 @@ namespace OSK {
 		}
 		
 		/// <summary>
-		/// Map ID del objeto -> objeto.
+		/// Registra una clase derivada de GameObject.
+		/// Para poder instanciarla.
 		/// </summary>
-		std::unordered_map<ECS::GameObjectID, GameObject*> GameObjects;
+		/// <typeparam name="T">Clase.</typeparam>
+		/// <param name="className">Nombre de la clase.</param>
+		template <typename T> void RegisterGameObjectClass(const std::string& className) {
+			RegisterGameObjectClass(className, T::GetCreateFunction());
+		}
+
+		/// <summary>
+		/// Registra una clase derivada de GameObject.
+		/// Para poder instanciarla.
+		/// </summary>
+		/// <typeparam name="T">Clase.</typeparam>
+		template <typename T> void RegisterGameObjectClass() {
+			RegisterGameObjectClass<T>(T::GetClassName());
+		}
+
+		/// <summary>
+		/// Registra una clase derivada de GameObject.
+		/// Para poder instanciarla.
+		/// </summary>
+		/// <param name="className">Nombre de la clase.</param>
+		/// <param name="func">Función que devuelve una nueva instancia de la clase.</param>
+		void RegisterGameObjectClass(const std::string& className, GameObjectCreateFunc func);
+
+		/// <summary>
+		/// Spawnea un game object en el mundo.
+		/// </summary>
+		/// <param name="className">Nombre de la clase del game object.</param>
+		/// <param name="position">Posición del objeto en el mundo.</param>
+		/// <param name="axis">Eje sobre el que se va a aplicar la rotación inicial.</param>
+		/// <param name="angle">Ángulo de la rotación inicial.</param>
+		/// <param name="size">Escala inicial.</param>
+		/// <returns>Puntero al nuevo objeto.</returns>
+		GameObject* Spawn(const std::string& className, const Vector3f& position = { 0.0f }, const Vector3f& axis = { 0.0f, 1.0f, 0.0f }, float angle = 0.0f, const Vector3f& size = { 1.0f });
+
+		/// <summary>
+		/// Spawnea un game object en el mundo.
+		/// </summary>
+		/// <typeparam name="T">Clase del game object.</typeparam>
+		/// <param name="position">Posición del objeto en el mundo.</param>
+		/// <param name="axis">Eje sobre el que se va a aplicar la rotación inicial.</param>
+		/// <param name="angle">Ángulo de la rotación inicial.</param>
+		/// <param name="size">Escala inicial.</param>
+		/// <returns>Puntero al nuevo objeto.</returns>
+		template <typename T> T* Spawn(const Vector3f& position = { 0.0f }, const Vector3f& axis = { 0.0f, 1.0f, 0.0f }, float angle = 0.0f, const Vector3f& size = { 1.0f }) {
+			return (T*)Spawn(T::GetClassName(), position, axis, angle, size);
+		}
+
+		/// <summary>
+		/// Devuelve el game object con la ID dada.
+		/// </summary>
+		/// <param name="id">ID.</param>
+		/// <returns>Game object instance.</returns>
+		GameObject* GetGameObjectByID(ECS::GameObjectID id) const;
 
 	private:
+
+		/// <summary>
+		/// Crea un nuevo GameObject.
+		/// </summary>
+		/// <returns>ID del objeto.</returns>
+		ECS::GameObjectID CreateGameObject();
+
+		/// <summary>
+		/// Destruye un GameObject y sus componentes.
+		/// </summary>
+		/// <param name="object">ID del objeto.</param>
+		void DestroyGameObject(ECS::GameObjectID object);
 
 		/// <summary>
 		/// Maneja los sistemas.
@@ -165,6 +242,24 @@ namespace OSK {
 		/// </summary>
 		UniquePtr<ECS::GameObjectManager> objectManager;
 
+		/// <summary>
+		/// Map ID del objeto -> objeto.
+		/// </summary>
+		std::unordered_map<ECS::GameObjectID, GameObject*> GameObjects;
+
+		/// <summary>
+		/// Map nombre de clase -> función crear clase.
+		/// </summary>
+		std::unordered_map<std::string, GameObjectCreateFunc> RegisteredGOClasses;
+
 	};
 
 }
+
+/// <summary>
+/// Crea las funciones necesarias para poder registrar esta clase como un game object.
+/// </summary>
+/// <param name="x">Clase del objeto..</param>
+#define OSK_GAME_OBJECT(x) \
+	 static inline OSK::GameObjectCreateFunc GetCreateFunction() { return []() { return new x; }; } \
+	 static inline std::string GetClassName() { return #x; } \

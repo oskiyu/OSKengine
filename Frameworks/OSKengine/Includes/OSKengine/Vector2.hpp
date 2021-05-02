@@ -8,45 +8,67 @@
 
 namespace OSK {
 
-	//Representa un vector 2D.
-	template <typename T> class OSKAPI_CALL Vector2_t {
+	/// <summary>
+	/// Representa un vector 2D.
+	/// </summary>
+	/// <typeparam name="T">Precisión.</typeparam>
+	template <typename T> class Vector2_t {
 
 	public:
 
-		//Crea un vector 2D nulo { 0, 0 }.
+		/// <summary>
+		/// Crea un vector 2D nulo { 0, 0 }.
+		/// </summary>
 		Vector2_t() {
 			X = 0;
 			Y = 0;
 		}
 
-		//Crea una instancia del Vector2.
+		/// <summary>
+		/// Crea una instancia del Vector2.
+		/// </summary>
+		/// <param name="x">X.</param>
+		/// <param name="y">Y.</param>
 		Vector2_t(const T& x, const T& y) {
 			X = x;
 			Y = y;
 		}
 
-		//Crea una instancia del Vector2 en la que X e Y tienen en mismo valor.
+		/// <summary>
+		/// Crea una instancia del Vector2 en la que X e Y tienen en mismo valor.
+		/// </summary>
+		/// <param name="value">X e Y.</param>
 		Vector2_t(const T& value) {
 			X = value;
 			Y = value;
 		}
 
-		//Crea un vector 2D con los parámetros de vec.
+		/// <summary>
+		/// Crea un vector 2D con los parámetros de vec.
+		/// </summary>
+		/// <param name="vec">Copia el vetor.</param>
 		Vector2_t(const glm::vec2& vec) {
 			X = vec.x;
 			Y = vec.y;
 		}
 
-
-		//Operación Vector2 + Vector2.
-		//X1 + X2; Y1 + Y2.
+		/// <summary>
+		/// Operación Vector2 + Vector2.
+		/// X1 + X2; Y1 + Y2.
+		/// </summary>
+		/// <param name="vec">Otro vector.</param>
+		/// <returns>Suma.</returns>
 		inline Vector2_t operator+(const Vector2_t& vec) const {
 			return Vector2_t(X + vec.X, Y + vec.Y);
 		}
 
-		//Operación Vector2 += Vector2.
-		//X1 + X2; Y1 + Y2.
-		//Modifica este vector.
+		/// <summary>
+		/// Operación Vector2 += Vector2.
+		/// X1 + X2; Y1 + Y2.
+		/// Modifica este vector.
+		/// </summary>
+		/// <param name="vec">Otro vector.</param>
+		/// <returns>Suma.</returns>
 		inline Vector2_t& operator+=(const Vector2_t& vec) {
 			X += vec.X;
 			Y += vec.Y;
@@ -54,21 +76,32 @@ namespace OSK {
 			return *this;
 		}
 		
-		//Negación del Vector2.
-		//-X; -Y.
+		/// <summary>
+		/// Negación del Vector2.
+		/// -X; -Y.
+		/// </summary>
+		/// <returns>Negado.</returns>
 		inline Vector2_t operator-() const {
 			return Vector2_t(-X, -Y);
 		}
-		
-		//Operación Vector2 - Vector2.
-		//X1 - X2; Y1 - Y2.
+
+		/// <summary>
+		/// Operación Vector2 - Vector2.
+		/// X1 - X2; Y1 - Y2.
+		/// </summary>
+		/// <param name="vec"></param>
+		/// <returns></returns>
 		inline Vector2_t operator-(const Vector2_t& vec) const {
 			return Vector2_t(X - vec.X, Y - vec.Y);
 		}
 
-		//Operación Vector2 -= Vector2.
-		//X1 - X2; Y1 - Y2.
-		//Modifica este vector.
+		/// <summary>
+		/// Operación Vector2 -= Vector2.
+		/// X1 - X2; Y1 - Y2.
+		/// Modifica este vector.
+		/// </summary>
+		/// <param name="vec">Otro vector.</param>
+		/// <returns>Resto.</returns>
 		inline Vector2_t& operator-=(const Vector2_t& vec) {
 			X -= vec.X;
 			Y -= vec.Y;
@@ -76,15 +109,23 @@ namespace OSK {
 			return *this;
 		}
 		
-		//Operación Vector2 * Vector2.
-		//X1 * X2; Y1 * Y2.
+		/// <summary>
+		/// Operación Vector2 * Vector2.
+		/// X1 * X2; Y1 * Y2.
+		/// </summary>
+		/// <param name="vec">Otro vector.</param>
+		/// <returns>Multiplicación.</returns>
 		inline Vector2_t operator*(const Vector2_t& vec) const {
 			return Vector2_t(X * vec.X, Y * vec.Y);
 		}
 
-		//Operación Vector2 *= Vector2.
-		//X1 * X2; Y1 * Y2.
-		//Modifica este vector.
+		/// <summary>
+		/// Operación Vector2 *= Vector2.
+		/// X1 * X2; Y1 * Y2.
+		/// Modifica este vector.
+		/// </summary>
+		/// <param name="vec">Otro vector.</param>
+		/// <returns>Multiplicación.</returns>
 		inline Vector2_t& operator*=(const Vector2_t& vec) {
 			X *= vec.X;
 			Y *= vec.Y;
@@ -92,15 +133,23 @@ namespace OSK {
 			return *this;
 		}
 		
-		//Operación Vector2 * float_t.
-		//X * value; Y * value.
+		/// <summary>
+		/// Operación Vector2 * float_t.
+		/// X * value; Y * value.
+		/// </summary>
+		/// <param name="value">Valor.</param>
+		/// <returns>Multiplicación.</returns>
 		inline Vector2_t operator*(const T& value) const {
 			return Vector2_t(X * value, Y * value);
 		}
 
-		//Operación Vector2 * float_t.
-		//X * value; Y * value.
-		//Modifica este vector.
+		/// <summary>
+		/// Operación Vector2 * float_t.
+		/// X * value; Y * value.
+		/// Modifica este vector.
+		/// </summary>
+		/// <param name="value">Valor.</param>
+		/// <returns>Multiplicación.</returns>
 		inline Vector2_t& operator*=(const T& value) {
 			X *= value;
 			Y *= value;
@@ -108,15 +157,21 @@ namespace OSK {
 			return *this;
 		}
 
-		//Operación Vector2 / float_t.
-		//X = value; Y = value.
+		/// <summary>
+		/// Operación Vector2 / float_t.
+		/// X = value; Y = value.
+		/// </summary>
 		inline Vector2_t operator/(const T& value) const {
 			return Vector2_t(X / value, Y / value);
 		}
 
-		//Operación Vector2 /= Vector2.
-		//X = vec.X; Y = vec.Y.
-		//Modifica este vector.
+		/// <summary>
+		/// Operación Vector2 /= Vector2.
+		/// X = vec.X; Y = vec.Y.
+		/// Modifica este vector.
+		/// </summary>
+		/// <param name="vec">Otro vector.</param>
+		/// <returns>División.</returns>
 		inline Vector2_t& operator/=(const Vector2_t& vec) {
 			X /= vec.X;
 			Y /= vec.Y;
@@ -124,15 +179,19 @@ namespace OSK {
 			return *this;
 		}
 
-		//Operación Vector2 / Vector2.
-		//X = vec.X; Y = vec.Y.
+		/// <summary>
+		/// Operación Vector2 / Vector2.
+		/// X = vec.X; Y = vec.Y.
+		/// </summary>
 		inline Vector2_t operator/(const Vector2_t& vec) const {
 			return Vector2(X / vec.X, Y / vec.Y);
 		}
 
-		//Operación Vector2 /= float_t.
-		//X = value; Y = value.
-		//Modifica este vector.
+		/// <summary>
+		/// Operación Vector2 /= float_t.
+		/// X = value; Y = value.
+		/// Modifica este vector.
+		/// </summary>
 		inline Vector2_t& operator/=(const T& value) {
 			X /= value;
 			Y /= value;
@@ -140,25 +199,33 @@ namespace OSK {
 			return *this;
 		}
 
-		//Comparación.
-		//True si todos los componentes son iguales.
+		/// <summary>
+		/// Comparación.
+		/// True si todos los componentes son iguales.
+		/// </summary>
 		bool operator==(const Vector2_t& vec) const {
 			return X == vec.X && Y == vec.Y;
 		}
 
-		//Comparación.
-		//True si no todos los componentes son iguales.
+		/// <summary>
+		/// Comparación.
+		/// True si no todos los componentes son iguales.
+		/// </summary>
 		bool operator!=(const Vector2_t& vec) const {
 			return !operator==(vec);
 		}
 
-		//Módulo del vector.
-		//Obtiene la longitud del vector.
+		/// <summary>
+		/// Módulo del vector.
+		/// Obtiene la longitud del vector.
+		/// </summary>
 		inline T GetLength() const {
 			return glm::sqrt(X * X + Y * Y);
 		}
 
-		//Obtiene la distancia entre la posición representada por este vector y por el vector <vec>.
+		/// <summary>
+		/// Obtiene la distancia entre la posición representada por este vector y por el vector 'vec'.
+		/// </summary>
 		inline T GetDistanceTo(const Vector2_t& vec) const {
 			T dx = X - vec.X;
 			T dy = Y - vec.Y;
@@ -166,19 +233,25 @@ namespace OSK {
 			return glm::sqrt(dx * dx + dy * dy);
 		}
 
-		//Producto escalar de dos vectores.
+		/// <summary>
+		/// Producto escalar de dos vectores.
+		/// </summary>
 		inline T Dot(const Vector2_t& vec) const {
 			return X * vec.X + Y * vec.Y;
 		}
 
-		//Devuelve un vector 2D normalizado con la misma dirección que este.
+		/// <summary>
+		/// Devuelve un vector 2D normalizado con la misma dirección que este.
+		/// </summary>
 		Vector2_t GetNormalized() const {
 			T length = GetLength();
 
 			return Vector2_t(X / length, Y / length);
 		}
 
-		//Normaliza este vector 2D para que su módulo (GetLength()) sea 1.
+		/// <summary>
+		/// Normaliza este vector 2D para que su módulo (GetLength()) sea 1.
+		/// </summary>
 		void Normalize() {
 			T length = GetLength();
 
@@ -186,70 +259,91 @@ namespace OSK {
 			Y /= length;
 		}
 
-		//OSK::Vector2 a glm::vec2.
+		/// <summary>
+		/// OSK::Vector2 a glm::vec2.
+		/// </summary>
 		inline glm::vec2 ToGLM() const {
 			return glm::vec2(X, Y);
 		}
 
-		//OSK::Vector2 a glm::vec.
+		/// <summary>
+		/// OSK::Vector2 a glm::vec.
+		/// </summary>
 		inline glm::vec<2, T> ToGLM_T() const {
 			return glm::vec<2, T>(X, Y);
 		}
 
-		//Devuelve un vector con variables de distinto tipo.
-		//P = nuevo tipo de las variables.
+		/// <summary>
+		/// Devuelve un vector con variables de distinto tipo.
+		/// P = nuevo tipo de las variables.
+		/// </summary>
 		template <typename P> inline Vector2_t<P> ToVec2() const {
 			return Vector2_t<P>(X, Y);
 		}
 
-		//Devuelve un Vector2f a partir de este.
+		/// <summary>
+		/// Devuelve un Vector2f a partir de este.
+		/// </summary>
 		inline Vector2_t<float_t> ToVector2f() const {
 			return ToVec2<float>();
 		}
 
-		//Devuelve un Vector2d a partir de este.
+		/// <summary>
+		/// Devuelve un Vector2d a partir de este.
+		/// </summary>
 		inline Vector2_t<double_t> ToVector2d() const {
 			return ToVec2<double_t>();
 		}
 
-		//Devuelve un Vector2i a partir de este.
+		/// <summary>
+		/// Devuelve un Vector2i a partir de este.
+		/// </summary>
 		inline Vector2_t<int32_t> ToVector2i() const {
 			return ToVec2<int32_t>();
 		}
 
-		//Devuelve un Vector2ui a partir de este.
+		/// <summary>
+		/// Devuelve un Vector2ui a partir de este.
+		/// </summary>
 		inline Vector2_t<uint32_t> ToVector2ui() const {
 			return ToVec2<uint32_t>();
 		}
 
-		//Representa la primera coordenada.
+		/// <summary>
+		/// Representa la primera coordenada.
+		/// </summary>
 		T X;
 
-		//Representa la segunda coordenada.
+		/// <summary>
+		/// Representa la segunda coordenada.
+		/// </summary>
 		T Y;
 
 	};
 
-
-	//Representa un vector 2D.
-	//Precisión = float.
+	/// <summary>
+	/// Precisión = float.
+	/// </summary>
 	typedef Vector2_t<float_t> Vector2;
 
-	
-	//Representa un vector 2D.
-	//Precisión = float.
+	/// <summary>
+	/// Precisión = float.
+	/// </summary>
 	typedef Vector2_t<float_t> Vector2f;
 
-	//Representa un vector 2D.
-	//Precisión = double.
+	/// <summary>
+	/// Precisión = double.
+	/// </summary>
 	typedef Vector2_t<double_t> Vector2d;
 
-	//Representa un vector 2D.
-	//Precisión = int32.
+	/// <summary>
+	/// Precisión = int32.
+	/// </summary>
 	typedef Vector2_t<int32_t> Vector2i;
 
-	//Representa un vector 2D.
-	//Precisión = uint32.
+	/// <summary>
+	/// Precisión = uint32.
+	/// </summary>
 	typedef Vector2_t<uint32_t> Vector2ui;
 
 }

@@ -1,4 +1,4 @@
-#include "VulkanImage.h"
+#include "GPUImage.h"
 
 namespace OSK::VULKAN {
 

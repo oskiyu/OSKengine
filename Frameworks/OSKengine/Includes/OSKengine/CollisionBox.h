@@ -9,46 +9,69 @@ namespace OSK {
 
 	struct CollisionSphere;
 
-	//Representa un volumen 3D.
-	//Puede usarse para detectar colisiones.
+	/// <summary>
+	/// Representa un volumen 3D cúbico.
+	/// Puede usarse para detectar colisiones.
+	/// </summary>
 	struct OSKAPI_CALL CollisionBox {
 
 	public:
 
-		//Crea una CollisionBox vacía.
+		/// <summary>
+		/// Crea un colision box.
+		/// </summary>
 		CollisionBox();
 
-		//Crea una CollisionBox.
-		//	<position>: posición de la caja en el mundo.
-		//	<size>: tamaño de la caja.
+		/// <summary>
+		/// Crea una CollisionBox.
+		/// </summary>
+		/// <param name="position">Posición de la caja en el mundo.</param>
+		/// <param name="size">Tamaño de la caja.</param>
 		CollisionBox(const Vector3f& position, const Vector3f& size);
 
-		//Comprueba si un punto está dentro de la caja.
-		//	<point>: punto 3D.
+		/// <summary>
+		/// Comprueba si un punto está dentro de la caja.
+		/// </summary>
+		/// <param name="point">Punto 3D.</param>
+		/// <returns>True si el punto está dentro de la caja.</returns>
 		bool ContainsPoint(const Vector3f& point) const;
 
-		//Comprueba si esta caja está en contacto con otra.
-		//	<box>: otra caja.
+		/// <summary>
+		/// Comprueba si esta caja está en contacto con otra.
+		/// </summary>
+		/// <param name="box">Otra caja.</param>
+		/// <returns>True si colisionan.</returns>
 		bool Intersects(const CollisionBox& box) const;
 
-
-		//Comprueba si esta caja está en contacto con una CollisionSphere.
-		//	<sphere>: CollisionSphere.
+		/// <summary>
+		/// Comprueba si esta caja está en contacto con una CollisionSphere.
+		/// </summary>
+		/// <param name="sphere">CollisionSphere.</param>
+		/// <returns>True si colisionan.</returns>
 		bool Intersects(const CollisionSphere& sphere) const;
 
-		//Obtiene la posición de la esquina contraria al origen.
-		//Position + Size.
-		Vector3f GetMax() const;
-
-		//Obtiene la posición de la esquina contraria al origen.
-		//Position - Size.
+		/// <summary>
+		/// Obtiene la posición del origen.
+		/// </summary>
+		/// <returns>Position - size.</returns>
 		Vector3f GetMin() const;
 
-		//Posición de la caja.
+		/// <summary>
+		/// Obtiene la posición de la esquina contraria al origen.
+		/// Position + Size.
+		/// </summary>
+		/// <returns>Position + Size.</returns>
+		Vector3f GetMax() const;
+
+		/// <summary>
+		/// Posición de la caja.
+		/// </summary>
 		Vector3f Position;
 
-		//Tamaño de la caja.
-		Vector3f Size;
+		/// <summary>
+		/// Tamaño de la caja.
+		/// </summary>
+		Vector3f Size = { 1.0f };
 
 	};
 

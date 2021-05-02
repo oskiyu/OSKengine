@@ -5,9 +5,15 @@
 #include "GraphicsPipeline.h"
 #include "DescriptorSet.h"
 
+#include "MaterialInstance.h"
+
 namespace OSK {
 
-	//Representa un skybox.
+	/// <summary>
+	/// Representa un skybox:
+	/// una caja 'gigante' que rodea una escena 3D.
+	/// Se usa para renderizar el cielo.
+	/// </summary>
 	class OSKAPI_CALL Skybox {
 
 		friend class RenderAPI;
@@ -16,23 +22,34 @@ namespace OSK {
 	public:
 
 		//Enlaza el skybox - tanto el modelo como la textura.
-		inline void Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, const uint32_t& i) const {
-			Skybox::Model->Bind(commandBuffer);
-			texture->Descriptor->Bind(commandBuffer, pipeline, i);
-		}
 
-		//Renderiza el skybox.
-		inline void Draw(VkCommandBuffer commandBuffer) const {
-			Skybox::Model->Draw(commandBuffer);
-		}
+		/// <summary>
+		/// Enlaza el skybox - tanto el modelo como la textura.
+		/// Para poder ser renerizado.
+		/// </summary>
+		/// <param name="commandBuffer">Command buffer.</param>
+		/// <param name="pipeline">Pipeline usada.</param>
+		/// <param name="i">Iteración.</param>
+		void Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t i) const;
+
+		/// <summary>
+		/// Renderiza el skybox.
+		/// Debe haberse llamado antes a Bind().
+		/// </summary>
+		/// <param name="commandBuffer">Command buffer.</param>
+		void Draw(VkCommandBuffer commandBuffer) const;
 
 	private:
 
-		//Textura del skybox.
-		SkyboxTexture* texture = nullptr;
+		/// <summary>
+		/// Material del skybox.
+		/// </summary>
+		SharedPtr<MaterialInstance> Instance;
 
-		//Modelo del skybox (un cubo).
-		//STATIC.
+		/// <summary>
+		/// Modelo del skybox (un cubo).
+		/// STATIC.
+		/// </summary>
 		static ModelData* Model;
 
 	};

@@ -7,18 +7,37 @@
 
 namespace OSK::Collision {
 
-	//Información de una colisión SAT.
+	/// <summary>
+	/// Información detallada de una colisión SAT.
+	/// </summary>
 	struct OSKAPI_CALL SAT_CollisionInfo {
-		//True si están colisionando.
+		
+		/// <summary>
+		/// True si los dos colisionadores están colisionando.
+		/// </summary>
 		bool IsColliding = false;
-		//Eje de la colisión.
+
+		/// <summary>
+		/// Eje de la colisión.
+		/// </summary>
 		Vector3f Axis;
-		//MTV de A.
+		
+		/// <summary>
+		/// Vector mínimo de translación de A sobre B:
+		/// la distancia que A debería recorrer para no colisionar sobre B.
+		/// </summary>
 		Vector3f MinimunTranslationVector;
-		//Punto de colisión respecto a A.
+
+		/// <summary>
+		/// Punto de colisión (espacio local A).
+		/// </summary>
 		Vector3f PointA;
-		//Punto de colisión respecto a B.
+
+		/// <summary>
+		/// Punto de colisión (espacio local B).
+		/// </summary>
 		Vector3f PointB;
+
 	};
 
 }

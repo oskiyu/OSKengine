@@ -7,83 +7,17 @@
 
 #include <vulkan/vulkan.h>
 
+#include "RenderpassAttachment.h"
+#include "RenderpassSubpass.h"
+
 #include <vector>
 
 namespace OSK::VULKAN {
-
-	//Representa los attachments del renderpass.
-	class OSKAPI_CALL RenderpassAttachment {
-
-	public:
-
-		//Establece el attachment.
-		//	<format>: formato.
-		//	<loadOp>: qué se hará al cargar la imagen.
-		//	<stroeOp>: qué se hará al guardar la imagen.
-		//	<layout>: layout de la imagen.
-		void AddAttachment(VkFormat format, VkAttachmentLoadOp loadOp, VkAttachmentStoreOp stroeOp, VkImageLayout layout);
-
-		//Crea la referencia del attachment,
-		//	<attachment>: número del attachment.
-		//	<use>: layout que tendrá.
-		void CreateReference(const uint32_t& attachment, VkImageLayout use);
-
-		VkAttachmentDescription attahcmentDesc;
-		VkAttachmentReference reference;
-
-	};
-
-
-	class OSKAPI_CALL SubpassDependency {
-
-	public:
-
-		VkSubpassDependency VulkanDependency;
-
-	};
-
-
-	//Representa un subpass.
-	class OSKAPI_CALL RenderpassSubpass {
-
-	public:
-
-		//Destruye el subpass.
-		~RenderpassSubpass();
-
-		//Establece en que parte se va a aplicar el subpass.
-		//	<point>: punto en el que se va a usar.
-		void SetPipelineBindPoint(VkPipelineBindPoint point = VK_PIPELINE_BIND_POINT_GRAPHICS);
-
-		//Establece los attachments de las imágenes que representarán el color.
-		//	<attachments>: attachments.
-		void SetColorAttachments(const std::vector<RenderpassAttachment>& attachments);
-
-		//Establece el attachment de las imagen que representarán el depth/stencil..
-		//	<attachment>: attachment.
-		void SetDepthStencilAttachment(const RenderpassAttachment& attachment);
-
-		//Añade una dependencia al renderpass.
-		void AddDependency(SubpassDependency dependency);
-
-		//Crea el subpass.
-		//	<srcSubpass>: subpass anterior a este.
-		//	<dstSubpass>: subpass posterior a este.
-		//	<sourceStageMask>: sourceStageMask.
-		//	<sourceAccess>: sourceAccess.
-		//	<destStageMask>: sourceAccess.
-		//	<destAccess>: sourceAccess.
-		void Set(/*const uint32_t& srcSubpass, const uint32_t& dstSubpass, VkPipelineStageFlags sourceStageMask, VkAccessFlags sourceAccess, VkPipelineStageFlags destStageMask, VkAccessFlags destAccess*/);
-
-		VkSubpassDescription description;
-
-		std::vector<VkAttachmentReference> references{};
-		std::vector<SubpassDependency> dependencies{};
-
-	};
-
-
-	//Representa un renderpass.
+	
+	/// <summary>
+	/// Representa un renderpass.
+	/// Un renderpass representa el target sobre el cual se renderiza una imagen.
+	/// </summary>
 	class OSKAPI_CALL Renderpass {
 
 		friend class GraphicsPipeline;
@@ -91,39 +25,70 @@ namespace OSK::VULKAN {
 
 	public:
 
-		//Destruye el renderpass.
+		/// <summary>
+		/// Destruye el renderpass.
+		/// </summary>
 		~Renderpass();
 
-		//Establece el MSAA a usar.
-		//	<samples>: samples de MSAA.
+		/// <summary>
+		/// Establece el MSAA a usar.
+		/// </summary>
+		/// <param name="samples">Samples de MSAA.</param>
 		void SetMSAA(VkSampleCountFlagBits samples);
 
-		//Añade un attachment al renderpass.
-		//	<attachment>: attachment.
+		/// <summary>
+		/// Añade un attachment al renderpass.
+		/// </summary>
+		/// <param name="attachment">Attachment.</param>
 		void AddAttachment(RenderpassAttachment attachment);
 
-		//Añade un subpass al renderpass.
-		//	<subpass>: subpass.
+		/// <summary>
+		/// Añade un subpass al renderpass.
+		/// </summary>
+		/// <param name="subpass">Subpass.</param>
 		void AddSubpass(RenderpassSubpass subpass);
 
-		//Crea el renderpass.
+		/// <summary>
+		/// Crea el renderpass.
+		/// </summary>
 		void Create();
 
-		VkRenderPass VulkanRenderpass;
+		/// <summary>
+		/// Renderpass nativo.
+		/// </summary>
+		VkRenderPass VulkanRenderpass = VK_NULL_HANDLE;
 
 	private:
 
+		/// <summary>
+		/// Crea un renderpass vacío.
+		/// </summary>
+		/// <param name="logicalDevice">Logical device del renderizador.</param>
 		Renderpass(VkDevice logicalDevice);
 
-		//Config:
+		/// <summary>
+		/// Attachments.
+		/// </summary>
 		std::vector<RenderpassAttachment> attachments{};
 
+		/// <summary>
+		/// Subpasses.
+		/// </summary>
 		std::vector<RenderpassSubpass> subpasses;
 
+		/// <summary>
+		/// Samples del MSAA.
+		/// </summary>
 		VkSampleCountFlagBits samples = VK_SAMPLE_COUNT_1_BIT;
 
-		VkDevice logicalDevice;
+		/// <summary>
+		/// Logical device del renderizador.
+		/// </summary>
+		VkDevice logicalDevice = VK_NULL_HANDLE;
 		
+		/// <summary>
+		/// Formato del swapchain objetivo.
+		/// </summary>
 		VkFormat swapchainFormat;
 
 	};

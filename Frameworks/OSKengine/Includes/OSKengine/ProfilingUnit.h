@@ -9,36 +9,62 @@
 
 namespace OSK {
 
-	//Clase que representa una unidad de profiling.
-	//Maniene información sobre el rendimiento de una parte del motor / juego.
-	//Funciona como un cronómetro.
+	/// <summary>
+	/// Clase que representa una unidad de profiling.
+	/// Maniene información sobre el rendimiento de una parte del motor / juego.
+	/// Funciona como un cronómetro.
+	/// </summary>
 	class OSKAPI_CALL ProfilingUnit {
 
 	public:
 
-		//Crea una unidad vacía.
+		/// <summary>
+		/// Crea una unidad vacía.
+		/// </summary>
 		ProfilingUnit();
 
-		//Crea una unidad.
-		//	<name>: nombre de la unidad.
+		/// <summary>
+		/// Crea una unidad.
+		/// </summary>
+		/// <param name="name">Nombre de la unidad.</param>
 		ProfilingUnit(const std::string& name);
 
-		//Comienza el análisis de la unidad.
+		/// <summary>
+		/// Comienza el análisis de la unidad.
+		/// </summary>
 		void Start();
 
-		//Termina el análisis de la unidad.
+		/// <summary>
+		/// Termina el análisis de la unidad.
+		/// </summary>
 		void End();
 
-		//Obtiene el valor de la unidad.
+		/// <summary>
+		/// Obtiene el valor de la unidad.
+		/// </summary>
+		/// <returns>Valor.</returns>
 		deltaTime_t GetValue() const;
 
-		//Nombre de la unidad.
+		/// <summary>
+		/// Nombre de la unidad.
+		/// </summary>
 		std::string Name = "UNKNOWN";
 
 	private:
 
+		/// <summary>
+		/// Inicio.
+		/// </summary>
 		deltaTime_t startTime = 0;
+
+		/// <summary>
+		/// Fin.
+		/// </summary>
 		deltaTime_t endTime = 0;
+
+		/// <summary>
+		/// Duración anterior.
+		/// </summary>
 		deltaTime_t lastDuration = 0;
 
 	};

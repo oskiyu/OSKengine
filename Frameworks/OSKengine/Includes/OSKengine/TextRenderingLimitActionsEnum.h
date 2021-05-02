@@ -7,16 +7,24 @@
 
 namespace OSK {
 
-	//Indica qué hacer cuando el texto sobrepasa el límite de renderizado.
+	/// <summary>
+	/// Indica qué hacer cuando el texto sobrepasa el límite de la pantalla.
+	/// </summary>
 	enum class OSKAPI_CALL TextRenderingLimit {
 
-		//No haer nada.
+		/// <summary>
+		/// No hacer nada.
+		/// </summary>
 		DO_NOTHING,
 
-		//Hacer newline.
+		/// <summary>
+		/// Renderizar el resto del texto en una nueva línea.
+		/// </summary>
 		NEW_LINE,
 
-		//Mover texto.
+		/// <summary>
+		/// Mueve el texto hacia la izquierda para que se pueda renderizar entero.
+		/// </summary>
 		MOVE_TEXT
 
 	};

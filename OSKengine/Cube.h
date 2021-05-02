@@ -9,6 +9,8 @@ class Cube : public OSK::GameObject {
 
 public:
 
+	OSK_GAME_OBJECT(Cube)
+
 	void OnCreate() override {
 		AddComponent<OSK::PhysicsComponent>(OSK::PhysicsComponent());
 
@@ -31,6 +33,8 @@ public:
 class PlayerCube : public Cube {
 
 public:
+
+	OSK_GAME_OBJECT(PlayerCube)
 
 	void OnCreate() override {
 		Cube::OnCreate();

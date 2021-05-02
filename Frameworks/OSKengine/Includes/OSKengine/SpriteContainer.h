@@ -9,48 +9,57 @@
 
 namespace OSK {
 
-	//Contiene varios sprites.
+	/// <summary>
+	/// Clase que almacena los componentes necesarios para renderizar un sprite.
+	/// Se usa internamente dentro del SpriteBatch.
+	/// </summary>
 	struct OSKAPI_CALL SpriteContainer {
 		
-		//Sprites.
-		Sprite* sprites = nullptr;
-		
-		//Número de sprites que contiene.
-		uint32_t number = 0;
+		/// <summary>
+		/// Color del sprite.
+		/// </summary>
+		Color SpriteColor;
 
-		//True si se eliminará automáticamente al renderizarse.
-		bool shouldBeCleared = true;
+		/// <summary>
+		/// Push constants:
+		/// matriz cámara * modelo del sprite.
+		/// </summary>
+		PushConst2D PConst;
 
-		//Elimina los sprites.
-		void Clear() {
-			if (sprites == nullptr || !shouldBeCleared)
-				return;
+		/// <summary>
+		/// Buffer con los vértices del sprite.
+		/// Se usa para actualizar el buffer en caso de que cambien las coordenadas de textura del sprite.
+		/// </summary>
+		VkBuffer VertexBuffer;
 
-			if (number == 1)
-				delete sprites;
-			else
-				delete[] sprites;
+		/// <summary>
+		/// Memoria del buffer de los vértices.
+		/// Se usa para actualizar el buffer en caso de que cambien las coordenadas de textura del sprite.
+		/// </summary>
+		VkDeviceMemory VertexMemory;
 
-			sprites = nullptr;
-		}
+		/// <summary>
+		/// Vertices del sprite (con sus coordenadas de textura).
+		/// Se usa para actualizar el buffer en caso de que cambien las coordenadas de textura del sprite.
+		/// </summary>
+		Vertex Vertices[4];
 
-		//Elimina forzosamente los sprites.
-		void Clear(const bool& force) {
-			if (false) {
-				Clear();
-			}
-			else {
-				if (sprites == nullptr)
-					return;
+		/// <summary>
+		/// True si hay que actualizar el buffer de vértices del sprite original.
+		/// </summary>
+		bool hasChanged;
 
-				if (number == 1)
-					delete sprites;
-				else
-					delete[] sprites;
+		/// <summary>
+		/// Referencia al material del sprite.
+		/// </summary>
+		MaterialInstance* SpriteMaterial;
 
-				sprites = nullptr;
-			}
-		}
+		/// <summary>
+		/// Establece el sprite que va a 'almacenar' este container.
+		/// </summary>
+		/// <param name="sprite">Sprite a renderizar.</param>
+		/// <param name="cameraMat">Matriz de la cámara 2D.</param>
+		void Set(Sprite& sprite, glm::mat4 cameraMat);
 
 	};
 

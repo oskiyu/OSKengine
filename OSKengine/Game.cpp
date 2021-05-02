@@ -2,6 +2,8 @@
 
 #include "Components.h"
 
+#include "GameObject.h"
+
 void Game::SetupWindow() {
 	window = new OSK::WindowAPI();
 	window->SetWindow(WindowCreateInfo.SizeX, WindowCreateInfo.SizeY, WindowCreateInfo.Name);
@@ -55,6 +57,8 @@ void Game::Init() {
 	SpriteBatch = GetRenderer()->CreateSpriteBatch();
 	SpriteBatch.SetCamera(GetRenderer()->DefaultCamera2D);
 	RenderSystem3D->Stage.AddSpriteBatch(&SpriteBatch);
+
+	ECS->RegisterGameObjectClass<OSK::GameObject>();
 
 	LoadContent();
 

@@ -10,27 +10,39 @@
 
 namespace OSK {
 
-	OSK_INFO_STATIC
-	//Clase que actúa de interfaz para la lectura y escritura de atchivos.
+	/// <summary>
+	/// Clase que actúa de interfaz para la lectura y escritura de atchivos.
+	/// </summary>
 	class OSKAPI_CALL FileIO {
 	
 	public:
 
-		//Escribe un archivo de texto.
-		//	<path>: ruta del archivo.
-		//	<text>: texto que se va a escribir.
+		/// <summary>
+		/// Escribe un archivo de texto.
+		/// </summary>
+		/// <param name="path">Ruta del archivo (con extensión).</param>
+		/// <param name="text">Texto que se va a escribir.</param>
 		static void WriteFile(const std::string& path, const std::string& text);
 
-		//Lee un archivo de texto.
-		//	<path>: ruta del archivo.
+		/// <summary>
+		/// Lee un archivo de texto.
+		/// </summary>
+		/// <param name="path">Ruta del archivo (con extensión).</param>
+		/// <returns>String con el contenido del archivo.</returns>
 		static std::string ReadFromFile(const std::string& path);
 
-		//Lee un archivo binario.
-		//	<filename>: ruta del archivo.
+		/// <summary>
+		/// Lee un archivo binario.
+		/// </summary>
+		/// <param name="filename">Ruta del archivo (con extensión).</param>
+		/// <returns>Vector de bytes.</returns>
 		static std::vector<char> ReadBinaryFromFile(const std::string& filename);
 
-		//Comprueba si un archivo existe.
-		//	<path>: ruta del archivo.
+		/// <summary>
+		/// Comprueba si un archivo existe.
+		/// </summary>
+		/// <param name="path">Ruta del archivo (con extensión).</param>
+		/// <returns>True si existe.</returns>
 		static bool FileExists(const std::string& path);
 
 	};

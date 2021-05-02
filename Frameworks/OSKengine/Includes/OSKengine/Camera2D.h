@@ -7,7 +7,9 @@
 
 namespace OSK {
 
-	//Cámara para un mundo de dos dimensiones.
+	/// <summary>
+	/// Cámara para un mundo de dos dimensiones.
+	/// </summary>
 	class OSKAPI_CALL Camera2D {
 
 		friend class RenderAPI;
@@ -15,32 +17,55 @@ namespace OSK {
 
 	public:
 
-		//Crea la cámara.
+		/// <summary>
+		/// Crea la cámara por defecto.
+		/// </summary>
 		Camera2D();
 
-		//Crea una cámara, para esta ventana.
+		/// <summary>
+		/// Crea una cámara, para esta ventana.
+		/// </summary>
+		/// <param name="window">Ventana renderizada.</param>
 		Camera2D(WindowAPI* window);
 
-		//Actualiza los valores de la cámara.
+		/// <summary>
+		/// Actualiza los valores de la cámara.
+		/// </summary>
 		void Update();
 
-		//Transform de la cámara.
+		/// <summary>
+		/// Transform de la cámara.
+		/// </summary>
 		Transform2D CameraTransform;
 
-		//TRUE: cambiar el tamaño de la ventana no cambia el área de la cámara.
-		//FALSE: cambiar el tamaño de la ventana sí cambia el área de la cámara.
+		/// <summary>
+		/// TRUE: cambiar el tamaño de la ventana no cambia el área de la cámara.
+		/// FALSE: cambiar el tamaño de la ventana sí cambia el área de la cámara.
+		/// </summary>
 		bool UseTargetSize = false;
 
-		//Transforma un punto 2D en la ventana al punto 2D al que apunta la cámara en el mundo 2D.
+		/// <summary>
+		/// Transforma un punto 2D en la ventana al punto 2D al que apunta la cámara en el mundo 2D.
+		/// </summary>
+		/// <param name="point">Punto en coordenadas de la ventana.</param>
+		/// <returns>Punto, en coordenadas del mundo 2D.</returns>
 		Vector2 PointInWindowToPointInWorld(const Vector2& point) const;
 
-		//Área de la cámara.
+		/// <summary>
+		/// Área de la cámara.
+		/// </summary>
 		Vector2 TargetSize{};
 
 	private:
 
+		/// <summary>
+		/// Ventana.
+		/// </summary>
 		WindowAPI* window = nullptr;
 
+		/// <summary>
+		/// Matriz de la cámara.
+		/// </summary>
 		glm::mat4 projection;
 
 	};

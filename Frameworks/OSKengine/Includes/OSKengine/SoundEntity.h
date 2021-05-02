@@ -9,57 +9,76 @@
 
 #include <glm.hpp>
 
+#include "ECS.h"
+
 namespace OSK {
 
-	//Clase que almacena un sonido para su reproducción con AudioAPI.
-	class OSKAPI_CALL SoundEntity {
+	class AudioSystem;
+
+	/// <summary>
+	/// Clase que almacena un sonido para su reproducción con AudioSystem.
+	/// </summary>
+	class OSKAPI_CALL SoundEmitterComponent : Component {
+
+		friend class AudioSystem;
+		friend class ContentManager;
 
 	public:
 
-		//Crea un sonido.
-		SoundEntity();
+		/// <summary>
+		/// Crea el componente.
+		/// </summary>
+		void OnCreate() override;
 
+		/// <summary>
+		/// Cierra el componente.
+		/// </summary>
+		void OnRemove() override;
 
-		//Destruye el sonido.
-		~SoundEntity();
-
-
-		//INTERNO.
-		//NO USAR.
-		//Usar Transform.
-		//Establece la posiión 3D del sonido.
+		/// <summary>
+		/// INTERNO <para/>
+		/// NO USAR <para/>
+		///			<para/>
+		/// Establece la posiión 3D del sonido.
+		/// </summary>
+		/// <param name="position"></param>
 		void SetPosition(const Vector3& position);
 
-
-		//Establece la dirección del sonido.
+		/// <summary>
+		/// Establece la dirección del sonido.
+		/// </summary>
+		/// <param name="direction"></param>
 		void SetDirection(const Vector3& direction);
 
-
-		//Establece la velocidad a la que se mueve el sonido en el mundo 3D.
+		/// <summary>
+		/// Establece la velocidad a la que se mueve el sonido en el mundo 3D.
+		/// </summary>
+		/// <param name="speed"></param>
 		void SetSpeed(const Vector3& speed);
 
+		/// <summary>
+		/// Establece el tono (agudo/grave) del sonido.
+		/// </summary>
+		/// <param name="pitch">Pitch.</param>
+		void SetPitch(float pitch);
 
-		//Establece el tono (agudo/grave) del sonido.
-		void SetPitch(const float_t& pitch);
+		/// <summary>
+		/// Estable la ganancia del sonido.
+		/// </summary>
+		/// <param name="gain">Ganancia.</param>
+		void SetGain(float gain);
 
+	private:
 
-		//Estable la ganancia del sonido.
-		void SetGain(const float_t& gain);
+		/// <summary>
+		/// OpenAL.
+		/// </summary>
+		uint32_t BufferID;
 
-
-		//Transform del sonido.
-		//-Posicion.
-		Transform SoundTransform;
-
-
-		//OpenAL.
-		OSK_INFO_DO_NOT_TOUCH
-			uint32_t BufferID;
-
-
-		//OpenAL.
-		OSK_INFO_DO_NOT_TOUCH
-			uint32_t SourceID;
+		/// <summary>
+		/// OpenAL.
+		/// </summary>
+		uint32_t SourceID;
 
 	};
 

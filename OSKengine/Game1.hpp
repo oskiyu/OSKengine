@@ -14,6 +14,9 @@ public:
 	}
 
 	void LoadContent() override {
+		ECS->RegisterGameObjectClass<Cube>("Cube");
+		ECS->RegisterGameObjectClass<PlayerCube>("PlayerCube");
+
 		Fuente = Content->LoadFont("Fonts/AGENCYB.ttf", 20);
 		ShowFont = Content->LoadFont("Fonts/AGENCYB.ttf", 40);
 
@@ -88,13 +91,12 @@ public:
 				GetRenderer()->PostProcessingSettings.UseFXAA = 1;
 		};
 
-		ControlsObject.Spawn(ECS.GetPointer());
-		ControlsObject.AddComponent<OSK::InputComponent>(input);
+		ControlsObject = ECS->Spawn<OSK::GameObject>();
+		ControlsObject->AddComponent<OSK::InputComponent>(input);
 
 		//ENTIDADES
-		Cubes.push_back({});
-		Cubes.back().Spawn(ECS.GetPointer());
-		OSK::ModelComponent& model = Cubes.back().GetComponent<OSK::ModelComponent>();
+		Cubes.push_back(ECS->Spawn<Cube>());
+		OSK::ModelComponent& model = Cubes.back()->GetComponent<OSK::ModelComponent>();
 		model.AddAnimatedModel("models/anim2/goblin2.dae", Content);
 		model.AnimatedModels[0].ModelTransform.SetScale({ 0.000025f });
 		model.AnimatedModels[0].ModelMaterial = GetRenderer()->GetMaterialSystem()->GetMaterial(GetRenderer()->DefaultMaterial3D_Name)->CreateInstance();
@@ -107,13 +109,13 @@ public:
 		model.AnimatedModels[0].ModelMaterial->SetTexture(RenderSystem3D->RScene->shadowMap->DirShadows->RenderedSprite.Texture2D);
 		model.AnimatedModels[0].ModelMaterial->FlushUpdate();
 		
-		model.Link(&Cubes.back().Transform3D);
+		model.Link(&Cubes.back()->Transform3D);
 
-		Player.Spawn(ECS.GetPointer());
-		Player.GetComponent<OSK::ModelComponent>().AddAnimatedModel("models/anim2/goblin2.dae", Content);
-		Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0].ModelTransform.SetScale({ 0.000025f });
-		Player.GetComponent<OSK::ModelComponent>().AnimatedModels[0].AnimationSpeed = 0.5f;
-		OSK::ModelComponent& playerModel = Player.GetComponent<OSK::ModelComponent>();
+		Player = ECS->Spawn<PlayerCube>();
+		Player->GetComponent<OSK::ModelComponent>().AddAnimatedModel("models/anim2/goblin2.dae", Content);
+		Player->GetComponent<OSK::ModelComponent>().AnimatedModels[0].ModelTransform.SetScale({ 0.000025f });
+		Player->GetComponent<OSK::ModelComponent>().AnimatedModels[0].AnimationSpeed = 0.5f;
+		OSK::ModelComponent& playerModel = Player->GetComponent<OSK::ModelComponent>();
 		playerModel.AnimatedModels[0].ModelMaterial = GetRenderer()->GetMaterialSystem()->GetMaterial(GetRenderer()->DefaultMaterial3D_Name)->CreateInstance();
 		playerModel.AnimatedModels[0].ModelMaterial->SetBuffer(GetRenderer()->GetUniformBuffers());
 		playerModel.AnimatedModels[0].ModelMaterial->SetDynamicBuffer(RenderSystem3D->RScene->BonesUBOs);
@@ -123,10 +125,10 @@ public:
 		playerModel.AnimatedModels[0].ModelMaterial->SetTexture(Content->LoadTexture("models/anim2/ts.png"));
 		playerModel.AnimatedModels[0].ModelMaterial->SetTexture(RenderSystem3D->RScene->shadowMap->DirShadows->RenderedSprite.Texture2D);
 		playerModel.AnimatedModels[0].ModelMaterial->FlushUpdate();
-		playerModel.Link(&Player.Transform3D);
-		Player.Transform3D.AddPosition({ 40, 0, 0 });
+		playerModel.Link(&Player->Transform3D);
+		Player->Transform3D.AddPosition({ 40, 0, 0 });
 
-		GetRenderer()->DefaultCamera3D.CameraTransform.SetPosition(Player.Transform3D.GlobalPosition);
+		GetRenderer()->DefaultCamera3D.CameraTransform.SetPosition(Player->Transform3D.GlobalPosition);
 		GetRenderer()->PostProcessingSettings.UseFXAA = 1;
 
 		PhysicsSystem->TerrainColissionType = OSK::PhysicalSceneTerrainResolveType::CHANGE_HEIGHT_ONLY;
@@ -143,14 +145,15 @@ public:
 
 		SpriteBatch.DrawSprite(GetRenderer()->OSKengineIconSprite);
 		SpriteBatch.DrawString(Fuente, "OSKengine " + std::string(OSK::ENGINE_VERSION), 1.0f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
+		SpriteBatch.DrawString(Fuente, "FPS " + std::to_string((int)GetFPS() - 1), 1.0f, OSK::Vector2(10), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::TOP_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
 	}
 
 	OSK::Font* Fuente = nullptr;
 	OSK::Font* ShowFont = nullptr;
 
-	OSK::GameObject ControlsObject;
+	OSK::GameObject* ControlsObject;
 
-	std::vector<Cube> Cubes;
-	PlayerCube Player;
+	std::vector<Cube*> Cubes;
+	PlayerCube* Player;
 
 };

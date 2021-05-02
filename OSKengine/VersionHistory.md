@@ -867,3 +867,22 @@ La gran mayoría de funciones en .h han sido movidas a .cpp.
 ###### Bugfixes
 
 - **Bugfix**: FileIO::ReadFromFile hace newline correctamente, en vez de añadir (int)'\n'.
+
+
+## 2021.5.2a
+
+Mayor versatilidad en los GameObjects.
+
+###### ECS
+   
+- GameObject:
+    - Ahora son creadas y son propiedad de `EntityComponentSystem`.
+        - Para eliminarlo, se tiene que llamar a `GameObject::Remove()`.
+    - Ahora las clases derivadas tienen que ser registradas con `OSK_GAME_OBJECT()`.
+    - Ahora tiene métodos para añadir un modelo 3D (que automáticamente añande el componente de modelos).
+    - `Create()` renombrado a `Spawn()`.
+
+
+###### Bugfixes
+
+- **Bugfix**: spawnear un GabeObject ahora ocupa una ID, y no dos.

@@ -8,35 +8,49 @@
 #include "DirectionalLight.h"
 
 #include <vector>
-#include "VulkanBuffer.h"
+#include "GPUDataBuffer.h"
 
 namespace OSK {
 
-	//Interfaz con un UBO que contiene información sobre las luces.
+	/// <summary>
+	/// Interfaz con un UBO que contiene información sobre las luces.
+	/// </summary>
 	class OSKAPI_CALL LightUBO {
 
 	public:
 
-		//Luz direccional.
+		/// <summary>
+		/// Luz direccional.
+		/// </summary>
 		DirectionalLight Directional{};
 
-		//Luces puntuales.
+		/// <summary>
+		/// Luces puntuales.
+		/// </summary>
 		std::vector<PointLight> Points{};
 
-		//Obtiene el tamaño, en bytes, de todas las luces puntuales juntas.
+		/// <summary>
+		/// Obtiene el tamaño, en bytes, de todas las luces puntuales juntas.
+		/// </summary>
+		/// <returns>Tamaño total.</returns>
 		inline const size_t PointsSize() const {
 			return Points.size() * sizeof(PointLight);
 		}
 
-		//Obtiene el tamaño, en bytes, del UBO.
+		/// <summary>
+		/// Obtiene el tamaño, en bytes, del UBO.
+		/// </summary>
+		/// <returns>Obtiene el tamaño, en bytes, del UBO.</returns>
 		inline const size_t Size() const {
 			return sizeof(DirectionalLight) + PointsSize();
 		}
 
-		//Actualiza el UBO.
-		//	<logicalDevice>: logicalDevice.
-		//	<buffer>: Vulkan buffer donde se almacena el UBO.
-		void UpdateBuffer(VkDevice logicalDevice, VulkanBuffer& buffer);
+		/// <summary>
+		/// Actualiza el UBO.
+		/// </summary>
+		/// <param name="logicalDevice">Logical device del renderizador.</param>
+		/// <param name="buffer">Buffer del ubo.</param>
+		void UpdateBuffer(VkDevice logicalDevice, GPUDataBuffer& buffer);
 
 	};
 

@@ -11,62 +11,87 @@
 #include <alc.h>
 #include <glm.hpp>
 
+#include "ECS.h"
+
 namespace OSK {
 
-	//Clase para la reproducción de sonidos.
-	class OSKAPI_CALL AudioAPI {
+	/// <summary>
+	/// Clase para la reproducción de sonidos.
+	/// </summary>
+	class OSKAPI_CALL AudioSystem : public ECS::System {
 
 	public:
 
-		//Crea una instancia AudioAPI.
-		AudioAPI();
+		/// <summary>
+		/// Crea el sistema. Se llama automáticamente mediante el sistema ECS.
+		/// </summary>
+		void OnCreate() override;
 
+		/// <summary>
+		/// Actualiza el sistema. Se llama automáticamente mediante el sistema ECS.
+		/// </summary>
+		/// <param name="deltaTime">Delta.</param>
+		void OnTick(deltaTime_t deltaTime) override;
 
-		//Destruye el AudioAPI.
-		~AudioAPI();
+		/// <summary>
+		/// Cierra el sistema. Se llama automáticamente mediante el sistema ECS.
+		/// </summary>
+		void OnRemove() override;
 
-
-		//Sincronza la posición del AudioAPI con la posición de la cámara.
-		void Update();
-
-
-		//Establece la cámara como entidad 'listener' del AudioAPI.
+		/// <summary>
+		/// Establece la cámara como entidad 'listener' del AudioSystem.
+		/// </summary>
+		/// <param name="camera"></param>
 		void SetCamera3D(Camera3D* camera);
 
-
-		//Establece la velocidad a la que se mueve la entidad 'listener' (la cámara).
-		//Se usa para simular el movimiento del jugador.
+		/// <summary>
+		/// Establece la velocidad a la que se mueve la entidad 'listener' (la cámara). <para/>
+		/// Se usa para simular el movimiento del jugador.
+		/// </summary>
+		/// <param name="speed">Velocidad.</param>
 		void SetListenerSpeed(const Vector3& speed);
 
+		/// <summary>
+		/// Hace sonar un sonido (3D).
+		/// </summary>
+		/// <param name="audio">Sonido a reproducir.</param>
+		/// <param name="bucle">Si es 'true' el sonido se repite siempre.</param>
+		void PlayAudio3D(SoundEmitterComponent& audio, bool bucle = false);
 
-		//Hace sonar un sonido.
-		//<bucle>: si es 'true' el sonido se repite siempre.
-		void PlayAudio3D(SoundEntity& audio, const bool& bucle = false);
-
-
-		//Hace sonar un sonido en su posición 3D.
-		//<bucle>: si es 'true' el sonido se repite siempre.
-		void PlayAudio(SoundEntity& audio, const bool& bucle = false);
+		/// <summary>
+		/// Hace sonar un sonido.
+		/// </summary>
+		/// <param name="audio">Sonido a reproducir.</param>
+		/// <param name="bucle">Si es 'true' el sonido se repite siempre.</param>
+		void PlayAudio(SoundEmitterComponent& audio, bool bucle = false);
 		
+		/// <summary>
+		/// Pausa el audio dado.
+		/// </summary>
+		/// <param name="audio">Audio a pausar.</param>
+		void PauseAudio(const SoundEmitterComponent& audio);
 
-		//Pausa el audio dado.
-		void PauseAudio(const SoundEntity& audio);
-
-
-		OSK_INFO_NOT_DEVELOPED
-		//Detiene el audio dado, devolviéndolo al segundo 0.
-		void StopAudio(const SoundEntity& audio);
-
-
-		//Reinicia el sonido.
-		void RestartAudio(const SoundEntity& audio);
+		/// <summary>
+		/// Reinicia el sonido.
+		/// </summary>
+		/// <param name="audio">Sonido a reiniciar.</param>
+		void RestartAudio(const SoundEmitterComponent& audio);
 
 	private:
 
+		/// <summary>
+		/// INTERNAL: .
+		/// </summary>
 		ALCdevice* device = nullptr;
 
+		/// <summary>
+		/// 
+		/// </summary>
 		ALCcontext* context = nullptr;
 
+		/// <summary>
+		/// Camara para la reproducción 3D.
+		/// </summary>
 		Camera3D* camera = nullptr;
 
 	};

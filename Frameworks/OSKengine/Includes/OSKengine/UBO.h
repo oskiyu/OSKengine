@@ -5,14 +5,27 @@
 
 namespace OSK{
 
+	/// <summary>
+	/// Estructura que pasa información a la GPU para el renderizado 3D.
+	/// </summary>
 	struct OSKAPI_CALL UBO {
+
+		/// <summary>
+		/// Matriz view de la cámara 3D.
+		/// </summary>
 		alignas(16) glm::mat4 view;
+
+		/// <summary>
+		/// Matriz Proyección de la cámara 3D.
+		/// </summary>
 		alignas(16) glm::mat4 projection;
-		alignas(16) glm::mat4 projection2D;
 
-		alignas(16) glm::mat4 bones[64]{glm::mat4(1.0f)};
-
+		/// <summary>
+		/// Posición de la cámara 3D.
+		/// </summary>
+		/// 
 		alignas(16) glm::vec3 cameraPos;
+
 	};
 
 }

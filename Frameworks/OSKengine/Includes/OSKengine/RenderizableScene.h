@@ -15,103 +15,225 @@
 #include "GraphicsPipeline.h"
 
 #include "ShadowMap.h"
+#include "CubeShadowMap.h"
 
 namespace OSK {
 
 	class RenderAPI;
 
-	//Representa una escena que se puede renderizar.
+	/// <summary>
+	/// Representa una escena que se puede renderizar.
+	/// Contiene el terreno y los modelos renderizados.
+	/// </summary>
 	class OSKAPI_CALL RenderizableScene {
 
 		friend class RenderAPI;
+		friend class RenderSystem3D;
 
 	public:
 
-		//Crea una nueva escena.
-		RenderizableScene(RenderAPI* renderer, uint32_t maxInitEntities);
+		/// <summary>
+		/// Crea una nueva escena.
+		/// </summary>
+		/// <param name="renderer">Renderizador.</param>
+		RenderizableScene(RenderAPI* renderer);
 
-		//Destruye la escena.
+		/// <summary>
+		/// Destruye la escena.
+		/// </summary>
 		~RenderizableScene();
 
-		//Crea el descriptor layout de la escena.
-		//Por defecto crea un PHONG descriptor layout.
-		virtual void CreateDescriptorLayout(uint32_t maxSets);
-
-		//Establece las propiedades de las luces de la escena.
-		//El número de luces NO puede cambiar.
-		//Por defecto: 16 luces puntuales.
+		/// <summary>
+		/// Establece las propiedades de las luces de la escena.
+		/// El número de luces NO puede cambiar.
+		/// Por defecto: 16 luces puntuales.
+		/// </summary>
 		virtual void SetupLightsUBO();
 
-		//Crea un descriptor set para la textura dada.
-		//	<texture>: textura del modelo.
-		//Por defecto crea un PHONG descriptor set.
-		virtual void CreateDescriptorSet(ModelTexture* texture) const;
-
-		//Crea el GraphicsPipeline de la escena.
-		//Por defecto crea un PHONG GraphicsPipeline.
-		virtual void SetGraphicsPipeline();
-
-		//Recrea el GraphicsPipeline.
-		void RecreateGraphicsPipeline();
-
-		//Actualiza los uniform buffers de la GPU que contienten información sobre las luces de la escena.
+		/// <summary>
+		/// Actualiza los uniform buffers de la GPU que contienten información sobre las luces de la escena.
+		/// </summary>
 		void UpdateLightsBuffers();
 
-		//Añade un modelo a la escena.
-		//	<model>: modelo.
+		/// <summary>
+		/// Añade un modelo a la escena.
+		/// </summary>
+		/// <param name="model">Modelo.</param>
 		void AddModel(Model* model);
 
-		//Añade un modelo animado a la escena.
-		//	<model>: modelo animado.
+		/// <summary>
+		/// Añade un modelo animado a la escena.
+		/// </summary>
+		/// <param name="model">Modelo animado.</param>
 		void AddAnimatedModel(AnimatedModel* model);
 
-		//Carga el skybox que usará esta escena.
-		//	<path>: ruta del archivo.
+		/// <summary>
+		/// Carga el skybox que usará esta escena.
+		/// Usa un ContentManager interno.
+		/// </summary>
+		/// <param name="path">Ruta del archivo (la carpeta).</param>
 		void LoadSkybox(const std::string& path);
 
-		void DrawShadows(VkCommandBuffer cmdBuffer, const uint32_t& iteration);
+		/// <summary>
+		/// Renderiza todas las sombras de los modelos en el shadow map.
+		/// </summary>
+		/// <param name="cmdBuffer">Commandbuffer.</param>
+		/// <param name="iteration">Iteration.</param>
+		void DrawShadows(VkCommandBuffer cmdBuffer, uint32_t iteration);
+
+		void DrawPointShadows(VkCommandBuffer cmdBuffer, uint32_t iteration, CubeShadowMap* map);
 
 		//Renderiza la escena.
-		void Draw(VkCommandBuffer cmdBuffer, const uint32_t& iteration);
+
+		/// <summary>
+		/// Renderiza toda la escena.
+		/// Debe haberse enlazado un render target antes.
+		/// </summary>
+		/// <param name="cmdBuffer">Commandbuffer.</param>
+		/// <param name="iteration">Iteration.</param>
+		void Draw(VkCommandBuffer cmdBuffer, uint32_t iteration);
 
 		//Carga un heightmap y genera un terreno.
 		//	<path>: ruta del heightmap.
 		//	<quadSize>: tamaño de cada cuadro del terreno (distancia entre los vértices).
 		//	<maxHegith>: altura máxima del terreno.
-		void LoadHeightmap(const std::string& path, const Vector2f& quadSize, const float_t& maxHeight);
+
+		/// <summary>
+		/// Carga el terreno de l escena.
+		/// Usa un ContentManager interno.
+		/// </summary>
+		/// <param name="path">Ruta del heightmap (con extensión).</param>
+		/// <param name="quadSize">Tamaño de cada quad.</param>
+		/// <param name="maxHeight">Altura máxima del terreno.</param>
+		void LoadHeightmap(const std::string& path, const Vector2f& quadSize, float maxHeight);
 		
-		//UBO de las luces.
+		/// <summary>
+		/// Luces de la escena.
+		/// </summary>
 		LightUBO Lights = {};
-		//Terreno que se va a renderizar.
-		Terrain* Terreno = nullptr;
+
+		/// <summary>
+		/// Terreno de la escena.
+		/// </summary>
+		UniquePtr<Terrain> Terreno;
+
+		//SYSTEM
+
+		/// <summary>
+		/// Prepara el renderpass para renderizar las sombras.
+		/// </summary>
+		/// <param name="cmdBuffer">Commandbuffer.</param>
+		/// <param name="iteration">Iteration.</param>
+		void PrepareDrawShadows(VkCommandBuffer cmdBuffer, uint32_t i);
+
+		/// <summary>
+		/// Renderiza en el shadow map la sombra de un modelo 3D.
+		/// </summary>
+		/// <param name="model">Modelo 3D.</param>
+		/// <param name="cmdBuffer">Commandbuffer.</param>
+		/// <param name="iteration">Iteration.</param>
+		void DrawShadows(Model* model, VkCommandBuffer cmdBuffer, uint32_t i);
+
+		/// <summary>
+		/// Finaliza el renderizado de sombras.
+		/// </summary>
+		/// <param name="cmdBuffer">Commandbuffer.</param>
+		/// <param name="iteration">Iteration.</param>
+		void EndDrawShadows(VkCommandBuffer cmdBuffer, uint32_t i);
+
+		/// <summary>
+		/// Prepara la escena para su renderizado.
+		/// Renderiza el skybox.
+		/// </summary>
+		/// <param name="cmdBuffer">Commandbuffer.</param>
+		/// <param name="iteration">Iteration.</param>
+		void PrepareDraw(VkCommandBuffer cmdBuffer, uint32_t i);
+
+		/// <summary>
+		/// Renderiza un modelo.
+		/// </summary>
+		/// <param name="model">Modelo 3D.</param>
+		/// <param name="cmdBuffer">Commandbuffer.</param>
+		/// <param name="iteration">Iteration.</param>
+		void Draw(Model* model, VkCommandBuffer cmdBuffer, uint32_t i);
+
+		/// <summary>
+		/// Finaliza el renderizado.
+		/// Renderiza el terreno.
+		/// </summary>
+		/// <param name="cmdBuffer">Commandbuffer.</param>
+		/// <param name="iteration">Iteration.</param>
+		void EndDraw(VkCommandBuffer cmdBuffer, uint32_t i);
+
+		/// <summary>
+		/// Renderpass.
+		/// </summary>
+		VULKAN::Renderpass* TargetRenderpass = nullptr;
+		
+		/// <summary>
+		/// Mapa de sombras.
+		/// </summary>
+		UniquePtr<ShadowMap> shadowMap;
+
+		/// <summary>
+		/// Buffers con información de luces.
+		/// </summary>
+		std::vector<GPUDataBuffer> LightsUniformBuffers;
+
+		/// <summary>
+		/// Buffers con información de huesos de modelos animados.
+		/// </summary>
+		std::vector<GPUDataBuffer> BonesUBOs;
+
 
 	protected:
 
+		/// <summary>
+		/// Inicia los buffers de luces.
+		/// </summary>
 		void InitLightsBuffers();
 
-		DescriptorLayout* PhongDescriptorLayout = nullptr;
-
+		/// <summary>
+		/// Graphics pipeline enlazada en un momento dado.
+		/// </summary>
 		GraphicsPipeline* CurrentGraphicsPipeline = nullptr;
+
+		/// <summary>
+		/// Pipeline del skybox.
+		/// </summary>
 		GraphicsPipeline* SkyboxPipeline = nullptr;
 
-		ContentManager* Content = nullptr;
-
-		std::vector<VulkanBuffer> LightsUniformBuffers;
+		/// <summary>
+		/// Content manager local.
+		/// </summary>
+		UniquePtr<ContentManager> Content;
 
 	private:
 
-		ModelTexture* DefaultTexture = nullptr;
-
+		/// <summary>
+		/// Skybox.
+		/// </summary>
 		Skybox skybox;
 
+		/// <summary>
+		/// Modelos 3D.
+		/// </summary>
 		std::vector<Model*> Models = {};
+
+		/// <summary>
+		/// Modelos animados.
+		/// </summary>
 		std::vector<AnimatedModel*> AnimatedModels = {};
 
-		RenderAPI* renderer;
-		ShadowMap* shadowMap = nullptr;
+		/// <summary>
+		/// Renderizador.
+		/// </summary>
+		RenderAPI* renderer = nullptr;
+
+		std::vector<CubeShadowMap*> cubeShadowMaps;
 
 		bool isPropetaryOfTerrain = true;
-
+		
 	};
 
 }

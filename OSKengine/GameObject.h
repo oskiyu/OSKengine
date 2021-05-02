@@ -8,6 +8,9 @@
 #include "ECS.h"
 #include "Transform.h"
 
+#include "Model.h"
+#include "ContentManager.h"
+
 namespace OSK {
 
 	/// <summary>
@@ -17,7 +20,11 @@ namespace OSK {
 	/// </summary>
 	class OSKAPI_CALL GameObject {
 
+		friend class EntityComponentSystem;
+
 	public:
+
+		OSK_GAME_OBJECT(GameObject)
 
 		/// <summary>
 		/// Destructor.
@@ -73,22 +80,29 @@ namespace OSK {
 			return ECSsystem->GetComponent<T>(ID);
 		}
 
-		/// <summary>
-		/// Crea el objeto y lo coloca en el mundo.
-		/// Ejecuta OnCreate().
-		/// </summary>
-		/// <param name="ecs">Sistema ECS que lo maneja.</param>
-		/// <param name="position">Posición en el mundo.</param>
-		/// <param name="axis">Eje sobre el que se va a aplicar la rotación.</param>
-		/// <param name="angle">Ángulo de rotación.</param>
-		/// <param name="size">Escala.</param>
-		void Spawn(EntityComponentSystem* ecs, const Vector3f& position = { 0.0f }, const Vector3f& axis = { 0.0f, 1.0f, 0.0f }, float angle = 0.0f, const Vector3f& size = { 1.0f });
+		template <typename T> bool HasComponent() {
+			return ECSsystem->ObjectHasComponent<T>(ID);
+		}
 
 		/// <summary>
 		/// Elimina el objeto del mundo.
 		/// Ejecuta OnRemove().
 		/// </summary>
 		void Remove();
+
+		/// <summary>
+		/// Añade un modelo al objeto.
+		/// </summary>
+		/// <param name="path">Ruta del modelo (con extensión).</param>
+		/// <param name="content">Content manager que lo va a cargar.</param>
+		void AddModel(const std::string& path, ContentManager* content);
+
+		/// <summary>
+		/// Añade un modelo animado al objeto.
+		/// </summary>
+		/// <param name="path">Ruta del modelo (con extensión).</param>
+		/// <param name="content">Content manager que lo va a cargar.</param>
+		void AddAnimatedModel(const std::string& path, ContentManager* content);
 
 	private:
 
@@ -101,6 +115,11 @@ namespace OSK {
 		/// True si ha sido spawneado.
 		/// </summary>
 		bool hasBeenCreated = false;
+
+		/// <summary>
+		/// Función que elimina este puntero.
+		/// </summary>
+		std::function<void(GameObject* obj)> Delete;
 
 	};
 

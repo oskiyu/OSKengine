@@ -7,28 +7,26 @@
 
 #include "SAT_Collider.h"
 #include "CollisionBox.h"
+#include "RayCastCollisionInfo.h"
 
 #include <gtc/matrix_access.hpp>
 
 namespace OSK{
 
-	//Información sobre la intersección de un rayo con un SAT_Collider.
-	struct OSKAPI_CALL RayCastCollisionInfo {
-		//True si lo intersecta.
-		bool IsColliding = false;
-		//Distancia del punto de intersección desde el origen del rayo.
-		float DistanceFromOrigin = { 0.0f };
-	};
-
-	//Clase estática para hacer raycasts.
+	/// <summary>
+	/// Clase estática para hacer raycasts.
+	/// </summary>
 	class OSKAPI_CALL RayCast {
 
 	public:
 
-		//Lanza un rayo desde el punto de origen y comprueba si toca el collider dado.
-		//	<origin>: origen del rayo.
-		//	<direction>: dirección del rayo.
-		//	<sat>: collider dado.
+		/// <summary>
+		/// Lanza un rayo desde el punto de origen y comprueba si toca el collider dado.
+		/// </summary>
+		/// <param name="origin">Posición origen del rayo.</param>
+		/// <param name="direction">Dirección del rayo.</param>
+		/// <param name="sat">Collider a comprobar.</param>
+		/// <returns>Información del raycast.</returns>
 		static RayCastCollisionInfo CastRay(const Vector3f& origin, Vector3f direction, const Collision::SAT_Collider& sat);
 
 	};

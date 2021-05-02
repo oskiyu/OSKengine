@@ -10,16 +10,26 @@
 
 namespace OSK::VULKAN {
 
+	/// <summary>
+	/// Contiene información sobre qué familias de comandos soporta una GPU.
+	/// </summary>
 	struct OSKAPI_CALL QueueFamilyIndices {
 
-		//Cola gráfica.
+		/// <summary>
+		/// Cola gráfica.
+		/// </summary>
 		std::optional<uint32_t> GraphicsFamily;
 
-		//Cola de presentación.
-		//(Pueden no ser la misma).
+		/// <summary>
+		/// Cola de presentación.
+		/// (Pueden no ser la misma).
+		/// </summary>
 		std::optional<uint32_t> PresentFamily;
 
-		//¿Hay alguna cola?
+		/// <summary>
+		/// ¿Hay alguna cola?
+		/// </summary>
+		/// <returns>True si hay alguna cola disponible.</returns>
 		bool IsComplete() const;
 
 	};

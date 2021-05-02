@@ -1,6 +1,6 @@
 #pragma once
 
-#include "VulkanBuffer.h"
+#include "GPUDataBuffer.h"
 #include "Transform.h"
 #include "PushConst3D.h"
 #include "GraphicsPipeline.h"
@@ -8,92 +8,97 @@
 #include "Texture.h"
 #include <vector>
 
+#include "MaterialInstance.h"
+#include "AnimUBO.h"
+#include "ModelData.h"
+
 namespace OSK {
-
-	//Vértices e índices de un modelo.
-	struct OSKAPI_CALL TempModelData {
-		//Vértices.
-		std::vector<Vertex> Vertices;
-		//Índices.
-		std::vector<vertexIndex_t> Indices;
-	};
-
-
-	//Información de un modelo.
-	//Contiene los buffers de los vértices y los índices.
-	//Se almacena en la clase VulkanRenderer.
-	struct OSKAPI_CALL ModelData {
-
-	public:
-
-		//Enlaza los vértices y los índices del modelo.
-		inline void Bind(VkCommandBuffer commandBuffer) const {
-			const VkDeviceSize offsets[] = { 0 };
-			vkCmdBindVertexBuffers(commandBuffer, 0, 1, &VertexBuffer.Buffer, offsets);
-			vkCmdBindIndexBuffer(commandBuffer, IndexBuffer.Buffer, 0, VK_INDEX_TYPE_UINT32);
-		}
-
-		//Renderiza el modelo, individualmente.
-		inline void Draw(VkCommandBuffer commandBuffer) const {
-			vkCmdDrawIndexed(commandBuffer, static_cast<uint32_t>(IndicesCount), 1, 0, 0, 0);
-		}
-
-		//Vértices del modelo.
-		VulkanBuffer VertexBuffer;
-
-		//Índices del modelo.
-		VulkanBuffer IndexBuffer;
-
-		//Número de índices.
-		size_t IndicesCount = 0;
-	};
-
-
-	//Representa un modelo 3D.
+	
+	/// <summary>
+	/// Representa un modelo 3D.
+	/// </summary>
 	class OSKAPI_CALL Model {
 
 	public:
 
-		//Enlaza los vértices y los índices del modelo.
-		inline void Bind(VkCommandBuffer commandBuffer) const {
-			Data->Bind(commandBuffer);
-		}
+		/// <summary>
+		/// Enlaza los vértices y los índices del modelo para su renderizado.
+		/// </summary>
+		/// <param name="commandBuffer">Commandbuffer.</param>
+		void Bind(VkCommandBuffer commandBuffer) const;
 
-		//Envía las constantes 3D a la GPU.
-		inline void PushConstants(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline) {
-			PushConst = GetPushConst();
-			vkCmdPushConstants(commandBuffer, pipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &PushConst);
-		}
+		/// <summary>
+		/// Envía las constantes 3D de este modelo a la GPU.
+		/// </summary>
+		/// <param name="commandBuffer">Commandbuffer.</param>
+		/// <param name="pipeline">Pipeline activa.</param>
+		void PushConstants(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline);
 
-		//Renderiza el modelo, individualmente.
-		inline void Draw(VkCommandBuffer commandBuffer) const {
-			Data->Draw(commandBuffer);
-		}
+		/// <summary>
+		/// Renderiza el modelo, individualmente.
+		/// Debe llamarse antes a Bind y a PushConstants.
+		/// </summary>
+		/// <param name="commandBuffer">Command buffer.</param>
+		void Draw(VkCommandBuffer commandBuffer) const;
 
-		//Buffers del modelo.
+		/// <summary>
+		/// Buffers del modelo.
+		/// </summary>
 		ModelData* Data;
 
-		//Transform3D del modelo.
-		Transform* ModelTransform;
+		/// <summary>
+		/// Transform3D del modelo.
+		/// </summary>
+		Transform ModelTransform;
 
-		//Textura del modelo.
-		ModelTexture* texture = nullptr;
+		/// <summary>
+		/// Material del modelo.
+		/// </summary>
+		SharedPtr<MaterialInstance> ModelMaterial;
+
+		/// <summary>
+		/// Material para el renderizado de sombras.
+		/// </summary>
+		SharedPtr<MaterialInstance> ShadowMaterial;
 
 		//Obtiene el Push Constant con la matriz del modelo.
-		inline PushConst3D GetPushConst() const {
-			if (ModelTransform == nullptr)
-				return{ glm::mat4(1.0f) };
 
-			ModelTransform->UpdateModel();
+		/// <summary>
+		/// Obtiene el Push Constant con la matriz del modelo.
+		/// </summary>
+		/// <returns>Push constant.</returns>
+		PushConst3D GetPushConst();
 
-			PushConst3D pushConst{};
-			pushConst.model = ModelTransform->ModelMatrix;
+		/// <summary>
+		/// Actualiza el UBO de animación.
+		/// </summary>
+		/// <param name="buffers">Buffers del UBO.</param>
+		void UpdateAnimUBO(std::vector<GPUDataBuffer>& buffers);
 
-			return pushConst;
-		}
+		/// <summary>
+		/// Offset de la animación de este modelo respecto al buffer dinámico de la animación.
+		/// </summary>
+		uint32_t AnimationBufferOffset = 0;
 
-		//Constantes 3D.
+		/// <summary>
+		/// UBO de la animación.
+		/// </summary>
+		AnimUBO BonesUBOdata;
+
+		/// <summary>
+		/// Logical device del renderizador.
+		/// </summary>
+		VkDevice LogicalDevice = VK_NULL_HANDLE;
+
+		/// <summary>
+		/// Constantes 3D.
+		/// </summary>
 		PushConst3D PushConst{};
+
+		/// <summary>
+		/// Número de huesos.
+		/// </summary>
+		uint32_t NumberOfBones = 0;
 
 	};
 

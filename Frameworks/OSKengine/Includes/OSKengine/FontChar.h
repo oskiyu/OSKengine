@@ -5,16 +5,29 @@
 
 namespace OSK {
 
-	//Carácter de una fuente.
+	/// <summary>
+	/// Carácter de una fuente.
+	/// </summary>
 	struct OSKAPI_CALL FontChar {
 
-		//Textura del carácter.
+		/// <summary>
+		/// Sprite del carácter.
+		/// </summary>
 		Sprite sprite{};
 
-		//Tamaño del carácter.
+		/// <summary>
+		/// Tamaño del carácter.
+		/// </summary>
 		Vector2 Size;
+
+		/// <summary>
+		/// Espaciado del carácter.
+		/// </summary>
 		Vector2 Bearing;
 
+		/// <summary>
+		/// Tamaño horizontal del carácter.
+		/// </summary>
 		uint32_t Advance = 0;
 
 	};

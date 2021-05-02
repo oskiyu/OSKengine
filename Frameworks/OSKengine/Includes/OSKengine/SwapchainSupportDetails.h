@@ -11,15 +11,26 @@
 
 namespace OSK::VULKAN {
 
+	/// <summary>
+	/// Detalles sobre el soporte de swapchain de una GPU.
+	/// </summary>
 	struct OSKAPI_CALL SwapchainSupportDetails {
-		//Capacidades de la superficie.
+
+		/// <summary>
+		/// Capacidades de la superficie.
+		/// </summary>
 		VkSurfaceCapabilitiesKHR SurfaceCapabilities;
 
-		//Formatos.
+		/// <summary>
+		/// Formatos soportados.
+		/// </summary>
 		std::vector<VkSurfaceFormatKHR> Formats;
 
-		//Modos de presentación.
+		/// <summary>
+		/// Modos de presentación soportados.
+		/// </summary>
 		std::vector<VkPresentModeKHR> PresentModes;
+
 	};
 
 }

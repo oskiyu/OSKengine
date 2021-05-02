@@ -13,61 +13,113 @@
 
 namespace OSK::Collision {
 
-	//Lista de puntos que representan una cara.
-	typedef std::vector<VectorElementPtr_t> SAT_Face;
+	/// <summary>
+	/// Lista de puntos que representan una cara.
+	/// </summary>
+	typedef std::vector<uint32_t> SAT_Face;
 
-	//Collider que usa el Teorema de Separación de Ejes.
-	//Puede tener n caras, cada una con m puntos.
+	/// <summary>
+	/// Collider que usa el Teorema de Separación de Ejes.
+	/// Puede tener n caras, cada una con m puntos.
+	/// </summary>
 	class OSKAPI_CALL SAT_Collider {
 
 	public:
 
-		//Optimiza las caras, dejando sólamente las que tienen ejes únicos.
+		/// <summary>
+		/// Optimiza las caras: elimina caras duplicadas, dejando sólamente las que tienen ejes únicos.
+		/// </summary>
 		void OptimizeFaces();
 
-		//Añade una cara.
-		//	<points>: array de puntos.
-		//	<size>: número de puntos.
-		void AddFace(const Vector3f points[], const uint32_t& size);
+		/// <summary>
+		/// Añade una nueva cara al collider.
+		/// </summary>
+		/// <param name="points">Array de puntos que componen la cara.</param>
+		/// <param name="size">Número de puntos que componen la cara.</param>
+		void AddFace(const Vector3f points[], uint32_t size);
 
-		//Comprueba si este collider choca con otro.
-		//Más barato de ejecutar que GetCollisionInfo.
-		//	<other>: otro sat collider.
+		/// <summary>
+		/// Comprueba si este collider choca con otro.
+		/// Más barato de ejecutar que GetCollisionInfo.
+		/// </summary>
+		/// <param name="other">Otro collider.</param>
+		/// <returns>True si están colisionando.</returns>
 		bool Intersects(const SAT_Collider& other) const;
 
-		//Obtiene un SAT_CollisionInfo con la información de la intersección de este collider con otro.
-		//	<other>: otro sat collider.
+		/// <summary>
+		/// Obtiene un SAT_CollisionInfo con información detallada de la intersección de este collider con otro.
+		/// </summary>
+		/// <param name="other">Otro collider.</param>
+		/// <returns>Información de la colisión.</returns>
 		SAT_CollisionInfo GetCollisionInfo(const SAT_Collider& other) const;
 
-		//Actualiza la posición de los puntos en el mundo.
+		/// <summary>
+		/// Actualiza la posición de los puntos en el mundo.
+		/// </summary>
 		void TransformPoints();
 
-		//Transform de este OBB.
+		/// <summary>
+		/// Transform del colisionador.
+		/// </summary>
 		Transform BoxTransform{};
 
-		//Crea un SAT_Collider cúbico.
+		/// <summary>
+		/// Crea un SAT_Collider cúbico.
+		/// </summary>
+		/// <returns>Colisionador cúbico.</returns>
 		static SAT_Collider CreateOBB();
 
-		//Obtiene los puntos transformados en el mundo.
+		/// <summary>
+		/// Obtiene los puntos transformados en el mundo.
+		/// </summary>
+		/// <returns>Puntos en el mundo.</returns>
 		std::vector<Vector3f> GetPoints() const;
 
 		//Obtiene los ejes del collider.
 		//Transformados teniendo en cuenta su posición y rotación.
+
+		/// <summary>
+		/// Obtiene los ejes del collider.
+		/// Transformados teniendo en cuenta su posición y rotación.
+		/// </summary>
+		/// <returns>Ejes de las caras del colisionador.</returns>
 		std::vector<Vector3f> GetAxes() const;
 
-		//True si el collider no va a moverse, rotar o cambiar de tamaño.
-		//Para la optimización de transformación de puntos.
+		/// <summary>
+		/// True si el collider no va a moverse, rotar o cambiar de tamaño.
+		/// Para la optimización de transformación de puntos.
+		/// </summary>
 		bool IsStatic = false;
 
+		/// <summary>
+		/// Proyecta este colisionador sobre un eje.
+		/// </summary>
+		/// <param name="axis">Eje.</param>
+		/// <returns>Proyección.</returns>
 		SAT_Projection ProjectToAxis(const Vector3f& axis) const;
 
 	private:
 		
+		/// <summary>
+		/// Obtiene el eje de una cara.
+		/// </summary>
+		/// <param name="face">Cara.</param>
+		/// <returns>Eje.</returns>
 		Vector3f GetAxisFromFace(const SAT_Face& face) const;
 
+		/// <summary>
+		/// Puntos del colisionador, en espacio local.
+		/// </summary>
 		std::vector<Vector3f> Points = {};
+
+		/// <summary>
+		/// Puntos del colisionador, en espacio del mundo.
+		/// </summary>
 		std::vector<Vector3f> TransformedPoints = {};
 
+		/// <summary>
+		/// Caras del colisionador.
+		/// </summary>
 		std::vector<SAT_Face> Faces;
 
 	};

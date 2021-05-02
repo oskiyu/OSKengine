@@ -7,10 +7,21 @@
 
 namespace OSK {
 
-	//Estados en el que puede estar un botón.
+	/// <summary>
+	/// Estados en el que puede estar un botón.
+	/// </summary>
 	enum class OSKAPI_CALL ButtonState {
+
+		/// <summary>
+		/// No está siendo pulsado.
+		/// </summary>
 		RELEASED,
+
+		/// <summary>
+		/// Está siendo pulsado.
+		/// </summary>
 		PRESSED
+
 	};
 
 }

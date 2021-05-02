@@ -11,18 +11,26 @@
 
 namespace OSK {
 
-	//Representa una luz direccional.
+	/// <summary>
+	/// Representa una luz direccional.
+	/// </summary>
 	struct OSKAPI_CALL DirectionalLight {
 
-		//Dirección de la luz.
+		/// <summary>
+		/// Dirección de la luz.
+		/// </summary>
 		alignas(16) Vector3 Direction;
 
-		//Color de la luz.
+		/// <summary>
+		/// Color de la luz.
+		/// </summary>
 		alignas(16) Color Color;
 
-		//Intensidad de la luz.
-		//(0.0 - 1.0)
-		alignas(16) float_t Intensity;
+		/// <summary>
+		/// Intensidad de la luz. 
+		/// (0.0 - 1.0)
+		/// </summary>
+		alignas(16) float Intensity;
 
 	};
 

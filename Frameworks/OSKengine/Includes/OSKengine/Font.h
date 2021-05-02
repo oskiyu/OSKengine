@@ -3,22 +3,42 @@
 #include <map>
 #include "FontChar.h"
 
+#include "MaterialInstance.h"
+
 namespace OSK {
 
-	//Fuente para el renderizado de texto.
+	/// <summary>
+	/// Fuente para el renderizado de texto.
+	/// </summary>
 	struct OSKAPI_CALL Font {
 
-		//Espacios a los que equivale '\t'.
+		/// <summary>
+		/// Espacios a los que equivale '\t'.
+		/// </summary>
 		const static int SPACES_PER_TAB = 4;
-
-		//Obtiene el tamaño de un texto que se renderice con esta fuente.
+		
+		/// <summary>
+		/// Obtiene el tamaño de un texto que se renderice con esta fuente.
+		/// </summary>
+		/// <param name="texto">Texto.</param>
+		/// <param name="size">Tamaño de la fuente.</param>
+		/// <returns>Tamaño del texto.</returns>
 		Vector2 GetTextSize(const std::string& texto, const Vector2& size) const;
 
-		//Caracteres de la fuente.
+		/// <summary>
+		/// Caracteres de la fuente.
+		/// </summary>
 		std::map<char, FontChar> Characters;
 
-		//Tamaño de la fuente.
+		/// <summary>
+		/// Tamaño de la fuente.
+		/// </summary>
 		uint32_t Size;
+
+		/// <summary>
+		/// Material de la fuente, para su renderizado.
+		/// </summary>
+		SharedPtr<MaterialInstance> FontMaterial;
 
 	};
 
