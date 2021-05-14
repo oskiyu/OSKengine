@@ -8,7 +8,7 @@ using namespace OSK;
 
 ShadowMap::ShadowMap(RenderAPI* renderer, ContentManager* content) {
 	this->renderer = renderer;
-	Content = content;
+	this->content = content;
 }
 
 ShadowMap::~ShadowMap() {
@@ -16,26 +16,26 @@ ShadowMap::~ShadowMap() {
 }
 
 void ShadowMap::Clear() {
-	Memory::SafeDelete(&DirShadows);
+	Memory::SafeDelete(&dirShadows);
 
-	for (auto& i : DirShadowsUniformBuffers)
+	for (auto& i : dirShadowsUniformBuffers)
 		i.Free();
 
-	DirShadowsUniformBuffers.clear();
+	dirShadowsUniformBuffers.clear();
 }
 
 void ShadowMap::Create(const Vector2ui& size) {
-	Size = size;
+	this->size = size;
 
-	DirShadows = renderer->CreateNewRenderTarget();
-	DirShadows->Size = Size;
-	DirShadows->CreateSprite(Content);
-	DirShadows->RenderedSprite.Texture2D->Size = Size;
+	dirShadows = renderer->CreateNewRenderTarget();
+	dirShadows->SetSize(size.X, size.Y);
+	dirShadows->CreateSprite(content);
+	dirShadows->renderedSprite.texture->size = size;
 
-	VULKAN::VulkanImageGen::CreateImage(&DirShadows->RenderedSprite.Texture2D->Image, Size, SHADOW_MAP_FORMAT, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
-	VULKAN::VulkanImageGen::CreateImageView(&DirShadows->RenderedSprite.Texture2D->Image, SHADOW_MAP_FORMAT, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
-	VULKAN::VulkanImageGen::CreateImageSampler(DirShadows->RenderedSprite.Texture2D->Image, SHADOW_MAP_FILTER, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
-	DirShadows->RenderedSprite.UpdateMaterialTexture();
+	VULKAN::VulkanImageGen::CreateImage(&dirShadows->renderedSprite.texture->image, size, SHADOW_MAP_FORMAT, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
+	VULKAN::VulkanImageGen::CreateImageView(&dirShadows->renderedSprite.texture->image, SHADOW_MAP_FORMAT, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
+	VULKAN::VulkanImageGen::CreateImageSampler(dirShadows->renderedSprite.texture->image, SHADOW_MAP_FILTER, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
+	dirShadows->renderedSprite.UpdateMaterialTexture();
 	
 	CreateRenderpass();
 	CreateFramebuffers();
@@ -45,26 +45,26 @@ void ShadowMap::Create(const Vector2ui& size) {
 
 void ShadowMap::CreateBuffers() {
 	VkDeviceSize size = sizeof(DirLightShadowUBO);
-	DirShadowsUniformBuffers.resize(renderer->SwapchainImages.size());
-	for (uint32_t i = 0; i < DirShadowsUniformBuffers.size(); i++) {
-		DirShadowsUniformBuffers[i] = renderer->CreateBuffer(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-		DirShadowsUniformBuffers[i].Allocate(size);
+	dirShadowsUniformBuffers.resize(renderer->swapchainImages.size());
+	for (uint32_t i = 0; i < dirShadowsUniformBuffers.size(); i++) {
+		dirShadowsUniformBuffers[i] = renderer->CreateBuffer(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		dirShadowsUniformBuffers[i].Allocate(size);
 	}
 }
 
 void ShadowMap::UpdateBuffers() {
-	for (auto& i : DirShadowsUniformBuffers) {
+	for (auto& i : dirShadowsUniformBuffers) {
 		void* data;
-		vkMapMemory(renderer->LogicalDevice, i.Memory, 0, sizeof(DirLightShadowUBO), 0, &data);
-		memcpy(data, &DirShadowsUBO, sizeof(DirLightShadowUBO));
-		vkUnmapMemory(renderer->LogicalDevice, i.Memory);
+		vkMapMemory(renderer->logicalDevice, i.memory, 0, sizeof(DirLightShadowUBO), 0, &data);
+		memcpy(data, &dirShadowsUBO, sizeof(DirLightShadowUBO));
+		vkUnmapMemory(renderer->logicalDevice, i.memory);
 	}
 }
 
 void ShadowMap::Update() {
-	glm::mat4 lightProjection = glm::ortho(-(float)(Size.X / (2 * Density)), (float)(Size.X / (2 * Density)), -(float)(Size.Y / (2 * Density)), (float)(Size.Y / (2 * Density)), DepthRangeFar, DepthRangeNear);
-	glm::mat4 lightView = glm::lookAt(Lights->Directional.Direction.ToGLM(), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	DirShadowsUBO.DirLightMat = lightProjection * lightView;
+	glm::mat4 lightProjection = glm::ortho(-(float)(size.X / (2 * density)), (float)(size.X / (2 * density)), -(float)(size.Y / (2 * density)), (float)(size.Y / (2 * density)), depthRangeFar, depthRangeNear);
+	glm::mat4 lightView = glm::lookAt(lights->directional.direction.ToGLM(), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	dirShadowsUBO.DirLightMat = lightProjection * lightView;
 }
 
 void ShadowMap::CreateRenderpass() {
@@ -74,10 +74,23 @@ void ShadowMap::CreateRenderpass() {
 
 	std::vector<VULKAN::RenderpassAttachment> attchments = { };
 
-	DirShadows->CreateRenderpass(attchments, &dpthAttachment);
+	dirShadows->CreateRenderpass(attchments, &dpthAttachment);
 }
 
 void ShadowMap::CreateFramebuffers() {
-	DirShadows->SetSize(Size.X, Size.Y, false);
-	DirShadows->CreateFramebuffers(4, &DirShadows->RenderedSprite.Texture2D->Image.View, 1);
+	dirShadows->SetSize(size.X, size.Y, false);
+	dirShadows->CreateFramebuffers(4, &dirShadows->renderedSprite.texture->image.view, 1);
 }
+
+std::vector<GPUDataBuffer>& ShadowMap::GetUniformBuffers() {
+	return dirShadowsUniformBuffers;
+}
+
+RenderTarget* ShadowMap::GetRenderTarget() {
+	return dirShadows;
+}
+
+Vector2ui ShadowMap::GetImageSize() const {
+	return size;
+}
+

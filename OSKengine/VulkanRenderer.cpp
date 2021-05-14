@@ -5,6 +5,7 @@
 #include "OSKsettings.h"
 #include <vector>
 
+#include "VulkanImageGen.h"
 #include "GPUinfo.h"
 #include "PresentMode.h"
 #include <set>
@@ -41,11 +42,11 @@ void RenderAPI::SetViewport(VkCommandBuffer& cmdBuffer, int32_t x, int32_t y, ui
 	if (sizeX != 0)
 		viewport.width = sizeX;
 	else
-		viewport.width = Window->ScreenSizeX;
+		viewport.width = window->GetSize().X;
 	if (sizeY != 0)
 		viewport.height = sizeY;
 	else
-		viewport.height = Window->ScreenSizeY;
+		viewport.height = window->GetSize().Y;
 	viewport.minDepth = 0.0f;
 	viewport.maxDepth = 1.0f;
 	vkCmdSetViewport(cmdBuffer, 0, 1, &viewport);
@@ -116,7 +117,7 @@ VkSurfaceFormatKHR getSwapchainFormat(const std::vector<VkSurfaceFormatKHR>& for
 }
 
 void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
-	VulkanImageGen::SetRenderer(this);
+	VULKAN::VulkanImageGen::SetRenderer(this);
 
 	createInstance(appName, gameVersion);
 
@@ -129,16 +130,16 @@ void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 	createSwapchain();
 	createSwapchainImageViews();
 
-	MSystem = new MaterialSystem(this);
+	materialSystem = new MaterialSystem(this);
 
 	createRenderpass();
 	
-	RenderTargetSizeX = SwapchainExtent.width * RenderResolutionMultiplier;
-	RenderTargetSizeY = SwapchainExtent.height * RenderResolutionMultiplier;
+	renderTargetSizeX = swapchainExtent.width * renderResolutionMultiplier;
+	renderTargetSizeY = swapchainExtent.height * renderResolutionMultiplier;
 
 	{
 		RenderpassAttachment clrAttachment{};
-		clrAttachment.AddAttachment(SwapchainFormat, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);//
+		clrAttachment.AddAttachment(swapchainFormat, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);//
 		clrAttachment.CreateReference(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
 
 		RenderpassAttachment dpthAttachment{};
@@ -147,30 +148,30 @@ void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 
 		std::vector<RenderpassAttachment> attchments = { clrAttachment };
 
-		RenderTargetBeforePostProcessing->CreateRenderpass(attchments, &dpthAttachment);
+		renderTargetBeforePostProcessing->CreateRenderpass(attchments, &dpthAttachment);
 	}
 
 	createCommandPool();
 	createGlobalImageSampler();
 	createDefaultUniformBuffers();
-	ContentManager::DefaultTexture = Content->LoadTexture(ContentManager::DEFAULT_TEXTURE_PATH);
+	ContentManager::DefaultTexture = content->LoadTexture(ContentManager::DEFAULT_TEXTURE_PATH);
 	Material::DefaultTexture = ContentManager::DefaultTexture;
 
 	//MATERIALS
 	{
-		MSystem->RegisterMaterial(DefaultMaterial2D_Name);
+		materialSystem->RegisterMaterial(defaultMaterial2D_Name);
 		MaterialBindingLayout layout;
 		layout.push_back({ MaterialBindingType::TEXTURE, MaterialBindingShaderStage::FRAGMENT, "Texture" });
-		MSystem->GetMaterial(DefaultMaterial2D_Name)->SetLayout(layout);
+		materialSystem->GetMaterial(defaultMaterial2D_Name)->SetLayout(layout);
 		MaterialPipelineCreateInfo pipelineInfo{};
-		pipelineInfo.CullMode = PolygonCullMode::NONE;
-		pipelineInfo.VertexPath = Settings.VertexShaderPath2D;
-		pipelineInfo.FragmentPath = Settings.FragmentShaderPath2D;
-		pipelineInfo.PushConstants.push_back({ MaterialBindingShaderStage::VERTEX, sizeof(PushConst2D) });
-		MSystem->GetMaterial(DefaultMaterial2D_Name)->SetPipelineSettings(pipelineInfo);
+		pipelineInfo.cullMode = PolygonCullMode::NONE;
+		pipelineInfo.vertexPath = Settings.vertexShaderPath2D;
+		pipelineInfo.fragmentPath = Settings.fragmentShaderPath2D;
+		pipelineInfo.pushConstants.push_back({ MaterialBindingShaderStage::VERTEX, sizeof(PushConst2D) });
+		materialSystem->GetMaterial(defaultMaterial2D_Name)->SetPipelineSettings(pipelineInfo);
 	}
 	{
-		MSystem->RegisterMaterial(DefaultMaterial3D_Name);
+		materialSystem->RegisterMaterial(defaultMaterial3D_Name);
 		MaterialBindingLayout layout;
 		layout.push_back({ MaterialBindingType::DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Camera" });
 		layout.push_back({ MaterialBindingType::DYNAMIC_DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Animation" });
@@ -179,43 +180,43 @@ void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 		layout.push_back({ MaterialBindingType::DATA_BUFFER, MaterialBindingShaderStage::FRAGMENT, "Lights" });
 		layout.push_back({ MaterialBindingType::TEXTURE, MaterialBindingShaderStage::FRAGMENT, "Specular" });
 		layout.push_back({ MaterialBindingType::TEXTURE, MaterialBindingShaderStage::FRAGMENT, "Shadows" });
-		MSystem->GetMaterial(DefaultMaterial3D_Name)->SetLayout(layout);
+		materialSystem->GetMaterial(defaultMaterial3D_Name)->SetLayout(layout);
 		MaterialPipelineCreateInfo pipelineInfo{};
-		pipelineInfo.VertexPath = Settings.VertexShaderPath3D;
-		pipelineInfo.FragmentPath = Settings.FragmentShaderPath3D;
-		pipelineInfo.UseDepthStencil = true;
-		pipelineInfo.PushConstants.push_back({ MaterialBindingShaderStage::VERTEX, sizeof(PushConst3D) });
-		MSystem->GetMaterial(DefaultMaterial3D_Name)->SetPipelineSettings(pipelineInfo);
+		pipelineInfo.vertexPath = Settings.vertexShaderPath3D;
+		pipelineInfo.fragmentPath = Settings.fragmentShaderPath3D;
+		pipelineInfo.useDepthStencil = true;
+		pipelineInfo.pushConstants.push_back({ MaterialBindingShaderStage::VERTEX, sizeof(PushConst3D) });
+		materialSystem->GetMaterial(defaultMaterial3D_Name)->SetPipelineSettings(pipelineInfo);
 	}
 	{
-		MSystem->RegisterMaterial(DefaultSkyboxMaterial_Name);
+		materialSystem->RegisterMaterial(defaultSkyboxMaterial_Name);
 		MaterialBindingLayout layout;
 		layout.push_back({ MaterialBindingType::DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Camera" });
 		layout.push_back({ MaterialBindingType::TEXTURE, MaterialBindingShaderStage::FRAGMENT, "Texture" });
-		MSystem->GetMaterial(DefaultSkyboxMaterial_Name)->SetLayout(layout);
+		materialSystem->GetMaterial(defaultSkyboxMaterial_Name)->SetLayout(layout);
 		MaterialPipelineCreateInfo pipelineInfo{};
-		pipelineInfo.CullMode = PolygonCullMode::FRONT;
-		pipelineInfo.FrontFaceType = PolygonFrontFaceType::COUNTERCLOCKWISE;
-		pipelineInfo.VertexPath = Settings.SkyboxVertexPath;
-		pipelineInfo.FragmentPath = Settings.SkyboxFragmentPath;
-		pipelineInfo.UseDepthStencil = false;
-		MSystem->GetMaterial(DefaultSkyboxMaterial_Name)->SetPipelineSettings(pipelineInfo);
+		pipelineInfo.cullMode = PolygonCullMode::FRONT;
+		pipelineInfo.frontFaceType = PolygonFrontFaceType::COUNTERCLOCKWISE;
+		pipelineInfo.vertexPath = Settings.skyboxVertexPath;
+		pipelineInfo.fragmentPath = Settings.skyboxFragmentPath;
+		pipelineInfo.useDepthStencil = false;
+		materialSystem->GetMaterial(defaultSkyboxMaterial_Name)->SetPipelineSettings(pipelineInfo);
 	}
 	{
-		MSystem->RegisterMaterial(DefaultShadowsMaterial_Name);
+		materialSystem->RegisterMaterial(defaultShadowsMaterial_Name);
 		MaterialBindingLayout layout;
 		layout.push_back({ MaterialBindingType::DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Camera" });
 		layout.push_back({ MaterialBindingType::DYNAMIC_DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Animation" });
 		layout.push_back({ MaterialBindingType::DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Lights" });
-		MSystem->GetMaterial(DefaultShadowsMaterial_Name)->SetLayout(layout);
+		materialSystem->GetMaterial(defaultShadowsMaterial_Name)->SetLayout(layout);
 		MaterialPipelineCreateInfo pipelineInfo{};
-		pipelineInfo.PMode = PolygonMode::FILL;
-		pipelineInfo.CullMode = PolygonCullMode::FRONT;
-		pipelineInfo.FrontFaceType = PolygonFrontFaceType::CLOCKWISE;
-		pipelineInfo.VertexPath = "shaders/VK_Shadows/vert.spv";
-		pipelineInfo.FragmentPath = "shaders/VK_Shadows/frag.spv";
-		pipelineInfo.UseDepthStencil = true;
-		MSystem->GetMaterial(DefaultShadowsMaterial_Name)->SetPipelineSettings(pipelineInfo);
+		pipelineInfo.polygonMode = PolygonMode::FILL;
+		pipelineInfo.cullMode = PolygonCullMode::FRONT;
+		pipelineInfo.frontFaceType = PolygonFrontFaceType::CLOCKWISE;
+		pipelineInfo.vertexPath = "shaders/VK_Shadows/vert.spv";
+		pipelineInfo.fragmentPath = "shaders/VK_Shadows/frag.spv";
+		pipelineInfo.useDepthStencil = true;
+		materialSystem->GetMaterial(defaultShadowsMaterial_Name)->SetPipelineSettings(pipelineInfo);
 	}
 	//!MATERIALS
 
@@ -226,26 +227,27 @@ void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 
 	createSpriteIndexBuffer();
 
-	Skybox::Model = Content->LoadModelData("models/Skybox/cube.obj");
+	Skybox::Model = content->LoadModelData("models/Skybox/cube.obj");
 
-	DefaultCamera2D = Camera2D(Window);
-	DefaultCamera3D.Window = Window;
+	defaultCamera2D = Camera2D(window);
+	defaultCamera3D.window = window;
 
 	hasBeenInit = true;
 
-	Content->LoadSprite(OSKengineIconSprite, "Resources/OSKengine_icon_lowres.png");
-	Content->LoadSprite(OSK_IconSprite, "Resources/OSK_icon_lowres.png");
+	content->LoadSprite(OSKengineIconSprite, "Resources/OSKengine_icon_lowres.png");
+	content->LoadSprite(OSK_IconSprite, "Resources/OSK_icon_lowres.png");
 
-	RenderTargetBeforePostProcessing->CreateSprite(Content);
+	renderTargetBeforePostProcessing->CreateSprite(content);
 
 	//Image
-	RenderTargetBeforePostProcessing->Size.X = RenderTargetSizeX;
-	RenderTargetBeforePostProcessing->Size.Y = RenderTargetSizeY;
-	VULKAN::VulkanImageGen::CreateImage(&RenderTargetBeforePostProcessing->RenderedSprite.Texture2D->Image, RenderTargetBeforePostProcessing->Size, SwapchainFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
-	VULKAN::VulkanImageGen::CreateImageView(&RenderTargetBeforePostProcessing->RenderedSprite.Texture2D->Image, SwapchainFormat, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
-	VULKAN::VulkanImageGen::CreateImageSampler(RenderTargetBeforePostProcessing->RenderedSprite.Texture2D->Image, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
-	RenderTargetBeforePostProcessing->RenderedSprite.SpriteMaterial->SetTexture(RenderTargetBeforePostProcessing->RenderedSprite.Texture2D);
-	RenderTargetBeforePostProcessing->RenderedSprite.SpriteMaterial->FlushUpdate();
+	renderTargetBeforePostProcessing->size.X = renderTargetSizeX;
+	renderTargetBeforePostProcessing->size.Y = renderTargetSizeY;
+	VULKAN::VulkanImageGen::CreateImage(&renderTargetBeforePostProcessing->renderedSprite.texture->image, renderTargetBeforePostProcessing->size, swapchainFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
+	VULKAN::VulkanImageGen::CreateImageView(&renderTargetBeforePostProcessing->renderedSprite.texture->image, swapchainFormat, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
+	VULKAN::VulkanImageGen::CreateImageSampler(renderTargetBeforePostProcessing->renderedSprite.texture->image, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
+	renderTargetBeforePostProcessing->renderedSprite.material->SetTexture(renderTargetBeforePostProcessing->renderedSprite.texture);
+	renderTargetBeforePostProcessing->renderedSprite.material->FlushUpdate();
+	//renderTargetBeforePostProcessing->renderedSprite.tra
 	
 	createRenderTarget();
 	InitPostProcessing();
@@ -253,34 +255,34 @@ void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 
 
 Renderpass* RenderAPI::CreateNewRenderpass() {
-	return new Renderpass(LogicalDevice);
+	return new Renderpass(logicalDevice);
 }
 
 RenderTarget* RenderAPI::CreateNewRenderTarget() {
 	return new RenderTarget(this);
 }
 void RenderAPI::InitRenderTarget(RenderTarget* rtarget, ContentManager* content) {
-	rtarget->Size = { (uint32_t)Window->GetRectangle().GetRectangleWidth(), (uint32_t)Window->GetRectangle().GetRectangleHeight() };
+	rtarget->size = { (uint32_t)window->GetRectangle().GetRectangleWidth(), (uint32_t)window->GetRectangle().GetRectangleHeight() };
 	rtarget->CreateSprite(content);
 
 	//Image
-	VULKAN::VulkanImageGen::CreateImage(&rtarget->RenderedSprite.Texture2D->Image, rtarget->Size, SwapchainFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
-	VULKAN::VulkanImageGen::CreateImageView(&rtarget->RenderedSprite.Texture2D->Image, SwapchainFormat, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
-	VULKAN::VulkanImageGen::CreateImageSampler(rtarget->RenderedSprite.Texture2D->Image, SHADOW_MAP_FILTER, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
-	rtarget->RenderedSprite.SpriteMaterial = GetMaterialSystem()->GetMaterial(DefaultMaterial2D_Name)->CreateInstance();
-	rtarget->RenderedSprite.SpriteMaterial->SetTexture(rtarget->RenderedSprite.Texture2D);
-	rtarget->RenderedSprite.SpriteMaterial->FlushUpdate();
+	VULKAN::VulkanImageGen::CreateImage(&rtarget->renderedSprite.texture->image, rtarget->size, swapchainFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
+	VULKAN::VulkanImageGen::CreateImageView(&rtarget->renderedSprite.texture->image, swapchainFormat, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
+	VULKAN::VulkanImageGen::CreateImageSampler(rtarget->renderedSprite.texture->image, SHADOW_MAP_FILTER, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
+	rtarget->renderedSprite.material = GetMaterialSystem()->GetMaterial(defaultMaterial2D_Name)->CreateInstance();
+	rtarget->renderedSprite.material->SetTexture(rtarget->renderedSprite.texture);
+	rtarget->renderedSprite.material->FlushUpdate();
 
 	//Renderpass
 	VULKAN::RenderpassAttachment rpassAttachment{};
-	rpassAttachment.AddAttachment(SwapchainFormat, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+	rpassAttachment.AddAttachment(swapchainFormat, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
 	rpassAttachment.CreateReference(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
 	std::vector<VULKAN::RenderpassAttachment> attchments = { };
 	rtarget->CreateRenderpass(attchments, &rpassAttachment);
 
 	//Framebuffers
-	rtarget->SetSize(rtarget->Size.X, rtarget->Size.Y, true);
-	rtarget->CreateFramebuffers(4, &rtarget->RenderedSprite.Texture2D->Image.View, 1);
+	rtarget->SetSize(rtarget->size.X, rtarget->size.Y, true);
+	rtarget->CreateFramebuffers(4, &rtarget->renderedSprite.texture->image.view, 1);
 }
 
 void RenderAPI::SetPresentMode(PresentMode mode) {
@@ -305,23 +307,23 @@ Framebuffer* RenderAPI::CreateNewFramebuffer() {
 }
 
 void RenderAPI::RenderFrame() {
-	renderP_Unit.Start();
+	renderProfilingUnit.Start();
 
 	double startTime = glfwGetTime();
 
 	{
-		DefaultCamera2D.Update();
-		DefaultCamera3D.updateVectors();
-		for (size_t i = 0; i < UniformBuffers.size(); i++) {
+		defaultCamera2D.Update();
+		defaultCamera3D.updateVectors();
+		for (size_t i = 0; i < uniformBuffers.size(); i++) {
 			void* data;
-			vkMapMemory(LogicalDevice, UniformBuffers[i].Memory, 0, sizeof(UBO), 0, &data);
+			vkMapMemory(logicalDevice, uniformBuffers[i].memory, 0, sizeof(UBO), 0, &data);
 			UBO ubo{};
-			ubo.view = DefaultCamera3D.GetView();
-			ubo.projection = DefaultCamera3D.GetProjection();
-			ubo.cameraPos = DefaultCamera3D.CameraTransform.GlobalPosition.ToGLM();
+			ubo.view = defaultCamera3D.GetView();
+			ubo.projection = defaultCamera3D.GetProjection();
+			ubo.cameraPos = defaultCamera3D.GetTransform()->GetPosition().ToGLM();
 
 			memcpy(data, &ubo, sizeof(UBO));
-			vkUnmapMemory(LogicalDevice, UniformBuffers[i].Memory);
+			vkUnmapMemory(logicalDevice, uniformBuffers[i].memory);
 		}
 
 		updateCommandBuffers();
@@ -329,11 +331,11 @@ void RenderAPI::RenderFrame() {
 	//Repreenta cual es la imagen que se va a renderizar.
 	uint32_t nextImageIndex = 0;
 
-	vkWaitForFences(LogicalDevice, 1, &fences[renderVars.currentImage], VK_TRUE, UINT64_MAX);
+	vkWaitForFences(logicalDevice, 1, &fences[renderVars.currentImage], VK_TRUE, UINT64_MAX);
 	//Adquiere la siguiente imágen sobre la que se va a renderizar.
-	VkResult result = vkAcquireNextImageKHR(LogicalDevice, Swapchain, UINT64_MAX, ImageAvailableSemaphores[0], VK_NULL_HANDLE, &nextImageIndex);
-	vkWaitForFences(LogicalDevice, 1, &fences[nextImageIndex], VK_TRUE, UINT64_MAX);
-	vkResetFences(LogicalDevice, 1, &fences[nextImageIndex]);
+	VkResult result = vkAcquireNextImageKHR(logicalDevice, swapchain, UINT64_MAX, imageAvailableSemaphores[0], VK_NULL_HANDLE, &nextImageIndex);
+	vkWaitForFences(logicalDevice, 1, &fences[nextImageIndex], VK_TRUE, UINT64_MAX);
+	vkResetFences(logicalDevice, 1, &fences[nextImageIndex]);
 
 	//La ventana ha cambiado de tamaño.
 	if (result == VK_ERROR_OUT_OF_DATE_KHR) {
@@ -353,25 +355,25 @@ void RenderAPI::RenderFrame() {
 	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 
 	//Esperar a que la imagen esté disponible antes de renderizar.
-	VkSemaphore waitSemaphores[] = { ImageAvailableSemaphores[0] };
+	VkSemaphore waitSemaphores[] = { imageAvailableSemaphores[0] };
 	VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
 	submitInfo.waitSemaphoreCount = 1;
 	submitInfo.pWaitSemaphores = waitSemaphores;
 	submitInfo.pWaitDstStageMask = waitStages;
-	submitInfo.pSignalSemaphores = &ImageAvailableSemaphores[0];
+	submitInfo.pSignalSemaphores = &imageAvailableSemaphores[0];
 	submitInfo.signalSemaphoreCount = 1;
 	
 	submitInfo.commandBufferCount = 1;
-	submitInfo.pCommandBuffers = &CommandBuffers[nextImageIndex];
+	submitInfo.pCommandBuffers = &commandBuffers[nextImageIndex];
 
 	//Semáforos a los que vamos a avisar cuando se termine de renderizar la imagen.
-	VkSemaphore signalSemaphores[] = { RenderFinishedSemaphores[0] };
+	VkSemaphore signalSemaphores[] = { renderFinishedSemaphores[0] };
 	submitInfo.signalSemaphoreCount = 1;
 	submitInfo.pSignalSemaphores = signalSemaphores;
 
 	//vkResetFences(LogicalDevice, 1, &fences[nextImageIndex]);
 
-	result = vkQueueSubmit(GraphicsQ, 1, &submitInfo, fences[nextImageIndex]);
+	result = vkQueueSubmit(graphicsQueue, 1, &submitInfo, fences[nextImageIndex]);
 	if (result != VK_SUCCESS)
 		throw std::runtime_error("ERROR: submit queue.");
 
@@ -380,14 +382,14 @@ void RenderAPI::RenderFrame() {
 	presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
 	presentInfo.waitSemaphoreCount = 1;
 	presentInfo.pWaitSemaphores = signalSemaphores;
-	VkSwapchainKHR swapChains[] = { Swapchain };
+	VkSwapchainKHR swapChains[] = { swapchain };
 	presentInfo.swapchainCount = 1;
 	presentInfo.pSwapchains = swapChains;
 	presentInfo.pImageIndices = &nextImageIndex;
 	presentInfo.pResults = nullptr;
 
-	vkWaitForFences(LogicalDevice, 1, &fences[nextImageIndex], VK_TRUE, UINT64_MAX);
-	result = vkQueuePresentKHR(PresentQ, &presentInfo);
+	vkWaitForFences(logicalDevice, 1, &fences[nextImageIndex], VK_TRUE, UINT64_MAX);
+	result = vkQueuePresentKHR(presentQueue, &presentInfo);
 
 	//La ventana ha cambiado de tamaño.
 	if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || renderVars.hasFramebufferBeenResized) {
@@ -401,8 +403,8 @@ void RenderAPI::RenderFrame() {
 
 	double endTime = glfwGetTime();
 
-	double targetMS = 1 / FPSlimit;
-	renderP_Unit.End();
+	double targetMS = 1 / fpsLimit;
+	renderProfilingUnit.End();
 	//if ((endTime - startTime) < targetMS)
 		//std::this_thread::sleep_for(std::chrono::milliseconds((long)(targetMS * 1000 - (endTime - startTime) * 1000)));
 }
@@ -416,19 +418,19 @@ SpriteBatch RenderAPI::CreateSpriteBatch() {
 
 
 GraphicsPipeline* RenderAPI::CreateNewGraphicsPipeline(const std::string& vertexPath, const std::string& fragmentPath) const {
-	return new GraphicsPipeline(LogicalDevice, vertexPath, fragmentPath);
+	return new GraphicsPipeline(logicalDevice, vertexPath, fragmentPath);
 }
 
 DescriptorPool* RenderAPI::CreateNewDescriptorPool() const {
-	return new DescriptorPool(LogicalDevice, SwapchainImages.size());
+	return new DescriptorPool(logicalDevice, swapchainImages.size());
 }
 
 DescriptorLayout* RenderAPI::CreateNewDescriptorLayout() const {
-	return new DescriptorLayout(LogicalDevice);
+	return new DescriptorLayout(logicalDevice);
 }
 
 DescriptorSet* RenderAPI::CreateNewDescriptorSet() const {
-	return new DescriptorSet(LogicalDevice, SwapchainImages.size());
+	return new DescriptorSet(logicalDevice, swapchainImages.size());
 }
 
 bool RenderAPI::checkValidationLayers() {
@@ -466,7 +468,7 @@ void RenderAPI::createInstance(const std::string& appName, const Version& gameVe
 	VkApplicationInfo appInfo{};
 	appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
 	appInfo.pApplicationName = appName.c_str();
-	appInfo.applicationVersion = VK_MAKE_VERSION((int)gameVersion.Mayor, (int)gameVersion.Menor, (int)gameVersion.Parche);
+	appInfo.applicationVersion = VK_MAKE_VERSION((int)gameVersion.mayor, (int)gameVersion.menor, (int)gameVersion.parche);
 	appInfo.pEngineName = "OSKengine";
 	appInfo.engineVersion = VK_MAKE_VERSION((int)ENGINE_VERSION_STAGE_NUMERIC, (int)ENGINE_VERSION_NUMERIC, (int)ENGINE_VERSION_BUILD_NUMERIC);
 	appInfo.apiVersion = VK_API_VERSION_1_2;
@@ -527,7 +529,7 @@ void RenderAPI::createInstance(const std::string& appName, const Version& gameVe
 		Logger::DebugLog(i);*/
 
 	//Crear la instancia y error-handling.
-	VkResult result = vkCreateInstance(&createInfo, nullptr, &Instance);
+	VkResult result = vkCreateInstance(&createInfo, nullptr, &instance);
 	if (result != VK_SUCCESS)
 		throw std::runtime_error("Crear instancia de Vulkan." + std::to_string(result));
 }
@@ -542,7 +544,7 @@ void RenderAPI::setupDebugConsole() {
 	createInfo.pfnUserCallback = DebugCallback;
 
 	//Crearlo.
-	VkResult result = CreateDebugUtilsMessengerEXT(Instance, &createInfo, nullptr, &debugConsole);
+	VkResult result = CreateDebugUtilsMessengerEXT(instance, &createInfo, nullptr, &debugConsole);
 	if (result != VK_SUCCESS)
 		Logger::Log(LogMessageLevels::BAD_ERROR, "ERROR: no se puede iniciar la consola de capas de validación.");
 
@@ -553,7 +555,7 @@ void RenderAPI::setupDebugConsole() {
 
 void RenderAPI::createSurface() {
 	//Obtener la superficie.
-	VkResult result = glfwCreateWindowSurface(Instance, Window->GetGLFWWindow(), nullptr, &Surface);
+	VkResult result = glfwCreateWindowSurface(instance, window->window, nullptr, &surface);
 
 	//Error-handling.
 	if (result != VK_SUCCESS)
@@ -564,14 +566,14 @@ void RenderAPI::createSurface() {
 void RenderAPI::getGPU() {
 	//Obtiene el número de GPUs disponibles.
 	uint32_t count = 0;
-	vkEnumeratePhysicalDevices(Instance, &count, nullptr);
+	vkEnumeratePhysicalDevices(instance, &count, nullptr);
 
 	if (count == 0)
 		Logger::Log(LogMessageLevels::CRITICAL_ERROR, "no se encuentra ninguna GPU compatible.");
 
 	//Obtiene las GPUs.
 	std::vector<VkPhysicalDevice> devices(count);
-	vkEnumeratePhysicalDevices(Instance, &count, devices.data());
+	vkEnumeratePhysicalDevices(instance, &count, devices.data());
 
 	//Comprobar la compatibilidad de las GPUs.
 	//Obtener una GPU compatible.
@@ -579,23 +581,23 @@ void RenderAPI::getGPU() {
 	for (const auto& gpu : devices)
 		gpus.push_back(getGPUinfo(gpu));
 
-	GPU = gpus[0].GPU;
-	GPU_Info = gpus[0];
-	vkGetPhysicalDeviceMemoryProperties(GPU, &MemoryProperties);
+	gpu = gpus[0].gpu;
+	gpuInfo = gpus[0];
+	vkGetPhysicalDeviceMemoryProperties(gpu, &memoryProperties);
 
-	if (GPU == nullptr)
+	if (gpu == nullptr)
 		Logger::Log(LogMessageLevels::CRITICAL_ERROR, " no se encuentra ninguna GPU compatible.");
 }
 
 
 void RenderAPI::createLogicalDevice() {
 	//Establecer las colas que vamos a usar.
-	QueueFamilyIndices indices = findQueueFamilies(GPU);
+	QueueFamilyIndices indices = findQueueFamilies(gpu);
 
 	std::vector<VkDeviceQueueCreateInfo> createInfos;
 	std::set<uint32_t> uniqueQueueFamilies = {
-		indices.GraphicsFamily.value(),
-		indices.PresentFamily.value()
+		indices.graphicsFamily.value(),
+		indices.presentFamily.value()
 	};
 
 	//Creación de las colas.
@@ -626,42 +628,42 @@ void RenderAPI::createLogicalDevice() {
 	createInfo.ppEnabledExtensionNames = gpuExtensions.data();
 
 	//Crear el logical device.
-	VkResult result = vkCreateDevice(GPU, &createInfo, nullptr, &LogicalDevice);
+	VkResult result = vkCreateDevice(gpu, &createInfo, nullptr, &logicalDevice);
 
 	//Error-handling.
 	if (result != VK_SUCCESS)
 		throw std::runtime_error("ERROR: crear logical device.");
 
 	//Obtener las colas.
-	vkGetDeviceQueue(LogicalDevice, indices.GraphicsFamily.value(), 0, &GraphicsQ);
-	vkGetDeviceQueue(LogicalDevice, indices.PresentFamily.value(), 0, &PresentQ);
+	vkGetDeviceQueue(logicalDevice, indices.graphicsFamily.value(), 0, &graphicsQueue);
+	vkGetDeviceQueue(logicalDevice, indices.presentFamily.value(), 0, &presentQueue);
 }
 
 
 void RenderAPI::createSwapchain() {
 	//Soporte del swapchain.
-	SwapchainSupportDetails swapchainDetails = getSwapchainSupportDetails(GPU);
+	SwapchainSupportDetails swapchainDetails = getSwapchainSupportDetails(gpu);
 
 	//Formato del swapchain.
-	VkSurfaceFormatKHR surfaceFormat = getSwapchainFormat(swapchainDetails.Formats);
+	VkSurfaceFormatKHR surfaceFormat = getSwapchainFormat(swapchainDetails.formats);
 
 	//Modo de pressentación.
-	VkPresentModeKHR presentMode = getPresentMode(swapchainDetails.PresentModes);
+	VkPresentModeKHR presentMode = getPresentMode(swapchainDetails.presentModes);
 
 	//tamaño.
-	VkExtent2D extent = getSwapchainExtent(swapchainDetails.SurfaceCapabilities);
+	VkExtent2D extent = getSwapchainExtent(swapchainDetails.surfaceCapabilities);
 
 	//Número de imágenes en el swapchain.
-	uint32_t imageCount = swapchainDetails.SurfaceCapabilities.minImageCount + 1;
+	uint32_t imageCount = swapchainDetails.surfaceCapabilities.minImageCount + 1;
 
 	//Asegurarnos de que no hay más de las soportadas.
-	if (swapchainDetails.SurfaceCapabilities.maxImageCount > 0 && imageCount > swapchainDetails.SurfaceCapabilities.maxImageCount)
-		imageCount = swapchainDetails.SurfaceCapabilities.maxImageCount;
+	if (swapchainDetails.surfaceCapabilities.maxImageCount > 0 && imageCount > swapchainDetails.surfaceCapabilities.maxImageCount)
+		imageCount = swapchainDetails.surfaceCapabilities.maxImageCount;
 
 	//Create info.
 	VkSwapchainCreateInfoKHR createInfo{};
 	createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
-	createInfo.surface = Surface;
+	createInfo.surface = surface;
 	createInfo.minImageCount = imageCount;
 	createInfo.imageFormat = surfaceFormat.format;
 	createInfo.imageColorSpace = surfaceFormat.colorSpace;
@@ -671,9 +673,9 @@ void RenderAPI::createSwapchain() {
 
 	//Colas.
 	//Cómo se maneja el swapchain.
-	const QueueFamilyIndices indices = findQueueFamilies(GPU);
-	const uint32_t queueFamilyIndices[] = { indices.GraphicsFamily.value(), indices.PresentFamily.value() };
-	if (indices.GraphicsFamily != indices.PresentFamily) {
+	const QueueFamilyIndices indices = findQueueFamilies(gpu);
+	const uint32_t queueFamilyIndices[] = { indices.graphicsFamily.value(), indices.presentFamily.value() };
+	if (indices.graphicsFamily != indices.presentFamily) {
 		createInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
 		createInfo.queueFamilyIndexCount = 2;
 		createInfo.pQueueFamilyIndices = queueFamilyIndices;
@@ -683,42 +685,42 @@ void RenderAPI::createSwapchain() {
 		createInfo.queueFamilyIndexCount = 0;
 		createInfo.pQueueFamilyIndices = nullptr;
 	}
-	createInfo.preTransform = swapchainDetails.SurfaceCapabilities.currentTransform;
+	createInfo.preTransform = swapchainDetails.surfaceCapabilities.currentTransform;
 	createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR; //¿Debería mostrarse lo que hay detrás de la ventana?
 	createInfo.presentMode = presentMode;
 	createInfo.clipped = VK_TRUE; //Si hay algo tapando la ventana, no se renderiza.
 	createInfo.oldSwapchain = nullptr;
 
 	//Crearlo y error-handling.
-	VkResult result = vkCreateSwapchainKHR(LogicalDevice, &createInfo, nullptr, &Swapchain);
+	VkResult result = vkCreateSwapchainKHR(logicalDevice, &createInfo, nullptr, &swapchain);
 
 	if (result != VK_SUCCESS)
 		throw std::runtime_error("ERROR: crear swapchain.");
 
 	//Obtener el número final de imágenes del swapchain.
-	vkGetSwapchainImagesKHR(LogicalDevice, Swapchain, &imageCount, nullptr);
+	vkGetSwapchainImagesKHR(logicalDevice, swapchain, &imageCount, nullptr);
 
 	//Obtener las imágenes del swapchain.
-	SwapchainImages.resize(imageCount);
-	vkGetSwapchainImagesKHR(LogicalDevice, Swapchain, &imageCount, SwapchainImages.data());
+	swapchainImages.resize(imageCount);
+	vkGetSwapchainImagesKHR(logicalDevice, swapchain, &imageCount, swapchainImages.data());
 
 	//Actualizar las variables de la clase.
-	SwapchainFormat = surfaceFormat.format;
-	SwapchainExtent = extent;
+	swapchainFormat = surfaceFormat.format;
+	swapchainExtent = extent;
 }
 
 
 void RenderAPI::createSwapchainImageViews() {
-	SwapchainImageViews.resize(SwapchainImages.size());
+	swapchainImageViews.resize(swapchainImages.size());
 
 	//Por cada imagen...
-	for (uint32_t i = 0; i < SwapchainImageViews.size(); i++) {
+	for (uint32_t i = 0; i < swapchainImageViews.size(); i++) {
 		//Create info.
 		VkImageViewCreateInfo createInfo{};
 		createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-		createInfo.image = SwapchainImages[i];
+		createInfo.image = swapchainImages[i];
 		createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
-		createInfo.format = SwapchainFormat;
+		createInfo.format = swapchainFormat;
 		createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
 		createInfo.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
 		createInfo.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
@@ -729,16 +731,16 @@ void RenderAPI::createSwapchainImageViews() {
 		createInfo.subresourceRange.baseArrayLayer = 0;
 		createInfo.subresourceRange.layerCount = 1;
 
-		VkResult result = vkCreateImageView(LogicalDevice, &createInfo, nullptr, &SwapchainImageViews[i]);
+		VkResult result = vkCreateImageView(logicalDevice, &createInfo, nullptr, &swapchainImageViews[i]);
 	}
 }
 
 
 void RenderAPI::createRenderpass() {
-	ScreenRenderpass = new Renderpass(LogicalDevice);
+	screenRenderpass = new Renderpass(logicalDevice);
 
 	RenderpassAttachment clrAttachment{};
-	clrAttachment.AddAttachment(SwapchainFormat, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR);
+	clrAttachment.AddAttachment(swapchainFormat, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR);
 	clrAttachment.CreateReference(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
 
 	RenderpassAttachment dpthAttachment{};
@@ -752,43 +754,43 @@ void RenderAPI::createRenderpass() {
 	sbPass.SetDepthStencilAttachment(dpthAttachment);
 	sbPass.SetPipelineBindPoint();
 	SubpassDependency dep;
-	dep.VulkanDependency.srcSubpass = VK_SUBPASS_EXTERNAL;
-	dep.VulkanDependency.dstSubpass = 0;
-	dep.VulkanDependency.srcStageMask = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
-	dep.VulkanDependency.srcAccessMask = VK_ACCESS_SHADER_READ_BIT;
-	dep.VulkanDependency.dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-	dep.VulkanDependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-	dep.VulkanDependency.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
+	dep.vulkanDependency.srcSubpass = VK_SUBPASS_EXTERNAL;
+	dep.vulkanDependency.dstSubpass = 0;
+	dep.vulkanDependency.srcStageMask = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+	dep.vulkanDependency.srcAccessMask = VK_ACCESS_SHADER_READ_BIT;
+	dep.vulkanDependency.dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+	dep.vulkanDependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+	dep.vulkanDependency.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
 
 	SubpassDependency dep2;
-	dep2.VulkanDependency.srcSubpass = 0;
-	dep2.VulkanDependency.dstSubpass = VK_SUBPASS_EXTERNAL;
-	dep2.VulkanDependency.srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-	dep2.VulkanDependency.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-	dep2.VulkanDependency.dstStageMask = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
-	dep2.VulkanDependency.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
-	dep2.VulkanDependency.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
+	dep2.vulkanDependency.srcSubpass = 0;
+	dep2.vulkanDependency.dstSubpass = VK_SUBPASS_EXTERNAL;
+	dep2.vulkanDependency.srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+	dep2.vulkanDependency.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+	dep2.vulkanDependency.dstStageMask = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+	dep2.vulkanDependency.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
+	dep2.vulkanDependency.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
 
 	sbPass.AddDependency(dep);
 	sbPass.AddDependency(dep2);
 
-	ScreenRenderpass->SetMSAA(VK_SAMPLE_COUNT_1_BIT);
-	ScreenRenderpass->AddSubpass(sbPass);
-	ScreenRenderpass->AddAttachment(clrAttachment);
-	ScreenRenderpass->AddAttachment(dpthAttachment);
-	ScreenRenderpass->Create();
+	screenRenderpass->SetMSAA(VK_SAMPLE_COUNT_1_BIT);
+	screenRenderpass->AddSubpass(sbPass);
+	screenRenderpass->AddAttachment(clrAttachment);
+	screenRenderpass->AddAttachment(dpthAttachment);
+	screenRenderpass->Create();
 }
 
 void RenderAPI::createCommandPool() {
-	QueueFamilyIndices indices = findQueueFamilies(GPU);
+	QueueFamilyIndices indices = findQueueFamilies(gpu);
 
 	//Para la graphics q.
 	VkCommandPoolCreateInfo poolInfo{};
 	poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
-	poolInfo.queueFamilyIndex = indices.GraphicsFamily.value();
+	poolInfo.queueFamilyIndex = indices.graphicsFamily.value();
 	poolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
 
-	VkResult result = vkCreateCommandPool(LogicalDevice, &poolInfo, nullptr, &CommandPool);
+	VkResult result = vkCreateCommandPool(logicalDevice, &poolInfo, nullptr, &commandPool);
 	if (result != VK_SUCCESS)
 		throw std::runtime_error("ERROR: crear command pool.");
 }
@@ -796,24 +798,24 @@ void RenderAPI::createCommandPool() {
 
 void RenderAPI::createDepthResources() {
 	VkFormat depthFormat = getDepthFormat();
-	VulkanImageGen::CreateImage(&DepthImage, { RenderTargetSizeX, RenderTargetSizeY }, depthFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
-	VulkanImageGen::CreateImageView(&DepthImage, depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
+	VULKAN::VulkanImageGen::CreateImage(&depthImage, { renderTargetSizeX, renderTargetSizeY }, depthFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
+	VULKAN::VulkanImageGen::CreateImageView(&depthImage, depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
 }
 
 
 void RenderAPI::createFramebuffers() {
-	Framebuffers.resize(SwapchainImageViews.size());
+	framebuffers.resize(swapchainImageViews.size());
 
 	//Crear los framebuffers.
-	for (size_t i = 0; i < SwapchainImageViews.size(); i++) {
+	for (size_t i = 0; i < swapchainImageViews.size(); i++) {
 		Framebuffer* framebuffer = new Framebuffer(this);
 
-		framebuffer->AddImageView(SwapchainImageViews[i]);
-		framebuffer->AddImageView(&DepthImage);
+		framebuffer->AddImageView(swapchainImageViews[i]);
+		framebuffer->AddImageView(&depthImage);
 		
-		framebuffer->Create(ScreenRenderpass, SwapchainExtent.width, SwapchainExtent.height);
+		framebuffer->Create(screenRenderpass, swapchainExtent.width, swapchainExtent.height);
 		
-		Framebuffers[i] = framebuffer;
+		framebuffers[i] = framebuffer;
 	}
 }
 
@@ -847,7 +849,7 @@ void RenderAPI::createGlobalImageSampler() {
 
 	//Sampler NO NECESITA SER POR IMAGEN, PUEDE HABER UNO PARA TODAS.
 
-	VkResult result = vkCreateSampler(LogicalDevice, &samplerInfo, nullptr, &GlobalImageSampler);
+	VkResult result = vkCreateSampler(logicalDevice, &samplerInfo, nullptr, &globalImageSampler);
 	if (result != VK_SUCCESS)
 		throw std::runtime_error("ERROR: crear sampler.");
 }
@@ -855,20 +857,20 @@ void RenderAPI::createGlobalImageSampler() {
 
 void RenderAPI::createDefaultUniformBuffers() {
 	VkDeviceSize size = sizeof(UBO);
-	UniformBuffers.resize(SwapchainImages.size());
+	uniformBuffers.resize(swapchainImages.size());
 
-	for (uint32_t i = 0; i < UniformBuffers.size(); i++) {
-		UniformBuffers[i] = CreateBuffer(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-		UniformBuffers[i].Allocate(size);
+	for (uint32_t i = 0; i < uniformBuffers.size(); i++) {
+		uniformBuffers[i] = CreateBuffer(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		uniformBuffers[i].Allocate(size);
 	}
 }
 
 
 void RenderAPI::createSyncObjects() {
-	ImageAvailableSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
-	RenderFinishedSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
-	InFlightFences.resize(MAX_FRAMES_IN_FLIGHT);
-	ImagesInFlight.resize(SwapchainImages.size(), nullptr);
+	imageAvailableSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
+	renderFinishedSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
+	inFlightFences.resize(MAX_FRAMES_IN_FLIGHT);
+	imagesInFlight.resize(swapchainImages.size(), nullptr);
 
 	VkSemaphoreCreateInfo semaphoreInfo{};
 	semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
@@ -880,52 +882,52 @@ void RenderAPI::createSyncObjects() {
 	VkResult result;
 
 	for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
-		result = vkCreateSemaphore(LogicalDevice, &semaphoreInfo, nullptr, &ImageAvailableSemaphores[i]);
+		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &imageAvailableSemaphores[i]);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear semáforo [0].");
 
-		result = vkCreateSemaphore(LogicalDevice, &semaphoreInfo, nullptr, &RenderFinishedSemaphores[i]);
+		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &renderFinishedSemaphores[i]);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear semáforo [1].");
 
-		result = vkCreateFence(LogicalDevice, &fenceInfo, nullptr, &InFlightFences[i]);
+		result = vkCreateFence(logicalDevice, &fenceInfo, nullptr, &inFlightFences[i]);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear semáforo [2].");
 	}
 
-	fences = new VkFence[SwapchainImages.size()];
-	for (uint32_t i = 0; i < SwapchainImages.size(); i++) {
-		vkCreateFence(LogicalDevice, &fenceInfo, nullptr, &fences[i]);
+	fences = new VkFence[swapchainImages.size()];
+	for (uint32_t i = 0; i < swapchainImages.size(); i++) {
+		vkCreateFence(logicalDevice, &fenceInfo, nullptr, &fences[i]);
 	}
 }
 
 
 void RenderAPI::createCommandBuffers() {
-	CommandBuffers.resize(Framebuffers.size());
+	commandBuffers.resize(framebuffers.size());
 
 	VkCommandBufferAllocateInfo allocInfo{};
 	allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-	allocInfo.commandPool = CommandPool;
+	allocInfo.commandPool = commandPool;
 	allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-	allocInfo.commandBufferCount = static_cast<uint32_t>(CommandBuffers.size());
+	allocInfo.commandBufferCount = static_cast<uint32_t>(commandBuffers.size());
 
-	VkResult result = vkAllocateCommandBuffers(LogicalDevice, &allocInfo, CommandBuffers.data());
+	VkResult result = vkAllocateCommandBuffers(logicalDevice, &allocInfo, commandBuffers.data());
 	if (result != VK_SUCCESS)
 		throw std::runtime_error("ERROR: crear command buffers.");
 }
 
 
 void RenderAPI::closeSwapchain() {
-	DepthImage.Destroy();
+	depthImage.Destroy();
 
-	for (auto& i : Framebuffers)
+	for (auto& i : framebuffers)
 		delete i;
-	Framebuffers.clear();
+	framebuffers.clear();
 
-	for (const auto& i : SwapchainImageViews)
-		vkDestroyImageView(LogicalDevice, i, nullptr);
+	for (const auto& i : swapchainImageViews)
+		vkDestroyImageView(logicalDevice, i, nullptr);
 
-	vkDestroySwapchainKHR(LogicalDevice, Swapchain, nullptr);
+	vkDestroySwapchainKHR(logicalDevice, swapchain, nullptr);
 }
 
 
@@ -933,57 +935,57 @@ void RenderAPI::Close() {
 	closeSwapchain();
 	ClosePostProcessing();
 
-	delete Content;
+	delete content;
 
-	delete RenderTargetBeforePostProcessing;
+	delete renderTargetBeforePostProcessing;
 
-	delete MSystem;
+	delete materialSystem;
 
-	vkDestroySampler(LogicalDevice, GlobalImageSampler, nullptr);
+	vkDestroySampler(logicalDevice, globalImageSampler, nullptr);
 
-	for (auto& i : UniformBuffers)
+	for (auto& i : uniformBuffers)
 		i.Free();
 
-	Sprite::IndexBuffer.Free();
+	Sprite::indexBuffer.Free();
 
-	vkDestroyCommandPool(LogicalDevice, CommandPool, nullptr);
+	vkDestroyCommandPool(logicalDevice, commandPool, nullptr);
 
 	for (uint32_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
-		vkDestroySemaphore(LogicalDevice, ImageAvailableSemaphores[i], nullptr);
-		vkDestroySemaphore(LogicalDevice, RenderFinishedSemaphores[i], nullptr);
-		vkDestroyFence(LogicalDevice, InFlightFences[i], nullptr);
-		vkDestroyFence(LogicalDevice, fences[i], nullptr);
+		vkDestroySemaphore(logicalDevice, imageAvailableSemaphores[i], nullptr);
+		vkDestroySemaphore(logicalDevice, renderFinishedSemaphores[i], nullptr);
+		vkDestroyFence(logicalDevice, inFlightFences[i], nullptr);
+		vkDestroyFence(logicalDevice, fences[i], nullptr);
 	}
 
-	vkDestroyDevice(LogicalDevice, nullptr);
+	vkDestroyDevice(logicalDevice, nullptr);
 #ifdef OSK_DEBUG
 	if (checkValidationLayers())
-		DestroyDebugUtilsMessengerEXT(Instance, debugConsole, nullptr);
+		DestroyDebugUtilsMessengerEXT(instance, debugConsole, nullptr);
 #endif
-	vkDestroySurfaceKHR(Instance, Surface, nullptr);
+	vkDestroySurfaceKHR(instance, surface, nullptr);
 
 	//Destruir la instancia.
-	vkDestroyInstance(Instance, nullptr);
+	vkDestroyInstance(instance, nullptr);
 }
 
 
 void RenderAPI::RecreateSwapchain() {
 	int32_t width = 0;
 	int32_t height = 0;
-	glfwGetFramebufferSize(Window->GetGLFWWindow(), &width, &height);
+	glfwGetFramebufferSize(window->window, &width, &height);
 
 	//Si está minimizado, esperar.
 	while (width == 0 || height == 0) {
-		glfwGetFramebufferSize(Window->GetGLFWWindow(), &width, &height);
+		glfwGetFramebufferSize(window->window, &width, &height);
 		glfwWaitEvents();
 	}
 
-	vkDeviceWaitIdle(LogicalDevice);
+	vkDeviceWaitIdle(logicalDevice);
 
 	closeSwapchain();
 
-	RenderTargetSizeX = Window->ScreenSizeX * RenderResolutionMultiplier;
-	RenderTargetSizeY = Window->ScreenSizeY * RenderResolutionMultiplier;
+	renderTargetSizeX = window->GetSize().X * renderResolutionMultiplier;
+	renderTargetSizeY = window->GetSize().Y * renderResolutionMultiplier;
 
 	createSwapchain();
 	createSwapchainImageViews();
@@ -999,35 +1001,35 @@ void RenderAPI::RecreateSwapchain() {
 
 
 void RenderAPI::createRenderTarget() {
-	RenderTargetSizeX = Window->ScreenSizeX * RenderResolutionMultiplier;
-	RenderTargetSizeY = Window->ScreenSizeY * RenderResolutionMultiplier;
+	renderTargetSizeX = window->GetSize().X * renderResolutionMultiplier;
+	renderTargetSizeY = window->GetSize().Y * renderResolutionMultiplier;
 
-	RenderTargetBeforePostProcessing->Clear(false);
+	renderTargetBeforePostProcessing->Clear(false);
 
-	RenderTargetBeforePostProcessing->SetFormat(SwapchainFormat);
-	RenderTargetBeforePostProcessing->SetSize(RenderTargetSizeX, RenderTargetSizeY, true);
+	renderTargetBeforePostProcessing->SetFormat(swapchainFormat);
+	renderTargetBeforePostProcessing->SetSize(renderTargetSizeX, renderTargetSizeY, true);
 
-	VkImageView views[] = { RenderTargetBeforePostProcessing->RenderedSprite.Texture2D->Image.View, DepthImage.View };
-	RenderTargetBeforePostProcessing->CreateFramebuffers(SwapchainImages.size() + 1, views, 2);
+	VkImageView views[] = { renderTargetBeforePostProcessing->renderedSprite.texture->image.view, depthImage.view };
+	renderTargetBeforePostProcessing->CreateFramebuffers(swapchainImages.size() + 1, views, 2);
 
 	Logger::DebugLog("Recreated swapchain.");
-	Logger::DebugLog("Resolution multiplier = " + std::to_string(RenderResolutionMultiplier) + ".");
-	Logger::DebugLog("Renderer resolution = " + ToString(Vector2ui(RenderTargetSizeX, RenderTargetSizeY)) + ".");
-	Logger::DebugLog("Output resolution = " + ToString(Vector2ui(Window->ScreenSizeX, Window->ScreenSizeY)) + ".");
+	Logger::DebugLog("Resolution multiplier = " + std::to_string(renderResolutionMultiplier) + ".");
+	Logger::DebugLog("Renderer resolution = " + ToString(Vector2ui(renderTargetSizeX, renderTargetSizeY)) + ".");
+	Logger::DebugLog("Output resolution = " + ToString(window->GetSize().ToVector2ui()) + ".");
 
-	RenderTargetBeforePostProcessing->RenderedSprite.SpriteTransform.SetPosition({ 0.0f });
-	RenderTargetBeforePostProcessing->RenderedSprite.SpriteTransform.SetScale(Vector2ui{ RenderTargetSizeX, RenderTargetSizeY }.ToVector2f() / RenderResolutionMultiplier);
+	renderTargetBeforePostProcessing->renderedSprite.transform.SetPosition({ 0.0f });
+	renderTargetBeforePostProcessing->renderedSprite.transform.SetScale(window->GetSize().ToVector2f());//Vector2ui{ renderTargetSizeX, renderTargetSizeY }.ToVector2f() / renderResolutionMultiplier
 }
 
 GPUDataBuffer RenderAPI::CreateBuffer(VkBufferUsageFlags usage, VkMemoryPropertyFlags prop) const {
 	GPUDataBuffer buffer;
-	buffer.Create(LogicalDevice, usage, prop, MemoryProperties);
+	buffer.Create(logicalDevice, usage, prop, memoryProperties);
 
 	return buffer;
 }
 
 void RenderAPI::CreateDynamicUBO(GPUDataBuffer& buffer, VkDeviceSize sizeOfStruct, uint32_t numberOfInstances) const {
-	size_t minAlignment = GPU_Info.minAlignment;
+	size_t minAlignment = gpuInfo.minAlignment;
 	size_t alignment = sizeOfStruct;
 	if (minAlignment > 0) {
 		alignment = (alignment + minAlignment - 1) & ~(minAlignment - 1);
@@ -1036,9 +1038,9 @@ void RenderAPI::CreateDynamicUBO(GPUDataBuffer& buffer, VkDeviceSize sizeOfStruc
 	size_t bufferSize = alignment * numberOfInstances;
 
 	buffer = CreateBuffer(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-	buffer.Alignment = alignment;
+	buffer.alignment = alignment;
 	buffer.Allocate(bufferSize);
-	buffer.DynamicSize = sizeOfStruct;
+	buffer.SetDynamicUboStructureSize(sizeOfStruct);
 }
 
 
@@ -1048,25 +1050,25 @@ void RenderAPI::CreateDynamicUBO(GPUDataBuffer& buffer, VkDeviceSize sizeOfStruc
 }*/
 
 void RenderAPI::AddStage(RenderStage* stage) {
-	Stages.push_back(stage);
+	stages.push_back(stage);
 }
 
 void RenderAPI::RemoveStage(RenderStage* stage) {
-	Stages.remove(stage);
+	stages.remove(stage);
 }
 
 void RenderAPI::AddSingleTimeStage(RenderStage* stage) {
-	SingleTimeStages.push_back(stage);
+	singleTimeStages.push_back(stage);
 }
 
 void RenderAPI::DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, uint32_t iteration) {
-	if (!stage->RTarget)
+	if (!stage->renderTarget)
 		return;
 	
-	if (stage->Scene != nullptr) {
-		stage->Scene->UpdateLightsBuffers();
+	if (stage->scene != nullptr) {
+		stage->scene->UpdateLightsBuffers();
 
-		stage->Scene->DrawShadows(cmdBuffer, iteration);
+		stage->scene->DrawShadows(cmdBuffer, iteration);
 
 		//for (auto& cubeMap : stage->Scene->cubeShadowMaps)
 			//stage->Scene->DrawPointShadows(cmdBuffer, iteration, cubeMap);
@@ -1074,58 +1076,56 @@ void RenderAPI::DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, uint32_
 
 	VkRenderPassBeginInfo renderPassInfo{};
 	renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-	renderPassInfo.renderPass = stage->RTarget->VRenderpass->VulkanRenderpass;
-	renderPassInfo.framebuffer = stage->RTarget->TargetFramebuffers[iteration]->framebuffer;
+	renderPassInfo.renderPass = stage->renderTarget->vulkanRenderpass->vulkanRenderpass;
+	renderPassInfo.framebuffer = stage->renderTarget->targetFramebuffers[iteration]->framebuffer;
 	renderPassInfo.renderArea.offset = { 0, 0 };
 
-	renderPassInfo.renderArea.extent = { stage->RTarget->Size.X, stage->RTarget->Size.Y };
+	renderPassInfo.renderArea.extent = { stage->renderTarget->size.X, stage->renderTarget->size.Y };
 	std::array<VkClearValue, 2> clearValues = {};
 	clearValues[0] = { 0.8f, 0.8f, 0.8f, 1.0f }; //Color.
 	clearValues[1] = { 1.0f, 0.0f }; //Depth.
 	renderPassInfo.clearValueCount = clearValues.size();
 	renderPassInfo.pClearValues = clearValues.data();
 
-	stage->RTarget->TransitionToRenderTarget(&cmdBuffer);
+	stage->renderTarget->TransitionToRenderTarget(&cmdBuffer);
 	vkCmdBeginRenderPass(cmdBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
 	SetViewport(cmdBuffer);
 
-	if (stage->Scene != nullptr) {
-		stage->Scene->Draw(cmdBuffer, iteration);
+	if (stage->scene != nullptr) {
+		stage->scene->Draw(cmdBuffer, iteration);
 	}
 
-	GraphicsPipeline* pipeline = GetMaterialSystem()->GetMaterial(DefaultMaterial2D_Name)->GetGraphicsPipeline(stage->RTarget->VRenderpass);
+	GraphicsPipeline* pipeline = GetMaterialSystem()->GetMaterial(defaultMaterial2D_Name)->GetGraphicsPipeline(stage->renderTarget->vulkanRenderpass);
 
-	for (auto& spriteBatch : stage->SpriteBatches) {
+	for (auto& spriteBatch : stage->spriteBatches) {
 		
 		if (!spriteBatch->spritesToDraw.IsEmpty()) {
 			
 			pipeline->Bind(cmdBuffer);
-			vkCmdBindIndexBuffer(cmdBuffer, Sprite::IndexBuffer.Buffer, 0, VK_INDEX_TYPE_UINT16);
-			const uint32_t indicesSize = Sprite::Indices.size();
+			vkCmdBindIndexBuffer(cmdBuffer, Sprite::indexBuffer.buffer, 0, VK_INDEX_TYPE_UINT16);
+			const uint32_t indicesSize = Sprite::indices.size();
 
 			for (auto& sprite : spriteBatch->spritesToDraw) {
-				SpriteContainer sprite = spriteBatch->spritesToDraw.Dequeue();
-
-				VkBuffer vertexBuffers[] = { sprite.VertexBuffer };
+				VkBuffer vertexBuffers[] = { sprite.vertexBuffer };
 				VkDeviceSize offsets[] = { 0 };
 				vkCmdBindVertexBuffers(cmdBuffer, 0, 1, vertexBuffers, offsets);
 
-				sprite.SpriteMaterial->GetDescriptorSet()->Bind(cmdBuffer, pipeline, iteration);
+				sprite.spriteMaterial->GetDescriptorSet()->Bind(cmdBuffer, pipeline, iteration);
 
-				PushConst2D pConst = sprite.PConst;
-				vkCmdPushConstants(cmdBuffer, pipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
+				PushConst2D pConst = sprite.pushConst;
+				vkCmdPushConstants(cmdBuffer, pipeline->vulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
 				vkCmdDrawIndexed(cmdBuffer, indicesSize, 1, 0, 0, 0);
 			}
 		}
 	}
 
 	vkCmdEndRenderPass(cmdBuffer);
-	stage->RTarget->TransitionToTexture(&cmdBuffer);
+	stage->renderTarget->TransitionToTexture(&cmdBuffer);
 }
 
 void RenderAPI::updateCommandBuffers() {
-	updateCmdP_Unit.Start();
+	updateCmdProfilingUnit.Start();
 
 	/*for (auto& spriteBatch : Stage.SpriteBatches) {
 		for (auto& i : spriteBatch->spritesToDraw) {
@@ -1134,37 +1134,38 @@ void RenderAPI::updateCommandBuffers() {
 		}
 	}*/
 
-	for (size_t i = 0; i < CommandBuffers.size(); i++) {
-		vkResetCommandBuffer(CommandBuffers[i], 0);
+	for (size_t i = 0; i < commandBuffers.size(); i++) {
+		vkResetCommandBuffer(commandBuffers[i], 0);
 		VkCommandBufferBeginInfo beginInfo{};
 		beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
 		beginInfo.flags = 0;
 		beginInfo.pInheritanceInfo = nullptr;
 
-		VkResult result = vkBeginCommandBuffer(CommandBuffers[i], &beginInfo);
+		VkResult result = vkBeginCommandBuffer(commandBuffers[i], &beginInfo);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: grabar command buffer.");
 
-		for (auto& stage : SingleTimeStages)
-			DrawStage(stage, CommandBuffers[i], i);
+		for (auto& stage : singleTimeStages)
+			DrawStage(stage, commandBuffers[i], i);
 
-		for (auto& stage : Stages)
-			DrawStage(stage, CommandBuffers[i], i);
+		for (auto& stage : stages)
+			DrawStage(stage, commandBuffers[i], i);
 				
-		if (RSystem) {
-			RSystem->OnDraw(CommandBuffers[i], i);
+		if (renderSystem) {
+			renderSystem->OnDraw(commandBuffers[i], i);
 		}
 
-		PostProcessingSettings.ScreenSizeX = (int)Window->ScreenSizeX;
-		PostProcessingSettings.ScreenSizeY = (int)Window->ScreenSizeY;
+		postProcessingSettings.screenSizeX = (int)window->GetSize().X;
+		postProcessingSettings.screenSizeY = (int)window->GetSize().Y;
+		postProcessingSettings.resolutionMultiplier = renderResolutionMultiplier;
 
 		VkRenderPassBeginInfo renderPassInfo{};
 		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-		renderPassInfo.renderPass = ScreenRenderpass->VulkanRenderpass;
-		renderPassInfo.framebuffer = Framebuffers[i]->framebuffer;
+		renderPassInfo.renderPass = screenRenderpass->vulkanRenderpass;
+		renderPassInfo.framebuffer = framebuffers[i]->framebuffer;
 		renderPassInfo.renderArea.offset = { 0, 0 };
 
-		renderPassInfo.renderArea.extent = SwapchainExtent;
+		renderPassInfo.renderArea.extent = swapchainExtent;
 		std::array<VkClearValue, 2> clearValues = {};
 		clearValues[0] = { 0.8f, 0.8f, 0.8f, 1.0f }; //Color.
 		clearValues[1] = { 1.0f, 0.0f }; //Depth.
@@ -1172,67 +1173,67 @@ void RenderAPI::updateCommandBuffers() {
 		renderPassInfo.pClearValues = clearValues.data();
 
 		//Comenzar el renderizado.
-		vkCmdBeginRenderPass(CommandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+		vkCmdBeginRenderPass(commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
-		SetViewport(CommandBuffers[i], -(int32_t)Window->ScreenSizeX, -(int32_t)Window->ScreenSizeY, (uint32_t)Window->ScreenSizeX * 2, (uint32_t)Window->ScreenSizeY * 2);
+		SetViewport(commandBuffers[i], -(int32_t)window->GetSize().X, -(int32_t)window->GetSize().Y, (uint32_t)window->GetSize().X * 2, (uint32_t)window->GetSize().Y * 2);
 
-		ScreenGraphicsPipeline->Bind(CommandBuffers[i]);
-		vkCmdBindIndexBuffer(CommandBuffers[i], Sprite::IndexBuffer.Buffer, 0, VK_INDEX_TYPE_UINT16);
-		const size_t indicesSize = Sprite::Indices.size();
+		screenGraphicsPipeline->Bind(commandBuffers[i]);
+		vkCmdBindIndexBuffer(commandBuffers[i], Sprite::indexBuffer.buffer, 0, VK_INDEX_TYPE_UINT16);
+		const size_t indicesSize = Sprite::indices.size();
 
-		VkBuffer vertexBuffers[] = { RenderTargetBeforePostProcessing->RenderedSprite.VertexBuffer.Buffer };
+		VkBuffer vertexBuffers[] = { renderTargetBeforePostProcessing->renderedSprite.vertexBuffer.buffer };
 		VkDeviceSize offsets[] = { 0 };
-		vkCmdBindVertexBuffers(CommandBuffers[i], 0, 1, vertexBuffers, offsets);
+		vkCmdBindVertexBuffers(commandBuffers[i], 0, 1, vertexBuffers, offsets);
 
-		ScreenDescriptorSet->Bind(CommandBuffers[i], ScreenGraphicsPipeline, i);
+		screenDescriptorSet->Bind(commandBuffers[i], screenGraphicsPipeline, i);
 
-		vkCmdPushConstants(CommandBuffers[i], ScreenGraphicsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(PostProcessingSettings_t), &PostProcessingSettings);
-		vkCmdDrawIndexed(CommandBuffers[i], indicesSize, 1, 0, 0, 0);
+		vkCmdPushConstants(commandBuffers[i], screenGraphicsPipeline->vulkanPipelineLayout, VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(PostProcessingSettings_t), &postProcessingSettings);
+		vkCmdDrawIndexed(commandBuffers[i], indicesSize, 1, 0, 0, 0);
 
-		vkCmdEndRenderPass(CommandBuffers[i]);
+		vkCmdEndRenderPass(commandBuffers[i]);
 
-		result = vkEndCommandBuffer(CommandBuffers[i]);
+		result = vkEndCommandBuffer(commandBuffers[i]);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: grabar renderpass.");
 
-		updateCmdP_Unit.End();
+		updateCmdProfilingUnit.End();
 	}
 
-	SingleTimeStages.clear();
+	singleTimeStages.clear();
 }
 
 void RenderAPI::createSpriteVertexBuffer(Sprite* sprite) const {
-	VkDeviceSize size = sizeof(Vertex) * sprite->Vertices.size();
+	VkDeviceSize size = sizeof(Vertex) * sprite->vertices.size();
 
-	sprite->VertexBuffer = CreateBuffer(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-	sprite->VertexBuffer.Allocate(size);
+	sprite->vertexBuffer = CreateBuffer(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+	sprite->vertexBuffer.Allocate(size);
 	
 	updateSpriteVertexBuffer(sprite);
 }
 
 void RenderAPI::createSpriteIndexBuffer() const {
-	VkDeviceSize size = sizeof(Sprite::Indices[0]) * Sprite::Indices.size();
+	VkDeviceSize size = sizeof(Sprite::indices[0]) * Sprite::indices.size();
 
 	GPUDataBuffer stagingBuffer = CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 	stagingBuffer.Allocate(size);
 
-	stagingBuffer.Write(Sprite::Indices.data(), size);
+	stagingBuffer.Write(Sprite::indices.data(), size);
 
-	Sprite::IndexBuffer = CreateBuffer(VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-	Sprite::IndexBuffer.Allocate(size);
-	CopyBuffer(stagingBuffer, Sprite::IndexBuffer, size);
+	Sprite::indexBuffer = CreateBuffer(VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+	Sprite::indexBuffer.Allocate(size);
+	CopyBuffer(stagingBuffer, Sprite::indexBuffer, size);
 
 	stagingBuffer.Free();
 }
 
 
 void RenderAPI::updateSpriteVertexBuffer(Sprite* sprite) const {
-	VkDeviceSize size = sizeof(Vertex) * sprite->Vertices.size();
+	VkDeviceSize size = sizeof(Vertex) * sprite->vertices.size();
 
 	void* data;
-	vkMapMemory(LogicalDevice, sprite->VertexBuffer.Memory, 0, size, 0, &data);
-	memcpy(data, sprite->Vertices.data(), (size_t)size);
-	vkUnmapMemory(LogicalDevice, sprite->VertexBuffer.Memory);
+	vkMapMemory(logicalDevice, sprite->vertexBuffer.memory, 0, size, 0, &data);
+	memcpy(data, sprite->vertices.data(), (size_t)size);
+	vkUnmapMemory(logicalDevice, sprite->vertexBuffer.memory);
 
 	sprite->hasChanged = false;
 }
@@ -1241,9 +1242,9 @@ void RenderAPI::updateSpriteVertexBuffer(SpriteContainer& sprite) const {
 	VkDeviceSize size = sizeof(Vertex) * 4;
 
 	void* data;
-	vkMapMemory(LogicalDevice, sprite.VertexMemory, 0, size, 0, &data);
-	memcpy(data, sprite.Vertices, (size_t)size);
-	vkUnmapMemory(LogicalDevice, sprite.VertexMemory);
+	vkMapMemory(logicalDevice, sprite.vertexMemory, 0, size, 0, &data);
+	memcpy(data, sprite.vertices, (size_t)size);
+	vkUnmapMemory(logicalDevice, sprite.vertexMemory);
 
 	sprite.hasChanged = false;
 }
@@ -1257,7 +1258,7 @@ void RenderAPI::CopyBuffer(GPUDataBuffer& source, GPUDataBuffer& destination, Vk
 	copyRegion.srcOffset = sourceOffset;
 	copyRegion.dstOffset = destinationOffset;
 	copyRegion.size = size;
-	vkCmdCopyBuffer(cmdBuffer, source.Buffer, destination.Buffer, 1, &copyRegion);
+	vkCmdCopyBuffer(cmdBuffer, source.buffer, destination.buffer, 1, &copyRegion);
 
 	endSingleTimeCommandBuffer(cmdBuffer);
 }
@@ -1267,11 +1268,11 @@ VkCommandBuffer RenderAPI::beginSingleTimeCommandBuffer() const {
 	VkCommandBufferAllocateInfo allocInfo{};
 	allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
 	allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-	allocInfo.commandPool = CommandPool;
+	allocInfo.commandPool = commandPool;
 	allocInfo.commandBufferCount = 1;
 
 	VkCommandBuffer commandBuffer;
-	vkAllocateCommandBuffers(LogicalDevice, &allocInfo, &commandBuffer);
+	vkAllocateCommandBuffers(logicalDevice, &allocInfo, &commandBuffer);
 
 	VkCommandBufferBeginInfo beginInfo{};
 	beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
@@ -1291,18 +1292,18 @@ void RenderAPI::endSingleTimeCommandBuffer(VkCommandBuffer cmdBuffer) const {
 	submitInfo.commandBufferCount = 1;
 	submitInfo.pCommandBuffers = &cmdBuffer;
 
-	vkQueueSubmit(GraphicsQ, 1, &submitInfo, VK_NULL_HANDLE);
-	vkQueueWaitIdle(GraphicsQ);
+	vkQueueSubmit(graphicsQueue, 1, &submitInfo, VK_NULL_HANDLE);
+	vkQueueWaitIdle(graphicsQueue);
 
-	vkFreeCommandBuffers(LogicalDevice, CommandPool, 1, &cmdBuffer);
+	vkFreeCommandBuffers(logicalDevice, commandPool, 1, &cmdBuffer);
 }
 
 
 //Obtiene el tipo de memoria indicado.
 uint32_t RenderAPI::getMemoryType(const uint32_t& memoryTypeFilter, VkMemoryPropertyFlags flags) const {
 	//Tipos de memoria disponibles.
-	for (uint32_t i = 0; i < MemoryProperties.memoryTypeCount; i++)
-		if (memoryTypeFilter & (1 << i) && (MemoryProperties.memoryTypes[i].propertyFlags & flags) == flags)
+	for (uint32_t i = 0; i < memoryProperties.memoryTypeCount; i++)
+		if (memoryTypeFilter & (1 << i) && (memoryProperties.memoryTypes[i].propertyFlags & flags) == flags)
 			return i;
 
 	return -1;
@@ -1317,23 +1318,23 @@ VkFormat RenderAPI::getDepthFormat() const {
 
 GPUinfo RenderAPI::getGPUinfo(VkPhysicalDevice gpu) const {
 	GPUinfo info{};
-	info.GPU = gpu;
+	info.gpu = gpu;
 	//Obtiene las propiedades de la gpu.
-	vkGetPhysicalDeviceProperties(gpu, &info.Properties);
+	vkGetPhysicalDeviceProperties(gpu, &info.properties);
 	//Obtiene las características de la GPU.
-	vkGetPhysicalDeviceFeatures(gpu, &info.Features);
+	vkGetPhysicalDeviceFeatures(gpu, &info.features);
 
 	//Comprobar soporte de colas.
-	info.Families = findQueueFamilies(gpu);
+	info.families = findQueueFamilies(gpu);
 
 	//Comprobar soporte de swapchain.
 	bool swapchainSupported = false;
 
-	info.ShapchainSupport = getSwapchainSupportDetails(gpu);
-	swapchainSupported = !info.ShapchainSupport.PresentModes.empty() && !info.ShapchainSupport.Formats.empty();
+	info.shapchainSupport = getSwapchainSupportDetails(gpu);
+	swapchainSupported = !info.shapchainSupport.presentModes.empty() && !info.shapchainSupport.formats.empty();
 
-	info.IsSuitable = info.Families.IsComplete() && checkGPUextensionSupport(gpu) && swapchainSupported && info.Features.samplerAnisotropy;
-	info.minAlignment = info.Properties.limits.minUniformBufferOffsetAlignment;
+	info.isSuitable = info.families.IsComplete() && checkGPUextensionSupport(gpu) && swapchainSupported && info.features.samplerAnisotropy;
+	info.minAlignment = info.properties.limits.minUniformBufferOffsetAlignment;
 
 	return info;
 }
@@ -1358,7 +1359,7 @@ VkExtent2D RenderAPI::getSwapchainExtent(const VkSurfaceCapabilitiesKHR& capabil
 
 	int width;
 	int height;
-	glfwGetFramebufferSize(Window->GetGLFWWindow(), &width, &height);
+	glfwGetFramebufferSize(window->window, &width, &height);
 
 	VkExtent2D extent{
 		static_cast<uint32_t>(width),
@@ -1376,7 +1377,7 @@ VkExtent2D RenderAPI::getSwapchainExtent(const VkSurfaceCapabilitiesKHR& capabil
 VkFormat RenderAPI::getSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features) const {
 	for (VkFormat format : candidates) {
 		VkFormatProperties properties;
-		vkGetPhysicalDeviceFormatProperties(GPU, format, &properties);
+		vkGetPhysicalDeviceFormatProperties(gpu, format, &properties);
 
 		if (tiling == VK_IMAGE_TILING_LINEAR && (properties.linearTilingFeatures & features) == features)
 			return format;
@@ -1393,23 +1394,23 @@ SwapchainSupportDetails RenderAPI::getSwapchainSupportDetails(VkPhysicalDevice g
 	SwapchainSupportDetails details;
 
 	//Obtener las capacidades.
-	vkGetPhysicalDeviceSurfaceCapabilitiesKHR(gpu, Surface, &details.SurfaceCapabilities);
+	vkGetPhysicalDeviceSurfaceCapabilitiesKHR(gpu, surface, &details.surfaceCapabilities);
 
 	//Número de formatos soportados.
 	uint32_t formatCount = 0;
-	vkGetPhysicalDeviceSurfaceFormatsKHR(gpu, Surface, &formatCount, nullptr);
+	vkGetPhysicalDeviceSurfaceFormatsKHR(gpu, surface, &formatCount, nullptr);
 
 	//Obtener formatos soportados.
-	details.Formats.resize(formatCount);
-	vkGetPhysicalDeviceSurfaceFormatsKHR(gpu, Surface, &formatCount, details.Formats.data());
+	details.formats.resize(formatCount);
+	vkGetPhysicalDeviceSurfaceFormatsKHR(gpu, surface, &formatCount, details.formats.data());
 
 	//Números de modos de presentación.
 	uint32_t presentModeCount = 0;
-	vkGetPhysicalDeviceSurfacePresentModesKHR(gpu, Surface, &presentModeCount, nullptr);
+	vkGetPhysicalDeviceSurfacePresentModesKHR(gpu, surface, &presentModeCount, nullptr);
 
 	//Obtener modos de presentación.
-	details.PresentModes.resize(presentModeCount);
-	vkGetPhysicalDeviceSurfacePresentModesKHR(gpu, Surface, &formatCount, details.PresentModes.data());
+	details.presentModes.resize(presentModeCount);
+	vkGetPhysicalDeviceSurfacePresentModesKHR(gpu, surface, &formatCount, details.presentModes.data());
 
 	return details;
 }
@@ -1430,14 +1431,14 @@ QueueFamilyIndices RenderAPI::findQueueFamilies(VkPhysicalDevice gpu) const {
 	int i = 0;
 	for (const auto& q : queueFamilies) {
 		if (q.queueFlags & VK_QUEUE_GRAPHICS_BIT)
-			indices.GraphicsFamily = i;
+			indices.graphicsFamily = i;
 
 		//Soporte para presentación.
 		VkBool32 presentSupport = false;
-		vkGetPhysicalDeviceSurfaceSupportKHR(gpu, i, Surface, &presentSupport);
+		vkGetPhysicalDeviceSurfaceSupportKHR(gpu, i, surface, &presentSupport);
 
 		if (presentSupport)
-			indices.PresentFamily = i;
+			indices.presentFamily = i;
 
 		if (indices.IsComplete())
 			break;
@@ -1498,45 +1499,46 @@ VkBool32 RenderAPI::DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT message
 
 void RenderAPI::InitPostProcessing() {
 	//return;
-	FinalRenderTarget = CreateNewRenderTarget();
-	FinalRenderTarget->SetFormat(SwapchainFormat);
-	FinalRenderTarget->SetSize((uint32_t)Window->ScreenSizeX, (uint32_t)Window->ScreenSizeY);
-	FinalRenderTarget->CreateSprite(Content);
+	finalRenderTarget = CreateNewRenderTarget();
+	finalRenderTarget->SetFormat(swapchainFormat);
+	finalRenderTarget->SetSize((uint32_t)window->GetSize().X, (uint32_t)window->GetSize().Y);
+	finalRenderTarget->CreateSprite(content);
 
-	VULKAN::VulkanImageGen::CreateImage(&FinalRenderTarget->RenderedSprite.Texture2D->Image, FinalRenderTarget->Size, SwapchainFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
-	VULKAN::VulkanImageGen::CreateImageView(&FinalRenderTarget->RenderedSprite.Texture2D->Image, SwapchainFormat, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
-	VULKAN::VulkanImageGen::CreateImageSampler(FinalRenderTarget->RenderedSprite.Texture2D->Image, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
-	VULKAN::VulkanImageGen::TransitionImageLayout(&FinalRenderTarget->RenderedSprite.Texture2D->Image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR, 1, 0);
+	VULKAN::VulkanImageGen::CreateImage(&finalRenderTarget->renderedSprite.texture->image, finalRenderTarget->size, swapchainFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
+	VULKAN::VulkanImageGen::CreateImageView(&finalRenderTarget->renderedSprite.texture->image, swapchainFormat, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
+	VULKAN::VulkanImageGen::CreateImageSampler(finalRenderTarget->renderedSprite.texture->image, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
+	VULKAN::VulkanImageGen::TransitionImageLayout(&finalRenderTarget->renderedSprite.texture->image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR, 1, 0);
 
-	VULKAN::VulkanImageGen::CreateImageSampler(FinalRenderTarget->RenderedSprite.Texture2D->Image, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
+	VULKAN::VulkanImageGen::CreateImageSampler(finalRenderTarget->renderedSprite.texture->image, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
 
-	ScreenDescriptorPool = CreateNewDescriptorPool();
-	ScreenDescriptorPool->AddBinding(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
-	ScreenDescriptorPool->Create(1);
+	screenDescriptorPool = CreateNewDescriptorPool();
+	screenDescriptorPool->AddBinding(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
+	screenDescriptorPool->Create(1);
 
-	ScreenDescriptorLayout = CreateNewDescriptorLayout();
-	ScreenDescriptorLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
-	ScreenDescriptorLayout->DPool = ScreenDescriptorPool;
-	ScreenDescriptorLayout->Create();
+	screenDescriptorLayout = CreateNewDescriptorLayout();
+	screenDescriptorLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
+	screenDescriptorLayout->descriptorPool = screenDescriptorPool;
+	screenDescriptorLayout->Create();
 
-	ScreenDescriptorSet = CreateNewDescriptorSet();
-	ScreenDescriptorSet->Create(ScreenDescriptorLayout, ScreenDescriptorPool, true);
-	ScreenDescriptorSet->AddImage(&RenderTargetBeforePostProcessing->RenderedSprite.Texture2D->Image, RenderTargetBeforePostProcessing->RenderedSprite.Texture2D->Image.Sampler, 0);
-	ScreenDescriptorSet->Update();
+	screenDescriptorSet = CreateNewDescriptorSet();
+	screenDescriptorSet->Create(screenDescriptorLayout, screenDescriptorPool, true);
+	screenDescriptorSet->AddImage(&renderTargetBeforePostProcessing->renderedSprite.texture->image, renderTargetBeforePostProcessing->renderedSprite.texture->image.sampler, 0);
+	screenDescriptorSet->Update();
 
-	ScreenGraphicsPipeline = CreateNewGraphicsPipeline("shaders/VK_Post/vert.spv", "shaders/VK_Post/frag.spv");
-	ScreenGraphicsPipeline->SetViewport({ -(float)SwapchainExtent.width, -(float)SwapchainExtent.height, (float)SwapchainExtent.width * 2, (float)SwapchainExtent.height * 2 });
-	ScreenGraphicsPipeline->SetRasterizer(VK_FALSE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_NONE, VK_FRONT_FACE_CLOCKWISE);
-	ScreenGraphicsPipeline->SetMSAA(VK_FALSE, VK_SAMPLE_COUNT_1_BIT);
-	ScreenGraphicsPipeline->SetDepthStencil(false);
-	ScreenGraphicsPipeline->SetPushConstants(VK_SHADER_STAGE_FRAGMENT_BIT, sizeof(PostProcessingSettings_t));
-	ScreenGraphicsPipeline->SetLayout(&ScreenDescriptorLayout->VulkanDescriptorSetLayout);
-	ScreenGraphicsPipeline->Create(ScreenRenderpass);
+	screenGraphicsPipeline = CreateNewGraphicsPipeline("shaders/VK_Post/vert.spv", "shaders/VK_Post/frag.spv");
+	screenGraphicsPipeline->SetViewport({ -(float)swapchainExtent.width, -(float)swapchainExtent.height, (float)swapchainExtent.width * 2, (float)swapchainExtent.height * 2 });
+	screenGraphicsPipeline->SetRasterizer(VK_FALSE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_NONE, VK_FRONT_FACE_CLOCKWISE);
+	screenGraphicsPipeline->SetMSAA(VK_FALSE, VK_SAMPLE_COUNT_1_BIT);
+	screenGraphicsPipeline->SetDepthStencil(false);
+	screenGraphicsPipeline->SetPushConstants(VK_SHADER_STAGE_FRAGMENT_BIT, sizeof(PostProcessingSettings_t));
+	screenGraphicsPipeline->SetLayout(&screenDescriptorLayout->vulkanDescriptorSetLayout);
+	screenGraphicsPipeline->Create(screenRenderpass);
 
-	FinalRenderTarget->VRenderpass = ScreenRenderpass;
-	VkImageView views[] = { FinalRenderTarget->RenderedSprite.Texture2D->Image.View, DepthImage.View };
-	FinalRenderTarget->CreateFramebuffers(4, views, 2);
-	updateSpriteVertexBuffer(&RenderTargetBeforePostProcessing->RenderedSprite);
+	finalRenderTarget->vulkanRenderpass = screenRenderpass;
+	VkImageView views[] = { finalRenderTarget->renderedSprite.texture->image.view, depthImage.view };
+	finalRenderTarget->CreateFramebuffers(4, views, 2);
+	finalRenderTarget->renderedSprite.transform.SetScale(window->GetSize().ToVector2f() * renderResolutionMultiplier);
+	updateSpriteVertexBuffer(&renderTargetBeforePostProcessing->renderedSprite);
 }
 
 void RenderAPI::RecreatePostProcessing() {
@@ -1545,8 +1547,8 @@ void RenderAPI::RecreatePostProcessing() {
 }
 
 void RenderAPI::ClosePostProcessing() {
-	SafeDelete(&ScreenDescriptorLayout);
-	SafeDelete(&ScreenDescriptorSet);
-	SafeDelete(&ScreenGraphicsPipeline);
-	SafeDelete(&FinalRenderTarget);
+	SafeDelete(&screenDescriptorLayout);
+	SafeDelete(&screenDescriptorSet);
+	SafeDelete(&screenGraphicsPipeline);
+	SafeDelete(&finalRenderTarget);
 }

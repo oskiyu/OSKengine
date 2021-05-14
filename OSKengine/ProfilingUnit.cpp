@@ -9,7 +9,7 @@ namespace OSK {
 	}
 
 	ProfilingUnit::ProfilingUnit(const std::string& name) {
-		Name = name;
+		this->name = name;
 	}
 
 	void ProfilingUnit::Start() {

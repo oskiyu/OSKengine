@@ -6,6 +6,8 @@
 #include "Callbacks.h"
 #include "SafeExecute.h"
 
+#include <functional>
+
 #ifndef OSK_DLL
 #include <enet/enet.h>
 #endif
@@ -27,20 +29,6 @@ namespace OSK::NET {
 		//-out_bandwidth: límite de ancho de banda de salida.
 		void Setup(const uint32_t& channel_count = 2, const uint32_t& in_bandwidht = 0, const uint32_t& out_bandwidht = 0);
 
-
-		//Asigna la función que se ejecutará al conectarse con el servidor.
-		//-callback: Función que se ejecutará.
-		void SetNewConnectionCallback(OSKnet_new_connection_callback callback);
-
-
-		//Asigna la función que se ejecutará al recibir un mensaje del servidor.
-		//-callback: Función que se ejecutará.
-		void SetMessageReceivedCallback(OSKnet_message_received_callback callback);
-
-
-		//Asigna la función que se ejecutará al recibir un mensaje de desconexión.
-		//-callback: Función que se ejecutará.
-		void SetDisconnectCallback(OSKnet_disconnect_callback callback);
 
 
 		//Conecta el cliente con un servidor.
@@ -67,9 +55,11 @@ namespace OSK::NET {
 		//Desconecta el cliente del servidor.
 		void Disconnect();
 
-	private:
+		std::function<void(Message&)> MessageReceivedCallback = [](Message& msg) {};
+		std::function<void(Message&)> NewConnectionCallback = [](Message& msg) {};
+		std::function<void(Message&)> DisconnectCallback = [](Message& msg) {};
 
-#ifndef OSK_DLL
+	private:
 
 		//Dirección del server.
 		ENetAddress address = {};
@@ -83,15 +73,6 @@ namespace OSK::NET {
 		//Mensaje (para procesar los mensajes que llegan).
 		ENetEvent message = {};
 
-		//Función que se va a ejecutar al desconectarse.
-		OSKnet_disconnect_callback disconnection_callback = nullptr;
-
-		//Función que se va a ejecutar al conectarse.
-		OSKnet_new_connection_callback new_connection_callback = nullptr;
-
-		//Función que se va a ejecutar al recibir un mensaje.
-		OSKnet_message_received_callback message_received_callback = nullptr;
-
 		//Número de canales.
 		unsigned int numero_de_canales = 0;
 
@@ -100,8 +81,6 @@ namespace OSK::NET {
 
 		//Comprueba si está conectado.
 		bool is_connected = false;
-
-#endif
 
 	};
 

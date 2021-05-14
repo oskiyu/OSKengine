@@ -72,8 +72,8 @@ namespace OSK {
 				Free();
 			}
 
-			Data = (T*)malloc(maxElements * sizeof(T));
-			MaxSize = maxElements;
+			data = (T*)malloc(maxElements * sizeof(T));
+			maxSize = maxElements;
 		}
 
 		/// <summary>
@@ -86,8 +86,8 @@ namespace OSK {
 				throw std::runtime_error("ERROR: stack is full.");
 			}
 #endif
-			Data[CurrentSize] = element;
-			CurrentSize++;
+			data[currentSize] = element;
+			currentSize++;
 		}
 
 		/// <summary>
@@ -101,8 +101,8 @@ namespace OSK {
 			}
 #endif
 
-			T element = Data[CurrentSize - 1];
-			CurrentSize--;
+			T element = data[currentSize - 1];
+			currentSize--;
 
 			return element;
 		}
@@ -111,7 +111,7 @@ namespace OSK {
 		/// Elimina los elementos, sin liberar memoria. No llama a los destructores.
 		/// </summary>
 		void Clear() {
-			CurrentSize = 0;
+			currentSize = 0;
 		}
 
 		/// <summary>
@@ -121,8 +121,8 @@ namespace OSK {
 		void CopyFrom(const ArrayStack& stack) {
 			Free();
 
-			Allocate(stack.MaxSize);
-			memcpy(Data, stack.Data, sizeof(T) * MaxSize);
+			Allocate(stack.maxSize);
+			memcpy(data, stack.data, sizeof(T) * maxSize);
 		}
 
 		/// <summary>
@@ -130,11 +130,11 @@ namespace OSK {
 		/// </summary>
 		void Free() {
 			if (HasBeenInitialized()) {
-				free(Data);
-				Data = nullptr;
+				free(data);
+				data = nullptr;
 			}
 
-			CurrentSize = 0;
+			currentSize = 0;
 		}
 
 		/// <summary>
@@ -142,7 +142,7 @@ namespace OSK {
 		/// </summary>
 		/// <returns>Elementos en el stack.</returns>
 		inline size_t GetSize() const {
-			return CurrentSize;
+			return currentSize;
 		}
 
 		/// <summary>
@@ -150,7 +150,7 @@ namespace OSK {
 		/// </summary>
 		/// <returns>Número máximo de elementos.</returns>
 		inline size_t GetMaxSize() const {
-			return MaxSize;
+			return maxSize;
 		}
 
 		/// <summary>
@@ -174,7 +174,7 @@ namespace OSK {
 		/// </summary>
 		/// <returns>Estado del stack.</returns>
 		inline bool HasBeenInitialized() const {
-			return Data != nullptr;
+			return data != nullptr;
 		}
 
 	private:
@@ -182,17 +182,17 @@ namespace OSK {
 		/// <summary>
 		/// Array.
 		/// </summary>
-		T* Data = nullptr;
+		T* data = nullptr;
 				
 		/// <summary>
 		/// Máximo número de elementos.
 		/// </summary>
-		size_t MaxSize = 0;
+		size_t maxSize = 0;
 
 		/// <summary>
 		/// Número de elementos guardados actualmente.
 		/// </summary>
-		size_t CurrentSize = 0;
+		size_t currentSize = 0;
 
 	};
 
@@ -210,7 +210,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="element">Elemento a insertar.</param>
 		void Push(const T& element) {
-			Array.Insert(element);
+			thisArray.Insert(element);
 		}
 
 		/// <summary>
@@ -218,8 +218,9 @@ namespace OSK {
 		/// </summary>
 		/// <returns>Último elemento del stack.</returns>
 		T Pop() {
-			T value = Array.At(Array.GetSize() - 1);
-			Array.RemoveLast();
+			T value = thisArray.At(thisArray.GetSize() - 1);
+			thisArray.RemoveLast();
+
 			return value;
 		}
 
@@ -228,14 +229,14 @@ namespace OSK {
 		/// </summary>
 		/// <param name="stack">Stack a copiar.</param>
 		void CopyFrom(const Stack& stack) {
-			Array.CopyContentFrom(stack.Array);
+			thisArray.CopyContentFrom(stack.thisArray);
 		}
 
 		/// <summary>
 		/// Libera memoria. No llama a los destructores.
 		/// </summary>
 		void Free() {
-			Array.Free();
+			thisArray.Free();
 		}
 
 		/// <summary>
@@ -243,7 +244,7 @@ namespace OSK {
 		/// </summary>
 		/// <returns>Elementos en el stack.</returns>
 		inline size_t GetSize() const {
-			return Array.GetSize();
+			return thisArray.GetSize();
 		}
 
 		/// <summary>
@@ -251,7 +252,7 @@ namespace OSK {
 		/// </summary>
 		/// <returns>Estado el stack.</returns>
 		inline bool IsEmpty() const {
-			return Array.IsEmpty();
+			return thisArray.IsEmpty();
 		}
 
 		/// <summary>
@@ -259,7 +260,7 @@ namespace OSK {
 		/// </summary>
 		/// <returns>Estado el stack.</returns>
 		inline bool HasBeenInitialized() const {
-			return Array.HasBeenInitialized();
+			return thisArray.HasBeenInitialized();
 		}
 
 	private:
@@ -267,7 +268,7 @@ namespace OSK {
 		/// <summary>
 		/// Array.
 		/// </summary>
-		DynamicArray<T> Array;
+		DynamicArray<T> thisArray;
 
 	};
 

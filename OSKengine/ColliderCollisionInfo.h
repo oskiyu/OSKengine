@@ -17,23 +17,23 @@ namespace OSK {
 		/// <summary>
 		/// True si hay colisión.
 		/// </summary>
-		bool IsColliding = false;
+		bool isColliding = false;
 		
 		/// <summary>
 		/// True si hay colisión entre los BroadColliders.
 		/// No tiene por qué suponer una colisión real.
 		/// </summary>
-		bool IsBroadColliderColliding = false;
+		bool isBroadColliderColliding = false;
 
 		/// <summary>
 		/// Primer sat que colisiona.
 		/// </summary>
-		Collision::SAT_Collider* SAT_1 = nullptr;
+		Collision::SAT_Collider* sat1 = nullptr;
 
 		/// <summary>
 		/// Segundo sat que colisiona.
 		/// </summary>
-		Collision::SAT_Collider* SAT_2 = nullptr;
+		Collision::SAT_Collider* sat2 = nullptr;
 
 	};
 

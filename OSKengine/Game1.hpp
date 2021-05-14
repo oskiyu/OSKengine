@@ -5,78 +5,79 @@
 #include "Cube.h"
 #include "ModelComponent.h"
 
+#include "PlaceToken.h"
+#include "SkyboxToken.h"
+
 class Game1 : public Game {
 
 public:
 
 	void OnCreate() override {
-		//RendererCreateInfo.RendererResolution = 2.0f;
+
 	}
 
 	void LoadContent() override {
-		ECS->RegisterGameObjectClass<Cube>("Cube");
-		ECS->RegisterGameObjectClass<PlayerCube>("PlayerCube");
+		entityComponentSystem->RegisterGameObjectClass<Cube>("Cube");
+		entityComponentSystem->RegisterGameObjectClass<PlayerCube>("PlayerCube");
 
-		Fuente = Content->LoadFont("Fonts/AGENCYB.ttf", 20);
-		ShowFont = Content->LoadFont("Fonts/AGENCYB.ttf", 40);
+		Fuente = content->LoadFont("Fonts/AGENCYB.ttf", 20);
+		ShowFont = content->LoadFont("Fonts/AGENCYB.ttf", 40);
 
-		RenderSystem3D->RScene->LoadSkybox("skybox/sky");
-		RenderSystem3D->RScene->LoadHeightmap("heightmaps/Heightmap.png", { 5.0f }, 35);
-		RenderSystem3D->RScene->Lights.Directional.Color = OSK::Color(0.9f, 0.9f, 0.8f);
+		renderSystem3D->GetRenderScene()->lights.directional.color = OSK::Color(0.9f, 0.9f, 0.8f);
 
 		//INPUT SYSTEM
-		InputSystem->RegisterInputEvent("PlayerMoveFront");
-		InputSystem->GetInputEvent("PlayerMoveFront").LinkedKeys.push_back(OSK::Key::W);
-		InputSystem->RegisterInputEvent("PlayerMoveBack");
-		InputSystem->GetInputEvent("PlayerMoveBack").LinkedKeys.push_back(OSK::Key::S);
-		InputSystem->RegisterInputEvent("PlayerMoveLeft");
-		InputSystem->GetInputEvent("PlayerMoveLeft").LinkedKeys.push_back(OSK::Key::A);
-		InputSystem->RegisterInputEvent("PlayerMoveRight");
-		InputSystem->GetInputEvent("PlayerMoveRight").LinkedKeys.push_back(OSK::Key::D);
+		inputSystem->RegisterInputEvent("PlayerMoveFront");
+		inputSystem->GetInputEvent("PlayerMoveFront").linkedKeys.push_back(OSK::Key::W);
+		inputSystem->RegisterInputEvent("PlayerMoveBack");
+		inputSystem->GetInputEvent("PlayerMoveBack").linkedKeys.push_back(OSK::Key::S);
+		inputSystem->RegisterInputEvent("PlayerMoveLeft");
+		inputSystem->GetInputEvent("PlayerMoveLeft").linkedKeys.push_back(OSK::Key::A);
+		inputSystem->RegisterInputEvent("PlayerMoveRight");
+		inputSystem->GetInputEvent("PlayerMoveRight").linkedKeys.push_back(OSK::Key::D);
 
-		InputSystem->RegisterInputEvent("MoveFront");
-		InputSystem->GetInputEvent("MoveFront").LinkedKeys.push_back(OSK::Key::UP);
-		InputSystem->RegisterInputEvent("MoveBack");
-		InputSystem->GetInputEvent("MoveBack").LinkedKeys.push_back(OSK::Key::DOWN);
-		InputSystem->RegisterInputEvent("MoveLeft");
-		InputSystem->GetInputEvent("MoveLeft").LinkedKeys.push_back(OSK::Key::LEFT);
-		InputSystem->RegisterInputEvent("MoveRight");
-		InputSystem->GetInputEvent("MoveRight").LinkedKeys.push_back(OSK::Key::RIGHT);
+		inputSystem->RegisterInputEvent("MoveFront");
+		inputSystem->GetInputEvent("MoveFront").linkedKeys.push_back(OSK::Key::UP);
+		inputSystem->RegisterInputEvent("MoveBack");
+		inputSystem->GetInputEvent("MoveBack").linkedKeys.push_back(OSK::Key::DOWN);
+		inputSystem->RegisterInputEvent("MoveLeft");
+		inputSystem->GetInputEvent("MoveLeft").linkedKeys.push_back(OSK::Key::LEFT);
+		inputSystem->RegisterInputEvent("MoveRight");
+		inputSystem->GetInputEvent("MoveRight").linkedKeys.push_back(OSK::Key::RIGHT);
 
-		InputSystem->RegisterInputEvent("GirarX");
-		InputSystem->GetInputEvent("GirarX").LinkedKeys.push_back(OSK::Key::X);
-		InputSystem->RegisterInputEvent("GirarY");
-		InputSystem->GetInputEvent("GirarY").LinkedKeys.push_back(OSK::Key::Z);
-
-		InputSystem->RegisterOneTimeInputEvent("Exit");
-		InputSystem->GetOneTimeInputEvent("Exit").LinkedKeys.push_back(OSK::Key::ESCAPE);
-		InputSystem->RegisterOneTimeInputEvent("Fullscreen");
-		InputSystem->GetOneTimeInputEvent("Fullscreen").LinkedKeys.push_back(OSK::Key::F11);
-		InputSystem->RegisterOneTimeInputEvent("ChangeVSync");
-		InputSystem->GetOneTimeInputEvent("ChangeVSync").LinkedKeys.push_back(OSK::Key::F1);
-		InputSystem->RegisterOneTimeInputEvent("ChangeFXAA");
-		InputSystem->GetOneTimeInputEvent("ChangeFXAA").LinkedKeys.push_back(OSK::Key::F2);
+		inputSystem->RegisterInputEvent("GirarX");
+		inputSystem->GetInputEvent("GirarX").linkedKeys.push_back(OSK::Key::X);
+		inputSystem->RegisterInputEvent("GirarY");
+		inputSystem->GetInputEvent("GirarY").linkedKeys.push_back(OSK::Key::Z);
+		
+		inputSystem->RegisterOneTimeInputEvent("Exit");
+		inputSystem->GetOneTimeInputEvent("Exit").linkedKeys.push_back(OSK::Key::ESCAPE);
+		inputSystem->RegisterOneTimeInputEvent("Fullscreen");
+		inputSystem->GetOneTimeInputEvent("Fullscreen").linkedKeys.push_back(OSK::Key::F11);
+		inputSystem->RegisterOneTimeInputEvent("ChangeVSync");
+		inputSystem->GetOneTimeInputEvent("ChangeVSync").linkedKeys.push_back(OSK::Key::F1);
+		inputSystem->RegisterOneTimeInputEvent("ChangeFXAA");
+		inputSystem->GetOneTimeInputEvent("ChangeFXAA").linkedKeys.push_back(OSK::Key::F2);
 
 		OSK::InputComponent input;
 
 		input.GetInputFunction("PlayerMoveFront") = [this](deltaTime_t deltaTime) {
-			GetRenderer()->DefaultCamera3D.CameraTransform.AddPosition(GetRenderer()->DefaultCamera3D.Front * 3 * deltaTime);
+			GetRenderer()->defaultCamera3D.GetTransform()->AddPosition(GetRenderer()->defaultCamera3D.GetFrontVector() * 3 * deltaTime);
 		};
 		input.GetInputFunction("PlayerMoveBack") = [this](deltaTime_t deltaTime) {
-			GetRenderer()->DefaultCamera3D.CameraTransform.AddPosition(-GetRenderer()->DefaultCamera3D.Front * 3 * deltaTime);
+			GetRenderer()->defaultCamera3D.GetTransform()->AddPosition(-GetRenderer()->defaultCamera3D.GetFrontVector() * 3 * deltaTime);
 		};
 		input.GetInputFunction("PlayerMoveLeft") = [this](deltaTime_t deltaTime) {
-			GetRenderer()->DefaultCamera3D.CameraTransform.AddPosition(-GetRenderer()->DefaultCamera3D.Right * 3 * deltaTime);
+			GetRenderer()->defaultCamera3D.GetTransform()->AddPosition(-GetRenderer()->defaultCamera3D.GetRightVector() * 3 * deltaTime);
 		};
 		input.GetInputFunction("PlayerMoveRight") = [this](deltaTime_t deltaTime) {
-			GetRenderer()->DefaultCamera3D.CameraTransform.AddPosition(GetRenderer()->DefaultCamera3D.Right * 3 * deltaTime);
+			GetRenderer()->defaultCamera3D.GetTransform()->AddPosition(GetRenderer()->defaultCamera3D.GetRightVector() * 3 * deltaTime);
 		};
 		input.GetOneTimeInputFunction("Exit") = [this]() {
 			Exit();
 		};
 
 		input.GetOneTimeInputFunction("Fullscreen") = [this]() {
-			GetWindow()->SetFullscreen(!GetWindow()->IsFullscreen);
+			GetWindow()->SetFullscreen(!GetWindow()->IsFullscreen());
 		};
 		input.GetOneTimeInputFunction("ChangeVSync") = [this]() {
 			if (GetRenderer()->GetCurrentPresentMode() == OSK::PresentMode::VSYNC)
@@ -85,67 +86,75 @@ public:
 				GetRenderer()->SetPresentMode(OSK::PresentMode::VSYNC);
 		};
 		input.GetOneTimeInputFunction("ChangeFXAA") = [this]() {
-			if (GetRenderer()->PostProcessingSettings.UseFXAA)
-				GetRenderer()->PostProcessingSettings.UseFXAA = 0;
+			if (GetRenderer()->postProcessingSettings.useFxaa)
+				GetRenderer()->postProcessingSettings.useFxaa = 0;
 			else
-				GetRenderer()->PostProcessingSettings.UseFXAA = 1;
+				GetRenderer()->postProcessingSettings.useFxaa = 1;
 		};
 
-		ControlsObject = ECS->Spawn<OSK::GameObject>();
+		ControlsObject = entityComponentSystem->Spawn<OSK::GameObject>();
 		ControlsObject->AddComponent<OSK::InputComponent>(input);
 
 		//ENTIDADES
-		Cubes.push_back(ECS->Spawn<Cube>());
-		OSK::ModelComponent& model = Cubes.back()->GetComponent<OSK::ModelComponent>();
-		model.AddAnimatedModel("models/anim2/goblin2.dae", Content);
-		model.AnimatedModels[0].ModelTransform.SetScale({ 0.000025f });
-		model.AnimatedModels[0].ModelMaterial = GetRenderer()->GetMaterialSystem()->GetMaterial(GetRenderer()->DefaultMaterial3D_Name)->CreateInstance();
-		model.AnimatedModels[0].ModelMaterial->SetBuffer(GetRenderer()->GetUniformBuffers());
-		model.AnimatedModels[0].ModelMaterial->SetDynamicBuffer(RenderSystem3D->RScene->BonesUBOs);
-		model.AnimatedModels[0].ModelMaterial->SetBuffer(RenderSystem3D->RScene->shadowMap->DirShadowsUniformBuffers);
-		model.AnimatedModels[0].ModelMaterial->SetTexture(Content->LoadTexture("models/anim2/td.png"));
-		model.AnimatedModels[0].ModelMaterial->SetBuffer(RenderSystem3D->RScene->LightsUniformBuffers);
-		model.AnimatedModels[0].ModelMaterial->SetTexture(Content->LoadTexture("models/anim2/ts.png"));
-		model.AnimatedModels[0].ModelMaterial->SetTexture(RenderSystem3D->RScene->shadowMap->DirShadows->RenderedSprite.Texture2D);
-		model.AnimatedModels[0].ModelMaterial->FlushUpdate();
-		
-		model.Link(&Cubes.back()->Transform3D);
+		GetRenderer()->postProcessingSettings.useFxaa = 1;
 
-		Player = ECS->Spawn<PlayerCube>();
-		Player->GetComponent<OSK::ModelComponent>().AddAnimatedModel("models/anim2/goblin2.dae", Content);
-		Player->GetComponent<OSK::ModelComponent>().AnimatedModels[0].ModelTransform.SetScale({ 0.000025f });
-		Player->GetComponent<OSK::ModelComponent>().AnimatedModels[0].AnimationSpeed = 0.5f;
+		scene->Load("Levels/startLevel.sc");
+			
+		auto cube = scene->GetGameObjectByName<Cube>("Cube1");
+		OSK::ModelComponent& model = cube->GetComponent<OSK::ModelComponent>();
+		model.AddAnimatedModel("models/anim2/goblin2.dae", content);
+		model.GetAnimatedModels()[0].material = GetRenderer()->GetMaterialSystem()->GetMaterial(GetRenderer()->defaultMaterial3D_Name)->CreateInstance();
+		model.GetAnimatedModels()[0].material->SetBuffer(GetRenderer()->GetUniformBuffers());
+		model.GetAnimatedModels()[0].material->SetDynamicBuffer(renderSystem3D->GetRenderScene()->bonesUbos);
+		model.GetAnimatedModels()[0].material->SetBuffer(renderSystem3D->GetRenderScene()->shadowMap->dirShadowsUniformBuffers);
+		model.GetAnimatedModels()[0].material->SetTexture(content->LoadTexture("models/anim2/td.png"));
+		model.GetAnimatedModels()[0].material->SetBuffer(renderSystem3D->GetRenderScene()->lightsUniformBuffers);
+		model.GetAnimatedModels()[0].material->SetTexture(content->LoadTexture("models/anim2/ts.png"));
+		model.GetAnimatedModels()[0].material->SetTexture(renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.texture);
+		model.GetAnimatedModels()[0].material->FlushUpdate();
+		model.Link(cube->GetTransform());
+
+		Player = scene->GetGameObjectByName<PlayerCube>("Player");
+		Player->GetComponent<OSK::ModelComponent>().AddAnimatedModel("models/anim2/goblin2.dae", content);
+		Player->GetComponent<OSK::ModelComponent>().GetAnimatedModels()[0].animationSpeed = 0.5f;
 		OSK::ModelComponent& playerModel = Player->GetComponent<OSK::ModelComponent>();
-		playerModel.AnimatedModels[0].ModelMaterial = GetRenderer()->GetMaterialSystem()->GetMaterial(GetRenderer()->DefaultMaterial3D_Name)->CreateInstance();
-		playerModel.AnimatedModels[0].ModelMaterial->SetBuffer(GetRenderer()->GetUniformBuffers());
-		playerModel.AnimatedModels[0].ModelMaterial->SetDynamicBuffer(RenderSystem3D->RScene->BonesUBOs);
-		playerModel.AnimatedModels[0].ModelMaterial->SetBuffer(RenderSystem3D->RScene->shadowMap->DirShadowsUniformBuffers);
-		playerModel.AnimatedModels[0].ModelMaterial->SetTexture(Content->LoadTexture("models/anim2/td.png"));
-		playerModel.AnimatedModels[0].ModelMaterial->SetBuffer(RenderSystem3D->RScene->LightsUniformBuffers);
-		playerModel.AnimatedModels[0].ModelMaterial->SetTexture(Content->LoadTexture("models/anim2/ts.png"));
-		playerModel.AnimatedModels[0].ModelMaterial->SetTexture(RenderSystem3D->RScene->shadowMap->DirShadows->RenderedSprite.Texture2D);
-		playerModel.AnimatedModels[0].ModelMaterial->FlushUpdate();
-		playerModel.Link(&Player->Transform3D);
-		Player->Transform3D.AddPosition({ 40, 0, 0 });
+		playerModel.GetAnimatedModels()[0].material = GetRenderer()->GetMaterialSystem()->GetMaterial(GetRenderer()->defaultMaterial3D_Name)->CreateInstance();
+		playerModel.GetAnimatedModels()[0].material->SetBuffer(GetRenderer()->GetUniformBuffers());
+		playerModel.GetAnimatedModels()[0].material->SetDynamicBuffer(renderSystem3D->GetRenderScene()->bonesUbos);
+		playerModel.GetAnimatedModels()[0].material->SetBuffer(renderSystem3D->GetRenderScene()->shadowMap->dirShadowsUniformBuffers);
+		playerModel.GetAnimatedModels()[0].material->SetTexture(content->LoadTexture("models/anim2/td.png"));
+		playerModel.GetAnimatedModels()[0].material->SetBuffer(renderSystem3D->GetRenderScene()->lightsUniformBuffers);
+		playerModel.GetAnimatedModels()[0].material->SetTexture(content->LoadTexture("models/anim2/ts.png"));
+		playerModel.GetAnimatedModels()[0].material->SetTexture(renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.texture);
+		playerModel.GetAnimatedModels()[0].material->FlushUpdate();
+		playerModel.Link(Player->GetTransform());
 
-		GetRenderer()->DefaultCamera3D.CameraTransform.SetPosition(Player->Transform3D.GlobalPosition);
-		GetRenderer()->PostProcessingSettings.UseFXAA = 1;
+		scene->GetGameObjectByName("Cube3")->Remove();
+		scene->GetGameObjectByName("Cube2")->Remove();
 
-		PhysicsSystem->TerrainColissionType = OSK::PhysicalSceneTerrainResolveType::CHANGE_HEIGHT_ONLY;
+		GetRenderer()->defaultCamera3D.GetTransform()->SetPosition(Player->GetTransform()->GetPosition());
+
+		physicsSystem->terrainColissionType = OSK::PhysicalSceneTerrainResolveType::CHANGE_HEIGHT_ONLY;
 	}
 
 	void OnTick(deltaTime_t deltaTime) override {
-		mouseVar_t deltaX = NewMS.PositionX - OldMS.PositionX;
-		mouseVar_t deltaY = NewMS.PositionY - OldMS.PositionY;
-		GetRenderer()->DefaultCamera3D.Girar(deltaX, -deltaY);
+		GetRenderer()->defaultCamera3D.Girar(newMouseState.GetPosition().X - oldMouseState.GetPosition().X, -(newMouseState.GetPosition().Y - oldMouseState.GetPosition().Y));
 	}
 
 	void OnDraw2D() override {
-		SpriteBatch.Clear();
+		spriteBatch.Clear();
 
-		SpriteBatch.DrawSprite(GetRenderer()->OSKengineIconSprite);
-		SpriteBatch.DrawString(Fuente, "OSKengine " + std::string(OSK::ENGINE_VERSION), 1.0f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
-		SpriteBatch.DrawString(Fuente, "FPS " + std::to_string((int)GetFPS() - 1), 1.0f, OSK::Vector2(10), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::TOP_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
+		spriteBatch.DrawSprite(GetRenderer()->OSKengineIconSprite);
+		spriteBatch.DrawString(Fuente, "OSKengine " + std::string(OSK::ENGINE_VERSION), 1.0f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
+		spriteBatch.DrawString(Fuente, "FPS " + std::to_string((int)GetFPS() - 1), 1.5f, OSK::Vector2(10), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::TOP_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
+
+		spriteBatch.DrawString(Fuente, "Entidades: ", 0.8f, OSK::Vector2(10, 40), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::TOP_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
+
+		auto it = entityComponentSystem->GetAllGameObjects().begin();
+		for (int i = 0; i < entityComponentSystem->GetAllGameObjects().size(); i++) {
+			spriteBatch.DrawString(Fuente, "Entity " + it.operator*()->GetInstanceName(), 1.0f, OSK::Vector2(-300, 60 + 20 * i), OSK::Color(0.9f, 0.7f, 0.9f), OSK::Anchor::TOP_RIGHT, OSK::Vector4(1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
+			it.operator++();
+		}
 	}
 
 	OSK::Font* Fuente = nullptr;
@@ -153,7 +162,6 @@ public:
 
 	OSK::GameObject* ControlsObject;
 
-	std::vector<Cube*> Cubes;
 	PlayerCube* Player;
 
 };

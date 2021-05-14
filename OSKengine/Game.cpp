@@ -6,19 +6,19 @@
 
 void Game::SetupWindow() {
 	window = new OSK::WindowAPI();
-	window->SetWindow(WindowCreateInfo.SizeX, WindowCreateInfo.SizeY, WindowCreateInfo.Name);
-	window->SetMouseMovementMode(WindowCreateInfo.MouseAcceleration);
-	window->SetMouseMode(WindowCreateInfo.MouseMode);
+	window->SetWindow(windowCreateInfo.SizeX, windowCreateInfo.SizeY, windowCreateInfo.Name);
+	window->SetMouseMovementMode(windowCreateInfo.MouseAcceleration);
+	window->SetMouseMode(windowCreateInfo.MouseMode);
 }
 
 void Game::SetupRenderer() {
 	renderer = new OSK::RenderAPI();
 
-	renderer->Window = window.GetPointer();
-	renderer->SetPresentMode(RendererCreateInfo.VSyncMode);
-	renderer->FPSlimit = RendererCreateInfo.FPSlimit;
-	renderer->RenderResolutionMultiplier = RendererCreateInfo.RendererResolution;
-	renderer->Init(RendererCreateInfo.GameName, RendererCreateInfo.GameVersion);
+	renderer->window = window.GetPointer();
+	renderer->SetPresentMode(rendererCreateInfo.VSyncMode);
+	renderer->fpsLimit = rendererCreateInfo.FPSlimit;
+	renderer->renderResolutionMultiplier = rendererCreateInfo.RendererResolution;
+	renderer->Init(rendererCreateInfo.GameName, rendererCreateInfo.GameVersion);
 }
 
 void Game::Run() {
@@ -43,57 +43,55 @@ OSK::AudioSystem* Game::GetAudioSystem() {
 	return audio.GetPointer();
 }
 deltaTime_t Game::GetFPS() {
-	return Framerate;
+	return framerate;
 }
 
 void Game::Init() {
 	SetupWindow();
 	SetupRenderer();
 
-	Content = renderer->Content;
+	content = renderer->content;
 
 	SetupSystems();
 
-	SpriteBatch = GetRenderer()->CreateSpriteBatch();
-	SpriteBatch.SetCamera(GetRenderer()->DefaultCamera2D);
-	RenderSystem3D->Stage.AddSpriteBatch(&SpriteBatch);
+	spriteBatch = GetRenderer()->CreateSpriteBatch();
+	spriteBatch.SetCamera(GetRenderer()->defaultCamera2D);
+	renderSystem3D->renderStage.AddSpriteBatch(&spriteBatch);
 
-	ECS->RegisterGameObjectClass<OSK::GameObject>();
+	entityComponentSystem->RegisterGameObjectClass<OSK::GameObject>();
+
+	scene = new OSK::Scene(entityComponentSystem.GetPointer(), renderSystem3D);
 
 	LoadContent();
 
-	PhysicsSystem->FloorTerrain = RenderSystem3D->RScene->Terreno.GetPointer();
+	physicsSystem->terrain = renderSystem3D->renderScene->terreno.GetPointer();
 
-	renderer->OSKengineIconSprite.SpriteTransform.SetPosition({ 5.0f });
-	renderer->OSKengineIconSprite.SpriteTransform.SetScale({ 48.f });
+	renderer->OSKengineIconSprite.transform.SetPosition({ 5.0f });
+	renderer->OSKengineIconSprite.transform.SetScale({ 48.f });
 }
 
 void Game::SetupSystems() {
-	ECS = new OSK::EntityComponentSystem();
+	entityComponentSystem = new OSK::EntityComponentSystem();
 
-	ECS->RegisterComponent<OSK::PhysicsComponent>();
-	ECS->RegisterComponent<OSK::InputComponent>();
-	ECS->RegisterComponent<OSK::ModelComponent>();
-	ECS->RegisterComponent<OSK::OnTickComponent>();
-	ECS->RegisterComponent<OSK::CollisionComponent>();
+	entityComponentSystem->RegisterComponent<OSK::PhysicsComponent>();
+	entityComponentSystem->RegisterComponent<OSK::InputComponent>();
+	entityComponentSystem->RegisterComponent<OSK::ModelComponent>();
+	entityComponentSystem->RegisterComponent<OSK::OnTickComponent>();
+	entityComponentSystem->RegisterComponent<OSK::CollisionComponent>();
 
-	PhysicsSystem = ECS->RegisterSystem<OSK::PhysicsSystem>();
-	InputSystem = ECS->RegisterSystem<OSK::InputSystem>();
-	RenderSystem3D = ECS->RegisterSystem<OSK::RenderSystem3D>();
-	OnTickSystem = ECS->RegisterSystem<OSK::OnTickSystem>();
+	physicsSystem = entityComponentSystem->RegisterSystem<OSK::PhysicsSystem>();
+	inputSystem = entityComponentSystem->RegisterSystem<OSK::InputSystem>();
+	renderSystem3D = entityComponentSystem->RegisterSystem<OSK::RenderSystem3D>();
+	onTickSystem = entityComponentSystem->RegisterSystem<OSK::OnTickSystem>();
 
-	InputSystem->SetWindow(window.GetPointer());
-	RenderSystem3D->Renderer = renderer.GetPointer();
-	RenderSystem3D->Init();
+	inputSystem->SetWindow(window.GetPointer());
+	renderSystem3D->renderer = renderer.GetPointer();
+	renderSystem3D->Init();
 }
 
 void Game::Close() {
-	/*delete renderer;
-	delete window;
-	delete audio;
-
-	delete ECS;*/
-	ECS.Delete();
+	scene.Delete();
+	entityComponentSystem.Delete();
 }
 
 void Game::Exit() {
@@ -106,33 +104,33 @@ void Game::MainLoop() {
 	while (!window->WindowShouldClose()) {
 		deltaTime_t startTime = window->GetTime();
 		window->PollEvents();
-		window->UpdateKeyboardState(NewKS);
-		window->UpdateMouseState(NewMS);
+		window->UpdateKeyboardState(newKeyboardState);
+		window->UpdateMouseState(newMouseState);
 
 		//Update
-		ECS->OnTick(deltaTime);
+		entityComponentSystem->OnTick(deltaTime);
 		
 		OnTick(deltaTime);
 
 		//FPS
-		FramerateDeltaTime += deltaTime;
-		FramerateCount++;
-		if (FramerateDeltaTime > 1.0f) {
-			Framerate = FramerateCount;
-			FramerateCount = 0;
-			FramerateDeltaTime = 0.0f;
+		framerateDeltaTime += deltaTime;
+		framerateCount++;
+		if (framerateDeltaTime > 1.0f) {
+			framerate = framerateCount;
+			framerateCount = 0;
+			framerateDeltaTime = 0.0f;
 		}
 
 		//Draw
-		renderer->DefaultCamera3D.updateVectors();
+		renderer->defaultCamera3D.updateVectors();
 
 		OnDraw2D();
 
 		renderer->RenderFrame();
 
 		//End
-		OldKS = NewKS;
-		OldMS = NewMS;
+		oldKeyboardState = newKeyboardState;
+		oldMouseState = newMouseState;
 
 		deltaTime_t endTime = window->GetTime();
 		deltaTime = endTime - startTime;

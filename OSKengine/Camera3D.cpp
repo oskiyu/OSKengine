@@ -7,18 +7,18 @@
 namespace OSK {
 
 	Camera3D::Camera3D(cameraVar_t posX, cameraVar_t posY, cameraVar_t posZ) {
-		CameraTransform = Transform();
-		CameraTransform.LocalPosition = Vector3f(posX, posY, posZ);
-		CameraTransform.LocalScale = Vector3f(1.0f);
+		transform = Transform();
+		transform.SetPosition(Vector3f(posX, posY, posZ));
+		transform.SetScale(Vector3f(1.0f));
 
 		updateVectors();
 	}
 
-	Camera3D::Camera3D(const Vector3f& position, const Vector3f & up) {
-		CameraTransform = Transform();
-		CameraTransform.LocalPosition = position;
-		CameraTransform.LocalScale = Vector3f(1.0f);
-		this->Up = up;
+	Camera3D::Camera3D(const Vector3f& position, const Vector3f& up) {
+		transform = Transform();
+		transform.SetPosition(position);
+		transform.SetScale(Vector3f(1.0f));
+		this->up = up;
 
 		updateVectors();
 	}
@@ -28,59 +28,75 @@ namespace OSK {
 	}
 
 	void Camera3D::Girar(double xoffset, double yoffset, bool constraint) {
-		float Sensitivity = 0.25f;
+		float sensitivity = 0.25f;
 
-		AngleX += xoffset * Sensitivity;
-		AngleY -= yoffset * Sensitivity;
+		angleX += xoffset * sensitivity;
+		angleY -= yoffset * sensitivity;
 
 		if (constraint) {
-			if (AngleY > 89.0f) {
-				AngleY = 89.0f;
+			if (angleY > 89.0f) {
+				angleY = 89.0f;
 			}
-			else if (AngleY < -89.0f) {
-				AngleY = -89.0f;
+			else if (angleY < -89.0f) {
+				angleY = -89.0f;
 			}
 		}
 
-		CameraTransform.RotateWorldSpace(AngleX, Vector3f(0, 1, 0));
-		CameraTransform.RotateWorldSpace(AngleY, Vector3f(1, 0, 0));
+		transform.RotateWorldSpace(angleX, Vector3f(0, 1, 0));
+		transform.RotateWorldSpace(angleY, Vector3f(1, 0, 0));
 
 		updateVectors();
 	}
 
-	void Camera3D::SetFoV(double fov) {
-		FieldOfView = fov;
-		if (FieldOfView <= FoVLimitDown)
-			FieldOfView = FoVLimitDown;
-		if (FieldOfView > FoVLimitUp)
-			FieldOfView = FoVLimitUp;
+	void Camera3D::SetFov(double fov) {
+		fieldOfView = fov;
+		if (fieldOfView <= fovLimitDown)
+			fieldOfView = fovLimitDown;
+		if (fieldOfView > fovLimitUp)
+			fieldOfView = fovLimitUp;
 	}
 
-	void Camera3D::AddFoV(double fov) {
-		SetFoV(FieldOfView - fov);
+	void Camera3D::AddFov(double fov) {
+		SetFov(fieldOfView - fov);
 	}
 
 	void Camera3D::updateVectors() {
-		CameraTransform.UpdateModel();
+		transform.UpdateModel();
 
-		Vector3f front;
-		front.X = cos(glm::radians(AngleY)) * cos(glm::radians(AngleX));
-		front.Y = sin(glm::radians(AngleY));
-		front.Z = cos(glm::radians(AngleY)) * sin(glm::radians(AngleX));
+		Vector3f front_;
+		front_.X = cos(glm::radians(angleY)) * cos(glm::radians(angleX));
+		front_.Y = sin(glm::radians(angleY));
+		front_.Z = cos(glm::radians(angleY)) * sin(glm::radians(angleX));
 
-		Front = front.GetNormalized();
-		Right = Front.Cross(WorldUp).GetNormalized();
-		Up = Right.Cross(Front).GetNormalized();
+		front = front_.GetNormalized();
+		right = front.Cross(worldUp).GetNormalized();
+		up = right.Cross(front).GetNormalized();
+	}
+
+	Transform* Camera3D::GetTransform() {
+		return &transform;
 	}
 
 	glm::mat4 Camera3D::GetView() const {
-		return glm::lookAt(CameraTransform.GlobalPosition.ToGLM(), (CameraTransform.GlobalPosition + Front).ToGLM(), Up.ToGLM());
+		return glm::lookAt(transform.GetPosition().ToGLM(), (transform.GetPosition() + front).ToGLM(), up.ToGLM());
 	}
 
 	glm::mat4 Camera3D::GetProjection() const {
-		glm::mat4 proj = glm::perspective(glm::radians(static_cast<float_t>(FieldOfView)), Window->ScreenRatio, 0.1f, 50000.0f);
+		glm::mat4 proj = glm::perspective(glm::radians(static_cast<float_t>(fieldOfView)), window->GetScreenAspectRatio(), 0.1f, 50000.0f);
 
 		return proj;
+	}
+
+	Vector3f Camera3D::GetFrontVector() const {
+		return front;
+	}
+
+	Vector3f Camera3D::GetUpVector() const {
+		return up;
+	}
+
+	Vector3f Camera3D::GetRightVector() const {
+		return right;
 	}
 
 }

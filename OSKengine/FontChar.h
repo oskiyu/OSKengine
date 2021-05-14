@@ -18,17 +18,17 @@ namespace OSK {
 		/// <summary>
 		/// Tamaño del carácter.
 		/// </summary>
-		Vector2 Size;
+		Vector2 size;
 
 		/// <summary>
 		/// Espaciado del carácter.
 		/// </summary>
-		Vector2 Bearing;
+		Vector2 bearing;
 
 		/// <summary>
 		/// Tamaño horizontal del carácter.
 		/// </summary>
-		uint32_t Advance = 0;
+		uint32_t advance = 0;
 
 	};
 

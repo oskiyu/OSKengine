@@ -27,7 +27,7 @@ namespace OSK{
 		/// <param name="direction">Dirección del rayo.</param>
 		/// <param name="sat">Collider a comprobar.</param>
 		/// <returns>Información del raycast.</returns>
-		static RayCastCollisionInfo CastRay(const Vector3f& origin, Vector3f direction, const Collision::SAT_Collider& sat);
+		static RayCastCollisionInfo CastRay(const Vector3f& origin, Vector3f direction, Collision::SAT_Collider sat);
 
 	};
 

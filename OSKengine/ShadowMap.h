@@ -68,51 +68,66 @@ namespace OSK {
 		void Clear();
 
 		/// <summary>
-		/// Información que se manda a la GPU para el renderizado de las sombras.
+		/// UBOs con el DirShadowsUBO.
 		/// </summary>
-		DirLightShadowUBO DirShadowsUBO = {};
-
-		/// <summary>
-		/// Resolución del shadow map.
-		/// </summary>
-		Vector2ui Size;
+		std::vector<GPUDataBuffer>& GetUniformBuffers();
 
 		/// <summary>
 		/// Render target sobre el que se renderiza las sombras.
 		/// </summary>
-		RenderTarget* DirShadows = nullptr;
+		RenderTarget* GetRenderTarget();
 
 		/// <summary>
-		/// UBOs con el DirShadowsUBO.
+		/// Resolución del shadow map.
 		/// </summary>
-		std::vector<GPUDataBuffer> DirShadowsUniformBuffers;
+		Vector2ui GetImageSize() const;
 
 		/// <summary>
 		/// Inicio del rango de la cámara para las sombras.
 		/// </summary>
-		float DepthRangeNear = 0.0f;
+		float depthRangeNear = 0.0f;
 
 		/// <summary>
 		/// Fin del rango de la cámara para las sombras.
 		/// </summary>
-		float DepthRangeFar = 100.0f;
+		float depthRangeFar = 100.0f;
+
+	//private:
+
+		/// <summary>
+		/// Render target sobre el que se renderiza las sombras.
+		/// </summary>
+		RenderTarget* dirShadows = nullptr;
+
+		/// <summary>
+		/// Resolución del shadow map.
+		/// </summary>
+		Vector2ui size;
+
+		/// <summary>
+		/// UBOs con el DirShadowsUBO.
+		/// </summary>
+		std::vector<GPUDataBuffer> dirShadowsUniformBuffers;
+
+		/// <summary>
+		/// Información que se manda a la GPU para el renderizado de las sombras.
+		/// </summary>
+		DirLightShadowUBO dirShadowsUBO = {};
 
 		/// <summary>
 		/// 
 		/// </summary>
-		float Density = 20;
+		float density = 20;
 
 		/// <summary>
 		/// Referencia a la luz direccional original.
 		/// </summary>
-		LightUBO* Lights = nullptr;
-		
+		LightUBO* lights = nullptr;
+
 		/// <summary>
 		/// Renderizador.
 		/// </summary>
 		RenderAPI* renderer = nullptr;
-
-	private:
 
 		/// <summary>
 		/// Crea los uniform buffers.
@@ -142,7 +157,7 @@ namespace OSK {
 		/// <summary>
 		/// Referencia al content manager.
 		/// </summary>
-		ContentManager* Content = nullptr;
+		ContentManager* content = nullptr;
 
 	};
 

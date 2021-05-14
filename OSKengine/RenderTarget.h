@@ -28,6 +28,8 @@ namespace OSK {
 	class OSKAPI_CALL RenderTarget {
 
 		friend class RenderAPI;
+		friend class RenderizableScene;
+		friend class RenderSystem3D;
 
 	public:
 
@@ -87,16 +89,6 @@ namespace OSK {
 		void TransitionToTexture(VkCommandBuffer* cmdBuffer);
 
 		/// <summary>
-		/// Framebuffers.
-		/// </summary>
-		std::vector<VULKAN::Framebuffer*> TargetFramebuffers;
-
-		/// <summary>
-		/// Renderpass.
-		/// </summary>
-		VULKAN::Renderpass* VRenderpass = nullptr;
-		
-		/// <summary>
 		/// Resetea el render target.
 		/// </summary>
 		/// <param name="complete">También elimina el renderpass.</param>
@@ -105,12 +97,12 @@ namespace OSK {
 		/// <summary>
 		/// Sprite que contiene la textura renderizada.
 		/// </summary>
-		Sprite RenderedSprite{};
+		Sprite renderedSprite{};
 
 		/// <summary>
 		/// Tamaño de la imagen renderizada.
 		/// </summary>
-		Vector2ui Size;
+		Vector2ui GetSize();
 
 	private:
 
@@ -123,7 +115,7 @@ namespace OSK {
 		/// <summary>
 		/// Content manager que contiene el sprite.
 		/// </summary>
-		ContentManager* Content = nullptr;
+		ContentManager* content = nullptr;
 
 		/// <summary>
 		/// Renderizador.
@@ -138,7 +130,22 @@ namespace OSK {
 		/// <summary>
 		/// Formato de la imagen.
 		/// </summary>
-		VkFormat Format;
+		VkFormat format;
+
+		/// <summary>
+		/// Framebuffers.
+		/// </summary>
+		std::vector<VULKAN::Framebuffer*> targetFramebuffers;
+
+		/// <summary>
+		/// Renderpass.
+		/// </summary>
+		VULKAN::Renderpass* vulkanRenderpass = nullptr;
+
+		/// <summary>
+		/// Tamaño de la imagen renderizada.
+		/// </summary>
+		Vector2ui size;
 
 	};
 

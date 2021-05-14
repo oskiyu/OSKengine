@@ -9,22 +9,6 @@ namespace OSK::NET {
 		id = 0;
 	}
 
-
-	void Server::SetNewConnectionCallback(OSKnet_new_connection_callback callback) {
-		new_connection_callback = callback;
-	}
-
-
-	void Server::SetMessageReceivedCallback(OSKnet_message_received_callback callback) {
-		message_received_callback = callback;
-	}
-
-
-	void Server::SetDisconnectCallback(OSKnet_disconnect_callback callback) {
-		disconnection_callback = callback;
-	}
-
-
 	bool Server::Start(const uint32_t& max_connections, const uint32_t& channel_count, const uint32_t& in_bandwidht, const uint32_t& out_bandwidht) {
 		if (is_running)
 			return false;
@@ -76,17 +60,13 @@ namespace OSK::NET {
 
 
 	void Server::SendMessageToAll(Message& message, const uint32_t& channel) {
-		auto msg = message.GetRawDataToBeSent();
-		ENetPacket* packet = enet_packet_create(msg, strlen(msg) + 1, 0);
-
-		enet_host_broadcast(server, 0, packet);
+		ENetPacket* packet = enet_packet_create(message.buffer.Read(0), message.buffer.GetSize() + 1, 0);
+		enet_host_broadcast(server, channel, packet);
 	}
 
 
 	void Server::SendMessageToClient(Message& message, ENetPeer* client, const uint32_t& channel) {
-		auto msg = message.GetRawDataToBeSent();
-		ENetPacket* packet = enet_packet_create(msg, strlen(msg) + 1, 0);
-		
+		ENetPacket* packet = enet_packet_create(message.buffer.Read(0), message.buffer.GetSize() + 1, 0);
 		enet_peer_send(client, channel, packet);
 	}
 

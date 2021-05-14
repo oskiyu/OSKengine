@@ -4,30 +4,30 @@
 
 using namespace OSK;
 
-MaterialPool::MaterialPool(RenderAPI* renderer) : Renderer(renderer) {
-
+MaterialPool::MaterialPool(RenderAPI* renderer) {
+	this->renderer = renderer;
 }
 
 MaterialPool::~MaterialPool() {
-	//Free();
+	Free();
 }
 
 void MaterialPool::AddBinding(MaterialBindingType binding, MaterialBindingShaderStage shaderStage) {
-	Bindings.push_back({ binding, shaderStage });
+	bindings.push_back({ binding, shaderStage });
 }
 
 //Añade el descriptor set al pool del último data.
 //Si el último data está lleno, se crea un nuevo pool.
 MaterialInstance* MaterialPool::CreateInstance() {
-	if (Datas.size() == 0)
+	if (datas.size() == 0)
 		AddNewData();
 
 	MaterialInstance* instance = new MaterialInstance;
 
-	auto& data = Datas.back();
+	auto& data = datas.back();
 
-	instance->DSet = data.GetNextDescriptorSet();
-	instance->OwnerPool = this;
+	instance->descriptorSetIndex = data.GetNextDescriptorSet();
+	instance->ownerPool = this;
 
 	if (data.IsFull())
 		AddNewData();
@@ -36,40 +36,38 @@ MaterialInstance* MaterialPool::CreateInstance() {
 }
 
 void MaterialPool::Free() {
-	for (auto& i : Datas)
+	for (auto& i : datas)
 		i.Free();
 
-	Datas.clear();
+	datas.clear();
 }
 
 void MaterialPool::AddNewData() {
-	MaterialPoolData newData(Renderer);
-	newData.DPool = Renderer->CreateNewDescriptorPool();
-	newData.DPool->SetLayout(Layout);
-	newData.SetLayout(Layout);
+	MaterialPoolData newData(renderer, datas.size() * MaterialPoolSize);
+	newData.SetLayout(layout);
 
-	for (uint32_t i = 0; i < Bindings.size(); i++)
-		newData.DPool->AddBinding(GetVulkanBindingType(Bindings[i].Type));
+	std::vector<VkDescriptorType> nativeBindings;
+	for (uint32_t i = 0; i < bindings.size(); i++)
+		nativeBindings.push_back(GetVulkanBindingType(bindings[i].type));
 
-	newData.DPool->Create(MaterialPoolSize);
-	newData.BaseSize = Datas.size() * MaterialPoolSize;
+	newData.SetBindings(nativeBindings);
 
-	Datas.push_back(newData);
+	datas.push_back(newData);
 }
 
 void MaterialPool::SetLayout(const MaterialBindingLayout& layout) {
-	Bindings = layout;
+	bindings = layout;
 }
 
 DescriptorSet* MaterialPool::GetDSet(uint32_t index) {
 	uint32_t bucket = index / MaterialPoolSize;
 	uint32_t offset = index % MaterialPoolSize;
 
-	return Datas[bucket].DescriptorSets[offset];
+	return datas[bucket].GetDescriptorSet(offset);
 }
 
 void MaterialPool::FreeSet(uint32_t index) {
 	uint32_t bucket = index / MaterialPoolSize;
 
-	Datas[bucket].FreeSpaces.Push(index);
+	datas[bucket].FreeDescriptorSet(index);
 }

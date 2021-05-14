@@ -5,12 +5,16 @@
 #include "RenderizableScene.h"
 #include "RenderStage.h"
 
+class Game;
+
 namespace OSK {
 
 	/// <summary>
 	/// Sistema ECS para el renderizado de modelos 3D.
 	/// </summary>
 	class RenderSystem3D : public ECS::System {
+
+		friend class Game;
 
 	public:
 				
@@ -39,20 +43,26 @@ namespace OSK {
 		/// <returns>Signature.</returns>
 		Signature GetSystemSignature() override;
 
+		RenderizableScene* GetRenderScene() {
+			return renderScene.GetPointer();
+		}
+
+	private:
+
 		/// <summary>
 		/// Renderizador.
 		/// </summary>
-		RenderAPI* Renderer = nullptr;
+		RenderAPI* renderer = nullptr;
 
 		/// <summary>
 		/// Escena 3D renderizada.
 		/// </summary>
-		UniquePtr<RenderizableScene> RScene;
+		UniquePtr<RenderizableScene> renderScene;
 
 		/// <summary>
 		/// Render stage que contiene los spritebatches.
 		/// </summary>
-		RenderStage Stage;
+		RenderStage renderStage;
 
 	};
 

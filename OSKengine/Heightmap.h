@@ -22,12 +22,12 @@ namespace OSK {
 		/// <summary>
 		/// Píxeles del heightmap.
 		/// </summary>
-		uint8_t* Data = nullptr;
+		uint8_t* data = nullptr;
 
 		/// <summary>
 		/// Tamaño (en píxeles) de la imagen del heightmap.
 		/// </summary>
-		Vector2ui Size = { 0, 0 };
+		Vector2ui size = { 0, 0 };
 
 	};
 

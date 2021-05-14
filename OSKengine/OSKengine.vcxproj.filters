@@ -202,6 +202,24 @@
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\Model">
       <UniqueIdentifier>{e5612d88-c3c2-4d9c-a79a-b6da47eb856d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Doc">
+      <UniqueIdentifier>{1772d354-59ad-48dd-8ff1-8f3f7c16449a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Engine\SceneSystem">
+      <UniqueIdentifier>{b4a58e4d-8d76-4c36-b70f-757aac1aa3af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Engine\SceneSystem\Loader">
+      <UniqueIdentifier>{6419c174-8317-406d-8490-02f36b846686}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Engine\SceneSystem\Loader\Tokens">
+      <UniqueIdentifier>{42691ab2-a368-4787-8cf2-6b25329b6fcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Engine\SceneSystem">
+      <UniqueIdentifier>{ad27be8f-7d82-47bb-9448-0d4d1923dc1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Engine\SceneSystem\Tokens">
+      <UniqueIdentifier>{aca84489-7c18-4af1-8232-3ec0a3be622c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -449,6 +467,27 @@
     </ClCompile>
     <ClCompile Include="ModelData.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanner.cpp">
+      <Filter>Archivos de origen\OSKengine\Engine\SceneSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Archivos de origen\OSKengine\Engine\SceneSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaceToken.cpp">
+      <Filter>Archivos de origen\OSKengine\Engine\SceneSystem\Tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyboxToken.cpp">
+      <Filter>Archivos de origen\OSKengine\Engine\SceneSystem\Tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainToken.cpp">
+      <Filter>Archivos de origen\OSKengine\Engine\SceneSystem\Tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="VersionToken.cpp">
+      <Filter>Archivos de origen\OSKengine\Engine\SceneSystem\Tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3TokenConverter.cpp">
+      <Filter>Archivos de origen\OSKengine\Engine\SceneSystem\Tokens</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -887,17 +926,42 @@
     <ClInclude Include="PushConst2D.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan</Filter>
     </ClInclude>
+    <ClInclude Include="Scanner.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\SceneSystem\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="IToken.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\SceneSystem\Loader\Tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaceToken.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\SceneSystem\Loader\Tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3TokenConverter.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\SceneSystem\Loader\Tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="VersionToken.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\SceneSystem\Loader\Tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyboxToken.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\SceneSystem\Loader\Tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainToken.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\SceneSystem\Loader\Tokens</Filter>
+    </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Archivos de encabezado\OSKengine\Engine</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Engine\SceneSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="TODO.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="cpp.hint" />
-    <None Include="ClassDiagram.cd" />
-    <None Include="VersionHistory.md" />
+    <None Include="VersionHistory.md">
+      <Filter>Doc</Filter>
+    </None>
+    <None Include="ClassDiagram.cd">
+      <Filter>Doc</Filter>
+    </None>
+    <None Include="..\Frameworks\OSKengine\Doc\ScenerySystemSpec.md">
+      <Filter>Doc</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="OSKengine.rc">
@@ -908,5 +972,10 @@
     <Image Include="Resources\OSKengine_icon_lowres.ico">
       <Filter>Archivos de recursos</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="TODO.txt">
+      <Filter>Doc</Filter>
+    </Text>
   </ItemGroup>
 </Project>

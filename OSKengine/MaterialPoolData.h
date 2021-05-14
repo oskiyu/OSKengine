@@ -31,7 +31,7 @@ namespace OSK {
 		/// Crea el data.
 		/// </summary>
 		/// <param name="renderer">Renderizador.</param>
-		MaterialPoolData(RenderAPI* renderer);
+		MaterialPoolData(RenderAPI* renderer, uint32_t baseSize);
 
 		/// <summary>
 		/// Destruye el data.
@@ -52,26 +52,25 @@ namespace OSK {
 		void SetLayout(DescriptorLayout* layout);
 
 		/// <summary>
-		/// Descriptor pool.
-		/// </summary>
-		DescriptorPool* DPool = nullptr;
-
-		/// <summary>
-		/// Descriptor set más alto que ha sido utilizado.
-		/// </summary>
-		uint32_t CurrentSize = 0;
-
-		/// <summary>
-		/// ID del primer descriptor set del data.
-		/// 0 - 32 - 64 ...
-		/// </summary>
-		uint32_t BaseSize = 0;
-
-		/// <summary>
 		/// True si el pool está lleno.
 		/// </summary>
 		/// <returns>Estado del pool.</returns>
 		bool IsFull() const;
+
+		/// <summary>
+		/// Establece los bindings.
+		/// </summary>
+		void SetBindings(const std::vector<VkDescriptorType>& bindings);
+
+		/// <summary>
+		/// Devuelve el descriptor set localizado en la posición dada (local).
+		/// </summary>
+		DescriptorSet* GetDescriptorSet(uint32_t localIndex);
+
+		/// <summary>
+		/// Libera un descriptor set.
+		/// </summary>
+		void FreeDescriptorSet(uint32_t localIndex);
 
 		/// <summary>
 		/// Devuelve el ID del próximo descriptor set vacío.
@@ -79,20 +78,38 @@ namespace OSK {
 		/// <returns>ID.</returns>
 		uint32_t GetNextDescriptorSet();
 
+	private:
+
+		/// <summary>
+		/// Descriptor pool.
+		/// </summary>
+		DescriptorPool* descriptorPool = nullptr;
+
+		/// <summary>
+		/// Descriptor set más alto que ha sido utilizado.
+		/// </summary>
+		uint32_t currentSize = 0;
+
+		/// <summary>
+		/// ID del primer descriptor set del data.
+		/// 0 - 32 - 64 ...
+		/// </summary>
+		uint32_t baseSize = 0;
+
 		/// <summary>
 		/// Espacios sin asignar.
 		/// </summary>
-		ArrayStack<uint32_t> FreeSpaces;
+		ArrayStack<uint32_t> freeSpaces;
 
 		/// <summary>
 		/// Descriptor sets del pool
 		/// </summary>
-		std::vector<DescriptorSet*> DescriptorSets;
+		std::vector<DescriptorSet*> descriptorSets;
 
 		/// <summary>
 		/// Renderizador.
 		/// </summary>
-		RenderAPI* Renderer = nullptr;
+		RenderAPI* renderer = nullptr;
 
 	};
 

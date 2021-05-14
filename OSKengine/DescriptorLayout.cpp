@@ -6,13 +6,13 @@
 
 namespace OSK {
 
-	DescriptorLayout::DescriptorLayout(VkDevice logicalDevice) : LogicalDevice(logicalDevice) {
+	DescriptorLayout::DescriptorLayout(VkDevice logicalDevice) : logicalDevice(logicalDevice) {
 
 	}
 
 	DescriptorLayout::~DescriptorLayout() {
-		if (VulkanDescriptorSetLayout != VK_NULL_HANDLE)
-			vkDestroyDescriptorSetLayout(LogicalDevice, VulkanDescriptorSetLayout, nullptr);
+		if (vulkanDescriptorSetLayout != VK_NULL_HANDLE)
+			vkDestroyDescriptorSetLayout(logicalDevice, vulkanDescriptorSetLayout, nullptr);
 	}
 
 	void DescriptorLayout::AddBinding(uint32_t binding, VkDescriptorType type, VkShaderStageFlags stage, uint32_t count) {
@@ -23,20 +23,20 @@ namespace OSK {
 		layoutBinding.stageFlags = stage;
 		layoutBinding.pImmutableSamplers = nullptr;
 
-		DescriptorLayoutBindings.Insert(layoutBinding);
+		descriptorLayoutBindings.Insert(layoutBinding);
 	}
 
 	void DescriptorLayout::AddBinding(VkDescriptorType type, VkShaderStageFlags stage) {
-		AddBinding(DescriptorLayoutBindings.GetSize(), type, stage);
+		AddBinding(descriptorLayoutBindings.GetSize(), type, stage);
 	}
 
 	void DescriptorLayout::Create() {
 		VkDescriptorSetLayoutCreateInfo layoutInfo{};
 		layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-		layoutInfo.bindingCount = DescriptorLayoutBindings.GetSize();
-		layoutInfo.pBindings = DescriptorLayoutBindings.GetData();
+		layoutInfo.bindingCount = descriptorLayoutBindings.GetSize();
+		layoutInfo.pBindings = descriptorLayoutBindings.GetData();
 
-		VkResult result = vkCreateDescriptorSetLayout(LogicalDevice, &layoutInfo, nullptr, &VulkanDescriptorSetLayout);
+		VkResult result = vkCreateDescriptorSetLayout(logicalDevice, &layoutInfo, nullptr, &vulkanDescriptorSetLayout);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear descriptor set layout.");
 	}

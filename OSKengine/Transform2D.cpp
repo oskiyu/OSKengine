@@ -4,117 +4,176 @@
 namespace OSK {
 
 	Transform2D::Transform2D() {
-		Position = Vector2(0);
-		Scale = Vector2(1);
-		Rotation = 0;
+		position = Vector2(0);
+		scale = Vector2(1);
+		rotation = 0;
 
-		GlobalPosition = Vector2(0);
-		GlobalScale = Vector2(0);
-		GlobalRotation = 0;
+		globalPosition = Vector2(0);
+		globalScale = Vector2(0);
+		globalRotation = 0;
 
-		PositionOffset = Vector2(0);
-		ScaleOffset = Vector2(0);
-		RotationOffset = 0;
+		positionOffset = Vector2(0);
+		scaleOffset = Vector2(0);
+		rotationOffset = 0;
 
 		UpdateModel();
 	}
 
 	Transform2D::Transform2D(const Vector2& position, const Vector2& scale, float rotation) {
-		Position = position;
-		Scale = scale;
-		Rotation = rotation;
+		this->position = position;
+		this->scale = scale;
+		this->rotation = rotation;
 
-		GlobalPosition = Vector2(0);
-		GlobalScale = Vector2(0);
-		GlobalRotation = 0;
+		globalPosition = Vector2(0);
+		globalScale = Vector2(0);
+		globalRotation = 0;
 
-		PositionOffset = Vector2(0);
-		ScaleOffset = Vector2(0);
-		RotationOffset = 0;
+		positionOffset = Vector2(0);
+		scaleOffset = Vector2(0);
+		rotationOffset = 0;
 
 		UpdateModel();
 	}
 
 	void Transform2D::SetPosition(const Vector2& position) {
-		Position = position;
+		this->position = position;
+
 		UpdateModel();
 	}
 
 	void Transform2D::SetScale(const Vector2& scale) {
-		Scale = scale;
+		this->scale = scale;
+
 		UpdateModel();
 	}
 
 	void Transform2D::SetRotation(float rotation) {
-		Rotation = rotation;
+		this->rotation = rotation;
+
 		UpdateModel();
 	}
 
 	void Transform2D::AddPosition(const Vector2& positionDelta) {
-		SetPosition(Position + positionDelta);
+		SetPosition(position + positionDelta);
 	}
 
 	void Transform2D::AddScale(const Vector2& scaleDelta) {
-		SetScale(Scale + scaleDelta);
+		SetScale(scale + scaleDelta);
 	}
 
 	void Transform2D::AddRotation(float rotationDelta) {
-		SetRotation(Rotation + rotationDelta);
+		SetRotation(rotation + rotationDelta);
 	}
 
 	void Transform2D::UpdateModel() {
-		GlobalPosition = Position + PositionOffset;
-		GlobalRotation = Rotation + RotationOffset;
-		if (UseParentScale)
-			GlobalScale = Scale + ScaleOffset;
+		globalPosition = position + positionOffset;
+		globalRotation = rotation + rotationOffset;
+		if (useParentScale)
+			globalScale = scale + scaleOffset;
 		else
-			GlobalScale = Scale;
+			globalScale = scale;
 
-		ModelMatrix = glm::mat4(1.0f);
+		modelMatrix = glm::mat4(1.0f);
 
-		ModelMatrix = glm::translate(ModelMatrix, glm::vec3(GlobalPosition.X, GlobalPosition.Y, 0.0f));
+		modelMatrix = glm::translate(modelMatrix, glm::vec3(globalPosition.X, globalPosition.Y, 0.0f));
 
-		ModelMatrix = glm::translate(ModelMatrix, glm::vec3(0.5f * GlobalPosition.X, 0.5f * GlobalPosition.Y, 0.0f));
-		ModelMatrix = glm::rotate(ModelMatrix, glm::radians(GlobalRotation), glm::vec3(0.0f, 0.0f, 1.0f));
-		ModelMatrix = glm::translate(ModelMatrix, glm::vec3(-0.5f * GlobalPosition.X, -0.5f * GlobalPosition.Y, 0.0f));
+		modelMatrix = glm::translate(modelMatrix, glm::vec3(0.5f * globalPosition.X, 0.5f * globalPosition.Y, 0.0f));
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(globalRotation), glm::vec3(0.0f, 0.0f, 1.0f));
+		modelMatrix = glm::translate(modelMatrix, glm::vec3(-0.5f * globalPosition.X, -0.5f * globalPosition.Y, 0.0f));
 
-		ModelMatrix = glm::scale(ModelMatrix, glm::vec3(GlobalScale.X, GlobalScale.Y, 1.0f));
+		modelMatrix = glm::scale(modelMatrix, glm::vec3(globalScale.X, globalScale.Y, 1.0f));
 
 		if (isParent) {
-			for (uint32_t i = 0; i < ChildTransforms.size(); i++) {
-				if (ChildTransforms[i]->ParentTransform == this) {
-					ChildTransforms[i]->RotationOffset = GlobalRotation;
-					ChildTransforms[i]->PositionOffset = GlobalPosition;
-					ChildTransforms[i]->ScaleOffset = GlobalScale;
-					ChildTransforms[i]->UpdateModel();
+			for (uint32_t i = 0; i < childTransforms.size(); i++) {
+				if (childTransforms[i]->parentTransform == this) {
+					childTransforms[i]->rotationOffset = globalRotation;
+					childTransforms[i]->positionOffset = globalPosition;
+					childTransforms[i]->scaleOffset = globalScale;
+					childTransforms[i]->UpdateModel();
 				}
 				else {
-					ChildTransforms.erase(ChildTransforms.begin() + i);
+					childTransforms.erase(childTransforms.begin() + i);
 				}
 			}
 		}
 	}
 
 	void Transform2D::AttachTo(Transform2D* baseTransform) {
-		for (auto i : ChildTransforms)
+		for (auto i : childTransforms)
 			if (i == baseTransform)
 				return;
 
-		ParentTransform = baseTransform;
+		parentTransform = baseTransform;
 
-		baseTransform->ChildTransforms.push_back(this);
+		baseTransform->childTransforms.push_back(this);
 		baseTransform->isParent = true;
 
 		isAttached = true;
 	}
 
 	void Transform2D::UnAttach() {
-		ParentTransform = nullptr;
+		parentTransform = nullptr;
 		isAttached = false;
 	}
 
 	Vector4 Transform2D::GetRectangle() const {
-		return Vector4(GlobalPosition.X, GlobalPosition.Y, GlobalScale.X, GlobalScale.Y);
+		return Vector4(globalPosition.X, globalPosition.Y, globalScale.X, globalScale.Y);
+	}
+
+	Vector2 Transform2D::GetPosition() const {
+		return globalPosition;
+	}
+
+	Vector2 Transform2D::GetScale() const {
+		return globalScale;
+	}
+
+	float Transform2D::GetRotation() const {
+		return globalRotation;
+	}
+
+	Vector2 Transform2D::GetLocalPosition() const {
+		return position;
+	}
+
+	Vector2 Transform2D::GetLocalScale() const {
+		return scale;
+	}
+
+	float Transform2D::GetLocalRotation() const {
+		return rotation;
+	}
+
+	glm::mat4 Transform2D::AsMatrix() const {
+		return modelMatrix;
+	}
+
+	Transform2D* Transform2D::GetParent() {
+		return parentTransform;
+	}
+
+	std::vector<Transform2D*> Transform2D::GetChildTransforms() const {
+		return childTransforms;
+	}
+
+	Vector2 Transform2D::GetPositionOffset() const {
+		return positionOffset;
+	}
+
+	Vector2 Transform2D::GetScaleOffset() const {
+		return scaleOffset;
+	}
+
+	float Transform2D::GetRotationOffset() const {
+		return rotationOffset;
+	}
+
+	bool Transform2D::IsUsingParentScale() const {
+		return useParentScale;
+	}
+
+	void Transform2D::SetShoulduseParentScale(bool useParentScale) {
+		this->useParentScale = useParentScale;
 	}
 
 }

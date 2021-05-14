@@ -6,6 +6,7 @@
 using namespace OSK;
 
 void GameObject::Remove() {
+	DeleteOnScene(this);
 	Delete(this);
 }
 
@@ -21,4 +22,8 @@ void GameObject::AddAnimatedModel(const std::string& path, ContentManager* conte
 		AddComponent<ModelComponent>({});
 
 	GetComponent<ModelComponent>().AddAnimatedModel(path, content);
+}
+
+std::string GameObject::GetInstanceName() const {
+	return instanceName;
 }

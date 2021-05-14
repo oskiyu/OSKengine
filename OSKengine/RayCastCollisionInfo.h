@@ -15,12 +15,12 @@ namespace OSK {
 		/// <summary>
 		/// True si lo intersecta.
 		/// </summary>
-		bool IsColliding = false;
+		bool isColliding = false;
 
 		/// <summary>
 		/// Distancia del punto de intersección desde el origen del rayo.
 		/// </summary>
-		float DistanceFromOrigin = { 0.0f };
+		float distanceFromOrigin = { 0.0f };
 
 	};
 

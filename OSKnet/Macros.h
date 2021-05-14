@@ -3,11 +3,11 @@
 //#define OSK_DLL
 #define OSK_DLL_EXPORT
 
-#define OSK_NET_VERSION_MAYOR_STR "Alpha"
-#define OSK_NET_VERSION_MAYOR 0
+#define OSK_NET_VERSION_MAYOR_STR "Release"
+#define OSK_NET_VERSION_MAYOR 1
 #define OSK_NET_VERSION_MINOR 0
-#define OSK_NET_VERSION_NUMERIC "0.0"
-#define OSK_NET_VERSION_TOTAL "Alpha 0.0"
+#define OSK_NET_VERSION_NUMERIC "1.0"
+#define OSK_NET_VERSION_TOTAL "Release 1.0"
 
 #ifdef OSK_DLL
 #ifdef OSK_DLL_EXPORT
@@ -17,10 +17,4 @@
 #endif
 #else
 #define OSKAPI_CALL
-#endif
-
-#ifdef OSK_DLL
-#define ENET_IMPORT #include <enet/enet.h>
-#else
-#define ENET_IMPORT
 #endif

@@ -138,7 +138,7 @@ namespace OSK {
 		/// <returns>Sistema creado.</returns>
 		template <typename T> T* RegisterSystem() {
 			T* system = systemManager->CreateSystem<T>();
-			system->ECSsystem = this;
+			system->entityComponentSystem = this;
 			systemManager->SetSignature<T>(system->GetSystemSignature());
 			system->OnCreate();
 
@@ -196,6 +196,18 @@ namespace OSK {
 		/// <summary>
 		/// Spawnea un game object en el mundo.
 		/// </summary>
+		/// <param name="className">Nombre de la clase del game object.</param>
+		/// <param name="instanceName">Nombre de esta instancia.</param>
+		/// <param name="position">Posición del objeto en el mundo.</param>
+		/// <param name="axis">Eje sobre el que se va a aplicar la rotación inicial.</param>
+		/// <param name="angle">Ángulo de la rotación inicial.</param>
+		/// <param name="size">Escala inicial.</param>
+		/// <returns>Puntero al nuevo objeto.</returns>
+		GameObject* Spawn(const std::string& className, const std::string& instanceName, const Vector3f& position = { 0.0f }, const Vector3f& axis = { 0.0f, 1.0f, 0.0f }, float angle = 0.0f, const Vector3f& size = { 1.0f });
+
+		/// <summary>
+		/// Spawnea un game object en el mundo.
+		/// </summary>
 		/// <typeparam name="T">Clase del game object.</typeparam>
 		/// <param name="position">Posición del objeto en el mundo.</param>
 		/// <param name="axis">Eje sobre el que se va a aplicar la rotación inicial.</param>
@@ -207,11 +219,29 @@ namespace OSK {
 		}
 
 		/// <summary>
+		/// Spawnea un game object en el mundo.
+		/// </summary>
+		/// <typeparam name="T">Clase del game object.</typeparam>
+		/// <param name="instanceName">Nombre de la instancia.</param>
+		/// <param name="position">Posición del objeto en el mundo.</param>
+		/// <param name="axis">Eje sobre el que se va a aplicar la rotación inicial.</param>
+		/// <param name="angle">Ángulo de la rotación inicial.</param>
+		/// <param name="size">Escala inicial.</param>
+		/// <returns>Puntero al nuevo objeto.</returns>
+		template <typename T> T* Spawn(const std::string& instanceName, const Vector3f& position = { 0.0f }, const Vector3f& axis = { 0.0f, 1.0f, 0.0f }, float angle = 0.0f, const Vector3f& size = { 1.0f }) {
+			return (T*)Spawn(T::GetClassName(), instanceName, position, axis, angle, size);
+		}
+
+		/// <summary>
 		/// Devuelve el game object con la ID dada.
 		/// </summary>
 		/// <param name="id">ID.</param>
 		/// <returns>Game object instance.</returns>
 		GameObject* GetGameObjectByID(ECS::GameObjectID id) const;
+
+		std::list<GameObject*>& GetAllGameObjects() {
+			return gameObjectsReferences;
+		}
 
 	private:
 
@@ -245,12 +275,22 @@ namespace OSK {
 		/// <summary>
 		/// Map ID del objeto -> objeto.
 		/// </summary>
-		std::unordered_map<ECS::GameObjectID, GameObject*> GameObjects;
+		std::unordered_map<ECS::GameObjectID, GameObject*> gameObjects;
+
+		/// <summary>
+		/// Map nombre de objeto -> ID del objeto.
+		/// </summary>
+		std::unordered_map<std::string, ECS::GameObjectID> instancesByName;
 
 		/// <summary>
 		/// Map nombre de clase -> función crear clase.
 		/// </summary>
-		std::unordered_map<std::string, GameObjectCreateFunc> RegisteredGOClasses;
+		std::unordered_map<std::string, GameObjectCreateFunc> registeredGameObjectClasses;
+
+		/// <summary>
+		/// Referencias a los game objects spawneados.
+		/// </summary>
+		std::list<GameObject*> gameObjectsReferences;
 
 	};
 

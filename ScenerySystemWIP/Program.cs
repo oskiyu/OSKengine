@@ -11,7 +11,7 @@ version -1
 skybox abcdesf
 terrain path/terrain.png
  
-place Cube cube1 ({ 0, 1, 0} {0, 2, 0} { 1, 1, 1 })
+place Cube cube1 ( 0.0, 1.2, 0.2586 ) (0.2578, 2, 0) ( 1, 1, 1 )
                 ";
 
             Scanner sc = new Scanner();

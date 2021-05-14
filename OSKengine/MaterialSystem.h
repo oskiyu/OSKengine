@@ -66,17 +66,17 @@ namespace OSK {
 		/// <summary>
 		/// Materiales.
 		/// </summary>
-		std::unordered_map<std::string, Material*> Materials;
+		std::unordered_map<std::string, Material*> materials;
 
 		/// <summary>
 		/// Renderpasses enlazados a los materiales.
 		/// </summary>
-		std::list<VULKAN::Renderpass*> Renderpasses;
+		std::list<VULKAN::Renderpass*> renderpasses;
 
 		/// <summary>
 		/// Renderizador.
 		/// </summary>
-		RenderAPI* Renderer = nullptr;
+		RenderAPI* renderer = nullptr;
 
 	};
 

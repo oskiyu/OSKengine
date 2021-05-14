@@ -104,37 +104,37 @@ namespace OSK {
 		/// <summary>
 		/// Información del pipeline.
 		/// </summary>
-		MaterialPipelineCreateInfo PipelineInfo;
+		MaterialPipelineCreateInfo pipelineInfo;
 
 		/// <summary>
 		/// Map: nombre del binding -> binding.
 		/// </summary>
-		std::unordered_map<std::string, uint32_t> BindingNameToBinding{};
+		std::unordered_map<std::string, uint32_t> bindingNameToBinding{};
 
 		/// <summary>
 		/// Map: renderpass -> pipeline enlazado al renderpass.
 		/// </summary>
-		std::map<VULKAN::Renderpass*, GraphicsPipeline*> Pipelines;
+		std::map<VULKAN::Renderpass*, GraphicsPipeline*> pipelines;
 
 		/// <summary>
 		/// Lista de renderpasses que aún no se han registrado.
 		/// </summary>
-		std::vector<VULKAN::Renderpass*> RenderpassesToRegister;
+		std::vector<VULKAN::Renderpass*> renderpassesToRegister;
 
 		/// <summary>
 		/// Almacena las instancias de los materiales.
 		/// </summary>
-		MaterialPool* Pool = nullptr;
+		MaterialPool* pool = nullptr;
 
 		/// <summary>
 		/// Descriptor layout del material.
 		/// </summary>
-		DescriptorLayout* MLayout = nullptr;
+		DescriptorLayout* materialLayout = nullptr;
 
 		/// <summary>
 		/// Renderizador.
 		/// </summary>
-		RenderAPI* Renderer = nullptr;
+		RenderAPI* renderer = nullptr;
 
 	};
 

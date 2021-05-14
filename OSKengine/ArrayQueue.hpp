@@ -46,7 +46,7 @@ namespace OSK {
 			/// </summary>
 			/// <returns>Self.</returns>
 			inline Iterator operator++ () {
-				Index++;
+				index++;
 
 				return *this;
 			}
@@ -57,7 +57,7 @@ namespace OSK {
 			/// <param name="it">Otro iterador.</param>
 			/// <returns>True si los dos iterators apuntan al mismo elemento del mismo array.</returns>
 			inline bool operator== (const Iterator& it) const {
-				return Index == it.Index && collection == it.collection;
+				return index == it.index && collection == it.collection;
 			}
 
 			/// <summary>
@@ -66,7 +66,7 @@ namespace OSK {
 			/// <param name="it">Otro iterador.</param>
 			/// <returns>True si los dos iterators NO apuntan al mismo elemento del mismo array.</returns>
 			inline bool operator!= (const Iterator& it) const {
-				return Index != it.Index || collection != it.collection;
+				return index != it.index || collection != it.collection;
 			}
 
 			/// <summary>
@@ -74,7 +74,7 @@ namespace OSK {
 			/// </summary>
 			/// <returns>Valor al que apunta.</returns>
 			inline T& operator*() const {
-				return GetValue(Index);
+				return GetValue(index);
 			}
 
 		private:
@@ -82,7 +82,7 @@ namespace OSK {
 			/// <summary>
 			/// Elemento al que apunta.
 			/// </summary>
-			size_t Index = 0;
+			size_t index = 0;
 
 			/// <summary>
 			/// ArrayQueue al que pertenece.
@@ -95,7 +95,7 @@ namespace OSK {
 		/// Crea la cola con espacio para <InitialSize> elementos.
 		/// </summary>
 		ArrayQueue() {
-			Allocate(InitialSize);
+			Allocate(initialSize);
 		}
 
 		/// <summary>
@@ -103,7 +103,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="list">Elementos iniciales.</param>
 		ArrayQueue(const std::initializer_list<T>& list) {
-			Allocate(InitialSize);
+			Allocate(initialSize);
 
 			for (auto& i : list)
 				Enqueue(i);
@@ -142,12 +142,12 @@ namespace OSK {
 		/// <param name="arr">Array a copiar.</param>
 		void CopyContentFrom(const ArrayQueue& arr) {
 			Delete();
-			Allocate(arr.Capacity);
+			Allocate(arr.capacity);
 
-			memcpy(Data, arr.Data, sizeof(T) * arr.Capacity);
+			memcpy(data, arr.data, sizeof(T) * arr.capacity);
 
-			GrowthFactor = arr.GrowthFactor;
-			GrowthFactorType = arr.GrowthFactorType;
+			growthFactor = arr.growthFactor;
+			growthFactorType = arr.growthFactorType;
 		}
 
 		/// <summary>
@@ -156,17 +156,17 @@ namespace OSK {
 		/// <param name="element">Elemento a insertar.</param>
 		void Enqueue(const T& element) {
 			if (!HasBeenInitialized())
-				Allocate(InitialSize);
+				Allocate(initialSize);
 
-			if (End + 1 > Capacity) {
-				if (GrowthFactorType == GrowthFactorType::EXPONENTIAL)
-					Allocate(Capacity * GrowthFactor);
-				else if (GrowthFactorType == GrowthFactorType::LINEAL)
-					Allocate(Capacity + GrowthFactor);
+			if (endIndex + 1 > capacity) {
+				if (growthFactorType == GrowthFactorType::EXPONENTIAL)
+					Allocate(capacity * growthFactor);
+				else if (growthFactorType == GrowthFactorType::LINEAL)
+					Allocate(capacity + growthFactor);
 			}
 
-			Data[End] = element;
-			End++;
+			data[endIndex] = element;
+			endIndex++;
 		}
 
 		/// <summary>
@@ -188,10 +188,10 @@ namespace OSK {
 			}
 #endif // OSK_DS_SAFE_MODE
 
-			T output = Data[Start];
-			Start++;
+			T output = data[startIndex];
+			startIndex++;
 
-			if (Start == End)
+			if (startIndex == endIndex)
 				Empty();
 
 			return output;
@@ -202,7 +202,7 @@ namespace OSK {
 		/// </summary>
 		/// <returns>Primer iterador.</returns>
 		inline Iterator begin() noexcept {
-			return GetIterator(Start);
+			return GetIterator(startIndex);
 		}
 
 		/// <summary>
@@ -210,7 +210,7 @@ namespace OSK {
 		/// </summary>
 		/// <returns>Último iterador.</returns>
 		inline Iterator end() noexcept {
-			return GetIterator(End);
+			return GetIterator(endIndex);
 		}
 
 		/// <summary>
@@ -221,7 +221,7 @@ namespace OSK {
 		inline Iterator GetIterator(size_t index) noexcept {
 			Iterator it;
 			it.collection = this;
-			it.Index = index;
+			it.index = index;
 
 			return it;
 		}
@@ -238,7 +238,7 @@ namespace OSK {
 		/// </summary>
 		/// <returns>Estado de la cola.</returns>
 		inline bool IsEmpty() const noexcept {
-			return End == 0;
+			return endIndex == 0;
 		}
 
 		/// <summary>
@@ -246,7 +246,7 @@ namespace OSK {
 		/// </summary>
 		/// <returns>Número de elementos.</returns>
 		inline size_t GetSize() const noexcept {
-			return End - Start;
+			return endIndex - startIndex;
 		}
 
 		/// <summary>
@@ -254,7 +254,7 @@ namespace OSK {
 		/// </summary>
 		/// <returns>Elementos reservados.</returns>
 		inline size_t GetReservedSize() const noexcept {
-			return Capacity;
+			return capacity;
 		}
 
 		/// <summary>
@@ -262,15 +262,15 @@ namespace OSK {
 		/// </summary>
 		/// <returns>Puntero al array.</returns>
 		inline T* GetData() const noexcept {
-			return Data;
+			return data;
 		}
 
 		/// <summary>
 		/// Vacía la cola (sin liberar memoria).
 		/// </summary>
 		void Empty() {
-			Start = 0;
-			End = 0;
+			startIndex = 0;
+			endIndex = 0;
 		}
 
 		/// <summary>
@@ -278,13 +278,13 @@ namespace OSK {
 		/// </summary>
 		/// <returns>Estado de la cola.</returns>
 		bool HasBeenInitialized(){ 
-			return Data != nullptr;
+			return data != nullptr;
 		}
 
 		/// <summary>
 		/// Factor de crecimiento. Su comportamiento depende de GrowthFactorType.
 		/// </summary>
-		size_t GrowthFactor = 2;
+		size_t growthFactor = 2;
 
 		/*
 		Comportamiento al aumentar de tamaño.
@@ -293,7 +293,7 @@ namespace OSK {
 		/// <summary>
 		/// Comportamiento al aumentar el tamaño del array.
 		/// </summary>
-		GrowthFactorType GrowthFactorType = GrowthFactorType::EXPONENTIAL;
+		GrowthFactorType growthFactorType = GrowthFactorType::EXPONENTIAL;
 
 	private:
 
@@ -302,15 +302,15 @@ namespace OSK {
 		/// </summary>
 		/// <param name="size">Espacio a reservar.</param>
 		void Allocate(size_t size) {
-			size_t oldCapacity = Capacity;
+			size_t oldCapacity = capacity;
 
-			Capacity = size;
+			capacity = size;
 
-			T* oldData = Data;
-			Data = (T*)malloc(sizeof(T) * size);
+			T* oldData = data;
+			data = (T*)malloc(sizeof(T) * size);
 
 			if (oldData) {
-				memcpy(Data, oldData, oldCapacity * sizeof(T));
+				memcpy(data, oldData, oldCapacity * sizeof(T));
 				free(oldData);
 			}
 		}
@@ -319,40 +319,40 @@ namespace OSK {
 		/// Elimina el array.
 		/// </summary>
 		void Delete() {
-			if (Data) {
-				free(Data);
-				Data = nullptr;
+			if (data) {
+				free(data);
+				data = nullptr;
 			}
 
-			Capacity = 0;
-			Start = 0;
-			End = 0;
+			capacity = 0;
+			startIndex = 0;
+			endIndex = 0;
 		}
 
 		/// <summary>
 		/// Array.
 		/// </summary>
-		T* Data = nullptr;
+		T* data = nullptr;
 
 		/// <summary>
 		/// Número de espacios reservados.
 		/// </summary>
-		size_t Capacity = 0;
+		size_t capacity = 0;
 
 		/// <summary>
 		/// Principio de la cola.
 		/// </summary>
-		size_t Start = 0;
+		size_t startIndex = 0;
 
 		/// <summary>
 		/// Fin de la cola.
 		/// </summary>
-		size_t End = 0;
+		size_t endIndex = 0;
 
 		/// <summary>
 		/// Tamaño inicial.
 		/// </summary>
-		const size_t InitialSize = 64;
+		const size_t initialSize = 64;
 
 	};
 

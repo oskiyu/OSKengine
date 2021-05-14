@@ -25,6 +25,8 @@ namespace OSK::VULKAN {
 	class OSKAPI_CALL Framebuffer {
 
 		friend class OSK::RenderAPI;
+		friend class RenderizableScene;
+		friend class RenderSystem3D;
 
 	public:
 
@@ -59,11 +61,6 @@ namespace OSK::VULKAN {
 		/// </summary>
 		void Clear();
 
-		/// <summary>
-		/// Framebuffer nativo.
-		/// </summary>
-		VkFramebuffer framebuffer;
-
 	private:
 
 		/// <summary>
@@ -71,6 +68,11 @@ namespace OSK::VULKAN {
 		/// </summary>
 		/// <param name="renderer">Renderizador.</param>
 		Framebuffer(OSK::RenderAPI* renderer);
+
+		/// <summary>
+		/// Framebuffer nativo.
+		/// </summary>
+		VkFramebuffer framebuffer;
 
 		/// <summary>
 		/// Renderizador.

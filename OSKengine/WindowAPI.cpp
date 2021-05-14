@@ -7,9 +7,9 @@ namespace OSK {
 	WindowAPI::WindowAPI() {
 		glfwInit();
 
-		ScreenSizeX = 0;
-		ScreenSizeY = 0;
-		ScreenRatio = 0;
+		screenSizeX = 0;
+		screenSizeY = 0;
+		screenRatio = 0;
 
 		window = nullptr;
 	}
@@ -31,16 +31,16 @@ namespace OSK {
 			return false;
 		}
 
-		ScreenSizeX = sizeX;
-		ScreenSizeY = sizeY;
+		screenSizeX = sizeX;
+		screenSizeY = sizeY;
 		
 		posXbackup = 0;
 		posYbackup = 0;
 		sizeXbackup = sizeX;
 		sizeYbackup = sizeY;
 
-		if (ScreenSizeY != 0)
-			ScreenRatio = static_cast<float_t>(sizeX) / static_cast<float_t>(sizeY);
+		if (screenSizeY != 0)
+			screenRatio = static_cast<float_t>(sizeX) / static_cast<float_t>(sizeY);
 
 		glfwSetWindowUserPointer(window, this);
 
@@ -59,16 +59,6 @@ namespace OSK {
 		return true;
 	}
 
-	/*void WindowAPI::SetWindowIcon(const std::string& iconPath) {
-		GLFWimage icons[1];
-		int sizeX;
-		int sizeY;
-		int nChannels;
-		icons[0].pixels = stbi_load(iconPath.c_str(), &sizeX, &sizeY, 0, 4);
-		glfwSetWindowIcon(window, 1, icons);
-		stbi_image_free(icons[0].pixels);
-	}*/
-
 	bool WindowAPI::WindowShouldClose() {
 		updateMouseButtons();
 
@@ -78,46 +68,46 @@ namespace OSK {
 	void WindowAPI::PollEvents() {
 		glfwPollEvents();
 
-		mouseState.OldScrollX = mouseState.ScrollX;
-		mouseState.OldScrollY = mouseState.ScrollY;
+		mouseState.oldScrollX = mouseState.scrollX;
+		mouseState.oldScrollY = mouseState.scrollY;
 	}
 
 
 	void WindowAPI::UpdateKeyboardState(KeyboardState& keyboard) {
-		keyboard.KeyStates[static_cast<keyCode_t>(Key::SPACE)] = glfwGetKey(window, GLFW_KEY_SPACE);
-		keyboard.KeyStates[static_cast<keyCode_t>(Key::APOSTROPHE)] = glfwGetKey(window, GLFW_KEY_APOSTROPHE);
+		keyboard.keyStates[static_cast<keyCode_t>(Key::SPACE)] = glfwGetKey(window, GLFW_KEY_SPACE);
+		keyboard.keyStates[static_cast<keyCode_t>(Key::APOSTROPHE)] = glfwGetKey(window, GLFW_KEY_APOSTROPHE);
 		
 		for (keyCode_t i = 0; i < 14; i++) {
-			keyboard.KeyStates[static_cast<keyCode_t>(Key::COMMA) + i] = glfwGetKey(window, GLFW_KEY_COMMA + i);
+			keyboard.keyStates[static_cast<keyCode_t>(Key::COMMA) + i] = glfwGetKey(window, GLFW_KEY_COMMA + i);
 		}
 
-		keyboard.KeyStates[static_cast<keyCode_t>(Key::SEMICOLON)] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_SEMICOLON));
-		keyboard.KeyStates[static_cast<keyCode_t>(Key::EQUAL)] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_EQUAL));
+		keyboard.keyStates[static_cast<keyCode_t>(Key::SEMICOLON)] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_SEMICOLON));
+		keyboard.keyStates[static_cast<keyCode_t>(Key::EQUAL)] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_EQUAL));
 
 		for (keyCode_t i = 0; i < 29; i++) {
-			keyboard.KeyStates[static_cast<keyCode_t>(Key::A) + i] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_A + i));
+			keyboard.keyStates[static_cast<keyCode_t>(Key::A) + i] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_A + i));
 		}
 
-		keyboard.KeyStates[static_cast<keyCode_t>(Key::GRAVE_ACCENT)] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_GRAVE_ACCENT));
+		keyboard.keyStates[static_cast<keyCode_t>(Key::GRAVE_ACCENT)] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_GRAVE_ACCENT));
 	
 		for (keyCode_t i = 0; i < 14; i++) {
-			keyboard.KeyStates[static_cast<keyCode_t>(Key::ESCAPE) + i] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_ESCAPE + i));
+			keyboard.keyStates[static_cast<keyCode_t>(Key::ESCAPE) + i] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_ESCAPE + i));
 		}
 
 		for (keyCode_t i = 0; i < 5; i++) {
-			keyboard.KeyStates[static_cast<keyCode_t>(Key::CAPS_LOCK) + i] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_CAPS_LOCK + i));
+			keyboard.keyStates[static_cast<keyCode_t>(Key::CAPS_LOCK) + i] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_CAPS_LOCK + i));
 		}
 		
 		for (keyCode_t i = 0; i < 25; i++) {
-			keyboard.KeyStates[static_cast<keyCode_t>(Key::F1) + i] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_F1 + i));
+			keyboard.keyStates[static_cast<keyCode_t>(Key::F1) + i] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_F1 + i));
 		}
 
 		for (keyCode_t i = 0; i < 17; i++) {
-			keyboard.KeyStates[static_cast<keyCode_t>(Key::KEYPAD_0) + i] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_KP_0 + i));
+			keyboard.keyStates[static_cast<keyCode_t>(Key::KEYPAD_0) + i] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_KP_0 + i));
 		}
 
 		for (keyCode_t i = 0; i < 9; i++) {
-			keyboard.KeyStates[static_cast<keyCode_t>(Key::LEFT_SHIFT) + i] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_LEFT_SHIFT + i));
+			keyboard.keyStates[static_cast<keyCode_t>(Key::LEFT_SHIFT) + i] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_LEFT_SHIFT + i));
 		}
 	}
 
@@ -162,7 +152,7 @@ namespace OSK {
 
 
 	void WindowAPI::SetFullscreen(bool fullscreen) {
-		if (IsFullscreen == fullscreen)
+		if (isFullscreen == fullscreen)
 			return;
 
 		if (fullscreen) {
@@ -180,7 +170,7 @@ namespace OSK {
 			resize(sizeXbackup, sizeYbackup);
 		}
 
-		IsFullscreen = fullscreen;
+		isFullscreen = fullscreen;
 	}
 
 
@@ -189,22 +179,17 @@ namespace OSK {
 	}
 
 	Vector4 WindowAPI::GetRectangle() const {
-		return Vector4(0, 0, ScreenSizeX, ScreenSizeY);
+		return Vector4(0, 0, screenSizeX, screenSizeY);
 	}
 
 
 	void WindowAPI::CenterMouse() {
-		SetMousePosition(ScreenSizeX / 2, ScreenSizeY / 2);
+		SetMousePosition(screenSizeX / 2, screenSizeY / 2);
 	}
 
 
 	deltaTime_t WindowAPI::GetTime() {
 		return static_cast<deltaTime_t>(glfwGetTime());
-	}
-
-
-	GLFWwindow* WindowAPI::GetGLFWWindow() const {
-		return window;
 	}
 
 
@@ -216,15 +201,15 @@ namespace OSK {
 
 
 	void WindowAPI::resize(double_t sizex, double_t sizey) {
-		ScreenSizeX = sizex;
-		ScreenSizeY = sizey;
+		screenSizeX = sizex;
+		screenSizeY = sizey;
 
 		if (sizey != 0)
-			ScreenRatio = static_cast<float_t>(sizex) / static_cast<float_t>(sizey);
+			screenRatio = static_cast<float_t>(sizex) / static_cast<float_t>(sizey);
 
 
 
-		ViewportShouldBeUpdated = true;
+		viewportShouldBeUpdated = true;
 	}
 
 
@@ -236,10 +221,10 @@ namespace OSK {
 
 
 	void WindowAPI::mouseInput(double_t posX, double_t posY) {
-		mouseState.PositionX = posX;
-		mouseState.PositionY = /*ScreenSizeY -*/ posY;
-		mouseState.RelativePositionX = mouseState.PositionX / (double)ScreenSizeX;
-		mouseState.RelativePositionY = mouseState.PositionY / (double)ScreenSizeY;
+		mouseState.positionX = posX;
+		mouseState.positionY = /*ScreenSizeY -*/ posY;
+		mouseState.relativePositionX = mouseState.positionX / (double)screenSizeX;
+		mouseState.relativePositionY = mouseState.positionY / (double)screenSizeY;
 	}
 
 
@@ -251,15 +236,36 @@ namespace OSK {
 
 
 	void WindowAPI::mouseScroll(double_t dX, double_t dY) {
-		mouseState.ScrollX += static_cast<float_t>(dX);
-		mouseState.ScrollY += static_cast<float_t>(dY);
+		mouseState.oldScrollX = mouseState.scrollX;
+		mouseState.oldScrollY = mouseState.scrollY;
+
+		mouseState.scrollX += static_cast<float_t>(dX);
+		mouseState.scrollY += static_cast<float_t>(dY);
 	}
 
 
 	void WindowAPI::updateMouseButtons() {
-		for (buttonCode_t i = 0; i < 8; i++) {
-			mouseState.ButtonStates[i] = static_cast<buttonState_t>(glfwGetMouseButton(window, i));
-		}
+		for (buttonCode_t i = 0; i < 8; i++)
+			mouseState.buttonStates[i] = static_cast<buttonState_t>(glfwGetMouseButton(window, i));
+	}
+
+	Vector2i WindowAPI::GetSize() const {
+		return { screenSizeX, screenSizeY };
+	}
+
+	/// <summary>
+	/// Ratio de aspecto de la ventana.
+	/// En porcentaje de X respecto a Y (x/y).
+	/// </summary>
+	float WindowAPI::GetScreenAspectRatio() const {
+		return screenRatio;
+	}
+
+	/// <summary>
+	/// True si está en pantalla completa.
+	/// </summary>
+	bool WindowAPI::IsFullscreen() const {
+		return isFullscreen;
 	}
 
 }

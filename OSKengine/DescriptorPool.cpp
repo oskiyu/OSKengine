@@ -4,25 +4,25 @@
 
 using namespace OSK;
 
-DescriptorPool::DescriptorPool(VkDevice logicalDevice, uint32_t shapchainImageCount) : LogicalDevice(logicalDevice), SwapchainImageCount(shapchainImageCount) {
+DescriptorPool::DescriptorPool(VkDevice logicalDevice, uint32_t shapchainImageCount) : logicalDevice(logicalDevice), swapchainImageCount(shapchainImageCount) {
 
 }
 
 DescriptorPool::~DescriptorPool() {
-	if (VulkanDescriptorPool != VK_NULL_HANDLE)
-		vkDestroyDescriptorPool(LogicalDevice, VulkanDescriptorPool, nullptr);
+	if (vulkanDescriptorPool != VK_NULL_HANDLE)
+		vkDestroyDescriptorPool(logicalDevice, vulkanDescriptorPool, nullptr);
 }
 
 void DescriptorPool::AddBinding(VkDescriptorType type) {
 	VkDescriptorPoolSize size{};
 	size.type = type;
-	size.descriptorCount = SwapchainImageCount;
+	size.descriptorCount = swapchainImageCount;
 
-	DescriptorPoolSizes.Insert(size);
+	descriptorPoolSizes.Insert(size);
 }
 
 void DescriptorPool::SetLayout(DescriptorLayout* layout) {
-	for (auto& i : layout->DescriptorLayoutBindings) {
+	for (auto& i : layout->descriptorLayoutBindings) {
 		AddBinding(i.descriptorType);
 	}
 }
@@ -30,11 +30,11 @@ void DescriptorPool::SetLayout(DescriptorLayout* layout) {
 void DescriptorPool::Create(uint32_t maxSets) {
 	VkDescriptorPoolCreateInfo poolInfo{};
 	poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-	poolInfo.poolSizeCount = DescriptorPoolSizes.GetSize();
-	poolInfo.pPoolSizes = DescriptorPoolSizes.GetData();
-	poolInfo.maxSets = static_cast<uint32_t>(SwapchainImageCount * maxSets);
+	poolInfo.poolSizeCount = descriptorPoolSizes.GetSize();
+	poolInfo.pPoolSizes = descriptorPoolSizes.GetData();
+	poolInfo.maxSets = static_cast<uint32_t>(swapchainImageCount * maxSets);
 
-	VkResult result = vkCreateDescriptorPool(LogicalDevice, &poolInfo, nullptr, &VulkanDescriptorPool);
+	VkResult result = vkCreateDescriptorPool(logicalDevice, &poolInfo, nullptr, &vulkanDescriptorPool);
 	if (result != VK_SUCCESS)
 		throw std::runtime_error("ERROR: crear descriptor pool.");
 }

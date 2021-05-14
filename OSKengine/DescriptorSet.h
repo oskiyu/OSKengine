@@ -90,11 +90,6 @@ namespace OSK {
 		void Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration, uint32_t dynamicOffset, uint32_t alignment) const;
 
 		/// <summary>
-		/// Descriptor sets nativos de Vulkan.
-		/// </summary>
-		std::vector<VkDescriptorSet> VulkanDescriptorSets;
-
-		/// <summary>
 		/// Restea la información de los bindings.
 		/// </summary>
 		void Reset();
@@ -113,6 +108,11 @@ namespace OSK {
 		/// <param name="logicalDevice">Logical device del renderizador.</param>
 		/// <param name="swapchainCount">Número de imágenes del swapchain del renderizador.</param>
 		DescriptorSet(VkDevice logicalDevice, uint32_t swapchainCount);
+
+		/// <summary>
+		/// Descriptor sets nativos de Vulkan.
+		/// </summary>
+		std::vector<VkDescriptorSet> vulkanDescriptorSets;
 
 		/// <summary>
 		/// Elimina la información nativa de los bindings.

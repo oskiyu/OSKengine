@@ -84,7 +84,7 @@ namespace ScenerySystemWIP {
 				Tokens.Add(token);
 			}
 			if (text == "terrain") {
-				SkyboxToken token = new SkyboxToken();
+				TerrainToken token = new TerrainToken();
 				token.ProcessData(this);
 
 				Tokens.Add(token);
@@ -113,6 +113,40 @@ namespace ScenerySystemWIP {
 			}
 
 			return output;
+		}
+
+		public static bool IsNumber(char c) {
+			switch (c) {
+				case '0':
+				case '1':
+				case '2':
+				case '3':
+				case '4':
+				case '5':
+				case '6':
+				case '7':
+				case '8':
+				case '9':
+				case '.':
+
+					return true;
+			}
+
+			return false;
+        }
+
+		public int ProcessNumber() {
+			string output = "";
+
+			while (PeekNextChar() == ' ')
+				CurrentChar++;
+
+			while (IsNumber(PeekNextChar())) {
+				output += PeekNextChar();
+				CurrentChar++;
+			}
+
+			return Int32.Parse(output);
 		}
 
 		public string ProcessDataToken() {

@@ -2,12 +2,20 @@
 
 #include "GameObject.h"
 
+#include "Scanner.h"
+#include "FileIO.h"
+
+#include "PlaceToken.h"
+#include "SkyboxToken.h"
+#include "VersionToken.h"
+#include "TerrainToken.h"
+
 using namespace OSK;
+using namespace OSK::SceneSystem::Loader;
 
 EntityComponentSystem::~EntityComponentSystem() {
-	for (auto& i : GameObjects) {
-		i.second->Remove();
-	}
+	while (gameObjects.size() > 0)
+		gameObjects.begin().operator*().second->Remove();
 }
 
 EntityComponentSystem::EntityComponentSystem() {
@@ -35,30 +43,47 @@ void EntityComponentSystem::DestroyGameObject(ECS::GameObjectID object) {
 }
 
 GameObject* EntityComponentSystem::Spawn(const std::string& className, const Vector3f& position, const Vector3f& axis, float angle, const Vector3f& size) {
-	GameObject* out = RegisteredGOClasses[className]();
+	return Spawn(className, "unnamed", position, axis, angle, size);
+}
+
+GameObject* EntityComponentSystem::Spawn(const std::string& className, const std::string& instanceName, const Vector3f& position, const Vector3f& axis, float angle, const Vector3f& size) {
+	GameObject* out = registeredGameObjectClasses[className]();
 	out->ID = CreateGameObject();
-	out->ECSsystem = this;
+	out->entityComponentSystem = this;
+	out->instanceName = instanceName;
+	out->GetTransform()->SetPosition(position);
+	out->GetTransform()->RotateWorldSpace(angle, axis);
+	out->GetTransform()->SetScale(size);
 	out->OnCreate();
 
 	out->Delete = [this](GameObject* obj) {
 		DestroyGameObject(obj->ID);
+		std::string name = obj->GetInstanceName();
 
-		if (GameObjects.find(obj->ID) != GameObjects.end()) {
-			GameObject* toDelete = GameObjects[obj->ID];
-			GameObjects.erase(obj->ID);
+		gameObjectsReferences.remove(obj);
+
+		if (instancesByName.find(name) != instancesByName.end())
+			instancesByName.erase(name);
+
+		if (gameObjects.find(obj->ID) != gameObjects.end()) {
+			GameObject* toDelete = gameObjects[obj->ID];
+			gameObjects.erase(obj->ID);
 			delete toDelete;
 		}
 	};
 
-	GameObjects[out->ID] = out;
+	gameObjects[out->ID] = out;
+	gameObjectsReferences.push_back(out);
+
+	instancesByName[instanceName] = out->ID;
 
 	return out;
 }
 
 GameObject* EntityComponentSystem::GetGameObjectByID(ECS::GameObjectID id) const {
-	return GameObjects.find(id).operator*().second;
+	return gameObjects.find(id).operator*().second;
 }
 
 void EntityComponentSystem::RegisterGameObjectClass(const std::string& className, GameObjectCreateFunc func) {
-	RegisteredGOClasses[className] = func;
+	registeredGameObjectClasses[className] = func;
 }

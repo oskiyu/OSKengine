@@ -8,6 +8,8 @@
 #include "SNode.h"
 #include "SNodeAnim.h"
 
+#include <vector>
+
 namespace OSK::Animation {
 
 	/// <summary>
@@ -23,27 +25,22 @@ namespace OSK::Animation {
 		/// <summary>
 		/// Nombre de la animación.
 		/// </summary>
-		std::string Name;
+		std::string name;
 
 		/// <summary>
 		/// Duración de la animación.
 		/// </summary>
-		deltaTime_t Duration;
+		deltaTime_t duration;
 
 		/// <summary>
 		/// Ticks de la animación, por segundo.
 		/// </summary>
-		deltaTime_t TicksPerSecond;
-
-		/// <summary>
-		/// Número de nodos animados.
-		/// </summary>
-		uint32_t NumberOfChannels;
+		deltaTime_t ticksPerSecond;
 
 		/// <summary>
 		/// Nodos animados.
 		/// </summary>
-		SNodeAnim* BoneChannels = nullptr;
+		std::vector<SNodeAnim> boneChannels;
 
 	};
 

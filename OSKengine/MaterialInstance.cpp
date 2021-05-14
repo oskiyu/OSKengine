@@ -6,13 +6,18 @@
 using namespace OSK;
 
 MaterialInstance::~MaterialInstance() {
-	Free();
+	try {
+		Free();
+	}
+	catch(std::runtime_error _) {
+
+	}
 }
 
 void MaterialInstance::Free() {
-	if (OwnerPool) {
+	if (ownerPool) {
 		GetDescriptorSet()->Reset();
-		OwnerPool->FreeSet(DSet);
+		ownerPool->FreeSet(descriptorSetIndex);
 	}
 }
 
@@ -21,11 +26,11 @@ void MaterialInstance::SetTexture(Texture* texture) {
 }
 
 void MaterialInstance::SetTexture(Texture* texture, uint32_t binding) {
-	GetDescriptorSet()->AddImage(&texture->Image, texture->Image.Sampler, binding);
+	GetDescriptorSet()->AddImage(&texture->image, texture->image.sampler, binding);
 }
 
 void MaterialInstance::SetTexture(const std::string& name, Texture* texture) {
-	SetTexture(texture, OwnerMaterial->GetBindingIndex(name));
+	SetTexture(texture, ownerMaterial->GetBindingIndex(name));
 }
 
 void MaterialInstance::SetBuffer(std::vector<GPUDataBuffer>& buffers) {
@@ -33,11 +38,11 @@ void MaterialInstance::SetBuffer(std::vector<GPUDataBuffer>& buffers) {
 }
 
 void MaterialInstance::SetBuffer(std::vector<GPUDataBuffer>& buffers, uint32_t binding) {
-	GetDescriptorSet()->AddUniformBuffers(buffers, binding, buffers[0].Size);
+	GetDescriptorSet()->AddUniformBuffers(buffers, binding, buffers[0].GetSize());
 }
 
 void MaterialInstance::SetBuffer(const std::string& name, std::vector<GPUDataBuffer>& buffers) {
-	SetBuffer(buffers, OwnerMaterial->GetBindingIndex(name));
+	SetBuffer(buffers, ownerMaterial->GetBindingIndex(name));
 }
 
 void MaterialInstance::SetDynamicBuffer(std::vector<GPUDataBuffer>& buffers) {
@@ -45,11 +50,11 @@ void MaterialInstance::SetDynamicBuffer(std::vector<GPUDataBuffer>& buffers) {
 }
 
 void MaterialInstance::SetDynamicBuffer(std::vector<GPUDataBuffer>& buffers, uint32_t binding) {
-	GetDescriptorSet()->AddDynamicUniformBuffers(buffers, binding, buffers[0].DynamicSize);
+	GetDescriptorSet()->AddDynamicUniformBuffers(buffers, binding, buffers[0].GetDynamicUboStructureSize());
 }
 
 void MaterialInstance::SetDynamicBuffer(const std::string& name, std::vector<GPUDataBuffer>& buffers) {
-	SetDynamicBuffer(buffers, OwnerMaterial->GetBindingIndex(name));
+	SetDynamicBuffer(buffers, ownerMaterial->GetBindingIndex(name));
 }
 
 void MaterialInstance::FlushUpdate() {
@@ -62,5 +67,5 @@ bool MaterialInstance::HasBeenSet() const {
 }
 
 DescriptorSet* MaterialInstance::GetDescriptorSet() const {
-	return OwnerPool->GetDSet(DSet);
+	return ownerPool->GetDSet(descriptorSetIndex);
 }

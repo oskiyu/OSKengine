@@ -13,6 +13,7 @@
 #include "InputSystem.h"
 #include "RenderSystem3D.h"
 #include "OnTickSystem.h"
+#include "Scene.h"
 
 #include "UniquePtr.hpp"
 
@@ -114,7 +115,7 @@ public:
 
 		OSK::MouseAccelerationMode MouseAcceleration = OSK::MouseAccelerationMode::RAW;
 		OSK::MouseInputMode MouseMode = OSK::MouseInputMode::ALWAYS_RETURN;
-	} WindowCreateInfo;
+	} windowCreateInfo;
 
 	/// <summary>
 	/// Ajustes del renderizador.
@@ -127,12 +128,12 @@ public:
 		OSK::Version GameVersion = { 0,0,0 };
 
 		float RendererResolution = 1.0f;
-	} RendererCreateInfo;
+	} rendererCreateInfo;
 
 	/// <summary>
 	/// Content manager global.
 	/// </summary>
-	OSK::ContentManager* Content = nullptr;
+	OSK::ContentManager* content = nullptr;
 
 private:
 
@@ -174,68 +175,73 @@ private:
 	/// <summary>
 	/// FPS.
 	/// </summary>
-	deltaTime_t Framerate = 0.0f;
+	deltaTime_t framerate = 0.0f;
 
 	/// <summary>
 	/// Contador de un segundo, para actualizar el valor de FPS.
 	/// </summary>
-	deltaTime_t FramerateDeltaTime = 0.0f;
+	deltaTime_t framerateDeltaTime = 0.0f;
 
 	/// <summary>
 	/// Número de frames desde la última vez que se reseteó el FramerateDeltaTime.
 	/// </summary>
-	uint32_t FramerateCount = 0;
+	uint32_t framerateCount = 0;
 
 protected:
 
 	/// <summary>
 	/// Sistema ECS.
 	/// </summary>
-	UniquePtr<OSK::EntityComponentSystem> ECS;
+	UniquePtr<OSK::EntityComponentSystem> entityComponentSystem;
 
 	/// <summary>
 	/// Sistema ECS de físicas.
 	/// </summary>
-	OSK::PhysicsSystem* PhysicsSystem = nullptr;
+	OSK::PhysicsSystem* physicsSystem = nullptr;
 
 	/// <summary>
 	/// Sistema ECS de input.
 	/// </summary>
-	OSK::InputSystem* InputSystem = nullptr;
+	OSK::InputSystem* inputSystem = nullptr;
 
 	/// <summary>
 	/// Sistema ECS de renderizado.
 	/// </summary>
-	OSK::RenderSystem3D* RenderSystem3D = nullptr;
+	OSK::RenderSystem3D* renderSystem3D = nullptr;
 
 	/// <summary>
 	/// Sistema ECS de OnTick.
 	/// </summary>
-	OSK::OnTickSystem* OnTickSystem = nullptr;
+	OSK::OnTickSystem* onTickSystem = nullptr;
 
 	/// <summary>
 	/// Estado del teclado en el anterior frame.
 	/// </summary>
-	OSK::KeyboardState OldKS{};
+	OSK::KeyboardState oldKeyboardState{};
 
 	/// <summary>
 	/// Estado del teclado en el actual frame.
 	/// </summary>
-	OSK::KeyboardState NewKS{};
+	OSK::KeyboardState newKeyboardState{};
 
 	/// <summary>
 	/// Estado del ratón en el anterior frame.
 	/// </summary>
-	OSK::MouseState OldMS{};
+	OSK::MouseState oldMouseState{};
 
 	/// <summary>
 	/// Estado del ratón en el actual frame.
 	/// </summary>
-	OSK::MouseState NewMS{};
+	OSK::MouseState newMouseState{};
 
 	/// <summary>
 	/// Spritebatch global.
 	/// </summary>
-	OSK::SpriteBatch SpriteBatch;
+	OSK::SpriteBatch spriteBatch;
+
+	/// <summary>
+	/// Escena actual.
+	/// </summary>
+	UniquePtr<OSK::Scene> scene;
 
 };

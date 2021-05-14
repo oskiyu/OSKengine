@@ -12,28 +12,28 @@ Collider::Collider(const Vector3f& boxPosition, const Vector3f& boxSize) {
 }
 
 void Collider::SetBroadCollider(const CollisionSphere& sphere) {
-	BroadType = BroadColliderType::SPHERE;
-	BroadCollider.Sphere = sphere;
+	broadType = BroadColliderType::SPHERE;
+	broadCollider.asSphere = sphere;
 }
 
 void Collider::SetBroadCollider(const CollisionBox& box) {
-	BroadType = BroadColliderType::BOX_AABB;
-	BroadCollider.Box = box;
+	broadType = BroadColliderType::BOX_AABB;
+	broadCollider.asBox = box;
 }
 
 void Collider::SetPosition(const Vector3f& pos) {
-	if (BroadType == BroadColliderType::BOX_AABB)
-		BroadCollider.Box.Position = pos;
+	if (broadType == BroadColliderType::BOX_AABB)
+		broadCollider.asBox.position = pos;
 	else
-		BroadCollider.Sphere.Position = pos;
+		broadCollider.asSphere.position = pos;
 }
 
 bool Collider::IsColliding(Collider& other) {
-	return GetCollisionInfo(other).IsColliding;
+	return GetCollisionInfo(other).isColliding;
 }
 
 BroadColliderType Collider::GetCurrentBroadColliderType() const {
-	return BroadType;
+	return broadType;
 }
 
 ColliderCollisionInfo Collider::GetCollisionInfo(Collider& other) {
@@ -43,44 +43,44 @@ ColliderCollisionInfo Collider::GetCollisionInfo(Collider& other) {
 		goto return_p;
 	
 	//BROAD PHASE.
-	if (BroadType == BroadColliderType::BOX_AABB) { //Este collider tiene un AABB box.
-		BroadCollider.Box.Position = ColliderTransform.GlobalPosition;
+	if (broadType == BroadColliderType::BOX_AABB) { //Este collider tiene un AABB box.
+		broadCollider.asBox.position = transform.GetPosition();
 
-		if (other.BroadType == BroadColliderType::BOX_AABB) {//El otro collider tiene un AABB box.
-			if (!BroadCollider.Box.Intersects(other.BroadCollider.Box))
+		if (other.broadType == BroadColliderType::BOX_AABB) {//El otro collider tiene un AABB box.
+			if (!broadCollider.asBox.Intersects(other.broadCollider.asBox))
 				goto return_p;
 		}
 		else {//El otro collider tiene una esfera.
-			if (!BroadCollider.Box.Intersects(other.BroadCollider.Sphere))
+			if (!broadCollider.asBox.Intersects(other.broadCollider.asSphere))
 				goto return_p;
 		}
 	}
 	else {//Este collider tiene una esfera.
-		BroadCollider.Sphere.Position = ColliderTransform.GlobalPosition;
+		broadCollider.asSphere.position = transform.GetPosition();
 		
-		if (other.BroadType == BroadColliderType::BOX_AABB) {//El otro collider tiene un AABB box.
-			if (!BroadCollider.Sphere.Intersects(other.BroadCollider.Box))
+		if (other.broadType == BroadColliderType::BOX_AABB) {//El otro collider tiene un AABB box.
+			if (!broadCollider.asSphere.Intersects(other.broadCollider.asBox))
 				goto return_p;
 		}
 		else {//El otro collider tiene una esfera.
-			if (!BroadCollider.Sphere.Intersects(other.BroadCollider.Sphere))
+			if (!broadCollider.asSphere.Intersects(other.broadCollider.asSphere))
 				goto return_p;
 		}
 	}
 	
-	info.IsBroadColliderColliding = true;
+	info.isBroadColliderColliding = true;
 
-	for (auto& i : SatColliders) {
+	for (auto& i : satColliders) {
 		i.TransformPoints();
-		for (auto& j : other.SatColliders) {
+		for (auto& j : other.satColliders) {
 			j.TransformPoints();
 			if (&i == &j)
 				continue;
 
 			if (i.Intersects(j)) {
-				info.IsColliding = true;
-				info.SAT_1 = &i;
-				info.SAT_2 = (SAT_Collider*)&j;
+				info.isColliding = true;
+				info.sat1 = &i;
+				info.sat2 = (SAT_Collider*)&j;
 
 				goto return_p;
 			}
@@ -89,4 +89,20 @@ ColliderCollisionInfo Collider::GetCollisionInfo(Collider& other) {
 
 return_p:
 	return info;
+}
+
+CollisionBox& Collider::GetBroadCollisionBox() {
+	return broadCollider.asBox;
+}
+
+CollisionSphere& Collider::GetBroadCollisionSphere() {
+	return broadCollider.asSphere;
+}
+
+Transform& Collider::GetTransform() {
+	return transform;
+}
+
+void Collider::AddCollider(const Collision::SAT_Collider& collider) {
+	satColliders.push_back(collider);
 }

@@ -3,30 +3,30 @@
 namespace OSK {
 
 	void Model::Bind(VkCommandBuffer commandBuffer) const {
-		Data->Bind(commandBuffer);
+		data->Bind(commandBuffer);
 	}
 
 	void Model::PushConstants(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline) {
-		PushConst = GetPushConst();
-		vkCmdPushConstants(commandBuffer, pipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &PushConst);
+		pushConst = GetPushConst();
+		vkCmdPushConstants(commandBuffer, pipeline->vulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
 	}
 
 	void Model::Draw(VkCommandBuffer commandBuffer) const {
-		Data->Draw(commandBuffer);
+		data->Draw(commandBuffer);
 	}
 
 	PushConst3D Model::GetPushConst() {
-		ModelTransform.UpdateModel();
+		transform.UpdateModel();
 
 		PushConst3D pushConst{};
-		pushConst.model = ModelTransform.ModelMatrix;
+		pushConst.model = transform.AsMatrix();
 
 		return pushConst;
 	}
 
 	void Model::UpdateAnimUBO(std::vector<GPUDataBuffer>& buffers) {
 		for (auto& i : buffers) {
-			i.Write(BonesUBOdata.Bones.data(), sizeof(glm::mat4) * BonesUBOdata.Bones.size(), i.Alignment * AnimationBufferOffset);
+			i.Write(bonesUBOdata.bones.data(), sizeof(glm::mat4) * bonesUBOdata.bones.size(), i.alignment * animationBufferOffset);
 		}
 	}
 

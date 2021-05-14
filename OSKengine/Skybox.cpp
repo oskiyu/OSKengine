@@ -4,7 +4,7 @@ namespace OSK {
 
 	void Skybox::Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t i) const {
 		Skybox::Model->Bind(commandBuffer);
-		Instance->GetDescriptorSet()->Bind(commandBuffer, pipeline, i);
+		instance->GetDescriptorSet()->Bind(commandBuffer, pipeline, i);
 	}
 
 	void Skybox::Draw(VkCommandBuffer commandBuffer) const {

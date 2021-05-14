@@ -18,6 +18,9 @@ namespace OSK {
 
 
 	std::string FileIO::ReadFromFile(const std::string& path) {
+		if (!FileExists(path))
+			throw new std::runtime_error("ERROR: se ha intentado leer el archivo " + path + " pero no existe.");
+
 		std::ifstream stream(path);
 		std::string line;
 		std::string ret = "";

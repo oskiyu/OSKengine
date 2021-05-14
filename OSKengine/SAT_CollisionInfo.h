@@ -15,28 +15,28 @@ namespace OSK::Collision {
 		/// <summary>
 		/// True si los dos colisionadores están colisionando.
 		/// </summary>
-		bool IsColliding = false;
+		bool isColliding = false;
 
 		/// <summary>
 		/// Eje de la colisión.
 		/// </summary>
-		Vector3f Axis;
+		Vector3f axis;
 		
 		/// <summary>
 		/// Vector mínimo de translación de A sobre B:
 		/// la distancia que A debería recorrer para no colisionar sobre B.
 		/// </summary>
-		Vector3f MinimunTranslationVector;
+		Vector3f minimunTranslationVector;
 
 		/// <summary>
 		/// Punto de colisión (espacio local A).
 		/// </summary>
-		Vector3f PointA;
+		Vector3f pointA;
 
 		/// <summary>
 		/// Punto de colisión (espacio local B).
 		/// </summary>
-		Vector3f PointB;
+		Vector3f pointB;
 
 	};
 

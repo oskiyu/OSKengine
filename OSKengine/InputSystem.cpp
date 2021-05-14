@@ -9,29 +9,29 @@ void InputSystem::SetWindow(WindowAPI* window) {
 Signature InputSystem::GetSystemSignature() {
 	Signature signature;
 
-	signature.set(ECSsystem->GetComponentType<OSK::InputComponent>());
+	signature.set(entityComponentSystem->GetComponentType<OSK::InputComponent>());
 
 	return signature;
 }
 
 void InputSystem::OnTick(deltaTime_t deltaTime) {
-	window->UpdateKeyboardState(NewKS);
-	window->UpdateMouseState(NewMS);
+	window->UpdateKeyboardState(newKeyboardState);
+	window->UpdateMouseState(newMouseState);
 
 	for (auto& i : events) {
 		auto& desc = i.second;
 
-		for (auto key : desc.LinkedKeys) {
-			if (NewKS.IsKeyDown(key)) {
-				executeFunction(desc.EventName, deltaTime);
+		for (auto key : desc.linkedKeys) {
+			if (newKeyboardState.IsKeyDown(key)) {
+				ExecuteFunction(desc.eventName, deltaTime);
 
 				break;
 			}
 		}
 
-		for (auto button : desc.LinkedButtons) {
-			if (NewMS.IsButtonDown(button)) {
-				executeFunction(desc.EventName, deltaTime);
+		for (auto button : desc.linkedButtons) {
+			if (newMouseState.IsButtonDown(button)) {
+				ExecuteFunction(desc.eventName, deltaTime);
 
 				break;
 			}
@@ -41,38 +41,38 @@ void InputSystem::OnTick(deltaTime_t deltaTime) {
 	for (auto& i : oneTimeEvents) {
 		auto& desc = i.second;
 
-		for (auto key : desc.LinkedKeys) {
-			if (NewKS.IsKeyDown(key) && OldKS.IsKeyUp(key)) {
-				executeOneTimeFunction(desc.EventName);
+		for (auto key : desc.linkedKeys) {
+			if (newKeyboardState.IsKeyDown(key) && oldKeyboardState.IsKeyUp(key)) {
+				executeOneTimeFunction(desc.eventName);
 
 				break;
 			}
 		}
 
-		for (auto button : desc.LinkedButtons) {
-			if (NewMS.IsButtonDown(button) && OldMS.IsButtonUp(button)) {
-				executeOneTimeFunction(desc.EventName);
+		for (auto button : desc.linkedButtons) {
+			if (newMouseState.IsButtonDown(button) && oldMouseState.IsButtonUp(button)) {
+				executeOneTimeFunction(desc.eventName);
 
 				break;
 			}
 		}
 	}
 
-	window->UpdateKeyboardState(OldKS);
-	window->UpdateMouseState(OldMS);
+	window->UpdateKeyboardState(oldKeyboardState);
+	window->UpdateMouseState(oldMouseState);
 }
 
-void InputSystem::executeFunction(std::string& name, deltaTime_t deltaTime) {
-	for (auto& i : Objects) {
-		auto& input = ECSsystem->GetComponent<InputComponent>(i);
+void InputSystem::ExecuteFunction(std::string& name, deltaTime_t deltaTime) {
+	for (auto& i : objects) {
+		auto& input = entityComponentSystem->GetComponent<InputComponent>(i);
 
 		input.ExecuteInputFunction(name, deltaTime);
 	}
 }
 
 void InputSystem::executeOneTimeFunction(std::string& name) {
-	for (auto& i : Objects) {
-		auto& input = ECSsystem->GetComponent<InputComponent>(i);
+	for (auto& i : objects) {
+		auto& input = entityComponentSystem->GetComponent<InputComponent>(i);
 
 		input.ExecuteOneTimeInputFunction(name);
 	}

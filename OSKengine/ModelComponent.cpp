@@ -3,19 +3,19 @@
 using namespace OSK;
 
 void ModelComponent::AddModel(const std::string& path, ContentManager* content) {
-	StaticMeshes.push_back({});
-	content->LoadModel(StaticMeshes.back(), path);
+	staticMeshes.push_back({});
+	content->LoadModel(staticMeshes.back(), path);
 }
 
 void ModelComponent::AddAnimatedModel(const std::string& path, ContentManager* content) {
-	AnimatedModels.push_back({});
-	content->LoadAnimatedModel(AnimatedModels.back(), path);
+	animatedModels.push_back({});
+	content->LoadAnimatedModel(animatedModels.back(), path);
 }
 
 void ModelComponent::Link(Transform* transform) {
-	for (auto& i : StaticMeshes)
-		i.ModelTransform.AttachTo(transform);
+	for (auto& i : staticMeshes)
+		i.GetTransform()->AttachTo(transform);
 
-	for (auto& i : AnimatedModels)
-		i.ModelTransform.AttachTo(transform);
+	for (auto& i : animatedModels)
+		i.GetTransform()->AttachTo(transform);
 }

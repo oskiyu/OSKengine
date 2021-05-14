@@ -124,17 +124,17 @@ namespace OSK {
 		/// <summary>
 		/// Material al que pertenece la instancia.
 		/// </summary>
-		Material* OwnerMaterial = nullptr;
+		Material* ownerMaterial = nullptr;
 
 		/// <summary>
 		/// Material pool al que pertenece la instancia.
 		/// </summary>
-		MaterialPool* OwnerPool = nullptr;
+		MaterialPool* ownerPool = nullptr;
 
 		/// <summary>
 		/// Posición del descriptor set de la instancia en el array del Material Pool dueño.
 		/// </summary>
-		uint32_t DSet = 0;
+		uint32_t descriptorSetIndex = 0;
 
 		/// <summary>
 		/// True si los bindings han sido establecidos.

@@ -25,24 +25,24 @@ public:
 		/// Crea la cell.
 		/// </summary>
 		/// <param name="value">Valor almacenado.</param>
-		Cell(const T& value) : Value(value) {
+		Cell(const T& value) : value(value) {
 
 		}
 		
 		/// <summary>
 		/// Anterior elemento em la lista.
 		/// </summary>
-		Cell* Previous = nullptr;
+		Cell* previous = nullptr;
 
 		/// <summary>
 		/// Siguiente elemento en la lista.
 		/// </summary>
-		Cell* Next = nullptr;
+		Cell* next = nullptr;
 
 		/// <summary>
 		/// Valor almacenado.
 		/// </summary>
-		T Value;
+		T value;
 
 	};
 
@@ -66,7 +66,7 @@ public:
 		/// </summary>
 		/// <returns>Self.</returns>
 		inline Iterator operator++() {
-			cell = cell->Next;
+			cell = cell->next;
 			return *this;
 		}
 
@@ -93,7 +93,7 @@ public:
 		/// </summary>
 		/// <returns>Valor al que apunta.</returns>
 		inline T& operator*() {
-			return cell->Value;
+			return cell->value;
 		}
 
 	private:
@@ -125,25 +125,25 @@ public:
 		Cell* newCell = new Cell(elem);
 
 		if (indexPos == 0) {
-			newCell->Next = First;
-			First = newCell;
-			Last = newCell;
+			newCell->next = first;
+			first = newCell;
+			last = newCell;
 
 			return;
 		}
 
 		if (indexPos == currentSize - 1) {
-			Last->Next = newCell;
+			Last->next = newCell;
 			Last = newCell;
 
 			return;
 		}
 
-		Cell* current = cellAt(indexPos);
-		Cell* previous = cellAt(indexPos - 1);
-		previous->Next = newCell;
+		Cell* current = GetCellAt(indexPos);
+		Cell* previous = GetCellAt(indexPos - 1);
+		previous->next = newCell;
 
-		newCell->Next = current;
+		newCell->next = current;
 	}
 
 	/// <summary>
@@ -152,7 +152,7 @@ public:
 	/// <param name="position">Posición del elemento.</param>
 	/// <returns>Elemento.</returns>
 	T& At(size_t position) {
-		return cellAt(index)->Value;
+		return GetCellAt(index)->value;
 	}
 
 	/// <summary>
@@ -176,25 +176,25 @@ public:
 
 		Cell* previous = nullptr;
 		if (index > 0)
-			previous = cellAt(index - 1);
+			previous = GetCellAt(index - 1);
 
-		Cell* target = cellAt(index);
-		Cell* next = target->Next;
+		Cell* target = GetCellAt(index);
+		Cell* next = target->next;
 
 		if (previous != nullptr)
-			previous->Next = next;
+			previous->next = next;
 
 		delete target;
 
 		if (index == 0 && currentSize > 0)
-			First = next;
+			first = next;
 
 		if (index == currentSize) {
-			Last = previous;
+			last = previous;
 		}
 
 		if (currentSize == 0)
-			First = nullptr;
+			first = nullptr;
 	}
 
 	/// <summary>
@@ -202,7 +202,7 @@ public:
 	/// </summary>
 	/// <returns>Estado de la lista.</returns>
 	inline bool IsEmpty() const {
-		return First == nullptr;
+		return first == nullptr;
 	}
 
 	/// <summary>
@@ -227,7 +227,7 @@ public:
 	/// </summary>
 	/// <returns>Primer iterador.</returns>
 	Iterator begin() const {
-		return Iterator(First);
+		return Iterator(first);
 	}
 
 	/// <summary>
@@ -235,10 +235,10 @@ public:
 	/// </summary>
 	/// <returns>Iterador final.</returns>
 	Iterator end() const {
-		if (Last == nullptr)
+		if (last == nullptr)
 			return Iterator(nullptr);
 
-		return Iterator(Last->Next);
+		return Iterator(last->next);
 	}
 
 private:
@@ -248,13 +248,13 @@ private:
 	/// </summary>
 	/// <param name="index">Posición del elemento.</param>
 	/// <returns>Cell que lo contiene.</returns>
-	Cell* cellAt(const uint32_t& index) const {
+	Cell* GetCellAt(const uint32_t& index) const {
 		int i = 0;
-		Cell* node = First;
+		Cell* node = first;
 
 		while (i < index) {
 			i++;
-			node = node->Next;
+			node = node->next;
 		}
 
 		return node;
@@ -263,22 +263,22 @@ private:
 	/// <summary>
 	/// Primer elemento de la lista.
 	/// </summary>
-	Cell* First = nullptr;
+	Cell* first = nullptr;
 
 	/// <summary>
 	/// Último elemento de la lista.
 	/// </summary>
-	Cell* Last = nullptr;
+	Cell* last = nullptr;
 	
 	/// <summary>
-	/// Última célula accedida mediante cellAt().
+	/// Última célula accedida mediante GetCellAt().
 	/// </summary>
-	Cell* LastVisited = nullptr;
+	Cell* lastVisited = nullptr;
 
 	/// <summary>
-	/// Posición de la última célula accedida mediante cellAt().
+	/// Posición de la última célula accedida mediante GetCellAt().
 	/// </summary>
-	size_t LastVisitedIndex = 0;
+	size_t lastVisitedIndex = 0;
 
 	/// <summary>
 	/// Número actual de elementos en la lista.

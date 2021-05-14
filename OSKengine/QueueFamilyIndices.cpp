@@ -3,7 +3,7 @@
 namespace OSK::VULKAN {
 
 	bool QueueFamilyIndices::IsComplete() const {
-		return GraphicsFamily.has_value() & PresentFamily.has_value();
+		return graphicsFamily.has_value() && presentFamily.has_value();
 	}
 
 }

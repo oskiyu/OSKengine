@@ -9,24 +9,28 @@ namespace OSK {
 
 	Camera2D::Camera2D(WindowAPI* window) {
 		this->window = window;
-		TargetSize = Vector2((float_t)window->ScreenSizeX, (float_t)window->ScreenSizeY);
+		targetSize = window->GetSize().ToVector2f();
 		Update();
 	}
 
+	Transform2D& Camera2D::GetTransform() {
+		return transform;
+	}
+
 	void Camera2D::Update() {
-		if (!UseTargetSize)
-			TargetSize = window->GetRectangle().GetRectangleSize();
+		if (!useTargetSize)
+			targetSize = window->GetRectangle().GetRectangleSize();
 		
-		CameraTransform.UpdateModel();
-		projection = glm::ortho(CameraTransform.GlobalPosition.X, TargetSize.X, CameraTransform.GlobalPosition.Y, TargetSize.Y, -1.0f, 1.0f);
+		transform.UpdateModel();
+		projection = glm::ortho(transform.GetPosition().X, targetSize.X, transform.GetPosition().Y, targetSize.Y, -1.0f, 1.0f);
 	}
 
 	Vector2 Camera2D::PointInWindowToPointInWorld(const Vector2& point) const {
 		Vector2 relative = Vector2(0);
-		relative.X = point.X / window->ScreenSizeX;
-		relative.Y = point.Y / window->ScreenSizeY;
+		relative.X = point.X / window->GetSize().X;
+		relative.Y = point.Y / window->GetSize().Y;
 
-		return relative * TargetSize;
+		return relative * targetSize;
 	}
 
 }

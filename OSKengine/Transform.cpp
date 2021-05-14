@@ -10,76 +10,76 @@
 using namespace OSK;
 
 Transform::Transform() {
-		ModelMatrix = glm::mat4(1);
+		modelMatrix = glm::mat4(1);
 
-		LocalPosition = Vector3f(0);
-		LocalScale = Vector3f(1);
+		localPosition = Vector3f(0);
+		localScale = Vector3f(1);
 
-		GlobalPosition = Vector3f(0);
-		GlobalScale = Vector3f(1);
+		globalPosition = Vector3f(0);
+		globalScale = Vector3f(1);
 
 		isAttached = false;
-		ParentTransform = nullptr;
+		parentTransform = nullptr;
 	}
 
 Transform::Transform(const Vector3f& position, const Vector3f& scale) {
-		ModelMatrix = glm::mat4(1.0f);
-		LocalPosition = position;
-		LocalScale = scale;
+		modelMatrix = glm::mat4(1.0f);
+		localPosition = position;
+		localScale = scale;
 
 		isAttached = false;
-		ParentTransform = nullptr;
+		parentTransform = nullptr;
 
 		UpdateModel();
 	}
 
 void Transform::SetPosition(const Vector3f& position) {
-		LocalPosition = position;
+		localPosition = position;
 
 		UpdateModel();
 	}
 
 void Transform::SetScale(const Vector3f& scale) {
-		LocalScale = scale;
+		localScale = scale;
 
 		UpdateModel();
 	}
 
 void Transform::SetRotation(const Quaternion& rotation) {
-		Rotation = rotation;
+		this->rotation = rotation;
 		
 		UpdateModel();
 	}
 	
 void Transform::AddPosition(const Vector3f& positionDelta) {
-		SetPosition(LocalPosition + positionDelta);
+		SetPosition(localPosition + positionDelta);
 	}
 
 void Transform::AddScale(const Vector3f& scaleDelta) {
-		SetScale(LocalScale + scaleDelta);
+		SetScale(localScale + scaleDelta);
 	}
 
 void Transform::ApplyRotation(const Quaternion& rotationDelta) {
-		Quaternion q = Rotation;
+		Quaternion q = rotation;
 		q.Quat *= rotationDelta.Quat;
 
 		SetRotation(q);
 	}
 
 void Transform::RotateLocalSpace(float angle, const Vector3f& axis) {
-		Rotation.Rotate_LocalSpace(angle, axis);
+		rotation.Rotate_LocalSpace(angle, axis);
 
 		UpdateModel();
 	}
 
 void Transform::RotateWorldSpace(float angle, const Vector3f& axis) {
-		Rotation.Rotate_WorldSpace(angle, axis);
+		rotation.Rotate_WorldSpace(angle, axis);
 
 		UpdateModel();
 	}
 
 void Transform::AttachTo(Transform* baseTransform) {
-		for (auto* t : ChildTransforms) {
+		for (auto* t : childTransforms) {
 			if (t == baseTransform) {
 				Logger::Log(LogMessageLevels::WARNING, "este transform no puede atarse a su hijo.");
 
@@ -87,46 +87,46 @@ void Transform::AttachTo(Transform* baseTransform) {
 			}
 		}
 
-		ParentTransform = baseTransform;
+		parentTransform = baseTransform;
 
-		baseTransform->ChildTransforms.push_back(this);
+		baseTransform->childTransforms.push_back(this);
 		baseTransform->isParent = true;
 
 		isAttached = true;
 	}
 
 void Transform::UnAttach() {
-		ParentTransform = nullptr;
+		parentTransform = nullptr;
 
 		isAttached = false;
 	}
 
 void Transform::UpdateModel() {
-		ModelMatrix = glm::mat4(1.0f);
-		if (ParentTransform) {
-			ModelMatrix = ParentTransform->ModelMatrix;
-			GlobalScale = LocalScale + ParentTransform->GlobalScale;
+		modelMatrix = glm::mat4(1.0f);
+		if (parentTransform) {
+			modelMatrix = parentTransform->modelMatrix;
+			globalScale = localScale + parentTransform->globalScale;
 		}
 
 		//Posición local.
-		ModelMatrix = glm::translate(ModelMatrix, LocalPosition.ToGLM());
+		modelMatrix = glm::translate(modelMatrix, localPosition.ToGLM());
 
 		//Escala local.
-		ModelMatrix = glm::scale(ModelMatrix, LocalScale.ToGLM());
+		modelMatrix = glm::scale(modelMatrix, localScale.ToGLM());
 
 		//Rotación local.
-		ModelMatrix = ModelMatrix * Rotation.ToMat4();
+		modelMatrix = modelMatrix * rotation.ToMat4();
 
 		//Obtener posición final.
-		GlobalPosition = Vector3f(ModelMatrix * Vector4(0, 0, 0, 1).ToGLM());
+		globalPosition = Vector3f(modelMatrix * Vector4(0, 0, 0, 1).ToGLM());
 
 		if (isParent) {
-			for (uint32_t i = 0; i < ChildTransforms.size(); i++) {
+			for (uint32_t i = 0; i < childTransforms.size(); i++) {
 
-				if (ChildTransforms[i]->ParentTransform == this)
-					ChildTransforms[i]->UpdateModel();
+				if (childTransforms[i]->parentTransform == this)
+					childTransforms[i]->UpdateModel();
 				else
-					ChildTransforms.erase(ChildTransforms.begin() + i);
+					childTransforms.erase(childTransforms.begin() + i);
 
 			}
 		}
@@ -147,3 +147,34 @@ glm::mat4 Transform::toGlmMat(const aiMatrix4x4* src) {
 		return dst;
 	}
 
+Vector3f Transform::GetPosition() const {
+	return globalPosition;
+}
+
+Vector3f Transform::GetScale() const {
+	return globalScale;
+}
+
+Vector3f Transform::GetLocalPosition() const {
+	return localPosition;
+}
+
+Vector3f Transform::GetLocalScale() const {
+	return localScale;
+}
+
+Quaternion Transform::GetRotation() const {
+	return rotation;
+}
+
+glm::mat4 Transform::AsMatrix() const {
+	return modelMatrix;
+}
+
+Transform* Transform::GetParent() const {
+	return parentTransform;
+}
+
+std::vector<Transform*> Transform::GetChildTransforms() const {
+	return childTransforms;
+}

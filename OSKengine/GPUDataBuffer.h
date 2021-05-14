@@ -9,12 +9,25 @@
 
 namespace OSK {
 
+	namespace VULKAN {
+		class VulkanImageGen;
+	}
+
 	/// <summary>
 	/// Buffer que almacena información en la GPU.
 	/// </summary>
 	struct OSKAPI_CALL GPUDataBuffer {
 
 		friend class RenderAPI;
+		friend class ContentManager;
+		friend class ModelData;
+		friend class ShadowMap;
+		friend class SpriteContainer;
+		friend class DescriptorSet;
+		friend class VULKAN::VulkanImageGen;
+		friend class Model;
+		friend class RenderizableScene;
+		friend class RenderSystem3D;
 
 	public:
 
@@ -77,31 +90,19 @@ namespace OSK {
 		void Free();
 
 		/// <summary>
+		/// Tamaño de cada estructura individual que se almacena, en caso de ser usado como un dynamic UBO.
+		/// </summary>
+		void SetDynamicUboStructureSize(size_t size);
+
+		/// <summary>
 		/// Tamaño del buffer.
 		/// </summary>
-		size_t Size = 0;
+		size_t GetSize();
 
 		/// <summary>
-		/// Tamaño de cada estructura individuall que se almacena, en caso de ser usado como un dynamic UBO.
+		/// Tamaño de cada estructura individual que se almacena, en caso de ser usado como un dynamic UBO.
 		/// </summary>
-		size_t DynamicSize = 0;
-
-		//Buffer.
-
-		/// <summary>
-		/// Buffer nativo de Vulkan.
-		/// </summary>
-		VkBuffer Buffer = VK_NULL_HANDLE;
-
-		/// <summary>
-		/// Memoria en la GPU del buffer.
-		/// </summary>
-		VkDeviceMemory Memory = VK_NULL_HANDLE;
-
-		/// <summary>
-		/// Alineamiento de la memoria.
-		/// </summary>
-		uint32_t Alignment = 0;
+		size_t GetDynamicUboStructureSize();
 
 	private:
 
@@ -150,6 +151,34 @@ namespace OSK {
 		/// True si la memoria está actualmente mapeada.
 		/// </summary>
 		bool isMapped = false;
+
+		/// <summary>
+		/// Tamaño del buffer.
+		/// </summary>
+		size_t size = 0;
+
+		/// <summary>
+		/// Tamaño de cada estructura individual que se almacena, en caso de ser usado como un dynamic UBO.
+		/// </summary>
+		size_t dynamicSize = 0;
+
+		//Buffer.
+
+		/// <summary>
+		/// Buffer nativo de Vulkan.
+		/// </summary>
+		VkBuffer buffer = VK_NULL_HANDLE;
+
+		/// <summary>
+		/// Memoria en la GPU del buffer.
+		/// </summary>
+		VkDeviceMemory memory = VK_NULL_HANDLE;
+
+		/// <summary>
+		/// Alineamiento de la memoria.
+		/// </summary>
+		uint32_t alignment = 0;
+
 
 	};
 

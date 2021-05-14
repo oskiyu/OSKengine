@@ -7,14 +7,14 @@ using namespace OSK;
 Signature OnTickSystem::GetSystemSignature() {
 	Signature signature;
 
-	signature.set(ECSsystem->GetComponentType<OSK::OnTickComponent>());
+	signature.set(entityComponentSystem->GetComponentType<OSK::OnTickComponent>());
 
 	return signature;
 }
 
 void OnTickSystem::OnTick(deltaTime_t deltaTime) {
-	for (auto obj : Objects) {
-		auto& onTick = ECSsystem->GetComponent<OnTickComponent>(obj);
+	for (auto obj : objects) {
+		auto& onTick = entityComponentSystem->GetComponent<OnTickComponent>(obj);
 
 		onTick.OnTick(deltaTime);
 	}

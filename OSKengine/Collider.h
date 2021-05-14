@@ -24,7 +24,7 @@ namespace OSK {
 	class OSKAPI_CALL Collider {
 
 	public:
-				
+
 		/// <summary>
 		/// Crea un collider vacío.
 		/// </summary>
@@ -69,9 +69,14 @@ namespace OSK {
 		BroadColliderType GetCurrentBroadColliderType() const;
 
 		/// <summary>
-		/// BroadCollider.
+		/// Devuelve el broad collider, que es una collision box.
 		/// </summary>
-		BroadColliderUnion BroadCollider;
+		CollisionBox& GetBroadCollisionBox();
+
+		/// <summary>
+		/// Devuelve el broad collider, que es una collision sphere.
+		/// </summary>
+		CollisionSphere& GetBroadCollisionSphere();
 
 		/// <summary>
 		/// Devuelve true si este Collider está tocando a otro.
@@ -90,19 +95,34 @@ namespace OSK {
 		/// <summary>
 		/// Transform del collider.
 		/// </summary>
-		Transform ColliderTransform;
+		Transform& GetTransform();
+
+		/// <summary>
+		/// Añade un nuevo SAT collider a este colider.
+		/// </summary>
+		void AddCollider(const Collision::SAT_Collider& collider);
 
 		/// <summary>
 		/// SAT_Colliders que contiene este collider.
 		/// </summary>
-		std::vector<Collision::SAT_Collider> SatColliders{};
+		std::vector<Collision::SAT_Collider> satColliders{};
 
 	private:
 
 		/// <summary>
+		/// Transform del collider.
+		/// </summary>
+		Transform transform;
+
+		/// <summary>
+		/// BroadCollider.
+		/// </summary>
+		BroadColliderUnion broadCollider;
+
+		/// <summary>
 		/// Tipo de BroadCollider actual.
 		/// </summary>
-		BroadColliderType BroadType = BroadColliderType::BOX_AABB;
+		BroadColliderType broadType = BroadColliderType::BOX_AABB;
 
 	};
 

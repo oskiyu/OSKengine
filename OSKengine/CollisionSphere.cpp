@@ -9,20 +9,20 @@ namespace OSK {
 	}
 
 	CollisionSphere::CollisionSphere(const Vector3f& position, float radius) {
-		Position = position;
-		Radius = radius;
+		this->position = position;
+		this->radius = radius;
 	}
 
 	bool CollisionSphere::ContainsPoint(const Vector3f& point) const {
-		const float distance = point.GetDistanceTo2(Position);
+		const float distance = point.GetDistanceTo2(position);
 
-		return distance <= Radius * Radius;
+		return distance <= radius * radius;
 	}
 
 	bool CollisionSphere::Intersects(const CollisionSphere& sphere) const {
-		const float distance = sphere.Position.GetDistanceTo2(Position);
+		const float distance = sphere.position.GetDistanceTo2(position);
 
-		return distance < (Radius + sphere.Radius) * (Radius + sphere.Radius);
+		return distance < (radius + sphere.radius) * (radius + sphere.radius);
 	}
 
 	bool CollisionSphere::Intersects(const CollisionBox& box) const {

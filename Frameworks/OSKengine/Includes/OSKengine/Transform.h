@@ -14,6 +14,8 @@
 
 namespace OSK {
 
+	class PhysicsSystem;
+
 	/// <summary>
 	/// Clase que almacena el 'transform' de un objeto en un mundo 3D.
 	/// El transform contiene posición, escala y rotación.
@@ -22,6 +24,8 @@ namespace OSK {
 	/// el resto de transforms también ven sus variables cambiadas.
 	/// </summary>
 	class OSKAPI_CALL Transform {
+
+		friend class PhysicsSystem;
 
 	public:
 

@@ -36,6 +36,9 @@ namespace OSK {
 
 		friend class RenderAPI;
 		friend class RenderizableScene;
+		friend class DescriptorSet;
+		friend class Model;
+		friend class RenderSystem3D;
 
 	public:
 
@@ -114,15 +117,6 @@ namespace OSK {
 		/// </summary>
 		void ReloadShaders();
 
-		/// <summary>
-		/// Pipeline nativo.
-		/// </summary>
-		VkPipeline VulkanPipeline;
-
-		/// <summary>
-		/// Layout nativo del pipeline.
-		/// </summary>
-		VkPipelineLayout VulkanPipelineLayout;
 
 	private:
 
@@ -133,6 +127,16 @@ namespace OSK {
 		/// <param name="vertexPath">Archivo del shader de vértices (.spv).</param>
 		/// <param name="indexPath">Archivo del shader de fragmentos (.spv).</param>
 		GraphicsPipeline(VkDevice logicalDevice, const std::string& vertexPath, const std::string& indexPath);
+
+		/// <summary>
+		/// Pipeline nativo.
+		/// </summary>
+		VkPipeline vulkanPipeline;
+
+		/// <summary>
+		/// Layout nativo del pipeline.
+		/// </summary>
+		VkPipelineLayout vulkanPipelineLayout;
 
 		/// <summary>
 		/// True si se ha establecido información del viewport.

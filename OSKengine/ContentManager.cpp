@@ -1,6 +1,8 @@
 #include "ContentManager.h"
 
+#include "VulkanImageGen.h"
 #include "VulkanRenderer.h"
+
 #include <gtc\type_ptr.hpp>
 #include "stbi_image.h"
 
@@ -8,7 +10,6 @@
 #include "GPUImage.h"
 #include "FileIO.h"
 
-#include "VulkanImageGen.h"
 #include <al.h>
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -22,7 +23,7 @@ using namespace OSK::Animation;
 
 namespace OSK {
 
-	Assimp::Importer ContentManager::GlobalImporter;
+	Assimp::Importer ContentManager::globalImporter;
 
 	const std::string ContentManager::DEFAULT_TEXTURE_PATH = "assets/engine/default_texture/default_texture.png";
 	Texture* ContentManager::DefaultTexture = nullptr;
@@ -30,12 +31,12 @@ namespace OSK {
 	ContentManager::ContentManager(RenderAPI* renderer) {
 		this->renderer = renderer;
 
-		Textures = {};
-		ModelDatas = {};
-		Sprites = {};
+		textures = {};
+		modelDatas = {};
+		sprites = {};
 
-		TextureFromPath = {};
-		ModelDataFromPath = {};
+		textureFromPath = {};
+		modelDataFromPath = {};
 	}
 
 	ContentManager::~ContentManager() {
@@ -43,34 +44,34 @@ namespace OSK {
 	}
 
 	void ContentManager::Unload() {
-		for (auto& i : Textures)
+		for (auto& i : textures)
 			delete i;
 
-		for (auto& i : ModelDatas)
+		for (auto& i : modelDatas)
 			delete i;
 
-		for (auto& i : Sprites) {
+		for (auto& i : sprites) {
 			//i->VertexBuffer.Free();
 		}
 
-		for (auto& i : Sounds)
+		for (auto& i : sounds)
 			delete i;
 
-		Textures.clear();
-		ModelDatas.clear();
-		Sprites.clear();
-		Fonts.clear();
-		Sounds.clear();
+		textures.clear();
+		modelDatas.clear();
+		sprites.clear();
+		fonts.clear();
+		sounds.clear();
 
-		TextureFromPath.clear();
-		ModelDataFromPath.clear();
-		FontsFromPath.clear();
-		SoundsFromPath.clear();
+		textureFromPath.clear();
+		modelDataFromPath.clear();
+		fontsFromPath.clear();
+		soundsFromPath.clear();
 	}
 
 	Texture* ContentManager::LoadTexture(const std::string& path) {
-		if (TextureFromPath.find(path) != TextureFromPath.end())
-			return TextureFromPath[path];
+		if (textureFromPath.find(path) != textureFromPath.end())
+			return textureFromPath[path];
 
 		Texture* loadedTexture = new Texture();
 
@@ -80,8 +81,8 @@ namespace OSK {
 
 		stbi_uc* pixels = stbi_load(path.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
 		VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels;
-		loadedTexture->Size.X = (uint32_t)width;
-		loadedTexture->Size.Y = (uint32_t)height;
+		loadedTexture->size.X = (uint32_t)width;
+		loadedTexture->size.Y = (uint32_t)height;
 
 		GPUDataBuffer stagingBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 		stagingBuffer.Allocate(size);
@@ -89,28 +90,28 @@ namespace OSK {
 		stagingBuffer.Write(pixels, size);
 
 		stbi_image_free(pixels);
-		uint32_t mipLevels = getMaxMipLevels(width, height);
-		VulkanImageGen::CreateImage(&loadedTexture->Image, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, mipLevels);
+		uint32_t mipLevels = GetMaxMipLevels(width, height);
+		VULKAN::VulkanImageGen::CreateImage(&loadedTexture->image, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, mipLevels);
 
-		VulkanImageGen::TransitionImageLayout(&loadedTexture->Image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, mipLevels, 1);
-		VulkanImageGen::CopyBufferToImage(&stagingBuffer, &loadedTexture->Image, width, height);
-		VulkanImageGen::CreateMipmaps(loadedTexture->Image, { loadedTexture->Size.X, loadedTexture->Size.Y }, mipLevels);
-		VulkanImageGen::CreateImageSampler(loadedTexture->Image, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, mipLevels);
-		VulkanImageGen::TransitionImageLayout(&loadedTexture->Image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, mipLevels, 1);
+		VULKAN::VulkanImageGen::TransitionImageLayout(&loadedTexture->image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, mipLevels, 1);
+		VULKAN::VulkanImageGen::CopyBufferToImage(&stagingBuffer, &loadedTexture->image, width, height);
+		VULKAN::VulkanImageGen::CreateMipmaps(loadedTexture->image, { loadedTexture->size.X, loadedTexture->size.Y }, mipLevels);
+		VULKAN::VulkanImageGen::CreateImageSampler(loadedTexture->image, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, mipLevels);
+		VULKAN::VulkanImageGen::TransitionImageLayout(&loadedTexture->image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, mipLevels, 1);
 
 		stagingBuffer.Free();
 
-		VulkanImageGen::CreateImageView(&loadedTexture->Image, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, mipLevels);
+		VULKAN::VulkanImageGen::CreateImageView(&loadedTexture->image, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, mipLevels);
 
-		Textures.push_back(loadedTexture);
-		TextureFromPath[path] = Textures.back();
+		textures.push_back(loadedTexture);
+		textureFromPath[path] = textures.back();
 
-		return TextureFromPath[path];
+		return textureFromPath[path];
 	}
 
 	Texture* ContentManager::LoadSkyboxTexture(const std::string& folderPath) {
-		if (TextureFromPath.find(folderPath) != TextureFromPath.end())
-			return TextureFromPath[folderPath];
+		if (textureFromPath.find(folderPath) != textureFromPath.end())
+			return textureFromPath[folderPath];
 
 		Texture* texture = new Texture();
 
@@ -150,7 +151,7 @@ namespace OSK {
 		stagingBuffer.Write(totalImage, size * 6);
 
 		const uint32_t levels = 1;
-		VulkanImageGen::CreateImage(&texture->Image, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 6, VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT, levels);
+		VULKAN::VulkanImageGen::CreateImage(&texture->image, { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 6, VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT, levels);
 
 		VkCommandBuffer copyCmd = renderer->beginSingleTimeCommandBuffer();
 		uint32_t offset = 0;
@@ -170,32 +171,32 @@ namespace OSK {
 			offset += size;
 		}
 
-		VulkanImageGen::TransitionImageLayout(&texture->Image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, levels, 6);
-		vkCmdCopyBufferToImage(copyCmd, stagingBuffer.Buffer, texture->Image.Image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, bufferCopyRegions.size(), bufferCopyRegions.data());
+		VULKAN::VulkanImageGen::TransitionImageLayout(&texture->image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, levels, 6);
+		vkCmdCopyBufferToImage(copyCmd, stagingBuffer.buffer, texture->image.image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, bufferCopyRegions.size(), bufferCopyRegions.data());
 		renderer->endSingleTimeCommandBuffer(copyCmd);
-		VulkanImageGen::TransitionImageLayout(&texture->Image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, levels, 6);
+		VULKAN::VulkanImageGen::TransitionImageLayout(&texture->image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, levels, 6);
 
 		stagingBuffer.Free();
 
-		VulkanImageGen::CreateImageView(&texture->Image, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_CUBE, 6, levels);
-		VulkanImageGen::CreateImageSampler(texture->Image, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
+		VULKAN::VulkanImageGen::CreateImageView(&texture->image, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_CUBE, 6, levels);
+		VULKAN::VulkanImageGen::CreateImageSampler(texture->image, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
 
 		delete[] totalImage;
 
-		Textures.push_back(texture);
-		TextureFromPath[folderPath] = texture;
+		textures.push_back(texture);
+		textureFromPath[folderPath] = texture;
 
-		return TextureFromPath[folderPath];
+		return textureFromPath[folderPath];
 	}
 
 	ModelData* ContentManager::LoadModelData(const std::string& path) {
-		if (ModelDataFromPath.find(path) != ModelDataFromPath.end())
-			return ModelDataFromPath.at(path);
+		if (modelDataFromPath.find(path) != modelDataFromPath.end())
+			return modelDataFromPath.at(path);
 
 		TempModelData data = GetModelTempData(path, 1.0f);
 
-		ModelData* m = CreateModel(data.Vertices, data.Indices);
-		ModelDataFromPath[path] = m;
+		ModelData* m = CreateModel(data.vertices, data.indices);
+		modelDataFromPath[path] = m;
 
 		return m;
 	}
@@ -203,7 +204,7 @@ namespace OSK {
 	TempModelData ContentManager::GetModelTempData(const std::string& path, float scale) const {
 		const aiScene* scene;
 
-		scene = GlobalImporter.ReadFile(path.c_str(), AssimpFlags);
+		scene = globalImporter.ReadFile(path.c_str(), ASSIMP_FLAGS);
 
 		std::vector<Vertex> Vertices;
 
@@ -213,20 +214,20 @@ namespace OSK {
 			for (uint32_t v = 0; v < scene->mMeshes[i]->mNumVertices; v++) {
 				Vertex vertex{};
 				glm::vec3 vec3 = glm::make_vec3(&scene->mMeshes[i]->mVertices[v].x) * scale;
-				vertex.Position = vec3;
+				vertex.position = vec3;
 
-				vertex.Normals.x = scene->mMeshes[i]->mNormals[v].x;
-				vertex.Normals.y = -scene->mMeshes[i]->mNormals[v].y;
-				vertex.Normals.z = scene->mMeshes[i]->mNormals[v].z;
+				vertex.normals.x = scene->mMeshes[i]->mNormals[v].x;
+				vertex.normals.y = -scene->mMeshes[i]->mNormals[v].y;
+				vertex.normals.z = scene->mMeshes[i]->mNormals[v].z;
 
-				vertex.TextureCoordinates = glm::make_vec2(&scene->mMeshes[i]->mTextureCoords[0][v].x);
+				vertex.textureCoordinates = glm::make_vec2(&scene->mMeshes[i]->mTextureCoords[0][v].x);
 
 				if (scene->mMeshes[i]->HasVertexColors(0))
-					vertex.Color = glm::make_vec3(&scene->mMeshes[i]->mColors[0][v].r);
+					vertex.color = glm::make_vec3(&scene->mMeshes[i]->mColors[0][v].r);
 				else
-					vertex.Color = Color::WHITE().ToGLM();
+					vertex.color = Color::WHITE().ToGLM();
 
-				vertex.Position.y *= -1.0f;
+				vertex.position.y *= -1.0f;
 
 				Vertices.push_back(vertex);
 			}
@@ -245,8 +246,8 @@ namespace OSK {
 		}
 
 		TempModelData data{};
-		data.Vertices = Vertices;
-		data.Indices = indices;
+		data.vertices = Vertices;
+		data.indices = indices;
 
 		return data;
 	}
@@ -262,10 +263,10 @@ namespace OSK {
 
 			stagingBuffer.Write(vertices.data(), size);
 
-			model->VertexBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-			model->VertexBuffer.Allocate(size);
+			model->vertexBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+			model->vertexBuffer.Allocate(size);
 			
-			renderer->CopyBuffer(stagingBuffer, model->VertexBuffer, size);
+			renderer->CopyBuffer(stagingBuffer, model->vertexBuffer, size);
 
 			stagingBuffer.Free();
 		}
@@ -277,33 +278,33 @@ namespace OSK {
 
 			stagingBuffer.Write(indices.data(), size);
 
-			model->IndexBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-			model->IndexBuffer.Allocate(size);
+			model->indexBuffer = renderer->CreateBuffer(VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+			model->indexBuffer.Allocate(size);
 			
-			renderer->CopyBuffer(stagingBuffer, model->IndexBuffer, size);
+			renderer->CopyBuffer(stagingBuffer, model->indexBuffer, size);
 
 			stagingBuffer.Free();
 
-			model->IndicesCount = indices.size();
+			model->indicesCount = indices.size();
 		}
 
-		ModelDatas.push_back(model);
+		modelDatas.push_back(model);
 
 		return model;
 	}
 
 	void ContentManager::LoadSkybox(Skybox& skybox, const std::string& path) {
-		skybox.Instance = renderer->GetMaterialSystem()->GetMaterial(renderer->DefaultSkyboxMaterial_Name)->CreateInstance();
-		skybox.Instance->SetBuffer("Camera", renderer->UniformBuffers);
-		skybox.Instance->SetTexture("Texture", LoadSkyboxTexture(path));
-		skybox.Instance->FlushUpdate();
+		skybox.instance = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultSkyboxMaterial_Name)->CreateInstance();
+		skybox.instance->SetBuffer("Camera", renderer->uniformBuffers);
+		skybox.instance->SetTexture("Texture", LoadSkyboxTexture(path));
+		skybox.instance->FlushUpdate();
 	}
 
 	void ContentManager::LoadModel(Model& model, const std::string& path) {
-		model.Data = LoadModelData(path);
+		model.data = LoadModelData(path);
 		auto direct = path.substr(0, path.find_last_of('/'));
 
-		model.LogicalDevice = renderer->LogicalDevice;
+		model.logicalDevice = renderer->logicalDevice;
 	}
 
 	void ContentManager::LoadAnimatedModel(AnimatedModel& model, const std::string& path) {
@@ -311,11 +312,13 @@ namespace OSK {
 
 		TempModelData modelData = GetModelTempData(path);
 
-		auto scene = GlobalImporter.ReadFile(path.c_str(), AssimpFlags);
+		auto scene = globalImporter.ReadFile(path.c_str(), ASSIMP_FLAGS);
 
-		model.GlobalInverseTransform = AnimatedModel::AiToGLM(scene->mRootNode->mTransformation);
-		model.GlobalInverseTransform = glm::inverse(model.GlobalInverseTransform);
-		model.Bones.resize(modelData.Vertices.size());
+		model.globalInverseTransform = AnimatedModel::AiToGLM(scene->mRootNode->mTransformation);
+		model.globalInverseTransform = glm::inverse(model.globalInverseTransform);
+		model.bones.resize(modelData.vertices.size());
+
+		int numberOfAnimations = 0;
 
 		uint32_t vertexBase = 0;
 		for (uint32_t m = 0; m < scene->mNumMeshes; m++) {
@@ -324,113 +327,105 @@ namespace OSK {
 				uint32_t index = 0;
 				std::string name(mesh->mBones[i]->mName.data);
 
-				if (model.BoneMapping.find(name) == model.BoneMapping.end()) {
-					index = model.NumberOfBones;
-					model.NumberOfBones++;
+				if (model.boneMapping.find(name) == model.boneMapping.end()) {
+					index = numberOfAnimations;
+					numberOfAnimations++;
 					BoneInfo bone;
-					model.BoneInfos.push_back(bone);
-					model.BoneInfos[index].Offset = AnimatedModel::AiToGLM(mesh->mBones[i]->mOffsetMatrix);
-					model.BoneMapping[name] = index;
+					model.boneInfos.push_back(bone);
+					model.boneInfos[index].offset = AnimatedModel::AiToGLM(mesh->mBones[i]->mOffsetMatrix);
+					model.boneMapping[name] = index;
 				}
 				else {
-					index = model.BoneMapping[name];
+					index = model.boneMapping[name];
 				}
 
 				for (uint32_t w = 0; w < mesh->mBones[i]->mNumWeights; w++) {
 					uint32_t vertexID = vertexBase + mesh->mBones[i]->mWeights[w].mVertexId;
-					model.Bones[vertexID].Add(index, mesh->mBones[i]->mWeights[w].mWeight);
+					model.bones[vertexID].Add(index, mesh->mBones[i]->mWeights[w].mWeight);
 				}
 			}
 			vertexBase += mesh->mNumVertices;
 		}
 
-		for (uint32_t i = 0; i < modelData.Vertices.size(); i++) {
+		for (uint32_t i = 0; i < modelData.vertices.size(); i++) {
 			for (uint32_t b = 0; b < OSK_ANIM_MAX_BONES_PER_VERTEX; b++) {
-				modelData.Vertices[i].BondeIDs[b] = model.Bones[i].IDs[b];
-				modelData.Vertices[i].BoneWeights[b] = model.Bones[i].Weights[b];
+				modelData.vertices[i].bondeIDs[b] = model.bones[i].IDs[b];
+				modelData.vertices[i].boneWeights[b] = model.bones[i].weights[b];
 			}
 		}
 
-		model.Animations = new SAnimation[scene->mNumAnimations];
 		for (uint32_t i = 0; i < scene->mNumAnimations; i++) {
 			auto aiAnim = scene->mAnimations[i];
 
 			Animation::SAnimation animation;
-			animation.Name = aiAnim->mName.C_Str();
-			animation.Duration = aiAnim->mDuration;
-			animation.NumberOfChannels = aiAnim->mNumChannels;
-			animation.TicksPerSecond = aiAnim->mTicksPerSecond;
+			animation.name = aiAnim->mName.C_Str();
+			animation.duration = aiAnim->mDuration;
+			animation.boneChannels.reserve(aiAnim->mNumChannels);
+			animation.ticksPerSecond = aiAnim->mTicksPerSecond;
 
-			animation.NumberOfChannels = aiAnim->mNumChannels;
-			animation.BoneChannels = new SNodeAnim[animation.NumberOfChannels];
 			for (uint32_t ch = 0; ch < aiAnim->mNumChannels; ch++) {
 				auto channel = aiAnim->mChannels[ch];
 
 				Animation::SNodeAnim node;
-				node.Name = channel->mNodeName.C_Str();
-				node.NumberOfPositionKeys = channel->mNumPositionKeys;
-				node.PositionKeys = new SVectorKey[node.NumberOfPositionKeys];
-				node.NumberOfRotationKeys = channel->mNumRotationKeys;
-				node.RotationKeys = new SQuaternionKey[node.NumberOfRotationKeys];
-				node.NumberOfScalingKeys = channel->mNumScalingKeys;
-				node.ScalingKeys = new SVectorKey[node.NumberOfScalingKeys];
+				node.name = channel->mNodeName.C_Str();
 
-				for (uint32_t key = 0; key < node.NumberOfPositionKeys; key++) {
+				node.positionKeys.reserve(channel->mNumPositionKeys);
+				node.rotationKeys.reserve(channel->mNumRotationKeys);
+				node.scalingKeys.reserve(channel->mNumScalingKeys);
+				
+				for (uint32_t key = 0; key < channel->mNumPositionKeys; key++) {
 					Animation::SVectorKey newKey;
-					newKey.Time = channel->mPositionKeys[key].mTime;
+					newKey.time = channel->mPositionKeys[key].mTime;
 					Vector3f vec{ channel->mPositionKeys[key].mValue.x, channel->mPositionKeys[key].mValue.y, channel->mPositionKeys[key].mValue.z };
-					newKey.Value = vec;
-					node.PositionKeys[key] = newKey;
+					newKey.value = vec;
+					node.positionKeys.push_back(newKey);
 				}
 
-				for (uint32_t key = 0; key < node.NumberOfPositionKeys; key++) {
+				for (uint32_t key = 0; key < channel->mNumRotationKeys; key++) {
 					Animation::SQuaternionKey newKey;
-					newKey.Time = channel->mRotationKeys[key].mTime;
+					newKey.time = channel->mRotationKeys[key].mTime;
 					Quaternion quat;
 					quat.Quat.x = channel->mRotationKeys[key].mValue.x;
 					quat.Quat.y = channel->mRotationKeys[key].mValue.y;
 					quat.Quat.z = channel->mRotationKeys[key].mValue.z;
 					quat.Quat.w = channel->mRotationKeys[key].mValue.w;
-					newKey.Value = quat;
-					node.RotationKeys[key] = newKey;
+					newKey.value = quat;
+					node.rotationKeys.push_back(newKey);
 				}
 
-				for (uint32_t key = 0; key < node.NumberOfScalingKeys; key++) {
+				for (uint32_t key = 0; key < channel->mNumScalingKeys; key++) {
 					Animation::SVectorKey newKey;
-					newKey.Time = channel->mScalingKeys[key].mTime;
+					newKey.time = channel->mScalingKeys[key].mTime;
 					Vector3f vec{ channel->mScalingKeys[key].mValue.x, channel->mScalingKeys[key].mValue.y, channel->mScalingKeys[key].mValue.z };
-					newKey.Value = vec;
-					node.ScalingKeys[key] = newKey;
+					newKey.value = vec;
+					node.scalingKeys.push_back(newKey);
 				}
 
-				animation.BoneChannels[ch] = node;
+				animation.boneChannels.push_back(node);
 			}
 
-			model.Animations[i] = animation;
+			model.animations.push_back(animation);
 		}
 
-		model.Data = CreateModel(modelData.Vertices, modelData.Indices);
-		model.RootNode = GetNodes(scene->mRootNode);
+		model.data = CreateModel(modelData.vertices, modelData.indices);
+		model.rootNode = GetNodes(scene->mRootNode);
 		model.SetAnimation(0);
 		model.SetupAnimationIndices();
-
+		
 		model.Update(0);
 
-		model.LogicalDevice = renderer->LogicalDevice;
-		model.AnimationBufferOffset = animationCount;
+		model.logicalDevice = renderer->logicalDevice;
+		model.animationBufferOffset = animationCount;
 		animationCount++;
-
-		auto direct = path.substr(0, path.find_last_of('/'));
 	}
 
 	SNode ContentManager::GetNodes(const aiNode* node) {
 		SNode newNode;
-		newNode.Name = node->mName.C_Str();
-		newNode.Matrix = AnimatedModel::AiToGLM(node->mTransformation);
-		newNode.Children = new SNode[node->mNumChildren];
-		newNode.NumberOfChildren = node->mNumChildren;
+		newNode.name = node->mName.C_Str();
+		newNode.matrix = AnimatedModel::AiToGLM(node->mTransformation);
+		newNode.children.resize(node->mNumChildren);
 		for (uint32_t i = 0; i < node->mNumChildren; i++) {
-			newNode.Children[i] = GetNodes(node->mChildren[i]);
+			newNode.children.push_back(GetNodes(node->mChildren[i]));
 		}
 
 		return newNode;
@@ -438,20 +433,20 @@ namespace OSK {
 
 	void ContentManager::LoadSprite(Sprite& sprite, const std::string& path) {
 		CreateSprite(sprite);
-		sprite.Texture2D = LoadTexture(path);
-		sprite.SpriteMaterial = renderer->GetMaterialSystem()->GetMaterial(renderer->DefaultMaterial2D_Name)->CreateInstance();
+		sprite.texture = LoadTexture(path);
+		sprite.material = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultMaterial2D_Name)->CreateInstance();
 		sprite.UpdateMaterialTexture();
-		sprite.SpriteMaterial->FlushUpdate();
+		sprite.material->FlushUpdate();
 	}
 
 	void ContentManager::CreateSprite(Sprite& sprite) {
 		renderer->createSpriteVertexBuffer(&sprite);
-		Sprites.push_back(&sprite);
+		sprites.push_back(&sprite);
 	}
 
 	Font* ContentManager::LoadFont(const std::string& source, uint32_t size) {
-		if (FontsFromPath.find(source) != FontsFromPath.end())
-			return FontsFromPath[source];
+		if (fontsFromPath.find(source) != fontsFromPath.end())
+			return fontsFromPath[source];
 
 		Font* fuente = new Font();
 
@@ -530,39 +525,39 @@ namespace OSK {
 			currentX += faces[c].sizeX;
 		}
 
-		VULKAN::GPUImage image = VulkanImageGen::CreateImageFromBitMap(textureSizeX, textureSizeY, data);
+		VULKAN::GPUImage image = VULKAN::VulkanImageGen::CreateImageFromBitMap(textureSizeX, textureSizeY, data);
 
-		fontTexture->Size.X = textureSizeX;
-		fontTexture->Size.Y = textureSizeY;
-		fontTexture->Image = image;
-		fontTexture->Image.Sampler = renderer->GlobalImageSampler;
+		fontTexture->size.X = textureSizeX;
+		fontTexture->size.Y = textureSizeY;
+		fontTexture->image = image;
+		fontTexture->image.sampler = renderer->globalImageSampler;
 
-		Textures.push_back(fontTexture);
+		textures.push_back(fontTexture);
 
-		fuente->FontMaterial = renderer->GetMaterialSystem()->GetMaterial(renderer->DefaultMaterial2D_Name)->CreateInstance();
-		fuente->FontMaterial->SetTexture(fontTexture);
-		fuente->FontMaterial->FlushUpdate();
+		fuente->fontMaterial = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultMaterial2D_Name)->CreateInstance();
+		fuente->fontMaterial->SetTexture(fontTexture);
+		fuente->fontMaterial->FlushUpdate();
 
 		currentX = 0;
 		for (uint32_t c = 0; c < 255; c++) {
-			fuente->Characters[c] = {};
+			fuente->characters[c] = {};
 
-			FontChar& character = fuente->Characters.at(c);
+			FontChar& character = fuente->characters.at(c);
 
-			character.Size = Vector2(faces[c].sizeX, faces[c].sizeY);
-			character.Bearing = Vector2(faces[c].left, faces[c].top);
-			character.Advance = faces[c].advanceX;
+			character.size = Vector2(faces[c].sizeX, faces[c].sizeY);
+			character.bearing = Vector2(faces[c].left, faces[c].top);
+			character.advance = faces[c].advanceX;
 			
-			renderer->createSpriteVertexBuffer(&fuente->Characters[c].sprite);
+			renderer->createSpriteVertexBuffer(&fuente->characters[c].sprite);
 
-			fuente->Characters[c].sprite.Texture2D = fontTexture;
-			fuente->Characters[c].sprite.SetTexCoords(Vector4ui{ currentX, 0, faces[c].sizeX, faces[c].sizeY }.ToVector4f());
+			fuente->characters[c].sprite.texture = fontTexture;
+			fuente->characters[c].sprite.SetTexCoords(Vector4ui{ currentX, 0, faces[c].sizeX, faces[c].sizeY }.ToVector4f());
 
-			renderer->createSpriteVertexBuffer(&fuente->Characters[c].sprite);
+			renderer->createSpriteVertexBuffer(&fuente->characters[c].sprite);
 
-			fuente->Characters[c].sprite.SpriteMaterial = fuente->FontMaterial;
+			fuente->characters[c].sprite.material = fuente->fontMaterial;
 
-			Sprites.push_back(&fuente->Characters[c].sprite);
+			sprites.push_back(&fuente->characters[c].sprite);
 
 			currentX += faces[c].sizeX;
 		}
@@ -572,10 +567,10 @@ namespace OSK {
 	
 		FT_Done_Face(face);
 
-		fuente->Size = size;
+		fuente->size = size;
 
-		FontsFromPath[source] = fuente;
-		Fonts.push_back(fuente);
+		fontsFromPath[source] = fuente;
+		fonts.push_back(fuente);
 
 		return fuente;
 	}
@@ -587,18 +582,18 @@ namespace OSK {
 
 		stbi_uc* pixels = stbi_load(path.c_str(), &width, &height, &nChannels, STBI_grey);
 		VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels;
-		map.Size.X = width;
-		map.Size.Y = height;
+		map.size.X = width;
+		map.size.Y = height;
 
-		map.Data = new uint8_t[width * height];
-		memcpy(map.Data, pixels, sizeof(uint8_t) * width * height);
+		map.data = new uint8_t[width * height];
+		memcpy(map.data, pixels, sizeof(uint8_t) * width * height);
 
 		stbi_image_free(pixels);
 	}
 
 	SoundEmitterComponent* ContentManager::LoadSoundEntity(const std::string& path) {
-		if(SoundsFromPath.find(path) != SoundsFromPath.end())
-			return SoundsFromPath[path];
+		if(soundsFromPath.find(path) != soundsFromPath.end())
+			return soundsFromPath[path];
 
 		SoundEmitterComponent* sound = new SoundEmitterComponent();
 
@@ -649,19 +644,19 @@ namespace OSK {
 		file.read((char*)data, size);
 
 		//Crear el audio.
-		alGenBuffers(1, &sound->BufferID);
-		alBufferData(sound->BufferID, (channels == 2) ? AL_FORMAT_STEREO16 : AL_FORMAT_MONO16, data, size, samplesPerSec);
+		alGenBuffers(1, &sound->bufferID);
+		alBufferData(sound->bufferID, (channels == 2) ? AL_FORMAT_STEREO16 : AL_FORMAT_MONO16, data, size, samplesPerSec);
 
-		alGenSources(1, &sound->SourceID);
-		alSourcei(sound->SourceID, AL_BUFFER, sound->BufferID);
+		alGenSources(1, &sound->sourceID);
+		alSourcei(sound->sourceID, AL_BUFFER, sound->bufferID);
 
 		delete[] data;
 		data = NULL;
 
 		file.close();
 
-		Sounds.push_back(sound);
-		SoundsFromPath[path] = sound;
+		sounds.push_back(sound);
+		soundsFromPath[path] = sound;
 
 		return sound;
 	}

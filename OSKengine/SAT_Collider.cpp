@@ -7,10 +7,14 @@
 using namespace OSK;
 using namespace OSK::Collision;
 
+Transform& SAT_Collider::GetTransform() {
+	return trasform;
+}
+
 void SAT_Collider::OptimizeFaces() {
 	std::vector<SAT_Face> faces = {};
 
-	for (const auto& i : Faces) {
+	for (const auto& i : faces) {
 		bool exists = false;
 
 		for (const auto& f : faces) {
@@ -27,20 +31,20 @@ void SAT_Collider::OptimizeFaces() {
 			faces.push_back(i);
 	}
 
-	Faces.clear();
-	Faces = faces;
+	faces.clear();
+	faces = faces;
 }
 
 void SAT_Collider::AddFace(const Vector3f points[], uint32_t size) {
-	Faces.push_back({});
-	SAT_Face* face = &Faces[Faces.size() - 1];
+	faces.push_back({});
+	SAT_Face* face = &faces[faces.size() - 1];
 
 	for (uint32_t i = 0; i < size; i++) {
-		const Vector3f point = points[i];
+		Vector3f point = points[i];
 
 		int32_t iterator = -1;
-		for (int32_t it = 0; it < TransformedPoints.size(); it++) {
-			if (TransformedPoints[it] == point) {
+		for (int32_t it = 0; it < transformedPoints.size(); it++) {
+			if (transformedPoints[it] == point) {
 				iterator = it;
 				break;
 			}
@@ -50,22 +54,22 @@ void SAT_Collider::AddFace(const Vector3f points[], uint32_t size) {
 			face->push_back((uint32_t)iterator);
 		}
 		else {
-			Points.push_back(point);
-			TransformedPoints.push_back(point);
-			face->push_back(TransformedPoints.size() - 1);
+			this->points.push_back(point);
+			transformedPoints.push_back(point);
+			face->push_back(transformedPoints.size() - 1);
 		}
 	}
 }
 
 void SAT_Collider::TransformPoints() {
-	if (IsStatic)
+	if (isStatic)
 		return;
 
 	const static glm::vec4 positionMult = { 0.0f, 0.0f, 0.0f, 1.0f };
 
-	for (uint32_t i = 0; i < Points.size(); i++) {
-		glm::mat4 mat = glm::translate(BoxTransform.ModelMatrix, Points[i].ToGLM());
-		TransformedPoints[i] = Vector3f(mat * positionMult);
+	for (uint32_t i = 0; i < points.size(); i++) {
+		glm::mat4 mat = glm::translate(trasform.AsMatrix(), points[i].ToGLM());
+		transformedPoints[i] = Vector3f(mat * positionMult);
 	}
 }
 
@@ -147,7 +151,7 @@ SAT_CollisionInfo SAT_Collider::GetCollisionInfo(const SAT_Collider& other) cons
 	float currentProjectionThis = std::numeric_limits<float>::min();
 
 	for (const auto& i : other.GetPoints()) {
-		const Vector3f p = i - other.BoxTransform.GlobalPosition;
+		const Vector3f p = i - other.trasform.GetPosition();
 		float proj = p.Dot(projectionToOther);
 
 		if (CompareFloats(proj, currentProjectionOther)) {
@@ -161,7 +165,7 @@ SAT_CollisionInfo SAT_Collider::GetCollisionInfo(const SAT_Collider& other) cons
 	}
 
 	for (const auto& i : GetPoints()) {
-		const Vector3f p = i - BoxTransform.GlobalPosition;
+		const Vector3f p = i - trasform.GetPosition();
 		float proj = p.Dot(projectionToThis);
 
 		if (CompareFloats(proj, currentProjectionThis)) {
@@ -176,11 +180,11 @@ SAT_CollisionInfo SAT_Collider::GetCollisionInfo(const SAT_Collider& other) cons
 
 	if (pointsThis.size() == 1) {
 		pointA = pointsThis[0];
-		pointB = pointA + BoxTransform.GlobalPosition - other.BoxTransform.GlobalPosition;
+		pointB = pointA + trasform.GetPosition() - other.trasform.GetPosition();
 	}
 	else if (pointsOther.size() == 1) {
 		pointB = pointsOther[0];
-		pointA = pointB + other.BoxTransform.GlobalPosition - BoxTransform.GlobalPosition;
+		pointA = pointB + other.trasform.GetPosition() - trasform.GetPosition();
 	}
 	else {
 		if (pointsThis.size() < pointsOther.size()) {
@@ -190,7 +194,7 @@ SAT_CollisionInfo SAT_Collider::GetCollisionInfo(const SAT_Collider& other) cons
 
 			pointA = averageThis;
 
-			pointB = pointA + BoxTransform.GlobalPosition - other.BoxTransform.GlobalPosition;
+			pointB = pointA + trasform.GetPosition() - other.trasform.GetPosition();
 		}
 		else  if (pointsThis.size() > pointsOther.size()) {
 			Vector3f averageOther = { 0.0f };
@@ -199,7 +203,7 @@ SAT_CollisionInfo SAT_Collider::GetCollisionInfo(const SAT_Collider& other) cons
 
 			pointB = averageOther;
 		
-			pointA = pointB + other.BoxTransform.GlobalPosition - BoxTransform.GlobalPosition;
+			pointA = pointB + other.trasform.GetPosition() - trasform.GetPosition();
 		}
 		else {
 			Vector3f average = { 0.0f };
@@ -209,12 +213,12 @@ SAT_CollisionInfo SAT_Collider::GetCollisionInfo(const SAT_Collider& other) cons
 				average += i / number;
 
 			for (const auto& i : pointsOther) {
-				Vector3f aPoint = i + other.BoxTransform.GlobalPosition - BoxTransform.GlobalPosition;
+				Vector3f aPoint = i + other.trasform.GetPosition() - trasform.GetPosition();
 				average += aPoint / number;
 			}
 
 			pointA = average;
-			pointB = pointA + BoxTransform.GlobalPosition - other.BoxTransform.GlobalPosition;
+			pointB = pointA + trasform.GetPosition() - other.trasform.GetPosition();
 		}
 
 	}
@@ -222,24 +226,24 @@ SAT_CollisionInfo SAT_Collider::GetCollisionInfo(const SAT_Collider& other) cons
 #pragma endregion
 
 	SAT_CollisionInfo output{};
-	output.IsColliding = true;
-	output.Axis = smallestAxis;
-	output.MinimunTranslationVector = smallestAxis.GetNormalized() * currentOverlap;
-	output.PointA = pointA;
-	output.PointB = pointB;
+	output.isColliding = true;
+	output.axis = smallestAxis;
+	output.minimunTranslationVector = smallestAxis.GetNormalized() * currentOverlap;
+	output.pointA = pointA;
+	output.pointB = pointB;
 
 	return output;
 }
 
 std::vector<Vector3f> SAT_Collider::GetPoints() const {
-	return TransformedPoints;
+	return transformedPoints;
 }
 
 std::vector<Vector3f> SAT_Collider::GetAxes() const {
 	std::vector<Vector3f> axes = {};
-	axes.reserve(Faces.size());
+	axes.reserve(faces.size());
 
-	for (const auto& i : Faces) {
+	for (const auto& i : faces) {
 		axes.push_back(GetAxisFromFace(i));
 	}
 
@@ -247,10 +251,10 @@ std::vector<Vector3f> SAT_Collider::GetAxes() const {
 }
 
 SAT_Projection SAT_Collider::ProjectToAxis(const Vector3f& axis) const {
-	float min = axis.Dot(TransformedPoints[0]);
+	float min = axis.Dot(transformedPoints[0]);
 	float max = min;
 
-	for (const auto& i : TransformedPoints) {
+	for (const auto& i : transformedPoints) {
 		float proj = axis.Dot(i);
 
 		if (proj < min)
@@ -265,11 +269,11 @@ SAT_Projection SAT_Collider::ProjectToAxis(const Vector3f& axis) const {
 
 Vector3f SAT_Collider::GetAxisFromFace(const SAT_Face& face) const {
 	if (face.size() < 3)
-		throw std::runtime_error("ERROR: SAT_Face has only " + std::to_string(Points.size()) + " points.");
+		throw std::runtime_error("ERROR: SAT_Face has only " + std::to_string(points.size()) + " points.");
 
 
-	const Vector3f vec1 = TransformedPoints[face[1]] - TransformedPoints[face[0]];
-	const Vector3f vec2 = TransformedPoints[face[2]] - TransformedPoints[face[0]];
+	const Vector3f vec1 = transformedPoints[face[1]] - transformedPoints[face[0]];
+	const Vector3f vec2 = transformedPoints[face[2]] - transformedPoints[face[0]];
 
 	return vec1.Cross(vec2).GetNormalized();
 }

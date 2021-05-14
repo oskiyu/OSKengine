@@ -8,8 +8,8 @@ namespace OSK::VULKAN {
 	}
 
 	Renderpass::~Renderpass() {
-		if (logicalDevice && VulkanRenderpass)
-			vkDestroyRenderPass(logicalDevice, VulkanRenderpass, nullptr);
+		if (logicalDevice && vulkanRenderpass)
+			vkDestroyRenderPass(logicalDevice, vulkanRenderpass, nullptr);
 	}
 
 	void Renderpass::SetMSAA(VkSampleCountFlagBits samples) {
@@ -38,7 +38,7 @@ namespace OSK::VULKAN {
 		std::vector<VkSubpassDependency> subpassesDependencies;
 		for (auto& i : this->subpasses) {
 			for (auto& d : i.dependencies)
-				subpassesDependencies.push_back(d.VulkanDependency);
+				subpassesDependencies.push_back(d.vulkanDependency);
 		}
 
 		VkRenderPassCreateInfo renderPassInfo{};
@@ -50,7 +50,7 @@ namespace OSK::VULKAN {
 		renderPassInfo.dependencyCount = subpassesDependencies.size();
 		renderPassInfo.pDependencies = subpassesDependencies.data();
 
-		VkResult result = vkCreateRenderPass(logicalDevice, &renderPassInfo, nullptr, &VulkanRenderpass);
+		VkResult result = vkCreateRenderPass(logicalDevice, &renderPassInfo, nullptr, &vulkanRenderpass);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear renderpass.");
 	}

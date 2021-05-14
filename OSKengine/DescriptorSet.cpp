@@ -7,7 +7,7 @@ namespace OSK {
 		this->logicalDevice = logicalDevice;
 		this->swapchainCount = swapchainCount;
 
-		VulkanDescriptorSets.resize(swapchainCount);
+		vulkanDescriptorSets.resize(swapchainCount);
 		descriptorWrites.resize(swapchainCount);
 	}
 
@@ -26,28 +26,28 @@ namespace OSK {
 		if (!allocate)
 			return;
 
-		std::vector<VkDescriptorSetLayout> layouts(swapchainCount, layout->VulkanDescriptorSetLayout);
+		std::vector<VkDescriptorSetLayout> layouts(swapchainCount, layout->vulkanDescriptorSetLayout);
 		VkDescriptorSetAllocateInfo allocInfo{};
 		allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-		allocInfo.descriptorPool = pool->VulkanDescriptorPool;
+		allocInfo.descriptorPool = pool->vulkanDescriptorPool;
 		allocInfo.descriptorSetCount = static_cast<uint32_t>(swapchainCount);
 		allocInfo.pSetLayouts = layouts.data();
 
-		VkResult result = vkAllocateDescriptorSets(logicalDevice, &allocInfo, VulkanDescriptorSets.data());
+		VkResult result = vkAllocateDescriptorSets(logicalDevice, &allocInfo, vulkanDescriptorSets.data());
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear descriptor sets.");
 	}
 
 	void DescriptorSet::AddUniformBuffers(std::vector<GPUDataBuffer> buffers, uint32_t binding, size_t size) {
-		for (uint32_t i = 0; i < VulkanDescriptorSets.size(); i++) {
+		for (uint32_t i = 0; i < vulkanDescriptorSets.size(); i++) {
 			VkDescriptorBufferInfo* bufferInfo = new VkDescriptorBufferInfo();
-			bufferInfo->buffer = buffers[i].Buffer;
+			bufferInfo->buffer = buffers[i].buffer;
 			bufferInfo->offset = 0;
 			bufferInfo->range = size;
 
 			VkWriteDescriptorSet descriptorWrite{};
 			descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-			descriptorWrite.dstSet = VulkanDescriptorSets[i];
+			descriptorWrite.dstSet = vulkanDescriptorSets[i];
 			descriptorWrite.dstBinding = binding; //Binding
 			descriptorWrite.dstArrayElement = 0;
 			descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
@@ -65,15 +65,15 @@ namespace OSK {
 	}
 
 	void DescriptorSet::AddDynamicUniformBuffers(std::vector<GPUDataBuffer> buffers, uint32_t binding, size_t size) {
-		for (uint32_t i = 0; i < VulkanDescriptorSets.size(); i++) {
+		for (uint32_t i = 0; i < vulkanDescriptorSets.size(); i++) {
 			VkDescriptorBufferInfo* bufferInfo = new VkDescriptorBufferInfo();
-			bufferInfo->buffer = buffers[i].Buffer;
+			bufferInfo->buffer = buffers[i].buffer;
 			bufferInfo->offset = 0;
 			bufferInfo->range = size;
 
 			VkWriteDescriptorSet descriptorWrite{};
 			descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-			descriptorWrite.dstSet = VulkanDescriptorSets[i];
+			descriptorWrite.dstSet = vulkanDescriptorSets[i];
 			descriptorWrite.dstBinding = binding; //Binding
 			descriptorWrite.dstArrayElement = 0;
 			descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;
@@ -91,15 +91,15 @@ namespace OSK {
 	}
 
 	void DescriptorSet::AddImage(VULKAN::GPUImage* image, VkSampler sampler, uint32_t binding) {
-		for (uint32_t i = 0; i < VulkanDescriptorSets.size(); i++) {
+		for (uint32_t i = 0; i < vulkanDescriptorSets.size(); i++) {
 			VkDescriptorImageInfo* imageInfo = new VkDescriptorImageInfo();
 			imageInfo->imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-			imageInfo->imageView = image->View;
+			imageInfo->imageView = image->view;
 			imageInfo->sampler = sampler;
 
 			VkWriteDescriptorSet descriptorWrite{};
 			descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-			descriptorWrite.dstSet = VulkanDescriptorSets[i];
+			descriptorWrite.dstSet = vulkanDescriptorSets[i];
 			descriptorWrite.dstBinding = binding; //Binding
 			descriptorWrite.dstArrayElement = 0;
 			descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
@@ -125,13 +125,13 @@ namespace OSK {
 	}
 
 	void DescriptorSet::Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration) const {
-		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->VulkanPipelineLayout, 0, 1, &VulkanDescriptorSets[iteration], 0, nullptr);
+		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->vulkanPipelineLayout, 0, 1, &vulkanDescriptorSets[iteration], 0, nullptr);
 	}
 
 	void DescriptorSet::Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration, uint32_t dynamicOffset, uint32_t alignment) const {
 		uint32_t finalOffset = dynamicOffset * alignment;
 
-		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->VulkanPipelineLayout, 0, 1, &VulkanDescriptorSets[iteration], 1, &finalOffset);
+		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->vulkanPipelineLayout, 0, 1, &vulkanDescriptorSets[iteration], 1, &finalOffset);
 	}
 	
 	void DescriptorSet::Reset() {

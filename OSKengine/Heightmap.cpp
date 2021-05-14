@@ -3,6 +3,6 @@
 using namespace OSK;
 
 Heightmap::~Heightmap() {
-	if (Data != nullptr)
-		delete[] Data;
+	if (data != nullptr)
+		delete[] data;
 }

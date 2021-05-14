@@ -29,6 +29,8 @@ namespace OSK {
 	/// </summary>
 	class OSKAPI_CALL WindowAPI {
 
+		friend class RenderAPI;
+
 	public:
 
 		/// <summary>
@@ -70,15 +72,11 @@ namespace OSK {
 		/// <param name="keyboard">Estado a actualizar.</param>
 		void UpdateKeyboardState(KeyboardState& keyboard);
 
-		//Actualiza el estado de un MouseState dado.
-
 		/// <summary>
 		/// Actualiza el estado de un MouseState dado.
 		/// </summary>
 		/// <param name="mouseState">MouseState a actualizar.</param>
 		void UpdateMouseState(MouseState& mouseState);
-
-		//Establece la posición del cursor, en píxeles.
 
 		/// <summary>
 		/// Establece la posición del cursor, en píxeles.
@@ -111,8 +109,6 @@ namespace OSK {
 		/// <param name="fullscreen">True si es pantalla completa.</param>
 		void SetFullscreen(bool fullscreen);
 
-		//Cierra la ventana.
-
 		/// <summary>
 		/// Cierra la ventana.
 		/// </summary>
@@ -136,40 +132,22 @@ namespace OSK {
 		deltaTime_t GetTime();
 
 		/// <summary>
-		/// Tamaño de la ventana en el eje X (ancho).
+		/// Tamaño de la ventana.
 		/// </summary>
-		int32_t ScreenSizeX;
-
-		/// <summary>
-		/// Tamaño de la ventana en el eje Y (alto).
-		/// </summary>
-		int32_t ScreenSizeY;
+		Vector2i GetSize() const;
 
 		/// <summary>
 		/// Ratio de aspecto de la ventana.
 		/// En porcentaje de X respecto a Y (x/y).
 		/// </summary>
-		float_t ScreenRatio;
-
-		//TODO:
-		UI::BaseUIElement* UserInterface = nullptr;
-
-		/// <summary>
-		/// Obtiene la ventana nativa de GLFW.
-		/// </summary>
-		/// <returns>Ventana nativa.</returns>
-		GLFWwindow* GetGLFWWindow() const;
+		float GetScreenAspectRatio() const;
 
 		/// <summary>
 		/// True si está en pantalla completa.
 		/// </summary>
-		bool IsFullscreen = false;
+		bool IsFullscreen() const;
 
-		/// <summary>
-		/// Si es true, el viewport debe ser actualizado.
-		/// </summary>
-		bool ViewportShouldBeUpdated;
-
+		
 	private:
 
 		/// <summary>
@@ -241,6 +219,32 @@ namespace OSK {
 		/// Función que se ejecuta al cambiar de tamaño la ventana.
 		/// </summary>
 		void resize(double_t, double_t);
+		
+		/// <summary>
+		/// Si es true, el viewport debe ser actualizado.
+		/// </summary>
+		bool viewportShouldBeUpdated;
+
+		/// <summary>
+		/// Tamaño de la ventana en el eje X (ancho).
+		/// </summary>
+		int32_t screenSizeX;
+
+		/// <summary>
+		/// Tamaño de la ventana en el eje Y (alto).
+		/// </summary>
+		int32_t screenSizeY;
+
+		/// <summary>
+		/// Ratio de aspecto de la ventana.
+		/// En porcentaje de X respecto a Y (x/y).
+		/// </summary>
+		float_t screenRatio;
+
+		/// <summary>
+		/// True si está en pantalla completa.
+		/// </summary>
+		bool isFullscreen = false;
 
 	};
 		

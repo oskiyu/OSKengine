@@ -3,12 +3,12 @@
 namespace OSK {
 
 	KeyState KeyboardState::GetKeyState(Key key) {
-		return static_cast<KeyState>(KeyStates[static_cast<keyCode_t>(key)]);
+		return static_cast<KeyState>(keyStates[static_cast<keyCode_t>(key)]);
 	}
 
 
 	keyState_t KeyboardState::IsKeyDown(Key key) {
-		return KeyStates[static_cast<keyCode_t>(key)];
+		return keyStates[static_cast<keyCode_t>(key)];
 	}
 
 

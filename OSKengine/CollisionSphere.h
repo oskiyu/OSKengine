@@ -53,12 +53,12 @@ namespace OSK {
 		/// <summary>
 		/// Posición de la esfera.
 		/// </summary>
-		Vector3f Position = { 0.0f };
+		Vector3f position = { 0.0f };
 
 		/// <summary>
 		/// Radio de la esfera.
 		/// </summary>
-		float_t Radius = 0.0f;
+		float_t radius = 0.0f;
 
 	};
 

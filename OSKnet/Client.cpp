@@ -10,21 +10,6 @@ namespace OSK::NET {
 	}
 
 
-	void Client::SetNewConnectionCallback(OSKnet_new_connection_callback callback) {
-		new_connection_callback = callback;
-	}
-
-
-	void Client::SetMessageReceivedCallback(OSKnet_message_received_callback callback) {
-		message_received_callback = callback;
-	}
-
-
-	void Client::SetDisconnectCallback(OSKnet_disconnect_callback callback) {
-		disconnection_callback = callback;
-	}
-
-
 	bool Client::Connect(const char* ip, const uint32_t& port) {
 		enet_address_set_host(&address, ip);
 		address.port = port;
@@ -39,16 +24,16 @@ namespace OSK::NET {
 	void Client::ProccessMessages() {
 		while (enet_host_service(client, &message, 0) > 0) {
 
-			Message oskMsg{ message };
+			Message oskMsg(message);
 
 			switch (message.type) {
 
 			case ENET_EVENT_TYPE_CONNECT:
-				OSKnet_safe_callback_execute<>(new_connection_callback, oskMsg);
+				NewConnectionCallback(oskMsg);
 				break;
 
 			case ENET_EVENT_TYPE_RECEIVE: {
-				OSKnet_safe_callback_execute<>(message_received_callback, oskMsg);
+				MessageReceivedCallback(oskMsg);
 
 				//Destruir el mensaje una vez ha sido inspeccionado.
 				enet_packet_destroy(message.packet);
@@ -56,7 +41,7 @@ namespace OSK::NET {
 				break;
 
 			case ENET_EVENT_TYPE_DISCONNECT: {
-				OSKnet_safe_callback_execute<>(disconnection_callback, oskMsg);
+				DisconnectCallback(oskMsg);
 
 				message.peer->data = nullptr;
 			}
@@ -68,8 +53,7 @@ namespace OSK::NET {
 
 
 	void Client::SendMessage(Message& message, const uint32_t& channel) {
-		auto msg = message.GetRawDataToBeSent();
-		ENetPacket* packet = enet_packet_create(msg, strlen(msg) + 1, 0);
+		ENetPacket* packet = enet_packet_create(message.buffer.Read(0), message.buffer.GetSize() + 1, 0);
 		enet_peer_send(connected_server, channel, packet);
 	}
 

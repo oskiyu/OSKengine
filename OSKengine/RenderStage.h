@@ -82,17 +82,17 @@ namespace OSK {
 		/// <summary>
 		/// Render target.
 		/// </summary>
-		RenderTarget* RTarget = nullptr;
+		RenderTarget* renderTarget = nullptr;
 
 		/// <summary>
 		/// Spritebatches a renderizar.
 		/// </summary>
-		std::list<SpriteBatch*> SpriteBatches;
+		std::list<SpriteBatch*> spriteBatches;
 
 		/// <summary>
 		/// Escena que se va a renderizar.
 		/// </summary>
-		RenderizableScene* Scene = nullptr;
+		RenderizableScene*scene = nullptr;
 
 	};
 

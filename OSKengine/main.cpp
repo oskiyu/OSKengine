@@ -28,6 +28,8 @@
 #include "GameObject.h"
 #include "InputSystem.h"
 
+#include "Scanner.h"
+
 #include "Game1.hpp"
 
 int main() {

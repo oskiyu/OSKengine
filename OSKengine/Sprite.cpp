@@ -4,11 +4,11 @@
 
 namespace OSK {
 	
-	std::array<uint16_t, 6> Sprite::Indices = {
+	std::array<uint16_t, 6> Sprite::indices = {
 			0, 1, 2, 2, 3, 0
 	};
 
-	GPUDataBuffer Sprite::IndexBuffer;
+	GPUDataBuffer Sprite::indexBuffer;
 
 
 	Sprite::~Sprite() {
@@ -20,31 +20,31 @@ namespace OSK {
 		finalTexCoords.Z += finalTexCoords.X;
 		finalTexCoords.W += finalTexCoords.Y;
 
-		Vertices[0].TextureCoordinates.x = finalTexCoords.X;
-		Vertices[0].TextureCoordinates.y = finalTexCoords.Y;
-		Vertices[1].TextureCoordinates.x = finalTexCoords.Z;
-		Vertices[1].TextureCoordinates.y = finalTexCoords.Y;
-		Vertices[2].TextureCoordinates.x = finalTexCoords.Z;
-		Vertices[2].TextureCoordinates.y = finalTexCoords.W;
-		Vertices[3].TextureCoordinates.x = finalTexCoords.X;
-		Vertices[3].TextureCoordinates.y = finalTexCoords.W;
+		vertices[0].textureCoordinates.x = finalTexCoords.X;
+		vertices[0].textureCoordinates.y = finalTexCoords.Y;
+		vertices[1].textureCoordinates.x = finalTexCoords.Z;
+		vertices[1].textureCoordinates.y = finalTexCoords.Y;
+		vertices[2].textureCoordinates.x = finalTexCoords.Z;
+		vertices[2].textureCoordinates.y = finalTexCoords.W;
+		vertices[3].textureCoordinates.x = finalTexCoords.X;
+		vertices[3].textureCoordinates.y = finalTexCoords.W;
 
 		hasChanged = true;
 	}
 
 	void Sprite::SetTexCoords(const Vector4f& texCoords) {
-		Vector4f finalTexCoords = texCoords / Vector4f(Texture2D->Size.X, Texture2D->Size.Y, Texture2D->Size.X, Texture2D->Size.Y);
+		Vector4f finalTexCoords = texCoords / Vector4f(texture->size.X, texture->size.Y, texture->size.X, texture->size.Y);
 
 		SetTexCoordsInPercent(finalTexCoords);
 	}
 
 	void Sprite::UpdateMaterialTexture() {
-		SpriteMaterial->SetTexture("Texture", Texture2D);
+		material->SetTexture("Texture", texture);
 	}
 
 	PushConst2D Sprite::getPushConst(const glm::mat4& camera) {
-		SpriteTransform.UpdateModel();
-		return PushConst2D{ SpriteTransform.ModelMatrix, camera, color.ToGLM() };
+		transform.UpdateModel();
+		return PushConst2D{ transform.AsMatrix(), camera, color.ToGLM() };
 	}
 
 }

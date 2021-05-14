@@ -4,13 +4,16 @@
 
 using namespace OSK;
 
-MaterialPoolData::MaterialPoolData(RenderAPI* renderer) {
-	Renderer = renderer;
+MaterialPoolData::MaterialPoolData(RenderAPI* renderer, uint32_t baseSize) {
+	this->renderer = renderer;
 
-	FreeSpaces.Allocate(MaterialPoolSize);
+	freeSpaces.Allocate(MaterialPoolSize);
+	this->baseSize = baseSize;
+
+	descriptorPool = renderer->CreateNewDescriptorPool();
 
 	for (uint32_t i = 0; i < MaterialPoolSize; i++) {
-		DescriptorSets.push_back(renderer->CreateNewDescriptorSet());
+		descriptorSets.push_back(renderer->CreateNewDescriptorSet());
 	}
 }
 
@@ -18,44 +21,59 @@ MaterialPoolData::~MaterialPoolData() {
 	//Free();
 }
 
+void MaterialPoolData::SetBindings(const std::vector<VkDescriptorType>& bindings) {
+	for (uint32_t i = 0; i < bindings.size(); i++)
+		descriptorPool->AddBinding(bindings[i]);
+
+	descriptorPool->Create(MaterialPoolSize);
+}
+
+DescriptorSet* MaterialPoolData::GetDescriptorSet(uint32_t localIndex) {
+	return descriptorSets[localIndex];
+}
+
+void MaterialPoolData::FreeDescriptorSet(uint32_t localIndex) {
+	freeSpaces.Push(localIndex);
+}
+
 void MaterialPoolData::Free() {
 	for (uint32_t i = 0; i < MaterialPoolSize; i++) {
-		delete DescriptorSets[i];
+		delete descriptorSets[i];
 	}
-	DescriptorSets.clear();
+	descriptorSets.clear();
 
-	if (DPool) {
-		delete DPool;
+	if (descriptorPool) {
+		delete descriptorPool;
 	}
 
-	FreeSpaces.Free();
+	freeSpaces.Free();
 }
 
 void MaterialPoolData::SetLayout(DescriptorLayout* layout) {
-	DPool = Renderer->CreateNewDescriptorPool();
-	DPool->SetLayout(layout);
-	DPool->Create(MaterialPoolSize);
+	descriptorPool = renderer->CreateNewDescriptorPool();
+	descriptorPool->SetLayout(layout);
+	descriptorPool->Create(MaterialPoolSize);
 
 	for (uint32_t i = 0; i < MaterialPoolSize; i++) {
-		DescriptorSets[i]->Create(layout, DPool);
+		descriptorSets[i]->Create(layout, descriptorPool);
 	}
 }
 
 uint32_t MaterialPoolData::GetNextDescriptorSet() {
 	uint32_t index = 0;
 
-	if (FreeSpaces.IsEmpty()) {
-		index = CurrentSize;
+	if (freeSpaces.IsEmpty()) {
+		index = currentSize;
 	}
 	else {
-		index = FreeSpaces.Pop();
+		index = freeSpaces.Pop();
 	}
 
-	CurrentSize++;
+	currentSize++;
 
-	return index + BaseSize;
+	return index + baseSize;
 }
 
 bool MaterialPoolData::IsFull() const {
-	return CurrentSize == MaterialPoolSize - 1;
+	return currentSize == MaterialPoolSize - 1;
 }

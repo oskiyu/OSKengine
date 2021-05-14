@@ -14,17 +14,22 @@ namespace OSK {
 		 /// <summary>
 		 /// True (1) si usa antailasing FXAA.
 		 /// </summary>
-		 int UseFXAA = 1;
+		 int useFxaa = 1;
 
 		 /// <summary>
 		 /// Resolución en X de la pantalla.
 		 /// </summary>
-		 int ScreenSizeX;
+		 int screenSizeX;
 
 		 /// <summary>
 		 /// Resolución en Y de la pantalla.
 		 /// </summary>
-		 int ScreenSizeY;
+		 int screenSizeY;
+
+		 /// <summary>
+		 /// % de resolución.
+		 /// </summary>
+		 float resolutionMultiplier;
 
 	};
 

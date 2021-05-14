@@ -11,28 +11,28 @@ RenderStage::~RenderStage() {
 }
 
 void RenderStage::SetScene(RenderizableScene* scene) {
-	Scene = scene;
+	this->scene = scene;
 }
 
 void RenderStage::SetRenderTarget(RenderTarget* rtarget, bool transferOwnership) {
 	isOwnerOfRTarget = transferOwnership;
 
-	RTarget = rtarget;
+	renderTarget = rtarget;
 }
 
 void RenderStage::AddSpriteBatch(SpriteBatch* sprtBatch) {
-	SpriteBatches.push_back(sprtBatch);
+	spriteBatches.push_back(sprtBatch);
 }
 
 void RenderStage::RemoveSpriteBatch(SpriteBatch* sprtBatch) {
-	SpriteBatches.remove(sprtBatch);
+	spriteBatches.remove(sprtBatch);
 }
 
 void RenderStage::RemoveAllSpriteBatches() {
-	SpriteBatches.clear();
+	spriteBatches.clear();
 }
 
 void RenderStage::Clear() {
 	if (isOwnerOfRTarget)
-		delete RTarget;
+		delete renderTarget;
 }

@@ -27,24 +27,24 @@ namespace OSK::VULKAN {
 		imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
 		imageInfo.flags = flags;
 
-		VkResult result = vkCreateImage(renderer->LogicalDevice, &imageInfo, nullptr, &image->Image);
+		VkResult result = vkCreateImage(renderer->logicalDevice, &imageInfo, nullptr, &image->image);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear imagen.");
 
 		VkMemoryRequirements memRequirements;
-		vkGetImageMemoryRequirements(renderer->LogicalDevice, image->Image, &memRequirements);
-
+		vkGetImageMemoryRequirements(renderer->logicalDevice, image->image, &memRequirements);
+		
 		VkMemoryAllocateInfo allocInfo{};
 		allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
 		allocInfo.allocationSize = memRequirements.size;
 		allocInfo.memoryTypeIndex = renderer->getMemoryType(memRequirements.memoryTypeBits, properties);
 
-		result = vkAllocateMemory(renderer->LogicalDevice, &allocInfo, nullptr, &image->Memory);
+		result = vkAllocateMemory(renderer->logicalDevice, &allocInfo, nullptr, &image->memory);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: alloc memoria de la imagen.");
 
-		vkBindImageMemory(renderer->LogicalDevice, image->Image, image->Memory, 0);
-		image->logicalDevice = &renderer->LogicalDevice;
+		vkBindImageMemory(renderer->logicalDevice, image->image, image->memory, 0);
+		image->logicalDevice = &renderer->logicalDevice;
 	}
 
 	void VulkanImageGen::CreateImageSampler(VULKAN::GPUImage& image, VkFilter filter, VkSamplerAddressMode addressMode, uint32_t mipLevels) {
@@ -76,7 +76,7 @@ namespace OSK::VULKAN {
 		samplerInfo.maxLod = mipLevels;
 		samplerInfo.mipLodBias = 0.0f;
 
-		VkResult result = vkCreateSampler(renderer->LogicalDevice, &samplerInfo, nullptr, &image.Sampler);
+		VkResult result = vkCreateSampler(renderer->logicalDevice, &samplerInfo, nullptr, &image.sampler);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear sampler." + std::to_string(result));
 	}
@@ -86,7 +86,7 @@ namespace OSK::VULKAN {
 
 		VkImageMemoryBarrier barrier{};
 		barrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
-		barrier.image = image.Image;
+		barrier.image = image.image;
 		barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
 		barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
 		barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
@@ -120,7 +120,7 @@ namespace OSK::VULKAN {
 			blit.dstSubresource.baseArrayLayer = 0;
 			blit.dstSubresource.layerCount = 1;
 
-			vkCmdBlitImage(cmdBuffer, image.Image, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, image.Image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &blit, VK_FILTER_LINEAR);
+			vkCmdBlitImage(cmdBuffer, image.image, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, image.image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &blit, VK_FILTER_LINEAR);
 
 			barrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
 			barrier.newLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
@@ -147,7 +147,7 @@ namespace OSK::VULKAN {
 	}
 
 	void VulkanImageGen::CreateImageView(GPUImage* img, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, uint32_t layerCount, uint32_t mipLevels) {
-		CreateImageView(&img->View, &img->Image, format, aspect, type, layerCount, mipLevels);
+		CreateImageView(&img->view, &img->image, format, aspect, type, layerCount, mipLevels);
 	}
 
 	void VulkanImageGen::CreateImageView(VkImageView* view, VkImage* image, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, uint32_t layerCount, uint32_t mipLevels) {
@@ -162,7 +162,7 @@ namespace OSK::VULKAN {
 		viewInfo.subresourceRange.baseArrayLayer = 0;
 		viewInfo.subresourceRange.layerCount = layerCount;
 
-		VkResult result = vkCreateImageView(renderer->LogicalDevice, &viewInfo, nullptr, view);
+		VkResult result = vkCreateImageView(renderer->logicalDevice, &viewInfo, nullptr, view);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear image view.");
 	}
@@ -187,7 +187,7 @@ namespace OSK::VULKAN {
 			1
 		};
 
-		vkCmdCopyBufferToImage(cmdBuffer, buffer->Buffer, img->Image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
+		vkCmdCopyBufferToImage(cmdBuffer, buffer->buffer, img->image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
 
 		renderer->endSingleTimeCommandBuffer(cmdBuffer);
 	}
@@ -207,7 +207,7 @@ namespace OSK::VULKAN {
 		barrier.newLayout = newLayout;
 		barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
 		barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-		barrier.image = img->Image;
+		barrier.image = img->image;
 		barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
 		barrier.subresourceRange.baseMipLevel = 0;
 		barrier.subresourceRange.levelCount = mipLevels;

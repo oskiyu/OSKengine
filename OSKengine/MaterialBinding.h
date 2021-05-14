@@ -60,17 +60,17 @@ namespace OSK {
 		/// <summary>
 		/// Tipo de binding.
 		/// </summary>
-		MaterialBindingType Type;
+		MaterialBindingType type;
 
 		/// <summary>
 		/// Stage del binding.
 		/// </summary>
-		MaterialBindingShaderStage Stage;
+		MaterialBindingShaderStage stage;
 
 		/// <summary>
 		/// Nombre del binding.
 		/// </summary>
-		std::string BindingName = "";
+		std::string bindingName = "";
 
 	};
 

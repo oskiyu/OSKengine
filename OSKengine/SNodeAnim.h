@@ -27,42 +27,27 @@ namespace OSK::Animation {
 		/// <summary>
 		/// Nombre del nodo.
 		/// </summary>
-		std::string Name = "$NO";
-
-		/// <summary>
-		/// Número de keyframes de posición.
-		/// </summary>
-		uint32_t NumberOfPositionKeys = 0;
+		std::string name = "$NO";
 
 		/// <summary>
 		/// Keyframes de posición.
 		/// </summary>
-		SVectorKey* PositionKeys = nullptr;
-
-		/// <summary>
-		/// Número de keyframes de rotación.
-		/// </summary>
-		uint32_t NumberOfRotationKeys = 0;
+		std::vector<SVectorKey> positionKeys;
 
 		/// <summary>
 		/// Keyframes de rotación.
 		/// </summary>
-		SQuaternionKey* RotationKeys = nullptr;
-
-		/// <summary>
-		/// Número de keyframes de escala.
-		/// </summary>
-		uint32_t NumberOfScalingKeys = 0;
+		std::vector<SQuaternionKey> rotationKeys;
 
 		/// <summary>
 		/// Keyframes de escala.
 		/// </summary>
-		SVectorKey* ScalingKeys = nullptr;
+		std::vector<SVectorKey> scalingKeys;
 
 		/// <summary>
 		/// Matriz del nodo animado.
 		/// </summary>
-		glm::mat4 Matrix;
+		glm::mat4 matrix;
 
 	};
 

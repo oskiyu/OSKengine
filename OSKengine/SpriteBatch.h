@@ -89,7 +89,7 @@ namespace OSK {
 		/// <summary>
 		/// Sprites a renderizar.
 		/// </summary>
-		ArrayQueue<SpriteContainer> spritesToDraw{};
+		DynamicArray<SpriteContainer> spritesToDraw{};
 
 		/// <summary>
 		/// Matriz de la cámara

@@ -15,12 +15,12 @@ namespace OSK {
 		/// <summary>
 		/// Offset del hueso.
 		/// </summary>
-		glm::mat4 Offset = glm::mat4(1.0f);
+		glm::mat4 offset = glm::mat4(1.0f);
 
 		/// <summary>
 		/// Transformación del hueso.
 		/// </summary>
-		glm::mat4 FinalTransformation = glm::mat4(1.0f);
+		glm::mat4 finalTransformation = glm::mat4(1.0f);
 
 	};
 

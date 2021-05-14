@@ -10,22 +10,31 @@ namespace OSK {
 	/// </summary>
 	struct OSKAPI_CALL Texture {
 
+		friend class ContentManager;
+		friend class MaterialInstance;
+		friend class ShadowMap;
+		friend class RenderizableScene;
+		friend class RenderAPI;
+		friend class RenderTarget;
+
 		/// <summary>
 		/// Elimina la textura.
 		/// </summary>
 		~Texture() {
-			Image.Destroy();
+			image.Destroy();
 		}
 
 		/// <summary>
 		/// Tamaño de la textura.
 		/// </summary>
-		Vector2ui Size;
+		Vector2ui size;
+
+	private:
 
 		/// <summary>
 		/// Imagen (en la GPU) de la textura).
 		/// </summary>
-		VULKAN::GPUImage Image;
+		VULKAN::GPUImage image;
 
 	};
 

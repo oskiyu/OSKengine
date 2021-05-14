@@ -37,12 +37,28 @@ namespace OSK {
 		/// <summary>
 		/// Modelos 3D.
 		/// </summary>
-		std::vector<Model> StaticMeshes{};
+		std::vector<Model>& GetStaticMeshes() {
+			return staticMeshes;
+		}
 
 		/// <summary>
 		/// Modelos 3D animados.
 		/// </summary>
-		std::vector<AnimatedModel> AnimatedModels{};
+		std::vector<AnimatedModel>& GetAnimatedModels() {
+			return animatedModels;
+		}
+
+	private:
+
+		/// <summary>
+		/// Modelos 3D.
+		/// </summary>
+		std::vector<Model> staticMeshes{};
+
+		/// <summary>
+		/// Modelos 3D animados.
+		/// </summary>
+		std::vector<AnimatedModel> animatedModels{};
 
 	};
 

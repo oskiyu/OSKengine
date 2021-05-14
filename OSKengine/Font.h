@@ -12,6 +12,11 @@ namespace OSK {
 	/// </summary>
 	struct OSKAPI_CALL Font {
 
+		friend class ContentManager;
+		friend class SpriteBatch;
+
+	public:
+
 		/// <summary>
 		/// Espacios a los que equivale '\t'.
 		/// </summary>
@@ -26,19 +31,28 @@ namespace OSK {
 		Vector2 GetTextSize(const std::string& texto, const Vector2& size) const;
 
 		/// <summary>
+		/// Tamaño de la fuente.
+		/// </summary>
+		uint32_t GetFontSize() const {
+			return size;
+		}
+
+	private:
+
+		/// <summary>
 		/// Caracteres de la fuente.
 		/// </summary>
-		std::map<char, FontChar> Characters;
+		std::map<char, FontChar> characters;
 
 		/// <summary>
 		/// Tamaño de la fuente.
 		/// </summary>
-		uint32_t Size;
+		uint32_t size;
 
 		/// <summary>
 		/// Material de la fuente, para su renderizado.
 		/// </summary>
-		SharedPtr<MaterialInstance> FontMaterial;
+		SharedPtr<MaterialInstance> fontMaterial;
 
 	};
 

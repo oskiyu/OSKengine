@@ -100,69 +100,140 @@ namespace OSK {
 		/// <summary>
 		/// Vector posición en el mundo 2D.
 		/// </summary>
-		Vector2 GlobalPosition;
+		Vector2 GetPosition() const;
 
 		/// <summary>
 		/// Vector escala en el mundo 2D.
 		/// </summary>
-		Vector2 GlobalScale;
+		Vector2 GetScale() const;
 
 		/// <summary>
 		/// Rotación en el mundo 2D.
 		/// </summary>
-		float GlobalRotation;
+		float GetRotation() const;
 
 		/// <summary>
 		/// Posición local.
 		/// </summary>
-		Vector2 Position;
+		Vector2 GetLocalPosition() const;
 
 		/// <summary>
 		/// Escala local.
 		/// </summary>
-		Vector2 Scale;
+		Vector2 GetLocalScale() const;
 
 		/// <summary>
 		/// Rotación local.
 		/// </summary>
-		float Rotation;
+		float GetLocalRotation() const;
 
 		/// <summary>
 		/// Matriz modelo.
 		/// </summary>
-		glm::mat4 ModelMatrix;
+		glm::mat4 AsMatrix() const;
 
 		/// <summary>
 		/// Transform padre.
 		/// </summary>
-		Transform2D* ParentTransform;
+		Transform2D* GetParent();
 
 		/// <summary>
 		/// Transformaciones ahijadas.
 		/// </summary>
-		std::vector<Transform2D*> ChildTransforms;
+		std::vector<Transform2D*> GetChildTransforms() const;
 
 		/// <summary>
 		/// Posición respecto al padre.
 		/// </summary>
-		Vector2 PositionOffset;
+		Vector2 GetPositionOffset() const;
 
 		/// <summary>
 		/// Escala respecto al padre.
 		/// </summary>
-		Vector2 ScaleOffset;
+		Vector2 GetScaleOffset() const;
 
 		/// <summary>
 		/// Rotación respecto al padre.
 		/// </summary>
-		float RotationOffset;
+		float GetRotationOffset() const;
+
+		/// <summary>
+		/// True si hereda la escala del padre.
+		/// </summary>
+		bool IsUsingParentScale() const;
 
 		/// <summary>
 		/// Establece si ha de heredar la escala padre.
 		/// </summary>
-		bool UseParentScale = false;
+		void SetShoulduseParentScale(bool useParentScale);
 
 	private:
+
+		/// <summary>
+		/// Vector posición en el mundo 2D.
+		/// </summary>
+		Vector2 globalPosition;
+
+		/// <summary>
+		/// Vector escala en el mundo 2D.
+		/// </summary>
+		Vector2 globalScale;
+
+		/// <summary>
+		/// Rotación en el mundo 2D.
+		/// </summary>
+		float globalRotation;
+
+		/// <summary>
+		/// Posición local.
+		/// </summary>
+		Vector2 position;
+
+		/// <summary>
+		/// Escala local.
+		/// </summary>
+		Vector2 scale;
+
+		/// <summary>
+		/// Rotación local.
+		/// </summary>
+		float rotation;
+
+		/// <summary>
+		/// Matriz modelo.
+		/// </summary>
+		glm::mat4 modelMatrix;
+
+		/// <summary>
+		/// Transform padre.
+		/// </summary>
+		Transform2D* parentTransform;
+
+		/// <summary>
+		/// Transformaciones ahijadas.
+		/// </summary>
+		std::vector<Transform2D*> childTransforms;
+
+		/// <summary>
+		/// Posición respecto al padre.
+		/// </summary>
+		Vector2 positionOffset;
+
+		/// <summary>
+		/// Escala respecto al padre.
+		/// </summary>
+		Vector2 scaleOffset;
+
+		/// <summary>
+		/// Rotación respecto al padre.
+		/// </summary>
+		float rotationOffset;
+
+		/// <summary>
+		/// Establece si ha de heredar la escala padre.
+		/// </summary>
+		bool useParentScale = false;
+
 		/// <summary>
 		/// True si tiene padre.
 		/// </summary>
@@ -172,11 +243,6 @@ namespace OSK {
 		/// True si tiene ahijados.
 		/// </summary>
 		bool isParent = false;
-
-		/// <summary>
-		/// Transform padre.
-		/// </summary>
-		Transform2D* parent = nullptr;
 
 	};
 

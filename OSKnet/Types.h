@@ -10,4 +10,8 @@ namespace OSK::NET {
 	//ID de los clientes.
 	typedef unsigned int clientID_t;
 
+	typedef unsigned char byte_t;
+
+	typedef int stringLength_t;
+
 }

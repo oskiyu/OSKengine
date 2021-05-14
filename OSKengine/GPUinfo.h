@@ -20,27 +20,27 @@ namespace OSK::VULKAN {
 		/// <summary>
 		/// Propiedades físicas.
 		/// </summary>
-		VkPhysicalDeviceProperties Properties;
+		VkPhysicalDeviceProperties properties;
 
 		/// <summary>
 		/// Cosas que soporta.
 		/// </summary>
-		VkPhysicalDeviceFeatures Features;
+		VkPhysicalDeviceFeatures features;
 
 		/// <summary>
 		/// Familias de comandos que tiene.
 		/// </summary>
-		QueueFamilyIndices Families;
+		QueueFamilyIndices families;
 
 		/// <summary>
 		/// Detalles del soporte de swapchain.
 		/// </summary>
-		SwapchainSupportDetails ShapchainSupport;
+		SwapchainSupportDetails shapchainSupport;
 
 		/// <summary>
 		/// GPU.
 		/// </summary>
-		VkPhysicalDevice GPU;
+		VkPhysicalDevice gpu;
 
 		/// <summary>
 		/// Alineamiento mínimo para dynamic ubos.
@@ -50,7 +50,7 @@ namespace OSK::VULKAN {
 		/// <summary>
 		/// True si puede usarse en OSKengine.
 		/// </summary>
-		bool IsSuitable;
+		bool isSuitable;
 
 	};
 

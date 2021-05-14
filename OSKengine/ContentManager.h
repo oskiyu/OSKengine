@@ -181,54 +181,54 @@ namespace OSK {
 		/// <summary>
 		/// Almacena las texturas.
 		/// </summary>
-		std::list<Texture*> Textures = {};
+		std::list<Texture*> textures = {};
 
 		/// <summary>
 		/// Almacena los vértices y los índices de los modelos 3D.
 		/// </summary>
-		std::list<ModelData*> ModelDatas = {};
+		std::list<ModelData*> modelDatas = {};
 
 		/// <summary>
 		/// Almacena referencias a los sprites.
 		/// </summary>
-		std::list<Sprite*> Sprites = {};
+		std::list<Sprite*> sprites = {};
 
 		/// <summary>
 		/// Alacena las fuentes.
 		/// </summary>
-		std::list<Font*> Fonts = {};
+		std::list<Font*> fonts = {};
 		
 		/// <summary>
 		/// Almacena los sonidos.
 		/// </summary>
-		std::list<SoundEmitterComponent*> Sounds = {};
+		std::list<SoundEmitterComponent*> sounds = {};
 		
 		//HASH-MAPS.
 
 		/// <summary>
 		/// Hashmap de las texturas.
 		/// </summary>
-		std::unordered_map<std::string, Texture*> TextureFromPath = {};
+		std::unordered_map<std::string, Texture*> textureFromPath = {};
 
 		/// <summary>
 		/// Hashmap de los modelos.
 		/// </summary>
-		std::unordered_map<std::string, ModelData*> ModelDataFromPath = {};
+		std::unordered_map<std::string, ModelData*> modelDataFromPath = {};
 
 		/// <summary>
 		/// Hashmap de los modelos animados.
 		/// </summary>
-		std::unordered_map<std::string, AnimatedModel*> AnimatedModelFromPath = {};
+		std::unordered_map<std::string, AnimatedModel*> animatedModelFromPath = {};
 
 		/// <summary>
 		/// Hashmap de las fuentes.
 		/// </summary>
-		std::unordered_map<std::string, Font*> FontsFromPath = {};
+		std::unordered_map<std::string, Font*> fontsFromPath = {};
 
 		/// <summary>
 		/// Hashmap de los sonidos.
 		/// </summary>
-		std::unordered_map<std::string, SoundEmitterComponent*> SoundsFromPath = {};
+		std::unordered_map<std::string, SoundEmitterComponent*> soundsFromPath = {};
 
 		/// <summary>
 		/// El máximo número de mipmaps que se puede generar para una textura.
@@ -236,7 +236,7 @@ namespace OSK {
 		/// <param name="width">Ancho de la textura.</param>
 		/// <param name="height">Alto de la textura.</param>
 		/// <returns>Número de mipmaps.</returns>
-		inline const uint32_t getMaxMipLevels(uint32_t width, uint32_t height) const {
+		inline const uint32_t GetMaxMipLevels(uint32_t width, uint32_t height) const {
 			return (uint32_t)std::floor(std::log2(std::max(width, height))) + 1;
 		}
 
@@ -260,12 +260,12 @@ namespace OSK {
 		/// <summary>
 		/// Importador de assimp, para modelos 3D.
 		/// </summary>
-		static Assimp::Importer GlobalImporter;
+		static Assimp::Importer globalImporter;
 
 		/// <summary>
 		/// Flags de assimp.
 		/// </summary>
-		const static int AssimpFlags = aiProcess_Triangulate | aiProcess_GenNormals;
+		const static int ASSIMP_FLAGS = aiProcess_Triangulate | aiProcess_GenNormals;
 
 	};
 

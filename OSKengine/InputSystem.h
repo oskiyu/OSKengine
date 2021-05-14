@@ -70,7 +70,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="name">Nombre del evento.</param>
 		/// <param name="deltaTime">Delta.</param>
-		void executeFunction(std::string& name, deltaTime_t deltaTime);
+		void ExecuteFunction(std::string& name, deltaTime_t deltaTime);
 
 		/// <summary>
 		/// Ejecuta la función del evento de input de una sola vez dado.
@@ -86,22 +86,22 @@ namespace OSK {
 		/// <summary>
 		/// Estado del teclado en el tick anterior.
 		/// </summary>
-		KeyboardState OldKS;
+		KeyboardState oldKeyboardState;
 
 		/// <summary>
 		/// Estado del teclado.
 		/// </summary>
-		KeyboardState NewKS;
+		KeyboardState newKeyboardState;
 
 		/// <summary>
 		/// Estado del ratón en el tick anterior.
 		/// </summary>
-		MouseState OldMS;
+		MouseState oldMouseState;
 
 		/// <summary>
 		/// Estado del ratón.
 		/// </summary>
-		MouseState NewMS;
+		MouseState newMouseState;
 
 		/// <summary>
 		/// Map nombre de evento -> evento.

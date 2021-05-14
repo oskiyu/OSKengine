@@ -517,7 +517,7 @@ Transformado en sistema.
 - Eliminado.
    
 
-## 2021.2.24b
+## 2021.2.24c
 
 ###### RenderAPI
 
@@ -788,7 +788,7 @@ Introducido el sistema de materiales.
 ###### ContentAPI
 
 - ContentManager:
-    - `DefaultTexture`: ahora es de tipo <Texture>.
+    - `DefaultTexture`: ahora es de tipo `Texture`.
     - `LoadModelTexture()`: **ELIMINADO**.
     - `ModelTextures`, `SkyboxTextures`: **ELIMINADO**.
         
@@ -821,10 +821,10 @@ La gran mayoría de funciones en .h han sido movidas a .cpp.
     - Ya no almacena pipelines.
     
 - GPUDataBuffer:
-    - Renombrado <VulkanBuffer> a <GPUDataBuffer>.
+    - Renombrado `VulkanBuffer` a `GPUDataBuffer`.
 
 - GPUImage:
-    - Renombrado <VulkanImage> a <GPUImage>.
+    - Renombrado `VulkanImage` a `GPUImage`.
     
 - Vertex:
     - Ahora solo tiene un único `attributes description`.
@@ -841,14 +841,14 @@ La gran mayoría de funciones en .h han sido movidas a .cpp.
     - Ya no contiene información de una versión de OpenGL.
     - **ELIMINADO** `SwapBuffers()` (OpenGL).
 
-- Renombrado <MouseMovementMode> a <MouseAccelerationMode>.
+- Renombrado `MouseMovementMode` a `MouseAccelerationMode`.
 
 ###### ECS
 
 - GameObject:
-    - Renombrado <Create> a <Spawn>.
+    - Renombrado `Create` a `Spawn`.
     
--Scene: **ELIMINADO**.
+- Scene: **ELIMINADO**.
     
 ###### Memory
 
@@ -882,7 +882,62 @@ Mayor versatilidad en los GameObjects.
     - Ahora tiene métodos para añadir un modelo 3D (que automáticamente añande el componente de modelos).
     - `Create()` renombrado a `Spawn()`.
 
-
 ###### Bugfixes
 
-- **Bugfix**: spawnear un GabeObject ahora ocupa una ID, y no dos.
+- **Bugfix**: spawnear un GameObject ahora ocupa una ID, y no dos.
+
+
+## 2021.5.14a
+
+Reformateado el código para que cumpla el nuevo estándar de C++ de OSK.
+
+Añadido el sistema de escenas y soporte para cargarlas.
+
+###### ECS
+   
+- Scene:
+  - Representa una escena que combina entidades con una escena renderizable 3D.
+  - Pueden cargarse escenas desde un archivo `.sc` (véase la especificación en `Documentation/ScenerySystemSpec.md`).
+  - Las entidades spawneadas desde la escena serán eliminadas al descargarse (o cargarse otra escena).
+    - Se pueden spawnear objetos persisitentes a través del `EntityComponentSystem`.
+  - Se puede obtener un GameObject dado su nombre de instancia.
+
+- SceneSystem.Loader.Scanner:
+  - Implementa un tokenizador capaz de leer scripts de escena.
+  - Puede cargar los tokens del script desde un archivo.
+  - Los tokens son procesados por la propia escena, que los ejecuta.
+  - Tokens incluidos:
+    - `version`.
+    - `skybox`.
+    - `terrain`.
+    - `place`.
+
+- GameObject:
+  - Ahora almacena un nombre que lo identifica (`instanceName`).
+
+- Entity Component System:
+  - Se puede obtener un GameObject dado su nombre de instancia.
+
+###### RenderAPI
+
+- Point light:
+  - Ahora tiene funciones para establecer sus parámetros de una manera más sencilla.
+   
+###### WindowAPI
+
+- MouseState:
+  - Ahora contiene la diferencia de scroll desde el estado anterior.
+
+###### Colections
+
+- DynamicArray:
+  - Ahora tiene constructor y operador de movimiento.
+  
+###### Bugfixes
+
+- **Bugfix**: eliminar un GameObject (con `GameObject::Remove()`) ya no crashea OSKengine.
+- **Bugfix**: eliminar un modelo animado ya no crashea OSKengine.
+
+## WIP
+
+TODO

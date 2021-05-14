@@ -1,5 +1,6 @@
 #include "RenderTarget.h"
 
+#include "VulkanImageGen.h"
 #include "VulkanRenderer.h"
 
 using namespace OSK;
@@ -15,10 +16,10 @@ RenderTarget::~RenderTarget() {
 }
 
 void RenderTarget::CreateRenderpass(std::vector<RenderpassAttachment> colorAttachments, RenderpassAttachment* depthAttachment, VkSampleCountFlagBits msaa) {
-	if (VRenderpass)
-		delete VRenderpass;
+	if (vulkanRenderpass)
+		delete vulkanRenderpass;
 
-	VRenderpass = renderer->CreateNewRenderpass();
+	vulkanRenderpass = renderer->CreateNewRenderpass();
 	
 	RenderpassSubpass sbPass{};
 	sbPass.SetColorAttachments(colorAttachments);
@@ -27,95 +28,99 @@ void RenderTarget::CreateRenderpass(std::vector<RenderpassAttachment> colorAttac
 	sbPass.SetPipelineBindPoint();
 	
 	SubpassDependency dep;
-	dep.VulkanDependency.srcSubpass = VK_SUBPASS_EXTERNAL;
-	dep.VulkanDependency.dstSubpass = 0;
-	dep.VulkanDependency.srcStageMask = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
-	dep.VulkanDependency.srcAccessMask = VK_ACCESS_SHADER_READ_BIT;
-	dep.VulkanDependency.dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-	dep.VulkanDependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-	dep.VulkanDependency.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
+	dep.vulkanDependency.srcSubpass = VK_SUBPASS_EXTERNAL;
+	dep.vulkanDependency.dstSubpass = 0;
+	dep.vulkanDependency.srcStageMask = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+	dep.vulkanDependency.srcAccessMask = VK_ACCESS_SHADER_READ_BIT;
+	dep.vulkanDependency.dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+	dep.vulkanDependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+	dep.vulkanDependency.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
 
 	SubpassDependency dep2;
-	dep2.VulkanDependency.srcSubpass = 0;
-	dep2.VulkanDependency.dstSubpass = VK_SUBPASS_EXTERNAL;
-	dep2.VulkanDependency.srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-	dep2.VulkanDependency.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-	dep2.VulkanDependency.dstStageMask = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
-	dep2.VulkanDependency.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
-	dep2.VulkanDependency.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
+	dep2.vulkanDependency.srcSubpass = 0;
+	dep2.vulkanDependency.dstSubpass = VK_SUBPASS_EXTERNAL;
+	dep2.vulkanDependency.srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+	dep2.vulkanDependency.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+	dep2.vulkanDependency.dstStageMask = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+	dep2.vulkanDependency.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
+	dep2.vulkanDependency.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
 
 	sbPass.AddDependency(dep);
 	sbPass.AddDependency(dep2);
 
-	VRenderpass->SetMSAA(msaa);
-	VRenderpass->AddSubpass(sbPass);
+	vulkanRenderpass->SetMSAA(msaa);
+	vulkanRenderpass->AddSubpass(sbPass);
 	for (auto& i : colorAttachments)
-		VRenderpass->AddAttachment(i);
+		vulkanRenderpass->AddAttachment(i);
 	if (depthAttachment)
-		VRenderpass->AddAttachment(*depthAttachment);
+		vulkanRenderpass->AddAttachment(*depthAttachment);
 
-	VRenderpass->Create();
+	vulkanRenderpass->Create();
 
-	renderer->GetMaterialSystem()->RegisterRenderpass(VRenderpass);
+	renderer->GetMaterialSystem()->RegisterRenderpass(vulkanRenderpass);
 }
 
 void RenderTarget::SetFormat(VkFormat format) {
-	Format = format;
+	this->format = format;
 }
 
 void RenderTarget::TransitionToRenderTarget(VkCommandBuffer* cmdBuffer, VkImageLayout layout) {
-	VulkanImageGen::TransitionImageLayout(&RenderedSprite.Texture2D->Image, VK_IMAGE_LAYOUT_UNDEFINED, layout, 1, 1, cmdBuffer);
+	VULKAN::VulkanImageGen::TransitionImageLayout(&renderedSprite.texture->image, VK_IMAGE_LAYOUT_UNDEFINED, layout, 1, 1, cmdBuffer);
 }
 
 void RenderTarget::TransitionToTexture(VkCommandBuffer* cmdBuffer) {
-	VulkanImageGen::TransitionImageLayout(&RenderedSprite.Texture2D->Image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 1, 1, cmdBuffer);
+	VULKAN::VulkanImageGen::TransitionImageLayout(&renderedSprite.texture->image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 1, 1, cmdBuffer);
 }
 
 void RenderTarget::CreateFramebuffers(uint32_t numFb, VkImageView* images, uint32_t numViews) {
 	for (uint32_t i = 0; i < numFb; i++) {
-		TargetFramebuffers.push_back(renderer->CreateNewFramebuffer());
+		targetFramebuffers.push_back(renderer->CreateNewFramebuffer());
 		
 		for (uint32_t v = 0; v < numViews; v++)
-			TargetFramebuffers[i]->AddImageView(images[v]);
+			targetFramebuffers[i]->AddImageView(images[v]);
 
-		TargetFramebuffers[i]->Create(VRenderpass, Size.X, Size.Y);
+		targetFramebuffers[i]->Create(vulkanRenderpass, size.X, size.Y);
 	}
 }
 
 void RenderTarget::SetSize(uint32_t sizeX, uint32_t sizeY, bool createColorImage) {
-	Size.X = sizeX;
-	Size.Y = sizeY;
+	size.X = sizeX;
+	size.Y = sizeY;
 
 	if (spriteHasBeenCreated && createColorImage) {
-		if (RenderedSprite.Texture2D->Image.Image != VK_NULL_HANDLE)
-			RenderedSprite.Texture2D->Image.Destroy();
+		if (renderedSprite.texture->image.image != VK_NULL_HANDLE)
+			renderedSprite.texture->image.Destroy();
 
-		VulkanImageGen::CreateImage(&RenderedSprite.Texture2D->Image, Size, Format, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
-		VulkanImageGen::CreateImageView(&RenderedSprite.Texture2D->Image, Format, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
+		VULKAN::VulkanImageGen::CreateImage(&renderedSprite.texture->image, size, format, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
+		VULKAN::VulkanImageGen::CreateImageView(&renderedSprite.texture->image, format, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
 		
-		RenderedSprite.UpdateMaterialTexture();
+		renderedSprite.UpdateMaterialTexture();
 	}
 	
-	for (auto& i : TargetFramebuffers) {
+	for (auto& i : targetFramebuffers) {
 		i->Clear();
-		i->Create(VRenderpass, Size.X, Size.Y);
+		i->Create(vulkanRenderpass, size.X, size.Y);
 	}
 }
 
 void RenderTarget::CreateSprite(ContentManager* content) {
-	content->CreateSprite(RenderedSprite);
-	RenderedSprite.Texture2D = new Texture();
-	Content = content;
-	RenderedSprite.SpriteMaterial = renderer->GetMaterialSystem()->GetMaterial(renderer->DefaultMaterial2D_Name)->CreateInstance();
+	content->CreateSprite(renderedSprite);
+	renderedSprite.texture = new Texture();
+	this->content = content;
+	renderedSprite.material = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultMaterial2D_Name)->CreateInstance();
 
 	spriteHasBeenCreated = true;
 }
 
 void RenderTarget::Clear(bool complete) {
-	for (auto& i : TargetFramebuffers)
+	for (auto& i : targetFramebuffers)
 		delete i;
-	TargetFramebuffers.clear();
+	targetFramebuffers.clear();
 
-	if (complete && VRenderpass)
-		delete VRenderpass;
+	if (complete && vulkanRenderpass)
+		delete vulkanRenderpass;
+}
+
+Vector2ui RenderTarget::GetSize() {
+	return size;
 }

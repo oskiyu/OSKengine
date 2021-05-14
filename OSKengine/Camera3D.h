@@ -9,6 +9,8 @@
 #include "WindowAPI.h"
 #include "UBO.h"
 
+class Game;
+
 namespace OSK {
 
 	/// <summary>
@@ -16,9 +18,10 @@ namespace OSK {
 	/// </summary>
 	class OSKAPI_CALL Camera3D {
 
-	public:
+		friend class RenderAPI;
+		friend class Game;
 
-		//Crea una cámara en la posición { posX, posY, posZ }.
+	public:
 
 		/// <summary>
 		/// Crea una cámara en la posición dada (coordenadas del mundo).
@@ -27,10 +30,6 @@ namespace OSK {
 		/// <param name="posY">Posición Y.</param>
 		/// <param name="posZ">Posición Z.</param>
 		Camera3D(cameraVar_t posX, cameraVar_t posY, cameraVar_t posZ);
-
-		//Crea una cámara.
-		//<position>: posición de la cámara.
-		//<up>: vector 3D que determina los ejes de coordenadas de la cámara.
 
 		/// <summary>
 		/// Crea una cámara.
@@ -60,13 +59,13 @@ namespace OSK {
 		/// Establece el FoV de la cámara, si está en los límites de FoV.
 		/// </summary>
 		/// <param name="fov">FoV.</param>
-		void SetFoV(double fov);
+		void SetFov(double fov);
 
 		/// <summary>
 		/// Añade FoV a la cámara.
 		/// </summary>
 		/// <param name="fov">FoV delta.</param>
-		void AddFoV(double fov);
+		void AddFov(double fov);
 
 		/// <summary>
 		/// Obtiene la matriz proyección de la cámara.
@@ -81,60 +80,84 @@ namespace OSK {
 		glm::mat4 GetView() const;
 
 		/// <summary>
-		/// FoV de la cámara.
-		/// ~Zoom de la cámara.
+		/// Límite del FoV de la cámara.
 		/// </summary>
-		float_t FieldOfView = 45.0f;
+		float_t fovLimitDown = 1.0f;
 
 		/// <summary>
 		/// Límite del FoV de la cámara.
 		/// </summary>
-		float_t FoVLimitDown = 1.0f;
-
-		/// <summary>
-		/// Límite del FoV de la cámara.
-		/// </summary>
-		float_t FoVLimitUp = 45.0f;
-
-		/// <summary>
-		/// Vector dirección de la cámara.
-		/// </summary>
-		Vector3f  Front = Vector3f(0.0, 0.0, -1.0);
-
-		/// <summary>
-		/// Vector 'arriba' de la cámara.
-		/// </summary>
-		Vector3f Up = Vector3f(0.0, 1.0, 0.0);
-
-		/// <summary>
-		/// Vector 'derecho' de la cámara.
-		/// </summary>
-		Vector3f Right;
-
-		/// <summary>
-		/// Vector 'arriba' del mundo. { 0, 1, 0 }.
-		/// </summary>
-		const Vector3f WorldUp = Vector3f(0.0f, 1.0f, 0.0f);
+		float_t fovLimitUp = 45.0f;
 
 		/// <summary>
 		/// Transform de la cámara.
 		/// </summary>
-		Transform CameraTransform;
+		Transform* GetTransform();
+
+		/// <summary>
+		/// Devuelve un vector que apunta hacia la dirección en la que mira la cámara.
+		/// </summary>
+		Vector3f GetFrontVector() const;
+
+		/// <summary>
+		/// Devuelve un vector perpendicular a la dirección en la que mira la cámara.
+		/// El vector apunta hacia arriba de la cámrara (localmente).
+		/// </summary>
+		Vector3f GetUpVector() const;
+
+		/// <summary>
+		/// Devuelve un vector perpendicular a la dirección en la que mira la cámara.
+		/// El vector apunta hacia la derecha de la cámrara (localmente).
+		/// </summary>
+		Vector3f GetRightVector() const;
+
+	private:
+
+		/// <summary>
+		/// FoV de la cámara.
+		/// ~Zoom de la cámara.
+		/// </summary>
+		float_t fieldOfView = 45.0f;
+
+		/// <summary>
+		/// Vector dirección de la cámara.
+		/// </summary>
+		Vector3f  front = Vector3f(0.0, 0.0, -1.0);
+
+		/// <summary>
+		/// Vector 'arriba' de la cámara.
+		/// </summary>
+		Vector3f up = Vector3f(0.0, 1.0, 0.0);
+
+		/// <summary>
+		/// Vector 'derecho' de la cámara.
+		/// </summary>
+		Vector3f right;
+
+		/// <summary>
+		/// Vector 'arriba' del mundo. { 0, 1, 0 }.
+		/// </summary>
+		const Vector3f worldUp = Vector3f(0.0f, 1.0f, 0.0f);
+
+		/// <summary>
+		/// Transform de la cámara.
+		/// </summary>
+		Transform transform;
 
 		/// <summary>
 		/// Ventana renderizada.
 		/// </summary>
-		WindowAPI* Window = nullptr;
+		WindowAPI* window = nullptr;
 
 		/// <summary>
 		/// Ángulo en X.
 		/// </summary>
-		float AngleX = 0.0f;
+		float angleX = 0.0f;
 
 		/// <summary>
 		/// Ángulo en Y.
 		/// </summary>
-		float AngleY = 0.0f;
+		float angleY = 0.0f;
 
 		/// <summary>
 		/// Actualiza los vectores internos.

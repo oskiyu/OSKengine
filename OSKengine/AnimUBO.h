@@ -22,7 +22,7 @@ namespace OSK {
 		/// <summary>
 		/// Huesos a enviar.
 		/// </summary>
-		std::array<glm::mat4, OSK_ANIM_MAX_BONES> Bones{};
+		std::array<glm::mat4, OSK_ANIM_MAX_BONES> bones{};
 
 	};
 

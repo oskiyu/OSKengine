@@ -21,6 +21,7 @@ namespace OSK {
 	class OSKAPI_CALL GameObject {
 
 		friend class EntityComponentSystem;
+		friend class Scene;
 
 	public:
 
@@ -47,18 +48,13 @@ namespace OSK {
 		ECS::GameObjectID ID;
 
 		/// <summary>
-		/// Transform del objeto.
-		/// </summary>
-		Transform Transform3D{};
-
-		/// <summary>
 		/// Añade un componente al objeto.
 		/// El objeto debe haber sido spawneado.
 		/// </summary>
 		/// <typeparam name="T">Tipo de componente.</typeparam>
 		/// <param name="component">Componente.</param>
 		template <typename T> void AddComponent(T component) {
-			ECSsystem->AddComponent<T>(ID, component);
+			entityComponentSystem->AddComponent<T>(ID, component);
 		}
 
 		/// <summary>
@@ -67,7 +63,7 @@ namespace OSK {
 		/// </summary>
 		/// <typeparam name="T">Tipo de componente.</typeparam>
 		template <typename T> void RemoveComponent() {
-			ECSsystem->RemoveComponent<T>(ID);
+			entityComponentSystem->RemoveComponent<T>(ID);
 		}
 
 		/// <summary>
@@ -77,11 +73,16 @@ namespace OSK {
 		/// <typeparam name="T">Tipo de componente.</typeparam>
 		/// <returns>Componente.</returns>
 		template <typename T> T& GetComponent() {
-			return ECSsystem->GetComponent<T>(ID);
+			return entityComponentSystem->GetComponent<T>(ID);
 		}
 
+		/// <summary>
+		/// Comprueba si este objeto tiene un componente del tipo dado.
+		/// </summary>
+		/// <typeparam name="T">Tipo de componente.</typeparam>
+		/// <returns>True si lo tiene.</returns>
 		template <typename T> bool HasComponent() {
-			return ECSsystem->ObjectHasComponent<T>(ID);
+			return entityComponentSystem->ObjectHasComponent<T>(ID);
 		}
 
 		/// <summary>
@@ -104,12 +105,30 @@ namespace OSK {
 		/// <param name="content">Content manager que lo va a cargar.</param>
 		void AddAnimatedModel(const std::string& path, ContentManager* content);
 
+		/// <summary>
+		/// Devuelve el nombre de la instancia.
+		/// </summary>
+		/// <returns>Nombre de la instancia.</returns>
+		std::string GetInstanceName() const;
+
+		/// <summary>
+		/// Transform del objeto.
+		/// </summary>
+		Transform* GetTransform() {
+			return &transform;
+		}
+
 	private:
+
+		/// <summary>
+		/// Transform del objeto.
+		/// </summary>
+		Transform transform;
 
 		/// <summary>
 		/// Sistema ECS.
 		/// </summary>
-		EntityComponentSystem* ECSsystem = nullptr;
+		EntityComponentSystem* entityComponentSystem = nullptr;
 
 		/// <summary>
 		/// True si ha sido spawneado.
@@ -120,6 +139,16 @@ namespace OSK {
 		/// Función que elimina este puntero.
 		/// </summary>
 		std::function<void(GameObject* obj)> Delete;
+
+		/// <summary>
+		/// Función que elimina este puntero.
+		/// </summary>
+		std::function<void(GameObject* obj)> DeleteOnScene = [](GameObject* obj) {};
+
+		/// <summary>
+		/// Nombre de la instancia.
+		/// </summary>
+		std::string instanceName;
 
 	};
 

@@ -13,7 +13,7 @@ Framebuffer::Framebuffer(OSK::RenderAPI* renderer) {
 }
 
 void Framebuffer::AddImageView(VULKAN::GPUImage* image) {
-	attachments.push_back(image->View);
+	attachments.push_back(image->view);
 }
 
 void Framebuffer::AddImageView(VkImageView view) {
@@ -23,7 +23,7 @@ void Framebuffer::AddImageView(VkImageView view) {
 void Framebuffer::Create(VULKAN::Renderpass* renderpass, uint32_t sizeX, uint32_t sizeY) {
 	VkFramebufferCreateInfo framebufferInfo{};
 	framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-	framebufferInfo.renderPass = renderpass->VulkanRenderpass;
+	framebufferInfo.renderPass = renderpass->vulkanRenderpass;
 	framebufferInfo.attachmentCount = attachments.size();
 	framebufferInfo.pAttachments = attachments.data();
 	framebufferInfo.width = sizeX;
@@ -32,7 +32,7 @@ void Framebuffer::Create(VULKAN::Renderpass* renderpass, uint32_t sizeX, uint32_
 
 	size = { sizeY, sizeY };
 
-	VkResult result = vkCreateFramebuffer(renderer->LogicalDevice, &framebufferInfo, nullptr, &framebuffer);
+	VkResult result = vkCreateFramebuffer(renderer->logicalDevice, &framebufferInfo, nullptr, &framebuffer);
 	if (result != VK_SUCCESS)
 		throw std::runtime_error("ERROR: crear framebuffer.");
 
@@ -41,7 +41,7 @@ void Framebuffer::Create(VULKAN::Renderpass* renderpass, uint32_t sizeX, uint32_
 
 void Framebuffer::Clear() {
 	if (isActive)
-		vkDestroyFramebuffer(renderer->LogicalDevice, framebuffer, nullptr);
+		vkDestroyFramebuffer(renderer->logicalDevice, framebuffer, nullptr);
 
 	isActive = false;
 }

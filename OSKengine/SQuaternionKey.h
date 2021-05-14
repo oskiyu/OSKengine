@@ -17,12 +17,12 @@ namespace OSK::Animation {
 		/// <summary>
 		/// Keyframe.
 		/// </summary>
-		deltaTime_t Time;
+		deltaTime_t time;
 
 		/// <summary>
 		/// Valor.
 		/// </summary>
-		Quaternion Value;
+		Quaternion value;
 
 	};
 

@@ -15,7 +15,7 @@ void SystemManager::OnDraw(VkCommandBuffer cmdBuffer, uint32_t ix) {
 
 void SystemManager::GameObjectDestroyed(GameObjectID obj) {
 	for (auto& i : systems) {
-		i.second->Objects.erase(obj);
+		i.second->objects.erase(obj);
 	}
 }
 
@@ -27,9 +27,9 @@ void SystemManager::GameObjectSignatureChanged(GameObjectID object, Signature si
 
 		// Entity signature matches system signature - insert into set
 		if ((signature & systemSignature) == systemSignature)
-			system->Objects.insert(object);
+			system->objects.insert(object);
 		// Entity signature does not match system signature - erase from set
 		else
-			system->Objects.erase(object);
+			system->objects.erase(object);
 	}
 }

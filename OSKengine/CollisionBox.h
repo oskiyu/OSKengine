@@ -66,12 +66,12 @@ namespace OSK {
 		/// <summary>
 		/// Posición de la caja.
 		/// </summary>
-		Vector3f Position;
+		Vector3f position;
 
 		/// <summary>
 		/// Tamaño de la caja.
 		/// </summary>
-		Vector3f Size = { 1.0f };
+		Vector3f size = { 1.0f };
 
 	};
 

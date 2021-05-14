@@ -8,97 +8,97 @@ using namespace OSK::VULKAN;
 Texture* Material::DefaultTexture = nullptr;
 
 Material::~Material() {
-	for (auto key : Pipelines)
+	for (auto key : pipelines)
 		delete key.second;
 
-	Pipelines.clear();
+	pipelines.clear();
 
-	if (MLayout)
-		delete MLayout;
+	if (materialLayout)
+		delete materialLayout;
 
-	if (Pool) {
-		Pool->Free();
-		delete Pool;
+	if (pool) {
+		pool->Free();
+		delete pool;
 	}
 }
 
 void Material::SetRenderer(RenderAPI* renderer) {
-	Renderer = renderer;
-	Pool = new MaterialPool(renderer);
+	this->renderer = renderer;
+	pool = new MaterialPool(renderer);
 }
 
 uint32_t Material::GetBindingIndex(const std::string& name) {
-	return BindingNameToBinding[name];
+	return bindingNameToBinding[name];
 }
 
 void Material::SetPipelineSettings(const MaterialPipelineCreateInfo& info) {
-	PipelineInfo = info;
+	pipelineInfo = info;
 
-	for (auto i : RenderpassesToRegister)
+	for (auto i : renderpassesToRegister)
 		RegisterRenderpass(i);
 
-	RenderpassesToRegister.clear();
+	renderpassesToRegister.clear();
 }
 
 void Material::SetLayout(MaterialBindingLayout layout) {
-	if (MLayout)
-		delete MLayout;
+	if (materialLayout)
+		delete materialLayout;
 
-	MLayout = Renderer->CreateNewDescriptorLayout();
+	materialLayout = renderer->CreateNewDescriptorLayout();
 	
 	for (auto i : layout) {
-		uint32_t index = MLayout->DescriptorLayoutBindings.GetSize();
-		MLayout->AddBinding(GetVulkanBindingType(i.Type), GetVulkanShaderBinding(i.Stage));
-		BindingNameToBinding[i.BindingName] = index;
+		uint32_t index = materialLayout->descriptorLayoutBindings.GetSize();
+		materialLayout->AddBinding(GetVulkanBindingType(i.type), GetVulkanShaderBinding(i.stage));
+		bindingNameToBinding[i.bindingName] = index;
 	}
 
-	MLayout->Create();
-	Pool->Layout = MLayout;
+	materialLayout->Create();
+	pool->layout = materialLayout;
 }
 
 MaterialInstance* Material::CreateInstance() {
-	MaterialInstance* instance = Pool->CreateInstance();
+	MaterialInstance* instance = pool->CreateInstance();
 
-	instance->OwnerMaterial = this;
+	instance->ownerMaterial = this;
 
 	return instance;
 }
 
 GraphicsPipeline* Material::GetGraphicsPipeline(VULKAN::Renderpass* renderpass) const {
-	return Pipelines.at(renderpass);
+	return pipelines.at(renderpass);
 }
 
 void Material::RegisterRenderpass(Renderpass* renderpass) {
 	//if (Pipelines.find(renderpass) == Pipelines.end())
 		//return;
 
-	GraphicsPipeline* GPipeline = Renderer->CreateNewGraphicsPipeline(PipelineInfo.VertexPath, PipelineInfo.FragmentPath);
+	GraphicsPipeline* GPipeline = renderer->CreateNewGraphicsPipeline(pipelineInfo.vertexPath, pipelineInfo.fragmentPath);
 	GPipeline->SetViewport({ 0, 0, 2, 2 });
-	GPipeline->SetRasterizer(!PipelineInfo.CullFaces, GetVkPolygonMode(PipelineInfo.PMode), GetVkCullMode(PipelineInfo.CullMode), GetVkPolygonFrontFace(PipelineInfo.FrontFaceType));
+	GPipeline->SetRasterizer(!pipelineInfo.cullFaces, GetVkPolygonMode(pipelineInfo.polygonMode), GetVkCullMode(pipelineInfo.cullMode), GetVkPolygonFrontFace(pipelineInfo.frontFaceType));
 	GPipeline->SetMSAA(VK_FALSE, VK_SAMPLE_COUNT_1_BIT);
-	GPipeline->SetDepthStencil(PipelineInfo.UseDepthStencil);
+	GPipeline->SetDepthStencil(pipelineInfo.useDepthStencil);
 
 	size_t pOffset = 0;
-	for (auto i : PipelineInfo.PushConstants) {
-		GPipeline->SetPushConstants(GetVulkanShaderBinding(i.ShaderStage), i.Size, pOffset);
-		pOffset += i.Size;
+	for (auto i : pipelineInfo.pushConstants) {
+		GPipeline->SetPushConstants(GetVulkanShaderBinding(i.shaderStage), i.size, pOffset);
+		pOffset += i.size;
 	}
 
-	GPipeline->SetLayout(&MLayout->VulkanDescriptorSetLayout);
+	GPipeline->SetLayout(&materialLayout->vulkanDescriptorSetLayout);
 	GPipeline->Create(renderpass);
 
-	Pipelines[renderpass] = GPipeline;
+	pipelines[renderpass] = GPipeline;
 }
 
 MaterialPipelineCreateInfo Material::GetMaterialGraphicsPipelineInfo() const {
-	return PipelineInfo;
+	return pipelineInfo;
 }
 
 void Material::UnregisterRenderpass(Renderpass* renderpass) {
-	if (Pipelines.find(renderpass) == Pipelines.end())
+	if (pipelines.find(renderpass) == pipelines.end())
 		return;
 
-	delete Pipelines[renderpass];
+	delete pipelines[renderpass];
 
-	Pipelines.erase(renderpass);
+	pipelines.erase(renderpass);
 }

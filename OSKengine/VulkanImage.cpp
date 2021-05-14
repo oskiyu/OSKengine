@@ -3,17 +3,17 @@
 namespace OSK::VULKAN {
 
 	void GPUImage::Destroy() {
-		if (Image != VK_NULL_HANDLE) {
-			vkDestroyImage(*logicalDevice, Image, nullptr);
-			Image = VK_NULL_HANDLE;
+		if (image != VK_NULL_HANDLE) {
+			vkDestroyImage(*logicalDevice, image, nullptr);
+			image = VK_NULL_HANDLE;
 		}
-		if (View != VK_NULL_HANDLE) {
-			vkDestroyImageView(*logicalDevice, View, nullptr);
-			View = VK_NULL_HANDLE;
+		if (view != VK_NULL_HANDLE) {
+			vkDestroyImageView(*logicalDevice, view, nullptr);
+			view = VK_NULL_HANDLE;
 		}
-		if (Memory != VK_NULL_HANDLE) {
-			vkFreeMemory(*logicalDevice, Memory, nullptr);
-			Memory = VK_NULL_HANDLE;
+		if (memory != VK_NULL_HANDLE) {
+			vkFreeMemory(*logicalDevice, memory, nullptr);
+			memory = VK_NULL_HANDLE;
 		}
 	}
 

@@ -23,6 +23,8 @@ namespace OSK {
 
 		friend class RenderAPI;
 		friend class DescriptorPool;
+		friend class Material;
+		friend class DescriptorSet;
 
 	public:
 
@@ -59,25 +61,27 @@ namespace OSK {
 		/// </summary>
 		void Create();
 
+	private:
+
 		/// <summary>
 		/// Descriptor layout nativo de Vulkan.
 		/// </summary>
-		VkDescriptorSetLayout VulkanDescriptorSetLayout = VK_NULL_HANDLE;
+		VkDescriptorSetLayout vulkanDescriptorSetLayout = VK_NULL_HANDLE;
 		
 		/// <summary>
 		/// Descriptor pool, que contendrá los descriptor sets.
 		/// </summary>
-		DescriptorPool* DPool = nullptr;
+		DescriptorPool* descriptorPool = nullptr;
 
 		/// <summary>
 		/// Lista de bindings del layout.
 		/// </summary>
-		DynamicArray<VkDescriptorSetLayoutBinding> DescriptorLayoutBindings{};
+		DynamicArray<VkDescriptorSetLayoutBinding> descriptorLayoutBindings{};
 
 		/// <summary>
 		/// Logical device del renderizador.
 		/// </summary>
-		VkDevice LogicalDevice = VK_NULL_HANDLE;
+		VkDevice logicalDevice = VK_NULL_HANDLE;
 
 	};
 

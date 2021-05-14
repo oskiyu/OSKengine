@@ -37,10 +37,10 @@ namespace OSK {
 			return;
 
 		//Posición.
-		alListener3f(AL_POSITION, camera->CameraTransform.GlobalPosition.X, camera->CameraTransform.GlobalPosition.Y, camera->CameraTransform.GlobalPosition.Z);
+		alListener3f(AL_POSITION, camera->GetTransform()->GetPosition().X, camera->GetTransform()->GetPosition().Y, camera->GetTransform()->GetPosition().Z);
 
 		//Dirección.
-		float_t direction[6] = { camera->Front.X, camera->Front.Y, camera->Front.Z, camera->Up.X, camera->Up.Y, camera->Up.Z };
+		float_t direction[6] = { camera->GetFrontVector().X, camera->GetFrontVector().Y, camera->GetFrontVector().Z, camera->GetUpVector().X, camera->GetUpVector().Y, camera->GetUpVector().Z };
 		alListenerfv(AL_ORIENTATION, direction);
 	}
 
@@ -57,22 +57,22 @@ namespace OSK {
 
 	void AudioSystem::PlayAudio3D(SoundEmitterComponent& audio, bool bucle) {
 		//audio.SetPosition(audio.SoundTransform.GlobalPosition);
-		alSourcei(audio.SourceID, AL_LOOPING, bucle);
-		alSourcePlay(audio.SourceID);
+		alSourcei(audio.sourceID, AL_LOOPING, bucle);
+		alSourcePlay(audio.sourceID);
 	}
 
 
 	void AudioSystem::PlayAudio(SoundEmitterComponent& audio, bool bucle) {
 		if (camera != nullptr)
-			audio.SetPosition(camera->CameraTransform.GlobalPosition);
+			audio.SetPosition(camera->GetTransform()->GetPosition());
 
-		alSourcei(audio.SourceID, AL_LOOPING, bucle);
-		alSourcePlay(audio.SourceID);
+		alSourcei(audio.sourceID, AL_LOOPING, bucle);
+		alSourcePlay(audio.sourceID);
 	}
 
 
 	void AudioSystem::PauseAudio(const SoundEmitterComponent& audio) {
-		alSourcePause(audio.SourceID);
+		alSourcePause(audio.sourceID);
 	}
 
 
@@ -82,8 +82,8 @@ namespace OSK {
 
 
 	void AudioSystem::RestartAudio(const SoundEmitterComponent& audio) {
-		alSourceStop(audio.SourceID);
-		alSourcePlay(audio.SourceID);
+		alSourceStop(audio.sourceID);
+		alSourcePlay(audio.sourceID);
 	}
 
 }

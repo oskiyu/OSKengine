@@ -29,6 +29,7 @@ namespace OSK {
 
 		friend class RenderAPI;
 		friend class RenderSystem3D;
+		friend class Scene;
 
 	public:
 
@@ -75,13 +76,34 @@ namespace OSK {
 		void LoadSkybox(const std::string& path);
 
 		/// <summary>
+		/// Carga el terreno de l escena.
+		/// Usa un ContentManager interno.
+		/// </summary>
+		/// <param name="path">Ruta del heightmap (con extensión).</param>
+		/// <param name="quadSize">Tamaño de cada quad.</param>
+		/// <param name="maxHeight">Altura máxima del terreno.</param>
+		void LoadHeightmap(const std::string& path, const Vector2f& quadSize, float maxHeight);
+
+		/// <summary>
+		/// Luces de la escena.
+		/// </summary>
+		LightUBO lights = {};
+
+		/// <summary>
+		/// Terreno de la escena.
+		/// </summary>
+		UniquePtr<Terrain> terreno;
+
+	//private:
+
+		/// <summary>
 		/// Renderiza todas las sombras de los modelos en el shadow map.
 		/// </summary>
 		/// <param name="cmdBuffer">Commandbuffer.</param>
 		/// <param name="iteration">Iteration.</param>
 		void DrawShadows(VkCommandBuffer cmdBuffer, uint32_t iteration);
 
-		void DrawPointShadows(VkCommandBuffer cmdBuffer, uint32_t iteration, CubeShadowMap* map);
+		//void DrawPointShadows(VkCommandBuffer cmdBuffer, uint32_t iteration, CubeShadowMap* map);
 
 		//Renderiza la escena.
 
@@ -92,30 +114,6 @@ namespace OSK {
 		/// <param name="cmdBuffer">Commandbuffer.</param>
 		/// <param name="iteration">Iteration.</param>
 		void Draw(VkCommandBuffer cmdBuffer, uint32_t iteration);
-
-		//Carga un heightmap y genera un terreno.
-		//	<path>: ruta del heightmap.
-		//	<quadSize>: tamaño de cada cuadro del terreno (distancia entre los vértices).
-		//	<maxHegith>: altura máxima del terreno.
-
-		/// <summary>
-		/// Carga el terreno de l escena.
-		/// Usa un ContentManager interno.
-		/// </summary>
-		/// <param name="path">Ruta del heightmap (con extensión).</param>
-		/// <param name="quadSize">Tamaño de cada quad.</param>
-		/// <param name="maxHeight">Altura máxima del terreno.</param>
-		void LoadHeightmap(const std::string& path, const Vector2f& quadSize, float maxHeight);
-		
-		/// <summary>
-		/// Luces de la escena.
-		/// </summary>
-		LightUBO Lights = {};
-
-		/// <summary>
-		/// Terreno de la escena.
-		/// </summary>
-		UniquePtr<Terrain> Terreno;
 
 		//SYSTEM
 
@@ -168,7 +166,7 @@ namespace OSK {
 		/// <summary>
 		/// Renderpass.
 		/// </summary>
-		VULKAN::Renderpass* TargetRenderpass = nullptr;
+		VULKAN::Renderpass* targetRenderpass = nullptr;
 		
 		/// <summary>
 		/// Mapa de sombras.
@@ -178,15 +176,12 @@ namespace OSK {
 		/// <summary>
 		/// Buffers con información de luces.
 		/// </summary>
-		std::vector<GPUDataBuffer> LightsUniformBuffers;
+		std::vector<GPUDataBuffer> lightsUniformBuffers;
 
 		/// <summary>
 		/// Buffers con información de huesos de modelos animados.
 		/// </summary>
-		std::vector<GPUDataBuffer> BonesUBOs;
-
-
-	protected:
+		std::vector<GPUDataBuffer> bonesUbos;
 
 		/// <summary>
 		/// Inicia los buffers de luces.
@@ -196,19 +191,17 @@ namespace OSK {
 		/// <summary>
 		/// Graphics pipeline enlazada en un momento dado.
 		/// </summary>
-		GraphicsPipeline* CurrentGraphicsPipeline = nullptr;
+		GraphicsPipeline* currentGraphicsPipeline = nullptr;
 
 		/// <summary>
 		/// Pipeline del skybox.
 		/// </summary>
-		GraphicsPipeline* SkyboxPipeline = nullptr;
+		GraphicsPipeline* skyboxPipeline = nullptr;
 
 		/// <summary>
 		/// Content manager local.
 		/// </summary>
-		UniquePtr<ContentManager> Content;
-
-	private:
+		UniquePtr<ContentManager> content;
 
 		/// <summary>
 		/// Skybox.
@@ -218,19 +211,19 @@ namespace OSK {
 		/// <summary>
 		/// Modelos 3D.
 		/// </summary>
-		std::vector<Model*> Models = {};
+		std::vector<Model*> models = {};
 
 		/// <summary>
 		/// Modelos animados.
 		/// </summary>
-		std::vector<AnimatedModel*> AnimatedModels = {};
+		std::vector<AnimatedModel*> animatedModels = {};
 
 		/// <summary>
 		/// Renderizador.
 		/// </summary>
 		RenderAPI* renderer = nullptr;
 
-		std::vector<CubeShadowMap*> cubeShadowMaps;
+		//std::vector<CubeShadowMap*> cubeShadowMaps;
 
 		bool isPropetaryOfTerrain = true;
 		

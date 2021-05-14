@@ -22,19 +22,19 @@ namespace OSK {
 		/// <summary>
 		/// Luz direccional.
 		/// </summary>
-		DirectionalLight Directional{};
+		DirectionalLight directional{};
 
 		/// <summary>
 		/// Luces puntuales.
 		/// </summary>
-		std::vector<PointLight> Points{};
+		std::vector<PointLight> points{};
 
 		/// <summary>
 		/// Obtiene el tamaño, en bytes, de todas las luces puntuales juntas.
 		/// </summary>
 		/// <returns>Tamaño total.</returns>
 		inline const size_t PointsSize() const {
-			return Points.size() * sizeof(PointLight);
+			return points.size() * sizeof(PointLight);
 		}
 
 		/// <summary>

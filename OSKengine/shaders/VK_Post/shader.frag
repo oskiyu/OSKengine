@@ -12,6 +12,7 @@ layout (push_constant) uniform Settings {
     int useFXAA;
     int ScreenSizeX;
     int ScreenSizeY;
+    float renderRes;
 } settings;
 
 layout (location = 0) out vec4 outColor;

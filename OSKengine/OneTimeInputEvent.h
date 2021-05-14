@@ -20,17 +20,17 @@ namespace OSK {
 		/// <summary>
 		/// Nombre del evento.
 		/// </summary>
-		std::string EventName = "";
+		std::string eventName = "";
 
 		/// <summary>
 		/// Teclas que activan el evento.
 		/// </summary>
-		std::vector<Key> LinkedKeys;
+		std::vector<Key> linkedKeys;
 
 		/// <summary>
 		/// Botones del ratón que activan el evento.
 		/// </summary>
-		std::vector<ButtonCode> LinkedButtons;
+		std::vector<ButtonCode> linkedButtons;
 
 	};
 

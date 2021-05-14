@@ -17,12 +17,12 @@ namespace OSK {
 		/// <summary>
 		/// Vértices.
 		/// </summary>
-		std::vector<Vertex> Vertices;
+		std::vector<Vertex> vertices;
 
 		/// <summary>
 		/// Índices.
 		/// </summary>
-		std::vector<vertexIndex_t> Indices;
+		std::vector<vertexIndex_t> indices;
 
 	};
 

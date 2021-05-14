@@ -6,13 +6,49 @@
 #include <stdexcept>
 
 #include <enet/enet.h>
-
+#include <vector>
 #include "Macros.h"
 
 namespace OSK::NET {
 
-	//representa un mensaje para la comunicación srvidor-cliente y cliente-servidor.
+
+	struct OSKAPI_CALL DataBuffer {
+
+	public:
+
+		void Write(byte_t* data, size_t size) {
+			for (size_t i = 0; i < size; i++)
+				bytes.push_back(data[i]);
+		}
+
+		byte_t* Read(size_t offset) {
+			return &bytes.data()[offset];
+		}
+
+		template <typename T> T CastTo() const {
+			return *reinterpret_cast<T*>(bytes.data());
+		}
+
+		template <typename T> T CastTo(size_t offset) const {
+			return *reinterpret_cast<T*>(Read(offset));
+		}
+
+		size_t GetSize() const {
+			return bytes.size();
+		}
+
+	private:
+
+		std::vector<byte_t> bytes;
+
+	};
+
+
+	//representa un mensaje para la comunicación servidor-cliente y cliente-servidor.
 	struct OSKAPI_CALL Message {
+
+		friend class Client;
+		friend class Server;
 
 	public:
 
@@ -24,80 +60,49 @@ namespace OSK::NET {
 		Message(const ENetEvent& msg);
 
 
-		//Destructor del mensaje.
-		//Llama a Clear().
-		~Message();
+		byte_t* GetData(size_t offset);
 
+		template <typename T> T Read() {
+			size_t oldCursor = cursor;
+			cursor += sizeof(T);
+
+			return buffer.CastTo<T>(oldCursor);
+		}
+
+		template <typename T> void Write(const T& value) {
+			buffer.Write(reinterpret_cast(value), sizeof(T));
+		}
+
+		template <typename T> void WriteCopy(T value) {
+			buffer.Write(reinterpret_cast(value), sizeof(T));
+		}
+
+		void WriteString(const std::string& data) {
+			Write<stringLength_t>(data.length());
+			buffer.Write((byte_t*)data.c_str(), data.length());
+		}
+
+		std::string ReadString() {
+			int length = Read<stringLength_t>();
+			std::string output = "";
+
+			for (int i = 0; i < length; i++)
+				output += Read<char>();
+
+			return output;
+		}
 
 		//Mensaje de ENET.
 		ENetEvent enetMessage{};
-
 
 		//Obtiene la dirección del cliente que envió el mensaje.
 		//(Sólamente si el mensaje ha sido recibido por el servidor).
 		ENetPeer* GetSenderConnection() const;
 
-
-		//Obtiene la información del mensaje sin procesar.
-		//(Sólamente si el mensaje ha sido recibido por el cliente/servidor).
-		const char* GetRawData();
-
-
-		//Obtiene el código del mensaje.
-		//(Sólamente si el mensaje ha sido recibido por el cliente/servidor).
-		messageCode_t GetMessageCode();
-
-
-		//Obtiene la información del mensaje sin procesar, ignorando el código.
-		//(Sólamente si el mensaje ha sido recibido por el cliente/servidor).
-		char* GetData(const size_t& offset = 0, const size_t& size = 0);
-
-
-		//Obtiene los próximos <size> caracteres del mensaje desde la última vez que se llamó a Read.
-		char* Read(const size_t& size);
-
-
-		//Establece el código del mensaje.
-		//(Sólamente si el mensaje va a ser enviado).
-		//-code: código del mensaje.
-		void SetCode(const messageCode_t& code);
-
-
-		//Añade información al mensaje.
-		//(Sólamente si el mensaje va a ser enviado).
-		//-data: información añadida al mensaje.
-		void AddData(const char* data);
-
-
-		//INTERNAL.
-		//Obtiene la información que será enviada.
-		//(Sólamente si el mensaje va a ser enviado).
-		const char* GetRawDataToBeSent();
-
-
-		//Añade un string al mensaje.
-		//(Sólamente si el mensaje va a ser enviado).
-		//-data: información añadida al mensaje.
-		void Append(const std::string& data);
-
-
-		//Limpia el buffer en el que se guarda la información en formato char*.
-		void Clear();
-
-
 	private:
 
-		//Mensaje a enviar.
-		std::string sendMessage = "";
-
-		char* c_message = nullptr;
-
-		size_t messageLength = 0;
-
-		size_t cursor = 1;
-
-		//Código del mensaje a enviar.
-		messageCode_t code = 0;
+		DataBuffer buffer;
+		size_t cursor = 0;
 
 	};
 

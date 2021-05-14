@@ -13,7 +13,7 @@ void GPUDataBuffer::Create(VkDevice device, VkBufferUsageFlags usage, VkMemoryPr
 }
 
 void GPUDataBuffer::Allocate(size_t size) {
-	this->Size = size;
+	this->size = size;
 
 	VkBufferCreateInfo bufferInfo{};
 	bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
@@ -21,13 +21,13 @@ void GPUDataBuffer::Allocate(size_t size) {
 	bufferInfo.usage = usage;
 	bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
-	VkResult result = vkCreateBuffer(logicalDevice, &bufferInfo, nullptr, &Buffer);
+	VkResult result = vkCreateBuffer(logicalDevice, &bufferInfo, nullptr, &buffer);
 	if (result != VK_SUCCESS) {
 		Logger::Log(LogMessageLevels::BAD_ERROR, std::string(__FUNCTION__) + " crear buffer");
 	}
 
 	VkMemoryRequirements memRequirements;
-	vkGetBufferMemoryRequirements(logicalDevice, Buffer, &memRequirements);
+	vkGetBufferMemoryRequirements(logicalDevice, buffer, &memRequirements);
 
 	VkMemoryAllocateInfo allocInfo{};
 	allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
@@ -37,20 +37,20 @@ void GPUDataBuffer::Allocate(size_t size) {
 		Logger::Log(LogMessageLevels::BAD_ERROR, std::string(__FUNCTION__) + " no se encuentra memoria compatible");
 	}
 
-	result = vkAllocateMemory(logicalDevice, &allocInfo, nullptr, &Memory);
+	result = vkAllocateMemory(logicalDevice, &allocInfo, nullptr, &memory);
 	if (result != VK_SUCCESS) {
 		Logger::Log(LogMessageLevels::BAD_ERROR, std::string(__FUNCTION__) + " alloc buffer memory.");
 	}
 
-	vkBindBufferMemory(logicalDevice, Buffer, Memory, 0);
+	vkBindBufferMemory(logicalDevice, buffer, memory, 0);
 }
 
 void GPUDataBuffer::MapMemory() {
-	MapMemory(Size, 0);
+	MapMemory(size, 0);
 }
 
 void GPUDataBuffer::MapMemory(size_t size, size_t offset) {
-	vkMapMemory(logicalDevice, Memory, offset, size, 0, &mappedData);
+	vkMapMemory(logicalDevice, memory, offset, size, 0, &mappedData);
 	isMapped = true;
 }
 
@@ -73,20 +73,32 @@ void GPUDataBuffer::WriteMapped(const void* data, size_t size, size_t offset) {
 
 void GPUDataBuffer::UnmapMemory() {
 	if (isMapped)
-		vkUnmapMemory(logicalDevice, Memory);
+		vkUnmapMemory(logicalDevice, memory);
 
 	isMapped = false;
 }
 
 void GPUDataBuffer::Free() {
-	if (Buffer != VK_NULL_HANDLE) {
-		vkDestroyBuffer(logicalDevice, Buffer, nullptr);
-		Buffer = VK_NULL_HANDLE;
+	if (buffer != VK_NULL_HANDLE) {
+		vkDestroyBuffer(logicalDevice, buffer, nullptr);
+		buffer = VK_NULL_HANDLE;
 	}
-	if (Memory != VK_NULL_HANDLE) {
-		vkFreeMemory(logicalDevice, Memory, nullptr);
-		Memory = VK_NULL_HANDLE;
+	if (memory != VK_NULL_HANDLE) {
+		vkFreeMemory(logicalDevice, memory, nullptr);
+		memory = VK_NULL_HANDLE;
 	}
+}
+
+void GPUDataBuffer::SetDynamicUboStructureSize(size_t size) {
+	dynamicSize = size;
+}
+
+size_t GPUDataBuffer::GetSize() {
+	return size;
+}
+
+size_t GPUDataBuffer::GetDynamicUboStructureSize() {
+	return dynamicSize;
 }
 	
 GPUDataBuffer::~GPUDataBuffer() {

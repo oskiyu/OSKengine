@@ -44,13 +44,13 @@ namespace OSK {
 	GraphicsPipeline::~GraphicsPipeline() {
 		clearShaders();
 
-		if (VulkanPipeline != VK_NULL_HANDLE) {
-			vkDestroyPipeline(logicalDevice, VulkanPipeline, nullptr);
-			VulkanPipeline = VK_NULL_HANDLE;
+		if (vulkanPipeline != VK_NULL_HANDLE) {
+			vkDestroyPipeline(logicalDevice, vulkanPipeline, nullptr);
+			vulkanPipeline = VK_NULL_HANDLE;
 		}
-		if (VulkanPipelineLayout != VK_NULL_HANDLE) {
-			vkDestroyPipelineLayout(logicalDevice, VulkanPipelineLayout, nullptr);
-			VulkanPipelineLayout = VK_NULL_HANDLE;
+		if (vulkanPipelineLayout != VK_NULL_HANDLE) {
+			vkDestroyPipelineLayout(logicalDevice, vulkanPipelineLayout, nullptr);
+			vulkanPipelineLayout = VK_NULL_HANDLE;
 		}
 	}
 
@@ -187,7 +187,7 @@ namespace OSK {
 			SetDepthStencil(false);
 		}
 
-		VkResult result = vkCreatePipelineLayout(logicalDevice, &pipelineLayoutInfo, nullptr, &VulkanPipelineLayout);
+		VkResult result = vkCreatePipelineLayout(logicalDevice, &pipelineLayoutInfo, nullptr, &vulkanPipelineLayout);
 		if (result != VK_SUCCESS) {
 			Logger::Log(LogMessageLevels::BAD_ERROR, "Crear pipelielayout.");
 
@@ -212,13 +212,13 @@ namespace OSK {
 		pipelineInfo.pDepthStencilState = &depthStencilCreateInfo;
 		pipelineInfo.pColorBlendState = &colorBlending;
 		pipelineInfo.pDynamicState = &dynamicCreateInfo;
-		pipelineInfo.layout = VulkanPipelineLayout;
-		pipelineInfo.renderPass = targetRenderpass->VulkanRenderpass;
+		pipelineInfo.layout = vulkanPipelineLayout;
+		pipelineInfo.renderPass = targetRenderpass->vulkanRenderpass;
 		pipelineInfo.subpass = 0;
 		pipelineInfo.basePipelineHandle = nullptr;
 		pipelineInfo.basePipelineIndex = -1;
 
-		result = vkCreateGraphicsPipelines(logicalDevice, nullptr, 1, &pipelineInfo, nullptr, &VulkanPipeline);
+		result = vkCreateGraphicsPipelines(logicalDevice, nullptr, 1, &pipelineInfo, nullptr, &vulkanPipeline);
 		if (result != VK_SUCCESS) {
 			Logger::Log(LogMessageLevels::BAD_ERROR, "crear pipeline.");
 		
@@ -227,7 +227,7 @@ namespace OSK {
 	}
 
 	void GraphicsPipeline::Bind(VkCommandBuffer commandBuffer) const {
-		vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, VulkanPipeline);
+		vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, vulkanPipeline);
 	}
 
 	void GraphicsPipeline::loadShaders() {

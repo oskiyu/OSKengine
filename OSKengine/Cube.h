@@ -16,14 +16,14 @@ public:
 
 		OSK::PhysicsComponent& physics = GetComponent<OSK::PhysicsComponent>();
 		
-		physics.Collision.ColliderTransform.AttachTo(&Transform3D);
+		physics.GetCollider().GetTransform().AttachTo(this->GetTransform());
 
 		auto box = OSK::Collision::SAT_Collider::CreateOBB();
-		physics.Collision.SatColliders.push_back(box);
-		physics.Collision.SatColliders.back().BoxTransform.AttachTo(&Transform3D);
-		physics.Collision.SetBroadCollider(OSK::CollisionBox({ 0.0f }, { 5.0f }));
+		physics.GetCollider().satColliders.push_back(box);
+		physics.GetCollider().satColliders.back().GetTransform().AttachTo(this->GetTransform());
+		physics.GetCollider().SetBroadCollider(OSK::CollisionBox({ 0.0f }, { 5.0f }));
 
-		physics.Height = -1.0f;
+		physics.gravityCenterHeight = -2.0f;
 
 		AddComponent<OSK::ModelComponent>({});
 	}
@@ -42,16 +42,17 @@ public:
 		OSK::InputComponent input;
 
 		input.GetInputFunction("MoveFront") = [this](deltaTime_t deltaTime) {
-			Transform3D.AddPosition(OSK::Vector3f(3, 0, 0) * deltaTime);
+			GetTransform()->AddPosition(OSK::Vector3f(3, 0, 0) * deltaTime);
+			OSK::Logger::DebugLog("XD)");
 		};
 		input.GetInputFunction("MoveBack") = [this](deltaTime_t deltaTime) {
-			Transform3D.AddPosition(OSK::Vector3f(-3, 0, 0) * deltaTime);
+			GetTransform()->AddPosition(OSK::Vector3f(-3, 0, 0) * deltaTime);
 		};
 		input.GetInputFunction("MoveLeft") = [this](deltaTime_t deltaTime) {
-			Transform3D.AddPosition(OSK::Vector3f(0, 0, -3) * deltaTime);
+			GetTransform()->AddPosition(OSK::Vector3f(0, 0, -3) * deltaTime);
 		};
 		input.GetInputFunction("MoveRight") = [this](deltaTime_t deltaTime) {
-			Transform3D.AddPosition(OSK::Vector3f(0, 0, 3) * deltaTime);
+			GetTransform()->AddPosition(OSK::Vector3f(0, 0, 3) * deltaTime);
 		};
 
 		AddComponent<OSK::InputComponent>(input);

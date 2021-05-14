@@ -3,11 +3,11 @@
 using namespace OSK;
 
 void Profiler::AddProfilingUnit(ProfilingUnit* unit) {
-	for (const auto& i : Units)
+	for (const auto& i : units)
 		if (i == unit)
 			return;
 
-	Units.push_back(unit);
+	units.push_back(unit);
 }
 
 void Profiler::RemoveProfilingUnit(ProfilingUnit* unit) {
@@ -17,7 +17,7 @@ void Profiler::RemoveProfilingUnit(ProfilingUnit* unit) {
 void Profiler::ShowData() {
 	Logger::Log(LogMessageLevels::INFO, "PROFILER: ");
 
-	for (const auto& i : Units) {
-		Logger::Log(LogMessageLevels::INFO, "\t" + i->Name + ": " + std::to_string(i->GetValue() * 1000) + "ms");
+	for (const auto& i : units) {
+		Logger::Log(LogMessageLevels::INFO, "\t" + i->name + ": " + std::to_string(i->GetValue() * 1000) + "ms");
 	}
 }

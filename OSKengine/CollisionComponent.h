@@ -16,7 +16,16 @@ namespace OSK {
 		/// <summary>
 		/// Colisionador.
 		/// </summary>
-		Collider Collider3D;
+		Collider& GetCollider() {
+			return collider;
+		}
+
+	private:
+
+		/// <summary>
+		/// Colisionador.
+		/// </summary>
+		Collider collider;
 
 	};
 

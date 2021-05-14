@@ -62,7 +62,7 @@ namespace OSK {
 #endif
 	std::string YEAR = "2021";
 	std::string MONTH = "05";
-	std::string DAY = "02";
+	std::string DAY = "14";
 
 	std::string ENGINE_NAME = "OSKengine";
 
@@ -78,7 +78,7 @@ namespace OSK {
 
 	std::string ENGINE_VERSION_BUILD = YEAR + "." + MONTH + "." +DAY + "a";
 	int ENGINE_VERSION_BUILD_NUMERIC = 9;
-	std::string ENGINE_VERSION = "0.17 build " + ENGINE_VERSION_BUILD;
+	std::string ENGINE_VERSION = "0.17+ build " + ENGINE_VERSION_BUILD;
 
 	int ENGINE_VERSION_TOTAL = 17;
 

@@ -3,7 +3,7 @@
 #include "VulkanRenderer.h"
 
 using namespace OSK;
-
+/*
 CubeShadowMap::CubeShadowMap(RenderAPI* renderer, ContentManager* content) {
 	this->renderer = renderer;
 	Content = content;
@@ -29,7 +29,7 @@ void CubeShadowMap::Create(const Vector2ui& size) {
 
 	for (uint32_t i = 0; i < 6; i++) {
 		CubemapTargets[i] = renderer->CreateNewRenderTarget();
-		CubemapTargets[i]->Size = size;
+		CubemapTargets[i]->SetSize(size);
 		CubemapTargets[i]->CreateSprite(Content);
 
 		VULKAN::VulkanImageGen::CreateImage(&CubemapTargets[i]->RenderedSprite.Texture2D->Image, Size, CUBE_SHADOW_MAP_FORMAT, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
@@ -106,7 +106,7 @@ void CubeShadowMap::CreateGraphicsPipeline() {
 	ShadowsPipeline->SetLayout(&PointShadowDescriptorLayout->VulkanDescriptorSetLayout);
 	ShadowsPipeline->Create(CubemapTargets[0]->VRenderpass);
 
-	CubemapTargets[0]->Pipelines.push_back(ShadowsPipeline);*/
+	CubemapTargets[0]->Pipelines.push_back(ShadowsPipeline);
 }
 
 /*void CubeShadowMap::CreateDescriptorSet(ModelTexture* texture) {

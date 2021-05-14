@@ -52,7 +52,7 @@ namespace OSK {
 		/// <summary>
 		/// Tipo de componente.
 		/// </summary>
-		ComponentType Type;
+		ComponentType type;
 
 	};
 

@@ -21,12 +21,9 @@ namespace OSK {
 	/// </summary>
 	struct OSKAPI_CALL KeyboardState {
 
-	public:
+		friend class WindowAPI;
 
-		/// <summary>
-		/// Almacena los estados de todas las teclas.
-		/// </summary>
-		keyState_t KeyStates[NUMBER_OF_KEYS];
+	public:
 
 		/// <summary>
 		/// Retorna el estado de una tecla dada. (KeyState).
@@ -48,6 +45,13 @@ namespace OSK {
 		/// <param name="key">Tecla del teclado.</param>
 		/// <returns>'true' = RELEASED. 'false' = PRESSED.</returns>
 		keyState_t IsKeyUp(Key key);
+
+	private:
+
+		/// <summary>
+		/// Almacena los estados de todas las teclas.
+		/// </summary>
+		keyState_t keyStates[NUMBER_OF_KEYS];
 
 	};
 

@@ -33,17 +33,17 @@ namespace OSK {
 		/// <summary>
 		/// Vértices del modelo.
 		/// </summary>
-		GPUDataBuffer VertexBuffer;
+		GPUDataBuffer vertexBuffer;
 
 		/// <summary>
 		/// Índices del modelo.
 		/// </summary>
-		GPUDataBuffer IndexBuffer;
+		GPUDataBuffer indexBuffer;
 
 		/// <summary>
 		/// Número de índices.
 		/// </summary>
-		size_t IndicesCount = 0;
+		size_t indicesCount = 0;
 
 	};
 

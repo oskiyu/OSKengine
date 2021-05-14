@@ -136,7 +136,7 @@ namespace OSK {
 		/// </summary>
 		/// <returns>Render target.</returns>
 		inline RenderTarget* GetMainRenderTarget() const {
-			return RenderTargetBeforePostProcessing;
+			return renderTargetBeforePostProcessing;
 		}
 
 		/// <summary>
@@ -155,30 +155,30 @@ namespace OSK {
 		void InitRenderTarget(RenderTarget* rtarget, ContentManager* content);
 
 		struct {
-			std::string VertexShaderPath2D = "Shaders/2D/vert.spv";
-			std::string FragmentShaderPath2D = "Shaders/2D/frag.spv";
+			std::string vertexShaderPath2D = "Shaders/2D/vert.spv";
+			std::string fragmentShaderPath2D = "Shaders/2D/frag.spv";
 
-			std::string VertexShaderPath3D = "Shaders/Vk/vert.spv";
-			std::string FragmentShaderPath3D = "Shaders/Vk/frag.spv";
+			std::string vertexShaderPath3D = "Shaders/Vk/vert.spv";
+			std::string fragmentShaderPath3D = "Shaders/Vk/frag.spv";
 
-			std::string SkyboxVertexPath = "shaders/VK_Skybox/vert.spv";
-			std::string SkyboxFragmentPath = "shaders/VK_Skybox/frag.spv";
+			std::string skyboxVertexPath = "shaders/VK_Skybox/vert.spv";
+			std::string skyboxFragmentPath = "shaders/VK_Skybox/frag.spv";
 		} Settings;
 
 		/// <summary>
 		/// Cámara 2D por defecto.
 		/// </summary>
-		Camera2D DefaultCamera2D{};
+		Camera2D defaultCamera2D{};
 
 		/// <summary>
 		/// Cáramara 2D para el render target.
 		/// </summary>
-		Camera2D RenderTargetCamera2D{};
+		Camera2D renderTargetCamera2D{};
 
 		/// <summary>
 		/// Cámara 3D por defecto.
 		/// </summary>
-		Camera3D DefaultCamera3D{ 0, 0, 0 };
+		Camera3D defaultCamera3D{ 0, 0, 0 };
 
 		/// <summary>
 		/// Imagen de OSKengine.
@@ -193,26 +193,26 @@ namespace OSK {
 		/// <summary>
 		/// Límite de FPS (no funciona).
 		/// </summary>
-		float FPSlimit = 9999.0f;
+		float fpsLimit = 9999.0f;
 
 		/// <summary>
 		/// Resolución objetivo en X.
 		/// Deve coincidir con la resolución nativa de la pantalla
 		/// </summary>
-		unsigned int RenderTargetSizeX = 1024;
+		unsigned int renderTargetSizeX = 1024;
 
 		/// <summary>
 		/// Resolución objetivo en Y.
 		/// Deve coincidir con la resolución nativa de la pantalla
 		/// </summary>
-		unsigned int RenderTargetSizeY = 720;
+		unsigned int renderTargetSizeY = 720;
 
 		/// <summary>
 		/// Escala de renderizado.
 		/// Debe ser al menos del 100% (1.0f).
 		/// Si es mayor, renderiza a una resolución superior al output, lo cual puede proveeer efectos de antailasing.
 		/// </summary>
-		float RenderResolutionMultiplier = 1.0f; //Record = 17.0f { 32640 x 18360 }
+		float renderResolutionMultiplier = 1.0f; //Record = 17.0f { 32640 x 18360 }
 
 		/// <summary>
 		/// Añade un render stage que se renderizará todos los frames.
@@ -236,34 +236,34 @@ namespace OSK {
 		/// <summary>
 		/// Ajustes de postprocesamiento.
 		/// </summary>
-		PostProcessingSettings_t PostProcessingSettings;
+		PostProcessingSettings_t postProcessingSettings;
 
 		/// <summary>
 		/// Nombre del material 2D.
 		/// </summary>
-		const std::string DefaultMaterial2D_Name = "DefaultMaterial2D";
+		const std::string defaultMaterial2D_Name = "DefaultMaterial2D";
 
 		/// <summary>
 		/// Nombre del material 3D.
 		/// </summary>
-		const std::string DefaultMaterial3D_Name = "DefaultMaterial3D";
+		const std::string defaultMaterial3D_Name = "DefaultMaterial3D";
 
 		/// <summary>
 		/// Nombre del material de skybox.
 		/// </summary>
-		const std::string DefaultSkyboxMaterial_Name = "DefaultSkyboxMaterial";
+		const std::string defaultSkyboxMaterial_Name = "DefaultSkyboxMaterial";
 
 		/// <summary>
 		/// Nombre del material de sombreado.
 		/// </summary>
-		const std::string DefaultShadowsMaterial_Name = "DefaultShadowsMaterial";
+		const std::string defaultShadowsMaterial_Name = "DefaultShadowsMaterial";
 
 		/// <summary>
 		/// Devuelve el sistema de materiales.
 		/// </summary>
 		/// <returns></returns>
 		MaterialSystem* GetMaterialSystem() const {
-			return MSystem;
+			return materialSystem;
 		}
 
 		/// <summary>
@@ -271,7 +271,7 @@ namespace OSK {
 		/// </summary>
 		/// <returns>UBOs 3D.</returns>
 		std::vector<GPUDataBuffer>& GetUniformBuffers() {
-			return UniformBuffers;
+			return uniformBuffers;
 		}
 
 #pragma endregion
@@ -279,7 +279,7 @@ namespace OSK {
 		/// <summary>
 		/// Render target antes de post procesamiento.
 		/// </summary>
-		RenderTarget* RenderTargetBeforePostProcessing = CreateNewRenderTarget();
+		RenderTarget* renderTargetBeforePostProcessing = CreateNewRenderTarget();
 
 		/// <summary>
 		/// Cierra el renderizador.
@@ -338,27 +338,27 @@ namespace OSK {
 		/// <summary>
 		/// Ventana asociada.
 		/// </summary>
-		WindowAPI* Window = nullptr;
+		WindowAPI* window = nullptr;
 
 		/// <summary>
 		/// Content manager global.
 		/// </summary>
-		ContentManager* Content = new ContentManager(this);
+		ContentManager* content = new ContentManager(this);
 
 		/// <summary>
 		/// Profiling para el renderizado del frame (GPU).
 		/// </summary>
-		ProfilingUnit renderP_Unit{ "Render frame" };
+		ProfilingUnit renderProfilingUnit{ "Render frame" };
 
 		/// <summary>
 		/// Profiling para el renderizado (CPU).
 		/// </summary>
-		ProfilingUnit updateCmdP_Unit{ "Update command buffers" };
+		ProfilingUnit updateCmdProfilingUnit{ "Update command buffers" };
 
 		/// <summary>
 		/// Imagen de profundidad.
 		/// </summary>
-		VULKAN::GPUImage DepthImage;
+		VULKAN::GPUImage depthImage;
 
 		/// <summary>
 		/// Devuelve el formato para la imagen de profundidad.
@@ -369,7 +369,7 @@ namespace OSK {
 		/// <summary>
 		/// Formato del swapchain.
 		/// </summary>
-		VkFormat SwapchainFormat;
+		VkFormat swapchainFormat;
 
 		/// <summary>
 		/// Renderiza un render stage.
@@ -382,7 +382,7 @@ namespace OSK {
 		/// <summary>
 		/// Sistema ECS de renderizado.
 		/// </summary>
-		RenderSystem3D* RSystem = nullptr;
+		RenderSystem3D* renderSystem = nullptr;
 
 		/// <summary>
 		/// Establece el viewport para un command buffer.
@@ -400,28 +400,28 @@ namespace OSK {
 		/// <summary>
 		/// Command buffers.
 		/// </summary>
-		std::vector<VkCommandBuffer> CommandBuffers;
+		std::vector<VkCommandBuffer> commandBuffers;
 
 		/// <summary>
 		/// UBOs 3D.
 		/// </summary>
-		std::vector<GPUDataBuffer> UniformBuffers{};
+		std::vector<GPUDataBuffer> uniformBuffers{};
 
 		/// <summary>
 		/// Sistema de materiales.
 		/// </summary>
-		MaterialSystem* MSystem = nullptr;
+		MaterialSystem* materialSystem = nullptr;
 
 		/// <summary>
 		/// Stages que se renderizan una vez por frame.
 		/// Despues la lista se vacía.
 		/// </summary>
-		std::list<RenderStage*> SingleTimeStages = {};
+		std::list<RenderStage*> singleTimeStages = {};
 
 		/// <summary>
 		/// Stages a renderizar cada frame.
 		/// </summary>
-		std::list<RenderStage*> Stages = {};
+		std::list<RenderStage*> stages = {};
 
 		/// <summary>
 		/// Crea el vertex buffer de un sprite.
@@ -631,27 +631,27 @@ namespace OSK {
 		/// <summary>
 		/// Instancia de Vulkan.
 		/// </summary>
-		VkInstance Instance;
+		VkInstance instance;
 
 		/// <summary>
 		/// Swapchain.
 		/// </summary>
-		VkSwapchainKHR Swapchain;
+		VkSwapchainKHR swapchain;
 
 		/// <summary>
 		/// Imágenes del swapchain.
 		/// </summary>
-		std::vector<VkImage> SwapchainImages;
+		std::vector<VkImage> swapchainImages;
 
 		/// <summary>
 		/// ImageViews del swapchain (cómo acceder a las imágenes).
 		/// </summary>
-		std::vector<VkImageView> SwapchainImageViews;
+		std::vector<VkImageView> swapchainImageViews;
 
 		/// <summary>
 		/// Tamaño del swapchain.
 		/// </summary>
-		VkExtent2D SwapchainExtent;
+		VkExtent2D swapchainExtent;
 
 		/// <summary>
 		/// Modo de presentación.
@@ -661,78 +661,78 @@ namespace OSK {
 		/// <summary>
 		/// GPU usada.
 		/// </summary>
-		VkPhysicalDevice GPU;
+		VkPhysicalDevice gpu;
 
 		/// <summary>
 		/// Información de la GPU seleccionada.
 		/// </summary>
-		VULKAN::GPUinfo GPU_Info{};
+		VULKAN::GPUinfo gpuInfo {};
 
 		/// <summary>
 		/// Propiedades de la memoria de la GPU.
 		/// </summary>
-		VkPhysicalDeviceMemoryProperties MemoryProperties;
+		VkPhysicalDeviceMemoryProperties memoryProperties;
 
 		/// <summary>
 		/// Superficie sobre la cual se renderiza las imágenes.
 		/// </summary>
-		VkSurfaceKHR Surface;
+		VkSurfaceKHR surface;
 
 		/// <summary>
 		/// Logical device.
 		/// </summary>
-		VkDevice LogicalDevice;
+		VkDevice logicalDevice;
 
 		/// <summary>
 		/// Framebuffers.
 		/// </summary>
-		std::vector<VULKAN::Framebuffer*> Framebuffers;
+		std::vector<VULKAN::Framebuffer*> framebuffers;
 
 		/// <summary>
 		/// Sync.
 		/// GPU to CPU.
 		/// Imagen lista.
 		/// </summary>
-		std::vector<VkSemaphore> ImageAvailableSemaphores;
+		std::vector<VkSemaphore> imageAvailableSemaphores;
 
 		/// <summary>
 		/// Sync.
 		/// GPU to CPU.
 		/// Imagen renderizada.
 		/// </summary>
-		std::vector<VkSemaphore> RenderFinishedSemaphores;
+		std::vector<VkSemaphore> renderFinishedSemaphores;
 
 		/// <summary>
 		/// Sync.
 		/// CPU to GPU.
 		/// </summary>
-		std::vector<VkFence> InFlightFences;
+		std::vector<VkFence> inFlightFences;
 
 		/// <summary>
 		/// Sync.
 		/// CPU to GPU.
 		/// </summary>
-		std::vector<VkFence> ImagesInFlight;
+		std::vector<VkFence> imagesInFlight;
 
 		/// <summary>
 		/// Cola de gráficos.
 		/// </summary>
-		VkQueue GraphicsQ;
+		VkQueue graphicsQueue;
 
 		/// <summary>
 		/// Cola de presentación.
 		/// </summary>
-		VkQueue PresentQ;
+		VkQueue presentQueue;
 
 		/// <summary>
 		/// Command pool.
 		/// </summary>
-		VkCommandPool CommandPool;
+		VkCommandPool commandPool;
 
 		/// <summary>
 		/// Sampler global.
 		/// </summary>
-		VkSampler GlobalImageSampler;
+		VkSampler globalImageSampler;
 
 		/// <summary>
 		/// Nos permite imprimir mensajes de las capas de validación.
@@ -759,32 +759,32 @@ namespace OSK {
 		/// <summary>
 		/// Graphics para renderizar los post procesamientos.
 		/// </summary>
-		GraphicsPipeline* ScreenGraphicsPipeline = nullptr;
+		GraphicsPipeline* screenGraphicsPipeline = nullptr;
 
 		/// <summary>
 		/// DescPool para renderizar los post procesamientos.
 		/// </summary>
-		DescriptorPool* ScreenDescriptorPool = nullptr;
+		DescriptorPool* screenDescriptorPool = nullptr;
 
 		/// <summary>
 		/// DescLayout para renderizar los post procesamientos.
 		/// </summary>
-		DescriptorLayout* ScreenDescriptorLayout = nullptr;
+		DescriptorLayout* screenDescriptorLayout = nullptr;
 
 		/// <summary>
 		/// DescSet para renderizar los post procesamientos.
 		/// </summary>
-		DescriptorSet* ScreenDescriptorSet = nullptr;
+		DescriptorSet* screenDescriptorSet = nullptr;
 
 		/// <summary>
 		/// Renderpass para renderizar los post procesamientos.
 		/// </summary>
-		VULKAN::Renderpass* ScreenRenderpass = nullptr;
+		VULKAN::Renderpass* screenRenderpass = nullptr;
 
 		/// <summary>
 		/// Render target final.
 		/// </summary>
-		RenderTarget* FinalRenderTarget = nullptr;
+		RenderTarget* finalRenderTarget = nullptr;
 
 		/// <summary>
 		/// Crea los elementos de post procesamiento.

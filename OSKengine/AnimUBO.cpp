@@ -3,7 +3,7 @@
 using namespace OSK;
 
 AnimUBO::AnimUBO() {
-	for (auto& i : Bones) {
+	for (auto& i : bones) {
 		i = glm::mat4(1.0f);
 	}
 }

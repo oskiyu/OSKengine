@@ -19,18 +19,18 @@ namespace OSK {
 		/// <summary>
 		/// Dirección de la luz.
 		/// </summary>
-		alignas(16) Vector3 Direction;
+		alignas(16) Vector3 direction;
 
 		/// <summary>
 		/// Color de la luz.
 		/// </summary>
-		alignas(16) Color Color;
+		alignas(16) Color color;
 
 		/// <summary>
 		/// Intensidad de la luz. 
 		/// (0.0 - 1.0)
 		/// </summary>
-		alignas(16) float Intensity;
+		alignas(16) float intensity;
 
 	};
 
