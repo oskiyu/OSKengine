@@ -489,6 +489,9 @@
     <ClCompile Include="Vector3TokenConverter.cpp">
       <Filter>Archivos de origen\OSKengine\Engine\SceneSystem\Tokens</Filter>
     </ClCompile>
+    <ClCompile Include="GamepadState.cpp">
+      <Filter>Archivos de origen\OSKengine\WindowAPI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowAPI.h">
@@ -949,6 +952,12 @@
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Archivos de encabezado\OSKengine\Engine\SceneSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GamepadState.h">
+      <Filter>Archivos de encabezado\OSKengine\WindowAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="AxisInputEvent.h">
+      <Filter>Archivos de encabezado\OSKengine\Engine\Systems\Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

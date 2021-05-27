@@ -70,6 +70,28 @@ namespace OSK {
 
 		mouseState.oldScrollX = mouseState.scrollX;
 		mouseState.oldScrollY = mouseState.scrollY;
+
+		for (int i = 0; i < 4; i++) {
+			const auto id = GLFW_JOYSTICK_1 + i;
+
+			if (glfwJoystickPresent(id)) {
+				int count;
+				const float* axes =glfwGetJoystickAxes(id, &count);
+
+				gamepadStates[i].identifier = id;
+				gamepadStates[i].isConnected = true;
+
+				for (int axis = 0; axis < 6; axis++)
+					gamepadStates[i].axesStates[axis] = axes[axis];
+
+				const unsigned char* buttons = glfwGetJoystickButtons(id, &count);
+				for (int button = 0; button < 4; button++)
+					gamepadStates[i].buttonStates[button] = buttons[button];
+			}
+			else {
+				gamepadStates[i].isConnected = false;
+			}
+		}
 	}
 
 

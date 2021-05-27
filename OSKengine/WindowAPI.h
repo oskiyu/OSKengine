@@ -10,6 +10,7 @@
 #include "MouseState.h"
 #include "MouseVisibilityEnum.h"
 #include "OverallMouseInputModeEnum.h"
+#include "GamepadState.h"
 
 #include <GLFW/glfw3.h>
 
@@ -147,7 +148,10 @@ namespace OSK {
 		/// </summary>
 		bool IsFullscreen() const;
 
-		
+		GamepadState GetGamepadState(int id) const {
+			return gamepadStates[id];
+		}
+
 	private:
 
 		/// <summary>
@@ -245,6 +249,8 @@ namespace OSK {
 		/// True si está en pantalla completa.
 		/// </summary>
 		bool isFullscreen = false;
+
+		GamepadState gamepadStates[4];
 
 	};
 		

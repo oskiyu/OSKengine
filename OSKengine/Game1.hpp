@@ -26,29 +26,15 @@ public:
 		renderSystem3D->GetRenderScene()->lights.directional.color = OSK::Color(0.9f, 0.9f, 0.8f);
 
 		//INPUT SYSTEM
-		inputSystem->RegisterInputEvent("PlayerMoveFront");
-		inputSystem->GetInputEvent("PlayerMoveFront").linkedKeys.push_back(OSK::Key::W);
-		inputSystem->RegisterInputEvent("PlayerMoveBack");
-		inputSystem->GetInputEvent("PlayerMoveBack").linkedKeys.push_back(OSK::Key::S);
-		inputSystem->RegisterInputEvent("PlayerMoveLeft");
-		inputSystem->GetInputEvent("PlayerMoveLeft").linkedKeys.push_back(OSK::Key::A);
-		inputSystem->RegisterInputEvent("PlayerMoveRight");
-		inputSystem->GetInputEvent("PlayerMoveRight").linkedKeys.push_back(OSK::Key::D);
+		inputSystem->RegisterAxisInputEvent("PlayerMoveX");
+		inputSystem->RegisterAxisInputEvent("PlayerMoveY");
 
-		inputSystem->RegisterInputEvent("MoveFront");
-		inputSystem->GetInputEvent("MoveFront").linkedKeys.push_back(OSK::Key::UP);
-		inputSystem->RegisterInputEvent("MoveBack");
-		inputSystem->GetInputEvent("MoveBack").linkedKeys.push_back(OSK::Key::DOWN);
-		inputSystem->RegisterInputEvent("MoveLeft");
-		inputSystem->GetInputEvent("MoveLeft").linkedKeys.push_back(OSK::Key::LEFT);
-		inputSystem->RegisterInputEvent("MoveRight");
-		inputSystem->GetInputEvent("MoveRight").linkedKeys.push_back(OSK::Key::RIGHT);
+		inputSystem->GetAxisInputEvent("PlayerMoveX").linkedAxes.push_back(OSK::GamepadAxis::LEFT_X);
+		inputSystem->GetAxisInputEvent("PlayerMoveX").linkedGamepadAxes.push_back({ OSK::Key::D, OSK::Key::A });
 
-		inputSystem->RegisterInputEvent("GirarX");
-		inputSystem->GetInputEvent("GirarX").linkedKeys.push_back(OSK::Key::X);
-		inputSystem->RegisterInputEvent("GirarY");
-		inputSystem->GetInputEvent("GirarY").linkedKeys.push_back(OSK::Key::Z);
-		
+		inputSystem->GetAxisInputEvent("PlayerMoveY").linkedAxes.push_back(OSK::GamepadAxis::LEFT_Y);
+		inputSystem->GetAxisInputEvent("PlayerMoveY").linkedGamepadAxes.push_back({ OSK::Key::S, OSK::Key::W });
+
 		inputSystem->RegisterOneTimeInputEvent("Exit");
 		inputSystem->GetOneTimeInputEvent("Exit").linkedKeys.push_back(OSK::Key::ESCAPE);
 		inputSystem->RegisterOneTimeInputEvent("Fullscreen");
@@ -60,18 +46,15 @@ public:
 
 		OSK::InputComponent input;
 
-		input.GetInputFunction("PlayerMoveFront") = [this](deltaTime_t deltaTime) {
-			GetRenderer()->defaultCamera3D.GetTransform()->AddPosition(GetRenderer()->defaultCamera3D.GetFrontVector() * 3 * deltaTime);
+		input.GetAxisInputFunction("PlayerMoveX") = [this](deltaTime_t deltaTime, float axis) {
+			const float sensitivity = 20 * deltaTime;
+			GetRenderer()->defaultCamera3D.GetTransform()->AddPosition(GetRenderer()->defaultCamera3D.GetRightVector() * sensitivity * axis);
 		};
-		input.GetInputFunction("PlayerMoveBack") = [this](deltaTime_t deltaTime) {
-			GetRenderer()->defaultCamera3D.GetTransform()->AddPosition(-GetRenderer()->defaultCamera3D.GetFrontVector() * 3 * deltaTime);
+		input.GetAxisInputFunction("PlayerMoveY") = [this](deltaTime_t deltaTime, float axis) {
+			const float sensitivity = 20 * deltaTime;
+			GetRenderer()->defaultCamera3D.GetTransform()->AddPosition(GetRenderer()->defaultCamera3D.GetFrontVector() * -sensitivity * axis);
 		};
-		input.GetInputFunction("PlayerMoveLeft") = [this](deltaTime_t deltaTime) {
-			GetRenderer()->defaultCamera3D.GetTransform()->AddPosition(-GetRenderer()->defaultCamera3D.GetRightVector() * 3 * deltaTime);
-		};
-		input.GetInputFunction("PlayerMoveRight") = [this](deltaTime_t deltaTime) {
-			GetRenderer()->defaultCamera3D.GetTransform()->AddPosition(GetRenderer()->defaultCamera3D.GetRightVector() * 3 * deltaTime);
-		};
+		
 		input.GetOneTimeInputFunction("Exit") = [this]() {
 			Exit();
 		};
@@ -139,6 +122,13 @@ public:
 
 	void OnTick(deltaTime_t deltaTime) override {
 		GetRenderer()->defaultCamera3D.Girar(newMouseState.GetPosition().X - oldMouseState.GetPosition().X, -(newMouseState.GetPosition().Y - oldMouseState.GetPosition().Y));
+
+		auto gamepad = GetWindow()->GetGamepadState(0);
+
+		float sensitivity = 260.0f * deltaTime;
+		float x = gamepad.GetAxisState(OSK::GamepadAxis::RIGHT_X) * sensitivity;
+		float y = gamepad.GetAxisState(OSK::GamepadAxis::RIGHT_Y) * sensitivity;
+		GetRenderer()->defaultCamera3D.Girar(x, -y);
 	}
 
 	void OnDraw2D() override {
@@ -147,14 +137,6 @@ public:
 		spriteBatch.DrawSprite(GetRenderer()->OSKengineIconSprite);
 		spriteBatch.DrawString(Fuente, "OSKengine " + std::string(OSK::ENGINE_VERSION), 1.0f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
 		spriteBatch.DrawString(Fuente, "FPS " + std::to_string((int)GetFPS() - 1), 1.5f, OSK::Vector2(10), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::TOP_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
-
-		spriteBatch.DrawString(Fuente, "Entidades: ", 0.8f, OSK::Vector2(10, 40), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::TOP_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
-
-		auto it = entityComponentSystem->GetAllGameObjects().begin();
-		for (int i = 0; i < entityComponentSystem->GetAllGameObjects().size(); i++) {
-			spriteBatch.DrawString(Fuente, "Entity " + it.operator*()->GetInstanceName(), 1.0f, OSK::Vector2(-300, 60 + 20 * i), OSK::Color(0.9f, 0.7f, 0.9f), OSK::Anchor::TOP_RIGHT, OSK::Vector4(1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
-			it.operator++();
-		}
 	}
 
 	OSK::Font* Fuente = nullptr;

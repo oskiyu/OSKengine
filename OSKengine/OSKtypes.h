@@ -62,3 +62,8 @@ typedef int32_t buttonCode_t;
 /// Cada bit es una flag.
 /// </summary>
 typedef uint32_t bitFlags_t;
+
+/// <summary>
+/// Número identificador de un gamepad.
+/// </summary>
+typedef uint8_t gamepadId_t;

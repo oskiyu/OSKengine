@@ -374,6 +374,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="GamepadState.cpp" />
     <ClCompile Include="GraphicsPipeline.cpp" />
     <ClCompile Include="ContentManager.cpp" />
     <ClCompile Include="Heightmap.cpp" />
@@ -452,10 +453,12 @@
     <ClInclude Include="AnimatedModel.h" />
     <ClInclude Include="AnimUBO.h" />
     <ClInclude Include="ArrayQueue.hpp" />
+    <ClInclude Include="AxisInputEvent.h" />
     <ClInclude Include="BoneInfo.h" />
     <ClInclude Include="BroadColliderType.h" />
     <ClInclude Include="BroadColliderUnion.h" />
     <ClInclude Include="ColliderCollisionInfo.h" />
+    <ClInclude Include="GamepadState.h" />
     <ClInclude Include="IComponentArray.h" />
     <ClInclude Include="InputEvent.h" />
     <ClInclude Include="IToken.h" />

@@ -32,6 +32,16 @@ namespace OSK {
 		/// </summary>
 		std::vector<ButtonCode> linkedButtons;
 
+		/// <summary>
+		/// Botones del gamepad que activan el evento.
+		/// </summary>
+		std::vector<GamepadButton> linkedGamepadButtons;
+
+		/// <summary>
+		/// Gamepad que lo controla.
+		/// </summary>
+		int gamepadCode = 0;
+
 	};
 
 

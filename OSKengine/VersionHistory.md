@@ -78,11 +78,70 @@ Añadidos `typedef`s para algunas variables de OpenGL y para las variables del Mo
     - Se guarda con el comando *"CMD: SAVE"*.
 
     
-## Alpha 2 (2019.12.4a)
+## Alpha 2 (2019.12.6a)
 
+Añadidos comentarios. Renderizado 3D.
 
-###### 
+###### OpenGL RenderAPI:
 
+- Añadida la clase `Textura`.
+- Añadidos `RenderMode`:
+  - `Straight` (forward rendering).
+
+- RenderAPI:
+  - Añadido método para limpiar la ventana.
+  - Añadidos métodos para establecer shaders yy la cámara 3D.
+  - Añadido método para renderizar un modelo 3D.
+- Model:
+  - Contiente dos texturas (diffuse y specular).
+  
+- DirectionalLight: añadido.
+
+###### ContentAPI:
+
+- ContentAPI:
+  - Clase para la carga de recursos.
+  - Puede cargar:
+    - Modelos 3D.
+    - Texturas.
+  - NO es owner de los recursos.
+
+###### WindowAPI:
+
+- Añadidos `MouseInputMode` y `MouseVisibility`.
+
+- WindowAPI:
+  - Almacena el ratio de aspecto.
+  - Puede modificar el comportamiento del ratón.
+
+###### Bugfixes
+
+- **Bugfix**: eliminar la ventana correctamente libera memoria de la ventana nativa.
+
+    
+## Alpha 3 (2019.12.8a)
+
+###### AudioAPI:
+
+- AudioAPI:
+  - Sistema que permite la reproducción de sonidos.
+  - Permite ajustar la posición y la velocidad de la cámara de sonidos.
+  
+- SoundEntity:
+  - Representa un sonido.
+  - Se reproduce mediante `AudioAPI`.
+  - Se pueden ajustar su psoición, dirección y otros ajustes de audio.
+
+###### ContentAPI:
+
+- ContentAPI:
+  - Permite cargar nuevos tipos:
+    - `Shader`.
+    - `SoundEntity`.
+     
+###### WindowAPI:
+
+- Añadido soporte para el input del ratón sin aceleración.
 
 ## 2020.10.13a
 
@@ -937,6 +996,37 @@ Añadido el sistema de escenas y soporte para cargarlas.
 
 - **Bugfix**: eliminar un GameObject (con `GameObject::Remove()`) ya no crashea OSKengine.
 - **Bugfix**: eliminar un modelo animado ya no crashea OSKengine.
+
+
+## 2021.5.14a
+
+Añadido soporte para hasta 4 mandos.
+
+###### WindowAPI
+
+- GamepadState:
+  - Almacena el estado de los botones y los ejes de un mando en concreto.
+  - Actualiza internamente los estados de los 4 primeros mandos.
+  - Los gatillos y los joysticks funcionan con un valor 0.0 - 1.0.
+
+###### ECS
+
+- InputSystem:
+  - AxisInputEvent:
+    - Evento de input que se ejecuta a traves de un eje.
+    - Puede funcionar con valores 0.0 - 1.0 ó -1.0 - 1.0.   
+    - Funciona con ejes, o con botones.
+  - Todos los eventos pueden responder a los botones del mando.
+  - Cada evento tiene asignado un mando.
+
+###### OSK
+
+- OSK_ASSERT: 
+  - Comprueba un valor booleano.
+  - Si el resultado es falso, se imprime un mensaje de error.
+- OSK_CHECK: 
+  - Comprueba un valor booleano.
+  - Si el resultado es falso, se imprime un mensaje de aviso.
 
 ## WIP
 
