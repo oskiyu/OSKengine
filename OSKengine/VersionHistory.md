@@ -998,7 +998,7 @@ Añadido el sistema de escenas y soporte para cargarlas.
 - **Bugfix**: eliminar un modelo animado ya no crashea OSKengine.
 
 
-## 2021.5.14a
+## 2021.5.27a
 
 Añadido soporte para hasta 4 mandos.
 
