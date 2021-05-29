@@ -69,7 +69,7 @@ namespace OSK {
 		soundsFromPath.clear();
 	}
 
-	Texture* ContentManager::LoadTexture(const std::string& path) {
+	Texture* ContentManager::LoadTexture(const std::string& path, TextureFilterType filter) {
 		if (textureFromPath.find(path) != textureFromPath.end())
 			return textureFromPath[path];
 
@@ -96,7 +96,12 @@ namespace OSK {
 		VULKAN::VulkanImageGen::TransitionImageLayout(&loadedTexture->image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, mipLevels, 1);
 		VULKAN::VulkanImageGen::CopyBufferToImage(&stagingBuffer, &loadedTexture->image, width, height);
 		VULKAN::VulkanImageGen::CreateMipmaps(loadedTexture->image, { loadedTexture->size.X, loadedTexture->size.Y }, mipLevels);
-		VULKAN::VulkanImageGen::CreateImageSampler(loadedTexture->image, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, mipLevels);
+
+		VkFilter vFilter = VK_FILTER_LINEAR;
+		if (filter == TextureFilterType::NEAREST)
+			vFilter = VK_FILTER_NEAREST;
+
+		VULKAN::VulkanImageGen::CreateImageSampler(loadedTexture->image, vFilter, VK_SAMPLER_ADDRESS_MODE_REPEAT, mipLevels);
 		VULKAN::VulkanImageGen::TransitionImageLayout(&loadedTexture->image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, mipLevels, 1);
 
 		stagingBuffer.Free();
@@ -525,7 +530,7 @@ namespace OSK {
 			currentX += faces[c].sizeX;
 		}
 
-		VULKAN::GPUImage image = VULKAN::VulkanImageGen::CreateImageFromBitMap(textureSizeX, textureSizeY, data);
+		VULKAN::GPUImage image = VULKAN::VulkanImageGen::CreateImageFromBitMap(textureSizeX, textureSizeY, data, true);
 
 		fontTexture->size.X = textureSizeX;
 		fontTexture->size.Y = textureSizeY;

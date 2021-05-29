@@ -9,7 +9,7 @@ namespace OSK {
 
 	Camera2D::Camera2D(WindowAPI* window) {
 		this->window = window;
-		targetSize = window->GetSize().ToVector2f();
+		targetSize = this->window->GetSize().ToVector2f();
 		Update();
 	}
 
@@ -31,6 +31,10 @@ namespace OSK {
 		relative.Y = point.Y / window->GetSize().Y;
 
 		return relative * targetSize;
+	}
+
+	glm::mat4 Camera2D::GetProjection() const {
+		return projection;
 	}
 
 }

@@ -437,6 +437,8 @@
     <ClCompile Include="ToString.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Transform2D.cpp" />
+    <ClCompile Include="UiElement.cpp" />
+    <ClCompile Include="UiFunctionality.cpp" />
     <ClCompile Include="Vector3TokenConverter.cpp" />
     <ClCompile Include="VersionToken.cpp" />
     <ClCompile Include="Vertex.cpp" />
@@ -562,10 +564,11 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="UBO.h" />
-    <ClInclude Include="UIButton.h" />
+    <ClInclude Include="UiAnchor.h" />
+    <ClInclude Include="UiElement.h" />
+    <ClInclude Include="UiFunctionality.h" />
+    <ClInclude Include="UiLayout.h" />
     <ClInclude Include="UniquePtr.hpp" />
-    <ClInclude Include="UserInterfaceElement.h" />
-    <ClInclude Include="UserInterfaceWindow.h" />
     <ClInclude Include="Vector3TokenConverter.h" />
     <ClInclude Include="VersionToken.h" />
     <ClInclude Include="VertexBoneData.h" />

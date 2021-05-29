@@ -492,6 +492,12 @@
     <ClCompile Include="GamepadState.cpp">
       <Filter>Archivos de origen\OSKengine\WindowAPI</Filter>
     </ClCompile>
+    <ClCompile Include="UiElement.cpp">
+      <Filter>Archivos de origen\OSKengine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UiFunctionality.cpp">
+      <Filter>Archivos de origen\OSKengine\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowAPI.h">
@@ -800,15 +806,6 @@
     <ClInclude Include="Game1.hpp">
       <Filter>Archivos de encabezado\Game</Filter>
     </ClInclude>
-    <ClInclude Include="UserInterfaceWindow.h">
-      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UserInterfaceElement.h">
-      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UIButton.h">
-      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
-    </ClInclude>
     <ClInclude Include="SAnimation.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\Animation</Filter>
     </ClInclude>
@@ -958,6 +955,18 @@
     </ClInclude>
     <ClInclude Include="AxisInputEvent.h">
       <Filter>Archivos de encabezado\OSKengine\Engine\Systems\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="UiAnchor.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UiLayout.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UiElement.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UiFunctionality.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -39,6 +39,11 @@ namespace OSK {
 		Transform2D& GetTransform();
 
 		/// <summary>
+		/// Devuelve la matriz proyección de la cámara.
+		/// </summary>
+		glm::mat4 GetProjection() const;
+
+		/// <summary>
 		/// TRUE: cambiar el tamaño de la ventana no cambia el área de la cámara.
 		/// FALSE: cambiar el tamaño de la ventana sí cambia el área de la cámara.
 		/// </summary>

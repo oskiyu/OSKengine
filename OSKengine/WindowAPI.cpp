@@ -2,6 +2,8 @@
 
 #include "stbi_image.h"
 
+#include "Camera2D.h"
+
 namespace OSK {
 
 	WindowAPI::WindowAPI() {
@@ -228,10 +230,6 @@ namespace OSK {
 
 		if (sizey != 0)
 			screenRatio = static_cast<float_t>(sizex) / static_cast<float_t>(sizey);
-
-
-
-		viewportShouldBeUpdated = true;
 	}
 
 

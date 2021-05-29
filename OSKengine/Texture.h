@@ -5,6 +5,11 @@
 
 namespace OSK {
 
+	enum class TextureFilterType {
+		LINEAR,
+		NEAREST
+	};
+
 	/// <summary>
 	/// Una textura 2D.
 	/// </summary>

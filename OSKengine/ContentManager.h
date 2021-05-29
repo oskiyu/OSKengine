@@ -64,7 +64,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="path">Localización de la textura (con extensión (por ejemplo, .png)).</param>
 		/// <returns>Puntero a la textura.</returns>
-		Texture* LoadTexture(const std::string& path);
+		Texture* LoadTexture(const std::string& path, TextureFilterType filter = TextureFilterType::LINEAR);
 
 		/// <summary>
 		/// Carga y almacena una textura de skybox. 

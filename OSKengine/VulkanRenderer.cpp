@@ -234,7 +234,7 @@ void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 
 	hasBeenInit = true;
 
-	content->LoadSprite(OSKengineIconSprite, "Resources/OSKengine_icon_lowres.png");
+	content->LoadSprite(OSKengineIconSprite, "Resources/OSKengine_icon_lowres_48.png");
 	content->LoadSprite(OSK_IconSprite, "Resources/OSK_icon_lowres.png");
 
 	renderTargetBeforePostProcessing->CreateSprite(content);

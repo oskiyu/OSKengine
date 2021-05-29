@@ -12,11 +12,11 @@ layout (location = 1) in vec3 inCol;
 layout (location = 2) in vec2 inTexCoords;
 layout (location = 3) in vec3 inNor;
 
-layout (location = 0) out vec3 fragColor;
+layout (location = 0) out vec4 fragColor;
 layout (location = 1) out vec2 texCoords;
 
 void main() {
     gl_Position = sprite.camera * sprite.model * vec4(inPos.xy, 0.0, 1.0);
-    fragColor = inCol * sprite.color.xyz;
+    fragColor = vec4(inCol, 1.0) * sprite.color;
     texCoords = inTexCoords;
 }

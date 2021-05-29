@@ -1028,6 +1028,45 @@ Añadido soporte para hasta 4 mandos.
   - Comprueba un valor booleano.
   - Si el resultado es falso, se imprime un mensaje de aviso.
 
+
+## 2021.5.29a
+
+Nuevo sistema de interfaz de usuario. 
+Primeros pasos para un editor.
+
+###### RenderAPI
+
+- Sprite:
+  - Ahora soportan transparencias.
+
+###### ContentAPI
+
+- ContentManager:
+  - Ahora puede cargar texturas con un filtro en concreto:
+    - NEAREST: pixelado.
+    - LINEAR: no pixelado (por defecto).
+
+###### UI
+
+- UiElement:
+  - Representa un elemento de interfaz de usuario.
+  - Única clase del sistema de UI.
+  - Puede personalizarse su comportamiento mediante `UiFuncionality`.
+
+- UiFuncionality:
+  - Sistema que permite añadir funcionalidades extra a un `UiElement`:
+    - Draggable
+    - Checkbox
+    - Slider
+    - Dropdown
+  
+###### Bugfixes
+
+- **Bugfix**: la cámara actualiza correctamente su `targetSize` para que sea igual que el tamaño de la ventana.
+- **Bugfix**: los sprites se renderizan correctamente en su lugar cuando cambia la resolución de la pantalla.
+- **Bugfix**: loslos caracteres de una fuente ya no tienen los bordes oscuros..
+
+
 ## WIP
 
 TODO

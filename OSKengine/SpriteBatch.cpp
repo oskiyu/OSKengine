@@ -15,13 +15,17 @@ namespace OSK {
 	}
 
 	void SpriteBatch::DrawSprite(Sprite sprite) {
+		OSK_ASSERT(camera, "La cámara es null.");
+
 		SpriteContainer spr;
-		spr.Set(sprite, cameraMat);
+		spr.Set(sprite, camera->GetProjection());
 
 		spritesToDraw.Insert(spr);
 	}
 
 	void SpriteBatch::DrawString(const Font* fuente, const std::string& texto, float size, const Vector2& position, const Color& color, Anchor screenAnchor, const Vector4& reference, TextRenderingLimit limitAction, float sizeXlimit, float limitOffset) {
+		OSK_ASSERT(camera, "La cámara es null.");
+
 		AnchorTextTo to = AnchorTextTo::SCREEN;
 		if (reference.X > 0.0f)
 			to = AnchorTextTo::UI_ELEMENT;
@@ -107,7 +111,7 @@ namespace OSK {
 			it++;
 
 			SpriteContainer spr;
-			spr.Set(character.sprite, cameraMat);
+			spr.Set(character.sprite, camera->GetProjection());
 
 			spritesToDraw.Insert(spr);
 
@@ -142,8 +146,8 @@ namespace OSK {
 		}
 	}
 
-	void SpriteBatch::SetCamera(const Camera2D& camera) {
-		cameraMat = camera.projection;
+	void SpriteBatch::SetCamera(Camera2D* camera) {
+		this->camera = camera;
 	}
 
 	void SpriteBatch::Clear() {

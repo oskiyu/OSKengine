@@ -25,6 +25,8 @@ namespace OSK {
 	}
 
 
+	class Camera2D;
+
 	/// <summary>
 	/// Clase para la creación y uso de una ventana.
 	/// </summary>
@@ -152,6 +154,10 @@ namespace OSK {
 			return gamepadStates[id];
 		}
 
+		void SetCamera2D(Camera2D* camera) {
+
+		}
+
 	private:
 
 		/// <summary>
@@ -250,6 +256,9 @@ namespace OSK {
 		/// </summary>
 		bool isFullscreen = false;
 
+		/// <summary>
+		/// Mandos.
+		/// </summary>
 		GamepadState gamepadStates[4];
 
 	};

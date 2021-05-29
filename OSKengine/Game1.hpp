@@ -8,6 +8,8 @@
 #include "PlaceToken.h"
 #include "SkyboxToken.h"
 
+#include "UiFunctionality.h"
+
 class Game1 : public Game {
 
 public:
@@ -19,6 +21,9 @@ public:
 	void LoadContent() override {
 		entityComponentSystem->RegisterGameObjectClass<Cube>("Cube");
 		entityComponentSystem->RegisterGameObjectClass<PlayerCube>("PlayerCube");
+
+		buttonTexture = content->LoadTexture("assets/game/ui/button.png", OSK::TextureFilterType::NEAREST);
+		buttonTexture = content->DefaultTexture;
 
 		Fuente = content->LoadFont("Fonts/AGENCYB.ttf", 20);
 		ShowFont = content->LoadFont("Fonts/AGENCYB.ttf", 40);
@@ -56,23 +61,13 @@ public:
 		};
 		
 		input.GetOneTimeInputFunction("Exit") = [this]() {
-			Exit();
+			GetWindow()->SetMouseMode((OSK::MouseInputMode::FREE));
 		};
 
 		input.GetOneTimeInputFunction("Fullscreen") = [this]() {
 			GetWindow()->SetFullscreen(!GetWindow()->IsFullscreen());
-		};
-		input.GetOneTimeInputFunction("ChangeVSync") = [this]() {
-			if (GetRenderer()->GetCurrentPresentMode() == OSK::PresentMode::VSYNC)
-				GetRenderer()->SetPresentMode(OSK::PresentMode::INMEDIATE);
-			else
-				GetRenderer()->SetPresentMode(OSK::PresentMode::VSYNC);
-		};
-		input.GetOneTimeInputFunction("ChangeFXAA") = [this]() {
-			if (GetRenderer()->postProcessingSettings.useFxaa)
-				GetRenderer()->postProcessingSettings.useFxaa = 0;
-			else
-				GetRenderer()->postProcessingSettings.useFxaa = 1;
+			GetRenderer()->defaultCamera2D.targetSize = GetWindow()->GetSize().ToVector2f();
+			GetRenderer()->defaultCamera2D.Update();
 		};
 
 		ControlsObject = entityComponentSystem->Spawn<OSK::GameObject>();
@@ -118,6 +113,159 @@ public:
 		GetRenderer()->defaultCamera3D.GetTransform()->SetPosition(Player->GetTransform()->GetPosition());
 
 		physicsSystem->terrainColissionType = OSK::PhysicalSceneTerrainResolveType::CHANGE_HEIGHT_ONLY;
+
+
+
+
+		{
+			userInterface = new OSK::UiElement();
+			userInterface->layout = OSK::UiLayout::FIXED;
+			userInterface->shrinkToChildren = false;
+			userInterface->SetSize(GetWindow()->GetSize().ToVector2f());
+
+			OSK::UiElement* topbar = new OSK::UiElement();
+			topbar->layout = OSK::UiLayout::HORIZONTAL;
+			topbar->SetPositionFromAnchor({ 5.0f });
+			topbar->sprite.texture = buttonTexture;
+			topbar->InitSprite(content, GetRenderer());
+			topbar->originalSpireColor = OSK::Color(0.2f) * 0.6f;
+			topbar->anchor = OSK::UiAnchor::TOP;
+
+			OSK::UiElement* logo = new OSK::UiElement();
+			logo->SetSize(48.0f);
+			logo->sprite.texture = GetRenderer()->OSKengineIconSprite.texture;
+			logo->InitSprite(content, GetRenderer());
+			logo->marging = 0.0f;
+
+			OSK::uiSetDraggableFunctionality(logo);
+
+			OSK::UiElement* separator = new OSK::UiElement();
+			separator->SetSize({ 48.0f, 5 });
+
+			topbar->AddElement(logo);
+			topbar->AddElement(separator);
+
+			float buttonSize = 20.0f;
+			float barSize = 20.0f;
+
+			//Options
+			OSK::UiElement* optionsMenu = new OSK::UiElement();
+			{
+				optionsMenu->SetSize({ 200.0f });
+				optionsMenu->sprite.texture = buttonTexture;
+				optionsMenu->InitSprite(content, GetRenderer());
+				optionsMenu->originalSpireColor = OSK::Color(0.2f) * 0.6f;
+
+				OSK::UiElement* header = new OSK::UiElement();
+				header->SetSize({ 34.0f });
+				header->fuente = Fuente;
+				header->text = " Opciones";
+				header->sprite.texture = buttonTexture;
+				header->InitSprite(content, GetRenderer());
+				header->originalSpireColor = OSK::Color(0.1f) * 0.9f;
+
+				OSK::Vector2f newSize = { optionsMenu->GetSize().X - optionsMenu->marging.X * 2 - header->marging.X * 2, header->GetSize().Y };
+				header->SetSize(newSize);
+
+				barSize = header->GetSize().Y;
+
+				OSK::uiSetDropdownFuncionality(header, true);
+
+				OSK::UiElement* fxaaOption = new OSK::UiElement();
+				{
+					fxaaOption->layout = OSK::UiLayout::HORIZONTAL;
+					OSK::UiElement* text = new OSK::UiElement();
+					text->fuente = Fuente;
+					text->text = "FXAA: ";
+					text->SetSize(Fuente->GetTextSize("FXAA: ", { 1.0f }));
+
+					OSK::UiElement* button = new OSK::UiElement();
+					button->SetSize({ text->GetSize().X, buttonSize });
+					button->sprite.texture = buttonTexture;
+					button->InitSprite(content, GetRenderer());
+					button->spriteColorOnHover = OSK::Color(0.5f);
+
+					OSK::uiSetCheckboxFunctionality(button, &GetRenderer()->postProcessingSettings.useFxaa, { 0.0f, 1.0f, 0.0f }, OSK::Color::RED());
+
+					fxaaOption->SetSize(text->GetSize());
+
+					fxaaOption->AddElement(text);
+					fxaaOption->AddElement(button);
+				}
+
+				OSK::UiElement* vsyncOption = new OSK::UiElement();
+				{
+					vsyncOption->layout = OSK::UiLayout::HORIZONTAL;
+					OSK::UiElement* text = new OSK::UiElement();
+					text->fuente = Fuente;
+					text->text = "V-Sync: ";
+					text->SetSize(Fuente->GetTextSize("V-Sync: ", { 1.0f }));
+
+					OSK::UiElement* button = new OSK::UiElement();
+					button->SetSize({ text->GetSize().X, buttonSize });
+					button->sprite.texture = buttonTexture;
+					button->InitSprite(content, GetRenderer());
+					button->spriteColorOnHover = OSK::Color(0.5f);
+
+					auto func = [this]() {
+						if (GetRenderer()->GetCurrentPresentMode() != OSK::PresentMode::VSYNC) {
+							GetRenderer()->SetPresentMode(OSK::PresentMode::VSYNC);
+
+							return true;
+						}
+
+						GetRenderer()->SetPresentMode(OSK::PresentMode::INMEDIATE);
+						return false;
+					};
+					OSK::uiSetCheckboxFunctionality(button, func, { 0.0f, 1.0f, 0.0f }, OSK::Color::RED());
+
+					vsyncOption->SetSize(text->GetSize());
+
+					vsyncOption->AddElement(text);
+					vsyncOption->AddElement(button);
+				}
+
+				fxaaOption->isActive = false;
+				vsyncOption->isActive = false;
+
+				optionsMenu->AddElement(header);
+				optionsMenu->AddElement(fxaaOption);
+				optionsMenu->AddElement(vsyncOption);
+			}
+			OSK::UiElement* irAlJuego = new OSK::UiElement();
+			{
+				OSK::UiElement* header = new OSK::UiElement();
+				header->sprite.texture = buttonTexture;
+				header->InitSprite(content, GetRenderer());
+				header->originalSpireColor = OSK::Color(0.1f) * 0.9f;
+				header->SetSize({ optionsMenu->GetSize().X - optionsMenu->marging.X * 2 - header->marging.X * 2, optionsMenu->GetSize().Y });
+
+				irAlJuego->SetSize(32);
+
+				OSK::UiElement* button = new OSK::UiElement();
+				irAlJuego->SetSize({ irAlJuego->GetSize().X * 1.5f, barSize });
+				irAlJuego->sprite.texture = content->LoadTexture("assets/editor/play.png");
+				irAlJuego->InitSprite(content, GetRenderer());
+
+				float r = 15.0f / 255.0f;
+				float g = 255.0f / 255.0f;
+				float b = 91.0f / 255.0f;
+				irAlJuego->originalSpireColor = OSK::Color::WHITE();
+				irAlJuego->spriteColorOnHover = OSK::Color::WHITE() * 0.8f;
+
+				irAlJuego->onClick = [this](OSK::UiElement* sender, const OSK::Vector2f& mousePos) {
+					GetWindow()->SetMouseMode(OSK::MouseInputMode::ALWAYS_RETURN);
+				};
+
+				header->AddElement(irAlJuego);
+				topbar->AddElement(header);
+			}
+
+			topbar->AddElement(optionsMenu);
+
+			userInterface->AddElement(topbar);
+		}
+
 	}
 
 	void OnTick(deltaTime_t deltaTime) override {
@@ -129,21 +277,28 @@ public:
 		float x = gamepad.GetAxisState(OSK::GamepadAxis::RIGHT_X) * sensitivity;
 		float y = gamepad.GetAxisState(OSK::GamepadAxis::RIGHT_Y) * sensitivity;
 		GetRenderer()->defaultCamera3D.Girar(x, -y);
+
+		userInterface->SetSize(GetWindow()->GetSize().ToVector2f());
+		userInterface->Update(newMouseState.GetMouseRectangle(), newMouseState.IsButtonDown(OSK::ButtonCode::BUTTON_LEFT));
 	}
 
 	void OnDraw2D() override {
 		spriteBatch.Clear();
 
-		spriteBatch.DrawSprite(GetRenderer()->OSKengineIconSprite);
 		spriteBatch.DrawString(Fuente, "OSKengine " + std::string(OSK::ENGINE_VERSION), 1.0f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
 		spriteBatch.DrawString(Fuente, "FPS " + std::to_string((int)GetFPS() - 1), 1.5f, OSK::Vector2(10), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::TOP_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
+
+		userInterface->Draw(&spriteBatch);
 	}
 
 	OSK::Font* Fuente = nullptr;
 	OSK::Font* ShowFont = nullptr;
 
 	OSK::GameObject* ControlsObject;
+	OSK::Texture* buttonTexture = nullptr;
 
 	PlayerCube* Player;
+
+	OSK::UiElement* userInterface = nullptr;
 
 };

@@ -111,7 +111,7 @@ namespace OSK::VULKAN {
 		/// <param name="height">Alto del bitmap.</param>
 		/// <param name="pixels">Bitmap.</param>
 		/// <returns>Imagen a partir del bitmap.</returns>
-		static GPUImage CreateImageFromBitMap(uint32_t width, uint32_t height, uint8_t* pixels);
+		static GPUImage CreateImageFromBitMap(uint32_t width, uint32_t height, uint8_t* pixels, bool fromFont = false);
 
 
 	private:
