@@ -7,6 +7,8 @@
 #include "OSKtypes.h"
 #include "Log.h"
 
+#include "VulkanMemorySubblock.h"
+
 namespace OSK {
 
 	namespace VULKAN {
@@ -16,7 +18,7 @@ namespace OSK {
 	/// <summary>
 	/// Buffer que almacena información en la GPU.
 	/// </summary>
-	struct OSKAPI_CALL GPUDataBuffer {
+	class OSKAPI_CALL GpuDataBuffer {
 
 		friend class RenderAPI;
 		friend class ContentManager;
@@ -32,23 +34,9 @@ namespace OSK {
 	public:
 
 		/// <summary>
-		/// Crea un buffer vacío.
-		/// Debe llamarse manualmente a Free().
-		/// </summary>
-		GPUDataBuffer() {}
-
-		/// <summary>
 		/// Destruye el buffer.
-		/// Debe llamarse a Free().
 		/// </summary>
-		~GPUDataBuffer();
-
-		/// <summary>
-		/// Reserva memoria con el tamaño dado.
-		/// Debe llamarse a Free antes, si el buffere ya estaba inicializado.
-		/// </summary>
-		/// <param name="size">Tamaño en bytes.</param>
-		void Allocate(size_t size);
+		~GpuDataBuffer();
 
 		/// <summary>
 		/// Mapea toda la memoria, para después poder escribirla.
@@ -104,81 +92,22 @@ namespace OSK {
 		/// </summary>
 		size_t GetDynamicUboStructureSize();
 
+		/// <summary>
+		/// Subbloque de memoria en la GPU correspondiente a este buffer.
+		/// </summary>
+		VULKAN::MemorySubblock* memorySubblock = nullptr;
+
 	private:
-
-		/// <summary>
-		/// Crea un buffer vacío.
-		/// </summary>
-		/// <param name="device">Logical device del renderizador.</param>
-		/// <param name="usage">Uso que se le va a dar.</param>
-		/// <param name="properties">Propiedades necesarias.</param>
-		/// <param name="gpuProps">Propiedades de la GPU.</param>
-		void Create(VkDevice device, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkPhysicalDeviceMemoryProperties gpuProps);
-
-		/// <summary>
-		/// Logical device del renderizador.
-		/// </summary>
-		VkDevice logicalDevice = VK_NULL_HANDLE;
-
-		/// <summary>
-		/// Uso que se le va a dar.
-		/// </summary>
-		VkBufferUsageFlags usage = VK_NULL_HANDLE;
-
-		/// <summary>
-		/// Propiedades necesarias.
-		/// </summary>
-		VkMemoryPropertyFlags properties = 0;
-
-		/// <summary>
-		/// Propiedades de la GPU.
-		/// </summary>
-		VkPhysicalDeviceMemoryProperties gpuProps{};
-
-		/// <summary>
-		/// ???
-		/// </summary>
-		/// <param name="memoryTypeFilter"></param>
-		/// <returns></returns>
-		uint32_t getMemoryType(const uint32_t& memoryTypeFilter);
-
-		/// <summary>
-		/// Memoria mapeada en la RAM.
-		/// </summary>
-		void* mappedData = nullptr;
-
-		/// <summary>
-		/// True si la memoria está actualmente mapeada.
-		/// </summary>
-		bool isMapped = false;
-
-		/// <summary>
-		/// Tamaño del buffer.
-		/// </summary>
-		size_t size = 0;
 
 		/// <summary>
 		/// Tamaño de cada estructura individual que se almacena, en caso de ser usado como un dynamic UBO.
 		/// </summary>
 		size_t dynamicSize = 0;
 
-		//Buffer.
-
-		/// <summary>
-		/// Buffer nativo de Vulkan.
-		/// </summary>
-		VkBuffer buffer = VK_NULL_HANDLE;
-
-		/// <summary>
-		/// Memoria en la GPU del buffer.
-		/// </summary>
-		VkDeviceMemory memory = VK_NULL_HANDLE;
-
 		/// <summary>
 		/// Alineamiento de la memoria.
 		/// </summary>
 		uint32_t alignment = 0;
-
 
 	};
 

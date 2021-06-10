@@ -10,6 +10,7 @@
 
 #include "UiFunctionality.h"
 
+
 class Game1 : public Game {
 
 public:
@@ -133,7 +134,7 @@ public:
 
 			OSK::UiElement* logo = new OSK::UiElement();
 			logo->SetSize(48.0f);
-			logo->sprite.texture = GetRenderer()->OSKengineIconSprite.texture;
+			logo->sprite.texture = GetRenderer()->OskEngineIconSprite.texture;
 			logo->InitSprite(content, GetRenderer());
 			logo->marging = 0.0f;
 
@@ -280,6 +281,14 @@ public:
 
 		userInterface->SetSize(GetWindow()->GetSize().ToVector2f());
 		userInterface->Update(newMouseState.GetMouseRectangle(), newMouseState.IsButtonDown(OSK::ButtonCode::BUTTON_LEFT));
+
+		if (oldKeyboardState.IsKeyUp(OSK::Key::Q) && newKeyboardState.IsKeyDown(OSK::Key::Q)) {
+			OSK::Logger::Log(OSK::LogMessageLevels::INFO, "GPU memory allocator stats: ");
+			OSK::Logger::Log(OSK::LogMessageLevels::INFO, "		Total allocations: " + std::to_string(GetRenderer()->GetGpuMemoryAllocator()->stats.totalMemoryAllocations));
+			OSK::Logger::Log(OSK::LogMessageLevels::INFO, "		Total sub allocations: " + std::to_string(GetRenderer()->GetGpuMemoryAllocator()->stats.totalSubAllocations));
+			OSK::Logger::Log(OSK::LogMessageLevels::INFO, "		Total reserved size: " + std::to_string(GetRenderer()->GetGpuMemoryAllocator()->stats.totalReservedSize));
+			OSK::Logger::Log(OSK::LogMessageLevels::INFO, "		Total used size: " + std::to_string(GetRenderer()->GetGpuMemoryAllocator()->stats.totalUsedSize));
+		}
 	}
 
 	void OnDraw2D() override {
@@ -297,8 +306,8 @@ public:
 	OSK::GameObject* ControlsObject;
 	OSK::Texture* buttonTexture = nullptr;
 
-	PlayerCube* Player;
+	PlayerCube* Player = nullptr;
 
-	OSK::UiElement* userInterface = nullptr;
+	UniquePtr<OSK::UiElement> userInterface;
 
 };

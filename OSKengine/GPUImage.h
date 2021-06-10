@@ -12,7 +12,13 @@ namespace OSK::VULKAN {
 	/// <summary>
 	/// Imagen almacenada en la GPU.
 	/// </summary>
-	struct OSKAPI_CALL GPUImage {
+	struct OSKAPI_CALL GpuImage {
+
+		friend class VulkanImageGen;
+
+		~GpuImage() {
+			Destroy();
+		}
 
 		/// <summary>
 		/// Imagen nativa.
@@ -39,7 +45,9 @@ namespace OSK::VULKAN {
 		/// <summary>
 		/// Logical device del renderizador.
 		/// </summary>
-		VkDevice* logicalDevice = nullptr;
+		VkDevice logicalDevice = VK_NULL_HANDLE;
+
+	private:
 
 		/// <summary>
 		/// Elimina la imagen.

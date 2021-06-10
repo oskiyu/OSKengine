@@ -6,9 +6,9 @@
 #include <string>
 #include "WindowAPI.h"
 #include "Version.h"
-#include "GPUinfo.h"
-#include "GPUImage.h"
-#include "GPUDataBuffer.h"
+#include "GpuInfo.h"
+#include "GpuImage.h"
+#include "GpuDataBuffer.h"
 #include "Texture.h"
 #include "SpriteBatch.h"
 #include "Camera2D.h"
@@ -28,6 +28,7 @@
 #include "RenderizableScene.h"
 
 #include "VulkanImageGen.h"
+#include "VulkanAllocator.h"
 #include "ProfilingUnit.h"
 #include "Framebuffer.h"
 
@@ -106,20 +107,12 @@ namespace OSK {
 		SpriteBatch CreateSpriteBatch();
 
 		/// <summary>
-		/// Crea un buffer que almacenará información en la GPU.
-		/// </summary>
-		/// <param name="usage">El uso que se le dará al buffer.</param>
-		/// <param name="prop">Propiedades de memoria que necesitará el buffer.</param>
-		/// <returns>Buffer usable.</returns>
-		GPUDataBuffer CreateBuffer(VkBufferUsageFlags usage, VkMemoryPropertyFlags prop) const;
-
-		/// <summary>
 		/// Crea un buffer que almacenará un dynamic ubo.
 		/// </summary>
 		/// <param name="buffer">Buffer que se va a crear.</param>
 		/// <param name="sizeOfStruct">Tamaño de cada estructura individual.</param>
 		/// <param name="numberOfInstances">Número de estructuras a almacenar.</param>
-		void CreateDynamicUBO(GPUDataBuffer& buffer, VkDeviceSize sizeOfStruct, uint32_t numberOfInstances) const;
+		SharedPtr<GpuDataBuffer> CreateDynamicUBO(VkDeviceSize sizeOfStruct, uint32_t numberOfInstances);
 
 		/// <summary>
 		/// Copia el contenido de un buffer a otro buffer.
@@ -129,14 +122,14 @@ namespace OSK {
 		/// <param name="size">Tamaño de la información que se va a copiar (puede no ser el mismo tamaño que el de los buffers).</param>
 		/// <param name="sourceOffset">Offset sobre la informacíon del buffer fuente.</param>
 		/// <param name="destinationOffset">Offset sobre el buffer destino.</param>
-		void CopyBuffer(GPUDataBuffer& source, GPUDataBuffer& destination, VkDeviceSize size, VkDeviceSize sourceOffset = 0, VkDeviceSize destinationOffset = 0) const;
+		void CopyBuffer(GpuDataBuffer& source, GpuDataBuffer& destination, VkDeviceSize size, VkDeviceSize sourceOffset = 0, VkDeviceSize destinationOffset = 0) const;
 
 		/// <summary>
 		/// Obtiene el render target andes de postprocesamiento.
 		/// </summary>
 		/// <returns>Render target.</returns>
 		inline RenderTarget* GetMainRenderTarget() const {
-			return renderTargetBeforePostProcessing;
+			return renderTargetBeforePostProcessing.GetPointer();
 		}
 
 		/// <summary>
@@ -183,12 +176,12 @@ namespace OSK {
 		/// <summary>
 		/// Imagen de OSKengine.
 		/// </summary>
-		Sprite OSKengineIconSprite;
+		Sprite OskEngineIconSprite;
 
 		/// <summary>
 		/// Imagen de OSK.
 		/// </summary>
-		Sprite OSK_IconSprite;
+		Sprite OskIconSprite;
 
 		/// <summary>
 		/// Límite de FPS (no funciona).
@@ -263,15 +256,15 @@ namespace OSK {
 		/// </summary>
 		/// <returns></returns>
 		MaterialSystem* GetMaterialSystem() const {
-			return materialSystem;
+			return materialSystem.GetPointer();
 		}
 
 		/// <summary>
 		/// Obtiene los uniform buffers 3D.
 		/// </summary>
 		/// <returns>UBOs 3D.</returns>
-		std::vector<GPUDataBuffer>& GetUniformBuffers() {
-			return uniformBuffers;
+		std::vector<SharedPtr<GpuDataBuffer>>& GetUniformBuffers() {
+ 			return uniformBuffers;
 		}
 
 #pragma endregion
@@ -279,7 +272,7 @@ namespace OSK {
 		/// <summary>
 		/// Render target antes de post procesamiento.
 		/// </summary>
-		RenderTarget* renderTargetBeforePostProcessing = CreateNewRenderTarget();
+		UniquePtr<RenderTarget> renderTargetBeforePostProcessing = CreateNewRenderTarget();
 
 		/// <summary>
 		/// Cierra el renderizador.
@@ -343,7 +336,7 @@ namespace OSK {
 		/// <summary>
 		/// Content manager global.
 		/// </summary>
-		ContentManager* content = new ContentManager(this);
+		UniquePtr<ContentManager> content = new ContentManager(this);
 
 		/// <summary>
 		/// Profiling para el renderizado del frame (GPU).
@@ -358,7 +351,7 @@ namespace OSK {
 		/// <summary>
 		/// Imagen de profundidad.
 		/// </summary>
-		VULKAN::GPUImage depthImage;
+		VULKAN::GpuImage depthImage;
 
 		/// <summary>
 		/// Devuelve el formato para la imagen de profundidad.
@@ -395,7 +388,28 @@ namespace OSK {
 		/// <param name="sizeY">Tamaño Y.</param>
 		void SetViewport(VkCommandBuffer& cmdBuffer, int32_t x = 0, int32_t y = 0, uint32_t sizeX = 0, uint32_t sizeY = 0) const;
 
+		/// <summary>
+		/// Asigna memoria a un buffer.
+		/// </summary>
+		/// <param name="buffer">Buffer.</param>
+		/// <param name="size">Tamaño en bytes.</param>
+		/// <param name="usage">Uso que se le va a dar.</param>
+		/// <param name="properties">Propiedades de la memoria.</param>
+		void AllocateBuffer(GpuDataBuffer* buffer, size_t size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties);
+
+		/// <summary>
+		/// Devuelve el asignador de memoria de la GPU.
+		/// </summary>
+		VULKAN::MemoryAllocator* GetGpuMemoryAllocator() const {
+			return memoryAllocator.GetPointer();
+		}
+
 	private:
+
+		/// <summary>
+		/// Asignador de memoria de la GPU.
+		/// </summary>
+		UniquePtr<VULKAN::MemoryAllocator> memoryAllocator;
 
 		/// <summary>
 		/// Command buffers.
@@ -405,12 +419,12 @@ namespace OSK {
 		/// <summary>
 		/// UBOs 3D.
 		/// </summary>
-		std::vector<GPUDataBuffer> uniformBuffers{};
+		std::vector<SharedPtr<GpuDataBuffer>> uniformBuffers{};
 
 		/// <summary>
 		/// Sistema de materiales.
 		/// </summary>
-		MaterialSystem* materialSystem = nullptr;
+		UniquePtr<MaterialSystem> materialSystem;
 
 		/// <summary>
 		/// Stages que se renderizan una vez por frame.
@@ -427,12 +441,12 @@ namespace OSK {
 		/// Crea el vertex buffer de un sprite.
 		/// </summary>
 		/// <param name="obj">Sprite.</param>
-		void createSpriteVertexBuffer(Sprite* obj) const;
+		void createSpriteVertexBuffer(Sprite* obj);
 
 		/// <summary>
 		/// Crea el index buffer de los sprites.
 		/// </summary>
-		void createSpriteIndexBuffer() const;
+		void createSpriteIndexBuffer();
 
 		/// <summary>
 		/// Comprueba el soporte de las capas de validación.
@@ -460,7 +474,7 @@ namespace OSK {
 		/// <summary>
 		/// Selecciona la GPU que se va a usar.
 		/// </summary>
-		void getGPU();
+		void getGpu();
 
 		/// <summary>
 		/// Crea el logical device.
@@ -542,7 +556,7 @@ namespace OSK {
 		/// Actualiza el vertex buffer de un sprite.
 		/// </summary>
 		/// <param name="obj">Sprite.</param>
-		void updateSpriteVertexBuffer(SpriteContainer& obj) const;
+		void updateSpriteVertexBuffer(SpriteContainer* obj) const;
 
 		/// <summary>
 		/// Crea y devuelve un command buffer para ser usado una sola vez.
@@ -562,7 +576,7 @@ namespace OSK {
 		/// <param name="memoryTypeFilter">Tipo.</param>
 		/// <param name="flags">Usos.</param>
 		/// <returns>Tipo de memoria de la GPU.</returns>
-		uint32_t getMemoryType(const uint32_t& memoryTypeFilter, VkMemoryPropertyFlags flags) const;
+		uint32_t getMemoryType(uint32_t memoryTypeFilter, VkMemoryPropertyFlags flags) const;
 
 		/// <summary>
 		/// Obtiene los detalles de soporte de swapchain para una GPU en concreto.
@@ -576,7 +590,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="gpu">GPU.</param>
 		/// <returns>Información.</returns>
-		VULKAN::GPUinfo getGPUinfo(VkPhysicalDevice gpu) const;
+		VULKAN::GpuInfo getGpuInfo(VkPhysicalDevice gpu) const;
 
 		/// <summary>
 		/// Obtiene las familias de queues soportadas por una GPU.
@@ -666,7 +680,7 @@ namespace OSK {
 		/// <summary>
 		/// Información de la GPU seleccionada.
 		/// </summary>
-		VULKAN::GPUinfo gpuInfo {};
+		VULKAN::GpuInfo gpuInfo {};
 
 		/// <summary>
 		/// Propiedades de la memoria de la GPU.
@@ -759,32 +773,32 @@ namespace OSK {
 		/// <summary>
 		/// Graphics para renderizar los post procesamientos.
 		/// </summary>
-		GraphicsPipeline* screenGraphicsPipeline = nullptr;
+		UniquePtr<GraphicsPipeline> screenGraphicsPipeline;
 
 		/// <summary>
 		/// DescPool para renderizar los post procesamientos.
 		/// </summary>
-		DescriptorPool* screenDescriptorPool = nullptr;
+		UniquePtr<DescriptorPool> screenDescriptorPool;
 
 		/// <summary>
 		/// DescLayout para renderizar los post procesamientos.
 		/// </summary>
-		DescriptorLayout* screenDescriptorLayout = nullptr;
+		UniquePtr<DescriptorLayout> screenDescriptorLayout;
 
 		/// <summary>
 		/// DescSet para renderizar los post procesamientos.
 		/// </summary>
-		DescriptorSet* screenDescriptorSet = nullptr;
+		UniquePtr<DescriptorSet> screenDescriptorSet;
 
 		/// <summary>
 		/// Renderpass para renderizar los post procesamientos.
 		/// </summary>
-		VULKAN::Renderpass* screenRenderpass = nullptr;
+		UniquePtr<VULKAN::Renderpass> screenRenderpass;
 
 		/// <summary>
 		/// Render target final.
 		/// </summary>
-		RenderTarget* finalRenderTarget = nullptr;
+		UniquePtr<RenderTarget> finalRenderTarget;
 
 		/// <summary>
 		/// Crea los elementos de post procesamiento.

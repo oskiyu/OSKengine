@@ -84,7 +84,7 @@ public:
 	/// Devuelve los FPS actuales.
 	/// </summary>
 	/// <returns>FPS.</returns>
-	float GetFPS();
+	uint32_t GetFPS() const;
 
 	/// <summary>
 	/// Devuelve el renderizador.
@@ -175,7 +175,7 @@ private:
 	/// <summary>
 	/// FPS.
 	/// </summary>
-	deltaTime_t framerate = 0.0f;
+	uint32_t framerate = 0;
 
 	/// <summary>
 	/// Contador de un segundo, para actualizar el valor de FPS.
@@ -197,22 +197,22 @@ protected:
 	/// <summary>
 	/// Sistema ECS de físicas.
 	/// </summary>
-	OSK::PhysicsSystem* physicsSystem = nullptr;
+	UniquePtr<OSK::PhysicsSystem> physicsSystem = nullptr;
 
 	/// <summary>
 	/// Sistema ECS de input.
 	/// </summary>
-	OSK::InputSystem* inputSystem = nullptr;
+	UniquePtr<OSK::InputSystem> inputSystem = nullptr;
 
 	/// <summary>
 	/// Sistema ECS de renderizado.
 	/// </summary>
-	OSK::RenderSystem3D* renderSystem3D = nullptr;
+	UniquePtr<OSK::RenderSystem3D> renderSystem3D = nullptr;
 
 	/// <summary>
 	/// Sistema ECS de OnTick.
 	/// </summary>
-	OSK::OnTickSystem* onTickSystem = nullptr;
+	UniquePtr<OSK::OnTickSystem> onTickSystem = nullptr;
 
 	/// <summary>
 	/// Estado del teclado en el anterior frame.

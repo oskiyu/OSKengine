@@ -1064,7 +1064,46 @@ Primeros pasos para un editor.
 
 - **Bugfix**: la cámara actualiza correctamente su `targetSize` para que sea igual que el tamaño de la ventana.
 - **Bugfix**: los sprites se renderizan correctamente en su lugar cuando cambia la resolución de la pantalla.
-- **Bugfix**: loslos caracteres de una fuente ya no tienen los bordes oscuros..
+- **Bugfix**: los caracteres de una fuente ya no tienen los bordes oscuros.
+
+
+## 2021.6.10a
+
+Asignador de memoria de Vulkan.
+
+
+Actualización de los estándares de C++ de OSK:
+- Los atributos pasados a funciones que son modificados por la función se pasan por puntero y no por referencia.
+
+###### RenderAPI
+
+- VulkanMemoryAllocator:
+  - Clase que maneja la memoria de la GPU.
+  - Agrupa asignaciones de memoria pequeña en asignaciones grandes de bloques.
+  - De momento solo funciona con buffers de GPU.
+    - VulkanMemoryBlock:
+      - Bloque de memoria de la GPU.
+      - Los subbloques representan una región de memoria de un bloque.
+    - VulkanMemorySubblock:
+      - Región de memoria que pertenece a un buffer.
+  - Los bloques tienen un tamaño mínimo de 32 megabytes.
+  - Los subbloques se asignan linealmente.
+  - Al liberarse un subbloque, su región de memoria queda marcada para ser reutilizada.
+
+###### Assert
+
+- OSK_ASSERT_FALSE: 
+  - Comprueba un valor booleano.
+  - Si el resultado es verdadero, se imprime un mensaje de error.
+- OSK_CHECK_FALSE: 
+  - Comprueba un valor booleano.
+  - Si el resultado es verdadero, se imprime un mensaje de aviso.
+
+###### Bugfixes
+
+- **Bugfix**: ahora no se muestran mensajes innecesarios de Vulkan (DEBUG).
+- **Bugfix**: cambiar el tamaño de la ventana ya no genera memory leaks (por la recreación del swapchain).
+- **Bugfix**: los GPU buffers ya no generan memory leaks en la GPU.
 
 
 ## WIP

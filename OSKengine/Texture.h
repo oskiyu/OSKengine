@@ -1,13 +1,27 @@
 #pragma once
 
-#include "GPUImage.h"
+#include "GpuImage.h"
 #include <vector>
+
+#include "SharedPtr.hpp"
 
 namespace OSK {
 
+	/// <summary>
+	/// 'Filtro' de la textura.
+	/// </summary>
 	enum class TextureFilterType {
+
+		/// <summary>
+		/// Suavizado.
+		/// </summary>
 		LINEAR,
+
+		/// <summary>
+		/// Pixelado.
+		/// </summary>
 		NEAREST
+
 	};
 
 	/// <summary>
@@ -22,11 +36,8 @@ namespace OSK {
 		friend class RenderAPI;
 		friend class RenderTarget;
 
-		/// <summary>
-		/// Elimina la textura.
-		/// </summary>
-		~Texture() {
-			image.Destroy();
+		Texture() {
+			image = new VULKAN::GpuImage;
 		}
 
 		/// <summary>
@@ -39,7 +50,7 @@ namespace OSK {
 		/// <summary>
 		/// Imagen (en la GPU) de la textura).
 		/// </summary>
-		VULKAN::GPUImage image;
+		SharedPtr<VULKAN::GpuImage> image;
 
 	};
 

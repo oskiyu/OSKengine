@@ -24,9 +24,9 @@ namespace OSK {
 		return pushConst;
 	}
 
-	void Model::UpdateAnimUBO(std::vector<GPUDataBuffer>& buffers) {
+	void Model::UpdateAnimUBO(std::vector<SharedPtr<GpuDataBuffer>>& buffers) {
 		for (auto& i : buffers) {
-			i.Write(bonesUBOdata.bones.data(), sizeof(glm::mat4) * bonesUBOdata.bones.size(), i.alignment * animationBufferOffset);
+			i->Write(bonesUBOdata.bones.data(), sizeof(glm::mat4) * bonesUBOdata.bones.size(), i->alignment * animationBufferOffset);
 		}
 	}
 

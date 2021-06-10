@@ -46,22 +46,22 @@ namespace OSK {
 		VkDeviceSize size = lights.Size();
 		lightsUniformBuffers.resize(renderer->swapchainImages.size());
 		for (uint32_t i = 0; i < lightsUniformBuffers.size(); i++) {
-			lightsUniformBuffers[i] = renderer->CreateBuffer(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-			lightsUniformBuffers[i].Allocate(size);
+			lightsUniformBuffers[i] = new GpuDataBuffer;
+			renderer->AllocateBuffer(lightsUniformBuffers[i].GetPointer(), size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 		}
 
 		bonesUbos.resize(renderer->swapchainImages.size());
 		for (uint32_t i = 0; i < bonesUbos.size(); i++) {
-			renderer->CreateDynamicUBO(bonesUbos[i], sizeof(AnimUBO), 64);
+			bonesUbos[i] = renderer->CreateDynamicUBO(sizeof(AnimUBO), 64);
 
 			AnimUBO ubo{};
-			bonesUbos[i].Write(&ubo, sizeof(AnimUBO));
+			bonesUbos[i]->Write(&ubo, sizeof(AnimUBO));
 		}
 	}
 
 	void RenderizableScene::UpdateLightsBuffers() {
 		for (auto& i : lightsUniformBuffers)
-			lights.UpdateBuffer(renderer->logicalDevice, i);
+			lights.UpdateBuffer(renderer->logicalDevice, i.Get());
 
 		shadowMap->Update();
 		shadowMap->UpdateBuffers();
@@ -82,7 +82,7 @@ namespace OSK {
 	}
 
 	void RenderizableScene::LoadSkybox(const std::string& path) {
-		content->LoadSkybox(skybox, path);
+		content->LoadSkybox(&skybox, path);
 	}
 
 	void RenderizableScene::LoadHeightmap(const std::string& path, const Vector2f& quadSize, float maxHeight) {
@@ -160,9 +160,8 @@ namespace OSK {
 	void RenderizableScene::Draw(VkCommandBuffer cmdBuffer, uint32_t iteration) {
 		PrepareDraw(cmdBuffer, iteration);
 
-		for (const auto& i : models) {
+		for (const auto& i : models)
 			Draw(i, cmdBuffer, iteration);
-		}
 
 		EndDraw(cmdBuffer, iteration);
 	}
@@ -170,7 +169,7 @@ namespace OSK {
 	//SYSTEM
 
 	void RenderizableScene::PrepareDrawShadows(VkCommandBuffer cmdBuffer, uint32_t i) {
-		VULKAN::VulkanImageGen::TransitionImageLayout(&shadowMap->dirShadows->renderedSprite.texture->image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, 1, 1, &cmdBuffer);
+		VULKAN::VulkanImageGen::TransitionImageLayout(shadowMap->dirShadows->renderedSprite.texture->image.GetPointer(), VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, 1, 1, &cmdBuffer);
 
 		VkRenderPassBeginInfo renderPassInfo{};
 		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
@@ -182,7 +181,7 @@ namespace OSK {
 		std::array<VkClearValue, 2> clearValues = {};
 		clearValues[0] = { 1.0f, 1.0f, 1.0f, 1.0f }; //Color.
 		clearValues[1] = { 1.0f, 0.0f }; //Depth.
-		renderPassInfo.clearValueCount = clearValues.size();
+		renderPassInfo.clearValueCount = (uint32_t)clearValues.size();
 		renderPassInfo.pClearValues = clearValues.data();
 
 		vkCmdBeginRenderPass(cmdBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
@@ -197,7 +196,7 @@ namespace OSK {
 
 		model->Bind(cmdBuffer);
 
-		model->shadowMaterial->GetDescriptorSet()->Bind(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(renderer->defaultShadowsMaterial_Name)->GetGraphicsPipeline(shadowMap->dirShadows->vulkanRenderpass), i, model->animationBufferOffset, bonesUbos[0].alignment);
+		model->shadowMaterial->GetDescriptorSet()->Bind(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(renderer->defaultShadowsMaterial_Name)->GetGraphicsPipeline(shadowMap->dirShadows->vulkanRenderpass), i, model->animationBufferOffset, bonesUbos[0]->alignment);
 
 		PushConst3D pushConst = model->GetPushConst();
 		vkCmdPushConstants(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(renderer->defaultShadowsMaterial_Name)->GetGraphicsPipeline(shadowMap->dirShadows->vulkanRenderpass)->vulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
@@ -205,7 +204,7 @@ namespace OSK {
 	}
 	void RenderizableScene::EndDrawShadows(VkCommandBuffer cmdBuffer, uint32_t i) {
 		if (terreno.HasValue() && terreno->terrainModel != nullptr && terreno->shadowMaterial.HasValue() && terreno->shadowMaterial->HasBeenSet()) {
-			terreno->shadowMaterial->GetDescriptorSet()->Bind(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(renderer->defaultShadowsMaterial_Name)->GetGraphicsPipeline(shadowMap->dirShadows->vulkanRenderpass), i, 0, bonesUbos[0].alignment);
+			terreno->shadowMaterial->GetDescriptorSet()->Bind(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(renderer->defaultShadowsMaterial_Name)->GetGraphicsPipeline(shadowMap->dirShadows->vulkanRenderpass), i, 0, bonesUbos[0]->alignment);
 			terreno->terrainModel->Bind(cmdBuffer);
 			PushConst3D pushConst{ glm::mat4(1.0f) };
 			vkCmdPushConstants(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(renderer->defaultShadowsMaterial_Name)->GetGraphicsPipeline(shadowMap->dirShadows->vulkanRenderpass)->vulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
@@ -213,7 +212,7 @@ namespace OSK {
 		}
 
 		vkCmdEndRenderPass(cmdBuffer);
-		VULKAN::VulkanImageGen::TransitionImageLayout(&shadowMap->dirShadows->renderedSprite.texture->image, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 1, 1, &cmdBuffer);
+		VULKAN::VulkanImageGen::TransitionImageLayout(shadowMap->dirShadows->renderedSprite.texture->image.GetPointer(), VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 1, 1, &cmdBuffer);
 	}
 
 	void RenderizableScene::PrepareDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
@@ -234,7 +233,7 @@ namespace OSK {
 
 		model->Bind(cmdBuffer);
 
-		model->material->GetDescriptorSet()->Bind(cmdBuffer, currentGraphicsPipeline, i, model->animationBufferOffset, bonesUbos[0].alignment);
+		model->material->GetDescriptorSet()->Bind(cmdBuffer, currentGraphicsPipeline, i, model->animationBufferOffset, bonesUbos[0]->alignment);
 		
 		PushConst3D pushConst = model->GetPushConst();
 		vkCmdPushConstants(cmdBuffer, currentGraphicsPipeline->vulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
@@ -242,7 +241,7 @@ namespace OSK {
 	}
 	void RenderizableScene::EndDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 		if (terreno.HasValue() && terreno->terrainModel != nullptr) {
-			terreno->material->GetDescriptorSet()->Bind(cmdBuffer, currentGraphicsPipeline, i, 0, bonesUbos[0].alignment);
+			terreno->material->GetDescriptorSet()->Bind(cmdBuffer, currentGraphicsPipeline, i, 0, bonesUbos[0]->alignment);
 			terreno->terrainModel->Bind(cmdBuffer);
 			PushConst3D pushConst{ glm::mat4(1.0f) };
 			vkCmdPushConstants(cmdBuffer, currentGraphicsPipeline->vulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);

@@ -1,2 +1,6 @@
-INFO: Vulkan
+INFO: GPU memory allocator stats: 
+INFO: 		Total allocations: 6
+INFO: 		Total sub allocations: 310
+INFO: 		Total reserved size: 277440512
+INFO: 		Total used size: 11220056
 

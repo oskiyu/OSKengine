@@ -39,7 +39,7 @@ namespace OSK::VULKAN {
 		/// Añade una imagen sobre la que se va a renderizar.
 		/// </summary>
 		/// <param name="image">Imagen.</param>
-		void AddImageView(VULKAN::GPUImage* image);
+		void AddImageView(VULKAN::GpuImage* image);
 
 		/// <summary>
 		/// Añade una imagen sobre la que se va a renderizar.

@@ -61,7 +61,7 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 	std::array<VkClearValue, 2> clearValues = {};
 	clearValues[0] = { 0.8f, 0.8f, 0.8f, 1.0f }; //Color.
 	clearValues[1] = { 1.0f, 0.0f }; //Depth.
-	renderPassInfo.clearValueCount = clearValues.size();
+	renderPassInfo.clearValueCount = (uint32_t)clearValues.size();
 	renderPassInfo.pClearValues = clearValues.data();
 
 	renderer->GetMainRenderTarget()->TransitionToRenderTarget(&cmdBuffer);
@@ -91,8 +91,8 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 			GraphicsPipeline* pipeline = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultMaterial2D_Name)->GetGraphicsPipeline(renderer->GetMainRenderTarget()->vulkanRenderpass);
 			pipeline->Bind(cmdBuffer);
 
-			vkCmdBindIndexBuffer(cmdBuffer, Sprite::indexBuffer.buffer, 0, VK_INDEX_TYPE_UINT16);
-			const uint32_t indicesSize = Sprite::indices.size();
+			vkCmdBindIndexBuffer(cmdBuffer, Sprite::indexBuffer->memorySubblock->GetNativeGpuBuffer(), Sprite::indexBuffer->memorySubblock->GetOffset(), VK_INDEX_TYPE_UINT16);
+			const uint32_t indicesSize = (uint32_t)Sprite::indices.size();
 
 			DescriptorSet* previousDescSet = nullptr;
 
@@ -101,7 +101,7 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 					continue;
 
 				VkBuffer vertexBuffers[] = { sprite.vertexBuffer };
-				VkDeviceSize offsets[] = { 0 };
+				VkDeviceSize offsets[] = { sprite.bufferOffset };
 				vkCmdBindVertexBuffers(cmdBuffer, 0, 1, vertexBuffers, offsets);
 
 				DescriptorSet* newDescSet = sprite.spriteMaterial->GetDescriptorSet();

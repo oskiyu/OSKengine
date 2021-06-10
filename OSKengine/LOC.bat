@@ -1,2 +1,1 @@
-(gci -include *.cs,*.cpp,*.h,*.vert,*.frag -recurse | select-string .).Count
-PAUSE
+((gci -include *.cs,*.cpp,*.h,*.vert,*.frag -recurse | select-string .).Count - (gci -include stbi_image.h,stbi_image_write.h -recurse | select-string .).Count)

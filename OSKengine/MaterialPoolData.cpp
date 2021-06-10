@@ -12,13 +12,12 @@ MaterialPoolData::MaterialPoolData(RenderAPI* renderer, uint32_t baseSize) {
 
 	descriptorPool = renderer->CreateNewDescriptorPool();
 
-	for (uint32_t i = 0; i < MaterialPoolSize; i++) {
+	for (uint32_t i = 0; i < MaterialPoolSize; i++)
 		descriptorSets.push_back(renderer->CreateNewDescriptorSet());
-	}
 }
 
 MaterialPoolData::~MaterialPoolData() {
-	//Free();
+
 }
 
 void MaterialPoolData::SetBindings(const std::vector<VkDescriptorType>& bindings) {
@@ -29,22 +28,24 @@ void MaterialPoolData::SetBindings(const std::vector<VkDescriptorType>& bindings
 }
 
 DescriptorSet* MaterialPoolData::GetDescriptorSet(uint32_t localIndex) {
+	OSK_ASSERT(localIndex >= 0 && localIndex < descriptorSets.size(), "Se ha intentado acceder a un descriptor set que no se encuentra en este material pool data.");
+
 	return descriptorSets[localIndex];
 }
 
 void MaterialPoolData::FreeDescriptorSet(uint32_t localIndex) {
+	OSK_ASSERT(localIndex >= 0 && localIndex < descriptorSets.size(), "Se ha intentado liberar un descriptor set que no se encuentra en este material pool data.");
+
 	freeSpaces.Push(localIndex);
 }
 
 void MaterialPoolData::Free() {
-	for (uint32_t i = 0; i < MaterialPoolSize; i++) {
+	for (uint32_t i = 0; i < MaterialPoolSize; i++)
 		delete descriptorSets[i];
-	}
+
 	descriptorSets.clear();
 
-	if (descriptorPool) {
-		delete descriptorPool;
-	}
+	descriptorPool.Delete();
 
 	freeSpaces.Free();
 }
@@ -54,9 +55,8 @@ void MaterialPoolData::SetLayout(DescriptorLayout* layout) {
 	descriptorPool->SetLayout(layout);
 	descriptorPool->Create(MaterialPoolSize);
 
-	for (uint32_t i = 0; i < MaterialPoolSize; i++) {
-		descriptorSets[i]->Create(layout, descriptorPool);
-	}
+	for (uint32_t i = 0; i < MaterialPoolSize; i++)
+		descriptorSets[i]->Create(layout, descriptorPool.GetPointer());
 }
 
 uint32_t MaterialPoolData::GetNextDescriptorSet() {

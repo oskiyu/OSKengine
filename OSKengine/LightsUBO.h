@@ -8,7 +8,7 @@
 #include "DirectionalLight.h"
 
 #include <vector>
-#include "GPUDataBuffer.h"
+#include "GpuDataBuffer.h"
 
 namespace OSK {
 
@@ -50,7 +50,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="logicalDevice">Logical device del renderizador.</param>
 		/// <param name="buffer">Buffer del ubo.</param>
-		void UpdateBuffer(VkDevice logicalDevice, GPUDataBuffer& buffer);
+		void UpdateBuffer(VkDevice logicalDevice, GpuDataBuffer& buffer);
 
 	};
 

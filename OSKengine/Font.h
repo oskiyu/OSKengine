@@ -10,7 +10,7 @@ namespace OSK {
 	/// <summary>
 	/// Fuente para el renderizado de texto.
 	/// </summary>
-	struct OSKAPI_CALL Font {
+	class OSKAPI_CALL Font {
 
 		friend class ContentManager;
 		friend class SpriteBatch;

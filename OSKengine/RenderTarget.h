@@ -147,6 +147,11 @@ namespace OSK {
 		/// </summary>
 		Vector2ui size;
 
+		/// <summary>
+		/// True si debe eliminar el renderpass.
+		/// </summary>
+		bool ownsRenderpass = false;
+
 	};
 
 }

@@ -156,6 +156,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\Assimp\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\Assimp\lib\x64;..\Dependencies\OSKengine\glfw3\lib-vc2019;$(LibraryPath)</LibraryPath>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>ruleset.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DLL|x64'">
     <IncludePath>..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\Assimp\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
@@ -186,6 +188,7 @@
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -269,6 +272,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -358,6 +362,7 @@
   <ItemGroup>
     <ClCompile Include="AnimatedModel.cpp" />
     <ClCompile Include="AnimUBO.cpp" />
+    <ClCompile Include="Assert.cpp" />
     <ClCompile Include="AudioAPI.cpp" />
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Camera3D.cpp" />
@@ -443,9 +448,12 @@
     <ClCompile Include="VersionToken.cpp" />
     <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="VertexBoneData.cpp" />
-    <ClCompile Include="VulkanBuffer.cpp" />
-    <ClCompile Include="VulkanImage.cpp" />
+    <ClCompile Include="VulkanAllocator.cpp" />
+    <ClCompile Include="GpuBuffer.cpp" />
+    <ClCompile Include="GpuImage.cpp" />
     <ClCompile Include="VulkanImageGen.cpp" />
+    <ClCompile Include="VulkanMemoryBlock.cpp" />
+    <ClCompile Include="VulkanMemorySubblock.cpp" />
     <ClCompile Include="VulkanRenderer.cpp" />
     <ClCompile Include="WindowAPI.cpp" />
   </ItemGroup>
@@ -455,6 +463,7 @@
     <ClInclude Include="AnimatedModel.h" />
     <ClInclude Include="AnimUBO.h" />
     <ClInclude Include="ArrayQueue.hpp" />
+    <ClInclude Include="Assert.h" />
     <ClInclude Include="AxisInputEvent.h" />
     <ClInclude Include="BoneInfo.h" />
     <ClInclude Include="BroadColliderType.h" />
@@ -551,7 +560,7 @@
     <ClInclude Include="SNodeAnim.h" />
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="FileIO.h" />
-    <ClInclude Include="GPUinfo.h" />
+    <ClInclude Include="GpuInfo.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="stbi_image_write.h" />
     <ClInclude Include="SubpassDependency.h" />
@@ -572,8 +581,8 @@
     <ClInclude Include="Vector3TokenConverter.h" />
     <ClInclude Include="VersionToken.h" />
     <ClInclude Include="VertexBoneData.h" />
-    <ClInclude Include="GPUDataBuffer.h" />
-    <ClInclude Include="GPUImage.h" />
+    <ClInclude Include="GpuDataBuffer.h" />
+    <ClInclude Include="GpuImage.h" />
     <ClInclude Include="KeysEnum.h" />
     <ClInclude Include="KeyStatesEnum.h" />
     <ClInclude Include="Log.h" />
@@ -602,7 +611,10 @@
     <ClInclude Include="Vector4.hpp" />
     <ClInclude Include="Version.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="VulkanAllocator.h" />
     <ClInclude Include="VulkanImageGen.h" />
+    <ClInclude Include="VulkanMemoryBlock.h" />
+    <ClInclude Include="VulkanMemorySubblock.h" />
     <ClInclude Include="VulkanRenderer.h" />
     <ClInclude Include="WindowAPI.h" />
     <ClInclude Include="SpriteContainer.h" />
@@ -614,6 +626,7 @@
     <None Include="..\Frameworks\OSKengine\Doc\ScenerySystemSpec.md" />
     <None Include="ClassDiagram.cd" />
     <None Include="cpp.hint" />
+    <None Include="ruleset.ruleset" />
     <None Include="VersionHistory.md" />
   </ItemGroup>
   <ItemGroup>
@@ -621,6 +634,10 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\OSKengine_icon_lowres.ico" />
+    <Image Include="Resources\OSKengine_icon_lowres_16.ico" />
+    <Image Include="Resources\OSKengine_icon_lowres_32.ico" />
+    <Image Include="Resources\OSKengine_icon_lowres_48.ico" />
+    <Image Include="Resources\OSKengine_icon_lowres_64.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -47,10 +47,6 @@ namespace OSK {
 		/// </summary>
 		~GraphicsPipeline();
 
-		//Establece el viewport del pipeline.
-		//	<size>: tamaño de la imagen rederizada del pipeline.
-		//	<depthMinMax>: mínimo y máximo de la profundidad de la imagen.
-
 		/// <summary>
 		/// Establece el viewport del pipeline: área que se va a renderizar.
 		/// </summary>

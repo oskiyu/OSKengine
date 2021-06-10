@@ -56,7 +56,7 @@ void SAT_Collider::AddFace(const Vector3f points[], uint32_t size) {
 		else {
 			this->points.push_back(point);
 			transformedPoints.push_back(point);
-			face->push_back(transformedPoints.size() - 1);
+			face->push_back((uint32_t)transformedPoints.size() - 1);
 		}
 	}
 }
@@ -190,7 +190,7 @@ SAT_CollisionInfo SAT_Collider::GetCollisionInfo(const SAT_Collider& other) cons
 		if (pointsThis.size() < pointsOther.size()) {
 			Vector3f averageThis = { 0.0f };
 			for (const auto& i : pointsThis)
-				averageThis += i / pointsThis.size();
+				averageThis += i / (float)pointsThis.size();
 
 			pointA = averageThis;
 
@@ -199,7 +199,7 @@ SAT_CollisionInfo SAT_Collider::GetCollisionInfo(const SAT_Collider& other) cons
 		else  if (pointsThis.size() > pointsOther.size()) {
 			Vector3f averageOther = { 0.0f };
 			for (const auto& i : pointsOther)
-				averageOther += i / pointsOther.size();
+				averageOther += i / (float)pointsOther.size();
 
 			pointB = averageOther;
 		
@@ -207,14 +207,14 @@ SAT_CollisionInfo SAT_Collider::GetCollisionInfo(const SAT_Collider& other) cons
 		}
 		else {
 			Vector3f average = { 0.0f };
-			const int number = pointsThis.size() + pointsOther.size();
+			const int number = (int)(pointsThis.size() + pointsOther.size());
 
 			for (const auto& i : pointsThis)
-				average += i / number;
+				average += i / (float)number;
 
 			for (const auto& i : pointsOther) {
 				Vector3f aPoint = i + other.trasform.GetPosition() - trasform.GetPosition();
-				average += aPoint / number;
+				average += aPoint / (float)number;
 			}
 
 			pointA = average;
@@ -319,12 +319,12 @@ inline const std::array<Vector3f, 4> boxFaceF_points = {
 SAT_Collider SAT_Collider::CreateOBB() {
 	SAT_Collider collider{};
 
-	collider.AddFace(boxFaceA_points.data(), boxFaceA_points.size());
-	collider.AddFace(boxFaceB_points.data(), boxFaceB_points.size());
-	collider.AddFace(boxFaceC_points.data(), boxFaceC_points.size());
-	collider.AddFace(boxFaceD_points.data(), boxFaceD_points.size());
-	collider.AddFace(boxFaceE_points.data(), boxFaceE_points.size());
-	collider.AddFace(boxFaceF_points.data(), boxFaceF_points.size());
+	collider.AddFace(boxFaceA_points.data(), (uint32_t)boxFaceA_points.size());
+	collider.AddFace(boxFaceB_points.data(), (uint32_t)boxFaceB_points.size());
+	collider.AddFace(boxFaceC_points.data(), (uint32_t)boxFaceC_points.size());
+	collider.AddFace(boxFaceD_points.data(), (uint32_t)boxFaceD_points.size());
+	collider.AddFace(boxFaceE_points.data(), (uint32_t)boxFaceE_points.size());
+	collider.AddFace(boxFaceF_points.data(), (uint32_t)boxFaceF_points.size());
 
 	collider.OptimizeFaces();
 

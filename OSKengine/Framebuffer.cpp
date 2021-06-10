@@ -12,7 +12,7 @@ Framebuffer::Framebuffer(OSK::RenderAPI* renderer) {
 	this->renderer = renderer;
 }
 
-void Framebuffer::AddImageView(VULKAN::GPUImage* image) {
+void Framebuffer::AddImageView(VULKAN::GpuImage* image) {
 	attachments.push_back(image->view);
 }
 
@@ -24,7 +24,7 @@ void Framebuffer::Create(VULKAN::Renderpass* renderpass, uint32_t sizeX, uint32_
 	VkFramebufferCreateInfo framebufferInfo{};
 	framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
 	framebufferInfo.renderPass = renderpass->vulkanRenderpass;
-	framebufferInfo.attachmentCount = attachments.size();
+	framebufferInfo.attachmentCount = (uint32_t)attachments.size();
 	framebufferInfo.pAttachments = attachments.data();
 	framebufferInfo.width = sizeX;
 	framebufferInfo.height = sizeY;

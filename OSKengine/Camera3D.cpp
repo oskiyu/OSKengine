@@ -8,7 +8,7 @@ namespace OSK {
 
 	Camera3D::Camera3D(cameraVar_t posX, cameraVar_t posY, cameraVar_t posZ) {
 		transform = Transform();
-		transform.SetPosition(Vector3f(posX, posY, posZ));
+		transform.SetPosition(Vector3f((float)posX, (float)posY, (float)posZ));
 		transform.SetScale(Vector3f(1.0f));
 
 		updateVectors();
@@ -28,10 +28,10 @@ namespace OSK {
 	}
 
 	void Camera3D::Girar(double xoffset, double yoffset, bool constraint) {
-		float sensitivity = 0.25f;
+		constexpr float sensitivity = 0.25f;
 
-		angleX += xoffset * sensitivity;
-		angleY -= yoffset * sensitivity;
+		angleX += (float)xoffset * sensitivity;
+		angleY -= (float)yoffset * sensitivity;
 
 		if (constraint) {
 			if (angleY > 89.0f) {
@@ -49,7 +49,7 @@ namespace OSK {
 	}
 
 	void Camera3D::SetFov(double fov) {
-		fieldOfView = fov;
+		fieldOfView = (float)fov;
 		if (fieldOfView <= fovLimitDown)
 			fieldOfView = fovLimitDown;
 		if (fieldOfView > fovLimitUp)

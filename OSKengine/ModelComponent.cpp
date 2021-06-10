@@ -4,12 +4,12 @@ using namespace OSK;
 
 void ModelComponent::AddModel(const std::string& path, ContentManager* content) {
 	staticMeshes.push_back({});
-	content->LoadModel(staticMeshes.back(), path);
+	content->LoadModel(&staticMeshes.back(), path);
 }
 
 void ModelComponent::AddAnimatedModel(const std::string& path, ContentManager* content) {
 	animatedModels.push_back({});
-	content->LoadAnimatedModel(animatedModels.back(), path);
+	content->LoadAnimatedModel(&animatedModels.back(), path);
 }
 
 void ModelComponent::Link(Transform* transform) {

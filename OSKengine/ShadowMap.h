@@ -70,7 +70,7 @@ namespace OSK {
 		/// <summary>
 		/// UBOs con el DirShadowsUBO.
 		/// </summary>
-		std::vector<GPUDataBuffer>& GetUniformBuffers();
+		std::vector<SharedPtr<GpuDataBuffer>>& GetUniformBuffers();
 
 		/// <summary>
 		/// Render target sobre el que se renderiza las sombras.
@@ -97,7 +97,7 @@ namespace OSK {
 		/// <summary>
 		/// Render target sobre el que se renderiza las sombras.
 		/// </summary>
-		RenderTarget* dirShadows = nullptr;
+		UniquePtr<RenderTarget> dirShadows;
 
 		/// <summary>
 		/// Resolución del shadow map.
@@ -107,7 +107,7 @@ namespace OSK {
 		/// <summary>
 		/// UBOs con el DirShadowsUBO.
 		/// </summary>
-		std::vector<GPUDataBuffer> dirShadowsUniformBuffers;
+		std::vector<SharedPtr<GpuDataBuffer>> dirShadowsUniformBuffers;
 
 		/// <summary>
 		/// Información que se manda a la GPU para el renderizado de las sombras.

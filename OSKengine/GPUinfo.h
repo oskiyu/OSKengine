@@ -15,7 +15,7 @@ namespace OSK::VULKAN {
 	/// <summary>
 	/// información interna de una GPU.
 	/// </summary>
-	struct OSKAPI_CALL GPUinfo {
+	struct OSKAPI_CALL GpuInfo {
 
 		/// <summary>
 		/// Propiedades físicas.

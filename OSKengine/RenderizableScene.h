@@ -176,12 +176,12 @@ namespace OSK {
 		/// <summary>
 		/// Buffers con información de luces.
 		/// </summary>
-		std::vector<GPUDataBuffer> lightsUniformBuffers;
+		std::vector<SharedPtr<GpuDataBuffer>> lightsUniformBuffers;
 
 		/// <summary>
 		/// Buffers con información de huesos de modelos animados.
 		/// </summary>
-		std::vector<GPUDataBuffer> bonesUbos;
+		std::vector<SharedPtr<GpuDataBuffer>> bonesUbos;
 
 		/// <summary>
 		/// Inicia los buffers de luces.

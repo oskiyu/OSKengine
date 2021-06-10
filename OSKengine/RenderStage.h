@@ -92,7 +92,7 @@ namespace OSK {
 		/// <summary>
 		/// Escena que se va a renderizar.
 		/// </summary>
-		RenderizableScene*scene = nullptr;
+		RenderizableScene* scene = nullptr;
 
 	};
 

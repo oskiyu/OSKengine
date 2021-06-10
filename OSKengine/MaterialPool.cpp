@@ -24,12 +24,10 @@ MaterialInstance* MaterialPool::CreateInstance() {
 
 	MaterialInstance* instance = new MaterialInstance;
 
-	auto& data = datas.back();
-
-	instance->descriptorSetIndex = data.GetNextDescriptorSet();
+	instance->descriptorSetIndex = datas.back()->GetNextDescriptorSet();
 	instance->ownerPool = this;
 
-	if (data.IsFull())
+	if (datas.back()->IsFull())
 		AddNewData();
 
 	return instance;
@@ -37,22 +35,22 @@ MaterialInstance* MaterialPool::CreateInstance() {
 
 void MaterialPool::Free() {
 	for (auto& i : datas)
-		i.Free();
+		i->Free();
 
 	datas.clear();
 }
 
 void MaterialPool::AddNewData() {
-	MaterialPoolData newData(renderer, datas.size() * MaterialPoolSize);
-	newData.SetLayout(layout);
+	MaterialPoolData* newData = new MaterialPoolData(renderer, (uint32_t)datas.size() * MaterialPoolSize);
+	newData->SetLayout(layout);
 
 	std::vector<VkDescriptorType> nativeBindings;
 	for (uint32_t i = 0; i < bindings.size(); i++)
 		nativeBindings.push_back(GetVulkanBindingType(bindings[i].type));
 
-	newData.SetBindings(nativeBindings);
+	newData->SetBindings(nativeBindings);
 
-	datas.push_back(newData);
+	datas.emplace_back(newData);
 }
 
 void MaterialPool::SetLayout(const MaterialBindingLayout& layout) {
@@ -63,11 +61,11 @@ DescriptorSet* MaterialPool::GetDSet(uint32_t index) {
 	uint32_t bucket = index / MaterialPoolSize;
 	uint32_t offset = index % MaterialPoolSize;
 
-	return datas[bucket].GetDescriptorSet(offset);
+	return datas[bucket]->GetDescriptorSet(offset);
 }
 
 void MaterialPool::FreeSet(uint32_t index) {
 	uint32_t bucket = index / MaterialPoolSize;
 
-	datas[bucket].FreeDescriptorSet(index);
+	datas[bucket]->FreeDescriptorSet(index);
 }

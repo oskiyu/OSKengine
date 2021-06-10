@@ -11,7 +11,7 @@ void RenderpassSubpass::SetPipelineBindPoint(VkPipelineBindPoint point) {
 }
 
 void RenderpassSubpass::SetColorAttachments(const std::vector<RenderpassAttachment>& attachments) {
-	description.colorAttachmentCount = attachments.size();
+	description.colorAttachmentCount = (uint32_t)attachments.size();
 
 	for (uint32_t i = 0; i < attachments.size(); i++) {
 		references.push_back(attachments[i].reference);

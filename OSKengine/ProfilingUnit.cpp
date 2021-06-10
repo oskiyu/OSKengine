@@ -13,11 +13,11 @@ namespace OSK {
 	}
 
 	void ProfilingUnit::Start() {
-		startTime = glfwGetTime();
+		startTime = (deltaTime_t)glfwGetTime();
 	}
 
 	void ProfilingUnit::End() {
-		endTime = glfwGetTime();
+		endTime = (deltaTime_t)glfwGetTime();
 		lastDuration = endTime - startTime;
 	}
 

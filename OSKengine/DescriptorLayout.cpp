@@ -27,13 +27,13 @@ namespace OSK {
 	}
 
 	void DescriptorLayout::AddBinding(VkDescriptorType type, VkShaderStageFlags stage) {
-		AddBinding(descriptorLayoutBindings.GetSize(), type, stage);
+		AddBinding((uint32_t)descriptorLayoutBindings.GetSize(), type, stage);
 	}
 
 	void DescriptorLayout::Create() {
 		VkDescriptorSetLayoutCreateInfo layoutInfo{};
 		layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-		layoutInfo.bindingCount = descriptorLayoutBindings.GetSize();
+		layoutInfo.bindingCount = (uint32_t)descriptorLayoutBindings.GetSize();
 		layoutInfo.pBindings = descriptorLayoutBindings.GetData();
 
 		VkResult result = vkCreateDescriptorSetLayout(logicalDevice, &layoutInfo, nullptr, &vulkanDescriptorSetLayout);

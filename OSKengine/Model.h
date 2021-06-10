@@ -66,7 +66,7 @@ namespace OSK {
 		/// <summary>
 		/// Buffers del modelo.
 		/// </summary>
-		ModelData* data;
+		ModelData* data = nullptr;
 
 		/// <summary>
 		/// Transform3D del modelo.
@@ -88,7 +88,7 @@ namespace OSK {
 		/// Actualiza el UBO de animación.
 		/// </summary>
 		/// <param name="buffers">Buffers del UBO.</param>
-		void UpdateAnimUBO(std::vector<GPUDataBuffer>& buffers);
+		void UpdateAnimUBO(std::vector<SharedPtr<GpuDataBuffer>>& buffers);
 
 		/// <summary>
 		/// Offset de la animación de este modelo respecto al buffer dinámico de la animación.

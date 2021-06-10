@@ -15,7 +15,7 @@ namespace OSK {
 	}
 
 	void Terrain::CreateMesh(const std::string& path, const Vector2f& quadSize, float maxHeight) {
-		content->LoadHeightmap(map, path);
+		content->LoadHeightmap(&map, path);
 		mapSizeInQuads = map.size;
 		this->quadSize = quadSize;
 		mapSizeInWorlds = quadSize * mapSizeInQuads.ToVector2f();

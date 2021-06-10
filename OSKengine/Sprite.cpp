@@ -8,7 +8,7 @@ namespace OSK {
 			0, 1, 2, 2, 3, 0
 	};
 
-	GPUDataBuffer Sprite::indexBuffer;
+	SharedPtr<GpuDataBuffer> Sprite::indexBuffer;
 
 
 	Sprite::~Sprite() {
@@ -33,7 +33,7 @@ namespace OSK {
 	}
 
 	void Sprite::SetTexCoords(const Vector4f& texCoords) {
-		Vector4f finalTexCoords = texCoords / Vector4f(texture->size.X, texture->size.Y, texture->size.X, texture->size.Y);
+		Vector4f finalTexCoords = texCoords / Vector4ui(texture->size.X, texture->size.Y, texture->size.X, texture->size.Y).ToVector4f();
 
 		SetTexCoordsInPercent(finalTexCoords);
 	}

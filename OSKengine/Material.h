@@ -11,6 +11,7 @@
 
 #include "GraphicsPipeline.h"
 #include "Renderpass.h"
+#include "UniquePtr.hpp"
 
 #include <unordered_map>
 #include <map>
@@ -124,12 +125,12 @@ namespace OSK {
 		/// <summary>
 		/// Almacena las instancias de los materiales.
 		/// </summary>
-		MaterialPool* pool = nullptr;
+		UniquePtr<MaterialPool> pool;
 
 		/// <summary>
 		/// Descriptor layout del material.
 		/// </summary>
-		DescriptorLayout* materialLayout = nullptr;
+		UniquePtr<DescriptorLayout> materialLayout;
 
 		/// <summary>
 		/// Renderizador.

@@ -16,11 +16,6 @@ ShadowMap::~ShadowMap() {
 }
 
 void ShadowMap::Clear() {
-	Memory::SafeDelete(&dirShadows);
-
-	for (auto& i : dirShadowsUniformBuffers)
-		i.Free();
-
 	dirShadowsUniformBuffers.clear();
 }
 
@@ -32,9 +27,9 @@ void ShadowMap::Create(const Vector2ui& size) {
 	dirShadows->CreateSprite(content);
 	dirShadows->renderedSprite.texture->size = size;
 
-	VULKAN::VulkanImageGen::CreateImage(&dirShadows->renderedSprite.texture->image, size, SHADOW_MAP_FORMAT, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
-	VULKAN::VulkanImageGen::CreateImageView(&dirShadows->renderedSprite.texture->image, SHADOW_MAP_FORMAT, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
-	VULKAN::VulkanImageGen::CreateImageSampler(dirShadows->renderedSprite.texture->image, SHADOW_MAP_FILTER, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
+	VULKAN::VulkanImageGen::CreateImage(dirShadows->renderedSprite.texture->image.GetPointer(), size, SHADOW_MAP_FORMAT, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
+	VULKAN::VulkanImageGen::CreateImageView(dirShadows->renderedSprite.texture->image.GetPointer(), SHADOW_MAP_FORMAT, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
+	VULKAN::VulkanImageGen::CreateImageSampler(dirShadows->renderedSprite.texture->image.Get(), SHADOW_MAP_FILTER, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
 	dirShadows->renderedSprite.UpdateMaterialTexture();
 	
 	CreateRenderpass();
@@ -47,17 +42,14 @@ void ShadowMap::CreateBuffers() {
 	VkDeviceSize size = sizeof(DirLightShadowUBO);
 	dirShadowsUniformBuffers.resize(renderer->swapchainImages.size());
 	for (uint32_t i = 0; i < dirShadowsUniformBuffers.size(); i++) {
-		dirShadowsUniformBuffers[i] = renderer->CreateBuffer(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-		dirShadowsUniformBuffers[i].Allocate(size);
+		dirShadowsUniformBuffers[i] = new GpuDataBuffer;
+		renderer->AllocateBuffer(dirShadowsUniformBuffers[i].GetPointer(), size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 	}
 }
 
 void ShadowMap::UpdateBuffers() {
 	for (auto& i : dirShadowsUniformBuffers) {
-		void* data;
-		vkMapMemory(renderer->logicalDevice, i.memory, 0, sizeof(DirLightShadowUBO), 0, &data);
-		memcpy(data, &dirShadowsUBO, sizeof(DirLightShadowUBO));
-		vkUnmapMemory(renderer->logicalDevice, i.memory);
+		i->Write(&dirShadowsUBO, sizeof(DirLightShadowUBO));
 	}
 }
 
@@ -79,15 +71,15 @@ void ShadowMap::CreateRenderpass() {
 
 void ShadowMap::CreateFramebuffers() {
 	dirShadows->SetSize(size.X, size.Y, false);
-	dirShadows->CreateFramebuffers(4, &dirShadows->renderedSprite.texture->image.view, 1);
+	dirShadows->CreateFramebuffers(4, &dirShadows->renderedSprite.texture->image->view, 1);
 }
 
-std::vector<GPUDataBuffer>& ShadowMap::GetUniformBuffers() {
+std::vector<SharedPtr<GpuDataBuffer>>& ShadowMap::GetUniformBuffers() {
 	return dirShadowsUniformBuffers;
 }
 
 RenderTarget* ShadowMap::GetRenderTarget() {
-	return dirShadows;
+	return dirShadows.GetPointer();
 }
 
 Vector2ui ShadowMap::GetImageSize() const {

@@ -3,6 +3,7 @@
 #include "VulkanRenderer.h"
 #include "AnchorTextToEnum.h"
 #include "Camera2D.h"
+#include "SpriteContainer.h"
 
 namespace OSK {
 
@@ -15,7 +16,7 @@ namespace OSK {
 	}
 
 	void SpriteBatch::DrawSprite(Sprite sprite) {
-		OSK_ASSERT(camera, "La cámara es null.");
+		OSK_ASSERT(camera != nullptr, "La cámara es null.");
 
 		SpriteContainer spr;
 		spr.Set(sprite, camera->GetProjection());
@@ -104,8 +105,8 @@ namespace OSK {
 				continue;
 			}
 
-			character.sprite.transform.SetPosition(Vector2((int)posX, (int)posY));
-			character.sprite.transform.SetScale(Vector2((int)sizeX, (int)sizeY));
+			character.sprite.transform.SetPosition(Vector2i((int)posX, (int)posY).ToVector2f());
+			character.sprite.transform.SetScale(Vector2i((int)sizeX, (int)sizeY).ToVector2f());
 			character.sprite.color = color;
 
 			it++;

@@ -3,6 +3,10 @@
 #include <iostream>
 #include <fstream>
 
+#include "FileIO.h"
+#include <chrono>
+#include <ctime>
+
 namespace OSK {
 
 	bool Logger::hasBeenStarted = false;
@@ -86,6 +90,8 @@ namespace OSK {
 			outputLog << output << std::endl;
 		}
 		outputLog.close();
+
+		//FileIO::WriteFile("logs/" + date::format("%F %T", std::chrono::system_clock::now()));
 #endif
 	}
 

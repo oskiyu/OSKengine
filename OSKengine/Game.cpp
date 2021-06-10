@@ -42,7 +42,7 @@ OSK::WindowAPI* Game::GetWindow() {
 OSK::AudioSystem* Game::GetAudioSystem() {
 	return audio.GetPointer();
 }
-deltaTime_t Game::GetFPS() {
+uint32_t Game::GetFPS() const {
 	return framerate;
 }
 
@@ -50,7 +50,7 @@ void Game::Init() {
 	SetupWindow();
 	SetupRenderer();
 
-	content = renderer->content;
+	content = renderer->content.GetPointer();
 
 	SetupSystems();
 
@@ -60,14 +60,14 @@ void Game::Init() {
 
 	entityComponentSystem->RegisterGameObjectClass<OSK::GameObject>();
 
-	scene = new OSK::Scene(entityComponentSystem.GetPointer(), renderSystem3D);
+	scene = new OSK::Scene(entityComponentSystem.GetPointer(), renderSystem3D.GetPointer());
 
 	LoadContent();
 
 	physicsSystem->terrain = renderSystem3D->renderScene->terreno.GetPointer();
 
-	renderer->OSKengineIconSprite.transform.SetPosition({ 5.0f });
-	renderer->OSKengineIconSprite.transform.SetScale({ 48.f });
+	renderer->OskEngineIconSprite.transform.SetPosition({ 5.0f });
+	renderer->OskEngineIconSprite.transform.SetScale({ 48.f });
 }
 
 void Game::SetupSystems() {
@@ -92,6 +92,8 @@ void Game::SetupSystems() {
 void Game::Close() {
 	scene.Delete();
 	entityComponentSystem.Delete();
+
+	renderer.Delete();
 }
 
 void Game::Exit() {
@@ -102,7 +104,7 @@ void Game::MainLoop() {
 	deltaTime_t deltaTime = 1.0f;
 
 	while (!window->WindowShouldClose()) {
-		deltaTime_t startTime = window->GetTime();
+		const deltaTime_t startTime = window->GetTime();
 		window->PollEvents();
 		window->UpdateKeyboardState(newKeyboardState);
 		window->UpdateMouseState(newMouseState);
@@ -132,7 +134,7 @@ void Game::MainLoop() {
 		oldKeyboardState = newKeyboardState;
 		oldMouseState = newMouseState;
 
-		deltaTime_t endTime = window->GetTime();
+		const deltaTime_t endTime = window->GetTime();
 		deltaTime = endTime - startTime;
 	}
 

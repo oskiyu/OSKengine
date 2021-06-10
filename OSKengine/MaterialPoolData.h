@@ -10,6 +10,7 @@
 #include "DescriptorPool.h"
 #include "DescriptorSet.h"
 
+#include "UniquePtr.hpp"
 #include "Stack.hpp"
 #include <array>
 
@@ -83,7 +84,7 @@ namespace OSK {
 		/// <summary>
 		/// Descriptor pool.
 		/// </summary>
-		DescriptorPool* descriptorPool = nullptr;
+		UniquePtr<DescriptorPool> descriptorPool;
 
 		/// <summary>
 		/// Descriptor set más alto que ha sido utilizado.

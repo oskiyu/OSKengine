@@ -8,8 +8,12 @@ namespace OSK::VULKAN {
 	}
 
 	Renderpass::~Renderpass() {
-		if (logicalDevice && vulkanRenderpass)
+		if (logicalDevice && vulkanRenderpass) {
 			vkDestroyRenderPass(logicalDevice, vulkanRenderpass, nullptr);
+
+			logicalDevice = VK_NULL_HANDLE;
+			vulkanRenderpass = VK_NULL_HANDLE;
+		}
 	}
 
 	void Renderpass::SetMSAA(VkSampleCountFlagBits samples) {
@@ -43,11 +47,11 @@ namespace OSK::VULKAN {
 
 		VkRenderPassCreateInfo renderPassInfo{};
 		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
-		renderPassInfo.attachmentCount = attachments.size();
+		renderPassInfo.attachmentCount = (uint32_t)attachments.size();
 		renderPassInfo.pAttachments = attachments.data();
-		renderPassInfo.subpassCount = subpasses.size();
+		renderPassInfo.subpassCount = (uint32_t)subpasses.size();
 		renderPassInfo.pSubpasses = subpasses.data();
-		renderPassInfo.dependencyCount = subpassesDependencies.size();
+		renderPassInfo.dependencyCount = (uint32_t)subpassesDependencies.size();
 		renderPassInfo.pDependencies = subpassesDependencies.data();
 
 		VkResult result = vkCreateRenderPass(logicalDevice, &renderPassInfo, nullptr, &vulkanRenderpass);

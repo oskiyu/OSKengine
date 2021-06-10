@@ -33,7 +33,7 @@ namespace OSK {
 		colorBlending.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
 		colorBlending.logicOpEnable = VK_FALSE;
 		colorBlending.logicOp = VK_LOGIC_OP_COPY;
-		colorBlending.attachmentCount = colorBlendAttachments.size();
+		colorBlending.attachmentCount = (uint32_t)colorBlendAttachments.size();
 		colorBlending.pAttachments = colorBlendAttachments.data();
 		colorBlending.blendConstants[0] = 0.0f;
 		colorBlending.blendConstants[1] = 0.0f;
@@ -144,7 +144,7 @@ namespace OSK {
 		pipelineLayoutInfo.setLayoutCount = 1;
 		pipelineLayoutInfo.pSetLayouts = this->descriptorSetLayout;
 		if (pushConstantsHaveBeenSet) {
-			pipelineLayoutInfo.pushConstantRangeCount = pushConstRanges.size();
+			pipelineLayoutInfo.pushConstantRangeCount = (uint32_t)pushConstRanges.size();
 			pipelineLayoutInfo.pPushConstantRanges = pushConstRanges.data();
 		}
 		else {
@@ -240,7 +240,7 @@ namespace OSK {
 			fragmentShaderModule = createShaderModule(fragmentCode);
 		}
 		catch (std::exception& e) {
-			Logger::Log(LogMessageLevels::BAD_ERROR, "cargar shaders.");
+			Logger::Log(LogMessageLevels::BAD_ERROR, "cargar shaders. " + std::string(e.what()));
 
 			return;
 		}
@@ -292,7 +292,7 @@ namespace OSK {
 	}
 
 	VkShaderModule GraphicsPipeline::createShaderModule(const std::vector<char>& code) const {
-		VkShaderModule output;
+		VkShaderModule output{};
 
 		VkShaderModuleCreateInfo createInfo{};
 		createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;

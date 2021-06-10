@@ -45,6 +45,8 @@ namespace OSK::SceneSystem::Loader {
 
 	public:
 
+		virtual ~IToken() = default;
+
 		/// <summary>
 		/// Procesa la información necesaria para el token.
 		/// </summary>

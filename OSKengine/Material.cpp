@@ -12,14 +12,6 @@ Material::~Material() {
 		delete key.second;
 
 	pipelines.clear();
-
-	if (materialLayout)
-		delete materialLayout;
-
-	if (pool) {
-		pool->Free();
-		delete pool;
-	}
 }
 
 void Material::SetRenderer(RenderAPI* renderer) {
@@ -41,19 +33,18 @@ void Material::SetPipelineSettings(const MaterialPipelineCreateInfo& info) {
 }
 
 void Material::SetLayout(MaterialBindingLayout layout) {
-	if (materialLayout)
-		delete materialLayout;
+	materialLayout.Delete();
 
 	materialLayout = renderer->CreateNewDescriptorLayout();
 	
 	for (auto i : layout) {
-		uint32_t index = materialLayout->descriptorLayoutBindings.GetSize();
+		uint32_t index = (uint32_t)materialLayout->descriptorLayoutBindings.GetSize();
 		materialLayout->AddBinding(GetVulkanBindingType(i.type), GetVulkanShaderBinding(i.stage));
 		bindingNameToBinding[i.bindingName] = index;
 	}
 
 	materialLayout->Create();
-	pool->layout = materialLayout;
+	pool->layout = materialLayout.GetPointer();
 }
 
 MaterialInstance* Material::CreateInstance() {
@@ -69,25 +60,25 @@ GraphicsPipeline* Material::GetGraphicsPipeline(VULKAN::Renderpass* renderpass) 
 }
 
 void Material::RegisterRenderpass(Renderpass* renderpass) {
-	//if (Pipelines.find(renderpass) == Pipelines.end())
-		//return;
+	if (pipelines.find(renderpass) != pipelines.end())
+		return;
 
-	GraphicsPipeline* GPipeline = renderer->CreateNewGraphicsPipeline(pipelineInfo.vertexPath, pipelineInfo.fragmentPath);
-	GPipeline->SetViewport({ 0, 0, 2, 2 });
-	GPipeline->SetRasterizer(!pipelineInfo.cullFaces, GetVkPolygonMode(pipelineInfo.polygonMode), GetVkCullMode(pipelineInfo.cullMode), GetVkPolygonFrontFace(pipelineInfo.frontFaceType));
-	GPipeline->SetMSAA(VK_FALSE, VK_SAMPLE_COUNT_1_BIT);
-	GPipeline->SetDepthStencil(pipelineInfo.useDepthStencil);
+	GraphicsPipeline* graphicsPipeline = renderer->CreateNewGraphicsPipeline(pipelineInfo.vertexPath, pipelineInfo.fragmentPath);
+	graphicsPipeline->SetViewport({ 0, 0, 2, 2 });
+	graphicsPipeline->SetRasterizer(!pipelineInfo.cullFaces, GetVkPolygonMode(pipelineInfo.polygonMode), GetVkCullMode(pipelineInfo.cullMode), GetVkPolygonFrontFace(pipelineInfo.frontFaceType));
+	graphicsPipeline->SetMSAA(VK_FALSE, VK_SAMPLE_COUNT_1_BIT);
+	graphicsPipeline->SetDepthStencil(pipelineInfo.useDepthStencil);
 
-	size_t pOffset = 0;
+	uint32_t pOffset = 0;
 	for (auto i : pipelineInfo.pushConstants) {
-		GPipeline->SetPushConstants(GetVulkanShaderBinding(i.shaderStage), i.size, pOffset);
-		pOffset += i.size;
+		graphicsPipeline->SetPushConstants(GetVulkanShaderBinding(i.shaderStage), (uint32_t)i.size, pOffset);
+		pOffset += (uint32_t)i.size;
 	}
 
-	GPipeline->SetLayout(&materialLayout->vulkanDescriptorSetLayout);
-	GPipeline->Create(renderpass);
+	graphicsPipeline->SetLayout(&materialLayout->vulkanDescriptorSetLayout);
+	graphicsPipeline->Create(renderpass);
 
-	pipelines[renderpass] = GPipeline;
+	pipelines[renderpass] = graphicsPipeline;
 }
 
 MaterialPipelineCreateInfo Material::GetMaterialGraphicsPipelineInfo() const {

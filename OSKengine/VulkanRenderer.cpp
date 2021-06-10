@@ -37,16 +37,16 @@ constexpr uint32_t MAX_FRAMES_IN_FLIGHT = 2;
 
 void RenderAPI::SetViewport(VkCommandBuffer& cmdBuffer, int32_t x, int32_t y, uint32_t sizeX, uint32_t sizeY) const {
 	VkViewport viewport{};
-	viewport.x = x;
-	viewport.y = y;
+	viewport.x = (float)x;
+	viewport.y = (float)y;
 	if (sizeX != 0)
-		viewport.width = sizeX;
+		viewport.width = (float)sizeX;
 	else
-		viewport.width = window->GetSize().X;
+		viewport.width = (float)window->GetSize().X;
 	if (sizeY != 0)
-		viewport.height = sizeY;
+		viewport.height = (float)sizeY;
 	else
-		viewport.height = window->GetSize().Y;
+		viewport.height = (float)window->GetSize().Y;
 	viewport.minDepth = 0.0f;
 	viewport.maxDepth = 1.0f;
 	vkCmdSetViewport(cmdBuffer, 0, 1, &viewport);
@@ -125,8 +125,12 @@ void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 		setupDebugConsole();
 
 	createSurface();
-	getGPU();
+	getGpu();
 	createLogicalDevice();
+
+	memoryAllocator = new MemoryAllocator();
+	memoryAllocator->Init(logicalDevice, memoryProperties);
+
 	createSwapchain();
 	createSwapchainImageViews();
 
@@ -134,8 +138,8 @@ void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 
 	createRenderpass();
 	
-	renderTargetSizeX = swapchainExtent.width * renderResolutionMultiplier;
-	renderTargetSizeY = swapchainExtent.height * renderResolutionMultiplier;
+	renderTargetSizeX = (uint32_t)(swapchainExtent.width * renderResolutionMultiplier);
+	renderTargetSizeY = (uint32_t)(swapchainExtent.height * renderResolutionMultiplier);
 
 	{
 		RenderpassAttachment clrAttachment{};
@@ -234,20 +238,19 @@ void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 
 	hasBeenInit = true;
 
-	content->LoadSprite(OSKengineIconSprite, "Resources/OSKengine_icon_lowres_48.png");
-	content->LoadSprite(OSK_IconSprite, "Resources/OSK_icon_lowres.png");
+	content->LoadSprite(&OskEngineIconSprite, "Resources/OSKengine_icon_lowres_48.png");
+	content->LoadSprite(&OskIconSprite, "Resources/OSK_icon_lowres.png");
 
-	renderTargetBeforePostProcessing->CreateSprite(content);
+	renderTargetBeforePostProcessing->CreateSprite(content.GetPointer());
 
 	//Image
 	renderTargetBeforePostProcessing->size.X = renderTargetSizeX;
 	renderTargetBeforePostProcessing->size.Y = renderTargetSizeY;
-	VULKAN::VulkanImageGen::CreateImage(&renderTargetBeforePostProcessing->renderedSprite.texture->image, renderTargetBeforePostProcessing->size, swapchainFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
-	VULKAN::VulkanImageGen::CreateImageView(&renderTargetBeforePostProcessing->renderedSprite.texture->image, swapchainFormat, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
-	VULKAN::VulkanImageGen::CreateImageSampler(renderTargetBeforePostProcessing->renderedSprite.texture->image, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
+	VULKAN::VulkanImageGen::CreateImage(renderTargetBeforePostProcessing->renderedSprite.texture->image.GetPointer(), renderTargetBeforePostProcessing->size, swapchainFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
+	VULKAN::VulkanImageGen::CreateImageView(renderTargetBeforePostProcessing->renderedSprite.texture->image.GetPointer(), swapchainFormat, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
+	VULKAN::VulkanImageGen::CreateImageSampler(renderTargetBeforePostProcessing->renderedSprite.texture->image.Get(), VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
 	renderTargetBeforePostProcessing->renderedSprite.material->SetTexture(renderTargetBeforePostProcessing->renderedSprite.texture);
 	renderTargetBeforePostProcessing->renderedSprite.material->FlushUpdate();
-	//renderTargetBeforePostProcessing->renderedSprite.tra
 	
 	createRenderTarget();
 	InitPostProcessing();
@@ -266,9 +269,9 @@ void RenderAPI::InitRenderTarget(RenderTarget* rtarget, ContentManager* content)
 	rtarget->CreateSprite(content);
 
 	//Image
-	VULKAN::VulkanImageGen::CreateImage(&rtarget->renderedSprite.texture->image, rtarget->size, swapchainFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
-	VULKAN::VulkanImageGen::CreateImageView(&rtarget->renderedSprite.texture->image, swapchainFormat, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
-	VULKAN::VulkanImageGen::CreateImageSampler(rtarget->renderedSprite.texture->image, SHADOW_MAP_FILTER, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
+	VULKAN::VulkanImageGen::CreateImage(rtarget->renderedSprite.texture->image.GetPointer(), rtarget->size, swapchainFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
+	VULKAN::VulkanImageGen::CreateImageView(rtarget->renderedSprite.texture->image.GetPointer(), swapchainFormat, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
+	VULKAN::VulkanImageGen::CreateImageSampler(rtarget->renderedSprite.texture->image.Get(), SHADOW_MAP_FILTER, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
 	rtarget->renderedSprite.material = GetMaterialSystem()->GetMaterial(defaultMaterial2D_Name)->CreateInstance();
 	rtarget->renderedSprite.material->SetTexture(rtarget->renderedSprite.texture);
 	rtarget->renderedSprite.material->FlushUpdate();
@@ -282,7 +285,7 @@ void RenderAPI::InitRenderTarget(RenderTarget* rtarget, ContentManager* content)
 
 	//Framebuffers
 	rtarget->SetSize(rtarget->size.X, rtarget->size.Y, true);
-	rtarget->CreateFramebuffers(4, &rtarget->renderedSprite.texture->image.view, 1);
+	rtarget->CreateFramebuffers(4, &rtarget->renderedSprite.texture->image->view, 1);
 }
 
 void RenderAPI::SetPresentMode(PresentMode mode) {
@@ -309,21 +312,21 @@ Framebuffer* RenderAPI::CreateNewFramebuffer() {
 void RenderAPI::RenderFrame() {
 	renderProfilingUnit.Start();
 
-	double startTime = glfwGetTime();
+	const double startTime = glfwGetTime();
 
 	{
 		defaultCamera2D.Update();
 		defaultCamera3D.updateVectors();
 		for (size_t i = 0; i < uniformBuffers.size(); i++) {
 			void* data;
-			vkMapMemory(logicalDevice, uniformBuffers[i].memory, 0, sizeof(UBO), 0, &data);
+			vkMapMemory(logicalDevice, uniformBuffers[i]->memorySubblock->memory, uniformBuffers[i]->memorySubblock->GetOffset(), sizeof(UBO), 0, &data);
 			UBO ubo{};
 			ubo.view = defaultCamera3D.GetView();
 			ubo.projection = defaultCamera3D.GetProjection();
 			ubo.cameraPos = defaultCamera3D.GetTransform()->GetPosition().ToGLM();
 
 			memcpy(data, &ubo, sizeof(UBO));
-			vkUnmapMemory(logicalDevice, uniformBuffers[i].memory);
+			vkUnmapMemory(logicalDevice, uniformBuffers[i]->memorySubblock->memory);
 		}
 
 		updateCommandBuffers();
@@ -356,7 +359,7 @@ void RenderAPI::RenderFrame() {
 
 	//Esperar a que la imagen esté disponible antes de renderizar.
 	VkSemaphore waitSemaphores[] = { imageAvailableSemaphores[0] };
-	VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
+	const VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
 	submitInfo.waitSemaphoreCount = 1;
 	submitInfo.pWaitSemaphores = waitSemaphores;
 	submitInfo.pWaitDstStageMask = waitStages;
@@ -401,9 +404,9 @@ void RenderAPI::RenderFrame() {
 
 	renderVars.currentImage = (renderVars.currentImage + 1) % MAX_FRAMES_IN_FLIGHT;
 
-	double endTime = glfwGetTime();
+	const double endTime = glfwGetTime();
 
-	double targetMS = 1 / fpsLimit;
+	const double targetMS = 1 / fpsLimit;
 	renderProfilingUnit.End();
 	//if ((endTime - startTime) < targetMS)
 		//std::this_thread::sleep_for(std::chrono::milliseconds((long)(targetMS * 1000 - (endTime - startTime) * 1000)));
@@ -422,7 +425,7 @@ GraphicsPipeline* RenderAPI::CreateNewGraphicsPipeline(const std::string& vertex
 }
 
 DescriptorPool* RenderAPI::CreateNewDescriptorPool() const {
-	return new DescriptorPool(logicalDevice, swapchainImages.size());
+	return new DescriptorPool(logicalDevice, (uint32_t)swapchainImages.size());
 }
 
 DescriptorLayout* RenderAPI::CreateNewDescriptorLayout() const {
@@ -430,7 +433,7 @@ DescriptorLayout* RenderAPI::CreateNewDescriptorLayout() const {
 }
 
 DescriptorSet* RenderAPI::CreateNewDescriptorSet() const {
-	return new DescriptorSet(logicalDevice, swapchainImages.size());
+	return new DescriptorSet(logicalDevice, (uint32_t)swapchainImages.size());
 }
 
 bool RenderAPI::checkValidationLayers() {
@@ -507,14 +510,6 @@ void RenderAPI::createInstance(const std::string& appName, const Version& gameVe
 
 		createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
 		createInfo.ppEnabledLayerNames = validationLayers.data();
-
-		VkDebugUtilsMessengerCreateInfoEXT debugConsoleCreateInfo{};
-		debugConsoleCreateInfo = {};
-		debugConsoleCreateInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
-		debugConsoleCreateInfo.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
-		debugConsoleCreateInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
-		debugConsoleCreateInfo.pfnUserCallback = DebugCallback;
-		debugConsoleCreateInfo.pNext = (VkDebugUtilsMessengerEXT*)&debugConsoleCreateInfo;
 	}
 	else {
 		Logger::Log(LogMessageLevels::WARNING, "No se ha encontrado soporte para las capas de validación.");
@@ -540,7 +535,7 @@ void RenderAPI::setupDebugConsole() {
 	VkDebugUtilsMessengerCreateInfoEXT createInfo = {};
 	createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
 	createInfo.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
-	createInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
+	createInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
 	createInfo.pfnUserCallback = DebugCallback;
 
 	//Crearlo.
@@ -563,7 +558,7 @@ void RenderAPI::createSurface() {
 }
 
 
-void RenderAPI::getGPU() {
+void RenderAPI::getGpu() {
 	//Obtiene el número de GPUs disponibles.
 	uint32_t count = 0;
 	vkEnumeratePhysicalDevices(instance, &count, nullptr);
@@ -577,9 +572,9 @@ void RenderAPI::getGPU() {
 
 	//Comprobar la compatibilidad de las GPUs.
 	//Obtener una GPU compatible.
-	std::vector<GPUinfo> gpus{};
+	std::vector<GpuInfo> gpus{};
 	for (const auto& gpu : devices)
-		gpus.push_back(getGPUinfo(gpu));
+		gpus.push_back(getGpuInfo(gpu));
 
 	gpu = gpus[0].gpu;
 	gpuInfo = gpus[0];
@@ -737,6 +732,8 @@ void RenderAPI::createSwapchainImageViews() {
 
 
 void RenderAPI::createRenderpass() {
+	screenRenderpass.Delete();
+
 	screenRenderpass = new Renderpass(logicalDevice);
 
 	RenderpassAttachment clrAttachment{};
@@ -813,7 +810,7 @@ void RenderAPI::createFramebuffers() {
 		framebuffer->AddImageView(swapchainImageViews[i]);
 		framebuffer->AddImageView(&depthImage);
 		
-		framebuffer->Create(screenRenderpass, swapchainExtent.width, swapchainExtent.height);
+		framebuffer->Create(screenRenderpass.GetPointer(), swapchainExtent.width, swapchainExtent.height);
 		
 		framebuffers[i] = framebuffer;
 	}
@@ -860,8 +857,8 @@ void RenderAPI::createDefaultUniformBuffers() {
 	uniformBuffers.resize(swapchainImages.size());
 
 	for (uint32_t i = 0; i < uniformBuffers.size(); i++) {
-		uniformBuffers[i] = CreateBuffer(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-		uniformBuffers[i].Allocate(size);
+		uniformBuffers[i] = new GpuDataBuffer;
+		AllocateBuffer(uniformBuffers[i].GetPointer(), size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 	}
 }
 
@@ -879,10 +876,8 @@ void RenderAPI::createSyncObjects() {
 	fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
 	fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
 
-	VkResult result;
-
 	for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
-		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &imageAvailableSemaphores[i]);
+		VkResult result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &imageAvailableSemaphores[i]);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear semáforo [0].");
 
@@ -918,8 +913,6 @@ void RenderAPI::createCommandBuffers() {
 
 
 void RenderAPI::closeSwapchain() {
-	depthImage.Destroy();
-
 	for (auto& i : framebuffers)
 		delete i;
 	framebuffers.clear();
@@ -927,26 +920,34 @@ void RenderAPI::closeSwapchain() {
 	for (const auto& i : swapchainImageViews)
 		vkDestroyImageView(logicalDevice, i, nullptr);
 
+	swapchainImageViews.clear();
+
+	depthImage.~GpuImage();
+
 	vkDestroySwapchainKHR(logicalDevice, swapchain, nullptr);
 }
 
 
 void RenderAPI::Close() {
 	closeSwapchain();
-	ClosePostProcessing();
 
-	delete content;
+	uniformBuffers.clear();
 
-	delete renderTargetBeforePostProcessing;
+	screenDescriptorLayout.Delete();
+	screenDescriptorSet.Delete();
+	screenGraphicsPipeline.Delete();
+	finalRenderTarget.Delete();
+	screenRenderpass.Delete();
+	screenDescriptorPool.Delete();
 
-	delete materialSystem;
+	content.Delete();
+	renderTargetBeforePostProcessing.Delete();
+	finalRenderTarget.Delete();
+	materialSystem.Delete();
 
 	vkDestroySampler(logicalDevice, globalImageSampler, nullptr);
 
-	for (auto& i : uniformBuffers)
-		i.Free();
-
-	Sprite::indexBuffer.Free();
+	Sprite::indexBuffer.~SharedPtr();
 
 	vkDestroyCommandPool(logicalDevice, commandPool, nullptr);
 
@@ -957,14 +958,15 @@ void RenderAPI::Close() {
 		vkDestroyFence(logicalDevice, fences[i], nullptr);
 	}
 
-	vkDestroyDevice(logicalDevice, nullptr);
 #ifdef OSK_DEBUG
 	if (checkValidationLayers())
 		DestroyDebugUtilsMessengerEXT(instance, debugConsole, nullptr);
 #endif
 	vkDestroySurfaceKHR(instance, surface, nullptr);
 
-	//Destruir la instancia.
+	memoryAllocator.Delete();
+
+	vkDestroyDevice(logicalDevice, nullptr);
 	vkDestroyInstance(instance, nullptr);
 }
 
@@ -984,8 +986,8 @@ void RenderAPI::RecreateSwapchain() {
 
 	closeSwapchain();
 
-	renderTargetSizeX = window->GetSize().X * renderResolutionMultiplier;
-	renderTargetSizeY = window->GetSize().Y * renderResolutionMultiplier;
+	renderTargetSizeX = (uint32_t)(window->GetSize().X * renderResolutionMultiplier);
+	renderTargetSizeY = (uint32_t)(window->GetSize().Y * renderResolutionMultiplier);
 
 	createSwapchain();
 	createSwapchainImageViews();
@@ -1001,16 +1003,16 @@ void RenderAPI::RecreateSwapchain() {
 
 
 void RenderAPI::createRenderTarget() {
-	renderTargetSizeX = window->GetSize().X * renderResolutionMultiplier;
-	renderTargetSizeY = window->GetSize().Y * renderResolutionMultiplier;
+	renderTargetSizeX = (uint32_t)(window->GetSize().X * renderResolutionMultiplier);
+	renderTargetSizeY = (uint32_t)(window->GetSize().Y * renderResolutionMultiplier);
 
 	renderTargetBeforePostProcessing->Clear(false);
 
 	renderTargetBeforePostProcessing->SetFormat(swapchainFormat);
 	renderTargetBeforePostProcessing->SetSize(renderTargetSizeX, renderTargetSizeY, true);
 
-	VkImageView views[] = { renderTargetBeforePostProcessing->renderedSprite.texture->image.view, depthImage.view };
-	renderTargetBeforePostProcessing->CreateFramebuffers(swapchainImages.size() + 1, views, 2);
+	VkImageView views[] = { renderTargetBeforePostProcessing->renderedSprite.texture->image->view, depthImage.view };
+	renderTargetBeforePostProcessing->CreateFramebuffers((uint32_t)swapchainImages.size() + 1, views, 2);
 
 	Logger::DebugLog("Recreated swapchain.");
 	Logger::DebugLog("Resolution multiplier = " + std::to_string(renderResolutionMultiplier) + ".");
@@ -1018,17 +1020,12 @@ void RenderAPI::createRenderTarget() {
 	Logger::DebugLog("Output resolution = " + ToString(window->GetSize().ToVector2ui()) + ".");
 
 	renderTargetBeforePostProcessing->renderedSprite.transform.SetPosition({ 0.0f });
-	renderTargetBeforePostProcessing->renderedSprite.transform.SetScale(window->GetSize().ToVector2f());//Vector2ui{ renderTargetSizeX, renderTargetSizeY }.ToVector2f() / renderResolutionMultiplier
+	renderTargetBeforePostProcessing->renderedSprite.transform.SetScale(window->GetSize().ToVector2f());
 }
 
-GPUDataBuffer RenderAPI::CreateBuffer(VkBufferUsageFlags usage, VkMemoryPropertyFlags prop) const {
-	GPUDataBuffer buffer;
-	buffer.Create(logicalDevice, usage, prop, memoryProperties);
+SharedPtr<GpuDataBuffer> RenderAPI::CreateDynamicUBO(VkDeviceSize sizeOfStruct, uint32_t numberOfInstances) {
+	SharedPtr<GpuDataBuffer> buffer = new GpuDataBuffer();
 
-	return buffer;
-}
-
-void RenderAPI::CreateDynamicUBO(GPUDataBuffer& buffer, VkDeviceSize sizeOfStruct, uint32_t numberOfInstances) const {
 	size_t minAlignment = gpuInfo.minAlignment;
 	size_t alignment = sizeOfStruct;
 	if (minAlignment > 0) {
@@ -1037,17 +1034,14 @@ void RenderAPI::CreateDynamicUBO(GPUDataBuffer& buffer, VkDeviceSize sizeOfStruc
 
 	size_t bufferSize = alignment * numberOfInstances;
 
-	buffer = CreateBuffer(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-	buffer.alignment = alignment;
-	buffer.Allocate(bufferSize);
-	buffer.SetDynamicUboStructureSize(sizeOfStruct);
+	buffer = new GpuDataBuffer;
+	buffer->alignment = (uint32_t)alignment;
+	AllocateBuffer(buffer.GetPointer(), bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+	buffer->SetDynamicUboStructureSize(sizeOfStruct);
+
+	return buffer;
 }
 
-
-/*void RenderAPI::SetRenderizableScene(RenderizableScene* scene) {
-	Scene = scene;
-	Scene->TargetRenderpass = RTarget->VRenderpass;
-}*/
 
 void RenderAPI::AddStage(RenderStage* stage) {
 	stages.push_back(stage);
@@ -1084,7 +1078,7 @@ void RenderAPI::DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, uint32_
 	std::array<VkClearValue, 2> clearValues = {};
 	clearValues[0] = { 0.8f, 0.8f, 0.8f, 1.0f }; //Color.
 	clearValues[1] = { 1.0f, 0.0f }; //Depth.
-	renderPassInfo.clearValueCount = clearValues.size();
+	renderPassInfo.clearValueCount = (uint32_t)clearValues.size();
 	renderPassInfo.pClearValues = clearValues.data();
 
 	stage->renderTarget->TransitionToRenderTarget(&cmdBuffer);
@@ -1103,8 +1097,8 @@ void RenderAPI::DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, uint32_
 		if (!spriteBatch->spritesToDraw.IsEmpty()) {
 			
 			pipeline->Bind(cmdBuffer);
-			vkCmdBindIndexBuffer(cmdBuffer, Sprite::indexBuffer.buffer, 0, VK_INDEX_TYPE_UINT16);
-			const uint32_t indicesSize = Sprite::indices.size();
+			vkCmdBindIndexBuffer(cmdBuffer, Sprite::indexBuffer->memorySubblock->vkBuffer, 0, VK_INDEX_TYPE_UINT16);
+			const uint32_t indicesSize = (uint32_t)Sprite::indices.size();
 
 			for (auto& sprite : spriteBatch->spritesToDraw) {
 				VkBuffer vertexBuffers[] = { sprite.vertexBuffer };
@@ -1127,14 +1121,7 @@ void RenderAPI::DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, uint32_
 void RenderAPI::updateCommandBuffers() {
 	updateCmdProfilingUnit.Start();
 
-	/*for (auto& spriteBatch : Stage.SpriteBatches) {
-		for (auto& i : spriteBatch->spritesToDraw) {
-			if (i.hasChanged)
-				updateSpriteVertexBuffer(i);
-		}
-	}*/
-
-	for (size_t i = 0; i < commandBuffers.size(); i++) {
+	for (uint32_t i = 0; i < (uint32_t)commandBuffers.size(); i++) {
 		vkResetCommandBuffer(commandBuffers[i], 0);
 		VkCommandBufferBeginInfo beginInfo{};
 		beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
@@ -1169,7 +1156,7 @@ void RenderAPI::updateCommandBuffers() {
 		std::array<VkClearValue, 2> clearValues = {};
 		clearValues[0] = { 0.8f, 0.8f, 0.8f, 1.0f }; //Color.
 		clearValues[1] = { 1.0f, 0.0f }; //Depth.
-		renderPassInfo.clearValueCount = clearValues.size();
+		renderPassInfo.clearValueCount = (uint32_t)clearValues.size();
 		renderPassInfo.pClearValues = clearValues.data();
 
 		//Comenzar el renderizado.
@@ -1178,14 +1165,14 @@ void RenderAPI::updateCommandBuffers() {
 		SetViewport(commandBuffers[i], -(int32_t)window->GetSize().X, -(int32_t)window->GetSize().Y, (uint32_t)window->GetSize().X * 2, (uint32_t)window->GetSize().Y * 2);
 
 		screenGraphicsPipeline->Bind(commandBuffers[i]);
-		vkCmdBindIndexBuffer(commandBuffers[i], Sprite::indexBuffer.buffer, 0, VK_INDEX_TYPE_UINT16);
+		vkCmdBindIndexBuffer(commandBuffers[i], Sprite::indexBuffer->memorySubblock->vkBuffer, Sprite::indexBuffer->memorySubblock->GetOffset(), VK_INDEX_TYPE_UINT16);
 		const size_t indicesSize = Sprite::indices.size();
 
-		VkBuffer vertexBuffers[] = { renderTargetBeforePostProcessing->renderedSprite.vertexBuffer.buffer };
-		VkDeviceSize offsets[] = { 0 };
+		VkBuffer vertexBuffers[] = { renderTargetBeforePostProcessing->renderedSprite.vertexBuffer->memorySubblock->vkBuffer };
+		VkDeviceSize offsets[] = { renderTargetBeforePostProcessing->renderedSprite.vertexBuffer->memorySubblock->GetOffset() };
 		vkCmdBindVertexBuffers(commandBuffers[i], 0, 1, vertexBuffers, offsets);
 
-		screenDescriptorSet->Bind(commandBuffers[i], screenGraphicsPipeline, i);
+		screenDescriptorSet->Bind(commandBuffers[i], screenGraphicsPipeline.GetPointer(), i);
 
 		vkCmdPushConstants(commandBuffers[i], screenGraphicsPipeline->vulkanPipelineLayout, VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(PostProcessingSettings_t), &postProcessingSettings);
 		vkCmdDrawIndexed(commandBuffers[i], indicesSize, 1, 0, 0, 0);
@@ -1202,63 +1189,58 @@ void RenderAPI::updateCommandBuffers() {
 	singleTimeStages.clear();
 }
 
-void RenderAPI::createSpriteVertexBuffer(Sprite* sprite) const {
+void RenderAPI::createSpriteVertexBuffer(Sprite* sprite) {
 	VkDeviceSize size = sizeof(Vertex) * sprite->vertices.size();
 
-	sprite->vertexBuffer = CreateBuffer(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-	sprite->vertexBuffer.Allocate(size);
+	sprite->vertexBuffer = new GpuDataBuffer;
+	AllocateBuffer(sprite->vertexBuffer.GetPointer(), size, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 	
 	updateSpriteVertexBuffer(sprite);
 }
 
-void RenderAPI::createSpriteIndexBuffer() const {
+void RenderAPI::createSpriteIndexBuffer() {
 	VkDeviceSize size = sizeof(Sprite::indices[0]) * Sprite::indices.size();
 
-	GPUDataBuffer stagingBuffer = CreateBuffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-	stagingBuffer.Allocate(size);
+	SharedPtr<GpuDataBuffer> stagingBuffer = new GpuDataBuffer;
+	AllocateBuffer(stagingBuffer.GetPointer(), size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 
-	stagingBuffer.Write(Sprite::indices.data(), size);
+	stagingBuffer->Write(Sprite::indices.data(), size);
 
-	Sprite::indexBuffer = CreateBuffer(VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-	Sprite::indexBuffer.Allocate(size);
-	CopyBuffer(stagingBuffer, Sprite::indexBuffer, size);
-
-	stagingBuffer.Free();
+	Sprite::indexBuffer = new GpuDataBuffer;
+	AllocateBuffer(Sprite::indexBuffer.GetPointer(), size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+	CopyBuffer(stagingBuffer.Get(), Sprite::indexBuffer.Get(), size);
 }
 
 
 void RenderAPI::updateSpriteVertexBuffer(Sprite* sprite) const {
 	VkDeviceSize size = sizeof(Vertex) * sprite->vertices.size();
 
-	void* data;
-	vkMapMemory(logicalDevice, sprite->vertexBuffer.memory, 0, size, 0, &data);
-	memcpy(data, sprite->vertices.data(), (size_t)size);
-	vkUnmapMemory(logicalDevice, sprite->vertexBuffer.memory);
+	sprite->vertexBuffer->Write(sprite->vertices.data(), size);
 
 	sprite->hasChanged = false;
 }
 
-void RenderAPI::updateSpriteVertexBuffer(SpriteContainer& sprite) const {
+void RenderAPI::updateSpriteVertexBuffer(SpriteContainer* sprite) const {
 	VkDeviceSize size = sizeof(Vertex) * 4;
 
 	void* data;
-	vkMapMemory(logicalDevice, sprite.vertexMemory, 0, size, 0, &data);
-	memcpy(data, sprite.vertices, (size_t)size);
-	vkUnmapMemory(logicalDevice, sprite.vertexMemory);
+	vkMapMemory(logicalDevice, sprite->vertexMemory, sprite->bufferOffset, size, 0, &data);
+	memcpy(data, sprite->vertices, (size_t)size);
+	vkUnmapMemory(logicalDevice, sprite->vertexMemory);
 
-	sprite.hasChanged = false;
+	sprite->hasChanged = false;
 }
 
 
 //Copia el contenido de un buffer a otro buffer.
-void RenderAPI::CopyBuffer(GPUDataBuffer& source, GPUDataBuffer& destination, VkDeviceSize size, VkDeviceSize sourceOffset, VkDeviceSize destinationOffset) const {
+void RenderAPI::CopyBuffer(GpuDataBuffer& source, GpuDataBuffer& destination, VkDeviceSize size, VkDeviceSize sourceOffset, VkDeviceSize destinationOffset) const {
 	VkCommandBuffer cmdBuffer = beginSingleTimeCommandBuffer();
 
 	VkBufferCopy copyRegion{};
-	copyRegion.srcOffset = sourceOffset;
-	copyRegion.dstOffset = destinationOffset;
+	copyRegion.srcOffset = sourceOffset + source.memorySubblock->totalOffsetFromBlock;
+	copyRegion.dstOffset = destinationOffset + destination.memorySubblock->totalOffsetFromBlock;
 	copyRegion.size = size;
-	vkCmdCopyBuffer(cmdBuffer, source.buffer, destination.buffer, 1, &copyRegion);
+	vkCmdCopyBuffer(cmdBuffer, source.memorySubblock->vkBuffer, destination.memorySubblock->vkBuffer, 1, &copyRegion);
 
 	endSingleTimeCommandBuffer(cmdBuffer);
 }
@@ -1300,7 +1282,7 @@ void RenderAPI::endSingleTimeCommandBuffer(VkCommandBuffer cmdBuffer) const {
 
 
 //Obtiene el tipo de memoria indicado.
-uint32_t RenderAPI::getMemoryType(const uint32_t& memoryTypeFilter, VkMemoryPropertyFlags flags) const {
+uint32_t RenderAPI::getMemoryType(uint32_t memoryTypeFilter, VkMemoryPropertyFlags flags) const {
 	//Tipos de memoria disponibles.
 	for (uint32_t i = 0; i < memoryProperties.memoryTypeCount; i++)
 		if (memoryTypeFilter & (1 << i) && (memoryProperties.memoryTypes[i].propertyFlags & flags) == flags)
@@ -1316,8 +1298,8 @@ VkFormat RenderAPI::getDepthFormat() const {
 	return getSupportedFormat({ VK_FORMAT_D32_SFLOAT, VK_FORMAT_D32_SFLOAT_S8_UINT, VK_FORMAT_D24_UNORM_S8_UINT }, VK_IMAGE_TILING_OPTIMAL, VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
 }
 
-GPUinfo RenderAPI::getGPUinfo(VkPhysicalDevice gpu) const {
-	GPUinfo info{};
+GpuInfo RenderAPI::getGpuInfo(VkPhysicalDevice gpu) const {
+	GpuInfo info{};
 	info.gpu = gpu;
 	//Obtiene las propiedades de la gpu.
 	vkGetPhysicalDeviceProperties(gpu, &info.properties);
@@ -1472,7 +1454,7 @@ VkBool32 RenderAPI::DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT message
 	//	VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT: algo ha ocurrido, incumple la especificación.
 	//	VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT: algo ha ocurrido, uso no óptimo de vulkan.
 
-	LogMessageLevels level;
+	LogMessageLevels level = LogMessageLevels::WARNING;
 
 	switch (messageType) {
 		case VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT:
@@ -1498,18 +1480,17 @@ VkBool32 RenderAPI::DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT message
 }
 
 void RenderAPI::InitPostProcessing() {
-	//return;
 	finalRenderTarget = CreateNewRenderTarget();
 	finalRenderTarget->SetFormat(swapchainFormat);
 	finalRenderTarget->SetSize((uint32_t)window->GetSize().X, (uint32_t)window->GetSize().Y);
-	finalRenderTarget->CreateSprite(content);
+	finalRenderTarget->CreateSprite(content.GetPointer());
 
-	VULKAN::VulkanImageGen::CreateImage(&finalRenderTarget->renderedSprite.texture->image, finalRenderTarget->size, swapchainFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
-	VULKAN::VulkanImageGen::CreateImageView(&finalRenderTarget->renderedSprite.texture->image, swapchainFormat, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
-	VULKAN::VulkanImageGen::CreateImageSampler(finalRenderTarget->renderedSprite.texture->image, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
-	VULKAN::VulkanImageGen::TransitionImageLayout(&finalRenderTarget->renderedSprite.texture->image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR, 1, 0);
+	VULKAN::VulkanImageGen::CreateImage(finalRenderTarget->renderedSprite.texture->image.GetPointer(), finalRenderTarget->size, swapchainFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
+	VULKAN::VulkanImageGen::CreateImageView(finalRenderTarget->renderedSprite.texture->image.GetPointer(), swapchainFormat, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
+	VULKAN::VulkanImageGen::CreateImageSampler(finalRenderTarget->renderedSprite.texture->image.Get(), VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
+	VULKAN::VulkanImageGen::TransitionImageLayout(finalRenderTarget->renderedSprite.texture->image.GetPointer(), VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR, 1, 0);
 
-	VULKAN::VulkanImageGen::CreateImageSampler(finalRenderTarget->renderedSprite.texture->image, VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
+	VULKAN::VulkanImageGen::CreateImageSampler(finalRenderTarget->renderedSprite.texture->image.Get(), VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
 
 	screenDescriptorPool = CreateNewDescriptorPool();
 	screenDescriptorPool->AddBinding(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
@@ -1517,12 +1498,12 @@ void RenderAPI::InitPostProcessing() {
 
 	screenDescriptorLayout = CreateNewDescriptorLayout();
 	screenDescriptorLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
-	screenDescriptorLayout->descriptorPool = screenDescriptorPool;
+	screenDescriptorLayout->descriptorPool = screenDescriptorPool.GetPointer();
 	screenDescriptorLayout->Create();
 
 	screenDescriptorSet = CreateNewDescriptorSet();
-	screenDescriptorSet->Create(screenDescriptorLayout, screenDescriptorPool, true);
-	screenDescriptorSet->AddImage(&renderTargetBeforePostProcessing->renderedSprite.texture->image, renderTargetBeforePostProcessing->renderedSprite.texture->image.sampler, 0);
+	screenDescriptorSet->Create(screenDescriptorLayout.GetPointer(), screenDescriptorPool.GetPointer(), true);
+	screenDescriptorSet->AddImage(renderTargetBeforePostProcessing->renderedSprite.texture->image.GetPointer(), renderTargetBeforePostProcessing->renderedSprite.texture->image->sampler, 0);
 	screenDescriptorSet->Update();
 
 	screenGraphicsPipeline = CreateNewGraphicsPipeline("shaders/VK_Post/vert.spv", "shaders/VK_Post/frag.spv");
@@ -1532,10 +1513,10 @@ void RenderAPI::InitPostProcessing() {
 	screenGraphicsPipeline->SetDepthStencil(false);
 	screenGraphicsPipeline->SetPushConstants(VK_SHADER_STAGE_FRAGMENT_BIT, sizeof(PostProcessingSettings_t));
 	screenGraphicsPipeline->SetLayout(&screenDescriptorLayout->vulkanDescriptorSetLayout);
-	screenGraphicsPipeline->Create(screenRenderpass);
+	screenGraphicsPipeline->Create(screenRenderpass.GetPointer());
 
-	finalRenderTarget->vulkanRenderpass = screenRenderpass;
-	VkImageView views[] = { finalRenderTarget->renderedSprite.texture->image.view, depthImage.view };
+	finalRenderTarget->vulkanRenderpass = screenRenderpass.GetPointer();
+	VkImageView views[] = { finalRenderTarget->renderedSprite.texture->image->view, depthImage.view };
 	finalRenderTarget->CreateFramebuffers(4, views, 2);
 	finalRenderTarget->renderedSprite.transform.SetScale(window->GetSize().ToVector2f() * renderResolutionMultiplier);
 	updateSpriteVertexBuffer(&renderTargetBeforePostProcessing->renderedSprite);
@@ -1547,8 +1528,14 @@ void RenderAPI::RecreatePostProcessing() {
 }
 
 void RenderAPI::ClosePostProcessing() {
-	SafeDelete(&screenDescriptorLayout);
-	SafeDelete(&screenDescriptorSet);
-	SafeDelete(&screenGraphicsPipeline);
-	SafeDelete(&finalRenderTarget);
+	screenDescriptorLayout.Delete();
+	screenDescriptorSet.Delete();
+	screenGraphicsPipeline.Delete();
+	finalRenderTarget.Delete();
+}
+
+void RenderAPI::AllocateBuffer(GpuDataBuffer* buffer, size_t size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties) {
+	OSK_ASSERT(buffer, "buffer es null.");
+
+	memoryAllocator->Allocate(buffer, size, usage, properties);
 }

@@ -110,13 +110,13 @@ namespace OSK {
 		/// </summary>
 		/// <param name="sprite">Sprite a cargar.</param>
 		/// <param name="path">Ruta de la textura (incluyendo la extensión).</param>
-		void LoadSprite(Sprite& sprite, const std::string& path);
+		void LoadSprite(Sprite* sprite, const std::string& path);
 
 		/// <summary>
 		/// Crea un sprite vacío.
 		/// </summary>
 		/// <param name="sprite">Sprite</param>
-		void CreateSprite(Sprite& sprite);
+		void CreateSprite(Sprite* sprite);
 
 		/// <summary>
 		/// Carga una fuente.
@@ -132,7 +132,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="skybox">Skybox a cargar.</param>
 		/// <param name="path">Localización de las texturas (la carpeta).</param>
-		void LoadSkybox(Skybox& skybox, const std::string& path);
+		void LoadSkybox(Skybox* skybox, const std::string& path);
 
 		/// <summary>
 		/// Carga un modelo 3D.
@@ -140,7 +140,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="path">Ruta del modelo (incluyendo la extensión del modelo).</param>
 		/// <returns>Modelo.</returns>
-		void LoadModel(Model& model, const std::string& path);
+		void LoadModel(Model* model, const std::string& path);
 
 		/// <summary>
 		/// Carga un modelo 3D animado.
@@ -148,7 +148,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="path">Ruta del modelo (incluyendo la extensión del modelo).</param>
 		/// <returns>Modelo.</returns>
-		void LoadAnimatedModel(AnimatedModel& model, const std::string& path);
+		void LoadAnimatedModel(AnimatedModel* model, const std::string& path);
 
 		/// <summary>
 		/// Carga un heightmap.
@@ -156,7 +156,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="map">Heightmap a cargar</param>
 		/// <param name="path">Ruta del archivo (con extensión).</param>
-		void LoadHeightmap(Heightmap& map, const std::string& path);
+		void LoadHeightmap(Heightmap* map, const std::string& path);
 
 		/// <summary>
 		/// Carga un sonido.

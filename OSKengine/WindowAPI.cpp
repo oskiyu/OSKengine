@@ -203,7 +203,7 @@ namespace OSK {
 	}
 
 	Vector4 WindowAPI::GetRectangle() const {
-		return Vector4(0, 0, screenSizeX, screenSizeY);
+		return Vector4(0, 0, (float)screenSizeX, (float)screenSizeY);
 	}
 
 
@@ -225,11 +225,11 @@ namespace OSK {
 
 
 	void WindowAPI::resize(double_t sizex, double_t sizey) {
-		screenSizeX = sizex;
-		screenSizeY = sizey;
+		screenSizeX = (int32_t)sizex;
+		screenSizeY = (int32_t)sizey;
 
 		if (sizey != 0)
-			screenRatio = static_cast<float_t>(sizex) / static_cast<float_t>(sizey);
+			screenRatio = static_cast<float>(sizex) / static_cast<float>(sizey);
 	}
 
 
@@ -241,10 +241,10 @@ namespace OSK {
 
 
 	void WindowAPI::mouseInput(double_t posX, double_t posY) {
-		mouseState.positionX = posX;
-		mouseState.positionY = /*ScreenSizeY -*/ posY;
-		mouseState.relativePositionX = mouseState.positionX / (double)screenSizeX;
-		mouseState.relativePositionY = mouseState.positionY / (double)screenSizeY;
+		mouseState.positionX = (mouseVar_t)posX;
+		mouseState.positionY = (mouseVar_t)posY;
+		mouseState.relativePositionX = mouseState.positionX / (mouseVar_t)screenSizeX;
+		mouseState.relativePositionY = mouseState.positionY / (mouseVar_t)screenSizeY;
 	}
 
 

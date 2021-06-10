@@ -6,18 +6,15 @@
 using namespace OSK;
 
 MaterialInstance::~MaterialInstance() {
-	try {
-		Free();
-	}
-	catch(std::runtime_error _) {
-
-	}
+	Free();
 }
 
 void MaterialInstance::Free() {
 	if (ownerPool) {
 		GetDescriptorSet()->Reset();
 		ownerPool->FreeSet(descriptorSetIndex);
+
+		ownerPool = nullptr;
 	}
 }
 
@@ -26,34 +23,44 @@ void MaterialInstance::SetTexture(Texture* texture) {
 }
 
 void MaterialInstance::SetTexture(Texture* texture, uint32_t binding) {
-	GetDescriptorSet()->AddImage(&texture->image, texture->image.sampler, binding);
+	GetDescriptorSet()->AddImage(texture->image.GetPointer(), texture->image->sampler, binding);
 }
 
 void MaterialInstance::SetTexture(const std::string& name, Texture* texture) {
 	SetTexture(texture, ownerMaterial->GetBindingIndex(name));
 }
 
-void MaterialInstance::SetBuffer(std::vector<GPUDataBuffer>& buffers) {
+void MaterialInstance::SetBuffer(std::vector<SharedPtr<GpuDataBuffer>>& buffers) {
 	SetBuffer(buffers, GetDescriptorSet()->GetBindingsCount());
 }
 
-void MaterialInstance::SetBuffer(std::vector<GPUDataBuffer>& buffers, uint32_t binding) {
-	GetDescriptorSet()->AddUniformBuffers(buffers, binding, buffers[0].GetSize());
+void MaterialInstance::SetBuffer(std::vector<SharedPtr<GpuDataBuffer>>& buffers, uint32_t binding) {
+	GetDescriptorSet()->AddUniformBuffers(buffers, binding, buffers[0]->GetSize());
+
+	if (binding >= this->buffers.size())
+		this->buffers.push_back(buffers);
+	else
+		this->buffers[binding] = buffers;
 }
 
-void MaterialInstance::SetBuffer(const std::string& name, std::vector<GPUDataBuffer>& buffers) {
+void MaterialInstance::SetBuffer(const std::string& name, std::vector<SharedPtr<GpuDataBuffer>>& buffers) {
 	SetBuffer(buffers, ownerMaterial->GetBindingIndex(name));
 }
 
-void MaterialInstance::SetDynamicBuffer(std::vector<GPUDataBuffer>& buffers) {
+void MaterialInstance::SetDynamicBuffer(std::vector<SharedPtr<GpuDataBuffer>>& buffers) {
 	SetDynamicBuffer(buffers, GetDescriptorSet()->GetBindingsCount());
 }
 
-void MaterialInstance::SetDynamicBuffer(std::vector<GPUDataBuffer>& buffers, uint32_t binding) {
-	GetDescriptorSet()->AddDynamicUniformBuffers(buffers, binding, buffers[0].GetDynamicUboStructureSize());
+void MaterialInstance::SetDynamicBuffer(std::vector<SharedPtr<GpuDataBuffer>>& buffers, uint32_t binding) {
+	GetDescriptorSet()->AddDynamicUniformBuffers(buffers, binding, buffers[0]->GetDynamicUboStructureSize());
+
+	if (binding >= this->buffers.size())
+		this->buffers.push_back(buffers);
+	else
+		this->buffers[binding] = buffers;
 }
 
-void MaterialInstance::SetDynamicBuffer(const std::string& name, std::vector<GPUDataBuffer>& buffers) {
+void MaterialInstance::SetDynamicBuffer(const std::string& name, std::vector<SharedPtr<GpuDataBuffer>>& buffers) {
 	SetDynamicBuffer(buffers, ownerMaterial->GetBindingIndex(name));
 }
 

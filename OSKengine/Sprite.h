@@ -106,12 +106,12 @@ namespace OSK {
 		/// <summary>
 		/// Vértices del sprite.
 		/// </summary>
-		GPUDataBuffer vertexBuffer;
+		SharedPtr<GpuDataBuffer> vertexBuffer;
 
 		/// <summary>
 		/// Índices del sprite.
 		/// </summary>
-		static GPUDataBuffer indexBuffer;
+		static SharedPtr<GpuDataBuffer> indexBuffer;
 
 		/// <summary>
 		/// True si hay que actualizar el buffer de vértices (por cambio de coordenadas de textura).

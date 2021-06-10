@@ -220,6 +220,12 @@
     <Filter Include="Archivos de origen\OSKengine\Engine\SceneSystem\Tokens">
       <UniqueIdentifier>{aca84489-7c18-4af1-8232-3ec0a3be622c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Vulkan\Allocator">
+      <UniqueIdentifier>{e5e80f26-1044-4b4c-b926-7747c9fa6a00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\Vulkan\Allocator">
+      <UniqueIdentifier>{012aad6e-525d-4d0c-8f1b-913c5b8ea853}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -285,7 +291,7 @@
     <ClCompile Include="AnimatedModel.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
     </ClCompile>
-    <ClCompile Include="VulkanBuffer.cpp">
+    <ClCompile Include="GpuBuffer.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\Vulkan</Filter>
     </ClCompile>
     <ClCompile Include="DescriptorLayout.cpp">
@@ -303,7 +309,7 @@
     <ClCompile Include="LightsUBO.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
     </ClCompile>
-    <ClCompile Include="VulkanImage.cpp">
+    <ClCompile Include="GpuImage.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\Vulkan</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
@@ -498,6 +504,18 @@
     <ClCompile Include="UiFunctionality.cpp">
       <Filter>Archivos de origen\OSKengine\UI</Filter>
     </ClCompile>
+    <ClCompile Include="VulkanMemorySubblock.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Vulkan\Allocator</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanMemoryBlock.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Vulkan\Allocator</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanAllocator.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Vulkan\Allocator</Filter>
+    </ClCompile>
+    <ClCompile Include="Assert.cpp">
+      <Filter>Archivos de origen\OSKengine\Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowAPI.h">
@@ -590,7 +608,7 @@
     <ClInclude Include="Version.h">
       <Filter>Archivos de encabezado\OSKengine\Util</Filter>
     </ClInclude>
-    <ClInclude Include="GPUinfo.h">
+    <ClInclude Include="GpuInfo.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan</Filter>
     </ClInclude>
     <ClInclude Include="QueueFamilyIndices.h">
@@ -602,10 +620,10 @@
     <ClInclude Include="PresentMode.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
     </ClInclude>
-    <ClInclude Include="GPUImage.h">
+    <ClInclude Include="GpuImage.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan</Filter>
     </ClInclude>
-    <ClInclude Include="GPUDataBuffer.h">
+    <ClInclude Include="GpuDataBuffer.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
@@ -968,6 +986,18 @@
     <ClInclude Include="UiFunctionality.h">
       <Filter>Archivos de encabezado\OSKengine\UI</Filter>
     </ClInclude>
+    <ClInclude Include="VulkanAllocator.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanMemorySubblock.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanMemoryBlock.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="Assert.h">
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -980,6 +1010,7 @@
     <None Include="..\Frameworks\OSKengine\Doc\ScenerySystemSpec.md">
       <Filter>Doc</Filter>
     </None>
+    <None Include="ruleset.ruleset" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="OSKengine.rc">
@@ -988,6 +1019,18 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\OSKengine_icon_lowres.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Resources\OSKengine_icon_lowres_64.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Resources\OSKengine_icon_lowres_48.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Resources\OSKengine_icon_lowres_32.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Resources\OSKengine_icon_lowres_16.ico">
       <Filter>Archivos de recursos</Filter>
     </Image>
   </ItemGroup>

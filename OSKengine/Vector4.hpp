@@ -272,7 +272,7 @@ namespace OSK {
 		/// P = nuevo tipo de las variables.
 		/// </summary>
 		template <typename P> inline Vector4_t<P> ToVec4() const {
-			return Vector4_t<P>(X, Y, Z, W);
+			return Vector4_t<P>((P)X, (P)Y, (P)Z, (P)W);
 		}
 
 		/// <summary>

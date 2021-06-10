@@ -10,8 +10,9 @@
 
 #include "DescriptorLayout.h"
 #include "DescriptorPool.h"
-#include "GPUDataBuffer.h"
-#include "GPUImage.h"
+#include "GpuDataBuffer.h"
+#include "GpuImage.h"
+#include "SharedPtr.hpp"
 
 namespace OSK {
 
@@ -47,7 +48,7 @@ namespace OSK {
 		/// <param name="buffers">Buffers que almacenan la información que se usará en los shaders.</param>
 		/// <param name="binding">Binding del UBO en el shader.</param>
 		/// <param name="size">Tamaño del buffer.</param>
-		void AddUniformBuffers(std::vector<GPUDataBuffer> buffers, uint32_t binding, size_t size);
+		void AddUniformBuffers(std::vector<SharedPtr<GpuDataBuffer>> buffers, uint32_t binding, size_t size);
 
 		/// <summary>
 		/// Registra un buffer que va a usarse como un dynamic UBO.
@@ -55,7 +56,7 @@ namespace OSK {
 		/// <param name="buffers">Buffers que almacenan la información que se usará en los shaders.</param>
 		/// <param name="binding">Binding del dynamic UBO en el shader.</param>
 		/// <param name="size">Tamaño del buffer.</param>
-		void AddDynamicUniformBuffers(std::vector<GPUDataBuffer> buffers, uint32_t binding, size_t size);
+		void AddDynamicUniformBuffers(std::vector<SharedPtr<GpuDataBuffer>> buffers, uint32_t binding, size_t size);
 
 		/// <summary>
 		/// Registra una imagen.
@@ -63,7 +64,7 @@ namespace OSK {
 		/// <param name="image">Imagen.</param>
 		/// <param name="sampler">Sampler (no tiene por que ser el de la imagen).</param>
 		/// <param name="binding">Binding en el shader.</param>
-		void AddImage(VULKAN::GPUImage* image, VkSampler sampler, uint32_t binding);
+		void AddImage(VULKAN::GpuImage* image, VkSampler sampler, uint32_t binding);
 
 		/// <summary>
 		/// Crea o actualiza el descriptor set.

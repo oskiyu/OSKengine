@@ -10,9 +10,8 @@ MaterialSystem::MaterialSystem(RenderAPI* renderer) {
 }
 
 MaterialSystem::~MaterialSystem() {
-	for (auto& i : materials) {
+	for (auto& i : materials)
 		delete i.second;
-	}
 
 	materials.clear();
 }

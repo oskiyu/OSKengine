@@ -497,14 +497,22 @@ namespace OSK {
 		/// </summary>
 		/// <param name="size">Número de elementos.</param>
 		void Allocate(size_t size) {
-			size_t oldCapacity = capacity;
+			const size_t oldCapacity = capacity;
 			capacity = size;
 
 			T* oldData = data;
 			data = (T*)malloc(sizeof(T) * size);
 
+			if (data == NULL) {
+				std::string msg = "ERROR: DynamicArray: no se pudo reservar memoria para " + std::to_string(size) + " elementos en el dynamic array.";
+
+				throw std::runtime_error(msg);
+			}
+
 			if (oldData) {
+#pragma warning(disable:C6387)
 				memcpy(data, oldData, oldCapacity * sizeof(T));
+#pragma warning(default:C6387)
 				free(oldData);
 			}
 		}

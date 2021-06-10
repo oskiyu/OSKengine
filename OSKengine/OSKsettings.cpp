@@ -61,8 +61,8 @@ namespace OSK {
 	std::string DAY = GetDay(DATE);
 #endif
 	std::string YEAR = "2021";
-	std::string MONTH = "05";
-	std::string DAY = "29";
+	std::string MONTH = "06";
+	std::string DAY = "09";
 
 	std::string ENGINE_NAME = "OSKengine";
 

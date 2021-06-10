@@ -3,9 +3,10 @@
 using namespace OSK;
 
 void ModelData::Bind(VkCommandBuffer commandBuffer) const {
-	const VkDeviceSize offsets[] = { 0 };
-	vkCmdBindVertexBuffers(commandBuffer, 0, 1, &vertexBuffer.buffer, offsets);
-	vkCmdBindIndexBuffer(commandBuffer, indexBuffer.buffer, 0, VK_INDEX_TYPE_UINT32);
+	const VkDeviceSize offsets[] = { vertexBuffer->memorySubblock->GetOffset() };
+	const VkBuffer buffers[] = { vertexBuffer->memorySubblock->GetNativeGpuBuffer() };
+	vkCmdBindVertexBuffers(commandBuffer, 0, 1, buffers, offsets);
+	vkCmdBindIndexBuffer(commandBuffer, indexBuffer->memorySubblock->GetNativeGpuBuffer(), indexBuffer->memorySubblock->GetOffset(), VK_INDEX_TYPE_UINT32);
 }
 
 void ModelData::Draw(VkCommandBuffer commandBuffer) const {

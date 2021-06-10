@@ -13,8 +13,10 @@ namespace OSK {
 	/// Clase que almacena los componentes necesarios para renderizar un sprite.
 	/// Se usa internamente dentro del SpriteBatch.
 	/// </summary>
-	struct OSKAPI_CALL SpriteContainer {
+	class OSKAPI_CALL SpriteContainer {
 		
+	public:
+
 		/// <summary>
 		/// Color del sprite.
 		/// </summary>
@@ -31,6 +33,8 @@ namespace OSK {
 		/// Se usa para actualizar el buffer en caso de que cambien las coordenadas de textura del sprite.
 		/// </summary>
 		VkBuffer vertexBuffer;
+
+		size_t bufferOffset = 0;
 
 		/// <summary>
 		/// Memoria del buffer de los vértices.

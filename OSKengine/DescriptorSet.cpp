@@ -38,11 +38,11 @@ namespace OSK {
 			throw std::runtime_error("ERROR: crear descriptor sets.");
 	}
 
-	void DescriptorSet::AddUniformBuffers(std::vector<GPUDataBuffer> buffers, uint32_t binding, size_t size) {
+	void DescriptorSet::AddUniformBuffers(std::vector<SharedPtr<GpuDataBuffer>> buffers, uint32_t binding, size_t size) {
 		for (uint32_t i = 0; i < vulkanDescriptorSets.size(); i++) {
 			VkDescriptorBufferInfo* bufferInfo = new VkDescriptorBufferInfo();
-			bufferInfo->buffer = buffers[i].buffer;
-			bufferInfo->offset = 0;
+			bufferInfo->buffer = buffers[i]->memorySubblock->GetNativeGpuBuffer();
+			bufferInfo->offset = buffers[i]->memorySubblock->GetOffset();
 			bufferInfo->range = size;
 
 			VkWriteDescriptorSet descriptorWrite{};
@@ -64,11 +64,11 @@ namespace OSK {
 		bindingsCount++;
 	}
 
-	void DescriptorSet::AddDynamicUniformBuffers(std::vector<GPUDataBuffer> buffers, uint32_t binding, size_t size) {
+	void DescriptorSet::AddDynamicUniformBuffers(std::vector<SharedPtr<GpuDataBuffer>> buffers, uint32_t binding, size_t size) {
 		for (uint32_t i = 0; i < vulkanDescriptorSets.size(); i++) {
 			VkDescriptorBufferInfo* bufferInfo = new VkDescriptorBufferInfo();
-			bufferInfo->buffer = buffers[i].buffer;
-			bufferInfo->offset = 0;
+			bufferInfo->buffer = buffers[i]->memorySubblock->GetNativeGpuBuffer();
+			bufferInfo->offset = buffers[i]->memorySubblock->GetOffset();
 			bufferInfo->range = size;
 
 			VkWriteDescriptorSet descriptorWrite{};
@@ -90,7 +90,7 @@ namespace OSK {
 		bindingsCount++;
 	}
 
-	void DescriptorSet::AddImage(VULKAN::GPUImage* image, VkSampler sampler, uint32_t binding) {
+	void DescriptorSet::AddImage(VULKAN::GpuImage* image, VkSampler sampler, uint32_t binding) {
 		for (uint32_t i = 0; i < vulkanDescriptorSets.size(); i++) {
 			VkDescriptorImageInfo* imageInfo = new VkDescriptorImageInfo();
 			imageInfo->imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
@@ -118,7 +118,7 @@ namespace OSK {
 
 	void DescriptorSet::Update() {
 		for (uint32_t i = 0; i < descriptorWrites.size(); i++) {
-			vkUpdateDescriptorSets(logicalDevice, descriptorWrites[i].size(), descriptorWrites[i].data(), 0, nullptr);
+			vkUpdateDescriptorSets(logicalDevice, (uint32_t)descriptorWrites[i].size(), descriptorWrites[i].data(), 0, nullptr);
 		}
 
 		clear();

@@ -391,7 +391,7 @@ void PhysicsSystem::resolveTerrainCollisionAABB(PhysicsComponent* entity, Transf
 										terrain->GetVertexHeight({x, (z + terrainCollisionDetectionPrecision)}),
 										(z + terrainCollisionDetectionPrecision) * terrain->quadSize.Y });
 
-				triangleA.AddFace(pointsOfFace.data(), pointsOfFace.size());
+				triangleA.AddFace(pointsOfFace.data(), (uint32_t)pointsOfFace.size());
 
 				for (auto& obb : entity->GetCollider().satColliders) {
 					if (obb.Intersects(triangleA)) {
@@ -441,7 +441,7 @@ void PhysicsSystem::resolveTerrainCollisionAABB(PhysicsComponent* entity, Transf
 										(z + terrainCollisionDetectionPrecision)}),
 										(z + terrainCollisionDetectionPrecision) * terrain->quadSize.Y });
 
-				triangleB.AddFace(pointsOfFace.data(), pointsOfFace.size());
+				triangleB.AddFace(pointsOfFace.data(), (uint32_t)pointsOfFace.size());
 
 				for (auto& obb : entity->GetCollider().satColliders) {
 					if (obb.Intersects(triangleB)) {
