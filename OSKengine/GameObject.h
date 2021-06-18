@@ -18,7 +18,7 @@ namespace OSK {
 	/// Representa una entidad del ECS.
 	/// Puede implementar funcionalidad extra con components.
 	/// </summary>
-	class OSKAPI_CALL GameObject {
+	class GameObject {
 
 		friend class EntityComponentSystem;
 		friend class Scene;
@@ -30,17 +30,17 @@ namespace OSK {
 		/// <summary>
 		/// Destructor.
 		/// </summary>
-		virtual ~GameObject() = default;
+		OSKAPI_CALL virtual ~GameObject() = default;
 
 		/// <summary>
 		/// Función que se ejecuta al spawnear el objeto.
 		/// </summary>
-		virtual void OnCreate() {}
+		OSKAPI_CALL virtual void OnCreate() {}
 
 		/// <summary>
 		/// Función que se ejecuta al eliminarse el objeto.
 		/// </summary>
-		virtual void OnRemove() {}
+		OSKAPI_CALL virtual void OnRemove() {}
 
 		/// <summary>
 		/// ID del objeto
@@ -89,27 +89,27 @@ namespace OSK {
 		/// Elimina el objeto del mundo.
 		/// Ejecuta OnRemove().
 		/// </summary>
-		void Remove();
+		OSKAPI_CALL void Remove();
 
 		/// <summary>
 		/// Añade un modelo al objeto.
 		/// </summary>
 		/// <param name="path">Ruta del modelo (con extensión).</param>
 		/// <param name="content">Content manager que lo va a cargar.</param>
-		void AddModel(const std::string& path, ContentManager* content);
+		OSKAPI_CALL void AddModel(const std::string& path, ContentManager* content);
 
 		/// <summary>
 		/// Añade un modelo animado al objeto.
 		/// </summary>
 		/// <param name="path">Ruta del modelo (con extensión).</param>
 		/// <param name="content">Content manager que lo va a cargar.</param>
-		void AddAnimatedModel(const std::string& path, ContentManager* content);
+		OSKAPI_CALL void AddAnimatedModel(const std::string& path, ContentManager* content);
 
 		/// <summary>
 		/// Devuelve el nombre de la instancia.
 		/// </summary>
 		/// <returns>Nombre de la instancia.</returns>
-		std::string GetInstanceName() const;
+		OSKAPI_CALL std::string GetInstanceName() const;
 
 		/// <summary>
 		/// Transform del objeto.

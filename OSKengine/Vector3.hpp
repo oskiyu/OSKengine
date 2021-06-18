@@ -12,7 +12,7 @@ namespace OSK {
 	/// Representa un vector 3D.
 	/// </summary>
 	/// <typeparam name="T">PRecisión.</typeparam>
-	template <typename T> class OSKAPI_CALL Vector3_t {
+	template <typename T> class Vector3_t {
 
 	public:
 

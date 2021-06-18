@@ -27,7 +27,7 @@ namespace OSK::ECS {
 		/// </summary>
 		/// <param name="obj">ID de la entidad dueña.</param>
 		/// <param name="component">Componente.</param>
-		void InsertData(GameObjectID obj, T component) {
+		T& InsertData(GameObjectID obj, T component) {
 			size_t newID = size;
 
 			objectToID[obj] = newID;
@@ -35,6 +35,8 @@ namespace OSK::ECS {
 			componentArray[newID] = component;
 
 			size++;
+
+			return componentArray[newID];
 		}
 
 		/// <summary>

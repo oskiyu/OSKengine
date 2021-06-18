@@ -13,7 +13,7 @@
 
 namespace OSK {
 
-	class RenderAPI;
+	/*class RenderAPI;
 
 	struct PointLightShadowUBO {
 
@@ -83,6 +83,6 @@ namespace OSK {
 
 		ContentManager* Content = nullptr;
 
-	};
+	};*/
 
 }

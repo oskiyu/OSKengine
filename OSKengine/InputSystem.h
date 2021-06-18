@@ -15,7 +15,7 @@ namespace OSK {
 	/// <summary>
 	/// Sistema que maneja el input del jugador.
 	/// </summary>
-	class InputSystem : public ECS::System {
+	class OSKAPI_CALL InputSystem : public ECS::System {
 
 	public:
 

@@ -12,7 +12,7 @@ namespace OSK::ECS {
 	/// <summary>
 	/// Clase base de un array de componentes.
 	/// </summary>
-	class IComponentArray {
+	class OSKAPI_CALL IComponentArray {
 
 	public:
 

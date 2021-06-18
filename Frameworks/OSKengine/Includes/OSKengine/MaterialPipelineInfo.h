@@ -80,12 +80,12 @@ namespace OSK {
 		/// <summary>
 		/// Stage en el que se accede.
 		/// </summary>
-		MaterialBindingShaderStage ShaderStage;
+		MaterialBindingShaderStage shaderStage;
 
 		/// <summary>
 		/// Tamaño de la estructura.
 		/// </summary>
-		size_t Size;
+		size_t size;
 
 	};
 
@@ -98,43 +98,43 @@ namespace OSK {
 		/// <summary>
 		/// Ruta del vertex shader (con extensión del archivo).
 		/// </summary>
-		std::string VertexPath;
+		std::string vertexPath;
 
 		/// <summary>
 		/// /// Ruta del fragment shader (con extensión del archivo).
 		/// </summary>
-		std::string FragmentPath;
+		std::string fragmentPath;
 
 		/// <summary>
 		/// True si no se renderizarán polígonos que estén fuera del campo de visión de la cámrara.
 		/// </summary>
-		bool CullFaces = true;
+		bool cullFaces = true;
 
 		/// <summary>
 		/// Modo de renderizado de los polígonos: llenos o lineas.
 		/// </summary>
-		PolygonMode PMode = PolygonMode::FILL;
+		PolygonMode polygonMode = PolygonMode::FILL;
 
 		/// <summary>
 		/// Modo de cull de los polígonos.
 		/// Algunos polígonos pueden descartarse si dan la espalda a la cámara.
 		/// </summary>
-		PolygonCullMode CullMode = PolygonCullMode::FRONT;
+		PolygonCullMode cullMode = PolygonCullMode::FRONT;
 
 		/// <summary>
 		/// Qué cara del polígono mira hacia delante.
 		/// </summary>
-		PolygonFrontFaceType FrontFaceType = PolygonFrontFaceType::CLOCKWISE;
+		PolygonFrontFaceType frontFaceType = PolygonFrontFaceType::CLOCKWISE;
 
 		/// <summary>
 		/// True si usa funciones de profundidad / stencil.
 		/// </summary>
-		bool UseDepthStencil = false;
+		bool useDepthStencil = false;
 
 		/// <summary>
 		/// Información de los push constants.
 		/// </summary>
-		std::vector<PushConstantInfo> PushConstants;
+		std::vector<PushConstantInfo> pushConstants;
 
 	};
 

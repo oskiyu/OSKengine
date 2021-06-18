@@ -40,7 +40,7 @@ namespace OSK {
 		/// <summary>
 		/// Unidades de profiling.
 		/// </summary>
-		std::vector<ProfilingUnit*> Units{};
+		std::vector<ProfilingUnit*> units{};
 
 	};
 

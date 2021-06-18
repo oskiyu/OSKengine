@@ -19,7 +19,29 @@ namespace OSK {
 	/// </summary>
 	class OSKAPI_CALL Model {
 
+		friend class ContentManager;
+		friend class RenderizableScene;
+		friend class RenderSystem3D;
+
 	public:
+
+		/// <summary>
+		/// Material del modelo.
+		/// </summary>
+		SharedPtr<MaterialInstance> material;
+
+		Transform* GetTransform() {
+			return &transform;
+		}
+
+	protected:
+
+		/// <summary>
+		/// UBO de la animación.
+		/// </summary>
+		AnimUBO bonesUBOdata;
+
+	private:
 
 		/// <summary>
 		/// Enlaza los vértices y los índices del modelo para su renderizado.
@@ -44,24 +66,17 @@ namespace OSK {
 		/// <summary>
 		/// Buffers del modelo.
 		/// </summary>
-		ModelData* Data;
+		ModelData* data = nullptr;
 
 		/// <summary>
 		/// Transform3D del modelo.
 		/// </summary>
-		Transform ModelTransform;
-
-		/// <summary>
-		/// Material del modelo.
-		/// </summary>
-		SharedPtr<MaterialInstance> ModelMaterial;
+		Transform transform;
 
 		/// <summary>
 		/// Material para el renderizado de sombras.
 		/// </summary>
-		SharedPtr<MaterialInstance> ShadowMaterial;
-
-		//Obtiene el Push Constant con la matriz del modelo.
+		SharedPtr<MaterialInstance> shadowMaterial;
 
 		/// <summary>
 		/// Obtiene el Push Constant con la matriz del modelo.
@@ -73,32 +88,27 @@ namespace OSK {
 		/// Actualiza el UBO de animación.
 		/// </summary>
 		/// <param name="buffers">Buffers del UBO.</param>
-		void UpdateAnimUBO(std::vector<GPUDataBuffer>& buffers);
+		void UpdateAnimUBO(std::vector<SharedPtr<GpuDataBuffer>>& buffers);
 
 		/// <summary>
 		/// Offset de la animación de este modelo respecto al buffer dinámico de la animación.
 		/// </summary>
-		uint32_t AnimationBufferOffset = 0;
-
-		/// <summary>
-		/// UBO de la animación.
-		/// </summary>
-		AnimUBO BonesUBOdata;
+		uint32_t animationBufferOffset = 0;
 
 		/// <summary>
 		/// Logical device del renderizador.
 		/// </summary>
-		VkDevice LogicalDevice = VK_NULL_HANDLE;
+		VkDevice logicalDevice = VK_NULL_HANDLE;
 
 		/// <summary>
 		/// Constantes 3D.
 		/// </summary>
-		PushConst3D PushConst{};
+		PushConst3D pushConst{};
 
 		/// <summary>
 		/// Número de huesos.
 		/// </summary>
-		uint32_t NumberOfBones = 0;
+		uint32_t numberOfBones = 0;
 
 	};
 

@@ -19,17 +19,17 @@ namespace OSK::VULKAN {
 		/// <summary>
 		/// Capacidades de la superficie.
 		/// </summary>
-		VkSurfaceCapabilitiesKHR SurfaceCapabilities;
+		VkSurfaceCapabilitiesKHR surfaceCapabilities;
 
 		/// <summary>
 		/// Formatos soportados.
 		/// </summary>
-		std::vector<VkSurfaceFormatKHR> Formats;
+		std::vector<VkSurfaceFormatKHR> formats;
 
 		/// <summary>
 		/// Modos de presentación soportados.
 		/// </summary>
-		std::vector<VkPresentModeKHR> PresentModes;
+		std::vector<VkPresentModeKHR> presentModes;
 
 	};
 

@@ -12,14 +12,12 @@ namespace OSK::VULKAN {
 	/// <summary>
 	/// Dependencias de los subpasses: cosas que tienen que pasar antes.
 	/// </summary>
-	class OSKAPI_CALL SubpassDependency {
-
-	public:
+	struct OSKAPI_CALL SubpassDependency {
 
 		/// <summary>
 		/// Dependencia nativa.
 		/// </summary>
-		VkSubpassDependency VulkanDependency;
+		VkSubpassDependency vulkanDependency;
 
 	};
 

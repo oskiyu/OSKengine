@@ -7,7 +7,7 @@ namespace OSK {
 	/// <summary>
 	/// Sistema que maneja los componentes OnTick.
 	/// </summary>
-	class OnTickSystem : public ECS::System {
+	class OSKAPI_CALL OnTickSystem : public ECS::System {
 
 	public:
 

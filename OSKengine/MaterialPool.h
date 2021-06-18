@@ -102,7 +102,7 @@ namespace OSK {
 		/// <summary>
 		/// MaterialPoolDatas.
 		/// </summary>
-		std::vector<UniquePtr<MaterialPoolData>> datas = {};
+		std::vector<MaterialPoolData*> datas = {};
 
 	};
 

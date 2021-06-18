@@ -9,9 +9,11 @@ namespace OSK {
 	/// <summary>
 	/// Componente que permite a una entidad ejecutar la función OnTick().
 	/// </summary>
-	class OSKAPI_CALL OnTickComponent : public Component {
+	class OnTickComponent : public Component {
 
 	public:
+
+		OSK_COMPONENT(OnTickComponent)
 
 		/// <summary>
 		/// Función OnTick().

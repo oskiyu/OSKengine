@@ -8,7 +8,7 @@
 #include "DirectionalLight.h"
 
 #include <vector>
-#include "GPUDataBuffer.h"
+#include "GpuDataBuffer.h"
 
 namespace OSK {
 
@@ -22,19 +22,19 @@ namespace OSK {
 		/// <summary>
 		/// Luz direccional.
 		/// </summary>
-		DirectionalLight Directional{};
+		DirectionalLight directional{};
 
 		/// <summary>
 		/// Luces puntuales.
 		/// </summary>
-		std::vector<PointLight> Points{};
+		std::vector<PointLight> points{};
 
 		/// <summary>
 		/// Obtiene el tamaño, en bytes, de todas las luces puntuales juntas.
 		/// </summary>
 		/// <returns>Tamaño total.</returns>
 		inline const size_t PointsSize() const {
-			return Points.size() * sizeof(PointLight);
+			return points.size() * sizeof(PointLight);
 		}
 
 		/// <summary>
@@ -50,7 +50,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="logicalDevice">Logical device del renderizador.</param>
 		/// <param name="buffer">Buffer del ubo.</param>
-		void UpdateBuffer(VkDevice logicalDevice, GPUDataBuffer& buffer);
+		void UpdateBuffer(VkDevice logicalDevice, GpuDataBuffer& buffer);
 
 	};
 

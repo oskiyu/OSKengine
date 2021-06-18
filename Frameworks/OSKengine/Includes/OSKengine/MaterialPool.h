@@ -82,12 +82,12 @@ namespace OSK {
 		/// <summary>
 		/// Renderizador.
 		/// </summary>
-		RenderAPI* Renderer = nullptr;
+		RenderAPI* renderer = nullptr;
 
 		/// <summary>
 		/// Layout del material.
 		/// </summary>
-		DescriptorLayout* Layout = nullptr;
+		DescriptorLayout* layout = nullptr;
 
 		/// <summary>
 		/// Añade un nuevo MaterialPoolData.
@@ -97,12 +97,12 @@ namespace OSK {
 		/// <summary>
 		/// Layout del material.
 		/// </summary>
-		MaterialBindingLayout Bindings = {};
+		MaterialBindingLayout bindings = {};
 
 		/// <summary>
 		/// MaterialPoolDatas.
 		/// </summary>
-		std::vector<MaterialPoolData> Datas = {};
+		std::vector<MaterialPoolData*> datas = {};
 
 	};
 

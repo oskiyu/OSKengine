@@ -24,14 +24,14 @@ namespace OSK::ECS {
 		/// Ejecuta la funcion OnTick de todos los sistemas.
 		/// </summary>
 		/// <param name="deltaTime">Delta.</param>
-		void OnTick(deltaTime_t deltaTime);
+		OSKAPI_CALL void OnTick(deltaTime_t deltaTime);
 
 		/// <summary>
 		/// Ejecuta la función OnDraw de todos los sistemas.
 		/// </summary>
 		/// <param name="cmdBuffer">Buffer de comandos de Vulkan.</param>
 		/// <param name="ix">Iteración.</param>
-		void OnDraw(VkCommandBuffer cmdBuffer, uint32_t ix);
+		OSKAPI_CALL void OnDraw(VkCommandBuffer cmdBuffer, uint32_t ix);
 
 		/// <summary>
 		/// Registra y crea un nuevo sistema. 
@@ -63,14 +63,14 @@ namespace OSK::ECS {
 		/// se quita de los sistemas que lo manejen.
 		/// </summary>
 		/// <param name="obj">ID del objeto.</param>
-		void GameObjectDestroyed(GameObjectID obj);
+		OSKAPI_CALL void GameObjectDestroyed(GameObjectID obj);
 		
 		/// <summary>
 		/// Cuando un objeto cambia su signature (se añaden o quitan componentes):
 		/// se comprueba que está manejado sólamente por los sistemas indicados, 
 		/// y por todos los sistemas indicados.
 		/// </summary>
-		void GameObjectSignatureChanged(GameObjectID object, Signature signature);
+		OSKAPI_CALL void GameObjectSignatureChanged(GameObjectID object, Signature signature);
 
 	private:
 

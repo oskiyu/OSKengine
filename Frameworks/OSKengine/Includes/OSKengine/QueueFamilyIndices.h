@@ -18,13 +18,13 @@ namespace OSK::VULKAN {
 		/// <summary>
 		/// Cola gráfica.
 		/// </summary>
-		std::optional<uint32_t> GraphicsFamily;
+		std::optional<uint32_t> graphicsFamily;
 
 		/// <summary>
 		/// Cola de presentación.
 		/// (Pueden no ser la misma).
 		/// </summary>
-		std::optional<uint32_t> PresentFamily;
+		std::optional<uint32_t> presentFamily;
 
 		/// <summary>
 		/// ¿Hay alguna cola?

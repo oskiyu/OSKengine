@@ -8,6 +8,9 @@
 #include "ECS.h"
 #include "Transform.h"
 
+#include "Model.h"
+#include "ContentManager.h"
+
 namespace OSK {
 
 	/// <summary>
@@ -15,34 +18,34 @@ namespace OSK {
 	/// Representa una entidad del ECS.
 	/// Puede implementar funcionalidad extra con components.
 	/// </summary>
-	class OSKAPI_CALL GameObject {
+	class GameObject {
+
+		friend class EntityComponentSystem;
+		friend class Scene;
 
 	public:
+
+		OSK_GAME_OBJECT(GameObject)
 
 		/// <summary>
 		/// Destructor.
 		/// </summary>
-		virtual ~GameObject() = default;
+		OSKAPI_CALL virtual ~GameObject() = default;
 
 		/// <summary>
 		/// Función que se ejecuta al spawnear el objeto.
 		/// </summary>
-		virtual void OnCreate() {}
+		OSKAPI_CALL virtual void OnCreate() {}
 
 		/// <summary>
 		/// Función que se ejecuta al eliminarse el objeto.
 		/// </summary>
-		virtual void OnRemove() {}
+		OSKAPI_CALL virtual void OnRemove() {}
 
 		/// <summary>
 		/// ID del objeto
 		/// </summary>
 		ECS::GameObjectID ID;
-
-		/// <summary>
-		/// Transform del objeto.
-		/// </summary>
-		Transform Transform3D{};
 
 		/// <summary>
 		/// Añade un componente al objeto.
@@ -51,7 +54,7 @@ namespace OSK {
 		/// <typeparam name="T">Tipo de componente.</typeparam>
 		/// <param name="component">Componente.</param>
 		template <typename T> void AddComponent(T component) {
-			ECSsystem->AddComponent<T>(ID, component);
+			entityComponentSystem->AddComponent<T>(ID, component);
 		}
 
 		/// <summary>
@@ -60,7 +63,7 @@ namespace OSK {
 		/// </summary>
 		/// <typeparam name="T">Tipo de componente.</typeparam>
 		template <typename T> void RemoveComponent() {
-			ECSsystem->RemoveComponent<T>(ID);
+			entityComponentSystem->RemoveComponent<T>(ID);
 		}
 
 		/// <summary>
@@ -70,37 +73,82 @@ namespace OSK {
 		/// <typeparam name="T">Tipo de componente.</typeparam>
 		/// <returns>Componente.</returns>
 		template <typename T> T& GetComponent() {
-			return ECSsystem->GetComponent<T>(ID);
+			return entityComponentSystem->GetComponent<T>(ID);
 		}
 
 		/// <summary>
-		/// Crea el objeto y lo coloca en el mundo.
-		/// Ejecuta OnCreate().
+		/// Comprueba si este objeto tiene un componente del tipo dado.
 		/// </summary>
-		/// <param name="ecs">Sistema ECS que lo maneja.</param>
-		/// <param name="position">Posición en el mundo.</param>
-		/// <param name="axis">Eje sobre el que se va a aplicar la rotación.</param>
-		/// <param name="angle">Ángulo de rotación.</param>
-		/// <param name="size">Escala.</param>
-		void Spawn(EntityComponentSystem* ecs, const Vector3f& position = { 0.0f }, const Vector3f& axis = { 0.0f, 1.0f, 0.0f }, float angle = 0.0f, const Vector3f& size = { 1.0f });
+		/// <typeparam name="T">Tipo de componente.</typeparam>
+		/// <returns>True si lo tiene.</returns>
+		template <typename T> bool HasComponent() {
+			return entityComponentSystem->ObjectHasComponent<T>(ID);
+		}
 
 		/// <summary>
 		/// Elimina el objeto del mundo.
 		/// Ejecuta OnRemove().
 		/// </summary>
-		void Remove();
+		OSKAPI_CALL void Remove();
+
+		/// <summary>
+		/// Añade un modelo al objeto.
+		/// </summary>
+		/// <param name="path">Ruta del modelo (con extensión).</param>
+		/// <param name="content">Content manager que lo va a cargar.</param>
+		OSKAPI_CALL void AddModel(const std::string& path, ContentManager* content);
+
+		/// <summary>
+		/// Añade un modelo animado al objeto.
+		/// </summary>
+		/// <param name="path">Ruta del modelo (con extensión).</param>
+		/// <param name="content">Content manager que lo va a cargar.</param>
+		OSKAPI_CALL void AddAnimatedModel(const std::string& path, ContentManager* content);
+
+		/// <summary>
+		/// Devuelve el nombre de la instancia.
+		/// </summary>
+		/// <returns>Nombre de la instancia.</returns>
+		OSKAPI_CALL std::string GetInstanceName() const;
+
+		/// <summary>
+		/// Transform del objeto.
+		/// </summary>
+		Transform* GetTransform() {
+			return &transform;
+		}
 
 	private:
 
 		/// <summary>
+		/// Transform del objeto.
+		/// </summary>
+		Transform transform;
+
+		/// <summary>
 		/// Sistema ECS.
 		/// </summary>
-		EntityComponentSystem* ECSsystem = nullptr;
+		EntityComponentSystem* entityComponentSystem = nullptr;
 
 		/// <summary>
 		/// True si ha sido spawneado.
 		/// </summary>
 		bool hasBeenCreated = false;
+
+		/// <summary>
+		/// Función que elimina este puntero.
+		/// </summary>
+		std::function<void(GameObject* obj)> Delete;
+
+		/// <summary>
+		/// Función que elimina este puntero.
+		/// </summary>
+		std::function<void(GameObject* obj)> DeleteOnScene = [](GameObject* obj) {};
+
+		/// <summary>
+		/// Nombre de la instancia.
+		/// </summary>
+		std::string instanceName;
 
 	};
 

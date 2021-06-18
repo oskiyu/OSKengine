@@ -13,7 +13,7 @@ namespace OSK::Memory {
 	/// <param name="originalPointer">Puntero original.</param>
 	/// <param name="offset">Offset (en bytes).</param>
 	/// <returns>Ptr + offset.</returns>
-	void* AddPtrOffset(const void* originalPointer, size_t offset);
+	OSKAPI_CALL void* AddPtrOffset(const void* originalPointer, size_t offset);
 
 	/// <summary>
 	/// LLama a 'delete', si ptr no es nullptr.

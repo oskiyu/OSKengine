@@ -21,29 +21,29 @@ namespace OSK {
 		/// <summary>
 		/// Crea la escena.
 		/// </summary>
-		Scene(EntityComponentSystem* ecs, RenderSystem3D* renderSystem);
+		OSKAPI_CALL Scene(EntityComponentSystem* ecs, RenderSystem3D* renderSystem);
 
 		/// <summary>
 		/// Elimina la escena y todos sus game objects.
 		/// </summary>
-		~Scene();
+		OSKAPI_CALL ~Scene();
 
 		/// <summary>
 		/// Carga la escena desde un archivo.
 		/// </summary>
 		/// <param name="path">Ruta del archivo (con extensión).</param>
-		void Load(const std::string path);
+		OSKAPI_CALL void Load(const std::string path);
 
 		/// <summary>
 		/// Carga la escena desde el código dado.
 		/// </summary>
-		void LoadScript(const std::string& code);
+		OSKAPI_CALL void LoadScript(const std::string& code);
 
 		/// <summary>
 		/// Carga un skybox.
 		/// </summary>
 		/// <param name="path">Ruta del skybox (véase ContentManager).</param>
-		void LoadSkybox(const std::string& path);
+		OSKAPI_CALL void LoadSkybox(const std::string& path);
 
 		/// <summary>
 		/// Carga el terreno.
@@ -51,7 +51,7 @@ namespace OSK {
 		/// <param name="path">Ruta del heightmap (con extensión).</param>
 		/// <param name="quadSize">Tamaño de cada pixel del heightmap, en unidades del mundo.</param>
 		/// <param name="maxHeight">Altura máxima del heightmap.</param>
-		void LoadTerrain(const std::string& path, const Vector2f& quadSize, float maxHeight);
+		OSKAPI_CALL void LoadTerrain(const std::string& path, const Vector2f& quadSize, float maxHeight);
 
 		/// <summary>
 		/// Spawnea un game object en el mundo.
@@ -63,7 +63,7 @@ namespace OSK {
 		/// <param name="angle">Ángulo de la rotación inicial.</param>
 		/// <param name="size">Escala inicial.</param>
 		/// <returns>Puntero al nuevo objeto.</returns>
-		GameObject* Spawn(const std::string& className, const Vector3f& position = { 0.0f }, const Vector3f& axis = { 0.0f, 1.0f, 0.0f }, float angle = 0.0f, const Vector3f& size = { 1.0f });
+		OSKAPI_CALL GameObject* Spawn(const std::string& className, const Vector3f& position = { 0.0f }, const Vector3f& axis = { 0.0f, 1.0f, 0.0f }, float angle = 0.0f, const Vector3f& size = { 1.0f });
 
 		/// <summary>
 		/// Spawnea un game object en el mundo.
@@ -76,7 +76,7 @@ namespace OSK {
 		/// <param name="angle">Ángulo de la rotación inicial.</param>
 		/// <param name="size">Escala inicial.</param>
 		/// <returns>Puntero al nuevo objeto.</returns>
-		GameObject* Spawn(const std::string& className, const std::string& instanceName, const Vector3f& position = { 0.0f }, const Vector3f& axis = { 0.0f, 1.0f, 0.0f }, float angle = 0.0f, const Vector3f& size = { 1.0f });
+		OSKAPI_CALL GameObject* Spawn(const std::string& className, const std::string& instanceName, const Vector3f& position = { 0.0f }, const Vector3f& axis = { 0.0f, 1.0f, 0.0f }, float angle = 0.0f, const Vector3f& size = { 1.0f });
 
 		/// <summary>
 		/// Spawnea un game object en el mundo.
@@ -132,7 +132,7 @@ namespace OSK {
 		/// <summary>
 		/// Devuelve el game object de la escena con el nombre dado.
 		/// </summary>
-		GameObject* GetGameObjectByName(const std::string& instanceName);
+		OSKAPI_CALL GameObject* GetGameObjectByName(const std::string& instanceName);
 
 		/// <summary>
 		/// Devuelve el game object de la escena con el nombre dado.
@@ -144,7 +144,7 @@ namespace OSK {
 		/// <summary>
 		/// Elimina todos los game objects de la escena.
 		/// </summary>
-		void Unload();
+		OSKAPI_CALL void Unload();
 
 	private:
 

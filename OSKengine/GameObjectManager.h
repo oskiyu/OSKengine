@@ -26,7 +26,7 @@ namespace OSK::ECS {
 	/// <summary>
 	/// Clase que maneja los objetos y sus signatures.
 	/// </summary>
-	class GameObjectManager {
+	class OSKAPI_CALL GameObjectManager {
 
 	public:
 				

@@ -13,6 +13,8 @@ namespace OSK {
 
 	public:
 
+		OSK_COMPONENT(CollisionComponent)
+
 		/// <summary>
 		/// Colisionador.
 		/// </summary>

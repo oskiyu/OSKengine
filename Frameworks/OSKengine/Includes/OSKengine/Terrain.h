@@ -20,12 +20,9 @@ namespace OSK {
 	class OSKAPI_CALL Terrain {
 
 		friend class RenderizableScene;
+		friend class PhysicsSystem;
 
 	public:
-
-		//Crea la instancia del terreno.
-		//Aún no se ha generado.
-		//	<Content>: ContentManager para la generación del terreno.
 
 		/// <summary>
 		/// Crea la instancia del terreno.
@@ -70,74 +67,79 @@ namespace OSK {
 		CollisionBox GetCollisionBox() const;
 
 		/// <summary>
-		/// Modelo 3D del terreno.
-		/// </summary>
-		ModelData* terrainModel = nullptr;
-
-		/// <summary>
-		/// Número de quads del mapa { X, Y }.
-		/// </summary>
-		Vector2ui MapSizeInQuads{ 0 };
-
-		/// <summary>
-		/// Tamaño de cada quad, en unidades del mundo.
-		/// </summary>
-		Vector2f QuadSize = { 1.0f };
-
-		/// <summary>
 		/// Tamaño del mapa, en unidades del mundo.
 		/// </summary>
-		Vector2f MapSizeInWorlds{ 0.0f };
-
-		/// <summary>
-		/// Altura base del mapa.
-		/// </summary>
-		float_t BaseHeight = 0.0f;
-
-		/// <summary>
-		/// Fricción del terreno (para el motor de físicas).
-		/// </summary>
-		float_t FrictionCoefficient = 1.0f;
+		Vector2f GetMapSize() const;
 
 		/// <summary>
 		/// Material del terreno.
 		/// Para su renderizado.
 		/// </summary>
-		SharedPtr<MaterialInstance> TerrainMaterial;
+		SharedPtr<MaterialInstance> material;
+
+	private:
+
+		/// <summary>
+		/// Tamaño del mapa, en unidades del mundo.
+		/// </summary>
+		Vector2f mapSizeInWorlds{ 0.0f };
+
+		/// <summary>
+		/// Altura base del mapa.
+		/// </summary>
+		float_t baseHeight = 0.0f;
+
+		/// <summary>
+		/// Fricción del terreno (para el motor de físicas).
+		/// </summary>
+		float_t frictionCoefficient = 1.0f;
 
 		/// <summary>
 		/// Material de sombras del terreno.
 		/// Para su renderizado de sombras.
 		/// </summary>
-		SharedPtr<MaterialInstance> ShadowsMaterial;
+		SharedPtr<MaterialInstance> shadowMaterial;
 
-	private:
+		/// <summary>
+		/// Número de quads del mapa { X, Y }.
+		/// </summary>
+		Vector2ui mapSizeInQuads{ 0 };
+
+		/// <summary>
+		/// Tamaño de cada quad, en unidades del mundo.
+		/// </summary>
+		Vector2f quadSize = { 1.0f };
+
+		/// <summary>
+		/// Modelo 3D del terreno.
+		/// </summary>
+		ModelData* terrainModel = nullptr;
 
 		/// <summary>
 		/// CollisionBox que contiene el terreno.
 		/// </summary>
-		CollisionBox Box{};
+		CollisionBox colisionBox{};
 
 		/// <summary>
 		/// Content manager para crear el modelo 3D del terreno.
 		/// </summary>
-		ContentManager* Content = nullptr;
+		ContentManager* content = nullptr;
 
 		/// <summary>
 		/// Heightmap a partir del cual se ha creado el terreno.
 		/// </summary>
-		Heightmap Map{};
+		Heightmap map{};
 
 		/// <summary>
 		/// Multiplicador para obtener la altura que tendrá cada vértice del mapa:
 		/// -MaxHeight / 255.
 		/// </summary>
-		float HeightMultiply = -5.0f / 255;
+		float heightMultiply = -5.0f / 255;
 
 		/// <summary>
 		/// True si se ha cargado el terreno (con su heightmap).
 		/// </summary>
-		bool HasBeenLoaded = false;
+		bool hasBeenLoaded = false;
 
 		/// <summary>
 		/// Obtiene la altura de un punto del terreno.

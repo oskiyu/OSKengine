@@ -1,17 +1,16 @@
 #ifndef OSK_SHARED_PTR
 #define OSK_SHARED_PTR
 
-/*
-Contiene un puntero al que pueden hacer referencia varios SharedPtr.
-Si el último SharedPtr que hace referencia a un puntero es desstruido, el puntero será eliminado.
-*/
+#include <functional>
+
+#include "OSKmacros.h"
 
 /// <summary>
 /// Contiene un puntero al que pueden hacer referencia varios SharedPtr.
 /// Si el último SharedPtr que hace referencia a un puntero es desstruido, el puntero será eli
 /// </summary>
 /// <typeparam name="T">Tipo del puntero almacenado.</typeparam>
-template <typename T> class SharedPtr {
+template <typename T> class OSKAPI_CALL SharedPtr {
 
 public:
 
@@ -68,7 +67,7 @@ public:
 	/// El puntero de 'other' pasa a ser propiedad de este SharedPtr.
 	/// </summary>
 	/// <param name="other">Otro puntero.</param>
-	SharedPtr(SharedPtr&& other) {
+	SharedPtr(SharedPtr&& other) noexcept {
 		this->pointer = other.pointer;
 		this->instanceCount = other.instanceCount;
 
@@ -142,6 +141,15 @@ public:
 		return pointer != nullptr;
 	}
 
+	/// <summary>
+	/// Función que se ejecuta al eliminar a la última instancia del puntero compartido.
+	/// Por defecto, llama a delete.
+	/// </summary>
+	std::function<void()> Deleter = [this]() {
+		if (pointer)
+			delete pointer;
+	};
+
 private:
 
 	/// <summary>
@@ -188,8 +196,7 @@ private:
 	/// Elimina los punteros.
 	/// </summary>
 	void finalDelete() {
-		if (pointer)
-			delete pointer;
+		Deleter();
 
 		delete instanceCount;
 	}

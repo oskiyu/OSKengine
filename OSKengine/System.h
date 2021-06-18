@@ -21,7 +21,7 @@ namespace OSK::ECS {
 	/// Sistema del ECS.
 	/// Maneja los objetos y componentes de objetos que tengan un Signature dado.
 	/// </summary>
-	class System {
+	class OSKAPI_CALL System {
 
 		friend class EntityComponentSystem;
 		friend class SystemManager;

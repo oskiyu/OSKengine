@@ -34,8 +34,11 @@ MaterialInstance* MaterialPool::CreateInstance() {
 }
 
 void MaterialPool::Free() {
-	for (auto& i : datas)
+	for (auto& i : datas) {
 		i->Free();
+
+		delete i;
+	}
 
 	datas.clear();
 }

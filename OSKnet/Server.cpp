@@ -28,7 +28,7 @@ namespace OSK::NET {
 
 			switch (message.type) {
 
-				case ENET_EVENT_TYPE_CONNECT:
+				/*case ENET_EVENT_TYPE_CONNECT:
 					OSKnet_safe_callback_execute<>(new_connection_callback, oskMsg);
 				
 					client_id_map[message.peer] = id++;
@@ -52,7 +52,7 @@ namespace OSK::NET {
 
 					message.peer->data = nullptr;
 					}
-					break;
+					break;*/
 
 			}
 		}

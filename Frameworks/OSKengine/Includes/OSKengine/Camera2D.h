@@ -36,13 +36,18 @@ namespace OSK {
 		/// <summary>
 		/// Transform de la cámara.
 		/// </summary>
-		Transform2D CameraTransform;
+		Transform2D& GetTransform();
+
+		/// <summary>
+		/// Devuelve la matriz proyección de la cámara.
+		/// </summary>
+		glm::mat4 GetProjection() const;
 
 		/// <summary>
 		/// TRUE: cambiar el tamaño de la ventana no cambia el área de la cámara.
 		/// FALSE: cambiar el tamaño de la ventana sí cambia el área de la cámara.
 		/// </summary>
-		bool UseTargetSize = false;
+		bool useTargetSize = false;
 
 		/// <summary>
 		/// Transforma un punto 2D en la ventana al punto 2D al que apunta la cámara en el mundo 2D.
@@ -54,7 +59,7 @@ namespace OSK {
 		/// <summary>
 		/// Área de la cámara.
 		/// </summary>
-		Vector2 TargetSize{};
+		Vector2 targetSize{};
 
 	private:
 
@@ -62,6 +67,11 @@ namespace OSK {
 		/// Ventana.
 		/// </summary>
 		WindowAPI* window = nullptr;
+
+		/// <summary>
+		/// Transform de la cámara.
+		/// </summary>
+		Transform2D transform;
 
 		/// <summary>
 		/// Matriz de la cámara.

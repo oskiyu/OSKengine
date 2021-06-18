@@ -1,7 +1,5 @@
 #pragma once
 
-#define OSK_DEVELOPMENT
-
 #ifndef OSK_DEVELOPMENT
 #ifdef OSK_DLL_EXPORT
 #define OSKAPI_CALL _declspec(dllexport)
@@ -17,3 +15,5 @@
 #else
 #define OSK_SAVE_XD
 #endif
+	
+#include "Assert.h"

@@ -13,9 +13,6 @@ Signature OnTickSystem::GetSystemSignature() {
 }
 
 void OnTickSystem::OnTick(deltaTime_t deltaTime) {
-	for (auto obj : objects) {
-		auto& onTick = entityComponentSystem->GetComponent<OnTickComponent>(obj);
-
-		onTick.OnTick(deltaTime);
-	}
+	for (auto obj : objects)
+		entityComponentSystem->GetComponent<OnTickComponent>(obj).OnTick(deltaTime);
 }

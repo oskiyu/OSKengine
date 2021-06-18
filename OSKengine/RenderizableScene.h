@@ -49,7 +49,7 @@ namespace OSK {
 		/// El número de luces NO puede cambiar.
 		/// Por defecto: 16 luces puntuales.
 		/// </summary>
-		virtual void SetupLightsUBO();
+		void SetupLightsUBO();
 
 		/// <summary>
 		/// Actualiza los uniform buffers de la GPU que contienten información sobre las luces de la escena.

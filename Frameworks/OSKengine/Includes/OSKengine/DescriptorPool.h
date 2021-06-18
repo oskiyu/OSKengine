@@ -21,6 +21,7 @@ namespace OSK {
 	class OSKAPI_CALL DescriptorPool {
 
 		friend class RenderAPI;
+		friend class DescriptorSet;
 
 	public:
 
@@ -55,25 +56,27 @@ namespace OSK {
 		/// <param name="maxSets">Tamaño del pool.</param>
 		void Create(uint32_t maxSets);
 		
+	private:
+
 		/// <summary>
 		/// Información del layout.
 		/// </summary>
-		DynamicArray<VkDescriptorPoolSize> DescriptorPoolSizes;
+		DynamicArray<VkDescriptorPoolSize> descriptorPoolSizes;
 
 		/// <summary>
 		/// Descriptor pool nativo de Vulkan.
 		/// </summary>
-		VkDescriptorPool VulkanDescriptorPool = VK_NULL_HANDLE;
+		VkDescriptorPool vulkanDescriptorPool = VK_NULL_HANDLE;
 
 		/// <summary>
 		/// Número de imágenes del swapchain del renderizador.
 		/// </summary>
-		uint32_t SwapchainImageCount = 0;
+		uint32_t swapchainImageCount = 0;
 
 		/// <summary>
 		/// Número de imágenes del swapchain del renderizador.
 		/// </summary>
-		VkDevice LogicalDevice = VK_NULL_HANDLE;
+		VkDevice logicalDevice = VK_NULL_HANDLE;
 
 	};
 

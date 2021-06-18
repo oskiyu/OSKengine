@@ -73,12 +73,12 @@ namespace OSK {
 		/// <summary>
 		/// OpenAL.
 		/// </summary>
-		uint32_t BufferID;
+		uint32_t bufferID;
 
 		/// <summary>
 		/// OpenAL.
 		/// </summary>
-		uint32_t SourceID;
+		uint32_t sourceID;
 
 	};
 

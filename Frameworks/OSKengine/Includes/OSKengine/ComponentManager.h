@@ -23,17 +23,17 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Elimina los componentes.
 		/// <summary/>
-		~ComponentManager();
+		OSKAPI_CALL ~ComponentManager();
 
 		/// <summary>
 		/// Registra un componente para poder crear instancias de él.
 		/// </summary>
 		/// <typeparam name="T">Componente.</typeparam>
 		template <typename T> void RegisterComponent() {
-			const char* tName = typeid(T).name();
+			std::string key = T::GetComponentName();
 
-			componentTypes.insert({ tName, nextComponentToBeRegistered });
-			componentArray.insert({ tName, new ComponentArray<T>() });
+			componentTypes.insert({ key, nextComponentToBeRegistered });
+			componentArray.insert({ key, new ComponentArray<T>() });
 
 			nextComponentToBeRegistered++;
 		}
@@ -44,7 +44,7 @@ namespace OSK::ECS {
 		/// <typeparam name="T">Componente</typeparam>
 		/// <returns>Su tipo.</returns>
 		template <typename T> ComponentType GetComponentType() {
-			return componentTypes[typeid(T).name()];
+			return componentTypes.at(T::GetComponentName());
 		}
 
 		/// <summary>
@@ -53,8 +53,8 @@ namespace OSK::ECS {
 		/// <typeparam name="T">Tipo de componente.</typeparam>
 		/// <param name="object">ID del objeto.</param>
 		/// <param name="component">Componente.</param>
-		template <typename T> void AddComponent(GameObjectID object, T component) {
-			GetComponentArray<T>()->InsertData(object, component);
+		template <typename T> T& AddComponent(GameObjectID object, T component) {
+			return GetComponentArray<T>()->InsertData(object, component);
 		}
 
 		/// <summary>
@@ -80,19 +80,19 @@ namespace OSK::ECS {
 		/// Destruye todos los componentes de un objeto.
 		/// </summary>
 		/// <param name="object">ID del objeto.</param>
-		void GameObjectDestroyed(GameObjectID object);
+		OSKAPI_CALL void GameObjectDestroyed(GameObjectID object);
 
 	private:
 
 		/// <summary>
 		/// Map nombre de componente -> tipo de componente.
 		/// </summary>
-		std::unordered_map<const char*, ComponentType> componentTypes;
+		std::unordered_map<std::string, ComponentType> componentTypes;
 
 		/// <summary>
 		/// Map nombre de componente -> array de componente.
 		/// </summary>
-		std::unordered_map<const char*, IComponentArray*> componentArray;
+		std::unordered_map<std::string, IComponentArray*> componentArray;
 
 		/// <summary>
 		/// ID del próximo componente a registrar.
@@ -105,7 +105,9 @@ namespace OSK::ECS {
 		/// <typeparam name="T">Tipo de componente.</typeparam>
 		/// <returns>Array.</returns>
 		template <typename T> ComponentArray<T>* GetComponentArray() {
-			return (ComponentArray<T>*)componentArray[typeid(T).name()];
+			std::string key = T::GetComponentName();
+
+			return (ComponentArray<T>*)componentArray.at(key);
 		}
 
 	};

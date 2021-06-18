@@ -25,11 +25,11 @@ namespace OSK::NET {
 			return &bytes.data()[offset];
 		}
 
-		template <typename T> T CastTo() const {
+		template <typename T> T CastTo() {
 			return *reinterpret_cast<T*>(bytes.data());
 		}
 
-		template <typename T> T CastTo(size_t offset) const {
+		template <typename T> T CastTo(size_t offset) {
 			return *reinterpret_cast<T*>(Read(offset));
 		}
 
@@ -70,11 +70,11 @@ namespace OSK::NET {
 		}
 
 		template <typename T> void Write(const T& value) {
-			buffer.Write(reinterpret_cast(value), sizeof(T));
+			buffer.Write(reinterpret_cast<byte_t*>(value), sizeof(T));
 		}
 
 		template <typename T> void WriteCopy(T value) {
-			buffer.Write(reinterpret_cast(value), sizeof(T));
+			buffer.Write(reinterpret_cast<byte_t*>(value), sizeof(T));
 		}
 
 		void WriteString(const std::string& data) {
@@ -83,7 +83,7 @@ namespace OSK::NET {
 		}
 
 		std::string ReadString() {
-			int length = Read<stringLength_t>();
+			stringLength_t length = Read<stringLength_t>();
 			std::string output = "";
 
 			for (int i = 0; i < length; i++)
@@ -99,7 +99,7 @@ namespace OSK::NET {
 		//(Sólamente si el mensaje ha sido recibido por el servidor).
 		ENetPeer* GetSenderConnection() const;
 
-	private:
+	//private:
 
 		DataBuffer buffer;
 		size_t cursor = 0;

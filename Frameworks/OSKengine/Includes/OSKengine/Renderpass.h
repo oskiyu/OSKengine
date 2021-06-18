@@ -22,6 +22,9 @@ namespace OSK::VULKAN {
 
 		friend class GraphicsPipeline;
 		friend class RenderAPI;
+		friend class Framebuffer;
+		friend class RenderizableScene;
+		friend class RenderSystem3D;
 
 	public:
 
@@ -53,12 +56,12 @@ namespace OSK::VULKAN {
 		/// </summary>
 		void Create();
 
+	private:
+
 		/// <summary>
 		/// Renderpass nativo.
 		/// </summary>
-		VkRenderPass VulkanRenderpass = VK_NULL_HANDLE;
-
-	private:
+		VkRenderPass vulkanRenderpass = VK_NULL_HANDLE;
 
 		/// <summary>
 		/// Crea un renderpass vacío.

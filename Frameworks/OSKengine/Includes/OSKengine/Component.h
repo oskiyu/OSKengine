@@ -6,6 +6,7 @@
 #include "Log.h"
 
 #include <bitset>
+#include <string>
 
 namespace OSK {
 
@@ -24,13 +25,18 @@ namespace OSK {
 	/// </summary>
 	typedef std::bitset<MAX_COMPONENTS> Signature;
 
+	/// <summary>
+	/// Añade funcionalidades básicas necesarias para un componente.
+	/// </summary>
+#define OSK_COMPONENT(x)	\
+	static inline std::string GetComponentName() { return #x; }; \
 
 	/// <summary>
 	/// Componente que puede añadirse a una entidad.
 	/// Cada entidad puede tener un único componente de cada tipo.
 	/// Permite añadir funcionalidad a la entidad.
 	/// </summary>
-	class Component {
+	class OSKAPI_CALL Component {
 
 	public:
 
@@ -52,7 +58,7 @@ namespace OSK {
 		/// <summary>
 		/// Tipo de componente.
 		/// </summary>
-		ComponentType Type;
+		ComponentType type;
 
 	};
 

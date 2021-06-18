@@ -15,6 +15,9 @@ namespace OSK::VULKAN {
 	/// </summary>
 	class OSKAPI_CALL RenderpassAttachment {
 
+		friend class Renderpass;
+		friend class RenderpassSubpass;
+
 	public:
 
 		/// <summary>
@@ -32,6 +35,8 @@ namespace OSK::VULKAN {
 		/// <param name="attachment">Número del attachment.</param>
 		/// <param name="use">Layout que tendrá.</param>
 		void CreateReference(const uint32_t& attachment, VkImageLayout use);
+
+	private:
 
 		/// <summary>
 		/// Attachment.

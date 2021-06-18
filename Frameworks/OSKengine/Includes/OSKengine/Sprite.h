@@ -56,17 +56,17 @@ namespace OSK {
 		/// <summary>
 		/// Transform del sprite.
 		/// </summary>
-		Transform2D SpriteTransform;
+		Transform2D transform;
 
 		/// <summary>
 		/// Textura que se renderiza en este sprite.
 		/// </summary>
-		Texture* Texture2D = nullptr;
+		Texture* texture = nullptr;
 
 		/// <summary>
 		/// Material del sprite.
 		/// </summary>
-		SharedPtr<MaterialInstance> SpriteMaterial;
+		SharedPtr<MaterialInstance> material;
 
 		/// <summary>
 		/// Color del sprite.
@@ -106,24 +106,22 @@ namespace OSK {
 		/// <summary>
 		/// Vértices del sprite.
 		/// </summary>
-		GPUDataBuffer VertexBuffer;
+		SharedPtr<GpuDataBuffer> vertexBuffer;
 
 		/// <summary>
 		/// Índices del sprite.
 		/// </summary>
-		static GPUDataBuffer IndexBuffer;
+		static SharedPtr<GpuDataBuffer> indexBuffer;
 
 		/// <summary>
 		/// True si hay que actualizar el buffer de vértices (por cambio de coordenadas de textura).
 		/// </summary>
 		bool hasChanged = false;
 
-	public:
-
 		/// <summary>
 		/// Vértices.
 		/// </summary>
-		std::vector<Vertex> Vertices = {
+		std::vector<Vertex> vertices = {
 			{{0, 0, 0}, {1.0f, 1.0f, 1.0f}, {0, 0}},
 			{{1, 0, 0}, {1.0f, 1.0f, 1.0f}, {1, 0}},
 			{{1, 1, 0}, {1.0f, 1.0f, 1.0f}, {1, 1}},
@@ -133,7 +131,7 @@ namespace OSK {
 		/// <summary>
 		/// Índices.
 		/// </summary>
-		static std::array<uint16_t, 6> Indices;
+		static std::array<uint16_t, 6> indices;
 				
 	};
 

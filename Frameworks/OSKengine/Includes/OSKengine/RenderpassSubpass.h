@@ -22,6 +22,8 @@ namespace OSK::VULKAN {
 	/// </summary>
 	class OSKAPI_CALL RenderpassSubpass {
 
+		friend class Renderpass;
+
 	public:
 
 		/// <summary>
@@ -52,6 +54,8 @@ namespace OSK::VULKAN {
 		/// </summary>
 		/// <param name="dependency">Dependencia.</param>
 		void AddDependency(SubpassDependency dependency);
+
+	private:
 
 		/// <summary>
 		/// Descripción de Vulkan del subpass.

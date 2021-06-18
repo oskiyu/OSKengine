@@ -59,11 +59,6 @@ namespace OSK::Collision {
 		void TransformPoints();
 
 		/// <summary>
-		/// Transform del colisionador.
-		/// </summary>
-		Transform BoxTransform{};
-
-		/// <summary>
 		/// Crea un SAT_Collider cúbico.
 		/// </summary>
 		/// <returns>Colisionador cúbico.</returns>
@@ -74,9 +69,6 @@ namespace OSK::Collision {
 		/// </summary>
 		/// <returns>Puntos en el mundo.</returns>
 		std::vector<Vector3f> GetPoints() const;
-
-		//Obtiene los ejes del collider.
-		//Transformados teniendo en cuenta su posición y rotación.
 
 		/// <summary>
 		/// Obtiene los ejes del collider.
@@ -89,7 +81,7 @@ namespace OSK::Collision {
 		/// True si el collider no va a moverse, rotar o cambiar de tamaño.
 		/// Para la optimización de transformación de puntos.
 		/// </summary>
-		bool IsStatic = false;
+		bool isStatic = false;
 
 		/// <summary>
 		/// Proyecta este colisionador sobre un eje.
@@ -98,8 +90,18 @@ namespace OSK::Collision {
 		/// <returns>Proyección.</returns>
 		SAT_Projection ProjectToAxis(const Vector3f& axis) const;
 
+		/// <summary>
+		/// Transform del colisionador.
+		/// </summary>
+		Transform& GetTransform();
+
 	private:
-		
+
+		/// <summary>
+		/// Transform del colisionador.
+		/// </summary>
+		Transform trasform;
+
 		/// <summary>
 		/// Obtiene el eje de una cara.
 		/// </summary>
@@ -110,17 +112,17 @@ namespace OSK::Collision {
 		/// <summary>
 		/// Puntos del colisionador, en espacio local.
 		/// </summary>
-		std::vector<Vector3f> Points = {};
+		std::vector<Vector3f> points = {};
 
 		/// <summary>
 		/// Puntos del colisionador, en espacio del mundo.
 		/// </summary>
-		std::vector<Vector3f> TransformedPoints = {};
+		std::vector<Vector3f> transformedPoints = {};
 
 		/// <summary>
 		/// Caras del colisionador.
 		/// </summary>
-		std::vector<SAT_Face> Faces;
+		std::vector<SAT_Face> faces;
 
 	};
 

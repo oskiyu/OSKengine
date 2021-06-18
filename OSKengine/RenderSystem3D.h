@@ -12,7 +12,7 @@ namespace OSK {
 	/// <summary>
 	/// Sistema ECS para el renderizado de modelos 3D.
 	/// </summary>
-	class RenderSystem3D : public ECS::System {
+	class OSKAPI_CALL RenderSystem3D : public ECS::System {
 
 		friend class Game;
 

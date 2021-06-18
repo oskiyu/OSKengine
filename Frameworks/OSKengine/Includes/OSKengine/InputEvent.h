@@ -7,6 +7,7 @@
 
 #include "KeysEnum.h"
 #include "ButtonCodeEnum.h"
+#include "GamepadState.h"
 
 #include <vector>
 
@@ -20,17 +21,27 @@ namespace OSK {
 		/// <summary>
 		/// Nombre del evento.
 		/// </summary>
-		std::string EventName = "";
+		std::string eventName = "";
 
 		/// <summary>
 		/// Teclas que activan el evento.
 		/// </summary>
-		std::vector<Key> LinkedKeys;
+		std::vector<Key> linkedKeys;
 
 		/// <summary>
 		/// Botones del ratón que activan el evento.
 		/// </summary>
-		std::vector<ButtonCode> LinkedButtons;
+		std::vector<ButtonCode> linkedButtons;
+
+		/// <summary>
+		/// Botones del gamepad que activan el evento.
+		/// </summary>
+		std::vector<GamepadButton> linkedGamepadButtons;
+
+		/// <summary>
+		/// Gamepad que lo controla.
+		/// </summary>
+		int gamepadCode = 0;
 
 	};
 

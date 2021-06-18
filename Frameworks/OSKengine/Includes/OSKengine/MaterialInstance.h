@@ -65,41 +65,41 @@ namespace OSK {
 		/// Establece los buffers del próximo binding.
 		/// </summary>
 		/// <param name="buffers">Buffers.</param>
-		void SetBuffer(std::vector<GPUDataBuffer>& buffers);
+		void SetBuffer(std::vector<SharedPtr<GpuDataBuffer>>& buffers);
 
 		/// <summary>
 		/// Establece los buffers del binding dado.
 		/// </summary>
 		/// <param name="buffers">Buffers.</param>
 		/// <param name="binding">Binding.</param>
-		void SetBuffer(std::vector<GPUDataBuffer>& buffers, uint32_t binding);
+		void SetBuffer(std::vector<SharedPtr<GpuDataBuffer>>& buffers, uint32_t binding);
 
 		/// <summary>
 		/// Establece los buffers del binding dado.
 		/// </summary>
 		/// <param name="name">Binding.</param>
 		/// <param name="buffers">Buffers.</param>
-		void SetBuffer(const std::string& name, std::vector<GPUDataBuffer>& buffers);
+		void SetBuffer(const std::string& name, std::vector<SharedPtr<GpuDataBuffer>>& buffers);
 
 		/// <summary>
 		/// Establece los buffers del próximo binding.
 		/// </summary>
 		/// <param name="buffers">Buffers.</param>
-		void SetDynamicBuffer(std::vector<GPUDataBuffer>& buffers);
+		void SetDynamicBuffer(std::vector<SharedPtr<GpuDataBuffer>>& buffers);
 
 		/// <summary>
 		/// Establece los buffers del binding dado.
 		/// </summary>
 		/// <param name="buffers">Buffers.</param>
 		/// <param name="binding">Binding.</param>
-		void SetDynamicBuffer(std::vector<GPUDataBuffer>& buffers, uint32_t binding);
+		void SetDynamicBuffer(std::vector<SharedPtr<GpuDataBuffer>>& buffers, uint32_t binding);
 
 		/// <summary>
 		/// Establece los buffers del binding dado.
 		/// </summary>
 		/// <param name="name">Binding.</param>
 		/// <param name="buffers">Buffers.</param>
-		void SetDynamicBuffer(const std::string& name, std::vector<GPUDataBuffer>& buffers);
+		void SetDynamicBuffer(const std::string& name, std::vector<SharedPtr<GpuDataBuffer>>& buffers);
 
 		/// <summary>
 		/// Envia el valor de los bindings a la GPU.
@@ -124,23 +124,28 @@ namespace OSK {
 		/// <summary>
 		/// Material al que pertenece la instancia.
 		/// </summary>
-		Material* OwnerMaterial = nullptr;
+		Material* ownerMaterial = nullptr;
 
 		/// <summary>
 		/// Material pool al que pertenece la instancia.
 		/// </summary>
-		MaterialPool* OwnerPool = nullptr;
+		MaterialPool* ownerPool = nullptr;
 
 		/// <summary>
 		/// Posición del descriptor set de la instancia en el array del Material Pool dueño.
 		/// </summary>
-		uint32_t DSet = 0;
+		uint32_t descriptorSetIndex = 0;
 
 		/// <summary>
 		/// True si los bindings han sido establecidos.
 		/// </summary>
 		bool hasBeenSet = false;
 		
+		/// <summary>
+		/// Buffers.
+		/// </summary>
+		std::vector<std::vector<SharedPtr<GpuDataBuffer>>> buffers;
+
 	};
 
 }

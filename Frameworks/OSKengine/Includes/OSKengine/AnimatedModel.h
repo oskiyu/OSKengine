@@ -12,6 +12,7 @@
 #include "BoneInfo.h"
 
 #include "Memory.h"
+#include <vector>
 
 namespace OSK {
 
@@ -29,50 +30,11 @@ namespace OSK {
 		/// </summary>
 		~AnimatedModel();
 
-		//Diccionario string(nombre del hueso) -> hueso.
-
-		/// <summary>
-		/// Map nombre del hueso -> hueso.
-		/// </summary>
-		std::map<std::string, uint32_t> BoneMapping;
-
-		/// <summary>
-		/// Huesos del esqueleto.
-		/// </summary>
-		std::vector<BoneInfo> BoneInfos;
-				
-		/// <summary>
-		/// Transformación base de la animación.
-		/// </summary>
-		glm::mat4 GlobalInverseTransform;
-
-		//Información sobre que huesos tiene cada vértice.
-
-		/// <summary>
-		/// Información sobre que huesos tiene cada vértice.
-		/// </summary>
-		std::vector<VertexBoneData> Bones;
-
 		/// <summary>
 		/// Velocidad de la animación.
 		/// </summary>
-		float_t AnimationSpeed = 0.75f;
-
-		/// <summary>
-		/// Animaciones disponibles.
-		/// </summary>
-		OSK::Animation::SAnimation* Animations = nullptr;
-
-		/// <summary>
-		/// Número de animaciones disponibles.
-		/// </summary>
-		uint32_t NumberOfAnimations = 0;
-
-		/// <summary>
-		/// Animación actual.
-		/// </summary>
-		OSK::Animation::SAnimation* CurrentAnimation = nullptr;
-
+		float_t animationSpeed = 0.75f;
+		
 		/// <summary>
 		/// Establece la animación del modelo.
 		/// </summary>
@@ -84,8 +46,6 @@ namespace OSK {
 		/// </summary>
 		/// <param name="name">Nombre de la animación.</param>
 		void SetAnimation(const std::string& name);
-
-		deltaTime_t time = 0.0f;
 
 		/// <summary>
 		/// Actualiza el modelo 3D (lo anima).
@@ -146,6 +106,11 @@ namespace OSK {
 		glm::mat4 GetScale(float time, const OSK::Animation::SNodeAnim& node) const;
 
 		/// <summary>
+		/// Tiempo de la animación.
+		/// </summary>
+		deltaTime_t time = 0.0f;
+
+		/// <summary>
 		/// Interpola dos vectores.
 		/// </summary>
 		/// <param name="vec1">Vector 1.</param>
@@ -162,11 +127,42 @@ namespace OSK {
 		/// <param name="animation">Nodo.</param>
 		/// <param name="parent">Matriz padre.</param>
 		void ReadNodeHierarchy(float animTime, OSK::Animation::SNode& animation, const glm::mat4& parent);
+		
+		/// <summary>
+		/// Map nombre del hueso -> hueso.
+		/// </summary>
+		std::map<std::string, uint32_t> boneMapping;
+
+		/// <summary>
+		/// Huesos del esqueleto.
+		/// </summary>
+		std::vector<BoneInfo> boneInfos;
+
+		/// <summary>
+		/// Transformación base de la animación.
+		/// </summary>
+		glm::mat4 globalInverseTransform;
+
+		/// <summary>
+		/// Información sobre que huesos tiene cada vértice.
+		/// </summary>
+		std::vector<VertexBoneData> bones;
+
+		/// <summary>
+		/// Animaciones disponibles.
+		/// </summary>
+		std::vector<OSK::Animation::SAnimation> animations;
+
+		/// <summary>
+		/// Animación actual.
+		/// </summary>
+		OSK::Animation::SAnimation* currentAnimation = nullptr;
 
 		/// <summary>
 		/// Nodo padre final.
 		/// </summary>
-		OSK::Animation::SNode RootNode;
+		OSK::Animation::SNode rootNode;
+			
 
 	};
 

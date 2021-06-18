@@ -16,11 +16,13 @@ namespace OSK {
 	/// Componente que representa una entidad presente en una escena de físicas.
 	/// Su posición y rotación son afectadas por otras entidades y por el motor de físicas.
 	/// </summary>
-	struct OSKAPI_CALL PhysicsComponent : public Component {
+	struct PhysicsComponent : public Component {
 
 		friend class PhysicsSystem;
 
 	public:
+
+		OSK_COMPONENT(PhysicsComponent)
 
 		PhysicalEntityMobilityType GetMobility() const {
 			return mobilityType;

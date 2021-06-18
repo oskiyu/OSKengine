@@ -1106,6 +1106,36 @@ Actualización de los estándares de C++ de OSK:
 - **Bugfix**: los GPU buffers ya no generan memory leaks en la GPU.
 
 
+## 2021.6.18a
+
+Bugfixes para que el archivo `.dll` pueda usarse en proyectos.
+
+Añadido un proyecto vacío con las características básics de OSKengine. Se puede crear una plantilla de 
+proyecto a partir de este.
+
+###### RenderAPI
+
+- RenderSystem3D:
+  - Si no se ha cargado un skybox, no se intentará renderizar.
+
+###### ECS
+
+- `<AddComponent()>` (tanto en `ComponentManager`, como en `EntityComponentSystem` y `GameObject`) ahora también devuelve el componente creado.
+
+- Component:
+  - Los componentes guardan su tipo en un string.
+  - Añadido el macro **OSK_COMPONENT**, que añade funcionalidades básicas necesarias a un componente.
+
+###### Bugfixes
+
+- **Bugfix**: ahora se exportan todas las funcionalidades necesarias al `.dll` (usando **OSKAPI_CALL**).
+- **Bugfix**: ya no se exportan plantillas de código (templates).
+- **Bugfix**: un proyecto que use **OSKengine** ya no intentará importar código inline que no está presente en el `.dll`.
+- **Bugfix**: añadir componentes a un objeto no crashea el juego, en proyectos que usen **OSKengine** como librería dinámica.
+
+
 ## WIP
+
+AddComponent tambien devuelve el compopnent
 
 TODO

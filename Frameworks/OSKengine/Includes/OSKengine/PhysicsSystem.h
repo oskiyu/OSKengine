@@ -49,27 +49,27 @@ namespace OSK {
 		/// Aceleración que sufren todas las entidades de la escena.
 		/// 'Gravedad'.
 		/// </summary>
-		Vector3f GlobalAcceleration = { 0.0f, 9.8f, 0.0f };
+		Vector3f globalAcceleration = { 0.0f, 9.8f, 0.0f };
 
 		/// <summary>
 		/// Terreno de la escena.
 		/// </summary>
-		OSK::Terrain* FloorTerrain = nullptr;
+		Terrain* terrain = nullptr;
 
 		/// <summary>
 		/// Representa qué simulará el motor de físicas.
 		/// </summary>
-		bitFlags_t SimulateFlags = PHYSICAL_SCENE_SIMULATE_VELOCITY | PHYSICAL_SCENE_SIMULATE_ACCEL | PHYSICAL_SCENE_SIMULATE_ROTATION;
+		bitFlags_t simulateFlags = PHYSICAL_SCENE_SIMULATE_VELOCITY | PHYSICAL_SCENE_SIMULATE_ACCEL | PHYSICAL_SCENE_SIMULATE_ROTATION;
 
 		/// <summary>
 		/// Representa qué hará el motor de físicas cuando se produzca una colisión.
 		/// </summary>
-		bitFlags_t ResolveFlags = PHYSICAL_SCENE_RESOLVE_ACCEL | PHYSICAL_SCENE_RESOLVE_ROTATION;
+		bitFlags_t resolveFlags = PHYSICAL_SCENE_RESOLVE_ACCEL | PHYSICAL_SCENE_RESOLVE_ROTATION;
 
 		/// <summary>
 		/// Indica qué hará el motor de físicas al detectar una colisión con el terreno.
 		/// </summary>
-		PhysicalSceneTerrainResolveType TerrainColissionType = PhysicalSceneTerrainResolveType::RESOLVE_DETAILED;
+		PhysicalSceneTerrainResolveType terrainColissionType = PhysicalSceneTerrainResolveType::RESOLVE_DETAILED;
 
 		/// <summary>
 		/// La precisión con la que se calcula la colisión SAT - Triángulo.
@@ -77,19 +77,19 @@ namespace OSK {
 		/// SIEMPRE DEBE SER MAYOR QUE 1.
 		/// Sólo para PhysicalSceneTerrainResolveType::PHYSICAL_SCENE_RESOLVE_DETAILED;
 		/// </summary>
-		int32_t TerrainCollisionDetectionPrecision = 1;
+		int32_t terrainCollisionDetectionPrecision = 1;
 
 		/// <summary>
 		/// Distancia mínima que debe de haber entre la entidad y el suelo para que se produzca respuesta.
 		/// Sólo para PhysicalSceneTerrainResolveType::PHYSICAL_SCENE_RESOLVE_DETAILED;
 		/// </summary>
-		float TerrainCollisionDelta = 0.2f;
+		float terrainCollisionDelta = 0.2f;
 
 		/// <summary>
 		/// Si es true, sólo se calculará una colisión por frame
 		/// Sólo para PhysicalSceneTerrainResolveType::PHYSICAL_SCENE_RESOLVE_DETAILED;
 		/// </summary>
-		bool TerrainCollisionDetectionSingleTimePerFrame = false;
+		bool terrainCollisionDetectionSingleTimePerFrame = false;
 
 	private:
 

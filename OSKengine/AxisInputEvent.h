@@ -17,7 +17,7 @@ namespace OSK {
 	/// <summary>
 	/// Estructura para poder usar teclas en eventos de eje.
 	/// </summary>
-	struct KeyToAxis {
+	struct OSKAPI_CALL KeyToAxis {
 
 		/// <summary>
 		/// Tecla 1.
@@ -32,12 +32,12 @@ namespace OSK {
 		/// <summary>
 		/// Valor del primer botón en el eje.
 		/// </summary>
-		const float valueA = 1.0f;
+		float valueA = 1.0f;
 
 		/// <summary>
 		/// Valor del segundo botón en el eje.
 		/// </summary>
-		const float valueB = -1.0f;
+		float valueB = -1.0f;
 
 	};
 

@@ -61,7 +61,7 @@ namespace OSK {
 		/// Establece la cámara con la cual se va a renderizar.
 		/// </summary>
 		/// <param name="camera">Cámrara 2D.</param>
-		void SetCamera(const Camera2D& camera);
+		void SetCamera(Camera2D* camera);
 
 		/// <summary>
 		/// Vacía el spriteBatch.
@@ -89,12 +89,12 @@ namespace OSK {
 		/// <summary>
 		/// Sprites a renderizar.
 		/// </summary>
-		ArrayQueue<SpriteContainer> spritesToDraw{};
+		DynamicArray<SpriteContainer> spritesToDraw{};
 
 		/// <summary>
-		/// Matriz de la cámara
+		/// Cámara 2D.
 		/// </summary>
-		glm::mat4 cameraMat = glm::mat4(1.0f);
+		Camera2D* camera = nullptr;
 
 	};
 

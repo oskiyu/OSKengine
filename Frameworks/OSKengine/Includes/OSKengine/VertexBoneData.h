@@ -20,7 +20,7 @@ namespace OSK {
 		/// <summary>
 		/// Pesos de los huesos.
 		/// </summary>
-		std::array<float_t, OSK_ANIM_MAX_BONES_PER_VERTEX> Weights;
+		std::array<float_t, OSK_ANIM_MAX_BONES_PER_VERTEX> weights;
 
 		/// <summary>
 		/// Liga un vértice con un hueso.

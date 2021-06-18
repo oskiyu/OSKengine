@@ -18,10 +18,9 @@ namespace OSK {
 
 		friend class RenderAPI;
 		friend class ContentManager;
+		friend class RenderizableScene;
 
-	public:
-
-		//Enlaza el skybox - tanto el modelo como la textura.
+	private:
 
 		/// <summary>
 		/// Enlaza el skybox - tanto el modelo como la textura.
@@ -39,12 +38,10 @@ namespace OSK {
 		/// <param name="commandBuffer">Command buffer.</param>
 		void Draw(VkCommandBuffer commandBuffer) const;
 
-	private:
-
 		/// <summary>
 		/// Material del skybox.
 		/// </summary>
-		SharedPtr<MaterialInstance> Instance;
+		SharedPtr<MaterialInstance> instance;
 
 		/// <summary>
 		/// Modelo del skybox (un cubo).

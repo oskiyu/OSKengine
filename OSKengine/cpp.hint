@@ -9,3 +9,8 @@
 #define OSK_VEC_3
 #define OSK_VEC_4
 #define OSK_INFO_OBSOLETE
+#define OSKAPI_CALL _declspec(dllexport)
+#define OSKAPI_CALL _declspec(dllimport)
+#define OSKAPI_CALL
+#define OSK_COMPONENT(x) static inline std::string GetComponentName() { return #x; };
+#define OSK_GAME_OBJECT(x) static inline OSK::GameObjectCreateFunc GetCreateFunction() { return []() { return new x; }; } static inline std::string GetClassName() { return #x; }

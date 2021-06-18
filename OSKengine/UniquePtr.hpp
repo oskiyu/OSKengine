@@ -1,6 +1,8 @@
 #ifndef OSK_UNIQUE_PTR
 #define OSK_UNIQUE_PTR
 
+#include "OSKmacros.h"
+
 /// <summary>
 /// Es dueño de un puntero.
 /// El puntero original es eliminado al destruirse el UniquePtr.

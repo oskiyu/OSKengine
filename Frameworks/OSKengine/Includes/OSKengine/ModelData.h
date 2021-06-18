@@ -4,7 +4,8 @@
 #include "OSKtypes.h"
 
 #include "Vertex.h"
-#include "GPUDataBuffer.h"
+#include "GpuDataBuffer.h"
+#include "SharedPtr.hpp"
 
 namespace OSK {
 
@@ -12,7 +13,7 @@ namespace OSK {
 	/// Información de un modelo.
 	/// Contiene los buffers de los vértices y los índices.
 	/// </summary>
-	struct OSKAPI_CALL ModelData {
+	class OSKAPI_CALL ModelData {
 
 	public:
 
@@ -33,17 +34,17 @@ namespace OSK {
 		/// <summary>
 		/// Vértices del modelo.
 		/// </summary>
-		GPUDataBuffer VertexBuffer;
+		SharedPtr<GpuDataBuffer> vertexBuffer;
 
 		/// <summary>
 		/// Índices del modelo.
 		/// </summary>
-		GPUDataBuffer IndexBuffer;
+		SharedPtr<GpuDataBuffer> indexBuffer;
 
 		/// <summary>
 		/// Número de índices.
 		/// </summary>
-		size_t IndicesCount = 0;
+		size_t indicesCount = 0;
 
 	};
 

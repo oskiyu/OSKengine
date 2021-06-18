@@ -31,7 +31,7 @@ namespace OSK {
 	/// </summary>
 	/// <param name="vec">Vector 2D.</param>
 	/// <returns>{ X; Y; Z }</returns>
-	template <typename T> std::string OSKAPI_CALL ToString(const Vector2_t<T>& vec) {
+	template <typename T> std::string ToString(const Vector2_t<T>& vec) {
 		return "{ " + std::to_string(vec.X) + "; " + std::to_string(vec.Y) + "}";
 	}
 
@@ -40,7 +40,7 @@ namespace OSK {
 	/// </summary>
 	/// <param name="vec">Vector 3D.</param>
 	/// <returns>{ X; Y; Z }</returns>
-	template <typename T> std::string OSKAPI_CALL ToString(const Vector3_t<T>& vec) {
+	template <typename T> std::string ToString(const Vector3_t<T>& vec) {
 		return "{ " + std::to_string(vec.X) + "; " + std::to_string(vec.Y) + "; " + std::to_string(vec.Z) + "}";
 	}
 
@@ -49,7 +49,7 @@ namespace OSK {
 	/// </summary>
 	/// <param name="vec">Vector 4D.</param>
 	/// <returns>{ X; Y; Z; W }</returns>
-	template <typename T> std::string OSKAPI_CALL ToString(const Vector4_t<T>& vec) {
+	template <typename T> std::string ToString(const Vector4_t<T>& vec) {
 		return "{ " + std::to_string(vec.X) + "; " + std::to_string(vec.Y) + "; " + std::to_string(vec.Z) + "; " + std::to_string(vec.W) + "}";
 	}
 

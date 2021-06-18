@@ -219,8 +219,10 @@ namespace OSK {
 		GraphicsPipeline* pipeline = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultSkyboxMaterial_Name)->GetGraphicsPipeline(targetRenderpass);
 		pipeline->Bind(cmdBuffer);
 
-		skybox.Bind(cmdBuffer, pipeline, i);
-		skybox.Draw(cmdBuffer);
+		if (skybox.instance.HasValue()) {
+			skybox.Bind(cmdBuffer, pipeline, i);
+			skybox.Draw(cmdBuffer);
+		}
 		
 		currentGraphicsPipeline = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultMaterial3D_Name)->GetGraphicsPipeline(targetRenderpass);
 		currentGraphicsPipeline->Bind(cmdBuffer);

@@ -11,6 +11,7 @@
 
 #include "GraphicsPipeline.h"
 #include "Renderpass.h"
+#include "UniquePtr.hpp"
 
 #include <unordered_map>
 #include <map>
@@ -104,37 +105,37 @@ namespace OSK {
 		/// <summary>
 		/// Información del pipeline.
 		/// </summary>
-		MaterialPipelineCreateInfo PipelineInfo;
+		MaterialPipelineCreateInfo pipelineInfo;
 
 		/// <summary>
 		/// Map: nombre del binding -> binding.
 		/// </summary>
-		std::unordered_map<std::string, uint32_t> BindingNameToBinding{};
+		std::unordered_map<std::string, uint32_t> bindingNameToBinding{};
 
 		/// <summary>
 		/// Map: renderpass -> pipeline enlazado al renderpass.
 		/// </summary>
-		std::map<VULKAN::Renderpass*, GraphicsPipeline*> Pipelines;
+		std::map<VULKAN::Renderpass*, GraphicsPipeline*> pipelines;
 
 		/// <summary>
 		/// Lista de renderpasses que aún no se han registrado.
 		/// </summary>
-		std::vector<VULKAN::Renderpass*> RenderpassesToRegister;
+		std::vector<VULKAN::Renderpass*> renderpassesToRegister;
 
 		/// <summary>
 		/// Almacena las instancias de los materiales.
 		/// </summary>
-		MaterialPool* Pool = nullptr;
+		UniquePtr<MaterialPool> pool;
 
 		/// <summary>
 		/// Descriptor layout del material.
 		/// </summary>
-		DescriptorLayout* MLayout = nullptr;
+		UniquePtr<DescriptorLayout> materialLayout;
 
 		/// <summary>
 		/// Renderizador.
 		/// </summary>
-		RenderAPI* Renderer = nullptr;
+		RenderAPI* renderer = nullptr;
 
 	};
 

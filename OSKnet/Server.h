@@ -4,12 +4,10 @@
 
 #include <iostream>
 
-#include "Callbacks.h"
-#include "SafeExecute.h"
-
 #include <map>
 #include "Types.h"
 #include "Macros.h"
+#include "Message.h"
 
 namespace OSK::NET {
 
@@ -31,7 +29,7 @@ namespace OSK::NET {
 
 		//Asigna la función que se ejecutará al conectarse un cliente.
 		//-callback: Función que se ejecutará.
-		void SetNewConnectionCallback(OSKnet_new_connection_callback callback);
+		/*void SetNewConnectionCallback(OSKnet_new_connection_callback callback);
 
 
 		//Asigna la función que se ejecutará al recibir el mensaje de un cliente.
@@ -41,7 +39,7 @@ namespace OSK::NET {
 
 		//Asigna la función que se ejecutará al desconectarse un cliente.
 		//-callback: Función que se ejecutará.
-		void SetDisconnectCallback(OSKnet_disconnect_callback callback);
+		void SetDisconnectCallback(OSKnet_disconnect_callback callback);*/
 
 
 		//Inicia el servidor.
@@ -114,13 +112,13 @@ namespace OSK::NET {
 		ENetEvent message = {};
 
 		//Función que se va a ejecutar al desconectarse un cliente.
-		OSKnet_disconnect_callback disconnection_callback = nullptr;
+		/*OSKnet_disconnect_callback disconnection_callback = nullptr;
 
 		//Función que se va a ejecutar al conectarse un cliente.
 		OSKnet_new_connection_callback new_connection_callback = nullptr;
 
 		//Función que se va a ejecutar al recibir un mensaje.
-		OSKnet_message_received_callback message_received_callback = nullptr;
+		OSKnet_message_received_callback message_received_callback = nullptr;*/
 
 		//Para procesar los mensajes.
 		int message_status = 0;

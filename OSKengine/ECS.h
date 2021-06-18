@@ -37,19 +37,19 @@ namespace OSK {
 		/// Destruye el ECS.
 		/// Elimina todos los game objects.
 		/// </summary>
-		~EntityComponentSystem();
+		OSKAPI_CALL ~EntityComponentSystem();
 
 		/// <summary>
 		/// Crea el ECS.
 		/// </summary>
-		EntityComponentSystem();
+		OSKAPI_CALL EntityComponentSystem();
 
 		/// <summary>
 		/// Función OnTick().
 		/// Ejecuta OnTick() en todos los sistemas.
 		/// </summary>
 		/// <param name="deltaTime">Delta.</param>
-		void OnTick(deltaTime_t deltaTime);
+		OSKAPI_CALL void OnTick(deltaTime_t deltaTime);
 
 		/// <summary>
 		/// Función OnDraw().
@@ -57,7 +57,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="cmdBuffer">Buffer de comandos de Vulkan.</param>
 		/// <param name="i">Iteración.</param>
-		void OnDraw(VkCommandBuffer cmdBuffer, uint32_t i);
+		OSKAPI_CALL void OnDraw(VkCommandBuffer cmdBuffer, uint32_t i);
 
 		/// <summary>
 		/// Registra un nuevo componente.
@@ -73,17 +73,19 @@ namespace OSK {
 		/// <typeparam name="C">Tipo de componente.</typeparam>
 		/// <param name="object">ID del objeto.</param>
 		/// <param name="component">Componente.</param>
-		template <typename C> void AddComponent(ECS::GameObjectID object, C component) {
+		template <typename C> C& AddComponent(ECS::GameObjectID object, C component) {
 			static_assert(std::is_base_of<Component, C>::value, "ERROR: AddComponent: not a Component!");
 
-			componentManager->AddComponent(object, component);
-			GetComponent<C>(object).OnCreate();
+			auto& createdComponent = componentManager->AddComponent(object, component);
+			createdComponent.OnCreate();
 
 			Signature signature = objectManager->GetSignature(object);
 			signature.set(componentManager->GetComponentType<C>(), true);
 			objectManager->SetSignature(object, signature);
 
 			systemManager->GameObjectSignatureChanged(object, signature);
+
+			return createdComponent;
 		}
 
 		/// <summary>
@@ -180,7 +182,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="className">Nombre de la clase.</param>
 		/// <param name="func">Función que devuelve una nueva instancia de la clase.</param>
-		void RegisterGameObjectClass(const std::string& className, GameObjectCreateFunc func);
+		OSKAPI_CALL void RegisterGameObjectClass(const std::string& className, GameObjectCreateFunc func);
 
 		/// <summary>
 		/// Spawnea un game object en el mundo.
@@ -191,7 +193,7 @@ namespace OSK {
 		/// <param name="angle">Ángulo de la rotación inicial.</param>
 		/// <param name="size">Escala inicial.</param>
 		/// <returns>Puntero al nuevo objeto.</returns>
-		GameObject* Spawn(const std::string& className, const Vector3f& position = { 0.0f }, const Vector3f& axis = { 0.0f, 1.0f, 0.0f }, float angle = 0.0f, const Vector3f& size = { 1.0f });
+		OSKAPI_CALL GameObject* Spawn(const std::string& className, const Vector3f& position = { 0.0f }, const Vector3f& axis = { 0.0f, 1.0f, 0.0f }, float angle = 0.0f, const Vector3f& size = { 1.0f });
 
 		/// <summary>
 		/// Spawnea un game object en el mundo.
@@ -203,7 +205,7 @@ namespace OSK {
 		/// <param name="angle">Ángulo de la rotación inicial.</param>
 		/// <param name="size">Escala inicial.</param>
 		/// <returns>Puntero al nuevo objeto.</returns>
-		GameObject* Spawn(const std::string& className, const std::string& instanceName, const Vector3f& position = { 0.0f }, const Vector3f& axis = { 0.0f, 1.0f, 0.0f }, float angle = 0.0f, const Vector3f& size = { 1.0f });
+		OSKAPI_CALL GameObject* Spawn(const std::string& className, const std::string& instanceName, const Vector3f& position = { 0.0f }, const Vector3f& axis = { 0.0f, 1.0f, 0.0f }, float angle = 0.0f, const Vector3f& size = { 1.0f });
 
 		/// <summary>
 		/// Spawnea un game object en el mundo.
@@ -237,7 +239,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="id">ID.</param>
 		/// <returns>Game object instance.</returns>
-		GameObject* GetGameObjectByID(ECS::GameObjectID id) const;
+		OSKAPI_CALL GameObject* GetGameObjectByID(ECS::GameObjectID id) const;
 
 		std::list<GameObject*>& GetAllGameObjects() {
 			return gameObjectsReferences;
@@ -249,13 +251,13 @@ namespace OSK {
 		/// Crea un nuevo GameObject.
 		/// </summary>
 		/// <returns>ID del objeto.</returns>
-		ECS::GameObjectID CreateGameObject();
+		OSKAPI_CALL ECS::GameObjectID CreateGameObject();
 
 		/// <summary>
 		/// Destruye un GameObject y sus componentes.
 		/// </summary>
 		/// <param name="object">ID del objeto.</param>
-		void DestroyGameObject(ECS::GameObjectID object);
+		OSKAPI_CALL void DestroyGameObject(ECS::GameObjectID object);
 
 		/// <summary>
 		/// Maneja los sistemas.

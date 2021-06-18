@@ -62,7 +62,7 @@ namespace OSK {
 #endif
 	std::string YEAR = "2021";
 	std::string MONTH = "06";
-	std::string DAY = "09";
+	std::string DAY = "18";
 
 	std::string ENGINE_NAME = "OSKengine";
 

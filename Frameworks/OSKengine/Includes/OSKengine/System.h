@@ -21,7 +21,10 @@ namespace OSK::ECS {
 	/// Sistema del ECS.
 	/// Maneja los objetos y componentes de objetos que tengan un Signature dado.
 	/// </summary>
-	class System {
+	class OSKAPI_CALL System {
+
+		friend class EntityComponentSystem;
+		friend class SystemManager;
 
 	public:
 
@@ -46,7 +49,7 @@ namespace OSK::ECS {
 		/// Para el sistema de renderizado.
 		/// </summary>
 		/// <param name="cmdBuffer">Buffer de comandos de Vulkan.</param>
-		/// <param name="i">Iteración.</param>
+		/// <param name="i">Iteraciï¿½n.</param>
 		virtual void OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {}
 
 		/// <summary>
@@ -60,17 +63,18 @@ namespace OSK::ECS {
 		/// <returns>Signature.</returns>
 		virtual Signature GetSystemSignature();
 
+	protected:
+
 		/// <summary>
 		/// Objetos manejados por el sistema.
 		/// </summary>
-		std::set<GameObjectID> Objects;
+		std::set<GameObjectID> objects;
 
 		/// <summary>
 		/// Sistema ECS al que pertenece.
 		/// </summary>
-		EntityComponentSystem* ECSsystem = nullptr;
+		EntityComponentSystem* entityComponentSystem = nullptr;
 
 	};
-
 	
 }

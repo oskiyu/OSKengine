@@ -6,8 +6,9 @@
 #include "Log.h"
 
 #include <vulkan/vulkan.h>
-#include "GPUImage.h"
-#include "GPUDataBuffer.h"
+#include "GpuImage.h"
+#include "GpuDataBuffer.h"
+#include "SharedPtr.hpp"
 
 namespace OSK {
 
@@ -42,7 +43,7 @@ namespace OSK::VULKAN {
 		/// <param name="arrayLevels">Array levels (1 por defecto).</param>
 		/// <param name="flags">Otras flags.</param>
 		/// <param name="mipLevels">Mipmaps (0 por defecto).</param>
-		static void CreateImage(VULKAN::GPUImage* image, const Vector2ui& size, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, uint32_t arrayLevels, VkImageCreateFlagBits flags, uint32_t mipLevels);
+		static void CreateImage(VULKAN::GpuImage* image, const Vector2ui& size, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, uint32_t arrayLevels, VkImageCreateFlagBits flags, uint32_t mipLevels);
 
 		/// <summary>
 		/// Crea un image view (cómo se accede a la imagen).
@@ -53,7 +54,7 @@ namespace OSK::VULKAN {
 		/// <param name="type">Tipo de view.</param>
 		/// <param name="layerCount">Número de capas.</param>
 		/// <param name="mipLevels">Niveles de mipmaps.</param>
-		static void CreateImageView(VULKAN::GPUImage* img, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, uint32_t layerCount, uint32_t mipLevels);
+		static void CreateImageView(VULKAN::GpuImage* img, VkFormat format, VkImageAspectFlags aspect, VkImageViewType type, uint32_t layerCount, uint32_t mipLevels);
 
 		/// <summary>
 		/// Crea un image view (cómo se accede a la imagen).
@@ -74,7 +75,7 @@ namespace OSK::VULKAN {
 		/// <param name="filter">Filtro (LINEAR: suave / NEAREST: pixelado).</param>
 		/// <param name="addressMode">Qué hacer cuando las coordenadas están fuera de rango.</param>
 		/// <param name="mipLevels">Niveles de mipmaps.</param>
-		static void CreateImageSampler(GPUImage& image, VkFilter filter, VkSamplerAddressMode addressMode, uint32_t mipLevels);
+		static void CreateImageSampler(GpuImage& image, VkFilter filter, VkSamplerAddressMode addressMode, uint32_t mipLevels);
 
 		/// <summary>
 		/// Crea mipmaps para una imagen.
@@ -82,7 +83,7 @@ namespace OSK::VULKAN {
 		/// <param name="image">Imagen (a modificar).</param>
 		/// <param name="size">Tamaño de la imagen original (uint32_t).</param>
 		/// <param name="levels">Niveles a crear.</param>
-		static void CreateMipmaps(GPUImage& image, const Vector2ui& size, uint32_t levels);
+		static void CreateMipmaps(GpuImage& image, const Vector2ui& size, uint32_t levels);
 
 		/// <summary>
 		/// Copia el contenido de un buffer a una imagen.
@@ -91,7 +92,7 @@ namespace OSK::VULKAN {
 		/// <param name="img">Imagen.</param>
 		/// <param name="width">Ancho de la imagen.</param>
 		/// <param name="height">Alto de la imagen.</param>
-		static void CopyBufferToImage(GPUDataBuffer* buffer, VULKAN::GPUImage* img, uint32_t width, uint32_t height);
+		static void CopyBufferToImage(GpuDataBuffer* buffer, VULKAN::GpuImage* img, uint32_t width, uint32_t height);
 
 		/// <summary>
 		/// Cambia el layout de una imagen.
@@ -102,7 +103,7 @@ namespace OSK::VULKAN {
 		/// <param name="mipLevels">Niveles de mipmaps.</param>
 		/// <param name="arrayLevels">Niveles de arrays (1 por defecto).</param>
 		/// <param name="cmdBuffer">Command buffer a usar. SI es nullptr (por defecto), usará un command buffer de un solo uso.</param>
-		static void TransitionImageLayout(GPUImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, uint32_t mipLevels, uint32_t arrayLevels, VkCommandBuffer* cmdBuffer = nullptr);
+		static void TransitionImageLayout(GpuImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, uint32_t mipLevels, uint32_t arrayLevels, VkCommandBuffer* cmdBuffer = nullptr);
 
 		/// <summary>
 		/// Crea una imagen a partir de un bitmap.
@@ -111,7 +112,7 @@ namespace OSK::VULKAN {
 		/// <param name="height">Alto del bitmap.</param>
 		/// <param name="pixels">Bitmap.</param>
 		/// <returns>Imagen a partir del bitmap.</returns>
-		static GPUImage CreateImageFromBitMap(uint32_t width, uint32_t height, uint8_t* pixels);
+		static SharedPtr<GpuImage> CreateImageFromBitMap(uint32_t width, uint32_t height, uint8_t* pixels, bool fromFont = false);
 
 
 	private:

@@ -34,32 +34,32 @@ namespace OSK {
 		/// <summary>
 		/// Posición en el mundo 3D.
 		/// </summary>
-		glm::vec3 Position;
+		glm::vec3 position;
 		
 		/// <summary>
 		/// Color.
 		/// </summary>
-		glm::vec3 Color;
+		glm::vec3 color;
 		
 		/// <summary>
 		/// Coordenadas de textura.
 		/// </summary>
-		glm::vec2 TextureCoordinates;
+		glm::vec2 textureCoordinates;
 
 		/// <summary>
 		/// Vector normal.
 		/// </summary>
-		glm::vec3 Normals;
+		glm::vec3 normals;
 
 		/// <summary>
 		/// Peso de los huesos de un vértice animado.
 		/// </summary>
-		float_t BoneWeights[OSK_ANIM_MAX_BONES_PER_VERTEX]{ 1.0f };
+		float_t boneWeights[OSK_ANIM_MAX_BONES_PER_VERTEX]{ 1.0f };
 
 		/// <summary>
 		/// IDs de los huesos de un modelo 3D animado.
 		/// </summary>
-		uint32_t BondeIDs[OSK_ANIM_MAX_BONES_PER_VERTEX]{ 0 };
+		uint32_t bondeIDs[OSK_ANIM_MAX_BONES_PER_VERTEX]{ 0 };
 
 		//Atributos que se pasan a la GPU.
 

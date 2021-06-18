@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{54cf9e1e-ba9e-469e-8dca-2967af7305b3}</ProjectGuid>
+    <RootNamespace>CustomTemplate</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\Includes;D:\Dev\VulkanSDK\1.2.131.2\Include;D:\Dev\freetype-2.10.1\include;D:\Dev\OpenAL\include;C:\Program Files\Assimp\include;D:\Dev\glm\glm;D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\lib-vc2019;D:\Dev\freetype-2.10.1\objs\x64\Debug;D:\Dev\VulkanSDK\1.2.131.2\Lib;C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\BinLibDebug;D:\Dev\OpenAL\libs\Win64;D:\Dev\assimp-4.1.0\assimp-4.1.0\lib\Debug;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <LibraryPath>D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\lib-vc2019;D:\Dev\freetype-2.10.1\objs\x64\Debug;D:\Dev\VulkanSDK\1.2.131.2\Lib;C:\Program Files\KTX-Software\lib;C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\BinLib;D:\Dev\OpenAL\libs\Win64;D:\Dev\assimp-4.1.0\assimp-4.1.0\lib\Debug;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
+    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\Includes;D:\Dev\assimp-4.1.0\assimp-4.1.0\lib\Debug;D:\Dev\VulkanSDK\1.2.131.2\Lib;C:\Program Files\KTX-Software\include;D:\Dev\VulkanSDK\1.2.131.2\Include;D:\Dev\freetype-2.10.1\include;D:\Dev\OpenAL\include;C:\Program Files\Assimp\include;D:\Dev\glm\glm;D:\Dev\GLAD\include;D:\Dev\glfw-3.3.bin.WIN64\glfw-3.3.bin.WIN64\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>OSK_DEBUG;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\BinLibDebug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3dll.lib;OSKengine.lib;vulkan-1.lib;freetype.lib;OpenAL32.lib;assimp-vc140-mt.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>OSK_RELEASE;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\BinLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3dll.lib;OSKengine.lib;vulkan-1.lib;freetype.lib;OpenAL32.lib;assimp-vc140-mt.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="MyGame.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyGame.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assimp-vc140-mt.dll" />
+    <None Include="freetype.dll" />
+    <None Include="glfw3.dll" />
+    <None Include="OSKengine.dll" />
+    <None Include="shaders\2D\compile.bat" />
+    <None Include="shaders\2D\frag.spv" />
+    <None Include="shaders\2D\shader.frag" />
+    <None Include="shaders\2D\shader.vert" />
+    <None Include="shaders\2D\vert.spv" />
+    <None Include="shaders\Common\Frag\FXAA.frag" />
+    <None Include="shaders\Common\Frag\phong.frag" />
+    <None Include="shaders\Common\Frag\shadows.frag" />
+    <None Include="shaders\compile.bat" />
+    <None Include="shaders\frag.spv" />
+    <None Include="shaders\shader.frag" />
+    <None Include="shaders\shader.vert" />
+    <None Include="shaders\vert.spv" />
+    <None Include="shaders\Vk\compile.bat" />
+    <None Include="shaders\Vk\frag.spv" />
+    <None Include="shaders\Vk\shader.frag" />
+    <None Include="shaders\Vk\shader.vert" />
+    <None Include="shaders\Vk\vert.spv" />
+    <None Include="shaders\VK_Post\compile.bat" />
+    <None Include="shaders\VK_Post\frag.spv" />
+    <None Include="shaders\VK_Post\shader.frag" />
+    <None Include="shaders\VK_Post\shader.vert" />
+    <None Include="shaders\VK_Post\vert.spv" />
+    <None Include="shaders\VK_PShadows\compile.bat" />
+    <None Include="shaders\VK_PShadows\frag.spv" />
+    <None Include="shaders\VK_PShadows\shader.frag" />
+    <None Include="shaders\VK_PShadows\shader.vert" />
+    <None Include="shaders\VK_PShadows\vert.spv" />
+    <None Include="shaders\VK_Shadows\compile.bat" />
+    <None Include="shaders\VK_Shadows\frag.spv" />
+    <None Include="shaders\VK_Shadows\shader.frag" />
+    <None Include="shaders\VK_Shadows\shader.vert" />
+    <None Include="shaders\VK_Shadows\vert.spv" />
+    <None Include="shaders\VK_Skybox\compile.bat" />
+    <None Include="shaders\VK_Skybox\frag.spv" />
+    <None Include="shaders\VK_Skybox\shader.frag" />
+    <None Include="shaders\VK_Skybox\shader.vert" />
+    <None Include="shaders\VK_Skybox\vert.spv" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\editor\play.png" />
+    <Image Include="assets\engine\default_texture\default_texture.png" />
+    <Image Include="Resources\OSKengine_icon_lowres.ico" />
+    <Image Include="Resources\OSKengine_icon_lowres.png" />
+    <Image Include="Resources\OSKengine_icon_lowres_16.ico" />
+    <Image Include="Resources\OSKengine_icon_lowres_16.png" />
+    <Image Include="Resources\OSKengine_icon_lowres_32.ico" />
+    <Image Include="Resources\OSKengine_icon_lowres_32.png" />
+    <Image Include="Resources\OSKengine_icon_lowres_48.ico" />
+    <Image Include="Resources\OSKengine_icon_lowres_48.png" />
+    <Image Include="Resources\OSKengine_icon_lowres_64.ico" />
+    <Image Include="Resources\OSKengine_icon_lowres_64.png" />
+    <Image Include="Resources\OSK_icon_lowres.png" />
+    <Image Include="skybox\sky\back.jpg" />
+    <Image Include="skybox\sky\bottom.jpg" />
+    <Image Include="skybox\sky\front.jpg" />
+    <Image Include="skybox\sky\left.jpg" />
+    <Image Include="skybox\sky\right.jpg" />
+    <Image Include="skybox\sky\top.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="models\Skybox\cube.obj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Fonts\AGENCYB.TTF" />
+    <Font Include="Fonts\AGENCYR.TTF" />
+    <Font Include="Fonts\arial.ttf" />
+    <Font Include="Fonts\arialbd.ttf" />
+    <Font Include="Fonts\arialbi.ttf" />
+    <Font Include="Fonts\ariali.ttf" />
+    <Font Include="Fonts\ARIALN.TTF" />
+    <Font Include="Fonts\ARIALNB.TTF" />
+    <Font Include="Fonts\ARIALNBI.TTF" />
+    <Font Include="Fonts\ARIALNI.TTF" />
+    <Font Include="Fonts\ariblk.ttf" />
+    <Font Include="Fonts\JetBrainsMono-Regular.ttf" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

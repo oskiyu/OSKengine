@@ -278,7 +278,7 @@ namespace OSK {
 		/// P = nuevo tipo de las variables.
 		/// </summary>
 		template <typename P> inline Vector2_t<P> ToVec2() const {
-			return Vector2_t<P>(X, Y);
+			return Vector2_t<P>((P)X, (P)Y);
 		}
 
 		/// <summary>

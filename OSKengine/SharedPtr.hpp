@@ -3,6 +3,8 @@
 
 #include <functional>
 
+#include "OSKmacros.h"
+
 /// <summary>
 /// Contiene un puntero al que pueden hacer referencia varios SharedPtr.
 /// Si el último SharedPtr que hace referencia a un puntero es desstruido, el puntero será eli

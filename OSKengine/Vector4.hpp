@@ -14,7 +14,7 @@ namespace OSK {
 	/// Representa un vector con 4 coordenadas (Rectangle).
 	/// </summary>
 	/// <typeparam name="T">Precisión.</typeparam>
-	template <typename T> class OSKAPI_CALL Vector4_t {
+	template <typename T> class Vector4_t {
 
 	public:
 

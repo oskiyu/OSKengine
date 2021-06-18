@@ -5,6 +5,8 @@
 #include "OSKtypes.h"
 #include "Log.h"
 
+#include <vector>
+
 namespace OSK::Animation {
 
 	/// <summary>
@@ -20,27 +22,22 @@ namespace OSK::Animation {
 		/// <summary>
 		/// Nombre.
 		/// </summary>
-		std::string Name;
+		std::string name;
 
 		/// <summary>
 		/// Matriz del nodo.
 		/// </summary>
-		glm::mat4 Matrix = glm::mat4(1.0f);
-
-		/// <summary>
-		/// Número de nodos hijos.
-		/// </summary>
-		uint32_t NumberOfChildren = 0;
+		glm::mat4 matrix = glm::mat4(1.0f);
 
 		/// <summary>
 		/// Nodos hijos.
 		/// </summary>
-		SNode* Children = nullptr;
+		std::vector<SNode> children;
 
 		/// <summary>
 		/// Posición de este nodo en el array de nodos del modelo 3D al que pertenece.
 		/// </summary>
-		int SNodeAnimIndex = -1;
+		int sNodeAnimIndex = -1;
 
 	};
 

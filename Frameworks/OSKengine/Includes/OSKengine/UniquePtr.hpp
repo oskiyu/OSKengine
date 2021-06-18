@@ -1,6 +1,8 @@
 #ifndef OSK_UNIQUE_PTR
 #define OSK_UNIQUE_PTR
 
+#include "OSKmacros.h"
+
 /// <summary>
 /// Es dueño de un puntero.
 /// El puntero original es eliminado al destruirse el UniquePtr.
@@ -33,14 +35,24 @@ public:
 	}
 
 	/// <summary>
-	/// No se puede copiar.
+	/// Copiar = mover.
 	/// </summary>
-	UniquePtr(const UniquePtr& other) = delete;
+	inline UniquePtr(const UniquePtr& other) = delete; /* {
+		auto& var = const_cast<UniquePtr&>(other);
+
+		GetOwnership(var);
+	}*/
 
 	/// <summary>
-	/// No se puede copiar.
+	/// Copiar = mover.
 	/// </summary>
-	UniquePtr& operator=(const UniquePtr& other) = delete;
+	inline UniquePtr& operator=(const UniquePtr& other) = delete;/* {
+		auto& var = const_cast<UniquePtr&>(other);
+
+		GetOwnership(var);
+
+		return *this;
+	}*/
 
 	/// <summary>
 	/// Este puntero será dueño del puntero de other.
@@ -55,7 +67,7 @@ public:
 	/// </summary>
 	/// <param name="other">Otro puntero.</param>
 	/// <returns>Self.</returns>
-	UniquePtr& operator=(UniquePtr&& other) {
+	UniquePtr& operator=(UniquePtr&& other) noexcept {
 		GetOwnership(other);
 
 		return *this;
@@ -65,11 +77,13 @@ public:
 	/// Este UniquePtr se convierte en el dueño del puntero de 'other' (eliminando el anterior).
 	/// </summary>
 	/// <param name="other">Otro puntero.</param>
-	void GetOwnership(UniquePtr& other) {
+	UniquePtr& GetOwnership(UniquePtr& other) {
 		Free();
 
 		pointer = other.pointer;
 		other.pointer = nullptr;
+
+		return *this;
 	}
 
 	/// <summary>

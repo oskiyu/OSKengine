@@ -25,7 +25,7 @@
 /// Sistema ECS. <br/>
 /// Sistema de Renderizado 3D.
 /// </summary>
-class Game {
+class OSKAPI_CALL Game {
 
 public:
 

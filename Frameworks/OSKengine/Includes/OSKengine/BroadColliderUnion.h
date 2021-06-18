@@ -25,12 +25,12 @@ namespace OSK {
 		/// <summary>
 		/// Axis oriented box.
 		/// </summary>
-		CollisionBox Box;
+		CollisionBox asBox;
 
 		/// <summary>
 		/// Esfera.
 		/// </summary>
-		CollisionSphere Sphere;
+		CollisionSphere asSphere;
 
 	};
 

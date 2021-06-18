@@ -15,17 +15,17 @@ namespace OSK {
 		/// <summary>
 		/// Versión mayor.
 		/// </summary>
-		unsigned int Mayor;
+		unsigned int mayor;
 
 		/// <summary>
 		/// Versión menor.
 		/// </summary>
-		unsigned int Menor;
+		unsigned int menor;
 
 		/// <summary>
 		/// Parche.
 		/// </summary>
-		unsigned int Parche;
+		unsigned int parche;
 
 	};
 

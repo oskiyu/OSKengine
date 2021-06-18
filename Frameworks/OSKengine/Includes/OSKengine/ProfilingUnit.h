@@ -48,7 +48,7 @@ namespace OSK {
 		/// <summary>
 		/// Nombre de la unidad.
 		/// </summary>
-		std::string Name = "UNKNOWN";
+		std::string name = "UNKNOWN";
 
 	private:
 

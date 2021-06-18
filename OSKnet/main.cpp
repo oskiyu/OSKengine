@@ -1,17 +1,14 @@
 #include "Macros.h"
-#define OSK_DLL
+//#define OSK_DLL
 #ifndef OSK_DLL
 
 #include <enet/enet.h>
 
 #include <iostream>
 
-#include "OSKnet.hpp"
 #include "Client.h"
 #include "Server.h"
-#include "Encoder.hpp"
 
-#include "StructReg.h"
 #include "Types.h"
 
 //#define NO_NET
@@ -21,7 +18,7 @@
 //#define SERVER
 
 #ifndef SERVER
-#define CLIENT
+//#define CLIENT
 #endif
 
 #endif
@@ -34,7 +31,7 @@ namespace OSK::NET {
 		send_message = true;
 	}
 
-	void messageCallback(Message& msg) {
+	/*void messageCallback(Message& msg) {
 		std::cout << "NEW MESSAGE" << std::endl;
 		std::cout << "DATA = " << msg.GetRawData() << std::endl;
 		std::cout << "ID = " << msg.GetMessageCode() << std::endl;	
@@ -54,7 +51,7 @@ namespace OSK::NET {
 
 		bool run = true;
 
-		OSK::NET::GlobalInit();
+		OSK::NET::GlobalInit();*/
 
 #ifdef NO_NET
 
@@ -168,14 +165,22 @@ namespace OSK::NET {
 
 		client.Disconnect();
 #endif
-		OSK::NET::GlobalShutdown();
+		//OSK::NET::GlobalShutdown();
 
-		return 0;
-	}
+
+
+		//return 0;
+	//}
 }
 
 int main() {
-	return OSK::NET::main();
+	//return OSK::NET::main();
+	OSK::NET::Message buffer;
+	buffer.Write<int>(5);
+
+	std::cout << buffer.Read<int>() << std::endl;
+
+	return 0;
 }
 
 

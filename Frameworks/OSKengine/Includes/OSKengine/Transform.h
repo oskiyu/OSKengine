@@ -14,8 +14,6 @@
 
 namespace OSK {
 
-	class PhysicsSystem;
-
 	/// <summary>
 	/// Clase que almacena el 'transform' de un objeto en un mundo 3D.
 	/// El transform contiene posición, escala y rotación.
@@ -118,42 +116,42 @@ namespace OSK {
 		/// <summary>
 		/// Vector posición en el mundo 3D.
 		/// </summary>
-		Vector3f GlobalPosition;
+		Vector3f GetPosition() const;
 
 		/// <summary>
 		/// Vector escala en el mundo 3D.
 		/// </summary>
-		Vector3f GlobalScale;
+		Vector3f GetScale() const;
 
 		/// <summary>
 		/// Posición respecto al padre.
 		/// </summary>
-		Vector3f LocalPosition;
+		Vector3f GetLocalPosition() const;
 
 		/// <summary>
 		/// Escala respecto al padre.
 		/// </summary>
-		Vector3f LocalScale;
+		Vector3f GetLocalScale() const;
 
 		/// <summary>
 		/// Orientación.
 		/// </summary>
-		Quaternion Rotation;
+		Quaternion GetRotation() const;
 
 		/// <summary>
 		/// Matriz modelo.
 		/// </summary>
-		glm::mat4 ModelMatrix;
-	
+		glm::mat4 AsMatrix() const;
+
 		/// <summary>
 		/// Transform padre.
 		/// </summary>
-		Transform* ParentTransform = nullptr;
+		Transform* GetParent() const;
 
 		/// <summary>
 		/// Transformaciones ahijadas.
 		/// </summary>
-		std::vector<Transform*> ChildTransforms;
+		std::vector<Transform*> GetChildTransforms() const;
 
 	private:
 
@@ -163,6 +161,46 @@ namespace OSK {
 		/// <param name="src">Matriz assimp.</param>
 		/// <returns>Matriz glm.</returns>
 		static glm::mat4 toGlmMat(const aiMatrix4x4* src);
+
+		/// <summary>
+		/// Vector posición en el mundo 3D.
+		/// </summary>
+		Vector3f globalPosition;
+
+		/// <summary>
+		/// Vector escala en el mundo 3D.
+		/// </summary>
+		Vector3f globalScale;
+
+		/// <summary>
+		/// Posición respecto al padre.
+		/// </summary>
+		Vector3f localPosition;
+
+		/// <summary>
+		/// Escala respecto al padre.
+		/// </summary>
+		Vector3f localScale;
+
+		/// <summary>
+		/// Orientación.
+		/// </summary>
+		Quaternion rotation;
+
+		/// <summary>
+		/// Matriz modelo.
+		/// </summary>
+		glm::mat4 modelMatrix;
+
+		/// <summary>
+		/// Transform padre.
+		/// </summary>
+		Transform* parentTransform = nullptr;
+
+		/// <summary>
+		/// Transformaciones ahijadas.
+		/// </summary>
+		std::vector<Transform*> childTransforms;
 
 		/// <summary>
 		/// True si tiene padre.

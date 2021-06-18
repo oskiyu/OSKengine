@@ -18,19 +18,33 @@ namespace OSK {
 		/// <summary>
 		/// Posición de la luz.
 		/// </summary>
-		alignas(16) glm::vec3 Position;
+		alignas(16) glm::vec3 position;
 
 		/// <summary>
 		/// Color.
 		/// </summary>
-		alignas(16) glm::vec4 Color;
+		alignas(16) glm::vec4 color;
 
 		/// <summary>
 		/// Información de la luz: <para/>
 		/// x = Intensidad. <para/>
 		/// y = Radio. <para/>
 		/// </summary>
-		alignas(16) glm::vec4 Information;
+		alignas(16) glm::vec4 information;
+
+		/// <summary>
+		/// Establece la intensidad de la luz.
+		/// </summary>
+		void SetIntensity(float intensity) {
+			information.x = intensity;
+		}
+
+		/// <summary>
+		/// Establece el radio a la que llega la luz.
+		/// </summary>
+		void SetRadius(float radius) {
+			information.y = radius;
+		}
 
 	};
 

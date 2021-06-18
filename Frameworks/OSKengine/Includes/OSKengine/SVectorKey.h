@@ -15,12 +15,12 @@ namespace OSK::Animation {
 		/// <summary>
 		/// KeyFrame.
 		/// </summary>
-		deltaTime_t Time;
+		deltaTime_t time;
 
 		/// <summary>
 		/// Valor.
 		/// </summary>
-		Vector3f Value;
+		Vector3f value;
 
 	};
 
