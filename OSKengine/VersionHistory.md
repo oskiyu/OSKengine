@@ -1134,8 +1134,40 @@ proyecto a partir de este.
 - **Bugfix**: añadir componentes a un objeto no crashea el juego, en proyectos que usen **OSKengine** como librería dinámica.
 
 
-## WIP
+## 2021.7.3a
 
-AddComponent tambien devuelve el compopnent
+Añadido soporte para MSAA.
+
+###### RenderAPI:
+
+Por defecto renderiza con el máximo nivel de MSAA soportado.
+
+- RenderTarget:
+    - Ahora crea su propio renderpass.
+    - Ahora tiene una imagen extra, para resolver el MSAA.
+- Swapchain:
+    - Encapsula la funcionalidad de un swapchain.
+- GpuInfo:
+    - Guarda el nivel de MSAA soportado.
+- Bitmap:
+  - Estructura que representa un bitmap que aún no se ha pasado a la GPU:
+    - Bytes de los píxeles.
+    - Tamaño.
+    - Formato.
+  - Formatos disponibles:
+    - `RGB_8bit`
+    - `RGBA_8bit`
+    - `INTERNAL_FONT`: 
+      - Se usa internamente a la hora de cargar fuentes.
+ 
+###### ContentAPI:
+
+- ContentManager:
+  - Ahora puede crear una textura a partir de un bitmap.
+    - La textura pasa a ser propiedad del content manager.
+  - Ahora comprueba siempre si existen los archivos antes de intentar cargarlos.
+
+
+## WIP
 
 TODO
