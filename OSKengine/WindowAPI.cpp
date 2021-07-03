@@ -51,8 +51,7 @@ namespace OSK {
 		glfwSetFramebufferSizeCallback(window, WindowAPI::defaultFramebufferSizeCallback);
 		glfwSetCursorPosCallback(window, mouseInputCallback);
 		glfwSetScrollCallback(window, mouseScrollCallback);
-
-		
+			
 
 #ifndef OSK_DEBUG
 		//SetFullscreen(true);

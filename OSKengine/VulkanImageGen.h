@@ -9,6 +9,7 @@
 #include "GpuImage.h"
 #include "GpuDataBuffer.h"
 #include "SharedPtr.hpp"
+#include "Texture.h"
 
 namespace OSK {
 
@@ -43,7 +44,7 @@ namespace OSK::VULKAN {
 		/// <param name="arrayLevels">Array levels (1 por defecto).</param>
 		/// <param name="flags">Otras flags.</param>
 		/// <param name="mipLevels">Mipmaps (0 por defecto).</param>
-		static void CreateImage(VULKAN::GpuImage* image, const Vector2ui& size, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, uint32_t arrayLevels, VkImageCreateFlagBits flags, uint32_t mipLevels);
+		static void CreateImage(VULKAN::GpuImage* image, const Vector2ui& size, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, uint32_t arrayLevels, VkImageCreateFlagBits flags, uint32_t mipLevels, VkSampleCountFlagBits msaaLevel);
 
 		/// <summary>
 		/// Crea un image view (cómo se accede a la imagen).
@@ -103,7 +104,7 @@ namespace OSK::VULKAN {
 		/// <param name="mipLevels">Niveles de mipmaps.</param>
 		/// <param name="arrayLevels">Niveles de arrays (1 por defecto).</param>
 		/// <param name="cmdBuffer">Command buffer a usar. SI es nullptr (por defecto), usará un command buffer de un solo uso.</param>
-		static void TransitionImageLayout(GpuImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, uint32_t mipLevels, uint32_t arrayLevels, VkCommandBuffer* cmdBuffer = nullptr);
+		static void TransitionImageLayout(GpuImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, uint32_t mipLevels, uint32_t arrayLevels, VkCommandBuffer cmdBuffer = VK_NULL_HANDLE);
 
 		/// <summary>
 		/// Crea una imagen a partir de un bitmap.
@@ -112,7 +113,7 @@ namespace OSK::VULKAN {
 		/// <param name="height">Alto del bitmap.</param>
 		/// <param name="pixels">Bitmap.</param>
 		/// <returns>Imagen a partir del bitmap.</returns>
-		static SharedPtr<GpuImage> CreateImageFromBitMap(uint32_t width, uint32_t height, uint8_t* pixels, bool fromFont = false);
+		static SharedPtr<GpuImage> CreateImageFromBitMap(const Bitmap& bitmap);
 
 
 	private:

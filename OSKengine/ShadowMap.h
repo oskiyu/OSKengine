@@ -145,19 +145,11 @@ namespace OSK {
 		void Update();
 
 		/// <summary>
-		/// Crea el renderpass para el renderizado de las sombras.
-		/// </summary>
-		void CreateRenderpass();
-
-		/// <summary>
-		/// Crea los framebuffers para el renderizado de las sombras.
-		/// </summary>
-		void CreateFramebuffers();
-
-		/// <summary>
 		/// Referencia al content manager.
 		/// </summary>
 		ContentManager* content = nullptr;
+
+		VkSampleCountFlagBits msaa = VK_SAMPLE_COUNT_1_BIT;
 
 	};
 

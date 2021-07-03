@@ -380,6 +380,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GamepadState.cpp" />
+    <ClCompile Include="GpuInfo.cpp" />
     <ClCompile Include="GraphicsPipeline.cpp" />
     <ClCompile Include="ContentManager.cpp" />
     <ClCompile Include="Heightmap.cpp" />
@@ -434,6 +435,7 @@
     <ClCompile Include="SoundEntity.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteContainer.cpp" />
+    <ClCompile Include="Swapchain.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="SystemManager.cpp" />
     <ClCompile Include="Terrain.cpp" />
@@ -565,6 +567,7 @@
     <ClInclude Include="stbi_image_write.h" />
     <ClInclude Include="SubpassDependency.h" />
     <ClInclude Include="SVectorKey.h" />
+    <ClInclude Include="Swapchain.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="SystemManager.h" />
     <ClInclude Include="TempModelData.h" />

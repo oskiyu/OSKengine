@@ -16,13 +16,7 @@ namespace OSK::VULKAN {
 		}
 	}
 
-	void Renderpass::SetMSAA(VkSampleCountFlagBits samples) {
-		this->samples = samples;
-	}
-
 	void Renderpass::AddAttachment(RenderpassAttachment attachment) {
-		attachment.attahcmentDesc.samples = samples;
-		
 		attachments.push_back(attachment);
 	}
 
@@ -55,8 +49,7 @@ namespace OSK::VULKAN {
 		renderPassInfo.pDependencies = subpassesDependencies.data();
 
 		VkResult result = vkCreateRenderPass(logicalDevice, &renderPassInfo, nullptr, &vulkanRenderpass);
-		if (result != VK_SUCCESS)
-			throw std::runtime_error("ERROR: crear renderpass.");
+		OSK_ASSERT(result == VK_SUCCESS, "ERROR: crear renderpass. Code: " + std::to_string(result) + ".");
 	}
 
 }

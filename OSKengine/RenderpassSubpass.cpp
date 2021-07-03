@@ -21,7 +21,15 @@ void RenderpassSubpass::SetColorAttachments(const std::vector<RenderpassAttachme
 }
 
 void RenderpassSubpass::SetDepthStencilAttachment(const RenderpassAttachment& attachment) {
-	description.pDepthStencilAttachment = &attachment.reference;
+	depthReference = attachment.reference;
+
+	description.pDepthStencilAttachment = &depthReference;
+}
+
+void RenderpassSubpass::SetResolveAttachment(const RenderpassAttachment& attachment) {
+	resolveReference = attachment.reference;
+
+	description.pResolveAttachments = &resolveReference;
 }
 
 void RenderpassSubpass::AddDependency(SubpassDependency dependency) {

@@ -17,7 +17,6 @@ void RenderSystem3D::Init() {
 	renderScene = new RenderizableScene(renderer);
 	renderer->renderSystem = this;
 	renderStage.scene = renderScene.GetPointer();
-	renderScene->targetRenderpass = renderer->GetMainRenderTarget()->vulkanRenderpass;
 }
 
 void RenderSystem3D::OnTick(deltaTime_t deltaTime) {
@@ -51,25 +50,11 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 		renderScene->EndDrawShadows(cmdBuffer, i);
 	}
 
-	VkRenderPassBeginInfo renderPassInfo{};
-	renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-	renderPassInfo.renderPass = renderer->GetMainRenderTarget()->vulkanRenderpass->vulkanRenderpass;
-	renderPassInfo.framebuffer = renderer->GetMainRenderTarget()->targetFramebuffers[i]->framebuffer;
-	renderPassInfo.renderArea.offset = { 0, 0 };
-
-	renderPassInfo.renderArea.extent = { renderer->GetMainRenderTarget()->GetSize().X, renderer->GetMainRenderTarget()->GetSize().Y };
-	std::array<VkClearValue, 2> clearValues = {};
-	clearValues[0] = { 0.8f, 0.8f, 0.8f, 1.0f }; //Color.
-	clearValues[1] = { 1.0f, 0.0f }; //Depth.
-	renderPassInfo.clearValueCount = (uint32_t)clearValues.size();
-	renderPassInfo.pClearValues = clearValues.data();
-
-	renderer->GetMainRenderTarget()->TransitionToRenderTarget(&cmdBuffer);
-	vkCmdBeginRenderPass(cmdBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+	renderer->GetMainRenderTarget()->BeginRenderpass(cmdBuffer, i);
 	renderer->SetViewport(cmdBuffer);
 
 	if (renderScene.HasValue()) {
-		renderScene->PrepareDraw(cmdBuffer, i);
+		renderScene->PrepareDraw(cmdBuffer, i, renderer->GetMainRenderTarget());
 
 		for (auto object : objects) {
 			ModelComponent& comp = entityComponentSystem->GetComponent<ModelComponent>(object);
@@ -88,7 +73,7 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 	for (auto& spriteBatch : renderStage.spriteBatches) {
 
 		if (!spriteBatch->spritesToDraw.IsEmpty()) {
-			GraphicsPipeline* pipeline = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultMaterial2D_Name)->GetGraphicsPipeline(renderer->GetMainRenderTarget()->vulkanRenderpass);
+			GraphicsPipeline* pipeline = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultMaterial2D_Name)->GetGraphicsPipeline(renderer->GetMainRenderTarget()->renderpass.GetPointer());
 			pipeline->Bind(cmdBuffer);
 
 			vkCmdBindIndexBuffer(cmdBuffer, Sprite::indexBuffer->memorySubblock->GetNativeGpuBuffer(), Sprite::indexBuffer->memorySubblock->GetOffset(), VK_INDEX_TYPE_UINT16);
@@ -117,6 +102,5 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 		}
 	}
 
-	vkCmdEndRenderPass(cmdBuffer);
-	renderer->GetMainRenderTarget()->TransitionToTexture(&cmdBuffer);
+	renderer->GetMainRenderTarget()->EndRenderpass();
 }

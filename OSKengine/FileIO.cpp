@@ -6,32 +6,26 @@
 namespace OSK {
 
 	void FileIO::WriteFile(const std::string& path, const std::string& text) {
-		std::ofstream stream(path);
-		if (stream.is_open()) {
-			stream << text << std::endl;
-		}
-		else
-			Logger::Log(LogMessageLevels::BAD_ERROR, "WriteFile to " + path);
+		OSK_ASSERT(FileExists(path), "Se ha intentado escribir el archivo " + path + " pero no existe.");
 
+		std::ofstream stream(path);
+		stream << text << std::endl;
+		
 		stream.close();
 	}
 
 
 	std::string FileIO::ReadFromFile(const std::string& path) {
-		if (!FileExists(path))
-			throw new std::runtime_error("ERROR: se ha intentado leer el archivo " + path + " pero no existe.");
+		OSK_ASSERT(FileExists(path), "Se ha intentado leer el archivo " + path + " pero no existe.");
 
 		std::ifstream stream(path);
 		std::string line;
 		std::string ret = "";
-		if (stream.is_open()) {
-			while (std::getline(stream, line)) {
-				ret.append(line);
-				ret.append("\n");
-			}
+		
+		while (std::getline(stream, line)) {
+			ret.append(line);
+			ret.append("\n");
 		}
-		else
-			Logger::Log(LogMessageLevels::BAD_ERROR, "ReadFromFile from " + path);
 		
 		stream.close();
 			
@@ -40,13 +34,9 @@ namespace OSK {
 
 
 	std::vector<char> FileIO::ReadBinaryFromFile(const std::string& filename) {
-		std::ifstream file(filename, std::ios::ate | std::ios::binary); //Abre el archivo; ate -> al final del archivo
+		OSK_ASSERT(FileExists(filename), "El archivo binarion " + filename + " no existe.");
 
-		//Error handling
-		if (!file.is_open()) {
-			Logger::Log(LogMessageLevels::BAD_ERROR, "ERROR: abrir archivo " + filename);
-			throw std::runtime_error("ERROR: abrir archivo " + filename);
-		}
+		std::ifstream file(filename, std::ios::ate | std::ios::binary); //Abre el archivo; ate -> al final del archivo
 
 		//Tamaño del std::vector
 		size_t fileSize = (size_t)file.tellg();
@@ -71,7 +61,7 @@ namespace OSK {
 		if (stream.is_open())
 			stream.close();
 
-		return stream.good();
+		return output;
 	}
 
 }

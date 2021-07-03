@@ -25,6 +25,52 @@ namespace OSK {
 	};
 
 	/// <summary>
+	/// Formato de una textura.
+	/// </summary>
+	enum class TextureFormat {
+
+		RGB_8bits,
+		RGBA_8bits,
+
+		INTERNAL_FONT
+
+	};
+
+	/// <summary>
+	/// Devuelve el formato nativo, dado el formato de la textura.
+	/// </summary>
+	VkFormat ToNative(TextureFormat format);
+
+	/// <summary>
+	/// Devuelve el número de bytes por cada píxel.
+	/// </summary>
+	uint32_t GetNumberOfPixelsFromFormat(TextureFormat format);
+
+
+	/// <summary>
+	/// Representa un bitmap:
+	/// una serie de bytes que representan una textura.
+	/// </summary>
+	struct Bitmap {
+
+		/// <summary>
+		/// Butes.
+		/// </summary>
+		std::vector<uint8_t> bytes;
+
+		/// <summary>
+		/// Tamaño de la textura, en píxeles.
+		/// </summary>
+		Vector2ui size;
+
+		/// <summary>
+		/// Formato de la textura.
+		/// </summary>
+		TextureFormat format;
+
+	};
+
+	/// <summary>
 	/// Una textura 2D.
 	/// </summary>
 	struct OSKAPI_CALL Texture {

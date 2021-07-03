@@ -131,29 +131,13 @@ void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 	memoryAllocator = new MemoryAllocator();
 	memoryAllocator->Init(logicalDevice, memoryProperties);
 
-	createSwapchain();
-	createSwapchainImageViews();
+	swapchain = new Swapchain(this);
+	swapchain->Create();
 
 	materialSystem = new MaterialSystem(this);
 
-	createRenderpass();
-	
-	renderTargetSizeX = (uint32_t)(swapchainExtent.width * renderResolutionMultiplier);
-	renderTargetSizeY = (uint32_t)(swapchainExtent.height * renderResolutionMultiplier);
-
-	{
-		RenderpassAttachment clrAttachment{};
-		clrAttachment.AddAttachment(swapchainFormat, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);//
-		clrAttachment.CreateReference(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
-
-		RenderpassAttachment dpthAttachment{};
-		dpthAttachment.AddAttachment(getDepthFormat(), VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
-		dpthAttachment.CreateReference(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
-
-		std::vector<RenderpassAttachment> attchments = { clrAttachment };
-
-		renderTargetBeforePostProcessing->CreateRenderpass(attchments, &dpthAttachment);
-	}
+	renderTargetSizeX = (uint32_t)(swapchain->size.width * renderResolutionMultiplier);
+	renderTargetSizeY = (uint32_t)(swapchain->size.height * renderResolutionMultiplier);
 
 	createCommandPool();
 	createGlobalImageSampler();
@@ -224,8 +208,6 @@ void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 	}
 	//!MATERIALS
 
-	createDepthResources();
-	createFramebuffers();
 	createSyncObjects();
 	createCommandBuffers();
 
@@ -241,21 +223,36 @@ void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 	content->LoadSprite(&OskEngineIconSprite, "Resources/OSKengine_icon_lowres_48.png");
 	content->LoadSprite(&OskIconSprite, "Resources/OSK_icon_lowres.png");
 
-	renderTargetBeforePostProcessing->CreateSprite(content.GetPointer());
+	renderTargetSizeX = (uint32_t)(window->GetSize().X * renderResolutionMultiplier);
+	renderTargetSizeY = (uint32_t)(window->GetSize().Y * renderResolutionMultiplier);
 
-	//Image
-	renderTargetBeforePostProcessing->size.X = renderTargetSizeX;
-	renderTargetBeforePostProcessing->size.Y = renderTargetSizeY;
-	VULKAN::VulkanImageGen::CreateImage(renderTargetBeforePostProcessing->renderedSprite.texture->image.GetPointer(), renderTargetBeforePostProcessing->size, swapchainFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
-	VULKAN::VulkanImageGen::CreateImageView(renderTargetBeforePostProcessing->renderedSprite.texture->image.GetPointer(), swapchainFormat, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
-	VULKAN::VulkanImageGen::CreateImageSampler(renderTargetBeforePostProcessing->renderedSprite.texture->image.Get(), VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
-	renderTargetBeforePostProcessing->renderedSprite.material->SetTexture(renderTargetBeforePostProcessing->renderedSprite.texture);
-	renderTargetBeforePostProcessing->renderedSprite.material->FlushUpdate();
-	
-	createRenderTarget();
+	renderTargetBeforePostProcessing->SetSize(renderTargetSizeX, renderTargetSizeY);
+	renderTargetBeforePostProcessing->CreateSprite(content.GetPointer());
+	renderTargetBeforePostProcessing->CreateRenderpass(gpuInfo.maxMsaaSamples);
+
+	renderTargetBeforePostProcessing->renderedSprite.transform.SetPosition({ 0.0f });
+	renderTargetBeforePostProcessing->renderedSprite.transform.SetScale(window->GetSize().ToVector2f());
+
+
+	finalRenderTarget = CreateNewRenderTarget();
+	finalRenderTarget->SetSwapchain(swapchain->imageViews);
+	finalRenderTarget->SetSize(renderTargetSizeX, renderTargetSizeY);
+	finalRenderTarget->CreateSprite(content.GetPointer());
+	finalRenderTarget->CreateRenderpass(gpuInfo.maxMsaaSamples);
+
+	finalRenderTarget->renderedSprite.transform.SetPosition({ 0.0f });
+	finalRenderTarget->renderedSprite.transform.SetScale(window->GetSize().ToVector2f());
+
 	InitPostProcessing();
 }
 
+MemoryAllocator* RenderAPI::GetGpuMemoryAllocator() const {
+	return memoryAllocator.GetPointer();
+}
+
+VkSampleCountFlagBits RenderAPI::GetMsaaSamples() const {
+	return gpuInfo.maxMsaaSamples;
+}
 
 Renderpass* RenderAPI::CreateNewRenderpass() {
 	return new Renderpass(logicalDevice);
@@ -263,29 +260,6 @@ Renderpass* RenderAPI::CreateNewRenderpass() {
 
 RenderTarget* RenderAPI::CreateNewRenderTarget() {
 	return new RenderTarget(this);
-}
-void RenderAPI::InitRenderTarget(RenderTarget* rtarget, ContentManager* content) {
-	rtarget->size = { (uint32_t)window->GetRectangle().GetRectangleWidth(), (uint32_t)window->GetRectangle().GetRectangleHeight() };
-	rtarget->CreateSprite(content);
-
-	//Image
-	VULKAN::VulkanImageGen::CreateImage(rtarget->renderedSprite.texture->image.GetPointer(), rtarget->size, swapchainFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
-	VULKAN::VulkanImageGen::CreateImageView(rtarget->renderedSprite.texture->image.GetPointer(), swapchainFormat, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
-	VULKAN::VulkanImageGen::CreateImageSampler(rtarget->renderedSprite.texture->image.Get(), SHADOW_MAP_FILTER, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
-	rtarget->renderedSprite.material = GetMaterialSystem()->GetMaterial(defaultMaterial2D_Name)->CreateInstance();
-	rtarget->renderedSprite.material->SetTexture(rtarget->renderedSprite.texture);
-	rtarget->renderedSprite.material->FlushUpdate();
-
-	//Renderpass
-	VULKAN::RenderpassAttachment rpassAttachment{};
-	rpassAttachment.AddAttachment(swapchainFormat, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
-	rpassAttachment.CreateReference(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
-	std::vector<VULKAN::RenderpassAttachment> attchments = { };
-	rtarget->CreateRenderpass(attchments, &rpassAttachment);
-
-	//Framebuffers
-	rtarget->SetSize(rtarget->size.X, rtarget->size.Y, true);
-	rtarget->CreateFramebuffers(4, &rtarget->renderedSprite.texture->image->view, 1);
 }
 
 void RenderAPI::SetPresentMode(PresentMode mode) {
@@ -336,7 +310,7 @@ void RenderAPI::RenderFrame() {
 
 	vkWaitForFences(logicalDevice, 1, &fences[renderVars.currentImage], VK_TRUE, UINT64_MAX);
 	//Adquiere la siguiente imágen sobre la que se va a renderizar.
-	VkResult result = vkAcquireNextImageKHR(logicalDevice, swapchain, UINT64_MAX, imageAvailableSemaphores[0], VK_NULL_HANDLE, &nextImageIndex);
+	VkResult result = vkAcquireNextImageKHR(logicalDevice, swapchain->swapchain, UINT64_MAX, imageAvailableSemaphores[0], VK_NULL_HANDLE, &nextImageIndex);
 	vkWaitForFences(logicalDevice, 1, &fences[nextImageIndex], VK_TRUE, UINT64_MAX);
 	vkResetFences(logicalDevice, 1, &fences[nextImageIndex]);
 
@@ -385,7 +359,7 @@ void RenderAPI::RenderFrame() {
 	presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
 	presentInfo.waitSemaphoreCount = 1;
 	presentInfo.pWaitSemaphores = signalSemaphores;
-	VkSwapchainKHR swapChains[] = { swapchain };
+	VkSwapchainKHR swapChains[] = { swapchain->swapchain };
 	presentInfo.swapchainCount = 1;
 	presentInfo.pSwapchains = swapChains;
 	presentInfo.pImageIndices = &nextImageIndex;
@@ -425,7 +399,7 @@ GraphicsPipeline* RenderAPI::CreateNewGraphicsPipeline(const std::string& vertex
 }
 
 DescriptorPool* RenderAPI::CreateNewDescriptorPool() const {
-	return new DescriptorPool(logicalDevice, (uint32_t)swapchainImages.size());
+	return new DescriptorPool(logicalDevice, swapchain->GetImageCount());
 }
 
 DescriptorLayout* RenderAPI::CreateNewDescriptorLayout() const {
@@ -433,7 +407,7 @@ DescriptorLayout* RenderAPI::CreateNewDescriptorLayout() const {
 }
 
 DescriptorSet* RenderAPI::CreateNewDescriptorSet() const {
-	return new DescriptorSet(logicalDevice, (uint32_t)swapchainImages.size());
+	return new DescriptorSet(logicalDevice, swapchain->GetImageCount());
 }
 
 bool RenderAPI::checkValidationLayers() {
@@ -634,150 +608,6 @@ void RenderAPI::createLogicalDevice() {
 	vkGetDeviceQueue(logicalDevice, indices.presentFamily.value(), 0, &presentQueue);
 }
 
-
-void RenderAPI::createSwapchain() {
-	//Soporte del swapchain.
-	SwapchainSupportDetails swapchainDetails = getSwapchainSupportDetails(gpu);
-
-	//Formato del swapchain.
-	VkSurfaceFormatKHR surfaceFormat = getSwapchainFormat(swapchainDetails.formats);
-
-	//Modo de pressentación.
-	VkPresentModeKHR presentMode = getPresentMode(swapchainDetails.presentModes);
-
-	//tamaño.
-	VkExtent2D extent = getSwapchainExtent(swapchainDetails.surfaceCapabilities);
-
-	//Número de imágenes en el swapchain.
-	uint32_t imageCount = swapchainDetails.surfaceCapabilities.minImageCount + 1;
-
-	//Asegurarnos de que no hay más de las soportadas.
-	if (swapchainDetails.surfaceCapabilities.maxImageCount > 0 && imageCount > swapchainDetails.surfaceCapabilities.maxImageCount)
-		imageCount = swapchainDetails.surfaceCapabilities.maxImageCount;
-
-	//Create info.
-	VkSwapchainCreateInfoKHR createInfo{};
-	createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
-	createInfo.surface = surface;
-	createInfo.minImageCount = imageCount;
-	createInfo.imageFormat = surfaceFormat.format;
-	createInfo.imageColorSpace = surfaceFormat.colorSpace;
-	createInfo.imageExtent = extent;
-	createInfo.imageArrayLayers = 1;
-	createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
-
-	//Colas.
-	//Cómo se maneja el swapchain.
-	const QueueFamilyIndices indices = findQueueFamilies(gpu);
-	const uint32_t queueFamilyIndices[] = { indices.graphicsFamily.value(), indices.presentFamily.value() };
-	if (indices.graphicsFamily != indices.presentFamily) {
-		createInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
-		createInfo.queueFamilyIndexCount = 2;
-		createInfo.pQueueFamilyIndices = queueFamilyIndices;
-	}
-	else {
-		createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
-		createInfo.queueFamilyIndexCount = 0;
-		createInfo.pQueueFamilyIndices = nullptr;
-	}
-	createInfo.preTransform = swapchainDetails.surfaceCapabilities.currentTransform;
-	createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR; //¿Debería mostrarse lo que hay detrás de la ventana?
-	createInfo.presentMode = presentMode;
-	createInfo.clipped = VK_TRUE; //Si hay algo tapando la ventana, no se renderiza.
-	createInfo.oldSwapchain = nullptr;
-
-	//Crearlo y error-handling.
-	VkResult result = vkCreateSwapchainKHR(logicalDevice, &createInfo, nullptr, &swapchain);
-
-	if (result != VK_SUCCESS)
-		throw std::runtime_error("ERROR: crear swapchain.");
-
-	//Obtener el número final de imágenes del swapchain.
-	vkGetSwapchainImagesKHR(logicalDevice, swapchain, &imageCount, nullptr);
-
-	//Obtener las imágenes del swapchain.
-	swapchainImages.resize(imageCount);
-	vkGetSwapchainImagesKHR(logicalDevice, swapchain, &imageCount, swapchainImages.data());
-
-	//Actualizar las variables de la clase.
-	swapchainFormat = surfaceFormat.format;
-	swapchainExtent = extent;
-}
-
-
-void RenderAPI::createSwapchainImageViews() {
-	swapchainImageViews.resize(swapchainImages.size());
-
-	//Por cada imagen...
-	for (uint32_t i = 0; i < swapchainImageViews.size(); i++) {
-		//Create info.
-		VkImageViewCreateInfo createInfo{};
-		createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-		createInfo.image = swapchainImages[i];
-		createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
-		createInfo.format = swapchainFormat;
-		createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
-		createInfo.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
-		createInfo.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
-		createInfo.components.a = VK_COMPONENT_SWIZZLE_IDENTITY;
-		createInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-		createInfo.subresourceRange.baseMipLevel = 0;
-		createInfo.subresourceRange.levelCount = 1;
-		createInfo.subresourceRange.baseArrayLayer = 0;
-		createInfo.subresourceRange.layerCount = 1;
-
-		VkResult result = vkCreateImageView(logicalDevice, &createInfo, nullptr, &swapchainImageViews[i]);
-	}
-}
-
-
-void RenderAPI::createRenderpass() {
-	screenRenderpass.Delete();
-
-	screenRenderpass = new Renderpass(logicalDevice);
-
-	RenderpassAttachment clrAttachment{};
-	clrAttachment.AddAttachment(swapchainFormat, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR);
-	clrAttachment.CreateReference(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
-
-	RenderpassAttachment dpthAttachment{};
-	dpthAttachment.AddAttachment(getDepthFormat(), VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
-	dpthAttachment.CreateReference(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
-
-	std::vector<RenderpassAttachment> attchments = { clrAttachment };
-
-	RenderpassSubpass sbPass{};
-	sbPass.SetColorAttachments(attchments);
-	sbPass.SetDepthStencilAttachment(dpthAttachment);
-	sbPass.SetPipelineBindPoint();
-	SubpassDependency dep;
-	dep.vulkanDependency.srcSubpass = VK_SUBPASS_EXTERNAL;
-	dep.vulkanDependency.dstSubpass = 0;
-	dep.vulkanDependency.srcStageMask = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
-	dep.vulkanDependency.srcAccessMask = VK_ACCESS_SHADER_READ_BIT;
-	dep.vulkanDependency.dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-	dep.vulkanDependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-	dep.vulkanDependency.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
-
-	SubpassDependency dep2;
-	dep2.vulkanDependency.srcSubpass = 0;
-	dep2.vulkanDependency.dstSubpass = VK_SUBPASS_EXTERNAL;
-	dep2.vulkanDependency.srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-	dep2.vulkanDependency.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-	dep2.vulkanDependency.dstStageMask = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
-	dep2.vulkanDependency.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
-	dep2.vulkanDependency.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
-
-	sbPass.AddDependency(dep);
-	sbPass.AddDependency(dep2);
-
-	screenRenderpass->SetMSAA(VK_SAMPLE_COUNT_1_BIT);
-	screenRenderpass->AddSubpass(sbPass);
-	screenRenderpass->AddAttachment(clrAttachment);
-	screenRenderpass->AddAttachment(dpthAttachment);
-	screenRenderpass->Create();
-}
-
 void RenderAPI::createCommandPool() {
 	QueueFamilyIndices indices = findQueueFamilies(gpu);
 
@@ -792,29 +622,6 @@ void RenderAPI::createCommandPool() {
 		throw std::runtime_error("ERROR: crear command pool.");
 }
 
-
-void RenderAPI::createDepthResources() {
-	VkFormat depthFormat = getDepthFormat();
-	VULKAN::VulkanImageGen::CreateImage(&depthImage, { renderTargetSizeX, renderTargetSizeY }, depthFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
-	VULKAN::VulkanImageGen::CreateImageView(&depthImage, depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
-}
-
-
-void RenderAPI::createFramebuffers() {
-	framebuffers.resize(swapchainImageViews.size());
-
-	//Crear los framebuffers.
-	for (size_t i = 0; i < swapchainImageViews.size(); i++) {
-		Framebuffer* framebuffer = new Framebuffer(this);
-
-		framebuffer->AddImageView(swapchainImageViews[i]);
-		framebuffer->AddImageView(&depthImage);
-		
-		framebuffer->Create(screenRenderpass.GetPointer(), swapchainExtent.width, swapchainExtent.height);
-		
-		framebuffers[i] = framebuffer;
-	}
-}
 
 
 void RenderAPI::createGlobalImageSampler() {
@@ -854,7 +661,7 @@ void RenderAPI::createGlobalImageSampler() {
 
 void RenderAPI::createDefaultUniformBuffers() {
 	VkDeviceSize size = sizeof(UBO);
-	uniformBuffers.resize(swapchainImages.size());
+	uniformBuffers.resize(swapchain->GetImageCount());
 
 	for (uint32_t i = 0; i < uniformBuffers.size(); i++) {
 		uniformBuffers[i] = new GpuDataBuffer;
@@ -867,7 +674,7 @@ void RenderAPI::createSyncObjects() {
 	imageAvailableSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
 	renderFinishedSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
 	inFlightFences.resize(MAX_FRAMES_IN_FLIGHT);
-	imagesInFlight.resize(swapchainImages.size(), nullptr);
+	imagesInFlight.resize(swapchain->GetImageCount(), nullptr);
 
 	VkSemaphoreCreateInfo semaphoreInfo{};
 	semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
@@ -890,15 +697,15 @@ void RenderAPI::createSyncObjects() {
 			throw std::runtime_error("ERROR: crear semáforo [2].");
 	}
 
-	fences = new VkFence[swapchainImages.size()];
-	for (uint32_t i = 0; i < swapchainImages.size(); i++) {
+	fences = new VkFence[swapchain->GetImageCount()];
+	for (uint32_t i = 0; i < swapchain->GetImageCount(); i++) {
 		vkCreateFence(logicalDevice, &fenceInfo, nullptr, &fences[i]);
 	}
 }
 
 
 void RenderAPI::createCommandBuffers() {
-	commandBuffers.resize(framebuffers.size());
+	commandBuffers.resize(swapchain->GetImageCount());
 
 	VkCommandBufferAllocateInfo allocInfo{};
 	allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
@@ -912,24 +719,8 @@ void RenderAPI::createCommandBuffers() {
 }
 
 
-void RenderAPI::closeSwapchain() {
-	for (auto& i : framebuffers)
-		delete i;
-	framebuffers.clear();
-
-	for (const auto& i : swapchainImageViews)
-		vkDestroyImageView(logicalDevice, i, nullptr);
-
-	swapchainImageViews.clear();
-
-	depthImage.~GpuImage();
-
-	vkDestroySwapchainKHR(logicalDevice, swapchain, nullptr);
-}
-
-
 void RenderAPI::Close() {
-	closeSwapchain();
+	swapchain.Delete();
 
 	uniformBuffers.clear();
 
@@ -937,7 +728,6 @@ void RenderAPI::Close() {
 	screenDescriptorSet.Delete();
 	screenGraphicsPipeline.Delete();
 	finalRenderTarget.Delete();
-	screenRenderpass.Delete();
 	screenDescriptorPool.Delete();
 
 	content.Delete();
@@ -984,43 +774,32 @@ void RenderAPI::RecreateSwapchain() {
 
 	vkDeviceWaitIdle(logicalDevice);
 
-	closeSwapchain();
+	swapchain->Close();
 
 	renderTargetSizeX = (uint32_t)(window->GetSize().X * renderResolutionMultiplier);
 	renderTargetSizeY = (uint32_t)(window->GetSize().Y * renderResolutionMultiplier);
 
-	createSwapchain();
-	createSwapchainImageViews();
-	createRenderpass();
-	
-	createDepthResources();
+	swapchain->Create();
 
-	createFramebuffers();
-
-	createRenderTarget();
+	recreateRenderTargets();
 	RecreatePostProcessing();
 }
 
 
-void RenderAPI::createRenderTarget() {
+void RenderAPI::recreateRenderTargets() {
 	renderTargetSizeX = (uint32_t)(window->GetSize().X * renderResolutionMultiplier);
 	renderTargetSizeY = (uint32_t)(window->GetSize().Y * renderResolutionMultiplier);
 
-	renderTargetBeforePostProcessing->Clear(false);
-
-	renderTargetBeforePostProcessing->SetFormat(swapchainFormat);
-	renderTargetBeforePostProcessing->SetSize(renderTargetSizeX, renderTargetSizeY, true);
-
-	VkImageView views[] = { renderTargetBeforePostProcessing->renderedSprite.texture->image->view, depthImage.view };
-	renderTargetBeforePostProcessing->CreateFramebuffers((uint32_t)swapchainImages.size() + 1, views, 2);
-
-	Logger::DebugLog("Recreated swapchain.");
-	Logger::DebugLog("Resolution multiplier = " + std::to_string(renderResolutionMultiplier) + ".");
-	Logger::DebugLog("Renderer resolution = " + ToString(Vector2ui(renderTargetSizeX, renderTargetSizeY)) + ".");
-	Logger::DebugLog("Output resolution = " + ToString(window->GetSize().ToVector2ui()) + ".");
+	renderTargetBeforePostProcessing->Resize(renderTargetSizeX, renderTargetSizeY);
 
 	renderTargetBeforePostProcessing->renderedSprite.transform.SetPosition({ 0.0f });
 	renderTargetBeforePostProcessing->renderedSprite.transform.SetScale(window->GetSize().ToVector2f());
+
+
+	finalRenderTarget->Resize(renderTargetSizeX, renderTargetSizeY);
+
+	finalRenderTarget->renderedSprite.transform.SetPosition({ 0.0f });
+	finalRenderTarget->renderedSprite.transform.SetScale(window->GetSize().ToVector2f());
 }
 
 SharedPtr<GpuDataBuffer> RenderAPI::CreateDynamicUBO(VkDeviceSize sizeOfStruct, uint32_t numberOfInstances) {
@@ -1028,9 +807,8 @@ SharedPtr<GpuDataBuffer> RenderAPI::CreateDynamicUBO(VkDeviceSize sizeOfStruct, 
 
 	size_t minAlignment = gpuInfo.minAlignment;
 	size_t alignment = sizeOfStruct;
-	if (minAlignment > 0) {
+	if (minAlignment > 0)
 		alignment = (alignment + minAlignment - 1) & ~(minAlignment - 1);
-	}
 
 	size_t bufferSize = alignment * numberOfInstances;
 
@@ -1068,29 +846,14 @@ void RenderAPI::DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, uint32_
 			//stage->Scene->DrawPointShadows(cmdBuffer, iteration, cubeMap);
 	}
 
-	VkRenderPassBeginInfo renderPassInfo{};
-	renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-	renderPassInfo.renderPass = stage->renderTarget->vulkanRenderpass->vulkanRenderpass;
-	renderPassInfo.framebuffer = stage->renderTarget->targetFramebuffers[iteration]->framebuffer;
-	renderPassInfo.renderArea.offset = { 0, 0 };
-
-	renderPassInfo.renderArea.extent = { stage->renderTarget->size.X, stage->renderTarget->size.Y };
-	std::array<VkClearValue, 2> clearValues = {};
-	clearValues[0] = { 0.8f, 0.8f, 0.8f, 1.0f }; //Color.
-	clearValues[1] = { 1.0f, 0.0f }; //Depth.
-	renderPassInfo.clearValueCount = (uint32_t)clearValues.size();
-	renderPassInfo.pClearValues = clearValues.data();
-
-	stage->renderTarget->TransitionToRenderTarget(&cmdBuffer);
-	vkCmdBeginRenderPass(cmdBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+	stage->renderTarget->BeginRenderpass(cmdBuffer, iteration);
 
 	SetViewport(cmdBuffer);
 
-	if (stage->scene != nullptr) {
-		stage->scene->Draw(cmdBuffer, iteration);
-	}
+	if (stage->scene != nullptr)
+		stage->scene->Draw(cmdBuffer, iteration, stage->renderTarget);
 
-	GraphicsPipeline* pipeline = GetMaterialSystem()->GetMaterial(defaultMaterial2D_Name)->GetGraphicsPipeline(stage->renderTarget->vulkanRenderpass);
+	GraphicsPipeline* pipeline = GetMaterialSystem()->GetMaterial(defaultMaterial2D_Name)->GetGraphicsPipeline(stage->renderTarget->renderpass.GetPointer());
 
 	for (auto& spriteBatch : stage->spriteBatches) {
 		
@@ -1114,8 +877,7 @@ void RenderAPI::DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, uint32_
 		}
 	}
 
-	vkCmdEndRenderPass(cmdBuffer);
-	stage->renderTarget->TransitionToTexture(&cmdBuffer);
+	stage->renderTarget->EndRenderpass();
 }
 
 void RenderAPI::updateCommandBuffers() {
@@ -1146,21 +908,7 @@ void RenderAPI::updateCommandBuffers() {
 		postProcessingSettings.screenSizeY = (int)window->GetSize().Y;
 		postProcessingSettings.resolutionMultiplier = renderResolutionMultiplier;
 
-		VkRenderPassBeginInfo renderPassInfo{};
-		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-		renderPassInfo.renderPass = screenRenderpass->vulkanRenderpass;
-		renderPassInfo.framebuffer = framebuffers[i]->framebuffer;
-		renderPassInfo.renderArea.offset = { 0, 0 };
-
-		renderPassInfo.renderArea.extent = swapchainExtent;
-		std::array<VkClearValue, 2> clearValues = {};
-		clearValues[0] = { 0.8f, 0.8f, 0.8f, 1.0f }; //Color.
-		clearValues[1] = { 1.0f, 0.0f }; //Depth.
-		renderPassInfo.clearValueCount = (uint32_t)clearValues.size();
-		renderPassInfo.pClearValues = clearValues.data();
-
-		//Comenzar el renderizado.
-		vkCmdBeginRenderPass(commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+		finalRenderTarget->BeginRenderpass(commandBuffers[i], i);
 
 		SetViewport(commandBuffers[i], -(int32_t)window->GetSize().X, -(int32_t)window->GetSize().Y, (uint32_t)window->GetSize().X * 2, (uint32_t)window->GetSize().Y * 2);
 
@@ -1177,7 +925,7 @@ void RenderAPI::updateCommandBuffers() {
 		vkCmdPushConstants(commandBuffers[i], screenGraphicsPipeline->vulkanPipelineLayout, VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(PostProcessingSettings_t), &postProcessingSettings);
 		vkCmdDrawIndexed(commandBuffers[i], indicesSize, 1, 0, 0, 0);
 
-		vkCmdEndRenderPass(commandBuffers[i]);
+		finalRenderTarget->EndRenderpass();
 
 		result = vkEndCommandBuffer(commandBuffers[i]);
 		if (result != VK_SUCCESS)
@@ -1300,6 +1048,8 @@ VkFormat RenderAPI::getDepthFormat() const {
 
 GpuInfo RenderAPI::getGpuInfo(VkPhysicalDevice gpu) const {
 	GpuInfo info{};
+	info.renderer = this;
+
 	info.gpu = gpu;
 	//Obtiene las propiedades de la gpu.
 	vkGetPhysicalDeviceProperties(gpu, &info.properties);
@@ -1318,6 +1068,8 @@ GpuInfo RenderAPI::getGpuInfo(VkPhysicalDevice gpu) const {
 	info.isSuitable = info.families.IsComplete() && checkGPUextensionSupport(gpu) && swapchainSupported && info.features.samplerAnisotropy;
 	info.minAlignment = info.properties.limits.minUniformBufferOffsetAlignment;
 
+	info.SetMaxMsaa();
+
 	return info;
 }
 
@@ -1334,28 +1086,6 @@ VkPresentModeKHR RenderAPI::getPresentMode(const std::vector<VkPresentModeKHR>& 
 }
 
 
-VkExtent2D RenderAPI::getSwapchainExtent(const VkSurfaceCapabilitiesKHR& capabilities) const {
-	//Si está inicializado, devolver.
-	if (capabilities.currentExtent.width != UINT32_MAX)
-		return capabilities.currentExtent;
-
-	int width;
-	int height;
-	glfwGetFramebufferSize(window->window, &width, &height);
-
-	VkExtent2D extent{
-		static_cast<uint32_t>(width),
-		static_cast<uint32_t>(height)
-	};
-
-	//Que no sea más grande de lo soportado.
-	extent.width = std::max(capabilities.minImageExtent.width, std::min(capabilities.maxImageExtent.width, extent.width));
-	extent.height = std::max(capabilities.minImageExtent.height, std::min(capabilities.maxImageExtent.height, extent.height));
-
-	return extent;
-}
-
-
 VkFormat RenderAPI::getSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features) const {
 	for (VkFormat format : candidates) {
 		VkFormatProperties properties;
@@ -1369,32 +1099,6 @@ VkFormat RenderAPI::getSupportedFormat(const std::vector<VkFormat>& candidates, 
 	}
 
 	throw std::runtime_error("ERROR: GetDepthSupportedFormat");
-}
-
-
-SwapchainSupportDetails RenderAPI::getSwapchainSupportDetails(VkPhysicalDevice gpu) const {
-	SwapchainSupportDetails details;
-
-	//Obtener las capacidades.
-	vkGetPhysicalDeviceSurfaceCapabilitiesKHR(gpu, surface, &details.surfaceCapabilities);
-
-	//Número de formatos soportados.
-	uint32_t formatCount = 0;
-	vkGetPhysicalDeviceSurfaceFormatsKHR(gpu, surface, &formatCount, nullptr);
-
-	//Obtener formatos soportados.
-	details.formats.resize(formatCount);
-	vkGetPhysicalDeviceSurfaceFormatsKHR(gpu, surface, &formatCount, details.formats.data());
-
-	//Números de modos de presentación.
-	uint32_t presentModeCount = 0;
-	vkGetPhysicalDeviceSurfacePresentModesKHR(gpu, surface, &presentModeCount, nullptr);
-
-	//Obtener modos de presentación.
-	details.presentModes.resize(presentModeCount);
-	vkGetPhysicalDeviceSurfacePresentModesKHR(gpu, surface, &formatCount, details.presentModes.data());
-
-	return details;
 }
 
 
@@ -1431,6 +1135,30 @@ QueueFamilyIndices RenderAPI::findQueueFamilies(VkPhysicalDevice gpu) const {
 	return indices;
 }
 
+SwapchainSupportDetails RenderAPI::getSwapchainSupportDetails(VkPhysicalDevice gpu) const {
+	SwapchainSupportDetails details;
+
+	//Obtener las capacidades.
+	vkGetPhysicalDeviceSurfaceCapabilitiesKHR(gpu, surface, &details.surfaceCapabilities);
+
+	//Número de formatos soportados.
+	uint32_t formatCount = 0;
+	vkGetPhysicalDeviceSurfaceFormatsKHR(gpu, surface, &formatCount, nullptr);
+
+	//Obtener formatos soportados.
+	details.formats.resize(formatCount);
+	vkGetPhysicalDeviceSurfaceFormatsKHR(gpu, surface, &formatCount, details.formats.data());
+
+	//Números de modos de presentación.
+	uint32_t presentModeCount = 0;
+	vkGetPhysicalDeviceSurfacePresentModesKHR(gpu, surface, &presentModeCount, nullptr);
+
+	//Obtener modos de presentación.
+	details.presentModes.resize(presentModeCount);
+	vkGetPhysicalDeviceSurfacePresentModesKHR(gpu, surface, &formatCount, details.presentModes.data());
+
+	return details;
+}
 
 VkResult RenderAPI::CreateDebugUtilsMessengerEXT(VkInstance instance, const VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkDebugUtilsMessengerEXT* pDebugMessenger) {
 		auto func = (PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
@@ -1480,17 +1208,7 @@ VkBool32 RenderAPI::DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT message
 }
 
 void RenderAPI::InitPostProcessing() {
-	finalRenderTarget = CreateNewRenderTarget();
-	finalRenderTarget->SetFormat(swapchainFormat);
-	finalRenderTarget->SetSize((uint32_t)window->GetSize().X, (uint32_t)window->GetSize().Y);
-	finalRenderTarget->CreateSprite(content.GetPointer());
-
-	VULKAN::VulkanImageGen::CreateImage(finalRenderTarget->renderedSprite.texture->image.GetPointer(), finalRenderTarget->size, swapchainFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
-	VULKAN::VulkanImageGen::CreateImageView(finalRenderTarget->renderedSprite.texture->image.GetPointer(), swapchainFormat, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
-	VULKAN::VulkanImageGen::CreateImageSampler(finalRenderTarget->renderedSprite.texture->image.Get(), VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
-	VULKAN::VulkanImageGen::TransitionImageLayout(finalRenderTarget->renderedSprite.texture->image.GetPointer(), VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR, 1, 0);
-
-	VULKAN::VulkanImageGen::CreateImageSampler(finalRenderTarget->renderedSprite.texture->image.Get(), VK_FILTER_LINEAR, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
+	finalRenderTarget->Resize(window->GetSize().X, window->GetSize().Y);
 
 	screenDescriptorPool = CreateNewDescriptorPool();
 	screenDescriptorPool->AddBinding(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
@@ -1507,17 +1225,14 @@ void RenderAPI::InitPostProcessing() {
 	screenDescriptorSet->Update();
 
 	screenGraphicsPipeline = CreateNewGraphicsPipeline("shaders/VK_Post/vert.spv", "shaders/VK_Post/frag.spv");
-	screenGraphicsPipeline->SetViewport({ -(float)swapchainExtent.width, -(float)swapchainExtent.height, (float)swapchainExtent.width * 2, (float)swapchainExtent.height * 2 });
+	screenGraphicsPipeline->SetViewport({ -(float)swapchain->size.width, -(float)swapchain->size.height, (float)swapchain->size.width * 2, (float)swapchain->size.height * 2 });
 	screenGraphicsPipeline->SetRasterizer(VK_FALSE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_NONE, VK_FRONT_FACE_CLOCKWISE);
-	screenGraphicsPipeline->SetMSAA(VK_FALSE, VK_SAMPLE_COUNT_1_BIT);
+	screenGraphicsPipeline->SetMSAA(VK_FALSE, GetMsaaSamples());
 	screenGraphicsPipeline->SetDepthStencil(false);
 	screenGraphicsPipeline->SetPushConstants(VK_SHADER_STAGE_FRAGMENT_BIT, sizeof(PostProcessingSettings_t));
 	screenGraphicsPipeline->SetLayout(&screenDescriptorLayout->vulkanDescriptorSetLayout);
-	screenGraphicsPipeline->Create(screenRenderpass.GetPointer());
+	screenGraphicsPipeline->Create(finalRenderTarget->renderpass.GetPointer());
 
-	finalRenderTarget->vulkanRenderpass = screenRenderpass.GetPointer();
-	VkImageView views[] = { finalRenderTarget->renderedSprite.texture->image->view, depthImage.view };
-	finalRenderTarget->CreateFramebuffers(4, views, 2);
 	finalRenderTarget->renderedSprite.transform.SetScale(window->GetSize().ToVector2f() * renderResolutionMultiplier);
 	updateSpriteVertexBuffer(&renderTargetBeforePostProcessing->renderedSprite);
 }
@@ -1531,7 +1246,6 @@ void RenderAPI::ClosePostProcessing() {
 	screenDescriptorLayout.Delete();
 	screenDescriptorSet.Delete();
 	screenGraphicsPipeline.Delete();
-	finalRenderTarget.Delete();
 }
 
 void RenderAPI::AllocateBuffer(GpuDataBuffer* buffer, size_t size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties) {

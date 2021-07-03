@@ -75,7 +75,6 @@ public:
 		ControlsObject->AddComponent<OSK::InputComponent>(input);
 
 		//ENTIDADES
-		GetRenderer()->postProcessingSettings.useFxaa = 1;
 
 		scene->Load("Levels/startLevel.sc");
 			

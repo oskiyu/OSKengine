@@ -67,6 +67,13 @@ namespace OSK {
 		Texture* LoadTexture(const std::string& path, TextureFilterType filter = TextureFilterType::LINEAR);
 
 		/// <summary>
+		/// Crea una textura a partir de un bitmap.
+		/// </summary>
+		/// <param name="texture">Textura, que pasará a ser propiedad del content manager.</param>
+		/// <param name="bitmap">Bitmap.</param>
+		void CreateTextureFromBitmap(Texture* texture, Bitmap bitmap);
+
+		/// <summary>
 		/// Carga y almacena una textura de skybox. 
 		/// Si la textura ya ha sido cargada por este ContentManager, devuelve la textura sin volver a cargarla.
 		/// La carpeta debe tener las imagenes tal que: <para/>

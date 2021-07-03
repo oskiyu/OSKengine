@@ -1,4 +1,4 @@
-#include "VulkanImageGen.h"
+ #include "VulkanImageGen.h"
 
 #include "VulkanRenderer.h"
 
@@ -10,7 +10,7 @@ namespace OSK::VULKAN {
 		VulkanImageGen::renderer = renderer;
 	}
 
-	void VulkanImageGen::CreateImage(VULKAN::GpuImage* image, const Vector2ui& size, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, uint32_t arrayLevels, VkImageCreateFlagBits flags, uint32_t mipLevels) {
+	void VulkanImageGen::CreateImage(VULKAN::GpuImage* image, const Vector2ui& size, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, uint32_t arrayLevels, VkImageCreateFlagBits flags, uint32_t mipLevels, VkSampleCountFlagBits msaaLevel) {
 		if (image->image != VK_NULL_HANDLE)
 			image->Destroy();
 
@@ -27,7 +27,7 @@ namespace OSK::VULKAN {
 		imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 		imageInfo.usage = usage;
 		imageInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
-		imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
+		imageInfo.samples = msaaLevel;
 		imageInfo.flags = flags;
 
 		VkResult result = vkCreateImage(renderer->logicalDevice, &imageInfo, nullptr, &image->image);
@@ -48,6 +48,11 @@ namespace OSK::VULKAN {
 
 		vkBindImageMemory(renderer->logicalDevice, image->image, image->memory, 0);
 		image->logicalDevice = renderer->logicalDevice;
+
+#ifdef OSK_DEBUG
+		image->msaa = msaaLevel;
+#endif // OSK_DEBUG
+
 	}
 
 	void VulkanImageGen::CreateImageSampler(VULKAN::GpuImage& image, VkFilter filter, VkSamplerAddressMode addressMode, uint32_t mipLevels) {
@@ -78,7 +83,7 @@ namespace OSK::VULKAN {
 		samplerInfo.minLod = 0.0f;
 		samplerInfo.maxLod = (float)mipLevels;
 		samplerInfo.mipLodBias = 0.0f;
-
+		
 		VkResult result = vkCreateSampler(renderer->logicalDevice, &samplerInfo, nullptr, &image.sampler);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear sampler." + std::to_string(result));
@@ -196,12 +201,11 @@ namespace OSK::VULKAN {
 		renderer->endSingleTimeCommandBuffer(cmdBuffer);
 	}
 	
-	void VulkanImageGen::TransitionImageLayout(GpuImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, uint32_t mipLevels, uint32_t arrayLevels, VkCommandBuffer* cmdBuffer) {
+	void VulkanImageGen::TransitionImageLayout(GpuImage* img, VkImageLayout oldLayout, VkImageLayout newLayout, uint32_t mipLevels, uint32_t arrayLevels, VkCommandBuffer cmdBuffer) {
 		bool hasBeenProvided = true;
 		
-		if (!cmdBuffer) {
-			VkCommandBuffer temp = renderer->beginSingleTimeCommandBuffer();
-			cmdBuffer = &temp;
+		if (cmdBuffer == VK_NULL_HANDLE) {
+			cmdBuffer = renderer->beginSingleTimeCommandBuffer();
 			hasBeenProvided = false;
 		}
 
@@ -279,30 +283,36 @@ namespace OSK::VULKAN {
 				break;
 		}
 
-		vkCmdPipelineBarrier(*cmdBuffer, sourceStage, destinationStage, 0, 0, nullptr, 0, nullptr, 1, &barrier);
+		vkCmdPipelineBarrier(cmdBuffer, sourceStage, destinationStage, 0, 0, nullptr, 0, nullptr, 1, &barrier);
 
 		if (!hasBeenProvided)
-			renderer->endSingleTimeCommandBuffer(*cmdBuffer);
+			renderer->endSingleTimeCommandBuffer(cmdBuffer);
 	}
 
-	SharedPtr<GpuImage> VulkanImageGen::CreateImageFromBitMap(uint32_t width, uint32_t height, uint8_t* pixels, bool fromFont) {
+	SharedPtr<GpuImage> VulkanImageGen::CreateImageFromBitMap(const Bitmap& bitmap) {
 		GpuImage* image = new GpuImage;
 		
-		CreateImage(image, { width, height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1);
+		CreateImage(image, bitmap.size, ToNative(bitmap.format), VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1, VK_SAMPLE_COUNT_1_BIT);
 
-		VkDeviceSize imageSize = (VkDeviceSize)width * height * 4;
+		VkDeviceSize imageSize = (VkDeviceSize)bitmap.size.X * bitmap.size.Y * GetNumberOfPixelsFromFormat(bitmap.format);
 		uint8_t* nPixels = nullptr;
 		std::vector<uint8_t> pixls;
 		pixls.reserve(imageSize);
-		for (uint32_t i = 0; i < width * height; i++) {
-			if (fromFont) {
-				pixls.push_back(255);
-				pixls.push_back(255);
-				pixls.push_back(255);
-			}
 
-			pixls.push_back(pixels[i]);
+		if (bitmap.format == TextureFormat::INTERNAL_FONT) {
+			for (uint32_t i = 0; i < bitmap.size.X * bitmap.size.Y; i++) {
+				pixls.push_back(255);
+				pixls.push_back(255);
+				pixls.push_back(255);
+				pixls.push_back(bitmap.bytes[i]);
+			}
 		}
+		else {
+			for (uint32_t i = 0; i < imageSize; i++)
+				pixls.push_back(bitmap.bytes[i]);
+		}
+
+
 		nPixels = pixls.data();
 		SharedPtr<GpuDataBuffer> stagingBuffer = new GpuDataBuffer;
 		renderer->AllocateBuffer(stagingBuffer.GetPointer(), imageSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
@@ -310,7 +320,7 @@ namespace OSK::VULKAN {
 		stagingBuffer->Write(nPixels, imageSize);
 
 		TransitionImageLayout(image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, 1);
-		CopyBufferToImage(stagingBuffer.GetPointer(), image, width, height);
+		CopyBufferToImage(stagingBuffer.GetPointer(), image, bitmap.size.X, bitmap.size.Y);
 		TransitionImageLayout(image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 1, 1);
 
 		CreateImageView(image, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);

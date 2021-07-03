@@ -51,8 +51,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,17,1,1
- PRODUCTVERSION 2021,6,18,0
+ FILEVERSION 0,17,1,2
+ PRODUCTVERSION 2021,7,3,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -69,12 +69,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "OSK"
             VALUE "FileDescription", "OSKengine Alpha 17+"
-            VALUE "FileVersion", "0.17.1.1"
+            VALUE "FileVersion", "0.17.1.2"
             VALUE "InternalName", "OSKengine.dll"
             VALUE "LegalCopyright", "Copyright (C) 2019-2021"
             VALUE "OriginalFilename", "OSKengine.dll"
             VALUE "ProductName", "OSKengine Alpha 17+"
-            VALUE "ProductVersion", "0.17+ 2021.06.18a"
+            VALUE "ProductVersion", "0.17+ 2021.7.3a"
         END
     END
     BLOCK "VarFileInfo"

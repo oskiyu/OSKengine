@@ -2,7 +2,7 @@
 
 using namespace OSK::VULKAN;
 
-void RenderpassAttachment::AddAttachment(VkFormat format, VkAttachmentLoadOp loadOp, VkAttachmentStoreOp storeOp, VkImageLayout layout) {
+void RenderpassAttachment::AddAttachment(VkFormat format, VkAttachmentLoadOp loadOp, VkAttachmentStoreOp storeOp, VkImageLayout layout, VkSampleCountFlagBits msaaLevel) {
 	attahcmentDesc.format = format;
 	//attahcmentDesc.samples = VK_SAMPLE_COUNT_1_BIT;
 	//LoadOp: qué se hace al renderizarsobre  una imagen.
@@ -16,6 +16,7 @@ void RenderpassAttachment::AddAttachment(VkFormat format, VkAttachmentLoadOp loa
 	attahcmentDesc.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
 	attahcmentDesc.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 	attahcmentDesc.finalLayout = layout;
+	attahcmentDesc.samples = msaaLevel;
 }
 
 void RenderpassAttachment::CreateReference(const uint32_t& attachment, VkImageLayout use) {

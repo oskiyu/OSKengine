@@ -66,7 +66,7 @@ void Material::RegisterRenderpass(Renderpass* renderpass) {
 	GraphicsPipeline* graphicsPipeline = renderer->CreateNewGraphicsPipeline(pipelineInfo.vertexPath, pipelineInfo.fragmentPath);
 	graphicsPipeline->SetViewport({ 0, 0, 2, 2 });
 	graphicsPipeline->SetRasterizer(!pipelineInfo.cullFaces, GetVkPolygonMode(pipelineInfo.polygonMode), GetVkCullMode(pipelineInfo.cullMode), GetVkPolygonFrontFace(pipelineInfo.frontFaceType));
-	graphicsPipeline->SetMSAA(VK_FALSE, VK_SAMPLE_COUNT_1_BIT);
+	graphicsPipeline->SetMSAA(VK_FALSE, renderer->GetMsaaSamples());
 	graphicsPipeline->SetDepthStencil(pipelineInfo.useDepthStencil);
 
 	uint32_t pOffset = 0;

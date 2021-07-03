@@ -69,6 +69,8 @@ namespace OSK {
 		if (textureFromPath.find(path) != textureFromPath.end())
 			return textureFromPath[path];
 
+		OSK_ASSERT(FileIO::FileExists(path), "No existe la textura " + path + ".");
+
 		Texture* loadedTexture = new Texture();
 		loadedTexture->image = new GpuImage;
 
@@ -88,7 +90,7 @@ namespace OSK {
 
 		stbi_image_free(pixels);
 		uint32_t mipLevels = GetMaxMipLevels(width, height);
-		VULKAN::VulkanImageGen::CreateImage(loadedTexture->image.GetPointer(), { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, mipLevels);
+		VULKAN::VulkanImageGen::CreateImage(loadedTexture->image.GetPointer(), { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, mipLevels, VK_SAMPLE_COUNT_1_BIT);
 
 		VULKAN::VulkanImageGen::TransitionImageLayout(loadedTexture->image.GetPointer(), VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, mipLevels, 1);
 		VULKAN::VulkanImageGen::CopyBufferToImage(stagingBuffer.GetPointer(), loadedTexture->image.GetPointer(), width, height);
@@ -109,13 +111,22 @@ namespace OSK {
 		return textureFromPath[path];
 	}
 
+	void ContentManager::CreateTextureFromBitmap(Texture* texture, Bitmap bitmap) {
+		OSK_ASSERT(texture, "'Textura' es null.");
+
+		texture->image = VULKAN::VulkanImageGen::CreateImageFromBitMap(bitmap);
+		texture->size = bitmap.size;
+
+		textures.push_back(texture);
+	}
+
 	Texture* ContentManager::LoadSkyboxTexture(const std::string& folderPath) {
 		if (textureFromPath.find(folderPath) != textureFromPath.end())
 			return textureFromPath[folderPath];
 
 		Texture* texture = new Texture();
 		texture->image = new GpuImage;
-
+		
 		const static std::vector<std::string> facesOrder = {
 			"/right.jpg",
 			"/left.jpg",
@@ -141,6 +152,8 @@ namespace OSK {
 		stbi_image_free(pixels);
 
 		for (uint32_t i = 1; i < 6; i++) {
+			OSK_ASSERT(FileIO::FileExists(folderPath + facesOrder[i]), "No existe la textura " + (folderPath + facesOrder[i]) + ".");
+
 			stbi_uc* _pixels = stbi_load((folderPath + facesOrder[i]).c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
 			memcpy(totalImage + size * i, _pixels, size);
 			stbi_image_free(_pixels);
@@ -152,7 +165,7 @@ namespace OSK {
 		stagingBuffer->Write(totalImage, size * 6);
 
 		const uint32_t levels = 1;
-		VULKAN::VulkanImageGen::CreateImage(texture->image.GetPointer(), { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 6, VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT, levels);
+		VULKAN::VulkanImageGen::CreateImage(texture->image.GetPointer(), { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 6, VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT, levels, VK_SAMPLE_COUNT_1_BIT);
 
 		VkCommandBuffer copyCmd = renderer->beginSingleTimeCommandBuffer();
 		VkDeviceSize offset = stagingBuffer->memorySubblock->totalOffsetFromBlock;
@@ -192,6 +205,8 @@ namespace OSK {
 		if (modelDataFromPath.find(path) != modelDataFromPath.end())
 			return modelDataFromPath.at(path);
 
+		OSK_ASSERT(FileIO::FileExists(path), "No existe el modelo en " + path + ".");
+
 		TempModelData data = GetModelTempData(path, 1.0f);
 
 		ModelData* m = CreateModel(data.vertices, data.indices);
@@ -202,6 +217,8 @@ namespace OSK {
 
 	TempModelData ContentManager::GetModelTempData(const std::string& path, float scale) const {
 		const aiScene* scene;
+
+		OSK_ASSERT(FileIO::FileExists(path), "No existe el modelo en " + path + ".");
 
 		scene = globalImporter.ReadFile(path.c_str(), ASSIMP_FLAGS);
 
@@ -289,6 +306,8 @@ namespace OSK {
 	}
 
 	void ContentManager::LoadSkybox(Skybox* skybox, const std::string& path) {
+		OSK_ASSERT(skybox, "'Skybox' es null.");
+
 		skybox->instance = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultSkyboxMaterial_Name)->CreateInstance();
 		skybox->instance->SetBuffer("Camera", renderer->uniformBuffers);
 		skybox->instance->SetTexture("Texture", LoadSkyboxTexture(path));
@@ -296,6 +315,9 @@ namespace OSK {
 	}
 
 	void ContentManager::LoadModel(Model* model, const std::string& path) {
+		OSK_ASSERT(FileIO::FileExists(path), "No existe el modelo en " + path + ".");
+		OSK_ASSERT(model, "'Model' es null.");
+
 		model->data = LoadModelData(path);
 		auto direct = path.substr(0, path.find_last_of('/'));
 
@@ -304,6 +326,9 @@ namespace OSK {
 
 	void ContentManager::LoadAnimatedModel(AnimatedModel* model, const std::string& path) {
 		static uint32_t animationCount = 1;
+
+		OSK_ASSERT(FileIO::FileExists(path), "No existe el modelo en " + path + ".");
+		OSK_ASSERT(model, "'Model' es null.");
 
 		TempModelData modelData = GetModelTempData(path);
 
@@ -428,6 +453,9 @@ namespace OSK {
 	}
 
 	void ContentManager::LoadSprite(Sprite* sprite, const std::string& path) {
+		OSK_ASSERT(FileIO::FileExists(path), "No existe la textura en " + path + ".");
+		OSK_ASSERT(sprite, "'Sprite' es null.");
+
 		CreateSprite(sprite);
 		sprite->texture = LoadTexture(path);
 		sprite->material = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultMaterial2D_Name)->CreateInstance();
@@ -436,11 +464,15 @@ namespace OSK {
 	}
 
 	void ContentManager::CreateSprite(Sprite* sprite) {
+		OSK_ASSERT(sprite, "'Sprite' es null.");
+
 		renderer->createSpriteVertexBuffer(sprite);
 		sprites.push_back(sprite);
 	}
 
 	Font* ContentManager::LoadFont(const std::string& source, uint32_t size) {
+		OSK_ASSERT(FileIO::FileExists(source), "No existe la fuente en " + source + ".");
+
 		if (fontsFromPath.find(source) != fontsFromPath.end())
 			return fontsFromPath[source];
 
@@ -478,7 +510,6 @@ namespace OSK {
 		Texture* fontTexture = new Texture();
 		uint32_t textureSizeX = 0;
 		uint32_t textureSizeY = 0;
-		uint8_t* data = nullptr;
 		
 		__face faces[255];
 
@@ -508,20 +539,26 @@ namespace OSK {
 				textureSizeY = faces[c].sizeY;
 		}
 
+		Bitmap bitmap;
+		bitmap.format = TextureFormat::INTERNAL_FONT;
+		bitmap.size = { textureSizeX, textureSizeY };
+		
 		numberOfPixels = textureSizeX * textureSizeY;
-		data = new uint8_t[numberOfPixels];
-		memset(data, 0, numberOfPixels);
+		
+		bitmap.bytes.resize(numberOfPixels);
+
+		memset(bitmap.bytes.data(), 0, numberOfPixels);
 
 		uint32_t currentX = 0;
 		for (uint32_t c = 0; c < 255; c++) {
 			for (uint32_t i = 0; i < faces[c].sizeY; i++) {
-				memcpy(&data[currentX + textureSizeX * i], &faces[c].data[faces[c].sizeX * i], faces[c].sizeX);
+				memcpy(&bitmap.bytes[currentX + textureSizeX * i], &faces[c].data[faces[c].sizeX * i], faces[c].sizeX);
 			}
 
 			currentX += faces[c].sizeX;
 		}
 
-		SharedPtr<VULKAN::GpuImage> image = VULKAN::VulkanImageGen::CreateImageFromBitMap(textureSizeX, textureSizeY, data, true);
+		SharedPtr<VULKAN::GpuImage> image = VULKAN::VulkanImageGen::CreateImageFromBitMap(bitmap);
 
 		fontTexture->size.X = textureSizeX;
 		fontTexture->size.Y = textureSizeY;
@@ -570,6 +607,9 @@ namespace OSK {
 	}
 
 	void ContentManager::LoadHeightmap(Heightmap* map, const std::string& path) {
+		OSK_ASSERT(map, "'Map' es null.");
+		OSK_ASSERT(FileIO::FileExists(path), "No existe el heightmap " + path + ".");
+
 		int width;
 		int height;
 		int nChannels;
@@ -589,12 +629,11 @@ namespace OSK {
 		if(soundsFromPath.find(path) != soundsFromPath.end())
 			return soundsFromPath[path];
 
+		OSK_ASSERT(FileIO::FileExists(path), "No existe el sonido " + path + ".");
+
 		SoundEmitterComponent* sound = new SoundEmitterComponent();
 
 		std::ifstream file(path.c_str(), std::ifstream::binary);
-
-		if (!file.is_open())
-			throw std::runtime_error("ERROR: el archivo " + path + "no existe.");
 
 		char chunkId[5] = "\0";
 		uint32_t size = 0;

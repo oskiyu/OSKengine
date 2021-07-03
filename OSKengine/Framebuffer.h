@@ -27,6 +27,7 @@ namespace OSK::VULKAN {
 		friend class OSK::RenderAPI;
 		friend class RenderizableScene;
 		friend class RenderSystem3D;
+		friend class OSK::RenderTarget;
 
 	public:
 

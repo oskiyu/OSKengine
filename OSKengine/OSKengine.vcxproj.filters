@@ -516,6 +516,12 @@
     <ClCompile Include="Assert.cpp">
       <Filter>Archivos de origen\OSKengine\Util</Filter>
     </ClCompile>
+    <ClCompile Include="GpuInfo.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="Swapchain.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Vulkan</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowAPI.h">
@@ -997,6 +1003,9 @@
     </ClInclude>
     <ClInclude Include="Assert.h">
       <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Swapchain.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
