@@ -118,6 +118,18 @@ namespace OSK {
 			return &transform;
 		}
 
+		Vector3f GetForwardVector() const {
+			return transform.GetForwardVector();
+		}
+
+		Vector3f GetRightVector() const {
+			return transform.GetRightVector();
+		}
+
+		Vector3f GetTopVector() const {
+			return transform.GetTopVector();
+		}
+
 	private:
 
 		/// <summary>

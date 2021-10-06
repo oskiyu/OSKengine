@@ -67,6 +67,13 @@ namespace OSK {
 		Texture* LoadTexture(const std::string& path, TextureFilterType filter = TextureFilterType::LINEAR);
 
 		/// <summary>
+		/// Crea una textura a partir de un bitmap.
+		/// </summary>
+		/// <param name="texture">Textura, que pasará a ser propiedad del content manager.</param>
+		/// <param name="bitmap">Bitmap.</param>
+		void CreateTextureFromBitmap(Texture* texture, Bitmap bitmap);
+
+		/// <summary>
 		/// Carga y almacena una textura de skybox. 
 		/// Si la textura ya ha sido cargada por este ContentManager, devuelve la textura sin volver a cargarla.
 		/// La carpeta debe tener las imagenes tal que: <para/>
@@ -178,6 +185,8 @@ namespace OSK {
 
 	private:
 
+		void ProcessMeshNode(const aiNode* node, const aiScene* scene, std::vector<Vertex>* vertices, std::vector<vertexIndex_t>* indices, const Vector3f& prevPosition, float scale = 1.0f) const;
+
 		/// <summary>
 		/// Almacena las texturas.
 		/// </summary>
@@ -265,7 +274,7 @@ namespace OSK {
 		/// <summary>
 		/// Flags de assimp.
 		/// </summary>
-		const static int ASSIMP_FLAGS = aiProcess_Triangulate | aiProcess_GenNormals;
+		static int assimpFlags;
 
 	};
 

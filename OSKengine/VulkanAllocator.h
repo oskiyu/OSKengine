@@ -5,6 +5,7 @@
 #include <list>
 
 #include "VulkanMemoryBlock.h"
+#include "OwnedPtr.h"
 
 namespace OSK {
 
@@ -74,7 +75,7 @@ namespace OSK::VULKAN {
 		/// <summary>
 		/// Bloques de memoria asignados.
 		/// </summary>
-		std::list<MemoryBlock*> blocks;
+		std::list<OwnedPtr<MemoryBlock>> blocks;
 
 	};
 }

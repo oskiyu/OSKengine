@@ -7,6 +7,7 @@
 
 #include "SoundEntity.h"
 #include "Camera3D.h"
+#include "OwnedPtr.h"
 
 #include <alc.h>
 #include <glm.hpp>
@@ -82,12 +83,12 @@ namespace OSK {
 		/// <summary>
 		/// INTERNAL: .
 		/// </summary>
-		ALCdevice* device = nullptr;
+		OwnedPtr<ALCdevice> device = nullptr;
 
 		/// <summary>
 		/// 
 		/// </summary>
-		ALCcontext* context = nullptr;
+		OwnedPtr<ALCcontext> context = nullptr;
 
 		/// <summary>
 		/// Camara para la reproducción 3D.

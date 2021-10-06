@@ -7,8 +7,11 @@
 
 #include <vulkan/vulkan.h>
 #include <vector>
+#include <unordered_map>
 
 #include "DynamicArray.hpp"
+
+#include "MaterialBinding.h"
 
 namespace OSK {
 
@@ -23,7 +26,7 @@ namespace OSK {
 
 		friend class RenderAPI;
 		friend class DescriptorPool;
-		friend class Material;
+		friend class MaterialSystem;
 		friend class DescriptorSet;
 
 	public:
@@ -32,7 +35,7 @@ namespace OSK {
 		/// Crea un descriptor layout vacío.
 		/// </summary>
 		/// <param name="logicalDevice">Logical device del renderizador.</param>
-		DescriptorLayout(VkDevice logicalDevice);
+		DescriptorLayout(VkDevice logicalDevice, uint32_t set = 0);
 
 		/// <summary>
 		/// Destruye el descriptor layout..
@@ -56,10 +59,16 @@ namespace OSK {
 		/// <param name="stage">Shaders que podrán acceder a esta información (vertex, fragment, etc).</param>
 		void AddBinding(VkDescriptorType type, VkShaderStageFlags stage);
 
+		void AddBinding(OSK::MaterialBindingType type, OSK::MaterialBindingShaderStage stage, const std::string& key);
+
+		uint32_t GetBindingFromName(const std::string& name);
+
 		/// <summary>
 		/// Crea el descriptor layout nativo de Vulkan..
 		/// </summary>
 		void Create();
+
+		uint32_t GetSet() const;
 
 	private:
 
@@ -69,11 +78,6 @@ namespace OSK {
 		VkDescriptorSetLayout vulkanDescriptorSetLayout = VK_NULL_HANDLE;
 		
 		/// <summary>
-		/// Descriptor pool, que contendrá los descriptor sets.
-		/// </summary>
-		DescriptorPool* descriptorPool = nullptr;
-
-		/// <summary>
 		/// Lista de bindings del layout.
 		/// </summary>
 		DynamicArray<VkDescriptorSetLayoutBinding> descriptorLayoutBindings{};
@@ -82,6 +86,10 @@ namespace OSK {
 		/// Logical device del renderizador.
 		/// </summary>
 		VkDevice logicalDevice = VK_NULL_HANDLE;
+
+		std::unordered_map<std::string, uint32_t> bindingNames;
+		
+		uint32_t set = 0;
 
 	};
 

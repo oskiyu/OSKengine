@@ -6,6 +6,7 @@ namespace OSK {
 	DescriptorSet::DescriptorSet(VkDevice logicalDevice, uint32_t swapchainCount) {
 		this->logicalDevice = logicalDevice;
 		this->swapchainCount = swapchainCount;
+		this->shaderSet = shaderSet;
 
 		vulkanDescriptorSets.resize(swapchainCount);
 		descriptorWrites.resize(swapchainCount);
@@ -17,6 +18,10 @@ namespace OSK {
 
 	uint32_t DescriptorSet::GetBindingsCount() const {
 		return bindingsCount;
+	}
+
+	DescriptorLayout* DescriptorSet::GetDescriptorLayout() const {
+		return layout;
 	}
 
 	void DescriptorSet::Create(DescriptorLayout* layout, DescriptorPool* pool, bool allocate) {
@@ -125,13 +130,13 @@ namespace OSK {
 	}
 
 	void DescriptorSet::Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration) const {
-		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->vulkanPipelineLayout, 0, 1, &vulkanDescriptorSets[iteration], 0, nullptr);
+		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->vulkanPipelineLayout, layout->GetSet(), 1, &vulkanDescriptorSets[iteration], 0, nullptr);
 	}
 
 	void DescriptorSet::Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration, uint32_t dynamicOffset, uint32_t alignment) const {
 		uint32_t finalOffset = dynamicOffset * alignment;
 
-		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->vulkanPipelineLayout, 0, 1, &vulkanDescriptorSets[iteration], 1, &finalOffset);
+		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->vulkanPipelineLayout, layout->GetSet(), 1, &vulkanDescriptorSets[iteration], 1, &finalOffset);
 	}
 	
 	void DescriptorSet::Reset() {

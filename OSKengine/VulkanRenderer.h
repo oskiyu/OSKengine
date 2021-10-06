@@ -141,7 +141,7 @@ namespace OSK {
 		/// Crea un nuevo render target vacío.
 		/// </summary>
 		/// <returns>Render target.</returns>
-		RenderTarget* CreateNewRenderTarget();
+		OwnedPtr<RenderTarget> CreateNewRenderTarget();
 
 		struct {
 			std::string vertexShaderPath2D = "Shaders/2D/vert.spv";
@@ -164,10 +164,9 @@ namespace OSK {
 		/// </summary>
 		Camera2D renderTargetCamera2D{};
 
-		/// <summary>
-		/// Cámara 3D por defecto.
-		/// </summary>
-		Camera3D defaultCamera3D{ 0, 0, 0 };
+		Camera3D* CreateCamera();
+		void RemoveCamera(Camera3D* camera);
+		Camera3D* GetDefaultCamera();
 
 		/// <summary>
 		/// Imagen de OSKengine.
@@ -228,26 +227,6 @@ namespace OSK {
 		PostProcessingSettings_t postProcessingSettings;
 
 		/// <summary>
-		/// Nombre del material 2D.
-		/// </summary>
-		const std::string defaultMaterial2D_Name = "DefaultMaterial2D";
-
-		/// <summary>
-		/// Nombre del material 3D.
-		/// </summary>
-		const std::string defaultMaterial3D_Name = "DefaultMaterial3D";
-
-		/// <summary>
-		/// Nombre del material de skybox.
-		/// </summary>
-		const std::string defaultSkyboxMaterial_Name = "DefaultSkyboxMaterial";
-
-		/// <summary>
-		/// Nombre del material de sombreado.
-		/// </summary>
-		const std::string defaultShadowsMaterial_Name = "DefaultShadowsMaterial";
-
-		/// <summary>
 		/// Devuelve el sistema de materiales.
 		/// </summary>
 		/// <returns></returns>
@@ -255,20 +234,12 @@ namespace OSK {
 			return materialSystem.GetPointer();
 		}
 
-		/// <summary>
-		/// Obtiene los uniform buffers 3D.
-		/// </summary>
-		/// <returns>UBOs 3D.</returns>
-		std::vector<SharedPtr<GpuDataBuffer>>& GetUniformBuffers() {
- 			return uniformBuffers;
-		}
-
 #pragma endregion
 
 		/// <summary>
 		/// Render target antes de post procesamiento.
 		/// </summary>
-		UniquePtr<RenderTarget> renderTargetBeforePostProcessing = CreateNewRenderTarget();
+		UniquePtr<RenderTarget> renderTargetBeforePostProcessing = CreateNewRenderTarget().GetPointer();
 
 		/// <summary>
 		/// Cierra el renderizador.
@@ -288,37 +259,37 @@ namespace OSK {
 		/// <param name="vertexPath">Ruta del shader de vértices.</param>
 		/// <param name="fragmentPath">Ruta del shader de fragmento.</param>
 		/// <returns>Graphics pipeline 'vacío'.</returns>
-		GraphicsPipeline* CreateNewGraphicsPipeline(const std::string& vertexPath, const std::string& fragmentPath) const;
+		OwnedPtr<GraphicsPipeline> CreateNewGraphicsPipeline(const std::string& vertexPath, const std::string& fragmentPath) const;
 
 		/// <summary>
 		/// Crea un nuevo descriptor layout vacío.
 		/// </summary>
 		/// <returns>Descriptor pool vacío.</returns>
-		DescriptorPool* CreateNewDescriptorPool() const;
+		OwnedPtr<DescriptorPool> CreateNewDescriptorPool() const;
 
 		/// <summary>
 		/// Crea un nuevo descriptor layout vacío.
 		/// </summary>
 		/// <returns>Descriptor layout vacío.</returns>
-		DescriptorLayout* CreateNewDescriptorLayout() const;
+		OwnedPtr<DescriptorLayout> CreateNewDescriptorLayout(uint32_t set = 0) const;
 
 		/// <summary>
 		/// Crea un nuevo descriptor set vacío.
 		/// </summary>
 		/// <returns>Descriptor set vacío.</returns>
-		DescriptorSet* CreateNewDescriptorSet() const;
+		OwnedPtr<DescriptorSet> CreateNewDescriptorSet() const;
 				
 		/// <summary>
 		/// Crea un renderpass vacío.
 		/// </summary>
 		/// <returns>Renderpass.</returns>
-		VULKAN::Renderpass* CreateNewRenderpass();
+		OwnedPtr<VULKAN::Renderpass> CreateNewRenderpass();
 
 		/// <summary>
 		/// Crea un framebuffer vacío.
 		/// </summary>
 		/// <returns>Framebuffer.</returns>
-		VULKAN::Framebuffer* CreateNewFramebuffer();
+		OwnedPtr<VULKAN::Framebuffer> CreateNewFramebuffer();
 
 #pragma endregion
 
@@ -405,11 +376,6 @@ namespace OSK {
 		std::vector<VkCommandBuffer> commandBuffers;
 
 		/// <summary>
-		/// UBOs 3D.
-		/// </summary>
-		std::vector<SharedPtr<GpuDataBuffer>> uniformBuffers{};
-
-		/// <summary>
 		/// Sistema de materiales.
 		/// </summary>
 		UniquePtr<MaterialSystem> materialSystem;
@@ -424,6 +390,8 @@ namespace OSK {
 		/// Stages a renderizar cada frame.
 		/// </summary>
 		std::list<RenderStage*> stages = {};
+
+		std::list<Camera3D> cameras;
 
 		/// <summary>
 		/// Crea el vertex buffer de un sprite.
@@ -473,11 +441,6 @@ namespace OSK {
 		/// Crea el command pool.
 		/// </summary>
 		void createCommandPool();
-
-		/// <summary>
-		/// Crea la imagen de profundidad.
-		/// </summary>
-		void createDepthResources();
 
 		/// <summary>
 		/// Crea un image sampler global.

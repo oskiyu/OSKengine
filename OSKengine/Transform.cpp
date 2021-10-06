@@ -42,11 +42,14 @@ void Transform::SetPosition(const Vector3f& position) {
 void Transform::SetScale(const Vector3f& scale) {
 		localScale = scale;
 
+		if (parentTransform)
+			localScale += parentTransform->GetScale();
+
 		UpdateModel();
 	}
 
 void Transform::SetRotation(const Quaternion& rotation) {
-		this->rotation = rotation;
+		this->localRotation = localRotation;
 		
 		UpdateModel();
 	}
@@ -60,20 +63,20 @@ void Transform::AddScale(const Vector3f& scaleDelta) {
 	}
 
 void Transform::ApplyRotation(const Quaternion& rotationDelta) {
-		Quaternion q = rotation;
+		Quaternion q = localRotation;
 		q.Quat *= rotationDelta.Quat;
 
 		SetRotation(q);
 	}
 
 void Transform::RotateLocalSpace(float angle, const Vector3f& axis) {
-		rotation.Rotate_LocalSpace(angle, axis);
+		localRotation.Rotate_LocalSpace(angle, axis);
 
 		UpdateModel();
 	}
 
 void Transform::RotateWorldSpace(float angle, const Vector3f& axis) {
-		rotation.Rotate_WorldSpace(angle, axis);
+		localRotation.Rotate_WorldSpace(angle, axis);
 
 		UpdateModel();
 	}
@@ -103,9 +106,16 @@ void Transform::UnAttach() {
 
 void Transform::UpdateModel() {
 		modelMatrix = glm::mat4(1.0f);
+		
 		if (parentTransform) {
-			modelMatrix = parentTransform->modelMatrix;
-			globalScale = localScale + parentTransform->globalScale;
+			globalRotation = parentTransform->globalRotation * localRotation.ToMat4();
+
+			modelMatrix = glm::translate(modelMatrix, parentTransform->GetPosition().ToGLM());
+			//modelMatrix = glm::scale(modelMatrix, parentTransform->GetScale().ToGLM());
+			modelMatrix *= parentTransform->globalRotation;
+		}
+		else {
+			globalRotation = localRotation.ToMat4();
 		}
 
 		//Posición local.
@@ -115,7 +125,7 @@ void Transform::UpdateModel() {
 		modelMatrix = glm::scale(modelMatrix, localScale.ToGLM());
 
 		//Rotación local.
-		modelMatrix = modelMatrix * rotation.ToMat4();
+		modelMatrix = modelMatrix * localRotation.ToMat4();
 
 		//Obtener posición final.
 		globalPosition = Vector3f(modelMatrix * Vector4(0, 0, 0, 1).ToGLM());
@@ -163,8 +173,15 @@ Vector3f Transform::GetLocalScale() const {
 	return localScale;
 }
 
+Quaternion Transform::GetLocalRotation() const {
+	return localRotation;
+}
+
 Quaternion Transform::GetRotation() const {
-	return rotation;
+	Quaternion q;
+	q.Quat = glm::toQuat(globalRotation);
+
+	return q;
 }
 
 glm::mat4 Transform::AsMatrix() const {
@@ -177,4 +194,16 @@ Transform* Transform::GetParent() const {
 
 std::vector<Transform*> Transform::GetChildTransforms() const {
 	return childTransforms;
+}
+
+Vector3f Transform::GetForwardVector() const {
+	return Vector3f(GetRotation().Quat * OSK::Vector3f(0, 0, 1).ToGLM()).GetNormalized();
+}
+
+Vector3f Transform::GetRightVector() const {
+	return Vector3f(GetRotation().Quat * OSK::Vector3f(-1, 0, 0).ToGLM()).GetNormalized();
+}
+
+Vector3f Transform::GetTopVector() const {
+	return Vector3f(GetRotation().Quat * OSK::Vector3f(0, 1, 0).ToGLM()).GetNormalized();
 }

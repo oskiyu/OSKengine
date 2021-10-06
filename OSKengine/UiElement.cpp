@@ -232,7 +232,7 @@ void UiElement::Update(const Vector4f& mouserRec, bool click) {
 
 void UiElement::InitSprite(OSK::ContentManager* content, OSK::RenderAPI* renderer) {
 	content->CreateSprite(&sprite);
-	sprite.material = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultMaterial2D_Name)->CreateInstance();
+	sprite.material = renderer->GetMaterialSystem()->GetMaterial(MPIPE_2D)->CreateInstance().GetPointer();
 	sprite.UpdateMaterialTexture();
 	sprite.material->FlushUpdate();
 

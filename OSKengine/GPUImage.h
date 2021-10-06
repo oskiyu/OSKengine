@@ -47,6 +47,16 @@ namespace OSK::VULKAN {
 		/// </summary>
 		VkDevice logicalDevice = VK_NULL_HANDLE;
 
+#ifdef OSK_DEBUG
+
+		/// <summary>
+		/// Nivel de MSAA con el que se ha creado la imagen.
+		/// </summary>
+		VkSampleCountFlagBits msaa = VK_SAMPLE_COUNT_1_BIT;
+
+#endif
+
+
 	private:
 
 		/// <summary>

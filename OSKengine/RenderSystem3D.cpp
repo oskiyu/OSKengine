@@ -2,6 +2,7 @@
 
 #include "VulkanRenderer.h"
 #include "ModelComponent.h"
+#include "MaterialSlot.h"
 
 using namespace OSK;
 
@@ -26,7 +27,7 @@ void RenderSystem3D::OnTick(deltaTime_t deltaTime) {
 		for (auto& model : comp.GetAnimatedModels()) {
 			model.Update(deltaTime);
 
-			model.UpdateAnimUBO(renderScene->bonesUbos);
+			model.UpdateAnimUBO(renderScene->uboBones.GetBuffersRef());
 		}
 	}
 }
@@ -73,7 +74,7 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 	for (auto& spriteBatch : renderStage.spriteBatches) {
 
 		if (!spriteBatch->spritesToDraw.IsEmpty()) {
-			GraphicsPipeline* pipeline = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultMaterial2D_Name)->GetGraphicsPipeline(renderer->GetMainRenderTarget()->renderpass.GetPointer());
+			GraphicsPipeline* pipeline = renderer->GetMaterialSystem()->GetMaterial(MPIPE_2D)->GetGraphicsPipeline(renderer->GetMainRenderTarget()->renderpass.GetPointer());
 			pipeline->Bind(cmdBuffer);
 
 			vkCmdBindIndexBuffer(cmdBuffer, Sprite::indexBuffer->memorySubblock->GetNativeGpuBuffer(), Sprite::indexBuffer->memorySubblock->GetOffset(), VK_INDEX_TYPE_UINT16);
@@ -89,7 +90,7 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 				VkDeviceSize offsets[] = { sprite.bufferOffset };
 				vkCmdBindVertexBuffers(cmdBuffer, 0, 1, vertexBuffers, offsets);
 
-				DescriptorSet* newDescSet = sprite.spriteMaterial->GetDescriptorSet();
+				DescriptorSet* newDescSet = sprite.spriteMaterial->GetMaterialSlot(MSLOT_TEXTURE_2D)->GetDescriptorSet();
 				if (previousDescSet != newDescSet) {
 					previousDescSet = newDescSet;
 					newDescSet->Bind(cmdBuffer, pipeline, i);

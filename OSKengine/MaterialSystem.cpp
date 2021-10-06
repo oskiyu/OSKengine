@@ -7,33 +7,60 @@ using namespace OSK::VULKAN;
 
 MaterialSystem::MaterialSystem(RenderAPI* renderer) {
 	this->renderer = renderer;
+
+	//MPIPE_2D
+	SetDescriptorLayout(MPIPE_2D, MSLOT_TEXTURE_2D, { {MaterialBindingType::TEXTURE, MaterialBindingShaderStage::FRAGMENT, "Texture"} });
+
+	//MPIPE_3D
+	SetDescriptorLayout(MPIPE_3D, MSLOT_CAMERA_3D, { { MaterialBindingType::DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Camera" } });
+	SetDescriptorLayout(MPIPE_3D, MSLOT_SCENE_3D, {
+		{ MaterialBindingType::DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "DirLightMat" },
+		{ MaterialBindingType::DATA_BUFFER, MaterialBindingShaderStage::FRAGMENT, "Lights" },
+		{ MaterialBindingType::TEXTURE, MaterialBindingShaderStage::FRAGMENT, "ShadowsTexture" }
+		});
+	SetDescriptorLayout(MPIPE_3D, MSLOT_PER_MODEL_3D, {
+		{ MaterialBindingType::TEXTURE, MaterialBindingShaderStage::FRAGMENT, "Albedo" },
+		{ MaterialBindingType::TEXTURE, MaterialBindingShaderStage::FRAGMENT, "Specular" }
+		});
+	SetDescriptorLayout(MPIPE_3D, MSLOT_PER_INSTANCE_3D, { { MaterialBindingType::DYNAMIC_DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Bones" } });
+
+	//MPIPE_SHADOWS3D
+	SetDescriptorLayout(MPIPE_SHADOWS3D, MSLOT_SHADOWS_3D_CAMERA, { {MaterialBindingType::DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Camera"} });
+	SetDescriptorLayout(MPIPE_SHADOWS3D, MSLOT_SHADOWS_3D_SCENE, { {MaterialBindingType::DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "DirLightMat"} });
+	SetDescriptorLayout(MPIPE_SHADOWS3D, MSLOT_SHADOWS_3D_BONES, { {MaterialBindingType::DYNAMIC_DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Bones"} });
+
+	//MPIPE_POSTPROCESS
+	SetDescriptorLayout(MPIPE_POSTPROCESS, MSLOT_TEXTURE_2D, { {MaterialBindingType::TEXTURE, MaterialBindingShaderStage::FRAGMENT, "Texture"} });
+
+	//MPIPE_SKYBOX
+	SetDescriptorLayout(MPIPE_SKYBOX, MSLOT_SKYBOX_CAMERA, { {MaterialBindingType::DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Camera"} });
+	SetDescriptorLayout(MPIPE_SKYBOX, MSLOT_SKYBOX_TEXTURE, { {MaterialBindingType::TEXTURE, MaterialBindingShaderStage::FRAGMENT, "Cubemap"} });
 }
 
 MaterialSystem::~MaterialSystem() {
-	for (auto& i : materials)
+	for (auto i : materials)
 		delete i.second;
-
-	materials.clear();
 }
 
-void MaterialSystem::RegisterMaterial(const std::string& name) {
-	Material* material = new Material();
+void MaterialSystem::RegisterMaterial(MaterialPipelineTypeId type) {
+	Material* material = new Material(type, this);
 	material->SetRenderer(renderer);
+	material->owner = this;
 
 	for (auto i : renderpasses)
 		material->renderpassesToRegister.push_back(i);
 
-	if (materials.find(name) != materials.end())
-		delete materials[name];
+	if (materials.find(type) != materials.end())
+		delete materials[type];
 
-	materials[name] = material;
+	materials[type] = material;
 }
 
-Material* MaterialSystem::GetMaterial(const std::string& name) {
-	if (materials.find(name) == materials.end())
+Material* MaterialSystem::GetMaterial(MaterialPipelineTypeId type) {
+	if (materials.find(type) == materials.end())
 		return nullptr;
 
-	return materials[name];
+	return materials[type];
 }
 
 void MaterialSystem::RegisterRenderpass(Renderpass* renderpass) {
@@ -48,4 +75,36 @@ void MaterialSystem::UnregisterRenderpass(Renderpass* renderpass) {
 		i.second->UnregisterRenderpass(renderpass);
 
 	renderpasses.remove(renderpass);
+}
+
+void MaterialSystem::SetDescriptorLayout(MaterialPipelineTypeId mPipeline, MaterialSlotTypeId type, MaterialBindingLayout layout) {
+	if (materials.find(mPipeline) == materials.end())
+		RegisterMaterial(mPipeline);
+
+	uint32_t set = 0;
+	if (pipelinesLayouts.find(mPipeline) != pipelinesLayouts.end())
+		set = pipelinesLayouts.at(mPipeline).size();
+
+	DescriptorLayout* descLayout = renderer->CreateNewDescriptorLayout(set).GetPointer();
+
+	for (const auto& i : layout)
+		descLayout->AddBinding(i.type, i.stage, i.bindingName);
+
+	descLayout->Create();
+
+	descriptorLayouts[type] = descLayout;
+	pipelinesLayouts[mPipeline].push_back(descLayout->vulkanDescriptorSetLayout);
+
+	materials[mPipeline]->materialSlotPools[type] = {};
+
+	Logger::DebugLog("Descriptor layout pipe: " + std::to_string(mPipeline) 
+		+ ", type: " + std::to_string(type) + ", set #" + std::to_string(set));
+}
+
+DescriptorLayout* MaterialSystem::GetDescriptorLayout(MaterialSlotTypeId type) {
+	return descriptorLayouts.at(type).GetPointer();
+}
+
+const std::vector<VkDescriptorSetLayout>& MaterialSystem::GetMaterialPipelineLayout(MaterialPipelineTypeId pipeline) const {
+	return pipelinesLayouts.at(pipeline);
 }

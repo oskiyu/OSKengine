@@ -31,13 +31,14 @@
 #include "VulkanAllocator.h"
 #include "ProfilingUnit.h"
 #include "Framebuffer.h"
+#include "Swapchain.h"
 
 #include "RenderTarget.h"
 #include "RenderStage.h"
 #include "PostProcessingSettings.h"
 #include <functional>
 
-#include "MaterialSystem.h"
+#include "OldMaterialSystem.h"
 
 #include "DynamicArray.hpp"
 
@@ -49,15 +50,19 @@ namespace OSK {
 	/// Renderizador de OSKengine.
 	/// </summary>
 	class RenderSystem3D;
+	class VULKAN::Swapchain;
 
 	class OSKAPI_CALL RenderAPI {
 
 		friend class ContentManager;
 		friend class RenderizableScene;
+		friend class RenderTarget;
 		friend class ShadowMap;
 		friend class CubeShadowMap;
+		friend class VULKAN::GpuInfo;
 		friend class VULKAN::VulkanImageGen;
 		friend class VULKAN::Framebuffer;
+		friend class VULKAN::Swapchain;
 
 	public:
 
@@ -137,15 +142,6 @@ namespace OSK {
 		/// </summary>
 		/// <returns>Render target.</returns>
 		RenderTarget* CreateNewRenderTarget();
-
-		/// <summary>
-		/// Inicializa un render target para su uso.
-		/// Renderiza una imagen a color (sin depth).
-		/// Tamaño = resolución de la ventana.
-		/// </summary>
-		/// <param name="rtarget">Render target a inicializar..</param>
-		/// <param name="content">Content manager para crear el sprite.</param>
-		void InitRenderTarget(RenderTarget* rtarget, ContentManager* content);
 
 		struct {
 			std::string vertexShaderPath2D = "Shaders/2D/vert.spv";
@@ -255,7 +251,7 @@ namespace OSK {
 		/// Devuelve el sistema de materiales.
 		/// </summary>
 		/// <returns></returns>
-		MaterialSystem* GetMaterialSystem() const {
+		OldMaterialSystem* GetMaterialSystem() const {
 			return materialSystem.GetPointer();
 		}
 
@@ -299,8 +295,6 @@ namespace OSK {
 		/// </summary>
 		/// <returns>Descriptor pool vacío.</returns>
 		DescriptorPool* CreateNewDescriptorPool() const;
-
-		//Crea un nuevo descriptor layout vacío.
 
 		/// <summary>
 		/// Crea un nuevo descriptor layout vacío.
@@ -349,20 +343,10 @@ namespace OSK {
 		ProfilingUnit updateCmdProfilingUnit{ "Update command buffers" };
 
 		/// <summary>
-		/// Imagen de profundidad.
-		/// </summary>
-		VULKAN::GpuImage depthImage;
-
-		/// <summary>
 		/// Devuelve el formato para la imagen de profundidad.
 		/// </summary>
 		/// <returns>Formato.</returns>
 		VkFormat getDepthFormat() const;
-
-		/// <summary>
-		/// Formato del swapchain.
-		/// </summary>
-		VkFormat swapchainFormat;
 
 		/// <summary>
 		/// Renderiza un render stage.
@@ -400,9 +384,13 @@ namespace OSK {
 		/// <summary>
 		/// Devuelve el asignador de memoria de la GPU.
 		/// </summary>
-		VULKAN::MemoryAllocator* GetGpuMemoryAllocator() const {
-			return memoryAllocator.GetPointer();
-		}
+		VULKAN::MemoryAllocator* GetGpuMemoryAllocator() const;
+
+		/// <summary>
+		/// Devuelve el nivel de MSAA que se va  ausar.
+		/// </summary>
+		/// <returns></returns>
+		VkSampleCountFlagBits GetMsaaSamples() const;
 
 	private:
 
@@ -424,7 +412,7 @@ namespace OSK {
 		/// <summary>
 		/// Sistema de materiales.
 		/// </summary>
-		UniquePtr<MaterialSystem> materialSystem;
+		UniquePtr<OldMaterialSystem> materialSystem;
 
 		/// <summary>
 		/// Stages que se renderizan una vez por frame.
@@ -482,34 +470,9 @@ namespace OSK {
 		void createLogicalDevice();
 
 		/// <summary>
-		/// Crea el swapchain.
-		/// </summary>
-		void createSwapchain();
-
-		/// <summary>
-		/// Crea las imágenes del swapchain.
-		/// </summary>
-		void createSwapchainImageViews();
-
-		/// <summary>
-		/// Crea el renderpass principal.
-		/// </summary>
-		void createRenderpass();
-
-		/// <summary>
 		/// Crea el command pool.
 		/// </summary>
 		void createCommandPool();
-
-		/// <summary>
-		/// Crea la imagen de profundidad.
-		/// </summary>
-		void createDepthResources();
-
-		/// <summary>
-		/// Crea los framebuffers.
-		/// </summary>
-		void createFramebuffers();
 
 		/// <summary>
 		/// Crea un image sampler global.
@@ -534,12 +497,7 @@ namespace OSK {
 		/// <summary>
 		/// Crea el render target antes de postprocesamiento.
 		/// </summary>
-		void createRenderTarget();
-
-		/// <summary>
-		/// Cierra el swapchain.
-		/// </summary>
-		void closeSwapchain();
+		void recreateRenderTargets();
 
 		/// <summary>
 		/// Renderizado.
@@ -623,13 +581,6 @@ namespace OSK {
 		VkPresentModeKHR getPresentMode(const std::vector<VkPresentModeKHR>& modes) const;
 
 		/// <summary>
-		/// Obtiene el tamaño del swapchain.
-		/// </summary>
-		/// <param name="capabilities">Superficie.</param>
-		/// <returns>Tamaño.</returns>
-		VkExtent2D getSwapchainExtent(const VkSurfaceCapabilitiesKHR& capabilities) const;
-
-		/// <summary>
 		/// Callbag para logear los mensajes de Vulkan.
 		/// </summary>
 		/// <param name="messageSeverity">Importancia del mensaje.</param>
@@ -646,26 +597,6 @@ namespace OSK {
 		/// Instancia de Vulkan.
 		/// </summary>
 		VkInstance instance;
-
-		/// <summary>
-		/// Swapchain.
-		/// </summary>
-		VkSwapchainKHR swapchain;
-
-		/// <summary>
-		/// Imágenes del swapchain.
-		/// </summary>
-		std::vector<VkImage> swapchainImages;
-
-		/// <summary>
-		/// ImageViews del swapchain (cómo acceder a las imágenes).
-		/// </summary>
-		std::vector<VkImageView> swapchainImageViews;
-
-		/// <summary>
-		/// Tamaño del swapchain.
-		/// </summary>
-		VkExtent2D swapchainExtent;
 
 		/// <summary>
 		/// Modo de presentación.
@@ -696,11 +627,6 @@ namespace OSK {
 		/// Logical device.
 		/// </summary>
 		VkDevice logicalDevice;
-
-		/// <summary>
-		/// Framebuffers.
-		/// </summary>
-		std::vector<VULKAN::Framebuffer*> framebuffers;
 
 		/// <summary>
 		/// Sync.
@@ -791,14 +717,11 @@ namespace OSK {
 		UniquePtr<DescriptorSet> screenDescriptorSet;
 
 		/// <summary>
-		/// Renderpass para renderizar los post procesamientos.
-		/// </summary>
-		UniquePtr<VULKAN::Renderpass> screenRenderpass;
-
-		/// <summary>
 		/// Render target final.
 		/// </summary>
 		UniquePtr<RenderTarget> finalRenderTarget;
+
+		UniquePtr<VULKAN::Swapchain> swapchain;
 
 		/// <summary>
 		/// Crea los elementos de post procesamiento.

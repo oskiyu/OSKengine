@@ -8,6 +8,7 @@
 #include "GraphicsPipeline.h"
 #include "RenderTarget.h"
 #include "LightsUBO.h"
+#include "UniformBuffer.h"
 
 namespace OSK {
 
@@ -68,11 +69,6 @@ namespace OSK {
 		void Clear();
 
 		/// <summary>
-		/// UBOs con el DirShadowsUBO.
-		/// </summary>
-		std::vector<SharedPtr<GpuDataBuffer>>& GetUniformBuffers();
-
-		/// <summary>
 		/// Render target sobre el que se renderiza las sombras.
 		/// </summary>
 		RenderTarget* GetRenderTarget();
@@ -107,7 +103,7 @@ namespace OSK {
 		/// <summary>
 		/// UBOs con el DirShadowsUBO.
 		/// </summary>
-		std::vector<SharedPtr<GpuDataBuffer>> dirShadowsUniformBuffers;
+		UniformBuffer uboDirLightMat;
 
 		/// <summary>
 		/// Información que se manda a la GPU para el renderizado de las sombras.

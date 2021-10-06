@@ -3,26 +3,24 @@
 #include "VulkanRenderer.h"
 
 using namespace OSK;
-using namespace OSK::VULKAN;
 
-Texture* Material::DefaultTexture = nullptr;
+Material::Material(MaterialPipelineTypeId type, MaterialSystem* owner) {
+	pipelineType = type;
+	this->owner = owner;
+}
 
 Material::~Material() {
-	for (auto key : pipelines)
-		delete key.second;
+	for (auto i : materialSlotPools)
+		for (auto j : i.second)
+			j.Delete();
 
-	pipelines.clear();
+	for (auto i : graphicPipelines)
+		i.second.Delete();
 }
 
 void Material::SetRenderer(RenderAPI* renderer) {
 	this->renderer = renderer;
-	pool = new MaterialPool(renderer);
 }
-
-uint32_t Material::GetBindingIndex(const std::string& name) {
-	return bindingNameToBinding[name];
-}
-
 void Material::SetPipelineSettings(const MaterialPipelineCreateInfo& info) {
 	pipelineInfo = info;
 
@@ -32,38 +30,11 @@ void Material::SetPipelineSettings(const MaterialPipelineCreateInfo& info) {
 	renderpassesToRegister.clear();
 }
 
-void Material::SetLayout(MaterialBindingLayout layout) {
-	materialLayout.Delete();
-
-	materialLayout = renderer->CreateNewDescriptorLayout();
-	
-	for (auto i : layout) {
-		uint32_t index = (uint32_t)materialLayout->descriptorLayoutBindings.GetSize();
-		materialLayout->AddBinding(GetVulkanBindingType(i.type), GetVulkanShaderBinding(i.stage));
-		bindingNameToBinding[i.bindingName] = index;
-	}
-
-	materialLayout->Create();
-	pool->layout = materialLayout.GetPointer();
-}
-
-MaterialInstance* Material::CreateInstance() {
-	MaterialInstance* instance = pool->CreateInstance();
-
-	instance->ownerMaterial = this;
-
-	return instance;
-}
-
-GraphicsPipeline* Material::GetGraphicsPipeline(VULKAN::Renderpass* renderpass) const {
-	return pipelines.at(renderpass);
-}
-
-void Material::RegisterRenderpass(Renderpass* renderpass) {
-	if (pipelines.find(renderpass) != pipelines.end())
+void Material::RegisterRenderpass(VULKAN::Renderpass* renderpass) {
+	if (graphicPipelines.find(renderpass) != graphicPipelines.end())
 		return;
 
-	GraphicsPipeline* graphicsPipeline = renderer->CreateNewGraphicsPipeline(pipelineInfo.vertexPath, pipelineInfo.fragmentPath);
+	GraphicsPipeline* graphicsPipeline = renderer->CreateNewGraphicsPipeline(pipelineInfo.vertexPath, pipelineInfo.fragmentPath).GetPointer();
 	graphicsPipeline->SetViewport({ 0, 0, 2, 2 });
 	graphicsPipeline->SetRasterizer(!pipelineInfo.cullFaces, GetVkPolygonMode(pipelineInfo.polygonMode), GetVkCullMode(pipelineInfo.cullMode), GetVkPolygonFrontFace(pipelineInfo.frontFaceType));
 	graphicsPipeline->SetMSAA(VK_FALSE, renderer->GetMsaaSamples());
@@ -75,21 +46,53 @@ void Material::RegisterRenderpass(Renderpass* renderpass) {
 		pOffset += (uint32_t)i.size;
 	}
 
-	graphicsPipeline->SetLayout(&materialLayout->vulkanDescriptorSetLayout);
+	graphicsPipeline->SetLayout(owner->GetMaterialPipelineLayout(pipelineType));
 	graphicsPipeline->Create(renderpass);
 
-	pipelines[renderpass] = graphicsPipeline;
+	graphicPipelines[renderpass] = graphicsPipeline;
+}
+void Material::UnregisterRenderpass(VULKAN::Renderpass* renderpass) {
+	if (graphicPipelines.find(renderpass) == graphicPipelines.end())
+		return;
+
+	graphicPipelines[renderpass].Delete();
+
+	graphicPipelines.erase(renderpass);
 }
 
+GraphicsPipeline* Material::GetGraphicsPipeline(VULKAN::Renderpass* renderpass) const {
+	return graphicPipelines.at(renderpass).GetPointer();
+}
 MaterialPipelineCreateInfo Material::GetMaterialGraphicsPipelineInfo() const {
 	return pipelineInfo;
 }
 
-void Material::UnregisterRenderpass(Renderpass* renderpass) {
-	if (pipelines.find(renderpass) == pipelines.end())
-		return;
+OwnedPtr<MaterialInstance> Material::CreateInstance() {
+	MaterialInstance* instance = new MaterialInstance();
 
-	delete pipelines[renderpass];
+	for (auto i : materialSlotPools)
+		instance->SetMaterialSlot(i.first, GetNextMaterialSlotPool(i.first));
 
-	pipelines.erase(renderpass);
+	return instance;
+}
+
+MaterialSlotPool* Material::GetNextMaterialSlotPool(MaterialSlotTypeId type) {
+	if (materialSlotPools.find(type) == materialSlotPools.end()) {
+		materialSlotPools[type] = {};
+
+		materialSlotPools.at(type).push_back(new MaterialSlotPool(renderer, type, owner));
+
+
+		return materialSlotPools.at(type).back().GetPointer();
+	}
+
+	auto& list = materialSlotPools.at(type);
+
+	for (auto i : list)
+		if (!i->IsFull())
+			return i.GetPointer();
+
+	list.push_back(new MaterialSlotPool(renderer, type, owner));
+
+	return materialSlotPools.at(type).back().GetPointer();
 }

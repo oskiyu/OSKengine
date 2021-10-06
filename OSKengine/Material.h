@@ -1,21 +1,14 @@
 #pragma once
 
-#include "OSKsettings.h"
-#include "OSKmacros.h"
-#include "OSKtypes.h"
-#include "Log.h"
-
-#include "MaterialPool.h"
-#include "MaterialInstance.h"
 #include "MaterialPipelineInfo.h"
-
-#include "GraphicsPipeline.h"
 #include "Renderpass.h"
+#include "GraphicsPipeline.h"
 #include "UniquePtr.hpp"
+#include "MaterialInstance.h"
+#include "MaterialSlotPool.h"
+#include "OwnedPtr.h"
 
 #include <unordered_map>
-#include <map>
-#include <string>
 
 namespace OSK {
 
@@ -23,10 +16,9 @@ namespace OSK {
 	class MaterialSystem;
 
 	/// <summary>
-	/// Representa un tipo de material en concreto.
-	/// Un material contiene: <para/>
-	/// Descripción del layout de los shaders. <para/>
-	/// Descripción del pipeline: shaders que se van a usar.  <para/>
+	/// Un material define el comportamiento del renderizador con un objeto en concreto.
+	/// También define el layout de los shaders.
+	/// Contiene los graphics pipelines (con sus shaders) y los slots de las instancias de este material.
 	/// </summary>
 	class OSKAPI_CALL Material {
 
@@ -35,107 +27,64 @@ namespace OSK {
 	public:
 
 		/// <summary>
-		/// Destructor.
-		/// <summary/>
+		/// Crea un material vacío.
+		/// </summary>
+		/// <param name="type">Identificador del material.</param>
+		/// <param name="owner">Sistemas de materiales del renderizador.</param>
+		Material(MaterialPipelineTypeId type, MaterialSystem* owner);
+
 		~Material();
 
 		/// <summary>
-		/// Establece el renderizador al que pertenece el material.
+		/// Establece el renderizador.
 		/// </summary>
-		/// <param name="renderer">Renderizador.</param>
 		void SetRenderer(RenderAPI* renderer);
 
 		/// <summary>
-		/// Establece la información sobre el pipeline del material (shaders).
+		/// Establece la configuración de los pipelines que se irán creando durante la ejecución del juego.
 		/// </summary>
-		/// <param name="info">Información.</param>
 		void SetPipelineSettings(const MaterialPipelineCreateInfo& info);
 
 		/// <summary>
-		/// Establece el layout del material.
+		/// Crea y devuelve una nueva instancia de este material.
 		/// </summary>
-		/// <param name="layout">Layout.</param>
-		void SetLayout(MaterialBindingLayout layout);
+		OwnedPtr<MaterialInstance> CreateInstance();
 
 		/// <summary>
-		/// Crea una nueva instancia de un material.
+		/// Registra un nuevo renderpass, para crear un pipeline que le corresponda.
 		/// </summary>
-		/// <returns>Nueva instancia.</returns>
-		MaterialInstance* CreateInstance();
-
-		/// <summary>
-		/// Devuelve el binding dentro del shader de un binding específico.
-		/// </summary>
-		/// <param name="name">Nombre del binding.</param>
-		/// <returns>ID del binding.</returns>
-		uint32_t GetBindingIndex(const std::string& name);
-
-		/// <summary>
-		/// Registra un renderpass, creando un graphics pipeline específico para él.
-		/// </summary>
-		/// <param name="renderpass">Renderpass.</param>
 		void RegisterRenderpass(VULKAN::Renderpass* renderpass);
-
 		/// <summary>
-		/// Quita el renderpass, eliminando el graphics pipeline enlazado a él.
+		/// Elimina el pipeline correspondiente al renderpass.
 		/// </summary>
-		/// <param name="renderpass"></param>
 		void UnregisterRenderpass(VULKAN::Renderpass* renderpass);
 
 		/// <summary>
-		/// Devuelve el graphics pipeline enlazado a un renderpass en concreto.
+		/// Devuelve el pipeline correspondiente al renderpass.
 		/// </summary>
-		/// <param name="renderpass">Renderpass.</param>
-		/// <returns>Pipeline para el renderpass.</returns>
 		GraphicsPipeline* GetGraphicsPipeline(VULKAN::Renderpass* renderpass) const;
-
 		/// <summary>
-		/// Devuelve la información de creación del graphics pipeline del material.
+		/// Devuelve la información con la que se crean los pipelines.
 		/// </summary>
-		/// <returns>Información.</returns>
 		MaterialPipelineCreateInfo GetMaterialGraphicsPipelineInfo() const;
 
 		/// <summary>
-		/// Textura por defecto del material.
+		/// Devuelve un material slot pool que tenga al menos un hueco libre para el tipo dado.
+		/// Si no existe, se crea uno nuevo.
 		/// </summary>
-		static Texture* DefaultTexture;
+		MaterialSlotPool* GetNextMaterialSlotPool(MaterialSlotTypeId type);
 
 	private:
 
-		/// <summary>
-		/// Información del pipeline.
-		/// </summary>
 		MaterialPipelineCreateInfo pipelineInfo;
-
-		/// <summary>
-		/// Map: nombre del binding -> binding.
-		/// </summary>
-		std::unordered_map<std::string, uint32_t> bindingNameToBinding{};
-
-		/// <summary>
-		/// Map: renderpass -> pipeline enlazado al renderpass.
-		/// </summary>
-		std::map<VULKAN::Renderpass*, GraphicsPipeline*> pipelines;
-
-		/// <summary>
-		/// Lista de renderpasses que aún no se han registrado.
-		/// </summary>
 		std::vector<VULKAN::Renderpass*> renderpassesToRegister;
+		std::unordered_map<VULKAN::Renderpass*, OwnedPtr<GraphicsPipeline>> graphicPipelines;
 
-		/// <summary>
-		/// Almacena las instancias de los materiales.
-		/// </summary>
-		UniquePtr<MaterialPool> pool;
+		std::unordered_map<MaterialSlotTypeId, std::list<OwnedPtr<MaterialSlotPool>>> materialSlotPools;
 
-		/// <summary>
-		/// Descriptor layout del material.
-		/// </summary>
-		UniquePtr<DescriptorLayout> materialLayout;
-
-		/// <summary>
-		/// Renderizador.
-		/// </summary>
 		RenderAPI* renderer = nullptr;
+		MaterialSystem* owner = nullptr;
+		MaterialPipelineTypeId pipelineType;
 
 	};
 

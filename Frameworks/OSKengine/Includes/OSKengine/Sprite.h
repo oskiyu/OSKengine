@@ -10,7 +10,7 @@
 #include "Transform2D.h"
 #include "Color.h"
 
-#include "Material.h"
+#include "OldMaterial.h"
 #include "PushConst2D.h"
 
 namespace OSK {
@@ -66,7 +66,7 @@ namespace OSK {
 		/// <summary>
 		/// Material del sprite.
 		/// </summary>
-		SharedPtr<MaterialInstance> material;
+		SharedPtr<OldMaterialInstance> material;
 
 		/// <summary>
 		/// Color del sprite.

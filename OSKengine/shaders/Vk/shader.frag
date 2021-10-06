@@ -12,9 +12,10 @@ layout(location = 2) in vec3 fragPos;
 layout(location = 3) in vec3 cameraPos;
 layout(location = 4) in vec4 lightSpace;
 
-layout(binding = 3) uniform sampler2D diffuseTexture;
-layout(binding = 5) uniform sampler2D specularTexture;
-layout(binding = 6) uniform sampler2D shadowTexture;
+layout(set = 2, binding = 0) uniform sampler2D diffuseTexture;
+layout(set = 2, binding = 1) uniform sampler2D specularTexture;
+
+layout(set = 1, binding = 2) uniform sampler2D shadowTexture;
 
 
 //Output
@@ -39,7 +40,7 @@ struct DirLight {
 };
 
 //Luces.
-layout(binding = 4) uniform LightsUBO {
+layout(set = 1, binding = 1) uniform LightsUBO {
     DirLight directional;
     PointLight[MAX_POINT_LIGHTS] points;
 } lights;

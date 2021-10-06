@@ -89,7 +89,7 @@ namespace OSK {
 		/// Establece el layout de los bindings que va a seguir el pipeline.
 		/// </summary>
 		/// <param name="layout">Descriptor layout.</param>
-		void SetLayout(VkDescriptorSetLayout* layout);
+		void SetLayout(const std::vector<VkDescriptorSetLayout>& layouts);
 
 		/// <summary>
 		/// Crea el pipeline.
@@ -262,7 +262,7 @@ namespace OSK {
 		/// <summary>
 		/// Layout de descriptor sets.
 		/// </summary>
-		VkDescriptorSetLayout* descriptorSetLayout;
+		std::vector<VkDescriptorSetLayout> descriptorSetLayouts;
 
 		/// <summary>
 		/// Pipeline create info.

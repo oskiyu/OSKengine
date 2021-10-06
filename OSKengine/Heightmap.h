@@ -1,6 +1,7 @@
 #pragma once
 
 #include "OSKmacros.h"
+#include "OwnedPtr.h"
 #include "OSKtypes.h"
 
 #include <cstdint>
@@ -22,7 +23,7 @@ namespace OSK {
 		/// <summary>
 		/// Píxeles del heightmap.
 		/// </summary>
-		uint8_t* data = nullptr;
+		OwnedPtr<uint8_t> data = nullptr;
 
 		/// <summary>
 		/// Tamaño (en píxeles) de la imagen del heightmap.

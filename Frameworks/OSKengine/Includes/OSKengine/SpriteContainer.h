@@ -56,7 +56,7 @@ namespace OSK {
 		/// <summary>
 		/// Referencia al material del sprite.
 		/// </summary>
-		MaterialInstance* spriteMaterial;
+		OldMaterialInstance* spriteMaterial;
 
 		/// <summary>
 		/// Establece el sprite que va a 'almacenar' este container.

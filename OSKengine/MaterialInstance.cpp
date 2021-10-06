@@ -1,78 +1,40 @@
 #include "MaterialInstance.h"
 
-#include "Material.h"
-#include "MaterialPool.h"
+#include "MaterialSlotPool.h"
+#include "MaterialSlot.h"
 
 using namespace OSK;
 
 MaterialInstance::~MaterialInstance() {
-	Free();
+
 }
 
-void MaterialInstance::Free() {
-	if (ownerPool) {
-		GetDescriptorSet()->Reset();
-		ownerPool->FreeSet(descriptorSetIndex);
-
-		ownerPool = nullptr;
-	}
+MaterialSlot* MaterialInstance::GetMaterialSlot(MaterialSlotTypeId type) {
+	return slotPools.at(type)->GetMaterialSlot(slotIds.at(type));
 }
 
-void MaterialInstance::SetTexture(Texture* texture) {
-	SetTexture(texture, GetDescriptorSet()->GetBindingsCount());
-}
+void MaterialInstance::SetMaterialSlot(MaterialSlotTypeId type, MaterialSlotPool* pool) {
+	slotIds[type] = pool->GetNextMaterialSlot();
+	slotPools[type] = pool;
 
-void MaterialInstance::SetTexture(Texture* texture, uint32_t binding) {
-	GetDescriptorSet()->AddImage(texture->image.GetPointer(), texture->image->sampler, binding);
-}
+	types.push_back(type);
 
-void MaterialInstance::SetTexture(const std::string& name, Texture* texture) {
-	SetTexture(texture, ownerMaterial->GetBindingIndex(name));
-}
-
-void MaterialInstance::SetBuffer(std::vector<SharedPtr<GpuDataBuffer>>& buffers) {
-	SetBuffer(buffers, GetDescriptorSet()->GetBindingsCount());
-}
-
-void MaterialInstance::SetBuffer(std::vector<SharedPtr<GpuDataBuffer>>& buffers, uint32_t binding) {
-	GetDescriptorSet()->AddUniformBuffers(buffers, binding, buffers[0]->GetSize());
-
-	if (binding >= this->buffers.size())
-		this->buffers.push_back(buffers);
-	else
-		this->buffers[binding] = buffers;
-}
-
-void MaterialInstance::SetBuffer(const std::string& name, std::vector<SharedPtr<GpuDataBuffer>>& buffers) {
-	SetBuffer(buffers, ownerMaterial->GetBindingIndex(name));
-}
-
-void MaterialInstance::SetDynamicBuffer(std::vector<SharedPtr<GpuDataBuffer>>& buffers) {
-	SetDynamicBuffer(buffers, GetDescriptorSet()->GetBindingsCount());
-}
-
-void MaterialInstance::SetDynamicBuffer(std::vector<SharedPtr<GpuDataBuffer>>& buffers, uint32_t binding) {
-	GetDescriptorSet()->AddDynamicUniformBuffers(buffers, binding, buffers[0]->GetDynamicUboStructureSize());
-
-	if (binding >= this->buffers.size())
-		this->buffers.push_back(buffers);
-	else
-		this->buffers[binding] = buffers;
-}
-
-void MaterialInstance::SetDynamicBuffer(const std::string& name, std::vector<SharedPtr<GpuDataBuffer>>& buffers) {
-	SetDynamicBuffer(buffers, ownerMaterial->GetBindingIndex(name));
+	numberOfSlots++;
 }
 
 void MaterialInstance::FlushUpdate() {
-	GetDescriptorSet()->Update();
-	hasBeenSet = true;
+	for (auto i : types)
+		slotPools[i]->GetMaterialSlot(slotIds[i])->FlushUpdate();
 }
 
 bool MaterialInstance::HasBeenSet() const {
-	return hasBeenSet;
+	for (auto i : types)
+		if (!slotPools.at(i)->GetMaterialSlot(slotIds.at(i))->HasBeenSet())
+			return false;
+
+	return true;
 }
 
-DescriptorSet* MaterialInstance::GetDescriptorSet() const {
-	return ownerPool->GetDSet(descriptorSetIndex);
+size_t MaterialInstance::GetNumberOfSlots() const {
+	return numberOfSlots;
 }

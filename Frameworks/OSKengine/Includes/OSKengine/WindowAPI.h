@@ -24,6 +24,10 @@ namespace OSK {
 
 	}
 
+	namespace VULKAN {
+		class Swapchain;
+	}
+
 
 	class Camera2D;
 
@@ -33,6 +37,7 @@ namespace OSK {
 	class OSKAPI_CALL WindowAPI {
 
 		friend class RenderAPI;
+		friend class OSK::VULKAN::Swapchain;
 
 	public:
 

@@ -4,20 +4,20 @@
 #define MAX_BONES 64
 #define MAX_BONES_PER_VERTEX 4
 
-layout(binding = 0) uniform UniformBufferObject {
+layout(set = 0, binding = 0) uniform Camera {
     mat4 view;
     mat4 proj;
 
     vec3 cameraPos;
 } camera;
 
-layout(binding = 1) uniform Bones {
+layout(set = 1, binding = 0) uniform DirLightMat {
+    mat4 matrix;
+} dirLight;
+
+layout(set = 2, binding = 0) uniform Bones {
     mat4 bones[MAX_BONES];
 } bones;
-
-layout(binding = 2) uniform Lights {
-    mat4 lightMat;
-} lights;
 
 layout (push_constant) uniform PushConst {
     mat4 model;
@@ -40,7 +40,7 @@ void main() {
     bonesMat += bones.bones[inBoneIDs[2]] * inBoneWeights[2];
     bonesMat += bones.bones[inBoneIDs[3]] * inBoneWeights[3];  
 
-    mat4 mat = lights.lightMat;
+    mat4 mat = dirLight.matrix;
 
     gl_Position = mat * model.model * bonesMat * vec4(inPosition, 1.0);
     fragPos = (mat * model.model * bonesMat * vec4(inPosition, 1.0)).xyz;

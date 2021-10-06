@@ -83,6 +83,9 @@ void Game::SetupSystems() {
 	inputSystem = entityComponentSystem->RegisterSystem<OSK::InputSystem>();
 	renderSystem3D = entityComponentSystem->RegisterSystem<OSK::RenderSystem3D>();
 	onTickSystem = entityComponentSystem->RegisterSystem<OSK::OnTickSystem>();
+	audio = entityComponentSystem->RegisterSystem<OSK::AudioSystem>();
+
+	audio->SetCamera3D(renderer->GetDefaultCamera());
 
 	inputSystem->SetWindow(window.GetPointer());
 	renderSystem3D->renderer = renderer.GetPointer();
@@ -124,8 +127,6 @@ void Game::MainLoop() {
 		}
 
 		//Draw
-		renderer->defaultCamera3D.updateVectors();
-
 		OnDraw2D();
 
 		renderer->RenderFrame();

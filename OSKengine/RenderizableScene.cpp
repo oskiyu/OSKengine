@@ -3,6 +3,8 @@
 #include "VulkanRenderer.h"
 #include "DescriptorSet.h"
 
+#include "MaterialSlot.h"
+
 namespace OSK {
 
 	RenderizableScene::RenderizableScene(RenderAPI* renderer) {
@@ -11,6 +13,7 @@ namespace OSK {
 		content = new ContentManager(this->renderer);
 		shadowMap = new ShadowMap(renderer, content.GetPointer());
 		shadowMap->Create({ 1024, 1024 });
+		//shadowMap->dirShadows->targetImage = RenderTargetImageTarget::DEPTH;
 
 		SetupLightsUBO();
 		InitLightsBuffers();
@@ -44,23 +47,23 @@ namespace OSK {
 
 	void RenderizableScene::InitLightsBuffers() {
 		VkDeviceSize size = lights.Size();
-		lightsUniformBuffers.resize(renderer->swapchain->GetImageCount());
-		for (uint32_t i = 0; i < lightsUniformBuffers.size(); i++) {
-			lightsUniformBuffers[i] = new GpuDataBuffer;
-			renderer->AllocateBuffer(lightsUniformBuffers[i].GetPointer(), size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		uboLights.GetBuffersRef().resize(renderer->swapchain->GetImageCount());
+		for (uint32_t i = 0; i < uboLights.GetBuffers().size(); i++) {
+			uboLights.GetBuffersRef()[i] = new GpuDataBuffer;
+			renderer->AllocateBuffer(uboLights.GetBuffers()[i].GetPointer(), size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 		}
 
-		bonesUbos.resize(renderer->swapchain->GetImageCount());
-		for (uint32_t i = 0; i < bonesUbos.size(); i++) {
-			bonesUbos[i] = renderer->CreateDynamicUBO(sizeof(AnimUBO), 64);
+		uboBones.GetBuffersRef().resize(renderer->swapchain->GetImageCount());
+		for (uint32_t i = 0; i < uboBones.GetBuffers().size(); i++) {
+			uboBones.GetBuffersRef()[i] = renderer->CreateDynamicUBO(sizeof(AnimUBO), 64);
 
 			AnimUBO ubo{};
-			bonesUbos[i]->Write(&ubo, sizeof(AnimUBO));
+			uboBones.GetBuffersRef()[i]->Write(&ubo, sizeof(AnimUBO));
 		}
 	}
 
 	void RenderizableScene::UpdateLightsBuffers() {
-		for (auto& i : lightsUniformBuffers)
+		for (auto& i : uboLights.GetBuffers())
 			lights.UpdateBuffer(renderer->logicalDevice, i.Get());
 
 		shadowMap->Update();
@@ -90,14 +93,17 @@ namespace OSK {
 
 		terreno->CreateMesh(path, quadSize, maxHeight);
 
-		terreno->material = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultMaterial3D_Name)->CreateInstance();
-		terreno->material->SetBuffer("Camera", renderer->GetUniformBuffers());
-		terreno->material->SetDynamicBuffer("Animation", bonesUbos);
-		terreno->material->SetBuffer("Model", shadowMap->dirShadowsUniformBuffers);
-		terreno->material->SetTexture("Albedo", content->DefaultTexture);
-		terreno->material->SetBuffer("Lights", lightsUniformBuffers);
-		terreno->material->SetTexture("Specular", content->DefaultTexture);
-		terreno->material->SetTexture("Shadows", shadowMap->dirShadows->renderedSprite.texture);
+		terreno->material = renderer->GetMaterialSystem()->GetMaterial(MPIPE_3D)->CreateInstance().GetPointer();
+		terreno->material->GetMaterialSlot(MSLOT_CAMERA_3D)->SetBuffer("Camera", renderer->GetDefaultCamera()->GetUniformBuffer());
+
+		terreno->material->GetMaterialSlot(MSLOT_SCENE_3D)->SetDynamicBuffer("DirLightMat", shadowMap->uboDirLightMat);
+		terreno->material->GetMaterialSlot(MSLOT_SCENE_3D)->SetBuffer("Lights", uboLights);
+
+		terreno->material->GetMaterialSlot(MSLOT_PER_MODEL_3D)->SetTexture("Albedo", content->LoadTexture("heightmaps/color.png"));
+		terreno->material->GetMaterialSlot(MSLOT_PER_MODEL_3D)->SetTexture("Specular", content->LoadTexture("heightmaps/color.png"));
+
+		terreno->material->GetMaterialSlot(MSLOT_PER_INSTANCE_3D)->SetDynamicBuffer("Bones", uboBones);
+		
 		terreno->material->FlushUpdate();
 	}
 
@@ -110,52 +116,6 @@ namespace OSK {
 
 		EndDrawShadows(cmdBuffer, iteration);
 	}
-
-	/*void RenderizableScene::DrawPointShadows(VkCommandBuffer cmdBuffer, uint32_t iteration, CubeShadowMap* map) {
-		/*for (uint32_t face = 0; face < 6; face++) {
-			VULKAN::VulkanImageGen::TransitionImageLayout(&map->CubemapTargets[face]->RenderedSprite.texture->Albedo, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, 1, 1, &cmdBuffer);
-
-			VkRenderPassBeginInfo renderPassInfo{};
-			renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-			renderPassInfo.renderPass = map->CubemapTargets[face]->VRenderpass->VulkanRenderpass;
-			renderPassInfo.framebuffer = map->CubemapTargets[face]->TargetFramebuffers[iteration]->framebuffer;
-			renderPassInfo.renderArea.offset = { 0, 0 };
-
-			renderPassInfo.renderArea.extent = { map->CubemapTargets[face]->Size.X, map->CubemapTargets[face]->Size.Y };
-			std::array<VkClearValue, 2> clearValues = {};
-			clearValues[0] = { 1.0f, 1.0f, 1.0f, 1.0f }; //Color.
-			clearValues[1] = { 1.0f, 0.0f }; //Depth.
-			renderPassInfo.clearValueCount = clearValues.size();
-			renderPassInfo.pClearValues = clearValues.data();
-
-			vkCmdBeginRenderPass(cmdBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
-			map->ShadowsPipeline->Bind(cmdBuffer);
-
-			for (const auto& i : Models) {
-				i->Bind(cmdBuffer);
-
-				if (i->texture != nullptr)
-					i->texture->PointShadowsDescriptorSet->Bind(cmdBuffer, map->ShadowsPipeline, iteration);
-				else
-					DefaultTexture->PointShadowsDescriptorSet->Bind(cmdBuffer, map->ShadowsPipeline, iteration);
-
-				PointLightShadowPushConst pushConst = { i->GetPushConst().model, face };
-				vkCmdPushConstants(cmdBuffer, map->ShadowsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PointLightShadowPushConst), &pushConst);
-				i->Draw(cmdBuffer);
-			}
-
-			if (Terreno != nullptr && Terreno->terrainModel != nullptr) {
-				DefaultTexture->PointShadowsDescriptorSet->Bind(cmdBuffer, map->ShadowsPipeline, iteration);
-				Terreno->terrainModel->Bind(cmdBuffer);
-				PushConst3D pushConst{ glm::mat4(1.0f) };
-				vkCmdPushConstants(cmdBuffer, map->ShadowsPipeline->VulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
-				Terreno->terrainModel->Draw(cmdBuffer);
-			}
-
-			vkCmdEndRenderPass(cmdBuffer);
-			VULKAN::VulkanImageGen::TransitionImageLayout(&map->CubemapTargets[face]->RenderedSprite.texture->Albedo, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 1, 1, &cmdBuffer);
-		}
-	}*/
 
 	void RenderizableScene::Draw(VkCommandBuffer cmdBuffer, uint32_t iteration, RenderTarget* target) {
 		PrepareDraw(cmdBuffer, iteration, target);
@@ -173,7 +133,7 @@ namespace OSK {
 
 		renderer->SetViewport(cmdBuffer, 0, 0, shadowMap->GetImageSize().X, shadowMap->GetImageSize().Y);
 
-		renderer->GetMaterialSystem()->GetMaterial(renderer->defaultShadowsMaterial_Name)->GetGraphicsPipeline(shadowMap->dirShadows->renderpass.GetPointer())->Bind(cmdBuffer);
+		renderer->GetMaterialSystem()->GetMaterial(MPIPE_SHADOWS3D)->GetGraphicsPipeline(shadowMap->dirShadows->renderpass.GetPointer())->Bind(cmdBuffer);
 	}
 	void RenderizableScene::DrawShadows(Model* model, VkCommandBuffer cmdBuffer, uint32_t i) {
 		if (!model->shadowMaterial.HasValue() || !model->shadowMaterial->HasBeenSet())
@@ -181,26 +141,31 @@ namespace OSK {
 
 		model->Bind(cmdBuffer);
 
-		model->shadowMaterial->GetDescriptorSet()->Bind(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(renderer->defaultShadowsMaterial_Name)->GetGraphicsPipeline(shadowMap->dirShadows->renderpass.GetPointer()), i, model->animationBufferOffset, bonesUbos[0]->alignment);
+		model->shadowMaterial->GetMaterialSlot(MSLOT_SHADOWS_3D_CAMERA)->GetDescriptorSet()->Bind(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(MPIPE_SHADOWS3D)->GetGraphicsPipeline(shadowMap->dirShadows->renderpass.GetPointer()), i);
+		model->shadowMaterial->GetMaterialSlot(MSLOT_SHADOWS_3D_SCENE)->GetDescriptorSet()->Bind(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(MPIPE_SHADOWS3D)->GetGraphicsPipeline(shadowMap->dirShadows->renderpass.GetPointer()), i);
+		model->shadowMaterial->GetMaterialSlot(MSLOT_SHADOWS_3D_BONES)->GetDescriptorSet()->Bind(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(MPIPE_SHADOWS3D)->GetGraphicsPipeline(shadowMap->dirShadows->renderpass.GetPointer()), i, model->animationBufferOffset, uboBones.GetBufferAlignment());
 
 		PushConst3D pushConst = model->GetPushConst();
-		vkCmdPushConstants(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(renderer->defaultShadowsMaterial_Name)->GetGraphicsPipeline(shadowMap->dirShadows->renderpass.GetPointer())->vulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
+		vkCmdPushConstants(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(MPIPE_SHADOWS3D)->GetGraphicsPipeline(shadowMap->dirShadows->renderpass.GetPointer())->vulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
 		model->Draw(cmdBuffer);
 	}
 	void RenderizableScene::EndDrawShadows(VkCommandBuffer cmdBuffer, uint32_t i) {
 		if (terreno.HasValue() && terreno->terrainModel != nullptr && terreno->shadowMaterial.HasValue() && terreno->shadowMaterial->HasBeenSet()) {
-			terreno->shadowMaterial->GetDescriptorSet()->Bind(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(renderer->defaultShadowsMaterial_Name)->GetGraphicsPipeline(shadowMap->dirShadows->renderpass.GetPointer()), i, 0, bonesUbos[0]->alignment);
+			terreno->shadowMaterial->GetMaterialSlot(MSLOT_SHADOWS_3D_CAMERA)->GetDescriptorSet()->Bind(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(MPIPE_SHADOWS3D)->GetGraphicsPipeline(shadowMap->dirShadows->renderpass.GetPointer()), i);
+			terreno->shadowMaterial->GetMaterialSlot(MSLOT_SHADOWS_3D_SCENE)->GetDescriptorSet()->Bind(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(MPIPE_SHADOWS3D)->GetGraphicsPipeline(shadowMap->dirShadows->renderpass.GetPointer()), i);
+			terreno->shadowMaterial->GetMaterialSlot(MSLOT_SHADOWS_3D_BONES)->GetDescriptorSet()->Bind(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(MPIPE_SHADOWS3D)->GetGraphicsPipeline(shadowMap->dirShadows->renderpass.GetPointer()), i, 0, uboBones.GetBufferAlignment());
+
 			terreno->terrainModel->Bind(cmdBuffer);
 			PushConst3D pushConst{ glm::mat4(1.0f) };
-			vkCmdPushConstants(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(renderer->defaultShadowsMaterial_Name)->GetGraphicsPipeline(shadowMap->dirShadows->renderpass.GetPointer())->vulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
+			vkCmdPushConstants(cmdBuffer, renderer->GetMaterialSystem()->GetMaterial(MPIPE_SHADOWS3D)->GetGraphicsPipeline(shadowMap->dirShadows->renderpass.GetPointer())->vulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
 			terreno->terrainModel->Draw(cmdBuffer);
 		}
-
+		
 		shadowMap->dirShadows->EndRenderpass();
 	}
 
 	void RenderizableScene::PrepareDraw(VkCommandBuffer cmdBuffer, uint32_t i, RenderTarget* target) {
-		GraphicsPipeline* pipeline = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultSkyboxMaterial_Name)->GetGraphicsPipeline(target->renderpass.GetPointer());
+		GraphicsPipeline* pipeline = renderer->GetMaterialSystem()->GetMaterial(MPIPE_SKYBOX)->GetGraphicsPipeline(target->renderpass.GetPointer());
 		pipeline->Bind(cmdBuffer);
 
 		if (skybox.instance.HasValue()) {
@@ -208,7 +173,7 @@ namespace OSK {
 			skybox.Draw(cmdBuffer);
 		}
 		
-		currentGraphicsPipeline = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultMaterial3D_Name)->GetGraphicsPipeline(target->renderpass.GetPointer());
+		currentGraphicsPipeline = renderer->GetMaterialSystem()->GetMaterial(MPIPE_3D)->GetGraphicsPipeline(target->renderpass.GetPointer());
 		currentGraphicsPipeline->Bind(cmdBuffer);
 
 		UpdateLightsBuffers();
@@ -219,7 +184,10 @@ namespace OSK {
 
 		model->Bind(cmdBuffer);
 
-		model->material->GetDescriptorSet()->Bind(cmdBuffer, currentGraphicsPipeline, i, model->animationBufferOffset, bonesUbos[0]->alignment);
+		model->material->GetMaterialSlot(MSLOT_CAMERA_3D)->GetDescriptorSet()->Bind(cmdBuffer, currentGraphicsPipeline, i);
+		model->material->GetMaterialSlot(MSLOT_SCENE_3D)->GetDescriptorSet()->Bind(cmdBuffer, currentGraphicsPipeline, i);
+		model->material->GetMaterialSlot(MSLOT_PER_MODEL_3D)->GetDescriptorSet()->Bind(cmdBuffer, currentGraphicsPipeline, i);
+		model->material->GetMaterialSlot(MSLOT_PER_INSTANCE_3D)->GetDescriptorSet()->Bind(cmdBuffer, currentGraphicsPipeline, i, model->animationBufferOffset, uboBones.GetBufferAlignment());
 		
 		PushConst3D pushConst = model->GetPushConst();
 		vkCmdPushConstants(cmdBuffer, currentGraphicsPipeline->vulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);
@@ -227,7 +195,11 @@ namespace OSK {
 	}
 	void RenderizableScene::EndDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 		if (terreno.HasValue() && terreno->terrainModel != nullptr) {
-			terreno->material->GetDescriptorSet()->Bind(cmdBuffer, currentGraphicsPipeline, i, 0, bonesUbos[0]->alignment);
+			terreno->material->GetMaterialSlot(MSLOT_CAMERA_3D)->GetDescriptorSet()->Bind(cmdBuffer, currentGraphicsPipeline, i);
+			terreno->material->GetMaterialSlot(MSLOT_SCENE_3D)->GetDescriptorSet()->Bind(cmdBuffer, currentGraphicsPipeline, i);
+			terreno->material->GetMaterialSlot(MSLOT_PER_MODEL_3D)->GetDescriptorSet()->Bind(cmdBuffer, currentGraphicsPipeline, i);
+			terreno->material->GetMaterialSlot(MSLOT_PER_INSTANCE_3D)->GetDescriptorSet()->Bind(cmdBuffer, currentGraphicsPipeline, i, 0, uboBones.GetBufferAlignment());
+
 			terreno->terrainModel->Bind(cmdBuffer);
 			PushConst3D pushConst{ glm::mat4(1.0f) };
 			vkCmdPushConstants(cmdBuffer, currentGraphicsPipeline->vulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst3D), &pushConst);

@@ -76,7 +76,8 @@ namespace OSK {
 	struct OSKAPI_CALL Texture {
 
 		friend class ContentManager;
-		friend class MaterialInstance;
+		friend class OldMaterialInstance;
+		friend class MaterialSlot;
 		friend class ShadowMap;
 		friend class RenderizableScene;
 		friend class RenderAPI;

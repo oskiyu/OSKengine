@@ -11,6 +11,7 @@
 #include "MouseVisibilityEnum.h"
 #include "OverallMouseInputModeEnum.h"
 #include "GamepadState.h"
+#include "OwnedPtr.h"
 
 #include <GLFW/glfw3.h>
 
@@ -168,12 +169,12 @@ namespace OSK {
 		/// <summary>
 		/// Ventana nativa.
 		/// </summary>
-		GLFWwindow* window = nullptr;
+		OwnedPtr<GLFWwindow> window = nullptr;
 
 		/// <summary>
 		/// Monitor (para modo panattlla completa).
 		/// </summary>
-		GLFWmonitor* monitor = nullptr;
+		OwnedPtr<GLFWmonitor> monitor = nullptr;
 		
 		/// <summary>
 		/// Posición en X antes de ponerse a pantalla completa.

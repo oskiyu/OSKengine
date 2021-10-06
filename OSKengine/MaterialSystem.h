@@ -1,81 +1,75 @@
 #pragma once
 
-#include "OSKsettings.h"
-#include "OSKmacros.h"
-#include "OSKtypes.h"
-#include "Log.h"
-
 #include "Material.h"
+#include "MaterialBinding.h"
+#include "MaterialSlotType.h"
 
-#include <string>
 #include <list>
+#include <unordered_map>
 
 namespace OSK {
 
-	class RenderAPI;
+	namespace VULKAN {
+		class Renderpass;
+	}
 
 	/// <summary>
-	/// Sistema de materiales:
-	/// clase que maneja los materiales del juego.
-	/// Permite registrar materiales, y registrar renderpasses para su uso con materiales.
+	/// Sistema que maneja los materiales del renerizador.
 	/// </summary>
 	class OSKAPI_CALL MaterialSystem {
 
 	public:
 
 		/// <summary>
-		/// Crea el material system.
+		/// Crea el sistema.
 		/// </summary>
-		/// <param name="renderer">Renderizador.</param>
 		MaterialSystem(RenderAPI* renderer);
-
-		/// <summary>
-		/// Elimina el material system.
-		/// Elimina todos los materiales.
-		/// </summary>
 		~MaterialSystem();
 
 		/// <summary>
-		/// Registra un nuevo material.
+		/// Crea un nuevo material.
 		/// </summary>
-		/// <param name="name">Nombre del material.</param>
-		void RegisterMaterial(const std::string& name);
+		/// <param name="type">Identificador del material.</param>
+		void RegisterMaterial(MaterialPipelineTypeId type);
+		/// <summary>
+		/// Devuelve un material dado su identificador.
+		/// </summary>
+		Material* GetMaterial(MaterialPipelineTypeId type);
 
 		/// <summary>
-		/// Obtiene el material.
+		/// Registra un renderpass en todos los materiales.
 		/// </summary>
-		/// <param name="name">Nombre del material.</param>
-		/// <returns>Material.</returns>
-		Material* GetMaterial(const std::string& name);
-
-		/// <summary>
-		/// Genera graphics pipelines de los materiales,
-		/// para que puedan usarse los materiales en ellos.
-		/// </summary>
-		/// <param name="renderpass">Renderpass para el que se van a crear graphics pipelines.</param>
 		void RegisterRenderpass(VULKAN::Renderpass* renderpass);
+		/// <summary>
+		/// Elimina un renderpass en todos los materiales.
+		/// </summary>
+		void UnregisterRenderpass(VULKAN::Renderpass* renderpass);
 
 		/// <summary>
-		/// Elimina los graphics pipelines enlazados al renderpass.
+		/// Establece el layout del slot de un material.
 		/// </summary>
-		/// <param name="renderpass">Renderpass para el que se van a elimnar graphics pipelines.</param>
-		void UnregisterRenderpass(VULKAN::Renderpass* renderpass);
+		/// <param name="mPipeline">Tipo de material.</param>
+		/// <param name="type">Slot.</param>
+		/// <param name="layout">Layout del slot.</param>
+		void SetDescriptorLayout(MaterialPipelineTypeId mPipeline, MaterialSlotTypeId type, MaterialBindingLayout layout);
+		/// <summary>
+		/// Devuelve el descriptor layout de un slot.
+		/// </summary>
+		DescriptorLayout* GetDescriptorLayout(MaterialSlotTypeId type);
+
+		/// <summary>
+		/// Devuelve los descriptor layouts de un material.
+		/// </summary>
+		const std::vector<VkDescriptorSetLayout>& GetMaterialPipelineLayout(MaterialPipelineTypeId pipeline) const;
 
 	private:
 
-		/// <summary>
-		/// Materiales.
-		/// </summary>
-		std::unordered_map<std::string, Material*> materials;
-
-		/// <summary>
-		/// Renderpasses enlazados a los materiales.
-		/// </summary>
+		std::unordered_map<MaterialPipelineTypeId, Material*> materials;
 		std::list<VULKAN::Renderpass*> renderpasses;
 
-		/// <summary>
-		/// Renderizador.
-		/// </summary>
+		std::unordered_map<MaterialPipelineTypeId, std::vector<VkDescriptorSetLayout>> pipelinesLayouts;
+
+		std::unordered_map<MaterialSlotTypeId, OwnedPtr<DescriptorLayout>> descriptorLayouts;
 		RenderAPI* renderer = nullptr;
 
 	};

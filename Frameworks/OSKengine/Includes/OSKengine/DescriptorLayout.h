@@ -23,7 +23,7 @@ namespace OSK {
 
 		friend class RenderAPI;
 		friend class DescriptorPool;
-		friend class Material;
+		friend class OldMaterial;
 		friend class DescriptorSet;
 
 	public:

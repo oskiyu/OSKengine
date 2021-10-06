@@ -7,8 +7,8 @@
 using namespace OSK;
 using namespace OSK::Collision;
 
-Transform& SAT_Collider::GetTransform() {
-	return trasform;
+Transform* SAT_Collider::GetTransform() {
+	return &trasform;
 }
 
 void SAT_Collider::OptimizeFaces() {
@@ -154,7 +154,7 @@ SAT_CollisionInfo SAT_Collider::GetCollisionInfo(const SAT_Collider& other) cons
 		const Vector3f p = i - other.trasform.GetPosition();
 		float proj = p.Dot(projectionToOther);
 
-		if (CompareFloats(proj, currentProjectionOther)) {
+		if (Math::CompareFloats(proj, currentProjectionOther)) {
 			pointsOther.push_back(p);
 		}
 		else if (proj > currentProjectionOther) {
@@ -168,7 +168,7 @@ SAT_CollisionInfo SAT_Collider::GetCollisionInfo(const SAT_Collider& other) cons
 		const Vector3f p = i - trasform.GetPosition();
 		float proj = p.Dot(projectionToThis);
 
-		if (CompareFloats(proj, currentProjectionThis)) {
+		if (Math::CompareFloats(proj, currentProjectionThis)) {
 			pointsThis.push_back(p);
 		}
 		else if (proj > currentProjectionThis) {

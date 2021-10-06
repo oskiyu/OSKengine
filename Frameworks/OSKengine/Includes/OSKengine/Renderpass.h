@@ -12,6 +12,12 @@
 
 #include <vector>
 
+namespace OSK {
+
+	class RenderTarget;
+
+}
+
 namespace OSK::VULKAN {
 	
 	/// <summary>
@@ -25,6 +31,7 @@ namespace OSK::VULKAN {
 		friend class Framebuffer;
 		friend class RenderizableScene;
 		friend class RenderSystem3D;
+		friend class RenderTarget;
 
 	public:
 
@@ -32,12 +39,6 @@ namespace OSK::VULKAN {
 		/// Destruye el renderpass.
 		/// </summary>
 		~Renderpass();
-
-		/// <summary>
-		/// Establece el MSAA a usar.
-		/// </summary>
-		/// <param name="samples">Samples de MSAA.</param>
-		void SetMSAA(VkSampleCountFlagBits samples);
 
 		/// <summary>
 		/// Añade un attachment al renderpass.

@@ -95,7 +95,7 @@ namespace OSK {
 		/// <summary>
 		/// Transform del collider.
 		/// </summary>
-		Transform& GetTransform();
+		Transform* GetTransform();
 
 		/// <summary>
 		/// Añade un nuevo SAT collider a este colider.

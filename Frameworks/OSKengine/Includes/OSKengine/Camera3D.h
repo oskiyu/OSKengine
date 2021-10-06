@@ -43,10 +43,6 @@ namespace OSK {
 		/// </summary>
 		~Camera3D();
 
-		//Gira la cámara.
-		//<pitch>: ángulo en Y.
-		//<yaw>: ángulo en X.
-
 		/// <summary>
 		/// Gira la cámara.
 		/// </summary>
@@ -94,23 +90,6 @@ namespace OSK {
 		/// </summary>
 		Transform* GetTransform();
 
-		/// <summary>
-		/// Devuelve un vector que apunta hacia la dirección en la que mira la cámara.
-		/// </summary>
-		Vector3f GetFrontVector() const;
-
-		/// <summary>
-		/// Devuelve un vector perpendicular a la dirección en la que mira la cámara.
-		/// El vector apunta hacia arriba de la cámrara (localmente).
-		/// </summary>
-		Vector3f GetUpVector() const;
-
-		/// <summary>
-		/// Devuelve un vector perpendicular a la dirección en la que mira la cámara.
-		/// El vector apunta hacia la derecha de la cámrara (localmente).
-		/// </summary>
-		Vector3f GetRightVector() const;
-
 	private:
 
 		/// <summary>
@@ -118,21 +97,6 @@ namespace OSK {
 		/// ~Zoom de la cámara.
 		/// </summary>
 		float_t fieldOfView = 45.0f;
-
-		/// <summary>
-		/// Vector dirección de la cámara.
-		/// </summary>
-		Vector3f  front = Vector3f(0.0, 0.0, -1.0);
-
-		/// <summary>
-		/// Vector 'arriba' de la cámara.
-		/// </summary>
-		Vector3f up = Vector3f(0.0, 1.0, 0.0);
-
-		/// <summary>
-		/// Vector 'derecho' de la cámara.
-		/// </summary>
-		Vector3f right;
 
 		/// <summary>
 		/// Vector 'arriba' del mundo. { 0, 1, 0 }.
@@ -148,21 +112,6 @@ namespace OSK {
 		/// Ventana renderizada.
 		/// </summary>
 		WindowAPI* window = nullptr;
-
-		/// <summary>
-		/// Ángulo en X.
-		/// </summary>
-		float angleX = 0.0f;
-
-		/// <summary>
-		/// Ángulo en Y.
-		/// </summary>
-		float angleY = 0.0f;
-
-		/// <summary>
-		/// Actualiza los vectores internos.
-		/// </summary>
-		void updateVectors();
 
 	};
 

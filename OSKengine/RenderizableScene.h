@@ -15,6 +15,7 @@
 #include "GraphicsPipeline.h"
 
 #include "ShadowMap.h"
+#include "UniformBuffer.h"
 #include "CubeShadowMap.h"
 
 namespace OSK {
@@ -168,15 +169,9 @@ namespace OSK {
 		/// </summary>
 		UniquePtr<ShadowMap> shadowMap;
 
-		/// <summary>
-		/// Buffers con información de luces.
-		/// </summary>
-		std::vector<SharedPtr<GpuDataBuffer>> lightsUniformBuffers;
-
-		/// <summary>
-		/// Buffers con información de huesos de modelos animados.
-		/// </summary>
-		std::vector<SharedPtr<GpuDataBuffer>> bonesUbos;
+		UniformBuffer uboLights;
+		UniformBuffer uboDirLightMat;
+		UniformBuffer uboBones;
 
 		/// <summary>
 		/// Inicia los buffers de luces.

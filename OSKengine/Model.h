@@ -30,6 +30,11 @@ namespace OSK {
 		/// </summary>
 		SharedPtr<MaterialInstance> material;
 
+		/// <summary>
+		/// Material para el renderizado de sombras.
+		/// </summary>
+		SharedPtr<MaterialInstance> shadowMaterial;
+
 		Transform* GetTransform() {
 			return &transform;
 		}
@@ -72,11 +77,6 @@ namespace OSK {
 		/// Transform3D del modelo.
 		/// </summary>
 		Transform transform;
-
-		/// <summary>
-		/// Material para el renderizado de sombras.
-		/// </summary>
-		SharedPtr<MaterialInstance> shadowMaterial;
 
 		/// <summary>
 		/// Obtiene el Push Constant con la matriz del modelo.

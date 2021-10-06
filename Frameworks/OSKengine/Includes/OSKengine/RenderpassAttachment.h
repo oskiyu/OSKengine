@@ -27,7 +27,7 @@ namespace OSK::VULKAN {
 		/// <param name="loadOp">Qué se hará al cargar la imagen.</param>
 		/// <param name="stroeOp">Qué se hará al guardar la imagen.</param>
 		/// <param name="layout">Layout de la imagen.</param>
-		void AddAttachment(VkFormat format, VkAttachmentLoadOp loadOp, VkAttachmentStoreOp stroeOp, VkImageLayout layout);
+		void AddAttachment(VkFormat format, VkAttachmentLoadOp loadOp, VkAttachmentStoreOp stroeOp, VkImageLayout layout, VkSampleCountFlagBits msaaLevel);
 
 		/// <summary>
 		/// Crea la referencia del attachment.

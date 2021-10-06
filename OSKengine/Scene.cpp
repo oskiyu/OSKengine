@@ -58,7 +58,7 @@ void Scene::LoadScript(const std::string& code) {
 			case SceneSystem::Loader::TokenType::TERRAIN: {
 				auto token = (SceneSystem::Loader::TerrainToken*)i;
 
-				LoadTerrain(token->GetPath(), { 5 }, 35 );
+				LoadTerrain(token->GetPath(), { 0.5f }, 1.0f );
 
 				break;
 			}

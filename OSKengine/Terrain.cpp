@@ -36,7 +36,11 @@ namespace OSK {
 				i++;
 
 				v.position = { x * quadSize.X, altura, y * quadSize.Y };
+
 				v.textureCoordinates = { x % 2, y % 2 };
+
+				v.textureCoordinates.y = (float)x / (float)mapSizeInQuads.X;
+				v.textureCoordinates.x = (float)y / (float)mapSizeInQuads.Y;
 
 				Vector3f normal = { 0.0f, -1.0f, 0.0f };
 
@@ -81,9 +85,9 @@ namespace OSK {
 			}
 		}
 
-		colisionBox.position = { 0.0f };
-		colisionBox.position.Y = baseHeight;
-		colisionBox.size = { mapSizeInWorlds.X, maxHeight, mapSizeInWorlds.Y };
+		colisionBox.transform.SetPosition({ 0.0f });
+		colisionBox.transform.AddPosition({ 0, baseHeight, 0 });
+		colisionBox.transform.SetScale({ mapSizeInWorlds.X, maxHeight, mapSizeInWorlds.Y });
 
 		terrainModel = content->CreateModel(vertices, indices);
 	}

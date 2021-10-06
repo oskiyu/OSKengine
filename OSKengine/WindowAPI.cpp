@@ -28,7 +28,7 @@ namespace OSK {
 		
 		//Crear ventana
 		window = glfwCreateWindow(sizeX, sizeY, name.c_str(), NULL, NULL);
-		if (window == NULL) {
+		if (window.GetPointer() == NULL) {
 			glfwTerminate();
 			return false;
 		}
@@ -44,13 +44,13 @@ namespace OSK {
 		if (screenSizeY != 0)
 			screenRatio = static_cast<float_t>(sizeX) / static_cast<float_t>(sizeY);
 
-		glfwSetWindowUserPointer(window, this);
+		glfwSetWindowUserPointer(window.GetPointer(), this);
 
 		monitor = glfwGetPrimaryMonitor();
 
-		glfwSetFramebufferSizeCallback(window, WindowAPI::defaultFramebufferSizeCallback);
-		glfwSetCursorPosCallback(window, mouseInputCallback);
-		glfwSetScrollCallback(window, mouseScrollCallback);
+		glfwSetFramebufferSizeCallback(window.GetPointer(), WindowAPI::defaultFramebufferSizeCallback);
+		glfwSetCursorPosCallback(window.GetPointer(), mouseInputCallback);
+		glfwSetScrollCallback(window.GetPointer(), mouseScrollCallback);
 			
 
 #ifndef OSK_DEBUG
@@ -63,7 +63,7 @@ namespace OSK {
 	bool WindowAPI::WindowShouldClose() {
 		updateMouseButtons();
 
-		return glfwWindowShouldClose(window);
+		return glfwWindowShouldClose(window.GetPointer());
 	}
 
 	void WindowAPI::PollEvents() {
@@ -77,13 +77,18 @@ namespace OSK {
 
 			if (glfwJoystickPresent(id)) {
 				int count;
-				const float* axes =glfwGetJoystickAxes(id, &count);
+				const float* axes = glfwGetJoystickAxes(id, &count);
 
 				gamepadStates[i].identifier = id;
 				gamepadStates[i].isConnected = true;
 
-				for (int axis = 0; axis < 6; axis++)
-					gamepadStates[i].axesStates[axis] = axes[axis];
+				for (int axis = 0; axis < 6; axis++) {
+					float diff = axes[axis];
+					if (glm::abs(diff) < 0.25f)
+						diff = 0.0f;
+
+					gamepadStates[i].axesStates[axis] = diff;
+				}
 
 				const unsigned char* buttons = glfwGetJoystickButtons(id, &count);
 				for (int button = 0; button < 4; button++)
@@ -97,40 +102,40 @@ namespace OSK {
 
 
 	void WindowAPI::UpdateKeyboardState(KeyboardState& keyboard) {
-		keyboard.keyStates[static_cast<keyCode_t>(Key::SPACE)] = glfwGetKey(window, GLFW_KEY_SPACE);
-		keyboard.keyStates[static_cast<keyCode_t>(Key::APOSTROPHE)] = glfwGetKey(window, GLFW_KEY_APOSTROPHE);
+		keyboard.keyStates[static_cast<keyCode_t>(Key::SPACE)] = glfwGetKey(window.GetPointer(), GLFW_KEY_SPACE);
+		keyboard.keyStates[static_cast<keyCode_t>(Key::APOSTROPHE)] = glfwGetKey(window.GetPointer(), GLFW_KEY_APOSTROPHE);
 		
 		for (keyCode_t i = 0; i < 14; i++) {
-			keyboard.keyStates[static_cast<keyCode_t>(Key::COMMA) + i] = glfwGetKey(window, GLFW_KEY_COMMA + i);
+			keyboard.keyStates[static_cast<keyCode_t>(Key::COMMA) + i] = glfwGetKey(window.GetPointer(), GLFW_KEY_COMMA + i);
 		}
 
-		keyboard.keyStates[static_cast<keyCode_t>(Key::SEMICOLON)] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_SEMICOLON));
-		keyboard.keyStates[static_cast<keyCode_t>(Key::EQUAL)] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_EQUAL));
+		keyboard.keyStates[static_cast<keyCode_t>(Key::SEMICOLON)] = static_cast<keyState_t>(glfwGetKey(window.GetPointer(), GLFW_KEY_SEMICOLON));
+		keyboard.keyStates[static_cast<keyCode_t>(Key::EQUAL)] = static_cast<keyState_t>(glfwGetKey(window.GetPointer(), GLFW_KEY_EQUAL));
 
 		for (keyCode_t i = 0; i < 29; i++) {
-			keyboard.keyStates[static_cast<keyCode_t>(Key::A) + i] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_A + i));
+			keyboard.keyStates[static_cast<keyCode_t>(Key::A) + i] = static_cast<keyState_t>(glfwGetKey(window.GetPointer(), GLFW_KEY_A + i));
 		}
 
-		keyboard.keyStates[static_cast<keyCode_t>(Key::GRAVE_ACCENT)] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_GRAVE_ACCENT));
+		keyboard.keyStates[static_cast<keyCode_t>(Key::GRAVE_ACCENT)] = static_cast<keyState_t>(glfwGetKey(window.GetPointer(), GLFW_KEY_GRAVE_ACCENT));
 	
 		for (keyCode_t i = 0; i < 14; i++) {
-			keyboard.keyStates[static_cast<keyCode_t>(Key::ESCAPE) + i] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_ESCAPE + i));
+			keyboard.keyStates[static_cast<keyCode_t>(Key::ESCAPE) + i] = static_cast<keyState_t>(glfwGetKey(window.GetPointer(), GLFW_KEY_ESCAPE + i));
 		}
 
 		for (keyCode_t i = 0; i < 5; i++) {
-			keyboard.keyStates[static_cast<keyCode_t>(Key::CAPS_LOCK) + i] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_CAPS_LOCK + i));
+			keyboard.keyStates[static_cast<keyCode_t>(Key::CAPS_LOCK) + i] = static_cast<keyState_t>(glfwGetKey(window.GetPointer(), GLFW_KEY_CAPS_LOCK + i));
 		}
 		
 		for (keyCode_t i = 0; i < 25; i++) {
-			keyboard.keyStates[static_cast<keyCode_t>(Key::F1) + i] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_F1 + i));
+			keyboard.keyStates[static_cast<keyCode_t>(Key::F1) + i] = static_cast<keyState_t>(glfwGetKey(window.GetPointer(), GLFW_KEY_F1 + i));
 		}
 
 		for (keyCode_t i = 0; i < 17; i++) {
-			keyboard.keyStates[static_cast<keyCode_t>(Key::KEYPAD_0) + i] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_KP_0 + i));
+			keyboard.keyStates[static_cast<keyCode_t>(Key::KEYPAD_0) + i] = static_cast<keyState_t>(glfwGetKey(window.GetPointer(), GLFW_KEY_KP_0 + i));
 		}
 
 		for (keyCode_t i = 0; i < 9; i++) {
-			keyboard.keyStates[static_cast<keyCode_t>(Key::LEFT_SHIFT) + i] = static_cast<keyState_t>(glfwGetKey(window, GLFW_KEY_LEFT_SHIFT + i));
+			keyboard.keyStates[static_cast<keyCode_t>(Key::LEFT_SHIFT) + i] = static_cast<keyState_t>(glfwGetKey(window.GetPointer(), GLFW_KEY_LEFT_SHIFT + i));
 		}
 	}
 
@@ -141,35 +146,35 @@ namespace OSK {
 
 
 	void WindowAPI::SetMousePosition(int32_t posX, int32_t posY) {
-		glfwSetCursorPos(window, posX, posY);
+		glfwSetCursorPos(window.GetPointer(), posX, posY);
 	}
 
 
 	void WindowAPI::SetMouseMode(MouseInputMode mode) {
 		if (mode == MouseInputMode::ALWAYS_RETURN)
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			glfwSetInputMode(window.GetPointer(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		else if (mode == MouseInputMode::FREE)
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			glfwSetInputMode(window.GetPointer(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}
 
 
 	void WindowAPI::SetMouseVisibility(MouseVisibility mode) {
 		if (mode == MouseVisibility::VISIBLE)
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			glfwSetInputMode(window.GetPointer(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		else if (mode == MouseVisibility::HIDDEN)
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+			glfwSetInputMode(window.GetPointer(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	}
 
 
 	void WindowAPI::SetMouseMovementMode(MouseAccelerationMode mode) {
 		if (mode == MouseAccelerationMode::RAW) {
 			if (glfwRawMouseMotionSupported())
-				glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+				glfwSetInputMode(window.GetPointer(), GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 			else
 				Logger::Log(LogMessageLevels::WARNING, "raw mouse mode no soportado.", __LINE__);
 		} 
 		else if (mode == MouseAccelerationMode::ENABLE_PRECISSION) {
-			glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
+			glfwSetInputMode(window.GetPointer(), GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
 		}
 	}
 
@@ -179,16 +184,16 @@ namespace OSK {
 			return;
 
 		if (fullscreen) {
-			glfwGetWindowPos(window, &posXbackup, &posYbackup);
-			glfwGetWindowSize(window, &sizeXbackup, &sizeYbackup);
+			glfwGetWindowPos(window.GetPointer(), &posXbackup, &posYbackup);
+			glfwGetWindowSize(window.GetPointer(), &sizeXbackup, &sizeYbackup);
 
-			const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-			glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, 60);
+			const GLFWvidmode* mode = glfwGetVideoMode(monitor.GetPointer());
+			glfwSetWindowMonitor(window.GetPointer(), monitor.GetPointer(), 0, 0, mode->width, mode->height, 60);
 
 			resize(mode->width, mode->height);
 		}
 		else {
-			glfwSetWindowMonitor(window, nullptr, posXbackup, posYbackup, sizeXbackup, sizeYbackup, 60);
+			glfwSetWindowMonitor(window.GetPointer(), nullptr, posXbackup, posYbackup, sizeXbackup, sizeYbackup, 60);
 			
 			resize(sizeXbackup, sizeYbackup);
 		}
@@ -198,7 +203,7 @@ namespace OSK {
 
 
 	void WindowAPI::Close() {
-		glfwSetWindowShouldClose(window, true);
+		glfwSetWindowShouldClose(window.GetPointer(), true);
 	}
 
 	Vector4 WindowAPI::GetRectangle() const {
@@ -265,7 +270,7 @@ namespace OSK {
 
 	void WindowAPI::updateMouseButtons() {
 		for (buttonCode_t i = 0; i < 8; i++)
-			mouseState.buttonStates[i] = static_cast<buttonState_t>(glfwGetMouseButton(window, i));
+			mouseState.buttonStates[i] = static_cast<buttonState_t>(glfwGetMouseButton(window.GetPointer(), i));
 	}
 
 	Vector2i WindowAPI::GetSize() const {

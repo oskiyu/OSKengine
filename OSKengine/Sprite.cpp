@@ -2,6 +2,8 @@
 #include <ext\matrix_transform.hpp>
 #include "ToString.h"
 
+#include "MaterialSlot.h"
+
 namespace OSK {
 	
 	std::array<uint16_t, 6> Sprite::indices = {
@@ -39,7 +41,7 @@ namespace OSK {
 	}
 
 	void Sprite::UpdateMaterialTexture() {
-		material->SetTexture("Texture", texture);
+		material->GetMaterialSlot(MSLOT_TEXTURE_2D)->SetTexture("Texture", texture);
 	}
 
 	PushConst2D Sprite::getPushConst(const glm::mat4& camera) {

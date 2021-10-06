@@ -5,6 +5,8 @@
 #include "OSKtypes.h"
 #include "Log.h"
 
+#include "Transform.h"
+
 namespace OSK {
 
 	struct CollisionBox;
@@ -53,12 +55,9 @@ namespace OSK {
 		/// <summary>
 		/// Posición de la esfera.
 		/// </summary>
-		Vector3f position = { 0.0f };
+		Transform transform;
 
-		/// <summary>
-		/// Radio de la esfera.
-		/// </summary>
-		float_t radius = 0.0f;
+		float radius = 1.0f;
 
 	};
 

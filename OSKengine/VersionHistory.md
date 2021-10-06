@@ -1168,6 +1168,136 @@ Por defecto renderiza con el máximo nivel de MSAA soportado.
   - Ahora comprueba siempre si existen los archivos antes de intentar cargarlos.
 
 
+## 2021.10.6a
+
+Primera parte del nuevo sistema de materiales.
+
+###### Memory
+
+- `OwnedPtr`:
+  - Representa un puntero poseído por la clase, pero que es **manualmente destruido**.
+  - Añadido para mejorar la documentación interna del código.
+
+Todos los punteros del proyecto usan el siguiente estándar:
+
+- `SharedPtr`:
+  - Dueño: _compartido_.
+  - Destrucción: _automática (cuando no tiene dueños)_.
+- `UniquePtr`:
+  - Dueño: _esta clase_.
+  - Destrucción: _automática (cuando la clase es destruida)_.
+- `OwnedPtr`:
+  - Dueño: _esta clase_.
+  - Destrucción: _manual_.
+- `Raw pointer` (= referencia):
+  - Dueño: _no es esta clase_.
+  - Destrucción: _no_.
+
+###### RenderAPI:
+
+Iniciado soporte para renderizar desde distintas cámaras.
+
+- **Material system:**
+  - Reescrito desde cero.
+  - Implementa la idea de un sistema de materiales por slots.
+  - **MaterialSlot**:
+    - Contiene uno o varios elementos que pueden accederse desde un shader.
+      - Incluye: _Texture_, _UniformBuffer_ y _DynamicUniformBuffer_.
+    - Cada slot contiene elementos que son utilizados en frecuencias similares.
+      - Por defecto el material 3D tiene:
+        - _Camera (info de la cámara)_.
+        - _Scene (info de las luces)_.
+        - _Per model (texturas)_.
+        - _Per instance (huesos/sistema de animación)_.
+      - Por defecto el material 2D tiene:
+        - _Textura_.
+      - Por defecto el material Skybox tiene:
+        - _Camera (info de la cámara)_.
+        - _Cubemap (textura)_.
+      - Por defecto el material Shadows tiene:
+        - _Camera (info de la cámara)_.
+        - _DirLight (info de la luz)_.
+        - _Per instance (huesos/sistema de animación)_.
+      - Por defecto el material PostProcess tiene:
+        - _Textura_.
+    - Cada slot es identificado por un identificador
+      - Los slots de los materiales por defecto son:
+        - _MSLOT_CAMERA_3D_
+		- _MSLOT_SCENE_3D_
+		- _MSLOT_PER_MODEL_3D_
+		- _MSLOT_PER_INSTANCE_3D_
+		- _MSLOT_TEXTURE_2D_
+		- _MSLOT_SKYBOX_CAMERA_
+		- _MSLOT_SKYBOX_TEXTURE_
+		- _MSLOT_SHADOWS_3D_SCENE_
+		- _MSLOT_SHADOWS_3D_CAMERA_
+		- _MSLOT_SHADOWS_3D_BONES_
+    - Un slot únicamente puede usarse para un material en concreto.
+      - Para que un mismo tipo de slot pueda usarse en materiales distintos deben:
+        - Tener el mismo layout.
+        - Tener el mismo set# en el shader.
+  - **MaterialInstance:**
+    - Representa la instancia de un material.
+    - Permite acceder a los diferentes slots de un objeto.
+  - **Material:**
+    - Representa la manera en la que el renderizador renderiza un objeto.
+    - Contiene el esquema de los slots que se usan, sus layouts y el layout del material entero.
+    - Contiene los pipelines y sus ajustes.
+    - Cada material está representado por un identificador.
+      - Los identificadores están definidos en el enum _MaterialPipelineType_.
+      - Se pueden ampliar creando nuevos enums.
+      - Los identificadores de los materiales por defecto son:
+        - _MPIPE_2D_
+		- _MPIPE_3D_
+		- _MPIPE_SHADOWS3D_
+		- _MPIPE_SKYBOX_
+		- _MPIPE_POSTPROCESS_
+- PHONG SHADER SET:
+  - Ahora usa descriptor sets por slots.
+- UniformBuffer:
+  - Almacena los buffers que representan un UBO en la GPU.
+- Camera3D:
+  - Ahora son manejadas por el renderizador.
+    - Para crear una cámara, debe llamarse a `RenderAPI::CreateCamera()`.
+  - Ahora utiliza un transform para calcular sus rotaciones.
+
+###### WindowAPI
+
+- WindowAPI:
+  - Ahora tiene un sistema para evitar el _drifting_ en mandos.
+    - Límite mínimo: **25%**.
+
+###### ECS
+
+- GameObject:
+  - Añadido `GetForwardVector()`.
+  - Añadido `GetRightVector()`.
+  - Añadido `GetTopVector()`.
+
+###### Types
+
+- Transform:
+  - Añadido `GetForwardVector()`.
+  - Añadido `GetRightVector()`.
+  - Añadido `GetTopVector()`.
+
+###### CollisionSystem
+
+- CollisionBox:
+  - Ahora usa `Transform.`
+- CollisionSphere:
+  - Ahora usa `Transform.`
+ 
+###### Bugfixes
+
+- **Bugfix**: `ContentManager` ahora carga correctamente modelos 3D cuando están divididos en varios nodos.
+- **Bugfix**: `AudioAPI` es correctamente iniciado al iniciarse el juego.
+- **Bugfix**: `ContentManager` ahora carga correctamente texturas cuando tienen un número de canales inesperado.
+- **Bugfix**: `Transform` ahora actualiza correctamente a sus hijos al rotarse.
+- **Bugfix**: ya no se produce un error al intentar eliminar los materiales al cerrar el juego.
+- **Bugfix**: los mapas y heightmaps ahora usan coordenadas de textura correctas.
+
+
 ## WIP
 
 TODO

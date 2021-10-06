@@ -146,7 +146,7 @@ void PhysicsSystem::simulateEntity(PhysicsComponent* entity, Transform* transfor
 	if (simulateFlags & PHYSICAL_SCENE_SIMULATE_ROTATION)
 		transform->RotateWorldSpace(entity->angularVelocity.GetLenght() * delta, entity->angularVelocity);
 
-	entity->GetCollider().SetPosition(transform->GetPosition());
+	entity->GetCollider().GetTransform()->SetPosition(transform->GetPosition());
 
 	if (simulateFlags & PHYSICAL_SCENE_SIMULATE_ROTATION)
 		entity->angularVelocity *= (1 - (delta * delta));
@@ -323,16 +323,16 @@ void PhysicsSystem::checkTerrainCollision(PhysicsComponent* entity, Transform* t
 	}
 	else {
 		CollisionBox box;
-		box.position = entity->GetCollider().GetBroadCollisionSphere().position;
-		box.size = { entity->GetCollider().GetBroadCollisionSphere().radius };
+		box.transform.SetPosition(entity->GetCollider().GetBroadCollisionSphere().transform.GetPosition());
+		box.transform.SetScale({ entity->GetCollider().GetBroadCollisionSphere().radius });
 
 		resolveTerrainCollisionAABB(entity, transform, delta, box);
 	}
 }
 
 void PhysicsSystem::resolveTerrainCollisionAABB(PhysicsComponent* entity, Transform* transform, deltaTime_t delta, const CollisionBox& box) {
-	Vector2f worldMin = { box.GetMin().X + box.size.X, box.GetMin().Z + box.size.Z };
-	Vector2f worldMax = { box.GetMax().X + box.size.X, box.GetMax().Z + box.size.Z };
+	Vector2f worldMin = { box.GetMin().X + box.transform.GetScale().X, box.GetMin().Z + box.transform.GetScale().Z };
+	Vector2f worldMax = { box.GetMax().X + box.transform.GetScale().X, box.GetMax().Z + box.transform.GetScale().Z };
 
 	if (worldMin.X < 0.0f)
 		worldMin.X = 0.0f;

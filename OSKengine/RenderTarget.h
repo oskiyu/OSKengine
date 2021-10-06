@@ -21,6 +21,14 @@ namespace OSK {
 	class RenderAPI;
 
 	/// <summary>
+	/// Representa qué parte de la imagen renderizada será considerada la textura del render target.
+	/// </summary>
+	enum class RenderTargetImageTarget {
+		COLOR,
+		DEPTH
+	};
+
+	/// <summary>
 	/// Render target simboliza la imagen sobre la que se va a renderizar una escena 3D o un render stage, por ejemplo.
 	/// Contiene las imágenes, el renderpass y los framebuffers necesarios para el renderizado.
 	/// También permite renderizar la imagen final como un sprite.
@@ -68,7 +76,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="cmdBuffer">Command buffer.</param>
 		/// <param name="layout">Layout (color por defecto).</param>
-		void TransitionToRenderTarget(VkCommandBuffer cmdBuffer, VkImageLayout layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+		void TransitionToRenderTarget(VkCommandBuffer cmdBuffer);
 
 		/// <summary>
 		/// Prepara el render target para ser usado como sprite / textura.
@@ -97,6 +105,10 @@ namespace OSK {
 
 		Color clearColor = Color(0.8f, 0.8f, 0.8f);
 
+		RenderTargetImageTarget targetImage = RenderTargetImageTarget::COLOR;
+
+		VULKAN::GpuImage* GetDepthImage();
+
 	private:
 
 		void SetSwapchain(std::vector<VkImageView>& swapchainViews);
@@ -107,7 +119,7 @@ namespace OSK {
 		VULKAN::GpuImage intermediateColorImage;
 		VULKAN::GpuImage depthImage;
 
-		std::vector<VULKAN::Framebuffer*> framebuffers;
+		std::vector<OwnedPtr<VULKAN::Framebuffer>> framebuffers;
 		UniquePtr<VULKAN::Renderpass> renderpass;
 
 		Vector2ui size;

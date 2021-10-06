@@ -5,6 +5,8 @@
 #include "OSKtypes.h"
 #include "Log.h"
 
+#include "Transform.h"
+
 namespace OSK {
 
 	struct CollisionSphere;
@@ -66,12 +68,7 @@ namespace OSK {
 		/// <summary>
 		/// Posición de la caja.
 		/// </summary>
-		Vector3f position;
-
-		/// <summary>
-		/// Tamaño de la caja.
-		/// </summary>
-		Vector3f size = { 1.0f };
+		Transform transform;
 
 	};
 

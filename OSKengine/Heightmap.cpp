@@ -3,6 +3,6 @@
 using namespace OSK;
 
 Heightmap::~Heightmap() {
-	if (data != nullptr)
-		delete[] data;
+	if (data.HasValue())
+		delete[] data.GetPointer();
 }

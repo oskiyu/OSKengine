@@ -138,11 +138,11 @@ namespace OSK {
 		pushConstantsHaveBeenSet = true;
 	}
 
-	void GraphicsPipeline::SetLayout(VkDescriptorSetLayout* layout) {
-		this->descriptorSetLayout = layout;
+	void GraphicsPipeline::SetLayout(const std::vector<VkDescriptorSetLayout>& layout) {
+		this->descriptorSetLayouts = layout;
 		pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-		pipelineLayoutInfo.setLayoutCount = 1;
-		pipelineLayoutInfo.pSetLayouts = this->descriptorSetLayout;
+		pipelineLayoutInfo.setLayoutCount = layout.size();
+		pipelineLayoutInfo.pSetLayouts = this->descriptorSetLayouts.data();
 		if (pushConstantsHaveBeenSet) {
 			pipelineLayoutInfo.pushConstantRangeCount = (uint32_t)pushConstRanges.size();
 			pipelineLayoutInfo.pPushConstantRanges = pushConstRanges.data();

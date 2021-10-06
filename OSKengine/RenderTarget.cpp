@@ -3,6 +3,8 @@
 #include "VulkanImageGen.h"
 #include "VulkanRenderer.h"
 
+#include "MaterialSlot.h"
+
 using namespace OSK;
 using namespace OSK::VULKAN;
 
@@ -23,7 +25,7 @@ void RenderTarget::CreateRenderpass(VkSampleCountFlagBits msaa) {
 	msaa = renderer->GetMsaaSamples();
 
 	renderpass.Delete();
-	renderpass = renderer->CreateNewRenderpass();
+	renderpass = renderer->CreateNewRenderpass().GetPointer();
 
 	RenderpassAttachment colorAttachment;
 	colorAttachment.AddAttachment(renderer->swapchain->GetFormat(), VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_STORE_OP_STORE, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, msaa);
@@ -70,8 +72,12 @@ void RenderTarget::CreateRenderpass(VkSampleCountFlagBits msaa) {
 	CreateFramebuffers(renderer->swapchain->GetImageCount());
 }
 
-void RenderTarget::TransitionToRenderTarget(VkCommandBuffer cmdBuffer, VkImageLayout layout) {
-	VULKAN::VulkanImageGen::TransitionImageLayout(renderedSprite.texture->image.GetPointer(), VK_IMAGE_LAYOUT_UNDEFINED, layout, 1, 1, cmdBuffer);
+void RenderTarget::TransitionToRenderTarget(VkCommandBuffer cmdBuffer) {
+	if (targetImage == RenderTargetImageTarget::COLOR)
+		VULKAN::VulkanImageGen::TransitionImageLayout(renderedSprite.texture->image.GetPointer(), VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, 1, 1, cmdBuffer);
+	else if (targetImage == RenderTargetImageTarget::DEPTH) {
+		VULKAN::VulkanImageGen::TransitionImageLayout(&depthImage, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL, 1, 1, cmdBuffer);
+	}
 }
 
 void RenderTarget::TransitionToTexture(VkCommandBuffer cmdBuffer) {
@@ -136,11 +142,15 @@ void RenderTarget::SetSwapchain(std::vector<VkImageView>& swapchainViews) {
 	this->swapchainViews = &swapchainViews;
 }
 
+VULKAN::GpuImage* RenderTarget::GetDepthImage() {
+	return &depthImage;
+}
+
 void RenderTarget::CreateSprite(ContentManager* content) {
 	content->CreateSprite(&renderedSprite);
 	renderedSprite.texture = new Texture();
 	this->content = content;
-	renderedSprite.material = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultMaterial2D_Name)->CreateInstance();
+	renderedSprite.material = renderer->GetMaterialSystem()->GetMaterial(MPIPE_2D)->CreateInstance().GetPointer();
 
 	auto msaa = renderer->GetMsaaSamples();
 
@@ -160,7 +170,7 @@ void RenderTarget::CreateSprite(ContentManager* content) {
 
 	renderedSprite.transform.SetScale(size.ToVector2f());
 
-	renderedSprite.material->SetTexture(renderedSprite.texture);
+	renderedSprite.material->GetMaterialSlot(MSLOT_TEXTURE_2D)->SetTexture("Texture", renderedSprite.texture);
 	renderedSprite.material->FlushUpdate();
 }
 
@@ -193,7 +203,7 @@ void RenderTarget::EndRenderpass() {
 
 void RenderTarget::Clear() {
 	for (auto& i : framebuffers)
-		delete i;
+		i.Delete();
 
 	delete renderedSprite.texture;
 	renderedSprite.texture = nullptr;

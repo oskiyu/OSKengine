@@ -10,7 +10,6 @@
 #include "SAT_Collider.h"
 #include "SAT_CollisionInfo.h"
 #include "ColliderCollisionInfo.h"
-#include "BroadColliderUnion.h"
 
 #include "PhysicalEntityType.h"
 #include "BroadColliderType.h"
@@ -57,12 +56,6 @@ namespace OSK {
 		void SetBroadCollider(const CollisionBox& box);
 
 		/// <summary>
-		/// Establece la posición del BroadCollider, sea del tipo que sea.
-		/// </summary>
-		/// <param name="pos">Nueva posición.</param>
-		void SetPosition(const Vector3f& pos);
-
-		/// <summary>
 		/// Devuelve el tipo de BroadCollider de este collider.
 		/// </summary>
 		/// <returns>Tipo de BroadCollider actual.</returns>
@@ -95,7 +88,7 @@ namespace OSK {
 		/// <summary>
 		/// Transform del collider.
 		/// </summary>
-		Transform& GetTransform();
+		Transform* GetTransform();
 
 		/// <summary>
 		/// Añade un nuevo SAT collider a este colider.
@@ -114,10 +107,8 @@ namespace OSK {
 		/// </summary>
 		Transform transform;
 
-		/// <summary>
-		/// BroadCollider.
-		/// </summary>
-		BroadColliderUnion broadCollider;
+		CollisionBox broadCollisionBox;
+		CollisionSphere broadCollisionSphere;
 
 		/// <summary>
 		/// Tipo de BroadCollider actual.

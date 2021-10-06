@@ -5,7 +5,7 @@
 #include "GraphicsPipeline.h"
 #include "DescriptorSet.h"
 
-#include "MaterialInstance.h"
+#include "OldMaterialInstance.h"
 
 namespace OSK {
 
@@ -41,7 +41,7 @@ namespace OSK {
 		/// <summary>
 		/// Material del skybox.
 		/// </summary>
-		SharedPtr<MaterialInstance> instance;
+		SharedPtr<OldMaterialInstance> instance;
 
 		/// <summary>
 		/// Modelo del skybox (un cubo).

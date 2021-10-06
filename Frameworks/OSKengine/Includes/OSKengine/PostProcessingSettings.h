@@ -14,7 +14,7 @@ namespace OSK {
 		 /// <summary>
 		 /// True (1) si usa antailasing FXAA.
 		 /// </summary>
-		 int useFxaa = 1;
+		 int useFxaa = 0;
 
 		 /// <summary>
 		 /// Resolución en X de la pantalla.

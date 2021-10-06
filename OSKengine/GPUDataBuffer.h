@@ -97,6 +97,10 @@ namespace OSK {
 		/// </summary>
 		VULKAN::MemorySubblock* memorySubblock = nullptr;
 
+		uint32_t GetAlignment() const {
+			return alignment;
+		}
+
 	private:
 
 		/// <summary>

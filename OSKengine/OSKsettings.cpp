@@ -61,8 +61,8 @@ namespace OSK {
 	std::string DAY = GetDay(DATE);
 #endif
 	std::string YEAR = "2021";
-	std::string MONTH = "07";
-	std::string DAY = "03";
+	std::string MONTH = "10";
+	std::string DAY = "06";
 
 	std::string ENGINE_NAME = "OSKengine";
 
@@ -70,7 +70,7 @@ namespace OSK {
 
 	int ENGINE_VERSION_STAGE_NUMERIC = 0;
 
-	int ENGINE_VERSION_NUMERIC = 17;
+	int ENGINE_VERSION_NUMERIC = 18;
 
 	std::string ENGINE_VERSION_MINOR = std::to_string(ENGINE_VERSION_NUMERIC);
 
@@ -78,8 +78,8 @@ namespace OSK {
 
 	std::string ENGINE_VERSION_BUILD = YEAR + "." + MONTH + "." +DAY + "a";
 	int ENGINE_VERSION_BUILD_NUMERIC = 9;
-	std::string ENGINE_VERSION = "0.17+ build " + ENGINE_VERSION_BUILD;
+	std::string ENGINE_VERSION = "0.18 build " + ENGINE_VERSION_BUILD;
 
-	int ENGINE_VERSION_TOTAL = 17;
+	int ENGINE_VERSION_TOTAL = 18;
 
 }

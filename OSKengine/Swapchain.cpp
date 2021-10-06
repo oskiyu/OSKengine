@@ -146,7 +146,7 @@ VkExtent2D Swapchain::GetSupportedExtent(GpuInfo gpu) const {
 
 	int width;
 	int height;
-	glfwGetFramebufferSize(renderer->window->window, &width, &height);
+	glfwGetFramebufferSize(renderer->window->window.GetPointer(), &width, &height);
 
 	VkExtent2D extent{
 		static_cast<uint32_t>(width),

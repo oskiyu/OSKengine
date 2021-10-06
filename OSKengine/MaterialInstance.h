@@ -1,150 +1,53 @@
 #pragma once
 
-#include "OSKsettings.h"
-#include "OSKmacros.h"
-#include "OSKtypes.h"
-#include "Log.h"
-
+#include "MaterialSlotType.h"
 #include "DescriptorSet.h"
-#include "Texture.h"
-
-#include "SharedPtr.hpp"
 
 namespace OSK {
 
-	class Material;
-	class MaterialPool;
-
-	//Instancia de un material.
+	class MaterialSlot;
+	class MaterialSlotPool;
 
 	/// <summary>
-	/// Instancia de un material.
-	/// Puede definir los buffers y las texturas para uno o varios modelos / sprites.
+	/// Instancia de un material. Define los slots que posee un objeto.
 	/// </summary>
 	class OSKAPI_CALL MaterialInstance {
 
-		friend class Material;
-		friend class MaterialPool;
-
 	public:
 
-		/// <summary>
-		/// Elimina la instancia.
-		/// <summary/>
 		~MaterialInstance();
 
 		/// <summary>
-		/// Elimina la instancia.
-		/// El descriptor set de la instancia queda liberado,
-		/// y puede ser usado por otra instancia.
+		/// Establece el slot que pooserá para el tipo dado.
 		/// </summary>
-		void Free();
+		void SetMaterialSlot(MaterialSlotTypeId type, MaterialSlotPool* pool);
 
 		/// <summary>
-		/// Establece la textura del próximo binding.
+		/// Devuelve el slot dado su tipo.
 		/// </summary>
-		/// <param name="texture">Textura</param>
-		void SetTexture(Texture* texture);
+		MaterialSlot* GetMaterialSlot(MaterialSlotTypeId type);
 
 		/// <summary>
-		/// Establece la textura del binding dado.
-		/// </summary>
-		/// <param name="texture">Textura.</param>
-		/// <param name="binding">Binding.</param>
-		void SetTexture(Texture* texture, uint32_t binding);
-
-		/// <summary>
-		/// Establece la textura del binding dado.
-		/// </summary>
-		/// <param name="name">Binding.</param>
-		/// <param name="texture">Textura.</param>
-		void SetTexture(const std::string& name, Texture* texture);
-
-
-		/// <summary>
-		/// Establece los buffers del próximo binding.
-		/// </summary>
-		/// <param name="buffers">Buffers.</param>
-		void SetBuffer(std::vector<SharedPtr<GpuDataBuffer>>& buffers);
-
-		/// <summary>
-		/// Establece los buffers del binding dado.
-		/// </summary>
-		/// <param name="buffers">Buffers.</param>
-		/// <param name="binding">Binding.</param>
-		void SetBuffer(std::vector<SharedPtr<GpuDataBuffer>>& buffers, uint32_t binding);
-
-		/// <summary>
-		/// Establece los buffers del binding dado.
-		/// </summary>
-		/// <param name="name">Binding.</param>
-		/// <param name="buffers">Buffers.</param>
-		void SetBuffer(const std::string& name, std::vector<SharedPtr<GpuDataBuffer>>& buffers);
-
-		/// <summary>
-		/// Establece los buffers del próximo binding.
-		/// </summary>
-		/// <param name="buffers">Buffers.</param>
-		void SetDynamicBuffer(std::vector<SharedPtr<GpuDataBuffer>>& buffers);
-
-		/// <summary>
-		/// Establece los buffers del binding dado.
-		/// </summary>
-		/// <param name="buffers">Buffers.</param>
-		/// <param name="binding">Binding.</param>
-		void SetDynamicBuffer(std::vector<SharedPtr<GpuDataBuffer>>& buffers, uint32_t binding);
-
-		/// <summary>
-		/// Establece los buffers del binding dado.
-		/// </summary>
-		/// <param name="name">Binding.</param>
-		/// <param name="buffers">Buffers.</param>
-		void SetDynamicBuffer(const std::string& name, std::vector<SharedPtr<GpuDataBuffer>>& buffers);
-
-		/// <summary>
-		/// Envia el valor de los bindings a la GPU.
-		/// Puede usarse para cambiar ciertos bindings en tiempo de ejecución.
+		/// Actualiza todos los slots.
 		/// </summary>
 		void FlushUpdate();
+		/// <summary>
+		/// Devuelve el número de slots de la instancia.
+		/// </summary>
+		size_t GetNumberOfSlots() const;
 
 		/// <summary>
-		/// Obtiene el descriptor set de la instancia.
+		/// True si todos los slots se han establecido correctamente.
 		/// </summary>
-		/// <returns>Descriptor set.</returns>
-		DescriptorSet* GetDescriptorSet() const;
-
-		/// <summary>
-		/// Devuelve true si los bindings han sido establecidos.
-		/// </summary>
-		/// <returns>Estado de la instancia.</returns>
 		bool HasBeenSet() const;
 
 	private:
 
-		/// <summary>
-		/// Material al que pertenece la instancia.
-		/// </summary>
-		Material* ownerMaterial = nullptr;
+		std::unordered_map<MaterialSlotTypeId, MaterialSlotPool*> slotPools;
+		std::unordered_map<MaterialSlotTypeId, uint32_t> slotIds;
+		std::vector<MaterialSlotTypeId> types;
 
-		/// <summary>
-		/// Material pool al que pertenece la instancia.
-		/// </summary>
-		MaterialPool* ownerPool = nullptr;
-
-		/// <summary>
-		/// Posición del descriptor set de la instancia en el array del Material Pool dueño.
-		/// </summary>
-		uint32_t descriptorSetIndex = 0;
-
-		/// <summary>
-		/// True si los bindings han sido establecidos.
-		/// </summary>
-		bool hasBeenSet = false;
-		
-		/// <summary>
-		/// Buffers.
-		/// </summary>
-		std::vector<std::vector<SharedPtr<GpuDataBuffer>>> buffers;
+		size_t numberOfSlots = 0;
 
 	};
 

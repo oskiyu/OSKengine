@@ -9,13 +9,13 @@ RayCastCollisionInfo RayCast::CastRay(const Vector3f& origin, Vector3f direction
 	float min = std::numeric_limits<float>::min();
 	float max = std::numeric_limits<float>::max();
 
-	const Vector3f aabb_min = Vector3f{ -1.0f } *sat.GetTransform().GetScale();
-	const Vector3f aabb_max = Vector3f{ 1.0f } *sat.GetTransform().GetScale();
+	const Vector3f aabb_min = Vector3f{ -1.0f } *sat.GetTransform()->GetScale();
+	const Vector3f aabb_max = Vector3f{ 1.0f } *sat.GetTransform()->GetScale();
 
-	Vector3f OBBposition_worldspace(sat.GetTransform().AsMatrix()[3].x, sat.GetTransform().AsMatrix()[3].y, sat.GetTransform().AsMatrix()[3].z);
+	Vector3f OBBposition_worldspace(sat.GetTransform()->AsMatrix()[3].x, sat.GetTransform()->AsMatrix()[3].y, sat.GetTransform()->AsMatrix()[3].z);
 	Vector3f delta = OBBposition_worldspace - origin;
 	{
-		Vector3f xaxis(sat.GetTransform().AsMatrix()[0].x, sat.GetTransform().AsMatrix()[0].y, sat.GetTransform().AsMatrix()[0].z);
+		Vector3f xaxis(sat.GetTransform()->AsMatrix()[0].x, sat.GetTransform()->AsMatrix()[0].y, sat.GetTransform()->AsMatrix()[0].z);
 		float e = xaxis.Dot(delta);
 		float f = direction.Dot(xaxis);
 
@@ -46,7 +46,7 @@ RayCastCollisionInfo RayCast::CastRay(const Vector3f& origin, Vector3f direction
 	}
 
 	{
-		Vector3f yaxis(sat.GetTransform().AsMatrix()[1].x, sat.GetTransform().AsMatrix()[1].y, sat.GetTransform().AsMatrix()[1].z);
+		Vector3f yaxis(sat.GetTransform()->AsMatrix()[1].x, sat.GetTransform()->AsMatrix()[1].y, sat.GetTransform()->AsMatrix()[1].z);
 		float e = yaxis.Dot(delta);
 		float f = direction.Dot(yaxis);
 
@@ -72,7 +72,7 @@ RayCastCollisionInfo RayCast::CastRay(const Vector3f& origin, Vector3f direction
 	}
 
 	{
-		Vector3f zaxis(sat.GetTransform().AsMatrix()[2].x, sat.GetTransform().AsMatrix()[2].y, sat.GetTransform().AsMatrix()[2].z);
+		Vector3f zaxis(sat.GetTransform()->AsMatrix()[2].x, sat.GetTransform()->AsMatrix()[2].y, sat.GetTransform()->AsMatrix()[2].z);
 		float e = zaxis.Dot(delta);
 		float f = direction.Dot(zaxis);
 

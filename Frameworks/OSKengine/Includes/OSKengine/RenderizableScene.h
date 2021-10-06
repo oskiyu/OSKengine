@@ -113,7 +113,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="cmdBuffer">Commandbuffer.</param>
 		/// <param name="iteration">Iteration.</param>
-		void Draw(VkCommandBuffer cmdBuffer, uint32_t iteration);
+		void Draw(VkCommandBuffer cmdBuffer, uint32_t iteration, RenderTarget* target);
 
 		//SYSTEM
 
@@ -145,7 +145,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="cmdBuffer">Commandbuffer.</param>
 		/// <param name="iteration">Iteration.</param>
-		void PrepareDraw(VkCommandBuffer cmdBuffer, uint32_t i);
+		void PrepareDraw(VkCommandBuffer cmdBuffer, uint32_t i, RenderTarget* target);
 
 		/// <summary>
 		/// Renderiza un modelo.
@@ -163,11 +163,6 @@ namespace OSK {
 		/// <param name="iteration">Iteration.</param>
 		void EndDraw(VkCommandBuffer cmdBuffer, uint32_t i);
 
-		/// <summary>
-		/// Renderpass.
-		/// </summary>
-		VULKAN::Renderpass* targetRenderpass = nullptr;
-		
 		/// <summary>
 		/// Mapa de sombras.
 		/// </summary>

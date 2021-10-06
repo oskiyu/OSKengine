@@ -16,8 +16,6 @@ namespace OSK {
 	}
 
 	PushConst3D Model::GetPushConst() {
-		transform.UpdateModel();
-
 		PushConst3D pushConst{};
 		pushConst.model = transform.AsMatrix();
 

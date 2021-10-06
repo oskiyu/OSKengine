@@ -18,12 +18,15 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stbi_image_write.h"
 
+#include "MaterialSlot.h"
+
 using namespace OSK::VULKAN;
 using namespace OSK::Animation;
 
 namespace OSK {
 
 	Assimp::Importer ContentManager::globalImporter;
+	int ContentManager::assimpFlags = aiProcess_Triangulate | aiProcess_GenNormals;
 
 	const std::string ContentManager::DEFAULT_TEXTURE_PATH = "assets/engine/default_texture/default_texture.png";
 	Texture* ContentManager::DefaultTexture = nullptr;
@@ -45,13 +48,13 @@ namespace OSK {
 
 	void ContentManager::Unload() {
 		for (auto& i : textures)
-			delete i;
+			i.Delete();
 
 		for (auto& i : modelDatas)
-			delete i;
+			i.Delete();
 
 		for (auto& i : sounds)
-			delete i;
+			i.Delete();
 
 		textures.clear();
 		modelDatas.clear();
@@ -76,20 +79,33 @@ namespace OSK {
 
 		int width;
 		int height;
-		int nChannels;
+		int nChannels = 0;
 
-		stbi_uc* pixels = stbi_load(path.c_str(), &width, &height, &nChannels, STBI_rgb_alpha);
-		VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * (VkDeviceSize)nChannels;
+		stbi_uc* pixels = stbi_load(path.c_str(), &width, &height, &nChannels, nChannels);
+		VkDeviceSize size = (VkDeviceSize)width * (VkDeviceSize)height * 4;
 		loadedTexture->size.X = (uint32_t)width;
 		loadedTexture->size.Y = (uint32_t)height;
 
 		SharedPtr<GpuDataBuffer> stagingBuffer = new GpuDataBuffer;
 		renderer->AllocateBuffer(stagingBuffer.GetPointer(), size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 
-		stagingBuffer->Write(pixels, size);
+		std::vector<uint8_t> finalPixels;
+		finalPixels.reserve(size);
+
+		for (size_t i = 0; i < width * height * nChannels; i += nChannels) {
+			for (uint8_t p = 0; p < nChannels; p++)
+				finalPixels.push_back(pixels[i + p]);
+
+			for (uint8_t p = nChannels; p < 4; p++)
+				finalPixels.push_back(0);
+		}
+
+		stagingBuffer->Write(finalPixels.data(), size);
 
 		stbi_image_free(pixels);
+
 		uint32_t mipLevels = GetMaxMipLevels(width, height);
+
 		VULKAN::VulkanImageGen::CreateImage(loadedTexture->image.GetPointer(), { (uint32_t)width, (uint32_t)height }, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, mipLevels, VK_SAMPLE_COUNT_1_BIT);
 
 		VULKAN::VulkanImageGen::TransitionImageLayout(loadedTexture->image.GetPointer(), VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, mipLevels, 1);
@@ -104,9 +120,8 @@ namespace OSK {
 		VULKAN::VulkanImageGen::CreateImageView(loadedTexture->image.GetPointer(), VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, mipLevels);
 		VULKAN::VulkanImageGen::TransitionImageLayout(loadedTexture->image.GetPointer(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, mipLevels, 1);
 
-
 		textures.push_back(loadedTexture);
-		textureFromPath[path] = textures.back();
+		textureFromPath[path] = textures.back().GetPointer();
 
 		return textureFromPath[path];
 	}
@@ -215,18 +230,79 @@ namespace OSK {
 		return m;
 	}
 
+	void ContentManager::ProcessMeshNode(const aiNode* node, const aiScene* scene, std::vector<Vertex>* vertices, std::vector<vertexIndex_t>* indices, const Vector3f& prevPosition, float scale) const {
+		aiVector3D pos; 
+		aiQuaternion rot;
+		aiVector3D scl;
+		node->mTransformation.Decompose(scl, rot, pos);
+
+		auto matrix = AnimatedModel::AiToGLM(node->mTransformation);
+
+		Vector3f position = prevPosition + glm::make_vec3(&pos.x);
+
+		position = prevPosition + glm::vec3(matrix[3]);
+
+		for (uint32_t i = 0; i < node->mNumMeshes; i++) {
+
+			const aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+
+			for (uint32_t v = 0; v < mesh->mNumVertices; v++) {
+				Vertex vertex{};
+				glm::vec3 vec3 = glm::make_vec3(&mesh->mVertices[v].x) * scale;
+
+				vertex.position = vec3 + position.ToGLM();
+
+				vertex.normals.x = mesh->mNormals[v].x;
+				vertex.normals.y = -mesh->mNormals[v].y;
+				vertex.normals.z = mesh->mNormals[v].z;
+
+				vertex.textureCoordinates.x = mesh->mTextureCoords[0][v].x;
+				vertex.textureCoordinates.y = -mesh->mTextureCoords[0][v].y;
+
+				if (mesh->HasVertexColors(0))
+					vertex.color = glm::make_vec3(&mesh->mColors[0][v].r);
+				else
+					vertex.color = Color::WHITE().ToGLM();
+
+				vertex.position.y *= -1.0f;
+
+				vertices->push_back(vertex);
+			}
+		}
+
+		for (uint32_t i = 0; i < node->mNumMeshes; i++) {
+			uint32_t indexBase = static_cast<uint32_t>(indices->size());
+
+			const aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+
+			//Vertices.
+			for (uint32_t f = 0; f < mesh->mNumFaces; f++) {
+				for (uint32_t ind = 0; ind < 3; ind++) {
+					indices->push_back(mesh->mFaces[f].mIndices[ind] + indexBase);
+				}
+			}
+		}
+
+		for (uint32_t i = 0; i < node->mNumChildren; i++)
+			ProcessMeshNode(node->mChildren[i], scene, vertices, indices, position, scale);
+	}
+
 	TempModelData ContentManager::GetModelTempData(const std::string& path, float scale) const {
 		const aiScene* scene;
 
 		OSK_ASSERT(FileIO::FileExists(path), "No existe el modelo en " + path + ".");
 
-		scene = globalImporter.ReadFile(path.c_str(), ASSIMP_FLAGS);
+		scene = globalImporter.ReadFile(path.c_str(), assimpFlags);
 
-		std::vector<Vertex> Vertices;
+		std::vector<Vertex> vertices;
+		std::vector<vertexIndex_t> indices;
+
+		ProcessMeshNode(scene->mRootNode, scene, &vertices, &indices, { 0 }, scale);
 
 		//Meshes.
-		for (uint32_t i = 0; i < scene->mNumMeshes; i++) {
+		/*for (uint32_t i = 0; i < scene->mNumMeshes; i++) {
 			//Vertices.
+			scene->mRootNode->mTransformation.Decompose();
 			for (uint32_t v = 0; v < scene->mMeshes[i]->mNumVertices; v++) {
 				Vertex vertex{};
 				glm::vec3 vec3 = glm::make_vec3(&scene->mMeshes[i]->mVertices[v].x) * scale;
@@ -259,10 +335,10 @@ namespace OSK {
 					indices.push_back(scene->mMeshes[i]->mFaces[f].mIndices[ind] + indexBase);
 				}
 			}
-		}
+		}*/
 
 		TempModelData data{};
-		data.vertices = Vertices;
+		data.vertices = vertices;
 		data.indices = indices;
 
 		return data;
@@ -308,9 +384,9 @@ namespace OSK {
 	void ContentManager::LoadSkybox(Skybox* skybox, const std::string& path) {
 		OSK_ASSERT(skybox, "'Skybox' es null.");
 
-		skybox->instance = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultSkyboxMaterial_Name)->CreateInstance();
-		skybox->instance->SetBuffer("Camera", renderer->uniformBuffers);
-		skybox->instance->SetTexture("Texture", LoadSkyboxTexture(path));
+		skybox->instance = renderer->GetMaterialSystem()->GetMaterial(MPIPE_SKYBOX)->CreateInstance().GetPointer();
+		skybox->instance->GetMaterialSlot(MSLOT_SKYBOX_CAMERA)->SetBuffer("Camera", renderer->GetDefaultCamera()->GetUniformBuffer());
+		skybox->instance->GetMaterialSlot(MSLOT_SKYBOX_TEXTURE)->SetTexture("Cubemap", LoadSkyboxTexture(path));
 		skybox->instance->FlushUpdate();
 	}
 
@@ -332,13 +408,14 @@ namespace OSK {
 
 		TempModelData modelData = GetModelTempData(path);
 
-		auto scene = globalImporter.ReadFile(path.c_str(), ASSIMP_FLAGS);
+		auto scene = globalImporter.ReadFile(path.c_str(), assimpFlags);
 
 		model->globalInverseTransform = AnimatedModel::AiToGLM(scene->mRootNode->mTransformation);
 		model->globalInverseTransform = glm::inverse(model->globalInverseTransform);
 		model->bones.resize(modelData.vertices.size());
 
 		int numberOfAnimations = 0;
+		size_t numberOfBones = 0;
 
 		uint32_t vertexBase = 0;
 		for (uint32_t m = 0; m < scene->mNumMeshes; m++) {
@@ -348,8 +425,8 @@ namespace OSK {
 				std::string name(mesh->mBones[i]->mName.data);
 
 				if (model->boneMapping.find(name) == model->boneMapping.end()) {
-					index = numberOfAnimations;
-					numberOfAnimations++;
+					index = numberOfBones;
+					numberOfBones++;
 					BoneInfo bone;
 					model->boneInfos.push_back(bone);
 					model->boneInfos[index].offset = AnimatedModel::AiToGLM(mesh->mBones[i]->mOffsetMatrix);
@@ -427,6 +504,8 @@ namespace OSK {
 			model->animations.push_back(animation);
 		}
 
+		numberOfAnimations = scene->mNumAnimations;
+
 		model->data = CreateModel(modelData.vertices, modelData.indices);
 		model->rootNode = GetNodes(scene->mRootNode);
 		model->SetAnimation(0);
@@ -458,9 +537,9 @@ namespace OSK {
 
 		CreateSprite(sprite);
 		sprite->texture = LoadTexture(path);
-		sprite->material = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultMaterial2D_Name)->CreateInstance();
+		sprite->material = renderer->GetMaterialSystem()->GetMaterial(MPIPE_2D)->CreateInstance().GetPointer();
 		sprite->UpdateMaterialTexture();
-		sprite->material->FlushUpdate();
+		sprite->material->GetMaterialSlot(MSLOT_TEXTURE_2D)->FlushUpdate();
 	}
 
 	void ContentManager::CreateSprite(Sprite* sprite) {
@@ -567,9 +646,9 @@ namespace OSK {
 
 		textures.push_back(fontTexture);
 
-		fuente->fontMaterial = renderer->GetMaterialSystem()->GetMaterial(renderer->defaultMaterial2D_Name)->CreateInstance();
-		fuente->fontMaterial->SetTexture(fontTexture);
-		fuente->fontMaterial->FlushUpdate();
+		fuente->fontMaterial = renderer->GetMaterialSystem()->GetMaterial(MPIPE_2D)->CreateInstance().GetPointer();
+		fuente->fontMaterial->GetMaterialSlot(MSLOT_TEXTURE_2D)->SetTexture("Texture",fontTexture);
+		fuente->fontMaterial->GetMaterialSlot(MSLOT_TEXTURE_2D)->FlushUpdate();
 
 		currentX = 0;
 		for (uint32_t c = 0; c < 255; c++) {
@@ -620,7 +699,7 @@ namespace OSK {
 		map->size.Y = height;
 
 		map->data = new uint8_t[width * height];
-		memcpy(map->data, pixels, sizeof(uint8_t) * width * height);
+		memcpy(map->data.GetPointer(), pixels, sizeof(uint8_t) * width * height);
 
 		stbi_image_free(pixels);
 	}

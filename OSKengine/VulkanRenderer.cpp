@@ -22,6 +22,7 @@
 #include <gtc/type_ptr.hpp>
 #include "Model.h"
 #include "RenderSystem3D.h"
+#include "MaterialSlot.h"
 
 #include <ft2build.h>
 #include <thread>
@@ -143,60 +144,34 @@ void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 	createGlobalImageSampler();
 	createDefaultUniformBuffers();
 	ContentManager::DefaultTexture = content->LoadTexture(ContentManager::DEFAULT_TEXTURE_PATH);
-	Material::DefaultTexture = ContentManager::DefaultTexture;
 
 	//MATERIALS
 	{
-		materialSystem->RegisterMaterial(defaultMaterial2D_Name);
-		MaterialBindingLayout layout;
-		layout.push_back({ MaterialBindingType::TEXTURE, MaterialBindingShaderStage::FRAGMENT, "Texture" });
-		materialSystem->GetMaterial(defaultMaterial2D_Name)->SetLayout(layout);
 		MaterialPipelineCreateInfo pipelineInfo{};
 		pipelineInfo.cullMode = PolygonCullMode::NONE;
 		pipelineInfo.vertexPath = Settings.vertexShaderPath2D;
 		pipelineInfo.fragmentPath = Settings.fragmentShaderPath2D;
 		pipelineInfo.pushConstants.push_back({ MaterialBindingShaderStage::VERTEX, sizeof(PushConst2D) });
-		materialSystem->GetMaterial(defaultMaterial2D_Name)->SetPipelineSettings(pipelineInfo);
+		materialSystem->GetMaterial(MPIPE_2D)->SetPipelineSettings(pipelineInfo);
 	}
 	{
-		materialSystem->RegisterMaterial(defaultMaterial3D_Name);
-		MaterialBindingLayout layout;
-		layout.push_back({ MaterialBindingType::DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Camera" });
-		layout.push_back({ MaterialBindingType::DYNAMIC_DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Animation" });
-		layout.push_back({ MaterialBindingType::DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Model" });
-		layout.push_back({ MaterialBindingType::TEXTURE, MaterialBindingShaderStage::FRAGMENT, "Albedo" });
-		layout.push_back({ MaterialBindingType::DATA_BUFFER, MaterialBindingShaderStage::FRAGMENT, "Lights" });
-		layout.push_back({ MaterialBindingType::TEXTURE, MaterialBindingShaderStage::FRAGMENT, "Specular" });
-		layout.push_back({ MaterialBindingType::TEXTURE, MaterialBindingShaderStage::FRAGMENT, "Shadows" });
-		materialSystem->GetMaterial(defaultMaterial3D_Name)->SetLayout(layout);
 		MaterialPipelineCreateInfo pipelineInfo{};
 		pipelineInfo.vertexPath = Settings.vertexShaderPath3D;
 		pipelineInfo.fragmentPath = Settings.fragmentShaderPath3D;
 		pipelineInfo.useDepthStencil = true;
 		pipelineInfo.pushConstants.push_back({ MaterialBindingShaderStage::VERTEX, sizeof(PushConst3D) });
-		materialSystem->GetMaterial(defaultMaterial3D_Name)->SetPipelineSettings(pipelineInfo);
+		materialSystem->GetMaterial(MPIPE_3D)->SetPipelineSettings(pipelineInfo);
 	}
 	{
-		materialSystem->RegisterMaterial(defaultSkyboxMaterial_Name);
-		MaterialBindingLayout layout;
-		layout.push_back({ MaterialBindingType::DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Camera" });
-		layout.push_back({ MaterialBindingType::TEXTURE, MaterialBindingShaderStage::FRAGMENT, "Texture" });
-		materialSystem->GetMaterial(defaultSkyboxMaterial_Name)->SetLayout(layout);
 		MaterialPipelineCreateInfo pipelineInfo{};
 		pipelineInfo.cullMode = PolygonCullMode::FRONT;
 		pipelineInfo.frontFaceType = PolygonFrontFaceType::COUNTERCLOCKWISE;
 		pipelineInfo.vertexPath = Settings.skyboxVertexPath;
 		pipelineInfo.fragmentPath = Settings.skyboxFragmentPath;
 		pipelineInfo.useDepthStencil = false;
-		materialSystem->GetMaterial(defaultSkyboxMaterial_Name)->SetPipelineSettings(pipelineInfo);
+		materialSystem->GetMaterial(MPIPE_SKYBOX)->SetPipelineSettings(pipelineInfo);
 	}
 	{
-		materialSystem->RegisterMaterial(defaultShadowsMaterial_Name);
-		MaterialBindingLayout layout;
-		layout.push_back({ MaterialBindingType::DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Camera" });
-		layout.push_back({ MaterialBindingType::DYNAMIC_DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Animation" });
-		layout.push_back({ MaterialBindingType::DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Lights" });
-		materialSystem->GetMaterial(defaultShadowsMaterial_Name)->SetLayout(layout);
 		MaterialPipelineCreateInfo pipelineInfo{};
 		pipelineInfo.polygonMode = PolygonMode::FILL;
 		pipelineInfo.cullMode = PolygonCullMode::FRONT;
@@ -204,7 +179,18 @@ void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 		pipelineInfo.vertexPath = "shaders/VK_Shadows/vert.spv";
 		pipelineInfo.fragmentPath = "shaders/VK_Shadows/frag.spv";
 		pipelineInfo.useDepthStencil = true;
-		materialSystem->GetMaterial(defaultShadowsMaterial_Name)->SetPipelineSettings(pipelineInfo);
+		pipelineInfo.pushConstants.push_back({ MaterialBindingShaderStage::VERTEX, sizeof(PushConst3D) });
+		materialSystem->GetMaterial(MPIPE_SHADOWS3D)->SetPipelineSettings(pipelineInfo);
+	} 
+	{
+		MaterialPipelineCreateInfo pipelineInfo{};
+		pipelineInfo.polygonMode = PolygonMode::FILL;
+		pipelineInfo.cullMode = PolygonCullMode::NONE;
+		pipelineInfo.frontFaceType = PolygonFrontFaceType::CLOCKWISE;
+		pipelineInfo.vertexPath = "shaders/VK_Post/vert.spv";
+		pipelineInfo.fragmentPath = "shaders/VK_Post/frag.spv";
+		pipelineInfo.pushConstants.push_back({ MaterialBindingShaderStage::FRAGMENT, sizeof(PostProcessingSettings_t) });
+		materialSystem->GetMaterial(MPIPE_POSTPROCESS)->SetPipelineSettings(pipelineInfo);
 	}
 	//!MATERIALS
 
@@ -216,7 +202,7 @@ void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 	Skybox::Model = content->LoadModelData("models/Skybox/cube.obj");
 
 	defaultCamera2D = Camera2D(window);
-	defaultCamera3D.window = window;
+	CreateCamera();
 
 	hasBeenInit = true;
 
@@ -234,7 +220,7 @@ void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 	renderTargetBeforePostProcessing->renderedSprite.transform.SetScale(window->GetSize().ToVector2f());
 
 
-	finalRenderTarget = CreateNewRenderTarget();
+	finalRenderTarget = CreateNewRenderTarget().GetPointer();
 	finalRenderTarget->SetSwapchain(swapchain->imageViews);
 	finalRenderTarget->SetSize(renderTargetSizeX, renderTargetSizeY);
 	finalRenderTarget->CreateSprite(content.GetPointer());
@@ -254,11 +240,11 @@ VkSampleCountFlagBits RenderAPI::GetMsaaSamples() const {
 	return gpuInfo.maxMsaaSamples;
 }
 
-Renderpass* RenderAPI::CreateNewRenderpass() {
+OwnedPtr<Renderpass> RenderAPI::CreateNewRenderpass() {
 	return new Renderpass(logicalDevice);
 }
 
-RenderTarget* RenderAPI::CreateNewRenderTarget() {
+OwnedPtr<RenderTarget> RenderAPI::CreateNewRenderTarget() {
 	return new RenderTarget(this);
 }
 
@@ -279,8 +265,42 @@ void RenderAPI::ReloadShaders() {
 	RecreateSwapchain();
 }
 
-Framebuffer* RenderAPI::CreateNewFramebuffer() {
+OwnedPtr<Framebuffer> RenderAPI::CreateNewFramebuffer() {
 	return new Framebuffer(this);
+}
+
+Camera3D* RenderAPI::CreateCamera() {
+	cameras.push_back({ 0, 0, 0 });
+
+	auto& cam = cameras.back();
+	cam.window = window;
+
+	VkDeviceSize size = sizeof(UboCamera3D);
+	cam.GetUniformBuffer().GetBuffersRef().resize(swapchain->GetImageCount());
+
+	for (uint32_t i = 0; i < cam.GetUniformBuffer().GetBuffersRef().size(); i++) {
+		cam.GetUniformBuffer().GetBuffersRef()[i] = new GpuDataBuffer;
+		AllocateBuffer(cam.GetUniformBuffer().GetBuffers()[i].GetPointer(), size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+	}
+
+	return &cameras.back();
+}
+
+Camera3D* RenderAPI::GetDefaultCamera() {
+	return &cameras.front();
+}
+
+void RenderAPI::RemoveCamera(Camera3D* camera) {
+	auto it = cameras.begin();
+	for (size_t i = 0; i < cameras.size(); i++) {
+		if (&it.operator*() == camera) {
+			cameras.erase(it);
+
+			return;
+		}
+
+		++it;
+	}
 }
 
 void RenderAPI::RenderFrame() {
@@ -290,17 +310,19 @@ void RenderAPI::RenderFrame() {
 
 	{
 		defaultCamera2D.Update();
-		defaultCamera3D.updateVectors();
-		for (size_t i = 0; i < uniformBuffers.size(); i++) {
-			void* data;
-			vkMapMemory(logicalDevice, uniformBuffers[i]->memorySubblock->memory, uniformBuffers[i]->memorySubblock->GetOffset(), sizeof(UBO), 0, &data);
-			UBO ubo{};
-			ubo.view = defaultCamera3D.GetView();
-			ubo.projection = defaultCamera3D.GetProjection();
-			ubo.cameraPos = defaultCamera3D.GetTransform()->GetPosition().ToGLM();
 
-			memcpy(data, &ubo, sizeof(UBO));
-			vkUnmapMemory(logicalDevice, uniformBuffers[i]->memorySubblock->memory);
+		for (auto& cam : cameras) {
+			for (size_t i = 0; i < cam.GetUniformBuffer().GetBuffers().size(); i++) {
+				void* data;
+				vkMapMemory(logicalDevice, cam.GetUniformBuffer().GetBuffers()[i]->memorySubblock->memory, cam.GetUniformBuffer().GetBuffers()[i]->memorySubblock->GetOffset(), sizeof(UboCamera3D), 0, &data);
+				UboCamera3D ubo{};
+				ubo.view = cam.GetView();
+				ubo.projection = cam.GetProjection();
+				ubo.cameraPos = cam.GetTransform()->GetPosition().ToGLM();
+
+				memcpy(data, &ubo, sizeof(UboCamera3D));
+				vkUnmapMemory(logicalDevice, cam.GetUniformBuffer().GetBuffers()[i]->memorySubblock->memory);
+			}
 		}
 
 		updateCommandBuffers();
@@ -394,19 +416,19 @@ SpriteBatch RenderAPI::CreateSpriteBatch() {
 }
 
 
-GraphicsPipeline* RenderAPI::CreateNewGraphicsPipeline(const std::string& vertexPath, const std::string& fragmentPath) const {
+OwnedPtr<OSK::GraphicsPipeline> RenderAPI::CreateNewGraphicsPipeline(const std::string& vertexPath, const std::string& fragmentPath) const {
 	return new GraphicsPipeline(logicalDevice, vertexPath, fragmentPath);
 }
 
-DescriptorPool* RenderAPI::CreateNewDescriptorPool() const {
+OwnedPtr<DescriptorPool> RenderAPI::CreateNewDescriptorPool() const {
 	return new DescriptorPool(logicalDevice, swapchain->GetImageCount());
 }
 
-DescriptorLayout* RenderAPI::CreateNewDescriptorLayout() const {
-	return new DescriptorLayout(logicalDevice);
+OwnedPtr < DescriptorLayout> RenderAPI::CreateNewDescriptorLayout(uint32_t set) const {
+	return new DescriptorLayout(logicalDevice, set);
 }
 
-DescriptorSet* RenderAPI::CreateNewDescriptorSet() const {
+OwnedPtr < DescriptorSet> RenderAPI::CreateNewDescriptorSet() const {
 	return new DescriptorSet(logicalDevice, swapchain->GetImageCount());
 }
 
@@ -524,7 +546,7 @@ void RenderAPI::setupDebugConsole() {
 
 void RenderAPI::createSurface() {
 	//Obtener la superficie.
-	VkResult result = glfwCreateWindowSurface(instance, window->window, nullptr, &surface);
+	VkResult result = glfwCreateWindowSurface(instance, window->window.GetPointer(), nullptr, &surface);
 
 	//Error-handling.
 	if (result != VK_SUCCESS)
@@ -660,13 +682,7 @@ void RenderAPI::createGlobalImageSampler() {
 
 
 void RenderAPI::createDefaultUniformBuffers() {
-	VkDeviceSize size = sizeof(UBO);
-	uniformBuffers.resize(swapchain->GetImageCount());
-
-	for (uint32_t i = 0; i < uniformBuffers.size(); i++) {
-		uniformBuffers[i] = new GpuDataBuffer;
-		AllocateBuffer(uniformBuffers[i].GetPointer(), size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-	}
+	
 }
 
 
@@ -722,7 +738,8 @@ void RenderAPI::createCommandBuffers() {
 void RenderAPI::Close() {
 	swapchain.Delete();
 
-	uniformBuffers.clear();
+	for (auto& i : cameras)
+		i.GetUniformBuffer().GetBuffersRef().clear();
 
 	screenDescriptorLayout.Delete();
 	screenDescriptorSet.Delete();
@@ -764,11 +781,11 @@ void RenderAPI::Close() {
 void RenderAPI::RecreateSwapchain() {
 	int32_t width = 0;
 	int32_t height = 0;
-	glfwGetFramebufferSize(window->window, &width, &height);
+	glfwGetFramebufferSize(window->window.GetPointer(), &width, &height);
 
 	//Si está minimizado, esperar.
 	while (width == 0 || height == 0) {
-		glfwGetFramebufferSize(window->window, &width, &height);
+		glfwGetFramebufferSize(window->window.GetPointer(), &width, &height);
 		glfwWaitEvents();
 	}
 
@@ -853,7 +870,7 @@ void RenderAPI::DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, uint32_
 	if (stage->scene != nullptr)
 		stage->scene->Draw(cmdBuffer, iteration, stage->renderTarget);
 
-	GraphicsPipeline* pipeline = GetMaterialSystem()->GetMaterial(defaultMaterial2D_Name)->GetGraphicsPipeline(stage->renderTarget->renderpass.GetPointer());
+	GraphicsPipeline* pipeline = GetMaterialSystem()->GetMaterial(MPIPE_2D)->GetGraphicsPipeline(stage->renderTarget->renderpass.GetPointer());
 
 	for (auto& spriteBatch : stage->spriteBatches) {
 		
@@ -868,7 +885,7 @@ void RenderAPI::DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, uint32_
 				VkDeviceSize offsets[] = { 0 };
 				vkCmdBindVertexBuffers(cmdBuffer, 0, 1, vertexBuffers, offsets);
 
-				sprite.spriteMaterial->GetDescriptorSet()->Bind(cmdBuffer, pipeline, iteration);
+				sprite.spriteMaterial->GetMaterialSlot(MSLOT_TEXTURE_2D)->GetDescriptorSet()->Bind(cmdBuffer, pipeline, iteration);
 
 				PushConst2D pConst = sprite.pushConst;
 				vkCmdPushConstants(cmdBuffer, pipeline->vulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
@@ -1210,27 +1227,26 @@ VkBool32 RenderAPI::DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT message
 void RenderAPI::InitPostProcessing() {
 	finalRenderTarget->Resize(window->GetSize().X, window->GetSize().Y);
 
-	screenDescriptorPool = CreateNewDescriptorPool();
+	screenDescriptorPool = CreateNewDescriptorPool().GetPointer();
 	screenDescriptorPool->AddBinding(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
 	screenDescriptorPool->Create(1);
 
-	screenDescriptorLayout = CreateNewDescriptorLayout();
+	screenDescriptorLayout = CreateNewDescriptorLayout().GetPointer();
 	screenDescriptorLayout->AddBinding(0, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT);
-	screenDescriptorLayout->descriptorPool = screenDescriptorPool.GetPointer();
 	screenDescriptorLayout->Create();
 
-	screenDescriptorSet = CreateNewDescriptorSet();
+	screenDescriptorSet = CreateNewDescriptorSet().GetPointer();
 	screenDescriptorSet->Create(screenDescriptorLayout.GetPointer(), screenDescriptorPool.GetPointer(), true);
 	screenDescriptorSet->AddImage(renderTargetBeforePostProcessing->renderedSprite.texture->image.GetPointer(), renderTargetBeforePostProcessing->renderedSprite.texture->image->sampler, 0);
 	screenDescriptorSet->Update();
 
-	screenGraphicsPipeline = CreateNewGraphicsPipeline("shaders/VK_Post/vert.spv", "shaders/VK_Post/frag.spv");
+	screenGraphicsPipeline = CreateNewGraphicsPipeline("shaders/VK_Post/vert.spv", "shaders/VK_Post/frag.spv").GetPointer();
 	screenGraphicsPipeline->SetViewport({ -(float)swapchain->size.width, -(float)swapchain->size.height, (float)swapchain->size.width * 2, (float)swapchain->size.height * 2 });
 	screenGraphicsPipeline->SetRasterizer(VK_FALSE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_NONE, VK_FRONT_FACE_CLOCKWISE);
 	screenGraphicsPipeline->SetMSAA(VK_FALSE, GetMsaaSamples());
 	screenGraphicsPipeline->SetDepthStencil(false);
 	screenGraphicsPipeline->SetPushConstants(VK_SHADER_STAGE_FRAGMENT_BIT, sizeof(PostProcessingSettings_t));
-	screenGraphicsPipeline->SetLayout(&screenDescriptorLayout->vulkanDescriptorSetLayout);
+	screenGraphicsPipeline->SetLayout({ screenDescriptorLayout->vulkanDescriptorSetLayout });
 	screenGraphicsPipeline->Create(finalRenderTarget->renderpass.GetPointer());
 
 	finalRenderTarget->renderedSprite.transform.SetScale(window->GetSize().ToVector2f() * renderResolutionMultiplier);

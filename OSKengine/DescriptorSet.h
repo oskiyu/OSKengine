@@ -101,6 +101,8 @@ namespace OSK {
 		/// <returns>Número de bindings.</returns>
 		uint32_t GetBindingsCount() const;
 
+		DescriptorLayout* GetDescriptorLayout() const;
+
 	private:
 
 		/// <summary>
@@ -165,6 +167,8 @@ namespace OSK {
 		/// Número de bindings que ya han sido establecidos.
 		/// </summary>
 		uint32_t bindingsCount = 0;
+
+		uint32_t shaderSet = 0;
 
 	};
 

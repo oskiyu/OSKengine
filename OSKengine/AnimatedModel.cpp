@@ -11,7 +11,8 @@ namespace OSK {
 	}
 
 	void AnimatedModel::SetAnimation(uint32_t animID) {
-		currentAnimation = &animations[animID];
+		if (animID < animations.size())
+			currentAnimation = &animations[animID];
 	}
 
 	void AnimatedModel::SetAnimation(const std::string& name) {
@@ -33,6 +34,9 @@ namespace OSK {
 	}
 
 	void AnimatedModel::Update(float deltaTime) {
+		if (!currentAnimation)
+			return;
+
 		time -= deltaTime * animationSpeed;
 		float ticksPerSecond = (float)(currentAnimation->ticksPerSecond != 0 ? currentAnimation->ticksPerSecond : 25.0f);
 		float timeInTicks = time * ticksPerSecond;
@@ -156,6 +160,9 @@ namespace OSK {
 	}
 
 	void AnimatedModel::SetupAnimationIndices(SNode* node) {
+		if (!currentAnimation)
+			return;
+
 		for (uint32_t i = 0; i < currentAnimation->boneChannels.size(); i++) {
 			if (currentAnimation->boneChannels[i].name == node->name) {
 				node->sNodeAnimIndex = i;

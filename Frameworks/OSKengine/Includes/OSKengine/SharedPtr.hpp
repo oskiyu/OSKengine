@@ -10,7 +10,7 @@
 /// Si el último SharedPtr que hace referencia a un puntero es desstruido, el puntero será eli
 /// </summary>
 /// <typeparam name="T">Tipo del puntero almacenado.</typeparam>
-template <typename T> class OSKAPI_CALL SharedPtr {
+template <typename T> class SharedPtr {
 
 public:
 

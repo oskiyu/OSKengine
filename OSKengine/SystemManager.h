@@ -6,7 +6,7 @@
 #include "Log.h"
 
 #include "System.h"
-
+#include "OwnedPtr.h"
 #include <vulkan/vulkan.h>
 
 namespace OSK::ECS {
@@ -82,7 +82,7 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Map nombre de sistema -> sistema.
 		/// </summary>
-		std::unordered_map<const char*, System*> systems;
+		std::unordered_map<const char*, OwnedPtr<System>> systems;
 
 	};
 

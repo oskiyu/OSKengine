@@ -10,6 +10,10 @@
 #include "QueueFamilyIndices.h"
 #include "SwapchainSupportDetails.h"
 
+namespace OSK {
+	class RenderAPI;
+}
+
 namespace OSK::VULKAN {
 
 	/// <summary>
@@ -43,6 +47,11 @@ namespace OSK::VULKAN {
 		VkPhysicalDevice gpu;
 
 		/// <summary>
+		/// Máximo nivel de MSAA disponible.
+		/// </summary>
+		VkSampleCountFlagBits maxMsaaSamples;
+
+		/// <summary>
 		/// Alineamiento mínimo para dynamic ubos.
 		/// </summary>
 		size_t minAlignment;
@@ -51,6 +60,21 @@ namespace OSK::VULKAN {
 		/// True si puede usarse en OSKengine.
 		/// </summary>
 		bool isSuitable;
+
+		/// <summary>
+		/// Actualiza el nivel máximo de MSAA, dentro de esta estructura.
+		/// </summary>
+		void SetMaxMsaa();
+
+		/// <summary>
+		/// Actualiza los detalles del swapchain.
+		/// </summary>
+		void UpdateSwapchainSupport();
+
+		/// <summary>
+		/// Renderizador.
+		/// </summary>
+		const RenderAPI* renderer = nullptr;
 
 	};
 

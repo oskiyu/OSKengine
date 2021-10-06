@@ -11,13 +11,17 @@ Scanner::~Scanner() {
 	Clear();
 }
 
-std::vector<IToken*>& Scanner::GetTokens(const std::string& code) {
+std::vector<IToken*> Scanner::GetTokens(const std::string& code) {
 	sourceCode = code;
 
 	while (currentChar < code.length())
 		AddNextToken();
 
-	return tokens;
+	std::vector<IToken*> output;
+	for (auto i : tokens)
+		output.push_back(i.GetPointer());
+
+	return output;
 }
 
 std::string Scanner::ProcessText() {
@@ -158,7 +162,7 @@ void Scanner::AddNextToken() {
 
 void Scanner::Clear() {
 	for (auto i : tokens)
-		delete i;
+		i.Delete();
 	tokens.clear();
 
 	currentChar = 0;

@@ -4,7 +4,7 @@ using namespace OSK::ECS;
 
 ComponentManager::~ComponentManager() {
 	for (auto& i : componentArray)
-		delete i.second;
+		i.second.Delete();
 }
 
 void ComponentManager::GameObjectDestroyed(GameObjectID object) {

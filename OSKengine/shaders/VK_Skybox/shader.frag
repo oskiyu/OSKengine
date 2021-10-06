@@ -10,7 +10,7 @@ layout(location = 3) in vec3 cameraPos;
 
 layout(location = 0) out vec4 outColor;
 
-layout(binding = 1) uniform samplerCube skybox;
+layout(set = 1, binding = 0) uniform samplerCube skybox;
 
 void main() {
     outColor = texture(skybox, TexCoords);

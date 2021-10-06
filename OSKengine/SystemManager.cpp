@@ -22,7 +22,7 @@ void SystemManager::GameObjectDestroyed(GameObjectID obj) {
 void SystemManager::GameObjectSignatureChanged(GameObjectID object, Signature signature) {
 	for (auto& i : systems) {
 		const char* type = i.first;
-		System* system = i.second;
+		System* system = i.second.GetPointer();
 		Signature systemSignature = signatures[type];
 
 		// Entity signature matches system signature - insert into set

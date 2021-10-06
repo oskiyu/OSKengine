@@ -8,7 +8,7 @@
 #include "Texture.h"
 #include <vector>
 
-#include "MaterialInstance.h"
+#include "OldMaterialInstance.h"
 #include "AnimUBO.h"
 #include "ModelData.h"
 
@@ -28,7 +28,12 @@ namespace OSK {
 		/// <summary>
 		/// Material del modelo.
 		/// </summary>
-		SharedPtr<MaterialInstance> material;
+		SharedPtr<OldMaterialInstance> material;
+
+		/// <summary>
+		/// Material para el renderizado de sombras.
+		/// </summary>
+		SharedPtr<OldMaterialInstance> shadowMaterial;
 
 		Transform* GetTransform() {
 			return &transform;
@@ -72,11 +77,6 @@ namespace OSK {
 		/// Transform3D del modelo.
 		/// </summary>
 		Transform transform;
-
-		/// <summary>
-		/// Material para el renderizado de sombras.
-		/// </summary>
-		SharedPtr<MaterialInstance> shadowMaterial;
 
 		/// <summary>
 		/// Obtiene el Push Constant con la matriz del modelo.

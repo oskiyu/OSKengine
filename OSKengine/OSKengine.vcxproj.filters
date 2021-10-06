@@ -118,12 +118,6 @@
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\Terrain">
       <UniqueIdentifier>{a4506cf0-5f68-483b-b7fb-3be8ec827547}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Material">
-      <UniqueIdentifier>{93b8764e-cf78-493e-aae4-96d6fcb9eb51}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\OSKengine\RenderAPI\Material">
-      <UniqueIdentifier>{9c8acd61-664a-42e9-84e0-ec83fa6e5215}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Shadows">
       <UniqueIdentifier>{738bfe36-d8b5-4c65-b870-defb8ee95059}</UniqueIdentifier>
     </Filter>
@@ -225,6 +219,12 @@
     </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\Vulkan\Allocator">
       <UniqueIdentifier>{012aad6e-525d-4d0c-8f1b-913c5b8ea853}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Material">
+      <UniqueIdentifier>{acd370cf-101b-4ab5-8ce6-1875853005b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\Material">
+      <UniqueIdentifier>{cc2caafc-77d5-4490-a469-77a214f9ce74}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -384,29 +384,8 @@
     <ClCompile Include="OnTickSystem.cpp">
       <Filter>Archivos de origen\OSKengine\Engine\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="MaterialPoolData.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialPool.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
-    </ClCompile>
     <ClCompile Include="DescriptorPool.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialBinding.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialInstance.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialPipelineInfo.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialSystem.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
     </ClCompile>
     <ClCompile Include="OSKsettings.cpp">
       <Filter>Archivos de origen\OSKengine</Filter>
@@ -521,6 +500,33 @@
     </ClCompile>
     <ClCompile Include="Swapchain.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertiesFile.cpp">
+      <Filter>Archivos de origen\OSKengine\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialSlot.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialSlotPool.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialInstance.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialSystem.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialBinding.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialPipelineInfo.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="UniformBuffer.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -842,35 +848,14 @@
     <ClInclude Include="DynamicArray.hpp">
       <Filter>Archivos de encabezado\OSKengine\Collections</Filter>
     </ClInclude>
-    <ClInclude Include="MaterialBinding.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="MaterialInstance.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
-    </ClInclude>
     <ClInclude Include="Stack.hpp">
       <Filter>Archivos de encabezado\OSKengine\Collections</Filter>
     </ClInclude>
     <ClInclude Include="LinkedList.hpp">
       <Filter>Archivos de encabezado\OSKengine\Collections</Filter>
     </ClInclude>
-    <ClInclude Include="MaterialPoolData.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="MaterialPool.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
-    </ClInclude>
     <ClInclude Include="DescriptorPool.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="MaterialPipelineInfo.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="MaterialSystem.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
     </ClInclude>
     <ClInclude Include="SharedPtr.hpp">
       <Filter>Archivos de encabezado\OSKengine\Memory</Filter>
@@ -891,9 +876,6 @@
       <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
     </ClInclude>
     <ClInclude Include="BroadColliderType.h">
-      <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="BroadColliderUnion.h">
       <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
     </ClInclude>
     <ClInclude Include="RayCastCollisionInfo.h">
@@ -1006,6 +988,42 @@
     </ClInclude>
     <ClInclude Include="Swapchain.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="Units.h">
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="PropertiesFile.h">
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialSlotType.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialSlot.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialSystem.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialInstance.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialSlotPool.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialBinding.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialPipelineInfo.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="OwnedPtr.h">
+      <Filter>Archivos de encabezado\OSKengine\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="UniformBuffer.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

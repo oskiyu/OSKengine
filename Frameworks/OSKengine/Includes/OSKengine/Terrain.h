@@ -7,7 +7,7 @@
 #include "ToString.h"
 #include "Heightmap.h"
 #include "CollisionBox.h"
-#include "MaterialInstance.h"
+#include "OldMaterialInstance.h"
 
 #include <cstdlib>
 
@@ -75,7 +75,7 @@ namespace OSK {
 		/// Material del terreno.
 		/// Para su renderizado.
 		/// </summary>
-		SharedPtr<MaterialInstance> material;
+		SharedPtr<OldMaterialInstance> material;
 
 	private:
 
@@ -98,7 +98,7 @@ namespace OSK {
 		/// Material de sombras del terreno.
 		/// Para su renderizado de sombras.
 		/// </summary>
-		SharedPtr<MaterialInstance> shadowMaterial;
+		SharedPtr<OldMaterialInstance> shadowMaterial;
 
 		/// <summary>
 		/// Número de quads del mapa { X, Y }.

@@ -22,6 +22,7 @@
 #include <assimp/postprocess.h>
 #include "Heightmap.h"
 #include "SoundEntity.h"
+#include "OwnedPtr.h"
 #include "TempModelData.h"
 
 #include <list>
@@ -185,30 +186,32 @@ namespace OSK {
 
 	private:
 
+		void ProcessMeshNode(const aiNode* node, const aiScene* scene, std::vector<Vertex>* vertices, std::vector<vertexIndex_t>* indices, const Vector3f& prevPosition, float scale = 1.0f) const;
+
 		/// <summary>
 		/// Almacena las texturas.
 		/// </summary>
-		std::list<Texture*> textures = {};
+		std::list<OwnedPtr<Texture>> textures = {};
 
 		/// <summary>
 		/// Almacena los vértices y los índices de los modelos 3D.
 		/// </summary>
-		std::list<ModelData*> modelDatas = {};
+		std::list<OwnedPtr<ModelData>> modelDatas = {};
 
 		/// <summary>
 		/// Almacena referencias a los sprites.
 		/// </summary>
-		std::list<Sprite*> sprites = {};
+		std::list<OwnedPtr<Sprite>> sprites = {};
 
 		/// <summary>
 		/// Alacena las fuentes.
 		/// </summary>
-		std::list<Font*> fonts = {};
+		std::list<OwnedPtr<Font>> fonts = {};
 		
 		/// <summary>
 		/// Almacena los sonidos.
 		/// </summary>
-		std::list<SoundEmitterComponent*> sounds = {};
+		std::list<OwnedPtr<SoundEmitterComponent>> sounds = {};
 		
 		//HASH-MAPS.
 
@@ -272,7 +275,7 @@ namespace OSK {
 		/// <summary>
 		/// Flags de assimp.
 		/// </summary>
-		const static int ASSIMP_FLAGS = aiProcess_Triangulate | aiProcess_GenNormals;
+		static int assimpFlags;
 
 	};
 

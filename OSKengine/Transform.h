@@ -24,6 +24,7 @@ namespace OSK {
 	class OSKAPI_CALL Transform {
 
 		friend class PhysicsSystem;
+		friend class ContentManager;
 
 	public:
 
@@ -134,6 +135,11 @@ namespace OSK {
 		Vector3f GetLocalScale() const;
 
 		/// <summary>
+		/// Orientación respecto al padre.
+		/// </summary>
+		Quaternion GetLocalRotation() const;
+
+		/// <summary>
 		/// Orientación.
 		/// </summary>
 		Quaternion GetRotation() const;
@@ -152,6 +158,25 @@ namespace OSK {
 		/// Transformaciones ahijadas.
 		/// </summary>
 		std::vector<Transform*> GetChildTransforms() const;
+
+		/// <summary>
+		/// Devuelve un vector unitario 3D que apunta hacia el frente de la entidad.
+		/// </summary>
+		Vector3f GetForwardVector() const;
+
+		/// <summary>
+		/// Devuelve un vector unitario 3D que apunta hacia la derecha de la entidad.
+		/// </summary>
+		Vector3f GetRightVector() const;
+
+		/// <summary>
+		/// Devuelve un vector unitario 3D que apunta hacia arriba de la entidad.
+		/// </summary>
+		Vector3f GetTopVector() const;
+
+		void SetMatrix(const glm::mat4& matrix) {
+			modelMatrix = matrix;
+		}
 
 	private:
 
@@ -185,7 +210,12 @@ namespace OSK {
 		/// <summary>
 		/// Orientación.
 		/// </summary>
-		Quaternion rotation;
+		Quaternion localRotation;
+
+		/// <summary>
+		/// GlobalRotation
+		/// </summary>
+		glm::mat4 globalRotation = glm::mat4(1.0f);
 
 		/// <summary>
 		/// Matriz modelo.

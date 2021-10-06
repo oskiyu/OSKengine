@@ -3,7 +3,7 @@
 #include <map>
 #include "FontChar.h"
 
-#include "MaterialInstance.h"
+#include "OldMaterialInstance.h"
 
 namespace OSK {
 
@@ -52,7 +52,7 @@ namespace OSK {
 		/// <summary>
 		/// Material de la fuente, para su renderizado.
 		/// </summary>
-		SharedPtr<MaterialInstance> fontMaterial;
+		SharedPtr<OldMaterialInstance> fontMaterial;
 
 	};
 

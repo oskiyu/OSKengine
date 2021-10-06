@@ -3,6 +3,7 @@
 #include "OSKmacros.h"
 
 #include "IToken.h"
+#include "OwnedPtr.h"
 
 #include <string>
 #include <vector>
@@ -26,7 +27,7 @@ namespace OSK::SceneSystem::Loader {
 		/// </summary>
 		/// <param name="code">Script de la escena.</param>
 		/// <returns>Tokens.</returns>
-		std::vector<IToken*>& GetTokens(const std::string& code);
+		std::vector<IToken*> GetTokens(const std::string& code);
 
 		/// <summary>
 		/// Devuelve la palabra siguiente en el script.
@@ -78,7 +79,7 @@ namespace OSK::SceneSystem::Loader {
 		/// <summary>
 		/// Tokens.
 		/// </summary>
-		std::vector<IToken*> tokens;
+		std::vector<OwnedPtr<IToken>> tokens;
 
 		/// <summary>
 		/// Contenido del archivo.

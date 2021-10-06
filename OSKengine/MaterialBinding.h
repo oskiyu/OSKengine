@@ -29,7 +29,7 @@ namespace OSK {
 		/// <summary>
 		/// Textura 2D.
 		/// </summary>
-		TEXTURE
+		TEXTURE,
 
 	};
 

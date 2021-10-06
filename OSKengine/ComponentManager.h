@@ -7,7 +7,7 @@
 
 #include "ComponentArray.h"
 #include "Component.h"
-
+#include "OwnedPtr.h"
 #include <unordered_map>
 
 namespace OSK::ECS {
@@ -92,7 +92,7 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Map nombre de componente -> array de componente.
 		/// </summary>
-		std::unordered_map<std::string, IComponentArray*> componentArray;
+		std::unordered_map<std::string, OwnedPtr<IComponentArray>> componentArray;
 
 		/// <summary>
 		/// ID del próximo componente a registrar.
@@ -107,7 +107,7 @@ namespace OSK::ECS {
 		template <typename T> ComponentArray<T>* GetComponentArray() {
 			std::string key = T::GetComponentName();
 
-			return (ComponentArray<T>*)componentArray.at(key);
+			return (ComponentArray<T>*)componentArray.at(key).GetPointer();
 		}
 
 	};

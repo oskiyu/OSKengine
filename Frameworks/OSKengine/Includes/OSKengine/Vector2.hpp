@@ -184,7 +184,7 @@ namespace OSK {
 		/// X = vec.X; Y = vec.Y.
 		/// </summary>
 		inline Vector2_t operator/(const Vector2_t& vec) const {
-			return Vector2(X / vec.X, Y / vec.Y);
+			return Vector2_t(X / vec.X, Y / vec.Y);
 		}
 
 		/// <summary>

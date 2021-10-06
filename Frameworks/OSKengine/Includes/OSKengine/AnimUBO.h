@@ -10,12 +10,12 @@
 namespace OSK {
 
 	/// <summary>
-	/// UBO que contiene información sobre los huesos de un modelo animado.
+	/// UBO que contiene informaciï¿½n sobre los huesos de un modelo animado.
 	/// </summary>
 	struct OSKAPI_CALL AnimUBO {
 
 		/// <summary>
-		/// UBO vaciío.
+		/// UBO vaciï¿½o.
 		/// </summary>
 		AnimUBO();
 

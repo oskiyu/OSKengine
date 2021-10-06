@@ -50,6 +50,12 @@ namespace OSK::VULKAN {
 		void SetDepthStencilAttachment(const RenderpassAttachment& attachment);
 
 		/// <summary>
+		/// Establece el attachment para resolver el MSAA.
+		/// </summary>
+		/// <param name="attachments">Attachments de color.</param>
+		void SetResolveAttachment(const RenderpassAttachment& attachment);
+
+		/// <summary>
 		/// Añade una dependencia al renderpass.
 		/// </summary>
 		/// <param name="dependency">Dependencia.</param>
@@ -66,6 +72,16 @@ namespace OSK::VULKAN {
 		/// Referencias de los attachments.
 		/// </summary>
 		std::vector<VkAttachmentReference> references{};
+
+		/// <summary>
+		/// Referencia del attachment de la imagen de profundidad.
+		/// </summary>
+		VkAttachmentReference depthReference;
+
+		/// <summary>
+		/// Referencia del attachment de color final, después de aplicar MSAA.
+		/// </summary>
+		VkAttachmentReference resolveReference;
 
 		/// <summary>
 		/// Dependencias.

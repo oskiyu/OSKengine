@@ -93,7 +93,7 @@ namespace OSK::Collision {
 		/// <summary>
 		/// Transform del colisionador.
 		/// </summary>
-		Transform& GetTransform();
+		Transform* GetTransform();
 
 	private:
 

@@ -16,13 +16,13 @@ ShadowMap::~ShadowMap() {
 }
 
 void ShadowMap::Clear() {
-	dirShadowsUniformBuffers.clear();
+	uboDirLightMat.GetBuffersRef().clear();
 }
 
 void ShadowMap::Create(const Vector2ui& size) {
 	this->size = size;
 
-	dirShadows = renderer->CreateNewRenderTarget();
+	dirShadows = renderer->CreateNewRenderTarget().GetPointer();
 	dirShadows->SetSize(size.X, size.Y);
 	dirShadows->CreateSprite(content);
 	dirShadows->CreateRenderpass();
@@ -35,15 +35,15 @@ void ShadowMap::Create(const Vector2ui& size) {
 
 void ShadowMap::CreateBuffers() {
 	VkDeviceSize size = sizeof(DirLightShadowUBO);
-	dirShadowsUniformBuffers.resize(renderer->swapchain->GetImageCount());
-	for (uint32_t i = 0; i < dirShadowsUniformBuffers.size(); i++) {
-		dirShadowsUniformBuffers[i] = new GpuDataBuffer;
-		renderer->AllocateBuffer(dirShadowsUniformBuffers[i].GetPointer(), size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+	uboDirLightMat.GetBuffersRef().resize(renderer->swapchain->GetImageCount());
+	for (uint32_t i = 0; i < uboDirLightMat.GetBuffersRef().size(); i++) {
+		uboDirLightMat.GetBuffersRef()[i] = new GpuDataBuffer;
+		renderer->AllocateBuffer(uboDirLightMat.GetBuffersRef()[i].GetPointer(), size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 	}
 }
 
 void ShadowMap::UpdateBuffers() {
-	for (auto& i : dirShadowsUniformBuffers)
+	for (auto& i : uboDirLightMat.GetBuffersRef())
 		i->Write(&dirShadowsUBO, sizeof(DirLightShadowUBO));
 }
 
@@ -53,10 +53,6 @@ void ShadowMap::Update() {
 	dirShadowsUBO.DirLightMat = lightProjection * lightView;
 }
 
-std::vector<SharedPtr<GpuDataBuffer>>& ShadowMap::GetUniformBuffers() {
-	return dirShadowsUniformBuffers;
-}
-
 RenderTarget* ShadowMap::GetRenderTarget() {
 	return dirShadows.GetPointer();
 }
@@ -64,4 +60,3 @@ RenderTarget* ShadowMap::GetRenderTarget() {
 Vector2ui ShadowMap::GetImageSize() const {
 	return size;
 }
-

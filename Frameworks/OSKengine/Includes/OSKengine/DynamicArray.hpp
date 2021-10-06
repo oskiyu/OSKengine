@@ -97,6 +97,8 @@ namespace OSK {
 		/// Crea el dynamic array con espacio para <InitialSize> elementos.
 		/// </summary>
 		DynamicArray() {
+			data = nullptr;
+
 			Allocate(initialSize);
 		}
 
@@ -105,6 +107,8 @@ namespace OSK {
 		/// </summary>
 		/// <param name="list">Elementos iniciales.</param>
 		DynamicArray(const std::initializer_list<T>& list) {
+			data = nullptr;
+
 			Allocate(list.size());
 
 			for (auto& i : list) {
@@ -117,6 +121,8 @@ namespace OSK {
 		/// </summary>
 		/// <param name="arr">Array que se va a copiar.</param>
 		DynamicArray(const DynamicArray& arr) {
+			data = nullptr;
+
 			CopyContentFrom(arr);
 		}
 
@@ -140,6 +146,8 @@ namespace OSK {
 		/// </summary>
 		/// <param name="arr">Array que quedará vacío.</param>
 		DynamicArray(DynamicArray&& arr) {
+			data = nullptr;
+
 			MoveContentFrom(arr);
 		}
 
@@ -231,6 +239,8 @@ namespace OSK {
 		/// <param name="size">Nuevo tamaño del array.</param>
 		inline void Resize(size_t size) {
 			Allocate(size);
+
+			this->size = size - 1;
 		}
 
 		/// <summary>

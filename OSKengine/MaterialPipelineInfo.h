@@ -119,7 +119,7 @@ namespace OSK {
 		/// Modo de cull de los polígonos.
 		/// Algunos polígonos pueden descartarse si dan la espalda a la cámara.
 		/// </summary>
-		PolygonCullMode cullMode = PolygonCullMode::FRONT;
+		PolygonCullMode cullMode = PolygonCullMode::NONE;
 
 		/// <summary>
 		/// Qué cara del polígono mira hacia delante.

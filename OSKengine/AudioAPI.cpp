@@ -6,28 +6,28 @@ namespace OSK {
 
 	void AudioSystem::OnCreate() {
 		device = alcOpenDevice(NULL);
-		if (device == NULL) {
+		if (!device.HasValue()) {
 			OSK::Logger::Log(LogMessageLevels::BAD_ERROR, "crear dispositivo de audo", __LINE__);
 			return;
 		}
 
-		context = alcCreateContext(device, NULL);
-		if (context == NULL) {
+		context = alcCreateContext(device.GetPointer(), NULL);
+		if (!context.HasValue()) {
 			OSK::Logger::Log(LogMessageLevels::BAD_ERROR, "crear contexto de audo", __LINE__);
 			return;
 		}
 
-		alcMakeContextCurrent(context);
+		alcMakeContextCurrent(context.GetPointer());
 	}
 
 
 	void AudioSystem::OnRemove() {
-		if (context != nullptr) {
+		if (!context.HasValue()) {
 			alcMakeContextCurrent(NULL);
-			alcDestroyContext(context);
+			alcDestroyContext(context.GetPointer());
 		}
-		if (device != nullptr) {
-			alcCloseDevice(device);
+		if (!device.HasValue()) {
+			alcCloseDevice(device.GetPointer());
 		}
 	}
 
@@ -40,7 +40,16 @@ namespace OSK {
 		alListener3f(AL_POSITION, camera->GetTransform()->GetPosition().X, camera->GetTransform()->GetPosition().Y, camera->GetTransform()->GetPosition().Z);
 
 		//Dirección.
-		float_t direction[6] = { camera->GetFrontVector().X, camera->GetFrontVector().Y, camera->GetFrontVector().Z, camera->GetUpVector().X, camera->GetUpVector().Y, camera->GetUpVector().Z };
+		float_t direction[6] = { 
+			camera->GetTransform()->GetForwardVector().X, 
+			camera->GetTransform()->GetForwardVector().Y, 
+			camera->GetTransform()->GetForwardVector().Z, 
+			
+			camera->GetTransform()->GetTopVector().X, 
+			camera->GetTransform()->GetTopVector().Y, 
+			camera->GetTransform()->GetTopVector().Z 
+		};
+
 		alListenerfv(AL_ORIENTATION, direction);
 	}
 
@@ -66,7 +75,11 @@ namespace OSK {
 		if (camera != nullptr)
 			audio.SetPosition(camera->GetTransform()->GetPosition());
 
-		alSourcei(audio.sourceID, AL_LOOPING, bucle);
+		int b = AL_TRUE;
+		if (!bucle)
+			b = AL_FALSE;
+
+		alSourcei(audio.sourceID, AL_LOOPING, b);
 		alSourcePlay(audio.sourceID);
 	}
 
