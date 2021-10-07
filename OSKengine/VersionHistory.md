@@ -143,6 +143,231 @@ Añadidos comentarios. Renderizado 3D.
 
 - Añadido soporte para el input del ratón sin aceleración.
 
+
+## Alpha 4 (2019.12.8b)
+
+Añadidos materiales. Renderizado de luces direccionales.
+
+###### RenderAPI
+
+- Material:
+  - Añadido, define cómo se renderiza un modelo.
+    - ID de la textura diffuse.
+    - ID de la textura specular.
+    - Color ambiente.
+    - Reflectancia.
+
+
+## Alpha 5 (2019.12.9a)
+
+Post-procesamiento.
+
+###### RenderAPI
+
+- RenderAPI:
+  - Ahora renderiza la imagen en un quad.
+  - Ahora tiene un renderpass para renderizar el quad final, que permite el uso de efectos de postprocesamiento.
+
+- PHONG SHADER SET:
+  - Ahora hay un shader de postprocesamiento para renderizar el quad final.
+    - Soporta antialiasing _FXAA_.
+
+
+## Alpha 6 (2019.12.17a)
+
+Añadidos Transform y luces puntuales.
+
+###### Types
+
+- Transform:
+  - Clase que almacena la posición, escala y rotación de un objeto.
+  - Puede 'atarse' a otro transform, con lo que hereda su posición y rotación.
+  - Al modificarse un transform, dicha modificación se transmite también a los transforms ahijados.
+    - Puede configurarse para que tambien se transmita la escala.
+  - Permite obtener el transform en una matriz, para renderizado de modelos.
+
+###### RenderAPI
+
+- PointLight:
+  - Contiene información sobre una luz puntual.
+    - Transform.
+    - Color.
+    - Intensidad.
+    - Radio.
+    - Variables de la luz: _constant_, _linear_ y _quadratic_.
+
+- Model:
+  - Ahora usa un transform.
+
+- Camera3D:
+  - Utiliza transform.
+    - No utiliza transform para girar.
+  - Renombrado _zoom_ a _FoV_.
+
+- RenderAPI:
+  - Permite renderizar luces puntuales.
+  - Permite renderizar un modelo con un transform que no es el suyo.
+
+###### AudioAPI
+
+- SoundEntity:
+  - Utiliza transform.
+
+
+## Alpha 7 (2019.12.18a)
+
+Renderizado de texto.
+
+###### Types:
+Añadidos `typedef`s para vectores.
+- `Vector2` (`glm::vec2`).
+- `Vector3` (`glm::vec3 `).
+- `Vector4` (`glm::vec4 `).
+- `Vector2i` (`glm::ivec2 `).
+- `Vector3i` (`glm::ivec3 `).
+- `Vector4i` (`glm::ivec4 `).
+
+###### RenderAPI
+
+- Font:
+  - Representa una fuente, para renderizar textos.
+    - Mapa _<'char' -> 'FontChar'>_.
+    - Tamaño de la fuente generada.
+- FontChar:
+  - Represnta el sprite de un carácter concreto de una fuente.
+    - ID de la textura de _OpenGL_.
+    - Tamaño del sprite.
+    - Variables del carácter de la fuente: tamaño y _bearing_.
+- Skybox:
+  - Representa un _cubemap_ que renderiza un skybox.
+- RenderAPI:
+  - Puede renderizar textos.
+  - Puede renderizar un skybox.
+
+###### ContentAPI
+
+- ContenAPI:
+  - Puede cargar un skybox.
+  - Puede cargar una fuente.
+    - Las texturas se generan a partir del archivo de la fuente.
+
+
+## Alpha 8 (2019.12.19a)
+
+###### OSKmacros
+
+- Añadidos macros para poder documentar el código:
+  - `OSK_INFO_STATIC`
+  - `OSK_INFO_GLOBAL`
+  - `OSK_INFO_NOT_DEVELOPED_`
+  - `OSK_INFO_WIP`
+  - `OSK_INFO_OBSOLETE`
+  - `OSK_INFO_READ_ONLY_`
+  - `OSK_INFO_DO_NOT_TOUCH`
+  - `OSK_NOT_IMPLEMENTED_`
+
+###### WindowAPI
+
+- WindowAPI:
+  - Añadido soporte para pantalla completa.
+  - Añadido soporte para activar o desactivar la sincronización vertical.
+  - Ahora tiene menos métodos estáticos.
+
+###### RenderAPI
+- RenderAPI:
+  - Añadido sistema de resolución dinámica:
+    - Puede activarse o desactivarse.
+    - Al cambiar la resolución de la pantalla, también cambia el área renderizada.
+
+###### Utils
+- ToString:
+  - Añadidos métodos ToString para todos los vectores.
+
+###### Bugfixes
+
+- **Bugfix**: ahora se actualiza el viewport correctamente al cambiar de tamaño la ventana.
+
+
+## Alpha 9 (2019.12.21a)
+
+###### RenderAPI
+- RenderAPI:
+  - Puede renderizar texturas (sprites).
+  - Añadido error-handling.
+  - DrawString:
+    - Punto de anclaje.
+    - Acción cuando el texto se sale de la pantalla:
+      - Newline.
+      - Mover texto hacia la izquierda.
+    - Soporte para tabulaciones.
+
+###### ContentAPI
+- ContentAPI:
+  - Al cargar un recurso, dicho recurso se marca como cargado.
+
+
+## Alpha 10 (2020.1.18a)
+
+###### Types
+- Color:
+  - Representa un color en formato `RGBA`.
+  - Permite ser multiplicado por un `float`, lo cual cambia el alpha.
+
+###### ContentAPI
+- Formato `<.xd>` (**WIP!**):
+  - Formato binario para cargar y guardar texturas.
+  - Sin compresión.
+  - En modo `DEBUG` se guarda cada textura cargada en formato `.xd`.
+  - En modo `RELEASE` se cargan las texturas en formato `.xd`.
+- ContentAPI:
+  - Permite cargar shaders dado su código como un string.
+
+
+## Alpha 11 (2020.2.12a)
+
+Sistema de animaciones.
+
+###### RenderAPI
+
+- ###### Sistema de animaciones:
+    - Animation:
+      - Contiene información básica de una animación:
+        - Nombre.
+        - Inicio y fin.
+        - Velocidad.
+        - Loop.
+      - No contiene la propia animación.
+    - Bone:
+      - Representa un hueso de un modelo animado.
+      - Almacena información de la animación.
+      - Permite modificar su transform dependiendo de la animación actual y del punto en el tiempo.
+    - Skeleton:
+      - Contiene los huesos de un modelo animado.
+      - Permite establecer la animación.
+      - Actualiza los transforms de los huesos.
+- RenderAPI:
+  - Permite renderizar modelos animados.
+  - Permite renderizar texturas giradas.
+
+###### ContentAPI
+- ContentAPI:
+  - Puede cargar modelos animados.
+
+
+## Alpha 12 (2020.2.17a)
+
+###### Types
+- Vector2:
+  - Añadido, junto a sus operadores.
+  - Precisión: `float`.
+- Vector3:
+  - Añadido, junto a sus operadores.
+  - Precisión: `float`.
+- Vector4:
+  - Añadido, junto a sus operadores.
+  - Precisión: `float`.
+
+
 ## 2020.10.13a
 
 ###### CollisionSystem:
@@ -1168,7 +1393,7 @@ Por defecto renderiza con el máximo nivel de MSAA soportado.
   - Ahora comprueba siempre si existen los archivos antes de intentar cargarlos.
 
 
-## 2021.10.6a
+## Alpha 18 (2021.10.6a)
 
 Primera parte del nuevo sistema de materiales.
 
