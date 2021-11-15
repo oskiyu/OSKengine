@@ -95,6 +95,7 @@ namespace OSK {
 		void Close() override;
 
 		OwnedPtr<ICommandPool> CreateCommandPool() override;
+		OwnedPtr<ISyncDevice> CreateSyncDevice() override;
 
 		void SetPhysicalDevice(VkPhysicalDevice gpu);
 		VkPhysicalDevice GetPhysicalDevice() const;

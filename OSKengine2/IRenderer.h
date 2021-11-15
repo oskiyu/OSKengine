@@ -14,6 +14,7 @@ namespace OSK {
 	class ICommandList;
 	class ISwapchain;
 	class ICommandQueue;
+	class ISyncDevice;
 
 	/// <summary>
 	/// Proporciona la interfaz de un renderizador.
@@ -43,6 +44,8 @@ namespace OSK {
 		/// </summary>
 		virtual void Close() = 0;
 
+		virtual void PresentFrame() = 0;
+
 		ICommandList* GetCommandList() const;
 
 		/// <summary>
@@ -59,6 +62,7 @@ namespace OSK {
 
 		virtual void CreateCommandQueues() = 0;
 		virtual void CreateSwapchain() = 0;
+		virtual void CreateSyncDevice() = 0;
 
 		UniquePtr<IGpu> currentGpu;
 
@@ -66,6 +70,7 @@ namespace OSK {
 		UniquePtr<ICommandQueue> presentQueue;
 
 		UniquePtr<ISwapchain> swapchain;
+		UniquePtr<ISyncDevice> syncDevice;
 
 		UniquePtr<ICommandPool> commandPool;
 		UniquePtr<ICommandList> commandList;

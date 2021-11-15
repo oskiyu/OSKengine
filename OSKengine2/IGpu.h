@@ -6,6 +6,7 @@
 namespace OSK {
 
 	class ICommandPool;
+	class ISyncDevice;
 
 	/// <summary>
 	/// Interfaz de una tarjeta gráfica.
@@ -19,6 +20,7 @@ namespace OSK {
 		virtual ~IGpu() = default;
 
 		virtual OwnedPtr<ICommandPool> CreateCommandPool() = 0;
+		virtual OwnedPtr<ISyncDevice> CreateSyncDevice() = 0;
 
 		virtual void Close() = 0;
 

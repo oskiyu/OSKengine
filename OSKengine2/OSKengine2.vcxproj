@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Assert.cpp" />
     <ClCompile Include="CommandListDx12.cpp" />
+    <ClCompile Include="CommandListOgl.cpp" />
     <ClCompile Include="CommandListVulkan.cpp" />
     <ClCompile Include="CommandPoolDx12.cpp" />
     <ClCompile Include="CommandPoolVulkan.cpp" />
@@ -43,11 +44,14 @@
     <ClCompile Include="RendererVulkan.cpp" />
     <ClCompile Include="SwapchainDx12.cpp" />
     <ClCompile Include="SwapchainVulkan.cpp" />
+    <ClCompile Include="SyncDeviceDx12.cpp" />
+    <ClCompile Include="SyncDeviceVulkan.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assert.h" />
     <ClInclude Include="CommandListDx12.h" />
+    <ClInclude Include="CommandListOgl.h" />
     <ClInclude Include="CommandListVulkan.h" />
     <ClInclude Include="CommandPoolDx12.h" />
     <ClInclude Include="CommandPoolVulkan.h" />
@@ -64,6 +68,7 @@
     <ClInclude Include="IGpu.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="ISwapchain.h" />
+    <ClInclude Include="ISyncDevice.h" />
     <ClInclude Include="KeyboardState.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MouseState.h" />
@@ -78,6 +83,8 @@
     <ClInclude Include="SharedPtr.hpp" />
     <ClInclude Include="SwapchainDx12.h" />
     <ClInclude Include="SwapchainVulkan.h" />
+    <ClInclude Include="SyncDeviceDx12.h" />
+    <ClInclude Include="SyncDeviceVulkan.h" />
     <ClInclude Include="UniquePtr.hpp" />
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector3.hpp" />

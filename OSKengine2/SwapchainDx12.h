@@ -33,6 +33,8 @@ namespace OSK {
 		/// de DirectX 12 fuerza un flush de la cola de comandos.</param>
 		void Create(Format format, const CommandQueueDx12& commandQueue, IDXGIFactory4* factory, const Window& window);
 
+		IDXGISwapChain3* GetSwapchain() const;
+
 	private:
 
 		ComPtr<IDXGISwapChain3> swapchain;

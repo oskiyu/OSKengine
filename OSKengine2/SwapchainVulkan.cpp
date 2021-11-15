@@ -9,6 +9,10 @@
 using namespace OSK;
 
 void SwapchainVulkan::Create(Format format, const GpuVulkan& device, const Window& window) {
+	this->window = &window;
+	this->device = &device;
+	this->format = format;
+
 	auto info = device.GetInfo();
 	
 	//Formato del swapchain.
@@ -64,6 +68,14 @@ void SwapchainVulkan::Create(Format format, const GpuVulkan& device, const Windo
 	//Crearlo y error-handling.
 	VkResult result = vkCreateSwapchainKHR(device.GetLogicalDevice(), &createInfo, nullptr, &swapchain);
 	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear el swapchain. Code: " + std::to_string(result));
+}
+
+VkSwapchainKHR SwapchainVulkan::GetSwapchain() const {
+	return swapchain;
+}
+
+void SwapchainVulkan::Resize() {
+	Create(format, *device, *window);
 }
 
 VkColorSpaceKHR SwapchainVulkan::GetSupportedColorSpace(const GpuVulkan& device) {

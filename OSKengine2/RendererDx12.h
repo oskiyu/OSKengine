@@ -26,10 +26,13 @@ namespace OSK {
 		void Initialize(const std::string& appName, const Version& version, const Window& window) override;
 		void Close() override;
 
+		void PresentFrame() override;
+
 	protected:
 
 		void CreateCommandQueues() override;
 		void CreateSwapchain() override;
+		void CreateSyncDevice() override;
 
 	private:
 

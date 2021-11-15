@@ -30,6 +30,10 @@ namespace OSK {
 		const std::vector<VkCommandBuffer>& GetCommandBuffers() const;
 		std::vector<VkCommandBuffer>* GetCommandBuffers();
 
+		void Reset() override;
+		void Start() override;
+		void Close() override;
+
 	private:
 
 		std::vector<VkCommandBuffer> commandBuffers;

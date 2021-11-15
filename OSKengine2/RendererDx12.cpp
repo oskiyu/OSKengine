@@ -11,11 +11,13 @@
 #include "GpuDx12.h"
 #include "CommandQueueDx12.h"
 #include "Assert.h"
-#include "ICommandPool.h"
+#include "CommandPoolDx12.h"
+#include "CommandListDx12.h"
 #include "SwapchainDx12.h"
 #include "Window.h"
 #include "Format.h"
 #include "Version.h"
+#include "SyncDeviceDx12.h"
 
 using namespace OSK;
 
@@ -43,6 +45,7 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	ChooseGpu();
 	CreateCommandQueues();
 	CreateSwapchain();
+	CreateSyncDevice();
 }
 
 void RendererDx12::Close() {
@@ -82,7 +85,7 @@ void RendererDx12::ChooseGpu() {
 }
 
 void RendererDx12::CreateCommandQueues() {
-	graphicsQueue = new CommandQueueDx12();
+	graphicsQueue = new CommandQueueDx12;
 
 	ComPtr<ID3D12CommandQueue> commandQ;
 
@@ -117,6 +120,7 @@ void RendererDx12::CreateCommandQueues() {
 	Engine::GetLogger()->InfoLog("Creada el pool de comandos.");
 
 	commandList = commandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
+	commandList->As<CommandListDx12>()->SetCommandPool(*commandPool->As<CommandPoolDx12>());
 	Engine::GetLogger()->InfoLog("Creada la lista de comandos.");
 }
 
@@ -126,4 +130,24 @@ void RendererDx12::CreateSwapchain() {
 	swapchain->As<SwapchainDx12>()->Create(Format::RGBA8_UNORM, *graphicsQueue->As<CommandQueueDx12>(), factory.Get(), *window);
 
 	Engine::GetLogger()->InfoLog("Creado el swapchain.");
+}
+
+void RendererDx12::CreateSyncDevice() {
+	syncDevice = currentGpu->As<GpuDx12>()->CreateSyncDevice().GetPointer();
+}
+
+void RendererDx12::PresentFrame() {
+	syncDevice->As<SyncDeviceDx12>()->Await();
+
+	commandList->Close();
+
+	ID3D12CommandList* commandLists[] = {commandList->As<CommandListDx12>()->GetCommandList()};
+	graphicsQueue->As<CommandQueueDx12>()->GetCommandQueue()->ExecuteCommandLists(1, commandLists);
+
+	swapchain->As<SwapchainDx12>()->GetSwapchain()->Present(1, 0);
+
+	syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
+
+	commandList->Reset();
+	commandList->Start();
 }

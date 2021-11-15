@@ -16,6 +16,14 @@ namespace OSK {
 
 		~ICommandList() = default;
 
+		template <typename T> T* As() const {
+			return (T*)this;
+		}
+
+		virtual void Reset() = 0;
+		virtual void Start() = 0;
+		virtual void Close() = 0;
+
 	};
 
 }

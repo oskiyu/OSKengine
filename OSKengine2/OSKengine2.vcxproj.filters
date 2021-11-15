@@ -91,6 +91,12 @@
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\Texture">
       <UniqueIdentifier>{e9d57652-d454-4207-bbf6-83a1bb7ecc3a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\RenderAPI\Sync">
+      <UniqueIdentifier>{d74f7f95-ecb0-452a-aca5-0cd5dbb27805}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\Sync">
+      <UniqueIdentifier>{31c8949e-2de3-4949-9a9d-12bc91f202df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -167,6 +173,15 @@
     </ClCompile>
     <ClCompile Include="glad.c">
       <Filter>Archivos de origen\ThirdParty</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandListOgl.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Commands\List</Filter>
+    </ClCompile>
+    <ClCompile Include="SyncDeviceDx12.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Sync</Filter>
+    </ClCompile>
+    <ClCompile Include="SyncDeviceVulkan.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\Sync</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -283,6 +298,18 @@
     </ClInclude>
     <ClInclude Include="FormatVulkan.h">
       <Filter>Archivos de encabezado\RenderAPI\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandListOgl.h">
+      <Filter>Archivos de encabezado\RenderAPI\Commands\List</Filter>
+    </ClInclude>
+    <ClInclude Include="ISyncDevice.h">
+      <Filter>Archivos de encabezado\RenderAPI\Sync</Filter>
+    </ClInclude>
+    <ClInclude Include="SyncDeviceDx12.h">
+      <Filter>Archivos de encabezado\RenderAPI\Sync</Filter>
+    </ClInclude>
+    <ClInclude Include="SyncDeviceVulkan.h">
+      <Filter>Archivos de encabezado\RenderAPI\Sync</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -36,3 +36,7 @@ void SwapchainDx12::Create(Format format, const CommandQueueDx12& commandQueue, 
 
     swapchainTemp.As(&swapchain);
 }
+
+IDXGISwapChain3* SwapchainDx12::GetSwapchain() const {
+    return swapchain.Get();
+}

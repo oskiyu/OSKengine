@@ -16,6 +16,8 @@ int main() {
 
 	while (!Engine::GetWindow()->ShouldClose()) {
 		Engine::GetWindow()->Update();
+
+		Engine::GetRenderer()->PresentFrame();
 	}
 
 	Engine::Close();

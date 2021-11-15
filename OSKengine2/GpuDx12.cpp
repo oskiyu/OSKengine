@@ -1,6 +1,7 @@
 #include "GpuDx12.h"
 
 #include "CommandPoolDx12.h"
+#include "SyncDeviceDx12.h"
 
 using namespace OSK;
 
@@ -19,6 +20,19 @@ OwnedPtr<ICommandPool> GpuDx12::CreateCommandPool() {
 	device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&commandAllocator));
 
 	output->SetCommandPool(commandAllocator);
+
+	return output;
+}
+
+OwnedPtr<ISyncDevice> GpuDx12::CreateSyncDevice() {
+	auto output = new SyncDeviceDx12;
+
+	ComPtr<ID3D12Fence> fence;
+	device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fence));
+	HANDLE fenceEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
+
+	output->SetFence(fence);
+	output->SetFenceEvent(fenceEvent);
 
 	return output;
 }

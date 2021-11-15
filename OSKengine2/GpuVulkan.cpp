@@ -4,6 +4,7 @@
 #include "Assert.h"
 #include <set>
 #include "CommandPoolVulkan.h"
+#include "SyncDeviceVulkan.h"
 
 using namespace OSK;
 
@@ -143,6 +144,47 @@ QueueFamilyIndices GpuVulkan::GetQueueFamilyIndices(VkSurfaceKHR surface) const 
 	}
 
 	return indices;
+}
+
+OwnedPtr<ISyncDevice> GpuVulkan::CreateSyncDevice() {
+	auto output = new SyncDeviceVulkan;
+
+	std::vector<VkSemaphore> imageAvailableSemaphores(3);
+	std::vector<VkSemaphore> renderFinishedSemaphores(3);
+
+	std::vector<VkFence> inFlightFences(3);
+	std::vector<VkFence> imagesInFlight(3, nullptr);
+
+	VkSemaphoreCreateInfo semaphoreInfo{};
+	semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+
+	VkFenceCreateInfo fenceInfo{};
+	fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+	fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
+
+	for (size_t i = 0; i < 3; i++) {
+		VkResult result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &imageAvailableSemaphores[i]);
+		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el semáforo.");
+		
+		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &renderFinishedSemaphores[i]);
+		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el semáforo.");
+
+		result = vkCreateFence(logicalDevice, &fenceInfo, nullptr, &inFlightFences[i]); 
+		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el fence.");
+	}
+
+	std::vector<VkFence> fences(3);
+
+	for (uint32_t i = 0; i < 3; i++)
+		vkCreateFence(logicalDevice, &fenceInfo, nullptr, &fences[i]);
+
+	output->SetImageAvailableSemaphores(imageAvailableSemaphores);
+	output->SetRenderFinishedSemaphores(renderFinishedSemaphores);
+	output->SetImagesInFlightFences(imagesInFlight);
+	output->SetInFlightFences(inFlightFences);
+	output->SetFences(fences);
+
+	return output;
 }
 
 GpuVulkan::Info GpuVulkan::Info::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface) {

@@ -13,6 +13,7 @@
 #include "Format.h"
 #include "SwapchainVulkan.h"
 #include "Version.h"
+#include "SyncDeviceVulkan.h"
 
 #include <GLFW/glfw3.h>
 #include <set>
@@ -74,6 +75,7 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	ChooseGpu();
 	CreateCommandQueues();
 	CreateSwapchain();
+	CreateSyncDevice();
 }
 
 void RendererVulkan::Close() {
@@ -264,4 +266,24 @@ bool RendererVulkan::AreValidationLayersAvailable() const {
 	}
 
 	return true;
+}
+
+void RendererVulkan::CreateSyncDevice() {
+	syncDevice = currentGpu->As<GpuVulkan>()->CreateSyncDevice().GetPointer();
+
+	syncDevice->As<SyncDeviceVulkan>()->SetDevice(*currentGpu->As<GpuVulkan>());
+	syncDevice->As<SyncDeviceVulkan>()->SetSwapchain(*swapchain->As<SwapchainVulkan>());
+}
+
+void RendererVulkan::PresentFrame() {
+	commandList->Close();
+
+	syncDevice->As<SyncDeviceVulkan>()->FirstAwait();
+	auto result = syncDevice->As<SyncDeviceVulkan>()->UpdateCurrentFrameIndex();
+	if (result)
+		return;
+	syncDevice->As<SyncDeviceVulkan>()->Flush(*graphicsQueue->As<CommandQueueVulkan>() , *presentQueue->As<CommandQueueVulkan>(), *commandList->As<CommandListVulkan>());
+
+	commandList->Reset();
+	commandList->Start();
 }

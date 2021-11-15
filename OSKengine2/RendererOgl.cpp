@@ -31,3 +31,11 @@ void RendererOgl::CreateSwapchain() {
 void RendererOgl::CreateCommandQueues() {
 
 }
+
+void RendererOgl::PresentFrame() {
+
+}
+
+void RendererOgl::CreateSyncDevice() {
+
+}

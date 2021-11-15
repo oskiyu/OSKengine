@@ -23,6 +23,9 @@ namespace OSK {
 		/// tamaño de la ventana.
 		/// </summary>
 		void Create(Format format, const GpuVulkan& device, const Window& window);
+		void Resize();
+
+		VkSwapchainKHR GetSwapchain() const;
 
 	private:
 
@@ -32,6 +35,10 @@ namespace OSK {
 		static VkColorSpaceKHR GetSupportedColorSpace(const GpuVulkan& device);
 
 		VkSwapchainKHR swapchain;
+		const Window* window = nullptr;
+		const GpuVulkan* device = nullptr;
+
+		Format format;
 
 	};
 

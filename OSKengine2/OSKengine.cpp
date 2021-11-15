@@ -76,7 +76,7 @@ const Version& Engine::GetVersion() {
 }
 
 const std::string& Engine::GetBuild() {
-	static std::string build = "2021.11.14a";
+	static std::string build = "2021.11.15a";
 
 	return build;
 }
