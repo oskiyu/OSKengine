@@ -1,7 +1,6 @@
 #pragma once
 
 #include "IRenderer.h"
-#include "ICommandQueue.h"
 #include "UniquePtr.hpp"
 
 struct VkInstance_T;

@@ -96,9 +96,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Dev\GLAD\src\glad.c">
-      <Filter>Archivos de origen\ThirdParty</Filter>
-    </ClCompile>
     <ClCompile Include="KeyboardState.cpp">
       <Filter>Archivos de origen\OSKengine\WindowAPI</Filter>
     </ClCompile>
@@ -167,6 +164,9 @@
     </ClCompile>
     <ClCompile Include="SwapchainVulkan.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\Swapchain</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
+      <Filter>Archivos de origen\ThirdParty</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -26,8 +26,8 @@
     <ClCompile Include="CommandPoolVulkan.cpp" />
     <ClCompile Include="CommandQueueDx12.cpp" />
     <ClCompile Include="CommandQueueVulkan.cpp" />
-    <ClCompile Include="D:\Dev\GLAD\src\glad.c" />
     <ClCompile Include="Format.cpp" />
+    <ClCompile Include="glad.c" />
     <ClCompile Include="GpuDx12.cpp" />
     <ClCompile Include="GpuVulkan.cpp" />
     <ClCompile Include="ISwapchain.cpp" />
