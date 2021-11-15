@@ -1,0 +1,28 @@
+#pragma once
+
+#include "OSKmacros.h"
+#include "IRenderer.h"
+
+namespace OSK {
+
+	/// <summary>
+	/// Implementación de la interfaz para el renderizador de OpenGL.
+	/// </summary>
+	class RendererOgl : public IRenderer {
+
+	public:
+
+		void Initialize(const std::string& appName, const Version& version, const Window& window) override;
+
+		void Close() override;
+
+	protected:
+
+		void CreateCommandQueues() override;
+		void CreateSwapchain() override;
+
+	private:
+
+	};
+
+}
