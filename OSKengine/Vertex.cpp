@@ -12,9 +12,9 @@ namespace OSK {
 		return bindingDescription;
 	}
 
-
-	std::array<VkVertexInputAttributeDescription, OSK_VERTEX_ATTRIBUTES_COUNT> Vertex::GetAttributeDescriptions_FullVertex() {
-		std::array<VkVertexInputAttributeDescription, OSK_VERTEX_ATTRIBUTES_COUNT> attributeDesc{};
+	std::vector<VkVertexInputAttributeDescription> Vertex::GetAttributeDescriptions() {
+		std::vector<VkVertexInputAttributeDescription> attributeDesc{};
+		attributeDesc.resize(OSK_VERTEX_ATTRIBUTES_COUNT);
 
 		//Posición.
 		attributeDesc[0].binding = 0;
@@ -52,6 +52,29 @@ namespace OSK {
 		attributeDesc[5].location = 5;
 		attributeDesc[5].format = VK_FORMAT_R32G32B32A32_SINT;
 		attributeDesc[5].offset = offsetof(Vertex, bondeIDs);
+
+		return attributeDesc;
+	}
+
+	VkVertexInputBindingDescription Vertex2D::GetBindingDescription() {
+		VkVertexInputBindingDescription bindingDescription{};
+
+		bindingDescription.binding = 0;
+		bindingDescription.stride = sizeof(Vertex2D);
+		bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+
+		return bindingDescription;
+	}
+
+	std::vector<VkVertexInputAttributeDescription> Vertex2D::GetAttributeDescriptions() {
+		std::vector<VkVertexInputAttributeDescription> attributeDesc{};
+		attributeDesc.resize(OSK_VERTEX2D_ATTRIBUTES_COUNT);
+
+		//Posición.
+		attributeDesc[0].binding = 0;
+		attributeDesc[0].location = 0;
+		attributeDesc[0].format = VK_FORMAT_R32G32_SFLOAT;
+		attributeDesc[0].offset = offsetof(Vertex2D, position);
 
 		return attributeDesc;
 	}

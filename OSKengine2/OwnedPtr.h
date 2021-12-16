@@ -5,7 +5,7 @@
 
 /// <summary>
 /// Es dueño de un puntero.
-/// El puntero original NO es eliminado al destruirse el UniquePtr.
+/// El puntero original NO es eliminado al destruirse el OwnedPtr.
 /// </summary>
 /// <typeparam name="T">Tipo del puntero.</typeparam>
 template <typename T> class OwnedPtr {

@@ -5,7 +5,14 @@
 #include "Transform2D.h"
 #include <glm.hpp>
 
+#include "UniformBuffer.h"
+#include "MaterialInstance.h"
+
 namespace OSK {
+
+	struct UboCamera2D {
+		alignas(16) glm::mat4 cameraMatrix;
+	};
 
 	/// <summary>
 	/// Cámara para un mundo de dos dimensiones.
@@ -18,15 +25,12 @@ namespace OSK {
 	public:
 
 		/// <summary>
-		/// Crea la cámara por defecto.
-		/// </summary>
-		Camera2D();
-
-		/// <summary>
 		/// Crea una cámara, para esta ventana.
 		/// </summary>
 		/// <param name="window">Ventana renderizada.</param>
 		Camera2D(WindowAPI* window);
+
+		~Camera2D();
 
 		/// <summary>
 		/// Actualiza los valores de la cámara.
@@ -61,6 +65,14 @@ namespace OSK {
 		/// </summary>
 		Vector2 targetSize{};
 
+		SharedPtr<UniformBuffer> GetUniformBuffer() {
+			return cameraBuffer;
+		}
+
+		MaterialInstance* GetCameraMaterial() const {
+			return cameraMaterial.GetPointer();
+		}
+
 	private:
 
 		/// <summary>
@@ -77,6 +89,9 @@ namespace OSK {
 		/// Matriz de la cámara.
 		/// </summary>
 		glm::mat4 projection;
+
+		SharedPtr<UniformBuffer> cameraBuffer = new UniformBuffer;
+		OwnedPtr<MaterialInstance> cameraMaterial = nullptr;
 
 	};
 

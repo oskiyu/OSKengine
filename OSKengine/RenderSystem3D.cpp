@@ -27,7 +27,7 @@ void RenderSystem3D::OnTick(deltaTime_t deltaTime) {
 		for (auto& model : comp.GetAnimatedModels()) {
 			model.Update(deltaTime);
 
-			model.UpdateAnimUBO(renderScene->uboBones.GetBuffersRef());
+			model.UpdateAnimUBO(renderScene->uboBones->GetBuffersRef());
 		}
 	}
 }
@@ -71,34 +71,38 @@ void RenderSystem3D::OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) {
 		renderScene->EndDraw(cmdBuffer, i);
 	}
 
+	vkCmdBindIndexBuffer(cmdBuffer, Sprite::indexBuffer->memorySubblock->GetNativeGpuBuffer(), Sprite::indexBuffer->memorySubblock->GetOffset(), VK_INDEX_TYPE_UINT16);
+	const uint32_t indicesSize = (uint32_t)Sprite::indices.size();
+	VkBuffer vertexBuffers[] = { Sprite::vertexBuffer->memorySubblock->GetNativeGpuBuffer() };
+	VkDeviceSize offsets[] = { 0 };
+	vkCmdBindVertexBuffers(cmdBuffer, 0, 1, vertexBuffers, offsets);
+
 	for (auto& spriteBatch : renderStage.spriteBatches) {
 
-		if (!spriteBatch->spritesToDraw.IsEmpty()) {
+		if (!spriteBatch->spritesToDraw.empty()) {
 			GraphicsPipeline* pipeline = renderer->GetMaterialSystem()->GetMaterial(MPIPE_2D)->GetGraphicsPipeline(renderer->GetMainRenderTarget()->renderpass.GetPointer());
 			pipeline->Bind(cmdBuffer);
 
-			vkCmdBindIndexBuffer(cmdBuffer, Sprite::indexBuffer->memorySubblock->GetNativeGpuBuffer(), Sprite::indexBuffer->memorySubblock->GetOffset(), VK_INDEX_TYPE_UINT16);
-			const uint32_t indicesSize = (uint32_t)Sprite::indices.size();
-
 			DescriptorSet* previousDescSet = nullptr;
 
-			for (auto& sprite : spriteBatch->spritesToDraw) {
-				if (!sprite.spriteMaterial->HasBeenSet())
-					continue;
+			for (auto& spritePass : spriteBatch->spritesToDraw) {
+				spritePass.camera->GetCameraMaterial()->GetMaterialSlotData(MSLOT_CAMERA_2D)->Bind(cmdBuffer, pipeline, i);
 
-				VkBuffer vertexBuffers[] = { sprite.vertexBuffer };
-				VkDeviceSize offsets[] = { sprite.bufferOffset };
-				vkCmdBindVertexBuffers(cmdBuffer, 0, 1, vertexBuffers, offsets);
+				for (auto& sprite : spritePass.spritesToDraw) {
+					if (!sprite.material->HasBeenSet())
+						continue;
 
-				DescriptorSet* newDescSet = sprite.spriteMaterial->GetMaterialSlot(MSLOT_TEXTURE_2D)->GetDescriptorSet();
-				if (previousDescSet != newDescSet) {
-					previousDescSet = newDescSet;
-					newDescSet->Bind(cmdBuffer, pipeline, i);
+
+					DescriptorSet* newDescSet = sprite.material->GetMaterialSlotData(MSLOT_TEXTURE_2D)->GetDescriptorSet();
+					if (previousDescSet != newDescSet) {
+						previousDescSet = newDescSet;
+						sprite.material->GetMaterialSlotData(MSLOT_TEXTURE_2D)->Bind(cmdBuffer, pipeline, i);
+					}
+
+					PushConst2D pConst = sprite.getPushConst();
+					vkCmdPushConstants(cmdBuffer, pipeline->vulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
+					vkCmdDrawIndexed(cmdBuffer, indicesSize, 1, 0, 0, 0);
 				}
-
-				PushConst2D pConst = sprite.pushConst;
-				vkCmdPushConstants(cmdBuffer, pipeline->vulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
-				vkCmdDrawIndexed(cmdBuffer, indicesSize, 1, 0, 0, 0);
 			}
 		}
 	}

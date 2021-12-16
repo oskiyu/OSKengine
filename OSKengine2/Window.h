@@ -25,9 +25,7 @@ namespace OSK {
 	/// Esta clase debe usarse de manera estática, accediendo a ella mediante
 	/// la función GetWindow().
 	/// </summary>
-	class Window {
-
-		friend class RendererVulkan;
+	class OSKAPI_CALL Window {
 
 	public:
 

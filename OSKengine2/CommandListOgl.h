@@ -11,6 +11,7 @@ namespace OSK {
 		void Reset() override;
 		void Start() override;
 		void Close() override;
+		void TransitionImageLayout(GpuImage*, GpuImageLayout, GpuImageLayout) override;
 
 	};
 

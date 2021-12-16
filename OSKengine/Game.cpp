@@ -55,7 +55,7 @@ void Game::Init() {
 	SetupSystems();
 
 	spriteBatch = GetRenderer()->CreateSpriteBatch();
-	spriteBatch.SetCamera(&GetRenderer()->defaultCamera2D);
+	spriteBatch.SetCamera(GetRenderer()->GetDefaultCamera2D());
 	renderSystem3D->renderStage.AddSpriteBatch(&spriteBatch);
 
 	entityComponentSystem->RegisterGameObjectClass<OSK::GameObject>();

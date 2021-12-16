@@ -33,6 +33,12 @@ namespace OSK {
 		void Start() override;
 		void Close() override;
 
+		void BeginRenderpass(IRenderpass* renderpass) override {}
+		void BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) override{}
+		void EndRenderpass(IRenderpass* renderpass) override{}
+
+		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) override;
+
 	private:
 
 		ComPtr<ID3D12GraphicsCommandList> commandList;

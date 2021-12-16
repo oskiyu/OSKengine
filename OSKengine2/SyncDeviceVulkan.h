@@ -2,7 +2,7 @@
 
 #include "ISyncDevice.h"
 
-#include <vector>
+#include "DynamicArray.hpp"
 
 struct VkFence_T;
 typedef VkFence_T* VkFence;
@@ -20,13 +20,13 @@ namespace OSK {
 
 	public:
 
-		void SetImageAvailableSemaphores(const std::vector<VkSemaphore>& semaphores);
-		void SetRenderFinishedSemaphores(const std::vector<VkSemaphore>& semaphores);
+		~SyncDeviceVulkan();
 
-		void SetInFlightFences(const std::vector<VkFence>& fences);
-		void SetImagesInFlightFences(const std::vector<VkFence>& fences);
+		void SetImageAvailableSemaphores(const DynamicArray<VkSemaphore>& semaphores);
+		void SetRenderFinishedSemaphores(const DynamicArray<VkSemaphore>& semaphores);
 
-		void SetFences(const std::vector<VkFence>& fences);
+		void SetInFlightFences(const DynamicArray<VkFence>& fences);
+		void SetImagesInFlightFences(const DynamicArray<VkFence>& fences);
 
 		void SetDevice(const GpuVulkan& device);
 		void SetSwapchain(const SwapchainVulkan& swapchain);
@@ -37,13 +37,11 @@ namespace OSK {
 
 	private:
 
-		std::vector<VkSemaphore> imageAvailableSemaphores;
-		std::vector<VkSemaphore> renderFinishedSemaphores;
+		DynamicArray<VkSemaphore> imageAvailableSemaphores;
+		DynamicArray<VkSemaphore> renderFinishedSemaphores;
 
-		std::vector<VkFence> inFlightFences;
-		std::vector<VkFence> imagesInFlight;
-
-		std::vector<VkFence> fences;
+		DynamicArray<VkFence> inFlightFences;
+		DynamicArray<VkFence> imagesInFlight;
 
 		unsigned int currentFrame = 0;
 		unsigned int nextFrame = 0;

@@ -42,7 +42,7 @@ namespace OSK {
 	}
 
 	GraphicsPipeline::~GraphicsPipeline() {
-		clearShaders();
+		ClearShaders();
 
 		if (vulkanPipeline != VK_NULL_HANDLE) {
 			vkDestroyPipeline(logicalDevice, vulkanPipeline, nullptr);
@@ -52,6 +52,10 @@ namespace OSK {
 			vkDestroyPipelineLayout(logicalDevice, vulkanPipelineLayout, nullptr);
 			vulkanPipelineLayout = VK_NULL_HANDLE;
 		}
+	}
+
+	void GraphicsPipeline::SetVertexType(RenderType vType) {
+		vertexType = vType;
 	}
 
 	void GraphicsPipeline::SetViewport(const Vector4& size, const Vector2& depthMinMax) {
@@ -94,9 +98,9 @@ namespace OSK {
 		rasterizerHasBeenSet = true;
 	}
 
-	void GraphicsPipeline::SetMSAA(VkBool32 use, VkSampleCountFlagBits samples) {
+	void GraphicsPipeline::SetMsaa(VkBool32 insideTriangles, VkSampleCountFlagBits samples) {
 		multisampling.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
-		multisampling.sampleShadingEnable = use;
+		multisampling.sampleShadingEnable = insideTriangles;
 		multisampling.rasterizationSamples = samples;
 		multisampling.minSampleShading = 1.0f;
 		multisampling.pSampleMask = nullptr;
@@ -156,7 +160,7 @@ namespace OSK {
 	}
 
 	void GraphicsPipeline::Create(VULKAN::Renderpass* renderpass) {
-		loadShaders();
+		LoadShaders();
 
 		targetRenderpass = renderpass;
 		
@@ -179,7 +183,7 @@ namespace OSK {
 		if (!msaaHasBeenSet) {
 
 			Logger::Log(LogMessageLevels::BAD_ERROR, "Mo se ha establecido el MSAA. MSAA estará desactivado.");
-			SetMSAA(false, VK_SAMPLE_COUNT_1_BIT);
+			SetMsaa(false, VK_SAMPLE_COUNT_1_BIT);
 		}
 
 		if (!depthStencilHasBeenSet) {
@@ -193,6 +197,25 @@ namespace OSK {
 
 			return;
 		}
+
+
+		VkVertexInputBindingDescription vertexBindingDesc;
+		std::vector<VkVertexInputAttributeDescription> vertexInputDesc;
+		if (vertexType == RenderType::T3D) {
+			vertexBindingDesc = Vertex::GetBindingDescription();
+			vertexInputDesc = Vertex::GetAttributeDescriptions();
+		}
+		else {
+			vertexBindingDesc = Vertex2D::GetBindingDescription();
+			vertexInputDesc = Vertex2D::GetAttributeDescriptions();
+		}
+
+		vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+		vertexInputInfo.vertexBindingDescriptionCount = 1;
+		vertexInputInfo.pVertexBindingDescriptions = &vertexBindingDesc;
+		vertexInputInfo.vertexAttributeDescriptionCount = static_cast<uint32_t>(vertexInputDesc.size());
+		vertexInputInfo.pVertexAttributeDescriptions = vertexInputDesc.data();
+
 
 		VkPipelineDynamicStateCreateInfo dynamicCreateInfo{};
 		dynamicCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
@@ -230,14 +253,14 @@ namespace OSK {
 		vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, vulkanPipeline);
 	}
 
-	void GraphicsPipeline::loadShaders() {
+	void GraphicsPipeline::LoadShaders() {
 		//Código de los shaders.
 		const std::vector<char> vertexCode = FileIO::ReadBinaryFromFile(vertexPath);
 		const std::vector<char> fragmentCode = FileIO::ReadBinaryFromFile(fragmentPath);
 
 		try {
-			vertexShaderModule = createShaderModule(vertexCode);
-			fragmentShaderModule = createShaderModule(fragmentCode);
+			vertexShaderModule = CreateShaderModule(vertexCode);
+			fragmentShaderModule = CreateShaderModule(fragmentCode);
 		}
 		catch (std::exception& e) {
 			Logger::Log(LogMessageLevels::BAD_ERROR, "cargar shaders. " + std::string(e.what()));
@@ -261,26 +284,15 @@ namespace OSK {
 		shaderStages[0] = vertexShaderStageInfo;
 		shaderStages[1] = fragmentShaderStageInfo;
 
-		//Información que le pasamos a los shaders.
-		//Vértices.
-		vertexBindingDesc = Vertex::GetBindingDescription();
-		vertexInputDesc = Vertex::GetAttributeDescriptions_FullVertex();
-
-		vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-		vertexInputInfo.vertexBindingDescriptionCount = 1;
-		vertexInputInfo.pVertexBindingDescriptions = &vertexBindingDesc;
-		vertexInputInfo.vertexAttributeDescriptionCount = static_cast<uint32_t>(vertexInputDesc.size());
-		vertexInputInfo.pVertexAttributeDescriptions = vertexInputDesc.data();
-
 		return ;
 	}
 
 	void GraphicsPipeline::ReloadShaders() {
-		clearShaders();
-		loadShaders();
+		ClearShaders();
+		LoadShaders();
 	}
 
-	void GraphicsPipeline::clearShaders() {
+	void GraphicsPipeline::ClearShaders() {
 		if (vertexShaderModule != VK_NULL_HANDLE) {
 			vkDestroyShaderModule(logicalDevice, vertexShaderModule, nullptr);
 			vertexShaderModule = VK_NULL_HANDLE;
@@ -291,7 +303,7 @@ namespace OSK {
 		}
 	}
 
-	VkShaderModule GraphicsPipeline::createShaderModule(const std::vector<char>& code) const {
+	VkShaderModule GraphicsPipeline::CreateShaderModule(const std::vector<char>& code) const {
 		VkShaderModule output{};
 
 		VkShaderModuleCreateInfo createInfo{};

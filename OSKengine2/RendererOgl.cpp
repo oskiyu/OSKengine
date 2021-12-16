@@ -39,3 +39,7 @@ void RendererOgl::PresentFrame() {
 void RendererOgl::CreateSyncDevice() {
 
 }
+
+void RendererOgl::CreateGpuMemoryAllocator() {
+
+}

@@ -15,6 +15,7 @@
 #include "OSKtypes.h"
 #include "Texture.h"
 #include "DescriptorSet.h"
+#include "MaterialPipelineInfo.h"
 
 namespace OSK::VULKAN {
 	class Renderpass;
@@ -66,9 +67,9 @@ namespace OSK {
 		/// <summary>
 		/// Establece si se va a usar MSAA  o no.
 		/// </summary>
-		/// <param name="use">True si se va a usar.</param>
+		/// <param name="use">True si se va a usar MSAA dentro de los triángulos.</param>
 		/// <param name="samples">Número de samples de MSAA.</param>
-		void SetMSAA(VkBool32 use, VkSampleCountFlagBits samples);
+		void SetMsaa(VkBool32 insideTriangles, VkSampleCountFlagBits samples);
 
 		/// <summary>
 		/// Establece si se va a usar información de depth/stencil.
@@ -113,6 +114,11 @@ namespace OSK {
 		/// </summary>
 		void ReloadShaders();
 
+		/// <summary>
+		/// Establece el tipo de renderizado:
+		/// qué tipo de vértices se van a usar.
+		/// </summary>
+		void SetVertexType(RenderType vType);
 
 	private:
 
@@ -179,17 +185,17 @@ namespace OSK {
 		/// </summary>
 		/// <param name="code">Código SPRI-V.</param>
 		/// <returns>Shader module nativo.</returns>
-		VkShaderModule createShaderModule(const std::vector<char>& code) const;
+		VkShaderModule CreateShaderModule(const std::vector<char>& code) const;
 
 		/// <summary>
 		/// Carga los shaders.
 		/// </summary>
-		void loadShaders();
+		void LoadShaders();
 
 		/// <summary>
 		/// Descarga los shaders.
 		/// </summary>
-		void clearShaders();
+		void ClearShaders();
 
 		/// <summary>
 		/// Logical device del renderizador.
@@ -280,19 +286,15 @@ namespace OSK {
 		VkShaderModule fragmentShaderModule;
 
 		/// <summary>
-		/// Describe la información que tienen los vértices.
-		/// </summary>
-		VkVertexInputBindingDescription vertexBindingDesc;
-
-		/// <summary>
-		/// Describe la información que tienen los vértices.
-		/// </summary>
-		std::array<VkVertexInputAttributeDescription, OSK_VERTEX_ATTRIBUTES_COUNT> vertexInputDesc;
-
-		/// <summary>
 		/// Renderpass target.
 		/// </summary>
 		VULKAN::Renderpass* targetRenderpass = nullptr;
+
+		/// <summary>
+		/// Tipo de renderizado:
+		/// qué tipo de vértices se van a usar.
+		/// </summary>
+		RenderType vertexType = RenderType::T3D;
 
 	};
 

@@ -1,10 +1,10 @@
 #pragma once
 
 #include <vulkan/vulkan.h>
-#include <vector>
 
 #include "IGpu.h"
 #include "QueueFamilyIndices.h"
+#include "DynamicArray.hpp"
 
 struct VkSurfaceKHR_T;
 typedef VkSurfaceKHR_T* VkSurfaceKHR;
@@ -36,12 +36,12 @@ namespace OSK {
 				/// <summary>
 				/// Formatos soportados.
 				/// </summary>
-				std::vector<VkSurfaceFormatKHR> formats;
+				DynamicArray<VkSurfaceFormatKHR> formats;
 
 				/// <summary>
 				/// Modos de presentación soportados.
 				/// </summary>
-				std::vector<VkPresentModeKHR> presentModes;
+				DynamicArray<VkPresentModeKHR> presentModes;
 
 			};
 

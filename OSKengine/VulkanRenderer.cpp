@@ -152,6 +152,7 @@ void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 		pipelineInfo.vertexPath = Settings.vertexShaderPath2D;
 		pipelineInfo.fragmentPath = Settings.fragmentShaderPath2D;
 		pipelineInfo.pushConstants.push_back({ MaterialBindingShaderStage::VERTEX, sizeof(PushConst2D) });
+		pipelineInfo.type = RenderType::T2D;
 		materialSystem->GetMaterial(MPIPE_2D)->SetPipelineSettings(pipelineInfo);
 	}
 	{
@@ -201,13 +202,18 @@ void RenderAPI::Init(const std::string& appName, const Version& gameVersion) {
 
 	Skybox::Model = content->LoadModelData("models/Skybox/cube.obj");
 
-	defaultCamera2D = Camera2D(window);
+	CreateCamera2D();
+	renderTargetCamera2D = CreateCamera2D();
 	CreateCamera();
 
 	hasBeenInit = true;
 
-	content->LoadSprite(&OskEngineIconSprite, "Resources/OSKengine_icon_lowres_48.png");
-	content->LoadSprite(&OskIconSprite, "Resources/OSK_icon_lowres.png");
+	content->LoadSprite(&OskIconSprite);
+	content->LoadSprite(&OskEngineIconSprite);
+	OskIconSprite.SetTexture(content->LoadTexture("Resources/OSKengine_icon_lowres_48.png"));
+	OskEngineIconSprite.SetTexture(content->LoadTexture("Resources/OSK_icon_lowres.png"));
+	OskIconSprite.material->FlushUpdate();
+	OskEngineIconSprite.material->FlushUpdate();
 
 	renderTargetSizeX = (uint32_t)(window->GetSize().X * renderResolutionMultiplier);
 	renderTargetSizeY = (uint32_t)(window->GetSize().Y * renderResolutionMultiplier);
@@ -276,11 +282,11 @@ Camera3D* RenderAPI::CreateCamera() {
 	cam.window = window;
 
 	VkDeviceSize size = sizeof(UboCamera3D);
-	cam.GetUniformBuffer().GetBuffersRef().resize(swapchain->GetImageCount());
+	cam.GetUniformBuffer()->GetBuffersRef().resize(swapchain->GetImageCount());
 
-	for (uint32_t i = 0; i < cam.GetUniformBuffer().GetBuffersRef().size(); i++) {
-		cam.GetUniformBuffer().GetBuffersRef()[i] = new GpuDataBuffer;
-		AllocateBuffer(cam.GetUniformBuffer().GetBuffers()[i].GetPointer(), size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+	for (uint32_t i = 0; i < cam.GetUniformBuffer()->GetBuffersRef().size(); i++) {
+		cam.GetUniformBuffer()->GetBuffersRef()[i] = new GpuDataBuffer;
+		AllocateBuffer(cam.GetUniformBuffer()->GetBuffers()[i].GetPointer(), size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 	}
 
 	return &cameras.back();
@@ -303,25 +309,73 @@ void RenderAPI::RemoveCamera(Camera3D* camera) {
 	}
 }
 
+Camera2D* RenderAPI::CreateCamera2D() {
+	cameras2d.push_back(Camera2D(window));
+
+	auto& cam = cameras2d.back();
+
+	VkDeviceSize size = sizeof(UboCamera2D);
+	cam.GetUniformBuffer()->GetBuffersRef().resize(swapchain->GetImageCount());
+
+	for (uint32_t i = 0; i < cam.GetUniformBuffer()->GetBuffersRef().size(); i++) {
+		cam.GetUniformBuffer()->GetBuffersRef()[i] = new GpuDataBuffer;
+		AllocateBuffer(cam.GetUniformBuffer()->GetBuffers()[i].GetPointer(), size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+	}
+
+	cam.cameraMaterial = GetMaterialSystem()->GetMaterial(MPIPE_2D)->CreateInstance();
+	cam.cameraMaterial->GetMaterialSlot(MSLOT_CAMERA_2D)->SetBuffer("Camera", cam.cameraBuffer);
+
+	return &cameras2d.back();
+}
+
+Camera2D* RenderAPI::GetDefaultCamera2D() {
+	return &cameras2d.front();
+}
+
+void RenderAPI::RemoveCamera2D(Camera2D* camera) {
+	auto it = cameras2d.begin();
+	for (size_t i = 0; i < cameras2d.size(); i++) {
+		if (&it.operator*() == camera) {
+			cameras2d.erase(it);
+
+			return;
+		}
+
+		++it;
+	}
+}
+
 void RenderAPI::RenderFrame() {
 	renderProfilingUnit.Start();
 
 	const double startTime = glfwGetTime();
 
 	{
-		defaultCamera2D.Update();
+		for (auto& cam : cameras2d) {
+			cam.Update();
+
+			for (size_t i = 0; i < cam.GetUniformBuffer()->GetBuffers().size(); i++) {
+				void* data;
+				vkMapMemory(logicalDevice, cam.GetUniformBuffer()->GetBuffers()[i]->memorySubblock->memory, cam.GetUniformBuffer()->GetBuffers()[i]->memorySubblock->GetOffset(), sizeof(UboCamera2D), 0, &data);
+				UboCamera2D ubo{};
+				ubo.cameraMatrix = cam.GetProjection();
+
+				memcpy(data, &ubo, sizeof(UboCamera2D));
+				vkUnmapMemory(logicalDevice, cam.GetUniformBuffer()->GetBuffers()[i]->memorySubblock->memory);
+			}
+		}
 
 		for (auto& cam : cameras) {
-			for (size_t i = 0; i < cam.GetUniformBuffer().GetBuffers().size(); i++) {
+			for (size_t i = 0; i < cam.GetUniformBuffer()->GetBuffers().size(); i++) {
 				void* data;
-				vkMapMemory(logicalDevice, cam.GetUniformBuffer().GetBuffers()[i]->memorySubblock->memory, cam.GetUniformBuffer().GetBuffers()[i]->memorySubblock->GetOffset(), sizeof(UboCamera3D), 0, &data);
+				vkMapMemory(logicalDevice, cam.GetUniformBuffer()->GetBuffers()[i]->memorySubblock->memory, cam.GetUniformBuffer()->GetBuffers()[i]->memorySubblock->GetOffset(), sizeof(UboCamera3D), 0, &data);
 				UboCamera3D ubo{};
 				ubo.view = cam.GetView();
 				ubo.projection = cam.GetProjection();
 				ubo.cameraPos = cam.GetTransform()->GetPosition().ToGLM();
 
 				memcpy(data, &ubo, sizeof(UboCamera3D));
-				vkUnmapMemory(logicalDevice, cam.GetUniformBuffer().GetBuffers()[i]->memorySubblock->memory);
+				vkUnmapMemory(logicalDevice, cam.GetUniformBuffer()->GetBuffers()[i]->memorySubblock->memory);
 			}
 		}
 
@@ -345,10 +399,10 @@ void RenderAPI::RenderFrame() {
 	else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR)
 		throw std::runtime_error("ERROR: obtener imagen.");
 
-	//if (ImagesInFlight[nextImageIndex] != VK_NULL_HANDLE) {
-	//	vkWaitForFences(LogicalDevice, 1, &ImagesInFlight[nextImageIndex], VK_TRUE, UINT64_MAX);
-	//}
-	//ImagesInFlight[nextImageIndex] = InFlightFences[renderVars.currentImage];
+	if (imagesInFlight[nextImageIndex] != VK_NULL_HANDLE) {
+		vkWaitForFences(logicalDevice, 1, &imagesInFlight[nextImageIndex], VK_TRUE, UINT64_MAX);
+	}
+	imagesInFlight[nextImageIndex] = inFlightFences[renderVars.currentImage];
 
 	VkSubmitInfo submitInfo{};
 	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
@@ -370,7 +424,7 @@ void RenderAPI::RenderFrame() {
 	submitInfo.signalSemaphoreCount = 1;
 	submitInfo.pSignalSemaphores = signalSemaphores;
 
-	//vkResetFences(LogicalDevice, 1, &fences[nextImageIndex]);
+	vkResetFences(logicalDevice, 1, &fences[nextImageIndex]);
 
 	result = vkQueueSubmit(graphicsQueue, 1, &submitInfo, fences[nextImageIndex]);
 	if (result != VK_SUCCESS)
@@ -396,7 +450,7 @@ void RenderAPI::RenderFrame() {
 		renderVars.hasFramebufferBeenResized = false;
 	}
 
-	//vkQueueWaitIdle(PresentQ);
+	vkQueueWaitIdle(presentQueue);
 
 	renderVars.currentImage = (renderVars.currentImage + 1) % MAX_FRAMES_IN_FLIGHT;
 
@@ -415,7 +469,6 @@ SpriteBatch RenderAPI::CreateSpriteBatch() {
 	return spriteBatch;
 }
 
-
 OwnedPtr<OSK::GraphicsPipeline> RenderAPI::CreateNewGraphicsPipeline(const std::string& vertexPath, const std::string& fragmentPath) const {
 	return new GraphicsPipeline(logicalDevice, vertexPath, fragmentPath);
 }
@@ -424,8 +477,8 @@ OwnedPtr<DescriptorPool> RenderAPI::CreateNewDescriptorPool() const {
 	return new DescriptorPool(logicalDevice, swapchain->GetImageCount());
 }
 
-OwnedPtr < DescriptorLayout> RenderAPI::CreateNewDescriptorLayout(uint32_t set) const {
-	return new DescriptorLayout(logicalDevice, set);
+OwnedPtr < DescriptorLayout> RenderAPI::CreateNewDescriptorLayout() const {
+	return new DescriptorLayout(logicalDevice);
 }
 
 OwnedPtr < DescriptorSet> RenderAPI::CreateNewDescriptorSet() const {
@@ -739,7 +792,9 @@ void RenderAPI::Close() {
 	swapchain.Delete();
 
 	for (auto& i : cameras)
-		i.GetUniformBuffer().GetBuffersRef().clear();
+		i.GetUniformBuffer()->GetBuffersRef().clear();
+	for (auto& i : cameras2d)
+		i.cameraBuffer->GetBuffersRef().clear();
 
 	screenDescriptorLayout.Delete();
 	screenDescriptorSet.Delete();
@@ -872,24 +927,26 @@ void RenderAPI::DrawStage(RenderStage* stage, VkCommandBuffer cmdBuffer, uint32_
 
 	GraphicsPipeline* pipeline = GetMaterialSystem()->GetMaterial(MPIPE_2D)->GetGraphicsPipeline(stage->renderTarget->renderpass.GetPointer());
 
+	VkBuffer vertexBuffers[] = { Sprite::vertexBuffer->memorySubblock->vkBuffer };
+	VkDeviceSize offsets[] = { 0 };
+	vkCmdBindVertexBuffers(cmdBuffer, 0, 1, vertexBuffers, offsets);
+	vkCmdBindIndexBuffer(cmdBuffer, Sprite::indexBuffer->memorySubblock->vkBuffer, 0, VK_INDEX_TYPE_UINT16);
 	for (auto& spriteBatch : stage->spriteBatches) {
 		
-		if (!spriteBatch->spritesToDraw.IsEmpty()) {
+		if (!spriteBatch->spritesToDraw.empty()) {
 			
 			pipeline->Bind(cmdBuffer);
-			vkCmdBindIndexBuffer(cmdBuffer, Sprite::indexBuffer->memorySubblock->vkBuffer, 0, VK_INDEX_TYPE_UINT16);
 			const uint32_t indicesSize = (uint32_t)Sprite::indices.size();
 
-			for (auto& sprite : spriteBatch->spritesToDraw) {
-				VkBuffer vertexBuffers[] = { sprite.vertexBuffer };
-				VkDeviceSize offsets[] = { 0 };
-				vkCmdBindVertexBuffers(cmdBuffer, 0, 1, vertexBuffers, offsets);
+			for (auto& spritePass : spriteBatch->spritesToDraw) {
+				
+				for (auto& sprite : spritePass.spritesToDraw) {
+					sprite.material->GetMaterialSlotData(MSLOT_TEXTURE_2D)->GetDescriptorSet()->Bind(cmdBuffer, pipeline, iteration, sprite.material->GetMaterial()->GetDescriptorSetNumber(MSLOT_TEXTURE_2D));
 
-				sprite.spriteMaterial->GetMaterialSlot(MSLOT_TEXTURE_2D)->GetDescriptorSet()->Bind(cmdBuffer, pipeline, iteration);
-
-				PushConst2D pConst = sprite.pushConst;
-				vkCmdPushConstants(cmdBuffer, pipeline->vulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
-				vkCmdDrawIndexed(cmdBuffer, indicesSize, 1, 0, 0, 0);
+					PushConst2D pConst = sprite.getPushConst();
+					vkCmdPushConstants(cmdBuffer, pipeline->vulkanPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConst2D), &pConst);
+					vkCmdDrawIndexed(cmdBuffer, indicesSize, 1, 0, 0, 0);
+				}
 			}
 		}
 	}
@@ -937,7 +994,7 @@ void RenderAPI::updateCommandBuffers() {
 		VkDeviceSize offsets[] = { renderTargetBeforePostProcessing->renderedSprite.vertexBuffer->memorySubblock->GetOffset() };
 		vkCmdBindVertexBuffers(commandBuffers[i], 0, 1, vertexBuffers, offsets);
 
-		screenDescriptorSet->Bind(commandBuffers[i], screenGraphicsPipeline.GetPointer(), i);
+		screenDescriptorSet->Bind(commandBuffers[i], screenGraphicsPipeline.GetPointer(), i, 0);
 
 		vkCmdPushConstants(commandBuffers[i], screenGraphicsPipeline->vulkanPipelineLayout, VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(PostProcessingSettings_t), &postProcessingSettings);
 		vkCmdDrawIndexed(commandBuffers[i], indicesSize, 1, 0, 0, 0);
@@ -954,48 +1011,33 @@ void RenderAPI::updateCommandBuffers() {
 	singleTimeStages.clear();
 }
 
-void RenderAPI::createSpriteVertexBuffer(Sprite* sprite) {
-	VkDeviceSize size = sizeof(Vertex) * sprite->vertices.size();
-
-	sprite->vertexBuffer = new GpuDataBuffer;
-	AllocateBuffer(sprite->vertexBuffer.GetPointer(), size, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-	
-	updateSpriteVertexBuffer(sprite);
-}
-
 void RenderAPI::createSpriteIndexBuffer() {
-	VkDeviceSize size = sizeof(Sprite::indices[0]) * Sprite::indices.size();
+	{
+		VkDeviceSize size = sizeof(Sprite::vertices[0]) * Sprite::vertices.size();
 
-	SharedPtr<GpuDataBuffer> stagingBuffer = new GpuDataBuffer;
-	AllocateBuffer(stagingBuffer.GetPointer(), size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		SharedPtr<GpuDataBuffer> stagingBuffer = new GpuDataBuffer;
+		AllocateBuffer(stagingBuffer.GetPointer(), size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 
-	stagingBuffer->Write(Sprite::indices.data(), size);
+		stagingBuffer->Write(Sprite::vertices.data(), size);
 
-	Sprite::indexBuffer = new GpuDataBuffer;
-	AllocateBuffer(Sprite::indexBuffer.GetPointer(), size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-	CopyBuffer(stagingBuffer.Get(), Sprite::indexBuffer.Get(), size);
+		Sprite::vertexBuffer = new GpuDataBuffer;
+		AllocateBuffer(Sprite::vertexBuffer.GetPointer(), size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+		CopyBuffer(stagingBuffer.Get(), Sprite::vertexBuffer.Get(), size);
+	}
+
+	{
+		VkDeviceSize size = sizeof(Sprite::indices[0]) * Sprite::indices.size();
+
+		SharedPtr<GpuDataBuffer> stagingBuffer = new GpuDataBuffer;
+		AllocateBuffer(stagingBuffer.GetPointer(), size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+
+		stagingBuffer->Write(Sprite::indices.data(), size);
+
+		Sprite::indexBuffer = new GpuDataBuffer;
+		AllocateBuffer(Sprite::indexBuffer.GetPointer(), size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+		CopyBuffer(stagingBuffer.Get(), Sprite::indexBuffer.Get(), size);
+	}
 }
-
-
-void RenderAPI::updateSpriteVertexBuffer(Sprite* sprite) const {
-	VkDeviceSize size = sizeof(Vertex) * sprite->vertices.size();
-
-	sprite->vertexBuffer->Write(sprite->vertices.data(), size);
-
-	sprite->hasChanged = false;
-}
-
-void RenderAPI::updateSpriteVertexBuffer(SpriteContainer* sprite) const {
-	VkDeviceSize size = sizeof(Vertex) * 4;
-
-	void* data;
-	vkMapMemory(logicalDevice, sprite->vertexMemory, sprite->bufferOffset, size, 0, &data);
-	memcpy(data, sprite->vertices, (size_t)size);
-	vkUnmapMemory(logicalDevice, sprite->vertexMemory);
-
-	sprite->hasChanged = false;
-}
-
 
 //Copia el contenido de un buffer a otro buffer.
 void RenderAPI::CopyBuffer(GpuDataBuffer& source, GpuDataBuffer& destination, VkDeviceSize size, VkDeviceSize sourceOffset, VkDeviceSize destinationOffset) const {
@@ -1243,14 +1285,14 @@ void RenderAPI::InitPostProcessing() {
 	screenGraphicsPipeline = CreateNewGraphicsPipeline("shaders/VK_Post/vert.spv", "shaders/VK_Post/frag.spv").GetPointer();
 	screenGraphicsPipeline->SetViewport({ -(float)swapchain->size.width, -(float)swapchain->size.height, (float)swapchain->size.width * 2, (float)swapchain->size.height * 2 });
 	screenGraphicsPipeline->SetRasterizer(VK_FALSE, VK_POLYGON_MODE_FILL, VK_CULL_MODE_NONE, VK_FRONT_FACE_CLOCKWISE);
-	screenGraphicsPipeline->SetMSAA(VK_FALSE, GetMsaaSamples());
+	screenGraphicsPipeline->SetMsaa(VK_FALSE, GetMsaaSamples());
 	screenGraphicsPipeline->SetDepthStencil(false);
 	screenGraphicsPipeline->SetPushConstants(VK_SHADER_STAGE_FRAGMENT_BIT, sizeof(PostProcessingSettings_t));
 	screenGraphicsPipeline->SetLayout({ screenDescriptorLayout->vulkanDescriptorSetLayout });
+	screenGraphicsPipeline->SetVertexType(RenderType::T2D);
 	screenGraphicsPipeline->Create(finalRenderTarget->renderpass.GetPointer());
 
 	finalRenderTarget->renderedSprite.transform.SetScale(window->GetSize().ToVector2f() * renderResolutionMultiplier);
-	updateSpriteVertexBuffer(&renderTargetBeforePostProcessing->renderedSprite);
 }
 
 void RenderAPI::RecreatePostProcessing() {

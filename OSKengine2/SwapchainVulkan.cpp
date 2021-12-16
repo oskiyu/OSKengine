@@ -4,9 +4,20 @@
 #include "GpuVulkan.h"
 #include "FormatVulkan.h"
 #include "Window.h"
+#include "GpuImageVulkan.h"
 #include "Assert.h"
+#include "Logger.h"
+#include "OSKengine.h"
+#include "RenderpassVulkan.h"
+#include "RendererVulkan.h"
+#include "GpuVulkan.h"
 
 using namespace OSK;
+
+SwapchainVulkan::~SwapchainVulkan() {
+	vkDestroySwapchainKHR(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
+		swapchain, nullptr);
+}
 
 void SwapchainVulkan::Create(Format format, const GpuVulkan& device, const Window& window) {
 	this->window = &window;
@@ -68,6 +79,67 @@ void SwapchainVulkan::Create(Format format, const GpuVulkan& device, const Windo
 	//Crearlo y error-handling.
 	VkResult result = vkCreateSwapchainKHR(device.GetLogicalDevice(), &createInfo, nullptr, &swapchain);
 	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear el swapchain. Code: " + std::to_string(result));
+
+	for (TSize i = 0; i < imageCount; i++)		
+		images[i] = new GpuImageVulkan(extent.width, extent.height, format);
+
+	AcquireImages(extent.width, extent.height);
+	AcquireViews();
+
+	if (targetRenderpass)
+		targetRenderpass->SetImages(images[0].GetPointer(), images[1].GetPointer(), images[2].GetPointer());
+
+	Engine::GetLogger()->InfoLog("Creado correctamente el swapchain.");
+}
+
+void SwapchainVulkan::SetTargetRenderpass(RenderpassVulkan* renderpass) {
+	targetRenderpass = renderpass;
+}
+
+void SwapchainVulkan::AcquireImages(unsigned int sizeX, unsigned int sizeY) {
+	VkResult result = vkGetSwapchainImagesKHR(device->GetLogicalDevice(), swapchain, &imageCount, nullptr);
+	OSK_ASSERT(result == VK_SUCCESS, "Error al adquirir imagenes del swapchain. Code: " + std::to_string(result));
+
+	auto tempImages = new VkImage[imageCount];
+	vkGetSwapchainImagesKHR(device->GetLogicalDevice(), swapchain, &imageCount, tempImages);
+	OSK_ASSERT(result == VK_SUCCESS, "Error al adquirir imagenes del swapchain. Code: " + std::to_string(result));
+
+	for (TSize i = 0; i < imageCount; i++)
+		images[i]->As<GpuImageVulkan>()->SetImage(tempImages[i]);
+
+	delete[] tempImages;
+
+	Engine::GetLogger()->InfoLog("	Adquiridas las imágenes del swapchain.");
+}
+
+void SwapchainVulkan::AcquireViews() {
+	auto tempViews = new VkImageView[imageCount];
+
+	for (TSize i = 0; i < imageCount; i++) {
+		VkImageViewCreateInfo createInfo{};
+		createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
+		createInfo.image = images[i]->As<GpuImageVulkan>()->GetImage();
+		createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
+		createInfo.format = GetFormatVulkan(format);
+		createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
+		createInfo.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
+		createInfo.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
+		createInfo.components.a = VK_COMPONENT_SWIZZLE_IDENTITY;
+		createInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+		createInfo.subresourceRange.baseMipLevel = 0;
+		createInfo.subresourceRange.levelCount = 1;
+		createInfo.subresourceRange.baseArrayLayer = 0;
+		createInfo.subresourceRange.layerCount = 1;
+
+		VkResult result = vkCreateImageView(device->GetLogicalDevice(), &createInfo, nullptr, &tempViews[i]);
+		OSK_ASSERT(result == VK_SUCCESS, "Error al crear view de imagen del swapchain. Code: " + std::to_string(result));
+
+		images[i]->As<GpuImageVulkan>()->SetView(tempViews[i]);
+	}
+
+	delete[] tempViews;
+
+	Engine::GetLogger()->InfoLog("	Adquiridas las views del swapchain.");
 }
 
 VkSwapchainKHR SwapchainVulkan::GetSwapchain() const {
@@ -75,6 +147,13 @@ VkSwapchainKHR SwapchainVulkan::GetSwapchain() const {
 }
 
 void SwapchainVulkan::Resize() {
+	for (auto& i : images) {
+		i->As<GpuImageVulkan>()->SetImage(VK_NULL_HANDLE);
+	}
+
+	vkDestroySwapchainKHR(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
+		swapchain, nullptr);
+
 	Create(format, *device, *window);
 }
 
@@ -84,4 +163,8 @@ VkColorSpaceKHR SwapchainVulkan::GetSupportedColorSpace(const GpuVulkan& device)
 			return format.colorSpace;
 
 	return device.GetInfo().swapchainSupportDetails.formats[0].colorSpace;
+}
+
+void SwapchainVulkan::Present() {
+
 }

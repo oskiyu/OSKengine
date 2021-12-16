@@ -15,10 +15,27 @@ namespace OSK {
 
 	public:
 
+		/// <summary>
+		/// Establece el evento que será llamado para avisar al dispositivo
+		/// de sincronización.
+		/// </summary>
 		void SetFenceEvent(HANDLE fenceEvent);
+
+		/// <summary>
+		/// Establece el dispositivo nativo de sincronización.
+		/// </summary>
 		void SetFence(const ComPtr<ID3D12Fence>& fence);
 
+		/// <summary>
+		/// Pone en espera el hilo actual, hasta que se pueda renderizar
+		/// en la nueva imagen del swapchain.
+		/// </summary>
 		void Await();
+
+		/// <summary>
+		/// Una vez se han grabado todos los comandos, la lista es enviada a
+		/// la GPU para su ejecución.
+		/// </summary>
 		void Flush(const CommandQueueDx12& commandList);
 
 	private:

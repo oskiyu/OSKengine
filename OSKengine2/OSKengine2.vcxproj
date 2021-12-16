@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugDLL|Win32">
+      <Configuration>DebugDLL</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugDLL|x64">
+      <Configuration>DebugDLL</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseDLL|Win32">
+      <Configuration>ReleaseDLL</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseDLL|x64">
+      <Configuration>ReleaseDLL</Configuration>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
@@ -20,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Assert.cpp" />
+    <ClCompile Include="Color.cpp" />
     <ClCompile Include="CommandListDx12.cpp" />
     <ClCompile Include="CommandListOgl.cpp" />
     <ClCompile Include="CommandListVulkan.cpp" />
@@ -30,7 +47,27 @@
     <ClCompile Include="Format.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="GpuDx12.cpp" />
+    <ClCompile Include="GpuImageDx12.cpp" />
+    <ClCompile Include="GpuImageLayoutDx12.cpp" />
+    <ClCompile Include="GpuImageLayoutVulkan.cpp" />
+    <ClCompile Include="GpuImageVulkan.cpp" />
+    <ClCompile Include="GpuMemoryAllocatorVulkan.cpp" />
+    <ClCompile Include="GpuMemoryAllocatorDx12.cpp" />
+    <ClCompile Include="GpuMemoryBlockDx12.cpp" />
+    <ClCompile Include="GpuMemoryBlockVulkan.cpp" />
+    <ClCompile Include="GpuMemorySubblockDx12.cpp" />
+    <ClCompile Include="GpuMemorySubblockVulkan.cpp" />
+    <ClCompile Include="GpuMemoryTypeDx12.cpp" />
+    <ClCompile Include="GpuMemoryTypeVulkan.cpp" />
+    <ClCompile Include="GpuVertexBufferDx12.cpp" />
     <ClCompile Include="GpuVulkan.cpp" />
+    <ClCompile Include="IGpuDataBuffer.cpp" />
+    <ClCompile Include="IGpuImage.cpp" />
+    <ClCompile Include="IGpuMemoryAllocator.cpp" />
+    <ClCompile Include="IGpuMemoryBlock.cpp" />
+    <ClCompile Include="IGpuMemorySubblock.cpp" />
+    <ClCompile Include="GpuIndexBufferDx12.cpp" />
+    <ClCompile Include="IRenderpass.cpp" />
     <ClCompile Include="ISwapchain.cpp" />
     <ClCompile Include="KeyboardState.cpp" />
     <ClCompile Include="Logger.cpp" />
@@ -42,14 +79,18 @@
     <ClCompile Include="RendererDx12.cpp" />
     <ClCompile Include="RendererOgl.cpp" />
     <ClCompile Include="RendererVulkan.cpp" />
+    <ClCompile Include="RenderpassVulkan.cpp" />
     <ClCompile Include="SwapchainDx12.cpp" />
     <ClCompile Include="SwapchainVulkan.cpp" />
     <ClCompile Include="SyncDeviceDx12.cpp" />
     <ClCompile Include="SyncDeviceVulkan.cpp" />
+    <ClCompile Include="VertexDx12.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assert.h" />
+    <ClInclude Include="BitSet.hpp" />
+    <ClInclude Include="Color.hpp" />
     <ClInclude Include="CommandListDx12.h" />
     <ClInclude Include="CommandListOgl.h" />
     <ClInclude Include="CommandListVulkan.h" />
@@ -57,29 +98,61 @@
     <ClInclude Include="CommandPoolVulkan.h" />
     <ClInclude Include="CommandQueueDx12.h" />
     <ClInclude Include="CommandQueueVulkan.h" />
+    <ClInclude Include="DynamicArray.hpp" />
     <ClInclude Include="Format.h" />
     <ClInclude Include="FormatDx12.h" />
     <ClInclude Include="FormatVulkan.h" />
     <ClInclude Include="GpuDx12.h" />
+    <ClInclude Include="GpuImageDx12.h" />
+    <ClInclude Include="GpuImageLayout.h" />
+    <ClInclude Include="GpuImageLayoutDx12.h" />
+    <ClInclude Include="GpuImageLayoutVulkan.h" />
+    <ClInclude Include="GpuImageVulkan.h" />
+    <ClInclude Include="GpuIndexBufferDx12.h" />
+    <ClInclude Include="GpuMemoryAllocatorDx12.h" />
+    <ClInclude Include="GpuMemoryAllocatorVulkan.h" />
+    <ClInclude Include="GpuMemoryBlockDx12.h" />
+    <ClInclude Include="GpuMemoryBlockVulkan.h" />
+    <ClInclude Include="GpuMemorySubblockDx12.h" />
+    <ClInclude Include="GpuMemorySubblockVulkan.h" />
+    <ClInclude Include="GpuMemoryTypes.h" />
+    <ClInclude Include="GpuMemoryTypesDx12.h" />
+    <ClInclude Include="GpuMemoryTypeVulkan.h" />
+    <ClInclude Include="GpuVertexBufferDx12.h" />
     <ClInclude Include="GpuVulkan.h" />
+    <ClInclude Include="HashMap.hpp" />
     <ClInclude Include="ICommandList.h" />
     <ClInclude Include="ICommandPool.h" />
     <ClInclude Include="ICommandQueue.h" />
     <ClInclude Include="IGpu.h" />
+    <ClInclude Include="IGpuDataBuffer.h" />
+    <ClInclude Include="IGpuImage.h" />
+    <ClInclude Include="IGpuIndexBuffer.h" />
+    <ClInclude Include="IGpuMemoryAllocator.h" />
+    <ClInclude Include="IGpuMemoryBlock.h" />
+    <ClInclude Include="IGpuMemorySubblock.h" />
+    <ClInclude Include="IGpuVertexBuffer.h" />
+    <ClInclude Include="GpuIndexBufferVulkan.h" />
     <ClInclude Include="IRenderer.h" />
+    <ClInclude Include="IRenderpass.h" />
+    <ClInclude Include="IRenderTarget.h" />
     <ClInclude Include="ISwapchain.h" />
     <ClInclude Include="ISyncDevice.h" />
     <ClInclude Include="KeyboardState.h" />
+    <ClInclude Include="LinkedList.hpp" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MouseState.h" />
     <ClInclude Include="OSKengine.h" />
     <ClInclude Include="OSKmacros.h" />
     <ClInclude Include="OwnedPtr.h" />
+    <ClInclude Include="Pair.hpp" />
     <ClInclude Include="QueueFamilyIndices.h" />
     <ClInclude Include="RenderApiType.h" />
     <ClInclude Include="RendererDx12.h" />
     <ClInclude Include="RendererOgl.h" />
     <ClInclude Include="RendererVulkan.h" />
+    <ClInclude Include="RenderpassType.h" />
+    <ClInclude Include="RenderpassVulkan.h" />
     <ClInclude Include="SharedPtr.hpp" />
     <ClInclude Include="SwapchainDx12.h" />
     <ClInclude Include="SwapchainVulkan.h" />
@@ -90,6 +163,8 @@
     <ClInclude Include="Vector3.hpp" />
     <ClInclude Include="Vector4.hpp" />
     <ClInclude Include="Version.h" />
+    <ClInclude Include="Vertex.h" />
+    <ClInclude Include="VertexDx12.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -106,7 +181,20 @@
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
@@ -119,7 +207,20 @@
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
@@ -134,20 +235,38 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -155,7 +274,17 @@
     <IncludePath>..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\Assimp\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\Assimp\lib\x64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\Assimp\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\Assimp\lib\x64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\Assimp\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\Assimp\lib\x64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\Assimp\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\Assimp\lib\x64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
@@ -172,7 +301,35 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -202,13 +359,45 @@
       <AdditionalDependencies>vulkan-1.lib;freetype.lib;OpenAL32.lib;assimp.lib;assimp-vc140-mt.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>OSK_DEBUG;_DEBUG;_CONSOLE;OSK_DLL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>vulkan-1.lib;freetype.lib;OpenAL32.lib;assimp.lib;assimp-vc140-mt.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;OSK_RELEASE;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>OSK_DEVELOPMENT;NDEBUG;OSK_RELEASE;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>vulkan-1.lib;freetype.lib;OpenAL32.lib;assimp.lib;assimp-vc140-mt.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;OSK_RELEASE;OSK_DLL_EXPORT;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>

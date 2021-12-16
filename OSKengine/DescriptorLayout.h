@@ -35,7 +35,7 @@ namespace OSK {
 		/// Crea un descriptor layout vacío.
 		/// </summary>
 		/// <param name="logicalDevice">Logical device del renderizador.</param>
-		DescriptorLayout(VkDevice logicalDevice, uint32_t set = 0);
+		DescriptorLayout(VkDevice logicalDevice);
 
 		/// <summary>
 		/// Destruye el descriptor layout..
@@ -68,8 +68,6 @@ namespace OSK {
 		/// </summary>
 		void Create();
 
-		uint32_t GetSet() const;
-
 	private:
 
 		/// <summary>
@@ -89,8 +87,6 @@ namespace OSK {
 
 		std::unordered_map<std::string, uint32_t> bindingNames;
 		
-		uint32_t set = 0;
-
 	};
 
 }

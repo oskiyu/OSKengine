@@ -1,13 +1,14 @@
 #pragma once
 
 #include <optional>
+#include "OSKmacros.h"
 
 namespace OSK {
 
 	/// <summary>
 	/// Contiene información sobre qué familias de comandos soporta una GPU.
 	/// </summary>
-	struct QueueFamilyIndices {
+	struct OSKAPI_CALL QueueFamilyIndices {
 
 		/// <summary>
 		/// Cola gráfica.

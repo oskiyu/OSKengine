@@ -6,7 +6,7 @@
 
 using namespace OSK;
 
-MaterialSlotPool::MaterialSlotPool(RenderAPI* renderer, MaterialSlotTypeId type, MaterialSystem* system) {
+MaterialSlotPool::MaterialSlotPool(RenderAPI* renderer, MaterialSlotTypeId type, MaterialSystem* system, Material* material) {
 	this->renderer = renderer;
 	this->type = type;
 
@@ -24,10 +24,11 @@ MaterialSlotPool::MaterialSlotPool(RenderAPI* renderer, MaterialSlotTypeId type,
 	descriptorSets.resize(PoolSize);
 
 	for (uint32_t i = 0; i < PoolSize; i++) {
-		materialSlots[i] = new MaterialSlot();
+		materialSlots[i] = new MaterialSlotData();
 		materialSlots[i]->index = i;
 		materialSlots[i]->pool = this;
 		materialSlots[i]->slotType = type;
+		materialSlots[i]->material = material;
 
 		descriptorSets[i] = renderer->CreateNewDescriptorSet();
 		descriptorSets[i]->Create(layout, pool.GetPointer());
@@ -50,7 +51,7 @@ uint32_t MaterialSlotPool::GetNextMaterialSlot() {
 	return output;
 }
 
-MaterialSlot* MaterialSlotPool::GetMaterialSlot(uint32_t id) {
+MaterialSlotData* MaterialSlotPool::GetMaterialSlot(uint32_t id) {
 	return materialSlots[id].GetPointer();
 }
 

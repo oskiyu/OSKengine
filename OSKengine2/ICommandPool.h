@@ -2,6 +2,7 @@
 
 #include "OSKmacros.h"
 #include "OwnedPtr.h"
+#include <type_traits>
 
 namespace OSK {
 
@@ -15,7 +16,7 @@ namespace OSK {
 
 	public:
 
-		~ICommandPool() = default;
+		virtual ~ICommandPool() = default;
 
 		/// <summary>
 		/// Crea una lista de comandos.
@@ -23,7 +24,7 @@ namespace OSK {
 		/// <param name="device">GPU donde se alamcenarán las listas.</param>
 		virtual OwnedPtr<ICommandList> CreateCommandList(const IGpu& device) = 0;
 
-		template <typename T> T* As() const {
+		template <typename T> T* As() const requires std::is_base_of_v<ICommandPool, T> {
 			return (T*)this;
 		}
 

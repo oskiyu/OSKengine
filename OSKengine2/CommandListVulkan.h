@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ICommandList.h"
-#include <vector>
+#include "DynamicArray.hpp"
 
 struct VkCommandBuffer_T;
 typedef VkCommandBuffer_T* VkCommandBuffer;
@@ -27,16 +27,25 @@ namespace OSK {
 
 	public:
 
-		const std::vector<VkCommandBuffer>& GetCommandBuffers() const;
-		std::vector<VkCommandBuffer>* GetCommandBuffers();
+		const DynamicArray<VkCommandBuffer>& GetCommandBuffers() const;
+		DynamicArray<VkCommandBuffer>* GetCommandBuffers();
 
 		void Reset() override;
 		void Start() override;
 		void Close() override;
 
+		void BeginRenderpass(IRenderpass* renderpass) override;
+		void BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) override;
+		void EndRenderpass(IRenderpass* renderpass) override;
+
+		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) override;
+
 	private:
 
-		std::vector<VkCommandBuffer> commandBuffers;
+		/// <summary>
+		/// Varias listas nativas, una por cada imagen en el swapchain.
+		/// </summary>
+		DynamicArray<VkCommandBuffer> commandBuffers;
 
 	};
 

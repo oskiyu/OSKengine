@@ -17,7 +17,7 @@ namespace OSK {
 	/// <summary>
 	/// Implementación de la interfaz para el renderizador de DirectX 12.
 	/// </summary>
-	class RendererDx12 : public IRenderer {
+	class OSKAPI_CALL RendererDx12 : public IRenderer {
 
 	public:
 
@@ -33,6 +33,7 @@ namespace OSK {
 		void CreateCommandQueues() override;
 		void CreateSwapchain() override;
 		void CreateSyncDevice() override;
+		void CreateGpuMemoryAllocator() override;
 
 	private:
 

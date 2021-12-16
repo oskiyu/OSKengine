@@ -67,11 +67,6 @@ namespace OSK{
 		void Update(const Vector4f& mouserRec, bool click);
 
 		/// <summary>
-		/// Inicializa el sprite.
-		/// </summary>
-		void InitSprite(ContentManager* content, RenderAPI* renderer);
-
-		/// <summary>
 		/// Sprite a renderizar.
 		/// No se renderiza si su textura es null.
 		/// </summary>

@@ -15,13 +15,14 @@ namespace OSK {
 	class ISwapchain;
 	class ICommandQueue;
 	class ISyncDevice;
+	class IGpuMemoryAllocator;
 
 	/// <summary>
 	/// Proporciona la interfaz de un renderizador.
 	/// Esta interfaz no implementa ningún código, se debe usar una instancia de
 	/// RendererVulkan o RendererDx12.
 	/// </summary>
-	class IRenderer {
+	class OSKAPI_CALL IRenderer {
 
 	public:
 
@@ -44,15 +45,21 @@ namespace OSK {
 		/// </summary>
 		virtual void Close() = 0;
 
+		/// <summary>
+		/// Una vez se han grabado todos los comandos, se debe iniciar su
+		/// ejecución en la GPU para ser renderizados.
+		/// </summary>
 		virtual void PresentFrame() = 0;
 
 		ICommandList* GetCommandList() const;
+		IGpuMemoryAllocator* GetMemoryAllocator() const;
+		IGpu* GetGpu() const;
 
 		/// <summary>
 		/// Castea el renderizador al tipo dado.
 		/// Este tipo debe ser una implementación de esta interfaz.
 		/// </summary>
-		template <typename T> T* As() {
+		template <typename T> T* As() requires std::is_base_of_v<IRenderer, T> {
 			return (T*)this;
 		}
 
@@ -63,6 +70,7 @@ namespace OSK {
 		virtual void CreateCommandQueues() = 0;
 		virtual void CreateSwapchain() = 0;
 		virtual void CreateSyncDevice() = 0;
+		virtual void CreateGpuMemoryAllocator() = 0;
 
 		UniquePtr<IGpu> currentGpu;
 
@@ -74,6 +82,10 @@ namespace OSK {
 
 		UniquePtr<ICommandPool> commandPool;
 		UniquePtr<ICommandList> commandList;
+
+		UniquePtr<IGpuMemoryAllocator> gpuMemoryAllocator;
+
+		bool isFirstRender = true;
 
 		const Window* window = nullptr;
 

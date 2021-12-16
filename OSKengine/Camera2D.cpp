@@ -1,16 +1,20 @@
 #include "Camera2D.h"
 #include <ext\matrix_clip_space.hpp>
 
-namespace OSK {
+#include "MaterialSlot.h"
 
-	Camera2D::Camera2D() {
-		projection = glm::mat4(1);
-	}
+namespace OSK {
 
 	Camera2D::Camera2D(WindowAPI* window) {
 		this->window = window;
+		projection = glm::mat4(1);
 		targetSize = this->window->GetSize().ToVector2f();
+
 		Update();
+	}
+
+	Camera2D::~Camera2D() {
+		cameraMaterial.Delete();
 	}
 
 	Transform2D& Camera2D::GetTransform() {

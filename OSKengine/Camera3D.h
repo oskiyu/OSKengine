@@ -91,7 +91,7 @@ namespace OSK {
 		/// </summary>
 		Transform* GetTransform();
 
-		UniformBuffer& GetUniformBuffer() {
+		SharedPtr<UniformBuffer> GetUniformBuffer() {
 			return cameraBuffer;
 		}
 
@@ -118,7 +118,7 @@ namespace OSK {
 		/// </summary>
 		WindowAPI* window = nullptr;
 
-		UniformBuffer cameraBuffer;
+		SharedPtr<UniformBuffer> cameraBuffer = new UniformBuffer;
 
 	};
 

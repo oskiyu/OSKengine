@@ -28,6 +28,9 @@ void DescriptorPool::SetLayout(DescriptorLayout* layout) {
 }
 
 void DescriptorPool::Create(uint32_t maxSets) {
+	for (auto& i : descriptorPoolSizes)
+		i.descriptorCount *= maxSets;
+
 	VkDescriptorPoolCreateInfo poolInfo{};
 	poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
 	poolInfo.poolSizeCount = (uint32_t)descriptorPoolSizes.GetSize();

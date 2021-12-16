@@ -28,12 +28,13 @@ Window::~Window() {
 void Window::SetRenderApiType(RenderApiType type) {
 	renderApi = type;
 
-	if (type != RenderApiType::OPENGL)
-		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-	else {
+	if (type == RenderApiType::OPENGL) {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	}
+	else {
+		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 	}
 }
 
@@ -187,8 +188,8 @@ void Window::GlfwMouseScrollCallback(GLFWwindow* window, double dX, double dY) {
 }
 
 void Window::MouseScrollCallback(double dX, double dY) {
-	newMouseState->_SetScrollX(dX);
-	newMouseState->_SetScrollY(dY);
+	newMouseState->_SetScrollX((int)dX);
+	newMouseState->_SetScrollY((int)dY);
 }
 
 void Window::UpdateScreenRatio() {

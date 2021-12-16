@@ -2,6 +2,7 @@
 
 #include <stdexcept>
 #include <iostream>
+#include <fstream>
 
 using namespace OSK;
 
@@ -63,13 +64,13 @@ void Logger::Save(const std::string& filename) {
 	if (!hasBeenStarted)
 		throw std::runtime_error("OSK::Logger no ha sido inicializado. Usa Logger::Start() antes.");
 
-#ifdef OSK_RELEASE
+//#ifdef OSK_RELEASE
 	std::ofstream outputLog(path + filename);
 	if (outputLog.is_open()) {
 		outputLog << output << std::endl;
 	}
 	outputLog.close();
-#endif // OSK_RELEASE
+//#endif // OSK_RELEASE
 }
 
 void Logger::Clear() {
@@ -82,6 +83,8 @@ void Logger::Clear() {
 void Logger::Close() {
 	if (!hasBeenStarted)
 		throw std::runtime_error("OSK::Logger no ha sido inicializado. Usa Logger::Start() antes.");
+
+	InfoLog("Cerrado el log.");
 
 	Save();
 	Clear();

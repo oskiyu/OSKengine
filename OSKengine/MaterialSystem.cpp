@@ -9,6 +9,7 @@ MaterialSystem::MaterialSystem(RenderAPI* renderer) {
 	this->renderer = renderer;
 
 	//MPIPE_2D
+	SetDescriptorLayout(MPIPE_2D, MSLOT_CAMERA_2D, { {MaterialBindingType::DATA_BUFFER, MaterialBindingShaderStage::VERTEX, "Camera"} });
 	SetDescriptorLayout(MPIPE_2D, MSLOT_TEXTURE_2D, { {MaterialBindingType::TEXTURE, MaterialBindingShaderStage::FRAGMENT, "Texture"} });
 
 	//MPIPE_3D
@@ -39,7 +40,7 @@ MaterialSystem::MaterialSystem(RenderAPI* renderer) {
 
 MaterialSystem::~MaterialSystem() {
 	for (auto i : materials)
-		delete i.second;
+		i.second.Delete();
 }
 
 void MaterialSystem::RegisterMaterial(MaterialPipelineTypeId type) {
@@ -51,7 +52,7 @@ void MaterialSystem::RegisterMaterial(MaterialPipelineTypeId type) {
 		material->renderpassesToRegister.push_back(i);
 
 	if (materials.find(type) != materials.end())
-		delete materials[type];
+		materials.at(type).Delete();
 
 	materials[type] = material;
 }
@@ -60,7 +61,7 @@ Material* MaterialSystem::GetMaterial(MaterialPipelineTypeId type) {
 	if (materials.find(type) == materials.end())
 		return nullptr;
 
-	return materials[type];
+	return materials[type].GetPointer();
 }
 
 void MaterialSystem::RegisterRenderpass(Renderpass* renderpass) {
@@ -85,7 +86,7 @@ void MaterialSystem::SetDescriptorLayout(MaterialPipelineTypeId mPipeline, Mater
 	if (pipelinesLayouts.find(mPipeline) != pipelinesLayouts.end())
 		set = pipelinesLayouts.at(mPipeline).size();
 
-	DescriptorLayout* descLayout = renderer->CreateNewDescriptorLayout(set).GetPointer();
+	DescriptorLayout* descLayout = renderer->CreateNewDescriptorLayout().GetPointer();
 
 	for (const auto& i : layout)
 		descLayout->AddBinding(i.type, i.stage, i.bindingName);
@@ -96,9 +97,11 @@ void MaterialSystem::SetDescriptorLayout(MaterialPipelineTypeId mPipeline, Mater
 	pipelinesLayouts[mPipeline].push_back(descLayout->vulkanDescriptorSetLayout);
 
 	materials[mPipeline]->materialSlotPools[type] = {};
+	materials[mPipeline]->setNumber[type] = set;
+}
 
-	Logger::DebugLog("Descriptor layout pipe: " + std::to_string(mPipeline) 
-		+ ", type: " + std::to_string(type) + ", set #" + std::to_string(set));
+uint32_t MaterialSystem::GetBindingFromName(MaterialSlotTypeId type, const std::string& name) const {
+	return descriptorLayouts.at(type)->GetBindingFromName(name);
 }
 
 DescriptorLayout* MaterialSystem::GetDescriptorLayout(MaterialSlotTypeId type) {

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "OSKmacros.h"
+#include <type_traits>
 
 namespace OSK {
 
@@ -14,9 +15,9 @@ namespace OSK {
 
 	public:
 
-		~ICommandQueue() = default;
+		virtual ~ICommandQueue() = default;
 
-		template <typename T> T* As() const {
+		template <typename T> T* As() const requires std::is_base_of_v<ICommandQueue, T> {
 			return (T*)this;
 		}
 

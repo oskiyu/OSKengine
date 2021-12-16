@@ -92,7 +92,7 @@ namespace OSK {
 		/// </summary>
 		Vector2ui size;
 
-	private:
+	//private:
 
 		/// <summary>
 		/// Imagen (en la GPU) de la textura).

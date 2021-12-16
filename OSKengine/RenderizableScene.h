@@ -169,9 +169,9 @@ namespace OSK {
 		/// </summary>
 		UniquePtr<ShadowMap> shadowMap;
 
-		UniformBuffer uboLights;
-		UniformBuffer uboDirLightMat;
-		UniformBuffer uboBones;
+		SharedPtr<UniformBuffer> uboLights = new UniformBuffer;
+		SharedPtr<UniformBuffer> uboDirLightMat = new UniformBuffer;
+		SharedPtr<UniformBuffer> uboBones = new UniformBuffer;
 
 		/// <summary>
 		/// Inicia los buffers de luces.

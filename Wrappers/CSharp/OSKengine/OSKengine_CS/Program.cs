@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using OSKengine;
+using OSKengine_CS;
 
 namespace OSKengine_CS {
     class Program {

@@ -114,19 +114,6 @@ namespace OSK {
 		ModelData* LoadModelData(const std::string& path);
 
 		/// <summary>
-		/// Carga un sprite.
-		/// </summary>
-		/// <param name="sprite">Sprite a cargar.</param>
-		/// <param name="path">Ruta de la textura (incluyendo la extensión).</param>
-		void LoadSprite(Sprite* sprite, const std::string& path);
-
-		/// <summary>
-		/// Crea un sprite vacío.
-		/// </summary>
-		/// <param name="sprite">Sprite</param>
-		void CreateSprite(Sprite* sprite);
-
-		/// <summary>
 		/// Carga una fuente.
 		/// Si la fuente ya ha sido cargada por este ContentManager, devuelve la fuente sin volver a cargarla.
 		/// </summary>
@@ -174,6 +161,8 @@ namespace OSK {
 		/// <returns>Sonido.</returns>
 		SoundEmitterComponent* LoadSoundEntity(const std::string& path);
 
+		void LoadSprite(Sprite* sprite);
+
 		/// <summary>
 		/// Elimina todos los recursos almacenados.
 		/// </summary>
@@ -197,11 +186,6 @@ namespace OSK {
 		/// Almacena los vértices y los índices de los modelos 3D.
 		/// </summary>
 		std::list<OwnedPtr<ModelData>> modelDatas = {};
-
-		/// <summary>
-		/// Almacena referencias a los sprites.
-		/// </summary>
-		std::list<OwnedPtr<Sprite>> sprites = {};
 
 		/// <summary>
 		/// Alacena las fuentes.

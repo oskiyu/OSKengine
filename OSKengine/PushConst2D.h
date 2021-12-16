@@ -17,14 +17,11 @@ namespace OSK {
 		alignas(16) glm::mat4 model;
 
 		/// <summary>
-		/// Cámara usada para renderizar el sprite.
-		/// </summary>
-		alignas(16) glm::mat4 camera = glm::mat4(1.0f);
-
-		/// <summary>
 		/// Color del sprite.
 		/// </summary>
 		alignas(16) glm::vec4 color = glm::vec4(1.0f);
+
+		alignas(16) glm::vec4 texCoords = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
 
 	};
 

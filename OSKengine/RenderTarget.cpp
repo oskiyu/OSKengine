@@ -74,14 +74,14 @@ void RenderTarget::CreateRenderpass(VkSampleCountFlagBits msaa) {
 
 void RenderTarget::TransitionToRenderTarget(VkCommandBuffer cmdBuffer) {
 	if (targetImage == RenderTargetImageTarget::COLOR)
-		VULKAN::VulkanImageGen::TransitionImageLayout(renderedSprite.texture->image.GetPointer(), VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, 1, 1, cmdBuffer);
+		VULKAN::VulkanImageGen::TransitionImageLayout(renderedSprite.GetTexture()->image.GetPointer(), VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, 1, 1, cmdBuffer);
 	else if (targetImage == RenderTargetImageTarget::DEPTH) {
 		VULKAN::VulkanImageGen::TransitionImageLayout(&depthImage, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL, 1, 1, cmdBuffer);
 	}
 }
 
 void RenderTarget::TransitionToTexture(VkCommandBuffer cmdBuffer) {
-	VULKAN::VulkanImageGen::TransitionImageLayout(renderedSprite.texture->image.GetPointer(), VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 1, 1, cmdBuffer);
+	VULKAN::VulkanImageGen::TransitionImageLayout(renderedSprite.GetTexture()->image.GetPointer(), VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 1, 1, cmdBuffer);
 }
 
 void RenderTarget::CreateFramebuffers(uint32_t numFb) {
@@ -92,7 +92,7 @@ void RenderTarget::CreateFramebuffers(uint32_t numFb) {
 		framebuffers[i]->AddImageView(depthImage.view);
 
 		if (swapchainViews == nullptr)
-			framebuffers[i]->AddImageView(renderedSprite.texture->image->view);
+			framebuffers[i]->AddImageView(renderedSprite.GetTexture()->image->view);
 		else
 			framebuffers[i]->AddImageView(swapchainViews->at(i));
 
@@ -113,10 +113,8 @@ void RenderTarget::SetSize(uint32_t sizeX, uint32_t sizeY) {
 		VULKAN::VulkanImageGen::CreateImage(&depthImage, size, renderer->getDepthFormat(), VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, defaultMipLevels, msaa);
 		VULKAN::VulkanImageGen::CreateImageView(&depthImage, renderer->getDepthFormat(), VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
 
-		VULKAN::VulkanImageGen::CreateImage(renderedSprite.texture->image.GetPointer(), size, renderer->swapchain->GetFormat(), VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1, VK_SAMPLE_COUNT_1_BIT);
-		VULKAN::VulkanImageGen::CreateImageView(renderedSprite.texture->image.GetPointer(), renderer->swapchain->GetFormat(), VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
-		
-		renderedSprite.UpdateMaterialTexture();
+		VULKAN::VulkanImageGen::CreateImage(renderedSprite.GetTexture()->image.GetPointer(), size, renderer->swapchain->GetFormat(), VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1, VK_SAMPLE_COUNT_1_BIT);
+		VULKAN::VulkanImageGen::CreateImageView(renderedSprite.GetTexture()->image.GetPointer(), renderer->swapchain->GetFormat(), VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
 	}
 	
 	for (uint32_t i = 0; i < framebuffers.size(); i++) {
@@ -126,7 +124,7 @@ void RenderTarget::SetSize(uint32_t sizeX, uint32_t sizeY) {
 		framebuffers[i]->attachments[1] = depthImage.view;
 
 		if (swapchainViews == nullptr)
-			framebuffers[i]->attachments[2] = renderedSprite.texture->image->view;
+			framebuffers[i]->attachments[2] = renderedSprite.GetTexture()->image->view;
 		else
 			framebuffers[i]->attachments[2] = swapchainViews->at(i);
 
@@ -147,8 +145,8 @@ VULKAN::GpuImage* RenderTarget::GetDepthImage() {
 }
 
 void RenderTarget::CreateSprite(ContentManager* content) {
-	content->CreateSprite(&renderedSprite);
-	renderedSprite.texture = new Texture();
+	content->LoadSprite(&renderedSprite);
+	renderedSprite.SetTexture(new Texture());
 	this->content = content;
 	renderedSprite.material = renderer->GetMaterialSystem()->GetMaterial(MPIPE_2D)->CreateInstance().GetPointer();
 
@@ -162,15 +160,15 @@ void RenderTarget::CreateSprite(ContentManager* content) {
 	VULKAN::VulkanImageGen::CreateImageView(&depthImage, renderer->getDepthFormat(), VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
 	VULKAN::VulkanImageGen::CreateImageSampler(depthImage, SHADOW_MAP_FILTER, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
 
-	VULKAN::VulkanImageGen::CreateImage(renderedSprite.texture->image.GetPointer(), size, renderer->swapchain->GetFormat(), VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1, VK_SAMPLE_COUNT_1_BIT);
-	VULKAN::VulkanImageGen::CreateImageView(renderedSprite.texture->image.GetPointer(), renderer->swapchain->GetFormat(), VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
-	VULKAN::VulkanImageGen::CreateImageSampler(renderedSprite.texture->image.Get(), SHADOW_MAP_FILTER, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
+	VULKAN::VulkanImageGen::CreateImage(renderedSprite.GetTexture()->image.GetPointer(), size, renderer->swapchain->GetFormat(), VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, 1, (VkImageCreateFlagBits)0, 1, VK_SAMPLE_COUNT_1_BIT);
+	VULKAN::VulkanImageGen::CreateImageView(renderedSprite.GetTexture()->image.GetPointer(), renderer->swapchain->GetFormat(), VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D, 1, 1);
+	VULKAN::VulkanImageGen::CreateImageSampler(renderedSprite.GetTexture()->image.Get(), SHADOW_MAP_FILTER, VK_SAMPLER_ADDRESS_MODE_REPEAT, 1);
 
 	spriteHasBeenCreated = true;
 
 	renderedSprite.transform.SetScale(size.ToVector2f());
 
-	renderedSprite.material->GetMaterialSlot(MSLOT_TEXTURE_2D)->SetTexture("Texture", renderedSprite.texture);
+	renderedSprite.material->GetMaterialSlot(MSLOT_TEXTURE_2D)->SetTexture("Texture", renderedSprite.GetTexture());
 	renderedSprite.material->FlushUpdate();
 }
 
@@ -205,8 +203,8 @@ void RenderTarget::Clear() {
 	for (auto& i : framebuffers)
 		i.Delete();
 
-	delete renderedSprite.texture;
-	renderedSprite.texture = nullptr;
+	delete renderedSprite.GetTexture();
+	renderedSprite.SetTexture(nullptr);
 }
 
 Vector2ui RenderTarget::GetSize() {

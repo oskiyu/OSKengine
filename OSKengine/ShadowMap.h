@@ -103,7 +103,7 @@ namespace OSK {
 		/// <summary>
 		/// UBOs con el DirShadowsUBO.
 		/// </summary>
-		UniformBuffer uboDirLightMat;
+		SharedPtr<UniformBuffer> uboDirLightMat = new UniformBuffer;
 
 		/// <summary>
 		/// Información que se manda a la GPU para el renderizado de las sombras.

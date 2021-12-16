@@ -17,7 +17,7 @@ namespace OSK {
 	/// 
 	/// Implementación de la interfaz para el renderizador de DirectX 12.
 	/// </summary>
-	class CommandQueueDx12 : public ICommandQueue {
+	class OSKAPI_CALL CommandQueueDx12 : public ICommandQueue {
 
 	public:
 

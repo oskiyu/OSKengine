@@ -2,7 +2,7 @@
 
 #include <vulkan/vulkan.h>
 #include <glm.hpp>
-#include <array>
+#include <vector>
 
 #include "OSKsettings.h"
 #include "OSKmacros.h"
@@ -23,6 +23,7 @@
 /// Número de atributos de un vértice.
 /// </summary>
 #define OSK_VERTEX_ATTRIBUTES_COUNT 6
+#define OSK_VERTEX2D_ATTRIBUTES_COUNT 1
 
 namespace OSK {
 
@@ -73,7 +74,16 @@ namespace OSK {
 		/// Atributos que se pasan a la GPU.
 		/// </summary>
 		/// <returns>Atributos que se pasan a la GPU.</returns>
-		static std::array<VkVertexInputAttributeDescription, OSK_VERTEX_ATTRIBUTES_COUNT> GetAttributeDescriptions_FullVertex();
+		static std::vector<VkVertexInputAttributeDescription> GetAttributeDescriptions();
+
+	};
+
+	struct OSKAPI_CALL Vertex2D {
+
+		glm::vec2 position;
+
+		static VkVertexInputBindingDescription GetBindingDescription();
+		static std::vector<VkVertexInputAttributeDescription> GetAttributeDescriptions();
 
 	};
 

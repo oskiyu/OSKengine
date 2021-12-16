@@ -28,8 +28,6 @@ void GpuInfo::SetMaxMsaa() {
 
     else
         maxMsaaSamples = VK_SAMPLE_COUNT_1_BIT;
-
-    maxMsaaSamples = VK_SAMPLE_COUNT_4_BIT;
 }
 
 void GpuInfo::UpdateSwapchainSupport() {

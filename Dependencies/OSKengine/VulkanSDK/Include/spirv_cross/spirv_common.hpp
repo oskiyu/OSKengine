@@ -1,5 +1,6 @@
 /*
- * Copyright 2015-2020 Arm Limited
+ * Copyright 2015-2021 Arm Limited
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +13,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ */
+
+/*
+ * At your option, you may choose to accept this material under either:
+ *  1. The Apache License, Version 2.0, found at <http://www.apache.org/licenses/LICENSE-2.0>, or
+ *  2. The MIT License, found at <http://opensource.org/licenses/MIT>.
  */
 
 #ifndef SPIRV_CROSS_COMMON_HPP
@@ -204,6 +211,28 @@ inline std::string convert_to_string(const T &t)
 	return std::to_string(t);
 }
 
+static inline std::string convert_to_string(int32_t value)
+{
+	// INT_MIN is ... special on some backends. If we use a decimal literal, and negate it, we
+	// could accidentally promote the literal to long first, then negate.
+	// To workaround it, emit int(0x80000000) instead.
+	if (value == std::numeric_limits<int32_t>::min())
+		return "int(0x80000000)";
+	else
+		return std::to_string(value);
+}
+
+static inline std::string convert_to_string(int64_t value, const std::string &int64_type, bool long_long_literal_suffix)
+{
+	// INT64_MIN is ... special on some backends.
+	// If we use a decimal literal, and negate it, we might overflow the representable numbers.
+	// To workaround it, emit int(0x80000000) instead.
+	if (value == std::numeric_limits<int64_t>::min())
+		return join(int64_type, "(0x8000000000000000u", (long_long_literal_suffix ? "ll" : "l"), ")");
+	else
+		return std::to_string(value) + (long_long_literal_suffix ? "ll" : "l");
+}
+
 // Allow implementations to set a convenient standard precision
 #ifndef SPIRV_CROSS_FLT_FMT
 #define SPIRV_CROSS_FLT_FMT "%.32g"
@@ -295,8 +324,20 @@ struct Instruction
 {
 	uint16_t op = 0;
 	uint16_t count = 0;
+	// If offset is 0 (not a valid offset into the instruction stream),
+	// we have an instruction stream which is embedded in the object.
 	uint32_t offset = 0;
 	uint32_t length = 0;
+
+	inline bool is_embedded() const
+	{
+		return offset == 0;
+	}
+};
+
+struct EmbeddedInstruction : Instruction
+{
+	SmallVector<uint32_t> ops;
 };
 
 enum Types
@@ -357,28 +398,6 @@ public:
 		return TypedID<U>(*this);
 	}
 
-	bool operator==(const TypedID &other) const
-	{
-		return id == other.id;
-	}
-
-	bool operator!=(const TypedID &other) const
-	{
-		return id != other.id;
-	}
-
-	template <Types type>
-	bool operator==(const TypedID<type> &other) const
-	{
-		return id == uint32_t(other);
-	}
-
-	template <Types type>
-	bool operator!=(const TypedID<type> &other) const
-	{
-		return id != uint32_t(other);
-	}
-
 private:
 	uint32_t id = 0;
 };
@@ -403,26 +422,6 @@ public:
 		return id;
 	}
 
-	bool operator==(const TypedID &other) const
-	{
-		return id == other.id;
-	}
-
-	bool operator!=(const TypedID &other) const
-	{
-		return id != other.id;
-	}
-
-	bool operator==(const TypedID<TypeNone> &other) const
-	{
-		return id == uint32_t(other);
-	}
-
-	bool operator!=(const TypedID<TypeNone> &other) const
-	{
-		return id != uint32_t(other);
-	}
-
 private:
 	uint32_t id = 0;
 };
@@ -440,6 +439,11 @@ struct IVariant
 	virtual ~IVariant() = default;
 	virtual IVariant *clone(ObjectPoolBase *pool) = 0;
 	ID self = 0;
+
+protected:
+	IVariant() = default;
+	IVariant(const IVariant&) = default;
+	IVariant &operator=(const IVariant&) = default;
 };
 
 #define SPIRV_CROSS_DECLARE_CLONE(T)                                \
@@ -558,6 +562,7 @@ struct SPIRType : IVariant
 
 		// Keep internal types at the end.
 		ControlPointArray,
+		Interpolant,
 		Char
 	};
 
@@ -763,7 +768,9 @@ struct SPIRBlock : IVariant
 
 		Return, // Block ends with return.
 		Unreachable, // Noop
-		Kill // Discard
+		Kill, // Discard
+		IgnoreIntersection, // Ray Tracing
+		TerminateRay // Ray Tracing
 	};
 
 	enum Merge
@@ -1392,7 +1399,7 @@ public:
 	~Variant()
 	{
 		if (holder)
-			group->pools[type]->free_opaque(holder);
+			group->pools[type]->deallocate_opaque(holder);
 	}
 
 	// Marking custom move constructor as noexcept is important.
@@ -1411,7 +1418,7 @@ public:
 		if (this != &other)
 		{
 			if (holder)
-				group->pools[type]->free_opaque(holder);
+				group->pools[type]->deallocate_opaque(holder);
 			holder = other.holder;
 			group = other.group;
 			type = other.type;
@@ -1435,7 +1442,7 @@ public:
 		if (this != &other)
 		{
 			if (holder)
-				group->pools[type]->free_opaque(holder);
+				group->pools[type]->deallocate_opaque(holder);
 
 			if (other.holder)
 				holder = other.holder->clone(group->pools[other.type].get());
@@ -1451,13 +1458,13 @@ public:
 	void set(IVariant *val, Types new_type)
 	{
 		if (holder)
-			group->pools[type]->free_opaque(holder);
+			group->pools[type]->deallocate_opaque(holder);
 		holder = nullptr;
 
 		if (!allow_type_rewrite && type != TypeNone && type != new_type)
 		{
 			if (val)
-				group->pools[new_type]->free_opaque(val);
+				group->pools[new_type]->deallocate_opaque(val);
 			SPIRV_CROSS_THROW("Overwriting a variant with new type.");
 		}
 
@@ -1512,7 +1519,7 @@ public:
 	void reset()
 	{
 		if (holder)
-			group->pools[type]->free_opaque(holder);
+			group->pools[type]->deallocate_opaque(holder);
 		holder = nullptr;
 		type = TypeNone;
 	}
@@ -1615,6 +1622,13 @@ enum ExtendedDecorations
 	// addition of swizzles to keep the generated code compiling.
 	SPIRVCrossDecorationTessIOOriginalInputTypeID,
 
+	// Apply to any access chain of an interface variable used with pull-model interpolation, where the variable is a
+	// vector but the resulting pointer is a scalar; stores the component index that is to be accessed by the chain.
+	// This is used when emitting calls to interpolation functions on the chain in MSL: in this case, the component
+	// must be applied to the result, since pull-model interpolants in MSL cannot be swizzled directly, but the
+	// results of interpolation can.
+	SPIRVCrossDecorationInterpolantComponentExpr,
+
 	SPIRVCrossDecorationCount
 };
 
@@ -1634,6 +1648,7 @@ struct Meta
 		uint32_t offset = 0;
 		uint32_t xfb_buffer = 0;
 		uint32_t xfb_stride = 0;
+		uint32_t stream = 0;
 		uint32_t array_stride = 0;
 		uint32_t matrix_stride = 0;
 		uint32_t input_attachment = 0;
@@ -1775,6 +1790,22 @@ struct SetBindingPair
 	}
 };
 
+struct LocationComponentPair
+{
+	uint32_t location;
+	uint32_t component;
+
+	inline bool operator==(const LocationComponentPair &other) const
+	{
+		return location == other.location && component == other.component;
+	}
+
+	inline bool operator<(const LocationComponentPair &other) const
+	{
+		return location < other.location || (location == other.location && component < other.component);
+	}
+};
+
 struct StageSetBinding
 {
 	spv::ExecutionModel model;
@@ -1794,6 +1825,14 @@ struct InternalHasher
 		// Quality of hash doesn't really matter here.
 		auto hash_set = std::hash<uint32_t>()(value.desc_set);
 		auto hash_binding = std::hash<uint32_t>()(value.binding);
+		return (hash_set * 0x10001b31) ^ hash_binding;
+	}
+
+	inline size_t operator()(const LocationComponentPair &value) const
+	{
+		// Quality of hash doesn't really matter here.
+		auto hash_set = std::hash<uint32_t>()(value.location);
+		auto hash_binding = std::hash<uint32_t>()(value.component);
 		return (hash_set * 0x10001b31) ^ hash_binding;
 	}
 

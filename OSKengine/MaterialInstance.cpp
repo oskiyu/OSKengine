@@ -2,6 +2,7 @@
 
 #include "MaterialSlotPool.h"
 #include "MaterialSlot.h"
+#include "Material.h"
 
 using namespace OSK;
 
@@ -10,31 +11,35 @@ MaterialInstance::~MaterialInstance() {
 }
 
 MaterialSlot* MaterialInstance::GetMaterialSlot(MaterialSlotTypeId type) {
-	return slotPools.at(type)->GetMaterialSlot(slotIds.at(type));
+	return &slots.at(type);
 }
-
-void MaterialInstance::SetMaterialSlot(MaterialSlotTypeId type, MaterialSlotPool* pool) {
-	slotIds[type] = pool->GetNextMaterialSlot();
-	slotPools[type] = pool;
-
-	types.push_back(type);
-
-	numberOfSlots++;
+MaterialSlotData* MaterialInstance::GetMaterialSlotData(MaterialSlotTypeId type) {
+	return owner->GetMaterialSlotData(type, slots.at(type).GetHandler());
 }
 
 void MaterialInstance::FlushUpdate() {
-	for (auto i : types)
-		slotPools[i]->GetMaterialSlot(slotIds[i])->FlushUpdate();
+	for (auto& i : slots)
+		i.second.FlushUpdate();
 }
 
 bool MaterialInstance::HasBeenSet() const {
 	for (auto i : types)
-		if (!slotPools.at(i)->GetMaterialSlot(slotIds.at(i))->HasBeenSet())
+		if (!owner->GetMaterialSlotData(i, slots.at(i).GetHandler())->HasBeenSet())
 			return false;
 
 	return true;
 }
 
 size_t MaterialInstance::GetNumberOfSlots() const {
-	return numberOfSlots;
+	return types.size();
+}
+
+Material* MaterialInstance::GetMaterial() const {
+	return owner;
+}
+
+void MaterialInstance::AddType(MaterialSlotTypeId type) {
+	types.push_back(type);
+
+	slots[type] = MaterialSlot(owner, type);
 }

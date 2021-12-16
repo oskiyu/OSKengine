@@ -82,8 +82,8 @@ public:
 
 		input.GetOneTimeInputFunction("Fullscreen") = [this]() {
 			GetWindow()->SetFullscreen(!GetWindow()->IsFullscreen());
-			GetRenderer()->defaultCamera2D.targetSize = GetWindow()->GetSize().ToVector2f();
-			GetRenderer()->defaultCamera2D.Update();
+			GetRenderer()->GetDefaultCamera2D()->targetSize = GetWindow()->GetSize().ToVector2f();
+			GetRenderer()->GetDefaultCamera2D()->Update();
 		};
 
 		input.GetInputFunction("Acelerar") = [this](deltaTime_t dt) {
@@ -111,7 +111,7 @@ public:
 			
 			model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetBuffer("Lights", renderSystem3D->GetRenderScene()->uboLights);
 			model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetBuffer("DirLightMat", renderSystem3D->GetRenderScene()->shadowMap->uboDirLightMat);
-			model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetTexture("ShadowsTexture", renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.texture);
+			model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetTexture("ShadowsTexture", renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.GetTexture());
 			
 			model.material->GetMaterialSlot(OSK::MSLOT_PER_MODEL_3D)->SetTexture("Albedo", content->LoadTexture("models/F0/Car/NullSurface_Color.png"));
 			model.material->GetMaterialSlot(OSK::MSLOT_PER_MODEL_3D)->SetTexture("Specular", content->LoadTexture("models/F0/Car/NullSurface_Color.png"));
@@ -137,7 +137,7 @@ public:
 				model.material->GetMaterialSlot(OSK::MSLOT_CAMERA_3D)->SetBuffer("Camera", GetRenderer()->GetDefaultCamera()->GetUniformBuffer());
 				model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetBuffer("Lights", renderSystem3D->GetRenderScene()->uboLights);
 				model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetBuffer("DirLightMat", renderSystem3D->GetRenderScene()->shadowMap->uboDirLightMat);
-				model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetTexture("ShadowsTexture", renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.texture);
+				model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetTexture("ShadowsTexture", renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.GetTexture());
 				model.material->GetMaterialSlot(OSK::MSLOT_PER_MODEL_3D)->SetTexture("Albedo", content->LoadTexture("models/F0/Wheel/Null.1Surface_Color.png"));
 				model.material->GetMaterialSlot(OSK::MSLOT_PER_MODEL_3D)->SetTexture("Specular", content->LoadTexture("models/F0/Wheel/Null.1Surface_Color.png"));
 				model.material->GetMaterialSlot(OSK::MSLOT_PER_INSTANCE_3D)->SetDynamicBuffer("Bones", renderSystem3D->GetRenderScene()->uboBones);
@@ -154,7 +154,7 @@ public:
 				model.material->GetMaterialSlot(OSK::MSLOT_CAMERA_3D)->SetBuffer("Camera", GetRenderer()->GetDefaultCamera()->GetUniformBuffer());
 				model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetBuffer("Lights", renderSystem3D->GetRenderScene()->uboLights);
 				model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetBuffer("DirLightMat", renderSystem3D->GetRenderScene()->shadowMap->uboDirLightMat);
-				model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetTexture("ShadowsTexture", renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.texture);
+				model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetTexture("ShadowsTexture", renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.GetTexture());
 				model.material->GetMaterialSlot(OSK::MSLOT_PER_MODEL_3D)->SetTexture("Albedo", content->LoadTexture("models/F0/Wheel/Null.1Surface_Color.png"));
 				model.material->GetMaterialSlot(OSK::MSLOT_PER_MODEL_3D)->SetTexture("Specular", content->LoadTexture("models/F0/Wheel/Null.1Surface_Color.png"));
 				model.material->GetMaterialSlot(OSK::MSLOT_PER_INSTANCE_3D)->SetDynamicBuffer("Bones", renderSystem3D->GetRenderScene()->uboBones);
@@ -171,7 +171,7 @@ public:
 				model.material->GetMaterialSlot(OSK::MSLOT_CAMERA_3D)->SetBuffer("Camera", GetRenderer()->GetDefaultCamera()->GetUniformBuffer());
 				model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetBuffer("Lights", renderSystem3D->GetRenderScene()->uboLights);
 				model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetBuffer("DirLightMat", renderSystem3D->GetRenderScene()->shadowMap->uboDirLightMat);
-				model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetTexture("ShadowsTexture", renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.texture);
+				model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetTexture("ShadowsTexture", renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.GetTexture());
 				model.material->GetMaterialSlot(OSK::MSLOT_PER_MODEL_3D)->SetTexture("Albedo", content->LoadTexture("models/F0/Wheel/Null.1Surface_Color.png"));
 				model.material->GetMaterialSlot(OSK::MSLOT_PER_MODEL_3D)->SetTexture("Specular", content->LoadTexture("models/F0/Wheel/Null.1Surface_Color.png"));
 				model.material->GetMaterialSlot(OSK::MSLOT_PER_INSTANCE_3D)->SetDynamicBuffer("Bones", renderSystem3D->GetRenderScene()->uboBones);
@@ -188,7 +188,7 @@ public:
 				model.material->GetMaterialSlot(OSK::MSLOT_CAMERA_3D)->SetBuffer("Camera", GetRenderer()->GetDefaultCamera()->GetUniformBuffer());
 				model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetBuffer("Lights", renderSystem3D->GetRenderScene()->uboLights);
 				model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetBuffer("DirLightMat", renderSystem3D->GetRenderScene()->shadowMap->uboDirLightMat);
-				model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetTexture("ShadowsTexture", renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.texture);
+				model.material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetTexture("ShadowsTexture", renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.GetTexture());
 				model.material->GetMaterialSlot(OSK::MSLOT_PER_MODEL_3D)->SetTexture("Albedo", content->LoadTexture("models/F0/Wheel/Null.1Surface_Color.png"));
 				model.material->GetMaterialSlot(OSK::MSLOT_PER_MODEL_3D)->SetTexture("Specular", content->LoadTexture("models/F0/Wheel/Null.1Surface_Color.png"));
 				model.material->GetMaterialSlot(OSK::MSLOT_PER_INSTANCE_3D)->SetDynamicBuffer("Bones", renderSystem3D->GetRenderScene()->uboBones);
@@ -230,7 +230,7 @@ public:
 		playerModel.GetStaticMeshes()[0].material->GetMaterialSlot(OSK::MSLOT_CAMERA_3D)->SetBuffer("Camera", GetRenderer()->GetDefaultCamera()->GetUniformBuffer());
 		playerModel.GetStaticMeshes()[0].material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetBuffer("Lights", renderSystem3D->GetRenderScene()->uboLights);
 		playerModel.GetStaticMeshes()[0].material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetBuffer("DirLightMat", renderSystem3D->GetRenderScene()->shadowMap->uboDirLightMat);
-		playerModel.GetStaticMeshes()[0].material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetTexture("ShadowsTexture", renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.texture);
+		playerModel.GetStaticMeshes()[0].material->GetMaterialSlot(OSK::MSLOT_SCENE_3D)->SetTexture("ShadowsTexture", renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.GetTexture());
 		playerModel.GetStaticMeshes()[0].material->GetMaterialSlot(OSK::MSLOT_PER_MODEL_3D)->SetTexture("Albedo", content->LoadTexture("models/cube/td.png"));
 		playerModel.GetStaticMeshes()[0].material->GetMaterialSlot(OSK::MSLOT_PER_MODEL_3D)->SetTexture("Specular", content->LoadTexture("models/cube/ts.png"));
 		playerModel.GetStaticMeshes()[0].material->GetMaterialSlot(OSK::MSLOT_PER_INSTANCE_3D)->SetDynamicBuffer("Bones", renderSystem3D->GetRenderScene()->uboBones);
@@ -254,15 +254,15 @@ public:
 			OSK::UiElement* topbar = new OSK::UiElement();
 			topbar->layout = OSK::UiLayout::HORIZONTAL;
 			topbar->SetPositionFromAnchor({ 5.0f });
-			topbar->sprite.texture = buttonTexture;
-			topbar->InitSprite(content, GetRenderer());
+			content->LoadSprite(&topbar->sprite);
+			topbar->sprite.SetTexture(buttonTexture);
 			topbar->originalSpireColor = OSK::Color(0.2f) * 0.6f;
 			topbar->anchor = OSK::UiAnchor::TOP;
 
 			OSK::UiElement* logo = new OSK::UiElement();
 			logo->SetSize(48.0f);
-			logo->sprite.texture = GetRenderer()->OskEngineIconSprite.texture;
-			logo->InitSprite(content, GetRenderer());
+			content->LoadSprite(&logo->sprite);
+			logo->sprite.SetTexture(GetRenderer()->OskEngineIconSprite.GetTexture());
 			logo->marging = 0.0f;
 
 			OSK::uiSetDraggableFunctionality(logo);
@@ -280,16 +280,16 @@ public:
 			OSK::UiElement* optionsMenu = new OSK::UiElement();
 			{
 				optionsMenu->SetSize({ 200.0f });
-				optionsMenu->sprite.texture = buttonTexture;
-				optionsMenu->InitSprite(content, GetRenderer());
+				content->LoadSprite(&optionsMenu->sprite);
+				optionsMenu->sprite.SetTexture(buttonTexture);
 				optionsMenu->originalSpireColor = OSK::Color(0.2f) * 0.6f;
 
 				OSK::UiElement* header = new OSK::UiElement();
 				header->SetSize({ 34.0f });
 				header->fuente = Fuente;
 				header->text = " Opciones";
-				header->sprite.texture = buttonTexture;
-				header->InitSprite(content, GetRenderer());
+				content->LoadSprite(&header->sprite);
+				header->sprite.SetTexture(buttonTexture);
 				header->originalSpireColor = OSK::Color(0.1f) * 0.9f;
 
 				OSK::Vector2f newSize = { optionsMenu->GetSize().X - optionsMenu->marging.X * 2 - header->marging.X * 2, header->GetSize().Y };
@@ -309,8 +309,8 @@ public:
 
 					OSK::UiElement* button = new OSK::UiElement();
 					button->SetSize({ text->GetSize().X, buttonSize });
-					button->sprite.texture = buttonTexture;
-					button->InitSprite(content, GetRenderer());
+					content->LoadSprite(&button->sprite);
+					button->sprite.SetTexture(buttonTexture);
 					button->spriteColorOnHover = OSK::Color(0.5f);
 
 					OSK::uiSetCheckboxFunctionality(button, &GetRenderer()->postProcessingSettings.useFxaa, { 0.0f, 1.0f, 0.0f }, OSK::Color::RED());
@@ -331,8 +331,8 @@ public:
 
 					OSK::UiElement* button = new OSK::UiElement();
 					button->SetSize({ text->GetSize().X, buttonSize });
-					button->sprite.texture = buttonTexture;
-					button->InitSprite(content, GetRenderer());
+					content->LoadSprite(&button->sprite);
+					button->sprite.SetTexture(buttonTexture);
 					button->spriteColorOnHover = OSK::Color(0.5f);
 
 					auto func = [this]() {
@@ -363,8 +363,8 @@ public:
 			OSK::UiElement* irAlJuego = new OSK::UiElement();
 			{
 				OSK::UiElement* header = new OSK::UiElement();
-				header->sprite.texture = buttonTexture;
-				header->InitSprite(content, GetRenderer());
+				content->LoadSprite(&header->sprite);
+				header->sprite.SetTexture(buttonTexture);
 				header->originalSpireColor = OSK::Color(0.1f) * 0.9f;
 				header->SetSize({ optionsMenu->GetSize().X - optionsMenu->marging.X * 2 - header->marging.X * 2, optionsMenu->GetSize().Y });
 
@@ -372,8 +372,8 @@ public:
 
 				OSK::UiElement* button = new OSK::UiElement();
 				irAlJuego->SetSize({ irAlJuego->GetSize().X * 1.5f, barSize });
-				irAlJuego->sprite.texture = content->LoadTexture("assets/editor/play.png");
-				irAlJuego->InitSprite(content, GetRenderer());
+				content->LoadSprite(&irAlJuego->sprite);
+				irAlJuego->sprite.SetTexture(content->LoadTexture("assets/editor/play.png"));
 
 				float r = 15.0f / 255.0f;
 				float g = 255.0f / 255.0f;
@@ -443,12 +443,16 @@ public:
 	void OnDraw2D() override {
 		spriteBatch.Clear();
 
+		spriteBatch.Begin(GetRenderer()->GetDefaultCamera2D());
+
 		spriteBatch.DrawString(Fuente, "OSKengine " + std::string(OSK::ENGINE_VERSION), 1.0f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
 		spriteBatch.DrawString(Fuente, "FPS " + std::to_string((int)GetFPS() - 1), 1.5f, OSK::Vector2(10), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::TOP_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
 
 		spriteBatch.DrawString(Fuente, std::to_string(scene->GetGameObjectByName("Cube1")->GetComponent<OSK::PhysicsComponent>().velocity.GetLenght() * 3600 / 1000) + "km/h", 1.5f, OSK::Vector2(10), OSK::Color(0.6f, 0.7f, 0.7f), OSK::Anchor::BOTTOM_LEFT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
 
 		userInterface->Draw(&spriteBatch);
+
+		spriteBatch.End();
 	}
 
 	OSK::Font* Fuente = nullptr;

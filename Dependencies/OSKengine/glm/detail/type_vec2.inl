@@ -2,6 +2,10 @@
 
 #include "./compute_vector_relational.hpp"
 
+#ifdef OSK_CLI
+#define assert(x)
+#endif
+
 namespace glm
 {
 	// -- Implicit basic constructors --

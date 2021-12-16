@@ -62,9 +62,11 @@ namespace OSK {
 		/// </summary>
 		const std::vector<VkDescriptorSetLayout>& GetMaterialPipelineLayout(MaterialPipelineTypeId pipeline) const;
 
+		uint32_t GetBindingFromName(MaterialSlotTypeId type, const std::string& name) const;
+
 	private:
 
-		std::unordered_map<MaterialPipelineTypeId, Material*> materials;
+		std::unordered_map<MaterialPipelineTypeId, OwnedPtr<Material>> materials;
 		std::list<VULKAN::Renderpass*> renderpasses;
 
 		std::unordered_map<MaterialPipelineTypeId, std::vector<VkDescriptorSetLayout>> pipelinesLayouts;

@@ -48,20 +48,9 @@ namespace OSK {
 		void SetTexCoordsInPercent(const Vector4f& texCoords);
 
 		/// <summary>
-		/// Actualiza el material del sprite, para que use la textura de este sprite.
-		/// Puede usarse para actualizar la textura.
-		/// </summary>
-		void UpdateMaterialTexture();
-
-		/// <summary>
 		/// Transform del sprite.
 		/// </summary>
 		Transform2D transform;
-
-		/// <summary>
-		/// Textura que se renderiza en este sprite.
-		/// </summary>
-		Texture* texture = nullptr;
 
 		/// <summary>
 		/// Material del sprite.
@@ -73,20 +62,22 @@ namespace OSK {
 		/// </summary>
 		Color color = Color(1.0f);
 
+		void SetTexture(Texture* texture);
+		Texture* GetTexture() const;
+
 	private:
 
 		/// <summary>
-		/// True si está completamente fuera de la pantalla (no se ve).
-		/// Establecido por el renderizador.
+		/// Textura que se renderiza en este sprite.
 		/// </summary>
-		bool isOutOfScreen = false;
+		Texture* texture = nullptr;
 
 		/// <summary>
 		/// Obtiene e push const 2D del sprite.
 		/// </summary>
 		/// <param name="camera">Matriz de la cámara usada para renderizarlo.</param>
 		/// <returns>Push const 2D.</returns>
-		PushConst2D getPushConst(const glm::mat4& camera);
+		PushConst2D getPushConst();
 
 		/// <summary>
 		/// Matriz modelo del sprite.
@@ -96,7 +87,7 @@ namespace OSK {
 		/// <summary>
 		/// Área del sprite.
 		/// </summary>
-		Vector4 rectangle{};
+		Vector4 textureCoords{};
 
 		/// <summary>
 		/// Rotación del sprite, en ángulo hacia lad erecha.
@@ -106,7 +97,7 @@ namespace OSK {
 		/// <summary>
 		/// Vértices del sprite.
 		/// </summary>
-		SharedPtr<GpuDataBuffer> vertexBuffer;
+		static SharedPtr<GpuDataBuffer> vertexBuffer;
 
 		/// <summary>
 		/// Índices del sprite.
@@ -114,19 +105,9 @@ namespace OSK {
 		static SharedPtr<GpuDataBuffer> indexBuffer;
 
 		/// <summary>
-		/// True si hay que actualizar el buffer de vértices (por cambio de coordenadas de textura).
-		/// </summary>
-		bool hasChanged = false;
-
-		/// <summary>
 		/// Vértices.
 		/// </summary>
-		std::vector<Vertex> vertices = {
-			{{0, 0, 0}, {1.0f, 1.0f, 1.0f}, {0, 0}},
-			{{1, 0, 0}, {1.0f, 1.0f, 1.0f}, {1, 0}},
-			{{1, 1, 0}, {1.0f, 1.0f, 1.0f}, {1, 1}},
-			{{0, 1, 0}, {1.0f, 1.0f, 1.0f}, {0, 1}}
-		};
+		static std::array<Vertex2D, 4> vertices;
 
 		/// <summary>
 		/// Índices.

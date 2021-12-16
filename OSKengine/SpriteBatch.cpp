@@ -8,24 +8,49 @@
 namespace OSK {
 
 	SpriteBatch::SpriteBatch() {
-
+		currentState = SpriteBatchState::ENDED;
 	}
 
 	SpriteBatch::~SpriteBatch() {
-		spritesToDraw.Free();
+		spritesToDraw.clear();
 	}
 
-	void SpriteBatch::DrawSprite(Sprite sprite) {
-		OSK_ASSERT(camera != nullptr, "La cámara es null.");
+	void SpriteBatch::Begin(Camera2D* camera) {
+		OSK_ASSERT(currentState == SpriteBatchState::ENDED, "El sprite batch está empezado.");
 
-		SpriteContainer spr;
-		spr.Set(sprite, camera->GetProjection());
+		spritesToDraw.push_back(SpriteContainer(camera));
 
-		spritesToDraw.Insert(spr);
+		currentState = SpriteBatchState::STARTED;
+	}
+
+	void SpriteBatch::End() {
+		OSK_ASSERT(currentState == SpriteBatchState::STARTED, "El sprite batch está terminado.");
+
+		currentState = SpriteBatchState::ENDED;
+	}
+
+	void SpriteBatch::DrawSprite(const Sprite& sprite) {
+		spritesToDraw[spritesToDraw.size() - 1].spritesToDraw.push_back(sprite);
+	}
+
+	void SpriteBatch::DrawTexture(Texture* texture, const Vector2f position, const Vector2f size, const Vector4i texCoords, const Color& color) {
+		return;
+
+		OSK_ASSERT(texture != nullptr, "La textura es null.");
+
+		Sprite sprite;
+		sprite.material = renderer->GetMaterialSystem()->GetMaterial(MPIPE_2D)->CreateInstance().GetPointer();
+		sprite.SetTexture(texture);
+		sprite.SetTexCoords(texCoords.ToVector4f());
+		sprite.transform.SetPosition(position);
+		sprite.transform.SetScale(size);
+		sprite.color = color;
+
+		spritesToDraw[spritesToDraw.size() - 1].spritesToDraw.push_back(sprite);
 	}
 
 	void SpriteBatch::DrawString(const Font* fuente, const std::string& texto, float size, const Vector2& position, const Color& color, Anchor screenAnchor, const Vector4& reference, TextRenderingLimit limitAction, float sizeXlimit, float limitOffset) {
-		OSK_ASSERT(camera, "La cámara es null.");
+		OSK_ASSERT(fuente, "La fuente es null.");
 
 		AnchorTextTo to = AnchorTextTo::SCREEN;
 		if (reference.X > 0.0f)
@@ -37,8 +62,8 @@ namespace OSK {
 		std::string finalText = texto;
 
 		if (limitAction == OSK::TextRenderingLimit::MOVE_TEXT) {
-			if (finalPosition.X + textSize.X + limitOffset > renderer->defaultCamera2D.targetSize.X)
-				finalPosition.X -= limitOffset + (finalPosition.X + textSize.X - renderer->defaultCamera2D.targetSize.X);
+			if (finalPosition.X + textSize.X + limitOffset > renderer->GetDefaultCamera2D()->targetSize.X)
+				finalPosition.X -= limitOffset + (finalPosition.X + textSize.X - renderer->GetDefaultCamera2D()->targetSize.X);
 		}
 
 		else if (limitAction == TextRenderingLimit::NEW_LINE) {
@@ -105,23 +130,16 @@ namespace OSK {
 				continue;
 			}
 
-			character.sprite.transform.SetPosition(Vector2i((int)posX, (int)posY).ToVector2f());
-			character.sprite.transform.SetScale(Vector2i((int)sizeX, (int)sizeY).ToVector2f());
-			character.sprite.color = color;
-
 			it++;
 
-			SpriteContainer spr;
-			spr.Set(character.sprite, camera->GetProjection());
-
-			spritesToDraw.Insert(spr);
+			DrawTexture(fuente->texture, { posX, posY }, { sizeX, sizeY }, character.textureCoords, color);
 
 			x += ((character.advance >> 6) * size); // character.Bearing.X;//((character.Advance * (int)sizeX) >> 6) * size;
 		}
 	}
 
 	Vector2 SpriteBatch::GetTextPosition(const Vector2& position, const Vector2& textSize, const Anchor& anchor, const AnchorTextTo& to, const Vector4& reference) const {
-		Vector4 refr = Vector4(0.0f, 0.0f, renderer->defaultCamera2D.targetSize.X, renderer->defaultCamera2D.targetSize.Y);
+		Vector4 refr = Vector4(0.0f, 0.0f, renderer->GetDefaultCamera2D()->targetSize.X, renderer->GetDefaultCamera2D()->targetSize.Y);
 
 		if (to == AnchorTextTo::UI_ELEMENT)
 			refr = reference;
@@ -152,7 +170,7 @@ namespace OSK {
 	}
 
 	void SpriteBatch::Clear() {
-		spritesToDraw.Empty();
+		spritesToDraw.clear();
 	}
 
 }

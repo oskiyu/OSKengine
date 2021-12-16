@@ -78,7 +78,7 @@ namespace OSK {
 		/// <param name="commandBuffer">CommandBuffer.</param>
 		/// <param name="pipeline">Pipeline con el que se está renderizando.</param>
 		/// <param name="iteration">Qué VulkanDescriptorSets se va a usar.</param>
-		void Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration) const;
+		void Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration, uint32_t setNumber) const;
 
 		/// <summary>
 		/// Establece este descriptor set como el que se va a usar a partir de ahora en un CommandBuffer.
@@ -88,7 +88,7 @@ namespace OSK {
 		/// <param name="iteration">Qué VulkanDescriptorSets se va a usar.</param>
 		/// <param name="dynamicOffset">Offset de la entidad del dynamic UBO.</param>
 		/// <param name="alignment">Alignment del dynamic ubo.</param>
-		void Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration, uint32_t dynamicOffset, uint32_t alignment) const;
+		void Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration, uint32_t setNumber, uint32_t dynamicOffset, uint32_t alignment) const;
 
 		/// <summary>
 		/// Restea la información de los bindings.

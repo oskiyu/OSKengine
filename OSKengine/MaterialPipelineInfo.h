@@ -13,6 +13,8 @@
 
 namespace OSK {
 
+	using MaterialSlotHandler = uint32_t;
+
 	/// <summary>
 	/// Modo de renderizado de los polígonos: llenos o lineas.
 	/// </summary>
@@ -69,6 +71,11 @@ namespace OSK {
 		/// </summary>
 		COUNTERCLOCKWISE
 
+	};
+
+	enum class RenderType {
+		T2D,
+		T3D
 	};
 
 	/// <summary>
@@ -135,6 +142,8 @@ namespace OSK {
 		/// Información de los push constants.
 		/// </summary>
 		std::vector<PushConstantInfo> pushConstants;
+		RenderType type = RenderType::T3D;
+
 
 	};
 

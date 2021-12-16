@@ -1,15 +1,15 @@
 #include "GpuVulkan.h"
 
-#include <vector>
 #include "Assert.h"
 #include <set>
 #include "CommandPoolVulkan.h"
 #include "SyncDeviceVulkan.h"
+#include <vulkan/vulkan.h>
 
 using namespace OSK;
 
 // Extensiones de la GPU que van a ser necesarias.
-const std::vector<const char*> gpuExtensions = {
+const DynamicArray<const char*> gpuExtensions = {
 	VK_KHR_SWAPCHAIN_EXTENSION_NAME
 };
 
@@ -59,7 +59,7 @@ VkPhysicalDevice GpuVulkan::GetPhysicalDevice() const {
 void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 	auto queueFamilyIndices = GetQueueFamilyIndices(surface);
 
-	std::vector<VkDeviceQueueCreateInfo> createInfos;
+	DynamicArray<VkDeviceQueueCreateInfo> createInfos;
 	std::set<uint32_t> uniqueQueueFamilies = {
 		queueFamilyIndices.graphicsFamily.value(),
 		queueFamilyIndices.presentFamily.value()
@@ -76,7 +76,7 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 		// Prioridades.
 		qCreateInfo.pQueuePriorities = &qPriority;
 
-		createInfos.push_back(qCreateInfo);
+		createInfos.Insert(qCreateInfo);
 	}
 
 	// Características que vamos a usar.
@@ -86,11 +86,11 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 	// Crear el logical device.
 	VkDeviceCreateInfo createInfo{};
 	createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-	createInfo.queueCreateInfoCount = static_cast<uint32_t>(createInfos.size());
-	createInfo.pQueueCreateInfos = createInfos.data();
+	createInfo.queueCreateInfoCount = createInfos.GetSize();
+	createInfo.pQueueCreateInfos = createInfos.GetData();
 	createInfo.pEnabledFeatures = &features;
-	createInfo.enabledExtensionCount = static_cast<uint32_t>(gpuExtensions.size());
-	createInfo.ppEnabledExtensionNames = gpuExtensions.data();
+	createInfo.enabledExtensionCount = gpuExtensions.GetSize();
+	createInfo.ppEnabledExtensionNames = gpuExtensions.GetData();
 
 	// Crear el logical device.
 	VkResult result = vkCreateDevice(physicalDevice, &createInfo, nullptr, &logicalDevice);
@@ -121,8 +121,9 @@ QueueFamilyIndices GpuVulkan::GetQueueFamilyIndices(VkSurfaceKHR surface) const 
 	vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &queueFamilyCount, nullptr);
 
 	// Obtener las colas.
-	std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
-	vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &queueFamilyCount, queueFamilies.data());
+	auto queueFamilies = DynamicArray<VkQueueFamilyProperties>::CreateResizedArray(queueFamilyCount);
+
+	vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &queueFamilyCount, queueFamilies.GetData());
 
 	// Comprobar el soporte de distintos tipos de cola.
 	int i = 0;
@@ -149,11 +150,11 @@ QueueFamilyIndices GpuVulkan::GetQueueFamilyIndices(VkSurfaceKHR surface) const 
 OwnedPtr<ISyncDevice> GpuVulkan::CreateSyncDevice() {
 	auto output = new SyncDeviceVulkan;
 
-	std::vector<VkSemaphore> imageAvailableSemaphores(3);
-	std::vector<VkSemaphore> renderFinishedSemaphores(3);
+	auto imageAvailableSemaphores = DynamicArray<VkSemaphore>::CreateResizedArray(3, VK_NULL_HANDLE);
+	auto renderFinishedSemaphores = DynamicArray<VkSemaphore>::CreateResizedArray(3, VK_NULL_HANDLE);
 
-	std::vector<VkFence> inFlightFences(3);
-	std::vector<VkFence> imagesInFlight(3, nullptr);
+	auto inFlightFences = DynamicArray<VkFence>::CreateResizedArray(3, VK_NULL_HANDLE);
+	auto imagesInFlight = DynamicArray<VkFence>::CreateResizedArray(3, VK_NULL_HANDLE);
 
 	VkSemaphoreCreateInfo semaphoreInfo{};
 	semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
@@ -173,16 +174,10 @@ OwnedPtr<ISyncDevice> GpuVulkan::CreateSyncDevice() {
 		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el fence.");
 	}
 
-	std::vector<VkFence> fences(3);
-
-	for (uint32_t i = 0; i < 3; i++)
-		vkCreateFence(logicalDevice, &fenceInfo, nullptr, &fences[i]);
-
 	output->SetImageAvailableSemaphores(imageAvailableSemaphores);
 	output->SetRenderFinishedSemaphores(renderFinishedSemaphores);
 	output->SetImagesInFlightFences(imagesInFlight);
 	output->SetInFlightFences(inFlightFences);
-	output->SetFences(fences);
 
 	return output;
 }
@@ -217,18 +212,28 @@ GpuVulkan::Info GpuVulkan::Info::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface)
 	vkGetPhysicalDeviceSurfaceFormatsKHR(gpu, surface, &formatCount, nullptr);
 
 	//Obtener formatos soportados.
-	shapchainSupport.formats.resize(formatCount);
-	vkGetPhysicalDeviceSurfaceFormatsKHR(gpu, surface, &formatCount, shapchainSupport.formats.data());
+	shapchainSupport.formats.Resize(formatCount);
 
+	vkGetPhysicalDeviceSurfaceFormatsKHR(gpu, surface, &formatCount, shapchainSupport.formats.GetData());
+	
 	//Números de modos de presentación.
 	uint32_t presentModeCount = 0;
 	vkGetPhysicalDeviceSurfacePresentModesKHR(gpu, surface, &presentModeCount, nullptr);
 
 	//Obtener modos de presentación.
-	shapchainSupport.presentModes.resize(presentModeCount);
-	vkGetPhysicalDeviceSurfacePresentModesKHR(gpu, surface, &formatCount, shapchainSupport.presentModes.data());
+	shapchainSupport.presentModes.Resize(presentModeCount);
+
+	vkGetPhysicalDeviceSurfacePresentModesKHR(gpu, surface, &formatCount, shapchainSupport.presentModes.GetData());
 
 	info.swapchainSupportDetails = shapchainSupport;
+	
+	VkSampleCountFlags counts = info.properties.limits.framebufferColorSampleCounts & info.properties.limits.framebufferDepthSampleCounts;
+	if (counts & VK_SAMPLE_COUNT_64_BIT) { info.maxMsaaSamples = VK_SAMPLE_COUNT_64_BIT; }
+	else if (counts & VK_SAMPLE_COUNT_32_BIT) { info.maxMsaaSamples = VK_SAMPLE_COUNT_32_BIT; }
+	else if (counts & VK_SAMPLE_COUNT_16_BIT) { info.maxMsaaSamples = VK_SAMPLE_COUNT_16_BIT; }
+	else if (counts & VK_SAMPLE_COUNT_8_BIT) { info.maxMsaaSamples = VK_SAMPLE_COUNT_8_BIT; }
+	else if (counts & VK_SAMPLE_COUNT_4_BIT) { info.maxMsaaSamples = VK_SAMPLE_COUNT_4_BIT; }
+	else if (counts & VK_SAMPLE_COUNT_2_BIT) { info.maxMsaaSamples = VK_SAMPLE_COUNT_2_BIT; }
 
 	return info;
 }

@@ -5,7 +5,9 @@
 
 namespace OSK {
 
+	class Material;
 	class MaterialSlot;
+	class MaterialSlotData;
 	class MaterialSlotPool;
 
 	/// <summary>
@@ -13,19 +15,17 @@ namespace OSK {
 	/// </summary>
 	class OSKAPI_CALL MaterialInstance {
 
+		friend class Material;
+
 	public:
 
 		~MaterialInstance();
 
 		/// <summary>
-		/// Establece el slot que pooserá para el tipo dado.
-		/// </summary>
-		void SetMaterialSlot(MaterialSlotTypeId type, MaterialSlotPool* pool);
-
-		/// <summary>
 		/// Devuelve el slot dado su tipo.
 		/// </summary>
 		MaterialSlot* GetMaterialSlot(MaterialSlotTypeId type);
+		MaterialSlotData* GetMaterialSlotData(MaterialSlotTypeId type);
 
 		/// <summary>
 		/// Actualiza todos los slots.
@@ -41,13 +41,16 @@ namespace OSK {
 		/// </summary>
 		bool HasBeenSet() const;
 
+		Material* GetMaterial() const;
+
 	private:
 
-		std::unordered_map<MaterialSlotTypeId, MaterialSlotPool*> slotPools;
-		std::unordered_map<MaterialSlotTypeId, uint32_t> slotIds;
+		void AddType(MaterialSlotTypeId type);
+
+		std::unordered_map<MaterialSlotTypeId, MaterialSlot> slots;
 		std::vector<MaterialSlotTypeId> types;
 
-		size_t numberOfSlots = 0;
+		Material* owner = nullptr;
 
 	};
 

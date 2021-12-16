@@ -12,10 +12,12 @@ typedef VkDebugUtilsMessengerEXT_T* VkDebugUtilsMessengerEXT;
 
 namespace OSK {
 
+	class IRenderpass;
+
 	/// <summary>
 	/// Implementación de la interfaz para el renderizador de Vulkan.
 	/// </summary>
-	class RendererVulkan : public IRenderer {
+	class OSKAPI_CALL RendererVulkan : public IRenderer {
 
 	public:
 
@@ -30,6 +32,7 @@ namespace OSK {
 		void CreateCommandQueues() override;
 		void CreateSwapchain() override;
 		void CreateSyncDevice() override;
+		void CreateGpuMemoryAllocator() override;
 
 	private:
 
@@ -43,6 +46,8 @@ namespace OSK {
 		VkInstance instance;
 		VkSurfaceKHR surface;
 		VkDebugUtilsMessengerEXT debugConsole;
+
+		UniquePtr<IRenderpass> renderpass;
 
 	};
 

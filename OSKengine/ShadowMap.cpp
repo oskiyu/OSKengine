@@ -16,7 +16,7 @@ ShadowMap::~ShadowMap() {
 }
 
 void ShadowMap::Clear() {
-	uboDirLightMat.GetBuffersRef().clear();
+	uboDirLightMat->GetBuffersRef().clear();
 }
 
 void ShadowMap::Create(const Vector2ui& size) {
@@ -35,15 +35,15 @@ void ShadowMap::Create(const Vector2ui& size) {
 
 void ShadowMap::CreateBuffers() {
 	VkDeviceSize size = sizeof(DirLightShadowUBO);
-	uboDirLightMat.GetBuffersRef().resize(renderer->swapchain->GetImageCount());
-	for (uint32_t i = 0; i < uboDirLightMat.GetBuffersRef().size(); i++) {
-		uboDirLightMat.GetBuffersRef()[i] = new GpuDataBuffer;
-		renderer->AllocateBuffer(uboDirLightMat.GetBuffersRef()[i].GetPointer(), size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+	uboDirLightMat->GetBuffersRef().resize(renderer->swapchain->GetImageCount());
+	for (uint32_t i = 0; i < uboDirLightMat->GetBuffersRef().size(); i++) {
+		uboDirLightMat->GetBuffersRef()[i] = new GpuDataBuffer;
+		renderer->AllocateBuffer(uboDirLightMat->GetBuffersRef()[i].GetPointer(), size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 	}
 }
 
 void ShadowMap::UpdateBuffers() {
-	for (auto& i : uboDirLightMat.GetBuffersRef())
+	for (auto& i : uboDirLightMat->GetBuffersRef())
 		i->Write(&dirShadowsUBO, sizeof(DirLightShadowUBO));
 }
 

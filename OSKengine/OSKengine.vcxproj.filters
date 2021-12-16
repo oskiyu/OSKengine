@@ -267,13 +267,7 @@
     <ClCompile Include="QueueFamilyIndices.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
-    </ClCompile>
     <ClCompile Include="Camera2D.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteBatch.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
     </ClCompile>
     <ClCompile Include="Font.cpp">
@@ -528,6 +522,12 @@
     <ClCompile Include="UniformBuffer.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI</Filter>
     </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\SpriteRendering</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteBatch.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\SpriteRendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowAPI.h">
@@ -641,13 +641,7 @@
     <ClInclude Include="Texture.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
-    </ClInclude>
     <ClInclude Include="Camera2D.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteBatch.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
     </ClInclude>
     <ClInclude Include="Font.h">
@@ -1024,6 +1018,12 @@
     </ClInclude>
     <ClInclude Include="UniformBuffer.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteBatch.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\SpriteRendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\SpriteRendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

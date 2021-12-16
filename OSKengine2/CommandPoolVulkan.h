@@ -16,6 +16,8 @@ namespace OSK {
 
 	public:
 
+		~CommandPoolVulkan();
+
 		/// <summary>
 		/// Crea una nueva lista de comandos.
 		/// </summary>

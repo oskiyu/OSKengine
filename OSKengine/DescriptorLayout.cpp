@@ -6,7 +6,7 @@
 
 namespace OSK {
 
-	DescriptorLayout::DescriptorLayout(VkDevice logicalDevice, uint32_t set) : logicalDevice(logicalDevice), set(set) {
+	DescriptorLayout::DescriptorLayout(VkDevice logicalDevice) : logicalDevice(logicalDevice) {
 
 	}
 
@@ -49,10 +49,6 @@ namespace OSK {
 		VkResult result = vkCreateDescriptorSetLayout(logicalDevice, &layoutInfo, nullptr, &vulkanDescriptorSetLayout);
 		if (result != VK_SUCCESS)
 			throw std::runtime_error("ERROR: crear descriptor set layout.");
-	}
-
-	uint32_t DescriptorLayout::GetSet() const {
-		return set;
 	}
 
 }

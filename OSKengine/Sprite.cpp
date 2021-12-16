@@ -5,11 +5,19 @@
 #include "MaterialSlot.h"
 
 namespace OSK {
-	
+
+	std::array<Vertex2D, 4> Sprite::vertices = {
+		Vertex2D{{0, 0}},
+		Vertex2D{{1, 0}},
+		Vertex2D{{1, 1}},
+		Vertex2D{{0, 1}}
+	};
+
 	std::array<uint16_t, 6> Sprite::indices = {
 			0, 1, 2, 2, 3, 0
 	};
 
+	SharedPtr<GpuDataBuffer> Sprite::vertexBuffer;
 	SharedPtr<GpuDataBuffer> Sprite::indexBuffer;
 
 
@@ -18,20 +26,12 @@ namespace OSK {
 	}
 
 	void Sprite::SetTexCoordsInPercent(const Vector4f& texCoords) {
-		Vector4f finalTexCoords = texCoords;
-		finalTexCoords.Z += finalTexCoords.X;
-		finalTexCoords.W += finalTexCoords.Y;
+		this->textureCoords = texCoords;
+		this->textureCoords.Z += texCoords.X;
+		this->textureCoords.W += texCoords.Y;
 
-		vertices[0].textureCoordinates.x = finalTexCoords.X;
-		vertices[0].textureCoordinates.y = finalTexCoords.Y;
-		vertices[1].textureCoordinates.x = finalTexCoords.Z;
-		vertices[1].textureCoordinates.y = finalTexCoords.Y;
-		vertices[2].textureCoordinates.x = finalTexCoords.Z;
-		vertices[2].textureCoordinates.y = finalTexCoords.W;
-		vertices[3].textureCoordinates.x = finalTexCoords.X;
-		vertices[3].textureCoordinates.y = finalTexCoords.W;
-
-		hasChanged = true;
+		this->textureCoords.Z -= this->textureCoords.X;
+		this->textureCoords.W -= this->textureCoords.Y;
 	}
 
 	void Sprite::SetTexCoords(const Vector4f& texCoords) {
@@ -40,13 +40,21 @@ namespace OSK {
 		SetTexCoordsInPercent(finalTexCoords);
 	}
 
-	void Sprite::UpdateMaterialTexture() {
+	void Sprite::SetTexture(Texture* texture) {
+		this->texture = texture;
+
 		material->GetMaterialSlot(MSLOT_TEXTURE_2D)->SetTexture("Texture", texture);
+		material->GetMaterialSlot(MSLOT_TEXTURE_2D)->FlushUpdate();
 	}
 
-	PushConst2D Sprite::getPushConst(const glm::mat4& camera) {
+	PushConst2D Sprite::getPushConst() {
 		transform.UpdateModel();
-		return PushConst2D{ transform.AsMatrix(), camera, color.ToGLM() };
+
+		return PushConst2D{ transform.AsMatrix(), color.ToGLM(), textureCoords.ToGLM() };
+	}
+
+	Texture* Sprite::GetTexture() const {
+		return texture;
 	}
 
 }

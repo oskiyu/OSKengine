@@ -36,7 +36,6 @@ namespace OSK {
 
 		textures = {};
 		modelDatas = {};
-		sprites = {};
 
 		textureFromPath = {};
 		modelDataFromPath = {};
@@ -58,7 +57,6 @@ namespace OSK {
 
 		textures.clear();
 		modelDatas.clear();
-		sprites.clear();
 		fonts.clear();
 		sounds.clear();
 
@@ -299,44 +297,6 @@ namespace OSK {
 
 		ProcessMeshNode(scene->mRootNode, scene, &vertices, &indices, { 0 }, scale);
 
-		//Meshes.
-		/*for (uint32_t i = 0; i < scene->mNumMeshes; i++) {
-			//Vertices.
-			scene->mRootNode->mTransformation.Decompose();
-			for (uint32_t v = 0; v < scene->mMeshes[i]->mNumVertices; v++) {
-				Vertex vertex{};
-				glm::vec3 vec3 = glm::make_vec3(&scene->mMeshes[i]->mVertices[v].x) * scale;
-				vertex.position = vec3;
-
-				vertex.normals.x = scene->mMeshes[i]->mNormals[v].x;
-				vertex.normals.y = -scene->mMeshes[i]->mNormals[v].y;
-				vertex.normals.z = scene->mMeshes[i]->mNormals[v].z;
-
-				vertex.textureCoordinates = glm::make_vec2(&scene->mMeshes[i]->mTextureCoords[0][v].x);
-
-				if (scene->mMeshes[i]->HasVertexColors(0))
-					vertex.color = glm::make_vec3(&scene->mMeshes[i]->mColors[0][v].r);
-				else
-					vertex.color = Color::WHITE().ToGLM();
-
-				vertex.position.y *= -1.0f;
-
-				Vertices.push_back(vertex);
-			}
-		}
-
-		std::vector<vertexIndex_t> indices{};
-		//Meshes.
-		for (uint32_t i = 0; i < scene->mNumMeshes; i++) {
-			uint32_t indexBase = static_cast<uint32_t>(indices.size());
-			//Vertices.
-			for (uint32_t f = 0; f < scene->mMeshes[i]->mNumFaces; f++) {
-				for (uint32_t ind = 0; ind < 3; ind++) {
-					indices.push_back(scene->mMeshes[i]->mFaces[f].mIndices[ind] + indexBase);
-				}
-			}
-		}*/
-
 		TempModelData data{};
 		data.vertices = vertices;
 		data.indices = indices;
@@ -398,6 +358,10 @@ namespace OSK {
 		auto direct = path.substr(0, path.find_last_of('/'));
 
 		model->logicalDevice = renderer->logicalDevice;
+	}
+
+	void ContentManager::LoadSprite(Sprite* sprite) {
+		sprite->material = renderer->GetMaterialSystem()->GetMaterial(MPIPE_2D)->CreateInstance().GetPointer();
 	}
 
 	void ContentManager::LoadAnimatedModel(AnimatedModel* model, const std::string& path) {
@@ -531,24 +495,6 @@ namespace OSK {
 		return newNode;
 	}
 
-	void ContentManager::LoadSprite(Sprite* sprite, const std::string& path) {
-		OSK_ASSERT(FileIO::FileExists(path), "No existe la textura en " + path + ".");
-		OSK_ASSERT(sprite, "'Sprite' es null.");
-
-		CreateSprite(sprite);
-		sprite->texture = LoadTexture(path);
-		sprite->material = renderer->GetMaterialSystem()->GetMaterial(MPIPE_2D)->CreateInstance().GetPointer();
-		sprite->UpdateMaterialTexture();
-		sprite->material->GetMaterialSlot(MSLOT_TEXTURE_2D)->FlushUpdate();
-	}
-
-	void ContentManager::CreateSprite(Sprite* sprite) {
-		OSK_ASSERT(sprite, "'Sprite' es null.");
-
-		renderer->createSpriteVertexBuffer(sprite);
-		sprites.push_back(sprite);
-	}
-
 	Font* ContentManager::LoadFont(const std::string& source, uint32_t size) {
 		OSK_ASSERT(FileIO::FileExists(source), "No existe la fuente en " + source + ".");
 
@@ -646,6 +592,7 @@ namespace OSK {
 
 		textures.push_back(fontTexture);
 
+		fuente->texture = fontTexture;
 		fuente->fontMaterial = renderer->GetMaterialSystem()->GetMaterial(MPIPE_2D)->CreateInstance().GetPointer();
 		fuente->fontMaterial->GetMaterialSlot(MSLOT_TEXTURE_2D)->SetTexture("Texture",fontTexture);
 		fuente->fontMaterial->GetMaterialSlot(MSLOT_TEXTURE_2D)->FlushUpdate();
@@ -660,14 +607,7 @@ namespace OSK {
 			character.bearing = Vector2f((float)faces[c].left, (float)faces[c].top);
 			character.advance = faces[c].advanceX;
 			
-			fuente->characters[c].sprite.texture = fontTexture;
-			fuente->characters[c].sprite.SetTexCoords(Vector4ui{ currentX, 0, faces[c].sizeX, faces[c].sizeY }.ToVector4f());
-
-			renderer->createSpriteVertexBuffer(&fuente->characters[c].sprite);
-
-			fuente->characters[c].sprite.material = fuente->fontMaterial;
-
-			sprites.push_back(&fuente->characters[c].sprite);
+			fuente->characters[c].textureCoords = Vector4ui( currentX, 0, faces[c].sizeX, faces[c].sizeY ).ToVector4i();
 
 			currentX += faces[c].sizeX;
 		}

@@ -10,7 +10,9 @@
 
 namespace OSK {
 
+	class Material;
 	class MaterialSlot;
+	class MaterialSlotData;
 	class RenderAPI;
 	class MaterialSystem;
 
@@ -30,7 +32,7 @@ namespace OSK {
 		/// <param name="renderer">Renderizador.</param>
 		/// <param name="type">Tipo de slot.</param>
 		/// <param name="system">Sistema de materiales del renderizador.</param>
-		MaterialSlotPool(RenderAPI* renderer, MaterialSlotTypeId type, MaterialSystem* system);
+		MaterialSlotPool(RenderAPI* renderer, MaterialSlotTypeId type, MaterialSystem* system, Material* material);
 		~MaterialSlotPool();
 
 		/// <summary>
@@ -40,7 +42,7 @@ namespace OSK {
 		/// <summary>
 		/// Devuelve el material slot dado su identificador.
 		/// </summary>
-		MaterialSlot* GetMaterialSlot(uint32_t id);
+		MaterialSlotData* GetMaterialSlot(uint32_t id);
 
 		/// <summary>
 		/// True si no hay más huecos libres.
@@ -56,17 +58,18 @@ namespace OSK {
 		/// </summary>
 		const size_t PoolSize = 256;
 
+		DescriptorSet* GetDescriptorSet(uint32_t id);
+
 	private:
 
 		void FreeSlot(uint32_t id);
-		DescriptorSet* GetDescriptorSet(uint32_t id);
 
 		OwnedPtr<DescriptorPool> pool = nullptr;
 
 		MaterialSlotTypeId type;
 		std::stack<uint32_t> freeSpaces;
 
-		std::vector<OwnedPtr<MaterialSlot>> materialSlots;
+		std::vector<OwnedPtr<MaterialSlotData>> materialSlots;
 		std::vector<OwnedPtr<DescriptorSet>> descriptorSets;
 		RenderAPI* renderer = nullptr;
 

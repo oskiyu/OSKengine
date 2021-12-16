@@ -1,9 +1,11 @@
 #pragma once
 
 #include "ISwapchain.h"
+#include "UniquePtr.hpp"
 
 #include <wrl.h>
 #include <dxgi1_6.h>
+#include <d3d12.h>
 
 using namespace Microsoft::WRL;
 
@@ -12,6 +14,7 @@ namespace OSK {
 	enum class Format;
 	class CommandQueueDx12;
 	class Window;
+	class GpuImage;
 
 	/// <summary>
 	/// Un swapchain es una estructura encargada de manejar el cambio de imagenes que
@@ -31,13 +34,19 @@ namespace OSK {
 		/// </summary>
 		/// <param name="commandQueue">Al cambiar de imagen, el swapchain
 		/// de DirectX 12 fuerza un flush de la cola de comandos.</param>
-		void Create(Format format, const CommandQueueDx12& commandQueue, IDXGIFactory4* factory, const Window& window);
+		void Create(IGpu* device, Format format, const CommandQueueDx12& commandQueue, IDXGIFactory4* factory, const Window& window);
+
+		void Present() override;
 
 		IDXGISwapChain3* GetSwapchain() const;
+		ID3D12DescriptorHeap* GetRenderTargetMemory() const;
 
 	private:
 
 		ComPtr<IDXGISwapChain3> swapchain;
+
+		ComPtr<ID3D12Resource> renderTargets[3];
+		ComPtr<ID3D12DescriptorHeap> renderTargetsDesc;
 
 	};
 

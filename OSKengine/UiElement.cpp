@@ -137,7 +137,7 @@ void UiElement::UpdateAnchoredChildPosition(UiElement* element, bool init) {
 }
 
 void UiElement::Draw(OSK::SpriteBatch* spriteBatch) {
-	if (sprite.texture)
+	if (sprite.GetTexture())
 		spriteBatch->DrawSprite(sprite);
 
 	if (fuente)
@@ -228,15 +228,6 @@ void UiElement::Update(const Vector4f& mouserRec, bool click) {
 	for (auto child : children)
 		if (child->isActive)
 			child->Update(mouserRec, click);
-}
-
-void UiElement::InitSprite(OSK::ContentManager* content, OSK::RenderAPI* renderer) {
-	content->CreateSprite(&sprite);
-	sprite.material = renderer->GetMaterialSystem()->GetMaterial(MPIPE_2D)->CreateInstance().GetPointer();
-	sprite.UpdateMaterialTexture();
-	sprite.material->FlushUpdate();
-
-	UpdateSpriteMatrix();
 }
 
 void UiElement::UpdateSpriteMatrix() {

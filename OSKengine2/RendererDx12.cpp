@@ -18,6 +18,8 @@
 #include "Format.h"
 #include "Version.h"
 #include "SyncDeviceDx12.h"
+#include "GpuMemoryAllocatorDx12.h"
+#include "GpuImageLayout.h"
 
 using namespace OSK;
 
@@ -32,7 +34,8 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 
 	if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debugConsole)))) {
 		debugConsole->EnableDebugLayer();
-		CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&factory));
+		auto result = CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&factory));
+		OSK_CHECK(SUCCEEDED(result), "No se ha podido crear las capas de validación.");
 
 		Engine::GetLogger()->InfoLog("Capas de validación activas.");
 	}
@@ -46,6 +49,7 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	CreateCommandQueues();
 	CreateSwapchain();
 	CreateSyncDevice();
+	CreateGpuMemoryAllocator();
 }
 
 void RendererDx12::Close() {
@@ -127,7 +131,7 @@ void RendererDx12::CreateCommandQueues() {
 void RendererDx12::CreateSwapchain() {
 	swapchain = new SwapchainDx12;
 
-	swapchain->As<SwapchainDx12>()->Create(Format::RGBA8_UNORM, *graphicsQueue->As<CommandQueueDx12>(), factory.Get(), *window);
+	swapchain->As<SwapchainDx12>()->Create(currentGpu.GetPointer(), Format::RGBA8_UNORM, *graphicsQueue->As<CommandQueueDx12>(), factory.Get(), *window);
 
 	Engine::GetLogger()->InfoLog("Creado el swapchain.");
 }
@@ -136,18 +140,34 @@ void RendererDx12::CreateSyncDevice() {
 	syncDevice = currentGpu->As<GpuDx12>()->CreateSyncDevice().GetPointer();
 }
 
+void RendererDx12::CreateGpuMemoryAllocator() {
+	gpuMemoryAllocator = new GpuMemoryAllocatorDx12(currentGpu.GetPointer());
+
+	Engine::GetLogger()->InfoLog("Creado el asignador de memoria de la GPU.");
+}
+
 void RendererDx12::PresentFrame() {
-	syncDevice->As<SyncDeviceDx12>()->Await();
+	commandList->TransitionImageLayout(swapchain->GetImage(swapchain->GetCurrentFrameIndex()), GpuImageLayout::COLOR_ATTACHMENT, GpuImageLayout::PRESENT);
 
 	commandList->Close();
 
-	ID3D12CommandList* commandLists[] = {commandList->As<CommandListDx12>()->GetCommandList()};
+	ID3D12CommandList* commandLists[] = { commandList->As<CommandListDx12>()->GetCommandList() };
 	graphicsQueue->As<CommandQueueDx12>()->GetCommandQueue()->ExecuteCommandLists(1, commandLists);
 
-	swapchain->As<SwapchainDx12>()->GetSwapchain()->Present(1, 0);
+	swapchain->Present();
 
 	syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
+	syncDevice->As<SyncDeviceDx12>()->Await();
 
 	commandList->Reset();
 	commandList->Start();
+
+	D3D12_CPU_DESCRIPTOR_HANDLE RenderTargetDescriptor = swapchain->As<SwapchainDx12>()->GetRenderTargetMemory()->GetCPUDescriptorHandleForHeapStart();
+	RenderTargetDescriptor.ptr += ((SIZE_T)swapchain->GetCurrentFrameIndex()) * currentGpu->As<GpuDx12>()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+	commandList->As<CommandListDx12>()->GetCommandList()->OMSetRenderTargets(1, &RenderTargetDescriptor, FALSE, nullptr);
+
+	commandList->TransitionImageLayout(swapchain->GetImage(swapchain->GetCurrentFrameIndex()), GpuImageLayout::PRESENT, GpuImageLayout::COLOR_ATTACHMENT);
+
+	const FLOAT ClearValue[] = { 1.0f, 0.0f, 0.0f, 1.0f };
+	commandList->As<CommandListDx12>()->GetCommandList()->ClearRenderTargetView(RenderTargetDescriptor, ClearValue, 0, nullptr);
 }

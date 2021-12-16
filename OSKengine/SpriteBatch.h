@@ -36,11 +36,24 @@ namespace OSK {
 		/// </summary>
 		~SpriteBatch();
 
+		void Begin(Camera2D* camera);
+		void End();
+
 		/// <summary>
 		/// Dibuja un sprite.
 		/// </summary>
 		/// <param name="sprite">Sprite a renderizar.</param>
-		void DrawSprite(Sprite sprite);
+		void DrawSprite(const Sprite& sprite);
+
+		/// <summary>
+		/// Renderiza una textura en dos dimensiones.
+		/// </summary>
+		/// <param name="texture">Textura.</param>
+		/// <param name="position">Posición en el mundo 2D.</param>
+		/// <param name="size">Tamaño en el mundo 2D.</param>
+		/// <param name="texCoords">Coordenadas de la textura.</param>
+		/// <param name="color">Color.</param>
+		void DrawTexture(Texture* texture, const Vector2f position, const Vector2f size, const Vector4i texCoords = { 1 }, const Color& color = { 1.0f });
 
 		/// <summary>
 		/// Dibuja un texto.
@@ -89,12 +102,17 @@ namespace OSK {
 		/// <summary>
 		/// Sprites a renderizar.
 		/// </summary>
-		DynamicArray<SpriteContainer> spritesToDraw{};
+		std::vector<SpriteContainer> spritesToDraw{};
 
 		/// <summary>
 		/// Cámara 2D.
 		/// </summary>
 		Camera2D* camera = nullptr;
+
+		enum class SpriteBatchState {
+			STARTED,
+			ENDED
+		} currentState;
 
 	};
 

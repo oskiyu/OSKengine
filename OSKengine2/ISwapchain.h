@@ -1,8 +1,12 @@
 #pragma once
 
 #include "OSKmacros.h"
+#include "UniquePtr.hpp"
 
 namespace OSK {
+
+	class IGpu;
+	class GpuImage;
 
 	/// <summary>
 	/// Un swapchain es una estructura encargada de manejar el cambio de imagenes que
@@ -15,20 +19,29 @@ namespace OSK {
 
 	public:
 
-		~ISwapchain() = default;
+		virtual ~ISwapchain() = default;
 
 		/// <summary>
 		/// Devuelve el número de imágenes del swapchain.
 		/// </summary>
 		unsigned int GetImageCount() const;
+		unsigned int GetCurrentFrameIndex() const;
 
-		template <typename T> T* As() const {
+		virtual void Present() = 0;
+
+		template <typename T> T* As() const requires std::is_base_of_v<ISwapchain, T> {
 			return (T*)this;
 		}
 
+		GpuImage* GetImage(unsigned int index) const;
+
 	protected:
 
+		IGpu* device = nullptr;
 		unsigned int imageCount = 3;
+
+		UniquePtr<GpuImage> images[3];
+		unsigned int currentFrameIndex;
 
 	};
 

@@ -129,14 +129,14 @@ namespace OSK {
 		clear();
 	}
 
-	void DescriptorSet::Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration) const {
-		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->vulkanPipelineLayout, layout->GetSet(), 1, &vulkanDescriptorSets[iteration], 0, nullptr);
+	void DescriptorSet::Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration, uint32_t setNumber) const {
+		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->vulkanPipelineLayout, setNumber, 1, &vulkanDescriptorSets[iteration], 0, nullptr);
 	}
 
-	void DescriptorSet::Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration, uint32_t dynamicOffset, uint32_t alignment) const {
+	void DescriptorSet::Bind(VkCommandBuffer commandBuffer, GraphicsPipeline* pipeline, uint32_t iteration, uint32_t setNumber, uint32_t dynamicOffset, uint32_t alignment) const {
 		uint32_t finalOffset = dynamicOffset * alignment;
 
-		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->vulkanPipelineLayout, layout->GetSet(), 1, &vulkanDescriptorSets[iteration], 1, &finalOffset);
+		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->vulkanPipelineLayout, setNumber, 1, &vulkanDescriptorSets[iteration], 1, &finalOffset);
 	}
 	
 	void DescriptorSet::Reset() {

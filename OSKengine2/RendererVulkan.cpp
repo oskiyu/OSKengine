@@ -14,12 +14,20 @@
 #include "SwapchainVulkan.h"
 #include "Version.h"
 #include "SyncDeviceVulkan.h"
+#include "DynamicArray.hpp"
+#include "GpuMemoryAllocatorVulkan.h"
+#include "RenderpassVulkan.h"
+#include "RenderpassType.h"
+#include "Color.hpp"
 
 #include <GLFW/glfw3.h>
 #include <set>
-#include <vector>
 
 using namespace OSK;
+
+const DynamicArray<const char*> validationLayers = {
+	"VK_LAYER_KHRONOS_validation"
+};
 
 VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
 	//Message severity:
@@ -37,7 +45,10 @@ VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBits
 
 	switch (messageType) {
 	case VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT:
+	case VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT:
 		level = LogLevel::INFO;
+		return 0;
+		pCallbackData->pMessage;
 		break;
 
 	case VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT:
@@ -53,7 +64,7 @@ VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBits
 		break;
 	}
 
-	Engine::GetLogger()->Log(level, std::string(pCallbackData->pMessage) + "\n");
+	Engine::GetLogger()->Log(level, std::string(pCallbackData->pMessage));
 
 	return VK_FALSE;
 }
@@ -76,14 +87,27 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	CreateCommandQueues();
 	CreateSwapchain();
 	CreateSyncDevice();
+	CreateGpuMemoryAllocator();
+
+	//RENDERPASS
+	renderpass = new RenderpassVulkan(RenderpassType::FINAL);
+	renderpass->As<RenderpassVulkan>()->CreateFinalPresent(swapchain.GetPointer());
+	renderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
 }
 
 void RendererVulkan::Close() {
 	Engine::GetLogger()->InfoLog("Destruyendo el renderizador de Vulkan.");
 
-	currentGpu->Close();
+	gpuMemoryAllocator.Delete();
+	syncDevice.Delete();
+	swapchain.Delete();
+	renderpass.Delete();
+	commandPool.Delete();
 
 	vkDestroySurfaceKHR(instance, surface, nullptr);
+
+	currentGpu.Delete();
+
 	vkDestroyInstance(instance, nullptr);
 }
 
@@ -109,29 +133,27 @@ void RendererVulkan::CreateInstance(const std::string& appName, const Version& v
 	glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
 
 	//Extensiones totales.
-	std::vector<const char*> extensions(glfwExtensions, glfwExtensions + glfwExtensionCount);
+	auto extensions = DynamicArray<const char*>::CreateReservedArray(glfwExtensionCount);
+	for (size_t i = 0; i < glfwExtensionCount; i++)
+		extensions.Insert(glfwExtensions[i]);
 
 #ifdef OSK_DEBUG
-	extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+	extensions.Insert(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
 	//Capas de validación.
-	const std::vector<const char*> validationLayers = {
-		"VK_LAYER_LUNARG_standard_validation"
-	};
 
 	if (AreValidationLayersAvailable()) {
 		Engine::GetLogger()->DebugLog("Capas de validación activas.");
 
-		createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
-		createInfo.ppEnabledLayerNames = validationLayers.data();
+		createInfo.enabledLayerCount = validationLayers.GetSize();
+		createInfo.ppEnabledLayerNames = validationLayers.GetData();
 	}
 	else {
 		Engine::GetLogger()->Log(LogLevel::WARNING, "No se ha encontrado soporte para las capas de validación.");
 	}
 #endif
 
-	createInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
-	createInfo.ppEnabledExtensionNames = extensions.data();
-	createInfo.enabledLayerCount = 0;
+	createInfo.enabledExtensionCount = extensions.GetSize();
+	createInfo.ppEnabledExtensionNames = extensions.GetData();
 	createInfo.pNext = nullptr;
 
 	Engine::GetLogger()->InfoLog("Extensiones del renderizador: ");
@@ -149,13 +171,13 @@ void RendererVulkan::CreateInstance(const std::string& appName, const Version& v
 void RendererVulkan::CreateSwapchain() {
 	swapchain = new SwapchainVulkan;
 
-	swapchain->As<SwapchainVulkan>()->Create(Format::RGBA8_UNORM, *currentGpu->As<GpuVulkan>(), *window);
+	swapchain->As<SwapchainVulkan>()->Create(Format::B8G8R8A8_SRGB, *currentGpu->As<GpuVulkan>(), *window);
 	Engine::GetLogger()->InfoLog("Creado el swapchain.");
 }
 
 void RendererVulkan::SetupDebugLogging() {
 #ifdef OSK_DEBUG
-	VkDebugUtilsMessengerCreateInfoEXT createInfo = {};
+	VkDebugUtilsMessengerCreateInfoEXT createInfo{};
 	createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
 	createInfo.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
 	createInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
@@ -190,14 +212,17 @@ void RendererVulkan::ChooseGpu() {
 	OSK_ASSERT(count != 0, "No hay ninguna GPU compatible con Vulkan.");
 
 	//Obtiene las GPUs.
-	std::vector<VkPhysicalDevice> devices(count);
-	vkEnumeratePhysicalDevices(instance, &count, devices.data());
+	auto devices = DynamicArray<VkPhysicalDevice>::CreateResizedArray(count);
+	vkEnumeratePhysicalDevices(instance, &count, devices.GetData());
 
 	//Comprobar la compatibilidad de las GPUs.
 	//Obtener una GPU compatible.
-	std::vector<GpuVulkan::Info> gpus{};
-	for (const auto& gpu : devices)
-		gpus.push_back(GpuVulkan::Info::Get(gpu, surface));
+	DynamicArray<GpuVulkan::Info> gpus;
+	for (const auto& gpu : devices) {
+		auto info = GpuVulkan::Info::Get(gpu, surface);
+
+		gpus.Insert(info);
+	}
 
 	VkPhysicalDevice gpu = devices[0];
 	GpuVulkan::Info info = gpus[0];
@@ -242,13 +267,12 @@ bool RendererVulkan::AreValidationLayersAvailable() const {
 	vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
 
 	// Obtenemos las capas.
-	std::vector<VkLayerProperties> availableLayers(layerCount);
-	vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.data());
+	auto availableLayers = DynamicArray<VkLayerProperties>::CreateResizedArray(layerCount);
+
+	vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.GetData());
 
 	//Capas de validación necesitadas.
-	const std::vector<const char*> validationLayers = {
-		"VK_LAYER_LUNARG_standard_validation"
-	};
+	
 
 	for (auto layerName : validationLayers) {
 		bool layerFound = false;
@@ -261,11 +285,11 @@ bool RendererVulkan::AreValidationLayersAvailable() const {
 			}
 		}
 
-		if (!layerFound)
-			return false;
+		if (layerFound)
+			return true;
 	}
 
-	return true;
+	return false;
 }
 
 void RendererVulkan::CreateSyncDevice() {
@@ -275,7 +299,23 @@ void RendererVulkan::CreateSyncDevice() {
 	syncDevice->As<SyncDeviceVulkan>()->SetSwapchain(*swapchain->As<SwapchainVulkan>());
 }
 
+void RendererVulkan::CreateGpuMemoryAllocator() {
+	gpuMemoryAllocator = new GpuMemoryAllocatorVulkan(currentGpu.GetPointer());
+
+	Engine::GetLogger()->InfoLog("Creado el asignador de memoria de la GPU.");
+}
+
 void RendererVulkan::PresentFrame() {
+	if (isFirstRender) {
+		commandList->Start();
+		commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());
+
+		isFirstRender = false;
+
+		return;
+	}
+
+	commandList->EndRenderpass(renderpass.GetPointer());
 	commandList->Close();
 
 	syncDevice->As<SyncDeviceVulkan>()->FirstAwait();
@@ -286,4 +326,6 @@ void RendererVulkan::PresentFrame() {
 
 	commandList->Reset();
 	commandList->Start();
+
+	commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());
 }

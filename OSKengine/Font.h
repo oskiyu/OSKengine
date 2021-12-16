@@ -37,6 +37,8 @@ namespace OSK {
 			return size;
 		}
 
+		Texture* texture = nullptr;
+
 	private:
 
 		/// <summary>

@@ -1,6 +1,7 @@
 #include "Material.h"
 
 #include "VulkanRenderer.h"
+#include "MaterialSystem.h"
 
 using namespace OSK;
 
@@ -30,6 +31,10 @@ void Material::SetPipelineSettings(const MaterialPipelineCreateInfo& info) {
 	renderpassesToRegister.clear();
 }
 
+uint32_t Material::GetBindingNumber(MaterialSlotTypeId type, const std::string& name) const {
+	return owner->GetBindingFromName(type, name);
+}
+
 void Material::RegisterRenderpass(VULKAN::Renderpass* renderpass) {
 	if (graphicPipelines.find(renderpass) != graphicPipelines.end())
 		return;
@@ -37,7 +42,7 @@ void Material::RegisterRenderpass(VULKAN::Renderpass* renderpass) {
 	GraphicsPipeline* graphicsPipeline = renderer->CreateNewGraphicsPipeline(pipelineInfo.vertexPath, pipelineInfo.fragmentPath).GetPointer();
 	graphicsPipeline->SetViewport({ 0, 0, 2, 2 });
 	graphicsPipeline->SetRasterizer(!pipelineInfo.cullFaces, GetVkPolygonMode(pipelineInfo.polygonMode), GetVkCullMode(pipelineInfo.cullMode), GetVkPolygonFrontFace(pipelineInfo.frontFaceType));
-	graphicsPipeline->SetMSAA(VK_FALSE, renderer->GetMsaaSamples());
+	graphicsPipeline->SetMsaa(VK_FALSE, renderer->GetMsaaSamples());
 	graphicsPipeline->SetDepthStencil(pipelineInfo.useDepthStencil);
 
 	uint32_t pOffset = 0;
@@ -46,6 +51,7 @@ void Material::RegisterRenderpass(VULKAN::Renderpass* renderpass) {
 		pOffset += (uint32_t)i.size;
 	}
 
+	graphicsPipeline->SetVertexType(pipelineInfo.type);
 	graphicsPipeline->SetLayout(owner->GetMaterialPipelineLayout(pipelineType));
 	graphicsPipeline->Create(renderpass);
 
@@ -69,9 +75,10 @@ MaterialPipelineCreateInfo Material::GetMaterialGraphicsPipelineInfo() const {
 
 OwnedPtr<MaterialInstance> Material::CreateInstance() {
 	MaterialInstance* instance = new MaterialInstance();
+	instance->owner = this;
 
 	for (auto i : materialSlotPools)
-		instance->SetMaterialSlot(i.first, GetNextMaterialSlotPool(i.first));
+		instance->AddType(i.first);
 
 	return instance;
 }
@@ -80,8 +87,7 @@ MaterialSlotPool* Material::GetNextMaterialSlotPool(MaterialSlotTypeId type) {
 	if (materialSlotPools.find(type) == materialSlotPools.end()) {
 		materialSlotPools[type] = {};
 
-		materialSlotPools.at(type).push_back(new MaterialSlotPool(renderer, type, owner));
-
+		materialSlotPools.at(type).push_back(new MaterialSlotPool(renderer, type, owner, this));
 
 		return materialSlotPools.at(type).back().GetPointer();
 	}
@@ -92,7 +98,69 @@ MaterialSlotPool* Material::GetNextMaterialSlotPool(MaterialSlotTypeId type) {
 		if (!i->IsFull())
 			return i.GetPointer();
 
-	list.push_back(new MaterialSlotPool(renderer, type, owner));
+	list.push_back(new MaterialSlotPool(renderer, type, owner, this));
 
 	return materialSlotPools.at(type).back().GetPointer();
 }
+
+uint32_t Material::GetDescriptorSetNumber(MaterialSlotTypeId type) const {
+	return setNumber.at(type);
+}
+
+MaterialSlotData* Material::GetMaterialSlotData(MaterialSlotTypeId type, MaterialSlotHandler handler) const {
+	return materialSlots.at(type).at(handler);
+}
+MaterialSlotHandler Material::GetHandler(MaterialSlotTypeId type, const MaterialSlotBindings& bindings) {
+	MaterialSlotHandler handler;
+	
+	auto typeIt = materialSlots.find(type);
+	auto nextHanlderIt = nextHandlers.find(type);
+	if (nextHanlderIt == nextHandlers.end()) {
+		nextHandlers[type] = 0;
+
+		handler = 0;
+	}
+	else {
+		handler = nextHanlderIt->second;
+	}
+
+	if (typeIt == materialSlots.end()) {
+		materialSlots[type] = {};
+		handler = nextHandlers.at(type);
+
+		auto newSlot = GetNextMaterialSlot(type);
+		materialSlots[type][nextHandlers.at(type)] = newSlot.pool->GetMaterialSlot(newSlot.id);
+		newSlot.pool->GetMaterialSlot(newSlot.id)->bindings = bindings;
+
+		nextHandlers.at(type)++;
+
+		return handler;
+	}
+
+	auto& map = (*typeIt).second;
+	auto slotIt = map.begin();
+	while (slotIt != map.end()) {
+		auto& entry = *slotIt;
+
+		if (entry.second->bindings == bindings)
+			return entry.first;
+
+		++slotIt;
+	}
+
+	auto newSlot = GetNextMaterialSlot(type);
+	materialSlots[type][nextHandlers.at(type)] = newSlot.pool->GetMaterialSlot(newSlot.id);
+	newSlot.pool->GetMaterialSlot(newSlot.id)->bindings = bindings;
+
+	handler = nextHandlers.at(type);
+	nextHandlers.at(type)++;
+
+	return handler;
+}
+
+PoolIdPair Material::GetNextMaterialSlot(MaterialSlotTypeId type) {
+	auto pool = GetNextMaterialSlotPool(type);
+
+	return { pool, pool->GetNextMaterialSlot() };
+}
+

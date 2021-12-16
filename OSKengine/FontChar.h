@@ -9,11 +9,8 @@ namespace OSK {
 	/// Carácter de una fuente.
 	/// </summary>
 	struct OSKAPI_CALL FontChar {
-
-		/// <summary>
-		/// Sprite del carácter.
-		/// </summary>
-		Sprite sprite{};
+				
+		Vector4i textureCoords;
 
 		/// <summary>
 		/// Tamaño del carácter.

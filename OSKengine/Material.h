@@ -9,11 +9,19 @@
 #include "OwnedPtr.h"
 
 #include <unordered_map>
+#include "MaterialSlot.h"
 
 namespace OSK {
 
 	class RenderAPI;
 	class MaterialSystem;
+	class MaterialSlot; 
+	class MaterialSystem;
+
+	struct PoolIdPair {
+		MaterialSlotPool* pool = nullptr;
+		uint32_t id = 0;
+	};
 
 	/// <summary>
 	/// Un material define el comportamiento del renderizador con un objeto en concreto.
@@ -74,11 +82,24 @@ namespace OSK {
 		/// </summary>
 		MaterialSlotPool* GetNextMaterialSlotPool(MaterialSlotTypeId type);
 
+		uint32_t GetDescriptorSetNumber(MaterialSlotTypeId type) const;
+
+		MaterialSlotData* GetMaterialSlotData(MaterialSlotTypeId type, MaterialSlotHandler handler) const;
+		MaterialSlotHandler GetHandler(MaterialSlotTypeId type, const MaterialSlotBindings& bindings);
+
+		PoolIdPair GetNextMaterialSlot(MaterialSlotTypeId type);
+
+		uint32_t GetBindingNumber(MaterialSlotTypeId type, const std::string& name) const;
+
 	private:
+
+		std::unordered_map<MaterialSlotTypeId, std::unordered_map<MaterialSlotHandler, MaterialSlotData*>> materialSlots;
+		std::unordered_map<MaterialSlotTypeId, MaterialSlotHandler> nextHandlers;
 
 		MaterialPipelineCreateInfo pipelineInfo;
 		std::vector<VULKAN::Renderpass*> renderpassesToRegister;
 		std::unordered_map<VULKAN::Renderpass*, OwnedPtr<GraphicsPipeline>> graphicPipelines;
+		std::unordered_map<MaterialSlotTypeId, uint32_t> setNumber;
 
 		std::unordered_map<MaterialSlotTypeId, std::list<OwnedPtr<MaterialSlotPool>>> materialSlotPools;
 

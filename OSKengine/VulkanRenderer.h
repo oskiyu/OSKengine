@@ -155,18 +155,17 @@ namespace OSK {
 		} Settings;
 
 		/// <summary>
-		/// Cámara 2D por defecto.
-		/// </summary>
-		Camera2D defaultCamera2D{};
-
-		/// <summary>
 		/// Cáramara 2D para el render target.
 		/// </summary>
-		Camera2D renderTargetCamera2D{};
+		Camera2D* renderTargetCamera2D = nullptr;
 
 		Camera3D* CreateCamera();
 		void RemoveCamera(Camera3D* camera);
 		Camera3D* GetDefaultCamera();
+
+		Camera2D* CreateCamera2D();
+		void RemoveCamera2D(Camera2D* camera);
+		Camera2D* GetDefaultCamera2D();
 
 		/// <summary>
 		/// Imagen de OSKengine.
@@ -271,7 +270,7 @@ namespace OSK {
 		/// Crea un nuevo descriptor layout vacío.
 		/// </summary>
 		/// <returns>Descriptor layout vacío.</returns>
-		OwnedPtr<DescriptorLayout> CreateNewDescriptorLayout(uint32_t set = 0) const;
+		OwnedPtr<DescriptorLayout> CreateNewDescriptorLayout() const;
 
 		/// <summary>
 		/// Crea un nuevo descriptor set vacío.
@@ -392,12 +391,7 @@ namespace OSK {
 		std::list<RenderStage*> stages = {};
 
 		std::list<Camera3D> cameras;
-
-		/// <summary>
-		/// Crea el vertex buffer de un sprite.
-		/// </summary>
-		/// <param name="obj">Sprite.</param>
-		void createSpriteVertexBuffer(Sprite* obj);
+		std::list<Camera2D> cameras2d;
 
 		/// <summary>
 		/// Crea el index buffer de los sprites.
@@ -471,12 +465,6 @@ namespace OSK {
 		/// Renderizado.
 		/// </summary>
 		void updateCommandBuffers();
-
-		/// <summary>
-		/// Actualiza el vertex buffer de un sprite.
-		/// </summary>
-		/// <param name="obj">Sprite.</param>
-		void updateSpriteVertexBuffer(Sprite* obj) const;
 
 		/// <summary>
 		/// Actualiza el vertex buffer de un sprite.

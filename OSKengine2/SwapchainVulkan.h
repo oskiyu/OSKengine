@@ -10,6 +10,8 @@ typedef VkSwapchainKHR_T* VkSwapchainKHR;
 namespace OSK {
 
 	class GpuVulkan;
+	class GpuImageVulkan;
+	class RenderpassVulkan;
 	class Window;
 	enum class Format;
 
@@ -17,17 +19,31 @@ namespace OSK {
 
 	public:
 
+		~SwapchainVulkan();
+
 		/// <summary>
 		/// Crea el swapchain.
 		/// Obtiene automáticamente el tamaño de las imágenes a partir del
 		/// tamaño de la ventana.
 		/// </summary>
 		void Create(Format format, const GpuVulkan& device, const Window& window);
+
+		/// <summary>
+		/// Recrea el swapchain con el tamaño de la ventana.
+		/// Para cuando se ha cambiado de tamaño la ventana.
+		/// </summary>
 		void Resize();
+
+		void Present() override;
 
 		VkSwapchainKHR GetSwapchain() const;
 
+		void SetTargetRenderpass(RenderpassVulkan* renderpass);
+
 	private:
+
+		void AcquireImages(unsigned int sizeX, unsigned int sizeY);
+		void AcquireViews();
 
 		/// <summary>
 		/// Devuelve el mejor formato de colores soportado por el monitor.
@@ -37,6 +53,7 @@ namespace OSK {
 		VkSwapchainKHR swapchain;
 		const Window* window = nullptr;
 		const GpuVulkan* device = nullptr;
+		RenderpassVulkan* targetRenderpass = nullptr;
 
 		Format format;
 

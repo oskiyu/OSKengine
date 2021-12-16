@@ -9,3 +9,7 @@
 #else
 #define OSKAPI_CALL
 #endif
+
+using TSize = unsigned int;
+
+#include <type_traits>

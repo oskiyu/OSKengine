@@ -1525,4 +1525,7 @@ Iniciado soporte para renderizar desde distintas cámaras.
 
 ## WIP
 
+Bugfix: descriptor pool alloca el numero correcto de descriptores.
+Bugfix: GpuInfo devuelve correctamente la cantidad máxima de MSAA, en vez de 4.
+
 TODO

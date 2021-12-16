@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de origen">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine">
+      <UniqueIdentifier>{1299d524-7856-423d-b65e-9b212e1a4115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\WindowAPI">
+      <UniqueIdentifier>{dfea45da-8e8a-4637-a31a-49449e11ce8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Types">
+      <UniqueIdentifier>{858d09d3-fc12-4ced-a411-57689c3ad1ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Memory">
+      <UniqueIdentifier>{724c1b4b-5909-493c-8f82-5d378c96076d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Util">
+      <UniqueIdentifier>{fc3d3203-6a84-4d36-8a6b-726308351cc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI">
+      <UniqueIdentifier>{7cfac97a-4bba-4608-b6ca-9598b8f5751b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Renderer">
+      <UniqueIdentifier>{3c55033c-e6dc-4834-9146-0ad4da12a38a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\ThirdParty">
+      <UniqueIdentifier>{1bbe20a3-66b4-482c-9917-336242aed402}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Gpu">
+      <UniqueIdentifier>{dab8b959-2499-44dc-b7a1-77f3bf348f13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\ThirdParty">
+      <UniqueIdentifier>{6f20db74-492f-40e3-af67-9aacbced6edb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Commands">
+      <UniqueIdentifier>{e41cf259-4ca2-4f9a-b930-b8a8b5f9737a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\Commands\Queue">
+      <UniqueIdentifier>{d1ce86b7-d40f-449c-af09-3f3c8240f73b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowAPI.ixx">
+      <Filter>Archivos de encabezado\OSKengine\WindowAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.ixx">
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.ixx">
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector4.ixx">
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="OwnedPtr.ixx">
+      <Filter>Archivos de encabezado\OSKengine\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="AssertImplementation.ixx">
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.ixx">
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardState.ixx">
+      <Filter>Archivos de encabezado\OSKengine\WindowAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseState.ixx">
+      <Filter>Archivos de encabezado\OSKengine\WindowAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="File.ixx">
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory.ixx">
+      <Filter>Archivos de encabezado\OSKengine\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="UniquePtr.ixx">
+      <Filter>Archivos de encabezado\OSKengine\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="SharedPtr.ixx">
+      <Filter>Archivos de encabezado\OSKengine\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.ixx">
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.ixx">
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderApiType.ixx">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="IRenderer.ixx">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="RendererVulkan.ixx">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Version.ixx">
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="RendererDx12.ixx">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="IGpu.ixx">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Gpu</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuDx12.ixx">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Gpu</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuVulkan.ixx">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Gpu</Filter>
+    </ClCompile>
+    <ClCompile Include="RendererOgl.ixx">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Dev\GLAD\src\glad.c">
+      <Filter>Archivos de origen\ThirdParty</Filter>
+    </ClCompile>
+    <ClCompile Include="ICommandQueue.ixx">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Commands\Queue</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandQueueDx12.ixx">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Commands\Queue</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandQueueVulkan.ixx">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Commands\Queue</Filter>
+    </ClCompile>
+    <ClCompile Include="QueueFamilyIndices.ixx">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\Commands\Queue</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.ixx">
+      <Filter>Archivos de encabezado\OSKengine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Assert.h">
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
