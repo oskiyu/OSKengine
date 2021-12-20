@@ -59,9 +59,10 @@ void SwapchainDx12::Create(IGpu* device, Format format, const CommandQueueDx12& 
     for (unsigned int i = 0; i < imageCount; i++) {
         images[i] = new GpuImageDx12(swapchainDesc.Width, swapchainDesc.Height, format);
 
-        swapchain->GetBuffer(i, IID_PPV_ARGS(&renderTargets[i]));
+        ComPtr<ID3D12Resource> rTarget;
+        swapchain->GetBuffer(i, IID_PPV_ARGS(&rTarget));
 
-        images[i]->As<GpuImageDx12>()->SetResource(renderTargets[i]);
+        images[i]->As<GpuImageDx12>()->SetResource(rTarget);
 
         D3D12_RENDER_TARGET_VIEW_DESC RTDesc{};
         RTDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;
@@ -72,7 +73,7 @@ void SwapchainDx12::Create(IGpu* device, Format format, const CommandQueueDx12& 
         D3D12_CPU_DESCRIPTOR_HANDLE DestDescriptor = renderTargetsDesc->GetCPUDescriptorHandleForHeapStart();
         DestDescriptor.ptr += ((SIZE_T)i) * device->As<GpuDx12>()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 
-        device->As<GpuDx12>()->GetDevice()->CreateRenderTargetView(renderTargets[i].Get(), &RTDesc, DestDescriptor);
+        device->As<GpuDx12>()->GetDevice()->CreateRenderTargetView(images[i]->As<GpuImageDx12>()->GetResource(), &RTDesc, DestDescriptor);
     }
 }
 

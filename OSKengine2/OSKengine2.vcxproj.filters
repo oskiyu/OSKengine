@@ -351,6 +351,18 @@
     <ClCompile Include="IGpuImage.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Image</Filter>
     </ClCompile>
+    <ClCompile Include="RenderpassDx12.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Renderpass</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuImageOgl.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuMemoryAllocatorOgl.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Memory\Allocator</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderpassOgl.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Renderpass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
@@ -585,6 +597,24 @@
       <Filter>Archivos de encabezado\RenderAPI\LowLevel\Renderpass</Filter>
     </ClInclude>
     <ClInclude Include="RenderpassType.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Renderpass</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderpassDx12.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Renderpass</Filter>
+    </ClInclude>
+    <ClInclude Include="OglTypes.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuImageOgl.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Image\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuMemoryAllocatorOgl.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Memory\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="FormatOgl.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Image\Format</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderpassOgl.h">
       <Filter>Archivos de encabezado\RenderAPI\LowLevel\Renderpass</Filter>
     </ClInclude>
   </ItemGroup>

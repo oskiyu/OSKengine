@@ -92,10 +92,6 @@ void SwapchainVulkan::Create(Format format, const GpuVulkan& device, const Windo
 	Engine::GetLogger()->InfoLog("Creado correctamente el swapchain.");
 }
 
-void SwapchainVulkan::SetTargetRenderpass(RenderpassVulkan* renderpass) {
-	targetRenderpass = renderpass;
-}
-
 void SwapchainVulkan::AcquireImages(unsigned int sizeX, unsigned int sizeY) {
 	VkResult result = vkGetSwapchainImagesKHR(device->GetLogicalDevice(), swapchain, &imageCount, nullptr);
 	OSK_ASSERT(result == VK_SUCCESS, "Error al adquirir imagenes del swapchain. Code: " + std::to_string(result));

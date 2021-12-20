@@ -41,9 +41,6 @@ namespace OSK {
 		VkRenderPass renderpass = 0;
 		DynamicArray<VkFramebuffer> framebuffers;
 
-		UniquePtr<GpuImage> colorImgs[3];
-		UniquePtr<GpuImage> depthImgs[3];
-
 	};
 
 }

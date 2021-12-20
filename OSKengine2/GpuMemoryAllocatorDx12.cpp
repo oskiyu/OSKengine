@@ -15,10 +15,10 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorDx12::CreateImage(unsigned int sizeX, unsig
 	auto output = new GpuImageDx12(sizeX, sizeY, format);
 
 	auto block = GpuMemoryBlockDx12::CreateNewImageBlock(output, device, sharedType, usage);
-	auto subblock = block->GetNextMemorySubblock(block->GetAllocatedSize());
+	//auto subblock = block->GetNextMemorySubblock(block->GetAllocatedSize());
 
-	output->SetBlock(block.GetPointer());
-	output->SetResource(subblock->As<GpuMemorySubblockDx12>()->GetResource());
+	output->SetBlock(block.GetPointer());	
+	output->SetResource(output->GetBuffer()->As<GpuMemorySubblockDx12>()->GetResource());
 
 	return output;
 }

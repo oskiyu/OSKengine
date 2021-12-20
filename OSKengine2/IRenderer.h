@@ -16,6 +16,7 @@ namespace OSK {
 	class ICommandQueue;
 	class ISyncDevice;
 	class IGpuMemoryAllocator;
+	class IRenderpass;
 
 	/// <summary>
 	/// Proporciona la interfaz de un renderizador.
@@ -71,6 +72,7 @@ namespace OSK {
 		virtual void CreateSwapchain() = 0;
 		virtual void CreateSyncDevice() = 0;
 		virtual void CreateGpuMemoryAllocator() = 0;
+		virtual void CreateMainRenderpass() = 0;
 
 		UniquePtr<IGpu> currentGpu;
 
@@ -84,6 +86,8 @@ namespace OSK {
 		UniquePtr<ICommandList> commandList;
 
 		UniquePtr<IGpuMemoryAllocator> gpuMemoryAllocator;
+
+		UniquePtr<IRenderpass> renderpass;
 
 		bool isFirstRender = true;
 

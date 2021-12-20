@@ -7,6 +7,7 @@ namespace OSK {
 
 	class IGpu;
 	class GpuImage;
+	class IRenderpass;
 
 	/// <summary>
 	/// Un swapchain es una estructura encargada de manejar el cambio de imagenes que
@@ -34,6 +35,8 @@ namespace OSK {
 		}
 
 		GpuImage* GetImage(unsigned int index) const;
+		void SetTargetRenderpass(IRenderpass* renderpass);
+		IRenderpass* GetTargetRenderpass() const;
 
 	protected:
 
@@ -42,6 +45,7 @@ namespace OSK {
 
 		UniquePtr<GpuImage> images[3];
 		unsigned int currentFrameIndex;
+		IRenderpass* targetRenderpass = nullptr;
 
 	};
 

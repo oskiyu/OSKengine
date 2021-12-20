@@ -88,11 +88,7 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	CreateSwapchain();
 	CreateSyncDevice();
 	CreateGpuMemoryAllocator();
-
-	//RENDERPASS
-	renderpass = new RenderpassVulkan(RenderpassType::FINAL);
-	renderpass->As<RenderpassVulkan>()->CreateFinalPresent(swapchain.GetPointer());
-	renderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
+	CreateMainRenderpass();
 }
 
 void RendererVulkan::Close() {
@@ -303,6 +299,12 @@ void RendererVulkan::CreateGpuMemoryAllocator() {
 	gpuMemoryAllocator = new GpuMemoryAllocatorVulkan(currentGpu.GetPointer());
 
 	Engine::GetLogger()->InfoLog("Creado el asignador de memoria de la GPU.");
+}
+
+void RendererVulkan::CreateMainRenderpass() {
+	renderpass = new RenderpassVulkan(RenderpassType::FINAL);
+	renderpass->As<RenderpassVulkan>()->CreateFinalPresent(swapchain.GetPointer());
+	renderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
 }
 
 void RendererVulkan::PresentFrame() {

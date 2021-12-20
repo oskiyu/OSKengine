@@ -20,6 +20,9 @@
 #include "SyncDeviceDx12.h"
 #include "GpuMemoryAllocatorDx12.h"
 #include "GpuImageLayout.h"
+#include "RenderpassDx12.h"
+#include "RenderpassType.h"
+#include "Color.hpp"
 
 using namespace OSK;
 
@@ -50,6 +53,7 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	CreateSwapchain();
 	CreateSyncDevice();
 	CreateGpuMemoryAllocator();
+	CreateMainRenderpass();
 }
 
 void RendererDx12::Close() {
@@ -146,9 +150,15 @@ void RendererDx12::CreateGpuMemoryAllocator() {
 	Engine::GetLogger()->InfoLog("Creado el asignador de memoria de la GPU.");
 }
 
-void RendererDx12::PresentFrame() {
-	commandList->TransitionImageLayout(swapchain->GetImage(swapchain->GetCurrentFrameIndex()), GpuImageLayout::COLOR_ATTACHMENT, GpuImageLayout::PRESENT);
+void RendererDx12::CreateMainRenderpass() {
+	renderpass = new RenderpassDx12(RenderpassType::FINAL);
+	renderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
+	renderpass->As<RenderpassDx12>()->SetSwapchain(swapchain->As<SwapchainDx12>());
+}
 
+void RendererDx12::PresentFrame() {
+	commandList->EndRenderpass(renderpass.GetPointer());
+	
 	commandList->Close();
 
 	ID3D12CommandList* commandLists[] = { commandList->As<CommandListDx12>()->GetCommandList() };
@@ -162,12 +172,5 @@ void RendererDx12::PresentFrame() {
 	commandList->Reset();
 	commandList->Start();
 
-	D3D12_CPU_DESCRIPTOR_HANDLE RenderTargetDescriptor = swapchain->As<SwapchainDx12>()->GetRenderTargetMemory()->GetCPUDescriptorHandleForHeapStart();
-	RenderTargetDescriptor.ptr += ((SIZE_T)swapchain->GetCurrentFrameIndex()) * currentGpu->As<GpuDx12>()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
-	commandList->As<CommandListDx12>()->GetCommandList()->OMSetRenderTargets(1, &RenderTargetDescriptor, FALSE, nullptr);
-
-	commandList->TransitionImageLayout(swapchain->GetImage(swapchain->GetCurrentFrameIndex()), GpuImageLayout::PRESENT, GpuImageLayout::COLOR_ATTACHMENT);
-
-	const FLOAT ClearValue[] = { 1.0f, 0.0f, 0.0f, 1.0f };
-	commandList->As<CommandListDx12>()->GetCommandList()->ClearRenderTargetView(RenderTargetDescriptor, ClearValue, 0, nullptr);
+	commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());
 }

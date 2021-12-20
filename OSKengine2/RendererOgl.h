@@ -23,6 +23,7 @@ namespace OSK {
 		void CreateSwapchain() override;
 		void CreateSyncDevice() override;
 		void CreateGpuMemoryAllocator() override;
+		void CreateMainRenderpass() override;
 
 	private:
 

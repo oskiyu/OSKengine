@@ -1,12 +1,17 @@
 #pragma once
 
 #include "OSKmacros.h"
+#include "UniquePtr.hpp"
 
 namespace OSK {
 
 	class GpuImage;
 	enum class RenderpassType;
 
+	/// <summary>
+	/// Un renderpass representa una [...] de renderizado.
+	/// Cuenta con las imágenes donde se renderizará la escena.
+	/// </summary>
 	class OSKAPI_CALL IRenderpass {
 
 	public:
@@ -16,7 +21,14 @@ namespace OSK {
 		GpuImage* GetImage(TSize index) const;
 		TSize GetNumberOfImages() const;
 
+		/// <summary>
+		/// Establece la imagen sobre la que se va a renderizar (para render target).
+		/// </summary>
 		virtual void SetImage(GpuImage* image) = 0;
+
+		/// <summary>
+		/// Establece las imágenes del swapchain donde se va a renderizar (para pantalla).
+		/// </summary>
 		virtual void SetImages(GpuImage* image0, GpuImage* image1, GpuImage* image2) = 0;
 
 		RenderpassType GetType() const;
@@ -31,6 +43,8 @@ namespace OSK {
 
 		RenderpassType type;
 		GpuImage* images[3];
+		UniquePtr<GpuImage> colorImgs[3];
+		UniquePtr<GpuImage> depthImgs[3];
 
 	};
 

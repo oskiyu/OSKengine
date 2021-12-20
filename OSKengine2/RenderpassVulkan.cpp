@@ -209,9 +209,6 @@ void RenderpassVulkan::SetImages(GpuImage* image0, GpuImage* image1, GpuImage* i
 	images[2] = image2;
 
 	for (TSize i = 0; i < 3; i++) {
-		//delete colorImgs[i].Release();
-		//delete depthImgs[i].Release();
-
 		colorImgs[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
 			size.X, size.Y, image0->GetFormat(),
 			GpuImageUsage::COLOR, GpuSharedMemoryType::GPU_ONLY).GetPointer();

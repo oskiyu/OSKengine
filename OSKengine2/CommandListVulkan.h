@@ -38,7 +38,7 @@ namespace OSK {
 		void BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) override;
 		void EndRenderpass(IRenderpass* renderpass) override;
 
-		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) override;
+		void TransitionImageLayout(GpuImage* image, GpuImageLayout next) override;
 
 	private:
 

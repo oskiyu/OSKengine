@@ -38,8 +38,6 @@ namespace OSK {
 
 		VkSwapchainKHR GetSwapchain() const;
 
-		void SetTargetRenderpass(RenderpassVulkan* renderpass);
-
 	private:
 
 		void AcquireImages(unsigned int sizeX, unsigned int sizeY);
@@ -53,7 +51,6 @@ namespace OSK {
 		VkSwapchainKHR swapchain;
 		const Window* window = nullptr;
 		const GpuVulkan* device = nullptr;
-		RenderpassVulkan* targetRenderpass = nullptr;
 
 		Format format;
 

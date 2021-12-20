@@ -5,11 +5,12 @@
 #include <glm.hpp>
 #include "OSKengine.h"
 #include "Logger.h"
+#include "GpuImageLayout.h"
 
 using namespace OSK;
 
 GpuImage::GpuImage(unsigned int sizeX, unsigned int sizeY, Format format)
-	: format(format) {
+	: format(format), currentLayout(GpuImageLayout::UNDEFINED) {
 	size = { sizeX, sizeY };
 }
 
@@ -52,4 +53,12 @@ unsigned int GpuImage::GetMipLevels() const {
 TSize GpuImage::GetMipLevels(uint32_t sizeX, uint32_t sizeY) {
 	return 1;
 	return glm::floor(glm::log2(glm::max((float)sizeX, (float)sizeY))) + 1;
+}
+
+void GpuImage::SetLayout(GpuImageLayout layout) {
+	currentLayout = layout;
+}
+
+GpuImageLayout GpuImage::GetLayout() const {
+	return currentLayout;
 }

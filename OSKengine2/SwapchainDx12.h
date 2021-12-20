@@ -45,7 +45,6 @@ namespace OSK {
 
 		ComPtr<IDXGISwapChain3> swapchain;
 
-		ComPtr<ID3D12Resource> renderTargets[3];
 		ComPtr<ID3D12DescriptorHeap> renderTargetsDesc;
 
 	};

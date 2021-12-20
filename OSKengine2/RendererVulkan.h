@@ -33,6 +33,7 @@ namespace OSK {
 		void CreateSwapchain() override;
 		void CreateSyncDevice() override;
 		void CreateGpuMemoryAllocator() override;
+		void CreateMainRenderpass() override;
 
 	private:
 
@@ -46,8 +47,6 @@ namespace OSK {
 		VkInstance instance;
 		VkSurfaceKHR surface;
 		VkDebugUtilsMessengerEXT debugConsole;
-
-		UniquePtr<IRenderpass> renderpass;
 
 	};
 

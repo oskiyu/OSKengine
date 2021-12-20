@@ -50,7 +50,9 @@
     <ClCompile Include="GpuImageDx12.cpp" />
     <ClCompile Include="GpuImageLayoutDx12.cpp" />
     <ClCompile Include="GpuImageLayoutVulkan.cpp" />
+    <ClCompile Include="GpuImageOgl.cpp" />
     <ClCompile Include="GpuImageVulkan.cpp" />
+    <ClCompile Include="GpuMemoryAllocatorOgl.cpp" />
     <ClCompile Include="GpuMemoryAllocatorVulkan.cpp" />
     <ClCompile Include="GpuMemoryAllocatorDx12.cpp" />
     <ClCompile Include="GpuMemoryBlockDx12.cpp" />
@@ -79,6 +81,8 @@
     <ClCompile Include="RendererDx12.cpp" />
     <ClCompile Include="RendererOgl.cpp" />
     <ClCompile Include="RendererVulkan.cpp" />
+    <ClCompile Include="RenderpassDx12.cpp" />
+    <ClCompile Include="RenderpassOgl.cpp" />
     <ClCompile Include="RenderpassVulkan.cpp" />
     <ClCompile Include="SwapchainDx12.cpp" />
     <ClCompile Include="SwapchainVulkan.cpp" />
@@ -101,15 +105,18 @@
     <ClInclude Include="DynamicArray.hpp" />
     <ClInclude Include="Format.h" />
     <ClInclude Include="FormatDx12.h" />
+    <ClInclude Include="FormatOgl.h" />
     <ClInclude Include="FormatVulkan.h" />
     <ClInclude Include="GpuDx12.h" />
     <ClInclude Include="GpuImageDx12.h" />
     <ClInclude Include="GpuImageLayout.h" />
     <ClInclude Include="GpuImageLayoutDx12.h" />
     <ClInclude Include="GpuImageLayoutVulkan.h" />
+    <ClInclude Include="GpuImageOgl.h" />
     <ClInclude Include="GpuImageVulkan.h" />
     <ClInclude Include="GpuIndexBufferDx12.h" />
     <ClInclude Include="GpuMemoryAllocatorDx12.h" />
+    <ClInclude Include="GpuMemoryAllocatorOgl.h" />
     <ClInclude Include="GpuMemoryAllocatorVulkan.h" />
     <ClInclude Include="GpuMemoryBlockDx12.h" />
     <ClInclude Include="GpuMemoryBlockVulkan.h" />
@@ -142,6 +149,7 @@
     <ClInclude Include="LinkedList.hpp" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MouseState.h" />
+    <ClInclude Include="OglTypes.h" />
     <ClInclude Include="OSKengine.h" />
     <ClInclude Include="OSKmacros.h" />
     <ClInclude Include="OwnedPtr.h" />
@@ -151,6 +159,8 @@
     <ClInclude Include="RendererDx12.h" />
     <ClInclude Include="RendererOgl.h" />
     <ClInclude Include="RendererVulkan.h" />
+    <ClInclude Include="RenderpassDx12.h" />
+    <ClInclude Include="RenderpassOgl.h" />
     <ClInclude Include="RenderpassType.h" />
     <ClInclude Include="RenderpassVulkan.h" />
     <ClInclude Include="SharedPtr.hpp" />

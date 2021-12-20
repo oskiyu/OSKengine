@@ -10,6 +10,7 @@ namespace OSK {
 	class IGpuMemoryBlock;
 	class IGpuMemorySubblock;
 	enum class Format;
+	enum class GpuImageLayout;
 
 	class OSKAPI_CALL GpuImage {
 
@@ -35,6 +36,9 @@ namespace OSK {
 
 		static TSize GetMipLevels(uint32_t sizeX, uint32_t sizeY);
 
+		void SetLayout(GpuImageLayout layout);
+		GpuImageLayout GetLayout() const;
+
 	private:
 
 		UniquePtr<IGpuMemoryBlock> block;
@@ -43,6 +47,7 @@ namespace OSK {
 		Vector2ui size = 0;
 		unsigned int mipLevels = 0;
 		Format format;
+		GpuImageLayout currentLayout;
 
 	};
 

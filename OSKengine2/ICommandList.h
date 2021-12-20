@@ -45,10 +45,28 @@ namespace OSK {
 		/// </summary>
 		virtual void Close() = 0;
 
-		virtual void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) = 0;
+		/// <summary>
+		/// Cambia el layout interno de la imagen en la memoria de la GPU.
+		/// 
+		/// Implementación en las Render Apis High Profile.
+		/// </summary>
+		/// <param name="next">Layout en el que estará la imagen.</param>
+		virtual void TransitionImageLayout(GpuImage* image, GpuImageLayout next) = 0;
 
+
+		/// <summary>
+		/// Comienza el renderizado a un renderpass.
+		/// </summary>
 		virtual void BeginRenderpass(IRenderpass* renderpass) = 0;
+
+		/// <summary>
+		/// Comienza el renderizado a un renderpass.
+		/// </summary>
 		virtual void BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) = 0;
+
+		/// <summary>
+		/// Finaliza el renderizado a un renderpass.
+		/// </summary>
 		virtual void EndRenderpass(IRenderpass* renderpass) = 0;
 
 	};
