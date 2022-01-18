@@ -10,6 +10,8 @@ namespace OSK {
 
 	public:
 
+		GpuVertexBufferDx12(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment);
+
 		void SetView(TSize vertexSize, TSize numberOfVertices);
 		D3D12_VERTEX_BUFFER_VIEW GetView() const;
 

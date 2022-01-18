@@ -17,6 +17,9 @@ DXGI_FORMAT OSK::GetFormatDx12(Format format) {
 		case Format::D32_SFLOAT:
 			return DXGI_FORMAT_D32_FLOAT;
 
+		case Format::D24S8_SFLOAT_SUINT:
+			return DXGI_FORMAT_D24_UNORM_S8_UINT;
+
 		case Format::D32S8_SFLOAT_SUINT:
 			return DXGI_FORMAT_D32_FLOAT_S8X24_UINT;
 	}
@@ -43,9 +46,10 @@ unsigned int OSK::GetFormatNumberOfBytes(Format format) {
 
 		case Format::RGBA8_UNORM:
 		case Format::B8G8R8A8_SRGB:
-			return 3;
+			return 4;
 
 		case Format::D32_SFLOAT:
+		case Format::D24S8_SFLOAT_SUINT:
 			return 4;
 
 		case Format::D32S8_SFLOAT_SUINT:
@@ -69,6 +73,9 @@ unsigned int OSK::GetFormatOgl(Format format) {
 
 	case Format::D32S8_SFLOAT_SUINT:
 		return GL_DEPTH32F_STENCIL8;
+
+	case Format::D24S8_SFLOAT_SUINT:
+		return GL_DEPTH24_STENCIL8;
 	}
 
 	return 0;

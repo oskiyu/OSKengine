@@ -27,6 +27,7 @@ namespace OSK {
 		void Close() override;
 
 		void PresentFrame() override;
+		void SubmitSingleUseCommandList(ICommandList* commandList) override;
 
 	protected:
 

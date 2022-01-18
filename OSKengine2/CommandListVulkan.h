@@ -8,6 +8,8 @@ typedef VkCommandBuffer_T* VkCommandBuffer;
 
 namespace OSK {
 
+	class GpuDataBuffer;
+
 	/// <summary>
 	/// Una lista de comandos contiene una serie de comandos que serán
 	/// enviados a la GPU para su ejecución.
@@ -38,7 +40,16 @@ namespace OSK {
 		void BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) override;
 		void EndRenderpass(IRenderpass* renderpass) override;
 
-		void TransitionImageLayout(GpuImage* image, GpuImageLayout next) override;
+		void BindPipeline(IGraphicsPipeline* pipeline) override;
+		void BindVertexBuffer(IGpuVertexBuffer* buffer) override;
+		void BindIndexBuffer(IGpuIndexBuffer* buffer) override;
+
+		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) override;
+
+		void CopyBuffer(const GpuDataBuffer* source, GpuDataBuffer* dest, TSize size, TSize sourceOffset, TSize destOffset);
+
+		void SetViewport(const Viewport& viewport) override;
+		void SetScissor(const Vector4ui& scissor) override;
 
 	private:
 

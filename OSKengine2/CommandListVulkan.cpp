@@ -9,6 +9,10 @@
 #include "RenderpassVulkan.h"
 #include "Color.hpp"
 #include "RenderpassType.h"
+#include "IGpuDataBuffer.h"
+#include "Viewport.h"
+#include "GraphicsPipelineVulkan.h"
+#include "GpuVertexBufferVulkan.h"
 
 using namespace OSK;
 
@@ -48,9 +52,7 @@ void CommandListVulkan::Close() {
 	}
 }
 
-void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout next) {
-	GpuImageLayout previous = image->GetLayout();
-
+void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) {
 	VkImageMemoryBarrier barrier{};
 	barrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
 	barrier.oldLayout = GetGpuImageLayoutVulkan(previous);
@@ -95,6 +97,7 @@ void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout ne
 		barrier.srcAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT | VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
 		sourceStage = VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT;
 		break;
+
 	}
 
 	switch (GetGpuImageLayoutVulkan(next)) {
@@ -131,6 +134,19 @@ void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout ne
 	image->SetLayout(next);
 }
 
+void CommandListVulkan::CopyBuffer(const GpuDataBuffer* source, GpuDataBuffer* dest, TSize size, TSize sourceOffset, TSize destOffset) {
+	VkBufferCopy copyRegion{};
+
+	copyRegion.srcOffset = sourceOffset + source->GetMemorySubblock()->GetOffsetFromBlock();
+	copyRegion.dstOffset = destOffset + dest->GetMemorySubblock()->GetOffsetFromBlock();
+	copyRegion.size = size;
+
+	vkCmdCopyBuffer(commandBuffers[0], 
+		source->GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer(),
+		dest->GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer(), 
+		1, &copyRegion);
+}
+
 void CommandListVulkan::BeginRenderpass(IRenderpass* renderpass) {
 	BeginAndClearRenderpass(renderpass, Color::BLACK());
 }
@@ -139,7 +155,7 @@ void CommandListVulkan::BeginAndClearRenderpass(IRenderpass* renderpass, const C
 	const auto size = renderpass->GetImage(0)->GetSize();
 
 	for (TSize i = 0; i < renderpass->GetNumberOfImages(); i++)
-		TransitionImageLayout(renderpass->GetImage(i), GpuImageLayout::COLOR_ATTACHMENT);
+		TransitionImageLayout(renderpass->GetImage(i), GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT);
 
 	for (TSize cmdIndex = 0; cmdIndex < commandBuffers.GetSize(); cmdIndex++) {
 		VkRenderPassBeginInfo renderpassInfo{};
@@ -168,6 +184,58 @@ void CommandListVulkan::EndRenderpass(IRenderpass* renderpass) {
 	if (renderpass->GetType() == RenderpassType::FINAL)
 		finalLayout = GpuImageLayout::PRESENT;
 
-	//for (TSize i = 0; i < renderpass->GetNumberOfImages(); i++)
-		//TransitionImageLayout(renderpass->GetImage(i), GpuImageLayout::COLOR_ATTACHMENT, finalLayout);
+	for (TSize i = 0; i < renderpass->GetNumberOfImages(); i++)
+		TransitionImageLayout(renderpass->GetImage(i), GpuImageLayout::UNDEFINED, finalLayout);
+}
+
+void CommandListVulkan::BindPipeline(IGraphicsPipeline* pipeline) {
+	for (TSize i = 0; i < commandBuffers.GetSize(); i++)
+		vkCmdBindPipeline(commandBuffers.At(i), VK_PIPELINE_BIND_POINT_GRAPHICS, 
+			pipeline->As<GraphicsPipelineVulkan>()->GetPipeline());
+}
+
+void CommandListVulkan::BindVertexBuffer(IGpuVertexBuffer* buffer) {
+	VkBuffer vertexBuffers[] = { 
+		buffer->GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer() 
+	};
+	VkDeviceSize offsets[] = { buffer->GetMemorySubblock()->GetOffsetFromBlock() };
+
+	for (TSize i = 0; i < commandBuffers.GetSize(); i++)
+		vkCmdBindVertexBuffers(commandBuffers.At(i), 0, 1, vertexBuffers, offsets);
+}
+
+void CommandListVulkan::BindIndexBuffer(IGpuIndexBuffer* buffer) {
+	OSK_ASSERT(false, "No implementado.");
+}
+
+void CommandListVulkan::SetViewport(const Viewport& vp) {
+	VkViewport viewport{};
+
+	viewport.x = vp.rectangle.GetRectanglePosition().X;
+	viewport.y = vp.rectangle.GetRectanglePosition().Y;
+	viewport.width = vp.rectangle.GetRectangleSize().X;
+	viewport.height = vp.rectangle.GetRectangleSize().Y;
+
+	viewport.minDepth = vp.minDepth;
+	viewport.maxDepth = vp.maxDepth;
+
+	for (TSize i = 0; i < commandBuffers.GetSize(); i++)
+		vkCmdSetViewport(commandBuffers.At(i), 0, 1, &viewport);
+}
+
+void CommandListVulkan::SetScissor(const Vector4ui& scissorRect) {
+	VkRect2D scissor{};
+
+	scissor.offset = {
+		(int32_t)scissorRect.GetRectanglePosition().X,
+		(int32_t)scissorRect.GetRectanglePosition().Y
+	};
+
+	scissor.extent = {
+		scissorRect.GetRectangleSize().X,
+		scissorRect.GetRectangleSize().Y
+	};
+	
+	for (TSize i = 0; i < commandBuffers.GetSize(); i++)
+		vkCmdSetScissor(commandBuffers.At(i), 0, 1, &scissor);
 }

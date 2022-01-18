@@ -17,10 +17,18 @@ CommandPoolVulkan::~CommandPoolVulkan() {
 }
 
 OwnedPtr<ICommandList> CommandPoolVulkan::CreateCommandList(const IGpu& device) {
+	return CreateList(device, numberOfImages);
+}
+
+OwnedPtr<ICommandList> CommandPoolVulkan::CreateSingleTimeCommandList(const IGpu& device) {
+	return CreateList(device, 1);
+}
+
+OwnedPtr<ICommandList> CommandPoolVulkan::CreateList(const IGpu& device, TSize numNativeLists) {
 	auto list = new CommandListVulkan;
 
-	list->GetCommandBuffers()->Reserve(numberOfImages);
-	for (size_t i = 0; i < numberOfImages; i++)
+	list->GetCommandBuffers()->Reserve(numNativeLists);
+	for (size_t i = 0; i < numNativeLists; i++)
 		list->GetCommandBuffers()->Insert(VK_NULL_HANDLE);
 
 	VkCommandBufferAllocateInfo allocInfo{};
@@ -31,7 +39,7 @@ OwnedPtr<ICommandList> CommandPoolVulkan::CreateCommandList(const IGpu& device) 
 
 	VkResult result = vkAllocateCommandBuffers(device.As<GpuVulkan>()->GetLogicalDevice(), &allocInfo, list->GetCommandBuffers()->GetData());
 	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear la lista de comandos.");
-	
+
 	return list;
 }
 

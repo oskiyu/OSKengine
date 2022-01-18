@@ -10,6 +10,8 @@ namespace OSK {
 	using OglFramebufferHandler = TOglHandler;
 	using OglRenderBufferHandler = TOglHandler;
 
+	using OglVertexBufferHandler = TOglHandler;
+
 	constexpr OglFramebufferHandler oglDefaultFramebuffer = 0;
 	constexpr TOglHandler oglNullHandler = 0;
 

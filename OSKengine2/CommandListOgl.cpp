@@ -3,6 +3,8 @@
 #include "IGpuImage.h"
 #include "Color.hpp"
 #include "RenderpassOgl.h"
+#include "Assert.h"
+#include "Viewport.h"
 
 #include <glad/glad.h>
 
@@ -20,7 +22,7 @@ void CommandListOgl::Close() {
 
 }
 
-void CommandListOgl::TransitionImageLayout(GpuImage* image, GpuImageLayout next) {
+void CommandListOgl::TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) {
 	image->SetLayout(next);
 }
 void CommandListOgl::BeginRenderpass(IRenderpass* renderpass) {
@@ -35,4 +37,32 @@ void CommandListOgl::BeginAndClearRenderpass(IRenderpass* renderpass, const Colo
 
 void CommandListOgl::EndRenderpass(IRenderpass* renderpass) {
 	glBindFramebuffer(GL_FRAMEBUFFER, oglNullHandler);
+}
+
+void CommandListOgl::BindPipeline(IGraphicsPipeline* pipeline) {
+	OSK_ASSERT(false, "No implementado.");
+}
+
+void CommandListOgl::BindVertexBuffer(IGpuVertexBuffer* buffer) {
+	OSK_ASSERT(false, "No implementado.");
+}
+
+void CommandListOgl::BindIndexBuffer(IGpuIndexBuffer* buffer) {
+	OSK_ASSERT(false, "No implementado.");
+}
+
+void CommandListOgl::SetViewport(const Viewport& vp) {
+	glViewport(
+		vp.rectangle.GetRectanglePosition().X,
+		vp.rectangle.GetRectanglePosition().Y,
+		vp.rectangle.GetRectangleSize().X,
+		vp.rectangle.GetRectangleSize().Y);
+}
+
+void CommandListOgl::SetScissor(const Vector4ui& scissor) {
+	glScissor(
+		scissor.GetRectanglePosition().X,
+		scissor.GetRectanglePosition().Y,
+		scissor.GetRectangleSize().X,
+		scissor.GetRectangleSize().Y);
 }

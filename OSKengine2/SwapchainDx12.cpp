@@ -24,7 +24,7 @@ using namespace OSK;
 void SwapchainDx12::Create(IGpu* device, Format format, const CommandQueueDx12& commandQueue, IDXGIFactory4* factory, const Window& window) {
     DXGI_SWAP_CHAIN_DESC1 swapchainDesc{};
 
-    swapchainDesc.BufferCount = 2;
+    swapchainDesc.BufferCount = imageCount;
     swapchainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 
     swapchainDesc.Width = window.GetWindowSize().X;
@@ -51,7 +51,7 @@ void SwapchainDx12::Create(IGpu* device, Format format, const CommandQueueDx12& 
     D3D12_DESCRIPTOR_HEAP_DESC imagesMemoryCreateInfo{};
     imagesMemoryCreateInfo.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
     imagesMemoryCreateInfo.NodeMask = 0;
-    imagesMemoryCreateInfo.NumDescriptors = 3;
+    imagesMemoryCreateInfo.NumDescriptors = imageCount;
     imagesMemoryCreateInfo.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
 
     device->As<GpuDx12>()->GetDevice()->CreateDescriptorHeap(&imagesMemoryCreateInfo, IID_PPV_ARGS(&renderTargetsDesc));
@@ -66,7 +66,7 @@ void SwapchainDx12::Create(IGpu* device, Format format, const CommandQueueDx12& 
 
         D3D12_RENDER_TARGET_VIEW_DESC RTDesc{};
         RTDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;
-        RTDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+        RTDesc.Format = GetFormatDx12(format);
         RTDesc.Texture2D.MipSlice = 0;
         RTDesc.Texture2D.PlaneSlice = 0;
 

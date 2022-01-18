@@ -44,6 +44,7 @@
     <ClCompile Include="CommandPoolVulkan.cpp" />
     <ClCompile Include="CommandQueueDx12.cpp" />
     <ClCompile Include="CommandQueueVulkan.cpp" />
+    <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="Format.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="GpuDx12.cpp" />
@@ -62,13 +63,19 @@
     <ClCompile Include="GpuMemoryTypeDx12.cpp" />
     <ClCompile Include="GpuMemoryTypeVulkan.cpp" />
     <ClCompile Include="GpuVertexBufferDx12.cpp" />
+    <ClCompile Include="GpuVertexBufferOgl.cpp" />
+    <ClCompile Include="GpuVertexBufferVulkan.cpp" />
     <ClCompile Include="GpuVulkan.cpp" />
+    <ClCompile Include="GraphicsPipelineDx12.cpp" />
+    <ClCompile Include="GraphicsPipelineVulkan.cpp" />
+    <ClCompile Include="ICommandList.cpp" />
     <ClCompile Include="IGpuDataBuffer.cpp" />
     <ClCompile Include="IGpuImage.cpp" />
     <ClCompile Include="IGpuMemoryAllocator.cpp" />
     <ClCompile Include="IGpuMemoryBlock.cpp" />
     <ClCompile Include="IGpuMemorySubblock.cpp" />
     <ClCompile Include="GpuIndexBufferDx12.cpp" />
+    <ClCompile Include="IGpuVertexBuffer.cpp" />
     <ClCompile Include="IRenderpass.cpp" />
     <ClCompile Include="ISwapchain.cpp" />
     <ClCompile Include="KeyboardState.cpp" />
@@ -89,6 +96,7 @@
     <ClCompile Include="SyncDeviceDx12.cpp" />
     <ClCompile Include="SyncDeviceVulkan.cpp" />
     <ClCompile Include="VertexDx12.cpp" />
+    <ClCompile Include="VertexVulkan.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +111,7 @@
     <ClInclude Include="CommandQueueDx12.h" />
     <ClInclude Include="CommandQueueVulkan.h" />
     <ClInclude Include="DynamicArray.hpp" />
+    <ClInclude Include="FileIO.h" />
     <ClInclude Include="Format.h" />
     <ClInclude Include="FormatDx12.h" />
     <ClInclude Include="FormatOgl.h" />
@@ -126,7 +135,11 @@
     <ClInclude Include="GpuMemoryTypesDx12.h" />
     <ClInclude Include="GpuMemoryTypeVulkan.h" />
     <ClInclude Include="GpuVertexBufferDx12.h" />
+    <ClInclude Include="GpuVertexBufferOgl.h" />
+    <ClInclude Include="GpuVertexBufferVulkan.h" />
     <ClInclude Include="GpuVulkan.h" />
+    <ClInclude Include="GraphicsPipelineDx12.h" />
+    <ClInclude Include="GraphicsPipelineVulkan.h" />
     <ClInclude Include="HashMap.hpp" />
     <ClInclude Include="ICommandList.h" />
     <ClInclude Include="ICommandPool.h" />
@@ -140,6 +153,7 @@
     <ClInclude Include="IGpuMemorySubblock.h" />
     <ClInclude Include="IGpuVertexBuffer.h" />
     <ClInclude Include="GpuIndexBufferVulkan.h" />
+    <ClInclude Include="IGraphicsPipeline.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="IRenderpass.h" />
     <ClInclude Include="IRenderTarget.h" />
@@ -154,6 +168,7 @@
     <ClInclude Include="OSKmacros.h" />
     <ClInclude Include="OwnedPtr.h" />
     <ClInclude Include="Pair.hpp" />
+    <ClInclude Include="PipelineCreateInfo.h" />
     <ClInclude Include="QueueFamilyIndices.h" />
     <ClInclude Include="RenderApiType.h" />
     <ClInclude Include="RendererDx12.h" />
@@ -175,6 +190,8 @@
     <ClInclude Include="Version.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="VertexDx12.h" />
+    <ClInclude Include="VertexVulkan.h" />
+    <ClInclude Include="Viewport.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

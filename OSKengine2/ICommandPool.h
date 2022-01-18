@@ -24,6 +24,12 @@ namespace OSK {
 		/// <param name="device">GPU donde se alamcenarán las listas.</param>
 		virtual OwnedPtr<ICommandList> CreateCommandList(const IGpu& device) = 0;
 
+		/// <summary>
+		/// Crea una lista de comandos de un sólo uso.
+		/// </summary>
+		/// <param name="device">GPU donde se alamcenarán las listas.</param>
+		virtual OwnedPtr<ICommandList> CreateSingleTimeCommandList(const IGpu& device) = 0;
+
 		template <typename T> T* As() const requires std::is_base_of_v<ICommandPool, T> {
 			return (T*)this;
 		}

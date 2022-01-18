@@ -37,7 +37,16 @@ namespace OSK {
 		void BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) override;
 		void EndRenderpass(IRenderpass* renderpass) override;
 
-		void TransitionImageLayout(GpuImage* image, GpuImageLayout next) override;
+		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) override;
+
+		void BindPipeline(IGraphicsPipeline* pipeline) override;
+		void BindVertexBuffer(IGpuVertexBuffer* buffer) override;
+		void BindIndexBuffer(IGpuIndexBuffer* buffer) override;
+
+		void ResourceBarrier(ID3D12Resource* resource, D3D12_RESOURCE_STATES from, D3D12_RESOURCE_STATES to);
+
+		void SetViewport(const Viewport& viewport) override;
+		void SetScissor(const Vector4ui& scissor) override;
 
 	private:
 

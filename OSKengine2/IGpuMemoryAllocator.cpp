@@ -14,11 +14,9 @@ bool GpuBufferMemoryBlockInfo::operator==(const GpuBufferMemoryBlockInfo& other)
 	return size == other.size && usage == other.usage && sharedType == other.sharedType;
 }
 
-template <> struct std::hash<GpuBufferMemoryBlockInfo> {
-	size_t operator()(const GpuBufferMemoryBlockInfo& x) {
-		return std::hash<unsigned int>()((unsigned int)x.usage);
-	}
-};
+template <> static size_t OSK::Hash<GpuBufferMemoryBlockInfo>(const GpuBufferMemoryBlockInfo& elem) {
+	return Hash<TSize>((TSize)elem.usage);
+}
 
 IGpuMemoryAllocator::IGpuMemoryAllocator(IGpu* device) : device(device) {
 	bufferMemoryBlocks = {};
@@ -38,10 +36,12 @@ void IGpuMemoryAllocator::Free() {
 	imageMemoryBlocks.Free();
 }
 
-IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+/*IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
 	auto it = bufferMemoryBlocks.Find({ size, usage, sharedType });
 
-	/*if (it.IsEmpty()) {
+	OSK_ASSERT(false, "Deprecated: use virtual function.");
+
+	if (it.IsEmpty()) {
 		auto i = CreateNewBufferMemoryBlock(size, usage, sharedType);
 
 		bufferMemoryBlocks.Insert({ size, usage, sharedType }, {});
@@ -62,10 +62,10 @@ IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(TSize size, GpuBu
 		bufferMemoryBlocks.Get({ size, usage, sharedType }).Insert(i);
 
 		return i.GetPointer();
-	}*/
+	}
 
 	return nullptr;
-}
+}*/
 
 IGpuMemorySubblock* IGpuMemoryAllocator::GetNextBufferMemorySubblock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
 	return GetNextBufferMemoryBlock(size, usage, sharedType)->GetNextMemorySubblock(size);

@@ -49,6 +49,10 @@ void RendererOgl::CreateCommandQueues() {
 	commandList = new CommandListOgl;
 }
 
+void RendererOgl::SubmitSingleUseCommandList(ICommandList* commandList) {
+
+}
+
 void RendererOgl::CreateSyncDevice() {
 
 }

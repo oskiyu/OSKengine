@@ -15,6 +15,9 @@
 #include "OSKengine.h"
 #include "RendererDx12.h"
 #include "GpuDx12.h"
+#include "GraphicsPipelineDx12.h"
+#include "GpuVertexBufferDx12.h"
+#include "Viewport.h"
 
 using namespace OSK;
 
@@ -43,14 +46,14 @@ void CommandListDx12::Close() {
 	commandList->Close();
 }
 
-void CommandListDx12::TransitionImageLayout(GpuImage* image, GpuImageLayout next) {
+void CommandListDx12::TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) {
 	ID3D12Resource* resource = image->As<GpuImageDx12>()->GetResource();
 	
 	D3D12_RESOURCE_BARRIER barrierInfo{};
 	barrierInfo.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
 	barrierInfo.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
 	barrierInfo.Transition.pResource = resource;
-	barrierInfo.Transition.StateBefore = GetGpuImageLayoutDx12(image->GetLayout());
+	barrierInfo.Transition.StateBefore = GetGpuImageLayoutDx12(previous);
 	barrierInfo.Transition.StateAfter = GetGpuImageLayoutDx12(next);
 	barrierInfo.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
 
@@ -66,12 +69,12 @@ void CommandListDx12::BeginRenderpass(IRenderpass* renderpass) {
 void CommandListDx12::BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) {
 	const auto size = renderpass->GetImage(0)->GetSize();
 
-	D3D12_CPU_DESCRIPTOR_HANDLE renderTargetDesc;
-	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilDesc;
+	D3D12_CPU_DESCRIPTOR_HANDLE renderTargetDesc{};
+	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilDesc{};
 	if (renderpass->GetType() == RenderpassType::FINAL) {
 		const SwapchainDx12* swapchain = renderpass->As<RenderpassDx12>()->GetSwapchain();
 
-		renderTargetDesc = renderpass->As<RenderpassDx12>()->GetSwapchain()->GetRenderTargetMemory()->GetCPUDescriptorHandleForHeapStart();
+		renderTargetDesc = swapchain->GetRenderTargetMemory()->GetCPUDescriptorHandleForHeapStart();
 		renderTargetDesc.ptr += ((SIZE_T)swapchain->GetCurrentFrameIndex()) *
 			Engine::GetRenderer()->As<RendererDx12>()->GetGpu()->As<GpuDx12>()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 
@@ -82,13 +85,15 @@ void CommandListDx12::BeginAndClearRenderpass(IRenderpass* renderpass, const Col
 		depthStencilDesc = renderpass->As<RenderpassDx12>()->GetDepthStencilDescpriptor(0);
 	}
 
-	commandList->OMSetRenderTargets(1, &renderTargetDesc, FALSE, nullptr);
-
-	TransitionImageLayout(renderpass->GetImage(renderpass->As<RenderpassDx12>()->GetSwapchain()->GetCurrentFrameIndex()), GpuImageLayout::COLOR_ATTACHMENT);
+	As<ICommandList>()->TransitionImageLayout(renderpass->GetImage(renderpass->As<RenderpassDx12>()->GetSwapchain()->GetCurrentFrameIndex()), GpuImageLayout::COLOR_ATTACHMENT);
 
 	const FLOAT clearValue[] = { color.Red, color.Green, color.Blue, color.Alpha };
 	commandList->ClearRenderTargetView(renderTargetDesc, clearValue, 0, nullptr);
 	//commandList->ClearDepthStencilView(depthStencilDesc, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
+
+	commandList->OMSetRenderTargets(1, &renderTargetDesc, FALSE, nullptr);
+
+	commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
 void CommandListDx12::EndRenderpass(IRenderpass* renderpass) {
@@ -96,5 +101,59 @@ void CommandListDx12::EndRenderpass(IRenderpass* renderpass) {
 	if (renderpass->GetType() == RenderpassType::FINAL)
 		finalLayout = GpuImageLayout::PRESENT;
 
-	TransitionImageLayout(renderpass->GetImage(renderpass->As<RenderpassDx12>()->GetSwapchain()->GetCurrentFrameIndex()), finalLayout);
+	As<ICommandList>()->TransitionImageLayout(renderpass->GetImage(renderpass->As<RenderpassDx12>()->GetSwapchain()->GetCurrentFrameIndex()), finalLayout);
+}
+
+void CommandListDx12::ResourceBarrier(ID3D12Resource* resource, D3D12_RESOURCE_STATES from, D3D12_RESOURCE_STATES to) {
+	D3D12_RESOURCE_BARRIER barrier{};
+	barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
+	barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
+	barrier.Transition.pResource = resource;
+	barrier.Transition.StateBefore = from;
+	barrier.Transition.StateAfter = to;
+	barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
+
+	commandList->ResourceBarrier(1, &barrier);
+}
+
+void CommandListDx12::BindPipeline(IGraphicsPipeline* pipeline) {
+	commandList->SetGraphicsRootSignature(pipeline->As<GraphicsPipelineDx12>()->GetLayout());
+	commandList->SetPipelineState(pipeline->As<GraphicsPipelineDx12>()->GetPipelineState());
+}
+
+void CommandListDx12::BindVertexBuffer(IGpuVertexBuffer* buffer) {
+	D3D12_VERTEX_BUFFER_VIEW views[] = {
+		buffer->As<GpuVertexBufferDx12>()->GetView()
+	};
+
+	commandList->IASetVertexBuffers(0, 1, views);
+}
+
+void CommandListDx12::BindIndexBuffer(IGpuIndexBuffer* buffer) {
+	OSK_ASSERT(false, "No implementado.");
+}
+
+void CommandListDx12::SetViewport(const Viewport& vp) {
+	D3D12_VIEWPORT viewport{};
+
+	viewport.TopLeftX = vp.rectangle.GetRectanglePosition().X;
+	viewport.TopLeftY = vp.rectangle.GetRectanglePosition().Y;
+	viewport.Width = vp.rectangle.GetRectangleSize().X;
+	viewport.Height = vp.rectangle.GetRectangleSize().Y;
+
+	viewport.MinDepth = vp.minDepth;
+	viewport.MaxDepth = vp.maxDepth;
+
+	commandList->RSSetViewports(1, &viewport);
+}
+
+void CommandListDx12::SetScissor(const Vector4ui& scissor) {
+	D3D12_RECT scissorRect{};
+
+	scissorRect.left = scissor.GetRectanglePosition().X;
+	scissorRect.top = scissor.GetRectanglePosition().Y;
+	scissorRect.right = scissor.GetRectangleSize().X;
+	scissorRect.bottom = scissor.GetRectangleSize().Y;
+
+	commandList->RSSetScissorRects(1, &scissorRect);
 }

@@ -23,7 +23,6 @@ namespace OSK {
 
 		D3D12_CPU_DESCRIPTOR_HANDLE GetRenderTargetDescpriptor(TSize index) const;
 		D3D12_CPU_DESCRIPTOR_HANDLE GetDepthStencilDescpriptor(TSize index) const;
-		//D3D12_CPU_DESCRIPTOR_HANDLE GetRenderTargetDescpriptor(TSize index) const;
 
 	private:
 

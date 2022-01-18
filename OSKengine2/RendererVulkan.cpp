@@ -19,6 +19,11 @@
 #include "RenderpassVulkan.h"
 #include "RenderpassType.h"
 #include "Color.hpp"
+#include "GraphicsPipelineVulkan.h"
+#include "PipelineCreateInfo.h"
+#include "IGpuVertexBuffer.h"
+#include "Vertex.h"
+#include "Viewport.h"
 
 #include <GLFW/glfw3.h>
 #include <set>
@@ -28,6 +33,9 @@ using namespace OSK;
 const DynamicArray<const char*> validationLayers = {
 	"VK_LAYER_KHRONOS_validation"
 };
+
+GraphicsPipelineVulkan* pipeline = nullptr;
+IGpuVertexBuffer* vertexBuffer = nullptr;
 
 VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
 	//Message severity:
@@ -89,6 +97,24 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	CreateSyncDevice();
 	CreateGpuMemoryAllocator();
 	CreateMainRenderpass();
+
+	PipelineCreateInfo info{};
+	info.vertexPath = "./Resources/Shaders/VK/vert.spv";
+	info.fragmentPath = "./Resources/Shaders/VK/frag.spv";
+	info.polygonMode = PolygonMode::FILL;
+	info.cullMode = PolygonCullMode::NONE;
+	info.frontFaceType = PolygonFrontFaceType::CLOCKWISE;
+
+	pipeline = new GraphicsPipelineVulkan(renderpass->As<RenderpassVulkan>());
+	pipeline->Create(currentGpu.GetPointer(), info);
+
+	DynamicArray<Vertex3D> vertices = {
+		{ {-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f} },
+		{ {0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f} },
+		{ {0.0f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f} }
+	};
+
+	vertexBuffer = gpuMemoryAllocator->CreateVertexBuffer(vertices).GetPointer();
 }
 
 void RendererVulkan::Close() {
@@ -107,6 +133,19 @@ void RendererVulkan::Close() {
 	vkDestroyInstance(instance, nullptr);
 }
 
+void RendererVulkan::SubmitSingleUseCommandList(ICommandList* commandList) {
+	VkSubmitInfo submitInfo{};
+	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+	submitInfo.commandBufferCount = 1;
+	submitInfo.pCommandBuffers = &commandList->As<CommandListVulkan>()->GetCommandBuffers()->At(0);
+
+	vkQueueSubmit(graphicsQueue->As<CommandQueueVulkan>()->GetQueue(), 1, &submitInfo, VK_NULL_HANDLE);
+	vkQueueWaitIdle(graphicsQueue->As<CommandQueueVulkan>()->GetQueue());
+
+	vkFreeCommandBuffers(currentGpu->As<GpuVulkan>()->GetLogicalDevice(), 
+		commandPool->As<CommandPoolVulkan>()->GetCommandPool(), 1, &commandList->As<CommandListVulkan>()->GetCommandBuffers()->At(0));
+}
+
 void RendererVulkan::CreateInstance(const std::string& appName, const Version& version) {
 	//Información de la app.
 	VkApplicationInfo appInfo{};
@@ -114,7 +153,7 @@ void RendererVulkan::CreateInstance(const std::string& appName, const Version& v
 	appInfo.pApplicationName = appName.c_str();
 	appInfo.applicationVersion = VK_MAKE_VERSION((int)version.mayor, (int)version.menor, (int)version.parche);
 	appInfo.pEngineName = "OSKengine";
-	appInfo.engineVersion = VK_MAKE_VERSION((int)0, (int)0, (int)0);
+	appInfo.engineVersion = VK_MAKE_VERSION(Engine::GetVersion().mayor, Engine::GetVersion().menor, Engine::GetVersion().parche);
 	appInfo.apiVersion = VK_API_VERSION_1_2;
 
 	//Create info.
@@ -330,4 +369,24 @@ void RendererVulkan::PresentFrame() {
 	commandList->Start();
 
 	commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());
+
+	Vector4ui windowRec = {
+		0,
+		0,
+		window->GetWindowSize().X,
+		window->GetWindowSize().Y
+	};
+
+	Viewport viewport{};
+	viewport.rectangle = windowRec;
+
+	commandList->SetViewport(viewport);
+	commandList->SetScissor(windowRec);
+
+	commandList->BindPipeline(pipeline);
+	commandList->BindVertexBuffer(vertexBuffer);
+
+	const auto natives = commandList->As<CommandListVulkan>()->GetCommandBuffers();
+	for (TSize i = 0; i < natives->GetSize(); i++)
+		vkCmdDraw(natives->At(i), 3, 1, 0, 0);
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "OSKmacros.h"
+#include "Vector4.hpp"
 #include <type_traits>
 
 namespace OSK {
@@ -9,6 +10,10 @@ namespace OSK {
 	enum class GpuImageLayout;
 	class IRenderpass;
 	class Color;
+	class IGraphicsPipeline;
+	class IGpuVertexBuffer;
+	class IGpuIndexBuffer;
+	struct Viewport;
 
 	/// <summary>
 	/// Una lista de comandos contiene una serie de comandos que serán
@@ -51,7 +56,15 @@ namespace OSK {
 		/// Implementación en las Render Apis High Profile.
 		/// </summary>
 		/// <param name="next">Layout en el que estará la imagen.</param>
-		virtual void TransitionImageLayout(GpuImage* image, GpuImageLayout next) = 0;
+		void TransitionImageLayout(GpuImage* image, GpuImageLayout next);
+
+		/// <summary>
+		/// Cambia el layout interno de la imagen en la memoria de la GPU.
+		/// 
+		/// Implementación en las Render Apis High Profile.
+		/// </summary>
+		/// <param name="next">Layout en el que estará la imagen.</param>
+		virtual void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) = 0;
 
 
 		/// <summary>
@@ -68,6 +81,36 @@ namespace OSK {
 		/// Finaliza el renderizado a un renderpass.
 		/// </summary>
 		virtual void EndRenderpass(IRenderpass* renderpass) = 0;
+
+
+		/// <summary>
+		/// Establece el pipeline que se va a usar a la hora de renderizar los próximos comandos.
+		/// </summary>
+		virtual void BindPipeline(IGraphicsPipeline* pipeline) = 0;
+
+		/// <summary>
+		/// Establece el vertex buffer que se va a usar en los próximos renderizados.
+		/// </summary>
+		virtual void BindVertexBuffer(IGpuVertexBuffer* buffer) = 0;
+
+		/// <summary>
+		/// Establece el index buffer que se va a usar en los próximos renderizados.
+		/// </summary>
+		/// <param name="buffer"></param>
+		virtual void BindIndexBuffer(IGpuIndexBuffer* buffer) = 0;
+
+
+		/// <summary>
+		/// Establece el viewport a renderizar.
+		/// El viewport describe el área de la pantalla que se va a renderizar.
+		/// Además, establece la profundida mínima y máxima.
+		/// </summary>
+		virtual void SetViewport(const Viewport& viewport) = 0;
+
+		/// <summary>
+		/// Establece qué área del renderizado será visible en la textura final.
+		/// </summary>
+		virtual void SetScissor(const Vector4ui& scissor) = 0;
 
 	};
 

@@ -8,30 +8,50 @@
 #include "GpuMemorySubblockDx12.h"
 #include "FormatDx12.h"
 #include "IGpuImage.h"
+#include <d3d12.h>
+#include "OSKengine.h"
+#include "RendererDx12.h"
+#include "GpuDx12.h"
 
 using namespace OSK;
 
-/*GpuMemoryBlockDx12::GpuMemoryBlockDx12(TSize reservedSize, IGpu* device, GpuSharedMemoryType type)
+GpuMemoryBlockDx12::GpuMemoryBlockDx12(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage)
+	: IGpuMemoryBlock(image->GetSize().X * image->GetSize().Y * GetFormatNumberOfBytes(image->GetFormat()), device, type, GpuMemoryUsage::IMAGE), sizeX(image->GetSize().X), sizeY(image->GetSize().Y), format(image->GetFormat()) {
+
+	D3D12_RESOURCE_DESC createInfo{};
+	createInfo.Width = sizeX;
+	createInfo.Height = sizeY;
+	createInfo.DepthOrArraySize = 1;
+	createInfo.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
+	createInfo.Alignment = 0;// D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
+	createInfo.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
+	createInfo.Flags = D3D12_RESOURCE_FLAG_NONE;
+	createInfo.MipLevels = 1;
+	createInfo.SampleDesc.Count = 1;
+	createInfo.SampleDesc.Quality = 0;
+	createInfo.Format = GetFormatDx12(format);
+	
+	D3D12_RESOURCE_ALLOCATION_INFO allocInfo = Engine::GetRenderer()->GetGpu()->As<GpuDx12>()->GetDevice()->GetResourceAllocationInfo(0, 1, &createInfo);
+
+	D3D12_HEAP_DESC memoryCreateInfo{};
+	memoryCreateInfo.SizeInBytes = allocInfo.SizeInBytes;
+	memoryCreateInfo.Properties.Type = GetGpuSharedMemoryTypeDx12(type);
+
+	device->As<GpuDx12>()->GetDevice()->CreateHeap(&memoryCreateInfo, IID_PPV_ARGS(&memory));
+}
+
+GpuMemoryBlockDx12::GpuMemoryBlockDx12(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage) 
 	: IGpuMemoryBlock(reservedSize, device, type, GpuMemoryUsage::BUFFER) {
 	D3D12_HEAP_DESC memoryCreateInfo{};
 	memoryCreateInfo.SizeInBytes = reservedSize;
 	memoryCreateInfo.Properties.Type = GetGpuSharedMemoryTypeDx12(type);
 
 	device->As<GpuDx12>()->GetDevice()->CreateHeap(&memoryCreateInfo, IID_PPV_ARGS(&memory));
-}*/
-
-GpuMemoryBlockDx12::GpuMemoryBlockDx12(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage)
-	: IGpuMemoryBlock(image->GetSize().X * image->GetSize().Y * GetFormatNumberOfBytes(image->GetFormat()), device, type, GpuMemoryUsage::BUFFER), sizeX(image->GetSize().X), sizeY(image->GetSize().Y), format(image->GetFormat()) {
-	D3D12_HEAP_DESC memoryCreateInfo{};
-	memoryCreateInfo.SizeInBytes = sizeX * sizeY * GetFormatNumberOfBytes(image->GetFormat());
-	memoryCreateInfo.Properties.Type = GetGpuSharedMemoryTypeDx12(type);
-
-	device->As<GpuDx12>()->GetDevice()->CreateHeap(&memoryCreateInfo, IID_PPV_ARGS(&memory));
 }
 
-/*OwnedPtr<GpuMemoryBlockDx12> GpuMemoryBlockDx12::CreateNewBufferBlock(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage) {
-	return new GpuMemoryBlockDx12(reservedSize, device, type);
-}*/
+OwnedPtr<GpuMemoryBlockDx12> GpuMemoryBlockDx12::CreateNewBufferBlock(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage) {
+	return new GpuMemoryBlockDx12(reservedSize, device, type, bufferUSage);
+}
 
 OwnedPtr<GpuMemoryBlockDx12> GpuMemoryBlockDx12::CreateNewImageBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage) {
 	return new GpuMemoryBlockDx12(image, device, type, imageUSage);
@@ -46,7 +66,7 @@ OwnedPtr<IGpuMemorySubblock> GpuMemoryBlockDx12::CreateNewMemorySubblock(TSize s
 		createInfo.Height = 1;
 		createInfo.DepthOrArraySize = 1;
 		createInfo.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
-		createInfo.Alignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
+		createInfo.Alignment = 0;// D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
 		createInfo.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
 		createInfo.Flags = D3D12_RESOURCE_FLAG_NONE;
 		createInfo.MipLevels = 1;
@@ -66,7 +86,7 @@ OwnedPtr<IGpuMemorySubblock> GpuMemoryBlockDx12::CreateNewMemorySubblock(TSize s
 		createInfo.Height = sizeY;
 		createInfo.DepthOrArraySize = 1;
 		createInfo.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
-		createInfo.Alignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
+		createInfo.Alignment = 0;// D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
 		createInfo.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
 		createInfo.Flags = D3D12_RESOURCE_FLAG_NONE;
 		createInfo.MipLevels = 1;

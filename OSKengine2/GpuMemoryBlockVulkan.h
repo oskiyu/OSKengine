@@ -27,6 +27,7 @@ namespace OSK {
 		static OwnedPtr<GpuMemoryBlockVulkan> CreateNewImageBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage);
 
 		VkDeviceMemory GetVulkanMemory() const;
+		VkBuffer GetVulkanBuffer() const;
 
 	private:
 

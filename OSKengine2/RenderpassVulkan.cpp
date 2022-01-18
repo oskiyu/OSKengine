@@ -63,7 +63,7 @@ VkRenderPass RenderpassVulkan::GetRenderpass() const {
 
 void RenderpassVulkan::Create(const ISwapchain* swapchain, VkImageLayout finalLayout) {
 	swapchain->As<SwapchainVulkan>()->SetTargetRenderpass(this);
-	auto msaa = (VkSampleCountFlagBits)Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetInfo().maxMsaaSamples;
+	const auto msaa = (VkSampleCountFlagBits)Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetInfo().maxMsaaSamples;
 
 	VkAttachmentDescription colorAttahcmentDesc{};
 	VkAttachmentReference colorReference{};

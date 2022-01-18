@@ -29,7 +29,7 @@ void RenderpassDx12::SetImage(GpuImage* image) {
 		GpuImageUsage::COLOR, GpuSharedMemoryType::GPU_ONLY).GetPointer();
 
 	depthImgs[0] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
-		size.X, size.Y, Format::D32S8_SFLOAT_SUINT,
+		size.X, size.Y, Format::D24S8_SFLOAT_SUINT,
 		GpuImageUsage::DEPTH_STENCIL, GpuSharedMemoryType::GPU_ONLY).GetPointer();
 }
 
@@ -46,7 +46,7 @@ void RenderpassDx12::SetImages(GpuImage* image0, GpuImage* image1, GpuImage* ima
 			GpuImageUsage::COLOR, GpuSharedMemoryType::GPU_ONLY).GetPointer();
 
 		depthImgs[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
-			size.X, size.Y, Format::D32S8_SFLOAT_SUINT,
+			size.X, size.Y, Format::D24S8_SFLOAT_SUINT,
 			GpuImageUsage::DEPTH_STENCIL, GpuSharedMemoryType::GPU_ONLY).GetPointer();
 	}
 }

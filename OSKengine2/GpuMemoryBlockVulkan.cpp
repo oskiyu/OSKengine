@@ -105,3 +105,7 @@ void GpuMemoryBlockVulkan::Free() {
 VkDeviceMemory GpuMemoryBlockVulkan::GetVulkanMemory() const {
 	return memory;
 }
+
+VkBuffer GpuMemoryBlockVulkan::GetVulkanBuffer() const {
+	return buffer;
+}

@@ -2,6 +2,7 @@
 
 #include "OSKmacros.h"
 #include "UniquePtr.hpp"
+#include "OwnedPtr.h"
 
 #include <string>
 
@@ -55,6 +56,17 @@ namespace OSK {
 		ICommandList* GetCommandList() const;
 		IGpuMemoryAllocator* GetMemoryAllocator() const;
 		IGpu* GetGpu() const;
+
+		/// <summary>
+		/// Crea una lista de comandos para un único uso.
+		/// Útil para enviar datos a la GPU, por ejemplo.
+		/// </summary>
+		OwnedPtr<ICommandList> CreateSingleUseCommandList();
+
+		/// <summary>
+		/// Ejecuta el contenido de la lista de comandos.
+		/// </summary>
+		virtual void SubmitSingleUseCommandList(ICommandList* commandList) = 0;
 
 		/// <summary>
 		/// Castea el renderizador al tipo dado.

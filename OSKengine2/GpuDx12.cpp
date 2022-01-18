@@ -50,5 +50,5 @@ IDXGIAdapter1* GpuDx12::GetAdapter() const {
 }
 
 ID3D12Device* GpuDx12::GetDevice() const {
-	return device.Get();
+	return this->device.Get();
 }

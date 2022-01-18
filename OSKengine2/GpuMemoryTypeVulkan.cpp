@@ -27,7 +27,7 @@ unsigned int OSK::GetGpuBufferUsageVulkan(GpuBufferUsage usage) {
 		flags |= VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
 
 	if (OSK_CONTAINS_FLAG(usage, GpuBufferUsage::VERTEX_BUFFER))
-		flags |= VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
+		flags |= VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT;
 
 	if (OSK_CONTAINS_FLAG(usage, GpuBufferUsage::INDEX_BUFFER))
 		flags |= VK_BUFFER_USAGE_INDEX_BUFFER_BIT;

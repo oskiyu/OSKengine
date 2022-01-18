@@ -23,6 +23,8 @@ namespace OSK {
 		TSize GetSize() const;
 		TSize GetAlignment() const;
 
+		IGpuMemorySubblock* GetMemorySubblock() const;
+
 	protected:
 
 		void Free();

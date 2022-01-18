@@ -15,8 +15,13 @@ OwnedPtr<ICommandList> CommandPoolDx12::CreateCommandList(const IGpu& device) {
     list->Close();
 
     output->SetCommandList(list);
+    output->SetCommandPool(*this);
 
     return output;
+}
+
+OwnedPtr<ICommandList> CommandPoolDx12::CreateSingleTimeCommandList(const IGpu& device) {
+    return CreateCommandList(device);
 }
 
 void CommandPoolDx12::SetCommandPool(const ComPtr<ID3D12CommandAllocator>& commandPool) {

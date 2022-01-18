@@ -26,6 +26,7 @@ namespace OSK {
 		void Initialize(const std::string& appName, const Version& version, const Window& window) override;
 		void Close() override;
 		void PresentFrame() override;
+		void SubmitSingleUseCommandList(ICommandList* commandList) override;
 
 	protected:
 

@@ -22,6 +22,7 @@ namespace OSK {
 		/// Crea una nueva lista de comandos.
 		/// </summary>
 		OwnedPtr<ICommandList> CreateCommandList(const IGpu& device) override;
+		OwnedPtr<ICommandList> CreateSingleTimeCommandList(const IGpu& device) override;
 
 		/// <summary>
 		/// Establece el número de imágenes del swapchain.
@@ -43,6 +44,8 @@ namespace OSK {
 		VkCommandPool GetCommandPool() const;
 
 	private:
+
+		OwnedPtr<ICommandList> CreateList(const IGpu& device, TSize numNativeLists);
 
 		unsigned int numberOfImages = 0;
 		VkCommandPool commandPool;

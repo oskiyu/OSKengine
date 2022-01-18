@@ -4,6 +4,7 @@
 #include "OwnedPtr.h"
 #include "LinkedList.hpp"
 #include "HashMap.hpp"
+#include "DynamicArray.hpp"
 
 namespace OSK {
 
@@ -17,6 +18,8 @@ namespace OSK {
 
 	class GpuDataBuffer;
 	class GpuImage;
+	class IGpuVertexBuffer;
+	struct Vertex3D;
 
 	struct OSKAPI_CALL GpuBufferMemoryBlockInfo {
 		unsigned int size;
@@ -25,6 +28,8 @@ namespace OSK {
 
 		bool operator==(const GpuBufferMemoryBlockInfo& other) const;
 	};
+
+	template <> static size_t Hash<GpuBufferMemoryBlockInfo>(const GpuBufferMemoryBlockInfo& elem);
 
 	/// <summary>
 	/// El asignador de memoria se encarga de reservar grandes bloques
@@ -63,17 +68,16 @@ namespace OSK {
 		}
 
 		/// <summary>
-		/// Crea y devuelve un nuevo buffer en la GPU.
-		/// </summary>
-		/// <param name="size">Tamaño del buffer, en bytes.</param>
-		/// <returns></returns>
-		//virtual OwnedPtr<GpuDataBuffer> CreateBuffer(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) = 0;
-
-		/// <summary>
 		/// Crea una nueva imagen en la GPU.
 		/// </summary>
-		/// <returns></returns>
 		virtual OwnedPtr<GpuImage> CreateImage(unsigned int sizeX, unsigned int sizeY, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType) = 0;
+
+		/// <summary>
+		/// Crea un buffer de vértices con los vértices dados.
+		/// </summary>
+		virtual OwnedPtr<IGpuVertexBuffer> CreateVertexBuffer(const DynamicArray<Vertex3D>& vertices) = 0;
+
+		virtual OwnedPtr<GpuDataBuffer> CreateStagingBuffer(TSize size) = 0;
 
 	protected:
 
@@ -83,7 +87,7 @@ namespace OSK {
 		/// Si no hay ningún bloque con tamaño suficiente, se crea uno nuevo.
 		/// </summary>
 		/// <param name="size">Tamaño libre.</param>
-		IGpuMemoryBlock* GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType);
+		virtual IGpuMemoryBlock* GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) = 0;
 
 		/// <summary>
 		/// Devuelve un subbloque con las características dadas.

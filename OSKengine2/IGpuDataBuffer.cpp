@@ -9,6 +9,10 @@ GpuDataBuffer::GpuDataBuffer(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TS
 
 }
 
+IGpuMemorySubblock* GpuDataBuffer::GetMemorySubblock() const {
+	return buffer.GetPointer();
+}
+
 GpuDataBuffer::~GpuDataBuffer() {
 	Free();
 }

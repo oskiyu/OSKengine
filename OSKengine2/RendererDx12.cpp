@@ -23,8 +23,17 @@
 #include "RenderpassDx12.h"
 #include "RenderpassType.h"
 #include "Color.hpp"
+#include "GraphicsPipelineDx12.h"
+#include "PipelineCreateInfo.h"
+#include "Vertex.h"
+#include "GpuVertexBufferDx12.h"
+#include "GpuMemorySubblockDx12.h"
+#include "Viewport.h"
 
 using namespace OSK;
+
+GraphicsPipelineDx12* pipeline = nullptr;
+GpuVertexBufferDx12* vertexBuffer = nullptr;
 
 RendererDx12::~RendererDx12() {
 	Close();
@@ -54,6 +63,24 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	CreateSyncDevice();
 	CreateGpuMemoryAllocator();
 	CreateMainRenderpass();
+
+	pipeline = new GraphicsPipelineDx12();
+	PipelineCreateInfo info{};
+	info.vertexPath = "./Resources/Shaders/DX12/vertex.shader";
+	info.fragmentPath = "./Resources/Shaders/DX12/fragment.shader";
+	info.polygonMode = PolygonMode::FILL;
+	info.cullMode = PolygonCullMode::NONE;
+	info.frontFaceType = PolygonFrontFaceType::CLOCKWISE;
+
+	pipeline->Create(currentGpu.GetPointer(), info);
+
+	DynamicArray<Vertex3D> vertices = {
+		{ {-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f} },
+		{ {0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f} },
+		{ {0.0f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f} }
+	};
+
+	vertexBuffer = gpuMemoryAllocator->CreateVertexBuffer(vertices).GetPointer()->As<GpuVertexBufferDx12>();
 }
 
 void RendererDx12::Close() {
@@ -75,7 +102,7 @@ void RendererDx12::ChooseGpu() {
 			continue;
 
 		// decidir con bAdapterFound si es este adaptador el que queramos 
-		auto isValid = D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_11_0, _uuidof(ID3D12Device), nullptr);
+		auto isValid = D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_0, _uuidof(ID3D12Device), nullptr);
 		if (SUCCEEDED(isValid)) {
 			Engine::GetLogger()->InfoLog("GPU elegida: " + std::string(CW2A(description.Description)));
 
@@ -86,8 +113,8 @@ void RendererDx12::ChooseGpu() {
 	OSK_ASSERT(found, "No se ha encontrado ninguna GPU compatible con DirectX 12");
 
 	ComPtr<ID3D12Device> device;
-	D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&device));
-
+	D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_0, IID_PPV_ARGS(&device));
+		
 	currentGpu->As<GpuDx12>()->SetAdapter(adapter);
 	currentGpu->As<GpuDx12>()->SetDevice(device);
 }
@@ -157,8 +184,48 @@ void RendererDx12::CreateMainRenderpass() {
 }
 
 void RendererDx12::PresentFrame() {
+	if (isFirstRender) {
+		syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
+		syncDevice->As<SyncDeviceDx12>()->Await();
+
+		/*commandList->Reset();
+		commandList->Start();
+		commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());*/
+
+		isFirstRender = false;
+
+		return;
+	}
+
+	commandList->Reset();
+	commandList->Start();
+
+	commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());
+
+	commandList->BindPipeline(pipeline);
+
+	Vector4ui windowRec = {
+		0,
+		0,
+		window->GetWindowSize().X,
+		window->GetWindowSize().Y
+	};
+
+	Viewport viewport{};
+	viewport.rectangle = windowRec;
+
+	commandList->SetViewport(viewport);
+	commandList->SetScissor(windowRec);
+
+	commandList->BindVertexBuffer(vertexBuffer);
+
+	auto native = commandList->As<CommandListDx12>()->GetCommandList();
+	native->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	native->DrawInstanced(3, 1, 0, 0);
+
 	commandList->EndRenderpass(renderpass.GetPointer());
-	
+
 	commandList->Close();
 
 	ID3D12CommandList* commandLists[] = { commandList->As<CommandListDx12>()->GetCommandList() };
@@ -169,8 +236,9 @@ void RendererDx12::PresentFrame() {
 	syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
 	syncDevice->As<SyncDeviceDx12>()->Await();
 
-	commandList->Reset();
-	commandList->Start();
+}
 
-	commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());
+void RendererDx12::SubmitSingleUseCommandList(ICommandList* commandList) {
+	ID3D12CommandList* commandLists[] = { commandList->As<CommandListDx12>()->GetCommandList() };
+	graphicsQueue->As<CommandQueueDx12>()->GetCommandQueue()->ExecuteCommandLists(1, commandLists);
 }

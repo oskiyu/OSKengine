@@ -1,0 +1,164 @@
+#include "GraphicsPipelineDx12.h"
+
+#include "VertexDx12.h"
+#include "GpuDx12.h"
+#include <string>
+#include <d3dcompiler.h>
+#include "Assert.h"
+#include "PipelineCreateInfo.h"
+
+using namespace OSK;
+
+D3D12_CULL_MODE GetCullMode(PolygonCullMode mode) {
+	switch (mode) {
+	case OSK::PolygonCullMode::FRONT:
+		return D3D12_CULL_MODE_FRONT;
+	case OSK::PolygonCullMode::BACK:
+		return D3D12_CULL_MODE_BACK;
+	case OSK::PolygonCullMode::NONE:
+		return D3D12_CULL_MODE_NONE;
+	default:
+		return D3D12_CULL_MODE_NONE;
+	}
+}
+
+D3D12_FILL_MODE GetFillMode(PolygonMode mode) {
+	switch (mode) {
+	case OSK::PolygonMode::FILL:
+		return D3D12_FILL_MODE_SOLID;
+	case OSK::PolygonMode::LINE:
+		return D3D12_FILL_MODE_WIREFRAME;
+	default:
+		return D3D12_FILL_MODE_SOLID;
+	}
+}
+
+std::wstring s2ws(const std::string& s) {
+	int len;
+	int slength = (int)s.length() + 1;
+	len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
+	wchar_t* buf = new wchar_t[len];
+	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
+	std::wstring r(buf);
+	delete[] buf;
+	return r;
+}
+
+ComPtr<ID3DBlob> LoadBlob(LPCWSTR filename) {
+	HRESULT hr{};
+
+	ComPtr<ID3DBlob> shaderBlob; // chunk of memory
+
+	hr = D3DReadFileToBlob(filename, &shaderBlob);
+
+	if (FAILED(hr))
+		OSK_ASSERT(false, "No se pudo compilar el shader. Code: " + std::to_string(hr));
+
+	return shaderBlob;
+}
+
+
+void GraphicsPipelineDx12::Create(IGpu* device, const PipelineCreateInfo& info) {
+	D3D12_GRAPHICS_PIPELINE_STATE_DESC createInfo{};
+	createInfo.InputLayout = GetInputLayoutDescDx12_Vertex3D();
+
+	LoadVertexShader(info.vertexPath);
+	LoadFragmentShader(info.fragmentPath);
+
+	createInfo.VS = vertexShaderBytecode;
+	createInfo.PS = fragmentShaderBytecode;
+
+	createInfo.RasterizerState = GetRasterizerDesc(info);
+	createInfo.BlendState = GetBlendDesc(info);
+	createInfo.DepthStencilState = GetDepthStencilDesc(info);
+	createInfo.SampleMask = UINT_MAX;
+	createInfo.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+	createInfo.NumRenderTargets = 1;
+	createInfo.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
+	createInfo.SampleDesc.Count = 1;
+
+	SetLayout(device);
+
+	createInfo.pRootSignature = layout.Get();
+
+	device->As<GpuDx12>()->GetDevice()->CreateGraphicsPipelineState(&createInfo, IID_PPV_ARGS(&pipeline));
+}
+
+ID3D12PipelineState* GraphicsPipelineDx12::GetPipelineState() const {
+	return pipeline.Get();
+}
+
+ID3D12RootSignature* GraphicsPipelineDx12::GetLayout() const {
+	return layout.Get();
+}
+
+void GraphicsPipelineDx12::LoadVertexShader(const std::string& path) {
+	vertexShader = LoadBlob(s2ws(path).c_str());
+
+	vertexShaderBytecode.pShaderBytecode = vertexShader->GetBufferPointer();
+	vertexShaderBytecode.BytecodeLength = vertexShader->GetBufferSize();
+}
+
+void GraphicsPipelineDx12::LoadFragmentShader(const std::string& path) {
+	fragmentShader = LoadBlob(s2ws(path).c_str());
+
+	fragmentShaderBytecode.pShaderBytecode = fragmentShader->GetBufferPointer();
+	fragmentShaderBytecode.BytecodeLength = fragmentShader->GetBufferSize();
+}
+
+D3D12_RASTERIZER_DESC GraphicsPipelineDx12::GetRasterizerDesc(const PipelineCreateInfo& info) const {
+	D3D12_RASTERIZER_DESC desc{};
+	desc.FillMode = GetFillMode(info.polygonMode);
+	desc.CullMode = GetCullMode(info.cullMode);
+	desc.FrontCounterClockwise = FALSE;
+	desc.DepthBias = D3D12_DEFAULT_DEPTH_BIAS;
+	desc.DepthBiasClamp = D3D12_DEFAULT_DEPTH_BIAS_CLAMP;
+	desc.SlopeScaledDepthBias = D3D12_DEFAULT_SLOPE_SCALED_DEPTH_BIAS;
+	desc.DepthClipEnable = TRUE;
+	desc.MultisampleEnable = FALSE;
+	desc.AntialiasedLineEnable = FALSE;
+	desc.ForcedSampleCount = 0;
+	desc.ConservativeRaster = D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF;
+
+	return desc;
+}
+
+D3D12_DEPTH_STENCIL_DESC GraphicsPipelineDx12::GetDepthStencilDesc(const PipelineCreateInfo& info) const {
+	D3D12_DEPTH_STENCIL_DESC desc{};
+	desc.DepthEnable = FALSE;
+	desc.StencilEnable = FALSE;
+
+	return desc;
+}
+
+D3D12_BLEND_DESC GraphicsPipelineDx12::GetBlendDesc(const PipelineCreateInfo& info) const {
+	D3D12_BLEND_DESC desc{};
+	desc.AlphaToCoverageEnable = FALSE;
+	desc.IndependentBlendEnable = FALSE;
+
+	const static D3D12_RENDER_TARGET_BLEND_DESC DefaultRenderTargetBlendDesc = {
+	  FALSE,FALSE,
+	  D3D12_BLEND_ONE, D3D12_BLEND_ZERO, D3D12_BLEND_OP_ADD,
+	  D3D12_BLEND_ONE, D3D12_BLEND_ZERO, D3D12_BLEND_OP_ADD,
+	  D3D12_LOGIC_OP_NOOP,
+	  D3D12_COLOR_WRITE_ENABLE_ALL,
+	};
+
+	for (TSize i = 0; i < D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT; i++)
+		desc.RenderTarget[i] = DefaultRenderTargetBlendDesc;
+
+	return desc;
+}
+
+void GraphicsPipelineDx12::SetLayout(IGpu* device) {
+	D3D12_ROOT_SIGNATURE_DESC desc{};
+	desc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
+	desc.NumParameters = 0;
+	desc.NumStaticSamplers = 0;
+
+	ComPtr<ID3DBlob> signature;
+	ComPtr<ID3DBlob> error;
+
+	D3D12SerializeRootSignature(&desc, D3D_ROOT_SIGNATURE_VERSION_1_0, &signature, &error);
+	device->As<GpuDx12>()->GetDevice()->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&layout));
+}

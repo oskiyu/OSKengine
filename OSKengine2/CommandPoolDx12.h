@@ -21,6 +21,7 @@ namespace OSK {
 		/// Crea una nueva lista de comandos.
 		/// </summary>
 		OwnedPtr<ICommandList> CreateCommandList(const IGpu& device) override;
+		OwnedPtr<ICommandList> CreateSingleTimeCommandList(const IGpu& device) override;
 
 		void SetCommandPool(const ComPtr<ID3D12CommandAllocator>& commandPool);
 		ID3D12CommandAllocator* GetCommandAllocator() const;

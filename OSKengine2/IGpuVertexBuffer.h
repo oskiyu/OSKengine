@@ -8,6 +8,8 @@ namespace OSK {
 
 	public:
 
+		IGpuVertexBuffer(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment);
+
 		virtual ~IGpuVertexBuffer() = default;
 
 		template <typename T> T* As() const requires std::is_base_of_v<IGpuVertexBuffer, T> {

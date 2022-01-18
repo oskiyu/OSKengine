@@ -19,7 +19,7 @@ public:
 
 	}
 
-	explicit UniquePtr(T* data) : pointer(data) {
+	UniquePtr(T* data) : pointer(data) {
 
 	}
 
