@@ -13,8 +13,16 @@
 #include "RenderpassOgl.h"
 #include "RenderpassType.h"
 #include "Color.hpp"
+#include "VertexOgl.h"
+#include "GraphicsPipelineOgl.h"
+#include "GpuVertexBufferOgl.h"
+#include "Vertex.h"
+#include "Viewport.h"
 
 using namespace OSK;
+
+GraphicsPipelineOgl* pipeline = nullptr;
+GpuVertexBufferOgl* vertexBuffer = nullptr;
 
 void GLAPIENTRY DebugConsole(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
 	if (type >= GL_DEBUG_TYPE_ERROR)
@@ -22,6 +30,8 @@ void GLAPIENTRY DebugConsole(GLenum source, GLenum type, GLuint id, GLenum sever
 }
 
 void RendererOgl::Initialize(const std::string& appName, const Version& version, const Window& window) {
+	this->window = &window;
+
 	auto gladResult = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	OSK_ASSERT(gladResult != 0, "No se ha podido cargar OpenGL.");
 
@@ -35,6 +45,24 @@ void RendererOgl::Initialize(const std::string& appName, const Version& version,
 	CreateCommandQueues();
 	CreateGpuMemoryAllocator();
 	CreateMainRenderpass();
+
+	PipelineCreateInfo info{};
+	info.vertexPath = "./Resources/Shaders/VK/shader.vert";
+	info.fragmentPath = "./Resources/Shaders/VK/shader.frag";
+	info.polygonMode = PolygonMode::FILL;
+	info.cullMode = PolygonCullMode::NONE;
+	info.frontFaceType = PolygonFrontFaceType::CLOCKWISE;
+
+	pipeline = new GraphicsPipelineOgl();
+	pipeline->Create(currentGpu.GetPointer(), info);
+
+	DynamicArray<Vertex3D> vertices = {
+		{ {-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f} },
+		{ {0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f} },
+		{ {0.0f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f} }
+	};
+
+	vertexBuffer = gpuMemoryAllocator->CreateVertexBuffer(vertices).GetPointer()->As<GpuVertexBufferOgl>();
 }
 
 void RendererOgl::Close() {
@@ -73,4 +101,22 @@ void RendererOgl::PresentFrame() {
 	commandList->Start();
 
 	commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());
+
+	Vector4ui windowRec = {
+		0,
+		0,
+		window->GetWindowSize().X,
+		window->GetWindowSize().Y
+	};
+
+	Viewport viewport{};
+	viewport.rectangle = windowRec;
+
+	commandList->SetViewport(viewport);
+	commandList->SetScissor(windowRec);
+
+	commandList->BindPipeline(pipeline);
+	commandList->BindVertexBuffer(vertexBuffer);
+
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 }

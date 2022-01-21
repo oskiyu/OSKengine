@@ -5,6 +5,8 @@
 #include "RenderpassOgl.h"
 #include "Assert.h"
 #include "Viewport.h"
+#include "GpuVertexBufferOgl.h"
+#include "GraphicsPipelineOgl.h"
 
 #include <glad/glad.h>
 
@@ -36,15 +38,15 @@ void CommandListOgl::BeginAndClearRenderpass(IRenderpass* renderpass, const Colo
 }
 
 void CommandListOgl::EndRenderpass(IRenderpass* renderpass) {
-	glBindFramebuffer(GL_FRAMEBUFFER, oglNullHandler);
+	glBindFramebuffer(GL_FRAMEBUFFER, OGL_NULL_HANDLER);
 }
 
 void CommandListOgl::BindPipeline(IGraphicsPipeline* pipeline) {
-	OSK_ASSERT(false, "No implementado.");
+	glUseProgram(pipeline->As<GraphicsPipelineOgl>()->GetPipelineHandler());
 }
 
 void CommandListOgl::BindVertexBuffer(IGpuVertexBuffer* buffer) {
-	OSK_ASSERT(false, "No implementado.");
+	glBindVertexArray(buffer->As<GpuVertexBufferOgl>()->GetViewHandler());
 }
 
 void CommandListOgl::BindIndexBuffer(IGpuIndexBuffer* buffer) {

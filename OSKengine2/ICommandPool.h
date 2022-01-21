@@ -11,6 +11,7 @@ namespace OSK {
 
 	/// <summary>
 	/// Una pool de comandos se encarga de crear una serie de listas de comandos.
+	/// Al mismo tiempo, al destruir el pool se destruirán cada una de las listas creadas por el pool.
 	/// </summary>
 	class OSKAPI_CALL ICommandPool {
 

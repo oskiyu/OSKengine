@@ -6,6 +6,7 @@
 #include "Vertex.h"
 
 #include <glad/glad.h>
+#include "VertexOgl.h"
 
 using namespace OSK;
 
@@ -22,16 +23,24 @@ OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorOgl::CreateVertexBuffer(const Dynam
 	OglVertexBufferHandler bufferHandler = 0; 
 	OglVertexBufferHandler viewHandler = 0;
 
-	glGenBuffers(1, &bufferHandler);
 	glGenVertexArrays(1, &viewHandler);
+	glGenBuffers(1, &bufferHandler);
 
 	glBindVertexArray(viewHandler);
 	glBindBuffer(GL_ARRAY_BUFFER, bufferHandler);
 
 	glBufferData(GL_ARRAY_BUFFER, bufferSize, vertices.GetData(), GL_STATIC_DRAW);
-	
-	glBindVertexArray(0);
+
+	auto vertexAttribs = GetAttribInfoOgl_Vertex3D();
+	for (TSize i = 0; i < vertexAttribs.GetSize(); i++) {
+		VertexAttribInfo& info = vertexAttribs.At(i);
+
+		glVertexAttribPointer(info.index, info.numberOfAttributes, info.type, GL_FALSE, info.stride, (void*)info.offset);
+		glEnableVertexAttribArray(i);
+	}
+
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 
 	output->SetBufferHandler(bufferHandler);
 	output->SetViewHandler(viewHandler);

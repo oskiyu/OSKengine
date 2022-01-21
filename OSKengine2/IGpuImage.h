@@ -12,6 +12,11 @@ namespace OSK {
 	enum class Format;
 	enum class GpuImageLayout;
 
+	/// <summary>
+	/// Representación interna de una imagen en la GPU.
+	/// 
+	/// Puede referirse a la imagend e una textura, imágenes del swapchain, etc...
+	/// </summary>
 	class OSKAPI_CALL GpuImage {
 
 	public:
@@ -28,12 +33,20 @@ namespace OSK {
 		Vector2ui GetSize() const;
 		Format GetFormat() const;
 
+		/// <summary>
+		/// Devuelve el número máximo de miplevels de esta imagen.
+		/// </summary>
 		unsigned int GetMipLevels() const;
 
 		template <typename T> T* As() const requires std::is_base_of_v<GpuImage, T> {
 			return (T*)this;
 		}
 
+		/// <summary>
+		/// Devuelve el número máximo de miplevels de una imagen.
+		/// </summary>
+		/// <param name="sizeX">Ancho de la imagen.</param>
+		/// <param name="sizeY">Alto de la imagen.</param>
 		static TSize GetMipLevels(uint32_t sizeX, uint32_t sizeY);
 
 		void SetLayout(GpuImageLayout layout);

@@ -212,9 +212,9 @@ void CommandListVulkan::SetViewport(const Viewport& vp) {
 	VkViewport viewport{};
 
 	viewport.x = vp.rectangle.GetRectanglePosition().X;
-	viewport.y = vp.rectangle.GetRectanglePosition().Y;
+	viewport.y = vp.rectangle.GetRectanglePosition().Y + vp.rectangle.GetRectangleSize().Y;
 	viewport.width = vp.rectangle.GetRectangleSize().X;
-	viewport.height = vp.rectangle.GetRectangleSize().Y;
+	viewport.height = -((int)vp.rectangle.GetRectangleSize().Y);
 
 	viewport.minDepth = vp.minDepth;
 	viewport.maxDepth = vp.maxDepth;

@@ -190,9 +190,6 @@
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\RenderTarget">
       <UniqueIdentifier>{49af02a0-656b-451e-a38c-80ed48083a2f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\RenderTarget">
-      <UniqueIdentifier>{8835ce10-3fd6-4f6e-a4c5-3abda43d464a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine\Types">
       <UniqueIdentifier>{ac15c615-7b03-4c62-bc04-82b0bab69299}</UniqueIdentifier>
     </Filter>
@@ -398,6 +395,12 @@
     </ClCompile>
     <ClCompile Include="GpuVertexBufferOgl.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Vertex</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsPipelineOgl.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexOgl.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Vertex</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -626,9 +629,6 @@
     <ClInclude Include="RenderApiType.h">
       <Filter>Archivos de encabezado\RenderAPI\LowLevel</Filter>
     </ClInclude>
-    <ClInclude Include="IRenderTarget.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\RenderTarget</Filter>
-    </ClInclude>
     <ClInclude Include="IRenderpass.h">
       <Filter>Archivos de encabezado\RenderAPI\LowLevel\Renderpass</Filter>
     </ClInclude>
@@ -679,6 +679,12 @@
     </ClInclude>
     <ClInclude Include="GpuVertexBufferOgl.h">
       <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsPipelineOgl.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexOgl.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Vertex</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

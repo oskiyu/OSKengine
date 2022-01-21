@@ -16,6 +16,10 @@ namespace OSK {
 
 	public:
 
+		/// <summary>
+		/// Crea el pipeline con la configuración dada.
+		/// </summary>
+		/// <param name="info">Configuración del pipeline.</param>
 		virtual void Create(IGpu* device, const PipelineCreateInfo& info) = 0;
 
 		template <typename T> T* As() const requires std::is_base_of_v<IGraphicsPipeline, T> {

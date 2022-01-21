@@ -11,5 +11,5 @@ void main() {
     outPosition = inPosition;
     outColor = inColor;
 
-    gl_Position = vec4(inPosition.x, -inPosition.y, inPosition.z, 1.0);
+    gl_Position = vec4(inPosition, 1.0);
 }

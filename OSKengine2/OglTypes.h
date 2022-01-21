@@ -11,8 +11,10 @@ namespace OSK {
 	using OglRenderBufferHandler = TOglHandler;
 
 	using OglVertexBufferHandler = TOglHandler;
-
-	constexpr OglFramebufferHandler oglDefaultFramebuffer = 0;
-	constexpr TOglHandler oglNullHandler = 0;
+	using OglShaderHandler = TOglHandler;
+	using OglPipelineHandler = TOglHandler; // Shader program.
+	
+	constexpr OglFramebufferHandler OGL_DEFAULT_FRAMEBUFFER = 0;
+	constexpr TOglHandler OGL_NULL_HANDLER = 0;
 
 }

@@ -46,6 +46,14 @@ namespace OSK {
 
 		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) override;
 
+		/// <summary>
+		/// Copia los contenidos del primer buffer al segundo.
+		/// </summary>
+		/// <param name="source">Buffer donde están el contenido que se quiere copiar.</param>
+		/// <param name="dest">Buffer en el que se va a poner el contenido copiado.</param>
+		/// <param name="size">Tamaño, en bytes, del área de memoria que se va a copiar.</param>
+		/// <param name="sourceOffset">Offset del área de memoria en el origen.</param>
+		/// <param name="destOffset">Offset del área de memoria en el destino.</param>
 		void CopyBuffer(const GpuDataBuffer* source, GpuDataBuffer* dest, TSize size, TSize sourceOffset, TSize destOffset);
 
 		void SetViewport(const Viewport& viewport) override;

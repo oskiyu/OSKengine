@@ -31,6 +31,11 @@ namespace OSK {
 		/// </summary>
 		virtual void SetImages(GpuImage* image0, GpuImage* image1, GpuImage* image2) = 0;
 
+		/// <summary>
+		/// Comprueba si un renderpass es un renderpass intermedio o el
+		/// renderpass final que renderiza la imagen que se mostrará en
+		/// el monitor.
+		/// </summary>
 		RenderpassType GetType() const;
 
 		template <typename T> T* As() const requires std::is_base_of_v<IRenderpass, T> {

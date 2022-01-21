@@ -43,6 +43,13 @@ namespace OSK {
 		void BindVertexBuffer(IGpuVertexBuffer* buffer) override;
 		void BindIndexBuffer(IGpuIndexBuffer* buffer) override;
 
+		/// <summary>
+		/// En ocasiones será necesario cambiar el estado de un recurso para hacer
+		/// operaciones con él.
+		/// </summary>
+		/// <param name="resource">Recurso al que se le va a cambiar su estado.</param>
+		/// <param name="from">Estado actual del recurso.</param>
+		/// <param name="to">Estado necesario del recurso.</param>
 		void ResourceBarrier(ID3D12Resource* resource, D3D12_RESOURCE_STATES from, D3D12_RESOURCE_STATES to);
 
 		void SetViewport(const Viewport& viewport) override;

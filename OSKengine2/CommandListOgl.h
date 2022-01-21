@@ -13,9 +13,9 @@ namespace OSK {
 		void Close() override;
 		void TransitionImageLayout(GpuImage*, GpuImageLayout, GpuImageLayout) override;
 
-		void BeginRenderpass(IRenderpass* renderpass);
-		void BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color);
-		void EndRenderpass(IRenderpass* renderpass);
+		void BeginRenderpass(IRenderpass* renderpass) override;
+		void BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) override;
+		void EndRenderpass(IRenderpass* renderpass) override;
 
 		void BindPipeline(IGraphicsPipeline* pipeline) override;
 		void BindVertexBuffer(IGpuVertexBuffer* buffer) override;

@@ -7,6 +7,9 @@ namespace OSK {
 
 	class IGpuMemorySubblock;
 
+	/// <summary>
+	/// Representa un buffer genérico en la GPU.
+	/// </summary>
 	class OSKAPI_CALL GpuDataBuffer {
 
 	public:

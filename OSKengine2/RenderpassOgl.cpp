@@ -15,7 +15,7 @@ using namespace OSK;
 RenderpassOgl::RenderpassOgl(RenderpassType type)
 	: IRenderpass(type) {
 	if (type == RenderpassType::FINAL)
-		framebuffer = oglDefaultFramebuffer;
+		framebuffer = OGL_DEFAULT_FRAMEBUFFER;
 }
 
 RenderpassOgl::~RenderpassOgl() {
