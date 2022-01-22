@@ -1,5 +1,7 @@
 #pragma once
 
+#include "EnumFlags.hpp"
+
 namespace OSK {
 
 	enum class GpuSharedMemoryType {
@@ -29,3 +31,6 @@ namespace OSK {
 	};
 
 }
+
+OSK_FLAGS(OSK::GpuBufferUsage);
+OSK_FLAGS(OSK::GpuImageUsage);

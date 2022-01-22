@@ -39,14 +39,14 @@ void Logger::Log(LogLevel level, const std::string& msg) {
 		break;
 	}
 
-#ifdef OSK_DEBUG
+//#ifdef OSK_DEBUG
 	std::cout << start << msg << std::endl;
-#else
+//#else
 	output.append(start);
 	output.append(msg);
 
 	output.append("\n");
-#endif
+//#endif
 
 }
 
@@ -66,9 +66,10 @@ void Logger::Save(const std::string& filename) {
 
 //#ifdef OSK_RELEASE
 	std::ofstream outputLog(path + filename);
-	if (outputLog.is_open()) {
+
+	if (outputLog.is_open())
 		outputLog << output << std::endl;
-	}
+	
 	outputLog.close();
 //#endif // OSK_RELEASE
 }

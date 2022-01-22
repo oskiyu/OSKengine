@@ -113,6 +113,7 @@
     <ClInclude Include="CommandQueueDx12.h" />
     <ClInclude Include="CommandQueueVulkan.h" />
     <ClInclude Include="DynamicArray.hpp" />
+    <ClInclude Include="EnumFlags.hpp" />
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="Format.h" />
     <ClInclude Include="FormatDx12.h" />
@@ -196,6 +197,16 @@
     <ClInclude Include="VertexVulkan.h" />
     <ClInclude Include="Viewport.h" />
     <ClInclude Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\OSKengine\OSKengine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\OSKengine\Resources\OSKengine_icon_lowres.ico" />
+    <Image Include="..\OSKengine\Resources\OSKengine_icon_lowres_16.ico" />
+    <Image Include="..\OSKengine\Resources\OSKengine_icon_lowres_32.ico" />
+    <Image Include="..\OSKengine\Resources\OSKengine_icon_lowres_48.ico" />
+    <Image Include="..\OSKengine\Resources\OSKengine_icon_lowres_64.ico" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

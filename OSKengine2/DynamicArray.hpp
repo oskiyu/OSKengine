@@ -582,7 +582,7 @@ namespace OSK {
 		/// <summary>
 		/// Devuelve el iterador que apunta a un elemento en particular.
 		/// </summary>
-		Iterator GetIterator(size_t index) const noexcept {
+		Iterator GetIterator(TSize index) const noexcept {
 			return Iterator(index, this);
 		}
 

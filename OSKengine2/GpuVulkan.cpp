@@ -163,7 +163,7 @@ OwnedPtr<ISyncDevice> GpuVulkan::CreateSyncDevice() {
 	fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
 	fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
 
-	for (size_t i = 0; i < 3; i++) {
+	for (TSize i = 0; i < 3; i++) {
 		VkResult result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &imageAvailableSemaphores[i]);
 		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el semáforo.");
 		

@@ -9,7 +9,9 @@ namespace OSK {
 	/// <summary>
 	/// Representa un color en formato RGBA.
 	/// </summary>
-	struct OSKAPI_CALL Color {
+	class OSKAPI_CALL Color {
+
+	public:
 
 		/// <summary>
 		/// Crea una instancia vacía del color.

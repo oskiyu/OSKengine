@@ -686,5 +686,30 @@
     <ClInclude Include="VertexOgl.h">
       <Filter>Archivos de encabezado\RenderAPI\LowLevel\Vertex</Filter>
     </ClInclude>
+    <ClInclude Include="EnumFlags.hpp">
+      <Filter>Archivos de encabezado\Util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\OSKengine\OSKengine.rc">
+      <Filter>Archivos de recursos</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\OSKengine\Resources\OSKengine_icon_lowres.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="..\OSKengine\Resources\OSKengine_icon_lowres_16.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="..\OSKengine\Resources\OSKengine_icon_lowres_32.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="..\OSKengine\Resources\OSKengine_icon_lowres_48.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="..\OSKengine\Resources\OSKengine_icon_lowres_64.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
   </ItemGroup>
 </Project>

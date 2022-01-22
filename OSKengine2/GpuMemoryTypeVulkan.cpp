@@ -3,7 +3,7 @@
 #include "GpuMemoryTypes.h"
 #include <vulkan/vulkan.h>
 
-#define OSK_CONTAINS_FLAG(a, b) (unsigned int)a & (unsigned int)b
+#define OSK_CONTAINS_FLAG(a, b) EFTraits::HasFlag(a, b)
 
 unsigned int OSK::GetGpuSharedMemoryTypeVulkan(GpuSharedMemoryType type) {
 	switch (type) {
@@ -27,7 +27,7 @@ unsigned int OSK::GetGpuBufferUsageVulkan(GpuBufferUsage usage) {
 		flags |= VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
 
 	if (OSK_CONTAINS_FLAG(usage, GpuBufferUsage::VERTEX_BUFFER))
-		flags |= VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT;
+		flags |= VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
 
 	if (OSK_CONTAINS_FLAG(usage, GpuBufferUsage::INDEX_BUFFER))
 		flags |= VK_BUFFER_USAGE_INDEX_BUFFER_BIT;
@@ -44,7 +44,7 @@ unsigned int OSK::GetGpuBufferUsageVulkan(GpuBufferUsage usage) {
 unsigned int OSK::GetGpuImageUsageVulkan(GpuImageUsage usage) {
 	unsigned int flags = 0;
 
-	if ((unsigned int)usage & (unsigned int)GpuImageUsage::COLOR)
+	if (EFTraits::HasFlag(usage, GpuImageUsage::COLOR))
 		flags = flags | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
 
 	if (OSK_CONTAINS_FLAG(usage, GpuImageUsage::DEPTH_STENCIL))

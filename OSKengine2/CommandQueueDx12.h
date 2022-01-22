@@ -4,11 +4,11 @@
 #include <d3d12.h>
 
 #include "OSKmacros.h"
-#include "ICommandQueue.h";
+#include "ICommandQueue.h"
 
 using namespace Microsoft::WRL;
 
-class ID3D12CommandQueue;
+struct ID3D12CommandQueue;
 
 namespace OSK {
 

@@ -228,7 +228,7 @@ namespace OSK {
 			auto hash = ConvertHash(Hash(key));
 			const TBucket* bucket = &buckets[hash];
 
-			for (size_t i = 0; i < bucket->GetSize(); i++)
+			for (TSize i = 0; i < bucket->GetSize(); i++)
 				if (bucket->At(i).first == key)
 					return { true, GetIterator(hash, i) };
 
@@ -243,14 +243,14 @@ namespace OSK {
 			return nullptr;
 		}
 
-		size_t ConvertHash(size_t hash) const {
+		TSize ConvertHash(TSize hash) const {
 			return hash % 512;
 		}
 
 		TBucket buckets[512];
 		BitSet occupiedBuckets;
 
-		size_t size = 0;
+		TSize size = 0;
 
 	};
 

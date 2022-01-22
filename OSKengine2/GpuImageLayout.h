@@ -1,5 +1,7 @@
 #pragma once
 
+#include "EnumFlags.hpp"
+
 namespace OSK {
 
 	enum class GpuImageLayout {
@@ -14,3 +16,5 @@ namespace OSK {
 	};
 
 }
+
+OSK_FLAGS(OSK::GpuImageLayout);

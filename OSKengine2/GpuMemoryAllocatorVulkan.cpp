@@ -41,7 +41,7 @@ OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorVulkan::CreateBuffer(TSize size, GpuBu
 
 OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorVulkan::CreateVertexBuffer(const DynamicArray<Vertex3D>& vertices) {
 	const TSize bufferSize = vertices.GetSize() * sizeof(Vertex3D);
-	auto block = GetNextBufferMemoryBlock(bufferSize, GpuBufferUsage::VERTEX_BUFFER, GpuSharedMemoryType::GPU_ONLY);
+	auto block = GetNextBufferMemoryBlock(bufferSize, GpuBufferUsage::VERTEX_BUFFER | GpuBufferUsage::TRANSFER_DESTINATION, GpuSharedMemoryType::GPU_ONLY);
 
 	GpuDataBuffer* stagingBuffer = CreateStagingBuffer(bufferSize).GetPointer();
 	stagingBuffer->MapMemory();
