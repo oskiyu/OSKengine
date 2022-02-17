@@ -11,6 +11,8 @@
 #include "OSKengine.h"
 #include "RendererDx12.h"
 #include "CommandListDx12.h"
+#include "GpuIndexBufferDx12.h"
+#include "GpuUniformBufferDx12.h"
 
 using namespace OSK;
 
@@ -57,9 +59,57 @@ OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorDx12::CreateVertexBuffer(const Dyna
 
 	Engine::GetRenderer()->SubmitSingleUseCommandList(singleTimeCommandList);
 
+	singleTimeCommandList->RegisterStagingBuffer(stagingBuffer);
+
 	output->SetView(sizeof(Vertex3D), vertices.GetSize());
 
 	return output;
+}
+
+OwnedPtr<IGpuIndexBuffer> GpuMemoryAllocatorDx12::CreateIndexBuffer(const DynamicArray<TIndexSize>& indices) {
+	const TSize bufferSize = sizeof(TIndexSize) * indices.GetSize();
+	auto block = GetNextBufferMemoryBlock(bufferSize, GpuBufferUsage::INDEX_BUFFER, GpuSharedMemoryType::GPU_ONLY);
+
+	GpuDataBuffer* stagingBuffer = CreateStagingBuffer(bufferSize).GetPointer();
+	stagingBuffer->MapMemory();
+	stagingBuffer->Write(indices.GetData(), bufferSize);
+	stagingBuffer->Unmap();
+
+	GpuIndexBufferDx12* output = new GpuIndexBufferDx12(block->GetNextMemorySubblock(bufferSize), bufferSize, 0);
+
+	auto singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList()->As<CommandListDx12>();
+	singleTimeCommandList->Reset();
+	singleTimeCommandList->Start();
+
+	singleTimeCommandList->ResourceBarrier(
+		output->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(),
+		D3D12_RESOURCE_STATE_GENERIC_READ,
+		D3D12_RESOURCE_STATE_COPY_DEST);
+
+	singleTimeCommandList->GetCommandList()->CopyResource(
+		output->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(),
+		stagingBuffer->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource());
+
+	singleTimeCommandList->ResourceBarrier(
+		output->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(),
+		D3D12_RESOURCE_STATE_COPY_DEST,
+		D3D12_RESOURCE_STATE_INDEX_BUFFER);
+
+	singleTimeCommandList->Close();
+
+	Engine::GetRenderer()->SubmitSingleUseCommandList(singleTimeCommandList);
+
+	singleTimeCommandList->RegisterStagingBuffer(stagingBuffer);
+
+	output->SetView(indices.GetSize());
+
+	return output;
+}
+
+OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorDx12::CreateUniformBuffer(TSize size) {
+	auto block = GetNextBufferMemoryBlock(size, GpuBufferUsage::UNIFORM_BUFFER, GpuSharedMemoryType::GPU_AND_CPU);
+
+	return new GpuUniformBufferDx12(block->GetNextMemorySubblock(size), size, 0);
 }
 
 OwnedPtr<GpuImage> GpuMemoryAllocatorDx12::CreateImage(unsigned int sizeX, unsigned int sizeY, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType) {
@@ -97,7 +147,7 @@ IGpuMemoryBlock* GpuMemoryAllocatorDx12::GetNextBufferMemoryBlock(TSize size, Gp
 	else {
 		auto& list = it.GetValue().second;
 
-		for (auto i : list)
+		for (auto& i : list)
 			if (i->GetAvailableSpace() >= size)
 				return i.GetPointer();
 

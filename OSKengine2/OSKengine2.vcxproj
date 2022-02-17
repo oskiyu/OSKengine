@@ -53,6 +53,8 @@
     <ClCompile Include="GpuImageLayoutVulkan.cpp" />
     <ClCompile Include="GpuImageOgl.cpp" />
     <ClCompile Include="GpuImageVulkan.cpp" />
+    <ClCompile Include="GpuIndexBufferOgl.cpp" />
+    <ClCompile Include="GpuIndexBufferVulkan.cpp" />
     <ClCompile Include="GpuMemoryAllocatorOgl.cpp" />
     <ClCompile Include="GpuMemoryAllocatorVulkan.cpp" />
     <ClCompile Include="GpuMemoryAllocatorDx12.cpp" />
@@ -62,20 +64,35 @@
     <ClCompile Include="GpuMemorySubblockVulkan.cpp" />
     <ClCompile Include="GpuMemoryTypeDx12.cpp" />
     <ClCompile Include="GpuMemoryTypeVulkan.cpp" />
+    <ClCompile Include="GpuUniformBufferDx12.cpp" />
+    <ClCompile Include="GpuUniformBufferVulkan.cpp" />
     <ClCompile Include="GpuVertexBufferDx12.cpp" />
     <ClCompile Include="GpuVertexBufferOgl.cpp" />
     <ClCompile Include="GpuVertexBufferVulkan.cpp" />
     <ClCompile Include="GpuVulkan.cpp" />
     <ClCompile Include="GraphicsPipelineDx12.cpp" />
+    <ClCompile Include="IGraphicsPipeline.cpp" />
+    <ClCompile Include="IMaterialSlot.cpp" />
+    <ClCompile Include="IPipelineLayout.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MaterialInstance.cpp" />
+    <ClCompile Include="MaterialLayout.cpp" />
+    <ClCompile Include="MaterialSlotDx12.cpp" />
+    <ClCompile Include="MaterialSlotVulkan.cpp" />
+    <ClCompile Include="MaterialSystem.cpp" />
+    <ClCompile Include="PipelineLayoutDx12.cpp" />
+    <ClCompile Include="PipelineLayoutVulkan.cpp" />
     <ClCompile Include="GraphicsPipelineOgl.cpp" />
     <ClCompile Include="GraphicsPipelineVulkan.cpp" />
     <ClCompile Include="ICommandList.cpp" />
     <ClCompile Include="IGpuDataBuffer.cpp" />
     <ClCompile Include="IGpuImage.cpp" />
+    <ClCompile Include="IGpuIndexBuffer.cpp" />
     <ClCompile Include="IGpuMemoryAllocator.cpp" />
     <ClCompile Include="IGpuMemoryBlock.cpp" />
     <ClCompile Include="IGpuMemorySubblock.cpp" />
     <ClCompile Include="GpuIndexBufferDx12.cpp" />
+    <ClCompile Include="IGpuUniformBuffer.cpp" />
     <ClCompile Include="IGpuVertexBuffer.cpp" />
     <ClCompile Include="IRenderpass.cpp" />
     <ClCompile Include="ISwapchain.cpp" />
@@ -127,6 +144,7 @@
     <ClInclude Include="GpuImageOgl.h" />
     <ClInclude Include="GpuImageVulkan.h" />
     <ClInclude Include="GpuIndexBufferDx12.h" />
+    <ClInclude Include="GpuIndexBufferOgl.h" />
     <ClInclude Include="GpuMemoryAllocatorDx12.h" />
     <ClInclude Include="GpuMemoryAllocatorOgl.h" />
     <ClInclude Include="GpuMemoryAllocatorVulkan.h" />
@@ -137,11 +155,25 @@
     <ClInclude Include="GpuMemoryTypes.h" />
     <ClInclude Include="GpuMemoryTypesDx12.h" />
     <ClInclude Include="GpuMemoryTypeVulkan.h" />
+    <ClInclude Include="GpuUniformBufferDx12.h" />
+    <ClInclude Include="GpuUniformBufferVulkan.h" />
     <ClInclude Include="GpuVertexBufferDx12.h" />
     <ClInclude Include="GpuVertexBufferOgl.h" />
     <ClInclude Include="GpuVertexBufferVulkan.h" />
     <ClInclude Include="GpuVulkan.h" />
     <ClInclude Include="GraphicsPipelineDx12.h" />
+    <ClInclude Include="IPipelineLayout.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="IMaterialSlot.h" />
+    <ClInclude Include="MaterialInstance.h" />
+    <ClInclude Include="MaterialLayout.h" />
+    <ClInclude Include="MaterialLayoutBinding.h" />
+    <ClInclude Include="MaterialLayoutSlot.h" />
+    <ClInclude Include="MaterialSlotDx12.h" />
+    <ClInclude Include="MaterialSlotVulkan.h" />
+    <ClInclude Include="MaterialSystem.h" />
+    <ClInclude Include="PipelineLayoutDx12.h" />
+    <ClInclude Include="PipelineLayoutVulkan.h" />
     <ClInclude Include="GraphicsPipelineOgl.h" />
     <ClInclude Include="GraphicsPipelineVulkan.h" />
     <ClInclude Include="HashMap.hpp" />
@@ -162,6 +194,7 @@
     <ClInclude Include="IRenderpass.h" />
     <ClInclude Include="ISwapchain.h" />
     <ClInclude Include="ISyncDevice.h" />
+    <ClInclude Include="IGpuUniformBuffer.h" />
     <ClInclude Include="KeyboardState.h" />
     <ClInclude Include="LinkedList.hpp" />
     <ClInclude Include="Logger.h" />
@@ -181,6 +214,7 @@
     <ClInclude Include="RenderpassOgl.h" />
     <ClInclude Include="RenderpassType.h" />
     <ClInclude Include="RenderpassVulkan.h" />
+    <ClInclude Include="ShaderBindingType.h" />
     <ClInclude Include="SharedPtr.hpp" />
     <ClInclude Include="SwapchainDx12.h" />
     <ClInclude Include="SwapchainVulkan.h" />
@@ -312,22 +346,22 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\Assimp\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\Assimp\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\Assimp\lib\x64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\Assimp\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\Assimp\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\Assimp\lib\x64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\Assimp\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\Assimp\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\Assimp\lib\x64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\Assimp\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\Assimp\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\Assimp\lib\x64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

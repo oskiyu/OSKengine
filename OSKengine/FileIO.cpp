@@ -6,8 +6,6 @@
 namespace OSK {
 
 	void FileIO::WriteFile(const std::string& path, const std::string& text) {
-		OSK_ASSERT(FileExists(path), "Se ha intentado escribir el archivo " + path + " pero no existe.");
-
 		std::ofstream stream(path);
 		stream << text << std::endl;
 		

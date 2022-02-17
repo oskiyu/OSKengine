@@ -11,6 +11,8 @@ namespace OSK {
 		GpuMemoryAllocatorDx12(IGpu* device);
 
 		OwnedPtr<IGpuVertexBuffer> CreateVertexBuffer(const DynamicArray<Vertex3D>& vertices) override;
+		OwnedPtr<IGpuIndexBuffer> CreateIndexBuffer(const DynamicArray<TIndexSize>& vertices) override;
+		OwnedPtr<IGpuUniformBuffer> CreateUniformBuffer(TSize size) override;
 		OwnedPtr<GpuImage> CreateImage(unsigned int sizeX, unsigned int sizeY, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType) override;
 		OwnedPtr<GpuDataBuffer> CreateStagingBuffer(TSize size) override;
 

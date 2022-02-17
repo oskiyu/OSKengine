@@ -6,7 +6,7 @@
 
 using namespace OSK;
 
-void GraphicsPipelineOgl::Create(IGpu* device, const PipelineCreateInfo& info) {
+void GraphicsPipelineOgl::Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info) {
 	pipelineInfo = info;
 
 	int result = 0;

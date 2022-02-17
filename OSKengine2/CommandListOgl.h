@@ -20,6 +20,7 @@ namespace OSK {
 		void BindPipeline(IGraphicsPipeline* pipeline) override;
 		void BindVertexBuffer(IGpuVertexBuffer* buffer) override;
 		void BindIndexBuffer(IGpuIndexBuffer* buffer) override;
+		void BindMaterialSlot(const IMaterialSlot* slot) override;
 
 		void SetViewport(const Viewport& viewport) override;
 		void SetScissor(const Vector4ui& scissor) override;

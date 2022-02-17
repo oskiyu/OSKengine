@@ -5,6 +5,7 @@
 #include "LinkedList.hpp"
 #include "HashMap.hpp"
 #include "DynamicArray.hpp"
+#include "Vertex.h"
 
 namespace OSK {
 
@@ -19,6 +20,8 @@ namespace OSK {
 	class GpuDataBuffer;
 	class GpuImage;
 	class IGpuVertexBuffer;
+	class IGpuIndexBuffer;
+	class IGpuUniformBuffer;
 	struct Vertex3D;
 
 	struct OSKAPI_CALL GpuBufferMemoryBlockInfo {
@@ -77,6 +80,23 @@ namespace OSK {
 		/// </summary>
 		virtual OwnedPtr<IGpuVertexBuffer> CreateVertexBuffer(const DynamicArray<Vertex3D>& vertices) = 0;
 
+		/// <summary>
+		/// Crea un buffer de índices con los índices dados.
+		/// </summary>
+		virtual OwnedPtr<IGpuIndexBuffer> CreateIndexBuffer(const DynamicArray<TIndexSize>& indices) = 0;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		virtual OwnedPtr<IGpuUniformBuffer> CreateUniformBuffer(TSize size) = 0;
+
+		/// <summary>
+		/// Crea un buffer temporal con el tamaño dado.
+		/// Este buffer alojará memoria en una región donde la CPU tiene acceso,
+		/// de tal manera que se podrán enviar datos a esta región, y después
+		/// la GPU podrá copiar esta región de memoria a una región de memoria de video
+		/// más rápida.
+		/// </summary>
 		virtual OwnedPtr<GpuDataBuffer> CreateStagingBuffer(TSize size) = 0;
 
 	protected:

@@ -48,3 +48,11 @@ TSize GpuDataBuffer::GetAlignment() const {
 void GpuDataBuffer::Free() {
 	buffer.Delete();
 }
+
+void GpuDataBuffer::SetCursor(TSize position) {
+	buffer->SetCursor(position);
+}
+
+void GpuDataBuffer::ResetCursor() {
+	buffer->ResetCursor();
+}

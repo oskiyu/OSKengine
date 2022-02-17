@@ -10,8 +10,10 @@ namespace OSK {
 
 	public:
 
+		GpuIndexBufferDx12(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment);
+
 		void SetView(TSize numberOfIndices);
-		D3D12_INDEX_BUFFER_VIEW GetView() const;
+		const D3D12_INDEX_BUFFER_VIEW* GetView() const;
 
 	private:
 

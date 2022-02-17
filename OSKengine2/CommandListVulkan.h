@@ -43,6 +43,7 @@ namespace OSK {
 		void BindPipeline(IGraphicsPipeline* pipeline) override;
 		void BindVertexBuffer(IGpuVertexBuffer* buffer) override;
 		void BindIndexBuffer(IGpuIndexBuffer* buffer) override;
+		void BindMaterialSlot(const IMaterialSlot* slot) override;
 
 		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) override;
 

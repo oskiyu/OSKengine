@@ -6,6 +6,7 @@
 #include "PipelineCreateInfo.h"
 #include "RenderpassVulkan.h"
 #include "VertexVulkan.h"
+#include "PipelineLayoutVulkan.h"
 
 using namespace OSK;
 
@@ -125,12 +126,14 @@ GraphicsPipelineVulkan::~GraphicsPipelineVulkan() {
 
 	vkDestroyPipeline(gpu->As<GpuVulkan>()->GetLogicalDevice(),
 		pipeline, nullptr);
-	vkDestroyPipelineLayout(gpu->As<GpuVulkan>()->GetLogicalDevice(),
-		layout, nullptr);
+	//vkDestroyPipelineLayout(gpu->As<GpuVulkan>()->GetLogicalDevice(),
+		//layout, nullptr);
 }
 
-void GraphicsPipelineVulkan::Create(IGpu* device, const PipelineCreateInfo& info) {
+void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info) {
 	gpu = device;
+
+	layout = new PipelineLayoutVulkan(materialLayout);
 
 	LoadVertexShader(info.vertexPath);
 	LoadFragmentShader(info.fragmentPath);
@@ -171,18 +174,6 @@ void GraphicsPipelineVulkan::Create(IGpu* device, const PipelineCreateInfo& info
 	// Depth-stencil.
 	VkPipelineDepthStencilStateCreateInfo depthInfo = GetDepthInfo(info);
 
-	// Layout
-	VkPipelineLayoutCreateInfo layoutCreateInfo{};
-	layoutCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-	layoutCreateInfo.setLayoutCount = 0;
-	layoutCreateInfo.pSetLayouts = VK_NULL_HANDLE;
-	layoutCreateInfo.pushConstantRangeCount = 0;
-	layoutCreateInfo.pPushConstantRanges = VK_NULL_HANDLE;
-	
-	VkResult result = vkCreatePipelineLayout(gpu->As<GpuVulkan>()->GetLogicalDevice(),
-		&layoutCreateInfo, nullptr, &layout);
-	OSK_ASSERT(result == VK_SUCCESS, "Error al crear el layout.");
-
 	VkPipelineMultisampleStateCreateInfo msaaCreateInfo = GetMsaaInfo(info, *gpu->As<GpuVulkan>());
 
 	// Estructuras dinámicas
@@ -221,23 +212,19 @@ void GraphicsPipelineVulkan::Create(IGpu* device, const PipelineCreateInfo& info
 	pipelineCreateInfo.pDepthStencilState = &depthInfo;
 	pipelineCreateInfo.pColorBlendState = &colorBlendCreateInfo;
 	pipelineCreateInfo.pDynamicState = &dynamicCreateInfo;
-	pipelineCreateInfo.layout = layout;
+	pipelineCreateInfo.layout = layout->As<PipelineLayoutVulkan>()->GetLayout();
 	pipelineCreateInfo.renderPass = targetRenderpass->GetRenderpass();
 	pipelineCreateInfo.subpass = 0;
 	pipelineCreateInfo.basePipelineHandle = nullptr;
 	pipelineCreateInfo.basePipelineIndex = -1;
 
-	result = vkCreateGraphicsPipelines(gpu->As<GpuVulkan>()->GetLogicalDevice(),
+	VkResult result = vkCreateGraphicsPipelines(gpu->As<GpuVulkan>()->GetLogicalDevice(),
 		nullptr, 1, &pipelineCreateInfo, nullptr, &pipeline);
 	OSK_ASSERT(result == VK_SUCCESS, "Error al crear el pipeline.");
 }
 
 VkPipeline GraphicsPipelineVulkan::GetPipeline() const {
 	return pipeline;
-}
-
-VkPipelineLayout GraphicsPipelineVulkan::GetLayout() const {
-	return layout;
 }
 
 void GraphicsPipelineVulkan::LoadVertexShader(const std::string& path) {

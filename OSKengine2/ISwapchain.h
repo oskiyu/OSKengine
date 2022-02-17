@@ -44,7 +44,7 @@ namespace OSK {
 		unsigned int imageCount = 3;
 
 		UniquePtr<GpuImage> images[3];
-		unsigned int currentFrameIndex;
+		unsigned int currentFrameIndex = 0;
 		IRenderpass* targetRenderpass = nullptr;
 
 	};

@@ -293,7 +293,8 @@ namespace OSK {
 			data = (T*)realloc(data, sizeof(T) * size);
 
 #ifdef OSK_SAFE
-			OSK_ASSERT(data != NULL, "DynamicArray: no se pudo reservar memoria para " + std::to_string(size) + " elementos en el dynamic array.");
+			if (size > 0)
+				OSK_ASSERT(data != NULL, "DynamicArray: no se pudo reservar memoria para " + std::to_string(size) + " elementos en el dynamic array.");
 #endif
 		}
 

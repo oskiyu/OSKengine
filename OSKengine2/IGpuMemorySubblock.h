@@ -55,6 +55,9 @@ namespace OSK {
 		/// </summary>
 		virtual void Unmap() = 0;
 
+		void SetCursor(TSize position);
+		void ResetCursor();
+
 		template <typename T> T* As() const requires std::is_base_of_v<IGpuMemorySubblock, T> {
 			return (T*)this;
 		}

@@ -3,6 +3,7 @@
 #include "OSKmacros.h"
 #include "UniquePtr.hpp"
 #include "OwnedPtr.h"
+#include "DynamicArray.hpp"
 
 #include <string>
 
@@ -18,6 +19,13 @@ namespace OSK {
 	class ISyncDevice;
 	class IGpuMemoryAllocator;
 	class IRenderpass;
+	struct PipelineCreateInfo;
+	class MaterialLayout;
+	class IGraphicsPipeline;
+	class MaterialSystem;
+	class IMaterialSlot;
+
+	enum class RenderApiType;
 
 	/// <summary>
 	/// Proporciona la interfaz de un renderizador.
@@ -76,9 +84,16 @@ namespace OSK {
 			return (T*)this;
 		}
 
+		virtual OwnedPtr<IGraphicsPipeline> CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) = 0;
+
+		MaterialSystem* GetMaterialSystem() const;
+		virtual OwnedPtr<IMaterialSlot> _CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const = 0;
+
+		RenderApiType GetRenderApi() const;
+
 	protected:
 
-		IRenderer() { }
+		IRenderer(RenderApiType renderApiType);
 
 		virtual void CreateCommandQueues() = 0;
 		virtual void CreateSwapchain() = 0;
@@ -100,12 +115,18 @@ namespace OSK {
 		UniquePtr<IGpuMemoryAllocator> gpuMemoryAllocator;
 
 		UniquePtr<IRenderpass> renderpass;
+		
+		UniquePtr<MaterialSystem> materialSystem;
+
+		DynamicArray<OwnedPtr<ICommandList>> singleTimeCommandLists;
 
 		bool isFirstRender = true;
 
 		const Window* window = nullptr;
 
 	private:
+
+		RenderApiType renderApiType;
 
 	};
 

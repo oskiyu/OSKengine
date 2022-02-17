@@ -5,12 +5,17 @@
 
 using namespace OSK;
 
+GpuIndexBufferDx12::GpuIndexBufferDx12(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment)
+	: IGpuIndexBuffer(buffer, size, alignment) {
+
+}
+
 void GpuIndexBufferDx12::SetView(TSize numberOfIndices) {
 	view.BufferLocation = buffer->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress();
 	view.Format = DXGI_FORMAT_R32_UINT;
 	view.SizeInBytes = sizeof(TIndexSize) * numberOfIndices;
 }
 
-D3D12_INDEX_BUFFER_VIEW GpuIndexBufferDx12::GetView() const {
-	return view;
+const D3D12_INDEX_BUFFER_VIEW* GpuIndexBufferDx12::GetView() const {
+	return &view;
 }

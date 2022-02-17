@@ -1,11 +1,14 @@
 #pragma once
 
 #include "OSKmacros.h"
+#include "UniquePtr.hpp"
 
 namespace OSK {
 
 	class IGpu;
 	struct PipelineCreateInfo;
+	class IPipelineLayout;
+	class MaterialLayout;
 
 	/// <summary>
 	/// El graphics pipeline es el encargado de transformar los modelos 3D en una imagen final.
@@ -20,13 +23,17 @@ namespace OSK {
 		/// Crea el pipeline con la configuración dada.
 		/// </summary>
 		/// <param name="info">Configuración del pipeline.</param>
-		virtual void Create(IGpu* device, const PipelineCreateInfo& info) = 0;
+		virtual void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info) = 0;
 
 		template <typename T> T* As() const requires std::is_base_of_v<IGraphicsPipeline, T> {
 			return (T*)this;
 		}
 
-	private:
+		IPipelineLayout* GetLayout() const;
+
+	protected:
+
+		UniquePtr<IPipelineLayout> layout;
 
 	};
 

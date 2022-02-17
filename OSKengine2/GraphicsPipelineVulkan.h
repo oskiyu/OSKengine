@@ -17,10 +17,9 @@ namespace OSK {
 		GraphicsPipelineVulkan(RenderpassVulkan* renderpass);
 		~GraphicsPipelineVulkan();
 
-		void Create(IGpu* device, const PipelineCreateInfo& info) override;
+		void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info) override;
 
 		VkPipeline GetPipeline() const;
-		VkPipelineLayout GetLayout() const;
 
 	private:
 
@@ -30,10 +29,7 @@ namespace OSK {
 		DynamicArray<VkPipelineShaderStageCreateInfo> shaderStagesInfo;
 		DynamicArray<VkShaderModule> shaderModulesToDelete;
 
-		void SetLayout(IGpu* device);
-
 		VkPipeline pipeline = 0;
-		VkPipelineLayout layout = 0;
 
 		RenderpassVulkan* targetRenderpass = nullptr;
 

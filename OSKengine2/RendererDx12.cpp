@@ -29,11 +29,32 @@
 #include "GpuVertexBufferDx12.h"
 #include "GpuMemorySubblockDx12.h"
 #include "Viewport.h"
+#include "GpuIndexBufferDx12.h"
+#include "MaterialLayout.h"
+#include "GpuUniformBufferDx12.h"
+#include "ShaderBindingType.h"
+#include "RenderApiType.h"
+#include "Material.h"
+#include "MaterialSystem.h"
+#include "MaterialInstance.h"
+#include "MaterialSlotDx12.h"
+
+#include <ext/matrix_transform.hpp>
 
 using namespace OSK;
 
 GraphicsPipelineDx12* pipeline = nullptr;
 GpuVertexBufferDx12* vertexBuffer = nullptr;
+GpuIndexBufferDx12* indexBuffer = nullptr;
+GpuUniformBufferDx12* uniformBuffer = nullptr;
+OwnedPtr<MaterialInstance> materialInstance = nullptr;
+
+glm::mat4 model(1.0f);
+float angle = 0.0f;
+
+RendererDx12::RendererDx12() : IRenderer(RenderApiType::DX12) {
+
+}
 
 RendererDx12::~RendererDx12() {
 	Close();
@@ -64,15 +85,11 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	CreateGpuMemoryAllocator();
 	CreateMainRenderpass();
 
-	pipeline = new GraphicsPipelineDx12();
-	PipelineCreateInfo info{};
-	info.vertexPath = "./Resources/Shaders/DX12/vertex.shader";
-	info.fragmentPath = "./Resources/Shaders/DX12/fragment.shader";
-	info.polygonMode = PolygonMode::FILL;
-	info.cullMode = PolygonCullMode::NONE;
-	info.frontFaceType = PolygonFrontFaceType::CLOCKWISE;
+	Material* mat = GetMaterialSystem()->LoadMaterial("Resources/material.json");
 
-	pipeline->Create(currentGpu.GetPointer(), info);
+	mat->RegisterRenderpass(renderpass.GetPointer());
+	pipeline = mat->GetGraphicsPipeline(renderpass.GetPointer())->As<GraphicsPipelineDx12>();
+	materialInstance = mat->CreateInstance();
 
 	DynamicArray<Vertex3D> vertices = {
 		{ {-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f} },
@@ -80,11 +97,32 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 		{ {0.0f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f} }
 	};
 
+	DynamicArray<TIndexSize> indices = {
+		0, 1, 2
+	};
+
 	vertexBuffer = gpuMemoryAllocator->CreateVertexBuffer(vertices).GetPointer()->As<GpuVertexBufferDx12>();
+	indexBuffer = gpuMemoryAllocator->CreateIndexBuffer(indices).GetPointer()->As<GpuIndexBufferDx12>();
+	uniformBuffer = gpuMemoryAllocator->CreateUniformBuffer(sizeof(model))->As<GpuUniformBufferDx12>();
+	uniformBuffer->MapMemory();
+
+	materialInstance->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer);
 }
 
 void RendererDx12::Close() {
 	
+}
+
+OwnedPtr<IGraphicsPipeline> RendererDx12::CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
+	GraphicsPipelineDx12* pipeline = new GraphicsPipelineDx12();
+
+	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo);
+
+	return pipeline;
+}
+
+OwnedPtr<IMaterialSlot> RendererDx12::_CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const {
+	return new MaterialSlotDx12(name, layout);
 }
 
 void RendererDx12::ChooseGpu() {
@@ -197,6 +235,19 @@ void RendererDx12::PresentFrame() {
 		return;
 	}
 
+	for (TSize i = 0; i < singleTimeCommandLists.GetSize(); i++)
+		singleTimeCommandLists.At(i)->DeleteAllStagingBuffers();
+
+	//
+	model = glm::rotate(model, 0.1f, { 1, 0, 0 });
+	angle += 0.001f;
+
+	//uniformBuffer->MapMemory();
+	uniformBuffer->ResetCursor();
+	uniformBuffer->Write(&model, sizeof(model));
+	//uniformBuffer->Unmap();
+	//
+
 	commandList->Reset();
 	commandList->Start();
 
@@ -218,11 +269,14 @@ void RendererDx12::PresentFrame() {
 	commandList->SetScissor(windowRec);
 
 	commandList->BindVertexBuffer(vertexBuffer);
+	commandList->BindIndexBuffer(indexBuffer);
 
 	auto native = commandList->As<CommandListDx12>()->GetCommandList();
 	native->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	native->DrawInstanced(3, 1, 0, 0);
+	commandList->BindMaterialSlot(materialInstance->GetSlot("global"));
+
+	native->DrawIndexedInstanced(3, 1, 0, 0, 0);
 
 	commandList->EndRenderpass(renderpass.GetPointer());
 
@@ -241,4 +295,6 @@ void RendererDx12::PresentFrame() {
 void RendererDx12::SubmitSingleUseCommandList(ICommandList* commandList) {
 	ID3D12CommandList* commandLists[] = { commandList->As<CommandListDx12>()->GetCommandList() };
 	graphicsQueue->As<CommandQueueDx12>()->GetCommandQueue()->ExecuteCommandLists(1, commandLists);
+
+	singleTimeCommandLists.Insert(commandList);
 }

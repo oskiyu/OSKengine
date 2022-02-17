@@ -16,17 +16,24 @@
 #include "VertexOgl.h"
 #include "GraphicsPipelineOgl.h"
 #include "GpuVertexBufferOgl.h"
+#include "GpuIndexBufferOgl.h"
 #include "Vertex.h"
 #include "Viewport.h"
+#include "RenderApiType.h"
 
 using namespace OSK;
 
 GraphicsPipelineOgl* pipeline = nullptr;
 GpuVertexBufferOgl* vertexBuffer = nullptr;
+GpuIndexBufferOgl* indexBuffer = nullptr;
 
 void GLAPIENTRY DebugConsole(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
 	if (type >= GL_DEBUG_TYPE_ERROR)
 		Engine::GetLogger()->Log(LogLevel::L_ERROR, message);
+}
+
+RendererOgl::RendererOgl() : IRenderer(RenderApiType::OPENGL) {
+
 }
 
 void RendererOgl::Initialize(const std::string& appName, const Version& version, const Window& window) {
@@ -46,23 +53,32 @@ void RendererOgl::Initialize(const std::string& appName, const Version& version,
 	CreateGpuMemoryAllocator();
 	CreateMainRenderpass();
 
-	PipelineCreateInfo info{};
-	info.vertexPath = "./Resources/Shaders/VK/shader.vert";
-	info.fragmentPath = "./Resources/Shaders/VK/shader.frag";
-	info.polygonMode = PolygonMode::FILL;
-	info.cullMode = PolygonCullMode::NONE;
-	info.frontFaceType = PolygonFrontFaceType::CLOCKWISE;
-
-	pipeline = new GraphicsPipelineOgl();
-	pipeline->Create(currentGpu.GetPointer(), info);
-
 	DynamicArray<Vertex3D> vertices = {
 		{ {-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f} },
 		{ {0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f} },
 		{ {0.0f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f} }
 	};
 
+	DynamicArray<TIndexSize> indices = {
+		0, 1, 2
+	};
+
 	vertexBuffer = gpuMemoryAllocator->CreateVertexBuffer(vertices).GetPointer()->As<GpuVertexBufferOgl>();
+	indexBuffer = gpuMemoryAllocator->CreateIndexBuffer(indices).GetPointer()->As<GpuIndexBufferOgl>();
+}
+
+OwnedPtr<IMaterialSlot> RendererOgl::_CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const {
+	OSK_ASSERT(false, "No implementado.");
+	
+	return nullptr;
+}
+
+OwnedPtr<IGraphicsPipeline> RendererOgl::CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
+	GraphicsPipelineOgl* pipeline = new GraphicsPipelineOgl();
+
+	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo);
+
+	return pipeline;
 }
 
 void RendererOgl::Close() {
@@ -117,6 +133,7 @@ void RendererOgl::PresentFrame() {
 
 	commandList->BindPipeline(pipeline);
 	commandList->BindVertexBuffer(vertexBuffer);
+	commandList->BindIndexBuffer(indexBuffer);
 
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)0);
 }

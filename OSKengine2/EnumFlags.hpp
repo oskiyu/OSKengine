@@ -22,39 +22,6 @@ namespace OSK::EFTraits {
 	/// </summary>
 	template <typename T> concept IsEnum = IsEnumFlag<T>({});
 
-	/// <summary>
-	/// Devuelve true si el enum 'value' tiene la flag 'flag'.
-	/// </summary>
-	/// <param name="value">Enum a comrpobar.</param>
-	/// <param name="flag">Flag que el enum debe tener para devolver true.</param>
-	template <typename TEnum> constexpr bool HasFlag(TEnum value, TEnum flag) {
-		using TUType = std::underlying_type_t<TEnum>;
-
-		return static_cast<TUType>(value & flag) != 0;
-	}
-
-	/// <summary>
-	/// Añade un flag al enum dado.
-	/// </summary>
-	/// <param name="value">Puntero al enum que se va a modificar.</param>
-	/// <param name="flag">Flag que se va a añadir.</param>
-	template <typename TEnum> constexpr void AddFlag(TEnum* value, TEnum flag) {
-		using TUType = std::underlying_type_t<TEnum>;
-
-		*value |= flag;
-	}
-
-	/// <summary>
-	/// Elimina un flag del enum dado.
-	/// </summary>
-	/// <param name="value">Puntero al enum que se va a modificar.</param>
-	/// <param name="flag">Flag que se va a eliminar.</param>
-	template <typename TEnum> constexpr void RemoveFlag(TEnum* value, TEnum flag) {
-		using TUType = std::underlying_type_t<TEnum>;
-
-		*value &= ~flag;
-	}
-
 }
 
 
@@ -97,3 +64,40 @@ template <typename TEnum> constexpr TEnum operator~(TEnum left) requires OSK::EF
 }
 
 #define OSK_FLAGS(T) template <> constexpr bool OSK::EFTraits::IsEnumFlag<T>(T) { return true; };
+
+namespace OSK::EFTraits {
+
+	/// <summary>
+	/// Devuelve true si el enum 'value' tiene la flag 'flag'.
+	/// </summary>
+	/// <param name="value">Enum a comrpobar.</param>
+	/// <param name="flag">Flag que el enum debe tener para devolver true.</param>
+	template <typename TEnum> constexpr bool HasFlag(TEnum value, TEnum flag) requires OSK::EFTraits::IsEnum<TEnum> {
+		using TUType = std::underlying_type_t<TEnum>;
+
+		return static_cast<TUType>((TEnum)value & (TEnum)flag) != 0;
+	}
+
+	/// <summary>
+	/// Añade un flag al enum dado.
+	/// </summary>
+	/// <param name="value">Puntero al enum que se va a modificar.</param>
+	/// <param name="flag">Flag que se va a añadir.</param>
+	template <typename TEnum> constexpr void AddFlag(TEnum* value, TEnum flag) requires OSK::EFTraits::IsEnum<TEnum> {
+		using TUType = std::underlying_type_t<TEnum>;
+
+		*value |= flag;
+	}
+
+	/// <summary>
+	/// Elimina un flag del enum dado.
+	/// </summary>
+	/// <param name="value">Puntero al enum que se va a modificar.</param>
+	/// <param name="flag">Flag que se va a eliminar.</param>
+	template <typename TEnum> constexpr void RemoveFlag(TEnum* value, TEnum flag) requires OSK::EFTraits::IsEnum<TEnum> {
+		using TUType = std::underlying_type_t<TEnum>;
+
+		*value &= ~flag;
+	}
+
+}

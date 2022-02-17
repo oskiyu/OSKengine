@@ -6,6 +6,7 @@
 #include "Assert.h"
 #include "Viewport.h"
 #include "GpuVertexBufferOgl.h"
+#include "GpuIndexBufferOgl.h"
 #include "GraphicsPipelineOgl.h"
 
 #include <glad/glad.h>
@@ -50,6 +51,10 @@ void CommandListOgl::BindVertexBuffer(IGpuVertexBuffer* buffer) {
 }
 
 void CommandListOgl::BindIndexBuffer(IGpuIndexBuffer* buffer) {
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer->As<GpuIndexBufferOgl>()->GetHandler());
+}
+
+void CommandListOgl::BindMaterialSlot(const IMaterialSlot* slot) {
 	OSK_ASSERT(false, "No implementado.");
 }
 

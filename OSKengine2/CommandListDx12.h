@@ -2,6 +2,8 @@
 
 #include "ICommandList.h"
 
+#include "GpuUniformBufferDx12.h"
+
 #include <wrl.h>
 using namespace Microsoft::WRL;
 
@@ -42,6 +44,9 @@ namespace OSK {
 		void BindPipeline(IGraphicsPipeline* pipeline) override;
 		void BindVertexBuffer(IGpuVertexBuffer* buffer) override;
 		void BindIndexBuffer(IGpuIndexBuffer* buffer) override;
+		void BindMaterialSlot(const IMaterialSlot* slot) override;
+
+		void BindUniformBuffer(TSize index, GpuUniformBufferDx12* buffer);
 
 		/// <summary>
 		/// En ocasiones será necesario cambiar el estado de un recurso para hacer

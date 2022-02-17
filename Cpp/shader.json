@@ -1,0 +1,34 @@
+{
+    "file_type": "SHADER",
+    "spec_ver": 0,
+
+    "glsl_shaders": {
+        "vertex": "vertex.glsl",
+        "fragment": "fragment.glsl"
+    },
+
+    "hlsl_shaders": {
+        "vertex_and_fragment": "shader.hlsl"
+    },
+
+    "slots": [
+        {
+            "name": "global",
+            "glsl_set": 0,
+
+            "shader_stages":[
+                "VERTEX",
+                "FRAGMENT"
+            ],
+
+            "bindings": [
+                {
+                    "name": "camera",
+
+                    "glsl_index": 0,
+                    "hlsl_index": 0
+                }
+            ]
+        }
+    ]
+  }

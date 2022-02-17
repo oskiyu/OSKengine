@@ -4,6 +4,7 @@
 #include "FormatOgl.h"
 #include "GpuVertexBufferOgl.h"
 #include "Vertex.h"
+#include "GpuIndexBufferOgl.h"
 
 #include <glad/glad.h>
 #include "VertexOgl.h"
@@ -46,6 +47,27 @@ OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorOgl::CreateVertexBuffer(const Dynam
 	output->SetViewHandler(viewHandler);
 
 	return output;
+}
+
+OwnedPtr<IGpuIndexBuffer> GpuMemoryAllocatorOgl::CreateIndexBuffer(const DynamicArray<TIndexSize>& indices) {
+	const TSize bufferSize = sizeof(TIndexSize) * indices.GetSize();
+
+	GpuIndexBufferOgl* output = new GpuIndexBufferOgl(nullptr, bufferSize, 0);
+
+	OglIndexBufferHandler handler = OGL_NULL_HANDLER;
+	glGenBuffers(1, &handler);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, handler);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, bufferSize, indices.GetData(), GL_STATIC_DRAW);
+
+	output->_SetHandler(handler);
+
+	return output;
+}
+
+OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorOgl::CreateUniformBuffer(TSize size) {
+	OSK_ASSERT(false, "No implementado.");
+
+	return nullptr;
 }
 
 OwnedPtr<GpuImage> GpuMemoryAllocatorOgl::CreateImage(unsigned int sizeX, unsigned int sizeY, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType) {

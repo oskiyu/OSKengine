@@ -13,6 +13,7 @@
 #include "Viewport.h"
 #include "GraphicsPipelineVulkan.h"
 #include "GpuVertexBufferVulkan.h"
+#include "GpuIndexBufferVulkan.h"
 
 using namespace OSK;
 
@@ -205,6 +206,13 @@ void CommandListVulkan::BindVertexBuffer(IGpuVertexBuffer* buffer) {
 }
 
 void CommandListVulkan::BindIndexBuffer(IGpuIndexBuffer* buffer) {
+	for (TSize i = 0; i < commandBuffers.GetSize(); i++)
+		vkCmdBindIndexBuffer(commandBuffers.At(i),
+			buffer->GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer(), 
+			buffer->GetMemorySubblock()->GetOffsetFromBlock(), VK_INDEX_TYPE_UINT32);
+}
+
+void CommandListVulkan::BindMaterialSlot(const IMaterialSlot* slot) {
 	OSK_ASSERT(false, "No implementado.");
 }
 

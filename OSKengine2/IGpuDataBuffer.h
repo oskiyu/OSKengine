@@ -23,6 +23,9 @@ namespace OSK {
 		void WriteOffset(const void* data, TSize size, TSize offset);
 		void Unmap();
 
+		void SetCursor(TSize position);
+		void ResetCursor();
+
 		TSize GetSize() const;
 		TSize GetAlignment() const;
 

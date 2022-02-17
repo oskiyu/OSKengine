@@ -27,7 +27,7 @@ namespace OSK {
 
 		public:
 
-			Iterator(const HashMap* map, TBucket* bucket, size_t inBucketIndex, size_t bucketIndex)
+			Iterator(const HashMap* map, const TBucket* bucket, size_t inBucketIndex, size_t bucketIndex)
 				: map(map), bucket(bucket), inBucketIndex(inBucketIndex), bucketIndex(bucketIndex) {
 
 			}
@@ -151,10 +151,10 @@ namespace OSK {
 		}
 
 		void Remove(const TKey& key) {
-			auto result = _FindKey(key);
+			KeySearchResult result = _FindKey(key);
 
 			if (result.found) {
-				result.it.bucket->RemoveAt(result.it.inBucketIndex);
+				const_cast<TBucket*>(result.it.bucket)->RemoveAt(result.it.inBucketIndex);
 
 				if (result.it.bucket->GetSize() == 0)
 					occupiedBuckets.SetFalse(result.it.inBucketIndex);
@@ -162,9 +162,6 @@ namespace OSK {
 		}
 
 		const TBucket* GetBucket(size_t index) const {
-			return &buckets[index];
-		}
-		TBucket* GetBucket(size_t index) {
 			return &buckets[index];
 		}
 		/*DynamicArray<TBucket>& GetAllBuckets() const {
@@ -181,7 +178,7 @@ namespace OSK {
 			return _FindKey(key).result;
 		}
 
-		Iterator Find(const TKey& key) {
+		Iterator Find(const TKey& key) const {
 			auto result = _FindKey(key);
 
 			if (result.found)
@@ -212,7 +209,7 @@ namespace OSK {
 
 		Iterator GetIterator(TSize bucketId, TSize inbucketId) const {
 			auto it = Iterator(this, nullptr, inbucketId, bucketId);
-			it.bucket = &buckets[bucketId];
+			it.bucket = (TBucket*)&buckets[bucketId];
 
 			return it;
 		}

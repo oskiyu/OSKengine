@@ -3,6 +3,8 @@
 #include "OSKmacros.h"
 #include "Vector4.hpp"
 #include <type_traits>
+#include "DynamicArray.hpp"
+#include "OwnedPtr.h"
 
 namespace OSK {
 
@@ -14,6 +16,8 @@ namespace OSK {
 	class IGpuVertexBuffer;
 	class IGpuIndexBuffer;
 	struct Viewport;
+	class GpuDataBuffer;
+	class IMaterialSlot;
 
 	/// <summary>
 	/// Una lista de comandos contiene una serie de comandos que serán
@@ -25,7 +29,7 @@ namespace OSK {
 
 	public:
 
-		virtual ~ICommandList() = default;
+		virtual ~ICommandList();
 
 		template <typename T> T* As() const requires std::is_base_of_v<ICommandList, T> {
 			return (T*)this;
@@ -96,8 +100,12 @@ namespace OSK {
 		/// <summary>
 		/// Establece el index buffer que se va a usar en los próximos renderizados.
 		/// </summary>
-		/// <param name="buffer"></param>
 		virtual void BindIndexBuffer(IGpuIndexBuffer* buffer) = 0;
+
+		/// <summary>
+		/// Establece el descriptor que estará en el slot 'index'.
+		/// </summary>
+		virtual void BindMaterialSlot(const IMaterialSlot* slot) = 0;
 
 
 		/// <summary>
@@ -111,6 +119,16 @@ namespace OSK {
 		/// Establece qué área del renderizado será visible en la textura final.
 		/// </summary>
 		virtual void SetScissor(const Vector4ui& scissor) = 0;
+
+
+
+		void RegisterStagingBuffer(OwnedPtr<GpuDataBuffer> stagingBuffer);
+
+		void DeleteAllStagingBuffers();
+
+	private:
+
+		DynamicArray<OwnedPtr<GpuDataBuffer>> stagingBuffersToDelete;
 
 	};
 

@@ -205,6 +205,54 @@
     <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Viewport">
       <UniqueIdentifier>{31c35286-2001-4330-9cfd-26b42fee0bbb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Uniform">
+      <UniqueIdentifier>{be15d554-c73d-48b8-9626-688c64e629d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Uniform">
+      <UniqueIdentifier>{d553da6e-8ede-41b3-a573-8d49c5eba4ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Layout">
+      <UniqueIdentifier>{afd8f43d-91d0-400d-bbf8-d703ee9e9aaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout">
+      <UniqueIdentifier>{4991646e-9271-4a29-918e-bc31cea91894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline">
+      <UniqueIdentifier>{90756499-3b15-4adf-adda-3788e01aca33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Layout\Shader">
+      <UniqueIdentifier>{b113138c-b0b5-46fe-b9c7-c472f8bc8211}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Layout\Pipeline">
+      <UniqueIdentifier>{f8a97e08-c333-4e0e-a4f0-c541224f137b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Pipeline">
+      <UniqueIdentifier>{771f7ea8-8ae3-4ab6-a882-4c35d9d32460}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\RenderAPI\HighLevel\Material">
+      <UniqueIdentifier>{0ccaa110-f30e-4d69-80ca-0f39568a0a8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\HighLevel\Material">
+      <UniqueIdentifier>{b4dede04-6846-4c59-9849-43c2f3686e39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\RenderAPI\HighLevel\Material\Layout">
+      <UniqueIdentifier>{2fcd81c1-58d2-411e-a484-070b14394cd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\HighLevel\Material\Layout">
+      <UniqueIdentifier>{0fb8ea34-f058-42c8-8f29-6030e3b36d78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Material">
+      <UniqueIdentifier>{ce8289c2-3296-4623-9e27-bd2acf6cbef9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Material\Slot">
+      <UniqueIdentifier>{3c8c5d73-fc07-4fdf-8953-f740a153de1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Material">
+      <UniqueIdentifier>{0e3f0044-ff9a-4c47-a6ce-ebf55be1eea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Material\Slot">
+      <UniqueIdentifier>{6bcb0019-d1c1-441f-9a80-0cfa7ffc6c73}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -372,14 +420,8 @@
     <ClCompile Include="RenderpassOgl.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Renderpass</Filter>
     </ClCompile>
-    <ClCompile Include="GraphicsPipelineDx12.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline</Filter>
-    </ClCompile>
     <ClCompile Include="IGpuVertexBuffer.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Vertex</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsPipelineVulkan.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline</Filter>
     </ClCompile>
     <ClCompile Include="FileIO.cpp">
       <Filter>Archivos de origen\OSKengine\Util</Filter>
@@ -396,11 +438,68 @@
     <ClCompile Include="GpuVertexBufferOgl.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Vertex</Filter>
     </ClCompile>
-    <ClCompile Include="GraphicsPipelineOgl.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline</Filter>
-    </ClCompile>
     <ClCompile Include="VertexOgl.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Vertex</Filter>
+    </ClCompile>
+    <ClCompile Include="IGpuIndexBuffer.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Index</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuIndexBufferVulkan.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Index</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuIndexBufferOgl.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Index</Filter>
+    </ClCompile>
+    <ClCompile Include="IGpuUniformBuffer.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Uniform</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuUniformBufferDx12.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Uniform</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsPipelineDx12.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsPipelineOgl.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsPipelineVulkan.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="IGraphicsPipeline.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuUniformBufferVulkan.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Uniform</Filter>
+    </ClCompile>
+    <ClCompile Include="IPipelineLayout.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="PipelineLayoutVulkan.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialSystem.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialLayout.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\Material\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="PipelineLayoutDx12.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="IMaterialSlot.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Material\Slot</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialSlotDx12.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Material\Slot</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialInstance.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialSlotVulkan.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Material\Slot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -688,6 +787,57 @@
     </ClInclude>
     <ClInclude Include="EnumFlags.hpp">
       <Filter>Archivos de encabezado\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuIndexBufferOgl.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Index</Filter>
+    </ClInclude>
+    <ClInclude Include="IGpuUniformBuffer.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Uniform</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuUniformBufferDx12.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Uniform</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuUniformBufferVulkan.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Uniform</Filter>
+    </ClInclude>
+    <ClInclude Include="IPipelineLayout.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="PipelineLayoutDx12.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="PipelineLayoutVulkan.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderBindingType.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Layout\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialSystem.h">
+      <Filter>Archivos de encabezado\RenderAPI\HighLevel\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialLayoutSlot.h">
+      <Filter>Archivos de encabezado\RenderAPI\HighLevel\Material\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialLayoutBinding.h">
+      <Filter>Archivos de encabezado\RenderAPI\HighLevel\Material\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialLayout.h">
+      <Filter>Archivos de encabezado\RenderAPI\HighLevel\Material\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="IMaterialSlot.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Material\Slot</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialSlotDx12.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Material\Slot</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Archivos de encabezado\RenderAPI\HighLevel\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialSlotVulkan.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Material\Slot</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialInstance.h">
+      <Filter>Archivos de encabezado\RenderAPI\HighLevel\Material</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

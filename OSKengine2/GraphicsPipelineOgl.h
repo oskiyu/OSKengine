@@ -11,7 +11,7 @@ namespace OSK {
 
 	public:
 
-		void Create(IGpu* device, const PipelineCreateInfo& info) override;
+		void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info) override;
 
 		OglPipelineHandler GetPipelineHandler() const;
 

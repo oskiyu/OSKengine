@@ -11,6 +11,7 @@ namespace OSK {
 	using OglRenderBufferHandler = TOglHandler;
 
 	using OglVertexBufferHandler = TOglHandler;
+	using OglIndexBufferHandler = TOglHandler;
 	using OglShaderHandler = TOglHandler;
 	using OglPipelineHandler = TOglHandler; // Shader program.
 	

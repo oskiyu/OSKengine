@@ -15,6 +15,7 @@
 #include "OSKengine.h"
 #include "RendererVulkan.h"
 #include "CommandListVulkan.h"
+#include "GpuIndexBufferVulkan.h"
 
 using namespace OSK;
 
@@ -58,9 +59,43 @@ OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorVulkan::CreateVertexBuffer(const Dy
 
 	singleTimeCommandList->Close();
 
+	singleTimeCommandList->RegisterStagingBuffer(stagingBuffer);
+
 	Engine::GetRenderer()->SubmitSingleUseCommandList(singleTimeCommandList);
 
 	return output;
+}
+
+OwnedPtr<IGpuIndexBuffer> GpuMemoryAllocatorVulkan::CreateIndexBuffer(const DynamicArray<TIndexSize>& indices) {
+	const TSize bufferSize = sizeof(TIndexSize) * indices.GetSize();
+	auto block = GetNextBufferMemoryBlock(bufferSize, GpuBufferUsage::INDEX_BUFFER | GpuBufferUsage::TRANSFER_DESTINATION, GpuSharedMemoryType::GPU_ONLY);
+
+	GpuDataBuffer* stagingBuffer = CreateStagingBuffer(bufferSize).GetPointer();
+	stagingBuffer->MapMemory();
+	stagingBuffer->Write(indices.GetData(), bufferSize);
+	stagingBuffer->Unmap();
+
+	GpuIndexBufferVulkan* output = new GpuIndexBufferVulkan(block->GetNextMemorySubblock(bufferSize), bufferSize, 0);
+
+	auto singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList()->As<CommandListVulkan>();
+	singleTimeCommandList->Reset();
+	singleTimeCommandList->Start();
+
+	singleTimeCommandList->CopyBuffer(stagingBuffer, output, bufferSize, 0, 0);
+
+	singleTimeCommandList->Close();
+
+	singleTimeCommandList->RegisterStagingBuffer(stagingBuffer);
+
+	Engine::GetRenderer()->SubmitSingleUseCommandList(singleTimeCommandList);
+
+	return output;
+}
+
+OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorVulkan::CreateUniformBuffer(TSize size) {
+	OSK_ASSERT(false, "No implementado.");
+
+	return nullptr;
 }
 
 OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorVulkan::CreateStagingBuffer(TSize size) {

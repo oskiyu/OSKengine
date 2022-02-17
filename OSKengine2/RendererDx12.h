@@ -22,12 +22,16 @@ namespace OSK {
 	public:
 
 		~RendererDx12();
+		RendererDx12();
 
 		void Initialize(const std::string& appName, const Version& version, const Window& window) override;
 		void Close() override;
 
 		void PresentFrame() override;
 		void SubmitSingleUseCommandList(ICommandList* commandList) override;
+
+		OwnedPtr<IGraphicsPipeline> CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) override;
+		OwnedPtr<IMaterialSlot> _CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const override;
 
 	protected:
 

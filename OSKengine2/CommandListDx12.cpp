@@ -18,6 +18,8 @@
 #include "GraphicsPipelineDx12.h"
 #include "GpuVertexBufferDx12.h"
 #include "Viewport.h"
+#include "GpuIndexBufferDx12.h"
+#include "MaterialSlotDx12.h"
 
 using namespace OSK;
 
@@ -130,7 +132,17 @@ void CommandListDx12::BindVertexBuffer(IGpuVertexBuffer* buffer) {
 }
 
 void CommandListDx12::BindIndexBuffer(IGpuIndexBuffer* buffer) {
-	OSK_ASSERT(false, "No implementado.");
+	commandList->IASetIndexBuffer(buffer->As<GpuIndexBufferDx12>()->GetView());
+}
+
+void CommandListDx12::BindMaterialSlot(const IMaterialSlot* slot) {
+	for (auto& i : slot->As<MaterialSlotDx12>()->GetUniformBuffers())
+		BindUniformBuffer(i.first, i.second);
+}
+
+void CommandListDx12::BindUniformBuffer(TSize index, GpuUniformBufferDx12* buffer) {
+	commandList->SetGraphicsRootConstantBufferView(index, 
+		buffer->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress());
 }
 
 void CommandListDx12::SetViewport(const Viewport& vp) {

@@ -1,0 +1,24 @@
+{
+    "file_type": "MATERIAL",
+    "spec_ver": 0,
+    "name": "XD",
+    "shader_file": "AA",
+    "layout":{
+        "slots":[
+            {
+                "name": "global",
+
+                "bindings":[
+                    {
+                        "name": "camera",
+                        "type": "UNIFORM"
+                    },
+                    {
+                        "name": "luces",
+                        "type": "UNIFORM"
+                    }
+                ]
+            }
+        ]
+    }
+}

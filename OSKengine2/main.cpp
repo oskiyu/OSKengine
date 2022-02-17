@@ -12,10 +12,10 @@
 using namespace OSK;
 
 int main() {
-	Engine::Create(RenderApiType::VULKAN);
+	Engine::Create(RenderApiType::DX12);
 
-	Engine::GetWindow()->Create(800, 600, "XD");
-	Engine::GetRenderer()->Initialize("XD", {}, *Engine::GetWindow());
+	Engine::GetWindow()->Create(800, 600, "OSKengine");
+	Engine::GetRenderer()->Initialize("OSKengine", {}, *Engine::GetWindow());
 
 	while (!Engine::GetWindow()->ShouldClose()) {
 		Engine::GetWindow()->Update();

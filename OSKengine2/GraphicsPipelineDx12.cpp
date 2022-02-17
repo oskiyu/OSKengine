@@ -6,6 +6,7 @@
 #include <d3dcompiler.h>
 #include "Assert.h"
 #include "PipelineCreateInfo.h"
+#include "PipelineLayoutDx12.h"
 
 using namespace OSK;
 
@@ -58,7 +59,9 @@ ComPtr<ID3DBlob> LoadBlob(LPCWSTR filename) {
 }
 
 
-void GraphicsPipelineDx12::Create(IGpu* device, const PipelineCreateInfo& info) {
+void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info) {
+	layout = new PipelineLayoutDx12(materialLayout);
+	
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC createInfo{};
 	createInfo.InputLayout = GetInputLayoutDescDx12_Vertex3D();
 
@@ -77,9 +80,7 @@ void GraphicsPipelineDx12::Create(IGpu* device, const PipelineCreateInfo& info) 
 	createInfo.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
 	createInfo.SampleDesc.Count = 1;
 
-	SetLayout(device);
-
-	createInfo.pRootSignature = layout.Get();
+	createInfo.pRootSignature = layout->As<PipelineLayoutDx12>()->GetSignature();
 
 	device->As<GpuDx12>()->GetDevice()->CreateGraphicsPipelineState(&createInfo, IID_PPV_ARGS(&pipeline));
 }
@@ -89,7 +90,7 @@ ID3D12PipelineState* GraphicsPipelineDx12::GetPipelineState() const {
 }
 
 ID3D12RootSignature* GraphicsPipelineDx12::GetLayout() const {
-	return layout.Get();
+	return layout->As<PipelineLayoutDx12>()->GetSignature();
 }
 
 void GraphicsPipelineDx12::LoadVertexShader(const std::string& path) {
@@ -148,17 +149,4 @@ D3D12_BLEND_DESC GraphicsPipelineDx12::GetBlendDesc(const PipelineCreateInfo& in
 		desc.RenderTarget[i] = DefaultRenderTargetBlendDesc;
 
 	return desc;
-}
-
-void GraphicsPipelineDx12::SetLayout(IGpu* device) {
-	D3D12_ROOT_SIGNATURE_DESC desc{};
-	desc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
-	desc.NumParameters = 0;
-	desc.NumStaticSamplers = 0;
-
-	ComPtr<ID3DBlob> signature;
-	ComPtr<ID3DBlob> error;
-
-	D3D12SerializeRootSignature(&desc, D3D_ROOT_SIGNATURE_VERSION_1_0, &signature, &error);
-	device->As<GpuDx12>()->GetDevice()->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&layout));
 }

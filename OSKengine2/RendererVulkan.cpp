@@ -24,6 +24,10 @@
 #include "IGpuVertexBuffer.h"
 #include "Vertex.h"
 #include "Viewport.h"
+#include "GpuIndexBufferVulkan.h"
+#include "RenderApiType.h"
+#include "MaterialSystem.h"
+#include "Material.h"
 
 #include <GLFW/glfw3.h>
 #include <set>
@@ -36,6 +40,7 @@ const DynamicArray<const char*> validationLayers = {
 
 GraphicsPipelineVulkan* pipeline = nullptr;
 IGpuVertexBuffer* vertexBuffer = nullptr;
+IGpuIndexBuffer* indexBuffer = nullptr;
 
 VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
 	//Message severity:
@@ -78,6 +83,10 @@ VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBits
 }
 
 
+RendererVulkan::RendererVulkan() : IRenderer(RenderApiType::VULKAN) {
+
+}
+
 RendererVulkan::~RendererVulkan() {
 	Close();
 }
@@ -98,15 +107,10 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	CreateGpuMemoryAllocator();
 	CreateMainRenderpass();
 
-	PipelineCreateInfo info{};
-	info.vertexPath = "./Resources/Shaders/VK/vert.spv";
-	info.fragmentPath = "./Resources/Shaders/VK/frag.spv";
-	info.polygonMode = PolygonMode::FILL;
-	info.cullMode = PolygonCullMode::NONE;
-	info.frontFaceType = PolygonFrontFaceType::CLOCKWISE;
-
-	pipeline = new GraphicsPipelineVulkan(renderpass->As<RenderpassVulkan>());
-	pipeline->Create(currentGpu.GetPointer(), info);
+	Material* mat = GetMaterialSystem()->LoadMaterial("Resources/material.json");
+	
+	mat->RegisterRenderpass(renderpass.GetPointer());
+	pipeline = mat->GetGraphicsPipeline(renderpass.GetPointer())->As<GraphicsPipelineVulkan>();
 
 	DynamicArray<Vertex3D> vertices = {
 		{ {-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f} },
@@ -114,7 +118,20 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 		{ {0.0f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f} }
 	};
 
+	DynamicArray<TIndexSize> indices = {
+		0, 1, 2
+	};
+
 	vertexBuffer = gpuMemoryAllocator->CreateVertexBuffer(vertices).GetPointer();
+	indexBuffer = gpuMemoryAllocator->CreateIndexBuffer(indices).GetPointer();
+}
+
+OwnedPtr<IGraphicsPipeline> RendererVulkan::CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
+	GraphicsPipelineVulkan* pipeline = new GraphicsPipelineVulkan(renderpass->As<RenderpassVulkan>());
+
+	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo);
+
+	return pipeline;
 }
 
 void RendererVulkan::Close() {
@@ -144,6 +161,8 @@ void RendererVulkan::SubmitSingleUseCommandList(ICommandList* commandList) {
 
 	vkFreeCommandBuffers(currentGpu->As<GpuVulkan>()->GetLogicalDevice(), 
 		commandPool->As<CommandPoolVulkan>()->GetCommandPool(), 1, &commandList->As<CommandListVulkan>()->GetCommandBuffers()->At(0));
+
+	singleTimeCommandLists.Insert(commandList);
 }
 
 void RendererVulkan::CreateInstance(const std::string& appName, const Version& version) {
@@ -327,6 +346,12 @@ bool RendererVulkan::AreValidationLayersAvailable() const {
 	return false;
 }
 
+OwnedPtr<IMaterialSlot> RendererVulkan::_CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const {
+	OSK_ASSERT(false, "No implementado.");
+
+	return nullptr;
+}
+
 void RendererVulkan::CreateSyncDevice() {
 	syncDevice = currentGpu->As<GpuVulkan>()->CreateSyncDevice().GetPointer();
 
@@ -359,6 +384,9 @@ void RendererVulkan::PresentFrame() {
 	commandList->EndRenderpass(renderpass.GetPointer());
 	commandList->Close();
 
+	for (TSize i = 0; i < singleTimeCommandLists.GetSize(); i++)
+		singleTimeCommandLists.At(i)->DeleteAllStagingBuffers();
+
 	syncDevice->As<SyncDeviceVulkan>()->FirstAwait();
 	auto result = syncDevice->As<SyncDeviceVulkan>()->UpdateCurrentFrameIndex();
 	if (result)
@@ -385,8 +413,9 @@ void RendererVulkan::PresentFrame() {
 
 	commandList->BindPipeline(pipeline);
 	commandList->BindVertexBuffer(vertexBuffer);
+	commandList->BindIndexBuffer(indexBuffer);
 
 	const auto natives = commandList->As<CommandListVulkan>()->GetCommandBuffers();
 	for (TSize i = 0; i < natives->GetSize(); i++)
-		vkCmdDraw(natives->At(i), 3, 1, 0, 0);
+		vkCmdDrawIndexed(natives->At(i), 3, 1, 0, 0, 0);
 }

@@ -24,3 +24,11 @@ IGpuMemorySubblock::TSize IGpuMemorySubblock::GetOffsetFromBlock() const {
 IGpuMemoryBlock* IGpuMemorySubblock::GetOwnerBlock() const {
 	return ownerBlock;
 }
+
+void IGpuMemorySubblock::SetCursor(TSize position) {
+	cursor = position;
+}
+
+void IGpuMemorySubblock::ResetCursor() {
+	cursor = 0;
+}
