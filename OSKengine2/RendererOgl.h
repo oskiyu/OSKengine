@@ -20,7 +20,7 @@ namespace OSK {
 		void PresentFrame() override;
 		void SubmitSingleUseCommandList(ICommandList* commandList) override;
 
-		virtual OwnedPtr<IGraphicsPipeline> CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) override;
+		virtual OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) override;
 		OwnedPtr<IMaterialSlot> _CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const override;
 
 	protected:

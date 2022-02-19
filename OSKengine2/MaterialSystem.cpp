@@ -27,6 +27,11 @@ ShaderStage GetShaderStage(const std::string& type) {
 	return ShaderStage::FRAGMENT;
 }
 
+MaterialSystem::~MaterialSystem() {
+	for (TSize i = 0; i < materials.GetSize(); i++)
+		delete materials[i].GetPointer();
+}
+
 Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	MaterialLayout* layout = new MaterialLayout;
 

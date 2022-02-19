@@ -2,6 +2,7 @@
 
 #include "ICommandPool.h"
 #include "IGpu.h"
+#include "ISwapchain.h"
 #include "MaterialSystem.h"
 
 using namespace OSK;
@@ -32,4 +33,8 @@ MaterialSystem* IRenderer::GetMaterialSystem() const {
 
 RenderApiType IRenderer::GetRenderApi() const {
 	return renderApiType;
+}
+
+TSize IRenderer::GetSwapchainImagesCount() const {
+	return swapchain->GetImageCount();
 }

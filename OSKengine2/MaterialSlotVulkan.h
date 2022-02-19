@@ -1,15 +1,16 @@
 #pragma once
 
 #include "IMaterialSlot.h"
+#include "UniquePtr.hpp"
 #include "DynamicArray.hpp"
+#include "OwnedPtr.h"
 
-struct VkDescriptorSet_T;
-typedef VkDescriptorSet_T* VkDescriptorSet;
-
-struct VkDescriptorBufferInfo_T;
-typedef VkDescriptorBufferInfo_T* VkDescriptorBufferInfo;
+#include <vulkan/vulkan.h>
 
 namespace OSK {
+
+	class DescriptorPoolVulkan;
+	class DescriptorLayoutVulkan;
 
 	class OSKAPI_CALL MaterialSlotVulkan : public IMaterialSlot {
 
@@ -20,14 +21,17 @@ namespace OSK {
 		void SetUniformBuffer(const std::string& binding, const IGpuUniformBuffer* buffer) override;
 		void FlushUpdate() override;
 
-	private:
+		VkDescriptorSet GetDescriptorSet(TSize index) const;
 
-		void ClearGarabage();
+	private:
 
 		DynamicArray<VkDescriptorSet> descriptorSets;
 		DynamicArray<DynamicArray<VkWriteDescriptorSet>> bindings;
 
 		DynamicArray<OwnedPtr<VkDescriptorBufferInfo>> bufferInfos;
+
+		UniquePtr<DescriptorPoolVulkan> pool;
+		UniquePtr<DescriptorLayoutVulkan> descLayout;
 
 	};
 

@@ -9,6 +9,8 @@
 #include "GpuMemoryBlockVulkan.h"
 #include "GpuMemorySubblockVulkan.h"
 #include "MaterialLayout.h"
+#include "DescriptorLayoutVulkan.h"
+#include "DescriptorPoolVulkan.h"
 
 using namespace OSK;
 
@@ -19,15 +21,21 @@ inline VkDevice GetDevice() {
 MaterialSlotVulkan::MaterialSlotVulkan(const std::string& name, const MaterialLayout* layout)
 	: IMaterialSlot(layout, name) {
 
-	TSize swapchainCount = 3;// Engine::GetRenderer()->As
+	TSize swapchainCount = Engine::GetRenderer()->GetSwapchainImagesCount();
 
 	descriptorSets.Resize(swapchainCount);
+	bindings.Resize(3);
+
+	descLayout = new DescriptorLayoutVulkan(&layout->GetSlot(name));
+	pool = new DescriptorPoolVulkan(descLayout.GetValue(), swapchainCount);
 
 	VkDescriptorSetAllocateInfo allocInfo{};
 	allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-	allocInfo.descriptorPool = pool->vulkanDescriptorPool;
+	allocInfo.descriptorPool = pool->GetPool();
 	allocInfo.descriptorSetCount = static_cast<uint32_t>(swapchainCount);
-	allocInfo.pSetLayouts = layouts.data();
+
+	VkDescriptorSetLayout layouts[] = { descLayout->GetLayout(), descLayout->GetLayout(), descLayout->GetLayout() };
+	allocInfo.pSetLayouts = layouts;
 
 	VkResult result = vkAllocateDescriptorSets(GetDevice(), &allocInfo, descriptorSets.GetData());
 	OSK_ASSERT(result == VK_SUCCESS, "Error al crear descriptor sets.");
@@ -61,5 +69,9 @@ void MaterialSlotVulkan::SetUniformBuffer(const std::string& binding, const IGpu
 
 void MaterialSlotVulkan::FlushUpdate() {
 	for (TSize i = 0; i < bindings.GetSize(); i++)
-		vkUpdateDescriptorSets(GetDevice(), bindings.At(i).GetSize(), bindings.At(i).GetData(), 0, nullptr);
+		vkUpdateDescriptorSets(GetDevice(), (uint32_t)bindings[i].GetSize(), bindings[i].GetData(), 0, nullptr);
+}
+
+VkDescriptorSet MaterialSlotVulkan::GetDescriptorSet(TSize index) const {
+	return descriptorSets[index];
 }

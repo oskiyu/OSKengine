@@ -2,15 +2,14 @@
 
 #include "IPipelineLayout.h"
 #include "DynamicArray.hpp"
+#include "OwnedPtr.h"
 
 struct VkPipelineLayout_T;
 typedef VkPipelineLayout_T* VkPipelineLayout;
 
-struct VkDescriptorSetLayout_T;
-typedef VkDescriptorSetLayout_T* VkDescriptorSetLayout;
-
 namespace OSK {
 
+	class DescriptorLayoutVulkan;
 	class MaterialLayout;
 
 	class OSKAPI_CALL PipelineLayoutVulkan : public IPipelineLayout {
@@ -24,7 +23,6 @@ namespace OSK {
 
 	private:
 
-		DynamicArray<VkDescriptorSetLayout> descLayouts;
 		VkPipelineLayout layout = 0;
 
 	};

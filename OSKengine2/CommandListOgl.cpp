@@ -8,6 +8,7 @@
 #include "GpuVertexBufferOgl.h"
 #include "GpuIndexBufferOgl.h"
 #include "GraphicsPipelineOgl.h"
+#include "Material.h"
 
 #include <glad/glad.h>
 
@@ -42,8 +43,8 @@ void CommandListOgl::EndRenderpass(IRenderpass* renderpass) {
 	glBindFramebuffer(GL_FRAMEBUFFER, OGL_NULL_HANDLER);
 }
 
-void CommandListOgl::BindPipeline(IGraphicsPipeline* pipeline) {
-	glUseProgram(pipeline->As<GraphicsPipelineOgl>()->GetPipelineHandler());
+void CommandListOgl::BindMaterial(const Material* material) {
+	glUseProgram(material->GetGraphicsPipeline(currentRenderpass)->As<GraphicsPipelineOgl>()->GetPipelineHandler());
 }
 
 void CommandListOgl::BindVertexBuffer(IGpuVertexBuffer* buffer) {

@@ -12,12 +12,13 @@ namespace OSK {
 	enum class GpuImageLayout;
 	class IRenderpass;
 	class Color;
-	class IGraphicsPipeline;
+	class Material;
 	class IGpuVertexBuffer;
 	class IGpuIndexBuffer;
 	struct Viewport;
 	class GpuDataBuffer;
 	class IMaterialSlot;
+	class IGraphicsPipeline;
 
 	/// <summary>
 	/// Una lista de comandos contiene una serie de comandos que serán
@@ -90,7 +91,7 @@ namespace OSK {
 		/// <summary>
 		/// Establece el pipeline que se va a usar a la hora de renderizar los próximos comandos.
 		/// </summary>
-		virtual void BindPipeline(IGraphicsPipeline* pipeline) = 0;
+		virtual void BindMaterial(const Material* material) = 0;
 
 		/// <summary>
 		/// Establece el vertex buffer que se va a usar en los próximos renderizados.
@@ -103,7 +104,9 @@ namespace OSK {
 		virtual void BindIndexBuffer(IGpuIndexBuffer* buffer) = 0;
 
 		/// <summary>
-		/// Establece el descriptor que estará en el slot 'index'.
+		/// Establece un material slot que estará asignado en los próximos comandos de renderizado.
+		/// Pueden haber varios slots asignados en un mismo instante,
+		/// siempre que no tengan el mismo id.
 		/// </summary>
 		virtual void BindMaterialSlot(const IMaterialSlot* slot) = 0;
 
@@ -121,10 +124,37 @@ namespace OSK {
 		virtual void SetScissor(const Vector4ui& scissor) = 0;
 
 
-
+		/// <summary>
+		/// Registra un buffer intermedio.
+		/// Como la operación de copia de datos de un buffer intermedio a un buffer final
+		/// no se realiza hasta que se ejecute la lista de comandos, no podemos
+		/// eliminar el buffer intermedio hasta la próxima ejecución de la
+		/// lista de comandos.
+		/// </summary>
 		void RegisterStagingBuffer(OwnedPtr<GpuDataBuffer> stagingBuffer);
 
+		/// <summary>
+		/// Elimina todos los buffers intermedios que ya no son necesarios.
+		/// </summary>
 		void DeleteAllStagingBuffers();
+
+	protected:
+
+		/// <summary>
+		/// Pipeline que está siendo grabada en un instante determinado.
+		/// </summary>
+		const IGraphicsPipeline* currentPipeline = nullptr;
+
+		/// <summary>
+		/// Material que está siendo usado en un instante determinado.
+		/// </summary>
+		const Material* currentMaterial = nullptr;
+
+		/// <summary>
+		/// Renderepass que está siendo grabado en un instante determinado.
+		/// </summary>
+		const IRenderpass* currentRenderpass = nullptr;
+
 
 	private:
 

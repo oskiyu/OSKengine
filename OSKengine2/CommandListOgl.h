@@ -17,7 +17,7 @@ namespace OSK {
 		void BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) override;
 		void EndRenderpass(IRenderpass* renderpass) override;
 
-		void BindPipeline(IGraphicsPipeline* pipeline) override;
+		void BindMaterial(const Material* material) override;
 		void BindVertexBuffer(IGpuVertexBuffer* buffer) override;
 		void BindIndexBuffer(IGpuIndexBuffer* buffer) override;
 		void BindMaterialSlot(const IMaterialSlot* slot) override;

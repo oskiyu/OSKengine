@@ -73,7 +73,7 @@ OwnedPtr<IMaterialSlot> RendererOgl::_CreateMaterialSlot(const std::string& name
 	return nullptr;
 }
 
-OwnedPtr<IGraphicsPipeline> RendererOgl::CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
+OwnedPtr<IGraphicsPipeline> RendererOgl::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
 	GraphicsPipelineOgl* pipeline = new GraphicsPipelineOgl();
 
 	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo);
@@ -131,7 +131,7 @@ void RendererOgl::PresentFrame() {
 	commandList->SetViewport(viewport);
 	commandList->SetScissor(windowRec);
 
-	commandList->BindPipeline(pipeline);
+	//commandList->BindPipeline(pipeline);
 	commandList->BindVertexBuffer(vertexBuffer);
 	commandList->BindIndexBuffer(indexBuffer);
 

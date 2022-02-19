@@ -38,7 +38,7 @@ const IGraphicsPipeline* Material::GetGraphicsPipeline(const IRenderpass* render
 
 void Material::RegisterRenderpass(const IRenderpass* renderpass) {
 	graphicsPipelines.Insert(renderpass,
-		Engine::GetRenderer()->CreateGraphicsPipeline(pipelineInfo, layout.GetPointer(), renderpass));
+		Engine::GetRenderer()->_CreateGraphicsPipeline(pipelineInfo, layout.GetPointer(), renderpass));
 }
 
 void Material::UnregisterRenderpass(const IRenderpass* renderpass) {

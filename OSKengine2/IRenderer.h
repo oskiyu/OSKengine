@@ -84,12 +84,36 @@ namespace OSK {
 			return (T*)this;
 		}
 
-		virtual OwnedPtr<IGraphicsPipeline> CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) = 0;
+		/// <summary>
+		/// Crea un graphics pipeline.
+		/// </summary>
+		/// <param name="pipelineInfo">Configuración del pipeline.</param>
+		/// <param name="layout">Layout del material del pipeline.</param>
+		/// <param name="renderpass">Renderpass al que estará enlazado el pipeline.</param>
+		virtual OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) = 0;
 
+		/// <summary>
+		/// Devuelve el sistema de materiales.
+		/// Necesario mara manejar materiales y crear instancias de materiales.
+		/// </summary>
 		MaterialSystem* GetMaterialSystem() const;
+
+		/// <summary>
+		/// Crea un slot del layout del material dado.
+		/// </summary>
 		virtual OwnedPtr<IMaterialSlot> _CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const = 0;
 
+		/// <summary>
+		/// Devuelve el API de renderizado de bajo nivel del renderizador actual.
+		/// (DX12/VULKAN/OPENGL).
+		/// </summary>
 		RenderApiType GetRenderApi() const;
+
+		/// <summary>
+		/// Devuelve el número de imágenes del swapchain.
+		/// Para recursos que necesiten tener una copia por imagen del swapchain.
+		/// </summary>
+		TSize GetSwapchainImagesCount() const;
 
 	protected:
 

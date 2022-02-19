@@ -44,6 +44,8 @@
     <ClCompile Include="CommandPoolVulkan.cpp" />
     <ClCompile Include="CommandQueueDx12.cpp" />
     <ClCompile Include="CommandQueueVulkan.cpp" />
+    <ClCompile Include="DescriptorLayoutVulkan.cpp" />
+    <ClCompile Include="DescriptorPoolVulkan.cpp" />
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="Format.cpp" />
     <ClCompile Include="glad.c" />
@@ -109,6 +111,7 @@
     <ClCompile Include="RenderpassDx12.cpp" />
     <ClCompile Include="RenderpassOgl.cpp" />
     <ClCompile Include="RenderpassVulkan.cpp" />
+    <ClCompile Include="ShaderBindingTypeVulkan.cpp" />
     <ClCompile Include="SwapchainDx12.cpp" />
     <ClCompile Include="SwapchainVulkan.cpp" />
     <ClCompile Include="SyncDeviceDx12.cpp" />
@@ -129,6 +132,8 @@
     <ClInclude Include="CommandPoolVulkan.h" />
     <ClInclude Include="CommandQueueDx12.h" />
     <ClInclude Include="CommandQueueVulkan.h" />
+    <ClInclude Include="DescriptorLayoutVulkan.h" />
+    <ClInclude Include="DescriptorPoolVulkan.h" />
     <ClInclude Include="DynamicArray.hpp" />
     <ClInclude Include="EnumFlags.hpp" />
     <ClInclude Include="FileIO.h" />
@@ -215,6 +220,7 @@
     <ClInclude Include="RenderpassType.h" />
     <ClInclude Include="RenderpassVulkan.h" />
     <ClInclude Include="ShaderBindingType.h" />
+    <ClInclude Include="ShaderBindingTypeVulkan.h" />
     <ClInclude Include="SharedPtr.hpp" />
     <ClInclude Include="SwapchainDx12.h" />
     <ClInclude Include="SwapchainVulkan.h" />

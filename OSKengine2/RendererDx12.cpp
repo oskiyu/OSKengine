@@ -113,7 +113,7 @@ void RendererDx12::Close() {
 	
 }
 
-OwnedPtr<IGraphicsPipeline> RendererDx12::CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
+OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
 	GraphicsPipelineDx12* pipeline = new GraphicsPipelineDx12();
 
 	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo);
@@ -253,7 +253,7 @@ void RendererDx12::PresentFrame() {
 
 	commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());
 
-	commandList->BindPipeline(pipeline);
+	commandList->BindMaterial(materialInstance->GetMaterial());
 
 	Vector4ui windowRec = {
 		0,

@@ -35,6 +35,8 @@ namespace OSK {
 		/// </summary>
 		virtual void FlushUpdate() = 0;
 
+		std::string GetName() const;
+
 	protected:
 
 		IMaterialSlot(const MaterialLayout* layout, const std::string& name);

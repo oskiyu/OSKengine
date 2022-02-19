@@ -14,6 +14,12 @@
 #include "GraphicsPipelineVulkan.h"
 #include "GpuVertexBufferVulkan.h"
 #include "GpuIndexBufferVulkan.h"
+#include "MaterialSlotVulkan.h"
+#include "GraphicsPipelineVulkan.h"
+#include "PipelineLayoutVulkan.h"
+#include "Material.h"
+#include "MaterialLayout.h"
+#include "MaterialLayoutSlot.h"
 
 using namespace OSK;
 
@@ -175,6 +181,8 @@ void CommandListVulkan::BeginAndClearRenderpass(IRenderpass* renderpass, const C
 
 		vkCmdBeginRenderPass(commandBuffers.At(cmdIndex), &renderpassInfo, VK_SUBPASS_CONTENTS_INLINE);
 	}
+
+	currentRenderpass = renderpass;
 }
 
 void CommandListVulkan::EndRenderpass(IRenderpass* renderpass) {
@@ -189,10 +197,12 @@ void CommandListVulkan::EndRenderpass(IRenderpass* renderpass) {
 		TransitionImageLayout(renderpass->GetImage(i), GpuImageLayout::UNDEFINED, finalLayout);
 }
 
-void CommandListVulkan::BindPipeline(IGraphicsPipeline* pipeline) {
+void CommandListVulkan::BindMaterial(const Material* material) {
+	currentMaterial = material;
+	currentPipeline = material->GetGraphicsPipeline(currentRenderpass);
+
 	for (TSize i = 0; i < commandBuffers.GetSize(); i++)
-		vkCmdBindPipeline(commandBuffers.At(i), VK_PIPELINE_BIND_POINT_GRAPHICS, 
-			pipeline->As<GraphicsPipelineVulkan>()->GetPipeline());
+		vkCmdBindPipeline(commandBuffers.At(i), VK_PIPELINE_BIND_POINT_GRAPHICS, currentPipeline->As<GraphicsPipelineVulkan>()->GetPipeline());
 }
 
 void CommandListVulkan::BindVertexBuffer(IGpuVertexBuffer* buffer) {
@@ -213,7 +223,12 @@ void CommandListVulkan::BindIndexBuffer(IGpuIndexBuffer* buffer) {
 }
 
 void CommandListVulkan::BindMaterialSlot(const IMaterialSlot* slot) {
-	OSK_ASSERT(false, "No implementado.");
+	for (TSize i = 0; i < commandBuffers.GetSize(); i++) {
+		VkDescriptorSet sets[] = { slot->As<MaterialSlotVulkan>()->GetDescriptorSet(i) };
+
+		vkCmdBindDescriptorSets(commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, currentPipeline->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout(),
+			currentMaterial->GetLayout()->GetSlot(slot->GetName()).glslSetIndex, 1, sets, 0, nullptr);
+	}
 }
 
 void CommandListVulkan::SetViewport(const Viewport& vp) {

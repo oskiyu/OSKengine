@@ -12,7 +12,7 @@
 using namespace OSK;
 
 int main() {
-	Engine::Create(RenderApiType::DX12);
+	Engine::Create(RenderApiType::VULKAN);
 
 	Engine::GetWindow()->Create(800, 600, "OSKengine");
 	Engine::GetRenderer()->Initialize("OSKengine", {}, *Engine::GetWindow());

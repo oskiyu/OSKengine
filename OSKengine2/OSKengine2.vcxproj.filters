@@ -253,6 +253,15 @@
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Material\Slot">
       <UniqueIdentifier>{6bcb0019-d1c1-441f-9a80-0cfa7ffc6c73}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Material\Slot\Desc">
+      <UniqueIdentifier>{6c06b96c-ebc7-475e-8434-9258ab904fc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Material\Slot\Desc">
+      <UniqueIdentifier>{cf8afb6f-b221-43a6-bcbb-cf8792cd23e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Shader">
+      <UniqueIdentifier>{f27b86fe-ff95-4a4a-bc98-b9c12dd4f73f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -500,6 +509,15 @@
     </ClCompile>
     <ClCompile Include="MaterialSlotVulkan.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Material\Slot</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderBindingTypeVulkan.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="DescriptorLayoutVulkan.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Material\Slot\Desc</Filter>
+    </ClCompile>
+    <ClCompile Include="DescriptorPoolVulkan.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Material\Slot\Desc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -838,6 +856,15 @@
     </ClInclude>
     <ClInclude Include="MaterialInstance.h">
       <Filter>Archivos de encabezado\RenderAPI\HighLevel\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="DescriptorLayoutVulkan.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Material\Slot\Desc</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderBindingTypeVulkan.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Layout\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="DescriptorPoolVulkan.h">
+      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Material\Slot\Desc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

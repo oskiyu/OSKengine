@@ -20,6 +20,7 @@
 #include "Viewport.h"
 #include "GpuIndexBufferDx12.h"
 #include "MaterialSlotDx12.h"
+#include "Material.h"
 
 using namespace OSK;
 
@@ -96,6 +97,8 @@ void CommandListDx12::BeginAndClearRenderpass(IRenderpass* renderpass, const Col
 	commandList->OMSetRenderTargets(1, &renderTargetDesc, FALSE, nullptr);
 
 	commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	currentRenderpass = renderpass;
 }
 
 void CommandListDx12::EndRenderpass(IRenderpass* renderpass) {
@@ -118,9 +121,12 @@ void CommandListDx12::ResourceBarrier(ID3D12Resource* resource, D3D12_RESOURCE_S
 	commandList->ResourceBarrier(1, &barrier);
 }
 
-void CommandListDx12::BindPipeline(IGraphicsPipeline* pipeline) {
-	commandList->SetGraphicsRootSignature(pipeline->As<GraphicsPipelineDx12>()->GetLayout());
-	commandList->SetPipelineState(pipeline->As<GraphicsPipelineDx12>()->GetPipelineState());
+void CommandListDx12::BindMaterial(const Material* material) {
+	currentMaterial = material;
+	currentPipeline = material->GetGraphicsPipeline(currentRenderpass);
+
+	commandList->SetGraphicsRootSignature(currentPipeline->As<GraphicsPipelineDx12>()->GetLayout());
+	commandList->SetPipelineState(currentPipeline->As<GraphicsPipelineDx12>()->GetPipelineState());
 }
 
 void CommandListDx12::BindVertexBuffer(IGpuVertexBuffer* buffer) {

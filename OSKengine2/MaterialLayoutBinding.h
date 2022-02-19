@@ -25,6 +25,10 @@ namespace OSK {
 		/// bindings con el mismo nombre en distintos slots.
 		/// </summary>
 		std::string name;
+
+		/// <summary>
+		/// Tipo de binding.
+		/// </summary>
 		ShaderBindingType type;
 
 		/// <summary>

@@ -16,6 +16,7 @@
 #include "RendererVulkan.h"
 #include "CommandListVulkan.h"
 #include "GpuIndexBufferVulkan.h"
+#include "GpuUniformBufferVulkan.h"
 
 using namespace OSK;
 
@@ -93,9 +94,9 @@ OwnedPtr<IGpuIndexBuffer> GpuMemoryAllocatorVulkan::CreateIndexBuffer(const Dyna
 }
 
 OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorVulkan::CreateUniformBuffer(TSize size) {
-	OSK_ASSERT(false, "No implementado.");
+	auto block = GetNextBufferMemoryBlock(size, GpuBufferUsage::UNIFORM_BUFFER, GpuSharedMemoryType::GPU_AND_CPU);
 
-	return nullptr;
+	return new GpuUniformBufferVulkan(block->GetNextMemorySubblock(size), size, 0);;
 }
 
 OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorVulkan::CreateStagingBuffer(TSize size) {

@@ -12,10 +12,20 @@ namespace OSK {
 
 	class Material;
 
+	/// <summary>
+	/// Clase que se encarga de cargar y manejar los materiales.
+	/// Un material define el comportamiento del renderizador con un objeto en concreto.
+	/// </summary>
 	class OSKAPI_CALL MaterialSystem {
 
 	public:
 
+		~MaterialSystem();
+
+		/// <summary>
+		/// Carga un material.
+		/// </summary>
+		/// <param name="path">Ruta al archivo del material (.json).</param>
 		Material* LoadMaterial(const std::string& path);
 
 	private:

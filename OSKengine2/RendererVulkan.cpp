@@ -28,9 +28,13 @@
 #include "RenderApiType.h"
 #include "MaterialSystem.h"
 #include "Material.h"
+#include "MaterialInstance.h"
+#include "MaterialSlotVulkan.h"
+#include "IGpuUniformBuffer.h"
 
 #include <GLFW/glfw3.h>
 #include <set>
+#include <ext/matrix_transform.hpp>
 
 using namespace OSK;
 
@@ -38,9 +42,13 @@ const DynamicArray<const char*> validationLayers = {
 	"VK_LAYER_KHRONOS_validation"
 };
 
-GraphicsPipelineVulkan* pipeline = nullptr;
+OwnedPtr<MaterialInstance> materialInstanceVk = nullptr;
 IGpuVertexBuffer* vertexBuffer = nullptr;
 IGpuIndexBuffer* indexBuffer = nullptr;
+
+glm::mat4 modelVk(1.0f);
+float angleVk = 0.0f;
+IGpuUniformBuffer* uniformBuffer = nullptr;
 
 VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
 	//Message severity:
@@ -107,10 +115,10 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	CreateGpuMemoryAllocator();
 	CreateMainRenderpass();
 
-	Material* mat = GetMaterialSystem()->LoadMaterial("Resources/material.json");
+	Material* mat = materialSystem->LoadMaterial("Resources/material.json");
+	materialInstanceVk = mat->CreateInstance();
 	
 	mat->RegisterRenderpass(renderpass.GetPointer());
-	pipeline = mat->GetGraphicsPipeline(renderpass.GetPointer())->As<GraphicsPipelineVulkan>();
 
 	DynamicArray<Vertex3D> vertices = {
 		{ {-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f} },
@@ -124,9 +132,14 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 
 	vertexBuffer = gpuMemoryAllocator->CreateVertexBuffer(vertices).GetPointer();
 	indexBuffer = gpuMemoryAllocator->CreateIndexBuffer(indices).GetPointer();
+	uniformBuffer = gpuMemoryAllocator->CreateUniformBuffer(sizeof(modelVk)).GetPointer();
+	uniformBuffer->MapMemory();
+
+	materialInstanceVk->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer);
+	materialInstanceVk->GetSlot("global")->FlushUpdate();
 }
 
-OwnedPtr<IGraphicsPipeline> RendererVulkan::CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
+OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
 	GraphicsPipelineVulkan* pipeline = new GraphicsPipelineVulkan(renderpass->As<RenderpassVulkan>());
 
 	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo);
@@ -347,9 +360,7 @@ bool RendererVulkan::AreValidationLayersAvailable() const {
 }
 
 OwnedPtr<IMaterialSlot> RendererVulkan::_CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const {
-	OSK_ASSERT(false, "No implementado.");
-
-	return nullptr;
+	return new MaterialSlotVulkan(name, layout);
 }
 
 void RendererVulkan::CreateSyncDevice() {
@@ -393,6 +404,14 @@ void RendererVulkan::PresentFrame() {
 		return;
 	syncDevice->As<SyncDeviceVulkan>()->Flush(*graphicsQueue->As<CommandQueueVulkan>() , *presentQueue->As<CommandQueueVulkan>(), *commandList->As<CommandListVulkan>());
 
+	//
+	modelVk = glm::rotate(modelVk, 0.1f, { 1, 0, 0 });
+	angleVk += 0.001f;
+
+	uniformBuffer->ResetCursor();
+	uniformBuffer->Write(&modelVk, sizeof(modelVk));
+	//
+
 	commandList->Reset();
 	commandList->Start();
 
@@ -411,9 +430,11 @@ void RendererVulkan::PresentFrame() {
 	commandList->SetViewport(viewport);
 	commandList->SetScissor(windowRec);
 
-	commandList->BindPipeline(pipeline);
+	commandList->BindMaterial(materialInstanceVk->GetMaterial());
 	commandList->BindVertexBuffer(vertexBuffer);
 	commandList->BindIndexBuffer(indexBuffer);
+
+	commandList->BindMaterialSlot(materialInstanceVk->GetSlot("global"));
 
 	const auto natives = commandList->As<CommandListVulkan>()->GetCommandBuffers();
 	for (TSize i = 0; i < natives->GetSize(); i++)

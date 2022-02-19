@@ -7,9 +7,17 @@ layout(location = 1) in vec4 inColor;
 layout(location = 0) out vec3 outPosition;
 layout(location = 1) out vec4 outColor;
 
+#ifdef OSK_VULKAN
+layout (set = 0, binding = 0) uniform Camera {
+    mat4 matrix;
+} camera;
+#else
+layout()
+#endif
+
 void main() {
     outPosition = inPosition;
     outColor = inColor;
 
-    gl_Position = vec4(inPosition, 1.0);
+    gl_Position = camera.matrix * vec4(inPosition, 1.0);
 }
