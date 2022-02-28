@@ -31,6 +31,8 @@
 #include "MaterialInstance.h"
 #include "MaterialSlotVulkan.h"
 #include "IGpuUniformBuffer.h"
+#include "AssetManager.h"
+#include "Texture.h"
 
 #include <GLFW/glfw3.h>
 #include <set>
@@ -137,6 +139,8 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 
 	materialInstanceVk->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer);
 	materialInstanceVk->GetSlot("global")->FlushUpdate();
+
+	Texture* texture = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/texture0.json", "GLOBAL");
 }
 
 OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
@@ -406,7 +410,7 @@ void RendererVulkan::PresentFrame() {
 
 	//
 	modelVk = glm::rotate(modelVk, 0.1f, { 1, 0, 0 });
-	angleVk += 0.001f;
+	angleVk += 0.00001f;
 
 	uniformBuffer->ResetCursor();
 	uniformBuffer->Write(&modelVk, sizeof(modelVk));

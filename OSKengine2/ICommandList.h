@@ -123,6 +123,16 @@ namespace OSK {
 		/// </summary>
 		virtual void SetScissor(const Vector4ui& scissor) = 0;
 
+		/// <summary>
+		/// Copia la imagen guardada en un buffer a una imagen en la GPU.
+		/// Para poder subir una imagen a la GPU, primero debemos subir la
+		/// imagen a un buffer intermedio, y después copiamos el contenido
+		/// de ese buffer intermedio a la imagen final de la GPU.
+		/// </summary>
+		/// <param name="source">Buffer con los contenidos de la textura.</param>
+		/// <param name="dest">Imagen final.</param>
+		virtual void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest) = 0;
+
 
 		/// <summary>
 		/// Registra un buffer intermedio.

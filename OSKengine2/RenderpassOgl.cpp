@@ -33,12 +33,12 @@ void RenderpassOgl::SetImage(GpuImage* image) {
 	images[1] = nullptr;
 
 	colorImgs[0] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
-		size.X, size.Y, image->GetFormat(),
-		GpuImageUsage::COLOR, GpuSharedMemoryType::GPU_ONLY).GetPointer();
+		size, image->GetFormat(),
+		GpuImageUsage::COLOR, GpuSharedMemoryType::GPU_ONLY, false).GetPointer();
 
 	depthImgs[0] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
-		size.X, size.Y, Format::D32S8_SFLOAT_SUINT,
-		GpuImageUsage::DEPTH_STENCIL, GpuSharedMemoryType::GPU_ONLY).GetPointer();
+		size, Format::D32S8_SFLOAT_SUINT,
+		GpuImageUsage::DEPTH_STENCIL, GpuSharedMemoryType::GPU_ONLY, false).GetPointer();
 
 	glGenFramebuffers(1, &framebuffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);

@@ -6,6 +6,7 @@
 namespace OSK {
 
 	class IGpuMemorySubblock;
+	class IGpuMemoryBlock;
 
 	/// <summary>
 	/// Representa un buffer genérico en la GPU.
@@ -30,6 +31,7 @@ namespace OSK {
 		TSize GetAlignment() const;
 
 		IGpuMemorySubblock* GetMemorySubblock() const;
+		IGpuMemoryBlock* GetMemoryBlock() const;
 
 	protected:
 

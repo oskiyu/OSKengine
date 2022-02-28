@@ -175,7 +175,7 @@ namespace OSK {
 		}
 
 		bool ContainsKey(const TKey& key) const {
-			return _FindKey(key).result;
+			return _FindKey(key).found;
 		}
 
 		Iterator Find(const TKey& key) const {

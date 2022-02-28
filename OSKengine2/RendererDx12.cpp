@@ -38,6 +38,8 @@
 #include "MaterialSystem.h"
 #include "MaterialInstance.h"
 #include "MaterialSlotDx12.h"
+#include "AssetManager.h"
+#include "Texture.h"
 
 #include <ext/matrix_transform.hpp>
 
@@ -107,6 +109,9 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	uniformBuffer->MapMemory();
 
 	materialInstance->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer);
+	materialInstance->GetSlot("global")->FlushUpdate();
+
+	Texture* texture = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/texture0.json", "GLOBAL");
 }
 
 void RendererDx12::Close() {

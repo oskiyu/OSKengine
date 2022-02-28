@@ -167,12 +167,12 @@ void RenderpassVulkan::SetImage(GpuImage* image) {
 	VkFramebuffer framebuffer = VK_NULL_HANDLE;
 
 	colorImgs[0] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
-		size.X, size.Y, image->GetFormat(), 
-		GpuImageUsage::COLOR, GpuSharedMemoryType::GPU_ONLY).GetPointer();
+		size, image->GetFormat(), 
+		GpuImageUsage::COLOR, GpuSharedMemoryType::GPU_ONLY, false).GetPointer();
 
 	depthImgs[0] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
-		size.X, size.Y, Format::D32S8_SFLOAT_SUINT,
-		GpuImageUsage::DEPTH_STENCIL, GpuSharedMemoryType::GPU_ONLY).GetPointer();
+		size, Format::D32S8_SFLOAT_SUINT,
+		GpuImageUsage::DEPTH_STENCIL, GpuSharedMemoryType::GPU_ONLY, false).GetPointer();
 
 	VkImageView views[] = {
 		colorImgs[0]->As<GpuImageVulkan>()->GetView(),
@@ -210,12 +210,12 @@ void RenderpassVulkan::SetImages(GpuImage* image0, GpuImage* image1, GpuImage* i
 
 	for (TSize i = 0; i < 3; i++) {
 		colorImgs[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
-			size.X, size.Y, image0->GetFormat(),
-			GpuImageUsage::COLOR, GpuSharedMemoryType::GPU_ONLY).GetPointer();
+			size, image0->GetFormat(),
+			GpuImageUsage::COLOR, GpuSharedMemoryType::GPU_ONLY, false).GetPointer();
 
 		depthImgs[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
-			size.X, size.Y, Format::D32S8_SFLOAT_SUINT,
-			GpuImageUsage::DEPTH_STENCIL, GpuSharedMemoryType::GPU_ONLY).GetPointer();
+			size, Format::D32S8_SFLOAT_SUINT,
+			GpuImageUsage::DEPTH_STENCIL, GpuSharedMemoryType::GPU_ONLY, false).GetPointer();
 	}
 
 	VkImageView finalViews[] = {

@@ -7,12 +7,15 @@
 #include "RendererVulkan.h"
 #include "RenderApiType.h"
 #include "Assert.h"
+#include "AssetManager.h"
+#include "TextureLoader.h"
 
 using namespace OSK;
 
 UniquePtr<Logger> Engine::logger;
 UniquePtr<Window> Engine::window;
 UniquePtr<IRenderer> Engine::renderer;
+UniquePtr<AssetManager> Engine::assetManager;
 
 void Engine::Create(RenderApiType type) {
 	logger = new Logger;
@@ -49,9 +52,13 @@ void Engine::Create(RenderApiType type) {
 
 		break;
 	}
+
+	assetManager = new AssetManager();
+	assetManager->RegisterLoader<TextureLoader>();
 }
 
 void Engine::Close() {
+	assetManager.Delete();
 	renderer.Delete();
 	window.Delete();
 	logger.Delete();
@@ -67,6 +74,10 @@ Window* Engine::GetWindow() {
 
 IRenderer* Engine::GetRenderer() {
 	return renderer.GetPointer();
+}
+
+AssetManager* Engine::GetAssetManager() {
+	return assetManager.GetPointer();
 }
 
 const Version& Engine::GetVersion() {

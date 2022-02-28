@@ -70,14 +70,14 @@ OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorOgl::CreateUniformBuffer(TSize siz
 	return nullptr;
 }
 
-OwnedPtr<GpuImage> GpuMemoryAllocatorOgl::CreateImage(unsigned int sizeX, unsigned int sizeY, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType) {
-	GpuImageOgl* image = new GpuImageOgl(sizeX, sizeY, format);
+OwnedPtr<GpuImage> GpuMemoryAllocatorOgl::CreateImage(const Vector2ui& size, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, bool singleSample) {
+	GpuImageOgl* image = new GpuImageOgl(size.X, size.Y, format);
 
 	OglImageHandler handler = 0;
 	glGenTextures(1, &handler);
 	glBindTexture(GL_TEXTURE_2D, handler);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GetFormatOgl(format), sizeX, sizeY, 0, GetFormatOgl(format), GL_UNSIGNED_BYTE, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GetFormatOgl(format), size.X, size.Y, 0, GetFormatOgl(format), GL_UNSIGNED_BYTE, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 

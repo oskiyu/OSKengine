@@ -6,6 +6,7 @@
 #include "HashMap.hpp"
 #include "DynamicArray.hpp"
 #include "Vertex.h"
+#include "Vector2.hpp"
 
 namespace OSK {
 
@@ -73,7 +74,7 @@ namespace OSK {
 		/// <summary>
 		/// Crea una nueva imagen en la GPU.
 		/// </summary>
-		virtual OwnedPtr<GpuImage> CreateImage(unsigned int sizeX, unsigned int sizeY, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType) = 0;
+		virtual OwnedPtr<GpuImage> CreateImage(const Vector2ui& size, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, bool singleSample) = 0;
 
 		/// <summary>
 		/// Crea un buffer de vértices con los vértices dados.

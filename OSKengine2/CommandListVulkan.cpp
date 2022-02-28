@@ -141,6 +141,30 @@ void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout pr
 	image->SetLayout(next);
 }
 
+void CommandListVulkan::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest) {
+	VkBufferImageCopy region{};
+
+	region.bufferOffset = source->GetMemorySubblock()->GetOffsetFromBlock();
+	region.bufferRowLength = 0;
+	region.bufferImageHeight = 0;
+
+	region.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+	region.imageSubresource.mipLevel = 0;
+	region.imageSubresource.baseArrayLayer = 0;
+	region.imageSubresource.layerCount = 1;
+
+	region.imageOffset = { 0, 0, 0 };
+	region.imageExtent = {
+		dest->GetSize().X,
+		dest->GetSize().Y,
+		1
+	};
+
+	vkCmdCopyBufferToImage(commandBuffers[0], 
+		source->GetMemoryBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer(), 
+		dest->As<GpuImageVulkan>()->GetImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
+}
+
 void CommandListVulkan::CopyBuffer(const GpuDataBuffer* source, GpuDataBuffer* dest, TSize size, TSize sourceOffset, TSize destOffset) {
 	VkBufferCopy copyRegion{};
 

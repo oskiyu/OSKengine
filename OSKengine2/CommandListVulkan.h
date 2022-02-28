@@ -49,6 +49,8 @@ namespace OSK {
 
 		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) override;
 
+		void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest) override;
+
 		/// <summary>
 		/// Copia los contenidos del primer buffer al segundo.
 		/// </summary>

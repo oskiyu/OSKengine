@@ -60,6 +60,10 @@ unsigned int OSK::GetFormatNumberOfBytes(Format format) {
 	return 0;
 }
 
+OSK::Format OSK::GetColorFormat(unsigned int numberOfChannels) {
+	return Format::RGBA8_UNORM;
+}
+
 unsigned int OSK::GetFormatOgl(Format format) {
 	switch (format) {
 	case Format::RGBA8_UNORM:

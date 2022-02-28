@@ -13,6 +13,10 @@ IGpuMemorySubblock* GpuDataBuffer::GetMemorySubblock() const {
 	return buffer.GetPointer();
 }
 
+IGpuMemoryBlock* GpuDataBuffer::GetMemoryBlock() const {
+	return GetMemorySubblock()->GetOwnerBlock();
+}
+
 GpuDataBuffer::~GpuDataBuffer() {
 	Free();
 }

@@ -22,4 +22,6 @@ namespace OSK {
 
 	unsigned int GetFormatNumberOfBytes(Format format);
 
+	Format GetColorFormat(unsigned int numChannels);
+
 }

@@ -262,6 +262,24 @@
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Shader">
       <UniqueIdentifier>{f27b86fe-ff95-4a4a-bc98-b9c12dd4f73f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Assets">
+      <UniqueIdentifier>{91f667a1-515e-420c-ae56-c90997c0975e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Assets">
+      <UniqueIdentifier>{8275e444-85fb-4b83-b17b-c9b05b93b15e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Assets\Builtin">
+      <UniqueIdentifier>{4a59a094-3e51-4acb-a9f4-25bb7cb33882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Assets\Builtin">
+      <UniqueIdentifier>{4e6eb584-9ffa-426e-9976-e01487227120}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Assets\Loaders">
+      <UniqueIdentifier>{ef4483fc-39a0-4217-8e6c-10d2b633c0e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Assets\Loaders">
+      <UniqueIdentifier>{e7c30582-cfac-45f0-9235-280ec8f8ddfc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -518,6 +536,21 @@
     </ClCompile>
     <ClCompile Include="DescriptorPoolVulkan.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Material\Slot\Desc</Filter>
+    </ClCompile>
+    <ClCompile Include="IAsset.cpp">
+      <Filter>Archivos de origen\OSKengine\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="IAssetLoader.cpp">
+      <Filter>Archivos de origen\OSKengine\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Archivos de origen\OSKengine\Assets\Builtin</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLoader.cpp">
+      <Filter>Archivos de origen\OSKengine\Assets\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetManager.cpp">
+      <Filter>Archivos de origen\OSKengine\Assets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -865,6 +898,21 @@
     </ClInclude>
     <ClInclude Include="DescriptorPoolVulkan.h">
       <Filter>Archivos de encabezado\RenderAPI\LowLevel\Material\Slot\Desc</Filter>
+    </ClInclude>
+    <ClInclude Include="IAsset.h">
+      <Filter>Archivos de encabezado\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="IAssetLoader.h">
+      <Filter>Archivos de encabezado\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetManager.h">
+      <Filter>Archivos de encabezado\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Archivos de encabezado\Assets\Builtin</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLoader.h">
+      <Filter>Archivos de encabezado\Assets\Loaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

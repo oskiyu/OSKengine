@@ -59,6 +59,10 @@ void CommandListOgl::BindMaterialSlot(const IMaterialSlot* slot) {
 	OSK_ASSERT(false, "No implementado.");
 }
 
+void CommandListOgl::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest) {
+	OSK_ASSERT(false, "No implementado.");
+}
+
 void CommandListOgl::SetViewport(const Viewport& vp) {
 	glViewport(
 		vp.rectangle.GetRectanglePosition().X,

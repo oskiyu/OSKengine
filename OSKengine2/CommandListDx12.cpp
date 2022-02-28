@@ -21,6 +21,8 @@
 #include "GpuIndexBufferDx12.h"
 #include "MaterialSlotDx12.h"
 #include "Material.h"
+#include "FormatDx12.h"
+#include "Format.h"
 
 using namespace OSK;
 
@@ -63,6 +65,24 @@ void CommandListDx12::TransitionImageLayout(GpuImage* image, GpuImageLayout prev
 	commandList->ResourceBarrier(1, &barrierInfo);
 
 	image->SetLayout(next);
+}
+
+void CommandListDx12::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest) {
+	D3D12_TEXTURE_COPY_LOCATION copyDest{};
+	copyDest.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX;
+	copyDest.SubresourceIndex = 0;
+	copyDest.pResource = dest->GetBuffer()->As<GpuMemorySubblockDx12>()->GetResource();
+
+	D3D12_TEXTURE_COPY_LOCATION copySource{};
+	copySource.Type = D3D12_TEXTURE_COPY_TYPE_PLACED_FOOTPRINT;
+	copySource.pResource = source->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource();
+	copySource.PlacedFootprint.Footprint.Depth = 1;
+	copySource.PlacedFootprint.Footprint.Format = GetFormatDx12(dest->GetFormat());
+	copySource.PlacedFootprint.Footprint.Width = dest->GetSize().X;
+	copySource.PlacedFootprint.Footprint.Height = dest->GetSize().Y;
+	copySource.PlacedFootprint.Footprint.RowPitch = dest->GetSize().X * GetFormatNumberOfBytes(dest->GetFormat());
+
+	commandList->CopyTextureRegion(&copyDest, 0, 0, 0, &copySource, nullptr);
 }
 
 void CommandListDx12::BeginRenderpass(IRenderpass* renderpass) {

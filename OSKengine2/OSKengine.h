@@ -11,6 +11,7 @@ namespace OSK {
 	class Logger;
 	class Window;
 	class IRenderer;
+	class AssetManager;
 	
 	enum class RenderApiType;
 
@@ -31,6 +32,7 @@ namespace OSK {
 		static Logger* GetLogger();
 		static Window* GetWindow();
 		static IRenderer* GetRenderer();
+		static AssetManager* GetAssetManager();
 
 		const static Version& GetVersion();
 		const static std::string& GetBuild();
@@ -40,6 +42,7 @@ namespace OSK {
 		static UniquePtr<Logger> logger;
 		static UniquePtr<Window> window;
 		static UniquePtr<IRenderer> renderer;
+		static UniquePtr<AssetManager> assetManager;
 
 	};
 
