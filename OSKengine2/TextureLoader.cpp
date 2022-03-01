@@ -50,6 +50,7 @@ void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	commandList->Start();
 	commandList->TransitionImageLayout(image.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION);
 	commandList->CopyBufferToImage(stagingBuffer.GetPointer(), image.GetPointer());
+	commandList->TransitionImageLayout(image.GetPointer(), GpuImageLayout::SHADER_READ_ONLY);
 	commandList->Close();
 	Engine::GetRenderer()->SubmitSingleUseCommandList(commandList.GetPointer());
 

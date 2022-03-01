@@ -28,7 +28,7 @@ D3D12_ROOT_PARAMETER_TYPE GetParamTypeDx12(ShaderBindingType type) {
 	switch (type) {
 	case OSK::ShaderBindingType::UNIFORM_BUFFER:
 		return D3D12_ROOT_PARAMETER_TYPE_CBV;
-	//case OSK::ShaderBindingType::TEXTURE:
+	case OSK::ShaderBindingType::TEXTURE:
 		//break;
 	default:
 		return D3D12_ROOT_PARAMETER_TYPE_CBV;

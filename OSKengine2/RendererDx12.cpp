@@ -94,9 +94,9 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	materialInstance = mat->CreateInstance();
 
 	DynamicArray<Vertex3D> vertices = {
-		{ {-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f} },
-		{ {0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f} },
-		{ {0.0f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f} }
+		{ {-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}, { 0.5f, 1.0f } },
+		{ {0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}, { 1.0f, 0.0f } },
+		{ {0.0f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, { 0.0f, 0.0f } }
 	};
 
 	DynamicArray<TIndexSize> indices = {
@@ -108,10 +108,11 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	uniformBuffer = gpuMemoryAllocator->CreateUniformBuffer(sizeof(model))->As<GpuUniformBufferDx12>();
 	uniformBuffer->MapMemory();
 
-	materialInstance->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer);
-	materialInstance->GetSlot("global")->FlushUpdate();
-
 	Texture* texture = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/texture0.json", "GLOBAL");
+
+	materialInstance->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer);
+	materialInstance->GetSlot("global")->SetTexture("texture", texture);
+	materialInstance->GetSlot("global")->FlushUpdate();
 }
 
 void RendererDx12::Close() {

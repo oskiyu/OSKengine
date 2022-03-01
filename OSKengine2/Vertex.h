@@ -12,7 +12,7 @@ namespace OSK {
 	struct Vertex3D {
 		Vector3f position;
 		Color color;
-		Vector4f texCoords;
+		Vector2f texCoords;
 	};
 
 }

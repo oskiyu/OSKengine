@@ -12,6 +12,11 @@
                     {
                         "name": "camera",
                         "type": "UNIFORM"
+                    },
+
+                    {
+                        "name": "texture",
+                        "type": "IMAGE"
                     }
                 ]
             }

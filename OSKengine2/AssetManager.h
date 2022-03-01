@@ -3,7 +3,7 @@
 #include "OSKmacros.h"
 #include "LinkedList.hpp"
 #include "HashMap.hpp"
-#include "OwnedPtr.h"
+#include "SharedPtr.hpp"
 #include "IAssetLoader.h"
 
 namespace OSK {
@@ -36,7 +36,6 @@ namespace OSK {
 			T* output = new T(assetFilePath);
 			loaders.Get(T::GetAssetType())->Load(assetFilePath, (IAsset**)&output);
 
-			assets.Insert(output);
 			assetsTable.Insert(output->GetName(), output);
 
 			if (!assetsPerLifetime.ContainsKey(lifetimePool))
@@ -62,9 +61,8 @@ namespace OSK {
 
 	private:
 
-		LinkedList<OwnedPtr<IAsset>> assets;
 		HashMap<std::string, IAsset*> assetsTable;
-		HashMap<std::string, DynamicArray<IAsset*>> assetsPerLifetime;
+		HashMap<std::string, DynamicArray<SharedPtr<IAsset>>> assetsPerLifetime;
 		HashMap<std::string, IAssetLoader*> loaders;
 
 	};

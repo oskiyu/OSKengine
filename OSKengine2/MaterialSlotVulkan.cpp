@@ -11,6 +11,7 @@
 #include "MaterialLayout.h"
 #include "DescriptorLayoutVulkan.h"
 #include "DescriptorPoolVulkan.h"
+#include "GpuImageVulkan.h"
 
 using namespace OSK;
 
@@ -64,6 +65,29 @@ void MaterialSlotVulkan::SetUniformBuffer(const std::string& binding, const IGpu
 
 		bindings.At(i).Insert(descriptorWrite);
 		bufferInfos.Insert(bufferInfo);
+	}
+}
+
+void MaterialSlotVulkan::SetGpuImage(const std::string& binding, const GpuImage* image) {
+	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
+		OwnedPtr<VkDescriptorImageInfo> imageInfo = new VkDescriptorImageInfo();
+		imageInfo->imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+		imageInfo->imageView = image->As<GpuImageVulkan>()->GetView();
+		imageInfo->sampler = image->As<GpuImageVulkan>()->GetSampler();
+
+		VkWriteDescriptorSet descriptorWrite{};
+		descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+		descriptorWrite.dstSet = descriptorSets[i];
+		descriptorWrite.dstBinding = layout->GetSlot(name).bindings.Get(binding).glslIndex;
+		descriptorWrite.dstArrayElement = 0;
+		descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+		descriptorWrite.descriptorCount = 1;
+		descriptorWrite.pBufferInfo = nullptr;
+		descriptorWrite.pImageInfo = imageInfo.GetPointer();
+		descriptorWrite.pTexelBufferView = nullptr;
+
+		bindings[i].Insert(descriptorWrite);
+		imageInfos.Insert(imageInfo);
 	}
 }
 

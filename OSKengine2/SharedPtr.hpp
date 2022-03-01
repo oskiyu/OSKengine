@@ -141,15 +141,6 @@ public:
 		return pointer != nullptr;
 	}
 
-	/// <summary>
-	/// Función que se ejecuta al eliminar a la última instancia del puntero compartido.
-	/// Por defecto, llama a delete.
-	/// </summary>
-	std::function<void()> Deleter = [this]() {
-		if (pointer)
-			delete pointer;
-	};
-
 private:
 
 	/// <summary>
@@ -196,7 +187,8 @@ private:
 	/// Elimina los punteros.
 	/// </summary>
 	void finalDelete() {
-		Deleter();
+		if (pointer)
+			delete pointer;
 
 		delete instanceCount;
 	}

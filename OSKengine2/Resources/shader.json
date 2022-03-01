@@ -28,6 +28,12 @@
 
                     "glsl_index": 0,
                     "hlsl_index": 0
+                },
+                {
+                    "name": "texture",
+
+                    "glsl_index": 1,
+                    "hlsl_index": 0
                 }
             ]
         }

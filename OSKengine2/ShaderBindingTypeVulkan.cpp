@@ -8,7 +8,7 @@ VkDescriptorType OSK::GetDescriptorTypeVk(ShaderBindingType type) {
 	case OSK::ShaderBindingType::UNIFORM_BUFFER:
 		return VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 	case OSK::ShaderBindingType::TEXTURE:
-		return VK_DESCRIPTOR_TYPE_SAMPLER;
+		return VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
 	default:
 		return VK_DESCRIPTOR_TYPE_MAX_ENUM;
 	}

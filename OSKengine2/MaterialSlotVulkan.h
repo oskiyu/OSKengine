@@ -19,6 +19,7 @@ namespace OSK {
 		MaterialSlotVulkan(const std::string& name, const MaterialLayout* layout);
 
 		void SetUniformBuffer(const std::string& binding, const IGpuUniformBuffer* buffer) override;
+		void SetGpuImage(const std::string& binding, const GpuImage* image) override;
 		void FlushUpdate() override;
 
 		VkDescriptorSet GetDescriptorSet(TSize index) const;
@@ -29,6 +30,7 @@ namespace OSK {
 		DynamicArray<DynamicArray<VkWriteDescriptorSet>> bindings;
 
 		DynamicArray<OwnedPtr<VkDescriptorBufferInfo>> bufferInfos;
+		DynamicArray<OwnedPtr<VkDescriptorImageInfo>> imageInfos;
 
 		UniquePtr<DescriptorPoolVulkan> pool;
 		UniquePtr<DescriptorLayoutVulkan> descLayout;

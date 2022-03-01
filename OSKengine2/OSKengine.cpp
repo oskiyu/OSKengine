@@ -10,6 +10,9 @@
 #include "AssetManager.h"
 #include "TextureLoader.h"
 
+#include <GLFW/glfw3.h>
+#undef GetCurrentTime;
+
 using namespace OSK;
 
 UniquePtr<Logger> Engine::logger;
@@ -78,6 +81,10 @@ IRenderer* Engine::GetRenderer() {
 
 AssetManager* Engine::GetAssetManager() {
 	return assetManager.GetPointer();
+}
+
+float Engine::GetCurrentTime() {
+	return glfwGetTime();
 }
 
 const Version& Engine::GetVersion() {

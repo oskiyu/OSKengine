@@ -24,7 +24,7 @@ OSK::DynamicArray<OSK::VertexAttribInfo> OSK::GetAttribInfoOgl_Vertex3D() {
 	output.Insert(info);
 
 	info.index = 2;
-	info.numberOfAttributes = 4;
+	info.numberOfAttributes = 2;
 	info.type = GL_FLOAT;
 	info.offset = offsetof(Vertex3D, texCoords);
 	info.stride = sizeof(Vertex3D);

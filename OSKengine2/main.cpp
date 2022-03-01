@@ -11,13 +11,19 @@
 
 using namespace OSK;
 
+TSize fps = 0;
+TSize frames = 0;
+float timeSinceLastFrameCount = 0.0f;
+
 int main() {
-	Engine::Create(RenderApiType::DX12);
+	Engine::Create(RenderApiType::VULKAN);
 
 	Engine::GetWindow()->Create(800, 600, "OSKengine");
 	Engine::GetRenderer()->Initialize("OSKengine", {}, *Engine::GetWindow());
 
 	while (!Engine::GetWindow()->ShouldClose()) {
+		float beginTime = Engine::GetCurrentTime();
+
 		Engine::GetWindow()->Update();
 
 		//TODO: Game::Update()
@@ -25,6 +31,17 @@ int main() {
 		//TODO: Game::Draw()
 
 		Engine::GetRenderer()->PresentFrame();
+
+		float endTime = Engine::GetCurrentTime();
+		float deltaTime = endTime - beginTime;
+
+		frames++;
+		timeSinceLastFrameCount += deltaTime;
+		if (timeSinceLastFrameCount >= 1.0f) {
+			fps = frames;
+			frames = 0;
+			timeSinceLastFrameCount = 0.0f;
+		}
 	}
 
 	Engine::Close();

@@ -29,6 +29,8 @@ namespace OSK {
 		static void Create(RenderApiType type);
 		static void Close();
 
+		static float GetCurrentTime();
+
 		static Logger* GetLogger();
 		static Window* GetWindow();
 		static IRenderer* GetRenderer();

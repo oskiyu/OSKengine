@@ -123,9 +123,9 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	mat->RegisterRenderpass(renderpass.GetPointer());
 
 	DynamicArray<Vertex3D> vertices = {
-		{ {-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f} },
-		{ {0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f} },
-		{ {0.0f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f} }
+		{ {-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}, { 0.5f, 1.0f } },
+		{ {0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}, { 1.0f, 0.0f } },
+		{ {0.0f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, { 0.0f, 0.0f } }
 	};
 
 	DynamicArray<TIndexSize> indices = {
@@ -137,10 +137,11 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	uniformBuffer = gpuMemoryAllocator->CreateUniformBuffer(sizeof(modelVk)).GetPointer();
 	uniformBuffer->MapMemory();
 
-	materialInstanceVk->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer);
-	materialInstanceVk->GetSlot("global")->FlushUpdate();
-
 	Texture* texture = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/texture0.json", "GLOBAL");
+
+	materialInstanceVk->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer);
+	materialInstanceVk->GetSlot("global")->SetTexture("texture", texture);
+	materialInstanceVk->GetSlot("global")->FlushUpdate();
 }
 
 OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
