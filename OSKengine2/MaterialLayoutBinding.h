@@ -43,6 +43,12 @@ namespace OSK {
 		/// </summary>
 		TSize hlslIndex;
 
+		/// <summary>
+		/// Índice del descriptor del shader .hlsl.
+		/// Interno.
+		/// </summary>
+		TSize hlslDescriptorIndex;
+
 	};
 
 }

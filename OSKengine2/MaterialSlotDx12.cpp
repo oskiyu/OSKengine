@@ -12,12 +12,12 @@ MaterialSlotDx12::MaterialSlotDx12(const std::string& name, const MaterialLayout
 }
 
 void MaterialSlotDx12::SetUniformBuffer(const std::string& binding, const IGpuUniformBuffer* buffer) {
-	TSize index = layout->GetSlot(name).bindings.Get(binding).hlslIndex;
+	TSize index = layout->GetSlot(name).bindings.Get(binding).hlslDescriptorIndex;
 	buffers.Insert(index, buffer->As<GpuUniformBufferDx12>());
 }
 
 void MaterialSlotDx12::SetGpuImage(const std::string& binding, const GpuImage* image) {
-	TSize index = layout->GetSlot(name).bindings.Get(binding).hlslIndex;
+	TSize index = layout->GetSlot(name).bindings.Get(binding).hlslDescriptorIndex;
 	images.Insert(index, image->As<GpuImageDx12>());
 }
 

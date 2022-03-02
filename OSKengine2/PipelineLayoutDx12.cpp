@@ -38,19 +38,61 @@ D3D12_ROOT_PARAMETER_TYPE GetParamTypeDx12(ShaderBindingType type) {
 
 PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 	: IPipelineLayout(layout) {
-	
+
+	// Owned.
+	DynamicArray<UniquePtr<D3D12_DESCRIPTOR_RANGE>> descriptorRanges;
+	// Owned.
+	DynamicArray<D3D12_STATIC_SAMPLER_DESC> staticSamplers;
+
 	DynamicArray<D3D12_ROOT_PARAMETER> nativeParams;
 	for (auto& setName : layout->GetAllSlotNames()) {
 		auto& set = layout->GetSlot(setName);
 
 		for (auto& binding : set.bindings) {
-			D3D12_ROOT_PARAMETER param{};
-			param.ShaderVisibility = GetShaderStageDx12(set.stage);
-			param.ParameterType = GetParamTypeDx12(binding.second.type);
-			param.Descriptor.RegisterSpace = 0;
-			param.Descriptor.ShaderRegister = binding.second.hlslIndex;
-			
-			nativeParams.Insert(param);
+			if (binding.second.type == ShaderBindingType::UNIFORM_BUFFER) {
+				D3D12_ROOT_PARAMETER param{};
+				param.ShaderVisibility = GetShaderStageDx12(set.stage);
+				param.ParameterType = GetParamTypeDx12(binding.second.type);
+				param.Descriptor.RegisterSpace = 0;
+				param.Descriptor.ShaderRegister = binding.second.hlslIndex;
+
+				nativeParams.Insert(param);
+			}
+			else if (binding.second.type == ShaderBindingType::TEXTURE) {
+				OwnedPtr<D3D12_DESCRIPTOR_RANGE> textureDescriptorRange = new D3D12_DESCRIPTOR_RANGE({});
+				textureDescriptorRange[0].BaseShaderRegister = 0;
+				textureDescriptorRange[0].NumDescriptors = 1;
+				textureDescriptorRange[0].OffsetInDescriptorsFromTableStart = 0;
+				textureDescriptorRange[0].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
+				textureDescriptorRange[0].RegisterSpace = 0;
+
+				D3D12_STATIC_SAMPLER_DESC sampler{};
+				sampler.RegisterSpace = 0;
+				sampler.ShaderRegister = binding.second.hlslIndex;
+				sampler.ShaderVisibility = GetShaderStageDx12(set.stage);
+
+				sampler.Filter = D3D12_FILTER_MIN_MAG_MIP_POINT;
+				sampler.AddressU = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
+				sampler.AddressV = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
+				sampler.AddressW = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
+				sampler.MipLODBias = 0;
+				sampler.MaxAnisotropy = 0;
+				sampler.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;
+				sampler.BorderColor = D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK;
+				sampler.MinLOD = 0.0f;
+				sampler.MaxLOD = D3D12_FLOAT32_MAX;
+
+				D3D12_ROOT_PARAMETER param{};
+				param.ShaderVisibility = GetShaderStageDx12(set.stage);
+				param.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+				param.DescriptorTable.NumDescriptorRanges = 1;
+				param.DescriptorTable.pDescriptorRanges = textureDescriptorRange.GetPointer();
+
+				descriptorRanges.Insert(textureDescriptorRange.GetPointer());
+				staticSamplers.Insert(sampler);
+
+				nativeParams.Insert(param);
+			}
 		}
 	}
 
@@ -58,8 +100,8 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 	description.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
 	description.NumParameters = nativeParams.GetSize();
 	description.pParameters = nativeParams.GetData();
-	description.NumStaticSamplers = 0;
-	description.pStaticSamplers = NULL;
+	description.NumStaticSamplers = staticSamplers.GetSize();
+	description.pStaticSamplers = staticSamplers.GetData();
 
 	ComPtr<ID3DBlob> error;
 	ComPtr<ID3DBlob> sign;

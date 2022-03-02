@@ -47,6 +47,7 @@ void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 
 	auto commandList = Engine::GetRenderer()->CreateSingleUseCommandList();
 	commandList->RegisterStagingBuffer(stagingBuffer);
+	commandList->Reset();
 	commandList->Start();
 	commandList->TransitionImageLayout(image.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION);
 	commandList->CopyBufferToImage(stagingBuffer.GetPointer(), image.GetPointer());

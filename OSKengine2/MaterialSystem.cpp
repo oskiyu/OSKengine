@@ -102,6 +102,17 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 		}
 	}
 
+	TSize hlslDescIndex = 0;
+	for (auto& setName : layout->GetAllSlotNames()) {
+		auto& set = layout->GetSlot(setName);
+
+		for (auto& binding : set.bindings) {
+			binding.second.hlslDescriptorIndex = hlslDescIndex;
+
+			hlslDescIndex++;
+		}
+	}
+
 	PipelineCreateInfo info{};
 	info.vertexPath = vertexPath;
 	info.fragmentPath = fragmentPath;

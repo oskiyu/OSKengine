@@ -16,7 +16,7 @@ TSize frames = 0;
 float timeSinceLastFrameCount = 0.0f;
 
 int main() {
-	Engine::Create(RenderApiType::VULKAN);
+	Engine::Create(RenderApiType::DX12);
 
 	Engine::GetWindow()->Create(800, 600, "OSKengine");
 	Engine::GetRenderer()->Initialize("OSKengine", {}, *Engine::GetWindow());
@@ -43,6 +43,8 @@ int main() {
 			timeSinceLastFrameCount = 0.0f;
 		}
 	}
+
+	Engine::GetLogger()->DebugLog("FPS: " + std::to_string(fps));
 
 	Engine::Close();
 

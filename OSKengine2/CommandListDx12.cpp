@@ -163,12 +163,22 @@ void CommandListDx12::BindIndexBuffer(IGpuIndexBuffer* buffer) {
 
 void CommandListDx12::BindMaterialSlot(const IMaterialSlot* slot) {
 	for (auto& i : slot->As<MaterialSlotDx12>()->GetUniformBuffers())
-		BindUniformBuffer(i.first, i.second);
+		BindUniformBufferDx12(i.first, i.second);
+
+	for (auto& i : slot->As<MaterialSlotDx12>()->GetGpuImages())
+		BindImageDx12(i.first, i.second);
 }
 
-void CommandListDx12::BindUniformBuffer(TSize index, GpuUniformBufferDx12* buffer) {
-	commandList->SetGraphicsRootConstantBufferView(index, 
+void CommandListDx12::BindUniformBufferDx12(TSize index, GpuUniformBufferDx12* buffer) {
+	commandList->SetGraphicsRootConstantBufferView(index,
 		buffer->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress());
+}
+
+void CommandListDx12::BindImageDx12(TSize index, GpuImageDx12* image) {
+	ID3D12DescriptorHeap* heaps[] = { image->GetDescriptorHeap()};
+
+	commandList->SetDescriptorHeaps(1, heaps);
+	commandList->SetGraphicsRootDescriptorTable(index, heaps[0]->GetGPUDescriptorHandleForHeapStart());
 }
 
 void CommandListDx12::SetViewport(const Viewport& vp) {

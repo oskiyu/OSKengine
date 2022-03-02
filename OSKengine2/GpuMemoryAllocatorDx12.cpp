@@ -13,6 +13,7 @@
 #include "CommandListDx12.h"
 #include "GpuIndexBufferDx12.h"
 #include "GpuUniformBufferDx12.h"
+#include "FormatDx12.h"
 
 using namespace OSK;
 
@@ -118,8 +119,27 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorDx12::CreateImage(const Vector2ui& size, Fo
 	auto block = GpuMemoryBlockDx12::CreateNewImageBlock(output, device, sharedType, usage);
 	//auto subblock = block->GetNextMemorySubblock(block->GetAllocatedSize());
 
-	output->SetBlock(block.GetPointer());	
+	output->SetBlock(block.GetPointer());
 	output->SetResource(output->GetBuffer()->As<GpuMemorySubblockDx12>()->GetResource());
+
+	if (EFTraits::HasFlag(usage, GpuImageUsage::SAMPLED)) {
+		ComPtr<ID3D12DescriptorHeap> textureDescriptorHeap;
+		D3D12_DESCRIPTOR_HEAP_DESC descriptorHeapDesc{};
+		descriptorHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+		descriptorHeapDesc.NumDescriptors = 1;
+		descriptorHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+		device->As<GpuDx12>()->GetDevice()->CreateDescriptorHeap(&descriptorHeapDesc, IID_PPV_ARGS(&textureDescriptorHeap));
+
+		D3D12_SHADER_RESOURCE_VIEW_DESC resourceViewDesc{};
+		resourceViewDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+		resourceViewDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+		resourceViewDesc.Format = GetFormatDx12(format);
+		resourceViewDesc.Texture2D.MipLevels = 1;
+		device->As<GpuDx12>()->GetDevice()->CreateShaderResourceView(output->GetBuffer()->As<GpuMemorySubblockDx12>()->GetResource(), &resourceViewDesc,
+			textureDescriptorHeap->GetCPUDescriptorHandleForHeapStart());
+
+		output->_SetDescriptorHeap(textureDescriptorHeap);
+	}
 
 	return output;
 }

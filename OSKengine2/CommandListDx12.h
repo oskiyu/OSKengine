@@ -12,6 +12,7 @@ using namespace Microsoft::WRL;
 namespace OSK {
 
 	class CommandPoolDx12;
+	class GpuImageDx12;
 
 	/// <summary>
 	/// Una lista de comandos contiene una serie de comandos que serán
@@ -48,7 +49,8 @@ namespace OSK {
 
 		void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest) override;
 
-		void BindUniformBuffer(TSize index, GpuUniformBufferDx12* buffer);
+		void BindUniformBufferDx12(TSize index, GpuUniformBufferDx12* buffer);
+		void BindImageDx12(TSize index, GpuImageDx12* image);
 
 		/// <summary>
 		/// En ocasiones será necesario cambiar el estado de un recurso para hacer
