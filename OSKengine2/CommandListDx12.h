@@ -48,6 +48,8 @@ namespace OSK {
 		void BindMaterialSlot(const IMaterialSlot* slot) override;
 		void PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) override;
 
+		void DrawSingleInstance(TSize numIndices) override;
+
 		void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest) override;
 
 		void BindUniformBufferDx12(TSize index, GpuUniformBufferDx12* buffer);

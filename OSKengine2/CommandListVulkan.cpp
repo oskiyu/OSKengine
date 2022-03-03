@@ -264,6 +264,11 @@ void CommandListVulkan::PushMaterialConstants(const std::string& pushConstName, 
 		vkCmdPushConstants(commandBuffers[i], pipelineLayout, GetShaderStageVk(pushConstInfo.stage), pushConstInfo.offset + offset, size, data);
 }
 
+void CommandListVulkan::DrawSingleInstance(TSize numIndices) {
+	for (TSize i = 0; i < commandBuffers.GetSize(); i++)
+		vkCmdDrawIndexed(commandBuffers[i], numIndices, 1, 0, 0, 0);
+}
+
 void CommandListVulkan::SetViewport(const Viewport& vp) {
 	VkViewport viewport{};
 

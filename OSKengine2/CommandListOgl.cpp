@@ -63,6 +63,10 @@ void CommandListOgl::PushMaterialConstants(const std::string& pushConstName, con
 	OSK_ASSERT(false, "No implementado.");
 }
 
+void CommandListOgl::DrawSingleInstance(TSize numIndices) {
+	OSK_ASSERT(false, "No implementado.");
+}
+
 void CommandListOgl::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest) {
 	OSK_ASSERT(false, "No implementado.");
 }

@@ -40,6 +40,8 @@
 #include "MaterialSlotDx12.h"
 #include "AssetManager.h"
 #include "Texture.h"
+#include "GpuImageDx12.h"
+#include "FormatDx12.h"
 
 #include <ext/matrix_transform.hpp>
 
@@ -123,6 +125,17 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 
 void RendererDx12::Close() {
 	
+}
+
+void RendererDx12::HandleResize() {
+	Format format = swapchain->GetImage(0)->GetFormat();
+
+	swapchain->As<SwapchainDx12>()->DeleteImages();
+
+	swapchain->As<SwapchainDx12>()->GetSwapchain()->ResizeBuffers(swapchain->GetImageCount(),
+		window->GetWindowSize().X, window->GetWindowSize().Y, GetFormatDx12(format), 0);
+
+	swapchain->As<SwapchainDx12>()->CreateImages(*window);
 }
 
 OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
@@ -283,13 +296,10 @@ void RendererDx12::PresentFrame() {
 	commandList->BindVertexBuffer(vertexBuffer);
 	commandList->BindIndexBuffer(indexBuffer);
 
-	auto native = commandList->As<CommandListDx12>()->GetCommandList();
-	native->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
 	commandList->BindMaterialSlot(materialInstance->GetSlot("global"));
 	commandList->PushMaterialConstants("model", model);
 
-	native->DrawIndexedInstanced(3, 1, 0, 0, 0);
+	commandList->DrawSingleInstance(3);
 
 	commandList->EndRenderpass(renderpass.GetPointer());
 

@@ -56,6 +56,12 @@ namespace OSK {
 		virtual void Close() = 0;
 
 		/// <summary>
+		/// Reconfigura el swapchain al haberse cambiado de tamaño
+		/// la ventana.
+		/// </summary>
+		virtual void HandleResize() = 0;
+
+		/// <summary>
 		/// Una vez se han grabado todos los comandos, se debe iniciar su
 		/// ejecución en la GPU para ser renderizados.
 		/// </summary>

@@ -8,6 +8,7 @@
 #include "OSKengine.h"
 #include "Logger.h"
 #include "Assert.h"
+#include "IRenderer.h"
 
 using namespace OSK;
 
@@ -182,6 +183,8 @@ void Window::ResizeCallback(int sizex, int sizey) {
 
 	if (renderApi == RenderApiType::OPENGL)
 		glViewport(0, 0, GetWindowSize().X, GetWindowSize().Y);
+
+	Engine::GetRenderer()->HandleResize();
 }
 void Window::GlfwMouseScrollCallback(GLFWwindow* window, double dX, double dY) {
 	GetWindowForCallback(window)->MouseScrollCallback(dX, dY);

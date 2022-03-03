@@ -85,6 +85,10 @@ void RendererOgl::Close() {
 	Engine::GetLogger()->InfoLog("Destruyendo el renderizador de OpenGL.");
 }
 
+void RendererOgl::HandleResize() {
+
+}
+
 void RendererOgl::CreateSwapchain() {
 
 }

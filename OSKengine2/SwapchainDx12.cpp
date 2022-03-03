@@ -15,13 +15,26 @@
 #include "IGpuImage.h"
 #include "GpuImageDx12.h"
 
+#include "OSKengine.h"
+#include "Logger.h"
+
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3.h>
 #include <GLFW/glfw3native.h>
 
 using namespace OSK;
 
+SwapchainDx12::~SwapchainDx12() {
+    if (swapchain.Get())
+        swapchain.Reset();
+
+    Engine::GetLogger()->InfoLog("Swapchain cerrado.");
+}
+
 void SwapchainDx12::Create(IGpu* device, Format format, const CommandQueueDx12& commandQueue, IDXGIFactory4* factory, const Window& window) {
+    this->format = format;
+    this->device = device;
+
     DXGI_SWAP_CHAIN_DESC1 swapchainDesc{};
 
     swapchainDesc.BufferCount = imageCount;
@@ -56,8 +69,17 @@ void SwapchainDx12::Create(IGpu* device, Format format, const CommandQueueDx12& 
 
     device->As<GpuDx12>()->GetDevice()->CreateDescriptorHeap(&imagesMemoryCreateInfo, IID_PPV_ARGS(&renderTargetsDesc));
 
-    for (unsigned int i = 0; i < imageCount; i++) {
-        images[i] = new GpuImageDx12(swapchainDesc.Width, swapchainDesc.Height, format);
+    CreateImages(window);
+}
+
+void SwapchainDx12::DeleteImages() {
+    for (TSize i = 0; i < imageCount; i++)
+        images[i].Release();
+}
+
+void SwapchainDx12::CreateImages(const Window& window) {
+    for (TSize i = 0; i < imageCount; i++) {
+        images[i] = new GpuImageDx12(window.GetWindowSize().X, window.GetWindowSize().Y, format);
 
         ComPtr<ID3D12Resource> rTarget;
         swapchain->GetBuffer(i, IID_PPV_ARGS(&rTarget));

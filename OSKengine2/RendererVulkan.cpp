@@ -168,6 +168,10 @@ void RendererVulkan::Close() {
 	vkDestroyInstance(instance, nullptr);
 }
 
+void RendererVulkan::HandleResize() {
+	// Se maneja automáticamente en el bucle principal del renderer.
+}
+
 void RendererVulkan::SubmitSingleUseCommandList(ICommandList* commandList) {
 	VkSubmitInfo submitInfo{};
 	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
@@ -442,7 +446,5 @@ void RendererVulkan::PresentFrame() {
 	commandList->BindMaterialSlot(materialInstanceVk->GetSlot("global"));
 	commandList->PushMaterialConstants("model", modelVk);
 
-	const auto natives = commandList->As<CommandListVulkan>()->GetCommandBuffers();
-	for (TSize i = 0; i < natives->GetSize(); i++)
-		vkCmdDrawIndexed(natives->At(i), 3, 1, 0, 0, 0);
+	commandList->DrawSingleInstance(3);
 }

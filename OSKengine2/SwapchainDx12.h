@@ -27,6 +27,8 @@ namespace OSK {
 
 	public:
 
+		~SwapchainDx12();
+
 		/// <summary>
 		/// Crea el swapchain.
 		/// Obtiene automáticamente el tamaño de las imágenes a partir del
@@ -35,6 +37,9 @@ namespace OSK {
 		/// <param name="commandQueue">Al cambiar de imagen, el swapchain
 		/// de DirectX 12 fuerza un flush de la cola de comandos.</param>
 		void Create(IGpu* device, Format format, const CommandQueueDx12& commandQueue, IDXGIFactory4* factory, const Window& window);
+		
+		void DeleteImages();
+		void CreateImages(const Window& window);
 
 		void Present() override;
 
@@ -42,6 +47,8 @@ namespace OSK {
 		ID3D12DescriptorHeap* GetRenderTargetMemory() const;
 
 	private:
+
+		Format format;
 
 		ComPtr<IDXGISwapChain3> swapchain;
 

@@ -192,6 +192,10 @@ void CommandListDx12::BindImageDx12(TSize index, GpuImageDx12* image) {
 	commandList->SetGraphicsRootDescriptorTable(index, heaps[0]->GetGPUDescriptorHandleForHeapStart());
 }
 
+void CommandListDx12::DrawSingleInstance(TSize numIndices) {
+	commandList->DrawIndexedInstanced(numIndices, 1, 0, 0, 0);
+}
+
 void CommandListDx12::SetViewport(const Viewport& vp) {
 	D3D12_VIEWPORT viewport{};
 

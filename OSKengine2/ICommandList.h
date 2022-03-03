@@ -139,6 +139,14 @@ namespace OSK {
 		
 
 		/// <summary>
+		/// Renderiza los triángulos del vertex e index buffer,
+		/// con el material enlazado.
+		/// </summary>
+		/// <param name="numIndices">Número de vértices/índices del vertex buffer.</param>
+		virtual void DrawSingleInstance(TSize numIndices) = 0;
+
+
+		/// <summary>
 		/// Establece el viewport a renderizar.
 		/// El viewport describe el área de la pantalla que se va a renderizar.
 		/// Además, establece la profundida mínima y máxima.
