@@ -9,7 +9,7 @@ namespace OSK {
 	/// <summary>
 	/// Un binding de un layout.
 	/// Un binding corresponde a una única unidad de información
-	/// que puede enlazarse al shader (uniform buffer, texturee, etc...).
+	/// que puede enlazarse al shader (uniform buffer, texture, etc...).
 	/// Varios bindings se pueden agrupar en un MaterialLayoutSlot.
 	/// Determina:
 	///		- El nombre del binding.

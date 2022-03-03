@@ -96,6 +96,17 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 		}
 	}
 
+	for (auto& pConst : layout->GetAllPushConstants()) {
+		D3D12_ROOT_PARAMETER param{};
+		param.ShaderVisibility = GetShaderStageDx12(pConst.second.stage);
+		param.ParameterType = D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS;
+		param.Constants.RegisterSpace = 0;
+		param.Constants.ShaderRegister = pConst.second.hlslIndex;
+		param.Constants.Num32BitValues = pConst.second.size / 4;
+
+		nativeParams.Insert(param);
+	}
+
 	D3D12_ROOT_SIGNATURE_DESC description{};
 	description.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
 	description.NumParameters = nativeParams.GetSize();

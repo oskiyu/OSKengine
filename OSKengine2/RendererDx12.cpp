@@ -67,7 +67,13 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 
 	this->window = &window;
 
-	if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debugConsole)))) {
+#ifdef OSK_RELEASE
+	bool useDebugConsole = false;
+#else
+	bool useDebugConsole = SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debugConsole)));
+#endif
+
+	if (useDebugConsole) {
 		debugConsole->EnableDebugLayer();
 		auto result = CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&factory));
 		OSK_CHECK(SUCCEEDED(result), "No se ha podido crear las capas de validación.");
@@ -249,8 +255,8 @@ void RendererDx12::PresentFrame() {
 	angle += 0.001f;
 
 	//uniformBuffer->MapMemory();
-	uniformBuffer->ResetCursor();
-	uniformBuffer->Write(&model, sizeof(model));
+	//uniformBuffer->ResetCursor();
+	//uniformBuffer->Write(&model, sizeof(model));
 	//uniformBuffer->Unmap();
 	//
 
@@ -281,6 +287,7 @@ void RendererDx12::PresentFrame() {
 	native->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	commandList->BindMaterialSlot(materialInstance->GetSlot("global"));
+	commandList->PushMaterialConstants("model", model);
 
 	native->DrawIndexedInstanced(3, 1, 0, 0, 0);
 

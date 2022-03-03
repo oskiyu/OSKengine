@@ -10,6 +10,7 @@
 #include "RendererVulkan.h"
 #include "GpuVulkan.h"
 #include "DescriptorLayoutVulkan.h"
+#include "ShaderBindingTypeVulkan.h"
 
 using namespace OSK;
 
@@ -20,6 +21,7 @@ PipelineLayoutVulkan::PipelineLayoutVulkan(const MaterialLayout* materialLayout)
 	DynamicArray<VkDescriptorSetLayoutBinding> params;
 	DynamicArray<OwnedPtr<DescriptorLayoutVulkan>> descLayouts;
 	DynamicArray<VkDescriptorSetLayout> nativeDescLayouts;
+	DynamicArray<VkPushConstantRange> pushConstantRanges;
 	VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
 
 	for (auto& slotName : materialLayout->GetAllSlotNames()) {
@@ -30,13 +32,23 @@ PipelineLayoutVulkan::PipelineLayoutVulkan(const MaterialLayout* materialLayout)
 		nativeDescLayouts.Insert(descLayout->GetLayout());
 	}
 
+	for (auto& i : materialLayout->GetAllPushConstants()) {
+		VkPushConstantRange range{};
+
+		range.stageFlags = GetShaderStageVk(i.second.stage);
+		range.offset = i.second.offset;
+		range.size = i.second.size;
+
+		pushConstantRanges.Insert(range);
+	}
+
 	// PIPELINE LAYOUT
 	VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
 	pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
 	pipelineLayoutInfo.setLayoutCount = nativeDescLayouts.GetSize();
 	pipelineLayoutInfo.pSetLayouts = nativeDescLayouts.GetData();
-	pipelineLayoutInfo.pushConstantRangeCount = 0;
-	pipelineLayoutInfo.pPushConstantRanges = nullptr;
+	pipelineLayoutInfo.pushConstantRangeCount = pushConstantRanges.GetSize();
+	pipelineLayoutInfo.pPushConstantRanges = pushConstantRanges.GetData();
 	
 	VkResult result = vkCreatePipelineLayout(device, &pipelineLayoutInfo, nullptr, &layout);
 	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear el pipeline layout.");

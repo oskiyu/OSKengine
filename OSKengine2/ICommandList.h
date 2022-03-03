@@ -5,6 +5,7 @@
 #include <type_traits>
 #include "DynamicArray.hpp"
 #include "OwnedPtr.h"
+#include <string>
 
 namespace OSK {
 
@@ -110,6 +111,32 @@ namespace OSK {
 		/// </summary>
 		virtual void BindMaterialSlot(const IMaterialSlot* slot) = 0;
 
+		/// <summary>
+		/// Envía datos push constant al shader.
+		/// </summary>
+		/// <param name="pushConstName">Nombre de los push const en el shader.</param>
+		/// <param name="data">Información a enviar.</param>
+		/// <param name="size">Número de bytes a enviar.</param>
+		void PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size);
+
+		/// <summary>
+		/// Envía datos push constant al shader.
+		/// </summary>
+		/// <param name="pushConstName">Nombre de los push const en el shader.</param>
+		/// <param name="data">Información a enviar.</param>
+		template <typename T> void PushMaterialConstants(const std::string& pushConstName, const T& data) {
+			PushMaterialConstants(pushConstName, &data, sizeof(T));
+		}
+
+		/// <summary>
+		/// Envía datos push constant al shader.
+		/// </summary>
+		/// <param name="pushConstName">Nombre de los push const en el shader.</param>
+		/// <param name="data">Información a enviar.</param>
+		/// <param name="size">Número de bytes a enviar.</param>
+		/// <param name="offset">Offset, dentro de este push constant, con el que se mandarán datos.</param>
+		virtual void PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) = 0;
+		
 
 		/// <summary>
 		/// Establece el viewport a renderizar.
@@ -164,7 +191,6 @@ namespace OSK {
 		/// Renderepass que está siendo grabado en un instante determinado.
 		/// </summary>
 		const IRenderpass* currentRenderpass = nullptr;
-
 
 	private:
 

@@ -59,6 +59,10 @@ void CommandListOgl::BindMaterialSlot(const IMaterialSlot* slot) {
 	OSK_ASSERT(false, "No implementado.");
 }
 
+void CommandListOgl::PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) {
+	OSK_ASSERT(false, "No implementado.");
+}
+
 void CommandListOgl::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest) {
 	OSK_ASSERT(false, "No implementado.");
 }

@@ -46,6 +46,7 @@ namespace OSK {
 		void BindVertexBuffer(IGpuVertexBuffer* buffer) override;
 		void BindIndexBuffer(IGpuIndexBuffer* buffer) override;
 		void BindMaterialSlot(const IMaterialSlot* slot) override;
+		void PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) override;
 
 		void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest) override;
 

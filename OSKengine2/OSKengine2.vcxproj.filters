@@ -914,6 +914,9 @@
     <ClInclude Include="TextureLoader.h">
       <Filter>Archivos de encabezado\Assets\Loaders</Filter>
     </ClInclude>
+    <ClInclude Include="MaterialLayoutPushConstant.h">
+      <Filter>Archivos de encabezado\RenderAPI\HighLevel\Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\OSKengine\OSKengine.rc">

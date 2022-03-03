@@ -4,6 +4,13 @@
     "name": "XD",
     "shader_file": "Resources/shader.json",
     "layout":{
+        "push_constants":[
+            {
+                "name": "model",
+                "size": 64
+            }
+        ],
+
         "slots":[
             {
                 "name": "global",

@@ -20,6 +20,7 @@
 #include "Material.h"
 #include "MaterialLayout.h"
 #include "MaterialLayoutSlot.h"
+#include "ShaderBindingTypeVulkan.h"
 
 using namespace OSK;
 
@@ -253,6 +254,14 @@ void CommandListVulkan::BindMaterialSlot(const IMaterialSlot* slot) {
 		vkCmdBindDescriptorSets(commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, currentPipeline->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout(),
 			currentMaterial->GetLayout()->GetSlot(slot->GetName()).glslSetIndex, 1, sets, 0, nullptr);
 	}
+}
+
+void CommandListVulkan::PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) {
+	VkPipelineLayout pipelineLayout = currentPipeline->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout();
+	auto& pushConstInfo = currentMaterial->GetLayout()->GetPushConstant(pushConstName);
+
+	for (TSize i = 0; i < commandBuffers.GetSize(); i++)
+		vkCmdPushConstants(commandBuffers[i], pipelineLayout, GetShaderStageVk(pushConstInfo.stage), pushConstInfo.offset + offset, size, data);
 }
 
 void CommandListVulkan::SetViewport(const Viewport& vp) {

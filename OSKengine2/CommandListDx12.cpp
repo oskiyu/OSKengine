@@ -23,6 +23,7 @@
 #include "Material.h"
 #include "FormatDx12.h"
 #include "Format.h"
+#include "MaterialLayout.h"
 
 using namespace OSK;
 
@@ -144,7 +145,7 @@ void CommandListDx12::ResourceBarrier(ID3D12Resource* resource, D3D12_RESOURCE_S
 void CommandListDx12::BindMaterial(const Material* material) {
 	currentMaterial = material;
 	currentPipeline = material->GetGraphicsPipeline(currentRenderpass);
-
+	
 	commandList->SetGraphicsRootSignature(currentPipeline->As<GraphicsPipelineDx12>()->GetLayout());
 	commandList->SetPipelineState(currentPipeline->As<GraphicsPipelineDx12>()->GetPipelineState());
 }
@@ -167,6 +168,16 @@ void CommandListDx12::BindMaterialSlot(const IMaterialSlot* slot) {
 
 	for (auto& i : slot->As<MaterialSlotDx12>()->GetGpuImages())
 		BindImageDx12(i.first, i.second);
+}
+
+void CommandListDx12::PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) {
+	auto& pushConst = currentMaterial->GetLayout()->GetPushConstant(pushConstName);
+
+	TSize nSize = size / 4;
+	if (size % 4)
+		nSize++;
+
+	commandList->SetGraphicsRoot32BitConstants(pushConst.hlslBindingIndex, nSize, data, pushConst.offset + offset);
 }
 
 void CommandListDx12::BindUniformBufferDx12(TSize index, GpuUniformBufferDx12* buffer) {

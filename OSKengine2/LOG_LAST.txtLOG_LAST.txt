@@ -13,6 +13,6 @@ INFO: Creada el pool de comandos.
 INFO: Creada la lista de comandos.
 INFO: Creado el swapchain.
 INFO: Creado el asignador de memoria de la GPU.
-DEBUG: FPS: 133
+DEBUG: FPS: 120
 INFO: Cerrado el log.
 

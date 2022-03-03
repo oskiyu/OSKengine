@@ -181,6 +181,7 @@
     <ClInclude Include="MaterialInstance.h" />
     <ClInclude Include="MaterialLayout.h" />
     <ClInclude Include="MaterialLayoutBinding.h" />
+    <ClInclude Include="MaterialLayoutPushConstant.h" />
     <ClInclude Include="MaterialLayoutSlot.h" />
     <ClInclude Include="MaterialSlotDx12.h" />
     <ClInclude Include="MaterialSlotVulkan.h" />

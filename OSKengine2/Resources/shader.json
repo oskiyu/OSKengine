@@ -12,6 +12,18 @@
         "fragment": "Resources/Shaders/DX12/fragment.shader"
     },
 
+    "push_constants":[
+        {
+            "name": "model",
+            "hlsl_index": 0,
+
+            "shader_stages":[
+                "VERTEX",
+                "FRAGMENT"
+            ]
+        }
+    ],
+
     "slots": [
         {
             "name": "global",
@@ -27,7 +39,7 @@
                     "name": "camera",
 
                     "glsl_index": 0,
-                    "hlsl_index": 0
+                    "hlsl_index": 1
                 },
                 {
                     "name": "texture",

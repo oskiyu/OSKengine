@@ -413,8 +413,8 @@ void RendererVulkan::PresentFrame() {
 	modelVk = glm::rotate(modelVk, 0.1f, { 1, 0, 0 });
 	angleVk += 0.00001f;
 
-	uniformBuffer->ResetCursor();
-	uniformBuffer->Write(&modelVk, sizeof(modelVk));
+	//uniformBuffer->ResetCursor();
+	//uniformBuffer->Write(&modelVk, sizeof(modelVk));
 	//
 
 	commandList->Reset();
@@ -440,6 +440,7 @@ void RendererVulkan::PresentFrame() {
 	commandList->BindIndexBuffer(indexBuffer);
 
 	commandList->BindMaterialSlot(materialInstanceVk->GetSlot("global"));
+	commandList->PushMaterialConstants("model", modelVk);
 
 	const auto natives = commandList->As<CommandListVulkan>()->GetCommandBuffers();
 	for (TSize i = 0; i < natives->GetSize(); i++)

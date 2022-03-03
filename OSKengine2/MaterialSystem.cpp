@@ -65,6 +65,15 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 
 			layout->AddSlot(slot);
 		}
+
+		for (auto& pushConstantInfo : materialInfo["layout"]["push_constants"]) {
+			MaterialLayoutPushConstant pushConst{};
+
+			pushConst.name = pushConstantInfo["name"];
+			pushConst.size = pushConstantInfo["size"];
+
+			layout->AddPushConstant(pushConst);
+		}
 	}
 
 	// Shader file.
@@ -100,6 +109,15 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 				slot.bindings.Get(bindingName).hlslIndex = bindingInfo["hlsl_index"];
 			}
 		}
+
+		for (auto& pushConstantInfo : shaderInfo["push_constants"]) {
+			auto& pushConst = layout->GetPushConstant(pushConstantInfo["name"]);
+
+			for (auto& stage : pushConstantInfo["shader_stages"])
+				EFTraits::AddFlag(&pushConst.stage, GetShaderStage(stage));
+
+			pushConst.hlslIndex = pushConstantInfo["hlsl_index"];
+		}
 	}
 
 	TSize hlslDescIndex = 0;
@@ -111,6 +129,11 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 
 			hlslDescIndex++;
 		}
+	}
+
+	for (auto& pushConstInfo : layout->GetAllPushConstants()) {
+		pushConstInfo.second.hlslBindingIndex = hlslDescIndex;
+		hlslDescIndex++;
 	}
 
 	PipelineCreateInfo info{};
