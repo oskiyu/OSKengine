@@ -11,6 +11,7 @@ namespace OSK {
 
 	struct Vertex3D {
 		Vector3f position;
+		float dx12discard = 1.0f;
 		Color color;
 		Vector2f texCoords;
 	};

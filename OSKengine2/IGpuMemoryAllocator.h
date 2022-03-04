@@ -51,7 +51,7 @@ namespace OSK {
 		using TSize = unsigned int;
 
 		IGpuMemoryAllocator(IGpu* device);
-		virtual ~IGpuMemoryAllocator() = default;
+		virtual ~IGpuMemoryAllocator();
 
 		/// <summary>
 		/// El tamaño de memoria que, por defecto, tendrá cada bloque de memoria.

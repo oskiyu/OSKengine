@@ -93,7 +93,7 @@ namespace OSK {
 		/// Establece si no se renderizarán los polígonos que estén de espaldas
 		/// a la cámara.
 		/// </summary>
-		PolygonCullMode cullMode;
+		PolygonCullMode cullMode = PolygonCullMode::FRONT;
 
 		/// <summary>
 		/// Establece cómo saber qué cara es la delantera del triángulo.

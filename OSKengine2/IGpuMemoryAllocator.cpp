@@ -22,6 +22,15 @@ IGpuMemoryAllocator::IGpuMemoryAllocator(IGpu* device) : device(device) {
 	bufferMemoryBlocks = {};
 }
 
+IGpuMemoryAllocator::~IGpuMemoryAllocator() {
+	for (auto& list : bufferMemoryBlocks)
+		for (auto& block : list.second)
+			delete block.GetPointer();
+
+	for (auto& i : imageMemoryBlocks)
+		delete i.GetPointer();
+}
+
 void IGpuMemoryAllocator::Free() {
 	for (auto& list : bufferMemoryBlocks) {
 		for (auto& i : list.second)

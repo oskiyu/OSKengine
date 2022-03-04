@@ -117,7 +117,6 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorDx12::CreateImage(const Vector2ui& size, Fo
 	auto output = new GpuImageDx12(size.X, size.Y, format);
 
 	auto block = GpuMemoryBlockDx12::CreateNewImageBlock(output, device, sharedType, usage);
-	//auto subblock = block->GetNextMemorySubblock(block->GetAllocatedSize());
 
 	output->SetBlock(block.GetPointer());
 	output->SetResource(output->GetBuffer()->As<GpuMemorySubblockDx12>()->GetResource());

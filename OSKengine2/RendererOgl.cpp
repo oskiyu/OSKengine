@@ -54,9 +54,9 @@ void RendererOgl::Initialize(const std::string& appName, const Version& version,
 	CreateMainRenderpass();
 
 	DynamicArray<Vertex3D> vertices = {
-		{ {-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f} },
-		{ {0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f} },
-		{ {0.0f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f} }
+		{ {-0.5f, -0.5f, 0.0f}, 1.0f, {1.0f, 0.0f, 0.0f, 1.0f} },
+		{ {0.5f, -0.5f, 0.0f}, 1.0f, {0.0f, 1.0f, 0.0f, 1.0f} },
+		{ {0.0f, 0.5f, 0.0f}, 1.0f, {0.0f, 0.0f, 1.0f, 1.0f} }
 	};
 
 	DynamicArray<TIndexSize> indices = {

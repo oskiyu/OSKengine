@@ -83,8 +83,8 @@ GpuMemoryBlockVulkan::GpuMemoryBlockVulkan(GpuImage* image, IGpu* device, GpuIma
 }
 
 void GpuMemoryBlockVulkan::Free() {
-	for (auto subblock : subblocks)
-		delete subblock;
+	while (!subblocks.IsEmpty())
+		delete subblocks.At(0);
 
 	subblocks.Free();
 

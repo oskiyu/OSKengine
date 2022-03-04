@@ -19,6 +19,8 @@ namespace OSK {
 
 	public:
 
+		virtual ~IGraphicsPipeline() = default;
+
 		/// <summary>
 		/// Crea el pipeline con la configuración dada.
 		/// </summary>

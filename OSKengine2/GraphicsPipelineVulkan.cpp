@@ -126,8 +126,6 @@ GraphicsPipelineVulkan::~GraphicsPipelineVulkan() {
 
 	vkDestroyPipeline(gpu->As<GpuVulkan>()->GetLogicalDevice(),
 		pipeline, nullptr);
-	//vkDestroyPipelineLayout(gpu->As<GpuVulkan>()->GetLogicalDevice(),
-		//layout, nullptr);
 }
 
 void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info) {

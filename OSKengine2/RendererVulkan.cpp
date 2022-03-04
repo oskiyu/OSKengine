@@ -31,8 +31,10 @@
 #include "MaterialInstance.h"
 #include "MaterialSlotVulkan.h"
 #include "IGpuUniformBuffer.h"
+
 #include "AssetManager.h"
 #include "Texture.h"
+#include "Model3D.h"
 
 #include <GLFW/glfw3.h>
 #include <set>
@@ -47,10 +49,14 @@ const DynamicArray<const char*> validationLayers = {
 OwnedPtr<MaterialInstance> materialInstanceVk = nullptr;
 IGpuVertexBuffer* vertexBuffer = nullptr;
 IGpuIndexBuffer* indexBuffer = nullptr;
+Model3D* model = nullptr;
 
 glm::mat4 modelVk(1.0f);
 float angleVk = 0.0f;
 IGpuUniformBuffer* uniformBuffer = nullptr;
+
+float lastTime = 0.0f;
+float currentTime = 0.0f;
 
 VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
 	//Message severity:
@@ -123,9 +129,9 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	mat->RegisterRenderpass(renderpass.GetPointer());
 
 	DynamicArray<Vertex3D> vertices = {
-		{ {-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}, { 0.5f, 1.0f } },
-		{ {0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}, { 1.0f, 0.0f } },
-		{ {0.0f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, { 0.0f, 0.0f } }
+		{ {-0.5f, -0.5f, 0.0f}, 1.0f, {1.0f, 0.0f, 0.0f, 1.0f}, { 0.5f, 1.0f } },
+		{ {0.5f, -0.5f, 0.0f}, 1.0f, {0.0f, 1.0f, 0.0f, 1.0f}, { 1.0f, 0.0f } },
+		{ {0.0f, 0.5f, 0.0f}, 1.0f, {0.0f, 0.0f, 1.0f, 1.0f}, { 0.0f, 0.0f } }
 	};
 
 	DynamicArray<TIndexSize> indices = {
@@ -142,6 +148,8 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	materialInstanceVk->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer);
 	materialInstanceVk->GetSlot("global")->SetTexture("texture", texture);
 	materialInstanceVk->GetSlot("global")->FlushUpdate();
+
+	model = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/model0.json", "GLOBAL");
 }
 
 OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
@@ -404,6 +412,8 @@ void RendererVulkan::PresentFrame() {
 	commandList->EndRenderpass(renderpass.GetPointer());
 	commandList->Close();
 
+	lastTime = currentTime;
+
 	for (TSize i = 0; i < singleTimeCommandLists.GetSize(); i++)
 		singleTimeCommandLists.At(i)->DeleteAllStagingBuffers();
 
@@ -413,9 +423,11 @@ void RendererVulkan::PresentFrame() {
 		return;
 	syncDevice->As<SyncDeviceVulkan>()->Flush(*graphicsQueue->As<CommandQueueVulkan>() , *presentQueue->As<CommandQueueVulkan>(), *commandList->As<CommandListVulkan>());
 
+	currentTime = Engine::GetCurrentTime();
+	float delta = currentTime - lastTime;
+
 	//
-	modelVk = glm::rotate(modelVk, 0.1f, { 1, 0, 0 });
-	angleVk += 0.00001f;
+	modelVk = glm::rotate(modelVk, delta, { 1, 0, 0 });
 
 	//uniformBuffer->ResetCursor();
 	//uniformBuffer->Write(&modelVk, sizeof(modelVk));
@@ -447,4 +459,8 @@ void RendererVulkan::PresentFrame() {
 	commandList->PushMaterialConstants("model", modelVk);
 
 	commandList->DrawSingleInstance(3);
+
+	commandList->BindVertexBuffer(model->GetVertexBuffer());
+	commandList->BindIndexBuffer(model->GetIndexBuffer());
+	commandList->DrawSingleInstance(model->GetIndexCount());
 }

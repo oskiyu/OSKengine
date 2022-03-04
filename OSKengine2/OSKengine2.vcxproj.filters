@@ -552,6 +552,12 @@
     <ClCompile Include="AssetManager.cpp">
       <Filter>Archivos de origen\OSKengine\Assets</Filter>
     </ClCompile>
+    <ClCompile Include="Model3D.cpp">
+      <Filter>Archivos de origen\OSKengine\Assets\Builtin</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelLoader3D.cpp">
+      <Filter>Archivos de origen\OSKengine\Assets\Loaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
@@ -916,6 +922,12 @@
     </ClInclude>
     <ClInclude Include="MaterialLayoutPushConstant.h">
       <Filter>Archivos de encabezado\RenderAPI\HighLevel\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Model3D.h">
+      <Filter>Archivos de encabezado\Assets\Builtin</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoader3D.h">
+      <Filter>Archivos de encabezado\Assets\Loaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

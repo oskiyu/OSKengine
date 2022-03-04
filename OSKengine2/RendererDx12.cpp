@@ -38,10 +38,12 @@
 #include "MaterialSystem.h"
 #include "MaterialInstance.h"
 #include "MaterialSlotDx12.h"
-#include "AssetManager.h"
-#include "Texture.h"
 #include "GpuImageDx12.h"
 #include "FormatDx12.h"
+
+#include "Texture.h"
+#include "Model3D.h"
+#include "AssetManager.h"
 
 #include <ext/matrix_transform.hpp>
 
@@ -52,6 +54,7 @@ GpuVertexBufferDx12* vertexBuffer = nullptr;
 GpuIndexBufferDx12* indexBuffer = nullptr;
 GpuUniformBufferDx12* uniformBuffer = nullptr;
 OwnedPtr<MaterialInstance> materialInstance = nullptr;
+Model3D* modelDx = nullptr;
 
 glm::mat4 model(1.0f);
 float angle = 0.0f;
@@ -102,9 +105,9 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	materialInstance = mat->CreateInstance();
 
 	DynamicArray<Vertex3D> vertices = {
-		{ {-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}, { 0.5f, 1.0f } },
-		{ {0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}, { 1.0f, 0.0f } },
-		{ {0.0f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, { 0.0f, 0.0f } }
+		{ {-0.5f, -0.5f, 0.0f}, 1.0f, { 1.0f, 0.0f, 0.0f, 1.0f}, { 0.5f, 1.0f } },
+		{ {0.5f, -0.5f, 0.0f}, 1.0f, { 0.0f, 1.0f, 0.0f, 1.0f}, { 1.0f, 0.0f } },
+		{ {0.0f, 0.5f, 0.0f}, 1.0f, { 0.0f, 0.0f, 1.0f, 1.0f}, { 0.0f, 0.0f } }
 	};
 
 	DynamicArray<TIndexSize> indices = {
@@ -121,6 +124,8 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	materialInstance->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer);
 	materialInstance->GetSlot("global")->SetTexture("texture", texture);
 	materialInstance->GetSlot("global")->FlushUpdate();
+
+	modelDx = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/model0.json", "GLOBAL");
 }
 
 void RendererDx12::Close() {
@@ -248,24 +253,31 @@ void RendererDx12::CreateMainRenderpass() {
 
 void RendererDx12::PresentFrame() {
 	if (isFirstRender) {
-		syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
-		syncDevice->As<SyncDeviceDx12>()->Await();
-
-		/*commandList->Reset();
+		commandList->Reset();
 		commandList->Start();
-		commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());*/
+		commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());
 
 		isFirstRender = false;
 
 		return;
 	}
+	
+	commandList->EndRenderpass(renderpass.GetPointer());
+	commandList->Close();
 
 	for (TSize i = 0; i < singleTimeCommandLists.GetSize(); i++)
 		singleTimeCommandLists.At(i)->DeleteAllStagingBuffers();
 
+	ID3D12CommandList* commandLists[] = { commandList->As<CommandListDx12>()->GetCommandList() };
+	graphicsQueue->As<CommandQueueDx12>()->GetCommandQueue()->ExecuteCommandLists(1, commandLists);
+
+	swapchain->Present();
+
+	syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
+	syncDevice->As<SyncDeviceDx12>()->Await();
+
 	//
-	model = glm::rotate(model, 0.1f, { 1, 0, 0 });
-	angle += 0.001f;
+	model = glm::rotate(model, 0.01f, { 1, 0, 0 });
 
 	//uniformBuffer->MapMemory();
 	//uniformBuffer->ResetCursor();
@@ -277,9 +289,6 @@ void RendererDx12::PresentFrame() {
 	commandList->Start();
 
 	commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());
-
-	commandList->BindMaterial(materialInstance->GetMaterial());
-
 	Vector4ui windowRec = {
 		0,
 		0,
@@ -296,23 +305,15 @@ void RendererDx12::PresentFrame() {
 	commandList->BindVertexBuffer(vertexBuffer);
 	commandList->BindIndexBuffer(indexBuffer);
 
+	commandList->BindMaterial(materialInstance->GetMaterial());
 	commandList->BindMaterialSlot(materialInstance->GetSlot("global"));
 	commandList->PushMaterialConstants("model", model);
 
 	commandList->DrawSingleInstance(3);
 
-	commandList->EndRenderpass(renderpass.GetPointer());
-
-	commandList->Close();
-
-	ID3D12CommandList* commandLists[] = { commandList->As<CommandListDx12>()->GetCommandList() };
-	graphicsQueue->As<CommandQueueDx12>()->GetCommandQueue()->ExecuteCommandLists(1, commandLists);
-
-	swapchain->Present();
-
-	syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
-	syncDevice->As<SyncDeviceDx12>()->Await();
-
+	commandList->BindVertexBuffer(modelDx->GetVertexBuffer());
+	commandList->BindIndexBuffer(modelDx->GetIndexBuffer());
+	commandList->DrawSingleInstance(modelDx->GetIndexCount());
 }
 
 void RendererDx12::SubmitSingleUseCommandList(ICommandList* commandList) {

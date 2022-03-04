@@ -9,6 +9,7 @@
 #include "Assert.h"
 #include "AssetManager.h"
 #include "TextureLoader.h"
+#include "ModelLoader3D.h"
 
 #include <GLFW/glfw3.h>
 #undef GetCurrentTime;
@@ -58,6 +59,7 @@ void Engine::Create(RenderApiType type) {
 
 	assetManager = new AssetManager();
 	assetManager->RegisterLoader<TextureLoader>();
+	assetManager->RegisterLoader<ModelLoader3D>();
 }
 
 void Engine::Close() {
