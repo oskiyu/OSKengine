@@ -5,6 +5,7 @@
 #include <string>
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 void GraphicsPipelineOgl::Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info) {
 	pipelineInfo = info;
@@ -13,7 +14,7 @@ void GraphicsPipelineOgl::Create(const MaterialLayout* layout, IGpu* device, con
 	char log[512];
 
 	OglShaderHandler vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	auto vertexCode = FileIO::ReadFromFile(info.vertexPath);
+	auto vertexCode = IO::FileIO::ReadFromFile(info.vertexPath);
 	const char* vertexData = vertexCode.c_str();
 	glShaderSource(vertexShader, 1, &vertexData, NULL);
 	glCompileShader(vertexShader);
@@ -25,7 +26,7 @@ void GraphicsPipelineOgl::Create(const MaterialLayout* layout, IGpu* device, con
 	}
 
 	OglShaderHandler fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	auto fragmentCode = FileIO::ReadFromFile(info.fragmentPath);
+	auto fragmentCode = IO::FileIO::ReadFromFile(info.fragmentPath);
 	const char* fragmentData = fragmentCode.c_str();
 	glShaderSource(fragmentShader, 1, &fragmentData, NULL);
 	glCompileShader(fragmentShader);

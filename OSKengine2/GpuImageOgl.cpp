@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 GpuImageOgl::GpuImageOgl(unsigned int sizeX, unsigned int sizeY, Format format)
 	: GpuImage(sizeX, sizeY, format) {

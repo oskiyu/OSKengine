@@ -8,6 +8,7 @@
 #include "GpuMemoryTypes.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 RenderpassDx12::RenderpassDx12(RenderpassType type)
 	: IRenderpass(type) {

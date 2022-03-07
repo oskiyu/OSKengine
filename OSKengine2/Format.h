@@ -1,6 +1,6 @@
 #pragma once
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Formatos que puede tener una textura / imagen.

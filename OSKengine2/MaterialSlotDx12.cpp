@@ -5,6 +5,7 @@
 #include "GpuImageDx12.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 MaterialSlotDx12::MaterialSlotDx12(const std::string& name, const MaterialLayout* layout)
 	: IMaterialSlot(layout, name) {

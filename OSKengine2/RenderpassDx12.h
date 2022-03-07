@@ -4,7 +4,7 @@
 
 #include <d3d12.h>
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class SwapchainDx12;
 

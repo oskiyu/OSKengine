@@ -4,7 +4,7 @@
 #include "ShaderBindingType.h"
 #include "OSKmacros.h"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Un binding de un layout.

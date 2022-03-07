@@ -17,6 +17,7 @@
 #include <json.hpp>
 
 using namespace OSK;
+using namespace OSK::ASSETS;
 
 constexpr auto ASSIMP_FLAGS = aiProcess_Triangulate | aiProcess_GenNormals;
 
@@ -24,7 +25,7 @@ glm::mat4 AiToGLM(const aiMatrix4x4& from) {
 	return glm::transpose(glm::make_mat4(&from.a1));
 }
 
-void ProcessMeshNode(const aiNode* node, const aiScene* scene, DynamicArray<Vertex3D>* vertices, DynamicArray<TIndexSize>* indices, const Vector3f& prevPosition, float globalScale) {
+void ProcessMeshNode(const aiNode* node, const aiScene* scene, DynamicArray<GRAPHICS::Vertex3D>* vertices, DynamicArray<GRAPHICS::TIndexSize>* indices, const Vector3f& prevPosition, float globalScale) {
 	aiVector3D aiposition;
 	aiQuaternion airotation;
 	aiVector3D aiscale;
@@ -38,7 +39,7 @@ void ProcessMeshNode(const aiNode* node, const aiScene* scene, DynamicArray<Vert
 		const aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 
 		for (TSize v = 0; v < mesh->mNumVertices; v++) {
-			Vertex3D vertex{};
+			GRAPHICS::Vertex3D vertex{};
 			Vector3f vec3 = glm::make_vec3(&mesh->mVertices[v].x) * globalScale;
 
 			vertex.position = vec3 + position.ToGLM();
@@ -81,11 +82,11 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 	Model3D* output = (Model3D*)*asset;
 
 	// a
-	nlohmann::json assetInfo = nlohmann::json::parse(FileIO::ReadFromFile(assetFilePath));
+	nlohmann::json assetInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(assetFilePath));
 	std::string texturePath = assetInfo["raw_asset_path"];
 	output->SetName(assetInfo["name"]);
 
-	OSK_ASSERT(FileIO::FileExists(assetInfo["raw_asset_path"]), "El modelo en no existe.");
+	OSK_ASSERT(IO::FileIO::FileExists(assetInfo["raw_asset_path"]), "El modelo en no existe.");
 
 	static Assimp::Importer assimpImporter;
 
@@ -94,8 +95,8 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 
 	scene = assimpImporter.ReadFile(assetInfo["raw_asset_path"], ASSIMP_FLAGS);
 
-	DynamicArray<Vertex3D> vertices;
-	DynamicArray<TIndexSize> indices;
+	DynamicArray<GRAPHICS::Vertex3D> vertices;
+	DynamicArray<GRAPHICS::TIndexSize> indices;
 
 	ProcessMeshNode(scene->mRootNode, scene, &vertices, &indices, { 0.0f }, assetInfo["scale"]);
 

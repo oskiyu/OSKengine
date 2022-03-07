@@ -2,7 +2,7 @@
 
 #include "IGpuMemoryAllocator.h"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class OSKAPI_CALL GpuMemoryAllocatorOgl : public IGpuMemoryAllocator {
 

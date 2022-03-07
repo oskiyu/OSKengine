@@ -7,7 +7,7 @@ using namespace Microsoft::WRL;
 
 #include <d3d12.h>
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class OSKAPI_CALL GpuMemorySubblockDx12 : public IGpuMemorySubblock {
 

@@ -2,7 +2,7 @@
 
 #include "OSKmacros.h"
 
-namespace OSK {
+namespace OSK::IO {
 
 	/// <summary>
 	/// Enum con todas las teclas del teclado disponibles.

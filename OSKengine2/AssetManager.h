@@ -6,7 +6,7 @@
 #include "SharedPtr.hpp"
 #include "IAssetLoader.h"
 
-namespace OSK {
+namespace OSK::ASSETS {
 
 	class IAsset;
 

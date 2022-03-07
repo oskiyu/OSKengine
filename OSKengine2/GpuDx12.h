@@ -10,7 +10,7 @@ using namespace Microsoft::WRL;
 #include "IGpu.h"
 #include "UniquePtr.hpp"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class OSKAPI_CALL GpuDx12 : public IGpu {
 

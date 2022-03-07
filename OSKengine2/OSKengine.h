@@ -8,12 +8,23 @@
 
 namespace OSK {
 
-	class Logger;
-	class Window;
-	class IRenderer;
-	class AssetManager;
+	namespace IO {
+		class Logger;
+		class Window;
+	}
+
+	namespace GRAPHICS {
+		class IRenderer;
+		enum class RenderApiType;
+	}
+
+	namespace ASSETS {
+		class AssetManager;
+	}
+	namespace ECS {
+		class EntityComponentSystem;
+	}
 	
-	enum class RenderApiType;
 
 	class OSKAPI_CALL Engine {
 
@@ -26,25 +37,27 @@ namespace OSK {
 		Engine& operator=(const Engine& e) = delete;
 		Engine& operator=(Engine&& e) = delete;
 
-		static void Create(RenderApiType type);
+		static void Create(GRAPHICS::RenderApiType type);
 		static void Close();
 
 		static float GetCurrentTime();
 
-		static Logger* GetLogger();
-		static Window* GetWindow();
-		static IRenderer* GetRenderer();
-		static AssetManager* GetAssetManager();
+		static IO::Logger* GetLogger();
+		static IO::Window* GetWindow();
+		static GRAPHICS::IRenderer* GetRenderer();
+		static ASSETS::AssetManager* GetAssetManager();
+		static ECS::EntityComponentSystem* GetEntityComponentSystem();
 
 		const static Version& GetVersion();
 		const static std::string& GetBuild();
 
 	private:
 
-		static UniquePtr<Logger> logger;
-		static UniquePtr<Window> window;
-		static UniquePtr<IRenderer> renderer;
-		static UniquePtr<AssetManager> assetManager;
+		static UniquePtr<IO::Logger> logger;
+		static UniquePtr<IO::Window> window;
+		static UniquePtr<GRAPHICS::IRenderer> renderer;
+		static UniquePtr<ASSETS::AssetManager> assetManager;
+		static UniquePtr<ECS::EntityComponentSystem> entityComponentSystem;
 
 	};
 

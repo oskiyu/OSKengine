@@ -8,6 +8,7 @@
 #include "GpuDx12.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 D3D12_SHADER_VISIBILITY GetShaderStageDx12(ShaderStage stage) {
 	if (OSK::EFTraits::HasFlag(stage, ShaderStage::VERTEX)
@@ -15,9 +16,9 @@ D3D12_SHADER_VISIBILITY GetShaderStageDx12(ShaderStage stage) {
 		return D3D12_SHADER_VISIBILITY_ALL;
 
 	switch (stage) {
-	case OSK::ShaderStage::VERTEX:
+	case ShaderStage::VERTEX:
 		return D3D12_SHADER_VISIBILITY_VERTEX;
-	case OSK::ShaderStage::FRAGMENT:
+	case ShaderStage::FRAGMENT:
 		return D3D12_SHADER_VISIBILITY_PIXEL;
 	default:
 		return D3D12_SHADER_VISIBILITY_ALL;
@@ -26,9 +27,9 @@ D3D12_SHADER_VISIBILITY GetShaderStageDx12(ShaderStage stage) {
 
 D3D12_ROOT_PARAMETER_TYPE GetParamTypeDx12(ShaderBindingType type) {
 	switch (type) {
-	case OSK::ShaderBindingType::UNIFORM_BUFFER:
+	case ShaderBindingType::UNIFORM_BUFFER:
 		return D3D12_ROOT_PARAMETER_TYPE_CBV;
-	case OSK::ShaderBindingType::TEXTURE:
+	case ShaderBindingType::TEXTURE:
 		//break;
 	default:
 		return D3D12_ROOT_PARAMETER_TYPE_CBV;

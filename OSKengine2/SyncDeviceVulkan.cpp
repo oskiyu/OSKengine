@@ -11,6 +11,7 @@
 #include "GpuVulkan.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 SyncDeviceVulkan::~SyncDeviceVulkan() {
 	for (auto i : imageAvailableSemaphores)

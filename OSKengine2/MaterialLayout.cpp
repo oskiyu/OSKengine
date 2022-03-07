@@ -1,6 +1,7 @@
 #include "MaterialLayout.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 void MaterialLayout::AddSlot(const MaterialLayoutSlot& slot) {
 	slots.Insert(slot.name, slot);

@@ -2,7 +2,7 @@
 
 #include "OSKmacros.h"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	enum class GpuSharedMemoryType;
 	enum class GpuBufferUsage;

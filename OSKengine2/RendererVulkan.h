@@ -10,7 +10,7 @@ typedef VkSurfaceKHR_T* VkSurfaceKHR;
 struct VkDebugUtilsMessengerEXT_T;
 typedef VkDebugUtilsMessengerEXT_T* VkDebugUtilsMessengerEXT;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class IRenderpass;
 
@@ -24,7 +24,7 @@ namespace OSK {
 		RendererVulkan();
 		~RendererVulkan();
 
-		void Initialize(const std::string& appName, const Version& version, const Window& window) override;
+		void Initialize(const std::string& appName, const Version& version, const IO::Window& window) override;
 		void Close() override;
 		void HandleResize() override;
 		void PresentFrame() override;
@@ -45,7 +45,7 @@ namespace OSK {
 
 		void CreateInstance(const std::string& appName, const Version& version);
 		void SetupDebugLogging();
-		void CreateSurface(const Window& window);
+		void CreateSurface(const IO::Window& window);
 		void ChooseGpu();
 
 		bool AreValidationLayersAvailable() const;

@@ -8,7 +8,7 @@
 
 using namespace Microsoft::WRL;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class OSKAPI_CALL GpuImageDx12 : public GpuImage {
 

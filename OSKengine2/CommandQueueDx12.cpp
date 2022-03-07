@@ -4,6 +4,7 @@
 #include <d3d12.h>
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 using namespace Microsoft::WRL;
 
 void CommandQueueDx12::SetCommandQueue(const ComPtr<ID3D12CommandQueue>& commandQueue) {

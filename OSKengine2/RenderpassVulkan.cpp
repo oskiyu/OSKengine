@@ -14,6 +14,7 @@
 #include "Format.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 VkFormat GetSupportedFormat(const DynamicArray<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features) {
 	for (VkFormat format : candidates) {

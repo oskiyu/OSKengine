@@ -5,7 +5,7 @@
 struct VkDescriptorSetLayout_T;
 using VkDescriptorSetLayout = VkDescriptorSetLayout_T*;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	struct MaterialLayoutSlot;
 

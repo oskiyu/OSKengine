@@ -5,6 +5,7 @@
 #include "IRenderer.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 MaterialInstance::MaterialInstance(const Material* material)
 	: ownerMaterial(material) {

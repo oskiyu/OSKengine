@@ -41,6 +41,7 @@
 #include <ext/matrix_transform.hpp>
 
 using namespace OSK;
+using namespace OSK::GRAPHICS; 
 
 const DynamicArray<const char*> validationLayers = {
 	"VK_LAYER_KHRONOS_validation"
@@ -49,7 +50,7 @@ const DynamicArray<const char*> validationLayers = {
 OwnedPtr<MaterialInstance> materialInstanceVk = nullptr;
 IGpuVertexBuffer* vertexBuffer = nullptr;
 IGpuIndexBuffer* indexBuffer = nullptr;
-Model3D* model = nullptr;
+ASSETS::Model3D* model = nullptr;
 
 glm::mat4 modelVk(1.0f);
 float angleVk = 0.0f;
@@ -70,26 +71,26 @@ VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBits
 	//	VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT: algo ha ocurrido, incumple la especificación.
 	//	VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT: algo ha ocurrido, uso no óptimo de vulkan.
 
-	LogLevel level = LogLevel::WARNING;
+	IO::LogLevel level = IO::LogLevel::WARNING;
 
 	switch (messageType) {
 	case VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT:
 	case VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT:
-		level = LogLevel::INFO;
+		level = IO::LogLevel::INFO;
 		return 0;
 		pCallbackData->pMessage;
 		break;
 
 	case VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT:
-		level = LogLevel::WARNING;
+		level = IO::LogLevel::WARNING;
 		break;
 
 	case VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT:
-		level = LogLevel::L_ERROR;
+		level = IO::LogLevel::L_ERROR;
 		break;
 
 	default:
-		level = LogLevel::WARNING;
+		level = IO::LogLevel::WARNING;
 		break;
 	}
 
@@ -107,7 +108,7 @@ RendererVulkan::~RendererVulkan() {
 	Close();
 }
 
-void RendererVulkan::Initialize(const std::string& appName, const Version& version, const Window& window) {
+void RendererVulkan::Initialize(const std::string& appName, const Version& version, const IO::Window& window) {
 	this->window = &window;
 	
 	CreateInstance(appName, version);
@@ -143,13 +144,13 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	uniformBuffer = gpuMemoryAllocator->CreateUniformBuffer(sizeof(modelVk)).GetPointer();
 	uniformBuffer->MapMemory();
 
-	Texture* texture = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/texture0.json", "GLOBAL");
+	ASSETS::Texture* texture = Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/texture0.json", "GLOBAL");
 
 	materialInstanceVk->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer);
 	materialInstanceVk->GetSlot("global")->SetTexture("texture", texture);
 	materialInstanceVk->GetSlot("global")->FlushUpdate();
 
-	model = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/model0.json", "GLOBAL");
+	model = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/model0.json", "GLOBAL");
 }
 
 OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
@@ -232,7 +233,7 @@ void RendererVulkan::CreateInstance(const std::string& appName, const Version& v
 		createInfo.ppEnabledLayerNames = validationLayers.GetData();
 	}
 	else {
-		Engine::GetLogger()->Log(LogLevel::WARNING, "No se ha encontrado soporte para las capas de validación.");
+		Engine::GetLogger()->Log(IO::LogLevel::WARNING, "No se ha encontrado soporte para las capas de validación.");
 	}
 #endif
 
@@ -277,7 +278,7 @@ void RendererVulkan::SetupDebugLogging() {
 #endif
 }
 
-void RendererVulkan::CreateSurface(const Window& window) {
+void RendererVulkan::CreateSurface(const IO::Window& window) {
 	auto result = glfwCreateWindowSurface(instance, window._GetGlfw(), nullptr, &surface);
 	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear la superficie. " + std::to_string(result));
 

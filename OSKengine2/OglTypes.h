@@ -2,7 +2,7 @@
 
 #include <glad/glad.h>
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	using TOglHandler = GLuint;
 

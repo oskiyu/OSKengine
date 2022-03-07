@@ -6,13 +6,13 @@
 #include "HashMap.hpp"
 #include "PipelineCreateInfo.h"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class MaterialLayout;
+	class MaterialInstance;
 	class IGraphicsPipeline;
 	struct PipelineCreateInfo;
 	class IRenderpass;
-	class MaterialInstance;
 
 	/// <summary>
 	/// Un material define el comportamiento del renderizador con un objeto en concreto.
@@ -28,7 +28,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="pipelineInfo">Información de las características del graphics pipeline.</param>
 		/// <param name="layout">Layout del material. Este material será el dueño del layout.</param>
-		Material(const PipelineCreateInfo& pipelineInfo, OwnedPtr<MaterialLayout> layout);
+		Material(const GRAPHICS::PipelineCreateInfo& pipelineInfo, OwnedPtr<MaterialLayout> layout);
 		~Material();
 
 		const MaterialLayout* GetLayout() const;
@@ -60,7 +60,7 @@ namespace OSK {
 		PipelineCreateInfo pipelineInfo{};
 
 		UniquePtr<MaterialLayout> layout;
-		HashMap<const IRenderpass*, OwnedPtr<IGraphicsPipeline>> graphicsPipelines;
+		HashMap<const GRAPHICS::IRenderpass*, OwnedPtr<GRAPHICS::IGraphicsPipeline>> graphicsPipelines;
 
 	};
 

@@ -5,7 +5,7 @@
 #include "LinkedList.hpp"
 #include "MaterialLayoutPushConstant.h"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// El layout de un material determina qué slots pertenecen a ese material.

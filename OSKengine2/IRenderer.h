@@ -8,9 +8,17 @@
 #include <string>
 
 namespace OSK {
-
-	class Window;
 	struct Version;
+	namespace IO {
+		class Window;
+	}
+}
+
+namespace OSK::GRAPHICS {
+
+	class MaterialSystem;
+	class MaterialLayout;
+	class IMaterialSlot;
 	class IGpu;
 	class ICommandPool;
 	class ICommandList;
@@ -20,10 +28,7 @@ namespace OSK {
 	class IGpuMemoryAllocator;
 	class IRenderpass;
 	struct PipelineCreateInfo;
-	class MaterialLayout;
 	class IGraphicsPipeline;
-	class MaterialSystem;
-	class IMaterialSlot;
 
 	enum class RenderApiType;
 
@@ -47,7 +52,7 @@ namespace OSK {
 		/// <param name="appName">Nombre de la aplicación / juego.</param>
 		/// <param name="version">Versión de la aplicación / juego.</param>
 		/// <param name="window">Ventana enlazada.</param>
-		virtual void Initialize(const std::string& appName, const Version& version, const Window& window) = 0;
+		virtual void Initialize(const std::string& appName, const Version& version, const IO::Window& window) = 0;
 
 		/// <summary>
 		/// Cierra el renderizador.
@@ -152,7 +157,7 @@ namespace OSK {
 
 		bool isFirstRender = true;
 
-		const Window* window = nullptr;
+		const IO::Window* window = nullptr;
 
 	private:
 

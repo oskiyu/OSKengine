@@ -3,12 +3,12 @@
 #include "OSKmacros.h"
 #include "UniquePtr.hpp"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
+	class MaterialLayout;
 	class IGpu;
 	struct PipelineCreateInfo;
 	class IPipelineLayout;
-	class MaterialLayout;
 
 	/// <summary>
 	/// El graphics pipeline es el encargado de transformar los modelos 3D en una imagen final.

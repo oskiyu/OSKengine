@@ -16,6 +16,7 @@
 #include "FormatDx12.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 GpuMemoryAllocatorDx12::GpuMemoryAllocatorDx12(IGpu* device)
 	: IGpuMemoryAllocator(device) { 

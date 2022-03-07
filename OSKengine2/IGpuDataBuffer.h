@@ -3,7 +3,7 @@
 #include "OSKmacros.h"
 #include "OwnedPtr.h"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class IGpuMemorySubblock;
 	class IGpuMemoryBlock;

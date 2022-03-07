@@ -11,7 +11,7 @@
 #include "RenderApiType.h"
 
 using namespace OSK;
-
+using namespace OSK::GRAPHICS;
 
 ShaderBindingType GetShaderBindingType(const std::string& type) {
 	if (type == "UNIFORM")
@@ -42,7 +42,7 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 
 	// Material file.
 	{
-		nlohmann::json materialInfo = nlohmann::json::parse(FileIO::ReadFromFile(path));
+		nlohmann::json materialInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(path));
 
 		OSK_ASSERT(materialInfo["file_type"] == "MATERIAL", path + "no es un material.");
 		
@@ -78,7 +78,7 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 
 	// Shader file.
 	{
-		nlohmann::json shaderInfo = nlohmann::json::parse(FileIO::ReadFromFile(shaderFilePath));
+		nlohmann::json shaderInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(shaderFilePath));
 
 		//OSK_ASSERT(shaderInfo["file_type"] == "SHADER", shaderFilePath + "no es un shader.");
 		

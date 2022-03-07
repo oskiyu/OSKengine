@@ -11,5 +11,6 @@
 #endif
 
 using TSize = unsigned int;
+using TDeltaTime = float;
 
 #include <type_traits>

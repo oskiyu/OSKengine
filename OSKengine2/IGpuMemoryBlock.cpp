@@ -3,6 +3,7 @@
 #include "IGpuMemorySubblock.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 IGpuMemoryBlock::IGpuMemoryBlock(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuMemoryUsage usage)
 	: totalSize(reservedSize), availableSpace(reservedSize), device(device), type(type), usage(usage) { }

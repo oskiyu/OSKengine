@@ -22,6 +22,7 @@
 #include "RenderApiType.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 GraphicsPipelineOgl* pipeline = nullptr;
 GpuVertexBufferOgl* vertexBuffer = nullptr;
@@ -29,14 +30,14 @@ GpuIndexBufferOgl* indexBuffer = nullptr;
 
 void GLAPIENTRY DebugConsole(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
 	if (type >= GL_DEBUG_TYPE_ERROR)
-		Engine::GetLogger()->Log(LogLevel::L_ERROR, message);
+		Engine::GetLogger()->Log(IO::LogLevel::L_ERROR, message);
 }
 
 RendererOgl::RendererOgl() : IRenderer(RenderApiType::OPENGL) {
 
 }
 
-void RendererOgl::Initialize(const std::string& appName, const Version& version, const Window& window) {
+void RendererOgl::Initialize(const std::string& appName, const Version& version, const IO::Window& window) {
 	this->window = &window;
 
 	auto gladResult = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);

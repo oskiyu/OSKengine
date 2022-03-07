@@ -6,6 +6,7 @@
 #include "Memory.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 GpuMemorySubblockVulkan::GpuMemorySubblockVulkan(IGpuMemoryBlock* owner, TSize size, TSize offset)
 	: IGpuMemorySubblock(owner, size, offset) {

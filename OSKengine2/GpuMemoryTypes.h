@@ -2,7 +2,7 @@
 
 #include "EnumFlags.hpp"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	enum class GpuSharedMemoryType {
 		GPU_AND_CPU,
@@ -32,5 +32,5 @@ namespace OSK {
 
 }
 
-OSK_FLAGS(OSK::GpuBufferUsage);
-OSK_FLAGS(OSK::GpuImageUsage);
+OSK_FLAGS(OSK::GRAPHICS::GpuBufferUsage);
+OSK_FLAGS(OSK::GRAPHICS::GpuImageUsage);

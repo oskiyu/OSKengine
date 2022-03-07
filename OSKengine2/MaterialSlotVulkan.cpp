@@ -14,6 +14,7 @@
 #include "GpuImageVulkan.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 inline VkDevice GetDevice() {
 	return Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();

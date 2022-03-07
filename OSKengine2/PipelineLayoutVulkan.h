@@ -7,10 +7,9 @@
 struct VkPipelineLayout_T;
 typedef VkPipelineLayout_T* VkPipelineLayout;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class DescriptorLayoutVulkan;
-	class MaterialLayout;
 
 	class OSKAPI_CALL PipelineLayoutVulkan : public IPipelineLayout {
 

@@ -4,7 +4,7 @@
 
 #include "Vector2.hpp"
 
-namespace OSK {
+namespace OSK::IO {
 
 	/// <summary>
 	/// Botones del ratón.

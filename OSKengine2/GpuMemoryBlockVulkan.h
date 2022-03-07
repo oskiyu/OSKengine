@@ -9,11 +9,11 @@ typedef VkBuffer_T* VkBuffer;
 struct VkImage_T;
 typedef VkImage_T* VkImage;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
+	enum class Format;
 	enum class GpuBufferUsage;
 	enum class GpuImageUsage;
-	enum class Format;
 	class GpuImage;
 
 	class OSKAPI_CALL GpuMemoryBlockVulkan : public IGpuMemoryBlock {

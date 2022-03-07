@@ -5,7 +5,7 @@
 struct VkDescriptorPool_T;
 using VkDescriptorPool = VkDescriptorPool_T*;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class DescriptorLayoutVulkan;
 

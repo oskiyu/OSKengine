@@ -2,7 +2,7 @@
 
 #include "IGpuDataBuffer.h"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class OSKAPI_CALL IGpuIndexBuffer : public GpuDataBuffer {
 

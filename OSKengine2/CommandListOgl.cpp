@@ -13,6 +13,7 @@
 #include <glad/glad.h>
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 void CommandListOgl::Reset() {
 

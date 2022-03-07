@@ -3,6 +3,7 @@
 #include "IGpuMemorySubblock.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 GpuDataBuffer::GpuDataBuffer(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment) 
 	: buffer(buffer), size(size), alignment(alignment) {

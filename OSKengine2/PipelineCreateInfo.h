@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Modo de renderizado de los polígonos: llenos o lineas.

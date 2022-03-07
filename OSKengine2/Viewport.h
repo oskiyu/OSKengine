@@ -2,7 +2,7 @@
 
 #include "Vector4.hpp"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// El viewport define que área de la textura final será renderizada.

@@ -4,6 +4,7 @@
 #include "GpuDx12.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 OwnedPtr<ICommandList> CommandPoolDx12::CreateCommandList(const IGpu& device) {
 	auto output = new CommandListDx12;

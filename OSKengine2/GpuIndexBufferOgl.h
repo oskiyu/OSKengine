@@ -3,7 +3,7 @@
 #include "IGpuIndexBuffer.h"
 #include "OglTypes.h"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class OSKAPI_CALL GpuIndexBufferOgl : public IGpuIndexBuffer {
 

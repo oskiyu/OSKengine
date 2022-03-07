@@ -6,6 +6,7 @@
 #include "MaterialSystem.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 IRenderer::IRenderer(RenderApiType type) : renderApiType(type) {
 	materialSystem = new MaterialSystem;

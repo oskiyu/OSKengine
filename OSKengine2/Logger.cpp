@@ -5,6 +5,7 @@
 #include <fstream>
 
 using namespace OSK;
+using namespace OSK::IO;
 
 Logger::~Logger() {
 	Close();

@@ -3,6 +3,7 @@
 #include "IGpuMemoryBlock.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 IGpuMemorySubblock::IGpuMemorySubblock(IGpuMemoryBlock* block, TSize size, TSize offset) 
 	: ownerBlock(block), reservedSize(size), totalOffsetFromBlock(offset) {

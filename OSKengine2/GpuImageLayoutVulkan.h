@@ -4,7 +4,7 @@
 
 enum VkImageLayout;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	enum class GpuImageLayout;
 

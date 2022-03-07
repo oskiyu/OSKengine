@@ -14,6 +14,7 @@
 #include "GpuDx12.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 GpuMemoryBlockDx12::GpuMemoryBlockDx12(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage)
 	: IGpuMemoryBlock(image->GetSize().X * image->GetSize().Y * GetFormatNumberOfBytes(image->GetFormat()), device, type, GpuMemoryUsage::IMAGE), sizeX(image->GetSize().X), sizeY(image->GetSize().Y), format(image->GetFormat()) {

@@ -19,27 +19,12 @@
 #include "GpuUniformBufferVulkan.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 GpuMemoryAllocatorVulkan::GpuMemoryAllocatorVulkan(IGpu* device)
 	: IGpuMemoryAllocator(device) {
 
 }
-
-/*OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorVulkan::CreateNewBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
-	TSize bSize = IGpuMemoryAllocator::SizeOfMemoryBlockInMb * 1000;
-	if (size > bSize)
-		bSize = size;
-
-	return GpuMemoryBlockVulkan::CreateNewBufferBlock(bSize, device, sharedType, usage).GetPointer();
-}*/
-
-/*OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorVulkan::CreateNewImageMemoryBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage) {
-	return GpuMemoryBlockVulkan::CreateNewImageBlock(image, device, type, imageUSage).GetPointer();
-}
-
-OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorVulkan::CreateBuffer(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
-
-}*/
 
 OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorVulkan::CreateVertexBuffer(const DynamicArray<Vertex3D>& vertices) {
 	const TSize bufferSize = vertices.GetSize() * sizeof(Vertex3D);

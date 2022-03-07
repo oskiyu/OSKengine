@@ -3,6 +3,7 @@
 #include "GpuMemoryBlockDx12.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 GpuMemorySubblockDx12::GpuMemorySubblockDx12(IGpuMemoryBlock* owner, TSize size, TSize offset, ComPtr<ID3D12Resource> resource)
 	: IGpuMemorySubblock(owner, size, offset), resource(resource) {

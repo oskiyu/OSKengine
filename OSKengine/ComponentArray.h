@@ -101,4 +101,5 @@ namespace OSK::ECS {
 		size_t size = 0;
 
 	};
+
 }

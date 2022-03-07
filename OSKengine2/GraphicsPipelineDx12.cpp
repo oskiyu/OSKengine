@@ -9,14 +9,15 @@
 #include "PipelineLayoutDx12.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 D3D12_CULL_MODE GetCullMode(PolygonCullMode mode) {
 	switch (mode) {
-	case OSK::PolygonCullMode::FRONT:
+	case PolygonCullMode::FRONT:
 		return D3D12_CULL_MODE_FRONT;
-	case OSK::PolygonCullMode::BACK:
+	case PolygonCullMode::BACK:
 		return D3D12_CULL_MODE_BACK;
-	case OSK::PolygonCullMode::NONE:
+	case PolygonCullMode::NONE:
 		return D3D12_CULL_MODE_NONE;
 	default:
 		return D3D12_CULL_MODE_NONE;
@@ -25,9 +26,9 @@ D3D12_CULL_MODE GetCullMode(PolygonCullMode mode) {
 
 D3D12_FILL_MODE GetFillMode(PolygonMode mode) {
 	switch (mode) {
-	case OSK::PolygonMode::FILL:
+	case PolygonMode::FILL:
 		return D3D12_FILL_MODE_SOLID;
-	case OSK::PolygonMode::LINE:
+	case PolygonMode::LINE:
 		return D3D12_FILL_MODE_WIREFRAME;
 	default:
 		return D3D12_FILL_MODE_SOLID;

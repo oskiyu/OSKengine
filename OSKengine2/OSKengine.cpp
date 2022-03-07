@@ -10,20 +10,23 @@
 #include "AssetManager.h"
 #include "TextureLoader.h"
 #include "ModelLoader3D.h"
+#include "EntityComponentSystem.h"
 
 #include <GLFW/glfw3.h>
 #undef GetCurrentTime;
 
 using namespace OSK;
 
-UniquePtr<Logger> Engine::logger;
-UniquePtr<Window> Engine::window;
-UniquePtr<IRenderer> Engine::renderer;
-UniquePtr<AssetManager> Engine::assetManager;
+UniquePtr<IO::Logger> Engine::logger;
+UniquePtr<IO::Window> Engine::window;
+UniquePtr<GRAPHICS::IRenderer> Engine::renderer;
+UniquePtr<ASSETS::AssetManager> Engine::assetManager;
+UniquePtr<ECS::EntityComponentSystem> Engine::entityComponentSystem;
 
-void Engine::Create(RenderApiType type) {
-	logger = new Logger;
-	window = new Window;
+void Engine::Create(GRAPHICS::RenderApiType type) {
+	logger = new IO::Logger;
+	window = new IO::Window;
+	entityComponentSystem = new ECS::EntityComponentSystem;
 
 	logger->Start("LOG_LAST.txt");
 	window->SetRenderApiType(type);
@@ -36,30 +39,30 @@ void Engine::Create(RenderApiType type) {
 	logger->InfoLog("	Build " + GetBuild() + ".");
 
 	switch (type) {
-	case OSK::RenderApiType::OPENGL:
-		renderer = new RendererOgl;
+	case GRAPHICS::RenderApiType::OPENGL:
+		renderer = new GRAPHICS::RendererOgl;
 
 		break;
 
-	case OSK::RenderApiType::VULKAN:
-		renderer = new RendererVulkan;
+	case OSK::GRAPHICS::RenderApiType::VULKAN:
+		renderer = new GRAPHICS::RendererVulkan;
 
 		break;
 
-	case OSK::RenderApiType::DX12:
-		renderer = new RendererDx12;
+	case OSK::GRAPHICS::RenderApiType::DX12:
+		renderer = new GRAPHICS::RendererDx12;
 
 		break;
 
-	case OSK::RenderApiType::OPENGL_ES:
+	case OSK::GRAPHICS::RenderApiType::OPENGL_ES:
 		OSK_ASSERT(false, "El renderizador de OPENGL_ES no está implementado.");
 
 		break;
 	}
 
-	assetManager = new AssetManager();
-	assetManager->RegisterLoader<TextureLoader>();
-	assetManager->RegisterLoader<ModelLoader3D>();
+	assetManager = new ASSETS::AssetManager();
+	assetManager->RegisterLoader<ASSETS::TextureLoader>();
+	assetManager->RegisterLoader<ASSETS::ModelLoader3D>();
 }
 
 void Engine::Close() {
@@ -69,20 +72,24 @@ void Engine::Close() {
 	logger.Delete();
 }
 
-Logger* Engine::GetLogger() {
+IO::Logger* Engine::GetLogger() {
 	return logger.GetPointer();
 }
 
-Window* Engine::GetWindow() {
+IO::Window* Engine::GetWindow() {
 	return window.GetPointer();
 }
 
-IRenderer* Engine::GetRenderer() {
+GRAPHICS::IRenderer* Engine::GetRenderer() {
 	return renderer.GetPointer();
 }
 
-AssetManager* Engine::GetAssetManager() {
+ASSETS::AssetManager* Engine::GetAssetManager() {
 	return assetManager.GetPointer();
+}
+
+ECS::EntityComponentSystem* Engine::GetEntityComponentSystem() {
+	return entityComponentSystem.GetPointer();
 }
 
 float Engine::GetCurrentTime() {
@@ -96,7 +103,7 @@ const Version& Engine::GetVersion() {
 }
 
 const std::string& Engine::GetBuild() {
-	static std::string build = "2021.11.15a";
+	static std::string build = "2022.03.06a";
 
 	return build;
 }

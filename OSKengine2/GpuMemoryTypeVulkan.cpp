@@ -5,13 +5,13 @@
 
 #define OSK_CONTAINS_FLAG(a, b) EFTraits::HasFlag(a, b)
 
-unsigned int OSK::GetGpuSharedMemoryTypeVulkan(GpuSharedMemoryType type) {
+unsigned int OSK::GRAPHICS::GetGpuSharedMemoryTypeVulkan(GpuSharedMemoryType type) {
 	switch (type) {
 
-	case OSK::GpuSharedMemoryType::GPU_ONLY:
+	case GpuSharedMemoryType::GPU_ONLY:
 		return VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
 
-	case OSK::GpuSharedMemoryType::GPU_AND_CPU:
+	case GpuSharedMemoryType::GPU_AND_CPU:
 		return VK_MEMORY_PROPERTY_HOST_COHERENT_BIT |
 			VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT;
 
@@ -20,7 +20,7 @@ unsigned int OSK::GetGpuSharedMemoryTypeVulkan(GpuSharedMemoryType type) {
 	return 0;
 }
 
-unsigned int OSK::GetGpuBufferUsageVulkan(GpuBufferUsage usage) {
+unsigned int OSK::GRAPHICS::GetGpuBufferUsageVulkan(GpuBufferUsage usage) {
 	unsigned int flags = 0;
 
 	if (OSK_CONTAINS_FLAG(usage, GpuBufferUsage::UNIFORM_BUFFER))
@@ -41,7 +41,7 @@ unsigned int OSK::GetGpuBufferUsageVulkan(GpuBufferUsage usage) {
 	return flags;
 }
 
-unsigned int OSK::GetGpuImageUsageVulkan(GpuImageUsage usage) {
+unsigned int OSK::GRAPHICS::GetGpuImageUsageVulkan(GpuImageUsage usage) {
 	unsigned int flags = 0;
 
 	if (EFTraits::HasFlag(usage, GpuImageUsage::COLOR))
@@ -63,7 +63,7 @@ unsigned int OSK::GetGpuImageUsageVulkan(GpuImageUsage usage) {
 }
 
 
-unsigned int OSK::GetGpuImageAspectVulkan(GpuImageUsage usage) {
+unsigned int OSK::GRAPHICS::GetGpuImageAspectVulkan(GpuImageUsage usage) {
 	unsigned int flags = 0;
 
 	if (EFTraits::HasFlag(usage, GpuImageUsage::COLOR)

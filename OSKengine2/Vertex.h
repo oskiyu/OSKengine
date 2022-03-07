@@ -5,7 +5,7 @@
 #include "Vector4.hpp"
 #include "Color.hpp"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	using TIndexSize = uint32_t;
 

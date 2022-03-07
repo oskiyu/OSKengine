@@ -4,7 +4,7 @@
 #include <string>
 #include "HashMap.hpp"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Un MaterialLayoutSlot agrupa varios MaterialLayoutBindings: 

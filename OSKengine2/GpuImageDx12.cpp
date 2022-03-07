@@ -1,6 +1,7 @@
 #include "GpuImageDx12.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 GpuImageDx12::GpuImageDx12(unsigned int sizeX, unsigned int sizeY, Format format) 
 	: GpuImage(sizeX, sizeY, format) {

@@ -2,7 +2,7 @@
 
 #include "OSKmacros.h"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class MaterialLayout;
 

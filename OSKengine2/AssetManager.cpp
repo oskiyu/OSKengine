@@ -2,7 +2,7 @@
 
 #include "IAsset.h"
 
-using namespace OSK;
+using namespace OSK::ASSETS;
 
 AssetManager::~AssetManager() {
 	

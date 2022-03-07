@@ -23,6 +23,8 @@
 #include <GLFW/glfw3native.h>
 
 using namespace OSK;
+using namespace OSK::IO;
+using namespace OSK::GRAPHICS;
 
 SwapchainDx12::~SwapchainDx12() {
     if (swapchain.Get())
@@ -31,7 +33,7 @@ SwapchainDx12::~SwapchainDx12() {
     Engine::GetLogger()->InfoLog("Swapchain cerrado.");
 }
 
-void SwapchainDx12::Create(IGpu* device, Format format, const CommandQueueDx12& commandQueue, IDXGIFactory4* factory, const Window& window) {
+void SwapchainDx12::Create(IGpu* device, Format format, const CommandQueueDx12& commandQueue, IDXGIFactory4* factory, const IO::Window& window) {
     this->format = format;
     this->device = device;
 
@@ -77,7 +79,7 @@ void SwapchainDx12::DeleteImages() {
         images[i].Release();
 }
 
-void SwapchainDx12::CreateImages(const Window& window) {
+void SwapchainDx12::CreateImages(const IO::Window& window) {
     for (TSize i = 0; i < imageCount; i++) {
         images[i] = new GpuImageDx12(window.GetWindowSize().X, window.GetWindowSize().Y, format);
 

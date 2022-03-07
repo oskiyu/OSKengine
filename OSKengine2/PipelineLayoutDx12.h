@@ -7,7 +7,7 @@
 #include <wrl.h>
 using Microsoft::WRL::ComPtr;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class DescriptorLayoutDx12;
 

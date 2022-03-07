@@ -1,6 +1,7 @@
 #include "ISwapchain.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 unsigned int ISwapchain::GetImageCount() const {
 	return imageCount;

@@ -6,7 +6,7 @@
 
 #include <string>
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class Material;
 	class MaterialLayout;

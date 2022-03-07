@@ -2,7 +2,7 @@
 
 #include "DynamicArray.hpp"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	struct VertexAttribInfo {
 

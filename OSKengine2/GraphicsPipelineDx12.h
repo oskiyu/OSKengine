@@ -7,7 +7,7 @@ using Microsoft::WRL::ComPtr;
 #include "IGraphicsPipeline.h"
 #include <string>
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class OSKAPI_CALL GraphicsPipelineDx12 : public IGraphicsPipeline {
 

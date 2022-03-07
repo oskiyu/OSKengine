@@ -11,7 +11,7 @@ typedef VkImageView_T* VkImageView;
 struct VkSampler_T;
 typedef VkSampler_T* VkSampler;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 	
 	class OSKAPI_CALL GpuImageVulkan : public GpuImage {
 

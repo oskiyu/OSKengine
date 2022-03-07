@@ -13,7 +13,7 @@ typedef VkFramebuffer_T* VkFramebuffer;
 
 enum VkImageLayout;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class ISwapchain;
 	class GpuImage;

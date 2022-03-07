@@ -13,13 +13,14 @@
 #include "GpuVulkan.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 SwapchainVulkan::~SwapchainVulkan() {
 	vkDestroySwapchainKHR(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
 		swapchain, nullptr);
 }
 
-void SwapchainVulkan::Create(Format format, const GpuVulkan& device, const Window& window) {
+void SwapchainVulkan::Create(Format format, const GpuVulkan& device, const IO::Window& window) {
 	this->window = &window;
 	this->device = &device;
 	this->format = format;

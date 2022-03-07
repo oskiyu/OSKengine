@@ -5,7 +5,7 @@
 
 #include <string>
 
-namespace OSK {
+namespace OSK::IO {
 
 	/// <summary>
 	/// Clase que actúa de interfaz para la lectura y escritura de atchivos.

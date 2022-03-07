@@ -3,7 +3,7 @@
 #include "OSKmacros.h"
 #include <type_traits>
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Una cola de comandos almacena todas las listas de comandos que se envían a la GPU.

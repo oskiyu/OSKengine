@@ -2,7 +2,7 @@
 
 #include "EnumFlags.hpp"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Tipos de datos de entrada que puede tener un shader.
@@ -18,6 +18,7 @@ namespace OSK {
 		/// Textura 2D.
 		/// </summary>
 		TEXTURE
+
 	};
 
 	/// <summary>
@@ -38,6 +39,6 @@ namespace OSK {
 		FRAGMENT = 2
 	};
 
-	OSK_FLAGS(ShaderStage);
-
 }
+
+OSK_FLAGS(OSK::GRAPHICS::ShaderStage);

@@ -6,7 +6,7 @@
 
 #include <vulkan/vulkan.h>
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class RenderpassVulkan;
 

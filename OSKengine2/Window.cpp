@@ -11,6 +11,7 @@
 #include "IRenderer.h"
 
 using namespace OSK;
+using namespace OSK::IO;
 
 Window::Window() {
 	glfwInit();
@@ -26,10 +27,10 @@ Window::~Window() {
 	glfwTerminate();
 }
 
-void Window::SetRenderApiType(RenderApiType type) {
+void Window::SetRenderApiType(GRAPHICS::RenderApiType type) {
 	renderApi = type;
 
-	if (type == RenderApiType::OPENGL) {
+	if (type == GRAPHICS::RenderApiType::OPENGL) {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -70,7 +71,7 @@ void Window::Create(int32_t sizeX, int32_t sizeY, const std::string& title) {
 void Window::Update() {
 	glfwPollEvents();
 
-	if (renderApi == RenderApiType::OPENGL)
+	if (renderApi == GRAPHICS::RenderApiType::OPENGL)
 		glfwSwapBuffers(window.GetPointer());
 
 	*oldKeyboardState = *newKeyboardState;
@@ -181,7 +182,7 @@ void Window::ResizeCallback(int sizex, int sizey) {
 	sizeX = sizex;
 	sizeY = sizey;
 
-	if (renderApi == RenderApiType::OPENGL)
+	if (renderApi == GRAPHICS::RenderApiType::OPENGL)
 		glViewport(0, 0, GetWindowSize().X, GetWindowSize().Y);
 
 	Engine::GetRenderer()->HandleResize();

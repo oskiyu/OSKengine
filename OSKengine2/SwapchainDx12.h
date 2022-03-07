@@ -9,11 +9,14 @@
 
 using namespace Microsoft::WRL;
 
-namespace OSK {
+namespace OSK::IO {
+	class Window;
+}
 
+namespace OSK::GRAPHICS {
+	
 	enum class Format;
 	class CommandQueueDx12;
-	class Window;
 	class GpuImage;
 
 	/// <summary>
@@ -36,10 +39,10 @@ namespace OSK {
 		/// </summary>
 		/// <param name="commandQueue">Al cambiar de imagen, el swapchain
 		/// de DirectX 12 fuerza un flush de la cola de comandos.</param>
-		void Create(IGpu* device, Format format, const CommandQueueDx12& commandQueue, IDXGIFactory4* factory, const Window& window);
+		void Create(IGpu* device, Format format, const CommandQueueDx12& commandQueue, IDXGIFactory4* factory, const IO::Window& window);
 		
 		void DeleteImages();
-		void CreateImages(const Window& window);
+		void CreateImages(const IO::Window& window);
 
 		void Present() override;
 

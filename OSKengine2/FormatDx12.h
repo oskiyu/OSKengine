@@ -2,7 +2,7 @@
 
 enum DXGI_FORMAT;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	enum class Format;
 

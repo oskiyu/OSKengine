@@ -7,7 +7,7 @@
 
 #include <vulkan/vulkan.h>
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class DescriptorPoolVulkan;
 	class DescriptorLayoutVulkan;

@@ -10,6 +10,7 @@
 #include "VertexOgl.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 GpuMemoryAllocatorOgl::GpuMemoryAllocatorOgl(IGpu* device)
 	: IGpuMemoryAllocator(device) {

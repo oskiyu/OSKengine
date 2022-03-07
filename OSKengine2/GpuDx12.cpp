@@ -4,6 +4,7 @@
 #include "SyncDeviceDx12.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 GpuDx12::~GpuDx12() {
 	Close();

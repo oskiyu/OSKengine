@@ -16,14 +16,8 @@
     <Filter Include="Archivos de origen\ThirdParty">
       <UniqueIdentifier>{283691c5-b145-4be5-ab16-02e2a66fbce2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\WindowAPI">
-      <UniqueIdentifier>{8df65a52-e54c-42cf-9dff-3ecd243f5658}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine">
       <UniqueIdentifier>{0d708705-372d-41b8-8ede-05547485f832}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\OSKengine\WindowAPI">
-      <UniqueIdentifier>{55054a3b-caae-4f7d-ba1f-c19f20064d9d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de encabezado\Types">
       <UniqueIdentifier>{7d72a006-1447-4791-95fd-3f480e858144}</UniqueIdentifier>
@@ -187,9 +181,6 @@
     <Filter Include="Archivos de encabezado\RenderAPI\HighLevel">
       <UniqueIdentifier>{0f060710-faff-4407-a43c-740bccd2b83d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\RenderTarget">
-      <UniqueIdentifier>{49af02a0-656b-451e-a38c-80ed48083a2f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine\Types">
       <UniqueIdentifier>{ac15c615-7b03-4c62-bc04-82b0bab69299}</UniqueIdentifier>
     </Filter>
@@ -280,22 +271,55 @@
     <Filter Include="Archivos de origen\OSKengine\Assets\Loaders">
       <UniqueIdentifier>{e7c30582-cfac-45f0-9235-280ec8f8ddfc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\ECS">
+      <UniqueIdentifier>{9b7af04f-4ed2-4df0-8020-f37022c0d6d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\ECS">
+      <UniqueIdentifier>{a57277ce-475e-4bf5-afda-4cc8da3d4095}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\ECS\Component">
+      <UniqueIdentifier>{b0ab953b-4bc8-4e2d-ad70-ca63c8b94027}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\ECS\GameObject">
+      <UniqueIdentifier>{bcd54297-7b81-4024-9769-abf1d0c178b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\ECS\System">
+      <UniqueIdentifier>{c8465148-1e82-43a1-b955-071a35ee5450}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\ECS\GameObject">
+      <UniqueIdentifier>{523cb337-ca1f-49a3-913e-d95e723addcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\ECS\Component">
+      <UniqueIdentifier>{c0ad09ea-088b-4489-81c1-196034f68df8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\ECS\System">
+      <UniqueIdentifier>{4f5369ed-7cf9-4c3a-bc6d-2b3928e1662c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\ECS\Component\Builtin">
+      <UniqueIdentifier>{0f52d713-7e97-4973-8205-eaebeb9ae430}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\ECS\Component\Builtin">
+      <UniqueIdentifier>{a7198859-d1be-4134-ad00-3bd05f6d57fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\IO">
+      <UniqueIdentifier>{55054a3b-caae-4f7d-ba1f-c19f20064d9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\IO">
+      <UniqueIdentifier>{8df65a52-e54c-42cf-9dff-3ecd243f5658}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="KeyboardState.cpp">
-      <Filter>Archivos de origen\OSKengine\WindowAPI</Filter>
+      <Filter>Archivos de origen\OSKengine\IO</Filter>
     </ClCompile>
     <ClCompile Include="MouseState.cpp">
-      <Filter>Archivos de origen\OSKengine\WindowAPI</Filter>
+      <Filter>Archivos de origen\OSKengine\IO</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
-      <Filter>Archivos de origen\OSKengine\WindowAPI</Filter>
-    </ClCompile>
-    <ClCompile Include="Logger.cpp">
-      <Filter>Archivos de origen\OSKengine\Util</Filter>
+      <Filter>Archivos de origen\OSKengine\IO</Filter>
     </ClCompile>
     <ClCompile Include="OSKengine.cpp">
       <Filter>Archivos de origen\OSKengine</Filter>
@@ -450,9 +474,6 @@
     <ClCompile Include="IGpuVertexBuffer.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Vertex</Filter>
     </ClCompile>
-    <ClCompile Include="FileIO.cpp">
-      <Filter>Archivos de origen\OSKengine\Util</Filter>
-    </ClCompile>
     <ClCompile Include="VertexVulkan.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Vertex</Filter>
     </ClCompile>
@@ -558,13 +579,40 @@
     <ClCompile Include="ModelLoader3D.cpp">
       <Filter>Archivos de origen\OSKengine\Assets\Loaders</Filter>
     </ClCompile>
+    <ClCompile Include="EntityComponentSystem.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentManager.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectManager.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ISystem.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemManager.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>Archivos de origen\OSKengine\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform3D.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Component\Builtin</Filter>
+    </ClCompile>
+    <ClCompile Include="FileIO.cpp">
+      <Filter>Archivos de origen\OSKengine\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Archivos de origen\OSKengine\IO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
-      <Filter>Archivos de encabezado\WindowAPI</Filter>
+      <Filter>Archivos de encabezado\IO</Filter>
     </ClInclude>
     <ClInclude Include="MouseState.h">
-      <Filter>Archivos de encabezado\WindowAPI</Filter>
+      <Filter>Archivos de encabezado\IO</Filter>
     </ClInclude>
     <ClInclude Include="Vector2.hpp">
       <Filter>Archivos de encabezado\Types</Filter>
@@ -576,7 +624,7 @@
       <Filter>Archivos de encabezado\Types</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
-      <Filter>Archivos de encabezado\WindowAPI</Filter>
+      <Filter>Archivos de encabezado\IO</Filter>
     </ClInclude>
     <ClInclude Include="OwnedPtr.h">
       <Filter>Archivos de encabezado\Memory</Filter>
@@ -586,9 +634,6 @@
     </ClInclude>
     <ClInclude Include="UniquePtr.hpp">
       <Filter>Archivos de encabezado\Memory</Filter>
-    </ClInclude>
-    <ClInclude Include="Logger.h">
-      <Filter>Archivos de encabezado\Util</Filter>
     </ClInclude>
     <ClInclude Include="OSKmacros.h">
       <Filter>Archivos de encabezado</Filter>
@@ -809,9 +854,6 @@
     <ClInclude Include="RenderpassOgl.h">
       <Filter>Archivos de encabezado\RenderAPI\LowLevel\Renderpass</Filter>
     </ClInclude>
-    <ClInclude Include="FileIO.h">
-      <Filter>Archivos de encabezado\Util</Filter>
-    </ClInclude>
     <ClInclude Include="VertexVulkan.h">
       <Filter>Archivos de encabezado\RenderAPI\LowLevel\Vertex</Filter>
     </ClInclude>
@@ -928,6 +970,48 @@
     </ClInclude>
     <ClInclude Include="ModelLoader3D.h">
       <Filter>Archivos de encabezado\Assets\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstexprBitSet.hpp">
+      <Filter>Archivos de encabezado\STD</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Archivos de encabezado\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentContainer.h">
+      <Filter>Archivos de encabezado\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="IComponentContainer.h">
+      <Filter>Archivos de encabezado\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentManager.h">
+      <Filter>Archivos de encabezado\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>Archivos de encabezado\ECS\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Archivos de encabezado\ECS\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ISystem.h">
+      <Filter>Archivos de encabezado\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemManager.h">
+      <Filter>Archivos de encabezado\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityComponentSystem.h">
+      <Filter>Archivos de encabezado\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform3D.h">
+      <Filter>Archivos de encabezado\ECS\Component\Builtin</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>Archivos de encabezado\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Archivos de encabezado\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="FileIO.h">
+      <Filter>Archivos de encabezado\IO</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

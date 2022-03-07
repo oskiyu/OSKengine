@@ -3,7 +3,7 @@
 #include "OSKmacros.h"
 #include <type_traits>
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Una estructura que se encarga de sincronizar el renderizador,

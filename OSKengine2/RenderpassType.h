@@ -1,6 +1,6 @@
 #pragma once
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Define si un renderpass es un renderpass intermedio o el

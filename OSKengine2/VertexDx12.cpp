@@ -2,7 +2,7 @@
 
 #include "Vertex.h"
 
-D3D12_INPUT_LAYOUT_DESC OSK::GetInputLayoutDescDx12_Vertex3D() {
+D3D12_INPUT_LAYOUT_DESC OSK::GRAPHICS::GetInputLayoutDescDx12_Vertex3D() {
 	
 	const static D3D12_INPUT_ELEMENT_DESC descs[] = {
 		// SemanticName; SemanticIndex; Format; InputSlot; AlignedByteOffset; InputSlotClass; InstanceDataStepRate;

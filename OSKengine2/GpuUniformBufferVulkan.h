@@ -2,7 +2,7 @@
 
 #include "IGpuUniformBuffer.h"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class OSKAPI_CALL GpuUniformBufferVulkan : public IGpuUniformBuffer {
 

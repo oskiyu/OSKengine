@@ -2,8 +2,8 @@
 
 enum VkFormat;
 
-namespace OSK {
-
+namespace OSK::GRAPHICS {
+	
 	enum class Format;
 
 	/// <summary>

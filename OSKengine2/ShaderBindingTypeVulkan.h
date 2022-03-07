@@ -2,7 +2,7 @@
 
 #include <vulkan/vulkan.h>
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	enum class ShaderBindingType;
 	enum class ShaderStage;

@@ -13,7 +13,7 @@
 #include "ShaderBindingTypeVulkan.h"
 
 using namespace OSK;
-
+using namespace OSK::GRAPHICS;
 
 PipelineLayoutVulkan::PipelineLayoutVulkan(const MaterialLayout* materialLayout)
 	: IPipelineLayout(materialLayout) {

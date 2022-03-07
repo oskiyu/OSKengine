@@ -6,7 +6,7 @@
 #include <d3d12.h>
 using namespace Microsoft::WRL;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class GpuDx12;
 	class CommandQueueDx12;

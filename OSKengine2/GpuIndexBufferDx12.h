@@ -4,7 +4,7 @@
 
 #include <d3d12.h>
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class OSKAPI_CALL GpuIndexBufferDx12 : public IGpuIndexBuffer {
 

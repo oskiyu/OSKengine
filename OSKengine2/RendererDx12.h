@@ -10,7 +10,7 @@ using namespace Microsoft::WRL;
 #include <d3d12.h>
 #include <dxgi1_6.h>
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class CommandQueueDx12;
 
@@ -24,7 +24,7 @@ namespace OSK {
 		~RendererDx12();
 		RendererDx12();
 
-		void Initialize(const std::string& appName, const Version& version, const Window& window) override;
+		void Initialize(const std::string& appName, const Version& version, const IO::Window& window) override;
 		void Close() override;
 		void HandleResize() override;
 

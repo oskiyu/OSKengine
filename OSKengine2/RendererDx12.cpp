@@ -48,13 +48,14 @@
 #include <ext/matrix_transform.hpp>
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 GraphicsPipelineDx12* pipeline = nullptr;
 GpuVertexBufferDx12* vertexBuffer = nullptr;
 GpuIndexBufferDx12* indexBuffer = nullptr;
 GpuUniformBufferDx12* uniformBuffer = nullptr;
 OwnedPtr<MaterialInstance> materialInstance = nullptr;
-Model3D* modelDx = nullptr;
+ASSETS::Model3D* modelDx = nullptr;
 
 glm::mat4 model(1.0f);
 float angle = 0.0f;
@@ -67,7 +68,7 @@ RendererDx12::~RendererDx12() {
 	Close();
 }
 
-void RendererDx12::Initialize(const std::string& appName, const Version& version, const Window& window) {
+void RendererDx12::Initialize(const std::string& appName, const Version& version, const IO::Window& window) {
 	Engine::GetLogger()->InfoLog("Iniciando renderizador DX12.");
 
 	this->window = &window;
@@ -119,13 +120,13 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	uniformBuffer = gpuMemoryAllocator->CreateUniformBuffer(sizeof(model))->As<GpuUniformBufferDx12>();
 	uniformBuffer->MapMemory();
 
-	Texture* texture = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/texture0.json", "GLOBAL");
+	ASSETS::Texture* texture = Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/texture0.json", "GLOBAL");
 
 	materialInstance->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer);
 	materialInstance->GetSlot("global")->SetTexture("texture", texture);
 	materialInstance->GetSlot("global")->FlushUpdate();
 
-	modelDx = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/model0.json", "GLOBAL");
+	modelDx = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/model0.json", "GLOBAL");
 }
 
 void RendererDx12::Close() {

@@ -6,7 +6,7 @@
 
 #undef ERROR
 
-namespace OSK {
+namespace OSK::IO {
 
 	/// <summary>
 	/// Nivel de importancia del mensaje.

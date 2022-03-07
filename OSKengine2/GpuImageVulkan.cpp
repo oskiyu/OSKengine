@@ -7,6 +7,7 @@
 #include "Logger.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 GpuImageVulkan::GpuImageVulkan(unsigned int sizeX, unsigned int sizeY, Format format)
 	: GpuImage(sizeX, sizeY, format) {

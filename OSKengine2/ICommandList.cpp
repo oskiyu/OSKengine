@@ -3,6 +3,7 @@
 #include "IGpuImage.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 ICommandList::~ICommandList() {
 	DeleteAllStagingBuffers();

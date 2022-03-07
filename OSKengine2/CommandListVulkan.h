@@ -6,11 +6,10 @@
 struct VkCommandBuffer_T;
 typedef VkCommandBuffer_T* VkCommandBuffer;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class GpuDataBuffer;
 	class GraphicsPipelineVulkan;
-	class Material;
 
 	/// <summary>
 	/// Una lista de comandos contiene una serie de comandos que serán

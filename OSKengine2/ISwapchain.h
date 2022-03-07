@@ -3,7 +3,7 @@
 #include "OSKmacros.h"
 #include "UniquePtr.hpp"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class IGpu;
 	class GpuImage;

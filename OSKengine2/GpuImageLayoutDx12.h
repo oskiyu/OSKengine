@@ -4,7 +4,7 @@
 
 enum D3D12_RESOURCE_STATES;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	enum class GpuImageLayout;
 

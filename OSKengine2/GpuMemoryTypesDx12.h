@@ -4,7 +4,7 @@
 
 enum D3D12_HEAP_TYPE;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	enum class GpuSharedMemoryType;
 

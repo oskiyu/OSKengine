@@ -2,7 +2,7 @@
 
 using namespace OSK::ECS;
 
-ComponentManager::~ComponentManager() {
+OSK::ECS::ComponentManager::~ComponentManager() {
 	for (auto& i : componentArray)
 		i.second.Delete();
 }

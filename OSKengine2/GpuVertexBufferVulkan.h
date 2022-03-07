@@ -2,7 +2,7 @@
 
 #include "IGpuVertexBuffer.h"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class OSKAPI_CALL GpuVertexBufferVulkan : public IGpuVertexBuffer {
 

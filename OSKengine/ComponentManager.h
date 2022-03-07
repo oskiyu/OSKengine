@@ -82,7 +82,7 @@ namespace OSK::ECS {
 		/// <param name="object">ID del objeto.</param>
 		OSKAPI_CALL void GameObjectDestroyed(GameObjectID object);
 
-	private:
+	private:	
 
 		/// <summary>
 		/// Map nombre de componente -> tipo de componente.

@@ -5,7 +5,7 @@
 #include "OglTypes.h"
 #include "PipelineCreateInfo.h"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class OSKAPI_CALL GraphicsPipelineOgl : public IGraphicsPipeline {
 

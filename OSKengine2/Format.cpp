@@ -7,7 +7,7 @@
 #include <vulkan/vulkan.h>
 #include <glad/glad.h>
 
-DXGI_FORMAT OSK::GetFormatDx12(Format format) {
+DXGI_FORMAT OSK::GRAPHICS::GetFormatDx12(Format format) {
 	switch (format) {
 		case Format::RGBA8_UNORM:
 			return DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -25,7 +25,7 @@ DXGI_FORMAT OSK::GetFormatDx12(Format format) {
 	}
 }
 
-VkFormat OSK::GetFormatVulkan(Format format) {
+VkFormat OSK::GRAPHICS::GetFormatVulkan(Format format) {
 	switch (format) {
 	case Format::RGBA8_UNORM:
 		return VK_FORMAT_R8G8B8A8_UNORM;
@@ -41,7 +41,7 @@ VkFormat OSK::GetFormatVulkan(Format format) {
 	}
 }
 
-unsigned int OSK::GetFormatNumberOfBytes(Format format) {
+unsigned int OSK::GRAPHICS::GetFormatNumberOfBytes(Format format) {
 	switch (format) {
 
 		case Format::RGBA8_UNORM:
@@ -60,31 +60,31 @@ unsigned int OSK::GetFormatNumberOfBytes(Format format) {
 	return 0;
 }
 
-OSK::Format OSK::GetColorFormat(unsigned int numberOfChannels) {
-	return Format::RGBA8_UNORM;
+OSK::GRAPHICS::Format OSK::GRAPHICS::GetColorFormat(unsigned int numberOfChannels) {
+	return OSK::GRAPHICS::Format::RGBA8_UNORM;
 }
 
-unsigned int OSK::GetFormatOgl(Format format) {
+unsigned int OSK::GRAPHICS::GetFormatOgl(GRAPHICS::Format format) {
 	switch (format) {
-	case Format::RGBA8_UNORM:
+	case GRAPHICS::Format::RGBA8_UNORM:
 		return GL_RGBA8_SNORM;
 
-	case Format::B8G8R8A8_SRGB:
+	case GRAPHICS::Format::B8G8R8A8_SRGB:
 		return GL_BGRA;
 
-	case Format::D32_SFLOAT:
+	case GRAPHICS::Format::D32_SFLOAT:
 		return GL_R32F;
 
-	case Format::D32S8_SFLOAT_SUINT:
+	case GRAPHICS::Format::D32S8_SFLOAT_SUINT:
 		return GL_DEPTH32F_STENCIL8;
 
-	case Format::D24S8_SFLOAT_SUINT:
+	case GRAPHICS::Format::D24S8_SFLOAT_SUINT:
 		return GL_DEPTH24_STENCIL8;
 	}
 
 	return 0;
 }
 
-unsigned int OSK::GetFormatInternalOgl(Format format) {
+unsigned int OSK::GRAPHICS::GetFormatInternalOgl(Format format) {
 	return GetFormatOgl(format);
 }

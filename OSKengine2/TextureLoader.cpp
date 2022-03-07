@@ -15,14 +15,14 @@
 #include <stbi_image.h>
 #include <json.hpp>
 
-using namespace OSK;
+using namespace OSK::ASSETS;
 
 void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	Texture* output = (Texture*)*asset;
 
 	// Asset file.
 
-	nlohmann::json assetInfo = nlohmann::json::parse(FileIO::ReadFromFile(assetFilePath));
+	nlohmann::json assetInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(assetFilePath));
 	//OSK_ASSERT()
 	std::string texturePath = assetInfo["raw_asset_path"];
 	output->SetName(assetInfo["name"]);
@@ -38,7 +38,7 @@ void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	output->_SetNumberOfChannels(numChannels);
 
 	Vector2ui size(width, height);
-	OwnedPtr<GpuImage> image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(size, GetColorFormat(numChannels), GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_DESTINATION, GpuSharedMemoryType::GPU_ONLY, true);
+	OwnedPtr<GRAPHICS::GpuImage> image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(size, GRAPHICS::GetColorFormat(numChannels), GRAPHICS::GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION, GRAPHICS::GpuSharedMemoryType::GPU_ONLY, true);
 
 	auto stagingBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateStagingBuffer(width * height * numChannels);
 	stagingBuffer->MapMemory();
@@ -49,9 +49,9 @@ void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	commandList->RegisterStagingBuffer(stagingBuffer);
 	commandList->Reset();
 	commandList->Start();
-	commandList->TransitionImageLayout(image.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION);
+	commandList->TransitionImageLayout(image.GetPointer(), GRAPHICS::GpuImageLayout::TRANSFER_DESTINATION);
 	commandList->CopyBufferToImage(stagingBuffer.GetPointer(), image.GetPointer());
-	commandList->TransitionImageLayout(image.GetPointer(), GpuImageLayout::SHADER_READ_ONLY);
+	commandList->TransitionImageLayout(image.GetPointer(), GRAPHICS::GpuImageLayout::SHADER_READ_ONLY);
 	commandList->Close();
 	Engine::GetRenderer()->SubmitSingleUseCommandList(commandList.GetPointer());
 

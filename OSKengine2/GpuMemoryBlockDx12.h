@@ -7,11 +7,11 @@ using namespace Microsoft::WRL;
 
 #include <d3d12.h>
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	enum class GpuBufferUsage;
-	enum class GpuImageUsage;
 	enum class Format;
+	enum class GpuImageUsage;
 	class GpuImage;
 
 	class OSKAPI_CALL GpuMemoryBlockDx12 : public IGpuMemoryBlock {

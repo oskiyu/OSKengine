@@ -10,7 +10,7 @@ using namespace Microsoft::WRL;
 
 struct ID3D12CommandQueue;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Una cola de comandos almacena todas las listas de comandos que se envían a la GPU.

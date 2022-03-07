@@ -10,12 +10,14 @@ struct GLFWwindow;
 struct GLFWmonitor;
 struct GLFWvidmode;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
+	enum class RenderApiType;
+}
+
+namespace OSK::IO {
 
 	class KeyboardState;
 	class MouseState;
-
-	enum class RenderApiType;
 
 	/// <summary>
 	/// Clase que representa una ventana.
@@ -43,7 +45,7 @@ namespace OSK {
 		/// <summary>
 		/// Establece el api de renderizado que se va a utilizar en la ventana.
 		/// </summary>
-		void SetRenderApiType(RenderApiType type);
+		void SetRenderApiType(GRAPHICS::RenderApiType type);
 
 		/// <summary>
 		/// Crea una ventana.
@@ -196,7 +198,7 @@ namespace OSK {
 		/// Si es OpenGL, la ventana se encarga de 
 		/// hacer el swap buffeers.
 		/// </summary>
-		RenderApiType renderApi;
+		GRAPHICS::RenderApiType renderApi;
 
 		UniquePtr<KeyboardState> newKeyboardState;
 		UniquePtr<KeyboardState> oldKeyboardState;

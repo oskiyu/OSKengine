@@ -2,7 +2,7 @@
 
 #include "EnumFlags.hpp"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	enum class GpuImageLayout {
 		UNDEFINED,
@@ -17,4 +17,4 @@ namespace OSK {
 
 }
 
-OSK_FLAGS(OSK::GpuImageLayout);
+OSK_FLAGS(OSK::GRAPHICS::GpuImageLayout);

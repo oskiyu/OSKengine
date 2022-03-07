@@ -12,6 +12,7 @@
 #include "GpuImageVulkan.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 uint32_t GetMemoryType(uint32_t memoryTypeFilter, GpuVulkan* device, GpuSharedMemoryType type) {
 	auto nativeSharedMode = GetGpuSharedMemoryTypeVulkan(type);

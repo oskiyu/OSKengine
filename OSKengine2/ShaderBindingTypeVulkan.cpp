@@ -3,18 +3,18 @@
 #include "ShaderBindingType.h"
 #include "EnumFlags.hpp"
 
-VkDescriptorType OSK::GetDescriptorTypeVk(ShaderBindingType type) {
+VkDescriptorType OSK::GRAPHICS::GetDescriptorTypeVk(ShaderBindingType type) {
 	switch (type) {
-	case OSK::ShaderBindingType::UNIFORM_BUFFER:
+	case ShaderBindingType::UNIFORM_BUFFER:
 		return VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-	case OSK::ShaderBindingType::TEXTURE:
+	case ShaderBindingType::TEXTURE:
 		return VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
 	default:
 		return VK_DESCRIPTOR_TYPE_MAX_ENUM;
 	}
 }
 
-VkShaderStageFlags OSK::GetShaderStageVk(ShaderStage stage) {
+VkShaderStageFlags OSK::GRAPHICS::GetShaderStageVk(ShaderStage stage) {
 	VkShaderStageFlags output = 0;
 
 	if (EFTraits::HasFlag(stage, ShaderStage::VERTEX))

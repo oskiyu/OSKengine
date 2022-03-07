@@ -11,6 +11,7 @@
 #include <vulkan/vulkan.h>
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 DescriptorLayoutVulkan::DescriptorLayoutVulkan(const MaterialLayoutSlot* slotLayout)
 	: slotLayout(slotLayout)  {

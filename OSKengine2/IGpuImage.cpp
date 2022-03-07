@@ -8,6 +8,7 @@
 #include "GpuImageLayout.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 GpuImage::GpuImage(unsigned int sizeX, unsigned int sizeY, Format format)
 	: format(format), currentLayout(GpuImageLayout::UNDEFINED) {

@@ -7,15 +7,12 @@
 #include "Format.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 IGpuMemoryAllocator::TSize IGpuMemoryAllocator::SizeOfMemoryBlockInMb = 128;
 
 bool GpuBufferMemoryBlockInfo::operator==(const GpuBufferMemoryBlockInfo& other) const {
 	return size == other.size && usage == other.usage && sharedType == other.sharedType;
-}
-
-template <> static size_t OSK::Hash<GpuBufferMemoryBlockInfo>(const GpuBufferMemoryBlockInfo& elem) {
-	return Hash<TSize>((TSize)elem.usage);
 }
 
 IGpuMemoryAllocator::IGpuMemoryAllocator(IGpu* device) : device(device) {

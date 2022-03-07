@@ -3,7 +3,7 @@
 #include "IMaterialSlot.h"
 #include "HashMap.hpp"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class GpuUniformBufferDx12;
 	class GpuImageDx12;

@@ -9,7 +9,7 @@
 struct VkSurfaceKHR_T;
 typedef VkSurfaceKHR_T* VkSurfaceKHR;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Implementación de la interfaz para el renderizador de Vulkan.
@@ -68,7 +68,7 @@ namespace OSK {
 			/// <summary>
 			/// Alineamiento mínimo para dynamic ubos.
 			/// </summary>
-			size_t minAlignment;
+			TSize minAlignment;
 
 			/// <summary>
 			/// True si puede usarse en OSKengine.

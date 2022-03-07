@@ -1,6 +1,6 @@
 #include "IAsset.h"
 
-using namespace OSK;
+using namespace OSK::ASSETS;
 
 IAsset::IAsset(const std::string& assetFile) 
 	: assetFileName(assetFile) {

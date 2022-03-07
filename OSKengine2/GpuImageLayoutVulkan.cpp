@@ -3,30 +3,30 @@
 #include "GpuImageLayoutVulkan.h"
 #include <vulkan/vulkan.h>
 
-VkImageLayout OSK::GetGpuImageLayoutVulkan(OSK::GpuImageLayout layout) {
+VkImageLayout OSK::GRAPHICS::GetGpuImageLayoutVulkan(GpuImageLayout layout) {
 	switch (layout) {
-		case OSK::GpuImageLayout::UNDEFINED:
+		case GpuImageLayout::UNDEFINED:
 			return VK_IMAGE_LAYOUT_UNDEFINED;
 
-		case OSK::GpuImageLayout::PRESENT:
+		case GpuImageLayout::PRESENT:
 			return VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
 
-		case OSK::GpuImageLayout::COLOR_ATTACHMENT:
+		case GpuImageLayout::COLOR_ATTACHMENT:
 			return VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
 
-		case OSK::GpuImageLayout::DEPTH_STENCIL_TARGET:
+		case GpuImageLayout::DEPTH_STENCIL_TARGET:
 			return VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
 
-		case OSK::GpuImageLayout::DEPTH_STENCIL_READ_ONLY:
+		case GpuImageLayout::DEPTH_STENCIL_READ_ONLY:
 			return VK_IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL;
 
-		case OSK::GpuImageLayout::SHADER_READ_ONLY:
+		case GpuImageLayout::SHADER_READ_ONLY:
 			return VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 
-		case OSK::GpuImageLayout::TRANSFER_SOURCE:
+		case GpuImageLayout::TRANSFER_SOURCE:
 			return VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
 
-		case OSK::GpuImageLayout::TRANSFER_DESTINATION:
+		case GpuImageLayout::TRANSFER_DESTINATION:
 			return VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
 
 		default:

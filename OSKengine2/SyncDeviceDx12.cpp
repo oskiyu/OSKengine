@@ -4,6 +4,7 @@
 #include "CommandQueueDx12.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 void SyncDeviceDx12::SetFence(const ComPtr<ID3D12Fence>& fence) {
 	this->fence = fence;

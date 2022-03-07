@@ -7,6 +7,7 @@
 #include "MaterialLayout.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 Material::Material(const PipelineCreateInfo& pipelineInfo, OwnedPtr<MaterialLayout> layout) 
 	: pipelineInfo(pipelineInfo) {

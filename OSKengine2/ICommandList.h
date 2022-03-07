@@ -8,17 +8,20 @@
 #include <string>
 
 namespace OSK {
+	class Color;
+}
 
+namespace OSK::GRAPHICS {
+
+	class Material;
+	class IMaterialSlot;
 	class GpuImage;
 	enum class GpuImageLayout;
 	class IRenderpass;
-	class Color;
-	class Material;
 	class IGpuVertexBuffer;
 	class IGpuIndexBuffer;
 	struct Viewport;
 	class GpuDataBuffer;
-	class IMaterialSlot;
 	class IGraphicsPipeline;
 
 	/// <summary>

@@ -2,7 +2,7 @@
 
 #include "IGpuIndexBuffer.h"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class OSKAPI_CALL GpuIndexBufferVulkan : public IGpuIndexBuffer {
 

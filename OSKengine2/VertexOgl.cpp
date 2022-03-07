@@ -3,7 +3,7 @@
 #include "Vertex.h"
 #include "OglTypes.h"
 
-OSK::DynamicArray<OSK::VertexAttribInfo> OSK::GetAttribInfoOgl_Vertex3D() {
+OSK::DynamicArray<OSK::GRAPHICS::VertexAttribInfo> OSK::GRAPHICS::GetAttribInfoOgl_Vertex3D() {
 	DynamicArray<VertexAttribInfo> output;
 
 	VertexAttribInfo info{};

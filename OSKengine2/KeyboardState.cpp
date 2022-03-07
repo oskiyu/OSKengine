@@ -1,6 +1,6 @@
 #include "KeyboardState.h"
 
-using namespace OSK;
+using namespace OSK::IO;
 
 KeyState KeyboardState::GetKeyState(Key key) const {
 	return (KeyState)(int)keyStates[(int)key];

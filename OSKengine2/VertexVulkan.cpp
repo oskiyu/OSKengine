@@ -2,7 +2,7 @@
 
 #include "Vertex.h"
 
-VkVertexInputBindingDescription OSK::GetBindingDescription_Vertex3D() {
+VkVertexInputBindingDescription OSK::GRAPHICS::GetBindingDescription_Vertex3D() {
 	VkVertexInputBindingDescription bindingDescription{};
 
 	bindingDescription.binding = 0;
@@ -12,7 +12,7 @@ VkVertexInputBindingDescription OSK::GetBindingDescription_Vertex3D() {
 	return bindingDescription;
 }
 
-OSK::DynamicArray<VkVertexInputAttributeDescription> OSK::GetAttributeDescription_Vertex3D() {
+OSK::DynamicArray<VkVertexInputAttributeDescription> OSK::GRAPHICS::GetAttributeDescription_Vertex3D() {
 	auto output = DynamicArray<VkVertexInputAttributeDescription>::CreateResizedArray(3);
 
 	// Posición

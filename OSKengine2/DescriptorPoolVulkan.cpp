@@ -12,6 +12,7 @@
 #include <vulkan/vulkan.h>
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 DescriptorPoolVulkan::DescriptorPoolVulkan(const DescriptorLayoutVulkan& layout, TSize maxSets) {
 	DynamicArray<VkDescriptorPoolSize> sizes;

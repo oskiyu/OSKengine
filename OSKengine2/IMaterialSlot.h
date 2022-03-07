@@ -3,12 +3,14 @@
 #include "OSKmacros.h"
 #include <string>
 
-namespace OSK {
+namespace OSK::ASSETS {
+	class Texture;
+}
+
+namespace OSK::GRAPHICS {
 
 	class IGpuUniformBuffer;
 	class GpuImage;
-	class Texture;
-
 	class MaterialLayout;
 
 	/// <summary>
@@ -40,7 +42,7 @@ namespace OSK {
 		/// No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
 		/// </summary>
 		/// <param name="binding">Nombre del binding al que se asignará la textura.</param>
-		void SetTexture(const std::string& binding, const Texture* texture);
+		void SetTexture(const std::string& binding, const ASSETS::Texture* texture);
 
 		/// <summary>
 		/// Establece la imagen que será asignada al binding con el nombre dado.

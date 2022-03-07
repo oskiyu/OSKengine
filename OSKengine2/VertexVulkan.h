@@ -3,7 +3,7 @@
 #include <vulkan/vulkan.h>
 #include "DynamicArray.hpp"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	VkVertexInputBindingDescription GetBindingDescription_Vertex3D();
 

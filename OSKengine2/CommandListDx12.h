@@ -9,7 +9,7 @@ using namespace Microsoft::WRL;
 
 #include <d3d12.h>
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class CommandPoolDx12;
 	class GpuImageDx12;

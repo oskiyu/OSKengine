@@ -7,6 +7,7 @@
 #include <vulkan/vulkan.h>
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 // Extensiones de la GPU que van a ser necesarias.
 const DynamicArray<const char*> gpuExtensions = {

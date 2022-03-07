@@ -3,7 +3,7 @@
 #include <optional>
 #include "OSKmacros.h"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Contiene información sobre qué familias de comandos soporta una GPU.

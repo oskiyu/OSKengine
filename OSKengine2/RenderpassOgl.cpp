@@ -11,6 +11,7 @@
 #include <glad/glad.h>
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 RenderpassOgl::RenderpassOgl(RenderpassType type)
 	: IRenderpass(type) {

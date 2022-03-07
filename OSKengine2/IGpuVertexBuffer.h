@@ -2,7 +2,7 @@
 
 #include "IGpuDataBuffer.h"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Un vertex buffer es un buffer de memoria en la GPU que almacena los

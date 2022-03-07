@@ -10,6 +10,7 @@
 #include "GpuVulkan.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 CommandPoolVulkan::~CommandPoolVulkan() {
 	vkDestroyCommandPool(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),

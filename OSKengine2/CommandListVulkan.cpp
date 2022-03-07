@@ -23,6 +23,7 @@
 #include "ShaderBindingTypeVulkan.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 const DynamicArray<VkCommandBuffer>& CommandListVulkan::GetCommandBuffers() const {
 	return commandBuffers;

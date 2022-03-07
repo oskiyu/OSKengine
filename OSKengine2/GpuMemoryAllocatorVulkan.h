@@ -5,7 +5,7 @@
 struct VkDeviceMemory_T;
 typedef VkDeviceMemory_T* VkDeviceMemory;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class OSKAPI_CALL GpuMemoryAllocatorVulkan : public IGpuMemoryAllocator {
 

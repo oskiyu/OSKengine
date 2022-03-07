@@ -4,7 +4,7 @@
 #include "OwnedPtr.h"
 #include <type_traits>
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class ICommandList;
 	class IGpu;

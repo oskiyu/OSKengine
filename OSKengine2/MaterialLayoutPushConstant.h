@@ -3,7 +3,7 @@
 #include "OSKmacros.h"
 #include <string>
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	enum class ShaderStage;
 

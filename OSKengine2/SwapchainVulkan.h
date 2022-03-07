@@ -6,15 +6,17 @@ enum VkColorSpaceKHR;
 
 struct VkSwapchainKHR_T;
 typedef VkSwapchainKHR_T* VkSwapchainKHR;
+	
+namespace OSK::IO {
+	class Window;
+}
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
+	enum class Format;
 	class GpuVulkan;
 	class GpuImageVulkan;
 	class RenderpassVulkan;
-	class Window;
-	enum class Format;
-
 	class OSKAPI_CALL SwapchainVulkan : public ISwapchain {
 
 	public:
@@ -26,7 +28,7 @@ namespace OSK {
 		/// Obtiene automáticamente el tamaño de las imágenes a partir del
 		/// tamaño de la ventana.
 		/// </summary>
-		void Create(Format format, const GpuVulkan& device, const Window& window);
+		void Create(Format format, const GpuVulkan& device, const IO::Window& window);
 
 		/// <summary>
 		/// Recrea el swapchain con el tamaño de la ventana.
@@ -49,7 +51,7 @@ namespace OSK {
 		static VkColorSpaceKHR GetSupportedColorSpace(const GpuVulkan& device);
 
 		VkSwapchainKHR swapchain;
-		const Window* window = nullptr;
+		const IO::Window* window = nullptr;
 		const GpuVulkan* device = nullptr;
 
 		Format format;

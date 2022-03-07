@@ -26,6 +26,7 @@
 #include "MaterialLayout.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 void CommandListDx12::SetCommandList(const ComPtr<ID3D12GraphicsCommandList>& commandList) {
 	this->commandList = commandList;

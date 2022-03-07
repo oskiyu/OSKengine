@@ -9,6 +9,7 @@
 #include "PipelineLayoutVulkan.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 VkPipelineColorBlendAttachmentState GetColorBlendInfo(const PipelineCreateInfo& info) {
 	VkPipelineColorBlendAttachmentState output{};
@@ -27,9 +28,9 @@ VkPipelineColorBlendAttachmentState GetColorBlendInfo(const PipelineCreateInfo& 
 
 VkPolygonMode GetPolygonMode(PolygonMode mode) {
 	switch (mode) {
-	case OSK::PolygonMode::FILL:
+	case PolygonMode::FILL:
 		return VK_POLYGON_MODE_FILL;
-	case OSK::PolygonMode::LINE:
+	case PolygonMode::LINE:
 		return VK_POLYGON_MODE_LINE;
 	default:
 		return VK_POLYGON_MODE_FILL;
@@ -38,11 +39,11 @@ VkPolygonMode GetPolygonMode(PolygonMode mode) {
 
 VkCullModeFlagBits GetCullMode(PolygonCullMode mode) {
 	switch (mode) {
-	case OSK::PolygonCullMode::FRONT:
+	case PolygonCullMode::FRONT:
 		return VK_CULL_MODE_FRONT_BIT;
-	case OSK::PolygonCullMode::BACK:
+	case PolygonCullMode::BACK:
 		return VK_CULL_MODE_BACK_BIT;
-	case OSK::PolygonCullMode::NONE:
+	case PolygonCullMode::NONE:
 		return VK_CULL_MODE_NONE;
 	default:
 		return VK_CULL_MODE_FRONT_AND_BACK;
@@ -51,9 +52,9 @@ VkCullModeFlagBits GetCullMode(PolygonCullMode mode) {
 
 VkFrontFace GetFrontFaceMode(PolygonFrontFaceType type) {
 	switch (type) {
-	case OSK::PolygonFrontFaceType::CLOCKWISE:
+	case PolygonFrontFaceType::CLOCKWISE:
 		return VK_FRONT_FACE_CLOCKWISE;
-	case OSK::PolygonFrontFaceType::COUNTERCLOCKWISE:
+	case PolygonFrontFaceType::COUNTERCLOCKWISE:
 		return VK_FRONT_FACE_COUNTER_CLOCKWISE;
 	default:
 		return VK_FRONT_FACE_CLOCKWISE;
@@ -229,7 +230,7 @@ void GraphicsPipelineVulkan::LoadVertexShader(const std::string& path) {
 	VkShaderModule shaderModule = VK_NULL_HANDLE;
 
 	// Lee el código SPIR-V.
-	const DynamicArray<char> vertexCode = FileIO::ReadBinaryFromFile(path);
+	const DynamicArray<char> vertexCode = IO::FileIO::ReadBinaryFromFile(path);
 
 	VkShaderModuleCreateInfo createInfo{};
 	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
@@ -255,7 +256,7 @@ void GraphicsPipelineVulkan::LoadFragmentShader(const std::string& path) {
 	VkShaderModule shaderModule = VK_NULL_HANDLE;
 
 	// Lee el código SPIR-V.
-	const DynamicArray<char> fragmentCode = FileIO::ReadBinaryFromFile(path);
+	const DynamicArray<char> fragmentCode = IO::FileIO::ReadBinaryFromFile(path);
 
 	VkShaderModuleCreateInfo createInfo{};
 	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;

@@ -3,13 +3,13 @@
 
 #include <d3d12.h>
 
-D3D12_HEAP_TYPE OSK::GetGpuSharedMemoryTypeDx12(GpuSharedMemoryType type) {
+D3D12_HEAP_TYPE OSK::GRAPHICS::GetGpuSharedMemoryTypeDx12(GpuSharedMemoryType type) {
 	switch (type) {
 
-	case OSK::GpuSharedMemoryType::GPU_AND_CPU:
+	case GpuSharedMemoryType::GPU_AND_CPU:
 		return D3D12_HEAP_TYPE_UPLOAD;
 
-	case OSK::GpuSharedMemoryType::GPU_ONLY:
+	case GpuSharedMemoryType::GPU_ONLY:
 		return D3D12_HEAP_TYPE_DEFAULT;
 
 	}

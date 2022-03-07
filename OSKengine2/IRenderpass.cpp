@@ -4,6 +4,7 @@
 #include "RenderpassType.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 IRenderpass::IRenderpass(RenderpassType type) 
 	: type(type) {

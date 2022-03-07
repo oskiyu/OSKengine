@@ -9,7 +9,7 @@ typedef VkFence_T* VkFence;
 struct VkSemaphore_T;
 typedef VkSemaphore_T* VkSemaphore;
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class GpuVulkan;
 	class SwapchainVulkan;

@@ -8,15 +8,15 @@
 #include "Vertex.h"
 #include "Vector2.hpp"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
+	enum class Format;
 	class IGpuMemoryBlock;
 	class IGpuMemorySubblock;
 	class IGpu;
 	enum class GpuSharedMemoryType;
 	enum class GpuBufferUsage;
 	enum class GpuImageUsage;
-	enum class Format;
 
 	class GpuDataBuffer;
 	class GpuImage;
@@ -32,8 +32,6 @@ namespace OSK {
 
 		bool operator==(const GpuBufferMemoryBlockInfo& other) const;
 	};
-
-	template <> static size_t Hash<GpuBufferMemoryBlockInfo>(const GpuBufferMemoryBlockInfo& elem);
 
 	/// <summary>
 	/// El asignador de memoria se encarga de reservar grandes bloques
@@ -128,4 +126,8 @@ namespace OSK {
 
 	};
 
+}
+
+template <> static size_t OSK::Hash<OSK::GRAPHICS::GpuBufferMemoryBlockInfo>(const OSK::GRAPHICS::GpuBufferMemoryBlockInfo& elem) {
+	return Hash<TSize>((TSize)elem.usage);
 }

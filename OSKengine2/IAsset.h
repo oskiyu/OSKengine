@@ -11,7 +11,7 @@
 #define OSK_ASSET_TYPE_REG(typeName) const static std::string GetAssetType() { return typeName; }
 #endif
 
-namespace OSK {
+namespace OSK::ASSETS {
 
 	/// <summary>
 	/// Un asset es un archivo/contenido que se usa en un juego. Incluye

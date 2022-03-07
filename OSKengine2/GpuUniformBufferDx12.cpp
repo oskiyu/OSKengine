@@ -3,6 +3,7 @@
 #include "GpuMemorySubblockDx12.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 GpuUniformBufferDx12::GpuUniformBufferDx12(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment) 
 	: IGpuUniformBuffer(buffer, size, alignment) {

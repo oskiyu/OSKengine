@@ -6,7 +6,7 @@ using namespace Microsoft::WRL;
 
 #include "ICommandPool.h"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Una pool de comandos se encarga de crear una serie de listas de comandos.

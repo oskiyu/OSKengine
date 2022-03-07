@@ -3,7 +3,7 @@
 #include "OSKmacros.h"
 #include "IRenderer.h"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Implementación de la interfaz para el renderizador de OpenGL.
@@ -14,7 +14,7 @@ namespace OSK {
 
 		RendererOgl();
 
-		void Initialize(const std::string& appName, const Version& version, const Window& window) override;
+		void Initialize(const std::string& appName, const Version& version, const IO::Window& window) override;
 
 		void HandleResize() override;
 		void Close() override;

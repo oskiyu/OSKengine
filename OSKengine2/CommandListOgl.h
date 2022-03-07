@@ -2,7 +2,7 @@
 
 #include "ICommandList.h"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	class OSKAPI_CALL CommandListOgl : public ICommandList {
 
