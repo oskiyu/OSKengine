@@ -35,6 +35,9 @@
 #include "AssetManager.h"
 #include "Texture.h"
 #include "Model3D.h"
+#include "Transform3D.h"
+#include "ModelComponent3D.h"
+#include "EntityComponentSystem.h"
 
 #include <GLFW/glfw3.h>
 #include <set>
@@ -48,13 +51,10 @@ const DynamicArray<const char*> validationLayers = {
 };
 
 OwnedPtr<MaterialInstance> materialInstanceVk = nullptr;
-IGpuVertexBuffer* vertexBuffer = nullptr;
-IGpuIndexBuffer* indexBuffer = nullptr;
-ASSETS::Model3D* model = nullptr;
 
-glm::mat4 modelVk(1.0f);
-float angleVk = 0.0f;
 IGpuUniformBuffer* uniformBuffer = nullptr;
+
+ECS::GameObjectIndex ballObject = 0;
 
 float lastTime = 0.0f;
 float currentTime = 0.0f;
@@ -128,7 +128,7 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	materialInstanceVk = mat->CreateInstance();
 	
 	mat->RegisterRenderpass(renderpass.GetPointer());
-
+	
 	DynamicArray<Vertex3D> vertices = {
 		{ {-0.5f, -0.5f, 0.0f}, 1.0f, {1.0f, 0.0f, 0.0f, 1.0f}, { 0.5f, 1.0f } },
 		{ {0.5f, -0.5f, 0.0f}, 1.0f, {0.0f, 1.0f, 0.0f, 1.0f}, { 1.0f, 0.0f } },
@@ -139,9 +139,7 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 		0, 1, 2
 	};
 
-	vertexBuffer = gpuMemoryAllocator->CreateVertexBuffer(vertices).GetPointer();
-	indexBuffer = gpuMemoryAllocator->CreateIndexBuffer(indices).GetPointer();
-	uniformBuffer = gpuMemoryAllocator->CreateUniformBuffer(sizeof(modelVk)).GetPointer();
+	uniformBuffer = gpuMemoryAllocator->CreateUniformBuffer(sizeof(glm::mat4)).GetPointer();
 	uniformBuffer->MapMemory();
 
 	ASSETS::Texture* texture = Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/texture0.json", "GLOBAL");
@@ -150,7 +148,17 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	materialInstanceVk->GetSlot("global")->SetTexture("texture", texture);
 	materialInstanceVk->GetSlot("global")->FlushUpdate();
 
-	model = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/model0.json", "GLOBAL");
+	auto model = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/model0.json", "GLOBAL");
+
+	ballObject = Engine::GetEntityComponentSystem()->SpawnObject();
+	Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(ballObject, ECS::Transform3D(ballObject));
+	Engine::GetEntityComponentSystem()->AddComponent<ECS::ModelComponent3D>(ballObject, {});
+
+	Engine::GetEntityComponentSystem()->GetComponent<ECS::ModelComponent3D>(ballObject).SetModel(model);
+	Engine::GetEntityComponentSystem()->GetComponent<ECS::ModelComponent3D>(ballObject).SetMaterialInstance(materialInstanceVk);
+
+	Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(ballObject).AddPosition({ 0, 1, 1 });
+	Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(ballObject).SetScale(0.8f);
 }
 
 OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
@@ -428,16 +436,13 @@ void RendererVulkan::PresentFrame() {
 	float delta = currentTime - lastTime;
 
 	//
-	modelVk = glm::rotate(modelVk, delta, { 1, 0, 0 });
-
-	//uniformBuffer->ResetCursor();
-	//uniformBuffer->Write(&modelVk, sizeof(modelVk));
+	Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(ballObject).RotateLocalSpace(delta, { 0, 1, 0 });
 	//
 
 	commandList->Reset();
 	commandList->Start();
 
-	commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());
+	commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::BLACK());
 
 	Vector4ui windowRec = {
 		0,
@@ -451,17 +456,4 @@ void RendererVulkan::PresentFrame() {
 
 	commandList->SetViewport(viewport);
 	commandList->SetScissor(windowRec);
-
-	commandList->BindMaterial(materialInstanceVk->GetMaterial());
-	commandList->BindVertexBuffer(vertexBuffer);
-	commandList->BindIndexBuffer(indexBuffer);
-
-	commandList->BindMaterialSlot(materialInstanceVk->GetSlot("global"));
-	commandList->PushMaterialConstants("model", modelVk);
-
-	commandList->DrawSingleInstance(3);
-
-	commandList->BindVertexBuffer(model->GetVertexBuffer());
-	commandList->BindIndexBuffer(model->GetIndexBuffer());
-	commandList->DrawSingleInstance(model->GetIndexCount());
 }

@@ -53,6 +53,10 @@ namespace OSK {
 
 	private:
 
+		static void RegisterBuiltinAssets();
+		static void RegisterBuiltinComponents();
+		static void RegisterBuiltinSystems();
+
 		static UniquePtr<IO::Logger> logger;
 		static UniquePtr<IO::Window> window;
 		static UniquePtr<GRAPHICS::IRenderer> renderer;

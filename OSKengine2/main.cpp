@@ -9,48 +9,43 @@
 #include "GpuMemoryTypes.h"
 #include "Format.h"
 
+#include "MaterialInstance.h"
 #include "EntityComponentSystem.h"
 #include "Transform3D.h"
+#include "RenderSystem3D.h"
 
 using namespace OSK;
+using namespace OSK::GRAPHICS;
 
 TSize fps = 0;
 TSize frames = 0;
 float timeSinceLastFrameCount = 0.0f;
+
+float deltaTime = 0.0f;
 
 int main() {
 	Engine::Create(GRAPHICS::RenderApiType::VULKAN);
 
 	Engine::GetWindow()->Create(800, 600, "OSKengine");
 	Engine::GetRenderer()->Initialize("OSKengine", {}, *Engine::GetWindow());
+	//Engine::GetWindow()->SetFullScreen(true);
 
-	// ECS Test
-	Engine::GetEntityComponentSystem()->RegisterComponent<Transform3D>();
-
-	ECS::GameObjectIndex obj0 = Engine::GetEntityComponentSystem()->SpawnObject();
-	ECS::GameObjectIndex obj1 = Engine::GetEntityComponentSystem()->SpawnObject();
-
-	Engine::GetEntityComponentSystem()->AddComponent<Transform3D>(obj0, Transform3D(obj0));
-	Engine::GetEntityComponentSystem()->AddComponent<Transform3D>(obj1, Transform3D(obj1));
-
-	Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(obj1).AttachToObject(obj0);
-
-	Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(obj0).AddPosition(1.0f);
-	//
-
+	Engine::GetRenderer()->PresentFrame();
 	while (!Engine::GetWindow()->ShouldClose()) {
 		float beginTime = Engine::GetCurrentTime();
 
 		Engine::GetWindow()->Update();
 
 		//TODO: Game::Update()
+		
 
 		//TODO: Game::Draw()
+		Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->Render(Engine::GetRenderer()->GetCommandList());
 
 		Engine::GetRenderer()->PresentFrame();
 
 		float endTime = Engine::GetCurrentTime();
-		float deltaTime = endTime - beginTime;
+		deltaTime = endTime - beginTime;
 
 		frames++;
 		timeSinceLastFrameCount += deltaTime;
@@ -62,10 +57,6 @@ int main() {
 	}
 
 	Engine::GetLogger()->DebugLog("FPS: " + std::to_string(fps));
-
-	Engine::GetEntityComponentSystem()->RemoveComponent<Transform3D>(obj0);
-	Engine::GetEntityComponentSystem()->DestroyObject(&obj0);
-	Engine::GetEntityComponentSystem()->DestroyObject(&obj1);
 
 	Engine::Close();
 

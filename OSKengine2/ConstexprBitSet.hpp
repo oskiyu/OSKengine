@@ -55,7 +55,7 @@ namespace OSK {
 		/// bits que este tiene en 1.
 		/// </summary>
 		bool IsCompatible(const ConstexprBitSet& other) const {
-			for (TSize i = 0; i < size; i++)
+			for (TSize i = 0; i < bytes.GetSize(); i++)
 				if ((bytes.At(i) & other.bytes.At(i)) != bytes.At(i))
 					return false;
 

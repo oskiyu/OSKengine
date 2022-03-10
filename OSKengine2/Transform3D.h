@@ -5,7 +5,7 @@
 #include "Vector3.hpp"
 #include "Quaternion.h"
 
-namespace OSK {
+namespace OSK::ECS {
 
 	class OSKAPI_CALL Transform3D {
 

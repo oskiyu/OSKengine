@@ -7,6 +7,7 @@
 #include <gtx/quaternion.hpp>
 
 using namespace OSK;
+using namespace OSK::ECS;
 
 const static ECS::EntityComponentSystem* GetEcs() {
 	return Engine::GetEntityComponentSystem();

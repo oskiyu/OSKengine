@@ -16,7 +16,7 @@ void SystemManager::GameObjectDestroyed(GameObjectIndex obj) {
 
 void SystemManager::GameObjectSignatureChanged(GameObjectIndex obj, const Signature& signature) {
 	for (auto& i : sistemas) {
-		if (signature.IsCompatible(i.second->GetSignature()))
+		if (i.second->GetSignature().IsCompatible(signature))
 			i.second->AddObject(obj);
 		else
 			i.second->RemoveObject(obj);

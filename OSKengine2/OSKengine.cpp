@@ -11,6 +11,9 @@
 #include "TextureLoader.h"
 #include "ModelLoader3D.h"
 #include "EntityComponentSystem.h"
+#include "Transform3D.h"
+#include "ModelComponent3D.h"
+#include "RenderSystem3D.h"
 
 #include <GLFW/glfw3.h>
 #undef GetCurrentTime;
@@ -61,8 +64,9 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 	}
 
 	assetManager = new ASSETS::AssetManager();
-	assetManager->RegisterLoader<ASSETS::TextureLoader>();
-	assetManager->RegisterLoader<ASSETS::ModelLoader3D>();
+	RegisterBuiltinAssets();
+	RegisterBuiltinComponents();
+	RegisterBuiltinSystems();
 }
 
 void Engine::Close() {
@@ -70,6 +74,20 @@ void Engine::Close() {
 	renderer.Delete();
 	window.Delete();
 	logger.Delete();
+}
+
+void Engine::RegisterBuiltinAssets() {
+	assetManager->RegisterLoader<ASSETS::TextureLoader>();
+	assetManager->RegisterLoader<ASSETS::ModelLoader3D>();
+}
+
+void Engine::RegisterBuiltinComponents() {
+	entityComponentSystem->RegisterComponent<ECS::Transform3D>();
+	entityComponentSystem->RegisterComponent<ECS::ModelComponent3D>();
+}
+
+void Engine::RegisterBuiltinSystems() {
+	entityComponentSystem->RegisterSystem<ECS::RenderSystem3D>();
 }
 
 IO::Logger* Engine::GetLogger() {

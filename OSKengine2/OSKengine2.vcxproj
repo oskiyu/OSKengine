@@ -89,6 +89,7 @@
     <ClCompile Include="MaterialSlotVulkan.cpp" />
     <ClCompile Include="MaterialSystem.cpp" />
     <ClCompile Include="Model3D.cpp" />
+    <ClCompile Include="ModelComponent3D.cpp" />
     <ClCompile Include="ModelLoader3D.cpp" />
     <ClCompile Include="PipelineLayoutDx12.cpp" />
     <ClCompile Include="PipelineLayoutVulkan.cpp" />
@@ -120,6 +121,7 @@
     <ClCompile Include="RenderpassDx12.cpp" />
     <ClCompile Include="RenderpassOgl.cpp" />
     <ClCompile Include="RenderpassVulkan.cpp" />
+    <ClCompile Include="RenderSystem3D.cpp" />
     <ClCompile Include="ShaderBindingTypeVulkan.cpp" />
     <ClCompile Include="SwapchainDx12.cpp" />
     <ClCompile Include="SwapchainVulkan.cpp" />
@@ -204,6 +206,7 @@
     <ClInclude Include="MaterialSlotVulkan.h" />
     <ClInclude Include="MaterialSystem.h" />
     <ClInclude Include="Model3D.h" />
+    <ClInclude Include="ModelComponent3D.h" />
     <ClInclude Include="ModelLoader3D.h" />
     <ClInclude Include="PipelineLayoutDx12.h" />
     <ClInclude Include="PipelineLayoutVulkan.h" />
@@ -248,6 +251,7 @@
     <ClInclude Include="RenderpassOgl.h" />
     <ClInclude Include="RenderpassType.h" />
     <ClInclude Include="RenderpassVulkan.h" />
+    <ClInclude Include="RenderSystem3D.h" />
     <ClInclude Include="ShaderBindingType.h" />
     <ClInclude Include="ShaderBindingTypeVulkan.h" />
     <ClInclude Include="SharedPtr.hpp" />

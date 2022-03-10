@@ -295,17 +295,29 @@
     <Filter Include="Archivos de origen\OSKengine\ECS\System">
       <UniqueIdentifier>{4f5369ed-7cf9-4c3a-bc6d-2b3928e1662c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\ECS\Component\Builtin">
-      <UniqueIdentifier>{0f52d713-7e97-4973-8205-eaebeb9ae430}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\OSKengine\ECS\Component\Builtin">
-      <UniqueIdentifier>{a7198859-d1be-4134-ad00-3bd05f6d57fd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine\IO">
       <UniqueIdentifier>{55054a3b-caae-4f7d-ba1f-c19f20064d9d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de encabezado\IO">
       <UniqueIdentifier>{8df65a52-e54c-42cf-9dff-3ecd243f5658}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\ECS\Builtin">
+      <UniqueIdentifier>{0f52d713-7e97-4973-8205-eaebeb9ae430}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\ECS\Builtin\Transform">
+      <UniqueIdentifier>{f3e3c919-1363-4f06-8405-f2f77e8631cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\ECS\Builtin\Model3D">
+      <UniqueIdentifier>{087fa198-8ccb-4ff2-b4cd-23fb588e35be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\ECS\Builtin">
+      <UniqueIdentifier>{a7198859-d1be-4134-ad00-3bd05f6d57fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\ECS\Builtin\Transform3D">
+      <UniqueIdentifier>{b8ecdc52-1ff9-4d1f-81cc-a31530031ef9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\ECS\Builtin\Model3D">
+      <UniqueIdentifier>{ba9d9aa6-0f22-4b95-8b56-2ed58e4ed17d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -597,14 +609,20 @@
     <ClCompile Include="Quaternion.cpp">
       <Filter>Archivos de origen\OSKengine\Types</Filter>
     </ClCompile>
-    <ClCompile Include="Transform3D.cpp">
-      <Filter>Archivos de origen\OSKengine\ECS\Component\Builtin</Filter>
-    </ClCompile>
     <ClCompile Include="FileIO.cpp">
       <Filter>Archivos de origen\OSKengine\IO</Filter>
     </ClCompile>
     <ClCompile Include="Logger.cpp">
       <Filter>Archivos de origen\OSKengine\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform3D.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Transform3D</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelComponent3D.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Model3D</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSystem3D.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Model3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1001,9 +1019,6 @@
     <ClInclude Include="EntityComponentSystem.h">
       <Filter>Archivos de encabezado\ECS</Filter>
     </ClInclude>
-    <ClInclude Include="Transform3D.h">
-      <Filter>Archivos de encabezado\ECS\Component\Builtin</Filter>
-    </ClInclude>
     <ClInclude Include="Quaternion.h">
       <Filter>Archivos de encabezado\Types</Filter>
     </ClInclude>
@@ -1012,6 +1027,15 @@
     </ClInclude>
     <ClInclude Include="FileIO.h">
       <Filter>Archivos de encabezado\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform3D.h">
+      <Filter>Archivos de encabezado\ECS\Builtin\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelComponent3D.h">
+      <Filter>Archivos de encabezado\ECS\Builtin\Model3D</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem3D.h">
+      <Filter>Archivos de encabezado\ECS\Builtin\Model3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

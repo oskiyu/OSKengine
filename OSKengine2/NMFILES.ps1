@@ -1,0 +1,1 @@
+Get-ChildItem .\ -Recurse -File -Include *.h,*.hpp,*.cpp,*.json,*.cs,*.vert,*.frag,*.hlsl | Measure-Object | %{$_.Count} 
