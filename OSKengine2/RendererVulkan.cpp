@@ -50,15 +50,6 @@ const DynamicArray<const char*> validationLayers = {
 	"VK_LAYER_KHRONOS_validation"
 };
 
-OwnedPtr<MaterialInstance> materialInstanceVk = nullptr;
-
-IGpuUniformBuffer* uniformBuffer = nullptr;
-
-ECS::GameObjectIndex ballObject = 0;
-
-float lastTime = 0.0f;
-float currentTime = 0.0f;
-
 VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
 	//Message severity:
 	//	VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT: "diagnostic" message.
@@ -124,41 +115,7 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	CreateGpuMemoryAllocator();
 	CreateMainRenderpass();
 
-	Material* mat = materialSystem->LoadMaterial("Resources/material.json");
-	materialInstanceVk = mat->CreateInstance();
-	
-	mat->RegisterRenderpass(renderpass.GetPointer());
-	
-	DynamicArray<Vertex3D> vertices = {
-		{ {-0.5f, -0.5f, 0.0f}, 1.0f, {1.0f, 0.0f, 0.0f, 1.0f}, { 0.5f, 1.0f } },
-		{ {0.5f, -0.5f, 0.0f}, 1.0f, {0.0f, 1.0f, 0.0f, 1.0f}, { 1.0f, 0.0f } },
-		{ {0.0f, 0.5f, 0.0f}, 1.0f, {0.0f, 0.0f, 1.0f, 1.0f}, { 0.0f, 0.0f } }
-	};
-
-	DynamicArray<TIndexSize> indices = {
-		0, 1, 2
-	};
-
-	uniformBuffer = gpuMemoryAllocator->CreateUniformBuffer(sizeof(glm::mat4)).GetPointer();
-	uniformBuffer->MapMemory();
-
-	ASSETS::Texture* texture = Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/texture0.json", "GLOBAL");
-
-	materialInstanceVk->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer);
-	materialInstanceVk->GetSlot("global")->SetTexture("texture", texture);
-	materialInstanceVk->GetSlot("global")->FlushUpdate();
-
-	auto model = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/model0.json", "GLOBAL");
-
-	ballObject = Engine::GetEntityComponentSystem()->SpawnObject();
-	Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(ballObject, ECS::Transform3D(ballObject));
-	Engine::GetEntityComponentSystem()->AddComponent<ECS::ModelComponent3D>(ballObject, {});
-
-	Engine::GetEntityComponentSystem()->GetComponent<ECS::ModelComponent3D>(ballObject).SetModel(model);
-	Engine::GetEntityComponentSystem()->GetComponent<ECS::ModelComponent3D>(ballObject).SetMaterialInstance(materialInstanceVk);
-
-	Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(ballObject).AddPosition({ 0, 1, 1 });
-	Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(ballObject).SetScale(0.8f);
+	isOpen = true;
 }
 
 OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
@@ -183,6 +140,8 @@ void RendererVulkan::Close() {
 	currentGpu.Delete();
 
 	vkDestroyInstance(instance, nullptr);
+
+	isOpen = false;
 }
 
 void RendererVulkan::HandleResize() {
@@ -406,6 +365,8 @@ void RendererVulkan::CreateMainRenderpass() {
 	renderpass = new RenderpassVulkan(RenderpassType::FINAL);
 	renderpass->As<RenderpassVulkan>()->CreateFinalPresent(swapchain.GetPointer());
 	renderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
+
+	materialSystem->RegisterRenderpass(renderpass.GetPointer());
 }
 
 void RendererVulkan::PresentFrame() {
@@ -421,8 +382,6 @@ void RendererVulkan::PresentFrame() {
 	commandList->EndRenderpass(renderpass.GetPointer());
 	commandList->Close();
 
-	lastTime = currentTime;
-
 	for (TSize i = 0; i < singleTimeCommandLists.GetSize(); i++)
 		singleTimeCommandLists.At(i)->DeleteAllStagingBuffers();
 
@@ -431,14 +390,9 @@ void RendererVulkan::PresentFrame() {
 	if (result)
 		return;
 	syncDevice->As<SyncDeviceVulkan>()->Flush(*graphicsQueue->As<CommandQueueVulkan>() , *presentQueue->As<CommandQueueVulkan>(), *commandList->As<CommandListVulkan>());
-
-	currentTime = Engine::GetCurrentTime();
-	float delta = currentTime - lastTime;
-
+	
 	//
-	Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(ballObject).RotateLocalSpace(delta, { 0, 1, 0 });
-	//
-
+	
 	commandList->Reset();
 	commandList->Start();
 

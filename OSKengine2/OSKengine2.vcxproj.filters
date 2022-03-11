@@ -19,26 +19,11 @@
     <Filter Include="Archivos de origen\OSKengine">
       <UniqueIdentifier>{0d708705-372d-41b8-8ede-05547485f832}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Types">
-      <UniqueIdentifier>{7d72a006-1447-4791-95fd-3f480e858144}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Memory">
-      <UniqueIdentifier>{2f1b2e57-6055-4b41-9585-9edcf089cb51}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI">
       <UniqueIdentifier>{01f5680d-5039-431b-90b4-abd5b6698baa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Util">
-      <UniqueIdentifier>{950412df-0ac9-4b24-abcd-139b23f21ee5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine\Util">
       <UniqueIdentifier>{7c153d42-429c-407d-b325-872615be17f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI">
-      <UniqueIdentifier>{83170729-5134-41f5-bd54-8ea9910d5ec0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\STD">
-      <UniqueIdentifier>{e23bcee6-9281-4c75-80c8-a463e93e92f9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel">
       <UniqueIdentifier>{9f05af95-2413-4d79-9535-f76cd2c20cc3}</UniqueIdentifier>
@@ -106,104 +91,14 @@
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\HighLevel">
       <UniqueIdentifier>{5a8f829c-fffd-4b8c-b10f-6954653eac27}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel">
-      <UniqueIdentifier>{99d3bf02-df9b-44a8-9299-7c08bbfcec60}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Renderpass">
-      <UniqueIdentifier>{2db46cc9-b1e1-4b5d-8448-3ed0ad8342d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Renderer">
-      <UniqueIdentifier>{72fe62db-9740-435f-b0ff-453c55895781}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Resources">
-      <UniqueIdentifier>{1351832f-7714-425e-b22c-9a0af308174b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Resources\Image">
-      <UniqueIdentifier>{5ef5e3cc-25a5-4b1c-9e9a-ba84da634676}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Resources\Image\Format">
-      <UniqueIdentifier>{895d923a-5f98-48c9-9e00-d64c87592467}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Resources\Image\Layout">
-      <UniqueIdentifier>{7daad305-aec2-4ecb-a651-fe156ce49713}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Resources\Image\Image">
-      <UniqueIdentifier>{54c173ef-62ec-4665-a729-5870e1dce0f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer">
-      <UniqueIdentifier>{eeebfc32-7821-4d18-a161-27fe5e554067}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Vertex">
-      <UniqueIdentifier>{5415fe05-9f08-4112-8301-d1d4cdc5736a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Index">
-      <UniqueIdentifier>{ecf50bed-6b5d-4ae8-967d-99fa8440622c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Swapchain">
-      <UniqueIdentifier>{13d91e0c-c20c-4905-95cd-e419d795f47e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Sync">
-      <UniqueIdentifier>{d74f7f95-ecb0-452a-aca5-0cd5dbb27805}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Vertex">
-      <UniqueIdentifier>{c13f8272-ce6b-4990-8565-5cd782b778d0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Commands">
-      <UniqueIdentifier>{bb0f8911-f7ab-48d4-9b70-d004d85b65a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Commands\Queue">
-      <UniqueIdentifier>{f95f27df-6b41-4319-af7f-0da4775148c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Commands\Pool">
-      <UniqueIdentifier>{9bc4858d-1b8b-4b9e-a315-4c5b6723c221}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Commands\List">
-      <UniqueIdentifier>{6c33079a-2a94-418a-a357-31f78a5c74df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Gpu">
-      <UniqueIdentifier>{8447f629-d426-4622-b855-fe41042e9478}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Memory">
-      <UniqueIdentifier>{38c20a20-9205-47f6-bd05-f6ae1e9af665}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Memory\Allocator">
-      <UniqueIdentifier>{fec5c9ff-18a6-4cdd-b004-fbb7f9a291b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Memory\Block">
-      <UniqueIdentifier>{216e1633-b043-4c17-8943-e0df33bc1ed6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Memory\Subblock">
-      <UniqueIdentifier>{90fac08e-b8b5-4228-b448-0e5a1f67c228}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Memory\Enums">
-      <UniqueIdentifier>{50a96a1f-69b5-41ce-85d4-5df26e115f26}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\HighLevel">
-      <UniqueIdentifier>{0f060710-faff-4407-a43c-740bccd2b83d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine\Types">
       <UniqueIdentifier>{ac15c615-7b03-4c62-bc04-82b0bab69299}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline">
       <UniqueIdentifier>{98ca4f4a-2769-474a-ab3e-0806d3a4d213}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Pipeline">
-      <UniqueIdentifier>{7dcb0c62-f988-46b9-b61e-fc5f51441c90}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Pipeline\GraphicsPipeline">
-      <UniqueIdentifier>{7834c91a-1d27-4f14-abb3-4085fda7717d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Viewport">
-      <UniqueIdentifier>{31c35286-2001-4330-9cfd-26b42fee0bbb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Uniform">
-      <UniqueIdentifier>{be15d554-c73d-48b8-9626-688c64e629d2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Uniform">
       <UniqueIdentifier>{d553da6e-8ede-41b3-a573-8d49c5eba4ce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Layout">
-      <UniqueIdentifier>{afd8f43d-91d0-400d-bbf8-d703ee9e9aaa}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout">
       <UniqueIdentifier>{4991646e-9271-4a29-918e-bc31cea91894}</UniqueIdentifier>
@@ -211,32 +106,14 @@
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline">
       <UniqueIdentifier>{90756499-3b15-4adf-adda-3788e01aca33}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Layout\Shader">
-      <UniqueIdentifier>{b113138c-b0b5-46fe-b9c7-c472f8bc8211}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Layout\Pipeline">
-      <UniqueIdentifier>{f8a97e08-c333-4e0e-a4f0-c541224f137b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Pipeline">
       <UniqueIdentifier>{771f7ea8-8ae3-4ab6-a882-4c35d9d32460}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\HighLevel\Material">
-      <UniqueIdentifier>{0ccaa110-f30e-4d69-80ca-0f39568a0a8e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\HighLevel\Material">
       <UniqueIdentifier>{b4dede04-6846-4c59-9849-43c2f3686e39}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\HighLevel\Material\Layout">
-      <UniqueIdentifier>{2fcd81c1-58d2-411e-a484-070b14394cd9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\HighLevel\Material\Layout">
       <UniqueIdentifier>{0fb8ea34-f058-42c8-8f29-6030e3b36d78}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Material">
-      <UniqueIdentifier>{ce8289c2-3296-4623-9e27-bd2acf6cbef9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Material\Slot">
-      <UniqueIdentifier>{3c8c5d73-fc07-4fdf-8953-f740a153de1e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Material">
       <UniqueIdentifier>{0e3f0044-ff9a-4c47-a6ce-ebf55be1eea1}</UniqueIdentifier>
@@ -244,47 +121,23 @@
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Material\Slot">
       <UniqueIdentifier>{6bcb0019-d1c1-441f-9a80-0cfa7ffc6c73}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\RenderAPI\LowLevel\Material\Slot\Desc">
-      <UniqueIdentifier>{6c06b96c-ebc7-475e-8434-9258ab904fc3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Material\Slot\Desc">
       <UniqueIdentifier>{cf8afb6f-b221-43a6-bcbb-cf8792cd23e9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Shader">
       <UniqueIdentifier>{f27b86fe-ff95-4a4a-bc98-b9c12dd4f73f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Assets">
-      <UniqueIdentifier>{91f667a1-515e-420c-ae56-c90997c0975e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine\Assets">
       <UniqueIdentifier>{8275e444-85fb-4b83-b17b-c9b05b93b15e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Assets\Builtin">
-      <UniqueIdentifier>{4a59a094-3e51-4acb-a9f4-25bb7cb33882}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen\OSKengine\Assets\Builtin">
       <UniqueIdentifier>{4e6eb584-9ffa-426e-9976-e01487227120}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Assets\Loaders">
-      <UniqueIdentifier>{ef4483fc-39a0-4217-8e6c-10d2b633c0e3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine\Assets\Loaders">
       <UniqueIdentifier>{e7c30582-cfac-45f0-9235-280ec8f8ddfc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\ECS">
-      <UniqueIdentifier>{9b7af04f-4ed2-4df0-8020-f37022c0d6d1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine\ECS">
       <UniqueIdentifier>{a57277ce-475e-4bf5-afda-4cc8da3d4095}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\ECS\Component">
-      <UniqueIdentifier>{b0ab953b-4bc8-4e2d-ad70-ca63c8b94027}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\ECS\GameObject">
-      <UniqueIdentifier>{bcd54297-7b81-4024-9769-abf1d0c178b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\ECS\System">
-      <UniqueIdentifier>{c8465148-1e82-43a1-b955-071a35ee5450}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen\OSKengine\ECS\GameObject">
       <UniqueIdentifier>{523cb337-ca1f-49a3-913e-d95e723addcd}</UniqueIdentifier>
@@ -298,18 +151,6 @@
     <Filter Include="Archivos de origen\OSKengine\IO">
       <UniqueIdentifier>{55054a3b-caae-4f7d-ba1f-c19f20064d9d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\IO">
-      <UniqueIdentifier>{8df65a52-e54c-42cf-9dff-3ecd243f5658}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\ECS\Builtin">
-      <UniqueIdentifier>{0f52d713-7e97-4973-8205-eaebeb9ae430}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\ECS\Builtin\Transform">
-      <UniqueIdentifier>{f3e3c919-1363-4f06-8405-f2f77e8631cb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\ECS\Builtin\Model3D">
-      <UniqueIdentifier>{087fa198-8ccb-4ff2-b4cd-23fb588e35be}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine\ECS\Builtin">
       <UniqueIdentifier>{a7198859-d1be-4134-ad00-3bd05f6d57fd}</UniqueIdentifier>
     </Filter>
@@ -318,6 +159,171 @@
     </Filter>
     <Filter Include="Archivos de origen\OSKengine\ECS\Builtin\Model3D">
       <UniqueIdentifier>{ba9d9aa6-0f22-4b95-8b56-2ed58e4ed17d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine">
+      <UniqueIdentifier>{558164c6-1a3a-4be4-8d7c-de16fa4f0484}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI">
+      <UniqueIdentifier>{83170729-5134-41f5-bd54-8ea9910d5ec0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel">
+      <UniqueIdentifier>{99d3bf02-df9b-44a8-9299-7c08bbfcec60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Renderpass">
+      <UniqueIdentifier>{2db46cc9-b1e1-4b5d-8448-3ed0ad8342d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Renderer">
+      <UniqueIdentifier>{72fe62db-9740-435f-b0ff-453c55895781}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources">
+      <UniqueIdentifier>{1351832f-7714-425e-b22c-9a0af308174b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image">
+      <UniqueIdentifier>{5ef5e3cc-25a5-4b1c-9e9a-ba84da634676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Format">
+      <UniqueIdentifier>{895d923a-5f98-48c9-9e00-d64c87592467}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Layout">
+      <UniqueIdentifier>{7daad305-aec2-4ecb-a651-fe156ce49713}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Image">
+      <UniqueIdentifier>{54c173ef-62ec-4665-a729-5870e1dce0f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer">
+      <UniqueIdentifier>{eeebfc32-7821-4d18-a161-27fe5e554067}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Vertex">
+      <UniqueIdentifier>{5415fe05-9f08-4112-8301-d1d4cdc5736a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Index">
+      <UniqueIdentifier>{ecf50bed-6b5d-4ae8-967d-99fa8440622c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Uniform">
+      <UniqueIdentifier>{be15d554-c73d-48b8-9626-688c64e629d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Swapchain">
+      <UniqueIdentifier>{13d91e0c-c20c-4905-95cd-e419d795f47e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Sync">
+      <UniqueIdentifier>{d74f7f95-ecb0-452a-aca5-0cd5dbb27805}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Vertex">
+      <UniqueIdentifier>{c13f8272-ce6b-4990-8565-5cd782b778d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands">
+      <UniqueIdentifier>{bb0f8911-f7ab-48d4-9b70-d004d85b65a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\Queue">
+      <UniqueIdentifier>{f95f27df-6b41-4319-af7f-0da4775148c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\Pool">
+      <UniqueIdentifier>{9bc4858d-1b8b-4b9e-a315-4c5b6723c221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\List">
+      <UniqueIdentifier>{6c33079a-2a94-418a-a357-31f78a5c74df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Gpu">
+      <UniqueIdentifier>{8447f629-d426-4622-b855-fe41042e9478}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory">
+      <UniqueIdentifier>{38c20a20-9205-47f6-bd05-f6ae1e9af665}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Allocator">
+      <UniqueIdentifier>{fec5c9ff-18a6-4cdd-b004-fbb7f9a291b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Block">
+      <UniqueIdentifier>{216e1633-b043-4c17-8943-e0df33bc1ed6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Subblock">
+      <UniqueIdentifier>{90fac08e-b8b5-4228-b448-0e5a1f67c228}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Enums">
+      <UniqueIdentifier>{50a96a1f-69b5-41ce-85d4-5df26e115f26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline">
+      <UniqueIdentifier>{7dcb0c62-f988-46b9-b61e-fc5f51441c90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline">
+      <UniqueIdentifier>{7834c91a-1d27-4f14-abb3-4085fda7717d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Viewport">
+      <UniqueIdentifier>{31c35286-2001-4330-9cfd-26b42fee0bbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Layout">
+      <UniqueIdentifier>{afd8f43d-91d0-400d-bbf8-d703ee9e9aaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Shader">
+      <UniqueIdentifier>{b113138c-b0b5-46fe-b9c7-c472f8bc8211}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Pipeline">
+      <UniqueIdentifier>{f8a97e08-c333-4e0e-a4f0-c541224f137b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Material">
+      <UniqueIdentifier>{ce8289c2-3296-4623-9e27-bd2acf6cbef9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Material\Slot">
+      <UniqueIdentifier>{3c8c5d73-fc07-4fdf-8953-f740a153de1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Material\Slot\Desc">
+      <UniqueIdentifier>{6c06b96c-ebc7-475e-8434-9258ab904fc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\HighLevel">
+      <UniqueIdentifier>{0f060710-faff-4407-a43c-740bccd2b83d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\HighLevel\Material">
+      <UniqueIdentifier>{0ccaa110-f30e-4d69-80ca-0f39568a0a8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\HighLevel\Material\Layout">
+      <UniqueIdentifier>{2fcd81c1-58d2-411e-a484-070b14394cd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\STD">
+      <UniqueIdentifier>{e23bcee6-9281-4c75-80c8-a463e93e92f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Types">
+      <UniqueIdentifier>{7d72a006-1447-4791-95fd-3f480e858144}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Util">
+      <UniqueIdentifier>{950412df-0ac9-4b24-abcd-139b23f21ee5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Memory">
+      <UniqueIdentifier>{2f1b2e57-6055-4b41-9585-9edcf089cb51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Assets">
+      <UniqueIdentifier>{91f667a1-515e-420c-ae56-c90997c0975e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Assets\Builtin">
+      <UniqueIdentifier>{4a59a094-3e51-4acb-a9f4-25bb7cb33882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Assets\Loaders">
+      <UniqueIdentifier>{ef4483fc-39a0-4217-8e6c-10d2b633c0e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\ECS">
+      <UniqueIdentifier>{9b7af04f-4ed2-4df0-8020-f37022c0d6d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\ECS\Component">
+      <UniqueIdentifier>{b0ab953b-4bc8-4e2d-ad70-ca63c8b94027}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\ECS\GameObject">
+      <UniqueIdentifier>{bcd54297-7b81-4024-9769-abf1d0c178b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\ECS\System">
+      <UniqueIdentifier>{c8465148-1e82-43a1-b955-071a35ee5450}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\ECS\Builtin">
+      <UniqueIdentifier>{0f52d713-7e97-4973-8205-eaebeb9ae430}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\ECS\Builtin\Transform">
+      <UniqueIdentifier>{f3e3c919-1363-4f06-8405-f2f77e8631cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\ECS\Builtin\Model3D">
+      <UniqueIdentifier>{087fa198-8ccb-4ff2-b4cd-23fb588e35be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\IO">
+      <UniqueIdentifier>{8df65a52-e54c-42cf-9dff-3ecd243f5658}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Memory">
+      <UniqueIdentifier>{d8abbfe1-2460-4777-9024-4181aa9a125d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -624,418 +630,433 @@
     <ClCompile Include="RenderSystem3D.cpp">
       <Filter>Archivos de origen\OSKengine\ECS\Builtin\Model3D</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Archivos de origen\OSKengine</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory.cpp">
+      <Filter>Archivos de origen\OSKengine\Memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
-      <Filter>Archivos de encabezado\IO</Filter>
+      <Filter>Archivos de encabezado\OSKengine\IO</Filter>
     </ClInclude>
     <ClInclude Include="MouseState.h">
-      <Filter>Archivos de encabezado\IO</Filter>
+      <Filter>Archivos de encabezado\OSKengine\IO</Filter>
     </ClInclude>
     <ClInclude Include="Vector2.hpp">
-      <Filter>Archivos de encabezado\Types</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
     </ClInclude>
     <ClInclude Include="Vector3.hpp">
-      <Filter>Archivos de encabezado\Types</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
     </ClInclude>
     <ClInclude Include="Vector4.hpp">
-      <Filter>Archivos de encabezado\Types</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
-      <Filter>Archivos de encabezado\IO</Filter>
+      <Filter>Archivos de encabezado\OSKengine\IO</Filter>
     </ClInclude>
     <ClInclude Include="OwnedPtr.h">
-      <Filter>Archivos de encabezado\Memory</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Memory</Filter>
     </ClInclude>
     <ClInclude Include="SharedPtr.hpp">
-      <Filter>Archivos de encabezado\Memory</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Memory</Filter>
     </ClInclude>
     <ClInclude Include="UniquePtr.hpp">
-      <Filter>Archivos de encabezado\Memory</Filter>
-    </ClInclude>
-    <ClInclude Include="OSKmacros.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="OSKengine.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Memory</Filter>
     </ClInclude>
     <ClInclude Include="Assert.h">
-      <Filter>Archivos de encabezado\Util</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
     </ClInclude>
     <ClInclude Include="Version.h">
-      <Filter>Archivos de encabezado\Util</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
     </ClInclude>
     <ClInclude Include="IGpu.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Gpu</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Gpu</Filter>
     </ClInclude>
     <ClInclude Include="IRenderer.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Renderer</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="RendererOgl.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Renderer</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="GpuDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Gpu</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Gpu</Filter>
     </ClInclude>
     <ClInclude Include="ICommandQueue.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Commands\Queue</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\Queue</Filter>
     </ClInclude>
     <ClInclude Include="CommandQueueDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Commands\Queue</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\Queue</Filter>
     </ClInclude>
     <ClInclude Include="RendererDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Renderer</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="GpuVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Gpu</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Gpu</Filter>
     </ClInclude>
     <ClInclude Include="CommandQueueVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Commands\Queue</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\Queue</Filter>
     </ClInclude>
     <ClInclude Include="RendererVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Renderer</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="QueueFamilyIndices.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Commands\Queue</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\Queue</Filter>
     </ClInclude>
     <ClInclude Include="ICommandPool.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Commands\Pool</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\Pool</Filter>
     </ClInclude>
     <ClInclude Include="CommandPoolDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Commands\Pool</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\Pool</Filter>
     </ClInclude>
     <ClInclude Include="ICommandList.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Commands\List</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\List</Filter>
     </ClInclude>
     <ClInclude Include="CommandListDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Commands\List</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\List</Filter>
     </ClInclude>
     <ClInclude Include="CommandPoolVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Commands\Pool</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\Pool</Filter>
     </ClInclude>
     <ClInclude Include="CommandListVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Commands\List</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\List</Filter>
     </ClInclude>
     <ClInclude Include="ISwapchain.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Swapchain</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Swapchain</Filter>
     </ClInclude>
     <ClInclude Include="SwapchainDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Swapchain</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Swapchain</Filter>
     </ClInclude>
     <ClInclude Include="SwapchainVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Swapchain</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Swapchain</Filter>
     </ClInclude>
     <ClInclude Include="CommandListOgl.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Commands\List</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\List</Filter>
     </ClInclude>
     <ClInclude Include="ISyncDevice.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Sync</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Sync</Filter>
     </ClInclude>
     <ClInclude Include="SyncDeviceDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Sync</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Sync</Filter>
     </ClInclude>
     <ClInclude Include="SyncDeviceVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Sync</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Sync</Filter>
     </ClInclude>
     <ClInclude Include="DynamicArray.hpp">
-      <Filter>Archivos de encabezado\STD</Filter>
+      <Filter>Archivos de encabezado\OSKengine\STD</Filter>
     </ClInclude>
     <ClInclude Include="LinkedList.hpp">
-      <Filter>Archivos de encabezado\STD</Filter>
+      <Filter>Archivos de encabezado\OSKengine\STD</Filter>
     </ClInclude>
     <ClInclude Include="IGpuMemoryAllocator.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Memory\Allocator</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Allocator</Filter>
     </ClInclude>
     <ClInclude Include="IGpuMemoryBlock.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Memory\Block</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Block</Filter>
     </ClInclude>
     <ClInclude Include="IGpuMemorySubblock.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Memory\Subblock</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Subblock</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryTypes.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Memory\Enums</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Enums</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryTypeVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Memory\Enums</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Enums</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryTypesDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Memory\Enums</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Enums</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryAllocatorDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Memory\Allocator</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Allocator</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryBlockDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Memory\Block</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Block</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryAllocatorVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Memory\Allocator</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Allocator</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryBlockVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Memory\Block</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Block</Filter>
     </ClInclude>
     <ClInclude Include="HashMap.hpp">
-      <Filter>Archivos de encabezado\STD</Filter>
+      <Filter>Archivos de encabezado\OSKengine\STD</Filter>
     </ClInclude>
     <ClInclude Include="Pair.hpp">
-      <Filter>Archivos de encabezado\STD</Filter>
+      <Filter>Archivos de encabezado\OSKengine\STD</Filter>
     </ClInclude>
     <ClInclude Include="BitSet.hpp">
-      <Filter>Archivos de encabezado\STD</Filter>
+      <Filter>Archivos de encabezado\OSKengine\STD</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemorySubblockVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Memory\Subblock</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Subblock</Filter>
     </ClInclude>
     <ClInclude Include="IGpuDataBuffer.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemorySubblockDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Memory\Subblock</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Subblock</Filter>
     </ClInclude>
     <ClInclude Include="Format.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Image\Format</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Format</Filter>
     </ClInclude>
     <ClInclude Include="FormatDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Image\Format</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Format</Filter>
     </ClInclude>
     <ClInclude Include="FormatVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Image\Format</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Format</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageLayout.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Image\Layout</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Layout</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageLayoutVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Image\Layout</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Layout</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageLayoutDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Image\Layout</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Layout</Filter>
     </ClInclude>
     <ClInclude Include="IGpuImage.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Image\Image</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Image</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Image\Image</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Image</Filter>
     </ClInclude>
     <ClInclude Include="Color.hpp">
-      <Filter>Archivos de encabezado\Types</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
     </ClInclude>
     <ClInclude Include="Vertex.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Vertex</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Vertex</Filter>
     </ClInclude>
     <ClInclude Include="VertexDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Vertex</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Vertex</Filter>
     </ClInclude>
     <ClInclude Include="IGpuVertexBuffer.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Vertex</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Vertex</Filter>
     </ClInclude>
     <ClInclude Include="GpuVertexBufferDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Vertex</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Vertex</Filter>
     </ClInclude>
     <ClInclude Include="IGpuIndexBuffer.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Index</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Index</Filter>
     </ClInclude>
     <ClInclude Include="GpuIndexBufferDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Index</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Index</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Image\Image</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Image</Filter>
     </ClInclude>
     <ClInclude Include="GpuIndexBufferVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Index</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Index</Filter>
     </ClInclude>
     <ClInclude Include="RenderpassVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Renderpass</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Renderpass</Filter>
     </ClInclude>
     <ClInclude Include="RenderApiType.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel</Filter>
     </ClInclude>
     <ClInclude Include="IRenderpass.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Renderpass</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Renderpass</Filter>
     </ClInclude>
     <ClInclude Include="RenderpassType.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Renderpass</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Renderpass</Filter>
     </ClInclude>
     <ClInclude Include="RenderpassDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Renderpass</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Renderpass</Filter>
     </ClInclude>
     <ClInclude Include="OglTypes.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageOgl.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Image\Image</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Image</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryAllocatorOgl.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Memory\Allocator</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Allocator</Filter>
     </ClInclude>
     <ClInclude Include="FormatOgl.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Image\Format</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Format</Filter>
     </ClInclude>
     <ClInclude Include="RenderpassOgl.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Renderpass</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Renderpass</Filter>
     </ClInclude>
     <ClInclude Include="VertexVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Vertex</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Vertex</Filter>
     </ClInclude>
     <ClInclude Include="GpuVertexBufferVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Vertex</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Vertex</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsPipelineDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsPipelineVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
     </ClInclude>
     <ClInclude Include="IGraphicsPipeline.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
     </ClInclude>
     <ClInclude Include="PipelineCreateInfo.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
     </ClInclude>
     <ClInclude Include="Viewport.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Viewport</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Viewport</Filter>
     </ClInclude>
     <ClInclude Include="GpuVertexBufferOgl.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Vertex</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Vertex</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsPipelineOgl.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
     </ClInclude>
     <ClInclude Include="VertexOgl.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Vertex</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Vertex</Filter>
     </ClInclude>
     <ClInclude Include="EnumFlags.hpp">
-      <Filter>Archivos de encabezado\Util</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
     </ClInclude>
     <ClInclude Include="GpuIndexBufferOgl.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Index</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Index</Filter>
     </ClInclude>
     <ClInclude Include="IGpuUniformBuffer.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Uniform</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Uniform</Filter>
     </ClInclude>
     <ClInclude Include="GpuUniformBufferDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Uniform</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Uniform</Filter>
     </ClInclude>
     <ClInclude Include="GpuUniformBufferVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Resources\Buffer\Uniform</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Uniform</Filter>
     </ClInclude>
     <ClInclude Include="IPipelineLayout.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="PipelineLayoutDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="PipelineLayoutVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="ShaderBindingType.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Layout\Shader</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Shader</Filter>
     </ClInclude>
     <ClInclude Include="MaterialSystem.h">
-      <Filter>Archivos de encabezado\RenderAPI\HighLevel\Material</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\Material</Filter>
     </ClInclude>
     <ClInclude Include="MaterialLayoutSlot.h">
-      <Filter>Archivos de encabezado\RenderAPI\HighLevel\Material\Layout</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\Material\Layout</Filter>
     </ClInclude>
     <ClInclude Include="MaterialLayoutBinding.h">
-      <Filter>Archivos de encabezado\RenderAPI\HighLevel\Material\Layout</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\Material\Layout</Filter>
     </ClInclude>
     <ClInclude Include="MaterialLayout.h">
-      <Filter>Archivos de encabezado\RenderAPI\HighLevel\Material\Layout</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\Material\Layout</Filter>
     </ClInclude>
     <ClInclude Include="IMaterialSlot.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Material\Slot</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Material\Slot</Filter>
     </ClInclude>
     <ClInclude Include="MaterialSlotDx12.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Material\Slot</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Material\Slot</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
-      <Filter>Archivos de encabezado\RenderAPI\HighLevel\Material</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\Material</Filter>
     </ClInclude>
     <ClInclude Include="MaterialSlotVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Material\Slot</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Material\Slot</Filter>
     </ClInclude>
     <ClInclude Include="MaterialInstance.h">
-      <Filter>Archivos de encabezado\RenderAPI\HighLevel\Material</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\Material</Filter>
     </ClInclude>
     <ClInclude Include="DescriptorLayoutVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Material\Slot\Desc</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Material\Slot\Desc</Filter>
     </ClInclude>
     <ClInclude Include="ShaderBindingTypeVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Pipeline\Layout\Shader</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Shader</Filter>
     </ClInclude>
     <ClInclude Include="DescriptorPoolVulkan.h">
-      <Filter>Archivos de encabezado\RenderAPI\LowLevel\Material\Slot\Desc</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Material\Slot\Desc</Filter>
     </ClInclude>
     <ClInclude Include="IAsset.h">
-      <Filter>Archivos de encabezado\Assets</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Assets</Filter>
     </ClInclude>
     <ClInclude Include="IAssetLoader.h">
-      <Filter>Archivos de encabezado\Assets</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Assets</Filter>
     </ClInclude>
     <ClInclude Include="AssetManager.h">
-      <Filter>Archivos de encabezado\Assets</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Assets</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>Archivos de encabezado\Assets\Builtin</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Assets\Builtin</Filter>
     </ClInclude>
     <ClInclude Include="TextureLoader.h">
-      <Filter>Archivos de encabezado\Assets\Loaders</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Assets\Loaders</Filter>
     </ClInclude>
     <ClInclude Include="MaterialLayoutPushConstant.h">
-      <Filter>Archivos de encabezado\RenderAPI\HighLevel\Material</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\Material</Filter>
     </ClInclude>
     <ClInclude Include="Model3D.h">
-      <Filter>Archivos de encabezado\Assets\Builtin</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Assets\Builtin</Filter>
     </ClInclude>
     <ClInclude Include="ModelLoader3D.h">
-      <Filter>Archivos de encabezado\Assets\Loaders</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Assets\Loaders</Filter>
     </ClInclude>
     <ClInclude Include="ConstexprBitSet.hpp">
-      <Filter>Archivos de encabezado\STD</Filter>
+      <Filter>Archivos de encabezado\OSKengine\STD</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>Archivos de encabezado\ECS\Component</Filter>
+      <Filter>Archivos de encabezado\OSKengine\ECS\Component</Filter>
     </ClInclude>
     <ClInclude Include="ComponentContainer.h">
-      <Filter>Archivos de encabezado\ECS\Component</Filter>
+      <Filter>Archivos de encabezado\OSKengine\ECS\Component</Filter>
     </ClInclude>
     <ClInclude Include="IComponentContainer.h">
-      <Filter>Archivos de encabezado\ECS\Component</Filter>
+      <Filter>Archivos de encabezado\OSKengine\ECS\Component</Filter>
     </ClInclude>
     <ClInclude Include="ComponentManager.h">
-      <Filter>Archivos de encabezado\ECS\Component</Filter>
+      <Filter>Archivos de encabezado\OSKengine\ECS\Component</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectManager.h">
-      <Filter>Archivos de encabezado\ECS\GameObject</Filter>
+      <Filter>Archivos de encabezado\OSKengine\ECS\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Archivos de encabezado\ECS\GameObject</Filter>
+      <Filter>Archivos de encabezado\OSKengine\ECS\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="ISystem.h">
-      <Filter>Archivos de encabezado\ECS\System</Filter>
+      <Filter>Archivos de encabezado\OSKengine\ECS\System</Filter>
     </ClInclude>
     <ClInclude Include="SystemManager.h">
-      <Filter>Archivos de encabezado\ECS\System</Filter>
+      <Filter>Archivos de encabezado\OSKengine\ECS\System</Filter>
     </ClInclude>
     <ClInclude Include="EntityComponentSystem.h">
-      <Filter>Archivos de encabezado\ECS</Filter>
+      <Filter>Archivos de encabezado\OSKengine\ECS</Filter>
     </ClInclude>
     <ClInclude Include="Quaternion.h">
-      <Filter>Archivos de encabezado\Types</Filter>
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
     </ClInclude>
     <ClInclude Include="Logger.h">
-      <Filter>Archivos de encabezado\IO</Filter>
+      <Filter>Archivos de encabezado\OSKengine\IO</Filter>
     </ClInclude>
     <ClInclude Include="FileIO.h">
-      <Filter>Archivos de encabezado\IO</Filter>
+      <Filter>Archivos de encabezado\OSKengine\IO</Filter>
     </ClInclude>
     <ClInclude Include="Transform3D.h">
-      <Filter>Archivos de encabezado\ECS\Builtin\Transform</Filter>
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Transform</Filter>
     </ClInclude>
     <ClInclude Include="ModelComponent3D.h">
-      <Filter>Archivos de encabezado\ECS\Builtin\Model3D</Filter>
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Model3D</Filter>
     </ClInclude>
     <ClInclude Include="RenderSystem3D.h">
-      <Filter>Archivos de encabezado\ECS\Builtin\Model3D</Filter>
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Model3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Archivos de encabezado\OSKengine</Filter>
+    </ClInclude>
+    <ClInclude Include="OSKengine.h">
+      <Filter>Archivos de encabezado\OSKengine</Filter>
+    </ClInclude>
+    <ClInclude Include="OSKmacros.h">
+      <Filter>Archivos de encabezado\OSKengine</Filter>
+    </ClInclude>
+    <ClInclude Include="Game1.hpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory.h">
+      <Filter>Archivos de encabezado\OSKengine\Memory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

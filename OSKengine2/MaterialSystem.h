@@ -11,6 +11,7 @@
 namespace OSK::GRAPHICS {
 
 	class Material;
+	class IRenderpass;
 
 	/// <summary>
 	/// Clase que se encarga de cargar y manejar los materiales.
@@ -28,10 +29,21 @@ namespace OSK::GRAPHICS {
 		/// <param name="path">Ruta al archivo del material (.json).</param>
 		Material* LoadMaterial(const std::string& path);
 
+		/// <summary>
+		/// Registra el renderpass en todos los materiales.
+		/// </summary>
+		void RegisterRenderpass(const IRenderpass* renderpass);
+
+		/// <summary>
+		/// Quita el renderpass de todos los materiales.
+		/// </summary>
+		void UnregisterRenderpass(const IRenderpass* renderpass);
+
 	private:
 
 		LinkedList<OwnedPtr<Material>> materials;
 		HashMap<std::string, Material*> materialsTable;
+		DynamicArray<const IRenderpass*> registeredRenderpasses;
 
 	};
 

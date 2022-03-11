@@ -51,6 +51,7 @@
     <ClCompile Include="EntityComponentSystem.cpp" />
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="Format.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="GpuDx12.cpp" />
@@ -88,6 +89,7 @@
     <ClCompile Include="MaterialSlotDx12.cpp" />
     <ClCompile Include="MaterialSlotVulkan.cpp" />
     <ClCompile Include="MaterialSystem.cpp" />
+    <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Model3D.cpp" />
     <ClCompile Include="ModelComponent3D.cpp" />
     <ClCompile Include="ModelLoader3D.cpp" />
@@ -163,6 +165,8 @@
     <ClInclude Include="FormatDx12.h" />
     <ClInclude Include="FormatOgl.h" />
     <ClInclude Include="FormatVulkan.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Game1.hpp" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GpuDx12.h" />
@@ -205,6 +209,7 @@
     <ClInclude Include="MaterialSlotDx12.h" />
     <ClInclude Include="MaterialSlotVulkan.h" />
     <ClInclude Include="MaterialSystem.h" />
+    <ClInclude Include="Memory.h" />
     <ClInclude Include="Model3D.h" />
     <ClInclude Include="ModelComponent3D.h" />
     <ClInclude Include="ModelLoader3D.h" />

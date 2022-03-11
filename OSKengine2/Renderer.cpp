@@ -39,3 +39,7 @@ RenderApiType IRenderer::GetRenderApi() const {
 TSize IRenderer::GetSwapchainImagesCount() const {
 	return swapchain->GetImageCount();
 }
+
+bool IRenderer::IsOpen() const {
+	return isOpen;
+}

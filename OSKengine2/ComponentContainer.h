@@ -4,6 +4,7 @@
 #include "DynamicArray.hpp"
 #include "HashMap.hpp"
 #include "Component.h"
+#include "Memory.h"
 
 namespace OSK::ECS {
 
@@ -44,7 +45,7 @@ namespace OSK::ECS {
 			// Hacemos que el componente a eliminar esté en la última posición.
 			// El último componente se coloca en el hueco del componente eliminado,
 			// para evitar dejar huecos en el array.
-			std::swap(components[compIndex], components[indexOfLast]);
+			MEMORY::MemorySwap(&components[compIndex], &components[indexOfLast], sizeof(TComponent));
 
 			// Obtenemos el objeto dueño del componente que acabamos de colocar
 			// donde el componente eliminado.

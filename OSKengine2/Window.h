@@ -136,6 +136,11 @@ namespace OSK::IO {
 		/// </summary>
 		GLFWwindow* _GetGlfw() const;
 
+		/// <summary>
+		/// Devuelve true si la ventana ha sido creada y está abierta.
+		/// </summary>
+		bool IsOpen() const;
+
 	private:
 
 		/// <summary>
@@ -211,6 +216,7 @@ namespace OSK::IO {
 		float screenRatio = 0.0f;
 
 		bool isFullScreen = false;
+		bool isOpen = false;
 
 		/// <summary>
 		/// Tamaño y posición de la ventana, antes de ponerse en pantalla completa.

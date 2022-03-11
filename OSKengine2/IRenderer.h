@@ -126,6 +126,11 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		TSize GetSwapchainImagesCount() const;
 
+		/// <summary>
+		/// Devuelve true si el renderizador está inicializado y funcionando.
+		/// </summary>
+		bool IsOpen() const;
+
 	protected:
 
 		IRenderer(RenderApiType renderApiType);
@@ -158,6 +163,8 @@ namespace OSK::GRAPHICS {
 		bool isFirstRender = true;
 
 		const IO::Window* window = nullptr;
+
+		bool isOpen = false;
 
 	private:
 

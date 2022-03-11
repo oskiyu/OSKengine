@@ -20,13 +20,10 @@
 #include "Vertex.h"
 #include "Viewport.h"
 #include "RenderApiType.h"
+#include "MaterialSystem.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
-
-GraphicsPipelineOgl* pipeline = nullptr;
-GpuVertexBufferOgl* vertexBuffer = nullptr;
-GpuIndexBufferOgl* indexBuffer = nullptr;
 
 void GLAPIENTRY DebugConsole(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
 	if (type >= GL_DEBUG_TYPE_ERROR)
@@ -54,18 +51,7 @@ void RendererOgl::Initialize(const std::string& appName, const Version& version,
 	CreateGpuMemoryAllocator();
 	CreateMainRenderpass();
 
-	DynamicArray<Vertex3D> vertices = {
-		{ {-0.5f, -0.5f, 0.0f}, 1.0f, {1.0f, 0.0f, 0.0f, 1.0f} },
-		{ {0.5f, -0.5f, 0.0f}, 1.0f, {0.0f, 1.0f, 0.0f, 1.0f} },
-		{ {0.0f, 0.5f, 0.0f}, 1.0f, {0.0f, 0.0f, 1.0f, 1.0f} }
-	};
-
-	DynamicArray<TIndexSize> indices = {
-		0, 1, 2
-	};
-
-	vertexBuffer = gpuMemoryAllocator->CreateVertexBuffer(vertices).GetPointer()->As<GpuVertexBufferOgl>();
-	indexBuffer = gpuMemoryAllocator->CreateIndexBuffer(indices).GetPointer()->As<GpuIndexBufferOgl>();
+	isOpen = true;
 }
 
 OwnedPtr<IMaterialSlot> RendererOgl::_CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const {
@@ -83,7 +69,7 @@ OwnedPtr<IGraphicsPipeline> RendererOgl::_CreateGraphicsPipeline(const PipelineC
 }
 
 void RendererOgl::Close() {
-	Engine::GetLogger()->InfoLog("Destruyendo el renderizador de OpenGL.");
+	isOpen = false;
 }
 
 void RendererOgl::HandleResize() {
@@ -112,6 +98,8 @@ void RendererOgl::CreateGpuMemoryAllocator() {
 
 void RendererOgl::CreateMainRenderpass() {
 	renderpass = new RenderpassOgl(RenderpassType::FINAL);
+
+	materialSystem->RegisterRenderpass(renderpass.GetPointer());
 }
 
 void RendererOgl::PresentFrame() {
@@ -135,10 +123,4 @@ void RendererOgl::PresentFrame() {
 
 	commandList->SetViewport(viewport);
 	commandList->SetScissor(windowRec);
-
-	//commandList->BindPipeline(pipeline);
-	commandList->BindVertexBuffer(vertexBuffer);
-	commandList->BindIndexBuffer(indexBuffer);
-
-	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)0);
 }

@@ -50,16 +50,6 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GraphicsPipelineDx12* pipeline = nullptr;
-GpuVertexBufferDx12* vertexBuffer = nullptr;
-GpuIndexBufferDx12* indexBuffer = nullptr;
-GpuUniformBufferDx12* uniformBuffer = nullptr;
-OwnedPtr<MaterialInstance> materialInstance = nullptr;
-ASSETS::Model3D* modelDx = nullptr;
-
-glm::mat4 model(1.0f);
-float angle = 0.0f;
-
 RendererDx12::RendererDx12() : IRenderer(RenderApiType::DX12) {
 
 }
@@ -99,38 +89,11 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	CreateGpuMemoryAllocator();
 	CreateMainRenderpass();
 
-	Material* mat = GetMaterialSystem()->LoadMaterial("Resources/material.json");
-
-	mat->RegisterRenderpass(renderpass.GetPointer());
-	pipeline = mat->GetGraphicsPipeline(renderpass.GetPointer())->As<GraphicsPipelineDx12>();
-	materialInstance = mat->CreateInstance();
-
-	DynamicArray<Vertex3D> vertices = {
-		{ {-0.5f, -0.5f, 0.0f}, 1.0f, { 1.0f, 0.0f, 0.0f, 1.0f}, { 0.5f, 1.0f } },
-		{ {0.5f, -0.5f, 0.0f}, 1.0f, { 0.0f, 1.0f, 0.0f, 1.0f}, { 1.0f, 0.0f } },
-		{ {0.0f, 0.5f, 0.0f}, 1.0f, { 0.0f, 0.0f, 1.0f, 1.0f}, { 0.0f, 0.0f } }
-	};
-
-	DynamicArray<TIndexSize> indices = {
-		0, 1, 2
-	};
-
-	vertexBuffer = gpuMemoryAllocator->CreateVertexBuffer(vertices).GetPointer()->As<GpuVertexBufferDx12>();
-	indexBuffer = gpuMemoryAllocator->CreateIndexBuffer(indices).GetPointer()->As<GpuIndexBufferDx12>();
-	uniformBuffer = gpuMemoryAllocator->CreateUniformBuffer(sizeof(model))->As<GpuUniformBufferDx12>();
-	uniformBuffer->MapMemory();
-
-	ASSETS::Texture* texture = Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/texture0.json", "GLOBAL");
-
-	materialInstance->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer);
-	materialInstance->GetSlot("global")->SetTexture("texture", texture);
-	materialInstance->GetSlot("global")->FlushUpdate();
-
-	modelDx = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/model0.json", "GLOBAL");
+	isOpen = true;
 }
 
 void RendererDx12::Close() {
-	
+	isOpen = false;
 }
 
 void RendererDx12::HandleResize() {
@@ -250,6 +213,8 @@ void RendererDx12::CreateMainRenderpass() {
 	renderpass = new RenderpassDx12(RenderpassType::FINAL);
 	renderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
 	renderpass->As<RenderpassDx12>()->SetSwapchain(swapchain->As<SwapchainDx12>());
+
+	materialSystem->RegisterRenderpass(renderpass.GetPointer());
 }
 
 void RendererDx12::PresentFrame() {
@@ -278,18 +243,11 @@ void RendererDx12::PresentFrame() {
 	syncDevice->As<SyncDeviceDx12>()->Await();
 
 	//
-	model = glm::rotate(model, 0.01f, { 1, 0, 0 });
-
-	//uniformBuffer->MapMemory();
-	//uniformBuffer->ResetCursor();
-	//uniformBuffer->Write(&model, sizeof(model));
-	//uniformBuffer->Unmap();
-	//
 
 	commandList->Reset();
 	commandList->Start();
 
-	commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());
+	commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::BLACK());
 	Vector4ui windowRec = {
 		0,
 		0,
@@ -302,19 +260,6 @@ void RendererDx12::PresentFrame() {
 
 	commandList->SetViewport(viewport);
 	commandList->SetScissor(windowRec);
-
-	commandList->BindVertexBuffer(vertexBuffer);
-	commandList->BindIndexBuffer(indexBuffer);
-
-	commandList->BindMaterial(materialInstance->GetMaterial());
-	commandList->BindMaterialSlot(materialInstance->GetSlot("global"));
-	commandList->PushMaterialConstants("model", model);
-
-	commandList->DrawSingleInstance(3);
-
-	commandList->BindVertexBuffer(modelDx->GetVertexBuffer());
-	commandList->BindIndexBuffer(modelDx->GetIndexBuffer());
-	commandList->DrawSingleInstance(modelDx->GetIndexCount());
 }
 
 void RendererDx12::SubmitSingleUseCommandList(ICommandList* commandList) {

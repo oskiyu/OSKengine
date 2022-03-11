@@ -143,5 +143,24 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	info.cullMode = PolygonCullMode::FRONT;
 	info.frontFaceType = PolygonFrontFaceType::CLOCKWISE;
 
-	return new Material(info, layout);
+	auto output = new Material(info, layout);
+
+	for (auto& i : registeredRenderpasses)
+		output->RegisterRenderpass(i);
+
+	return output;
+}
+
+void MaterialSystem::RegisterRenderpass(const IRenderpass* renderpass) {
+	registeredRenderpasses.Insert(renderpass);
+
+	for (auto& i : materials)
+		i->RegisterRenderpass(renderpass);
+}
+
+void MaterialSystem::UnregisterRenderpass(const IRenderpass* renderpass) {
+	registeredRenderpasses.Remove(renderpass);
+
+	for (auto& i : materials)
+		i->UnregisterRenderpass(renderpass);
 }

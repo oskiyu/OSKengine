@@ -66,6 +66,8 @@ void Window::Create(int32_t sizeX, int32_t sizeY, const std::string& title) {
 	Engine::GetLogger()->InfoLog("	Monitor sizeX: " + std::to_string(monitorInfo->width));
 	Engine::GetLogger()->InfoLog("	Monitor sizeY: " + std::to_string(monitorInfo->height));
 	Engine::GetLogger()->InfoLog("	Monitor refresh rate: " + std::to_string(monitorInfo->refreshRate));
+
+	isOpen = true;
 }
 
 void Window::Update() {
@@ -124,6 +126,7 @@ bool Window::ShouldClose() const {
 
 void Window::Close() {
 	glfwSetWindowShouldClose(window.GetPointer(), true);
+	isOpen = false;
 }
 
 Vector2ui Window::GetWindowSize() const {
@@ -239,4 +242,8 @@ void Window::UpdateMouseState(MouseState* mouse) {
 	mouse->_SetButtonState(MouseButton::BUTTON_LEFT, mouse->GetButtonState(MouseButton::BUTTON_1));
 	mouse->_SetButtonState(MouseButton::BUTTON_RIGHT, mouse->GetButtonState(MouseButton::BUTTON_2));
 	mouse->_SetButtonState(MouseButton::BUTTON_MIDDLE, mouse->GetButtonState(MouseButton::BUTTON_3));
+}
+
+bool Window::IsOpen() const{
+	return isOpen;
 }

@@ -18,4 +18,9 @@ namespace OSK::ECS {
 	/// </summary>
 	using GameObjectIndex = TSize;
 
+	/// <summary>
+	/// El id no identifica a ningún objeto válido.
+	/// </summary>
+	constexpr GameObjectIndex EMPTY_GAME_OBJECT = 0;
+
 }
