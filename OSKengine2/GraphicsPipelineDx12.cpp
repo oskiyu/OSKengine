@@ -127,8 +127,19 @@ D3D12_RASTERIZER_DESC GraphicsPipelineDx12::GetRasterizerDesc(const PipelineCrea
 
 D3D12_DEPTH_STENCIL_DESC GraphicsPipelineDx12::GetDepthStencilDesc(const PipelineCreateInfo& info) const {
 	D3D12_DEPTH_STENCIL_DESC desc{};
-	desc.DepthEnable = FALSE;
+	desc.DepthEnable = TRUE;
 	desc.StencilEnable = FALSE;
+	desc.DepthFunc = D3D12_COMPARISON_FUNC_LESS;
+	
+	const D3D12_DEPTH_STENCILOP_DESC defaultStencilOp =  { 
+		D3D12_STENCIL_OP_KEEP, 
+		D3D12_STENCIL_OP_KEEP, 
+		D3D12_STENCIL_OP_KEEP, 
+		D3D12_COMPARISON_FUNC_ALWAYS 
+	};
+
+	desc.BackFace = defaultStencilOp;
+	desc.FrontFace = defaultStencilOp;
 
 	return desc;
 }

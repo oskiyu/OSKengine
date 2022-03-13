@@ -55,7 +55,7 @@ protected:
 
 		// ECS
 		ballObject = OSK::Engine::GetEntityComponentSystem()->SpawnObject();
-		
+
 		OSK::ECS::Transform3D& transform = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::Transform3D>(ballObject, OSK::ECS::Transform3D(ballObject));
 		OSK::ECS::ModelComponent3D& modelComponent = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::ModelComponent3D>(ballObject, {});
 
@@ -69,6 +69,18 @@ protected:
 
 		OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::CameraComponent3D>(cameraObject, {});
 		OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::Transform3D>(cameraObject, OSK::ECS::Transform3D(cameraObject));
+
+		// ECS 2
+		smallBallObject = OSK::Engine::GetEntityComponentSystem()->SpawnObject();
+
+		auto& transform2 = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::Transform3D>(smallBallObject, OSK::ECS::Transform3D(smallBallObject));
+		auto& modelComponent2 = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::ModelComponent3D>(smallBallObject, {});
+
+		transform2.AddPosition({ 0, 1, 3 });
+		transform2.SetScale(0.5f);
+
+		modelComponent2.SetModel(model);
+		modelComponent2.SetMaterialInstance(materialInstance);
 	}
 
 	void OnTick(TDeltaTime deltaTime) override {
@@ -119,6 +131,7 @@ protected:
 private:
 
 	OSK::ECS::GameObjectIndex ballObject = OSK::ECS::EMPTY_GAME_OBJECT;
+	OSK::ECS::GameObjectIndex smallBallObject = OSK::ECS::EMPTY_GAME_OBJECT;
 	OSK::ECS::GameObjectIndex cameraObject = OSK::ECS::EMPTY_GAME_OBJECT;
 
 	OSK::UniquePtr<OSK::GRAPHICS::IGpuUniformBuffer> uniformBuffer;

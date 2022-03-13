@@ -114,7 +114,7 @@ void CommandListDx12::BeginAndClearRenderpass(IRenderpass* renderpass, const Col
 
 	const FLOAT clearValue[] = { color.Red, color.Green, color.Blue, color.Alpha };
 	commandList->ClearRenderTargetView(renderTargetDesc, clearValue, 0, nullptr);
-	//commandList->ClearDepthStencilView(depthStencilDesc, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
+	commandList->ClearDepthStencilView(depthStencilDesc, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 
 	commandList->OMSetRenderTargets(1, &renderTargetDesc, FALSE, nullptr);
 

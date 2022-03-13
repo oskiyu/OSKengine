@@ -98,6 +98,7 @@ void RenderpassVulkan::Create(const ISwapchain* swapchain, VkImageLayout finalLa
 
 	depthAttahcmentDesc.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
 	depthAttahcmentDesc.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+
 	depthAttahcmentDesc.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 	depthAttahcmentDesc.finalLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
 	depthAttahcmentDesc.samples = msaa;
