@@ -23,7 +23,7 @@ void IGame::OnExit() {
 }
 
 void IGame::Run() {
-	Engine::Create(GRAPHICS::RenderApiType::DX12);
+	Engine::Create(GRAPHICS::RenderApiType::VULKAN);
 
 	CreateWindow();
 	SetupEngine();
@@ -47,6 +47,8 @@ void IGame::Run() {
 		);
 		Engine::GetRenderer()->PresentFrame();
 
+		Engine::GetWindow()->UpdateMouseAndKeyboardOldStates();
+
 		framerateCountTimer += deltaTime;
 		frameCount++;
 		if (framerateCountTimer > 1.0f) {
@@ -59,8 +61,9 @@ void IGame::Run() {
 		deltaTime = endTime - startTime;
 	}
 
-	Engine::Close();
 	OnExit();
+
+	Engine::Close();
 }
 
 void IGame::Exit() {

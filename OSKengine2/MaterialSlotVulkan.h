@@ -17,6 +17,7 @@ namespace OSK::GRAPHICS {
 	public:
 
 		MaterialSlotVulkan(const std::string& name, const MaterialLayout* layout);
+		~MaterialSlotVulkan();
 
 		void SetUniformBuffer(const std::string& binding, const IGpuUniformBuffer* buffer) override;
 		void SetGpuImage(const std::string& binding, const GpuImage* image) override;

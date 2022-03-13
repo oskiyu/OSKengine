@@ -4,7 +4,9 @@
 #include "IGpuMemorySubblock.h"
 #include <glm.hpp>
 #include "OSKengine.h"
+#include "IGpuMemoryAllocator.h"
 #include "Logger.h"
+#include "IRenderer.h"
 #include "GpuImageLayout.h"
 
 using namespace OSK;
@@ -18,6 +20,9 @@ GpuImage::GpuImage(unsigned int sizeX, unsigned int sizeY, Format format)
 GpuImage::~GpuImage() {
 	if (buffer)
 		block->RemoveSubblock(buffer);
+
+	Engine::GetRenderer()->GetMemoryAllocator()->RemoveImageBlock(block.GetPointer());
+	block.Delete();
 }
 
 void GpuImage::SetBlock(OwnedPtr<IGpuMemoryBlock> block) {

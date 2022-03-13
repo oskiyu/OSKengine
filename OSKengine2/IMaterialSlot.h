@@ -22,6 +22,8 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		virtual ~IMaterialSlot() = default;
+
 		template <typename T> T* As() const requires std::is_base_of_v<IMaterialSlot, T> {
 			return (T*)this;
 		}

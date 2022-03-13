@@ -98,6 +98,11 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		virtual OwnedPtr<GpuDataBuffer> CreateStagingBuffer(TSize size) = 0;
 
+		/// <summary>
+		/// Quita uno de los bloques, que ha sido eliminado.
+		/// </summary>
+		void RemoveImageBlock(IGpuMemoryBlock* block);
+
 	protected:
 
 		/// <summary>

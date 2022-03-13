@@ -19,6 +19,9 @@ namespace OSK::IO {
 	class KeyboardState;
 	class MouseState;
 
+	enum class MouseReturnMode;
+	enum class MouseMotionMode;
+
 	/// <summary>
 	/// Clase que representa una ventana.
 	/// En esta ventana se renderizará el juego.
@@ -62,6 +65,11 @@ namespace OSK::IO {
 		void Update();
 
 		/// <summary>
+		/// Actualiza los valores del mouse y del frame anterior.
+		/// </summary>
+		void UpdateMouseAndKeyboardOldStates();
+
+		/// <summary>
 		/// Establece la ventana en modo pantalla completa (o no).
 		/// </summary>
 		/// <param name="fullscreen">True para entrar en pantalla completa.</param>
@@ -82,7 +90,21 @@ namespace OSK::IO {
 		/// </summary>
 		/// <param name="posX">Posición, en pixeles, en X.</param>
 		/// <param name="posY">Posición, en pixeles, en Y.</param>
-		void SetMousePosition(int32_t posX, int32_t posY);
+		void SetMousePosition(TSize posX, TSize posY);
+
+		/// <summary>
+		/// Establece si el ratón puede moverse libremente o si
+		/// volverá siempre al centro de la pantalla, para controlar
+		/// la cámara.
+		/// </summary>
+		void SetMouseReturnMode(MouseReturnMode mode);		
+		
+		/// <summary>
+		/// Establece si el ratón puede moverse libremente o si
+		/// volverá siempre al centro de la pantalla, para controlar
+		/// la cámara.
+		/// </summary>
+		void SetMouseMotionMode(MouseMotionMode mode);
 
 		/// <summary>
 		/// True si la ventana va a cerrarse.

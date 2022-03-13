@@ -126,6 +126,11 @@ namespace OSK::ECS {
 		glm::mat4 GetAsMatrix() const;
 
 		/// <summary>
+		/// Actualiza el valor de la matriz modelo.
+		/// </summary>
+		void OverrideMatrix(const glm::mat4& matrix);
+
+		/// <summary>
 		/// Devuelve el identificador del objeto que posee al
 		/// transform padre..
 		/// </summary>

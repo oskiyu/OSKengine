@@ -165,6 +165,8 @@ namespace OSK::IO {
 
 	public:
 
+		KeyboardState();
+
 		/// <summary>
 		/// Retorna el estado de una tecla dada.
 		/// </summary>
@@ -190,6 +192,11 @@ namespace OSK::IO {
 		/// Para llamarse desde la ventana.
 		/// </summary>
 		void _SetKeyState(Key key, KeyState state);
+
+		/// <summary>
+		/// Copia los estados del otro teclado a este.
+		/// </summary>
+		void operator=(const KeyboardState& other);
 
 	private:
 

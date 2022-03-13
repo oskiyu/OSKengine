@@ -95,6 +95,8 @@ namespace OSK::IO {
 
 	public:
 
+		MouseState();
+
 		/// <summary>
 		/// Obtiene el estado de un botón.
 		/// </summary>
@@ -147,9 +149,9 @@ namespace OSK::IO {
 
 	private:
 
-		Vector2i position;
-		Vector2 relativePosition;
-		Vector2i scroll;
+		Vector2i position = 0.0f;
+		Vector2 relativePosition = 0.0f;
+		Vector2i scroll = 0.0f;
 
 		ButtonState buttonStates[MouseNumberOfButtons];
 

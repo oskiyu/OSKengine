@@ -14,6 +14,7 @@
 #include "Transform3D.h"
 #include "ModelComponent3D.h"
 #include "RenderSystem3D.h"
+#include "CameraComponent3D.h"
 
 #include <GLFW/glfw3.h>
 #undef GetCurrentTime;
@@ -71,6 +72,7 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 
 void Engine::Close() {
 	assetManager.Delete();
+	entityComponentSystem.Delete();
 	renderer.Delete();
 	window.Delete();
 	logger.Delete();
@@ -84,6 +86,7 @@ void Engine::RegisterBuiltinAssets() {
 void Engine::RegisterBuiltinComponents() {
 	entityComponentSystem->RegisterComponent<ECS::Transform3D>();
 	entityComponentSystem->RegisterComponent<ECS::ModelComponent3D>();
+	entityComponentSystem->RegisterComponent<ECS::CameraComponent3D>();
 }
 
 void Engine::RegisterBuiltinSystems() {

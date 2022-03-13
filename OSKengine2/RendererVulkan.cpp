@@ -129,15 +129,21 @@ OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const Pipeli
 void RendererVulkan::Close() {
 	Engine::GetLogger()->InfoLog("Destruyendo el renderizador de Vulkan.");
 
-	gpuMemoryAllocator.Delete();
 	syncDevice.Delete();
 	swapchain.Delete();
 	renderpass.Delete();
 	commandPool.Delete();
+	materialSystem.Delete();
+	gpuMemoryAllocator.Delete();
 
 	vkDestroySurfaceKHR(instance, surface, nullptr);
 
 	currentGpu.Delete();
+
+	auto func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
+	OSK_ASSERT(func != nullptr, "No se puede destruir la consola de capas de validación.");
+
+	func(instance, debugConsole, nullptr);
 
 	vkDestroyInstance(instance, nullptr);
 
@@ -373,6 +379,18 @@ void RendererVulkan::PresentFrame() {
 	if (isFirstRender) {
 		commandList->Start();
 		commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());
+		Vector4ui windowRec = {
+			0,
+			0,
+			window->GetWindowSize().X,
+			window->GetWindowSize().Y
+		};
+
+		Viewport viewport{};
+		viewport.rectangle = windowRec;
+
+		commandList->SetViewport(viewport);
+		commandList->SetScissor(windowRec);
 
 		isFirstRender = false;
 

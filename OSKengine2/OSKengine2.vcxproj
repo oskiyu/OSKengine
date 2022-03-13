@@ -37,6 +37,7 @@
   <ItemGroup>
     <ClCompile Include="Assert.cpp" />
     <ClCompile Include="AssetManager.cpp" />
+    <ClCompile Include="CameraComponent3D.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="CommandListDx12.cpp" />
     <ClCompile Include="CommandListOgl.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="Assert.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="BitSet.hpp" />
+    <ClInclude Include="CameraComponent3D.h" />
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="CommandListDx12.h" />
     <ClInclude Include="CommandListOgl.h" />
@@ -213,6 +215,7 @@
     <ClInclude Include="Model3D.h" />
     <ClInclude Include="ModelComponent3D.h" />
     <ClInclude Include="ModelLoader3D.h" />
+    <ClInclude Include="MouseModes.h" />
     <ClInclude Include="PipelineLayoutDx12.h" />
     <ClInclude Include="PipelineLayoutVulkan.h" />
     <ClInclude Include="GraphicsPipelineOgl.h" />

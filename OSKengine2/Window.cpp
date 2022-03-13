@@ -9,6 +9,7 @@
 #include "Logger.h"
 #include "Assert.h"
 #include "IRenderer.h"
+#include "MouseModes.h"
 
 using namespace OSK;
 using namespace OSK::IO;
@@ -75,7 +76,28 @@ void Window::Update() {
 
 	if (renderApi == GRAPHICS::RenderApiType::OPENGL)
 		glfwSwapBuffers(window.GetPointer());
+}
 
+void Window::SetMouseReturnMode(MouseReturnMode mode) {
+	if (mode == MouseReturnMode::ALWAYS_RETURN)
+		glfwSetInputMode(window.GetPointer(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	else if (mode == MouseReturnMode::FREE)
+		glfwSetInputMode(window.GetPointer(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+}
+
+void Window::SetMouseMotionMode(MouseMotionMode mode) {
+	if (mode == MouseMotionMode::ACCELERATED) {
+		glfwSetInputMode(window.GetPointer(), GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
+	}
+	else {
+		if (glfwRawMouseMotionSupported())
+			glfwSetInputMode(window.GetPointer(), GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+		else
+			OSK_CHECK(false, "Raw mouse mode no soportado.");
+	}
+}
+
+void Window::UpdateMouseAndKeyboardOldStates() {
 	*oldKeyboardState = *newKeyboardState;
 	UpdateKeyboardState(newKeyboardState.GetPointer());
 
@@ -116,7 +138,7 @@ bool Window::IsFullScreen() const {
 	return isFullScreen;
 }
 
-void Window::SetMousePosition(int32_t posX, int32_t posY) {
+void Window::SetMousePosition(TSize posX, TSize posY) {
 	glfwSetCursorPos(window.GetPointer(), posX, posY);
 }
 
@@ -189,6 +211,8 @@ void Window::ResizeCallback(int sizex, int sizey) {
 		glViewport(0, 0, GetWindowSize().X, GetWindowSize().Y);
 
 	Engine::GetRenderer()->HandleResize();
+
+	UpdateScreenRatio();
 }
 void Window::GlfwMouseScrollCallback(GLFWwindow* window, double dX, double dY) {
 	GetWindowForCallback(window)->MouseScrollCallback(dX, dY);

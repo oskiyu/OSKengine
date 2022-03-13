@@ -10,7 +10,8 @@ layout(location = 1) out vec4 outColor;
 layout(location = 2) out vec2 outTexCoords;
 
 layout (set = 0, binding = 0) uniform Camera {
-    mat4 matrix;
+    mat4 view;
+    mat4 projection;
 } camera;
 
 layout (push_constant) uniform Model {
@@ -22,5 +23,5 @@ void main() {
     outColor = inColor;
     outTexCoords = inTexCoords;
 
-    gl_Position = model.modelMatrix * vec4(inPosition, 1.0);
+    gl_Position = camera.projection * camera.view * model.modelMatrix * vec4(inPosition, 1.0);
 }

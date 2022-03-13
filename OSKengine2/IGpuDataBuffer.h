@@ -24,6 +24,10 @@ namespace OSK::GRAPHICS {
 		void WriteOffset(const void* data, TSize size, TSize offset);
 		void Unmap();
 
+		template <typename T> void Write(const T& data) {
+			Write(&data, sizeof(T));
+		}
+
 		void SetCursor(TSize position);
 		void ResetCursor();
 

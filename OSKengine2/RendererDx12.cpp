@@ -97,6 +97,10 @@ void RendererDx12::Close() {
 }
 
 void RendererDx12::HandleResize() {
+	mustResize = true;
+}
+
+void RendererDx12::Resize() {
 	Format format = swapchain->GetImage(0)->GetFormat();
 
 	swapchain->As<SwapchainDx12>()->DeleteImages();
@@ -105,6 +109,7 @@ void RendererDx12::HandleResize() {
 		window->GetWindowSize().X, window->GetWindowSize().Y, GetFormatDx12(format), 0);
 
 	swapchain->As<SwapchainDx12>()->CreateImages(*window);
+	renderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
 }
 
 OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
@@ -242,9 +247,13 @@ void RendererDx12::PresentFrame() {
 	syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
 	syncDevice->As<SyncDeviceDx12>()->Await();
 
-	//
-
 	commandList->Reset();
+	//
+	if (mustResize) {
+		Resize();
+		mustResize = false;
+	}
+
 	commandList->Start();
 
 	commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::BLACK());

@@ -27,6 +27,8 @@ namespace OSK::GRAPHICS {
 		/// <param name="material">Material del que se crea la instancia.</param>
 		MaterialInstance(const Material* material);
 
+		~MaterialInstance();
+
 		/// <summary>
 		/// Registra un slot.
 		/// TODOS los slots del Material (presentes en su layout) deben registrarse.

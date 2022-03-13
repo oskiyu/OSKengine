@@ -18,6 +18,11 @@ namespace OSK::ECS {
 
 	public:
 
+		~ComponentContainer() {
+			while (!components.IsEmpty())
+				components.RemoveLast();
+		}
+
 		/// <summary>
 		/// Añade un componente asignado al objeto dado.
 		/// </summary>

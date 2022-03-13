@@ -14,24 +14,29 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 SyncDeviceVulkan::~SyncDeviceVulkan() {
-	for (auto i : imageAvailableSemaphores)
-		if (i != VK_NULL_HANDLE)
+	for (TSize i = 0; i < imageAvailableSemaphores.GetSize(); i++) {
+		if (imageAvailableSemaphores[i] != VK_NULL_HANDLE) {
 			vkDestroySemaphore(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
-				i, nullptr);
+				imageAvailableSemaphores[i], nullptr);
+			imageAvailableSemaphores[i] = VK_NULL_HANDLE;
+		}
+	}
 
-	for (auto i : renderFinishedSemaphores)
-		if (i != VK_NULL_HANDLE)
+	for (TSize i = 0; i < renderFinishedSemaphores.GetSize(); i++) {
+		if (renderFinishedSemaphores[i] != VK_NULL_HANDLE) {
 			vkDestroySemaphore(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
-				i, nullptr);
+				renderFinishedSemaphores[i], nullptr);
+			renderFinishedSemaphores[i] = VK_NULL_HANDLE;
+		}
+	}
 
-	for (auto i : inFlightFences)
-		if (i != VK_NULL_HANDLE)
+	for (TSize i = 0; i < inFlightFences.GetSize(); i++) {
+		if (inFlightFences[i] != VK_NULL_HANDLE) {
 			vkDestroyFence(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
-				i, nullptr);
-	for (auto i : imagesInFlight)
-		if (i != VK_NULL_HANDLE)
-			vkDestroyFence(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
-				i, nullptr);
+				inFlightFences[i], nullptr);
+			inFlightFences[i] = VK_NULL_HANDLE;
+		}
+	}
 }
 
 void SyncDeviceVulkan::SetImageAvailableSemaphores(const DynamicArray<VkSemaphore>& semaphores) {

@@ -61,7 +61,18 @@ void SwapchainDx12::Create(IGpu* device, Format format, const CommandQueueDx12& 
     );
 
     swapchainTemp.As(&swapchain);
+        
+    CreateImages(window);
+}
 
+void SwapchainDx12::DeleteImages() {
+    for (TSize i = 0; i < imageCount; i++)
+        images[i].Delete();
+
+    renderTargetsDesc->Release();
+}
+
+void SwapchainDx12::CreateImages(const IO::Window& window) {
     // ----------------- RENDER TARGETS ----------------- //
     D3D12_DESCRIPTOR_HEAP_DESC imagesMemoryCreateInfo{};
     imagesMemoryCreateInfo.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
@@ -71,15 +82,6 @@ void SwapchainDx12::Create(IGpu* device, Format format, const CommandQueueDx12& 
 
     device->As<GpuDx12>()->GetDevice()->CreateDescriptorHeap(&imagesMemoryCreateInfo, IID_PPV_ARGS(&renderTargetsDesc));
 
-    CreateImages(window);
-}
-
-void SwapchainDx12::DeleteImages() {
-    for (TSize i = 0; i < imageCount; i++)
-        images[i].Release();
-}
-
-void SwapchainDx12::CreateImages(const IO::Window& window) {
     for (TSize i = 0; i < imageCount; i++) {
         images[i] = new GpuImageDx12(window.GetWindowSize().X, window.GetWindowSize().Y, format);
 

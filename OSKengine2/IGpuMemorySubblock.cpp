@@ -1,6 +1,8 @@
 #include "IGpuMemorySubblock.h"
 
 #include "IGpuMemoryBlock.h"
+#include "OSKengine.h"
+#include "Logger.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;

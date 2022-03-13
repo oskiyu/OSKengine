@@ -149,6 +149,10 @@ glm::mat4 Transform3D::GetAsMatrix() const {
 	return matrix;
 }
 
+void Transform3D::OverrideMatrix(const glm::mat4& matrix) {
+	this->matrix = matrix;
+}
+
 ECS::GameObjectIndex Transform3D::GetParentObject() const {
 	return parent;
 }

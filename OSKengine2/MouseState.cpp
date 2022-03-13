@@ -1,7 +1,13 @@
 #include "MouseState.h"
 
+#include <memory>
+
 using namespace OSK;
 using namespace OSK::IO;
+
+MouseState::MouseState() {
+	memset(buttonStates, 0, sizeof(buttonStates));
+}
 
 ButtonState MouseState::GetButtonState(MouseButton button) const {
 	return buttonStates[(int)button];

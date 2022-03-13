@@ -1,5 +1,7 @@
 #include "ModelComponent3D.h"
 
+#include "MaterialInstance.h"
+
 using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::ASSETS;
@@ -7,7 +9,7 @@ using namespace OSK::GRAPHICS;
 
 ModelComponent3D::~ModelComponent3D() {
 	if (materialInstance.HasValue())
-		delete materialInstance.GetPointer();
+		materialInstance.Delete();
 }
 
 void ModelComponent3D::SetModel(Model3D* model) {

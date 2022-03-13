@@ -141,10 +141,11 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	info.fragmentPath = fragmentPath;
 	info.polygonMode = PolygonMode::FILL;
 	info.cullMode = PolygonCullMode::FRONT;
-	info.frontFaceType = PolygonFrontFaceType::CLOCKWISE;
+	info.frontFaceType = PolygonFrontFaceType::COUNTERCLOCKWISE;
 
 	auto output = new Material(info, layout);
 
+	materials.Insert(output);
 	for (auto& i : registeredRenderpasses)
 		output->RegisterRenderpass(i);
 

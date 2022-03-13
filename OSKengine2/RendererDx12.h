@@ -46,6 +46,9 @@ namespace OSK::GRAPHICS {
 
 		void ChooseGpu();
 
+		void Resize();
+		bool mustResize = false;
+
 		/// <summary>
 		/// Se usa para crear cosas de dx12.
 		/// </summary>

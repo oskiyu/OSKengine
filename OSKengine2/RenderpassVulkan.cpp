@@ -48,6 +48,11 @@ RenderpassVulkan::~RenderpassVulkan() {
 	for (auto i : framebuffers)
 		vkDestroyFramebuffer(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
 			i, nullptr);
+
+	for (TSize i = 0; i < _countof(colorImgs); i++)
+		colorImgs[i].Delete();
+	for (TSize i = 0; i < _countof(depthImgs); i++)
+		depthImgs[i].Delete();
 }
 
 void RenderpassVulkan::Create(const ISwapchain* swapchain) {

@@ -1,5 +1,8 @@
 #include "Texture.h"
 
+#include "OSKengine.h"
+#include "IGpuImage.h"
+
 using namespace OSK;
 using namespace OSK::ASSETS;
 

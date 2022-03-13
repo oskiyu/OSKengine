@@ -131,6 +131,8 @@ void SwapchainVulkan::AcquireViews() {
 		VkResult result = vkCreateImageView(device->GetLogicalDevice(), &createInfo, nullptr, &tempViews[i]);
 		OSK_ASSERT(result == VK_SUCCESS, "Error al crear view de imagen del swapchain. Code: " + std::to_string(result));
 
+		if (images[i]->As<GpuImageVulkan>()->GetView() != VK_NULL_HANDLE)
+			vkDestroyImageView(Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(), images[i]->As<GpuImageVulkan>()->GetView(), 0);
 		images[i]->As<GpuImageVulkan>()->SetView(tempViews[i]);
 	}
 

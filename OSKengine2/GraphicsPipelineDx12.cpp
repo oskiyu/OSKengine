@@ -112,7 +112,7 @@ D3D12_RASTERIZER_DESC GraphicsPipelineDx12::GetRasterizerDesc(const PipelineCrea
 	D3D12_RASTERIZER_DESC desc{};
 	desc.FillMode = GetFillMode(info.polygonMode);
 	desc.CullMode = GetCullMode(info.cullMode);
-	desc.FrontCounterClockwise = FALSE;
+	desc.FrontCounterClockwise = info.frontFaceType == PolygonFrontFaceType::COUNTERCLOCKWISE;
 	desc.DepthBias = D3D12_DEFAULT_DEPTH_BIAS;
 	desc.DepthBiasClamp = D3D12_DEFAULT_DEPTH_BIAS_CLAMP;
 	desc.SlopeScaledDepthBias = D3D12_DEFAULT_SLOPE_SCALED_DEPTH_BIAS;

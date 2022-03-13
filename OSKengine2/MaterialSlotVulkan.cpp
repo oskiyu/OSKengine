@@ -43,6 +43,11 @@ MaterialSlotVulkan::MaterialSlotVulkan(const std::string& name, const MaterialLa
 	OSK_ASSERT(result == VK_SUCCESS, "Error al crear descriptor sets.");
 }
 
+MaterialSlotVulkan::~MaterialSlotVulkan() {
+	pool.Delete();
+	descLayout.Delete();
+}
+
 void MaterialSlotVulkan::SetUniformBuffer(const std::string& binding, const IGpuUniformBuffer* buffer) {
 	GpuMemorySubblockVulkan* vulkanBuffer = buffer->GetMemorySubblock()->As<GpuMemorySubblockVulkan>();
 	GpuMemoryBlockVulkan* vulkanBlock = vulkanBuffer->GetOwnerBlock()->As<GpuMemoryBlockVulkan>();

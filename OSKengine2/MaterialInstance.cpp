@@ -3,6 +3,7 @@
 #include "Material.h"
 #include "OSKengine.h"
 #include "IRenderer.h"
+#include "IMaterialSlot.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -10,6 +11,11 @@ using namespace OSK::GRAPHICS;
 MaterialInstance::MaterialInstance(const Material* material)
 	: ownerMaterial(material) {
 
+}
+
+MaterialInstance::~MaterialInstance() {
+	for (auto& i : slots)
+		delete i.second.GetPointer();
 }
 
 IMaterialSlot* MaterialInstance::GetSlot(const std::string& name) {
