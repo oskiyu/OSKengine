@@ -79,8 +79,13 @@ protected:
 		transform2.AddPosition({ 0, 1, 3 });
 		transform2.SetScale(0.5f);
 
+		auto materialInstance2 = material->CreateInstance();
+		materialInstance2->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer.GetPointer());
+		materialInstance2->GetSlot("global")->SetTexture("texture", texture);
+		materialInstance2->GetSlot("global")->FlushUpdate();
+
 		modelComponent2.SetModel(model);
-		modelComponent2.SetMaterialInstance(materialInstance);
+		modelComponent2.SetMaterialInstance(materialInstance2);
 	}
 
 	void OnTick(TDeltaTime deltaTime) override {

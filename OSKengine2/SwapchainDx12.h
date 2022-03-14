@@ -46,12 +46,16 @@ namespace OSK::GRAPHICS {
 
 		void Present() override;
 
+		void UpdateFrameIndex();
+
 		IDXGISwapChain3* GetSwapchain() const;
 		ID3D12DescriptorHeap* GetRenderTargetMemory() const;
 
 	private:
 
 		Format format;
+
+		D3D12_CPU_DESCRIPTOR_HANDLE depthView;
 
 		ComPtr<IDXGISwapChain3> swapchain;
 

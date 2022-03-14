@@ -101,6 +101,9 @@ void RendererDx12::HandleResize() {
 }
 
 void RendererDx12::Resize() {
+	if (window->GetWindowSize().X == 0 && window->GetWindowSize().Y == 0)
+		return;
+
 	Format format = swapchain->GetImage(0)->GetFormat();
 
 	swapchain->As<SwapchainDx12>()->DeleteImages();
@@ -252,6 +255,10 @@ void RendererDx12::PresentFrame() {
 	if (mustResize) {
 		Resize();
 		mustResize = false;
+
+		syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
+		syncDevice->As<SyncDeviceDx12>()->Await();
+		swapchain->As<SwapchainDx12>()->UpdateFrameIndex();
 	}
 
 	commandList->Start();

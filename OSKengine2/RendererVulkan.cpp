@@ -140,10 +140,11 @@ void RendererVulkan::Close() {
 
 	currentGpu.Delete();
 
-	auto func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
-	OSK_ASSERT(func != nullptr, "No se puede destruir la consola de capas de validación.");
-
-	func(instance, debugConsole, nullptr);
+	if (AreValidationLayersAvailable()) {
+		auto func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
+		OSK_ASSERT(func != nullptr, "No se puede destruir la consola de capas de validación.");
+		func(instance, debugConsole, nullptr);
+	}
 
 	vkDestroyInstance(instance, nullptr);
 

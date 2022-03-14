@@ -105,7 +105,10 @@ void SwapchainDx12::CreateImages(const IO::Window& window) {
 
 void SwapchainDx12::Present() {
     swapchain->Present(1, 0);
+    UpdateFrameIndex();
+}
 
+void SwapchainDx12::UpdateFrameIndex() {
     currentFrameIndex = swapchain->GetCurrentBackBufferIndex();
 }
 
