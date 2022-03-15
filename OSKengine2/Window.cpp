@@ -158,7 +158,7 @@ float Window::GetScreenRatio() const {
 	return screenRatio;
 }
 
-int32_t Window::GetRefreshRate() const {
+TSize Window::GetRefreshRate() const {
 	return monitorInfo->refreshRate;
 }
 

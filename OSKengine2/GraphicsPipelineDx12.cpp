@@ -7,6 +7,8 @@
 #include "Assert.h"
 #include "PipelineCreateInfo.h"
 #include "PipelineLayoutDx12.h"
+#include "Format.h"
+#include "FormatDx12.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -79,6 +81,7 @@ void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* de
 	createInfo.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 	createInfo.NumRenderTargets = 1;
 	createInfo.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
+	createInfo.DSVFormat = GetFormatDx12(Format::D32S8_SFLOAT_SUINT);
 	createInfo.SampleDesc.Count = 1;
 
 	createInfo.pRootSignature = layout->As<PipelineLayoutDx12>()->GetSignature();
@@ -128,6 +131,7 @@ D3D12_RASTERIZER_DESC GraphicsPipelineDx12::GetRasterizerDesc(const PipelineCrea
 D3D12_DEPTH_STENCIL_DESC GraphicsPipelineDx12::GetDepthStencilDesc(const PipelineCreateInfo& info) const {
 	D3D12_DEPTH_STENCIL_DESC desc{};
 	desc.DepthEnable = TRUE;
+	desc.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;
 	desc.StencilEnable = FALSE;
 	desc.DepthFunc = D3D12_COMPARISON_FUNC_LESS;
 	

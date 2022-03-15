@@ -103,7 +103,9 @@ void CommandListDx12::BeginAndClearRenderpass(IRenderpass* renderpass, const Col
 		renderTargetDesc.ptr += ((SIZE_T)swapchain->GetCurrentFrameIndex()) *
 			Engine::GetRenderer()->As<RendererDx12>()->GetGpu()->As<GpuDx12>()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 
-		depthStencilDesc = renderpass->As<RenderpassDx12>()->GetDepthStencilDescpriptor(swapchain->GetCurrentFrameIndex());
+		depthStencilDesc = swapchain->GetDepthStencilMemory()->GetCPUDescriptorHandleForHeapStart();
+		depthStencilDesc.ptr += ((SIZE_T)swapchain->GetCurrentFrameIndex()) *
+			Engine::GetRenderer()->As<RendererDx12>()->GetGpu()->As<GpuDx12>()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
 	}
 	else {
 		renderTargetDesc = renderpass->As<RenderpassDx12>()->GetRenderTargetDescpriptor(0);
@@ -114,9 +116,9 @@ void CommandListDx12::BeginAndClearRenderpass(IRenderpass* renderpass, const Col
 
 	const FLOAT clearValue[] = { color.Red, color.Green, color.Blue, color.Alpha };
 	commandList->ClearRenderTargetView(renderTargetDesc, clearValue, 0, nullptr);
-	//commandList->ClearDepthStencilView(depthStencilDesc, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
+	commandList->ClearDepthStencilView(depthStencilDesc, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 
-	commandList->OMSetRenderTargets(1, &renderTargetDesc, FALSE, nullptr);
+	commandList->OMSetRenderTargets(1, &renderTargetDesc, FALSE, &depthStencilDesc);
 
 	commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 

@@ -50,16 +50,19 @@ namespace OSK::GRAPHICS {
 
 		IDXGISwapChain3* GetSwapchain() const;
 		ID3D12DescriptorHeap* GetRenderTargetMemory() const;
+		ID3D12DescriptorHeap* GetDepthStencilMemory() const;
 
 	private:
 
 		Format format;
 
-		D3D12_CPU_DESCRIPTOR_HANDLE depthView;
-
 		ComPtr<IDXGISwapChain3> swapchain;
 
 		ComPtr<ID3D12DescriptorHeap> renderTargetsDesc;
+		ComPtr<ID3D12DescriptorHeap> depthTargetsDescHeap;
+
+		ComPtr<ID3D12Heap> depthHeaps[3];
+		UniquePtr<GpuImage> depthImages[3];
 
 	};
 

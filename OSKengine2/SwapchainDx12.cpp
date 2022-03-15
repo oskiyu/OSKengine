@@ -14,13 +14,18 @@
 #include "GpuMemoryAllocatorDx12.h"
 #include "IGpuImage.h"
 #include "GpuImageDx12.h"
+#include "Format.h"
+#include "GpuMemoryTypes.h"
 
 #include "OSKengine.h"
 #include "Logger.h"
 
+#include <d3d12.h>
+
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3.h>
 #include <GLFW/glfw3native.h>
+#include "GpuMemoryTypesDx12.h"
 
 using namespace OSK;
 using namespace OSK::IO;
@@ -80,26 +85,81 @@ void SwapchainDx12::CreateImages(const IO::Window& window) {
     imagesMemoryCreateInfo.NumDescriptors = imageCount;
     imagesMemoryCreateInfo.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
 
+    D3D12_DESCRIPTOR_HEAP_DESC depthImagesMemoryCreateInfo{};
+    depthImagesMemoryCreateInfo.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+    depthImagesMemoryCreateInfo.NodeMask = 0;
+    depthImagesMemoryCreateInfo.NumDescriptors = imageCount;
+    depthImagesMemoryCreateInfo.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
+
     device->As<GpuDx12>()->GetDevice()->CreateDescriptorHeap(&imagesMemoryCreateInfo, IID_PPV_ARGS(&renderTargetsDesc));
+    auto result = device->As<GpuDx12>()->GetDevice()->CreateDescriptorHeap(&depthImagesMemoryCreateInfo, IID_PPV_ARGS(&depthTargetsDescHeap));
 
     for (TSize i = 0; i < imageCount; i++) {
         images[i] = new GpuImageDx12(window.GetWindowSize().X, window.GetWindowSize().Y, format);
+        depthImages[i] = new GpuImageDx12(window.GetWindowSize().X, window.GetWindowSize().Y, format);
 
-        ComPtr<ID3D12Resource> rTarget;
-        swapchain->GetBuffer(i, IID_PPV_ARGS(&rTarget));
+        {
+            ComPtr<ID3D12Resource> rTarget;
+            swapchain->GetBuffer(i, IID_PPV_ARGS(&rTarget));
 
-        images[i]->As<GpuImageDx12>()->SetResource(rTarget);
+            images[i]->As<GpuImageDx12>()->SetResource(rTarget);
 
-        D3D12_RENDER_TARGET_VIEW_DESC RTDesc{};
-        RTDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;
-        RTDesc.Format = GetFormatDx12(format);
-        RTDesc.Texture2D.MipSlice = 0;
-        RTDesc.Texture2D.PlaneSlice = 0;
+            D3D12_RENDER_TARGET_VIEW_DESC renderTargetDesc{};
+            renderTargetDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;
+            renderTargetDesc.Format = GetFormatDx12(format);
+            renderTargetDesc.Texture2D.MipSlice = 0;
+            renderTargetDesc.Texture2D.PlaneSlice = 0;
 
-        D3D12_CPU_DESCRIPTOR_HANDLE DestDescriptor = renderTargetsDesc->GetCPUDescriptorHandleForHeapStart();
-        DestDescriptor.ptr += ((SIZE_T)i) * device->As<GpuDx12>()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+            D3D12_CPU_DESCRIPTOR_HANDLE renderTargetDescriptor = renderTargetsDesc->GetCPUDescriptorHandleForHeapStart();
+            renderTargetDescriptor.ptr += ((SIZE_T)i) * device->As<GpuDx12>()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 
-        device->As<GpuDx12>()->GetDevice()->CreateRenderTargetView(images[i]->As<GpuImageDx12>()->GetResource(), &RTDesc, DestDescriptor);
+            device->As<GpuDx12>()->GetDevice()->CreateRenderTargetView(images[i]->As<GpuImageDx12>()->GetResource(), &renderTargetDesc, renderTargetDescriptor);
+        }
+
+        // Depth
+
+        {
+            D3D12_RESOURCE_DESC depthResourceDesc{};
+            depthResourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
+            depthResourceDesc.Alignment = 0;
+            depthResourceDesc.Width = depthImages[i]->GetSize().X;
+            depthResourceDesc.Height = depthImages[i]->GetSize().Y;
+            depthResourceDesc.DepthOrArraySize = 1;
+            depthResourceDesc.SampleDesc.Count = 1;
+            depthResourceDesc.SampleDesc.Quality = 0;
+            depthResourceDesc.MipLevels = 0;
+            depthResourceDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
+            depthResourceDesc.Format = GetFormatDx12(Format::D32S8_SFLOAT_SUINT);
+            depthResourceDesc.Flags = D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL;
+
+            D3D12_CLEAR_VALUE depthClearValue = {};
+            depthClearValue.Format = GetFormatDx12(Format::D32S8_SFLOAT_SUINT);
+            depthClearValue.DepthStencil.Depth = 1.0f;
+            depthClearValue.DepthStencil.Stencil = 0;
+
+            ComPtr<ID3D12Resource> depthResource;
+            D3D12_RESOURCE_ALLOCATION_INFO allocInfo = Engine::GetRenderer()->GetGpu()->As<GpuDx12>()->GetDevice()->GetResourceAllocationInfo(0, 1, &depthResourceDesc);
+
+            D3D12_HEAP_DESC memoryCreateInfo{};
+            memoryCreateInfo.SizeInBytes = allocInfo.SizeInBytes;
+            memoryCreateInfo.Properties.Type = GetGpuSharedMemoryTypeDx12(GpuSharedMemoryType::GPU_ONLY);
+
+            device->As<GpuDx12>()->GetDevice()->CreateHeap(&memoryCreateInfo, IID_PPV_ARGS(&depthHeaps[i]));
+            device->As<GpuDx12>()->GetDevice()->CreatePlacedResource(
+                depthHeaps[i].Get(), 0, &depthResourceDesc, D3D12_RESOURCE_STATE_DEPTH_WRITE,
+                &depthClearValue, IID_PPV_ARGS(&depthResource));
+            depthImages[i]->As<GpuImageDx12>()->SetResource(depthResource);
+
+            D3D12_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc{};
+            depthStencilViewDesc.Format = GetFormatDx12(Format::D32S8_SFLOAT_SUINT);
+            depthStencilViewDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
+            depthStencilViewDesc.Flags = D3D12_DSV_FLAG_NONE;
+
+            D3D12_CPU_DESCRIPTOR_HANDLE depthDescriptor = depthTargetsDescHeap->GetCPUDescriptorHandleForHeapStart();
+            depthDescriptor.ptr += ((SIZE_T)i) * device->As<GpuDx12>()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
+
+            device->As<GpuDx12>()->GetDevice()->CreateDepthStencilView(depthImages[i]->As<GpuImageDx12>()->GetResource(), &depthStencilViewDesc, depthDescriptor);
+        }
     }
 }
 
@@ -118,4 +178,8 @@ IDXGISwapChain3* SwapchainDx12::GetSwapchain() const {
 
 ID3D12DescriptorHeap* SwapchainDx12::GetRenderTargetMemory() const {
     return this->renderTargetsDesc.Get();
+}
+
+ID3D12DescriptorHeap* SwapchainDx12::GetDepthStencilMemory() const {
+    return this->depthTargetsDescHeap.Get();
 }

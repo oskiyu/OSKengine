@@ -132,7 +132,7 @@ namespace OSK::IO {
 		/// <summary>
 		/// Devuelve la velocidad de refresco del monitor, en Hz.
 		/// </summary>
-		int32_t GetRefreshRate() const;
+		TSize GetRefreshRate() const;
 
 		/// <summary>
 		/// Devuelve el estado actual del teclado.
