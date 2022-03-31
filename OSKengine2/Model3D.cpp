@@ -1,11 +1,22 @@
 #include "Model3D.h"
 
+#include "Mesh3D.h"
+
 using namespace OSK;
 using namespace OSK::ASSETS;
+using namespace OSK::GRAPHICS;
 
 Model3D::Model3D(const std::string& assetFile)
 	: IAsset(assetFile) {
 
+}
+
+const DynamicArray<Mesh3D>& Model3D::GetMeshes() const {
+	return meshes;
+}
+
+void Model3D::AddMesh(const Mesh3D& mesh) {
+	meshes.Insert(mesh);
 }
 
 void Model3D::_SetVertexBuffer(const OwnedPtr<GRAPHICS::IGpuVertexBuffer>& vertexBuffer) {

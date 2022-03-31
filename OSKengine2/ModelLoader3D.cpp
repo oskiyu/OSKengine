@@ -9,73 +9,231 @@
 #include "IGpuIndexBuffer.h"
 #include "IGpuMemoryAllocator.h"
 #include "FileIO.h"
+#include "Mesh3D.h"
 
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
 #include <gtc/type_ptr.hpp>
 #include <json.hpp>
+
+#define TINYGLTF_IMPLEMENTATION
+#define STB_IMAGE_IMPLEMENTATION
+#define TINYGLTF_NO_STB_IMAGE_WRITE
+#include <tiny_gltf.h>
 
 using namespace OSK;
 using namespace OSK::ASSETS;
 
-constexpr auto ASSIMP_FLAGS = aiProcess_Triangulate | aiProcess_GenNormals;
+// STRUCTS
 
-glm::mat4 AiToGLM(const aiMatrix4x4& from) {
-	return glm::transpose(glm::make_mat4(&from.a1));
+/// <summary>
+/// Información relevante de un material del modelo GLTF.
+/// </summary>
+struct GltfMaterialInfo {
+
+	/// <summary>
+	/// Color base.
+	/// Para los vértices.
+	/// </summary>
+	Color baseColor;
+
+};
+
+/// <summary>
+/// Información relevante de un modelo GLTF,
+/// necesario para la correcta generación de meshes.
+/// </summary>
+struct GltfModelInfo {
+
+	/// <summary>
+	/// Información sobre todos los materiales del modelo.
+	/// ID del material = posición dentro del array.
+	/// </summary>
+	DynamicArray<GltfMaterialInfo> materialInfos;
+
+};
+
+glm::mat4 GetNodeMatrix(const tinygltf::Node& node) {
+	// Obtenemos el transform del nodo.
+	// Puede estar definido de varias maneras:
+
+	glm::mat4 nodeMatrix = glm::mat4(1.0f);
+
+	// Definido por una posición.
+	if (node.translation.size() == 3) {
+		nodeMatrix = glm::translate(nodeMatrix, glm::vec3(node.translation[0], node.translation[1], node.translation[2]));
+	}
+	// Definido por una rotación.
+	if (node.rotation.size() == 4) {
+		glm::quat quaternion = glm::make_quat(node.rotation.data());
+		nodeMatrix *= glm::mat4(quaternion);
+	}
+	// Definido por una escala.
+	if (node.scale.size() == 3) {
+		nodeMatrix = glm::scale(nodeMatrix, glm::vec3(glm::make_vec3(node.scale.data())));
+	}
+	// Definido por una matriz.
+	if (node.matrix.size() == 16) {
+		nodeMatrix = glm::make_mat4x4(node.matrix.data());
+	}
+
+	return nodeMatrix;
 }
 
-void ProcessMeshNode(const aiNode* node, const aiScene* scene, DynamicArray<GRAPHICS::Vertex3D>* vertices, DynamicArray<GRAPHICS::TIndexSize>* indices, const Vector3f& prevPosition, float globalScale) {
-	aiVector3D aiposition;
-	aiQuaternion airotation;
-	aiVector3D aiscale;
+/// <summary>
+/// Procesa un nodo del modelo, además de
+/// todos sus nodos hijos.
+/// Genera los meshes, vértices e índices.
+/// </summary>
+/// <param name="node">Nodo del modelo GLTF.</param>
+/// <param name="model">Modelo GLTF original.</param>
+/// <param name="modelInfo">Información relevante del modelo para la generación de meshes.</param>
+/// <param name="meshes">Lista donde se introducirán los meshes.</param>
+/// <param name="vertices">Lista donde se introducirán los vértices.</param>
+/// <param name="indices">Lista donde se introducirán los índices.</param>
+/// <param name="prevMatrix">Matriz offset del nodo padre.</param>
+/// <param name="globalScale">Escala del modelo.</param>
+void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, const GltfModelInfo& modelInfo, DynamicArray<GRAPHICS::Mesh3D>* meshes, DynamicArray<GRAPHICS::Vertex3D>* vertices, DynamicArray<GRAPHICS::TIndexSize>* indices, const glm::mat4& prevMatrix, float globalScale) {
+	glm::mat4 nodeMatrix = prevMatrix * GetNodeMatrix(node);
 
-	node->mTransformation.Decompose(aiscale, airotation, aiposition);
+	// Proceso del polígono.
+	if (node.mesh > -1) {
+		const tinygltf::Mesh& mesh = model.meshes[node.mesh];
+		
+		for (TSize i = 0; i < mesh.primitives.size(); i++) {
+			const tinygltf::Primitive& primitive = mesh.primitives[i];
+			TSize numVertices = 0;
+			TSize firstVertexId = vertices->GetSize();
+			TSize firstIndexId = indices->GetSize();
+			
+			// Los datos se almacenan en forma de buffers.
+			const float* positionsBuffer = nullptr;
+			const float* normalsBuffer = nullptr;
+			const float* texCoordsBuffer = nullptr;
 
-	auto matrix = AiToGLM(node->mTransformation);
-	Vector3f position = prevPosition + glm::vec3(matrix[3]);
+			// Comprobamos que tiene almacenado info de posición.
+			if (primitive.attributes.find("POSITION") != primitive.attributes.end()) {
+				// Para poder acceder a la información en forma de buffer.
+				const tinygltf::Accessor& accessor = model.accessors[primitive.attributes.find("POSITION")->second];
+				const tinygltf::BufferView& view = model.bufferViews[accessor.bufferView];
 
-	for (TSize i = 0; i < node->mNumMeshes; i++) {
-		const aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+				// Leemos el buffer.
+				positionsBuffer = (const float*)(&(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
+				numVertices = accessor.count;
+			}
 
-		for (TSize v = 0; v < mesh->mNumVertices; v++) {
-			GRAPHICS::Vertex3D vertex{};
-			Vector3f vec3 = glm::make_vec3(&mesh->mVertices[v].x) * globalScale;
+			// Comprobamos que tiene almacenado info de normales.
+			if (primitive.attributes.find("NORMAL") != primitive.attributes.end()) {
+				// Para poder acceder a la información en forma de buffer.
+				const tinygltf::Accessor& accessor = model.accessors[primitive.attributes.find("NORMAL")->second];
+				const tinygltf::BufferView& view = model.bufferViews[accessor.bufferView];
 
-			vertex.position = vec3 + position.ToGLM();
+				// Leemos el buffer.
+				normalsBuffer = (const float*)(&(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
+			}
 
-			//vertex.normals.x = mesh->mNormals[v].x;
-			//vertex.normals.y = -mesh->mNormals[v].y;
-			//vertex.normals.z = mesh->mNormals[v].z;
+			// Comprobamos que tiene almacenado info de coordenadas de texturas.
+			if (primitive.attributes.find("TEXCOORD_0") != primitive.attributes.end()) {
+				// Para poder acceder a la información en forma de buffer.
+				const tinygltf::Accessor& accessor = model.accessors[primitive.attributes.find("TEXCOORD_0")->second];
+				const tinygltf::BufferView& view = model.bufferViews[accessor.bufferView];
 
-			vertex.texCoords.X = mesh->mTextureCoords[0][v].x;
-			vertex.texCoords.Y = -mesh->mTextureCoords[0][v].y;
+				// Leemos el buffer.
+				texCoordsBuffer = (const float*)(&(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
+			}
 
-			if (mesh->HasVertexColors(0))
-				vertex.color = Color(mesh->mColors[0][v].r,
-									 mesh->mColors[0][v].g,
-									 mesh->mColors[0][v].b);
-			else
-				vertex.color = Color::WHITE();
+			// Procesamos los buffers y generamos nuevos vértices.
+			for (TSize v = 0; v < numVertices; v++) {
+				glm::vec4 vertexPosition = glm::vec4(
+					positionsBuffer[v * 3],
+					positionsBuffer[v * 3 + 1],
+					positionsBuffer[v * 3 + 2],
+					globalScale
+				);
 
-			vertex.position.Y *= -1.0f;
+				GRAPHICS::Vertex3D vertex{};
+				vertex.position = glm::vec3(glm::scale(nodeMatrix, glm::vec3(globalScale)) * vertexPosition);
+				vertex.normal = glm::normalize(glm::vec3(nodeMatrix * glm::vec4(
+					normalsBuffer[v * 3],
+					normalsBuffer[v * 3 + 1],
+					normalsBuffer[v * 3 + 2],
+					globalScale
+				)));
+				vertex.texCoords = {
+					texCoordsBuffer[v * 2],
+					texCoordsBuffer[v * 2 + 1]
+				};
 
-			vertices->Insert(vertex);
+				if (primitive.material > 0)
+					vertex.color = modelInfo.materialInfos[primitive.material].baseColor;
+				else
+					vertex.color = 1.0f;
+				
+
+				vertices->Insert(vertex);
+			}
+
+			// Índices
+			const tinygltf::Accessor& indicesAccesor = model.accessors[primitive.indices];
+			const tinygltf::BufferView& indicesView = model.bufferViews[indicesAccesor.bufferView];
+			const tinygltf::Buffer& indicesBuffer = model.buffers[indicesView.buffer];
+
+			// Los índices tambien se guardan en buffers.
+			// Necesitamos saber su tipo para procesar el buffer.
+			// El índice es el ID del vértice dentro de la primitiva.
+			// Para obtener el ID real, debemos tener en cuenta todos los vértices anteriormente procesados.
+			switch (indicesAccesor.componentType) {
+				case TINYGLTF_PARAMETER_TYPE_UNSIGNED_INT: {
+					const uint32_t* indBuffer = (const uint32_t*)(&indicesBuffer.data[indicesAccesor.byteOffset + indicesView.byteOffset]);
+					for (TSize index = 0; index < indicesAccesor.count; index++)
+						indices->Insert((GRAPHICS::TIndexSize)indBuffer[index] + firstVertexId);
+
+					break;
+				}
+
+				case TINYGLTF_PARAMETER_TYPE_UNSIGNED_SHORT: {
+					const uint16_t* indBuffer = (const uint16_t*)(&indicesBuffer.data[indicesAccesor.byteOffset + indicesView.byteOffset]);
+					for (size_t index = 0; index < indicesAccesor.count; index++)
+						indices->Insert((GRAPHICS::TIndexSize)indBuffer[index] + firstVertexId);
+
+					break;
+				}
+
+				case TINYGLTF_PARAMETER_TYPE_UNSIGNED_BYTE: {
+					const uint8_t* indBuffer = (const uint8_t*)(&indicesBuffer.data[indicesAccesor.byteOffset + indicesView.byteOffset]);
+					for (size_t index = 0; index < indicesAccesor.count; index++)
+						indices->Insert((GRAPHICS::TIndexSize)indBuffer[index] + firstVertexId);
+
+					break;
+				}
+
+			}
+
+			meshes->Insert({ (TSize)indicesAccesor.count, firstIndexId });
 		}
 	}
+	for (TSize i = 0; i < node.children.size(); i++)
+		ProcessMeshNode(model.nodes[node.children[i]], model, modelInfo, meshes, vertices, indices, nodeMatrix, globalScale);
+}
 
-	for (TSize i = 0; i < node->mNumMeshes; i++) {
-		TSize indexBase = indices->GetSize();
+/// <summary>
+/// Carga todos los materiales del modelo,
+/// y guarda la información relevante de cada uno.
+/// </summary>
+DynamicArray<GltfMaterialInfo> LoadMaterials(const tinygltf::Model& model) {
+	auto output = DynamicArray<GltfMaterialInfo>::CreateResizedArray(model.materials.size());
 
-		const aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-
-		for (TSize f = 0; f < mesh->mNumFaces; f++)
-			for (TSize ind = 0; ind < 3; ind++)
-				indices->Insert(mesh->mFaces[f].mIndices[ind] + indexBase);
+	for (TSize i = 0; i < model.materials.size(); i++) {
+		GltfMaterialInfo info{};
+		info.baseColor = {
+			(float)model.materials[i].pbrMetallicRoughness.baseColorFactor[0],
+			(float)model.materials[i].pbrMetallicRoughness.baseColorFactor[1],
+			(float)model.materials[i].pbrMetallicRoughness.baseColorFactor[2],
+			(float)model.materials[i].pbrMetallicRoughness.baseColorFactor[3],
+		};
+		
+		output[i] = info;
 	}
 
-	for (TSize i = 0; i < node->mNumChildren; i++)
-		ProcessMeshNode(node->mChildren[i], scene, vertices, indices, position, globalScale);
+	return output;
 }
 
 void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
@@ -88,21 +246,31 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 
 	OSK_ASSERT(IO::FileIO::FileExists(assetInfo["raw_asset_path"]), "El modelo en no existe.");
 
-	static Assimp::Importer assimpImporter;
+	tinygltf::Model gltfModel;
+	tinygltf::TinyGLTF context;
 
-	// Escena de Assimp.
-	const aiScene* scene = nullptr;
+	std::string errorMessage;
+	std::string warningMessage;
 
-	scene = assimpImporter.ReadFile(assetInfo["raw_asset_path"], ASSIMP_FLAGS);
+	context.LoadBinaryFromFile(&gltfModel, &errorMessage, &warningMessage, assetInfo["raw_asset_path"]);
 
 	DynamicArray<GRAPHICS::Vertex3D> vertices;
 	DynamicArray<GRAPHICS::TIndexSize> indices;
+	DynamicArray<GRAPHICS::Mesh3D> meshes;
 
-	ProcessMeshNode(scene->mRootNode, scene, &vertices, &indices, { 0.0f }, assetInfo["scale"]);
+	tinygltf::Scene scene = gltfModel.scenes[0];
+	
+	GltfModelInfo modelInfo{};
+	modelInfo.materialInfos = LoadMaterials(gltfModel);
+	for (TSize i = 0; i < scene.nodes.size(); i++)
+		ProcessMeshNode(gltfModel.nodes[scene.nodes[i]], gltfModel, modelInfo, &meshes, &vertices, &indices, glm::mat4(1.0f), assetInfo["scale"]);
 
 	// GPU.
 	output->_SetVertexBuffer(Engine::GetRenderer()->GetMemoryAllocator()->CreateVertexBuffer(vertices));
 	output->_SetIndexBuffer(Engine::GetRenderer()->GetMemoryAllocator()->CreateIndexBuffer(indices));
 
 	output->_SetIndexCount(vertices.GetSize());
+
+	for (TSize i = 0; i < meshes.GetSize(); i++)
+		output->AddMesh(meshes.At(i));
 }

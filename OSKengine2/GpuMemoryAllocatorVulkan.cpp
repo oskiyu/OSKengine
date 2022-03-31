@@ -192,6 +192,30 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector2ui& imageS
 IGpuMemoryBlock* GpuMemoryAllocatorVulkan::GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
 	auto it = bufferMemoryBlocks.Find({ size, usage, sharedType });
 
+	for (auto it : bufferMemoryBlocks) {
+		if (it.first.usage == usage && it.first.sharedType == sharedType) {
+			auto& list = it.second;
+
+			for (auto& i : list)
+				if (i->GetAvailableSpace() >= size)
+					return i.GetPointer();
+
+			auto i = GpuMemoryBlockVulkan::CreateNewBufferBlock(size, device, sharedType, usage);
+
+			bufferMemoryBlocks.Insert({ size, usage, sharedType }, {});
+			bufferMemoryBlocks.Get({ size, usage, sharedType }).Insert(i.GetPointer());
+
+			return i.GetPointer();
+		}
+	}
+
+	auto i = GpuMemoryBlockVulkan::CreateNewBufferBlock(size, device, sharedType, usage);
+
+	bufferMemoryBlocks.Insert({ size, usage, sharedType }, {});
+	bufferMemoryBlocks.Get({ size, usage, sharedType }).Insert(i.GetPointer());
+
+	return i.GetPointer();
+
 	if (it.IsEmpty()) {
 		auto i = GpuMemoryBlockVulkan::CreateNewBufferBlock(size, device, sharedType, usage);
 

@@ -11,6 +11,7 @@ namespace OSK::GRAPHICS {
 
 	struct Vertex3D {
 		Vector3f position;
+		Vector3f normal;
 		float dx12discard = 1.0f;
 		Color color;
 		Vector2f texCoords;

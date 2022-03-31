@@ -140,7 +140,7 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	info.vertexPath = vertexPath;
 	info.fragmentPath = fragmentPath;
 	info.polygonMode = PolygonMode::FILL;
-	info.cullMode = PolygonCullMode::FRONT;
+	info.cullMode = PolygonCullMode::BACK;
 	info.frontFaceType = PolygonFrontFaceType::COUNTERCLOCKWISE;
 
 	auto output = new Material(info, layout);

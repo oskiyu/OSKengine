@@ -13,7 +13,7 @@ VkVertexInputBindingDescription OSK::GRAPHICS::GetBindingDescription_Vertex3D() 
 }
 
 OSK::DynamicArray<VkVertexInputAttributeDescription> OSK::GRAPHICS::GetAttributeDescription_Vertex3D() {
-	auto output = DynamicArray<VkVertexInputAttributeDescription>::CreateResizedArray(3);
+	auto output = DynamicArray<VkVertexInputAttributeDescription>::CreateResizedArray(4);
 
 	// Posición
 	output[0].binding = 0;
@@ -21,17 +21,23 @@ OSK::DynamicArray<VkVertexInputAttributeDescription> OSK::GRAPHICS::GetAttribute
 	output[0].format = VK_FORMAT_R32G32B32_SFLOAT;
 	output[0].offset = offsetof(Vertex3D, position);
 
-	// Color
+	// Normales
 	output[1].binding = 0;
 	output[1].location = 1;
-	output[1].format = VK_FORMAT_R32G32B32A32_SFLOAT;
-	output[1].offset = offsetof(Vertex3D, color);
+	output[1].format = VK_FORMAT_R32G32B32_SFLOAT;
+	output[1].offset = offsetof(Vertex3D, normal);
 
 	// Color
 	output[2].binding = 0;
 	output[2].location = 2;
-	output[2].format = VK_FORMAT_R32G32_SFLOAT;
-	output[2].offset = offsetof(Vertex3D, texCoords);
+	output[2].format = VK_FORMAT_R32G32B32A32_SFLOAT;
+	output[2].offset = offsetof(Vertex3D, color);
+
+	// Color
+	output[3].binding = 0;
+	output[3].location = 3;
+	output[3].format = VK_FORMAT_R32G32_SFLOAT;
+	output[3].offset = offsetof(Vertex3D, texCoords);
 
 	return output;
 }

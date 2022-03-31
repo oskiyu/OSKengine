@@ -270,6 +270,11 @@ void CommandListVulkan::DrawSingleInstance(TSize numIndices) {
 		vkCmdDrawIndexed(commandBuffers[i], numIndices, 1, 0, 0, 0);
 }
 
+void CommandListVulkan::DrawSingleMesh(TSize firstIndex, TSize numIndices) {
+	for (TSize i = 0; i < commandBuffers.GetSize(); i++)
+		vkCmdDrawIndexed(commandBuffers[i], numIndices, 1, firstIndex, 0, 0);
+}
+
 void CommandListVulkan::SetViewport(const Viewport& vp) {
 	VkViewport viewport{};
 

@@ -48,6 +48,7 @@ namespace OSK::GRAPHICS {
 		void PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) override;
 
 		void DrawSingleInstance(TSize numIndices) override;
+		void DrawSingleMesh(TSize firstIndex, TSize numIndices) override;
 
 		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) override;
 

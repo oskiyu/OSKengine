@@ -30,6 +30,7 @@ void CommandListOgl::Close() {
 void CommandListOgl::TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) {
 	image->SetLayout(next);
 }
+
 void CommandListOgl::BeginRenderpass(IRenderpass* renderpass) {
 	BeginAndClearRenderpass(renderpass, Color::BLACK());
 }
@@ -65,6 +66,10 @@ void CommandListOgl::PushMaterialConstants(const std::string& pushConstName, con
 }
 
 void CommandListOgl::DrawSingleInstance(TSize numIndices) {
+	OSK_ASSERT(false, "No implementado.");
+}
+
+void CommandListOgl::DrawSingleMesh(TSize firstIndex, TSize numIndices) {
 	OSK_ASSERT(false, "No implementado.");
 }
 

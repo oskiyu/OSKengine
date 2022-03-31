@@ -51,7 +51,8 @@ protected:
 		materialInstance->GetSlot("global")->SetTexture("texture", texture);
 		materialInstance->GetSlot("global")->FlushUpdate();
 
-		OSK::ASSETS::Model3D* model = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Model3D>("Resources/Assets/model0.json", "GLOBAL");
+		OSK::ASSETS::Model3D* model = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Model3D>("Resources/Assets/f1.json", "GLOBAL");
+		OSK::ASSETS::Model3D* model_low = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Model3D>("Resources/Assets/f1_low.json", "GLOBAL");
 
 		// ECS
 		ballObject = OSK::Engine::GetEntityComponentSystem()->SpawnObject();
@@ -60,7 +61,7 @@ protected:
 		OSK::ECS::ModelComponent3D& modelComponent = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::ModelComponent3D>(ballObject, {});
 
 		transform.AddPosition({ 0, 1, 1 });
-		transform.SetScale(0.8f);
+		transform.SetScale(0.05f);
 
 		modelComponent.SetModel(model);
 		modelComponent.SetMaterialInstance(materialInstance);
@@ -76,20 +77,20 @@ protected:
 		auto& transform2 = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::Transform3D>(smallBallObject, OSK::ECS::Transform3D(smallBallObject));
 		auto& modelComponent2 = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::ModelComponent3D>(smallBallObject, {});
 
-		transform2.AddPosition({ 0, 1, 3 });
-		transform2.SetScale(0.5f);
+		transform2.AddPosition({ 0, 1, 1.4f });
+		transform2.SetScale(0.05f);
 
 		auto materialInstance2 = material->CreateInstance();
 		materialInstance2->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer.GetPointer());
 		materialInstance2->GetSlot("global")->SetTexture("texture", texture);
 		materialInstance2->GetSlot("global")->FlushUpdate();
 
-		modelComponent2.SetModel(model);
+		modelComponent2.SetModel(model_low);
 		modelComponent2.SetMaterialInstance(materialInstance2);
 	}
 
 	void OnTick(TDeltaTime deltaTime) override {
-		OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform3D>(ballObject).RotateLocalSpace(deltaTime, { 0 ,1 ,0 });
+		//OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform3D>(ballObject).RotateLocalSpace(deltaTime, { 0 ,1 ,0 });
 
 		OSK::ECS::CameraComponent3D& camera = OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::CameraComponent3D>(cameraObject);
 		OSK::ECS::Transform3D& cameraTransform = OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform3D>(cameraObject);

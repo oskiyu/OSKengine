@@ -146,7 +146,15 @@ namespace OSK::GRAPHICS {
 		/// con el material enlazado.
 		/// </summary>
 		/// <param name="numIndices">Número de vértices/índices del vertex buffer.</param>
-		virtual void DrawSingleInstance(TSize numIndices) = 0;
+		virtual void DrawSingleInstance(TSize numIndices) = 0;		
+		
+		/// <summary>
+		/// Renderiza los triángulos del mesh,
+		/// con el material enlazado.
+		/// </summary>
+		/// <param name="numIndices">Número de vértices/índices del mesh.</param>
+		/// <param name="firstIndex">Primer vértice del mesh.</param>
+		virtual void DrawSingleMesh(TSize firstIndex, TSize numIndices) = 0;
 
 
 		/// <summary>

@@ -8,6 +8,7 @@ namespace OSK::GRAPHICS {
 	enum class Format {
 
 		// COLOR
+		RGB8_UNORM,
 		RGBA8_UNORM,
 		B8G8R8A8_SRGB,
 

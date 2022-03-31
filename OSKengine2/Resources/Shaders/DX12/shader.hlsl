@@ -1,5 +1,6 @@
 struct VS2PS {
     float4 position : SV_POSITION;
+    float3 normal : NORMAL;
     float4 color : COLOR;
     float2 texCoords : TEXCOORD;
 };
@@ -17,7 +18,7 @@ cbuffer CameraBuffer : register(b1) {
 Texture2D texture0 : register(t0);
 SamplerState textureSampler : register(s0);
 
-VS2PS vmain(float3 position : POSITION, float4 color : COLOR, float2 texCoords : TEXCOORD) {
+VS2PS vmain(float3 position : POSITION, float3 normal : NORMAL, float4 color : COLOR, float2 texCoords : TEXCOORD) {
     VS2PS result;
 
     float4x4 temp = mul(cameraProjection, cameraView);

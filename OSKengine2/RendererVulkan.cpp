@@ -235,7 +235,6 @@ void RendererVulkan::CreateSwapchain() {
 }
 
 void RendererVulkan::SetupDebugLogging() {
-#ifdef OSK_DEBUG
 	VkDebugUtilsMessengerCreateInfoEXT createInfo{};
 	createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
 	createInfo.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
@@ -249,7 +248,6 @@ void RendererVulkan::SetupDebugLogging() {
 	OSK_ASSERT(result == VK_SUCCESS, "No se puede iniciar la consola de capas de validación.");
 
 	Engine::GetLogger()->InfoLog("Capas de validación activas.");
-#endif
 }
 
 void RendererVulkan::CreateSurface(const IO::Window& window) {
@@ -321,6 +319,7 @@ void RendererVulkan::CreateCommandQueues() {
 }
 
 bool RendererVulkan::AreValidationLayersAvailable() const {
+#ifdef OSK_DEBUG
 	// Obtenemos el número de capas.
 	uint32_t layerCount;
 	vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
@@ -331,8 +330,6 @@ bool RendererVulkan::AreValidationLayersAvailable() const {
 	vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.GetData());
 
 	//Capas de validación necesitadas.
-	
-
 	for (auto layerName : validationLayers) {
 		bool layerFound = false;
 
@@ -349,6 +346,9 @@ bool RendererVulkan::AreValidationLayersAvailable() const {
 	}
 
 	return false;
+#else
+	return false;
+#endif 
 }
 
 OwnedPtr<IMaterialSlot> RendererVulkan::_CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const {

@@ -9,6 +9,7 @@
 #include "Material.h"
 #include "MaterialLayout.h"
 #include "Model3D.h"
+#include "Mesh3D.h"
 
 using namespace OSK;
 using namespace OSK::ECS;
@@ -36,6 +37,7 @@ void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
 		commandList->BindIndexBuffer(model.GetModel()->GetIndexBuffer());
 		commandList->PushMaterialConstants("model", transform.GetAsMatrix());
 
-		commandList->DrawSingleInstance(model.GetModel()->GetIndexCount());
+		for (const auto& mesh : model.GetModel()->GetMeshes())
+			commandList->DrawSingleMesh(mesh.GetFirstIndexId(), mesh.GetNumberOfIndices());
 	}
 }

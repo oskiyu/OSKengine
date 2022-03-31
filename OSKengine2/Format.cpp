@@ -9,6 +9,9 @@
 
 DXGI_FORMAT OSK::GRAPHICS::GetFormatDx12(Format format) {
 	switch (format) {
+		case Format::RGB8_UNORM:
+			return DXGI_FORMAT_R8G8B8A8_UNORM;
+
 		case Format::RGBA8_UNORM:
 			return DXGI_FORMAT_R8G8B8A8_UNORM;
 		case Format::B8G8R8A8_SRGB:
@@ -27,11 +30,14 @@ DXGI_FORMAT OSK::GRAPHICS::GetFormatDx12(Format format) {
 
 VkFormat OSK::GRAPHICS::GetFormatVulkan(Format format) {
 	switch (format) {
+	case Format::RGB8_UNORM:
+		return VK_FORMAT_R8G8B8_UNORM;
+
 	case Format::RGBA8_UNORM:
 		return VK_FORMAT_R8G8B8A8_UNORM;
 
 	case Format::B8G8R8A8_SRGB:
-		return VK_FORMAT_B8G8R8A8_SRGB;
+		return VK_FORMAT_B8G8R8A8_UNORM;
 
 	case Format::D32_SFLOAT:
 		return VK_FORMAT_D32_SFLOAT;
@@ -43,6 +49,9 @@ VkFormat OSK::GRAPHICS::GetFormatVulkan(Format format) {
 
 unsigned int OSK::GRAPHICS::GetFormatNumberOfBytes(Format format) {
 	switch (format) {
+
+		case Format::RGB8_UNORM:
+			return 3;
 
 		case Format::RGBA8_UNORM:
 		case Format::B8G8R8A8_SRGB:
@@ -61,11 +70,17 @@ unsigned int OSK::GRAPHICS::GetFormatNumberOfBytes(Format format) {
 }
 
 OSK::GRAPHICS::Format OSK::GRAPHICS::GetColorFormat(unsigned int numberOfChannels) {
-	return OSK::GRAPHICS::Format::RGBA8_UNORM;
+	if (numberOfChannels == 3)
+		return OSK::GRAPHICS::Format::RGB8_UNORM;
+	else
+		return OSK::GRAPHICS::Format::RGBA8_UNORM;
 }
 
 unsigned int OSK::GRAPHICS::GetFormatOgl(GRAPHICS::Format format) {
 	switch (format) {
+	case GRAPHICS::Format::RGB8_UNORM:
+		return GL_RGB8_SNORM;
+
 	case GRAPHICS::Format::RGBA8_UNORM:
 		return GL_RGBA8_SNORM;
 
