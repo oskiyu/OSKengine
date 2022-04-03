@@ -472,7 +472,7 @@ namespace OSK {
 			}
 
 #ifdef OSK_SAFE
-			OSK_ASSERT(false, "Error: no se ha encontrado el elemento.");
+			//OSK_ASSERT(false, "Error: no se ha encontrado el elemento.");
 #endif
 		}
 

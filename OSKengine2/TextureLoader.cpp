@@ -51,21 +51,7 @@ void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	Vector2ui size(width, height);
 	OwnedPtr<GRAPHICS::GpuImage> image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(size, GRAPHICS::GetColorFormat(numChannels), GRAPHICS::GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION, GRAPHICS::GpuSharedMemoryType::GPU_ONLY, true);
 
-	auto stagingBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateStagingBuffer(width * height * numChannels);
-	stagingBuffer->MapMemory();
-	stagingBuffer->Write(pixels, stagingBuffer->GetSize());
-	stagingBuffer->Unmap();
-
-	auto commandList = Engine::GetRenderer()->CreateSingleUseCommandList();
-	commandList->RegisterStagingBuffer(stagingBuffer);
-	commandList->Reset();
-	commandList->Start();
-	commandList->TransitionImageLayout(image.GetPointer(), GRAPHICS::GpuImageLayout::TRANSFER_DESTINATION);
-	commandList->CopyBufferToImage(stagingBuffer.GetPointer(), image.GetPointer());
-	commandList->TransitionImageLayout(image.GetPointer(), GRAPHICS::GpuImageLayout::SHADER_READ_ONLY);
-	commandList->Close();
-	Engine::GetRenderer()->SubmitSingleUseCommandList(commandList.GetPointer());
-
+	Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), pixels, width * height * numChannels, GRAPHICS::GpuImageLayout::SHADER_READ_ONLY);
 	stbi_image_free(pixels);
 
 	output->_SetImage(image);

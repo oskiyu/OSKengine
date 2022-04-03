@@ -29,15 +29,17 @@ void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
 		const ModelComponent3D& model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj);
 		const Transform3D& transform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(obj);
 
-		commandList->BindMaterial(model.GetMaterialInstance()->GetMaterial());
-		for (const std::string& slotName : model.GetMaterialInstance()->GetLayout()->GetAllSlotNames())
-			commandList->BindMaterialSlot(model.GetMaterialInstance()->GetSlot(slotName));
+		commandList->BindMaterial(model.GetMaterial());
 
 		commandList->BindVertexBuffer(model.GetModel()->GetVertexBuffer());
 		commandList->BindIndexBuffer(model.GetModel()->GetIndexBuffer());
 		commandList->PushMaterialConstants("model", transform.GetAsMatrix());
 
-		for (const auto& mesh : model.GetModel()->GetMeshes())
-			commandList->DrawSingleMesh(mesh.GetFirstIndexId(), mesh.GetNumberOfIndices());
+		for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
+			for (const std::string& slotName : model.GetMaterial()->GetLayout()->GetAllSlotNames())
+				commandList->BindMaterialSlot(model.GetMeshMaterialInstance(i)->GetSlot(slotName));
+
+			commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
+		}
 	}
 }

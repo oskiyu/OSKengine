@@ -29,8 +29,10 @@ namespace OSK::GRAPHICS {
 	class IRenderpass;
 	struct PipelineCreateInfo;
 	class IGraphicsPipeline;
+	class GpuImage;
 
 	enum class RenderApiType;
+	enum class GpuImageLayout;
 
 	/// <summary>
 	/// Proporciona la interfaz de un renderizador.
@@ -86,6 +88,11 @@ namespace OSK::GRAPHICS {
 		/// Ejecuta el contenido de la lista de comandos.
 		/// </summary>
 		virtual void SubmitSingleUseCommandList(ICommandList* commandList) = 0;
+
+		/// <summary>
+		/// Rellena la imagen en la GPU con los datos dados.
+		/// </summary>
+		void UploadImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout);
 
 		/// <summary>
 		/// Castea el renderizador al tipo dado.

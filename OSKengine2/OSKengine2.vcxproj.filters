@@ -331,6 +331,9 @@
     <Filter Include="Archivos de origen\OSKengine\ECS\Builtin\Camera">
       <UniqueIdentifier>{ce9b86a3-39e4-464e-be5d-47fd9d53d4ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Sampler">
+      <UniqueIdentifier>{72fd60d8-fc94-4ae3-b7f9-477e1e275d72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -1078,6 +1081,9 @@
     </ClInclude>
     <ClInclude Include="Mesh3D.h">
       <Filter>Archivos de encabezado\OSKengine\Assets\Builtin</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuImageSamplerDesc.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Sampler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

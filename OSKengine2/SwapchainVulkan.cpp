@@ -18,6 +18,9 @@ using namespace OSK::GRAPHICS;
 SwapchainVulkan::~SwapchainVulkan() {
 	vkDestroySwapchainKHR(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
 		swapchain, nullptr);
+
+	for (auto& i : images)
+		i->As<GpuImageVulkan>()->SetImage(VK_NULL_HANDLE);
 }
 
 void SwapchainVulkan::Create(Format format, const GpuVulkan& device, const IO::Window& window) {

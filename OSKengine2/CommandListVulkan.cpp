@@ -278,10 +278,10 @@ void CommandListVulkan::DrawSingleMesh(TSize firstIndex, TSize numIndices) {
 void CommandListVulkan::SetViewport(const Viewport& vp) {
 	VkViewport viewport{};
 
-	viewport.x = vp.rectangle.GetRectanglePosition().X;
-	viewport.y = vp.rectangle.GetRectanglePosition().Y + vp.rectangle.GetRectangleSize().Y;
-	viewport.width = vp.rectangle.GetRectangleSize().X;
-	viewport.height = -((int)vp.rectangle.GetRectangleSize().Y);
+	viewport.x = (float)vp.rectangle.GetRectanglePosition().X;
+	viewport.y = (float)vp.rectangle.GetRectanglePosition().Y + vp.rectangle.GetRectangleSize().Y;
+	viewport.width = (float)vp.rectangle.GetRectangleSize().X;
+	viewport.height = -((float)vp.rectangle.GetRectangleSize().Y);
 
 	viewport.minDepth = vp.minDepth;
 	viewport.maxDepth = vp.maxDepth;

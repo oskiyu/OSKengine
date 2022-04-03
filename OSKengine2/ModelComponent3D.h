@@ -2,13 +2,21 @@
 
 #include "Component.h"
 #include "OwnedPtr.h"
+#include "DynamicArray.hpp"
+#include "HashMap.hpp"
+
+#include <string>
 
 namespace OSK {
 	namespace ASSETS {
 		class Model3D;
+		class Texture;
 	}
 	namespace GRAPHICS {
+		class Material;
 		class MaterialInstance;
+		class GpuImage;
+		class IGpuUniformBuffer;
 	}
 }
 
@@ -18,7 +26,8 @@ namespace OSK::ECS {
 	/// Componente para el renderizado 3D de un objeto.
 	/// Incluye:
 	/// - Modelo 3D.
-	/// - Instancia de su material.
+	/// - Material del modelo.
+	/// - Instancias de los materiales de los meshes del modelo.
 	/// </summary>
 	class OSKAPI_CALL ModelComponent3D {
 
@@ -29,15 +38,27 @@ namespace OSK::ECS {
 		~ModelComponent3D();
 
 		void SetModel(ASSETS::Model3D* model);
-		void SetMaterialInstance(OwnedPtr<GRAPHICS::MaterialInstance> materialInstance);
+		void SetMaterial(GRAPHICS::Material* materialInstance);
 
 		ASSETS::Model3D* GetModel() const;
-		GRAPHICS::MaterialInstance* GetMaterialInstance() const;
+		GRAPHICS::Material* GetMaterial() const;
+
+		GRAPHICS::MaterialInstance* GetMeshMaterialInstance(TSize meshId) const;
+
+		void BindTextureForAllMeshes(const std::string& slot, const std::string& binding, const ASSETS::Texture* texture);
+		void BindGpuImageForAllMeshes(const std::string& slot, const std::string& binding, const GRAPHICS::GpuImage* image);
+		void BindUniformBufferForAllMeshes(const std::string& slot, const std::string& binding, const GRAPHICS::IGpuUniformBuffer* buffer);
 
 	private:
 
 		ASSETS::Model3D* model = nullptr;
-		OwnedPtr<GRAPHICS::MaterialInstance> materialInstance;
+		GRAPHICS::Material* material = nullptr;
+
+		DynamicArray<OwnedPtr<GRAPHICS::MaterialInstance>> meshesMaterialInstances;
+
+		HashMap<Pair<std::string, std::string>, const ASSETS::Texture*> texturesBound;
+		HashMap<Pair<std::string, std::string>, const GRAPHICS::GpuImage*> imagesBound;
+		HashMap<Pair<std::string, std::string>, const GRAPHICS::IGpuUniformBuffer*> uniformBuffersBound;
 
 	};
 

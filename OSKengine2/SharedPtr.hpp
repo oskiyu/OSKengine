@@ -18,7 +18,7 @@ public:
 	/// Crea un SharedPtr vacío.
 	/// </summary>
 	SharedPtr() {
-		instanceCount = new size_t;
+		instanceCount = new TSize;
 		*instanceCount = 0;
 	}
 
@@ -30,7 +30,7 @@ public:
 	SharedPtr(T* data) {
 		pointer = data;
 
-		instanceCount = new size_t;
+		instanceCount = new TSize;
 		*instanceCount = 1;
 	}
 
@@ -97,7 +97,7 @@ public:
 	/// Devuelve el número de SharedPtr que comparten el mismo puntero que este.
 	/// </summary>
 	/// <returns>Número de instancias.</returns>
-	size_t GetInstanceCount() const {
+	TSize GetInstanceCount() const {
 		return *instanceCount;
 	}
 
@@ -139,6 +139,13 @@ public:
 	/// <returns>Estado del puntero.</returns>
 	bool HasValue() const {
 		return pointer != nullptr;
+	}
+
+	bool operator==(const SharedPtr& other) const {
+		return pointer == other.pointer && instanceCount == other.instanceCount;
+	}
+	bool operator!=(const SharedPtr& other) const {
+		return !operator==(other);
 	}
 
 private:
@@ -201,7 +208,7 @@ private:
 	/// <summary>
 	/// Número de SharedPtr con este puntero.
 	/// </summary>
-	size_t* instanceCount = nullptr;
+	TSize* instanceCount = nullptr;
 
 };
 

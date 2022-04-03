@@ -256,13 +256,31 @@ namespace OSK {
 			Free();
 			Allocate(arr.capacity);
 
-			memcpy(data, arr.data, sizeof(T) * arr.capacity);
+			growthFactorType = arr.growthFactorType;
+
+			for (TSize i = 0; i < arr.GetSize(); i++)
+				Insert(arr.At(i));
+		}
+
+		/// <summary>
+		/// Copia los contenidos del array.
+		/// </summary>
+		/// <param name="arr">Array a copiar.</param>
+		void CopyFrom(DynamicArray&& arr) {
+			Free();
+			Allocate(arr.capacity);
 
 			growthFactorType = arr.growthFactorType;
 
-			size = arr.size;
+			for (TSize i = 0; i < arr.GetSize(); i++)
+				Insert(arr.At(i));
 		}
 
+		/// <summary>
+		/// Crea un DynamicArray con espacio reservado para el número
+		/// de elementos dado.
+		/// </summary>
+		/// <param name="reservedSize">Número de espacios reservados.</param>
 		static DynamicArray CreateReservedArray(TSize reservedSize) {
 			DynamicArray output;
 			output.Reserve(reservedSize);
@@ -270,9 +288,28 @@ namespace OSK {
 			return output;
 		}
 
+		/// <summary>
+		/// Crea un DynamicArray con un número de elementos ya creados e insertados.
+		/// </summary>
+		/// <typeparam name="...TArgs">Argumentos para el constructor de los elementos.</typeparam>
+		/// <param name="size">Número de elementos.</param>
+		/// <param name="...args">Argumentos para el constructor de los elementos.</param>
 		template <typename... TArgs> static DynamicArray CreateResizedArray(TSize size, TArgs... args) {
 			DynamicArray output;
 			output.Resize(size, args...);
+
+			return output;
+		}
+
+		/// <summary>
+		/// Crea un DynamicArray con un número de elementos ya creados e insertados.
+		/// </summary>
+		/// <typeparam name="...TArgs">Argumentos para el constructor de los elementos.</typeparam>
+		/// <param name="size">Número de elementos.</param>
+		/// <param name="...args">Argumentos para el constructor de los elementos.</param>
+		template <typename... TArgs> static DynamicArray CreateResizedArrayMove(TSize size, TArgs&&... args) {
+			DynamicArray output;
+			output.ResizeMove(size, args...);
 
 			return output;
 		}
@@ -312,7 +349,7 @@ namespace OSK {
 					Allocate(capacity + DynamicArrayGrowthFactor);
 			}
 
-			data[size] = element;
+			new (&data[size]) T(element);
 
 			size++;
 		}
@@ -339,7 +376,7 @@ namespace OSK {
 				}
 			}
 
-			data[size] = std::move(element);
+			new (&data[size]) T(std::move(element));
 
 			size++;
 		}
@@ -418,12 +455,27 @@ namespace OSK {
 		/// Los datos se conservan, siempre que se pueda.
 		/// Se añaden elementos hasta que haya 'size' elementos.
 		/// </summary>
-		template <typename... TArgs> inline void Resize(TSize size, TArgs... args) {
+		template <typename... TArgs> inline void Resize(TSize size, const TArgs&... args) {
 			TSize oldSize = this->size;
 			Reserve(size);
 
 			for (TSize i = oldSize; i < size; i++)
-				data[i] = T(args...);
+				new (&data[i]) T(args...);
+
+			this->size = size;
+		}
+
+		/// <summary>
+		/// Cambia el tamaño del array.
+		/// Los datos se conservan, siempre que se pueda.
+		/// Se añaden elementos hasta que haya 'size' elementos.
+		/// </summary>
+		template <typename... TArgs> inline void ResizeMove(TSize size, TArgs&&... args) {
+			TSize oldSize = this->size;
+			Reserve(size);
+
+			for (TSize i = oldSize; i < size; i++)
+				new (&data[i]) T(args...);
 
 			this->size = size;
 		}
@@ -466,16 +518,28 @@ namespace OSK {
 			size--;
 		}
 
+		/// <summary>
+		/// Comprueba si el elemento está presente en el array.
+		/// </summary>
 		bool ContainsElement(const T& elem) const {
 			return !Find(elem).IsEmpty();
 		}
 
-		size_t GetIndexOf(const T& elem) const {
+		/// <summary>
+		/// Obtiene el índice del primer elemento almacenado que sea igual
+		/// a el dado.
+		/// </summary>
+		TSize GetIndexOf(const T& elem) const {
 			auto it = Find(elem);
 
 			return it.index;
 		}
 
+		/// <summary>
+		/// Obtiene el iterador del primer elemento almacenado que sea igual
+		/// a el dado.
+		/// Iterador vacío si no está.
+		/// </summary>
 		Iterator Find(const T& elem) const {
 			for (size_t i = 0; i < size; i++)
 				if (elem == data[i])
@@ -506,8 +570,8 @@ namespace OSK {
 		/// Elimina los elementos, sin liberar memoria.
 		/// </summary>
 		void Empty() {
-			for (auto& i : *this)
-				i.~T();
+			for (TSize i = 0; i < size; i++)
+				data[i].~T();
 
 			size = 0;
 		}
@@ -606,7 +670,6 @@ namespace OSK {
 			this->size = 0;
 
 			data = (T*)malloc(sizeof(T) * size);
-			memset(data, 0, sizeof(T) * size);
 
 #ifdef OSK_SAFE
 			OSK_ASSERT(data != NULL, "DynamicArray: no se pudo reservar memoria para " + std::to_string(size) + " elementos en el dynamic array.");
@@ -616,11 +679,19 @@ namespace OSK {
 		void InitialCopyFrom(const DynamicArray& arr) {
 			InitialAllocate(arr.capacity);
 
-			memcpy(data, arr.data, sizeof(T) * arr.capacity);
+			for (TSize i = 0; i < arr.GetSize(); i++)
+				Insert(arr.At(i));
 
 			growthFactorType = arr.growthFactorType;
+		}
 
-			size = arr.size;
+		void InitialCopyFrom(DynamicArray&& arr) {
+			InitialAllocate(arr.capacity);
+
+			for (TSize i = 0; i < arr.GetSize(); i++)
+				Insert(arr.At(i));
+
+			growthFactorType = arr.growthFactorType;
 		}
 
 		/// <summary>

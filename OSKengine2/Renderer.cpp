@@ -4,6 +4,11 @@
 #include "IGpu.h"
 #include "ISwapchain.h"
 #include "MaterialSystem.h"
+#include "IGpuImage.h"
+#include "IGpuMemoryAllocator.h"
+#include "IGpuDataBuffer.h"
+#include "GpuImageLayout.h"
+#include "ICommandList.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -22,6 +27,23 @@ IGpuMemoryAllocator* IRenderer::GetMemoryAllocator() const {
 
 IGpu* IRenderer::GetGpu() const {
 	return currentGpu.GetPointer();
+}
+
+void IRenderer::UploadImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout) {
+	auto stagingBuffer = GetMemoryAllocator()->CreateStagingBuffer(numBytes);
+	stagingBuffer->MapMemory();
+	stagingBuffer->Write(data, numBytes);
+	stagingBuffer->Unmap();
+
+	auto commandList = CreateSingleUseCommandList();
+	commandList->RegisterStagingBuffer(stagingBuffer);
+	commandList->Reset();
+	commandList->Start();
+	commandList->TransitionImageLayout(destination, GpuImageLayout::TRANSFER_DESTINATION);
+	commandList->CopyBufferToImage(stagingBuffer.GetPointer(), destination);
+	commandList->TransitionImageLayout(destination, finalLayout);
+	commandList->Close();
+	SubmitSingleUseCommandList(commandList.GetPointer());
 }
 
 OwnedPtr<ICommandList> IRenderer::CreateSingleUseCommandList() {

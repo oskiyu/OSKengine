@@ -10,11 +10,11 @@
 #include "AssetManager.h"
 #include "TextureLoader.h"
 #include "ModelLoader3D.h"
-#include "EntityComponentSystem.h"
 #include "Transform3D.h"
 #include "ModelComponent3D.h"
 #include "RenderSystem3D.h"
 #include "CameraComponent3D.h"
+#include "EntityComponentSystem.h"
 
 #include <GLFW/glfw3.h>
 #undef GetCurrentTime;
@@ -71,8 +71,8 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 }
 
 void Engine::Close() {
-	assetManager.Delete();
 	entityComponentSystem.Delete();
+	assetManager.Delete();
 	renderer.Delete();
 	window.Delete();
 	logger.Delete();

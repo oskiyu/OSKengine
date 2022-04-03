@@ -21,6 +21,34 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
+VkSamplerAddressMode GetAddressModeVulkan(GpuImageAddressMode mode) {
+	switch (mode) {
+	case OSK::GRAPHICS::GpuImageAddressMode::REPEAT:
+		return VK_SAMPLER_ADDRESS_MODE_REPEAT;
+	case OSK::GRAPHICS::GpuImageAddressMode::MIRRORED_REPEAT:
+		return VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT;
+	case OSK::GRAPHICS::GpuImageAddressMode::EDGE:
+		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
+	case OSK::GRAPHICS::GpuImageAddressMode::BACKGROUND:
+		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
+	default:
+		return VK_SAMPLER_ADDRESS_MODE_REPEAT;
+	}
+}
+
+VkFilter GetFilterTypeVulkan(GpuImageFilteringType type) {
+	switch (type) {
+	case OSK::GRAPHICS::GpuImageFilteringType::LIENAR:
+		return VK_FILTER_LINEAR;
+	case OSK::GRAPHICS::GpuImageFilteringType::NEAREST:
+		return VK_FILTER_NEAREST;
+	case OSK::GRAPHICS::GpuImageFilteringType::CUBIC:
+		return VK_FILTER_CUBIC_IMG;
+	default:
+		return VK_FILTER_LINEAR;
+	}
+}
+
 GpuMemoryAllocatorVulkan::GpuMemoryAllocatorVulkan(IGpu* device)
 	: IGpuMemoryAllocator(device) {
 
@@ -90,7 +118,7 @@ OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorVulkan::CreateStagingBuffer(TSize size
 		GpuSharedMemoryType::GPU_AND_CPU)->GetNextMemorySubblock(size), size, 0);
 }
 
-OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector2ui& imageSize, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, bool singleSample) {
+OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector2ui& imageSize, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, bool singleSample, GpuImageSamplerDesc samplerDesc) {
 	const auto size = imageSize.X * imageSize.Y * GetFormatNumberOfBytes(format);
 
 	VkImage image = VK_NULL_HANDLE;
@@ -158,12 +186,12 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector2ui& imageS
 	//Filtro:
 	//	VK_FILTER_LINEAR: suavizado.
 	//	VK_FILTER_NEAREST: pixelado.
-	samplerInfo.minFilter = VK_FILTER_LINEAR;
-	samplerInfo.magFilter = VK_FILTER_LINEAR;
+	samplerInfo.minFilter = GetFilterTypeVulkan(samplerDesc.filteringType);
+	samplerInfo.magFilter = GetFilterTypeVulkan(samplerDesc.filteringType);
 	//AddressMode: como se accede a la imagen con TexCoords fuera de los límites.
-	samplerInfo.addressModeU = VK_SAMPLER_ADDRESS_MODE_REPEAT;
-	samplerInfo.addressModeV = VK_SAMPLER_ADDRESS_MODE_REPEAT;
-	samplerInfo.addressModeW = VK_SAMPLER_ADDRESS_MODE_REPEAT;
+	samplerInfo.addressModeU = GetAddressModeVulkan(samplerDesc.addressMode);
+	samplerInfo.addressModeV = GetAddressModeVulkan(samplerDesc.addressMode);
+	samplerInfo.addressModeW = GetAddressModeVulkan(samplerDesc.addressMode);
 
 	samplerInfo.anisotropyEnable = VK_TRUE;
 	samplerInfo.maxAnisotropy = 16.0f;

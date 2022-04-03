@@ -40,12 +40,14 @@
         (Binding 2, Frag) Texture "shadowsTexture"
     }
 
-    (Set 2) {
-        (Binding 0, Frag) Texture "Albedo"
-        (Binding 1, Frag) Texture "Specular"
-    }
+    (Set 2, Binding 0, Vert) DynamicBuffer "Bones"
 
-    (Set 3, Binding 0, Vert) DynamicBuffer "Bones"
+    (Set 3) {
+        (Binding 0, Frag) Texture "baseTexture"
+        (Binding 1, Frag) Texture "normalTexture"
+        (Binding 2, Frag) Texture "occlusionTexture"
+        (Binding 3, Frag) Texture "metallicTexture"
+    }
 
     PushConstants (Vert) {
         mat4 model

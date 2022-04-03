@@ -10,7 +10,10 @@
 #define OSKAPI_CALL
 #endif
 
+#include <stdint.h>
+
 using TSize = unsigned int;
 using TDeltaTime = float;
+using TByte = uint8_t;
 
 #include <type_traits>

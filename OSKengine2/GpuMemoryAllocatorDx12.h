@@ -13,7 +13,7 @@ namespace OSK::GRAPHICS {
 		OwnedPtr<IGpuVertexBuffer> CreateVertexBuffer(const DynamicArray<Vertex3D>& vertices) override;
 		OwnedPtr<IGpuIndexBuffer> CreateIndexBuffer(const DynamicArray<TIndexSize>& vertices) override;
 		OwnedPtr<IGpuUniformBuffer> CreateUniformBuffer(TSize size) override;
-		OwnedPtr<GpuImage> CreateImage(const Vector2ui& size, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, bool singleSample) override;
+		OwnedPtr<GpuImage> CreateImage(const Vector2ui& size, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, bool singleSample, GpuImageSamplerDesc samplerDesc) override;
 		OwnedPtr<GpuDataBuffer> CreateStagingBuffer(TSize size) override;
 
 	protected:

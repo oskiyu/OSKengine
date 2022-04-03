@@ -114,7 +114,7 @@ OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorDx12::CreateUniformBuffer(TSize si
 	return new GpuUniformBufferDx12(block->GetNextMemorySubblock(size), size, 0);
 }
 
-OwnedPtr<GpuImage> GpuMemoryAllocatorDx12::CreateImage(const Vector2ui& size, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, bool singleSample) {
+OwnedPtr<GpuImage> GpuMemoryAllocatorDx12::CreateImage(const Vector2ui& size, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, bool singleSample, GpuImageSamplerDesc samplerDesc) {
 	auto output = new GpuImageDx12(size.X, size.Y, format);
 
 	auto block = GpuMemoryBlockDx12::CreateNewImageBlock(output, device, sharedType, usage);

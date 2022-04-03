@@ -106,6 +106,13 @@ namespace OSK {
 			Free();
 		}
 
+		bool operator==(const OwnedPtr& other) const {
+			return pointer == other.pointer;
+		}
+		bool operator!=(const OwnedPtr& other) const {
+			return pointer != other.pointer;
+		}
+
 	private:
 
 		/// <summary>

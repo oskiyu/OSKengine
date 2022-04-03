@@ -126,8 +126,8 @@ namespace OSK {
 
 			const HashMap* map = nullptr;
 			const TBucket* bucket = nullptr;
-			size_t inBucketIndex = 0;
-			size_t bucketIndex = 0;
+			TSize inBucketIndex = 0;
+			TSize bucketIndex = 0;
 
 		};
 

@@ -23,7 +23,7 @@ void IGame::OnExit() {
 }
 
 void IGame::Run() {
-	Engine::Create(GRAPHICS::RenderApiType::VULKAN);
+	Engine::Create(GRAPHICS::RenderApiType::DX12);
 
 	CreateWindow();
 	SetupEngine();

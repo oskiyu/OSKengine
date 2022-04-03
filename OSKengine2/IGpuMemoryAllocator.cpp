@@ -29,18 +29,7 @@ IGpuMemoryAllocator::~IGpuMemoryAllocator() {
 }
 
 void IGpuMemoryAllocator::RemoveImageBlock(IGpuMemoryBlock* iblock) {
-	OwnedPtr block = iblock;
-
-	TSize i = 0;
-	for (auto it = imageMemoryBlocks.begin(); it != imageMemoryBlocks.end(); ++it) {
-		if (it.GetNode()->GetValue().GetPointer() == iblock)
-			break;
-
-		i++;
-	}
-
-	if (i != imageMemoryBlocks.GetSize())
-		imageMemoryBlocks.RemoveAt(i);
+	imageMemoryBlocks.Remove(OwnedPtr(iblock));
 }
 
 void IGpuMemoryAllocator::Free() {

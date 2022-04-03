@@ -50,8 +50,6 @@ namespace OSK {
 		/// <param name="other">Otro puntero.</param>
 		UniquePtr(UniquePtr&& other) {
 			other.Swap(*this);
-
-			return *this;
 		}
 
 		/// <summary>
@@ -137,6 +135,13 @@ namespace OSK {
 			T* temp = pointer;
 			pointer = other.pointer;
 			other.pointer = temp;
+		}
+
+		bool operator==(const UniquePtr& other) const {
+			return pointer == other.pointer;
+		}
+		bool operator!=(const UniquePtr& other) const {
+			return pointer != other.pointer;
 		}
 
 	private:

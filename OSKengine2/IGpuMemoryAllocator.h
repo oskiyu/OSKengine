@@ -7,6 +7,7 @@
 #include "DynamicArray.hpp"
 #include "Vertex.h"
 #include "Vector2.hpp"
+#include "GpuImageSamplerDesc.h"
 
 namespace OSK::GRAPHICS {
 
@@ -72,7 +73,7 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Crea una nueva imagen en la GPU.
 		/// </summary>
-		virtual OwnedPtr<GpuImage> CreateImage(const Vector2ui& size, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, bool singleSample) = 0;
+		virtual OwnedPtr<GpuImage> CreateImage(const Vector2ui& size, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, bool singleSample, GpuImageSamplerDesc samplerDesc = {}) = 0;
 
 		/// <summary>
 		/// Crea un buffer de vértices con los vértices dados.

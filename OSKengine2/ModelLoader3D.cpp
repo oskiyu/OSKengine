@@ -10,6 +10,11 @@
 #include "IGpuMemoryAllocator.h"
 #include "FileIO.h"
 #include "Mesh3D.h"
+#include "Format.h"
+#include "GpuMemoryTypes.h"
+#include "IGpuImage.h"
+#include "GpuImageLayout.h"
+#include "OwnedPtr.h"
 
 #include <gtc/type_ptr.hpp>
 #include <json.hpp>
@@ -21,6 +26,7 @@
 
 using namespace OSK;
 using namespace OSK::ASSETS;
+using namespace OSK::GRAPHICS;
 
 // STRUCTS
 
@@ -34,6 +40,16 @@ struct GltfMaterialInfo {
 	/// Para los vértices.
 	/// </summary>
 	Color baseColor;
+
+	/// <summary>
+	/// ID de la textura base.
+	/// </summary>
+	TSize baseTextureIndex = 0;
+
+	/// <summary>
+	/// True si tiene textura.
+	/// </summary>
+	bool hasBaseTexture = false;
 
 };
 
@@ -91,19 +107,22 @@ glm::mat4 GetNodeMatrix(const tinygltf::Node& node) {
 /// <param name="indices">Lista donde se introducirán los índices.</param>
 /// <param name="prevMatrix">Matriz offset del nodo padre.</param>
 /// <param name="globalScale">Escala del modelo.</param>
-void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, const GltfModelInfo& modelInfo, DynamicArray<GRAPHICS::Mesh3D>* meshes, DynamicArray<GRAPHICS::Vertex3D>* vertices, DynamicArray<GRAPHICS::TIndexSize>* indices, const glm::mat4& prevMatrix, float globalScale) {
+void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, const GltfModelInfo& modelInfo, HashMap<TSize, TSize>* meshIdToMaterialId, DynamicArray<Mesh3D>* meshes, DynamicArray<Vertex3D>* vertices, DynamicArray<TIndexSize>* indices, const glm::mat4& prevMatrix, float globalScale) {
 	glm::mat4 nodeMatrix = prevMatrix * GetNodeMatrix(node);
 
 	// Proceso del polígono.
 	if (node.mesh > -1) {
 		const tinygltf::Mesh& mesh = model.meshes[node.mesh];
 		
+		if (mesh.primitives[0].material > -1)
+			meshIdToMaterialId->Insert(meshes->GetSize(), mesh.primitives[0].material);
+		
 		for (TSize i = 0; i < mesh.primitives.size(); i++) {
 			const tinygltf::Primitive& primitive = mesh.primitives[i];
 			TSize numVertices = 0;
 			TSize firstVertexId = vertices->GetSize();
 			TSize firstIndexId = indices->GetSize();
-			
+
 			// Los datos se almacenan en forma de buffers.
 			const float* positionsBuffer = nullptr;
 			const float* normalsBuffer = nullptr;
@@ -162,7 +181,7 @@ void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, c
 					texCoordsBuffer[v * 2 + 1]
 				};
 
-				if (primitive.material > 0)
+				if (primitive.material > -1)
 					vertex.color = modelInfo.materialInfos[primitive.material].baseColor;
 				else
 					vertex.color = 1.0f;
@@ -211,7 +230,7 @@ void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, c
 		}
 	}
 	for (TSize i = 0; i < node.children.size(); i++)
-		ProcessMeshNode(model.nodes[node.children[i]], model, modelInfo, meshes, vertices, indices, nodeMatrix, globalScale);
+		ProcessMeshNode(model.nodes[node.children[i]], model, modelInfo, meshIdToMaterialId, meshes, vertices, indices, nodeMatrix, globalScale);
 }
 
 /// <summary>
@@ -229,8 +248,48 @@ DynamicArray<GltfMaterialInfo> LoadMaterials(const tinygltf::Model& model) {
 			(float)model.materials[i].pbrMetallicRoughness.baseColorFactor[2],
 			(float)model.materials[i].pbrMetallicRoughness.baseColorFactor[3],
 		};
+
+		if (model.materials[i].pbrMetallicRoughness.baseColorTexture.index != -1) {
+			info.hasBaseTexture = true;
+			info.baseTextureIndex = model.textures[model.materials[i].pbrMetallicRoughness.baseColorTexture.index].source;
+		}
 		
 		output[i] = info;
+	}
+
+	return output;
+}
+
+DynamicArray<OwnedPtr<GRAPHICS::GpuImage>> LoadImages(const tinygltf::Model& model) {
+	DynamicArray<OwnedPtr<GRAPHICS::GpuImage>> output;
+
+	for (TSize i = 0; i < model.images.size(); i++) {
+		const tinygltf::Image& originalImage = model.images[i];
+		
+		auto image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ (unsigned int)originalImage.width, (unsigned int)originalImage.height },
+			GRAPHICS::Format::RGBA8_UNORM, GpuImageUsage::TRANSFER_DESTINATION | GRAPHICS::GpuImageUsage::SAMPLED, GRAPHICS::GpuSharedMemoryType::GPU_ONLY, true);
+
+		const TSize numBytes = originalImage.width * originalImage.height * 4;
+		if (originalImage.component == 3) {
+			TByte* data = (TByte*)malloc(numBytes);
+			memset(data, 255, numBytes);
+
+			TSize rgbPos = 0;
+			for (TSize i = 0; i < numBytes; i += 4) {
+				memcpy(data + i, originalImage.image.data() + rgbPos, 3);
+				rgbPos += 3;
+			}
+
+			Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), originalImage.image.data(), numBytes, GRAPHICS::GpuImageLayout::SHADER_READ_ONLY);
+
+			free(data);
+		}
+
+		else if (originalImage.component == 4) {
+			Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), originalImage.image.data(), numBytes, GRAPHICS::GpuImageLayout::SHADER_READ_ONLY);
+		}
+
+		output.Insert(image);
 	}
 
 	return output;
@@ -254,16 +313,19 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 
 	context.LoadBinaryFromFile(&gltfModel, &errorMessage, &warningMessage, assetInfo["raw_asset_path"]);
 
-	DynamicArray<GRAPHICS::Vertex3D> vertices;
-	DynamicArray<GRAPHICS::TIndexSize> indices;
-	DynamicArray<GRAPHICS::Mesh3D> meshes;
+	DynamicArray<Vertex3D> vertices;
+	DynamicArray<TIndexSize> indices;
+	DynamicArray<Mesh3D> meshes;
+	DynamicArray<OwnedPtr<GpuImage>> textures = LoadImages(gltfModel);
+	HashMap<TSize, TSize> meshIdToMaterialId;
 
 	tinygltf::Scene scene = gltfModel.scenes[0];
 	
 	GltfModelInfo modelInfo{};
 	modelInfo.materialInfos = LoadMaterials(gltfModel);
+
 	for (TSize i = 0; i < scene.nodes.size(); i++)
-		ProcessMeshNode(gltfModel.nodes[scene.nodes[i]], gltfModel, modelInfo, &meshes, &vertices, &indices, glm::mat4(1.0f), assetInfo["scale"]);
+		ProcessMeshNode(gltfModel.nodes[scene.nodes[i]], gltfModel, modelInfo, &meshIdToMaterialId, &meshes, &vertices, &indices, glm::mat4(1.0f), assetInfo["scale"]);
 
 	// GPU.
 	output->_SetVertexBuffer(Engine::GetRenderer()->GetMemoryAllocator()->CreateVertexBuffer(vertices));
@@ -271,6 +333,18 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 
 	output->_SetIndexCount(vertices.GetSize());
 
-	for (TSize i = 0; i < meshes.GetSize(); i++)
-		output->AddMesh(meshes.At(i));
+	for (TSize i = 0; i < meshes.GetSize(); i++) {
+		MeshMetadata meshMetadata{};
+
+		if (meshIdToMaterialId.ContainsKey(i)) {
+			GltfMaterialInfo& materialInfo = modelInfo.materialInfos.At(meshIdToMaterialId.Get(i));
+			if (materialInfo.hasBaseTexture)
+				meshMetadata.materialTextures.Insert("baseTexture", materialInfo.baseTextureIndex);
+		}
+
+		output->AddMesh(meshes.At(i), meshMetadata);
+	}
+
+	for (TSize i = 0; i < textures.GetSize(); i++)
+		output->AddGpuImage(textures.At(i));
 }

@@ -24,6 +24,7 @@
 #include "KeyboardState.h"
 #include "MouseState.h"
 #include "MouseModes.h"
+#include "Mesh3D.h"
 
 class Game1 : public OSK::IGame {
 
@@ -46,11 +47,6 @@ protected:
 
 		uniformBuffer = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
 
-		auto materialInstance = material->CreateInstance();
-		materialInstance->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer.GetPointer());
-		materialInstance->GetSlot("global")->SetTexture("texture", texture);
-		materialInstance->GetSlot("global")->FlushUpdate();
-
 		OSK::ASSETS::Model3D* model = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Model3D>("Resources/Assets/f1.json", "GLOBAL");
 		OSK::ASSETS::Model3D* model_low = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Model3D>("Resources/Assets/f1_low.json", "GLOBAL");
 
@@ -58,13 +54,27 @@ protected:
 		ballObject = OSK::Engine::GetEntityComponentSystem()->SpawnObject();
 
 		OSK::ECS::Transform3D& transform = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::Transform3D>(ballObject, OSK::ECS::Transform3D(ballObject));
-		OSK::ECS::ModelComponent3D& modelComponent = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::ModelComponent3D>(ballObject, {});
+		OSK::ECS::ModelComponent3D* modelComponent = &OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::ModelComponent3D>(ballObject, {});
 
 		transform.AddPosition({ 0, 1, 1 });
 		transform.SetScale(0.05f);
 
-		modelComponent.SetModel(model);
-		modelComponent.SetMaterialInstance(materialInstance);
+		modelComponent->SetModel(model);
+		modelComponent->SetMaterial(material);
+
+		modelComponent->BindUniformBufferForAllMeshes("global", "camera", uniformBuffer.GetPointer());
+		modelComponent->BindTextureForAllMeshes("global", "texture", texture);
+
+		for (TSize i = 0; i < model->GetMeshes().GetSize(); i++) {
+			auto& metadata = model->GetMetadata().meshesMetadata[i];
+
+			if (metadata.materialTextures.GetSize() > 0) {
+				for (auto& texture : metadata.materialTextures)
+					modelComponent->GetMeshMaterialInstance(i)->GetSlot("global")->SetGpuImage("texture", model->GetImage(texture.second));
+
+				modelComponent->GetMeshMaterialInstance(i)->GetSlot("global")->FlushUpdate();
+			}
+		}
 
 		cameraObject = OSK::Engine::GetEntityComponentSystem()->SpawnObject();
 
@@ -75,18 +85,16 @@ protected:
 		smallBallObject = OSK::Engine::GetEntityComponentSystem()->SpawnObject();
 
 		auto& transform2 = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::Transform3D>(smallBallObject, OSK::ECS::Transform3D(smallBallObject));
-		auto& modelComponent2 = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::ModelComponent3D>(smallBallObject, {});
+		auto modelComponent2 = &OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::ModelComponent3D>(smallBallObject, {});
 
 		transform2.AddPosition({ 0, 1, 1.4f });
 		transform2.SetScale(0.05f);
 
-		auto materialInstance2 = material->CreateInstance();
-		materialInstance2->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer.GetPointer());
-		materialInstance2->GetSlot("global")->SetTexture("texture", texture);
-		materialInstance2->GetSlot("global")->FlushUpdate();
+		modelComponent2->SetModel(model_low);
+		modelComponent2->SetMaterial(material);
 
-		modelComponent2.SetModel(model_low);
-		modelComponent2.SetMaterialInstance(materialInstance2);
+		modelComponent2->BindUniformBufferForAllMeshes("global", "camera", uniformBuffer.GetPointer());
+		modelComponent2->BindTextureForAllMeshes("global", "texture", texture);
 	}
 
 	void OnTick(TDeltaTime deltaTime) override {

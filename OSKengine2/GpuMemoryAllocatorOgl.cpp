@@ -71,7 +71,7 @@ OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorOgl::CreateUniformBuffer(TSize siz
 	return nullptr;
 }
 
-OwnedPtr<GpuImage> GpuMemoryAllocatorOgl::CreateImage(const Vector2ui& size, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, bool singleSample) {
+OwnedPtr<GpuImage> GpuMemoryAllocatorOgl::CreateImage(const Vector2ui& size, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, bool singleSample, GpuImageSamplerDesc samplerDesc) {
 	GpuImageOgl* image = new GpuImageOgl(size.X, size.Y, format);
 
 	OglImageHandler handler = 0;
