@@ -40,6 +40,8 @@ namespace OSK {
 		/// <param name="deltaTime">Tiempo que ha pasado desde el último frame,
 		/// en segundos.</param>
 		virtual void OnTick(TDeltaTime deltaTime);
+		
+		virtual void OnRender();
 
 		/// <summary>
 		/// Función que se ejecuta al salir del juego.

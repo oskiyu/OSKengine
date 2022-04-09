@@ -16,6 +16,8 @@
 #include "GpuImageDx12.h"
 #include "Format.h"
 #include "GpuMemoryTypes.h"
+#include "GpuImageDimensions.h"
+#include "GpuImageUsage.h"
 
 #include "OSKengine.h"
 #include "Logger.h"
@@ -94,9 +96,10 @@ void SwapchainDx12::CreateImages(const IO::Window& window) {
     device->As<GpuDx12>()->GetDevice()->CreateDescriptorHeap(&imagesMemoryCreateInfo, IID_PPV_ARGS(&renderTargetsDesc));
     auto result = device->As<GpuDx12>()->GetDevice()->CreateDescriptorHeap(&depthImagesMemoryCreateInfo, IID_PPV_ARGS(&depthTargetsDescHeap));
 
+    const Vector3ui imageSize = Vector3ui(window.GetWindowSize().X, window.GetWindowSize().Y, 1);
     for (TSize i = 0; i < imageCount; i++) {
-        images[i] = new GpuImageDx12(window.GetWindowSize().X, window.GetWindowSize().Y, format);
-        depthImages[i] = new GpuImageDx12(window.GetWindowSize().X, window.GetWindowSize().Y, format);
+        images[i] = new GpuImageDx12(imageSize, GpuImageDimension::d2D, GpuImageUsage::COLOR, 1, format);
+        depthImages[i] = new GpuImageDx12(imageSize, GpuImageDimension::d2D, GpuImageUsage::DEPTH_STENCIL, 1, format);
 
         {
             ComPtr<ID3D12Resource> rTarget;

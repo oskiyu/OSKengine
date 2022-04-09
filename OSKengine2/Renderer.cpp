@@ -29,7 +29,7 @@ IGpu* IRenderer::GetGpu() const {
 	return currentGpu.GetPointer();
 }
 
-void IRenderer::UploadImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout) {
+void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout, TSize numLayers) {
 	auto stagingBuffer = GetMemoryAllocator()->CreateStagingBuffer(numBytes);
 	stagingBuffer->MapMemory();
 	stagingBuffer->Write(data, numBytes);
@@ -39,11 +39,23 @@ void IRenderer::UploadImageToGpu(GpuImage* destination, const TByte* data, TSize
 	commandList->RegisterStagingBuffer(stagingBuffer);
 	commandList->Reset();
 	commandList->Start();
-	commandList->TransitionImageLayout(destination, GpuImageLayout::TRANSFER_DESTINATION);
-	commandList->CopyBufferToImage(stagingBuffer.GetPointer(), destination);
-	commandList->TransitionImageLayout(destination, finalLayout);
+	commandList->TransitionImageLayout(destination, GpuImageLayout::TRANSFER_DESTINATION, 0, numLayers);
+
+	TSize offsetPerIteration = numBytes / numLayers;
+	for (TSize i = 0; i < numLayers; i++)
+		commandList->CopyBufferToImage(stagingBuffer.GetPointer(), destination, i, offsetPerIteration * i);
+
+	commandList->TransitionImageLayout(destination, finalLayout, 0, numLayers);
 	commandList->Close();
 	SubmitSingleUseCommandList(commandList.GetPointer());
+}
+
+void IRenderer::UploadImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout) {
+	UploadLayeredImageToGpu(destination, data, numBytes, finalLayout, 1);
+}
+
+void IRenderer::UploadCubemapImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout) {
+	UploadLayeredImageToGpu(destination, data, numBytes, finalLayout, 6);
 }
 
 OwnedPtr<ICommandList> IRenderer::CreateSingleUseCommandList() {
@@ -52,6 +64,10 @@ OwnedPtr<ICommandList> IRenderer::CreateSingleUseCommandList() {
 
 MaterialSystem* IRenderer::GetMaterialSystem() const {
 	return materialSystem.GetPointer();
+}
+
+OwnedPtr<IRenderpass> IRenderer::CreateSecondaryRenderpass(GpuImage* targetImage) {
+	return CreateSecondaryRenderpass(targetImage, targetImage, targetImage);
 }
 
 RenderApiType IRenderer::GetRenderApi() const {
@@ -64,4 +80,8 @@ TSize IRenderer::GetSwapchainImagesCount() const {
 
 bool IRenderer::IsOpen() const {
 	return isOpen;
+}
+
+IRenderpass* IRenderer::GetMainRenderpass() const {
+	return renderpass.GetPointer();
 }

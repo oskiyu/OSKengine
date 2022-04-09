@@ -14,17 +14,41 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuImageDx12(unsigned int sizeX, unsigned int sizeY, Format format);
+		GpuImageDx12(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format);
 
 		void SetResource(const ComPtr<ID3D12Resource>& resource);
-		void _SetDescriptorHeap(ComPtr<ID3D12DescriptorHeap> descriptorHeap);
+
+		void _SetSampledDescriptorHeap(ComPtr<ID3D12DescriptorHeap> descriptorHeap);
+		void _SetRenderTargetDescriptorHeap(ComPtr<ID3D12DescriptorHeap> descriptorHeap);
+		void _SetDepthDescriptorHeap(ComPtr<ID3D12DescriptorHeap> descriptorHeap);
+
 		ID3D12Resource* GetResource() const;
-		ID3D12DescriptorHeap* GetDescriptorHeap() const;
+
+		/// <summary>
+		/// Devuelve la memoria del descriptor para uso como textura.
+		/// Null si no será usado de esa manera.
+		/// </summary>
+		ID3D12DescriptorHeap* GetSampledDescriptorHeap() const;
+
+		/// <summary>
+		/// Devuelve la memoria del descriptor para uso como render target.
+		/// Null si no será usado de esa manera.
+		/// </summary>
+		ID3D12DescriptorHeap* GetRenderTargetDescriptorHeap() const;
+
+		/// <summary>
+		/// Devuelve la memoria del descriptor para uso como depth/stencil target.
+		/// Null si no será usado de esa manera.
+		/// </summary>
+		ID3D12DescriptorHeap* GetDepthDescriptorHeap() const;
 
 	private:
 
 		ComPtr<ID3D12Resource> resource;
-		ComPtr<ID3D12DescriptorHeap> descriptorHeap;
+
+		ComPtr<ID3D12DescriptorHeap> sampledDescriptorHeap;
+		ComPtr<ID3D12DescriptorHeap> renderTargetDescriptorHeap;
+		ComPtr<ID3D12DescriptorHeap> depthDescriptorHeap;
 
 	};
 

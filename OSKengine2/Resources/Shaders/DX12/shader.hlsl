@@ -13,6 +13,8 @@ ConstantBuffer<PushConstants> pushConstants : register(b0);
 cbuffer CameraBuffer : register(b1) {
     float4x4 cameraView;
     float4x4 cameraProjection;
+
+    float3 cameraPos;
 };
 
 Texture2D texture0 : register(t0);

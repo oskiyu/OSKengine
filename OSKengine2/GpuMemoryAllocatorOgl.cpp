@@ -71,20 +71,9 @@ OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorOgl::CreateUniformBuffer(TSize siz
 	return nullptr;
 }
 
-OwnedPtr<GpuImage> GpuMemoryAllocatorOgl::CreateImage(const Vector2ui& size, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, bool singleSample, GpuImageSamplerDesc samplerDesc) {
-	GpuImageOgl* image = new GpuImageOgl(size.X, size.Y, format);
-
-	OglImageHandler handler = 0;
-	glGenTextures(1, &handler);
-	glBindTexture(GL_TEXTURE_2D, handler);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GetFormatOgl(format), size.X, size.Y, 0, GetFormatOgl(format), GL_UNSIGNED_BYTE, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	image->SetHandler(handler);
-
-	return image;
+OwnedPtr<GpuImage> GpuMemoryAllocatorOgl::CreateImage(const Vector3ui& size, GpuImageDimension dimension, TSize numLayers, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, TSize msaaSamples, GpuImageSamplerDesc samplerDesc) {
+	OSK_ASSERT(false, "No implementado.");
+	return nullptr;
 }
 
 OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorOgl::CreateStagingBuffer(TSize size) {

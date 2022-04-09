@@ -17,6 +17,9 @@ ShaderBindingType GetShaderBindingType(const std::string& type) {
 	if (type == "UNIFORM")
 		return ShaderBindingType::UNIFORM_BUFFER;
 
+	if (type == "CUBEMAP")
+		return ShaderBindingType::CUBEMAP;
+
 	return ShaderBindingType::TEXTURE;
 }
 
@@ -41,8 +44,8 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	std::string fragmentPath;
 
 	// Material file.
+	nlohmann::json materialInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(path));
 	{
-		nlohmann::json materialInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(path));
 
 		OSK_ASSERT(materialInfo["file_type"] == "MATERIAL", path + "no es un material.");
 		
@@ -142,6 +145,30 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	info.polygonMode = PolygonMode::FILL;
 	info.cullMode = PolygonCullMode::BACK;
 	info.frontFaceType = PolygonFrontFaceType::COUNTERCLOCKWISE;
+
+	if (materialInfo.find("config") != materialInfo.end()) {
+		if (materialInfo["config"].contains("depth_testing")) {
+			if (materialInfo["config"]["depth_testing"] == "none")
+				info.depthTestingType = DepthTestingType::NONE;
+			else if (materialInfo["config"]["depth_testing"] == "read")
+				info.depthTestingType = DepthTestingType::READ;
+			else if (materialInfo["config"]["depth_testing"] == "read/write")
+				info.depthTestingType = DepthTestingType::READ_WRITE;
+			else
+				OSK_ASSERT(false, "Error en el archivo de material" + shaderFilePath + ": config depth_testing inválido.");
+		}
+
+		if (materialInfo["config"].contains("cull_mode")) {
+			if (materialInfo["config"]["cull_mode"] == "none")
+				info.cullMode = PolygonCullMode::NONE;
+			else if (materialInfo["config"]["cull_mode"] == "front")
+				info.cullMode = PolygonCullMode::FRONT;
+			else if (materialInfo["config"]["cull_mode"] == "back")
+				info.cullMode = PolygonCullMode::BACK;
+			else
+				OSK_ASSERT(false, "Error en el archivo de material" + shaderFilePath + ": config cull_mode inválido.");
+		}
+	}
 
 	auto output = new Material(info, layout);
 

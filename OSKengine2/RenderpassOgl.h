@@ -12,7 +12,6 @@ namespace OSK::GRAPHICS {
 		RenderpassOgl(RenderpassType type);
 		~RenderpassOgl();
 
-		void SetImage(GpuImage* image) override;
 		void SetImages(GpuImage* image0, GpuImage* image1, GpuImage* image2) override;
 
 		OglFramebufferHandler GetFramebuffer() const;

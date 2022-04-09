@@ -3,7 +3,7 @@
 #include "OSKmacros.h"
 #include "OwnedPtr.h"
 #include "UniquePtr.hpp"
-#include "Vector2.hpp"
+#include "Vector3.hpp"
 
 namespace OSK::GRAPHICS {
 
@@ -11,6 +11,8 @@ namespace OSK::GRAPHICS {
 	class IGpuMemoryBlock;
 	class IGpuMemorySubblock;
 	enum class GpuImageLayout;
+	enum class GpuImageDimension;
+	enum class GpuImageUsage;
 
 	/// <summary>
 	/// Representación interna de una imagen en la GPU.
@@ -21,7 +23,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuImage(unsigned int sizeX, unsigned int sizeY, Format format);
+		GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format);
 		virtual ~GpuImage();
 
 		void SetData(const void* data, TSize size);
@@ -30,8 +32,11 @@ namespace OSK::GRAPHICS {
 		IGpuMemoryBlock* GetMemory() const;
 		IGpuMemorySubblock* GetBuffer() const;
 
-		Vector2ui GetSize() const;
+		Vector3ui GetSize() const;
 		Format GetFormat() const;
+		GpuImageDimension GetDimension() const;
+		GpuImageUsage GetUsage() const;
+		TSize GetNumLayers() const;
 
 		/// <summary>
 		/// Devuelve el número máximo de miplevels de esta imagen.
@@ -57,10 +62,13 @@ namespace OSK::GRAPHICS {
 		UniquePtr<IGpuMemoryBlock> block;
 		IGpuMemorySubblock* buffer = nullptr;
 
-		Vector2ui size = 0;
-		unsigned int mipLevels = 0;
+		Vector3ui size = 0;
+		TSize mipLevels = 0;
 		Format format;
 		GpuImageLayout currentLayout;
+		GpuImageDimension dimension;
+		GpuImageUsage usage;
+		TSize numLayers = 0;
 
 	};
 

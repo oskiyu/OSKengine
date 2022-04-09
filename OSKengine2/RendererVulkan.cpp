@@ -362,6 +362,17 @@ void RendererVulkan::CreateSyncDevice() {
 	syncDevice->As<SyncDeviceVulkan>()->SetSwapchain(*swapchain->As<SwapchainVulkan>());
 }
 
+OwnedPtr<IRenderpass> RendererVulkan::CreateSecondaryRenderpass(GpuImage* targetImage0, GpuImage* targetImage1, GpuImage* targetImage2) {
+	OwnedPtr<IRenderpass> output = new RenderpassVulkan(RenderpassType::INTERMEDIATE);
+	output->As<RenderpassVulkan>()->Create(nullptr, targetImage0->GetFormat());
+
+	targetImage1 ? output->SetImages(targetImage0, targetImage1, targetImage2) : output->SetImages(targetImage0, targetImage0, targetImage0);
+
+	materialSystem->RegisterRenderpass(output.GetPointer());
+
+	return output;
+}
+
 void RendererVulkan::CreateGpuMemoryAllocator() {
 	gpuMemoryAllocator = new GpuMemoryAllocatorVulkan(currentGpu.GetPointer());
 

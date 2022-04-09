@@ -59,7 +59,8 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 
 				nativeParams.Insert(param);
 			}
-			else if (binding.second.type == ShaderBindingType::TEXTURE) {
+			else if (binding.second.type == ShaderBindingType::TEXTURE
+					|| binding.second.type == ShaderBindingType::CUBEMAP) {
 				OwnedPtr<D3D12_DESCRIPTOR_RANGE> textureDescriptorRange = new D3D12_DESCRIPTOR_RANGE({});
 				textureDescriptorRange[0].BaseShaderRegister = 0;
 				textureDescriptorRange[0].NumDescriptors = 1;

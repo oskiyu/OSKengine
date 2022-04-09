@@ -27,7 +27,7 @@ void CommandListOgl::Close() {
 
 }
 
-void CommandListOgl::TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) {
+void CommandListOgl::TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers) {
 	image->SetLayout(next);
 }
 
@@ -73,7 +73,7 @@ void CommandListOgl::DrawSingleMesh(TSize firstIndex, TSize numIndices) {
 	OSK_ASSERT(false, "No implementado.");
 }
 
-void CommandListOgl::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest) {
+void CommandListOgl::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer, TSize offset) {
 	OSK_ASSERT(false, "No implementado.");
 }
 

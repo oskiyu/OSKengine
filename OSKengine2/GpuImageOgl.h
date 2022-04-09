@@ -9,7 +9,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuImageOgl(unsigned int sizeX, unsigned int sizeY, Format format);
+		GpuImageOgl(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format);
 		~GpuImageOgl();
 
 		OglImageHandler GetHandler() const;

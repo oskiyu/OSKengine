@@ -62,6 +62,30 @@ namespace OSK::GRAPHICS {
 
 	};
 
+	/// <summary>
+	/// Establece la configuración de testeo de profundidad.
+	/// Activarlo permite que los objetos en la imagen final sean los que más
+	/// cerca están de la cámara.
+	/// </summary>
+	enum class DepthTestingType {
+
+		/// <summary>
+		/// Ninguna operación.
+		/// </summary>
+		NONE,
+
+		/// <summary>
+		/// Lee la información para comprobar que el objeto debe ser renderizado,
+		/// pero no actualiza la información.
+		/// </summary>
+		READ,
+
+		/// <summary>
+		/// Comportamiento normal.
+		/// </summary>
+		READ_WRITE
+
+	};
 
 	/// <summary>
 	/// Contiene la información necesaria para configurar un nuevo graphics pipeline.
@@ -103,6 +127,13 @@ namespace OSK::GRAPHICS {
 		/// horario o antihorario.
 		/// </summary>
 		PolygonFrontFaceType frontFaceType;
+
+		/// <summary>
+		/// Establece la configuración de testeo de profundidad.
+		/// Activarlo permite que los objetos en la imagen final sean los que más
+		/// cerca están de la cámara.
+		/// </summary>
+		DepthTestingType depthTestingType = DepthTestingType::READ_WRITE;
 
 	};
 

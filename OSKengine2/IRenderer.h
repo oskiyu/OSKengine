@@ -92,7 +92,17 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Rellena la imagen en la GPU con los datos dados.
 		/// </summary>
+		void UploadLayeredImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout, TSize numLayers);
+
+		/// <summary>
+		/// Rellena la imagen en la GPU con los datos dados.
+		/// </summary>
 		void UploadImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout);
+
+		/// <summary>
+		/// Rellena la imagen en la GPU con los datos dados.
+		/// </summary>
+		void UploadCubemapImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout);
 
 		/// <summary>
 		/// Castea el renderizador al tipo dado.
@@ -117,6 +127,19 @@ namespace OSK::GRAPHICS {
 		MaterialSystem* GetMaterialSystem() const;
 
 		/// <summary>
+		/// Crea un renderpass secundario.
+		/// Renderiza para una o tres imágenes.
+		/// Para que una sola imagen sea renderizada, las otras dos deben ser NULL.
+		/// </summary>
+		virtual OwnedPtr<IRenderpass> CreateSecondaryRenderpass(GpuImage* targetImage0, GpuImage* targetImage1, GpuImage* targetImage2) = 0;
+
+		/// <summary>
+		/// Crea un renderpass secundario.
+		/// </summary>
+		/// <param name="targetImage">Imagen sobre la que se va a renderizar.</param>
+		OwnedPtr<IRenderpass> CreateSecondaryRenderpass(GpuImage* targetImage);
+
+		/// <summary>
 		/// Crea un slot del layout del material dado.
 		/// </summary>
 		virtual OwnedPtr<IMaterialSlot> _CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const = 0;
@@ -137,6 +160,8 @@ namespace OSK::GRAPHICS {
 		/// Devuelve true si el renderizador está inicializado y funcionando.
 		/// </summary>
 		bool IsOpen() const;
+
+		IRenderpass* GetMainRenderpass() const;
 
 	protected:
 

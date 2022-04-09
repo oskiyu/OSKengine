@@ -12,9 +12,9 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImage::GpuImage(unsigned int sizeX, unsigned int sizeY, Format format)
-	: format(format), currentLayout(GpuImageLayout::UNDEFINED) {
-	size = { sizeX, sizeY };
+GpuImage::GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format)
+	: format(format), dimension(dimension), usage(usage), numLayers(numLayers), currentLayout(GpuImageLayout::UNDEFINED), size(size) {
+
 }
 
 GpuImage::~GpuImage() {
@@ -36,8 +36,20 @@ void GpuImage::SetData(const void* data, TSize size) {
 	buffer->Unmap();
 }
 
-Vector2ui GpuImage::GetSize() const {
+Vector3ui GpuImage::GetSize() const {
 	return size;
+}
+
+GpuImageDimension GpuImage::GetDimension() const {
+	return dimension;
+}
+
+GpuImageUsage GpuImage::GetUsage() const {
+	return usage;
+}
+
+TSize GpuImage::GetNumLayers() const {
+	return numLayers;
 }
 
 Format GpuImage::GetFormat() const {

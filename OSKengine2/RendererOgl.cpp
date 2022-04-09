@@ -54,6 +54,14 @@ void RendererOgl::Initialize(const std::string& appName, const Version& version,
 	isOpen = true;
 }
 
+OwnedPtr<IRenderpass> RendererOgl::CreateSecondaryRenderpass(GpuImage* targetImage0, GpuImage* targetImage1, GpuImage* targetImage2) {
+	OwnedPtr<IRenderpass> output = new RenderpassOgl(RenderpassType::FINAL);
+
+	materialSystem->RegisterRenderpass(output.GetPointer());
+
+	return output;
+}
+
 OwnedPtr<IMaterialSlot> RendererOgl::_CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const {
 	OSK_ASSERT(false, "No implementado.");
 	

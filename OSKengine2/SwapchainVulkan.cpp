@@ -11,6 +11,8 @@
 #include "RenderpassVulkan.h"
 #include "RendererVulkan.h"
 #include "GpuVulkan.h"
+#include "GpuImageDimensions.h"
+#include "GpuImageUsage.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -85,7 +87,7 @@ void SwapchainVulkan::Create(Format format, const GpuVulkan& device, const IO::W
 	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear el swapchain. Code: " + std::to_string(result));
 
 	for (TSize i = 0; i < imageCount; i++)		
-		images[i] = new GpuImageVulkan(extent.width, extent.height, format);
+		images[i] = new GpuImageVulkan({ extent.width, extent.height, 1 }, GpuImageDimension::d2D, GpuImageUsage::COLOR, 1, format);
 
 	AcquireImages(extent.width, extent.height);
 	AcquireViews();

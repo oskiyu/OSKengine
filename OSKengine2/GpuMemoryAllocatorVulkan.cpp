@@ -17,6 +17,8 @@
 #include "CommandListVulkan.h"
 #include "GpuIndexBufferVulkan.h"
 #include "GpuUniformBufferVulkan.h"
+#include "GpuImageDimensions.h"
+#include "GpuImageUsage.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -118,42 +120,51 @@ OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorVulkan::CreateStagingBuffer(TSize size
 		GpuSharedMemoryType::GPU_AND_CPU)->GetNextMemorySubblock(size), size, 0);
 }
 
-OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector2ui& imageSize, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, bool singleSample, GpuImageSamplerDesc samplerDesc) {
-	const auto size = imageSize.X * imageSize.Y * GetFormatNumberOfBytes(format);
+OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageSize, GpuImageDimension dimension, TSize numLayers, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, TSize msaaSamples, GpuImageSamplerDesc samplerDesc) {
+	TSize numBytes = GetFormatNumberOfBytes(format);
 
-	VkImage image = VK_NULL_HANDLE;
-	VkImageView view = VK_NULL_HANDLE;
+	switch (dimension) {
+		case OSK::GRAPHICS::GpuImageDimension::d1D: numBytes *= imageSize.X; break;
+		case OSK::GRAPHICS::GpuImageDimension::d2D: numBytes *= imageSize.X * imageSize.Y; break;
+		case OSK::GRAPHICS::GpuImageDimension::d3D: numBytes *= imageSize.X * imageSize.Y * imageSize.Z; break;
+	}
+
+	Vector3ui finalImageSize = imageSize;
+
+	switch (dimension) {
+		case OSK::GRAPHICS::GpuImageDimension::d1D: finalImageSize = { imageSize.X , 1, 1 }; break;
+		case OSK::GRAPHICS::GpuImageDimension::d2D: finalImageSize = { imageSize.X , imageSize.Y, 1 }; break;
+	}
+
 	VkSampler sampler = VK_NULL_HANDLE;
 
-	GpuImageVulkan* output = new GpuImageVulkan(imageSize.X, imageSize.Y, format);
+	GpuImageVulkan* output = new GpuImageVulkan(imageSize, dimension, usage, numLayers, format);
 
 
 	// ------ IMAGE ---------- //
+	VkImage vkImage = VK_NULL_HANDLE;
 
 	VkImageCreateInfo imageInfo{};
 	imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
-	imageInfo.imageType = VK_IMAGE_TYPE_2D;
-	imageInfo.extent.width = imageSize.X;
-	imageInfo.extent.height = imageSize.Y;
-	imageInfo.extent.depth = 1;
-	imageInfo.mipLevels = GpuImage::GetMipLevels(imageSize.X, imageSize.Y);
-	imageInfo.arrayLayers = 1;
+	imageInfo.imageType = (VkImageType)((TSize)dimension - 1);
+	imageInfo.extent.width = finalImageSize.X;
+	imageInfo.extent.height = finalImageSize.Y;
+	imageInfo.extent.depth = finalImageSize.Z;
+	imageInfo.mipLevels = GpuImage::GetMipLevels(finalImageSize.X, finalImageSize.Y);
+	imageInfo.arrayLayers = numLayers;
 	imageInfo.format = GetFormatVulkan(format);
 	imageInfo.tiling = VK_IMAGE_TILING_OPTIMAL;
 	imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 	imageInfo.usage = GetGpuImageUsageVulkan(usage);
 	imageInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
-	imageInfo.flags = 0;
-	if (!singleSample)
-		imageInfo.samples = device->As<GpuVulkan>()->GetInfo().maxMsaaSamples;
-	else 
-		imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
+	imageInfo.samples = (VkSampleCountFlagBits)msaaSamples;
+	imageInfo.flags = EFTraits::HasFlag(usage, GpuImageUsage::CUBEMAP) ? VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT : 0;
 
-	VkResult result = vkCreateImage(device->As<GpuVulkan>()->GetLogicalDevice(), 
-		&imageInfo, nullptr, &image);
+	VkResult result = vkCreateImage(device->As<GpuVulkan>()->GetLogicalDevice(),
+		&imageInfo, nullptr, &vkImage);
 	OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear la imagen en la GPU.");
 
-	output->SetImage(image);
+	output->SetImage(vkImage);
 
 	auto block = GpuMemoryBlockVulkan::CreateNewImageBlock(output, device, sharedType, usage);
 	output->SetBlock(block.GetPointer());
@@ -163,19 +174,27 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector2ui& imageS
 
 	// ------ VIEW ---------- //
 
+	VkImageView view = VK_NULL_HANDLE;
+
 	VkImageViewCreateInfo viewInfo{};
 	viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-	viewInfo.image = image;
-	viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
+	viewInfo.image = vkImage;
+	viewInfo.viewType = (VkImageViewType)((TSize)dimension - 1);
+	if (numLayers > 1)
+		viewInfo.viewType = (VkImageViewType)((TSize)viewInfo.viewType + 3);
+	if (EFTraits::HasFlag(usage, GpuImageUsage::CUBEMAP))
+		viewInfo.viewType = VK_IMAGE_VIEW_TYPE_CUBE;
 	viewInfo.format = GetFormatVulkan(format);
 	viewInfo.subresourceRange.aspectMask = GetGpuImageAspectVulkan(usage);
 	viewInfo.subresourceRange.baseMipLevel = 0;
 	viewInfo.subresourceRange.levelCount = GpuImage::GetMipLevels(imageSize.X, imageSize.Y);
 	viewInfo.subresourceRange.baseArrayLayer = 0;
-	viewInfo.subresourceRange.layerCount = 1;
+	viewInfo.subresourceRange.layerCount = numLayers;
 
 	vkCreateImageView(device->As<GpuVulkan>()->GetLogicalDevice(),
 		&viewInfo, nullptr, &view);
+
+	output->SetView(view);
 
 
 	// ------ SAMPLER ---------- //
@@ -211,7 +230,6 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector2ui& imageS
 	vkCreateSampler(device->As<GpuVulkan>()->GetLogicalDevice(),
 		&samplerInfo, nullptr, &sampler);
 
-	output->SetView(view);
 	output->SetSampler(sampler);
 
 	return output;

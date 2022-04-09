@@ -18,6 +18,7 @@ namespace OSK::GRAPHICS {
 	enum class GpuSharedMemoryType;
 	enum class GpuBufferUsage;
 	enum class GpuImageUsage;
+	enum class GpuImageDimension;
 
 	class GpuDataBuffer;
 	class GpuImage;
@@ -73,7 +74,20 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Crea una nueva imagen en la GPU.
 		/// </summary>
-		virtual OwnedPtr<GpuImage> CreateImage(const Vector2ui& size, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, bool singleSample, GpuImageSamplerDesc samplerDesc = {}) = 0;
+		/// <param name="size">Tamaño de la imagen. Para imágenes 2D, Z se ignora. Para imágenes 1D, Y y Z se ignoran.</param>
+		/// <param name="dimension">Dimensión de la imagen.</param>
+		/// <param name="numLayers">Número de capas: 1 es una imagen sencilla, 2 o más forman un array de imágenes.</param>
+		/// <param name="format">Formato.</param>
+		/// <param name="usage">Uso que se le va a dar.</param>
+		/// <param name="sharedType">GPU o GPU-CPU.</param>
+		/// <param name="msaaSamples">Número de muestreos. Para imágenes normales, 1.</param>
+		/// <param name="samplerDesc">Descipción del sampler.</param>
+		virtual OwnedPtr<GpuImage> CreateImage(const Vector3ui& size, GpuImageDimension dimension, TSize numLayers, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, TSize msaaSamples, GpuImageSamplerDesc samplerDesc = {}) = 0;
+
+		/// <summary>
+		/// Crea una imagen cubemap en la GPU.
+		/// </summary>
+		OwnedPtr<GpuImage> CreateCubemapImage(const Vector2ui& faceSize, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, GpuImageSamplerDesc samplerDesc = {});
 
 		/// <summary>
 		/// Crea un buffer de vértices con los vértices dados.

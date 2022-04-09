@@ -65,7 +65,7 @@ namespace OSK::GRAPHICS {
 		/// Implementación en las Render Apis High Profile.
 		/// </summary>
 		/// <param name="next">Layout en el que estará la imagen.</param>
-		void TransitionImageLayout(GpuImage* image, GpuImageLayout next);
+		void TransitionImageLayout(GpuImage* image, GpuImageLayout next, TSize baseLayer, TSize numLayers);
 
 		/// <summary>
 		/// Cambia el layout interno de la imagen en la memoria de la GPU.
@@ -73,7 +73,7 @@ namespace OSK::GRAPHICS {
 		/// Implementación en las Render Apis High Profile.
 		/// </summary>
 		/// <param name="next">Layout en el que estará la imagen.</param>
-		virtual void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) = 0;
+		virtual void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers) = 0;
 
 
 		/// <summary>
@@ -177,7 +177,7 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// <param name="source">Buffer con los contenidos de la textura.</param>
 		/// <param name="dest">Imagen final.</param>
-		virtual void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest) = 0;
+		virtual void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer = 0, TSize offset = 0) = 0;
 
 
 		/// <summary>

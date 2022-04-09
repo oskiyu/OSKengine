@@ -11,6 +11,7 @@
 #include "GpuImageVulkan.h"
 #include "IGpuMemoryAllocator.h"
 #include "GpuMemoryTypes.h"
+#include "GpuImageUsage.h"
 #include "Format.h"
 
 using namespace OSK;
@@ -55,26 +56,28 @@ RenderpassVulkan::~RenderpassVulkan() {
 		depthImgs[i].Delete();
 }
 
-void RenderpassVulkan::Create(const ISwapchain* swapchain) {
-	Create(swapchain, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+void RenderpassVulkan::Create(const ISwapchain* swapchain, Format format) {
+	Create(swapchain, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, format);
 }
 
 void RenderpassVulkan::CreateFinalPresent(const ISwapchain* swapchain) {
-	Create(swapchain, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR);
+	Create(swapchain, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR, swapchain->GetImage(0)->GetFormat());
 }
 
 VkRenderPass RenderpassVulkan::GetRenderpass() const {
 	return renderpass;
 }
 
-void RenderpassVulkan::Create(const ISwapchain* swapchain, VkImageLayout finalLayout) {
-	swapchain->As<SwapchainVulkan>()->SetTargetRenderpass(this);
+void RenderpassVulkan::Create(const ISwapchain* swapchain, VkImageLayout finalLayout, Format format) {
+	if (swapchain)
+		swapchain->As<SwapchainVulkan>()->SetTargetRenderpass(this);
+
 	const auto msaa = (VkSampleCountFlagBits)Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetInfo().maxMsaaSamples;
 
 	VkAttachmentDescription colorAttahcmentDesc{};
 	VkAttachmentReference colorReference{};
 
-	colorAttahcmentDesc.format = GetFormatVulkan(swapchain->GetImage(0)->GetFormat());
+	colorAttahcmentDesc.format = GetFormatVulkan(format);
 	colorAttahcmentDesc.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
 	colorAttahcmentDesc.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
 
@@ -111,7 +114,7 @@ void RenderpassVulkan::Create(const ISwapchain* swapchain, VkImageLayout finalLa
 	VkAttachmentDescription finalColorAttahcmentDesc{};
 	VkAttachmentReference finalColorReference{};
 
-	finalColorAttahcmentDesc.format = GetFormatVulkan(swapchain->GetImage(0)->GetFormat());
+	finalColorAttahcmentDesc.format = GetFormatVulkan(format);
 	finalColorAttahcmentDesc.loadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
 	finalColorAttahcmentDesc.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
 
@@ -165,44 +168,6 @@ void RenderpassVulkan::Create(const ISwapchain* swapchain, VkImageLayout finalLa
 	OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear el renderpass. Code: " + std::to_string(result));
 }
 
-void RenderpassVulkan::SetImage(GpuImage* image) {
-	const auto size = image->GetSize();
-
-	images[0] = image;
-	images[1] = nullptr;
-
-	VkFramebuffer framebuffer = VK_NULL_HANDLE;
-
-	colorImgs[0] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
-		size, image->GetFormat(), 
-		GpuImageUsage::COLOR, GpuSharedMemoryType::GPU_ONLY, false).GetPointer();
-
-	depthImgs[0] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
-		size, Format::D32S8_SFLOAT_SUINT,
-		GpuImageUsage::DEPTH_STENCIL, GpuSharedMemoryType::GPU_ONLY, false).GetPointer();
-
-	VkImageView views[] = {
-		colorImgs[0]->As<GpuImageVulkan>()->GetView(),
-		depthImgs[0]->As<GpuImageVulkan>()->GetView(),
-		image->As<GpuImageVulkan>()->GetView()
-	};
-
-	VkFramebufferCreateInfo framebufferInfo{};
-	framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-	framebufferInfo.renderPass = renderpass;
-	framebufferInfo.attachmentCount = 3;
-	framebufferInfo.pAttachments = views;
-	framebufferInfo.width = image->GetSize().X;
-	framebufferInfo.height = image->GetSize().Y;
-	framebufferInfo.layers = 1;
-
-	VkResult result = vkCreateFramebuffer(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
-		&framebufferInfo, nullptr, &framebuffer);
-	OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear el framebuffer. Code: " + std::to_string(result));
-
-	framebuffers.Insert(framebuffer);
-}
-
 void RenderpassVulkan::SetImages(GpuImage* image0, GpuImage* image1, GpuImage* image2) {
 	for (auto i : framebuffers)
 		vkDestroyFramebuffer(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
@@ -211,18 +176,20 @@ void RenderpassVulkan::SetImages(GpuImage* image0, GpuImage* image1, GpuImage* i
 
 	const auto size = image0->GetSize();
 
+	const TSize numSamples = (TSize)Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetInfo().maxMsaaSamples;
+
 	images[0] = image0;
 	images[1] = image1;
 	images[2] = image2;
 
 	for (TSize i = 0; i < 3; i++) {
 		colorImgs[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
-			size, image0->GetFormat(),
-			GpuImageUsage::COLOR, GpuSharedMemoryType::GPU_ONLY, false).GetPointer();
+			size, images[0]->GetDimension(), images[0]->GetNumLayers(), image0->GetFormat(),
+			GpuImageUsage::COLOR, GpuSharedMemoryType::GPU_ONLY, numSamples).GetPointer();
 
 		depthImgs[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
-			size, Format::D32S8_SFLOAT_SUINT,
-			GpuImageUsage::DEPTH_STENCIL, GpuSharedMemoryType::GPU_ONLY, false).GetPointer();
+			size, images[0]->GetDimension(), images[0]->GetNumLayers(), Format::D32S8_SFLOAT_SUINT,
+			GpuImageUsage::DEPTH_STENCIL, GpuSharedMemoryType::GPU_ONLY, numSamples).GetPointer();
 	}
 
 	VkImageView finalViews[] = {
@@ -235,8 +202,11 @@ void RenderpassVulkan::SetImages(GpuImage* image0, GpuImage* image1, GpuImage* i
 		VkFramebuffer framebuffer = VK_NULL_HANDLE;
 
 		VkImageView imgs[] = {
+			// Color original (pre-msaa).
 			colorImgs[i]->As<GpuImageVulkan>()->GetView(),
+			// Depth
 			depthImgs[i]->As<GpuImageVulkan>()->GetView(),
+			// Final (post-msaa).
 			finalViews[i]
 		};
 

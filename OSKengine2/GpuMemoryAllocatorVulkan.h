@@ -1,9 +1,23 @@
 #pragma once
 
 #include "IGpuMemoryAllocator.h"
+#include "Vector3.hpp"
 
 struct VkDeviceMemory_T;
 typedef VkDeviceMemory_T* VkDeviceMemory;
+
+struct VkImage_T;
+typedef VkImage_T* VkImage;
+
+struct VkSampler_T;
+typedef VkSampler_T* VkSampler;
+
+struct VkImageView_T;
+typedef VkImageView_T* VkImageView;
+
+enum VkSampleCountFlagBits;
+enum VkImageViewType;
+enum VkImageType;
 
 namespace OSK::GRAPHICS {
 
@@ -16,7 +30,7 @@ namespace OSK::GRAPHICS {
 		OwnedPtr<IGpuVertexBuffer> CreateVertexBuffer(const DynamicArray<Vertex3D>& vertices) override;
 		OwnedPtr<IGpuIndexBuffer> CreateIndexBuffer(const DynamicArray<TIndexSize>& vertices) override;
 		OwnedPtr<IGpuUniformBuffer> CreateUniformBuffer(TSize size) override;
-		OwnedPtr<GpuImage> CreateImage(const Vector2ui& size, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, bool singleSample, GpuImageSamplerDesc samplerDesc) override;
+		OwnedPtr<GpuImage> CreateImage(const Vector3ui& size, GpuImageDimension dimension, TSize numLayers, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, TSize msaaSamples, GpuImageSamplerDesc samplerDesc) override;
 		OwnedPtr<GpuDataBuffer> CreateStagingBuffer(TSize size) override;
 
 	protected:

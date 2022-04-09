@@ -40,7 +40,7 @@ namespace OSK::GRAPHICS {
 		void BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) override;
 		void EndRenderpass(IRenderpass* renderpass) override;
 
-		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) override;
+		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers) override;
 
 		void BindMaterial(const Material* material) override;
 		void BindVertexBuffer(IGpuVertexBuffer* buffer) override;
@@ -51,7 +51,7 @@ namespace OSK::GRAPHICS {
 		void DrawSingleInstance(TSize numIndices) override;
 		void DrawSingleMesh(TSize firstIndex, TSize numIndices) override;
 
-		void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest) override;
+		void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer, TSize offset) override;
 
 		void BindUniformBufferDx12(TSize index, GpuUniformBufferDx12* buffer);
 		void BindImageDx12(TSize index, GpuImageDx12* image);

@@ -5,6 +5,7 @@
 #include "HashMap.hpp"
 #include "UniquePtr.hpp"
 #include "OwnedPtr.h"
+#include "IGpuImage.h"
 
 #include <string>
 
@@ -12,7 +13,6 @@ namespace OSK::GRAPHICS {
 	class IGpuVertexBuffer;
 	class IGpuIndexBuffer;
 	class Mesh3D;
-	class GpuImage;
 	class IMaterialSlot;
 	class Mesh3D;
 }

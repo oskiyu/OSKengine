@@ -87,8 +87,17 @@ VkPipelineDepthStencilStateCreateInfo GetDepthInfo(const PipelineCreateInfo& inf
 	VkPipelineDepthStencilStateCreateInfo output{};
 
 	output.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
-	output.depthTestEnable = VK_TRUE;
-	output.depthWriteEnable = VK_TRUE;
+
+	if (info.depthTestingType == DepthTestingType::NONE)
+		output.depthTestEnable = VK_FALSE;
+	else
+		output.depthTestEnable = VK_TRUE;
+
+	if (info.depthTestingType == DepthTestingType::READ_WRITE)
+		output.depthWriteEnable = VK_TRUE;
+	else
+		output.depthWriteEnable = VK_FALSE;
+
 	output.depthCompareOp = VK_COMPARE_OP_LESS;
 	output.depthBoundsTestEnable = VK_FALSE;
 	output.minDepthBounds = 0.0f;

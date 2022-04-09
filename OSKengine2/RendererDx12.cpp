@@ -115,6 +115,20 @@ void RendererDx12::Resize() {
 	renderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
 }
 
+OwnedPtr<IRenderpass> RendererDx12::CreateSecondaryRenderpass(GpuImage* targetImage0, GpuImage* targetImage1, GpuImage* targetImage2) {
+	OwnedPtr<IRenderpass> output = new RenderpassDx12(RenderpassType::INTERMEDIATE);
+	output->As<RenderpassDx12>()->SetSwapchain(swapchain->As<SwapchainDx12>());
+
+	if (targetImage1 != nullptr)
+		output->SetImages(targetImage0, targetImage1, targetImage2);
+	else
+		output->SetImages(targetImage0, targetImage0, targetImage0);
+
+	materialSystem->RegisterRenderpass(output.GetPointer());
+
+	return output;
+}
+
 OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
 	GraphicsPipelineDx12* pipeline = new GraphicsPipelineDx12();
 

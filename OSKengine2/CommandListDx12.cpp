@@ -53,7 +53,7 @@ void CommandListDx12::Close() {
 	commandList->Close();
 }
 
-void CommandListDx12::TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next) {
+void CommandListDx12::TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers) {
 	ID3D12Resource* resource = image->As<GpuImageDx12>()->GetResource();
 	
 	D3D12_RESOURCE_BARRIER barrierInfo{};
@@ -69,10 +69,10 @@ void CommandListDx12::TransitionImageLayout(GpuImage* image, GpuImageLayout prev
 	image->SetLayout(next);
 }
 
-void CommandListDx12::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest) {
+void CommandListDx12::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer, TSize offset) {
 	D3D12_TEXTURE_COPY_LOCATION copyDest{};
 	copyDest.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX;
-	copyDest.SubresourceIndex = 0;
+	copyDest.SubresourceIndex = layer;
 	copyDest.pResource = dest->GetBuffer()->As<GpuMemorySubblockDx12>()->GetResource();
 
 	D3D12_TEXTURE_COPY_LOCATION copySource{};
@@ -83,6 +83,7 @@ void CommandListDx12::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* d
 	copySource.PlacedFootprint.Footprint.Width = dest->GetSize().X;
 	copySource.PlacedFootprint.Footprint.Height = dest->GetSize().Y;
 	copySource.PlacedFootprint.Footprint.RowPitch = dest->GetSize().X * GetFormatNumberOfBytes(dest->GetFormat());
+	copySource.PlacedFootprint.Offset = offset;
 
 	commandList->CopyTextureRegion(&copyDest, 0, 0, 0, &copySource, nullptr);
 }
@@ -112,7 +113,7 @@ void CommandListDx12::BeginAndClearRenderpass(IRenderpass* renderpass, const Col
 		depthStencilDesc = renderpass->As<RenderpassDx12>()->GetDepthStencilDescpriptor(0);
 	}
 
-	As<ICommandList>()->TransitionImageLayout(renderpass->GetImage(renderpass->As<RenderpassDx12>()->GetSwapchain()->GetCurrentFrameIndex()), GpuImageLayout::COLOR_ATTACHMENT);
+	As<ICommandList>()->TransitionImageLayout(renderpass->GetImage(renderpass->As<RenderpassDx12>()->GetSwapchain()->GetCurrentFrameIndex()), GpuImageLayout::COLOR_ATTACHMENT, 0, 1);
 
 	const FLOAT clearValue[] = { color.Red, color.Green, color.Blue, color.Alpha };
 	commandList->ClearRenderTargetView(renderTargetDesc, clearValue, 0, nullptr);
@@ -130,7 +131,7 @@ void CommandListDx12::EndRenderpass(IRenderpass* renderpass) {
 	if (renderpass->GetType() == RenderpassType::FINAL)
 		finalLayout = GpuImageLayout::PRESENT;
 
-	As<ICommandList>()->TransitionImageLayout(renderpass->GetImage(renderpass->As<RenderpassDx12>()->GetSwapchain()->GetCurrentFrameIndex()), finalLayout);
+	As<ICommandList>()->TransitionImageLayout(renderpass->GetImage(renderpass->As<RenderpassDx12>()->GetSwapchain()->GetCurrentFrameIndex()), finalLayout, 0, 1);
 }
 
 void CommandListDx12::ResourceBarrier(ID3D12Resource* resource, D3D12_RESOURCE_STATES from, D3D12_RESOURCE_STATES to) {
@@ -189,7 +190,7 @@ void CommandListDx12::BindUniformBufferDx12(TSize index, GpuUniformBufferDx12* b
 }
 
 void CommandListDx12::BindImageDx12(TSize index, GpuImageDx12* image) {
-	ID3D12DescriptorHeap* heaps[] = { image->GetDescriptorHeap()};
+	ID3D12DescriptorHeap* heaps[] = { image->GetSampledDescriptorHeap() };
 
 	commandList->SetDescriptorHeaps(1, heaps);
 	commandList->SetGraphicsRootDescriptorTable(index, heaps[0]->GetGPUDescriptorHandleForHeapStart());

@@ -15,6 +15,8 @@
 #include "IGpuImage.h"
 #include "GpuImageLayout.h"
 #include "OwnedPtr.h"
+#include "GpuImageUsage.h"
+#include "GpuImageDimensions.h"
 
 #include <gtc/type_ptr.hpp>
 #include <json.hpp>
@@ -266,8 +268,9 @@ DynamicArray<OwnedPtr<GRAPHICS::GpuImage>> LoadImages(const tinygltf::Model& mod
 	for (TSize i = 0; i < model.images.size(); i++) {
 		const tinygltf::Image& originalImage = model.images[i];
 		
-		auto image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ (unsigned int)originalImage.width, (unsigned int)originalImage.height },
-			GRAPHICS::Format::RGBA8_UNORM, GpuImageUsage::TRANSFER_DESTINATION | GRAPHICS::GpuImageUsage::SAMPLED, GRAPHICS::GpuSharedMemoryType::GPU_ONLY, true);
+		auto image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ (unsigned int)originalImage.width, (unsigned int)originalImage.height, 1 },
+			GRAPHICS::GpuImageDimension::d2D, 1, GRAPHICS::Format::RGBA8_UNORM, GpuImageUsage::TRANSFER_DESTINATION | GRAPHICS::GpuImageUsage::SAMPLED, 
+			GRAPHICS::GpuSharedMemoryType::GPU_ONLY, true);
 
 		const TSize numBytes = originalImage.width * originalImage.height * 4;
 		if (originalImage.component == 3) {
@@ -331,7 +334,7 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 	output->_SetVertexBuffer(Engine::GetRenderer()->GetMemoryAllocator()->CreateVertexBuffer(vertices));
 	output->_SetIndexBuffer(Engine::GetRenderer()->GetMemoryAllocator()->CreateIndexBuffer(indices));
 
-	output->_SetIndexCount(vertices.GetSize());
+	output->_SetIndexCount(indices.GetSize());
 
 	for (TSize i = 0; i < meshes.GetSize(); i++) {
 		MeshMetadata meshMetadata{};

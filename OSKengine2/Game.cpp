@@ -18,12 +18,16 @@ void IGame::OnTick(TDeltaTime deltaTime) {
 
 }
 
+void IGame::OnRender() {
+
+}
+
 void IGame::OnExit() {
 
 }
 
 void IGame::Run() {
-	Engine::Create(GRAPHICS::RenderApiType::DX12);
+	Engine::Create(GRAPHICS::RenderApiType::VULKAN);
 
 	CreateWindow();
 	SetupEngine();
@@ -41,6 +45,7 @@ void IGame::Run() {
 
 		Engine::GetEntityComponentSystem()->OnTick(deltaTime);
 		OnTick(deltaTime);
+		OnRender();
 
 		Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->Render(
 			Engine::GetRenderer()->GetCommandList()

@@ -1,0 +1,34 @@
+{
+    "file_type": "MATERIAL",
+    "spec_ver": 0,
+    "name": "Skybox",
+    "shader_file": "Resources/skybox_shader.json",
+    "layout":{
+        "push_constants":[
+        ],
+
+        "slots":[
+            {
+                "name": "global",
+
+                "bindings":[
+                    {
+                        "name": "camera",
+                        "type": "UNIFORM"
+                    },
+
+                    {
+                        "name": "cubemap",
+                        "type": "CUBEMAP"
+                    }
+                ]
+            }
+        ]
+    },
+    
+
+    "config": {
+        "depth_testing": "none",
+        "cull_mode": "none"
+    }
+}

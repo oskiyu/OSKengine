@@ -651,6 +651,12 @@
     <ClCompile Include="Mesh3D.cpp">
       <Filter>Archivos de origen\OSKengine\Assets\Builtin</Filter>
     </ClCompile>
+    <ClCompile Include="CubemapTexture.cpp">
+      <Filter>Archivos de origen\OSKengine\Assets\Builtin</Filter>
+    </ClCompile>
+    <ClCompile Include="CubemapTextureLoader.cpp">
+      <Filter>Archivos de origen\OSKengine\Assets\Loaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
@@ -1084,6 +1090,18 @@
     </ClInclude>
     <ClInclude Include="GpuImageSamplerDesc.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="CubemapTexture.h">
+      <Filter>Archivos de encabezado\OSKengine\Assets\Builtin</Filter>
+    </ClInclude>
+    <ClInclude Include="CubemapTextureLoader.h">
+      <Filter>Archivos de encabezado\OSKengine\Assets\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuImageDimensions.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuImageUsage.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

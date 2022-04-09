@@ -25,6 +25,23 @@
 #include "MouseState.h"
 #include "MouseModes.h"
 #include "Mesh3D.h"
+#include "CubemapTexture.h"
+#include "ICommandList.h"
+
+#include "IRenderpass.h"
+#include "GpuImageDimensions.h"
+#include "GpuImageUsage.h"
+#include "Format.h"
+#include "GpuMemoryTypes.h"
+#include "GpuImageLayout.h"
+
+OSK::GRAPHICS::Material* skyboxMaterial = nullptr;
+OSK::GRAPHICS::MaterialInstance* skyboxMaterialInstance = nullptr;
+OSK::ASSETS::CubemapTexture* cubemap = nullptr;
+OSK::ASSETS::Model3D* cubemapModel = nullptr;
+
+OSK::GRAPHICS::GpuImage* renderpassImage = nullptr;
+OSK::GRAPHICS::IRenderpass* renderpass = nullptr;
 
 class Game1 : public OSK::IGame {
 
@@ -95,6 +112,20 @@ protected:
 
 		modelComponent2->BindUniformBufferForAllMeshes("global", "camera", uniformBuffer.GetPointer());
 		modelComponent2->BindTextureForAllMeshes("global", "texture", texture);
+
+		// Cubemap
+		cubemap = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL");
+		cubemapModel = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Model3D>("Resources/Assets/cube.json", "GLOBAL");
+		skyboxMaterial = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/skybox_material.json");
+
+		skyboxMaterialInstance = skyboxMaterial->CreateInstance().GetPointer();
+		skyboxMaterialInstance->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer.GetPointer());
+		skyboxMaterialInstance->GetSlot("global")->SetGpuImage("cubemap", cubemap->GetGpuImage());
+		skyboxMaterialInstance->GetSlot("global")->FlushUpdate();
+
+		renderpassImage = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ 1920, 1080, 1 }, OSK::GRAPHICS::GpuImageDimension::d2D,
+			1, OSK::GRAPHICS::Format::RGBA8_UNORM, OSK::GRAPHICS::GpuImageUsage::COLOR | OSK::GRAPHICS::GpuImageUsage::SAMPLED, OSK::GRAPHICS::GpuSharedMemoryType::GPU_ONLY, 1).GetPointer();
+		renderpass = OSK::Engine::GetRenderer()->CreateSecondaryRenderpass(renderpassImage).GetPointer();
 	}
 
 	void OnTick(TDeltaTime deltaTime) override {
@@ -135,11 +166,27 @@ protected:
 		uniformBuffer->MapMemory();
 		uniformBuffer->Write(camera.GetProjectionMatrix(cameraTransform));
 		uniformBuffer->Write(camera.GetViewMatrix());
+		uniformBuffer->Write(cameraTransform.GetPosition());
 		uniformBuffer->Unmap();
+	}
+
+	void OnRender() override {
+		auto commandList = OSK::Engine::GetRenderer()->GetCommandList();
+
+		commandList->BindMaterial(skyboxMaterial);
+		commandList->BindMaterialSlot(skyboxMaterialInstance->GetSlot("global"));
+		commandList->BindVertexBuffer(cubemapModel->GetVertexBuffer());
+		commandList->BindIndexBuffer(cubemapModel->GetIndexBuffer());
+		commandList->DrawSingleInstance(cubemapModel->GetIndexCount());
+
 	}
 
 	void OnExit() override {
 		uniformBuffer.Delete();
+
+		delete skyboxMaterialInstance;
+		delete renderpass;
+		delete renderpassImage;
 	}
 
 private:

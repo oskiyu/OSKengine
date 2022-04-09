@@ -7,6 +7,8 @@
 #include "RendererOgl.h"
 #include "GpuMemoryTypes.h"
 #include "Format.h"
+#include "GpuImageUsage.h"
+#include "GpuImageDimensions.h"
 
 #include <glad/glad.h>
 
@@ -24,26 +26,27 @@ RenderpassOgl::~RenderpassOgl() {
 		glDeleteFramebuffers(1, &framebuffer);
 }
 
-void RenderpassOgl::SetImage(GpuImage* image) {
+void RenderpassOgl::SetImages(GpuImage* image0, GpuImage* image1, GpuImage* image2) {
 	if (this->type == RenderpassType::FINAL)
 		return;
 
-	const auto size = image->GetSize();
+	const auto size = image0->GetSize();
 
-	images[0] = image;
-	images[1] = nullptr;
+	images[0] = image0;
+	images[1] = image1;
+	images[2] = image2;
 
 	colorImgs[0] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
-		size, image->GetFormat(),
+		size, GpuImageDimension::d2D, 1, image0->GetFormat(),
 		GpuImageUsage::COLOR, GpuSharedMemoryType::GPU_ONLY, false).GetPointer();
 
 	depthImgs[0] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
-		size, Format::D32S8_SFLOAT_SUINT,
+		size, GpuImageDimension::d2D, 1, Format::D32S8_SFLOAT_SUINT,
 		GpuImageUsage::DEPTH_STENCIL, GpuSharedMemoryType::GPU_ONLY, false).GetPointer();
 
 	glGenFramebuffers(1, &framebuffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, image->As<GpuImageOgl>()->GetHandler(), 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, image0->As<GpuImageOgl>()->GetHandler(), 0);
 
 	glGenRenderbuffers(1, &renderbuffer[0]);
 	glBindRenderbuffer(GL_RENDERBUFFER, renderbuffer[0]);
@@ -52,10 +55,6 @@ void RenderpassOgl::SetImage(GpuImage* image) {
 
 	OSK_ASSERT(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE,
 		"No se pudo crear el renderpass.");
-}
-
-void RenderpassOgl::SetImages(GpuImage* image0, GpuImage* image1, GpuImage* image2) {
-	SetImage(image0);
 }
 
 OglFramebufferHandler RenderpassOgl::GetFramebuffer() const {

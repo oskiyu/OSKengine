@@ -3,10 +3,7 @@
 #include "IAsset.h"
 #include "OwnedPtr.h"
 #include "Vector2.hpp"
-
-namespace OSK::GRAPHICS {
-	class GpuImage;
-}
+#include "IGpuImage.h"
 
 namespace OSK::ASSETS {
 

@@ -14,6 +14,8 @@ layout(location = 3) out vec2 outTexCoords;
 layout (set = 0, binding = 0) uniform Camera {
     mat4 view;
     mat4 projection;
+
+    vec3 cameraPos;
 } camera;
 
 layout (push_constant) uniform Model {

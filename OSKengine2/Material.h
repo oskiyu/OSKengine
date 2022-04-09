@@ -5,10 +5,10 @@
 #include "OSKmacros.h"
 #include "HashMap.hpp"
 #include "PipelineCreateInfo.h"
+#include "MaterialLayout.h"
 
 namespace OSK::GRAPHICS {
 
-	class MaterialLayout;
 	class MaterialInstance;
 	class IGraphicsPipeline;
 	struct PipelineCreateInfo;

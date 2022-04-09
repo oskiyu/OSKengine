@@ -55,6 +55,8 @@
     <ClCompile Include="CommandQueueDx12.cpp" />
     <ClCompile Include="CommandQueueVulkan.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
+    <ClCompile Include="CubemapTexture.cpp" />
+    <ClCompile Include="CubemapTextureLoader.cpp" />
     <ClCompile Include="DescriptorLayoutVulkan.cpp" />
     <ClCompile Include="DescriptorPoolVulkan.cpp" />
     <ClCompile Include="EntityComponentSystem.cpp" />
@@ -166,6 +168,8 @@
     <ClInclude Include="ComponentContainer.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="ConstexprBitSet.hpp" />
+    <ClInclude Include="CubemapTexture.h" />
+    <ClInclude Include="CubemapTextureLoader.h" />
     <ClInclude Include="DescriptorLayoutVulkan.h" />
     <ClInclude Include="DescriptorPoolVulkan.h" />
     <ClInclude Include="DynamicArray.hpp" />
@@ -186,7 +190,9 @@
     <ClInclude Include="GpuImageLayoutDx12.h" />
     <ClInclude Include="GpuImageLayoutVulkan.h" />
     <ClInclude Include="GpuImageOgl.h" />
+    <ClInclude Include="GpuImageDimensions.h" />
     <ClInclude Include="GpuImageSamplerDesc.h" />
+    <ClInclude Include="GpuImageUsage.h" />
     <ClInclude Include="GpuImageVulkan.h" />
     <ClInclude Include="GpuIndexBufferDx12.h" />
     <ClInclude Include="GpuIndexBufferOgl.h" />

@@ -22,11 +22,6 @@ namespace OSK::GRAPHICS {
 		TSize GetNumberOfImages() const;
 
 		/// <summary>
-		/// Establece la imagen sobre la que se va a renderizar (para render target).
-		/// </summary>
-		virtual void SetImage(GpuImage* image) = 0;
-
-		/// <summary>
 		/// Establece las imágenes del swapchain donde se va a renderizar (para pantalla).
 		/// </summary>
 		virtual void SetImages(GpuImage* image0, GpuImage* image1, GpuImage* image2) = 0;

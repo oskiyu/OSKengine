@@ -4,6 +4,8 @@
 #include "IGpuMemorySubblock.h"
 #include "IGpuDataBuffer.h"
 #include "IGpuImage.h"
+#include "GpuImageUsage.h"
+#include "GpuImageDimensions.h"
 #include "Format.h"
 
 using namespace OSK;
@@ -44,6 +46,12 @@ void IGpuMemoryAllocator::Free() {
 		i->Free();
 
 	imageMemoryBlocks.Free();
+}
+OwnedPtr<GpuImage> IGpuMemoryAllocator::CreateCubemapImage(const Vector2ui& faceSize, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, GpuImageSamplerDesc samplerDesc) {
+	if (!EFTraits::HasFlag(usage, GpuImageUsage::CUBEMAP))
+		EFTraits::AddFlag(&usage, GpuImageUsage::CUBEMAP);
+
+	return CreateImage({ faceSize.X, faceSize.Y, 1 }, GpuImageDimension::d2D, 6, format, usage, sharedType, 1, samplerDesc);
 }
 
 /*IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {

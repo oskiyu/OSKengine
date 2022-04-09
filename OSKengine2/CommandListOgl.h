@@ -11,7 +11,7 @@ namespace OSK::GRAPHICS {
 		void Reset() override;
 		void Start() override;
 		void Close() override;
-		void TransitionImageLayout(GpuImage*, GpuImageLayout, GpuImageLayout) override;
+		void TransitionImageLayout(GpuImage*, GpuImageLayout, GpuImageLayout, TSize, TSize) override;
 
 		void BeginRenderpass(IRenderpass* renderpass) override;
 		void BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) override;
@@ -26,7 +26,7 @@ namespace OSK::GRAPHICS {
 		void DrawSingleInstance(TSize numIndices) override;
 		void DrawSingleMesh(TSize firstIndex, TSize numIndices) override;
 
-		void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest) override;
+		void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer, TSize offset) override;
 
 		void SetViewport(const Viewport& viewport) override;
 		void SetScissor(const Vector4ui& scissor) override;

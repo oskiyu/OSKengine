@@ -1,6 +1,7 @@
 #include "GpuMemoryTypeVulkan.h"
 
 #include "GpuMemoryTypes.h"
+#include "GpuImageUsage.h"
 #include <vulkan/vulkan.h>
 
 #define OSK_CONTAINS_FLAG(a, b) EFTraits::HasFlag(a, b)

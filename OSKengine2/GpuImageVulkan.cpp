@@ -9,8 +9,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImageVulkan::GpuImageVulkan(unsigned int sizeX, unsigned int sizeY, Format format)
-	: GpuImage(sizeX, sizeY, format) {
+GpuImageVulkan::GpuImageVulkan(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format)
+	: GpuImage(size, dimension, usage, numLayers, format) {
 
 }
 

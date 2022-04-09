@@ -4,13 +4,12 @@
 #include "UniquePtr.hpp"
 #include "DynamicArray.hpp"
 #include "OwnedPtr.h"
+#include "DescriptorLayoutVulkan.h"
+#include "DescriptorPoolVulkan.h"
 
 #include <vulkan/vulkan.h>
 
 namespace OSK::GRAPHICS {
-
-	class DescriptorPoolVulkan;
-	class DescriptorLayoutVulkan;
 
 	class OSKAPI_CALL MaterialSlotVulkan : public IMaterialSlot {
 

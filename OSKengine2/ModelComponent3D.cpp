@@ -13,8 +13,7 @@ using namespace OSK::GRAPHICS;
 
 ModelComponent3D::~ModelComponent3D() {
 	for (auto i : meshesMaterialInstances)
-		if (i.HasValue())
-			i.Delete();
+		delete i.GetPointer();
 }
 
 void ModelComponent3D::SetModel(Model3D* model) {

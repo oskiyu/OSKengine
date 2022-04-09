@@ -130,8 +130,17 @@ D3D12_RASTERIZER_DESC GraphicsPipelineDx12::GetRasterizerDesc(const PipelineCrea
 
 D3D12_DEPTH_STENCIL_DESC GraphicsPipelineDx12::GetDepthStencilDesc(const PipelineCreateInfo& info) const {
 	D3D12_DEPTH_STENCIL_DESC desc{};
-	desc.DepthEnable = TRUE;
-	desc.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;
+
+	if (info.depthTestingType == DepthTestingType::NONE)
+		desc.DepthEnable = FALSE;
+	else
+		desc.DepthEnable = TRUE;
+
+	if (info.depthTestingType == DepthTestingType::READ_WRITE)
+		desc.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;
+	else
+		desc.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ZERO;
+
 	desc.StencilEnable = FALSE;
 	desc.DepthFunc = D3D12_COMPARISON_FUNC_LESS;
 	

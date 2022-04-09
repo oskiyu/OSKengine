@@ -17,6 +17,7 @@ namespace OSK::GRAPHICS {
 
 	class ISwapchain;
 	class GpuImage;
+	enum class Format;
 
 	class OSKAPI_CALL RenderpassVulkan : public IRenderpass {
 
@@ -25,10 +26,9 @@ namespace OSK::GRAPHICS {
 		RenderpassVulkan(RenderpassType type);
 		~RenderpassVulkan();
 
-		void Create(const ISwapchain* swapchain);
+		void Create(const ISwapchain* swapchain, Format format);
 		void CreateFinalPresent(const ISwapchain* swapchain);
 
-		void SetImage(GpuImage* image) override;
 		void SetImages(GpuImage* image0, GpuImage* image1, GpuImage* image2) override;
 
 		VkRenderPass GetRenderpass() const;
@@ -36,7 +36,7 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		void Create(const ISwapchain* swapchain, VkImageLayout finalLayout);
+		void Create(const ISwapchain* swapchain, VkImageLayout finalLayout, Format format);
 
 		VkRenderPass renderpass = 0;
 		DynamicArray<VkFramebuffer> framebuffers;

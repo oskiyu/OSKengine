@@ -17,7 +17,12 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Textura 2D.
 		/// </summary>
-		TEXTURE
+		TEXTURE,
+
+		/// <summary>
+		/// Textura cúbica.
+		/// </summary>
+		CUBEMAP
 
 	};
 

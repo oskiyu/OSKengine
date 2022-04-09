@@ -15,7 +15,6 @@ namespace OSK::GRAPHICS {
 		RenderpassDx12(RenderpassType type);
 		~RenderpassDx12();
 
-		void SetImage(GpuImage* image) override;
 		void SetImages(GpuImage* image0, GpuImage* image1, GpuImage* image2) override;
 
 		void SetSwapchain(SwapchainDx12* swapchain);

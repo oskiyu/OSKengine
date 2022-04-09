@@ -11,6 +11,8 @@
 #include "FileIO.h"
 #include "GpuImageLayout.h"
 #include "RenderApiType.h"
+#include "GpuImageUsage.h"
+#include "GpuImageDimensions.h"
 
 // #define STB_IMAGE_IMPLEMENTATION <- está en tiny_glft.h
 #include <stbi_image.h>
@@ -48,8 +50,8 @@ void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	output->_SetSize(Vector2ui(width, height));
 	output->_SetNumberOfChannels(numChannels);
 
-	Vector2ui size(width, height);
-	OwnedPtr<GRAPHICS::GpuImage> image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(size, GRAPHICS::GetColorFormat(numChannels), GRAPHICS::GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION, GRAPHICS::GpuSharedMemoryType::GPU_ONLY, true);
+	Vector3ui size(width, height, 1);
+	auto image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(size, GRAPHICS::GpuImageDimension::d2D, 1, GRAPHICS::GetColorFormat(numChannels), GRAPHICS::GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION, GRAPHICS::GpuSharedMemoryType::GPU_ONLY, true);
 
 	Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), pixels, width * height * numChannels, GRAPHICS::GpuImageLayout::SHADER_READ_ONLY);
 	stbi_image_free(pixels);

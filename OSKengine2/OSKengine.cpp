@@ -15,6 +15,7 @@
 #include "RenderSystem3D.h"
 #include "CameraComponent3D.h"
 #include "EntityComponentSystem.h"
+#include "CubemapTextureLoader.h"
 
 #include <GLFW/glfw3.h>
 #undef GetCurrentTime;
@@ -81,6 +82,7 @@ void Engine::Close() {
 void Engine::RegisterBuiltinAssets() {
 	assetManager->RegisterLoader<ASSETS::TextureLoader>();
 	assetManager->RegisterLoader<ASSETS::ModelLoader3D>();
+	assetManager->RegisterLoader<ASSETS::CubemapTextureLoader>();
 }
 
 void Engine::RegisterBuiltinComponents() {
