@@ -11,7 +11,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info) override;
+		void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) override;
 
 		OglPipelineHandler GetPipelineHandler() const;
 

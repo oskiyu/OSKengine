@@ -13,7 +13,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info) override;
+		void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) override;
 
 		ID3D12PipelineState* GetPipelineState() const;
 		ID3D12RootSignature* GetLayout() const;

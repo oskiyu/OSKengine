@@ -9,8 +9,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-Material::Material(const PipelineCreateInfo& pipelineInfo, OwnedPtr<MaterialLayout> layout) 
-	: pipelineInfo(pipelineInfo) {
+Material::Material(const PipelineCreateInfo& pipelineInfo, OwnedPtr<MaterialLayout> layout, const VertexInfo& vertexInfo)
+	: pipelineInfo(pipelineInfo), vertexInfo(vertexInfo) {
 
 	this->layout = layout.GetPointer();
 }
@@ -39,7 +39,7 @@ const IGraphicsPipeline* Material::GetGraphicsPipeline(const IRenderpass* render
 
 void Material::RegisterRenderpass(const IRenderpass* renderpass) {
 	graphicsPipelines.Insert(renderpass,
-		Engine::GetRenderer()->_CreateGraphicsPipeline(pipelineInfo, layout.GetPointer(), renderpass));
+		Engine::GetRenderer()->_CreateGraphicsPipeline(pipelineInfo, layout.GetPointer(), renderpass, vertexInfo));
 }
 
 void Material::UnregisterRenderpass(const IRenderpass* renderpass) {

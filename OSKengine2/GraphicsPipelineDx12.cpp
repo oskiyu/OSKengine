@@ -1,6 +1,5 @@
 #include "GraphicsPipelineDx12.h"
 
-#include "VertexDx12.h"
 #include "GpuDx12.h"
 #include <string>
 #include <d3dcompiler.h>
@@ -9,9 +8,78 @@
 #include "PipelineLayoutDx12.h"
 #include "Format.h"
 #include "FormatDx12.h"
+#include "VertexInfo.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
+
+struct InputLayoutDescDx12 {
+	DynamicArray<D3D12_INPUT_ELEMENT_DESC> inputElements;
+	D3D12_INPUT_LAYOUT_DESC desc{};
+	DynamicArray<std::string> stringNames;
+};
+
+std::wstring s2ws(const std::string& s) {
+	int len;
+	int slength = (int)s.length() + 1;
+	len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
+	wchar_t* buf = new wchar_t[len];
+	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
+	std::wstring r(buf);
+	delete[] buf;
+	return r;
+}
+
+DXGI_FORMAT GetVertexAttribFormatDx12(const VertexInfo::Entry& entry) {
+	switch (entry.type) {
+
+	case VertexInfo::Entry::Type::INT:
+		if (entry.size == 2 * sizeof(int)) return DXGI_FORMAT_R32G32_SINT;
+		if (entry.size == 3 * sizeof(int)) return DXGI_FORMAT_R32G32B32_SINT;
+		if (entry.size == 4 * sizeof(int)) return DXGI_FORMAT_R32G32B32A32_SINT;
+
+	case VertexInfo::Entry::Type::FLOAT:
+		if (entry.size == 2 * sizeof(float)) return DXGI_FORMAT_R32G32_FLOAT;
+		if (entry.size == 3 * sizeof(float)) return DXGI_FORMAT_R32G32B32_FLOAT;
+		if (entry.size == 4 * sizeof(float)) return DXGI_FORMAT_R32G32B32A32_FLOAT;
+	}
+
+	OSK_ASSERT(false, "Formato de vértice incorecto.");
+	return DXGI_FORMAT_UNKNOWN;
+}
+
+D3D12_INPUT_LAYOUT_DESC GetInputLayoutDescDx12(const VertexInfo& info) {
+	InputLayoutDescDx12 output{};
+
+	TSize offset = 0;
+	for (TSize i = 0; i < info.entries.GetSize(); i++) {
+		const VertexInfo::Entry& entry = info.entries.At(i);
+
+		D3D12_INPUT_ELEMENT_DESC desc = {
+			entry.name.c_str(),
+			0,
+			GetVertexAttribFormatDx12(entry),
+			0,
+			offset,
+			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
+			0
+		};
+
+		output.inputElements.Insert(desc);
+		output.stringNames.Insert(entry.name);
+
+		offset += info.entries.At(i).size;
+	}
+
+	D3D12_INPUT_LAYOUT_DESC inputLayout{};
+	inputLayout.NumElements = output.inputElements.GetSize();
+	inputLayout.pInputElementDescs = output.inputElements.GetData();
+
+	output.desc = inputLayout;
+
+	return inputLayout;
+}
+
 
 D3D12_CULL_MODE GetCullMode(PolygonCullMode mode) {
 	switch (mode) {
@@ -37,17 +105,6 @@ D3D12_FILL_MODE GetFillMode(PolygonMode mode) {
 	}
 }
 
-std::wstring s2ws(const std::string& s) {
-	int len;
-	int slength = (int)s.length() + 1;
-	len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
-	wchar_t* buf = new wchar_t[len];
-	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
-	std::wstring r(buf);
-	delete[] buf;
-	return r;
-}
-
 ComPtr<ID3DBlob> LoadBlob(LPCWSTR filename) {
 	HRESULT hr{};
 
@@ -62,11 +119,11 @@ ComPtr<ID3DBlob> LoadBlob(LPCWSTR filename) {
 }
 
 
-void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info) {
+void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) {
 	layout = new PipelineLayoutDx12(materialLayout);
 	
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC createInfo{};
-	createInfo.InputLayout = GetInputLayoutDescDx12_Vertex3D();
+	createInfo.InputLayout = GetInputLayoutDescDx12(vertexInfo);
 
 	LoadVertexShader(info.vertexPath);
 	LoadFragmentShader(info.fragmentPath);

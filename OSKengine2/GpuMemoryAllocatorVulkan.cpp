@@ -8,7 +8,6 @@
 #include "GpuVulkan.h"
 #include "GpuMemoryTypeVulkan.h"
 #include "GpuMemoryTypes.h"
-#include "VertexVulkan.h"
 #include "Vertex.h"
 #include "IGpuDataBuffer.h"
 #include "GpuVertexBufferVulkan.h"
@@ -56,13 +55,13 @@ GpuMemoryAllocatorVulkan::GpuMemoryAllocatorVulkan(IGpu* device)
 
 }
 
-OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorVulkan::CreateVertexBuffer(const DynamicArray<Vertex3D>& vertices) {
-	const TSize bufferSize = vertices.GetSize() * sizeof(Vertex3D);
+OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorVulkan::CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices) {
+	const TSize bufferSize = numVertices * vertexSize;
 	auto block = GetNextBufferMemoryBlock(bufferSize, GpuBufferUsage::VERTEX_BUFFER | GpuBufferUsage::TRANSFER_DESTINATION, GpuSharedMemoryType::GPU_ONLY);
 
 	GpuDataBuffer* stagingBuffer = CreateStagingBuffer(bufferSize).GetPointer();
 	stagingBuffer->MapMemory();
-	stagingBuffer->Write(vertices.GetData(), bufferSize);
+	stagingBuffer->Write(data, bufferSize);
 	stagingBuffer->Unmap();
 
 	GpuVertexBufferVulkan* output = new GpuVertexBufferVulkan(block->GetNextMemorySubblock(bufferSize), bufferSize, 0);

@@ -7,6 +7,7 @@
 #include "DynamicArray.hpp"
 #include "Vertex.h"
 #include "Vector2.hpp"
+#include "Vector3.hpp"
 #include "GpuImageSamplerDesc.h"
 
 namespace OSK::GRAPHICS {
@@ -92,7 +93,14 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Crea un buffer de vértices con los vértices dados.
 		/// </summary>
-		virtual OwnedPtr<IGpuVertexBuffer> CreateVertexBuffer(const DynamicArray<Vertex3D>& vertices) = 0;
+		virtual OwnedPtr<IGpuVertexBuffer> CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices) = 0;
+
+		/// <summary>
+		/// Crea un buffer de vértices con los vértices dados.
+		/// </summary>
+		template <typename T> OwnedPtr<IGpuVertexBuffer> CreateVertexBuffer(const DynamicArray<T>& vertices) {
+			return this->CreateVertexBuffer(vertices.GetData(), sizeof(T), vertices.GetSize());
+		}
 
 		/// <summary>
 		/// Crea un buffer de índices con los índices dados.

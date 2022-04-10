@@ -9,6 +9,7 @@ namespace OSK::GRAPHICS {
 	class IGpu;
 	struct PipelineCreateInfo;
 	class IPipelineLayout;
+	class VertexInfo;
 
 	/// <summary>
 	/// El graphics pipeline es el encargado de transformar los modelos 3D en una imagen final.
@@ -25,7 +26,7 @@ namespace OSK::GRAPHICS {
 		/// Crea el pipeline con la configuración dada.
 		/// </summary>
 		/// <param name="info">Configuración del pipeline.</param>
-		virtual void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info) = 0;
+		virtual void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) = 0;
 
 		template <typename T> T* As() const requires std::is_base_of_v<IGraphicsPipeline, T> {
 			return (T*)this;

@@ -16,6 +16,10 @@
 #include "CameraComponent3D.h"
 #include "EntityComponentSystem.h"
 #include "CubemapTextureLoader.h"
+#include "Vertex2D.h"
+#include "Vertex3D.h"
+#include "MaterialSystem.h"
+#include "IGpuMemoryAllocator.h"
 
 #include <GLFW/glfw3.h>
 #undef GetCurrentTime;
@@ -69,6 +73,7 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 	RegisterBuiltinAssets();
 	RegisterBuiltinComponents();
 	RegisterBuiltinSystems();
+	RegisterBuiltinVertices();
 }
 
 void Engine::Close() {
@@ -93,6 +98,11 @@ void Engine::RegisterBuiltinComponents() {
 
 void Engine::RegisterBuiltinSystems() {
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem3D>();
+}
+
+void Engine::RegisterBuiltinVertices() {
+	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::Vertex2D>();
+	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::Vertex3D>();
 }
 
 IO::Logger* Engine::GetLogger() {

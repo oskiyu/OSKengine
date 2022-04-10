@@ -146,9 +146,8 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="Transform3D.cpp" />
-    <ClCompile Include="VertexDx12.cpp" />
-    <ClCompile Include="VertexOgl.cpp" />
-    <ClCompile Include="VertexVulkan.cpp" />
+    <ClCompile Include="Vertex2D.cpp" />
+    <ClCompile Include="Vertex3D.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -211,11 +210,13 @@
     <ClInclude Include="GpuVertexBufferDx12.h" />
     <ClInclude Include="GpuVertexBufferOgl.h" />
     <ClInclude Include="GpuVertexBufferVulkan.h" />
+    <ClInclude Include="GpuVertexDescriptionVulkan.h" />
     <ClInclude Include="GpuVulkan.h" />
     <ClInclude Include="GraphicsPipelineDx12.h" />
     <ClInclude Include="IAsset.h" />
     <ClInclude Include="IAssetLoader.h" />
     <ClInclude Include="IComponentContainer.h" />
+    <ClInclude Include="IGpuVertexDescription.h" />
     <ClInclude Include="IPipelineLayout.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="IMaterialSlot.h" />
@@ -266,6 +267,7 @@
     <ClInclude Include="OwnedPtr.h" />
     <ClInclude Include="Pair.hpp" />
     <ClInclude Include="PipelineCreateInfo.h" />
+    <ClInclude Include="PushConst2D.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="QueueFamilyIndices.h" />
     <ClInclude Include="RenderApiType.h" />
@@ -295,9 +297,9 @@
     <ClInclude Include="Vector4.hpp" />
     <ClInclude Include="Version.h" />
     <ClInclude Include="Vertex.h" />
-    <ClInclude Include="VertexDx12.h" />
-    <ClInclude Include="VertexOgl.h" />
-    <ClInclude Include="VertexVulkan.h" />
+    <ClInclude Include="Vertex3D.h" />
+    <ClInclude Include="Vertex2D.h" />
+    <ClInclude Include="VertexInfo.h" />
     <ClInclude Include="Viewport.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

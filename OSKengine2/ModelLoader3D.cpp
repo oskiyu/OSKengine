@@ -17,6 +17,8 @@
 #include "OwnedPtr.h"
 #include "GpuImageUsage.h"
 #include "GpuImageDimensions.h"
+#include "Color.hpp"
+#include "Vertex3D.h"
 
 #include <gtc/type_ptr.hpp>
 #include <json.hpp>

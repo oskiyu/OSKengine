@@ -6,6 +6,7 @@
 #include "HashMap.hpp"
 #include "PipelineCreateInfo.h"
 #include "MaterialLayout.h"
+#include "VertexInfo.h"
 
 namespace OSK::GRAPHICS {
 
@@ -28,7 +29,7 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// <param name="pipelineInfo">Información de las características del graphics pipeline.</param>
 		/// <param name="layout">Layout del material. Este material será el dueño del layout.</param>
-		Material(const GRAPHICS::PipelineCreateInfo& pipelineInfo, OwnedPtr<MaterialLayout> layout);
+		Material(const GRAPHICS::PipelineCreateInfo& pipelineInfo, OwnedPtr<MaterialLayout> layout, const VertexInfo& vertexInfo);
 		~Material();
 
 		const MaterialLayout* GetLayout() const;
@@ -61,6 +62,11 @@ namespace OSK::GRAPHICS {
 
 		UniquePtr<MaterialLayout> layout;
 		HashMap<const GRAPHICS::IRenderpass*, OwnedPtr<GRAPHICS::IGraphicsPipeline>> graphicsPipelines;
+
+		/// <summary>
+		/// Información del vértice para generar los pipelines.
+		/// </summary>
+		const VertexInfo vertexInfo;
 
 	};
 

@@ -13,7 +13,6 @@
 #include "RenderpassOgl.h"
 #include "RenderpassType.h"
 #include "Color.hpp"
-#include "VertexOgl.h"
 #include "GraphicsPipelineOgl.h"
 #include "GpuVertexBufferOgl.h"
 #include "GpuIndexBufferOgl.h"
@@ -68,10 +67,10 @@ OwnedPtr<IMaterialSlot> RendererOgl::_CreateMaterialSlot(const std::string& name
 	return nullptr;
 }
 
-OwnedPtr<IGraphicsPipeline> RendererOgl::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
+OwnedPtr<IGraphicsPipeline> RendererOgl::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo vertexInfo) {
 	GraphicsPipelineOgl* pipeline = new GraphicsPipelineOgl();
 
-	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo);
+	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
 
 	return pipeline;
 }

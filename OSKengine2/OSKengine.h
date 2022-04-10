@@ -56,6 +56,7 @@ namespace OSK {
 		static void RegisterBuiltinAssets();
 		static void RegisterBuiltinComponents();
 		static void RegisterBuiltinSystems();
+		static void RegisterBuiltinVertices();
 
 		static UniquePtr<IO::Logger> logger;
 		static UniquePtr<IO::Window> window;

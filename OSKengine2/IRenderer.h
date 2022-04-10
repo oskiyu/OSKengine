@@ -30,6 +30,7 @@ namespace OSK::GRAPHICS {
 	struct PipelineCreateInfo;
 	class IGraphicsPipeline;
 	class GpuImage;
+	class VertexInfo;
 
 	enum class RenderApiType;
 	enum class GpuImageLayout;
@@ -118,7 +119,7 @@ namespace OSK::GRAPHICS {
 		/// <param name="pipelineInfo">Configuración del pipeline.</param>
 		/// <param name="layout">Layout del material del pipeline.</param>
 		/// <param name="renderpass">Renderpass al que estará enlazado el pipeline.</param>
-		virtual OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) = 0;
+		virtual OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo vertexInfo) = 0;
 
 		/// <summary>
 		/// Devuelve el sistema de materiales.

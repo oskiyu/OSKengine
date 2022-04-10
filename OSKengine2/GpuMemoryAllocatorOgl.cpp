@@ -7,7 +7,6 @@
 #include "GpuIndexBufferOgl.h"
 
 #include <glad/glad.h>
-#include "VertexOgl.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -17,12 +16,12 @@ GpuMemoryAllocatorOgl::GpuMemoryAllocatorOgl(IGpu* device)
 
 }
 
-OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorOgl::CreateVertexBuffer(const DynamicArray<Vertex3D>& vertices) {
-	const TSize bufferSize = vertices.GetSize() * sizeof(Vertex3D);
+OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorOgl::CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices) {
+	const TSize bufferSize = numVertices * vertexSize;
 
 	GpuVertexBufferOgl* output = new GpuVertexBufferOgl(nullptr, bufferSize, 0);
 
-	OglVertexBufferHandler bufferHandler = 0; 
+	/*OglVertexBufferHandler bufferHandler = 0;
 	OglVertexBufferHandler viewHandler = 0;
 
 	glGenVertexArrays(1, &viewHandler);
@@ -45,7 +44,7 @@ OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorOgl::CreateVertexBuffer(const Dynam
 	glBindVertexArray(0);
 
 	output->SetBufferHandler(bufferHandler);
-	output->SetViewHandler(viewHandler);
+	output->SetViewHandler(viewHandler);*/
 
 	return output;
 }

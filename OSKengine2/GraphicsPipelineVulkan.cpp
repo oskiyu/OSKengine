@@ -5,11 +5,63 @@
 #include "GpuVulkan.h"
 #include "PipelineCreateInfo.h"
 #include "RenderpassVulkan.h"
-#include "VertexVulkan.h"
 #include "PipelineLayoutVulkan.h"
+#include "VertexInfo.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
+
+VkVertexInputBindingDescription GetBindingDescription(const VertexInfo& info) {
+	VkVertexInputBindingDescription bindingDescription{};
+
+	TSize size = 0;
+	for (const auto& i : info.entries)
+		size += i.size;
+
+	bindingDescription.binding = 0;
+	bindingDescription.stride = size;
+	bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+
+	return bindingDescription;
+}
+
+VkFormat GetVertexAttribFormat(const VertexInfo::Entry& entry) {
+	switch (entry.type) {
+
+	case VertexInfo::Entry::Type::INT:
+		if (entry.size == 2 * sizeof(int)) return VK_FORMAT_R32G32_SINT;
+		if (entry.size == 3 * sizeof(int)) return VK_FORMAT_R32G32B32_SINT;
+		if (entry.size == 4 * sizeof(int)) return VK_FORMAT_R32G32B32A32_SINT;
+
+	case VertexInfo::Entry::Type::FLOAT:
+		if (entry.size == 2 * sizeof(float)) return VK_FORMAT_R32G32_SFLOAT;
+		if (entry.size == 3 * sizeof(float)) return VK_FORMAT_R32G32B32_SFLOAT;
+		if (entry.size == 4 * sizeof(float)) return VK_FORMAT_R32G32B32A32_SFLOAT;
+	}
+
+	OSK_ASSERT(false, "Formato de vértice incorecto.");
+	return VK_FORMAT_MAX_ENUM;
+}
+
+DynamicArray<VkVertexInputAttributeDescription> GetAttributeDescription(const VertexInfo& info) {
+	DynamicArray<VkVertexInputAttributeDescription> output;
+
+	TSize offset = 0;
+	for (TSize i = 0; i < info.entries.GetSize(); i++) {
+		VkVertexInputAttributeDescription desc{};
+
+		desc.binding = 0;
+		desc.location = i;
+		desc.offset = offset;
+		desc.format = GetVertexAttribFormat(info.entries.At(i));
+		
+		output.Insert(desc);
+
+		offset += info.entries.At(i).size;
+	}
+
+	return output;
+}
 
 VkPipelineColorBlendAttachmentState GetColorBlendInfo(const PipelineCreateInfo& info) {
 	VkPipelineColorBlendAttachmentState output{};
@@ -138,7 +190,7 @@ GraphicsPipelineVulkan::~GraphicsPipelineVulkan() {
 		pipeline, nullptr);
 }
 
-void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info) {
+void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) {
 	gpu = device;
 
 	layout = new PipelineLayoutVulkan(materialLayout);
@@ -153,8 +205,8 @@ void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* 
 	inputAssemblyInfo.primitiveRestartEnable = VK_FALSE;
 
 	// Vertex
-	VkVertexInputBindingDescription vertexBindingDesc = GetBindingDescription_Vertex3D();
-	DynamicArray<VkVertexInputAttributeDescription> vertexAttribDescription = GetAttributeDescription_Vertex3D();
+	VkVertexInputBindingDescription vertexBindingDesc = GetBindingDescription(vertexInfo);
+	DynamicArray<VkVertexInputAttributeDescription> vertexAttribDescription = GetAttributeDescription(vertexInfo);
 
 	VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
 	vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;

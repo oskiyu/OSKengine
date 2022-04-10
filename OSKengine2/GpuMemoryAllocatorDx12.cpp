@@ -30,13 +30,13 @@ OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorDx12::CreateStagingBuffer(TSize size) 
 		GpuBufferUsage::TRANSFER_SOURCE, GpuSharedMemoryType::GPU_AND_CPU)->GetNextMemorySubblock(size), size, 0);
 }
 
-OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorDx12::CreateVertexBuffer(const DynamicArray<Vertex3D>& vertices) {
-	const TSize bufferSize = vertices.GetSize() * sizeof(Vertex3D);
+OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorDx12::CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices) {
+	const TSize bufferSize = numVertices * vertexSize;
 	auto block = GetNextBufferMemoryBlock(bufferSize, GpuBufferUsage::VERTEX_BUFFER, GpuSharedMemoryType::GPU_ONLY);
 
 	GpuDataBuffer* stagingBuffer = CreateStagingBuffer(bufferSize).GetPointer();
 	stagingBuffer->MapMemory();
-	stagingBuffer->Write(vertices.GetData(), bufferSize);
+	stagingBuffer->Write(data, bufferSize);
 	stagingBuffer->Unmap();
 
 	GpuVertexBufferDx12* output = new GpuVertexBufferDx12(block->GetNextMemorySubblock(bufferSize), bufferSize, 0);
@@ -65,7 +65,7 @@ OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorDx12::CreateVertexBuffer(const Dyna
 
 	singleTimeCommandList->RegisterStagingBuffer(stagingBuffer);
 
-	output->SetView(sizeof(Vertex3D), vertices.GetSize());
+	output->SetView(vertexSize, numVertices);
 
 	return output;
 }

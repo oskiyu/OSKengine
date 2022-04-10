@@ -129,10 +129,10 @@ OwnedPtr<IRenderpass> RendererDx12::CreateSecondaryRenderpass(GpuImage* targetIm
 	return output;
 }
 
-OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
+OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo vertexInfo) {
 	GraphicsPipelineDx12* pipeline = new GraphicsPipelineDx12();
 
-	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo);
+	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
 
 	return pipeline;
 }

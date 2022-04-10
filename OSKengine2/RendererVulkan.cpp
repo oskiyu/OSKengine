@@ -118,10 +118,10 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	isOpen = true;
 }
 
-OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass) {
+OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo vertexInfo) {
 	GraphicsPipelineVulkan* pipeline = new GraphicsPipelineVulkan(renderpass->As<RenderpassVulkan>());
 
-	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo);
+	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
 
 	return pipeline;
 }

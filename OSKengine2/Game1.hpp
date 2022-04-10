@@ -34,6 +34,7 @@
 #include "Format.h"
 #include "GpuMemoryTypes.h"
 #include "GpuImageLayout.h"
+#include "Vertex2D.h"
 
 OSK::GRAPHICS::Material* skyboxMaterial = nullptr;
 OSK::GRAPHICS::MaterialInstance* skyboxMaterialInstance = nullptr;
@@ -55,6 +56,20 @@ protected:
 
 	void SetupEngine() override {
 		OSK::Engine::GetRenderer()->Initialize("Game", {}, *OSK::Engine::GetWindow());
+
+		OSK::DynamicArray<OSK::GRAPHICS::Vertex2D> vertices2d = {
+			{ { 0, 0 }, { 0, 0 } },
+			{ { 0, 1 }, { 0, 1 } },
+			{ { 1, 0 }, { 1, 0 } },
+			{ { 1, 1 }, { 1, 1 } }
+		};
+
+		OSK::DynamicArray<OSK::GRAPHICS::TIndexSize> indices2d = {
+			0, 1, 2, 1, 2, 3
+		};
+
+		OSK::GRAPHICS::Vertex2D::globalVertexBuffer = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateVertexBuffer(vertices2d).GetPointer();
+		OSK::GRAPHICS::Vertex2D::globalIndexBuffer = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateIndexBuffer(indices2d).GetPointer();
 	}
 
 	void OnCreate() override {
@@ -178,7 +193,6 @@ protected:
 		commandList->BindVertexBuffer(cubemapModel->GetVertexBuffer());
 		commandList->BindIndexBuffer(cubemapModel->GetIndexBuffer());
 		commandList->DrawSingleInstance(cubemapModel->GetIndexCount());
-
 	}
 
 	void OnExit() override {

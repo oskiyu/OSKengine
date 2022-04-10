@@ -43,6 +43,8 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	std::string vertexPath;
 	std::string fragmentPath;
 
+	VertexInfo vertexType;
+
 	// Material file.
 	nlohmann::json materialInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(path));
 	{
@@ -77,6 +79,8 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 
 			layout->AddPushConstant(pushConst);
 		}
+
+		vertexType = vertexTypesTable.Get(materialInfo["vertex_type"]);
 	}
 
 	// Shader file.
@@ -170,7 +174,7 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 		}
 	}
 
-	auto output = new Material(info, layout);
+	auto output = new Material(info, layout, vertexType);
 
 	materials.Insert(output);
 	for (auto& i : registeredRenderpasses)

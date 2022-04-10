@@ -17,7 +17,7 @@ namespace OSK::GRAPHICS {
 		GraphicsPipelineVulkan(RenderpassVulkan* renderpass);
 		~GraphicsPipelineVulkan();
 
-		void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info) override;
+		void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) override;
 
 		VkPipeline GetPipeline() const;
 

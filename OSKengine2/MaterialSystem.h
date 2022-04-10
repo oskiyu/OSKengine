@@ -5,6 +5,7 @@
 #include "LinkedList.hpp"
 #include "HashMap.hpp"
 #include "OwnedPtr.h"
+#include "VertexInfo.h"
 
 #include <string>
 
@@ -39,10 +40,21 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		void UnregisterRenderpass(const IRenderpass* renderpass);
 
+		/// <summary>
+		/// Registra un nuevo tipo de vértice, para que puedan crearse 
+		/// materiales para él.
+		/// La clase 'T' debe tener implementado OSK_REG_VERTEX_TYPE de manera correcta.
+		/// </summary>
+		/// <typeparam name="T">Tipo de vértice.</typeparam>
+		template <typename T> void RegisterVertexType() {
+			vertexTypesTable.Insert(T::GetVertexTypeName(), T::GetVertexInfo());
+		}
+
 	private:
 
 		LinkedList<OwnedPtr<Material>> materials;
 		HashMap<std::string, Material*> materialsTable;
+		HashMap<std::string, VertexInfo> vertexTypesTable;
 		DynamicArray<const IRenderpass*> registeredRenderpasses;
 
 	};
