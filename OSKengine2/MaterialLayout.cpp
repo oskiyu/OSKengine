@@ -9,12 +9,10 @@ void MaterialLayout::AddSlot(const MaterialLayoutSlot& slot) {
 }
 
 void MaterialLayout::AddPushConstant(MaterialLayoutPushConstant pushConstant) {
-	static TSize accumulatedOffset = 0;
-
-	pushConstant.offset = accumulatedOffset;
+	pushConstant.offset = accumulatedPushConstOffset;
 	pushConstants.Insert(pushConstant.name, pushConstant);
 
-	accumulatedOffset += pushConstant.size;
+	accumulatedPushConstOffset += pushConstant.size;
 }
 
 MaterialLayoutSlot& MaterialLayout::GetSlot(const std::string& name) const {

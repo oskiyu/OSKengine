@@ -22,6 +22,18 @@ INFO: Creado el asignador de memoria de la GPU.
 INFO: 	Adquiridas las imágenes del swapchain.
 INFO: 	Adquiridas las views del swapchain.
 INFO: Creado correctamente el swapchain.
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
 INFO: Destruyendo el renderizador de Vulkan.
 INFO: Cerrado el log.
 

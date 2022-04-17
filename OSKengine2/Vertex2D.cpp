@@ -2,9 +2,6 @@
 
 using namespace OSK::GRAPHICS;
 
-IGpuVertexBuffer* Vertex2D::globalVertexBuffer = nullptr;
-IGpuIndexBuffer* Vertex2D::globalIndexBuffer = nullptr;
-
 const VertexInfo Vertex2D::GetVertexInfo() {
 	VertexInfo info{};
 

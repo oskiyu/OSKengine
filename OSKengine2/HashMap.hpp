@@ -150,6 +150,19 @@ namespace OSK {
 			}
 		}
 
+		void Insert(const TKey& key, TValue&& value) {
+			auto pair = FindPair(key);
+			if (pair)
+				pair->second = value;
+			else {
+				auto hash = ConvertHash(Hash(key));
+				buckets[hash].Insert(TPair(key, value));
+				occupiedBuckets.SetTrue(hash);
+
+				size++;
+			}
+		}
+
 		void Remove(const TKey& key) {
 			KeySearchResult result = _FindKey(key);
 

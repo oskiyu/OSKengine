@@ -8,22 +8,22 @@ const VertexInfo Vertex3D::GetVertexInfo() {
 	info.entries.Insert({
 		sizeof(Vertex3D::position),
 		VertexInfo::Entry::Type::FLOAT,
-		"position" });
+		"POSITION" });
 
 	info.entries.Insert({
 		sizeof(Vertex3D::normal),
 		VertexInfo::Entry::Type::FLOAT,
-		"normal" });
+		"NORMAL" });
 
 	info.entries.Insert({
 		sizeof(Vertex3D::color),
 		VertexInfo::Entry::Type::FLOAT,
-		"color" });
+		"COLOR" });
 
 	info.entries.Insert({
 		sizeof(Vertex3D::texCoords),
 		VertexInfo::Entry::Type::FLOAT,
-		"texCoord" });
+		"TEXCOORD" });
 
 	return info;
 }

@@ -74,9 +74,9 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 				sampler.ShaderVisibility = GetShaderStageDx12(set.stage);
 
 				sampler.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;
-				sampler.AddressU = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
-				sampler.AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
-				sampler.AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
+				sampler.AddressU = D3D12_TEXTURE_ADDRESS_MODE_MIRROR;
+				sampler.AddressV = D3D12_TEXTURE_ADDRESS_MODE_MIRROR;
+				sampler.AddressW = D3D12_TEXTURE_ADDRESS_MODE_MIRROR;
 				sampler.MipLODBias = 0;
 				sampler.MaxAnisotropy = 16;
 				sampler.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;

@@ -18,10 +18,13 @@
 #include "IGpuMemoryAllocator.h"
 #include "EntityComponentSystem.h"
 #include "Transform3D.h"
+#include "Transform2D.h"
 #include "Model3D.h"
 #include "ModelComponent3D.h"
 #include "CameraComponent3D.h"
+#include "CameraComponent2D.h"
 #include "KeyboardState.h"
+#include "SpriteComponent.h"
 #include "MouseState.h"
 #include "MouseModes.h"
 #include "Mesh3D.h"
@@ -35,14 +38,15 @@
 #include "GpuMemoryTypes.h"
 #include "GpuImageLayout.h"
 #include "Vertex2D.h"
+#include "Sprite.h"
+#include "PushConst2D.h"
+#include <ext\matrix_clip_space.hpp>
 
 OSK::GRAPHICS::Material* skyboxMaterial = nullptr;
+OSK::GRAPHICS::Material* material2d = nullptr;
 OSK::GRAPHICS::MaterialInstance* skyboxMaterialInstance = nullptr;
 OSK::ASSETS::CubemapTexture* cubemap = nullptr;
 OSK::ASSETS::Model3D* cubemapModel = nullptr;
-
-OSK::GRAPHICS::GpuImage* renderpassImage = nullptr;
-OSK::GRAPHICS::IRenderpass* renderpass = nullptr;
 
 class Game1 : public OSK::IGame {
 
@@ -68,17 +72,18 @@ protected:
 			0, 1, 2, 1, 2, 3
 		};
 
-		OSK::GRAPHICS::Vertex2D::globalVertexBuffer = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateVertexBuffer(vertices2d).GetPointer();
-		OSK::GRAPHICS::Vertex2D::globalIndexBuffer = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateIndexBuffer(indices2d).GetPointer();
+		OSK::GRAPHICS::Sprite::globalVertexBuffer = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateVertexBuffer(vertices2d).GetPointer();
+		OSK::GRAPHICS::Sprite::globalIndexBuffer = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateIndexBuffer(indices2d).GetPointer();
 	}
 
 	void OnCreate() override {
 		// Material load
 		OSK::GRAPHICS::Material* material = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material.json");
+		material2d = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json");
 		OSK::ASSETS::Texture* texture = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Texture>("Resources/Assets/texture0.json", "GLOBAL");
 
 		uniformBuffer = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
-
+		
 		OSK::ASSETS::Model3D* model = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Model3D>("Resources/Assets/f1.json", "GLOBAL");
 		OSK::ASSETS::Model3D* model_low = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Model3D>("Resources/Assets/f1_low.json", "GLOBAL");
 
@@ -138,9 +143,18 @@ protected:
 		skyboxMaterialInstance->GetSlot("global")->SetGpuImage("cubemap", cubemap->GetGpuImage());
 		skyboxMaterialInstance->GetSlot("global")->FlushUpdate();
 
-		renderpassImage = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ 1920, 1080, 1 }, OSK::GRAPHICS::GpuImageDimension::d2D,
-			1, OSK::GRAPHICS::Format::RGBA8_UNORM, OSK::GRAPHICS::GpuImageUsage::COLOR | OSK::GRAPHICS::GpuImageUsage::SAMPLED, OSK::GRAPHICS::GpuSharedMemoryType::GPU_ONLY, 1).GetPointer();
-		renderpass = OSK::Engine::GetRenderer()->CreateSecondaryRenderpass(renderpassImage).GetPointer();
+		cameraObject2d = OSK::Engine::GetEntityComponentSystem()->SpawnObject();
+		auto& camera2D = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::CameraComponent2D>(cameraObject2d, {});
+		OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::Transform2D>(cameraObject2d, { cameraObject2d });
+		camera2D.LinkToWindow(OSK::Engine::GetWindow());
+
+		spriteObject = OSK::Engine::GetEntityComponentSystem()->SpawnObject();
+		auto& comp = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::SpriteComponent>(spriteObject, {});
+		auto& tr2d = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::Transform2D>(spriteObject, { cameraObject2d });
+		tr2d.SetScale({ 100, 120 });
+		comp.SetMaterialInstance(material2d->CreateInstance().GetPointer());
+		comp.SetCamera(camera2D);
+		comp.SetTexture(texture);
 	}
 
 	void OnTick(TDeltaTime deltaTime) override {
@@ -183,6 +197,10 @@ protected:
 		uniformBuffer->Write(camera.GetViewMatrix());
 		uniformBuffer->Write(cameraTransform.GetPosition());
 		uniformBuffer->Unmap();
+
+		OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::CameraComponent2D>(cameraObject2d).UpdateUniformBuffer(
+			OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform2D>(cameraObject2d)
+		);
 	}
 
 	void OnRender() override {
@@ -199,8 +217,6 @@ protected:
 		uniformBuffer.Delete();
 
 		delete skyboxMaterialInstance;
-		delete renderpass;
-		delete renderpassImage;
 	}
 
 private:
@@ -208,6 +224,8 @@ private:
 	OSK::ECS::GameObjectIndex ballObject = OSK::ECS::EMPTY_GAME_OBJECT;
 	OSK::ECS::GameObjectIndex smallBallObject = OSK::ECS::EMPTY_GAME_OBJECT;
 	OSK::ECS::GameObjectIndex cameraObject = OSK::ECS::EMPTY_GAME_OBJECT;
+	OSK::ECS::GameObjectIndex spriteObject = OSK::ECS::EMPTY_GAME_OBJECT;
+	OSK::ECS::GameObjectIndex cameraObject2d = OSK::ECS::EMPTY_GAME_OBJECT;
 
 	OSK::UniquePtr<OSK::GRAPHICS::IGpuUniformBuffer> uniformBuffer;
 

@@ -9,13 +9,13 @@
 #include "Format.h"
 #include "FormatDx12.h"
 #include "VertexInfo.h"
+#include "LinkedList.hpp"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 struct InputLayoutDescDx12 {
 	DynamicArray<D3D12_INPUT_ELEMENT_DESC> inputElements;
-	D3D12_INPUT_LAYOUT_DESC desc{};
 	DynamicArray<std::string> stringNames;
 };
 
@@ -48,15 +48,17 @@ DXGI_FORMAT GetVertexAttribFormatDx12(const VertexInfo::Entry& entry) {
 	return DXGI_FORMAT_UNKNOWN;
 }
 
-D3D12_INPUT_LAYOUT_DESC GetInputLayoutDescDx12(const VertexInfo& info) {
+InputLayoutDescDx12 GetInputLayoutDescDx12(const VertexInfo& info) {
 	InputLayoutDescDx12 output{};
 
 	TSize offset = 0;
 	for (TSize i = 0; i < info.entries.GetSize(); i++) {
 		const VertexInfo::Entry& entry = info.entries.At(i);
 
+		output.stringNames.Insert(entry.name);
+
 		D3D12_INPUT_ELEMENT_DESC desc = {
-			entry.name.c_str(),
+			NULL,
 			0,
 			GetVertexAttribFormatDx12(entry),
 			0,
@@ -66,18 +68,11 @@ D3D12_INPUT_LAYOUT_DESC GetInputLayoutDescDx12(const VertexInfo& info) {
 		};
 
 		output.inputElements.Insert(desc);
-		output.stringNames.Insert(entry.name);
 
 		offset += info.entries.At(i).size;
 	}
 
-	D3D12_INPUT_LAYOUT_DESC inputLayout{};
-	inputLayout.NumElements = output.inputElements.GetSize();
-	inputLayout.pInputElementDescs = output.inputElements.GetData();
-
-	output.desc = inputLayout;
-
-	return inputLayout;
+	return output;
 }
 
 
@@ -123,7 +118,15 @@ void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* de
 	layout = new PipelineLayoutDx12(materialLayout);
 	
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC createInfo{};
-	createInfo.InputLayout = GetInputLayoutDescDx12(vertexInfo);
+
+	auto layoutDesc = GetInputLayoutDescDx12(vertexInfo);
+	for (TSize i = 0; i < layoutDesc.inputElements.GetSize(); i++)
+		layoutDesc.inputElements.At(i).SemanticName = layoutDesc.stringNames.At(i).c_str();
+	D3D12_INPUT_LAYOUT_DESC inputLayout{};
+	inputLayout.NumElements = layoutDesc.inputElements.GetSize();
+	inputLayout.pInputElementDescs = layoutDesc.inputElements.GetData();
+
+	createInfo.InputLayout = inputLayout;
 
 	LoadVertexShader(info.vertexPath);
 	LoadFragmentShader(info.fragmentPath);
@@ -220,8 +223,8 @@ D3D12_BLEND_DESC GraphicsPipelineDx12::GetBlendDesc(const PipelineCreateInfo& in
 	desc.IndependentBlendEnable = FALSE;
 
 	const static D3D12_RENDER_TARGET_BLEND_DESC DefaultRenderTargetBlendDesc = {
-	  FALSE,FALSE,
-	  D3D12_BLEND_ONE, D3D12_BLEND_ZERO, D3D12_BLEND_OP_ADD,
+	  TRUE, FALSE,
+	  D3D12_BLEND_SRC_ALPHA, D3D12_BLEND_INV_SRC_ALPHA, D3D12_BLEND_OP_ADD,
 	  D3D12_BLEND_ONE, D3D12_BLEND_ZERO, D3D12_BLEND_OP_ADD,
 	  D3D12_LOGIC_OP_NOOP,
 	  D3D12_COLOR_WRITE_ENABLE_ALL,

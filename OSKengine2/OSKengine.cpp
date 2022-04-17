@@ -19,7 +19,11 @@
 #include "Vertex2D.h"
 #include "Vertex3D.h"
 #include "MaterialSystem.h"
+#include "RenderSystem2D.h"
 #include "IGpuMemoryAllocator.h"
+#include "CameraComponent2D.h"
+#include "SpriteComponent.h"
+#include "Transform2D.h"
 
 #include <GLFW/glfw3.h>
 #undef GetCurrentTime;
@@ -94,10 +98,14 @@ void Engine::RegisterBuiltinComponents() {
 	entityComponentSystem->RegisterComponent<ECS::Transform3D>();
 	entityComponentSystem->RegisterComponent<ECS::ModelComponent3D>();
 	entityComponentSystem->RegisterComponent<ECS::CameraComponent3D>();
+	entityComponentSystem->RegisterComponent<ECS::SpriteComponent>();
+	entityComponentSystem->RegisterComponent<ECS::CameraComponent2D>();
+	entityComponentSystem->RegisterComponent<ECS::Transform2D>();
 }
 
 void Engine::RegisterBuiltinSystems() {
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem3D>();
+	entityComponentSystem->RegisterSystem<ECS::RenderSystem2D>();
 }
 
 void Engine::RegisterBuiltinVertices() {

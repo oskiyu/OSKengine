@@ -112,13 +112,17 @@ void Transform3D::UpdateModel() {
 	//Obtener posición final.
 	globalPosition = Vector3f(matrix * glm::vec4(0, 0, 0, 1));
 
+	DynamicArray<GameObjectIndex> childrenToRemove;
 	for (TSize i = 0; i < childTransforms.GetSize(); i++) {
 		Transform3D& child = GetEcs()->GetComponent<Transform3D>(childTransforms[i]);
 		if (child.parent == owner)
 			child.UpdateModel();
 		else
-			childTransforms.Remove(child.owner);
+			childrenToRemove.Push(child.owner);
 	}
+
+	for (const auto& i : childrenToRemove)
+		childTransforms.Remove(i);
 }
 
 Vector3f Transform3D::GetPosition() const {

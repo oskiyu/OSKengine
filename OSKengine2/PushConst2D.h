@@ -7,8 +7,9 @@ namespace OSK::GRAPHICS {
 
 	struct PushConst2D {
 
-		alignas(16) Vector4f texCoords;
+		alignas(16) glm::mat4 matrix;
 		alignas(16) Color color;
+		alignas(16) Vector4f texCoords;
 
 	};
 

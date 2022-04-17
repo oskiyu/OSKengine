@@ -71,6 +71,27 @@ namespace OSK::ECS {
 		}
 
 		/// <summary>
+		/// Añade el componente dado al objeto.
+		/// </summary>
+		/// <typeparam name="TComponent">Tipo de componente.</typeparam>
+		/// <param name="obj">ID del objeto al que se va a añadir..</param>
+		/// <param name="component">Componente a añadir.</param>
+		template <typename TComponent> TComponent& AddComponent(GameObjectIndex obj, TComponent&& component) {
+			OSK_ASSERT(!ObjectHasComponent<TComponent>(obj), "El objeto " + std::to_string(obj) + " ya tiene el componente " + TComponent::GetComponentTypeName() + ".");
+
+			auto& oComponent = componentManager->AddComponentMove<TComponent>(obj, std::move(component));
+
+			// Cambio de signature del objeto.
+			Signature signature = gameObjectManager->GetSignature(obj);
+			signature.SetTrue(componentManager->GetComponentType<TComponent>());
+			gameObjectManager->SetSignature(obj, signature);
+
+			systemManager->GameObjectSignatureChanged(obj, signature);
+
+			return oComponent;
+		}
+
+		/// <summary>
 		/// Comprueba si el objeto dado tiene añadido un componente del tipo dado.
 		/// </summary>
 		template <typename TComponent> bool ObjectHasComponent(GameObjectIndex obj) const {

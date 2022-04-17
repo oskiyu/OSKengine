@@ -23,7 +23,13 @@ void CubemapTextureLoader::Load(const std::string& assetFilePath, IAsset** asset
 	// Asset file.
 
 	nlohmann::json assetInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(assetFilePath));
-	
+
+	OSK_ASSERT(assetInfo.contains("file_type"), "Archivo de cubemap incorrecto: no se encuentra 'file_type'.");
+	OSK_ASSERT(assetInfo.contains("spec_ver"), "Archivo de cubemap incorrecto: no se encuentra 'spec_ver'.");
+	OSK_ASSERT(assetInfo.contains("name"), "Archivo de cubemap incorrecto: no se encuentra 'name'.");
+	OSK_ASSERT(assetInfo.contains("asset_type"), "Archivo de cubemap incorrecto: no se encuentra 'asset_type'.");
+	OSK_ASSERT(assetInfo.contains("faces_files"), "Archivo de cubemap incorrecto: no se encuentra 'faces_files'.");
+
 	output->SetName(assetInfo["name"]);
 
 	const static std::string facesNames[] = {
@@ -34,6 +40,10 @@ void CubemapTextureLoader::Load(const std::string& assetFilePath, IAsset** asset
 		"front",
 		"back"
 	};
+
+	for (const auto& i : facesNames) {
+		OSK_ASSERT(assetInfo["faces_files"].contains(i), "Archivo de cubemap incorrecto: no existe '" + i + "'.");
+	}
 
 	// Texture.
 

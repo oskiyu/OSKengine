@@ -7,6 +7,7 @@
 #include "IRenderer.h"
 #include "RenderApiType.h"
 #include "Assert.h"
+#include "RenderSystem2D.h"
 
 using namespace OSK;
 
@@ -48,6 +49,9 @@ void IGame::Run() {
 		OnRender();
 
 		Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->Render(
+			Engine::GetRenderer()->GetCommandList()
+		);
+		Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem2D>()->Render(
 			Engine::GetRenderer()->GetCommandList()
 		);
 		Engine::GetRenderer()->PresentFrame();

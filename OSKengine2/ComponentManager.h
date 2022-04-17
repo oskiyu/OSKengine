@@ -4,6 +4,7 @@
 #include "Component.h"
 #include "HashMap.hpp"
 #include "OwnedPtr.h"
+#include "UniquePtr.hpp"
 
 #include <string>
 
@@ -46,6 +47,14 @@ namespace OSK::ECS {
 		/// <returns>El componente recién añadido.</returns>
 		template <typename TComponent> TComponent& AddComponent(GameObjectIndex obj, const TComponent& component) {
 			return GetComponentContainer<TComponent>()->AddComponent(obj, component);
+		}
+
+		/// <summary>
+		/// Añade el componente dado al GameObject dado.
+		/// </summary>
+		/// <returns>El componente recién añadido.</returns>
+		template <typename TComponent> TComponent& AddComponentMove(GameObjectIndex obj, TComponent&& component) {
+			return GetComponentContainer<TComponent>()->AddComponentMove(obj, std::move(component));
 		}
 
 		/// <summary>

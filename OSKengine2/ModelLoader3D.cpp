@@ -305,6 +305,14 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 
 	// a
 	nlohmann::json assetInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(assetFilePath));
+
+	OSK_ASSERT(assetInfo.contains("file_type"), "Archivo de modelo 3D incorrecto: no se encuentra 'file_type'.");
+	OSK_ASSERT(assetInfo.contains("spec_ver"), "Archivo de modelo 3D incorrecto: no se encuentra 'spec_ver'.");
+	OSK_ASSERT(assetInfo.contains("name"), "Archivo de modelo 3D incorrecto: no se encuentra 'name'.");
+	OSK_ASSERT(assetInfo.contains("asset_type"), "Archivo de modelo 3D incorrecto: no se encuentra 'asset_type'.");
+	OSK_ASSERT(assetInfo.contains("raw_asset_path"), "Archivo de modelo 3D incorrecto: no se encuentra 'faces_files'.");
+	OSK_ASSERT(assetInfo.contains("scale"), "Archivo de modelo 3D incorrecto: no se encuentra 'scale'.");
+
 	std::string texturePath = assetInfo["raw_asset_path"];
 	output->SetName(assetInfo["name"]);
 

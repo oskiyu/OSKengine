@@ -337,6 +337,24 @@
     <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Vertex\Description">
       <UniqueIdentifier>{64f408c8-a7ca-42e0-8d02-d4b4a754e4fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\ECS\Builtin\Transform2D">
+      <UniqueIdentifier>{aa609a7a-4ccf-4580-b62d-141228006644}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\ECS\Builtin\Transform2D">
+      <UniqueIdentifier>{9eafd1bf-ab24-4816-9580-7596d74e4d0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\ECS\Builtin\Camera2D">
+      <UniqueIdentifier>{649be613-3dcc-4be0-af75-d9618a5ed117}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\ECS\Builtin\Camera2D">
+      <UniqueIdentifier>{aeb6b7a0-454e-496e-9f6c-293b0d469c32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\ECS\Builtin\Sprite">
+      <UniqueIdentifier>{01a5d7fb-5548-4b63-b3dc-a906c1927104}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\ECS\Builtin\Sprite">
+      <UniqueIdentifier>{c0cb6ebb-c503-41f5-8542-05861406990f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -656,6 +674,21 @@
     </ClCompile>
     <ClCompile Include="Vertex3D.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Vertex</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform2D.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Transform2D</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraComponent2D.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Camera2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteComponent.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSystem2D.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1111,6 +1144,21 @@
     </ClInclude>
     <ClInclude Include="PushConst2D.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform2D.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Transform2D</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraComponent2D.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Camera2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteComponent.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem2D.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -48,8 +48,13 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	// Material file.
 	nlohmann::json materialInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(path));
 	{
+		OSK_ASSERT(materialInfo.contains("file_type"), "Archivo de material incorrecto: no se encuentra 'file_type'.");
+		OSK_ASSERT(materialInfo.contains("name"), "Archivo de material incorrecto: no se encuentra 'name'.");
+		OSK_ASSERT(materialInfo.contains("shader_file"), "Archivo de material incorrecto: no se encuentra 'shader_file'.");
+		OSK_ASSERT(materialInfo.contains("layout"), "Archivo de material incorrecto: no se encuentra 'layout'.");
+		OSK_ASSERT(materialInfo.contains("vertex_type"), "Archivo de material incorrecto: no se encuentra 'vertex_type'.");
 
-		OSK_ASSERT(materialInfo["file_type"] == "MATERIAL", path + "no es un material.");
+		OSK_ASSERT(materialInfo["file_type"] == "MATERIAL", std::string("Archivo ") + path + "no es un material.");
 		
 		int fileVersion = materialInfo["spec_ver"];
 		std::string materialName = materialInfo["name"];

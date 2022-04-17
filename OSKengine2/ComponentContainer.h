@@ -40,6 +40,22 @@ namespace OSK::ECS {
 		}
 
 		/// <summary>
+		/// Añade un componente asignado al objeto dado.
+		/// </summary>
+		/// <param name="obj">Objeto dueño del componente.</param>
+		/// <param name="component">Componente a añadir.</param>
+		/// <returns>El componente ya añadido.</returns>
+		TComponent& AddComponentMove(GameObjectIndex obj, TComponent&& component) {
+			ComponentIndex componentId = components.GetSize();
+
+			objectToComponent.Insert(obj, componentId);
+			componentToObject.Insert(componentId, obj);
+			components.Insert(std::move(component));
+
+			return GetComponent(obj);
+		}
+
+		/// <summary>
 		/// Elimina el componente cuyo dueño es el dado.
 		/// </summary>
 		/// <param name="obj">Dueño del componente.</param>
