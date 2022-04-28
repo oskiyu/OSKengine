@@ -1,0 +1,4 @@
+<map id="OSK::Color::BLACK" name="OSK::Color::BLACK">
+<area shape="rect" id="node1" title="Color negro. (0.0f, 0.0f, 0.0f)" alt="" coords="5,5,144,32"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_color.html#aced94f7152a9c5e63bfebc382349e8a6" title="Crea una instancia vacía del color." alt="" coords="192,5,319,32"/>
+</map>

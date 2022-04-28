@@ -1,0 +1,12 @@
+<map id="OSK::DynamicArray::CreateResizedArray" name="OSK::DynamicArray::CreateResizedArray">
+<area shape="rect" id="node1" title="Crea un DynamicArray con un número de elementos ya creados e insertados." alt="" coords="1009,104,1157,145"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#a72e81edd358721f159de68f4e61ef786" title="Crea un dispositivo de sincronización GPU &#45; CPU." alt="" coords="764,39,961,80"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#aa66415743a9c4fa79891e6a1aaf11543" title="Devuelve información sobre las colas soportadas por esta GPU." alt="" coords="764,104,961,145"/>
+<area shape="rect" id="node10" href="$class_o_s_k_1_1_i_o_1_1_file_i_o.html#aee26ea7c3ddf90ed6b0c3043f968c9d5" title="Lee un archivo binario." alt="" coords="769,169,957,211"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#ab115168a15873e46b9da9ba3442782c9" title="Crea el swapchain. Obtiene automáticamente el tamaño de las imágenes a partir del tamaño de la ventan..." alt="" coords="519,39,715,80"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#a283ed26207155f91cf2b9c41443ae122" title="Crea una pool de comandos, para poder crear listas de comandos." alt="" coords="519,104,716,145"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#a5a806e010c5e1feabf3cc82ff7ec3d37" title=" " alt="" coords="519,169,716,211"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#a5eed4a14de2b74443b5da96486cbd0d4" title="Recrea el swapchain con el tamaño de la ventana. Para cuando se ha cambiado de tamaño la ventana." alt="" coords="275,39,471,80"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a372f1f09902e5735edb66cf7ed4c1a84" title=" " alt="" coords="15,5,217,47"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a5a9110a4da448f607b783f949fb941d9" title=" " alt="" coords="5,71,227,112"/>
+</map>

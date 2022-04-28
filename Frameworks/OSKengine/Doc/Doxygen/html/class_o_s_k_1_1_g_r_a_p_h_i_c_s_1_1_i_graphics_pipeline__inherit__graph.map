@@ -1,0 +1,6 @@
+<map id="OSK::GRAPHICS::IGraphicsPipeline" name="OSK::GRAPHICS::IGraphicsPipeline">
+<area shape="rect" id="node1" title="El graphics pipeline es el encargado de transformar los modelos 3D en una imagen final...." alt="" coords="322,5,510,141"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12.html" title=" " alt="" coords="5,204,267,311"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_ogl.html" title=" " alt="" coords="291,211,541,303"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan.html" title=" " alt="" coords="566,189,797,325"/>
+</map>

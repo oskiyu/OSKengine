@@ -1,0 +1,7 @@
+<map id="OSK::ECS::Transform3D::ApplyRotation" name="OSK::ECS::Transform3D::ApplyRotation">
+<area shape="rect" id="node1" title="Aplica una rotación al transform." alt="" coords="5,57,172,98"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_quaternion.html#a0cbf0edcbfd33647de6fa20d641d2216" title="Crea un cuaternión a partir del dado." alt="" coords="220,5,403,32"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a5e6b4d0eb8915eefd7bcd0aeaa424163" title="Establece la rotación." alt="" coords="228,57,395,98"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_quaternion.html#ac88cc76e26ff73c65e593e6273c8f4e9" title="Devuelve el cuaternión en formato GLM." alt="" coords="228,123,395,149"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a64ea91f4fb800524683b5f0332e562cb" title="Actualiza la matriz modelo, y la de sus hijos." alt="" coords="451,57,617,98"/>
+</map>

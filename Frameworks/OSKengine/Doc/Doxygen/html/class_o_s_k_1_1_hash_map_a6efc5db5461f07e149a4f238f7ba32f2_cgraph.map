@@ -1,0 +1,7 @@
+<map id="OSK::HashMap::Remove" name="OSK::HashMap::Remove">
+<area shape="rect" id="node1" title="Elimina una pareja. Si no existe la pareja, no ocurre nada." alt="" coords="5,13,172,39"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_bit_set.html#a8cd199b685c32164225ec2e8d1cb0906" title="Establece el valor del bit dado a 0." alt="" coords="220,13,375,39"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_bit_set.html#a6a6452952af49f3f7e15634bef33fde4" title="Establece el valor del bit en la posición dada." alt="" coords="423,13,577,39"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_dynamic_array.html#a9691f5eaf46654d59525c6c342d69cbb" title="Devuelve el elemento en la posición dada." alt="" coords="625,13,787,39"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef" title="Devuelve true si el array se ha inicializado." alt="" coords="835,5,983,47"/>
+</map>

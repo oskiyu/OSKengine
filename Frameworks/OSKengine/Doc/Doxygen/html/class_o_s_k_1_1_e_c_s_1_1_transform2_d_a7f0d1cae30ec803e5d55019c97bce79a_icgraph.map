@@ -1,0 +1,10 @@
+<map id="OSK::ECS::Transform2D::UpdateModel" name="OSK::ECS::Transform2D::UpdateModel">
+<area shape="rect" id="node1" title="Actualiza la matriz modelo, y la de sus hijos." alt="" coords="435,104,601,145"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#ab2b4d541641214df156f56415ae97d13" title="Establece la posición." alt="" coords="220,5,387,47"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#ad0b16b933da9061638161ea51ced132e" title="Establece la rotación del transform." alt="" coords="220,71,387,112"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#a4dacdf71db229722717bc2fe710edc36" title="Establece la escala." alt="" coords="220,136,387,177"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#a9da50f666bba0e2e276bffd09619674d" title="Transform por defecto." alt="" coords="220,201,387,243"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#a6b1e8afc23f34fa726978f2a6ec68448" title="Suma el vector 3D a la posición." alt="" coords="5,5,172,47"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#af00c1ff614688e5186afc380bd165b5d" title="Cambia la rotación del transform." alt="" coords="5,71,172,112"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#af8c561f0e22ce9c48a188e5210af5ec8" title="Suma un vector 3D a la escala." alt="" coords="5,136,172,177"/>
+</map>

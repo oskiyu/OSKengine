@@ -1,0 +1,6 @@
+<map id="OSK::ECS::Transform2D::AddRotation" name="OSK::ECS::Transform2D::AddRotation">
+<area shape="rect" id="node1" title="Cambia la rotación del transform." alt="" coords="5,5,172,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#ad0b16b933da9061638161ea51ced132e" title="Establece la rotación del transform." alt="" coords="220,5,387,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#a7f0d1cae30ec803e5d55019c97bce79a" title="Actualiza la matriz modelo, y la de sus hijos." alt="" coords="435,5,601,47"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90" title="Devuelve el número de elementos almacenados." alt="" coords="649,5,797,47"/>
+</map>

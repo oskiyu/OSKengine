@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/SyncDeviceVulkan.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_sync_device_vulkan_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">SyncDeviceVulkan.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_sync_device_vulkan_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_sync_device_vulkan_8h.html">SyncDeviceVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;vulkan/vulkan.h&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_vulkan_8h.html">GpuVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_swapchain_vulkan_8h.html">SwapchainVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_command_queue_vulkan_8h.html">CommandQueueVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_command_list_vulkan_8h.html">CommandListVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_assert_8h.html">Assert.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="_renderer_vulkan_8h.html">RendererVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_vulkan_8h.html">GpuVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a5682c26691f1c69b02e04d886169ddf1">   16</a></span>SyncDeviceVulkan::~SyncDeviceVulkan() {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> i = 0; i &lt; imageAvailableSemaphores.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90">GetSize</a>(); i++) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordflow">if</span> (imageAvailableSemaphores[i] != VK_NULL_HANDLE) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            vkDestroySemaphore(<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;As&lt;RendererVulkan&gt;()-&gt;GetGpu()-&gt;As&lt;GpuVulkan&gt;()-&gt;GetLogicalDevice(),</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                imageAvailableSemaphores[i], <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            imageAvailableSemaphores[i] = VK_NULL_HANDLE;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        }</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    }</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> i = 0; i &lt; renderFinishedSemaphores.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90">GetSize</a>(); i++) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordflow">if</span> (renderFinishedSemaphores[i] != VK_NULL_HANDLE) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            vkDestroySemaphore(<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;As&lt;RendererVulkan&gt;()-&gt;GetGpu()-&gt;As&lt;GpuVulkan&gt;()-&gt;GetLogicalDevice(),</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                renderFinishedSemaphores[i], <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            renderFinishedSemaphores[i] = VK_NULL_HANDLE;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        }</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    }</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> i = 0; i &lt; inFlightFences.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90">GetSize</a>(); i++) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">if</span> (inFlightFences[i] != VK_NULL_HANDLE) {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            vkDestroyFence(<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;As&lt;RendererVulkan&gt;()-&gt;GetGpu()-&gt;As&lt;GpuVulkan&gt;()-&gt;GetLogicalDevice(),</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                inFlightFences[i], <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            inFlightFences[i] = VK_NULL_HANDLE;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        }</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a84ce5ae7ca644bc63a60a776a419c79e">   42</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a84ce5ae7ca644bc63a60a776a419c79e">SyncDeviceVulkan::SetImageAvailableSemaphores</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;VkSemaphore&gt;</a>&amp; semaphores) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    imageAvailableSemaphores = semaphores;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a9eaebb40f97bf4a1981c083b650451bf">   46</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a9eaebb40f97bf4a1981c083b650451bf">SyncDeviceVulkan::SetRenderFinishedSemaphores</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;VkSemaphore&gt;</a>&amp; semaphores) {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    renderFinishedSemaphores = semaphores;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a67145ae40ed941309d9823566ec535f0">   50</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a67145ae40ed941309d9823566ec535f0">SyncDeviceVulkan::SetInFlightFences</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;VkFence&gt;</a>&amp; fences) {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    inFlightFences = fences;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a6ba441a32cfc266f1fb236fd2e75011d">   54</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a6ba441a32cfc266f1fb236fd2e75011d">SyncDeviceVulkan::SetImagesInFlightFences</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;VkFence&gt;</a>&amp; fences) {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    imagesInFlight = fences;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>}</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a8ff45f255abf7024b032785f9eba31a1">   58</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a8ff45f255abf7024b032785f9eba31a1">SyncDeviceVulkan::SetDevice</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html">GpuVulkan</a>&amp; device) {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    this-&gt;device = &amp;device;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a58729394109ec1d07af9e18adaef53bc">   62</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a58729394109ec1d07af9e18adaef53bc">SyncDeviceVulkan::SetSwapchain</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html">SwapchainVulkan</a>&amp; swapchain) {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    this-&gt;swapchain = <span class="keyword">const_cast&lt;</span><a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html">SwapchainVulkan</a>*<span class="keyword">&gt;</span>(&amp;swapchain);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a74b5441b4ff50c77c6b114a15365fc7a">   66</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a74b5441b4ff50c77c6b114a15365fc7a">SyncDeviceVulkan::FirstAwait</a>() {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    vkWaitForFences(device-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#a9f3d2735d7bb54ecb4056d5284cb686f">GetLogicalDevice</a>(), 1, &amp;inFlightFences[currentFrame], VK_TRUE, UINT64_MAX);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>}</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a5a9110a4da448f607b783f949fb941d9">   70</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a5a9110a4da448f607b783f949fb941d9">SyncDeviceVulkan::UpdateCurrentFrameIndex</a>() {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    VkResult result = vkAcquireNextImageKHR(device-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#a9f3d2735d7bb54ecb4056d5284cb686f">GetLogicalDevice</a>(), swapchain-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#ad1589571a0e00a84e0687f4c9bd82813">GetSwapchain</a>(), UINT64_MAX, imageAvailableSemaphores[currentFrame], VK_NULL_HANDLE, &amp;nextFrame);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">if</span> (imagesInFlight[nextFrame] != VK_NULL_HANDLE)</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        vkWaitForFences(device-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#a9f3d2735d7bb54ecb4056d5284cb686f">GetLogicalDevice</a>(), 1, &amp;imagesInFlight[nextFrame], VK_TRUE, UINT64_MAX);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    imagesInFlight[nextFrame] = inFlightFences[currentFrame];</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordflow">if</span> (result == VK_ERROR_OUT_OF_DATE_KHR) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        swapchain-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#a5eed4a14de2b74443b5da96486cbd0d4">Resize</a>();</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    }</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a372f1f09902e5735edb66cf7ed4c1a84">   86</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a372f1f09902e5735edb66cf7ed4c1a84">SyncDeviceVulkan::Flush</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan.html">CommandQueueVulkan</a>&amp; graphicsQueue, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan.html">CommandQueueVulkan</a>&amp; presentQueue, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html">CommandListVulkan</a>&amp; commandList) {</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    VkSubmitInfo submitInfo{};</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="comment">//Esperar a que la imagen esté disponible antes de renderizar.</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <a class="code hl_typedef" href="_sync_device_vulkan_8h.html#a2e08671f6ab4c3f6b498c7f5ebb81255">VkSemaphore</a> waitSemaphores[] = { imageAvailableSemaphores[currentFrame] };</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keyword">const</span> VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    submitInfo.waitSemaphoreCount = 1;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    submitInfo.pWaitSemaphores = waitSemaphores;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    submitInfo.pWaitDstStageMask = waitStages;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    submitInfo.pSignalSemaphores = &amp;imageAvailableSemaphores[0];</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    submitInfo.signalSemaphoreCount = 1;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    submitInfo.commandBufferCount = 1;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    submitInfo.pCommandBuffers = &amp;commandList.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a222a24c9f23c317f07799ba7cb492595">GetCommandBuffers</a>()[nextFrame];</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="comment">//Semáforos a los que vamos a avisar cuando se termine de renderizar la imagen.</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <a class="code hl_typedef" href="_sync_device_vulkan_8h.html#a2e08671f6ab4c3f6b498c7f5ebb81255">VkSemaphore</a> signalSemaphores[] = { renderFinishedSemaphores[currentFrame] };</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    submitInfo.signalSemaphoreCount = 1;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    submitInfo.pSignalSemaphores = signalSemaphores;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    vkResetFences(device-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#a9f3d2735d7bb54ecb4056d5284cb686f">GetLogicalDevice</a>(), 1, &amp;inFlightFences[currentFrame]);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    VkResult result = vkQueueSubmit(graphicsQueue.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan.html#ab8ce61a5604b9d90ff9246da6b9b11a2">GetQueue</a>(), 1, &amp;submitInfo, inFlightFences[currentFrame]);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <a class="code hl_define" href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a>(result == VK_SUCCESS, <span class="stringliteral">&quot;No se ha podido enviar la cola gráfica.&quot;</span>);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="comment">// ---------------- PRESENT --------------------- //</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="comment">//Presentar la imagen renderizada en la pantalla.</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    VkPresentInfoKHR presentInfo{};</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    presentInfo.waitSemaphoreCount = 1;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    presentInfo.pWaitSemaphores = signalSemaphores;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <a class="code hl_typedef" href="_swapchain_vulkan_8h.html#a7e0743809e381dcc6dc703b13487b4b5">VkSwapchainKHR</a> swapChains[] = { swapchain-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#ad1589571a0e00a84e0687f4c9bd82813">GetSwapchain</a>()};</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    presentInfo.swapchainCount = 1;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    presentInfo.pSwapchains = swapChains;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    presentInfo.pImageIndices = &amp;nextFrame;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    presentInfo.pResults = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    result = vkQueuePresentKHR(presentQueue.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan.html#ab8ce61a5604b9d90ff9246da6b9b11a2">GetQueue</a>(), &amp;presentInfo);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">if</span> (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR)</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        swapchain-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#a5eed4a14de2b74443b5da96486cbd0d4">Resize</a>();</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    vkQueueWaitIdle(presentQueue.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan.html#ab8ce61a5604b9d90ff9246da6b9b11a2">GetQueue</a>());</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    currentFrame = (currentFrame + 1) % swapchain-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a052206c1de590606bfdef279f326d16c">GetImageCount</a>();</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>}</div>
+<div class="ttc" id="a_assert_8h_html"><div class="ttname"><a href="_assert_8h.html">Assert.h</a></div></div>
+<div class="ttc" id="a_assert_8h_html_adfbccaec84df99b8277f9d877554170c"><div class="ttname"><a href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a></div><div class="ttdeci">#define OSK_ASSERT(condition, msg)</div><div class="ttdoc">Comprueba si la condición se cumple. Si no se cumple, muestra un mensaje de error y throwea un error.</div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00064">Assert.h:64</a></div></div>
+<div class="ttc" id="a_command_list_vulkan_8h_html"><div class="ttname"><a href="_command_list_vulkan_8h.html">CommandListVulkan.h</a></div></div>
+<div class="ttc" id="a_command_queue_vulkan_8h_html"><div class="ttname"><a href="_command_queue_vulkan_8h.html">CommandQueueVulkan.h</a></div></div>
+<div class="ttc" id="a_gpu_vulkan_8h_html"><div class="ttname"><a href="_gpu_vulkan_8h.html">GpuVulkan.h</a></div></div>
+<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00015">OSKmacros.h:15</a></div></div>
+<div class="ttc" id="a_renderer_vulkan_8h_html"><div class="ttname"><a href="_renderer_vulkan_8h.html">RendererVulkan.h</a></div></div>
+<div class="ttc" id="a_swapchain_vulkan_8h_html"><div class="ttname"><a href="_swapchain_vulkan_8h.html">SwapchainVulkan.h</a></div></div>
+<div class="ttc" id="a_swapchain_vulkan_8h_html_a7e0743809e381dcc6dc703b13487b4b5"><div class="ttname"><a href="_swapchain_vulkan_8h.html#a7e0743809e381dcc6dc703b13487b4b5">VkSwapchainKHR</a></div><div class="ttdeci">VkSwapchainKHR_T * VkSwapchainKHR</div><div class="ttdef"><b>Definition:</b> <a href="_swapchain_vulkan_8h_source.html#l00008">SwapchainVulkan.h:7</a></div></div>
+<div class="ttc" id="a_sync_device_vulkan_8h_html"><div class="ttname"><a href="_sync_device_vulkan_8h.html">SyncDeviceVulkan.h</a></div></div>
+<div class="ttc" id="a_sync_device_vulkan_8h_html_a2e08671f6ab4c3f6b498c7f5ebb81255"><div class="ttname"><a href="_sync_device_vulkan_8h.html#a2e08671f6ab4c3f6b498c7f5ebb81255">VkSemaphore</a></div><div class="ttdeci">VkSemaphore_T * VkSemaphore</div><div class="ttdef"><b>Definition:</b> <a href="_sync_device_vulkan_8h_source.html#l00010">SyncDeviceVulkan.h:9</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray&lt; VkSemaphore &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a94d0cbf0543d0c976de674d31b15df90"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">TSize GetSize() const noexcept</div><div class="ttdoc">Devuelve el número de elementos almacenados.</div><div class="ttdef"><b>Definition:</b> <a href="_dynamic_array_8hpp_source.html#l00674">DynamicArray.hpp:674</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a019c5397d042224c134b7fd22c739d00"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">OSK::Engine::GetRenderer</a></div><div class="ttdeci">static GRAPHICS::IRenderer * GetRenderer()</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kengine_8cpp_source.html#l00127">OSKengine.cpp:127</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html">OSK::GRAPHICS::CommandListVulkan</a></div><div class="ttdoc">Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución....</div><div class="ttdef"><b>Definition:</b> <a href="_command_list_vulkan_8h_source.html#l00029">CommandListVulkan.h:29</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_html_a222a24c9f23c317f07799ba7cb492595"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a222a24c9f23c317f07799ba7cb492595">OSK::GRAPHICS::CommandListVulkan::GetCommandBuffers</a></div><div class="ttdeci">const DynamicArray&lt; VkCommandBuffer &gt; &amp; GetCommandBuffers() const</div><div class="ttdef"><b>Definition:</b> <a href="_command_list_vulkan_8cpp_source.html#l00028">CommandListVulkan.cpp:28</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan.html">OSK::GRAPHICS::CommandQueueVulkan</a></div><div class="ttdoc">Una cola de comandos almacena todas las listas de comandos que se envían a la GPU.</div><div class="ttdef"><b>Definition:</b> <a href="_command_queue_vulkan_8h_source.html#l00015">CommandQueueVulkan.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan_html_ab8ce61a5604b9d90ff9246da6b9b11a2"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan.html#ab8ce61a5604b9d90ff9246da6b9b11a2">OSK::GRAPHICS::CommandQueueVulkan::GetQueue</a></div><div class="ttdeci">VkQueue GetQueue() const</div><div class="ttdef"><b>Definition:</b> <a href="_command_queue_vulkan_8cpp_source.html#l00010">CommandQueueVulkan.cpp:10</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html">OSK::GRAPHICS::GpuVulkan</a></div><div class="ttdoc">Implementación de la interfaz para el renderizador de Vulkan.</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_vulkan_8h_source.html#l00017">GpuVulkan.h:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_html_a9f3d2735d7bb54ecb4056d5284cb686f"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#a9f3d2735d7bb54ecb4056d5284cb686f">OSK::GRAPHICS::GpuVulkan::GetLogicalDevice</a></div><div class="ttdeci">VkDevice GetLogicalDevice() const</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_vulkan_8cpp_source.html#l00105">GpuVulkan.cpp:105</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_html_a052206c1de590606bfdef279f326d16c"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a052206c1de590606bfdef279f326d16c">OSK::GRAPHICS::ISwapchain::GetImageCount</a></div><div class="ttdeci">unsigned int GetImageCount() const</div><div class="ttdoc">Devuelve el número de imágenes del swapchain.</div><div class="ttdef"><b>Definition:</b> <a href="_i_swapchain_8cpp_source.html#l00006">ISwapchain.cpp:6</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html">OSK::GRAPHICS::SwapchainVulkan</a></div><div class="ttdef"><b>Definition:</b> <a href="_swapchain_vulkan_8h_source.html#l00020">SwapchainVulkan.h:20</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_html_a5eed4a14de2b74443b5da96486cbd0d4"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#a5eed4a14de2b74443b5da96486cbd0d4">OSK::GRAPHICS::SwapchainVulkan::Resize</a></div><div class="ttdeci">void Resize()</div><div class="ttdoc">Recrea el swapchain con el tamaño de la ventana. Para cuando se ha cambiado de tamaño la ventana.</div><div class="ttdef"><b>Definition:</b> <a href="_swapchain_vulkan_8cpp_source.html#l00153">SwapchainVulkan.cpp:153</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_html_ad1589571a0e00a84e0687f4c9bd82813"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#ad1589571a0e00a84e0687f4c9bd82813">OSK::GRAPHICS::SwapchainVulkan::GetSwapchain</a></div><div class="ttdeci">VkSwapchainKHR GetSwapchain() const</div><div class="ttdef"><b>Definition:</b> <a href="_swapchain_vulkan_8cpp_source.html#l00149">SwapchainVulkan.cpp:149</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_html_a372f1f09902e5735edb66cf7ed4c1a84"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a372f1f09902e5735edb66cf7ed4c1a84">OSK::GRAPHICS::SyncDeviceVulkan::Flush</a></div><div class="ttdeci">void Flush(const CommandQueueVulkan &amp;graphicsQueue, const CommandQueueVulkan &amp;presentQueue, const CommandListVulkan &amp;commandList)</div><div class="ttdef"><b>Definition:</b> <a href="_sync_device_vulkan_8cpp_source.html#l00086">SyncDeviceVulkan.cpp:86</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_html_a58729394109ec1d07af9e18adaef53bc"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a58729394109ec1d07af9e18adaef53bc">OSK::GRAPHICS::SyncDeviceVulkan::SetSwapchain</a></div><div class="ttdeci">void SetSwapchain(const SwapchainVulkan &amp;swapchain)</div><div class="ttdef"><b>Definition:</b> <a href="_sync_device_vulkan_8cpp_source.html#l00062">SyncDeviceVulkan.cpp:62</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_html_a5a9110a4da448f607b783f949fb941d9"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a5a9110a4da448f607b783f949fb941d9">OSK::GRAPHICS::SyncDeviceVulkan::UpdateCurrentFrameIndex</a></div><div class="ttdeci">bool UpdateCurrentFrameIndex()</div><div class="ttdef"><b>Definition:</b> <a href="_sync_device_vulkan_8cpp_source.html#l00070">SyncDeviceVulkan.cpp:70</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_html_a67145ae40ed941309d9823566ec535f0"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a67145ae40ed941309d9823566ec535f0">OSK::GRAPHICS::SyncDeviceVulkan::SetInFlightFences</a></div><div class="ttdeci">void SetInFlightFences(const DynamicArray&lt; VkFence &gt; &amp;fences)</div><div class="ttdef"><b>Definition:</b> <a href="_sync_device_vulkan_8cpp_source.html#l00050">SyncDeviceVulkan.cpp:50</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_html_a6ba441a32cfc266f1fb236fd2e75011d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a6ba441a32cfc266f1fb236fd2e75011d">OSK::GRAPHICS::SyncDeviceVulkan::SetImagesInFlightFences</a></div><div class="ttdeci">void SetImagesInFlightFences(const DynamicArray&lt; VkFence &gt; &amp;fences)</div><div class="ttdef"><b>Definition:</b> <a href="_sync_device_vulkan_8cpp_source.html#l00054">SyncDeviceVulkan.cpp:54</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_html_a74b5441b4ff50c77c6b114a15365fc7a"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a74b5441b4ff50c77c6b114a15365fc7a">OSK::GRAPHICS::SyncDeviceVulkan::FirstAwait</a></div><div class="ttdeci">void FirstAwait()</div><div class="ttdef"><b>Definition:</b> <a href="_sync_device_vulkan_8cpp_source.html#l00066">SyncDeviceVulkan.cpp:66</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_html_a84ce5ae7ca644bc63a60a776a419c79e"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a84ce5ae7ca644bc63a60a776a419c79e">OSK::GRAPHICS::SyncDeviceVulkan::SetImageAvailableSemaphores</a></div><div class="ttdeci">void SetImageAvailableSemaphores(const DynamicArray&lt; VkSemaphore &gt; &amp;semaphores)</div><div class="ttdef"><b>Definition:</b> <a href="_sync_device_vulkan_8cpp_source.html#l00042">SyncDeviceVulkan.cpp:42</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_html_a8ff45f255abf7024b032785f9eba31a1"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a8ff45f255abf7024b032785f9eba31a1">OSK::GRAPHICS::SyncDeviceVulkan::SetDevice</a></div><div class="ttdeci">void SetDevice(const GpuVulkan &amp;device)</div><div class="ttdef"><b>Definition:</b> <a href="_sync_device_vulkan_8cpp_source.html#l00058">SyncDeviceVulkan.cpp:58</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_html_a9eaebb40f97bf4a1981c083b650451bf"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a9eaebb40f97bf4a1981c083b650451bf">OSK::GRAPHICS::SyncDeviceVulkan::SetRenderFinishedSemaphores</a></div><div class="ttdeci">void SetRenderFinishedSemaphores(const DynamicArray&lt; VkSemaphore &gt; &amp;semaphores)</div><div class="ttdef"><b>Definition:</b> <a href="_sync_device_vulkan_8cpp_source.html#l00046">SyncDeviceVulkan.cpp:46</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_command_list_dx12_8h_source.html#l00012">CommandListDx12.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00007">Assert.h:7</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_sync_device_vulkan_8cpp.html">SyncDeviceVulkan.cpp</a></li>
+    <li class="footer">Generado el Miércoles, 20 de Abril de 2022 00:28:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

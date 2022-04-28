@@ -1,0 +1,4 @@
+<map id="OSK::ASSETS::Font::_SetFontFilePath" name="OSK::ASSETS::Font::_SetFontFilePath">
+<area shape="rect" id="node1" title="Establece la ruta de la fuente (.tff), para poder generar las fuentes." alt="" coords="236,5,388,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_loader.html#a887f130be7b369e06b8544e5aea6333b" title="Carga el asset." alt="" coords="5,5,188,47"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="OSK::GRAPHICS::RendererDx12::~RendererDx12" name="OSK::GRAPHICS::RendererDx12::~RendererDx12">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,220,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a3ffe7a32d7b6503e007d5aba46b8fc2f" title="Cierra el renderizador. También se llama en el destructor." alt="" coords="268,5,483,47"/>
+</map>

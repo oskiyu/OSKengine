@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::IGpuMemorySubblock::GetAllocatedSize" name="OSK::GRAPHICS::IGpuMemorySubblock::GetAllocatedSize">
+<area shape="rect" id="node1" title=" " alt="" coords="257,63,464,104"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aa198c6e76ed5686635f6bdaad954ec7c" title="Mapea toda la memoria del subbloque." alt="" coords="5,29,209,71"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a00b39c8aa8e563a5d0776edbf06cbd60" title="Establece el UNIFORM BUFFER que será asignado al binding con el nombre dado. Puede usarse esta funció..." alt="" coords="6,95,209,136"/>
+</map>

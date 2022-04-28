@@ -1,0 +1,6 @@
+<map id="OSK::DynamicArray::CreateResizedArray" name="OSK::DynamicArray::CreateResizedArray">
+<area shape="rect" id="node1" title="Crea un DynamicArray con un número de elementos ya creados e insertados." alt="" coords="5,5,153,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_dynamic_array.html#adcbd5bb6ce88469bc9e6f65be06ceae6" title="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda. Se añaden elementos hasta q..." alt="" coords="201,5,349,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_dynamic_array.html#a34323ddf4963e2097def5d8c3f80c08e" title="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda." alt="" coords="397,5,545,47"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_dynamic_array.html#acf322bf27bf4bfd581079500c67171a6" title="Reserva espacio para &#39;size&#39; elementos. Preserva los elementos anteriores." alt="" coords="593,5,741,47"/>
+</map>

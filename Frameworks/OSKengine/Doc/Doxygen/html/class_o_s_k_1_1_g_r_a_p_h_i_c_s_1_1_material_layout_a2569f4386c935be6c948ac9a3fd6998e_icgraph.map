@@ -1,0 +1,6 @@
+<map id="OSK::GRAPHICS::MaterialLayout::GetPushConstant" name="OSK::GRAPHICS::MaterialLayout::GetPushConstant">
+<area shape="rect" id="node1" title="Devuelve el slot push constant con el nombre dado." alt="" coords="452,39,671,80"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#ad39c519e3a5f58cc2a7622ba9b39687a" title="Carga un material." alt="" coords="180,5,404,47"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a33e4345c2ec143c94ea24051cb921949" title="Envía datos push constant al shader." alt="" coords="185,71,399,112"/>
+<area shape="rect" id="node3" href="$class_game1.html#a738ffccb5910f1f15136680903ea4159" title="Función ejecutada al cargar el juego." alt="" coords="5,13,132,39"/>
+</map>

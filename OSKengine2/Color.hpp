@@ -37,14 +37,16 @@ namespace OSK {
 
 		/// <summary>
 		/// Crea una instancia del color con los siguiente parámetros:
-		/// Alpha = 1.0f.
+		/// 
+		/// @note Alpha = 1.0f.
 		/// </summary>
 		/// <param name="value">valor para Red, Green y Blue.</param>
 		Color(float value);
 
 		/// <summary>
 		/// Operación Color * float.
-		/// Sólo se modifica el Alpha.
+		/// 
+		/// @note Sólo se modifica el Alpha.
 		/// </summary>
 		/// <param name="value">Nuevo valor de alfa.</param>
 		/// <returns>Color.</returns>

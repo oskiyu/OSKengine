@@ -1,0 +1,10 @@
+<map id="Game1::OnRender" name="Game1::OnRender">
+<area shape="rect" id="node1" title=" " alt="" coords="5,209,136,235"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a84bcc93817243312ffcc042ca36c3dfb" title="Establece el pipeline que se va a usar a la hora de renderizar los próximos comandos." alt="" coords="190,5,406,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a37d47db030f6723bdce8f43518b611b4" title=" " alt="" coords="204,71,392,112"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a7c1aaf201341a6e0666998cb7b13d98e" title="Devuelve el buffer de la GPU con los índices del modelo." alt="" coords="213,136,383,177"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a88f36a4771a22884eaa3933a9d18ae56" title="Número de índices." alt="" coords="213,201,383,243"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00" title=" " alt="" coords="209,267,387,294"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html#a2d950cd9f0d56de8948e178e3c5cc04e" title="Devuelve el slot con el nombre dado." alt="" coords="184,319,412,360"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#ae71e7cb40f766ce9b5490b22971174ac" title="Devuelve el buffer de la GPU con los vértices del modelo." alt="" coords="213,384,383,425"/>
+</map>

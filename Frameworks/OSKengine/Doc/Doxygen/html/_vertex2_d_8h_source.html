@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/Vertex2D.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_vertex2_d_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Vertex2D.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_vertex2_d_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_vector2_8hpp.html">Vector2.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_vertex_8h.html">Vertex.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_vertex_info_8h.html">VertexInfo.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html">    9</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html">Vertex2D</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html#a7862da785fa05548e6df0050ce7e0152">   10</a></span>        <a class="code hl_function" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html#a7862da785fa05548e6df0050ce7e0152">OSK_VERTEX_TYPE_REG</a>(<span class="stringliteral">&quot;OSK::Vertex2D&quot;</span>);</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html#a83b3e00c33b792e880adbf1f78c22803">   12</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html#a83b3e00c33b792e880adbf1f78c22803">position</a>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html#ad0210491e6d477f2925f593d1d3968ae">   13</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html#ad0210491e6d477f2925f593d1d3968ae">baseTexCoords</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    };</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
+<div class="ttc" id="a_vector2_8hpp_html"><div class="ttname"><a href="_vector2_8hpp.html">Vector2.hpp</a></div></div>
+<div class="ttc" id="a_vertex_8h_html"><div class="ttname"><a href="_vertex_8h.html">Vertex.h</a></div></div>
+<div class="ttc" id="a_vertex_info_8h_html"><div class="ttname"><a href="_vertex_info_8h.html">VertexInfo.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; float_t &gt;</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_command_list_dx12_8h_source.html#l00012">CommandListDx12.h:12</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html">OSK::GRAPHICS::Vertex2D</a></div><div class="ttdef"><b>Definition:</b> <a href="_vertex2_d_8h_source.html#l00009">Vertex2D.h:9</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d_html_a7862da785fa05548e6df0050ce7e0152"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html#a7862da785fa05548e6df0050ce7e0152">OSK::GRAPHICS::Vertex2D::OSK_VERTEX_TYPE_REG</a></div><div class="ttdeci">OSK_VERTEX_TYPE_REG(&quot;OSK::Vertex2D&quot;)</div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d_html_a83b3e00c33b792e880adbf1f78c22803"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html#a83b3e00c33b792e880adbf1f78c22803">OSK::GRAPHICS::Vertex2D::position</a></div><div class="ttdeci">Vector2f position</div><div class="ttdef"><b>Definition:</b> <a href="_vertex2_d_8h_source.html#l00012">Vertex2D.h:12</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d_html_ad0210491e6d477f2925f593d1d3968ae"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html#ad0210491e6d477f2925f593d1d3968ae">OSK::GRAPHICS::Vertex2D::baseTexCoords</a></div><div class="ttdeci">Vector2f baseTexCoords</div><div class="ttdef"><b>Definition:</b> <a href="_vertex2_d_8h_source.html#l00013">Vertex2D.h:13</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_vertex2_d_8h.html">Vertex2D.h</a></li>
+    <li class="footer">Generado el Miércoles, 20 de Abril de 2022 00:28:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+digraph "OSK::GRAPHICS::PushConst2D"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{OSK::GRAPHICS::PushConst2D\n|+ matrix\l|}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Información push constant usada en el sistema de renderizado 2D por defecto."];
+  Node2 -> Node1 [color="grey25",fontsize="10",style="solid",label=" +color" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node2 [label="{OSK::Color\n|+ Red\l+ Green\l+ Blue\l+ Alpha\l|+ Color()\l+ Color()\l+ Color()\l+ Color()\l+ operator*()\l+ ToGlm()\l+ Update()\l+ BLACK()\l+ WHITE()\l+ BLUE()\l+ PURPLE()\l+ RED()\l+ YELLOW()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_color.html",tooltip="Representa un color en formato RGBA."];
+  Node3 -> Node1 [color="grey25",fontsize="10",style="solid",label=" +texCoords" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node3 [label="{OSK::Vector4_t\< float_t \>\n|+ X\l+ Y\l+ Z\l+ W\l|+ Vector4_t()\l+ Vector4_t()\l+ Vector4_t()\l+ Vector4_t()\l+ operator+()\l+ operator+=()\l+ operator-()\l+ operator-()\l+ operator-=()\l+ operator*()\ly 24 más...\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_vector4__t.html",tooltip=" "];
+}

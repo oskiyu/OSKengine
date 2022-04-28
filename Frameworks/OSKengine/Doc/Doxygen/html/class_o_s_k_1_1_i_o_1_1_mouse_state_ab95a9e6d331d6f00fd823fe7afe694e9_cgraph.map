@@ -1,0 +1,5 @@
+<map id="OSK::IO::MouseState::IsButtonUp" name="OSK::IO::MouseState::IsButtonUp">
+<area shape="rect" id="node1" title="Obtiene si un botón no está siendo pulsado." alt="" coords="5,5,155,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_i_o_1_1_mouse_state.html#af0b7921cedc90d38386069181705dfb9" title="Obtiene si un botón está siendo pulsado." alt="" coords="203,5,352,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_i_o_1_1_mouse_state.html#ab81f3eeb6c2c5db16d67dc17012dae40" title="Obtiene el estado de un botón." alt="" coords="400,5,549,47"/>
+</map>

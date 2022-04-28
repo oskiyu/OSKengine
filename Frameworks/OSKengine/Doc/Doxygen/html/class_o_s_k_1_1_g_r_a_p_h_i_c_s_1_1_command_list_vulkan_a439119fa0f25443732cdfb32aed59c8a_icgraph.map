@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::CommandListVulkan::Reset" name="OSK::GRAPHICS::CommandListVulkan::Reset">
+<area shape="rect" id="node1" title="Vacía la lista de comandos." alt="" coords="257,53,471,94"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#aef89e9652f13e27fa5b5940052fce007" title="Crea un buffer de índices con los índices dados." alt="" coords="5,5,209,61"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#a3138abcf254278fc492bd105deba3796" title="Crea un buffer de vértices con los vértices dados." alt="" coords="5,85,209,141"/>
+</map>

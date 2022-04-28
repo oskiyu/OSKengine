@@ -1,0 +1,5 @@
+<map id="OSK::IO::Window::ToggleFullScreen" name="OSK::IO::Window::ToggleFullScreen">
+<area shape="rect" id="node1" title="Cambia el estado de la pantalla completa." alt="" coords="5,5,197,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_i_o_1_1_window.html#a20771b3a4b4192cbb7242fff51be8bdc" title="Establece la ventana en modo pantalla completa (o no)." alt="" coords="245,5,420,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042" title="Devuelve el puntero nativo." alt="" coords="468,13,653,39"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="OSK::ASSETS::CubemapTexture::_SetImage" name="OSK::ASSETS::CubemapTexture::_SetImage">
+<area shape="rect" id="node1" title="Establece la imagen que contiene el cubemap." alt="" coords="269,5,485,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_loader.html#a015b1daa6d8d910f7337bc513c8d3285" title="Carga el asset." alt="" coords="5,5,221,47"/>
+</map>

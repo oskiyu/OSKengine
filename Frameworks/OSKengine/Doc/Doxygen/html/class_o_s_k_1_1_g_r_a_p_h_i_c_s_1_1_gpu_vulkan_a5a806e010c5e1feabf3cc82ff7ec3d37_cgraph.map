@@ -1,0 +1,13 @@
+<map id="OSK::GRAPHICS::GpuVulkan::CreateLogicalDevice" name="OSK::GRAPHICS::GpuVulkan::CreateLogicalDevice">
+<area shape="rect" id="node1" title=" " alt="" coords="5,104,203,145"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_dynamic_array.html#ac8a6d70f938c482e1f7aa68c7d186bb8" title="Devuelve el array original." alt="" coords="275,5,423,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#aa66415743a9c4fa79891e6a1aaf11543" title="Devuelve información sobre las colas soportadas por esta GPU." alt="" coords="251,71,448,112"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90" title="Devuelve el número de elementos almacenados." alt="" coords="275,136,423,177"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_dynamic_array.html#ae8c61261c812df8ed2a69641d49eca5b" title="Inserta un elemento al final del array." alt="" coords="275,201,423,243"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_dynamic_array.html#a6560c13598111f1aa6b53357ae120116" title="Crea un DynamicArray con un número de elementos ya creados e insertados." alt="" coords="496,72,644,113"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_dynamic_array.html#adcbd5bb6ce88469bc9e6f65be06ceae6" title="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda. Se añaden elementos hasta q..." alt="" coords="692,73,840,115"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_dynamic_array.html#a34323ddf4963e2097def5d8c3f80c08e" title="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda." alt="" coords="888,73,1036,115"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_dynamic_array.html#acf322bf27bf4bfd581079500c67171a6" title="Reserva espacio para &#39;size&#39; elementos. Preserva los elementos anteriores." alt="" coords="1084,104,1232,145"/>
+<area shape="rect" id="node10" href="$class_o_s_k_1_1_dynamic_array.html#a270b01e677a57b96f3f0443b3ef9e289" title="Inserta una copia del elemento al final del array." alt="" coords="496,195,644,236"/>
+<area shape="rect" id="node11" href="$class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef" title="Devuelve true si el array se ha inicializado." alt="" coords="692,195,840,236"/>
+</map>

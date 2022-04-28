@@ -1,0 +1,6 @@
+<map id="OSK::GRAPHICS::IRenderer" name="OSK::GRAPHICS::IRenderer">
+<area shape="rect" id="node1" title="Proporciona la interfaz de un renderizador." alt="" coords="252,5,475,508"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html" title="Implementación de la interfaz para el renderizador de DirectX 12." alt="" coords="5,556,228,839"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html" title=" " alt="" coords="252,563,475,831"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html" title="Implementación de la interfaz para el renderizador de Vulkan." alt="" coords="499,556,724,839"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Representación gráfica de la clase" name="Representación gráfica de la clase">
+<area shape="rect" id="node1" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html" title="Representa una región de memoria dedicada a un único recurso." alt="" coords="5,39,212,80"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html" title=" " alt="" coords="260,5,464,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html" title=" " alt="" coords="260,71,464,112"/>
+</map>

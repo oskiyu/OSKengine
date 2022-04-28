@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::CommandListDx12::PushMaterialConstants" name="OSK::GRAPHICS::CommandListDx12::PushMaterialConstants">
+<area shape="rect" id="node1" title="Envía datos push constant al shader." alt="" coords="5,39,219,80"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#a29f2fe999bf8857dbbb65fb73df335ca" title=" " alt="" coords="287,5,465,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a2569f4386c935be6c948ac9a3fd6998e" title="Devuelve el slot push constant con el nombre dado." alt="" coords="267,71,485,112"/>
+</map>

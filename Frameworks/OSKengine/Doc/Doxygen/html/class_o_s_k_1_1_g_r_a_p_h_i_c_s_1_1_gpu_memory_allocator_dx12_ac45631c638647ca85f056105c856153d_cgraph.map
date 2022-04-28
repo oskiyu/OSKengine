@@ -1,0 +1,9 @@
+<map id="OSK::GRAPHICS::GpuMemoryAllocatorDx12::CreateImage" name="OSK::GRAPHICS::GpuMemoryAllocatorDx12::CreateImage">
+<area shape="rect" id="node1" title="Crea una nueva imagen en la GPU." alt="" coords="5,141,209,182"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#a1b0e5d22fed49696034d38442892121c" title="Castea la clase al tipo dado." alt="" coords="278,5,462,32"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#a3b169902dd5b23548da5d10c349a53db" title=" " alt="" coords="258,57,482,98"/>
+<area shape="rect" id="node4" href="$_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e" title=" " alt="" coords="329,123,411,149"/>
+<area shape="rect" id="node5" href="$namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a100a7488e1eee158da65062d0b5e5277" title="Obtiene la representación nativa del formato para DirectX 12." alt="" coords="257,173,483,200"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aeed70f548ec527591047d3bcb3764c0e" title=" " alt="" coords="268,225,472,266"/>
+<area shape="rect" id="node7" href="$namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c" title="Devuelve true si el enum &#39;value&#39; tiene la flag &#39;flag&#39;." alt="" coords="289,291,451,317"/>
+</map>

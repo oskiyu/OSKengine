@@ -1,0 +1,11 @@
+<map id="OSK::Quaternion::FromGlm" name="OSK::Quaternion::FromGlm">
+<area shape="rect" id="node1" title="Crea un cuaternión a partir del dado." alt="" coords="855,46,1037,73"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6c715494afef79663699e2d7db4db29a" title="Aplica una rotación al transform." alt="" coords="640,5,807,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aaf12b490c6875c0308348d203a1656cb" title="Orientación." alt="" coords="640,71,807,112"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a9b390c0ca43ed7f1ff6696b3a98e0e06" title="Devuelve un vector unitario 3D que apunta hacia el frente de la entidad." alt="" coords="425,5,592,47"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#afa8ea01fe8104fcd34cc83e0157dea67" title="Devuelve un vector unitario 3D que apunta hacia la derecha de la entidad." alt="" coords="425,136,592,177"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae1fdf26c51ef096c24769c479c976b45" title="Devuelve un vector unitario 3D que apunta hacia arriba de la entidad." alt="" coords="425,71,592,112"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#a35983e7c4f58880587f5890203a1cdae" title="Obtiene la matriz proyección de la cámara." alt="" coords="167,71,377,112"/>
+<area shape="rect" id="node6" href="$class_game1.html#a0981142b47932b4f5dfac4e1556ba00f" title="Función que se ejecuta cada frame. Para hacer actualización del estado del juego." alt="" coords="5,111,119,138"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#ae67d2d1b0d5bab6065d274cb185f08ef" title="Actualiza el transform de la cámara, para que tenga su rotación." alt="" coords="167,136,377,177"/>
+</map>

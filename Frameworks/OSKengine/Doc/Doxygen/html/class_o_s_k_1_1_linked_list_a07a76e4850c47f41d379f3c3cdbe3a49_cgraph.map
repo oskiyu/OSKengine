@@ -1,0 +1,7 @@
+<map id="OSK::LinkedList::Dequeue" name="OSK::LinkedList::Dequeue">
+<area shape="rect" id="node1" title=" " alt="" coords="5,42,181,69"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_linked_list_1_1_node.html#a8ebd20dfa1d1861dd74e14374f5606b8" title="Crea un nodo con el elemento dado." alt="" coords="244,5,399,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_linked_list.html#ad9b73d40df6ea457bbbf3fe6684c1d75" title="Elimina el elemento en la posición dada." alt="" coords="229,71,413,98"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_linked_list.html#aca2d8a70810319dcf8a082a7f5e999d7" title="Devuelve el número de elementos en el stack." alt="" coords="462,46,634,73"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_linked_list.html#aa50c2cb81a7674bea9ec0387e47f2e5d" title="Devuelve true si no hay ningún elemento en el stack." alt="" coords="461,97,635,123"/>
+</map>

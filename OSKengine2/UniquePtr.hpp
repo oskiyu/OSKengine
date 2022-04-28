@@ -1,11 +1,19 @@
 #ifndef OSK_UNIQUE_PTR
 #define OSK_UNIQUE_PTR
 
+#include "OSKmacros.h"
+
 namespace OSK {
 
 	/// <summary>
 	/// Es dueño de un puntero.
 	/// El puntero original es eliminado al destruirse el UniquePtr.
+	/// 
+	/// @note Usarse como miembro deshabilita el constructor de copia.
+	/// 
+	/// @pre Debe incluirse el tipo que se vaya a usar dentro del UniquePtr.
+	/// @code #include "T.h" @endcode
+	/// De lo contrario, no se llamará al destructor al eliminarse.
 	/// </summary>
 	/// <typeparam name="T">Tipo del puntero.</typeparam>
 	template <typename T> class UniquePtr {
@@ -131,6 +139,9 @@ namespace OSK {
 			pointer = nullptr;
 		}
 
+		/// <summary>
+		/// Intercambia el puntero con el otro UniquePtr.
+		/// </summary>
 		void Swap(UniquePtr<T>& other) {
 			T* temp = pointer;
 			pointer = other.pointer;
@@ -182,6 +193,14 @@ namespace OSK {
 		void operator=(T* data) {
 			OSK_STD_UP_DELETE(pointer)
 				pointer = data;
+		}
+
+		/// <summary>
+		/// Devuelve el elemento 'i' del array.
+		/// No comprueba que esté dentro de los límites.
+		/// </summary>
+		T& operator[](TSize i) const {
+			return pointer[i];
 		}
 
 		/// <summary>

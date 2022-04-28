@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::ISyncDevice" name="OSK::GRAPHICS::ISyncDevice">
+<area shape="rect" id="node1" title="Una estructura que se encarga de sincronizar el renderizador, asegurándose de que se renderiza sobre ..." alt="" coords="144,5,348,97"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_dx12.html" title=" " alt="" coords="5,197,236,318"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html" title=" " alt="" coords="260,145,485,369"/>
+</map>

@@ -1,0 +1,9 @@
+digraph "Representación gráfica de la clase"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="OSK::GRAPHICS::IGpuMemory\lBlock::ReusableMemorySubblock",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_1_1_reusable_memory_subblock.html",tooltip="Estructura que se usa cuando un subbloque ya no está en uso: una región de memoria entre dos subbloqu..."];
+}

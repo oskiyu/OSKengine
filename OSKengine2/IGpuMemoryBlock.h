@@ -53,7 +53,16 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		TSize GetAvailableSpace() const;
 
+		/// <summary>
+		/// Devuelve el tipo de memoria que es, según sea GPU o GPU-CPU.
+		/// </summary>
+		/// @see GpuSharedMemoryType
 		GpuSharedMemoryType GetShareType() const;
+
+		/// <summary>
+		/// Devuelve el tipo de uso que se le da a esta memoria.
+		/// </summary>
+		/// @see GpuMemoryUsage
 		GpuMemoryUsage GetUsageType() const;
 
 		IGpu* GetDevice() const;

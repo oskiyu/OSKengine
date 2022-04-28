@@ -1,0 +1,11 @@
+<map id="OSK::Vector4_t::Vector4_t" name="OSK::Vector4_t::Vector4_t">
+<area shape="rect" id="node1" title="Crea un vector 4D nulo { 0, 0, 0, 0 }." alt="" coords="464,81,643,108"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_vector4__t.html#a3feced544d4501758d0b350c06c23505" title="Operación Vector4 * Vector4." alt="" coords="240,5,415,32"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_vector4__t.html#a349872b8289e0256f7237c1d60fbee4b" title="Operación Vector4 + Vector4." alt="" coords="239,56,416,83"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_vector4__t.html#aa3e51237b1a2378aaee42fe902f74aa4" title="Negación del Vector4." alt="" coords="241,107,414,133"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_vector4__t.html#a733c15c598360967d122ac08b5f8adbd" title="Operación Vector4 / Vector4." alt="" coords="241,157,414,184"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_vector4__t.html#a35f76a79cbb76dd3a0f0765eb069f981" title="Operación Vector4 *= Vector4." alt="" coords="7,5,189,32"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_vector4__t.html#a4e029c1b6bd1fd4e8c59ee76538730b1" title="Operación Vector4 += Vector4." alt="" coords="5,56,191,83"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_vector4__t.html#ae76f68a0016a34a19eaa2d55a23c65f7" title="Operación Vector4 &#45;= Vector4." alt="" coords="7,107,189,133"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_vector4__t.html#a31c9d9f87ea2345e0641d71f2d453a8f" title="Operación Vector4 /= Vector4." alt="" coords="7,157,189,184"/>
+</map>

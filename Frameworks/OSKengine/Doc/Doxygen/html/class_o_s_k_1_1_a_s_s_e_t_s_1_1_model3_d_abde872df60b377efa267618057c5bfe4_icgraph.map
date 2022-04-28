@@ -1,0 +1,4 @@
+<map id="OSK::ASSETS::Model3D::GetMetadata" name="OSK::ASSETS::Model3D::GetMetadata">
+<area shape="rect" id="node1" title="Devuelve los metadatos para proseguir el procesado del modelo." alt="" coords="180,5,349,47"/>
+<area shape="rect" id="node2" href="$class_game1.html#a738ffccb5910f1f15136680903ea4159" title="Función ejecutada al cargar el juego." alt="" coords="5,13,132,39"/>
+</map>

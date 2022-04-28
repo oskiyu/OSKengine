@@ -1,0 +1,9 @@
+<map id="OSK::GRAPHICS::MaterialLayout::GetAllSlotNames" name="OSK::GRAPHICS::MaterialLayout::GetAllSlotNames">
+<area shape="rect" id="node1" title="Obtiene los nombres de todos los slots registrados en el layout." alt="" coords="452,136,671,177"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#ad39c519e3a5f58cc2a7622ba9b39687a" title="Carga un material." alt="" coords="180,5,404,47"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12.html#a3fd7ec2e8eb3534fd83ec384e4e1e5df" title=" " alt="" coords="183,71,401,112"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan.html#a871bc8e169a40dec39d218b798eee126" title=" " alt="" coords="183,136,401,177"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#a3d6e69772dfbd5a028740fbbdbf8fd07" title="Comando específico del sistema, para ejecutar el renderizado." alt="" coords="195,201,389,243"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#aa4852487325a5437911e65c9b4b0d68d" title="Comando específico del sistema, para ejecutar el renderizado." alt="" coords="195,267,389,308"/>
+<area shape="rect" id="node3" href="$class_game1.html#a738ffccb5910f1f15136680903ea4159" title="Función ejecutada al cargar el juego." alt="" coords="5,13,132,39"/>
+</map>

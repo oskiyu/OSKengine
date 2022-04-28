@@ -1,0 +1,18 @@
+<map id="OSK::GRAPHICS::GpuMemoryAllocatorDx12::CreateVertexBuffer" name="OSK::GRAPHICS::GpuMemoryAllocatorDx12::CreateVertexBuffer">
+<area shape="rect" id="node1" title="Crea un buffer de vértices con los vértices dados." alt="" coords="5,356,225,397"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a184a8433d5967eea3dd00fd988d3dff2" title=" " alt="" coords="279,5,485,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a0fa1cd26067c520e90cfa647f66e8366" title="Crea una lista de comandos para un único uso. Útil para enviar datos a la GPU, por ejemplo." alt="" coords="279,71,485,112"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#ac094fa6afa1e9ec4d9e099229d574350" title="Crea un buffer temporal con el tamaño dado." alt="" coords="280,137,484,193"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a6dc03d2b79fc84812121a2b91777d486" title="Devuelve un bloque con las características dadas." alt="" coords="546,170,750,226"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a0e688b372c65d28e21d562528355a08d" title=" " alt="" coords="273,268,491,309"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00" title=" " alt="" coords="293,334,471,361"/>
+<area shape="rect" id="node10" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a794d4d1ba8f5f2e81288398e59894eb9" title="Mapea toda la memoria. Todo lo que se escriba en el buffer, también se escribirá en la GPU." alt="" coords="273,385,491,427"/>
+<area shape="rect" id="node11" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a759a7b5bafbc49c807e324cf7f21df4b" title="Vacía la lista de comandos." alt="" coords="275,451,489,492"/>
+<area shape="rect" id="node13" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vertex_buffer_dx12.html#ad135b2c5562834cebf58565153cbdcd9" title=" " alt="" coords="285,516,479,557"/>
+<area shape="rect" id="node14" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#af337a6b45b1e298a4edff91981586d14" title="Ejecuta el contenido de la lista de comandos." alt="" coords="277,581,487,623"/>
+<area shape="rect" id="node15" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#ae807883f0c19342039d54ba88d45e968" title="Desmapea la memoria." alt="" coords="273,647,491,688"/>
+<area shape="rect" id="node16" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#aadfb37dc25b557c76dc43a3de3667d18" title="Escribe la información en el buffer." alt="" coords="273,712,491,753"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a7d3d38d431b4ba39ad83577bce318c5d" title=" " alt="" coords="805,170,1012,226"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#a6e95ea54b078e71df2642158eb31d01c" title=" " alt="" coords="1060,177,1283,219"/>
+<area shape="rect" id="node12" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12.html#a1e399b93e2df637f2ca055b660a37f02" title=" " alt="" coords="539,451,757,492"/>
+</map>

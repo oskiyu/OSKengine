@@ -8,7 +8,7 @@
 namespace OSK::EFTraits {
 	
 	/// <summary>
-	/// Por defecto, cualquier tipo NO se considera un enum flags,
+	/// @note Por defecto, cualquier tipo NO se considera un enum flags,
 	/// al no ser que se especifique lo contrario con OSK_FLAGS.
 	/// </summary>
 	/// <typeparam name="T">Tipo de dato.</typeparam>

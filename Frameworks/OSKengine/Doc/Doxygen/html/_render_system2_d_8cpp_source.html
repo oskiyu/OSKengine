@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/RenderSystem2D.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_render_system2_d_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">RenderSystem2D.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_render_system2_d_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_render_system2_d_8h.html">RenderSystem2D.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_sprite_component_8h.html">SpriteComponent.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_transform2_d_8h.html">Transform2D.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_entity_component_system_8h.html">EntityComponentSystem.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_i_command_list_8h.html">ICommandList.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_material_layout_8h.html">MaterialLayout.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_push_const2_d_8h.html">PushConst2D.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#ad09149a107ba009448f3191baf78ac3a">   15</a></span>RenderSystem2D::RenderSystem2D() {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <a class="code hl_class" href="class_o_s_k_1_1_constexpr_bit_set.html">Signature</a> signature{};</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    signature.<a class="code hl_function" href="class_o_s_k_1_1_constexpr_bit_set.html#a2ed44d2a40faf6ff664947caf93846b4">SetTrue</a>(<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a17fd2842c078b7ddb4aaa70cd04549ab">Engine::GetEntityComponentSystem</a>()-&gt;GetComponentType&lt;Transform2D&gt;());</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    signature.SetTrue(<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a17fd2842c078b7ddb4aaa70cd04549ab">Engine::GetEntityComponentSystem</a>()-&gt;GetComponentType&lt;SpriteComponent&gt;());</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ac9336e70706ab6ea24d9f5fe95955efd">SetSignature</a>(signature);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#a3d6e69772dfbd5a028740fbbdbf8fd07">   24</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#a3d6e69772dfbd5a028740fbbdbf8fd07">RenderSystem2D::Render</a>(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* commandList) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#acac86badecab708e669a88e2e65f00ee">BindVertexBuffer</a>(Sprite::globalVertexBuffer);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aaba964cc68371c6d387eb46d9d0b1788">BindIndexBuffer</a>(Sprite::globalIndexBuffer);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_push_const2_d.html">PushConst2D</a> pushConst{};</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a23d62d7bd6a58fd7f758079d87df6c71">GameObjectIndex</a> obj : <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ad3611590e6bde825b973c160d7a867d9">GetObjects</a>()) {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_sprite_component.html">SpriteComponent</a>&amp; sprite = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a17fd2842c078b7ddb4aaa70cd04549ab">Engine::GetEntityComponentSystem</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ab543c5c91b9b319ed21a01da96ea06d9">GetComponent</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_sprite_component.html">SpriteComponent</a>&gt;(obj);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">Transform2D</a>&amp; transform = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a17fd2842c078b7ddb4aaa70cd04549ab">Engine::GetEntityComponentSystem</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ab543c5c91b9b319ed21a01da96ea06d9">GetComponent</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">Transform2D</a>&gt;(obj);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        pushConst.color = sprite.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_sprite_component.html#a6d557dd8114bcaa5a01b452f733be216">GetSprite</a>().<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#a11c7a9da5dbf7fc9881ab094ce0140ee">color</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        pushConst.matrix = transform.GetAsMatrix();</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        pushConst.texCoords = sprite.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_sprite_component.html#a6d557dd8114bcaa5a01b452f733be216">GetSprite</a>().<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ac8ae24d17038192613e451d13f7160d7">GetTexCoords</a>();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a84bcc93817243312ffcc042ca36c3dfb">BindMaterial</a>(sprite.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_sprite_component.html#ab636583893c87820539cfcdf5ce66bb0">GetMaterialInstance</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html#abc30aa5c8d8dbb36e972ce118a02a119">GetMaterial</a>());</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aa78c754b21eb1cf45f2c05e36bdb9276">PushMaterialConstants</a>(<span class="stringliteral">&quot;sprite&quot;</span>, pushConst);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> std::string&amp; slotName : sprite.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_sprite_component.html#ab636583893c87820539cfcdf5ce66bb0">GetMaterialInstance</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html#a5d7d87b3da1560a7a77fd9b3cafc957f">GetLayout</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a82de8efeace9ce18733634fb7c1cc8a3">GetAllSlotNames</a>())</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aebccacb95627e6c8c9da33367ca14368">BindMaterialSlot</a>(sprite.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_sprite_component.html#ab636583893c87820539cfcdf5ce66bb0">GetMaterialInstance</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html#a2d950cd9f0d56de8948e178e3c5cc04e">GetSlot</a>(slotName));</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ae3aa0f9da7dcfb03843196c7036c0209">DrawSingleInstance</a>(6);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
+<div class="ttc" id="a_entity_component_system_8h_html"><div class="ttname"><a href="_entity_component_system_8h.html">EntityComponentSystem.h</a></div></div>
+<div class="ttc" id="a_i_command_list_8h_html"><div class="ttname"><a href="_i_command_list_8h.html">ICommandList.h</a></div></div>
+<div class="ttc" id="a_material_layout_8h_html"><div class="ttname"><a href="_material_layout_8h.html">MaterialLayout.h</a></div></div>
+<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
+<div class="ttc" id="a_push_const2_d_8h_html"><div class="ttname"><a href="_push_const2_d_8h.html">PushConst2D.h</a></div></div>
+<div class="ttc" id="a_render_system2_d_8h_html"><div class="ttname"><a href="_render_system2_d_8h.html">RenderSystem2D.h</a></div></div>
+<div class="ttc" id="a_sprite_component_8h_html"><div class="ttname"><a href="_sprite_component_8h.html">SpriteComponent.h</a></div></div>
+<div class="ttc" id="a_transform2_d_8h_html"><div class="ttname"><a href="_transform2_d_8h.html">Transform2D.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html">OSK::ConstexprBitSet&lt; MAX_COMPONENT_TYPES &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html_a2ed44d2a40faf6ff664947caf93846b4"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html#a2ed44d2a40faf6ff664947caf93846b4">OSK::ConstexprBitSet::SetTrue</a></div><div class="ttdeci">void SetTrue(TSize index)</div><div class="ttdoc">Establece el valor del bit dado a 1.</div><div class="ttdef"><b>Definition:</b> <a href="_constexpr_bit_set_8hpp_source.html#l00036">ConstexprBitSet.hpp:36</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_entity_component_system_html_ab543c5c91b9b319ed21a01da96ea06d9"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ab543c5c91b9b319ed21a01da96ea06d9">OSK::ECS::EntityComponentSystem::GetComponent</a></div><div class="ttdeci">TComponent &amp; GetComponent(GameObjectIndex obj) const</div><div class="ttdoc">Devuelve una referencia al componente del tipo dado del objeto.</div><div class="ttdef"><b>Definition:</b> <a href="_entity_component_system_8h_source.html#l00131">EntityComponentSystem.h:131</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_system_html_ac9336e70706ab6ea24d9f5fe95955efd"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ac9336e70706ab6ea24d9f5fe95955efd">OSK::ECS::ISystem::SetSignature</a></div><div class="ttdeci">void SetSignature(const Signature &amp;signature)</div><div class="ttdef"><b>Definition:</b> <a href="_i_system_8cpp_source.html#l00037">ISystem.cpp:37</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_system_html_ad3611590e6bde825b973c160d7a867d9"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ad3611590e6bde825b973c160d7a867d9">OSK::ECS::ISystem::GetObjects</a></div><div class="ttdeci">const DynamicArray&lt; GameObjectIndex &gt; &amp; GetObjects()</div><div class="ttdef"><b>Definition:</b> <a href="_i_system_8cpp_source.html#l00041">ISystem.cpp:41</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_render_system2_d_html_a3d6e69772dfbd5a028740fbbdbf8fd07"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#a3d6e69772dfbd5a028740fbbdbf8fd07">OSK::ECS::RenderSystem2D::Render</a></div><div class="ttdeci">void Render(GRAPHICS::ICommandList *commandList)</div><div class="ttdoc">Comando específico del sistema, para ejecutar el renderizado.</div><div class="ttdef"><b>Definition:</b> <a href="_render_system2_d_8cpp_source.html#l00024">RenderSystem2D.cpp:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_sprite_component_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_sprite_component.html">OSK::ECS::SpriteComponent</a></div><div class="ttdoc">Componente que permite a un GameObject tener un sprite asociado.</div><div class="ttdef"><b>Definition:</b> <a href="_sprite_component_8h_source.html#l00027">SpriteComponent.h:27</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_sprite_component_html_a6d557dd8114bcaa5a01b452f733be216"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_sprite_component.html#a6d557dd8114bcaa5a01b452f733be216">OSK::ECS::SpriteComponent::GetSprite</a></div><div class="ttdeci">GRAPHICS::Sprite &amp; GetSprite()</div><div class="ttdef"><b>Definition:</b> <a href="_sprite_component_8cpp_source.html#l00012">SpriteComponent.cpp:12</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_sprite_component_html_ab636583893c87820539cfcdf5ce66bb0"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_sprite_component.html#ab636583893c87820539cfcdf5ce66bb0">OSK::ECS::SpriteComponent::GetMaterialInstance</a></div><div class="ttdeci">GRAPHICS::MaterialInstance * GetMaterialInstance() const</div><div class="ttdef"><b>Definition:</b> <a href="_sprite_component_8cpp_source.html#l00034">SpriteComponent.cpp:34</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform2_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">OSK::ECS::Transform2D</a></div><div class="ttdoc">Clase que almacena el 'transform' de un objeto en un mundo 2D. El transform contiene posición,...</div><div class="ttdef"><b>Definition:</b> <a href="_transform2_d_8h_source.html#l00018">Transform2D.h:18</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a17fd2842c078b7ddb4aaa70cd04549ab"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a17fd2842c078b7ddb4aaa70cd04549ab">OSK::Engine::GetEntityComponentSystem</a></div><div class="ttdeci">static ECS::EntityComponentSystem * GetEntityComponentSystem()</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kengine_8cpp_source.html#l00135">OSKengine.cpp:135</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">OSK::GRAPHICS::ICommandList</a></div><div class="ttdoc">Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución.</div><div class="ttdef"><b>Definition:</b> <a href="_i_command_list_8h_source.html#l00037">ICommandList.h:37</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_a84bcc93817243312ffcc042ca36c3dfb"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a84bcc93817243312ffcc042ca36c3dfb">OSK::GRAPHICS::ICommandList::BindMaterial</a></div><div class="ttdeci">virtual void BindMaterial(const Material *material)=0</div><div class="ttdoc">Establece el material que se va a usar a la hora de renderizar los próximos comandos.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_aa78c754b21eb1cf45f2c05e36bdb9276"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aa78c754b21eb1cf45f2c05e36bdb9276">OSK::GRAPHICS::ICommandList::PushMaterialConstants</a></div><div class="ttdeci">void PushMaterialConstants(const std::string &amp;pushConstName, const void *data, TSize size)</div><div class="ttdoc">Envía datos push constant al shader.</div><div class="ttdef"><b>Definition:</b> <a href="_i_command_list_8cpp_source.html#l00020">ICommandList.cpp:20</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_aaba964cc68371c6d387eb46d9d0b1788"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aaba964cc68371c6d387eb46d9d0b1788">OSK::GRAPHICS::ICommandList::BindIndexBuffer</a></div><div class="ttdeci">virtual void BindIndexBuffer(IGpuIndexBuffer *buffer)=0</div><div class="ttdoc">Establece el index buffer que se va a usar en los próximos renderizados.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_acac86badecab708e669a88e2e65f00ee"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#acac86badecab708e669a88e2e65f00ee">OSK::GRAPHICS::ICommandList::BindVertexBuffer</a></div><div class="ttdeci">virtual void BindVertexBuffer(IGpuVertexBuffer *buffer)=0</div><div class="ttdoc">Establece el vertex buffer que se va a usar en los próximos renderizados.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_ae3aa0f9da7dcfb03843196c7036c0209"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ae3aa0f9da7dcfb03843196c7036c0209">OSK::GRAPHICS::ICommandList::DrawSingleInstance</a></div><div class="ttdeci">virtual void DrawSingleInstance(TSize numIndices)=0</div><div class="ttdoc">Renderiza los triángulos del vertex e index buffer, con el material enlazado.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_aebccacb95627e6c8c9da33367ca14368"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aebccacb95627e6c8c9da33367ca14368">OSK::GRAPHICS::ICommandList::BindMaterialSlot</a></div><div class="ttdeci">virtual void BindMaterialSlot(const IMaterialSlot *slot)=0</div><div class="ttdoc">Establece un material slot que estará asignado en los próximos comandos de renderizado....</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_html_a2d950cd9f0d56de8948e178e3c5cc04e"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html#a2d950cd9f0d56de8948e178e3c5cc04e">OSK::GRAPHICS::MaterialInstance::GetSlot</a></div><div class="ttdeci">IMaterialSlot * GetSlot(const std::string &amp;name)</div><div class="ttdoc">Devuelve el slot con el nombre dado.</div><div class="ttdef"><b>Definition:</b> <a href="_material_instance_8cpp_source.html#l00020">MaterialInstance.cpp:20</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_html_a5d7d87b3da1560a7a77fd9b3cafc957f"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html#a5d7d87b3da1560a7a77fd9b3cafc957f">OSK::GRAPHICS::MaterialInstance::GetLayout</a></div><div class="ttdeci">const MaterialLayout * GetLayout() const</div><div class="ttdoc">Devuelve el layout de esta instancia (es decir, el layout del material padre).</div><div class="ttdef"><b>Definition:</b> <a href="_material_instance_8cpp_source.html#l00032">MaterialInstance.cpp:32</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_html_abc30aa5c8d8dbb36e972ce118a02a119"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html#abc30aa5c8d8dbb36e972ce118a02a119">OSK::GRAPHICS::MaterialInstance::GetMaterial</a></div><div class="ttdeci">const Material * GetMaterial() const</div><div class="ttdoc">Devuelve el material del que es instancia esta instancia.</div><div class="ttdef"><b>Definition:</b> <a href="_material_instance_8cpp_source.html#l00028">MaterialInstance.cpp:28</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html_a82de8efeace9ce18733634fb7c1cc8a3"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a82de8efeace9ce18733634fb7c1cc8a3">OSK::GRAPHICS::MaterialLayout::GetAllSlotNames</a></div><div class="ttdeci">const LinkedList&lt; std::string &gt; &amp; GetAllSlotNames() const</div><div class="ttdoc">Obtiene los nombres de todos los slots registrados en el layout.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_8cpp_source.html#l00026">MaterialLayout.cpp:26</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_html_a11c7a9da5dbf7fc9881ab094ce0140ee"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#a11c7a9da5dbf7fc9881ab094ce0140ee">OSK::GRAPHICS::Sprite::color</a></div><div class="ttdeci">Color color</div><div class="ttdoc">Color del sprite.</div><div class="ttdef"><b>Definition:</b> <a href="_sprite_8h_source.html#l00069">Sprite.h:69</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_html_ac8ae24d17038192613e451d13f7160d7"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ac8ae24d17038192613e451d13f7160d7">OSK::GRAPHICS::Sprite::GetTexCoords</a></div><div class="ttdeci">Vector4f GetTexCoords() const</div><div class="ttdoc">Devuelve las coordenadas de textura del sprite, normalizadas (0.0 - 1.0).</div><div class="ttdef"><b>Definition:</b> <a href="_sprite_8cpp_source.html#l00028">Sprite.cpp:28</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition:</b> <a href="_camera_component2_d_8h_source.html#l00015">CameraComponent2D.h:15</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a23d62d7bd6a58fd7f758079d87df6c71"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a23d62d7bd6a58fd7f758079d87df6c71">OSK::ECS::GameObjectIndex</a></div><div class="ttdeci">TSize GameObjectIndex</div><div class="ttdoc">Identificador único para un Game Object.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00019">GameObject.h:19</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_command_list_dx12_8h_source.html#l00012">CommandListDx12.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00007">Assert.h:7</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_push_const2_d_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_push_const2_d.html">OSK::GRAPHICS::PushConst2D</a></div><div class="ttdoc">Información push constant usada en el sistema de renderizado 2D por defecto.</div><div class="ttdef"><b>Definition:</b> <a href="_push_const2_d_8h_source.html#l00012">PushConst2D.h:12</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_render_system2_d_8cpp.html">RenderSystem2D.cpp</a></li>
+    <li class="footer">Generado el Miércoles, 20 de Abril de 2022 00:28:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

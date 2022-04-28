@@ -4,6 +4,10 @@
 
 namespace OSK::GRAPHICS {
 
+	/// <summary>
+	/// Un uniform buffer contiene información arbitraria a la que se puede
+	/// acceder a la hora de renderizar.
+	/// </summary>
 	class OSKAPI_CALL IGpuUniformBuffer : public GpuDataBuffer {
 
 	public:

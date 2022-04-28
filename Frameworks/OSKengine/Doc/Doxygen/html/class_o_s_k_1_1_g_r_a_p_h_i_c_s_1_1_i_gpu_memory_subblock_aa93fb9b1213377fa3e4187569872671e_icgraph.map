@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::IGpuMemorySubblock::GetOwnerBlock" name="OSK::GRAPHICS::IGpuMemorySubblock::GetOwnerBlock">
+<area shape="rect" id="node1" title=" " alt="" coords="271,39,477,80"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a43f298eb4cdf029351a103d159c4abf8" title=" " alt="" coords="5,5,223,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a00b39c8aa8e563a5d0776edbf06cbd60" title="Establece el UNIFORM BUFFER que será asignado al binding con el nombre dado. Puede usarse esta funció..." alt="" coords="13,71,215,112"/>
+</map>

@@ -14,7 +14,7 @@ namespace OSK {
 	/// es un buen punto de partida.
 	/// Ofrece una abstracción mínima.
 	/// 
-	/// Deben sobreescribirse las funciones de CreateWindow()
+	/// @pre Deben sobreescribirse las funciones de CreateWindow()
 	/// y SetupEngine() de manera obligatoria.
 	/// </summary>
 	class OSKAPI_CALL IGame {
@@ -25,7 +25,8 @@ namespace OSK {
 
 		/// <summary>
 		/// Función ejecutada al cargar el juego.
-		/// Se ejecuta dfespués de haber cargado todos
+		/// 
+		/// @note Se ejecuta dfespués de haber cargado todos
 		/// los sistemas del juego.
 		/// </summary>
 		virtual void OnCreate();
@@ -34,7 +35,7 @@ namespace OSK {
 		/// Función que se ejecuta cada frame.
 		/// Para hacer actualización del estado del juego.
 		/// 
-		/// Es preferible usar ECS para manejar actualizaciones
+		/// @note Es preferible usar ECS para manejar actualizaciones
 		/// del estado del juego.
 		/// </summary>
 		/// <param name="deltaTime">Tiempo que ha pasado desde el último frame,

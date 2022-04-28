@@ -1,0 +1,725 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Referencia de la Clase OSK::GRAPHICS::GpuImageOgl</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="#pub-static-methods">Métodos públicos estáticos</a> &#124;
+<a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl-members.html">Lista de todos los miembros</a>  </div>
+  <div class="headertitle"><div class="title">Referencia de la Clase OSK::GRAPHICS::GpuImageOgl</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_gpu_image_ogl_8h_source.html">GpuImageOgl.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Métodos públicos</h2></td></tr>
+<tr class="memitem:ae2649dbc5253a5f411df72aad8780738"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html#ae2649dbc5253a5f411df72aad8780738">GpuImageOgl</a> (const <a class="el" href="namespace_o_s_k.html#acbb1ebd73c8de7036fc0108df1bf612f">Vector3ui</a> &amp;size, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ab91ccc08d13454cfeb3c4f78deb72d59">GpuImageDimension</a> dimension, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">GpuImageUsage</a> usage, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> numLayers, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> format)</td></tr>
+<tr class="separator:ae2649dbc5253a5f411df72aad8780738"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf1393058999ec0238279bf22bf3e7bc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html#acf1393058999ec0238279bf22bf3e7bc">~GpuImageOgl</a> ()</td></tr>
+<tr class="separator:acf1393058999ec0238279bf22bf3e7bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb202c0db2118984a435b6e7623e5366"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3dd9978f2e6502f5008f5ce8adf64217">OglImageHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html#acb202c0db2118984a435b6e7623e5366">GetHandler</a> () const</td></tr>
+<tr class="separator:acb202c0db2118984a435b6e7623e5366"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc8b0377b1d0d90bff6fd22dd8951f21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html#acc8b0377b1d0d90bff6fd22dd8951f21">SetHandler</a> (<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3dd9978f2e6502f5008f5ce8adf64217">OglImageHandler</a> handler)</td></tr>
+<tr class="separator:acc8b0377b1d0d90bff6fd22dd8951f21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8ccb6026e41702b87d1d5da50c3af5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ac8ccb6026e41702b87d1d5da50c3af5d">SetData</a> (const void *data, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size)</td></tr>
+<tr class="separator:ac8ccb6026e41702b87d1d5da50c3af5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fc227e3e5ff1a6c8c384e668ec7c281"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a7fc227e3e5ff1a6c8c384e668ec7c281">SetBlock</a> (<a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html">IGpuMemoryBlock</a> &gt; buffer)</td></tr>
+<tr class="separator:a7fc227e3e5ff1a6c8c384e668ec7c281"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab845e22a73caa9ac25a696599e80625e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html">IGpuMemoryBlock</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ab845e22a73caa9ac25a696599e80625e">GetMemory</a> () const</td></tr>
+<tr class="separator:ab845e22a73caa9ac25a696599e80625e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c0d6c282ad6b6d21ad25bfecac502b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html">IGpuMemorySubblock</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a3c0d6c282ad6b6d21ad25bfecac502b6">GetBuffer</a> () const</td></tr>
+<tr class="separator:a3c0d6c282ad6b6d21ad25bfecac502b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a244ebc8ce3ae3095698ea0c3eaba58fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#acbb1ebd73c8de7036fc0108df1bf612f">Vector3ui</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a244ebc8ce3ae3095698ea0c3eaba58fc">GetSize</a> () const</td></tr>
+<tr class="separator:a244ebc8ce3ae3095698ea0c3eaba58fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fbd0307d9e9147312004fecca6b73ba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a7fbd0307d9e9147312004fecca6b73ba">GetFormat</a> () const</td></tr>
+<tr class="separator:a7fbd0307d9e9147312004fecca6b73ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abce3e3ba3ec90fc147c6de62884e55ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ab91ccc08d13454cfeb3c4f78deb72d59">GpuImageDimension</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#abce3e3ba3ec90fc147c6de62884e55ab">GetDimension</a> () const</td></tr>
+<tr class="separator:abce3e3ba3ec90fc147c6de62884e55ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a339142f665e7289fafcd8e52cb03f9cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">GpuImageUsage</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a339142f665e7289fafcd8e52cb03f9cb">GetUsage</a> () const</td></tr>
+<tr class="separator:a339142f665e7289fafcd8e52cb03f9cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f6e78b29f06b1b423ab89377a139b46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a3f6e78b29f06b1b423ab89377a139b46">GetNumLayers</a> () const</td></tr>
+<tr class="separator:a3f6e78b29f06b1b423ab89377a139b46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0220799f28ec1c45c888926243867e9"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aa0220799f28ec1c45c888926243867e9">GetMipLevels</a> () const</td></tr>
+<tr class="separator:aa0220799f28ec1c45c888926243867e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bc3268b57ede5f9f0541b20d12dfea0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; <br />
+requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>, T&gt;</td></tr>
+<tr class="memitem:a6bc3268b57ede5f9f0541b20d12dfea0"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a6bc3268b57ede5f9f0541b20d12dfea0">As</a> () const</td></tr>
+<tr class="separator:a6bc3268b57ede5f9f0541b20d12dfea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02b98e8bdd44204ffe0d54e7164c3a8d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a02b98e8bdd44204ffe0d54e7164c3a8d">GetNumberOfBytes</a> ()</td></tr>
+<tr class="separator:a02b98e8bdd44204ffe0d54e7164c3a8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97171829d26c35669ca2df87a8fc5389"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a97171829d26c35669ca2df87a8fc5389">SetLayout</a> (<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9">GpuImageLayout</a> layout)</td></tr>
+<tr class="separator:a97171829d26c35669ca2df87a8fc5389"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae48a1a723ee92230591f19ecaa9a81e9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9">GpuImageLayout</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ae48a1a723ee92230591f19ecaa9a81e9">GetLayout</a> () const</td></tr>
+<tr class="separator:ae48a1a723ee92230591f19ecaa9a81e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Métodos públicos estáticos</h2></td></tr>
+<tr class="memitem:a4cd33700ebbc4b65f7fd53007d7f8b6c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a4cd33700ebbc4b65f7fd53007d7f8b6c">GetMipLevels</a> (uint32_t sizeX, uint32_t sizeY)</td></tr>
+<tr class="separator:a4cd33700ebbc4b65f7fd53007d7f8b6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock"><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000021">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_image_ogl_8h_source.html#l00009">9</a> del archivo <a class="el" href="_gpu_image_ogl_8h_source.html">GpuImageOgl.h</a>.</p>
+</div><h2 class="groupheader">Documentación del constructor y destructor</h2>
+<a id="ae2649dbc5253a5f411df72aad8780738" name="ae2649dbc5253a5f411df72aad8780738"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2649dbc5253a5f411df72aad8780738">&#9670;&nbsp;</a></span>GpuImageOgl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GpuImageOgl::GpuImageOgl </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#acbb1ebd73c8de7036fc0108df1bf612f">Vector3ui</a> &amp;&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ab91ccc08d13454cfeb3c4f78deb72d59">GpuImageDimension</a>&#160;</td>
+          <td class="paramname"><em>dimension</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">GpuImageUsage</a>&#160;</td>
+          <td class="paramname"><em>usage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
+          <td class="paramname"><em>numLayers</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a>&#160;</td>
+          <td class="paramname"><em>format</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_image_ogl_8cpp_source.html#l00008">8</a> del archivo <a class="el" href="_gpu_image_ogl_8cpp_source.html">GpuImageOgl.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acf1393058999ec0238279bf22bf3e7bc" name="acf1393058999ec0238279bf22bf3e7bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf1393058999ec0238279bf22bf3e7bc">&#9670;&nbsp;</a></span>~GpuImageOgl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GpuImageOgl::~GpuImageOgl </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_image_ogl_8cpp_source.html#l00013">13</a> del archivo <a class="el" href="_gpu_image_ogl_8cpp_source.html">GpuImageOgl.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de las funciones miembro</h2>
+<a id="a6bc3268b57ede5f9f0541b20d12dfea0" name="a6bc3268b57ede5f9f0541b20d12dfea0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bc3268b57ede5f9f0541b20d12dfea0">&#9670;&nbsp;</a></span>As()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; <br />
+requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>, T&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T * OSK::GRAPHICS::GpuImage::As </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8h_source.html#l00046">46</a> del archivo <a class="el" href="_i_gpu_image_8h_source.html">IGpuImage.h</a>.</p>
+
+</div>
+</div>
+<a id="a3c0d6c282ad6b6d21ad25bfecac502b6" name="a3c0d6c282ad6b6d21ad25bfecac502b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c0d6c282ad6b6d21ad25bfecac502b6">&#9670;&nbsp;</a></span>GetBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html">IGpuMemorySubblock</a> * GpuImage::GetBuffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00064">64</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abce3e3ba3ec90fc147c6de62884e55ab" name="abce3e3ba3ec90fc147c6de62884e55ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abce3e3ba3ec90fc147c6de62884e55ab">&#9670;&nbsp;</a></span>GetDimension()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ab91ccc08d13454cfeb3c4f78deb72d59">GpuImageDimension</a> GpuImage::GetDimension </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00044">44</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7fbd0307d9e9147312004fecca6b73ba" name="a7fbd0307d9e9147312004fecca6b73ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fbd0307d9e9147312004fecca6b73ba">&#9670;&nbsp;</a></span>GetFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> GpuImage::GetFormat </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00056">56</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acb202c0db2118984a435b6e7623e5366" name="acb202c0db2118984a435b6e7623e5366"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb202c0db2118984a435b6e7623e5366">&#9670;&nbsp;</a></span>GetHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3dd9978f2e6502f5008f5ce8adf64217">OglImageHandler</a> GpuImageOgl::GetHandler </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_image_ogl_8cpp_source.html#l00018">18</a> del archivo <a class="el" href="_gpu_image_ogl_8cpp_source.html">GpuImageOgl.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae48a1a723ee92230591f19ecaa9a81e9" name="ae48a1a723ee92230591f19ecaa9a81e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae48a1a723ee92230591f19ecaa9a81e9">&#9670;&nbsp;</a></span>GetLayout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9">GpuImageLayout</a> GpuImage::GetLayout </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve el layout actual de la imagen. </p>
+<dl class="section warning"><dt>Atención</dt><dd>Al ser una variable informativa (no vinculante), puede no devolver el layout real actual.</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Únicamente mostrará el valor real cuando se ejecute la lista de comandos con la cual se ha realizado la transición de layout. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00081">81</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab845e22a73caa9ac25a696599e80625e" name="ab845e22a73caa9ac25a696599e80625e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab845e22a73caa9ac25a696599e80625e">&#9670;&nbsp;</a></span>GetMemory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html">IGpuMemoryBlock</a> * GpuImage::GetMemory </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00060">60</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa0220799f28ec1c45c888926243867e9" name="aa0220799f28ec1c45c888926243867e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0220799f28ec1c45c888926243867e9">&#9670;&nbsp;</a></span>GetMipLevels() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int GpuImage::GetMipLevels </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve el número máximo de miplevels de esta imagen. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00068">68</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4cd33700ebbc4b65f7fd53007d7f8b6c" name="a4cd33700ebbc4b65f7fd53007d7f8b6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cd33700ebbc4b65f7fd53007d7f8b6c">&#9670;&nbsp;</a></span>GetMipLevels() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> GpuImage::GetMipLevels </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>sizeX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>sizeY</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve el número máximo de miplevels de una imagen. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sizeX</td><td>Ancho de la imagen.</td></tr>
+    <tr><td class="paramname">sizeY</td><td>Alto de la imagen.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00072">72</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a02b98e8bdd44204ffe0d54e7164c3a8d" name="a02b98e8bdd44204ffe0d54e7164c3a8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02b98e8bdd44204ffe0d54e7164c3a8d">&#9670;&nbsp;</a></span>GetNumberOfBytes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> GpuImage::GetNumberOfBytes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve el número de bytes que ocupa esta imagen en la memoria de la GPU </p>
+<dl class="section return"><dt>Devuelve</dt><dd>Espacio ocupado en la GPU.</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Debido a cuestiones de alineamiento y demás, puede ocupar más espacio del esperado. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00085">85</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3f6e78b29f06b1b423ab89377a139b46" name="a3f6e78b29f06b1b423ab89377a139b46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f6e78b29f06b1b423ab89377a139b46">&#9670;&nbsp;</a></span>GetNumLayers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> GpuImage::GetNumLayers </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00052">52</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a244ebc8ce3ae3095698ea0c3eaba58fc" name="a244ebc8ce3ae3095698ea0c3eaba58fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a244ebc8ce3ae3095698ea0c3eaba58fc">&#9670;&nbsp;</a></span>GetSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#acbb1ebd73c8de7036fc0108df1bf612f">Vector3ui</a> GpuImage::GetSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00040">40</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a339142f665e7289fafcd8e52cb03f9cb" name="a339142f665e7289fafcd8e52cb03f9cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a339142f665e7289fafcd8e52cb03f9cb">&#9670;&nbsp;</a></span>GetUsage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">GpuImageUsage</a> GpuImage::GetUsage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00048">48</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7fc227e3e5ff1a6c8c384e668ec7c281" name="a7fc227e3e5ff1a6c8c384e668ec7c281"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fc227e3e5ff1a6c8c384e668ec7c281">&#9670;&nbsp;</a></span>SetBlock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GpuImage::SetBlock </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html">IGpuMemoryBlock</a> &gt;&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00029">29</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac8ccb6026e41702b87d1d5da50c3af5d" name="ac8ccb6026e41702b87d1d5da50c3af5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8ccb6026e41702b87d1d5da50c3af5d">&#9670;&nbsp;</a></span>SetData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GpuImage::SetData </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00034">34</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acc8b0377b1d0d90bff6fd22dd8951f21" name="acc8b0377b1d0d90bff6fd22dd8951f21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc8b0377b1d0d90bff6fd22dd8951f21">&#9670;&nbsp;</a></span>SetHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GpuImageOgl::SetHandler </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3dd9978f2e6502f5008f5ce8adf64217">OglImageHandler</a>&#160;</td>
+          <td class="paramname"><em>handler</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_image_ogl_8cpp_source.html#l00022">22</a> del archivo <a class="el" href="_gpu_image_ogl_8cpp_source.html">GpuImageOgl.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a97171829d26c35669ca2df87a8fc5389" name="a97171829d26c35669ca2df87a8fc5389"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97171829d26c35669ca2df87a8fc5389">&#9670;&nbsp;</a></span>SetLayout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GpuImage::SetLayout </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9">GpuImageLayout</a>&#160;</td>
+          <td class="paramname"><em>layout</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Actualiza el layout de la imagen, para que represente el layout actual. </p>
+<dl class="section warning"><dt>Atención</dt><dd>Función interna: no llamar.</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Función puramente informativa: no cambia el layout real de la imagen. Para ello, debe usarse <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a5991c1350838f27f6e381821b04b12be" title="Cambia el layout interno de la imagen en la memoria de la GPU.">ICommandList::TransitionImageLayout</a>. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00077">77</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>La documentación para esta clase fue generada a partir de los siguientes ficheros:<ul>
+<li>OSKengine2/<a class="el" href="_gpu_image_ogl_8h_source.html">GpuImageOgl.h</a></li>
+<li>OSKengine2/<a class="el" href="_gpu_image_ogl_8cpp_source.html">GpuImageOgl.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html">GpuImageOgl</a></li>
+    <li class="footer">Generado el Miércoles, 20 de Abril de 2022 00:28:08 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -22,9 +22,9 @@ RenderSystem2D::RenderSystem2D() {
 }
 
 void RenderSystem2D::Render(GRAPHICS::ICommandList* commandList) {
-	commandList->BindVertexBuffer(Sprite::globalVertexBuffer);
+	/*commandList->BindVertexBuffer(Sprite::globalVertexBuffer);
 	commandList->BindIndexBuffer(Sprite::globalIndexBuffer);
-
+	
 	PushConst2D pushConst{};
 
 	for (GameObjectIndex obj : GetObjects()) {
@@ -43,5 +43,5 @@ void RenderSystem2D::Render(GRAPHICS::ICommandList* commandList) {
 			commandList->BindMaterialSlot(sprite.GetMaterialInstance()->GetSlot(slotName));
 
 		commandList->DrawSingleInstance(6);
-	}
+	}*/
 }

@@ -1,0 +1,13 @@
+<map id="OSK::GRAPHICS::IGpuMemoryAllocator::CreateStagingBuffer" name="OSK::GRAPHICS::IGpuMemoryAllocator::CreateStagingBuffer">
+<area shape="rect" id="node1" title="Crea un buffer temporal con el tamaño dado." alt="" coords="1153,39,1360,80"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a674aea6b653456df0279050e1cae0a47" title="Rellena la imagen en la GPU con los datos dados." alt="" coords="916,39,1105,80"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a69c866c17d5ec4aab3b07b5afa0bd012" title="Rellena la imagen en la GPU con los datos dados." alt="" coords="669,5,868,47"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a7c4e6c9c9b2239854c2e3a5ac3b9dcd3" title="Rellena la imagen en la GPU con los datos dados." alt="" coords="675,71,863,112"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_loader.html#a015b1daa6d8d910f7337bc513c8d3285" title="Carga el asset." alt="" coords="405,5,621,47"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html#a64796c79bab29f0c01f547501e1a87c9" title="Carga el asset." alt="" coords="413,71,613,112"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#a5db23936cef420c1ba8253b95d78b2fc" title="Genera la imagen de la fuente para el tamaño de letra dado." alt="" coords="437,136,589,177"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#a6ae51ef135fdb7fc4ce7c74b1f1d7c9d" title="Devuelve la información de una instancia de la fuente con el tamaño dado." alt="" coords="205,107,357,148"/>
+<area shape="rect" id="node11" href="$class_game1.html#a738ffccb5910f1f15136680903ea4159" title="Función ejecutada al cargar el juego." alt="" coords="218,173,345,199"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#aa3293489bd66420daddc77ebaa3db9d0" title="Devuelve la información de un carácter para un tamaño de fuente dado." alt="" coords="5,73,157,115"/>
+<area shape="rect" id="node10" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#ade45e73e10aa64e88aa424d4affbc763" title="Devuelve la imagen de GPU correspondiente a la fuente del tamaño dado." alt="" coords="5,139,157,180"/>
+</map>

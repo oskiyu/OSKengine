@@ -5,6 +5,7 @@
 
 namespace OSK::GRAPHICS {
 
+	/// @deprecated OpenGL no implementado.
 	class OSKAPI_CALL RenderpassOgl : public IRenderpass {
 
 	public:

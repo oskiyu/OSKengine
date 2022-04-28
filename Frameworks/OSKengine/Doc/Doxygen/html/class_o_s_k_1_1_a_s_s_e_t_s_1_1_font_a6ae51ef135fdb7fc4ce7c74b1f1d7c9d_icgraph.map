@@ -1,0 +1,5 @@
+<map id="OSK::ASSETS::Font::GetInstance" name="OSK::ASSETS::Font::GetInstance">
+<area shape="rect" id="node1" title="Devuelve la información de una instancia de la fuente con el tamaño dado." alt="" coords="205,39,357,80"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#aa3293489bd66420daddc77ebaa3db9d0" title="Devuelve la información de un carácter para un tamaño de fuente dado." alt="" coords="5,5,157,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#ade45e73e10aa64e88aa424d4affbc763" title="Devuelve la imagen de GPU correspondiente a la fuente del tamaño dado." alt="" coords="5,71,157,112"/>
+</map>

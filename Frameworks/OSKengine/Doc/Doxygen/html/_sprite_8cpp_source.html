@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/Sprite.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_sprite_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Sprite.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_sprite_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_sprite_8h.html">Sprite.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_i_gpu_image_8h.html">IGpuImage.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_assert_8h.html">Assert.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_texture_8h.html">Texture.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a>;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html">IGpuVertexBuffer</a>* Sprite::globalVertexBuffer = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html">IGpuIndexBuffer</a>* Sprite::globalIndexBuffer = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ab65e9b840e120d9b5a2b35c078d689a7">   14</a></span><span class="keywordtype">void</span> Sprite::SetTexCoords(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector4__t.html">Vector4f</a>&amp; texCoords) {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <a class="code hl_define" href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a>(image != <span class="keyword">nullptr</span>, <span class="stringliteral">&quot;No se ha establecido la imagen del sprite.&quot;</span>);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#adc7ddb2ec098373831ea47609a126156">SetTexCoordsInPercent</a>({</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        texCoords.<a class="code hl_function" href="class_o_s_k_1_1_vector4__t.html#a5e636ce8403b0b63545ffcb296381890">GetRectanglePosition</a>().X / image-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a244ebc8ce3ae3095698ea0c3eaba58fc">GetSize</a>().<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a9dd92e8b519b62ce53eb71f58eba6d50">X</a>,</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        texCoords.<a class="code hl_function" href="class_o_s_k_1_1_vector4__t.html#a5e636ce8403b0b63545ffcb296381890">GetRectanglePosition</a>().<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#ab320f5a65251faed82bd06dcbfabbdf5">Y</a> / image-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a244ebc8ce3ae3095698ea0c3eaba58fc">GetSize</a>().<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#afb19e7227d4047f7a666c03cea2b1658">Y</a>,</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        texCoords.<a class="code hl_function" href="class_o_s_k_1_1_vector4__t.html#a96bdc916373a99e5b58ad770fa9b271e">GetRectangleSize</a>().<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#aab000bf2b18b21608055adaf4b8586b6">X</a> / image-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a244ebc8ce3ae3095698ea0c3eaba58fc">GetSize</a>().<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a9dd92e8b519b62ce53eb71f58eba6d50">X</a>,</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        texCoords.<a class="code hl_function" href="class_o_s_k_1_1_vector4__t.html#a96bdc916373a99e5b58ad770fa9b271e">GetRectangleSize</a>().<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#ab320f5a65251faed82bd06dcbfabbdf5">Y</a> / image-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a244ebc8ce3ae3095698ea0c3eaba58fc">GetSize</a>().<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#afb19e7227d4047f7a666c03cea2b1658">Y</a></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        });</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#adc7ddb2ec098373831ea47609a126156">   24</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#adc7ddb2ec098373831ea47609a126156">Sprite::SetTexCoordsInPercent</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector4__t.html">Vector4f</a>&amp; texCoords) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    this-&gt;texCoords = texCoords;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ac8ae24d17038192613e451d13f7160d7">   28</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector4__t.html">Vector4f</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ac8ae24d17038192613e451d13f7160d7">Sprite::GetTexCoords</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">return</span> texCoords;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#a8954aa80ca2d38b483e4952563dc376a">   32</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#a8954aa80ca2d38b483e4952563dc376a">Sprite::SetTexture</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">Texture</a>* texture) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ac5e652767f5e72a078f6ca0bee45dbf4">SetGpuImage</a>(texture-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#ab04a5d675e7a3f71ceac7dd8d5234697">GetGpuImage</a>());</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ac5e652767f5e72a078f6ca0bee45dbf4">   36</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ac5e652767f5e72a078f6ca0bee45dbf4">Sprite::SetGpuImage</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>* image) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    this-&gt;image = image;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ae99d0f03db3cea51edaa1338766c3a3f">   40</a></span><span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ae99d0f03db3cea51edaa1338766c3a3f">Sprite::GetGpuImage</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">return</span> image;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
+<div class="ttc" id="a_assert_8h_html"><div class="ttname"><a href="_assert_8h.html">Assert.h</a></div></div>
+<div class="ttc" id="a_assert_8h_html_adfbccaec84df99b8277f9d877554170c"><div class="ttname"><a href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a></div><div class="ttdeci">#define OSK_ASSERT(condition, msg)</div><div class="ttdoc">Comprueba si la condición se cumple. Si no se cumple, muestra un mensaje de error y throwea un error.</div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00064">Assert.h:64</a></div></div>
+<div class="ttc" id="a_i_gpu_image_8h_html"><div class="ttname"><a href="_i_gpu_image_8h.html">IGpuImage.h</a></div></div>
+<div class="ttc" id="a_sprite_8h_html"><div class="ttname"><a href="_sprite_8h.html">Sprite.h</a></div></div>
+<div class="ttc" id="a_texture_8h_html"><div class="ttname"><a href="_texture_8h.html">Texture.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">OSK::ASSETS::Texture</a></div><div class="ttdoc">Una textura que será usada en renderizado 2D / 3D.</div><div class="ttdef"><b>Definition:</b> <a href="_texture_8h_source.html#l00013">Texture.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_html_ab04a5d675e7a3f71ceac7dd8d5234697"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#ab04a5d675e7a3f71ceac7dd8d5234697">OSK::ASSETS::Texture::GetGpuImage</a></div><div class="ttdeci">GRAPHICS::GpuImage * GetGpuImage() const</div><div class="ttdoc">Imagen guardada en la GPU. Para renderizado.</div><div class="ttdef"><b>Definition:</b> <a href="_texture_8cpp_source.html#l00026">Texture.cpp:26</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8h_source.html#l00022">IGpuImage.h:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_a244ebc8ce3ae3095698ea0c3eaba58fc"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a244ebc8ce3ae3095698ea0c3eaba58fc">OSK::GRAPHICS::GpuImage::GetSize</a></div><div class="ttdeci">Vector3ui GetSize() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8cpp_source.html#l00040">IGpuImage.cpp:40</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html">OSK::GRAPHICS::IGpuIndexBuffer</a></div><div class="ttdoc">Un index buffer contiene los índices para el renderizado de un modelo 2D o 3D.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_index_buffer_8h_source.html#l00010">IGpuIndexBuffer.h:10</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html">OSK::GRAPHICS::IGpuVertexBuffer</a></div><div class="ttdoc">Un vertex buffer es un buffer de memoria en la GPU que almacena los vértices de un modelo 3D o un spr...</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_vertex_buffer_8h_source.html#l00011">IGpuVertexBuffer.h:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_html_a8954aa80ca2d38b483e4952563dc376a"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#a8954aa80ca2d38b483e4952563dc376a">OSK::GRAPHICS::Sprite::SetTexture</a></div><div class="ttdeci">void SetTexture(const ASSETS::Texture *texture)</div><div class="ttdoc">Establece la textura del sprite.</div><div class="ttdef"><b>Definition:</b> <a href="_sprite_8cpp_source.html#l00032">Sprite.cpp:32</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_html_ac5e652767f5e72a078f6ca0bee45dbf4"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ac5e652767f5e72a078f6ca0bee45dbf4">OSK::GRAPHICS::Sprite::SetGpuImage</a></div><div class="ttdeci">void SetGpuImage(const GpuImage *image)</div><div class="ttdoc">Establece la textura del sprite.</div><div class="ttdef"><b>Definition:</b> <a href="_sprite_8cpp_source.html#l00036">Sprite.cpp:36</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_html_ac8ae24d17038192613e451d13f7160d7"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ac8ae24d17038192613e451d13f7160d7">OSK::GRAPHICS::Sprite::GetTexCoords</a></div><div class="ttdeci">Vector4f GetTexCoords() const</div><div class="ttdoc">Devuelve las coordenadas de textura del sprite, normalizadas (0.0 - 1.0).</div><div class="ttdef"><b>Definition:</b> <a href="_sprite_8cpp_source.html#l00028">Sprite.cpp:28</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_html_adc7ddb2ec098373831ea47609a126156"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#adc7ddb2ec098373831ea47609a126156">OSK::GRAPHICS::Sprite::SetTexCoordsInPercent</a></div><div class="ttdeci">void SetTexCoordsInPercent(const Vector4f &amp;texCoords)</div><div class="ttdoc">Establece la región (en porcentaje sobre el tamaño total) de la textura que se renderizará en este sp...</div><div class="ttdef"><b>Definition:</b> <a href="_sprite_8cpp_source.html#l00024">Sprite.cpp:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_html_ae99d0f03db3cea51edaa1338766c3a3f"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ae99d0f03db3cea51edaa1338766c3a3f">OSK::GRAPHICS::Sprite::GetGpuImage</a></div><div class="ttdeci">const GpuImage * GetGpuImage() const</div><div class="ttdoc">Devuelve la imagen que es renderizada.</div><div class="ttdef"><b>Definition:</b> <a href="_sprite_8cpp_source.html#l00040">Sprite.cpp:40</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_aab000bf2b18b21608055adaf4b8586b6"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#aab000bf2b18b21608055adaf4b8586b6">OSK::Vector2_t::X</a></div><div class="ttdeci">T X</div><div class="ttdoc">Representa la primera coordenada.</div><div class="ttdef"><b>Definition:</b> <a href="_vector2_8hpp_source.html#l00324">Vector2.hpp:324</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_ab320f5a65251faed82bd06dcbfabbdf5"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#ab320f5a65251faed82bd06dcbfabbdf5">OSK::Vector2_t::Y</a></div><div class="ttdeci">T Y</div><div class="ttdoc">Representa la segunda coordenada.</div><div class="ttdef"><b>Definition:</b> <a href="_vector2_8hpp_source.html#l00329">Vector2.hpp:329</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_a9dd92e8b519b62ce53eb71f58eba6d50"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#a9dd92e8b519b62ce53eb71f58eba6d50">OSK::Vector3_t::X</a></div><div class="ttdeci">T X</div><div class="ttdoc">Representa la primera coordenada.</div><div class="ttdef"><b>Definition:</b> <a href="_vector3_8hpp_source.html#l00331">Vector3.hpp:331</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_afb19e7227d4047f7a666c03cea2b1658"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#afb19e7227d4047f7a666c03cea2b1658">OSK::Vector3_t::Y</a></div><div class="ttdeci">T Y</div><div class="ttdoc">Representa la segunda coordenada.</div><div class="ttdef"><b>Definition:</b> <a href="_vector3_8hpp_source.html#l00336">Vector3.hpp:336</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector4__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector4__t.html">OSK::Vector4_t&lt; float_t &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector4__t_html_a5e636ce8403b0b63545ffcb296381890"><div class="ttname"><a href="class_o_s_k_1_1_vector4__t.html#a5e636ce8403b0b63545ffcb296381890">OSK::Vector4_t::GetRectanglePosition</a></div><div class="ttdeci">Vector2_t&lt; T &gt; GetRectanglePosition() const</div><div class="ttdoc">Obtiene la posición del rectángulo (X, Y).</div><div class="ttdef"><b>Definition:</b> <a href="_vector4_8hpp_source.html#l00212">Vector4.hpp:212</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector4__t_html_a96bdc916373a99e5b58ad770fa9b271e"><div class="ttname"><a href="class_o_s_k_1_1_vector4__t.html#a96bdc916373a99e5b58ad770fa9b271e">OSK::Vector4_t::GetRectangleSize</a></div><div class="ttdeci">Vector2_t&lt; T &gt; GetRectangleSize() const</div><div class="ttdoc">Obtiene el tamaño del rectángulo (Z, W).</div><div class="ttdef"><b>Definition:</b> <a href="_vector4_8hpp_source.html#l00219">Vector4.hpp:219</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition:</b> <a href="_asset_manager_8h_source.html#l00009">AssetManager.h:9</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_command_list_dx12_8h_source.html#l00012">CommandListDx12.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00007">Assert.h:7</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_sprite_8cpp.html">Sprite.cpp</a></li>
+    <li class="footer">Generado el Miércoles, 20 de Abril de 2022 00:28:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

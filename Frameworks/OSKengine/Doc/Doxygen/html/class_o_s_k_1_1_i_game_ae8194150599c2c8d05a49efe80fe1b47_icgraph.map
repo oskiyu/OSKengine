@@ -1,0 +1,4 @@
+<map id="OSK::IGame::Exit" name="OSK::IGame::Exit">
+<area shape="rect" id="node1" title="Fuerza el shutdown del juego." alt="" coords="167,5,293,32"/>
+<area shape="rect" id="node2" href="$class_game1.html#a0981142b47932b4f5dfac4e1556ba00f" title="Función que se ejecuta cada frame. Para hacer actualización del estado del juego." alt="" coords="5,5,119,32"/>
+</map>

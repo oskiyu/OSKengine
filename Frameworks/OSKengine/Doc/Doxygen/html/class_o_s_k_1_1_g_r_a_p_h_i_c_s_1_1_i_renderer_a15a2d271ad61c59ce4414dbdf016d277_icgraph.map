@@ -1,0 +1,4 @@
+<map id="OSK::GRAPHICS::IRenderer::GetMaterialSystem" name="OSK::GRAPHICS::IRenderer::GetMaterialSystem">
+<area shape="rect" id="node1" title="Devuelve el sistema de materiales. Necesario mara manejar materiales y crear instancias de materiales..." alt="" coords="180,5,368,47"/>
+<area shape="rect" id="node2" href="$class_game1.html#a738ffccb5910f1f15136680903ea4159" title="Función ejecutada al cargar el juego." alt="" coords="5,13,132,39"/>
+</map>

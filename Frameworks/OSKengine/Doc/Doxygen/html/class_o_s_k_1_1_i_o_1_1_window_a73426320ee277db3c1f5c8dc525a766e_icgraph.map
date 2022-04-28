@@ -1,0 +1,4 @@
+<map id="OSK::IO::Window::GetKeyboardState" name="OSK::IO::Window::GetKeyboardState">
+<area shape="rect" id="node1" title="Devuelve el estado actual del teclado." alt="" coords="167,5,376,47"/>
+<area shape="rect" id="node2" href="$class_game1.html#a0981142b47932b4f5dfac4e1556ba00f" title="Función que se ejecuta cada frame. Para hacer actualización del estado del juego." alt="" coords="5,13,119,39"/>
+</map>

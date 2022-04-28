@@ -95,7 +95,7 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Dirección en la que se encuentra el shader de vértices.
 		/// 
-		/// Debe ser un archivo ya compilado, en caso de que se use el renderizador
+		/// @note Debe ser un archivo ya compilado, en caso de que se use el renderizador
 		/// DirectX12 o Vulkan.
 		/// </summary>
 		std::string vertexPath;
@@ -103,7 +103,7 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Dirección en la que se encuentra el shader de fragmentos o píxeles.
 		/// 
-		/// Debe ser un archivo ya compilado, en caso de que se use el renderizador
+		/// @note Debe ser un archivo ya compilado, en caso de que se use el renderizador
 		/// DirectX12 o Vulkan.
 		/// </summary>
 		std::string fragmentPath;

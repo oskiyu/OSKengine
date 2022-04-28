@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/GpuMemorySubblockDx12.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_gpu_memory_subblock_dx12_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">GpuMemorySubblockDx12.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_gpu_memory_subblock_dx12_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_memory_subblock_dx12_8h.html">GpuMemorySubblockDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_memory_block_dx12_8h.html">GpuMemoryBlockDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#ab262f3cf588bc8a62239046eb8afd29c">    8</a></span>GpuMemorySubblockDx12::GpuMemorySubblockDx12(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html">IGpuMemoryBlock</a>* owner, <a class="code hl_typedef" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a46fc43555030fbe208abc7db8c36673d">TSize</a> size, <a class="code hl_typedef" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a46fc43555030fbe208abc7db8c36673d">TSize</a> offset, ComPtr&lt;ID3D12Resource&gt; resource)</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    : <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html">IGpuMemorySubblock</a>(owner, size, offset), resource(resource) {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>}</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aa198c6e76ed5686635f6bdaad954ec7c">   13</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aa198c6e76ed5686635f6bdaad954ec7c">GpuMemorySubblockDx12::MapMemory</a>() {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aa198c6e76ed5686635f6bdaad954ec7c">MapMemory</a>(<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a98060a86b121f0940cde38c36eca822f">GetAllocatedSize</a>(), 0);</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#ab9be318d467bafb83fd8fc25847b73e6">   17</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aa198c6e76ed5686635f6bdaad954ec7c">GpuMemorySubblockDx12::MapMemory</a>(<a class="code hl_typedef" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a46fc43555030fbe208abc7db8c36673d">TSize</a> size, <a class="code hl_typedef" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a46fc43555030fbe208abc7db8c36673d">TSize</a> offset) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    D3D12_RANGE range;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    range.Begin = offset + <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a036209ea09a10991d92dd0a4a41dc50d">totalOffsetFromBlock</a>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    range.End = offset + <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a036209ea09a10991d92dd0a4a41dc50d">totalOffsetFromBlock</a> + size;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    resource-&gt;Map(0, &amp;range, &amp;<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#ae410a7a22ad14bb5db166444b306cb0d">mappedData</a>);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#aac3a8be651f21675328192eeb107994f">isMapped</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a99bd6e4ba92049a34fa9869bd56c317c">   27</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a99bd6e4ba92049a34fa9869bd56c317c">GpuMemorySubblockDx12::Write</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* data, <a class="code hl_typedef" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a46fc43555030fbe208abc7db8c36673d">TSize</a> size) {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aae3a8737c4a303f7c4de787beec928d1">WriteOffset</a>(data, size, <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a8825ad42c419c641df9d469aa76e9d2e">cursor</a>);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a8825ad42c419c641df9d469aa76e9d2e">cursor</a> += size;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aae3a8737c4a303f7c4de787beec928d1">   32</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aae3a8737c4a303f7c4de787beec928d1">GpuMemorySubblockDx12::WriteOffset</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* data, <a class="code hl_typedef" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a46fc43555030fbe208abc7db8c36673d">TSize</a> size, <a class="code hl_typedef" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a46fc43555030fbe208abc7db8c36673d">TSize</a> offset) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_define" href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a>(<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#aac3a8be651f21675328192eeb107994f">isMapped</a>, <span class="stringliteral">&quot;El buffer no está mapeado.&quot;</span>);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    memcpy((<span class="keywordtype">char</span>*)<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#ae410a7a22ad14bb5db166444b306cb0d">mappedData</a> + offset, data, size);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a799dcd79180dce0f84b9200488e6aa82">   38</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a799dcd79180dce0f84b9200488e6aa82">GpuMemorySubblockDx12::Unmap</a>() {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    resource-&gt;Unmap(0, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aeed70f548ec527591047d3bcb3764c0e">   42</a></span>ID3D12Resource* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aeed70f548ec527591047d3bcb3764c0e">GpuMemorySubblockDx12::GetResource</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">return</span> resource.Get();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
+<div class="ttc" id="a_assert_8h_html_adfbccaec84df99b8277f9d877554170c"><div class="ttname"><a href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a></div><div class="ttdeci">#define OSK_ASSERT(condition, msg)</div><div class="ttdoc">Comprueba si la condición se cumple. Si no se cumple, muestra un mensaje de error y throwea un error.</div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00064">Assert.h:64</a></div></div>
+<div class="ttc" id="a_gpu_memory_block_dx12_8h_html"><div class="ttname"><a href="_gpu_memory_block_dx12_8h.html">GpuMemoryBlockDx12.h</a></div></div>
+<div class="ttc" id="a_gpu_memory_subblock_dx12_8h_html"><div class="ttname"><a href="_gpu_memory_subblock_dx12_8h.html">GpuMemorySubblockDx12.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12_html_a799dcd79180dce0f84b9200488e6aa82"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a799dcd79180dce0f84b9200488e6aa82">OSK::GRAPHICS::GpuMemorySubblockDx12::Unmap</a></div><div class="ttdeci">void Unmap() override</div><div class="ttdoc">Desmapea el subbloque. Debe llamarse al terminar de escribir.</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_memory_subblock_dx12_8cpp_source.html#l00038">GpuMemorySubblockDx12.cpp:38</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12_html_a99bd6e4ba92049a34fa9869bd56c317c"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a99bd6e4ba92049a34fa9869bd56c317c">OSK::GRAPHICS::GpuMemorySubblockDx12::Write</a></div><div class="ttdeci">void Write(const void *data, TSize size) override</div><div class="ttdoc">Escribe información en la GPU.</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_memory_subblock_dx12_8cpp_source.html#l00027">GpuMemorySubblockDx12.cpp:27</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12_html_aa198c6e76ed5686635f6bdaad954ec7c"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aa198c6e76ed5686635f6bdaad954ec7c">OSK::GRAPHICS::GpuMemorySubblockDx12::MapMemory</a></div><div class="ttdeci">void MapMemory() override</div><div class="ttdoc">Mapea toda la memoria del subbloque.</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_memory_subblock_dx12_8cpp_source.html#l00013">GpuMemorySubblockDx12.cpp:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12_html_aae3a8737c4a303f7c4de787beec928d1"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aae3a8737c4a303f7c4de787beec928d1">OSK::GRAPHICS::GpuMemorySubblockDx12::WriteOffset</a></div><div class="ttdeci">void WriteOffset(const void *data, TSize size, TSize offset) override</div><div class="ttdoc">Escribe información en la GPU, con un offset.</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_memory_subblock_dx12_8cpp_source.html#l00032">GpuMemorySubblockDx12.cpp:32</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12_html_aeed70f548ec527591047d3bcb3764c0e"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aeed70f548ec527591047d3bcb3764c0e">OSK::GRAPHICS::GpuMemorySubblockDx12::GetResource</a></div><div class="ttdeci">ID3D12Resource * GetResource() const</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_memory_subblock_dx12_8cpp_source.html#l00042">GpuMemorySubblockDx12.cpp:42</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html">OSK::GRAPHICS::IGpuMemoryBlock</a></div><div class="ttdoc">Un bloque de memoria representa una región de memoria que ha sidon reservada.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_memory_block_8h_source.html#l00021">IGpuMemoryBlock.h:21</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html">OSK::GRAPHICS::IGpuMemorySubblock</a></div><div class="ttdoc">Representa una región de memoria dedicada a un único recurso.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_memory_subblock_8h_source.html#l00024">IGpuMemorySubblock.h:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock_html_a036209ea09a10991d92dd0a4a41dc50d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a036209ea09a10991d92dd0a4a41dc50d">OSK::GRAPHICS::IGpuMemorySubblock::totalOffsetFromBlock</a></div><div class="ttdeci">TSize totalOffsetFromBlock</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_memory_subblock_8h_source.html#l00080">IGpuMemorySubblock.h:80</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock_html_a46fc43555030fbe208abc7db8c36673d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a46fc43555030fbe208abc7db8c36673d">OSK::GRAPHICS::IGpuMemorySubblock::TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_memory_subblock_8h_source.html#l00028">IGpuMemorySubblock.h:28</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock_html_a8825ad42c419c641df9d469aa76e9d2e"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a8825ad42c419c641df9d469aa76e9d2e">OSK::GRAPHICS::IGpuMemorySubblock::cursor</a></div><div class="ttdeci">TSize cursor</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_memory_subblock_8h_source.html#l00082">IGpuMemorySubblock.h:82</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock_html_a98060a86b121f0940cde38c36eca822f"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a98060a86b121f0940cde38c36eca822f">OSK::GRAPHICS::IGpuMemorySubblock::GetAllocatedSize</a></div><div class="ttdeci">TSize GetAllocatedSize() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_memory_subblock_8cpp_source.html#l00019">IGpuMemorySubblock.cpp:19</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock_html_aac3a8be651f21675328192eeb107994f"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#aac3a8be651f21675328192eeb107994f">OSK::GRAPHICS::IGpuMemorySubblock::isMapped</a></div><div class="ttdeci">bool isMapped</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_memory_subblock_8h_source.html#l00076">IGpuMemorySubblock.h:76</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock_html_ae410a7a22ad14bb5db166444b306cb0d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#ae410a7a22ad14bb5db166444b306cb0d">OSK::GRAPHICS::IGpuMemorySubblock::mappedData</a></div><div class="ttdeci">void * mappedData</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_memory_subblock_8h_source.html#l00077">IGpuMemorySubblock.h:77</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_command_list_dx12_8h_source.html#l00012">CommandListDx12.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00007">Assert.h:7</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_gpu_memory_subblock_dx12_8cpp.html">GpuMemorySubblockDx12.cpp</a></li>
+    <li class="footer">Generado el Miércoles, 20 de Abril de 2022 00:28:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

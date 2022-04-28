@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::CommandListVulkan::TransitionImageLayout" name="OSK::GRAPHICS::CommandListVulkan::TransitionImageLayout">
+<area shape="rect" id="node1" title="Cambia el layout interno de la imagen en la memoria de la GPU." alt="" coords="5,27,219,69"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a6bc3268b57ede5f9f0541b20d12dfea0" title=" " alt="" coords="267,5,483,32"/>
+<area shape="rect" id="node3" href="$namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aee2527c482821230e085e377aa731fde" title=" " alt="" coords="268,57,481,98"/>
+</map>

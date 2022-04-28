@@ -1,0 +1,357 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Referencia del Archivo OSKengine2/ModelLoader3D.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_model_loader3_d_8cpp.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Clases</a> &#124;
+<a href="#define-members">defines</a> &#124;
+<a href="#func-members">Funciones</a>  </div>
+  <div class="headertitle"><div class="title">Referencia del Archivo ModelLoader3D.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="_model_loader3_d_8h_source.html">ModelLoader3D.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_model3_d_8h_source.html">Model3D.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_vertex_8h_source.html">Vertex.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_o_s_kengine_8h_source.html">OSKengine.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_i_gpu_vertex_buffer_8h_source.html">IGpuVertexBuffer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_i_gpu_index_buffer_8h_source.html">IGpuIndexBuffer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_file_i_o_8h_source.html">FileIO.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_mesh3_d_8h_source.html">Mesh3D.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_format_8h_source.html">Format.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_gpu_memory_types_8h_source.html">GpuMemoryTypes.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_i_gpu_image_8h_source.html">IGpuImage.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_gpu_image_layout_8h_source.html">GpuImageLayout.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_owned_ptr_8h_source.html">OwnedPtr.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_gpu_image_usage_8h_source.html">GpuImageUsage.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_gpu_image_dimensions_8h_source.html">GpuImageDimensions.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_color_8hpp_source.html">Color.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_vertex3_d_8h_source.html">Vertex3D.h</a>&quot;</code><br />
+<code>#include &lt;gtc/type_ptr.hpp&gt;</code><br />
+<code>#include &lt;json.hpp&gt;</code><br />
+<code>#include &lt;tiny_gltf.h&gt;</code><br />
+</div>
+<p><a href="_model_loader3_d_8cpp_source.html">Ir al código fuente de este archivo.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Clases</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_gltf_material_info.html">GltfMaterialInfo</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_gltf_model_info.html">GltfModelInfo</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+defines</h2></td></tr>
+<tr class="memitem:ac203b64c0edef3702d707aed38ab024a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_model_loader3_d_8cpp.html#ac203b64c0edef3702d707aed38ab024a">TINYGLTF_IMPLEMENTATION</a></td></tr>
+<tr class="separator:ac203b64c0edef3702d707aed38ab024a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18372412ad2fc3ce1e3240b3cf0efe78"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_model_loader3_d_8cpp.html#a18372412ad2fc3ce1e3240b3cf0efe78">STB_IMAGE_IMPLEMENTATION</a></td></tr>
+<tr class="separator:a18372412ad2fc3ce1e3240b3cf0efe78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab85d274e208f7c3760dee26d2ab13eb8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_model_loader3_d_8cpp.html#ab85d274e208f7c3760dee26d2ab13eb8">TINYGLTF_NO_STB_IMAGE_WRITE</a></td></tr>
+<tr class="separator:ab85d274e208f7c3760dee26d2ab13eb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:ab7816e17f79e6bc0d74d1d25386ba89d"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_model_loader3_d_8cpp.html#ab7816e17f79e6bc0d74d1d25386ba89d">GetNodeMatrix</a> (const tinygltf::Node &amp;node)</td></tr>
+<tr class="separator:ab7816e17f79e6bc0d74d1d25386ba89d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a458b76689b3ead05bebcd4554de43d0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_model_loader3_d_8cpp.html#a458b76689b3ead05bebcd4554de43d0c">ProcessMeshNode</a> (const tinygltf::Node &amp;node, const tinygltf::Model &amp;model, const <a class="el" href="struct_gltf_model_info.html">GltfModelInfo</a> &amp;modelInfo, <a class="el" href="class_o_s_k_1_1_hash_map.html">HashMap</a>&lt; <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> &gt; *meshIdToMaterialId, <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh3_d.html">Mesh3D</a> &gt; *meshes, <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d.html">Vertex3D</a> &gt; *vertices, <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a05f5134cdcc67a7889c57e39aa2f25ae">TIndexSize</a> &gt; *indices, const glm::mat4 &amp;prevMatrix, float globalScale)</td></tr>
+<tr class="separator:a458b76689b3ead05bebcd4554de43d0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55c94be9b19f27beda4f6c0ce044dbc6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_gltf_material_info.html">GltfMaterialInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_model_loader3_d_8cpp.html#a55c94be9b19f27beda4f6c0ce044dbc6">LoadMaterials</a> (const tinygltf::Model &amp;model)</td></tr>
+<tr class="separator:a55c94be9b19f27beda4f6c0ce044dbc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb7e6c494a601ac388178e513bd7b853"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GRAPHICS::GpuImage</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_model_loader3_d_8cpp.html#abb7e6c494a601ac388178e513bd7b853">LoadImages</a> (const tinygltf::Model &amp;model)</td></tr>
+<tr class="separator:abb7e6c494a601ac388178e513bd7b853"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentación de los 'defines'</h2>
+<a id="a18372412ad2fc3ce1e3240b3cf0efe78" name="a18372412ad2fc3ce1e3240b3cf0efe78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18372412ad2fc3ce1e3240b3cf0efe78">&#9670;&nbsp;</a></span>STB_IMAGE_IMPLEMENTATION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STB_IMAGE_IMPLEMENTATION</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00027">27</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac203b64c0edef3702d707aed38ab024a" name="ac203b64c0edef3702d707aed38ab024a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac203b64c0edef3702d707aed38ab024a">&#9670;&nbsp;</a></span>TINYGLTF_IMPLEMENTATION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TINYGLTF_IMPLEMENTATION</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00026">26</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab85d274e208f7c3760dee26d2ab13eb8" name="ab85d274e208f7c3760dee26d2ab13eb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab85d274e208f7c3760dee26d2ab13eb8">&#9670;&nbsp;</a></span>TINYGLTF_NO_STB_IMAGE_WRITE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TINYGLTF_NO_STB_IMAGE_WRITE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00028">28</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de las funciones</h2>
+<a id="ab7816e17f79e6bc0d74d1d25386ba89d" name="ab7816e17f79e6bc0d74d1d25386ba89d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7816e17f79e6bc0d74d1d25386ba89d">&#9670;&nbsp;</a></span>GetNodeMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::mat4 GetNodeMatrix </td>
+          <td>(</td>
+          <td class="paramtype">const tinygltf::Node &amp;&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00074">74</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abb7e6c494a601ac388178e513bd7b853" name="abb7e6c494a601ac388178e513bd7b853"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb7e6c494a601ac388178e513bd7b853">&#9670;&nbsp;</a></span>LoadImages()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GRAPHICS::GpuImage</a> &gt; &gt; LoadImages </td>
+          <td>(</td>
+          <td class="paramtype">const tinygltf::Model &amp;&#160;</td>
+          <td class="paramname"><em>model</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00267">267</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a55c94be9b19f27beda4f6c0ce044dbc6" name="a55c94be9b19f27beda4f6c0ce044dbc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55c94be9b19f27beda4f6c0ce044dbc6">&#9670;&nbsp;</a></span>LoadMaterials()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_gltf_material_info.html">GltfMaterialInfo</a> &gt; LoadMaterials </td>
+          <td>(</td>
+          <td class="paramtype">const tinygltf::Model &amp;&#160;</td>
+          <td class="paramname"><em>model</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Carga todos los materiales del modelo, y guarda la información relevante de cada uno. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00244">244</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a458b76689b3ead05bebcd4554de43d0c" name="a458b76689b3ead05bebcd4554de43d0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a458b76689b3ead05bebcd4554de43d0c">&#9670;&nbsp;</a></span>ProcessMeshNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ProcessMeshNode </td>
+          <td>(</td>
+          <td class="paramtype">const tinygltf::Node &amp;&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const tinygltf::Model &amp;&#160;</td>
+          <td class="paramname"><em>model</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_gltf_model_info.html">GltfModelInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>modelInfo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_hash_map.html">HashMap</a>&lt; <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> &gt; *&#160;</td>
+          <td class="paramname"><em>meshIdToMaterialId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh3_d.html">Mesh3D</a> &gt; *&#160;</td>
+          <td class="paramname"><em>meshes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d.html">Vertex3D</a> &gt; *&#160;</td>
+          <td class="paramname"><em>vertices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a05f5134cdcc67a7889c57e39aa2f25ae">TIndexSize</a> &gt; *&#160;</td>
+          <td class="paramname"><em>indices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const glm::mat4 &amp;&#160;</td>
+          <td class="paramname"><em>prevMatrix</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>globalScale</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Procesa un nodo del modelo, además de todos sus nodos hijos. Genera los meshes, vértices e índices. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Nodo del modelo GLTF.</td></tr>
+    <tr><td class="paramname">model</td><td>Modelo GLTF original.</td></tr>
+    <tr><td class="paramname">modelInfo</td><td>Información relevante del modelo para la generación de meshes.</td></tr>
+    <tr><td class="paramname">meshes</td><td>Lista donde se introducirán los meshes.</td></tr>
+    <tr><td class="paramname">vertices</td><td>Lista donde se introducirán los vértices.</td></tr>
+    <tr><td class="paramname">indices</td><td>Lista donde se introducirán los índices.</td></tr>
+    <tr><td class="paramname">prevMatrix</td><td>Matriz offset del nodo padre.</td></tr>
+    <tr><td class="paramname">globalScale</td><td>Escala del modelo.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00114">114</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_model_loader3_d_8cpp.html">ModelLoader3D.cpp</a></li>
+    <li class="footer">Generado el Miércoles, 20 de Abril de 2022 00:28:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

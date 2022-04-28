@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::IGpuMemoryBlock" name="OSK::GRAPHICS::IGpuMemoryBlock">
+<area shape="rect" id="node1" title="Un bloque de memoria representa una región de memoria que ha sidon reservada." alt="" coords="117,5,324,361"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html" title=" " alt="" coords="5,424,209,560"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html" title=" " alt="" coords="233,409,437,575"/>
+</map>

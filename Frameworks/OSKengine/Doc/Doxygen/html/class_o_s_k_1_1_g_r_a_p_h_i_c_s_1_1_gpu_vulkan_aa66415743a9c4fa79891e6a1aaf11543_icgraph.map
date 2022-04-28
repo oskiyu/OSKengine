@@ -1,0 +1,9 @@
+<map id="OSK::GRAPHICS::GpuVulkan::GetQueueFamilyIndices" name="OSK::GRAPHICS::GpuVulkan::GetQueueFamilyIndices">
+<area shape="rect" id="node1" title="Devuelve información sobre las colas soportadas por esta GPU." alt="" coords="764,104,961,145"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#ab115168a15873e46b9da9ba3442782c9" title="Crea el swapchain. Obtiene automáticamente el tamaño de las imágenes a partir del tamaño de la ventan..." alt="" coords="519,39,715,80"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#a283ed26207155f91cf2b9c41443ae122" title="Crea una pool de comandos, para poder crear listas de comandos." alt="" coords="519,104,716,145"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#a5a806e010c5e1feabf3cc82ff7ec3d37" title=" " alt="" coords="519,169,716,211"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#a5eed4a14de2b74443b5da96486cbd0d4" title="Recrea el swapchain con el tamaño de la ventana. Para cuando se ha cambiado de tamaño la ventana." alt="" coords="275,39,471,80"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a372f1f09902e5735edb66cf7ed4c1a84" title=" " alt="" coords="15,5,217,47"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a5a9110a4da448f607b783f949fb941d9" title=" " alt="" coords="5,71,227,112"/>
+</map>

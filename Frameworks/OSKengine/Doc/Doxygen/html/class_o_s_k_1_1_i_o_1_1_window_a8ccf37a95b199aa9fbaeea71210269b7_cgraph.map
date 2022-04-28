@@ -1,0 +1,4 @@
+<map id="OSK::IO::Window::SetMousePosition" name="OSK::IO::Window::SetMousePosition">
+<area shape="rect" id="node1" title="Establece la posición del ratón, desde la esquina superior izquierda." alt="" coords="5,5,197,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042" title="Devuelve el puntero nativo." alt="" coords="245,13,431,39"/>
+</map>

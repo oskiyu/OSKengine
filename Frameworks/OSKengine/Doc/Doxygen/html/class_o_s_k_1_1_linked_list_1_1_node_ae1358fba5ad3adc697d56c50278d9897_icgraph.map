@@ -1,0 +1,5 @@
+<map id="OSK::LinkedList::Node::GetPrevious" name="OSK::LinkedList::Node::GetPrevious">
+<area shape="rect" id="node1" title="Obtiene el anterior nodo de la lista." alt="" coords="224,27,379,69"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_linked_list.html#a7e7470c3edb3c19c93dc5149f919fb5d" title="Añade un elemento a la lista, en la posición dada. El elemento añadido toma la posición dada,..." alt="" coords="5,5,176,32"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_linked_list_1_1_iterator.html#abfb3e3e7ffaf4e3a73c49519a5679f4c" title="Retrocede el iterador una posición." alt="" coords="8,57,173,98"/>
+</map>

@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/GpuImageVulkan.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_gpu_image_vulkan_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">GpuImageVulkan.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_gpu_image_vulkan_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_vulkan_8h.html">GpuImageVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;vulkan/vulkan.h&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_renderer_vulkan_8h.html">RendererVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_vulkan_8h.html">GpuVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_logger_8h.html">Logger.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#a704f3fdeeb946aabd471b07b7b2ec439">   12</a></span>GpuImageVulkan::GpuImageVulkan(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3ui</a>&amp; size, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ab91ccc08d13454cfeb3c4f78deb72d59">GpuImageDimension</a> dimension, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">GpuImageUsage</a> usage, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> numLayers, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> format)</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    : <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>(size, dimension, usage, numLayers, format) {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#a2ddb5c72492ece55375eb0ae3b575012">   17</a></span><a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#a2ddb5c72492ece55375eb0ae3b575012">GpuImageVulkan::~GpuImageVulkan</a>() {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">if</span> (image != VK_NULL_HANDLE) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        vkDestroyImage(<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;GetGpu()-&gt;As&lt;GpuVulkan&gt;()-&gt;GetLogicalDevice(), image, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        image = VK_NULL_HANDLE;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    }</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">if</span> (view != VK_NULL_HANDLE) {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        vkDestroyImageView(<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;GetGpu()-&gt;As&lt;GpuVulkan&gt;()-&gt;GetLogicalDevice(), view, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        view = VK_NULL_HANDLE;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    }</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">if</span> (sampler != VK_NULL_HANDLE) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        vkDestroySampler(<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;GetGpu()-&gt;As&lt;GpuVulkan&gt;()-&gt;GetLogicalDevice(), sampler, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        sampler = VK_NULL_HANDLE;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    }</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#a5b4837528f8822057461216236a6f465">   32</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#a5b4837528f8822057461216236a6f465">GpuImageVulkan::SetImage</a>(<a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#ab67aebb4bb7dd78d66051d8fc16c8099">VkImage</a> image) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    this-&gt;image = image;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#acb85c11f97025ab51cb63aea2c3a24ec">   36</a></span><a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#ab67aebb4bb7dd78d66051d8fc16c8099">VkImage</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#acb85c11f97025ab51cb63aea2c3a24ec">GpuImageVulkan::GetImage</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">return</span> image;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#a478fffc93098dcc7f9e06f1097e15326">   40</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#a478fffc93098dcc7f9e06f1097e15326">GpuImageVulkan::SetView</a>(<a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#a28e620304ee7813cd5c30bd76c74c553">VkImageView</a> view) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    this-&gt;view = view;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#a92d93a4bc2df97c459546f097aace300">   44</a></span><a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#a28e620304ee7813cd5c30bd76c74c553">VkImageView</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#a92d93a4bc2df97c459546f097aace300">GpuImageVulkan::GetView</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">return</span> view;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#af3934144621265582454f5c62963fcfd">   48</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#af3934144621265582454f5c62963fcfd">GpuImageVulkan::SetSampler</a>(<a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#a600cc1aac896aa576ad1d794aea333b6">VkSampler</a> sampler) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    this-&gt;sampler = sampler;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#a83634e2146b531568fb4bc99032eba75">   52</a></span><a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#a600cc1aac896aa576ad1d794aea333b6">VkSampler</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#a83634e2146b531568fb4bc99032eba75">GpuImageVulkan::GetSampler</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">return</span> sampler;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
+<div class="ttc" id="a_gpu_image_vulkan_8h_html"><div class="ttname"><a href="_gpu_image_vulkan_8h.html">GpuImageVulkan.h</a></div></div>
+<div class="ttc" id="a_gpu_image_vulkan_8h_html_a28e620304ee7813cd5c30bd76c74c553"><div class="ttname"><a href="_gpu_image_vulkan_8h.html#a28e620304ee7813cd5c30bd76c74c553">VkImageView</a></div><div class="ttdeci">VkImageView_T * VkImageView</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_vulkan_8h_source.html#l00009">GpuImageVulkan.h:8</a></div></div>
+<div class="ttc" id="a_gpu_image_vulkan_8h_html_a600cc1aac896aa576ad1d794aea333b6"><div class="ttname"><a href="_gpu_image_vulkan_8h.html#a600cc1aac896aa576ad1d794aea333b6">VkSampler</a></div><div class="ttdeci">VkSampler_T * VkSampler</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_vulkan_8h_source.html#l00012">GpuImageVulkan.h:11</a></div></div>
+<div class="ttc" id="a_gpu_image_vulkan_8h_html_ab67aebb4bb7dd78d66051d8fc16c8099"><div class="ttname"><a href="_gpu_image_vulkan_8h.html#ab67aebb4bb7dd78d66051d8fc16c8099">VkImage</a></div><div class="ttdeci">VkImage_T * VkImage</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_vulkan_8h_source.html#l00006">GpuImageVulkan.h:5</a></div></div>
+<div class="ttc" id="a_gpu_vulkan_8h_html"><div class="ttname"><a href="_gpu_vulkan_8h.html">GpuVulkan.h</a></div></div>
+<div class="ttc" id="a_logger_8h_html"><div class="ttname"><a href="_logger_8h.html">Logger.h</a></div></div>
+<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00015">OSKmacros.h:15</a></div></div>
+<div class="ttc" id="a_renderer_vulkan_8h_html"><div class="ttname"><a href="_renderer_vulkan_8h.html">RendererVulkan.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a019c5397d042224c134b7fd22c739d00"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">OSK::Engine::GetRenderer</a></div><div class="ttdeci">static GRAPHICS::IRenderer * GetRenderer()</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kengine_8cpp_source.html#l00127">OSKengine.cpp:127</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8h_source.html#l00022">IGpuImage.h:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_html_a2ddb5c72492ece55375eb0ae3b575012"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#a2ddb5c72492ece55375eb0ae3b575012">OSK::GRAPHICS::GpuImageVulkan::~GpuImageVulkan</a></div><div class="ttdeci">~GpuImageVulkan()</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_vulkan_8cpp_source.html#l00017">GpuImageVulkan.cpp:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_html_a478fffc93098dcc7f9e06f1097e15326"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#a478fffc93098dcc7f9e06f1097e15326">OSK::GRAPHICS::GpuImageVulkan::SetView</a></div><div class="ttdeci">void SetView(VkImageView view)</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_vulkan_8cpp_source.html#l00040">GpuImageVulkan.cpp:40</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_html_a5b4837528f8822057461216236a6f465"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#a5b4837528f8822057461216236a6f465">OSK::GRAPHICS::GpuImageVulkan::SetImage</a></div><div class="ttdeci">void SetImage(VkImage image)</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_vulkan_8cpp_source.html#l00032">GpuImageVulkan.cpp:32</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_html_a83634e2146b531568fb4bc99032eba75"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#a83634e2146b531568fb4bc99032eba75">OSK::GRAPHICS::GpuImageVulkan::GetSampler</a></div><div class="ttdeci">VkSampler GetSampler() const</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_vulkan_8cpp_source.html#l00052">GpuImageVulkan.cpp:52</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_html_a92d93a4bc2df97c459546f097aace300"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#a92d93a4bc2df97c459546f097aace300">OSK::GRAPHICS::GpuImageVulkan::GetView</a></div><div class="ttdeci">VkImageView GetView() const</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_vulkan_8cpp_source.html#l00044">GpuImageVulkan.cpp:44</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_html_acb85c11f97025ab51cb63aea2c3a24ec"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#acb85c11f97025ab51cb63aea2c3a24ec">OSK::GRAPHICS::GpuImageVulkan::GetImage</a></div><div class="ttdeci">VkImage GetImage() const</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_vulkan_8cpp_source.html#l00036">GpuImageVulkan.cpp:36</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_html_af3934144621265582454f5c62963fcfd"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#af3934144621265582454f5c62963fcfd">OSK::GRAPHICS::GpuImageVulkan::SetSampler</a></div><div class="ttdeci">void SetSampler(VkSampler sampler)</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_vulkan_8cpp_source.html#l00048">GpuImageVulkan.cpp:48</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html">OSK::Vector3_t&lt; uint32_t &gt;</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_command_list_dx12_8h_source.html#l00012">CommandListDx12.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a19a2f70fc994c00eb022e520608c5ffa"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">OSK::GRAPHICS::GpuImageUsage</a></div><div class="ttdeci">GpuImageUsage</div><div class="ttdoc">Uso que se le va a dar a la imagen.</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_usage_8h_source.html#l00012">GpuImageUsage.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aac59f9d056e083c0b49ea768f974e3e8"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">OSK::GRAPHICS::Format</a></div><div class="ttdeci">Format</div><div class="ttdoc">Formatos que puede tener una textura / imagen.</div><div class="ttdef"><b>Definition:</b> <a href="_format_8h_source.html#l00008">Format.h:8</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_ab91ccc08d13454cfeb3c4f78deb72d59"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ab91ccc08d13454cfeb3c4f78deb72d59">OSK::GRAPHICS::GpuImageDimension</a></div><div class="ttdeci">GpuImageDimension</div><div class="ttdoc">Dimensiones posibles de una imagen.</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_dimensions_8h_source.html#l00008">GpuImageDimensions.h:8</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00007">Assert.h:7</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_gpu_image_vulkan_8cpp.html">GpuImageVulkan.cpp</a></li>
+    <li class="footer">Generado el Miércoles, 20 de Abril de 2022 00:28:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

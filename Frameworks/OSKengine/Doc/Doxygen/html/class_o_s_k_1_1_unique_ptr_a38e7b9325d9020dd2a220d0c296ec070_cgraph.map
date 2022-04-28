@@ -1,0 +1,4 @@
+<map id="OSK::UniquePtr::operator=" name="OSK::UniquePtr::operator=">
+<area shape="rect" id="node1" title="Este puntero será dueño del puntero de other." alt="" coords="5,5,184,32"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_unique_ptr.html#a3c6725a56406ebbce68e3eac61ac14b2" title="Intercambia el puntero con el otro UniquePtr." alt="" coords="232,5,387,32"/>
+</map>

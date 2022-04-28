@@ -1,0 +1,8 @@
+<map id="OSK::DynamicArray::RemoveLast" name="OSK::DynamicArray::RemoveLast">
+<area shape="rect" id="node1" title="Elimina el último elemento del array." alt="" coords="532,69,680,111"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_dynamic_array.html#a0a3dca21beab01e5193082a2803e32db" title="Devuelve el último elemento de la lista." alt="" coords="291,15,462,42"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#a9b71e06dbdfd14318e62df1352ff646d" title="Elimina el componente cuyo dueño es el dado." alt="" coords="269,69,484,111"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#aaf4a09e52c546c79b71b26fa5a110f57" title=" " alt="" coords="269,135,484,176"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_game_object_manager.html#a2548c491a8cc69f20c5bb70f123902cc" title="Registra un nuevo objeto." alt="" coords="5,5,221,47"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#aa2ae3332ee4b0c80860b7cc3d60d5d55" title="Elimina el componente del objeto eliminado." alt="" coords="6,71,221,112"/>
+</map>

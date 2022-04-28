@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::IMaterialSlot::SetGpuImage" name="OSK::GRAPHICS::IMaterialSlot::SetGpuImage">
+<area shape="rect" id="node1" title="Establece la imagen que será asignada al binding con el nombre dado. Puede usarse esta función para a..." alt="" coords="236,27,419,69"/>
+<area shape="rect" id="node2" href="$class_game1.html#a738ffccb5910f1f15136680903ea4159" title="Función ejecutada al cargar el juego." alt="" coords="33,5,160,32"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a058d5fe56bf883ef6a7ea8ec533d07f0" title="Establece la textura que será asignada al binding con el nombre dado. Puede usarse esta función para ..." alt="" coords="5,57,188,98"/>
+</map>

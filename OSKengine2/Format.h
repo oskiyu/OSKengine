@@ -21,8 +21,19 @@ namespace OSK::GRAPHICS {
 
 	};
 
+	/// <summary>
+	/// Devuelve el número de bytes que ocupa un píxel de un formato dado.
+	/// </summary>
+	/// <param name="format">Formato de imagen.</param>
+	/// <returns>Número de bytes por pixel.</returns>
 	unsigned int GetFormatNumberOfBytes(Format format);
 
+	/// <summary>
+	/// Devuelve un formato de color que tenga el número de canales deseado.
+	/// </summary>
+	/// <returns>
+	/// RGB8_UNORM o RGBA8_UNORM.
+	/// Si se pasa un número inválido, devolverá RGBA8_UNORM.</returns>
 	Format GetColorFormat(unsigned int numChannels);
 
 }

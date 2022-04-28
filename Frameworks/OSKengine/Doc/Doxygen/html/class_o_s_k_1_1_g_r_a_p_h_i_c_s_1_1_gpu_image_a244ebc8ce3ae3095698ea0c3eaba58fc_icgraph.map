@@ -1,0 +1,10 @@
+<map id="OSK::GRAPHICS::GpuImage::GetSize" name="OSK::GRAPHICS::GpuImage::GetSize">
+<area shape="rect" id="node1" title=" " alt="" coords="529,169,721,211"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a546510609e889e49aca9c89262ecf527" title="Comienza el renderizado a un renderpass." alt="" coords="267,5,481,47"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a4b89d32326161602a638dd6e80d79fef" title="Copia la imagen guardada en un buffer a una imagen en la GPU. Para poder subir una imagen a la GPU,..." alt="" coords="267,71,481,112"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a4037acfe3a5f8071b004b7f80529912c" title="Establece las imágenes del swapchain donde se va a renderizar (para pantalla)." alt="" coords="273,136,475,177"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_ogl.html#a34b8280061575d133dfce6acc45227d7" title="Establece las imágenes del swapchain donde se va a renderizar (para pantalla)." alt="" coords="273,201,475,243"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html#a8911104609904226b868013aa5ac52db" title="Establece las imágenes del swapchain donde se va a renderizar (para pantalla)." alt="" coords="273,267,475,308"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ab65e9b840e120d9b5a2b35c078d689a7" title="Establece la región (en píxeles) de la textura que se renderizará en este sprite." alt="" coords="291,332,457,373"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a7001f2a6a149e3ae07438341d9b23e1c" title="Comienza el renderizado a un renderpass." alt="" coords="5,5,219,47"/>
+</map>

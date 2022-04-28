@@ -1,0 +1,11 @@
+<map id="OSK::LinkedList::Node::GetValue" name="OSK::LinkedList::Node::GetValue">
+<area shape="rect" id="node1" title="Crea un nodo con el elemento dado." alt="" coords="457,158,612,199"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_linked_list.html#aedc9d34e76f08d7e298b1f90f5f69af9" title="Devuevle el elemento que está en la posición &#39;i&#39;, desde el primer elemento." alt="" coords="252,5,391,32"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_linked_list.html#a07a76e4850c47f41d379f3c3cdbe3a49" title=" " alt="" coords="233,56,409,83"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_linked_list.html#a7923abbf5ed26e6b642078d9bea77030" title="Devuelve un iterador que apunta al elemento dado. Si el elemento no está en la lista,..." alt="" coords="246,107,397,133"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_linked_list_1_1_iterator.html#aeaaf6a5ef6bfbb6e78e3fd815892e3ca" title="Devuelve el valor apuntado por el iterador." alt="" coords="239,158,404,199"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_linked_list.html#a059549a520a8575370f5f40ab64c382b" title=" " alt="" coords="244,224,399,251"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_linked_list.html#acbc610aa49eff5fdfb27f4afac53d38d" title=" " alt="" coords="247,275,395,301"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_linked_list.html#adf506ec3d2aac534f80baab0b950de9b" title="Elimina el elemento dado, si existe." alt="" coords="236,325,407,352"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_linked_list.html#a834e4f95a621fb213d0870c80a07b933" title="Devuevle el elemento que está en la posición &#39;i&#39;, desde el primer elemento." alt="" coords="5,5,185,32"/>
+</map>

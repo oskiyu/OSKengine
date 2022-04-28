@@ -1,0 +1,4 @@
+<map id="OSK::ECS::CameraComponent2D::UnlinkWindow" name="OSK::ECS::CameraComponent2D::UnlinkWindow">
+<area shape="rect" id="node1" title="Quita el enlace a la ventana." alt="" coords="5,5,216,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#a252da56695331ab5ac11f442b74a30db" title="Enlaza la cámara a una ventana, para que tenga el tamaño de la ventana." alt="" coords="264,5,475,47"/>
+</map>

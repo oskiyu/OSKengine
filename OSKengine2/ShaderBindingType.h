@@ -29,7 +29,7 @@ namespace OSK::GRAPHICS {
 	/// <summary>
 	/// Shaders en los que se puede acceder a un elemento.
 	/// 
-	/// Flags: pueden acceder en varios stages.
+	/// @note Flags: pueden acceder en varios stages.
 	/// </summary>
 	enum class ShaderStage {
 

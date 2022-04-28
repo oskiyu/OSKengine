@@ -6,9 +6,11 @@ namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Define el layout actual de una imagen.
-	/// El layout de una imagen en un momento dado debe ser
+	/// 
+	/// @warning El layout de una imagen en un momento dado debe ser
 	/// el correcto para poder efectuar su tarea.
-	/// Se pueden combinar varios de estos layouts.
+	/// 
+	/// @note Se pueden combinar varios de estos layouts.
 	/// </summary>
 	enum class GpuImageLayout {
 

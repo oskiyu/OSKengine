@@ -1,0 +1,4 @@
+<map id="OSK::ECS::EntityComponentSystem::AddComponent" name="OSK::ECS::EntityComponentSystem::AddComponent">
+<area shape="rect" id="node1" title="Añade el componente dado al objeto." alt="" coords="180,5,373,47"/>
+<area shape="rect" id="node2" href="$class_game1.html#a738ffccb5910f1f15136680903ea4159" title="Función ejecutada al cargar el juego." alt="" coords="5,13,132,39"/>
+</map>

@@ -226,6 +226,9 @@
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\Material">
       <UniqueIdentifier>{cc2caafc-77d5-4490-a469-77a214f9ce74}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Math">
+      <UniqueIdentifier>{e3fad9e8-3ff0-4d63-8449-f2e2abf47b51}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

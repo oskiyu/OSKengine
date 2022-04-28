@@ -6,6 +6,7 @@
 
 namespace OSK::GRAPHICS {
 
+	/// @deprecated OpenGL no implementado.
 	class OSKAPI_CALL GpuVertexBufferOgl : public IGpuVertexBuffer {
 
 	public:

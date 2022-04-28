@@ -1,0 +1,12 @@
+<map id="OSK::GRAPHICS::RendererVulkan::Initialize" name="OSK::GRAPHICS::RendererVulkan::Initialize">
+<area shape="rect" id="node1" title="Inicializa todo el sistema de renderizado." alt="" coords="5,136,231,177"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#aa014878764e7a5d2eb6303dd44d702bf" title=" " alt="" coords="279,136,504,177"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a1a5083ac960d4ce379683f35f66c993e" title=" " alt="" coords="279,71,504,112"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a776af06032f1e8c2c3034df33f6cfb61" title=" " alt="" coords="279,201,504,243"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a8b13b26a562a32365eee492c0db9ac60" title=" " alt="" coords="279,5,504,47"/>
+<area shape="rect" id="node10" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a4c975e2c18c28bcfb4d190c2fcf1de46" title=" " alt="" coords="279,291,504,332"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b" title=" " alt="" coords="567,82,734,109"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#a9f3d2735d7bb54ecb4056d5284cb686f" title=" " alt="" coords="552,136,749,177"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_i_o_1_1_logger.html#a3d2a88ffa05f6a74f9d669f1182bacca" title="Manda un mensaje de información." alt="" coords="567,31,734,58"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_i_o_1_1_logger.html#ac2af30faaa120261990f4deb1b566e7b" title="Manda un mensaje por el logger." alt="" coords="797,31,944,58"/>
+</map>

@@ -6,6 +6,15 @@ namespace OSK::GRAPHICS {
 
 	class MaterialLayout;
 
+	/// <summary>
+	/// Un pipeline layout define el layout del pipeline, es decir:
+	/// define qué recursos necesita para el renderizado (textura, buffers,
+	/// push constants...).
+	/// 
+	/// Representación nativa de MaterialLayout.
+	/// 
+	/// @see MaterialLayout.
+	/// </summary>
 	class OSKAPI_CALL IPipelineLayout {
 
 	public:

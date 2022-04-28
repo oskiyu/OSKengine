@@ -1,0 +1,8 @@
+<map id="OSK::GRAPHICS::GpuMemoryAllocatorDx12::CreateNewBufferMemoryBlock" name="OSK::GRAPHICS::GpuMemoryAllocatorDx12::CreateNewBufferMemoryBlock">
+<area shape="rect" id="node1" title=" " alt="" coords="777,65,984,121"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a6dc03d2b79fc84812121a2b91777d486" title="Devuelve un bloque con las características dadas." alt="" coords="525,65,729,121"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a9958398421f6574af4c8010899dae040" title="Crea un buffer de índices con los índices dados." alt="" coords="9,7,222,49"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#ac094fa6afa1e9ec4d9e099229d574350" title="Crea un buffer temporal con el tamaño dado." alt="" coords="273,32,477,88"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#ac2d817d336597a7a13500f196d06199b" title="Crea un buffer de vértices con los vértices dados." alt="" coords="5,73,225,114"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a3af5fa17cdbe30e7ed249dec9b4bdaf0" title="Crea un uniform buffer, con el tamaño dado en bytes." alt="" coords="273,163,477,219"/>
+</map>

@@ -8,9 +8,12 @@ namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Un binding de un layout.
+	/// 
 	/// Un binding corresponde a una única unidad de información
 	/// que puede enlazarse al shader (uniform buffer, texture, etc...).
+	/// 
 	/// Varios bindings se pueden agrupar en un MaterialLayoutSlot.
+	/// 
 	/// Determina:
 	///		- El nombre del binding.
 	///		- El tipo de binding (UNIFORM, TEXTURE, etc...).
@@ -32,14 +35,14 @@ namespace OSK::GRAPHICS {
 		ShaderBindingType type;
 
 		/// <summary>
-		/// Índice del binding en el shader .hlsl (DirectX 12).
-		/// Es un índice global, independiente del slot al que pertenezca.
+		/// Índice del binding en el shader .glsl (Vulkan, OpenGL).
+		/// Es un índice local respecto al slot (al descriptor set).
 		/// </summary>
 		TSize glslIndex;
 
 		/// <summary>
-		/// Índice del binding en el shader .glsl (Vulkan, OpenGL).
-		/// Es un índice local respecto al slot (al descriptor set).
+		/// Índice del binding en el shader .hlsl (DirectX 12).
+		/// Es un índice global, independiente del slot al que pertenezca.
 		/// </summary>
 		TSize hlslIndex;
 

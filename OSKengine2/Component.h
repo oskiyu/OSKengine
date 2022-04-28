@@ -23,10 +23,10 @@ namespace OSK::ECS {
 	/// Los componentes no ejecutan lógica alguna, y sólo son contenedores de información 
 	/// relacionada con un GameObject.
 	/// 
-	/// Para que una clase pueda ser usada como componente, debe tener implementado OSK_COMPONENT(className).
-	/// Este debe ser un identificador único: no pueden haber dos tipos de componentes con el mismo className.
+	/// @warning Para que una clase pueda ser usada como componente, debe tener implementado OSK_COMPONENT(className).
+	/// @warning Este debe ser un identificador único: no pueden haber dos tipos de componentes con el mismo className.
 	/// 
-	/// Cada GameObject sólo puede tener un componente de cada tipo.
+	/// @note Cada GameObject sólo puede tener un componente de cada tipo.
 	/// </summary>
 	using ComponentIndex = TSize;
 

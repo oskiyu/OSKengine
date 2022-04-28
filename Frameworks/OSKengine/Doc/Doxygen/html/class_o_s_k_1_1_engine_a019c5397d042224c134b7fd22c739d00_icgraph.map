@@ -1,0 +1,51 @@
+<map id="OSK::Engine::GetRenderer" name="OSK::Engine::GetRenderer">
+<area shape="rect" id="node1" title=" " alt="" coords="807,1187,985,1214"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a546510609e889e49aca9c89262ecf527" title="Comienza el renderizado a un renderpass." alt="" coords="535,5,750,47"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#a64066d153575cc59daa7af38447f529d" title=" " alt="" coords="537,71,748,112"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#accc82740cb7dbef6c41854d1c9f622b5" title=" " alt="" coords="545,136,741,177"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a9958398421f6574af4c8010899dae040" title="Crea un buffer de índices con los índices dados." alt="" coords="536,201,749,243"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#aef89e9652f13e27fa5b5940052fce007" title="Crea un buffer de índices con los índices dados." alt="" coords="541,267,745,323"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#ac2d817d336597a7a13500f196d06199b" title="Crea un buffer de vértices con los vértices dados." alt="" coords="533,348,753,389"/>
+<area shape="rect" id="node10" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#a3138abcf254278fc492bd105deba3796" title="Crea un buffer de vértices con los vértices dados." alt="" coords="541,414,745,470"/>
+<area shape="rect" id="node11" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan.html#a401d8c72bb07cda1308124fc166f55ef" title=" " alt="" coords="539,494,746,550"/>
+<area shape="rect" id="node12" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_pool_vulkan.html#ac30681f5c514cb990ff3ca0cbcdd4bd3" title="Crea el descriptor pool, usado para crear y destruir descriptor sets." alt="" coords="532,575,753,616"/>
+<area shape="rect" id="node13" href="$_renderpass_vulkan_8cpp.html#a223ae07127c4478b640254272691dd3d" title=" " alt="" coords="571,641,714,667"/>
+<area shape="rect" id="node14" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_loader.html#a015b1daa6d8d910f7337bc513c8d3285" title="Carga el asset." alt="" coords="535,692,751,733"/>
+<area shape="rect" id="node15" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html#afd1dbf7d9bffbe40564bb3e2a885e04a" title="Carga el asset." alt="" coords="543,757,742,799"/>
+<area shape="rect" id="node16" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html#a64796c79bab29f0c01f547501e1a87c9" title="Carga el asset." alt="" coords="543,823,743,864"/>
+<area shape="rect" id="node17" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#ad39c519e3a5f58cc2a7622ba9b39687a" title="Carga un material." alt="" coords="255,936,479,977"/>
+<area shape="rect" id="node18" href="$class_game1.html#a738ffccb5910f1f15136680903ea4159" title="Función ejecutada al cargar el juego." alt="" coords="43,942,169,969"/>
+<area shape="rect" id="node19" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#a5db23936cef420c1ba8253b95d78b2fc" title="Genera la imagen de la fuente para el tamaño de letra dado." alt="" coords="567,991,719,1032"/>
+<area shape="rect" id="node23" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a133edf4a7c17425f490e690cb9ce46a4" title=" " alt="" coords="541,1121,744,1163"/>
+<area shape="rect" id="node24" href="$class_game1.html#a7f0dcbd6b70aae8307a3c6c1d6ce2782" title=" " alt="" coords="577,1187,708,1214"/>
+<area shape="rect" id="node25" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12.html#a3fd7ec2e8eb3534fd83ec384e4e1e5df" title=" " alt="" coords="533,1239,752,1280"/>
+<area shape="rect" id="node26" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan.html#a871bc8e169a40dec39d218b798eee126" title=" " alt="" coords="533,1304,752,1345"/>
+<area shape="rect" id="node27" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#a4b3b3af31eafe320f92467eaf55f1723" title="Registra el renderpass, creando una nueva graphics pipeline asignada a dicho renderpass." alt="" coords="553,1369,732,1411"/>
+<area shape="rect" id="node28" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html#a2293d59b8bd0c6c02dfb5cafc41261c0" title="Registra un slot." alt="" coords="529,1056,757,1097"/>
+<area shape="rect" id="node32" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#a5eed4a14de2b74443b5da96486cbd0d4" title="Recrea el swapchain con el tamaño de la ventana. Para cuando se ha cambiado de tamaño la ventana." alt="" coords="545,1435,741,1476"/>
+<area shape="rect" id="node35" href="$class_o_s_k_1_1_i_game.html#a061c6604f59ca3ef9f5093b1fb78f844" title="Inicia la ejecución del juego." alt="" coords="579,1501,706,1527"/>
+<area shape="rect" id="node37" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a4037acfe3a5f8071b004b7f80529912c" title="Establece las imágenes del swapchain donde se va a renderizar (para pantalla)." alt="" coords="541,1552,744,1593"/>
+<area shape="rect" id="node38" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_ogl.html#a34b8280061575d133dfce6acc45227d7" title="Establece las imágenes del swapchain donde se va a renderizar (para pantalla)." alt="" coords="541,1617,744,1659"/>
+<area shape="rect" id="node39" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html#a8911104609904226b868013aa5ac52db" title="Establece las imágenes del swapchain donde se va a renderizar (para pantalla)." alt="" coords="541,1683,744,1724"/>
+<area shape="rect" id="node40" href="$class_game1.html#a3cc88f4668e083f56923350a7553bc9d" title="Debe inicializar el renderizador del Engine." alt="" coords="569,1749,716,1775"/>
+<area shape="rect" id="node41" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan.html#a326cae1f533f6e493ae51ce19c314fab" title=" " alt="" coords="533,1800,752,1841"/>
+<area shape="rect" id="node42" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan.html#a360ce2fd84add62bdce5dc236fe1104c" title=" " alt="" coords="535,1866,750,1922"/>
+<area shape="rect" id="node43" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_pool_vulkan.html#a50f232a3fcc87f99ce9355645e5ba88a" title=" " alt="" coords="528,1947,757,1988"/>
+<area shape="rect" id="node44" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a78533120a067d3edce5dd7cfd86f2285" title=" " alt="" coords="547,2012,739,2053"/>
+<area shape="rect" id="node45" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html#a2ddb5c72492ece55375eb0ae3b575012" title=" " alt="" coords="527,2077,759,2119"/>
+<area shape="rect" id="node46" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan.html#a1e908de630a416559cb68296fe7f1f7a" title=" " alt="" coords="533,2143,752,2184"/>
+<area shape="rect" id="node47" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html#a7aa40c42909e8045ac049a2d75ce8155" title=" " alt="" coords="541,2208,744,2249"/>
+<area shape="rect" id="node48" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#a1116bcd040c89d75f4e62dfa97629705" title=" " alt="" coords="545,2273,741,2315"/>
+<area shape="rect" id="node49" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a5682c26691f1c69b02e04d886169ddf1" title=" " alt="" coords="542,2339,743,2380"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a7001f2a6a149e3ae07438341d9b23e1c" title="Comienza el renderizado a un renderpass." alt="" coords="260,5,473,47"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a5a782794a56d4cfea6bdf4f34f98a766" title="Crea el swapchain. Obtiene automáticamente el tamaño de las imágenes a partir del tamaño de la ventan..." alt="" coords="269,136,465,177"/>
+<area shape="rect" id="node20" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#a6ae51ef135fdb7fc4ce7c74b1f1d7c9d" title="Devuelve la información de una instancia de la fuente con el tamaño dado." alt="" coords="291,1053,443,1095"/>
+<area shape="rect" id="node21" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#aa3293489bd66420daddc77ebaa3db9d0" title="Devuelve la información de un carácter para un tamaño de fuente dado." alt="" coords="30,1059,182,1100"/>
+<area shape="rect" id="node22" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#ade45e73e10aa64e88aa424d4affbc763" title="Devuelve la imagen de GPU correspondiente a la fuente del tamaño dado." alt="" coords="30,993,182,1035"/>
+<area shape="rect" id="node29" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#acf1dacea3b45a53ca86d96e30af22af1" title="Crea y devuelve una nueva instancia de este material." alt="" coords="277,1121,456,1163"/>
+<area shape="rect" id="node30" href="$class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a2f5401ab89d8d6695004b86d0c4fbeff" title="Establece el material del modelo 3D." alt="" coords="5,1189,207,1231"/>
+<area shape="rect" id="node31" href="$class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#af7f59fbb8292ffa10abf7effb21f10c8" title="Establece el modelo 3D que se renderizará." alt="" coords="5,1124,207,1165"/>
+<area shape="rect" id="node33" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a372f1f09902e5735edb66cf7ed4c1a84" title=" " alt="" coords="266,1369,467,1411"/>
+<area shape="rect" id="node34" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a5a9110a4da448f607b783f949fb941d9" title=" " alt="" coords="256,1435,477,1476"/>
+<area shape="rect" id="node36" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="341,1501,392,1527"/>
+</map>

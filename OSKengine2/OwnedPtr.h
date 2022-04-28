@@ -7,7 +7,10 @@ namespace OSK {
 
 	/// <summary>
 	/// Es dueño de un puntero.
-	/// El puntero original NO es eliminado al destruirse el OwnedPtr.
+	/// 
+	/// @note El puntero original NO es eliminado al destruirse el OwnedPtr.
+	/// @warning Se desaconseja su uso como miembro de clase.
+	/// No copia el recurso si se copia la clase, lo que puede generar problemas.
 	/// </summary>
 	/// <typeparam name="T">Tipo del puntero.</typeparam>
 	template <typename T> class OwnedPtr {

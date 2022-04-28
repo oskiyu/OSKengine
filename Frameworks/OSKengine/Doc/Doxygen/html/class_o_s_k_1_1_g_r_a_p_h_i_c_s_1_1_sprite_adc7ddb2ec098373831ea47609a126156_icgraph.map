@@ -1,0 +1,4 @@
+<map id="OSK::GRAPHICS::Sprite::SetTexCoordsInPercent" name="OSK::GRAPHICS::Sprite::SetTexCoordsInPercent">
+<area shape="rect" id="node1" title="Establece la región (en porcentaje sobre el tamaño total) de la textura que se renderizará en este sp..." alt="" coords="220,5,387,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ab65e9b840e120d9b5a2b35c078d689a7" title="Establece la región (en píxeles) de la textura que se renderizará en este sprite." alt="" coords="5,5,172,47"/>
+</map>

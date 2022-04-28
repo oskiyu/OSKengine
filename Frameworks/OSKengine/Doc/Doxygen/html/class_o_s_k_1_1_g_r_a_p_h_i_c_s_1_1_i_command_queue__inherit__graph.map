@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::ICommandQueue" name="OSK::GRAPHICS::ICommandQueue">
+<area shape="rect" id="node1" title="Una cola de comandos almacena todas las listas de comandos que se envían a la GPU." alt="" coords="153,5,387,97"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12.html" title="Una cola de comandos almacena todas las listas de comandos que se envían a la GPU." alt="" coords="5,153,265,245"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan.html" title="Una cola de comandos almacena todas las listas de comandos que se envían a la GPU." alt="" coords="289,145,520,252"/>
+</map>

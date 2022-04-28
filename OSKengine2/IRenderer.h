@@ -37,7 +37,8 @@ namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Proporciona la interfaz de un renderizador.
-	/// Esta interfaz no implementa ningún código, se debe usar una instancia de
+	/// 
+	/// @note Esta interfaz no implementa ningún código, se debe usar una instancia de
 	/// RendererVulkan o RendererDx12.
 	/// </summary>
 	class OSKAPI_CALL IRenderer {
@@ -93,16 +94,22 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Rellena la imagen en la GPU con los datos dados.
 		/// </summary>
+		/// 
+		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
 		void UploadLayeredImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout, TSize numLayers);
 
 		/// <summary>
 		/// Rellena la imagen en la GPU con los datos dados.
 		/// </summary>
+		/// 
+		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
 		void UploadImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout);
 
 		/// <summary>
 		/// Rellena la imagen en la GPU con los datos dados.
 		/// </summary>
+		/// 
+		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
 		void UploadCubemapImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout);
 
 		/// <summary>

@@ -1,0 +1,4 @@
+<map id="OSK::GRAPHICS::RendererDx12::CreateSecondaryRenderpass" name="OSK::GRAPHICS::RendererDx12::CreateSecondaryRenderpass">
+<area shape="rect" id="node1" title="Crea un renderpass secundario. Renderiza para una o tres imágenes. Para que una sola imagen sea rende..." alt="" coords="5,5,220,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042" title="Devuelve el puntero nativo." alt="" coords="268,13,453,39"/>
+</map>

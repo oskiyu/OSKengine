@@ -19,6 +19,9 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Comando específico del sistema, para ejecutar el renderizado.
 		/// </summary>
+		/// 
+		/// @pre La lista de comandos debe estar abierta.
+		/// @pre La lista de comandos debe tener un renderpass activo.
 		void Render(GRAPHICS::ICommandList* commandList);
 
 	};

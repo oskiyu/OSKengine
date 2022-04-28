@@ -1,0 +1,8 @@
+<map id="OSK::GRAPHICS::RendererDx12::PresentFrame" name="OSK::GRAPHICS::RendererDx12::PresentFrame">
+<area shape="rect" id="node1" title="Una vez se han grabado todos los comandos, se debe iniciar su ejecución en la GPU para ser renderizad..." alt="" coords="5,86,220,127"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_color.html#a59c0bb4e7d3b7d396f97e1119f01f1ca" title="Color negro. (0.0f, 0.0f, 0.0f)" alt="" coords="312,5,451,32"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a37d47db030f6723bdce8f43518b611b4" title=" " alt="" coords="287,57,475,98"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_i_o_1_1_window.html#aa7f9f244691159612d42ddbc1fdc9288" title="Devuelve el tamaño de la ventana, en píxeles." alt="" coords="268,123,495,149"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_color.html#ae15edd1efca139803e8229fac5f4c00f" title="Color rojo. (1.0f, 0.0f, 0.0f)." alt="" coords="320,173,443,200"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_color.html#aced94f7152a9c5e63bfebc382349e8a6" title="Crea una instancia vacía del color." alt="" coords="543,89,669,116"/>
+</map>

@@ -51,7 +51,7 @@ unsigned int OSK::GRAPHICS::GetFormatNumberOfBytes(Format format) {
 	switch (format) {
 
 		case Format::RGB8_UNORM:
-			return 3;
+			return 4;
 
 		case Format::RGBA8_UNORM:
 		case Format::B8G8R8A8_SRGB:

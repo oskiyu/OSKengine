@@ -25,7 +25,11 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Establece la región (en píxeles) de la textura que se renderizará en este sprite.
 		/// </summary>
-		/// <param name="texCoords">Coordenadas (en píxeles).</param>
+		/// <param name="texCoords">
+		/// Coordenadas de texturas.
+		/// 
+		/// @note En píxeles.
+		/// </param>
 		void SetTexCoords(const Vector4f& texCoords);
 
 		/// <summary>
@@ -57,19 +61,20 @@ namespace OSK::GRAPHICS {
 
 		/// <summary>
 		/// Color del sprite.
-		/// Si es blanco, se renderiza la imagen tal cual.
-		/// Si es de otro color, tendrá un tinte.
-		/// Puede usarse para modificar su transparencia.
+		/// 
+		/// @note Si es blanco, se renderiza la imagen tal cual.
+		/// @note Si es de otro color, tendrá un tinte.
+		/// @note Puede usarse para modificar su transparencia.
 		/// </summary>
 		Color color = Color(1.0f);
 
 		/// <summary>
-		/// Todos los spirtes comparten los mismos vértices.
+		/// @note Todos los spirtes comparten los mismos vértices.
 		/// </summary>
 		static IGpuVertexBuffer* globalVertexBuffer;
 
 		/// <summary>
-		/// Todos los sprites comparten los mismos índices.
+		/// @note Todos los sprites comparten los mismos índices.
 		/// </summary>
 		static IGpuIndexBuffer* globalIndexBuffer;
 

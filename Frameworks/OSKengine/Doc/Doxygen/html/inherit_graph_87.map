@@ -1,0 +1,14 @@
+<map id="Representación gráfica de la clase" name="Representación gráfica de la clase">
+<area shape="rect" id="node1" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html" title="Representa un buffer genérico en la GPU." alt="" coords="5,229,223,256"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html" title="Un index buffer contiene los índices para el renderizado de un modelo 2D o 3D." alt="" coords="277,78,468,119"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html" title="Un uniform buffer contiene información arbitraria a la que se puede acceder a la hora de renderizar." alt="" coords="271,222,475,263"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html" title="Un vertex buffer es un buffer de memoria en la GPU que almacena los vértices de un modelo 3D o un spr..." alt="" coords="273,319,472,361"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_dx12.html" title=" " alt="" coords="523,5,773,32"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_ogl.html" title=" " alt="" coords="527,56,769,83"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_vulkan.html" title=" " alt="" coords="537,107,759,149"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12.html" title=" " alt="" coords="547,173,749,214"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_vulkan.html" title=" " alt="" coords="547,238,749,279"/>
+<area shape="rect" id="node10" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vertex_buffer_dx12.html" title=" " alt="" coords="551,303,745,345"/>
+<area shape="rect" id="node11" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vertex_buffer_ogl.html" title=" " alt="" coords="551,369,745,410"/>
+<area shape="rect" id="node12" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vertex_buffer_vulkan.html" title=" " alt="" coords="551,434,745,475"/>
+</map>

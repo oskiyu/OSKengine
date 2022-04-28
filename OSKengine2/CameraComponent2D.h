@@ -29,7 +29,8 @@ namespace OSK::ECS {
 
 		/// <summary>
 		/// Enlaza la cámara a una ventana, para que tenga el tamaño de la ventana.
-		/// El puntero a la ventana debe ser ESTABLE.
+		/// 
+		/// @warning El puntero a la ventana debe ser ESTABLE.
 		/// </summary>
 		void LinkToWindow(const IO::Window* window);
 
@@ -40,6 +41,8 @@ namespace OSK::ECS {
 
 		/// <summary>
 		/// Establece el tamaño del área a renderizar.
+		/// 
+		/// @warning Se ignorará si se ha enlazado a una ventana.
 		/// </summary>
 		void SetTargetSize(const Vector2f& targetSize);
 
@@ -50,7 +53,8 @@ namespace OSK::ECS {
 
 		/// <summary>
 		/// Actualiza el buffer en la GPU.
-		/// Debe llamarse cada frame.
+		/// 
+		/// @note Debe llamarse cada frame que se haya modificado la cámara.
 		/// </summary>
 		/// <param name="cameraTransform">Transform de la cámara.</param>
 		void UpdateUniformBuffer(const Transform2D& cameraTransform);

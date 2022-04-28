@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::GraphicsPipelineOgl" name="OSK::GRAPHICS::GraphicsPipelineOgl">
+<area shape="rect" id="node1" title=" " alt="" coords="5,492,256,584"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline.html" title="El graphics pipeline es el encargado de transformar los modelos 3D en una imagen final...." alt="" coords="37,307,225,443"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_unique_ptr.html" title=" " alt="" coords="28,5,233,244"/>
+</map>

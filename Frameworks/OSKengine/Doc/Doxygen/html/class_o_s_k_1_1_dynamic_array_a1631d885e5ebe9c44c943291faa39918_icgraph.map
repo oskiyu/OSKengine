@@ -1,0 +1,7 @@
+<map id="OSK::DynamicArray::Find" name="OSK::DynamicArray::Find">
+<area shape="rect" id="node1" title="Obtiene el iterador del primer elemento almacenado que sea igual a el dado." alt="" coords="399,78,572,105"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_dynamic_array.html#a09be7ecaff61fd363a4065237faa1efa" title="Comprueba si el elemento está presente en el array." alt="" coords="203,5,351,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_dynamic_array.html#a72b36afc8ce174bc5db2cde61d5957ef" title="Obtiene el índice del primer elemento almacenado que sea igual a el dado." alt="" coords="203,71,351,112"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_dynamic_array.html#a0a3bb760970ebe40178e9976c53d73ea" title="Elimina el eleemento dado de la lista." alt="" coords="203,136,351,177"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_e_c_s_1_1_i_system.html#aae0fdc7cd122ec66de6efb60e0fdc596" title="Elimina un objeto de la lista de objetos procesables." alt="" coords="5,136,155,177"/>
+</map>

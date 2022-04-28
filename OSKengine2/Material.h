@@ -18,7 +18,8 @@ namespace OSK::GRAPHICS {
 	/// <summary>
 	/// Un material define el comportamiento del renderizador con un objeto en concreto.
 	/// Debe definirse el layout del material, indicando qué slots (y bindings) serán usados en los shaders.
-	/// Tiene la propiedad de los graphics pipelines (uno por cada renderpass registrado).
+	/// 
+	/// @note Tiene la propiedad de los graphics pipelines (uno por cada renderpass registrado).
 	/// </summary>
 	class OSKAPI_CALL Material {
 
@@ -28,7 +29,7 @@ namespace OSK::GRAPHICS {
 		/// Crea un nuevo material.
 		/// </summary>
 		/// <param name="pipelineInfo">Información de las características del graphics pipeline.</param>
-		/// <param name="layout">Layout del material. Este material será el dueño del layout.</param>
+		/// <param name="layout">Layout del material. @note Este material será el dueño del layout.</param>
 		Material(const GRAPHICS::PipelineCreateInfo& pipelineInfo, OwnedPtr<MaterialLayout> layout, const VertexInfo& vertexInfo);
 		~Material();
 

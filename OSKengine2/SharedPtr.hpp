@@ -7,7 +7,9 @@
 
 /// <summary>
 /// Contiene un puntero al que pueden hacer referencia varios SharedPtr.
-/// Si el último SharedPtr que hace referencia a un puntero es desstruido, el puntero será eli
+/// Si el último SharedPtr que hace referencia a un puntero es desstruido, el puntero será eliminado.
+/// 
+/// @note La propiedad del puntero está compartida.
 /// </summary>
 /// <typeparam name="T">Tipo del puntero almacenado.</typeparam>
 template <typename T> class SharedPtr {

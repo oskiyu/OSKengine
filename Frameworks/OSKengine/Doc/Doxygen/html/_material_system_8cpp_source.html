@@ -1,0 +1,356 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/MaterialSystem.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_material_system_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">MaterialSystem.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_material_system_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_material_system_8h.html">MaterialSystem.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_file_i_o_8h.html">FileIO.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_material_layout_8h.html">MaterialLayout.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;json.hpp&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_material_8h.html">Material.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_pipeline_create_info_8h.html">PipelineCreateInfo.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="_i_renderer_8h.html">IRenderer.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="_render_api_type_8h.html">RenderApiType.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="_material_system_8cpp.html#ac14d1ffba2ebf3a6df3c2a06d5225d59">   16</a></span><a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1d">ShaderBindingType</a> <a class="code hl_function" href="_material_system_8cpp.html#ac14d1ffba2ebf3a6df3c2a06d5225d59">GetShaderBindingType</a>(<span class="keyword">const</span> std::string&amp; type) {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">if</span> (type == <span class="stringliteral">&quot;UNIFORM&quot;</span>)</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordflow">return</span> ShaderBindingType::UNIFORM_BUFFER;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">if</span> (type == <span class="stringliteral">&quot;CUBEMAP&quot;</span>)</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordflow">return</span> ShaderBindingType::CUBEMAP;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">return</span> ShaderBindingType::TEXTURE;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="_material_system_8cpp.html#a349a260f7fcb4544412c19adcabbe224">   26</a></span><a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">ShaderStage</a> <a class="code hl_function" href="_material_system_8cpp.html#a349a260f7fcb4544412c19adcabbe224">GetShaderStage</a>(<span class="keyword">const</span> std::string&amp; type) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">if</span> (type == <span class="stringliteral">&quot;VERTEX&quot;</span>)</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordflow">return</span> ShaderStage::VERTEX;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">return</span> ShaderStage::FRAGMENT;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#ae77b69200e4337042f7da24bc4d93c71">   33</a></span>MaterialSystem::~MaterialSystem() {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> i = 0; i &lt; materials.GetSize(); i++)</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keyword">delete</span> materials[i].GetPointer();</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#ad39c519e3a5f58cc2a7622ba9b39687a">   38</a></span><a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a>* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#ad39c519e3a5f58cc2a7622ba9b39687a">MaterialSystem::LoadMaterial</a>(<span class="keyword">const</span> std::string&amp; path) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>* layout = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    std::string shaderFilePath;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    std::string vertexPath;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    std::string fragmentPath;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a> vertexType;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="comment">// Material file.</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    nlohmann::json materialInfo = nlohmann::json::parse(<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_file_i_o.html#aad968707ec7b00bce0540c804f476dc9">IO::FileIO::ReadFromFile</a>(path));</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <a class="code hl_define" href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a>(materialInfo.contains(<span class="stringliteral">&quot;file_type&quot;</span>), <span class="stringliteral">&quot;Archivo de material incorrecto: no se encuentra &#39;file_type&#39;.&quot;</span>);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <a class="code hl_define" href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a>(materialInfo.contains(<span class="stringliteral">&quot;name&quot;</span>), <span class="stringliteral">&quot;Archivo de material incorrecto: no se encuentra &#39;name&#39;.&quot;</span>);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_define" href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a>(materialInfo.contains(<span class="stringliteral">&quot;shader_file&quot;</span>), <span class="stringliteral">&quot;Archivo de material incorrecto: no se encuentra &#39;shader_file&#39;.&quot;</span>);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_define" href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a>(materialInfo.contains(<span class="stringliteral">&quot;layout&quot;</span>), <span class="stringliteral">&quot;Archivo de material incorrecto: no se encuentra &#39;layout&#39;.&quot;</span>);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_define" href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a>(materialInfo.contains(<span class="stringliteral">&quot;vertex_type&quot;</span>), <span class="stringliteral">&quot;Archivo de material incorrecto: no se encuentra &#39;vertex_type&#39;.&quot;</span>);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <a class="code hl_define" href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a>(materialInfo[<span class="stringliteral">&quot;file_type&quot;</span>] == <span class="stringliteral">&quot;MATERIAL&quot;</span>, std::string(<span class="stringliteral">&quot;Archivo &quot;</span>) + path + <span class="stringliteral">&quot;no es un material.&quot;</span>);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordtype">int</span> fileVersion = materialInfo[<span class="stringliteral">&quot;spec_ver&quot;</span>];</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        std::string materialName = materialInfo[<span class="stringliteral">&quot;name&quot;</span>];</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        shaderFilePath = materialInfo[<span class="stringliteral">&quot;shader_file&quot;</span>];</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; slotInfo : materialInfo[<span class="stringliteral">&quot;layout&quot;</span>][<span class="stringliteral">&quot;slots&quot;</span>]) {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html">MaterialLayoutSlot</a> slot{};</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            slot.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#a5396464c0b7e928a41db5b80ff004309">name</a> = slotInfo[<span class="stringliteral">&quot;name&quot;</span>];</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; bindingInfo : slotInfo[<span class="stringliteral">&quot;bindings&quot;</span>]) {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding.html">MaterialLayoutBinding</a> binding{};</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                binding.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding.html#abf80f1b1de075dd88db4a741925f8f4d">name</a> = bindingInfo[<span class="stringliteral">&quot;name&quot;</span>];</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                binding.type = <a class="code hl_function" href="_material_system_8cpp.html#ac14d1ffba2ebf3a6df3c2a06d5225d59">GetShaderBindingType</a>(bindingInfo[<span class="stringliteral">&quot;type&quot;</span>]);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                slot.bindings.Insert(binding.name, binding);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            layout-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#ab5ca4f05ed6d7cea3b81d9ee94f6350a">AddSlot</a>(slot);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; pushConstantInfo : materialInfo[<span class="stringliteral">&quot;layout&quot;</span>][<span class="stringliteral">&quot;push_constants&quot;</span>]) {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html">MaterialLayoutPushConstant</a> pushConst{};</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            pushConst.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html#abd6712c9002b537a65f9568ae9fec32c">name</a> = pushConstantInfo[<span class="stringliteral">&quot;name&quot;</span>];</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            pushConst.size = pushConstantInfo[<span class="stringliteral">&quot;size&quot;</span>];</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            layout-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#accc4d04a6e7b796eb95519f9431798e5">AddPushConstant</a>(pushConst);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        vertexType = vertexTypesTable.Get(materialInfo[<span class="stringliteral">&quot;vertex_type&quot;</span>]);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    }</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="comment">// Shader file.</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        nlohmann::json shaderInfo = nlohmann::json::parse(<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_file_i_o.html#aad968707ec7b00bce0540c804f476dc9">IO::FileIO::ReadFromFile</a>(shaderFilePath));</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="comment">//OSK_ASSERT(shaderInfo[&quot;file_type&quot;] == &quot;SHADER&quot;, shaderFilePath + &quot;no es un shader.&quot;);</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="keywordtype">int</span> fileVersion = shaderInfo[<span class="stringliteral">&quot;spec_ver&quot;</span>];</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;GetRenderApi() == <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430fac0ad831a34c4633bee584066cfcc5040">RenderApiType::OPENGL</a></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            || <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;GetRenderApi() == <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430fac60cacb57b9e78f018a9d973bee2f801">RenderApiType::VULKAN</a>) {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            vertexPath = shaderInfo[<span class="stringliteral">&quot;glsl_shaders&quot;</span>][<span class="stringliteral">&quot;vertex&quot;</span>];</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            fragmentPath = shaderInfo[<span class="stringliteral">&quot;glsl_shaders&quot;</span>][<span class="stringliteral">&quot;fragment&quot;</span>];</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        }</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;GetRenderApi() == <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430fa8bfc0c05d68d95476338b4d64a879c33">RenderApiType::DX12</a>) {</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            vertexPath = shaderInfo[<span class="stringliteral">&quot;hlsl_shaders&quot;</span>][<span class="stringliteral">&quot;vertex&quot;</span>];</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            fragmentPath = shaderInfo[<span class="stringliteral">&quot;hlsl_shaders&quot;</span>][<span class="stringliteral">&quot;fragment&quot;</span>];</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        }</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; slotInfo : shaderInfo[<span class="stringliteral">&quot;slots&quot;</span>]) {</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            std::string slotName = slotInfo[<span class="stringliteral">&quot;name&quot;</span>];</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            <span class="keyword">auto</span>&amp; slot = layout-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a7a1845df7f0113a0285adfbea469df90">GetSlot</a>(slotName);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            slot.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#a9619a1823cd7ae6ff9f14f4a0e8cd0b7">glslSetIndex</a> = slotInfo[<span class="stringliteral">&quot;glsl_set&quot;</span>];</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; stage : slotInfo[<span class="stringliteral">&quot;shader_stages&quot;</span>])</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                <a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#aaa9d8f73148fc7211f6713016bbab4aa">EFTraits::AddFlag</a>(&amp;slot.stage, <a class="code hl_function" href="_material_system_8cpp.html#a349a260f7fcb4544412c19adcabbe224">GetShaderStage</a>(stage));</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; bindingInfo : slotInfo[<span class="stringliteral">&quot;bindings&quot;</span>]) {</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                std::string bindingName = bindingInfo[<span class="stringliteral">&quot;name&quot;</span>];</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                slot.bindings.Get(bindingName).glslIndex = bindingInfo[<span class="stringliteral">&quot;glsl_index&quot;</span>];</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                slot.bindings.Get(bindingName).hlslIndex = bindingInfo[<span class="stringliteral">&quot;hlsl_index&quot;</span>];</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            }</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        }</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; pushConstantInfo : shaderInfo[<span class="stringliteral">&quot;push_constants&quot;</span>]) {</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            <span class="keyword">auto</span>&amp; pushConst = layout-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a2569f4386c935be6c948ac9a3fd6998e">GetPushConstant</a>(pushConstantInfo[<span class="stringliteral">&quot;name&quot;</span>]);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; stage : pushConstantInfo[<span class="stringliteral">&quot;shader_stages&quot;</span>])</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                <a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#aaa9d8f73148fc7211f6713016bbab4aa">EFTraits::AddFlag</a>(&amp;pushConst.stage, <a class="code hl_function" href="_material_system_8cpp.html#a349a260f7fcb4544412c19adcabbe224">GetShaderStage</a>(stage));</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            pushConst.hlslIndex = pushConstantInfo[<span class="stringliteral">&quot;hlsl_index&quot;</span>];</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        }</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    }</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> hlslDescIndex = 0;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; setName : layout-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a82de8efeace9ce18733634fb7c1cc8a3">GetAllSlotNames</a>()) {</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="keyword">auto</span>&amp; set = layout-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a7a1845df7f0113a0285adfbea469df90">GetSlot</a>(setName);</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; binding : set.bindings) {</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            binding.second.hlslDescriptorIndex = hlslDescIndex;</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>            hlslDescIndex++;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        }</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    }</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; pushConstInfo : layout-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#aeb38d6651a3696756da72767b802913a">GetAllPushConstants</a>()) {</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        pushConstInfo.second.hlslBindingIndex = hlslDescIndex;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        hlslDescIndex++;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    }</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a> info{};</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a3fac189838e4f2c919f229eadf5bdb62">vertexPath</a> = vertexPath;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    info.fragmentPath = fragmentPath;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    info.polygonMode = <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8ae8225b11842409df543692aebed34fd1">PolygonMode::FILL</a>;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    info.cullMode = <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922ca1dd26f1f1790f0b56d5752fb0fbecef0">PolygonCullMode::BACK</a>;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    info.frontFaceType = <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad6329cdca67793d3a3ffec0de1fab44cab437c6ed212434e8984c403374fe494c">PolygonFrontFaceType::COUNTERCLOCKWISE</a>;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keywordflow">if</span> (materialInfo.find(<span class="stringliteral">&quot;config&quot;</span>) != materialInfo.end()) {</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <span class="keywordflow">if</span> (materialInfo[<span class="stringliteral">&quot;config&quot;</span>].contains(<span class="stringliteral">&quot;depth_testing&quot;</span>)) {</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            <span class="keywordflow">if</span> (materialInfo[<span class="stringliteral">&quot;config&quot;</span>][<span class="stringliteral">&quot;depth_testing&quot;</span>] == <span class="stringliteral">&quot;none&quot;</span>)</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                info.depthTestingType = <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027ddab50339a10e1de285ac99d4c3990b8693">DepthTestingType::NONE</a>;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (materialInfo[<span class="stringliteral">&quot;config&quot;</span>][<span class="stringliteral">&quot;depth_testing&quot;</span>] == <span class="stringliteral">&quot;read&quot;</span>)</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                info.depthTestingType = <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027dda3466fab4975481651940ed328aa990e4">DepthTestingType::READ</a>;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (materialInfo[<span class="stringliteral">&quot;config&quot;</span>][<span class="stringliteral">&quot;depth_testing&quot;</span>] == <span class="stringliteral">&quot;read/write&quot;</span>)</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>                info.depthTestingType = <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027ddaa7b843fb734e3b3fea8e5f902d3f4144">DepthTestingType::READ_WRITE</a>;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>            <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                <a class="code hl_define" href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a>(<span class="keyword">false</span>, <span class="stringliteral">&quot;Error en el archivo de material&quot;</span> + shaderFilePath + <span class="stringliteral">&quot;: config depth_testing inválido.&quot;</span>);</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        }</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        <span class="keywordflow">if</span> (materialInfo[<span class="stringliteral">&quot;config&quot;</span>].contains(<span class="stringliteral">&quot;cull_mode&quot;</span>)) {</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>            <span class="keywordflow">if</span> (materialInfo[<span class="stringliteral">&quot;config&quot;</span>][<span class="stringliteral">&quot;cull_mode&quot;</span>] == <span class="stringliteral">&quot;none&quot;</span>)</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>                info.cullMode = <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922cab50339a10e1de285ac99d4c3990b8693">PolygonCullMode::NONE</a>;</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (materialInfo[<span class="stringliteral">&quot;config&quot;</span>][<span class="stringliteral">&quot;cull_mode&quot;</span>] == <span class="stringliteral">&quot;front&quot;</span>)</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>                info.cullMode = <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922cabb2fe5c916efb43aab8cbb68f997d2ee">PolygonCullMode::FRONT</a>;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (materialInfo[<span class="stringliteral">&quot;config&quot;</span>][<span class="stringliteral">&quot;cull_mode&quot;</span>] == <span class="stringliteral">&quot;back&quot;</span>)</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>                info.cullMode = <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922ca1dd26f1f1790f0b56d5752fb0fbecef0">PolygonCullMode::BACK</a>;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>                <a class="code hl_define" href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a>(<span class="keyword">false</span>, <span class="stringliteral">&quot;Error en el archivo de material&quot;</span> + shaderFilePath + <span class="stringliteral">&quot;: config cull_mode inválido.&quot;</span>);</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        }</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    }</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="keyword">auto</span> output = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a>(info, layout, vertexType);</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    materials.Insert(output);</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; i : registeredRenderpasses)</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        output-&gt;RegisterRenderpass(i);</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keywordflow">return</span> output;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>}</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#afa47bf58d0e5e801aec7ba1aa229b1a7">  191</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#afa47bf58d0e5e801aec7ba1aa229b1a7">MaterialSystem::RegisterRenderpass</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a>* renderpass) {</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    registeredRenderpasses.Insert(renderpass);</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; i : materials)</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        i-&gt;RegisterRenderpass(renderpass);</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>}</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#a4201708370e92ed6ae9ee22e05e7c56b">  198</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#a4201708370e92ed6ae9ee22e05e7c56b">MaterialSystem::UnregisterRenderpass</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a>* renderpass) {</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    registeredRenderpasses.Remove(renderpass);</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; i : materials)</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        i-&gt;UnregisterRenderpass(renderpass);</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>}</div>
+<div class="ttc" id="a_assert_8h_html_adfbccaec84df99b8277f9d877554170c"><div class="ttname"><a href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a></div><div class="ttdeci">#define OSK_ASSERT(condition, msg)</div><div class="ttdoc">Comprueba si la condición se cumple. Si no se cumple, muestra un mensaje de error y throwea un error.</div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00064">Assert.h:64</a></div></div>
+<div class="ttc" id="a_file_i_o_8h_html"><div class="ttname"><a href="_file_i_o_8h.html">FileIO.h</a></div></div>
+<div class="ttc" id="a_i_renderer_8h_html"><div class="ttname"><a href="_i_renderer_8h.html">IRenderer.h</a></div></div>
+<div class="ttc" id="a_material_8h_html"><div class="ttname"><a href="_material_8h.html">Material.h</a></div></div>
+<div class="ttc" id="a_material_layout_8h_html"><div class="ttname"><a href="_material_layout_8h.html">MaterialLayout.h</a></div></div>
+<div class="ttc" id="a_material_system_8cpp_html_a349a260f7fcb4544412c19adcabbe224"><div class="ttname"><a href="_material_system_8cpp.html#a349a260f7fcb4544412c19adcabbe224">GetShaderStage</a></div><div class="ttdeci">ShaderStage GetShaderStage(const std::string &amp;type)</div><div class="ttdef"><b>Definition:</b> <a href="_material_system_8cpp_source.html#l00026">MaterialSystem.cpp:26</a></div></div>
+<div class="ttc" id="a_material_system_8cpp_html_ac14d1ffba2ebf3a6df3c2a06d5225d59"><div class="ttname"><a href="_material_system_8cpp.html#ac14d1ffba2ebf3a6df3c2a06d5225d59">GetShaderBindingType</a></div><div class="ttdeci">ShaderBindingType GetShaderBindingType(const std::string &amp;type)</div><div class="ttdef"><b>Definition:</b> <a href="_material_system_8cpp_source.html#l00016">MaterialSystem.cpp:16</a></div></div>
+<div class="ttc" id="a_material_system_8h_html"><div class="ttname"><a href="_material_system_8h.html">MaterialSystem.h</a></div></div>
+<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00015">OSKmacros.h:15</a></div></div>
+<div class="ttc" id="a_pipeline_create_info_8h_html"><div class="ttname"><a href="_pipeline_create_info_8h.html">PipelineCreateInfo.h</a></div></div>
+<div class="ttc" id="a_render_api_type_8h_html"><div class="ttname"><a href="_render_api_type_8h.html">RenderApiType.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a019c5397d042224c134b7fd22c739d00"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">OSK::Engine::GetRenderer</a></div><div class="ttdeci">static GRAPHICS::IRenderer * GetRenderer()</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kengine_8cpp_source.html#l00127">OSKengine.cpp:127</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">OSK::GRAPHICS::IRenderpass</a></div><div class="ttdoc">Un renderpass representa una fase de renderizado. Todas las operaciones de renderizado se aplicarán s...</div><div class="ttdef"><b>Definition:</b> <a href="_i_renderpass_8h_source.html#l00017">IRenderpass.h:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">OSK::GRAPHICS::Material</a></div><div class="ttdoc">Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la...</div><div class="ttdef"><b>Definition:</b> <a href="_material_8h_source.html#l00024">Material.h:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">OSK::GRAPHICS::MaterialLayout</a></div><div class="ttdoc">El layout de un material determina qué slots pertenecen a ese material.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_8h_source.html#l00013">MaterialLayout.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html_a2569f4386c935be6c948ac9a3fd6998e"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a2569f4386c935be6c948ac9a3fd6998e">OSK::GRAPHICS::MaterialLayout::GetPushConstant</a></div><div class="ttdeci">MaterialLayoutPushConstant &amp; GetPushConstant(const std::string &amp;name) const</div><div class="ttdoc">Devuelve el slot push constant con el nombre dado.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_8cpp_source.html#l00022">MaterialLayout.cpp:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html_a7a1845df7f0113a0285adfbea469df90"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a7a1845df7f0113a0285adfbea469df90">OSK::GRAPHICS::MaterialLayout::GetSlot</a></div><div class="ttdeci">MaterialLayoutSlot &amp; GetSlot(const std::string &amp;name) const</div><div class="ttdoc">Obtiene el slot con el nombre dado, si existe.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_8cpp_source.html#l00018">MaterialLayout.cpp:18</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html_a82de8efeace9ce18733634fb7c1cc8a3"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a82de8efeace9ce18733634fb7c1cc8a3">OSK::GRAPHICS::MaterialLayout::GetAllSlotNames</a></div><div class="ttdeci">const LinkedList&lt; std::string &gt; &amp; GetAllSlotNames() const</div><div class="ttdoc">Obtiene los nombres de todos los slots registrados en el layout.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_8cpp_source.html#l00026">MaterialLayout.cpp:26</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html_ab5ca4f05ed6d7cea3b81d9ee94f6350a"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#ab5ca4f05ed6d7cea3b81d9ee94f6350a">OSK::GRAPHICS::MaterialLayout::AddSlot</a></div><div class="ttdeci">void AddSlot(const MaterialLayoutSlot &amp;slot)</div><div class="ttdoc">Añade el slot dado al layout. El nombre del slot se usará como llave.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_8cpp_source.html#l00006">MaterialLayout.cpp:6</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html_accc4d04a6e7b796eb95519f9431798e5"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#accc4d04a6e7b796eb95519f9431798e5">OSK::GRAPHICS::MaterialLayout::AddPushConstant</a></div><div class="ttdeci">void AddPushConstant(MaterialLayoutPushConstant pushConstant)</div><div class="ttdoc">Registra un slot para un push constant.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_8cpp_source.html#l00011">MaterialLayout.cpp:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html_aeb38d6651a3696756da72767b802913a"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#aeb38d6651a3696756da72767b802913a">OSK::GRAPHICS::MaterialLayout::GetAllPushConstants</a></div><div class="ttdeci">const HashMap&lt; std::string, MaterialLayoutPushConstant &gt; &amp; GetAllPushConstants() const</div><div class="ttdoc">Devuelve todos los slots push constants registrados.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_8cpp_source.html#l00030">MaterialLayout.cpp:30</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system_html_a4201708370e92ed6ae9ee22e05e7c56b"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#a4201708370e92ed6ae9ee22e05e7c56b">OSK::GRAPHICS::MaterialSystem::UnregisterRenderpass</a></div><div class="ttdeci">void UnregisterRenderpass(const IRenderpass *renderpass)</div><div class="ttdoc">Quita el renderpass de todos los materiales.</div><div class="ttdef"><b>Definition:</b> <a href="_material_system_8cpp_source.html#l00198">MaterialSystem.cpp:198</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system_html_ad39c519e3a5f58cc2a7622ba9b39687a"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#ad39c519e3a5f58cc2a7622ba9b39687a">OSK::GRAPHICS::MaterialSystem::LoadMaterial</a></div><div class="ttdeci">Material * LoadMaterial(const std::string &amp;path)</div><div class="ttdoc">Carga un material.</div><div class="ttdef"><b>Definition:</b> <a href="_material_system_8cpp_source.html#l00038">MaterialSystem.cpp:38</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system_html_afa47bf58d0e5e801aec7ba1aa229b1a7"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#afa47bf58d0e5e801aec7ba1aa229b1a7">OSK::GRAPHICS::MaterialSystem::RegisterRenderpass</a></div><div class="ttdeci">void RegisterRenderpass(const IRenderpass *renderpass)</div><div class="ttdoc">Registra el renderpass en todos los materiales.</div><div class="ttdef"><b>Definition:</b> <a href="_material_system_8cpp_source.html#l00191">MaterialSystem.cpp:191</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">OSK::GRAPHICS::VertexInfo</a></div><div class="ttdoc">Información de los atributos de un vértice. El graphics pipeline lo usará para configurar el tipo de ...</div><div class="ttdef"><b>Definition:</b> <a href="_vertex_info_8h_source.html#l00014">VertexInfo.h:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_file_i_o_html_aad968707ec7b00bce0540c804f476dc9"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_file_i_o.html#aad968707ec7b00bce0540c804f476dc9">OSK::IO::FileIO::ReadFromFile</a></div><div class="ttdeci">static std::string ReadFromFile(const std::string &amp;path)</div><div class="ttdoc">Lee un archivo de texto.</div><div class="ttdef"><b>Definition:</b> <a href="_file_i_o_8cpp_source.html#l00020">FileIO.cpp:20</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_f_traits_html_aaa9d8f73148fc7211f6713016bbab4aa"><div class="ttname"><a href="namespace_o_s_k_1_1_e_f_traits.html#aaa9d8f73148fc7211f6713016bbab4aa">OSK::EFTraits::AddFlag</a></div><div class="ttdeci">constexpr void AddFlag(TEnum *value, TEnum flag)</div><div class="ttdoc">Añade un flag al enum dado.</div><div class="ttdef"><b>Definition:</b> <a href="_enum_flags_8hpp_source.html#l00086">EnumFlags.hpp:86</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_command_list_dx12_8h_source.html#l00012">CommandListDx12.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3057691f190dabf7642cfde72cf2430fa8bfc0c05d68d95476338b4d64a879c33"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430fa8bfc0c05d68d95476338b4d64a879c33">OSK::GRAPHICS::RenderApiType::DX12</a></div><div class="ttdeci">@ DX12</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3057691f190dabf7642cfde72cf2430fac0ad831a34c4633bee584066cfcc5040"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430fac0ad831a34c4633bee584066cfcc5040">OSK::GRAPHICS::RenderApiType::OPENGL</a></div><div class="ttdeci">@ OPENGL</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3057691f190dabf7642cfde72cf2430fac60cacb57b9e78f018a9d973bee2f801"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430fac60cacb57b9e78f018a9d973bee2f801">OSK::GRAPHICS::RenderApiType::VULKAN</a></div><div class="ttdeci">@ VULKAN</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a30ce77ebba3a46932046ff265f17922ca1dd26f1f1790f0b56d5752fb0fbecef0"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922ca1dd26f1f1790f0b56d5752fb0fbecef0">OSK::GRAPHICS::PolygonCullMode::BACK</a></div><div class="ttdeci">@ BACK</div><div class="ttdoc">Se descartan los polígonos que no miran hacia la cámara.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a30ce77ebba3a46932046ff265f17922cab50339a10e1de285ac99d4c3990b8693"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922cab50339a10e1de285ac99d4c3990b8693">OSK::GRAPHICS::PolygonCullMode::NONE</a></div><div class="ttdeci">@ NONE</div><div class="ttdoc">No se descarta ningún polígono.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a30ce77ebba3a46932046ff265f17922cabb2fe5c916efb43aab8cbb68f997d2ee"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922cabb2fe5c916efb43aab8cbb68f997d2ee">OSK::GRAPHICS::PolygonCullMode::FRONT</a></div><div class="ttdeci">@ FRONT</div><div class="ttdoc">Se descartan los polígonos que miran hacia la cámara.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a4a3cc5ac5a7f3c8753e7f74d576d6e1d"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1d">OSK::GRAPHICS::ShaderBindingType</a></div><div class="ttdeci">ShaderBindingType</div><div class="ttdoc">Tipos de datos de entrada que puede tener un shader.</div><div class="ttdef"><b>Definition:</b> <a href="_shader_binding_type_8h_source.html#l00010">ShaderBindingType.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a9bf4af2a8108b7a3939f60c4efafcfd8ae8225b11842409df543692aebed34fd1"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8ae8225b11842409df543692aebed34fd1">OSK::GRAPHICS::PolygonMode::FILL</a></div><div class="ttdeci">@ FILL</div><div class="ttdoc">Se renderizan los polígonos enteros.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a9f540971911df275819dd542e32027dda3466fab4975481651940ed328aa990e4"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027dda3466fab4975481651940ed328aa990e4">OSK::GRAPHICS::DepthTestingType::READ</a></div><div class="ttdeci">@ READ</div><div class="ttdoc">Lee la información para comprobar que el objeto debe ser renderizado, pero no actualiza la informació...</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a9f540971911df275819dd542e32027ddaa7b843fb734e3b3fea8e5f902d3f4144"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027ddaa7b843fb734e3b3fea8e5f902d3f4144">OSK::GRAPHICS::DepthTestingType::READ_WRITE</a></div><div class="ttdeci">@ READ_WRITE</div><div class="ttdoc">Comportamiento normal.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a9f540971911df275819dd542e32027ddab50339a10e1de285ac99d4c3990b8693"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027ddab50339a10e1de285ac99d4c3990b8693">OSK::GRAPHICS::DepthTestingType::NONE</a></div><div class="ttdeci">@ NONE</div><div class="ttdoc">Ninguna operación.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aa7e7dcffcab27051f141128e66a50fcb"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">OSK::GRAPHICS::ShaderStage</a></div><div class="ttdeci">ShaderStage</div><div class="ttdoc">Shaders en los que se puede acceder a un elemento.</div><div class="ttdef"><b>Definition:</b> <a href="_shader_binding_type_8h_source.html#l00034">ShaderBindingType.h:34</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_ad6329cdca67793d3a3ffec0de1fab44cab437c6ed212434e8984c403374fe494c"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad6329cdca67793d3a3ffec0de1fab44cab437c6ed212434e8984c403374fe494c">OSK::GRAPHICS::PolygonFrontFaceType::COUNTERCLOCKWISE</a></div><div class="ttdeci">@ COUNTERCLOCKWISE</div><div class="ttdoc">/// Mira hacia delante si los vértices están en orden contrario de las agujas del reloj.</div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00007">Assert.h:7</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding.html">OSK::GRAPHICS::MaterialLayoutBinding</a></div><div class="ttdoc">Un binding de un layout.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_binding_8h_source.html#l00023">MaterialLayoutBinding.h:23</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_html_abf80f1b1de075dd88db4a741925f8f4d"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding.html#abf80f1b1de075dd88db4a741925f8f4d">OSK::GRAPHICS::MaterialLayoutBinding::name</a></div><div class="ttdeci">std::string name</div><div class="ttdoc">Nombre del binding. Debe ser único en un slot, pero pueden haber varios bindings con el mismo nombre ...</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_binding_8h_source.html#l00030">MaterialLayoutBinding.h:30</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html">OSK::GRAPHICS::MaterialLayoutPushConstant</a></div><div class="ttdoc">Un push constant permite enviar datos a la GPU directamente en la lista de comandos.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_push_constant_8h_source.html#l00014">MaterialLayoutPushConstant.h:14</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant_html_abd6712c9002b537a65f9568ae9fec32c"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html#abd6712c9002b537a65f9568ae9fec32c">OSK::GRAPHICS::MaterialLayoutPushConstant::name</a></div><div class="ttdeci">std::string name</div><div class="ttdoc">Nombre del push constant.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_push_constant_8h_source.html#l00019">MaterialLayoutPushConstant.h:19</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html">OSK::GRAPHICS::MaterialLayoutSlot</a></div><div class="ttdoc">Un MaterialLayoutSlot agrupa varios MaterialLayoutBindings: son una manera de unir bindings que se us...</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_slot_8h_source.html#l00013">MaterialLayoutSlot.h:13</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_html_a5396464c0b7e928a41db5b80ff004309"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#a5396464c0b7e928a41db5b80ff004309">OSK::GRAPHICS::MaterialLayoutSlot::name</a></div><div class="ttdeci">std::string name</div><div class="ttdoc">Nombre del slot. Debe ser único en el layout.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_slot_8h_source.html#l00019">MaterialLayoutSlot.h:19</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_html_a9619a1823cd7ae6ff9f14f4a0e8cd0b7"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#a9619a1823cd7ae6ff9f14f4a0e8cd0b7">OSK::GRAPHICS::MaterialLayoutSlot::glslSetIndex</a></div><div class="ttdeci">TSize glslSetIndex</div><div class="ttdoc">Índice del descriptor set del shader .glsl (Vulkan/OpenGL) al que se asocia este slot.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_slot_8h_source.html#l00029">MaterialLayoutSlot.h:29</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">OSK::GRAPHICS::PipelineCreateInfo</a></div><div class="ttdoc">Contiene la información necesaria para configurar un nuevo graphics pipeline.</div><div class="ttdef"><b>Definition:</b> <a href="_pipeline_create_info_8h_source.html#l00093">PipelineCreateInfo.h:93</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a3fac189838e4f2c919f229eadf5bdb62"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a3fac189838e4f2c919f229eadf5bdb62">OSK::GRAPHICS::PipelineCreateInfo::vertexPath</a></div><div class="ttdeci">std::string vertexPath</div><div class="ttdoc">Dirección en la que se encuentra el shader de vértices.</div><div class="ttdef"><b>Definition:</b> <a href="_pipeline_create_info_8h_source.html#l00101">PipelineCreateInfo.h:101</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_material_system_8cpp.html">MaterialSystem.cpp</a></li>
+    <li class="footer">Generado el Miércoles, 20 de Abril de 2022 00:28:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

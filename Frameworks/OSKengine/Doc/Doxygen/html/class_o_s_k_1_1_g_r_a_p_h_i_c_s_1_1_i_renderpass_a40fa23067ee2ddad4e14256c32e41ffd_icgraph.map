@@ -1,0 +1,8 @@
+<map id="OSK::GRAPHICS::IRenderpass::As" name="OSK::GRAPHICS::IRenderpass::As">
+<area shape="rect" id="node1" title=" " alt="" coords="529,78,759,105"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a546510609e889e49aca9c89262ecf527" title="Comienza el renderizado a un renderpass." alt="" coords="267,5,481,47"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_ogl.html#a5de438ce7c72e0d12653dd47dc60b057" title=" " alt="" coords="267,71,481,112"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a3586eff129bbcdbd43c08a7dd1dc451d" title="Finaliza el renderizado a un renderpass." alt="" coords="267,136,481,177"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a7001f2a6a149e3ae07438341d9b23e1c" title="Comienza el renderizado a un renderpass." alt="" coords="5,5,219,47"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_ogl.html#a17f75492db57f93b8ccac99c1aeea74d" title=" " alt="" coords="5,71,219,112"/>
+</map>

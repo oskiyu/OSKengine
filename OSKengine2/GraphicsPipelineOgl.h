@@ -7,6 +7,7 @@
 
 namespace OSK::GRAPHICS {
 
+	/// @deprecated OpenGL no implementado.
 	class OSKAPI_CALL GraphicsPipelineOgl : public IGraphicsPipeline {
 
 	public:

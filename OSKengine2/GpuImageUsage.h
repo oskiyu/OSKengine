@@ -6,7 +6,8 @@ namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Uso que se le va a dar a la imagen.
-	/// Se pueden combinar varios de estos usos.
+	/// 
+	/// @note Se pueden combinar varios de estos usos.
 	/// </summary>
 	enum class GpuImageUsage {
 

@@ -1,0 +1,13 @@
+<map id="OSK::GRAPHICS::DescriptorLayoutVulkan::DescriptorLayoutVulkan" name="OSK::GRAPHICS::DescriptorLayoutVulkan::DescriptorLayoutVulkan">
+<area shape="rect" id="node1" title=" " alt="" coords="5,151,212,207"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_dynamic_array.html#ac8a6d70f938c482e1f7aa68c7d186bb8" title="Devuelve el array original." alt="" coords="293,5,441,47"/>
+<area shape="rect" id="node3" href="$namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4c5b747cc726d69ca2876e77875618dc" title=" " alt="" coords="260,71,473,112"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00" title=" " alt="" coords="277,137,456,163"/>
+<area shape="rect" id="node5" href="$namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3a50046339fbf8642e14273583cd8118" title=" " alt="" coords="269,188,464,229"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90" title="Devuelve el número de elementos almacenados." alt="" coords="293,253,441,295"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_dynamic_array.html#ae8c61261c812df8ed2a69641d49eca5b" title="Inserta un elemento al final del array." alt="" coords="293,319,441,360"/>
+<area shape="rect" id="node6" href="$namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c" title="Devuelve true si el enum &#39;value&#39; tiene la flag &#39;flag&#39;." alt="" coords="521,195,684,222"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_dynamic_array.html#a270b01e677a57b96f3f0443b3ef9e289" title="Inserta una copia del elemento al final del array." alt="" coords="529,319,677,360"/>
+<area shape="rect" id="node10" href="$class_o_s_k_1_1_dynamic_array.html#acf322bf27bf4bfd581079500c67171a6" title="Reserva espacio para &#39;size&#39; elementos. Preserva los elementos anteriores." alt="" coords="732,285,880,327"/>
+<area shape="rect" id="node11" href="$class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef" title="Devuelve true si el array se ha inicializado." alt="" coords="732,351,880,392"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="OSK::ECS::ISystem" name="OSK::ECS::ISystem">
+<area shape="rect" id="node1" title="Un sistema se encarga de ejecutar lógica con los datos de los componentes. Los componentes no son más..." alt="" coords="137,5,287,229"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html" title=" " alt="" coords="5,277,200,384"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html" title="Sistema que se encarga del renderizado de modelos 3D de los objetos." alt="" coords="224,277,419,384"/>
+</map>

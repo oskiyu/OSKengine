@@ -24,6 +24,8 @@
 #include "CameraComponent2D.h"
 #include "SpriteComponent.h"
 #include "Transform2D.h"
+#include "Font.h"
+#include "FontLoader.h"
 
 #include <GLFW/glfw3.h>
 #undef GetCurrentTime;
@@ -92,6 +94,7 @@ void Engine::RegisterBuiltinAssets() {
 	assetManager->RegisterLoader<ASSETS::TextureLoader>();
 	assetManager->RegisterLoader<ASSETS::ModelLoader3D>();
 	assetManager->RegisterLoader<ASSETS::CubemapTextureLoader>();
+	assetManager->RegisterLoader<ASSETS::FontLoader>();
 }
 
 void Engine::RegisterBuiltinComponents() {

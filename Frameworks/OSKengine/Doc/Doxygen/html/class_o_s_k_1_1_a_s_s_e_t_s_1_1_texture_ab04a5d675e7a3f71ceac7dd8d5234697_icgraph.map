@@ -1,0 +1,6 @@
+<map id="OSK::ASSETS::Texture::GetGpuImage" name="OSK::ASSETS::Texture::GetGpuImage">
+<area shape="rect" id="node1" title="Imagen guardada en la GPU. Para renderizado." alt="" coords="247,71,408,112"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#a8954aa80ca2d38b483e4952563dc376a" title="Establece la textura del sprite." alt="" coords="19,5,185,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_sprite_component.html#a8e9a153c19fa7030b0604b43558b6e1a" title="Debe establecerse la textura después de instanciar la instancia del material 2D." alt="" coords="5,71,199,112"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a058d5fe56bf883ef6a7ea8ec533d07f0" title="Establece la textura que será asignada al binding con el nombre dado. Puede usarse esta función para ..." alt="" coords="11,136,193,177"/>
+</map>

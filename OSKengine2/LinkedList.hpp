@@ -24,6 +24,7 @@
 
 namespace OSK {
 
+	/// @deprecated No testeado / usado lo suficiente.
 	template <typename T> class LinkedList {
 
 	public:

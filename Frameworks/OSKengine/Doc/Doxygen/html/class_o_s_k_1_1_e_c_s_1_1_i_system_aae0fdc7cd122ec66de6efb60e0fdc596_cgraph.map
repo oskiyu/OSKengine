@@ -1,0 +1,9 @@
+<map id="OSK::ECS::ISystem::RemoveObject" name="OSK::ECS::ISystem::RemoveObject">
+<area shape="rect" id="node1" title="Elimina un objeto de la lista de objetos procesables." alt="" coords="5,39,155,80"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_i_system.html#a0507ade65b07509199201d1a50e97052" title="Función que se ejecuta cuando un GameObject sale de la lista de objetos procesables por el sistema." alt="" coords="203,5,352,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_dynamic_array.html#a0a3bb760970ebe40178e9976c53d73ea" title="Elimina el eleemento dado de la lista." alt="" coords="203,71,351,112"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_dynamic_array.html#a1631d885e5ebe9c44c943291faa39918" title="Obtiene el iterador del primer elemento almacenado que sea igual a el dado." alt="" coords="400,49,573,75"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_dynamic_array.html#ab975ce0e8a0540266ee9636a3794c052" title="Elimina el elemento en la posición dada. Llama al destructor." alt="" coords="413,100,561,141"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_dynamic_array.html#a9691f5eaf46654d59525c6c342d69cbb" title="Devuelve el elemento en la posición dada." alt="" coords="621,82,783,109"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef" title="Devuelve true si el array se ha inicializado." alt="" coords="831,100,979,141"/>
+</map>

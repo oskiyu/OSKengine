@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/MaterialSlotVulkan.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_material_slot_vulkan_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">MaterialSlotVulkan.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_material_slot_vulkan_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_material_slot_vulkan_8h.html">MaterialSlotVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;vulkan/vulkan.h&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_renderer_vulkan_8h.html">RendererVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_vulkan_8h.html">GpuVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_owned_ptr_8h.html">OwnedPtr.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_i_gpu_uniform_buffer_8h.html">IGpuUniformBuffer.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_memory_block_vulkan_8h.html">GpuMemoryBlockVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_memory_subblock_vulkan_8h.html">GpuMemorySubblockVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="_material_layout_8h.html">MaterialLayout.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="_descriptor_layout_vulkan_8h.html">DescriptorLayoutVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="_descriptor_pool_vulkan_8h.html">DescriptorPoolVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_vulkan_8h.html">GpuImageVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e">   19</a></span><span class="keyword">inline</span> VkDevice <a class="code hl_function" href="_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e">GetDevice</a>() {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">return</span> Engine::GetRenderer()-&gt;GetGpu()-&gt;As&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html">GpuVulkan</a>&gt;()-&gt;GetLogicalDevice();</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a133edf4a7c17425f490e690cb9ce46a4">   23</a></span>MaterialSlotVulkan::MaterialSlotVulkan(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>* layout)</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    : <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html">IMaterialSlot</a>(layout, name) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> swapchainCount = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6bdcecd10ad67576f386bb8d42503bcd">GetSwapchainImagesCount</a>();</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    descriptorSets.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#adcbd5bb6ce88469bc9e6f65be06ceae6">Resize</a>(swapchainCount);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    bindings.Resize(3);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    descLayout = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan.html">DescriptorLayoutVulkan</a>(&amp;<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a0edfe4cc881bcaf3507b9d5ce345102a">layout</a>-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a7a1845df7f0113a0285adfbea469df90">GetSlot</a>(<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a92532b4b6b8a32041dbacf144af8340f">name</a>));</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    pool = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_pool_vulkan.html">DescriptorPoolVulkan</a>(descLayout.GetValue(), swapchainCount);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    VkDescriptorSetAllocateInfo allocInfo{};</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    allocInfo.descriptorPool = pool-&gt;GetPool();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    allocInfo.descriptorSetCount = <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(swapchainCount);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_typedef" href="_descriptor_layout_vulkan_8h.html#a0d22c7c7f4168456bc3c2275e263f184">VkDescriptorSetLayout</a> layouts[] = { descLayout-&gt;GetLayout(), descLayout-&gt;GetLayout(), descLayout-&gt;GetLayout() };</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    allocInfo.pSetLayouts = layouts;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    VkResult result = vkAllocateDescriptorSets(<a class="code hl_function" href="_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e">GetDevice</a>(), &amp;allocInfo, descriptorSets.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#ac8a6d70f938c482e1f7aa68c7d186bb8">GetData</a>());</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_define" href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a>(result == VK_SUCCESS, <span class="stringliteral">&quot;Error al crear descriptor sets.&quot;</span>);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a8fb115f09884138fe969a63bbd84a41b">   46</a></span><a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a8fb115f09884138fe969a63bbd84a41b">MaterialSlotVulkan::~MaterialSlotVulkan</a>() {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    pool.Delete();</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    descLayout.Delete();</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a00b39c8aa8e563a5d0776edbf06cbd60">   51</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a00b39c8aa8e563a5d0776edbf06cbd60">MaterialSlotVulkan::SetUniformBuffer</a>(<span class="keyword">const</span> std::string&amp; binding, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html">IGpuUniformBuffer</a>* buffer) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html">GpuMemorySubblockVulkan</a>* vulkanBuffer = buffer-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a0e688b372c65d28e21d562528355a08d">GetMemorySubblock</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a184a8433d5967eea3dd00fd988d3dff2">As</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html">GpuMemorySubblockVulkan</a>&gt;();</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html">GpuMemoryBlockVulkan</a>* vulkanBlock = vulkanBuffer-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#aa93fb9b1213377fa3e4187569872671e">GetOwnerBlock</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a91118fa3b6e9b9bc8964bd4a71ab6233">As</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html">GpuMemoryBlockVulkan</a>&gt;();</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> i = 0; i &lt; descriptorSets.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90">GetSize</a>(); i++) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;VkDescriptorBufferInfo&gt;</a> bufferInfo = <span class="keyword">new</span> VkDescriptorBufferInfo();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        bufferInfo-&gt;buffer = vulkanBlock-&gt;GetVulkanBuffer();</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        bufferInfo-&gt;offset = vulkanBuffer-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#aaa35c7cacfe1d64bebe648bd0f34791c">GetOffsetFromBlock</a>();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        bufferInfo-&gt;range = vulkanBuffer-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a98060a86b121f0940cde38c36eca822f">GetAllocatedSize</a>();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        VkWriteDescriptorSet descriptorWrite{};</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        descriptorWrite.dstSet = descriptorSets[i];</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        descriptorWrite.dstBinding = <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a0edfe4cc881bcaf3507b9d5ce345102a">layout</a>-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a7a1845df7f0113a0285adfbea469df90">GetSlot</a>(<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a92532b4b6b8a32041dbacf144af8340f">name</a>).<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#aae656bee485d2b46a0996ebe97ae97d3">bindings</a>.Get(binding).glslIndex;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        descriptorWrite.dstArrayElement = 0;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        descriptorWrite.descriptorCount = 1;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        descriptorWrite.pBufferInfo = bufferInfo.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>();</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        descriptorWrite.pImageInfo = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        descriptorWrite.pTexelBufferView = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        bindings.At(i).Insert(descriptorWrite);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        bufferInfos.Insert(bufferInfo);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#ade76c465c6b0259ddce1f0e5b8b16bbf">   77</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#ade76c465c6b0259ddce1f0e5b8b16bbf">MaterialSlotVulkan::SetGpuImage</a>(<span class="keyword">const</span> std::string&amp; binding, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>* image) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> i = 0; i &lt; descriptorSets.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90">GetSize</a>(); i++) {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;VkDescriptorImageInfo&gt;</a> imageInfo = <span class="keyword">new</span> VkDescriptorImageInfo();</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        imageInfo-&gt;imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        imageInfo-&gt;imageView = image-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a6bc3268b57ede5f9f0541b20d12dfea0">As</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html">GpuImageVulkan</a>&gt;()-&gt;GetView();</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        imageInfo-&gt;sampler = image-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a6bc3268b57ede5f9f0541b20d12dfea0">As</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html">GpuImageVulkan</a>&gt;()-&gt;GetSampler();</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        VkWriteDescriptorSet descriptorWrite{};</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        descriptorWrite.dstSet = descriptorSets[i];</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        descriptorWrite.dstBinding = <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a0edfe4cc881bcaf3507b9d5ce345102a">layout</a>-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a7a1845df7f0113a0285adfbea469df90">GetSlot</a>(<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a92532b4b6b8a32041dbacf144af8340f">name</a>).<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#aae656bee485d2b46a0996ebe97ae97d3">bindings</a>.Get(binding).glslIndex;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        descriptorWrite.dstArrayElement = 0;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        descriptorWrite.descriptorCount = 1;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        descriptorWrite.pBufferInfo = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        descriptorWrite.pImageInfo = imageInfo.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>();</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        descriptorWrite.pTexelBufferView = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        bindings[i].Insert(descriptorWrite);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        imageInfos.Insert(imageInfo);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>}</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a355547aa767341b813007c2f31cedff4">  100</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a355547aa767341b813007c2f31cedff4">MaterialSlotVulkan::FlushUpdate</a>() {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> i = 0; i &lt; bindings.GetSize(); i++)</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        vkUpdateDescriptorSets(<a class="code hl_function" href="_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e">GetDevice</a>(), (uint32_t)bindings[i].GetSize(), bindings[i].GetData(), 0, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>}</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a0370974b377df66ebabfac1c3cbea3ea">  105</a></span>VkDescriptorSet <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a0370974b377df66ebabfac1c3cbea3ea">MaterialSlotVulkan::GetDescriptorSet</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> index)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">return</span> descriptorSets[index];</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}</div>
+<div class="ttc" id="a_assert_8h_html_adfbccaec84df99b8277f9d877554170c"><div class="ttname"><a href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a></div><div class="ttdeci">#define OSK_ASSERT(condition, msg)</div><div class="ttdoc">Comprueba si la condición se cumple. Si no se cumple, muestra un mensaje de error y throwea un error.</div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00064">Assert.h:64</a></div></div>
+<div class="ttc" id="a_descriptor_layout_vulkan_8h_html"><div class="ttname"><a href="_descriptor_layout_vulkan_8h.html">DescriptorLayoutVulkan.h</a></div></div>
+<div class="ttc" id="a_descriptor_layout_vulkan_8h_html_a0d22c7c7f4168456bc3c2275e263f184"><div class="ttname"><a href="_descriptor_layout_vulkan_8h.html#a0d22c7c7f4168456bc3c2275e263f184">VkDescriptorSetLayout</a></div><div class="ttdeci">VkDescriptorSetLayout_T * VkDescriptorSetLayout</div><div class="ttdef"><b>Definition:</b> <a href="_descriptor_layout_vulkan_8h_source.html#l00006">DescriptorLayoutVulkan.h:6</a></div></div>
+<div class="ttc" id="a_descriptor_pool_vulkan_8h_html"><div class="ttname"><a href="_descriptor_pool_vulkan_8h.html">DescriptorPoolVulkan.h</a></div></div>
+<div class="ttc" id="a_gpu_image_vulkan_8h_html"><div class="ttname"><a href="_gpu_image_vulkan_8h.html">GpuImageVulkan.h</a></div></div>
+<div class="ttc" id="a_gpu_memory_block_vulkan_8h_html"><div class="ttname"><a href="_gpu_memory_block_vulkan_8h.html">GpuMemoryBlockVulkan.h</a></div></div>
+<div class="ttc" id="a_gpu_memory_subblock_vulkan_8h_html"><div class="ttname"><a href="_gpu_memory_subblock_vulkan_8h.html">GpuMemorySubblockVulkan.h</a></div></div>
+<div class="ttc" id="a_gpu_vulkan_8h_html"><div class="ttname"><a href="_gpu_vulkan_8h.html">GpuVulkan.h</a></div></div>
+<div class="ttc" id="a_i_gpu_uniform_buffer_8h_html"><div class="ttname"><a href="_i_gpu_uniform_buffer_8h.html">IGpuUniformBuffer.h</a></div></div>
+<div class="ttc" id="a_material_layout_8h_html"><div class="ttname"><a href="_material_layout_8h.html">MaterialLayout.h</a></div></div>
+<div class="ttc" id="a_material_slot_vulkan_8cpp_html_adead74bea72029d218144e2a94a1eb1e"><div class="ttname"><a href="_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e">GetDevice</a></div><div class="ttdeci">VkDevice GetDevice()</div><div class="ttdef"><b>Definition:</b> <a href="_material_slot_vulkan_8cpp_source.html#l00019">MaterialSlotVulkan.cpp:19</a></div></div>
+<div class="ttc" id="a_material_slot_vulkan_8h_html"><div class="ttname"><a href="_material_slot_vulkan_8h.html">MaterialSlotVulkan.h</a></div></div>
+<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00015">OSKmacros.h:15</a></div></div>
+<div class="ttc" id="a_owned_ptr_8h_html"><div class="ttname"><a href="_owned_ptr_8h.html">OwnedPtr.h</a></div></div>
+<div class="ttc" id="a_renderer_vulkan_8h_html"><div class="ttname"><a href="_renderer_vulkan_8h.html">RendererVulkan.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a94d0cbf0543d0c976de674d31b15df90"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">TSize GetSize() const noexcept</div><div class="ttdoc">Devuelve el número de elementos almacenados.</div><div class="ttdef"><b>Definition:</b> <a href="_dynamic_array_8hpp_source.html#l00674">DynamicArray.hpp:674</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_ac8a6d70f938c482e1f7aa68c7d186bb8"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#ac8a6d70f938c482e1f7aa68c7d186bb8">OSK::DynamicArray::GetData</a></div><div class="ttdeci">T * GetData() const noexcept</div><div class="ttdoc">Devuelve el array original.</div><div class="ttdef"><b>Definition:</b> <a href="_dynamic_array_8hpp_source.html#l00688">DynamicArray.hpp:688</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_adcbd5bb6ce88469bc9e6f65be06ceae6"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#adcbd5bb6ce88469bc9e6f65be06ceae6">OSK::DynamicArray::Resize</a></div><div class="ttdeci">void Resize(TSize size, const TArgs &amp;... args)</div><div class="ttdoc">Cambia el tamaño del array. Los datos se conservan, siempre que se pueda. Se añaden elementos hasta q...</div><div class="ttdef"><b>Definition:</b> <a href="_dynamic_array_8hpp_source.html#l00497">DynamicArray.hpp:497</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a019c5397d042224c134b7fd22c739d00"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">OSK::Engine::GetRenderer</a></div><div class="ttdeci">static GRAPHICS::IRenderer * GetRenderer()</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kengine_8cpp_source.html#l00127">OSKengine.cpp:127</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan.html">OSK::GRAPHICS::DescriptorLayoutVulkan</a></div><div class="ttdoc">Wrapper de un VkDescrpitorSetLayout. Se encarga de crear el layout a partir del MaterialLayoutSlot.</div><div class="ttdef"><b>Definition:</b> <a href="_descriptor_layout_vulkan_8h_source.html#l00016">DescriptorLayoutVulkan.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_pool_vulkan_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_pool_vulkan.html">OSK::GRAPHICS::DescriptorPoolVulkan</a></div><div class="ttdoc">Wrapper de un VkDescriptorPool. Se encarga de crear el pool a partir del MaterialLayoutSlot.</div><div class="ttdef"><b>Definition:</b> <a href="_descriptor_pool_vulkan_8h_source.html#l00016">DescriptorPoolVulkan.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer_html_a0e688b372c65d28e21d562528355a08d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a0e688b372c65d28e21d562528355a08d">OSK::GRAPHICS::GpuDataBuffer::GetMemorySubblock</a></div><div class="ttdeci">IGpuMemorySubblock * GetMemorySubblock() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_data_buffer_8cpp_source.html#l00013">IGpuDataBuffer.cpp:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8h_source.html#l00022">IGpuImage.h:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_a6bc3268b57ede5f9f0541b20d12dfea0"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a6bc3268b57ede5f9f0541b20d12dfea0">OSK::GRAPHICS::GpuImage::As</a></div><div class="ttdeci">T * As() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8h_source.html#l00046">IGpuImage.h:46</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html">OSK::GRAPHICS::GpuImageVulkan</a></div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_vulkan_8h_source.html#l00016">GpuImageVulkan.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html">OSK::GRAPHICS::GpuMemoryBlockVulkan</a></div><div class="ttdef"><b>Definition:</b> <a href="_gpu_memory_block_vulkan_8h_source.html#l00019">GpuMemoryBlockVulkan.h:19</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html">OSK::GRAPHICS::GpuMemorySubblockVulkan</a></div><div class="ttdef"><b>Definition:</b> <a href="_gpu_memory_subblock_vulkan_8h_source.html#l00007">GpuMemorySubblockVulkan.h:7</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html">OSK::GRAPHICS::GpuVulkan</a></div><div class="ttdoc">Implementación de la interfaz para el renderizador de Vulkan.</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_vulkan_8h_source.html#l00017">GpuVulkan.h:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_html_a91118fa3b6e9b9bc8964bd4a71ab6233"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a91118fa3b6e9b9bc8964bd4a71ab6233">OSK::GRAPHICS::IGpuMemoryBlock::As</a></div><div class="ttdeci">T * As() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_memory_block_8h_source.html#l00070">IGpuMemoryBlock.h:70</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock_html_a184a8433d5967eea3dd00fd988d3dff2"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a184a8433d5967eea3dd00fd988d3dff2">OSK::GRAPHICS::IGpuMemorySubblock::As</a></div><div class="ttdeci">T * As() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_memory_subblock_8h_source.html#l00061">IGpuMemorySubblock.h:61</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock_html_a98060a86b121f0940cde38c36eca822f"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a98060a86b121f0940cde38c36eca822f">OSK::GRAPHICS::IGpuMemorySubblock::GetAllocatedSize</a></div><div class="ttdeci">TSize GetAllocatedSize() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_memory_subblock_8cpp_source.html#l00019">IGpuMemorySubblock.cpp:19</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock_html_aa93fb9b1213377fa3e4187569872671e"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#aa93fb9b1213377fa3e4187569872671e">OSK::GRAPHICS::IGpuMemorySubblock::GetOwnerBlock</a></div><div class="ttdeci">IGpuMemoryBlock * GetOwnerBlock() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_memory_subblock_8cpp_source.html#l00027">IGpuMemorySubblock.cpp:27</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock_html_aaa35c7cacfe1d64bebe648bd0f34791c"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#aaa35c7cacfe1d64bebe648bd0f34791c">OSK::GRAPHICS::IGpuMemorySubblock::GetOffsetFromBlock</a></div><div class="ttdeci">TSize GetOffsetFromBlock() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_memory_subblock_8cpp_source.html#l00023">IGpuMemorySubblock.cpp:23</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html">OSK::GRAPHICS::IGpuUniformBuffer</a></div><div class="ttdoc">Un uniform buffer contiene información arbitraria a la que se puede acceder a la hora de renderizar.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_uniform_buffer_8h_source.html#l00011">IGpuUniformBuffer.h:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html">OSK::GRAPHICS::IMaterialSlot</a></div><div class="ttdoc">Un slot contiene referencias a los recursos (UNIFORM BUFFER, TEXTURE, etc...) que se envían a la GPU.</div><div class="ttdef"><b>Definition:</b> <a href="_i_material_slot_8h_source.html#l00022">IMaterialSlot.h:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot_html_a0edfe4cc881bcaf3507b9d5ce345102a"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a0edfe4cc881bcaf3507b9d5ce345102a">OSK::GRAPHICS::IMaterialSlot::layout</a></div><div class="ttdeci">const MaterialLayout * layout</div><div class="ttdef"><b>Definition:</b> <a href="_i_material_slot_8h_source.html#l00070">IMaterialSlot.h:70</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot_html_a92532b4b6b8a32041dbacf144af8340f"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a92532b4b6b8a32041dbacf144af8340f">OSK::GRAPHICS::IMaterialSlot::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition:</b> <a href="_i_material_slot_8h_source.html#l00071">IMaterialSlot.h:71</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a6bdcecd10ad67576f386bb8d42503bcd"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6bdcecd10ad67576f386bb8d42503bcd">OSK::GRAPHICS::IRenderer::GetSwapchainImagesCount</a></div><div class="ttdeci">TSize GetSwapchainImagesCount() const</div><div class="ttdoc">Devuelve el número de imágenes del swapchain. Para recursos que necesiten tener una copia por imagen ...</div><div class="ttdef"><b>Definition:</b> <a href="_renderer_8cpp_source.html#l00077">Renderer.cpp:77</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">OSK::GRAPHICS::MaterialLayout</a></div><div class="ttdoc">El layout de un material determina qué slots pertenecen a ese material.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_8h_source.html#l00013">MaterialLayout.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html_a7a1845df7f0113a0285adfbea469df90"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a7a1845df7f0113a0285adfbea469df90">OSK::GRAPHICS::MaterialLayout::GetSlot</a></div><div class="ttdeci">MaterialLayoutSlot &amp; GetSlot(const std::string &amp;name) const</div><div class="ttdoc">Obtiene el slot con el nombre dado, si existe.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_8cpp_source.html#l00018">MaterialLayout.cpp:18</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan_html_a00b39c8aa8e563a5d0776edbf06cbd60"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a00b39c8aa8e563a5d0776edbf06cbd60">OSK::GRAPHICS::MaterialSlotVulkan::SetUniformBuffer</a></div><div class="ttdeci">void SetUniformBuffer(const std::string &amp;binding, const IGpuUniformBuffer *buffer) override</div><div class="ttdoc">Establece el UNIFORM BUFFER que será asignado al binding con el nombre dado. Puede usarse esta funció...</div><div class="ttdef"><b>Definition:</b> <a href="_material_slot_vulkan_8cpp_source.html#l00051">MaterialSlotVulkan.cpp:51</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan_html_a0370974b377df66ebabfac1c3cbea3ea"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a0370974b377df66ebabfac1c3cbea3ea">OSK::GRAPHICS::MaterialSlotVulkan::GetDescriptorSet</a></div><div class="ttdeci">VkDescriptorSet GetDescriptorSet(TSize index) const</div><div class="ttdef"><b>Definition:</b> <a href="_material_slot_vulkan_8cpp_source.html#l00105">MaterialSlotVulkan.cpp:105</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan_html_a355547aa767341b813007c2f31cedff4"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a355547aa767341b813007c2f31cedff4">OSK::GRAPHICS::MaterialSlotVulkan::FlushUpdate</a></div><div class="ttdeci">void FlushUpdate() override</div><div class="ttdoc">Actualiza los recursos que se enviarán a los shaders.</div><div class="ttdef"><b>Definition:</b> <a href="_material_slot_vulkan_8cpp_source.html#l00100">MaterialSlotVulkan.cpp:100</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan_html_a8fb115f09884138fe969a63bbd84a41b"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a8fb115f09884138fe969a63bbd84a41b">OSK::GRAPHICS::MaterialSlotVulkan::~MaterialSlotVulkan</a></div><div class="ttdeci">~MaterialSlotVulkan()</div><div class="ttdef"><b>Definition:</b> <a href="_material_slot_vulkan_8cpp_source.html#l00046">MaterialSlotVulkan.cpp:46</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan_html_ade76c465c6b0259ddce1f0e5b8b16bbf"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#ade76c465c6b0259ddce1f0e5b8b16bbf">OSK::GRAPHICS::MaterialSlotVulkan::SetGpuImage</a></div><div class="ttdeci">void SetGpuImage(const std::string &amp;binding, const GpuImage *image) override</div><div class="ttdoc">Establece la imagen que será asignada al binding con el nombre dado. Puede usarse esta función para a...</div><div class="ttdef"><b>Definition:</b> <a href="_material_slot_vulkan_8cpp_source.html#l00077">MaterialSlotVulkan.cpp:77</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr&lt; VkDescriptorBufferInfo &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a81dfab2299056fc9858aace55fca0042"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">OSK::OwnedPtr::GetPointer</a></div><div class="ttdeci">T * GetPointer() const</div><div class="ttdoc">Devuelve el puntero nativo.</div><div class="ttdef"><b>Definition:</b> <a href="_owned_ptr_8h_source.html#l00069">OwnedPtr.h:69</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_command_list_dx12_8h_source.html#l00012">CommandListDx12.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00007">Assert.h:7</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_html_aae656bee485d2b46a0996ebe97ae97d3"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#aae656bee485d2b46a0996ebe97ae97d3">OSK::GRAPHICS::MaterialLayoutSlot::bindings</a></div><div class="ttdeci">HashMap&lt; std::string, MaterialLayoutBinding &gt; bindings</div><div class="ttdoc">Todos los bindings que componene este slot.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_slot_8h_source.html#l00024">MaterialLayoutSlot.h:24</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_material_slot_vulkan_8cpp.html">MaterialSlotVulkan.cpp</a></li>
+    <li class="footer">Generado el Miércoles, 20 de Abril de 2022 00:28:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

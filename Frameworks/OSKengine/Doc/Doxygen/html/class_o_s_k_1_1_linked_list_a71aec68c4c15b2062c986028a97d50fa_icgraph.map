@@ -1,0 +1,6 @@
+<map id="OSK::LinkedList::Free" name="OSK::LinkedList::Free">
+<area shape="rect" id="node1" title="Elimina todos los elementos de la lista." alt="" coords="473,31,624,57"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_linked_list.html#af1ed83008428cf37ade1a19ec2987bc6" title="Copia los contenidos de la otra lista." alt="" coords="237,5,422,32"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_linked_list.html#adfd1498621a066c0259f4de82ad7c380" title="Destruye el stack." alt="" coords="233,56,425,83"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_linked_list.html#af37eb1eb1f832f4893706d494df9b90d" title="Copia los contenidos de la otra lista." alt="" coords="5,5,185,32"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Representación gráfica de la clase" name="Representación gráfica de la clase">
+<area shape="rect" id="node1" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html" title="Una cola de comandos almacena todas las listas de comandos que se envían a la GPU." alt="" coords="5,35,239,61"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12.html" title="Una cola de comandos almacena todas las listas de comandos que se envían a la GPU." alt="" coords="287,5,547,32"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan.html" title="Una cola de comandos almacena todas las listas de comandos que se envían a la GPU." alt="" coords="301,57,532,98"/>
+</map>

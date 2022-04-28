@@ -49,8 +49,8 @@ MaterialSlotVulkan::~MaterialSlotVulkan() {
 }
 
 void MaterialSlotVulkan::SetUniformBuffer(const std::string& binding, const IGpuUniformBuffer* buffer) {
-	GpuMemorySubblockVulkan* vulkanBuffer = buffer->GetMemorySubblock()->As<GpuMemorySubblockVulkan>();
-	GpuMemoryBlockVulkan* vulkanBlock = vulkanBuffer->GetOwnerBlock()->As<GpuMemoryBlockVulkan>();
+	const GpuMemorySubblockVulkan* vulkanBuffer = buffer->GetMemorySubblock()->As<GpuMemorySubblockVulkan>();
+	const GpuMemoryBlockVulkan* vulkanBlock = vulkanBuffer->GetOwnerBlock()->As<GpuMemoryBlockVulkan>();
 
 	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
 		OwnedPtr<VkDescriptorBufferInfo> bufferInfo = new VkDescriptorBufferInfo();

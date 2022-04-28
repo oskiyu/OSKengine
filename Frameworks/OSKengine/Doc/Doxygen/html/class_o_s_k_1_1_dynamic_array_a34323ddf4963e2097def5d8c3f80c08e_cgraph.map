@@ -1,0 +1,4 @@
+<map id="OSK::DynamicArray::Reserve" name="OSK::DynamicArray::Reserve">
+<area shape="rect" id="node1" title="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda." alt="" coords="5,5,153,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_dynamic_array.html#acf322bf27bf4bfd581079500c67171a6" title="Reserva espacio para &#39;size&#39; elementos. Preserva los elementos anteriores." alt="" coords="201,5,349,47"/>
+</map>

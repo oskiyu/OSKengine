@@ -1,0 +1,5 @@
+<map id="OSK::ECS::Transform3D::AddPosition" name="OSK::ECS::Transform3D::AddPosition">
+<area shape="rect" id="node1" title="Suma el vector 3D a la posición." alt="" coords="5,5,172,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#abe67f13052baadaf4439950bc4b555db" title="Establece la posición." alt="" coords="220,5,387,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a64ea91f4fb800524683b5f0332e562cb" title="Actualiza la matriz modelo, y la de sus hijos." alt="" coords="435,5,601,47"/>
+</map>

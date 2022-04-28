@@ -1,0 +1,9 @@
+digraph "Representación gráfica de la clase"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="SharedPtr\< T \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_shared_ptr.html",tooltip="Contiene un puntero al que pueden hacer referencia varios SharedPtr. Si el último SharedPtr que hace ..."];
+}

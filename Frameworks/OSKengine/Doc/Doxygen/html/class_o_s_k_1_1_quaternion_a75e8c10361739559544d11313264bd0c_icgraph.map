@@ -1,0 +1,4 @@
+<map id="OSK::Quaternion::Rotate_LocalSpace" name="OSK::Quaternion::Rotate_LocalSpace">
+<area shape="rect" id="node1" title="Rota el cuaternión dado un eje, que se interpreta en espacio local." alt="" coords="220,5,387,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a305766732463c5ffb54588742006ff75" title="Rota el transform respecto a sí mismo." alt="" coords="5,5,172,47"/>
+</map>

@@ -43,7 +43,8 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Registra un nuevo tipo de vértice, para que puedan crearse 
 		/// materiales para él.
-		/// La clase 'T' debe tener implementado OSK_REG_VERTEX_TYPE de manera correcta.
+		/// 
+		/// @warning La clase 'T' debe tener implementado OSK_REG_VERTEX_TYPE de manera correcta.
 		/// </summary>
 		/// <typeparam name="T">Tipo de vértice.</typeparam>
 		template <typename T> void RegisterVertexType() {

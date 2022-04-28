@@ -1,0 +1,8 @@
+<map id="OSK::BitSet::SetFalse" name="OSK::BitSet::SetFalse">
+<area shape="rect" id="node1" title="Establece el valor del bit dado a 0." alt="" coords="745,59,900,85"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_hash_map.html#a6efc5db5461f07e149a4f238f7ba32f2" title="Elimina una pareja. Si no existe la pareja, no ocurre nada." alt="" coords="531,59,697,85"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_hash_map.html#aa836809f36d28d9d40dcf7c8ef3fa452" title="Inserta una nueva pareja." alt="" coords="284,29,467,56"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#a9b71e06dbdfd14318e62df1352ff646d" title="Elimina el componente cuyo dueño es el dado." alt="" coords="268,81,483,122"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_hash_map.html#a2fdfbeb6194e85f0f70feb7141a66b72" title="Inserta una nueva pareja." alt="" coords="36,29,189,56"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#aa2ae3332ee4b0c80860b7cc3d60d5d55" title="Elimina el componente del objeto eliminado." alt="" coords="5,81,220,122"/>
+</map>

@@ -16,10 +16,10 @@ namespace OSK::ECS{
 	/// Los componentes no son más que colecciones de datos: la lógica está en
 	/// los sistemas.
 	/// 
-	/// Cada sistema tiene un Signature, que indica qué componentes debe tener un GameObject
+	/// @note Cada sistema tiene un Signature, que indica qué componentes debe tener un GameObject
 	/// para ser procesado por el sistema.
 	/// 
-	/// Para que una clase pueda ser usada como sistema, debe tener implementado OSK_SYSTEM(className).
+	/// @warning Para que una clase pueda ser usada como sistema, debe tener implementado OSK_SYSTEM(className).
 	/// Este debe ser un identificador único: no pueden haber dos tipos de sistemas con el mismo className.
 	/// </summary>
 	class OSKAPI_CALL ISystem {

@@ -1,0 +1,3 @@
+<map id="OSK::ECS::SpriteComponent" name="OSK::ECS::SpriteComponent">
+<area shape="rect" id="node1" title="Componente que permite a un GameObject tener un sprite asociado." alt="" coords="5,5,199,185"/>
+</map>

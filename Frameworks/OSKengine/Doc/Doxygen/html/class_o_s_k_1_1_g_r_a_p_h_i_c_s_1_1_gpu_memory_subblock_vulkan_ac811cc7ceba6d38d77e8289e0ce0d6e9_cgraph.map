@@ -1,0 +1,8 @@
+<map id="OSK::GRAPHICS::GpuMemorySubblockVulkan::Unmap" name="OSK::GRAPHICS::GpuMemorySubblockVulkan::Unmap">
+<area shape="rect" id="node1" title="Desmapea el subbloque. Debe llamarse al terminar de escribir." alt="" coords="5,122,209,163"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#a1b0e5d22fed49696034d38442892121c" title="Castea la clase al tipo dado." alt="" coords="271,5,455,32"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a91118fa3b6e9b9bc8964bd4a71ab6233" title=" " alt="" coords="259,57,466,98"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a580935b95ec1677cff56582f347e8900" title=" " alt="" coords="259,122,466,163"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#a9f3d2735d7bb54ecb4056d5284cb686f" title=" " alt="" coords="264,187,461,229"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html#a0ecaf0d866c5415aec82232eca953119" title=" " alt="" coords="257,253,468,294"/>
+</map>

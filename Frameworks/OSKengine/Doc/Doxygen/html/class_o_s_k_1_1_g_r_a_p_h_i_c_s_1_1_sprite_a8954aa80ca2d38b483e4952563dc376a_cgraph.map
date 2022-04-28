@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::Sprite::SetTexture" name="OSK::GRAPHICS::Sprite::SetTexture">
+<area shape="rect" id="node1" title="Establece la textura del sprite." alt="" coords="5,39,172,80"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#ab04a5d675e7a3f71ceac7dd8d5234697" title="Imagen guardada en la GPU. Para renderizado." alt="" coords="223,5,384,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ac5e652767f5e72a078f6ca0bee45dbf4" title="Establece la textura del sprite." alt="" coords="220,71,387,112"/>
+</map>

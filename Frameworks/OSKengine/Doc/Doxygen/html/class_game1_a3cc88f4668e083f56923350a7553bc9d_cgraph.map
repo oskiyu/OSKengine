@@ -1,0 +1,9 @@
+<map id="Game1::SetupEngine" name="Game1::SetupEngine">
+<area shape="rect" id="node1" title="Debe inicializar el renderizador del Engine." alt="" coords="5,173,152,199"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a2423c77cb94a4d943a45458228170db4" title="Crea un buffer de índices con los índices dados." alt="" coords="200,5,407,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a177b13d029f45319fbaddedc3d011025" title="Crea un buffer de vértices con los vértices dados." alt="" coords="200,71,407,112"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#acf03703bbb6f031f905612d86f104b38" title=" " alt="" coords="209,136,397,177"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00" title=" " alt="" coords="214,202,393,229"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_engine.html#a96eab59df83d63ab65869fea551bb272" title=" " alt="" coords="217,253,390,279"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#abb59e3fe622880a435b7f26199a8fd26" title="Inicializa todo el sistema de renderizado." alt="" coords="209,304,397,345"/>
+</map>

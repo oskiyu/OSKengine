@@ -1,0 +1,4 @@
+<map id="OSK::ECS::SpriteComponent::SetMaterialInstance" name="OSK::ECS::SpriteComponent::SetMaterialInstance">
+<area shape="rect" id="node1" title="Establece la instancia del material 2D." alt="" coords="180,5,373,47"/>
+<area shape="rect" id="node2" href="$class_game1.html#a738ffccb5910f1f15136680903ea4159" title="Función ejecutada al cargar el juego." alt="" coords="5,13,132,39"/>
+</map>

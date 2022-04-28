@@ -28,23 +28,25 @@ namespace OSK {
 	/// <summary>
 	/// Factor de crecimiento.
 	/// </summary>
+	/// 
+	/// @see GrowthFactorType
 	constexpr unsigned int DynamicArrayGrowthFactor = 2;
 
 
 	/// <summary>
 	/// Comportamiento del array cuando no hay espacio:
-	/// -EXPONENTIAL: se amplia de manera exponencial(Capacity * Factor).
-	///	-LINEAL: se amplia de manera lineal(Capacity + Factor).
+	/// -EXPONENTIAL: se amplia de manera exponencial (Capacity * Factor).
+	///	-LINEAL: se amplia de manera lineal (Capacity + Factor).
 	/// </summary>
 	enum class GrowthFactorType {
 
 		/// <summary>
-		/// Se amplia de manera exponencial(Capacity * Factor).
+		/// Se amplia de manera exponencial (Capacity * Factor).
 		/// </summary>
 		EXPONENTIAL,
 
 		/// <summary>
-		/// Se amplia de manera lineal(Capacity + Factor).
+		/// Se amplia de manera lineal (Capacity + Factor).
 		/// </summary>
 		LINEAL
 
@@ -58,17 +60,21 @@ namespace OSK {
 
 	/// <summary>
 	/// Dynamic array: array que puede cambiar de tamaño.
+	/// 
+	/// @note Usa memoria contígua.
+	/// 
+	/// @warning No ofrece estabilidad de punteros.
 	/// </summary>
 	/// <typeparam name="T">Tipo de elementos que van a ser almacenados.</typeparam>
 	template <typename T> class DynamicArray {
 
 	public:
 
-		using TSize = unsigned int;
-
 		/// <summary>
 		/// Clase que representa un elemento de un DynamicArray.
-		/// Puede no preservarse.
+		/// 
+		/// @warning Si se modifica el dynamic array original, queda en un estado inválido.
+		/// @warning Si se modifica la localización en memoria del dynamic array original, queda en un estado inválido.
 		/// </summary>
 		class Iterator {
 
@@ -79,6 +85,8 @@ namespace OSK {
 			/// <summary>
 			/// Crea el iterador.
 			/// </summary>
+			/// <param name="i">Índice del elemento.</param>
+			/// <param name="arr">Puntero al array.</param>
 			Iterator(TSize i, const DynamicArray* arr) : index(i), collection(arr) {
 
 			}
@@ -94,7 +102,7 @@ namespace OSK {
 			}
 
 			/// <summary>
-			/// Hace que el iterador apunte al siguiente elemento.
+			/// Hace que el iterador apunte al elemento anterior.
 			/// </summary>
 			/// <returns>Self.</returns>
 			Iterator operator-- () {
@@ -219,8 +227,10 @@ namespace OSK {
 		}
 
 		/// <summary>
-		/// Transfirere el contenido de arr a este array.
+		/// Transfirere el contenido de 'arr' a este array.
 		/// </summary>
+		/// 
+		/// @warning Deja a 'arr' en un estado inválido.
 		DynamicArray(DynamicArray&& arr) {
 			InitialCopyFrom(arr);
 
@@ -228,8 +238,10 @@ namespace OSK {
 		}
 
 		/// <summary>
-		/// Transfirere el contenido de arr a este array.
+		/// Transfirere el contenido de 'arr' a este array.
 		/// </summary>
+		/// 
+		/// @warning Deja a 'arr' en un estado inválido.
 		DynamicArray& operator=(DynamicArray&& arr) {
 			if (&arr == this)
 				return *this;
@@ -319,7 +331,7 @@ namespace OSK {
 #pragma region Funciones
 
 		/// <summary>
-		/// Reserva espacio para size elementos.
+		/// Reserva espacio para 'size' elementos.
 		/// Preserva los elementos anteriores.
 		/// </summary>
 		/// <param name="size">Número de elementos.</param>
@@ -336,9 +348,11 @@ namespace OSK {
 		}
 
 		/// <summary>
-		/// Inserta un elemento al final del array.
+		/// Inserta una copia del elemento al final del array.
 		/// </summary>
-		void Insert(const T& element) {
+		/// 
+		/// @pre El elemento es copiable.
+		void InsertCopy(const T& element) {
 			if (!HasBeenInitialized())
 				Allocate(InitialDynamicArraySize);
 
@@ -357,7 +371,16 @@ namespace OSK {
 		/// <summary>
 		/// Inserta un elemento al final del array.
 		/// </summary>
-		void Insert(T&& element) {
+		void Insert(const T& element) {
+			InsertCopy(element);
+		}
+
+		/// <summary>
+		/// Inserta un elemento al final del array.
+		/// </summary>
+		/// 
+		/// @pre El elemento es movible.
+		void InsertMove(T&& element) {
 			if (!HasBeenInitialized())
 				Allocate(InitialDynamicArraySize);
 
@@ -382,8 +405,18 @@ namespace OSK {
 		}
 
 		/// <summary>
+		/// Inserta un elemento al final del array.
+		/// </summary>
+		void Insert(T&& element) {
+			InsertMove(std::move(element));
+		}
+
+		/// <summary>
 		/// Devuelve el elemento en la posición dada.
 		/// </summary>
+		/// 
+		/// @throws std::runtime_error Si el índice es inválido.
+		/// @throws std::runtime_error Si no ha sido correctamente inicializado.
 		T& At(TSize index) const {
 #ifdef OSK_SAFE
 			OSK_ASSERT(index < capacity, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
@@ -410,14 +443,18 @@ namespace OSK {
 		}
 
 		/// <summary>
-		/// Devuelve el último elemento de la lista. No lo quita de la lista.
+		/// Devuelve el último elemento de la lista. 
+		/// 
+		/// @note No lo quita de la lista.
 		/// </summary>
 		T& Peek() {
 			return At(size - 1);
 		}
 
 		/// <summary>
-		/// Devuelve el último elemento de la lista. Lo quita de la lista.
+		/// Devuelve el último elemento de la lista. 
+		/// 
+		/// @note Lo quita de la lista.
 		/// </summary>
 		T Pop() {
 			T output = At(size - 1);
@@ -431,6 +468,8 @@ namespace OSK {
 		/// Añade los elementos de 'arr' a este array.
 		/// </summary>
 		/// <param name="arr">Elementos a añadir.</param>
+		/// 
+		/// @bug No llama a los constructores de copia.
 		void InsertAll(const DynamicArray& arr) {
 			TSize originalSize = size;
 
@@ -484,6 +523,9 @@ namespace OSK {
 		/// Elimina el elemento en la posición dada.
 		/// Llama al destructor.
 		/// </summary>
+		/// 
+		/// @throws std::runtime_error Si el índice es inválido.
+		/// @throws std::runtime_error Si no ha sido correctamente inicializado.
 		void RemoveAt(TSize index) {
 #ifdef OSK_SAFE
 			OSK_ASSERT(index < capacity, "DynamicArray: tried to remove element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
@@ -499,6 +541,14 @@ namespace OSK {
 			size--;
 		}
 
+		/// <summary>
+		/// Elimina el eleemento dado de la lista.
+		/// </summary>
+		/// 
+		/// @pre El tipo del elemento debe tener definido el operador de comparación '=='.
+		/// 
+		/// @note Si no se encuentra ningún elemento, no ocurre nada.
+		/// @note Elimina únicamente la primera aparición.
 		void Remove(const T& elem) {
 			auto it = Find(elem);
 
@@ -509,6 +559,8 @@ namespace OSK {
 		/// <summary>
 		/// Elimina el último elemento del array.
 		/// </summary>
+		/// 
+		/// @throws std::runtime_error Si el array está vacío.
 		void RemoveLast() {
 #ifdef OSK_SAFE
 			OSK_ASSERT(HasBeenInitialized(), "DynamicArray: tried to remove element from an uninitialized array.");
@@ -521,6 +573,8 @@ namespace OSK {
 		/// <summary>
 		/// Comprueba si el elemento está presente en el array.
 		/// </summary>
+		/// 
+		/// @pre El tipo del elemento debe tener definido el operador de comparación '=='.
 		bool ContainsElement(const T& elem) const {
 			return !Find(elem).IsEmpty();
 		}
@@ -529,6 +583,10 @@ namespace OSK {
 		/// Obtiene el índice del primer elemento almacenado que sea igual
 		/// a el dado.
 		/// </summary>
+		/// 
+		/// @pre El tipo del elemento debe tener definido el operador de comparación '=='.
+		/// 
+		/// @note Si no se encuentra, devuelve 0.
 		TSize GetIndexOf(const T& elem) const {
 			auto it = Find(elem);
 
@@ -538,8 +596,11 @@ namespace OSK {
 		/// <summary>
 		/// Obtiene el iterador del primer elemento almacenado que sea igual
 		/// a el dado.
-		/// Iterador vacío si no está.
 		/// </summary>
+		/// 
+		/// @note Devuelve un iterador vacío si no está.
+		/// 
+		/// @pre El tipo del elemento debe tener definido el operador de comparación '=='.
 		Iterator Find(const T& elem) const {
 			for (size_t i = 0; i < size; i++)
 				if (elem == data[i])
@@ -581,6 +642,9 @@ namespace OSK {
 		/// </summary>
 		/// <param name="i">Posición en el array.</param>
 		/// <returns>Elemento.</returns>
+		/// 
+		/// @throws std::runtime_error Si el índice es inválido.
+		/// @throws std::runtime_error Si no ha sido correctamente inicializado.
 		T& operator[] (TSize i) const {
 			return At(i);
 		}
@@ -647,6 +711,8 @@ namespace OSK {
 		/// <summary>
 		/// Devuelve el iterador que apunta a un elemento en particular.
 		/// </summary>
+		/// 
+		/// @note Puede no apuntar a un element válido.
 		Iterator GetIterator(TSize index) const noexcept {
 			return Iterator(index, this);
 		}

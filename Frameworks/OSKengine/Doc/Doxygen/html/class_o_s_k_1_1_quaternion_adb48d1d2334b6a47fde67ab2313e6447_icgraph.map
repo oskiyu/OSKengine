@@ -1,0 +1,6 @@
+<map id="OSK::Quaternion::Rotate_WorldSpace" name="OSK::Quaternion::Rotate_WorldSpace">
+<area shape="rect" id="node1" title="Rota el cuaternión dado un eje, que se interpreta en espacio del mundo." alt="" coords="640,5,807,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#afc7da25075f1190d73579dd1b45fe33e" title="Rota el transform respecto al mundo." alt="" coords="425,5,592,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#ae67d2d1b0d5bab6065d274cb185f08ef" title="Actualiza el transform de la cámara, para que tenga su rotación." alt="" coords="167,5,377,47"/>
+<area shape="rect" id="node4" href="$class_game1.html#a0981142b47932b4f5dfac4e1556ba00f" title="Función que se ejecuta cada frame. Para hacer actualización del estado del juego." alt="" coords="5,13,119,39"/>
+</map>

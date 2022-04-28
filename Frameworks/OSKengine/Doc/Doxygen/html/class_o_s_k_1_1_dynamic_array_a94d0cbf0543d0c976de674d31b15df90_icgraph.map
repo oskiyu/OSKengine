@@ -1,0 +1,43 @@
+<map id="OSK::DynamicArray::GetSize" name="OSK::DynamicArray::GetSize">
+<area shape="rect" id="node1" title="Devuelve el número de elementos almacenados." alt="" coords="772,855,920,896"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#af1fb0c5b18e59eee44e7f3dc8321140e" title="Añade un componente asignado al objeto dado." alt="" coords="501,5,716,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#aada8120359f7e0a7c7a4f93d55764f6f" title="Añade un componente asignado al objeto dado." alt="" coords="501,71,716,112"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_dynamic_array.html#a93ddedaaa305c6c91c0b2c49bc7fc3ee" title="Copia los contenidos del array." alt="" coords="535,136,683,177"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan.html#a3061cf5122c4b68ccf20679c2221624b" title="Crea el pipeline con la configuración dada." alt="" coords="493,201,724,243"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a9958398421f6574af4c8010899dae040" title="Crea un buffer de índices con los índices dados." alt="" coords="502,267,715,308"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_ogl.html#a564ce4f2f3b9b1f8cb886c80d3db4da2" title="Crea un buffer de índices con los índices dados." alt="" coords="507,332,711,373"/>
+<area shape="rect" id="node10" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#aef89e9652f13e27fa5b5940052fce007" title="Crea un buffer de índices con los índices dados." alt="" coords="507,398,711,454"/>
+<area shape="rect" id="node11" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#a5a806e010c5e1feabf3cc82ff7ec3d37" title=" " alt="" coords="510,479,707,520"/>
+<area shape="rect" id="node12" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a3770de8fbea993d2b42af7b20a8726a5" title="Crea un buffer de vértices con los vértices dados." alt="" coords="505,544,712,585"/>
+<area shape="rect" id="node13" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan.html#a401d8c72bb07cda1308124fc166f55ef" title=" " alt="" coords="505,610,712,666"/>
+<area shape="rect" id="node14" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_pool_vulkan.html#ac30681f5c514cb990ff3ca0cbcdd4bd3" title="Crea el descriptor pool, usado para crear y destruir descriptor sets." alt="" coords="498,691,719,732"/>
+<area shape="rect" id="node15" href="$class_o_s_k_1_1_bit_set.html#a1495105c790974462cf07972dfa8a278" title="Devuelve el índice del siguiente bit en la secuencia que es 1." alt="" coords="521,756,696,797"/>
+<area shape="rect" id="node19" href="$class_o_s_k_1_1_dynamic_array.html#a4e12b7250b2182d06b0051dbcce5beb0" title="Añade los elementos de &#39;arr&#39; a este array." alt="" coords="535,821,683,863"/>
+<area shape="rect" id="node20" href="$class_o_s_k_1_1_constexpr_bit_set.html#aaef70ed63eefe042a55d2ad352a86368" title="Comprueba si todos los bits valen 0." alt="" coords="532,887,685,928"/>
+<area shape="rect" id="node22" href="$class_o_s_k_1_1_constexpr_bit_set.html#a676f02631856b21434e2ee88540add93" title="Comprueba si el otro bitset tiene en 1 los bits que este tiene en 1." alt="" coords="532,952,685,993"/>
+<area shape="rect" id="node23" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html#afd1dbf7d9bffbe40564bb3e2a885e04a" title="Carga el asset." alt="" coords="233,1111,432,1152"/>
+<area shape="rect" id="node24" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12.html#a3fd7ec2e8eb3534fd83ec384e4e1e5df" title=" " alt="" coords="499,1069,718,1111"/>
+<area shape="rect" id="node25" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan.html#a871bc8e169a40dec39d218b798eee126" title=" " alt="" coords="499,1135,718,1176"/>
+<area shape="rect" id="node26" href="$_model_loader3_d_8cpp.html#a458b76689b3ead05bebcd4554de43d0c" title="Procesa un nodo del modelo, además de todos sus nodos hijos. Genera los meshes, vértices e índices." alt="" coords="543,1225,675,1251"/>
+<area shape="rect" id="node27" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#a9b71e06dbdfd14318e62df1352ff646d" title="Elimina el componente cuyo dueño es el dado." alt="" coords="501,1276,716,1317"/>
+<area shape="rect" id="node29" href="$class_o_s_k_1_1_constexpr_bit_set.html#ace730fdd308ea782b50cb8a2caa48942" title="Establece el valor de todos los bits a 0." alt="" coords="532,1341,685,1383"/>
+<area shape="rect" id="node30" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#ade76c465c6b0259ddce1f0e5b8b16bbf" title="Establece la imagen que será asignada al binding con el nombre dado. Puede usarse esta función para a..." alt="" coords="507,1407,710,1448"/>
+<area shape="rect" id="node31" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a00b39c8aa8e563a5d0776edbf06cbd60" title="Establece el UNIFORM BUFFER que será asignado al binding con el nombre dado. Puede usarse esta funció..." alt="" coords="507,1472,710,1513"/>
+<area shape="rect" id="node32" href="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#a7f0d1cae30ec803e5d55019c97bce79a" title="Actualiza la matriz modelo, y la de sus hijos." alt="" coords="525,1537,692,1579"/>
+<area shape="rect" id="node40" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan.html#a6ad912571b8a0512b5c5b86da4cd1979" title=" " alt="" coords="493,1603,724,1644"/>
+<area shape="rect" id="node41" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a5682c26691f1c69b02e04d886169ddf1" title=" " alt="" coords="508,1668,709,1709"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_dynamic_array.html#a6a81b35ca13e217d3cc8d5c42bf44c38" title="Copia el array." alt="" coords="259,136,407,177"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a3f096691d9ea9067bdb33aaedb89c21e" title="Crea un graphics pipeline." alt="" coords="220,201,445,243"/>
+<area shape="rect" id="node16" href="$class_o_s_k_1_1_hash_map.html#a7bc04c6136f0184caa44d1423061cdfa" title="Devuelve un iterador que apunta a la primera pareja." alt="" coords="257,734,409,761"/>
+<area shape="rect" id="node18" href="$class_o_s_k_1_1_hash_map_1_1_iterator.html#a5fb61c5483a92ec5b71c1f675eba34c5" title="Devuelve un iterador que apunta a la siguiente pareja de la colección." alt="" coords="252,785,413,827"/>
+<area shape="rect" id="node17" href="$class_o_s_k_1_1_hash_map_1_1_iterator.html#a550b5916ec84ed436d44915fd5d9d376" title="Devuelve un iterador que apunta a la anterior pareja de la colección." alt="" coords="8,727,169,768"/>
+<area shape="rect" id="node21" href="$class_o_s_k_1_1_constexpr_bit_set.html#ad24c35fd64629d2a5cdd55d2a6e3542e" title="Comprueba si todos los bits valen 1." alt="" coords="256,887,409,928"/>
+<area shape="rect" id="node28" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#aa2ae3332ee4b0c80860b7cc3d60d5d55" title="Elimina el componente del objeto eliminado." alt="" coords="225,1276,440,1317"/>
+<area shape="rect" id="node33" href="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#ab2b4d541641214df156f56415ae97d13" title="Establece la posición." alt="" coords="249,1439,416,1480"/>
+<area shape="rect" id="node35" href="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#ad0b16b933da9061638161ea51ced132e" title="Establece la rotación del transform." alt="" coords="249,1504,416,1545"/>
+<area shape="rect" id="node37" href="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#a4dacdf71db229722717bc2fe710edc36" title="Establece la escala." alt="" coords="249,1569,416,1611"/>
+<area shape="rect" id="node39" href="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#a9da50f666bba0e2e276bffd09619674d" title="Transform por defecto." alt="" coords="249,1635,416,1676"/>
+<area shape="rect" id="node34" href="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#a6b1e8afc23f34fa726978f2a6ec68448" title="Suma el vector 3D a la posición." alt="" coords="5,1439,172,1480"/>
+<area shape="rect" id="node36" href="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#af00c1ff614688e5186afc380bd165b5d" title="Cambia la rotación del transform." alt="" coords="5,1504,172,1545"/>
+<area shape="rect" id="node38" href="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#af8c561f0e22ce9c48a188e5210af5ec8" title="Suma un vector 3D a la escala." alt="" coords="5,1569,172,1611"/>
+</map>

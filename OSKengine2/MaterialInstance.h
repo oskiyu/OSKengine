@@ -2,7 +2,7 @@
 
 #include "OSKmacros.h"
 #include "HashMap.hpp"
-#include "OwnedPtr.h"
+#include "UniquePtr.hpp"
 
 #include <string>
 
@@ -31,7 +31,8 @@ namespace OSK::GRAPHICS {
 
 		/// <summary>
 		/// Registra un slot.
-		/// TODOS los slots del Material (presentes en su layout) deben registrarse.
+		/// 
+		/// @note TODOS los slots del Material (presentes en su layout) deben registrarse.
 		/// </summary>
 		/// <param name="name"></param>
 		void RegisterSlot(const std::string& name);
@@ -54,7 +55,7 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		HashMap<std::string, OwnedPtr<IMaterialSlot>> slots;
+		HashMap<std::string, UniquePtr<IMaterialSlot>> slots;
 		const Material* ownerMaterial;
 
 	};

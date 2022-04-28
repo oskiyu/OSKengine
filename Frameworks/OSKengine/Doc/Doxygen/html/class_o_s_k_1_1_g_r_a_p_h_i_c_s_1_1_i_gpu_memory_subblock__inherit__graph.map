@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::IGpuMemorySubblock" name="OSK::GRAPHICS::IGpuMemorySubblock">
+<area shape="rect" id="node1" title="Representa una región de memoria dedicada a un único recurso." alt="" coords="119,5,325,347"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html" title=" " alt="" coords="5,395,209,575"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html" title=" " alt="" coords="233,402,440,567"/>
+</map>

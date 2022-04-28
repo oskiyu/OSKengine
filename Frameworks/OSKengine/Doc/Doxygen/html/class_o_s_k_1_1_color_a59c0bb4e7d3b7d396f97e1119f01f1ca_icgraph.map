@@ -1,0 +1,7 @@
+<map id="OSK::Color::BLACK" name="OSK::Color::BLACK">
+<area shape="rect" id="node1" title="Color negro. (0.0f, 0.0f, 0.0f)" alt="" coords="279,111,417,138"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a7001f2a6a149e3ae07438341d9b23e1c" title="Comienza el renderizado a un renderpass." alt="" coords="11,5,225,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_ogl.html#a17f75492db57f93b8ccac99c1aeea74d" title=" " alt="" coords="11,71,225,112"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#ac38d009020f9002c7c6f4e13a348361d" title="Una vez se han grabado todos los comandos, se debe iniciar su ejecución en la GPU para ser renderizad..." alt="" coords="11,136,225,177"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a0f642ecb0d29928e33c17f6f7d1d8e71" title="Una vez se han grabado todos los comandos, se debe iniciar su ejecución en la GPU para ser renderizad..." alt="" coords="5,201,231,243"/>
+</map>

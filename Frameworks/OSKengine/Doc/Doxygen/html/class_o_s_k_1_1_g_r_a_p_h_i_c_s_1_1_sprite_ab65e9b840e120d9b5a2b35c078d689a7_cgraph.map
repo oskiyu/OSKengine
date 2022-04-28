@@ -1,0 +1,7 @@
+<map id="OSK::GRAPHICS::Sprite::SetTexCoords" name="OSK::GRAPHICS::Sprite::SetTexCoords">
+<area shape="rect" id="node1" title="Establece la región (en píxeles) de la textura que se renderizará en este sprite." alt="" coords="5,93,172,135"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_vector4__t.html#a5e636ce8403b0b63545ffcb296381890" title="Obtiene la posición del rectángulo (X, Y)." alt="" coords="233,5,434,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_vector4__t.html#a96bdc916373a99e5b58ad770fa9b271e" title="Obtiene el tamaño del rectángulo (Z, W)." alt="" coords="220,71,447,98"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a244ebc8ce3ae3095698ea0c3eaba58fc" title=" " alt="" coords="237,123,429,164"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#adc7ddb2ec098373831ea47609a126156" title="Establece la región (en porcentaje sobre el tamaño total) de la textura que se renderizará en este sp..." alt="" coords="250,188,417,229"/>
+</map>

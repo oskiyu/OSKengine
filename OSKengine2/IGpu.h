@@ -11,7 +11,8 @@ namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Interfaz de una tarjeta gráfica.
-	/// Esta interfaz no implementa ningún código, se debe usar una instancia de
+	/// 
+	/// @note Esta interfaz no implementa ningún código, se debe usar una instancia de
 	/// GpuVulkan o GpuDx12.
 	/// </summary>
 	class OSKAPI_CALL IGpu {
@@ -37,7 +38,8 @@ namespace OSK::GRAPHICS {
 
 		/// <summary>
 		/// Castea la clase al tipo dado.
-		/// Este tipo debe ser una implementación de esta interfaz.
+		/// 
+		/// @note Este tipo debe ser una implementación de esta interfaz.
 		/// </summary>
 		template <typename T> T* As() const requires std::is_base_of_v<IGpu, T>{
 			return (T*)this;

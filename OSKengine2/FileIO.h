@@ -26,6 +26,8 @@ namespace OSK::IO {
 		/// </summary>
 		/// <param name="path">Ruta del archivo (con extensión).</param>
 		/// <returns>String con el contenido del archivo.</returns>
+		/// 
+		/// @throws std::runtime_error Si el archivo no existe.
 		static std::string ReadFromFile(const std::string& path);
 
 		/// <summary>
@@ -33,6 +35,8 @@ namespace OSK::IO {
 		/// </summary>
 		/// <param name="filename">Ruta del archivo (con extensión).</param>
 		/// <returns>Vector de bytes.</returns>
+		/// 
+		/// @throws std::runtime_error Si el archivo no existe.
 		static DynamicArray<char> ReadBinaryFromFile(const std::string& filename);
 
 		/// <summary>

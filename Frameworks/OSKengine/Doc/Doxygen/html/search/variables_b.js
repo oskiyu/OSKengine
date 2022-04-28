@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['mappeddata_0',['mappedData',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#ae410a7a22ad14bb5db166444b306cb0d',1,'OSK::GRAPHICS::IGpuMemorySubblock']]],
+  ['material2d_1',['material2d',['../_game1_8hpp.html#a62a00e72065ef52df7c131a4f8073a55',1,'Game1.hpp']]],
+  ['materialinfos_2',['materialInfos',['../struct_gltf_model_info.html#a1edd36904e653070d3b8eaff4e579b97',1,'GltfModelInfo']]],
+  ['materialsystem_3',['materialSystem',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6bca4cd0b04eecbf58432b51c221da77',1,'OSK::GRAPHICS::IRenderer']]],
+  ['materialtextures_4',['materialTextures',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata.html#a2ed2d5081e2fdad7673a286cbf6271a2',1,'OSK::ASSETS::MeshMetadata']]],
+  ['matrix_5',['matrix',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_push_const2_d.html#a404a09f7dfc43e492b80e33f5ce53b18',1,'OSK::GRAPHICS::PushConst2D']]],
+  ['max_5fcomponent_5ftypes_6',['MAX_COMPONENT_TYPES',['../namespace_o_s_k_1_1_e_c_s.html#a417cae262226a5518eb4bc6f099de8c6',1,'OSK::ECS']]],
+  ['maxdepth_7',['maxDepth',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html#a1e103162b12bd1a2a4b0634786befd5f',1,'OSK::GRAPHICS::Viewport']]],
+  ['maxmsaasamples_8',['maxMsaaSamples',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a0cf036d8fe1322bb8bfdf2db8e6e7636',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
+  ['mayor_9',['mayor',['../struct_o_s_k_1_1_version.html#a7ef31a2a9493bce7d92a3fa3cb5d1327',1,'OSK::Version']]],
+  ['memoryproperties_10',['memoryProperties',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a40be907a7d15190e9e91faa6e0f86851',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
+  ['menor_11',['menor',['../struct_o_s_k_1_1_version.html#a8d49fd1c4065ec814354ada48981623c',1,'OSK::Version']]],
+  ['meshesmetadata_12',['meshesMetadata',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata.html#a990f8bc4bc4c8c91586a992b79b8f582',1,'OSK::ASSETS::ModelMetadata']]],
+  ['minalignment_13',['minAlignment',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#af22b6bdea472500fa9f6d106707b3b5d',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
+  ['mindepth_14',['minDepth',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html#af6a903fd2845a147d6a3c4d4cea182a3',1,'OSK::GRAPHICS::Viewport']]],
+  ['mousenumberofbuttons_15',['MouseNumberOfButtons',['../namespace_o_s_k_1_1_i_o.html#a2126937723636a6160e7c746cc47b61c',1,'OSK::IO']]]
+];

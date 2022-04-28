@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/MaterialSlotDx12.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_material_slot_dx12_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">MaterialSlotDx12.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_material_slot_dx12_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_material_slot_dx12_8h.html">MaterialSlotDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_material_layout_8h.html">MaterialLayout.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_uniform_buffer_dx12_8h.html">GpuUniformBufferDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_dx12_8h.html">GpuImageDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_material_layout_slot_8h.html">MaterialLayoutSlot.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a92470f055b0ec44160647a6b2de70585">   11</a></span>MaterialSlotDx12::MaterialSlotDx12(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>* layout)</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    : <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html">IMaterialSlot</a>(layout, name) {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    buffers.Resize(<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a0edfe4cc881bcaf3507b9d5ce345102a">layout</a>-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a7a1845df7f0113a0285adfbea469df90">GetSlot</a>(<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a92532b4b6b8a32041dbacf144af8340f">name</a>).<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#aae656bee485d2b46a0996ebe97ae97d3">bindings</a>.GetSize(), <a class="code hl_struct" href="struct_o_s_k_1_1_pair.html">Pair&lt;TSize, const GpuUniformBufferDx12*&gt;</a>{ UINT32_MAX, nullptr });</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    images.Resize(<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a0edfe4cc881bcaf3507b9d5ce345102a">layout</a>-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a7a1845df7f0113a0285adfbea469df90">GetSlot</a>(<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a92532b4b6b8a32041dbacf144af8340f">name</a>).<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#aae656bee485d2b46a0996ebe97ae97d3">bindings</a>.GetSize(), <a class="code hl_struct" href="struct_o_s_k_1_1_pair.html">Pair&lt;TSize, const GpuImageDx12*&gt;</a>{ UINT32_MAX, nullptr });</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a92fd8a49ea158103e4c482e0594842a8">   18</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a92fd8a49ea158103e4c482e0594842a8">MaterialSlotDx12::SetUniformBuffer</a>(<span class="keyword">const</span> std::string&amp; binding, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html">IGpuUniformBuffer</a>* buffer) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> index = <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a0edfe4cc881bcaf3507b9d5ce345102a">layout</a>-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a7a1845df7f0113a0285adfbea469df90">GetSlot</a>(<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a92532b4b6b8a32041dbacf144af8340f">name</a>).<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#aae656bee485d2b46a0996ebe97ae97d3">bindings</a>.Get(binding).hlslDescriptorIndex;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">if</span> (index &gt;= buffers.GetSize())</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        buffers.Resize(index + 1, <a class="code hl_struct" href="struct_o_s_k_1_1_pair.html">Pair&lt;TSize, const GpuUniformBufferDx12*&gt;</a>{ UINT32_MAX, <span class="keyword">nullptr</span> });</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    buffers.At(index) = { index + 1, buffer-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html#ae22c3a5613cc64c823b088e7bcf94842">As</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12.html">GpuUniformBufferDx12</a>&gt;() };</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a245684b62044daee3d991482d8154e6f">   27</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a245684b62044daee3d991482d8154e6f">MaterialSlotDx12::SetGpuImage</a>(<span class="keyword">const</span> std::string&amp; binding, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>* image) {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> index = <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a0edfe4cc881bcaf3507b9d5ce345102a">layout</a>-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a7a1845df7f0113a0285adfbea469df90">GetSlot</a>(<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a92532b4b6b8a32041dbacf144af8340f">name</a>).<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#aae656bee485d2b46a0996ebe97ae97d3">bindings</a>.Get(binding).hlslDescriptorIndex;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">if</span> (index &gt;= images.GetSize())</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        images.Resize(index + 1, <a class="code hl_struct" href="struct_o_s_k_1_1_pair.html">Pair&lt;TSize, const GpuImageDx12*&gt;</a>{ UINT32_MAX, <span class="keyword">nullptr</span> });</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    images.At(index) = { index, image-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a6bc3268b57ede5f9f0541b20d12dfea0">As</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html">GpuImageDx12</a>&gt;() };</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a2d0538215f4de0ccf727cf26d96a2432">   36</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a2d0538215f4de0ccf727cf26d96a2432">MaterialSlotDx12::FlushUpdate</a>() {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a57e87e7a9bac2871336899e6842e583e">   40</a></span><span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;Pair&lt;TSize, const GpuUniformBufferDx12*&gt;</a>&gt;&amp; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a57e87e7a9bac2871336899e6842e583e">MaterialSlotDx12::GetUniformBuffers</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">return</span> buffers;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a7d1a4be34395853243fcf9a8719bec35">   44</a></span><span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;Pair&lt;TSize, const GpuImageDx12*&gt;</a>&gt;&amp; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a7d1a4be34395853243fcf9a8719bec35">MaterialSlotDx12::GetGpuImages</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">return</span> images;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
+<div class="ttc" id="a_gpu_image_dx12_8h_html"><div class="ttname"><a href="_gpu_image_dx12_8h.html">GpuImageDx12.h</a></div></div>
+<div class="ttc" id="a_gpu_uniform_buffer_dx12_8h_html"><div class="ttname"><a href="_gpu_uniform_buffer_dx12_8h.html">GpuUniformBufferDx12.h</a></div></div>
+<div class="ttc" id="a_material_layout_8h_html"><div class="ttname"><a href="_material_layout_8h.html">MaterialLayout.h</a></div></div>
+<div class="ttc" id="a_material_layout_slot_8h_html"><div class="ttname"><a href="_material_layout_slot_8h.html">MaterialLayoutSlot.h</a></div></div>
+<div class="ttc" id="a_material_slot_dx12_8h_html"><div class="ttname"><a href="_material_slot_dx12_8h.html">MaterialSlotDx12.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00015">OSKmacros.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition:</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html">OSK::GRAPHICS::GpuImageDx12</a></div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_dx12_8h_source.html#l00013">GpuImageDx12.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8h_source.html#l00022">IGpuImage.h:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_a6bc3268b57ede5f9f0541b20d12dfea0"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a6bc3268b57ede5f9f0541b20d12dfea0">OSK::GRAPHICS::GpuImage::As</a></div><div class="ttdeci">T * As() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8h_source.html#l00046">IGpuImage.h:46</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12.html">OSK::GRAPHICS::GpuUniformBufferDx12</a></div><div class="ttdef"><b>Definition:</b> <a href="_gpu_uniform_buffer_dx12_8h_source.html#l00009">GpuUniformBufferDx12.h:9</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html">OSK::GRAPHICS::IGpuUniformBuffer</a></div><div class="ttdoc">Un uniform buffer contiene información arbitraria a la que se puede acceder a la hora de renderizar.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_uniform_buffer_8h_source.html#l00011">IGpuUniformBuffer.h:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer_html_ae22c3a5613cc64c823b088e7bcf94842"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html#ae22c3a5613cc64c823b088e7bcf94842">OSK::GRAPHICS::IGpuUniformBuffer::As</a></div><div class="ttdeci">T * As() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_uniform_buffer_8h_source.html#l00015">IGpuUniformBuffer.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html">OSK::GRAPHICS::IMaterialSlot</a></div><div class="ttdoc">Un slot contiene referencias a los recursos (UNIFORM BUFFER, TEXTURE, etc...) que se envían a la GPU.</div><div class="ttdef"><b>Definition:</b> <a href="_i_material_slot_8h_source.html#l00022">IMaterialSlot.h:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot_html_a0edfe4cc881bcaf3507b9d5ce345102a"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a0edfe4cc881bcaf3507b9d5ce345102a">OSK::GRAPHICS::IMaterialSlot::layout</a></div><div class="ttdeci">const MaterialLayout * layout</div><div class="ttdef"><b>Definition:</b> <a href="_i_material_slot_8h_source.html#l00070">IMaterialSlot.h:70</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot_html_a92532b4b6b8a32041dbacf144af8340f"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a92532b4b6b8a32041dbacf144af8340f">OSK::GRAPHICS::IMaterialSlot::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition:</b> <a href="_i_material_slot_8h_source.html#l00071">IMaterialSlot.h:71</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">OSK::GRAPHICS::MaterialLayout</a></div><div class="ttdoc">El layout de un material determina qué slots pertenecen a ese material.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_8h_source.html#l00013">MaterialLayout.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html_a7a1845df7f0113a0285adfbea469df90"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a7a1845df7f0113a0285adfbea469df90">OSK::GRAPHICS::MaterialLayout::GetSlot</a></div><div class="ttdeci">MaterialLayoutSlot &amp; GetSlot(const std::string &amp;name) const</div><div class="ttdoc">Obtiene el slot con el nombre dado, si existe.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_8cpp_source.html#l00018">MaterialLayout.cpp:18</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12_html_a245684b62044daee3d991482d8154e6f"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a245684b62044daee3d991482d8154e6f">OSK::GRAPHICS::MaterialSlotDx12::SetGpuImage</a></div><div class="ttdeci">void SetGpuImage(const std::string &amp;binding, const GpuImage *image) override</div><div class="ttdoc">Establece la imagen que será asignada al binding con el nombre dado. Puede usarse esta función para a...</div><div class="ttdef"><b>Definition:</b> <a href="_material_slot_dx12_8cpp_source.html#l00027">MaterialSlotDx12.cpp:27</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12_html_a2d0538215f4de0ccf727cf26d96a2432"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a2d0538215f4de0ccf727cf26d96a2432">OSK::GRAPHICS::MaterialSlotDx12::FlushUpdate</a></div><div class="ttdeci">void FlushUpdate() override</div><div class="ttdoc">Actualiza los recursos que se enviarán a los shaders.</div><div class="ttdef"><b>Definition:</b> <a href="_material_slot_dx12_8cpp_source.html#l00036">MaterialSlotDx12.cpp:36</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12_html_a57e87e7a9bac2871336899e6842e583e"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a57e87e7a9bac2871336899e6842e583e">OSK::GRAPHICS::MaterialSlotDx12::GetUniformBuffers</a></div><div class="ttdeci">const DynamicArray&lt; Pair&lt; TSize, const GpuUniformBufferDx12 * &gt; &gt; &amp; GetUniformBuffers() const</div><div class="ttdef"><b>Definition:</b> <a href="_material_slot_dx12_8cpp_source.html#l00040">MaterialSlotDx12.cpp:40</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12_html_a7d1a4be34395853243fcf9a8719bec35"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a7d1a4be34395853243fcf9a8719bec35">OSK::GRAPHICS::MaterialSlotDx12::GetGpuImages</a></div><div class="ttdeci">const DynamicArray&lt; Pair&lt; TSize, const GpuImageDx12 * &gt; &gt; &amp; GetGpuImages() const</div><div class="ttdef"><b>Definition:</b> <a href="_material_slot_dx12_8cpp_source.html#l00044">MaterialSlotDx12.cpp:44</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12_html_a92fd8a49ea158103e4c482e0594842a8"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a92fd8a49ea158103e4c482e0594842a8">OSK::GRAPHICS::MaterialSlotDx12::SetUniformBuffer</a></div><div class="ttdeci">void SetUniformBuffer(const std::string &amp;binding, const IGpuUniformBuffer *buffer) override</div><div class="ttdoc">Establece el UNIFORM BUFFER que será asignado al binding con el nombre dado. Puede usarse esta funció...</div><div class="ttdef"><b>Definition:</b> <a href="_material_slot_dx12_8cpp_source.html#l00018">MaterialSlotDx12.cpp:18</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_command_list_dx12_8h_source.html#l00012">CommandListDx12.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00007">Assert.h:7</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_html_aae656bee485d2b46a0996ebe97ae97d3"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#aae656bee485d2b46a0996ebe97ae97d3">OSK::GRAPHICS::MaterialLayoutSlot::bindings</a></div><div class="ttdeci">HashMap&lt; std::string, MaterialLayoutBinding &gt; bindings</div><div class="ttdoc">Todos los bindings que componene este slot.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_slot_8h_source.html#l00024">MaterialLayoutSlot.h:24</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_pair_html"><div class="ttname"><a href="struct_o_s_k_1_1_pair.html">OSK::Pair</a></div><div class="ttdoc">Pareja con dos elementos.</div><div class="ttdef"><b>Definition:</b> <a href="_pair_8hpp_source.html#l00012">Pair.hpp:12</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_material_slot_dx12_8cpp.html">MaterialSlotDx12.cpp</a></li>
+    <li class="footer">Generado el Miércoles, 20 de Abril de 2022 00:28:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

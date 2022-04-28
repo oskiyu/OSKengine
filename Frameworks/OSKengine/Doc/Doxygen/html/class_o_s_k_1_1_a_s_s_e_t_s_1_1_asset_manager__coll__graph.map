@@ -1,0 +1,3 @@
+<map id="OSK::ASSETS::AssetManager" name="OSK::ASSETS::AssetManager">
+<area shape="rect" id="node1" title="El AssetManager se encarga de manejar los loaders de los assets y los lifetimes de los assets." alt="" coords="5,5,208,127"/>
+</map>

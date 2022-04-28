@@ -16,6 +16,7 @@
 #include "GpuImageUsage.h"
 #include "FormatDx12.h"
 #include "GpuImageDimensions.h"
+#include "Math.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -117,7 +118,13 @@ OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorDx12::CreateUniformBuffer(TSize si
 }
 
 OwnedPtr<GpuImage> GpuMemoryAllocatorDx12::CreateImage(const Vector3ui& size, GpuImageDimension dimension, TSize numLayers, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, TSize msaaSamples, GpuImageSamplerDesc samplerDesc) {
-	auto output = new GpuImageDx12(size, dimension, usage, numLayers, format);
+	Vector3ui finalSize = Vector3ui{
+		MATH::PrimerMultiploSuperior<uint32_t>(size.X, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT),
+		size.Y,
+		size.Z
+	};
+
+	auto output = new GpuImageDx12(finalSize, dimension, usage, numLayers, format);
 
 	auto block = GpuMemoryBlockDx12::CreateNewImageBlock(output, device, sharedType, usage, numLayers);
 

@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::CommandListDx12::BindIndexBuffer" name="OSK::GRAPHICS::CommandListDx12::BindIndexBuffer">
+<area shape="rect" id="node1" title="Establece el index buffer que se va a usar en los próximos renderizados." alt="" coords="5,39,219,80"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html#af755613ed6b614d09310f7d1686a6dc8" title=" " alt="" coords="282,5,473,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_dx12.html#a9ec171d0a8f22d7215f0e039b08b2c8f" title=" " alt="" coords="267,71,488,112"/>
+</map>

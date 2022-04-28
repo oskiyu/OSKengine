@@ -1,0 +1,6 @@
+<map id="OSK::ASSETS::IAsset::SetName" name="OSK::ASSETS::IAsset::SetName">
+<area shape="rect" id="node1" title="Establece el nombre de la instancia de este asset." alt="" coords="269,71,424,112"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_loader.html#a015b1daa6d8d910f7337bc513c8d3285" title="Carga el asset." alt="" coords="5,5,221,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html#afd1dbf7d9bffbe40564bb3e2a885e04a" title="Carga el asset." alt="" coords="14,71,213,112"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html#a64796c79bab29f0c01f547501e1a87c9" title="Carga el asset." alt="" coords="13,136,213,177"/>
+</map>

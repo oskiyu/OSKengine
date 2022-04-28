@@ -1,0 +1,4 @@
+<map id="OSK::GRAPHICS::GpuVulkan" name="OSK::GRAPHICS::GpuVulkan">
+<area shape="rect" id="node1" title="Implementación de la interfaz para el renderizador de Vulkan." alt="" coords="5,204,203,443"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html" title="Interfaz de una tarjeta gráfica." alt="" coords="21,5,187,156"/>
+</map>

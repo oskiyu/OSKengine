@@ -1,0 +1,4 @@
+<map id="OSK::ECS::SpriteComponent::SetGpuImage" name="OSK::ECS::SpriteComponent::SetGpuImage">
+<area shape="rect" id="node1" title="Debe establecerse la textura después de instanciar la instancia del material 2D." alt="" coords="247,5,440,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_sprite_component.html#a8e9a153c19fa7030b0604b43558b6e1a" title="Debe establecerse la textura después de instanciar la instancia del material 2D." alt="" coords="5,5,199,47"/>
+</map>

@@ -27,8 +27,9 @@ namespace OSK::ECS {
 	/// Esta clase es la encargada de manejar este sistema, proporcionando una capa
 	/// de abstracción sobre la implementación del sistema.
 	/// 
-	/// Toda operación que el juego quiera hacer sobre el ECS debe hacerse a través de
+	/// @note Toda operación que el juego quiera hacer sobre el ECS debe hacerse a través de
 	/// esta clase.
+	/// @note Esta clase es dueña de los sistemas.
 	/// </summary>
 	class OSKAPI_CALL EntityComponentSystem {
 
@@ -42,8 +43,9 @@ namespace OSK::ECS {
 		void OnTick(TDeltaTime deltaTime);
 
 		/// <summary>
-		/// Registra el componente.
-		/// Todo componente que se quiera usar debe ser primero registrado.
+		/// Registra un tipo de componente.
+		/// 
+		/// @warning Todo componente que se quiera usar debe ser primero registrado.
 		/// </summary>
 		template <typename TComponent> void RegisterComponent() {
 			componentManager->RegisterComponent<TComponent>();
@@ -55,6 +57,8 @@ namespace OSK::ECS {
 		/// <typeparam name="TComponent">Tipo de componente.</typeparam>
 		/// <param name="obj">ID del objeto al que se va a añadir..</param>
 		/// <param name="component">Componente a añadir.</param>
+		/// 
+		/// @throws std::runtime_exception si el objeto ya tiene un componente del tipo.
 		template <typename TComponent> TComponent& AddComponent(GameObjectIndex obj, const TComponent& component) {
 			OSK_ASSERT(!ObjectHasComponent<TComponent>(obj), "El objeto " + std::to_string(obj) + " ya tiene el componente " + TComponent::GetComponentTypeName() + ".");
 
@@ -76,6 +80,8 @@ namespace OSK::ECS {
 		/// <typeparam name="TComponent">Tipo de componente.</typeparam>
 		/// <param name="obj">ID del objeto al que se va a añadir..</param>
 		/// <param name="component">Componente a añadir.</param>
+		/// 
+		/// @throws std::runtime_exception si el objeto ya tiene un componente del tipo.
 		template <typename TComponent> TComponent& AddComponent(GameObjectIndex obj, TComponent&& component) {
 			OSK_ASSERT(!ObjectHasComponent<TComponent>(obj), "El objeto " + std::to_string(obj) + " ya tiene el componente " + TComponent::GetComponentTypeName() + ".");
 
@@ -103,6 +109,8 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Elimina el componente del objeto.
 		/// </summary>
+		/// 
+		/// @throws std::runtime_exception Si el objeto no tiene el componente del tipo dado.
 		template <typename TComponent> void RemoveComponent(GameObjectIndex obj) {
 			OSK_ASSERT(ObjectHasComponent<TComponent>(obj), "El objeto " + std::to_string(obj) + " no tiene el componente " + TComponent::GetComponentTypeName() + ".");
 			
@@ -118,6 +126,8 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Devuelve una referencia al componente del tipo dado del objeto.
 		/// </summary>
+		/// 
+		/// @throws std::runtime_exception Si el objeto no tiene el componente.
 		template <typename TComponent> TComponent& GetComponent(GameObjectIndex obj) const {
 			OSK_ASSERT(ObjectHasComponent<TComponent>(obj), "El objeto " + std::to_string(obj) + " no tiene el componente " + TComponent::GetComponentTypeName() + ".");
 			return componentManager->GetComponent<TComponent>(obj);
@@ -125,6 +135,8 @@ namespace OSK::ECS {
 
 		/// <summary>
 		/// Devuelve el código identificativo del componente dado.
+		/// 
+		/// @warning El componente tiene que haber sido registrado.
 		/// </summary>
 		template <typename TComponent> ComponentType GetComponentType() const {
 			return componentManager->GetComponentType<TComponent>();
@@ -150,15 +162,16 @@ namespace OSK::ECS {
 
 		/// <summary>
 		/// Spawnea un nuevo objeto, y devuelve su ID.
-		/// ECS NO ES DUEÑO DEL OBJETO, el juego es el encargado
+		///
+		/// @warning ECS NO ES DUEÑO DEL OBJETO, el juego es el encargado
 		/// de eliminarlo mediante DestroyObject().
 		/// </summary>
-		/// <returns></returns>
 		GameObjectIndex SpawnObject();
 
 		/// <summary>
 		/// Elimina un objeto.
-		/// Su ID cambia a 0 para indicar que ya no es una ID válida.
+		///
+		/// @note Su ID cambia a 0 para indicar que ya no es una ID válida.
 		/// </summary>
 		void DestroyObject(GameObjectIndex* obj);
 

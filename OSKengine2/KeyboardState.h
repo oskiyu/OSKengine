@@ -189,7 +189,7 @@ namespace OSK::IO {
 		/// Establece el valor que va a tener la tecla,
 		/// esté presionada o no.
 		/// 
-		/// Para llamarse desde la ventana.
+		/// @warning Función interna: para llamarse desde la ventana.
 		/// </summary>
 		void _SetKeyState(Key key, KeyState state);
 

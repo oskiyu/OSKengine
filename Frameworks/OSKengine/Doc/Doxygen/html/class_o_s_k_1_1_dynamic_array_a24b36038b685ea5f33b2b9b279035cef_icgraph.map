@@ -1,0 +1,52 @@
+<map id="OSK::DynamicArray::HasBeenInitialized" name="OSK::DynamicArray::HasBeenInitialized">
+<area shape="rect" id="node1" title="Devuelve true si el array se ha inicializado." alt="" coords="1040,1185,1188,1226"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_dynamic_array.html#a9691f5eaf46654d59525c6c342d69cbb" title="Devuelve el elemento en la posición dada." alt="" coords="824,1092,985,1119"/>
+<area shape="rect" id="node20" href="$class_o_s_k_1_1_dynamic_array.html#ab975ce0e8a0540266ee9636a3794c052" title="Elimina el elemento en la posición dada. Llama al destructor." alt="" coords="580,1517,728,1558"/>
+<area shape="rect" id="node22" href="$class_o_s_k_1_1_dynamic_array.html#a90bb67f64f4e41f06ec2db0e18dc563f" title="Elimina el último elemento del array." alt="" coords="580,1451,728,1493"/>
+<area shape="rect" id="node34" href="$class_o_s_k_1_1_dynamic_array.html#a712ee677ebccc400ea7623d3ec966e4e" title="Elimina el array, liberando memoria." alt="" coords="817,93,992,120"/>
+<area shape="rect" id="node38" href="$class_o_s_k_1_1_dynamic_array.html#a270b01e677a57b96f3f0443b3ef9e289" title="Inserta una copia del elemento al final del array." alt="" coords="831,766,979,807"/>
+<area shape="rect" id="node49" href="$class_o_s_k_1_1_dynamic_array.html#ace6349440f58d8d6b4c696881ba7fd81" title="Inserta un elemento al final del array." alt="" coords="831,1477,979,1518"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_dynamic_array.html#a93ddedaaa305c6c91c0b2c49bc7fc3ee" title="Copia los contenidos del array." alt="" coords="306,86,454,127"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#a3b5cac3a5c7ac15f1f7bf0e24f4e0027" title="Devuelve una referencia al componente del objeto dado." alt="" coords="547,803,761,845"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_bit_set.html#a1495105c790974462cf07972dfa8a278" title="Devuelve el índice del siguiente bit en la secuencia que es 1." alt="" coords="567,986,741,1027"/>
+<area shape="rect" id="node11" href="$_renderpass_vulkan_8cpp.html#a223ae07127c4478b640254272691dd3d" title=" " alt="" coords="583,687,725,713"/>
+<area shape="rect" id="node12" href="$class_o_s_k_1_1_constexpr_bit_set.html#a676f02631856b21434e2ee88540add93" title="Comprueba si el otro bitset tiene en 1 los bits que este tiene en 1." alt="" coords="577,738,731,779"/>
+<area shape="rect" id="node13" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html#afd1dbf7d9bffbe40564bb3e2a885e04a" title="Carga el asset." alt="" coords="14,534,213,575"/>
+<area shape="rect" id="node14" href="$class_o_s_k_1_1_dynamic_array_1_1_iterator.html#a4ee88bf0896ef0c4c66b65c6163cff7d" title="Obtiene el valor al que apunta." alt="" coords="580,1051,728,1093"/>
+<area shape="rect" id="node15" href="$class_o_s_k_1_1_dynamic_array.html#a4cb3a543f9949b5e4bd71335d97d5618" title="Devuelve el elemento en la posición dada." alt="" coords="580,1117,728,1158"/>
+<area shape="rect" id="node16" href="$class_o_s_k_1_1_dynamic_array.html#aaeaff756f3a64a0f2aef49f4d9d65bff" title="Devuelve el último elemento de la lista." alt="" coords="565,1183,743,1209"/>
+<area shape="rect" id="node17" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan.html#a871bc8e169a40dec39d218b798eee126" title=" " alt="" coords="271,869,489,910"/>
+<area shape="rect" id="node18" href="$class_o_s_k_1_1_dynamic_array.html#a0a3dca21beab01e5193082a2803e32db" title="Devuelve el último elemento de la lista." alt="" coords="295,1400,465,1427"/>
+<area shape="rect" id="node25" href="$class_o_s_k_1_1_bit_set.html#a6a6452952af49f3f7e15634bef33fde4" title="Establece el valor del bit en la posición dada." alt="" coords="577,1284,731,1311"/>
+<area shape="rect" id="node29" href="$class_o_s_k_1_1_constexpr_bit_set.html#a38329a6523ad679a76be70f2c9faff16" title="Establece el valor del bit en la posición dada." alt="" coords="577,921,731,962"/>
+<area shape="rect" id="node32" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#ae7fb15c3cbed5340cc112c95ff86450a" title="Ejecuta el contenido de la lista de comandos." alt="" coords="541,1386,767,1427"/>
+<area shape="rect" id="node33" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan.html#a6ad912571b8a0512b5c5b86da4cd1979" title=" " alt="" coords="539,621,769,662"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_dynamic_array.html#a6a81b35ca13e217d3cc8d5c42bf44c38" title="Copia el array." alt="" coords="39,86,187,127"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#af1fb0c5b18e59eee44e7f3dc8321140e" title="Añade un componente asignado al objeto dado." alt="" coords="273,803,487,845"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#aada8120359f7e0a7c7a4f93d55764f6f" title="Añade un componente asignado al objeto dado." alt="" coords="273,738,487,779"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_hash_map.html#a7bc04c6136f0184caa44d1423061cdfa" title="Devuelve un iterador que apunta a la primera pareja." alt="" coords="304,1065,456,1092"/>
+<area shape="rect" id="node10" href="$class_o_s_k_1_1_hash_map_1_1_iterator.html#a5fb61c5483a92ec5b71c1f675eba34c5" title="Devuelve un iterador que apunta a la siguiente pareja de la colección." alt="" coords="299,1117,461,1158"/>
+<area shape="rect" id="node19" href="$class_o_s_k_1_1_e_c_s_1_1_game_object_manager.html#a2548c491a8cc69f20c5bb70f123902cc" title="Registra un nuevo objeto." alt="" coords="5,1393,221,1434"/>
+<area shape="rect" id="node21" href="$class_o_s_k_1_1_dynamic_array.html#a0a3bb760970ebe40178e9976c53d73ea" title="Elimina el eleemento dado de la lista." alt="" coords="306,1582,454,1623"/>
+<area shape="rect" id="node23" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#a9b71e06dbdfd14318e62df1352ff646d" title="Elimina el componente cuyo dueño es el dado." alt="" coords="273,1517,487,1558"/>
+<area shape="rect" id="node24" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#aaf4a09e52c546c79b71b26fa5a110f57" title=" " alt="" coords="273,1451,487,1493"/>
+<area shape="rect" id="node26" href="$class_o_s_k_1_1_bit_set.html#a344cbfda5691aacc8468764b9f1445a1" title="Cambia el valor del bit en la posición dada." alt="" coords="319,1349,441,1376"/>
+<area shape="rect" id="node27" href="$class_o_s_k_1_1_bit_set.html#a8cd199b685c32164225ec2e8d1cb0906" title="Establece el valor del bit dado a 0." alt="" coords="303,1248,457,1275"/>
+<area shape="rect" id="node28" href="$class_o_s_k_1_1_bit_set.html#a7f8cdfbe7015e24e8a2497979ecf5380" title="Establece el valor del bit dado a 1." alt="" coords="307,1299,453,1325"/>
+<area shape="rect" id="node30" href="$class_o_s_k_1_1_constexpr_bit_set.html#aa38919327c6e8810f8b2304a2d25ce8b" title="Establece el valor del bit dado a 0." alt="" coords="303,999,457,1041"/>
+<area shape="rect" id="node31" href="$class_o_s_k_1_1_constexpr_bit_set.html#a2ed44d2a40faf6ff664947caf93846b4" title="Establece el valor del bit dado a 1." alt="" coords="303,934,457,975"/>
+<area shape="rect" id="node35" href="$class_o_s_k_1_1_bit_set.html#a3f0833e81de5d6a323a40d33c912b11b" title=" " alt="" coords="590,5,718,32"/>
+<area shape="rect" id="node37" href="$class_o_s_k_1_1_dynamic_array.html#a1cf3a5ee0d59c31f8a06fe533fab3a86" title="Destruye el array." alt="" coords="580,57,728,98"/>
+<area shape="rect" id="node36" href="$class_o_s_k_1_1_bit_set.html#a2197646f05c60844358f286122d300e2" title=" " alt="" coords="307,5,453,32"/>
+<area shape="rect" id="node39" href="$class_o_s_k_1_1_dynamic_array.html#ae8c61261c812df8ed2a69641d49eca5b" title="Inserta un elemento al final del array." alt="" coords="580,505,728,546"/>
+<area shape="rect" id="node40" href="$class_o_s_k_1_1_e_c_s_1_1_i_system.html#a7c4d298e40f9d83aa00b85e59167e890" title="Añade un objeto a la lista de objetos procesables." alt="" coords="305,334,455,375"/>
+<area shape="rect" id="node41" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#a5a806e010c5e1feabf3cc82ff7ec3d37" title=" " alt="" coords="281,475,479,517"/>
+<area shape="rect" id="node42" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan.html#a401d8c72bb07cda1308124fc166f55ef" title=" " alt="" coords="277,592,483,648"/>
+<area shape="rect" id="node43" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_pool_vulkan.html#ac30681f5c514cb990ff3ca0cbcdd4bd3" title="Crea el descriptor pool, usado para crear y destruir descriptor sets." alt="" coords="269,673,491,714"/>
+<area shape="rect" id="node44" href="$class_o_s_k_1_1_dynamic_array.html#aa215fcf68b4a2d8a8e6fc4b4e5820120" title="Crea el dynamic array con los elementos dados." alt="" coords="306,151,454,193"/>
+<area shape="rect" id="node45" href="$_graphics_pipeline_vulkan_8cpp.html#a04b9978fc742d66c09ae6d319c9c5cb6" title=" " alt="" coords="301,217,459,244"/>
+<area shape="rect" id="node46" href="$_model_loader3_d_8cpp.html#abb7e6c494a601ac388178e513bd7b853" title=" " alt="" coords="334,541,426,568"/>
+<area shape="rect" id="node47" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12.html#a3fd7ec2e8eb3534fd83ec384e4e1e5df" title=" " alt="" coords="271,269,489,310"/>
+<area shape="rect" id="node48" href="$_model_loader3_d_8cpp.html#a458b76689b3ead05bebcd4554de43d0c" title="Procesa un nodo del modelo, además de todos sus nodos hijos. Genera los meshes, vértices e índices." alt="" coords="314,424,446,451"/>
+<area shape="rect" id="node50" href="$class_o_s_k_1_1_dynamic_array.html#a35b99119a8f1ab52fbb08bb8285aacdf" title="Inserta un elemento al final del array." alt="" coords="580,1582,728,1623"/>
+</map>

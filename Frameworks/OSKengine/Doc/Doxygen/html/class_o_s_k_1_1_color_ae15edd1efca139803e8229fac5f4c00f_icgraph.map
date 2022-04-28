@@ -1,0 +1,6 @@
+<map id="OSK::Color::RED" name="OSK::Color::RED">
+<area shape="rect" id="node1" title="Color rojo. (1.0f, 0.0f, 0.0f)." alt="" coords="279,78,401,105"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#ac38d009020f9002c7c6f4e13a348361d" title="Una vez se han grabado todos los comandos, se debe iniciar su ejecución en la GPU para ser renderizad..." alt="" coords="11,5,225,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#a6f84c9d2566f0702ae9a5b7c115e66e4" title="Una vez se han grabado todos los comandos, se debe iniciar su ejecución en la GPU para ser renderizad..." alt="" coords="15,71,221,112"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a0f642ecb0d29928e33c17f6f7d1d8e71" title="Una vez se han grabado todos los comandos, se debe iniciar su ejecución en la GPU para ser renderizad..." alt="" coords="5,136,231,177"/>
+</map>

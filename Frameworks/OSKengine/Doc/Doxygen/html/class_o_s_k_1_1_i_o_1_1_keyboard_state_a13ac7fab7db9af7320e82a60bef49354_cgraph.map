@@ -1,0 +1,4 @@
+<map id="OSK::IO::KeyboardState::IsKeyUp" name="OSK::IO::KeyboardState::IsKeyUp">
+<area shape="rect" id="node1" title="Comprueba si una tecla no está siendo pulsada." alt="" coords="5,5,171,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_i_o_1_1_keyboard_state.html#a7b0105eda9c1f9c4f0182781a0cb0506" title="Comprueba si una tecla está siendo pulsada." alt="" coords="219,5,384,47"/>
+</map>

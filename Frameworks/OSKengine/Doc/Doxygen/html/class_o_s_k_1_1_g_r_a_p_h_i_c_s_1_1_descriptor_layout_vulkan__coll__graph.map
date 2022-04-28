@@ -1,0 +1,3 @@
+<map id="OSK::GRAPHICS::DescriptorLayoutVulkan" name="OSK::GRAPHICS::DescriptorLayoutVulkan">
+<area shape="rect" id="node1" title="Wrapper de un VkDescrpitorSetLayout. Se encarga de crear el layout a partir del MaterialLayoutSlot." alt="" coords="5,5,197,141"/>
+</map>

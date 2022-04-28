@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::GpuMemoryBlockVulkan::GetVulkanMemory" name="OSK::GRAPHICS::GpuMemoryBlockVulkan::GetVulkanMemory">
+<area shape="rect" id="node1" title=" " alt="" coords="257,39,468,80"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html#ac5e50296e9912015ed5316c84ed5284a" title="Mapea la zona dada." alt="" coords="5,5,209,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html#ac811cc7ceba6d38d77e8289e0ce0d6e9" title="Desmapea el subbloque. Debe llamarse al terminar de escribir." alt="" coords="5,71,209,112"/>
+</map>

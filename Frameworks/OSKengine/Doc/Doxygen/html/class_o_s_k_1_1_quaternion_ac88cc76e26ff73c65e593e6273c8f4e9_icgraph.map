@@ -1,0 +1,4 @@
+<map id="OSK::Quaternion::ToGlm" name="OSK::Quaternion::ToGlm">
+<area shape="rect" id="node1" title="Devuelve el cuaternión en formato GLM." alt="" coords="220,13,387,39"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6c715494afef79663699e2d7db4db29a" title="Aplica una rotación al transform." alt="" coords="5,5,172,47"/>
+</map>

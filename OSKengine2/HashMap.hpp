@@ -2,7 +2,7 @@
 
 #include "DynamicArray.hpp"
 #include "Pair.hpp"
-#include "BitSet.hpp"
+#include "ConstexprBitSet.hpp"
 
 namespace OSK {
 
@@ -12,29 +12,71 @@ namespace OSK {
 		return hasher(elem);
 	}
 
-	template <typename TKey, typename TValue, typename TCollection = DynamicArray<Pair<TKey, TValue>>> class HashMap {
+
+	/// <summary>
+	/// Un HashMap representa una colleción que enlaza un valor a otro.
+	/// Está compuesto internamente por varias colecciones que almacenan los datos.
+	/// 
+	/// @warning No proporciona estabilidad de puntero.
+	/// </summary>
+	/// <typeparam name="TKey">Tipo de valor al que se le enlaza otro.</typeparam>
+	/// <typeparam name="TValue">Tipo de valor enlazado.</typeparam>
+	/// <typeparam name="numBuckets">Número de cubos.</typeparam>
+	/// <typeparam name="TCollection">Tipo de colección de cada cubo.</typeparam>
+	template <typename TKey, typename TValue, TSize numBuckets = 512> class HashMap {
 
 		friend class Iterator;
 
 	public:
 
+		/// <summary>
+		/// Pareja valor llave -> valor enlazado.
+		/// </summary>
 		typedef Pair<TKey, TValue> TPair;
-		typedef TCollection TBucket;
 
+		/// <summary>
+		/// Tipo de colección de cada cubo.
+		/// </summary>
+		typedef DynamicArray<Pair<TKey, TValue>> TBucket;
+
+
+		/// <summary>
+		/// Un iterador apunta a una pareja de la colección.
+		/// Se puede recorrer la colección a través de los iteradores.
+		/// 
+		/// @warning Para que el iterador se pueda usar, la colección debe estar guardada en un lugar
+		/// que permita estabilidad de punteros.
+		/// @warning Además, la colección no se debe modificar (ni añadiendo ni eliminando elementos) mientras
+		/// se use un iterador, para asegurarnos de que siga siendo válido.
+		/// </summary>
 		class Iterator {
 
 			friend class HashMap;
 
 		public:
 
-			Iterator(const HashMap* map, const TBucket* bucket, size_t inBucketIndex, size_t bucketIndex)
+			/// <summary>
+			/// Crea el iterador apuntando a un elemento (o a ninguno).
+			/// </summary>
+			/// <param name="map">HashMap del iterador.</param>
+			/// <param name="bucket">Cubo al que pertenece la pareja.</param>
+			/// <param name="inBucketIndex">Índice de la pareja dentro del cubo.</param>
+			/// <param name="bucketIndex">Índice del cubo dentro del array de cubos.</param>
+			Iterator(const HashMap* map, const TBucket* bucket, TSize inBucketIndex, TSize bucketIndex)
 				: map(map), bucket(bucket), inBucketIndex(inBucketIndex), bucketIndex(bucketIndex) {
 
 			}
 
+			/// <summary>
+			/// Devuelve un iterador que apunta a la siguiente pareja de la colección.
+			/// 
+			/// @note Si hemos llegado al final, no continúa.
+			/// </summary>
 			Iterator operator++() {
 				inBucketIndex++;
 
+				// Si ya no quedan más elementos en el cubo actual,
+				// pasamos al siguiente cubo.
 				while (inBucketIndex >= bucket->GetSize()) {
 					inBucketIndex = 0;
 
@@ -42,17 +84,24 @@ namespace OSK {
 
 					bucketIndex = map->occupiedBuckets.GetNextTrueIndex(bucketIndex);
 					if (bucketIndex == 0) {
+						// Si hemos vuelto al principio, hemos terminado de recorrer la colección.
 						*this = map->end();
 
 						return *this;
 					}
-					else
+					else {
 						bucket = map->GetBucket(bucketIndex);
+					}
 				}
 
 				return *this;
 			}
 
+			/// <summary>
+			/// Devuelve un iterador que apunta a la anterior pareja de la colección.
+			/// 
+			/// @note Si hemos llegado al principio, no continúa.
+			/// </summary>
 			Iterator operator--() {
 				if (inBucketIndex > 0) {
 					inBucketIndex--;
@@ -103,21 +152,30 @@ namespace OSK {
 			}
 
 			bool operator== (const Iterator& other) const {
-				return bucketIndex == other.bucketIndex && inBucketIndex == other.inBucketIndex;
+				return bucketIndex == other.bucketIndex && inBucketIndex == other.inBucketIndex && bucket == other.bucket;
 			}
 
 			bool operator!= (const Iterator& other) const {
-				return bucketIndex != other.bucketIndex || inBucketIndex != other.inBucketIndex;
+				return bucketIndex != other.bucketIndex || inBucketIndex != other.inBucketIndex && bucket != other.bucket;
 			}
 
+			/// <summary>
+			/// Devuelve la pareja apuntada por el iterador.
+			/// </summary>
 			TPair& operator*() const {
 				return bucket->At(inBucketIndex);
 			}
 
+			/// <summary>
+			/// Devuelve la pareja apuntada por el iterador.
+			/// </summary>
 			TPair& GetValue() const {
 				return bucket->At(inBucketIndex);
 			}
 
+			/// <summary>
+			/// Comprueba si este iterador NO apunta a un elemento válido.
+			/// </summary>
 			bool IsEmpty() const {
 				return bucket == nullptr;
 			}
@@ -131,38 +189,86 @@ namespace OSK {
 
 		};
 
+
+		/// <summary>
+		/// Construye un hashmap vacío.
+		/// </summary>
 		HashMap() {
-			occupiedBuckets.SetLength(512);
-			for (TSize i = 0; i < 512; i++)
-				buckets[i] = TBucket();
+
 		}
 
+		/// <summary>
+		/// Inserta una nueva pareja.
+		/// 
+		/// @note Si la pareja ya existía, se actualiza el segundo valor.
+		/// </summary>
+		/// <param name="key">Valor llave.</param>
+		/// <param name="value">Valor enlazado.</param>
+		void InsertCopy(const TKey& key, const TValue& value) {
+			auto pair = FindPair(key);
+			if (pair) {
+				pair->second = value;
+			}
+			else {
+				auto hash = ConvertHash(Hash(key));
+				buckets[hash].Insert(TPair(key, value));
+				occupiedBuckets.SetTrue(hash);
+
+				size++;
+			}
+		}
+
+		/// <summary>
+		/// Inserta una nueva pareja.
+		/// 
+		/// @note Si la pareja ya existía, se actualiza el segundo valor.
+		/// </summary>
+		/// <param name="key">Valor llave.</param>
+		/// <param name="value">Valor enlazado.</param>
 		void Insert(const TKey& key, const TValue& value) {
-			auto pair = FindPair(key);
-			if (pair)
-				pair->second = value;
+			InsertCopy(key, value);
+		}
+
+		/// <summary>
+		/// Inserta una nueva pareja.
+		/// 
+		/// @note Si la pareja ya existía, se actualiza el segundo valor.
+		/// </summary>
+		/// <param name="key">Valor llave.</param>
+		/// <param name="value">Valor enlazado.</param>
+		void InsertMove(const TKey& key, TValue&& value) {
+			TPair* pair = FindPair(key);
+
+			if (pair) {
+				//pair->second = std::move(value);
+				Remove(key);
+				InsertMove(key, std::move(value));
+			}
 			else {
 				auto hash = ConvertHash(Hash(key));
-				buckets[hash].Insert(TPair(key, value));
+				buckets[hash].InsertMove(std::move(TPair(key, std::move(value))));
 				occupiedBuckets.SetTrue(hash);
 
 				size++;
 			}
 		}
 
+		/// <summary>
+		/// Inserta una nueva pareja.
+		/// 
+		/// @note Si la pareja ya existía, se actualiza el segundo valor.
+		/// </summary>
+		/// <param name="key">Valor llave.</param>
+		/// <param name="value">Valor enlazado.</param>
 		void Insert(const TKey& key, TValue&& value) {
-			auto pair = FindPair(key);
-			if (pair)
-				pair->second = value;
-			else {
-				auto hash = ConvertHash(Hash(key));
-				buckets[hash].Insert(TPair(key, value));
-				occupiedBuckets.SetTrue(hash);
-
-				size++;
-			}
+			InsertMove(key, std::move(value));
 		}
 
+		/// <summary>
+		/// Elimina una pareja.
+		/// Si no existe la pareja, no ocurre nada.
+		/// </summary>
+		/// <param name="key">Valor llave de la pareja.</param>
 		void Remove(const TKey& key) {
 			KeySearchResult result = _FindKey(key);
 
@@ -174,23 +280,37 @@ namespace OSK {
 			}
 		}
 
-		const TBucket* GetBucket(size_t index) const {
+		/// <summary>
+		/// Devuelve un puntero al cubo en el índice dado.
+		/// </summary>
+		const TBucket* GetBucket(TSize index) const {
 			return &buckets[index];
 		}
-		/*DynamicArray<TBucket>& GetAllBuckets() const {
-			return buckets;
-		}*/
 
+		/// <summary>
+		/// Devuelve el valor enlazado del valor llave dado.
+		/// 
+		/// @pre Debe existir, de lo contrario habrá un error.
+		/// </summary>
 		TValue& Get(const TKey& key) const {
 			auto pair = FindPair(key);
+			OSK_ASSERT(pair, "No se encontró el valor.");
 
 			return pair->second;
 		}
 
+		/// <summary>
+		/// Comprueba si existe una apreja con el valor llave dado.
+		/// </summary>
 		bool ContainsKey(const TKey& key) const {
 			return _FindKey(key).found;
 		}
 
+		/// <summary>
+		/// Devuelve el iterador apuntando al elemento buscado.
+		/// 
+		/// @note Si no existe dicho elemento, se devuelve un iterador vacío (pero válido).
+		/// </summary>
 		Iterator Find(const TKey& key) const {
 			auto result = _FindKey(key);
 
@@ -200,26 +320,47 @@ namespace OSK {
 			return end();
 		}
 
-		size_t GetSize() const {
+		/// <summary>
+		/// Devuelve el número de parejas almacenadas.
+		/// </summary>
+		TSize GetSize() const {
 			return size;
 		}
 
-		size_t GetNumberOfBuckets() const {
-			return 512;
+		/// <summary>
+		/// Devuelve el número de cubos.
+		/// </summary>
+		TSize GetNumberOfBuckets() const {
+			return numBuckets;
 		}
 
+
+		/// <summary>
+		/// Devuelve un iterador que apunta a la primera pareja.
+		/// 
+		/// @note Si no hay ninguna pareja, devuelve 'end()'.
+		/// </summary>
 		Iterator begin() const {
-			if (occupiedBuckets.IsFullFalse())
+			if (occupiedBuckets.IsAllFalse())
 				return end();
 
 			size_t i = occupiedBuckets.GetNextTrueIndex();
 			
 			return GetIterator(i, 0);
 		}
+
+		/// <summary>
+		/// Devuelve un iterador vacío.
+		/// </summary>
 		Iterator end() const {
-			return Iterator(this, nullptr, 0, 512);
+			return Iterator(this, nullptr, 0, numBuckets);
 		}
 
+		/// <summary>
+		/// Devuelve un iterador apuntando a la pareja en el cubo y en la posición dadas.
+		/// 
+		/// @warning Puede dar error si se introducen índices incorrectos.
+		/// </summary>
 		Iterator GetIterator(TSize bucketId, TSize inbucketId) const {
 			auto it = Iterator(this, nullptr, inbucketId, bucketId);
 			it.bucket = (TBucket*)&buckets[bucketId];
@@ -245,6 +386,10 @@ namespace OSK {
 			return { false, end() };
 		}
 
+		/// <summary>
+		/// Busca una pareja con la llave dada.
+		/// Si no existe, devuelve null.
+		/// </summary>
 		TPair* FindPair(const TKey& key) const {
 			auto result = _FindKey(key);
 			if (result.found)
@@ -253,12 +398,16 @@ namespace OSK {
 			return nullptr;
 		}
 
+		/// <summary>
+		/// Convierte un hash para obtener el índice
+		/// del cubo.
+		/// </summary>
 		TSize ConvertHash(TSize hash) const {
-			return hash % 512;
+			return hash % numBuckets;
 		}
 
-		TBucket buckets[512];
-		BitSet occupiedBuckets;
+		TBucket buckets[numBuckets];
+		ConstexprBitSet<numBuckets> occupiedBuckets;
 
 		TSize size = 0;
 

@@ -1,0 +1,7 @@
+<map id="OSK::ASSETS::IAssetLoader" name="OSK::ASSETS::IAssetLoader">
+<area shape="rect" id="node1" title="Clase que se encarga de cargar un asset de un tipo en concreto." alt="" coords="360,5,555,83"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_loader.html" title=" " alt="" coords="5,131,221,237"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_loader.html" title=" " alt="" coords="246,138,442,230"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html" title=" " alt="" coords="467,138,675,230"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html" title=" " alt="" coords="699,138,899,230"/>
+</map>

@@ -27,7 +27,7 @@ namespace OSK::IO {
 	/// En esta ventana se renderizará el juego.
 	/// También se encarga del input mediante teclado, ratón, mando, etc...
 	/// 
-	/// Esta clase debe usarse de manera estática, accediendo a ella mediante
+	/// @note Esta clase debe usarse de manera estática, accediendo a ella mediante
 	/// la función GetWindow().
 	/// </summary>
 	class OSKAPI_CALL Window {
@@ -36,7 +36,8 @@ namespace OSK::IO {
 
 		/// <summary>
 		/// Crea una instancia de una ventana.
-		/// No se crea la ventana directamente, hay que llamar a Window::Create().
+		/// 
+		/// @warning No se crea la ventana directamente, hay que llamar a Window::Create().
 		/// </summary>
 		Window();
 
@@ -53,8 +54,8 @@ namespace OSK::IO {
 		/// <summary>
 		/// Crea una ventana.
 		/// </summary>
-		/// <param name="sizeX">Tamaño horizontal en píxeles.</param>
-		/// <param name="sizeY">Tamaño vertical en píxeles.</param>
+		/// <param name="sizeX">Tamaño horizontal, en píxeles.</param>
+		/// <param name="sizeY">Tamaño vertical, en píxeles.</param>
 		/// <param name="title">Título.</param>
 		void Create(int32_t sizeX, int32_t sizeY, const std::string& title);
 
@@ -109,8 +110,10 @@ namespace OSK::IO {
 		/// <summary>
 		/// True si la ventana va a cerrarse.
 		/// 
-		/// Útil para crear el bucle principal ( while (GetWindow()->ShoudlClose())
-		///  { ... }.
+		/// Útil para crear el bucle principal 
+		/// @code while (GetWindow()->ShoudlClose())
+		///  { ... } 
+		/// @endcode
 		/// </summary>
 		bool ShouldClose() const;
 

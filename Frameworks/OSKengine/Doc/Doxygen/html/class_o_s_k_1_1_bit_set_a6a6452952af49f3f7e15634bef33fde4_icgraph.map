@@ -1,0 +1,17 @@
+<map id="OSK::BitSet::SetValue" name="OSK::BitSet::SetValue">
+<area shape="rect" id="node1" title="Establece el valor del bit en la posición dada." alt="" coords="1211,70,1365,97"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_bit_set.html#a344cbfda5691aacc8468764b9f1445a1" title="Cambia el valor del bit en la posición dada." alt="" coords="1024,19,1147,46"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_bit_set.html#a8cd199b685c32164225ec2e8d1cb0906" title="Establece el valor del bit dado a 0." alt="" coords="1008,70,1163,97"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_bit_set.html#a7f8cdfbe7015e24e8a2497979ecf5380" title="Establece el valor del bit dado a 1." alt="" coords="1012,121,1159,147"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_hash_map.html#a6efc5db5461f07e149a4f238f7ba32f2" title="Elimina una pareja. Si no existe la pareja, no ocurre nada." alt="" coords="785,70,952,97"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_hash_map.html#aa836809f36d28d9d40dcf7c8ef3fa452" title="Inserta una nueva pareja." alt="" coords="531,95,713,122"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#a9b71e06dbdfd14318e62df1352ff646d" title="Elimina el componente cuyo dueño es el dado." alt="" coords="515,5,729,47"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_hash_map.html#a2fdfbeb6194e85f0f70feb7141a66b72" title="Inserta una nueva pareja." alt="" coords="283,79,436,106"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#aa2ae3332ee4b0c80860b7cc3d60d5d55" title="Elimina el componente del objeto eliminado." alt="" coords="252,5,467,47"/>
+<area shape="rect" id="node10" href="$class_o_s_k_1_1_hash_map.html#abfdc6c35858bda09dd4e938a3425dcc8" title="Inserta una nueva pareja." alt="" coords="777,171,960,198"/>
+<area shape="rect" id="node11" href="$class_o_s_k_1_1_hash_map.html#ab0c812ba6e3e37318bac478e83386018" title="Inserta una nueva pareja." alt="" coords="545,171,699,198"/>
+<area shape="rect" id="node12" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#af1fb0c5b18e59eee44e7f3dc8321140e" title="Añade un componente asignado al objeto dado." alt="" coords="252,272,467,313"/>
+<area shape="rect" id="node13" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#aada8120359f7e0a7c7a4f93d55764f6f" title="Añade un componente asignado al objeto dado." alt="" coords="252,131,467,172"/>
+<area shape="rect" id="node14" href="$_model_loader3_d_8cpp.html#a458b76689b3ead05bebcd4554de43d0c" title="Procesa un nodo del modelo, además de todos sus nodos hijos. Genera los meshes, vértices e índices." alt="" coords="293,221,425,247"/>
+<area shape="rect" id="node15" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html#afd1dbf7d9bffbe40564bb3e2a885e04a" title="Carga el asset." alt="" coords="5,213,204,255"/>
+</map>

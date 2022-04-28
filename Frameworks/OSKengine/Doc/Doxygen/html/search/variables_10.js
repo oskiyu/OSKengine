@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['second_0',['second',['../struct_o_s_k_1_1_pair.html#a3e6f20c9bb766198ebf4b3f03a9468e8',1,'OSK::Pair']]],
+  ['sharedtype_1',['sharedType',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info.html#a76ee057672f63305fce42906ce04ce37',1,'OSK::GRAPHICS::GpuBufferMemoryBlockInfo']]],
+  ['singletimecommandlists_2',['singleTimeCommandLists',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a59af1c9c1cdc260075c99e047ae10354',1,'OSK::GRAPHICS::IRenderer']]],
+  ['size_3',['size',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html#a18a66060428ab4751f82a908be67df77',1,'OSK::ASSETS::FontCharacter::size()'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info.html#afb2fc32f1ddbcd33e511a1387893677b',1,'OSK::GRAPHICS::GpuBufferMemoryBlockInfo::size()'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_1_1_reusable_memory_subblock.html#a06ce27fbd1d83cf35450fefbc67c56c6',1,'OSK::GRAPHICS::IGpuMemoryBlock::ReusableMemorySubblock::size()'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html#a46c79f11f4d6d0bfd71ae8a8007a4c5f',1,'OSK::GRAPHICS::MaterialLayoutPushConstant::size()'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry.html#a0cefb614716fe1dbc7d11706023eab6a',1,'OSK::GRAPHICS::VertexInfo::Entry::size()']]],
+  ['sizeofmemoryblockinmb_4',['SizeOfMemoryBlockInMb',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#ad3bb71a59933368693da358e40fd9cff',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
+  ['sizex_5',['sizeX',['../class_o_s_k_1_1_i_o_1_1_window.html#ae1a9edb0bca16a7a30e411670f123477',1,'OSK::IO::Window']]],
+  ['sizey_6',['sizeY',['../class_o_s_k_1_1_i_o_1_1_window.html#a0706e3fcef7ed334aa692f87b4ba8997',1,'OSK::IO::Window']]],
+  ['skyboxmaterial_7',['skyboxMaterial',['../_game1_8hpp.html#a85903c7ec531e973d72afe7c6f3227e5',1,'Game1.hpp']]],
+  ['skyboxmaterialinstance_8',['skyboxMaterialInstance',['../_game1_8hpp.html#a54813fa22114090c70ade04b798e3250',1,'Game1.hpp']]],
+  ['stage_9',['stage',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html#ac6f939387d72b666b8e1a565435cef2f',1,'OSK::GRAPHICS::MaterialLayoutPushConstant::stage()'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#ab6b6cab3b108fa5179ff16d4c24b60d4',1,'OSK::GRAPHICS::MaterialLayoutSlot::stage()']]],
+  ['stringnames_10',['stringNames',['../struct_input_layout_desc_dx12.html#aaba9e4230f2bf8b68a0714aaeadf9419',1,'InputLayoutDescDx12']]],
+  ['subblocks_11',['subblocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a993a008834e190bd4d4af0f0d4ee7f90',1,'OSK::GRAPHICS::IGpuMemoryBlock']]],
+  ['surfacecapabilities_12',['surfaceCapabilities',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_1_1_swapchain_support_details.html#a7d66af43659a3f783491dea07de30946',1,'OSK::GRAPHICS::GpuVulkan::Info::SwapchainSupportDetails']]],
+  ['swapchain_13',['swapchain',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a4c5061452a68969f433306c2e5984a70',1,'OSK::GRAPHICS::IRenderer']]],
+  ['swapchainsupportdetails_14',['swapchainSupportDetails',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a54ea02d5ee56136801a07bb10aeb0e0a',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
+  ['syncdevice_15',['syncDevice',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#aed39f82dfcb5e92d9ed9efdca4f346ee',1,'OSK::GRAPHICS::IRenderer']]]
+];

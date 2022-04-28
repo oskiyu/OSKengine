@@ -1,0 +1,6 @@
+<map id="OSK::GRAPHICS::ICommandList" name="OSK::GRAPHICS::ICommandList">
+<area shape="rect" id="node1" title="Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución." alt="" coords="281,5,497,259"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html" title="Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución...." alt="" coords="5,314,248,538"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_ogl.html" title=" " alt="" coords="273,314,506,538"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html" title="Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución...." alt="" coords="531,307,744,545"/>
+</map>

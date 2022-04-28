@@ -1,0 +1,6 @@
+<map id="OSK::GRAPHICS::MaterialInstance::RegisterSlot" name="OSK::GRAPHICS::MaterialInstance::RegisterSlot">
+<area shape="rect" id="node1" title="Registra un slot." alt="" coords="5,35,233,76"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html#a5d7d87b3da1560a7a77fd9b3cafc957f" title="Devuelve el layout de esta instancia (es decir, el layout del material padre)." alt="" coords="281,5,509,47"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00" title=" " alt="" coords="306,71,485,98"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#a29f2fe999bf8857dbbb65fb73df335ca" title=" " alt="" coords="557,5,736,47"/>
+</map>

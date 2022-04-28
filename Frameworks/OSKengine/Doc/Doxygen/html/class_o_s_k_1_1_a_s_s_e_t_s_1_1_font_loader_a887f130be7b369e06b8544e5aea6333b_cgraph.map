@@ -1,0 +1,6 @@
+<map id="OSK::ASSETS::FontLoader::Load" name="OSK::ASSETS::FontLoader::Load">
+<area shape="rect" id="node1" title="Carga el asset." alt="" coords="5,35,188,76"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#a9fea40ef67c601641f513646dd79277d" title="Establece la ruta de la fuente (.tff), para poder generar las fuentes." alt="" coords="261,5,413,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_i_o_1_1_file_i_o.html#aad968707ec7b00bce0540c804f476dc9" title="Lee un archivo de texto." alt="" coords="236,71,439,98"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_i_o_1_1_file_i_o.html#ac7fe213b79ce97b178a7e27f7216a2f4" title="Comprueba si un archivo existe." alt="" coords="487,71,665,98"/>
+</map>

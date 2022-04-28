@@ -1,0 +1,5 @@
+<map id="OSK::IO::Window::Close" name="OSK::IO::Window::Close">
+<area shape="rect" id="node1" title="Cierra la ventana." alt="" coords="341,5,508,32"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_i_game.html#ae8194150599c2c8d05a49efe80fe1b47" title="Fuerza el shutdown del juego." alt="" coords="167,5,293,32"/>
+<area shape="rect" id="node3" href="$class_game1.html#a0981142b47932b4f5dfac4e1556ba00f" title="Función que se ejecuta cada frame. Para hacer actualización del estado del juego." alt="" coords="5,5,119,32"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="OSK::GRAPHICS::CommandListDx12::BindMaterial" name="OSK::GRAPHICS::CommandListDx12::BindMaterial">
+<area shape="rect" id="node1" title="Establece el pipeline que se va a usar a la hora de renderizar los próximos comandos." alt="" coords="5,104,219,145"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline.html#a15c33d090a00d4bddc27a181f7f9f20c" title=" " alt="" coords="288,5,476,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#a7295b19f995cfb4a72a89d15cca4eebe" title="Obtiene el graphics pipeline asignado al renderpass dado." alt="" coords="293,71,471,112"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12.html#a02169a0a233e339d5b1026eb9fb39bbf" title=" " alt="" coords="267,136,497,177"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12.html#a0bc7c1f3c8dddfee3dac083e6cc085f6" title=" " alt="" coords="267,201,497,243"/>
+</map>

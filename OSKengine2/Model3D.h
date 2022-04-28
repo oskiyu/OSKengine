@@ -30,7 +30,7 @@ namespace OSK::ASSETS {
 		/// Contiene las texturas que deben bindearse a la instancia de material
 		/// de cada mesh.
 		/// 
-		/// Nombre de la textura -> ID de la textura dentro de las texturas almacenadas por el modelo.
+		/// @note Nombre de la textura -> ID de la textura dentro de las texturas almacenadas por el modelo.
 		/// </summary>
 		HashMap<std::string, TSize> materialTextures;
 
@@ -45,12 +45,16 @@ namespace OSK::ASSETS {
 
 		/// <summary>
 		/// Metadatos por cada uno de los meshes.
-		/// ID de mesh -> metadatos.
+		/// 
+		/// @note ID de mesh -> metadatos.
 		/// </summary>
 		DynamicArray<MeshMetadata> meshesMetadata;
 
 		/// <summary>
 		/// Texturas de los meshes.
+		/// 
+		/// @note Meshes de otros modelos no compartirán texturas,
+		/// aunque usen las mismas.
 		/// </summary>
 		DynamicArray<UniquePtr<GRAPHICS::GpuImage>> textures;
 
@@ -79,29 +83,59 @@ namespace OSK::ASSETS {
 		/// </summary>
 		void AddMesh(const GRAPHICS::Mesh3D& mesh, const MeshMetadata& metadata);
 
+		/// <summary>
+		/// Establece el buffer con todos los vértices del modelo.
+		/// 
+		/// @warning Función interna: no llamar.
+		/// </summary>
 		void _SetVertexBuffer(const OwnedPtr<GRAPHICS::IGpuVertexBuffer>& vertexBuffer);
+
+		/// <summary>
+		/// Establece el buffer con todos los índices del modelo.
+		/// 
+		/// @warning Función interna: no llamar.
+		/// </summary>
 		void _SetIndexBuffer(const OwnedPtr<GRAPHICS::IGpuIndexBuffer>& indexBuffer);
 
+		/// <summary>
+		/// Establece el número de índices totales del modelo..
+		/// 
+		/// @warning Función interna: no llamar.
+		/// </summary>
 		void _SetIndexCount(TSize count);
 
 		/// <summary>
-		/// Devuelve el buffer de la GPU con los
-		/// vértices del modelo.
+		/// Devuelve el buffer de la GPU con los vértices del modelo.
+		/// 
+		/// @note No puede ser null.
 		/// </summary>
 		GRAPHICS::IGpuVertexBuffer* GetVertexBuffer() const;
 
 		/// <summary>
-		/// Devuelve el buffer de la GPU con los
-		/// índices del modelo.
+		/// Devuelve el buffer de la GPU con los índices del modelo.
+		/// 
+		/// @note No puede ser null.
 		/// </summary>
 		GRAPHICS::IGpuIndexBuffer* GetIndexBuffer() const;
 
 		/// <summary>
-		/// Número de vértices / índices.
+		/// Número de índices.
 		/// </summary>
 		TSize GetIndexCount() const;
 
+		/// <summary>
+		/// Añade una imagen a la lista de imágenes de los meshes.
+		/// 
+		/// @note El índice de esta imagen será su posición dentro de la lista.
+		/// </summary>
 		void AddGpuImage(OwnedPtr<GRAPHICS::GpuImage> image);
+
+		/// <summary>
+		/// Devuelve la imagen de mesh con el índice dado.
+		/// 
+		/// @warning No comprueba que esté dentro de los límites.
+		/// </summary>
+		/// <param name="index">Índice de la imagen.</param>
 		const GRAPHICS::GpuImage* GetImage(TSize index) const;
 
 		/// <summary>

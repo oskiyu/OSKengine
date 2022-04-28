@@ -1,0 +1,12 @@
+<map id="OSK::Engine::GetWindow" name="OSK::Engine::GetWindow">
+<area shape="rect" id="node1" title=" " alt="" coords="428,195,601,221"/>
+<area shape="rect" id="node2" href="$class_game1.html#afa6bd75f3703f2da4bbe1cf654fe80cd" title="Debe crear la ventana del Engine." alt="" coords="195,5,351,32"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_i_game.html#ae8194150599c2c8d05a49efe80fe1b47" title="Fuerza el shutdown del juego." alt="" coords="210,56,337,83"/>
+<area shape="rect" id="node4" href="$class_game1.html#a0981142b47932b4f5dfac4e1556ba00f" title="Función que se ejecuta cada frame. Para hacer actualización del estado del juego." alt="" coords="5,107,119,133"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#a11fcfd622dfc6100e4c4ca432520d975" title="Obtiene la matriz view de la cámara." alt="" coords="168,158,379,199"/>
+<area shape="rect" id="node6" href="$class_game1.html#a738ffccb5910f1f15136680903ea4159" title="Función ejecutada al cargar el juego." alt="" coords="210,224,337,251"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#a57c5b72e9c0ccfa5f11f44bae2e98c80" title="Transforma un punto 2D en la ventana al punto 2D al que apunta la cámara en el mundo 2D." alt="" coords="167,275,380,317"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_i_game.html#a061c6604f59ca3ef9f5093b1fb78f844" title="Inicia la ejecución del juego." alt="" coords="210,341,337,368"/>
+<area shape="rect" id="node10" href="$class_game1.html#a3cc88f4668e083f56923350a7553bc9d" title="Debe inicializar el renderizador del Engine." alt="" coords="200,392,347,419"/>
+<area shape="rect" id="node9" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="37,341,87,368"/>
+</map>

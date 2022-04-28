@@ -1,0 +1,5 @@
+<map id="Representación gráfica de la clase" name="Representación gráfica de la clase">
+<area shape="rect" id="node1" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html" title="Una pool de comandos se encarga de crear una serie de listas de comandos. Al mismo tiempo,..." alt="" coords="5,35,227,61"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12.html" title="Una pool de comandos se encarga de crear una serie de listas de comandos." alt="" coords="275,5,523,32"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan.html" title="Una pool de comandos se encarga de crear una serie de listas de comandos." alt="" coords="289,57,508,98"/>
+</map>

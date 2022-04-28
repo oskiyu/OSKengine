@@ -10,8 +10,6 @@ using namespace OSK;
 using namespace OSK::IO;
 
 void FileIO::WriteFile(const std::string& path, const std::string& text) {
-	OSK_ASSERT(FileExists(path), std::string("Se ha intentado escribir el archivo ") + path + std::string(" pero no existe."));
-
 	std::ofstream stream(path);
 	stream << text << std::endl;
 

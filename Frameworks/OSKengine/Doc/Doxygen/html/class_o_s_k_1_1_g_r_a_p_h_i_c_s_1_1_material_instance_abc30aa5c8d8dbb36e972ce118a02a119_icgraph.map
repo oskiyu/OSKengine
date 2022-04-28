@@ -1,0 +1,4 @@
+<map id="OSK::GRAPHICS::MaterialInstance::GetMaterial" name="OSK::GRAPHICS::MaterialInstance::GetMaterial">
+<area shape="rect" id="node1" title="Devuelve el material del que es instancia esta instancia." alt="" coords="248,5,476,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#a3d6e69772dfbd5a028740fbbdbf8fd07" title="Comando específico del sistema, para ejecutar el renderizado." alt="" coords="5,5,200,47"/>
+</map>

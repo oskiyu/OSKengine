@@ -4,6 +4,9 @@
 
 namespace OSK::GRAPHICS {
 
+	/// <summary>
+	/// Un index buffer contiene los índices para el renderizado de un modelo 2D o 3D.
+	/// </summary>
 	class OSKAPI_CALL IGpuIndexBuffer : public GpuDataBuffer {
 
 	public:

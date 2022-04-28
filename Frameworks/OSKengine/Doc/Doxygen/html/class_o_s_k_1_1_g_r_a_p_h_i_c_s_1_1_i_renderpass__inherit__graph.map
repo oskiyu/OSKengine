@@ -1,0 +1,6 @@
+<map id="OSK::GRAPHICS::IRenderpass" name="OSK::GRAPHICS::IRenderpass">
+<area shape="rect" id="node1" title="Un renderpass representa una fase de renderizado. Todas las operaciones de renderizado se aplicarán s..." alt="" coords="271,5,476,215"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html" title=" " alt="" coords="5,270,237,435"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_ogl.html" title=" " alt="" coords="262,285,485,421"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html" title=" " alt="" coords="509,263,712,443"/>
+</map>

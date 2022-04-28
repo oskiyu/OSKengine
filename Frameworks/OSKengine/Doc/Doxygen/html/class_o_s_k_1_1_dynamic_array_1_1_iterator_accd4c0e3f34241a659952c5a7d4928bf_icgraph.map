@@ -1,0 +1,4 @@
+<map id="OSK::DynamicArray::Iterator::IsEmpty" name="OSK::DynamicArray::Iterator::IsEmpty">
+<area shape="rect" id="node1" title="True si el iterator es vacío: no apunta a un elemento válido." alt="" coords="201,5,349,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_dynamic_array.html#a09be7ecaff61fd363a4065237faa1efa" title="Comprueba si el elemento está presente en el array." alt="" coords="5,5,153,47"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="OSK::BitSet::GetNextTrueIndex" name="OSK::BitSet::GetNextTrueIndex">
+<area shape="rect" id="node1" title="Devuelve el índice del siguiente bit en la secuencia que es 1." alt="" coords="424,35,599,76"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_hash_map.html#a7bc04c6136f0184caa44d1423061cdfa" title="Devuelve un iterador que apunta a la primera pareja." alt="" coords="219,13,371,39"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_hash_map_1_1_iterator.html#a5fb61c5483a92ec5b71c1f675eba34c5" title="Devuelve un iterador que apunta a la siguiente pareja de la colección." alt="" coords="215,64,376,105"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_hash_map_1_1_iterator.html#a550b5916ec84ed436d44915fd5d9d376" title="Devuelve un iterador que apunta a la anterior pareja de la colección." alt="" coords="5,5,167,47"/>
+</map>

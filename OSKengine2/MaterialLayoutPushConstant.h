@@ -30,7 +30,8 @@ namespace OSK::GRAPHICS {
 
 		/// <summary>
 		/// Offset desde el primer push constant.
-		/// Cada push constant se colocará después del fin del
+		/// 
+		/// @note Cada push constant se colocará después del fin del
 		/// anterior push constant.
 		/// </summary>
 		TSize offset = 0;

@@ -1,0 +1,16 @@
+<map id="OSK::IO::Window::GetWindowSize" name="OSK::IO::Window::GetWindowSize">
+<area shape="rect" id="node1" title="Devuelve el tamaño de la ventana, en píxeles." alt="" coords="807,294,1033,321"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#ab115168a15873e46b9da9ba3442782c9" title="Crea el swapchain. Obtiene automáticamente el tamaño de las imágenes a partir del tamaño de la ventan..." alt="" coords="548,39,744,80"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a5a782794a56d4cfea6bdf4f34f98a766" title="Crea el swapchain. Obtiene automáticamente el tamaño de las imágenes a partir del tamaño de la ventan..." alt="" coords="282,129,478,171"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#accc82740cb7dbef6c41854d1c9f622b5" title=" " alt="" coords="548,156,744,197"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#a71d1244d09ce7a404779cb5acfb2cf31" title="Devuelve la matriz proyección de la cámara." alt="" coords="541,221,751,263"/>
+<area shape="rect" id="node10" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#ac41967bc72ee8ecfa86c3bb30d471af3" title="Inicializa todo el sistema de renderizado." alt="" coords="543,287,749,328"/>
+<area shape="rect" id="node11" href="$class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#a57c5b72e9c0ccfa5f11f44bae2e98c80" title="Transforma un punto 2D en la ventana al punto 2D al que apunta la cámara en el mundo 2D." alt="" coords="539,352,753,393"/>
+<area shape="rect" id="node12" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#ac38d009020f9002c7c6f4e13a348361d" title="Una vez se han grabado todos los comandos, se debe iniciar su ejecución en la GPU para ser renderizad..." alt="" coords="539,417,753,459"/>
+<area shape="rect" id="node13" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#a6f84c9d2566f0702ae9a5b7c115e66e4" title="Una vez se han grabado todos los comandos, se debe iniciar su ejecución en la GPU para ser renderizad..." alt="" coords="543,483,749,524"/>
+<area shape="rect" id="node14" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a0f642ecb0d29928e33c17f6f7d1d8e71" title="Una vez se han grabado todos los comandos, se debe iniciar su ejecución en la GPU para ser renderizad..." alt="" coords="533,548,759,589"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#a5eed4a14de2b74443b5da96486cbd0d4" title="Recrea el swapchain con el tamaño de la ventana. Para cuando se ha cambiado de tamaño la ventana." alt="" coords="282,39,478,80"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a372f1f09902e5735edb66cf7ed4c1a84" title=" " alt="" coords="15,5,217,47"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a5a9110a4da448f607b783f949fb941d9" title=" " alt="" coords="5,71,227,112"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#a630de7348f82ab9d7b835c6c94efeca9" title="Actualiza el buffer en la GPU." alt="" coords="275,221,485,263"/>
+</map>

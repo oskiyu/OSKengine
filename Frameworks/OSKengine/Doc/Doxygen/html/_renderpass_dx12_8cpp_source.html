@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/RenderpassDx12.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_renderpass_dx12_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">RenderpassDx12.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_renderpass_dx12_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_renderpass_dx12_8h.html">RenderpassDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_dx12_8h.html">GpuImageDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_renderer_dx12_8h.html">RendererDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_memory_allocator_dx12_8h.html">GpuMemoryAllocatorDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_format_8h.html">Format.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_memory_types_8h.html">GpuMemoryTypes.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_usage_8h.html">GpuImageUsage.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="_format_dx12_8h.html">FormatDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="_i_renderer_8h.html">IRenderer.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_dx12_8h.html">GpuDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="_renderpass_type_8h.html">RenderpassType.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a143a4ccab93650a892218f8ff7f398d2">   19</a></span>RenderpassDx12::RenderpassDx12(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a68c7e70128c792c56815e41b7f9c5fef">RenderpassType</a> type)</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    : <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a>(type) {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#ac5fb5c1d358b9d00cd1a40b0ab48428c">   24</a></span><a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#ac5fb5c1d358b9d00cd1a40b0ab48428c">RenderpassDx12::~RenderpassDx12</a>() {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a4037acfe3a5f8071b004b7f80529912c">   28</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a4037acfe3a5f8071b004b7f80529912c">RenderpassDx12::SetImages</a>(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>* image0, <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>* image1, <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>* image2) {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">const</span> <span class="keyword">auto</span> size = image0-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a244ebc8ce3ae3095698ea0c3eaba58fc">GetSize</a>();</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a080d58af2f6b18c33007b361b6805e3e">images</a>[0] = image0;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a080d58af2f6b18c33007b361b6805e3e">images</a>[1] = image1;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a080d58af2f6b18c33007b361b6805e3e">images</a>[2] = image2;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html">GpuDx12</a>* device = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a8b6b1698afeb3bb07f3b91e5ddb79b2d">GetGpu</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#a1b0e5d22fed49696034d38442892121c">As</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html">GpuDx12</a>&gt;();</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> i = 0; i &lt; 3; i++) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a4785a50b30ebec0d50f929611452714a">colorImgs</a>[i] = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#acf03703bbb6f031f905612d86f104b38">GetMemoryAllocator</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a9edc56722522b79a352ce378e1ac8595">CreateImage</a>(</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            size, <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a080d58af2f6b18c33007b361b6805e3e">images</a>[i]-&gt;GetDimension(), <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a080d58af2f6b18c33007b361b6805e3e">images</a>[i]-&gt;GetNumLayers(), <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a080d58af2f6b18c33007b361b6805e3e">images</a>[i]-&gt;GetFormat(),</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa04bd834032febb3fda8c6936ee140949">GpuImageUsage::COLOR</a>, <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042cea95c8166e4f408834884bbe57fef928f6">GpuSharedMemoryType::GPU_ONLY</a>, 1).GetPointer();</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a0603dba44ef250a02e6b47c7237703ad">depthImgs</a>[i] = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#acf03703bbb6f031f905612d86f104b38">GetMemoryAllocator</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a9edc56722522b79a352ce378e1ac8595">CreateImage</a>(</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            size, <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a080d58af2f6b18c33007b361b6805e3e">images</a>[i]-&gt;GetDimension(), <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a080d58af2f6b18c33007b361b6805e3e">images</a>[i]-&gt;GetNumLayers(), <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8ae7ae944f2e4ea995e572c26d22196850">Format::D24S8_SFLOAT_SUINT</a>,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaaecaa8fe8cb0e85372f4cc76728c7cf3c">GpuImageUsage::DEPTH_STENCIL</a>, <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042cea95c8166e4f408834884bbe57fef928f6">GpuSharedMemoryType::GPU_ONLY</a>, 1).GetPointer();</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a8102b42a8259117aab36e168df24fd5d">type</a> == <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a68c7e70128c792c56815e41b7f9c5fefa41dc7c9e385c4d2b6c1f7836973951bf">RenderpassType::INTERMEDIATE</a>) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html">GpuImageDx12</a>* dxImage = <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a080d58af2f6b18c33007b361b6805e3e">images</a>[i]-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a6bc3268b57ede5f9f0541b20d12dfea0">As</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html">GpuImageDx12</a>&gt;();</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <span class="comment">// Render target.</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            D3D12_RENDER_TARGET_VIEW_DESC renderTargetDesc{};</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            renderTargetDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            renderTargetDesc.Format = <a class="code hl_function" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a100a7488e1eee158da65062d0b5e5277">GetFormatDx12</a>(<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a080d58af2f6b18c33007b361b6805e3e">images</a>[i]-&gt;GetFormat());</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            renderTargetDesc.Texture2D.MipSlice = 0;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            renderTargetDesc.Texture2D.PlaneSlice = 0;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            colorDescs[i] = dxImage-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#aac6cbd547084f6fc46ac363c7d117a9e">GetRenderTargetDescriptorHeap</a>()-&gt;GetCPUDescriptorHandleForHeapStart();</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            device-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html#ab84e92317bb196210a9a4193763d5329">GetDevice</a>()-&gt;CreateRenderTargetView(dxImage-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#ac71ee7f557da19b1a8c1513c46f52c9c">GetResource</a>(), &amp;renderTargetDesc, colorDescs[i]);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="comment">// Depth/stencil.</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            D3D12_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc{};</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            depthStencilViewDesc.Format = <a class="code hl_function" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a100a7488e1eee158da65062d0b5e5277">GetFormatDx12</a>(<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a0603dba44ef250a02e6b47c7237703ad">depthImgs</a>[i]-&gt;GetFormat());</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            depthStencilViewDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            depthStencilViewDesc.Flags = D3D12_DSV_FLAG_NONE;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            depthDescs[i] = <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a0603dba44ef250a02e6b47c7237703ad">depthImgs</a>[i]-&gt;As&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html">GpuImageDx12</a>&gt;()-&gt;GetDepthDescriptorHeap()-&gt;GetCPUDescriptorHandleForHeapStart();</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            device-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#a1b0e5d22fed49696034d38442892121c">As</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html">GpuDx12</a>&gt;()-&gt;<a class="code hl_function" href="_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e">GetDevice</a>()-&gt;CreateDepthStencilView(<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a0603dba44ef250a02e6b47c7237703ad">depthImgs</a>[i]-&gt;As&lt;GpuImageDx12&gt;()-&gt;GetResource(), &amp;depthStencilViewDesc, depthDescs[i]);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        }</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    }</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a223e511fb03f41ac23ca6dd99e01b6a2">   74</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a223e511fb03f41ac23ca6dd99e01b6a2">RenderpassDx12::SetSwapchain</a>(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html">SwapchainDx12</a>* swapchain) {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    this-&gt;swapchain = swapchain;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a3b9ac6ab106829829168b113b900140b">   78</a></span><a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html">SwapchainDx12</a>* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a3b9ac6ab106829829168b113b900140b">RenderpassDx12::GetSwapchain</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">return</span> swapchain;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>}</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a7652b473d4461df281b833bd9cecc2a2">   82</a></span>D3D12_CPU_DESCRIPTOR_HANDLE <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a7652b473d4461df281b833bd9cecc2a2">RenderpassDx12::GetRenderTargetDescpriptor</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> index)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">return</span> colorDescs[index];</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#adce0b2a4917184784ef828ea657c9f5f">   86</a></span>D3D12_CPU_DESCRIPTOR_HANDLE <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#adce0b2a4917184784ef828ea657c9f5f">RenderpassDx12::GetDepthStencilDescpriptor</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> index)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">return</span> depthDescs[index];</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
+<div class="ttc" id="a_format_8h_html"><div class="ttname"><a href="_format_8h.html">Format.h</a></div></div>
+<div class="ttc" id="a_format_dx12_8h_html"><div class="ttname"><a href="_format_dx12_8h.html">FormatDx12.h</a></div></div>
+<div class="ttc" id="a_gpu_dx12_8h_html"><div class="ttname"><a href="_gpu_dx12_8h.html">GpuDx12.h</a></div></div>
+<div class="ttc" id="a_gpu_image_dx12_8h_html"><div class="ttname"><a href="_gpu_image_dx12_8h.html">GpuImageDx12.h</a></div></div>
+<div class="ttc" id="a_gpu_image_usage_8h_html"><div class="ttname"><a href="_gpu_image_usage_8h.html">GpuImageUsage.h</a></div></div>
+<div class="ttc" id="a_gpu_memory_allocator_dx12_8h_html"><div class="ttname"><a href="_gpu_memory_allocator_dx12_8h.html">GpuMemoryAllocatorDx12.h</a></div></div>
+<div class="ttc" id="a_gpu_memory_types_8h_html"><div class="ttname"><a href="_gpu_memory_types_8h.html">GpuMemoryTypes.h</a></div></div>
+<div class="ttc" id="a_i_renderer_8h_html"><div class="ttname"><a href="_i_renderer_8h.html">IRenderer.h</a></div></div>
+<div class="ttc" id="a_material_slot_vulkan_8cpp_html_adead74bea72029d218144e2a94a1eb1e"><div class="ttname"><a href="_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e">GetDevice</a></div><div class="ttdeci">VkDevice GetDevice()</div><div class="ttdef"><b>Definition:</b> <a href="_material_slot_vulkan_8cpp_source.html#l00019">MaterialSlotVulkan.cpp:19</a></div></div>
+<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00015">OSKmacros.h:15</a></div></div>
+<div class="ttc" id="a_renderer_dx12_8h_html"><div class="ttname"><a href="_renderer_dx12_8h.html">RendererDx12.h</a></div></div>
+<div class="ttc" id="a_renderpass_dx12_8h_html"><div class="ttname"><a href="_renderpass_dx12_8h.html">RenderpassDx12.h</a></div></div>
+<div class="ttc" id="a_renderpass_type_8h_html"><div class="ttname"><a href="_renderpass_type_8h.html">RenderpassType.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a019c5397d042224c134b7fd22c739d00"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">OSK::Engine::GetRenderer</a></div><div class="ttdeci">static GRAPHICS::IRenderer * GetRenderer()</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kengine_8cpp_source.html#l00127">OSKengine.cpp:127</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html">OSK::GRAPHICS::GpuDx12</a></div><div class="ttdef"><b>Definition:</b> <a href="_gpu_dx12_8h_source.html#l00015">GpuDx12.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_html_ab84e92317bb196210a9a4193763d5329"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html#ab84e92317bb196210a9a4193763d5329">OSK::GRAPHICS::GpuDx12::GetDevice</a></div><div class="ttdeci">ID3D12Device * GetDevice() const</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_dx12_8cpp_source.html#l00053">GpuDx12.cpp:53</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html">OSK::GRAPHICS::GpuImageDx12</a></div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_dx12_8h_source.html#l00013">GpuImageDx12.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12_html_aac6cbd547084f6fc46ac363c7d117a9e"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#aac6cbd547084f6fc46ac363c7d117a9e">OSK::GRAPHICS::GpuImageDx12::GetRenderTargetDescriptorHeap</a></div><div class="ttdeci">ID3D12DescriptorHeap * GetRenderTargetDescriptorHeap() const</div><div class="ttdoc">Devuelve la memoria del descriptor para uso como render target. Null si no será usado de esa manera.</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_dx12_8cpp_source.html#l00035">GpuImageDx12.cpp:35</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12_html_ac71ee7f557da19b1a8c1513c46f52c9c"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#ac71ee7f557da19b1a8c1513c46f52c9c">OSK::GRAPHICS::GpuImageDx12::GetResource</a></div><div class="ttdeci">ID3D12Resource * GetResource() const</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_dx12_8cpp_source.html#l00027">GpuImageDx12.cpp:27</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8h_source.html#l00022">IGpuImage.h:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_a244ebc8ce3ae3095698ea0c3eaba58fc"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a244ebc8ce3ae3095698ea0c3eaba58fc">OSK::GRAPHICS::GpuImage::GetSize</a></div><div class="ttdeci">Vector3ui GetSize() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8cpp_source.html#l00040">IGpuImage.cpp:40</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_a6bc3268b57ede5f9f0541b20d12dfea0"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a6bc3268b57ede5f9f0541b20d12dfea0">OSK::GRAPHICS::GpuImage::As</a></div><div class="ttdeci">T * As() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8h_source.html#l00046">IGpuImage.h:46</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_html_a1b0e5d22fed49696034d38442892121c"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#a1b0e5d22fed49696034d38442892121c">OSK::GRAPHICS::IGpu::As</a></div><div class="ttdeci">T * As() const</div><div class="ttdoc">Castea la clase al tipo dado.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_8h_source.html#l00044">IGpu.h:44</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_html_a9edc56722522b79a352ce378e1ac8595"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a9edc56722522b79a352ce378e1ac8595">OSK::GRAPHICS::IGpuMemoryAllocator::CreateImage</a></div><div class="ttdeci">virtual OwnedPtr&lt; GpuImage &gt; CreateImage(const Vector3ui &amp;size, GpuImageDimension dimension, TSize numLayers, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, TSize msaaSamples, GpuImageSamplerDesc samplerDesc={})=0</div><div class="ttdoc">Crea una nueva imagen en la GPU.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a8b6b1698afeb3bb07f3b91e5ddb79b2d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a8b6b1698afeb3bb07f3b91e5ddb79b2d">OSK::GRAPHICS::IRenderer::GetGpu</a></div><div class="ttdeci">IGpu * GetGpu() const</div><div class="ttdef"><b>Definition:</b> <a href="_renderer_8cpp_source.html#l00028">Renderer.cpp:28</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_acf03703bbb6f031f905612d86f104b38"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#acf03703bbb6f031f905612d86f104b38">OSK::GRAPHICS::IRenderer::GetMemoryAllocator</a></div><div class="ttdeci">IGpuMemoryAllocator * GetMemoryAllocator() const</div><div class="ttdef"><b>Definition:</b> <a href="_renderer_8cpp_source.html#l00024">Renderer.cpp:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">OSK::GRAPHICS::IRenderpass</a></div><div class="ttdoc">Un renderpass representa una fase de renderizado. Todas las operaciones de renderizado se aplicarán s...</div><div class="ttdef"><b>Definition:</b> <a href="_i_renderpass_8h_source.html#l00017">IRenderpass.h:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass_html_a0603dba44ef250a02e6b47c7237703ad"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a0603dba44ef250a02e6b47c7237703ad">OSK::GRAPHICS::IRenderpass::depthImgs</a></div><div class="ttdeci">UniquePtr&lt; GpuImage &gt; depthImgs[3]</div><div class="ttdef"><b>Definition:</b> <a href="_i_renderpass_8h_source.html#l00055">IRenderpass.h:55</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass_html_a080d58af2f6b18c33007b361b6805e3e"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a080d58af2f6b18c33007b361b6805e3e">OSK::GRAPHICS::IRenderpass::images</a></div><div class="ttdeci">GpuImage * images[3]</div><div class="ttdef"><b>Definition:</b> <a href="_i_renderpass_8h_source.html#l00053">IRenderpass.h:53</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass_html_a4785a50b30ebec0d50f929611452714a"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a4785a50b30ebec0d50f929611452714a">OSK::GRAPHICS::IRenderpass::colorImgs</a></div><div class="ttdeci">UniquePtr&lt; GpuImage &gt; colorImgs[3]</div><div class="ttdef"><b>Definition:</b> <a href="_i_renderpass_8h_source.html#l00054">IRenderpass.h:54</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass_html_a8102b42a8259117aab36e168df24fd5d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a8102b42a8259117aab36e168df24fd5d">OSK::GRAPHICS::IRenderpass::type</a></div><div class="ttdeci">RenderpassType type</div><div class="ttdef"><b>Definition:</b> <a href="_i_renderpass_8h_source.html#l00052">IRenderpass.h:52</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12_html_a223e511fb03f41ac23ca6dd99e01b6a2"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a223e511fb03f41ac23ca6dd99e01b6a2">OSK::GRAPHICS::RenderpassDx12::SetSwapchain</a></div><div class="ttdeci">void SetSwapchain(SwapchainDx12 *swapchain)</div><div class="ttdef"><b>Definition:</b> <a href="_renderpass_dx12_8cpp_source.html#l00074">RenderpassDx12.cpp:74</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12_html_a3b9ac6ab106829829168b113b900140b"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a3b9ac6ab106829829168b113b900140b">OSK::GRAPHICS::RenderpassDx12::GetSwapchain</a></div><div class="ttdeci">SwapchainDx12 * GetSwapchain() const</div><div class="ttdef"><b>Definition:</b> <a href="_renderpass_dx12_8cpp_source.html#l00078">RenderpassDx12.cpp:78</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12_html_a4037acfe3a5f8071b004b7f80529912c"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a4037acfe3a5f8071b004b7f80529912c">OSK::GRAPHICS::RenderpassDx12::SetImages</a></div><div class="ttdeci">void SetImages(GpuImage *image0, GpuImage *image1, GpuImage *image2) override</div><div class="ttdoc">Establece las imágenes del swapchain donde se va a renderizar (para pantalla).</div><div class="ttdef"><b>Definition:</b> <a href="_renderpass_dx12_8cpp_source.html#l00028">RenderpassDx12.cpp:28</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12_html_a7652b473d4461df281b833bd9cecc2a2"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a7652b473d4461df281b833bd9cecc2a2">OSK::GRAPHICS::RenderpassDx12::GetRenderTargetDescpriptor</a></div><div class="ttdeci">D3D12_CPU_DESCRIPTOR_HANDLE GetRenderTargetDescpriptor(TSize index) const</div><div class="ttdef"><b>Definition:</b> <a href="_renderpass_dx12_8cpp_source.html#l00082">RenderpassDx12.cpp:82</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12_html_ac5fb5c1d358b9d00cd1a40b0ab48428c"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#ac5fb5c1d358b9d00cd1a40b0ab48428c">OSK::GRAPHICS::RenderpassDx12::~RenderpassDx12</a></div><div class="ttdeci">~RenderpassDx12()</div><div class="ttdef"><b>Definition:</b> <a href="_renderpass_dx12_8cpp_source.html#l00024">RenderpassDx12.cpp:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12_html_adce0b2a4917184784ef828ea657c9f5f"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#adce0b2a4917184784ef828ea657c9f5f">OSK::GRAPHICS::RenderpassDx12::GetDepthStencilDescpriptor</a></div><div class="ttdeci">D3D12_CPU_DESCRIPTOR_HANDLE GetDepthStencilDescpriptor(TSize index) const</div><div class="ttdef"><b>Definition:</b> <a href="_renderpass_dx12_8cpp_source.html#l00086">RenderpassDx12.cpp:86</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html">OSK::GRAPHICS::SwapchainDx12</a></div><div class="ttdoc">Un swapchain es una estructura encargada de manejar el cambio de imagenes que son representadas en el...</div><div class="ttdef"><b>Definition:</b> <a href="_swapchain_dx12_8h_source.html#l00029">SwapchainDx12.h:29</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_command_list_dx12_8h_source.html#l00012">CommandListDx12.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a100a7488e1eee158da65062d0b5e5277"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a100a7488e1eee158da65062d0b5e5277">OSK::GRAPHICS::GetFormatDx12</a></div><div class="ttdeci">DXGI_FORMAT GetFormatDx12(Format format)</div><div class="ttdoc">Obtiene la representación nativa del formato para DirectX 12.</div><div class="ttdef"><b>Definition:</b> <a href="_format_8cpp_source.html#l00010">Format.cpp:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a19a2f70fc994c00eb022e520608c5ffaa04bd834032febb3fda8c6936ee140949"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa04bd834032febb3fda8c6936ee140949">OSK::GRAPHICS::GpuImageUsage::COLOR</a></div><div class="ttdeci">@ COLOR</div><div class="ttdoc">Se usará como imagen final para el renderizado 3D. Almacenará la imagen de color final.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a19a2f70fc994c00eb022e520608c5ffaaecaa8fe8cb0e85372f4cc76728c7cf3c"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaaecaa8fe8cb0e85372f4cc76728c7cf3c">OSK::GRAPHICS::GpuImageUsage::DEPTH_STENCIL</a></div><div class="ttdeci">@ DEPTH_STENCIL</div><div class="ttdoc">Se usará como imagen de profundidad para el renderizado 3D.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a68c7e70128c792c56815e41b7f9c5fef"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a68c7e70128c792c56815e41b7f9c5fef">OSK::GRAPHICS::RenderpassType</a></div><div class="ttdeci">RenderpassType</div><div class="ttdoc">Define si un renderpass es un renderpass intermedio o el renderpass final que renderiza la imagen que...</div><div class="ttdef"><b>Definition:</b> <a href="_renderpass_type_8h_source.html#l00010">RenderpassType.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a68c7e70128c792c56815e41b7f9c5fefa41dc7c9e385c4d2b6c1f7836973951bf"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a68c7e70128c792c56815e41b7f9c5fefa41dc7c9e385c4d2b6c1f7836973951bf">OSK::GRAPHICS::RenderpassType::INTERMEDIATE</a></div><div class="ttdeci">@ INTERMEDIATE</div><div class="ttdoc">El renderpass es intermedio.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a85a830e82585f3a565d1f097491042cea95c8166e4f408834884bbe57fef928f6"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042cea95c8166e4f408834884bbe57fef928f6">OSK::GRAPHICS::GpuSharedMemoryType::GPU_ONLY</a></div><div class="ttdeci">@ GPU_ONLY</div><div class="ttdoc">Exclusivo para la GPU. Mejor rendimiento.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aac59f9d056e083c0b49ea768f974e3e8ae7ae944f2e4ea995e572c26d22196850"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8ae7ae944f2e4ea995e572c26d22196850">OSK::GRAPHICS::Format::D24S8_SFLOAT_SUINT</a></div><div class="ttdeci">@ D24S8_SFLOAT_SUINT</div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00007">Assert.h:7</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_renderpass_dx12_8cpp.html">RenderpassDx12.cpp</a></li>
+    <li class="footer">Generado el Miércoles, 20 de Abril de 2022 00:28:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

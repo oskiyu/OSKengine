@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/ConstexprBitSet.hpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_constexpr_bit_set_8hpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ConstexprBitSet.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_constexpr_bit_set_8hpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_dynamic_array_8hpp.html">DynamicArray.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a> {</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="namespace_o_s_k.html#a13be6d03821c950ec38db0531c1d5f5c">    7</a></span>    <span class="keyword">using</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a13be6d03821c950ec38db0531c1d5f5c">TByte</a> = uint8_t;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_constexpr_bit_set.html">   14</a></span>    <span class="keyword">template</span> &lt;TSize size&gt; <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_constexpr_bit_set.html">ConstexprBitSet</a> {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_constexpr_bit_set.html#a0aac2f4ae767f20718fb4c283952c8c3">   23</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_constexpr_bit_set.html#a0aac2f4ae767f20718fb4c283952c8c3">ConstexprBitSet</a>() {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> numBytes = size / 8;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <span class="keywordflow">if</span> (size % 8)</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                numBytes++;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            <a class="code hl_function" href="class_o_s_k_1_1_constexpr_bit_set.html#ace730fdd308ea782b50cb8a2caa48942">Reset</a>();</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        }</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_constexpr_bit_set.html#a2ed44d2a40faf6ff664947caf93846b4">   36</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_constexpr_bit_set.html#a2ed44d2a40faf6ff664947caf93846b4">SetTrue</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> index) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            <a class="code hl_function" href="class_o_s_k_1_1_constexpr_bit_set.html#a38329a6523ad679a76be70f2c9faff16">SetValue</a>(index, <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_constexpr_bit_set.html#aa38919327c6e8810f8b2304a2d25ce8b">   44</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_constexpr_bit_set.html#aa38919327c6e8810f8b2304a2d25ce8b">SetFalse</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> index) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <a class="code hl_function" href="class_o_s_k_1_1_constexpr_bit_set.html#a38329a6523ad679a76be70f2c9faff16">SetValue</a>(index, <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_constexpr_bit_set.html#a38329a6523ad679a76be70f2c9faff16">   54</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_constexpr_bit_set.html#a38329a6523ad679a76be70f2c9faff16">SetValue</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> index, <span class="keywordtype">bool</span> value) {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> i = index / 8;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> offset = index % 8;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            bytes[i] |= 1U &lt;&lt; offset;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        }</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_constexpr_bit_set.html#a1cfb3e09504658f4bddf67f18ce5f69c">   66</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_constexpr_bit_set.html#a1cfb3e09504658f4bddf67f18ce5f69c">Get</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> index)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> <span class="keywordtype">id</span> = index / 8;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> offset = index % 8;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            <span class="keywordflow">return</span> (bytes[<span class="keywordtype">id</span>] &amp; (1U &lt;&lt; (offset))) != 0;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        }</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_constexpr_bit_set.html#ac43b194a8c7bb84b4e098770d2314b84">   80</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> <a class="code hl_function" href="class_o_s_k_1_1_constexpr_bit_set.html#ac43b194a8c7bb84b4e098770d2314b84">GetNextTrueIndex</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> initialIndex = 0)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> index = initialIndex / 8;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> offset = initialIndex % 8;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            <span class="keywordflow">for</span> (; index &lt; size; index++) {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                <a class="code hl_typedef" href="namespace_o_s_k.html#a13be6d03821c950ec38db0531c1d5f5c">TByte</a> value = bytes[index];</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                <span class="keywordflow">if</span> (value == 0)</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                    <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k.html#a13be6d03821c950ec38db0531c1d5f5c">TByte</a> i = offset; i &lt; 8; i++)</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                    <span class="keywordflow">if</span> (value &amp; (1 &lt;&lt; i))</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                        <span class="keywordflow">return</span> i + index * 8;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                offset = 0;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            }</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_constexpr_bit_set.html#aaef70ed63eefe042a55d2ad352a86368">  103</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_constexpr_bit_set.html#aaef70ed63eefe042a55d2ad352a86368">IsAllFalse</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> i = 0; i &lt; size; i++)</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                <span class="keywordflow">if</span> (bytes[i] &gt; 0)</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        }</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_constexpr_bit_set.html#ad24c35fd64629d2a5cdd55d2a6e3542e">  114</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_constexpr_bit_set.html#ad24c35fd64629d2a5cdd55d2a6e3542e">IsAllTrue</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            <span class="keywordflow">return</span> !<a class="code hl_function" href="class_o_s_k_1_1_constexpr_bit_set.html#aaef70ed63eefe042a55d2ad352a86368">IsAllFalse</a>();</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        }</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_constexpr_bit_set.html#a676f02631856b21434e2ee88540add93">  122</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_constexpr_bit_set.html#a676f02631856b21434e2ee88540add93">IsCompatible</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_constexpr_bit_set.html">ConstexprBitSet</a>&amp; other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> i = 0; i &lt; size; i++)</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>                <span class="keywordflow">if</span> ((bytes[i] &amp; other.bytes[i]) != bytes[i])</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        }</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_constexpr_bit_set.html#ad2907fb8b5cf843d2d0207124ecd6053">  133</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> <a class="code hl_function" href="class_o_s_k_1_1_constexpr_bit_set.html#ad2907fb8b5cf843d2d0207124ecd6053">GetLength</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            <span class="keywordflow">return</span> size;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        }</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_constexpr_bit_set.html#a8d016d47a6859f533ed6e7ecfb67e4a1">  142</a></span>        <a class="code hl_typedef" href="namespace_o_s_k.html#a13be6d03821c950ec38db0531c1d5f5c">TByte</a>* <a class="code hl_function" href="class_o_s_k_1_1_constexpr_bit_set.html#a8d016d47a6859f533ed6e7ecfb67e4a1">GetData</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>            <span class="keywordflow">return</span> bytes;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        }</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_constexpr_bit_set.html#ace730fdd308ea782b50cb8a2caa48942">  149</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_constexpr_bit_set.html#ace730fdd308ea782b50cb8a2caa48942">Reset</a>() {</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            memset(bytes, 0, size);</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        }</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <a class="code hl_typedef" href="namespace_o_s_k.html#a13be6d03821c950ec38db0531c1d5f5c">TByte</a> bytes[size];</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    };</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>}</div>
+<div class="ttc" id="a_dynamic_array_8hpp_html"><div class="ttname"><a href="_dynamic_array_8hpp.html">DynamicArray.hpp</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00015">OSKmacros.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html">OSK::ConstexprBitSet</a></div><div class="ttdoc">Un bitset representa un array de bits.</div><div class="ttdef"><b>Definition:</b> <a href="_constexpr_bit_set_8hpp_source.html#l00014">ConstexprBitSet.hpp:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html_a0aac2f4ae767f20718fb4c283952c8c3"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html#a0aac2f4ae767f20718fb4c283952c8c3">OSK::ConstexprBitSet::ConstexprBitSet</a></div><div class="ttdeci">ConstexprBitSet()</div><div class="ttdoc">Crea un bitset.</div><div class="ttdef"><b>Definition:</b> <a href="_constexpr_bit_set_8hpp_source.html#l00023">ConstexprBitSet.hpp:23</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html_a1cfb3e09504658f4bddf67f18ce5f69c"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html#a1cfb3e09504658f4bddf67f18ce5f69c">OSK::ConstexprBitSet::Get</a></div><div class="ttdeci">bool Get(TSize index) const</div><div class="ttdoc">Devuelve el valor del bit en la posición dada.</div><div class="ttdef"><b>Definition:</b> <a href="_constexpr_bit_set_8hpp_source.html#l00066">ConstexprBitSet.hpp:66</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html_a2ed44d2a40faf6ff664947caf93846b4"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html#a2ed44d2a40faf6ff664947caf93846b4">OSK::ConstexprBitSet::SetTrue</a></div><div class="ttdeci">void SetTrue(TSize index)</div><div class="ttdoc">Establece el valor del bit dado a 1.</div><div class="ttdef"><b>Definition:</b> <a href="_constexpr_bit_set_8hpp_source.html#l00036">ConstexprBitSet.hpp:36</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html_a38329a6523ad679a76be70f2c9faff16"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html#a38329a6523ad679a76be70f2c9faff16">OSK::ConstexprBitSet::SetValue</a></div><div class="ttdeci">void SetValue(TSize index, bool value)</div><div class="ttdoc">Establece el valor del bit en la posición dada.</div><div class="ttdef"><b>Definition:</b> <a href="_constexpr_bit_set_8hpp_source.html#l00054">ConstexprBitSet.hpp:54</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html_a676f02631856b21434e2ee88540add93"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html#a676f02631856b21434e2ee88540add93">OSK::ConstexprBitSet::IsCompatible</a></div><div class="ttdeci">bool IsCompatible(const ConstexprBitSet &amp;other) const</div><div class="ttdoc">Comprueba si el otro bitset tiene en 1 los bits que este tiene en 1.</div><div class="ttdef"><b>Definition:</b> <a href="_constexpr_bit_set_8hpp_source.html#l00122">ConstexprBitSet.hpp:122</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html_a8d016d47a6859f533ed6e7ecfb67e4a1"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html#a8d016d47a6859f533ed6e7ecfb67e4a1">OSK::ConstexprBitSet::GetData</a></div><div class="ttdeci">TByte * GetData() const</div><div class="ttdoc">Array con los bits.</div><div class="ttdef"><b>Definition:</b> <a href="_constexpr_bit_set_8hpp_source.html#l00142">ConstexprBitSet.hpp:142</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html_aa38919327c6e8810f8b2304a2d25ce8b"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html#aa38919327c6e8810f8b2304a2d25ce8b">OSK::ConstexprBitSet::SetFalse</a></div><div class="ttdeci">void SetFalse(TSize index)</div><div class="ttdoc">Establece el valor del bit dado a 0.</div><div class="ttdef"><b>Definition:</b> <a href="_constexpr_bit_set_8hpp_source.html#l00044">ConstexprBitSet.hpp:44</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html_aaef70ed63eefe042a55d2ad352a86368"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html#aaef70ed63eefe042a55d2ad352a86368">OSK::ConstexprBitSet::IsAllFalse</a></div><div class="ttdeci">bool IsAllFalse() const</div><div class="ttdoc">Comprueba si todos los bits valen 0.</div><div class="ttdef"><b>Definition:</b> <a href="_constexpr_bit_set_8hpp_source.html#l00103">ConstexprBitSet.hpp:103</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html_ac43b194a8c7bb84b4e098770d2314b84"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html#ac43b194a8c7bb84b4e098770d2314b84">OSK::ConstexprBitSet::GetNextTrueIndex</a></div><div class="ttdeci">TSize GetNextTrueIndex(TSize initialIndex=0) const</div><div class="ttdoc">Devuelve el índice del siguiente bit en la secuencia que es 1.</div><div class="ttdef"><b>Definition:</b> <a href="_constexpr_bit_set_8hpp_source.html#l00080">ConstexprBitSet.hpp:80</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html_ace730fdd308ea782b50cb8a2caa48942"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html#ace730fdd308ea782b50cb8a2caa48942">OSK::ConstexprBitSet::Reset</a></div><div class="ttdeci">void Reset()</div><div class="ttdoc">Establece el valor de todos los bits a 0.</div><div class="ttdef"><b>Definition:</b> <a href="_constexpr_bit_set_8hpp_source.html#l00149">ConstexprBitSet.hpp:149</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html_ad24c35fd64629d2a5cdd55d2a6e3542e"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html#ad24c35fd64629d2a5cdd55d2a6e3542e">OSK::ConstexprBitSet::IsAllTrue</a></div><div class="ttdeci">bool IsAllTrue() const</div><div class="ttdoc">Comprueba si todos los bits valen 1.</div><div class="ttdef"><b>Definition:</b> <a href="_constexpr_bit_set_8hpp_source.html#l00114">ConstexprBitSet.hpp:114</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html_ad2907fb8b5cf843d2d0207124ecd6053"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html#ad2907fb8b5cf843d2d0207124ecd6053">OSK::ConstexprBitSet::GetLength</a></div><div class="ttdeci">TSize GetLength() const</div><div class="ttdoc">Número de bits.</div><div class="ttdef"><b>Definition:</b> <a href="_constexpr_bit_set_8hpp_source.html#l00133">ConstexprBitSet.hpp:133</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00007">Assert.h:7</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a13be6d03821c950ec38db0531c1d5f5c"><div class="ttname"><a href="namespace_o_s_k.html#a13be6d03821c950ec38db0531c1d5f5c">OSK::TByte</a></div><div class="ttdeci">uint8_t TByte</div><div class="ttdef"><b>Definition:</b> <a href="_constexpr_bit_set_8hpp_source.html#l00007">ConstexprBitSet.hpp:7</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_constexpr_bit_set_8hpp.html">ConstexprBitSet.hpp</a></li>
+    <li class="footer">Generado el Miércoles, 20 de Abril de 2022 00:28:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

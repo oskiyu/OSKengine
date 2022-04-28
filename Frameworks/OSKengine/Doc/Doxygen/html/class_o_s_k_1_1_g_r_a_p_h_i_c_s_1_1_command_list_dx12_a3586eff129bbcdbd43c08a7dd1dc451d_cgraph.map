@@ -1,0 +1,9 @@
+<map id="OSK::GRAPHICS::CommandListDx12::EndRenderpass" name="OSK::GRAPHICS::CommandListDx12::EndRenderpass">
+<area shape="rect" id="node1" title="Finaliza el renderizado a un renderpass." alt="" coords="5,122,219,163"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a40fa23067ee2ddad4e14256c32e41ffd" title=" " alt="" coords="267,5,496,32"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#abbf1668873549c12b0bc43afd19304a3" title="Devuelve el índice de la imagen renderizada en un momento dado." alt="" coords="282,57,481,98"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#aa6fc104e2156cf8e7058ce230baf2171" title="Devuelve la imagen con el índice dado." alt="" coords="279,122,484,163"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a3b9ac6ab106829829168b113b900140b" title=" " alt="" coords="280,187,483,229"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a2563849de6c373442c2f91ed62c36f99" title="Comprueba si un renderpass es un renderpass intermedio o el renderpass final que renderiza la imagen ..." alt="" coords="279,253,484,294"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#aff4dfdee3150200aa00b17d89870ed6e" title=" " alt="" coords="544,122,749,163"/>
+</map>

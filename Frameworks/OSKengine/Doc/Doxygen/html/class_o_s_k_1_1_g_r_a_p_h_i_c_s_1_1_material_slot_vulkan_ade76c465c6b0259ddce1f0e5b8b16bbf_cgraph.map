@@ -1,0 +1,7 @@
+<map id="OSK::GRAPHICS::MaterialSlotVulkan::SetGpuImage" name="OSK::GRAPHICS::MaterialSlotVulkan::SetGpuImage">
+<area shape="rect" id="node1" title="Establece la imagen que será asignada al binding con el nombre dado. Puede usarse esta función para a..." alt="" coords="5,78,208,119"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a6bc3268b57ede5f9f0541b20d12dfea0" title=" " alt="" coords="257,5,473,32"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042" title="Devuelve el puntero nativo." alt="" coords="273,56,458,83"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90" title="Devuelve el número de elementos almacenados." alt="" coords="291,107,439,149"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a7a1845df7f0113a0285adfbea469df90" title="Obtiene el slot con el nombre dado, si existe." alt="" coords="256,173,475,214"/>
+</map>

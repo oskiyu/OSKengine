@@ -1,0 +1,9 @@
+<map id="OSK::GRAPHICS::IRenderer::UploadImageToGpu" name="OSK::GRAPHICS::IRenderer::UploadImageToGpu">
+<area shape="rect" id="node1" title="Rellena la imagen en la GPU con los datos dados." alt="" coords="653,39,841,80"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html#a64796c79bab29f0c01f547501e1a87c9" title="Carga el asset." alt="" coords="405,5,605,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#a5db23936cef420c1ba8253b95d78b2fc" title="Genera la imagen de la fuente para el tamaño de letra dado." alt="" coords="429,71,581,112"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#a6ae51ef135fdb7fc4ce7c74b1f1d7c9d" title="Devuelve la información de una instancia de la fuente con el tamaño dado." alt="" coords="205,41,357,83"/>
+<area shape="rect" id="node7" href="$class_game1.html#a738ffccb5910f1f15136680903ea4159" title="Función ejecutada al cargar el juego." alt="" coords="218,107,345,134"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#aa3293489bd66420daddc77ebaa3db9d0" title="Devuelve la información de un carácter para un tamaño de fuente dado." alt="" coords="5,8,157,49"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#ade45e73e10aa64e88aa424d4affbc763" title="Devuelve la imagen de GPU correspondiente a la fuente del tamaño dado." alt="" coords="5,73,157,115"/>
+</map>

@@ -1,0 +1,21 @@
+<map id="OSK::GRAPHICS::SyncDeviceVulkan::UpdateCurrentFrameIndex" name="OSK::GRAPHICS::SyncDeviceVulkan::UpdateCurrentFrameIndex">
+<area shape="rect" id="node1" title=" " alt="" coords="5,111,227,152"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#a9f3d2735d7bb54ecb4056d5284cb686f" title=" " alt="" coords="777,5,975,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#ad1589571a0e00a84e0687f4c9bd82813" title=" " alt="" coords="275,111,471,152"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#a5eed4a14de2b74443b5da96486cbd0d4" title="Recrea el swapchain con el tamaño de la ventana. Para cuando se ha cambiado de tamaño la ventana." alt="" coords="275,237,471,279"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#ab115168a15873e46b9da9ba3442782c9" title="Crea el swapchain. Obtiene automáticamente el tamaño de las imágenes a partir del tamaño de la ventan..." alt="" coords="519,237,715,279"/>
+<area shape="rect" id="node19" href="$class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00" title=" " alt="" coords="527,303,706,330"/>
+<area shape="rect" id="node6" href="$namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa15e92a412a9d26d5213e4f716762081" title="Obtiene la representación nativa del formato para Vulkan." alt="" coords="779,71,973,112"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#aee5a2fabcfefd4fc26f06f30f2d83ed5" title=" " alt="" coords="777,136,975,177"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b" title=" " alt="" coords="793,202,959,229"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#aa66415743a9c4fa79891e6a1aaf11543" title="Devuelve información sobre las colas soportadas por esta GPU." alt="" coords="777,253,975,295"/>
+<area shape="rect" id="node14" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#aea2f9eabd4f091110f92af0af9b0be4e" title=" " alt="" coords="777,319,975,360"/>
+<area shape="rect" id="node15" href="$class_o_s_k_1_1_i_o_1_1_window.html#aa7f9f244691159612d42ddbc1fdc9288" title="Devuelve el tamaño de la ventana, en píxeles." alt="" coords="763,385,989,411"/>
+<area shape="rect" id="node16" href="$class_o_s_k_1_1_i_o_1_1_logger.html#a3d2a88ffa05f6a74f9d669f1182bacca" title="Manda un mensaje de información." alt="" coords="793,435,959,462"/>
+<area shape="rect" id="node18" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#adf67807c5a0ccb1d3ccf4585e8197e9e" title="Establece las imágenes del swapchain donde se va a renderizar (para pantalla)." alt="" coords="773,487,979,528"/>
+<area shape="rect" id="node10" href="$class_o_s_k_1_1_dynamic_array.html#a6560c13598111f1aa6b53357ae120116" title="Crea un DynamicArray con un número de elementos ya creados e insertados." alt="" coords="1037,253,1185,295"/>
+<area shape="rect" id="node11" href="$class_o_s_k_1_1_dynamic_array.html#adcbd5bb6ce88469bc9e6f65be06ceae6" title="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda. Se añaden elementos hasta q..." alt="" coords="1233,253,1381,295"/>
+<area shape="rect" id="node12" href="$class_o_s_k_1_1_dynamic_array.html#a34323ddf4963e2097def5d8c3f80c08e" title="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda." alt="" coords="1429,253,1577,295"/>
+<area shape="rect" id="node13" href="$class_o_s_k_1_1_dynamic_array.html#acf322bf27bf4bfd581079500c67171a6" title="Reserva espacio para &#39;size&#39; elementos. Preserva los elementos anteriores." alt="" coords="1625,253,1773,295"/>
+<area shape="rect" id="node17" href="$class_o_s_k_1_1_i_o_1_1_logger.html#ac2af30faaa120261990f4deb1b566e7b" title="Manda un mensaje por el logger." alt="" coords="1038,435,1185,462"/>
+</map>

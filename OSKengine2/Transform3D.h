@@ -18,49 +18,56 @@ namespace OSK::ECS {
 
 		/// <summary>
 		/// Establece la posición.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="position">Nueva posición respecto al padre.</param>
 		void SetPosition(const Vector3f& position);
 
 		/// <summary>
 		/// Establece la escala.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="scale">Nueva escala respecto al padre.</param>
 		void SetScale(const Vector3f& scale);
 
 		/// <summary>
 		/// Establece la rotación.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="rotation">Nueva rotación respecto al padre.</param>
 		void SetRotation(const Quaternion& rotation);
 
 		/// <summary>
 		/// Suma el vector 3D a la posición.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="positionDelta">Posición a añadir.</param>
 		void AddPosition(const Vector3f& positionDelta);
 
 		/// <summary>
 		/// Suma un vector 3D a la escala.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="scaleDelta">Escala a añadir.</param>
 		void AddScale(const Vector3f& scaleDelta);
 
 		/// <summary>
 		/// Aplica una rotación al transform.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="rotationDelta">Rotación a aplicar.</param>
 		void ApplyRotation(const Quaternion& rotationDelta);
 
 		/// <summary>
 		/// Rota el transform respecto a sí mismo.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="angle">Ángulo.</param>
 		/// <param name="axis">Eje sobre el que se rota.</param>
@@ -68,7 +75,8 @@ namespace OSK::ECS {
 
 		/// <summary>
 		/// Rota el transform respecto al mundo.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="angle">Ángulo.</param>
 		/// <param name="axis">Eje sobre el que se rota.</param>

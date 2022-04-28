@@ -3,6 +3,7 @@
 namespace OSK::GRAPHICS {
 
 	enum class RenderApiType {
+		/// @deprecated OpenGL no implementado.
 		OPENGL,
 		VULKAN,
 		DX12,

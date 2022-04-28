@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::ISwapchain" name="OSK::GRAPHICS::ISwapchain">
+<area shape="rect" id="node1" title="Un swapchain es una estructura encargada de manejar el cambio de imagenes que son representadas en el..." alt="" coords="137,5,335,244"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html" title="Un swapchain es una estructura encargada de manejar el cambio de imagenes que son representadas en el..." alt="" coords="5,292,232,487"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html" title=" " alt="" coords="257,314,453,465"/>
+</map>

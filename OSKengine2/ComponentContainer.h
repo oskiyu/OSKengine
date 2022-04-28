@@ -59,6 +59,8 @@ namespace OSK::ECS {
 		/// Elimina el componente cuyo dueño es el dado.
 		/// </summary>
 		/// <param name="obj">Dueño del componente.</param>
+		/// 
+		/// @warning No comprueba que el objeto tenga el componente.
 		void RemoveComponent(GameObjectIndex obj) {
 			ComponentIndex compIndex = objectToComponent.Get(obj);
 			TSize indexOfLast = components.GetSize() - 1;
@@ -85,6 +87,8 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Devuelve una referencia al componente del objeto dado.
 		/// </summary>
+		/// 
+		/// @warning No comprueba que el objeto tenga el componente.
 		TComponent& GetComponent(GameObjectIndex obj) const {
 			return components.At(objectToComponent.Get(obj));
 		}
@@ -92,6 +96,8 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Elimina el componente del objeto eliminado.
 		/// </summary>
+		/// 
+		/// @warning No comprueba que el objeto tenga el componente.
 		void GameObjectDestroyerd(GameObjectIndex obj) override {
 			RemoveComponent(obj);
 		}

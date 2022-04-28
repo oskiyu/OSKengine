@@ -1,0 +1,4 @@
+<map id="OSK::GRAPHICS::ISwapchain::GetImage" name="OSK::GRAPHICS::ISwapchain::GetImage">
+<area shape="rect" id="node1" title="Devuelve la imagen con el índice dado." alt="" coords="256,5,455,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html#aa78fbc80b9eacfefb79b4b34f873036c" title=" " alt="" coords="5,5,208,47"/>
+</map>

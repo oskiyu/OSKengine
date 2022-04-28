@@ -1,0 +1,10 @@
+<map id="OSK::GRAPHICS::SwapchainDx12::CreateImages" name="OSK::GRAPHICS::SwapchainDx12::CreateImages">
+<area shape="rect" id="node1" title=" " alt="" coords="5,158,201,199"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#a1b0e5d22fed49696034d38442892121c" title="Castea la clase al tipo dado." alt="" coords="271,5,455,32"/>
+<area shape="rect" id="node3" href="$_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e" title=" " alt="" coords="322,56,403,83"/>
+<area shape="rect" id="node4" href="$namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a100a7488e1eee158da65062d0b5e5277" title="Obtiene la representación nativa del formato para DirectX 12." alt="" coords="250,107,475,133"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a8b6b1698afeb3bb07f3b91e5ddb79b2d" title=" " alt="" coords="269,158,457,199"/>
+<area shape="rect" id="node6" href="$namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ac499da78f73320a680f1e7823c7aa60f" title=" " alt="" coords="253,223,472,265"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00" title=" " alt="" coords="273,289,452,316"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_i_o_1_1_window.html#aa7f9f244691159612d42ddbc1fdc9288" title="Devuelve el tamaño de la ventana, en píxeles." alt="" coords="249,340,476,367"/>
+</map>

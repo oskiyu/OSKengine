@@ -1,0 +1,4 @@
+<map id="OSK::GRAPHICS::CommandListDx12::BindUniformBufferDx12" name="OSK::GRAPHICS::CommandListDx12::BindUniformBufferDx12">
+<area shape="rect" id="node1" title=" " alt="" coords="267,5,480,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a91bb2e65a00b95212c04426c942c1105" title="Establece un material slot que estará asignado en los próximos comandos de renderizado...." alt="" coords="5,5,219,47"/>
+</map>

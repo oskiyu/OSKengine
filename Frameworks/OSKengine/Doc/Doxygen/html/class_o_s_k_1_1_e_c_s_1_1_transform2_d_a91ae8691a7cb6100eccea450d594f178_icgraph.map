@@ -1,0 +1,5 @@
+<map id="OSK::ECS::Transform2D::GetPosition" name="OSK::ECS::Transform2D::GetPosition">
+<area shape="rect" id="node1" title="Vector posición en el mundo 2D." alt="" coords="523,5,689,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#a71d1244d09ce7a404779cb5acfb2cf31" title="Devuelve la matriz proyección de la cámara." alt="" coords="264,5,475,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#a630de7348f82ab9d7b835c6c94efeca9" title="Actualiza el buffer en la GPU." alt="" coords="5,5,216,47"/>
+</map>

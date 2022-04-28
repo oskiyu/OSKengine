@@ -20,12 +20,16 @@ namespace OSK::ECS {
 
 		/// <summary>
 		/// FoV de la cámara.
-		/// ~Zoom de la cámara.
+		/// 
+		/// @note Zoom de la cámara.
 		/// </summary>
 		float GetFov() const;
 
 		/// <summary>
 		/// Establece el FoV de la cámara, si está en los límites de FoV.
+		/// 
+		/// @note Si el valor está fuera de los límites, se pondrá el valor válido
+		/// más cercano.
 		/// </summary>
 		void SetFov(float fov);
 
@@ -38,6 +42,8 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Establece los límites mínimos y máximos de field of view.
 		/// </summary>
+		/// 
+		/// @throws std::runtime_exception Si min >= max.
 		void SetFovLimits(float min, float max);
 
 
@@ -58,6 +64,8 @@ namespace OSK::ECS {
 		/// Se renderizarán los objetos que estén dentro de los
 		/// límites.
 		/// </summary>
+		/// 
+		/// @throws std::runtime_exception si near >= far.
 		void SetPlanes(float near, float far);
 
 

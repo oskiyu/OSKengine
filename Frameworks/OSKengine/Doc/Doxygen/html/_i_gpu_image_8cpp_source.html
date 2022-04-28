@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/IGpuImage.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_i_gpu_image_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">IGpuImage.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_i_gpu_image_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_i_gpu_image_8h.html">IGpuImage.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_i_gpu_memory_block_8h.html">IGpuMemoryBlock.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_i_gpu_memory_subblock_8h.html">IGpuMemorySubblock.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;glm.hpp&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_i_gpu_memory_allocator_8h.html">IGpuMemoryAllocator.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_logger_8h.html">Logger.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_i_renderer_8h.html">IRenderer.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_layout_8h.html">GpuImageLayout.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="_format_8h.html">Format.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aaf768c862448608c00e2b1b928e006cb">   16</a></span>GpuImage::GpuImage(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3ui</a>&amp; size, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ab91ccc08d13454cfeb3c4f78deb72d59">GpuImageDimension</a> dimension, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">GpuImageUsage</a> usage, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> numLayers, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> format)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    : format(format), dimension(dimension), usage(usage), numLayers(numLayers), currentLayout(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9">GpuImageLayout</a>::<a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9a0db45d2a4141101bdfe48e3314cfbca3">UNDEFINED</a>), size(size) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a78533120a067d3edce5dd7cfd86f2285">   21</a></span><a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a78533120a067d3edce5dd7cfd86f2285">GpuImage::~GpuImage</a>() {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">if</span> (buffer)</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        block-&gt;RemoveSubblock(buffer);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#acf03703bbb6f031f905612d86f104b38">GetMemoryAllocator</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a6b7676a476f7cd0db5f9b4634ef0c852">RemoveImageBlock</a>(block.GetPointer());</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    block.Delete();</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a7fc227e3e5ff1a6c8c384e668ec7c281">   29</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a7fc227e3e5ff1a6c8c384e668ec7c281">GpuImage::SetBlock</a>(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IGpuMemoryBlock&gt;</a> block) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    this-&gt;block = block.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    buffer = block-&gt;GetNextMemorySubblock(block-&gt;GetAllocatedSize());</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ac8ccb6026e41702b87d1d5da50c3af5d">   34</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ac8ccb6026e41702b87d1d5da50c3af5d">GpuImage::SetData</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* data, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size) {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    buffer-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a29f38899723247f6e8c3e2e910f35e70">MapMemory</a>();</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    buffer-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#aa2b51252dea910f22d1bb87f7e9109a3">Write</a>(data, size);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    buffer-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a94d195cd88d1376227eae2ee9a69b6de">Unmap</a>();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a244ebc8ce3ae3095698ea0c3eaba58fc">   40</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3ui</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a244ebc8ce3ae3095698ea0c3eaba58fc">GpuImage::GetSize</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">return</span> size;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#abce3e3ba3ec90fc147c6de62884e55ab">   44</a></span><a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ab91ccc08d13454cfeb3c4f78deb72d59">GpuImageDimension</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#abce3e3ba3ec90fc147c6de62884e55ab">GpuImage::GetDimension</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">return</span> dimension;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a339142f665e7289fafcd8e52cb03f9cb">   48</a></span><a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">GpuImageUsage</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a339142f665e7289fafcd8e52cb03f9cb">GpuImage::GetUsage</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">return</span> usage;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a3f6e78b29f06b1b423ab89377a139b46">   52</a></span><a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a3f6e78b29f06b1b423ab89377a139b46">GpuImage::GetNumLayers</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">return</span> numLayers;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a7fbd0307d9e9147312004fecca6b73ba">   56</a></span><a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a7fbd0307d9e9147312004fecca6b73ba">GpuImage::GetFormat</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">return</span> format;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ab845e22a73caa9ac25a696599e80625e">   60</a></span><a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html">IGpuMemoryBlock</a>* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ab845e22a73caa9ac25a696599e80625e">GpuImage::GetMemory</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">return</span> block.GetPointer();</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>}</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a3c0d6c282ad6b6d21ad25bfecac502b6">   64</a></span><a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html">IGpuMemorySubblock</a>* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a3c0d6c282ad6b6d21ad25bfecac502b6">GpuImage::GetBuffer</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">return</span> buffer;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aa0220799f28ec1c45c888926243867e9">   68</a></span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aa0220799f28ec1c45c888926243867e9">GpuImage::GetMipLevels</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">return</span> mipLevels;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a4cd33700ebbc4b65f7fd53007d7f8b6c">   72</a></span><a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aa0220799f28ec1c45c888926243867e9">GpuImage::GetMipLevels</a>(uint32_t sizeX, uint32_t sizeY) {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordflow">return</span> glm::floor(glm::log2(glm::max((<span class="keywordtype">float</span>)sizeX, (<span class="keywordtype">float</span>)sizeY))) + 1;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a97171829d26c35669ca2df87a8fc5389">   77</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a97171829d26c35669ca2df87a8fc5389">GpuImage::SetLayout</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9">GpuImageLayout</a> layout) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    currentLayout = layout;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ae48a1a723ee92230591f19ecaa9a81e9">   81</a></span><a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9">GpuImageLayout</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ae48a1a723ee92230591f19ecaa9a81e9">GpuImage::GetLayout</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">return</span> currentLayout;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a02b98e8bdd44204ffe0d54e7164c3a8d">   85</a></span><a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a02b98e8bdd44204ffe0d54e7164c3a8d">GpuImage::GetNumberOfBytes</a>() {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordflow">return</span> size.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a9dd92e8b519b62ce53eb71f58eba6d50">X</a> * size.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#afb19e7227d4047f7a666c03cea2b1658">Y</a> * size.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a50505b9a44529ae5aff66a956214549b">Z</a> * <a class="code hl_function" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#abd894ab72db6cb1f2762684830d7354c">GetFormatNumberOfBytes</a>(<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a7fbd0307d9e9147312004fecca6b73ba">GetFormat</a>());</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>}</div>
+<div class="ttc" id="a_format_8h_html"><div class="ttname"><a href="_format_8h.html">Format.h</a></div></div>
+<div class="ttc" id="a_gpu_image_layout_8h_html"><div class="ttname"><a href="_gpu_image_layout_8h.html">GpuImageLayout.h</a></div></div>
+<div class="ttc" id="a_i_gpu_image_8h_html"><div class="ttname"><a href="_i_gpu_image_8h.html">IGpuImage.h</a></div></div>
+<div class="ttc" id="a_i_gpu_memory_allocator_8h_html"><div class="ttname"><a href="_i_gpu_memory_allocator_8h.html">IGpuMemoryAllocator.h</a></div></div>
+<div class="ttc" id="a_i_gpu_memory_block_8h_html"><div class="ttname"><a href="_i_gpu_memory_block_8h.html">IGpuMemoryBlock.h</a></div></div>
+<div class="ttc" id="a_i_gpu_memory_subblock_8h_html"><div class="ttname"><a href="_i_gpu_memory_subblock_8h.html">IGpuMemorySubblock.h</a></div></div>
+<div class="ttc" id="a_i_renderer_8h_html"><div class="ttname"><a href="_i_renderer_8h.html">IRenderer.h</a></div></div>
+<div class="ttc" id="a_logger_8h_html"><div class="ttname"><a href="_logger_8h.html">Logger.h</a></div></div>
+<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00015">OSKmacros.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a019c5397d042224c134b7fd22c739d00"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">OSK::Engine::GetRenderer</a></div><div class="ttdeci">static GRAPHICS::IRenderer * GetRenderer()</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kengine_8cpp_source.html#l00127">OSKengine.cpp:127</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_a02b98e8bdd44204ffe0d54e7164c3a8d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a02b98e8bdd44204ffe0d54e7164c3a8d">OSK::GRAPHICS::GpuImage::GetNumberOfBytes</a></div><div class="ttdeci">TSize GetNumberOfBytes()</div><div class="ttdoc">Devuelve el número de bytes que ocupa esta imagen en la memoria de la GPU</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8cpp_source.html#l00085">IGpuImage.cpp:85</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_a244ebc8ce3ae3095698ea0c3eaba58fc"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a244ebc8ce3ae3095698ea0c3eaba58fc">OSK::GRAPHICS::GpuImage::GetSize</a></div><div class="ttdeci">Vector3ui GetSize() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8cpp_source.html#l00040">IGpuImage.cpp:40</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_a339142f665e7289fafcd8e52cb03f9cb"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a339142f665e7289fafcd8e52cb03f9cb">OSK::GRAPHICS::GpuImage::GetUsage</a></div><div class="ttdeci">GpuImageUsage GetUsage() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8cpp_source.html#l00048">IGpuImage.cpp:48</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_a3c0d6c282ad6b6d21ad25bfecac502b6"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a3c0d6c282ad6b6d21ad25bfecac502b6">OSK::GRAPHICS::GpuImage::GetBuffer</a></div><div class="ttdeci">IGpuMemorySubblock * GetBuffer() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8cpp_source.html#l00064">IGpuImage.cpp:64</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_a3f6e78b29f06b1b423ab89377a139b46"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a3f6e78b29f06b1b423ab89377a139b46">OSK::GRAPHICS::GpuImage::GetNumLayers</a></div><div class="ttdeci">TSize GetNumLayers() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8cpp_source.html#l00052">IGpuImage.cpp:52</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_a78533120a067d3edce5dd7cfd86f2285"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a78533120a067d3edce5dd7cfd86f2285">OSK::GRAPHICS::GpuImage::~GpuImage</a></div><div class="ttdeci">virtual ~GpuImage()</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8cpp_source.html#l00021">IGpuImage.cpp:21</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_a7fbd0307d9e9147312004fecca6b73ba"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a7fbd0307d9e9147312004fecca6b73ba">OSK::GRAPHICS::GpuImage::GetFormat</a></div><div class="ttdeci">Format GetFormat() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8cpp_source.html#l00056">IGpuImage.cpp:56</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_a7fc227e3e5ff1a6c8c384e668ec7c281"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a7fc227e3e5ff1a6c8c384e668ec7c281">OSK::GRAPHICS::GpuImage::SetBlock</a></div><div class="ttdeci">void SetBlock(OwnedPtr&lt; IGpuMemoryBlock &gt; buffer)</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8cpp_source.html#l00029">IGpuImage.cpp:29</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_a97171829d26c35669ca2df87a8fc5389"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a97171829d26c35669ca2df87a8fc5389">OSK::GRAPHICS::GpuImage::SetLayout</a></div><div class="ttdeci">void SetLayout(GpuImageLayout layout)</div><div class="ttdoc">Actualiza el layout de la imagen, para que represente el layout actual.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8cpp_source.html#l00077">IGpuImage.cpp:77</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_aa0220799f28ec1c45c888926243867e9"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aa0220799f28ec1c45c888926243867e9">OSK::GRAPHICS::GpuImage::GetMipLevels</a></div><div class="ttdeci">unsigned int GetMipLevels() const</div><div class="ttdoc">Devuelve el número máximo de miplevels de esta imagen.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8cpp_source.html#l00068">IGpuImage.cpp:68</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_ab845e22a73caa9ac25a696599e80625e"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ab845e22a73caa9ac25a696599e80625e">OSK::GRAPHICS::GpuImage::GetMemory</a></div><div class="ttdeci">IGpuMemoryBlock * GetMemory() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8cpp_source.html#l00060">IGpuImage.cpp:60</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_abce3e3ba3ec90fc147c6de62884e55ab"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#abce3e3ba3ec90fc147c6de62884e55ab">OSK::GRAPHICS::GpuImage::GetDimension</a></div><div class="ttdeci">GpuImageDimension GetDimension() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8cpp_source.html#l00044">IGpuImage.cpp:44</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_ac8ccb6026e41702b87d1d5da50c3af5d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ac8ccb6026e41702b87d1d5da50c3af5d">OSK::GRAPHICS::GpuImage::SetData</a></div><div class="ttdeci">void SetData(const void *data, TSize size)</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8cpp_source.html#l00034">IGpuImage.cpp:34</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_ae48a1a723ee92230591f19ecaa9a81e9"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ae48a1a723ee92230591f19ecaa9a81e9">OSK::GRAPHICS::GpuImage::GetLayout</a></div><div class="ttdeci">GpuImageLayout GetLayout() const</div><div class="ttdoc">Devuelve el layout actual de la imagen.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8cpp_source.html#l00081">IGpuImage.cpp:81</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_html_a6b7676a476f7cd0db5f9b4634ef0c852"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a6b7676a476f7cd0db5f9b4634ef0c852">OSK::GRAPHICS::IGpuMemoryAllocator::RemoveImageBlock</a></div><div class="ttdeci">void RemoveImageBlock(IGpuMemoryBlock *block)</div><div class="ttdoc">Quita uno de los bloques, que ha sido eliminado.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_memory_allocator_8cpp_source.html#l00033">IGpuMemoryAllocator.cpp:33</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html">OSK::GRAPHICS::IGpuMemoryBlock</a></div><div class="ttdoc">Un bloque de memoria representa una región de memoria que ha sidon reservada.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_memory_block_8h_source.html#l00021">IGpuMemoryBlock.h:21</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html">OSK::GRAPHICS::IGpuMemorySubblock</a></div><div class="ttdoc">Representa una región de memoria dedicada a un único recurso.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_memory_subblock_8h_source.html#l00024">IGpuMemorySubblock.h:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock_html_a29f38899723247f6e8c3e2e910f35e70"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a29f38899723247f6e8c3e2e910f35e70">OSK::GRAPHICS::IGpuMemorySubblock::MapMemory</a></div><div class="ttdeci">virtual void MapMemory()=0</div><div class="ttdoc">Mapea toda la memoria del subbloque.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock_html_a94d195cd88d1376227eae2ee9a69b6de"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a94d195cd88d1376227eae2ee9a69b6de">OSK::GRAPHICS::IGpuMemorySubblock::Unmap</a></div><div class="ttdeci">virtual void Unmap()=0</div><div class="ttdoc">Desmapea el subbloque. Debe llamarse al terminar de escribir.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock_html_aa2b51252dea910f22d1bb87f7e9109a3"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#aa2b51252dea910f22d1bb87f7e9109a3">OSK::GRAPHICS::IGpuMemorySubblock::Write</a></div><div class="ttdeci">virtual void Write(const void *data, TSize size)=0</div><div class="ttdoc">Escribe información en la GPU.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_acf03703bbb6f031f905612d86f104b38"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#acf03703bbb6f031f905612d86f104b38">OSK::GRAPHICS::IRenderer::GetMemoryAllocator</a></div><div class="ttdeci">IGpuMemoryAllocator * GetMemoryAllocator() const</div><div class="ttdef"><b>Definition:</b> <a href="_renderer_8cpp_source.html#l00024">Renderer.cpp:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition:</b> <a href="_owned_ptr_8h_source.html#l00016">OwnedPtr.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a81dfab2299056fc9858aace55fca0042"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">OSK::OwnedPtr::GetPointer</a></div><div class="ttdeci">T * GetPointer() const</div><div class="ttdoc">Devuelve el puntero nativo.</div><div class="ttdef"><b>Definition:</b> <a href="_owned_ptr_8h_source.html#l00069">OwnedPtr.h:69</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html">OSK::Vector3_t&lt; uint32_t &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_a50505b9a44529ae5aff66a956214549b"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#a50505b9a44529ae5aff66a956214549b">OSK::Vector3_t::Z</a></div><div class="ttdeci">T Z</div><div class="ttdoc">Representa la tercera coordenada.</div><div class="ttdef"><b>Definition:</b> <a href="_vector3_8hpp_source.html#l00341">Vector3.hpp:341</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_a9dd92e8b519b62ce53eb71f58eba6d50"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#a9dd92e8b519b62ce53eb71f58eba6d50">OSK::Vector3_t::X</a></div><div class="ttdeci">T X</div><div class="ttdoc">Representa la primera coordenada.</div><div class="ttdef"><b>Definition:</b> <a href="_vector3_8hpp_source.html#l00331">Vector3.hpp:331</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_afb19e7227d4047f7a666c03cea2b1658"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#afb19e7227d4047f7a666c03cea2b1658">OSK::Vector3_t::Y</a></div><div class="ttdeci">T Y</div><div class="ttdoc">Representa la segunda coordenada.</div><div class="ttdef"><b>Definition:</b> <a href="_vector3_8hpp_source.html#l00336">Vector3.hpp:336</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_command_list_dx12_8h_source.html#l00012">CommandListDx12.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a19a2f70fc994c00eb022e520608c5ffa"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">OSK::GRAPHICS::GpuImageUsage</a></div><div class="ttdeci">GpuImageUsage</div><div class="ttdoc">Uso que se le va a dar a la imagen.</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_usage_8h_source.html#l00012">GpuImageUsage.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a20f40e3d3e967090ee1884e0c77b9df9"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9">OSK::GRAPHICS::GpuImageLayout</a></div><div class="ttdeci">GpuImageLayout</div><div class="ttdoc">Define el layout actual de una imagen.</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_layout_8h_source.html#l00015">GpuImageLayout.h:15</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a20f40e3d3e967090ee1884e0c77b9df9a0db45d2a4141101bdfe48e3314cfbca3"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9a0db45d2a4141101bdfe48e3314cfbca3">OSK::GRAPHICS::GpuImageLayout::UNDEFINED</a></div><div class="ttdeci">@ UNDEFINED</div><div class="ttdoc">Sin definir / no nos importa.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aac59f9d056e083c0b49ea768f974e3e8"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">OSK::GRAPHICS::Format</a></div><div class="ttdeci">Format</div><div class="ttdoc">Formatos que puede tener una textura / imagen.</div><div class="ttdef"><b>Definition:</b> <a href="_format_8h_source.html#l00008">Format.h:8</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_ab91ccc08d13454cfeb3c4f78deb72d59"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ab91ccc08d13454cfeb3c4f78deb72d59">OSK::GRAPHICS::GpuImageDimension</a></div><div class="ttdeci">GpuImageDimension</div><div class="ttdoc">Dimensiones posibles de una imagen.</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_dimensions_8h_source.html#l00008">GpuImageDimensions.h:8</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_abd894ab72db6cb1f2762684830d7354c"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#abd894ab72db6cb1f2762684830d7354c">OSK::GRAPHICS::GetFormatNumberOfBytes</a></div><div class="ttdeci">unsigned int GetFormatNumberOfBytes(Format format)</div><div class="ttdoc">Devuelve el número de bytes que ocupa un píxel de un formato dado.</div><div class="ttdef"><b>Definition:</b> <a href="_format_8cpp_source.html#l00050">Format.cpp:50</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00007">Assert.h:7</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_i_gpu_image_8cpp.html">IGpuImage.cpp</a></li>
+    <li class="footer">Generado el Miércoles, 20 de Abril de 2022 00:28:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

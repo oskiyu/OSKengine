@@ -1,0 +1,5 @@
+<map id="OSK::ECS::CameraComponent2D::PointInWindowToPointInWorld" name="OSK::ECS::CameraComponent2D::PointInWindowToPointInWorld">
+<area shape="rect" id="node1" title="Transforma un punto 2D en la ventana al punto 2D al que apunta la cámara en el mundo 2D." alt="" coords="5,23,219,65"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_engine.html#a96eab59df83d63ab65869fea551bb272" title=" " alt="" coords="293,5,467,32"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_i_o_1_1_window.html#aa7f9f244691159612d42ddbc1fdc9288" title="Devuelve el tamaño de la ventana, en píxeles." alt="" coords="267,56,493,83"/>
+</map>

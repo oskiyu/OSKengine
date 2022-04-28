@@ -17,7 +17,8 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Añade el slot dado al layout.
 		/// El nombre del slot se usará como llave.
-		/// No pueden haber dos slots con el mismo nombre.
+		/// 
+		/// @warning No pueden haber dos slots con el mismo nombre.
 		/// </summary>
 		void AddSlot(const MaterialLayoutSlot& slot);
 
@@ -28,13 +29,15 @@ namespace OSK::GRAPHICS {
 
 		/// <summary>
 		/// Obtiene el slot con el nombre dado, si existe.
-		/// UNSAFE: no se hace comprobación de que el slot existe.
+		/// 
+		/// @warning No se hace comprobación de que el slot existe.
 		/// </summary>
 		MaterialLayoutSlot& GetSlot(const std::string& name) const;
 
 		/// <summary>
 		/// Devuelve el slot push constant con el nombre dado.
-		/// UNSAFE: no se hace comprobación de que el slot existe.
+		/// 
+		/// @warning No se hace comprobación de que el slot existe.
 		/// </summary>
 		MaterialLayoutPushConstant& GetPushConstant(const std::string& name) const;
 

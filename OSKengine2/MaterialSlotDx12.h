@@ -1,7 +1,8 @@
 #pragma once
 
 #include "IMaterialSlot.h"
-#include "HashMap.hpp"
+#include "DynamicArray.hpp"
+#include "Pair.hpp"
 
 namespace OSK::GRAPHICS {
 
@@ -18,13 +19,13 @@ namespace OSK::GRAPHICS {
 		void SetGpuImage(const std::string& binding, const GpuImage* image) override;
 		void FlushUpdate() override;
 
-		const HashMap<TSize, GpuUniformBufferDx12*>& GetUniformBuffers() const;
-		const HashMap<TSize, GpuImageDx12*>& GetGpuImages() const;
+		const DynamicArray<Pair<TSize, const GpuUniformBufferDx12*>>& GetUniformBuffers() const;
+		const DynamicArray<Pair<TSize, const GpuImageDx12*>>& GetGpuImages() const;
 
 	private:
 
-		HashMap<TSize, GpuUniformBufferDx12*> buffers;
-		HashMap<TSize, GpuImageDx12*> images;
+		DynamicArray<Pair<TSize, const GpuUniformBufferDx12*>> buffers;
+		DynamicArray<Pair<TSize, const GpuImageDx12*>> images;
 
 	};
 

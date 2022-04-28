@@ -1,0 +1,4 @@
+<map id="OSK::GRAPHICS::IGpuMemoryAllocator::CreateIndexBuffer" name="OSK::GRAPHICS::IGpuMemoryAllocator::CreateIndexBuffer">
+<area shape="rect" id="node1" title="Crea un buffer de índices con los índices dados." alt="" coords="200,5,407,47"/>
+<area shape="rect" id="node2" href="$class_game1.html#a3cc88f4668e083f56923350a7553bc9d" title="Debe inicializar el renderizador del Engine." alt="" coords="5,13,152,39"/>
+</map>

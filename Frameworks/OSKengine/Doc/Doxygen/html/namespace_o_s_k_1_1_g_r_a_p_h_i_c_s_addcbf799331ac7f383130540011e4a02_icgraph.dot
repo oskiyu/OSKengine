@@ -1,0 +1,13 @@
+digraph "OSK::GRAPHICS::GetColorFormat"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="OSK::GRAPHICS::GetColorFormat",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Devuelve un formato de color que tenga el número de canales deseado."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::ASSETS::CubemapTexture\lLoader::Load",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_loader.html#a015b1daa6d8d910f7337bc513c8d3285",tooltip="Carga el asset."];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="OSK::ASSETS::TextureLoader\l::Load",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html#a64796c79bab29f0c01f547501e1a87c9",tooltip="Carga el asset."];
+}

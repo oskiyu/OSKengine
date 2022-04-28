@@ -1,0 +1,6 @@
+<map id="Representación gráfica de la clase" name="Representación gráfica de la clase">
+<area shape="rect" id="node1" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html" title="Proporciona la interfaz de un renderizador." alt="" coords="5,56,193,83"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html" title="Implementación de la interfaz para el renderizador de DirectX 12." alt="" coords="247,5,461,32"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html" title=" " alt="" coords="251,56,457,83"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html" title="Implementación de la interfaz para el renderizador de Vulkan." alt="" coords="241,107,467,133"/>
+</map>

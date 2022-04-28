@@ -1,0 +1,11 @@
+<map id="OSK::HashMap::Insert" name="OSK::HashMap::Insert">
+<area shape="rect" id="node1" title="Inserta una nueva pareja." alt="" coords="5,56,159,83"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_hash_map.html#aa836809f36d28d9d40dcf7c8ef3fa452" title="Inserta una nueva pareja." alt="" coords="207,56,389,83"/>
+<area shape="rect" id="node3" href="$namespace_o_s_k.html#a04b5e685357657e277fd7bc30efd93ba" title=" " alt="" coords="477,5,565,32"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_hash_map.html#a6efc5db5461f07e149a4f238f7ba32f2" title="Elimina una pareja. Si no existe la pareja, no ocurre nada." alt="" coords="437,56,604,83"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_bit_set.html#a7f8cdfbe7015e24e8a2497979ecf5380" title="Establece el valor del bit dado a 1." alt="" coords="656,107,803,133"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_bit_set.html#a8cd199b685c32164225ec2e8d1cb0906" title="Establece el valor del bit dado a 0." alt="" coords="652,56,807,83"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_bit_set.html#a6a6452952af49f3f7e15634bef33fde4" title="Establece el valor del bit en la posición dada." alt="" coords="855,81,1009,108"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_dynamic_array.html#a9691f5eaf46654d59525c6c342d69cbb" title="Devuelve el elemento en la posición dada." alt="" coords="1057,81,1219,108"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef" title="Devuelve true si el array se ha inicializado." alt="" coords="1267,74,1415,115"/>
+</map>

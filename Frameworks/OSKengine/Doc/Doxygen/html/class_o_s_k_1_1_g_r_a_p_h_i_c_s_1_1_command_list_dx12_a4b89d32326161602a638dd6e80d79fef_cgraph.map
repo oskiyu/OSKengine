@@ -1,0 +1,11 @@
+<map id="OSK::GRAPHICS::CommandListDx12::CopyBufferToImage" name="OSK::GRAPHICS::CommandListDx12::CopyBufferToImage">
+<area shape="rect" id="node1" title="Copia la imagen guardada en un buffer a una imagen en la GPU. Para poder subir una imagen a la GPU,..." alt="" coords="5,224,219,265"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a184a8433d5967eea3dd00fd988d3dff2" title=" " alt="" coords="276,5,483,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a3c0d6c282ad6b6d21ad25bfecac502b6" title=" " alt="" coords="283,71,475,112"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a7fbd0307d9e9147312004fecca6b73ba" title=" " alt="" coords="283,136,475,177"/>
+<area shape="rect" id="node5" href="$namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a100a7488e1eee158da65062d0b5e5277" title="Obtiene la representación nativa del formato para DirectX 12." alt="" coords="267,202,492,229"/>
+<area shape="rect" id="node6" href="$namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#abd894ab72db6cb1f2762684830d7354c" title="Devuelve el número de bytes que ocupa un píxel de un formato dado." alt="" coords="282,253,477,295"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a0e688b372c65d28e21d562528355a08d" title=" " alt="" coords="271,319,488,360"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a244ebc8ce3ae3095698ea0c3eaba58fc" title=" " alt="" coords="283,384,475,425"/>
+<area shape="rect" id="node9" href="$_command_list_dx12_8cpp.html#adcaf6e3171c25be65e6a9f66fe794db1" title=" " alt="" coords="335,450,423,477"/>
+</map>

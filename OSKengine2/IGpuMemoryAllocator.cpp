@@ -11,7 +11,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-IGpuMemoryAllocator::TSize IGpuMemoryAllocator::SizeOfMemoryBlockInMb = 128;
+TSize IGpuMemoryAllocator::SizeOfMemoryBlockInMb = 128;
 
 bool GpuBufferMemoryBlockInfo::operator==(const GpuBufferMemoryBlockInfo& other) const {
 	return size == other.size && usage == other.usage && sharedType == other.sharedType;

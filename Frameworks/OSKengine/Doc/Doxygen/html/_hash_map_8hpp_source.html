@@ -1,0 +1,432 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/HashMap.hpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_hash_map_8hpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">HashMap.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_hash_map_8hpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_dynamic_array_8hpp.html">DynamicArray.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_pair_8hpp.html">Pair.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_constexpr_bit_set_8hpp.html">ConstexprBitSet.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a> {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="namespace_o_s_k.html#a04b5e685357657e277fd7bc30efd93ba">    9</a></span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keywordtype">size_t</span> <a class="code hl_function" href="namespace_o_s_k.html#a04b5e685357657e277fd7bc30efd93ba">Hash</a>(<span class="keyword">const</span> T&amp; elem) {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        <span class="keyword">static</span> std::hash&lt;T&gt; hasher;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        <span class="keywordflow">return</span> hasher(elem);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    }</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html">   26</a></span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TKey, <span class="keyword">typename</span> TValue, TSize numBuckets = 512&gt; <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">HashMap</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html#a9830fc407400559db7e7783cc10a9394">   28</a></span>        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_hash_map_1_1_iterator.html">Iterator</a>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html#a848e29a51804d0f08d1bb77d01535afb">   35</a></span>        <span class="keyword">typedef</span> <a class="code hl_class" href="struct_o_s_k_1_1_pair.html">Pair&lt;TKey, TValue&gt;</a> <a class="code hl_typedef" href="class_o_s_k_1_1_hash_map.html#a848e29a51804d0f08d1bb77d01535afb">TPair</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html#a7163ff908417c24b4a10af69359cbcb8">   40</a></span>        <span class="keyword">typedef</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;Pair&lt;TKey, TValue&gt;</a>&gt; <a class="code hl_typedef" href="class_o_s_k_1_1_hash_map.html#a7163ff908417c24b4a10af69359cbcb8">TBucket</a>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map_1_1_iterator.html">   52</a></span>        <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_hash_map_1_1_iterator.html">Iterator</a> {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#ab6054287e6f409207af3fa16e49046ad">   54</a></span>            <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">HashMap</a>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#a99ccc3a8c006db8b4c62f64d7c60d18c">   65</a></span>            <a class="code hl_function" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#a99ccc3a8c006db8b4c62f64d7c60d18c">Iterator</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">HashMap</a>* map, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">TBucket</a>* bucket, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> inBucketIndex, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> bucketIndex)</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                : map(map), bucket(bucket), inBucketIndex(inBucketIndex), bucketIndex(bucketIndex) {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#ac4632c259c0243f5353121d79be02856">   75</a></span>            <a class="code hl_class" href="class_o_s_k_1_1_hash_map_1_1_iterator.html">Iterator</a> <a class="code hl_function" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#ac4632c259c0243f5353121d79be02856">operator++</a>() {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                inBucketIndex++;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                <span class="comment">// Si ya no quedan más elementos en el cubo actual,</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                <span class="comment">// pasamos al siguiente cubo.</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                <span class="keywordflow">while</span> (inBucketIndex &gt;= bucket-&gt;<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90">GetSize</a>()) {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                    inBucketIndex = 0;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                    bucketIndex++;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                    bucketIndex = map-&gt;occupiedBuckets.GetNextTrueIndex(bucketIndex);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                    <span class="keywordflow">if</span> (bucketIndex == 0) {</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                        <span class="comment">// Si hemos vuelto al principio, hemos terminado de recorrer la colección.</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                        *<span class="keyword">this</span> = map-&gt;<a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#a0e08b4430ff64194bd6f8a0209a00449">end</a>();</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                    }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                    <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                        bucket = map-&gt;<a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#ae9cc822ad54aa485d8385eb8cee5acb5">GetBucket</a>(bucketIndex);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                    }</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                }</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#a79c0cdcbc6eb1f6c5541ab90f4830bd9">  105</a></span>            <a class="code hl_class" href="class_o_s_k_1_1_hash_map_1_1_iterator.html">Iterator</a> <a class="code hl_function" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#a79c0cdcbc6eb1f6c5541ab90f4830bd9">operator--</a>() {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                <span class="keywordflow">if</span> (inBucketIndex &gt; 0) {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                    inBucketIndex--;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                }</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                <span class="keywordflow">while</span> (bucket-&gt;<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90">GetSize</a>() == 0) {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                    bucketIndex--;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                    <span class="keywordflow">if</span> (bucketIndex &gt; 0)</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                        bucket = map-&gt;<a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#ae9cc822ad54aa485d8385eb8cee5acb5">GetBucket</a>(bucketIndex);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                        <span class="keywordflow">return</span> map-&gt;<a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#a58f1f3d8277b3a7409ea6c95bfc83b18">begin</a>();</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                    bucketIndex = bucket-&gt;<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90">GetSize</a>() - 1;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                }</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>                <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            }</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#a27fe2a8fcee73507f7de7e35a48360fb">  126</a></span>            <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#a27fe2a8fcee73507f7de7e35a48360fb">operator&gt; </a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_hash_map_1_1_iterator.html">Iterator</a>&amp; other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                <span class="keywordflow">if</span> (bucketIndex == other.bucketIndex)</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                    <span class="keywordflow">return</span> inBucketIndex &gt; other.inBucketIndex;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                <span class="keywordflow">return</span> bucketIndex &gt; other.bucketIndex;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            }</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#aec5431abd8a46891f812a0ad0cec0764">  133</a></span>            <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#aec5431abd8a46891f812a0ad0cec0764">operator&lt; </a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_hash_map_1_1_iterator.html">Iterator</a>&amp; other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>                <span class="keywordflow">if</span> (bucketIndex == other.bucketIndex)</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                    <span class="keywordflow">return</span> inBucketIndex &lt; other.inBucketIndex;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                <span class="keywordflow">return</span> bucketIndex &lt; other.bucketIndex;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            }</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#a50fbb9d78356cfa898ab31c49b620dfe">  140</a></span>            <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#a50fbb9d78356cfa898ab31c49b620dfe">operator&gt;= </a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_hash_map_1_1_iterator.html">Iterator</a>&amp; other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>                <span class="keywordflow">if</span> (bucketIndex == other.bucketIndex)</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                    <span class="keywordflow">return</span> inBucketIndex &gt;= other.inBucketIndex;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                <span class="keywordflow">return</span> bucketIndex &gt;= other.bucketIndex;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            }</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#abb0d7720c94a20906d0b4e07bc545b19">  147</a></span>            <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#abb0d7720c94a20906d0b4e07bc545b19">operator&lt;= </a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_hash_map_1_1_iterator.html">Iterator</a>&amp; other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                <span class="keywordflow">if</span> (bucketIndex == other.bucketIndex)</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                    <span class="keywordflow">return</span> inBucketIndex &lt;= other.inBucketIndex;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                <span class="keywordflow">return</span> bucketIndex &lt;= other.bucketIndex;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            }</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#a565cd16280281f1e79b3ee816951648e">  154</a></span>            <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#a565cd16280281f1e79b3ee816951648e">operator== </a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_hash_map_1_1_iterator.html">Iterator</a>&amp; other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                <span class="keywordflow">return</span> bucketIndex == other.bucketIndex &amp;&amp; inBucketIndex == other.inBucketIndex &amp;&amp; bucket == other.bucket;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            }</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#aed8cf7295ee65b68306bb7f80ba39358">  158</a></span>            <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#aed8cf7295ee65b68306bb7f80ba39358">operator!= </a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_hash_map_1_1_iterator.html">Iterator</a>&amp; other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                <span class="keywordflow">return</span> bucketIndex != other.bucketIndex || inBucketIndex != other.inBucketIndex &amp;&amp; bucket != other.bucket;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            }</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#aadf90408cd8bab9e5f332a0883080427">  165</a></span>            <a class="code hl_class" href="struct_o_s_k_1_1_pair.html">TPair</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#aadf90408cd8bab9e5f332a0883080427">operator*</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>                <span class="keywordflow">return</span> bucket-&gt;<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a9691f5eaf46654d59525c6c342d69cbb">At</a>(inBucketIndex);</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>            }</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#accc45f8bb374640380bb77aa198d13d1">  172</a></span>            <a class="code hl_class" href="struct_o_s_k_1_1_pair.html">TPair</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#accc45f8bb374640380bb77aa198d13d1">GetValue</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>                <span class="keywordflow">return</span> bucket-&gt;<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a9691f5eaf46654d59525c6c342d69cbb">At</a>(inBucketIndex);</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            }</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#a3037797bf10b2b242209e1401155217f">  179</a></span>            <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#a3037797bf10b2b242209e1401155217f">IsEmpty</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>                <span class="keywordflow">return</span> bucket == <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>            }</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">HashMap</a>* map = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">TBucket</a>* bucket = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> inBucketIndex = 0;</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>            <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> bucketIndex = 0;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        };</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html#a1b900e1951d84831fbb7d21437797759">  196</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#a1b900e1951d84831fbb7d21437797759">HashMap</a>() {</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        }</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html#af771fb92432ce33ada3fa200b99bb180">  207</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#af771fb92432ce33ada3fa200b99bb180">InsertCopy</a>(<span class="keyword">const</span> TKey&amp; key, <span class="keyword">const</span> TValue&amp; value) {</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            <span class="keyword">auto</span> pair = FindPair(key);</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            <span class="keywordflow">if</span> (pair) {</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>                pair-&gt;second = value;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>            }</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>            <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>                <span class="keyword">auto</span> hash = ConvertHash(<a class="code hl_function" href="namespace_o_s_k.html#a04b5e685357657e277fd7bc30efd93ba">Hash</a>(key));</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>                buckets[hash].<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#ae8c61261c812df8ed2a69641d49eca5b">Insert</a>(<a class="code hl_typedef" href="class_o_s_k_1_1_hash_map.html#a848e29a51804d0f08d1bb77d01535afb">TPair</a>(key, value));</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>                occupiedBuckets.SetTrue(hash);</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>                size++;</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>            }</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        }</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html#a9840da146cc95d82bc7c505334db32a4">  228</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#a9840da146cc95d82bc7c505334db32a4">Insert</a>(<span class="keyword">const</span> TKey&amp; key, <span class="keyword">const</span> TValue&amp; value) {</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>            <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#af771fb92432ce33ada3fa200b99bb180">InsertCopy</a>(key, value);</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        }</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html#abfd69f8b5dcf50032a7cde3ba1bb7721">  239</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#abfd69f8b5dcf50032a7cde3ba1bb7721">InsertMove</a>(<span class="keyword">const</span> TKey&amp; key, TValue&amp;&amp; value) {</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>            <a class="code hl_class" href="struct_o_s_k_1_1_pair.html">TPair</a>* pair = FindPair(key);</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>            <span class="keywordflow">if</span> (pair) {</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>                <span class="comment">//pair-&gt;second = std::move(value);</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>                <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#a27a67cdaac41f7ac1073c248a68a5926">Remove</a>(key);</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>                <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#abfd69f8b5dcf50032a7cde3ba1bb7721">InsertMove</a>(key, std::move(value));</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>            }</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>            <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>                <span class="keyword">auto</span> hash = ConvertHash(<a class="code hl_function" href="namespace_o_s_k.html#a04b5e685357657e277fd7bc30efd93ba">Hash</a>(key));</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>                buckets[hash].<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#ace6349440f58d8d6b4c696881ba7fd81">InsertMove</a>(std::move(<a class="code hl_typedef" href="class_o_s_k_1_1_hash_map.html#a848e29a51804d0f08d1bb77d01535afb">TPair</a>(key, std::move(value))));</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>                occupiedBuckets.SetTrue(hash);</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>                size++;</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>            }</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>        }</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html#a40beb2f2b1239af8cb2ed6c54eaa79f2">  263</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#a40beb2f2b1239af8cb2ed6c54eaa79f2">Insert</a>(<span class="keyword">const</span> TKey&amp; key, TValue&amp;&amp; value) {</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>            <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#abfd69f8b5dcf50032a7cde3ba1bb7721">InsertMove</a>(key, std::move(value));</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        }</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span> </div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html#a27a67cdaac41f7ac1073c248a68a5926">  272</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#a27a67cdaac41f7ac1073c248a68a5926">Remove</a>(<span class="keyword">const</span> TKey&amp; key) {</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>            KeySearchResult result = _FindKey(key);</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>            <span class="keywordflow">if</span> (result.found) {</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>                <span class="keyword">const_cast&lt;</span><a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">TBucket</a>*<span class="keyword">&gt;</span>(result.it.bucket)-&gt;RemoveAt(result.it.inBucketIndex);</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>                <span class="keywordflow">if</span> (result.it.bucket-&gt;GetSize() == 0)</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>                    occupiedBuckets.SetFalse(result.it.inBucketIndex);</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>            }</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        }</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html#ae9cc822ad54aa485d8385eb8cee5acb5">  286</a></span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">TBucket</a>* <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#ae9cc822ad54aa485d8385eb8cee5acb5">GetBucket</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> index)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>            <span class="keywordflow">return</span> &amp;buckets[index];</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>        }</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html#a93a98e2495dab16229085c7109a27b30">  295</a></span>        TValue&amp; <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#a93a98e2495dab16229085c7109a27b30">Get</a>(<span class="keyword">const</span> TKey&amp; key)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>            <span class="keyword">auto</span> pair = FindPair(key);</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>            <a class="code hl_define" href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a>(pair, <span class="stringliteral">&quot;No se encontró el valor.&quot;</span>);</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span> </div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>            <span class="keywordflow">return</span> pair-&gt;second;</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>        }</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html#a63c8ed49b0b6dcccd30aee2c74c8e1df">  305</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#a63c8ed49b0b6dcccd30aee2c74c8e1df">ContainsKey</a>(<span class="keyword">const</span> TKey&amp; key)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>            <span class="keywordflow">return</span> _FindKey(key).found;</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        }</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html#a2ed4ac9b7af3f79ebdf235227c4a0d7f">  314</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_hash_map_1_1_iterator.html">Iterator</a> <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#a2ed4ac9b7af3f79ebdf235227c4a0d7f">Find</a>(<span class="keyword">const</span> TKey&amp; key)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>            <span class="keyword">auto</span> result = _FindKey(key);</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>            <span class="keywordflow">if</span> (result.found)</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>                <span class="keywordflow">return</span> result.it;</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#a0e08b4430ff64194bd6f8a0209a00449">end</a>();</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        }</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html#aaafe40d918402b549fdbd32270323de4">  326</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#aaafe40d918402b549fdbd32270323de4">GetSize</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>            <span class="keywordflow">return</span> size;</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        }</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span> </div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html#a70f8d610958d298df1e32bab4913bc2b">  333</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#a70f8d610958d298df1e32bab4913bc2b">GetNumberOfBuckets</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>            <span class="keywordflow">return</span> numBuckets;</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>        }</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span> </div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span> </div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html#a58f1f3d8277b3a7409ea6c95bfc83b18">  343</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_hash_map_1_1_iterator.html">Iterator</a> <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#a58f1f3d8277b3a7409ea6c95bfc83b18">begin</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>            <span class="keywordflow">if</span> (occupiedBuckets.IsAllFalse())</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#a0e08b4430ff64194bd6f8a0209a00449">end</a>();</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span> </div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>            <span class="keywordtype">size_t</span> i = occupiedBuckets.GetNextTrueIndex();</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>            </div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#aa9668747767e3460d66b72e4e2f9edd1">GetIterator</a>(i, 0);</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>        }</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span> </div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html#a0e08b4430ff64194bd6f8a0209a00449">  355</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_hash_map_1_1_iterator.html">Iterator</a> <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#a0e08b4430ff64194bd6f8a0209a00449">end</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>            <span class="keywordflow">return</span> <a class="code hl_friend" href="class_o_s_k_1_1_hash_map.html#a9830fc407400559db7e7783cc10a9394">Iterator</a>(<span class="keyword">this</span>, <span class="keyword">nullptr</span>, 0, numBuckets);</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>        }</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span> </div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map.html#aa9668747767e3460d66b72e4e2f9edd1">  364</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_hash_map_1_1_iterator.html">Iterator</a> <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#aa9668747767e3460d66b72e4e2f9edd1">GetIterator</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> bucketId, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> inbucketId)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>            <span class="keyword">auto</span> it = <a class="code hl_friend" href="class_o_s_k_1_1_hash_map.html#a9830fc407400559db7e7783cc10a9394">Iterator</a>(<span class="keyword">this</span>, <span class="keyword">nullptr</span>, inbucketId, bucketId);</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>            it.bucket = (<a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">TBucket</a>*)&amp;buckets[bucketId];</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span> </div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>            <span class="keywordflow">return</span> it;</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>        }</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span> </div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span> </div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>        <span class="keyword">struct </span>KeySearchResult {</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>            <span class="keywordtype">bool</span> found = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>            <a class="code hl_friend" href="class_o_s_k_1_1_hash_map.html#a9830fc407400559db7e7783cc10a9394">Iterator</a> it;</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>        };</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span> </div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>        KeySearchResult _FindKey(<span class="keyword">const</span> TKey&amp; key)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>            <span class="keyword">auto</span> hash = ConvertHash(<a class="code hl_function" href="namespace_o_s_k.html#a04b5e685357657e277fd7bc30efd93ba">Hash</a>(key));</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>            <span class="keyword">const</span> <a class="code hl_typedef" href="class_o_s_k_1_1_hash_map.html#a7163ff908417c24b4a10af69359cbcb8">TBucket</a>* bucket = &amp;buckets[hash];</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span> </div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> i = 0; i &lt; bucket-&gt;GetSize(); i++)</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>                <span class="keywordflow">if</span> (bucket-&gt;At(i).first == key)</div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>                    <span class="keywordflow">return</span> { <span class="keyword">true</span>, <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#aa9668747767e3460d66b72e4e2f9edd1">GetIterator</a>(hash, i) };</div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span> </div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>            <span class="keywordflow">return</span> { <span class="keyword">false</span>, <a class="code hl_function" href="class_o_s_k_1_1_hash_map.html#a0e08b4430ff64194bd6f8a0209a00449">end</a>() };</div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>        }</div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span> </div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>        <a class="code hl_typedef" href="class_o_s_k_1_1_hash_map.html#a848e29a51804d0f08d1bb77d01535afb">TPair</a>* FindPair(<span class="keyword">const</span> TKey&amp; key)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>            <span class="keyword">auto</span> result = _FindKey(key);</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>            <span class="keywordflow">if</span> (result.found)</div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>                <span class="keywordflow">return</span> &amp;(*result.it);</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span> </div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>        }</div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span> </div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> ConvertHash(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> hash)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>            <span class="keywordflow">return</span> hash % numBuckets;</div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>        }</div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span> </div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>        <a class="code hl_typedef" href="class_o_s_k_1_1_hash_map.html#a7163ff908417c24b4a10af69359cbcb8">TBucket</a> buckets[numBuckets];</div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>        ConstexprBitSet&lt;numBuckets&gt; occupiedBuckets;</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span> </div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size = 0;</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span> </div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>    };</div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span> </div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>}</div>
+<div class="ttc" id="a_assert_8h_html_adfbccaec84df99b8277f9d877554170c"><div class="ttname"><a href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a></div><div class="ttdeci">#define OSK_ASSERT(condition, msg)</div><div class="ttdoc">Comprueba si la condición se cumple. Si no se cumple, muestra un mensaje de error y throwea un error.</div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00064">Assert.h:64</a></div></div>
+<div class="ttc" id="a_constexpr_bit_set_8hpp_html"><div class="ttname"><a href="_constexpr_bit_set_8hpp.html">ConstexprBitSet.hpp</a></div></div>
+<div class="ttc" id="a_dynamic_array_8hpp_html"><div class="ttname"><a href="_dynamic_array_8hpp.html">DynamicArray.hpp</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00015">OSKmacros.h:15</a></div></div>
+<div class="ttc" id="a_pair_8hpp_html"><div class="ttname"><a href="_pair_8hpp.html">Pair.hpp</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition:</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a94d0cbf0543d0c976de674d31b15df90"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">TSize GetSize() const noexcept</div><div class="ttdoc">Devuelve el número de elementos almacenados.</div><div class="ttdef"><b>Definition:</b> <a href="_dynamic_array_8hpp_source.html#l00674">DynamicArray.hpp:674</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a9691f5eaf46654d59525c6c342d69cbb"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a9691f5eaf46654d59525c6c342d69cbb">OSK::DynamicArray::At</a></div><div class="ttdeci">T &amp; At(TSize index) const</div><div class="ttdoc">Devuelve el elemento en la posición dada.</div><div class="ttdef"><b>Definition:</b> <a href="_dynamic_array_8hpp_source.html#l00420">DynamicArray.hpp:420</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_ace6349440f58d8d6b4c696881ba7fd81"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#ace6349440f58d8d6b4c696881ba7fd81">OSK::DynamicArray::InsertMove</a></div><div class="ttdeci">void InsertMove(T &amp;&amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition:</b> <a href="_dynamic_array_8hpp_source.html#l00383">DynamicArray.hpp:383</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_ae8c61261c812df8ed2a69641d49eca5b"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#ae8c61261c812df8ed2a69641d49eca5b">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition:</b> <a href="_dynamic_array_8hpp_source.html#l00374">DynamicArray.hpp:374</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_1_1_iterator_html"><div class="ttname"><a href="class_o_s_k_1_1_hash_map_1_1_iterator.html">OSK::HashMap::Iterator</a></div><div class="ttdoc">Un iterador apunta a una pareja de la colección. Se puede recorrer la colección a través de los itera...</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00052">HashMap.hpp:52</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_1_1_iterator_html_a27fe2a8fcee73507f7de7e35a48360fb"><div class="ttname"><a href="class_o_s_k_1_1_hash_map_1_1_iterator.html#a27fe2a8fcee73507f7de7e35a48360fb">OSK::HashMap::Iterator::operator&gt;</a></div><div class="ttdeci">bool operator&gt;(const Iterator &amp;other) const</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00126">HashMap.hpp:126</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_1_1_iterator_html_a3037797bf10b2b242209e1401155217f"><div class="ttname"><a href="class_o_s_k_1_1_hash_map_1_1_iterator.html#a3037797bf10b2b242209e1401155217f">OSK::HashMap::Iterator::IsEmpty</a></div><div class="ttdeci">bool IsEmpty() const</div><div class="ttdoc">Comprueba si este iterador NO apunta a un elemento válido.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00179">HashMap.hpp:179</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_1_1_iterator_html_a50fbb9d78356cfa898ab31c49b620dfe"><div class="ttname"><a href="class_o_s_k_1_1_hash_map_1_1_iterator.html#a50fbb9d78356cfa898ab31c49b620dfe">OSK::HashMap::Iterator::operator&gt;=</a></div><div class="ttdeci">bool operator&gt;=(const Iterator &amp;other) const</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00140">HashMap.hpp:140</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_1_1_iterator_html_a565cd16280281f1e79b3ee816951648e"><div class="ttname"><a href="class_o_s_k_1_1_hash_map_1_1_iterator.html#a565cd16280281f1e79b3ee816951648e">OSK::HashMap::Iterator::operator==</a></div><div class="ttdeci">bool operator==(const Iterator &amp;other) const</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00154">HashMap.hpp:154</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_1_1_iterator_html_a79c0cdcbc6eb1f6c5541ab90f4830bd9"><div class="ttname"><a href="class_o_s_k_1_1_hash_map_1_1_iterator.html#a79c0cdcbc6eb1f6c5541ab90f4830bd9">OSK::HashMap::Iterator::operator--</a></div><div class="ttdeci">Iterator operator--()</div><div class="ttdoc">Devuelve un iterador que apunta a la anterior pareja de la colección.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00105">HashMap.hpp:105</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_1_1_iterator_html_a99ccc3a8c006db8b4c62f64d7c60d18c"><div class="ttname"><a href="class_o_s_k_1_1_hash_map_1_1_iterator.html#a99ccc3a8c006db8b4c62f64d7c60d18c">OSK::HashMap::Iterator::Iterator</a></div><div class="ttdeci">Iterator(const HashMap *map, const TBucket *bucket, TSize inBucketIndex, TSize bucketIndex)</div><div class="ttdoc">Crea el iterador apuntando a un elemento (o a ninguno).</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00065">HashMap.hpp:65</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_1_1_iterator_html_aadf90408cd8bab9e5f332a0883080427"><div class="ttname"><a href="class_o_s_k_1_1_hash_map_1_1_iterator.html#aadf90408cd8bab9e5f332a0883080427">OSK::HashMap::Iterator::operator*</a></div><div class="ttdeci">TPair &amp; operator*() const</div><div class="ttdoc">Devuelve la pareja apuntada por el iterador.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00165">HashMap.hpp:165</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_1_1_iterator_html_abb0d7720c94a20906d0b4e07bc545b19"><div class="ttname"><a href="class_o_s_k_1_1_hash_map_1_1_iterator.html#abb0d7720c94a20906d0b4e07bc545b19">OSK::HashMap::Iterator::operator&lt;=</a></div><div class="ttdeci">bool operator&lt;=(const Iterator &amp;other) const</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00147">HashMap.hpp:147</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_1_1_iterator_html_ac4632c259c0243f5353121d79be02856"><div class="ttname"><a href="class_o_s_k_1_1_hash_map_1_1_iterator.html#ac4632c259c0243f5353121d79be02856">OSK::HashMap::Iterator::operator++</a></div><div class="ttdeci">Iterator operator++()</div><div class="ttdoc">Devuelve un iterador que apunta a la siguiente pareja de la colección.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00075">HashMap.hpp:75</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_1_1_iterator_html_accc45f8bb374640380bb77aa198d13d1"><div class="ttname"><a href="class_o_s_k_1_1_hash_map_1_1_iterator.html#accc45f8bb374640380bb77aa198d13d1">OSK::HashMap::Iterator::GetValue</a></div><div class="ttdeci">TPair &amp; GetValue() const</div><div class="ttdoc">Devuelve la pareja apuntada por el iterador.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00172">HashMap.hpp:172</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_1_1_iterator_html_aec5431abd8a46891f812a0ad0cec0764"><div class="ttname"><a href="class_o_s_k_1_1_hash_map_1_1_iterator.html#aec5431abd8a46891f812a0ad0cec0764">OSK::HashMap::Iterator::operator&lt;</a></div><div class="ttdeci">bool operator&lt;(const Iterator &amp;other) const</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00133">HashMap.hpp:133</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_1_1_iterator_html_aed8cf7295ee65b68306bb7f80ba39358"><div class="ttname"><a href="class_o_s_k_1_1_hash_map_1_1_iterator.html#aed8cf7295ee65b68306bb7f80ba39358">OSK::HashMap::Iterator::operator!=</a></div><div class="ttdeci">bool operator!=(const Iterator &amp;other) const</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00158">HashMap.hpp:158</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html">OSK::HashMap</a></div><div class="ttdoc">Un HashMap representa una colleción que enlaza un valor a otro. Está compuesto internamente por varia...</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00026">HashMap.hpp:26</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html_a0e08b4430ff64194bd6f8a0209a00449"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html#a0e08b4430ff64194bd6f8a0209a00449">OSK::HashMap::end</a></div><div class="ttdeci">Iterator end() const</div><div class="ttdoc">Devuelve un iterador vacío.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00355">HashMap.hpp:355</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html_a1b900e1951d84831fbb7d21437797759"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html#a1b900e1951d84831fbb7d21437797759">OSK::HashMap::HashMap</a></div><div class="ttdeci">HashMap()</div><div class="ttdoc">Construye un hashmap vacío.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00196">HashMap.hpp:196</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html_a27a67cdaac41f7ac1073c248a68a5926"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html#a27a67cdaac41f7ac1073c248a68a5926">OSK::HashMap::Remove</a></div><div class="ttdeci">void Remove(const TKey &amp;key)</div><div class="ttdoc">Elimina una pareja. Si no existe la pareja, no ocurre nada.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00272">HashMap.hpp:272</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html_a2ed4ac9b7af3f79ebdf235227c4a0d7f"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html#a2ed4ac9b7af3f79ebdf235227c4a0d7f">OSK::HashMap::Find</a></div><div class="ttdeci">Iterator Find(const TKey &amp;key) const</div><div class="ttdoc">Devuelve el iterador apuntando al elemento buscado.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00314">HashMap.hpp:314</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html_a40beb2f2b1239af8cb2ed6c54eaa79f2"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html#a40beb2f2b1239af8cb2ed6c54eaa79f2">OSK::HashMap::Insert</a></div><div class="ttdeci">void Insert(const TKey &amp;key, TValue &amp;&amp;value)</div><div class="ttdoc">Inserta una nueva pareja.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00263">HashMap.hpp:263</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html_a58f1f3d8277b3a7409ea6c95bfc83b18"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html#a58f1f3d8277b3a7409ea6c95bfc83b18">OSK::HashMap::begin</a></div><div class="ttdeci">Iterator begin() const</div><div class="ttdoc">Devuelve un iterador que apunta a la primera pareja.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00343">HashMap.hpp:343</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html_a63c8ed49b0b6dcccd30aee2c74c8e1df"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html#a63c8ed49b0b6dcccd30aee2c74c8e1df">OSK::HashMap::ContainsKey</a></div><div class="ttdeci">bool ContainsKey(const TKey &amp;key) const</div><div class="ttdoc">Comprueba si existe una apreja con el valor llave dado.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00305">HashMap.hpp:305</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html_a70f8d610958d298df1e32bab4913bc2b"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html#a70f8d610958d298df1e32bab4913bc2b">OSK::HashMap::GetNumberOfBuckets</a></div><div class="ttdeci">TSize GetNumberOfBuckets() const</div><div class="ttdoc">Devuelve el número de cubos.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00333">HashMap.hpp:333</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html_a7163ff908417c24b4a10af69359cbcb8"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html#a7163ff908417c24b4a10af69359cbcb8">OSK::HashMap::TBucket</a></div><div class="ttdeci">DynamicArray&lt; Pair&lt; TKey, TValue &gt; &gt; TBucket</div><div class="ttdoc">Tipo de colección de cada cubo.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00040">HashMap.hpp:40</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html_a848e29a51804d0f08d1bb77d01535afb"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html#a848e29a51804d0f08d1bb77d01535afb">OSK::HashMap::TPair</a></div><div class="ttdeci">Pair&lt; TKey, TValue &gt; TPair</div><div class="ttdoc">Pareja valor llave -&gt; valor enlazado.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00035">HashMap.hpp:35</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html_a93a98e2495dab16229085c7109a27b30"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html#a93a98e2495dab16229085c7109a27b30">OSK::HashMap::Get</a></div><div class="ttdeci">TValue &amp; Get(const TKey &amp;key) const</div><div class="ttdoc">Devuelve el valor enlazado del valor llave dado.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00295">HashMap.hpp:295</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html_a9830fc407400559db7e7783cc10a9394"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html#a9830fc407400559db7e7783cc10a9394">OSK::HashMap::Iterator</a></div><div class="ttdeci">friend class Iterator</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00028">HashMap.hpp:28</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html_a9840da146cc95d82bc7c505334db32a4"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html#a9840da146cc95d82bc7c505334db32a4">OSK::HashMap::Insert</a></div><div class="ttdeci">void Insert(const TKey &amp;key, const TValue &amp;value)</div><div class="ttdoc">Inserta una nueva pareja.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00228">HashMap.hpp:228</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html_aa9668747767e3460d66b72e4e2f9edd1"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html#aa9668747767e3460d66b72e4e2f9edd1">OSK::HashMap::GetIterator</a></div><div class="ttdeci">Iterator GetIterator(TSize bucketId, TSize inbucketId) const</div><div class="ttdoc">Devuelve un iterador apuntando a la pareja en el cubo y en la posición dadas.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00364">HashMap.hpp:364</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html_aaafe40d918402b549fdbd32270323de4"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html#aaafe40d918402b549fdbd32270323de4">OSK::HashMap::GetSize</a></div><div class="ttdeci">TSize GetSize() const</div><div class="ttdoc">Devuelve el número de parejas almacenadas.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00326">HashMap.hpp:326</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html_abfd69f8b5dcf50032a7cde3ba1bb7721"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html#abfd69f8b5dcf50032a7cde3ba1bb7721">OSK::HashMap::InsertMove</a></div><div class="ttdeci">void InsertMove(const TKey &amp;key, TValue &amp;&amp;value)</div><div class="ttdoc">Inserta una nueva pareja.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00239">HashMap.hpp:239</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html_ae9cc822ad54aa485d8385eb8cee5acb5"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html#ae9cc822ad54aa485d8385eb8cee5acb5">OSK::HashMap::GetBucket</a></div><div class="ttdeci">const TBucket * GetBucket(TSize index) const</div><div class="ttdoc">Devuelve un puntero al cubo en el índice dado.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00286">HashMap.hpp:286</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html_af771fb92432ce33ada3fa200b99bb180"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html#af771fb92432ce33ada3fa200b99bb180">OSK::HashMap::InsertCopy</a></div><div class="ttdeci">void InsertCopy(const TKey &amp;key, const TValue &amp;value)</div><div class="ttdoc">Inserta una nueva pareja.</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00207">HashMap.hpp:207</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00007">Assert.h:7</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a04b5e685357657e277fd7bc30efd93ba"><div class="ttname"><a href="namespace_o_s_k.html#a04b5e685357657e277fd7bc30efd93ba">OSK::Hash</a></div><div class="ttdeci">size_t Hash(const T &amp;elem)</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00009">HashMap.hpp:9</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_pair_html"><div class="ttname"><a href="struct_o_s_k_1_1_pair.html">OSK::Pair&lt; TKey, TValue &gt;</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_hash_map_8hpp.html">HashMap.hpp</a></li>
+    <li class="footer">Generado el Miércoles, 20 de Abril de 2022 00:28:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

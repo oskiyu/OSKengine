@@ -14,7 +14,7 @@ namespace OSK::ECS {
 	/// Los componentes no ejecutan lógica alguna, y sólo son contenedores de información 
 	/// relacionada con un GameObject.
 	/// 
-	/// Cada GameObject sólo puede tener un componente de cada tipo.
+	/// @warning Cada GameObject sólo puede tener un componente de cada tipo.
 	/// </summary>
 	using GameObjectIndex = TSize;
 

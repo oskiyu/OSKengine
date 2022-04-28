@@ -1,0 +1,6 @@
+<map id="Representación gráfica de la clase" name="Representación gráfica de la clase">
+<area shape="rect" id="node1" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html" title="Un renderpass representa una fase de renderizado. Todas las operaciones de renderizado se aplicarán s..." alt="" coords="5,56,211,83"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html" title=" " alt="" coords="259,5,491,32"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_ogl.html" title=" " alt="" coords="263,56,486,83"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html" title=" " alt="" coords="273,107,476,149"/>
+</map>

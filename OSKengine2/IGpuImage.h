@@ -54,7 +54,32 @@ namespace OSK::GRAPHICS {
 		/// <param name="sizeY">Alto de la imagen.</param>
 		static TSize GetMipLevels(uint32_t sizeX, uint32_t sizeY);
 
+		/// <summary>
+		/// Devuelve el número de bytes que ocupa esta imagen en la memoria de la GPU
+		/// </summary>
+		/// <returns>Espacio ocupado en la GPU.</returns>
+		/// 
+		/// @note Debido a cuestiones de alineamiento y demás, puede ocupar más
+		/// espacio del esperado.
+		TSize GetNumberOfBytes();
+
+		/// <summary>
+		/// Actualiza el layout de la imagen, para que represente el layout actual.
+		/// </summary>
+		/// @warning Función interna: no llamar.
+		/// 
+		/// @note Función puramente informativa: no cambia el layout real de la imagen. Para ello, debe usarse 
+		/// ICommandList::TransitionImageLayout.
 		void SetLayout(GpuImageLayout layout);
+
+		/// <summary>
+		/// Devuelve el layout actual de la imagen.
+		/// </summary>
+		/// 
+		/// @warning Al ser una variable informativa (no vinculante), puede no devolver el layout real actual.
+		/// 
+		/// @note Únicamente mostrará el valor real cuando se ejecute la lista de comandos con la cual
+		/// se ha realizado la transición de layout.
 		GpuImageLayout GetLayout() const;
 
 	private:

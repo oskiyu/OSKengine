@@ -9,7 +9,9 @@ namespace OSK::GRAPHICS {
 	enum class RenderpassType;
 
 	/// <summary>
-	/// Un renderpass representa una [...] de renderizado.
+	/// Un renderpass representa una fase de renderizado.
+	/// Todas las operaciones de renderizado se aplicarán sobre la imagen
+	/// que defina el renderpass enlazado.
 	/// Cuenta con las imágenes donde se renderizará la escena.
 	/// </summary>
 	class OSKAPI_CALL IRenderpass {
@@ -18,6 +20,12 @@ namespace OSK::GRAPHICS {
 
 		virtual ~IRenderpass() = default;
 
+		/// <summary>
+		/// Devuelve la imagen con el índice dado.
+		/// </summary>
+		/// <param name="index"></param>
+		/// 
+		/// @throws std::runtime_error Si el índice no pertenece a ninguna imagen.
 		GpuImage* GetImage(TSize index) const;
 		TSize GetNumberOfImages() const;
 

@@ -20,7 +20,9 @@ namespace OSK::ASSETS {
 		OSK_ASSET_TYPE_REG("OSK::Texture");
 
 		/// <summary>
-		/// Tamaño, en píxeles, de la textura.
+		/// Tamaño de la textura.
+		/// 
+		/// @note En píxeles.
 		/// </summary>
 		Vector2ui GetSize() const;
 
@@ -32,11 +34,33 @@ namespace OSK::ASSETS {
 		/// <summary>
 		/// Imagen guardada en la GPU.
 		/// Para renderizado.
+		/// 
+		/// @note No puede ser null.
 		/// </summary>
 		GRAPHICS::GpuImage* GetGpuImage() const;
 
+		/// <summary>
+		/// Establece el tamaño de la textura.
+		/// </summary>
+		/// 
+		/// @warning Función interna: no llamar.
+		/// 
+		/// @note En píxeles.
 		void _SetSize(const Vector2ui size);
+
+		/// <summary>
+		/// Establece el número de canales..
+		/// </summary>
+		/// 
+		/// @warning Función interna: no llamar.
 		void _SetNumberOfChannels(TSize numChannels);
+
+		/// <summary>
+		/// Establece la imagen de la textura.
+		/// </summary>
+		/// 
+		/// @warning Función interna: no llamar.
+		/// </param>
 		void _SetImage(OwnedPtr<GRAPHICS::GpuImage> image);
 
 	private:

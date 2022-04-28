@@ -1,0 +1,8 @@
+<map id="OSK::Vector4_t::GetRectanglePosition" name="OSK::Vector4_t::GetRectanglePosition">
+<area shape="rect" id="node1" title="Obtiene la posición del rectángulo (X, Y)." alt="" coords="267,136,468,177"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#afe28fc16ef6b00db3c43868bd3c46183" title="Establece qué área del renderizado será visible en la textura final." alt="" coords="5,5,219,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_ogl.html#afa24cc14d968636f21080477c78d5f03" title=" " alt="" coords="5,71,219,112"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ab65e9b840e120d9b5a2b35c078d689a7" title="Establece la región (en píxeles) de la textura que se renderizará en este sprite." alt="" coords="29,136,195,177"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a1087b08b918688640e1ab66ea43ed5ff" title="Establece el viewport a renderizar. El viewport describe el área de la pantalla que se va a renderiza..." alt="" coords="5,201,219,243"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_ogl.html#ad6aa8c6151e4e199c4e6528e592fc179" title=" " alt="" coords="5,267,219,308"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="OSK::GRAPHICS::IRenderpass::GetNumberOfImages" name="OSK::GRAPHICS::IRenderpass::GetNumberOfImages">
+<area shape="rect" id="node1" title=" " alt="" coords="783,71,988,112"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html#add0bad624cfcb5ee2599c2c8c7425066" title=" " alt="" coords="531,5,733,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#aa6fc104e2156cf8e7058ce230baf2171" title="Devuelve la imagen con el índice dado." alt="" coords="529,71,735,112"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html#a8911104609904226b868013aa5ac52db" title="Establece las imágenes del swapchain donde se va a renderizar (para pantalla)." alt="" coords="531,136,733,177"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a546510609e889e49aca9c89262ecf527" title="Comienza el renderizado a un renderpass." alt="" coords="267,39,481,80"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a3586eff129bbcdbd43c08a7dd1dc451d" title="Finaliza el renderizado a un renderpass." alt="" coords="267,104,481,145"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a7001f2a6a149e3ae07438341d9b23e1c" title="Comienza el renderizado a un renderpass." alt="" coords="5,39,219,80"/>
+</map>

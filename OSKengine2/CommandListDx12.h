@@ -53,8 +53,8 @@ namespace OSK::GRAPHICS {
 
 		void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer, TSize offset) override;
 
-		void BindUniformBufferDx12(TSize index, GpuUniformBufferDx12* buffer);
-		void BindImageDx12(TSize index, GpuImageDx12* image);
+		void BindUniformBufferDx12(TSize index, const GpuUniformBufferDx12* buffer);
+		void BindImageDx12(TSize index, const GpuImageDx12* image);
 
 		/// <summary>
 		/// En ocasiones será necesario cambiar el estado de un recurso para hacer

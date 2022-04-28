@@ -1,0 +1,6 @@
+<map id="OSK::ECS::Transform3D::RotateWorldSpace" name="OSK::ECS::Transform3D::RotateWorldSpace">
+<area shape="rect" id="node1" title="Rota el transform respecto al mundo." alt="" coords="5,39,172,80"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_quaternion.html#adb48d1d2334b6a47fde67ab2313e6447" title="Rota el cuaternión dado un eje, que se interpreta en espacio del mundo." alt="" coords="220,5,387,47"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a64ea91f4fb800524683b5f0332e562cb" title="Actualiza la matriz modelo, y la de sus hijos." alt="" coords="220,71,387,112"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_vector3__t.html#acb2737aa41e9e488c3e93a30fcedfb1c" title="OSK::Vector2 a glm::vec3." alt="" coords="435,13,599,39"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="OSK::GRAPHICS::RendererDx12" name="OSK::GRAPHICS::RendererDx12">
+<area shape="rect" id="node1" title="Implementación de la interfaz para el renderizador de DirectX 12." alt="" coords="5,556,228,839"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html" title="Proporciona la interfaz de un renderizador." alt="" coords="5,5,228,508"/>
+</map>

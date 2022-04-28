@@ -1,0 +1,10 @@
+<map id="OSK::ConstexprBitSet::SetValue" name="OSK::ConstexprBitSet::SetValue">
+<area shape="rect" id="node1" title="Establece el valor del bit en la posición dada." alt="" coords="624,72,777,113"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_constexpr_bit_set.html#aa38919327c6e8810f8b2304a2d25ce8b" title="Establece el valor del bit dado a 0." alt="" coords="423,23,576,64"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_constexpr_bit_set.html#a2ed44d2a40faf6ff664947caf93846b4" title="Establece el valor del bit dado a 1." alt="" coords="423,104,576,145"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a226967f05467575221ddb09a194e28b2" title="Elimina el componente del objeto." alt="" coords="181,5,374,47"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ac1d06cd361c773ba69b09002079c3660" title="Añade el componente dado al objeto." alt="" coords="181,71,374,112"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#ad09149a107ba009448f3191baf78ac3a" title=" " alt="" coords="180,136,375,177"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a1ee1a85dba0dab30f922b0f8a43b01a5" title=" " alt="" coords="180,201,375,243"/>
+<area shape="rect" id="node6" href="$class_game1.html#a738ffccb5910f1f15136680903ea4159" title="Función ejecutada al cargar el juego." alt="" coords="5,78,132,105"/>
+</map>

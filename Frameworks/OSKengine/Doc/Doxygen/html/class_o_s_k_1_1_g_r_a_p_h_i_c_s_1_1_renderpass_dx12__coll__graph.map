@@ -1,0 +1,6 @@
+<map id="OSK::GRAPHICS::RenderpassDx12" name="OSK::GRAPHICS::RenderpassDx12">
+<area shape="rect" id="node1" title=" " alt="" coords="89,595,321,760"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html" title="Un renderpass representa una fase de renderizado. Todas las operaciones de renderizado se aplicarán s..." alt="" coords="103,380,308,545"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html" title="Representación interna de una imagen en la GPU." alt="" coords="5,5,197,303"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_unique_ptr.html" title=" " alt="" coords="221,35,397,273"/>
+</map>

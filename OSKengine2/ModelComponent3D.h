@@ -24,6 +24,7 @@ namespace OSK::ECS {
 
 	/// <summary>
 	/// Componente para el renderizado 3D de un objeto.
+	/// 
 	/// Incluye:
 	/// - Modelo 3D.
 	/// - Material del modelo.
@@ -37,16 +38,71 @@ namespace OSK::ECS {
 
 		~ModelComponent3D();
 
+		/// <summary>
+		/// Establece el modelo 3D que se renderizará.
+		/// </summary>
+		/// <param name="model">Modelo 3D cargado.</param>
+		/// 
+		/// @warning Debe ser establecido para poder ser usado.
 		void SetModel(ASSETS::Model3D* model);
-		void SetMaterial(GRAPHICS::Material* materialInstance);
+
+		/// <summary>
+		/// Establece el material del modelo 3D.
+		/// 
+		/// @note Los meshes tendrán instancias de este material.
+		/// </summary>
+		/// 
+		/// @warning Debe ser establecido para poder ser usado.
+		void SetMaterial(GRAPHICS::Material* material);
 
 		ASSETS::Model3D* GetModel() const;
 		GRAPHICS::Material* GetMaterial() const;
 
+		/// <summary>
+		/// Devuelve la instancia del material del mesh dado.
+		/// </summary>
+		/// <param name="meshId">Índice del mesh del modelo.</param>
+		/// 
+		/// @warning No comprueba que esté dentro de los límites.
 		GRAPHICS::MaterialInstance* GetMeshMaterialInstance(TSize meshId) const;
 
+		/// <summary>
+		/// Bindea la textura a todos los meshes.
+		/// </summary>
+		/// <param name="slot">Slot de la textura.</param>
+		/// <param name="binding">Binding de la textura.</param>
+		/// <param name="texture">Textura.</param>
+		/// 
+		/// @note Se guardará información, de tal manera que si se añaden más meshes
+		/// después de haber llamado a la función, se bindearán a ellos también.
+		/// 
+		/// @warning No comprueba que el slot / textura existan en el material.
 		void BindTextureForAllMeshes(const std::string& slot, const std::string& binding, const ASSETS::Texture* texture);
+
+		/// <summary>
+		/// Bindea la textura a todos los meshes.
+		/// </summary>
+		/// <param name="slot">Slot de la textura.</param>
+		/// <param name="binding">Binding de la textura.</param>
+		/// <param name="texture">Textura.</param>
+		/// 
+		/// @note Se guardará información, de tal manera que si se añaden más meshes
+		/// después de haber llamado a la función, se bindearán a ellos también.
+		/// 
+		/// @warning No comprueba que el slot / textura existan en el material.
 		void BindGpuImageForAllMeshes(const std::string& slot, const std::string& binding, const GRAPHICS::GpuImage* image);
+
+		/// <summary>
+		/// Bindea el buffer a todos los meshes.
+		/// </summary>
+		/// <param name="slot">Slot del buffer.</param>
+		/// <param name="binding">Binding del buffer.</param>
+		/// <param name="texture">Textura.</param>
+		/// 
+		/// @note Se guardará información, de tal manera que si se añaden más meshes
+		/// después de haber llamado a la función, se bindearán a ellos también.
+		/// 
+		/// @warning No comprueba que el slot / buffer existan en el material.
 		void BindUniformBufferForAllMeshes(const std::string& slot, const std::string& binding, const GRAPHICS::IGpuUniformBuffer* buffer);
 
 	private:

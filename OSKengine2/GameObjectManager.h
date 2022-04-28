@@ -22,7 +22,8 @@ namespace OSK::ECS {
 
 		/// <summary>
 		/// Destruye el objeto dado.
-		/// El identificador del objeto se pondrá a 0, para
+		/// 
+		/// @warning El identificador del objeto se pondrá a 0, para
 		/// indicar que es un identificador inválido.
 		/// </summary>
 		/// <param name="obj"></param>

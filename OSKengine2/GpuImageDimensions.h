@@ -19,7 +19,8 @@ namespace OSK::GRAPHICS {
 
 		/// <summary>
 		/// Imagen 3D.
-		/// No es lo mismo que un cubemap, que es un 
+		/// 
+		/// @note No es lo mismo que un cubemap, que es un 
 		/// array de imágenes 2D.
 		/// </summary>
 		d3D

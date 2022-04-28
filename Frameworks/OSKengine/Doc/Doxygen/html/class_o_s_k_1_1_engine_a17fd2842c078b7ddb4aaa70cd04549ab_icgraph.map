@@ -1,0 +1,11 @@
+<map id="OSK::Engine::GetEntityComponentSystem" name="OSK::Engine::GetEntityComponentSystem">
+<area shape="rect" id="node1" title=" " alt="" coords="347,173,573,214"/>
+<area shape="rect" id="node2" href="$class_game1.html#a738ffccb5910f1f15136680903ea4159" title="Función ejecutada al cargar el juego." alt="" coords="138,5,265,32"/>
+<area shape="rect" id="node3" href="$class_game1.html#a0981142b47932b4f5dfac4e1556ba00f" title="Función que se ejecuta cada frame. Para hacer actualización del estado del juego." alt="" coords="145,56,258,83"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#a3d6e69772dfbd5a028740fbbdbf8fd07" title="Comando específico del sistema, para ejecutar el renderizado." alt="" coords="104,107,299,149"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#aa4852487325a5437911e65c9b4b0d68d" title="Comando específico del sistema, para ejecutar el renderizado." alt="" coords="104,173,299,214"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#ad09149a107ba009448f3191baf78ac3a" title=" " alt="" coords="104,238,299,279"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a1ee1a85dba0dab30f922b0f8a43b01a5" title=" " alt="" coords="104,303,299,345"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_i_game.html#a061c6604f59ca3ef9f5093b1fb78f844" title="Inicia la ejecución del juego." alt="" coords="138,369,265,396"/>
+<area shape="rect" id="node9" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,369,56,396"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="OSK::BitSet::~BitSet" name="OSK::BitSet::~BitSet">
+<area shape="rect" id="node1" title=" " alt="" coords="5,46,152,73"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_bit_set.html#a3f0833e81de5d6a323a40d33c912b11b" title=" " alt="" coords="200,46,328,73"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_dynamic_array.html#a712ee677ebccc400ea7623d3ec966e4e" title="Elimina el array, liberando memoria." alt="" coords="376,46,551,73"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_dynamic_array.html#ad544522cb3202359757c98af4d37a37b" title="Elimina los elementos, sin liberar memoria." alt="" coords="599,5,747,47"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef" title="Devuelve true si el array se ha inicializado." alt="" coords="599,71,747,112"/>
+</map>

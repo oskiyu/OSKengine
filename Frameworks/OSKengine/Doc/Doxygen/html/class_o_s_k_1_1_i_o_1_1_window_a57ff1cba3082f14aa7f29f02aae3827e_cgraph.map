@@ -1,0 +1,4 @@
+<map id="OSK::IO::Window::ShouldClose" name="OSK::IO::Window::ShouldClose">
+<area shape="rect" id="node1" title="True si la ventana va a cerrarse." alt="" coords="5,5,212,32"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042" title="Devuelve el puntero nativo." alt="" coords="260,5,445,32"/>
+</map>

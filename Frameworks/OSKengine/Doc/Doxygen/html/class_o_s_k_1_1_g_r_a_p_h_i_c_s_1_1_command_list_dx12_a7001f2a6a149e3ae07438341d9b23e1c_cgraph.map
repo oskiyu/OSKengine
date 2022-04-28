@@ -1,0 +1,18 @@
+<map id="OSK::GRAPHICS::CommandListDx12::BeginRenderpass" name="OSK::GRAPHICS::CommandListDx12::BeginRenderpass">
+<area shape="rect" id="node1" title="Comienza el renderizado a un renderpass." alt="" coords="5,475,219,517"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a546510609e889e49aca9c89262ecf527" title="Comienza el renderizado a un renderpass." alt="" coords="267,319,481,361"/>
+<area shape="rect" id="node15" href="$class_o_s_k_1_1_color.html#a59c0bb4e7d3b7d396f97e1119f01f1ca" title="Color negro. (0.0f, 0.0f, 0.0f)" alt="" coords="305,512,443,539"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a7e06601c9bc5325e2ee5904e58a3af3d" title="Castea el renderizador al tipo dado. Este tipo debe ser una implementación de esta interfaz." alt="" coords="538,5,750,32"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a40fa23067ee2ddad4e14256c32e41ffd" title=" " alt="" coords="529,56,759,83"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#abbf1668873549c12b0bc43afd19304a3" title="Devuelve el índice de la imagen renderizada en un momento dado." alt="" coords="545,107,743,149"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#afbcba548854002631cd026be996e5318" title=" " alt="" coords="543,173,745,214"/>
+<area shape="rect" id="node7" href="$_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e" title=" " alt="" coords="603,239,685,265"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#aa6fc104e2156cf8e7058ce230baf2171" title="Devuelve la imagen con el índice dado." alt="" coords="541,290,747,331"/>
+<area shape="rect" id="node10" href="$class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00" title=" " alt="" coords="555,356,733,383"/>
+<area shape="rect" id="node11" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a9c0ad49dec6559c30c63442858aad650" title=" " alt="" coords="541,407,747,449"/>
+<area shape="rect" id="node12" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a244ebc8ce3ae3095698ea0c3eaba58fc" title=" " alt="" coords="548,473,740,514"/>
+<area shape="rect" id="node13" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a3b9ac6ab106829829168b113b900140b" title=" " alt="" coords="543,538,745,579"/>
+<area shape="rect" id="node14" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#a2563849de6c373442c2f91ed62c36f99" title="Comprueba si un renderpass es un renderpass intermedio o el renderpass final que renderiza la imagen ..." alt="" coords="541,603,747,645"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html#aff4dfdee3150200aa00b17d89870ed6e" title=" " alt="" coords="807,290,1012,331"/>
+<area shape="rect" id="node16" href="$class_o_s_k_1_1_color.html#aced94f7152a9c5e63bfebc382349e8a6" title="Crea una instancia vacía del color." alt="" coords="581,669,707,696"/>
+</map>

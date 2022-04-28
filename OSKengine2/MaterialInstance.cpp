@@ -14,8 +14,7 @@ MaterialInstance::MaterialInstance(const Material* material)
 }
 
 MaterialInstance::~MaterialInstance() {
-	for (auto& i : slots)
-		delete i.second.GetPointer();
+
 }
 
 IMaterialSlot* MaterialInstance::GetSlot(const std::string& name) {
@@ -23,7 +22,7 @@ IMaterialSlot* MaterialInstance::GetSlot(const std::string& name) {
 }
 
 void MaterialInstance::RegisterSlot(const std::string& name) {
-	slots.Insert(name, Engine::GetRenderer()->_CreateMaterialSlot(name, GetLayout()));
+	slots.Insert(name, Engine::GetRenderer()->_CreateMaterialSlot(name, GetLayout()).GetPointer());
 }
 
 const Material* MaterialInstance::GetMaterial() const {

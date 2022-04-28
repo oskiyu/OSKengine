@@ -1,0 +1,11 @@
+<map id="OSK::GRAPHICS::MaterialSlotVulkan::MaterialSlotVulkan" name="OSK::GRAPHICS::MaterialSlotVulkan::MaterialSlotVulkan">
+<area shape="rect" id="node1" title=" " alt="" coords="5,144,208,185"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_dynamic_array.html#ac8a6d70f938c482e1f7aa68c7d186bb8" title="Devuelve el array original." alt="" coords="291,5,439,47"/>
+<area shape="rect" id="node3" href="$_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e" title=" " alt="" coords="325,71,406,98"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00" title=" " alt="" coords="276,122,455,149"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a7a1845df7f0113a0285adfbea469df90" title="Obtiene el slot con el nombre dado, si existe." alt="" coords="256,173,475,215"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6bdcecd10ad67576f386bb8d42503bcd" title="Devuelve el número de imágenes del swapchain. Para recursos que necesiten tener una copia por imagen ..." alt="" coords="270,239,461,280"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_dynamic_array.html#adcbd5bb6ce88469bc9e6f65be06ceae6" title="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda. Se añaden elementos hasta q..." alt="" coords="291,304,439,345"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_dynamic_array.html#a34323ddf4963e2097def5d8c3f80c08e" title="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda." alt="" coords="523,304,671,345"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_dynamic_array.html#acf322bf27bf4bfd581079500c67171a6" title="Reserva espacio para &#39;size&#39; elementos. Preserva los elementos anteriores." alt="" coords="719,304,867,345"/>
+</map>

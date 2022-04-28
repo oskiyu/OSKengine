@@ -36,42 +36,48 @@ namespace OSK::ECS {
 
 		/// <summary>
 		/// Establece la posición.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="position">Nueva posición respecto al padre.</param>
 		void SetPosition(const Vector2& position);
 
 		/// <summary>
 		/// Establece la escala.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="scale">Nueva escala respecto al padre.</param>
 		void SetScale(const Vector2& scale);
 
 		/// <summary>
 		/// Establece la rotación del transform.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="rotation">Ángulo.</param>
 		void SetRotation(float rotation);
 
 		/// <summary>
 		/// Suma el vector 3D a la posición.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="positionDelta">Posición a añadir.</param>
 		void AddPosition(const Vector2& positionDelta);
 
 		/// <summary>
 		/// Suma un vector 3D a la escala.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="scaleDelta">Escala a añadir.</param>
 		void AddScale(const Vector2& scaleDelta);
 
 		/// <summary>
 		/// Cambia la rotación del transform.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="rotationDelta">Ángulo añadido.</param>
 		void AddRotation(float rotationDelta);

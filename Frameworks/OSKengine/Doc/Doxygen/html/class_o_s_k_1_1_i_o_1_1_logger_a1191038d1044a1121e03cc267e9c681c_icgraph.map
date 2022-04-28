@@ -1,0 +1,5 @@
+<map id="OSK::IO::Logger::Clear" name="OSK::IO::Logger::Clear">
+<area shape="rect" id="node1" title="Limpia los contenidos del archivo del log." alt="" coords="433,5,589,32"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_i_o_1_1_logger.html#ab13114d60ca5f1f69f2ba0f2f1a5bd19" title="Cierra el logger, guardando el archivo." alt="" coords="227,5,385,32"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_i_o_1_1_logger.html#acb668a9e186a25fbaad2e4af6d1ed00a" title="Cierra el logger, guardando el archivo." alt="" coords="5,5,179,32"/>
+</map>

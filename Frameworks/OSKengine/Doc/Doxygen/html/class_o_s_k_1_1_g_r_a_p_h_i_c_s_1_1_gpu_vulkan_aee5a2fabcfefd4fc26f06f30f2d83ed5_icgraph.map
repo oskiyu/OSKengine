@@ -1,0 +1,11 @@
+<map id="OSK::GRAPHICS::GpuVulkan::GetInfo" name="OSK::GRAPHICS::GpuVulkan::GetInfo">
+<area shape="rect" id="node1" title=" " alt="" coords="801,107,999,148"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#ab115168a15873e46b9da9ba3442782c9" title="Crea el swapchain. Obtiene automáticamente el tamaño de las imágenes a partir del tamaño de la ventan..." alt="" coords="557,48,753,89"/>
+<area shape="rect" id="node6" href="$_gpu_memory_block_vulkan_8cpp.html#a233c28f0320d7ab871bbd6be6d12d86b" title=" " alt="" coords="596,114,715,141"/>
+<area shape="rect" id="node7" href="$_graphics_pipeline_vulkan_8cpp.html#ae4c23ebeb78e8420fbfbf32fcaf77c03" title=" " alt="" coords="608,165,703,191"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#a5eed4a14de2b74443b5da96486cbd0d4" title="Recrea el swapchain con el tamaño de la ventana. Para cuando se ha cambiado de tamaño la ventana." alt="" coords="296,48,492,89"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a372f1f09902e5735edb66cf7ed4c1a84" title=" " alt="" coords="17,5,219,47"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a5a9110a4da448f607b783f949fb941d9" title=" " alt="" coords="7,71,229,112"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan.html#a3061cf5122c4b68ccf20679c2221624b" title="Crea el pipeline con la configuración dada." alt="" coords="279,157,509,199"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a3f096691d9ea9067bdb33aaedb89c21e" title="Crea un graphics pipeline." alt="" coords="5,157,231,199"/>
+</map>

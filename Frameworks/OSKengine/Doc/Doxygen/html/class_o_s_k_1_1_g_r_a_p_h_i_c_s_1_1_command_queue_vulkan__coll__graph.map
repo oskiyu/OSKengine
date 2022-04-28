@@ -1,0 +1,4 @@
+<map id="OSK::GRAPHICS::CommandQueueVulkan" name="OSK::GRAPHICS::CommandQueueVulkan">
+<area shape="rect" id="node1" title="Una cola de comandos almacena todas las listas de comandos que se envían a la GPU." alt="" coords="7,145,237,252"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html" title="Una cola de comandos almacena todas las listas de comandos que se envían a la GPU." alt="" coords="5,5,239,97"/>
+</map>

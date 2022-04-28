@@ -62,6 +62,9 @@
     <ClCompile Include="DescriptorPoolVulkan.cpp" />
     <ClCompile Include="EntityComponentSystem.cpp" />
     <ClCompile Include="FileIO.cpp" />
+    <ClCompile Include="Font.cpp" />
+    <ClCompile Include="FontInstance.cpp" />
+    <ClCompile Include="FontLoader.cpp" />
     <ClCompile Include="Format.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
@@ -181,6 +184,10 @@
     <ClInclude Include="EntityComponentSystem.h" />
     <ClInclude Include="EnumFlags.hpp" />
     <ClInclude Include="FileIO.h" />
+    <ClInclude Include="Font.h" />
+    <ClInclude Include="FontCharacter.h" />
+    <ClInclude Include="FontInstance.h" />
+    <ClInclude Include="FontLoader.h" />
     <ClInclude Include="Format.h" />
     <ClInclude Include="FormatDx12.h" />
     <ClInclude Include="FormatOgl.h" />
@@ -234,6 +241,7 @@
     <ClInclude Include="MaterialSlotDx12.h" />
     <ClInclude Include="MaterialSlotVulkan.h" />
     <ClInclude Include="MaterialSystem.h" />
+    <ClInclude Include="Math.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Mesh3D.h" />
     <ClInclude Include="Model3D.h" />

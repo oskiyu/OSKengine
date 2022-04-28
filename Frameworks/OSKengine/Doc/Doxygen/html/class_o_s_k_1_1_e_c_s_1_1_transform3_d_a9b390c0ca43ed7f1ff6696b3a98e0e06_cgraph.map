@@ -1,0 +1,8 @@
+<map id="OSK::ECS::Transform3D::GetForwardVector" name="OSK::ECS::Transform3D::GetForwardVector">
+<area shape="rect" id="node1" title="Devuelve un vector unitario 3D que apunta hacia el frente de la entidad." alt="" coords="5,74,172,115"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_vector3__t.html#aef1702c4230df139c7f0e28cd27bc4a6" title="Devuelve un vector 3D normalizado con la misma dirección que este." alt="" coords="220,52,428,79"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aaf12b490c6875c0308348d203a1656cb" title="Orientación." alt="" coords="241,103,407,145"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_vector3__t.html#ad59b181161a83a239c30d692bd79982c" title="Módulo del vector. Obtiene la longitud del vector." alt="" coords="476,5,659,32"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_vector3__t.html#abfc61058c184a3320c0e6d1993b7a037" title="Crea un vector 3D nulo { 0, 0, 0 }." alt="" coords="478,56,657,83"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_quaternion.html#a0cbf0edcbfd33647de6fa20d641d2216" title="Crea un cuaternión a partir del dado." alt="" coords="476,111,659,137"/>
+</map>

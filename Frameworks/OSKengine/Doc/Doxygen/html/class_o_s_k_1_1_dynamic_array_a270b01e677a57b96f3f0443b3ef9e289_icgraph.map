@@ -1,0 +1,26 @@
+<map id="OSK::DynamicArray::InsertCopy" name="OSK::DynamicArray::InsertCopy">
+<area shape="rect" id="node1" title="Inserta una copia del elemento al final del array." alt="" coords="1023,479,1171,520"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_dynamic_array.html#ae8c61261c812df8ed2a69641d49eca5b" title="Inserta un elemento al final del array." alt="" coords="827,479,975,520"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#af1fb0c5b18e59eee44e7f3dc8321140e" title="Añade un componente asignado al objeto dado." alt="" coords="561,5,775,47"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#aada8120359f7e0a7c7a4f93d55764f6f" title="Añade un componente asignado al objeto dado." alt="" coords="561,71,775,112"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_e_c_s_1_1_i_system.html#a7c4d298e40f9d83aa00b85e59167e890" title="Añade un objeto a la lista de objetos procesables." alt="" coords="593,136,743,177"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_dynamic_array.html#a93ddedaaa305c6c91c0b2c49bc7fc3ee" title="Copia los contenidos del array." alt="" coords="594,201,742,243"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#a5a806e010c5e1feabf3cc82ff7ec3d37" title=" " alt="" coords="569,267,767,308"/>
+<area shape="rect" id="node9" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan.html#a401d8c72bb07cda1308124fc166f55ef" title=" " alt="" coords="565,333,771,389"/>
+<area shape="rect" id="node10" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_pool_vulkan.html#ac30681f5c514cb990ff3ca0cbcdd4bd3" title="Crea el descriptor pool, usado para crear y destruir descriptor sets." alt="" coords="557,413,779,455"/>
+<area shape="rect" id="node11" href="$class_o_s_k_1_1_dynamic_array.html#aa215fcf68b4a2d8a8e6fc4b4e5820120" title="Crea el dynamic array con los elementos dados." alt="" coords="594,479,742,520"/>
+<area shape="rect" id="node12" href="$_graphics_pipeline_vulkan_8cpp.html#a04b9978fc742d66c09ae6d319c9c5cb6" title=" " alt="" coords="589,545,747,571"/>
+<area shape="rect" id="node15" href="$_model_loader3_d_8cpp.html#abb7e6c494a601ac388178e513bd7b853" title=" " alt="" coords="622,595,714,622"/>
+<area shape="rect" id="node17" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12.html#a3fd7ec2e8eb3534fd83ec384e4e1e5df" title=" " alt="" coords="559,647,777,688"/>
+<area shape="rect" id="node18" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan.html#a871bc8e169a40dec39d218b798eee126" title=" " alt="" coords="559,712,777,753"/>
+<area shape="rect" id="node19" href="$_model_loader3_d_8cpp.html#a458b76689b3ead05bebcd4554de43d0c" title="Procesa un nodo del modelo, además de todos sus nodos hijos. Genera los meshes, vértices e índices." alt="" coords="602,802,734,829"/>
+<area shape="rect" id="node20" href="$class_o_s_k_1_1_dynamic_array.html#a8b3caa95e30b8514bfca3d9078a70315" title="Añade el elemento al final de la lista." alt="" coords="579,853,757,879"/>
+<area shape="rect" id="node22" href="$class_o_s_k_1_1_bit_set.html#a7c2fc91899f9b63d2a05331dfec22acd" title="Establece el número de bist del bitset." alt="" coords="587,907,749,934"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_dynamic_array.html#a6a81b35ca13e217d3cc8d5c42bf44c38" title="Copia el array." alt="" coords="320,201,468,243"/>
+<area shape="rect" id="node13" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan.html#a3061cf5122c4b68ccf20679c2221624b" title="Crea el pipeline con la configuración dada." alt="" coords="279,537,509,579"/>
+<area shape="rect" id="node14" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a3f096691d9ea9067bdb33aaedb89c21e" title="Crea un graphics pipeline." alt="" coords="5,537,231,579"/>
+<area shape="rect" id="node16" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html#afd1dbf7d9bffbe40564bb3e2a885e04a" title="Carga el asset." alt="" coords="295,689,493,731"/>
+<area shape="rect" id="node21" href="$class_o_s_k_1_1_e_c_s_1_1_game_object_manager.html#a5295ff7997d70dbb68f2311275878ae3" title="Destruye el objeto dado." alt="" coords="286,841,502,883"/>
+<area shape="rect" id="node23" href="$class_o_s_k_1_1_bit_set.html#a0128ac53cf6513d830ba99c5f93db58b" title="Crea un bitset con el número de bits dado." alt="" coords="325,907,463,934"/>
+<area shape="rect" id="node24" href="$class_o_s_k_1_1_hash_map.html#aba73c723a1747585be9e39a32368c61d" title="Construye un hashmap vacío." alt="" coords="306,958,482,985"/>
+</map>

@@ -24,9 +24,18 @@
 #include "FormatDx12.h"
 #include "Format.h"
 #include "MaterialLayout.h"
+#include "Math.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
+
+TSize Multiplo256(TSize original) {
+	TSize output = original / 256;
+	if (original % 256 != 0)
+		output++;
+
+	return output * 256;
+}
 
 void CommandListDx12::SetCommandList(const ComPtr<ID3D12GraphicsCommandList>& commandList) {
 	this->commandList = commandList;
@@ -167,11 +176,13 @@ void CommandListDx12::BindIndexBuffer(IGpuIndexBuffer* buffer) {
 }
 
 void CommandListDx12::BindMaterialSlot(const IMaterialSlot* slot) {
-	for (auto& i : slot->As<MaterialSlotDx12>()->GetUniformBuffers())
-		BindUniformBufferDx12(i.first, i.second);
+	for (const auto& i : slot->As<MaterialSlotDx12>()->GetUniformBuffers())
+		if (i.second != nullptr)
+			BindUniformBufferDx12(i.first, i.second);
 
-	for (auto& i : slot->As<MaterialSlotDx12>()->GetGpuImages())
-		BindImageDx12(i.first, i.second);
+	for (const auto& i : slot->As<MaterialSlotDx12>()->GetGpuImages())
+		if (i.second != nullptr)
+			BindImageDx12(i.first, i.second);
 }
 
 void CommandListDx12::PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) {
@@ -184,12 +195,12 @@ void CommandListDx12::PushMaterialConstants(const std::string& pushConstName, co
 	commandList->SetGraphicsRoot32BitConstants(pushConst.hlslBindingIndex, nSize, data, pushConst.offset + offset);
 }
 
-void CommandListDx12::BindUniformBufferDx12(TSize index, GpuUniformBufferDx12* buffer) {
+void CommandListDx12::BindUniformBufferDx12(TSize index, const GpuUniformBufferDx12* buffer) {
 	commandList->SetGraphicsRootConstantBufferView(index,
 		buffer->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress());
 }
 
-void CommandListDx12::BindImageDx12(TSize index, GpuImageDx12* image) {
+void CommandListDx12::BindImageDx12(TSize index, const GpuImageDx12* image) {
 	ID3D12DescriptorHeap* heaps[] = { image->GetSampledDescriptorHeap() };
 
 	commandList->SetDescriptorHeaps(1, heaps);

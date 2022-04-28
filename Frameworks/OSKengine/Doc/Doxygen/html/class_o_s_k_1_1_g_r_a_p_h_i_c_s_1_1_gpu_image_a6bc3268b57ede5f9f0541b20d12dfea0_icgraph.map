@@ -1,0 +1,10 @@
+<map id="OSK::GRAPHICS::GpuImage::As" name="OSK::GRAPHICS::GpuImage::As">
+<area shape="rect" id="node1" title=" " alt="" coords="267,209,483,235"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a245684b62044daee3d991482d8154e6f" title="Establece la imagen que será asignada al binding con el nombre dado. Puede usarse esta función para a..." alt="" coords="11,5,213,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#ade76c465c6b0259ddce1f0e5b8b16bbf" title="Establece la imagen que será asignada al binding con el nombre dado. Puede usarse esta función para a..." alt="" coords="11,71,213,112"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a4037acfe3a5f8071b004b7f80529912c" title="Establece las imágenes del swapchain donde se va a renderizar (para pantalla)." alt="" coords="11,136,213,177"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_ogl.html#a34b8280061575d133dfce6acc45227d7" title="Establece las imágenes del swapchain donde se va a renderizar (para pantalla)." alt="" coords="11,201,213,243"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html#a8911104609904226b868013aa5ac52db" title="Establece las imágenes del swapchain donde se va a renderizar (para pantalla)." alt="" coords="11,267,213,308"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a3500e154f4d448e124663717846ef7aa" title="Cambia el layout interno de la imagen en la memoria de la GPU." alt="" coords="5,332,219,373"/>
+<area shape="rect" id="node8" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a7cd7efdc0b63dc0407e70d2470b38a8e" title="Cambia el layout interno de la imagen en la memoria de la GPU." alt="" coords="5,397,219,439"/>
+</map>

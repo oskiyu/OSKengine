@@ -1,0 +1,4 @@
+<map id="OSK::GRAPHICS::MaterialSlotVulkan::FlushUpdate" name="OSK::GRAPHICS::MaterialSlotVulkan::FlushUpdate">
+<area shape="rect" id="node1" title="Actualiza los recursos que se enviarán a los shaders." alt="" coords="5,5,208,47"/>
+<area shape="rect" id="node2" href="$_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e" title=" " alt="" coords="256,13,337,39"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="OSK::GRAPHICS::ICommandList" name="OSK::GRAPHICS::ICommandList">
+<area shape="rect" id="node1" title="Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución." alt="" coords="208,608,424,832"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline.html" title="El graphics pipeline es el encargado de transformar los modelos 3D en una imagen final...." alt="" coords="14,395,202,531"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_unique_ptr.html" title=" " alt="" coords="5,35,211,273"/>
+<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html" title="Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la..." alt="" coords="227,380,405,545"/>
+<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html" title="Un renderpass representa una fase de renderizado. Todas las operaciones de renderizado se aplicarán s..." alt="" coords="429,380,635,545"/>
+<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html" title="Representación interna de una imagen en la GPU." alt="" coords="335,5,527,303"/>
+<area shape="rect" id="node7" href="$class_o_s_k_1_1_unique_ptr.html" title=" " alt="" coords="551,35,727,273"/>
+</map>

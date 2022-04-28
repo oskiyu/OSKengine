@@ -21,6 +21,8 @@ namespace OSK::ECS {
 	/// Es el encargado de llamar a las funciones OnTick de los sistemas, además
 	/// de introducir y eliminar de los sistemas a los GameObjects que cada sistema
 	/// vaya a procesar.
+	/// 
+	/// @note Dueño de los sistemas.
 	/// </summary>
 	class OSKAPI_CALL SystemManager {
 

@@ -14,6 +14,7 @@
 #include "GpuDx12.h"
 #include "GpuImageDimensions.h"
 #include "GpuImageUsage.h"
+#include "Math.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -51,8 +52,10 @@ GpuMemoryBlockDx12::GpuMemoryBlockDx12(GpuImage* image, IGpu* device, GpuSharedM
 
 GpuMemoryBlockDx12::GpuMemoryBlockDx12(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage) 
 	: IGpuMemoryBlock(reservedSize, device, type, GpuMemoryUsage::BUFFER) {
+	this->totalSize = MATH::PrimerMultiploSuperior<TSize>(reservedSize, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT);
+
 	D3D12_HEAP_DESC memoryCreateInfo{};
-	memoryCreateInfo.SizeInBytes = reservedSize;
+	memoryCreateInfo.SizeInBytes = totalSize;
 	memoryCreateInfo.Properties.Type = GetGpuSharedMemoryTypeDx12(type);
 
 	device->As<GpuDx12>()->GetDevice()->CreateHeap(&memoryCreateInfo, IID_PPV_ARGS(&memory));

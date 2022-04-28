@@ -26,6 +26,9 @@ namespace OSK {
 	}
 	
 
+	/// <summary>
+	/// Clase principal de OSKengine.
+	/// </summary>
 	class OSKAPI_CALL Engine {
 
 	public:

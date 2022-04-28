@@ -19,8 +19,10 @@ namespace OSK::ECS {
 	/// <summary>
 	/// Componente que permite a un GameObject tener
 	/// un sprite asociado.
-	/// Debe tener también un Transform2D.
-	/// Se encarga de manejar el material 2D por defecto.
+	/// 
+	/// @pre El objeto debe tener también un Transform2D.
+	/// 
+	/// @note Se encarga de manejar el material 2D por defecto.
 	/// </summary>
 	class OSKAPI_CALL SpriteComponent {
 
@@ -35,11 +37,15 @@ namespace OSK::ECS {
 		/// Debe establecerse la cámara después de instanciar
 		/// la instancia del material 2D.
 		/// </summary>
+		/// 
+		/// @warning Debe ser establecido para poder ser usado.
 		void SetCamera(const CameraComponent2D& camera);
 
 		/// <summary>
 		/// Establece la instancia del material 2D.
 		/// </summary>
+		/// 
+		/// @warning Debe ser establecido para poder ser usado.
 		void SetMaterialInstance(GRAPHICS::MaterialInstance* mInstance);
 		GRAPHICS::MaterialInstance* GetMaterialInstance() const;
 
@@ -47,12 +53,16 @@ namespace OSK::ECS {
 		/// Debe establecerse la textura después de instanciar
 		/// la instancia del material 2D.
 		/// </summary>
+		/// 
+		/// @warning Debe ser establecido para poder ser usado.
 		void SetTexture(const ASSETS::Texture* texture);
 
 		/// <summary>
 		/// Debe establecerse la textura después de instanciar
 		/// la instancia del material 2D.
 		/// </summary>
+		/// 
+		/// @warning Debe ser establecido para poder ser usado.
 		void SetGpuImage(const GRAPHICS::GpuImage* image);
 
 	private:

@@ -1,0 +1,8 @@
+digraph "OSK::GRAPHICS::MaterialLayoutPushConstant"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{OSK::GRAPHICS::MaterialLayout\lPushConstant\n|+ name\l+ stage\l+ size\l+ offset\l+ hlslIndex\l+ hlslBindingIndex\l|}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Un push constant permite enviar datos a la GPU directamente en la lista de comandos."];
+}

@@ -1,0 +1,3 @@
+<map id="OSK::ECS::ComponentManager" name="OSK::ECS::ComponentManager">
+<area shape="rect" id="node1" title="Se encarga de manejar la creación y eliminación de componentes. Guarda un ComponentContainer por cada..." alt="" coords="5,5,215,185"/>
+</map>

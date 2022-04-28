@@ -26,16 +26,34 @@ namespace OSK::GRAPHICS {
 		/// Devuelve el número de imágenes del swapchain.
 		/// </summary>
 		unsigned int GetImageCount() const;
+
+		/// <summary>
+		/// Devuelve el índice de la imagen renderizada en un momento dado.
+		/// </summary>
 		unsigned int GetCurrentFrameIndex() const;
 
+		/// <summary>
+		/// Envía la imagen renderizada al monitor.
+		/// </summary>
 		virtual void Present() = 0;
 
 		template <typename T> T* As() const requires std::is_base_of_v<ISwapchain, T> {
 			return (T*)this;
 		}
 
+		/// <summary>
+		/// Devuelve la imagen con el índice dado.
+		/// </summary>
+		/// 
+		/// @pre El índice está dentro de los límites.
 		GpuImage* GetImage(unsigned int index) const;
+
+		/// <summary>
+		/// Establece el renderpass que representa el renderizado a la imagen final.
+		/// </summary>
 		void SetTargetRenderpass(IRenderpass* renderpass);
+
+		/// <returns>Renderpass que representa el renderizado a la imagen final</returns>
 		IRenderpass* GetTargetRenderpass() const;
 
 	protected:

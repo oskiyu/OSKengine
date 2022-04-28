@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/Model3D.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_model3_d_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Model3D.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_model3_d_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_model3_d_8h.html">Model3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_mesh3_d_8h.html">Mesh3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_i_gpu_image_8h.html">IGpuImage.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a>;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#adc976a68735a701fc05f9c50ff826212">   10</a></span>Model3D::Model3D(<span class="keyword">const</span> std::string&amp; assetFile)</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    : <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html">IAsset</a>(assetFile) {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>}</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a480cf3e35730e8fb88c1e40cef76fdea">   15</a></span><span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;Mesh3D&gt;</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a480cf3e35730e8fb88c1e40cef76fdea">Model3D::GetMeshes</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordflow">return</span> meshes;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#aefe11c4a01aba22ec8fbda78404026e8">   19</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#aefe11c4a01aba22ec8fbda78404026e8">Model3D::AddMesh</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh3_d.html">Mesh3D</a>&amp; mesh, <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata.html">MeshMetadata</a>&amp; meshMetadata) {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    meshes.Insert(mesh);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    metadata.<a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata.html#a990f8bc4bc4c8c91586a992b79b8f582">meshesMetadata</a>.Insert(meshMetadata);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a1b82d0d66290f0968dd61b34cbe785ed">   24</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a1b82d0d66290f0968dd61b34cbe785ed">Model3D::_SetVertexBuffer</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;GRAPHICS::IGpuVertexBuffer&gt;</a>&amp; vertexBuffer) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    this-&gt;vertexBuffer = vertexBuffer.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>();</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#af71969c2d3b415801459a341b4d91c21">   28</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#af71969c2d3b415801459a341b4d91c21">Model3D::_SetIndexBuffer</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;GRAPHICS::IGpuIndexBuffer&gt;</a>&amp; indexBuffer) {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    this-&gt;indexBuffer = indexBuffer.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>();</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a2e19e626c0b40235285bf546e8cc1378">   32</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a2e19e626c0b40235285bf546e8cc1378">Model3D::_SetIndexCount</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> count) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    numIndices = count;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#ae71e7cb40f766ce9b5490b22971174ac">   36</a></span><a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html">IGpuVertexBuffer</a>* <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#ae71e7cb40f766ce9b5490b22971174ac">Model3D::GetVertexBuffer</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">return</span> vertexBuffer.GetPointer();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a7c1aaf201341a6e0666998cb7b13d98e">   40</a></span><a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html">IGpuIndexBuffer</a>* <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a7c1aaf201341a6e0666998cb7b13d98e">Model3D::GetIndexBuffer</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">return</span> indexBuffer.GetPointer();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a88f36a4771a22884eaa3933a9d18ae56">   44</a></span><a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a88f36a4771a22884eaa3933a9d18ae56">Model3D::GetIndexCount</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">return</span> numIndices;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#aff55e57875562bb3dbc82ad0d0d71fcc">   48</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#aff55e57875562bb3dbc82ad0d0d71fcc">Model3D::AddGpuImage</a>(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;GRAPHICS::GpuImage&gt;</a> image) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    metadata.<a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata.html#a7824812fa70fc1b9f50db53aa84d6d84">textures</a>.Insert(image.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>());</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a46ac841ad1f82be255e68f5b188b6278">   52</a></span><span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>* <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a46ac841ad1f82be255e68f5b188b6278">Model3D::GetImage</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> index)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">return</span> metadata.<a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata.html#a7824812fa70fc1b9f50db53aa84d6d84">textures</a>.At(index).GetPointer();</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#abde872df60b377efa267618057c5bfe4">   56</a></span><span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata.html">ModelMetadata</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#abde872df60b377efa267618057c5bfe4">Model3D::GetMetadata</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">return</span> metadata;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
+<div class="ttc" id="a_i_gpu_image_8h_html"><div class="ttname"><a href="_i_gpu_image_8h.html">IGpuImage.h</a></div></div>
+<div class="ttc" id="a_mesh3_d_8h_html"><div class="ttname"><a href="_mesh3_d_8h.html">Mesh3D.h</a></div></div>
+<div class="ttc" id="a_model3_d_8h_html"><div class="ttname"><a href="_model3_d_8h.html">Model3D.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00015">OSKmacros.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html">OSK::ASSETS::IAsset</a></div><div class="ttdoc">Un asset es un archivo/contenido que se usa en un juego. Incluye contenido como texturas,...</div><div class="ttdef"><b>Definition:</b> <a href="_i_asset_8h_source.html#l00031">IAsset.h:31</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_a1b82d0d66290f0968dd61b34cbe785ed"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a1b82d0d66290f0968dd61b34cbe785ed">OSK::ASSETS::Model3D::_SetVertexBuffer</a></div><div class="ttdeci">void _SetVertexBuffer(const OwnedPtr&lt; GRAPHICS::IGpuVertexBuffer &gt; &amp;vertexBuffer)</div><div class="ttdoc">Establece el buffer con todos los vértices del modelo.</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8cpp_source.html#l00024">Model3D.cpp:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_a2e19e626c0b40235285bf546e8cc1378"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a2e19e626c0b40235285bf546e8cc1378">OSK::ASSETS::Model3D::_SetIndexCount</a></div><div class="ttdeci">void _SetIndexCount(TSize count)</div><div class="ttdoc">Establece el número de índices totales del modelo..</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8cpp_source.html#l00032">Model3D.cpp:32</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_a46ac841ad1f82be255e68f5b188b6278"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a46ac841ad1f82be255e68f5b188b6278">OSK::ASSETS::Model3D::GetImage</a></div><div class="ttdeci">const GRAPHICS::GpuImage * GetImage(TSize index) const</div><div class="ttdoc">Devuelve la imagen de mesh con el índice dado.</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8cpp_source.html#l00052">Model3D.cpp:52</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_a480cf3e35730e8fb88c1e40cef76fdea"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a480cf3e35730e8fb88c1e40cef76fdea">OSK::ASSETS::Model3D::GetMeshes</a></div><div class="ttdeci">const DynamicArray&lt; GRAPHICS::Mesh3D &gt; &amp; GetMeshes() const</div><div class="ttdoc">Devuelve todos los meshes del modelo.</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8cpp_source.html#l00015">Model3D.cpp:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_a7c1aaf201341a6e0666998cb7b13d98e"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a7c1aaf201341a6e0666998cb7b13d98e">OSK::ASSETS::Model3D::GetIndexBuffer</a></div><div class="ttdeci">GRAPHICS::IGpuIndexBuffer * GetIndexBuffer() const</div><div class="ttdoc">Devuelve el buffer de la GPU con los índices del modelo.</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8cpp_source.html#l00040">Model3D.cpp:40</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_a88f36a4771a22884eaa3933a9d18ae56"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a88f36a4771a22884eaa3933a9d18ae56">OSK::ASSETS::Model3D::GetIndexCount</a></div><div class="ttdeci">TSize GetIndexCount() const</div><div class="ttdoc">Número de índices.</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8cpp_source.html#l00044">Model3D.cpp:44</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_abde872df60b377efa267618057c5bfe4"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#abde872df60b377efa267618057c5bfe4">OSK::ASSETS::Model3D::GetMetadata</a></div><div class="ttdeci">const ModelMetadata &amp; GetMetadata() const</div><div class="ttdoc">Devuelve los metadatos para proseguir el procesado del modelo.</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8cpp_source.html#l00056">Model3D.cpp:56</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_ae71e7cb40f766ce9b5490b22971174ac"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#ae71e7cb40f766ce9b5490b22971174ac">OSK::ASSETS::Model3D::GetVertexBuffer</a></div><div class="ttdeci">GRAPHICS::IGpuVertexBuffer * GetVertexBuffer() const</div><div class="ttdoc">Devuelve el buffer de la GPU con los vértices del modelo.</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8cpp_source.html#l00036">Model3D.cpp:36</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_aefe11c4a01aba22ec8fbda78404026e8"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#aefe11c4a01aba22ec8fbda78404026e8">OSK::ASSETS::Model3D::AddMesh</a></div><div class="ttdeci">void AddMesh(const GRAPHICS::Mesh3D &amp;mesh, const MeshMetadata &amp;metadata)</div><div class="ttdoc">Añade un mesh al modelo.</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8cpp_source.html#l00019">Model3D.cpp:19</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_af71969c2d3b415801459a341b4d91c21"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#af71969c2d3b415801459a341b4d91c21">OSK::ASSETS::Model3D::_SetIndexBuffer</a></div><div class="ttdeci">void _SetIndexBuffer(const OwnedPtr&lt; GRAPHICS::IGpuIndexBuffer &gt; &amp;indexBuffer)</div><div class="ttdoc">Establece el buffer con todos los índices del modelo.</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8cpp_source.html#l00028">Model3D.cpp:28</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_aff55e57875562bb3dbc82ad0d0d71fcc"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#aff55e57875562bb3dbc82ad0d0d71fcc">OSK::ASSETS::Model3D::AddGpuImage</a></div><div class="ttdeci">void AddGpuImage(OwnedPtr&lt; GRAPHICS::GpuImage &gt; image)</div><div class="ttdoc">Añade una imagen a la lista de imágenes de los meshes.</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8cpp_source.html#l00048">Model3D.cpp:48</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition:</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8h_source.html#l00022">IGpuImage.h:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html">OSK::GRAPHICS::IGpuIndexBuffer</a></div><div class="ttdoc">Un index buffer contiene los índices para el renderizado de un modelo 2D o 3D.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_index_buffer_8h_source.html#l00010">IGpuIndexBuffer.h:10</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html">OSK::GRAPHICS::IGpuVertexBuffer</a></div><div class="ttdoc">Un vertex buffer es un buffer de memoria en la GPU que almacena los vértices de un modelo 3D o un spr...</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_vertex_buffer_8h_source.html#l00011">IGpuVertexBuffer.h:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh3_d.html">OSK::GRAPHICS::Mesh3D</a></div><div class="ttdoc">Un mesh representa una serie de primitivas (triángulos) de un modelo 3D que comparten unas mismas pro...</div><div class="ttdef"><b>Definition:</b> <a href="_mesh3_d_8h_source.html#l00015">Mesh3D.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition:</b> <a href="_owned_ptr_8h_source.html#l00016">OwnedPtr.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a81dfab2299056fc9858aace55fca0042"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">OSK::OwnedPtr::GetPointer</a></div><div class="ttdeci">T * GetPointer() const</div><div class="ttdoc">Devuelve el puntero nativo.</div><div class="ttdef"><b>Definition:</b> <a href="_owned_ptr_8h_source.html#l00069">OwnedPtr.h:69</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition:</b> <a href="_asset_manager_8h_source.html#l00009">AssetManager.h:9</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_command_list_dx12_8h_source.html#l00012">CommandListDx12.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00007">Assert.h:7</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata_html"><div class="ttname"><a href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata.html">OSK::ASSETS::MeshMetadata</a></div><div class="ttdoc">Contiene datos necesarios para seguir procesando los meshes. Estos datos se pueden procesar de manera...</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8h_source.html#l00027">Model3D.h:27</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata_html"><div class="ttname"><a href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata.html">OSK::ASSETS::ModelMetadata</a></div><div class="ttdoc">Contiene datos necesarios para seguir procesando el modelo. Estos datos se pueden procesar de manera ...</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8h_source.html#l00044">Model3D.h:44</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata_html_a7824812fa70fc1b9f50db53aa84d6d84"><div class="ttname"><a href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata.html#a7824812fa70fc1b9f50db53aa84d6d84">OSK::ASSETS::ModelMetadata::textures</a></div><div class="ttdeci">DynamicArray&lt; UniquePtr&lt; GRAPHICS::GpuImage &gt; &gt; textures</div><div class="ttdoc">Texturas de los meshes.</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8h_source.html#l00059">Model3D.h:59</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata_html_a990f8bc4bc4c8c91586a992b79b8f582"><div class="ttname"><a href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata.html#a990f8bc4bc4c8c91586a992b79b8f582">OSK::ASSETS::ModelMetadata::meshesMetadata</a></div><div class="ttdeci">DynamicArray&lt; MeshMetadata &gt; meshesMetadata</div><div class="ttdoc">Metadatos por cada uno de los meshes.</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8h_source.html#l00051">Model3D.h:51</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_model3_d_8cpp.html">Model3D.cpp</a></li>
+    <li class="footer">Generado el Miércoles, 20 de Abril de 2022 00:28:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

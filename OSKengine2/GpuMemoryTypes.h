@@ -6,6 +6,7 @@ namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Define qué dispositivo tiene acceso a la memoria.
+	/// 
 	/// Puede definir una memoria exclusiva para la GPU (mayor
 	/// rendimiento) o una memoria accesible tanto desde la CPU
 	/// como la GPU.
@@ -23,7 +24,7 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Exclusivo para la GPU.
 		/// Mejor rendimiento.
-		/// No se puede escribir directamente desde la CPU: se debe crear un buffer
+		/// @warning No se puede escribir directamente desde la CPU: se debe crear un buffer
 		/// intermedio al que tengamos acceso (GpuSharedMemoryType::GPU_AND_CPU), y después 
 		/// copiar sus contenidos usando la cola de comandos.
 		/// </summary>
@@ -48,7 +49,8 @@ namespace OSK::GRAPHICS {
 
 		/// <summary>
 		/// Buffer que será leído desde los shaders.
-		/// Debe tener GpuSharedMemoryType::GPU_AND_CPU.
+		/// 
+		/// @pre Debe tener GpuSharedMemoryType::GPU_AND_CPU.
 		/// </summary>
 		UNIFORM_BUFFER = 1,
 

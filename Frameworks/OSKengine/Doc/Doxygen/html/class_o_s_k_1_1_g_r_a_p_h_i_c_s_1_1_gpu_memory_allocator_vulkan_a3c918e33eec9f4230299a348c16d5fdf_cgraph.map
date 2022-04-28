@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::GpuMemoryAllocatorVulkan::CreateStagingBuffer" name="OSK::GRAPHICS::GpuMemoryAllocatorVulkan::CreateStagingBuffer">
+<area shape="rect" id="node1" title="Crea un buffer temporal con el tamaño dado." alt="" coords="5,5,209,61"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#a98e9b5390d75bd73509d3c4d20f26dcb" title="Devuelve un bloque con las características dadas." alt="" coords="257,5,461,61"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html#aa3daa10c1005c7fc650b36f38d449d18" title=" " alt="" coords="509,13,741,54"/>
+</map>

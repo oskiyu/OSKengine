@@ -1,0 +1,5 @@
+<map id="OSK::LinkedList::Node::GetNext" name="OSK::LinkedList::Node::GetNext">
+<area shape="rect" id="node1" title="Obtiene el siguiente nodo en la lista." alt="" coords="224,35,379,76"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_linked_list_1_1_iterator.html#ad3eff783a9513f63f2638f10127a1b99" title="Avaza el iterador una posición." alt="" coords="8,5,173,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_linked_list.html#adf506ec3d2aac534f80baab0b950de9b" title="Elimina el elemento dado, si existe." alt="" coords="5,71,176,98"/>
+</map>

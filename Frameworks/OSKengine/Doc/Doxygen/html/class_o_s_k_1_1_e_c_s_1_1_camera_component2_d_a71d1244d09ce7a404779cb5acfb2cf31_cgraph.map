@@ -1,0 +1,5 @@
+<map id="OSK::ECS::CameraComponent2D::GetProjection" name="OSK::ECS::CameraComponent2D::GetProjection">
+<area shape="rect" id="node1" title="Devuelve la matriz proyección de la cámara." alt="" coords="5,35,216,76"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#a91ae8691a7cb6100eccea450d594f178" title="Vector posición en el mundo 2D." alt="" coords="294,5,461,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_i_o_1_1_window.html#aa7f9f244691159612d42ddbc1fdc9288" title="Devuelve el tamaño de la ventana, en píxeles." alt="" coords="264,71,491,98"/>
+</map>

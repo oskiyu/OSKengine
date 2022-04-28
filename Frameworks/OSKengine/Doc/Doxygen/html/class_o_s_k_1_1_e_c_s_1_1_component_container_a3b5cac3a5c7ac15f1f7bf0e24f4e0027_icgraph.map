@@ -1,0 +1,5 @@
+<map id="OSK::ECS::ComponentContainer::GetComponent" name="OSK::ECS::ComponentContainer::GetComponent">
+<area shape="rect" id="node1" title="Devuelve una referencia al componente del objeto dado." alt="" coords="268,39,483,80"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#af1fb0c5b18e59eee44e7f3dc8321140e" title="Añade un componente asignado al objeto dado." alt="" coords="5,5,220,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#aada8120359f7e0a7c7a4f93d55764f6f" title="Añade un componente asignado al objeto dado." alt="" coords="5,71,220,112"/>
+</map>

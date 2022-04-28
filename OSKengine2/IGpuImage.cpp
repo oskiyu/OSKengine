@@ -8,6 +8,7 @@
 #include "Logger.h"
 #include "IRenderer.h"
 #include "GpuImageLayout.h"
+#include "Format.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -79,4 +80,8 @@ void GpuImage::SetLayout(GpuImageLayout layout) {
 
 GpuImageLayout GpuImage::GetLayout() const {
 	return currentLayout;
+}
+
+TSize GpuImage::GetNumberOfBytes() {
+	return size.X * size.Y * size.Z * GetFormatNumberOfBytes(GetFormat());
 }

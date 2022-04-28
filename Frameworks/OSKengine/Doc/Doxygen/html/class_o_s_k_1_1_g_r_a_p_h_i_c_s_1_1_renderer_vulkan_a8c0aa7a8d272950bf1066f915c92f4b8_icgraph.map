@@ -1,0 +1,4 @@
+<map id="OSK::GRAPHICS::RendererVulkan::Close" name="OSK::GRAPHICS::RendererVulkan::Close">
+<area shape="rect" id="node1" title="Cierra el renderizador. También se llama en el destructor." alt="" coords="279,5,504,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a0b5145c60e53b3d070297caf72d74a8a" title=" " alt="" coords="5,5,231,47"/>
+</map>

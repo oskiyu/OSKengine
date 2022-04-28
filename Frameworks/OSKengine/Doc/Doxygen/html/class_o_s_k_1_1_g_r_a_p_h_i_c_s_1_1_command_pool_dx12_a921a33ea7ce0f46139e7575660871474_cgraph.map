@@ -1,0 +1,6 @@
+<map id="OSK::GRAPHICS::CommandPoolDx12::CreateSingleTimeCommandList" name="OSK::GRAPHICS::CommandPoolDx12::CreateSingleTimeCommandList">
+<area shape="rect" id="node1" title="Crea una lista de comandos de un sólo uso." alt="" coords="5,23,248,65"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12.html#a7730827f38174764f2dfd3b3e20aedee" title="Crea una nueva lista de comandos." alt="" coords="296,23,515,65"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#a1b0e5d22fed49696034d38442892121c" title="Castea la clase al tipo dado." alt="" coords="563,5,747,32"/>
+<area shape="rect" id="node4" href="$_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e" title=" " alt="" coords="614,56,695,83"/>
+</map>

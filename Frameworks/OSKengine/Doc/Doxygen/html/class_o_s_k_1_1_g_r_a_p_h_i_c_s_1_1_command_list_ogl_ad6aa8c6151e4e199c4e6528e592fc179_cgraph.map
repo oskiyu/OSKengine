@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::CommandListOgl::SetViewport" name="OSK::GRAPHICS::CommandListOgl::SetViewport">
+<area shape="rect" id="node1" title=" " alt="" coords="5,35,219,76"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_vector4__t.html#a5e636ce8403b0b63545ffcb296381890" title="Obtiene la posición del rectángulo (X, Y)." alt="" coords="279,5,481,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_vector4__t.html#a96bdc916373a99e5b58ad770fa9b271e" title="Obtiene el tamaño del rectángulo (Z, W)." alt="" coords="267,71,493,98"/>
+</map>

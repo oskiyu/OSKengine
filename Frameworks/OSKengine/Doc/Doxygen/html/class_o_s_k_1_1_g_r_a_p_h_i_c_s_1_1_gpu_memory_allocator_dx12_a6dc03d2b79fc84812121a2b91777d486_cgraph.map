@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::GpuMemoryAllocatorDx12::GetNextBufferMemoryBlock" name="OSK::GRAPHICS::GpuMemoryAllocatorDx12::GetNextBufferMemoryBlock">
+<area shape="rect" id="node1" title="Devuelve un bloque con las características dadas." alt="" coords="5,5,209,61"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a7d3d38d431b4ba39ad83577bce318c5d" title=" " alt="" coords="257,5,464,61"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#a6e95ea54b078e71df2642158eb31d01c" title=" " alt="" coords="512,13,735,54"/>
+</map>

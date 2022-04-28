@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/ISwapchain.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_i_swapchain_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ISwapchain.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_i_swapchain_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_i_swapchain_8h.html">ISwapchain.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a052206c1de590606bfdef279f326d16c">    6</a></span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ISwapchain::GetImageCount()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a85599f1e213f7ebdf66b6d5cd2a8fd14">imageCount</a>;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>}</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#abbf1668873549c12b0bc43afd19304a3">   10</a></span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#abbf1668873549c12b0bc43afd19304a3">ISwapchain::GetCurrentFrameIndex</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a7720e506b7ca0147c2296dc33b2d119a">currentFrameIndex</a>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a5936949da83e48f3f0f337d1459e5989">   14</a></span><a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a5936949da83e48f3f0f337d1459e5989">ISwapchain::GetImage</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#af4b44c935f04512a891cd9daf8dfec8e">images</a>[index].GetPointer();</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a6552383bd739712f08895f21457425bb">   18</a></span><a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a>* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a6552383bd739712f08895f21457425bb">ISwapchain::GetTargetRenderpass</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a106de60ad449c18e6deadc3fe7953c4e">targetRenderpass</a>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#af0fcaaa77c3ca8fa6820f7a277a94c87">   22</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#af0fcaaa77c3ca8fa6820f7a277a94c87">ISwapchain::SetTargetRenderpass</a>(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a>* renderpass) {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a106de60ad449c18e6deadc3fe7953c4e">targetRenderpass</a> = renderpass;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
+<div class="ttc" id="a_i_swapchain_8h_html"><div class="ttname"><a href="_i_swapchain_8h.html">ISwapchain.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8h_source.html#l00022">IGpuImage.h:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">OSK::GRAPHICS::IRenderpass</a></div><div class="ttdoc">Un renderpass representa una fase de renderizado. Todas las operaciones de renderizado se aplicarán s...</div><div class="ttdef"><b>Definition:</b> <a href="_i_renderpass_8h_source.html#l00017">IRenderpass.h:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_html_a106de60ad449c18e6deadc3fe7953c4e"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a106de60ad449c18e6deadc3fe7953c4e">OSK::GRAPHICS::ISwapchain::targetRenderpass</a></div><div class="ttdeci">IRenderpass * targetRenderpass</div><div class="ttdef"><b>Definition:</b> <a href="_i_swapchain_8h_source.html#l00066">ISwapchain.h:66</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_html_a5936949da83e48f3f0f337d1459e5989"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a5936949da83e48f3f0f337d1459e5989">OSK::GRAPHICS::ISwapchain::GetImage</a></div><div class="ttdeci">GpuImage * GetImage(unsigned int index) const</div><div class="ttdoc">Devuelve la imagen con el índice dado.</div><div class="ttdef"><b>Definition:</b> <a href="_i_swapchain_8cpp_source.html#l00014">ISwapchain.cpp:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_html_a6552383bd739712f08895f21457425bb"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a6552383bd739712f08895f21457425bb">OSK::GRAPHICS::ISwapchain::GetTargetRenderpass</a></div><div class="ttdeci">IRenderpass * GetTargetRenderpass() const</div><div class="ttdoc">Renderpass que representa el renderizado a la imagen final</div><div class="ttdef"><b>Definition:</b> <a href="_i_swapchain_8cpp_source.html#l00018">ISwapchain.cpp:18</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_html_a7720e506b7ca0147c2296dc33b2d119a"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a7720e506b7ca0147c2296dc33b2d119a">OSK::GRAPHICS::ISwapchain::currentFrameIndex</a></div><div class="ttdeci">unsigned int currentFrameIndex</div><div class="ttdef"><b>Definition:</b> <a href="_i_swapchain_8h_source.html#l00065">ISwapchain.h:65</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_html_a85599f1e213f7ebdf66b6d5cd2a8fd14"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a85599f1e213f7ebdf66b6d5cd2a8fd14">OSK::GRAPHICS::ISwapchain::imageCount</a></div><div class="ttdeci">unsigned int imageCount</div><div class="ttdef"><b>Definition:</b> <a href="_i_swapchain_8h_source.html#l00062">ISwapchain.h:62</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_html_abbf1668873549c12b0bc43afd19304a3"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#abbf1668873549c12b0bc43afd19304a3">OSK::GRAPHICS::ISwapchain::GetCurrentFrameIndex</a></div><div class="ttdeci">unsigned int GetCurrentFrameIndex() const</div><div class="ttdoc">Devuelve el índice de la imagen renderizada en un momento dado.</div><div class="ttdef"><b>Definition:</b> <a href="_i_swapchain_8cpp_source.html#l00010">ISwapchain.cpp:10</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_html_af0fcaaa77c3ca8fa6820f7a277a94c87"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#af0fcaaa77c3ca8fa6820f7a277a94c87">OSK::GRAPHICS::ISwapchain::SetTargetRenderpass</a></div><div class="ttdeci">void SetTargetRenderpass(IRenderpass *renderpass)</div><div class="ttdoc">Establece el renderpass que representa el renderizado a la imagen final.</div><div class="ttdef"><b>Definition:</b> <a href="_i_swapchain_8cpp_source.html#l00022">ISwapchain.cpp:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_html_af4b44c935f04512a891cd9daf8dfec8e"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#af4b44c935f04512a891cd9daf8dfec8e">OSK::GRAPHICS::ISwapchain::images</a></div><div class="ttdeci">UniquePtr&lt; GpuImage &gt; images[3]</div><div class="ttdef"><b>Definition:</b> <a href="_i_swapchain_8h_source.html#l00064">ISwapchain.h:64</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_command_list_dx12_8h_source.html#l00012">CommandListDx12.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00007">Assert.h:7</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_i_swapchain_8cpp.html">ISwapchain.cpp</a></li>
+    <li class="footer">Generado el Miércoles, 20 de Abril de 2022 00:28:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

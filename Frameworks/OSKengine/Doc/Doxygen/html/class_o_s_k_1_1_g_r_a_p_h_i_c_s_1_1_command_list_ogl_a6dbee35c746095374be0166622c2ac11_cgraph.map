@@ -1,0 +1,5 @@
+<map id="OSK::GRAPHICS::CommandListOgl::BindVertexBuffer" name="OSK::GRAPHICS::CommandListOgl::BindVertexBuffer">
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,219,80"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html#a33bc8c6062a92079aec9d14eee48b832" title=" " alt="" coords="267,5,465,47"/>
+<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vertex_buffer_ogl.html#a6e2431f7bb83ddab9518ec27ee84cce5" title="Devuelve el handler para el array de vértices." alt="" coords="269,71,463,112"/>
+</map>

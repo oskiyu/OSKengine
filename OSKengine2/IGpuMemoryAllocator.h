@@ -49,15 +49,13 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		using TSize = unsigned int;
-
 		IGpuMemoryAllocator(IGpu* device);
 		virtual ~IGpuMemoryAllocator();
 
 		/// <summary>
 		/// El tamaño de memoria que, por defecto, tendrá cada bloque de memoria.
 		/// 
-		/// Un bloque puede tener más tamaño, si se usa para almacenar un
+		/// @note Un bloque puede tener más tamaño, si se usa para almacenar un
 		/// recurso que ocupe más espacio.
 		/// </summary>
 		static TSize SizeOfMemoryBlockInMb;
@@ -75,13 +73,22 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Crea una nueva imagen en la GPU.
 		/// </summary>
-		/// <param name="size">Tamaño de la imagen. Para imágenes 2D, Z se ignora. Para imágenes 1D, Y y Z se ignoran.</param>
+		/// <param name="size">
+		/// Tamaño de la imagen. 
+		/// @note Para imágenes 2D, Z se ignora. 
+		/// @note Para imágenes 1D, Y y Z se ignoran.
+		/// </param>
 		/// <param name="dimension">Dimensión de la imagen.</param>
-		/// <param name="numLayers">Número de capas: 1 es una imagen sencilla, 2 o más forman un array de imágenes.</param>
+		/// <param name="numLayers">
+		/// Número de capas.
+		/// @note  1 es una imagen sencilla.
+		/// @note 2 o más forman un array de imágenes.
+		/// @pre Debe ser mayor que 0.</param>
 		/// <param name="format">Formato.</param>
 		/// <param name="usage">Uso que se le va a dar.</param>
 		/// <param name="sharedType">GPU o GPU-CPU.</param>
-		/// <param name="msaaSamples">Número de muestreos. Para imágenes normales, 1.</param>
+		/// <param name="msaaSamples">Número de muestreos. 
+		/// @note Para imágenes normales, 1.</param>
 		/// <param name="samplerDesc">Descipción del sampler.</param>
 		virtual OwnedPtr<GpuImage> CreateImage(const Vector3ui& size, GpuImageDimension dimension, TSize numLayers, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, TSize msaaSamples, GpuImageSamplerDesc samplerDesc = {}) = 0;
 
@@ -108,12 +115,13 @@ namespace OSK::GRAPHICS {
 		virtual OwnedPtr<IGpuIndexBuffer> CreateIndexBuffer(const DynamicArray<TIndexSize>& indices) = 0;
 
 		/// <summary>
-		/// 
+		/// Crea un uniform buffer, con el tamaño dado en bytes.
 		/// </summary>
 		virtual OwnedPtr<IGpuUniformBuffer> CreateUniformBuffer(TSize size) = 0;
 
 		/// <summary>
 		/// Crea un buffer temporal con el tamaño dado.
+		/// 
 		/// Este buffer alojará memoria en una región donde la CPU tiene acceso,
 		/// de tal manera que se podrán enviar datos a esta región, y después
 		/// la GPU podrá copiar esta región de memoria a una región de memoria de video

@@ -1,0 +1,4 @@
+<map id="OSK::ECS::CameraComponent3D::AddFov" name="OSK::ECS::CameraComponent3D::AddFov">
+<area shape="rect" id="node1" title="Añade FoV a la cámara." alt="" coords="5,5,216,47"/>
+<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#ad842f6befbd2b4b5c276407789917e2d" title="Establece el FoV de la cámara, si está en los límites de FoV." alt="" coords="264,5,475,47"/>
+</map>
