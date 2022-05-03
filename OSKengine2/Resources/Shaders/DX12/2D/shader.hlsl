@@ -22,7 +22,7 @@ VS2PS vmain(float2 position : POSITION, float2 texCoords : BASETEXCOORDS) {
 
     float4x4 temp = mul(cameraView, pushConstants.modelMatrix);
     result.position = mul(temp, float4(position.xy, 0.0, 1.0));
-    result.texCoords = pushConstants.texCoords.xy + position * (pushConstants.texCoords.zw - pushConstants.texCoords.xy);
+    result.texCoords = pushConstants.texCoords.xy + position * pushConstants.texCoords.zw;
 
     return result;
 }

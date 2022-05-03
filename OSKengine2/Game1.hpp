@@ -24,7 +24,7 @@
 #include "CameraComponent3D.h"
 #include "CameraComponent2D.h"
 #include "KeyboardState.h"
-#include "SpriteComponent.h"
+#include "Sprite.h"
 #include "MouseState.h"
 #include "MouseModes.h"
 #include "Mesh3D.h"
@@ -43,6 +43,8 @@
 #include <ext\matrix_clip_space.hpp>
 #include "Font.h"
 #include "FontLoader.h"
+#include "SpriteRenderer.h"
+#include "TextureCoordinates.h"
 
 OSK::GRAPHICS::Material* skyboxMaterial = nullptr;
 OSK::GRAPHICS::Material* material2d = nullptr;
@@ -50,17 +52,8 @@ OSK::GRAPHICS::MaterialInstance* skyboxMaterialInstance = nullptr;
 OSK::ASSETS::CubemapTexture* cubemap = nullptr;
 OSK::ASSETS::Model3D* cubemapModel = nullptr;
 
-/// <summary>
-/// @deprecated V1.0
-/// @bug XD
-/// @warning XDD
-/// @note A
-/// @precon aaaa
-/// <deprecated>V1.0</deprecated>
-/// <bug>V1.0</bug>
-/// <warning>V1.0</warning>
-/// <note>V1.0</note>
-/// </summary>
+OSK::GRAPHICS::SpriteRenderer spriteRenderer;
+
 class Game1 : public OSK::IGame {
 
 protected:
@@ -92,13 +85,14 @@ protected:
 
 	void OnCreate() override {
 
-		font = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Font>("Resources/Assets/font0.json", "GLOBAL");
-		font->LoadSizedFont(22);
-
 		// Material load
 		OSK::GRAPHICS::Material* material = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material.json");
 		material2d = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json");
-		OSK::ASSETS::Texture* texture = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Texture>("Resources/Assets/texture0.json", "GLOBAL");
+		texture = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Texture>("Resources/Assets/texture0.json", "GLOBAL");
+
+		font = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Font>("Resources/Assets/font0.json", "GLOBAL");
+		font->LoadSizedFont(22);
+		font->SetMaterial(material2d);
 
 		uniformBuffer = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
 		
@@ -167,13 +161,18 @@ protected:
 		camera2D.LinkToWindow(OSK::Engine::GetWindow());
 
 		spriteObject = OSK::Engine::GetEntityComponentSystem()->SpawnObject();
-		auto& comp = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::SpriteComponent>(spriteObject, {});
+		auto& comp = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::GRAPHICS::Sprite>(spriteObject, {});
 		auto& tr2d = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::Transform2D>(spriteObject, { cameraObject2d });
-		comp.GetSprite().SetTexCoordsInPercent({ 0.5f, 0.5f, 1.0f, 1.0f });
+		comp.SetTexCoords(OSK::GRAPHICS::TextureCoordinates2D::Normalized({ 0.5f, 0.5f, 1.0f, 1.0f }));
 		tr2d.SetScale({ 100, 120 });
 		comp.SetMaterialInstance(material2d->CreateInstance().GetPointer());
 		comp.SetCamera(camera2D);
 		comp.SetTexture(texture);
+
+		spriteRenderer.SetCommandList(OSK::Engine::GetRenderer()->GetCommandList());
+
+		font->GetInstance(30).sprite->GetMaterialInstance()->GetSlot("global")->SetUniformBuffer("camera", camera2D.GetUniformBuffer());
+		font->GetInstance(30).sprite->GetMaterialInstance()->GetSlot("global")->FlushUpdate();
 	}
 
 	void OnTick(TDeltaTime deltaTime) override {
@@ -217,12 +216,12 @@ protected:
 		uniformBuffer->Write(cameraTransform.GetPosition());
 		uniformBuffer->Unmap();
 
-		/*OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::CameraComponent2D>(cameraObject2d).UpdateUniformBuffer(
+		OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::CameraComponent2D>(cameraObject2d).UpdateUniformBuffer(
 			OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform2D>(cameraObject2d)
-		);*/
+		);
 	}
 
-	void OnRender() override {
+	void OnPreRender() override {
 		auto commandList = OSK::Engine::GetRenderer()->GetCommandList();
 
 		commandList->BindMaterial(skyboxMaterial);
@@ -230,6 +229,13 @@ protected:
 		commandList->BindVertexBuffer(cubemapModel->GetVertexBuffer());
 		commandList->BindIndexBuffer(cubemapModel->GetIndexBuffer());
 		commandList->DrawSingleInstance(cubemapModel->GetIndexCount());
+	}
+
+	void OnPostRender() override {
+		spriteRenderer.Begin();
+		spriteRenderer.DrawString(*font, 30, "FPS: " + std::to_string(GetFps()), { 300.0f, 50.f }, 1, 0, OSK::Color::BLUE());
+		spriteRenderer.DrawString(*font, 30, "MS: " + std::to_string(1000.0f / GetFps()), { 300.0f, 80.f }, 1, 0, OSK::Color::BLUE());
+		spriteRenderer.End();
 	}
 
 	void OnExit() override {
@@ -248,6 +254,7 @@ private:
 
 	OSK::UniquePtr<OSK::GRAPHICS::IGpuUniformBuffer> uniformBuffer;
 	
+	OSK::ASSETS::Texture* texture = nullptr;
 	OSK::ASSETS::Font* font = nullptr;
 
 };

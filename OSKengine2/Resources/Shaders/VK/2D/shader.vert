@@ -18,7 +18,7 @@ layout(location = 1) out vec2 outTexCoords;
 
 void main() {
     outColor = sprite.color;
-    outTexCoords = sprite.texCoords.xy + inPos.xy * (sprite.texCoords.zw - sprite.texCoords.xy);
+    outTexCoords = sprite.texCoords.xy + inPos.xy * sprite.texCoords.zw;
 
     gl_Position = camera.cameraMatrix * sprite.model * vec4(inPos, 0.0, 1.0);
 }

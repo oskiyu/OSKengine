@@ -149,9 +149,9 @@ namespace OSK::IO {
 
 	private:
 
-		Vector2i position = 0.0f;
+		Vector2i position = 0;
 		Vector2 relativePosition = 0.0f;
-		Vector2i scroll = 0.0f;
+		Vector2i scroll = 0;
 
 		ButtonState buttonStates[MouseNumberOfButtons];
 

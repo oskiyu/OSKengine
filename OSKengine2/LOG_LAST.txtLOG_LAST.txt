@@ -6,7 +6,7 @@ INFO: 	Monitor sizeX: 1920
 INFO: 	Monitor sizeY: 1080
 INFO: 	Monitor refresh rate: 144
 INFO: Iniciando renderizador DX12.
-INFO: Capas de validación activas.
+INFO: Capas de validación no disponibles.
 INFO: GPU elegida: NVIDIA GeForce RTX 2060
 INFO: Creada la cola de comandos.
 INFO: Creada el pool de comandos.

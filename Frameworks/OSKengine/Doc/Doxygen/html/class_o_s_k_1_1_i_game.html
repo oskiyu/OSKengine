@@ -103,8 +103,10 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:ab00e969b9d69316da10501747d0fdebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5b3dafcf09ca96ea589b1a799ee1a54"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_i_game.html#af5b3dafcf09ca96ea589b1a799ee1a54">OnTick</a> (<a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime)</td></tr>
 <tr class="separator:af5b3dafcf09ca96ea589b1a799ee1a54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0dc8aa903a52ab3a60141cae86de4715"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_i_game.html#a0dc8aa903a52ab3a60141cae86de4715">OnRender</a> ()</td></tr>
-<tr class="separator:a0dc8aa903a52ab3a60141cae86de4715"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefd97b5ef0224259e1c874f180883669"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_i_game.html#aefd97b5ef0224259e1c874f180883669">OnPreRender</a> ()</td></tr>
+<tr class="separator:aefd97b5ef0224259e1c874f180883669"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab25548120280873fa3e32821e0cf5a3e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_i_game.html#ab25548120280873fa3e32821e0cf5a3e">OnPostRender</a> ()</td></tr>
+<tr class="separator:ab25548120280873fa3e32821e0cf5a3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02044212501aee6fc59d1a75c0129892"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_i_game.html#a02044212501aee6fc59d1a75c0129892">OnExit</a> ()</td></tr>
 <tr class="separator:a02044212501aee6fc59d1a75c0129892"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a061c6604f59ca3ef9f5093b1fb78f844"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_i_game.html#a061c6604f59ca3ef9f5093b1fb78f844">Run</a> ()</td></tr>
@@ -199,7 +201,7 @@ Métodos protegidos</h2></td></tr>
 
 <p>Fuerza el shutdown del juego. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_game_8cpp_source.html#l00078">78</a> del archivo <a class="el" href="_game_8cpp_source.html">Game.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_game_8cpp_source.html#l00084">84</a> del archivo <a class="el" href="_game_8cpp_source.html">Game.cpp</a>.</p>
 
 </div>
 </div>
@@ -220,7 +222,7 @@ Métodos protegidos</h2></td></tr>
 
 <p>Devuelve el número de frames en el último segundo. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_game_8cpp_source.html#l00082">82</a> del archivo <a class="el" href="_game_8cpp_source.html">Game.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_game_8cpp_source.html#l00088">88</a> del archivo <a class="el" href="_game_8cpp_source.html">Game.cpp</a>.</p>
 
 </div>
 </div>
@@ -283,12 +285,12 @@ Métodos protegidos</h2></td></tr>
 
 <p>Reimplementado en <a class="el" href="class_game1.html#a229828b3a0274e30792814ca986630b2">Game1</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_game_8cpp_source.html#l00026">26</a> del archivo <a class="el" href="_game_8cpp_source.html">Game.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_game_8cpp_source.html#l00030">30</a> del archivo <a class="el" href="_game_8cpp_source.html">Game.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a0dc8aa903a52ab3a60141cae86de4715" name="a0dc8aa903a52ab3a60141cae86de4715"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0dc8aa903a52ab3a60141cae86de4715">&#9670;&nbsp;</a></span>OnRender()</h2>
+<a id="ab25548120280873fa3e32821e0cf5a3e" name="ab25548120280873fa3e32821e0cf5a3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab25548120280873fa3e32821e0cf5a3e">&#9670;&nbsp;</a></span>OnPostRender()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -297,7 +299,7 @@ Métodos protegidos</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void IGame::OnRender </td>
+          <td class="memname">void IGame::OnPostRender </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -310,7 +312,40 @@ Métodos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplementado en <a class="el" href="class_game1.html#a7f0dcbd6b70aae8307a3c6c1d6ce2782">Game1</a>.</p>
+<p>Se ejecuta después de renderizar el sistema 3D. </p>
+
+<p>Reimplementado en <a class="el" href="class_game1.html#a5f87cad3a5c937a0aef13062eeb13fb7">Game1</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_game_8cpp_source.html#l00026">26</a> del archivo <a class="el" href="_game_8cpp_source.html">Game.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aefd97b5ef0224259e1c874f180883669" name="aefd97b5ef0224259e1c874f180883669"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefd97b5ef0224259e1c874f180883669">&#9670;&nbsp;</a></span>OnPreRender()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IGame::OnPreRender </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Se ejecuta después de haberse iniciado las colas de comandos gráficos y haberse establecido el renderpass por defecto, y antes de renderizar el sistema 3D. </p>
+
+<p>Reimplementado en <a class="el" href="class_game1.html#a82fa6bd37b2c0154c0d5a6d867ab0cd4">Game1</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_game_8cpp_source.html#l00022">22</a> del archivo <a class="el" href="_game_8cpp_source.html">Game.cpp</a>.</p>
 
@@ -372,7 +407,7 @@ Métodos protegidos</h2></td></tr>
 
 <p>Inicia la ejecución del juego. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_game_8cpp_source.html#l00030">30</a> del archivo <a class="el" href="_game_8cpp_source.html">Game.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_game_8cpp_source.html#l00034">34</a> del archivo <a class="el" href="_game_8cpp_source.html">Game.cpp</a>.</p>
 
 </div>
 </div>
@@ -415,7 +450,7 @@ Métodos protegidos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_i_game.html">IGame</a></li>
-    <li class="footer">Generado el Miércoles, 20 de Abril de 2022 00:28:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Martes, 3 de Mayo de 2022 18:12:20 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

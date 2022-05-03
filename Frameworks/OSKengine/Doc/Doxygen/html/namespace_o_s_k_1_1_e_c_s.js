@@ -11,7 +11,6 @@ var namespace_o_s_k_1_1_e_c_s =
     [ "ModelComponent3D", "class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html", "class_o_s_k_1_1_e_c_s_1_1_model_component3_d" ],
     [ "RenderSystem2D", "class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html", "class_o_s_k_1_1_e_c_s_1_1_render_system2_d" ],
     [ "RenderSystem3D", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d" ],
-    [ "SpriteComponent", "class_o_s_k_1_1_e_c_s_1_1_sprite_component.html", "class_o_s_k_1_1_e_c_s_1_1_sprite_component" ],
     [ "SystemManager", "class_o_s_k_1_1_e_c_s_1_1_system_manager.html", "class_o_s_k_1_1_e_c_s_1_1_system_manager" ],
     [ "Transform2D", "class_o_s_k_1_1_e_c_s_1_1_transform2_d.html", "class_o_s_k_1_1_e_c_s_1_1_transform2_d" ],
     [ "Transform3D", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html", "class_o_s_k_1_1_e_c_s_1_1_transform3_d" ],

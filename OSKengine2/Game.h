@@ -41,8 +41,18 @@ namespace OSK {
 		/// <param name="deltaTime">Tiempo que ha pasado desde el último frame,
 		/// en segundos.</param>
 		virtual void OnTick(TDeltaTime deltaTime);
-		
-		virtual void OnRender();
+
+		/// <summary>
+		/// Se ejecuta después de haberse iniciado las colas de comandos gráficos y haberse
+		/// establecido el renderpass por defecto, y antes de renderizar el sistema 3D.
+		/// </summary>
+		virtual void OnPreRender();
+
+
+		/// <summary>
+		/// Se ejecuta después de  renderizar el sistema 3D.
+		/// </summary>
+		virtual void OnPostRender();
 
 		/// <summary>
 		/// Función que se ejecuta al salir del juego.

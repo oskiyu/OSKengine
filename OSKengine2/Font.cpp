@@ -11,6 +11,8 @@
 #include "GpuImageUsage.h"
 #include "GpuMemoryTypes.h"
 #include "GpuImageLayout.h"
+#include "MaterialSystem.h"
+#include "Material.h"
 #include "UniquePtr.hpp"
 
 using namespace OSK;
@@ -124,6 +126,12 @@ void Font::LoadSizedFont(TSize fontSize) {
 
 	Engine::GetRenderer()->UploadImageToGpu(gpuImage.GetPointer(), finalPixels.GetData(), numBytes, GpuImageLayout::SHADER_READ_ONLY);
 
+	if (material) {
+		instance.sprite = new Sprite;
+		instance.sprite->SetMaterialInstance(material->CreateInstance());
+		instance.sprite->SetGpuImage(gpuImage.GetPointer());
+	}
+
 	// Memory free
 	FT_Done_Face(face);
 }
@@ -145,4 +153,12 @@ GpuImage* Font::GetGpuImage(TSize fontSize) {
 
 const FontCharacter& Font::GetCharacterInfo(TSize fontSize, char character) {
 	return GetInstance(fontSize).characters.Get(character);
+}
+
+void Font::SetMaterial(Material* material) {
+	this->material = material;
+}
+
+Material* Font::GetMaterial() const {
+	return material;
 }

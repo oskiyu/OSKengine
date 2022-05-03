@@ -5,7 +5,7 @@
 #include "Component.h"
 #include "DynamicArray.hpp"
 
-namespace OSK {
+namespace OSK::GRAPHICS {
 	class ICommandList;
 }
 

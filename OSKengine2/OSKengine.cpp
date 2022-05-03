@@ -22,7 +22,7 @@
 #include "RenderSystem2D.h"
 #include "IGpuMemoryAllocator.h"
 #include "CameraComponent2D.h"
-#include "SpriteComponent.h"
+#include "Sprite.h"
 #include "Transform2D.h"
 #include "Font.h"
 #include "FontLoader.h"
@@ -101,7 +101,7 @@ void Engine::RegisterBuiltinComponents() {
 	entityComponentSystem->RegisterComponent<ECS::Transform3D>();
 	entityComponentSystem->RegisterComponent<ECS::ModelComponent3D>();
 	entityComponentSystem->RegisterComponent<ECS::CameraComponent3D>();
-	entityComponentSystem->RegisterComponent<ECS::SpriteComponent>();
+	entityComponentSystem->RegisterComponent<GRAPHICS::Sprite>();
 	entityComponentSystem->RegisterComponent<ECS::CameraComponent2D>();
 	entityComponentSystem->RegisterComponent<ECS::Transform2D>();
 }

@@ -690,9 +690,6 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Archivos de origen\OSKengine\ECS\Builtin\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteComponent.cpp">
-      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Sprite</Filter>
-    </ClCompile>
     <ClCompile Include="RenderSystem2D.cpp">
       <Filter>Archivos de origen\OSKengine\ECS\Builtin\Sprite</Filter>
     </ClCompile>
@@ -704,6 +701,12 @@
     </ClCompile>
     <ClCompile Include="FontLoader.cpp">
       <Filter>Archivos de origen\OSKengine\Assets\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureCoordinates.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1169,9 +1172,6 @@
     <ClInclude Include="Sprite.h">
       <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Sprite</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteComponent.h">
-      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Sprite</Filter>
-    </ClInclude>
     <ClInclude Include="RenderSystem2D.h">
       <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Sprite</Filter>
     </ClInclude>
@@ -1189,6 +1189,12 @@
     </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureCoordinates.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

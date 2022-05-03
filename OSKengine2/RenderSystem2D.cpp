@@ -1,12 +1,13 @@
 #include "RenderSystem2D.h"
 
-#include "SpriteComponent.h"
+#include "Sprite.h"
 #include "Transform2D.h"
 #include "EntityComponentSystem.h"
 #include "OSKengine.h"
 #include "ICommandList.h"
 #include "MaterialLayout.h"
 #include "PushConst2D.h"
+#include "IGpuImage.h"
 
 using namespace OSK;
 using namespace OSK::ECS;
@@ -16,32 +17,23 @@ RenderSystem2D::RenderSystem2D() {
 	Signature signature{};
 
 	signature.SetTrue(Engine::GetEntityComponentSystem()->GetComponentType<Transform2D>());
-	signature.SetTrue(Engine::GetEntityComponentSystem()->GetComponentType<SpriteComponent>());
+	signature.SetTrue(Engine::GetEntityComponentSystem()->GetComponentType<Sprite>());
 
 	SetSignature(signature);
 }
 
-void RenderSystem2D::Render(GRAPHICS::ICommandList* commandList) {
-	/*commandList->BindVertexBuffer(Sprite::globalVertexBuffer);
-	commandList->BindIndexBuffer(Sprite::globalIndexBuffer);
-	
+void RenderSystem2D::Render(ICommandList* commandList) {
+	spriteRenderer.SetCommandList(commandList);
+
+	spriteRenderer.Begin();
 	PushConst2D pushConst{};
 
 	for (GameObjectIndex obj : GetObjects()) {
-		const SpriteComponent& sprite = Engine::GetEntityComponentSystem()->GetComponent<SpriteComponent>(obj);
-		const Transform2D& transform = Engine::GetEntityComponentSystem()->GetComponent<Transform2D>(obj);
+		spriteRenderer.Draw(
+			Engine::GetEntityComponentSystem()->GetComponent<Sprite>(obj), 
+			Engine::GetEntityComponentSystem()->GetComponent<Transform2D>(obj)
+		);
+	}
 
-		pushConst.color = sprite.GetSprite().color;
-		pushConst.matrix = transform.GetAsMatrix();
-		pushConst.texCoords = sprite.GetSprite().GetTexCoords();
-
-		commandList->BindMaterial(sprite.GetMaterialInstance()->GetMaterial());
-
-		commandList->PushMaterialConstants("sprite", pushConst);
-
-		for (const std::string& slotName : sprite.GetMaterialInstance()->GetLayout()->GetAllSlotNames())
-			commandList->BindMaterialSlot(sprite.GetMaterialInstance()->GetSlot(slotName));
-
-		commandList->DrawSingleInstance(6);
-	}*/
+	spriteRenderer.End();
 }

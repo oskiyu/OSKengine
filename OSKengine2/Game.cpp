@@ -19,7 +19,11 @@ void IGame::OnTick(TDeltaTime deltaTime) {
 
 }
 
-void IGame::OnRender() {
+void IGame::OnPreRender() {
+
+}
+
+void IGame::OnPostRender() {
 
 }
 
@@ -46,7 +50,7 @@ void IGame::Run() {
 
 		Engine::GetEntityComponentSystem()->OnTick(deltaTime);
 		OnTick(deltaTime);
-		OnRender();
+		OnPreRender();
 
 		Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->Render(
 			Engine::GetRenderer()->GetCommandList()
@@ -54,6 +58,8 @@ void IGame::Run() {
 		Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem2D>()->Render(
 			Engine::GetRenderer()->GetCommandList()
 		);
+
+		OnPostRender();
 		Engine::GetRenderer()->PresentFrame();
 
 		Engine::GetWindow()->UpdateMouseAndKeyboardOldStates();

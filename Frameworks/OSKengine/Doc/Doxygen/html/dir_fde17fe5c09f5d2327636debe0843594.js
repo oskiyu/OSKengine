@@ -81,7 +81,7 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "FontCharacter.h", "_font_character_8h.html", [
       [ "OSK::ASSETS::FontCharacter", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character" ]
     ] ],
-    [ "FontInstance.cpp", "_font_instance_8cpp.html", null ],
+    [ "FontInstance.cpp", "_font_instance_8cpp.html", "_font_instance_8cpp" ],
     [ "FontInstance.h", "_font_instance_8h.html", [
       [ "OSK::ASSETS::FontInstance", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance" ]
     ] ],
@@ -424,9 +424,9 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "Sprite.h", "_sprite_8h.html", [
       [ "OSK::GRAPHICS::Sprite", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite" ]
     ] ],
-    [ "SpriteComponent.cpp", "_sprite_component_8cpp.html", null ],
-    [ "SpriteComponent.h", "_sprite_component_8h.html", [
-      [ "OSK::ECS::SpriteComponent", "class_o_s_k_1_1_e_c_s_1_1_sprite_component.html", "class_o_s_k_1_1_e_c_s_1_1_sprite_component" ]
+    [ "SpriteRenderer.cpp", "_sprite_renderer_8cpp.html", null ],
+    [ "SpriteRenderer.h", "_sprite_renderer_8h.html", [
+      [ "OSK::GRAPHICS::SpriteRenderer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer" ]
     ] ],
     [ "SwapchainDx12.cpp", "_swapchain_dx12_8cpp.html", "_swapchain_dx12_8cpp" ],
     [ "SwapchainDx12.h", "_swapchain_dx12_8h.html", [
@@ -448,6 +448,8 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "Texture.h", "_texture_8h.html", [
       [ "OSK::ASSETS::Texture", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture" ]
     ] ],
+    [ "TextureCoordinates.cpp", "_texture_coordinates_8cpp.html", null ],
+    [ "TextureCoordinates.h", "_texture_coordinates_8h.html", "_texture_coordinates_8h" ],
     [ "TextureLoader.cpp", "_texture_loader_8cpp.html", "_texture_loader_8cpp" ],
     [ "TextureLoader.h", "_texture_loader_8h.html", [
       [ "OSK::ASSETS::TextureLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader" ]

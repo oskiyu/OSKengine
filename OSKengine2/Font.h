@@ -8,6 +8,10 @@
 #include "FontInstance.h"
 #include "FontCharacter.h"
 
+namespace OSK::GRAPHICS {
+	class Material;
+}
+
 namespace OSK::ASSETS {
 
 	/// <summary>
@@ -77,10 +81,25 @@ namespace OSK::ASSETS {
 		/// <param name="fontSize">Tamaño de la fuente.</param>
 		const FontInstance& GetInstance(TSize fontSize);
 
+		/// <summary>
+		/// Establece el material a partir del que se van a crear
+		/// las instancias de materiales para las instancias de fuentes.
+		/// </summary>
+		void SetMaterial(GRAPHICS::Material* material);
+
+		/// <summary>
+		/// Devuelve el material del que se crean
+		/// las instancias.
+		/// </summary>
+		/// 
+		/// @note Puede devolver null.
+		GRAPHICS::Material* GetMaterial() const;
+
 	private:
 
 		HashMap<TSize, FontInstance> instances;
 		std::string fontFile;
+		GRAPHICS::Material* material = nullptr;
 
 	};
 

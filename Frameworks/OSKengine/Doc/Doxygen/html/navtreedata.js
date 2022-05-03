@@ -27,6 +27,7 @@ var NAVTREE =
   [ "OSKengine", "index.html", [
     [ "Lista de obsoletos", "deprecated.html", null ],
     [ "Lista de bugs", "bug.html", null ],
+    [ "Lista de tareas pendientes", "todo.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Lista de 'namespaces'", "namespaces.html", "namespaces_dup" ],
       [ "Miembros del Namespace ", "namespacemembers.html", [
@@ -67,29 +68,29 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_assert_8cpp.html",
-"_gpu_index_buffer_dx12_8h.html",
-"_keyboard_state_8h.html#a0b92714a4a778072d4824502589bd39ea3a3ea00cfc35332cedf6e5e9a32e94da",
-"_pipeline_create_info_8h.html#ad6329cdca67793d3a3ffec0de1fab44cacfe39a5621dfe382d2991f32c4ae08da",
-"class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#aa0e593888f6bcd143de4f9eb5a912f44",
-"class_o_s_k_1_1_dynamic_array.html#ab772cd3a1f2c189505ea17d604dfc164",
-"class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a43e7608ce2a31c9c13b42cf4ce6eb0ef",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_ogl.html#a5de438ce7c72e0d12653dd47dc60b057",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#a02b98e8bdd44204ffe0d54e7164c3a8d",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a6b7676a476f7cd0db5f9b4634ef0c852",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html#ac811cc7ceba6d38d77e8289e0ce0d6e9",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan.html",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#ab857e1d8dd5f5dfe65370d44799cb5d2",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a50f5c0b2bfc7bd549c9501322331c0cf",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#a12199f28cd60df14be96731a1218edae",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html#aa6fc104e2156cf8e7058ce230baf2171",
-"class_o_s_k_1_1_i_o_1_1_logger.html#ab13114d60ca5f1f69f2ba0f2f1a5bd19",
-"class_o_s_k_1_1_unique_ptr.html#a02df140640da15131866950714467fb9",
-"class_o_s_k_1_1_vector4__t.html#a5ea1015dbd131ea807e71a3e09101f02",
-"glad_8c.html#a2dfc304817e54ffd346bf062f143f816",
-"glad_8c.html#a86f8c59736b0095f3b8468c2629c3e55",
-"glad_8c.html#ad9ad80d0d7baf2d44b4cd463cb3282f8",
-"namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#abd894ab72db6cb1f2762684830d7354c",
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a0cf036d8fe1322bb8bfdf2db8e6e7636"
+"_gpu_index_buffer_dx12_8cpp.html",
+"_keyboard_state_8h.html#a0b92714a4a778072d4824502589bd39ea37f438df6a6d5ba4c17ef8ca58562f00",
+"_pipeline_create_info_8h.html#ad6329cdca67793d3a3ffec0de1fab44c",
+"class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#a5db23936cef420c1ba8253b95d78b2fc",
+"class_o_s_k_1_1_dynamic_array.html#a90bb67f64f4e41f06ec2db0e18dc563f",
+"class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#ab66937b130814e6f06f3d76648dd0fb6",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_ogl.html#a6dbee35c746095374be0166622c2ac11",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#a2465440c1dd288cb534a90bc1390f5d3",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a7d3d38d431b4ba39ad83577bce318c5d",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html#ad05465fad94290d46a4d4dae0600fed6",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan.html#a3061cf5122c4b68ccf20679c2221624b",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#ae2a286b07dea726f4c92e5a1c8b0d6fe",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a6552383bd739712f08895f21457425bb",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#a2928763ae4948a9de9bafad902fd9696",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html#add0bad624cfcb5ee2599c2c8c7425066",
+"class_o_s_k_1_1_i_game.html#af033542cc50642b5e1325ee4c7c93cf7",
+"class_o_s_k_1_1_owned_ptr.html#a97bcc9354bcf3f9cc270b53a8ff273fd",
+"class_o_s_k_1_1_vector4__t.html#a10dcc6d572d4c1d8e529077a9642f393",
+"glad_8c.html#a22d9c34acaff27cfb41d3f50136e2a43",
+"glad_8c.html#a7eaae955dc43716bd102de7339a2b698",
+"glad_8c.html#acd047ccb210765d16e03fcdae5fba208",
+"namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b1dc31370524acc975ed22fb10a9386",
+"struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#a080de74a5027833e0966af431ccfac22"
 ];
 
 var SYNCONMSG = 'click en deshabilitar sincronización';

@@ -8,5 +8,7 @@ var searchData=
   ['none_5',['NONE',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922cab50339a10e1de285ac99d4c3990b8693',1,'OSK::GRAPHICS::NONE()'],['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027ddab50339a10e1de285ac99d4c3990b8693',1,'OSK::GRAPHICS::NONE()']]],
   ['normal_6',['normal',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d.html#a4862c0913e38313129a9a77468b12648',1,'OSK::GRAPHICS::Vertex3D']]],
   ['normalize_7',['Normalize',['../class_o_s_k_1_1_vector2__t.html#a91fc3cfe54ea2d6ca8c73a988317d598',1,'OSK::Vector2_t::Normalize()'],['../class_o_s_k_1_1_vector3__t.html#aad361b766898211bc069fc6c9b44cd96',1,'OSK::Vector3_t::Normalize()']]],
-  ['num_5flock_8',['NUM_LOCK',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eacb0d0bf9279e78f982deba761110e434',1,'OSK::IO']]]
+  ['normalized_8',['Normalized',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_texture_coordinates2_d.html#a59f9d49c54960b075d69ab732b3c966d',1,'OSK::GRAPHICS::TextureCoordinates2D']]],
+  ['normalized_9',['NORMALIZED',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a8850682b4f35c42bbcf63a1e81b29c9ca5dce94de2a2a2772111f3af42badb16f',1,'OSK::GRAPHICS']]],
+  ['num_5flock_10',['NUM_LOCK',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eacb0d0bf9279e78f982deba761110e434',1,'OSK::IO']]]
 ];

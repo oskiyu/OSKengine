@@ -17,7 +17,7 @@ MaterialInstance::~MaterialInstance() {
 
 }
 
-IMaterialSlot* MaterialInstance::GetSlot(const std::string& name) {
+IMaterialSlot* MaterialInstance::GetSlot(const std::string& name) const {
 	return slots.Get(name).GetPointer();
 }
 

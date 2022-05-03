@@ -27,9 +27,10 @@ var searchData=
   ['uniqueptr_3c_20osk_3a_3agraphics_3a_3amaterialinstance_20_3e_24',['UniquePtr&lt; OSK::GRAPHICS::MaterialInstance &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
   ['uniqueptr_3c_20osk_3a_3agraphics_3a_3amateriallayout_20_3e_25',['UniquePtr&lt; OSK::GRAPHICS::MaterialLayout &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
   ['uniqueptr_3c_20osk_3a_3agraphics_3a_3amaterialsystem_20_3e_26',['UniquePtr&lt; OSK::GRAPHICS::MaterialSystem &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
-  ['uniqueptr_3c_20osk_3a_3aio_3a_3akeyboardstate_20_3e_27',['UniquePtr&lt; OSK::IO::KeyboardState &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
-  ['uniqueptr_3c_20osk_3a_3aio_3a_3alogger_20_3e_28',['UniquePtr&lt; OSK::IO::Logger &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
-  ['uniqueptr_3c_20osk_3a_3aio_3a_3amousestate_20_3e_29',['UniquePtr&lt; OSK::IO::MouseState &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
-  ['uniqueptr_3c_20osk_3a_3aio_3a_3awindow_20_3e_30',['UniquePtr&lt; OSK::IO::Window &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
-  ['uniqueptr_3c_20t_5b_5d_3e_31',['UniquePtr&lt; T[]&gt;',['../class_o_s_k_1_1_unique_ptr_3_01_t_0f_0e_4.html',1,'OSK']]]
+  ['uniqueptr_3c_20osk_3a_3agraphics_3a_3asprite_20_3e_27',['UniquePtr&lt; OSK::GRAPHICS::Sprite &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
+  ['uniqueptr_3c_20osk_3a_3aio_3a_3akeyboardstate_20_3e_28',['UniquePtr&lt; OSK::IO::KeyboardState &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
+  ['uniqueptr_3c_20osk_3a_3aio_3a_3alogger_20_3e_29',['UniquePtr&lt; OSK::IO::Logger &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
+  ['uniqueptr_3c_20osk_3a_3aio_3a_3amousestate_20_3e_30',['UniquePtr&lt; OSK::IO::MouseState &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
+  ['uniqueptr_3c_20osk_3a_3aio_3a_3awindow_20_3e_31',['UniquePtr&lt; OSK::IO::Window &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
+  ['uniqueptr_3c_20t_5b_5d_3e_32',['UniquePtr&lt; T[]&gt;',['../class_o_s_k_1_1_unique_ptr_3_01_t_0f_0e_4.html',1,'OSK']]]
 ];

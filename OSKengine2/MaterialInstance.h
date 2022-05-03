@@ -40,7 +40,7 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Devuelve el slot con el nombre dado.
 		/// </summary>
-		IMaterialSlot* GetSlot(const std::string& name);
+		IMaterialSlot* GetSlot(const std::string& name) const;
 
 		/// <summary>
 		/// Devuelve el material del que es instancia esta instancia.

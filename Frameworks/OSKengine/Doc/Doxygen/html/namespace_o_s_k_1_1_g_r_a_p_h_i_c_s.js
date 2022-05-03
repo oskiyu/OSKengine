@@ -77,10 +77,12 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "RenderpassOgl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_ogl.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_ogl" ],
     [ "RenderpassVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan" ],
     [ "Sprite", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite" ],
+    [ "SpriteRenderer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer" ],
     [ "SwapchainDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12" ],
     [ "SwapchainVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan" ],
     [ "SyncDeviceDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_dx12" ],
     [ "SyncDeviceVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan" ],
+    [ "TextureCoordinates2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_texture_coordinates2_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_texture_coordinates2_d" ],
     [ "Vertex2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d" ],
     [ "Vertex3D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d" ],
     [ "VertexInfo", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info" ],
@@ -187,6 +189,10 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "ShaderStage", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb", [
       [ "VERTEX", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba0c3e47aef93a7f244f41ab309a33634b", null ],
       [ "FRAGMENT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba7345a249ed5c2f850d85dc1727c24716", null ]
+    ] ],
+    [ "TextureCoordsType", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a8850682b4f35c42bbcf63a1e81b29c9c", [
+      [ "NORMALIZED", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a8850682b4f35c42bbcf63a1e81b29c9ca5dce94de2a2a2772111f3af42badb16f", null ],
+      [ "PIXELS", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a8850682b4f35c42bbcf63a1e81b29c9ca02c1922d900c1b47ff041388e102e225", null ]
     ] ],
     [ "GetColorFormat", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#addcbf799331ac7f383130540011e4a02", null ],
     [ "GetDescriptorTypeVk", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4c5b747cc726d69ca2876e77875618dc", null ],

@@ -143,7 +143,7 @@
     <ClCompile Include="RenderSystem3D.cpp" />
     <ClCompile Include="ShaderBindingTypeVulkan.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="SpriteComponent.cpp" />
+    <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="SwapchainDx12.cpp" />
     <ClCompile Include="SwapchainVulkan.cpp" />
     <ClCompile Include="SyncDeviceDx12.cpp" />
@@ -151,6 +151,7 @@
     <ClCompile Include="ISystem.cpp" />
     <ClCompile Include="SystemManager.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureCoordinates.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="Transform2D.cpp" />
     <ClCompile Include="Transform3D.cpp" />
@@ -298,7 +299,7 @@
     <ClInclude Include="ShaderBindingTypeVulkan.h" />
     <ClInclude Include="SharedPtr.hpp" />
     <ClInclude Include="Sprite.h" />
-    <ClInclude Include="SpriteComponent.h" />
+    <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="SwapchainDx12.h" />
     <ClInclude Include="SwapchainVulkan.h" />
     <ClInclude Include="SyncDeviceDx12.h" />
@@ -306,6 +307,7 @@
     <ClInclude Include="ISystem.h" />
     <ClInclude Include="SystemManager.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureCoordinates.h" />
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="Transform3D.h" />
