@@ -7,7 +7,8 @@ var _shader_binding_type_8h =
     ] ],
     [ "ShaderStage", "_shader_binding_type_8h.html#aa7e7dcffcab27051f141128e66a50fcb", [
       [ "VERTEX", "_shader_binding_type_8h.html#aa7e7dcffcab27051f141128e66a50fcba0c3e47aef93a7f244f41ab309a33634b", null ],
-      [ "FRAGMENT", "_shader_binding_type_8h.html#aa7e7dcffcab27051f141128e66a50fcba7345a249ed5c2f850d85dc1727c24716", null ]
+      [ "FRAGMENT", "_shader_binding_type_8h.html#aa7e7dcffcab27051f141128e66a50fcba7345a249ed5c2f850d85dc1727c24716", null ],
+      [ "TESSELATION", "_shader_binding_type_8h.html#aa7e7dcffcab27051f141128e66a50fcbaf8b2b1cc44868adffe889c4a783f4b65", null ]
     ] ],
     [ "OSK_FLAGS", "_shader_binding_type_8h.html#a4bb03a6e470cf0fd5203cdead6306b7e", null ]
 ];

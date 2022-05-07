@@ -109,6 +109,30 @@ namespace OSK::GRAPHICS {
 		std::string fragmentPath;
 
 		/// <summary>
+		/// Dirección en la que se encuentra el shader de control de la teselación.
+		/// Este shader es el encargado de determinar qué grado de teselación se 
+		/// realizará en una primitiva.
+		/// </summary>
+		/// 
+		/// @note Debe ser un archivo ya compilado, en caso de que se use el renderizador
+		/// DirectX12 o Vulkan.
+		std::string tesselationControlPath = "";
+
+		/// <summary>
+		/// Dirección en la que se encuentra el shader de evaluación de la teselación.
+		/// Este shader es el encargado de generar los vértices teselados.
+		/// </summary>
+		/// 
+		/// @note Debe ser un archivo ya compilado, en caso de que se use el renderizador
+		/// DirectX12 o Vulkan.
+		std::string tesselationEvaluationPath = "";
+
+		/// <summary>
+		/// Número de vértices que tendrá cada patch del teselado.
+		/// </summary>
+		TSize tesselationPatchControlPoints = 3;
+
+		/// <summary>
 		/// Tipo de polígono (línea, triángulo...).
 		/// </summary>
 		PolygonMode polygonMode;

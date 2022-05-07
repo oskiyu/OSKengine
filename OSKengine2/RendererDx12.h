@@ -37,6 +37,8 @@ namespace OSK::GRAPHICS {
 
 	protected:
 
+		const TByte* FormatImageDataForGpu(const GpuImage* image, const TByte* data, TSize numLayers) override;
+
 		void CreateCommandQueues() override;
 		void CreateSwapchain() override;
 		void CreateSyncDevice() override;

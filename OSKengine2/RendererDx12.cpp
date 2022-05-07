@@ -40,6 +40,7 @@
 #include "MaterialSlotDx12.h"
 #include "GpuImageDx12.h"
 #include "FormatDx12.h"
+#include "IGpuImage.h"
 
 #include "Texture.h"
 #include "Model3D.h"
@@ -125,6 +126,22 @@ OwnedPtr<IRenderpass> RendererDx12::CreateSecondaryRenderpass(GpuImage* targetIm
 		output->SetImages(targetImage0, targetImage0, targetImage0);
 
 	materialSystem->RegisterRenderpass(output.GetPointer());
+
+	return output;
+}
+
+const TByte* RendererDx12::FormatImageDataForGpu(const GpuImage* image, const TByte* data, TSize numLayers) {
+	TByte* output = new TByte[image->GetPhysicalNumberOfBytes() * numLayers];
+
+	const TSize numBytesPerPixel = GetFormatNumberOfBytes(image->GetFormat());
+	const TSize numBytesPerLayer = image->GetPhysicalNumberOfBytes();
+
+	for (TSize i = 0; i < numLayers + 0; i++) {
+		const TSize layerOffset = numBytesPerLayer * i;
+
+		for (TSize y = 0; y < image->GetPhysicalSize().Y; y++)
+			memcpy(&output[layerOffset + y * image->GetPhysicalSize().X * numBytesPerPixel], &data[layerOffset + y * image->GetSize().X * numBytesPerPixel], image->GetSize().X * numBytesPerPixel);
+	}
 
 	return output;
 }
@@ -295,6 +312,9 @@ void RendererDx12::PresentFrame() {
 void RendererDx12::SubmitSingleUseCommandList(ICommandList* commandList) {
 	ID3D12CommandList* commandLists[] = { commandList->As<CommandListDx12>()->GetCommandList() };
 	graphicsQueue->As<CommandQueueDx12>()->GetCommandQueue()->ExecuteCommandLists(1, commandLists);
+
+	syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
+	syncDevice->As<SyncDeviceDx12>()->Await();
 
 	singleTimeCommandLists.Insert(commandList);
 }

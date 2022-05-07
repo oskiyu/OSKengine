@@ -30,9 +30,13 @@ IGpu* IRenderer::GetGpu() const {
 }
 
 void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout, TSize numLayers) {
-	auto stagingBuffer = GetMemoryAllocator()->CreateStagingBuffer(numBytes);
+	TSize gpuNumBytes = destination->GetPhysicalNumberOfBytes() * numLayers;
+
+	const TByte* uploadableData = this->FormatImageDataForGpu(destination, data, numLayers);
+
+	auto stagingBuffer = GetMemoryAllocator()->CreateStagingBuffer(gpuNumBytes);
 	stagingBuffer->MapMemory();
-	stagingBuffer->Write(data, numBytes);
+	stagingBuffer->Write(uploadableData, gpuNumBytes);
 	stagingBuffer->Unmap();
 
 	auto commandList = CreateSingleUseCommandList();
@@ -41,13 +45,20 @@ void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data
 	commandList->Start();
 	commandList->TransitionImageLayout(destination, GpuImageLayout::TRANSFER_DESTINATION, 0, numLayers);
 
-	TSize offsetPerIteration = numBytes / numLayers;
+	TSize offsetPerIteration = gpuNumBytes / numLayers;
 	for (TSize i = 0; i < numLayers; i++)
 		commandList->CopyBufferToImage(stagingBuffer.GetPointer(), destination, i, offsetPerIteration * i);
 
 	commandList->TransitionImageLayout(destination, finalLayout, 0, numLayers);
 	commandList->Close();
 	SubmitSingleUseCommandList(commandList.GetPointer());
+
+	if (data != uploadableData)
+		delete[] uploadableData;
+}
+
+const TByte* IRenderer::FormatImageDataForGpu(const GpuImage* image, const TByte* data, TSize numLayers) {
+	return data;
 }
 
 void IRenderer::UploadImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout) {

@@ -27,8 +27,24 @@ ShaderStage GetShaderStage(const std::string& type) {
 	if (type == "VERTEX")
 		return ShaderStage::VERTEX;
 
+	if (type == "FRAGMENT")
+		return ShaderStage::FRAGMENT;
+
+	if (type == "TESSELATION")
+		return ShaderStage::TESSELATION;
+
+	OSK_ASSERT(false, type + " no es un shader stage válido.");
+
 	return ShaderStage::FRAGMENT;
 }
+
+PolygonMode GetPolygonMode(const std::string& type) {
+	if (type == "LINE")
+		return PolygonMode::LINE;
+	else
+		return PolygonMode::FILL;
+}
+
 
 MaterialSystem::~MaterialSystem() {
 	for (TSize i = 0; i < materials.GetSize(); i++)
@@ -42,8 +58,11 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 
 	std::string vertexPath;
 	std::string fragmentPath;
+	std::string tesselationControlPath = "";
+	std::string tesselationEvaluationPath = "";
 
 	VertexInfo vertexType;
+	PolygonMode polygonMode = PolygonMode::FILL;
 
 	// Material file.
 	nlohmann::json materialInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(path));
@@ -86,6 +105,9 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 		}
 
 		vertexType = vertexTypesTable.Get(materialInfo["vertex_type"]);
+
+		if (materialInfo.contains("polygon_mode"))
+			polygonMode = GetPolygonMode(materialInfo["polygon_mode"]);
 	}
 
 	// Shader file.
@@ -100,10 +122,22 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 			|| Engine::GetRenderer()->GetRenderApi() == RenderApiType::VULKAN) {
 			vertexPath = shaderInfo["glsl_shaders"]["vertex"];
 			fragmentPath = shaderInfo["glsl_shaders"]["fragment"];
+
+			if (shaderInfo["glsl_shaders"].contains("tesselation_control"))
+				tesselationControlPath = shaderInfo["glsl_shaders"]["tesselation_control"];
+
+			if (shaderInfo["glsl_shaders"].contains("tesselation_evaluation"))
+				tesselationEvaluationPath = shaderInfo["glsl_shaders"]["tesselation_evaluation"];
 		}
 		else if (Engine::GetRenderer()->GetRenderApi() == RenderApiType::DX12) {
 			vertexPath = shaderInfo["hlsl_shaders"]["vertex"];
 			fragmentPath = shaderInfo["hlsl_shaders"]["fragment"];
+
+			if (shaderInfo["hlsl_shaders"].contains("tesselation_control"))
+				tesselationControlPath = shaderInfo["hlsl_shaders"]["tesselation_control"];
+
+			if (shaderInfo["hlsl_shaders"].contains("tesselation_evaluation"))
+				tesselationEvaluationPath = shaderInfo["hlsl_shaders"]["tesselation_evaluation"];
 		}
 
 		for (auto& slotInfo : shaderInfo["slots"]) {
@@ -151,7 +185,9 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	PipelineCreateInfo info{};
 	info.vertexPath = vertexPath;
 	info.fragmentPath = fragmentPath;
-	info.polygonMode = PolygonMode::FILL;
+	info.tesselationControlPath = tesselationControlPath;
+	info.tesselationEvaluationPath = tesselationEvaluationPath;
+	info.polygonMode = polygonMode;
 	info.cullMode = PolygonCullMode::BACK;
 	info.frontFaceType = PolygonFrontFaceType::COUNTERCLOCKWISE;
 

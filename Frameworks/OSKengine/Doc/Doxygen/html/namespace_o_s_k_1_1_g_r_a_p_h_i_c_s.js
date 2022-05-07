@@ -188,7 +188,8 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     ] ],
     [ "ShaderStage", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb", [
       [ "VERTEX", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba0c3e47aef93a7f244f41ab309a33634b", null ],
-      [ "FRAGMENT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba7345a249ed5c2f850d85dc1727c24716", null ]
+      [ "FRAGMENT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba7345a249ed5c2f850d85dc1727c24716", null ],
+      [ "TESSELATION", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcbaf8b2b1cc44868adffe889c4a783f4b65", null ]
     ] ],
     [ "TextureCoordsType", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a8850682b4f35c42bbcf63a1e81b29c9c", [
       [ "NORMALIZED", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a8850682b4f35c42bbcf63a1e81b29c9ca5dce94de2a2a2772111f3af42badb16f", null ],

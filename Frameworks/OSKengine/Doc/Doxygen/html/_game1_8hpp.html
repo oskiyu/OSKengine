@@ -133,6 +133,7 @@ $(document).ready(function(){initNavTree('_game1_8hpp.html',''); initResizable()
 <code>#include &quot;<a class="el" href="_font_loader_8h_source.html">FontLoader.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_sprite_renderer_8h_source.html">SpriteRenderer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_texture_coordinates_8h_source.html">TextureCoordinates.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_vertex3_d_8h_source.html">Vertex3D.h</a>&quot;</code><br />
 </div>
 <p><a href="_game1_8hpp_source.html">Ir al código fuente de este archivo.</a></p>
 <table class="memberdecls">
@@ -153,6 +154,20 @@ Variables</h2></td></tr>
 <tr class="separator:a3631a2db514c278c94c7d3451bae096f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa72b1742d80dcb2f0b96dbb09e5eb635"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">OSK::ASSETS::Model3D</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_game1_8hpp.html#aa72b1742d80dcb2f0b96dbb09e5eb635">cubemapModel</a> = nullptr</td></tr>
 <tr class="separator:aa72b1742d80dcb2f0b96dbb09e5eb635"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f0148dfb5e1813f4cecca626003f285"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">OSK::GRAPHICS::Material</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_game1_8hpp.html#a0f0148dfb5e1813f4cecca626003f285">terrainMaterialFill</a> = nullptr</td></tr>
+<tr class="separator:a0f0148dfb5e1813f4cecca626003f285"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab44da46c592ef0b69b187aa2b45f06b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">OSK::GRAPHICS::Material</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_game1_8hpp.html#ab44da46c592ef0b69b187aa2b45f06b3">terrainMaterialLine</a> = nullptr</td></tr>
+<tr class="separator:ab44da46c592ef0b69b187aa2b45f06b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34e94195578561017efe952379ba98c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">OSK::GRAPHICS::Material</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_game1_8hpp.html#a34e94195578561017efe952379ba98c3">terrainMaterial</a> = nullptr</td></tr>
+<tr class="separator:a34e94195578561017efe952379ba98c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a372f991314a36a100db3ab02f3b4132a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html">OSK::GRAPHICS::MaterialInstance</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_game1_8hpp.html#a372f991314a36a100db3ab02f3b4132a">terrainMaterialInstance</a> = nullptr</td></tr>
+<tr class="separator:a372f991314a36a100db3ab02f3b4132a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9918910f52c7366a78ae2f13acb17ff8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html">OSK::GRAPHICS::IGpuVertexBuffer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_game1_8hpp.html#a9918910f52c7366a78ae2f13acb17ff8">terrainVertexBuffer</a> = nullptr</td></tr>
+<tr class="separator:a9918910f52c7366a78ae2f13acb17ff8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3e8e76c14498a31d9ab2d0c35978ee8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html">OSK::GRAPHICS::IGpuIndexBuffer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_game1_8hpp.html#ab3e8e76c14498a31d9ab2d0c35978ee8">terrainIndexBuffer</a> = nullptr</td></tr>
+<tr class="separator:ab3e8e76c14498a31d9ab2d0c35978ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a653e1b27a835ef37bf4ccc335ad7f962"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a05f5134cdcc67a7889c57e39aa2f25ae">OSK::GRAPHICS::TIndexSize</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_game1_8hpp.html#a653e1b27a835ef37bf4ccc335ad7f962">terrainIndices</a></td></tr>
+<tr class="separator:a653e1b27a835ef37bf4ccc335ad7f962"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d98ace5ad51b732346e4f2102870a1a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html">OSK::GRAPHICS::SpriteRenderer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_game1_8hpp.html#a5d98ace5ad51b732346e4f2102870a1a">spriteRenderer</a></td></tr>
 <tr class="separator:a5d98ace5ad51b732346e4f2102870a1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -169,7 +184,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00052">52</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00053">53</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
 
 </div>
 </div>
@@ -185,7 +200,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00053">53</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00054">54</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
 
 </div>
 </div>
@@ -201,7 +216,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00050">50</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00051">51</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
 
 </div>
 </div>
@@ -217,7 +232,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00049">49</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00050">50</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
 
 </div>
 </div>
@@ -233,7 +248,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00051">51</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00052">52</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
 
 </div>
 </div>
@@ -249,7 +264,119 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00055">55</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00064">64</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab3e8e76c14498a31d9ab2d0c35978ee8" name="ab3e8e76c14498a31d9ab2d0c35978ee8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3e8e76c14498a31d9ab2d0c35978ee8">&#9670;&nbsp;</a></span>terrainIndexBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html">OSK::GRAPHICS::IGpuIndexBuffer</a>* terrainIndexBuffer = nullptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00061">61</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a653e1b27a835ef37bf4ccc335ad7f962" name="a653e1b27a835ef37bf4ccc335ad7f962"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a653e1b27a835ef37bf4ccc335ad7f962">&#9670;&nbsp;</a></span>terrainIndices</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a>&lt;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a05f5134cdcc67a7889c57e39aa2f25ae">OSK::GRAPHICS::TIndexSize</a>&gt; terrainIndices</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00062">62</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a34e94195578561017efe952379ba98c3" name="a34e94195578561017efe952379ba98c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34e94195578561017efe952379ba98c3">&#9670;&nbsp;</a></span>terrainMaterial</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">OSK::GRAPHICS::Material</a>* terrainMaterial = nullptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00058">58</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0f0148dfb5e1813f4cecca626003f285" name="a0f0148dfb5e1813f4cecca626003f285"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f0148dfb5e1813f4cecca626003f285">&#9670;&nbsp;</a></span>terrainMaterialFill</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">OSK::GRAPHICS::Material</a>* terrainMaterialFill = nullptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00056">56</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a372f991314a36a100db3ab02f3b4132a" name="a372f991314a36a100db3ab02f3b4132a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a372f991314a36a100db3ab02f3b4132a">&#9670;&nbsp;</a></span>terrainMaterialInstance</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html">OSK::GRAPHICS::MaterialInstance</a>* terrainMaterialInstance = nullptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00059">59</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab44da46c592ef0b69b187aa2b45f06b3" name="ab44da46c592ef0b69b187aa2b45f06b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab44da46c592ef0b69b187aa2b45f06b3">&#9670;&nbsp;</a></span>terrainMaterialLine</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">OSK::GRAPHICS::Material</a>* terrainMaterialLine = nullptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00057">57</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9918910f52c7366a78ae2f13acb17ff8" name="a9918910f52c7366a78ae2f13acb17ff8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9918910f52c7366a78ae2f13acb17ff8">&#9670;&nbsp;</a></span>terrainVertexBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html">OSK::GRAPHICS::IGpuVertexBuffer</a>* terrainVertexBuffer = nullptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_game1_8hpp_source.html#l00060">60</a> del archivo <a class="el" href="_game1_8hpp_source.html">Game1.hpp</a>.</p>
 
 </div>
 </div>
@@ -259,7 +386,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_game1_8hpp.html">Game1.hpp</a></li>
-    <li class="footer">Generado el Martes, 3 de Mayo de 2022 18:12:20 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Sábado, 7 de Mayo de 2022 19:05:06 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

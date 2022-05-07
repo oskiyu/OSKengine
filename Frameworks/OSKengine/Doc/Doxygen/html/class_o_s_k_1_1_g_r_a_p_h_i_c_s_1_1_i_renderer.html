@@ -151,6 +151,8 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 Métodos protegidos</h2></td></tr>
 <tr class="memitem:af5690a20f70e5ce6004625994b4a6e6e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#af5690a20f70e5ce6004625994b4a6e6e">IRenderer</a> (<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430f">RenderApiType</a> renderApiType)</td></tr>
 <tr class="separator:af5690a20f70e5ce6004625994b4a6e6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bc3460eece49621aa2411460cc65138"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="namespace_o_s_k.html#a13be6d03821c950ec38db0531c1d5f5c">TByte</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6bc3460eece49621aa2411460cc65138">FormatImageDataForGpu</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *image, const <a class="el" href="namespace_o_s_k.html#a13be6d03821c950ec38db0531c1d5f5c">TByte</a> *data, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> numLayers)</td></tr>
+<tr class="separator:a6bc3460eece49621aa2411460cc65138"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68c35e96c0520bb5121761b79bb5bf61"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a68c35e96c0520bb5121761b79bb5bf61">CreateCommandQueues</a> ()=0</td></tr>
 <tr class="separator:a68c35e96c0520bb5121761b79bb5bf61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afeb88741346d8c4c34f7f71da46804a1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#afeb88741346d8c4c34f7f71da46804a1">CreateSwapchain</a> ()=0</td></tr>
@@ -521,7 +523,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00069">69</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00080">80</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -588,7 +590,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Crea una lista de comandos para un único uso. Útil para enviar datos a la GPU, por ejemplo. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00061">61</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00072">72</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -646,6 +648,66 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 </div>
 </div>
+<a id="a6bc3460eece49621aa2411460cc65138" name="a6bc3460eece49621aa2411460cc65138"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bc3460eece49621aa2411460cc65138">&#9670;&nbsp;</a></span>FormatImageDataForGpu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespace_o_s_k.html#a13be6d03821c950ec38db0531c1d5f5c">TByte</a> * IRenderer::FormatImageDataForGpu </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *&#160;</td>
+          <td class="paramname"><em>image</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a13be6d03821c950ec38db0531c1d5f5c">TByte</a> *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
+          <td class="paramname"><em>numLayers</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Debido a razones de alineamiento, es posible que se tengan que desplazar partes de la imagen para que se pueda realizar correctamente una copia de la imagen a la GPU. </p>
+<p >Por defecto, devuelve el puntero original. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>Imagen para la que se va a formatear los datos.</td></tr>
+    <tr><td class="paramname">data</td><td>Datos originales.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd><p class="startdd">Datos con formato.</p>
+<p class="interdd"></p>
+<p class="enddd">Si se sobreescribe, devolverá un puntero distinto al original, el cual deberá ser eliminado tras llamar a esta función.</p>
+</dd></dl>
+
+<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#ab6a13de17b200ccc537a56bd61eb8b8f">OSK::GRAPHICS::RendererDx12</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00060">60</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a37d47db030f6723bdce8f43518b611b4" name="a37d47db030f6723bdce8f43518b611b4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a37d47db030f6723bdce8f43518b611b4">&#9670;&nbsp;</a></span>GetCommandList()</h2>
 
@@ -699,7 +761,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00085">85</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00096">96</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -720,7 +782,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Devuelve el sistema de materiales. Necesario mara manejar materiales y crear instancias de materiales. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00065">65</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00076">76</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -760,7 +822,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Devuelve el API de renderizado de bajo nivel del renderizador actual. (DX12/VULKAN/OPENGL). </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00073">73</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00084">84</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -781,7 +843,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Devuelve el número de imágenes del swapchain. Para recursos que necesiten tener una copia por imagen del swapchain. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00077">77</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00088">88</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -885,7 +947,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Devuelve true si el renderizador está inicializado y funcionando. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00081">81</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00092">92</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -989,7 +1051,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 <p>Rellena la imagen en la GPU con los datos dados. </p>
 <dl class="section pre"><dt>Precondición</dt><dd>La imagen de destino debe haber sido creada con <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaac61dfc60317a58b2843ec29f8e3c2359" title="Se copiarán los contenidos de otra imagen a esta.">GpuImageUsage::TRANSFER_DESTINATION</a>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00057">57</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00068">68</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1034,7 +1096,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 <p>Rellena la imagen en la GPU con los datos dados. </p>
 <dl class="section pre"><dt>Precondición</dt><dd>La imagen de destino debe haber sido creada con <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaac61dfc60317a58b2843ec29f8e3c2359" title="Se copiarán los contenidos de otra imagen a esta.">GpuImageUsage::TRANSFER_DESTINATION</a>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00053">53</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00064">64</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1110,7 +1172,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00193">193</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00207">207</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1134,7 +1196,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00192">192</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00206">206</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1158,7 +1220,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00184">184</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00198">198</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1182,7 +1244,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00195">195</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00209">209</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1206,7 +1268,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00186">186</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00200">200</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1230,7 +1292,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00203">203</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00217">217</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1254,7 +1316,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00207">207</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00221">221</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1278,7 +1340,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00199">199</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00213">213</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1302,7 +1364,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00187">187</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00201">201</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1326,7 +1388,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00197">197</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00211">211</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1350,7 +1412,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00201">201</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00215">215</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1374,7 +1436,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00189">189</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00203">203</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1398,7 +1460,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00190">190</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00204">204</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1422,7 +1484,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00205">205</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00219">219</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1436,7 +1498,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html">IRenderer</a></li>
-    <li class="footer">Generado el Martes, 3 de Mayo de 2022 18:12:20 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Sábado, 7 de Mayo de 2022 19:05:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

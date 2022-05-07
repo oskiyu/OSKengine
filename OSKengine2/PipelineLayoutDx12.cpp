@@ -20,6 +20,8 @@ D3D12_SHADER_VISIBILITY GetShaderStageDx12(ShaderStage stage) {
 		return D3D12_SHADER_VISIBILITY_VERTEX;
 	case ShaderStage::FRAGMENT:
 		return D3D12_SHADER_VISIBILITY_PIXEL;
+	case ShaderStage::TESSELATION:
+		return D3D12_SHADER_VISIBILITY_ALL;
 	default:
 		return D3D12_SHADER_VISIBILITY_ALL;
 	}

@@ -175,6 +175,17 @@ VkPipelineMultisampleStateCreateInfo GetMsaaInfo(const PipelineCreateInfo& info,
 	return output;
 }
 
+VkPipelineTessellationStateCreateInfo GetTesselationInfo(const PipelineCreateInfo& info) {
+	VkPipelineTessellationStateCreateInfo output{};
+
+	output.sType = VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_STATE_CREATE_INFO;
+	output.pNext = NULL;
+	output.flags = 0;
+	output.patchControlPoints = 3;
+
+	return output;
+}
+
 
 GraphicsPipelineVulkan::GraphicsPipelineVulkan(RenderpassVulkan* renderpass)
 	: targetRenderpass(renderpass) {
@@ -198,10 +209,18 @@ void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* 
 	LoadVertexShader(info.vertexPath);
 	LoadFragmentShader(info.fragmentPath);
 
+	if (info.tesselationControlPath != "") {
+		LoadTesselationControlShader(info.tesselationControlPath);
+		LoadTesselationEvaluationShader(info.tesselationEvaluationPath);
+	}
+
 	// Información básica del input del pipeline.
 	VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo{};
 	inputAssemblyInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
-	inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+	if (info.tesselationControlPath == "")
+		inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+	else
+		inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_PATCH_LIST;
 	inputAssemblyInfo.primitiveRestartEnable = VK_FALSE;
 
 	// Vertex
@@ -235,6 +254,8 @@ void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* 
 	VkPipelineDepthStencilStateCreateInfo depthInfo = GetDepthInfo(info);
 
 	VkPipelineMultisampleStateCreateInfo msaaCreateInfo = GetMsaaInfo(info, *gpu->As<GpuVulkan>());
+
+	VkPipelineTessellationStateCreateInfo tesselationInfo = GetTesselationInfo(info);
 
 	// Estructuras dinámicas
 	VkDynamicState states[] = { 
@@ -272,6 +293,10 @@ void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* 
 	pipelineCreateInfo.pDepthStencilState = &depthInfo;
 	pipelineCreateInfo.pColorBlendState = &colorBlendCreateInfo;
 	pipelineCreateInfo.pDynamicState = &dynamicCreateInfo;
+	if (info.tesselationControlPath == "")
+		pipelineCreateInfo.pTessellationState = nullptr;
+	else
+		pipelineCreateInfo.pTessellationState = &tesselationInfo;
 	pipelineCreateInfo.layout = layout->As<PipelineLayoutVulkan>()->GetLayout();
 	pipelineCreateInfo.renderPass = targetRenderpass->GetRenderpass();
 	pipelineCreateInfo.subpass = 0;
@@ -298,7 +323,7 @@ void GraphicsPipelineVulkan::LoadVertexShader(const std::string& path) {
 	createInfo.codeSize = vertexCode.GetSize();
 	createInfo.pCode = reinterpret_cast<const uint32_t*>(vertexCode.GetData());
 
-	VkResult result = vkCreateShaderModule(gpu->As<GpuVulkan>()->GetLogicalDevice(), 
+	VkResult result = vkCreateShaderModule(gpu->As<GpuVulkan>()->GetLogicalDevice(),
 		&createInfo, nullptr, &shaderModule);
 	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido cargar el vertex shader.");
 
@@ -336,5 +361,57 @@ void GraphicsPipelineVulkan::LoadFragmentShader(const std::string& path) {
 	fragmentShaderStageInfo.pName = "main";
 
 	shaderStagesInfo.Insert(fragmentShaderStageInfo);
+	shaderModulesToDelete.Insert(shaderModule);
+}
+
+void GraphicsPipelineVulkan::LoadTesselationControlShader(const std::string& path) {
+	VkShaderModule shaderModule = VK_NULL_HANDLE;
+
+	// Lee el código SPIR-V.
+	const DynamicArray<char> code = IO::FileIO::ReadBinaryFromFile(path);
+
+	VkShaderModuleCreateInfo createInfo{};
+	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+	createInfo.codeSize = code.GetSize();
+	createInfo.pCode = reinterpret_cast<const uint32_t*>(code.GetData());
+
+	VkResult result = vkCreateShaderModule(gpu->As<GpuVulkan>()->GetLogicalDevice(),
+		&createInfo, nullptr, &shaderModule);
+	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido cargar el tesselation control shader.");
+
+	// Insertar el stage en el array, para poder insertarlo al crear el pipeline.
+	VkPipelineShaderStageCreateInfo shaderStageInfo{};
+	shaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+	shaderStageInfo.stage = VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT;
+	shaderStageInfo.module = shaderModule;
+	shaderStageInfo.pName = "main";
+
+	shaderStagesInfo.Insert(shaderStageInfo);
+	shaderModulesToDelete.Insert(shaderModule);
+}
+
+void GraphicsPipelineVulkan::LoadTesselationEvaluationShader(const std::string& path) {
+	VkShaderModule shaderModule = VK_NULL_HANDLE;
+
+	// Lee el código SPIR-V.
+	const DynamicArray<char> code = IO::FileIO::ReadBinaryFromFile(path);
+
+	VkShaderModuleCreateInfo createInfo{};
+	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+	createInfo.codeSize = code.GetSize();
+	createInfo.pCode = reinterpret_cast<const uint32_t*>(code.GetData());
+
+	VkResult result = vkCreateShaderModule(gpu->As<GpuVulkan>()->GetLogicalDevice(),
+		&createInfo, nullptr, &shaderModule);
+	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido cargar el tesselation evaluation shader.");
+
+	// Insertar el stage en el array, para poder insertarlo al crear el pipeline.
+	VkPipelineShaderStageCreateInfo shaderStageInfo{};
+	shaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+	shaderStageInfo.stage = VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT;
+	shaderStageInfo.module = shaderModule;
+	shaderStageInfo.pName = "main";
+
+	shaderStagesInfo.Insert(shaderStageInfo);
 	shaderModulesToDelete.Insert(shaderModule);
 }

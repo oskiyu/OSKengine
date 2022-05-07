@@ -1,0 +1,59 @@
+{
+    "file_type": "SHADER",
+    "spec_ver": 0,
+
+    "glsl_shaders": {
+        "vertex": "Resources/Shaders/VK/Terrain/vert.spv",
+        "fragment": "Resources/Shaders/VK/Terrain/frag.spv",
+        "tesselation_control": "Resources/Shaders/VK/Terrain/tesc.spv",
+        "tesselation_evaluation": "Resources/Shaders/VK/Terrain/tese.spv"
+    },
+
+    "hlsl_shaders": {
+        "vertex": "Resources/Shaders/DX12/Terrain/vertex.shader",
+        "fragment": "Resources/Shaders/DX12/Terrain/fragment.shader",
+        "tesselation_control": "Resources/Shaders/DX12/Terrain/control.shader",
+        "tesselation_evaluation": "Resources/Shaders/DX12/Terrain/evaluation.shader"
+    },
+
+    "push_constants":[
+        {
+            "name": "model",
+            "hlsl_index": 0,
+
+            "shader_stages":[
+                "VERTEX",
+                "FRAGMENT",
+                "TESSELATION"
+            ]
+        }
+    ],
+
+    "slots": [
+        {
+            "name": "global",
+            "glsl_set": 0,
+
+            "shader_stages":[
+                "VERTEX",
+                "FRAGMENT",
+                "TESSELATION"
+            ],
+
+            "bindings": [
+                {
+                    "name": "camera",
+
+                    "glsl_index": 0,
+                    "hlsl_index": 1
+                },
+                {
+                    "name": "texture",
+
+                    "glsl_index": 1,
+                    "hlsl_index": 0
+                }
+            ]
+        }
+    ]
+}

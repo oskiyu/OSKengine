@@ -49,7 +49,7 @@ void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	stbi_info(texturePath.c_str(), &width, &height, &numChannels);
 
 	// Las gráficas no soportan imágenes de 24 bits de manera nativa.
-	if (numChannels == 3 && !HasRgbFormat(Engine::GetRenderer()->GetRenderApi()))
+	if (numChannels != 4 && !HasRgbFormat(Engine::GetRenderer()->GetRenderApi()))
 		numChannels = 4;
 
 	stbi_uc* pixels = stbi_load(texturePath.c_str(), &width, &height, nullptr, numChannels);
@@ -59,8 +59,8 @@ void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 
 	Vector3ui size(width, height, 1);
 	auto image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(size, GRAPHICS::GpuImageDimension::d2D, 1, GRAPHICS::GetColorFormat(numChannels), GRAPHICS::GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION, GRAPHICS::GpuSharedMemoryType::GPU_ONLY, true);
-
-	Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), pixels, width * height * numChannels, GRAPHICS::GpuImageLayout::SHADER_READ_ONLY);
+	
+	Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), pixels, image->GetNumberOfBytes(), GRAPHICS::GpuImageLayout::SHADER_READ_ONLY);
 	stbi_image_free(pixels);
 
 	output->_SetImage(image);

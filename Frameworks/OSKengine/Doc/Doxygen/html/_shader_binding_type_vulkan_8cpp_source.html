@@ -115,8 +115,11 @@ $(document).ready(function(){initNavTree('_shader_binding_type_vulkan_8cpp_sourc
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">EFTraits::HasFlag</a>(stage, ShaderStage::FRAGMENT))</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        output |= VK_SHADER_STAGE_FRAGMENT_BIT;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">return</span> output;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">EFTraits::HasFlag</a>(stage, ShaderStage::TESSELATION))</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        output |= (VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT | VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">return</span> output;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
 <div class="ttc" id="a_enum_flags_8hpp_html"><div class="ttname"><a href="_enum_flags_8hpp.html">EnumFlags.hpp</a></div></div>
 <div class="ttc" id="a_shader_binding_type_8h_html"><div class="ttname"><a href="_shader_binding_type_8h.html">ShaderBindingType.h</a></div></div>
 <div class="ttc" id="a_shader_binding_type_vulkan_8h_html"><div class="ttname"><a href="_shader_binding_type_vulkan_8h.html">ShaderBindingTypeVulkan.h</a></div></div>
@@ -131,7 +134,7 @@ $(document).ready(function(){initNavTree('_shader_binding_type_vulkan_8cpp_sourc
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_shader_binding_type_vulkan_8cpp.html">ShaderBindingTypeVulkan.cpp</a></li>
-    <li class="footer">Generado el Martes, 3 de Mayo de 2022 18:12:20 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Sábado, 7 de Mayo de 2022 19:05:06 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

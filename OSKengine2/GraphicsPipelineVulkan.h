@@ -25,6 +25,8 @@ namespace OSK::GRAPHICS {
 
 		void LoadVertexShader(const std::string& path);
 		void LoadFragmentShader(const std::string& path);
+		void LoadTesselationControlShader(const std::string& path);
+		void LoadTesselationEvaluationShader(const std::string& path);
 
 		DynamicArray<VkPipelineShaderStageCreateInfo> shaderStagesInfo;
 		DynamicArray<VkShaderModule> shaderModulesToDelete;

@@ -41,7 +41,13 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Shader de fragmentos / píxeles.
 		/// </summary>
-		FRAGMENT = 2
+		FRAGMENT = 2,
+
+		/// <summary>
+		/// Shaders de control y evaluación de teselado.
+		/// </summary>
+		TESSELATION = 3
+
 	};
 
 }

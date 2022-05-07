@@ -25,5 +25,8 @@ VkShaderStageFlags OSK::GRAPHICS::GetShaderStageVk(ShaderStage stage) {
 	if (EFTraits::HasFlag(stage, ShaderStage::FRAGMENT))
 		output |= VK_SHADER_STAGE_FRAGMENT_BIT;
 
+	if (EFTraits::HasFlag(stage, ShaderStage::TESSELATION))
+		output |= (VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT | VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT);
+
 	return output;
 }

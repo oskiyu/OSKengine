@@ -141,7 +141,7 @@ float Engine::GetCurrentTime() {
 }
 
 const Version& Engine::GetVersion() {
-	static Version version{0, 0, 0};
+	static Version version(0, 0, 0);
 
 	return version;
 }

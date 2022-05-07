@@ -13,12 +13,13 @@ var searchData=
   ['_5fsetindexcount_10',['_SetIndexCount',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a2e19e626c0b40235285bf546e8cc1378',1,'OSK::ASSETS::Model3D']]],
   ['_5fsetkeystate_11',['_SetKeyState',['../class_o_s_k_1_1_i_o_1_1_keyboard_state.html#aa9050a71661db1622ca20abf45130982',1,'OSK::IO::KeyboardState']]],
   ['_5fsetnumberofchannels_12',['_SetNumberOfChannels',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#ad052ebbde1bef14f74b8217bc790b77f',1,'OSK::ASSETS::Texture']]],
-  ['_5fsetposition_13',['_SetPosition',['../class_o_s_k_1_1_i_o_1_1_mouse_state.html#a4840f77d345c9ccb15884cf065fba5cd',1,'OSK::IO::MouseState']]],
-  ['_5fsetrelativeposition_14',['_SetRelativePosition',['../class_o_s_k_1_1_i_o_1_1_mouse_state.html#ad2fb928f79d9e545360e64cff9427f7a',1,'OSK::IO::MouseState']]],
-  ['_5fsetrendertargetdescriptorheap_15',['_SetRenderTargetDescriptorHeap',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#aebef186379ba76da69cc73b647c4f462',1,'OSK::GRAPHICS::GpuImageDx12']]],
-  ['_5fsetsampleddescriptorheap_16',['_SetSampledDescriptorHeap',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#a2514cc1f4d1b75ebbdac3f392c31a792',1,'OSK::GRAPHICS::GpuImageDx12']]],
-  ['_5fsetscrollx_17',['_SetScrollX',['../class_o_s_k_1_1_i_o_1_1_mouse_state.html#a5ad7a9d20d4e27a768b7b75cf09c1695',1,'OSK::IO::MouseState']]],
-  ['_5fsetscrolly_18',['_SetScrollY',['../class_o_s_k_1_1_i_o_1_1_mouse_state.html#a2447faf4f22ee0566f34eb5d81c2d015',1,'OSK::IO::MouseState']]],
-  ['_5fsetsize_19',['_SetSize',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a5b8b6744153b2fb25dfef0b8e20ba970',1,'OSK::ASSETS::Texture']]],
-  ['_5fsetvertexbuffer_20',['_SetVertexBuffer',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a1b82d0d66290f0968dd61b34cbe785ed',1,'OSK::ASSETS::Model3D']]]
+  ['_5fsetphysicalsize_13',['_SetPhysicalSize',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ad23f506b8bdde8faac2dac9d6a86f7e7',1,'OSK::GRAPHICS::GpuImage']]],
+  ['_5fsetposition_14',['_SetPosition',['../class_o_s_k_1_1_i_o_1_1_mouse_state.html#a4840f77d345c9ccb15884cf065fba5cd',1,'OSK::IO::MouseState']]],
+  ['_5fsetrelativeposition_15',['_SetRelativePosition',['../class_o_s_k_1_1_i_o_1_1_mouse_state.html#ad2fb928f79d9e545360e64cff9427f7a',1,'OSK::IO::MouseState']]],
+  ['_5fsetrendertargetdescriptorheap_16',['_SetRenderTargetDescriptorHeap',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#aebef186379ba76da69cc73b647c4f462',1,'OSK::GRAPHICS::GpuImageDx12']]],
+  ['_5fsetsampleddescriptorheap_17',['_SetSampledDescriptorHeap',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#a2514cc1f4d1b75ebbdac3f392c31a792',1,'OSK::GRAPHICS::GpuImageDx12']]],
+  ['_5fsetscrollx_18',['_SetScrollX',['../class_o_s_k_1_1_i_o_1_1_mouse_state.html#a5ad7a9d20d4e27a768b7b75cf09c1695',1,'OSK::IO::MouseState']]],
+  ['_5fsetscrolly_19',['_SetScrollY',['../class_o_s_k_1_1_i_o_1_1_mouse_state.html#a2447faf4f22ee0566f34eb5d81c2d015',1,'OSK::IO::MouseState']]],
+  ['_5fsetsize_20',['_SetSize',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a5b8b6744153b2fb25dfef0b8e20ba970',1,'OSK::ASSETS::Texture']]],
+  ['_5fsetvertexbuffer_21',['_SetVertexBuffer',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a1b82d0d66290f0968dd61b34cbe785ed',1,'OSK::ASSETS::Model3D']]]
 ];

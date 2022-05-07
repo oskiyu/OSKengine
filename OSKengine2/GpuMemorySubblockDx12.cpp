@@ -19,7 +19,7 @@ void GpuMemorySubblockDx12::MapMemory(TSize size, TSize offset) {
 	range.Begin = offset + totalOffsetFromBlock;
 	range.End = offset + totalOffsetFromBlock + size;
 	
-	resource->Map(0, &range, &mappedData);
+	auto result = resource->Map(0, &range, &mappedData);
 
 	isMapped = true;
 }

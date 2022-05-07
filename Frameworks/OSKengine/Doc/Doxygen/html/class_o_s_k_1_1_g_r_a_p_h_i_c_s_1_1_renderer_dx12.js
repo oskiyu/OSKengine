@@ -14,6 +14,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12 =
     [ "CreateSingleUseCommandList", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a0fa1cd26067c520e90cfa647f66e8366", null ],
     [ "CreateSwapchain", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#af8d4df9f4aa601f90b24e7ec41727846", null ],
     [ "CreateSyncDevice", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a155f617b6467a6777021840feb666065", null ],
+    [ "FormatImageDataForGpu", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#ab6a13de17b200ccc537a56bd61eb8b8f", null ],
     [ "GetCommandList", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a37d47db030f6723bdce8f43518b611b4", null ],
     [ "GetGpu", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a8b6b1698afeb3bb07f3b91e5ddb79b2d", null ],
     [ "GetMainRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#afff0e2859579dde56407eedf515a55a3", null ],

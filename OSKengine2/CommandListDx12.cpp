@@ -90,8 +90,8 @@ void CommandListDx12::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* d
 	copySource.PlacedFootprint.Footprint.Depth = 1;
 	copySource.PlacedFootprint.Footprint.Format = GetFormatDx12(dest->GetFormat());
 	copySource.PlacedFootprint.Footprint.Width = dest->GetSize().X;
-	copySource.PlacedFootprint.Footprint.Height = dest->GetSize().Y;
-	copySource.PlacedFootprint.Footprint.RowPitch = dest->GetSize().X * GetFormatNumberOfBytes(dest->GetFormat());
+	copySource.PlacedFootprint.Footprint.Height = dest->GetPhysicalSize().Y;
+	copySource.PlacedFootprint.Footprint.RowPitch = dest->GetPhysicalSize().X * GetFormatNumberOfBytes(dest->GetFormat());
 	copySource.PlacedFootprint.Offset = offset;
 
 	commandList->CopyTextureRegion(&copyDest, 0, 0, 0, &copySource, nullptr);
@@ -130,8 +130,6 @@ void CommandListDx12::BeginAndClearRenderpass(IRenderpass* renderpass, const Col
 
 	commandList->OMSetRenderTargets(1, &renderTargetDesc, FALSE, &depthStencilDesc);
 
-	commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
 	currentRenderpass = renderpass;
 }
 
@@ -161,6 +159,8 @@ void CommandListDx12::BindMaterial(const Material* material) {
 	
 	commandList->SetGraphicsRootSignature(currentPipeline->As<GraphicsPipelineDx12>()->GetLayout());
 	commandList->SetPipelineState(currentPipeline->As<GraphicsPipelineDx12>()->GetPipelineState());
+
+	commandList->IASetPrimitiveTopology(currentPipeline->As<GraphicsPipelineDx12>()->GetTopologyType());
 }
 
 void CommandListDx12::BindVertexBuffer(IGpuVertexBuffer* buffer) {

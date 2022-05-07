@@ -6,5 +6,12 @@ var _game1_8hpp =
     [ "material2d", "_game1_8hpp.html#a62a00e72065ef52df7c131a4f8073a55", null ],
     [ "skyboxMaterial", "_game1_8hpp.html#a85903c7ec531e973d72afe7c6f3227e5", null ],
     [ "skyboxMaterialInstance", "_game1_8hpp.html#a54813fa22114090c70ade04b798e3250", null ],
-    [ "spriteRenderer", "_game1_8hpp.html#a5d98ace5ad51b732346e4f2102870a1a", null ]
+    [ "spriteRenderer", "_game1_8hpp.html#a5d98ace5ad51b732346e4f2102870a1a", null ],
+    [ "terrainIndexBuffer", "_game1_8hpp.html#ab3e8e76c14498a31d9ab2d0c35978ee8", null ],
+    [ "terrainIndices", "_game1_8hpp.html#a653e1b27a835ef37bf4ccc335ad7f962", null ],
+    [ "terrainMaterial", "_game1_8hpp.html#a34e94195578561017efe952379ba98c3", null ],
+    [ "terrainMaterialFill", "_game1_8hpp.html#a0f0148dfb5e1813f4cecca626003f285", null ],
+    [ "terrainMaterialInstance", "_game1_8hpp.html#a372f991314a36a100db3ab02f3b4132a", null ],
+    [ "terrainMaterialLine", "_game1_8hpp.html#ab44da46c592ef0b69b187aa2b45f06b3", null ],
+    [ "terrainVertexBuffer", "_game1_8hpp.html#a9918910f52c7366a78ae2f13acb17ff8", null ]
 ];

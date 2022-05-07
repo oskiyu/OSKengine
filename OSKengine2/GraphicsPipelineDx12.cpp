@@ -131,6 +131,17 @@ void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* de
 	LoadVertexShader(info.vertexPath);
 	LoadFragmentShader(info.fragmentPath);
 
+	if (info.tesselationControlPath != "") {
+		LoadTeselationControlShader(info.tesselationControlPath);
+		createInfo.HS = tesselationControlShaderBytecode;
+
+		topologyType = D3D_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST;
+	}
+	if (info.tesselationEvaluationPath != "") {
+		LoadTesselationEvaluationShader(info.tesselationEvaluationPath);
+		createInfo.DS = tesselationEvaluationShaderBytecode;
+	}
+
 	createInfo.VS = vertexShaderBytecode;
 	createInfo.PS = fragmentShaderBytecode;
 
@@ -138,7 +149,10 @@ void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* de
 	createInfo.BlendState = GetBlendDesc(info);
 	createInfo.DepthStencilState = GetDepthStencilDesc(info);
 	createInfo.SampleMask = UINT_MAX;
-	createInfo.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+	if (info.tesselationControlPath != "")
+		createInfo.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_PATCH;
+	else
+		createInfo.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 	createInfo.NumRenderTargets = 1;
 	createInfo.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
 	createInfo.DSVFormat = GetFormatDx12(Format::D32S8_SFLOAT_SUINT);
@@ -169,6 +183,24 @@ void GraphicsPipelineDx12::LoadFragmentShader(const std::string& path) {
 
 	fragmentShaderBytecode.pShaderBytecode = fragmentShader->GetBufferPointer();
 	fragmentShaderBytecode.BytecodeLength = fragmentShader->GetBufferSize();
+}
+
+void GraphicsPipelineDx12::LoadTeselationControlShader(const std::string& path) {
+	tesselationControlShader = LoadBlob(s2ws(path).c_str());
+
+	tesselationControlShaderBytecode.pShaderBytecode = tesselationControlShader->GetBufferPointer();
+	tesselationControlShaderBytecode.BytecodeLength = tesselationControlShader->GetBufferSize();
+}
+
+void GraphicsPipelineDx12::LoadTesselationEvaluationShader(const std::string& path) {
+	tesselationEvaluationShader = LoadBlob(s2ws(path).c_str());
+
+	tesselationEvaluationShaderBytecode.pShaderBytecode = tesselationEvaluationShader->GetBufferPointer();
+	tesselationEvaluationShaderBytecode.BytecodeLength = tesselationEvaluationShader->GetBufferSize();
+}
+
+D3D_PRIMITIVE_TOPOLOGY GraphicsPipelineDx12::GetTopologyType() const {
+	return topologyType;
 }
 
 D3D12_RASTERIZER_DESC GraphicsPipelineDx12::GetRasterizerDesc(const PipelineCreateInfo& info) const {

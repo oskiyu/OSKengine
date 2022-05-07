@@ -14,6 +14,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan =
     [ "CreateSingleUseCommandList", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a0fa1cd26067c520e90cfa647f66e8366", null ],
     [ "CreateSwapchain", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a8b13b26a562a32365eee492c0db9ac60", null ],
     [ "CreateSyncDevice", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a4c975e2c18c28bcfb4d190c2fcf1de46", null ],
+    [ "FormatImageDataForGpu", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a6bc3460eece49621aa2411460cc65138", null ],
     [ "GetCommandList", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a37d47db030f6723bdce8f43518b611b4", null ],
     [ "GetGpu", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a8b6b1698afeb3bb07f3b91e5ddb79b2d", null ],
     [ "GetMainRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#afff0e2859579dde56407eedf515a55a3", null ],

@@ -103,6 +103,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a0bc7c1f3c8dddfee3dac083e6cc085f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02169a0a233e339d5b1026eb9fb39bbf"><td class="memItemLeft" align="right" valign="top">ID3D12RootSignature *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12.html#a02169a0a233e339d5b1026eb9fb39bbf">GetLayout</a> () const</td></tr>
 <tr class="separator:a02169a0a233e339d5b1026eb9fb39bbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb396d39dc237a97a3474ac338023f3b"><td class="memItemLeft" align="right" valign="top">D3D_PRIMITIVE_TOPOLOGY&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12.html#aeb396d39dc237a97a3474ac338023f3b">GetTopologyType</a> () const</td></tr>
+<tr class="separator:aeb396d39dc237a97a3474ac338023f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15c33d090a00d4bddc27a181f7f9f20c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; <br />
 requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline.html">IGraphicsPipeline</a>, T&gt;</td></tr>
 <tr class="memitem:a15c33d090a00d4bddc27a181f7f9f20c"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline.html#a15c33d090a00d4bddc27a181f7f9f20c">As</a> () const</td></tr>
@@ -222,7 +224,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html#l00156">156</a> del archivo <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html">GraphicsPipelineDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html#l00170">170</a> del archivo <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html">GraphicsPipelineDx12.cpp</a>.</p>
 
 </div>
 </div>
@@ -241,7 +243,28 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html#l00152">152</a> del archivo <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html">GraphicsPipelineDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html#l00166">166</a> del archivo <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html">GraphicsPipelineDx12.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aeb396d39dc237a97a3474ac338023f3b" name="aeb396d39dc237a97a3474ac338023f3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb396d39dc237a97a3474ac338023f3b">&#9670;&nbsp;</a></span>GetTopologyType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">D3D_PRIMITIVE_TOPOLOGY GraphicsPipelineDx12::GetTopologyType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Devuelve el tipo de primitiva. Patch para teselado, triángulos en el resto de casos. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html#l00202">202</a> del archivo <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html">GraphicsPipelineDx12.cpp</a>.</p>
 
 </div>
 </div>
@@ -280,7 +303,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12.html">GraphicsPipelineDx12</a></li>
-    <li class="footer">Generado el Martes, 3 de Mayo de 2022 18:12:20 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Sábado, 7 de Mayo de 2022 19:05:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

@@ -1,0 +1,37 @@
+{
+    "file_type": "MATERIAL",
+    "spec_ver": 0,
+    "name": "Tesselation",
+    "shader_file": "Resources/shader_terrain.json",
+    "layout":{
+        "push_constants":[
+            {
+                "name": "model",
+                "size": 64
+            }
+        ],
+
+        "slots":[
+            {
+                "name": "global",
+
+                "bindings":[
+                    {
+                        "name": "camera",
+                        "type": "UNIFORM"
+                    },
+
+                    {
+                        "name": "texture",
+                        "type": "IMAGE"
+                    }
+                ]
+            }
+        ]
+    },
+    "vertex_type": "OSK::Vertex3D",
+    "polygon_mode": "LINE",
+    "config": {
+        "cull_mode": "none"
+    }
+}

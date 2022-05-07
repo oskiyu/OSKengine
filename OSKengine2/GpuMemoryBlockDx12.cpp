@@ -20,11 +20,11 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 GpuMemoryBlockDx12::GpuMemoryBlockDx12(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage, TSize numLayers)
-	: IGpuMemoryBlock(image->GetSize().X * image->GetSize().Y * GetFormatNumberOfBytes(image->GetFormat()), device, type, GpuMemoryUsage::IMAGE), sizeX(image->GetSize().X), sizeY(image->GetSize().Y), format(image->GetFormat()) {
+	: IGpuMemoryBlock(image->GetPhysicalSize().X * image->GetPhysicalSize().Y * image->GetPhysicalSize().Z * GetFormatNumberOfBytes(image->GetFormat()), device, type, GpuMemoryUsage::IMAGE), sizeX(image->GetSize().X), sizeY(image->GetPhysicalSize().Y), format(image->GetFormat()) {
 
 	resourceDesc.Width = sizeX;
 	resourceDesc.Height = sizeY;
-	resourceDesc.DepthOrArraySize = image->GetNumLayers() == 1 ? image->GetSize().Z : image->GetNumLayers();
+	resourceDesc.DepthOrArraySize = image->GetNumLayers() == 1 ? image->GetPhysicalSize().Z : image->GetNumLayers();
 	resourceDesc.Dimension = (D3D12_RESOURCE_DIMENSION)((TSize)image->GetDimension() + 1);
 	resourceDesc.Alignment = 0;// D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
 	resourceDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;

@@ -9,5 +9,6 @@ var _graphics_pipeline_vulkan_8cpp =
     [ "GetMsaaInfo", "_graphics_pipeline_vulkan_8cpp.html#ae4c23ebeb78e8420fbfbf32fcaf77c03", null ],
     [ "GetPolygonMode", "_graphics_pipeline_vulkan_8cpp.html#a7b3ddfbdd0ed93e7764b29910c8bf3f2", null ],
     [ "GetResterizerInfo", "_graphics_pipeline_vulkan_8cpp.html#a123b26944c0c882b288103153869a6d6", null ],
+    [ "GetTesselationInfo", "_graphics_pipeline_vulkan_8cpp.html#aa5901592c893d8c9570e3c102941eacb", null ],
     [ "GetVertexAttribFormat", "_graphics_pipeline_vulkan_8cpp.html#a7f267f85d4bf350490aa3151cb6f28da", null ]
 ];

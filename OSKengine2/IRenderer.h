@@ -175,6 +175,20 @@ namespace OSK::GRAPHICS {
 
 		IRenderer(RenderApiType renderApiType);
 
+		/// <summary>
+		/// Debido a razones de alineamiento, es posible que se tengan que desplazar partes de la imagen
+		/// para que se pueda realizar correctamente una copia de la imagen a la GPU.
+		/// 
+		/// Por defecto, devuelve el puntero original.
+		/// </summary>
+		/// <param name="image">Imagen para la que se va a formatear los datos.</param>
+		/// <param name="data">Datos originales.</param>
+		/// <returns>Datos con formato.
+		/// 
+		/// @warning Si se sobreescribe, devolverá un puntero distinto al original, el cual deberá ser
+		/// eliminado tras llamar a esta función.</returns>
+		virtual const TByte* FormatImageDataForGpu(const GpuImage* image, const TByte* data, TSize numLayers);
+
 		virtual void CreateCommandQueues() = 0;
 		virtual void CreateSwapchain() = 0;
 		virtual void CreateSyncDevice() = 0;

@@ -8,6 +8,12 @@
 #include "RenderApiType.h"
 #include "Assert.h"
 #include "RenderSystem2D.h"
+#include "Vertex2D.h"
+#include "Vertex.h"
+#include "IGpuMemoryAllocator.h"
+#include "IGpuVertexBuffer.h"
+#include "Sprite.h"
+#include "IGpuIndexBuffer.h"
 
 using namespace OSK;
 
@@ -36,6 +42,20 @@ void IGame::Run() {
 
 	CreateWindow();
 	SetupEngine();
+
+	OSK::DynamicArray<OSK::GRAPHICS::Vertex2D> vertices2d = {
+		{ { 0, 0 }, { 0, 0 } },
+		{ { 0, 1 }, { 0, 1 } },
+		{ { 1, 0 }, { 1, 0 } },
+		{ { 1, 1 }, { 1, 1 } }
+	};
+
+	OSK::DynamicArray<OSK::GRAPHICS::TIndexSize> indices2d = {
+		0, 1, 2, 1, 2, 3
+	};
+
+	OSK::GRAPHICS::Sprite::globalVertexBuffer = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateVertexBuffer(vertices2d).GetPointer();
+	OSK::GRAPHICS::Sprite::globalIndexBuffer = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateIndexBuffer(indices2d).GetPointer();
 
 	OSK_ASSERT(Engine::GetWindow()->IsOpen(), "No se ha creado correctamente la ventana en CreateWindow().");
 	OSK_ASSERT(Engine::GetRenderer()->IsOpen(), "No se ha inicializado correctamente el renderizador en SetupEngine().");

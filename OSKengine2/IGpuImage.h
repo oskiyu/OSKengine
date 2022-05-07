@@ -26,6 +26,8 @@ namespace OSK::GRAPHICS {
 		GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format);
 		virtual ~GpuImage();
 
+		void _SetPhysicalSize(const Vector3ui& size);
+
 		void SetData(const void* data, TSize size);
 		void SetBlock(OwnedPtr<IGpuMemoryBlock> buffer);
 
@@ -33,6 +35,7 @@ namespace OSK::GRAPHICS {
 		IGpuMemorySubblock* GetBuffer() const;
 
 		Vector3ui GetSize() const;
+		Vector3ui GetPhysicalSize() const;
 		Format GetFormat() const;
 		GpuImageDimension GetDimension() const;
 		GpuImageUsage GetUsage() const;
@@ -61,7 +64,13 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note Debido a cuestiones de alineamiento y demás, puede ocupar más
 		/// espacio del esperado.
-		TSize GetNumberOfBytes();
+		TSize GetNumberOfBytes() const;
+
+		/// <summary>
+		/// Devuelve el número de bytes reales que ocupa esta imagen en la memoria de la GPU
+		/// </summary>
+		/// <returns>Espacio ocupado en la GPU.</returns>
+		TSize GetPhysicalNumberOfBytes() const;
 
 		/// <summary>
 		/// Actualiza el layout de la imagen, para que represente el layout actual.
@@ -88,6 +97,8 @@ namespace OSK::GRAPHICS {
 		IGpuMemorySubblock* buffer = nullptr;
 
 		Vector3ui size = 0;
+		Vector3ui physicalSize = 0;
+
 		TSize mipLevels = 0;
 		Format format;
 		GpuImageLayout currentLayout;

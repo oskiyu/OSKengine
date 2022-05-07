@@ -83,6 +83,8 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 	// Características que vamos a usar.
 	VkPhysicalDeviceFeatures features{};
 	features.samplerAnisotropy = VK_TRUE;
+	features.tessellationShader = VK_TRUE; /// \todo check
+	features.fillModeNonSolid = VK_TRUE; /// \todo check
 
 	// Crear el logical device.
 	VkDeviceCreateInfo createInfo{};
