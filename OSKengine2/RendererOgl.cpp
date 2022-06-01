@@ -67,7 +67,7 @@ OwnedPtr<IMaterialSlot> RendererOgl::_CreateMaterialSlot(const std::string& name
 	return nullptr;
 }
 
-OwnedPtr<IGraphicsPipeline> RendererOgl::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo vertexInfo) {
+OwnedPtr<IGraphicsPipeline> RendererOgl::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo& vertexInfo) {
 	GraphicsPipelineOgl* pipeline = new GraphicsPipelineOgl();
 
 	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);

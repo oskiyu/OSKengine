@@ -1,138 +1,126 @@
 #pragma once
 
-#include "GPUDataBuffer.h"
-#include "Vertex.h"
-#include "Texture.h"
+#include "OSKmacros.h"
+#include "Color.hpp"
+#include "Vector4.hpp"
+#include "Component.h"
+#include "MaterialInstance.h"
+#include "UniquePtr.hpp"
+#include "TextureCoordinates.h"
+#include "OwnedPtr.h"
 
-#include <array>
+namespace OSK::ASSETS {
+	class Texture;
+}
 
-#include <glm.hpp>
-#include "Transform2D.h"
-#include "Color.h"
+namespace OSK::ECS {
+	class CameraComponent2D;
+}
 
-#include "OldMaterial.h"
-#include "PushConst2D.h"
+namespace OSK::GRAPHICS {
 
-namespace OSK {
+	class GpuImage;
 
+	class IGpuVertexBuffer;
+	class IGpuIndexBuffer;
 
 	/// <summary>
 	/// Representa un sprite: una textura que puede ser renderizada.
-	/// Contiene su posición, rotación, color...
+	/// También es un componente que permite a un GameObject tener
+	/// un sprite asociado.
+	/// 
+	/// @note Se encarga de manejar el material 2D por defecto.
+	/// 
+	/// @warning Antes de ser usado para renderizado, se deben establecer
+	/// la instancia del material, la cámara y la imagen.
 	/// </summary>
 	class OSKAPI_CALL Sprite {
 
-		friend class RenderAPI;
-		friend class ContentManager;
-		friend class SpriteBatch;
-		friend class RenderSystem3D;
-		friend class SpriteContainer;
-
 	public:
 
-		/// <summary>
-		/// Elimina el sprite.
-		/// </summary>
-		~Sprite();
+		OSK_COMPONENT("OSK::Sprite");
 
 		/// <summary>
-		/// Establece la región (en píxeles) de la textura que se renderizará en este sprite.
+		/// Establece la región de la textura que se renderizará en este sprite.
 		/// </summary>
-		/// <param name="texCoords">Coordenadas (en píxeles).</param>
-		void SetTexCoords(const Vector4& texCoords);
+		void SetTexCoords(const TextureCoordinates2D& texCoords);
 
 		/// <summary>
-		/// Establece la región (en porcentaje sobre el tamaño total) de la textura que se renderizará en este sprite.
+		/// Devuelve las coordenadas de textura del sprite,
+		/// normalizadas (0.0 - 1.0).
 		/// </summary>
-		/// <param name="texCoords">Coordenadas porcentuales.</param>
-		void SetTexCoordsInPercent(const Vector4f& texCoords);
+		TextureCoordinates2D GetTexCoords() const;
 
 		/// <summary>
-		/// Actualiza el material del sprite, para que use la textura de este sprite.
-		/// Puede usarse para actualizar la textura.
+		/// Debe establecerse la cámara después de instanciar
+		/// la instancia del material 2D.
 		/// </summary>
-		void UpdateMaterialTexture();
+		/// 
+		/// @pre Se debe haber establecido la instancia del
+		/// material (Sprite::SetMaterialInstance).
+		void SetCamera(const ECS::CameraComponent2D& camera);
 
 		/// <summary>
-		/// Transform del sprite.
+		/// Establece la textura del sprite.
 		/// </summary>
-		Transform2D transform;
+		/// 
+		/// @pre Se debe haber establecido la instancia del
+		/// material (Sprite::SetMaterialInstance).
+		void SetTexture(const ASSETS::Texture* texture);
 
 		/// <summary>
-		/// Textura que se renderiza en este sprite.
+		/// Establece la textura del sprite.
 		/// </summary>
-		Texture* texture = nullptr;
+		/// 
+		/// @pre Se debe haber establecido la instancia del
+		/// material (Sprite::SetMaterialInstance).
+		void SetGpuImage(const GpuImage* image);
 
 		/// <summary>
-		/// Material del sprite.
+		/// Devuelve la imagen que es renderizada.
 		/// </summary>
-		SharedPtr<OldMaterialInstance> material;
+		const GpuImage* GetGpuImage() const;
 
 		/// <summary>
 		/// Color del sprite.
+		/// 
+		/// @note Si es blanco, se renderiza la imagen tal cual.
+		/// @note Si es de otro color, tendrá un tinte.
+		/// @note Puede usarse para modificar su transparencia.
 		/// </summary>
 		Color color = Color(1.0f);
 
+		/// <summary>
+		/// Establece la instancia del material que pertenecerá a este
+		/// sprite.
+		/// </summary>
+		/// 
+		/// @pre La instancia debe corresponder al material 2D por
+		/// defecto (o compatible).
+		void SetMaterialInstance(OwnedPtr<MaterialInstance> instance);
+
+		/// <summary>
+		/// Devuelve la instancia del material del sprite.
+		/// Null si no se ha establecido.
+		/// </summary>
+		MaterialInstance* GetMaterialInstance() const;
+
+		/// <summary>
+		/// @note Todos los spirtes comparten los mismos vértices.
+		/// </summary>
+		static IGpuVertexBuffer* globalVertexBuffer;
+
+		/// <summary>
+		/// @note Todos los sprites comparten los mismos índices.
+		/// </summary>
+		static IGpuIndexBuffer* globalIndexBuffer;
+
 	private:
 
-		/// <summary>
-		/// True si está completamente fuera de la pantalla (no se ve).
-		/// Establecido por el renderizador.
-		/// </summary>
-		bool isOutOfScreen = false;
+		TextureCoordinates2D texCoords = TextureCoordinates2D::Normalized({ 0, 0, 1, 1 });
+		const GpuImage* image = nullptr;
+		UniquePtr<MaterialInstance> materialInstance;
 
-		/// <summary>
-		/// Obtiene e push const 2D del sprite.
-		/// </summary>
-		/// <param name="camera">Matriz de la cámara usada para renderizarlo.</param>
-		/// <returns>Push const 2D.</returns>
-		PushConst2D getPushConst(const glm::mat4& camera);
-
-		/// <summary>
-		/// Matriz modelo del sprite.
-		/// </summary>
-		glm::mat4 model = glm::mat4(1);
-		
-		/// <summary>
-		/// Área del sprite.
-		/// </summary>
-		Vector4 rectangle{};
-
-		/// <summary>
-		/// Rotación del sprite, en ángulo hacia lad erecha.
-		/// </summary>
-		float_t rotation = 0.0f;
-
-		/// <summary>
-		/// Vértices del sprite.
-		/// </summary>
-		SharedPtr<GpuDataBuffer> vertexBuffer;
-
-		/// <summary>
-		/// Índices del sprite.
-		/// </summary>
-		static SharedPtr<GpuDataBuffer> indexBuffer;
-
-		/// <summary>
-		/// True si hay que actualizar el buffer de vértices (por cambio de coordenadas de textura).
-		/// </summary>
-		bool hasChanged = false;
-
-		/// <summary>
-		/// Vértices.
-		/// </summary>
-		std::vector<Vertex> vertices = {
-			{{0, 0, 0}, {1.0f, 1.0f, 1.0f}, {0, 0}},
-			{{1, 0, 0}, {1.0f, 1.0f, 1.0f}, {1, 0}},
-			{{1, 1, 0}, {1.0f, 1.0f, 1.0f}, {1, 1}},
-			{{0, 1, 0}, {1.0f, 1.0f, 1.0f}, {0, 1}}
-		};
-
-		/// <summary>
-		/// Índices.
-		/// </summary>
-		static std::array<uint16_t, 6> indices;
-				
 	};
 
 }

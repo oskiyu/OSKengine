@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/IInputListener.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_i_input_listener_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">IInputListener.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_i_input_listener_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kmacros_8h.html">OSKmacros.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_vector2_8hpp.html">Vector2.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a> {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39e">Key</a>;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77">MouseButton</a>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345">GamepadButton</a>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4">GamepadAxis</a>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html">   23</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html">IInputListener</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#aca9fc4b7e88bce25ba499f14ccb894fa">   32</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#aca9fc4b7e88bce25ba499f14ccb894fa">OnKeyStroke</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39e">Key</a> key) { }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#a2b174def0efb5dc27ad6d6dc4c145005">   39</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#a2b174def0efb5dc27ad6d6dc4c145005">OnKeyBeingPressed</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39e">Key</a> key) { }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#a130afba7f046d45a54f0c7e37ee29890">   46</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#a130afba7f046d45a54f0c7e37ee29890">OnKeyReleased</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39e">Key</a> key) { }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#ac036aa2f4909bd00ea9390ed6fbfbb02">   53</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#ac036aa2f4909bd00ea9390ed6fbfbb02">OnMouseButtonStroke</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77">MouseButton</a> button) { }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#ab8e1d8da69b13bb4a5c09782e5ca799b">   60</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#ab8e1d8da69b13bb4a5c09782e5ca799b">OnMouseButtonBeingPressed</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77">MouseButton</a> button) { }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#a9a8a941ec8cef320757eae88719aaba3">   67</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#a9a8a941ec8cef320757eae88719aaba3">OnMouseButtonReleased</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77">MouseButton</a> button) { }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#a4ecbd1d1843b698df2c2af54d963615b">   74</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#a4ecbd1d1843b698df2c2af54d963615b">OnMouseMoved</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2i</a>&amp; diff) { }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#ac0b04672a761932c7c9403f1fc809f04">   83</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#ac0b04672a761932c7c9403f1fc809f04">OnMouseWheelMoved</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2i</a>&amp; diff) { }</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#a5fa6413e94af3c6086b2fa0f84e6e98a">   91</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#a5fa6413e94af3c6086b2fa0f84e6e98a">OnGamepadButtonStroke</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345">GamepadButton</a> button, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> gamepadId) { }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#ac1b5913a8cda5a3febd9ef721461d972">   99</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#ac1b5913a8cda5a3febd9ef721461d972">OnGamepadButtonBeingPressed</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345">GamepadButton</a> button, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> gamepadId) { }</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#a0a49a8cff41093956e965ccd088579c3">  107</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#a0a49a8cff41093956e965ccd088579c3">OnGamepadButtonReleased</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345">GamepadButton</a> button, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> gamepadId) { }</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#aa24a8fe7d3752d52f3821933fb111797">  117</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#aa24a8fe7d3752d52f3821933fb111797">OnGamepadAxisValue</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4">GamepadAxis</a> axis, <span class="keywordtype">float</span> value, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> gamepadId) { }</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordtype">void</span> SetMinAxisValue(<span class="keywordtype">float</span> value);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keywordtype">float</span> GetMinAxisValue() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keywordtype">float</span> axisMin = 0.15f;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    };</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>}</div>
+<div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00015">OSKmacros.h:15</a></div></div>
+<div class="ttc" id="a_vector2_8hpp_html"><div class="ttname"><a href="_vector2_8hpp.html">Vector2.hpp</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_input_listener_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html">OSK::IO::IInputListener</a></div><div class="ttdoc">Clase que reacciona a los eventos de entrada.</div><div class="ttdef"><b>Definition:</b> <a href="_i_input_listener_8h_source.html#l00023">IInputListener.h:23</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_input_listener_html_a0a49a8cff41093956e965ccd088579c3"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#a0a49a8cff41093956e965ccd088579c3">OSK::IO::IInputListener::OnGamepadButtonReleased</a></div><div class="ttdeci">virtual void OnGamepadButtonReleased(GamepadButton button, TSize gamepadId)</div><div class="ttdoc">Es llamada cuando un botón del mando deja de estar presionado.</div><div class="ttdef"><b>Definition:</b> <a href="_i_input_listener_8h_source.html#l00107">IInputListener.h:107</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_input_listener_html_a130afba7f046d45a54f0c7e37ee29890"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#a130afba7f046d45a54f0c7e37ee29890">OSK::IO::IInputListener::OnKeyReleased</a></div><div class="ttdeci">virtual void OnKeyReleased(Key key)</div><div class="ttdoc">Es llamada cuando una tecla deja de estar presionada.</div><div class="ttdef"><b>Definition:</b> <a href="_i_input_listener_8h_source.html#l00046">IInputListener.h:46</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_input_listener_html_a2b174def0efb5dc27ad6d6dc4c145005"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#a2b174def0efb5dc27ad6d6dc4c145005">OSK::IO::IInputListener::OnKeyBeingPressed</a></div><div class="ttdeci">virtual void OnKeyBeingPressed(Key key)</div><div class="ttdoc">Es llamada cuando una tecla está siendo presionada.</div><div class="ttdef"><b>Definition:</b> <a href="_i_input_listener_8h_source.html#l00039">IInputListener.h:39</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_input_listener_html_a4ecbd1d1843b698df2c2af54d963615b"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#a4ecbd1d1843b698df2c2af54d963615b">OSK::IO::IInputListener::OnMouseMoved</a></div><div class="ttdeci">virtual void OnMouseMoved(const Vector2i &amp;diff)</div><div class="ttdoc">Llamado cuando el ratón se mueve.</div><div class="ttdef"><b>Definition:</b> <a href="_i_input_listener_8h_source.html#l00074">IInputListener.h:74</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_input_listener_html_a5fa6413e94af3c6086b2fa0f84e6e98a"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#a5fa6413e94af3c6086b2fa0f84e6e98a">OSK::IO::IInputListener::OnGamepadButtonStroke</a></div><div class="ttdeci">virtual void OnGamepadButtonStroke(GamepadButton button, TSize gamepadId)</div><div class="ttdoc">Es llamada cuando un botón del mando comienza a estar presionado.</div><div class="ttdef"><b>Definition:</b> <a href="_i_input_listener_8h_source.html#l00091">IInputListener.h:91</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_input_listener_html_a9a8a941ec8cef320757eae88719aaba3"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#a9a8a941ec8cef320757eae88719aaba3">OSK::IO::IInputListener::OnMouseButtonReleased</a></div><div class="ttdeci">virtual void OnMouseButtonReleased(MouseButton button)</div><div class="ttdoc">Es llamada cuando un botón del ratón deja de estar presionado.</div><div class="ttdef"><b>Definition:</b> <a href="_i_input_listener_8h_source.html#l00067">IInputListener.h:67</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_input_listener_html_aa24a8fe7d3752d52f3821933fb111797"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#aa24a8fe7d3752d52f3821933fb111797">OSK::IO::IInputListener::OnGamepadAxisValue</a></div><div class="ttdeci">virtual void OnGamepadAxisValue(GamepadAxis axis, float value, TSize gamepadId)</div><div class="ttdoc">Llamado cuando uno de los ejes se manteien con un valor &gt; 0 en valor absoluto.</div><div class="ttdef"><b>Definition:</b> <a href="_i_input_listener_8h_source.html#l00117">IInputListener.h:117</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_input_listener_html_ab8e1d8da69b13bb4a5c09782e5ca799b"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#ab8e1d8da69b13bb4a5c09782e5ca799b">OSK::IO::IInputListener::OnMouseButtonBeingPressed</a></div><div class="ttdeci">virtual void OnMouseButtonBeingPressed(MouseButton button)</div><div class="ttdoc">Es llamada cuando un botón del ratón está siendo presionado.</div><div class="ttdef"><b>Definition:</b> <a href="_i_input_listener_8h_source.html#l00060">IInputListener.h:60</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_input_listener_html_ac036aa2f4909bd00ea9390ed6fbfbb02"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#ac036aa2f4909bd00ea9390ed6fbfbb02">OSK::IO::IInputListener::OnMouseButtonStroke</a></div><div class="ttdeci">virtual void OnMouseButtonStroke(MouseButton button)</div><div class="ttdoc">Es llamada cuando un botón del ratón comienza a estar presionado.</div><div class="ttdef"><b>Definition:</b> <a href="_i_input_listener_8h_source.html#l00053">IInputListener.h:53</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_input_listener_html_ac0b04672a761932c7c9403f1fc809f04"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#ac0b04672a761932c7c9403f1fc809f04">OSK::IO::IInputListener::OnMouseWheelMoved</a></div><div class="ttdeci">virtual void OnMouseWheelMoved(const Vector2i &amp;diff)</div><div class="ttdoc">Llamado cuando la rueda del ratón se mueve.</div><div class="ttdef"><b>Definition:</b> <a href="_i_input_listener_8h_source.html#l00083">IInputListener.h:83</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_input_listener_html_ac1b5913a8cda5a3febd9ef721461d972"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#ac1b5913a8cda5a3febd9ef721461d972">OSK::IO::IInputListener::OnGamepadButtonBeingPressed</a></div><div class="ttdeci">virtual void OnGamepadButtonBeingPressed(GamepadButton button, TSize gamepadId)</div><div class="ttdoc">Es llamada cuando un botón del mando está siendo presionado.</div><div class="ttdef"><b>Definition:</b> <a href="_i_input_listener_8h_source.html#l00099">IInputListener.h:99</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_input_listener_html_aca9fc4b7e88bce25ba499f14ccb894fa"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html#aca9fc4b7e88bce25ba499f14ccb894fa">OSK::IO::IInputListener::OnKeyStroke</a></div><div class="ttdeci">virtual void OnKeyStroke(Key key)</div><div class="ttdoc">Es llamada cuando una tecla comienza a estar presionada.</div><div class="ttdef"><b>Definition:</b> <a href="_i_input_listener_8h_source.html#l00032">IInputListener.h:32</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; int32_t &gt;</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a></div><div class="ttdef"><b>Definition:</b> <a href="_camera_component2_d_8h_source.html#l00011">CameraComponent2D.h:11</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a0b92714a4a778072d4824502589bd39e"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39e">OSK::IO::Key</a></div><div class="ttdeci">Key</div><div class="ttdoc">Enum con todas las teclas del teclado disponibles.</div><div class="ttdef"><b>Definition:</b> <a href="_keyboard_state_8h_source.html#l00010">KeyboardState.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a37e62c3e569002298eedcfd13bad4dd4"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4">OSK::IO::GamepadAxis</a></div><div class="ttdeci">GamepadAxis</div><div class="ttdoc">Todos y cada uno de los ejes del gamepad, es decir, cada uno de los inputs que pueden tener un valor ...</div><div class="ttdef"><b>Definition:</b> <a href="_gamepad_state_8h_source.html#l00014">GamepadState.h:14</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ab1308b3812c6bb66739549adf2501e77"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77">OSK::IO::MouseButton</a></div><div class="ttdeci">MouseButton</div><div class="ttdoc">Botones del ratón.</div><div class="ttdef"><b>Definition:</b> <a href="_mouse_state_8h_source.html#l00012">MouseState.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ad1d8e1f23e2f2515648a3ad1b93ff345"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345">OSK::IO::GamepadButton</a></div><div class="ttdeci">GamepadButton</div><div class="ttdoc">Botones del gamepad. Pueden estar pulsados o no, no hay valores intermedios.</div><div class="ttdef"><b>Definition:</b> <a href="_gamepad_state_8h_source.html#l00073">GamepadState.h:73</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_i_input_listener_8h.html">IInputListener.h</a></li>
+    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:57 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

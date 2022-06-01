@@ -1,115 +1,109 @@
 #pragma once
 
-#include "OSKmacros.h"
-#include "OSKsettings.h"
-#include "OSKtypes.h"
-#include "Log.h"
-
-#include "ComponentArray.h"
+#include "ComponentContainer.h"
 #include "Component.h"
+#include "HashMap.hpp"
+#include "OwnedPtr.h"
+#include "UniquePtr.hpp"
 
-#include <unordered_map>
+#include <string>
 
 namespace OSK::ECS {
 
 	/// <summary>
-	/// Clase que maneja los componentes.
-	/// Se usa para registrar componentes, y para añadir componentes a entidades.
+	/// Se encarga de manejar la creación y eliminación de componentes.
+	/// Guarda un ComponentContainer por cada tipo de componente registrado.
 	/// </summary>
-	class ComponentManager {
+	class OSKAPI_CALL ComponentManager {
 
 	public:
 
-		/// <summary>
-		/// Elimina los componentes.
-		/// <summary/>
-		OSKAPI_CALL ~ComponentManager();
+		~ComponentManager();
 
 		/// <summary>
-		/// Registra un componente para poder crear instancias de él.
+		/// Registra un componente, de tal manera que podrá ser usado
+		/// en el ECS.
 		/// </summary>
-		/// <typeparam name="T">Componente.</typeparam>
-		template <typename T> void RegisterComponent() {
-			std::string key = T::GetComponentName();
+		/// <typeparam name="TComponent">Tipo del componente.</typeparam>
+		template <typename TComponent> void RegisterComponent() {
+			std::string key = TComponent::GetComponentTypeName();
 
-			componentTypes.insert({ key, nextComponentToBeRegistered });
-			componentArray.insert({ key, new ComponentArray<T>() });
+			componentTypes.Insert(key, nextComponentType);
+			componentContainers.Insert(key, new ComponentContainer<TComponent>());
 
-			nextComponentToBeRegistered++;
+			nextComponentType++;
 		}
 
 		/// <summary>
-		/// Obtiene el tipo de componente.
+		/// Devuelve el identificador del tipo de componente.
 		/// </summary>
-		/// <typeparam name="T">Componente</typeparam>
-		/// <returns>Su tipo.</returns>
-		template <typename T> ComponentType GetComponentType() {
-			return componentTypes.at(T::GetComponentName());
+		template <typename TComponent> ComponentType GetComponentType() const {
+			return componentTypes.Get(TComponent::GetComponentTypeName());
 		}
 
 		/// <summary>
-		/// Añade un componente a un objeto.
+		/// Añade el componente dado al GameObject dado.
 		/// </summary>
-		/// <typeparam name="T">Tipo de componente.</typeparam>
-		/// <param name="object">ID del objeto.</param>
-		/// <param name="component">Componente.</param>
-		template <typename T> T& AddComponent(GameObjectID object, T component) {
-			return GetComponentArray<T>()->InsertData(object, component);
+		/// <returns>El componente recién añadido.</returns>
+		template <typename TComponent> TComponent& AddComponent(GameObjectIndex obj, const TComponent& component) {
+			return GetComponentContainer<TComponent>()->AddComponent(obj, component);
 		}
 
 		/// <summary>
-		/// Elimina el componente de un objeto.
+		/// Añade el componente dado al GameObject dado.
 		/// </summary>
-		/// <typeparam name="T">Tipo de componente.</typeparam>
-		/// <param name="object">ID del objeto.</param>
-		template <typename T> void RemoveComponent(GameObjectID object) {
-			GetComponentArray<T>()->RemoveData(object);
+		/// <returns>El componente recién añadido.</returns>
+		template <typename TComponent> TComponent& AddComponentMove(GameObjectIndex obj, TComponent&& component) {
+			return GetComponentContainer<TComponent>()->AddComponentMove(obj, std::move(component));
 		}
 
 		/// <summary>
-		/// Obtiene el componente de un objeto.
+		/// Elimina el componente del objeto.
 		/// </summary>
-		/// <typeparam name="T">Tipo de componente.</typeparam>
-		/// <param name="object">ID del objeto.</param>
-		/// <returns>Componente.</returns>
-		template <typename T> T& GetComponent(GameObjectID object) {
-			return GetComponentArray<T>()->GetData(object);
+		/// <typeparam name="TComponent">Tipo del componente.</typeparam>
+		template <typename TComponent> void RemoveComponent(GameObjectIndex obj) {
+			GetComponentContainer<TComponent>()->RemoveComponent(obj);
 		}
 
 		/// <summary>
-		/// Destruye todos los componentes de un objeto.
+		/// Devuelve el componente del tipo dado, que es poseído por el objeto.
 		/// </summary>
-		/// <param name="object">ID del objeto.</param>
-		OSKAPI_CALL void GameObjectDestroyed(GameObjectID object);
+		/// <typeparam name="TComponent">Tipo del componente.</typeparam>
+		/// <param name="obj">Dueño del componente.</param>
+		/// <returns>Referencia al componente.</returns>
+		template <typename TComponent> TComponent& GetComponent(GameObjectIndex obj) const {
+			return GetComponentContainer<TComponent>()->GetComponent(obj);
+		}
+
+		/// <summary>
+		/// Se llama cuando un objeto es destruido.
+		/// Se encarga de eliminar todos los componentes del objeto.
+		/// </summary>
+		void GameObjectDestroyed(GameObjectIndex obj);
 
 	private:
 
 		/// <summary>
-		/// Map nombre de componente -> tipo de componente.
+		/// Map typename del componente -> id del tipo de componente.
 		/// </summary>
-		std::unordered_map<std::string, ComponentType> componentTypes;
+		HashMap<std::string, ComponentType> componentTypes;
+		/// <summary>
+		/// Map typename del componente -> contenedor del componente.
+		/// </summary>
+		HashMap<std::string, OwnedPtr<IComponentContainer>> componentContainers;
 
 		/// <summary>
-		/// Map nombre de componente -> array de componente.
+		/// Identificador del próximo tipo de componente.
 		/// </summary>
-		std::unordered_map<std::string, IComponentArray*> componentArray;
+		ComponentType nextComponentType = 0;
 
 		/// <summary>
-		/// ID del próximo componente a registrar.
+		/// Devuelve el contenedor del tipo de componente.
 		/// </summary>
-		ComponentType nextComponentToBeRegistered = 0;
-
-		/// <summary>
-		/// Obtiene el array de componentes de un tipo.
-		/// </summary>
-		/// <typeparam name="T">Tipo de componente.</typeparam>
-		/// <returns>Array.</returns>
-		template <typename T> ComponentArray<T>* GetComponentArray() {
-			std::string key = T::GetComponentName();
-
-			return (ComponentArray<T>*)componentArray.at(key);
+		template <typename TComponent> ComponentContainer<TComponent>* GetComponentContainer() const {
+			return (ComponentContainer<TComponent>*)componentContainers.Get(TComponent::GetComponentTypeName()).GetPointer();
 		}
-
+			
 	};
 
 }

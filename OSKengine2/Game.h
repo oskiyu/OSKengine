@@ -24,6 +24,22 @@ namespace OSK {
 		virtual ~IGame() = default;
 
 		/// <summary>
+		/// Registra los assets y los loaders específicos del 
+		/// juego.
+		/// </summary>
+		virtual void RegisterAssets();
+
+		/// <summary>
+		/// Registra los componentes específicos del juego.
+		/// </summary>
+		virtual void RegisterComponents();
+
+		/// <summary>
+		/// Registra los sistemas específicos del juego.
+		/// </summary>
+		virtual void RegisterSystems();
+
+		/// <summary>
 		/// Función ejecutada al cargar el juego.
 		/// 
 		/// @note Se ejecuta dfespués de haber cargado todos

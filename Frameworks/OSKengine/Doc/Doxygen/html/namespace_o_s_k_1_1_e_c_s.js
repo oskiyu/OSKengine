@@ -12,6 +12,8 @@ var namespace_o_s_k_1_1_e_c_s =
     [ "RenderSystem2D", "class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html", "class_o_s_k_1_1_e_c_s_1_1_render_system2_d" ],
     [ "RenderSystem3D", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d" ],
     [ "SystemManager", "class_o_s_k_1_1_e_c_s_1_1_system_manager.html", "class_o_s_k_1_1_e_c_s_1_1_system_manager" ],
+    [ "TerrainComponent", "struct_o_s_k_1_1_e_c_s_1_1_terrain_component.html", "struct_o_s_k_1_1_e_c_s_1_1_terrain_component" ],
+    [ "TerrainRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_terrain_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_terrain_render_system" ],
     [ "Transform2D", "class_o_s_k_1_1_e_c_s_1_1_transform2_d.html", "class_o_s_k_1_1_e_c_s_1_1_transform2_d" ],
     [ "Transform3D", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html", "class_o_s_k_1_1_e_c_s_1_1_transform3_d" ],
     [ "ComponentIndex", "namespace_o_s_k_1_1_e_c_s.html#ab5c95debae1feaa2c43ccb5c59171545", null ],

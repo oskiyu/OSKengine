@@ -10,6 +10,7 @@ var class_o_s_k_1_1_hash_map =
     [ "Find", "class_o_s_k_1_1_hash_map.html#a2ed4ac9b7af3f79ebdf235227c4a0d7f", null ],
     [ "Get", "class_o_s_k_1_1_hash_map.html#a93a98e2495dab16229085c7109a27b30", null ],
     [ "GetBucket", "class_o_s_k_1_1_hash_map.html#ae9cc822ad54aa485d8385eb8cee5acb5", null ],
+    [ "GetCopy", "class_o_s_k_1_1_hash_map.html#a8dce3f788064ec9854456b18f48a4a5b", null ],
     [ "GetIterator", "class_o_s_k_1_1_hash_map.html#aa9668747767e3460d66b72e4e2f9edd1", null ],
     [ "GetNumberOfBuckets", "class_o_s_k_1_1_hash_map.html#a70f8d610958d298df1e32bab4913bc2b", null ],
     [ "GetSize", "class_o_s_k_1_1_hash_map.html#aaafe40d918402b549fdbd32270323de4", null ],

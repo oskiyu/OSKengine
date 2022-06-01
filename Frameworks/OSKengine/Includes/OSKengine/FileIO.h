@@ -1,20 +1,17 @@
 #pragma once
 
+#include "DynamicArray.hpp"
 #include "OSKmacros.h"
-#include "OSKsettings.h"
-#include "OSKtypes.h"
-#include "Log.h"
 
-#include <fstream>
-#include <vector>
+#include <string>
 
-namespace OSK {
+namespace OSK::IO {
 
 	/// <summary>
 	/// Clase que actúa de interfaz para la lectura y escritura de atchivos.
 	/// </summary>
 	class OSKAPI_CALL FileIO {
-	
+
 	public:
 
 		/// <summary>
@@ -29,6 +26,8 @@ namespace OSK {
 		/// </summary>
 		/// <param name="path">Ruta del archivo (con extensión).</param>
 		/// <returns>String con el contenido del archivo.</returns>
+		/// 
+		/// @throws std::runtime_error Si el archivo no existe.
 		static std::string ReadFromFile(const std::string& path);
 
 		/// <summary>
@@ -36,7 +35,9 @@ namespace OSK {
 		/// </summary>
 		/// <param name="filename">Ruta del archivo (con extensión).</param>
 		/// <returns>Vector de bytes.</returns>
-		static std::vector<char> ReadBinaryFromFile(const std::string& filename);
+		/// 
+		/// @throws std::runtime_error Si el archivo no existe.
+		static DynamicArray<char> ReadBinaryFromFile(const std::string& filename);
 
 		/// <summary>
 		/// Comprueba si un archivo existe.

@@ -3,6 +3,7 @@
 #include <corecrt_memory.h>
 #include <malloc.h>
 #include <string>
+#include <type_traits>
 
 #include "Assert.h"
 
@@ -44,14 +45,14 @@ namespace OSK {
 			/// <summary>
 			/// Crea un nodo con el elemento dado.
 			/// </summary>
-			Node(const T& element) : value(element) {
+			Node(T&& element) : value(std::move(element)) {
 
 			}
 
 			/// <summary>
 			/// Crea un nodo con el elemento dado.
 			/// </summary>
-			Node(T&& element) : value(element) {
+			Node(const T& element) requires std::is_copy_assignable_v<T>  : value(element) {
 
 			}
 
@@ -237,8 +238,8 @@ namespace OSK {
 			last = nullptr;
 			size = 0;
 
-			for (auto& i : other)
-				this->Insert(i);
+			for (LinkedList<T>::Iterator it = other.begin(); it != other.end(); ++it)
+				this->InsertMove(std::move(it.GetNode()->value));
 
 			other.Free();
 		}
@@ -247,8 +248,8 @@ namespace OSK {
 		/// Mueve los contenidos de la otra lista a esta lista.
 		/// </summary>
 		LinkedList& operator=(LinkedList&& other) {
-			for (auto& i : other)
-				this->Insert(i);
+			for (LinkedList<T>::Iterator it = other.begin(); it != other.end(); ++it)
+				this->InsertMove(std::move(it.GetNode()->value));
 
 			other.Free();
 
@@ -279,7 +280,7 @@ namespace OSK {
 		/// <summary>
 		/// Añade un elemento a la lista.
 		/// </summary>
-		void Insert(const T& value) {
+		void Insert(const T& value) requires std::is_copy_assignable_v<T> {
 			Node* node = new Node(value);
 
 			if (last == nullptr) {
@@ -342,7 +343,27 @@ namespace OSK {
 		/// Añade un elemento a la lista.
 		/// </summary>
 		void Insert(T&& value) {
-			Node* node = new Node(value);
+			Node* node = new Node(std::move(value));
+
+			if (last == nullptr) {
+				first = node;
+				last = node;
+			}
+			else {
+				last->next = node;
+				node->previous = last;
+
+				last = node;
+			}
+
+			size++;
+		}
+
+		/// <summary>
+		/// Añade un elemento a la lista.
+		/// </summary>
+		void InsertMove(T&& value) {
+			Node* node = new Node(std::move(value));
 
 			if (last == nullptr) {
 				first = node;
@@ -366,7 +387,7 @@ namespace OSK {
 		/// </summary>
 		void InsertAt(T&& value, TSize position) {
 			if (position == 0 && size == 0)
-				Insert(value);
+				Insert(std::move(value));
 
 			Node* targetNode = GetNodeFromIndex(position);
 
@@ -378,20 +399,20 @@ namespace OSK {
 
 			if (position == 0) {
 				if (size == 0) {
-					Insert(value);
+					Insert(std::move(value));
 
 					return;
 				}
 
 				Node* prevFirst = first;
-				first = new Node(value);
+				first = new Node(std::move(value));
 				prevFirst->previous = first;
 
 				return;
 			}
 
 			Node* previous = targetNode->GetPrevious();
-			Node* newNode = new Node(value);
+			Node* newNode = new Node(std::move(value));
 
 			previous->next = newNode;
 			newNode->previous = previous;

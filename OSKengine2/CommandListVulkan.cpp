@@ -21,6 +21,8 @@
 #include "MaterialLayout.h"
 #include "MaterialLayoutSlot.h"
 #include "ShaderBindingTypeVulkan.h"
+#include "OSKengine.h"
+#include "RendererVulkan.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -34,10 +36,8 @@ DynamicArray<VkCommandBuffer>* CommandListVulkan::GetCommandBuffers() {
 }
 
 void CommandListVulkan::Reset() {
-	for (auto i : commandBuffers) {
-		VkResult result = vkResetCommandBuffer(i, 0);
-		OSK_ASSERT(result == VK_SUCCESS, "No se pudo resetear la lista de comandos.");
-	}
+	VkResult result = vkResetCommandBuffer(commandBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()], 0);
+	OSK_ASSERT(result == VK_SUCCESS, "No se pudo resetear la lista de comandos.");
 }
 
 void CommandListVulkan::Start() {
@@ -48,17 +48,13 @@ void CommandListVulkan::Start() {
 		NULL
 	};
 
-	for (auto i : commandBuffers) {
-		VkResult result = vkBeginCommandBuffer(i, &beginInfo);
-		OSK_ASSERT(result == VK_SUCCESS, "No se pudo iniciar la lista de comandos.");
-	}
+	VkResult result = vkBeginCommandBuffer(commandBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()], &beginInfo);
+	OSK_ASSERT(result == VK_SUCCESS, "No se pudo iniciar la lista de comandos.");
 }
 
 void CommandListVulkan::Close() {
-	for (auto i : commandBuffers) {
-		VkResult result = vkEndCommandBuffer(i);
-		OSK_ASSERT(result == VK_SUCCESS, "No se pudo finalizar la lista de comandos.");
-	}
+	VkResult result = vkEndCommandBuffer(commandBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()]);
+	OSK_ASSERT(result == VK_SUCCESS, "No se pudo finalizar la lista de comandos.");
 }
 
 void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers) {
@@ -137,8 +133,7 @@ void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout pr
 		break;
 	}
 
-	for (auto i : commandBuffers)
-		vkCmdPipelineBarrier(i, sourceStage, destinationStage, 0, 0, nullptr, 0, nullptr, 1, &barrier);
+	vkCmdPipelineBarrier(commandBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()], sourceStage, destinationStage, 0, 0, nullptr, 0, nullptr, 1, &barrier);
 
 	image->SetLayout(next);
 }
@@ -162,7 +157,7 @@ void CommandListVulkan::CopyBufferToImage(const GpuDataBuffer* source, GpuImage*
 		1
 	};
 
-	vkCmdCopyBufferToImage(commandBuffers[0], 
+	vkCmdCopyBufferToImage(commandBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()],
 		source->GetMemoryBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer(), 
 		dest->As<GpuImageVulkan>()->GetImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
 }
@@ -174,7 +169,7 @@ void CommandListVulkan::CopyBuffer(const GpuDataBuffer* source, GpuDataBuffer* d
 	copyRegion.dstOffset = destOffset + dest->GetMemorySubblock()->GetOffsetFromBlock();
 	copyRegion.size = size;
 
-	vkCmdCopyBuffer(commandBuffers[0], 
+	vkCmdCopyBuffer(commandBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()],
 		source->GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer(),
 		dest->GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer(), 
 		1, &copyRegion);
@@ -187,92 +182,79 @@ void CommandListVulkan::BeginRenderpass(IRenderpass* renderpass) {
 void CommandListVulkan::BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) {
 	const auto size = renderpass->GetImage(0)->GetSize();
 
-	for (TSize i = 0; i < renderpass->GetNumberOfImages(); i++)
-		TransitionImageLayout(renderpass->GetImage(i), GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, 0, 1);
+	TransitionImageLayout(renderpass->GetImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, 0, 1);
 
-	for (TSize cmdIndex = 0; cmdIndex < commandBuffers.GetSize(); cmdIndex++) {
-		VkRenderPassBeginInfo renderpassInfo{};
-		renderpassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-		renderpassInfo.renderPass = renderpass->As<RenderpassVulkan>()->GetRenderpass();
-		renderpassInfo.framebuffer = renderpass->As<RenderpassVulkan>()->GetFramebuffer(cmdIndex);
-		renderpassInfo.renderArea.offset = { 0,0 };
-		renderpassInfo.renderArea.extent = { size.X, size.Y };
+	VkRenderPassBeginInfo renderpassInfo{};
+	renderpassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+	renderpassInfo.renderPass = renderpass->As<RenderpassVulkan>()->GetRenderpass();
+	renderpassInfo.framebuffer = renderpass->As<RenderpassVulkan>()->GetFramebuffer(Engine::GetRenderer()->GetCurrentFrameIndex());
+	renderpassInfo.renderArea.offset = { 0,0 };
+	renderpassInfo.renderArea.extent = { size.X, size.Y };
 
-		VkClearValue clearColors[3];
-		clearColors[0] = { color.Red, color.Green, color.Blue, color.Alpha };
-		clearColors[1] = { 1.0f, 0.0f };
+	VkClearValue clearColors[3];
+	clearColors[0] = { color.Red, color.Green, color.Blue, color.Alpha };
+	clearColors[1] = { 1.0f, 0.0f };
 
-		renderpassInfo.clearValueCount = 2;
-		renderpassInfo.pClearValues = clearColors;
+	renderpassInfo.clearValueCount = 2;
+	renderpassInfo.pClearValues = clearColors;
 
-		vkCmdBeginRenderPass(commandBuffers.At(cmdIndex), &renderpassInfo, VK_SUBPASS_CONTENTS_INLINE);
-	}
+	vkCmdBeginRenderPass(commandBuffers.At(Engine::GetRenderer()->GetCurrentCommandListIndex()), &renderpassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
 	currentRenderpass = renderpass;
 }
 
 void CommandListVulkan::EndRenderpass(IRenderpass* renderpass) {
-	for (TSize i = 0; i < commandBuffers.GetSize(); i++)
-		vkCmdEndRenderPass(commandBuffers.At(i));
+	vkCmdEndRenderPass(commandBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()]);
 
 	GpuImageLayout finalLayout = GpuImageLayout::SHADER_READ_ONLY;
 	if (renderpass->GetType() == RenderpassType::FINAL)
 		finalLayout = GpuImageLayout::PRESENT;
 
-	for (TSize i = 0; i < renderpass->GetNumberOfImages(); i++)
-		TransitionImageLayout(renderpass->GetImage(i), GpuImageLayout::UNDEFINED, finalLayout, 0, 1);
+	//TransitionImageLayout(renderpass->GetImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::UNDEFINED, finalLayout, 0, 1);
 }
 
 void CommandListVulkan::BindMaterial(const Material* material) {
 	currentMaterial = material;
 	currentPipeline = material->GetGraphicsPipeline(currentRenderpass);
 
-	for (TSize i = 0; i < commandBuffers.GetSize(); i++)
-		vkCmdBindPipeline(commandBuffers.At(i), VK_PIPELINE_BIND_POINT_GRAPHICS, currentPipeline->As<GraphicsPipelineVulkan>()->GetPipeline());
+	vkCmdBindPipeline(commandBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()], VK_PIPELINE_BIND_POINT_GRAPHICS, currentPipeline->As<GraphicsPipelineVulkan>()->GetPipeline());
 }
 
-void CommandListVulkan::BindVertexBuffer(IGpuVertexBuffer* buffer) {
+void CommandListVulkan::BindVertexBuffer(const IGpuVertexBuffer* buffer) {
 	VkBuffer vertexBuffers[] = { 
 		buffer->GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer() 
 	};
 	VkDeviceSize offsets[] = { buffer->GetMemorySubblock()->GetOffsetFromBlock() };
 
-	for (TSize i = 0; i < commandBuffers.GetSize(); i++)
-		vkCmdBindVertexBuffers(commandBuffers.At(i), 0, 1, vertexBuffers, offsets);
+	vkCmdBindVertexBuffers(commandBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()], 0, 1, vertexBuffers, offsets);
 }
 
-void CommandListVulkan::BindIndexBuffer(IGpuIndexBuffer* buffer) {
-	for (TSize i = 0; i < commandBuffers.GetSize(); i++)
-		vkCmdBindIndexBuffer(commandBuffers.At(i),
-			buffer->GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer(), 
-			buffer->GetMemorySubblock()->GetOffsetFromBlock(), VK_INDEX_TYPE_UINT32);
+void CommandListVulkan::BindIndexBuffer(const IGpuIndexBuffer* buffer) {
+	vkCmdBindIndexBuffer(commandBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()],
+		buffer->GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer(), 
+		buffer->GetMemorySubblock()->GetOffsetFromBlock(), VK_INDEX_TYPE_UINT32);
 }
 
 void CommandListVulkan::BindMaterialSlot(const IMaterialSlot* slot) {
-	for (TSize i = 0; i < commandBuffers.GetSize(); i++) {
-		VkDescriptorSet sets[] = { slot->As<MaterialSlotVulkan>()->GetDescriptorSet(i) };
+	VkDescriptorSet sets[] = { slot->As<MaterialSlotVulkan>()->GetDescriptorSet(Engine::GetRenderer()->GetCurrentCommandListIndex()) };
 
-		vkCmdBindDescriptorSets(commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, currentPipeline->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout(),
-			currentMaterial->GetLayout()->GetSlot(slot->GetName()).glslSetIndex, 1, sets, 0, nullptr);
-	}
+	vkCmdBindDescriptorSets(commandBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()], VK_PIPELINE_BIND_POINT_GRAPHICS, currentPipeline->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout(),
+		currentMaterial->GetLayout()->GetSlot(slot->GetName()).glslSetIndex, 1, sets, 0, nullptr);
 }
 
 void CommandListVulkan::PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) {
 	VkPipelineLayout pipelineLayout = currentPipeline->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout();
 	auto& pushConstInfo = currentMaterial->GetLayout()->GetPushConstant(pushConstName);
 
-	for (TSize i = 0; i < commandBuffers.GetSize(); i++)
-		vkCmdPushConstants(commandBuffers[i], pipelineLayout, GetShaderStageVk(pushConstInfo.stage), pushConstInfo.offset + offset, size, data);
+	vkCmdPushConstants(commandBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()], pipelineLayout, GetShaderStageVk(pushConstInfo.stage), pushConstInfo.offset + offset, size, data);
 }
 
 void CommandListVulkan::DrawSingleInstance(TSize numIndices) {
-	for (TSize i = 0; i < commandBuffers.GetSize(); i++)
-		vkCmdDrawIndexed(commandBuffers[i], numIndices, 1, 0, 0, 0);
+	vkCmdDrawIndexed(commandBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()], numIndices, 1, 0, 0, 0);
 }
 
 void CommandListVulkan::DrawSingleMesh(TSize firstIndex, TSize numIndices) {
-	for (TSize i = 0; i < commandBuffers.GetSize(); i++)
-		vkCmdDrawIndexed(commandBuffers[i], numIndices, 1, firstIndex, 0, 0);
+	vkCmdDrawIndexed(commandBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()], numIndices, 1, firstIndex, 0, 0);
 }
 
 void CommandListVulkan::SetViewport(const Viewport& vp) {
@@ -286,8 +268,7 @@ void CommandListVulkan::SetViewport(const Viewport& vp) {
 	viewport.minDepth = vp.minDepth;
 	viewport.maxDepth = vp.maxDepth;
 
-	for (TSize i = 0; i < commandBuffers.GetSize(); i++)
-		vkCmdSetViewport(commandBuffers.At(i), 0, 1, &viewport);
+	vkCmdSetViewport(commandBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()], 0, 1, &viewport);
 }
 
 void CommandListVulkan::SetScissor(const Vector4ui& scissorRect) {
@@ -303,6 +284,5 @@ void CommandListVulkan::SetScissor(const Vector4ui& scissorRect) {
 		scissorRect.GetRectangleSize().Y
 	};
 	
-	for (TSize i = 0; i < commandBuffers.GetSize(); i++)
-		vkCmdSetScissor(commandBuffers.At(i), 0, 1, &scissor);
+	vkCmdSetScissor(commandBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()], 0, 1, &scissor);
 }

@@ -7,5 +7,6 @@ var searchData=
   ['io_4',['IO',['../namespace_o_s_k_1_1_i_o.html',1,'OSK']]],
   ['math_5',['MATH',['../namespace_o_s_k_1_1_m_a_t_h.html',1,'OSK']]],
   ['memory_6',['MEMORY',['../namespace_o_s_k_1_1_m_e_m_o_r_y.html',1,'OSK']]],
-  ['osk_7',['OSK',['../namespace_o_s_k.html',1,'']]]
+  ['osk_7',['OSK',['../namespace_o_s_k.html',1,'']]],
+  ['ui_8',['UI',['../namespace_o_s_k_1_1_u_i.html',1,'OSK']]]
 ];

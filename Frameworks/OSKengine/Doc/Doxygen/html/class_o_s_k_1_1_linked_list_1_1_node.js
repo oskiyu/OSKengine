@@ -1,7 +1,7 @@
 var class_o_s_k_1_1_linked_list_1_1_node =
 [
-    [ "Node", "class_o_s_k_1_1_linked_list_1_1_node.html#a007b62e90f1dafa36fd701fdb4ee295c", null ],
     [ "Node", "class_o_s_k_1_1_linked_list_1_1_node.html#a0cc1012ac94663769571a324b8d1fa3d", null ],
+    [ "Node", "class_o_s_k_1_1_linked_list_1_1_node.html#adb8bf4952d08bf4513a14aafcc48da4c", null ],
     [ "~Node", "class_o_s_k_1_1_linked_list_1_1_node.html#ab02a54bea476d41bc40fc762c9fbbf0f", null ],
     [ "GetNext", "class_o_s_k_1_1_linked_list_1_1_node.html#a3e895c13deda11380d421a57d6feaa99", null ],
     [ "GetPrevious", "class_o_s_k_1_1_linked_list_1_1_node.html#ae1358fba5ad3adc697d56c50278d9897", null ],

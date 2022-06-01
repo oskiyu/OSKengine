@@ -1,7 +1,7 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl =
 [
     [ "RendererOgl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#a555cee00d1af96e2e09d51160c36e6c2", null ],
-    [ "_CreateGraphicsPipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#a12199f28cd60df14be96731a1218edae", null ],
+    [ "_CreateGraphicsPipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#aa0b37f97a8e9ffbfd33bbff7dd81aca5", null ],
     [ "_CreateMaterialSlot", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#aee18250e28331b2f40d2c98699902a7c", null ],
     [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#a7e06601c9bc5325e2ee5904e58a3af3d", null ],
     [ "Close", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#a2ea69c1d3b8699716d1dfc906476a4c8", null ],
@@ -15,6 +15,8 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl =
     [ "CreateSyncDevice", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#af188503bb25fcbad27186e87ee7e1338", null ],
     [ "FormatImageDataForGpu", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#a6bc3460eece49621aa2411460cc65138", null ],
     [ "GetCommandList", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#a37d47db030f6723bdce8f43518b611b4", null ],
+    [ "GetCurrentCommandListIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#a4a779e3af14025ec16d8a0c0a6cf0fe5", null ],
+    [ "GetCurrentFrameIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#a4ab0c3c7114ddbc503d81c25546013e7", null ],
     [ "GetGpu", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#a8b6b1698afeb3bb07f3b91e5ddb79b2d", null ],
     [ "GetMainRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#afff0e2859579dde56407eedf515a55a3", null ],
     [ "GetMaterialSystem", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#a15a2d271ad61c59ce4414dbdf016d277", null ],

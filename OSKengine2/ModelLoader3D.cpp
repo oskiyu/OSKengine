@@ -337,8 +337,16 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 	GltfModelInfo modelInfo{};
 	modelInfo.materialInfos = LoadMaterials(gltfModel);
 
+	glm::mat4 initialTransform = glm::mat4(1.0f);
+
+	if (assetInfo.contains("rotation_offset")) {
+		initialTransform = glm::rotate(initialTransform, glm::radians((float)assetInfo["rotation_offset"][0]), { 1.0f, 0.0f, 0.0f});
+		initialTransform = glm::rotate(initialTransform, glm::radians((float)assetInfo["rotation_offset"][1]), { 0.0f, 1.0f, 0.0f });
+		initialTransform = glm::rotate(initialTransform, glm::radians((float)assetInfo["rotation_offset"][2]), { 0.0f, 0.0f, 1.0f });
+	}
+
 	for (TSize i = 0; i < scene.nodes.size(); i++)
-		ProcessMeshNode(gltfModel.nodes[scene.nodes[i]], gltfModel, modelInfo, &meshIdToMaterialId, &meshes, &vertices, &indices, glm::mat4(1.0f), assetInfo["scale"]);
+		ProcessMeshNode(gltfModel.nodes[scene.nodes[i]], gltfModel, modelInfo, &meshIdToMaterialId, &meshes, &vertices, &indices, initialTransform, assetInfo["scale"]);
 
 	// GPU.
 	output->_SetVertexBuffer(Engine::GetRenderer()->GetMemoryAllocator()->CreateVertexBuffer(vertices));

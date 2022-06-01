@@ -2,43 +2,13 @@
 
 #include "OSKmacros.h"
 
-/// <summary>
-/// Funciones de memoria.
-/// </summary>
-namespace OSK::Memory {
+namespace OSK::MEMORY {
 
 	/// <summary>
-	/// Devueve la dirección de memoria originalPointer + offset.
+	/// Intercambia dos regiones de memoria.
+	/// 
+	/// @pre Las regiones no deben solaparse.
 	/// </summary>
-	/// <param name="originalPointer">Puntero original.</param>
-	/// <param name="offset">Offset (en bytes).</param>
-	/// <returns>Ptr + offset.</returns>
-	OSKAPI_CALL void* AddPtrOffset(const void* originalPointer, size_t offset);
-
-	/// <summary>
-	/// LLama a 'delete', si ptr no es nullptr.
-	/// Establece ptr a nullptr.
-	/// </summary>
-	/// <typeparam name="T">Cualquier tipo.</typeparam>
-	/// <param name="ptr">Puntero a eliminar.</param>
-	template<typename T> inline void SafeDelete(T** ptr) {
-		if (*ptr != nullptr) {
-			delete* ptr;
-			*ptr = nullptr;
-		}
-	}
-
-	/// <summary>
-	/// LLama a 'delete[]', si ptr no es nullptr.
-	/// Establece ptr a nullptr.
-	/// </summary>
-	/// <typeparam name="T">Cualquier tipo.</typeparam>
-	/// <param name="ptr">Array a eliminar.</param>
-	template<typename T> inline void SafeDeleteArray(T** ptr) {
-		if (*ptr != nullptr) {
-			delete[] * ptr;
-			*ptr = nullptr;
-		}
-	}
+	OSKAPI_CALL void MemorySwap(void* a, void* b, TSize numBytes);
 
 }

@@ -1,3 +1,6 @@
+#include <spirv_cross/spirv_cross.hpp>
+#include <spirv_cross/spirv_hlsl.hpp>
+
 #include "GraphicsPipelineDx12.h"
 
 #include "GpuDx12.h"
@@ -10,25 +13,21 @@
 #include "FormatDx12.h"
 #include "VertexInfo.h"
 #include "LinkedList.hpp"
+#include "MaterialLayout.h"
+
+#include "FileIO.h"
+
+#include "OSKengine.h"
+#include "Logger.h"
+
+#include "WindowsUtils.h"
+
+#include "SpirvToHlsl.h"
+#include "HlslRuntimeCompiler.h"
 
 using namespace OSK;
+using namespace OSK::IO;
 using namespace OSK::GRAPHICS;
-
-struct InputLayoutDescDx12 {
-	DynamicArray<D3D12_INPUT_ELEMENT_DESC> inputElements;
-	DynamicArray<std::string> stringNames;
-};
-
-std::wstring s2ws(const std::string& s) {
-	int len;
-	int slength = (int)s.length() + 1;
-	len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
-	wchar_t* buf = new wchar_t[len];
-	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
-	std::wstring r(buf);
-	delete[] buf;
-	return r;
-}
 
 DXGI_FORMAT GetVertexAttribFormatDx12(const VertexInfo::Entry& entry) {
 	switch (entry.type) {
@@ -48,14 +47,12 @@ DXGI_FORMAT GetVertexAttribFormatDx12(const VertexInfo::Entry& entry) {
 	return DXGI_FORMAT_UNKNOWN;
 }
 
-InputLayoutDescDx12 GetInputLayoutDescDx12(const VertexInfo& info) {
-	InputLayoutDescDx12 output{};
+DynamicArray<D3D12_INPUT_ELEMENT_DESC> GetInputLayoutDescDx12(const VertexInfo& info) {
+	DynamicArray<D3D12_INPUT_ELEMENT_DESC> output{};
 
 	TSize offset = 0;
 	for (TSize i = 0; i < info.entries.GetSize(); i++) {
 		const VertexInfo::Entry& entry = info.entries.At(i);
-
-		output.stringNames.Insert(entry.name);
 
 		D3D12_INPUT_ELEMENT_DESC desc = {
 			NULL,
@@ -67,9 +64,9 @@ InputLayoutDescDx12 GetInputLayoutDescDx12(const VertexInfo& info) {
 			0
 		};
 
-		output.inputElements.Insert(desc);
+		output.Insert(desc);
 
-		offset += info.entries.At(i).size;
+		offset += entry.size;
 	}
 
 	return output;
@@ -100,6 +97,45 @@ D3D12_FILL_MODE GetFillMode(PolygonMode mode) {
 	}
 }
 
+static IDxcCompiler3* GetCompilerDx12() {
+	static ComPtr<IDxcCompiler3> compilerDx12 = nullptr;
+
+	if (compilerDx12.Get() != nullptr)
+		return compilerDx12.Get();
+
+	// Crear una sola vez
+	HRESULT result = DxcCreateInstance(CLSID_DxcCompiler, IID_PPV_ARGS(&compilerDx12));
+	OSK_ASSERT(SUCCEEDED(result), "No se pudo instanciar la libreria del compilador DX12.");
+
+	return compilerDx12.Get();
+}
+
+static IDxcUtils* GetCompilerLibraryDx12() {
+	static ComPtr<IDxcUtils> dxcLibrary = nullptr;
+
+	if (dxcLibrary.Get() != nullptr)
+		return dxcLibrary.Get();
+
+	// Crear una sola vez
+	HRESULT result = DxcCreateInstance(CLSID_DxcUtils, IID_PPV_ARGS(dxcLibrary.GetAddressOf()));
+	OSK_ASSERT(SUCCEEDED(result), "No se pudo instanciar el compilador DX12.");
+
+	return dxcLibrary.Get();
+}
+
+static IDxcIncludeHandler* GetCompilerIncludeHandlerDx12() {
+	static ComPtr<IDxcIncludeHandler> dxcIncludeHandler = nullptr;
+
+	if (dxcIncludeHandler.Get() != nullptr)
+		return dxcIncludeHandler.Get();
+
+	// Crear una sola vez
+	HRESULT result = GetCompilerLibraryDx12()->CreateDefaultIncludeHandler(&dxcIncludeHandler);
+	OSK_ASSERT(SUCCEEDED(result), "No se pudo instanciar el iclude handler compilador DX12.");
+
+	return dxcIncludeHandler.Get();
+}
+
 ComPtr<ID3DBlob> LoadBlob(LPCWSTR filename) {
 	HRESULT hr{};
 
@@ -113,6 +149,23 @@ ComPtr<ID3DBlob> LoadBlob(LPCWSTR filename) {
 	return shaderBlob;
 }
 
+ComPtr<IDxcBlob> CompileShaderSpv(const std::string& spirvPath, const VertexInfo& vertexInfo, const std::string& hlslProfile, const MaterialLayout& layout) {
+	const auto bytecode = FileIO::ReadBinaryFromFile(spirvPath);
+	
+	// Generación del código HLSL.
+	SpirvToHlsl compilerToHlsl = SpirvToHlsl(bytecode);
+	compilerToHlsl.SetHlslTargetProfile(6, 1);
+	compilerToHlsl.SetVertexAttributesMapping(vertexInfo);
+	compilerToHlsl.SetLayoutMapping(layout);
+
+	const std::string hlslSourceCode = compilerToHlsl.CreateHlsl();
+
+	//Engine::GetLogger()->DebugLog(hlslSourceCode);
+	FileIO::WriteFile("./temp_shader", hlslSourceCode);
+
+	HlslRuntimeCompiler compiler;
+	return compiler.CompileFromFile("./temp_shader", hlslProfile);
+}
 
 void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) {
 	layout = new PipelineLayoutDx12(materialLayout);
@@ -120,25 +173,27 @@ void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* de
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC createInfo{};
 
 	auto layoutDesc = GetInputLayoutDescDx12(vertexInfo);
-	for (TSize i = 0; i < layoutDesc.inputElements.GetSize(); i++)
-		layoutDesc.inputElements.At(i).SemanticName = layoutDesc.stringNames.At(i).c_str();
+
+	for (TSize i = 0; i < layoutDesc.GetSize(); i++)
+		layoutDesc.At(i).SemanticName = vertexInfo.entries[i].GetName().c_str();
+
 	D3D12_INPUT_LAYOUT_DESC inputLayout{};
-	inputLayout.NumElements = layoutDesc.inputElements.GetSize();
-	inputLayout.pInputElementDescs = layoutDesc.inputElements.GetData();
+	inputLayout.NumElements = layoutDesc.GetSize();
+	inputLayout.pInputElementDescs = layoutDesc.GetData();
 
 	createInfo.InputLayout = inputLayout;
 
-	LoadVertexShader(info.vertexPath);
-	LoadFragmentShader(info.fragmentPath);
+	LoadVertexShader(info, vertexInfo, *materialLayout);
+	LoadFragmentShader(info, vertexInfo, *materialLayout);
 
 	if (info.tesselationControlPath != "") {
-		LoadTeselationControlShader(info.tesselationControlPath);
+		LoadTeselationControlShader(info, vertexInfo, *materialLayout);
 		createInfo.HS = tesselationControlShaderBytecode;
 
 		topologyType = D3D_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST;
 	}
 	if (info.tesselationEvaluationPath != "") {
-		LoadTesselationEvaluationShader(info.tesselationEvaluationPath);
+		LoadTesselationEvaluationShader(info, vertexInfo, *materialLayout);
 		createInfo.DS = tesselationEvaluationShaderBytecode;
 	}
 
@@ -160,7 +215,8 @@ void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* de
 
 	createInfo.pRootSignature = layout->As<PipelineLayoutDx12>()->GetSignature();
 
-	device->As<GpuDx12>()->GetDevice()->CreateGraphicsPipelineState(&createInfo, IID_PPV_ARGS(&pipeline));
+	HRESULT result = device->As<GpuDx12>()->GetDevice()->CreateGraphicsPipelineState(&createInfo, IID_PPV_ARGS(&pipeline));
+	OSK_ASSERT(SUCCEEDED(result), "Error al crear el pipeline. Code: " + std::to_string(result));
 }
 
 ID3D12PipelineState* GraphicsPipelineDx12::GetPipelineState() const {
@@ -171,32 +227,64 @@ ID3D12RootSignature* GraphicsPipelineDx12::GetLayout() const {
 	return layout->As<PipelineLayoutDx12>()->GetSignature();
 }
 
-void GraphicsPipelineDx12::LoadVertexShader(const std::string& path) {
-	vertexShader = LoadBlob(s2ws(path).c_str());
+void GraphicsPipelineDx12::LoadVertexShader(const PipelineCreateInfo& info, const VertexInfo& vertexInfo, const MaterialLayout& layout) {
+	if (info.precompiledHlslShaders) {
+		vertexShader = LoadBlob(StringToWideString(info.vertexPath).c_str());
 
-	vertexShaderBytecode.pShaderBytecode = vertexShader->GetBufferPointer();
-	vertexShaderBytecode.BytecodeLength = vertexShader->GetBufferSize();
+		vertexShaderBytecode.pShaderBytecode = vertexShader->GetBufferPointer();
+		vertexShaderBytecode.BytecodeLength = vertexShader->GetBufferSize();
+	}
+	else {
+		vertexShader2 = CompileShaderSpv(info.vertexPath, vertexInfo, "vs_6_1", layout);
+
+		vertexShaderBytecode.pShaderBytecode = vertexShader2->GetBufferPointer();
+		vertexShaderBytecode.BytecodeLength = vertexShader2->GetBufferSize();
+	}
 }
 
-void GraphicsPipelineDx12::LoadFragmentShader(const std::string& path) {
-	fragmentShader = LoadBlob(s2ws(path).c_str());
+void GraphicsPipelineDx12::LoadFragmentShader(const PipelineCreateInfo& info, const VertexInfo& vertexInfo, const MaterialLayout& layout) {
+	if (info.precompiledHlslShaders) {
+		fragmentShader = LoadBlob(StringToWideString(info.fragmentPath).c_str());
 
-	fragmentShaderBytecode.pShaderBytecode = fragmentShader->GetBufferPointer();
-	fragmentShaderBytecode.BytecodeLength = fragmentShader->GetBufferSize();
+		fragmentShaderBytecode.pShaderBytecode = fragmentShader->GetBufferPointer();
+		fragmentShaderBytecode.BytecodeLength = fragmentShader->GetBufferSize();
+	}
+	else {
+		fragmentShader2 = CompileShaderSpv(info.fragmentPath, vertexInfo, "ps_6_1", layout);
+
+		fragmentShaderBytecode.pShaderBytecode = fragmentShader2->GetBufferPointer();
+		fragmentShaderBytecode.BytecodeLength = fragmentShader2->GetBufferSize();
+	}
 }
 
-void GraphicsPipelineDx12::LoadTeselationControlShader(const std::string& path) {
-	tesselationControlShader = LoadBlob(s2ws(path).c_str());
+void GraphicsPipelineDx12::LoadTeselationControlShader(const PipelineCreateInfo& info, const VertexInfo& vertexInfo, const MaterialLayout& layout) {
+	if (info.precompiledHlslShaders) {
+		tesselationControlShader = LoadBlob(StringToWideString(info.tesselationControlPath).c_str());
 
-	tesselationControlShaderBytecode.pShaderBytecode = tesselationControlShader->GetBufferPointer();
-	tesselationControlShaderBytecode.BytecodeLength = tesselationControlShader->GetBufferSize();
+		tesselationControlShaderBytecode.pShaderBytecode = tesselationControlShader->GetBufferPointer();
+		tesselationControlShaderBytecode.BytecodeLength = tesselationControlShader->GetBufferSize();
+	}
+	else {
+		tesselationControlShader2 = CompileShaderSpv(info.tesselationControlPath, vertexInfo, "hs_6_1", layout);
+
+		tesselationControlShaderBytecode.pShaderBytecode = tesselationControlShader2->GetBufferPointer();
+		tesselationControlShaderBytecode.BytecodeLength = tesselationControlShader2->GetBufferSize();
+	}
 }
 
-void GraphicsPipelineDx12::LoadTesselationEvaluationShader(const std::string& path) {
-	tesselationEvaluationShader = LoadBlob(s2ws(path).c_str());
+void GraphicsPipelineDx12::LoadTesselationEvaluationShader(const PipelineCreateInfo& info, const VertexInfo& vertexInfo, const MaterialLayout& layout) {
+	if (info.precompiledHlslShaders) {
+		tesselationEvaluationShader = LoadBlob(StringToWideString(info.tesselationEvaluationPath).c_str());
 
-	tesselationEvaluationShaderBytecode.pShaderBytecode = tesselationEvaluationShader->GetBufferPointer();
-	tesselationEvaluationShaderBytecode.BytecodeLength = tesselationEvaluationShader->GetBufferSize();
+		tesselationEvaluationShaderBytecode.pShaderBytecode = tesselationEvaluationShader->GetBufferPointer();
+		tesselationEvaluationShaderBytecode.BytecodeLength = tesselationEvaluationShader->GetBufferSize();
+	}
+	else {
+		tesselationEvaluationShader2 = CompileShaderSpv(info.tesselationEvaluationPath, vertexInfo, "ds_6_1", layout);
+
+		tesselationEvaluationShaderBytecode.pShaderBytecode = tesselationEvaluationShader2->GetBufferPointer();
+		tesselationEvaluationShaderBytecode.BytecodeLength = tesselationEvaluationShader2->GetBufferSize();
+	}
 }
 
 D3D_PRIMITIVE_TOPOLOGY GraphicsPipelineDx12::GetTopologyType() const {

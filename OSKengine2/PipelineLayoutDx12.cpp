@@ -6,6 +6,7 @@
 #include "OSKengine.h"
 #include "IRenderer.h"
 #include "GpuDx12.h"
+#include "Logger.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -64,7 +65,7 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 			else if (binding.second.type == ShaderBindingType::TEXTURE
 					|| binding.second.type == ShaderBindingType::CUBEMAP) {
 				OwnedPtr<D3D12_DESCRIPTOR_RANGE> textureDescriptorRange = new D3D12_DESCRIPTOR_RANGE({});
-				textureDescriptorRange[0].BaseShaderRegister = 0;
+				textureDescriptorRange[0].BaseShaderRegister = binding.second.hlslIndex;
 				textureDescriptorRange[0].NumDescriptors = 1;
 				textureDescriptorRange[0].OffsetInDescriptorsFromTableStart = 0;
 				textureDescriptorRange[0].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
@@ -104,7 +105,7 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 		D3D12_ROOT_PARAMETER param{};
 		param.ShaderVisibility = GetShaderStageDx12(pConst.second.stage);
 		param.ParameterType = D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS;
-		param.Constants.RegisterSpace = 0;
+		param.Constants.RegisterSpace = 1;
 		param.Constants.ShaderRegister = pConst.second.hlslIndex;
 		param.Constants.Num32BitValues = pConst.second.size / 4;
 

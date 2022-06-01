@@ -1,34 +1,127 @@
 #pragma once
 
-#include "OSKsettings.h"
 #include "OSKmacros.h"
-#include "OSKtypes.h"
-#include "Log.h"
 
-#include "ButtonStatesEnum.h"
-#include "ButtonCodeEnum.h"
+#include "Vector2.hpp"
 
-namespace OSK {
+namespace OSK::IO {
 
 	/// <summary>
-	/// Número de botones soportados.
+	/// Botones del ratón.
 	/// </summary>
-	constexpr buttonCode_t NUMBER_OF_BUTTONS = 8;
+	enum class MouseButton {
 
+		/// <summary>
+		/// Botón extra #1.
+		/// </summary>
+		BUTTON_1,
+
+		/// <summary>
+		/// Botón extra #2.
+		/// </summary>
+		BUTTON_2,
+
+		/// <summary>
+		/// Botón extra #3.
+		/// </summary>
+		BUTTON_3,
+
+		/// <summary>
+		/// Botón extra #4.
+		/// </summary>
+		BUTTON_4,
+
+		/// <summary>
+		/// Botón extra #5.
+		/// </summary>
+		BUTTON_5,
+
+		/// <summary>
+		/// Botón extra #6.
+		/// </summary>
+		BUTTON_6,
+
+		/// <summary>
+		/// Botón extra #7.
+		/// </summary>
+		BUTTON_7,
+
+		/// <summary>
+		/// Botón izquierdo.
+		/// </summary>
+		BUTTON_LEFT,
+
+		/// <summary>
+		/// Botón derecho.
+		/// </summary>
+		BUTTON_RIGHT,
+
+		/// <summary>
+		/// Botón de la rueda.
+		/// </summary>
+		BUTTON_MIDDLE,
+
+		__END
+
+	};
+
+	/// <summary>
+	/// Estados en el que puede estar un botón.
+	/// </summary>
+	enum class ButtonState {
+
+		/// <summary>
+		/// No está siendo pulsado.
+		/// </summary>
+		RELEASED,
+
+		/// <summary>
+		/// Está siendo pulsado.
+		/// </summary>
+		PRESSED
+
+	};
+
+	/// <summary>
+	/// Número de teclas disponibles en el teclado.
+	/// </summary>
+	constexpr int MouseNumberOfButtons = (int)MouseButton::__END;
 
 	/// <summary>
 	/// Struct que almacena el estado del ratón en un determinado momento.
+	/// Contiene la posición, el scroll y el estado de los botones.
 	/// </summary>
-	struct OSKAPI_CALL MouseState {
-
-		friend class WindowAPI;
+	class OSKAPI_CALL MouseState {
 
 	public:
 
+		MouseState();
+
 		/// <summary>
-		/// Posición en píxeles respecto a la esquina superior izquierda.
+		/// Obtiene el estado de un botón.
 		/// </summary>
-		Vector2f GetPosition() const;
+		/// <param name="button">Botón del ratón.</param>
+		/// <returns>Estado.</returns>
+		ButtonState GetButtonState(MouseButton button) const;
+
+		/// <summary>
+		/// Obtiene si un botón está siendo pulsado.
+		/// </summary>
+		/// <param name="button">Botón del ratón.</param>
+		/// <returns>Estado.</returns>
+		bool IsButtonDown(MouseButton button) const;
+
+		/// <summary>
+		/// Obtiene si un botón no está siendo pulsado.
+		/// </summary>
+		/// <param name="button">Botón del ratón.</param>
+		/// <returns>Estado.</returns>
+		bool IsButtonUp(MouseButton button) const;
+
+		/// <summary>
+		/// Posición en píxeles respecto a la esquina superior izquierda de la ventana.
+		/// </summary>
+		Vector2i GetPosition() const;
 
 		/// <summary>
 		/// Posición en porcentaje respecto a la esquina superior izquierda de la ventana.
@@ -36,112 +129,31 @@ namespace OSK {
 		/// 0.0 = borde izquierdo.
 		/// 1.0 = borde derecho.
 		/// </summary>
-		Vector2f GetRelativePosition() const;
-		
-		/// <summary>
-		/// Rueda del ratón horizontal.
-		/// </summary>
-		float GetScrollX() const;
+		Vector2 GetRelativePosition() const;
 
 		/// <summary>
 		/// Rueda del ratón vertical (la normal).
 		/// </summary>
-		float GetScrollY() const;
+		int GetScroll() const;
 
 		/// <summary>
-		/// Cambio de rueda del ratón horizontal desde el anterior frame.
+		/// Rueda del ratón horizontal.
 		/// </summary>
-		float GetScrollDeltaX() const;
+		int GetHorizontalScroll() const;
 
-		/// <summary>
-		/// Cambio de rueda del ratón vertical (la normal) desde el anterior frame.
-		/// </summary>
-		float GetScrollDeltaY() const;
-
-		/// <summary>
-		/// Obtiene el estado de un botón.
-		/// </summary>
-		/// <param name="button">Botón del ratón.</param>
-		/// <returns>Estado.</returns>
-		ButtonState GetButtonState(ButtonCode button) const;
-
-		/// <summary>
-		/// Obtiene si un botón está siendo pulsado.
-		/// </summary>
-		/// <param name="button">Botón del ratón.</param>
-		/// <returns>Estado.</returns>
-		bool IsButtonDown(ButtonCode button) const;
-		
-		//Obtiene si un botón no está siendo pulsado
-
-		/// <summary>
-		/// Obtiene si un botón no está siendo pulsado.
-		/// </summary>
-		/// <param name="button">Botón del ratón.</param>
-		/// <returns>Estado.</returns>
-		bool IsButtonUp(ButtonCode button) const;
-
-		/// <summary>
-		/// Obtiene un rectángulo alrededor del cursor.
-		/// </summary>
-		/// <param name="size">Ancho y alto del rectángulo.</param>
-		/// <returns>Rectángulo.</returns>
-		Vector4 GetMouseRectangle(float size = 2.0f) const;
+		void _SetScrollX(int x);
+		void _SetScrollY(int y);
+		void _SetPosition(const Vector2i& pos);
+		void _SetRelativePosition(const Vector2& pos);
+		void _SetButtonState(MouseButton button, ButtonState state);
 
 	private:
 
-		/// <summary>
-		/// Posición en X, en píxeles, respecto a la esquina superior izquierda.
-		/// </summary>
-		mouseVar_t positionX;
+		Vector2i position = 0;
+		Vector2 relativePosition = 0.0f;
+		Vector2i scroll = 0;
 
-		/// <summary>
-		/// Posición en Y, en píxeles, respecto a la esquina superior izquierda.
-		/// </summary>
-		mouseVar_t positionY;
-
-		/// <summary>
-		/// Posición en X, en porcentaje, reespecto a la esquina superior izquierda.
-		/// Entre 0.0 y 1.0.
-		/// 0.0 = borde izquierdo.
-		/// 1.0 = borde derecho.
-		/// </summary>
-		mouseVar_t relativePositionX;
-
-		/// <summary>
-		/// Posición en Y, en porcentaje, reespecto a la esquina superior izquierda.
-		/// Entre 0.0 y 1.0.
-		/// 0.0 = borde izquierdo.
-		/// 1.0 = borde derecho.
-		/// </summary>
-		mouseVar_t relativePositionY;
-
-		/// <summary>
-		/// Rueda del ratón horizontal.
-		/// </summary>
-		float_t scrollX = 0.0f;
-
-		/// <summary>
-		/// Rueda del ratón vertical (la normal).
-		/// </summary>
-		float_t scrollY = 0.0f;
-
-		/// <summary>
-		/// Rueda del ratón horizontal en el anterior frame.
-		/// </summary>
-		float_t oldScrollX = 0.0f;
-
-		/// <summary>
-		/// Rueda del ratón vertical (la normal) en el anterior frame.
-		/// </summary>
-		float_t oldScrollY = 0.0f;
-
-		/// <summary>
-		/// Estado de los botones. 
-		/// 'true' = pressed. 
-		/// 'false' = released.
-		/// </summary>
-		bool buttonStates[NUMBER_OF_BUTTONS];
+		ButtonState buttonStates[MouseNumberOfButtons];
 
 	};
 

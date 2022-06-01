@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['game1_0',['Game1',['../class_game1.html',1,'']]],
-  ['gameobjectmanager_1',['GameObjectManager',['../class_o_s_k_1_1_e_c_s_1_1_game_object_manager.html',1,'OSK::ECS']]],
+  ['gameobjectmanager_0',['GameObjectManager',['../class_o_s_k_1_1_e_c_s_1_1_game_object_manager.html',1,'OSK::ECS']]],
+  ['gamepadstate_1',['GamepadState',['../class_o_s_k_1_1_i_o_1_1_gamepad_state.html',1,'OSK::IO']]],
   ['gltfmaterialinfo_2',['GltfMaterialInfo',['../struct_gltf_material_info.html',1,'']]],
   ['gltfmodelinfo_3',['GltfModelInfo',['../struct_gltf_model_info.html',1,'']]],
   ['gpubuffermemoryblockinfo_4',['GpuBufferMemoryBlockInfo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info.html',1,'OSK::GRAPHICS']]],

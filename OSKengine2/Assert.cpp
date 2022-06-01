@@ -15,6 +15,7 @@ void OSK::RuntimeAssertIsTrueFunction(bool condition, const std::string& msg, co
 			+ "\t at file " + std::string(file);
 
 		Engine::GetLogger()->Log(OSK::IO::LogLevel::L_ERROR, message);
+		Engine::GetLogger()->Save();
 
 		throw std::runtime_error(message);
 	}
@@ -28,8 +29,6 @@ void OSK::RuntimeCheckIsTrueFunction(bool condition, const std::string& msg, con
 			+ "\t at file " + std::string(file);
 
 		Engine::GetLogger()->Log(OSK::IO::LogLevel::L_ERROR, message);
-
-		throw std::runtime_error(message);
 	}
 }
 
@@ -41,6 +40,7 @@ void OSK::RuntimeAssertIsFalseFunction(bool condition, const std::string& msg, c
 			+ "\t at file " + std::string(file);
 
 		Engine::GetLogger()->Log(OSK::IO::LogLevel::WARNING, message);
+		Engine::GetLogger()->Save();
 	}
 }
 

@@ -136,6 +136,10 @@ void Font::LoadSizedFont(TSize fontSize) {
 	FT_Done_Face(face);
 }
 
+void Font::UnloadSizedFont(TSize size) {
+	instances.Remove(size);
+}
+
 const FontInstance& Font::GetInstance(TSize fontSize) {
 	const auto& it = instances.Find(fontSize);
 	if (!it.IsEmpty())

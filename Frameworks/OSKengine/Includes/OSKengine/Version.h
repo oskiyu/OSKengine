@@ -1,16 +1,11 @@
 #pragma once
 
-#include "OSKsettings.h"
-#include "OSKmacros.h"
-#include "OSKtypes.h"
-#include "Log.h"
-
 namespace OSK {
 
 	/// <summary>
 	/// Representa una versión.
 	/// </summary>
-	struct OSKAPI_CALL Version {
+	struct Version {
 
 		/// <summary>
 		/// Versión mayor.

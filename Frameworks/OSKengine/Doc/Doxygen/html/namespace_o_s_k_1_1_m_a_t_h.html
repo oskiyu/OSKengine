@@ -107,8 +107,191 @@ Funciones</h2></td></tr>
 <tr class="memitem:a1325a63ec8bc49a286c72870cd6b9294"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a1325a63ec8bc49a286c72870cd6b9294"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_m_a_t_h.html#a1325a63ec8bc49a286c72870cd6b9294">PrimerMultiploInferior</a> (T numero, T multiplo)</td></tr>
 <tr class="separator:a1325a63ec8bc49a286c72870cd6b9294"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59ecac3bc9181efeef2f758f583bdb65"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a59ecac3bc9181efeef2f758f583bdb65"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_m_a_t_h.html#a59ecac3bc9181efeef2f758f583bdb65">LinearInterpolation_Fast</a> (const T &amp;a, const T &amp;b, float factor)</td></tr>
+<tr class="separator:a59ecac3bc9181efeef2f758f583bdb65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a300206fba642c521bb413e8d129821ee"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a300206fba642c521bb413e8d129821ee"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_m_a_t_h.html#a300206fba642c521bb413e8d129821ee">LinearInterpolation</a> (const T &amp;a, const T &amp;b, float factor)</td></tr>
+<tr class="separator:a300206fba642c521bb413e8d129821ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb9e6dd7675ac3048479b9a7b1525b4c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aeb9e6dd7675ac3048479b9a7b1525b4c"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_m_a_t_h.html#aeb9e6dd7675ac3048479b9a7b1525b4c">Clamp</a> (const T &amp;value, const T &amp;min, const T &amp;max)</td></tr>
+<tr class="separator:aeb9e6dd7675ac3048479b9a7b1525b4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Documentación de las funciones</h2>
+<a id="aeb9e6dd7675ac3048479b9a7b1525b4c" name="aeb9e6dd7675ac3048479b9a7b1525b4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb9e6dd7675ac3048479b9a7b1525b4c">&#9670;&nbsp;</a></span>Clamp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T OSK::MATH::Clamp </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve el valor, ajustándolo de manera que nunca sea mayor que el máximo ni menor que el mínimo. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>Valor al que se le aplicará los límites.</td></tr>
+    <tr><td class="paramname">min</td><td>Límite inferior.</td></tr>
+    <tr><td class="paramname">max</td><td>Límite superior.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El tipo T debe tener definidos los operadores &gt; y &lt;. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_math_8h_source.html#l00103">103</a> del archivo <a class="el" href="_math_8h_source.html">Math.h</a>.</p>
+
+</div>
+</div>
+<a id="a300206fba642c521bb413e8d129821ee" name="a300206fba642c521bb413e8d129821ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a300206fba642c521bb413e8d129821ee">&#9670;&nbsp;</a></span>LinearInterpolation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T OSK::MATH::LinearInterpolation </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>factor</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Interpolación lineal rápida. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>Valor devuelto cuando factor sea &lt;= 0.0</td></tr>
+    <tr><td class="paramname">b</td><td>Valor devuelto cuando factor sea &gt;= 1.0</td></tr>
+    <tr><td class="paramname">factor</td><td>Factor que permite elegir la interpolación entre a y b</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Valor linealmente interpolado.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El tipo T debe tener definidos los operadores &gt;=, &lt;=, -, + y *. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_math_8h_source.html#l00084">84</a> del archivo <a class="el" href="_math_8h_source.html">Math.h</a>.</p>
+
+</div>
+</div>
+<a id="a59ecac3bc9181efeef2f758f583bdb65" name="a59ecac3bc9181efeef2f758f583bdb65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59ecac3bc9181efeef2f758f583bdb65">&#9670;&nbsp;</a></span>LinearInterpolation_Fast()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T OSK::MATH::LinearInterpolation_Fast </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>factor</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Interpolación lineal rápida. Para cuando factor está entre 0.0 y 1.0 </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>Valor devuelto cuando factor sea 0.0</td></tr>
+    <tr><td class="paramname">b</td><td>Valor devuelto cuando factor sea 1.0</td></tr>
+    <tr><td class="paramname">factor</td><td>Factor que permite elegir la interpolación entre a y b</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Valor linealmente interpolado.</dd></dl>
+<dl class="section warning"><dt>Atención</dt><dd>Si factor está fuera del rango 0-1, el valor devuelto no estará entre a y b.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El tipo T debe tener definidos los operadores -, + y *. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_math_8h_source.html#l00071">71</a> del archivo <a class="el" href="_math_8h_source.html">Math.h</a>.</p>
+
+</div>
+</div>
 <a id="a1325a63ec8bc49a286c72870cd6b9294" name="a1325a63ec8bc49a286c72870cd6b9294"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1325a63ec8bc49a286c72870cd6b9294">&#9670;&nbsp;</a></span>PrimerMultiploInferior()</h2>
 
@@ -221,7 +404,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_m_a_t_h.html">MATH</a></li>
-    <li class="footer">Generado el Sábado, 7 de Mayo de 2022 19:05:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

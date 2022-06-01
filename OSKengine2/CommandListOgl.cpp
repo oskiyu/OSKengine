@@ -49,11 +49,11 @@ void CommandListOgl::BindMaterial(const Material* material) {
 	glUseProgram(material->GetGraphicsPipeline(currentRenderpass)->As<GraphicsPipelineOgl>()->GetPipelineHandler());
 }
 
-void CommandListOgl::BindVertexBuffer(IGpuVertexBuffer* buffer) {
+void CommandListOgl::BindVertexBuffer(const IGpuVertexBuffer* buffer) {
 	glBindVertexArray(buffer->As<GpuVertexBufferOgl>()->GetViewHandler());
 }
 
-void CommandListOgl::BindIndexBuffer(IGpuIndexBuffer* buffer) {
+void CommandListOgl::BindIndexBuffer(const IGpuIndexBuffer* buffer) {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer->As<GpuIndexBufferOgl>()->GetHandler());
 }
 

@@ -93,12 +93,12 @@ $(document).ready(function(){initNavTree('_material_system_8cpp.html',''); initR
 <div class="textblock"><code>#include &quot;<a class="el" href="_material_system_8h_source.html">MaterialSystem.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_file_i_o_8h_source.html">FileIO.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_material_layout_8h_source.html">MaterialLayout.h</a>&quot;</code><br />
-<code>#include &lt;json.hpp&gt;</code><br />
 <code>#include &quot;<a class="el" href="_material_8h_source.html">Material.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_pipeline_create_info_8h_source.html">PipelineCreateInfo.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_o_s_kengine_8h_source.html">OSKengine.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_render_api_type_8h_source.html">RenderApiType.h</a>&quot;</code><br />
+<code>#include &lt;spirv_cross/spirv_glsl.hpp&gt;</code><br />
 </div>
 <p><a href="_material_system_8cpp_source.html">Ir al código fuente de este archivo.</a></p>
 <table class="memberdecls">
@@ -110,6 +110,8 @@ Funciones</h2></td></tr>
 <tr class="separator:a349a260f7fcb4544412c19adcabbe224"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1749bb845bd0a61bcf607f82a4f0d0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8">PolygonMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_material_system_8cpp.html#af1749bb845bd0a61bcf607f82a4f0d0a">GetPolygonMode</a> (const std::string &amp;type)</td></tr>
 <tr class="separator:af1749bb845bd0a61bcf607f82a4f0d0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7402745b903a52e8deb0e6652fc5daa5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_material_system_8cpp.html#a7402745b903a52e8deb0e6652fc5daa5">LoadSpirvCrossShader</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a> *layout, const nlohmann::json &amp;materialInfo, const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; char &gt; &amp;bytecode, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">ShaderStage</a> stage, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> *pushConstantsOffset, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> *numBuffers, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> *numImages, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> *numBindings)</td></tr>
+<tr class="separator:a7402745b903a52e8deb0e6652fc5daa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Documentación de las funciones</h2>
 <a id="af1749bb845bd0a61bcf607f82a4f0d0a" name="af1749bb845bd0a61bcf607f82a4f0d0a"></a>
@@ -128,7 +130,7 @@ Funciones</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_material_system_8cpp_source.html#l00041">41</a> del archivo <a class="el" href="_material_system_8cpp_source.html">MaterialSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_system_8cpp_source.html#l00043">43</a> del archivo <a class="el" href="_material_system_8cpp_source.html">MaterialSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -148,7 +150,7 @@ Funciones</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_material_system_8cpp_source.html#l00016">16</a> del archivo <a class="el" href="_material_system_8cpp_source.html">MaterialSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_system_8cpp_source.html#l00018">18</a> del archivo <a class="el" href="_material_system_8cpp_source.html">MaterialSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -168,7 +170,73 @@ Funciones</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_material_system_8cpp_source.html#l00026">26</a> del archivo <a class="el" href="_material_system_8cpp_source.html">MaterialSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_system_8cpp_source.html#l00028">28</a> del archivo <a class="el" href="_material_system_8cpp_source.html">MaterialSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7402745b903a52e8deb0e6652fc5daa5" name="a7402745b903a52e8deb0e6652fc5daa5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7402745b903a52e8deb0e6652fc5daa5">&#9670;&nbsp;</a></span>LoadSpirvCrossShader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LoadSpirvCrossShader </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a> *&#160;</td>
+          <td class="paramname"><em>layout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const nlohmann::json &amp;&#160;</td>
+          <td class="paramname"><em>materialInfo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; char &gt; &amp;&#160;</td>
+          <td class="paramname"><em>bytecode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">ShaderStage</a>&#160;</td>
+          <td class="paramname"><em>stage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> *&#160;</td>
+          <td class="paramname"><em>pushConstantsOffset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> *&#160;</td>
+          <td class="paramname"><em>numBuffers</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> *&#160;</td>
+          <td class="paramname"><em>numImages</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> *&#160;</td>
+          <td class="paramname"><em>numBindings</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_material_system_8cpp_source.html#l00166">166</a> del archivo <a class="el" href="_material_system_8cpp_source.html">MaterialSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -178,7 +246,7 @@ Funciones</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_material_system_8cpp.html">MaterialSystem.cpp</a></li>
-    <li class="footer">Generado el Sábado, 7 de Mayo de 2022 19:05:06 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:57 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

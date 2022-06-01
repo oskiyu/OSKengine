@@ -127,6 +127,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:ae9cc822ad54aa485d8385eb8cee5acb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93a98e2495dab16229085c7109a27b30"><td class="memItemLeft" align="right" valign="top">TValue &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_hash_map.html#a93a98e2495dab16229085c7109a27b30">Get</a> (const TKey &amp;key) const</td></tr>
 <tr class="separator:a93a98e2495dab16229085c7109a27b30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dce3f788064ec9854456b18f48a4a5b"><td class="memItemLeft" align="right" valign="top">TValue&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_hash_map.html#a8dce3f788064ec9854456b18f48a4a5b">GetCopy</a> (const TKey &amp;key) const</td></tr>
+<tr class="separator:a8dce3f788064ec9854456b18f48a4a5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63c8ed49b0b6dcccd30aee2c74c8e1df"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_hash_map.html#a63c8ed49b0b6dcccd30aee2c74c8e1df">ContainsKey</a> (const TKey &amp;key) const</td></tr>
 <tr class="separator:a63c8ed49b0b6dcccd30aee2c74c8e1df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ed4ac9b7af3f79ebdf235227c4a0d7f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_hash_map_1_1_iterator.html">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_hash_map.html#a2ed4ac9b7af3f79ebdf235227c4a0d7f">Find</a> (const TKey &amp;key) const</td></tr>
@@ -264,7 +266,7 @@ template&lt;typename TKey , typename TValue , <a class="el" href="_o_s_kmacros_8
 <p>Devuelve un iterador que apunta a la primera pareja. </p>
 <dl class="section note"><dt>Nota</dt><dd>Si no hay ninguna pareja, devuelve '<a class="el" href="class_o_s_k_1_1_hash_map.html#a0e08b4430ff64194bd6f8a0209a00449" title="Devuelve un iterador vacío.">end()</a>'. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_hash_map_8hpp_source.html#l00343">343</a> del archivo <a class="el" href="_hash_map_8hpp_source.html">HashMap.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_hash_map_8hpp_source.html#l00355">355</a> del archivo <a class="el" href="_hash_map_8hpp_source.html">HashMap.hpp</a>.</p>
 
 </div>
 </div>
@@ -296,7 +298,7 @@ template&lt;typename TKey , typename TValue , <a class="el" href="_o_s_kmacros_8
 
 <p>Comprueba si existe una apreja con el valor llave dado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_hash_map_8hpp_source.html#l00305">305</a> del archivo <a class="el" href="_hash_map_8hpp_source.html">HashMap.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_hash_map_8hpp_source.html#l00317">317</a> del archivo <a class="el" href="_hash_map_8hpp_source.html">HashMap.hpp</a>.</p>
 
 </div>
 </div>
@@ -327,7 +329,7 @@ template&lt;typename TKey , typename TValue , <a class="el" href="_o_s_kmacros_8
 
 <p>Devuelve un iterador vacío. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_hash_map_8hpp_source.html#l00355">355</a> del archivo <a class="el" href="_hash_map_8hpp_source.html">HashMap.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_hash_map_8hpp_source.html#l00367">367</a> del archivo <a class="el" href="_hash_map_8hpp_source.html">HashMap.hpp</a>.</p>
 
 </div>
 </div>
@@ -360,7 +362,7 @@ template&lt;typename TKey , typename TValue , <a class="el" href="_o_s_kmacros_8
 <p>Devuelve el iterador apuntando al elemento buscado. </p>
 <dl class="section note"><dt>Nota</dt><dd>Si no existe dicho elemento, se devuelve un iterador vacío (pero válido). </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_hash_map_8hpp_source.html#l00314">314</a> del archivo <a class="el" href="_hash_map_8hpp_source.html">HashMap.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_hash_map_8hpp_source.html#l00326">326</a> del archivo <a class="el" href="_hash_map_8hpp_source.html">HashMap.hpp</a>.</p>
 
 </div>
 </div>
@@ -429,6 +431,39 @@ template&lt;typename TKey , typename TValue , <a class="el" href="_o_s_kmacros_8
 
 </div>
 </div>
+<a id="a8dce3f788064ec9854456b18f48a4a5b" name="a8dce3f788064ec9854456b18f48a4a5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dce3f788064ec9854456b18f48a4a5b">&#9670;&nbsp;</a></span>GetCopy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey , typename TValue , <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> numBuckets = 512&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TValue <a class="el" href="class_o_s_k_1_1_hash_map.html">OSK::HashMap</a>&lt; TKey, TValue, numBuckets &gt;::GetCopy </td>
+          <td>(</td>
+          <td class="paramtype">const TKey &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve una copia del valor enlazado al valor llave dado. </p>
+<dl class="section pre"><dt>Precondición</dt><dd>Debe existir, de lo contrario habrá un error. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_hash_map_8hpp_source.html#l00307">307</a> del archivo <a class="el" href="_hash_map_8hpp_source.html">HashMap.hpp</a>.</p>
+
+</div>
+</div>
 <a id="aa9668747767e3460d66b72e4e2f9edd1" name="aa9668747767e3460d66b72e4e2f9edd1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa9668747767e3460d66b72e4e2f9edd1">&#9670;&nbsp;</a></span>GetIterator()</h2>
 
@@ -468,7 +503,7 @@ template&lt;typename TKey , typename TValue , <a class="el" href="_o_s_kmacros_8
 <p>Devuelve un iterador apuntando a la pareja en el cubo y en la posición dadas. </p>
 <dl class="section warning"><dt>Atención</dt><dd>Puede dar error si se introducen índices incorrectos. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_hash_map_8hpp_source.html#l00364">364</a> del archivo <a class="el" href="_hash_map_8hpp_source.html">HashMap.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_hash_map_8hpp_source.html#l00376">376</a> del archivo <a class="el" href="_hash_map_8hpp_source.html">HashMap.hpp</a>.</p>
 
 </div>
 </div>
@@ -499,7 +534,7 @@ template&lt;typename TKey , typename TValue , <a class="el" href="_o_s_kmacros_8
 
 <p>Devuelve el número de cubos. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_hash_map_8hpp_source.html#l00333">333</a> del archivo <a class="el" href="_hash_map_8hpp_source.html">HashMap.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_hash_map_8hpp_source.html#l00345">345</a> del archivo <a class="el" href="_hash_map_8hpp_source.html">HashMap.hpp</a>.</p>
 
 </div>
 </div>
@@ -530,7 +565,7 @@ template&lt;typename TKey , typename TValue , <a class="el" href="_o_s_kmacros_8
 
 <p>Devuelve el número de parejas almacenadas. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_hash_map_8hpp_source.html#l00326">326</a> del archivo <a class="el" href="_hash_map_8hpp_source.html">HashMap.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_hash_map_8hpp_source.html#l00338">338</a> del archivo <a class="el" href="_hash_map_8hpp_source.html">HashMap.hpp</a>.</p>
 
 </div>
 </div>
@@ -808,7 +843,7 @@ template&lt;typename TKey , typename TValue , <a class="el" href="_o_s_kmacros_8
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_hash_map.html">HashMap</a></li>
-    <li class="footer">Generado el Sábado, 7 de Mayo de 2022 19:05:06 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:57 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

@@ -55,4 +55,59 @@ namespace OSK::MATH {
 		return (numero / multiplo - 1) * multiplo;
 	}
 
+	/// <summary>
+	/// Interpolación lineal rápida.
+	/// Para cuando factor está entre 0.0 y 1.0
+	/// </summary>
+	/// <param name="a">Valor devuelto cuando factor sea 0.0</param>
+	/// <param name="b">Valor devuelto cuando factor sea 1.0</param>
+	/// <param name="factor">Factor que permite elegir la interpolación entre a y b</param>
+	/// <returns>Valor linealmente interpolado.</returns>
+	/// 
+	/// @warning Si factor está fuera del rango 0-1, el valor devuelto no estará
+	/// entre a y b.
+	/// 
+	/// @pre El tipo T debe tener definidos los operadores -, + y *.
+	template <typename T> inline T LinearInterpolation_Fast(const T& a, const T& b, float factor) {
+		return (a * (1.0f - factor)) + (b * factor);
+	}
+
+	/// <summary>
+	/// Interpolación lineal rápida.
+	/// </summary>
+	/// <param name="a">Valor devuelto cuando factor sea <= 0.0</param>
+	/// <param name="b">Valor devuelto cuando factor sea >= 1.0</param>
+	/// <param name="factor">Factor que permite elegir la interpolación entre a y b</param>
+	/// <returns>Valor linealmente interpolado.</returns>
+	/// 
+	/// @pre El tipo T debe tener definidos los operadores >=, <=, -, + y *.
+	template <typename T> inline T LinearInterpolation(const T& a, const T& b, float factor) {
+		if (factor >= 1.0f)
+			return b;
+
+		if (factor <= 0.0f)
+			return a;
+
+		return (a * (1.0f - factor)) + (b * factor);
+	}
+
+	/// <summary>
+	/// Devuelve el valor, ajustándolo de manera que nunca sea mayor que
+	/// el máximo ni menor que el mínimo.
+	/// </summary>
+	/// <param name="value">Valor al que se le aplicará los límites.</param>
+	/// <param name="min">Límite inferior.</param>
+	/// <param name="max">Límite superior.</param>
+	/// 
+	/// @pre El tipo T debe tener definidos los operadores > y <.
+	template <typename T> inline T Clamp(const T& value, const T& min, const T& max) {
+		if (value > max)
+			return max;
+
+		if (value < min)
+			return min;
+
+		return value;
+	}
+
 }

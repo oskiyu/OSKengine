@@ -13,6 +13,22 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="DLL Release|Win32">
+      <Configuration>DLL Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DLL Release|x64">
+      <Configuration>DLL Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DLL RVL|Win32">
+      <Configuration>DLL RVL</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DLL RVL|x64">
+      <Configuration>DLL RVL</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="ReleaseDLL|Win32">
       <Configuration>ReleaseDLL</Configuration>
       <Platform>Win32</Platform>
@@ -68,6 +84,7 @@
     <ClCompile Include="Format.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="GamepadState.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="GpuDx12.cpp" />
     <ClCompile Include="GpuImageDx12.cpp" />
@@ -93,10 +110,13 @@
     <ClCompile Include="GpuVertexBufferVulkan.cpp" />
     <ClCompile Include="GpuVulkan.cpp" />
     <ClCompile Include="GraphicsPipelineDx12.cpp" />
+    <ClCompile Include="HlslRuntimeCompiler.cpp" />
     <ClCompile Include="IAsset.cpp" />
     <ClCompile Include="IAssetLoader.cpp" />
     <ClCompile Include="IGraphicsPipeline.cpp" />
+    <ClCompile Include="IInputListener.cpp" />
     <ClCompile Include="IMaterialSlot.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="IPipelineLayout.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MaterialInstance.cpp" />
@@ -142,6 +162,7 @@
     <ClCompile Include="RenderSystem2D.cpp" />
     <ClCompile Include="RenderSystem3D.cpp" />
     <ClCompile Include="ShaderBindingTypeVulkan.cpp" />
+    <ClCompile Include="SpirvToHlsl.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="SwapchainDx12.cpp" />
@@ -150,14 +171,19 @@
     <ClCompile Include="SyncDeviceVulkan.cpp" />
     <ClCompile Include="ISystem.cpp" />
     <ClCompile Include="SystemManager.cpp" />
+    <ClCompile Include="TerrainComponent.cpp" />
+    <ClCompile Include="TerrainRenderSystem.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureCoordinates.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="Transform2D.cpp" />
     <ClCompile Include="Transform3D.cpp" />
+    <ClCompile Include="UiElement.cpp" />
+    <ClCompile Include="UiRenderer.cpp" />
     <ClCompile Include="Vertex2D.cpp" />
     <ClCompile Include="Vertex3D.cpp" />
     <ClCompile Include="Window.cpp" />
+    <ClCompile Include="WindowsUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assert.h" />
@@ -197,6 +223,7 @@
     <ClInclude Include="Game1.hpp" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="GamepadState.h" />
     <ClInclude Include="GpuDx12.h" />
     <ClInclude Include="GpuImageDx12.h" />
     <ClInclude Include="GpuImageLayout.h" />
@@ -227,10 +254,13 @@
     <ClInclude Include="GpuVertexDescriptionVulkan.h" />
     <ClInclude Include="GpuVulkan.h" />
     <ClInclude Include="GraphicsPipelineDx12.h" />
+    <ClInclude Include="HlslRuntimeCompiler.h" />
     <ClInclude Include="IAsset.h" />
     <ClInclude Include="IAssetLoader.h" />
     <ClInclude Include="IComponentContainer.h" />
     <ClInclude Include="IGpuVertexDescription.h" />
+    <ClInclude Include="IInputListener.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="IPipelineLayout.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="IMaterialSlot.h" />
@@ -298,6 +328,7 @@
     <ClInclude Include="ShaderBindingType.h" />
     <ClInclude Include="ShaderBindingTypeVulkan.h" />
     <ClInclude Include="SharedPtr.hpp" />
+    <ClInclude Include="SpirvToHlsl.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="SwapchainDx12.h" />
@@ -306,11 +337,15 @@
     <ClInclude Include="SyncDeviceVulkan.h" />
     <ClInclude Include="ISystem.h" />
     <ClInclude Include="SystemManager.h" />
+    <ClInclude Include="TerrainComponent.h" />
+    <ClInclude Include="TerrainRenderSystem.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureCoordinates.h" />
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="Transform3D.h" />
+    <ClInclude Include="UiElement.h" />
+    <ClInclude Include="UiRenderer.h" />
     <ClInclude Include="UniquePtr.hpp" />
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector3.hpp" />
@@ -322,6 +357,7 @@
     <ClInclude Include="VertexInfo.h" />
     <ClInclude Include="Viewport.h" />
     <ClInclude Include="Window.h" />
+    <ClInclude Include="WindowsUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\OSKengine\OSKengine.rc" />
@@ -360,7 +396,21 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL RVL|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
@@ -393,8 +443,22 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL RVL|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -421,7 +485,13 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DLL RVL|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|Win32'" Label="PropertySheets">
@@ -436,7 +506,13 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DLL RVL|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'" Label="PropertySheets">
@@ -452,7 +528,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL RVL|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|Win32'">
@@ -460,28 +542,40 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\dxc\include;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Dependencies\OSKengine\dxc\lib;..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\dxc\include;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Dependencies\OSKengine\dxc\lib;..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\dxc\include;C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\SPIRV-Cross\RelWithDebInfo;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Dependencies\OSKengine\dxc\lib;..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\dxc\include;C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\SPIRV-Cross\RelWithDebInfo;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Dependencies\OSKengine\dxc\lib;..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)Frameworks\OSKengine\BinLib\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\dxc\include;..\SPIRV-Cross\RelWithDebInfo;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Dependencies\OSKengine\dxc\lib;..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL RVL|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\dxc\include;..\SPIRV-Cross\RelWithDebInfo;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Dependencies\OSKengine\dxc\lib;..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)Frameworks\OSKengine\BinLibDebug\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\dxc\include;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Dependencies\OSKengine\dxc\lib;..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -523,7 +617,39 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL RVL|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -566,7 +692,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>vulkan-1.lib;freetype.lib;OpenAL32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>dxcompiler.lib;spirv-cross-cpp.lib;spirv-cross-glsl.lib;spirv-cross-hlsl.lib;spirv-cross-core.lib;vulkan-1.lib;freetype.lib;OpenAL32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'">
@@ -580,7 +706,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>vulkan-1.lib;freetype.lib;OpenAL32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>dxcompiler.lib;spirv-cross-cpp.lib;spirv-cross-glsl.lib;spirv-cross-hlsl.lib;spirv-cross-core.lib;vulkan-1.lib;freetype.lib;OpenAL32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -598,8 +724,28 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>vulkan-1.lib;freetype.lib;OpenAL32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>dxcompiler.lib;spirv-cross-cpp.lib;spirv-cross-glsl.lib;spirv-cross-hlsl.lib;spirv-cross-core.lib;vulkan-1.lib;freetype.lib;OpenAL32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>OSK_DLL_EXPORT;NDEBUG;OSK_RELEASE;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>dxcompiler.lib;spirv-cross-cpp.lib;spirv-cross-glsl.lib;spirv-cross-hlsl.lib;spirv-cross-core.lib;vulkan-1.lib;freetype.lib;OpenAL32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|x64'">
@@ -618,7 +764,28 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>vulkan-1.lib;freetype.lib;OpenAL32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>dxcompiler.lib;spirv-cross-cpp.lib;spirv-cross-glsl.lib;spirv-cross-hlsl.lib;spirv-cross-core.lib;vulkan-1.lib;freetype.lib;OpenAL32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL RVL|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>OSK_DLL_EXPORT;NDEBUG;OSK_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>dxcompiler.lib;spirv-cross-cpp.lib;spirv-cross-glsl.lib;spirv-cross-hlsl.lib;spirv-cross-core.lib;vulkan-1.lib;freetype.lib;OpenAL32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
       <EntryPointSymbol>
       </EntryPointSymbol>
     </Link>
@@ -638,7 +805,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>vulkan-1.lib;freetype.lib;OpenAL32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>dxcompiler.lib;spirv-cross-cpp.lib;spirv-cross-glsl.lib;spirv-cross-hlsl.lib;spirv-cross-core.lib;vulkan-1.lib;freetype.lib;OpenAL32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['b_0',['B',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea9d5ed678fe57bcca610140957afab571',1,'OSK::IO']]],
+  ['b_0',['B',['../namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a9d5ed678fe57bcca610140957afab571',1,'OSK::IO::B()'],['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea9d5ed678fe57bcca610140957afab571',1,'OSK::IO::B()']]],
   ['b8g8r8a8_5fsrgb_1',['B8G8R8A8_SRGB',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8af76dbb655425d5bbcf8f4b8f5d316960',1,'OSK::GRAPHICS']]],
-  ['back_2',['BACK',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922ca1dd26f1f1790f0b56d5752fb0fbecef0',1,'OSK::GRAPHICS']]],
+  ['back_2',['BACK',['../namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a1dd26f1f1790f0b56d5752fb0fbecef0',1,'OSK::IO::BACK()'],['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922ca1dd26f1f1790f0b56d5752fb0fbecef0',1,'OSK::GRAPHICS::BACK()']]],
   ['background_3',['BACKGROUND',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ac1b7e80a6459c1c2dcff1fb7b4784ea2a87ed58ce5596142e11cb65deb049bb4b',1,'OSK::GRAPHICS']]],
   ['backslash_4',['BACKSLASH',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eaecb4a6f3440c2ed0dff59f17375a27c0',1,'OSK::IO']]],
   ['backspace_5',['BACKSPACE',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea6f5d8e41084b4d3d47fa621c459eede1',1,'OSK::IO']]],

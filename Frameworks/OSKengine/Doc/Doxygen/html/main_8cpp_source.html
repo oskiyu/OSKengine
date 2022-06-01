@@ -90,24 +90,25 @@ $(document).ready(function(){initNavTree('main_8cpp_source.html',''); initResiza
 <div class="contents">
 <a href="main_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_game1_8hpp.html">Game1.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">    3</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>() {</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#ifdef OSK_DEVELOPMENT</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>    <a class="code hl_class" href="class_game1.html">Game1</a> game;</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    game.<a class="code hl_function" href="class_o_s_k_1_1_i_game.html#a061c6604f59ca3ef9f5093b1fb78f844">Run</a>();</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>}</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keywordtype">int</span> main() {</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    Game1 game;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    game.Run();</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>}</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#endif </span><span class="comment">// OSK_DEVELOPMENT</span></div>
 <div class="ttc" id="a_game1_8hpp_html"><div class="ttname"><a href="_game1_8hpp.html">Game1.hpp</a></div></div>
-<div class="ttc" id="aclass_game1_html"><div class="ttname"><a href="class_game1.html">Game1</a></div><div class="ttdef"><b>Definition:</b> <a href="_game1_8hpp_source.html#l00066">Game1.hpp:66</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_i_game_html_a061c6604f59ca3ef9f5093b1fb78f844"><div class="ttname"><a href="class_o_s_k_1_1_i_game.html#a061c6604f59ca3ef9f5093b1fb78f844">OSK::IGame::Run</a></div><div class="ttdeci">void Run()</div><div class="ttdoc">Inicia la ejecución del juego.</div><div class="ttdef"><b>Definition:</b> <a href="_game_8cpp_source.html#l00040">Game.cpp:40</a></div></div>
-<div class="ttc" id="amain_8cpp_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00003">main.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="main_8cpp.html">main.cpp</a></li>
-    <li class="footer">Generado el Sábado, 7 de Mayo de 2022 19:05:06 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:57 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

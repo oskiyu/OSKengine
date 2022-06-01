@@ -11,5 +11,6 @@ var class_o_s_k_1_1_a_s_s_e_t_s_1_1_font =
     [ "LoadSizedFont", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#a5db23936cef420c1ba8253b95d78b2fc", null ],
     [ "OSK_ASSET_TYPE_REG", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#a88a0f189a9f7f70938881e22912e8b98", null ],
     [ "SetMaterial", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#afbb366bcd7f3133da2f5d8a0f52ffe20", null ],
-    [ "SetName", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#af0bbd1c59b2cd81667b63cb6d015c11c", null ]
+    [ "SetName", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#af0bbd1c59b2cd81667b63cb6d015c11c", null ],
+    [ "UnloadSizedFont", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#a1ff34f3d90015211aeb645348a26a4ce", null ]
 ];

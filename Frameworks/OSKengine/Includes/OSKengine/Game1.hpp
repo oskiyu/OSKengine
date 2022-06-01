@@ -1,460 +1,320 @@
 #pragma once
 
+#include "OSKmacros.h"
+
+#ifdef OSK_DEVELOPMENT
+
 #include "Game.h"
+#include "OSKengine.h"
+#include "Window.h"
+#include "IRenderer.h"
+#include "GameObject.h"
+#include "MaterialSystem.h"
+#include "Material.h"
+#include "MaterialInstance.h"
+#include "OSKengine.h"
+#include "Texture.h"
+#include "AssetManager.h"
+#include "IMaterialSlot.h"
+#include "IGpuUniformBuffer.h"
+#include "OwnedPtr.h"
+#include "UniquePtr.hpp"
+#include "IGpuMemoryAllocator.h"
+#include "EntityComponentSystem.h"
+#include "Transform3D.h"
+#include "Transform2D.h"
+#include "Model3D.h"
+#include "ModelComponent3D.h"
+#include "CameraComponent3D.h"
+#include "CameraComponent2D.h"
+#include "KeyboardState.h"
+#include "Sprite.h"
+#include "MouseState.h"
+#include "MouseModes.h"
+#include "Mesh3D.h"
+#include "CubemapTexture.h"
+#include "ICommandList.h"
 
-#include "Cube.h"
-#include "ModelComponent.h"
+#include "IRenderpass.h"
+#include "GpuImageDimensions.h"
+#include "GpuImageUsage.h"
+#include "Format.h"
+#include "GpuMemoryTypes.h"
+#include "GpuImageLayout.h"
+#include "Vertex2D.h"
+#include "Sprite.h"
+#include "PushConst2D.h"
+#include <ext\matrix_clip_space.hpp>
+#include "Font.h"
+#include "FontLoader.h"
+#include "SpriteRenderer.h"
+#include "TextureCoordinates.h"
+#include "Vertex3D.h"
+#include "TerrainComponent.h"
+#include "TerrainRenderSystem.h"
 
-#include "PlaceToken.h"
-#include "SkyboxToken.h"
+#include "UiElement.h"
+#include "UiRenderer.h"
 
-#include "UiFunctionality.h"
+OSK::GRAPHICS::Material* skyboxMaterial = nullptr;
+OSK::GRAPHICS::Material* material2d = nullptr;
+OSK::GRAPHICS::MaterialInstance* skyboxMaterialInstance = nullptr;
+OSK::ASSETS::CubemapTexture* cubemap = nullptr;
+OSK::ASSETS::Model3D* cubemapModel = nullptr;
 
+OSK::GRAPHICS::Material* terrainMaterialFill = nullptr;
+OSK::GRAPHICS::Material* terrainMaterialLine = nullptr;
+OSK::GRAPHICS::Material* terrainMaterial = nullptr;
 
-class Game1 : public Game {
+OSK::GRAPHICS::SpriteRenderer spriteRenderer;
 
-public:
+class Game1 : public OSK::IGame {
+
+protected:
+
+	void CreateWindow() override {
+		OSK::Engine::GetWindow()->Create(800, 600, "OSKengine");
+		OSK::Engine::GetWindow()->SetMouseReturnMode(OSK::IO::MouseReturnMode::ALWAYS_RETURN);
+		OSK::Engine::GetWindow()->SetMouseMotionMode(OSK::IO::MouseMotionMode::RAW);
+	}
+
+	void SetupEngine() override {
+		OSK::Engine::GetRenderer()->Initialize("Game", {}, *OSK::Engine::GetWindow());
+	}
 
 	void OnCreate() override {
 
+		// Material load
+		OSK::GRAPHICS::Material* material = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material.json");
+		skyboxMaterial = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/skybox_material.json");
+		material2d = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json");
+
+		texture = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Texture>("Resources/Assets/texture0.json", "GLOBAL");
+
+		font = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Font>("Resources/Assets/font0.json", "GLOBAL");
+		font->LoadSizedFont(22);
+		font->SetMaterial(material2d);
+
+		uniformBuffer = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
+		
+		OSK::ASSETS::Model3D* model = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Model3D>("Resources/Assets/f1.json", "GLOBAL");
+		OSK::ASSETS::Model3D* model_low = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Model3D>("Resources/Assets/f1_low.json", "GLOBAL");
+
+		// ECS
+		ballObject = OSK::Engine::GetEntityComponentSystem()->SpawnObject();
+
+		OSK::ECS::Transform3D& transform = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::Transform3D>(ballObject, OSK::ECS::Transform3D(ballObject));
+		OSK::ECS::ModelComponent3D* modelComponent = &OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::ModelComponent3D>(ballObject, {});
+
+		transform.AddPosition({ 0, 0.1f, 0 });
+		transform.SetScale(0.03f);
+
+		modelComponent->SetModel(model);
+		modelComponent->SetMaterial(material);
+
+		modelComponent->BindUniformBufferForAllMeshes("global", "camera", uniformBuffer.GetPointer());
+		modelComponent->BindTextureForAllMeshes("global", "stexture", texture);
+
+		for (TSize i = 0; i < model->GetMeshes().GetSize(); i++) {
+			auto& metadata = model->GetMetadata().meshesMetadata[i];
+
+			if (metadata.materialTextures.GetSize() > 0) {
+				for (auto& texture : metadata.materialTextures)
+					modelComponent->GetMeshMaterialInstance(i)->GetSlot("global")->SetGpuImage("stexture", model->GetImage(texture.second));
+
+				modelComponent->GetMeshMaterialInstance(i)->GetSlot("global")->FlushUpdate();
+			}
+		}
+
+		cameraObject = OSK::Engine::GetEntityComponentSystem()->SpawnObject();
+
+		OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::CameraComponent3D>(cameraObject, {});
+		auto& cameraTransform = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::Transform3D>(cameraObject, OSK::ECS::Transform3D(cameraObject));
+		//cameraTransform.AttachToObject(ballObject);
+
+		// ECS 2
+		smallBallObject = OSK::Engine::GetEntityComponentSystem()->SpawnObject();
+
+		auto& transform2 = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::Transform3D>(smallBallObject, OSK::ECS::Transform3D(smallBallObject));
+		auto modelComponent2 = &OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::ModelComponent3D>(smallBallObject, {});
+
+		transform2.AddPosition({ 0, 1, 1.4f });
+		transform2.SetScale(0.05f);
+
+		modelComponent2->SetModel(model_low);
+		modelComponent2->SetMaterial(material);
+
+		modelComponent2->BindUniformBufferForAllMeshes("global", "camera", uniformBuffer.GetPointer());
+		modelComponent2->BindTextureForAllMeshes("global", "stexture", texture);
+
+		// Cubemap
+		cubemap = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL");
+		cubemapModel = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Model3D>("Resources/Assets/cube.json", "GLOBAL");
+
+		skyboxMaterialInstance = skyboxMaterial->CreateInstance().GetPointer();
+		skyboxMaterialInstance->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer.GetPointer());
+		skyboxMaterialInstance->GetSlot("global")->SetGpuImage("cubemap", cubemap->GetGpuImage());
+		skyboxMaterialInstance->GetSlot("global")->FlushUpdate();
+
+		cameraObject2d = OSK::Engine::GetEntityComponentSystem()->SpawnObject();
+		auto& camera2D = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::CameraComponent2D>(cameraObject2d, {});
+		OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::Transform2D>(cameraObject2d, { cameraObject2d });
+		camera2D.LinkToWindow(OSK::Engine::GetWindow());
+
+		spriteObject = OSK::Engine::GetEntityComponentSystem()->SpawnObject();
+		auto& comp = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::GRAPHICS::Sprite>(spriteObject, {});
+		auto& tr2d = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::Transform2D>(spriteObject, { cameraObject2d });
+		comp.SetTexCoords(OSK::GRAPHICS::TextureCoordinates2D::Normalized({ 0.5f, 0.5f, 1.0f, 1.0f }));
+		tr2d.SetScale({ 100, 120 });
+		comp.SetMaterialInstance(material2d->CreateInstance().GetPointer());
+		comp.SetCamera(camera2D);
+		comp.SetTexture(texture);
+
+		spriteRenderer.SetCommandList(OSK::Engine::GetRenderer()->GetCommandList());
+
+		font->GetInstance(30).sprite->GetMaterialInstance()->GetSlot("global")->SetUniformBuffer("camera", camera2D.GetUniformBuffer());
+		font->GetInstance(30).sprite->GetMaterialInstance()->GetSlot("global")->FlushUpdate();
+
+		// Terrain
+		terrain = OSK::Engine::GetEntityComponentSystem()->SpawnObject();
+		auto& terrainComponent = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::TerrainComponent>(terrain, {});
+		auto& terrainTransform = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::Transform3D>(terrain, { terrain });
+		terrainComponent.Generate({ 100 });
+
+		terrainMaterialFill = terrainMaterial = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_terrain.json");
+		terrainMaterialLine = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_terrain_lines.json");
+
+		terrainComponent.SetMaterialInstance(terrainMaterial->CreateInstance());
+
+		terrainComponent.GetMaterialInstance()->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer.GetPointer());
+		terrainComponent.GetMaterialInstance()->GetSlot("global")->SetTexture("heightmap",
+			OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Texture>("Resources/Assets/heightmap0.json", "GLOBAL"));
+		terrainComponent.GetMaterialInstance()->GetSlot("global")->SetTexture("texture",
+			OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Texture>("Resources/Assets/terrain0.json", "GLOBAL"));
+		terrainComponent.GetMaterialInstance()->GetSlot("global")->FlushUpdate();
+
+		terrainTransform.SetScale({ 10, 1, 10 });
+
+		// UI
+		mainUi = new OSK::UI::UiElement;
+		mainUi->sprite.SetMaterialInstance(material2d->CreateInstance().GetPointer());
+		mainUi->sprite.SetCamera(camera2D);
+		mainUi->sprite.SetTexture(texture);
+		mainUi->SetPosition({ 100, 80 });
+		mainUi->SetSize({ 40, 40 });
 	}
 
-	void LoadContent() override {
-		entityComponentSystem->RegisterGameObjectClass<Cube>("Cube");
-		entityComponentSystem->RegisterGameObjectClass<PlayerCube>("PlayerCube");
-		entityComponentSystem->RegisterGameObjectClass<Car>("Car");
-		entityComponentSystem->RegisterGameObjectClass<Wheel>("Wheel");
+	void OnTick(TDeltaTime deltaTime) override {
+		OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform3D>(ballObject).RotateLocalSpace(deltaTime, { 0 ,1 ,0 });
 
-		buttonTexture = content->LoadTexture("assets/game/ui/button.png", OSK::TextureFilterType::NEAREST);
-		buttonTexture = content->DefaultTexture;
+		OSK::ECS::CameraComponent3D& camera = OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::CameraComponent3D>(cameraObject);
+		OSK::ECS::Transform3D& cameraTransform = OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform3D>(cameraObject);
 
-		Fuente = content->LoadFont("Fonts/AGENCYB.ttf", 20);
-		ShowFont = content->LoadFont("Fonts/AGENCYB.ttf", 40);
+		float forwardMovement = 0.0f;
+		float rightMovement = 0.0f;
+		auto newKs = OSK::Engine::GetWindow()->GetKeyboardState();
+		auto oldKs = OSK::Engine::GetWindow()->GetPreviousKeyboardState();
+		if (newKs->IsKeyDown(OSK::IO::Key::W))
+			forwardMovement += 1.0f;
+		if (newKs->IsKeyDown(OSK::IO::Key::S))
+			forwardMovement -= 1.0f;
+		if (newKs->IsKeyDown(OSK::IO::Key::A))
+			rightMovement -= 1.0f;
+		if (newKs->IsKeyDown(OSK::IO::Key::D))
+			rightMovement += 1.0f;
 
-		renderSystem3D->GetRenderScene()->lights.directional.color = OSK::Color(0.9f, 0.9f, 0.8f);
+		// Car
+		auto& carTransform = OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform3D>(ballObject);
+		if (newKs->IsKeyDown(OSK::IO::Key::UP))
+			carTransform.AddPosition(carTransform.GetForwardVector() * deltaTime * 2);
+		if (newKs->IsKeyDown(OSK::IO::Key::DOWN))
+			carTransform.AddPosition(carTransform.GetForwardVector() * deltaTime * -2);
+		if (newKs->IsKeyDown(OSK::IO::Key::LEFT))
+			carTransform.RotateWorldSpace(deltaTime * 2, { 0, 1, 0 });
+		if (newKs->IsKeyDown(OSK::IO::Key::RIGHT))
+			carTransform.RotateWorldSpace(deltaTime * 2, { 0, -1, 0 });
 
-		//INPUT SYSTEM
-		inputSystem->RegisterAxisInputEvent("Acelerar");
-		inputSystem->GetAxisInputEvent("Acelerar").linkedAxes.push_back(OSK::GamepadAxis::R2);
-		inputSystem->GetAxisInputEvent("Acelerar").linkedGamepadAxes.push_back({ OSK::Key::UP, OSK::Key::DOWN });
+		if (newKs->IsKeyDown(OSK::IO::Key::F11) && oldKs->IsKeyUp(OSK::IO::Key::F11))
+			OSK::Engine::GetWindow()->ToggleFullScreen();
 
-		inputSystem->RegisterAxisInputEvent("Frenar");
-		inputSystem->GetAxisInputEvent("Frenar").linkedAxes.push_back(OSK::GamepadAxis::L2);
-
-		inputSystem->RegisterAxisInputEvent("GirarL");
-		inputSystem->GetAxisInputEvent("GirarL").linkedAxes.push_back(OSK::GamepadAxis::LEFT_X);
-		inputSystem->GetAxisInputEvent("GirarL").linkedGamepadAxes.push_back({ OSK::Key::RIGHT, OSK::Key::LEFT });
-
-
-		/*inputSystem->RegisterAxisInputEvent("PlayerMoveX");
-		inputSystem->RegisterAxisInputEvent("PlayerMoveY");
-
-		inputSystem->GetAxisInputEvent("PlayerMoveX").linkedAxes.push_back(OSK::GamepadAxis::LEFT_X);
-		inputSystem->GetAxisInputEvent("PlayerMoveX").linkedGamepadAxes.push_back({ OSK::Key::D, OSK::Key::A });
-
-		inputSystem->GetAxisInputEvent("PlayerMoveY").linkedAxes.push_back(OSK::GamepadAxis::LEFT_Y);
-		inputSystem->GetAxisInputEvent("PlayerMoveY").linkedGamepadAxes.push_back({ OSK::Key::S, OSK::Key::W });*/
-
-		inputSystem->RegisterOneTimeInputEvent("Exit");
-		inputSystem->GetOneTimeInputEvent("Exit").linkedKeys.push_back(OSK::Key::ESCAPE);
-		inputSystem->RegisterOneTimeInputEvent("Fullscreen");
-		inputSystem->GetOneTimeInputEvent("Fullscreen").linkedKeys.push_back(OSK::Key::F11);
-		inputSystem->RegisterOneTimeInputEvent("ChangeVSync");
-		inputSystem->GetOneTimeInputEvent("ChangeVSync").linkedKeys.push_back(OSK::Key::F1);
-		inputSystem->RegisterOneTimeInputEvent("ChangeFXAA");
-		inputSystem->GetOneTimeInputEvent("ChangeFXAA").linkedKeys.push_back(OSK::Key::F2);
-
-		OSK::InputComponent input;
-
-		input.GetAxisInputFunction("PlayerMoveX") = [this](deltaTime_t deltaTime, float axis) {
-			const float sensitivity = 20 * deltaTime;
-			GetRenderer()->defaultCamera3D.GetTransform()->AddPosition(GetRenderer()->defaultCamera3D.GetTransform()->GetRightVector() * sensitivity * axis);
-		};
-		input.GetAxisInputFunction("PlayerMoveY") = [this](deltaTime_t deltaTime, float axis) {
-			const float sensitivity = 20 * deltaTime;
-			GetRenderer()->defaultCamera3D.GetTransform()->AddPosition(GetRenderer()->defaultCamera3D.GetTransform()->GetForwardVector() * -sensitivity * axis);
-		};
-		
-		input.GetOneTimeInputFunction("Exit") = [this]() {
-			GetWindow()->SetMouseMode((OSK::MouseInputMode::FREE));
-		};
-
-		input.GetOneTimeInputFunction("Fullscreen") = [this]() {
-			GetWindow()->SetFullscreen(!GetWindow()->IsFullscreen());
-			GetRenderer()->defaultCamera2D.targetSize = GetWindow()->GetSize().ToVector2f();
-			GetRenderer()->defaultCamera2D.Update();
-		};
-
-		input.GetInputFunction("Acelerar") = [this](deltaTime_t dt) {
-		};
-
-		ControlsObject = entityComponentSystem->Spawn<OSK::GameObject>();
-		ControlsObject->AddComponent<OSK::InputComponent>(input);
-
-		//ENTIDADES
-
-		sound = content->LoadSoundEntity("audio/motorsound.wav");
-		
-		scene->Load("Levels/startLevel.sc");
-			
-		arm = scene->Spawn<OSK::GameObject>("arm");
-
-		auto cube = scene->GetGameObjectByName<Car>("Cube1");
-		{
-			cube->GetComponent<OSK::ModelComponent>().AddModel("models/F0/Car/f1.fbx", content);
-			auto& model = cube->GetComponent<OSK::ModelComponent>().GetStaticMeshes()[0];
-			model.GetTransform()->SetScale(1);
-			model.material = GetRenderer()->GetMaterialSystem()->GetMaterial(GetRenderer()->defaultMaterial3D_Name)->CreateInstance();
-			model.material->SetBuffer(GetRenderer()->GetUniformBuffers());
-			model.material->SetDynamicBuffer(renderSystem3D->GetRenderScene()->bonesUbos);
-			model.material->SetBuffer(renderSystem3D->GetRenderScene()->shadowMap->dirShadowsUniformBuffers);
-			model.material->SetTexture(content->LoadTexture("models/F0/Car/NullSurface_Color.png"));
-			model.material->SetBuffer(renderSystem3D->GetRenderScene()->lightsUniformBuffers);
-			model.material->SetTexture(content->LoadTexture("models/F0/Car/NullSurface_Color.png"));
-			model.material->SetTexture(renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.texture);
-			model.material->FlushUpdate();
-
-			cube->GetComponent<OSK::ModelComponent>().Link(cube->GetTransform());
-
-			auto fr = scene->Spawn<Wheel>();
-			auto fl = scene->Spawn<Wheel>();
-			auto br = scene->Spawn<Wheel>();
-			auto bl = scene->Spawn<Wheel>();
-
-			float scale = 0.01;
-			br->GetComponent<OSK::ModelComponent>().AddModel("models/F0/Wheel/wheel.fbx", content);
-			{
-				Wheel* w = br;
-				auto& model = w->GetComponent<OSK::ModelComponent>().GetStaticMeshes()[0];
-				model.GetTransform()->SetScale(scale);
-				model.material = GetRenderer()->GetMaterialSystem()->GetMaterial(GetRenderer()->defaultMaterial3D_Name)->CreateInstance();
-				model.material->SetBuffer(GetRenderer()->GetUniformBuffers());
-				model.material->SetDynamicBuffer(renderSystem3D->GetRenderScene()->bonesUbos);
-				model.material->SetBuffer(renderSystem3D->GetRenderScene()->shadowMap->dirShadowsUniformBuffers);
-				model.material->SetTexture(content->LoadTexture("models/F0/Wheel/Null.1Surface_Color.png"));
-				model.material->SetBuffer(renderSystem3D->GetRenderScene()->lightsUniformBuffers);
-				model.material->SetTexture(content->LoadTexture("models/F0/Wheel/Null.1Surface_Color.png"));
-				model.material->SetTexture(renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.texture);
-				model.material->FlushUpdate();
-
-				w->GetComponent<OSK::ModelComponent>().Link(w->GetTransform());
-			}
-			bl->GetComponent<OSK::ModelComponent>().AddModel("models/F0/Wheel/wheel.fbx", content);
-			{
-				Wheel* w = bl;
-				auto& model = w->GetComponent<OSK::ModelComponent>().GetStaticMeshes()[0];
-				model.GetTransform()->SetScale(scale);
-				model.material = GetRenderer()->GetMaterialSystem()->GetMaterial(GetRenderer()->defaultMaterial3D_Name)->CreateInstance();
-				model.material->SetBuffer(GetRenderer()->GetUniformBuffers());
-				model.material->SetDynamicBuffer(renderSystem3D->GetRenderScene()->bonesUbos);
-				model.material->SetBuffer(renderSystem3D->GetRenderScene()->shadowMap->dirShadowsUniformBuffers);
-				model.material->SetTexture(content->LoadTexture("models/F0/Wheel/Null.1Surface_Color.png"));
-				model.material->SetBuffer(renderSystem3D->GetRenderScene()->lightsUniformBuffers);
-				model.material->SetTexture(content->LoadTexture("models/F0/Wheel/Null.1Surface_Color.png"));
-				model.material->SetTexture(renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.texture);
-				model.material->FlushUpdate();
-
-				w->GetComponent<OSK::ModelComponent>().Link(w->GetTransform());
-			}
-			fl->GetComponent<OSK::ModelComponent>().AddModel("models/F0/Wheel/wheel.fbx", content);
-			{
-				Wheel* w = fl;
-				auto& model = w->GetComponent<OSK::ModelComponent>().GetStaticMeshes()[0];
-				model.GetTransform()->SetScale(scale);
-				model.material = GetRenderer()->GetMaterialSystem()->GetMaterial(GetRenderer()->defaultMaterial3D_Name)->CreateInstance();
-				model.material->SetBuffer(GetRenderer()->GetUniformBuffers());
-				model.material->SetDynamicBuffer(renderSystem3D->GetRenderScene()->bonesUbos);
-				model.material->SetBuffer(renderSystem3D->GetRenderScene()->shadowMap->dirShadowsUniformBuffers);
-				model.material->SetTexture(content->LoadTexture("models/F0/Wheel/Null.1Surface_Color.png"));
-				model.material->SetBuffer(renderSystem3D->GetRenderScene()->lightsUniformBuffers);
-				model.material->SetTexture(content->LoadTexture("models/F0/Wheel/Null.1Surface_Color.png"));
-				model.material->SetTexture(renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.texture);
-				model.material->FlushUpdate();
-
-				w->GetComponent<OSK::ModelComponent>().Link(w->GetTransform());
-			}
-			fr->GetComponent<OSK::ModelComponent>().AddModel("models/F0/Wheel/wheel.fbx", content);
-			{
-				Wheel* w = fr;
-				auto& model = w->GetComponent<OSK::ModelComponent>().GetStaticMeshes()[0];
-				model.GetTransform()->SetScale(scale);
-				model.material = GetRenderer()->GetMaterialSystem()->GetMaterial(GetRenderer()->defaultMaterial3D_Name)->CreateInstance();
-				model.material->SetBuffer(GetRenderer()->GetUniformBuffers());
-				model.material->SetDynamicBuffer(renderSystem3D->GetRenderScene()->bonesUbos);
-				model.material->SetBuffer(renderSystem3D->GetRenderScene()->shadowMap->dirShadowsUniformBuffers);
-				model.material->SetTexture(content->LoadTexture("models/F0/Wheel/Null.1Surface_Color.png"));
-				model.material->SetBuffer(renderSystem3D->GetRenderScene()->lightsUniformBuffers);
-				model.material->SetTexture(content->LoadTexture("models/F0/Wheel/Null.1Surface_Color.png"));
-				model.material->SetTexture(renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.texture);
-				model.material->FlushUpdate();
-
-				w->GetComponent<OSK::ModelComponent>().Link(w->GetTransform());
-			}
-		
-			fr->GetTransform()->AttachTo(cube->GetTransform());
-			fr->GetTransform()->SetPosition({ -0.363, -0.175, 2.14 });
-			fr->GetTransform()->RotateWorldSpace(glm::radians(180.0f), {0, 1, 0});
-
-			fl->GetTransform()->AttachTo(cube->GetTransform());
-			fl->GetTransform()->SetPosition({ 0.363, -0.175, 2.14 });
-
-			br->GetTransform()->AttachTo(cube->GetTransform());
-			br->GetTransform()->SetPosition({ -0.4f, -0.2f, -0.5f });
-			br->GetTransform()->RotateWorldSpace(glm::radians(180.0f), { 0, 1, 0 });
-
-			bl->GetTransform()->AttachTo(cube->GetTransform());
-			bl->GetTransform()->SetPosition({ 0.4f, -0.2f, -0.5f });
-
-			cube->fr = fr;
-			cube->fl = fl;
-			cube->br = br;
-			cube->bl = bl;
+		if (newKs->IsKeyDown(OSK::IO::Key::F1) && oldKs->IsKeyUp(OSK::IO::Key::F1)) {
+			if (terrainMaterial == terrainMaterialFill)
+				terrainMaterial = terrainMaterialLine;
+			else
+				terrainMaterial = terrainMaterialFill;
 		}
 
-		arm->GetTransform()->SetPosition(cube->GetTransform()->GetPosition() + cube->GetForwardVector() * -0.5f + OSK::Vector3f(0, -1.5f, 0));
-		arm->GetTransform()->RotateWorldSpace(glm::radians(-6.0f), { 1, 0, 0 });
-		arm->GetTransform()->AttachTo(cube->GetTransform());
+		if (newKs->IsKeyDown(OSK::IO::Key::ESCAPE))
+			this->Exit();
 
-		Player = scene->GetGameObjectByName<PlayerCube>("Player");
-		Player->GetComponent<OSK::ModelComponent>().AddModel("models/cube/cube.obj", content);
-		OSK::ModelComponent& playerModel = Player->GetComponent<OSK::ModelComponent>();
-		playerModel.GetStaticMeshes()[0].GetTransform()->SetScale(0.5f);
-		playerModel.GetStaticMeshes()[0].GetTransform()->SetPosition(0.5f);
-		playerModel.GetStaticMeshes()[0].material = GetRenderer()->GetMaterialSystem()->GetMaterial(GetRenderer()->defaultMaterial3D_Name)->CreateInstance();
-		playerModel.GetStaticMeshes()[0].material->SetBuffer(GetRenderer()->GetUniformBuffers());
-		playerModel.GetStaticMeshes()[0].material->SetDynamicBuffer(renderSystem3D->GetRenderScene()->bonesUbos);
-		playerModel.GetStaticMeshes()[0].material->SetBuffer(renderSystem3D->GetRenderScene()->shadowMap->dirShadowsUniformBuffers);
-		playerModel.GetStaticMeshes()[0].material->SetTexture(content->LoadTexture("models/cube/td.png"));
-		playerModel.GetStaticMeshes()[0].material->SetBuffer(renderSystem3D->GetRenderScene()->lightsUniformBuffers);
-		playerModel.GetStaticMeshes()[0].material->SetTexture(content->LoadTexture("models/cube/ts.png"));
-		playerModel.GetStaticMeshes()[0].material->SetTexture(renderSystem3D->GetRenderScene()->shadowMap->dirShadows->renderedSprite.texture);
-		playerModel.GetStaticMeshes()[0].material->FlushUpdate();
-		playerModel.Link(Player->GetTransform());
+		camera.Rotate(
+			(OSK::Engine::GetWindow()->GetMouseState()->GetPosition().X - OSK::Engine::GetWindow()->GetPreviousMouseState()->GetPosition().X),
+			(OSK::Engine::GetWindow()->GetMouseState()->GetPosition().Y - OSK::Engine::GetWindow()->GetPreviousMouseState()->GetPosition().Y)
+		);
 
-		scene->GetGameObjectByName("Cube3")->Remove();
-		scene->GetGameObjectByName("Cube2")->Remove();
+		cameraTransform.AddPosition(cameraTransform.GetForwardVector().GetNormalized() * forwardMovement * deltaTime);
+		cameraTransform.AddPosition(cameraTransform.GetRightVector().GetNormalized() * rightMovement * deltaTime);
+		camera.UpdateTransform(&cameraTransform);
 
-		GetRenderer()->defaultCamera3D.GetTransform()->AttachTo(arm->GetTransform());
+		uniformBuffer->ResetCursor();
+		uniformBuffer->MapMemory();
+		uniformBuffer->Write(camera.GetProjectionMatrix(cameraTransform));
+		uniformBuffer->Write(camera.GetViewMatrix());
+		uniformBuffer->Write(cameraTransform.GetPosition());
+		uniformBuffer->Unmap();
 
-		physicsSystem->terrainColissionType = OSK::PhysicalSceneTerrainResolveType::CHANGE_HEIGHT_ONLY;
-
-		{
-			userInterface = new OSK::UiElement();
-			userInterface->layout = OSK::UiLayout::FIXED;
-			userInterface->shrinkToChildren = false;
-			userInterface->SetSize(GetWindow()->GetSize().ToVector2f());
-
-			OSK::UiElement* topbar = new OSK::UiElement();
-			topbar->layout = OSK::UiLayout::HORIZONTAL;
-			topbar->SetPositionFromAnchor({ 5.0f });
-			topbar->sprite.texture = buttonTexture;
-			topbar->InitSprite(content, GetRenderer());
-			topbar->originalSpireColor = OSK::Color(0.2f) * 0.6f;
-			topbar->anchor = OSK::UiAnchor::TOP;
-
-			OSK::UiElement* logo = new OSK::UiElement();
-			logo->SetSize(48.0f);
-			logo->sprite.texture = GetRenderer()->OskEngineIconSprite.texture;
-			logo->InitSprite(content, GetRenderer());
-			logo->marging = 0.0f;
-
-			OSK::uiSetDraggableFunctionality(logo);
-
-			OSK::UiElement* separator = new OSK::UiElement();
-			separator->SetSize({ 48.0f, 5 });
-
-			topbar->AddElement(logo);
-			topbar->AddElement(separator);
-
-			float buttonSize = 20.0f;
-			float barSize = 20.0f;
-
-			//Options
-			OSK::UiElement* optionsMenu = new OSK::UiElement();
-			{
-				optionsMenu->SetSize({ 200.0f });
-				optionsMenu->sprite.texture = buttonTexture;
-				optionsMenu->InitSprite(content, GetRenderer());
-				optionsMenu->originalSpireColor = OSK::Color(0.2f) * 0.6f;
-
-				OSK::UiElement* header = new OSK::UiElement();
-				header->SetSize({ 34.0f });
-				header->fuente = Fuente;
-				header->text = " Opciones";
-				header->sprite.texture = buttonTexture;
-				header->InitSprite(content, GetRenderer());
-				header->originalSpireColor = OSK::Color(0.1f) * 0.9f;
-
-				OSK::Vector2f newSize = { optionsMenu->GetSize().X - optionsMenu->marging.X * 2 - header->marging.X * 2, header->GetSize().Y };
-				header->SetSize(newSize);
-
-				barSize = header->GetSize().Y;
-
-				OSK::uiSetDropdownFuncionality(header, true);
-
-				OSK::UiElement* fxaaOption = new OSK::UiElement();
-				{
-					fxaaOption->layout = OSK::UiLayout::HORIZONTAL;
-					OSK::UiElement* text = new OSK::UiElement();
-					text->fuente = Fuente;
-					text->text = "FXAA: ";
-					text->SetSize(Fuente->GetTextSize("FXAA: ", { 1.0f }));
-
-					OSK::UiElement* button = new OSK::UiElement();
-					button->SetSize({ text->GetSize().X, buttonSize });
-					button->sprite.texture = buttonTexture;
-					button->InitSprite(content, GetRenderer());
-					button->spriteColorOnHover = OSK::Color(0.5f);
-
-					OSK::uiSetCheckboxFunctionality(button, &GetRenderer()->postProcessingSettings.useFxaa, { 0.0f, 1.0f, 0.0f }, OSK::Color::RED());
-
-					fxaaOption->SetSize(text->GetSize());
-
-					fxaaOption->AddElement(text);
-					fxaaOption->AddElement(button);
-				}
-
-				OSK::UiElement* vsyncOption = new OSK::UiElement();
-				{
-					vsyncOption->layout = OSK::UiLayout::HORIZONTAL;
-					OSK::UiElement* text = new OSK::UiElement();
-					text->fuente = Fuente;
-					text->text = "V-Sync: ";
-					text->SetSize(Fuente->GetTextSize("V-Sync: ", { 1.0f }));
-
-					OSK::UiElement* button = new OSK::UiElement();
-					button->SetSize({ text->GetSize().X, buttonSize });
-					button->sprite.texture = buttonTexture;
-					button->InitSprite(content, GetRenderer());
-					button->spriteColorOnHover = OSK::Color(0.5f);
-
-					auto func = [this]() {
-						if (GetRenderer()->GetCurrentPresentMode() != OSK::PresentMode::VSYNC) {
-							GetRenderer()->SetPresentMode(OSK::PresentMode::VSYNC);
-
-							return true;
-						}
-
-						GetRenderer()->SetPresentMode(OSK::PresentMode::INMEDIATE);
-						return false;
-					};
-					OSK::uiSetCheckboxFunctionality(button, func, { 0.0f, 1.0f, 0.0f }, OSK::Color::RED());
-
-					vsyncOption->SetSize(text->GetSize());
-
-					vsyncOption->AddElement(text);
-					vsyncOption->AddElement(button);
-				}
-
-				fxaaOption->isActive = false;
-				vsyncOption->isActive = false;
-
-				optionsMenu->AddElement(header);
-				optionsMenu->AddElement(fxaaOption);
-				optionsMenu->AddElement(vsyncOption);
-			}
-			OSK::UiElement* irAlJuego = new OSK::UiElement();
-			{
-				OSK::UiElement* header = new OSK::UiElement();
-				header->sprite.texture = buttonTexture;
-				header->InitSprite(content, GetRenderer());
-				header->originalSpireColor = OSK::Color(0.1f) * 0.9f;
-				header->SetSize({ optionsMenu->GetSize().X - optionsMenu->marging.X * 2 - header->marging.X * 2, optionsMenu->GetSize().Y });
-
-				irAlJuego->SetSize(32);
-
-				OSK::UiElement* button = new OSK::UiElement();
-				irAlJuego->SetSize({ irAlJuego->GetSize().X * 1.5f, barSize });
-				irAlJuego->sprite.texture = content->LoadTexture("assets/editor/play.png");
-				irAlJuego->InitSprite(content, GetRenderer());
-
-				float r = 15.0f / 255.0f;
-				float g = 255.0f / 255.0f;
-				float b = 91.0f / 255.0f;
-				irAlJuego->originalSpireColor = OSK::Color::WHITE();
-				irAlJuego->spriteColorOnHover = OSK::Color::WHITE() * 0.8f;
-
-				irAlJuego->onClick = [this](OSK::UiElement* sender, const OSK::Vector2f& mousePos) {
-					GetWindow()->SetMouseMode(OSK::MouseInputMode::ALWAYS_RETURN);
-				};
-
-				header->AddElement(irAlJuego);
-				topbar->AddElement(header);
-			}
-
-			topbar->AddElement(optionsMenu);
-
-			userInterface->AddElement(topbar);
-		}
-		
-		GetAudioSystem()->PlayAudio(*sound, true);
-		cube->SetSound(sound);
-	}
-
-	void OnTick(deltaTime_t deltaTime) override {
-		float mouseX = newMouseState.GetPosition().X - oldMouseState.GetPosition().X;
-		float mouseY = -newMouseState.GetPosition().Y - oldMouseState.GetPosition().Y;
-		GetRenderer()->defaultCamera3D.Girar(mouseX, mouseY);
-
-		mouseY = 1;
-
-		auto gamepad = GetWindow()->GetGamepadState(0);
-
-		float sensitivity = 260.0f * deltaTime;
-		float x = gamepad.GetAxisState(OSK::GamepadAxis::RIGHT_X) * sensitivity;
-		float y = gamepad.GetAxisState(OSK::GamepadAxis::RIGHT_Y) * sensitivity;
-		GetRenderer()->defaultCamera3D.Girar(x, -y);
-
-		auto distanceToCamera = scene->GetGameObjectByName("Cube1")->GetForwardVector() * -5.5f;
-
-		userInterface->SetSize(GetWindow()->GetSize().ToVector2f());
-		userInterface->Update(newMouseState.GetMouseRectangle(), newMouseState.IsButtonDown(OSK::ButtonCode::BUTTON_LEFT));
-
-		auto car = scene->GetGameObjectByName<Car>("Cube1");
-		glm::mat4 matrix = arm->GetTransform()->AsMatrix();
-		matrix = glm::translate(matrix, -distanceToCamera.ToGLM());
-		matrix = glm::rotate(matrix, mouseX, { 0, 1, 0 });
-		matrix = glm::rotate(matrix, mouseY, { 1, 0, 0 });
-		matrix = glm::translate(matrix, distanceToCamera.ToGLM());
-
-		arm->GetTransform()->SetMatrix(matrix);
-
-		if (oldKeyboardState.IsKeyUp(OSK::Key::R) && newKeyboardState.IsKeyDown(OSK::Key::R)) {
-			((Car*)scene->GetGameObjectByName("Cube1"))->Reload();
-		}
-
-		if (oldKeyboardState.IsKeyUp(OSK::Key::Q) && newKeyboardState.IsKeyDown(OSK::Key::Q)) {
-			OSK::Logger::Log(OSK::LogMessageLevels::INFO, "GPU memory allocator stats: ");
-			OSK::Logger::Log(OSK::LogMessageLevels::INFO, "		Total allocations: " + std::to_string(GetRenderer()->GetGpuMemoryAllocator()->stats.totalMemoryAllocations));
-			OSK::Logger::Log(OSK::LogMessageLevels::INFO, "		Total sub allocations: " + std::to_string(GetRenderer()->GetGpuMemoryAllocator()->stats.totalSubAllocations));
-			OSK::Logger::Log(OSK::LogMessageLevels::INFO, "		Total reserved size: " + std::to_string(GetRenderer()->GetGpuMemoryAllocator()->stats.totalReservedSize));
-			OSK::Logger::Log(OSK::LogMessageLevels::INFO, "		Total used size: " + std::to_string(GetRenderer()->GetGpuMemoryAllocator()->stats.totalUsedSize));
-		}
+		OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::CameraComponent2D>(cameraObject2d).UpdateUniformBuffer(
+			OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform2D>(cameraObject2d)
+		);
 
 	}
 
-	void OnDraw2D() override {
-		spriteBatch.Clear();
+	void OnPreRender() override {
+		auto commandList = OSK::Engine::GetRenderer()->GetCommandList();
 
-		spriteBatch.DrawString(Fuente, "OSKengine " + std::string(OSK::ENGINE_VERSION), 1.0f, OSK::Vector2(0), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::BOTTOM_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
-		spriteBatch.DrawString(Fuente, "FPS " + std::to_string((int)GetFPS() - 1), 1.5f, OSK::Vector2(10), OSK::Color(0.3f, 0.7f, 0.9f), OSK::Anchor::TOP_RIGHT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
+		commandList->BindMaterial(skyboxMaterial);
+		commandList->BindMaterialSlot(skyboxMaterialInstance->GetSlot("global"));
+		commandList->BindVertexBuffer(cubemapModel->GetVertexBuffer());
+		commandList->BindIndexBuffer(cubemapModel->GetIndexBuffer());
+		commandList->DrawSingleInstance(cubemapModel->GetIndexCount());
 
-		spriteBatch.DrawString(Fuente, std::to_string(scene->GetGameObjectByName("Cube1")->GetComponent<OSK::PhysicsComponent>().velocity.GetLenght() * 3600 / 1000) + "km/h", 1.5f, OSK::Vector2(10), OSK::Color(0.6f, 0.7f, 0.7f), OSK::Anchor::BOTTOM_LEFT, OSK::Vector4(-1.0f), OSK::TextRenderingLimit::MOVE_TEXT);
-
-		userInterface->Draw(&spriteBatch);
+		OSK::Engine::GetEntityComponentSystem()->GetSystem<OSK::ECS::TerrainRenderSystem>()->Render(commandList);
 	}
 
-	OSK::Font* Fuente = nullptr;
-	OSK::Font* ShowFont = nullptr;
+	void OnPostRender() override {
+		auto commandList = OSK::Engine::GetRenderer()->GetCommandList();
 
-	OSK::GameObject* ControlsObject;
-	OSK::Texture* buttonTexture = nullptr;
+		spriteRenderer.Begin();
+		spriteRenderer.DrawString(*font, 30, "FPS: " + std::to_string(GetFps()), { 300.0f, 50.f }, 1, 0, OSK::Color::BLUE());
+		spriteRenderer.DrawString(*font, 30, "MS: " + std::to_string(1000.0f / GetFps()), { 300.0f, 80.f }, 1, 0, OSK::Color::BLUE());
+		spriteRenderer.End();
 
-	PlayerCube* Player = nullptr;
-	OSK::GameObject* arm = nullptr;
+		uiRenderer.Render(commandList, mainUi.GetPointer());
+	}
 
-	OSK::SoundEmitterComponent* sound = nullptr;
+	void OnExit() override {
+		uniformBuffer.Delete();
 
-	UniquePtr<OSK::UiElement> userInterface;
+		delete skyboxMaterialInstance;
+	}
+
+private:
+
+	OSK::ECS::GameObjectIndex ballObject = OSK::ECS::EMPTY_GAME_OBJECT;
+	OSK::ECS::GameObjectIndex smallBallObject = OSK::ECS::EMPTY_GAME_OBJECT;
+	OSK::ECS::GameObjectIndex cameraObject = OSK::ECS::EMPTY_GAME_OBJECT;
+	OSK::ECS::GameObjectIndex spriteObject = OSK::ECS::EMPTY_GAME_OBJECT;
+	OSK::ECS::GameObjectIndex cameraObject2d = OSK::ECS::EMPTY_GAME_OBJECT;
+	OSK::ECS::GameObjectIndex terrain = OSK::ECS::EMPTY_GAME_OBJECT;
+
+	OSK::UniquePtr<OSK::GRAPHICS::IGpuUniformBuffer> uniformBuffer;
+	
+	OSK::ASSETS::Texture* texture = nullptr;
+	OSK::ASSETS::Font* font = nullptr;
+
+	OSK::UI::UiRenderer uiRenderer;
+	OSK::UniquePtr<OSK::UI::UiElement> mainUi;
 
 };
+
+#endif 

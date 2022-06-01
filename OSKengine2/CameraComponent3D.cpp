@@ -80,6 +80,8 @@ void CameraComponent3D::Rotate(float angleX, float angleY) {
 void CameraComponent3D::UpdateTransform(Transform3D* transform) {
 	transform->RotateWorldSpace(glm::radians(-angles.Y), transform->GetRightVector());
 	transform->RotateWorldSpace(glm::radians(-angles.X), worldUpVector);
+
+	angles = 0.0f;
 }
 
 glm::mat4 CameraComponent3D::GetProjectionMatrix(const Transform3D& transform) const {

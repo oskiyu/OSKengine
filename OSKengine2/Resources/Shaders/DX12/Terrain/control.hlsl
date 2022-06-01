@@ -21,7 +21,7 @@ struct Input {
 struct PushConstants {
     float4x4 modelMatrix;
 };
-ConstantBuffer<PushConstants> pushConstants : register(b0);
+ConstantBuffer<PushConstants> pushConstants : register(b0, space1);
 
 cbuffer CameraBuffer : register(b1) {
     float4x4 cameraView;

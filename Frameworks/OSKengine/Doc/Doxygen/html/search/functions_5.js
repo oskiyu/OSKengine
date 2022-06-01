@@ -7,5 +7,6 @@ var searchData=
   ['engine_4',['Engine',['../class_o_s_k_1_1_engine.html#a4cebbff4288a89796d09f5060dea8c27',1,'OSK::Engine::Engine()=delete'],['../class_o_s_k_1_1_engine.html#a14fa3ec009597e470a2c301108d57879',1,'OSK::Engine::Engine(const Engine &amp;)=delete'],['../class_o_s_k_1_1_engine.html#a523836b34f219549596cb5d402b560b8',1,'OSK::Engine::Engine(Engine &amp;&amp;)=delete']]],
   ['enqueue_5',['Enqueue',['../class_o_s_k_1_1_linked_list.html#ab4b25456322a84b35c94dc0672c65d52',1,'OSK::LinkedList::Enqueue(const T &amp;elem)'],['../class_o_s_k_1_1_linked_list.html#a7f6c8f1bfe3a58414554768c61bda37f',1,'OSK::LinkedList::Enqueue(T &amp;&amp;elem)']]],
   ['entitycomponentsystem_6',['EntityComponentSystem',['../class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#acd92280893189d6862ff1044f13a58e5',1,'OSK::ECS::EntityComponentSystem']]],
-  ['exit_7',['Exit',['../class_o_s_k_1_1_i_game.html#ae8194150599c2c8d05a49efe80fe1b47',1,'OSK::IGame']]]
+  ['entry_7',['Entry',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry.html#aa9a2e108205bc3cac8f1d0078ec5e8f9',1,'OSK::GRAPHICS::VertexInfo::Entry']]],
+  ['exit_8',['Exit',['../class_o_s_k_1_1_i_game.html#ae8194150599c2c8d05a49efe80fe1b47',1,'OSK::IGame']]]
 ];

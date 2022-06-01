@@ -125,7 +125,7 @@ void RenderpassVulkan::Create(const ISwapchain* swapchain, VkImageLayout finalLa
 	finalColorAttahcmentDesc.samples = VK_SAMPLE_COUNT_1_BIT;
 
 	finalColorReference.attachment = 2;
-	finalColorReference.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+	finalColorReference.layout = finalLayout;
 
 
 	// ------------- SUBPASSES ---------------- //

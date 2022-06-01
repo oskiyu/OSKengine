@@ -1,68 +1,37 @@
 #pragma once
 
-#include "ECS.h"
+#include "ISystem.h"
 
-#include "RenderizableScene.h"
-#include "RenderStage.h"
+namespace OSK::GRAPHICS {
+	class ICommandList;
+}
 
-class Game;
-
-namespace OSK {
+namespace OSK::ECS {
 
 	/// <summary>
-	/// Sistema ECS para el renderizado de modelos 3D.
+	/// Sistema que se encarga del renderizado de modelos 3D de los objetos.
+	/// 
+	/// Signature:
+	/// - ModelComponent3D.
+	/// - Transform3D.
 	/// </summary>
-	class OSKAPI_CALL RenderSystem3D : public ECS::System {
-
-		friend class Game;
+	class OSKAPI_CALL RenderSystem3D : public ISystem {
 
 	public:
-				
-		/// <summary>
-		/// Debe iniciarse desués de OnCreate.
-		/// </summary>
-		void Init();
+
+		OSK_SYSTEM("OSK::RenderSystem3D");
+
+		RenderSystem3D();
 
 		/// <summary>
-		/// Renderiza los modelos 3D.
+		/// Comando específico del sistema, para ejecutar el renderizado.
 		/// </summary>
-		/// <param name="cmdBuffer">Buffer de comandos de Vulkan.</param>
-		/// <param name="i">Iteración.</param>
-		void OnDraw(VkCommandBuffer cmdBuffer, uint32_t i) override;
-
-		/// <summary>
-		/// Función OnTick.
-		/// Actualiza los modelos 3D.
-		/// </summary>
-		/// <param name="deltaTime"></param>
-		void OnTick(deltaTime_t deltaTime) override;
-
-		/// <summary>
-		/// Obtiene el Signature (componentes necesarios de un objeto) del sistema.
-		/// </summary>
-		/// <returns>Signature.</returns>
-		Signature GetSystemSignature() override;
-
-		RenderizableScene* GetRenderScene() {
-			return renderScene.GetPointer();
-		}
-
+		/// 
+		/// @pre La lista de comandos debe estar abierta.
+		/// @pre La lista de comandos debe tener un renderpass activo.
+		void Render(GRAPHICS::ICommandList* commandList);
+		
 	private:
-
-		/// <summary>
-		/// Renderizador.
-		/// </summary>
-		RenderAPI* renderer = nullptr;
-
-		/// <summary>
-		/// Escena 3D renderizada.
-		/// </summary>
-		UniquePtr<RenderizableScene> renderScene;
-
-		/// <summary>
-		/// Render stage que contiene los spritebatches.
-		/// </summary>
-		RenderStage renderStage;
 
 	};
 

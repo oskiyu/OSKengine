@@ -1,9 +1,5 @@
 #pragma once
 
-#include "OSKmacros.h"
-#include "OSKsettings.h"
-#include "Log.h"
-
 #include <glm.hpp>
 
 namespace OSK {
@@ -55,7 +51,8 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector3 + Vector3.
-		/// X1 + X2; Y1 + Y2, Z1 + Z2.
+		/// 
+		/// @note X1 + X2; Y1 + Y2, Z1 + Z2.
 		/// </summary>
 		Vector3_t operator+(const Vector3_t& vec) const {
 			return Vector3_t(X + vec.X, Y + vec.Y, Z + vec.Z);
@@ -63,8 +60,9 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector3 += Vector3.
-		/// X1 + X2; Y1 + Y2, Z1 + Z2.
-		/// Modifica este vector.
+		/// 
+		/// @note X1 + X2; Y1 + Y2, Z1 + Z2.
+		/// @note Modifica este vector.
 		/// </summary>
 		Vector3_t& operator+=(const Vector3_t& vec) {
 			X += vec.X;
@@ -75,7 +73,8 @@ namespace OSK {
 
 		/// <summary>
 		/// Negación del Vector3.
-		/// -X; -Y; -Z.
+		/// 
+		/// @note -X; -Y; -Z.
 		/// </summary>
 		Vector3_t operator-() const {
 			return Vector3_t(-X, -Y, -Z);
@@ -83,7 +82,8 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector3 - Vector3.
-		/// X1 - X2; Y1 - Y2; Z1 - Z2.
+		/// 
+		/// @note X1 - X2; Y1 - Y2; Z1 - Z2.
 		/// </summary>
 		Vector3_t operator-(const Vector3_t& vec) const {
 			return Vector3_t(X - vec.X, Y - vec.Y, Z - vec.Z);
@@ -91,8 +91,9 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector3 -= Vector3.
-		/// X1 - X2; Y1 - Y2, Z1 - Z2.
-		/// Modifica este vector.
+		/// 
+		/// @note X1 - X2; Y1 - Y2, Z1 - Z2.
+		/// @note Modifica este vector.
 		/// </summary>
 		Vector3_t& operator-=(const Vector3_t& vec) {
 			X -= vec.X;
@@ -104,7 +105,8 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector3 * Vector3.
-		/// X1 * X2; Y1 * Y2; Z1 * Z2.
+		/// 
+		/// @note X1 * X2; Y1 * Y2; Z1 * Z2.
 		/// </summary>
 		Vector3_t operator*(const Vector3_t& vec) const {
 			return Vector3_t(X * vec.X, Y * vec.Y, Z * vec.Z);
@@ -112,8 +114,9 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector3 *= Vector3.
-		/// X1 * X2; Y1 * Y2, Z1 * Z2.
-		/// Modifica este vector.
+		/// 
+		/// @note X1 * X2; Y1 * Y2, Z1 * Z2.
+		/// @note Modifica este vector.
 		/// </summary>
 		Vector3_t& operator*=(const Vector3_t& vec) {
 			X *= vec.X;
@@ -125,20 +128,18 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector3 * T.
-		/// X * value; Y * value; Z * value.
+		/// 
+		/// @note X * value; Y * value; Z * value.
 		/// </summary>
 		Vector3_t operator*(const T& value) const {
 			return Vector3_t(X * value, Y * value, Z * value);
 		}
 
-		//Operación Vector3 *= T.
-		//X1 - X2; Y1 - Y2, Z1 - Z2.
-		//Modifica este vector.
-
 		/// <summary>
 		/// Operación Vector3 *= T.
-		/// X1 * T; Y1 * T, Z1 * T.
-		/// Modifica este vector.
+		/// 
+		/// @note X1 * T; Y1 * T, Z1 * T.
+		/// @note Modifica este vector.
 		/// </summary>
 		Vector3_t& operator*=(const T& value) {
 			X *= value;
@@ -149,7 +150,8 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector3 / Vector3.
-		/// X / vec.X; Y / vec.Y, Z / vec.Z.
+		/// 
+		/// @note X / vec.X; Y / vec.Y, Z / vec.Z.
 		/// </summary>
 		Vector3_t operator/(const Vector3_t& vec) const {
 			return Vector3_t(X / vec.X, Y / vec.Y, Z / vec.Z);
@@ -157,8 +159,9 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector3 /= Vector3.
-		/// X1 / X2; Y1 / Y2, Z1 / Z2.
-		/// Modifica este vector.
+		/// 
+		/// @note X1 / X2; Y1 / Y2, Z1 / Z2.
+		/// @note Modifica este vector.
 		/// </summary>
 		Vector3_t& operator/=(const Vector3_t& vec) {
 			X /= vec;
@@ -170,7 +173,8 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector3 / float_t.
-		/// X / value; Y / value; Z / value.
+		/// 
+		/// @note X / value; Y / value; Z / value.
 		/// </summary>
 		Vector3_t operator/(const T& value) const {
 			return Vector3_t(X / value, Y / value, Z / value);
@@ -178,8 +182,9 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector3 /= T.
-		/// X1 / value; Y1 / value, Z1 / Z2value
-		/// Modifica este vector.
+		/// 
+		/// @note X1 / value; Y1 / value, Z1 / Z2value
+		/// @note Modifica este vector.
 		/// </summary>
 		Vector3_t& operator/=(const T& value) {
 			X /= value;
@@ -340,6 +345,8 @@ namespace OSK {
 	/// <summary>
 	/// Precisión = float.
 	/// </summary>
+	/// 
+	/// @deprecated
 	typedef Vector3_t<float_t> Vector3;
 	
 	/// <summary>

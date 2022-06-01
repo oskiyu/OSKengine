@@ -118,7 +118,7 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	isOpen = true;
 }
 
-OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo vertexInfo) {
+OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo& vertexInfo) {
 	GraphicsPipelineVulkan* pipeline = new GraphicsPipelineVulkan(renderpass->As<RenderpassVulkan>());
 
 	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
@@ -389,6 +389,10 @@ void RendererVulkan::CreateMainRenderpass() {
 
 void RendererVulkan::PresentFrame() {
 	if (isFirstRender) {
+		auto result = syncDevice->As<SyncDeviceVulkan>()->UpdateCurrentFrameIndex();
+		if (result)
+			return;
+
 		commandList->Start();
 		commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());
 		Vector4ui windowRec = {
@@ -412,15 +416,16 @@ void RendererVulkan::PresentFrame() {
 	commandList->EndRenderpass(renderpass.GetPointer());
 	commandList->Close();
 
-	for (TSize i = 0; i < singleTimeCommandLists.GetSize(); i++)
-		singleTimeCommandLists.At(i)->DeleteAllStagingBuffers();
-
-	syncDevice->As<SyncDeviceVulkan>()->FirstAwait();
+	// Sync
 	auto result = syncDevice->As<SyncDeviceVulkan>()->UpdateCurrentFrameIndex();
 	if (result)
 		return;
+
 	syncDevice->As<SyncDeviceVulkan>()->Flush(*graphicsQueue->As<CommandQueueVulkan>() , *presentQueue->As<CommandQueueVulkan>(), *commandList->As<CommandListVulkan>());
-	
+
+	for (TSize i = 0; i < singleTimeCommandLists.GetSize(); i++)
+		singleTimeCommandLists.At(i)->DeleteAllStagingBuffers();
+
 	//
 	
 	commandList->Reset();
@@ -440,4 +445,12 @@ void RendererVulkan::PresentFrame() {
 
 	commandList->SetViewport(viewport);
 	commandList->SetScissor(windowRec);
+}
+
+TSize RendererVulkan::GetCurrentFrameIndex() const {
+	return syncDevice->As<SyncDeviceVulkan>()->GetCurrentFrameIndex();
+}
+
+TSize RendererVulkan::GetCurrentCommandListIndex() const {
+	return syncDevice->As<SyncDeviceVulkan>()->GetCurrentCommandListIndex();
 }

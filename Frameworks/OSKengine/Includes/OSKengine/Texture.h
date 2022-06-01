@@ -1,102 +1,74 @@
 #pragma once
 
-#include "GpuImage.h"
-#include <vector>
+#include "IAsset.h"
+#include "OwnedPtr.h"
+#include "Vector2.hpp"
+#include "IGpuImage.h"
 
-#include "SharedPtr.hpp"
-
-namespace OSK {
-
-	/// <summary>
-	/// 'Filtro' de la textura.
-	/// </summary>
-	enum class TextureFilterType {
-
-		/// <summary>
-		/// Suavizado.
-		/// </summary>
-		LINEAR,
-
-		/// <summary>
-		/// Pixelado.
-		/// </summary>
-		NEAREST
-
-	};
+namespace OSK::ASSETS {
 
 	/// <summary>
-	/// Formato de una textura.
+	/// Una textura que será usada en renderizado 2D / 3D.
 	/// </summary>
-	enum class TextureFormat {
+	class OSKAPI_CALL Texture : public IAsset {
 
-		RGB_8bits,
-		RGBA_8bits,
+	public:
 
-		INTERNAL_FONT
+		Texture(const std::string& assetFile);
+		~Texture();
 
-	};
-
-	/// <summary>
-	/// Devuelve el formato nativo, dado el formato de la textura.
-	/// </summary>
-	VkFormat ToNative(TextureFormat format);
-
-	/// <summary>
-	/// Devuelve el número de bytes por cada píxel.
-	/// </summary>
-	uint32_t GetNumberOfPixelsFromFormat(TextureFormat format);
-
-
-	/// <summary>
-	/// Representa un bitmap:
-	/// una serie de bytes que representan una textura.
-	/// </summary>
-	struct Bitmap {
-
-		/// <summary>
-		/// Butes.
-		/// </summary>
-		std::vector<uint8_t> bytes;
-
-		/// <summary>
-		/// Tamaño de la textura, en píxeles.
-		/// </summary>
-		Vector2ui size;
-
-		/// <summary>
-		/// Formato de la textura.
-		/// </summary>
-		TextureFormat format;
-
-	};
-
-	/// <summary>
-	/// Una textura 2D.
-	/// </summary>
-	struct OSKAPI_CALL Texture {
-
-		friend class ContentManager;
-		friend class OldMaterialInstance;
-		friend class ShadowMap;
-		friend class RenderizableScene;
-		friend class RenderAPI;
-		friend class RenderTarget;
-
-		Texture() {
-			image = new VULKAN::GpuImage;
-		}
+		OSK_ASSET_TYPE_REG("OSK::Texture");
 
 		/// <summary>
 		/// Tamaño de la textura.
+		/// 
+		/// @note En píxeles.
 		/// </summary>
-		Vector2ui size;
+		Vector2ui GetSize() const;
+
+		/// <summary>
+		/// Número de canales (red green blue, etc...).
+		/// </summary>
+		TSize GetNumberOfChannels() const;
+
+		/// <summary>
+		/// Imagen guardada en la GPU.
+		/// Para renderizado.
+		/// 
+		/// @note No puede ser null.
+		/// </summary>
+		GRAPHICS::GpuImage* GetGpuImage() const;
+
+		/// <summary>
+		/// Establece el tamaño de la textura.
+		/// </summary>
+		/// 
+		/// @warning Función interna: no llamar.
+		/// 
+		/// @note En píxeles.
+		void _SetSize(const Vector2ui size);
+
+		/// <summary>
+		/// Establece el número de canales..
+		/// </summary>
+		/// 
+		/// @warning Función interna: no llamar.
+		void _SetNumberOfChannels(TSize numChannels);
+
+		/// <summary>
+		/// Establece la imagen de la textura.
+		/// </summary>
+		/// 
+		/// @warning Función interna: no llamar.
+		/// </param>
+		void _SetImage(OwnedPtr<GRAPHICS::GpuImage> image);
 
 	private:
 
-		/// <summary>
-		/// Imagen (en la GPU) de la textura).
-		/// </summary>
-		SharedPtr<VULKAN::GpuImage> image;
+		Vector2ui size;
+		TSize numChannels = 0;
+
+		OwnedPtr<GRAPHICS::GpuImage> image;
 
 	};
 

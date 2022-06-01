@@ -1,13 +1,12 @@
 #pragma once
 
-#include "OSKsettings.h"
+#include "Vector2.hpp"
 #include "OSKmacros.h"
-#include "OSKtypes.h"
-#include "Log.h"
+#include "GameObject.h"
+#include "Component.h"
+#include "Vector4.hpp"
 
-#include <vector>
-
-namespace OSK {
+namespace OSK::ECS {
 
 	/// <summary>
 	/// Clase que almacena el 'transform' de un objeto en un mundo 2D.
@@ -20,10 +19,12 @@ namespace OSK {
 
 	public:
 
+		OSK_COMPONENT("OSK::Transform2D");
+
 		/// <summary>
 		/// Transform por defecto.
 		/// </summary>
-		Transform2D();
+		Transform2D(ECS::GameObjectIndex owner);
 
 		/// <summary>
 		/// Crea el transform.
@@ -31,46 +32,52 @@ namespace OSK {
 		/// <param name="position">Posición en el mundo.</param>
 		/// <param name="scale">Escala en el mundo.</param>
 		/// <param name="rotation">Rotación en el mundo.</param>
-		Transform2D(const Vector2& position, const Vector2& scale, float rotation);
+		Transform2D(ECS::GameObjectIndex owner, const Vector2& position, const Vector2& scale, float rotation);
 
 		/// <summary>
 		/// Establece la posición.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="position">Nueva posición respecto al padre.</param>
 		void SetPosition(const Vector2& position);
 
 		/// <summary>
 		/// Establece la escala.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="scale">Nueva escala respecto al padre.</param>
 		void SetScale(const Vector2& scale);
 
 		/// <summary>
 		/// Establece la rotación del transform.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="rotation">Ángulo.</param>
 		void SetRotation(float rotation);
 
 		/// <summary>
 		/// Suma el vector 3D a la posición.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="positionDelta">Posición a añadir.</param>
 		void AddPosition(const Vector2& positionDelta);
 
 		/// <summary>
 		/// Suma un vector 3D a la escala.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="scaleDelta">Escala a añadir.</param>
 		void AddScale(const Vector2& scaleDelta);
 
 		/// <summary>
 		/// Cambia la rotación del transform.
-		/// También actualiza la matriz modelo, y la de sus hijos.
+		/// 
+		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="rotationDelta">Ángulo añadido.</param>
 		void AddRotation(float rotationDelta);
@@ -84,7 +91,7 @@ namespace OSK {
 		/// Enlaza este transform a su nuevo transform padre.
 		/// </summary>
 		/// <param name="baseTransform">Tranform padre.</param>
-		void AttachTo(Transform2D* baseTransform);
+		void AttachToObject(ECS::GameObjectIndex baseTransform);
 
 		/// <summary>
 		/// Libera este transform de su padre.
@@ -130,17 +137,12 @@ namespace OSK {
 		/// <summary>
 		/// Matriz modelo.
 		/// </summary>
-		glm::mat4 AsMatrix() const;
+		glm::mat4 GetAsMatrix() const;
 
 		/// <summary>
 		/// Transform padre.
 		/// </summary>
-		Transform2D* GetParent();
-
-		/// <summary>
-		/// Transformaciones ahijadas.
-		/// </summary>
-		std::vector<Transform2D*> GetChildTransforms() const;
+		ECS::GameObjectIndex GetParentObject();
 
 		/// <summary>
 		/// Posición respecto al padre.
@@ -156,16 +158,6 @@ namespace OSK {
 		/// Rotación respecto al padre.
 		/// </summary>
 		float GetRotationOffset() const;
-
-		/// <summary>
-		/// True si hereda la escala del padre.
-		/// </summary>
-		bool IsUsingParentScale() const;
-
-		/// <summary>
-		/// Establece si ha de heredar la escala padre.
-		/// </summary>
-		void SetShoulduseParentScale(bool useParentScale);
 
 	private:
 
@@ -187,32 +179,22 @@ namespace OSK {
 		/// <summary>
 		/// Posición local.
 		/// </summary>
-		Vector2 position;
+		Vector2 localPosition;
 
 		/// <summary>
 		/// Escala local.
 		/// </summary>
-		Vector2 scale;
+		Vector2 localScale;
 
 		/// <summary>
 		/// Rotación local.
 		/// </summary>
-		float rotation;
+		float localRotation;
 
 		/// <summary>
 		/// Matriz modelo.
 		/// </summary>
 		glm::mat4 modelMatrix;
-
-		/// <summary>
-		/// Transform padre.
-		/// </summary>
-		Transform2D* parentTransform;
-
-		/// <summary>
-		/// Transformaciones ahijadas.
-		/// </summary>
-		std::vector<Transform2D*> childTransforms;
 
 		/// <summary>
 		/// Posición respecto al padre.
@@ -230,19 +212,19 @@ namespace OSK {
 		float rotationOffset;
 
 		/// <summary>
-		/// Establece si ha de heredar la escala padre.
+		/// Identificador del objeto que este transform representa.
 		/// </summary>
-		bool useParentScale = false;
+		ECS::GameObjectIndex owner;
 
 		/// <summary>
-		/// True si tiene padre.
+		/// Objeto padre.
 		/// </summary>
-		bool isAttached = false;
+		ECS::GameObjectIndex parent = ECS::EMPTY_GAME_OBJECT;
 
 		/// <summary>
-		/// True si tiene ahijados.
+		/// Ids de los objetos hijos.
 		/// </summary>
-		bool isParent = false;
+		DynamicArray<ECS::GameObjectIndex> childTransforms;
 
 	};
 

@@ -31,6 +31,8 @@ var annotated_dup =
         [ "RenderSystem2D", "class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html", "class_o_s_k_1_1_e_c_s_1_1_render_system2_d" ],
         [ "RenderSystem3D", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d" ],
         [ "SystemManager", "class_o_s_k_1_1_e_c_s_1_1_system_manager.html", "class_o_s_k_1_1_e_c_s_1_1_system_manager" ],
+        [ "TerrainComponent", "struct_o_s_k_1_1_e_c_s_1_1_terrain_component.html", "struct_o_s_k_1_1_e_c_s_1_1_terrain_component" ],
+        [ "TerrainRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_terrain_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_terrain_render_system" ],
         [ "Transform2D", "class_o_s_k_1_1_e_c_s_1_1_transform2_d.html", "class_o_s_k_1_1_e_c_s_1_1_transform2_d" ],
         [ "Transform3D", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html", "class_o_s_k_1_1_e_c_s_1_1_transform3_d" ]
       ] ],
@@ -72,6 +74,7 @@ var annotated_dup =
         [ "GraphicsPipelineDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12" ],
         [ "GraphicsPipelineOgl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_ogl.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_ogl" ],
         [ "GraphicsPipelineVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan" ],
+        [ "HlslRuntimeCompiler", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler" ],
         [ "ICommandList", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list" ],
         [ "ICommandPool", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool" ],
         [ "ICommandQueue", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue" ],
@@ -111,6 +114,7 @@ var annotated_dup =
         [ "RenderpassDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12" ],
         [ "RenderpassOgl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_ogl.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_ogl" ],
         [ "RenderpassVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan" ],
+        [ "SpirvToHlsl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl" ],
         [ "Sprite", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite" ],
         [ "SpriteRenderer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer" ],
         [ "SwapchainDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12" ],
@@ -125,10 +129,17 @@ var annotated_dup =
       ] ],
       [ "IO", "namespace_o_s_k_1_1_i_o.html", [
         [ "FileIO", "class_o_s_k_1_1_i_o_1_1_file_i_o.html", null ],
+        [ "GamepadState", "class_o_s_k_1_1_i_o_1_1_gamepad_state.html", "class_o_s_k_1_1_i_o_1_1_gamepad_state" ],
+        [ "IInputListener", "class_o_s_k_1_1_i_o_1_1_i_input_listener.html", "class_o_s_k_1_1_i_o_1_1_i_input_listener" ],
+        [ "InputManager", "class_o_s_k_1_1_i_o_1_1_input_manager.html", "class_o_s_k_1_1_i_o_1_1_input_manager" ],
         [ "KeyboardState", "class_o_s_k_1_1_i_o_1_1_keyboard_state.html", "class_o_s_k_1_1_i_o_1_1_keyboard_state" ],
         [ "Logger", "class_o_s_k_1_1_i_o_1_1_logger.html", "class_o_s_k_1_1_i_o_1_1_logger" ],
         [ "MouseState", "class_o_s_k_1_1_i_o_1_1_mouse_state.html", "class_o_s_k_1_1_i_o_1_1_mouse_state" ],
         [ "Window", "class_o_s_k_1_1_i_o_1_1_window.html", "class_o_s_k_1_1_i_o_1_1_window" ]
+      ] ],
+      [ "UI", "namespace_o_s_k_1_1_u_i.html", [
+        [ "UiElement", "class_o_s_k_1_1_u_i_1_1_ui_element.html", "class_o_s_k_1_1_u_i_1_1_ui_element" ],
+        [ "UiRenderer", "class_o_s_k_1_1_u_i_1_1_ui_renderer.html", "class_o_s_k_1_1_u_i_1_1_ui_renderer" ]
       ] ],
       [ "BitSet", "class_o_s_k_1_1_bit_set.html", "class_o_s_k_1_1_bit_set" ],
       [ "Color", "class_o_s_k_1_1_color.html", "class_o_s_k_1_1_color" ],
@@ -151,9 +162,7 @@ var annotated_dup =
     [ "std", null, [
       [ "hash< OSK::Pair< std::string, std::string > >", "structstd_1_1hash_3_01_o_s_k_1_1_pair_3_01std_1_1string_00_01std_1_1string_01_4_01_4.html", "structstd_1_1hash_3_01_o_s_k_1_1_pair_3_01std_1_1string_00_01std_1_1string_01_4_01_4" ]
     ] ],
-    [ "Game1", "class_game1.html", "class_game1" ],
     [ "GltfMaterialInfo", "struct_gltf_material_info.html", "struct_gltf_material_info" ],
     [ "GltfModelInfo", "struct_gltf_model_info.html", "struct_gltf_model_info" ],
-    [ "InputLayoutDescDx12", "struct_input_layout_desc_dx12.html", "struct_input_layout_desc_dx12" ],
     [ "SharedPtr", "class_shared_ptr.html", "class_shared_ptr" ]
 ];

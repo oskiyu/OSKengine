@@ -1,14 +1,9 @@
 #pragma once
 
-#include "OSKsettings.h"
-#include "OSKmacros.h"
-#include "OSKtypes.h"
-#include "Log.h"
-
 #include <optional>
-#include <cstdint>
+#include "OSKmacros.h"
 
-namespace OSK::VULKAN {
+namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Contiene información sobre qué familias de comandos soporta una GPU.

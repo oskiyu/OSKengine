@@ -41,6 +41,7 @@
 #include "GpuImageDx12.h"
 #include "FormatDx12.h"
 #include "IGpuImage.h"
+#include "HlslRuntimeCompiler.h"
 
 #include "Texture.h"
 #include "Model3D.h"
@@ -91,6 +92,8 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	CreateMainRenderpass();
 
 	isOpen = true;
+
+	HlslRuntimeCompiler::InitializeComponents();
 }
 
 void RendererDx12::Close() {
@@ -146,7 +149,7 @@ const TByte* RendererDx12::FormatImageDataForGpu(const GpuImage* image, const TB
 	return output;
 }
 
-OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo vertexInfo) {
+OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo& vertexInfo) {
 	GraphicsPipelineDx12* pipeline = new GraphicsPipelineDx12();
 
 	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
@@ -317,4 +320,12 @@ void RendererDx12::SubmitSingleUseCommandList(ICommandList* commandList) {
 	syncDevice->As<SyncDeviceDx12>()->Await();
 
 	singleTimeCommandLists.Insert(commandList);
+}
+
+TSize RendererDx12::GetCurrentFrameIndex() const {
+	return 0;
+}
+
+TSize RendererDx12::GetCurrentCommandListIndex() const {
+	return 0;
 }

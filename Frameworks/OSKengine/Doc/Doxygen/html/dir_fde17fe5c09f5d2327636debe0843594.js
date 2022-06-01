@@ -98,12 +98,14 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "Game.h", "_game_8h.html", [
       [ "OSK::IGame", "class_o_s_k_1_1_i_game.html", "class_o_s_k_1_1_i_game" ]
     ] ],
-    [ "Game1.hpp", "_game1_8hpp.html", "_game1_8hpp" ],
+    [ "Game1.hpp", "_game1_8hpp.html", null ],
     [ "GameObject.h", "_game_object_8h.html", "_game_object_8h" ],
     [ "GameObjectManager.cpp", "_game_object_manager_8cpp.html", null ],
     [ "GameObjectManager.h", "_game_object_manager_8h.html", [
       [ "OSK::ECS::GameObjectManager", "class_o_s_k_1_1_e_c_s_1_1_game_object_manager.html", "class_o_s_k_1_1_e_c_s_1_1_game_object_manager" ]
     ] ],
+    [ "GamepadState.cpp", "_gamepad_state_8cpp.html", null ],
+    [ "GamepadState.h", "_gamepad_state_8h.html", "_gamepad_state_8h" ],
     [ "glad.c", "glad_8c.html", "glad_8c" ],
     [ "GpuDx12.cpp", "_gpu_dx12_8cpp.html", null ],
     [ "GpuDx12.h", "_gpu_dx12_8h.html", [
@@ -206,6 +208,10 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
       [ "OSK::GRAPHICS::GraphicsPipelineVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan" ]
     ] ],
     [ "HashMap.hpp", "_hash_map_8hpp.html", "_hash_map_8hpp" ],
+    [ "HlslRuntimeCompiler.cpp", "_hlsl_runtime_compiler_8cpp.html", null ],
+    [ "HlslRuntimeCompiler.h", "_hlsl_runtime_compiler_8h.html", [
+      [ "OSK::GRAPHICS::HlslRuntimeCompiler", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler" ]
+    ] ],
     [ "IAsset.cpp", "_i_asset_8cpp.html", null ],
     [ "IAsset.h", "_i_asset_8h.html", "_i_asset_8h" ],
     [ "IAssetLoader.cpp", "_i_asset_loader_8cpp.html", null ],
@@ -264,9 +270,17 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "IGraphicsPipeline.h", "_i_graphics_pipeline_8h.html", [
       [ "OSK::GRAPHICS::IGraphicsPipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline" ]
     ] ],
+    [ "IInputListener.cpp", "_i_input_listener_8cpp.html", null ],
+    [ "IInputListener.h", "_i_input_listener_8h.html", [
+      [ "OSK::IO::IInputListener", "class_o_s_k_1_1_i_o_1_1_i_input_listener.html", "class_o_s_k_1_1_i_o_1_1_i_input_listener" ]
+    ] ],
     [ "IMaterialSlot.cpp", "_i_material_slot_8cpp.html", null ],
     [ "IMaterialSlot.h", "_i_material_slot_8h.html", [
       [ "OSK::GRAPHICS::IMaterialSlot", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot" ]
+    ] ],
+    [ "InputManager.cpp", "_input_manager_8cpp.html", null ],
+    [ "InputManager.h", "_input_manager_8h.html", [
+      [ "OSK::IO::InputManager", "class_o_s_k_1_1_i_o_1_1_input_manager.html", "class_o_s_k_1_1_i_o_1_1_input_manager" ]
     ] ],
     [ "IPipelineLayout.cpp", "_i_pipeline_layout_8cpp.html", null ],
     [ "IPipelineLayout.h", "_i_pipeline_layout_8h.html", [
@@ -293,7 +307,7 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "LinkedList.hpp", "_linked_list_8hpp.html", "_linked_list_8hpp" ],
     [ "Logger.cpp", "_logger_8cpp.html", null ],
     [ "Logger.h", "_logger_8h.html", "_logger_8h" ],
-    [ "main.cpp", "main_8cpp.html", "main_8cpp" ],
+    [ "main.cpp", "main_8cpp.html", null ],
     [ "Material.cpp", "_material_8cpp.html", null ],
     [ "Material.h", "_material_8h.html", [
       [ "OSK::GRAPHICS::Material", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material" ]
@@ -420,6 +434,10 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "SharedPtr.hpp", "_shared_ptr_8hpp.html", [
       [ "SharedPtr< T >", "class_shared_ptr.html", "class_shared_ptr" ]
     ] ],
+    [ "SpirvToHlsl.cpp", "_spirv_to_hlsl_8cpp.html", null ],
+    [ "SpirvToHlsl.h", "_spirv_to_hlsl_8h.html", [
+      [ "OSK::GRAPHICS::SpirvToHlsl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl" ]
+    ] ],
     [ "Sprite.cpp", "_sprite_8cpp.html", null ],
     [ "Sprite.h", "_sprite_8h.html", [
       [ "OSK::GRAPHICS::Sprite", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite" ]
@@ -444,6 +462,14 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "SystemManager.h", "_system_manager_8h.html", [
       [ "OSK::ECS::SystemManager", "class_o_s_k_1_1_e_c_s_1_1_system_manager.html", "class_o_s_k_1_1_e_c_s_1_1_system_manager" ]
     ] ],
+    [ "TerrainComponent.cpp", "_terrain_component_8cpp.html", null ],
+    [ "TerrainComponent.h", "_terrain_component_8h.html", [
+      [ "OSK::ECS::TerrainComponent", "struct_o_s_k_1_1_e_c_s_1_1_terrain_component.html", "struct_o_s_k_1_1_e_c_s_1_1_terrain_component" ]
+    ] ],
+    [ "TerrainRenderSystem.cpp", "_terrain_render_system_8cpp.html", null ],
+    [ "TerrainRenderSystem.h", "_terrain_render_system_8h.html", [
+      [ "OSK::ECS::TerrainRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_terrain_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_terrain_render_system" ]
+    ] ],
     [ "Texture.cpp", "_texture_8cpp.html", null ],
     [ "Texture.h", "_texture_8h.html", [
       [ "OSK::ASSETS::Texture", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture" ]
@@ -461,6 +487,14 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "Transform3D.cpp", "_transform3_d_8cpp.html", "_transform3_d_8cpp" ],
     [ "Transform3D.h", "_transform3_d_8h.html", [
       [ "OSK::ECS::Transform3D", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html", "class_o_s_k_1_1_e_c_s_1_1_transform3_d" ]
+    ] ],
+    [ "UiElement.cpp", "_ui_element_8cpp.html", null ],
+    [ "UiElement.h", "_ui_element_8h.html", [
+      [ "OSK::UI::UiElement", "class_o_s_k_1_1_u_i_1_1_ui_element.html", "class_o_s_k_1_1_u_i_1_1_ui_element" ]
+    ] ],
+    [ "UiRenderer.cpp", "_ui_renderer_8cpp.html", null ],
+    [ "UiRenderer.h", "_ui_renderer_8h.html", [
+      [ "OSK::UI::UiRenderer", "class_o_s_k_1_1_u_i_1_1_ui_renderer.html", "class_o_s_k_1_1_u_i_1_1_ui_renderer" ]
     ] ],
     [ "UniquePtr.hpp", "_unique_ptr_8hpp.html", "_unique_ptr_8hpp" ],
     [ "Vector2.hpp", "_vector2_8hpp.html", "_vector2_8hpp" ],
@@ -488,5 +522,7 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "Window.cpp", "_window_8cpp.html", null ],
     [ "Window.h", "_window_8h.html", [
       [ "OSK::IO::Window", "class_o_s_k_1_1_i_o_1_1_window.html", "class_o_s_k_1_1_i_o_1_1_window" ]
-    ] ]
+    ] ],
+    [ "WindowsUtils.cpp", "_windows_utils_8cpp.html", null ],
+    [ "WindowsUtils.h", "_windows_utils_8h.html", "_windows_utils_8h" ]
 ];

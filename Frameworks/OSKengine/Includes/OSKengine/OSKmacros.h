@@ -10,10 +10,10 @@
 #define OSKAPI_CALL
 #endif
 
-#ifdef OSK_RELEASE
-#define OSK_LOAD_XD
-#else
-#define OSK_SAVE_XD
-#endif
-	
-#include "Assert.h"
+#include <stdint.h>
+
+using TSize = unsigned int;
+using TDeltaTime = float;
+using TByte = uint8_t;
+
+#include <type_traits>

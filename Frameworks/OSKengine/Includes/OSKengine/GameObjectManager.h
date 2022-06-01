@@ -1,82 +1,64 @@
 #pragma once
 
 #include "OSKmacros.h"
-#include "OSKsettings.h"
-#include "OSKtypes.h"
-#include "Log.h"
-
+#include "GameObject.h"
+#include "DynamicArray.hpp"
 #include "Component.h"
-
-#include <queue>
-#include <array>
 
 namespace OSK::ECS {
 
 	/// <summary>
-	/// ID de un objeto.
-	/// </summary>
-	typedef uint32_t GameObjectID;
-
-	/// <summary>
-	/// Máximo de objetos a guardar.
-	/// </summary>
-	constexpr GameObjectID MAX_OBJECTS = 10000;
-
-
-	/// <summary>
-	/// Clase que maneja los objetos y sus signatures.
+	/// Se encarga de registrar y eliminar GameObjects.
 	/// </summary>
 	class OSKAPI_CALL GameObjectManager {
 
 	public:
-				
-		/// <summary>
-		/// Crea el manager vacío.
-		/// </summary>
-		GameObjectManager();
 
 		/// <summary>
 		/// Registra un nuevo objeto.
 		/// </summary>
-		/// <returns>ID del nuevo objeto.</returns>
-		GameObjectID CreateGameObject();
+		/// <returns>Id del objeto.</returns>
+		GameObjectIndex CreateGameObject();
 
 		/// <summary>
-		/// Elimina un objeto.
+		/// Destruye el objeto dado.
+		/// 
+		/// @warning El identificador del objeto se pondrá a 0, para
+		/// indicar que es un identificador inválido.
 		/// </summary>
-		/// <param name="object">ID del objeto.</param>
-		void DestroyGameObject(GameObjectID object);
+		/// <param name="obj"></param>
+		void DestroyGameObject(GameObjectIndex* obj);
 
 		/// <summary>
-		/// Establece el signature (componentes que tiene).
+		/// Establece el signature del objeto.
 		/// </summary>
-		/// <param name="obj">ID del objeto.</param>
-		/// <param name="sign">Componentes que ocntiene.</param>
-		void SetSignature(GameObjectID obj, Signature sign);
-		
+		void SetSignature(GameObjectIndex obj, const Signature& signature);
+
 		/// <summary>
-		/// Obtiene los tipos de componentes que tiene.
+		/// Devuelve el signature del objeto.
 		/// </summary>
-		/// <param name="obj">ID del objeto.</param>
-		/// <returns>Signature.</returns>
-		Signature GetSignature(GameObjectID obj) const;
+		Signature GetSignature(GameObjectIndex obj);
 
 	private:
 
 		/// <summary>
-		/// IDs sin asignar.
+		/// Ids de objetos que han sido eliminados.
+		/// Estos ids se pueden reutilizar.
 		/// </summary>
-		std::queue<GameObjectID> freeObjects;
+		DynamicArray<GameObjectIndex> freeObjectIndices;
 
 		/// <summary>
-		/// Signatures de los objetos.
+		/// Signatures de todos los objetos.
+		/// 
+		/// signatures[objectId] = signature del objeto.
 		/// </summary>
-		std::array<Signature, MAX_OBJECTS> signatures;
+		DynamicArray<Signature> signatures;
 
 		/// <summary>
-		/// Número de objetos creados.
+		/// Identificador del próximo objeto (si no hay identificadores
+		/// libres que se puedan reutilizar).
 		/// </summary>
-		uint32_t livingEnitites = 0;
+		TSize nextIndex = 1;
 
 	};
 

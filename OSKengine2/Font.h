@@ -54,6 +54,14 @@ namespace OSK::ASSETS {
 		void LoadSizedFont(TSize size);
 
 		/// <summary>
+		/// Descarga la instancia de la funente con el tamaño dado.
+		/// 
+		/// Si la instancia no existe, no ocurre nada.
+		/// </summary>
+		/// <param name="size">Tamaño de letra, en píxeles.</param>
+		void UnloadSizedFont(TSize size);
+
+		/// <summary>
 		/// Devuelve la imagen de GPU correspondiente a la fuente del tamaño dado.
 		/// </summary>
 		/// 

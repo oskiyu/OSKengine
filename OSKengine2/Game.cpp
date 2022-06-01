@@ -14,8 +14,24 @@
 #include "IGpuVertexBuffer.h"
 #include "Sprite.h"
 #include "IGpuIndexBuffer.h"
+#include "InputManager.h"
+
+#include "FileIO.h"
+#include <json.hpp>
 
 using namespace OSK;
+
+void IGame::RegisterAssets() {
+
+}
+
+void IGame::RegisterComponents() {
+
+}
+
+void IGame::RegisterSystems() {
+
+}
 
 void IGame::OnCreate() {
 
@@ -38,7 +54,16 @@ void IGame::OnExit() {
 }
 
 void IGame::Run() {
-	Engine::Create(GRAPHICS::RenderApiType::DX12);
+	nlohmann::json engineConfig = nlohmann::json::parse(OSK::IO::FileIO::ReadFromFile("engine_config.json"));
+	const std::string graphicsApi = engineConfig["graphics_backend"];
+
+	if (graphicsApi == "DX12")
+		Engine::Create(GRAPHICS::RenderApiType::DX12);
+	else if (graphicsApi == "VULKAN")
+		Engine::Create(GRAPHICS::RenderApiType::VULKAN);
+	else {
+		Engine::Create(GRAPHICS::RenderApiType::VULKAN);
+	}
 
 	CreateWindow();
 	SetupEngine();
@@ -60,6 +85,10 @@ void IGame::Run() {
 	OSK_ASSERT(Engine::GetWindow()->IsOpen(), "No se ha creado correctamente la ventana en CreateWindow().");
 	OSK_ASSERT(Engine::GetRenderer()->IsOpen(), "No se ha inicializado correctamente el renderizador en SetupEngine().");
 
+	RegisterAssets();
+	RegisterComponents();
+	RegisterSystems();
+
 	OnCreate();
 
 	Engine::GetRenderer()->PresentFrame();
@@ -67,6 +96,8 @@ void IGame::Run() {
 		const TDeltaTime startTime = Engine::GetCurrentTime();
 
 		Engine::GetWindow()->Update();
+
+		Engine::GetInputManager()->_Update(*Engine::GetWindow());
 
 		Engine::GetEntityComponentSystem()->OnTick(deltaTime);
 		OnTick(deltaTime);

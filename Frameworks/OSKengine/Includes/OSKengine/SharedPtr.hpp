@@ -7,7 +7,9 @@
 
 /// <summary>
 /// Contiene un puntero al que pueden hacer referencia varios SharedPtr.
-/// Si el último SharedPtr que hace referencia a un puntero es desstruido, el puntero será eli
+/// Si el último SharedPtr que hace referencia a un puntero es desstruido, el puntero será eliminado.
+/// 
+/// @note La propiedad del puntero está compartida.
 /// </summary>
 /// <typeparam name="T">Tipo del puntero almacenado.</typeparam>
 template <typename T> class SharedPtr {
@@ -18,7 +20,7 @@ public:
 	/// Crea un SharedPtr vacío.
 	/// </summary>
 	SharedPtr() {
-		instanceCount = new size_t;
+		instanceCount = new TSize;
 		*instanceCount = 0;
 	}
 
@@ -30,7 +32,7 @@ public:
 	SharedPtr(T* data) {
 		pointer = data;
 
-		instanceCount = new size_t;
+		instanceCount = new TSize;
 		*instanceCount = 1;
 	}
 
@@ -97,7 +99,7 @@ public:
 	/// Devuelve el número de SharedPtr que comparten el mismo puntero que este.
 	/// </summary>
 	/// <returns>Número de instancias.</returns>
-	size_t GetInstanceCount() const {
+	TSize GetInstanceCount() const {
 		return *instanceCount;
 	}
 
@@ -141,14 +143,12 @@ public:
 		return pointer != nullptr;
 	}
 
-	/// <summary>
-	/// Función que se ejecuta al eliminar a la última instancia del puntero compartido.
-	/// Por defecto, llama a delete.
-	/// </summary>
-	std::function<void()> Deleter = [this]() {
-		if (pointer)
-			delete pointer;
-	};
+	bool operator==(const SharedPtr& other) const {
+		return pointer == other.pointer && instanceCount == other.instanceCount;
+	}
+	bool operator!=(const SharedPtr& other) const {
+		return !operator==(other);
+	}
 
 private:
 
@@ -196,7 +196,8 @@ private:
 	/// Elimina los punteros.
 	/// </summary>
 	void finalDelete() {
-		Deleter();
+		if (pointer)
+			delete pointer;
 
 		delete instanceCount;
 	}
@@ -209,7 +210,7 @@ private:
 	/// <summary>
 	/// Número de SharedPtr con este puntero.
 	/// </summary>
-	size_t* instanceCount = nullptr;
+	TSize* instanceCount = nullptr;
 
 };
 

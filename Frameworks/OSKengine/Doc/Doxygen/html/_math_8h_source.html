@@ -114,19 +114,46 @@ $(document).ready(function(){initNavTree('_math_8h_source.html',''); initResizab
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">return</span> (numero / multiplo - 1) * multiplo;</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_m_a_t_h.html#a59ecac3bc9181efeef2f758f583bdb65">   71</a></span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> T <a class="code hl_function" href="namespace_o_s_k_1_1_m_a_t_h.html#a59ecac3bc9181efeef2f758f583bdb65">LinearInterpolation_Fast</a>(<span class="keyword">const</span> T&amp; a, <span class="keyword">const</span> T&amp; b, <span class="keywordtype">float</span> factor) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordflow">return</span> (a * (1.0f - factor)) + (b * factor);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_m_a_t_h.html#a300206fba642c521bb413e8d129821ee">   84</a></span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> T <a class="code hl_function" href="namespace_o_s_k_1_1_m_a_t_h.html#a300206fba642c521bb413e8d129821ee">LinearInterpolation</a>(<span class="keyword">const</span> T&amp; a, <span class="keyword">const</span> T&amp; b, <span class="keywordtype">float</span> factor) {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">if</span> (factor &gt;= 1.0f)</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            <span class="keywordflow">return</span> b;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">if</span> (factor &lt;= 0.0f)</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            <span class="keywordflow">return</span> a;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">return</span> (a * (1.0f - factor)) + (b * factor);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    }</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_m_a_t_h.html#aeb9e6dd7675ac3048479b9a7b1525b4c">  103</a></span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> T <a class="code hl_function" href="namespace_o_s_k_1_1_m_a_t_h.html#aeb9e6dd7675ac3048479b9a7b1525b4c">Clamp</a>(<span class="keyword">const</span> T&amp; value, <span class="keyword">const</span> T&amp; min, <span class="keyword">const</span> T&amp; max) {</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordflow">if</span> (value &gt; max)</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <span class="keywordflow">return</span> max;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">if</span> (value &lt; min)</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            <span class="keywordflow">return</span> min;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keywordflow">return</span> value;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    }</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>}</div>
 <div class="ttc" id="aconcept_o_s_k_1_1_m_a_t_h_1_1_is_integer_html"><div class="ttname"><a href="concept_o_s_k_1_1_m_a_t_h_1_1_is_integer.html">OSK::MATH::IsInteger</a></div><div class="ttdoc">Concepto que permite distinguir cualquier tipo numérico entero.</div><div class="ttdef"><b>Definition:</b> <a href="_math_8h_source.html#l00022">Math.h:22</a></div></div>
 <div class="ttc" id="aconcept_o_s_k_1_1_m_a_t_h_1_1_is_numeric_html"><div class="ttname"><a href="concept_o_s_k_1_1_m_a_t_h_1_1_is_numeric.html">OSK::MATH::IsNumeric</a></div><div class="ttdoc">Concepto que permite distinguir cualquier tipo numérico.</div><div class="ttdef"><b>Definition:</b> <a href="_math_8h_source.html#l00014">Math.h:14</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_m_a_t_h_html"><div class="ttname"><a href="namespace_o_s_k_1_1_m_a_t_h.html">OSK::MATH</a></div><div class="ttdef"><b>Definition:</b> <a href="_math_8h_source.html#l00005">Math.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_m_a_t_h_html_a1325a63ec8bc49a286c72870cd6b9294"><div class="ttname"><a href="namespace_o_s_k_1_1_m_a_t_h.html#a1325a63ec8bc49a286c72870cd6b9294">OSK::MATH::PrimerMultiploInferior</a></div><div class="ttdeci">T PrimerMultiploInferior(T numero, T multiplo)</div><div class="ttdoc">Devuelve el primer múltiplo de multiplo que sea igual o menor que ´número´.</div><div class="ttdef"><b>Definition:</b> <a href="_math_8h_source.html#l00050">Math.h:50</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_m_a_t_h_html_a300206fba642c521bb413e8d129821ee"><div class="ttname"><a href="namespace_o_s_k_1_1_m_a_t_h.html#a300206fba642c521bb413e8d129821ee">OSK::MATH::LinearInterpolation</a></div><div class="ttdeci">T LinearInterpolation(const T &amp;a, const T &amp;b, float factor)</div><div class="ttdoc">Interpolación lineal rápida.</div><div class="ttdef"><b>Definition:</b> <a href="_math_8h_source.html#l00084">Math.h:84</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_m_a_t_h_html_a59ecac3bc9181efeef2f758f583bdb65"><div class="ttname"><a href="namespace_o_s_k_1_1_m_a_t_h.html#a59ecac3bc9181efeef2f758f583bdb65">OSK::MATH::LinearInterpolation_Fast</a></div><div class="ttdeci">T LinearInterpolation_Fast(const T &amp;a, const T &amp;b, float factor)</div><div class="ttdoc">Interpolación lineal rápida. Para cuando factor está entre 0.0 y 1.0</div><div class="ttdef"><b>Definition:</b> <a href="_math_8h_source.html#l00071">Math.h:71</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_m_a_t_h_html_ac61609678bfab779b61fcdc1344be507"><div class="ttname"><a href="namespace_o_s_k_1_1_m_a_t_h.html#ac61609678bfab779b61fcdc1344be507">OSK::MATH::PrimerMultiploSuperior</a></div><div class="ttdeci">T PrimerMultiploSuperior(T numero, T multiplo)</div><div class="ttdoc">Devuelve el primer múltiplo de multiplo que sea igual o mayor que ´número´.</div><div class="ttdef"><b>Definition:</b> <a href="_math_8h_source.html#l00033">Math.h:33</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_m_a_t_h_html_aeb9e6dd7675ac3048479b9a7b1525b4c"><div class="ttname"><a href="namespace_o_s_k_1_1_m_a_t_h.html#aeb9e6dd7675ac3048479b9a7b1525b4c">OSK::MATH::Clamp</a></div><div class="ttdeci">T Clamp(const T &amp;value, const T &amp;min, const T &amp;max)</div><div class="ttdoc">Devuelve el valor, ajustándolo de manera que nunca sea mayor que el máximo ni menor que el mínimo.</div><div class="ttdef"><b>Definition:</b> <a href="_math_8h_source.html#l00103">Math.h:103</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_math_8h.html">Math.h</a></li>
-    <li class="footer">Generado el Sábado, 7 de Mayo de 2022 19:05:06 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:57 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

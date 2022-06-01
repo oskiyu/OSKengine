@@ -3,14 +3,16 @@
 #include "FileIO.h"
 #include "MaterialLayout.h"
 
-#include <json.hpp>
 #include "Material.h"
 #include "PipelineCreateInfo.h"
 #include "OSKengine.h"
 #include "IRenderer.h"
 #include "RenderApiType.h"
 
+#include <spirv_cross/spirv_glsl.hpp>
+
 using namespace OSK;
+using namespace OSK::IO;
 using namespace OSK::GRAPHICS;
 
 ShaderBindingType GetShaderBindingType(const std::string& type) {
@@ -51,93 +53,70 @@ MaterialSystem::~MaterialSystem() {
 		delete materials[i].GetPointer();
 }
 
-Material* MaterialSystem::LoadMaterial(const std::string& path) {
-	MaterialLayout* layout = new MaterialLayout;
+void MaterialSystem::LoadMaterialV0(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info) {
+	OSK_ASSERT(materialInfo.contains("shader_file"), "Archivo de material incorrecto: no se encuentra 'shader_file'.");
+	OSK_ASSERT(materialInfo.contains("layout"), "Archivo de material incorrecto: no se encuentra 'layout'.");
 
-	std::string shaderFilePath;
+	info->precompiledHlslShaders = true;
 
-	std::string vertexPath;
-	std::string fragmentPath;
-	std::string tesselationControlPath = "";
-	std::string tesselationEvaluationPath = "";
+	// Material file
+	std::string materialName = materialInfo["name"];
+	std::string shaderFilePath = materialInfo["shader_file"];
 
-	VertexInfo vertexType;
-	PolygonMode polygonMode = PolygonMode::FILL;
+	for (auto& slotInfo : materialInfo["layout"]["slots"]) {
+		MaterialLayoutSlot slot{};
+		slot.name = slotInfo["name"];
 
-	// Material file.
-	nlohmann::json materialInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(path));
-	{
-		OSK_ASSERT(materialInfo.contains("file_type"), "Archivo de material incorrecto: no se encuentra 'file_type'.");
-		OSK_ASSERT(materialInfo.contains("name"), "Archivo de material incorrecto: no se encuentra 'name'.");
-		OSK_ASSERT(materialInfo.contains("shader_file"), "Archivo de material incorrecto: no se encuentra 'shader_file'.");
-		OSK_ASSERT(materialInfo.contains("layout"), "Archivo de material incorrecto: no se encuentra 'layout'.");
-		OSK_ASSERT(materialInfo.contains("vertex_type"), "Archivo de material incorrecto: no se encuentra 'vertex_type'.");
+		for (auto& bindingInfo : slotInfo["bindings"]) {
+			MaterialLayoutBinding binding{};
 
-		OSK_ASSERT(materialInfo["file_type"] == "MATERIAL", std::string("Archivo ") + path + "no es un material.");
-		
-		int fileVersion = materialInfo["spec_ver"];
-		std::string materialName = materialInfo["name"];
-		shaderFilePath = materialInfo["shader_file"];
+			binding.name = bindingInfo["name"];
+			binding.type = GetShaderBindingType(bindingInfo["type"]);
 
-		for (auto& slotInfo : materialInfo["layout"]["slots"]) {
-			MaterialLayoutSlot slot{};
-			slot.name = slotInfo["name"];
-			
-			for (auto& bindingInfo : slotInfo["bindings"]) {
-				MaterialLayoutBinding binding{};
-
-				binding.name = bindingInfo["name"];
-				binding.type = GetShaderBindingType(bindingInfo["type"]);
-
-				slot.bindings.Insert(binding.name, binding);
-			}
-
-			layout->AddSlot(slot);
+			slot.bindings.Insert(binding.name, binding);
 		}
 
-		for (auto& pushConstantInfo : materialInfo["layout"]["push_constants"]) {
-			MaterialLayoutPushConstant pushConst{};
-
-			pushConst.name = pushConstantInfo["name"];
-			pushConst.size = pushConstantInfo["size"];
-
-			layout->AddPushConstant(pushConst);
-		}
-
-		vertexType = vertexTypesTable.Get(materialInfo["vertex_type"]);
-
-		if (materialInfo.contains("polygon_mode"))
-			polygonMode = GetPolygonMode(materialInfo["polygon_mode"]);
+		layout->AddSlot(slot);
 	}
+
+	for (auto& pushConstantInfo : materialInfo["layout"]["push_constants"]) {
+		MaterialLayoutPushConstant pushConst{};
+
+		pushConst.name = pushConstantInfo["name"];
+		pushConst.size = pushConstantInfo["size"];
+
+		layout->AddPushConstant(pushConst);
+	}
+
+	if (materialInfo.contains("polygon_mode"))
+		info->polygonMode = GetPolygonMode(materialInfo["polygon_mode"]);
 
 	// Shader file.
 	{
 		nlohmann::json shaderInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(shaderFilePath));
 
-		//OSK_ASSERT(shaderInfo["file_type"] == "SHADER", shaderFilePath + "no es un shader.");
-		
 		int fileVersion = shaderInfo["spec_ver"];
 
 		if (Engine::GetRenderer()->GetRenderApi() == RenderApiType::OPENGL
 			|| Engine::GetRenderer()->GetRenderApi() == RenderApiType::VULKAN) {
-			vertexPath = shaderInfo["glsl_shaders"]["vertex"];
-			fragmentPath = shaderInfo["glsl_shaders"]["fragment"];
+			info->vertexPath = shaderInfo["glsl_shaders"]["vertex"];
+			info->fragmentPath = shaderInfo["glsl_shaders"]["fragment"];
 
 			if (shaderInfo["glsl_shaders"].contains("tesselation_control"))
-				tesselationControlPath = shaderInfo["glsl_shaders"]["tesselation_control"];
+				info->tesselationControlPath = shaderInfo["glsl_shaders"]["tesselation_control"];
 
 			if (shaderInfo["glsl_shaders"].contains("tesselation_evaluation"))
-				tesselationEvaluationPath = shaderInfo["glsl_shaders"]["tesselation_evaluation"];
+				info->tesselationEvaluationPath = shaderInfo["glsl_shaders"]["tesselation_evaluation"];
 		}
 		else if (Engine::GetRenderer()->GetRenderApi() == RenderApiType::DX12) {
-			vertexPath = shaderInfo["hlsl_shaders"]["vertex"];
-			fragmentPath = shaderInfo["hlsl_shaders"]["fragment"];
+			info->vertexPath = shaderInfo["hlsl_shaders"]["vertex"];
+			info->fragmentPath = shaderInfo["hlsl_shaders"]["fragment"];
 
 			if (shaderInfo["hlsl_shaders"].contains("tesselation_control"))
-				tesselationControlPath = shaderInfo["hlsl_shaders"]["tesselation_control"];
+				info->tesselationControlPath = shaderInfo["hlsl_shaders"]["tesselation_control"];
 
 			if (shaderInfo["hlsl_shaders"].contains("tesselation_evaluation"))
-				tesselationEvaluationPath = shaderInfo["hlsl_shaders"]["tesselation_evaluation"];
+				info->tesselationEvaluationPath = shaderInfo["hlsl_shaders"]["tesselation_evaluation"];
 		}
 
 		for (auto& slotInfo : shaderInfo["slots"]) {
@@ -182,14 +161,188 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 		hlslDescIndex++;
 	}
 
+}
+
+void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& materialInfo, const DynamicArray<char>& bytecode, ShaderStage stage, TSize* pushConstantsOffset, TSize* numBuffers, TSize* numImages, TSize* numBindings) {
+	spirv_cross::Compiler compiler((const uint32_t*)bytecode.GetData(), bytecode.GetSize() / 4);
+	spirv_cross::ShaderResources resources = compiler.get_shader_resources();
+
+	// Imágenes
+	for (auto& i : resources.sampled_images) {
+		// Obtenemos el nombre del set (slot).
+		// Si no tiene nombre registrado en el archivo, su nombre será su número.
+		std::string setName = std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet));
+		if (materialInfo.contains("slots") && materialInfo["slots"].contains(std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))))
+			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
+
+		// Si el slot no está registrado, registrarlo
+		if (!layout->GetAllSlotNames().ContainsElement(setName)) {
+			MaterialLayoutSlot slot{};
+			slot.name = setName;
+			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
+			slot.stage = stage;
+
+			layout->AddSlot(slot);
+		}
+		else {
+			EFTraits::AddFlag(&layout->GetSlot(setName).stage, stage);
+		}
+
+		MaterialLayoutBinding binding{};
+		binding.name = compiler.get_name(i.id);
+		binding.glslIndex = compiler.get_decoration(i.id, spv::DecorationBinding);
+		binding.hlslIndex = *numImages;
+		binding.hlslDescriptorIndex = *numBindings;
+
+		(*numImages)++;
+		(*numBindings)++;
+
+		// Tipo de imagen
+		const auto& imageInfo = compiler.get_type(i.type_id).image;
+		if (imageInfo.dim == spv::Dim::DimCube)
+			binding.type = ShaderBindingType::CUBEMAP;
+		else
+			binding.type = ShaderBindingType::TEXTURE;
+
+		layout->GetSlot(setName).bindings.Insert(binding.name, binding);
+	}
+
+	// Buffers
+	for (auto& i : resources.uniform_buffers) {
+		// Obtenemos el nombre del set (slot).
+		// Si no tiene nombre registrado en el archivo, su nombre será su número.
+		std::string setName = std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet));
+		if (materialInfo.contains("slots") && materialInfo["slots"].contains(std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))))
+			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
+
+		// Si el slot no está registrado, registrarlo
+		if (!layout->GetAllSlotNames().ContainsElement(setName)) {
+			MaterialLayoutSlot slot{};
+			slot.name = setName;
+			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
+			slot.stage = stage;
+
+			layout->AddSlot(slot);
+		}
+		else {
+			EFTraits::AddFlag(&layout->GetSlot(setName).stage, stage);
+		}
+
+		MaterialLayoutBinding binding{};
+		binding.name = compiler.get_name(i.id);
+		binding.glslIndex = compiler.get_decoration(i.id, spv::DecorationBinding);
+		binding.type = ShaderBindingType::UNIFORM_BUFFER;
+		binding.hlslIndex = *numBuffers;
+		binding.hlslDescriptorIndex = *numBindings;
+
+		(*numBuffers)++;
+		(*numBindings)++;
+
+		// Tamaño del buffer
+		const auto& bufferSize = compiler.get_declared_struct_size(compiler.get_type(i.type_id));
+
+		layout->GetSlot(setName).bindings.Insert(binding.name, binding);
+	}
+
+	// PushConstants
+	for (auto& i : resources.push_constant_buffers) {
+
+		// Si el push constant ya fue definido, actualizar su stage.
+		bool found = false;
+		for (auto& pConst : layout->GetAllPushConstants()) {
+			if (pConst.second.name == compiler.get_name(i.id)) {
+				EFTraits::AddFlag(&pConst.second.stage, stage);
+
+				found = true;
+			}
+		}
+
+		if (found)
+			continue;
+
+		MaterialLayoutPushConstant pushConstantInfo{};
+		pushConstantInfo.name = compiler.get_name(i.id);
+		pushConstantInfo.stage = stage;
+		pushConstantInfo.size = compiler.get_declared_struct_size(compiler.get_type(i.type_id));
+		pushConstantInfo.offset = *pushConstantsOffset;
+		pushConstantInfo.hlslIndex = *numBuffers;
+		pushConstantInfo.hlslBindingIndex = *numBindings;
+
+		(*numBuffers)++;
+		(*numBindings)++;
+
+		*pushConstantsOffset += pushConstantInfo.offset;
+
+		layout->AddPushConstant(pushConstantInfo);
+	}
+}
+
+void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info) {
+	TSize pushConstantsOffset = 0;
+
+	TSize numHlslBuffers = 0;
+	TSize numHlslImages = 0;
+	TSize numHlslBindings = 0;
+
+	info->precompiledHlslShaders = false;
+
+	info->vertexPath = materialInfo["vertex_shader"];
+	info->fragmentPath = materialInfo["fragment_shader"];
+
+	LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["vertex_shader"]), ShaderStage::VERTEX, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
+	LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["fragment_shader"]), ShaderStage::FRAGMENT, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
+	if (materialInfo.contains("tesselation_control_shader")) {
+		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["tesselation_control_shader"]), ShaderStage::TESSELATION, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
+		info->tesselationControlPath = materialInfo["tesselation_control_shader"];
+	}
+	if (materialInfo.contains("tesselation_evaluation_shader")) {
+		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["tesselation_evaluation_shader"]), ShaderStage::TESSELATION, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
+		info->tesselationEvaluationPath = materialInfo["tesselation_evaluation_shader"];
+	}
+
+	TSize nextHlslBinding = 0;
+	for (const auto& slotName : layout->GetAllSlotNames()) {
+		for (auto& binding : layout->GetSlot(slotName).bindings) {
+			binding.second.hlslDescriptorIndex = nextHlslBinding;
+			nextHlslBinding++;
+		}
+	}
+
+	for (auto& pushConstant : layout->GetAllPushConstants()) {
+		pushConstant.second.hlslBindingIndex = nextHlslBinding;
+		nextHlslBinding++;
+	}
+}
+
+Material* MaterialSystem::LoadMaterial(const std::string& path) {
+	MaterialLayout* layout = new MaterialLayout;
+
+	PolygonMode polygonMode = PolygonMode::FILL;
+
+	// Material file.
+	nlohmann::json materialInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(path));
+
+	OSK_ASSERT(materialInfo.contains("file_type"), "Archivo de material incorrecto: no se encuentra 'file_type'.");
+	OSK_ASSERT(materialInfo.contains("name"), "Archivo de material incorrecto: no se encuentra 'name'.");
+	OSK_ASSERT(materialInfo.contains("vertex_type"), "Archivo de material incorrecto: no se encuentra 'vertex_type'.");
+
+	OSK_ASSERT(materialInfo["file_type"] == "MATERIAL", std::string("Archivo ") + path + "no es un material.");
+	
+	const std::string vertexName = materialInfo["vertex_type"];
+	const VertexInfo& vertexType = vertexTypesTable.Get(vertexName);
+
+	int fileVersion = materialInfo["spec_ver"];
+
 	PipelineCreateInfo info{};
-	info.vertexPath = vertexPath;
-	info.fragmentPath = fragmentPath;
-	info.tesselationControlPath = tesselationControlPath;
-	info.tesselationEvaluationPath = tesselationEvaluationPath;
-	info.polygonMode = polygonMode;
 	info.cullMode = PolygonCullMode::BACK;
 	info.frontFaceType = PolygonFrontFaceType::COUNTERCLOCKWISE;
+
+	if (fileVersion == 0)
+		LoadMaterialV0(layout, materialInfo, &info);
+	else if (fileVersion == 1)
+		LoadMaterialV1(layout, materialInfo, &info);
+	else
+		OSK_ASSERT(false, "La versión del archivo de material json no está soportada (" + std::to_string(fileVersion) + ").");
 
 	if (materialInfo.find("config") != materialInfo.end()) {
 		if (materialInfo["config"].contains("depth_testing")) {
@@ -200,7 +353,7 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 			else if (materialInfo["config"]["depth_testing"] == "read/write")
 				info.depthTestingType = DepthTestingType::READ_WRITE;
 			else
-				OSK_ASSERT(false, "Error en el archivo de material" + shaderFilePath + ": config depth_testing inválido.");
+				OSK_ASSERT(false, "Error en el archivo de material" + path + ": config depth_testing inválido.");
 		}
 
 		if (materialInfo["config"].contains("cull_mode")) {
@@ -211,7 +364,7 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 			else if (materialInfo["config"]["cull_mode"] == "back")
 				info.cullMode = PolygonCullMode::BACK;
 			else
-				OSK_ASSERT(false, "Error en el archivo de material" + shaderFilePath + ": config cull_mode inválido.");
+				OSK_ASSERT(false, "Error en el archivo de material" + path + ": config cull_mode inválido.");
 		}
 	}
 

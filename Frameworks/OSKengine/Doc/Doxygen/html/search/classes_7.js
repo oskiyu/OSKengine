@@ -21,7 +21,9 @@ var searchData=
   ['hashmap_3c_20std_3a_3astring_2c_20osk_3a_3agraphics_3a_3avertexinfo_20_3e_18',['HashMap&lt; std::string, OSK::GRAPHICS::VertexInfo &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
   ['hashmap_3c_20std_3a_3astring_2c_20osk_3a_3aownedptr_3c_20osk_3a_3aecs_3a_3aicomponentcontainer_20_3e_20_3e_19',['HashMap&lt; std::string, OSK::OwnedPtr&lt; OSK::ECS::IComponentContainer &gt; &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
   ['hashmap_3c_20std_3a_3astring_2c_20osk_3a_3aownedptr_3c_20osk_3a_3aecs_3a_3aisystem_20_3e_20_3e_20',['HashMap&lt; std::string, OSK::OwnedPtr&lt; OSK::ECS::ISystem &gt; &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
-  ['hashmap_3c_20std_3a_3astring_2c_20osk_3a_3auniqueptr_3c_20osk_3a_3agraphics_3a_3aimaterialslot_20_3e_20_3e_21',['HashMap&lt; std::string, OSK::UniquePtr&lt; OSK::GRAPHICS::IMaterialSlot &gt; &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
-  ['hashmap_3c_20std_3a_3astring_2c_20tsize_20_3e_22',['HashMap&lt; std::string, TSize &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
-  ['hashmap_3c_20tsize_2c_20osk_3a_3aassets_3a_3afontinstance_20_3e_23',['HashMap&lt; TSize, OSK::ASSETS::FontInstance &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]]
+  ['hashmap_3c_20std_3a_3astring_2c_20osk_3a_3aui_3a_3auielement_20_2a_20_3e_21',['HashMap&lt; std::string, OSK::UI::UiElement * &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
+  ['hashmap_3c_20std_3a_3astring_2c_20osk_3a_3auniqueptr_3c_20osk_3a_3agraphics_3a_3aimaterialslot_20_3e_20_3e_22',['HashMap&lt; std::string, OSK::UniquePtr&lt; OSK::GRAPHICS::IMaterialSlot &gt; &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
+  ['hashmap_3c_20std_3a_3astring_2c_20tsize_20_3e_23',['HashMap&lt; std::string, TSize &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
+  ['hashmap_3c_20tsize_2c_20osk_3a_3aassets_3a_3afontinstance_20_3e_24',['HashMap&lt; TSize, OSK::ASSETS::FontInstance &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
+  ['hlslruntimecompiler_25',['HlslRuntimeCompiler',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler.html',1,'OSK::GRAPHICS']]]
 ];

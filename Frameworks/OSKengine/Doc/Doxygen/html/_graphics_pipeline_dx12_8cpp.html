@@ -86,12 +86,13 @@ $(document).ready(function(){initNavTree('_graphics_pipeline_dx12_8cpp.html','')
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Clases</a> &#124;
 <a href="#func-members">Funciones</a>  </div>
   <div class="headertitle"><div class="title">Referencia del Archivo GraphicsPipelineDx12.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="_graphics_pipeline_dx12_8h_source.html">GraphicsPipelineDx12.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;spirv_cross/spirv_cross.hpp&gt;</code><br />
+<code>#include &lt;spirv_cross/spirv_hlsl.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="_graphics_pipeline_dx12_8h_source.html">GraphicsPipelineDx12.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_gpu_dx12_8h_source.html">GpuDx12.h</a>&quot;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;d3dcompiler.h&gt;</code><br />
@@ -102,30 +103,74 @@ $(document).ready(function(){initNavTree('_graphics_pipeline_dx12_8cpp.html','')
 <code>#include &quot;<a class="el" href="_format_dx12_8h_source.html">FormatDx12.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_vertex_info_8h_source.html">VertexInfo.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_linked_list_8hpp_source.html">LinkedList.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_material_layout_8h_source.html">MaterialLayout.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_file_i_o_8h_source.html">FileIO.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_o_s_kengine_8h_source.html">OSKengine.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_logger_8h_source.html">Logger.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_windows_utils_8h_source.html">WindowsUtils.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_spirv_to_hlsl_8h_source.html">SpirvToHlsl.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_hlsl_runtime_compiler_8h_source.html">HlslRuntimeCompiler.h</a>&quot;</code><br />
 </div>
 <p><a href="_graphics_pipeline_dx12_8cpp_source.html">Ir al código fuente de este archivo.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Clases</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_input_layout_desc_dx12.html">InputLayoutDescDx12</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Funciones</h2></td></tr>
-<tr class="memitem:ae9cab0756619dfee595d5b254cfc4859"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_graphics_pipeline_dx12_8cpp.html#ae9cab0756619dfee595d5b254cfc4859">s2ws</a> (const std::string &amp;s)</td></tr>
-<tr class="separator:ae9cab0756619dfee595d5b254cfc4859"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a173d1850ed1c04927871f1d8f40dcb90"><td class="memItemLeft" align="right" valign="top">DXGI_FORMAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_graphics_pipeline_dx12_8cpp.html#a173d1850ed1c04927871f1d8f40dcb90">GetVertexAttribFormatDx12</a> (const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry.html">VertexInfo::Entry</a> &amp;entry)</td></tr>
 <tr class="separator:a173d1850ed1c04927871f1d8f40dcb90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae92f464ea17ca3f4658d008b963cf550"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_input_layout_desc_dx12.html">InputLayoutDescDx12</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_graphics_pipeline_dx12_8cpp.html#ae92f464ea17ca3f4658d008b963cf550">GetInputLayoutDescDx12</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a> &amp;info)</td></tr>
-<tr class="separator:ae92f464ea17ca3f4658d008b963cf550"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9515a8112b7a98dfc575ec92460ae385"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; D3D12_INPUT_ELEMENT_DESC &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_graphics_pipeline_dx12_8cpp.html#a9515a8112b7a98dfc575ec92460ae385">GetInputLayoutDescDx12</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a> &amp;info)</td></tr>
+<tr class="separator:a9515a8112b7a98dfc575ec92460ae385"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f94299ea23d14a4567f92025b1be1c3"><td class="memItemLeft" align="right" valign="top">D3D12_CULL_MODE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_graphics_pipeline_dx12_8cpp.html#a8f94299ea23d14a4567f92025b1be1c3">GetCullMode</a> (<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922c">PolygonCullMode</a> mode)</td></tr>
 <tr class="separator:a8f94299ea23d14a4567f92025b1be1c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a968aa164ea64025be6dfce2ad5ce643a"><td class="memItemLeft" align="right" valign="top">D3D12_FILL_MODE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_graphics_pipeline_dx12_8cpp.html#a968aa164ea64025be6dfce2ad5ce643a">GetFillMode</a> (<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8">PolygonMode</a> mode)</td></tr>
 <tr class="separator:a968aa164ea64025be6dfce2ad5ce643a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33edca9793d4a1d67132252d055d5fbc"><td class="memItemLeft" align="right" valign="top">ComPtr&lt; ID3DBlob &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_graphics_pipeline_dx12_8cpp.html#a33edca9793d4a1d67132252d055d5fbc">LoadBlob</a> (LPCWSTR filename)</td></tr>
 <tr class="separator:a33edca9793d4a1d67132252d055d5fbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36ac50f3e6d6ab33dc5ce0ea67f3eae4"><td class="memItemLeft" align="right" valign="top">ComPtr&lt; IDxcBlob &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_graphics_pipeline_dx12_8cpp.html#a36ac50f3e6d6ab33dc5ce0ea67f3eae4">CompileShaderSpv</a> (const std::string &amp;spirvPath, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a> &amp;vertexInfo, const std::string &amp;hlslProfile, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a> &amp;layout)</td></tr>
+<tr class="separator:a36ac50f3e6d6ab33dc5ce0ea67f3eae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Documentación de las funciones</h2>
+<a id="a36ac50f3e6d6ab33dc5ce0ea67f3eae4" name="a36ac50f3e6d6ab33dc5ce0ea67f3eae4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36ac50f3e6d6ab33dc5ce0ea67f3eae4">&#9670;&nbsp;</a></span>CompileShaderSpv()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ComPtr&lt; IDxcBlob &gt; CompileShaderSpv </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>spirvPath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>vertexInfo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>hlslProfile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>layout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html#l00152">152</a> del archivo <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html">GraphicsPipelineDx12.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a8f94299ea23d14a4567f92025b1be1c3" name="a8f94299ea23d14a4567f92025b1be1c3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8f94299ea23d14a4567f92025b1be1c3">&#9670;&nbsp;</a></span>GetCullMode()</h2>
 
@@ -142,7 +187,7 @@ Funciones</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html#l00079">79</a> del archivo <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html">GraphicsPipelineDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html#l00076">76</a> del archivo <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html">GraphicsPipelineDx12.cpp</a>.</p>
 
 </div>
 </div>
@@ -162,18 +207,18 @@ Funciones</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html#l00092">92</a> del archivo <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html">GraphicsPipelineDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html#l00089">89</a> del archivo <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html">GraphicsPipelineDx12.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ae92f464ea17ca3f4658d008b963cf550" name="ae92f464ea17ca3f4658d008b963cf550"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae92f464ea17ca3f4658d008b963cf550">&#9670;&nbsp;</a></span>GetInputLayoutDescDx12()</h2>
+<a id="a9515a8112b7a98dfc575ec92460ae385" name="a9515a8112b7a98dfc575ec92460ae385"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9515a8112b7a98dfc575ec92460ae385">&#9670;&nbsp;</a></span>GetInputLayoutDescDx12()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_input_layout_desc_dx12.html">InputLayoutDescDx12</a> GetInputLayoutDescDx12 </td>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; D3D12_INPUT_ELEMENT_DESC &gt; GetInputLayoutDescDx12 </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a> &amp;&#160;</td>
           <td class="paramname"><em>info</em></td><td>)</td>
@@ -182,7 +227,7 @@ Funciones</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html#l00051">51</a> del archivo <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html">GraphicsPipelineDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html#l00050">50</a> del archivo <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html">GraphicsPipelineDx12.cpp</a>.</p>
 
 </div>
 </div>
@@ -202,7 +247,7 @@ Funciones</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html#l00033">33</a> del archivo <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html">GraphicsPipelineDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html#l00032">32</a> del archivo <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html">GraphicsPipelineDx12.cpp</a>.</p>
 
 </div>
 </div>
@@ -222,27 +267,7 @@ Funciones</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html#l00103">103</a> del archivo <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html">GraphicsPipelineDx12.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae9cab0756619dfee595d5b254cfc4859" name="ae9cab0756619dfee595d5b254cfc4859"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9cab0756619dfee595d5b254cfc4859">&#9670;&nbsp;</a></span>s2ws()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::wstring s2ws </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>s</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html#l00022">22</a> del archivo <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html">GraphicsPipelineDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html#l00139">139</a> del archivo <a class="el" href="_graphics_pipeline_dx12_8cpp_source.html">GraphicsPipelineDx12.cpp</a>.</p>
 
 </div>
 </div>
@@ -252,7 +277,7 @@ Funciones</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_graphics_pipeline_dx12_8cpp.html">GraphicsPipelineDx12.cpp</a></li>
-    <li class="footer">Generado el Sábado, 7 de Mayo de 2022 19:05:06 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:57 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

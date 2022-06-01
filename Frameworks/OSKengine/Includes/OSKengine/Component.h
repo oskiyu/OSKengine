@@ -1,65 +1,47 @@
 #pragma once
 
 #include "OSKmacros.h"
-#include "OSKsettings.h"
-#include "OSKtypes.h"
-#include "Log.h"
+#include "ConstexprBitSet.hpp"
 
-#include <bitset>
-#include <string>
-
-namespace OSK {
+namespace OSK::ECS {
 
 	/// <summary>
-	/// ID de un tipo de componente.
+	/// Identificador del tipo de componente.
 	/// </summary>
-	typedef uint16_t ComponentType;
+	using ComponentType = uint16_t;
 
 	/// <summary>
-	/// Máximo de tipos de componentes.
+	/// Número máximo de componentes que se pueden registrar
+	/// (y que, por lo tanto, se pueden utilizar).
 	/// </summary>
-	constexpr ComponentType MAX_COMPONENTS = 256;
+	constexpr ComponentType MAX_COMPONENT_TYPES = 256;
 
 	/// <summary>
-	/// Signature: componentes que contiene una entidad en concreto.
+	/// Identificador único para un componente.
+	/// 
+	/// Un componente es una estructura que almacena datos específicos para uno o varios sistemas.
+	/// Los componentes no ejecutan lógica alguna, y sólo son contenedores de información 
+	/// relacionada con un GameObject.
+	/// 
+	/// @warning Para que una clase pueda ser usada como componente, debe tener implementado OSK_COMPONENT(className).
+	/// @warning Este debe ser un identificador único: no pueden haber dos tipos de componentes con el mismo className.
+	/// 
+	/// @note Cada GameObject sólo puede tener un componente de cada tipo.
 	/// </summary>
-	typedef std::bitset<MAX_COMPONENTS> Signature;
+	using ComponentIndex = TSize;
 
 	/// <summary>
-	/// Añade funcionalidades básicas necesarias para un componente.
+	/// Un signature permite saber qué componentes contiene un GameObject.
+	/// Es un bitmap, donde el bit en la posición 'X' indicará si el
+	/// GameObject tiene un componente del tipo (ComponentType == X).
+	/// 
+	/// Los sistemas también tienen su propio signature, que indica qué componentes
+	/// necesita tener un GameObject para ser procesado por ese sistema.
 	/// </summary>
-#define OSK_COMPONENT(x)	\
-	static inline std::string GetComponentName() { return #x; }; \
+	using Signature = ConstexprBitSet<MAX_COMPONENT_TYPES>;
 
-	/// <summary>
-	/// Componente que puede añadirse a una entidad.
-	/// Cada entidad puede tener un único componente de cada tipo.
-	/// Permite añadir funcionalidad a la entidad.
-	/// </summary>
-	class OSKAPI_CALL Component {
-
-	public:
-
-		/// <summary>
-		/// Destructor.
-		/// </summary>
-		virtual ~Component() = default;
-
-		/// <summary>
-		/// Función que se ejecuta al crearse el componente.
-		/// </summary>
-		virtual void OnCreate() {}
-
-		/// <summary>
-		/// Función que se ejecuta al quitarse el componente.
-		/// </summary>
-		virtual void OnRemove() {}
-
-		/// <summary>
-		/// Tipo de componente.
-		/// </summary>
-		ComponentType type;
-
-	};
+#ifndef OSK_COMPONENT
+#define OSK_COMPONENT(className) const static inline std::string GetComponentTypeName() { return className; }
+#endif
 
 }

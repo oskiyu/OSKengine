@@ -1,247 +1,116 @@
 #pragma once
 
 #include "OSKmacros.h"
-#include "OSKsettings.h"
-#include "OSKtypes.h"
-#include "Log.h"
 
-#include "WindowAPI.h"
-#include "VulkanRenderer.h"
-#include "AudioAPI.h"
-#include "ECS.h"
-#include "PhysicsSystem.h"
-#include "InputSystem.h"
-#include "RenderSystem3D.h"
-#include "OnTickSystem.h"
-#include "Scene.h"
+#include <string>
 
-#include "UniquePtr.hpp"
+namespace OSK {
 
-/// <summary>
-/// Esta clase repersenta la clase principal de un juego en OSKengine.
-/// Aunque no es necesario usarla para usar OSKengine,
-/// provee muchos elementos que hacen más sencillo su desarrollo, incluyendo: <br/>
-/// Inicialización de renderizador, ventana y sistema de audio.  <br/>
-/// Sistema ECS. <br/>
-/// Sistema de Renderizado 3D.
-/// </summary>
-class OSKAPI_CALL Game {
-
-public:
-
-	virtual ~Game() = default;
+	struct Version;
 
 	/// <summary>
-	/// Crea la ventana a partir de los ajustes de WindowCreateInfo.
+	/// Esta clase representa la clase principal de un juego de OSKengine.
+	/// No es estrictamente necesaria para desarrollar con OSKengine, pero
+	/// es un buen punto de partida.
+	/// Ofrece una abstracción mínima.
+	/// 
+	/// @pre Deben sobreescribirse las funciones de CreateWindow()
+	/// y SetupEngine() de manera obligatoria.
 	/// </summary>
-	void SetupWindow();
+	class OSKAPI_CALL IGame {
 
-	/// <summary>
-	/// Crea el renderizador a partir de los ajustes de RendererCreateInfo.
-	/// </summary>
-	void SetupRenderer();
+	public:
 
+		virtual ~IGame() = default;
 
-	/// <summary>
-	/// Primera función que se llama al crear el jeugo.
-	/// Úsese para esablecer los ajustes del renderizador y de la ventana.
-	/// </summary>
-	virtual void OnCreate() {}
+		/// <summary>
+		/// Registra los assets y los loaders específicos del 
+		/// juego.
+		/// </summary>
+		virtual void RegisterAssets();
 
-	/// <summary>
-	/// Úsese para cargar los elementos globales.
-	/// </summary>
-	virtual void LoadContent() {}
+		/// <summary>
+		/// Registra los componentes específicos del juego.
+		/// </summary>
+		virtual void RegisterComponents();
 
-	/// <summary>
-	/// Función que se llama al cerrar el juego.
-	/// </summary>
-	virtual void OnExit() {}
+		/// <summary>
+		/// Registra los sistemas específicos del juego.
+		/// </summary>
+		virtual void RegisterSystems();
 
-	/// <summary>
-	/// Función que se llama una vez por tick.
-	/// </summary>
-	/// <param name="deltaTime">Delta.</param>
-	virtual void OnTick(deltaTime_t deltaTime) {}
+		/// <summary>
+		/// Función ejecutada al cargar el juego.
+		/// 
+		/// @note Se ejecuta dfespués de haber cargado todos
+		/// los sistemas del juego.
+		/// </summary>
+		virtual void OnCreate();
 
-	/// <summary>
-	/// Úsese para actualizar los spritebatches.
-	/// Se llamad espués del renderizado 3D.
-	/// </summary>
-	virtual void OnDraw2D() {}
+		/// <summary>
+		/// Función que se ejecuta cada frame.
+		/// Para hacer actualización del estado del juego.
+		/// 
+		/// @note Es preferible usar ECS para manejar actualizaciones
+		/// del estado del juego.
+		/// </summary>
+		/// <param name="deltaTime">Tiempo que ha pasado desde el último frame,
+		/// en segundos.</param>
+		virtual void OnTick(TDeltaTime deltaTime);
 
-	/// <summary>
-	/// Ejecuta el juego.
-	/// </summary>
-	void Run();
-
-	/// <summary>
-	/// Cierra el juego.
-	/// </summary>
-	void Exit();
-
-	/// <summary>
-	/// Devuelve los FPS actuales.
-	/// </summary>
-	/// <returns>FPS.</returns>
-	uint32_t GetFPS() const;
-
-	/// <summary>
-	/// Devuelve el renderizador.
-	/// </summary>
-	/// <returns>Renderizador.</returns>
-	OSK::RenderAPI* GetRenderer();
-
-	/// <summary>
-	/// Devuelve la ventana.
-	/// </summary>
-	/// <returns>Ventana.</returns>
-	OSK::WindowAPI* GetWindow();
-
-	/// <summary>
-	/// Devuelve el sistema de audio.
-	/// </summary>
-	/// <returns>Sistema de audio.</returns>
-	OSK::AudioSystem* GetAudioSystem();
+		/// <summary>
+		/// Se ejecuta después de haberse iniciado las colas de comandos gráficos y haberse
+		/// establecido el renderpass por defecto, y antes de renderizar el sistema 3D.
+		/// </summary>
+		virtual void OnPreRender();
 
 
-	/// <summary>
-	/// Información de la ventana que se va a crear.
-	/// </summary>
-	struct WindowCreateInfo_t {
-		uint32_t SizeX = 1280;
-		uint32_t SizeY = 720;
-		std::string Name = "OSKengine";
+		/// <summary>
+		/// Se ejecuta después de  renderizar el sistema 3D.
+		/// </summary>
+		virtual void OnPostRender();
 
-		OSK::MouseAccelerationMode MouseAcceleration = OSK::MouseAccelerationMode::RAW;
-		OSK::MouseInputMode MouseMode = OSK::MouseInputMode::ALWAYS_RETURN;
-	} windowCreateInfo;
+		/// <summary>
+		/// Función que se ejecuta al salir del juego.
+		/// </summary>
+		virtual void OnExit();
 
-	/// <summary>
-	/// Ajustes del renderizador.
-	/// </summary>
-	struct RendererCreateInfo_t {
-		OSK::PresentMode VSyncMode = OSK::PresentMode::VSYNC;
-		float FPSlimit = std::numeric_limits<float>::max();
 
-		std::string GameName = "OSKengine Project";
-		OSK::Version GameVersion = { 0,0,0 };
+		/// <summary>
+		/// Inicia la ejecución del juego.
+		/// </summary>
+		void Run();
 
-		float RendererResolution = 1.0f;
-	} rendererCreateInfo;
+		/// <summary>
+		/// Fuerza el shutdown del juego.
+		/// </summary>
+		void Exit();
 
-	/// <summary>
-	/// Content manager global.
-	/// </summary>
-	OSK::ContentManager* content = nullptr;
+		/// <summary>
+		/// Devuelve el número de frames en el último segundo.
+		/// </summary>
+		TSize GetFps() const;
 
-private:
+	protected:
 
-	/// <summary>
-	/// Inicia el juego.
-	/// </summary>
-	void Init();
+		/// <summary>
+		/// Debe crear la ventana del Engine.
+		/// </summary>
+		virtual void CreateWindow() = 0;
 
-	/// <summary>
-	/// Inicia los sistemas ECS.
-	/// </summary>
-	void SetupSystems();
+		/// <summary>
+		/// Debe inicializar el renderizador del Engine.
+		/// </summary>
+		virtual void SetupEngine() = 0;
 
-	/// <summary>
-	/// Cierra el juego.
-	/// </summary>
-	void Close();
+	private:
 
-	/// <summary>
-	/// Bucle infinito principal.
-	/// </summary>
-	void MainLoop();
+		TDeltaTime deltaTime = 1.0f;
 
-	/// <summary>
-	/// Renderizador.
-	/// </summary>
-	UniquePtr<OSK::RenderAPI> renderer;
+		TDeltaTime framerateCountTimer = 0.0f;
+		TSize currentFps = 0;
+		TSize frameCount = 0;
 
-	/// <summary>
-	/// Ventana.
-	/// </summary>
-	UniquePtr<OSK::WindowAPI> window;
+	};
 
-	/// <summary>
-	/// Sistema de audio.
-	/// </summary>
-	UniquePtr<OSK::AudioSystem> audio;
-
-	/// <summary>
-	/// FPS.
-	/// </summary>
-	uint32_t framerate = 0;
-
-	/// <summary>
-	/// Contador de un segundo, para actualizar el valor de FPS.
-	/// </summary>
-	deltaTime_t framerateDeltaTime = 0.0f;
-
-	/// <summary>
-	/// Número de frames desde la última vez que se reseteó el FramerateDeltaTime.
-	/// </summary>
-	uint32_t framerateCount = 0;
-
-protected:
-
-	/// <summary>
-	/// Sistema ECS.
-	/// </summary>
-	UniquePtr<OSK::EntityComponentSystem> entityComponentSystem;
-
-	/// <summary>
-	/// Sistema ECS de físicas.
-	/// </summary>
-	UniquePtr<OSK::PhysicsSystem> physicsSystem = nullptr;
-
-	/// <summary>
-	/// Sistema ECS de input.
-	/// </summary>
-	UniquePtr<OSK::InputSystem> inputSystem = nullptr;
-
-	/// <summary>
-	/// Sistema ECS de renderizado.
-	/// </summary>
-	UniquePtr<OSK::RenderSystem3D> renderSystem3D = nullptr;
-
-	/// <summary>
-	/// Sistema ECS de OnTick.
-	/// </summary>
-	UniquePtr<OSK::OnTickSystem> onTickSystem = nullptr;
-
-	/// <summary>
-	/// Estado del teclado en el anterior frame.
-	/// </summary>
-	OSK::KeyboardState oldKeyboardState{};
-
-	/// <summary>
-	/// Estado del teclado en el actual frame.
-	/// </summary>
-	OSK::KeyboardState newKeyboardState{};
-
-	/// <summary>
-	/// Estado del ratón en el anterior frame.
-	/// </summary>
-	OSK::MouseState oldMouseState{};
-
-	/// <summary>
-	/// Estado del ratón en el actual frame.
-	/// </summary>
-	OSK::MouseState newMouseState{};
-
-	/// <summary>
-	/// Spritebatch global.
-	/// </summary>
-	OSK::SpriteBatch spriteBatch;
-
-	/// <summary>
-	/// Escena actual.
-	/// </summary>
-	UniquePtr<OSK::Scene> scene;
-
-};
+}

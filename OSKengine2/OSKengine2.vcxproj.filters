@@ -361,6 +361,18 @@
     <Filter Include="Archivos de origen\OSKengine\Assets\Builtin\Font">
       <UniqueIdentifier>{561a58b1-7796-491d-aba4-6c68d843dad0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\ECS\Builtin\Terrain">
+      <UniqueIdentifier>{31347dad-b317-4c19-a8c2-c7b4a0e2a3b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\ECS\Builtin\Terrain">
+      <UniqueIdentifier>{c5f5e89e-dbd8-4bce-b65d-f191cb3ebe42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\UI">
+      <UniqueIdentifier>{238c8b7b-58c8-412c-8b29-e02ba385ecdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\UI">
+      <UniqueIdentifier>{4deab358-644d-430c-bd8c-0c5a836c30d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -707,6 +719,36 @@
     </ClCompile>
     <ClCompile Include="TextureCoordinates.cpp">
       <Filter>Archivos de origen\OSKengine\ECS\Builtin\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainComponent.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainRenderSystem.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="UiElement.cpp">
+      <Filter>Archivos de origen\OSKengine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UiRenderer.cpp">
+      <Filter>Archivos de origen\OSKengine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Archivos de origen\OSKengine\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="GamepadState.cpp">
+      <Filter>Archivos de origen\OSKengine\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="IInputListener.cpp">
+      <Filter>Archivos de origen\OSKengine\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="SpirvToHlsl.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="HlslRuntimeCompiler.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowsUtils.cpp">
+      <Filter>Archivos de origen\OSKengine\Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1195,6 +1237,36 @@
     </ClInclude>
     <ClInclude Include="TextureCoordinates.h">
       <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainComponent.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainRenderSystem.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="UiElement.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UiRenderer.h">
+      <Filter>Archivos de encabezado\OSKengine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="IInputListener.h">
+      <Filter>Archivos de encabezado\OSKengine\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Archivos de encabezado\OSKengine\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="GamepadState.h">
+      <Filter>Archivos de encabezado\OSKengine\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="SpirvToHlsl.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="HlslRuntimeCompiler.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsUtils.h">
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

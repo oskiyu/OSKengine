@@ -1,14 +1,9 @@
 #pragma once
 
-#include "OSKsettings.h"
 #include "OSKmacros.h"
-#include "OSKtypes.h"
-#include "Log.h"
+#include "Vector3.hpp"
 
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm.hpp>
 #include <gtc/quaternion.hpp>
-#include <gtx/quaternion.hpp>
 
 namespace OSK {
 
@@ -39,23 +34,10 @@ namespace OSK {
 		void Rotate_LocalSpace(float angle, const Vector3f& axis);
 
 		/// <summary>
-		/// Devuelve una matriz de rotación.
-		/// </summary>
-		/// <returns>Matriz de rotación.</returns>
-		inline glm::mat4 ToMat4() const {
-			return glm::toMat4(Quat);
-		}
-
-		/// <summary>
 		/// Devuelve la rotación del cuaternión como coordenadas de Euler.
 		/// </summary>
 		/// <returns>Rotación.</returns>
-		inline Vector3f ToEuler() const {
-			return glm::eulerAngles(Quat);
-		}
-
-		//Crea un cuaternión a partir de las coordenadas de Euler.
-		//	<rot>: rotación.
+		Vector3f ToEulerAngles() const;
 
 		/// <summary>
 		/// Crea un cuaternión a partir de las coordenadas de Euler.
@@ -63,6 +45,11 @@ namespace OSK {
 		/// <param name="rot">Rotación.</param>
 		/// <returns>Quaternión.</returns>
 		static Quaternion CreateFromEulerAngles(const Vector3f& rot);
+
+		/// <summary>
+		/// Crea un cuaternión a partir del dado.
+		/// </summary>
+		static Quaternion FromGlm(const glm::quat& quat);
 
 		/// <summary>
 		/// Interpola este cuaternion con otro.
@@ -73,9 +60,22 @@ namespace OSK {
 		Quaternion Interpolate(const Quaternion& other, float factor) const;
 
 		/// <summary>
+		/// Devuelve el cuaternión en formato GLM.
+		/// </summary>
+		glm::quat ToGlm() const;
+
+		/// <summary>
+		/// Devuelve una matriz de rotación.
+		/// </summary>
+		/// <returns>Matriz de rotación.</returns>
+		glm::mat4 ToMat4() const;
+
+	private:
+
+		/// <summary>
 		/// Cuaternión.
 		/// </summary>
-		glm::quat Quat;
+		glm::quat quaternion;
 
 	};
 

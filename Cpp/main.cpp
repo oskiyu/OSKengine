@@ -1,135 +1,61 @@
-#include <json.hpp>
-
 #include <iostream>
 
-#include <fstream>
-#include <string>
+#include <spirv_glsl.hpp>
+#include <spirv_hlsl.hpp>
 
-	/// <summary>
-	/// Clase que actúa de interfaz para la lectura y escritura de atchivos.
-	/// </summary>
-	class FileIO {
+#include <OSKengine/FileIO.h>
 
-	public:
+#include <vector>
+#include <utility>
 
-		/// <summary>
-		/// Escribe un archivo de texto.
-		/// </summary>
-		/// <param name="path">Ruta del archivo (con extensión).</param>
-		/// <param name="text">Texto que se va a escribir.</param>
-		static void WriteFile(const std::string& path, const std::string& text);
+void PrintInfo(const std::string& input) {
+	const auto& code = OSK::IO::FileIO::ReadBinaryFromFile(input);
+	spirv_cross::Compiler compiler((const uint32_t*)code.GetData(), code.GetSize() / 4);
+	spirv_cross::ShaderResources resources = compiler.get_shader_resources();
 
-		/// <summary>
-		/// Lee un archivo de texto.
-		/// </summary>
-		/// <param name="path">Ruta del archivo (con extensión).</param>
-		/// <returns>String con el contenido del archivo.</returns>
-		static std::string ReadFromFile(const std::string& path);
-
-		/// <summary>
-		/// Comprueba si un archivo existe.
-		/// </summary>
-		/// <param name="path">Ruta del archivo (con extensión).</param>
-		/// <returns>True si existe.</returns>
-		static bool FileExists(const std::string& path);
-
-	};
-
-	void FileIO::WriteFile(const std::string& path, const std::string& text) {
-		std::ofstream stream(path);
-		stream << text << std::endl;
-
-		stream.close();
+	for (auto& i : resources.sampled_images) {
+		std::cout << "set:" << compiler.get_decoration(i.id, spv::DecorationDescriptorSet) << std::endl;
+		std::cout << "binding:" << compiler.get_decoration(i.id, spv::DecorationBinding) << std::endl;
+		std::cout << "sampler id:" << compiler.get_name(i.id) << std::endl;
 	}
 
+	for (auto& i : resources.push_constant_buffers) {
+		std::cout << "set:" << compiler.get_decoration(i.id, spv::DecorationDescriptorSet) << std::endl;
+		std::cout << "binding:" << compiler.get_decoration(i.id, spv::DecorationBinding) << std::endl;
+		std::cout << "sampler id:" << compiler.get_name(i.id) << std::endl;
 
-	std::string FileIO::ReadFromFile(const std::string& path) {
-		std::ifstream stream(path);
-		std::string line;
-		std::string ret = "";
-
-		while (std::getline(stream, line)) {
-			ret.append(line);
-			ret.append("\n");
-		}
-
-		stream.close();
-
-		return ret;
+		const spirv_cross::SPIRType& type = compiler.get_type(i.base_type_id);
+		std::cout << "size: " << compiler.get_declared_struct_size(type) << std::endl;
 	}
 
-	bool FileIO::FileExists(const std::string& path) {
-		std::ifstream stream(path);
+	for (auto& i : resources.uniform_buffers) {
+		std::cout << "set:" << compiler.get_decoration(i.id, spv::DecorationDescriptorSet) << std::endl;
+		std::cout << "binding:" << compiler.get_decoration(i.id, spv::DecorationBinding) << std::endl;
+		std::cout << "sampler id:" << i.name << std::endl;
 
-		bool output = stream.good();
+		const spirv_cross::SPIRType& type = compiler.get_type(i.base_type_id);
+		std::cout << "size: " << compiler.get_declared_struct_size(type) << std::endl;
+	}
+}
 
-		if (stream.is_open())
-			stream.close();
+void SpirvToHlsl(const std::string& input, const std::string& output) {
+	const auto& code = OSK::IO::FileIO::ReadBinaryFromFile(input);
+	spirv_cross::Compiler compiler((const uint32_t*)code.GetData(), code.GetSize() / 4);
 
-		return output;
-};
-
-
-struct Binding {
-	std::string name;
-	std::string type;
-};
-
-struct Slot {
-	std::string name;
-	std::vector<Binding> bindings;
-};
-
-struct Material {
-	std::string name;
-	std::string shaderFile;
-
-	std::vector<Slot> slots;
-};
-
+	spirv_cross::CompilerHLSL compHlsl((const uint32_t*)code.GetData(), code.GetSize() / 4);
+	spirv_cross::CompilerHLSL::Options hlslOptions{};
+	hlslOptions.shader_model = 60;
+	compHlsl.set_hlsl_options(hlslOptions);
+	compHlsl.add_vertex_attribute_remap({ 0, "POSITION" });
+	compHlsl.add_vertex_attribute_remap({ 1, "NORMAL" });
+	compHlsl.add_vertex_attribute_remap({ 2, "COLOR" });
+	compHlsl.add_vertex_attribute_remap({ 3, "TEXCOORD" });
+	OSK::IO::FileIO::WriteFile(output, compHlsl.compile());
+}
 
 int main()  {
-	std::string text = FileIO::ReadFromFile("material.json");
-	nlohmann::json materialInfo = nlohmann::json::parse(text);
-
-	int fileVersion = materialInfo["spec_ver"];
-
-	Material material{};
-	material.name = materialInfo["name"];
-	material.shaderFile = materialInfo["shader_file"];
-
-	for (auto& slotInfo : materialInfo["layout"]["slots"]) {
-		Slot slot{};
-		slot.name = slotInfo["name"];
-
-		for (auto& bindingInfo : slotInfo["bindings"]) {
-			Binding binding{};
-			binding.name = bindingInfo["name"];
-			binding.type = bindingInfo["type"];
-			
-			slot.bindings.push_back(binding);
-		}
-
-		material.slots.push_back(slot);
-	}
-
-	//  SHADER
-	nlohmann::json shaderInfo = nlohmann::json::parse(FileIO::ReadFromFile("shader.json"));
-
-	fileVersion = shaderInfo["spec_ver"];
-	
-	for (auto& setInfo : shaderInfo["sets"]) {
-		std::string name = setInfo["name"];
-
-		for (auto& bindingInfo : setInfo["bindings"]) {
-			std::string name = bindingInfo["name"];
-
-			int glslSet = bindingInfo["glsl"]["set"];
-			int glslId = bindingInfo["glsl"]["index"];
-
-			int hlslId = bindingInfo["hlsl"]["index"];
-		}
-	}
+	SpirvToHlsl("vert.spv", "vert.hlsl");
+	SpirvToHlsl("frag.spv", "frag.hlsl");
 
 	return 0;
 }

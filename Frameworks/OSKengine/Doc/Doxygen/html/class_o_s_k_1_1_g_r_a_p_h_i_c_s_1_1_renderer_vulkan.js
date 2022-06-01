@@ -2,7 +2,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan =
 [
     [ "RendererVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a8e9a738c8ad637345e04a6444d1f84fb", null ],
     [ "~RendererVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a0b5145c60e53b3d070297caf72d74a8a", null ],
-    [ "_CreateGraphicsPipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a3f096691d9ea9067bdb33aaedb89c21e", null ],
+    [ "_CreateGraphicsPipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a7976a8392cc1c8b84f13488b9c2f008d", null ],
     [ "_CreateMaterialSlot", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a67bcbba1b5023d850bec3fd09d8108ce", null ],
     [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a7e06601c9bc5325e2ee5904e58a3af3d", null ],
     [ "Close", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a8c0aa7a8d272950bf1066f915c92f4b8", null ],
@@ -16,6 +16,8 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan =
     [ "CreateSyncDevice", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a4c975e2c18c28bcfb4d190c2fcf1de46", null ],
     [ "FormatImageDataForGpu", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a6bc3460eece49621aa2411460cc65138", null ],
     [ "GetCommandList", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a37d47db030f6723bdce8f43518b611b4", null ],
+    [ "GetCurrentCommandListIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#aa24b61237d77b4e7983383bbd99e17d7", null ],
+    [ "GetCurrentFrameIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#acb88d72e870fcfad0edbc05275c6ff3d", null ],
     [ "GetGpu", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a8b6b1698afeb3bb07f3b91e5ddb79b2d", null ],
     [ "GetMainRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#afff0e2859579dde56407eedf515a55a3", null ],
     [ "GetMaterialSystem", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a15a2d271ad61c59ce4414dbdf016d277", null ],

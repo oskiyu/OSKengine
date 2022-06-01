@@ -163,7 +163,7 @@ void CommandListDx12::BindMaterial(const Material* material) {
 	commandList->IASetPrimitiveTopology(currentPipeline->As<GraphicsPipelineDx12>()->GetTopologyType());
 }
 
-void CommandListDx12::BindVertexBuffer(IGpuVertexBuffer* buffer) {
+void CommandListDx12::BindVertexBuffer(const IGpuVertexBuffer* buffer) {
 	D3D12_VERTEX_BUFFER_VIEW views[] = {
 		buffer->As<GpuVertexBufferDx12>()->GetView()
 	};
@@ -171,7 +171,7 @@ void CommandListDx12::BindVertexBuffer(IGpuVertexBuffer* buffer) {
 	commandList->IASetVertexBuffers(0, 1, views);
 }
 
-void CommandListDx12::BindIndexBuffer(IGpuIndexBuffer* buffer) {
+void CommandListDx12::BindIndexBuffer(const IGpuIndexBuffer* buffer) {
 	commandList->IASetIndexBuffer(buffer->As<GpuIndexBufferDx12>()->GetView());
 }
 

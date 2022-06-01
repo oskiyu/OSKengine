@@ -25,14 +25,28 @@ RenderSystem3D::RenderSystem3D() {
 }
 
 void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
+	Material* previousMaterial = nullptr;
+	IGpuVertexBuffer* previousVertexBuffer = nullptr;
+	IGpuIndexBuffer* previousIndexBuffer = nullptr;
+
 	for (GameObjectIndex obj : GetObjects()) {
 		const ModelComponent3D& model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj);
 		const Transform3D& transform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(obj);
 
-		commandList->BindMaterial(model.GetMaterial());
+		if (previousMaterial != model.GetMaterial()) {
+			commandList->BindMaterial(model.GetMaterial());
+			previousMaterial = model.GetMaterial();
+		}
 
-		commandList->BindVertexBuffer(model.GetModel()->GetVertexBuffer());
-		commandList->BindIndexBuffer(model.GetModel()->GetIndexBuffer());
+		if (previousVertexBuffer != model.GetModel()->GetVertexBuffer()) {
+			commandList->BindVertexBuffer(model.GetModel()->GetVertexBuffer());
+			previousVertexBuffer = model.GetModel()->GetVertexBuffer();
+		}
+		if (previousIndexBuffer != model.GetModel()->GetIndexBuffer()) {
+			commandList->BindIndexBuffer(model.GetModel()->GetIndexBuffer());
+			previousIndexBuffer = model.GetModel()->GetIndexBuffer();
+		}
+
 		commandList->PushMaterialConstants("model", transform.GetAsMatrix());
 
 		for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {

@@ -26,6 +26,9 @@
 #include "Transform2D.h"
 #include "Font.h"
 #include "FontLoader.h"
+#include "TerrainComponent.h"
+#include "TerrainRenderSystem.h"
+#include "InputManager.h"
 
 #include <GLFW/glfw3.h>
 #undef GetCurrentTime;
@@ -37,11 +40,13 @@ UniquePtr<IO::Window> Engine::window;
 UniquePtr<GRAPHICS::IRenderer> Engine::renderer;
 UniquePtr<ASSETS::AssetManager> Engine::assetManager;
 UniquePtr<ECS::EntityComponentSystem> Engine::entityComponentSystem;
+UniquePtr<IO::InputManager> Engine::inputManager;
 
 void Engine::Create(GRAPHICS::RenderApiType type) {
 	logger = new IO::Logger;
 	window = new IO::Window;
 	entityComponentSystem = new ECS::EntityComponentSystem;
+	inputManager = new IO::InputManager;
 
 	logger->Start("LOG_LAST.txt");
 	window->SetRenderApiType(type);
@@ -55,7 +60,8 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 
 	switch (type) {
 	case GRAPHICS::RenderApiType::OPENGL:
-		renderer = new GRAPHICS::RendererOgl;
+		//renderer = new GRAPHICS::RendererOgl;
+		OSK_ASSERT(false, "OpenGL no soportado");
 
 		break;
 
@@ -88,6 +94,7 @@ void Engine::Close() {
 	renderer.Delete();
 	window.Delete();
 	logger.Delete();
+	inputManager.Delete();
 }
 
 void Engine::RegisterBuiltinAssets() {
@@ -104,11 +111,13 @@ void Engine::RegisterBuiltinComponents() {
 	entityComponentSystem->RegisterComponent<GRAPHICS::Sprite>();
 	entityComponentSystem->RegisterComponent<ECS::CameraComponent2D>();
 	entityComponentSystem->RegisterComponent<ECS::Transform2D>();
+	entityComponentSystem->RegisterComponent<ECS::TerrainComponent>();
 }
 
 void Engine::RegisterBuiltinSystems() {
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem3D>();
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem2D>();
+	entityComponentSystem->RegisterSystem<ECS::TerrainRenderSystem>();
 }
 
 void Engine::RegisterBuiltinVertices() {
@@ -136,6 +145,10 @@ ECS::EntityComponentSystem* Engine::GetEntityComponentSystem() {
 	return entityComponentSystem.GetPointer();
 }
 
+IO::InputManager* Engine::GetInputManager() {
+	return inputManager.GetPointer();
+}
+
 float Engine::GetCurrentTime() {
 	return glfwGetTime();
 }
@@ -147,7 +160,7 @@ const Version& Engine::GetVersion() {
 }
 
 const std::string& Engine::GetBuild() {
-	static std::string build = "2022.03.06a";
+	static std::string build = "2022.06.01a";
 
 	return build;
 }

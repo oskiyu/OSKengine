@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/TerrainComponent.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_terrain_component_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">TerrainComponent.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_terrain_component_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_component_8h.html">Component.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_unique_ptr_8hpp.html">UniquePtr.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_i_gpu_vertex_buffer_8h.html">IGpuVertexBuffer.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_i_gpu_index_buffer_8h.html">IGpuIndexBuffer.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_vector2_8hpp.html">Vector2.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_material_instance_8h.html">MaterialInstance.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a> {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_e_c_s_1_1_terrain_component.html">   25</a></span>    <span class="keyword">struct </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_struct" href="struct_o_s_k_1_1_e_c_s_1_1_terrain_component.html">TerrainComponent</a> {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_e_c_s_1_1_terrain_component.html#aa622e14d74866761a309b7ac044a3c39">   29</a></span>        <a class="code hl_function" href="struct_o_s_k_1_1_e_c_s_1_1_terrain_component.html#aa622e14d74866761a309b7ac044a3c39">OSK_COMPONENT</a>(<span class="stringliteral">&quot;OSK::TerrainComponent&quot;</span>);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">void</span> Generate(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a>&amp; resolution);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordtype">void</span> SetMaterialInstance(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;GRAPHICS::MaterialInstance&gt;</a> materialInstance);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html">GRAPHICS::IGpuVertexBuffer</a>* GetVertexBuffer() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html">GRAPHICS::IGpuIndexBuffer</a>* GetIndexBuffer() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html">GRAPHICS::MaterialInstance</a>* GetMaterialInstance() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> GetNumIndices() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GRAPHICS::IGpuVertexBuffer&gt;</a> vertexBuffer;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GRAPHICS::IGpuIndexBuffer&gt;</a> indexBuffer;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GRAPHICS::MaterialInstance&gt;</a> materialInstance;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> numIndices = 0;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    };</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
+<div class="ttc" id="a_component_8h_html"><div class="ttname"><a href="_component_8h.html">Component.h</a></div></div>
+<div class="ttc" id="a_i_gpu_index_buffer_8h_html"><div class="ttname"><a href="_i_gpu_index_buffer_8h.html">IGpuIndexBuffer.h</a></div></div>
+<div class="ttc" id="a_i_gpu_vertex_buffer_8h_html"><div class="ttname"><a href="_i_gpu_vertex_buffer_8h.html">IGpuVertexBuffer.h</a></div></div>
+<div class="ttc" id="a_material_instance_8h_html"><div class="ttname"><a href="_material_instance_8h.html">MaterialInstance.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00015">OSKmacros.h:15</a></div></div>
+<div class="ttc" id="a_unique_ptr_8hpp_html"><div class="ttname"><a href="_unique_ptr_8hpp.html">UniquePtr.hpp</a></div></div>
+<div class="ttc" id="a_vector2_8hpp_html"><div class="ttname"><a href="_vector2_8hpp.html">Vector2.hpp</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html">OSK::GRAPHICS::IGpuIndexBuffer</a></div><div class="ttdoc">Un index buffer contiene los índices para el renderizado de un modelo 2D o 3D.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_index_buffer_8h_source.html#l00010">IGpuIndexBuffer.h:10</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html">OSK::GRAPHICS::IGpuVertexBuffer</a></div><div class="ttdoc">Un vertex buffer es un buffer de memoria en la GPU que almacena los vértices de un modelo 3D o un spr...</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_vertex_buffer_8h_source.html#l00011">IGpuVertexBuffer.h:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html">OSK::GRAPHICS::MaterialInstance</a></div><div class="ttdoc">Mientras que un Material define a grandes rasgos el comportamiento al renderizarse los objetos,...</div><div class="ttdef"><b>Definition:</b> <a href="_material_instance_8h_source.html#l00020">MaterialInstance.h:20</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition:</b> <a href="_owned_ptr_8h_source.html#l00016">OwnedPtr.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Es dueño de un puntero. El puntero original es eliminado al destruirse el UniquePtr.</div><div class="ttdef"><b>Definition:</b> <a href="_unique_ptr_8hpp_source.html#l00019">UniquePtr.hpp:19</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; uint32_t &gt;</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition:</b> <a href="_camera_component2_d_8h_source.html#l00015">CameraComponent2D.h:15</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_e_c_s_1_1_terrain_component_html"><div class="ttname"><a href="struct_o_s_k_1_1_e_c_s_1_1_terrain_component.html">OSK::ECS::TerrainComponent</a></div><div class="ttdoc">Componente que se puede usar para renderizar un terreno. El terreno debe haber sido antes generado.</div><div class="ttdef"><b>Definition:</b> <a href="_terrain_component_8h_source.html#l00025">TerrainComponent.h:25</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_e_c_s_1_1_terrain_component_html_aa622e14d74866761a309b7ac044a3c39"><div class="ttname"><a href="struct_o_s_k_1_1_e_c_s_1_1_terrain_component.html#aa622e14d74866761a309b7ac044a3c39">OSK::ECS::TerrainComponent::OSK_COMPONENT</a></div><div class="ttdeci">OSK_COMPONENT(&quot;OSK::TerrainComponent&quot;)</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_terrain_component_8h.html">TerrainComponent.h</a></li>
+    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:57 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
+</body>
+</html>

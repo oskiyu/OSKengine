@@ -138,6 +138,10 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a0b06f12298dfc2da7a11d7ed99a56fcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb618bc432cbd54c6107cf8ba95c8f81"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_i_o_1_1_mouse_state.html">MouseState</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_i_o_1_1_window.html#aeb618bc432cbd54c6107cf8ba95c8f81">GetPreviousMouseState</a> () const</td></tr>
 <tr class="separator:aeb618bc432cbd54c6107cf8ba95c8f81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52dae4cfee2763b13581c175ceb64015"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html">GamepadState</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_i_o_1_1_window.html#a52dae4cfee2763b13581c175ceb64015">GetGamepadState</a> (<a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> identifier) const</td></tr>
+<tr class="separator:a52dae4cfee2763b13581c175ceb64015"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40360800368a38534f0cb2f009976304"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html">GamepadState</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_i_o_1_1_window.html#a40360800368a38534f0cb2f009976304">GetPreviousGamepadState</a> (<a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> identifier) const</td></tr>
+<tr class="separator:a40360800368a38534f0cb2f009976304"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb6da49da6d72505687d04088cc79cbd"><td class="memItemLeft" align="right" valign="top">GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_i_o_1_1_window.html#aeb6da49da6d72505687d04088cc79cbd">_GetGlfw</a> () const</td></tr>
 <tr class="separator:aeb6da49da6d72505687d04088cc79cbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad735ec09123e1633186b3bbcfcb8365d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_i_o_1_1_window.html#ad735ec09123e1633186b3bbcfcb8365d">IsOpen</a> () const</td></tr>
@@ -147,7 +151,7 @@ Métodos públicos</h2></td></tr>
 <div class="textblock"><p >Clase que representa una ventana. En esta ventana se renderizará el juego. También se encarga del input mediante teclado, ratón, mando, etc... </p>
 <dl class="section note"><dt>Nota</dt><dd>Esta clase debe usarse de manera estática, accediendo a ella mediante la función GetWindow(). </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8h_source.html#l00033">33</a> del archivo <a class="el" href="_window_8h_source.html">Window.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8h_source.html#l00034">34</a> del archivo <a class="el" href="_window_8h_source.html">Window.h</a>.</p>
 </div><h2 class="groupheader">Documentación del constructor y destructor</h2>
 <a id="a74e6087da23d3c24e9fac0245e5ec92c" name="a74e6087da23d3c24e9fac0245e5ec92c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a74e6087da23d3c24e9fac0245e5ec92c">&#9670;&nbsp;</a></span>Window()</h2>
@@ -188,7 +192,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Destruye la ventana. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00027">27</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00032">32</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -210,7 +214,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Obtiene el handler de la ventana, de GLFW. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00181">181</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00205">205</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -231,7 +235,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Cierra la ventana. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00149">149</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00159">159</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -277,7 +281,36 @@ Métodos públicos</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00044">44</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00049">49</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a52dae4cfee2763b13581c175ceb64015" name="a52dae4cfee2763b13581c175ceb64015"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52dae4cfee2763b13581c175ceb64015">&#9670;&nbsp;</a></span>GetGamepadState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html">GamepadState</a> &amp; Window::GetGamepadState </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
+          <td class="paramname"><em>identifier</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Devuelve el estado de todos los botones y todos los ejes en el instante actual. </p>
+<dl class="section pre"><dt>Precondición</dt><dd>El identificador debe ser 0 &lt;= identifier &lt;= 3.</dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>si no cumple la precondición. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00191">191</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -298,7 +331,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Devuelve el estado actual del teclado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00165">165</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00175">175</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -319,7 +352,36 @@ Métodos públicos</h2></td></tr>
 
 <p>Devuelve el estado actual del ratón. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00173">173</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00183">183</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a40360800368a38534f0cb2f009976304" name="a40360800368a38534f0cb2f009976304"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40360800368a38534f0cb2f009976304">&#9670;&nbsp;</a></span>GetPreviousGamepadState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html">GamepadState</a> &amp; Window::GetPreviousGamepadState </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
+          <td class="paramname"><em>identifier</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Devuelve el estado de todos los botones y todos los ejes en el frame anterior. </p>
+<dl class="section pre"><dt>Precondición</dt><dd>El identificador debe ser 0 &lt;= identifier &lt;= 3.</dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>si no cumple la precondición. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00198">198</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -341,7 +403,7 @@ Métodos públicos</h2></td></tr>
 <p>Devuelve el estado del teclado en el anterior frame. </p>
 <dl class="section return"><dt>Devuelve</dt><dd></dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00169">169</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00179">179</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -362,7 +424,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Devuelve el estado del ratón del estado anterior. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00177">177</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00187">187</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -383,7 +445,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Devuelve la velocidad de refresco del monitor, en Hz. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00161">161</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00171">171</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -404,7 +466,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Devuelve el ratio de la ventana (ancho / alto). </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00157">157</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00167">167</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -425,7 +487,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Devuelve el tamaño de la ventana, en píxeles. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00154">154</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00164">164</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -446,7 +508,7 @@ Métodos públicos</h2></td></tr>
 
 <p>True si ahora mismo se está en pantalla completa. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00137">137</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00147">147</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -467,7 +529,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Devuelve true si la ventana ha sido creada y está abierta. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00271">271</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00316">316</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -495,7 +557,7 @@ Métodos públicos</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00108">108</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00118">118</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -517,7 +579,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Establece si el ratón puede moverse libremente o si volverá siempre al centro de la pantalla, para controlar la cámara. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00088">88</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00093">93</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -556,7 +618,7 @@ Métodos públicos</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00141">141</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00151">151</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -578,7 +640,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Establece si el ratón puede moverse libremente o si volverá siempre al centro de la pantalla, para controlar la cámara. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00081">81</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00086">86</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -600,7 +662,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Establece el api de renderizado que se va a utilizar en la ventana. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00036">36</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -623,7 +685,7 @@ Métodos públicos</h2></td></tr>
 <p >Útil para crear el bucle principal </p><div class="fragment"><div class="line"><span class="keywordflow">while</span> (GetWindow()-&gt;ShoudlClose())</div>
 <div class="line">{ ... } </div>
 </div><!-- fragment --> 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00145">145</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00155">155</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -644,7 +706,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Cambia el estado de la pantalla completa. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00133">133</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00143">143</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -665,7 +727,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Actualiza la ventana, procesando todos los eventos relacionados. También actualiza sus estados internos del ratón y teclado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00074">74</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00079">79</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -686,7 +748,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Actualiza los valores del mouse y del frame anterior. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00100">100</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8cpp_source.html#l00105">105</a> del archivo <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
 
 </div>
 </div>
@@ -703,7 +765,7 @@ Métodos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8h_source.html#l00253">253</a> del archivo <a class="el" href="_window_8h_source.html">Window.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8h_source.html#l00277">277</a> del archivo <a class="el" href="_window_8h_source.html">Window.h</a>.</p>
 
 </div>
 </div>
@@ -719,7 +781,7 @@ Métodos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8h_source.html#l00254">254</a> del archivo <a class="el" href="_window_8h_source.html">Window.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8h_source.html#l00278">278</a> del archivo <a class="el" href="_window_8h_source.html">Window.h</a>.</p>
 
 </div>
 </div>
@@ -735,7 +797,7 @@ Métodos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8h_source.html#l00250">250</a> del archivo <a class="el" href="_window_8h_source.html">Window.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8h_source.html#l00274">274</a> del archivo <a class="el" href="_window_8h_source.html">Window.h</a>.</p>
 
 </div>
 </div>
@@ -751,7 +813,7 @@ Métodos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_window_8h_source.html#l00251">251</a> del archivo <a class="el" href="_window_8h_source.html">Window.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_window_8h_source.html#l00275">275</a> del archivo <a class="el" href="_window_8h_source.html">Window.h</a>.</p>
 
 </div>
 </div>
@@ -765,7 +827,7 @@ Métodos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_i_o.html">IO</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_i_o_1_1_window.html">Window</a></li>
-    <li class="footer">Generado el Sábado, 7 de Mayo de 2022 19:05:07 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

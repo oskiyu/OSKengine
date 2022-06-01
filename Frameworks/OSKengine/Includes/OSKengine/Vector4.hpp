@@ -1,9 +1,5 @@
 #pragma once
 
-#include "OSKmacros.h"
-#include "OSKsettings.h"
-#include "Log.h"
-
 #include <glm.hpp>
 
 #include "Vector2.hpp"
@@ -61,7 +57,8 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector4 + Vector4.
-		/// X1 + X2; Y1 + Y2, Z1 + Z2, W1 + W2.
+		/// 
+		/// @note X1 + X2; Y1 + Y2, Z1 + Z2, W1 + W2.
 		/// </summary>
 		Vector4_t operator+(const Vector4_t& vec) const {
 			return Vector4_t(X + vec.X, Y + vec.Y, Z + vec.Z, W + vec.W);
@@ -69,8 +66,9 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector4 += Vector4.
-		/// X1 + X2; Y1 + Y2, Z1 + Z2, W1 + W2.
-		/// Modifica el vector.
+		/// 
+		/// @note X1 + X2; Y1 + Y2, Z1 + Z2, W1 + W2.
+		/// @note Modifica el vector.
 		/// </summary>
 		Vector4_t& operator+=(const Vector4_t& vec) {
 			*this = operator+(vec);
@@ -80,7 +78,8 @@ namespace OSK {
 
 		/// <summary>
 		/// Negación del Vector4.
-		/// -X; -Y; -Z; -W.
+		/// 
+		/// @note -X; -Y; -Z; -W.
 		/// </summary>
 		Vector4_t operator-() const {
 			return Vector4_t(-X, -Y, -Z, -W);
@@ -88,7 +87,8 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector4 - Vector4.
-		/// X1 - X2; Y1 - Y2; Z1 - Z2, W1 - W2.
+		/// 
+		/// @note X1 - X2; Y1 - Y2; Z1 - Z2, W1 - W2.
 		/// </summary>
 		Vector4_t operator-(const Vector4_t& vec) const {
 			return Vector4_t(X - vec.X, Y - vec.Y, Z - vec.Z, W - vec.W);
@@ -96,8 +96,9 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector4 -= Vector4.
-		/// X1 - X2; Y1 - Y2; Z1 - Z2, W1 - W2.
-		/// Modifica el vector.
+		/// 
+		/// @note X1 - X2; Y1 - Y2; Z1 - Z2, W1 - W2.
+		/// @note Modifica el vector.
 		/// </summary>
 		Vector4_t& operator-=(const Vector4_t& vec) {
 			*this = operator-(vec);
@@ -107,7 +108,8 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector4 * Vector4.
-		/// X1 * X2; Y1 * Y2; Z1 * Z2; W1 * W2.
+		/// 
+		/// @note X1 * X2; Y1 * Y2; Z1 * Z2; W1 * W2.
 		/// </summary>
 		Vector4_t operator*(const Vector4_t& vec) const {
 			return Vector4_t(X * vec.X, Y * vec.Y, Z * vec.Z, W * vec.W);
@@ -115,8 +117,9 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector4 *= Vector4.
-		/// X1 * X2; Y1 * Y2; Z1 * Z2, W1 * W2.
-		/// Modifica el vector.
+		/// 
+		/// @note X1 * X2; Y1 * Y2; Z1 * Z2, W1 * W2.
+		/// @note Modifica el vector.
 		/// </summary>
 		Vector4_t& operator*=(const Vector4_t& vec) {
 			*this = operator*(vec);
@@ -126,7 +129,8 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector4 * float.
-		/// X * value; Y * value; Z * value; W * value.
+		/// 
+		/// @note X * value; Y * value; Z * value; W * value.
 		/// </summary>
 		Vector4_t operator*(const T& value) const {
 			return Vector4_t(X * value, Y * value, Z * value, W * value);
@@ -134,8 +138,9 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector4 *= T.
-		/// X1 * value; Y1 * value; Z1 * value, W1 * value.
-		/// Modifica el vector.
+		/// 
+		/// @note X1 * value; Y1 * value; Z1 * value, W1 * value.
+		/// @note Modifica el vector.
 		/// </summary>
 		Vector4_t& operator*=(const T& value) {
 			*this = operator*(value);
@@ -145,7 +150,8 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector4 / Vector4.
-		/// X / vec.X; Y / vec.Y, Z / vec.Z, W / vec.W.
+		/// 
+		/// @note X / vec.X; Y / vec.Y, Z / vec.Z, W / vec.W.
 		/// </summary>
 		Vector4_t operator/(const Vector4_t& vec) const {
 			return Vector4_t(X / vec.X, Y / vec.Y, Z / vec.Z, W / vec.W);
@@ -153,8 +159,9 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector4 /= Vector4.
-		/// X1 / X2; Y1 / Y2; Z1 / Z2, W1 / W2.
-		/// Modifica el vector.
+		/// 
+		/// @note X1 / X2; Y1 / Y2; Z1 / Z2, W1 / W2.
+		/// @note Modifica el vector.
 		/// </summary>
 		Vector4_t& operator/=(const Vector4_t& vec) {
 			*this = operator/(vec);
@@ -164,7 +171,8 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector4 / float_t.
-		/// X / value; Y / value; Z / value; W / value.
+		/// 
+		/// @note X / value; Y / value; Z / value; W / value.
 		/// </summary>
 		Vector4_t operator/(const T& value) const {
 			return Vector4_t(X / value, Y / value, Z / value, W / value);
@@ -172,8 +180,9 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector4 /= T.
-		/// X1 / value; Y1 / value; Z1 / value, W1 / value.
-		/// Modifica el vector.
+		/// 
+		/// @note X1 / value; Y1 / value; Z1 / value, W1 / value.
+		/// @note Modifica el vector.
 		/// </summary>
 		Vector4_t& operator/=(const T& value) {
 			*this = operator/(value);
@@ -332,6 +341,8 @@ namespace OSK {
 	/// <summary>
 	/// Precisión = float.
 	/// </summary>
+	/// 
+	/// @deprecated
 	typedef Vector4_t<float_t> Vector4;
 
 	/// <summary>

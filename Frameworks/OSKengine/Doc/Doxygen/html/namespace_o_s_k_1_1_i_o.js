@@ -1,6 +1,9 @@
 var namespace_o_s_k_1_1_i_o =
 [
     [ "FileIO", "class_o_s_k_1_1_i_o_1_1_file_i_o.html", null ],
+    [ "GamepadState", "class_o_s_k_1_1_i_o_1_1_gamepad_state.html", "class_o_s_k_1_1_i_o_1_1_gamepad_state" ],
+    [ "IInputListener", "class_o_s_k_1_1_i_o_1_1_i_input_listener.html", "class_o_s_k_1_1_i_o_1_1_i_input_listener" ],
+    [ "InputManager", "class_o_s_k_1_1_i_o_1_1_input_manager.html", "class_o_s_k_1_1_i_o_1_1_input_manager" ],
     [ "KeyboardState", "class_o_s_k_1_1_i_o_1_1_keyboard_state.html", "class_o_s_k_1_1_i_o_1_1_keyboard_state" ],
     [ "Logger", "class_o_s_k_1_1_i_o_1_1_logger.html", "class_o_s_k_1_1_i_o_1_1_logger" ],
     [ "MouseState", "class_o_s_k_1_1_i_o_1_1_mouse_state.html", "class_o_s_k_1_1_i_o_1_1_mouse_state" ],
@@ -8,6 +11,33 @@ var namespace_o_s_k_1_1_i_o =
     [ "ButtonState", "namespace_o_s_k_1_1_i_o.html#a59bf216682b802b6dad7d81be5ea3f31", [
       [ "RELEASED", "namespace_o_s_k_1_1_i_o.html#a59bf216682b802b6dad7d81be5ea3f31a109d54efbb64d71f9a6ab18d0fb8add8", null ],
       [ "PRESSED", "namespace_o_s_k_1_1_i_o.html#a59bf216682b802b6dad7d81be5ea3f31a5381dc876ab002103a027265bc14ae52", null ]
+    ] ],
+    [ "GamepadAxis", "namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4", [
+      [ "LEFT_X", "namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4ae5815a16e50afa87f9a36ab8a52545c7", null ],
+      [ "LEFT_Y", "namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4adbc23e1293dc0846d28e1ea129344fcf", null ],
+      [ "RIGHT_X", "namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4aea468ab59a115911fef1492a49e6bc59", null ],
+      [ "RIGHT_Y", "namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4a9dfcf221fddfd2f237b3fd736caa7809", null ],
+      [ "L2", "namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4a7e6aa2d53f6ee2b1a34b017fa403cb76", null ],
+      [ "R2", "namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4a8c6d22ff6f63fc6711cfa315cb80b314", null ],
+      [ "__END", "namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4a72b49a7cbf0c0e3dff052d091d838252", null ]
+    ] ],
+    [ "GamepadButton", "namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345", [
+      [ "X", "namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a02129bb861061d1a052c592e2dc6b383", null ],
+      [ "Y", "namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a57cec4137b614c87cb4e24a3d003a3e0", null ],
+      [ "A", "namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a7fc56270e7a70fa81a5935b72eacbe29", null ],
+      [ "B", "namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a9d5ed678fe57bcca610140957afab571", null ],
+      [ "START", "namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345ab078ffd28db767c502ac367053f6e0ac", null ],
+      [ "BACK", "namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a1dd26f1f1790f0b56d5752fb0fbecef0", null ],
+      [ "L1", "namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a9ec4c0afd450ceac7adb81c3bcfc9732", null ],
+      [ "R1", "namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345acda522d4353b166cc2dee84673307b4e", null ],
+      [ "PAD_TOP", "namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a01658843618e6525f57490c077e42cfd", null ],
+      [ "PAD_DOWN", "namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a0634239a328057c4cf72e09bef7c056b", null ],
+      [ "PAD_LEFT", "namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a383c253a0c1fb4693a76a140e27c32fb", null ],
+      [ "PAD_RIGHT", "namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a8086e04686895d3e8396649873703c58", null ]
+    ] ],
+    [ "GamepadButtonState", "namespace_o_s_k_1_1_i_o.html#aaddc5e8725ac9d930e313af0044eb968", [
+      [ "RELEASED", "namespace_o_s_k_1_1_i_o.html#aaddc5e8725ac9d930e313af0044eb968a109d54efbb64d71f9a6ab18d0fb8add8", null ],
+      [ "PRESSED", "namespace_o_s_k_1_1_i_o.html#aaddc5e8725ac9d930e313af0044eb968a5381dc876ab002103a027265bc14ae52", null ]
     ] ],
     [ "Key", "namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39e", [
       [ "SPACE", "namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea6506ae39fdca9845e3a6de3865183e57", null ],

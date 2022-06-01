@@ -1,58 +1,113 @@
 #pragma once
 
-#include <map>
-#include "FontChar.h"
+#include "IAsset.h"
+#include "OwnedPtr.h"
+#include "IGpuImage.h"
+#include "Vector4.hpp"
+#include "HashMap.hpp"
+#include "FontInstance.h"
+#include "FontCharacter.h"
 
-#include "OldMaterialInstance.h"
+namespace OSK::GRAPHICS {
+	class Material;
+}
 
-namespace OSK {
+namespace OSK::ASSETS {
 
 	/// <summary>
-	/// Fuente para el renderizado de texto.
+	/// Representa una fuente: un asset que almacena una fuente que nos
+	/// permite renderizar texto.
+	/// 
+	/// @note Al cargar una fuente, en realidad no se carga la fuente:
+	/// debemos cargar una fuente de manera independiente por cada tamaño
+	/// de letra que queramos usar.
+	/// 
+	/// @note Considere precargar los tamaños de letra que se vayan a usar
+	/// más adelante, para evitar pérdidas de rendimiento durante la ejecución.
+	/// 
+	/// @warning Únicamente soporta caracteres ASCII.
 	/// </summary>
-	class OSKAPI_CALL Font {
-
-		friend class ContentManager;
-		friend class SpriteBatch;
+	class OSKAPI_CALL Font : public IAsset {
 
 	public:
 
-		/// <summary>
-		/// Espacios a los que equivale '\t'.
-		/// </summary>
-		const static int SPACES_PER_TAB = 4;
-		
-		/// <summary>
-		/// Obtiene el tamaño de un texto que se renderice con esta fuente.
-		/// </summary>
-		/// <param name="texto">Texto.</param>
-		/// <param name="size">Tamaño de la fuente.</param>
-		/// <returns>Tamaño del texto.</returns>
-		Vector2 GetTextSize(const std::string& texto, const Vector2& size) const;
+		OSK_ASSET_TYPE_REG("OSK::Font");
+
+		Font(const std::string& assetFile);
 
 		/// <summary>
-		/// Tamaño de la fuente.
+		/// Establece la ruta de la fuente (.tff), para poder
+		/// generar las fuentes.
 		/// </summary>
-		uint32_t GetFontSize() const {
-			return size;
-		}
+		/// 
+		/// @warning Función interna: no llamar.
+		/// 
+		/// <param name="rawFile">
+		/// Ruta del archivo '.tff'. Está establecido en el archivo '.json' del asset.
+		/// </param>
+		void _SetFontFilePath(const std::string& rawFile);
+
+		/// <summary>
+		/// Genera la imagen de la fuente para el tamaño de letra dado.
+		/// </summary>
+		/// <param name="size">Tamaño de letra, en píxeles.</param>
+		void LoadSizedFont(TSize size);
+
+		/// <summary>
+		/// Descarga la instancia de la funente con el tamaño dado.
+		/// 
+		/// Si la instancia no existe, no ocurre nada.
+		/// </summary>
+		/// <param name="size">Tamaño de letra, en píxeles.</param>
+		void UnloadSizedFont(TSize size);
+
+		/// <summary>
+		/// Devuelve la imagen de GPU correspondiente a la fuente del tamaño dado.
+		/// </summary>
+		/// 
+		/// @note Si la fuente no está cargada, se cargará automáticamente.
+		/// 
+		/// <param name="fontSize">Tamaño de la fuente, en píxeles.</param>
+		GRAPHICS::GpuImage* GetGpuImage(TSize fontSize);
+
+		/// <summary>
+		/// Devuelve la información de un carácter para un tamaño de fuente dado.
+		/// </summary>
+		/// 
+		/// @note Si la fuente no está cargada, se cargará automáticamente.
+		/// 
+		/// <param name="size">Tamaño de la fuente, en píxeles.</param>
+		/// <param name="character">Caracter.</param>
+		const FontCharacter& GetCharacterInfo(TSize size, char character);
+
+		/// <summary>
+		/// Devuelve la información de una instancia de la fuente con el tamaño dado.
+		/// </summary>
+		/// 
+		/// @note Si la fuente no está cargada, se cargará automáticamente.
+		/// 
+		/// <param name="fontSize">Tamaño de la fuente.</param>
+		const FontInstance& GetInstance(TSize fontSize);
+
+		/// <summary>
+		/// Establece el material a partir del que se van a crear
+		/// las instancias de materiales para las instancias de fuentes.
+		/// </summary>
+		void SetMaterial(GRAPHICS::Material* material);
+
+		/// <summary>
+		/// Devuelve el material del que se crean
+		/// las instancias.
+		/// </summary>
+		/// 
+		/// @note Puede devolver null.
+		GRAPHICS::Material* GetMaterial() const;
 
 	private:
 
-		/// <summary>
-		/// Caracteres de la fuente.
-		/// </summary>
-		std::map<char, FontChar> characters;
-
-		/// <summary>
-		/// Tamaño de la fuente.
-		/// </summary>
-		uint32_t size;
-
-		/// <summary>
-		/// Material de la fuente, para su renderizado.
-		/// </summary>
-		SharedPtr<OldMaterialInstance> fontMaterial;
+		HashMap<TSize, FontInstance> instances;
+		std::string fontFile;
+		GRAPHICS::Material* material = nullptr;
 
 	};
 

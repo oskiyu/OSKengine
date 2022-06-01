@@ -26,7 +26,6 @@ void RenderSystem2D::Render(ICommandList* commandList) {
 	spriteRenderer.SetCommandList(commandList);
 
 	spriteRenderer.Begin();
-	PushConst2D pushConst{};
 
 	for (GameObjectIndex obj : GetObjects()) {
 		spriteRenderer.Draw(

@@ -1,88 +1,72 @@
 #pragma once
 
 #include "OSKmacros.h"
-#include "OSKsettings.h"
-#include "OSKtypes.h"
-#include "Log.h"
+#include "HashMap.hpp"
+#include "OwnedPtr.h"
+#include "GameObject.h"
+#include "Component.h"
 
-#include "System.h"
+#include <string>
 
-#include <vulkan/vulkan.h>
+namespace OSK::GRAPHICS {
+	class ICommandList;
+}
 
 namespace OSK::ECS {
 
+	class ISystem;
+
 	/// <summary>
-	/// Maneja los sistemas del ECS.
-	/// Ejecuta sus funciones.
-	/// Puede registrar y crear nuevos sistemas.
+	/// El SystemManager se encarga de almacenar y manejar los sistemas del juego.
+	/// Es el encargado de llamar a las funciones OnTick de los sistemas, además
+	/// de introducir y eliminar de los sistemas a los GameObjects que cada sistema
+	/// vaya a procesar.
+	/// 
+	/// @note Dueño de los sistemas.
 	/// </summary>
-	class SystemManager {
+	class OSKAPI_CALL SystemManager {
 
 	public:
 
 		/// <summary>
-		/// Ejecuta la funcion OnTick de todos los sistemas.
+		/// Ejecuta la lógica OnTickd de todos los sistemas.
 		/// </summary>
-		/// <param name="deltaTime">Delta.</param>
-		OSKAPI_CALL void OnTick(deltaTime_t deltaTime);
+		void OnTick(TDeltaTime deltaTime);
 
 		/// <summary>
-		/// Ejecuta la función OnDraw de todos los sistemas.
+		/// Elimina el GameObject de todos los sistemas.
 		/// </summary>
-		/// <param name="cmdBuffer">Buffer de comandos de Vulkan.</param>
-		/// <param name="ix">Iteración.</param>
-		OSKAPI_CALL void OnDraw(VkCommandBuffer cmdBuffer, uint32_t ix);
+		void GameObjectDestroyed(GameObjectIndex obj);
 
 		/// <summary>
-		/// Registra y crea un nuevo sistema. 
+		/// Añade o elimina el objeto de los sistemas, según sea conveniente
+		/// dependiendo del nuevo signature.
 		/// </summary>
-		/// <typeparam name="T">Clase del sistema.</typeparam>
-		/// <returns>Sistema ya creado.</returns>
-		template <typename T> T* CreateSystem() {
-			const char* name = typeid(T).name();
+		/// <param name="obj">Objeto cuyo signature ha cambiado.</param>
+		/// <param name="signature">Nuevo signature del objeto.</param>
+		void GameObjectSignatureChanged(GameObjectIndex obj, const Signature& signature);
 
-			T* sistema = new T();
-			systems.insert({ name, (System*)sistema });
+		/// <summary>
+		/// Crea y almacena un nuevo sistema.
+		/// </summary>
+		template <typename TSystem> TSystem* RegisterSystem() {
+			TSystem* sistema = new TSystem;
+
+			sistemas.Insert(TSystem::GetSystemName(), (ISystem*)sistema);
 
 			return sistema;
 		}
 
 		/// <summary>
-		/// Establece el signature de un sistema en concrreto.
+		/// Devuelve la instancia del sistema dado.
 		/// </summary>
-		/// <typeparam name="T">Clase del sistema.</typeparam>
-		/// <param name="signature">Signature.</param>
-		template <typename T> void SetSignature(Signature signature) {
-			const char* name = typeid(T).name();
-
-			signatures.insert({ name, signature });
+		template <typename TSystem> TSystem* GetSystem() const {
+			return (TSystem*)sistemas.Get(TSystem::GetSystemName()).GetPointer();
 		}
-
-		/// <summary>
-		/// Cuando un objeto ha sido eliminado:
-		/// se quita de los sistemas que lo manejen.
-		/// </summary>
-		/// <param name="obj">ID del objeto.</param>
-		OSKAPI_CALL void GameObjectDestroyed(GameObjectID obj);
-		
-		/// <summary>
-		/// Cuando un objeto cambia su signature (se añaden o quitan componentes):
-		/// se comprueba que está manejado sólamente por los sistemas indicados, 
-		/// y por todos los sistemas indicados.
-		/// </summary>
-		OSKAPI_CALL void GameObjectSignatureChanged(GameObjectID object, Signature signature);
 
 	private:
 
-		/// <summary>
-		/// Map nombre de sistema -> singature.
-		/// </summary>
-		std::unordered_map<const char*, Signature> signatures;
-
-		/// <summary>
-		/// Map nombre de sistema -> sistema.
-		/// </summary>
-		std::unordered_map<const char*, System*> systems;
+		HashMap<std::string, OwnedPtr<ISystem>> sistemas;
 
 	};
 

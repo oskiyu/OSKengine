@@ -1,0 +1,19 @@
+INFO: Iniciando OSKengine.
+INFO: 	Version: 0.0.0.
+INFO: 	Build 2022.05.25a Release.
+INFO: Ventana iniciada correctamente.
+INFO: 	Monitor sizeX: 1920
+INFO: 	Monitor sizeY: 1080
+INFO: 	Monitor refresh rate: 144
+INFO: Iniciando renderizador DX12.
+INFO: Capas de validación no disponibles.
+INFO: GPU elegida: NVIDIA GeForce RTX 2060
+INFO: Creada la cola de comandos.
+INFO: Creada el pool de comandos.
+INFO: Creada la lista de comandos.
+INFO: Creado el swapchain.
+INFO: Creado el asignador de memoria de la GPU.
+INFO: Game started
+INFO: Game exited
+INFO: Cerrado el log.
+

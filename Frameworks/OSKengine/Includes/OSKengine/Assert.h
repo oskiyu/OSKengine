@@ -61,7 +61,7 @@ namespace OSK {
 /// </summary>
 /// <param name="condition">Condición que debe ser verdadera.</param>
 /// <param name="msg">Mensaje a mostrar, si la condición es falsa.</param>
-#define OSK_ASSERT(condition, msg) OSK::RuntimeCheckIsTrueFunction(condition, msg, __FUNCTION__, __LINE__, __FILE__)
+#define OSK_ASSERT(condition, msg) OSK::RuntimeAssertIsTrueFunction(condition, msg, __FUNCTION__, __LINE__, __FILE__)
 
 /// <summary>
 /// Comprueba si la condición se cumple.
@@ -70,7 +70,7 @@ namespace OSK {
 /// <param name="condition">Condición que debe ser verdadera.</param>
 /// <param name="msg">Mensaje a mostrar, si la condición es falsa.</param>
 #define OSK_CHECK(condition, msg) OSK::RuntimeCheckIsTrueFunction(condition, msg, __FUNCTION__, __LINE__, __FILE__)
-	
+
 /// <summary>
 /// Comprueba si la condición NO se cumple.
 /// Si se cumple, muestra un mensaje de error 

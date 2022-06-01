@@ -22,6 +22,11 @@ Window::Window() {
 
 	oldKeyboardState = new KeyboardState;
 	newKeyboardState = new KeyboardState;
+
+	for (TSize i = 0; i < 4; i++) {
+		newGamepadStates[i] = GamepadState(i);
+		oldGamepadStates[i] = GamepadState(i);
+	}
 }
 
 Window::~Window() {
@@ -103,6 +108,11 @@ void Window::UpdateMouseAndKeyboardOldStates() {
 
 	*oldMouseState = *newMouseState;
 	UpdateMouseState(newMouseState.GetPointer());
+
+	for (TSize i = 0; i < 4; i++) {
+		oldGamepadStates[i] = newGamepadStates[i];
+		UpdateGamepadState(&newGamepadStates[i]);
+	}
 }
 
 void Window::SetFullScreen(bool fullscreen) {
@@ -176,6 +186,20 @@ const MouseState* Window::GetMouseState() const {
 
 const MouseState* Window::GetPreviousMouseState() const {
 	return oldMouseState.GetPointer();
+}
+
+const GamepadState& Window::GetGamepadState(TSize identifier) const {
+	OSK_ASSERT(identifier < 4, "Índice del gamepad incorrecto.");
+	OSK_ASSERT(identifier >= 0, "Índice del gamepad incorrecto.");
+
+	return newGamepadStates[identifier];
+}
+
+const GamepadState& Window::GetPreviousGamepadState(TSize identifier) const {
+	OSK_ASSERT(identifier < 4, "Índice del gamepad incorrecto.");
+	OSK_ASSERT(identifier >= 0, "Índice del gamepad incorrecto.");
+
+	return oldGamepadStates[identifier];
 }
 
 GLFWwindow* Window::_GetGlfw() const {
@@ -266,6 +290,27 @@ void Window::UpdateMouseState(MouseState* mouse) {
 	mouse->_SetButtonState(MouseButton::BUTTON_LEFT, mouse->GetButtonState(MouseButton::BUTTON_1));
 	mouse->_SetButtonState(MouseButton::BUTTON_RIGHT, mouse->GetButtonState(MouseButton::BUTTON_2));
 	mouse->_SetButtonState(MouseButton::BUTTON_MIDDLE, mouse->GetButtonState(MouseButton::BUTTON_3));
+}
+
+void Window::UpdateGamepadState(GamepadState* gamepad) {
+	const auto id = GLFW_JOYSTICK_1 + gamepad->GetIdentifier();
+
+	if (glfwJoystickPresent(id)) {
+		int count;
+		const float* axes = glfwGetJoystickAxes(id, &count);
+
+		gamepad->_SetConnectionState(true);
+
+		for (int axis = 0; axis < 6; axis++)
+			gamepad->_SetAxisState((GamepadAxis)axis, axes[axis]);
+
+		const unsigned char* buttons = glfwGetJoystickButtons(id, &count);
+		for (int button = 0; button < 4; button++)
+			gamepad->_SetButtonState((GamepadButton)button, (bool)buttons[button] ? GamepadButtonState::PRESSED : GamepadButtonState::RELEASED);
+	}
+	else {
+		gamepad->_SetConnectionState(false);
+	}
 }
 
 bool Window::IsOpen() const{

@@ -1,9 +1,5 @@
 #pragma once
 
-#include "OSKmacros.h"
-#include "OSKsettings.h"
-#include "Log.h"
-
 #include <glm.hpp>
 
 namespace OSK {
@@ -54,7 +50,8 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector2 + Vector2.
-		/// X1 + X2; Y1 + Y2.
+		/// 
+		/// @note X1 + X2; Y1 + Y2.
 		/// </summary>
 		/// <param name="vec">Otro vector.</param>
 		/// <returns>Suma.</returns>
@@ -64,8 +61,9 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector2 += Vector2.
-		/// X1 + X2; Y1 + Y2.
-		/// Modifica este vector.
+		/// 
+		/// @note X1 + X2; Y1 + Y2.
+		/// @note Modifica este vector.
 		/// </summary>
 		/// <param name="vec">Otro vector.</param>
 		/// <returns>Suma.</returns>
@@ -78,7 +76,8 @@ namespace OSK {
 		
 		/// <summary>
 		/// Negación del Vector2.
-		/// -X; -Y.
+		/// 
+		/// @note -X; -Y.
 		/// </summary>
 		/// <returns>Negado.</returns>
 		inline Vector2_t operator-() const {
@@ -87,7 +86,8 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector2 - Vector2.
-		/// X1 - X2; Y1 - Y2.
+		/// 
+		/// @note X1 - X2; Y1 - Y2.
 		/// </summary>
 		/// <param name="vec"></param>
 		/// <returns></returns>
@@ -97,8 +97,9 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector2 -= Vector2.
-		/// X1 - X2; Y1 - Y2.
-		/// Modifica este vector.
+		/// 
+		/// @note X1 - X2; Y1 - Y2.
+		/// @note Modifica este vector.
 		/// </summary>
 		/// <param name="vec">Otro vector.</param>
 		/// <returns>Resto.</returns>
@@ -111,7 +112,8 @@ namespace OSK {
 		
 		/// <summary>
 		/// Operación Vector2 * Vector2.
-		/// X1 * X2; Y1 * Y2.
+		/// 
+		/// @note X1 * X2; Y1 * Y2.
 		/// </summary>
 		/// <param name="vec">Otro vector.</param>
 		/// <returns>Multiplicación.</returns>
@@ -121,8 +123,9 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector2 *= Vector2.
-		/// X1 * X2; Y1 * Y2.
-		/// Modifica este vector.
+		/// 
+		/// @note X1 * X2; Y1 * Y2.
+		/// @note Modifica este vector.
 		/// </summary>
 		/// <param name="vec">Otro vector.</param>
 		/// <returns>Multiplicación.</returns>
@@ -135,7 +138,8 @@ namespace OSK {
 		
 		/// <summary>
 		/// Operación Vector2 * float_t.
-		/// X * value; Y * value.
+		/// 
+		/// @note X * value; Y * value.
 		/// </summary>
 		/// <param name="value">Valor.</param>
 		/// <returns>Multiplicación.</returns>
@@ -145,8 +149,9 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector2 * float_t.
-		/// X * value; Y * value.
-		/// Modifica este vector.
+		/// 
+		/// @note X * value; Y * value.
+		/// @note Modifica este vector.
 		/// </summary>
 		/// <param name="value">Valor.</param>
 		/// <returns>Multiplicación.</returns>
@@ -159,7 +164,8 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector2 / float_t.
-		/// X = value; Y = value.
+		/// 
+		/// @note X = value; Y = value.
 		/// </summary>
 		inline Vector2_t operator/(const T& value) const {
 			return Vector2_t(X / value, Y / value);
@@ -167,8 +173,9 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector2 /= Vector2.
-		/// X = vec.X; Y = vec.Y.
-		/// Modifica este vector.
+		/// 
+		/// @note X = vec.X; Y = vec.Y.
+		/// @note Modifica este vector.
 		/// </summary>
 		/// <param name="vec">Otro vector.</param>
 		/// <returns>División.</returns>
@@ -181,7 +188,8 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector2 / Vector2.
-		/// X = vec.X; Y = vec.Y.
+		/// 
+		/// @note X = vec.X; Y = vec.Y.
 		/// </summary>
 		inline Vector2_t operator/(const Vector2_t& vec) const {
 			return Vector2_t(X / vec.X, Y / vec.Y);
@@ -189,8 +197,9 @@ namespace OSK {
 
 		/// <summary>
 		/// Operación Vector2 /= float_t.
-		/// X = value; Y = value.
-		/// Modifica este vector.
+		/// 
+		/// @note X = value; Y = value.
+		/// @note Modifica este vector.
 		/// </summary>
 		inline Vector2_t& operator/=(const T& value) {
 			X /= value;
@@ -324,6 +333,8 @@ namespace OSK {
 	/// <summary>
 	/// Precisión = float.
 	/// </summary>
+	/// 
+	/// @deprecated
 	typedef Vector2_t<float_t> Vector2;
 
 	/// <summary>

@@ -232,9 +232,7 @@ namespace OSK {
 		/// 
 		/// @warning Deja a 'arr' en un estado inválido.
 		DynamicArray(DynamicArray&& arr) {
-			InitialCopyFrom(arr);
-
-			arr.Free();
+			InitialMoveFrom(std::move(arr));
 		}
 
 		/// <summary>
@@ -270,8 +268,12 @@ namespace OSK {
 
 			growthFactorType = arr.growthFactorType;
 
-			for (TSize i = 0; i < arr.GetSize(); i++)
-				Insert(arr.At(i));
+			for (TSize i = 0; i < arr.GetSize(); i++) {
+				if constexpr (std::is_copy_constructible_v<T>)
+					Insert(arr.At(i));
+				else
+					InsertMove(arr.AtRvalue(i));
+			}
 		}
 
 		/// <summary>
@@ -352,7 +354,7 @@ namespace OSK {
 		/// </summary>
 		/// 
 		/// @pre El elemento es copiable.
-		void InsertCopy(const T& element) {
+		void InsertCopy(const T& element) requires std::is_copy_constructible_v<T> {
 			if (!HasBeenInitialized())
 				Allocate(InitialDynamicArraySize);
 
@@ -371,7 +373,7 @@ namespace OSK {
 		/// <summary>
 		/// Inserta un elemento al final del array.
 		/// </summary>
-		void Insert(const T& element) {
+		void Insert(const T& element) requires std::is_copy_constructible_v<T> {
 			InsertCopy(element);
 		}
 
@@ -426,6 +428,23 @@ namespace OSK {
 #endif
 
 			return data[index];
+		}
+
+		/// <summary>
+		/// Devuelve el elemento en la posición dada.
+		/// </summary>
+		/// 
+		/// @throws std::runtime_error Si el índice es inválido.
+		/// @throws std::runtime_error Si no ha sido correctamente inicializado.
+		T&& AtRvalue(TSize index) const {
+#ifdef OSK_SAFE
+			OSK_ASSERT(index < capacity, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
+			OSK_ASSERT(index < size, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(size) + " elements.");
+			OSK_ASSERT(index >= 0, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
+			OSK_ASSERT(HasBeenInitialized(), "DynamicArray: tried to access element from an uninitialized array.");
+#endif
+
+			return std::move(data[index]);
 		}
 
 		/// <summary>
@@ -746,16 +765,16 @@ namespace OSK {
 			InitialAllocate(arr.capacity);
 
 			for (TSize i = 0; i < arr.GetSize(); i++)
-				Insert(arr.At(i));
+				Insert(arr.data[i]);
 
 			growthFactorType = arr.growthFactorType;
 		}
 
-		void InitialCopyFrom(DynamicArray&& arr) {
+		void InitialMoveFrom(DynamicArray&& arr) {
 			InitialAllocate(arr.capacity);
 
 			for (TSize i = 0; i < arr.GetSize(); i++)
-				Insert(arr.At(i));
+				InsertMove(std::move(arr.data[i]));
 
 			growthFactorType = arr.growthFactorType;
 		}

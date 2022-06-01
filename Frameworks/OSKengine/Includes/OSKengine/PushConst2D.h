@@ -1,30 +1,38 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "Color.hpp"
+#include "Vector4.hpp"
 
-#include <glm.hpp>
-
-namespace OSK {
+namespace OSK::GRAPHICS {
 
 	/// <summary>
-	/// Push constants de un sprite.
+	/// Información push constant usada en el sistema de renderizado
+	/// 2D por defecto.
 	/// </summary>
-	struct OSKAPI_CALL PushConst2D {
+	struct PushConst2D {
 
 		/// <summary>
-		/// Matriz modelo.
+		/// Matriz de modelo del sprite.
+		/// 
+		/// Contiene:
+		/// - Posición.
+		/// - Rotación.
+		/// - Escala.
 		/// </summary>
-		alignas(16) glm::mat4 model;
-
-		/// <summary>
-		/// Cámara usada para renderizar el sprite.
-		/// </summary>
-		alignas(16) glm::mat4 camera = glm::mat4(1.0f);
+		alignas(16) glm::mat4 matrix;
 
 		/// <summary>
 		/// Color del sprite.
+		/// Se aplicará a todo el sprite.
 		/// </summary>
-		alignas(16) glm::vec4 color = glm::vec4(1.0f);
+		alignas(16) Color color;
+
+		/// <summary>
+		/// Coordenadas de texturas.
+		/// 
+		/// @note Normalizadas (0.0 - 1.0).
+		/// </summary>
+		alignas(16) Vector4f texCoords;
 
 	};
 
