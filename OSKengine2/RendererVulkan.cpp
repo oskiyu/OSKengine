@@ -1,3 +1,5 @@
+#include <vulkan/vulkan.h>
+
 #include "RendererVulkan.h"
 
 #include "OSKengine.h"
@@ -251,7 +253,7 @@ void RendererVulkan::SetupDebugLogging() {
 }
 
 void RendererVulkan::CreateSurface(const IO::Window& window) {
-	auto result = glfwCreateWindowSurface(instance, window._GetGlfw(), nullptr, &surface);
+	const VkResult result = glfwCreateWindowSurface(instance, window._GetGlfw(), nullptr, &surface);
 	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear la superficie. " + std::to_string(result));
 
 	Engine::GetLogger()->InfoLog("Se ha creado correctamente la superficie de Vulkan.");

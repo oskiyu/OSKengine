@@ -127,7 +127,7 @@ public:
 			auto br = scene->Spawn<Wheel>();
 			auto bl = scene->Spawn<Wheel>();
 
-			float scale = 0.01;
+			float scale = 0.01f;
 			br->GetComponent<OSK::ModelComponent>().AddModel("models/F0/Wheel/wheel.fbx", content);
 			{
 				Wheel* w = br;

@@ -80,7 +80,7 @@ unsigned int GpuImage::GetMipLevels() const {
 
 TSize GpuImage::GetMipLevels(uint32_t sizeX, uint32_t sizeY) {
 	return 1;
-	return glm::floor(glm::log2(glm::max((float)sizeX, (float)sizeY))) + 1;
+	return static_cast<TSize>(glm::floor(glm::log2(glm::max((float)sizeX, (float)sizeY)))) + 1;
 }
 
 void GpuImage::SetLayout(GpuImageLayout layout) {

@@ -44,10 +44,11 @@ void SpirvToHlsl::SetLayoutMapping(const MaterialLayout& layout) {
 					hlslBinding.stage = spv::ExecutionModel::ExecutionModelVertex;
 				else if (stage == ShaderStage::FRAGMENT)
 					hlslBinding.stage = spv::ExecutionModel::ExecutionModelFragment;
-				//else if (hlslProfile.starts_with("hs"))
-					//hlslBinding.stage = spv::ExecutionModel::ExecutionModelFragment;
-				//else if (hlslProfile.starts_with("cs"))
-					//hlslBinding.stage = spv::ExecutionModel::ExecutionModelFragment;
+				else if (stage == ShaderStage::TESSELATION) {
+					hlslBinding.stage = spv::ExecutionModel::ExecutionModelTessellationControl;
+					compilerToHlsl.add_hlsl_resource_binding(hlslBinding);
+					hlslBinding.stage = spv::ExecutionModel::ExecutionModelTessellationEvaluation;
+				}
 
 				compilerToHlsl.add_hlsl_resource_binding(hlslBinding);
 			}
@@ -76,7 +77,6 @@ void SpirvToHlsl::SetHlslTargetProfile(TSize mayor, TSize minor) {
 	compilerToHlsl.set_hlsl_options(options);
 }
 
-
 std::string SpirvToHlsl::CreateHlsl() {
-		return compilerToHlsl.compile();
+	return compilerToHlsl.compile();
 }

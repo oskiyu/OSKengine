@@ -5,6 +5,17 @@
 #include "OwnedPtr.h"
 #include "DynamicArray.hpp"
 
+
+#include "IGpu.h"
+#include "ICommandQueue.h"
+#include "ISwapchain.h"
+#include "ISyncDevice.h"
+#include "ICommandList.h"
+#include "ICommandPool.h"
+#include "IGpuMemoryAllocator.h"
+#include "IRenderpass.h"
+#include "MaterialSystem.h"
+
 #include <string>
 
 namespace OSK {
@@ -16,17 +27,8 @@ namespace OSK {
 
 namespace OSK::GRAPHICS {
 
-	class MaterialSystem;
 	class MaterialLayout;
 	class IMaterialSlot;
-	class IGpu;
-	class ICommandPool;
-	class ICommandList;
-	class ISwapchain;
-	class ICommandQueue;
-	class ISyncDevice;
-	class IGpuMemoryAllocator;
-	class IRenderpass;
 	struct PipelineCreateInfo;
 	class IGraphicsPipeline;
 	class GpuImage;

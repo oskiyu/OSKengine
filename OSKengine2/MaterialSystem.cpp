@@ -263,7 +263,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 		MaterialLayoutPushConstant pushConstantInfo{};
 		pushConstantInfo.name = compiler.get_name(i.id);
 		pushConstantInfo.stage = stage;
-		pushConstantInfo.size = compiler.get_declared_struct_size(compiler.get_type(i.type_id));
+		pushConstantInfo.size = static_cast<TSize>(compiler.get_declared_struct_size(compiler.get_type(i.type_id)));
 		pushConstantInfo.offset = *pushConstantsOffset;
 		pushConstantInfo.hlslIndex = *numBuffers;
 		pushConstantInfo.hlslBindingIndex = *numBindings;

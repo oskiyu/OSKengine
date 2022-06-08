@@ -35,7 +35,7 @@ public:
 		modelComponent->SetMaterial(pbrMaterial);
 
 		modelComponent->BindUniformBufferForAllMeshes("global", "camera", Scene::GetCameraBuffer());
-		modelComponent->BindTextureForAllMeshes("global", "texture", Engine::GetAssetManager()->Load<Texture>("Resources/Assets/texture0.json", "GLOBAL"));
+		modelComponent->BindTextureForAllMeshes("global", "stexture", Engine::GetAssetManager()->Load<Texture>("Resources/Assets/texture0.json", "GLOBAL"));
 		modelComponent->BindUniformBufferForAllMeshes("global", "lights", Scene::GetLightsBuffer());
 
 		for (TSize i = 0; i < model->GetMeshes().GetSize(); i++) {
@@ -43,7 +43,7 @@ public:
 
 			if (metadata.materialTextures.GetSize() > 0) {
 				for (auto& texture : metadata.materialTextures)
-					modelComponent->GetMeshMaterialInstance(i)->GetSlot("global")->SetGpuImage("texture", model->GetImage(texture.second));
+					modelComponent->GetMeshMaterialInstance(i)->GetSlot("global")->SetGpuImage("stexture", model->GetImage(texture.second));
 
 				modelComponent->GetMeshMaterialInstance(i)->GetSlot("global")->FlushUpdate();
 			}

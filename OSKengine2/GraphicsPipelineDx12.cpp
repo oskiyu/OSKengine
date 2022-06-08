@@ -97,45 +97,6 @@ D3D12_FILL_MODE GetFillMode(PolygonMode mode) {
 	}
 }
 
-static IDxcCompiler3* GetCompilerDx12() {
-	static ComPtr<IDxcCompiler3> compilerDx12 = nullptr;
-
-	if (compilerDx12.Get() != nullptr)
-		return compilerDx12.Get();
-
-	// Crear una sola vez
-	HRESULT result = DxcCreateInstance(CLSID_DxcCompiler, IID_PPV_ARGS(&compilerDx12));
-	OSK_ASSERT(SUCCEEDED(result), "No se pudo instanciar la libreria del compilador DX12.");
-
-	return compilerDx12.Get();
-}
-
-static IDxcUtils* GetCompilerLibraryDx12() {
-	static ComPtr<IDxcUtils> dxcLibrary = nullptr;
-
-	if (dxcLibrary.Get() != nullptr)
-		return dxcLibrary.Get();
-
-	// Crear una sola vez
-	HRESULT result = DxcCreateInstance(CLSID_DxcUtils, IID_PPV_ARGS(dxcLibrary.GetAddressOf()));
-	OSK_ASSERT(SUCCEEDED(result), "No se pudo instanciar el compilador DX12.");
-
-	return dxcLibrary.Get();
-}
-
-static IDxcIncludeHandler* GetCompilerIncludeHandlerDx12() {
-	static ComPtr<IDxcIncludeHandler> dxcIncludeHandler = nullptr;
-
-	if (dxcIncludeHandler.Get() != nullptr)
-		return dxcIncludeHandler.Get();
-
-	// Crear una sola vez
-	HRESULT result = GetCompilerLibraryDx12()->CreateDefaultIncludeHandler(&dxcIncludeHandler);
-	OSK_ASSERT(SUCCEEDED(result), "No se pudo instanciar el iclude handler compilador DX12.");
-
-	return dxcIncludeHandler.Get();
-}
-
 ComPtr<ID3DBlob> LoadBlob(LPCWSTR filename) {
 	HRESULT hr{};
 

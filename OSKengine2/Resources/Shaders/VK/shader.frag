@@ -11,5 +11,6 @@ layout (location = 0) out vec4 outColor;
 layout (set = 0, binding = 1) uniform sampler2D stexture;
 
 void main() {
-    outColor = (color * vec4(texture(stexture, texCoords).xyz, 1.0)) * 0.9 + vec4(normal, 1.0) * 0.1;
+    //outColor = (color * vec4(texture(stexture, texCoords).xyz, 1.0)) * 0.9 + vec4(normal, 1.0) * 0.1;
+    outColor = vec4(normal, 1.0);
 }

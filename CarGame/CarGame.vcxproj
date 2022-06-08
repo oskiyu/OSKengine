@@ -127,20 +127,28 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>..\Dependencies\OSKengine\glfw3\include;..\Dependencies\OSKengine\glm;..\Frameworks\OSKengine\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Frameworks\OSKengine\BinLib</LibraryPath>
+    <IncludePath>..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\glfw3\include;..\Dependencies\OSKengine\glm;..\Frameworks\OSKengine\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Frameworks\OSKengine\BinLib;$(LibraryPath)</LibraryPath>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|x64'">
-    <IncludePath>..\Dependencies\OSKengine\glfw3\include;..\Dependencies\OSKengine\glm;..\Frameworks\OSKengine\Includes;$(IncludePath)</IncludePath>
+    <IncludePath>..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\glfw3\include;..\Dependencies\OSKengine\glm;..\Frameworks\OSKengine\Includes;$(IncludePath)</IncludePath>
     <LibraryPath>..\x64\DLL RVL;$(LibraryPath)</LibraryPath>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RVL|x64'">
-    <IncludePath>..\Dependencies\OSKengine\glfw3\include;..\Dependencies\OSKengine\glm;..\Frameworks\OSKengine\Includes;$(IncludePath)</IncludePath>
+    <IncludePath>..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\glfw3\include;..\Dependencies\OSKengine\glm;..\Frameworks\OSKengine\Includes;$(IncludePath)</IncludePath>
     <LibraryPath>..\Frameworks\OSKengine\BinLibDebug;$(LibraryPath)</LibraryPath>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\Dependencies\OSKengine\glfw3\include;..\Dependencies\OSKengine\glm;..\Frameworks\OSKengine\Includes;$(IncludePath)</IncludePath>
+    <IncludePath>..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\glfw3\include;..\Dependencies\OSKengine\glm;..\Frameworks\OSKengine\Includes;$(IncludePath)</IncludePath>
     <LibraryPath>..\x64\DLL RVL;$(LibraryPath)</LibraryPath>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

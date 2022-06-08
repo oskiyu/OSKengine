@@ -5,6 +5,7 @@
 #include <type_traits>
 #include "DynamicArray.hpp"
 #include "OwnedPtr.h"
+#include "IGpuDataBuffer.h"
 #include <string>
 
 namespace OSK {
@@ -21,7 +22,6 @@ namespace OSK::GRAPHICS {
 	class IGpuVertexBuffer;
 	class IGpuIndexBuffer;
 	struct Viewport;
-	class GpuDataBuffer;
 	class IGraphicsPipeline;
 
 	/// <summary>

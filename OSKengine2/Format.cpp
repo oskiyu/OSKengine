@@ -3,6 +3,8 @@
 #include "FormatVulkan.h"
 #include "FormatOgl.h"
 
+#include "Assert.h"
+
 #include <dxgi1_6.h>
 #include <vulkan/vulkan.h>
 #include <glad/glad.h>
@@ -26,6 +28,9 @@ DXGI_FORMAT OSK::GRAPHICS::GetFormatDx12(Format format) {
 		case Format::D32S8_SFLOAT_SUINT:
 			return DXGI_FORMAT_D32_FLOAT_S8X24_UINT;
 	}
+
+	OSK_ASSERT(false, "El formato " + ToString<Format>(format) + " no está registrado en OSK::GRAPHICS::GetFormatDx12.");
+	return DXGI_FORMAT_UNKNOWN;
 }
 
 VkFormat OSK::GRAPHICS::GetFormatVulkan(Format format) {
@@ -45,6 +50,9 @@ VkFormat OSK::GRAPHICS::GetFormatVulkan(Format format) {
 	case Format::D32S8_SFLOAT_SUINT:
 		return VK_FORMAT_D32_SFLOAT_S8_UINT;
 	}
+
+	OSK_ASSERT(false, "El formato " + ToString<Format>(format) + " no está registrado en OSK::GRAPHICS::GetFormatVulkan.");
+	return VK_FORMAT_UNDEFINED;
 }
 
 unsigned int OSK::GRAPHICS::GetFormatNumberOfBytes(Format format) {
@@ -66,6 +74,7 @@ unsigned int OSK::GRAPHICS::GetFormatNumberOfBytes(Format format) {
 
 	}
 
+	OSK_ASSERT(false, "El formato " + ToString<Format>(format) + " no está registrado en OSK::GRAPHICS::GetFormatNumberOfBytes.");
 	return 0;
 }
 
@@ -97,9 +106,30 @@ unsigned int OSK::GRAPHICS::GetFormatOgl(GRAPHICS::Format format) {
 		return GL_DEPTH24_STENCIL8;
 	}
 
+	OSK_ASSERT(false, "El formato " + ToString<Format>(format) + " no está registrado en OSK::GRAPHICS::GetFormatOgl.");
 	return 0;
 }
 
 unsigned int OSK::GRAPHICS::GetFormatInternalOgl(Format format) {
 	return GetFormatOgl(format);
+}
+
+template <> std::string OSK::ToString<OSK::GRAPHICS::Format>(const OSK::GRAPHICS::Format& format) {
+	switch (format) {
+	case OSK::GRAPHICS::Format::B8G8R8A8_SRGB:
+		return "B8G8R8A8_SRGB";
+	case OSK::GRAPHICS::Format::D24S8_SFLOAT_SUINT:
+		return "D24S8_SFLOAT_SUINT";
+	case OSK::GRAPHICS::Format::D32S8_SFLOAT_SUINT:
+		return "D32S8_SFLOAT_SUINT";
+	case OSK::GRAPHICS::Format::D32_SFLOAT:
+		return "D32_SFLOAT";
+	case OSK::GRAPHICS::Format::RGB8_UNORM:
+		return "RGB8_UNORM";
+	case OSK::GRAPHICS::Format::RGBA8_UNORM:
+		return "RGBA8_UNORM";
+	default:
+		return "UNKNOWN";
+		break;
+	}
 }

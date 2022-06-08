@@ -153,7 +153,7 @@ protected:
 
 		skyboxMaterialInstance = skyboxMaterial->CreateInstance().GetPointer();
 		skyboxMaterialInstance->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer.GetPointer());
-		skyboxMaterialInstance->GetSlot("global")->SetGpuImage("cubemap", cubemap->GetGpuImage());
+		skyboxMaterialInstance->GetSlot("global")->SetGpuImage("skybox", cubemap->GetGpuImage());
 		skyboxMaterialInstance->GetSlot("global")->FlushUpdate();
 
 		cameraObject2d = OSK::Engine::GetEntityComponentSystem()->SpawnObject();

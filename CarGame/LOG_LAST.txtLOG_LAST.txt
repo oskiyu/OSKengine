@@ -1,19 +1,26 @@
 INFO: Iniciando OSKengine.
 INFO: 	Version: 0.0.0.
-INFO: 	Build 2022.05.25a Release.
+INFO: 	Build 2022.06.01a.
 INFO: Ventana iniciada correctamente.
 INFO: 	Monitor sizeX: 1920
 INFO: 	Monitor sizeY: 1080
 INFO: 	Monitor refresh rate: 144
-INFO: Iniciando renderizador DX12.
-INFO: Capas de validación no disponibles.
+INFO: Extensiones del renderizador: 
+INFO: 	VK_KHR_surface
+INFO: 	VK_KHR_win32_surface
+INFO: Capas de validación del renderizador: 
+INFO: 	VK_LAYER_KHRONOS_validation
+INFO: Se ha creado correctamente la superficie de Vulkan.
 INFO: GPU elegida: NVIDIA GeForce RTX 2060
-INFO: Creada la cola de comandos.
 INFO: Creada el pool de comandos.
 INFO: Creada la lista de comandos.
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
 INFO: Creado el swapchain.
 INFO: Creado el asignador de memoria de la GPU.
 INFO: Game started
 INFO: Game exited
+INFO: Destruyendo el renderizador de Vulkan.
 INFO: Cerrado el log.
 

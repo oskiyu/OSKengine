@@ -1,6 +1,6 @@
 module;
 
-#include <time.h>
+#include <OSKengine/OSKengine.h>
 
 export module StopWatch;
 
@@ -9,15 +9,15 @@ export class StopWatch {
 public:
 
 	void Start() {
-		startTime = clock();
+		startTime = OSK::Engine::GetCurrentTime();
 	}
 
 	void End(){
-		endTime = clock();
+		endTime = OSK::Engine::GetCurrentTime();
 	}
 
 	float GetValue() const {
-		return (endTime - startTime) / CLOCKS_PER_SEC;
+		return endTime - startTime;
 	}
 
 private:

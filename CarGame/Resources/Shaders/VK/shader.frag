@@ -38,5 +38,5 @@ void main() {
     vec3 ambientLight = lights.color.xyz * textureColor * (0.025 + lights.intensity * 0.1);
 
     outColor = vec4(diffuseColor + specularColor + ambientLight, 1.0); //(color * vec4(texture(stexture, texCoords).xyz, 1.0)) * 0.1 + 
-    //outColor = vec4(normal, 1.0);
+    outColor = vec4(normal, 1.0);
 }

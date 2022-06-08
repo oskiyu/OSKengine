@@ -16,12 +16,12 @@ void TerrainComponent::Generate(const Vector2ui& resolution) {
 
 	for (TSize posX = 0; posX < resolution.X; posX++) {
 		for (TSize posY = 0; posY < resolution.Y; posY++) {
-			terrainVertices.Insert(Vertex3D(
+			terrainVertices.Insert(Vertex3D{
 				(Vector3f(posX, 0, posY) / Vector3f(resolution.X, 1, resolution.Y)),
 				 Vector3f(0),
 				 Color::WHITE(),
 				 Vector2f(posX, posY) / resolution.ToVector2f()
-			));
+				});
 		}
 	}
 

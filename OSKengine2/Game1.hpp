@@ -107,7 +107,7 @@ protected:
 		OSK::ECS::ModelComponent3D* modelComponent = &OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::ModelComponent3D>(ballObject, {});
 
 		transform.AddPosition({ 0, 0.1f, 0 });
-		transform.SetScale(0.03f);
+		//transform.SetScale(0.03f);
 
 		modelComponent->SetModel(model);
 		modelComponent->SetMaterial(material);
@@ -153,7 +153,7 @@ protected:
 
 		skyboxMaterialInstance = skyboxMaterial->CreateInstance().GetPointer();
 		skyboxMaterialInstance->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer.GetPointer());
-		skyboxMaterialInstance->GetSlot("global")->SetGpuImage("cubemap", cubemap->GetGpuImage());
+		skyboxMaterialInstance->GetSlot("global")->SetGpuImage("skybox", cubemap->GetGpuImage());
 		skyboxMaterialInstance->GetSlot("global")->FlushUpdate();
 
 		cameraObject2d = OSK::Engine::GetEntityComponentSystem()->SpawnObject();
@@ -205,7 +205,7 @@ protected:
 	}
 
 	void OnTick(TDeltaTime deltaTime) override {
-		OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform3D>(ballObject).RotateLocalSpace(deltaTime, { 0 ,1 ,0 });
+		//OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform3D>(ballObject).RotateLocalSpace(deltaTime, { 0 ,1 ,0 });
 
 		OSK::ECS::CameraComponent3D& camera = OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::CameraComponent3D>(cameraObject);
 		OSK::ECS::Transform3D& cameraTransform = OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform3D>(cameraObject);
@@ -246,10 +246,12 @@ protected:
 
 		if (newKs->IsKeyDown(OSK::IO::Key::ESCAPE))
 			this->Exit();
+		if (newKs->IsKeyDown(OSK::IO::Key::P))
+			this->Exit();
 
 		camera.Rotate(
-			(OSK::Engine::GetWindow()->GetMouseState()->GetPosition().X - OSK::Engine::GetWindow()->GetPreviousMouseState()->GetPosition().X),
-			(OSK::Engine::GetWindow()->GetMouseState()->GetPosition().Y - OSK::Engine::GetWindow()->GetPreviousMouseState()->GetPosition().Y)
+			(float)(OSK::Engine::GetWindow()->GetMouseState()->GetPosition().X - OSK::Engine::GetWindow()->GetPreviousMouseState()->GetPosition().X),
+			(float)(OSK::Engine::GetWindow()->GetMouseState()->GetPosition().Y - OSK::Engine::GetWindow()->GetPreviousMouseState()->GetPosition().Y)
 		);
 
 		cameraTransform.AddPosition(cameraTransform.GetForwardVector().GetNormalized() * forwardMovement * deltaTime);

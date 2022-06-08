@@ -8,11 +8,12 @@
 #include "IGpuImage.h"
 #include "Mesh3D.h"
 
+#include "IGpuVertexBuffer.h"
+#include "IGpuIndexBuffer.h"
+
 #include <string>
 
 namespace OSK::GRAPHICS {
-	class IGpuVertexBuffer;
-	class IGpuIndexBuffer;
 	class IMaterialSlot;
 }
 

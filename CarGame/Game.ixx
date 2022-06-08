@@ -85,7 +85,6 @@ protected:
 	void RegisterSystems() override {
 		Engine::GetEntityComponentSystem()->RegisterSystem<CarSystem>();
 		Engine::GetEntityComponentSystem()->RegisterSystem<CameraControlSystem>();
-
 	}
 
 	void OnCreate() override {
@@ -112,7 +111,7 @@ protected:
 		Engine::GetEntityComponentSystem()->AddComponent<CarComponent>(modelObject, CarComponent());
 		Engine::GetEntityComponentSystem()->AddComponent<CameraControlComponent>(modelObject, {});
 		auto& modelTransform = Engine::GetEntityComponentSystem()->AddComponent<Transform3D>(modelObject, Transform3D(modelObject));
-		modelTransform.SetScale(0.2f);
+		//modelTransform.SetScale(0.2f);
 		modelTransform.AddPosition({ 0,0.5f, 0 });
 		PbrModelUtils::SetupPbrModel(&model, Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/f1_low.json", "GLOBAL"));
 		
@@ -120,7 +119,6 @@ protected:
 		cameraTransform.AttachToObject(modelObject);
 		
 		// Input
-
 		carInput.SetControlledCar(modelObject);
 		Engine::GetInputManager()->AddListener(&carInput);
 
@@ -160,7 +158,7 @@ protected:
 		spriteRenderer.Begin();
 		spriteRenderer.DrawString(*font, 30, "OSKengine Alpha 2", { 20.f, 40.f }, 1, 0, OSK::Color::BLUE());
 		spriteRenderer.DrawString(*font, 30, "FPS: " + std::to_string(GetFps()), { 20.0f, 80.f }, 1, 0, OSK::Color::WHITE());
-		spriteRenderer.DrawString(*font, 30, "v: " + Engine::GetBuild(), {20, 110.f}, 1, 0, OSK::Color::WHITE());
+		spriteRenderer.DrawString(*font, 30, "v: " + Engine::GetBuild(), { 20, 110.f }, 1, 0, OSK::Color::WHITE());
 		spriteRenderer.End();
 	}
 

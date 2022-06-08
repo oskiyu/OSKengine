@@ -373,6 +373,9 @@
     <Filter Include="Archivos de origen\OSKengine\UI">
       <UniqueIdentifier>{4deab358-644d-430c-bd8c-0c5a836c30d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\RT">
+      <UniqueIdentifier>{21f41913-222c-48aa-8f37-ddefb2890c00}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -1266,6 +1269,9 @@
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
     </ClInclude>
     <ClInclude Include="WindowsUtils.h">
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="ToString.h">
       <Filter>Archivos de encabezado\OSKengine\Util</Filter>
     </ClInclude>
   </ItemGroup>

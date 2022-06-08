@@ -5,10 +5,11 @@
 #include "UniquePtr.hpp"
 #include "Vector3.hpp"
 
+#include "IGpuMemoryBlock.h"
+
 namespace OSK::GRAPHICS {
 
 	enum class Format;
-	class IGpuMemoryBlock;
 	class IGpuMemorySubblock;
 	enum class GpuImageLayout;
 	enum class GpuImageDimension;

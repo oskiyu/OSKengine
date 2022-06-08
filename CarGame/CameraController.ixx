@@ -97,7 +97,7 @@ public:
 	}
 
 	void OnMouseMoved(const Vector2i& diff) override {
-		if (true)
+		if (false)
 			return;
 
 		Engine::GetEntityComponentSystem()->GetComponent<CameraComponent3D>(controlledObject).Rotate(

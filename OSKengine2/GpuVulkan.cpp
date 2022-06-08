@@ -10,7 +10,7 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 // Extensiones de la GPU que van a ser necesarias.
-const DynamicArray<const char*> gpuExtensions = {
+static DynamicArray<const char*> gpuExtensions = {
 	VK_KHR_SWAPCHAIN_EXTENSION_NAME
 };
 
@@ -85,6 +85,17 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 	features.samplerAnisotropy = VK_TRUE;
 	features.tessellationShader = VK_TRUE; /// \todo check
 	features.fillModeNonSolid = VK_TRUE; /// \todo check
+
+	// RT
+	gpuExtensions.Insert(VK_KHR_ACCELERATION_STRUCTURE_EXTENSION_NAME);
+	gpuExtensions.Insert(VK_KHR_RAY_TRACING_PIPELINE_EXTENSION_NAME);
+
+	gpuExtensions.Insert(VK_KHR_BUFFER_DEVICE_ADDRESS_EXTENSION_NAME);
+	gpuExtensions.Insert(VK_KHR_DEFERRED_HOST_OPERATIONS_EXTENSION_NAME);
+	gpuExtensions.Insert(VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME);
+
+	gpuExtensions.Insert(VK_KHR_SPIRV_1_4_EXTENSION_NAME);
+	gpuExtensions.Insert(VK_KHR_SHADER_FLOAT_CONTROLS_EXTENSION_NAME);
 
 	// Crear el logical device.
 	VkDeviceCreateInfo createInfo{};
@@ -193,6 +204,19 @@ GpuVulkan::Info GpuVulkan::Info::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface)
 	// Obtiene las características de la GPU.
 	vkGetPhysicalDeviceFeatures(gpu, &info.features);
 
+	// Obtiene las características de ray-tracing
+	VkPhysicalDeviceRayTracingPipelinePropertiesKHR rtPipelineProperties{};
+	rtPipelineProperties.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR;
+	rtPipelineProperties.pNext = VK_NULL_HANDLE;
+
+	VkPhysicalDeviceProperties2 gpuProperties2{};
+	gpuProperties2.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROPERTIES_2;
+	gpuProperties2.properties = info.properties;
+	gpuProperties2.pNext = &rtPipelineProperties;
+
+	vkGetPhysicalDeviceProperties2(gpu, &gpuProperties2);
+
+
 	// Comprobar soporte de swapchain.
 	bool swapchainSupported = false;
 
@@ -200,7 +224,7 @@ GpuVulkan::Info GpuVulkan::Info::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface)
 	//swapchainSupported = !info.shapchainSupport.presentModes.empty() && !info.shapchainSupport.formats.empty();
 
 	//info.isSuitable = info.families.IsComplete() && checkGPUextensionSupport(gpu) && swapchainSupported && info.features.samplerAnisotropy;
-	info.minAlignment = info.properties.limits.minUniformBufferOffsetAlignment;
+	info.minAlignment = static_cast<TSize>(info.properties.limits.minUniformBufferOffsetAlignment);
 
 
 	// ---------- SWAPCHAIN ------------------ //

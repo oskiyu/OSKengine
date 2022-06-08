@@ -2,6 +2,7 @@
 #define OSK_UNIQUE_PTR
 
 #include "OSKmacros.h"
+#include <type_traits>
 
 namespace OSK {
 
@@ -16,7 +17,7 @@ namespace OSK {
 	/// De lo contrario, no se llamará al destructor al eliminarse.
 	/// </summary>
 	/// <typeparam name="T">Tipo del puntero.</typeparam>
-	template <typename T> class UniquePtr {
+	template <typename T> /*requires std::is_destructible_v<T>*/ class UniquePtr {
 
 #define OSK_STD_UP_DELETE(ptr) if (ptr) delete(ptr);
 
@@ -56,7 +57,7 @@ namespace OSK {
 		/// Este puntero será dueño del puntero de other.
 		/// </summary>
 		/// <param name="other">Otro puntero.</param>
-		UniquePtr(UniquePtr&& other) {
+		UniquePtr(UniquePtr&& other) noexcept {
 			other.Swap(*this);
 		}
 

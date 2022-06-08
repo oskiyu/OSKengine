@@ -31,7 +31,7 @@
 #include "InputManager.h"
 
 #include <GLFW/glfw3.h>
-#undef GetCurrentTime;
+#undef GetCurrentTime
 
 using namespace OSK;
 
@@ -76,7 +76,7 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 		break;
 
 	case OSK::GRAPHICS::RenderApiType::OPENGL_ES:
-		OSK_ASSERT(false, "El renderizador de OPENGL_ES no está implementado.");
+		OSK_ASSERT(false, "El renderizador de OPENGL ES no está implementado.");
 
 		break;
 	}
@@ -150,11 +150,11 @@ IO::InputManager* Engine::GetInputManager() {
 }
 
 float Engine::GetCurrentTime() {
-	return glfwGetTime();
+	return static_cast<float>(glfwGetTime());
 }
 
 const Version& Engine::GetVersion() {
-	static Version version(0, 0, 0);
+	static Version version{ 0, 0, 0 };
 
 	return version;
 }

@@ -59,7 +59,7 @@ namespace OSK {
 		friend class RenderTarget;
 		friend class ShadowMap;
 		friend class CubeShadowMap;
-		friend class VULKAN::GpuInfo;
+		friend struct VULKAN::GpuInfo;
 		friend class VULKAN::VulkanImageGen;
 		friend class VULKAN::Framebuffer;
 		friend class VULKAN::Swapchain;

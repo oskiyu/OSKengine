@@ -46,7 +46,7 @@ void Font::LoadSizedFont(TSize fontSize) {
 
 	// Definirá cada uno de los caracteres.
 	struct FtChar {
-		UniquePtr<TByte[]> data;
+		UniquePtr<TByte> data;
 		TSize sizeX = 0;
 		TSize sizeY = 0;
 		TSize left = 0;
@@ -101,7 +101,7 @@ void Font::LoadSizedFont(TSize fontSize) {
 	for (TSize c = 0; c < 255; c++) {
 		for (TSize i = 0; i < ftCharacters[c].sizeY; i++) {
 			memcpy(&data[currentX + gpuImageSize.X * i],
-				&ftCharacters[c].data[ftCharacters[c].sizeX * i],
+				&ftCharacters[c].data.GetPointer()[ftCharacters[c].sizeX * i],
 				ftCharacters[c].sizeX);
 		}
 

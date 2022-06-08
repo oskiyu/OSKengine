@@ -218,10 +218,10 @@ void CommandListDx12::DrawSingleMesh(TSize firstIndex, TSize numIndices) {
 void CommandListDx12::SetViewport(const Viewport& vp) {
 	D3D12_VIEWPORT viewport{};
 
-	viewport.TopLeftX = vp.rectangle.GetRectanglePosition().X;
-	viewport.TopLeftY = vp.rectangle.GetRectanglePosition().Y;
-	viewport.Width = vp.rectangle.GetRectangleSize().X;
-	viewport.Height = vp.rectangle.GetRectangleSize().Y;
+	viewport.TopLeftX = (FLOAT)vp.rectangle.GetRectanglePosition().X;
+	viewport.TopLeftY = (FLOAT)vp.rectangle.GetRectanglePosition().Y;
+	viewport.Width = (FLOAT)vp.rectangle.GetRectangleSize().X;
+	viewport.Height = (FLOAT)vp.rectangle.GetRectangleSize().Y;
 
 	viewport.MinDepth = vp.minDepth;
 	viewport.MaxDepth = vp.maxDepth;

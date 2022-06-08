@@ -8,7 +8,7 @@ using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 void UiElement::AddChildElement(OwnedPtr<UiElement> element) {
-	childElements.InsertMove(std::move(UniquePtr(element.GetPointer())));
+	childElements.InsertMove(std::move(UniquePtr<UiElement>(element.GetPointer())));
 }
 
 void UiElement::AddChildElement(OwnedPtr<UiElement> element, const std::string& key) {

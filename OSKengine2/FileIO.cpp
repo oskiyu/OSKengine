@@ -41,7 +41,7 @@ DynamicArray<char> FileIO::ReadBinaryFromFile(const std::string& filename) {
 	std::ifstream file(filename, std::ios::ate | std::ios::binary); //Abre el archivo; ate -> al final del archivo
 
 	//Tamaño del std::vector
-	size_t fileSize = (size_t)file.tellg();
+	const TSize fileSize = static_cast<TSize>(file.tellg());
 
 	//Inicializar el std::vector
 	DynamicArray<char> buffer = DynamicArray<char>::CreateResizedArray(fileSize);

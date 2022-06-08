@@ -1,38 +1,15 @@
 {
     "file_type": "MATERIAL",
-    "spec_ver": 0,
+    "spec_ver": 1,
     "name": "XD",
-    "shader_file": "Resources/shader.json",
-    "layout":{
-        "push_constants":[
-            {
-                "name": "model",
-                "size": 64
-            }
-        ],
 
-        "slots":[
-            {
-                "name": "global",
+    "vertex_shader": "Resources/Shaders/VK/vert.spv",
+    "fragment_shader": "Resources/Shaders/VK/frag.spv",
+    
+    "vertex_type": "OSK::Vertex3D",
 
-                "bindings":[
-                    {
-                        "name": "camera",
-                        "type": "UNIFORM"
-                    },
-
-                    {
-                        "name": "lights",
-                        "type": "UNIFORM"
-                    },
-
-                    {
-                        "name": "texture",
-                        "type": "IMAGE"
-                    }
-                ]
-            }
-        ]
-    },
-    "vertex_type": "OSK::Vertex3D"
+    "slots": {
+        "0": "global"
+    }
+    
 }

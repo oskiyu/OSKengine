@@ -5,14 +5,15 @@ INFO: Ventana iniciada correctamente.
 INFO: 	Monitor sizeX: 1920
 INFO: 	Monitor sizeY: 1080
 INFO: 	Monitor refresh rate: 144
-INFO: Iniciando renderizador DX12.
-INFO: Capas de validación no disponibles.
+INFO: Extensiones del renderizador: 
+INFO: 	VK_KHR_surface
+INFO: 	VK_KHR_win32_surface
+INFO: Capas de validación del renderizador: 
+INFO: 	VK_LAYER_KHRONOS_validation
+INFO: Se ha creado correctamente la superficie de Vulkan.
 INFO: GPU elegida: NVIDIA GeForce RTX 2060
-INFO: Creada la cola de comandos.
-INFO: Creada el pool de comandos.
-INFO: Creada la lista de comandos.
-INFO: Creado el swapchain.
-INFO: Creado el asignador de memoria de la GPU.
-INFO: Swapchain cerrado.
-INFO: Cerrado el log.
+ERROR: Assertion failed: No se ha podido crear el logical device.
+	 at OSK::GRAPHICS::GpuVulkan::CreateLogicalDevice
+	 at line 114
+	 at file C:\Users\Oscar\source\repos\OSKengine\OSKengine2\GpuVulkan.cpp
 

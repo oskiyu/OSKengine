@@ -56,7 +56,7 @@ namespace OSK {
 		/// <summary>
 		/// Número de slots en cada pool.
 		/// </summary>
-		const size_t PoolSize = 256;
+		const TSize PoolSize = 256;
 
 		DescriptorSet* GetDescriptorSet(uint32_t id);
 

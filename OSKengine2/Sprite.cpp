@@ -41,7 +41,7 @@ void Sprite::SetGpuImage(const GpuImage* image) {
 	this->image = image;
 
 	if (materialInstance.HasValue()) {
-		materialInstance->GetSlot("texture")->SetGpuImage("texture", image);
+		materialInstance->GetSlot("texture")->SetGpuImage("stexture", image);
 		materialInstance->GetSlot("texture")->FlushUpdate();
 	}
 	else {

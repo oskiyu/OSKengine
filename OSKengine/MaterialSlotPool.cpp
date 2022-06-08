@@ -17,7 +17,7 @@ MaterialSlotPool::MaterialSlotPool(RenderAPI* renderer, MaterialSlotTypeId type,
 	pool->SetLayout(layout);
 	pool->Create(PoolSize);
 
-	for (uint32_t i = 0; i < PoolSize; i++)
+	for (TSize i = 0; i < PoolSize; i++)
 		freeSpaces.push(i);
 
 	materialSlots.resize(PoolSize);

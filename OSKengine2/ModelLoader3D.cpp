@@ -140,7 +140,7 @@ void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, c
 
 				// Leemos el buffer.
 				positionsBuffer = (const float*)(&(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
-				numVertices = accessor.count;
+				numVertices = static_cast<TSize>(accessor.count);
 			}
 
 			// Comprobamos que tiene almacenado info de normales.
@@ -174,12 +174,13 @@ void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, c
 
 				GRAPHICS::Vertex3D vertex{};
 				vertex.position = glm::vec3(glm::scale(nodeMatrix, glm::vec3(globalScale)) * vertexPosition);
-				vertex.normal = glm::normalize(glm::vec3(nodeMatrix * glm::vec4(
+				vertex.normal = Vector3f(glm::vec3(nodeMatrix * glm::vec4(
 					normalsBuffer[v * 3],
 					normalsBuffer[v * 3 + 1],
 					normalsBuffer[v * 3 + 2],
-					globalScale
-				)));
+					0.0f
+				))).GetNormalized();
+
 				vertex.texCoords = {
 					texCoordsBuffer[v * 2],
 					texCoordsBuffer[v * 2 + 1]
@@ -190,7 +191,6 @@ void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, c
 				else
 					vertex.color = 1.0f;
 				
-
 				vertices->Insert(vertex);
 			}
 
@@ -242,7 +242,7 @@ void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, c
 /// y guarda la información relevante de cada uno.
 /// </summary>
 DynamicArray<GltfMaterialInfo> LoadMaterials(const tinygltf::Model& model) {
-	auto output = DynamicArray<GltfMaterialInfo>::CreateResizedArray(model.materials.size());
+	auto output = DynamicArray<GltfMaterialInfo>::CreateResizedArray((TSize)model.materials.size());
 
 	for (TSize i = 0; i < model.materials.size(); i++) {
 		GltfMaterialInfo info{};
