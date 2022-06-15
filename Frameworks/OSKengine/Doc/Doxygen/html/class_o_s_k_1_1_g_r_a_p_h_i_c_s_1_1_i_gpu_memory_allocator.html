@@ -113,17 +113,23 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 <tr class="separator:a9edc56722522b79a352ce378e1ac8595"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ffe3d30b281dd779e43a430a46447cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a5ffe3d30b281dd779e43a430a46447cf">CreateCubemapImage</a> (const <a class="el" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a> &amp;faceSize, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> format, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">GpuImageUsage</a> usage, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042ce">GpuSharedMemoryType</a> sharedType, <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">GpuImageSamplerDesc</a> samplerDesc={})</td></tr>
 <tr class="separator:a5ffe3d30b281dd779e43a430a46447cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a177b13d029f45319fbaddedc3d011025"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html">IGpuVertexBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a177b13d029f45319fbaddedc3d011025">CreateVertexBuffer</a> (const void *data, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> vertexSize, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> numVertices)=0</td></tr>
-<tr class="separator:a177b13d029f45319fbaddedc3d011025"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3770de8fbea993d2b42af7b20a8726a5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a3770de8fbea993d2b42af7b20a8726a5"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html">IGpuVertexBuffer</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a3770de8fbea993d2b42af7b20a8726a5">CreateVertexBuffer</a> (const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; T &gt; &amp;vertices)</td></tr>
-<tr class="separator:a3770de8fbea993d2b42af7b20a8726a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23b2a9a96603898bd4cb13ed154c8746"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html">IGpuVertexBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a23b2a9a96603898bd4cb13ed154c8746">CreateVertexBuffer</a> (const void *data, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> vertexSize, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> numVertices, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a> &amp;vertexInfo)=0</td></tr>
+<tr class="separator:a23b2a9a96603898bd4cb13ed154c8746"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abef0fcbc0dade8bdf27d14959313fa51"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:abef0fcbc0dade8bdf27d14959313fa51"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html">IGpuVertexBuffer</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#abef0fcbc0dade8bdf27d14959313fa51">CreateVertexBuffer</a> (const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; T &gt; &amp;vertices, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a> &amp;vertexInfo)</td></tr>
+<tr class="separator:abef0fcbc0dade8bdf27d14959313fa51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2423c77cb94a4d943a45458228170db4"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html">IGpuIndexBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a2423c77cb94a4d943a45458228170db4">CreateIndexBuffer</a> (const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a05f5134cdcc67a7889c57e39aa2f25ae">TIndexSize</a> &gt; &amp;indices)=0</td></tr>
 <tr class="separator:a2423c77cb94a4d943a45458228170db4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8beb74ff85ed07f8d96a60683ac0599"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html">IGpuUniformBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#ac8beb74ff85ed07f8d96a60683ac0599">CreateUniformBuffer</a> (<a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size)=0</td></tr>
 <tr class="separator:ac8beb74ff85ed07f8d96a60683ac0599"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c3f7f23fc42ae519483fcd4c5dac305"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">GpuDataBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a8c3f7f23fc42ae519483fcd4c5dac305">CreateStagingBuffer</a> (<a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size)=0</td></tr>
 <tr class="separator:a8c3f7f23fc42ae519483fcd4c5dac305"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25da7a4cdfdb60a4152e15d8d63895de"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">GpuDataBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a25da7a4cdfdb60a4152e15d8d63895de">CreateBuffer</a> (<a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7f">GpuBufferUsage</a> usage, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042ce">GpuSharedMemoryType</a> sharedType)=0</td></tr>
+<tr class="separator:a25da7a4cdfdb60a4152e15d8d63895de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6626d04bac0b649fa90c57f2b1878b17"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html">IBottomLevelAccelerationStructure</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a6626d04bac0b649fa90c57f2b1878b17">CreateBottomAccelerationStructure</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html">IGpuVertexBuffer</a> &amp;vertexBuffer, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html">IGpuIndexBuffer</a> &amp;indexBuffer)=0</td></tr>
+<tr class="separator:a6626d04bac0b649fa90c57f2b1878b17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b99a69ed53054b74e26fcc577e5babb"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html">ITopLevelAccelerationStructure</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a1b99a69ed53054b74e26fcc577e5babb">CreateTopAccelerationStructure</a> (<a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html">IBottomLevelAccelerationStructure</a> * &gt; bottomStructures)=0</td></tr>
+<tr class="separator:a1b99a69ed53054b74e26fcc577e5babb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b7676a476f7cd0db5f9b4634ef0c852"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a6b7676a476f7cd0db5f9b4634ef0c852">RemoveImageBlock</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html">IGpuMemoryBlock</a> *block)</td></tr>
 <tr class="separator:a6b7676a476f7cd0db5f9b4634ef0c852"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -152,7 +158,7 @@ Atributos protegidos</h2></td></tr>
 <div class="textblock"><p >El asignador de memoria se encarga de reservar grandes bloques de memoria en la GPU, que después podrán ser usados para almacenar texturas, buffers, etc. </p>
 <p >La memoria de un bloque se divide en subbloques. Al reservar un recurso, se crea un subbloque que ocupará parte de la memoria del bloque. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00048">48</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00051">51</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
 </div><h2 class="groupheader">Documentación del constructor y destructor</h2>
 <a id="a5eb4af797b1cd9c31aa51233fcdf7af1" name="a5eb4af797b1cd9c31aa51233fcdf7af1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5eb4af797b1cd9c31aa51233fcdf7af1">&#9670;&nbsp;</a></span>IGpuMemoryAllocator()</h2>
@@ -228,7 +234,102 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00069">69</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00072">72</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
+
+</div>
+</div>
+<a id="a6626d04bac0b649fa90c57f2b1878b17" name="a6626d04bac0b649fa90c57f2b1878b17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6626d04bac0b649fa90c57f2b1878b17">&#9670;&nbsp;</a></span>CreateBottomAccelerationStructure()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html">IBottomLevelAccelerationStructure</a> &gt; OSK::GRAPHICS::IGpuMemoryAllocator::CreateBottomAccelerationStructure </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html">IGpuVertexBuffer</a> &amp;&#160;</td>
+          <td class="paramname"><em>vertexBuffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html">IGpuIndexBuffer</a> &amp;&#160;</td>
+          <td class="paramname"><em>indexBuffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crea una estructura de aceleración espacial para el trazado de rayos. </p>
+<p >La estructura será de bajo nivel y contendrá la geometría definida por los vértices e índices dados. </p>
+
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#abc6dea14f775e0410ecf8c51492f1289">OSK::GRAPHICS::GpuMemoryAllocatorDx12</a>, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_ogl.html#a30f3e627ee1fddcd42ba23a62fc0ff33">OSK::GRAPHICS::GpuMemoryAllocatorOgl</a> y <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#ad7d6914e923db763bf2c94dfff5dbd5f">OSK::GRAPHICS::GpuMemoryAllocatorVulkan</a>.</p>
+
+</div>
+</div>
+<a id="a25da7a4cdfdb60a4152e15d8d63895de" name="a25da7a4cdfdb60a4152e15d8d63895de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25da7a4cdfdb60a4152e15d8d63895de">&#9670;&nbsp;</a></span>CreateBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">GpuDataBuffer</a> &gt; OSK::GRAPHICS::IGpuMemoryAllocator::CreateBuffer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7f">GpuBufferUsage</a>&#160;</td>
+          <td class="paramname"><em>usage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042ce">GpuSharedMemoryType</a>&#160;</td>
+          <td class="paramname"><em>sharedType</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crea un buffer genérico con las características dadas. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>Tamaño del buffer, en bytes.</td></tr>
+    <tr><td class="paramname">usage</td><td>Uso que se le dará al buffer.</td></tr>
+    <tr><td class="paramname">sharedType</td><td>Configura si se accederá únicamente desde la GPU, o si también se accederá desde la CPU.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#adfe2483c36779be11cd2a2af4d516df3">OSK::GRAPHICS::GpuMemoryAllocatorDx12</a>, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_ogl.html#a017de750f2c5e45148e9a2e939987df1">OSK::GRAPHICS::GpuMemoryAllocatorOgl</a> y <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#a020def32b1bc712665f10df33ff33cc8">OSK::GRAPHICS::GpuMemoryAllocatorVulkan</a>.</p>
 
 </div>
 </div>
@@ -451,6 +552,37 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 </div>
 </div>
+<a id="a1b99a69ed53054b74e26fcc577e5babb" name="a1b99a69ed53054b74e26fcc577e5babb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b99a69ed53054b74e26fcc577e5babb">&#9670;&nbsp;</a></span>CreateTopAccelerationStructure()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html">ITopLevelAccelerationStructure</a> &gt; OSK::GRAPHICS::IGpuMemoryAllocator::CreateTopAccelerationStructure </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html">IBottomLevelAccelerationStructure</a> * &gt;&#160;</td>
+          <td class="paramname"><em>bottomStructures</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crea una estructura de aceleración espacial para el trazado de rayos. </p>
+<p >La estructura agrupará varias estructuras de bajo nivel. </p>
+
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#aae10c6dfbf119a91a802f4f501a1da3a">OSK::GRAPHICS::GpuMemoryAllocatorVulkan</a>.</p>
+
+</div>
+</div>
 <a id="ac8beb74ff85ed07f8d96a60683ac0599" name="ac8beb74ff85ed07f8d96a60683ac0599"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac8beb74ff85ed07f8d96a60683ac0599">&#9670;&nbsp;</a></span>CreateUniformBuffer()</h2>
 
@@ -481,8 +613,8 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 </div>
 </div>
-<a id="a3770de8fbea993d2b42af7b20a8726a5" name="a3770de8fbea993d2b42af7b20a8726a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3770de8fbea993d2b42af7b20a8726a5">&#9670;&nbsp;</a></span>CreateVertexBuffer() <span class="overload">[1/2]</span></h2>
+<a id="abef0fcbc0dade8bdf27d14959313fa51" name="abef0fcbc0dade8bdf27d14959313fa51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abef0fcbc0dade8bdf27d14959313fa51">&#9670;&nbsp;</a></span>CreateVertexBuffer() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -496,8 +628,18 @@ template&lt;typename T &gt; </div>
           <td class="memname"><a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html">IGpuVertexBuffer</a> &gt; OSK::GRAPHICS::IGpuMemoryAllocator::CreateVertexBuffer </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>vertices</em></td><td>)</td>
+          <td class="paramname"><em>vertices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>vertexInfo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -509,12 +651,12 @@ template&lt;typename T &gt; </div>
 
 <p>Crea un buffer de vértices con los vértices dados. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00108">108</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00111">111</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
 
 </div>
 </div>
-<a id="a177b13d029f45319fbaddedc3d011025" name="a177b13d029f45319fbaddedc3d011025"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a177b13d029f45319fbaddedc3d011025">&#9670;&nbsp;</a></span>CreateVertexBuffer() <span class="overload">[2/2]</span></h2>
+<a id="a23b2a9a96603898bd4cb13ed154c8746" name="a23b2a9a96603898bd4cb13ed154c8746"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23b2a9a96603898bd4cb13ed154c8746">&#9670;&nbsp;</a></span>CreateVertexBuffer() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -538,7 +680,13 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
-          <td class="paramname"><em>numVertices</em>&#160;</td>
+          <td class="paramname"><em>numVertices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>vertexInfo</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -555,7 +703,7 @@ template&lt;typename T &gt; </div>
 
 <p>Crea un buffer de vértices con los vértices dados. </p>
 
-<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#ac2d817d336597a7a13500f196d06199b">OSK::GRAPHICS::GpuMemoryAllocatorDx12</a>, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_ogl.html#ac9408a58b93d4a54f3f93e4e5643eb31">OSK::GRAPHICS::GpuMemoryAllocatorOgl</a> y <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#a3138abcf254278fc492bd105deba3796">OSK::GRAPHICS::GpuMemoryAllocatorVulkan</a>.</p>
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a905e6e7e678e2d8112c9f830cebf3448">OSK::GRAPHICS::GpuMemoryAllocatorDx12</a>, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_ogl.html#a2aa0ba05321c84dea896b143fa6523a2">OSK::GRAPHICS::GpuMemoryAllocatorOgl</a> y <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#a89332520bdd825057e45a549e4283192">OSK::GRAPHICS::GpuMemoryAllocatorVulkan</a>.</p>
 
 </div>
 </div>
@@ -731,7 +879,7 @@ template&lt;typename T &gt; </div>
 
 <p>Bloques ya reservados. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00158">158</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00185">185</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
 
 </div>
 </div>
@@ -755,7 +903,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00161">161</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00188">188</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
 
 </div>
 </div>
@@ -779,7 +927,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00159">159</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00186">186</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
 
 </div>
 </div>
@@ -806,7 +954,7 @@ template&lt;typename T &gt; </div>
 <p>El tamaño de memoria que, por defecto, tendrá cada bloque de memoria. </p>
 <dl class="section note"><dt>Nota</dt><dd>Un bloque puede tener más tamaño, si se usa para almacenar un recurso que ocupe más espacio. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00061">61</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00064">64</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
 
 </div>
 </div>
@@ -820,7 +968,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html">IGpuMemoryAllocator</a></li>
-    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Jueves, 16 de Junio de 2022 00:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

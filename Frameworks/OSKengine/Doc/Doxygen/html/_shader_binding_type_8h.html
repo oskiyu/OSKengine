@@ -93,6 +93,7 @@ $(document).ready(function(){initNavTree('_shader_binding_type_8h.html',''); ini
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="_enum_flags_8hpp_source.html">EnumFlags.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_to_string_8h_source.html">ToString.h</a>&quot;</code><br />
 </div>
 <p><a href="_shader_binding_type_8h_source.html">Ir al código fuente de este archivo.</a></p>
 <table class="memberdecls">
@@ -105,14 +106,30 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumeraciones</h2></td></tr>
-<tr class="memitem:a4a3cc5ac5a7f3c8753e7f74d576d6e1d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1d">OSK::GRAPHICS::ShaderBindingType</a> { <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da8d0be820da8f4fe5aa49e0ef3065ca29">OSK::GRAPHICS::UNIFORM_BUFFER</a>
+<tr class="memitem:a4a3cc5ac5a7f3c8753e7f74d576d6e1d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1d">OSK::GRAPHICS::ShaderBindingType</a> { <br />
+&#160;&#160;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da8d0be820da8f4fe5aa49e0ef3065ca29">OSK::GRAPHICS::UNIFORM_BUFFER</a>
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da3f92f542bd9ec48f912b9350e22736ac">OSK::GRAPHICS::TEXTURE</a>
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1daf28b30e806ea29c1d6011d1feeea8913">OSK::GRAPHICS::CUBEMAP</a>
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1daa486db75420308f63af20d85e2b6489d">OSK::GRAPHICS::STORAGE_BUFFER</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da56da21e70ea85d8efa9392d6fd11f2ee">OSK::GRAPHICS::RT_ACCELERATION_STRUCTURE</a>
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da3d5dffc952403caa0bd4efd243e72e25">OSK::GRAPHICS::RT_TARGET_IMAGE</a>
+<br />
  }</td></tr>
 <tr class="separator:a4a3cc5ac5a7f3c8753e7f74d576d6e1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7e7dcffcab27051f141128e66a50fcb"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">OSK::GRAPHICS::ShaderStage</a> { <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba0c3e47aef93a7f244f41ab309a33634b">OSK::GRAPHICS::VERTEX</a> = 1
+<tr class="memitem:aa7e7dcffcab27051f141128e66a50fcb"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">OSK::GRAPHICS::ShaderStage</a> { <br />
+&#160;&#160;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba0c3e47aef93a7f244f41ab309a33634b">OSK::GRAPHICS::VERTEX</a> = 1
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba7345a249ed5c2f850d85dc1727c24716">OSK::GRAPHICS::FRAGMENT</a> = 2
-, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcbaf8b2b1cc44868adffe889c4a783f4b65">OSK::GRAPHICS::TESSELATION</a> = 4
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcbaf448507fb26809d25c13899dfc57e230">OSK::GRAPHICS::TESSELATION_CONTROL</a> = 4
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba9196126eff57d73bb45dc36a6367e58d">OSK::GRAPHICS::TESSELATION_EVALUATION</a> = 8
+, <br />
+&#160;&#160;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba949f4e4e16184d8e16e4125517a1c6c3">OSK::GRAPHICS::RT_RAYGEN</a> = 16
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcbaee8f06a600f854fc2cd6d6fc69089b6d">OSK::GRAPHICS::RT_CLOSEST_HIT</a> = 32
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcbaa81021d99de178d7979c2c96b7e3e47d">OSK::GRAPHICS::RT_MISS</a> = 64
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba829c2b0ccdf8939e47b86bb510ef222f">OSK::GRAPHICS::TESSELATION_ALL</a> = TESSELATION_CONTROL | TESSELATION_EVALUATION
+, <br />
+&#160;&#160;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba1fdd1a5172989f84205922b257b753a1">OSK::GRAPHICS::RT_ALL</a> = RT_RAYGEN | RT_CLOSEST_HIT |RT_MISS
+<br />
  }</td></tr>
 <tr class="separator:aa7e7dcffcab27051f141128e66a50fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -120,8 +137,58 @@ Enumeraciones</h2></td></tr>
 Funciones</h2></td></tr>
 <tr class="memitem:a4bb03a6e470cf0fd5203cdead6306b7e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_shader_binding_type_8h.html#a4bb03a6e470cf0fd5203cdead6306b7e">OSK_FLAGS</a> (<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">OSK::GRAPHICS::ShaderStage</a>)</td></tr>
 <tr class="separator:a4bb03a6e470cf0fd5203cdead6306b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97c7e187c9fc456597a0dc7a57fc92c9"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a97c7e187c9fc456597a0dc7a57fc92c9"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="_shader_binding_type_8h.html#a97c7e187c9fc456597a0dc7a57fc92c9">OSK::ToString&lt; OSK::GRAPHICS::ShaderBindingType &gt;</a> (const <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1d">OSK::GRAPHICS::ShaderBindingType</a> &amp;type)</td></tr>
+<tr class="separator:a97c7e187c9fc456597a0dc7a57fc92c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62aa9785ad0ca19922a9e0057ecfc02d"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a62aa9785ad0ca19922a9e0057ecfc02d"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="_shader_binding_type_8h.html#a62aa9785ad0ca19922a9e0057ecfc02d">OSK::ToString&lt; OSK::GRAPHICS::ShaderStage &gt;</a> (const <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">OSK::GRAPHICS::ShaderStage</a> &amp;stage)</td></tr>
+<tr class="separator:a62aa9785ad0ca19922a9e0057ecfc02d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Documentación de las funciones</h2>
+<a id="a97c7e187c9fc456597a0dc7a57fc92c9" name="a97c7e187c9fc456597a0dc7a57fc92c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97c7e187c9fc456597a0dc7a57fc92c9">&#9670;&nbsp;</a></span>OSK::ToString&lt; OSK::GRAPHICS::ShaderBindingType &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="namespace_o_s_k.html#a0e02ca313c1894ead83ab76001063684">OSK::ToString</a>&lt; <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1d">OSK::GRAPHICS::ShaderBindingType</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1d">OSK::GRAPHICS::ShaderBindingType</a> &amp;&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_shader_stages_8cpp_source.html#l00005">5</a> del archivo <a class="el" href="_shader_stages_8cpp_source.html">ShaderStages.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a62aa9785ad0ca19922a9e0057ecfc02d" name="a62aa9785ad0ca19922a9e0057ecfc02d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62aa9785ad0ca19922a9e0057ecfc02d">&#9670;&nbsp;</a></span>OSK::ToString&lt; OSK::GRAPHICS::ShaderStage &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="namespace_o_s_k.html#a0e02ca313c1894ead83ab76001063684">OSK::ToString</a>&lt; <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">OSK::GRAPHICS::ShaderStage</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">OSK::GRAPHICS::ShaderStage</a> &amp;&#160;</td>
+          <td class="paramname"><em>stage</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_shader_stages_8cpp_source.html#l00065">65</a> del archivo <a class="el" href="_shader_stages_8cpp_source.html">ShaderStages.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a4bb03a6e470cf0fd5203cdead6306b7e" name="a4bb03a6e470cf0fd5203cdead6306b7e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4bb03a6e470cf0fd5203cdead6306b7e">&#9670;&nbsp;</a></span>OSK_FLAGS()</h2>
 
@@ -146,7 +213,7 @@ Funciones</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_shader_binding_type_8h.html">ShaderBindingType.h</a></li>
-    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:57 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Jueves, 16 de Junio de 2022 00:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

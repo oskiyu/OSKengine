@@ -12,5 +12,6 @@ var searchData=
   ['ownedptr_3c_20osk_3a_3agraphics_3a_3aigraphicspipeline_20_3e_9',['OwnedPtr&lt; OSK::GRAPHICS::IGraphicsPipeline &gt;',['../class_o_s_k_1_1_owned_ptr.html',1,'OSK']]],
   ['ownedptr_3c_20osk_3a_3agraphics_3a_3amaterialinstance_20_3e_10',['OwnedPtr&lt; OSK::GRAPHICS::MaterialInstance &gt;',['../class_o_s_k_1_1_owned_ptr.html',1,'OSK']]],
   ['ownedptr_3c_20vkdescriptorbufferinfo_20_3e_11',['OwnedPtr&lt; VkDescriptorBufferInfo &gt;',['../class_o_s_k_1_1_owned_ptr.html',1,'OSK']]],
-  ['ownedptr_3c_20vkdescriptorimageinfo_20_3e_12',['OwnedPtr&lt; VkDescriptorImageInfo &gt;',['../class_o_s_k_1_1_owned_ptr.html',1,'OSK']]]
+  ['ownedptr_3c_20vkdescriptorimageinfo_20_3e_12',['OwnedPtr&lt; VkDescriptorImageInfo &gt;',['../class_o_s_k_1_1_owned_ptr.html',1,'OSK']]],
+  ['ownedptr_3c_20vkwritedescriptorsetaccelerationstructurekhr_20_3e_13',['OwnedPtr&lt; VkWriteDescriptorSetAccelerationStructureKHR &gt;',['../class_o_s_k_1_1_owned_ptr.html',1,'OSK']]]
 ];

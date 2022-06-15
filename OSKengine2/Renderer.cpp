@@ -70,7 +70,10 @@ void IRenderer::UploadCubemapImageToGpu(GpuImage* destination, const TByte* data
 }
 
 OwnedPtr<ICommandList> IRenderer::CreateSingleUseCommandList() {
-	return commandPool->CreateCommandList(currentGpu.GetValue());
+	auto output = commandPool->CreateCommandList(currentGpu.GetValue());
+	output->_SetSingleTimeUse();
+
+	return output;
 }
 
 MaterialSystem* IRenderer::GetMaterialSystem() const {

@@ -1,6 +1,7 @@
 #include "GpuMemoryAllocatorVulkan.h"
 
 #include "GpuMemoryBlockVulkan.h"
+#include "GpuMemorySubblockVulkan.h"
 #include "GpuImageVulkan.h"
 #include "Format.h"
 #include <vulkan/vulkan.h>
@@ -18,6 +19,8 @@
 #include "GpuUniformBufferVulkan.h"
 #include "GpuImageDimensions.h"
 #include "GpuImageUsage.h"
+#include "BottomLevelAccelerationStructureVulkan.h"
+#include "TopLevelAccelerationStructureVulkan.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -55,7 +58,7 @@ GpuMemoryAllocatorVulkan::GpuMemoryAllocatorVulkan(IGpu* device)
 
 }
 
-OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorVulkan::CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices) {
+OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorVulkan::CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices, const VertexInfo& vertexInfo) {
 	const TSize bufferSize = numVertices * vertexSize;
 	auto block = GetNextBufferMemoryBlock(bufferSize, GpuBufferUsage::VERTEX_BUFFER | GpuBufferUsage::TRANSFER_DESTINATION, GpuSharedMemoryType::GPU_ONLY);
 
@@ -64,7 +67,7 @@ OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorVulkan::CreateVertexBuffer(const vo
 	stagingBuffer->Write(data, bufferSize);
 	stagingBuffer->Unmap();
 
-	GpuVertexBufferVulkan* output = new GpuVertexBufferVulkan(block->GetNextMemorySubblock(bufferSize), bufferSize, 0);
+	GpuVertexBufferVulkan* output = new GpuVertexBufferVulkan(block->GetNextMemorySubblock(bufferSize), bufferSize, 0, numVertices, vertexInfo);
 
 	auto singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList()->As<CommandListVulkan>();
 	singleTimeCommandList->Reset();
@@ -90,7 +93,7 @@ OwnedPtr<IGpuIndexBuffer> GpuMemoryAllocatorVulkan::CreateIndexBuffer(const Dyna
 	stagingBuffer->Write(indices.GetData(), bufferSize);
 	stagingBuffer->Unmap();
 
-	GpuIndexBufferVulkan* output = new GpuIndexBufferVulkan(block->GetNextMemorySubblock(bufferSize), bufferSize, 0);
+	GpuIndexBufferVulkan* output = new GpuIndexBufferVulkan(block->GetNextMemorySubblock(bufferSize), bufferSize, 0, indices.GetSize());
 
 	auto singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList()->As<CommandListVulkan>();
 	singleTimeCommandList->Reset();
@@ -117,6 +120,10 @@ OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorVulkan::CreateStagingBuffer(TSize size
 	return new GpuDataBuffer(GetNextBufferMemoryBlock(size,
 		GpuBufferUsage::TRANSFER_SOURCE,
 		GpuSharedMemoryType::GPU_AND_CPU)->GetNextMemorySubblock(size), size, 0);
+}
+
+OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorVulkan::CreateBuffer(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+	return new GpuDataBuffer(GetNextBufferMemoryBlock(size, usage, sharedType)->GetNextMemorySubblock(size), size, 0);
 }
 
 OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageSize, GpuImageDimension dimension, TSize numLayers, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, TSize msaaSamples, GpuImageSamplerDesc samplerDesc) {
@@ -234,8 +241,34 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageS
 	return output;
 }
 
+OwnedPtr<ITopLevelAccelerationStructure> GpuMemoryAllocatorVulkan::CreateTopAccelerationStructure(DynamicArray<const IBottomLevelAccelerationStructure*> bottomStructures) {
+	OwnedPtr<ITopLevelAccelerationStructure> output = new TopLevelAccelerationStructureVulkan();
+
+	for (auto i : bottomStructures)
+		output->AddBottomLevelAccelerationStructure(i->As<BottomLevelAccelerationStructureVulkan>());
+
+	output->Setup();
+
+	return output;
+}
+
+OwnedPtr<IBottomLevelAccelerationStructure> GpuMemoryAllocatorVulkan::CreateBottomAccelerationStructure(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer) {
+	BottomLevelAccelerationStructureVulkan* output = new BottomLevelAccelerationStructureVulkan();
+	output->Setup(vertexBuffer, indexBuffer);
+	output->SetMatrix(glm::mat4(1.0f));
+
+	return output;
+}
+
 IGpuMemoryBlock* GpuMemoryAllocatorVulkan::GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
-	auto it = bufferMemoryBlocks.Find({ size, usage, sharedType });
+	//auto it = bufferMemoryBlocks.Find({ size, usage, sharedType });
+
+	auto i = GpuMemoryBlockVulkan::CreateNewBufferBlock(size, device, sharedType, usage);
+
+	bufferMemoryBlocks.Insert({ size, usage, sharedType }, {});
+	bufferMemoryBlocks.Get({ size, usage, sharedType }).Insert(i.GetPointer());
+
+	return i.GetPointer();
 
 	for (auto it : bufferMemoryBlocks) {
 		if (it.first.usage == usage && it.first.sharedType == sharedType) {
@@ -254,13 +287,7 @@ IGpuMemoryBlock* GpuMemoryAllocatorVulkan::GetNextBufferMemoryBlock(TSize size, 
 		}
 	}
 
-	auto i = GpuMemoryBlockVulkan::CreateNewBufferBlock(size, device, sharedType, usage);
-
-	bufferMemoryBlocks.Insert({ size, usage, sharedType }, {});
-	bufferMemoryBlocks.Get({ size, usage, sharedType }).Insert(i.GetPointer());
-
-	return i.GetPointer();
-
+	auto it = bufferMemoryBlocks.Find({ size, usage, sharedType });
 	if (it.IsEmpty()) {
 		auto i = GpuMemoryBlockVulkan::CreateNewBufferBlock(size, device, sharedType, usage);
 

@@ -108,8 +108,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a826bb459fd6c7a78b59942d69aaf048c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb863ab4be85e6c46b23520b814eb19c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_unique_ptr.html#aeb863ab4be85e6c46b23520b814eb19c">operator=</a> (const <a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a> &amp;)=delete</td></tr>
 <tr class="separator:aeb863ab4be85e6c46b23520b814eb19c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a605fda00dc35cf2d1b0859dd3fb70bb0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_unique_ptr.html#a605fda00dc35cf2d1b0859dd3fb70bb0">UniquePtr</a> (<a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a> &amp;&amp;other)</td></tr>
-<tr class="separator:a605fda00dc35cf2d1b0859dd3fb70bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ab9d755f7d9721ce936bb7568139df5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_unique_ptr.html#a9ab9d755f7d9721ce936bb7568139df5">UniquePtr</a> (<a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="separator:a9ab9d755f7d9721ce936bb7568139df5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38e7b9325d9020dd2a220d0c296ec070"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_unique_ptr.html#a38e7b9325d9020dd2a220d0c296ec070">operator=</a> (<a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a> &amp;&amp;other) noexcept</td></tr>
 <tr class="separator:a38e7b9325d9020dd2a220d0c296ec070"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf2f6b6e820f745e03c87b6695c21b0a"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_unique_ptr.html#abf2f6b6e820f745e03c87b6695c21b0a">Release</a> ()</td></tr>
@@ -148,7 +148,7 @@ class OSK::UniquePtr&lt; T &gt;</div><p >Es dueño de un puntero. El puntero ori
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00019">19</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00020">20</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 </div><h2 class="groupheader">Documentación del constructor y destructor</h2>
 <a id="a4678a9a65f48ff77f1c751010d6c870c" name="a4678a9a65f48ff77f1c751010d6c870c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4678a9a65f48ff77f1c751010d6c870c">&#9670;&nbsp;</a></span>UniquePtr() <span class="overload">[1/4]</span></h2>
@@ -177,7 +177,7 @@ template&lt;typename T &gt; </div>
 
 <p>Crea un <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Es dueño de un puntero. El puntero original es eliminado al destruirse el UniquePtr.">UniquePtr</a> vacío. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00028">28</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00029">29</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -207,7 +207,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00032">32</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00033">33</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -238,7 +238,7 @@ template&lt;typename T &gt; </div>
 
 <p>Destruye el puntero, eliminándolo. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00048">48</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00049">49</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -270,8 +270,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a605fda00dc35cf2d1b0859dd3fb70bb0" name="a605fda00dc35cf2d1b0859dd3fb70bb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a605fda00dc35cf2d1b0859dd3fb70bb0">&#9670;&nbsp;</a></span>UniquePtr() <span class="overload">[4/4]</span></h2>
+<a id="a9ab9d755f7d9721ce936bb7568139df5" name="a9ab9d755f7d9721ce936bb7568139df5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ab9d755f7d9721ce936bb7568139df5">&#9670;&nbsp;</a></span>UniquePtr() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -291,7 +291,7 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -304,7 +304,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00059">59</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00060">60</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -336,7 +336,7 @@ template&lt;typename T &gt; </div>
 
 <p>Elimina el puntero. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00137">137</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00138">138</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -368,7 +368,7 @@ template&lt;typename T &gt; </div>
 <p>Devuelve el puntero nativo. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Puntero.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00098">98</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00099">99</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -400,7 +400,7 @@ template&lt;typename T &gt; </div>
 <p>Devuelve el valor apuntado por el puntero. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Valor.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00106">106</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00107">107</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -432,7 +432,7 @@ template&lt;typename T &gt; </div>
 <p>Devuelve true si el puntero no es null. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Estado del puntero.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00130">130</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00131">131</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -462,7 +462,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00154">154</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00155">155</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -494,7 +494,7 @@ template&lt;typename T &gt; </div>
 <p>Devuelve el valor apuntado por el puntero. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Valor.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00122">122</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00123">123</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -526,7 +526,7 @@ template&lt;typename T &gt; </div>
 <p>Devuelve el puntero nativo. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Puntero.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00114">114</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00115">115</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -592,7 +592,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00040">40</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00041">41</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -631,7 +631,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>Self.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00068">68</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00069">69</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -661,7 +661,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00151">151</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00152">152</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -692,7 +692,7 @@ template&lt;typename T &gt; </div>
 
 <p></p>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00077">77</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00078">78</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -730,7 +730,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00088">88</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00089">89</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -762,7 +762,7 @@ template&lt;typename T &gt; </div>
 
 <p>Intercambia el puntero con el otro <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Es dueño de un puntero. El puntero original es eliminado al destruirse el UniquePtr.">UniquePtr</a>. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00145">145</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00146">146</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -775,7 +775,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a></li>
-    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:57 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Jueves, 16 de Junio de 2022 00:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

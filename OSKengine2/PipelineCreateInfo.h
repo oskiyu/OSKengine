@@ -127,6 +127,10 @@ namespace OSK::GRAPHICS {
 		/// DirectX12 o Vulkan.
 		std::string tesselationEvaluationPath = "";
 
+		std::string rtRaygenShaderPath = "";
+		std::string rtClosestHitShaderPath = "";
+		std::string rtMissShaderPath = "";
+
 		/// <summary>
 		/// Número de vértices que tendrá cada patch del teselado.
 		/// </summary>
@@ -165,6 +169,8 @@ namespace OSK::GRAPHICS {
 		/// pipeline.
 		/// </summary>
 		bool precompiledHlslShaders = true;
+
+		bool isRaytracing = false;
 
 	};
 

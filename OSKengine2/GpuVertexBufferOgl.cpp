@@ -3,8 +3,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuVertexBufferOgl::GpuVertexBufferOgl(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment)
-	: IGpuVertexBuffer(buffer, size, alignment) {
+GpuVertexBufferOgl::GpuVertexBufferOgl(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment, TSize numVertices, const VertexInfo& vertexInfo)
+	: IGpuVertexBuffer(buffer, size, alignment, numVertices, vertexInfo) {
 
 }
 

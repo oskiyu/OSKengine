@@ -104,6 +104,12 @@ Atributos públicos</h2></td></tr>
 <tr class="separator:a848c4a29ab5c3469851cc714aaba9621"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6aaaaa5814f2a26e3937cb128f6843e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#ad6aaaaa5814f2a26e3937cb128f6843e">tesselationEvaluationPath</a> = &quot;&quot;</td></tr>
 <tr class="separator:ad6aaaaa5814f2a26e3937cb128f6843e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bfe9ca2ed2bf52a85df106765ed64e9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a0bfe9ca2ed2bf52a85df106765ed64e9">rtRaygenShaderPath</a> = &quot;&quot;</td></tr>
+<tr class="separator:a0bfe9ca2ed2bf52a85df106765ed64e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09c9b9c025bb3dbc32b69dff04ff980d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a09c9b9c025bb3dbc32b69dff04ff980d">rtClosestHitShaderPath</a> = &quot;&quot;</td></tr>
+<tr class="separator:a09c9b9c025bb3dbc32b69dff04ff980d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a757c6a25f8fa8ec656d053decf470524"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a757c6a25f8fa8ec656d053decf470524">rtMissShaderPath</a> = &quot;&quot;</td></tr>
+<tr class="separator:a757c6a25f8fa8ec656d053decf470524"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6582451a9351668d1fa04f833c784666"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a6582451a9351668d1fa04f833c784666">tesselationPatchControlPoints</a> = 3</td></tr>
 <tr class="separator:a6582451a9351668d1fa04f833c784666"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a374bbb3534c447ec42cf7edb5380ae84"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8">PolygonMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a374bbb3534c447ec42cf7edb5380ae84">polygonMode</a></td></tr>
@@ -116,6 +122,8 @@ Atributos públicos</h2></td></tr>
 <tr class="separator:a944b54b561e76f4ca2efb71b03395ac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aefde218953366f55118fc7d07cf3cbd4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#aefde218953366f55118fc7d07cf3cbd4">precompiledHlslShaders</a> = true</td></tr>
 <tr class="separator:aefde218953366f55118fc7d07cf3cbd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a341e2b9eb5690f41edd35ea01c16c3ff"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a341e2b9eb5690f41edd35ea01c16c3ff">isRaytracing</a> = false</td></tr>
+<tr class="separator:a341e2b9eb5690f41edd35ea01c16c3ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p >Contiene la información necesaria para configurar un nuevo graphics pipeline. </p>
@@ -136,7 +144,7 @@ Atributos públicos</h2></td></tr>
 
 <p>Establece si no se renderizarán los polígonos que estén de espaldas a la cámara. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_pipeline_create_info_8h_source.html#l00144">144</a> del archivo <a class="el" href="_pipeline_create_info_8h_source.html">PipelineCreateInfo.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_pipeline_create_info_8h_source.html#l00148">148</a> del archivo <a class="el" href="_pipeline_create_info_8h_source.html">PipelineCreateInfo.h</a>.</p>
 
 </div>
 </div>
@@ -154,7 +162,7 @@ Atributos públicos</h2></td></tr>
 
 <p>Establece la configuración de testeo de profundidad. Activarlo permite que los objetos en la imagen final sean los que más cerca están de la cámara. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_pipeline_create_info_8h_source.html#l00160">160</a> del archivo <a class="el" href="_pipeline_create_info_8h_source.html">PipelineCreateInfo.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_pipeline_create_info_8h_source.html#l00164">164</a> del archivo <a class="el" href="_pipeline_create_info_8h_source.html">PipelineCreateInfo.h</a>.</p>
 
 </div>
 </div>
@@ -192,7 +200,23 @@ Atributos públicos</h2></td></tr>
 <p>Establece cómo saber qué cara es la delantera del triángulo. Para poder usar correctamente CullMode. </p>
 <p >Debe elegirse si la cara de frente tiene los vértices definidos en sentido horario o antihorario. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_pipeline_create_info_8h_source.html#l00153">153</a> del archivo <a class="el" href="_pipeline_create_info_8h_source.html">PipelineCreateInfo.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_pipeline_create_info_8h_source.html#l00157">157</a> del archivo <a class="el" href="_pipeline_create_info_8h_source.html">PipelineCreateInfo.h</a>.</p>
+
+</div>
+</div>
+<a id="a341e2b9eb5690f41edd35ea01c16c3ff" name="a341e2b9eb5690f41edd35ea01c16c3ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a341e2b9eb5690f41edd35ea01c16c3ff">&#9670;&nbsp;</a></span>isRaytracing</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OSK::GRAPHICS::PipelineCreateInfo::isRaytracing = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_pipeline_create_info_8h_source.html#l00173">173</a> del archivo <a class="el" href="_pipeline_create_info_8h_source.html">PipelineCreateInfo.h</a>.</p>
 
 </div>
 </div>
@@ -210,7 +234,7 @@ Atributos públicos</h2></td></tr>
 
 <p>Tipo de polígono (línea, triángulo...). </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_pipeline_create_info_8h_source.html#l00138">138</a> del archivo <a class="el" href="_pipeline_create_info_8h_source.html">PipelineCreateInfo.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_pipeline_create_info_8h_source.html#l00142">142</a> del archivo <a class="el" href="_pipeline_create_info_8h_source.html">PipelineCreateInfo.h</a>.</p>
 
 </div>
 </div>
@@ -228,7 +252,55 @@ Atributos públicos</h2></td></tr>
 
 <p>True si los shaders hlsl están precompilados. False si se deben compilar en tiempo de creación del pipeline. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_pipeline_create_info_8h_source.html#l00167">167</a> del archivo <a class="el" href="_pipeline_create_info_8h_source.html">PipelineCreateInfo.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_pipeline_create_info_8h_source.html#l00171">171</a> del archivo <a class="el" href="_pipeline_create_info_8h_source.html">PipelineCreateInfo.h</a>.</p>
+
+</div>
+</div>
+<a id="a09c9b9c025bb3dbc32b69dff04ff980d" name="a09c9b9c025bb3dbc32b69dff04ff980d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09c9b9c025bb3dbc32b69dff04ff980d">&#9670;&nbsp;</a></span>rtClosestHitShaderPath</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string OSK::GRAPHICS::PipelineCreateInfo::rtClosestHitShaderPath = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_pipeline_create_info_8h_source.html#l00131">131</a> del archivo <a class="el" href="_pipeline_create_info_8h_source.html">PipelineCreateInfo.h</a>.</p>
+
+</div>
+</div>
+<a id="a757c6a25f8fa8ec656d053decf470524" name="a757c6a25f8fa8ec656d053decf470524"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a757c6a25f8fa8ec656d053decf470524">&#9670;&nbsp;</a></span>rtMissShaderPath</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string OSK::GRAPHICS::PipelineCreateInfo::rtMissShaderPath = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_pipeline_create_info_8h_source.html#l00132">132</a> del archivo <a class="el" href="_pipeline_create_info_8h_source.html">PipelineCreateInfo.h</a>.</p>
+
+</div>
+</div>
+<a id="a0bfe9ca2ed2bf52a85df106765ed64e9" name="a0bfe9ca2ed2bf52a85df106765ed64e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bfe9ca2ed2bf52a85df106765ed64e9">&#9670;&nbsp;</a></span>rtRaygenShaderPath</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string OSK::GRAPHICS::PipelineCreateInfo::rtRaygenShaderPath = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_pipeline_create_info_8h_source.html#l00130">130</a> del archivo <a class="el" href="_pipeline_create_info_8h_source.html">PipelineCreateInfo.h</a>.</p>
 
 </div>
 </div>
@@ -284,7 +356,7 @@ Atributos públicos</h2></td></tr>
 
 <p>Número de vértices que tendrá cada patch del teselado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_pipeline_create_info_8h_source.html#l00133">133</a> del archivo <a class="el" href="_pipeline_create_info_8h_source.html">PipelineCreateInfo.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_pipeline_create_info_8h_source.html#l00137">137</a> del archivo <a class="el" href="_pipeline_create_info_8h_source.html">PipelineCreateInfo.h</a>.</p>
 
 </div>
 </div>
@@ -316,7 +388,7 @@ Atributos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a></li>
-    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Jueves, 16 de Junio de 2022 00:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

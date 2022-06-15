@@ -3,7 +3,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuIndexBufferVulkan::GpuIndexBufferVulkan(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment)
-	: IGpuIndexBuffer(buffer, size, alignment) {
+GpuIndexBufferVulkan::GpuIndexBufferVulkan(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment, TSize numIndices)
+	: IGpuIndexBuffer(buffer, size, alignment, numIndices) {
 
 }

@@ -29,6 +29,10 @@ void Model3D::_SetIndexBuffer(const OwnedPtr<GRAPHICS::IGpuIndexBuffer>& indexBu
 	this->indexBuffer = indexBuffer.GetPointer();
 }
 
+void Model3D::_SetAccelerationStructure(const OwnedPtr<GRAPHICS::IBottomLevelAccelerationStructure>& accelerationStructure) {
+	this->accelerationStructure = accelerationStructure.GetPointer();
+}
+
 void Model3D::_SetIndexCount(TSize count) {
 	numIndices = count;
 }
@@ -39,6 +43,10 @@ IGpuVertexBuffer* Model3D::GetVertexBuffer() const {
 
 IGpuIndexBuffer* Model3D::GetIndexBuffer() const {
 	return indexBuffer.GetPointer();
+}
+
+IBottomLevelAccelerationStructure* Model3D::GetAccelerationStructure() const {
+	return accelerationStructure.GetPointer();
 }
 
 TSize Model3D::GetIndexCount() const {

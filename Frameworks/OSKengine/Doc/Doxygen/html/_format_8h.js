@@ -9,5 +9,6 @@ var _format_8h =
       [ "D32_SFLOAT", "_format_8h.html#aac59f9d056e083c0b49ea768f974e3e8a23a4ce33815655871d103d3071d91072", null ]
     ] ],
     [ "GetColorFormat", "_format_8h.html#addcbf799331ac7f383130540011e4a02", null ],
-    [ "GetFormatNumberOfBytes", "_format_8h.html#abd894ab72db6cb1f2762684830d7354c", null ]
+    [ "GetFormatNumberOfBytes", "_format_8h.html#abd894ab72db6cb1f2762684830d7354c", null ],
+    [ "OSK::ToString< OSK::GRAPHICS::Format >", "_format_8h.html#a467894bfa43b16a19e668181f40b1d2d", null ]
 ];

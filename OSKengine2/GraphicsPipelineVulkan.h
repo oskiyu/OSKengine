@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IGraphicsPipeline.h"
+#include "IPipelineVulkan.h"
 #include <string>
 #include "DynamicArray.hpp"
 
@@ -9,29 +10,27 @@
 namespace OSK::GRAPHICS {
 
 	class RenderpassVulkan;
+	class GpuVulkan;
 
-	class OSKAPI_CALL GraphicsPipelineVulkan : public IGraphicsPipeline {
+	class OSKAPI_CALL GraphicsPipelineVulkan : public IGraphicsPipeline, public IPipelineVulkan {
 
 	public:
 
 		GraphicsPipelineVulkan(RenderpassVulkan* renderpass);
-		~GraphicsPipelineVulkan();
 
 		void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) override;
 
-		VkPipeline GetPipeline() const;
-
 	private:
+
+		VkPipelineRasterizationStateCreateInfo GetResterizerInfo(const PipelineCreateInfo& info) const;
+		VkPipelineDepthStencilStateCreateInfo GetDepthInfo(const PipelineCreateInfo& info) const;
+		VkPipelineMultisampleStateCreateInfo GetMsaaInfo(const PipelineCreateInfo& info, const GpuVulkan& gpu) const;
+		VkPipelineTessellationStateCreateInfo GetTesselationInfo(const PipelineCreateInfo& info) const;
 
 		void LoadVertexShader(const std::string& path);
 		void LoadFragmentShader(const std::string& path);
 		void LoadTesselationControlShader(const std::string& path);
 		void LoadTesselationEvaluationShader(const std::string& path);
-
-		DynamicArray<VkPipelineShaderStageCreateInfo> shaderStagesInfo;
-		DynamicArray<VkShaderModule> shaderModulesToDelete;
-
-		VkPipeline pipeline = 0;
 
 		RenderpassVulkan* targetRenderpass = nullptr;
 

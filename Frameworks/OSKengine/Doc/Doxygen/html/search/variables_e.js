@@ -1,13 +1,24 @@
 var searchData=
 [
   ['parche_0',['parche',['../struct_o_s_k_1_1_version.html#a7d2ecd0be158e2a7ba92b21c73275acc',1,'OSK::Version']]],
-  ['polygonmode_1',['polygonMode',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a374bbb3534c447ec42cf7edb5380ae84',1,'OSK::GRAPHICS::PipelineCreateInfo']]],
-  ['position_2',['position',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html#a83b3e00c33b792e880adbf1f78c22803',1,'OSK::GRAPHICS::Vertex2D::position()'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d.html#a87a31624e5fd16ce0f9461a008d087e0',1,'OSK::GRAPHICS::Vertex3D::position()']]],
-  ['posx_3',['posX',['../class_o_s_k_1_1_i_o_1_1_window.html#ae47c2f4ef13950e63ced240291893f37',1,'OSK::IO::Window']]],
-  ['posy_4',['posY',['../class_o_s_k_1_1_i_o_1_1_window.html#a040a00576ae1438e3959cb26800a7583',1,'OSK::IO::Window']]],
-  ['precompiledhlslshaders_5',['precompiledHlslShaders',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#aefde218953366f55118fc7d07cf3cbd4',1,'OSK::GRAPHICS::PipelineCreateInfo']]],
-  ['presentfamily_6',['presentFamily',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices.html#a5c08134681a4d76cac92f2afd223910b',1,'OSK::GRAPHICS::QueueFamilyIndices']]],
-  ['presentmodes_7',['presentModes',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_1_1_swapchain_support_details.html#a45f3d36dc7815e2c5e5f958b61126dc7',1,'OSK::GRAPHICS::GpuVulkan::Info::SwapchainSupportDetails']]],
-  ['presentqueue_8',['presentQueue',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a9fd87ed15539f6d249ce8d2e8247b522',1,'OSK::GRAPHICS::IRenderer']]],
-  ['properties_9',['properties',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#ae86a22042a0a794409c875c0e5ebe1d4',1,'OSK::GRAPHICS::GpuVulkan::Info']]]
+  ['pipeline_1',['pipeline',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan.html#a3a162dbe4cabddfd3a63c7fbd3460198',1,'OSK::GRAPHICS::IPipelineVulkan']]],
+  ['polygonmode_2',['polygonMode',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a374bbb3534c447ec42cf7edb5380ae84',1,'OSK::GRAPHICS::PipelineCreateInfo']]],
+  ['position_3',['position',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html#a83b3e00c33b792e880adbf1f78c22803',1,'OSK::GRAPHICS::Vertex2D::position()'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d.html#a87a31624e5fd16ce0f9461a008d087e0',1,'OSK::GRAPHICS::Vertex3D::position()']]],
+  ['posx_4',['posX',['../class_o_s_k_1_1_i_o_1_1_window.html#ae47c2f4ef13950e63ced240291893f37',1,'OSK::IO::Window']]],
+  ['posy_5',['posY',['../class_o_s_k_1_1_i_o_1_1_window.html#a040a00576ae1438e3959cb26800a7583',1,'OSK::IO::Window']]],
+  ['precompiledhlslshaders_6',['precompiledHlslShaders',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#aefde218953366f55118fc7d07cf3cbd4',1,'OSK::GRAPHICS::PipelineCreateInfo']]],
+  ['presentfamily_7',['presentFamily',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices.html#a5c08134681a4d76cac92f2afd223910b',1,'OSK::GRAPHICS::QueueFamilyIndices']]],
+  ['presentmodes_8',['presentModes',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_1_1_swapchain_support_details.html#a45f3d36dc7815e2c5e5f958b61126dc7',1,'OSK::GRAPHICS::GpuVulkan::Info::SwapchainSupportDetails']]],
+  ['presentqueue_9',['presentQueue',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a9fd87ed15539f6d249ce8d2e8247b522',1,'OSK::GRAPHICS::IRenderer']]],
+  ['properties_10',['properties',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#ae86a22042a0a794409c875c0e5ebe1d4',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
+  ['pvkbuildaccelerationstructureskhr_11',['pvkBuildAccelerationStructuresKHR',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#ad44f39b58218fc501077b78853fb0925',1,'OSK::GRAPHICS::RendererVulkan']]],
+  ['pvkcmdbuildaccelerationstructureskhr_12',['pvkCmdBuildAccelerationStructuresKHR',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a9922636adeec8a099209b107ed22e3f8',1,'OSK::GRAPHICS::RendererVulkan']]],
+  ['pvkcmdtracerayskhr_13',['pvkCmdTraceRaysKHR',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a2f0b560716bde5688ae9e0947b263379',1,'OSK::GRAPHICS::RendererVulkan']]],
+  ['pvkcreateaccelerationstructurekhr_14',['pvkCreateAccelerationStructureKHR',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a07ade011e04ba6f635e6cbaa5b9eef16',1,'OSK::GRAPHICS::RendererVulkan']]],
+  ['pvkcreateraytracingpipelineskhr_15',['pvkCreateRayTracingPipelinesKHR',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a632097b3a7f3b6f68ace9cd47754b1ef',1,'OSK::GRAPHICS::RendererVulkan']]],
+  ['pvkdestroyaccelerationstructurekhr_16',['pvkDestroyAccelerationStructureKHR',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a75f0ec692e815a896824eb407b6a656d',1,'OSK::GRAPHICS::RendererVulkan']]],
+  ['pvkgetaccelerationstructurebuildsizeskhr_17',['pvkGetAccelerationStructureBuildSizesKHR',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#ad642685910fe2899f29760106e468a9c',1,'OSK::GRAPHICS::RendererVulkan']]],
+  ['pvkgetaccelerationstructuredeviceaddresskhr_18',['pvkGetAccelerationStructureDeviceAddressKHR',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a03bc0c9af5049e5e5ede68e1e82198d1',1,'OSK::GRAPHICS::RendererVulkan']]],
+  ['pvkgetbufferdeviceaddresskhr_19',['pvkGetBufferDeviceAddressKHR',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#ad177dbaf9fbeb426aa4b7dda64b72264',1,'OSK::GRAPHICS::RendererVulkan']]],
+  ['pvkgetraytracingshadergrouphandleskhr_20',['pvkGetRayTracingShaderGroupHandlesKHR',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a4914dd3e39e804bbb2b05f652c4d1488',1,'OSK::GRAPHICS::RendererVulkan']]]
 ];

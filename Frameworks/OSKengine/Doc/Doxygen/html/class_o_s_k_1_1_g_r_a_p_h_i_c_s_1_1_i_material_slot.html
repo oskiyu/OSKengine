@@ -110,6 +110,12 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 <tr class="separator:a058d5fe56bf883ef6a7ea8ec533d07f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a828989553e0769ad7eac092a3165be00"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a828989553e0769ad7eac092a3165be00">SetGpuImage</a> (const std::string &amp;binding, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *image)=0</td></tr>
 <tr class="separator:a828989553e0769ad7eac092a3165be00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a655f5c3de1170cd5f93242577db1a3db"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a655f5c3de1170cd5f93242577db1a3db">SetStorageBuffer</a> (const std::string &amp;binding, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">GpuDataBuffer</a> *buffer)=0</td></tr>
+<tr class="separator:a655f5c3de1170cd5f93242577db1a3db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c9ee4e68f1886a6e78e4b87ee6580a9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a1c9ee4e68f1886a6e78e4b87ee6580a9">SetStorageImage</a> (const std::string &amp;binding, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *image)=0</td></tr>
+<tr class="separator:a1c9ee4e68f1886a6e78e4b87ee6580a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa528e548afe9c55625777b5be06db7f9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#aa528e548afe9c55625777b5be06db7f9">SetAccelerationStructure</a> (const std::string &amp;binding, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html">ITopLevelAccelerationStructure</a> *accelerationStructure)=0</td></tr>
+<tr class="separator:aa528e548afe9c55625777b5be06db7f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71d6977bf0f937b5086a32ca8af9d3b3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a71d6977bf0f937b5086a32ca8af9d3b3">FlushUpdate</a> ()=0</td></tr>
 <tr class="separator:a71d6977bf0f937b5086a32ca8af9d3b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1aa678ef234df2f183df6778df24ec1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#ad1aa678ef234df2f183df6778df24ec1">GetName</a> () const</td></tr>
@@ -131,7 +137,7 @@ Atributos protegidos</h2></td></tr>
 <div class="textblock"><p >Un slot contiene referencias a los recursos (UNIFORM BUFFER, TEXTURE, etc...) que se envían a la GPU. </p>
 <dl class="section warning"><dt>Atención</dt><dd>Establecer los recursos mediante Set&lt;...&gt; no actualizará los recursos que realmente se enviarán a los shaders, debe llamarse explícitamente a <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a71d6977bf0f937b5086a32ca8af9d3b3" title="Actualiza los recursos que se enviarán a los shaders.">FlushUpdate()</a>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_material_slot_8h_source.html#l00022">22</a> del archivo <a class="el" href="_i_material_slot_8h_source.html">IMaterialSlot.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_material_slot_8h_source.html#l00024">24</a> del archivo <a class="el" href="_i_material_slot_8h_source.html">IMaterialSlot.h</a>.</p>
 </div><h2 class="groupheader">Documentación del constructor y destructor</h2>
 <a id="a49409314a65d27a7043557d85626cb8b" name="a49409314a65d27a7043557d85626cb8b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a49409314a65d27a7043557d85626cb8b">&#9670;&nbsp;</a></span>~IMaterialSlot()</h2>
@@ -223,7 +229,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_material_slot_8h_source.html#l00028">28</a> del archivo <a class="el" href="_i_material_slot_8h_source.html">IMaterialSlot.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_material_slot_8h_source.html#l00030">30</a> del archivo <a class="el" href="_i_material_slot_8h_source.html">IMaterialSlot.h</a>.</p>
 
 </div>
 </div>
@@ -275,6 +281,47 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 </div>
 </div>
+<a id="aa528e548afe9c55625777b5be06db7f9" name="aa528e548afe9c55625777b5be06db7f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa528e548afe9c55625777b5be06db7f9">&#9670;&nbsp;</a></span>SetAccelerationStructure()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OSK::GRAPHICS::IMaterialSlot::SetAccelerationStructure </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>binding</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html">ITopLevelAccelerationStructure</a> *&#160;</td>
+          <td class="paramname"><em>accelerationStructure</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Establece la estructura de aceleración para trazado de rayos que será asignado al binding con el nombre dado. Puede usarse esta función para alternar el recurso que está asignado al binding. </p>
+<dl class="section warning"><dt>Atención</dt><dd>No actualizará el recurso que realmente se usará en el shader, se debe llamar a <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a71d6977bf0f937b5086a32ca8af9d3b3" title="Actualiza los recursos que se enviarán a los shaders.">FlushUpdate()</a>. </dd></dl>
+
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a2b12e68de248773c807fa37e0d26d28d">OSK::GRAPHICS::MaterialSlotDx12</a> y <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#adf2cd436e9ac955b961143d8e6791622">OSK::GRAPHICS::MaterialSlotVulkan</a>.</p>
+
+</div>
+</div>
 <a id="a828989553e0769ad7eac092a3165be00" name="a828989553e0769ad7eac092a3165be00"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a828989553e0769ad7eac092a3165be00">&#9670;&nbsp;</a></span>SetGpuImage()</h2>
 
@@ -319,6 +366,88 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </dl>
 
 <p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a245684b62044daee3d991482d8154e6f">OSK::GRAPHICS::MaterialSlotDx12</a> y <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#ade76c465c6b0259ddce1f0e5b8b16bbf">OSK::GRAPHICS::MaterialSlotVulkan</a>.</p>
+
+</div>
+</div>
+<a id="a655f5c3de1170cd5f93242577db1a3db" name="a655f5c3de1170cd5f93242577db1a3db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a655f5c3de1170cd5f93242577db1a3db">&#9670;&nbsp;</a></span>SetStorageBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OSK::GRAPHICS::IMaterialSlot::SetStorageBuffer </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>binding</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">GpuDataBuffer</a> *&#160;</td>
+          <td class="paramname"><em>buffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Establece el buffer que será usado como storage buffer asignado al binding con el nombre dado. Puede usarse esta función para alternar el recurso que está asignado al binding. </p>
+<dl class="section warning"><dt>Atención</dt><dd>No actualizará el recurso que realmente se usará en el shader, se debe llamar a <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a71d6977bf0f937b5086a32ca8af9d3b3" title="Actualiza los recursos que se enviarán a los shaders.">FlushUpdate()</a>. </dd></dl>
+
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#ad3b8a71b471d369a0c9ffbc06beeabbb">OSK::GRAPHICS::MaterialSlotDx12</a> y <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#ae0dca0f23011328b4d8bd37e49dbe1a6">OSK::GRAPHICS::MaterialSlotVulkan</a>.</p>
+
+</div>
+</div>
+<a id="a1c9ee4e68f1886a6e78e4b87ee6580a9" name="a1c9ee4e68f1886a6e78e4b87ee6580a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c9ee4e68f1886a6e78e4b87ee6580a9">&#9670;&nbsp;</a></span>SetStorageImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OSK::GRAPHICS::IMaterialSlot::SetStorageImage </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>binding</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *&#160;</td>
+          <td class="paramname"><em>image</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Establece la imagen que será usada como storage image asignada al binding con el nombre dado. Puede usarse esta función para alternar el recurso que está asignado al binding. </p>
+<dl class="section warning"><dt>Atención</dt><dd>No actualizará el recurso que realmente se usará en el shader, se debe llamar a <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a71d6977bf0f937b5086a32ca8af9d3b3" title="Actualiza los recursos que se enviarán a los shaders.">FlushUpdate()</a>. </dd></dl>
+
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#af8c3d73ca401d5cf61b8aff6e57c3949">OSK::GRAPHICS::MaterialSlotDx12</a> y <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#ab5d1ac316c1c1f21fa1638eba5ac5831">OSK::GRAPHICS::MaterialSlotVulkan</a>.</p>
 
 </div>
 </div>
@@ -429,7 +558,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_material_slot_8h_source.html#l00070">70</a> del archivo <a class="el" href="_i_material_slot_8h_source.html">IMaterialSlot.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_material_slot_8h_source.html#l00096">96</a> del archivo <a class="el" href="_i_material_slot_8h_source.html">IMaterialSlot.h</a>.</p>
 
 </div>
 </div>
@@ -453,7 +582,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_material_slot_8h_source.html#l00071">71</a> del archivo <a class="el" href="_i_material_slot_8h_source.html">IMaterialSlot.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_material_slot_8h_source.html#l00097">97</a> del archivo <a class="el" href="_i_material_slot_8h_source.html">IMaterialSlot.h</a>.</p>
 
 </div>
 </div>
@@ -467,7 +596,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html">IMaterialSlot</a></li>
-    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Jueves, 16 de Junio de 2022 00:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

@@ -6,9 +6,6 @@
 #include "QueueFamilyIndices.h"
 #include "DynamicArray.hpp"
 
-struct VkSurfaceKHR_T;
-typedef VkSurfaceKHR_T* VkSurfaceKHR;
-
 namespace OSK::GRAPHICS {
 
 	/// <summary>
@@ -64,6 +61,14 @@ namespace OSK::GRAPHICS {
 			/// Información de las memorias disponibles en la GPU.
 			/// </summary>
 			VkPhysicalDeviceMemoryProperties memoryProperties;
+
+			VkPhysicalDeviceFeatures2 features2{}; // { VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2 };
+			VkPhysicalDeviceRayTracingPipelinePropertiesKHR rtPipelineProperties{}; // { VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR };
+			VkPhysicalDeviceRayTracingPipelineFeaturesKHR rtPipelineFeatures{}; // { VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR };
+			VkPhysicalDeviceAccelerationStructureFeaturesKHR rtAccelerationStructuresFeatures{}; // { VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR };
+			VkPhysicalDeviceBufferDeviceAddressFeatures rtDeviceAddressFeatures{}; // { VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES };
+
+			bool IsRtCompatible() const;
 
 			/// <summary>
 			/// Alineamiento mínimo para dynamic ubos.

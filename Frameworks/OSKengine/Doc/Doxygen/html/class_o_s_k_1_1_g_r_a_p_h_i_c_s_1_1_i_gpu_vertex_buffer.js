@@ -1,13 +1,15 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer =
 [
-    [ "IGpuVertexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html#a9f681f947bf31ebd53110154a7d545f0", null ],
+    [ "IGpuVertexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html#ae443117f52ade3a2781c6a0307393a3c", null ],
     [ "~IGpuVertexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html#a62feff01dce3df54d206bb36d5f27a96", null ],
     [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html#a33bc8c6062a92079aec9d14eee48b832", null ],
     [ "Free", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html#a15808b222370a1a0a81be7f27b310b83", null ],
     [ "GetAlignment", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html#ac873fedc6e58f364fb6a08e4bdf009fd", null ],
     [ "GetMemoryBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html#a43f298eb4cdf029351a103d159c4abf8", null ],
     [ "GetMemorySubblock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html#a0e688b372c65d28e21d562528355a08d", null ],
+    [ "GetNumVertices", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html#a855eee59aac3791c74e5994df994f88e", null ],
     [ "GetSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html#a1cea72401fd8c9d5672f9cf715339b45", null ],
+    [ "GetVertexInfo", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html#ae87c4c43d2ca5f8f00dc5e50504c09d4", null ],
     [ "MapMemory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html#a794d4d1ba8f5f2e81288398e59894eb9", null ],
     [ "MapMemory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html#ae204c031cbc4771d7338eec6ceeb7c58", null ],
     [ "ResetCursor", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html#a1f115bd0e7ad7fcfc785a4a88a7b0af6", null ],

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "EnumFlags.hpp"
+#include "ToString.h"
 
 namespace OSK::GRAPHICS {
 
@@ -10,7 +11,7 @@ namespace OSK::GRAPHICS {
 	enum class ShaderBindingType {
 
 		/// <summary>
-		/// Buffer con información arbitraria.
+		/// Buffer read-only con información arbitraria.
 		/// </summary>
 		UNIFORM_BUFFER,
 
@@ -22,7 +23,24 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Textura cúbica.
 		/// </summary>
-		CUBEMAP
+		CUBEMAP,
+
+		/// <summary>
+		/// Buffer read/write, que puede contener arrays con tamaño variable.
+		/// </summary>
+		STORAGE_BUFFER,
+
+		/// <summary>
+		/// Estructura de aceleración espacial con la geometría
+		/// para el trazado de rayos.
+		/// </summary>
+		RT_ACCELERATION_STRUCTURE,
+
+		/// <summary>
+		/// Imagen en la que se renderizará el resultado del
+		/// trazado de rayos.
+		/// </summary>
+		RT_TARGET_IMAGE
 
 	};
 
@@ -44,12 +62,45 @@ namespace OSK::GRAPHICS {
 		FRAGMENT = 2,
 
 		/// <summary>
-		/// Shaders de control y evaluación de teselado.
+		/// Shaders de control de teselado.
 		/// </summary>
-		TESSELATION = 4
+		TESSELATION_CONTROL = 4,
+
+		/// <summary>
+		/// Shaders de evaluación de teselado.
+		/// </summary>
+		TESSELATION_EVALUATION = 8,
+
+		/// <summary>
+		/// Shader que genera los rayos.
+		/// </summary>
+		RT_RAYGEN = 16,
+
+		/// <summary>
+		/// Shader que se ejecuta al final del trazado
+		/// de rayos, con el triángulo más cercano con el
+		/// que haya colisionado.
+		/// </summary>
+		RT_CLOSEST_HIT = 32,
+
+		/// <summary>
+		/// Shader que se ejecuta cuando el rayo no ha dado
+		/// con ningún triángulo.
+		/// </summary>
+		RT_MISS = 64,
+
+		/// <summary>
+		/// Todos los shaders de teselado.
+		/// </summary>
+		TESSELATION_ALL = TESSELATION_CONTROL | TESSELATION_EVALUATION,
+
+		RT_ALL = RT_RAYGEN | RT_CLOSEST_HIT |RT_MISS
 
 	};
 
 }
 
 OSK_FLAGS(OSK::GRAPHICS::ShaderStage);
+
+template <> std::string OSK::ToString<OSK::GRAPHICS::ShaderBindingType>(const OSK::GRAPHICS::ShaderBindingType& type);
+template <> std::string OSK::ToString<OSK::GRAPHICS::ShaderStage>(const OSK::GRAPHICS::ShaderStage& stage);

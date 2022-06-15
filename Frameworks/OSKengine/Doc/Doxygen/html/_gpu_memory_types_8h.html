@@ -93,6 +93,7 @@ $(document).ready(function(){initNavTree('_gpu_memory_types_8h.html',''); initRe
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="_enum_flags_8hpp_source.html">EnumFlags.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_to_string_8h_source.html">ToString.h</a>&quot;</code><br />
 </div>
 <p><a href="_gpu_memory_types_8h_source.html">Ir al código fuente de este archivo.</a></p>
 <table class="memberdecls">
@@ -120,6 +121,9 @@ Enumeraciones</h2></td></tr>
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7fafb3bb8503e5cd907a3a7b02a495c229e">OSK::GRAPHICS::TRANSFER_SOURCE</a> = 8
 , <br />
 &#160;&#160;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7fac61dfc60317a58b2843ec29f8e3c2359">OSK::GRAPHICS::TRANSFER_DESTINATION</a> = 16
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7fa56da21e70ea85d8efa9392d6fd11f2ee">OSK::GRAPHICS::RT_ACCELERATION_STRUCTURE</a> = 32
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7faf4723b84fe089b99fa8bd437f42b0167">OSK::GRAPHICS::RT_SHADER_BINDING_TABLE</a> = 64
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7fa10395d241b657a656306f94cbfb24021">OSK::GRAPHICS::RT_ACCELERATION_STRUCTURE_BUILDING</a> = 128
 <br />
  }</td></tr>
 <tr class="separator:ad8b871b506bab7c4021326a1a10bbc7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,8 +132,99 @@ Enumeraciones</h2></td></tr>
 Funciones</h2></td></tr>
 <tr class="memitem:a518773a9d0f6ce2fb4bdcdf2a669d05c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_gpu_memory_types_8h.html#a518773a9d0f6ce2fb4bdcdf2a669d05c">OSK_FLAGS</a> (<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7f">OSK::GRAPHICS::GpuBufferUsage</a>)</td></tr>
 <tr class="separator:a518773a9d0f6ce2fb4bdcdf2a669d05c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fd330a6b06eb8e5b331d9a379bb86d8"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a7fd330a6b06eb8e5b331d9a379bb86d8"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="_gpu_memory_types_8h.html#a7fd330a6b06eb8e5b331d9a379bb86d8">OSK::ToString&lt; OSK::GRAPHICS::GpuSharedMemoryType &gt;</a> (const <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042ce">OSK::GRAPHICS::GpuSharedMemoryType</a> &amp;type)</td></tr>
+<tr class="separator:a7fd330a6b06eb8e5b331d9a379bb86d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5619ca7979866ca4dcea6c4a1322767"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:aa5619ca7979866ca4dcea6c4a1322767"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="_gpu_memory_types_8h.html#aa5619ca7979866ca4dcea6c4a1322767">OSK::ToString&lt; OSK::GRAPHICS::GpuMemoryUsage &gt;</a> (const <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5e58e16d9268fde60c3eae698b225ec">OSK::GRAPHICS::GpuMemoryUsage</a> &amp;usage)</td></tr>
+<tr class="separator:aa5619ca7979866ca4dcea6c4a1322767"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26246c67682e4ffc5d48120e0ca522a2"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a26246c67682e4ffc5d48120e0ca522a2"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="_gpu_memory_types_8h.html#a26246c67682e4ffc5d48120e0ca522a2">OSK::ToString&lt; OSK::GRAPHICS::GpuBufferUsage &gt;</a> (const <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7f">OSK::GRAPHICS::GpuBufferUsage</a> &amp;usage)</td></tr>
+<tr class="separator:a26246c67682e4ffc5d48120e0ca522a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Documentación de las funciones</h2>
+<a id="a26246c67682e4ffc5d48120e0ca522a2" name="a26246c67682e4ffc5d48120e0ca522a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26246c67682e4ffc5d48120e0ca522a2">&#9670;&nbsp;</a></span>OSK::ToString&lt; OSK::GRAPHICS::GpuBufferUsage &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="namespace_o_s_k.html#a0e02ca313c1894ead83ab76001063684">OSK::ToString</a>&lt; <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7f">OSK::GRAPHICS::GpuBufferUsage</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7f">OSK::GRAPHICS::GpuBufferUsage</a> &amp;&#160;</td>
+          <td class="paramname"><em>usage</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_memory_types_8cpp_source.html#l00026">26</a> del archivo <a class="el" href="_gpu_memory_types_8cpp_source.html">GpuMemoryTypes.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa5619ca7979866ca4dcea6c4a1322767" name="aa5619ca7979866ca4dcea6c4a1322767"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5619ca7979866ca4dcea6c4a1322767">&#9670;&nbsp;</a></span>OSK::ToString&lt; OSK::GRAPHICS::GpuMemoryUsage &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="namespace_o_s_k.html#a0e02ca313c1894ead83ab76001063684">OSK::ToString</a>&lt; <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5e58e16d9268fde60c3eae698b225ec">OSK::GRAPHICS::GpuMemoryUsage</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5e58e16d9268fde60c3eae698b225ec">OSK::GRAPHICS::GpuMemoryUsage</a> &amp;&#160;</td>
+          <td class="paramname"><em>usage</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_memory_types_8cpp_source.html#l00015">15</a> del archivo <a class="el" href="_gpu_memory_types_8cpp_source.html">GpuMemoryTypes.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7fd330a6b06eb8e5b331d9a379bb86d8" name="a7fd330a6b06eb8e5b331d9a379bb86d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fd330a6b06eb8e5b331d9a379bb86d8">&#9670;&nbsp;</a></span>OSK::ToString&lt; OSK::GRAPHICS::GpuSharedMemoryType &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="namespace_o_s_k.html#a0e02ca313c1894ead83ab76001063684">OSK::ToString</a>&lt; <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042ce">OSK::GRAPHICS::GpuSharedMemoryType</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042ce">OSK::GRAPHICS::GpuSharedMemoryType</a> &amp;&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_memory_types_8cpp_source.html#l00004">4</a> del archivo <a class="el" href="_gpu_memory_types_8cpp_source.html">GpuMemoryTypes.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a518773a9d0f6ce2fb4bdcdf2a669d05c" name="a518773a9d0f6ce2fb4bdcdf2a669d05c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a518773a9d0f6ce2fb4bdcdf2a669d05c">&#9670;&nbsp;</a></span>OSK_FLAGS()</h2>
 
@@ -154,7 +249,7 @@ Funciones</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_gpu_memory_types_8h.html">GpuMemoryTypes.h</a></li>
-    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:57 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Jueves, 16 de Junio de 2022 00:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

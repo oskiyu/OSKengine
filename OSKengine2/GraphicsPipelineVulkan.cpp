@@ -11,194 +11,10 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-VkVertexInputBindingDescription GetBindingDescription(const VertexInfo& info) {
-	VkVertexInputBindingDescription bindingDescription{};
-
-	TSize size = 0;
-	for (const auto& i : info.entries)
-		size += i.size;
-
-	bindingDescription.binding = 0;
-	bindingDescription.stride = size;
-	bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-
-	return bindingDescription;
-}
-
-VkFormat GetVertexAttribFormat(const VertexInfo::Entry& entry) {
-	switch (entry.type) {
-
-	case VertexInfo::Entry::Type::INT:
-		if (entry.size == 2 * sizeof(int)) return VK_FORMAT_R32G32_SINT;
-		if (entry.size == 3 * sizeof(int)) return VK_FORMAT_R32G32B32_SINT;
-		if (entry.size == 4 * sizeof(int)) return VK_FORMAT_R32G32B32A32_SINT;
-
-	case VertexInfo::Entry::Type::FLOAT:
-		if (entry.size == 2 * sizeof(float)) return VK_FORMAT_R32G32_SFLOAT;
-		if (entry.size == 3 * sizeof(float)) return VK_FORMAT_R32G32B32_SFLOAT;
-		if (entry.size == 4 * sizeof(float)) return VK_FORMAT_R32G32B32A32_SFLOAT;
-	}
-
-	OSK_ASSERT(false, "Formato de vértice incorecto.");
-	return VK_FORMAT_MAX_ENUM;
-}
-
-DynamicArray<VkVertexInputAttributeDescription> GetAttributeDescription(const VertexInfo& info) {
-	DynamicArray<VkVertexInputAttributeDescription> output;
-
-	TSize offset = 0;
-	for (TSize i = 0; i < info.entries.GetSize(); i++) {
-		VkVertexInputAttributeDescription desc{};
-
-		desc.binding = 0;
-		desc.location = i;
-		desc.offset = offset;
-		desc.format = GetVertexAttribFormat(info.entries.At(i));
-		
-		output.Insert(desc);
-
-		offset += info.entries.At(i).size;
-	}
-
-	return output;
-}
-
-VkPipelineColorBlendAttachmentState GetColorBlendInfo(const PipelineCreateInfo& info) {
-	VkPipelineColorBlendAttachmentState output{};
-
-	output.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-	output.blendEnable = VK_TRUE;
-	output.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
-	output.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
-	output.colorBlendOp = VK_BLEND_OP_ADD;
-	output.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-	output.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
-	output.alphaBlendOp = VK_BLEND_OP_ADD;
-	
-	return output;
-}
-
-VkPolygonMode GetPolygonMode(PolygonMode mode) {
-	switch (mode) {
-	case PolygonMode::FILL:
-		return VK_POLYGON_MODE_FILL;
-	case PolygonMode::LINE:
-		return VK_POLYGON_MODE_LINE;
-	default:
-		return VK_POLYGON_MODE_FILL;
-	}
-}
-
-VkCullModeFlagBits GetCullMode(PolygonCullMode mode) {
-	switch (mode) {
-	case PolygonCullMode::FRONT:
-		return VK_CULL_MODE_FRONT_BIT;
-	case PolygonCullMode::BACK:
-		return VK_CULL_MODE_BACK_BIT;
-	case PolygonCullMode::NONE:
-		return VK_CULL_MODE_NONE;
-	default:
-		return VK_CULL_MODE_FRONT_AND_BACK;
-	}
-}
-
-VkFrontFace GetFrontFaceMode(PolygonFrontFaceType type) {
-	switch (type) {
-	case PolygonFrontFaceType::CLOCKWISE:
-		return VK_FRONT_FACE_CLOCKWISE;
-	case PolygonFrontFaceType::COUNTERCLOCKWISE:
-		return VK_FRONT_FACE_COUNTER_CLOCKWISE;
-	default:
-		return VK_FRONT_FACE_CLOCKWISE;
-	}
-}
-
-VkPipelineRasterizationStateCreateInfo GetResterizerInfo(const PipelineCreateInfo& info) {
-	VkPipelineRasterizationStateCreateInfo output{};
-
-	output.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
-	output.depthClampEnable = VK_FALSE; //FALSE: si el objeto está fuera de los límites no se renderiza.
-	output.rasterizerDiscardEnable = VK_FALSE;
-	//Modo de polígonos:
-	//	VK_POLYGON_MODE_FILL
-	//	VK_POLYGON_MODE_LINE
-	//	VK_POLYGON_MODE_POINT: vértice -> punto.
-	output.polygonMode = GetPolygonMode(info.polygonMode);
-	output.lineWidth = 1.0f;
-	output.cullMode = GetCullMode(info.cullMode);
-	output.frontFace = GetFrontFaceMode(info.frontFaceType);
-	output.depthBiasEnable = VK_FALSE;
-	output.depthBiasConstantFactor = 0.0f;
-	output.depthBiasClamp = 0.0f;
-	output.depthBiasSlopeFactor = 0.0f;
-
-	return output;
-}
-
-VkPipelineDepthStencilStateCreateInfo GetDepthInfo(const PipelineCreateInfo& info) {
-	VkPipelineDepthStencilStateCreateInfo output{};
-
-	output.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
-
-	if (info.depthTestingType == DepthTestingType::NONE)
-		output.depthTestEnable = VK_FALSE;
-	else
-		output.depthTestEnable = VK_TRUE;
-
-	if (info.depthTestingType == DepthTestingType::READ_WRITE)
-		output.depthWriteEnable = VK_TRUE;
-	else
-		output.depthWriteEnable = VK_FALSE;
-
-	output.depthCompareOp = VK_COMPARE_OP_LESS;
-	output.depthBoundsTestEnable = VK_FALSE;
-	output.minDepthBounds = 0.0f;
-	output.maxDepthBounds = 1.0f;
-	output.stencilTestEnable = VK_FALSE;
-	output.front = {};
-	output.back = {};
-
-	return output;
-}
-
-VkPipelineMultisampleStateCreateInfo GetMsaaInfo(const PipelineCreateInfo& info, const GpuVulkan& gpu) {
-	VkPipelineMultisampleStateCreateInfo output{};
-
-	output.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
-	output.sampleShadingEnable = VK_FALSE;
-	output.rasterizationSamples = (VkSampleCountFlagBits)gpu.GetInfo().maxMsaaSamples;
-	output.minSampleShading = 1.0f;
-	output.pSampleMask = nullptr;
-	output.alphaToCoverageEnable = VK_FALSE;
-	output.alphaToOneEnable = VK_FALSE;
-
-	return output;
-}
-
-VkPipelineTessellationStateCreateInfo GetTesselationInfo(const PipelineCreateInfo& info) {
-	VkPipelineTessellationStateCreateInfo output{};
-
-	output.sType = VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_STATE_CREATE_INFO;
-	output.pNext = NULL;
-	output.flags = 0;
-	output.patchControlPoints = 3;
-
-	return output;
-}
-
 
 GraphicsPipelineVulkan::GraphicsPipelineVulkan(RenderpassVulkan* renderpass)
 	: targetRenderpass(renderpass) {
 
-}
-
-GraphicsPipelineVulkan::~GraphicsPipelineVulkan() {
-	for (TSize i = 0; i < shaderModulesToDelete.GetSize(); i++)
-		vkDestroyShaderModule(gpu->As<GpuVulkan>()->GetLogicalDevice(),
-			shaderModulesToDelete.At(i), nullptr);
-
-	vkDestroyPipeline(gpu->As<GpuVulkan>()->GetLogicalDevice(),
-		pipeline, nullptr);
 }
 
 void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) {
@@ -308,10 +124,6 @@ void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* 
 	OSK_ASSERT(result == VK_SUCCESS, "Error al crear el pipeline.");
 }
 
-VkPipeline GraphicsPipelineVulkan::GetPipeline() const {
-	return pipeline;
-}
-
 void GraphicsPipelineVulkan::LoadVertexShader(const std::string& path) {
 	VkShaderModule shaderModule = VK_NULL_HANDLE;
 
@@ -414,4 +226,77 @@ void GraphicsPipelineVulkan::LoadTesselationEvaluationShader(const std::string& 
 
 	shaderStagesInfo.Insert(shaderStageInfo);
 	shaderModulesToDelete.Insert(shaderModule);
+}
+
+VkPipelineRasterizationStateCreateInfo GraphicsPipelineVulkan::GetResterizerInfo(const PipelineCreateInfo& info) const {
+	VkPipelineRasterizationStateCreateInfo output{};
+
+	output.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
+	output.depthClampEnable = VK_FALSE; //FALSE: si el objeto está fuera de los límites no se renderiza.
+	output.rasterizerDiscardEnable = VK_FALSE;
+	//Modo de polígonos:
+	//	VK_POLYGON_MODE_FILL
+	//	VK_POLYGON_MODE_LINE
+	//	VK_POLYGON_MODE_POINT: vértice -> punto.
+	output.polygonMode = GetPolygonMode(info.polygonMode);
+	output.lineWidth = 1.0f;
+	output.cullMode = GetCullMode(info.cullMode);
+	output.frontFace = GetFrontFaceMode(info.frontFaceType);
+	output.depthBiasEnable = VK_FALSE;
+	output.depthBiasConstantFactor = 0.0f;
+	output.depthBiasClamp = 0.0f;
+	output.depthBiasSlopeFactor = 0.0f;
+
+	return output;
+}
+
+VkPipelineDepthStencilStateCreateInfo GraphicsPipelineVulkan::GetDepthInfo(const PipelineCreateInfo& info) const {
+	VkPipelineDepthStencilStateCreateInfo output{};
+
+	output.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+
+	if (info.depthTestingType == DepthTestingType::NONE)
+		output.depthTestEnable = VK_FALSE;
+	else
+		output.depthTestEnable = VK_TRUE;
+
+	if (info.depthTestingType == DepthTestingType::READ_WRITE)
+		output.depthWriteEnable = VK_TRUE;
+	else
+		output.depthWriteEnable = VK_FALSE;
+
+	output.depthCompareOp = VK_COMPARE_OP_LESS;
+	output.depthBoundsTestEnable = VK_FALSE;
+	output.minDepthBounds = 0.0f;
+	output.maxDepthBounds = 1.0f;
+	output.stencilTestEnable = VK_FALSE;
+	output.front = {};
+	output.back = {};
+
+	return output;
+}
+
+VkPipelineMultisampleStateCreateInfo GraphicsPipelineVulkan::GetMsaaInfo(const PipelineCreateInfo& info, const GpuVulkan& gpu) const {
+	VkPipelineMultisampleStateCreateInfo output{};
+
+	output.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
+	output.sampleShadingEnable = VK_FALSE;
+	output.rasterizationSamples = (VkSampleCountFlagBits)gpu.GetInfo().maxMsaaSamples;
+	output.minSampleShading = 1.0f;
+	output.pSampleMask = nullptr;
+	output.alphaToCoverageEnable = VK_FALSE;
+	output.alphaToOneEnable = VK_FALSE;
+
+	return output;
+}
+
+VkPipelineTessellationStateCreateInfo GraphicsPipelineVulkan::GetTesselationInfo(const PipelineCreateInfo& info) const {
+	VkPipelineTessellationStateCreateInfo output{};
+
+	output.sType = VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_STATE_CREATE_INFO;
+	output.pNext = NULL;
+	output.flags = 0;
+	output.patchControlPoints = 3;
+
+	return output;
 }

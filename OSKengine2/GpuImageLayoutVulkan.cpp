@@ -29,6 +29,9 @@ VkImageLayout OSK::GRAPHICS::GetGpuImageLayoutVulkan(GpuImageLayout layout) {
 		case GpuImageLayout::TRANSFER_DESTINATION:
 			return VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
 
+		case GpuImageLayout::GENERAL:
+			return VK_IMAGE_LAYOUT_GENERAL;
+
 		default:
 			return VK_IMAGE_LAYOUT_MAX_ENUM;
 	}

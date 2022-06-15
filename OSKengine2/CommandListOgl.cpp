@@ -77,6 +77,10 @@ void CommandListOgl::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* de
 	OSK_ASSERT(false, "No implementado.");
 }
 
+void CommandListOgl::TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) {
+	OSK_ASSERT(false, "No implementado.");
+}
+
 void CommandListOgl::SetViewport(const Viewport& vp) {
 	glViewport(
 		vp.rectangle.GetRectanglePosition().X,

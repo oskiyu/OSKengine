@@ -87,15 +87,17 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 	features.fillModeNonSolid = VK_TRUE; /// \todo check
 
 	// RT
-	gpuExtensions.Insert(VK_KHR_ACCELERATION_STRUCTURE_EXTENSION_NAME);
-	gpuExtensions.Insert(VK_KHR_RAY_TRACING_PIPELINE_EXTENSION_NAME);
+	if (info.IsRtCompatible()) {
+		gpuExtensions.Insert(VK_KHR_ACCELERATION_STRUCTURE_EXTENSION_NAME);
+		gpuExtensions.Insert(VK_KHR_RAY_TRACING_PIPELINE_EXTENSION_NAME);
 
-	gpuExtensions.Insert(VK_KHR_BUFFER_DEVICE_ADDRESS_EXTENSION_NAME);
-	gpuExtensions.Insert(VK_KHR_DEFERRED_HOST_OPERATIONS_EXTENSION_NAME);
-	gpuExtensions.Insert(VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME);
+		gpuExtensions.Insert(VK_KHR_BUFFER_DEVICE_ADDRESS_EXTENSION_NAME);
+		gpuExtensions.Insert(VK_KHR_DEFERRED_HOST_OPERATIONS_EXTENSION_NAME);
+		gpuExtensions.Insert(VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME);
 
-	gpuExtensions.Insert(VK_KHR_SPIRV_1_4_EXTENSION_NAME);
-	gpuExtensions.Insert(VK_KHR_SHADER_FLOAT_CONTROLS_EXTENSION_NAME);
+		gpuExtensions.Insert(VK_KHR_SPIRV_1_4_EXTENSION_NAME);
+		gpuExtensions.Insert(VK_KHR_SHADER_FLOAT_CONTROLS_EXTENSION_NAME);
+	}
 
 	// Crear el logical device.
 	VkDeviceCreateInfo createInfo{};
@@ -105,6 +107,28 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 	createInfo.pEnabledFeatures = &features;
 	createInfo.enabledExtensionCount = gpuExtensions.GetSize();
 	createInfo.ppEnabledExtensionNames = gpuExtensions.GetData();
+	
+	if (info.IsRtCompatible()) {
+		createInfo.pEnabledFeatures = nullptr;
+		createInfo.pNext = &info.features2;
+		info.features2.features = features;
+		info.features2.pNext = &info.rtAccelerationStructuresFeatures;
+
+		info.rtAccelerationStructuresFeatures = {};
+		info.rtAccelerationStructuresFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR,
+		info.rtAccelerationStructuresFeatures.accelerationStructure = VK_TRUE;
+		info.rtAccelerationStructuresFeatures.pNext = &info.rtDeviceAddressFeatures;
+
+		info.rtDeviceAddressFeatures = {};
+		info.rtDeviceAddressFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES,
+		info.rtDeviceAddressFeatures.bufferDeviceAddress = VK_TRUE;
+		info.rtDeviceAddressFeatures.pNext = &info.rtPipelineFeatures;
+
+		info.rtPipelineFeatures = {};
+		info.rtPipelineFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR,
+		info.rtPipelineFeatures.rayTracingPipeline = VK_TRUE;
+		info.rtPipelineFeatures.pNext = VK_NULL_HANDLE;	
+	}
 
 	// Crear el logical device.
 	VkResult result = vkCreateDevice(physicalDevice, &createInfo, nullptr, &logicalDevice);
@@ -205,17 +229,27 @@ GpuVulkan::Info GpuVulkan::Info::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface)
 	vkGetPhysicalDeviceFeatures(gpu, &info.features);
 
 	// Obtiene las características de ray-tracing
-	VkPhysicalDeviceRayTracingPipelinePropertiesKHR rtPipelineProperties{};
-	rtPipelineProperties.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR;
-	rtPipelineProperties.pNext = VK_NULL_HANDLE;
-
 	VkPhysicalDeviceProperties2 gpuProperties2{};
 	gpuProperties2.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROPERTIES_2;
 	gpuProperties2.properties = info.properties;
-	gpuProperties2.pNext = &rtPipelineProperties;
+	gpuProperties2.pNext = &info.rtPipelineProperties;
+
+	info.rtPipelineProperties.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR;
 
 	vkGetPhysicalDeviceProperties2(gpu, &gpuProperties2);
+	
+	// Featrues
+	info.features2.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2;
+	info.features2.features = info.features;
+	info.features2.pNext = &info.rtPipelineFeatures;
 
+	info.rtPipelineFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR;
+	info.rtPipelineFeatures.pNext = &info.rtAccelerationStructuresFeatures;
+	info.rtAccelerationStructuresFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR;
+	info.rtAccelerationStructuresFeatures.pNext = &info.rtDeviceAddressFeatures;
+	info.rtDeviceAddressFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES;
+
+	vkGetPhysicalDeviceFeatures2(gpu, &info.features2);
 
 	// Comprobar soporte de swapchain.
 	bool swapchainSupported = false;
@@ -263,4 +297,8 @@ GpuVulkan::Info GpuVulkan::Info::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface)
 	else if (counts & VK_SAMPLE_COUNT_2_BIT) { info.maxMsaaSamples = VK_SAMPLE_COUNT_2_BIT; }
 
 	return info;
+}
+
+bool GpuVulkan::Info::IsRtCompatible() const {
+	return rtPipelineFeatures.rayTracingPipeline && rtAccelerationStructuresFeatures.accelerationStructure;
 }

@@ -10,7 +10,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuVertexBufferDx12(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment);
+		GpuVertexBufferDx12(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment, TSize numVertices, const VertexInfo& vertexInfo);
 
 		void SetView(TSize vertexSize, TSize numberOfVertices);
 

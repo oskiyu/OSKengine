@@ -31,7 +31,7 @@ OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorDx12::CreateStagingBuffer(TSize size) 
 		GpuBufferUsage::TRANSFER_SOURCE, GpuSharedMemoryType::GPU_AND_CPU)->GetNextMemorySubblock(size), size, 0);
 }
 
-OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorDx12::CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices) {
+OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorDx12::CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices, const VertexInfo& vertexInfo) {
 	const TSize bufferSize = numVertices * vertexSize;
 	auto block = GetNextBufferMemoryBlock(bufferSize, GpuBufferUsage::VERTEX_BUFFER, GpuSharedMemoryType::GPU_ONLY);
 
@@ -40,7 +40,7 @@ OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorDx12::CreateVertexBuffer(const void
 	stagingBuffer->Write(data, bufferSize);
 	stagingBuffer->Unmap();
 
-	GpuVertexBufferDx12* output = new GpuVertexBufferDx12(block->GetNextMemorySubblock(bufferSize), bufferSize, 0);
+	GpuVertexBufferDx12* output = new GpuVertexBufferDx12(block->GetNextMemorySubblock(bufferSize), bufferSize, 0, numVertices, vertexInfo);
 
 	auto singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList()->As<CommandListDx12>();
 	singleTimeCommandList->Reset();
@@ -80,7 +80,7 @@ OwnedPtr<IGpuIndexBuffer> GpuMemoryAllocatorDx12::CreateIndexBuffer(const Dynami
 	stagingBuffer->Write(indices.GetData(), bufferSize);
 	stagingBuffer->Unmap();
 
-	GpuIndexBufferDx12* output = new GpuIndexBufferDx12(block->GetNextMemorySubblock(bufferSize), bufferSize, 0);
+	GpuIndexBufferDx12* output = new GpuIndexBufferDx12(block->GetNextMemorySubblock(bufferSize), bufferSize, 0, indices.GetSize());
 
 	auto singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList()->As<CommandListDx12>();
 	singleTimeCommandList->Reset();
@@ -241,6 +241,24 @@ IGpuMemoryBlock* GpuMemoryAllocatorDx12::GetNextBufferMemoryBlock(TSize size, Gp
 
 		return i.GetPointer();
 	}
+
+	return nullptr;
+}
+
+OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorDx12::CreateBuffer(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+	OSK_ASSERT(false, "No implementado.");
+
+	return nullptr;
+}
+
+OwnedPtr<IBottomLevelAccelerationStructure> GpuMemoryAllocatorDx12::CreateBottomAccelerationStructure(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer) {
+	OSK_ASSERT(false, "No implementado.");
+
+	return nullptr;
+}
+
+OwnedPtr<ITopLevelAccelerationStructure> GpuMemoryAllocatorDx12::CreateTopAccelerationStructure(DynamicArray<const IBottomLevelAccelerationStructure*> bottomStructures) {
+	OSK_ASSERT(false, "No implementado.");
 
 	return nullptr;
 }

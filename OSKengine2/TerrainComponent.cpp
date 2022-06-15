@@ -17,10 +17,10 @@ void TerrainComponent::Generate(const Vector2ui& resolution) {
 	for (TSize posX = 0; posX < resolution.X; posX++) {
 		for (TSize posY = 0; posY < resolution.Y; posY++) {
 			terrainVertices.Insert(Vertex3D{
-				(Vector3f(posX, 0, posY) / Vector3f(resolution.X, 1, resolution.Y)),
+				(Vector3f(static_cast<float>(posX), 0, static_cast<float>(posY)) / Vector3f((float)resolution.X, 1, (float)resolution.Y)),
 				 Vector3f(0),
 				 Color::WHITE(),
-				 Vector2f(posX, posY) / resolution.ToVector2f()
+				 Vector2f(static_cast<float>(posX), static_cast<float>(posY)) / resolution.ToVector2f()
 				});
 		}
 	}
@@ -32,7 +32,7 @@ void TerrainComponent::Generate(const Vector2ui& resolution) {
 		}
 	}
 
-	vertexBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateVertexBuffer(terrainVertices).GetPointer();
+	vertexBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateVertexBuffer(terrainVertices, Vertex3D::GetVertexInfo()).GetPointer();
 	indexBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateIndexBuffer(terrainIndices).GetPointer();
 
 	numIndices = terrainIndices.GetSize();

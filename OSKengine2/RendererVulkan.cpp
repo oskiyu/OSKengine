@@ -33,6 +33,7 @@
 #include "MaterialInstance.h"
 #include "MaterialSlotVulkan.h"
 #include "IGpuUniformBuffer.h"
+#include "RaytracingPipelineVulkan.h"
 
 #include "AssetManager.h"
 #include "Texture.h"
@@ -94,7 +95,6 @@ VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBits
 
 
 RendererVulkan::RendererVulkan() : IRenderer(RenderApiType::VULKAN) {
-
 }
 
 RendererVulkan::~RendererVulkan() {
@@ -116,6 +116,7 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	CreateSyncDevice();
 	CreateGpuMemoryAllocator();
 	CreateMainRenderpass();
+	SetupRtFunctions(currentGpu->As<GpuVulkan>()->GetLogicalDevice());
 
 	isOpen = true;
 }
@@ -124,6 +125,13 @@ OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const Pipeli
 	GraphicsPipelineVulkan* pipeline = new GraphicsPipelineVulkan(renderpass->As<RenderpassVulkan>());
 
 	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
+
+	return pipeline;
+}
+
+OwnedPtr<IRaytracingPipeline> RendererVulkan::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo& vertexTypeName) {
+	RaytracingPipelineVulkan* pipeline = new RaytracingPipelineVulkan();
+	pipeline->Create(*layout, pipelineInfo);
 
 	return pipeline;
 }
@@ -158,16 +166,21 @@ void RendererVulkan::HandleResize() {
 }
 
 void RendererVulkan::SubmitSingleUseCommandList(ICommandList* commandList) {
+	const TSize cmdIndex = commandList->GetCommandListIndex();
+	const VkQueue graphicsQ = graphicsQueue->As<CommandQueueVulkan>()->GetQueue();
+	const VkCommandBuffer cmdBuffer = commandList->As<CommandListVulkan>()->GetCommandBuffers()->At(cmdIndex);
+
 	VkSubmitInfo submitInfo{};
 	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 	submitInfo.commandBufferCount = 1;
-	submitInfo.pCommandBuffers = &commandList->As<CommandListVulkan>()->GetCommandBuffers()->At(0);
+	submitInfo.pCommandBuffers = &cmdBuffer;
 
-	vkQueueSubmit(graphicsQueue->As<CommandQueueVulkan>()->GetQueue(), 1, &submitInfo, VK_NULL_HANDLE);
-	vkQueueWaitIdle(graphicsQueue->As<CommandQueueVulkan>()->GetQueue());
+	VkResult result = vkQueueSubmit(graphicsQ, 1, &submitInfo, VK_NULL_HANDLE);
+	OSK_ASSERT(result == VK_SUCCESS, "Error al enviar comando de uso único. Code: " + std::to_string(result));
+	result = vkQueueWaitIdle(graphicsQ);
+	OSK_ASSERT(result == VK_SUCCESS, "Error al esperar comando de uso único. Code: " + std::to_string(result));
 
-	vkFreeCommandBuffers(currentGpu->As<GpuVulkan>()->GetLogicalDevice(), 
-		commandPool->As<CommandPoolVulkan>()->GetCommandPool(), 1, &commandList->As<CommandListVulkan>()->GetCommandBuffers()->At(0));
+	vkFreeCommandBuffers(currentGpu->As<GpuVulkan>()->GetLogicalDevice(), commandPool->As<CommandPoolVulkan>()->GetCommandPool(), 1, &cmdBuffer);
 
 	singleTimeCommandLists.Insert(commandList);
 }
@@ -180,7 +193,7 @@ void RendererVulkan::CreateInstance(const std::string& appName, const Version& v
 	appInfo.applicationVersion = VK_MAKE_VERSION((int)version.mayor, (int)version.menor, (int)version.parche);
 	appInfo.pEngineName = "OSKengine";
 	appInfo.engineVersion = VK_MAKE_VERSION(Engine::GetVersion().mayor, Engine::GetVersion().menor, Engine::GetVersion().parche);
-	appInfo.apiVersion = VK_API_VERSION_1_2;
+	appInfo.apiVersion = VK_API_VERSION_1_3;
 
 	//Create info.
 	VkInstanceCreateInfo createInfo{};
@@ -419,7 +432,7 @@ void RendererVulkan::PresentFrame() {
 	commandList->Close();
 
 	// Sync
-	auto result = syncDevice->As<SyncDeviceVulkan>()->UpdateCurrentFrameIndex();
+	bool result = syncDevice->As<SyncDeviceVulkan>()->UpdateCurrentFrameIndex();
 	if (result)
 		return;
 
@@ -449,6 +462,19 @@ void RendererVulkan::PresentFrame() {
 	commandList->SetScissor(windowRec);
 }
 
+void RendererVulkan::SetupRtFunctions(VkDevice device) {
+	pvkGetBufferDeviceAddressKHR = reinterpret_cast<PFN_vkGetBufferDeviceAddressKHR>(vkGetDeviceProcAddr(device, "vkGetBufferDeviceAddressKHR"));
+	pvkCmdBuildAccelerationStructuresKHR = reinterpret_cast<PFN_vkCmdBuildAccelerationStructuresKHR>(vkGetDeviceProcAddr(device, "vkCmdBuildAccelerationStructuresKHR"));
+	pvkBuildAccelerationStructuresKHR = reinterpret_cast<PFN_vkBuildAccelerationStructuresKHR>(vkGetDeviceProcAddr(device, "vkBuildAccelerationStructuresKHR"));
+	pvkCreateAccelerationStructureKHR = reinterpret_cast<PFN_vkCreateAccelerationStructureKHR>(vkGetDeviceProcAddr(device, "vkCreateAccelerationStructureKHR"));
+	pvkDestroyAccelerationStructureKHR = reinterpret_cast<PFN_vkDestroyAccelerationStructureKHR>(vkGetDeviceProcAddr(device, "vkDestroyAccelerationStructureKHR"));
+	pvkGetAccelerationStructureBuildSizesKHR = reinterpret_cast<PFN_vkGetAccelerationStructureBuildSizesKHR>(vkGetDeviceProcAddr(device, "vkGetAccelerationStructureBuildSizesKHR"));
+	pvkGetAccelerationStructureDeviceAddressKHR = reinterpret_cast<PFN_vkGetAccelerationStructureDeviceAddressKHR>(vkGetDeviceProcAddr(device, "vkGetAccelerationStructureDeviceAddressKHR"));
+	pvkCmdTraceRaysKHR = reinterpret_cast<PFN_vkCmdTraceRaysKHR>(vkGetDeviceProcAddr(device, "vkCmdTraceRaysKHR"));
+	pvkGetRayTracingShaderGroupHandlesKHR = reinterpret_cast<PFN_vkGetRayTracingShaderGroupHandlesKHR>(vkGetDeviceProcAddr(device, "vkGetRayTracingShaderGroupHandlesKHR"));
+	pvkCreateRayTracingPipelinesKHR = reinterpret_cast<PFN_vkCreateRayTracingPipelinesKHR>(vkGetDeviceProcAddr(device, "vkCreateRayTracingPipelinesKHR"));
+}
+
 TSize RendererVulkan::GetCurrentFrameIndex() const {
 	return syncDevice->As<SyncDeviceVulkan>()->GetCurrentFrameIndex();
 }
@@ -456,3 +482,18 @@ TSize RendererVulkan::GetCurrentFrameIndex() const {
 TSize RendererVulkan::GetCurrentCommandListIndex() const {
 	return syncDevice->As<SyncDeviceVulkan>()->GetCurrentCommandListIndex();
 }
+
+bool RendererVulkan::SupportsRaytracing() const {
+	return currentGpu->As<GpuVulkan>()->GetInfo().IsRtCompatible();
+}
+
+PFN_vkGetBufferDeviceAddressKHR RendererVulkan::pvkGetBufferDeviceAddressKHR = nullptr;
+PFN_vkCmdBuildAccelerationStructuresKHR RendererVulkan::pvkCmdBuildAccelerationStructuresKHR = nullptr;
+PFN_vkBuildAccelerationStructuresKHR RendererVulkan::pvkBuildAccelerationStructuresKHR = nullptr;
+PFN_vkCreateAccelerationStructureKHR RendererVulkan::pvkCreateAccelerationStructureKHR = nullptr;
+PFN_vkDestroyAccelerationStructureKHR RendererVulkan::pvkDestroyAccelerationStructureKHR = nullptr;
+PFN_vkGetAccelerationStructureBuildSizesKHR RendererVulkan::pvkGetAccelerationStructureBuildSizesKHR = nullptr;
+PFN_vkGetAccelerationStructureDeviceAddressKHR RendererVulkan::pvkGetAccelerationStructureDeviceAddressKHR = nullptr;
+PFN_vkCmdTraceRaysKHR RendererVulkan::pvkCmdTraceRaysKHR = nullptr;
+PFN_vkGetRayTracingShaderGroupHandlesKHR RendererVulkan::pvkGetRayTracingShaderGroupHandlesKHR = nullptr;
+PFN_vkCreateRayTracingPipelinesKHR RendererVulkan::pvkCreateRayTracingPipelinesKHR = nullptr;

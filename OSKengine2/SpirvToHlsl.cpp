@@ -23,7 +23,7 @@ void SpirvToHlsl::SetLayoutMapping(const MaterialLayout& layout) {
 
 		for (const auto& binding : slot.bindings) {
 
-			const static DynamicArray<ShaderStage> stages = { ShaderStage::VERTEX, ShaderStage::FRAGMENT, ShaderStage::TESSELATION };
+			const static DynamicArray<ShaderStage> stages = { ShaderStage::VERTEX, ShaderStage::FRAGMENT, ShaderStage::TESSELATION_CONTROL, ShaderStage::TESSELATION_EVALUATION };
 
 			for (const ShaderStage stage : stages) {
 				spirv_cross::HLSLResourceBinding hlslBinding{};
@@ -44,12 +44,11 @@ void SpirvToHlsl::SetLayoutMapping(const MaterialLayout& layout) {
 					hlslBinding.stage = spv::ExecutionModel::ExecutionModelVertex;
 				else if (stage == ShaderStage::FRAGMENT)
 					hlslBinding.stage = spv::ExecutionModel::ExecutionModelFragment;
-				else if (stage == ShaderStage::TESSELATION) {
+				else if (stage == ShaderStage::TESSELATION_CONTROL)
 					hlslBinding.stage = spv::ExecutionModel::ExecutionModelTessellationControl;
-					compilerToHlsl.add_hlsl_resource_binding(hlslBinding);
+				else if (stage == ShaderStage::TESSELATION_EVALUATION)
 					hlslBinding.stage = spv::ExecutionModel::ExecutionModelTessellationEvaluation;
-				}
-
+				
 				compilerToHlsl.add_hlsl_resource_binding(hlslBinding);
 			}
 		}

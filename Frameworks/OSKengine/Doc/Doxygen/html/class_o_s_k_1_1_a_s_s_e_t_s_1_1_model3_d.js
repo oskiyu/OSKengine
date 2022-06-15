@@ -1,11 +1,13 @@
 var class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d =
 [
     [ "Model3D", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#adc976a68735a701fc05f9c50ff826212", null ],
+    [ "_SetAccelerationStructure", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a35dbcfd55eae24fe503a83ca889a47c1", null ],
     [ "_SetIndexBuffer", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#af71969c2d3b415801459a341b4d91c21", null ],
     [ "_SetIndexCount", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a2e19e626c0b40235285bf546e8cc1378", null ],
     [ "_SetVertexBuffer", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a1b82d0d66290f0968dd61b34cbe785ed", null ],
     [ "AddGpuImage", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#aff55e57875562bb3dbc82ad0d0d71fcc", null ],
     [ "AddMesh", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#aefe11c4a01aba22ec8fbda78404026e8", null ],
+    [ "GetAccelerationStructure", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a551b190f06c44a84d937a79f4f251d0f", null ],
     [ "GetAssetFilename", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#acf0bac3849facb6afb0499907186840b", null ],
     [ "GetImage", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a46ac841ad1f82be255e68f5b188b6278", null ],
     [ "GetIndexBuffer", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a7c1aaf201341a6e0666998cb7b13d98e", null ],

@@ -1,5 +1,6 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan =
 [
+    [ "_SetSingleTimeUse", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a91dd0015d5deefbbcbc1abacdb6be2c6", null ],
     [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a7bf40442c718857b7b6b6ced797d5b2a", null ],
     [ "BeginAndClearRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#ad40adcf5c4c9143ca9f008be2832493b", null ],
     [ "BeginRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a0c208b89699adda55805ca49b87f8463", null ],
@@ -16,6 +17,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan =
     [ "EndRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a932f8c7fc1315fe59ea876e8c0b65574", null ],
     [ "GetCommandBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a248746c7ba1e62cb1c4ec1debcb28d42", null ],
     [ "GetCommandBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a222a24c9f23c317f07799ba7cb492595", null ],
+    [ "GetCommandListIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a2737fdfdca1c275d18f54cbb326dbc0d", null ],
     [ "PushMaterialConstants", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a0d46ca565299ba80f80ac603ffd4b88c", null ],
     [ "PushMaterialConstants", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#aa78c754b21eb1cf45f2c05e36bdb9276", null ],
     [ "PushMaterialConstants", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a945bc26e12750fcc62b66a0264543282", null ],
@@ -24,9 +26,12 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan =
     [ "SetScissor", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a938ef0e550abc3b2658e232254370a38", null ],
     [ "SetViewport", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#aa5d54ed3e440e609ef40709e2a9c19d7", null ],
     [ "Start", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#acc710c0c469ac3d93546fda95fbc315e", null ],
+    [ "TraceRays", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a23bedbeff67ec536d19eaf7e4b8ee785", null ],
     [ "TransitionImageLayout", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a5991c1350838f27f6e381821b04b12be", null ],
     [ "TransitionImageLayout", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a7cd7efdc0b63dc0407e70d2470b38a8e", null ],
     [ "currentMaterial", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a38a16050295d9b1591859ddce9f8668e", null ],
     [ "currentPipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#afcd5207fff39ff2f7ca83d3cb9820892", null ],
-    [ "currentRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a721841ff3b70e827251460e6a5de250c", null ]
+    [ "currentRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a721841ff3b70e827251460e6a5de250c", null ],
+    [ "currentRtPipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a3823334c96457ebb0aff6620d98db735", null ],
+    [ "isSingleUse", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a3298bbf2bbc07fce7dd4a04a20b0bf44", null ]
 ];

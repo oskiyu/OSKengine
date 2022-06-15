@@ -1,6 +1,7 @@
 #pragma once
 
 #include "EnumFlags.hpp"
+#include "ToString.h"
 
 namespace OSK::GRAPHICS {
 
@@ -73,10 +74,34 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Se copiarán datos de otro buffer a este.
 		/// </summary>
-		TRANSFER_DESTINATION = 16
+		TRANSFER_DESTINATION = 16,
+
+		/// <summary>
+		/// Se usará para almacenar un elemento de la estructura
+		/// de aceleración de trazado de rayos.
+		/// 
+		/// Se puede usar tanto para elementos primarios o secundarios.
+		/// </summary>
+		RT_ACCELERATION_STRUCTURE = 32,
+		
+		/// <summary>
+		/// Se usará para almacenar la tabla de shaders de un pipeline
+		/// de trazado de rayos.
+		/// </summary>
+		RT_SHADER_BINDING_TABLE = 64,
+
+		/// <summary>
+		/// Se usará temporalmente para crear las estrcuturas de aceleración
+		/// de trazado de rayos.
+		/// </summary>
+		RT_ACCELERATION_STRUCTURE_BUILDING = 128
 
 	};
 
 }
 
 OSK_FLAGS(OSK::GRAPHICS::GpuBufferUsage);
+
+template <> std::string OSK::ToString<OSK::GRAPHICS::GpuSharedMemoryType>(const OSK::GRAPHICS::GpuSharedMemoryType& type);
+template <> std::string OSK::ToString<OSK::GRAPHICS::GpuMemoryUsage>(const OSK::GRAPHICS::GpuMemoryUsage& usage);
+template <> std::string OSK::ToString<OSK::GRAPHICS::GpuBufferUsage>(const OSK::GRAPHICS::GpuBufferUsage& usage);

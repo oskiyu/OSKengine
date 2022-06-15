@@ -33,7 +33,7 @@ ShaderStage GetShaderStage(const std::string& type) {
 		return ShaderStage::FRAGMENT;
 
 	if (type == "TESSELATION")
-		return ShaderStage::TESSELATION;
+		return ShaderStage::TESSELATION_ALL;
 
 	OSK_ASSERT(false, type + " no es un shader stage válido.");
 
@@ -244,6 +244,104 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 		layout->GetSlot(setName).bindings.Insert(binding.name, binding);
 	}
 
+	for (auto& i : resources.acceleration_structures) {
+		// Obtenemos el nombre del set (slot).
+		// Si no tiene nombre registrado en el archivo, su nombre será su número.
+		std::string setName = std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet));
+		if (materialInfo.contains("slots") && materialInfo["slots"].contains(std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))))
+			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
+
+		// Si el slot no está registrado, registrarlo
+		if (!layout->GetAllSlotNames().ContainsElement(setName)) {
+			MaterialLayoutSlot slot{};
+			slot.name = setName;
+			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
+			slot.stage = stage;
+
+			layout->AddSlot(slot);
+		}
+		else {
+			EFTraits::AddFlag(&layout->GetSlot(setName).stage, stage);
+		}
+
+		MaterialLayoutBinding binding{};
+		binding.name = compiler.get_name(i.id);
+		binding.glslIndex = compiler.get_decoration(i.id, spv::DecorationBinding);
+		binding.type = ShaderBindingType::RT_ACCELERATION_STRUCTURE;
+		//binding.hlslIndex = *numBuffers;
+		//binding.hlslDescriptorIndex = *numBindings; TODO
+
+		//(*numBuffers)++;
+		//(*numBindings)++;
+
+		layout->GetSlot(setName).bindings.Insert(binding.name, binding);
+	}
+
+	for (auto& i : resources.storage_images) {
+		// Obtenemos el nombre del set (slot).
+		// Si no tiene nombre registrado en el archivo, su nombre será su número.
+		std::string setName = std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet));
+		if (materialInfo.contains("slots") && materialInfo["slots"].contains(std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))))
+			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
+
+		// Si el slot no está registrado, registrarlo
+		if (!layout->GetAllSlotNames().ContainsElement(setName)) {
+			MaterialLayoutSlot slot{};
+			slot.name = setName;
+			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
+			slot.stage = stage;
+
+			layout->AddSlot(slot);
+		}
+		else {
+			EFTraits::AddFlag(&layout->GetSlot(setName).stage, stage);
+		}
+
+		MaterialLayoutBinding binding{};
+		binding.name = compiler.get_name(i.id);
+		binding.glslIndex = compiler.get_decoration(i.id, spv::DecorationBinding);
+		binding.type = ShaderBindingType::RT_TARGET_IMAGE;
+		//binding.hlslIndex = *numBuffers;
+		//binding.hlslDescriptorIndex = *numBindings; TODO
+
+		//(*numBuffers)++;
+		//(*numBindings)++;
+
+		layout->GetSlot(setName).bindings.Insert(binding.name, binding);
+	}
+	for (auto& i : resources.storage_buffers) {
+		// Obtenemos el nombre del set (slot).
+		// Si no tiene nombre registrado en el archivo, su nombre será su número.
+		std::string setName = std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet));
+		if (materialInfo.contains("slots") && materialInfo["slots"].contains(std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))))
+			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
+
+		// Si el slot no está registrado, registrarlo
+		if (!layout->GetAllSlotNames().ContainsElement(setName)) {
+			MaterialLayoutSlot slot{};
+			slot.name = setName;
+			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
+			slot.stage = stage;
+
+			layout->AddSlot(slot);
+		}
+		else {
+			EFTraits::AddFlag(&layout->GetSlot(setName).stage, stage);
+		}
+
+		MaterialLayoutBinding binding{};
+		binding.name = compiler.get_name(i.id);
+		binding.glslIndex = compiler.get_decoration(i.id, spv::DecorationBinding);
+		binding.type = ShaderBindingType::STORAGE_BUFFER;
+		//binding.hlslIndex = *numBuffers;
+		//binding.hlslDescriptorIndex = *numBindings; TODO
+
+		//(*numBuffers)++;
+		//(*numBindings)++;
+
+		layout->GetSlot(setName).bindings.Insert(binding.name, binding);
+	}
+
 	// PushConstants
 	for (auto& i : resources.push_constant_buffers) {
 
@@ -286,18 +384,29 @@ void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json
 
 	info->precompiledHlslShaders = false;
 
-	info->vertexPath = materialInfo["vertex_shader"];
-	info->fragmentPath = materialInfo["fragment_shader"];
+	if (info->isRaytracing) {
+		info->rtRaygenShaderPath = materialInfo["rt_raygen_shader"];
+		info->rtClosestHitShaderPath = materialInfo["rt_closesthit_shader"];
+		info->rtMissShaderPath = materialInfo["rt_miss_shader"];
 
-	LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["vertex_shader"]), ShaderStage::VERTEX, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
-	LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["fragment_shader"]), ShaderStage::FRAGMENT, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
-	if (materialInfo.contains("tesselation_control_shader")) {
-		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["tesselation_control_shader"]), ShaderStage::TESSELATION, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
-		info->tesselationControlPath = materialInfo["tesselation_control_shader"];
+		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["rt_raygen_shader"]), ShaderStage::RT_RAYGEN, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
+		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["rt_closesthit_shader"]), ShaderStage::RT_CLOSEST_HIT, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
+		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["rt_miss_shader"]), ShaderStage::RT_MISS, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
 	}
-	if (materialInfo.contains("tesselation_evaluation_shader")) {
-		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["tesselation_evaluation_shader"]), ShaderStage::TESSELATION, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
-		info->tesselationEvaluationPath = materialInfo["tesselation_evaluation_shader"];
+	else {
+		info->vertexPath = materialInfo["vertex_shader"];
+		info->fragmentPath = materialInfo["fragment_shader"];
+
+		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["vertex_shader"]), ShaderStage::VERTEX, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
+		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["fragment_shader"]), ShaderStage::FRAGMENT, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
+		if (materialInfo.contains("tesselation_control_shader")) {
+			LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["tesselation_control_shader"]), ShaderStage::TESSELATION_CONTROL, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
+			info->tesselationControlPath = materialInfo["tesselation_control_shader"];
+		}
+		if (materialInfo.contains("tesselation_evaluation_shader")) {
+			LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["tesselation_evaluation_shader"]), ShaderStage::TESSELATION_EVALUATION, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
+			info->tesselationEvaluationPath = materialInfo["tesselation_evaluation_shader"];
+		}
 	}
 
 	TSize nextHlslBinding = 0;
@@ -326,7 +435,14 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	OSK_ASSERT(materialInfo.contains("name"), "Archivo de material incorrecto: no se encuentra 'name'.");
 	OSK_ASSERT(materialInfo.contains("vertex_type"), "Archivo de material incorrecto: no se encuentra 'vertex_type'.");
 
-	OSK_ASSERT(materialInfo["file_type"] == "MATERIAL", std::string("Archivo ") + path + "no es un material.");
+	bool isRaytracing = false;
+	if (materialInfo["file_type"] == "MATERIAL_RT") {
+		OSK_ASSERT(Engine::GetRenderer()->SupportsRaytracing(), "No se puede cargar un material de raytracing.");
+		isRaytracing = true;
+	}
+	else {
+		OSK_ASSERT(materialInfo["file_type"] == "MATERIAL", std::string("Archivo ") + path + "no es un material.");
+	}
 	
 	const std::string vertexName = materialInfo["vertex_type"];
 	const VertexInfo& vertexType = vertexTypesTable.Get(vertexName);
@@ -336,6 +452,7 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	PipelineCreateInfo info{};
 	info.cullMode = PolygonCullMode::BACK;
 	info.frontFaceType = PolygonFrontFaceType::COUNTERCLOCKWISE;
+	info.isRaytracing = isRaytracing;
 
 	if (fileVersion == 0)
 		LoadMaterialV0(layout, materialInfo, &info);

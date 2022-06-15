@@ -49,6 +49,7 @@ namespace OSK::GRAPHICS {
 
 		void DrawSingleInstance(TSize numIndices) override;
 		void DrawSingleMesh(TSize firstIndex, TSize numIndices) override;
+		void TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) override;
 
 		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers) override;
 

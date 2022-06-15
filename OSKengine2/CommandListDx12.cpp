@@ -215,6 +215,10 @@ void CommandListDx12::DrawSingleMesh(TSize firstIndex, TSize numIndices) {
 	commandList->DrawIndexedInstanced(numIndices, 1, firstIndex, 0, 0);
 }
 
+void CommandListDx12::TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) {
+	OSK_ASSERT(false, "No implementado.");
+}
+
 void CommandListDx12::SetViewport(const Viewport& vp) {
 	D3D12_VIEWPORT viewport{};
 

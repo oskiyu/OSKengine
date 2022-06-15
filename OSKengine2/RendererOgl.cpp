@@ -103,6 +103,11 @@ void RendererOgl::CreateGpuMemoryAllocator() {
 	gpuMemoryAllocator = new GpuMemoryAllocatorOgl(currentGpu.GetPointer());
 }
 
+OwnedPtr<IRaytracingPipeline> RendererOgl::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo& vertexTypeName) {
+	OSK_ASSERT(false, "No implementado.");
+	return nullptr;
+}
+
 void RendererOgl::CreateMainRenderpass() {
 	renderpass = new RenderpassOgl(RenderpassType::FINAL);
 
@@ -130,4 +135,8 @@ void RendererOgl::PresentFrame() {
 
 	commandList->SetViewport(viewport);
 	commandList->SetScissor(windowRec);
+}
+
+bool RendererOgl::SupportsRaytracing() const {
+	return false;
 }

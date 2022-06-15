@@ -31,6 +31,7 @@ namespace OSK::GRAPHICS {
 	class IMaterialSlot;
 	struct PipelineCreateInfo;
 	class IGraphicsPipeline;
+	class IRaytracingPipeline;
 	class GpuImage;
 	class VertexInfo;
 
@@ -129,6 +130,13 @@ namespace OSK::GRAPHICS {
 		/// <param name="layout">Layout del material del pipeline.</param>
 		/// <param name="renderpass">Renderpass al que estará enlazado el pipeline.</param>
 		virtual OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo& vertexTypeName) = 0;
+		/// <summary>
+		/// Crea un graphics pipeline.
+		/// </summary>
+		/// <param name="pipelineInfo">Configuración del pipeline.</param>
+		/// <param name="layout">Layout del material del pipeline.</param>
+		/// <param name="renderpass">Renderpass al que estará enlazado el pipeline.</param>
+		virtual OwnedPtr<IRaytracingPipeline> _CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo& vertexTypeName) = 0;
 
 		/// <summary>
 		/// Devuelve el sistema de materiales.
@@ -170,6 +178,12 @@ namespace OSK::GRAPHICS {
 		/// Devuelve true si el renderizador está inicializado y funcionando.
 		/// </summary>
 		bool IsOpen() const;
+		
+		/// <summary>
+		/// True si el renderizador soporta trazado de rayos.
+		/// Depende de la GPU usada.
+		/// </summary>
+		virtual bool SupportsRaytracing() const = 0;
 
 		IRenderpass* GetMainRenderpass() const;
 

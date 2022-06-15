@@ -24,9 +24,24 @@ PipelineLayoutVulkan::PipelineLayoutVulkan(const MaterialLayout* materialLayout)
 	DynamicArray<VkPushConstantRange> pushConstantRanges;
 	VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
 
-	for (auto& slotName : materialLayout->GetAllSlotNames()) {
-		auto& slot = materialLayout->GetSlot(slotName);
+	DynamicArray<MaterialLayoutSlot> orderedSlots{};
+	for (auto const& slotName : materialLayout->GetAllSlotNames())
+		orderedSlots.Insert(materialLayout->GetSlot(slotName));
 
+	for (TSize i = 0; i < orderedSlots.GetSize() - 1; i++) {
+		for (TSize j = 0; j < orderedSlots.GetSize() - 1; j++) {
+			const auto& slot1 = orderedSlots[j + 1].glslSetIndex;
+			const auto& slot2 = orderedSlots[j].glslSetIndex;
+
+			if (slot1 < slot2) {
+				MaterialLayoutSlot temp = orderedSlots[j + 1];
+				orderedSlots[j + 1] = orderedSlots[j];
+				orderedSlots[j] = temp;
+			}
+		}
+	}
+
+	for (auto& slot : orderedSlots) {
 		auto descLayout = new DescriptorLayoutVulkan(&slot);
 		descLayouts.Insert(descLayout);
 		nativeDescLayouts.Insert(descLayout->GetLayout());

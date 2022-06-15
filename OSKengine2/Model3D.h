@@ -10,6 +10,7 @@
 
 #include "IGpuVertexBuffer.h"
 #include "IGpuIndexBuffer.h"
+#include "IBottomLevelAccelerationStructure.h"
 
 #include <string>
 
@@ -98,6 +99,13 @@ namespace OSK::ASSETS {
 		void _SetIndexBuffer(const OwnedPtr<GRAPHICS::IGpuIndexBuffer>& indexBuffer);
 
 		/// <summary>
+		/// Establece la estructura de aceleración de nivel bajo.
+		/// 
+		/// @warning Función interna: no llamar.
+		/// </summary>
+		void _SetAccelerationStructure(const OwnedPtr<GRAPHICS::IBottomLevelAccelerationStructure>& accelerationStructure);
+
+		/// <summary>
 		/// Establece el número de índices totales del modelo..
 		/// 
 		/// @warning Función interna: no llamar.
@@ -117,6 +125,16 @@ namespace OSK::ASSETS {
 		/// @note No puede ser null.
 		/// </summary>
 		GRAPHICS::IGpuIndexBuffer* GetIndexBuffer() const;
+
+		/// <summary>
+		/// Devuelve la estructura de aceleración de nivel bajo del modelo.
+		/// Únicamente si se ha cargado con el renderizador en modo de 
+		/// trazado de rayos.
+		/// </summary>
+		/// 
+		/// @note Será null si el renderizador no tiene activo el modo de trazado
+		/// de rayos.
+		GRAPHICS::IBottomLevelAccelerationStructure* GetAccelerationStructure() const;
 
 		/// <summary>
 		/// Número de índices.
@@ -147,6 +165,7 @@ namespace OSK::ASSETS {
 
 		UniquePtr<GRAPHICS::IGpuVertexBuffer> vertexBuffer;
 		UniquePtr<GRAPHICS::IGpuIndexBuffer> indexBuffer;
+		UniquePtr<GRAPHICS::IBottomLevelAccelerationStructure> accelerationStructure;
 
 		DynamicArray<GRAPHICS::Mesh3D> meshes;
 

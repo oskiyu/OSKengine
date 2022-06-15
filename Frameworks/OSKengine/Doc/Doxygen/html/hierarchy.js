@@ -19,6 +19,7 @@ var hierarchy =
     [ "OSK::DynamicArray< OSK::ASSETS::MeshMetadata >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::ConstexprBitSet >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::DynamicArray< VkWriteDescriptorSet > >", "class_o_s_k_1_1_dynamic_array.html", null ],
+    [ "OSK::DynamicArray< OSK::GRAPHICS::IBottomLevelAccelerationStructure * >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::GRAPHICS::Mesh3D >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::GRAPHICS::VertexInfo::Entry >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::IO::IInputListener * >", "class_o_s_k_1_1_dynamic_array.html", null ],
@@ -27,6 +28,7 @@ var hierarchy =
     [ "OSK::DynamicArray< OSK::OwnedPtr< OSK::GRAPHICS::MaterialInstance > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::OwnedPtr< VkDescriptorBufferInfo > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::OwnedPtr< VkDescriptorImageInfo > >", "class_o_s_k_1_1_dynamic_array.html", null ],
+    [ "OSK::DynamicArray< OSK::OwnedPtr< VkWriteDescriptorSetAccelerationStructureKHR > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::Pair< TSize, const OSK::GRAPHICS::GpuImageDx12 * > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::Pair< TSize, const OSK::GRAPHICS::GpuUniformBufferDx12 * > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::GpuImage > >", "class_o_s_k_1_1_dynamic_array.html", null ],
@@ -137,6 +139,9 @@ var hierarchy =
       [ "OSK::ASSETS::ModelLoader3D", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html", null ],
       [ "OSK::ASSETS::TextureLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html", null ]
     ] ],
+    [ "OSK::GRAPHICS::IBottomLevelAccelerationStructure", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html", [
+      [ "OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan.html", null ]
+    ] ],
     [ "OSK::GRAPHICS::ICommandList", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html", [
       [ "OSK::GRAPHICS::CommandListDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html", null ],
       [ "OSK::GRAPHICS::CommandListOgl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_ogl.html", null ],
@@ -190,6 +195,13 @@ var hierarchy =
       [ "OSK::GRAPHICS::PipelineLayoutDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12.html", null ],
       [ "OSK::GRAPHICS::PipelineLayoutVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan.html", null ]
     ] ],
+    [ "OSK::GRAPHICS::IPipelineVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan.html", [
+      [ "OSK::GRAPHICS::GraphicsPipelineVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan.html", null ],
+      [ "OSK::GRAPHICS::RaytracingPipelineVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_raytracing_pipeline_vulkan.html", null ]
+    ] ],
+    [ "OSK::GRAPHICS::IRaytracingPipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_raytracing_pipeline.html", [
+      [ "OSK::GRAPHICS::RaytracingPipelineVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_raytracing_pipeline_vulkan.html", null ]
+    ] ],
     [ "OSK::GRAPHICS::IRenderer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html", [
       [ "OSK::GRAPHICS::RendererDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html", null ],
       [ "OSK::GRAPHICS::RendererOgl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html", null ],
@@ -199,6 +211,9 @@ var hierarchy =
       [ "OSK::GRAPHICS::RenderpassDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html", null ],
       [ "OSK::GRAPHICS::RenderpassOgl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_ogl.html", null ],
       [ "OSK::GRAPHICS::RenderpassVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html", null ]
+    ] ],
+    [ "OSK::GRAPHICS::IRtShaderTable", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_rt_shader_table.html", [
+      [ "OSK::GRAPHICS::RtShaderTableVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vulkan.html", null ]
     ] ],
     [ "OSK::GRAPHICS::ISwapchain", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html", [
       [ "OSK::GRAPHICS::SwapchainDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html", null ],
@@ -216,6 +231,9 @@ var hierarchy =
     [ "OSK::DynamicArray< T >::Iterator", "class_o_s_k_1_1_dynamic_array_1_1_iterator.html", null ],
     [ "OSK::HashMap< TKey, TValue, numBuckets >::Iterator", "class_o_s_k_1_1_hash_map_1_1_iterator.html", null ],
     [ "OSK::LinkedList< T >::Iterator", "class_o_s_k_1_1_linked_list_1_1_iterator.html", null ],
+    [ "OSK::GRAPHICS::ITopLevelAccelerationStructure", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html", [
+      [ "OSK::GRAPHICS::TopLevelAccelerationStructureVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan.html", null ]
+    ] ],
     [ "OSK::IO::KeyboardState", "class_o_s_k_1_1_i_o_1_1_keyboard_state.html", null ],
     [ "OSK::LinkedList< T >", "class_o_s_k_1_1_linked_list.html", null ],
     [ "OSK::LinkedList< OSK::GRAPHICS::IGpuMemoryBlock::ReusableMemorySubblock >", "class_o_s_k_1_1_linked_list.html", null ],
@@ -224,6 +242,7 @@ var hierarchy =
     [ "OSK::LinkedList< OSK::OwnedPtr< OSK::GRAPHICS::Material > >", "class_o_s_k_1_1_linked_list.html", null ],
     [ "OSK::LinkedList< OSK::UniquePtr< OSK::UI::UiElement > >", "class_o_s_k_1_1_linked_list.html", null ],
     [ "OSK::LinkedList< std::string >", "class_o_s_k_1_1_linked_list.html", null ],
+    [ "OSK::LinkedList< VkAccelerationStructureKHR >", "class_o_s_k_1_1_linked_list.html", null ],
     [ "OSK::IO::Logger", "class_o_s_k_1_1_i_o_1_1_logger.html", null ],
     [ "OSK::GRAPHICS::Material", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html", null ],
     [ "OSK::GRAPHICS::MaterialInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html", null ],
@@ -251,6 +270,7 @@ var hierarchy =
     [ "OSK::OwnedPtr< OSK::GRAPHICS::MaterialInstance >", "class_o_s_k_1_1_owned_ptr.html", null ],
     [ "OSK::OwnedPtr< VkDescriptorBufferInfo >", "class_o_s_k_1_1_owned_ptr.html", null ],
     [ "OSK::OwnedPtr< VkDescriptorImageInfo >", "class_o_s_k_1_1_owned_ptr.html", null ],
+    [ "OSK::OwnedPtr< VkWriteDescriptorSetAccelerationStructureKHR >", "class_o_s_k_1_1_owned_ptr.html", null ],
     [ "OSK::Pair< T1, T2 >", "struct_o_s_k_1_1_pair.html", null ],
     [ "OSK::Pair< char, OSK::ASSETS::FontCharacter >", "struct_o_s_k_1_1_pair.html", null ],
     [ "OSK::Pair< ComponentIndex, GameObjectIndex >", "struct_o_s_k_1_1_pair.html", null ],
@@ -283,6 +303,7 @@ var hierarchy =
     [ "OSK::Quaternion", "class_o_s_k_1_1_quaternion.html", null ],
     [ "OSK::GRAPHICS::QueueFamilyIndices", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices.html", null ],
     [ "OSK::GRAPHICS::IGpuMemoryBlock::ReusableMemorySubblock", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_1_1_reusable_memory_subblock.html", null ],
+    [ "OSK::GRAPHICS::ShaderStageVulkan", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vulkan.html", null ],
     [ "SharedPtr< T >", "class_shared_ptr.html", null ],
     [ "SharedPtr< OSK::ASSETS::IAsset >", "class_shared_ptr.html", null ],
     [ "OSK::GRAPHICS::SpirvToHlsl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl.html", null ],
@@ -304,7 +325,9 @@ var hierarchy =
     [ "OSK::UniquePtr< OSK::ECS::SystemManager >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::DescriptorLayoutVulkan >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::DescriptorPoolVulkan >", "class_o_s_k_1_1_unique_ptr.html", null ],
+    [ "OSK::UniquePtr< OSK::GRAPHICS::GpuDataBuffer >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::GpuImage >", "class_o_s_k_1_1_unique_ptr.html", null ],
+    [ "OSK::UniquePtr< OSK::GRAPHICS::IBottomLevelAccelerationStructure >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::ICommandList >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::ICommandPool >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::ICommandQueue >", "class_o_s_k_1_1_unique_ptr.html", null ],
@@ -316,8 +339,10 @@ var hierarchy =
     [ "OSK::UniquePtr< OSK::GRAPHICS::IGpuVertexBuffer >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::IMaterialSlot >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::IPipelineLayout >", "class_o_s_k_1_1_unique_ptr.html", null ],
+    [ "OSK::UniquePtr< OSK::GRAPHICS::IRaytracingPipeline >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::IRenderer >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::IRenderpass >", "class_o_s_k_1_1_unique_ptr.html", null ],
+    [ "OSK::UniquePtr< OSK::GRAPHICS::IRtShaderTable >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::ISwapchain >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::ISyncDevice >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::MaterialInstance >", "class_o_s_k_1_1_unique_ptr.html", null ],

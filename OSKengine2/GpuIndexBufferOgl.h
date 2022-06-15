@@ -10,7 +10,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuIndexBufferOgl(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment);
+		GpuIndexBufferOgl(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment, TSize numIndices);
 
 		void _SetHandler(OglIndexBufferHandler handler);
 		OglIndexBufferHandler GetHandler() const;

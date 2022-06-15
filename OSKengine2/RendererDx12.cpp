@@ -157,6 +157,11 @@ OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const Pipeline
 	return pipeline;
 }
 
+OwnedPtr<IRaytracingPipeline> RendererDx12::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo& vertexTypeName) {
+	OSK_ASSERT(false, "No implementado.");
+	return nullptr;
+}
+
 OwnedPtr<IMaterialSlot> RendererDx12::_CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const {
 	return new MaterialSlotDx12(name, layout);
 }
@@ -328,4 +333,8 @@ TSize RendererDx12::GetCurrentFrameIndex() const {
 
 TSize RendererDx12::GetCurrentCommandListIndex() const {
 	return 0;
+}
+
+bool RendererDx12::SupportsRaytracing() const {
+	return false;
 }

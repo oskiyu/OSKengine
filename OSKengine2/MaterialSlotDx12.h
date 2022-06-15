@@ -17,6 +17,9 @@ namespace OSK::GRAPHICS {
 
 		void SetUniformBuffer(const std::string& binding, const IGpuUniformBuffer* buffer) override;
 		void SetGpuImage(const std::string& binding, const GpuImage* image) override;
+		void SetStorageBuffer(const std::string& binding, const GpuDataBuffer* buffer) override;
+		void SetStorageImage(const std::string& binding, const GpuImage* image) override;
+		void SetAccelerationStructure(const std::string& binding, const ITopLevelAccelerationStructure* accelerationStructure) override;
 		void FlushUpdate() override;
 
 		const DynamicArray<Pair<TSize, const GpuUniformBufferDx12*>>& GetUniformBuffers() const;

@@ -9,6 +9,10 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "BitSet.hpp", "_bit_set_8hpp.html", [
       [ "OSK::BitSet", "class_o_s_k_1_1_bit_set.html", "class_o_s_k_1_1_bit_set" ]
     ] ],
+    [ "BottomLevelAccelerationStructureVulkan.cpp", "_bottom_level_acceleration_structure_vulkan_8cpp.html", null ],
+    [ "BottomLevelAccelerationStructureVulkan.h", "_bottom_level_acceleration_structure_vulkan_8h.html", [
+      [ "OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan" ]
+    ] ],
     [ "CameraComponent2D.cpp", "_camera_component2_d_8cpp.html", null ],
     [ "CameraComponent2D.h", "_camera_component2_d_8h.html", [
       [ "OSK::ECS::CameraComponent2D", "class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html", "class_o_s_k_1_1_e_c_s_1_1_camera_component2_d" ]
@@ -89,7 +93,7 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "FontLoader.h", "_font_loader_8h.html", [
       [ "OSK::ASSETS::FontLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_loader" ]
     ] ],
-    [ "Format.cpp", "_format_8cpp.html", null ],
+    [ "Format.cpp", "_format_8cpp.html", "_format_8cpp" ],
     [ "Format.h", "_format_8h.html", "_format_8h" ],
     [ "FormatDx12.h", "_format_dx12_8h.html", "_format_dx12_8h" ],
     [ "FormatOgl.h", "_format_ogl_8h.html", "_format_ogl_8h" ],
@@ -166,6 +170,7 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
       [ "OSK::GRAPHICS::GpuMemorySubblockVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan" ]
     ] ],
     [ "GpuMemoryTypeDx12.cpp", "_gpu_memory_type_dx12_8cpp.html", null ],
+    [ "GpuMemoryTypes.cpp", "_gpu_memory_types_8cpp.html", "_gpu_memory_types_8cpp" ],
     [ "GpuMemoryTypes.h", "_gpu_memory_types_8h.html", "_gpu_memory_types_8h" ],
     [ "GpuMemoryTypesDx12.h", "_gpu_memory_types_dx12_8h.html", "_gpu_memory_types_dx12_8h" ],
     [ "GpuMemoryTypeVulkan.cpp", "_gpu_memory_type_vulkan_8cpp.html", "_gpu_memory_type_vulkan_8cpp" ],
@@ -193,8 +198,12 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "GpuVertexDescriptionVulkan.h", "_gpu_vertex_description_vulkan_8h.html", [
       [ "OSK::GRAPHICS::GpuVertexDescriptionVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vertex_description_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vertex_description_vulkan" ]
     ] ],
-    [ "GpuVulkan.cpp", "_gpu_vulkan_8cpp.html", "_gpu_vulkan_8cpp" ],
-    [ "GpuVulkan.h", "_gpu_vulkan_8h.html", "_gpu_vulkan_8h" ],
+    [ "GpuVulkan.cpp", "_gpu_vulkan_8cpp.html", null ],
+    [ "GpuVulkan.h", "_gpu_vulkan_8h.html", [
+      [ "OSK::GRAPHICS::GpuVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan" ],
+      [ "OSK::GRAPHICS::GpuVulkan::Info", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info" ],
+      [ "OSK::GRAPHICS::GpuVulkan::Info::SwapchainSupportDetails", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_1_1_swapchain_support_details.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_1_1_swapchain_support_details" ]
+    ] ],
     [ "GraphicsPipelineDx12.cpp", "_graphics_pipeline_dx12_8cpp.html", "_graphics_pipeline_dx12_8cpp" ],
     [ "GraphicsPipelineDx12.h", "_graphics_pipeline_dx12_8h.html", [
       [ "OSK::GRAPHICS::GraphicsPipelineDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12" ]
@@ -203,7 +212,7 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "GraphicsPipelineOgl.h", "_graphics_pipeline_ogl_8h.html", [
       [ "OSK::GRAPHICS::GraphicsPipelineOgl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_ogl.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_ogl" ]
     ] ],
-    [ "GraphicsPipelineVulkan.cpp", "_graphics_pipeline_vulkan_8cpp.html", "_graphics_pipeline_vulkan_8cpp" ],
+    [ "GraphicsPipelineVulkan.cpp", "_graphics_pipeline_vulkan_8cpp.html", null ],
     [ "GraphicsPipelineVulkan.h", "_graphics_pipeline_vulkan_8h.html", [
       [ "OSK::GRAPHICS::GraphicsPipelineVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan" ]
     ] ],
@@ -216,6 +225,10 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "IAsset.h", "_i_asset_8h.html", "_i_asset_8h" ],
     [ "IAssetLoader.cpp", "_i_asset_loader_8cpp.html", null ],
     [ "IAssetLoader.h", "_i_asset_loader_8h.html", "_i_asset_loader_8h" ],
+    [ "IBottomLevelAccelerationStructure.cpp", "_i_bottom_level_acceleration_structure_8cpp.html", null ],
+    [ "IBottomLevelAccelerationStructure.h", "_i_bottom_level_acceleration_structure_8h.html", [
+      [ "OSK::GRAPHICS::IBottomLevelAccelerationStructure", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure" ]
+    ] ],
     [ "ICommandList.cpp", "_i_command_list_8cpp.html", null ],
     [ "ICommandList.h", "_i_command_list_8h.html", [
       [ "OSK::GRAPHICS::ICommandList", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list" ]
@@ -286,12 +299,24 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "IPipelineLayout.h", "_i_pipeline_layout_8h.html", [
       [ "OSK::GRAPHICS::IPipelineLayout", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout" ]
     ] ],
+    [ "IPipelineVulkan.cpp", "_i_pipeline_vulkan_8cpp.html", null ],
+    [ "IPipelineVulkan.h", "_i_pipeline_vulkan_8h.html", [
+      [ "OSK::GRAPHICS::ShaderStageVulkan", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vulkan.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vulkan" ],
+      [ "OSK::GRAPHICS::IPipelineVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan" ]
+    ] ],
+    [ "IRaytracingPipeline.cpp", "_i_raytracing_pipeline_8cpp.html", null ],
+    [ "IRaytracingPipeline.h", "_i_raytracing_pipeline_8h.html", [
+      [ "OSK::GRAPHICS::IRaytracingPipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_raytracing_pipeline.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_raytracing_pipeline" ]
+    ] ],
     [ "IRenderer.h", "_i_renderer_8h.html", [
       [ "OSK::GRAPHICS::IRenderer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer" ]
     ] ],
     [ "IRenderpass.cpp", "_i_renderpass_8cpp.html", null ],
     [ "IRenderpass.h", "_i_renderpass_8h.html", [
       [ "OSK::GRAPHICS::IRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass" ]
+    ] ],
+    [ "IRtShaderTable.h", "_i_rt_shader_table_8h.html", [
+      [ "OSK::GRAPHICS::IRtShaderTable", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_rt_shader_table.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_rt_shader_table" ]
     ] ],
     [ "ISwapchain.cpp", "_i_swapchain_8cpp.html", null ],
     [ "ISwapchain.h", "_i_swapchain_8h.html", [
@@ -302,6 +327,10 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     ] ],
     [ "ISystem.cpp", "_i_system_8cpp.html", null ],
     [ "ISystem.h", "_i_system_8h.html", "_i_system_8h" ],
+    [ "ITopLevelAccelerationStructure.cpp", "_i_top_level_acceleration_structure_8cpp.html", null ],
+    [ "ITopLevelAccelerationStructure.h", "_i_top_level_acceleration_structure_8h.html", [
+      [ "OSK::GRAPHICS::ITopLevelAccelerationStructure", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure" ]
+    ] ],
     [ "KeyboardState.cpp", "_keyboard_state_8cpp.html", null ],
     [ "KeyboardState.h", "_keyboard_state_8h.html", "_keyboard_state_8h" ],
     [ "LinkedList.hpp", "_linked_list_8hpp.html", "_linked_list_8hpp" ],
@@ -397,6 +426,10 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "QueueFamilyIndices.h", "_queue_family_indices_8h.html", [
       [ "OSK::GRAPHICS::QueueFamilyIndices", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices" ]
     ] ],
+    [ "RaytracingPipelineVulkan.cpp", "_raytracing_pipeline_vulkan_8cpp.html", null ],
+    [ "RaytracingPipelineVulkan.h", "_raytracing_pipeline_vulkan_8h.html", [
+      [ "OSK::GRAPHICS::RaytracingPipelineVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_raytracing_pipeline_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_raytracing_pipeline_vulkan" ]
+    ] ],
     [ "RenderApiType.h", "_render_api_type_8h.html", "_render_api_type_8h" ],
     [ "Renderer.cpp", "_renderer_8cpp.html", null ],
     [ "RendererDx12.cpp", "_renderer_dx12_8cpp.html", null ],
@@ -408,7 +441,9 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
       [ "OSK::GRAPHICS::RendererOgl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl" ]
     ] ],
     [ "RendererVulkan.cpp", "_renderer_vulkan_8cpp.html", "_renderer_vulkan_8cpp" ],
-    [ "RendererVulkan.h", "_renderer_vulkan_8h.html", "_renderer_vulkan_8h" ],
+    [ "RendererVulkan.h", "_renderer_vulkan_8h.html", [
+      [ "OSK::GRAPHICS::RendererVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan" ]
+    ] ],
     [ "RenderpassDx12.cpp", "_renderpass_dx12_8cpp.html", null ],
     [ "RenderpassDx12.h", "_renderpass_dx12_8h.html", [
       [ "OSK::GRAPHICS::RenderpassDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12" ]
@@ -428,9 +463,14 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "RenderSystem3D.h", "_render_system3_d_8h.html", [
       [ "OSK::ECS::RenderSystem3D", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d" ]
     ] ],
+    [ "RtShaderTableVulkan.cpp", "_rt_shader_table_vulkan_8cpp.html", null ],
+    [ "RtShaderTableVulkan.h", "_rt_shader_table_vulkan_8h.html", [
+      [ "OSK::GRAPHICS::RtShaderTableVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vulkan" ]
+    ] ],
     [ "ShaderBindingType.h", "_shader_binding_type_8h.html", "_shader_binding_type_8h" ],
     [ "ShaderBindingTypeVulkan.cpp", "_shader_binding_type_vulkan_8cpp.html", null ],
     [ "ShaderBindingTypeVulkan.h", "_shader_binding_type_vulkan_8h.html", "_shader_binding_type_vulkan_8h" ],
+    [ "ShaderStages.cpp", "_shader_stages_8cpp.html", "_shader_stages_8cpp" ],
     [ "SharedPtr.hpp", "_shared_ptr_8hpp.html", [
       [ "SharedPtr< T >", "class_shared_ptr.html", "class_shared_ptr" ]
     ] ],
@@ -480,6 +520,11 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "TextureLoader.h", "_texture_loader_8h.html", [
       [ "OSK::ASSETS::TextureLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader" ]
     ] ],
+    [ "TopLevelAccelerationStructureVulkan.cpp", "_top_level_acceleration_structure_vulkan_8cpp.html", null ],
+    [ "TopLevelAccelerationStructureVulkan.h", "_top_level_acceleration_structure_vulkan_8h.html", [
+      [ "OSK::GRAPHICS::TopLevelAccelerationStructureVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan" ]
+    ] ],
+    [ "ToString.h", "_to_string_8h.html", "_to_string_8h" ],
     [ "Transform2D.cpp", "_transform2_d_8cpp.html", null ],
     [ "Transform2D.h", "_transform2_d_8h.html", [
       [ "OSK::ECS::Transform2D", "class_o_s_k_1_1_e_c_s_1_1_transform2_d.html", "class_o_s_k_1_1_e_c_s_1_1_transform2_d" ]

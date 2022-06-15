@@ -672,6 +672,7 @@ struct SPIREntryPoint
 	struct WorkgroupSize
 	{
 		uint32_t x = 0, y = 0, z = 0;
+		uint32_t id_x = 0, id_y = 0, id_z = 0;
 		uint32_t constant = 0; // Workgroup size can be expressed as a constant/spec-constant instead.
 	} workgroup_size;
 	uint32_t invocations = 0;
@@ -689,7 +690,7 @@ struct SPIRExpression : IVariant
 
 	// Only created by the backend target to avoid creating tons of temporaries.
 	SPIRExpression(std::string expr, TypeID expression_type_, bool immutable_)
-	    : expression(move(expr))
+	    : expression(std::move(expr))
 	    , expression_type(expression_type_)
 	    , immutable(immutable_)
 	{
@@ -854,10 +855,11 @@ struct SPIRBlock : IVariant
 
 	struct Case
 	{
-		uint32_t value;
+		uint64_t value;
 		BlockID block;
 	};
-	SmallVector<Case> cases;
+	SmallVector<Case> cases_32bit;
+	SmallVector<Case> cases_64bit;
 
 	// If we have tried to optimize code for this block but failed,
 	// keep track of this.
@@ -1070,7 +1072,6 @@ struct SPIRVariable : IVariant
 
 	// Temporaries which can remain forwarded as long as this variable is not modified.
 	SmallVector<ID> dependees;
-	bool forwardable = true;
 
 	bool deferred_declaration = false;
 	bool phi_variable = false;

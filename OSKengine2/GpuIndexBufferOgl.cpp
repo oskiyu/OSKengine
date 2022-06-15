@@ -3,8 +3,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuIndexBufferOgl::GpuIndexBufferOgl(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment)
-	: IGpuIndexBuffer(buffer, size, alignment) {
+GpuIndexBufferOgl::GpuIndexBufferOgl(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment, TSize numIndices)
+	: IGpuIndexBuffer(buffer, size, alignment, numIndices) {
 
 }
 

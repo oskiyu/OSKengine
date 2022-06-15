@@ -101,40 +101,58 @@ $(document).ready(function(){initNavTree('_shader_binding_type_vulkan_8cpp_sourc
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        <span class="keywordflow">return</span> VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">case</span> ShaderBindingType::CUBEMAP:</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <span class="keywordflow">return</span> VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keywordflow">return</span> VK_DESCRIPTOR_TYPE_MAX_ENUM;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    }</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3a50046339fbf8642e14273583cd8118">   19</a></span>VkShaderStageFlags <a class="code hl_function" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3a50046339fbf8642e14273583cd8118">OSK::GRAPHICS::GetShaderStageVk</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">ShaderStage</a> stage) {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    VkShaderStageFlags output = 0;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">EFTraits::HasFlag</a>(stage, ShaderStage::VERTEX))</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        output |= VK_SHADER_STAGE_VERTEX_BIT;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordflow">case</span> ShaderBindingType::STORAGE_BUFFER:</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keywordflow">return</span> VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordflow">case</span> ShaderBindingType::RT_ACCELERATION_STRUCTURE:</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keywordflow">return</span> VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_KHR;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">case</span> ShaderBindingType::RT_TARGET_IMAGE:</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordflow">return</span> VK_DESCRIPTOR_TYPE_STORAGE_IMAGE;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordflow">return</span> VK_DESCRIPTOR_TYPE_MAX_ENUM;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    }</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">EFTraits::HasFlag</a>(stage, ShaderStage::FRAGMENT))</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        output |= VK_SHADER_STAGE_FRAGMENT_BIT;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3a50046339fbf8642e14273583cd8118">   25</a></span>VkShaderStageFlags <a class="code hl_function" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3a50046339fbf8642e14273583cd8118">OSK::GRAPHICS::GetShaderStageVk</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">ShaderStage</a> stage) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    VkShaderStageFlags output = 0;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">EFTraits::HasFlag</a>(stage, ShaderStage::TESSELATION))</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        output |= (VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT | VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">EFTraits::HasFlag</a>(stage, ShaderStage::VERTEX))</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        output |= VK_SHADER_STAGE_VERTEX_BIT;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">return</span> output;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">EFTraits::HasFlag</a>(stage, ShaderStage::FRAGMENT))</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        output |= VK_SHADER_STAGE_FRAGMENT_BIT;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">EFTraits::HasFlag</a>(stage, ShaderStage::TESSELATION_CONTROL))</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        output |= VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">EFTraits::HasFlag</a>(stage, ShaderStage::TESSELATION_EVALUATION))</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        output |= VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">EFTraits::HasFlag</a>(stage, ShaderStage::RT_RAYGEN))</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        output |= VK_SHADER_STAGE_RAYGEN_BIT_KHR;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">EFTraits::HasFlag</a>(stage, ShaderStage::RT_CLOSEST_HIT))</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        output |= VK_SHADER_STAGE_CLOSEST_HIT_BIT_KHR;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">EFTraits::HasFlag</a>(stage, ShaderStage::RT_MISS))</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        output |= VK_SHADER_STAGE_MISS_BIT_KHR;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">return</span> output;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
 <div class="ttc" id="a_enum_flags_8hpp_html"><div class="ttname"><a href="_enum_flags_8hpp.html">EnumFlags.hpp</a></div></div>
 <div class="ttc" id="a_shader_binding_type_8h_html"><div class="ttname"><a href="_shader_binding_type_8h.html">ShaderBindingType.h</a></div></div>
 <div class="ttc" id="a_shader_binding_type_vulkan_8h_html"><div class="ttname"><a href="_shader_binding_type_vulkan_8h.html">ShaderBindingTypeVulkan.h</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_f_traits_html_a8b4d083d34df5ab4cc95043f91b5a24c"><div class="ttname"><a href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">OSK::EFTraits::HasFlag</a></div><div class="ttdeci">constexpr bool HasFlag(TEnum value, TEnum flag)</div><div class="ttdoc">Devuelve true si el enum 'value' tiene la flag 'flag'.</div><div class="ttdef"><b>Definition:</b> <a href="_enum_flags_8hpp_source.html#l00075">EnumFlags.hpp:75</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3a50046339fbf8642e14273583cd8118"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3a50046339fbf8642e14273583cd8118">OSK::GRAPHICS::GetShaderStageVk</a></div><div class="ttdeci">VkShaderStageFlags GetShaderStageVk(ShaderStage stage)</div><div class="ttdef"><b>Definition:</b> <a href="_shader_binding_type_vulkan_8cpp_source.html#l00019">ShaderBindingTypeVulkan.cpp:19</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a4a3cc5ac5a7f3c8753e7f74d576d6e1d"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1d">OSK::GRAPHICS::ShaderBindingType</a></div><div class="ttdeci">ShaderBindingType</div><div class="ttdoc">Tipos de datos de entrada que puede tener un shader.</div><div class="ttdef"><b>Definition:</b> <a href="_shader_binding_type_8h_source.html#l00010">ShaderBindingType.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3a50046339fbf8642e14273583cd8118"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3a50046339fbf8642e14273583cd8118">OSK::GRAPHICS::GetShaderStageVk</a></div><div class="ttdeci">VkShaderStageFlags GetShaderStageVk(ShaderStage stage)</div><div class="ttdef"><b>Definition:</b> <a href="_shader_binding_type_vulkan_8cpp_source.html#l00025">ShaderBindingTypeVulkan.cpp:25</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a4a3cc5ac5a7f3c8753e7f74d576d6e1d"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1d">OSK::GRAPHICS::ShaderBindingType</a></div><div class="ttdeci">ShaderBindingType</div><div class="ttdoc">Tipos de datos de entrada que puede tener un shader.</div><div class="ttdef"><b>Definition:</b> <a href="_shader_binding_type_8h_source.html#l00011">ShaderBindingType.h:11</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a4c5b747cc726d69ca2876e77875618dc"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4c5b747cc726d69ca2876e77875618dc">OSK::GRAPHICS::GetDescriptorTypeVk</a></div><div class="ttdeci">VkDescriptorType GetDescriptorTypeVk(ShaderBindingType type)</div><div class="ttdef"><b>Definition:</b> <a href="_shader_binding_type_vulkan_8cpp_source.html#l00006">ShaderBindingTypeVulkan.cpp:6</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aa7e7dcffcab27051f141128e66a50fcb"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">OSK::GRAPHICS::ShaderStage</a></div><div class="ttdeci">ShaderStage</div><div class="ttdoc">Shaders en los que se puede acceder a un elemento.</div><div class="ttdef"><b>Definition:</b> <a href="_shader_binding_type_8h_source.html#l00034">ShaderBindingType.h:34</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aa7e7dcffcab27051f141128e66a50fcb"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">OSK::GRAPHICS::ShaderStage</a></div><div class="ttdeci">ShaderStage</div><div class="ttdoc">Shaders en los que se puede acceder a un elemento.</div><div class="ttdef"><b>Definition:</b> <a href="_shader_binding_type_8h_source.html#l00052">ShaderBindingType.h:52</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_shader_binding_type_vulkan_8cpp.html">ShaderBindingTypeVulkan.cpp</a></li>
-    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:57 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Jueves, 16 de Junio de 2022 00:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

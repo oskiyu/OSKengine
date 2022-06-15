@@ -11,7 +11,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuVertexBufferOgl(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment);
+		GpuVertexBufferOgl(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment, TSize numVertices, const VertexInfo& vertexInfo);
 
 		/// <summary>
 		/// Establece el handler del propio buffer.

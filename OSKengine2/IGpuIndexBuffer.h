@@ -11,13 +11,20 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		IGpuIndexBuffer(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment);
+		IGpuIndexBuffer(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment, TSize numIndices);
 
 		virtual ~IGpuIndexBuffer() = default;
 
 		template <typename T> T* As() const requires std::is_base_of_v<IGpuIndexBuffer, T> {
 			return (T*)this;
 		}
+
+		TSize GetNumIndices() const;
+		TSize GetNumTriangles() const;
+
+	private:
+
+		TSize numIndices = 0;
 
 	};
 

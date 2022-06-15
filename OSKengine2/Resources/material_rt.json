@@ -1,0 +1,17 @@
+{
+    "file_type": "MATERIAL_RT",
+    "spec_ver": 1,
+    "name": "Raytracing",
+
+    "rt_raygen_shader": "Resources/Shaders/VK/RT/raygen.spv",
+    "rt_closesthit_shader": "Resources/Shaders/VK/RT/closesthit.spv",
+    "rt_miss_shader": "Resources/Shaders/VK/RT/miss.spv",
+    
+    "vertex_type": "OSK::Vertex3D",
+
+    "slots": {
+        "0": "rt",
+        "1": "global"
+    }
+    
+}

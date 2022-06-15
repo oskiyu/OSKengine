@@ -29,6 +29,10 @@ OwnedPtr<MaterialInstance> Material::CreateInstance() {
 	return output;
 }
 
+bool Material::IsRaytracing() const {
+	return pipelineInfo.isRaytracing;
+}
+
 const MaterialLayout* Material::GetLayout() const {
 	return layout.GetPointer();
 }
@@ -37,13 +41,21 @@ const IGraphicsPipeline* Material::GetGraphicsPipeline(const IRenderpass* render
 	return graphicsPipelines.Get((IRenderpass*)renderpass).GetPointer();
 }
 
+const IRaytracingPipeline* Material::GetRaytracingPipeline() const {
+	return rtPipeline.GetPointer();
+}
+
 void Material::RegisterRenderpass(const IRenderpass* renderpass) {
-	graphicsPipelines.Insert(renderpass,
-		Engine::GetRenderer()->_CreateGraphicsPipeline(pipelineInfo, layout.GetPointer(), renderpass, vertexInfo));
+	if (!pipelineInfo.isRaytracing)
+		graphicsPipelines.Insert(renderpass,
+			Engine::GetRenderer()->_CreateGraphicsPipeline(pipelineInfo, layout.GetPointer(), renderpass, vertexInfo));
+	else if (!rtPipeline.HasValue())
+			rtPipeline = Engine::GetRenderer()->_CreateRaytracingPipeline(pipelineInfo, layout.GetPointer(), nullptr, vertexInfo).GetPointer();
 }
 
 void Material::UnregisterRenderpass(const IRenderpass* renderpass) {
-	delete graphicsPipelines.Get(renderpass).GetPointer();
+	if (graphicsPipelines.ContainsKey(renderpass))
+		delete graphicsPipelines.Get(renderpass).GetPointer();
 
 	graphicsPipelines.Remove(renderpass);
 }

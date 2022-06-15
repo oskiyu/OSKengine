@@ -16,10 +16,10 @@ GpuMemoryAllocatorOgl::GpuMemoryAllocatorOgl(IGpu* device)
 
 }
 
-OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorOgl::CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices) {
+OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorOgl::CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices, const VertexInfo& vertexInfo) {
 	const TSize bufferSize = numVertices * vertexSize;
 
-	GpuVertexBufferOgl* output = new GpuVertexBufferOgl(nullptr, bufferSize, 0);
+	GpuVertexBufferOgl* output = new GpuVertexBufferOgl(nullptr, bufferSize, 0, numVertices, vertexInfo);
 
 	/*OglVertexBufferHandler bufferHandler = 0;
 	OglVertexBufferHandler viewHandler = 0;
@@ -52,7 +52,7 @@ OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorOgl::CreateVertexBuffer(const void*
 OwnedPtr<IGpuIndexBuffer> GpuMemoryAllocatorOgl::CreateIndexBuffer(const DynamicArray<TIndexSize>& indices) {
 	const TSize bufferSize = sizeof(TIndexSize) * indices.GetSize();
 
-	GpuIndexBufferOgl* output = new GpuIndexBufferOgl(nullptr, bufferSize, 0);
+	GpuIndexBufferOgl* output = new GpuIndexBufferOgl(nullptr, bufferSize, 0, indices.GetSize());
 
 	OglIndexBufferHandler handler = OGL_NULL_HANDLER;
 	glGenBuffers(1, &handler);
@@ -86,3 +86,22 @@ IGpuMemoryBlock* GpuMemoryAllocatorOgl::GetNextBufferMemoryBlock(TSize size, Gpu
 
 	return nullptr;
 }
+
+OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorOgl::CreateBuffer(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+	OSK_ASSERT(false, "No implementado.");
+
+	return nullptr;
+}
+
+OwnedPtr<IBottomLevelAccelerationStructure> GpuMemoryAllocatorOgl::CreateBottomAccelerationStructure(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer) {
+	OSK_ASSERT(false, "No implementado.");
+
+	return nullptr;
+}
+
+OwnedPtr<ITopLevelAccelerationStructure> GpuMemoryAllocatorOgl::CreateTopAccelerationStructure(DynamicArray<const IBottomLevelAccelerationStructure*> bottomStructures) {
+	OSK_ASSERT(false, "No implementado.");
+
+	return nullptr;
+}
+

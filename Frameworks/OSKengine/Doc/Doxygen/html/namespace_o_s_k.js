@@ -56,6 +56,7 @@ var namespace_o_s_k =
     [ "RuntimeCheckIsFalseFunction", "namespace_o_s_k.html#a3e9a86198e02c285bef47e0ced8c481b", null ],
     [ "RuntimeCheckIsTrueFunction", "namespace_o_s_k.html#a36a63552a00a3bef7358ac807829d369", null ],
     [ "StringToWideString", "namespace_o_s_k.html#a543f1e2eaed4543c687adc9f9a0622ac", null ],
+    [ "ToString", "namespace_o_s_k.html#a0e02ca313c1894ead83ab76001063684", null ],
     [ "DynamicArrayGrowthFactor", "namespace_o_s_k.html#ad1526852442941a9522aeea3af6c9acb", null ],
     [ "InitialDynamicArraySize", "namespace_o_s_k.html#a66603f4894f5191b23cbd0e74bcd4f49", null ]
 ];

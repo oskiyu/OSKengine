@@ -61,7 +61,7 @@ void RenderpassVulkan::Create(const ISwapchain* swapchain, Format format) {
 }
 
 void RenderpassVulkan::CreateFinalPresent(const ISwapchain* swapchain) {
-	Create(swapchain, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR, swapchain->GetImage(0)->GetFormat());
+	Create(swapchain, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, swapchain->GetImage(0)->GetFormat());
 }
 
 VkRenderPass RenderpassVulkan::GetRenderpass() const {

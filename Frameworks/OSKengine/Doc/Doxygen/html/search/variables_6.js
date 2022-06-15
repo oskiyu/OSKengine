@@ -723,10 +723,9 @@ var searchData=
   ['glslindex_720',['glslIndex',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding.html#a7b97663b938cad26efa8ab760e7168e2',1,'OSK::GRAPHICS::MaterialLayoutBinding']]],
   ['glslsetindex_721',['glslSetIndex',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#a9619a1823cd7ae6ff9f14f4a0e8cd0b7',1,'OSK::GRAPHICS::MaterialLayoutSlot']]],
   ['glversion_722',['GLVersion',['../glad_8c.html#a936871a0ece33eb83e12fe9a0b19aec5',1,'glad.c']]],
-  ['gpuextensions_723',['gpuExtensions',['../_gpu_vulkan_8cpp.html#aa18494d0e1b659876189dc9e85a93441',1,'GpuVulkan.cpp']]],
-  ['gpumemoryallocator_724',['gpuMemoryAllocator',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a046cb6d9d3bd12965b1abc3e9bd3c2c3',1,'OSK::GRAPHICS::IRenderer']]],
-  ['graphicsfamily_725',['graphicsFamily',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices.html#ae8e20f4bbff29ba441b5a03e9cc37829',1,'OSK::GRAPHICS::QueueFamilyIndices']]],
-  ['graphicsqueue_726',['graphicsQueue',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ada7ad73436c32df92625b7af4e708e17',1,'OSK::GRAPHICS::IRenderer']]],
-  ['green_727',['Green',['../class_o_s_k_1_1_color.html#ab90f8ead6ff695ca66208644b351855c',1,'OSK::Color']]],
-  ['growthfactortype_728',['growthFactorType',['../class_o_s_k_1_1_dynamic_array.html#a4a18937b8a6017fc9b8d86a9e8a592c3',1,'OSK::DynamicArray']]]
+  ['gpumemoryallocator_723',['gpuMemoryAllocator',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a046cb6d9d3bd12965b1abc3e9bd3c2c3',1,'OSK::GRAPHICS::IRenderer']]],
+  ['graphicsfamily_724',['graphicsFamily',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices.html#ae8e20f4bbff29ba441b5a03e9cc37829',1,'OSK::GRAPHICS::QueueFamilyIndices']]],
+  ['graphicsqueue_725',['graphicsQueue',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ada7ad73436c32df92625b7af4e708e17',1,'OSK::GRAPHICS::IRenderer']]],
+  ['green_726',['Green',['../class_o_s_k_1_1_color.html#ab90f8ead6ff695ca66208644b351855c',1,'OSK::Color']]],
+  ['growthfactortype_727',['growthFactorType',['../class_o_s_k_1_1_dynamic_array.html#a4a18937b8a6017fc9b8d86a9e8a592c3',1,'OSK::DynamicArray']]]
 ];

@@ -21,12 +21,15 @@ namespace OSK::GRAPHICS {
 	enum class GpuImageUsage;
 	enum class GpuImageDimension;
 
+	class IBottomLevelAccelerationStructure;
+	class ITopLevelAccelerationStructure;
 	class GpuDataBuffer;
 	class GpuImage;
 	class IGpuVertexBuffer;
 	class IGpuIndexBuffer;
 	class IGpuUniformBuffer;
 	struct Vertex3D;
+	class VertexInfo;
 
 	struct OSKAPI_CALL GpuBufferMemoryBlockInfo {
 		unsigned int size;
@@ -100,13 +103,13 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Crea un buffer de vértices con los vértices dados.
 		/// </summary>
-		virtual OwnedPtr<IGpuVertexBuffer> CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices) = 0;
+		virtual OwnedPtr<IGpuVertexBuffer> CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices, const VertexInfo& vertexInfo) = 0;
 
 		/// <summary>
 		/// Crea un buffer de vértices con los vértices dados.
 		/// </summary>
-		template <typename T> OwnedPtr<IGpuVertexBuffer> CreateVertexBuffer(const DynamicArray<T>& vertices) {
-			return this->CreateVertexBuffer(vertices.GetData(), sizeof(T), vertices.GetSize());
+		template <typename T> OwnedPtr<IGpuVertexBuffer> CreateVertexBuffer(const DynamicArray<T>& vertices, const VertexInfo& vertexInfo) {
+			return this->CreateVertexBuffer(vertices.GetData(), sizeof(T), vertices.GetSize(), vertexInfo);
 		}
 
 		/// <summary>
@@ -128,6 +131,30 @@ namespace OSK::GRAPHICS {
 		/// más rápida.
 		/// </summary>
 		virtual OwnedPtr<GpuDataBuffer> CreateStagingBuffer(TSize size) = 0;
+
+		/// <summary>
+		/// Crea un buffer genérico con las características dadas.
+		/// </summary>
+		/// <param name="size">Tamaño del buffer, en bytes.</param>
+		/// <param name="usage">Uso que se le dará al buffer.</param>
+		/// <param name="sharedType">Configura si se accederá únicamente desde la GPU, o si también
+		/// se accederá desde la CPU.</param>
+		virtual OwnedPtr<GpuDataBuffer> CreateBuffer(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) = 0;
+
+		/// <summary>
+		/// Crea una estructura de aceleración espacial para el trazado de rayos.
+		/// 
+		/// La estructura será de bajo nivel y contendrá la geometría definida
+		/// por los vértices e índices dados.
+		/// </summary>
+		virtual OwnedPtr<IBottomLevelAccelerationStructure> CreateBottomAccelerationStructure(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer) = 0;
+
+		/// <summary>
+		/// Crea una estructura de aceleración espacial para el trazado de rayos.
+		/// 
+		/// La estructura agrupará varias estructuras de bajo nivel.
+		/// </summary>
+		virtual OwnedPtr<ITopLevelAccelerationStructure> CreateTopAccelerationStructure(DynamicArray<const IBottomLevelAccelerationStructure*> bottomStructures) = 0;
 
 		/// <summary>
 		/// Quita uno de los bloques, que ha sido eliminado.

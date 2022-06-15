@@ -1,12 +1,14 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer =
 [
-    [ "IGpuIndexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html#a8ff884f0f92749b741881e78ee0e62f1", null ],
+    [ "IGpuIndexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html#a9c6a69cbc8af92b66651a27305373385", null ],
     [ "~IGpuIndexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html#a515a20408f37b0d50fe0698aa2a69a8a", null ],
     [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html#af755613ed6b614d09310f7d1686a6dc8", null ],
     [ "Free", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html#a15808b222370a1a0a81be7f27b310b83", null ],
     [ "GetAlignment", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html#ac873fedc6e58f364fb6a08e4bdf009fd", null ],
     [ "GetMemoryBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html#a43f298eb4cdf029351a103d159c4abf8", null ],
     [ "GetMemorySubblock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html#a0e688b372c65d28e21d562528355a08d", null ],
+    [ "GetNumIndices", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html#a2727878c3ef7b2cbfb16ce8f1b6ce9f7", null ],
+    [ "GetNumTriangles", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html#a1ae68ec448facdf545c6385154caed2a", null ],
     [ "GetSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html#a1cea72401fd8c9d5672f9cf715339b45", null ],
     [ "MapMemory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html#a794d4d1ba8f5f2e81288398e59894eb9", null ],
     [ "MapMemory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html#ae204c031cbc4771d7338eec6ceeb7c58", null ],

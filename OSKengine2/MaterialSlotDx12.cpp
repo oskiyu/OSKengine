@@ -33,6 +33,18 @@ void MaterialSlotDx12::SetGpuImage(const std::string& binding, const GpuImage* i
 	images.At(index) = { index, image->As<GpuImageDx12>() };
 }
 
+void MaterialSlotDx12::SetStorageBuffer(const std::string& binding, const GpuDataBuffer* buffer) {
+	OSK_ASSERT(false, "No implementado.");
+}
+
+void MaterialSlotDx12::SetStorageImage(const std::string& binding, const GpuImage* image) {
+	OSK_ASSERT(false, "No implementado.");
+}
+
+void MaterialSlotDx12::SetAccelerationStructure(const std::string& binding, const ITopLevelAccelerationStructure* image) {
+	OSK_ASSERT(false, "No implementado.");
+}
+
 void MaterialSlotDx12::FlushUpdate() {
 
 }

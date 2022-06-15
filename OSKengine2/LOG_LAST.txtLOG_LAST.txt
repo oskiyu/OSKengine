@@ -12,8 +12,13 @@ INFO: Capas de validación del renderizador:
 INFO: 	VK_LAYER_KHRONOS_validation
 INFO: Se ha creado correctamente la superficie de Vulkan.
 INFO: GPU elegida: NVIDIA GeForce RTX 2060
-ERROR: Assertion failed: No se ha podido crear el logical device.
-	 at OSK::GRAPHICS::GpuVulkan::CreateLogicalDevice
-	 at line 114
-	 at file C:\Users\Oscar\source\repos\OSKengine\OSKengine2\GpuVulkan.cpp
+INFO: Creada el pool de comandos.
+INFO: Creada la lista de comandos.
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
+INFO: Creado el swapchain.
+INFO: Creado el asignador de memoria de la GPU.
+INFO: Destruyendo el renderizador de Vulkan.
+INFO: Cerrado el log.
 

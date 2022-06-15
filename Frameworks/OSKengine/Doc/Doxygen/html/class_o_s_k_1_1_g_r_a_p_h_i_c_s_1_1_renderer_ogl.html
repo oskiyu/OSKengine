@@ -110,10 +110,14 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a6f84c9d2566f0702ae9a5b7c115e66e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a608e1fb85cfeac39e1eff660b827b30c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#a608e1fb85cfeac39e1eff660b827b30c">SubmitSingleUseCommandList</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ac581c68861de0626244f387334b8998f">commandList</a>) override</td></tr>
 <tr class="separator:a608e1fb85cfeac39e1eff660b827b30c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4e3c78feb82883410c53155eb232003"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#ab4e3c78feb82883410c53155eb232003">SupportsRaytracing</a> () const override</td></tr>
+<tr class="separator:ab4e3c78feb82883410c53155eb232003"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7b0ba32fa8e752917f27045fd67c07a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#af7b0ba32fa8e752917f27045fd67c07a">CreateSecondaryRenderpass</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *targetImage0, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *targetImage1, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *targetImage2) override</td></tr>
 <tr class="separator:af7b0ba32fa8e752917f27045fd67c07a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0b37f97a8e9ffbfd33bbff7dd81aca5"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline.html">IGraphicsPipeline</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#aa0b37f97a8e9ffbfd33bbff7dd81aca5">_CreateGraphicsPipeline</a> (const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a> &amp;pipelineInfo, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a> *layout, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a> *<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a61b18bf5379f942745c37e61d7f9ad48">renderpass</a>, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a> &amp;vertexInfo) override</td></tr>
 <tr class="separator:aa0b37f97a8e9ffbfd33bbff7dd81aca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d9d9d12fe144b19bb95e21cedd61074"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_raytracing_pipeline.html">IRaytracingPipeline</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#a6d9d9d12fe144b19bb95e21cedd61074">_CreateRaytracingPipeline</a> (const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a> &amp;pipelineInfo, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a> *layout, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a> *<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a61b18bf5379f942745c37e61d7f9ad48">renderpass</a>, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a> &amp;vertexTypeName) override</td></tr>
+<tr class="separator:a6d9d9d12fe144b19bb95e21cedd61074"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee18250e28331b2f40d2c98699902a7c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html">IMaterialSlot</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html#aee18250e28331b2f40d2c98699902a7c">_CreateMaterialSlot</a> (const std::string &amp;name, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a> *layout) const override</td></tr>
 <tr class="separator:aee18250e28331b2f40d2c98699902a7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37d47db030f6723bdce8f43518b611b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a37d47db030f6723bdce8f43518b611b4">GetCommandList</a> () const</td></tr>
@@ -198,7 +202,7 @@ Atributos protegidos</h2></td></tr>
 <tr class="separator:a92b402ae79fb7b6b7a262d8efe790a4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
-<div class="textblock"><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000038">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
+<div class="textblock"><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000040">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_renderer_ogl_8h_source.html#l00009">9</a> del archivo <a class="el" href="_renderer_ogl_8h_source.html">RendererOgl.h</a>.</p>
 </div><h2 class="groupheader">Documentación del constructor y destructor</h2>
@@ -326,6 +330,68 @@ Atributos protegidos</h2></td></tr>
 
 </div>
 </div>
+<a id="a6d9d9d12fe144b19bb95e21cedd61074" name="a6d9d9d12fe144b19bb95e21cedd61074"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d9d9d12fe144b19bb95e21cedd61074">&#9670;&nbsp;</a></span>_CreateRaytracingPipeline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_raytracing_pipeline.html">IRaytracingPipeline</a> &gt; RendererOgl::_CreateRaytracingPipeline </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>pipelineInfo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a> *&#160;</td>
+          <td class="paramname"><em>layout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a> *&#160;</td>
+          <td class="paramname"><em>renderpass</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>vertexTypeName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crea un graphics pipeline. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pipelineInfo</td><td>Configuración del pipeline.</td></tr>
+    <tr><td class="paramname">layout</td><td>Layout del material del pipeline.</td></tr>
+    <tr><td class="paramname">renderpass</td><td>Renderpass al que estará enlazado el pipeline.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a96f2979256af69c139df38ec63327376">OSK::GRAPHICS::IRenderer</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_renderer_ogl_8cpp_source.html#l00106">106</a> del archivo <a class="el" href="_renderer_ogl_8cpp_source.html">RendererOgl.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a7e06601c9bc5325e2ee5904e58a3af3d" name="a7e06601c9bc5325e2ee5904e58a3af3d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7e06601c9bc5325e2ee5904e58a3af3d">&#9670;&nbsp;</a></span>As()</h2>
 
@@ -354,7 +420,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Castea el renderizador al tipo dado. Este tipo debe ser una implementación de esta interfaz. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00119">119</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00122">122</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -472,7 +538,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#af5cff5ae56f4dca341f830423799cc31">OSK::GRAPHICS::IRenderer</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_ogl_8cpp_source.html#l00106">106</a> del archivo <a class="el" href="_renderer_ogl_8cpp_source.html">RendererOgl.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_ogl_8cpp_source.html#l00111">111</a> del archivo <a class="el" href="_renderer_ogl_8cpp_source.html">RendererOgl.cpp</a>.</p>
 
 </div>
 </div>
@@ -508,7 +574,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00080">80</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00083">83</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -838,7 +904,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00096">96</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00099">99</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -867,7 +933,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Devuelve el sistema de materiales. Necesario mara manejar materiales y crear instancias de materiales. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00076">76</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00079">79</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -923,7 +989,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Devuelve el API de renderizado de bajo nivel del renderizador actual. (DX12/VULKAN/OPENGL). </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00084">84</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00087">87</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -952,7 +1018,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Devuelve el número de imágenes del swapchain. Para recursos que necesiten tener una copia por imagen del swapchain. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00088">88</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00091">91</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1068,7 +1134,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Devuelve true si el renderizador está inicializado y funcionando. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00092">92</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00095">95</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1099,7 +1165,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a90aa9f12a25efdcc002be083fdc9c701">OSK::GRAPHICS::IRenderer</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_ogl_8cpp_source.html#l00112">112</a> del archivo <a class="el" href="_renderer_ogl_8cpp_source.html">RendererOgl.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_ogl_8cpp_source.html#l00117">117</a> del archivo <a class="el" href="_renderer_ogl_8cpp_source.html">RendererOgl.cpp</a>.</p>
 
 </div>
 </div>
@@ -1132,6 +1198,37 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#af337a6b45b1e298a4edff91981586d14">OSK::GRAPHICS::IRenderer</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_renderer_ogl_8cpp_source.html#l00094">94</a> del archivo <a class="el" href="_renderer_ogl_8cpp_source.html">RendererOgl.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab4e3c78feb82883410c53155eb232003" name="ab4e3c78feb82883410c53155eb232003"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4e3c78feb82883410c53155eb232003">&#9670;&nbsp;</a></span>SupportsRaytracing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool RendererOgl::SupportsRaytracing </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>True si el renderizador soporta trazado de rayos. Depende de la GPU usada. </p>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#af6c2b503a6e4f7757e58062fcdf60ebc">OSK::GRAPHICS::IRenderer</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_renderer_ogl_8cpp_source.html#l00140">140</a> del archivo <a class="el" href="_renderer_ogl_8cpp_source.html">RendererOgl.cpp</a>.</p>
 
 </div>
 </div>
@@ -1321,7 +1418,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00210">210</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00226">226</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1345,7 +1442,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00209">209</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00225">225</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1369,7 +1466,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00201">201</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00217">217</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1393,7 +1490,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00212">212</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00228">228</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1417,7 +1514,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00203">203</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00219">219</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1441,7 +1538,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00220">220</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00236">236</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1465,7 +1562,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00224">224</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00240">240</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1489,7 +1586,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00216">216</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00232">232</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1513,7 +1610,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00204">204</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00220">220</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1537,7 +1634,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00214">214</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00230">230</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1561,7 +1658,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00218">218</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00234">234</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1585,7 +1682,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00206">206</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00222">222</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1609,7 +1706,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00207">207</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00223">223</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1633,7 +1730,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00222">222</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00238">238</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -1647,7 +1744,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_ogl.html">RendererOgl</a></li>
-    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Jueves, 16 de Junio de 2022 00:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

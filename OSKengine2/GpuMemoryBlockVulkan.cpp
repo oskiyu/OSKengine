@@ -10,9 +10,30 @@
 #include "IGpuMemorySubblock.h"
 #include "GpuMemorySubblockVulkan.h"
 #include "GpuImageVulkan.h"
+#include "OSKengine.h"
+#include "IRenderer.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
+
+VkMemoryAllocateFlags GetMemoryAllocateFlags(GpuBufferUsage usage) {
+	VkMemoryAllocateFlags output = 0;
+
+	if (EFTraits::HasFlag(usage, GpuBufferUsage::RT_ACCELERATION_STRUCTURE))
+		output |= VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT;
+
+	if (EFTraits::HasFlag(usage, GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING))
+		output |= VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT;
+
+	if (EFTraits::HasFlag(usage, GpuBufferUsage::RT_SHADER_BINDING_TABLE))
+		output |= VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT;
+
+	if (Engine::GetRenderer()->SupportsRaytracing() &&
+			(EFTraits::HasFlag(usage, GpuBufferUsage::VERTEX_BUFFER) || EFTraits::HasFlag(usage, GpuBufferUsage::INDEX_BUFFER)))
+		output |= VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT;
+
+	return output;
+}
 
 uint32_t GetMemoryType(uint32_t memoryTypeFilter, GpuVulkan* device, GpuSharedMemoryType type) {
 	auto nativeSharedMode = GetGpuSharedMemoryTypeVulkan(type);
@@ -51,10 +72,16 @@ GpuMemoryBlockVulkan::GpuMemoryBlockVulkan(TSize reservedSize, IGpu* device, Gpu
 	VkMemoryRequirements memRequirements;
 	vkGetBufferMemoryRequirements(device->As<GpuVulkan>()->GetLogicalDevice(), buffer, &memRequirements);
 
+	// Flags de propiedades de la asignación de memoria.
+	VkMemoryAllocateFlagsInfo memoryAllocateFlagsInfo{};
+	memoryAllocateFlagsInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_FLAGS_INFO;
+	memoryAllocateFlagsInfo.flags = GetMemoryAllocateFlags(bufferUSage);
+
 	VkMemoryAllocateInfo allocInfo{};
 	allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
 	allocInfo.allocationSize = memRequirements.size;
 	allocInfo.memoryTypeIndex = GetMemoryType(memRequirements.memoryTypeBits, device->As<GpuVulkan>(), type);
+	allocInfo.pNext = &memoryAllocateFlagsInfo;
 
 	result = vkAllocateMemory(device->As<GpuVulkan>()->GetLogicalDevice(), &allocInfo, nullptr, &memory);
 	OSK_ASSERT(result == VK_SUCCESS, "Error al asignar memoria en la GPU.");

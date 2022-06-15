@@ -7,6 +7,7 @@
 #include "PipelineCreateInfo.h"
 #include "MaterialLayout.h"
 #include "VertexInfo.h"
+#include "IRaytracingPipeline.h"
 
 namespace OSK::GRAPHICS {
 
@@ -39,6 +40,11 @@ namespace OSK::GRAPHICS {
 		/// Obtiene el graphics pipeline asignado al renderpass dado.
 		/// </summary>
 		const IGraphicsPipeline* GetGraphicsPipeline(const IRenderpass* ownerRenderpass) const;
+
+		/// <summary>
+		/// Obtiene el raytracing pipeline asignado al renderpass dado.
+		/// </summary>
+		const IRaytracingPipeline* GetRaytracingPipeline() const;
 		
 		/// <summary>
 		/// Registra el renderpass, creando una nueva graphics pipeline asignada a dicho renderpass.
@@ -54,6 +60,12 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		OwnedPtr<MaterialInstance> CreateInstance();
 
+		/// <summary>
+		/// Devuelve true si es un material de renderizado por trazado de rayos,
+		/// y devuelve false si es un pipeline de rasterizado.
+		/// </summary>
+		bool IsRaytracing() const;
+
 	private:
 
 		/// <summary>
@@ -63,6 +75,7 @@ namespace OSK::GRAPHICS {
 
 		UniquePtr<MaterialLayout> layout;
 		HashMap<const GRAPHICS::IRenderpass*, OwnedPtr<GRAPHICS::IGraphicsPipeline>> graphicsPipelines;
+		UniquePtr<GRAPHICS::IRaytracingPipeline> rtPipeline;
 
 		/// <summary>
 		/// Información del vértice para generar los pipelines.

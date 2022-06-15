@@ -104,18 +104,22 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a29f2fe999bf8857dbbb65fb73df335ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7295b19f995cfb4a72a89d15cca4eebe"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline.html">IGraphicsPipeline</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#a7295b19f995cfb4a72a89d15cca4eebe">GetGraphicsPipeline</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a> *ownerRenderpass) const</td></tr>
 <tr class="separator:a7295b19f995cfb4a72a89d15cca4eebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace3413ec1b0f594398434ce7013e1800"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_raytracing_pipeline.html">IRaytracingPipeline</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#ace3413ec1b0f594398434ce7013e1800">GetRaytracingPipeline</a> () const</td></tr>
+<tr class="separator:ace3413ec1b0f594398434ce7013e1800"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b3b3af31eafe320f92467eaf55f1723"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#a4b3b3af31eafe320f92467eaf55f1723">RegisterRenderpass</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a> *renderpass)</td></tr>
 <tr class="separator:a4b3b3af31eafe320f92467eaf55f1723"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af49273953e2108695164197bf1a2fa7d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#af49273953e2108695164197bf1a2fa7d">UnregisterRenderpass</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a> *renderpass)</td></tr>
 <tr class="separator:af49273953e2108695164197bf1a2fa7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf1dacea3b45a53ca86d96e30af22af1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html">MaterialInstance</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#acf1dacea3b45a53ca86d96e30af22af1">CreateInstance</a> ()</td></tr>
 <tr class="separator:acf1dacea3b45a53ca86d96e30af22af1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d03f0ca1f8485058872b5e23594ef93"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#a7d03f0ca1f8485058872b5e23594ef93">IsRaytracing</a> () const</td></tr>
+<tr class="separator:a7d03f0ca1f8485058872b5e23594ef93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p >Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el layout del material, indicando qué slots (y bindings) serán usados en los shaders. </p>
 <dl class="section note"><dt>Nota</dt><dd>Tiene la propiedad de los graphics pipelines (uno por cada renderpass registrado). </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_8h_source.html#l00024">24</a> del archivo <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_8h_source.html#l00025">25</a> del archivo <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
 </div><h2 class="groupheader">Documentación del constructor y destructor</h2>
 <a id="a994e39160c026c4c75315713adc18980" name="a994e39160c026c4c75315713adc18980"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a994e39160c026c4c75315713adc18980">&#9670;&nbsp;</a></span>Material()</h2>
@@ -222,7 +226,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Obtiene el graphics pipeline asignado al renderpass dado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00036">36</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00040">40</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
 
 </div>
 </div>
@@ -240,6 +244,48 @@ Métodos públicos</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00036">36</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ace3413ec1b0f594398434ce7013e1800" name="ace3413ec1b0f594398434ce7013e1800"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace3413ec1b0f594398434ce7013e1800">&#9670;&nbsp;</a></span>GetRaytracingPipeline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_raytracing_pipeline.html">IRaytracingPipeline</a> * Material::GetRaytracingPipeline </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Obtiene el raytracing pipeline asignado al renderpass dado. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00044">44</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7d03f0ca1f8485058872b5e23594ef93" name="a7d03f0ca1f8485058872b5e23594ef93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d03f0ca1f8485058872b5e23594ef93">&#9670;&nbsp;</a></span>IsRaytracing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Material::IsRaytracing </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Devuelve true si es un material de renderizado por trazado de rayos, y devuelve false si es un pipeline de rasterizado. </p>
 
 <p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00032">32</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
 
@@ -263,7 +309,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Registra el renderpass, creando una nueva graphics pipeline asignada a dicho renderpass. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00040">40</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00048">48</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
 
 </div>
 </div>
@@ -285,7 +331,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Elimina el graphics pipeline asignado a dicho renderpass. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00045">45</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00056">56</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
 
 </div>
 </div>
@@ -299,7 +345,7 @@ Métodos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a></li>
-    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Jueves, 16 de Junio de 2022 00:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

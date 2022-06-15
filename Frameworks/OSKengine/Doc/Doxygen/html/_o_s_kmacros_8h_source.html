@@ -100,23 +100,31 @@ $(document).ready(function(){initNavTree('_o_s_kmacros_8h_source.html',''); init
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#define OSKAPI_CALL</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">   15</a></span><span class="keyword">using</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> = <span class="keywordtype">unsigned</span> int;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">   16</a></span><span class="keyword">using</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> = float;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="_o_s_kmacros_8h.html#a6d686bea7f1faeb6478b9450ba6915ed">   17</a></span><span class="keyword">using</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a6d686bea7f1faeb6478b9450ba6915ed">TByte</a> = uint8_t;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="_o_s_kmacros_8h.html#aebcc973f4db4a26ea3d60325d769741f">   13</a></span><span class="preprocessor">#define OSK_DISABLE_COPY(className) \</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">className(const className&amp;) = delete; \</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">className&amp; operator=(const className&amp;) = delete;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="_o_s_kmacros_8h.html#ae38bf25dd8d8ec477d83ed205e1d8aaa">   17</a></span><span class="preprocessor">#define OSK_DEFINE_AS(className) template &lt;typename T&gt; constexpr T* As() const requires std::is_base_of_v&lt;className, T&gt; { return (T*)this; }</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00015">OSKmacros.h:15</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_a6d686bea7f1faeb6478b9450ba6915ed"><div class="ttname"><a href="_o_s_kmacros_8h.html#a6d686bea7f1faeb6478b9450ba6915ed">TByte</a></div><div class="ttdeci">uint8_t TByte</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00017">OSKmacros.h:17</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_ad05d5eacc527d5b61240124daf13b33b"><div class="ttname"><a href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a></div><div class="ttdeci">float TDeltaTime</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00016">OSKmacros.h:16</a></div></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="_o_s_kmacros_8h.html#a0b474619a247da5962d555753c6299b4">   19</a></span><span class="preprocessor">#define OSK_NODISCARD [[nodiscard]]</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">   23</a></span><span class="keyword">using</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> = <span class="keywordtype">unsigned</span> int;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">   24</a></span><span class="keyword">using</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> = float;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="_o_s_kmacros_8h.html#a6d686bea7f1faeb6478b9450ba6915ed">   25</a></span><span class="keyword">using</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a6d686bea7f1faeb6478b9450ba6915ed">TByte</a> = uint8_t;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00023">OSKmacros.h:23</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a6d686bea7f1faeb6478b9450ba6915ed"><div class="ttname"><a href="_o_s_kmacros_8h.html#a6d686bea7f1faeb6478b9450ba6915ed">TByte</a></div><div class="ttdeci">uint8_t TByte</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00025">OSKmacros.h:25</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_ad05d5eacc527d5b61240124daf13b33b"><div class="ttname"><a href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a></div><div class="ttdeci">float TDeltaTime</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00024">OSKmacros.h:24</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_o_s_kmacros_8h.html">OSKmacros.h</a></li>
-    <li class="footer">Generado el Miércoles, 1 de Junio de 2022 17:39:57 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Jueves, 16 de Junio de 2022 00:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
 </body>

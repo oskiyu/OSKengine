@@ -1,6 +1,8 @@
 #include "ICommandList.h"
 
 #include "IGpuImage.h"
+#include "OSKengine.h"
+#include "IRenderer.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -26,4 +28,12 @@ void ICommandList::DeleteAllStagingBuffers() {
 		stagingBuffersToDelete.At(i).Delete();
 
 	stagingBuffersToDelete.Free();
+}
+
+void ICommandList::_SetSingleTimeUse() {
+	isSingleUse = true;
+}
+
+TSize ICommandList::GetCommandListIndex() const {
+	return isSingleUse ? 0 : Engine::GetRenderer()->GetCurrentCommandListIndex();
 }

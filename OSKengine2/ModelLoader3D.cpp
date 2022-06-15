@@ -349,7 +349,7 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 		ProcessMeshNode(gltfModel.nodes[scene.nodes[i]], gltfModel, modelInfo, &meshIdToMaterialId, &meshes, &vertices, &indices, initialTransform, assetInfo["scale"]);
 
 	// GPU.
-	output->_SetVertexBuffer(Engine::GetRenderer()->GetMemoryAllocator()->CreateVertexBuffer(vertices));
+	output->_SetVertexBuffer(Engine::GetRenderer()->GetMemoryAllocator()->CreateVertexBuffer(vertices, Vertex3D::GetVertexInfo()));
 	output->_SetIndexBuffer(Engine::GetRenderer()->GetMemoryAllocator()->CreateIndexBuffer(indices));
 
 	output->_SetIndexCount(indices.GetSize());
@@ -365,6 +365,9 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 
 		output->AddMesh(meshes.At(i), meshMetadata);
 	}
+
+	if (Engine::GetRenderer()->SupportsRaytracing())
+		output->_SetAccelerationStructure(Engine::GetRenderer()->GetMemoryAllocator()->CreateBottomAccelerationStructure(*output->GetVertexBuffer(), *output->GetIndexBuffer()));
 
 	for (TSize i = 0; i < textures.GetSize(); i++)
 		output->AddGpuImage(textures.At(i));

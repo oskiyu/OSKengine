@@ -1,6 +1,6 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_ogl =
 [
-    [ "GpuIndexBufferOgl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_ogl.html#abfd398ffbafeb67508e1ed4bff55413a", null ],
+    [ "GpuIndexBufferOgl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_ogl.html#aef413557ff40aa3575e16d46e3d6bde5", null ],
     [ "_SetHandler", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_ogl.html#a03f9a0780e59de0286e91230e663a245", null ],
     [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_ogl.html#af755613ed6b614d09310f7d1686a6dc8", null ],
     [ "Free", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_ogl.html#a15808b222370a1a0a81be7f27b310b83", null ],
@@ -8,6 +8,8 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_ogl =
     [ "GetHandler", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_ogl.html#afd40f7914477fe483888abcaeaaafa1c", null ],
     [ "GetMemoryBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_ogl.html#a43f298eb4cdf029351a103d159c4abf8", null ],
     [ "GetMemorySubblock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_ogl.html#a0e688b372c65d28e21d562528355a08d", null ],
+    [ "GetNumIndices", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_ogl.html#a2727878c3ef7b2cbfb16ce8f1b6ce9f7", null ],
+    [ "GetNumTriangles", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_ogl.html#a1ae68ec448facdf545c6385154caed2a", null ],
     [ "GetSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_ogl.html#a1cea72401fd8c9d5672f9cf715339b45", null ],
     [ "MapMemory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_ogl.html#a794d4d1ba8f5f2e81288398e59894eb9", null ],
     [ "MapMemory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_ogl.html#ae204c031cbc4771d7338eec6ceeb7c58", null ],

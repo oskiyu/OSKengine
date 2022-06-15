@@ -61,6 +61,8 @@
   <ItemGroup>
     <ClCompile Include="Assert.cpp" />
     <ClCompile Include="AssetManager.cpp" />
+    <ClCompile Include="IBottomLevelAccelerationStructure.cpp" />
+    <ClCompile Include="BottomLevelAccelerationStructureVulkan.cpp" />
     <ClCompile Include="CameraComponent2D.cpp" />
     <ClCompile Include="CameraComponent3D.cpp" />
     <ClCompile Include="Color.cpp" />
@@ -102,6 +104,7 @@
     <ClCompile Include="GpuMemorySubblockDx12.cpp" />
     <ClCompile Include="GpuMemorySubblockVulkan.cpp" />
     <ClCompile Include="GpuMemoryTypeDx12.cpp" />
+    <ClCompile Include="GpuMemoryTypes.cpp" />
     <ClCompile Include="GpuMemoryTypeVulkan.cpp" />
     <ClCompile Include="GpuUniformBufferDx12.cpp" />
     <ClCompile Include="GpuUniformBufferVulkan.cpp" />
@@ -118,6 +121,9 @@
     <ClCompile Include="IMaterialSlot.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="IPipelineLayout.cpp" />
+    <ClCompile Include="IPipelineVulkan.cpp" />
+    <ClCompile Include="IRaytracingPipeline.cpp" />
+    <ClCompile Include="ITopLevelAccelerationStructure.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MaterialInstance.cpp" />
     <ClCompile Include="MaterialLayout.cpp" />
@@ -152,6 +158,7 @@
     <ClCompile Include="OSKengine.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="QueueFamilyIndices.cpp" />
+    <ClCompile Include="RaytracingPipelineVulkan.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RendererDx12.cpp" />
     <ClCompile Include="RendererOgl.cpp" />
@@ -161,7 +168,9 @@
     <ClCompile Include="RenderpassVulkan.cpp" />
     <ClCompile Include="RenderSystem2D.cpp" />
     <ClCompile Include="RenderSystem3D.cpp" />
+    <ClCompile Include="RtShaderTableVulkan.cpp" />
     <ClCompile Include="ShaderBindingTypeVulkan.cpp" />
+    <ClCompile Include="ShaderStages.cpp" />
     <ClCompile Include="SpirvToHlsl.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
@@ -176,6 +185,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureCoordinates.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
+    <ClCompile Include="TopLevelAccelerationStructureVulkan.cpp" />
     <ClCompile Include="Transform2D.cpp" />
     <ClCompile Include="Transform3D.cpp" />
     <ClCompile Include="UiElement.cpp" />
@@ -189,6 +199,7 @@
     <ClInclude Include="Assert.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="BitSet.hpp" />
+    <ClInclude Include="BottomLevelAccelerationStructureVulkan.h" />
     <ClInclude Include="CameraComponent2D.h" />
     <ClInclude Include="CameraComponent3D.h" />
     <ClInclude Include="Color.hpp" />
@@ -257,11 +268,15 @@
     <ClInclude Include="HlslRuntimeCompiler.h" />
     <ClInclude Include="IAsset.h" />
     <ClInclude Include="IAssetLoader.h" />
+    <ClInclude Include="IBottomLevelAccelerationStructure.h" />
     <ClInclude Include="IComponentContainer.h" />
     <ClInclude Include="IGpuVertexDescription.h" />
     <ClInclude Include="IInputListener.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="IPipelineLayout.h" />
+    <ClInclude Include="IRaytracingPipeline.h" />
+    <ClInclude Include="IRtShaderTable.h" />
+    <ClInclude Include="ITopLevelAccelerationStructure.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="IMaterialSlot.h" />
     <ClInclude Include="MaterialInstance.h" />
@@ -279,6 +294,7 @@
     <ClInclude Include="ModelComponent3D.h" />
     <ClInclude Include="ModelLoader3D.h" />
     <ClInclude Include="MouseModes.h" />
+    <ClInclude Include="IPipelineVulkan.h" />
     <ClInclude Include="PipelineLayoutDx12.h" />
     <ClInclude Include="PipelineLayoutVulkan.h" />
     <ClInclude Include="GraphicsPipelineOgl.h" />
@@ -315,6 +331,7 @@
     <ClInclude Include="PushConst2D.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="QueueFamilyIndices.h" />
+    <ClInclude Include="RaytracingPipelineVulkan.h" />
     <ClInclude Include="RenderApiType.h" />
     <ClInclude Include="RendererDx12.h" />
     <ClInclude Include="RendererOgl.h" />
@@ -325,6 +342,7 @@
     <ClInclude Include="RenderpassVulkan.h" />
     <ClInclude Include="RenderSystem2D.h" />
     <ClInclude Include="RenderSystem3D.h" />
+    <ClInclude Include="RtShaderTableVulkan.h" />
     <ClInclude Include="ShaderBindingType.h" />
     <ClInclude Include="ShaderBindingTypeVulkan.h" />
     <ClInclude Include="SharedPtr.hpp" />
@@ -342,6 +360,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureCoordinates.h" />
     <ClInclude Include="TextureLoader.h" />
+    <ClInclude Include="TopLevelAccelerationStructureVulkan.h" />
     <ClInclude Include="ToString.h" />
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="Transform3D.h" />

@@ -27,6 +27,7 @@ GpuImageVulkan::~GpuImageVulkan() {
 		vkDestroySampler(Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(), sampler, nullptr);
 		sampler = VK_NULL_HANDLE;
 	}
+
 }
 
 void GpuImageVulkan::SetImage(VkImage image) {

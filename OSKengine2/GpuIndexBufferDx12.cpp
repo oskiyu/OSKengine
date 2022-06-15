@@ -6,8 +6,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuIndexBufferDx12::GpuIndexBufferDx12(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment)
-	: IGpuIndexBuffer(buffer, size, alignment) {
+GpuIndexBufferDx12::GpuIndexBufferDx12(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment, TSize numIndices)
+	: IGpuIndexBuffer(buffer, size, alignment, numIndices) {
 
 }
 

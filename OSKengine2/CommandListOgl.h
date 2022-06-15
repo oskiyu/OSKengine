@@ -40,6 +40,8 @@ namespace OSK::GRAPHICS {
 		void DrawSingleInstance(TSize numIndices) override;
 		/// @deprecated OpenGL no implementado.
 		void DrawSingleMesh(TSize firstIndex, TSize numIndices) override;
+		/// @deprecated OpenGL no implementado.
+		void TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) override;
 
 		/// @deprecated OpenGL no implementado.
 		void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer, TSize offset) override;
