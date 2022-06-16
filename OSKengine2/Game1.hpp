@@ -318,7 +318,7 @@ protected:
 		commandList->BindMaterial(rtMaterial);
 		for (auto const& slotName : rtMaterialInstance->GetLayout()->GetAllSlotNames())
 			commandList->BindMaterialSlot(rtMaterialInstance->GetSlot(slotName));
-		commandList->TraceRays(0, 0, 0, { 1920, 1080 });
+		//commandList->TraceRays(0, 0, 0, { 1920, 1080 });
 		commandList->TransitionImageLayout(rtTargetImage, OSK::GRAPHICS::GpuImageLayout::SHADER_READ_ONLY, 0, 1);
 		commandList->BeginRenderpass(OSK::Engine::GetRenderer()->GetMainRenderpass());
 	}

@@ -25,8 +25,11 @@ layout (push_constant) uniform Model {
 void main() {
     outPosition = inPosition;
     outColor = inColor;
-    outNormal = inNormal;
+    outNormal = normalize(mat3(transpose(inverse(model.modelMatrix))) * inNormal);
     outTexCoords = inTexCoords;
 
-    gl_Position = camera.projection * camera.view * model.modelMatrix * vec4(inPosition, 1.0);
+
+    vec4 oPos = model.modelMatrix * vec4(inPosition, 1.0);
+    outPosition = oPos.xyz;
+    gl_Position = camera.projection * camera.view * vec4(oPos);
 }

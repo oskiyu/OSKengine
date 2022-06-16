@@ -20,6 +20,8 @@
 #include "Color.hpp"
 #include "Vertex3D.h"
 
+#define GLM_ENABLE_EXPERIMENTAL
+#include <gtx/matrix_decompose.hpp>
 #include <gtc/type_ptr.hpp>
 #include <json.hpp>
 
@@ -123,9 +125,12 @@ void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, c
 		
 		for (TSize i = 0; i < mesh.primitives.size(); i++) {
 			const tinygltf::Primitive& primitive = mesh.primitives[i];
+
+			OSK_ASSERT(primitive.mode == TINYGLTF_MODE_TRIANGLES, "El modelo no está en modo TRIÁNGULOS.");
+
 			TSize numVertices = 0;
-			TSize firstVertexId = vertices->GetSize();
-			TSize firstIndexId = indices->GetSize();
+			const TSize firstVertexId = vertices->GetSize();
+			const TSize firstIndexId = indices->GetSize();
 
 			// Los datos se almacenan en forma de buffers.
 			const float* positionsBuffer = nullptr;
@@ -139,7 +144,7 @@ void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, c
 				const tinygltf::BufferView& view = model.bufferViews[accessor.bufferView];
 
 				// Leemos el buffer.
-				positionsBuffer = (const float*)(&(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
+				positionsBuffer = reinterpret_cast<const float*>(&(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
 				numVertices = static_cast<TSize>(accessor.count);
 			}
 
@@ -150,7 +155,7 @@ void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, c
 				const tinygltf::BufferView& view = model.bufferViews[accessor.bufferView];
 
 				// Leemos el buffer.
-				normalsBuffer = (const float*)(&(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
+				normalsBuffer = reinterpret_cast<const float*>(&(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
 			}
 
 			// Comprobamos que tiene almacenado info de coordenadas de texturas.
@@ -160,13 +165,17 @@ void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, c
 				const tinygltf::BufferView& view = model.bufferViews[accessor.bufferView];
 
 				// Leemos el buffer.
-				texCoordsBuffer = (const float*)(&(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
+				texCoordsBuffer = reinterpret_cast<const float*>(&(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
 			}
+
+			OSK_ASSERT(positionsBuffer != nullptr, "No se encontraron posiciones.");
+			OSK_ASSERT(normalsBuffer != nullptr, "No se encontraron normales.");
+			OSK_ASSERT(texCoordsBuffer != nullptr, "No se encontraron coordenadas de texturas.");
 
 			// Procesamos los buffers y generamos nuevos vértices.
 			for (TSize v = 0; v < numVertices; v++) {
 				glm::vec4 vertexPosition = glm::vec4(
-					positionsBuffer[v * 3],
+					positionsBuffer[v * 3 + 0],
 					positionsBuffer[v * 3 + 1],
 					positionsBuffer[v * 3 + 2],
 					globalScale
@@ -174,15 +183,22 @@ void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, c
 
 				GRAPHICS::Vertex3D vertex{};
 				vertex.position = glm::vec3(glm::scale(nodeMatrix, glm::vec3(globalScale)) * vertexPosition);
-				vertex.normal = Vector3f(glm::vec3(nodeMatrix * glm::vec4(
-					normalsBuffer[v * 3],
+
+				const Vector3f originalNormal = Vector3f{
+					normalsBuffer[v * 3 + 0],
 					normalsBuffer[v * 3 + 1],
-					normalsBuffer[v * 3 + 2],
+					normalsBuffer[v * 3 + 2]
+				}.GetNormalized();
+
+				vertex.normal = Vector3f(glm::vec3(glm::transpose(glm::inverse(nodeMatrix)) * glm::vec4(
+					originalNormal.X,
+					originalNormal.Y,
+					originalNormal.Z,
 					0.0f
 				))).GetNormalized();
-
+				
 				vertex.texCoords = {
-					texCoordsBuffer[v * 2],
+					texCoordsBuffer[v * 2 + 0],
 					texCoordsBuffer[v * 2 + 1]
 				};
 
@@ -233,8 +249,9 @@ void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, c
 			meshes->Insert({ (TSize)indicesAccesor.count, firstIndexId });
 		}
 	}
-	for (TSize i = 0; i < node.children.size(); i++)
-		ProcessMeshNode(model.nodes[node.children[i]], model, modelInfo, meshIdToMaterialId, meshes, vertices, indices, nodeMatrix, globalScale);
+
+	//for (TSize i = 0; i < node.children.size(); i++)
+		//ProcessMeshNode(model.nodes[node.children[i]], model, modelInfo, meshIdToMaterialId, meshes, vertices, indices, prevMatrix, globalScale);
 }
 
 /// <summary>
