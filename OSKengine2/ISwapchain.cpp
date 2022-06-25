@@ -3,6 +3,10 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
+PresentMode ISwapchain::GetCurrentPresentMode() const {
+	return mode;
+}
+
 unsigned int ISwapchain::GetImageCount() const {
 	return imageCount;
 }

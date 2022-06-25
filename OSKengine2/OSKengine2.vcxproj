@@ -156,6 +156,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MouseState.cpp" />
     <ClCompile Include="OSKengine.cpp" />
+    <ClCompile Include="PresentMode.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="QueueFamilyIndices.cpp" />
     <ClCompile Include="RaytracingPipelineVulkan.cpp" />
@@ -328,6 +329,7 @@
     <ClInclude Include="OwnedPtr.h" />
     <ClInclude Include="Pair.hpp" />
     <ClInclude Include="PipelineCreateInfo.h" />
+    <ClInclude Include="PresentMode.h" />
     <ClInclude Include="PushConst2D.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="QueueFamilyIndices.h" />
@@ -722,6 +724,7 @@
       <PreprocessorDefinitions>OSK_DEBUG;_DEBUG;_CONSOLE;OSK_DEVELOPMENT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -736,6 +739,7 @@
       <PreprocessorDefinitions>OSK_DEBUG;_DEBUG;_CONSOLE;OSK_DLL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -752,6 +756,7 @@
       <PreprocessorDefinitions>OSK_DEVELOPMENT;NDEBUG;OSK_RELEASE;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -771,6 +776,7 @@
       <PreprocessorDefinitions>OSK_DLL_EXPORT;NDEBUG;OSK_RELEASE;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -792,6 +798,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <Optimization>Disabled</Optimization>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -813,6 +820,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <Optimization>Disabled</Optimization>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -833,6 +841,7 @@
       <PreprocessorDefinitions>NDEBUG;OSK_RELEASE;OSK_DLL_EXPORT;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

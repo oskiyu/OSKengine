@@ -235,6 +235,9 @@ GpuVulkan::Info GpuVulkan::Info::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface)
 	gpuProperties2.pNext = &info.rtPipelineProperties;
 
 	info.rtPipelineProperties.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR;
+	info.rtPipelineProperties.pNext = &info.rtAccelerationStructuresProperites;
+
+	info.rtAccelerationStructuresProperites.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR;
 
 	vkGetPhysicalDeviceProperties2(gpu, &gpuProperties2);
 	

@@ -4,13 +4,14 @@
 #include "HashMap.hpp"
 #include "UniquePtr.hpp"
 
+#include "IMaterialSlot.h"
+
 #include <string>
 
 namespace OSK::GRAPHICS {
 
 	class Material;
 	class MaterialLayout;
-	class IMaterialSlot;
 
 	/// <summary>
 	/// Mientras que un Material define a grandes rasgos el comportamiento al renderizarse los objetos,

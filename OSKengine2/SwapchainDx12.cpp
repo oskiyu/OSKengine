@@ -28,6 +28,7 @@
 #include <GLFW/glfw3.h>
 #include <GLFW/glfw3native.h>
 #include "GpuMemoryTypesDx12.h"
+#include "PresentMode.h"
 
 using namespace OSK;
 using namespace OSK::IO;
@@ -40,9 +41,16 @@ SwapchainDx12::~SwapchainDx12() {
     Engine::GetLogger()->InfoLog("Swapchain cerrado.");
 }
 
-void SwapchainDx12::Create(IGpu* device, Format format, const CommandQueueDx12& commandQueue, IDXGIFactory4* factory, const IO::Window& window) {
+void SwapchainDx12::Create(PresentMode mode, IGpu* device, Format format, const CommandQueueDx12& commandQueue, IDXGIFactory4* factory, const IO::Window& window) {
     this->format = format;
     this->device = device;
+
+    this->mode = mode;
+
+    if (mode == PresentMode::VSYNC_ON_TRIPLE_BUFFER) {
+        OSK_CHECK(false, "El modo de presentación " + ToString<PresentMode>(mode) + " no está soportado. Se usará " + ToString<PresentMode>(PresentMode::VSYNC_ON) + ".");
+        mode = PresentMode::VSYNC_ON;
+    }
 
     DXGI_SWAP_CHAIN_DESC1 swapchainDesc{};
 
@@ -167,7 +175,7 @@ void SwapchainDx12::CreateImages(const IO::Window& window) {
 }
 
 void SwapchainDx12::Present() {
-    swapchain->Present(1, 0);
+    swapchain->Present(static_cast<UINT>(mode), 0);
     UpdateFrameIndex();
 }
 

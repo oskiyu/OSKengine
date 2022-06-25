@@ -33,7 +33,7 @@ RendererOgl::RendererOgl() : IRenderer(RenderApiType::OPENGL) {
 
 }
 
-void RendererOgl::Initialize(const std::string& appName, const Version& version, const IO::Window& window) {
+void RendererOgl::Initialize(const std::string& appName, const Version& version, const IO::Window& window, PresentMode mode) {
 	this->window = &window;
 
 	auto gladResult = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
@@ -83,7 +83,7 @@ void RendererOgl::HandleResize() {
 
 }
 
-void RendererOgl::CreateSwapchain() {
+void RendererOgl::CreateSwapchain(PresentMode mode) {
 
 }
 
@@ -100,7 +100,7 @@ void RendererOgl::CreateSyncDevice() {
 }
 
 void RendererOgl::CreateGpuMemoryAllocator() {
-	gpuMemoryAllocator = new GpuMemoryAllocatorOgl(currentGpu.GetPointer());
+	//gpuMemoryAllocator = new GpuMemoryAllocatorOgl(currentGpu.GetPointer());
 }
 
 OwnedPtr<IRaytracingPipeline> RendererOgl::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo& vertexTypeName) {

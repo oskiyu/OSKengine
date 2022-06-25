@@ -8,7 +8,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuIndexBufferVulkan(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment);
+		GpuIndexBufferVulkan(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment, TSize numIndices);
 
 	};
 

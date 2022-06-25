@@ -15,6 +15,7 @@
 #include "IGpuMemoryAllocator.h"
 #include "IRenderpass.h"
 #include "MaterialSystem.h"
+#include "PresentMode.h"
 
 #include <string>
 
@@ -59,7 +60,7 @@ namespace OSK::GRAPHICS {
 		/// <param name="appName">Nombre de la aplicación / juego.</param>
 		/// <param name="version">Versión de la aplicación / juego.</param>
 		/// <param name="window">Ventana enlazada.</param>
-		virtual void Initialize(const std::string& appName, const Version& version, const IO::Window& window) = 0;
+		virtual void Initialize(const std::string& appName, const Version& version, const IO::Window& window, PresentMode mode) = 0;
 
 		/// <summary>
 		/// Cierra el renderizador.
@@ -209,7 +210,7 @@ namespace OSK::GRAPHICS {
 		virtual const TByte* FormatImageDataForGpu(const GpuImage* image, const TByte* data, TSize numLayers);
 
 		virtual void CreateCommandQueues() = 0;
-		virtual void CreateSwapchain() = 0;
+		virtual void CreateSwapchain(PresentMode mode) = 0;
 		virtual void CreateSyncDevice() = 0;
 		virtual void CreateGpuMemoryAllocator() = 0;
 		virtual void CreateMainRenderpass() = 0;

@@ -81,13 +81,7 @@ OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorOgl::CreateStagingBuffer(TSize size) {
 	return nullptr;
 }
 
-IGpuMemoryBlock* GpuMemoryAllocatorOgl::GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
-	OSK_ASSERT(false, "No implementado.");
-
-	return nullptr;
-}
-
-OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorOgl::CreateBuffer(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorOgl::CreateBuffer(TSize size, TSize alignment, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
 	OSK_ASSERT(false, "No implementado.");
 
 	return nullptr;

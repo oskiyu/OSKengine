@@ -819,8 +819,11 @@
     <ClCompile Include="ITopLevelAccelerationStructure.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\RT\AS\TLAS</Filter>
     </ClCompile>
+    <ClCompile Include="PresentMode.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel</Filter>
+    </ClCompile>
     <ClCompile Include="TopLevelAccelerationStructureVulkan.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\RT\AS\TLAS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1369,6 +1372,9 @@
     </ClInclude>
     <ClInclude Include="TopLevelAccelerationStructureVulkan.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\RT\AS\TLAS</Filter>
+    </ClInclude>
+    <ClInclude Include="PresentMode.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

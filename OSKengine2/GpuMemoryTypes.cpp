@@ -1,7 +1,7 @@
 #include "GpuMemoryTypes.h"
 #include "OSKmacros.h"
 
-template <> inline std::string OSK::ToString<OSK::GRAPHICS::GpuSharedMemoryType>(const OSK::GRAPHICS::GpuSharedMemoryType& type) {
+template <> std::string OSK::ToString<OSK::GRAPHICS::GpuSharedMemoryType>(const OSK::GRAPHICS::GpuSharedMemoryType& type) {
 	switch (type) {
 	case OSK::GRAPHICS::GpuSharedMemoryType::GPU_AND_CPU:
 		return "GpuSharedMemoryType::GPU_AND_CPU";
@@ -12,7 +12,7 @@ template <> inline std::string OSK::ToString<OSK::GRAPHICS::GpuSharedMemoryType>
 	return "Unknown";
 }
 
-template <> inline std::string OSK::ToString<OSK::GRAPHICS::GpuMemoryUsage>(const OSK::GRAPHICS::GpuMemoryUsage& usage) {
+template <> std::string OSK::ToString<OSK::GRAPHICS::GpuMemoryUsage>(const OSK::GRAPHICS::GpuMemoryUsage& usage) {
 	switch (usage) {
 	case OSK::GRAPHICS::GpuMemoryUsage::BUFFER:
 		return "GpuMemoryUsage::BUFFER";

@@ -40,7 +40,13 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Se usará como un cubemap.
 		/// </summary>
-		CUBEMAP = 32
+		CUBEMAP = 32,
+
+		/// <summary>
+		/// Se usará como imagen sobre la que se renderizará el
+		/// trazado de rayos.
+		/// </summary>
+		RT_TARGET_IMAGE = 64
 
 	};
 

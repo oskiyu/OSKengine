@@ -9,7 +9,7 @@ void IBottomLevelAccelerationStructure::SetMatrix(const glm::mat4& matrix) {
 	OSK_ASSERT(matrixBuffer.HasValue(), "No se inició el buffer de la matrix.");
 
 	matrixBuffer->MapMemory();
-	matrixBuffer->Write(matrix);
+	matrixBuffer->Write(glm::transpose(matrix));
 	matrixBuffer->Unmap();
 
 	isDirty = true;

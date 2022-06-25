@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IGpuDataBuffer.h"
+#include "VertexInfo.h"
 
 namespace OSK::GRAPHICS {
 
@@ -12,7 +13,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		IGpuVertexBuffer(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment);
+		IGpuVertexBuffer(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment, TSize numVertices, const VertexInfo& vertexInfo);
 
 		virtual ~IGpuVertexBuffer() = default;
 
@@ -20,7 +21,13 @@ namespace OSK::GRAPHICS {
 			return (T*)this;
 		}
 
+		TSize GetNumVertices() const;
+		const VertexInfo& GetVertexInfo() const;
+
 	private:
+
+		TSize numVertices = 0;
+		VertexInfo vertexInfo{};
 
 	};
 

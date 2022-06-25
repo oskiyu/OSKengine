@@ -2,6 +2,7 @@
 #define OSK_UNIQUE_PTR
 
 #include "OSKmacros.h"
+#include <type_traits>
 
 namespace OSK {
 
@@ -16,7 +17,7 @@ namespace OSK {
 	/// De lo contrario, no se llamará al destructor al eliminarse.
 	/// </summary>
 	/// <typeparam name="T">Tipo del puntero.</typeparam>
-	template <typename T> class UniquePtr {
+	template <typename T> /*requires std::is_destructible_v<T>*/ class UniquePtr {
 
 #define OSK_STD_UP_DELETE(ptr) if (ptr) delete(ptr);
 
@@ -56,7 +57,7 @@ namespace OSK {
 		/// Este puntero será dueño del puntero de other.
 		/// </summary>
 		/// <param name="other">Otro puntero.</param>
-		UniquePtr(UniquePtr&& other) {
+		UniquePtr(UniquePtr&& other) noexcept {
 			other.Swap(*this);
 		}
 
@@ -169,18 +170,20 @@ namespace OSK {
 	/// El puntero original es eliminado al destruirse el UniquePtr.
 	/// </summary>
 	/// <typeparam name="T">Tipo del puntero.</typeparam>
-	template <typename T> class UniqueArr {
+	template <typename T> class UniquePtr<T[]> {
+
+#define OSK_STD_UP_DELETE(ptr) if (ptr) delete[](ptr);
 
 	public:
 
 		/// <summary>
 		/// Crea un UniquePtr vacío.
 		/// </summary>
-		UniqueArr() : pointer(nullptr) {
+		UniquePtr() : pointer(nullptr) {
 
 		}
 
-		explicit UniqueArr(T* data) : pointer(data) {
+		explicit UniquePtr(T* data) : pointer(data) {
 
 		}
 
@@ -189,8 +192,8 @@ namespace OSK {
 		/// </summary>
 		/// <param name="data">Puntero original.</param>
 		void operator=(T* data) {
-			Delete();
-			pointer = data;
+			OSK_STD_UP_DELETE(pointer)
+				pointer = data;
 		}
 
 		/// <summary>
@@ -204,18 +207,18 @@ namespace OSK {
 		/// <summary>
 		/// Destruye el puntero, eliminándolo.
 		/// <summary/>
-		~UniqueArr() {
-			Delete();
+		~UniquePtr() {
+			OSK_STD_UP_DELETE(pointer)
 		}
 
-		inline UniqueArr(const UniqueArr&) = delete;
-		inline UniqueArr& operator=(const UniqueArr&) = delete;
+		inline UniquePtr(const UniquePtr&) = delete;
+		inline UniquePtr& operator=(const UniquePtr&) = delete;
 
 		/// <summary>
 		/// Este puntero será dueño del puntero de other.
 		/// </summary>
 		/// <param name="other">Otro puntero.</param>
-		UniqueArr(UniqueArr&& other) {
+		UniquePtr(UniquePtr&& other) {
 			other.Swap(*this);
 
 			return *this;
@@ -226,7 +229,7 @@ namespace OSK {
 		/// </summary>
 		/// <param name="other">Otro puntero.</param>
 		/// <returns>Self.</returns>
-		UniqueArr& operator=(UniqueArr&& other) noexcept {
+		UniquePtr& operator=(UniquePtr&& other) noexcept {
 			other.Swap(*this);
 
 			return *this;
@@ -247,8 +250,9 @@ namespace OSK {
 		/// </summary>
 		/// <param name="newValue">Nuevo valor.</param>
 		void SetNewValue(T* newValue) {
-			Delete();
-			pointer = newValue;
+			OSK_STD_UP_DELETE(pointer)
+
+				pointer = newValue;
 		}
 
 		/// <summary>
@@ -295,12 +299,11 @@ namespace OSK {
 		/// Elimina el puntero.
 		/// </summary>
 		inline void Delete() {
-			if (pointer)
-				delete[] pointer;
+			OSK_STD_UP_DELETE(pointer);
 			pointer = nullptr;
 		}
 
-		void Swap(UniqueArr<T>& other) {
+		void Swap(UniquePtr<T>& other) {
 			T* temp = pointer;
 			pointer = other.pointer;
 			other.pointer = temp;

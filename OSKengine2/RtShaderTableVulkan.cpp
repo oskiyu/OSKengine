@@ -29,9 +29,9 @@ RtShaderTableVulkan::RtShaderTableVulkan(TSize numShaderGroups, VkPipeline pipel
 		0, numGroups, tableSize, temporalStorage.GetData());
 	OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear la tabla de shaders RT. Code: " + std::to_string(result));
 
-	raygenShaderTable = Engine::GetRenderer()->GetMemoryAllocator()->CreateBuffer(handleSize, GpuBufferUsage::RT_SHADER_BINDING_TABLE, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
-	hitShaderTable = Engine::GetRenderer()->GetMemoryAllocator()->CreateBuffer(handleSize, GpuBufferUsage::RT_SHADER_BINDING_TABLE, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
-	missShaderTable = Engine::GetRenderer()->GetMemoryAllocator()->CreateBuffer(handleSize, GpuBufferUsage::RT_SHADER_BINDING_TABLE, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+	raygenShaderTable = Engine::GetRenderer()->GetMemoryAllocator()->CreateBuffer(handleSize, 0, GpuBufferUsage::RT_SHADER_BINDING_TABLE, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+	hitShaderTable = Engine::GetRenderer()->GetMemoryAllocator()->CreateBuffer(handleSize, 0, GpuBufferUsage::RT_SHADER_BINDING_TABLE, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+	missShaderTable = Engine::GetRenderer()->GetMemoryAllocator()->CreateBuffer(handleSize, 0, GpuBufferUsage::RT_SHADER_BINDING_TABLE, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
 
 	raygenShaderTable->MapMemory();
 	raygenShaderTable->Write(temporalStorage.GetData() + handleSizeWithAlignment * 0, handleSize);

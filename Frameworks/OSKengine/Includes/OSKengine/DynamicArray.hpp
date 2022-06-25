@@ -201,7 +201,7 @@ namespace OSK {
 		/// Crea el dynamic array con los elementos dados.
 		/// </summary>
 		DynamicArray(const std::initializer_list<T>& list) {
-			InitialAllocate(list.size());
+			InitialAllocate(static_cast<TSize>(list.size()));
 
 			for (auto& i : list)
 				Insert(i);
@@ -210,7 +210,7 @@ namespace OSK {
 		/// <summary>
 		/// Constructor de copia.
 		/// </summary>
-		DynamicArray(const DynamicArray& arr) {
+		DynamicArray(const DynamicArray& arr) requires std::is_copy_constructible_v<T> {
 			InitialCopyFrom(arr);
 		}
 
@@ -231,7 +231,7 @@ namespace OSK {
 		/// </summary>
 		/// 
 		/// @warning Deja a 'arr' en un estado inválido.
-		DynamicArray(DynamicArray&& arr) {
+		DynamicArray(DynamicArray&& arr) noexcept {
 			InitialMoveFrom(std::move(arr));
 		}
 
@@ -338,7 +338,6 @@ namespace OSK {
 		/// </summary>
 		/// <param name="size">Número de elementos.</param>
 		void Allocate(TSize size) {
-			const TSize oldCapacity = capacity;
 			capacity = size;
 
 			data = (T*)realloc(data, sizeof(T) * size);
@@ -621,7 +620,7 @@ namespace OSK {
 		/// 
 		/// @pre El tipo del elemento debe tener definido el operador de comparación '=='.
 		Iterator Find(const T& elem) const {
-			for (size_t i = 0; i < size; i++)
+			for (TSize i = 0; i < size; i++)
 				if (elem == data[i])
 					return Iterator(i, this);
 
@@ -765,7 +764,7 @@ namespace OSK {
 			InitialAllocate(arr.capacity);
 
 			for (TSize i = 0; i < arr.GetSize(); i++)
-				Insert(arr.data[i]);
+				InsertCopy(arr.data[i]);
 
 			growthFactorType = arr.growthFactorType;
 		}

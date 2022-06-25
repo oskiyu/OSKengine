@@ -14,7 +14,7 @@ namespace OSK::GRAPHICS {
 		VkPipelineShaderStageCreateInfo shaderCreateInfo{};
 	};
 
-	class IPipelineVulkan {
+	class OSKAPI_CALL IPipelineVulkan {
 
 	public:
 

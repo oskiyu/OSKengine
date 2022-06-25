@@ -210,7 +210,7 @@ namespace OSK {
 				pair->second = value;
 			}
 			else {
-				auto hash = ConvertHash(Hash(key));
+				const TSize hash = ConvertHash(static_cast<TSize>(Hash(key)));
 				buckets[hash].Insert(TPair(key, value));
 				occupiedBuckets.SetTrue(hash);
 
@@ -245,7 +245,7 @@ namespace OSK {
 				InsertMove(key, std::move(value));
 			}
 			else {
-				auto hash = ConvertHash(Hash(key));
+				auto hash = ConvertHash(static_cast<TSize>(Hash(key)));
 				buckets[hash].InsertMove(std::move(TPair(key, std::move(value))));
 				occupiedBuckets.SetTrue(hash);
 
@@ -294,7 +294,7 @@ namespace OSK {
 		/// </summary>
 		TValue& Get(const TKey& key) const {
 			auto pair = FindPair(key);
-			OSK_ASSERT(pair, "No se encontró el valor.");
+			OSK_ASSERT(pair != nullptr, "No se encontró el valor.");
 
 			return pair->second;
 		}
@@ -356,7 +356,7 @@ namespace OSK {
 			if (occupiedBuckets.IsAllFalse())
 				return end();
 
-			size_t i = occupiedBuckets.GetNextTrueIndex();
+			const TSize i = occupiedBuckets.GetNextTrueIndex();
 			
 			return GetIterator(i, 0);
 		}
@@ -388,7 +388,7 @@ namespace OSK {
 		};
 
 		KeySearchResult _FindKey(const TKey& key) const {
-			auto hash = ConvertHash(Hash(key));
+			auto hash = ConvertHash(static_cast<TSize>(Hash(key)));
 			const TBucket* bucket = &buckets[hash];
 
 			for (TSize i = 0; i < bucket->GetSize(); i++)

@@ -8,6 +8,9 @@
 #include "GpuImageDimensions.h"
 #include "Format.h"
 
+#include "OSKengine.h"
+#include "Logger.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -54,41 +57,42 @@ OwnedPtr<GpuImage> IGpuMemoryAllocator::CreateCubemapImage(const Vector2ui& face
 	return CreateImage({ faceSize.X, faceSize.Y, 1 }, GpuImageDimension::d2D, 6, format, usage, sharedType, 1, samplerDesc);
 }
 
-/*IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
-	auto it = bufferMemoryBlocks.Find({ size, usage, sharedType });
+IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+	// Miramos todas las listas de bloques para comprobar si hay alguna que
+	// tiene bloques con las características necesarias.
+	for (auto& [blockInfo, list] : bufferMemoryBlocks) {
+		if (blockInfo.usage == usage && blockInfo.sharedType == sharedType) {
+			for (auto& i : list)
+				if (i->GetAvailableSpace() >= size)
+					return i.GetPointer();
 
-	OSK_ASSERT(false, "Deprecated: use virtual function.");
-
-	if (it.IsEmpty()) {
-		auto i = CreateNewBufferMemoryBlock(size, usage, sharedType);
-
-		bufferMemoryBlocks.Insert({ size, usage, sharedType }, {});
-		bufferMemoryBlocks.Get({ size, usage, sharedType }).Insert(i);
-
-		return i.GetPointer();
-	}
-	else {
-		auto& list = it.GetValue().second;
-
-		for (auto i : list)
-			if (i->GetAvailableSpace() >= size)
-				return i.GetPointer();
-
-		auto i = CreateNewBufferMemoryBlock(size, usage, sharedType);
-
-		bufferMemoryBlocks.Insert({ size, usage, sharedType }, {});
-		bufferMemoryBlocks.Get({ size, usage, sharedType }).Insert(i);
-
-		return i.GetPointer();
+			break;
+		}
 	}
 
-	return nullptr;
-}*/
+	// Creamos uno nuevo
+	if (size < IGpuMemoryAllocator::SizeOfMemoryBlockInMb * 1024 * 1024)
+		size = IGpuMemoryAllocator::SizeOfMemoryBlockInMb * 1024 * 1024;
 
-IGpuMemorySubblock* IGpuMemoryAllocator::GetNextBufferMemorySubblock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
-	return GetNextBufferMemoryBlock(size, usage, sharedType)->GetNextMemorySubblock(size);
+	// Creamos un nuevo bloque.
+	OwnedPtr<IGpuMemoryBlock> newBlock = CreateNewBufferBlock(size, usage, sharedType);
+
+	Engine::GetLogger()->InfoLog("Creado bloque de memoria GPU.");
+	//Engine::GetLogger()->InfoLog("	Tipo: " + ToString(sharedType)); @bug ???
+	//Engine::GetLogger()->InfoLog("	Uso: " + ToString(usage)); @bug ???
+	Engine::GetLogger()->InfoLog("	Tamaño: " + std::to_string(size));
+
+	LinkedList<OwnedPtr<IGpuMemoryBlock>> list;
+	list.Insert(OwnedPtr<IGpuMemoryBlock>(newBlock.GetPointer()));
+
+	bufferMemoryBlocks.Insert(Pair{
+		GpuBufferMemoryBlockInfo{size, usage, sharedType },
+		list
+		});
+
+	return newBlock.GetPointer();
 }
 
-/*OwnedPtr<GpuDataBuffer> IGpuMemoryAllocator::CreateBuffer(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
-	return new GpuDataBuffer(GetNextBufferMemorySubblock(size, usage, sharedType), size, 0);
-}*/
+IGpuMemorySubblock* IGpuMemoryAllocator::GetNextBufferMemorySubblock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+	return GetNextBufferMemoryBlock(size, usage, sharedType)->GetNextMemorySubblock(size, 0);
+}

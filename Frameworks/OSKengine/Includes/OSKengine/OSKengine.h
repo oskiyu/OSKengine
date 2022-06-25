@@ -6,6 +6,13 @@
 #include "Version.h"
 #include <string>
 
+#include "Logger.h"
+#include "Window.h"
+#include "IRenderer.h"
+#include "AssetManager.h"
+#include "EntityComponentSystem.h"
+#include "InputManager.h"
+
 namespace OSK {
 
 	namespace IO {

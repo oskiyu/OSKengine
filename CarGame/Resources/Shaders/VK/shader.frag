@@ -33,10 +33,10 @@ void main() {
 	//  Specular
 	vec3 reflectDir = reflect(-directionalLightDirection, normal);
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32/*material.Shininess*/) * lights.intensity;
-    vec3 specularColor = lights.color.xyz * spec * textureColor;
+    vec3 specularColor = lights.color.xyz * spec;// * textureColor;
 
     vec3 ambientLight = lights.color.xyz * textureColor * (0.025 + lights.intensity * 0.1);
 
-    outColor = vec4(diffuseColor + specularColor + ambientLight, 1.0); //(color * vec4(texture(stexture, texCoords).xyz, 1.0)) * 0.1 + 
-    outColor = vec4(normal, 1.0);
+    outColor = vec4(diffuseColor + specularColor * 1.5 + ambientLight, 1.0); //(color * vec4(texture(stexture, texCoords).xyz, 1.0)) * 0.1 + 
+    //outColor = vec4(normal, 1.0);
 }

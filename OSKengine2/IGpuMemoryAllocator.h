@@ -69,9 +69,7 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		void Free();
 
-		template <typename T> T* As() const requires std::is_base_of_v<IGpuMemoryAllocator, T> {
-			return (T*)this;
-		}
+		OSK_DEFINE_AS(IGpuMemoryAllocator);
 
 		/// <summary>
 		/// Crea una nueva imagen en la GPU.
@@ -139,7 +137,7 @@ namespace OSK::GRAPHICS {
 		/// <param name="usage">Uso que se le dará al buffer.</param>
 		/// <param name="sharedType">Configura si se accederá únicamente desde la GPU, o si también
 		/// se accederá desde la CPU.</param>
-		virtual OwnedPtr<GpuDataBuffer> CreateBuffer(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) = 0;
+		virtual OwnedPtr<GpuDataBuffer> CreateBuffer(TSize size, TSize alignment, GpuBufferUsage usage, GpuSharedMemoryType sharedType) = 0;
 
 		/// <summary>
 		/// Crea una estructura de aceleración espacial para el trazado de rayos.
@@ -163,26 +161,29 @@ namespace OSK::GRAPHICS {
 
 	protected:
 
+		virtual OwnedPtr<IGpuMemoryBlock> CreateNewBufferBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) = 0;
+		virtual OwnedPtr<IGpuMemoryBlock> CreateNewImageBlock(GpuImage* image, GpuImageUsage usage, GpuSharedMemoryType sharedType) = 0;
+
 		/// <summary>
 		/// Devuelve un bloque con las características dadas.
 		/// 
 		/// Si no hay ningún bloque con tamaño suficiente, se crea uno nuevo.
 		/// </summary>
-		/// <param name="size">Tamaño libre.</param>
-		virtual IGpuMemoryBlock* GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) = 0;
+		/// <param name="size">Tamaño libre necesitado.</param>
+		IGpuMemoryBlock* GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType);
 
 		/// <summary>
 		/// Devuelve un subbloque con las características dadas.
 		/// 
 		/// Si no hay ningún subbloque con tamaño suficiente, se crea uno nuevo.
 		/// </summary>
-		/// <param name="size">Tamaño libre.</param>
+		/// <param name="size">Tamaño libre necesitado.</param>
 		IGpuMemorySubblock* GetNextBufferMemorySubblock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType);
 
 		/// <summary>
 		/// Bloques ya reservados.
 		/// </summary>
-		HashMap<GpuBufferMemoryBlockInfo, LinkedList<OwnedPtr<IGpuMemoryBlock>>> bufferMemoryBlocks;
+		DynamicArray<Pair<GpuBufferMemoryBlockInfo, LinkedList<OwnedPtr<IGpuMemoryBlock>>>> bufferMemoryBlocks;
 		LinkedList<OwnedPtr<IGpuMemoryBlock>> imageMemoryBlocks;
 
 		IGpu* device = nullptr;

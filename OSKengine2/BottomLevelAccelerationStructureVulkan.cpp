@@ -18,24 +18,25 @@ void BottomLevelAccelerationStructureVulkan::Setup(const IGpuVertexBuffer& verte
 	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
 	IGpuMemoryAllocator* memoryAllocator = Engine::GetRenderer()->GetMemoryAllocator();
 
-	matrixBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateBuffer(sizeof(VkTransformMatrixKHR), GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+	matrixBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateBuffer(sizeof(VkTransformMatrixKHR), 0, GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
 	SetMatrix(glm::mat4(1.0f));
 
 	// Obtene la localización en la memoria de la GPU de los buffers.
-	VkBufferDeviceAddressInfoKHR bufferAddressInfo{};
-	bufferAddressInfo.sType = VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_INFO;
+	const VkDeviceOrHostAddressConstKHR vertexBufferGpuAddress {
+		.deviceAddress = GetBufferDeviceAddress(vertexBuffer.GetMemoryBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer(), logicalDevice)
+			+ vertexBuffer.GetMemorySubblock()->GetOffsetFromBlock()
+	};
 
-	VkDeviceOrHostAddressConstKHR vertexBufferGpuAddress{};
-	bufferAddressInfo.buffer = vertexBuffer.GetMemoryBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer();
-	vertexBufferGpuAddress.deviceAddress = RendererVulkan::pvkGetBufferDeviceAddressKHR(logicalDevice, &bufferAddressInfo);
+	const VkDeviceOrHostAddressConstKHR indexBufferGpuAddress {
+		.deviceAddress = GetBufferDeviceAddress(indexBuffer.GetMemoryBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer(), logicalDevice)
+			+ indexBuffer.GetMemorySubblock()->GetOffsetFromBlock()
+	};
 
-	VkDeviceOrHostAddressConstKHR indexBufferGpuAddress{};
-	bufferAddressInfo.buffer = indexBuffer.GetMemoryBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer();
-	indexBufferGpuAddress.deviceAddress = RendererVulkan::pvkGetBufferDeviceAddressKHR(logicalDevice, &bufferAddressInfo);
-	
-	VkDeviceOrHostAddressConstKHR matrixBufferGpuAddress{};
-	bufferAddressInfo.buffer = matrixBuffer->GetMemoryBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer();
-	matrixBufferGpuAddress.deviceAddress = RendererVulkan::pvkGetBufferDeviceAddressKHR(logicalDevice, &bufferAddressInfo);
+	const VkDeviceOrHostAddressConstKHR matrixBufferGpuAddress {
+		.deviceAddress = GetBufferDeviceAddress(matrixBuffer->GetMemoryBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer(), logicalDevice)
+			+ matrixBuffer->GetMemorySubblock()->GetOffsetFromBlock()
+	};
+
 
 	// Tamaño del vértice
 	TSize vertexStride = 0;
@@ -85,8 +86,8 @@ void BottomLevelAccelerationStructureVulkan::Setup(const IGpuVertexBuffer& verte
 		&numTriangles,
 		&sizeInfo);
 
-	accelerationStructureBuffer = memoryAllocator->CreateBuffer(sizeInfo.accelerationStructureSize, GpuBufferUsage::RT_ACCELERATION_STRUCTURE, GpuSharedMemoryType::GPU_ONLY).GetPointer();
-	UniquePtr<GpuDataBuffer> buildBuffer = memoryAllocator->CreateBuffer(sizeInfo.buildScratchSize, GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+	accelerationStructureBuffer = memoryAllocator->CreateBuffer(static_cast<TSize>(sizeInfo.accelerationStructureSize), 256, GpuBufferUsage::RT_ACCELERATION_STRUCTURE, GpuSharedMemoryType::GPU_ONLY).GetPointer();
+	buildBuffer = memoryAllocator->CreateBuffer(static_cast<TSize>(sizeInfo.buildScratchSize), Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetInfo().rtAccelerationStructuresProperites.minAccelerationStructureScratchOffsetAlignment, GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
 
 	// Creación
 	VkAccelerationStructureCreateInfoKHR accelerationStructureCreateInfo{};
@@ -104,19 +105,20 @@ void BottomLevelAccelerationStructureVulkan::Setup(const IGpuVertexBuffer& verte
 	blasGpuAddressInfo.sType = VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR;
 	blasGpuAddressInfo.accelerationStructure = accelerationStructureHandle;
 
-	VkDeviceOrHostAddressConstKHR blasAddress{};
-	blasAddress.deviceAddress = RendererVulkan::pvkGetAccelerationStructureDeviceAddressKHR(logicalDevice, &blasGpuAddressInfo);
+	const VkDeviceOrHostAddressConstKHR blasAddress {
+		.deviceAddress = GetBlasDeviceAddress(accelerationStructureHandle, logicalDevice)
+	};
 
-	bufferAddressInfo.buffer = buildBuffer->GetMemoryBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer();
-
-	VkDeviceOrHostAddressConstKHR blasBuildAddress{};
-	blasBuildAddress.deviceAddress = RendererVulkan::pvkGetBufferDeviceAddressKHR(logicalDevice, &bufferAddressInfo);
+	const VkDeviceOrHostAddressConstKHR blasBuildAddress {
+		.deviceAddress = GetBufferDeviceAddress(buildBuffer->GetMemoryBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer(), logicalDevice)
+			+ buildBuffer->GetMemorySubblock()->GetOffsetFromBlock()
+	};
 	
 	// Build
 	VkAccelerationStructureBuildGeometryInfoKHR accelerationBuildGeometryInfo{};
 	accelerationBuildGeometryInfo.sType = VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR;
 	accelerationBuildGeometryInfo.type = VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR;
-	accelerationBuildGeometryInfo.flags = VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_TRACE_BIT_KHR;
+	accelerationBuildGeometryInfo.flags = VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_BUILD_BIT_KHR | VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_UPDATE_BIT_KHR;
 	accelerationBuildGeometryInfo.mode = VK_BUILD_ACCELERATION_STRUCTURE_MODE_BUILD_KHR;
 	accelerationBuildGeometryInfo.dstAccelerationStructure = accelerationStructureHandle;
 	accelerationBuildGeometryInfo.geometryCount = 1;
@@ -141,16 +143,35 @@ void BottomLevelAccelerationStructureVulkan::Setup(const IGpuVertexBuffer& verte
 }
 
 void BottomLevelAccelerationStructureVulkan::Update() {
+	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
+
 	// TODO
 	VkAccelerationStructureBuildGeometryInfoKHR accelerationBuildGeometryInfo{};
 	accelerationBuildGeometryInfo.sType = VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR;
 	accelerationBuildGeometryInfo.type = VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR;
-	accelerationBuildGeometryInfo.flags = VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_TRACE_BIT_KHR;
+	accelerationBuildGeometryInfo.flags = VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_BUILD_BIT_KHR | VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_UPDATE_BIT_KHR;
 	accelerationBuildGeometryInfo.mode = VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR;
+	accelerationBuildGeometryInfo.srcAccelerationStructure = accelerationStructureHandle;
 	accelerationBuildGeometryInfo.dstAccelerationStructure = accelerationStructureHandle;
 	accelerationBuildGeometryInfo.geometryCount = 1;
 	accelerationBuildGeometryInfo.pGeometries = &geometryInfo;
-	//accelerationBuildGeometryInfo.scratchData.deviceAddress = blasBuildAddress.deviceAddress;
+	accelerationBuildGeometryInfo.scratchData.deviceAddress = GetBufferDeviceAddress(buildBuffer->GetMemoryBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer(), logicalDevice) + buildBuffer->GetMemorySubblock()->GetOffsetFromBlock();
+
+	// Rango único para toda la geometría
+	VkAccelerationStructureBuildRangeInfoKHR blasBuildRangeInfo{};
+	blasBuildRangeInfo.primitiveCount = numTriangles;
+	blasBuildRangeInfo.primitiveOffset = 0;
+	blasBuildRangeInfo.firstVertex = 0;
+	blasBuildRangeInfo.transformOffset = 0;
+
+	// Construcción final
+	const VkAccelerationStructureBuildRangeInfoKHR* ranges[] = { &blasBuildRangeInfo };
+
+	auto blasCommandList = Engine::GetRenderer()->CreateSingleUseCommandList();
+	blasCommandList->Start();
+	RendererVulkan::pvkCmdBuildAccelerationStructuresKHR(blasCommandList->As<CommandListVulkan>()->GetCommandBuffers()->At(blasCommandList->GetCommandListIndex()), 1, &accelerationBuildGeometryInfo, ranges);
+	blasCommandList->Close();
+	Engine::GetRenderer()->SubmitSingleUseCommandList(blasCommandList.GetPointer());
 }
 
 TSize BottomLevelAccelerationStructureVulkan::GetNumTriangles() const {
@@ -169,3 +190,19 @@ VkDeviceOrHostAddressConstKHR BottomLevelAccelerationStructureVulkan::GetGpuAddr
 	return accelerationStructureGpuAddress;
 }
 
+
+VkDeviceAddress BottomLevelAccelerationStructureVulkan::GetBufferDeviceAddress(const VkBuffer buffer, const VkDevice logicalDevice) {
+	VkBufferDeviceAddressInfoKHR bufferAddressInfo{};
+	bufferAddressInfo.sType = VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_INFO;
+	bufferAddressInfo.buffer = buffer;
+
+	return RendererVulkan::pvkGetBufferDeviceAddressKHR(logicalDevice, &bufferAddressInfo);
+}
+
+VkDeviceAddress BottomLevelAccelerationStructureVulkan::GetBlasDeviceAddress(const VkAccelerationStructureKHR tlas, const VkDevice logicalDevice) {
+	VkAccelerationStructureDeviceAddressInfoKHR finalTlasGpuAddressInfo{};
+	finalTlasGpuAddressInfo.sType = VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR;
+	finalTlasGpuAddressInfo.accelerationStructure = tlas;
+
+	return RendererVulkan::pvkGetAccelerationStructureDeviceAddressKHR(logicalDevice, &finalTlasGpuAddressInfo);
+}

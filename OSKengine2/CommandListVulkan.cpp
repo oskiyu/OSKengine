@@ -194,7 +194,7 @@ void CommandListVulkan::BeginRenderpass(IRenderpass* renderpass) {
 void CommandListVulkan::BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) {
 	const auto size = renderpass->GetImage(0)->GetSize();
 
-	TransitionImageLayout(renderpass->GetImage(GetCommandListIndex()), GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, 0, 1);
+	TransitionImageLayout(renderpass->GetImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, 0, 1);
 
 	VkRenderPassBeginInfo renderpassInfo{};
 	renderpassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;

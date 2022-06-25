@@ -6,7 +6,7 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 IGpuMemoryBlock::IGpuMemoryBlock(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuMemoryUsage usage)
-	: totalSize(reservedSize), availableSpace(reservedSize), device(device), type(type), usage(usage) { }
+	: totalSize(reservedSize), availableSpace(reservedSize), type(type), usage(usage), device(device) { }
 
 void IGpuMemoryBlock::RemoveSubblock(IGpuMemorySubblock* subblock) {
 	subblocks.Remove(subblock);
@@ -32,7 +32,7 @@ GpuMemoryUsage IGpuMemoryBlock::GetUsageType() const {
 	return usage;
 }
 
-IGpuMemorySubblock* IGpuMemoryBlock::GetNextMemorySubblock(TSize size) {
+IGpuMemorySubblock* IGpuMemoryBlock::GetNextMemorySubblock(TSize size, TSize alignment) {
 	IGpuMemorySubblock* output = nullptr;
 
 	bool isReused = false;
@@ -51,10 +51,18 @@ IGpuMemorySubblock* IGpuMemoryBlock::GetNextMemorySubblock(TSize size) {
 
 	OSK_ASSERT(size <= GetAvailableSpace(), "No se ha escogido un bloque de memoria con suficiente espacio libre.");
 	
-	output = CreateNewMemorySubblock(size, currentOffset).GetPointer();
+	TSize finalOffset = currentOffset;
+	TSize extraOffset = 0;
+	if (alignment != 0 && currentOffset != 0) {
+		const TSize base = currentOffset / alignment;
+		finalOffset = (base + 1) * alignment;
+		extraOffset = finalOffset - currentOffset;
+	}
+
+	output = CreateNewMemorySubblock(size, finalOffset).GetPointer();
 	subblocks.Insert(output);
-	availableSpace -= size;
-	currentOffset += size;
+	availableSpace -= size + extraOffset;
+	currentOffset += size + extraOffset;
 
 	return output;
 }

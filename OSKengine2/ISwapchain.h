@@ -6,6 +6,8 @@
 
 namespace OSK::GRAPHICS {
 
+	enum class PresentMode;
+
 	class IGpu;
 	class IRenderpass;
 
@@ -56,7 +58,11 @@ namespace OSK::GRAPHICS {
 		/// <returns>Renderpass que representa el renderizado a la imagen final</returns>
 		IRenderpass* GetTargetRenderpass() const;
 
+		PresentMode GetCurrentPresentMode() const;
+
 	protected:
+
+		PresentMode mode{};
 
 		IGpu* device = nullptr;
 		unsigned int imageCount = 3;

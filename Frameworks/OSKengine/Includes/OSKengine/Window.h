@@ -7,6 +7,9 @@
 
 #include <string>
 
+#include "KeyboardState.h"
+#include "MouseState.h"
+
 struct GLFWwindow;
 struct GLFWmonitor;
 struct GLFWvidmode;
@@ -16,9 +19,6 @@ namespace OSK::GRAPHICS {
 }
 
 namespace OSK::IO {
-
-	class KeyboardState;
-	class MouseState;
 
 	enum class MouseReturnMode;
 	enum class MouseMotionMode;

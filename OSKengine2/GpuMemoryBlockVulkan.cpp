@@ -16,36 +16,6 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-VkMemoryAllocateFlags GetMemoryAllocateFlags(GpuBufferUsage usage) {
-	VkMemoryAllocateFlags output = 0;
-
-	if (EFTraits::HasFlag(usage, GpuBufferUsage::RT_ACCELERATION_STRUCTURE))
-		output |= VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT;
-
-	if (EFTraits::HasFlag(usage, GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING))
-		output |= VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT;
-
-	if (EFTraits::HasFlag(usage, GpuBufferUsage::RT_SHADER_BINDING_TABLE))
-		output |= VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT;
-
-	if (Engine::GetRenderer()->SupportsRaytracing() &&
-			(EFTraits::HasFlag(usage, GpuBufferUsage::VERTEX_BUFFER) || EFTraits::HasFlag(usage, GpuBufferUsage::INDEX_BUFFER)))
-		output |= VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT;
-
-	return output;
-}
-
-uint32_t GetMemoryType(uint32_t memoryTypeFilter, GpuVulkan* device, GpuSharedMemoryType type) {
-	auto nativeSharedMode = GetGpuSharedMemoryTypeVulkan(type);
-
-	for (uint32_t i = 0; i < device->GetInfo().memoryProperties.memoryTypeCount; i++)
-		if ((memoryTypeFilter & (1 << i)) && ((device->GetInfo().memoryProperties.memoryTypes[i].propertyFlags & nativeSharedMode) == nativeSharedMode))
-			return i;
-
-	OSK_ASSERT(false, "No se encontró memoria en la GPU comptible");
-
-	return -1;
-}
 
 GpuMemoryBlockVulkan::~GpuMemoryBlockVulkan() {
 	Free();
@@ -98,7 +68,7 @@ GpuMemoryBlockVulkan::GpuMemoryBlockVulkan(GpuImage* image, IGpu* device, GpuIma
 	
 	VkMemoryRequirements memRequirements{};
 	vkGetImageMemoryRequirements(device->As<GpuVulkan>()->GetLogicalDevice(), image->As<GpuImageVulkan>()->GetImage(), &memRequirements);
-	this;
+
 	VkMemoryAllocateInfo allocInfo{};
 	allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
 	allocInfo.allocationSize = memRequirements.size;
@@ -136,4 +106,35 @@ VkDeviceMemory GpuMemoryBlockVulkan::GetVulkanMemory() const {
 
 VkBuffer GpuMemoryBlockVulkan::GetVulkanBuffer() const {
 	return buffer;
+}
+
+VkMemoryAllocateFlags GpuMemoryBlockVulkan::GetMemoryAllocateFlags(GpuBufferUsage usage) {
+	VkMemoryAllocateFlags output = 0;
+
+	if (EFTraits::HasFlag(usage, GpuBufferUsage::RT_ACCELERATION_STRUCTURE))
+		output |= VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT;
+
+	if (EFTraits::HasFlag(usage, GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING))
+		output |= VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT;
+
+	if (EFTraits::HasFlag(usage, GpuBufferUsage::RT_SHADER_BINDING_TABLE))
+		output |= VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT;
+
+	if (Engine::GetRenderer()->SupportsRaytracing() &&
+		(EFTraits::HasFlag(usage, GpuBufferUsage::VERTEX_BUFFER) || EFTraits::HasFlag(usage, GpuBufferUsage::INDEX_BUFFER)))
+		output |= VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT;
+
+	return output;
+}
+
+uint32_t GpuMemoryBlockVulkan::GetMemoryType(uint32_t memoryTypeFilter, GpuVulkan* device, GpuSharedMemoryType type) {
+	auto nativeSharedMode = GetGpuSharedMemoryTypeVulkan(type);
+
+	for (uint32_t i = 0; i < device->GetInfo().memoryProperties.memoryTypeCount; i++)
+		if ((memoryTypeFilter & (1 << i)) && ((device->GetInfo().memoryProperties.memoryTypes[i].propertyFlags & nativeSharedMode) == nativeSharedMode))
+			return i;
+
+	OSK_ASSERT(false, "No se encontró memoria en la GPU comptible");
+
+	return -1;
 }

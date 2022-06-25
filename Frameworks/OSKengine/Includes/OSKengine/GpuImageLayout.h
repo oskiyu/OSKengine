@@ -53,7 +53,12 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Los contenidos de otra imagen se copiarán a esta.
 		/// </summary>
-		TRANSFER_DESTINATION
+		TRANSFER_DESTINATION,
+
+		/// <summary>
+		/// Layout genérica.
+		/// </summary>
+		GENERAL
 
 	};
 

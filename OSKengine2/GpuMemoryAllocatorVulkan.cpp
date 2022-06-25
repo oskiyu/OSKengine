@@ -21,6 +21,7 @@
 #include "GpuImageUsage.h"
 #include "BottomLevelAccelerationStructureVulkan.h"
 #include "TopLevelAccelerationStructureVulkan.h"
+#include "GpuMemoryTypes.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -58,6 +59,14 @@ GpuMemoryAllocatorVulkan::GpuMemoryAllocatorVulkan(IGpu* device)
 
 }
 
+OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorVulkan::CreateNewBufferBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+	return GpuMemoryBlockVulkan::CreateNewBufferBlock(size, device, sharedType, usage).GetPointer();
+}
+
+OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorVulkan::CreateNewImageBlock(GpuImage* image, GpuImageUsage usage, GpuSharedMemoryType sharedType) {
+	return GpuMemoryBlockVulkan::CreateNewImageBlock(image, device, sharedType, usage).GetPointer();
+}
+
 OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorVulkan::CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices, const VertexInfo& vertexInfo) {
 	const TSize bufferSize = numVertices * vertexSize;
 	auto block = GetNextBufferMemoryBlock(bufferSize, GpuBufferUsage::VERTEX_BUFFER | GpuBufferUsage::TRANSFER_DESTINATION, GpuSharedMemoryType::GPU_ONLY);
@@ -67,7 +76,7 @@ OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorVulkan::CreateVertexBuffer(const vo
 	stagingBuffer->Write(data, bufferSize);
 	stagingBuffer->Unmap();
 
-	GpuVertexBufferVulkan* output = new GpuVertexBufferVulkan(block->GetNextMemorySubblock(bufferSize), bufferSize, 0, numVertices, vertexInfo);
+	GpuVertexBufferVulkan* output = new GpuVertexBufferVulkan(block->GetNextMemorySubblock(bufferSize, 0), bufferSize, 0, numVertices, vertexInfo);
 
 	auto singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList()->As<CommandListVulkan>();
 	singleTimeCommandList->Reset();
@@ -93,7 +102,7 @@ OwnedPtr<IGpuIndexBuffer> GpuMemoryAllocatorVulkan::CreateIndexBuffer(const Dyna
 	stagingBuffer->Write(indices.GetData(), bufferSize);
 	stagingBuffer->Unmap();
 
-	GpuIndexBufferVulkan* output = new GpuIndexBufferVulkan(block->GetNextMemorySubblock(bufferSize), bufferSize, 0, indices.GetSize());
+	GpuIndexBufferVulkan* output = new GpuIndexBufferVulkan(block->GetNextMemorySubblock(bufferSize, 0), bufferSize, 0, indices.GetSize());
 
 	auto singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList()->As<CommandListVulkan>();
 	singleTimeCommandList->Reset();
@@ -113,17 +122,17 @@ OwnedPtr<IGpuIndexBuffer> GpuMemoryAllocatorVulkan::CreateIndexBuffer(const Dyna
 OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorVulkan::CreateUniformBuffer(TSize size) {
 	auto block = GetNextBufferMemoryBlock(size, GpuBufferUsage::UNIFORM_BUFFER, GpuSharedMemoryType::GPU_AND_CPU);
 
-	return new GpuUniformBufferVulkan(block->GetNextMemorySubblock(size), size, 0);;
+	return new GpuUniformBufferVulkan(block->GetNextMemorySubblock(size, 0), size, 0);;
 }
 
 OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorVulkan::CreateStagingBuffer(TSize size) {
 	return new GpuDataBuffer(GetNextBufferMemoryBlock(size,
 		GpuBufferUsage::TRANSFER_SOURCE,
-		GpuSharedMemoryType::GPU_AND_CPU)->GetNextMemorySubblock(size), size, 0);
+		GpuSharedMemoryType::GPU_AND_CPU)->GetNextMemorySubblock(size, 0), size, 0);
 }
 
-OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorVulkan::CreateBuffer(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
-	return new GpuDataBuffer(GetNextBufferMemoryBlock(size, usage, sharedType)->GetNextMemorySubblock(size), size, 0);
+OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorVulkan::CreateBuffer(TSize size, TSize alignment, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+	return new GpuDataBuffer(GetNextBufferMemoryBlock(size, usage, sharedType)->GetNextMemorySubblock(size, alignment), size, 0);
 }
 
 OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageSize, GpuImageDimension dimension, TSize numLayers, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, TSize msaaSamples, GpuImageSamplerDesc samplerDesc) {
@@ -141,6 +150,11 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageS
 		case OSK::GRAPHICS::GpuImageDimension::d1D: finalImageSize = { imageSize.X , 1, 1 }; break;
 		case OSK::GRAPHICS::GpuImageDimension::d2D: finalImageSize = { imageSize.X , imageSize.Y, 1 }; break;
 	}
+
+	if (finalImageSize.X == 0)
+		finalImageSize.X = 1;
+	if (finalImageSize.Y == 0)
+		finalImageSize.Y = 1;
 
 	VkSampler sampler = VK_NULL_HANDLE;
 
@@ -258,58 +272,4 @@ OwnedPtr<IBottomLevelAccelerationStructure> GpuMemoryAllocatorVulkan::CreateBott
 	output->SetMatrix(glm::mat4(1.0f));
 
 	return output;
-}
-
-IGpuMemoryBlock* GpuMemoryAllocatorVulkan::GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
-	//auto it = bufferMemoryBlocks.Find({ size, usage, sharedType });
-
-	auto i = GpuMemoryBlockVulkan::CreateNewBufferBlock(size, device, sharedType, usage);
-
-	bufferMemoryBlocks.Insert({ size, usage, sharedType }, {});
-	bufferMemoryBlocks.Get({ size, usage, sharedType }).Insert(i.GetPointer());
-
-	return i.GetPointer();
-
-	for (auto it : bufferMemoryBlocks) {
-		if (it.first.usage == usage && it.first.sharedType == sharedType) {
-			auto& list = it.second;
-
-			for (auto& i : list)
-				if (i->GetAvailableSpace() >= size)
-					return i.GetPointer();
-
-			auto i = GpuMemoryBlockVulkan::CreateNewBufferBlock(size, device, sharedType, usage);
-
-			bufferMemoryBlocks.Insert({ size, usage, sharedType }, {});
-			bufferMemoryBlocks.Get({ size, usage, sharedType }).Insert(i.GetPointer());
-
-			return i.GetPointer();
-		}
-	}
-
-	auto it = bufferMemoryBlocks.Find({ size, usage, sharedType });
-	if (it.IsEmpty()) {
-		auto i = GpuMemoryBlockVulkan::CreateNewBufferBlock(size, device, sharedType, usage);
-
-		bufferMemoryBlocks.Insert({ size, usage, sharedType }, {});
-		bufferMemoryBlocks.Get({ size, usage, sharedType }).Insert(i.GetPointer());
-
-		return i.GetPointer();
-	}
-	else {
-		auto& list = it.GetValue().second;
-
-		for (auto i : list)
-			if (i->GetAvailableSpace() >= size)
-				return i.GetPointer();
-
-		auto i = GpuMemoryBlockVulkan::CreateNewBufferBlock(size, device, sharedType, usage);
-
-		bufferMemoryBlocks.Insert({ size, usage, sharedType }, {});
-		bufferMemoryBlocks.Get({ size, usage, sharedType }).Insert(i.GetPointer());
-
-		return i.GetPointer();
-	}
-
-	return nullptr;
 }

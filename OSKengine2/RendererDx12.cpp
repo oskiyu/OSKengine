@@ -60,7 +60,7 @@ RendererDx12::~RendererDx12() {
 	Close();
 }
 
-void RendererDx12::Initialize(const std::string& appName, const Version& version, const IO::Window& window) {
+void RendererDx12::Initialize(const std::string& appName, const Version& version, const IO::Window& window, PresentMode mode) {
 	Engine::GetLogger()->InfoLog("Iniciando renderizador DX12.");
 
 	this->window = &window;
@@ -86,7 +86,7 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 
 	ChooseGpu();
 	CreateCommandQueues();
-	CreateSwapchain();
+	CreateSwapchain(mode);
 	CreateSyncDevice();
 	CreateGpuMemoryAllocator();
 	CreateMainRenderpass();
@@ -238,10 +238,10 @@ void RendererDx12::CreateCommandQueues() {
 	Engine::GetLogger()->InfoLog("Creada la lista de comandos.");
 }
 
-void RendererDx12::CreateSwapchain() {
+void RendererDx12::CreateSwapchain(PresentMode mode) {
 	swapchain = new SwapchainDx12;
 
-	swapchain->As<SwapchainDx12>()->Create(currentGpu.GetPointer(), Format::RGBA8_UNORM, *graphicsQueue->As<CommandQueueDx12>(), factory.Get(), *window);
+	swapchain->As<SwapchainDx12>()->Create(mode, currentGpu.GetPointer(), Format::RGBA8_UNORM, *graphicsQueue->As<CommandQueueDx12>(), factory.Get(), *window);
 
 	Engine::GetLogger()->InfoLog("Creado el swapchain.");
 }

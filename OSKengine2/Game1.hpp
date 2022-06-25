@@ -52,6 +52,7 @@
 #include "Vertex3D.h"
 #include "TerrainComponent.h"
 #include "TerrainRenderSystem.h"
+#include "TopLevelAccelerationStructureVulkan.h"
 
 #include "UiElement.h"
 #include "UiRenderer.h"
@@ -85,7 +86,7 @@ protected:
 	}
 
 	void SetupEngine() override {
-		OSK::Engine::GetRenderer()->Initialize("Game", {}, *OSK::Engine::GetWindow());
+		OSK::Engine::GetRenderer()->Initialize("Game", {}, *OSK::Engine::GetWindow(), OSK::GRAPHICS::PresentMode::VSYNC_ON);
 	}
 
 	void OnCreate() override {
@@ -122,17 +123,6 @@ protected:
 		rtMaterialInstance->GetSlot("rt")->FlushUpdate();
 		rtMaterialInstance->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer.GetPointer());
 		rtMaterialInstance->GetSlot("global")->FlushUpdate();
-
-		OSK::OwnedPtr<OSK::GRAPHICS::ICommandList> commandList = OSK::Engine::GetRenderer()->CreateSingleUseCommandList().GetPointer();
-		commandList->Start();
-		commandList->TransitionImageLayout(rtTargetImage, OSK::GRAPHICS::GpuImageLayout::UNDEFINED, OSK::GRAPHICS::GpuImageLayout::GENERAL, 0, 1);
-		commandList->BindMaterial(rtMaterial);
-		for (auto const& slotName : rtMaterialInstance->GetLayout()->GetAllSlotNames())
-			commandList->BindMaterialSlot(rtMaterialInstance->GetSlot(slotName));
-		commandList->TraceRays(0, 0, 0, { 1920, 1080 });
-		commandList->TransitionImageLayout(rtTargetImage, OSK::GRAPHICS::GpuImageLayout::SHADER_READ_ONLY, 0, 1);
-		commandList->Close();
-		OSK::Engine::GetRenderer()->SubmitSingleUseCommandList(commandList.GetPointer());
 
 
 		// ECS
@@ -305,12 +295,16 @@ protected:
 			OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform2D>(cameraObject2d)
 		);
 
-		/*const auto& modelComponent = OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::ModelComponent3D>(ballObject);
-		const auto const& transformComponent = OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform3D>(ballObject);
-		const auto matrixBuffer = modelComponent.GetModel()->GetAccelerationStructure()->As<OSK::GRAPHICS::AccelerationStructureVulkan>()->GetMatrixBuffer();
-		matrixBuffer->MapMemory();
-		matrixBuffer->Write(transformComponent.GetAsMatrix());
-		matrixBuffer->Unmap();*/
+		const auto& transformComponent = OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform3D>(ballObject);
+		auto& modelComponent = OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::ModelComponent3D>(ballObject);
+		modelComponent.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent.GetAsMatrix());
+		modelComponent.GetModel()->GetAccelerationStructure()->Update();
+
+		const auto& transformComponent2 = OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform3D>(smallBallObject);
+		auto& modelComponent2 = OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::ModelComponent3D>(smallBallObject);
+		modelComponent2.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent2.GetAsMatrix());
+		modelComponent2.GetModel()->GetAccelerationStructure()->Update();
+		topLevelAccelerationStructure->Update();
 
 		auto commandList = OSK::Engine::GetRenderer()->GetCommandList();
 		commandList->EndRenderpass(OSK::Engine::GetRenderer()->GetMainRenderpass());
@@ -318,7 +312,7 @@ protected:
 		commandList->BindMaterial(rtMaterial);
 		for (auto const& slotName : rtMaterialInstance->GetLayout()->GetAllSlotNames())
 			commandList->BindMaterialSlot(rtMaterialInstance->GetSlot(slotName));
-		//commandList->TraceRays(0, 0, 0, { 1920, 1080 });
+		commandList->TraceRays(0, 0, 0, { 1920, 1080 });
 		commandList->TransitionImageLayout(rtTargetImage, OSK::GRAPHICS::GpuImageLayout::SHADER_READ_ONLY, 0, 1);
 		commandList->BeginRenderpass(OSK::Engine::GetRenderer()->GetMainRenderpass());
 	}
@@ -331,14 +325,7 @@ protected:
 		commandList->BindVertexBuffer(cubemapModel->GetVertexBuffer());
 		commandList->BindIndexBuffer(cubemapModel->GetIndexBuffer());
 		commandList->DrawSingleInstance(cubemapModel->GetIndexCount());
-		/*
-		commandList->TransitionImageLayout(rtTargetImage, OSK::GRAPHICS::GpuImageLayout::GENERAL, 0, 1);
-		commandList->BindMaterial(rtMaterial);
-		for (auto const& slotName : rtMaterialInstance->GetLayout()->GetAllSlotNames())
-			commandList->BindMaterialSlot(rtMaterialInstance->GetSlot(slotName));
-		commandList->TraceRays(0, 0, 0, { 1920, 1080 });
-		commandList->TransitionImageLayout(rtTargetImage, OSK::GRAPHICS::GpuImageLayout::SHADER_READ_ONLY, 0, 1);
-		*/
+
 		OSK::Engine::GetEntityComponentSystem()->GetSystem<OSK::ECS::TerrainRenderSystem>()->Render(commandList);
 	}
 

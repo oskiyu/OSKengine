@@ -16,7 +16,7 @@ namespace OSK::GRAPHICS {
 	class IRenderpass;
 	class VertexInfo;
 	class MaterialLayout;
-	class PipelineCreateInfo;
+	struct PipelineCreateInfo;
 
 	/// <summary>
 	/// Clase que se encarga de cargar y manejar los materiales.

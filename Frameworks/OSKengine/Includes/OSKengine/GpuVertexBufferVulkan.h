@@ -8,7 +8,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuVertexBufferVulkan(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment);
+		GpuVertexBufferVulkan(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment, TSize numVertices, const VertexInfo& vertexInfo);
 
 	};
 

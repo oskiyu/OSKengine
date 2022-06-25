@@ -2,13 +2,13 @@
 
 #include "OSKmacros.h"
 #include "UniquePtr.hpp"
+#include "IPipelineLayout.h"
 
 namespace OSK::GRAPHICS {
 
 	class MaterialLayout;
 	class IGpu;
 	struct PipelineCreateInfo;
-	class IPipelineLayout;
 	class VertexInfo;
 
 	/// <summary>

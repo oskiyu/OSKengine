@@ -12,7 +12,7 @@ namespace OSK::GRAPHICS {
 
 		RendererOgl();
 
-		void Initialize(const std::string& appName, const Version& version, const IO::Window& window) override;
+		void Initialize(const std::string& appName, const Version& version, const IO::Window& window, PresentMode mode) override;
 
 		void HandleResize() override;
 		void Close() override;
@@ -29,7 +29,7 @@ namespace OSK::GRAPHICS {
 	protected:
 
 		void CreateCommandQueues() override;
-		void CreateSwapchain() override;
+		void CreateSwapchain(PresentMode mode) override;
 		void CreateSyncDevice() override;
 		void CreateGpuMemoryAllocator() override;
 		void CreateMainRenderpass() override;

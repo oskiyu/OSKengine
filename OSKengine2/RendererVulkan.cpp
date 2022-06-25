@@ -101,7 +101,7 @@ RendererVulkan::~RendererVulkan() {
 	Close();
 }
 
-void RendererVulkan::Initialize(const std::string& appName, const Version& version, const IO::Window& window) {
+void RendererVulkan::Initialize(const std::string& appName, const Version& version, const IO::Window& window, PresentMode mode) {
 	this->window = &window;
 	
 	CreateInstance(appName, version);
@@ -112,7 +112,7 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	CreateSurface(window);
 	ChooseGpu();
 	CreateCommandQueues();
-	CreateSwapchain();
+	CreateSwapchain(mode);
 	CreateSyncDevice();
 	CreateGpuMemoryAllocator();
 	CreateMainRenderpass();
@@ -242,10 +242,10 @@ void RendererVulkan::CreateInstance(const std::string& appName, const Version& v
 	OSK_ASSERT(result == VK_SUCCESS, "Crear instancia de Vulkan." + std::to_string(result));
 }
 
-void RendererVulkan::CreateSwapchain() {
+void RendererVulkan::CreateSwapchain(PresentMode mode) {
 	swapchain = new SwapchainVulkan;
 
-	swapchain->As<SwapchainVulkan>()->Create(Format::B8G8R8A8_SRGB, *currentGpu->As<GpuVulkan>(), *window);
+	swapchain->As<SwapchainVulkan>()->Create(mode, Format::B8G8R8A8_SRGB, *currentGpu->As<GpuVulkan>(), *window);
 	Engine::GetLogger()->InfoLog("Creado el swapchain.");
 }
 
@@ -431,12 +431,12 @@ void RendererVulkan::PresentFrame() {
 	commandList->EndRenderpass(renderpass.GetPointer());
 	commandList->Close();
 
+	syncDevice->As<SyncDeviceVulkan>()->Flush(*graphicsQueue->As<CommandQueueVulkan>() , *presentQueue->As<CommandQueueVulkan>(), *commandList->As<CommandListVulkan>());
+
 	// Sync
 	bool result = syncDevice->As<SyncDeviceVulkan>()->UpdateCurrentFrameIndex();
 	if (result)
 		return;
-
-	syncDevice->As<SyncDeviceVulkan>()->Flush(*graphicsQueue->As<CommandQueueVulkan>() , *presentQueue->As<CommandQueueVulkan>(), *commandList->As<CommandListVulkan>());
 
 	for (TSize i = 0; i < singleTimeCommandLists.GetSize(); i++)
 		singleTimeCommandLists.At(i)->DeleteAllStagingBuffers();

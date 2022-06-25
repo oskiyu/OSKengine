@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ToString.h"
+
 namespace OSK::GRAPHICS {
 
 	/// <summary>
@@ -37,3 +39,5 @@ namespace OSK::GRAPHICS {
 	Format GetColorFormat(unsigned int numChannels);
 
 }
+
+template <> std::string OSK::ToString<OSK::GRAPHICS::Format>(const OSK::GRAPHICS::Format& format);

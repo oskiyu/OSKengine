@@ -29,7 +29,7 @@ GpuImage::~GpuImage() {
 
 void GpuImage::SetBlock(OwnedPtr<IGpuMemoryBlock> block) {
 	this->block = block.GetPointer();
-	buffer = block->GetNextMemorySubblock(block->GetAllocatedSize());
+	buffer = block->GetNextMemorySubblock(block->GetAllocatedSize(), 0);
 }
 
 void GpuImage::SetData(const void* data, TSize size) {

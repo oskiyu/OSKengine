@@ -13,9 +13,21 @@
 #include "GpuVulkan.h"
 #include "GpuImageDimensions.h"
 #include "GpuImageUsage.h"
+#include "PresentMode.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
+
+VkPresentModeKHR GetPresentModeVk(PresentMode mode) {
+	switch (mode) {
+	case OSK::GRAPHICS::PresentMode::VSYNC_OFF:
+		return VK_PRESENT_MODE_IMMEDIATE_KHR;
+	case OSK::GRAPHICS::PresentMode::VSYNC_ON:
+		return VK_PRESENT_MODE_FIFO_KHR;
+	case OSK::GRAPHICS::PresentMode::VSYNC_ON_TRIPLE_BUFFER:
+		return VK_PRESENT_MODE_MAILBOX_KHR;
+	}
+}
 
 SwapchainVulkan::~SwapchainVulkan() {
 	vkDestroySwapchainKHR(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
@@ -25,10 +37,12 @@ SwapchainVulkan::~SwapchainVulkan() {
 		i->As<GpuImageVulkan>()->SetImage(VK_NULL_HANDLE);
 }
 
-void SwapchainVulkan::Create(Format format, const GpuVulkan& device, const IO::Window& window) {
+void SwapchainVulkan::Create(PresentMode mode, Format format, const GpuVulkan& device, const IO::Window& window) {
 	this->window = &window;
 	this->device = &device;
 	this->format = format;
+
+	this->mode = mode;
 
 	auto info = device.GetInfo();
 	
@@ -38,10 +52,10 @@ void SwapchainVulkan::Create(Format format, const GpuVulkan& device, const IO::W
 	surfaceFormat.format = GetFormatVulkan(format);
 
 	//Modo de pressentación.
-	VkPresentModeKHR presentMode = VK_PRESENT_MODE_MAILBOX_KHR;
+	VkPresentModeKHR presentMode = GetPresentModeVk(mode);
 
 	//tamaño.
-	VkExtent2D extent;
+	VkExtent2D extent{};
 	extent.width = window.GetWindowSize().X;
 	extent.height = window.GetWindowSize().Y;
 
@@ -158,7 +172,7 @@ void SwapchainVulkan::Resize() {
 	vkDestroySwapchainKHR(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
 		swapchain, nullptr);
 
-	Create(format, *device, *window);
+	Create(mode, format, *device, *window);
 }
 
 VkColorSpaceKHR SwapchainVulkan::GetSupportedColorSpace(const GpuVulkan& device) {

@@ -56,6 +56,10 @@
 #include "UiElement.h"
 #include "UiRenderer.h"
 
+OSK::GRAPHICS::Material* rtMaterial = nullptr;
+OSK::GRAPHICS::MaterialInstance* rtMaterialInstance = nullptr;
+OSK::GRAPHICS::GpuImage* rtTargetImage = nullptr;
+
 OSK::GRAPHICS::Material* skyboxMaterial = nullptr;
 OSK::GRAPHICS::Material* material2d = nullptr;
 OSK::GRAPHICS::MaterialInstance* skyboxMaterialInstance = nullptr;
@@ -67,6 +71,8 @@ OSK::GRAPHICS::Material* terrainMaterialLine = nullptr;
 OSK::GRAPHICS::Material* terrainMaterial = nullptr;
 
 OSK::GRAPHICS::SpriteRenderer spriteRenderer;
+
+OSK::GRAPHICS::ITopLevelAccelerationStructure* topLevelAccelerationStructure = nullptr;
 
 class Game1 : public OSK::IGame {
 
@@ -100,6 +106,35 @@ protected:
 		OSK::ASSETS::Model3D* model = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Model3D>("Resources/Assets/f1.json", "GLOBAL");
 		OSK::ASSETS::Model3D* model_low = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Model3D>("Resources/Assets/f1_low.json", "GLOBAL");
 
+		topLevelAccelerationStructure = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateTopAccelerationStructure({
+			model->GetAccelerationStructure(),
+			model_low->GetAccelerationStructure()
+			}).GetPointer();
+
+		rtTargetImage = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ 1920, 1080, 1 }, OSK::GRAPHICS::GpuImageDimension::d2D, 1, OSK::GRAPHICS::Format::RGBA8_UNORM,
+			OSK::GRAPHICS::GpuImageUsage::RT_TARGET_IMAGE | OSK::GRAPHICS::GpuImageUsage::SAMPLED, OSK::GRAPHICS::GpuSharedMemoryType::GPU_ONLY, 1).GetPointer();
+		rtMaterial = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rt.json");
+		rtMaterialInstance = rtMaterial->CreateInstance().GetPointer();
+		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("vertices", model_low->GetVertexBuffer());
+		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("indices", model_low->GetIndexBuffer());
+		rtMaterialInstance->GetSlot("rt")->SetAccelerationStructure("topLevelAccelerationStructure", topLevelAccelerationStructure);
+		rtMaterialInstance->GetSlot("rt")->SetStorageImage("targetImage", rtTargetImage);
+		rtMaterialInstance->GetSlot("rt")->FlushUpdate();
+		rtMaterialInstance->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer.GetPointer());
+		rtMaterialInstance->GetSlot("global")->FlushUpdate();
+
+		OSK::OwnedPtr<OSK::GRAPHICS::ICommandList> commandList = OSK::Engine::GetRenderer()->CreateSingleUseCommandList().GetPointer();
+		commandList->Start();
+		commandList->TransitionImageLayout(rtTargetImage, OSK::GRAPHICS::GpuImageLayout::UNDEFINED, OSK::GRAPHICS::GpuImageLayout::GENERAL, 0, 1);
+		commandList->BindMaterial(rtMaterial);
+		for (auto const& slotName : rtMaterialInstance->GetLayout()->GetAllSlotNames())
+			commandList->BindMaterialSlot(rtMaterialInstance->GetSlot(slotName));
+		commandList->TraceRays(0, 0, 0, { 1920, 1080 });
+		commandList->TransitionImageLayout(rtTargetImage, OSK::GRAPHICS::GpuImageLayout::SHADER_READ_ONLY, 0, 1);
+		commandList->Close();
+		OSK::Engine::GetRenderer()->SubmitSingleUseCommandList(commandList.GetPointer());
+
+
 		// ECS
 		ballObject = OSK::Engine::GetEntityComponentSystem()->SpawnObject();
 
@@ -107,7 +142,7 @@ protected:
 		OSK::ECS::ModelComponent3D* modelComponent = &OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::ModelComponent3D>(ballObject, {});
 
 		transform.AddPosition({ 0, 0.1f, 0 });
-		transform.SetScale(0.03f);
+		//transform.SetScale(0.03f);
 
 		modelComponent->SetModel(model);
 		modelComponent->SetMaterial(material);
@@ -164,11 +199,12 @@ protected:
 		spriteObject = OSK::Engine::GetEntityComponentSystem()->SpawnObject();
 		auto& comp = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::GRAPHICS::Sprite>(spriteObject, {});
 		auto& tr2d = OSK::Engine::GetEntityComponentSystem()->AddComponent<OSK::ECS::Transform2D>(spriteObject, { cameraObject2d });
-		comp.SetTexCoords(OSK::GRAPHICS::TextureCoordinates2D::Normalized({ 0.5f, 0.5f, 1.0f, 1.0f }));
-		tr2d.SetScale({ 100, 120 });
+		comp.SetTexCoords(OSK::GRAPHICS::TextureCoordinates2D::Normalized({ 0.0f, 0.0f, 1.0f, 1.0f }));
+		tr2d.SetScale({ 800 / 2, 600 / 2 });
 		comp.SetMaterialInstance(material2d->CreateInstance().GetPointer());
 		comp.SetCamera(camera2D);
-		comp.SetTexture(texture);
+		//comp.SetTexture(texture);
+		comp.SetGpuImage(rtTargetImage);
 
 		spriteRenderer.SetCommandList(OSK::Engine::GetRenderer()->GetCommandList());
 
@@ -197,15 +233,15 @@ protected:
 
 		// UI
 		mainUi = new OSK::UI::UiElement;
-		mainUi->sprite.SetMaterialInstance(material2d->CreateInstance().GetPointer());
+		/*mainUi->sprite.SetMaterialInstance(material2d->CreateInstance().GetPointer());
 		mainUi->sprite.SetCamera(camera2D);
-		mainUi->sprite.SetTexture(texture);
+		mainUi->sprite.SetGpuImage(rtTargetImage);
 		mainUi->SetPosition({ 100, 80 });
-		mainUi->SetSize({ 40, 40 });
+		mainUi->SetSize({ 40, 40 });*/
 	}
 
 	void OnTick(TDeltaTime deltaTime) override {
-		OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform3D>(ballObject).RotateLocalSpace(deltaTime, { 0 ,1 ,0 });
+		//OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform3D>(ballObject).RotateLocalSpace(deltaTime, { 0 ,1 ,0 });
 
 		OSK::ECS::CameraComponent3D& camera = OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::CameraComponent3D>(cameraObject);
 		OSK::ECS::Transform3D& cameraTransform = OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform3D>(cameraObject);
@@ -246,10 +282,12 @@ protected:
 
 		if (newKs->IsKeyDown(OSK::IO::Key::ESCAPE))
 			this->Exit();
+		if (newKs->IsKeyDown(OSK::IO::Key::P))
+			this->Exit();
 
 		camera.Rotate(
-			(OSK::Engine::GetWindow()->GetMouseState()->GetPosition().X - OSK::Engine::GetWindow()->GetPreviousMouseState()->GetPosition().X),
-			(OSK::Engine::GetWindow()->GetMouseState()->GetPosition().Y - OSK::Engine::GetWindow()->GetPreviousMouseState()->GetPosition().Y)
+			(float)(OSK::Engine::GetWindow()->GetMouseState()->GetPosition().X - OSK::Engine::GetWindow()->GetPreviousMouseState()->GetPosition().X),
+			(float)(OSK::Engine::GetWindow()->GetMouseState()->GetPosition().Y - OSK::Engine::GetWindow()->GetPreviousMouseState()->GetPosition().Y)
 		);
 
 		cameraTransform.AddPosition(cameraTransform.GetForwardVector().GetNormalized() * forwardMovement * deltaTime);
@@ -267,6 +305,22 @@ protected:
 			OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform2D>(cameraObject2d)
 		);
 
+		/*const auto& modelComponent = OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::ModelComponent3D>(ballObject);
+		const auto const& transformComponent = OSK::Engine::GetEntityComponentSystem()->GetComponent<OSK::ECS::Transform3D>(ballObject);
+		const auto matrixBuffer = modelComponent.GetModel()->GetAccelerationStructure()->As<OSK::GRAPHICS::AccelerationStructureVulkan>()->GetMatrixBuffer();
+		matrixBuffer->MapMemory();
+		matrixBuffer->Write(transformComponent.GetAsMatrix());
+		matrixBuffer->Unmap();*/
+
+		auto commandList = OSK::Engine::GetRenderer()->GetCommandList();
+		commandList->EndRenderpass(OSK::Engine::GetRenderer()->GetMainRenderpass());
+		commandList->TransitionImageLayout(rtTargetImage, OSK::GRAPHICS::GpuImageLayout::GENERAL, 0, 1);
+		commandList->BindMaterial(rtMaterial);
+		for (auto const& slotName : rtMaterialInstance->GetLayout()->GetAllSlotNames())
+			commandList->BindMaterialSlot(rtMaterialInstance->GetSlot(slotName));
+		//commandList->TraceRays(0, 0, 0, { 1920, 1080 });
+		commandList->TransitionImageLayout(rtTargetImage, OSK::GRAPHICS::GpuImageLayout::SHADER_READ_ONLY, 0, 1);
+		commandList->BeginRenderpass(OSK::Engine::GetRenderer()->GetMainRenderpass());
 	}
 
 	void OnPreRender() override {
@@ -277,7 +331,14 @@ protected:
 		commandList->BindVertexBuffer(cubemapModel->GetVertexBuffer());
 		commandList->BindIndexBuffer(cubemapModel->GetIndexBuffer());
 		commandList->DrawSingleInstance(cubemapModel->GetIndexCount());
-
+		/*
+		commandList->TransitionImageLayout(rtTargetImage, OSK::GRAPHICS::GpuImageLayout::GENERAL, 0, 1);
+		commandList->BindMaterial(rtMaterial);
+		for (auto const& slotName : rtMaterialInstance->GetLayout()->GetAllSlotNames())
+			commandList->BindMaterialSlot(rtMaterialInstance->GetSlot(slotName));
+		commandList->TraceRays(0, 0, 0, { 1920, 1080 });
+		commandList->TransitionImageLayout(rtTargetImage, OSK::GRAPHICS::GpuImageLayout::SHADER_READ_ONLY, 0, 1);
+		*/
 		OSK::Engine::GetEntityComponentSystem()->GetSystem<OSK::ECS::TerrainRenderSystem>()->Render(commandList);
 	}
 
@@ -289,7 +350,7 @@ protected:
 		spriteRenderer.DrawString(*font, 30, "MS: " + std::to_string(1000.0f / GetFps()), { 300.0f, 80.f }, 1, 0, OSK::Color::BLUE());
 		spriteRenderer.End();
 
-		uiRenderer.Render(commandList, mainUi.GetPointer());
+		//uiRenderer.Render(commandList, mainUi.GetPointer());
 	}
 
 	void OnExit() override {
@@ -317,4 +378,4 @@ private:
 
 };
 
-#endif 
+#endif

@@ -5,6 +5,7 @@
 #include <type_traits>
 #include "DynamicArray.hpp"
 #include "OwnedPtr.h"
+#include "IGpuDataBuffer.h"
 #include <string>
 
 namespace OSK {
@@ -21,8 +22,8 @@ namespace OSK::GRAPHICS {
 	class IGpuVertexBuffer;
 	class IGpuIndexBuffer;
 	struct Viewport;
-	class GpuDataBuffer;
 	class IGraphicsPipeline;
+	class IRaytracingPipeline;
 
 	/// <summary>
 	/// Una lista de comandos contiene una serie de comandos que serán
@@ -248,6 +249,8 @@ namespace OSK::GRAPHICS {
 		/// @pre La lista de comandos debe estar abierta.
 		virtual void DrawSingleMesh(TSize firstIndex, TSize numIndices) = 0;
 
+		virtual void TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) = 0;
+
 
 		/// <summary>
 		/// Establece el viewport a renderizar.
@@ -304,12 +307,17 @@ namespace OSK::GRAPHICS {
 		/// @pre La lista debe haberse ejecutado antes de llamar a esta función.
 		void DeleteAllStagingBuffers();
 
+		void _SetSingleTimeUse();
+
+		TSize GetCommandListIndex() const;
+
 	protected:
 
 		/// <summary>
 		/// Pipeline que está siendo grabada en un instante determinado.
 		/// </summary>
 		const IGraphicsPipeline* currentPipeline = nullptr;
+		const IRaytracingPipeline* currentRtPipeline = nullptr;
 
 		/// <summary>
 		/// Material que está siendo usado en un instante determinado.
@@ -321,9 +329,11 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		const IRenderpass* currentRenderpass = nullptr;
 
+		bool isSingleUse = false;
+
 	private:
 
-		DynamicArray<OwnedPtr<GpuDataBuffer>> stagingBuffersToDelete;
+		DynamicArray<OwnedPtr<GpuDataBuffer>> stagingBuffersToDelete{};
 
 	};
 
