@@ -59,16 +59,14 @@ namespace OSK {
 		virtual void OnTick(TDeltaTime deltaTime);
 
 		/// <summary>
-		/// Se ejecuta después de haberse iniciado las colas de comandos gráficos y haberse
-		/// establecido el renderpass por defecto, y antes de renderizar el sistema 3D.
+		/// Esta función debe renderizar la imagen final que se representará en la ventana.
+		/// 
+		/// Los comandos de renderizado finales deben ejecutarse en el renderpass principal
+		/// del motor (IRenderer::GetMainRenderpass).
+		/// 
+		/// Para construir el frame, se pueden usar las imágenes de los sistemas de renderizado.
 		/// </summary>
-		virtual void OnPreRender();
-
-
-		/// <summary>
-		/// Se ejecuta después de  renderizar el sistema 3D.
-		/// </summary>
-		virtual void OnPostRender();
+		virtual void BuildFrame() = 0;
 
 		/// <summary>
 		/// Función que se ejecuta al salir del juego.

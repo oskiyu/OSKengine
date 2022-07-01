@@ -122,7 +122,7 @@ OwnedPtr<IGpuIndexBuffer> GpuMemoryAllocatorVulkan::CreateIndexBuffer(const Dyna
 OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorVulkan::CreateUniformBuffer(TSize size) {
 	auto block = GetNextBufferMemoryBlock(size, GpuBufferUsage::UNIFORM_BUFFER, GpuSharedMemoryType::GPU_AND_CPU);
 
-	return new GpuUniformBufferVulkan(block->GetNextMemorySubblock(size, 0), size, 0);;
+	return new GpuUniformBufferVulkan(block->GetNextMemorySubblock(size, device->As<GpuVulkan>()->GetInfo().properties.limits.minUniformBufferOffsetAlignment), size, 0);;
 }
 
 OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorVulkan::CreateStagingBuffer(TSize size) {

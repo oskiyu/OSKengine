@@ -6,6 +6,7 @@
 #include "GameObjectManager.h"
 #include "SystemManager.h"
 #include "ISystem.h"
+#include "IRenderSystem.h"
 #include "Assert.h"
 
 namespace OSK::ECS {
@@ -150,6 +151,10 @@ namespace OSK::ECS {
 
 			((ISystem*)output)->OnCreate();
 
+			if constexpr (std::is_base_of_v<IRenderSystem, TSystem>) {
+				renderSystems.Insert(reinterpret_cast<IRenderSystem*>(output));
+			}
+
 			return output;
 		}
 
@@ -175,11 +180,21 @@ namespace OSK::ECS {
 		/// </summary>
 		void OSKAPI_CALL DestroyObject(GameObjectIndex* obj);
 
+		/// <summary>
+		/// Devuelve los render systems registrados.
+		/// </summary>
+		const OSKAPI_CALL DynamicArray<IRenderSystem*>& GetRenderSystems() const;
+
 	private:
 
 		UniquePtr<SystemManager> systemManager;
 		UniquePtr<ComponentManager> componentManager;
 		UniquePtr<GameObjectManager> gameObjectManager;
+
+		/// <summary>
+		/// @todo Pointer stability safety
+		/// </summary>
+		DynamicArray<IRenderSystem*> renderSystems;
 
 	};
 

@@ -4,6 +4,7 @@
 #include "ComponentManager.h"
 #include "GameObjectManager.h"
 
+using namespace OSK;
 using namespace OSK::ECS;
 
 EntityComponentSystem::EntityComponentSystem() {
@@ -22,4 +23,8 @@ GameObjectIndex EntityComponentSystem::SpawnObject() {
 
 void EntityComponentSystem::DestroyObject(GameObjectIndex* obj) {
 	gameObjectManager->DestroyGameObject(obj);
+}
+
+const DynamicArray<IRenderSystem*>& EntityComponentSystem::GetRenderSystems() const {
+	return renderSystems;
 }

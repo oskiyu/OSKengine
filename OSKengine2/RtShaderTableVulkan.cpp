@@ -7,6 +7,7 @@
 #include "IGpuMemoryAllocator.h"
 #include "RendererVulkan.h"
 #include "GpuMemoryBlockVulkan.h"
+#include "IGpuMemorySubblock.h"
 
 #include <vulkan/vulkan.h>
 
@@ -29,9 +30,10 @@ RtShaderTableVulkan::RtShaderTableVulkan(TSize numShaderGroups, VkPipeline pipel
 		0, numGroups, tableSize, temporalStorage.GetData());
 	OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear la tabla de shaders RT. Code: " + std::to_string(result));
 
-	raygenShaderTable = Engine::GetRenderer()->GetMemoryAllocator()->CreateBuffer(handleSize, 0, GpuBufferUsage::RT_SHADER_BINDING_TABLE, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
-	hitShaderTable = Engine::GetRenderer()->GetMemoryAllocator()->CreateBuffer(handleSize, 0, GpuBufferUsage::RT_SHADER_BINDING_TABLE, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
-	missShaderTable = Engine::GetRenderer()->GetMemoryAllocator()->CreateBuffer(handleSize, 0, GpuBufferUsage::RT_SHADER_BINDING_TABLE, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+	const TSize alignment = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetInfo().rtPipelineProperties.shaderGroupHandleAlignment;
+	raygenShaderTable = Engine::GetRenderer()->GetMemoryAllocator()->CreateBuffer(handleSize, alignment, GpuBufferUsage::RT_SHADER_BINDING_TABLE, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+	hitShaderTable = Engine::GetRenderer()->GetMemoryAllocator()->CreateBuffer(handleSize, alignment, GpuBufferUsage::RT_SHADER_BINDING_TABLE, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+	missShaderTable = Engine::GetRenderer()->GetMemoryAllocator()->CreateBuffer(handleSize, alignment, GpuBufferUsage::RT_SHADER_BINDING_TABLE, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
 
 	raygenShaderTable->MapMemory();
 	raygenShaderTable->Write(temporalStorage.GetData() + handleSizeWithAlignment * 0, handleSize);
@@ -50,17 +52,17 @@ RtShaderTableVulkan::RtShaderTableVulkan(TSize numShaderGroups, VkPipeline pipel
 	bufferAddressInfo.sType = VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_INFO;
 
 	bufferAddressInfo.buffer = raygenShaderTable->GetMemoryBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer();
-	raygenTableAddressRegion.deviceAddress = RendererVulkan::pvkGetBufferDeviceAddressKHR(Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(), &bufferAddressInfo);
+	raygenTableAddressRegion.deviceAddress = RendererVulkan::pvkGetBufferDeviceAddressKHR(Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(), &bufferAddressInfo) + raygenShaderTable->GetMemorySubblock()->GetOffsetFromBlock();
 	raygenTableAddressRegion.size = handleSizeWithAlignment;
 	raygenTableAddressRegion.stride = handleSizeWithAlignment * 1; // * num entries
 
 	bufferAddressInfo.buffer = hitShaderTable->GetMemoryBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer();
-	hitTableAddressRegion.deviceAddress = RendererVulkan::pvkGetBufferDeviceAddressKHR(Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(), &bufferAddressInfo);
+	hitTableAddressRegion.deviceAddress = RendererVulkan::pvkGetBufferDeviceAddressKHR(Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(), &bufferAddressInfo) + hitShaderTable->GetMemorySubblock()->GetOffsetFromBlock();
 	hitTableAddressRegion.size = handleSizeWithAlignment;
 	hitTableAddressRegion.stride = handleSizeWithAlignment * 1; // * num entries
 
 	bufferAddressInfo.buffer = missShaderTable->GetMemoryBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer();
-	missTableAddressRegion.deviceAddress = RendererVulkan::pvkGetBufferDeviceAddressKHR(Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(), &bufferAddressInfo);
+	missTableAddressRegion.deviceAddress = RendererVulkan::pvkGetBufferDeviceAddressKHR(Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(), &bufferAddressInfo) + missShaderTable->GetMemorySubblock()->GetOffsetFromBlock();
 	missTableAddressRegion.size = handleSizeWithAlignment;
 	missTableAddressRegion.stride = handleSizeWithAlignment * 1; // * num entries
 }

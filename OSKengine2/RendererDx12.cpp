@@ -93,6 +93,11 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 
 	isOpen = true;
 
+	renderTargetsCamera = new ECS::CameraComponent2D;
+	renderTargetsCamera->LinkToWindow(&window);
+	renderTargetsCameraTransform.SetScale({ window.GetWindowSize().X / 2.0f, window.GetWindowSize().Y / 2.0f });
+	renderTargetsCamera->UpdateUniformBuffer(renderTargetsCameraTransform);
+
 	HlslRuntimeCompiler::InitializeComponents();
 }
 
@@ -102,6 +107,8 @@ void RendererDx12::Close() {
 
 void RendererDx12::HandleResize() {
 	mustResize = true;
+
+	IRenderer::HandleResize();
 }
 
 void RendererDx12::Resize() {
@@ -116,7 +123,7 @@ void RendererDx12::Resize() {
 		window->GetWindowSize().X, window->GetWindowSize().Y, GetFormatDx12(format), 0);
 
 	swapchain->As<SwapchainDx12>()->CreateImages(*window);
-	renderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
+	finalRenderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
 }
 
 OwnedPtr<IRenderpass> RendererDx12::CreateSecondaryRenderpass(GpuImage* targetImage0, GpuImage* targetImage1, GpuImage* targetImage2) {
@@ -257,25 +264,25 @@ void RendererDx12::CreateGpuMemoryAllocator() {
 }
 
 void RendererDx12::CreateMainRenderpass() {
-	renderpass = new RenderpassDx12(RenderpassType::FINAL);
-	renderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
-	renderpass->As<RenderpassDx12>()->SetSwapchain(swapchain->As<SwapchainDx12>());
+	finalRenderpass = new RenderpassDx12(RenderpassType::FINAL);
+	finalRenderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
+	finalRenderpass->As<RenderpassDx12>()->SetSwapchain(swapchain->As<SwapchainDx12>());
 
-	materialSystem->RegisterRenderpass(renderpass.GetPointer());
+	materialSystem->RegisterRenderpass(finalRenderpass.GetPointer());
 }
 
 void RendererDx12::PresentFrame() {
 	if (isFirstRender) {
 		commandList->Reset();
 		commandList->Start();
-		commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());
+		commandList->BeginAndClearRenderpass(finalRenderpass.GetPointer(), Color::RED());
 
 		isFirstRender = false;
 
 		return;
 	}
 	
-	commandList->EndRenderpass(renderpass.GetPointer());
+	commandList->EndRenderpass(finalRenderpass.GetPointer());
 	commandList->Close();
 
 	for (TSize i = 0; i < singleTimeCommandLists.GetSize(); i++)
@@ -302,7 +309,7 @@ void RendererDx12::PresentFrame() {
 
 	commandList->Start();
 
-	commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::BLACK());
+	commandList->BeginAndClearRenderpass(finalRenderpass.GetPointer(), Color::BLACK());
 	Vector4ui windowRec = {
 		0,
 		0,

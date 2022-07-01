@@ -1,7 +1,6 @@
 #version 460
 
 #extension GL_EXT_ray_tracing : require
-#extension GL_EXT_nouniform_qualifier : enable
 
 struct RayResult {
     vec4 color;
@@ -15,8 +14,14 @@ hitAttributeEXT vec2 attribs;
 
 layout (binding = 0, set = 0) uniform accelerationStructureEXT topLevelAccelerationStructure;
 
-layout(binding = 3, set = 0) buffer Vertices { vec4 v[]; } vertices;
-layout(binding = 4, set = 0) buffer Indices { uint i[]; } indices;
+struct InstanceInfo {
+    uint vertexOffset;
+    uint indexOffset;
+};
+
+layout(binding = 3, set = 0) buffer Vertices { vec4 data[]; } vertices;
+layout(binding = 4, set = 0) buffer Indices { uint data[]; } indices;
+layout(binding = 5, set = 0) buffer InstanceInfos { InstanceInfo data[]; } instanceInfos;
 
 struct Vertex {
     vec3 position;
@@ -25,15 +30,17 @@ struct Vertex {
     vec2 texCoords;
 };
 
-Vertex GetVertex(uint index) {
+Vertex GetVertex(uint index, InstanceInfo info) {
     Vertex v;
 
-    const int m = (4 * 12) / (4 * 4);
+    // size: 4 * 12 bytes                   vec4 size = 4 * 4 bytes
+    const uint vec4OffsetPerVertex = (4 * 12) / (4 * 4);
+    const uint initialVec4Offset = info.vertexOffset / (4 * 4);
 
-    vec4 data0 = vertices.v[m * index + 0];
-	vec4 data1 = vertices.v[m * index + 1];
-	vec4 data2 = vertices.v[m * index + 2];
-	vec4 data3 = vertices.v[m * index + 3];
+    vec4 data0 = vertices.data[initialVec4Offset + vec4OffsetPerVertex * index + 0];
+	vec4 data1 = vertices.data[initialVec4Offset + vec4OffsetPerVertex * index + 1];
+	vec4 data2 = vertices.data[initialVec4Offset + vec4OffsetPerVertex * index + 2];
+	vec4 data3 = vertices.data[initialVec4Offset + vec4OffsetPerVertex * index + 3];
 
     v.position = data0.xyz;
     v.normal = vec3(data0.w, data1.x, data1.y);
@@ -44,15 +51,18 @@ Vertex GetVertex(uint index) {
 }
 
 void main() {
+    const InstanceInfo instanceInfo = instanceInfos.data[gl_InstanceID];
+
+    const uint indexOffset = instanceInfo.indexOffset / (4);
     const ivec3 index = ivec3(
-        indices.i[3 * gl_PrimitiveID + 0],
-        indices.i[3 * gl_PrimitiveID + 1],
-        indices.i[3 * gl_PrimitiveID + 2]
+        indices.data[indexOffset + 3 * gl_PrimitiveID + 0],
+        indices.data[indexOffset + 3 * gl_PrimitiveID + 1],
+        indices.data[indexOffset + 3 * gl_PrimitiveID + 2]
     );
 
-    Vertex v0 = GetVertex(index.x);
-    Vertex v1 = GetVertex(index.y);
-    Vertex v2 = GetVertex(index.z);
+    Vertex v0 = GetVertex(index.x, instanceInfo);
+    Vertex v1 = GetVertex(index.y, instanceInfo);
+    Vertex v2 = GetVertex(index.z, instanceInfo);
 
     const vec3 barCoords = vec3(
         1.0f - attribs.x - attribs.y,
@@ -72,7 +82,11 @@ void main() {
         v2.color * barCoords.z
     );
 
-    rayResult.color = vec4(1.0);// color;
+    rayResult.color = vec4(0.2, 0.8, 0.2, 1.0);
+    if (gl_InstanceCustomIndexEXT == 0) {
+        rayResult.color = vec4(0.2, 0.2, 0.2, 1.0);
+    }
+
     rayResult.distance = gl_RayTmaxEXT;
     rayResult.normal = normal;
 }

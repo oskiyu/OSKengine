@@ -10,6 +10,7 @@
 #include "MaterialLayout.h"
 #include "Model3D.h"
 #include "Mesh3D.h"
+#include "Viewport.h"
 
 using namespace OSK;
 using namespace OSK::ECS;
@@ -28,6 +29,21 @@ void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
 	Material* previousMaterial = nullptr;
 	IGpuVertexBuffer* previousVertexBuffer = nullptr;
 	IGpuIndexBuffer* previousIndexBuffer = nullptr;
+
+	commandList->BeginAndClearRenderpass(renderTarget.GetTargetRenderpass(), { 1.0f, 1.0f, 1.0f, 0.0f });
+
+	Vector4ui windowRec = {
+		0,
+		0,
+		Engine::GetWindow()->GetWindowSize().X,
+		Engine::GetWindow()->GetWindowSize().Y
+	};
+
+	Viewport viewport{};
+	viewport.rectangle = windowRec;
+
+	commandList->SetViewport(viewport);
+	commandList->SetScissor(windowRec);
 
 	for (GameObjectIndex obj : GetObjects()) {
 		const ModelComponent3D& model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj);
@@ -56,4 +72,6 @@ void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
 			commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
 		}
 	}
+
+	commandList->EndRenderpass(renderTarget.GetTargetRenderpass());
 }

@@ -50,6 +50,11 @@ void RendererOgl::Initialize(const std::string& appName, const Version& version,
 	CreateGpuMemoryAllocator();
 	CreateMainRenderpass();
 
+	renderTargetsCamera = new ECS::CameraComponent2D;
+	renderTargetsCamera->LinkToWindow(&window);
+	renderTargetsCameraTransform.SetScale({ window.GetWindowSize().X / 2.0f, window.GetWindowSize().Y / 2.0f });
+	renderTargetsCamera->UpdateUniformBuffer(renderTargetsCameraTransform);
+
 	isOpen = true;
 }
 
@@ -80,7 +85,7 @@ void RendererOgl::Close() {
 }
 
 void RendererOgl::HandleResize() {
-
+	IRenderer::HandleResize();
 }
 
 void RendererOgl::CreateSwapchain(PresentMode mode) {
@@ -109,19 +114,19 @@ OwnedPtr<IRaytracingPipeline> RendererOgl::_CreateRaytracingPipeline(const Pipel
 }
 
 void RendererOgl::CreateMainRenderpass() {
-	renderpass = new RenderpassOgl(RenderpassType::FINAL);
+	finalRenderpass = new RenderpassOgl(RenderpassType::FINAL);
 
-	materialSystem->RegisterRenderpass(renderpass.GetPointer());
+	materialSystem->RegisterRenderpass(finalRenderpass.GetPointer());
 }
 
 void RendererOgl::PresentFrame() {
-	commandList->EndRenderpass(renderpass.GetPointer());
+	commandList->EndRenderpass(finalRenderpass.GetPointer());
 	commandList->Close();
 
 	commandList->Reset();
 	commandList->Start();
 
-	commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());
+	commandList->BeginAndClearRenderpass(finalRenderpass.GetPointer(), Color::RED());
 
 	Vector4ui windowRec = {
 		0,

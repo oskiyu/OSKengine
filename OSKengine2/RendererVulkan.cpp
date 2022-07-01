@@ -34,6 +34,9 @@
 #include "MaterialSlotVulkan.h"
 #include "IGpuUniformBuffer.h"
 #include "RaytracingPipelineVulkan.h"
+#include "GpuImageDimensions.h"
+#include "GpuImageUsage.h"
+#include "GpuMemoryTypes.h"
 
 #include "AssetManager.h"
 #include "Texture.h"
@@ -41,6 +44,7 @@
 #include "Transform3D.h"
 #include "ModelComponent3D.h"
 #include "EntityComponentSystem.h"
+#include "Window.h"
 
 #include <GLFW/glfw3.h>
 #include <set>
@@ -95,6 +99,7 @@ VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBits
 
 
 RendererVulkan::RendererVulkan() : IRenderer(RenderApiType::VULKAN) {
+
 }
 
 RendererVulkan::~RendererVulkan() {
@@ -117,6 +122,11 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	CreateGpuMemoryAllocator();
 	CreateMainRenderpass();
 	SetupRtFunctions(currentGpu->As<GpuVulkan>()->GetLogicalDevice());
+
+	renderTargetsCamera = new ECS::CameraComponent2D;
+	renderTargetsCamera->LinkToWindow(&window);
+	renderTargetsCameraTransform.SetScale({ window.GetWindowSize().X / 2.0f, window.GetWindowSize().Y / 2.0f});
+	renderTargetsCamera->UpdateUniformBuffer(renderTargetsCameraTransform);
 
 	isOpen = true;
 }
@@ -141,7 +151,11 @@ void RendererVulkan::Close() {
 
 	syncDevice.Delete();
 	swapchain.Delete();
-	renderpass.Delete();
+
+	finalRenderpass.Delete();
+
+	renderTargetsCamera.Delete();
+
 	commandPool.Delete();
 	materialSystem.Delete();
 	gpuMemoryAllocator.Delete();
@@ -162,7 +176,8 @@ void RendererVulkan::Close() {
 }
 
 void RendererVulkan::HandleResize() {
-	// Se maneja automáticamente en el bucle principal del renderer.
+	// El renderpass final se maneja automáticamente en el bucle principal del renderer.
+	IRenderer::HandleResize();
 }
 
 void RendererVulkan::SubmitSingleUseCommandList(ICommandList* commandList) {
@@ -395,48 +410,34 @@ void RendererVulkan::CreateGpuMemoryAllocator() {
 }
 
 void RendererVulkan::CreateMainRenderpass() {
-	renderpass = new RenderpassVulkan(RenderpassType::FINAL);
-	renderpass->As<RenderpassVulkan>()->CreateFinalPresent(swapchain.GetPointer());
-	renderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
+	finalRenderpass = new RenderpassVulkan(RenderpassType::FINAL);
+	finalRenderpass->As<RenderpassVulkan>()->CreateFinalPresent(swapchain.GetPointer());
+	finalRenderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
 
-	materialSystem->RegisterRenderpass(renderpass.GetPointer());
+	const Vector3ui imageSize = {
+		window->GetWindowSize().X,
+		window->GetWindowSize().Y,
+		1
+	};
+
+	materialSystem->RegisterRenderpass(finalRenderpass.GetPointer());
 }
 
 void RendererVulkan::PresentFrame() {
 	if (isFirstRender) {
-		auto result = syncDevice->As<SyncDeviceVulkan>()->UpdateCurrentFrameIndex();
-		if (result)
-			return;
-
+		commandList->Reset();
 		commandList->Start();
-		commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::RED());
-		Vector4ui windowRec = {
-			0,
-			0,
-			window->GetWindowSize().X,
-			window->GetWindowSize().Y
-		};
-
-		Viewport viewport{};
-		viewport.rectangle = windowRec;
-
-		commandList->SetViewport(viewport);
-		commandList->SetScissor(windowRec);
 
 		isFirstRender = false;
-
-		return;
 	}
-
-	commandList->EndRenderpass(renderpass.GetPointer());
 	commandList->Close();
-
-	syncDevice->As<SyncDeviceVulkan>()->Flush(*graphicsQueue->As<CommandQueueVulkan>() , *presentQueue->As<CommandQueueVulkan>(), *commandList->As<CommandListVulkan>());
 
 	// Sync
 	bool result = syncDevice->As<SyncDeviceVulkan>()->UpdateCurrentFrameIndex();
 	if (result)
 		return;
+
+	syncDevice->As<SyncDeviceVulkan>()->Flush(*graphicsQueue->As<CommandQueueVulkan>(), *presentQueue->As<CommandQueueVulkan>(), *commandList->As<CommandListVulkan>());
 
 	for (TSize i = 0; i < singleTimeCommandLists.GetSize(); i++)
 		singleTimeCommandLists.At(i)->DeleteAllStagingBuffers();
@@ -445,21 +446,6 @@ void RendererVulkan::PresentFrame() {
 	
 	commandList->Reset();
 	commandList->Start();
-
-	commandList->BeginAndClearRenderpass(renderpass.GetPointer(), Color::BLACK());
-
-	Vector4ui windowRec = {
-		0,
-		0,
-		window->GetWindowSize().X,
-		window->GetWindowSize().Y
-	};
-
-	Viewport viewport{};
-	viewport.rectangle = windowRec;
-
-	commandList->SetViewport(viewport);
-	commandList->SetScissor(windowRec);
 }
 
 void RendererVulkan::SetupRtFunctions(VkDevice device) {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ISystem.h"
+#include "IRenderSystem.h"
 
 namespace OSK::GRAPHICS {
 	class ICommandList;
@@ -15,7 +15,7 @@ namespace OSK::ECS {
 	/// - ModelComponent3D.
 	/// - Transform3D.
 	/// </summary>
-	class OSKAPI_CALL RenderSystem3D : public ISystem {
+	class OSKAPI_CALL RenderSystem3D : public IRenderSystem {
 
 	public:
 
@@ -23,16 +23,8 @@ namespace OSK::ECS {
 
 		RenderSystem3D();
 
-		/// <summary>
-		/// Comando específico del sistema, para ejecutar el renderizado.
-		/// </summary>
-		/// 
-		/// @pre La lista de comandos debe estar abierta.
-		/// @pre La lista de comandos debe tener un renderpass activo.
-		void Render(GRAPHICS::ICommandList* commandList);
+		void Render(GRAPHICS::ICommandList* commandList) override;
 		
-	private:
-
 	};
 
 }

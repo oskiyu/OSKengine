@@ -825,6 +825,15 @@
     <ClCompile Include="TopLevelAccelerationStructureVulkan.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\RT\AS\TLAS</Filter>
     </ClCompile>
+    <ClCompile Include="PbrDeferredRenderSystem.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Model3D</Filter>
+    </ClCompile>
+    <ClCompile Include="IRenderSystem.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Model3D</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTarget.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
@@ -1374,6 +1383,15 @@
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\RT\AS\TLAS</Filter>
     </ClInclude>
     <ClInclude Include="PresentMode.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="PbrDeferredRenderSystem.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Model3D</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderSystem.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Model3D</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTarget.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel</Filter>
     </ClInclude>
   </ItemGroup>

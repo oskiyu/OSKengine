@@ -8,6 +8,8 @@
 #include "MaterialLayout.h"
 #include "PushConst2D.h"
 #include "IGpuImage.h"
+#include "Viewport.h"
+#include "Color.hpp"
 
 using namespace OSK;
 using namespace OSK::ECS;
@@ -25,6 +27,21 @@ RenderSystem2D::RenderSystem2D() {
 void RenderSystem2D::Render(ICommandList* commandList) {
 	spriteRenderer.SetCommandList(commandList);
 
+	commandList->BeginAndClearRenderpass(renderTarget.GetTargetRenderpass(), { 1.0f, 1.0f, 1.0f, 0.0f });
+	
+	Vector4ui windowRec = {
+		0,
+		0,
+		Engine::GetWindow()->GetWindowSize().X,
+		Engine::GetWindow()->GetWindowSize().Y
+	};
+
+	Viewport viewport{};
+	viewport.rectangle = windowRec;
+
+	commandList->SetViewport(viewport);
+	commandList->SetScissor(windowRec);
+
 	spriteRenderer.Begin();
 
 	for (GameObjectIndex obj : GetObjects()) {
@@ -35,4 +52,6 @@ void RenderSystem2D::Render(ICommandList* commandList) {
 	}
 
 	spriteRenderer.End();
+
+	commandList->EndRenderpass(renderTarget.GetTargetRenderpass());
 }

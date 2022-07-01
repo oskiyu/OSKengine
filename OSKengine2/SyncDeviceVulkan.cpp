@@ -130,8 +130,10 @@ void SyncDeviceVulkan::Flush(const CommandQueueVulkan& graphicsQueue, const Comm
 	presentInfo.pResults = nullptr;
 
 	result = vkQueuePresentKHR(presentQueue.GetQueue(), &presentInfo);
-	if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR)
+	if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR) {
 		swapchain->Resize();
+		Engine::GetRenderer()->As<RendererVulkan>()->HandleResize();
+	}
 
 	OSK_CHECK(result == VK_SUCCESS, "vkQueuePresentKHR code: " + std::to_string(result));
 

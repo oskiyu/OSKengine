@@ -424,6 +424,9 @@ void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json
 }
 
 Material* MaterialSystem::LoadMaterial(const std::string& path) {
+	if (materialsTable.ContainsKey(path))
+		return materialsTable.Get(path);
+
 	MaterialLayout* layout = new MaterialLayout;
 
 	PolygonMode polygonMode = PolygonMode::FILL;
@@ -490,6 +493,8 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	materials.Insert(output);
 	for (auto& i : registeredRenderpasses)
 		output->RegisterRenderpass(i);
+
+	materialsTable.Insert(path, output);
 
 	return output;
 }

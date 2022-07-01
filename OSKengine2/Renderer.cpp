@@ -9,8 +9,11 @@
 #include "IGpuDataBuffer.h"
 #include "GpuImageLayout.h"
 #include "ICommandList.h"
+#include "Window.h"
 
 using namespace OSK;
+using namespace OSK::IO;
+using namespace OSK::ECS;
 using namespace OSK::GRAPHICS;
 
 IRenderer::IRenderer(RenderApiType type) : renderApiType(type) {
@@ -57,6 +60,13 @@ void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data
 		delete[] uploadableData;
 }
 
+void IRenderer::HandleResize() {
+	const Vector2ui windowSize = window->GetWindowSize();
+
+	renderTargetsCameraTransform.SetScale({ windowSize.X / 2.0f, windowSize.Y / 2.0f });
+	renderTargetsCamera->UpdateUniformBuffer(renderTargetsCameraTransform);
+}
+
 const TByte* IRenderer::FormatImageDataForGpu(const GpuImage* image, const TByte* data, TSize numLayers) {
 	return data;
 }
@@ -96,6 +106,10 @@ bool IRenderer::IsOpen() const {
 	return isOpen;
 }
 
-IRenderpass* IRenderer::GetMainRenderpass() const {
-	return renderpass.GetPointer();
+IRenderpass* IRenderer::GetFinalRenderpass() const {
+	return finalRenderpass.GetPointer();
+}
+
+const ECS::CameraComponent2D& IRenderer::GetRenderTargetsCamera() const {
+	return *renderTargetsCamera.GetPointer();
 }

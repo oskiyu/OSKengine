@@ -53,14 +53,20 @@
 #include "TerrainComponent.h"
 #include "TerrainRenderSystem.h"
 #include "TopLevelAccelerationStructureVulkan.h"
-
+#include "IGpuMemorySubblock.h"
 #include "UiElement.h"
 #include "UiRenderer.h"
+#include "Viewport.h"
+
+#include "RenderSystem3D.h"
+#include "RenderSystem2D.h"
+#include "RenderTarget.h"
 
 OSK::GRAPHICS::Material* rtMaterial = nullptr;
 OSK::GRAPHICS::MaterialInstance* rtMaterialInstance = nullptr;
 OSK::GRAPHICS::GpuImage* rtTargetImage = nullptr;
 
+OSK::GRAPHICS::Material* material = nullptr;
 OSK::GRAPHICS::Material* skyboxMaterial = nullptr;
 OSK::GRAPHICS::Material* material2d = nullptr;
 OSK::GRAPHICS::MaterialInstance* skyboxMaterialInstance = nullptr;
@@ -74,6 +80,23 @@ OSK::GRAPHICS::Material* terrainMaterial = nullptr;
 OSK::GRAPHICS::SpriteRenderer spriteRenderer;
 
 OSK::GRAPHICS::ITopLevelAccelerationStructure* topLevelAccelerationStructure = nullptr;
+OSK::GRAPHICS::GpuDataBuffer* instancesInfoBuffer = nullptr;
+
+OSK::GRAPHICS::IRenderpass* normalRenderpass = nullptr;
+OSK::GRAPHICS::GpuImage* normalImage = nullptr;
+
+OSK::GRAPHICS::RenderTarget skyboxRenderTarget;
+
+struct RtInstanceInfo {
+	TSize vertexOffset = 0; // In bytes
+	TSize indexOffset = 0; // In bytes
+};
+
+// PBR
+using namespace OSK;
+using namespace OSK::GRAPHICS;
+Material* pbrColorMaterial = nullptr;
+Material* pbrNormalMaterial = nullptr;
 
 class Game1 : public OSK::IGame {
 
@@ -90,11 +113,18 @@ protected:
 	}
 
 	void OnCreate() override {
-
 		// Material load
-		OSK::GRAPHICS::Material* material = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material.json");
+		pbrColorMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/color.json");
+		pbrNormalMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/normal.json");
+
+		material = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material.json");
 		skyboxMaterial = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/skybox_material.json");
 		material2d = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json");
+
+		normalImage = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ 1920, 1080, 1 }, OSK::GRAPHICS::GpuImageDimension::d2D, 1, OSK::GRAPHICS::Format::RGBA8_UNORM,
+			OSK::GRAPHICS::GpuImageUsage::COLOR | OSK::GRAPHICS::GpuImageUsage::SAMPLED, OSK::GRAPHICS::GpuSharedMemoryType::GPU_ONLY, 1).GetPointer();
+		normalRenderpass = OSK::Engine::GetRenderer()->CreateSecondaryRenderpass(normalImage).GetPointer();
+		normalRenderpass->SetImages(normalImage, normalImage, normalImage);
 
 		texture = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Texture>("Resources/Assets/texture0.json", "GLOBAL");
 
@@ -112,12 +142,27 @@ protected:
 			model_low->GetAccelerationStructure()
 			}).GetPointer();
 
+		/**/OSK::DynamicArray<RtInstanceInfo> instancesInfo;
+		instancesInfo.Insert({
+			model->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - model->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock(),
+			model->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - model->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock()
+			});
+		instancesInfo.Insert({ 
+			model_low->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - model->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock(),
+			model_low->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - model->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock()
+			});
+		instancesInfoBuffer = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateBuffer(sizeof(RtInstanceInfo) * 4, 0, OSK::GRAPHICS::GpuBufferUsage::STORAGE_BUFFER, OSK::GRAPHICS::GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+		instancesInfoBuffer->MapMemory();
+		instancesInfoBuffer->Write(instancesInfo.GetData(), instancesInfo.GetSize() * sizeof(RtInstanceInfo));
+		instancesInfoBuffer->Unmap();/**/
+
 		rtTargetImage = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ 1920, 1080, 1 }, OSK::GRAPHICS::GpuImageDimension::d2D, 1, OSK::GRAPHICS::Format::RGBA8_UNORM,
 			OSK::GRAPHICS::GpuImageUsage::RT_TARGET_IMAGE | OSK::GRAPHICS::GpuImageUsage::SAMPLED, OSK::GRAPHICS::GpuSharedMemoryType::GPU_ONLY, 1).GetPointer();
 		rtMaterial = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rt.json");
 		rtMaterialInstance = rtMaterial->CreateInstance().GetPointer();
-		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("vertices", model_low->GetVertexBuffer());
-		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("indices", model_low->GetIndexBuffer());
+		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("vertices", model->GetVertexBuffer());
+		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("indices", model->GetIndexBuffer());
+		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("instanceInfos", instancesInfoBuffer);
 		rtMaterialInstance->GetSlot("rt")->SetAccelerationStructure("topLevelAccelerationStructure", topLevelAccelerationStructure);
 		rtMaterialInstance->GetSlot("rt")->SetStorageImage("targetImage", rtTargetImage);
 		rtMaterialInstance->GetSlot("rt")->FlushUpdate();
@@ -194,7 +239,7 @@ protected:
 		comp.SetMaterialInstance(material2d->CreateInstance().GetPointer());
 		comp.SetCamera(camera2D);
 		//comp.SetTexture(texture);
-		comp.SetGpuImage(rtTargetImage);
+		comp.SetGpuImage(normalImage);
 
 		spriteRenderer.SetCommandList(OSK::Engine::GetRenderer()->GetCommandList());
 
@@ -228,6 +273,8 @@ protected:
 		mainUi->sprite.SetGpuImage(rtTargetImage);
 		mainUi->SetPosition({ 100, 80 });
 		mainUi->SetSize({ 40, 40 });*/
+
+		skyboxRenderTarget.Create(Engine::GetWindow()->GetWindowSize());
 	}
 
 	void OnTick(TDeltaTime deltaTime) override {
@@ -307,37 +354,87 @@ protected:
 		topLevelAccelerationStructure->Update();
 
 		auto commandList = OSK::Engine::GetRenderer()->GetCommandList();
-		commandList->EndRenderpass(OSK::Engine::GetRenderer()->GetMainRenderpass());
 		commandList->TransitionImageLayout(rtTargetImage, OSK::GRAPHICS::GpuImageLayout::GENERAL, 0, 1);
 		commandList->BindMaterial(rtMaterial);
 		for (auto const& slotName : rtMaterialInstance->GetLayout()->GetAllSlotNames())
 			commandList->BindMaterialSlot(rtMaterialInstance->GetSlot(slotName));
 		commandList->TraceRays(0, 0, 0, { 1920, 1080 });
 		commandList->TransitionImageLayout(rtTargetImage, OSK::GRAPHICS::GpuImageLayout::SHADER_READ_ONLY, 0, 1);
-		commandList->BeginRenderpass(OSK::Engine::GetRenderer()->GetMainRenderpass());
+
+		commandList->BeginRenderpass(normalRenderpass);
+
+		OSK::Vector4ui windowRec = {
+			0,
+			0,
+			1920,//OSK::Engine::GetWindow()->GetWindowSize().X,
+			1080//OSK::Engine::GetWindow()->GetWindowSize().Y
+		};
+
+		OSK::GRAPHICS::Viewport viewport{};
+		viewport.rectangle = windowRec;
+
+		commandList->SetViewport(viewport);
+		commandList->SetScissor(windowRec);
+
+		commandList->BindVertexBuffer(modelComponent.GetModel()->GetVertexBuffer());
+		commandList->BindIndexBuffer(modelComponent.GetModel()->GetIndexBuffer());
+		commandList->BindMaterial(pbrColorMaterial);
+		commandList->PushMaterialConstants("model", transformComponent.GetAsMatrix());
+		for (TSize i = 0; i < modelComponent.GetModel()->GetMeshes().GetSize(); i++) {
+			for (const auto& slotName : pbrColorMaterial->GetLayout()->GetAllSlotNames()) {
+				commandList->BindMaterialSlot(modelComponent.GetMeshMaterialInstance(i)->GetSlot(slotName));
+			}
+			commandList->DrawSingleMesh(modelComponent.GetModel()->GetMeshes()[i].GetFirstIndexId(), modelComponent.GetModel()->GetMeshes()[i].GetNumberOfIndices());
+		}
+
+		commandList->EndRenderpass(normalRenderpass);
 	}
 
-	void OnPreRender() override {
-		auto commandList = OSK::Engine::GetRenderer()->GetCommandList();
+	void BuildFrame() override {
+		auto commandList = Engine::GetRenderer()->GetCommandList();
+		auto renderpass = Engine::GetRenderer()->GetFinalRenderpass();
 
+		static SpriteRenderer spriteRenderer{};
+		spriteRenderer.SetCommandList(commandList);
+
+		Vector4ui windowRec = {
+			0,
+			0,
+			Engine::GetWindow()->GetWindowSize().X,
+			Engine::GetWindow()->GetWindowSize().Y
+		};
+
+		Viewport viewport{};
+		viewport.rectangle = windowRec;
+
+		commandList->SetViewport(viewport);
+		commandList->SetScissor(windowRec);
+
+		commandList->BeginRenderpass(renderpass);
+
+		// Render skybox
 		commandList->BindMaterial(skyboxMaterial);
 		commandList->BindMaterialSlot(skyboxMaterialInstance->GetSlot("global"));
 		commandList->BindVertexBuffer(cubemapModel->GetVertexBuffer());
 		commandList->BindIndexBuffer(cubemapModel->GetIndexBuffer());
 		commandList->DrawSingleInstance(cubemapModel->GetIndexCount());
 
-		OSK::Engine::GetEntityComponentSystem()->GetSystem<OSK::ECS::TerrainRenderSystem>()->Render(commandList);
-	}
-
-	void OnPostRender() override {
-		auto commandList = OSK::Engine::GetRenderer()->GetCommandList();
-
 		spriteRenderer.Begin();
-		spriteRenderer.DrawString(*font, 30, "FPS: " + std::to_string(GetFps()), { 300.0f, 50.f }, 1, 0, OSK::Color::BLUE());
-		spriteRenderer.DrawString(*font, 30, "MS: " + std::to_string(1000.0f / GetFps()), { 300.0f, 80.f }, 1, 0, OSK::Color::BLUE());
+
+		commandList->BindMaterial(material2d);
+
+		ECS::Transform2D spriteTransform{ ECS::EMPTY_GAME_OBJECT };
+		spriteTransform.SetScale(Engine::GetWindow()->GetWindowSize().ToVector2f());
+
+		spriteRenderer.Draw(Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->GetRenderTarget().GetSprite(), spriteTransform);
+		spriteRenderer.Draw(Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem2D>()->GetRenderTarget().GetSprite(), spriteTransform);
+
+		spriteRenderer.DrawString(*font, 30, "OSKengine build " + Engine::GetBuild(), Vector2f{ 20.0f, 30.0f }, Vector2f{ 1.0f }, 0.0f, Color::WHITE());
+		spriteRenderer.DrawString(*font, 30, "FPS " + std::to_string(GetFps()), Vector2f{20.0f, 60.0f}, Vector2f{1.0f}, 0.0f, Color::WHITE());
+
 		spriteRenderer.End();
 
-		//uiRenderer.Render(commandList, mainUi.GetPointer());
+		commandList->EndRenderpass(renderpass);
 	}
 
 	void OnExit() override {

@@ -23,17 +23,14 @@ void TopLevelAccelerationStructureVulkan::Setup() {
 		0.0f, 0.0f, 1.0f, 0.0f
 	};
 
-	DynamicArray<VkAccelerationStructureInstanceKHR> instances = DynamicArray<VkAccelerationStructureInstanceKHR>::CreateReservedArray(blass.GetSize());
-	for (const auto& i : blass) {
-		VkAccelerationStructureInstanceKHR accelerationStructureInstance{};
-		accelerationStructureInstance.transform = transform;
-		accelerationStructureInstance.instanceCustomIndex = 0;
-		accelerationStructureInstance.mask = 0xFF;
-		accelerationStructureInstance.instanceShaderBindingTableRecordOffset = 0;
-		accelerationStructureInstance.flags = VK_GEOMETRY_INSTANCE_TRIANGLE_FACING_CULL_DISABLE_BIT_KHR;
-		accelerationStructureInstance.accelerationStructureReference = i->As<BottomLevelAccelerationStructureVulkan>()->GetGpuAddress().deviceAddress;
-
-		instances.Insert(accelerationStructureInstance);
+	DynamicArray<VkAccelerationStructureInstanceKHR> instances = DynamicArray<VkAccelerationStructureInstanceKHR>::CreateResizedArray(blass.GetSize());
+	for (TSize i = 0; i < blass.GetSize(); i++) {
+		instances[i].transform = transform;
+		instances[i].instanceCustomIndex = static_cast<uint32_t>(i);
+		instances[i].mask = 0xFF;
+		instances[i].instanceShaderBindingTableRecordOffset = 0;
+		instances[i].flags = VK_GEOMETRY_INSTANCE_TRIANGLE_FACING_CULL_DISABLE_BIT_KHR | VK_GEOMETRY_INSTANCE_FORCE_OPAQUE_BIT_KHR;
+		instances[i].accelerationStructureReference = blass[i]->As<BottomLevelAccelerationStructureVulkan>()->GetGpuAddress().deviceAddress;
 	}
 
 	// Geometría única del TLAS

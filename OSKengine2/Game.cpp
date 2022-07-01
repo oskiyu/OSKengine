@@ -41,14 +41,6 @@ void IGame::OnTick(TDeltaTime deltaTime) {
 
 }
 
-void IGame::OnPreRender() {
-
-}
-
-void IGame::OnPostRender() {
-
-}
-
 void IGame::OnExit() {
 
 }
@@ -67,6 +59,10 @@ void IGame::Run() {
 
 	CreateWindow();
 	SetupEngine();
+
+	const Vector2ui windowSize = Engine::GetWindow()->GetWindowSize();
+	for (auto i : Engine::GetEntityComponentSystem()->GetRenderSystems())
+		i->CreateTargetImage(windowSize);
 
 	OSK::DynamicArray<OSK::GRAPHICS::Vertex2D> vertices2d = {
 		{ { 0, 0 }, { 0, 0 } },
@@ -101,16 +97,11 @@ void IGame::Run() {
 
 		Engine::GetEntityComponentSystem()->OnTick(deltaTime);
 		OnTick(deltaTime);
-		OnPreRender();
+		for (auto i : Engine::GetEntityComponentSystem()->GetRenderSystems())
+			i->Render(Engine::GetRenderer()->GetCommandList());
 
-		Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->Render(
-			Engine::GetRenderer()->GetCommandList()
-		);
-		Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem2D>()->Render(
-			Engine::GetRenderer()->GetCommandList()
-		);
+		BuildFrame();
 
-		OnPostRender();
 		Engine::GetRenderer()->PresentFrame();
 
 		Engine::GetWindow()->UpdateMouseAndKeyboardOldStates();

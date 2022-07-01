@@ -1,5 +1,7 @@
 #pragma once
 
+#include "OSKtypes.h"
+
 #include "DescriptorSet.h"
 #include "DescriptorLayout.h"
 

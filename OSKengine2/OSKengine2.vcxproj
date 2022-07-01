@@ -123,6 +123,7 @@
     <ClCompile Include="IPipelineLayout.cpp" />
     <ClCompile Include="IPipelineVulkan.cpp" />
     <ClCompile Include="IRaytracingPipeline.cpp" />
+    <ClCompile Include="IRenderSystem.cpp" />
     <ClCompile Include="ITopLevelAccelerationStructure.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MaterialInstance.cpp" />
@@ -135,6 +136,7 @@
     <ClCompile Include="Model3D.cpp" />
     <ClCompile Include="ModelComponent3D.cpp" />
     <ClCompile Include="ModelLoader3D.cpp" />
+    <ClCompile Include="PbrDeferredRenderSystem.cpp" />
     <ClCompile Include="PipelineLayoutDx12.cpp" />
     <ClCompile Include="PipelineLayoutVulkan.cpp" />
     <ClCompile Include="GraphicsPipelineOgl.cpp" />
@@ -169,6 +171,7 @@
     <ClCompile Include="RenderpassVulkan.cpp" />
     <ClCompile Include="RenderSystem2D.cpp" />
     <ClCompile Include="RenderSystem3D.cpp" />
+    <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="RtShaderTableVulkan.cpp" />
     <ClCompile Include="ShaderBindingTypeVulkan.cpp" />
     <ClCompile Include="ShaderStages.cpp" />
@@ -276,6 +279,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="IPipelineLayout.h" />
     <ClInclude Include="IRaytracingPipeline.h" />
+    <ClInclude Include="IRenderSystem.h" />
     <ClInclude Include="IRtShaderTable.h" />
     <ClInclude Include="ITopLevelAccelerationStructure.h" />
     <ClInclude Include="Material.h" />
@@ -296,6 +300,7 @@
     <ClInclude Include="ModelLoader3D.h" />
     <ClInclude Include="MouseModes.h" />
     <ClInclude Include="IPipelineVulkan.h" />
+    <ClInclude Include="PbrDeferredRenderSystem.h" />
     <ClInclude Include="PipelineLayoutDx12.h" />
     <ClInclude Include="PipelineLayoutVulkan.h" />
     <ClInclude Include="GraphicsPipelineOgl.h" />
@@ -344,6 +349,7 @@
     <ClInclude Include="RenderpassVulkan.h" />
     <ClInclude Include="RenderSystem2D.h" />
     <ClInclude Include="RenderSystem3D.h" />
+    <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="RtShaderTableVulkan.h" />
     <ClInclude Include="ShaderBindingType.h" />
     <ClInclude Include="ShaderBindingTypeVulkan.h" />

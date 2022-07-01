@@ -263,7 +263,6 @@ GpuVulkan::Info GpuVulkan::Info::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface)
 	//info.isSuitable = info.families.IsComplete() && checkGPUextensionSupport(gpu) && swapchainSupported && info.features.samplerAnisotropy;
 	info.minAlignment = static_cast<TSize>(info.properties.limits.minUniformBufferOffsetAlignment);
 
-
 	// ---------- SWAPCHAIN ------------------ //
 
 	SwapchainSupportDetails shapchainSupport;
