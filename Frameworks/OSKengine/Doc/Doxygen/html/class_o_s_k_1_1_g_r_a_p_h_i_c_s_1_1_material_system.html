@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Referencia de la Clase OSK::GRAPHICS::MaterialSystem</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -36,7 +36,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.9.3 -->
+<!-- Generado por Doxygen 1.9.4 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
@@ -100,10 +100,6 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:ae77b69200e4337042f7da24bc4d93c71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad39c519e3a5f58cc2a7622ba9b39687a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#ad39c519e3a5f58cc2a7622ba9b39687a">LoadMaterial</a> (const std::string &amp;path)</td></tr>
 <tr class="separator:ad39c519e3a5f58cc2a7622ba9b39687a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa47bf58d0e5e801aec7ba1aa229b1a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#afa47bf58d0e5e801aec7ba1aa229b1a7">RegisterRenderpass</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a> *renderpass)</td></tr>
-<tr class="separator:afa47bf58d0e5e801aec7ba1aa229b1a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4201708370e92ed6ae9ee22e05e7c56b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#a4201708370e92ed6ae9ee22e05e7c56b">UnregisterRenderpass</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a> *renderpass)</td></tr>
-<tr class="separator:a4201708370e92ed6ae9ee22e05e7c56b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0309d0dd9882446fb273f11528a277d6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a0309d0dd9882446fb273f11528a277d6"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#a0309d0dd9882446fb273f11528a277d6">RegisterVertexType</a> ()</td></tr>
 <tr class="separator:a0309d0dd9882446fb273f11528a277d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,6 +146,7 @@ Métodos públicos</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Carga un material. </p>
+<p >Los materiales son cacheados: sólo se cargan una vez. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">path</td><td>Ruta al archivo del material (.json).</td></tr>
@@ -158,28 +155,6 @@ Métodos públicos</h2></td></tr>
 </dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_material_system_8cpp_source.html#l00426">426</a> del archivo <a class="el" href="_material_system_8cpp_source.html">MaterialSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="afa47bf58d0e5e801aec7ba1aa229b1a7" name="afa47bf58d0e5e801aec7ba1aa229b1a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa47bf58d0e5e801aec7ba1aa229b1a7">&#9670;&nbsp;</a></span>RegisterRenderpass()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void MaterialSystem::RegisterRenderpass </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a> *&#160;</td>
-          <td class="paramname"><em>renderpass</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Registra el renderpass en todos los materiales. </p>
-
-<p class="definition">Definición en la línea <a class="el" href="_material_system_8cpp_source.html#l00497">497</a> del archivo <a class="el" href="_material_system_8cpp_source.html">MaterialSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -217,29 +192,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_system_8h_source.html#l00054">54</a> del archivo <a class="el" href="_material_system_8h_source.html">MaterialSystem.h</a>.</p>
-
-</div>
-</div>
-<a id="a4201708370e92ed6ae9ee22e05e7c56b" name="a4201708370e92ed6ae9ee22e05e7c56b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4201708370e92ed6ae9ee22e05e7c56b">&#9670;&nbsp;</a></span>UnregisterRenderpass()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void MaterialSystem::UnregisterRenderpass </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a> *&#160;</td>
-          <td class="paramname"><em>renderpass</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Quita el renderpass de todos los materiales. </p>
-
-<p class="definition">Definición en la línea <a class="el" href="_material_system_8cpp_source.html#l00504">504</a> del archivo <a class="el" href="_material_system_8cpp_source.html">MaterialSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_system_8h_source.html#l00046">46</a> del archivo <a class="el" href="_material_system_8h_source.html">MaterialSystem.h</a>.</p>
 
 </div>
 </div>
@@ -253,7 +206,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html">MaterialSystem</a></li>
-    <li class="footer">Generado el Jueves, 16 de Junio de 2022 00:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Viernes, 8 de Julio de 2022 01:26:27 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

@@ -24,6 +24,8 @@ namespace OSK::ECS {
 
 	public:
 
+		virtual void OnCreate() override;
+
 		/// <summary>
 		/// Comando específico del sistema, para ejecutar el renderizado.
 		/// </summary>
@@ -51,9 +53,15 @@ namespace OSK::ECS {
 		/// <param name="size">Tamaño de la imagen de renderizado.</param>
 		virtual void CreateTargetImage(const Vector2ui& size);
 
-		const GRAPHICS::RenderTarget& GetRenderTarget() const;
+		/// <summary>
+		/// Devuelve el render target principal sobre el que se renderiza
+		/// el sistema.
+		/// </summary>
+		GRAPHICS::RenderTarget& GetRenderTarget();
 
 	protected:
+
+		void SetupViewport(GRAPHICS::ICommandList* commandList);
 
 		GRAPHICS::RenderTarget renderTarget;
 

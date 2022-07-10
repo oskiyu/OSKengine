@@ -17,7 +17,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuImageVulkan(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format);
+		GpuImageVulkan(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples);
 		~GpuImageVulkan();
 
 		void SetImage(VkImage image);

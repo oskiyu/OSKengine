@@ -3,8 +3,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImageDx12::GpuImageDx12(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format)
-	: GpuImage(size, dimension, usage, numLayers, format) {
+GpuImageDx12::GpuImageDx12(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples)
+	: GpuImage(size, dimension, usage, numLayers, format, numSamples) {
 
 }
 
@@ -18,10 +18,12 @@ void GpuImageDx12::_SetSampledDescriptorHeap(ComPtr<ID3D12DescriptorHeap> descri
 
 void GpuImageDx12::_SetRenderTargetDescriptorHeap(ComPtr<ID3D12DescriptorHeap> descriptorHeap) {
 	renderTargetDescriptorHeap = descriptorHeap;
+	colorUsageDescriptorHandle = GetRenderTargetDescriptorHeap()->GetCPUDescriptorHandleForHeapStart();
 }
 
 void GpuImageDx12::_SetDepthDescriptorHeap(ComPtr<ID3D12DescriptorHeap> descriptorHeap) {
 	depthDescriptorHeap = descriptorHeap;
+	colorUsageDescriptorHandle = GetDepthDescriptorHeap()->GetCPUDescriptorHandleForHeapStart();
 }
 
 ID3D12Resource* GpuImageDx12::GetResource() const {
@@ -38,4 +40,12 @@ ID3D12DescriptorHeap* GpuImageDx12::GetRenderTargetDescriptorHeap() const {
 
 ID3D12DescriptorHeap* GpuImageDx12::GetDepthDescriptorHeap() const {
 	return depthDescriptorHeap.Get();
+}		
+
+D3D12_CPU_DESCRIPTOR_HANDLE GpuImageDx12::GetColorUsageDescriptorHandle() const {
+	return colorUsageDescriptorHandle;
+}
+
+D3D12_CPU_DESCRIPTOR_HANDLE GpuImageDx12::GetDepthUsageDescriptorHandle() const {
+	return depthUsageDescriptorHandle;
 }

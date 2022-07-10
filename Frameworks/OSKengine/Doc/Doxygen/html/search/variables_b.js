@@ -15,5 +15,6 @@ var searchData=
   ['meshesmetadata_12',['meshesMetadata',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata.html#a990f8bc4bc4c8c91586a992b79b8f582',1,'OSK::ASSETS::ModelMetadata']]],
   ['minalignment_13',['minAlignment',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#af22b6bdea472500fa9f6d106707b3b5d',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
   ['mindepth_14',['minDepth',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html#af6a903fd2845a147d6a3c4d4cea182a3',1,'OSK::GRAPHICS::Viewport']]],
-  ['mousenumberofbuttons_15',['MouseNumberOfButtons',['../namespace_o_s_k_1_1_i_o.html#a2126937723636a6160e7c746cc47b61c',1,'OSK::IO']]]
+  ['mode_15',['mode',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a6a55d056d46f623dcbbb911b0b07b2af',1,'OSK::GRAPHICS::ISwapchain']]],
+  ['mousenumberofbuttons_16',['MouseNumberOfButtons',['../namespace_o_s_k_1_1_i_o.html#a2126937723636a6160e7c746cc47b61c',1,'OSK::IO']]]
 ];

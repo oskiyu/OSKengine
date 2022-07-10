@@ -84,25 +84,24 @@ bool SyncDeviceVulkan::UpdateCurrentFrameIndex() {
 	// Adquirimos el índice de la próxima imagen a procesar.
 	// NOTA: puede que tengamos que esperar a que esta imagen quede disponible.
 	VkResult result = vkAcquireNextImageKHR(device->GetLogicalDevice(), swapchain->GetSwapchain(), UINT64_MAX, imageAvailableSemaphores[currentFrame], VK_NULL_HANDLE, &framebufferIndex);
+	OSK_CHECK(result == VK_SUCCESS, "vkAcquireNextImageKHR code: " + std::to_string(result));
 
 	if (result == VK_ERROR_OUT_OF_DATE_KHR) {
-		swapchain->Resize();
+		//swapchain->Resize();
 
 		return true;
 	}
-
-	OSK_CHECK(result == VK_SUCCESS, "vkAcquireNextImageKHR code: " + std::to_string(result));
 
 	return false;
 }
 
 void SyncDeviceVulkan::Flush(const CommandQueueVulkan& graphicsQueue, const CommandQueueVulkan& presentQueue, const CommandListVulkan& commandList) {
-	
-	VkSubmitInfo submitInfo{};
-	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 
 	//Esperar a que la imagen esté disponible antes de renderizar.
 	const VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
+	
+	VkSubmitInfo submitInfo{};
+	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 	submitInfo.waitSemaphoreCount = 1;
 	submitInfo.pWaitSemaphores = &imageAvailableSemaphores[currentFrame]; // Debemos esperar hasta que esta imagen esté disponible.
 	submitInfo.pWaitDstStageMask = waitStages;
@@ -116,7 +115,7 @@ void SyncDeviceVulkan::Flush(const CommandQueueVulkan& graphicsQueue, const Comm
 	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido enviar la cola gráfica.");
 
 	// ---------------- PRESENT --------------------- //
-	//Presentar la imagen renderizada en la pantalla.
+	// Presentar la imagen renderizada en la pantalla.
 	
 	VkSwapchainKHR swapChains[] = { swapchain->GetSwapchain()};
 
@@ -130,24 +129,30 @@ void SyncDeviceVulkan::Flush(const CommandQueueVulkan& graphicsQueue, const Comm
 	presentInfo.pResults = nullptr;
 
 	result = vkQueuePresentKHR(presentQueue.GetQueue(), &presentInfo);
-	if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR) {
+	const bool resized = result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR;
+	if (resized) {
+		// Esperamos a que se terminen todas las listas de comandos para
+		// poder cambiar de tamaño los render targets.
+		vkDeviceWaitIdle(device->GetLogicalDevice());
+		/// @todo vkWaitForSemaphores
+
 		swapchain->Resize();
 		Engine::GetRenderer()->As<RendererVulkan>()->HandleResize();
 	}
 
-	OSK_CHECK(result == VK_SUCCESS, "vkQueuePresentKHR code: " + std::to_string(result));
-
 	currentFrame = (currentFrame + 1) % swapchain->GetImageCount();
-
+	
 	// Si la siguiente imagen está siendo procesada, esperar a que termine.
-	vkWaitForFences(device->GetLogicalDevice(), 1, &inFlightFences[currentFrame], VK_TRUE, UINT64_MAX);
-	vkResetFences(device->GetLogicalDevice(), 1, &inFlightFences[currentFrame]);
+	if (!resized) {
+		/// @todo vkGetSemaphoreState
+		vkWaitForFences(device->GetLogicalDevice(), 1, &inFlightFences[currentFrame], VK_TRUE, UINT64_MAX);
+		vkResetFences(device->GetLogicalDevice(), 1, &inFlightFences[currentFrame]);
+	}
 }
 
 TSize SyncDeviceVulkan::GetCurrentFrameIndex() const {
 	return framebufferIndex;
 }
-
 
 TSize SyncDeviceVulkan::GetCurrentCommandListIndex() const {
 	return currentFrame;

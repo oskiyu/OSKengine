@@ -1,6 +1,6 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl =
 [
-    [ "GpuImageOgl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html#ae2649dbc5253a5f411df72aad8780738", null ],
+    [ "GpuImageOgl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html#a597396c2386b8a6cf5b832163c2ab2e8", null ],
     [ "~GpuImageOgl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html#acf1393058999ec0238279bf22bf3e7bc", null ],
     [ "_SetPhysicalSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html#ad23f506b8bdde8faac2dac9d6a86f7e7", null ],
     [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html#a6bc3268b57ede5f9f0541b20d12dfea0", null ],
@@ -13,6 +13,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl =
     [ "GetMipLevels", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html#aa0220799f28ec1c45c888926243867e9", null ],
     [ "GetNumberOfBytes", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html#ae2e4e5fbf2ea6b058d85fad02714a6c8", null ],
     [ "GetNumLayers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html#a3f6e78b29f06b1b423ab89377a139b46", null ],
+    [ "GetNumSamples", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html#ad32d36e931b0d7b6633549834b4b8813", null ],
     [ "GetPhysicalNumberOfBytes", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html#ac8e03db4a14a8612958758e67703e33f", null ],
     [ "GetPhysicalSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html#a010e504f13e07ce86e1d82e344493860", null ],
     [ "GetSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html#a244ebc8ce3ae3095698ea0c3eaba58fc", null ],

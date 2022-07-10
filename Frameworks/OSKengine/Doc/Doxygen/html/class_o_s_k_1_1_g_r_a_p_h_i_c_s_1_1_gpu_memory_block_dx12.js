@@ -7,7 +7,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12 =
     [ "GetAvailableSpace", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#a5470b45782d39a27ed93ed2b52737727", null ],
     [ "GetDevice", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#a580935b95ec1677cff56582f347e8900", null ],
     [ "GetMemory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#ae799a3e0a8d2b039cd56c5c83c92ef99", null ],
-    [ "GetNextMemorySubblock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#a72d5d52a35130232e7608d1e34667e6d", null ],
+    [ "GetNextMemorySubblock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#a8be42e86b3c636e81a8c47a56fd29b09", null ],
     [ "GetShareType", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#a0bbdd382268b0bb587b03c1180cecde8", null ],
     [ "GetUsageType", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#a80aec8670a12157bc819ed904d71e60e", null ],
     [ "RemoveSubblock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#adfe42ab34135cb8dcf5adc7cffb44d96", null ],

@@ -34,6 +34,10 @@ module;
 #include <OSKengine/MaterialSystem.h>
 #include <OSKengine/IMaterialSlot.h>
 
+#include <OSKengine/Viewport.h>
+#include <OSKengine/RenderSystem3D.h>
+#include <OSKengine/RenderSystem2D.h>
+
 #include <functional>
 
 export module Game;
@@ -69,7 +73,7 @@ protected:
 	}
 
 	void SetupEngine() override {
-		Engine::GetRenderer()->Initialize("Demo", { 0, 0, 0 }, *Engine::GetWindow());
+		Engine::GetRenderer()->Initialize("Demo", { 0, 0, 0 }, *Engine::GetWindow(), PresentMode::VSYNC_ON);
 	}
 
 	void RegisterAssets() override {
@@ -79,7 +83,6 @@ protected:
 	void RegisterComponents() override {
 		Engine::GetEntityComponentSystem()->RegisterComponent<CarComponent>();
 		Engine::GetEntityComponentSystem()->RegisterComponent<CameraControlComponent>();
-
 	}
 
 	void RegisterSystems() override {
@@ -94,6 +97,7 @@ protected:
 		Scene::Create();
 		Scene::LoadSkybox("Resources/Assets/skybox0.json", "Resources/Assets/cube.json", "GLOBAL");
 		PbrModelUtils::LoadMaterial("Resources/material.json");
+		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json");
 
 		// Entitites
 		// 
@@ -149,17 +153,49 @@ protected:
 		);
 	}
 
-	void OnPreRender() override {
+	void BuildFrame() override {
+		// Setup
+		auto commandList = Engine::GetRenderer()->GetCommandList();
+		auto renderpass = Engine::GetRenderer()->GetFinalRenderpass();
+
+		spriteRenderer.SetCommandList(commandList);
+
+		Vector4ui windowRec = {
+			0,
+			0,
+			Engine::GetWindow()->GetWindowSize().X,
+			Engine::GetWindow()->GetWindowSize().Y
+		};
+
+		Viewport viewport{};
+		viewport.rectangle = windowRec;
+
+		commandList->SetViewport(viewport);
+		commandList->SetScissor(windowRec);
+
+		commandList->BeginRenderpass(renderpass);
+
 		Scene::GetSkybox().Render(Engine::GetRenderer()->GetCommandList());
 		Engine::GetEntityComponentSystem()->GetSystem<TerrainRenderSystem>()->Render(Engine::GetRenderer()->GetCommandList());
-	}
 
-	void OnPostRender() override {
+
 		spriteRenderer.Begin();
+
+		commandList->BindMaterial(material2d);
+
+		Transform2D spriteTransform{ EMPTY_GAME_OBJECT };
+		spriteTransform.SetScale(Engine::GetWindow()->GetWindowSize().ToVector2f());
+
+		spriteRenderer.Draw(Engine::GetEntityComponentSystem()->GetSystem<RenderSystem3D>()->GetRenderTarget().GetSprite(), spriteTransform);
+		spriteRenderer.Draw(Engine::GetEntityComponentSystem()->GetSystem<RenderSystem2D>()->GetRenderTarget().GetSprite(), spriteTransform);
+
 		spriteRenderer.DrawString(*font, 30, "OSKengine Alpha 2", { 20.f, 40.f }, 1, 0, OSK::Color::BLUE());
 		spriteRenderer.DrawString(*font, 30, "FPS: " + std::to_string(GetFps()), { 20.0f, 80.f }, 1, 0, OSK::Color::WHITE());
 		spriteRenderer.DrawString(*font, 30, "v: " + Engine::GetBuild(), { 20, 110.f }, 1, 0, OSK::Color::WHITE());
+
 		spriteRenderer.End();
+
+		commandList->EndRenderpass(renderpass);
 	}
 
 	void OnExit() override {
@@ -183,5 +219,7 @@ private:
 	CarInputListener carInput;
 	CameraInputListener cameraInput;
 	GameInputListener gameInput;
+
+	Material* material2d = nullptr;
 
 };

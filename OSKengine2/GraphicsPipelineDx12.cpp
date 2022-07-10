@@ -128,7 +128,7 @@ ComPtr<IDxcBlob> CompileShaderSpv(const std::string& spirvPath, const VertexInfo
 	return compiler.CompileFromFile("./temp_shader", hlslProfile);
 }
 
-void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) {
+void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info, Format targetImageFormat, const VertexInfo& vertexInfo) {
 	layout = new PipelineLayoutDx12(materialLayout);
 	
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC createInfo{};
@@ -170,7 +170,7 @@ void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* de
 	else
 		createInfo.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 	createInfo.NumRenderTargets = 1;
-	createInfo.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
+	createInfo.RTVFormats[0] = GetFormatDx12(targetImageFormat);
 	createInfo.DSVFormat = GetFormatDx12(Format::D32S8_SFLOAT_SUINT);
 	createInfo.SampleDesc.Count = 1;
 

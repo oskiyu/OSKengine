@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Referencia del Namespace OSK::GRAPHICS</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -36,7 +36,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.9.3 -->
+<!-- Generado por Doxygen 1.9.4 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
@@ -265,6 +265,8 @@ Clases</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html">RenderpassVulkan</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">RenderTarget</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vulkan.html">RtShaderTableVulkan</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vulkan.html">ShaderStageVulkan</a></td></tr>
@@ -391,6 +393,8 @@ Enumeraciones</h2></td></tr>
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7fa56da21e70ea85d8efa9392d6fd11f2ee">RT_ACCELERATION_STRUCTURE</a> = 32
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7faf4723b84fe089b99fa8bd437f42b0167">RT_SHADER_BINDING_TABLE</a> = 64
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7fa10395d241b657a656306f94cbfb24021">RT_ACCELERATION_STRUCTURE_BUILDING</a> = 128
+, <br />
+&#160;&#160;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7faa486db75420308f63af20d85e2b6489d">STORAGE_BUFFER</a> = 256
 <br />
  }</td></tr>
 <tr class="separator:ad8b871b506bab7c4021326a1a10bbc7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -412,6 +416,11 @@ Enumeraciones</h2></td></tr>
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027ddaa7b843fb734e3b3fea8e5f902d3f4144">READ_WRITE</a>
  }</td></tr>
 <tr class="separator:a9f540971911df275819dd542e32027dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47a7b3817b8aca438c20b7674fad28ab"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">PresentMode</a> { <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28aba61f5be3d7713d75f23e81b12d369f7b2">VSYNC_OFF</a>
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28abaa92c385ce9a5a1037c3843fd17500094">VSYNC_ON</a>
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28aba9e78dc83e6b122efa2757383e0602338">VSYNC_ON_TRIPLE_BUFFER</a>
+ }</td></tr>
+<tr class="separator:a47a7b3817b8aca438c20b7674fad28ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3057691f190dabf7642cfde72cf2430f"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430f">RenderApiType</a> { <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430fac0ad831a34c4633bee584066cfcc5040">OPENGL</a>
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430fac60cacb57b9e78f018a9d973bee2f801">VULKAN</a>
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430fa8bfc0c05d68d95476338b4d64a879c33">DX12</a>
@@ -492,6 +501,8 @@ Variables</h2></td></tr>
 <tr class="separator:a333776936d41ccaf87798ec0df23a432"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae22767bd982998192bb9100628519938"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aff23899383e6d0c339b2f53089ae14f5">TOglHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae22767bd982998192bb9100628519938">OGL_NULL_HANDLER</a> = 0</td></tr>
 <tr class="separator:ae22767bd982998192bb9100628519938"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92b901b2282ba60626f55be92e849ead"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a92b901b2282ba60626f55be92e849ead">NUM_RENDER_TARGET_IMAGES</a> = 3</td></tr>
+<tr class="separator:a92b901b2282ba60626f55be92e849ead"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Documentación de los 'typedefs'</h2>
 <a id="a787777889719b5dcd87c23b52374e0d3" name="a787777889719b5dcd87c23b52374e0d3"></a>
@@ -505,7 +516,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000031">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000030">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_ogl_types_8h_source.html#l00013">13</a> del archivo <a class="el" href="_ogl_types_8h_source.html">OglTypes.h</a>.</p>
 
@@ -522,7 +533,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000030">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000029">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_ogl_types_8h_source.html#l00011">11</a> del archivo <a class="el" href="_ogl_types_8h_source.html">OglTypes.h</a>.</p>
 
@@ -539,7 +550,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000034">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000033">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_ogl_types_8h_source.html#l00020">20</a> del archivo <a class="el" href="_ogl_types_8h_source.html">OglTypes.h</a>.</p>
 
@@ -556,7 +567,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000036">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000035">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_ogl_types_8h_source.html#l00024">24</a> del archivo <a class="el" href="_ogl_types_8h_source.html">OglTypes.h</a>.</p>
 
@@ -573,7 +584,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000032">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000031">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_ogl_types_8h_source.html#l00015">15</a> del archivo <a class="el" href="_ogl_types_8h_source.html">OglTypes.h</a>.</p>
 
@@ -590,7 +601,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000035">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000034">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_ogl_types_8h_source.html#l00022">22</a> del archivo <a class="el" href="_ogl_types_8h_source.html">OglTypes.h</a>.</p>
 
@@ -607,7 +618,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000033">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000032">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_ogl_types_8h_source.html#l00018">18</a> del archivo <a class="el" href="_ogl_types_8h_source.html">OglTypes.h</a>.</p>
 
@@ -640,7 +651,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000029">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000028">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_ogl_types_8h_source.html#l00008">8</a> del archivo <a class="el" href="_ogl_types_8h_source.html">OglTypes.h</a>.</p>
 
@@ -754,6 +765,8 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="ad8b871b506bab7c4021326a1a10bbc7faf4723b84fe089b99fa8bd437f42b0167" name="ad8b871b506bab7c4021326a1a10bbc7faf4723b84fe089b99fa8bd437f42b0167"></a>RT_SHADER_BINDING_TABLE&#160;</td><td class="fielddoc"><p >Se usará para almacenar la tabla de shaders de un pipeline de trazado de rayos. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ad8b871b506bab7c4021326a1a10bbc7fa10395d241b657a656306f94cbfb24021" name="ad8b871b506bab7c4021326a1a10bbc7fa10395d241b657a656306f94cbfb24021"></a>RT_ACCELERATION_STRUCTURE_BUILDING&#160;</td><td class="fielddoc"><p >Se usará temporalmente para crear las estrcuturas de aceleración de trazado de rayos. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad8b871b506bab7c4021326a1a10bbc7faa486db75420308f63af20d85e2b6489d" name="ad8b871b506bab7c4021326a1a10bbc7faa486db75420308f63af20d85e2b6489d"></a>STORAGE_BUFFER&#160;</td><td class="fielddoc"><p >Se usara como buffer de lectura y escritura en shaders. </p>
 </td></tr>
 </table>
 
@@ -1119,6 +1132,45 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a47a7b3817b8aca438c20b7674fad28ab" name="a47a7b3817b8aca438c20b7674fad28ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47a7b3817b8aca438c20b7674fad28ab">&#9670;&nbsp;</a></span>PresentMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">OSK::GRAPHICS::PresentMode</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Define el modo de sincronización vertical. </p>
+<p >define a qué ritmo se actualiza el fotograma presentado en el monitor. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a47a7b3817b8aca438c20b7674fad28aba61f5be3d7713d75f23e81b12d369f7b2" name="a47a7b3817b8aca438c20b7674fad28aba61f5be3d7713d75f23e81b12d369f7b2"></a>VSYNC_OFF&#160;</td><td class="fielddoc"><p >No se espera a que la imagen actual termine de presentarse para mostrar la nueva imagen. </p>
+<p >Produce tearing. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a47a7b3817b8aca438c20b7674fad28abaa92c385ce9a5a1037c3843fd17500094" name="a47a7b3817b8aca438c20b7674fad28abaa92c385ce9a5a1037c3843fd17500094"></a>VSYNC_ON&#160;</td><td class="fielddoc"><p >Espera a que la imagen actual termine de presentarse para mostrar la nueva imagen. </p>
+<p >No produce tearing. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a47a7b3817b8aca438c20b7674fad28aba9e78dc83e6b122efa2757383e0602338" name="a47a7b3817b8aca438c20b7674fad28aba9e78dc83e6b122efa2757383e0602338"></a>VSYNC_ON_TRIPLE_BUFFER&#160;</td><td class="fielddoc"><p >Espera a que la imagen actual termine de presentarse para mostrar la nueva imagen. </p>
+<p >Se sigue procesando nuevas imágenes aunque todavía no se puedan presentar, permitiendo presentar una imagen más reciente si lo comparas con <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28abaa92c385ce9a5a1037c3843fd17500094" title="Espera a que la imagen actual termine de presentarse para mostrar la nueva imagen.">PresentMode::VSYNC_ON</a>.</p>
+<p >No produce tearing. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="_present_mode_8h_source.html#l00013">13</a> del archivo <a class="el" href="_present_mode_8h_source.html">PresentMode.h</a>.</p>
+
+</div>
+</div>
 <a id="a3057691f190dabf7642cfde72cf2430f" name="a3057691f190dabf7642cfde72cf2430f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3057691f190dabf7642cfde72cf2430f">&#9670;&nbsp;</a></span>RenderApiType</h2>
 
@@ -1139,7 +1191,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a3057691f190dabf7642cfde72cf2430fac0ad831a34c4633bee584066cfcc5040" name="a3057691f190dabf7642cfde72cf2430fac0ad831a34c4633bee584066cfcc5040"></a>OPENGL&#160;</td><td class="fielddoc"><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000039">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a3057691f190dabf7642cfde72cf2430fac0ad831a34c4633bee584066cfcc5040" name="a3057691f190dabf7642cfde72cf2430fac0ad831a34c4633bee584066cfcc5040"></a>OPENGL&#160;</td><td class="fielddoc"><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000038">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
 </td></tr>
 <tr><td class="fieldname"><a id="a3057691f190dabf7642cfde72cf2430fac60cacb57b9e78f018a9d973bee2f801" name="a3057691f190dabf7642cfde72cf2430fac60cacb57b9e78f018a9d973bee2f801"></a>VULKAN&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a3057691f190dabf7642cfde72cf2430fa8bfc0c05d68d95476338b4d64a879c33" name="a3057691f190dabf7642cfde72cf2430fa8bfc0c05d68d95476338b4d64a879c33"></a>DX12&#160;</td><td class="fielddoc"></td></tr>
@@ -1499,7 +1551,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_memory_type_vulkan_8cpp_source.html#l00094">94</a> del archivo <a class="el" href="_gpu_memory_type_vulkan_8cpp_source.html">GpuMemoryTypeVulkan.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_memory_type_vulkan_8cpp_source.html#l00097">97</a> del archivo <a class="el" href="_gpu_memory_type_vulkan_8cpp_source.html">GpuMemoryTypeVulkan.cpp</a>.</p>
 
 </div>
 </div>
@@ -1559,7 +1611,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_memory_type_vulkan_8cpp_source.html#l00069">69</a> del archivo <a class="el" href="_gpu_memory_type_vulkan_8cpp_source.html">GpuMemoryTypeVulkan.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_memory_type_vulkan_8cpp_source.html#l00072">72</a> del archivo <a class="el" href="_gpu_memory_type_vulkan_8cpp_source.html">GpuMemoryTypeVulkan.cpp</a>.</p>
 
 </div>
 </div>
@@ -1624,6 +1676,32 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Documentación de las variables</h2>
+<a id="a92b901b2282ba60626f55be92e849ead" name="a92b901b2282ba60626f55be92e849ead"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92b901b2282ba60626f55be92e849ead">&#9670;&nbsp;</a></span>NUM_RENDER_TARGET_IMAGES</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> OSK::GRAPHICS::NUM_RENDER_TARGET_IMAGES = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Imágenes de renderizado contenidas en cada <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html" title="Representa una textura a la que se puede renderizar.">RenderTarget</a>. Permiten el renderizado de frames mientras se procesa el juego en la CPU. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8h_source.html#l00020">20</a> del archivo <a class="el" href="_render_target_8h_source.html">RenderTarget.h</a>.</p>
+
+</div>
+</div>
 <a id="a333776936d41ccaf87798ec0df23a432" name="a333776936d41ccaf87798ec0df23a432"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a333776936d41ccaf87798ec0df23a432">&#9670;&nbsp;</a></span>OGL_DEFAULT_FRAMEBUFFER</h2>
 
@@ -1643,7 +1721,7 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000037">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000036">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_ogl_types_8h_source.html#l00027">27</a> del archivo <a class="el" href="_ogl_types_8h_source.html">OglTypes.h</a>.</p>
 
@@ -1668,7 +1746,7 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000038">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000037">Obsoleto:</a></b></dt><dd>OpenGL no implementado. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_ogl_types_8h_source.html#l00029">29</a> del archivo <a class="el" href="_ogl_types_8h_source.html">OglTypes.h</a>.</p>
 
@@ -1680,7 +1758,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li>
-    <li class="footer">Generado el Jueves, 16 de Junio de 2022 00:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Viernes, 8 de Julio de 2022 01:26:27 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

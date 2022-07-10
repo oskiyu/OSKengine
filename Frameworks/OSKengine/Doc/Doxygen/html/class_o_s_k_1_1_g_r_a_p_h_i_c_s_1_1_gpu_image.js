@@ -1,6 +1,6 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image =
 [
-    [ "GpuImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aaf768c862448608c00e2b1b928e006cb", null ],
+    [ "GpuImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a3067af58409ee312eec32a05c247a74d", null ],
     [ "~GpuImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a78533120a067d3edce5dd7cfd86f2285", null ],
     [ "_SetPhysicalSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ad23f506b8bdde8faac2dac9d6a86f7e7", null ],
     [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a6bc3268b57ede5f9f0541b20d12dfea0", null ],
@@ -12,6 +12,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image =
     [ "GetMipLevels", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aa0220799f28ec1c45c888926243867e9", null ],
     [ "GetNumberOfBytes", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ae2e4e5fbf2ea6b058d85fad02714a6c8", null ],
     [ "GetNumLayers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a3f6e78b29f06b1b423ab89377a139b46", null ],
+    [ "GetNumSamples", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ad32d36e931b0d7b6633549834b4b8813", null ],
     [ "GetPhysicalNumberOfBytes", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ac8e03db4a14a8612958758e67703e33f", null ],
     [ "GetPhysicalSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a010e504f13e07ce86e1d82e344493860", null ],
     [ "GetSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a244ebc8ce3ae3095698ea0c3eaba58fc", null ],

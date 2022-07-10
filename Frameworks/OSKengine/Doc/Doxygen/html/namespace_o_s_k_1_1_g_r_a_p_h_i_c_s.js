@@ -84,6 +84,7 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "RenderpassDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12" ],
     [ "RenderpassOgl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_ogl.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_ogl" ],
     [ "RenderpassVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan" ],
+    [ "RenderTarget", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target" ],
     [ "RtShaderTableVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vulkan" ],
     [ "ShaderStageVulkan", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vulkan.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vulkan" ],
     [ "SpirvToHlsl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl" ],
@@ -129,7 +130,8 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
       [ "TRANSFER_DESTINATION", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7fac61dfc60317a58b2843ec29f8e3c2359", null ],
       [ "RT_ACCELERATION_STRUCTURE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7fa56da21e70ea85d8efa9392d6fd11f2ee", null ],
       [ "RT_SHADER_BINDING_TABLE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7faf4723b84fe089b99fa8bd437f42b0167", null ],
-      [ "RT_ACCELERATION_STRUCTURE_BUILDING", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7fa10395d241b657a656306f94cbfb24021", null ]
+      [ "RT_ACCELERATION_STRUCTURE_BUILDING", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7fa10395d241b657a656306f94cbfb24021", null ],
+      [ "STORAGE_BUFFER", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7faa486db75420308f63af20d85e2b6489d", null ]
     ] ],
     [ "GpuImageAddressMode", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ac1b7e80a6459c1c2dcff1fb7b4784ea2", [
       [ "REPEAT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ac1b7e80a6459c1c2dcff1fb7b4784ea2a5be68175be14dfaa080165456c2e9555", null ],
@@ -188,6 +190,11 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
       [ "FILL", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8ae8225b11842409df543692aebed34fd1", null ],
       [ "LINE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8a17b8ef2c330f1430e00c9de5469fc7e7", null ]
     ] ],
+    [ "PresentMode", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab", [
+      [ "VSYNC_OFF", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28aba61f5be3d7713d75f23e81b12d369f7b2", null ],
+      [ "VSYNC_ON", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28abaa92c385ce9a5a1037c3843fd17500094", null ],
+      [ "VSYNC_ON_TRIPLE_BUFFER", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28aba9e78dc83e6b122efa2757383e0602338", null ]
+    ] ],
     [ "RenderApiType", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430f", [
       [ "OPENGL", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430fac0ad831a34c4633bee584066cfcc5040", null ],
       [ "VULKAN", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430fac60cacb57b9e78f018a9d973bee2f801", null ],
@@ -236,6 +243,7 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "GetGpuSharedMemoryTypeDx12", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ac499da78f73320a680f1e7823c7aa60f", null ],
     [ "GetGpuSharedMemoryTypeVulkan", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ac01ee3f8d8aec2a1bf3a997743189824", null ],
     [ "GetShaderStageVk", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3a50046339fbf8642e14273583cd8118", null ],
+    [ "NUM_RENDER_TARGET_IMAGES", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a92b901b2282ba60626f55be92e849ead", null ],
     [ "OGL_DEFAULT_FRAMEBUFFER", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a333776936d41ccaf87798ec0df23a432", null ],
     [ "OGL_NULL_HANDLER", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae22767bd982998192bb9100628519938", null ]
 ];

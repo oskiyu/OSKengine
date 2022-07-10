@@ -10,5 +10,6 @@ var searchData=
   ['normalize_7',['Normalize',['../class_o_s_k_1_1_vector2__t.html#a91fc3cfe54ea2d6ca8c73a988317d598',1,'OSK::Vector2_t::Normalize()'],['../class_o_s_k_1_1_vector3__t.html#aad361b766898211bc069fc6c9b44cd96',1,'OSK::Vector3_t::Normalize()']]],
   ['normalized_8',['Normalized',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_texture_coordinates2_d.html#a59f9d49c54960b075d69ab732b3c966d',1,'OSK::GRAPHICS::TextureCoordinates2D']]],
   ['normalized_9',['NORMALIZED',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a8850682b4f35c42bbcf63a1e81b29c9ca5dce94de2a2a2772111f3af42badb16f',1,'OSK::GRAPHICS']]],
-  ['num_5flock_10',['NUM_LOCK',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eacb0d0bf9279e78f982deba761110e434',1,'OSK::IO']]]
+  ['num_5flock_10',['NUM_LOCK',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eacb0d0bf9279e78f982deba761110e434',1,'OSK::IO']]],
+  ['num_5frender_5ftarget_5fimages_11',['NUM_RENDER_TARGET_IMAGES',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a92b901b2282ba60626f55be92e849ead',1,'OSK::GRAPHICS']]]
 ];

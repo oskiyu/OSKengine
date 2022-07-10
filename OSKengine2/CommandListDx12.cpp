@@ -97,20 +97,19 @@ void CommandListDx12::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* d
 	commandList->CopyTextureRegion(&copyDest, 0, 0, 0, &copySource, nullptr);
 }
 
-void CommandListDx12::BeginRenderpass(IRenderpass* renderpass) {
-	BeginAndClearRenderpass(renderpass, Color::BLACK());
+void CommandListDx12::BeginRenderpass(RenderTarget* renderTarget) {
+	BeginAndClearRenderpass(renderTarget, Color::BLACK());
 }
 
-void CommandListDx12::BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) {
-	const auto size = renderpass->GetImage(0)->GetSize();
-
-	D3D12_CPU_DESCRIPTOR_HANDLE renderTargetDesc{};
+void CommandListDx12::BeginAndClearRenderpass(RenderTarget* renderTarget, const Color& color) {
+	DynamicArray<D3D12_CPU_DESCRIPTOR_HANDLE> colorAttachments{};
 	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilDesc{};
-	if (renderpass->GetType() == RenderpassType::FINAL) {
-		const SwapchainDx12* swapchain = renderpass->As<RenderpassDx12>()->GetSwapchain();
 
-		renderTargetDesc = swapchain->GetRenderTargetMemory()->GetCPUDescriptorHandleForHeapStart();
-		renderTargetDesc.ptr += ((SIZE_T)swapchain->GetCurrentFrameIndex()) *
+	if (renderTarget->GetRenderTargetType() == RenderpassType::FINAL) {
+		const SwapchainDx12* swapchain = Engine::GetRenderer()->_GetSwapchain()->As<SwapchainDx12>();
+
+		colorAttachments.Insert(swapchain->GetRenderTargetMemory()->GetCPUDescriptorHandleForHeapStart());
+		colorAttachments[0].ptr += ((SIZE_T)swapchain->GetCurrentFrameIndex()) *
 			Engine::GetRenderer()->As<RendererDx12>()->GetGpu()->As<GpuDx12>()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 
 		depthStencilDesc = swapchain->GetDepthStencilMemory()->GetCPUDescriptorHandleForHeapStart();
@@ -118,27 +117,33 @@ void CommandListDx12::BeginAndClearRenderpass(IRenderpass* renderpass, const Col
 			Engine::GetRenderer()->As<RendererDx12>()->GetGpu()->As<GpuDx12>()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
 	}
 	else {
-		renderTargetDesc = renderpass->As<RenderpassDx12>()->GetRenderTargetDescpriptor(0);
-		depthStencilDesc = renderpass->As<RenderpassDx12>()->GetDepthStencilDescpriptor(0);
+		for (auto img : renderTarget->GetTargetImages(GetCommandListIndex()))
+			colorAttachments.Insert(img->As<GpuImageDx12>()->GetColorUsageDescriptorHandle());
+
+		depthStencilDesc = renderTarget->GetDepthImage(GetCommandListIndex())->As<GpuImageDx12>()->GetDepthUsageDescriptorHandle();
 	}
 
-	As<ICommandList>()->TransitionImageLayout(renderpass->GetImage(renderpass->As<RenderpassDx12>()->GetSwapchain()->GetCurrentFrameIndex()), GpuImageLayout::COLOR_ATTACHMENT, 0, 1);
+	for (auto img : renderTarget->GetTargetImages(GetCommandListIndex()))
+		As<ICommandList>()->TransitionImageLayout(img, GpuImageLayout::COLOR_ATTACHMENT, 0, 1);
 
 	const FLOAT clearValue[] = { color.Red, color.Green, color.Blue, color.Alpha };
-	commandList->ClearRenderTargetView(renderTargetDesc, clearValue, 0, nullptr);
+	
+	for (auto colorAttachment : colorAttachments)
+		commandList->ClearRenderTargetView(colorAttachment, clearValue, 0, nullptr);
 	commandList->ClearDepthStencilView(depthStencilDesc, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 
-	commandList->OMSetRenderTargets(1, &renderTargetDesc, FALSE, &depthStencilDesc);
+	commandList->OMSetRenderTargets(colorAttachments.GetSize(), colorAttachments.GetData(), FALSE, &depthStencilDesc);
 
-	currentRenderpass = renderpass;
+	currentRenderpass = renderTarget;
 }
 
-void CommandListDx12::EndRenderpass(IRenderpass* renderpass) {
+void CommandListDx12::EndRenderpass(RenderTarget* renderTarget) {
 	GpuImageLayout finalLayout = GpuImageLayout::SHADER_READ_ONLY;
-	if (renderpass->GetType() == RenderpassType::FINAL)
+	if (renderTarget->GetRenderTargetType() == RenderpassType::FINAL)
 		finalLayout = GpuImageLayout::PRESENT;
 
-	As<ICommandList>()->TransitionImageLayout(renderpass->GetImage(renderpass->As<RenderpassDx12>()->GetSwapchain()->GetCurrentFrameIndex()), finalLayout, 0, 1);
+	for (auto img : renderTarget->GetTargetImages(GetCommandListIndex()))
+		As<ICommandList>()->TransitionImageLayout(img, finalLayout, 0, 1);
 }
 
 void CommandListDx12::ResourceBarrier(ID3D12Resource* resource, D3D12_RESOURCE_STATES from, D3D12_RESOURCE_STATES to) {
@@ -155,7 +160,7 @@ void CommandListDx12::ResourceBarrier(ID3D12Resource* resource, D3D12_RESOURCE_S
 
 void CommandListDx12::BindMaterial(const Material* material) {
 	currentMaterial = material;
-	currentPipeline = material->GetGraphicsPipeline(currentRenderpass);
+	currentPipeline = material->GetGraphicsPipeline();
 	
 	commandList->SetGraphicsRootSignature(currentPipeline->As<GraphicsPipelineDx12>()->GetLayout());
 	commandList->SetPipelineState(currentPipeline->As<GraphicsPipelineDx12>()->GetPipelineState());

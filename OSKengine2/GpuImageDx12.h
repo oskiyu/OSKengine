@@ -14,7 +14,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuImageDx12(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format);
+		GpuImageDx12(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples);
 
 		void SetResource(const ComPtr<ID3D12Resource>& resource);
 
@@ -42,6 +42,26 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		ID3D12DescriptorHeap* GetDepthDescriptorHeap() const;
 
+		/// <summary>
+		/// Devuelve un hanlde para el uso de esta imagen como imagen de renderizado
+		/// de un render target.
+		/// </summary>
+		/// 
+		/// @pre Se debe haber creado con GpuImageUsage::COLOR.
+		/// 
+		/// @note Si no se cumple la precondición, devuelve 0.
+		D3D12_CPU_DESCRIPTOR_HANDLE GetColorUsageDescriptorHandle() const;
+
+		/// <summary>
+		/// Devuelve un hanlde para el uso de esta imagen como imagen de renderizado
+		/// de un render target.
+		/// </summary>
+		/// 
+		/// @pre Se debe haber creado con GpuImageUsage::DEPTH_STENCIL.
+		/// 
+		/// @note Si no se cumple la precondición, devuelve 0.
+		D3D12_CPU_DESCRIPTOR_HANDLE GetDepthUsageDescriptorHandle() const;
+
 	private:
 
 		ComPtr<ID3D12Resource> resource;
@@ -49,6 +69,15 @@ namespace OSK::GRAPHICS {
 		ComPtr<ID3D12DescriptorHeap> sampledDescriptorHeap;
 		ComPtr<ID3D12DescriptorHeap> renderTargetDescriptorHeap;
 		ComPtr<ID3D12DescriptorHeap> depthDescriptorHeap;
+
+		/// <summary>
+		/// Handle para poder usar esta imagen como render target de color.
+		/// </summary>
+		D3D12_CPU_DESCRIPTOR_HANDLE colorUsageDescriptorHandle{ 0 };
+		/// <summary>
+		/// Handle para poder usar esta imagen como render target de profundidad.
+		/// </summary>
+		D3D12_CPU_DESCRIPTOR_HANDLE depthUsageDescriptorHandle{ 0 };
 
 	};
 

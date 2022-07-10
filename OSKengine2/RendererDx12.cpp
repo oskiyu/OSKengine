@@ -123,21 +123,7 @@ void RendererDx12::Resize() {
 		window->GetWindowSize().X, window->GetWindowSize().Y, GetFormatDx12(format), 0);
 
 	swapchain->As<SwapchainDx12>()->CreateImages(*window);
-	finalRenderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
-}
-
-OwnedPtr<IRenderpass> RendererDx12::CreateSecondaryRenderpass(GpuImage* targetImage0, GpuImage* targetImage1, GpuImage* targetImage2) {
-	OwnedPtr<IRenderpass> output = new RenderpassDx12(RenderpassType::INTERMEDIATE);
-	output->As<RenderpassDx12>()->SetSwapchain(swapchain->As<SwapchainDx12>());
-
-	if (targetImage1 != nullptr)
-		output->SetImages(targetImage0, targetImage1, targetImage2);
-	else
-		output->SetImages(targetImage0, targetImage0, targetImage0);
-
-	materialSystem->RegisterRenderpass(output.GetPointer());
-
-	return output;
+	//finalRenderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
 }
 
 const TByte* RendererDx12::FormatImageDataForGpu(const GpuImage* image, const TByte* data, TSize numLayers) {
@@ -156,15 +142,15 @@ const TByte* RendererDx12::FormatImageDataForGpu(const GpuImage* image, const TB
 	return output;
 }
 
-OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo& vertexInfo) {
+OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, Format format, const VertexInfo& vertexInfo) {
 	GraphicsPipelineDx12* pipeline = new GraphicsPipelineDx12();
 
-	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
+	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, format, vertexInfo);
 
 	return pipeline;
 }
 
-OwnedPtr<IRaytracingPipeline> RendererDx12::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo& vertexTypeName) {
+OwnedPtr<IRaytracingPipeline> RendererDx12::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexTypeName) {
 	OSK_ASSERT(false, "No implementado.");
 	return nullptr;
 }
@@ -263,26 +249,14 @@ void RendererDx12::CreateGpuMemoryAllocator() {
 	Engine::GetLogger()->InfoLog("Creado el asignador de memoria de la GPU.");
 }
 
-void RendererDx12::CreateMainRenderpass() {
-	finalRenderpass = new RenderpassDx12(RenderpassType::FINAL);
-	finalRenderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
-	finalRenderpass->As<RenderpassDx12>()->SetSwapchain(swapchain->As<SwapchainDx12>());
-
-	materialSystem->RegisterRenderpass(finalRenderpass.GetPointer());
-}
-
 void RendererDx12::PresentFrame() {
 	if (isFirstRender) {
 		commandList->Reset();
 		commandList->Start();
-		commandList->BeginAndClearRenderpass(finalRenderpass.GetPointer(), Color::RED());
 
 		isFirstRender = false;
-
-		return;
 	}
-	
-	commandList->EndRenderpass(finalRenderpass.GetPointer());
+
 	commandList->Close();
 
 	for (TSize i = 0; i < singleTimeCommandLists.GetSize(); i++)
@@ -308,20 +282,6 @@ void RendererDx12::PresentFrame() {
 	}
 
 	commandList->Start();
-
-	commandList->BeginAndClearRenderpass(finalRenderpass.GetPointer(), Color::BLACK());
-	Vector4ui windowRec = {
-		0,
-		0,
-		window->GetWindowSize().X,
-		window->GetWindowSize().Y
-	};
-
-	Viewport viewport{};
-	viewport.rectangle = windowRec;
-
-	commandList->SetViewport(viewport);
-	commandList->SetScissor(windowRec);
 }
 
 void RendererDx12::SubmitSingleUseCommandList(ICommandList* commandList) {

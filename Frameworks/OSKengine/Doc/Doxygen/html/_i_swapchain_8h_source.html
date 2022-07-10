@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Fichero Fuente OSKengine2/ISwapchain.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -36,7 +36,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.9.3 -->
+<!-- Generado por Doxygen 1.9.4 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
@@ -96,43 +96,49 @@ $(document).ready(function(){initNavTree('_i_swapchain_8h_source.html',''); init
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">class </span>IGpu;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">class </span>IRenderpass;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html">   19</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html">ISwapchain</a> {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">PresentMode</a>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">class </span>IGpu;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">class </span>IRenderpass;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html">   21</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html">ISwapchain</a> {</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a14cdd2412f5dfd2287535ae3c50a40b6">   23</a></span>        <span class="keyword">virtual</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a14cdd2412f5dfd2287535ae3c50a40b6">~ISwapchain</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> GetImageCount() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> GetCurrentFrameIndex() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#ab42ef18df4fc72d0a6b17829b2aa8b7f">   38</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#ab42ef18df4fc72d0a6b17829b2aa8b7f">Present</a>() = 0;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a04699bb97612d6142b1a5895fdeeaf24">   40</a></span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; T* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a04699bb97612d6142b1a5895fdeeaf24">As</a>() const requires std::is_base_of_v&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html">ISwapchain</a>, T&gt; {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <span class="keywordflow">return</span> (T*)<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        }</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>* GetImage(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordtype">void</span> SetTargetRenderpass(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a>* renderpass);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a>* GetTargetRenderpass() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a14cdd2412f5dfd2287535ae3c50a40b6">   25</a></span>        <span class="keyword">virtual</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a14cdd2412f5dfd2287535ae3c50a40b6">~ISwapchain</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> GetImageCount() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> GetCurrentFrameIndex() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#ab42ef18df4fc72d0a6b17829b2aa8b7f">   40</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#ab42ef18df4fc72d0a6b17829b2aa8b7f">Present</a>() = 0;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a04699bb97612d6142b1a5895fdeeaf24">   42</a></span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; T* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a04699bb97612d6142b1a5895fdeeaf24">As</a>() const requires std::is_base_of_v&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html">ISwapchain</a>, T&gt; {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <span class="keywordflow">return</span> (T*)<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>* GetImage(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordtype">void</span> SetTargetRenderpass(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a>* renderpass);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a>* GetTargetRenderpass() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a50f5c0b2bfc7bd549c9501322331c0cf">   61</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">IGpu</a>* device = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a85599f1e213f7ebdf66b6d5cd2a8fd14">   62</a></span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> imageCount = 3;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#af4b44c935f04512a891cd9daf8dfec8e">   64</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GpuImage&gt;</a> images[3];</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a7720e506b7ca0147c2296dc33b2d119a">   65</a></span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> currentFrameIndex = 0;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a106de60ad449c18e6deadc3fe7953c4e">   66</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a>* targetRenderpass = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    };</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">PresentMode</a> GetCurrentPresentMode() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a6a55d056d46f623dcbbb911b0b07b2af">   65</a></span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">PresentMode</a> mode{};</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a50f5c0b2bfc7bd549c9501322331c0cf">   67</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">IGpu</a>* device = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a85599f1e213f7ebdf66b6d5cd2a8fd14">   68</a></span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> imageCount = 3;</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#af4b44c935f04512a891cd9daf8dfec8e">   70</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GpuImage&gt;</a> images[3];</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a7720e506b7ca0147c2296dc33b2d119a">   71</a></span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> currentFrameIndex = 0;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a106de60ad449c18e6deadc3fe7953c4e">   72</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">IRenderpass</a>* targetRenderpass = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    };</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
 <div class="ttc" id="a_i_gpu_image_8h_html"><div class="ttname"><a href="_i_gpu_image_8h.html">IGpuImage.h</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
@@ -140,19 +146,20 @@ $(document).ready(function(){initNavTree('_i_swapchain_8h_source.html',''); init
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8h_source.html#l00023">IGpuImage.h:23</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">OSK::GRAPHICS::IGpu</a></div><div class="ttdoc">Interfaz de una tarjeta gráfica.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_8h_source.html#l00018">IGpu.h:18</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html">OSK::GRAPHICS::IRenderpass</a></div><div class="ttdoc">Un renderpass representa una fase de renderizado. Todas las operaciones de renderizado se aplicarán s...</div><div class="ttdef"><b>Definition:</b> <a href="_i_renderpass_8h_source.html#l00017">IRenderpass.h:17</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html">OSK::GRAPHICS::ISwapchain</a></div><div class="ttdoc">Un swapchain es una estructura encargada de manejar el cambio de imagenes que son representadas en el...</div><div class="ttdef"><b>Definition:</b> <a href="_i_swapchain_8h_source.html#l00019">ISwapchain.h:19</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_html_a04699bb97612d6142b1a5895fdeeaf24"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a04699bb97612d6142b1a5895fdeeaf24">OSK::GRAPHICS::ISwapchain::As</a></div><div class="ttdeci">T * As() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_swapchain_8h_source.html#l00040">ISwapchain.h:40</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html">OSK::GRAPHICS::ISwapchain</a></div><div class="ttdoc">Un swapchain es una estructura encargada de manejar el cambio de imagenes que son representadas en el...</div><div class="ttdef"><b>Definition:</b> <a href="_i_swapchain_8h_source.html#l00021">ISwapchain.h:21</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_html_a04699bb97612d6142b1a5895fdeeaf24"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a04699bb97612d6142b1a5895fdeeaf24">OSK::GRAPHICS::ISwapchain::As</a></div><div class="ttdeci">T * As() const</div><div class="ttdef"><b>Definition:</b> <a href="_i_swapchain_8h_source.html#l00042">ISwapchain.h:42</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_html_a14cdd2412f5dfd2287535ae3c50a40b6"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a14cdd2412f5dfd2287535ae3c50a40b6">OSK::GRAPHICS::ISwapchain::~ISwapchain</a></div><div class="ttdeci">virtual ~ISwapchain()=default</div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_html_ab42ef18df4fc72d0a6b17829b2aa8b7f"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#ab42ef18df4fc72d0a6b17829b2aa8b7f">OSK::GRAPHICS::ISwapchain::Present</a></div><div class="ttdeci">virtual void Present()=0</div><div class="ttdoc">Envía la imagen renderizada al monitor.</div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Es dueño de un puntero. El puntero original es eliminado al destruirse el UniquePtr.</div><div class="ttdef"><b>Definition:</b> <a href="_unique_ptr_8hpp_source.html#l00020">UniquePtr.hpp:20</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_bottom_level_acceleration_structure_vulkan_8h_source.html#l00010">BottomLevelAccelerationStructureVulkan.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a47a7b3817b8aca438c20b7674fad28ab"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">OSK::GRAPHICS::PresentMode</a></div><div class="ttdeci">PresentMode</div><div class="ttdoc">Define el modo de sincronización vertical.</div><div class="ttdef"><b>Definition:</b> <a href="_present_mode_8h_source.html#l00013">PresentMode.h:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_i_swapchain_8h.html">ISwapchain.h</a></li>
-    <li class="footer">Generado el Jueves, 16 de Junio de 2022 00:39:57 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Viernes, 8 de Julio de 2022 01:26:27 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

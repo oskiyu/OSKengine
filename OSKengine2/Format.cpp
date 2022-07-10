@@ -49,6 +49,9 @@ VkFormat OSK::GRAPHICS::GetFormatVulkan(Format format) {
 
 	case Format::D32S8_SFLOAT_SUINT:
 		return VK_FORMAT_D32_SFLOAT_S8_UINT;
+
+	case Format::D24S8_SFLOAT_SUINT:
+		return VK_FORMAT_D24_UNORM_S8_UINT;
 	}
 
 	OSK_ASSERT(false, "El formato " + ToString<Format>(format) + " no está registrado en OSK::GRAPHICS::GetFormatVulkan.");

@@ -9,6 +9,9 @@
 #include "IRenderSystem.h"
 #include "Assert.h"
 
+#include "OSKengine.h"
+#include "Window.h"
+
 namespace OSK::ECS {
 
 	/// <summary>

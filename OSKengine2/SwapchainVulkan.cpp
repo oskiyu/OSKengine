@@ -40,14 +40,14 @@ SwapchainVulkan::~SwapchainVulkan() {
 void SwapchainVulkan::Create(PresentMode mode, Format format, const GpuVulkan& device, const IO::Window& window) {
 	this->window = &window;
 	this->device = &device;
-	this->format = format;
+	this->colorFormat = format;
 
 	this->mode = mode;
 
-	auto info = device.GetInfo();
+	auto& info = device.GetInfo();
 	
 	//Formato del swapchain.
-	VkSurfaceFormatKHR surfaceFormat;
+	VkSurfaceFormatKHR surfaceFormat{};
 	surfaceFormat.colorSpace = GetSupportedColorSpace(device);
 	surfaceFormat.format = GetFormatVulkan(format);
 
@@ -101,7 +101,7 @@ void SwapchainVulkan::Create(PresentMode mode, Format format, const GpuVulkan& d
 	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear el swapchain. Code: " + std::to_string(result));
 
 	for (TSize i = 0; i < imageCount; i++)		
-		images[i] = new GpuImageVulkan({ extent.width, extent.height, 1 }, GpuImageDimension::d2D, GpuImageUsage::COLOR, 1, format);
+		images[i] = new GpuImageVulkan({ extent.width, extent.height, 1 }, GpuImageDimension::d2D, GpuImageUsage::COLOR, 1, format, 1);
 
 	AcquireImages(extent.width, extent.height);
 	AcquireViews();
@@ -136,7 +136,7 @@ void SwapchainVulkan::AcquireViews() {
 		createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 		createInfo.image = images[i]->As<GpuImageVulkan>()->GetImage();
 		createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
-		createInfo.format = GetFormatVulkan(format);
+		createInfo.format = GetFormatVulkan(colorFormat);
 		createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
 		createInfo.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
 		createInfo.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
@@ -172,11 +172,11 @@ void SwapchainVulkan::Resize() {
 	vkDestroySwapchainKHR(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
 		swapchain, nullptr);
 
-	Create(mode, format, *device, *window);
+	Create(mode, colorFormat, *device, *window);
 }
 
 VkColorSpaceKHR SwapchainVulkan::GetSupportedColorSpace(const GpuVulkan& device) {
-	for (auto format : device.GetInfo().swapchainSupportDetails.formats)
+	for (const auto& format : device.GetInfo().swapchainSupportDetails.formats)
 		if (format.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR && format.format == VK_FORMAT_B8G8R8A8_SRGB)
 			return format.colorSpace;
 

@@ -35,13 +35,13 @@ namespace OSK::GRAPHICS {
 		virtual void Setup(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer) = 0;
 
 		/// <summary>
-		/// Actualiza la estructura de aceleración.
+		/// Actualiza la estructura de aceleración, para reflejar los cambios realizados en
+		/// la matriz de modelo.
 		/// </summary>
 		/// 
 		/// @pre Se debe haber creado la estructura, llamando a IBottomLevelAccelerationStructure::Setup.
 		/// 
-		/// @deprecated No implementado.
-		/// @todo Implementación Vulkan y DX12.
+		/// @todo Implementación DX12.
 		virtual void Update() = 0;
 
 		/// <summary>

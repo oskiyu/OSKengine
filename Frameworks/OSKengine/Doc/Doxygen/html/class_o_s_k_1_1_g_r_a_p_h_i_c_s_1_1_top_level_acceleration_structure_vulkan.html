@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Referencia de la Clase OSK::GRAPHICS::TopLevelAccelerationStructureVulkan</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -36,7 +36,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.9.3 -->
+<!-- Generado por Doxygen 1.9.4 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
@@ -99,6 +99,8 @@ $(document).ready(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_to
 Métodos públicos</h2></td></tr>
 <tr class="memitem:acf12f2af1b1dda211b5c482022a686da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan.html#acf12f2af1b1dda211b5c482022a686da">Setup</a> () override</td></tr>
 <tr class="separator:acf12f2af1b1dda211b5c482022a686da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a854f74c3dac32effb17f950ae95957a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan.html#a854f74c3dac32effb17f950ae95957a6">Update</a> () override</td></tr>
+<tr class="separator:a854f74c3dac32effb17f950ae95957a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c808fd39edd637690d4d1b019ec2571"><td class="memItemLeft" align="right" valign="top">VkAccelerationStructureKHR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan.html#a9c808fd39edd637690d4d1b019ec2571">GetAccelerationStructure</a> () const</td></tr>
 <tr class="separator:a9c808fd39edd637690d4d1b019ec2571"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4285d619a4c129b5b85ec31c8b24487"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html#ad4285d619a4c129b5b85ec31c8b24487">OSK_DEFINE_AS</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html">ITopLevelAccelerationStructure</a>)</td></tr>
@@ -113,7 +115,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock">
-<p class="definition">Definición en la línea <a class="el" href="_top_level_acceleration_structure_vulkan_8h_source.html#l00009">9</a> del archivo <a class="el" href="_top_level_acceleration_structure_vulkan_8h_source.html">TopLevelAccelerationStructureVulkan.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_top_level_acceleration_structure_vulkan_8h_source.html#l00012">12</a> del archivo <a class="el" href="_top_level_acceleration_structure_vulkan_8h_source.html">TopLevelAccelerationStructureVulkan.h</a>.</p>
 </div><h2 class="groupheader">Documentación de las funciones miembro</h2>
 <a id="a8055b28d6c3279175f3d5b6f810b2232" name="a8055b28d6c3279175f3d5b6f810b2232"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8055b28d6c3279175f3d5b6f810b2232">&#9670;&nbsp;</a></span>AddBottomLevelAccelerationStructure()</h2>
@@ -163,7 +165,7 @@ No se añadirá propiamente a la estructura de nivel superior hasta que se llame
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_top_level_acceleration_structure_vulkan_8cpp_source.html#l00142">142</a> del archivo <a class="el" href="_top_level_acceleration_structure_vulkan_8cpp_source.html">TopLevelAccelerationStructureVulkan.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_top_level_acceleration_structure_vulkan_8cpp_source.html#l00175">175</a> del archivo <a class="el" href="_top_level_acceleration_structure_vulkan_8cpp_source.html">TopLevelAccelerationStructureVulkan.cpp</a>.</p>
 
 </div>
 </div>
@@ -220,11 +222,44 @@ No se añadirá propiamente a la estructura de nivel superior hasta que se llame
 <dl class="section pre"><dt>Precondición</dt><dd>Debe haber al menos una estructura <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html" title="Estructura de aceleración de nivel bajo: contiene la geometría de un modelo 3D.">IBottomLevelAccelerationStructure</a> registrada (se debe haber llamado a IBottomLevelAccelerationStructure::AddBottomLevelAccelerationStructure al menos una vez). </dd>
 <dd>
 Todas las estructuras de aceleración de nivel inferior deben haber sido correctamente creadas.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Tareas pendientes:</a></b></dt><dd>Implementación en DX12. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Tareas pendientes:</a></b></dt><dd>Implementación en DX12. </dd></dl>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html#a38a3541235fbb79778dd9513e78f070d">OSK::GRAPHICS::ITopLevelAccelerationStructure</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_top_level_acceleration_structure_vulkan_8cpp_source.html#l00016">16</a> del archivo <a class="el" href="_top_level_acceleration_structure_vulkan_8cpp_source.html">TopLevelAccelerationStructureVulkan.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a854f74c3dac32effb17f950ae95957a6" name="a854f74c3dac32effb17f950ae95957a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a854f74c3dac32effb17f950ae95957a6">&#9670;&nbsp;</a></span>Update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TopLevelAccelerationStructureVulkan::Update </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Actualiza la estructura de aceleración, para que refleje los cambios producidos en las estructuras de nivel inferior. </p>
+<dl class="section pre"><dt>Precondición</dt><dd>Esta estructura debe haber sido correctamente creada llamando a <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html#a38a3541235fbb79778dd9513e78f070d" title="Crea la estructura de aceleración.">ITopLevelAccelerationStructure::Setup</a>.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Tareas pendientes:</a></b></dt><dd>Implementación en DX12. </dd></dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html#ad7223ca05f358dd3aa82d53cf20f6dfa">OSK::GRAPHICS::ITopLevelAccelerationStructure</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_top_level_acceleration_structure_vulkan_8cpp_source.html#l00127">127</a> del archivo <a class="el" href="_top_level_acceleration_structure_vulkan_8cpp_source.html">TopLevelAccelerationStructureVulkan.cpp</a>.</p>
 
 </div>
 </div>
@@ -249,7 +284,7 @@ Todas las estructuras de aceleración de nivel inferior deben haber sido correct
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_top_level_acceleration_structure_8h_source.html#l00044">44</a> del archivo <a class="el" href="_i_top_level_acceleration_structure_8h_source.html">ITopLevelAccelerationStructure.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_top_level_acceleration_structure_8h_source.html#l00053">53</a> del archivo <a class="el" href="_i_top_level_acceleration_structure_8h_source.html">ITopLevelAccelerationStructure.h</a>.</p>
 
 </div>
 </div>
@@ -263,7 +298,7 @@ Todas las estructuras de aceleración de nivel inferior deben haber sido correct
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan.html">TopLevelAccelerationStructureVulkan</a></li>
-    <li class="footer">Generado el Jueves, 16 de Junio de 2022 00:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Viernes, 8 de Julio de 2022 01:26:27 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

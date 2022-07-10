@@ -15,11 +15,18 @@ RenderpassType IRenderpass::GetType() const {
 	return type;
 }
 
-GpuImage* IRenderpass::GetImage(TSize index) const {
+GpuImage* IRenderpass::GetColorImage(TSize index) const {
 	OSK_ASSERT(index >= 0 && index < GetNumberOfImages(), "Se ha intentado acceder a la imagen "
 		+ std::to_string(index) + ", pero solo hay " + std::to_string(GetNumberOfImages()) + " imágenes.");
 
 	return images[index];
+}
+
+GpuImage* IRenderpass::GetDepthImage(TSize index) const {
+	OSK_ASSERT(index >= 0 && index < GetNumberOfImages(), "Se ha intentado acceder a la imagen "
+		+ std::to_string(index) + ", pero solo hay " + std::to_string(GetNumberOfImages()) + " imágenes.");
+
+	return depthImgs[index].GetPointer();
 }
 
 TSize IRenderpass::GetNumberOfImages() const {

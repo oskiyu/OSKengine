@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Fichero Fuente OSKengine2/IBottomLevelAccelerationStructure.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -36,7 +36,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.9.3 -->
+<!-- Generado por Doxygen 1.9.4 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('_i_bottom_level_acceleration_structure
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <a class="code hl_define" href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a>(<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html#af7a4d5aaa27b13dfc51829ad2f2f5bd5">matrixBuffer</a>.HasValue(), <span class="stringliteral">&quot;No se inició el buffer de la matrix.&quot;</span>);</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html#af7a4d5aaa27b13dfc51829ad2f2f5bd5">matrixBuffer</a>-&gt;MapMemory();</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html#af7a4d5aaa27b13dfc51829ad2f2f5bd5">matrixBuffer</a>-&gt;Write(matrix);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html#af7a4d5aaa27b13dfc51829ad2f2f5bd5">matrixBuffer</a>-&gt;Write(glm::transpose(matrix));</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html#af7a4d5aaa27b13dfc51829ad2f2f5bd5">matrixBuffer</a>-&gt;Unmap();</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html#aebde73345ad718c32c4a070095f62dbc">isDirty</a> = <span class="keyword">true</span>;</div>
@@ -122,7 +122,7 @@ $(document).ready(function(){initNavTree('_i_bottom_level_acceleration_structure
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_i_bottom_level_acceleration_structure_8cpp.html">IBottomLevelAccelerationStructure.cpp</a></li>
-    <li class="footer">Generado el Jueves, 16 de Junio de 2022 00:39:57 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Viernes, 8 de Julio de 2022 01:26:27 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

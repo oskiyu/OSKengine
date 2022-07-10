@@ -78,9 +78,9 @@ void Transform2D::UpdateModel() {
 
 	modelMatrix = glm::translate(modelMatrix, glm::vec3(globalPosition.X, globalPosition.Y, 0.0f));
 
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.5f * globalPosition.X, 0.5f * globalPosition.Y, 0.0f));
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.5f * globalScale.X, 0.5f * globalScale.Y, 0.0f));
 	modelMatrix = glm::rotate(modelMatrix, glm::radians(globalRotation), glm::vec3(0.0f, 0.0f, 1.0f));
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(-0.5f * globalPosition.X, -0.5f * globalPosition.Y, 0.0f));
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(-0.5f * globalScale.X, -0.5f * globalScale.Y, 0.0f));
 
 	modelMatrix = glm::scale(modelMatrix, glm::vec3(globalScale.X, globalScale.Y, 1.0f));
 

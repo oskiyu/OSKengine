@@ -7,7 +7,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-void GraphicsPipelineOgl::Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) {
+void GraphicsPipelineOgl::Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, Format format, const VertexInfo& vertexInfo) {
 	pipelineInfo = info;
 
 	int result = 0;

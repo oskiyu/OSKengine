@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Fichero Fuente OSKengine2/EntityComponentSystem.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -36,7 +36,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.9.3 -->
+<!-- Generado por Doxygen 1.9.4 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
@@ -94,45 +94,53 @@ $(document).ready(function(){initNavTree('_entity_component_system_8cpp_source.h
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_component_manager_8h.html">ComponentManager.h</a>&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_game_object_manager_8h.html">GameObjectManager.h</a>&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a>;</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#acd92280893189d6862ff1044f13a58e5">    9</a></span>EntityComponentSystem::EntityComponentSystem() {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    systemManager = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html">SystemManager</a>;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    componentManager = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_component_manager.html">ComponentManager</a>;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    gameObjectManager = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_game_object_manager.html">GameObjectManager</a>;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>}</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a5a836db0967b2e872e8d66b379bb0728">   15</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a5a836db0967b2e872e8d66b379bb0728">EntityComponentSystem::OnTick</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime) {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    systemManager-&gt;OnTick(deltaTime);</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a8fdd1a158a10e388946a2c3e0ddf1eb5">   19</a></span><a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a23d62d7bd6a58fd7f758079d87df6c71">GameObjectIndex</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a8fdd1a158a10e388946a2c3e0ddf1eb5">EntityComponentSystem::SpawnObject</a>() {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">return</span> gameObjectManager-&gt;CreateGameObject();</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae529c5094ca66a4eacc5da0a028eaa52">   23</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae529c5094ca66a4eacc5da0a028eaa52">EntityComponentSystem::DestroyObject</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a23d62d7bd6a58fd7f758079d87df6c71">GameObjectIndex</a>* obj) {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    gameObjectManager-&gt;DestroyGameObject(obj);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a>;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#acd92280893189d6862ff1044f13a58e5">   10</a></span>EntityComponentSystem::EntityComponentSystem() {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    systemManager = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html">SystemManager</a>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    componentManager = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_component_manager.html">ComponentManager</a>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    gameObjectManager = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_game_object_manager.html">GameObjectManager</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a5a836db0967b2e872e8d66b379bb0728">   16</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a5a836db0967b2e872e8d66b379bb0728">EntityComponentSystem::OnTick</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime) {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    systemManager-&gt;OnTick(deltaTime);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a8fdd1a158a10e388946a2c3e0ddf1eb5">   20</a></span><a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a23d62d7bd6a58fd7f758079d87df6c71">GameObjectIndex</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a8fdd1a158a10e388946a2c3e0ddf1eb5">EntityComponentSystem::SpawnObject</a>() {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">return</span> gameObjectManager-&gt;CreateGameObject();</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae529c5094ca66a4eacc5da0a028eaa52">   24</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae529c5094ca66a4eacc5da0a028eaa52">EntityComponentSystem::DestroyObject</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a23d62d7bd6a58fd7f758079d87df6c71">GameObjectIndex</a>* obj) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    gameObjectManager-&gt;DestroyGameObject(obj);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a15609b984e64143136dcca658f7c1f1a">   28</a></span><span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;IRenderSystem*&gt;</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a15609b984e64143136dcca658f7c1f1a">EntityComponentSystem::GetRenderSystems</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">return</span> renderSystems;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
 <div class="ttc" id="a_component_manager_8h_html"><div class="ttname"><a href="_component_manager_8h.html">ComponentManager.h</a></div></div>
 <div class="ttc" id="a_entity_component_system_8h_html"><div class="ttname"><a href="_entity_component_system_8h.html">EntityComponentSystem.h</a></div></div>
 <div class="ttc" id="a_game_object_manager_8h_html"><div class="ttname"><a href="_game_object_manager_8h.html">GameObjectManager.h</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_ad05d5eacc527d5b61240124daf13b33b"><div class="ttname"><a href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a></div><div class="ttdeci">float TDeltaTime</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00024">OSKmacros.h:24</a></div></div>
 <div class="ttc" id="a_system_manager_8h_html"><div class="ttname"><a href="_system_manager_8h.html">SystemManager.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition:</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_component_manager_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_component_manager.html">OSK::ECS::ComponentManager</a></div><div class="ttdoc">Se encarga de manejar la creación y eliminación de componentes. Guarda un ComponentContainer por cada...</div><div class="ttdef"><b>Definition:</b> <a href="_component_manager_8h_source.html#l00017">ComponentManager.h:17</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_entity_component_system_html_a5a836db0967b2e872e8d66b379bb0728"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a5a836db0967b2e872e8d66b379bb0728">OSK::ECS::EntityComponentSystem::OnTick</a></div><div class="ttdeci">void OnTick(TDeltaTime deltaTime)</div><div class="ttdoc">Ejecuta la lógica OnTick de todos los sistemas registrados.</div><div class="ttdef"><b>Definition:</b> <a href="_entity_component_system_8cpp_source.html#l00015">EntityComponentSystem.cpp:15</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_entity_component_system_html_a8fdd1a158a10e388946a2c3e0ddf1eb5"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a8fdd1a158a10e388946a2c3e0ddf1eb5">OSK::ECS::EntityComponentSystem::SpawnObject</a></div><div class="ttdeci">GameObjectIndex OSKAPI_CALL SpawnObject()</div><div class="ttdoc">Spawnea un nuevo objeto, y devuelve su ID.</div><div class="ttdef"><b>Definition:</b> <a href="_entity_component_system_8cpp_source.html#l00019">EntityComponentSystem.cpp:19</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_entity_component_system_html_ae529c5094ca66a4eacc5da0a028eaa52"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae529c5094ca66a4eacc5da0a028eaa52">OSK::ECS::EntityComponentSystem::DestroyObject</a></div><div class="ttdeci">void OSKAPI_CALL DestroyObject(GameObjectIndex *obj)</div><div class="ttdoc">Elimina un objeto.</div><div class="ttdef"><b>Definition:</b> <a href="_entity_component_system_8cpp_source.html#l00023">EntityComponentSystem.cpp:23</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_entity_component_system_html_a15609b984e64143136dcca658f7c1f1a"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a15609b984e64143136dcca658f7c1f1a">OSK::ECS::EntityComponentSystem::GetRenderSystems</a></div><div class="ttdeci">const OSKAPI_CALL DynamicArray&lt; IRenderSystem * &gt; &amp; GetRenderSystems() const</div><div class="ttdoc">Devuelve los render systems registrados.</div><div class="ttdef"><b>Definition:</b> <a href="_entity_component_system_8cpp_source.html#l00028">EntityComponentSystem.cpp:28</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_entity_component_system_html_a5a836db0967b2e872e8d66b379bb0728"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a5a836db0967b2e872e8d66b379bb0728">OSK::ECS::EntityComponentSystem::OnTick</a></div><div class="ttdeci">void OnTick(TDeltaTime deltaTime)</div><div class="ttdoc">Ejecuta la lógica OnTick de todos los sistemas registrados.</div><div class="ttdef"><b>Definition:</b> <a href="_entity_component_system_8cpp_source.html#l00016">EntityComponentSystem.cpp:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_entity_component_system_html_a8fdd1a158a10e388946a2c3e0ddf1eb5"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a8fdd1a158a10e388946a2c3e0ddf1eb5">OSK::ECS::EntityComponentSystem::SpawnObject</a></div><div class="ttdeci">GameObjectIndex OSKAPI_CALL SpawnObject()</div><div class="ttdoc">Spawnea un nuevo objeto, y devuelve su ID.</div><div class="ttdef"><b>Definition:</b> <a href="_entity_component_system_8cpp_source.html#l00020">EntityComponentSystem.cpp:20</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_entity_component_system_html_ae529c5094ca66a4eacc5da0a028eaa52"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae529c5094ca66a4eacc5da0a028eaa52">OSK::ECS::EntityComponentSystem::DestroyObject</a></div><div class="ttdeci">void OSKAPI_CALL DestroyObject(GameObjectIndex *obj)</div><div class="ttdoc">Elimina un objeto.</div><div class="ttdef"><b>Definition:</b> <a href="_entity_component_system_8cpp_source.html#l00024">EntityComponentSystem.cpp:24</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_game_object_manager_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_game_object_manager.html">OSK::ECS::GameObjectManager</a></div><div class="ttdoc">Se encarga de registrar y eliminar GameObjects.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_manager_8h_source.html#l00013">GameObjectManager.h:13</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_system_manager_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html">OSK::ECS::SystemManager</a></div><div class="ttdoc">El SystemManager se encarga de almacenar y manejar los sistemas del juego. Es el encargado de llamar ...</div><div class="ttdef"><b>Definition:</b> <a href="_system_manager_8h_source.html#l00027">SystemManager.h:27</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition:</b> <a href="_camera_component2_d_8h_source.html#l00015">CameraComponent2D.h:15</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a23d62d7bd6a58fd7f758079d87df6c71"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a23d62d7bd6a58fd7f758079d87df6c71">OSK::ECS::GameObjectIndex</a></div><div class="ttdeci">TSize GameObjectIndex</div><div class="ttdoc">Identificador único para un Game Object.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00019">GameObject.h:19</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00007">Assert.h:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_entity_component_system_8cpp.html">EntityComponentSystem.cpp</a></li>
-    <li class="footer">Generado el Jueves, 16 de Junio de 2022 00:39:57 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Viernes, 8 de Julio de 2022 01:26:27 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

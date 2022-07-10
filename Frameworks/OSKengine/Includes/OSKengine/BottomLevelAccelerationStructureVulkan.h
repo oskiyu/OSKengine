@@ -24,7 +24,11 @@ namespace OSK::GRAPHICS {
 
 	private:
 
+		static VkDeviceAddress GetBufferDeviceAddress(const VkBuffer buffer, const VkDevice logicalDevice);
+		static VkDeviceAddress GetBlasDeviceAddress(const VkAccelerationStructureKHR tlas, const VkDevice logicalDevice);
+
 		UniquePtr<GpuDataBuffer> accelerationStructureBuffer;
+		UniquePtr<GpuDataBuffer> buildBuffer;
 
 		VkAccelerationStructureKHR accelerationStructureHandle = VK_NULL_HANDLE;
 		VkAccelerationStructureGeometryKHR geometryInfo{};

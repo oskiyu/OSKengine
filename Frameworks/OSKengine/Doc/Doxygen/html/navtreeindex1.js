@@ -65,13 +65,8 @@ var NAVTREEINDEX1 =
 "_gpu_memory_block_dx12_8h.html":[6,0,0,96],
 "_gpu_memory_block_dx12_8h_source.html":[6,0,0,96],
 "_gpu_memory_block_vulkan_8cpp.html":[6,0,0,97],
-"_gpu_memory_block_vulkan_8cpp.html#a233c28f0320d7ab871bbd6be6d12d86b":[6,0,0,97,1],
-"_gpu_memory_block_vulkan_8cpp.html#a37b9ab5aea3538d5e537585655497e93":[6,0,0,97,0],
 "_gpu_memory_block_vulkan_8cpp_source.html":[6,0,0,97],
 "_gpu_memory_block_vulkan_8h.html":[6,0,0,98],
-"_gpu_memory_block_vulkan_8h.html#aa6344acdc704fe126a39f822b324663c":[6,0,0,98,2],
-"_gpu_memory_block_vulkan_8h.html#ab67aebb4bb7dd78d66051d8fc16c8099":[6,0,0,98,3],
-"_gpu_memory_block_vulkan_8h.html#acb8797db81ad420f81104a696ade74a9":[6,0,0,98,1],
 "_gpu_memory_block_vulkan_8h_source.html":[6,0,0,98],
 "_gpu_memory_subblock_dx12_8cpp.html":[6,0,0,99],
 "_gpu_memory_subblock_dx12_8cpp_source.html":[6,0,0,99],
@@ -110,6 +105,7 @@ var NAVTREEINDEX1 =
 "_gpu_memory_types_8h.html#ad8b871b506bab7c4021326a1a10bbc7fa24ba47a6b7ca772e4185e7a7b54d4c90":[6,0,0,105,0,2],
 "_gpu_memory_types_8h.html#ad8b871b506bab7c4021326a1a10bbc7fa56da21e70ea85d8efa9392d6fd11f2ee":[6,0,0,105,0,5],
 "_gpu_memory_types_8h.html#ad8b871b506bab7c4021326a1a10bbc7fa8d0be820da8f4fe5aa49e0ef3065ca29":[6,0,0,105,0,0],
+"_gpu_memory_types_8h.html#ad8b871b506bab7c4021326a1a10bbc7faa486db75420308f63af20d85e2b6489d":[6,0,0,105,0,8],
 "_gpu_memory_types_8h.html#ad8b871b506bab7c4021326a1a10bbc7faa77fcc0c8db7e3e4c3ca370997298c34":[6,0,0,105,0,1],
 "_gpu_memory_types_8h.html#ad8b871b506bab7c4021326a1a10bbc7fac61dfc60317a58b2843ec29f8e3c2359":[6,0,0,105,0,4],
 "_gpu_memory_types_8h.html#ad8b871b506bab7c4021326a1a10bbc7faf4723b84fe089b99fa8bd437f42b0167":[6,0,0,105,0,6],
@@ -249,5 +245,9 @@ var NAVTREEINDEX1 =
 "_i_pipeline_layout_8h.html":[6,0,0,169],
 "_i_pipeline_layout_8h_source.html":[6,0,0,169],
 "_i_pipeline_vulkan_8cpp.html":[6,0,0,170],
-"_i_pipeline_vulkan_8cpp_source.html":[6,0,0,170]
+"_i_pipeline_vulkan_8cpp_source.html":[6,0,0,170],
+"_i_pipeline_vulkan_8h.html":[6,0,0,171],
+"_i_pipeline_vulkan_8h_source.html":[6,0,0,171],
+"_i_raytracing_pipeline_8cpp.html":[6,0,0,172],
+"_i_raytracing_pipeline_8cpp_source.html":[6,0,0,172]
 };

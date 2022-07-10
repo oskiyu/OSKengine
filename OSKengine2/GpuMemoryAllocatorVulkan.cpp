@@ -128,7 +128,7 @@ OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorVulkan::CreateUniformBuffer(TSize 
 OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorVulkan::CreateStagingBuffer(TSize size) {
 	return new GpuDataBuffer(GetNextBufferMemoryBlock(size,
 		GpuBufferUsage::TRANSFER_SOURCE,
-		GpuSharedMemoryType::GPU_AND_CPU)->GetNextMemorySubblock(size, 0), size, 0);
+		GpuSharedMemoryType::GPU_AND_CPU)->GetNextMemorySubblock(size, device->As<GpuVulkan>()->GetInfo().properties.limits.minStorageBufferOffsetAlignment), size, 0);
 }
 
 OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorVulkan::CreateBuffer(TSize size, TSize alignment, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
@@ -158,7 +158,7 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageS
 
 	VkSampler sampler = VK_NULL_HANDLE;
 
-	GpuImageVulkan* output = new GpuImageVulkan(imageSize, dimension, usage, numLayers, format);
+	GpuImageVulkan* output = new GpuImageVulkan(imageSize, dimension, usage, numLayers, format, msaaSamples);
 
 
 	// ------ IMAGE ---------- //

@@ -26,11 +26,8 @@ namespace OSK::ECS {
 		void ExecuteNormalRenderpass(GRAPHICS::ICommandList* commandList);
 		void ExecuteColorRenderpass(GRAPHICS::ICommandList* commandList);
 
-		UniquePtr<GRAPHICS::IRenderpass> normalRenderpass;
-		UniquePtr<GRAPHICS::IRenderpass> colorRenderpass;
-
-		UniquePtr<GRAPHICS::GpuImage> normalImage;
-		UniquePtr<GRAPHICS::GpuImage> colorImage;
+		GRAPHICS::RenderTarget normalRenderTarget;
+		GRAPHICS::RenderTarget colorRenderTarget;
 
 	};
 

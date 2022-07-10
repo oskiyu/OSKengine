@@ -12,7 +12,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) override;
+		void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, Format format, const VertexInfo& vertexInfo) override;
 
 		OglPipelineHandler GetPipelineHandler() const;
 

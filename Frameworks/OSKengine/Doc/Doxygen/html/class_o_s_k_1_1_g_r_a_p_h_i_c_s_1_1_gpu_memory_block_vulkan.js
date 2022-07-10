@@ -7,7 +7,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan =
     [ "GetAllocatedSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html#ac6b75bf30f8b512bbc0b60c41fdaedb6", null ],
     [ "GetAvailableSpace", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html#a5470b45782d39a27ed93ed2b52737727", null ],
     [ "GetDevice", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html#a580935b95ec1677cff56582f347e8900", null ],
-    [ "GetNextMemorySubblock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html#a72d5d52a35130232e7608d1e34667e6d", null ],
+    [ "GetNextMemorySubblock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html#a8be42e86b3c636e81a8c47a56fd29b09", null ],
     [ "GetShareType", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html#a0bbdd382268b0bb587b03c1180cecde8", null ],
     [ "GetUsageType", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html#a80aec8670a12157bc819ed904d71e60e", null ],
     [ "GetVulkanBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html#a5ac0c574eca0bf98d981f01adfdaa66f", null ],

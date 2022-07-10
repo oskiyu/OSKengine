@@ -28,7 +28,7 @@ namespace OSK::GRAPHICS {
 		/// Obtiene automáticamente el tamaño de las imágenes a partir del
 		/// tamaño de la ventana.
 		/// </summary>
-		void Create(Format format, const GpuVulkan& device, const IO::Window& window);
+		void Create(PresentMode mode, Format format, const GpuVulkan& device, const IO::Window& window);
 
 		/// <summary>
 		/// Recrea el swapchain con el tamaño de la ventana.

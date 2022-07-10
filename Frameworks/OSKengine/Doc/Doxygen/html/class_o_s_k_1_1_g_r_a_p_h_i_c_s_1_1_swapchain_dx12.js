@@ -2,10 +2,11 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12 =
 [
     [ "~SwapchainDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a8c6df9c7e2332e028b5e32309fd78a9a", null ],
     [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a04699bb97612d6142b1a5895fdeeaf24", null ],
-    [ "Create", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a5a782794a56d4cfea6bdf4f34f98a766", null ],
+    [ "Create", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#aa009a4c0a6159b41b927e3929db8d7f4", null ],
     [ "CreateImages", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#accc82740cb7dbef6c41854d1c9f622b5", null ],
     [ "DeleteImages", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a8cd685c26735335357cb36ff917f9faf", null ],
     [ "GetCurrentFrameIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#abbf1668873549c12b0bc43afd19304a3", null ],
+    [ "GetCurrentPresentMode", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#ac9b32cc5c676785be45a965fdfacb4de", null ],
     [ "GetDepthStencilMemory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#afbcba548854002631cd026be996e5318", null ],
     [ "GetImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a5936949da83e48f3f0f337d1459e5989", null ],
     [ "GetImageCount", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a052206c1de590606bfdef279f326d16c", null ],
@@ -19,5 +20,6 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12 =
     [ "device", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a50f5c0b2bfc7bd549c9501322331c0cf", null ],
     [ "imageCount", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a85599f1e213f7ebdf66b6d5cd2a8fd14", null ],
     [ "images", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#af4b44c935f04512a891cd9daf8dfec8e", null ],
+    [ "mode", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a6a55d056d46f623dcbbb911b0b07b2af", null ],
     [ "targetRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a106de60ad449c18e6deadc3fe7953c4e", null ]
 ];

@@ -11,6 +11,8 @@ layout(location = 1) out vec3 outNormal;
 layout(location = 2) out vec4 outColor;
 layout(location = 3) out vec2 outTexCoords;
 
+layout(location = 4) out vec3 outCameraPos;
+
 layout (set = 0, binding = 0) uniform Camera {
     mat4 view;
     mat4 projection;
@@ -23,11 +25,10 @@ layout (push_constant) uniform Model {
 } model;
 
 void main() {
-    outPosition = inPosition;
     outColor = inColor;
     outNormal = normalize(mat3(transpose(inverse(model.modelMatrix))) * inNormal);
     outTexCoords = inTexCoords;
-
+    outCameraPos = camera.cameraPos;
 
     vec4 oPos = model.modelMatrix * vec4(inPosition, 1.0);
     outPosition = oPos.xyz;

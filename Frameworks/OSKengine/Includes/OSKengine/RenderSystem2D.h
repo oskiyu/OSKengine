@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ISystem.h"
+#include "IRenderSystem.h"
 #include "SpriteRenderer.h"
 
 namespace OSK::GRAPHICS {
@@ -9,7 +9,7 @@ namespace OSK::GRAPHICS {
 
 namespace OSK::ECS {
 
-	class OSKAPI_CALL RenderSystem2D : public ISystem {
+	class OSKAPI_CALL RenderSystem2D : public IRenderSystem {
 
 	public:
 

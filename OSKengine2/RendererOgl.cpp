@@ -58,24 +58,16 @@ void RendererOgl::Initialize(const std::string& appName, const Version& version,
 	isOpen = true;
 }
 
-OwnedPtr<IRenderpass> RendererOgl::CreateSecondaryRenderpass(GpuImage* targetImage0, GpuImage* targetImage1, GpuImage* targetImage2) {
-	OwnedPtr<IRenderpass> output = new RenderpassOgl(RenderpassType::FINAL);
-
-	materialSystem->RegisterRenderpass(output.GetPointer());
-
-	return output;
-}
-
 OwnedPtr<IMaterialSlot> RendererOgl::_CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const {
 	OSK_ASSERT(false, "No implementado.");
 	
 	return nullptr;
 }
 
-OwnedPtr<IGraphicsPipeline> RendererOgl::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo& vertexInfo) {
+OwnedPtr<IGraphicsPipeline> RendererOgl::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, Format format, const VertexInfo& vertexInfo) {
 	GraphicsPipelineOgl* pipeline = new GraphicsPipelineOgl();
 
-	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
+	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, format, vertexInfo);
 
 	return pipeline;
 }
@@ -108,25 +100,19 @@ void RendererOgl::CreateGpuMemoryAllocator() {
 	//gpuMemoryAllocator = new GpuMemoryAllocatorOgl(currentGpu.GetPointer());
 }
 
-OwnedPtr<IRaytracingPipeline> RendererOgl::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo& vertexTypeName) {
+OwnedPtr<IRaytracingPipeline> RendererOgl::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexTypeName) {
 	OSK_ASSERT(false, "No implementado.");
 	return nullptr;
 }
 
-void RendererOgl::CreateMainRenderpass() {
-	finalRenderpass = new RenderpassOgl(RenderpassType::FINAL);
-
-	materialSystem->RegisterRenderpass(finalRenderpass.GetPointer());
-}
-
 void RendererOgl::PresentFrame() {
-	commandList->EndRenderpass(finalRenderpass.GetPointer());
+	//commandList->EndRenderpass(finalRenderpass.GetPointer());
 	commandList->Close();
 
 	commandList->Reset();
 	commandList->Start();
 
-	commandList->BeginAndClearRenderpass(finalRenderpass.GetPointer(), Color::RED());
+	//commandList->BeginAndClearRenderpass(finalRenderpass.GetPointer(), Color::RED());
 
 	Vector4ui windowRec = {
 		0,

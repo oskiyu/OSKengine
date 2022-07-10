@@ -222,6 +222,7 @@
     <ClInclude Include="CubemapTextureLoader.h" />
     <ClInclude Include="DescriptorLayoutVulkan.h" />
     <ClInclude Include="DescriptorPoolVulkan.h" />
+    <ClInclude Include="Lights.h" />
     <ClInclude Include="DynamicArray.hpp" />
     <ClInclude Include="EntityComponentSystem.h" />
     <ClInclude Include="EnumFlags.hpp" />

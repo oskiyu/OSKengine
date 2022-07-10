@@ -30,20 +30,9 @@ void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
 	IGpuVertexBuffer* previousVertexBuffer = nullptr;
 	IGpuIndexBuffer* previousIndexBuffer = nullptr;
 
-	commandList->BeginAndClearRenderpass(renderTarget.GetTargetRenderpass(), { 1.0f, 1.0f, 1.0f, 0.0f });
+	commandList->BeginAndClearRenderpass(&renderTarget, { 0.0f, 0.0f, 0.0f, 0.0f });
 
-	Vector4ui windowRec = {
-		0,
-		0,
-		Engine::GetWindow()->GetWindowSize().X,
-		Engine::GetWindow()->GetWindowSize().Y
-	};
-
-	Viewport viewport{};
-	viewport.rectangle = windowRec;
-
-	commandList->SetViewport(viewport);
-	commandList->SetScissor(windowRec);
+	SetupViewport(commandList);
 
 	for (GameObjectIndex obj : GetObjects()) {
 		const ModelComponent3D& model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj);
@@ -73,5 +62,5 @@ void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
 		}
 	}
 
-	commandList->EndRenderpass(renderTarget.GetTargetRenderpass());
+	commandList->EndRenderpass(&renderTarget);
 }

@@ -53,6 +53,8 @@ void MaterialSlotVulkan::SetUniformBuffer(const std::string& binding, const IGpu
 	const GpuMemorySubblockVulkan* vulkanBuffer = buffer->GetMemorySubblock()->As<GpuMemorySubblockVulkan>();
 	const GpuMemoryBlockVulkan* vulkanBlock = vulkanBuffer->GetOwnerBlock()->As<GpuMemoryBlockVulkan>();
 
+	const bool containsBinding = bindingsLocations.ContainsKey(binding);
+
 	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
 		OwnedPtr<VkDescriptorBufferInfo> bufferInfo = new VkDescriptorBufferInfo();
 		bufferInfo->buffer = vulkanBlock->GetVulkanBuffer();
@@ -70,14 +72,23 @@ void MaterialSlotVulkan::SetUniformBuffer(const std::string& binding, const IGpu
 		descriptorWrite.pImageInfo = nullptr;
 		descriptorWrite.pTexelBufferView = nullptr;
 
-		bindings.At(i).Insert(descriptorWrite);
+		if (containsBinding)
+			bindings.At(i)[bindingsLocations.Get(binding)] = descriptorWrite;
+		else
+			bindings.At(i).Insert(descriptorWrite);
+
 		bufferInfos.Insert(bufferInfo);
 	}
+
+	if (!containsBinding)
+		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
 }
 
 void MaterialSlotVulkan::SetStorageBuffer(const std::string& binding, const GpuDataBuffer* buffer) {
 	const GpuMemorySubblockVulkan* vulkanBuffer = buffer->GetMemorySubblock()->As<GpuMemorySubblockVulkan>();
 	const GpuMemoryBlockVulkan* vulkanBlock = vulkanBuffer->GetOwnerBlock()->As<GpuMemoryBlockVulkan>();
+
+	const bool containsBinding = bindingsLocations.ContainsKey(binding);
 
 	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
 		OwnedPtr<VkDescriptorBufferInfo> bufferInfo = new VkDescriptorBufferInfo();
@@ -96,12 +107,21 @@ void MaterialSlotVulkan::SetStorageBuffer(const std::string& binding, const GpuD
 		descriptorWrite.pImageInfo = nullptr;
 		descriptorWrite.pTexelBufferView = nullptr;
 
-		bindings.At(i).Insert(descriptorWrite);
+		if (containsBinding)
+			bindings.At(i)[bindingsLocations.Get(binding)] = descriptorWrite;
+		else
+			bindings.At(i).Insert(descriptorWrite);
+
 		bufferInfos.Insert(bufferInfo);
 	}
+
+	if (!containsBinding)
+		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
 }
 
 void MaterialSlotVulkan::SetGpuImage(const std::string& binding, const GpuImage* image) {
+	const bool containsBinding = bindingsLocations.ContainsKey(binding);
+
 	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
 		OwnedPtr<VkDescriptorImageInfo> imageInfo = new VkDescriptorImageInfo();
 		imageInfo->imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
@@ -119,12 +139,21 @@ void MaterialSlotVulkan::SetGpuImage(const std::string& binding, const GpuImage*
 		descriptorWrite.pImageInfo = imageInfo.GetPointer();
 		descriptorWrite.pTexelBufferView = nullptr;
 
-		bindings[i].Insert(descriptorWrite);
+		if (containsBinding)
+			bindings.At(i)[bindingsLocations.Get(binding)] = descriptorWrite;
+		else
+			bindings.At(i).Insert(descriptorWrite);
+
 		imageInfos.Insert(imageInfo);
 	}
+
+	if (!containsBinding)
+		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
 }
 
 void MaterialSlotVulkan::SetStorageImage(const std::string& binding, const GpuImage* image) {
+	const bool containsBinding = bindingsLocations.ContainsKey(binding);
+
 	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
 		OwnedPtr<VkDescriptorImageInfo> imageInfo = new VkDescriptorImageInfo();
 		imageInfo->imageLayout = VK_IMAGE_LAYOUT_GENERAL;
@@ -141,13 +170,22 @@ void MaterialSlotVulkan::SetStorageImage(const std::string& binding, const GpuIm
 		descriptorWrite.pBufferInfo = nullptr;
 		descriptorWrite.pImageInfo = imageInfo.GetPointer();
 		descriptorWrite.pTexelBufferView = nullptr;
+		
+		if (containsBinding)
+			bindings.At(i)[bindingsLocations.Get(binding)] = descriptorWrite;
+		else
+			bindings.At(i).Insert(descriptorWrite);
 
-		bindings[i].Insert(descriptorWrite);
 		imageInfos.Insert(imageInfo);
 	}
+
+	if (!containsBinding)
+		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
 }
 
 void MaterialSlotVulkan::SetAccelerationStructure(const std::string& binding, const ITopLevelAccelerationStructure* accelerationStructure) {
+	const bool containsBinding = bindingsLocations.ContainsKey(binding);
+
 	accelerationStructures.Insert(accelerationStructure->As<TopLevelAccelerationStructureVulkan>()->GetAccelerationStructure());
 
 	OwnedPtr<VkWriteDescriptorSetAccelerationStructureKHR> descriptorAccelerationStructureInfo = new VkWriteDescriptorSetAccelerationStructureKHR{};
@@ -165,9 +203,15 @@ void MaterialSlotVulkan::SetAccelerationStructure(const std::string& binding, co
 		descriptorWrite.dstBinding = layout->GetSlot(name).bindings.Get(binding).glslIndex;
 		descriptorWrite.descriptorCount = 1;
 		descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_KHR;
-
-		bindings[i].Insert(descriptorWrite);
+		
+		if (containsBinding)
+			bindings.At(i)[bindingsLocations.Get(binding)] = descriptorWrite;
+		else
+			bindings.At(i).Insert(descriptorWrite);
 	}
+
+	if (!containsBinding)
+		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
 }
 
 void MaterialSlotVulkan::FlushUpdate() {

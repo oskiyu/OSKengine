@@ -187,42 +187,74 @@ void CommandListVulkan::CopyBuffer(const GpuDataBuffer* source, GpuDataBuffer* d
 		1, &copyRegion);
 }
 
-void CommandListVulkan::BeginRenderpass(IRenderpass* renderpass) {
-	BeginAndClearRenderpass(renderpass, Color::BLACK());
+void CommandListVulkan::BeginRenderpass(RenderTarget* renderTarget) {
+	BeginAndClearRenderpass(renderTarget, Color::BLACK() * 0.0f);
 }
 
-void CommandListVulkan::BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) {
-	const auto size = renderpass->GetImage(0)->GetSize();
+void CommandListVulkan::BeginAndClearRenderpass(RenderTarget* renderTarget, const Color& color) {
+	const auto size = renderTarget->GetSize();
+	const bool isFinal = renderTarget->GetRenderTargetType() == RenderpassType::FINAL;
+	DynamicArray<GpuImage*> colorImgs = isFinal
+		? DynamicArray<GpuImage*>{ (Engine::GetRenderer()->_GetSwapchain()->GetImage(Engine::GetRenderer()->GetCurrentFrameIndex())) }
+		: renderTarget->GetTargetImages(Engine::GetRenderer()->GetCurrentFrameIndex());
 
-	TransitionImageLayout(renderpass->GetImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, 0, 1);
+	for (auto img : colorImgs)
+		TransitionImageLayout(img, GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, 0, 1);
 
-	VkRenderPassBeginInfo renderpassInfo{};
-	renderpassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-	renderpassInfo.renderPass = renderpass->As<RenderpassVulkan>()->GetRenderpass();
-	renderpassInfo.framebuffer = renderpass->As<RenderpassVulkan>()->GetFramebuffer(Engine::GetRenderer()->GetCurrentFrameIndex());
-	renderpassInfo.renderArea.offset = { 0,0 };
-	renderpassInfo.renderArea.extent = { size.X, size.Y };
+	DynamicArray<VkRenderingAttachmentInfo> colorAttachments = DynamicArray<VkRenderingAttachmentInfo>::CreateResizedArray(colorImgs.GetSize());
+	for (TSize i = 0; i < colorImgs.GetSize(); i++) {
+		colorAttachments[i] = {};
+		colorAttachments[i].sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO_KHR;
+		colorAttachments[i].loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+		colorAttachments[i].storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+		colorAttachments[i].imageLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+		colorAttachments[i].imageView = colorImgs[i]->As<GpuImageVulkan>()->GetView();
+		colorAttachments[i].resolveMode = VK_RESOLVE_MODE_NONE;
+		colorAttachments[i].resolveImageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+		colorAttachments[i].resolveImageView = VK_NULL_HANDLE;
+		colorAttachments[i].clearValue.color = { color.Red, color.Green, color.Blue, color.Alpha };
+	}
 
-	VkClearValue clearColors[3];
-	clearColors[0] = { color.Red, color.Green, color.Blue, color.Alpha };
-	clearColors[1] = { 1.0f, 0.0f };
+	VkRenderingAttachmentInfo depthAttachment{};
+	depthAttachment.sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO_KHR;
+	depthAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+	depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+	depthAttachment.imageLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+	depthAttachment.imageView = renderTarget->GetDepthImage(GetCommandListIndex())->As<GpuImageVulkan>()->GetView();
+	depthAttachment.resolveMode = VK_RESOLVE_MODE_NONE;
+	depthAttachment.resolveImageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+	depthAttachment.resolveImageView = VK_NULL_HANDLE;
+	depthAttachment.clearValue.depthStencil = { 1.0f, 0 };
 
-	renderpassInfo.clearValueCount = 2;
-	renderpassInfo.pClearValues = clearColors;
+	VkRenderingInfo renderpassInfo{};
+	renderpassInfo.sType = VK_STRUCTURE_TYPE_RENDERING_INFO;
+	renderpassInfo.renderArea = { 0, 0, size.X, size.Y };
+	renderpassInfo.layerCount = 1;
+	renderpassInfo.colorAttachmentCount = colorAttachments.GetSize();
+	renderpassInfo.pColorAttachments = colorAttachments.GetData();
+	renderpassInfo.pDepthAttachment = &depthAttachment;
+	renderpassInfo.pStencilAttachment = &depthAttachment;
+		
+	vkCmdBeginRendering(commandBuffers.At(GetCommandListIndex()), &renderpassInfo);
 
-	vkCmdBeginRenderPass(commandBuffers.At(GetCommandListIndex()), &renderpassInfo, VK_SUBPASS_CONTENTS_INLINE);
-
-	currentRenderpass = renderpass;
+	currentRenderpass = renderTarget;
 }
 
-void CommandListVulkan::EndRenderpass(IRenderpass* renderpass) {
-	vkCmdEndRenderPass(commandBuffers[GetCommandListIndex()]);
+void CommandListVulkan::EndRenderpass(RenderTarget* renderTarget) {
+	vkCmdEndRendering(commandBuffers[GetCommandListIndex()]);
 
-	GpuImageLayout finalLayout = GpuImageLayout::SHADER_READ_ONLY;
-	if (renderpass->GetType() == RenderpassType::FINAL)
-		finalLayout = GpuImageLayout::PRESENT;
+	const bool isFinal = renderTarget->GetRenderTargetType() == RenderpassType::FINAL;
 
-	TransitionImageLayout(renderpass->GetImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::COLOR_ATTACHMENT, finalLayout, 0, 1);
+	DynamicArray<GpuImage*> colorImgs = isFinal
+		? DynamicArray<GpuImage*>{ (Engine::GetRenderer()->_GetSwapchain()->GetImage(Engine::GetRenderer()->GetCurrentFrameIndex())) }
+		: renderTarget->GetTargetImages(Engine::GetRenderer()->GetCurrentFrameIndex());
+
+	const GpuImageLayout finalLayout = isFinal
+		? GpuImageLayout::PRESENT
+		: GpuImageLayout::SHADER_READ_ONLY;
+
+	for (auto img : colorImgs)
+		TransitionImageLayout(img, GpuImageLayout::COLOR_ATTACHMENT, finalLayout, 0, 1);
 }
 
 void CommandListVulkan::BindMaterial(const Material* material) {
@@ -235,7 +267,7 @@ void CommandListVulkan::BindMaterial(const Material* material) {
 		vkCmdBindPipeline(commandBuffers[GetCommandListIndex()], VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR, currentRtPipeline->As<RaytracingPipelineVulkan>()->GetPipeline());
 	}
 	else {
-		currentPipeline = material->GetGraphicsPipeline(currentRenderpass);
+		currentPipeline = material->GetGraphicsPipeline();
 		currentRtPipeline = nullptr;
 
 		vkCmdBindPipeline(commandBuffers[GetCommandListIndex()], VK_PIPELINE_BIND_POINT_GRAPHICS, currentPipeline->As<GraphicsPipelineVulkan>()->GetPipeline());

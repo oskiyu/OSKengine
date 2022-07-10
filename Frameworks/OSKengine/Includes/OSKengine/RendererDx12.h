@@ -24,7 +24,7 @@ namespace OSK::GRAPHICS {
 		~RendererDx12();
 		RendererDx12();
 
-		void Initialize(const std::string& appName, const Version& version, const IO::Window& window) override;
+		void Initialize(const std::string& appName, const Version& version, const IO::Window& window, PresentMode mode) override;
 		void Close() override;
 		void HandleResize() override;
 
@@ -46,7 +46,7 @@ namespace OSK::GRAPHICS {
 		const TByte* FormatImageDataForGpu(const GpuImage* image, const TByte* data, TSize numLayers) override;
 
 		void CreateCommandQueues() override;
-		void CreateSwapchain() override;
+		void CreateSwapchain(PresentMode mode) override;
 		void CreateSyncDevice() override;
 		void CreateGpuMemoryAllocator() override;
 		void CreateMainRenderpass() override;

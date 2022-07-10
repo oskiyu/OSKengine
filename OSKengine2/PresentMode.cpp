@@ -6,4 +6,6 @@ template <> std::string OSK::ToString<OSK::GRAPHICS::PresentMode>(const OSK::GRA
 		case OSK::GRAPHICS::PresentMode::VSYNC_ON: return "PresentMode::VSYNC_ON";
 		case OSK::GRAPHICS::PresentMode::VSYNC_ON_TRIPLE_BUFFER: return "PresentMode::VSYNC_ON_TRIPLE_BUFFER";
 	}
+
+	return "Unkwnown";
 }

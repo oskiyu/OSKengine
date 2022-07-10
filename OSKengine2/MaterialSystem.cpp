@@ -429,8 +429,6 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 
 	MaterialLayout* layout = new MaterialLayout;
 
-	PolygonMode polygonMode = PolygonMode::FILL;
-
 	// Material file.
 	nlohmann::json materialInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(path));
 
@@ -486,29 +484,18 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 			else
 				OSK_ASSERT(false, "Error en el archivo de material" + path + ": config cull_mode inválido.");
 		}
+
+		if (materialInfo["config"].contains("is_final")) {
+			if (materialInfo["config"]["is_final"] == "true")
+				info.isFinal = true;
+		}
 	}
 
 	auto output = new Material(info, layout, vertexType);
 
 	materials.Insert(output);
-	for (auto& i : registeredRenderpasses)
-		output->RegisterRenderpass(i);
 
 	materialsTable.Insert(path, output);
 
 	return output;
-}
-
-void MaterialSystem::RegisterRenderpass(const IRenderpass* renderpass) {
-	registeredRenderpasses.Insert(renderpass);
-
-	for (auto& i : materials)
-		i->RegisterRenderpass(renderpass);
-}
-
-void MaterialSystem::UnregisterRenderpass(const IRenderpass* renderpass) {
-	registeredRenderpasses.Remove(renderpass);
-
-	for (auto& i : materials)
-		i->UnregisterRenderpass(renderpass);
 }

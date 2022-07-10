@@ -27,20 +27,9 @@ RenderSystem2D::RenderSystem2D() {
 void RenderSystem2D::Render(ICommandList* commandList) {
 	spriteRenderer.SetCommandList(commandList);
 
-	commandList->BeginAndClearRenderpass(renderTarget.GetTargetRenderpass(), { 1.0f, 1.0f, 1.0f, 0.0f });
-	
-	Vector4ui windowRec = {
-		0,
-		0,
-		Engine::GetWindow()->GetWindowSize().X,
-		Engine::GetWindow()->GetWindowSize().Y
-	};
+	commandList->BeginAndClearRenderpass(&renderTarget, { 1.0f, 1.0f, 1.0f, 0.0f });
 
-	Viewport viewport{};
-	viewport.rectangle = windowRec;
-
-	commandList->SetViewport(viewport);
-	commandList->SetScissor(windowRec);
+	SetupViewport(commandList);
 
 	spriteRenderer.Begin();
 
@@ -53,5 +42,5 @@ void RenderSystem2D::Render(ICommandList* commandList) {
 
 	spriteRenderer.End();
 
-	commandList->EndRenderpass(renderTarget.GetTargetRenderpass());
+	commandList->EndRenderpass(&renderTarget);
 }

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Referencia de la Clase OSK::GRAPHICS::IBottomLevelAccelerationStructure</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -36,7 +36,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.9.3 -->
+<!-- Generado por Doxygen 1.9.4 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
@@ -117,7 +117,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p >Estructura de aceleración de nivel bajo: contiene la geometría de un modelo 3D. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Tareas pendientes:</a></b></dt><dd><p class="startdd">Permitir usar meshes en vez de modelos enteros. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Tareas pendientes:</a></b></dt><dd><p class="startdd">Permitir usar meshes en vez de modelos enteros. </p>
 <p class="enddd">Implementación en DirectX 12. </p>
 </dd></dl>
 
@@ -179,7 +179,7 @@ Atributos protegidos</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Establece la matriz de modelo de la geometría contenida dentro de la estructura. </p>
-<dl class="section note"><dt>Nota</dt><dd>Para poder aplicarse, se debe llamar después a <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html#adc5ee7267c61dff7571d7f72c1374b9b" title="Actualiza la estructura de aceleración.">IBottomLevelAccelerationStructure::Update</a>. </dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Para poder aplicarse, se debe llamar después a <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html#adc5ee7267c61dff7571d7f72c1374b9b" title="Actualiza la estructura de aceleración, para reflejar los cambios realizados en la matriz de modelo.">IBottomLevelAccelerationStructure::Update</a>. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_bottom_level_acceleration_structure_8cpp_source.html#l00008">8</a> del archivo <a class="el" href="_i_bottom_level_acceleration_structure_8cpp_source.html">IBottomLevelAccelerationStructure.cpp</a>.</p>
 
@@ -220,7 +220,7 @@ Atributos protegidos</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Crea la estructura de aceleración con los triangulos definidos por los vértices y los índices. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Tareas pendientes:</a></b></dt><dd>Permitir determinar qué vértices y qué indices a usar, en vez de usar todos los vértices y todos los índices dados. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Tareas pendientes:</a></b></dt><dd>Permitir determinar qué vértices y qué indices a usar, en vez de usar todos los vértices y todos los índices dados. </dd></dl>
 
 <p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan.html#ac668dd6d47642db969a9b0fa917df778">OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan</a>.</p>
 
@@ -249,10 +249,9 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Actualiza la estructura de aceleración. </p>
+<p>Actualiza la estructura de aceleración, para reflejar los cambios realizados en la matriz de modelo. </p>
 <dl class="section pre"><dt>Precondición</dt><dd>Se debe haber creado la estructura, llamando a <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html#ad0eef5bed4788a7590ba001fb8b84901" title="Crea la estructura de aceleración con los triangulos definidos por los vértices y los índices.">IBottomLevelAccelerationStructure::Setup</a>.</dd></dl>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000027">Obsoleto:</a></b></dt><dd>No implementado. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Tareas pendientes:</a></b></dt><dd>Implementación Vulkan y DX12. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Tareas pendientes:</a></b></dt><dd>Implementación DX12. </dd></dl>
 
 <p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan.html#a383778d0817f1e8d970995e1338db01b">OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan</a>.</p>
 
@@ -317,7 +316,7 @@ Atributos protegidos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html">IBottomLevelAccelerationStructure</a></li>
-    <li class="footer">Generado el Jueves, 16 de Junio de 2022 00:39:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+    <li class="footer">Generado el Viernes, 8 de Julio de 2022 01:26:27 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

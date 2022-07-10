@@ -234,7 +234,8 @@ void Window::ResizeCallback(int sizex, int sizey) {
 	if (renderApi == GRAPHICS::RenderApiType::OPENGL)
 		glViewport(0, 0, GetWindowSize().X, GetWindowSize().Y);
 
-	Engine::GetRenderer()->HandleResize();
+	if (!Engine::GetRenderer()->_HasImplicitResizeHandling())
+		Engine::GetRenderer()->HandleResize();
 
 	UpdateScreenRatio();
 }

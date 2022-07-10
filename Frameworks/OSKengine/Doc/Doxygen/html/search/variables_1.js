@@ -8,5 +8,5 @@ var searchData=
   ['blass_5',['blass',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html#a78734acdf7ee644938266f2f5909bfec',1,'OSK::GRAPHICS::ITopLevelAccelerationStructure']]],
   ['blue_6',['Blue',['../class_o_s_k_1_1_color.html#a614da6bd0a19bd1099faca04bbc8809d',1,'OSK::Color']]],
   ['buffer_7',['buffer',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a9221ec74febac1fb10c483e25328796a',1,'OSK::GRAPHICS::GpuDataBuffer']]],
-  ['buffermemoryblocks_8',['bufferMemoryBlocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a9661fb81f61d697244b66cad0e651b32',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]]
+  ['buffermemoryblocks_8',['bufferMemoryBlocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#abd4e4fe493da63688ae1dfebcdcb2f8b',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]]
 ];

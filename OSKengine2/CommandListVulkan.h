@@ -37,9 +37,9 @@ namespace OSK::GRAPHICS {
 		void Start() override;
 		void Close() override;
 
-		void BeginRenderpass(IRenderpass* renderpass) override;
-		void BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) override;
-		void EndRenderpass(IRenderpass* renderpass) override;
+		void BeginRenderpass(RenderTarget* renderpass) override;
+		void BeginAndClearRenderpass(RenderTarget* renderpass, const Color& color) override;
+		void EndRenderpass(RenderTarget* renderpass) override;
 
 		void BindMaterial(const Material* material) override;
 		void BindVertexBuffer(const IGpuVertexBuffer* buffer) override;

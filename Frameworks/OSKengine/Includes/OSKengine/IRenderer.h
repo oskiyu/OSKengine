@@ -15,6 +15,12 @@
 #include "IGpuMemoryAllocator.h"
 #include "IRenderpass.h"
 #include "MaterialSystem.h"
+#include "PresentMode.h"
+#include "IGpuImage.h"
+
+// Camera 2D para renderizar a la pantalla
+#include "CameraComponent2D.h"
+#include "Transform2D.h"
 
 #include <string>
 
@@ -59,7 +65,7 @@ namespace OSK::GRAPHICS {
 		/// <param name="appName">Nombre de la aplicación / juego.</param>
 		/// <param name="version">Versión de la aplicación / juego.</param>
 		/// <param name="window">Ventana enlazada.</param>
-		virtual void Initialize(const std::string& appName, const Version& version, const IO::Window& window) = 0;
+		virtual void Initialize(const std::string& appName, const Version& version, const IO::Window& window, PresentMode mode) = 0;
 
 		/// <summary>
 		/// Cierra el renderizador.
@@ -71,7 +77,7 @@ namespace OSK::GRAPHICS {
 		/// Reconfigura el swapchain al haberse cambiado de tamaño
 		/// la ventana.
 		/// </summary>
-		virtual void HandleResize() = 0;
+		virtual void HandleResize();
 
 		/// <summary>
 		/// Una vez se han grabado todos los comandos, se debe iniciar su
@@ -185,10 +191,19 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		virtual bool SupportsRaytracing() const = 0;
 
-		IRenderpass* GetMainRenderpass() const;
+		IRenderpass* GetFinalRenderpass() const;
 
 		virtual TSize GetCurrentFrameIndex() const = 0;
 		virtual TSize GetCurrentCommandListIndex() const = 0;
+
+		/// <summary>
+		/// Devuelve una cámara 2D que renderiza en la resolución
+		/// completa de la pantalla.
+		/// 
+		/// Para poder renderizar con facilidad los diferentes render targets
+		/// en los sistemas de renderizado y en IGame::BuildFrame.
+		/// </summary>
+		const ECS::CameraComponent2D& GetRenderTargetsCamera() const;
 
 	protected:
 
@@ -209,7 +224,7 @@ namespace OSK::GRAPHICS {
 		virtual const TByte* FormatImageDataForGpu(const GpuImage* image, const TByte* data, TSize numLayers);
 
 		virtual void CreateCommandQueues() = 0;
-		virtual void CreateSwapchain() = 0;
+		virtual void CreateSwapchain(PresentMode mode) = 0;
 		virtual void CreateSyncDevice() = 0;
 		virtual void CreateGpuMemoryAllocator() = 0;
 		virtual void CreateMainRenderpass() = 0;
@@ -227,7 +242,8 @@ namespace OSK::GRAPHICS {
 
 		UniquePtr<IGpuMemoryAllocator> gpuMemoryAllocator;
 
-		UniquePtr<IRenderpass> renderpass;
+		// Renderpasses
+		UniquePtr<IRenderpass> finalRenderpass;
 		
 		UniquePtr<MaterialSystem> materialSystem;
 
@@ -239,9 +255,13 @@ namespace OSK::GRAPHICS {
 
 		bool isOpen = false;
 
+		UniquePtr<ECS::CameraComponent2D> renderTargetsCamera;
+		ECS::Transform2D renderTargetsCameraTransform{ ECS::EMPTY_GAME_OBJECT };
+
 	private:
 
 		RenderApiType renderApiType;
+
 
 	};
 

@@ -13,7 +13,7 @@
 #include "ICommandList.h"
 #include "ICommandPool.h"
 #include "IGpuMemoryAllocator.h"
-#include "IRenderpass.h"
+#include "RenderTarget.h"
 #include "MaterialSystem.h"
 #include "PresentMode.h"
 #include "IGpuImage.h"
@@ -134,34 +134,20 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// <param name="pipelineInfo">Configuración del pipeline.</param>
 		/// <param name="layout">Layout del material del pipeline.</param>
-		/// <param name="renderpass">Renderpass al que estará enlazado el pipeline.</param>
-		virtual OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo& vertexTypeName) = 0;
+		/// <param name="format">Formato de la imagen a la que se renderizará.</param>
+		virtual OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, Format format, const VertexInfo& vertexTypeName) = 0;
 		/// <summary>
 		/// Crea un graphics pipeline.
 		/// </summary>
 		/// <param name="pipelineInfo">Configuración del pipeline.</param>
 		/// <param name="layout">Layout del material del pipeline.</param>
-		/// <param name="renderpass">Renderpass al que estará enlazado el pipeline.</param>
-		virtual OwnedPtr<IRaytracingPipeline> _CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo& vertexTypeName) = 0;
+		virtual OwnedPtr<IRaytracingPipeline> _CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexTypeName) = 0;
 
 		/// <summary>
 		/// Devuelve el sistema de materiales.
 		/// Necesario mara manejar materiales y crear instancias de materiales.
 		/// </summary>
 		MaterialSystem* GetMaterialSystem() const;
-
-		/// <summary>
-		/// Crea un renderpass secundario.
-		/// Renderiza para una o tres imágenes.
-		/// Para que una sola imagen sea renderizada, las otras dos deben ser NULL.
-		/// </summary>
-		virtual OwnedPtr<IRenderpass> CreateSecondaryRenderpass(GpuImage* targetImage0, GpuImage* targetImage1, GpuImage* targetImage2) = 0;
-
-		/// <summary>
-		/// Crea un renderpass secundario.
-		/// </summary>
-		/// <param name="targetImage">Imagen sobre la que se va a renderizar.</param>
-		OwnedPtr<IRenderpass> CreateSecondaryRenderpass(GpuImage* targetImage);
 
 		/// <summary>
 		/// Crea un slot del layout del material dado.
@@ -191,7 +177,10 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		virtual bool SupportsRaytracing() const = 0;
 
-		IRenderpass* GetFinalRenderpass() const;
+		/// <summary>
+		/// Devuelve el render target que renderiza sobre la imagen final del swapchain.
+		/// </summary>
+		RenderTarget* GetFinalRenderTarget() const;
 
 		virtual TSize GetCurrentFrameIndex() const = 0;
 		virtual TSize GetCurrentCommandListIndex() const = 0;
@@ -204,6 +193,35 @@ namespace OSK::GRAPHICS {
 		/// en los sistemas de renderizado y en IGame::BuildFrame.
 		/// </summary>
 		const ECS::CameraComponent2D& GetRenderTargetsCamera() const;
+
+		/// <summary>
+		/// Devuelve el swapchain de la aplicación.
+		/// </summary>
+		/// 
+		/// @warning Función interna, no usar.
+		ISwapchain* _GetSwapchain() const;
+
+		/// <summary>
+		/// True si el cambio de tamaño de la ventana se maneja implícitamente
+		/// en el renderizador.
+		/// </summary>
+		bool _HasImplicitResizeHandling() const;
+		
+		/// <summary>
+		/// Registra un render target que debe cambiar de tamaño cuando la ventana
+		/// cambie de tamaño.
+		/// </summary>
+		/// 
+		/// @note El render target debe tener estabilidad de puntero.
+		void RegisterRenderTarget(RenderTarget* renderTarget);
+
+		/// <summary>
+		/// Quita un render target de la lista de render targers que deben cambiar
+		/// de tamaño cuando la ventana cambie de tamaño.
+		/// </summary>
+		/// 
+		/// @note Si el render target no estaba registrado, no ocurrirá nada.
+		void UnregisterRenderTarget(RenderTarget* renderTarget);
 
 	protected:
 
@@ -227,7 +245,8 @@ namespace OSK::GRAPHICS {
 		virtual void CreateSwapchain(PresentMode mode) = 0;
 		virtual void CreateSyncDevice() = 0;
 		virtual void CreateGpuMemoryAllocator() = 0;
-		virtual void CreateMainRenderpass() = 0;
+		
+		void CreateMainRenderpass();
 
 		UniquePtr<IGpu> currentGpu;
 
@@ -243,11 +262,11 @@ namespace OSK::GRAPHICS {
 		UniquePtr<IGpuMemoryAllocator> gpuMemoryAllocator;
 
 		// Renderpasses
-		UniquePtr<IRenderpass> finalRenderpass;
+		UniquePtr<RenderTarget> finalRenderTarget;
 		
 		UniquePtr<MaterialSystem> materialSystem;
 
-		DynamicArray<OwnedPtr<ICommandList>> singleTimeCommandLists;
+		DynamicArray<UniquePtr<ICommandList>> singleTimeCommandLists;
 
 		bool isFirstRender = true;
 
@@ -257,6 +276,14 @@ namespace OSK::GRAPHICS {
 
 		UniquePtr<ECS::CameraComponent2D> renderTargetsCamera;
 		ECS::Transform2D renderTargetsCameraTransform{ ECS::EMPTY_GAME_OBJECT };
+
+		bool implicitResizeHandling = false;
+
+		/// <summary>
+		/// Contiene render targets que deben cambiar de tamaño cuando la ventana
+		/// cambie de tamaño.
+		/// </summary>
+		DynamicArray<RenderTarget*> resizableRenderTargets;
 
 	private:
 

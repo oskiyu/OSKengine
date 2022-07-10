@@ -21,12 +21,21 @@ namespace OSK::GRAPHICS {
 		virtual ~IRenderpass() = default;
 
 		/// <summary>
-		/// Devuelve la imagen con el índice dado.
+		/// Devuelve la imagen de color con el índice dado.
 		/// </summary>
 		/// <param name="index"></param>
 		/// 
 		/// @throws std::runtime_error Si el índice no pertenece a ninguna imagen.
-		GpuImage* GetImage(TSize index) const;
+		GpuImage* GetColorImage(TSize index) const;
+
+		/// <summary>
+		/// Devuelve la imagen de profundidad con el índice dado.
+		/// </summary>
+		/// <param name="index"></param>
+		/// 
+		/// @throws std::runtime_error Si el índice no pertenece a ninguna imagen.
+		GpuImage* GetDepthImage(TSize index) const;
+
 		TSize GetNumberOfImages() const;
 
 		/// <summary>

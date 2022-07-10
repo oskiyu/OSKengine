@@ -31,22 +31,22 @@ void CommandListOgl::TransitionImageLayout(GpuImage* image, GpuImageLayout previ
 	image->SetLayout(next);
 }
 
-void CommandListOgl::BeginRenderpass(IRenderpass* renderpass) {
+void CommandListOgl::BeginRenderpass(RenderTarget* renderpass) {
 	BeginAndClearRenderpass(renderpass, Color::BLACK());
 }
 
-void CommandListOgl::BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) {
-	glBindFramebuffer(GL_FRAMEBUFFER, renderpass->As<RenderpassOgl>()->GetFramebuffer());
+void CommandListOgl::BeginAndClearRenderpass(RenderTarget* renderpass, const Color& color) {
+	//glBindFramebuffer(GL_FRAMEBUFFER, renderpass->As<RenderpassOgl>()->GetFramebuffer());
 	glClearColor(color.Red, color.Green, color.Blue, color.Alpha);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void CommandListOgl::EndRenderpass(IRenderpass* renderpass) {
+void CommandListOgl::EndRenderpass(RenderTarget* renderpass) {
 	glBindFramebuffer(GL_FRAMEBUFFER, OGL_NULL_HANDLER);
 }
 
 void CommandListOgl::BindMaterial(const Material* material) {
-	glUseProgram(material->GetGraphicsPipeline(currentRenderpass)->As<GraphicsPipelineOgl>()->GetPipelineHandler());
+	glUseProgram(material->GetGraphicsPipeline()->As<GraphicsPipelineOgl>()->GetPipelineHandler());
 }
 
 void CommandListOgl::BindVertexBuffer(const IGpuVertexBuffer* buffer) {

@@ -19,7 +19,7 @@ namespace OSK::GRAPHICS {
 		RendererVulkan();
 		~RendererVulkan();
 
-		void Initialize(const std::string& appName, const Version& version, const IO::Window& window) override;
+		void Initialize(const std::string& appName, const Version& version, const IO::Window& window, PresentMode mode) override;
 		void Close() override;
 		void HandleResize() override;
 		void PresentFrame() override;
@@ -50,7 +50,7 @@ namespace OSK::GRAPHICS {
 	protected:
 
 		void CreateCommandQueues() override;
-		void CreateSwapchain() override;
+		void CreateSwapchain(PresentMode mode) override;
 		void CreateSyncDevice() override;
 		void CreateGpuMemoryAllocator() override;
 		void CreateMainRenderpass() override;

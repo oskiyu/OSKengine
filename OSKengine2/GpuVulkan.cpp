@@ -27,7 +27,7 @@ OwnedPtr<ICommandPool> GpuVulkan::CreateCommandPool() {
 	poolInfo.queueFamilyIndex = indices.graphicsFamily.value();
 	poolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
 
-	VkCommandPool commandPool;
+	VkCommandPool commandPool = VK_NULL_HANDLE;
 
 	VkResult result = vkCreateCommandPool(logicalDevice, &poolInfo, nullptr, &commandPool);
 	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear el command pool.");
@@ -99,6 +99,8 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 		gpuExtensions.Insert(VK_KHR_SHADER_FLOAT_CONTROLS_EXTENSION_NAME);
 	}
 
+	// gpuExtensions.Insert(VK_KHR_DYNAMIC_RENDERING_EXTENSION_NAME);
+
 	// Crear el logical device.
 	VkDeviceCreateInfo createInfo{};
 	createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
@@ -127,7 +129,11 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 		info.rtPipelineFeatures = {};
 		info.rtPipelineFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR,
 		info.rtPipelineFeatures.rayTracingPipeline = VK_TRUE;
-		info.rtPipelineFeatures.pNext = VK_NULL_HANDLE;	
+		info.rtPipelineFeatures.pNext = &info.dynamicRenderingFeatures;
+
+		info.dynamicRenderingFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES;
+		info.dynamicRenderingFeatures.dynamicRendering = VK_TRUE;
+		info.dynamicRenderingFeatures.pNext = nullptr;
 	}
 
 	// Crear el logical device.
@@ -251,6 +257,11 @@ GpuVulkan::Info GpuVulkan::Info::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface)
 	info.rtAccelerationStructuresFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR;
 	info.rtAccelerationStructuresFeatures.pNext = &info.rtDeviceAddressFeatures;
 	info.rtDeviceAddressFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES;
+	info.rtDeviceAddressFeatures.pNext = &info.dynamicRenderingFeatures;
+
+	// Características para renderizado sin renderpasses
+	info.dynamicRenderingFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES;
+	info.dynamicRenderingFeatures.dynamicRendering = VK_TRUE;
 
 	vkGetPhysicalDeviceFeatures2(gpu, &info.features2);
 

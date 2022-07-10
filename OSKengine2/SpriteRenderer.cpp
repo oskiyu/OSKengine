@@ -48,7 +48,11 @@ void SpriteRenderer::Draw(const Sprite& sprite, const TextureCoordinates2D& texC
 
 	pushConst.color = sprite.color;
 	pushConst.matrix = transform.GetAsMatrix();
-	pushConst.texCoords = texCoords.GetNormalized({ (float)sprite.GetGpuImage()->GetSize().X, (float)sprite.GetGpuImage()->GetSize().Y });
+
+	if (texCoords.type == TextureCoordsType::NORMALIZED)
+		pushConst.texCoords = texCoords.texCoords;
+	else
+		pushConst.texCoords = texCoords.GetNormalized({ (float)sprite.GetGpuImage()->GetSize().X, (float)sprite.GetGpuImage()->GetSize().Y });
 
 	if (lastBoundMaterial != sprite.GetMaterialInstance()->GetMaterial()) {
 		targetCommandList->BindMaterial(sprite.GetMaterialInstance()->GetMaterial());
@@ -98,8 +102,6 @@ void SpriteRenderer::DrawString(ASSETS::Font& font, TSize fontSize, const std::s
 	OSK_ASSERT(fontInstance.sprite.GetPointer() != nullptr, "La fuente no tiene configurado su sprite.");
 	OSK_ASSERT(fontInstance.sprite->GetMaterialInstance() != nullptr, "La fuente no tiene configurado su sprite.");
 
-	const Vector2f textSize = fontInstance.GetTextSize(text);
-
 	const Vector2f& position = transform.GetPosition();
 	float x = transform.GetPosition().X;
 	float y = transform.GetPosition().Y;
@@ -115,7 +117,7 @@ void SpriteRenderer::DrawString(ASSETS::Font& font, TSize fontSize, const std::s
 		}
 
 		if (text[i] == '\t') {
-			x += x += (character.advance >> 6) * 4;// Font::SPACES_PER_TAB;
+			x += (character.advance >> 6) * 4;// Font::SPACES_PER_TAB;
 
 			continue;
 		}

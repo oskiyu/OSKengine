@@ -7,6 +7,7 @@
 #include "DescriptorLayoutVulkan.h"
 #include "DescriptorPoolVulkan.h"
 #include "LinkedList.hpp"
+#include "HashMap.hpp"
 
 #include <vulkan/vulkan.h>
 
@@ -29,6 +30,8 @@ namespace OSK::GRAPHICS {
 		VkDescriptorSet GetDescriptorSet(TSize index) const;
 
 	private:
+
+		HashMap<std::string, TSize> bindingsLocations;
 
 		DynamicArray<VkDescriptorSet> descriptorSets;
 		DynamicArray<DynamicArray<VkWriteDescriptorSet>> bindings;

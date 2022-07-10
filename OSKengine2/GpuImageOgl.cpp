@@ -5,8 +5,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImageOgl::GpuImageOgl(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format)
-	: GpuImage(size, dimension, usage, numLayers, format) {
+GpuImageOgl::GpuImageOgl(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples)
+	: GpuImage(size, dimension, usage, numLayers, format, numSamples) {
 
 }
 

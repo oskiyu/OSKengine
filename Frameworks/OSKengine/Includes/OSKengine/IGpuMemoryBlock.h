@@ -10,6 +10,10 @@ namespace OSK::GRAPHICS {
 	class IGpu;
 	enum class GpuSharedMemoryType;
 	enum class GpuMemoryUsage;
+	enum class Format;
+	enum class GpuBufferUsage;
+	enum class GpuImageUsage;
+	class GpuImage;
 
 	/// <summary>
 	/// Un bloque de memoria representa una región de memoria que
@@ -40,7 +44,7 @@ namespace OSK::GRAPHICS {
 		/// Obtiene un subbloque con el tamaño dado,
 		/// ya sea nuevo o reutilizado.
 		/// </summary>
-		IGpuMemorySubblock* GetNextMemorySubblock(TSize size);
+		IGpuMemorySubblock* GetNextMemorySubblock(TSize size, TSize alignment);
 
 		/// <summary>
 		/// Devuelve el tamaño del bloque.

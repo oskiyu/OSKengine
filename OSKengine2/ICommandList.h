@@ -18,7 +18,7 @@ namespace OSK::GRAPHICS {
 	class IMaterialSlot;
 	class GpuImage;
 	enum class GpuImageLayout;
-	class IRenderpass;
+	class RenderTarget;
 	class IGpuVertexBuffer;
 	class IGpuIndexBuffer;
 	struct Viewport;
@@ -101,32 +101,32 @@ namespace OSK::GRAPHICS {
 
 
 		/// <summary>
-		/// Comienza el renderizado a un renderpass.
+		/// Comienza el renderizado a un render target.
 		/// </summary>
 		/// 
 		/// @note Se limpiará la imagen con color negro.
 		/// 
 		/// @pre No debe haber ningún renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void BeginRenderpass(IRenderpass* renderpass) = 0;
+		virtual void BeginRenderpass(RenderTarget* renderpass) = 0;
 
 		/// <summary>
-		/// Comienza el renderizado a un renderpass.
+		/// Comienza el renderizado a un render target.
 		/// </summary>
 		/// 
 		/// <param name="color">Color con el que limpiará la imagen.</param>
 		/// 
 		/// @pre No debe haber ningún renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) = 0;
+		virtual void BeginAndClearRenderpass(RenderTarget* renderpass, const Color& color) = 0;
 
 		/// <summary>
-		/// Finaliza el renderizado a un renderpass.
+		/// Finaliza el renderizado a un render target.
 		/// </summary>
 		/// 
 		/// @pre Debe haber un renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void EndRenderpass(IRenderpass* renderpass) = 0;
+		virtual void EndRenderpass(RenderTarget* renderpass) = 0;
 
 
 		/// <summary>
@@ -327,7 +327,7 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Renderepass que está siendo grabado en un instante determinado.
 		/// </summary>
-		const IRenderpass* currentRenderpass = nullptr;
+		const RenderTarget* currentRenderpass = nullptr;
 
 		bool isSingleUse = false;
 

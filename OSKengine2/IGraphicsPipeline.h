@@ -3,6 +3,7 @@
 #include "OSKmacros.h"
 #include "UniquePtr.hpp"
 #include "IPipelineLayout.h"
+#include "Format.h"
 
 namespace OSK::GRAPHICS {
 
@@ -26,7 +27,7 @@ namespace OSK::GRAPHICS {
 		/// Crea el pipeline con la configuración dada.
 		/// </summary>
 		/// <param name="info">Configuración del pipeline.</param>
-		virtual void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) = 0;
+		virtual void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, Format targetImageFormat, const VertexInfo& vertexInfo) = 0;
 
 		template <typename T> T* As() const requires std::is_base_of_v<IGraphicsPipeline, T> {
 			return (T*)this;
@@ -37,6 +38,8 @@ namespace OSK::GRAPHICS {
 	protected:
 
 		UniquePtr<IPipelineLayout> layout;
+
+		Format targetImageFormat;
 
 	};
 

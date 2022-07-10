@@ -54,8 +54,6 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		Format format;
-
 		ComPtr<IDXGISwapChain3> swapchain;
 
 		ComPtr<ID3D12DescriptorHeap> renderTargetsDesc;

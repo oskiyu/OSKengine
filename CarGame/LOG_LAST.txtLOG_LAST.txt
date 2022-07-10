@@ -1,6 +1,6 @@
 INFO: Iniciando OSKengine.
 INFO: 	Version: 0.0.0.
-INFO: 	Build 2022.06.16a.
+INFO: 	Build 2022.07.06a.
 INFO: Ventana iniciada correctamente.
 INFO: 	Monitor sizeX: 1920
 INFO: 	Monitor sizeY: 1080
@@ -19,7 +19,55 @@ INFO: 	Adquiridas las views del swapchain.
 INFO: Creado correctamente el swapchain.
 INFO: Creado el swapchain.
 INFO: Creado el asignador de memoria de la GPU.
+INFO: Creado bloque de memoria GPU.
+INFO: 	Tamaño: 134217728
+INFO: Creado bloque de memoria GPU.
+INFO: 	Tamaño: 134217728
+INFO: Creado bloque de memoria GPU.
+INFO: 	Tamaño: 134217728
+INFO: Creado bloque de memoria GPU.
+INFO: 	Tamaño: 134217728
 INFO: Game started
+INFO: Creado bloque de memoria GPU.
+INFO: 	Tamaño: 134217728
+INFO: Creado bloque de memoria GPU.
+INFO: 	Tamaño: 134217728
+INFO: Creado bloque de memoria GPU.
+INFO: 	Tamaño: 134217728
+INFO: Creado bloque de memoria GPU.
+INFO: 	Tamaño: 135736368
+INFO: Creado bloque de memoria GPU.
+INFO: 	Tamaño: 135736368
+INFO: Creado bloque de memoria GPU.
+INFO: 	Tamaño: 134217728
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
+ERROR: Assertion failed: vkQueuePresentKHR code: -1000001004
+	 at OSK::GRAPHICS::SyncDeviceVulkan::Flush
+	 at line 138
+	 at file C:\Users\Oscar\source\repos\OSKengine\OSKengine2\SyncDeviceVulkan.cpp
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
+ERROR: Assertion failed: vkQueuePresentKHR code: -1000001004
+	 at OSK::GRAPHICS::SyncDeviceVulkan::Flush
+	 at line 138
+	 at file C:\Users\Oscar\source\repos\OSKengine\OSKengine2\SyncDeviceVulkan.cpp
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
+ERROR: Assertion failed: vkQueuePresentKHR code: -1000001004
+	 at OSK::GRAPHICS::SyncDeviceVulkan::Flush
+	 at line 138
+	 at file C:\Users\Oscar\source\repos\OSKengine\OSKengine2\SyncDeviceVulkan.cpp
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
+ERROR: Assertion failed: vkQueuePresentKHR code: -1000001004
+	 at OSK::GRAPHICS::SyncDeviceVulkan::Flush
+	 at line 138
+	 at file C:\Users\Oscar\source\repos\OSKengine\OSKengine2\SyncDeviceVulkan.cpp
 INFO: Game exited
 INFO: Destruyendo el renderizador de Vulkan.
 INFO: Cerrado el log.

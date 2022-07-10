@@ -1,13 +1,7 @@
 #pragma once
 
 #include "IGpuMemoryBlock.h"
-
-struct VkDeviceMemory_T;
-typedef VkDeviceMemory_T* VkDeviceMemory;
-struct VkBuffer_T;
-typedef VkBuffer_T* VkBuffer;
-struct VkImage_T;
-typedef VkImage_T* VkImage;
+#include <vulkan/vulkan.h>
 
 namespace OSK::GRAPHICS {
 
@@ -15,6 +9,7 @@ namespace OSK::GRAPHICS {
 	enum class GpuBufferUsage;
 	enum class GpuImageUsage;
 	class GpuImage;
+	class GpuVulkan;
 
 	class OSKAPI_CALL GpuMemoryBlockVulkan : public IGpuMemoryBlock {
 
@@ -36,8 +31,22 @@ namespace OSK::GRAPHICS {
 		GpuMemoryBlockVulkan(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage);
 		GpuMemoryBlockVulkan(GpuImage*, IGpu* device, GpuImageUsage imageUsage, GpuSharedMemoryType type);
 
-		VkDeviceMemory memory = nullptr;
-		VkBuffer buffer = nullptr;
+		static VkMemoryAllocateFlags GetMemoryAllocateFlags(GpuBufferUsage usage);
+		static uint32_t GetMemoryType(uint32_t memoryTypeFilter, GpuVulkan* device, GpuSharedMemoryType type);
+
+		/// <summary>
+		/// Memoria del bloque.
+		/// </summary>
+		VkDeviceMemory memory = VK_NULL_HANDLE;
+
+		/// <summary>
+		/// Buffer único.
+		/// Puede no ser usado.
+		/// 
+		/// Cada subbloque debe tener su propio buffer,
+		/// pero se puede configurar para que exista un único buffer por bloque.
+		/// </summary>
+		VkBuffer buffer = VK_NULL_HANDLE;
 
 	};
 

@@ -9,16 +9,15 @@
 
 namespace OSK::GRAPHICS {
 
-	class RenderpassVulkan;
 	class GpuVulkan;
 
 	class OSKAPI_CALL GraphicsPipelineVulkan : public IGraphicsPipeline, public IPipelineVulkan {
 
 	public:
 
-		GraphicsPipelineVulkan(RenderpassVulkan* renderpass);
+		GraphicsPipelineVulkan();
 
-		void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) override;
+		void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, Format targetImageFormat, const VertexInfo& vertexInfo) override;
 
 	private:
 
@@ -31,8 +30,6 @@ namespace OSK::GRAPHICS {
 		void LoadFragmentShader(const std::string& path);
 		void LoadTesselationControlShader(const std::string& path);
 		void LoadTesselationEvaluationShader(const std::string& path);
-
-		RenderpassVulkan* targetRenderpass = nullptr;
 
 		IGpu* gpu = nullptr;
 

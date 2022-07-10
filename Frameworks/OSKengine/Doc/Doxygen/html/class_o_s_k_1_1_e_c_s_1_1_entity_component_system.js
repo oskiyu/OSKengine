@@ -6,6 +6,7 @@ var class_o_s_k_1_1_e_c_s_1_1_entity_component_system =
     [ "DestroyObject", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae529c5094ca66a4eacc5da0a028eaa52", null ],
     [ "GetComponent", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ab543c5c91b9b319ed21a01da96ea06d9", null ],
     [ "GetComponentType", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#af46449bd1febf59fec08e94e73c4fc80", null ],
+    [ "GetRenderSystems", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a15609b984e64143136dcca658f7c1f1a", null ],
     [ "GetSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a706590589270cf5d5aa1747915ba67f9", null ],
     [ "ObjectHasComponent", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ad5ba5ecdf2ce00a8f8a748d7a4d8dd16", null ],
     [ "OnTick", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a5a836db0967b2e872e8d66b379bb0728", null ],

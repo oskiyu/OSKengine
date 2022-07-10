@@ -42,8 +42,8 @@ SwapchainDx12::~SwapchainDx12() {
 }
 
 void SwapchainDx12::Create(PresentMode mode, IGpu* device, Format format, const CommandQueueDx12& commandQueue, IDXGIFactory4* factory, const IO::Window& window) {
-    this->format = format;
     this->device = device;
+    this->colorFormat = format;
 
     this->mode = mode;
 
@@ -106,8 +106,8 @@ void SwapchainDx12::CreateImages(const IO::Window& window) {
 
     const Vector3ui imageSize = Vector3ui(window.GetWindowSize().X, window.GetWindowSize().Y, 1);
     for (TSize i = 0; i < imageCount; i++) {
-        images[i] = new GpuImageDx12(imageSize, GpuImageDimension::d2D, GpuImageUsage::COLOR, 1, format);
-        depthImages[i] = new GpuImageDx12(imageSize, GpuImageDimension::d2D, GpuImageUsage::DEPTH_STENCIL, 1, format);
+        images[i] = new GpuImageDx12(imageSize, GpuImageDimension::d2D, GpuImageUsage::COLOR, 1, colorFormat, 1);
+        depthImages[i] = new GpuImageDx12(imageSize, GpuImageDimension::d2D, GpuImageUsage::DEPTH_STENCIL, 1, colorFormat, 1);
 
         {
             ComPtr<ID3D12Resource> rTarget;
@@ -117,7 +117,7 @@ void SwapchainDx12::CreateImages(const IO::Window& window) {
 
             D3D12_RENDER_TARGET_VIEW_DESC renderTargetDesc{};
             renderTargetDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;
-            renderTargetDesc.Format = GetFormatDx12(format);
+            renderTargetDesc.Format = GetFormatDx12(colorFormat);
             renderTargetDesc.Texture2D.MipSlice = 0;
             renderTargetDesc.Texture2D.PlaneSlice = 0;
 

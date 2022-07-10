@@ -2,8 +2,8 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12 =
 [
     [ "_SetSingleTimeUse", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a91dd0015d5deefbbcbc1abacdb6be2c6", null ],
     [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a7bf40442c718857b7b6b6ced797d5b2a", null ],
-    [ "BeginAndClearRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a546510609e889e49aca9c89262ecf527", null ],
-    [ "BeginRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a7001f2a6a149e3ae07438341d9b23e1c", null ],
+    [ "BeginAndClearRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a23ff1e1ddb4711ebada20d5f79453e95", null ],
+    [ "BeginRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a9a611a74f62366441923b91c44601e54", null ],
     [ "BindImageDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#ab219be38705f5c3638054bd661621301", null ],
     [ "BindIndexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a75ba4f8260802186c96698f7f5e913a3", null ],
     [ "BindMaterial", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a516eedb71f997c6d260a4be362bfba3c", null ],
@@ -15,7 +15,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12 =
     [ "DeleteAllStagingBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#ab7109911a37fcb344856f013eab554da", null ],
     [ "DrawSingleInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a8dba675ac31600b4c0bbab76b22c0f8d", null ],
     [ "DrawSingleMesh", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a7f68fd5258093b3d128dbf7f80bc53c1", null ],
-    [ "EndRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a3586eff129bbcdbd43c08a7dd1dc451d", null ],
+    [ "EndRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#ae463d0b2174cac2512e66bd746d5176b", null ],
     [ "GetCommandList", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a621a55a5d29e7e84795a49f1793052db", null ],
     [ "GetCommandListIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a2737fdfdca1c275d18f54cbb326dbc0d", null ],
     [ "PushMaterialConstants", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a0d46ca565299ba80f80ac603ffd4b88c", null ],
@@ -34,7 +34,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12 =
     [ "TransitionImageLayout", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a3500e154f4d448e124663717846ef7aa", null ],
     [ "currentMaterial", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a38a16050295d9b1591859ddce9f8668e", null ],
     [ "currentPipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#afcd5207fff39ff2f7ca83d3cb9820892", null ],
-    [ "currentRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a721841ff3b70e827251460e6a5de250c", null ],
+    [ "currentRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a3a99fdd67da8616ed361e4e41a68d9cb", null ],
     [ "currentRtPipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a3823334c96457ebb0aff6620d98db735", null ],
     [ "isSingleUse", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a3298bbf2bbc07fce7dd4a04a20b0bf44", null ]
 ];

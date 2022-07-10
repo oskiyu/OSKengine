@@ -32,25 +32,15 @@ PbrDeferredRenderSystem::PbrDeferredRenderSystem() {
 }
 
 void PbrDeferredRenderSystem::CreateTargetImage(const Vector2ui& size) {
-	normalImage = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ Engine::GetWindow()->GetWindowSize().X, Engine::GetWindow()->GetWindowSize().Y, 1 }, OSK::GRAPHICS::GpuImageDimension::d2D, 1, OSK::GRAPHICS::Format::RGBA8_UNORM,
-		OSK::GRAPHICS::GpuImageUsage::COLOR | OSK::GRAPHICS::GpuImageUsage::SAMPLED, OSK::GRAPHICS::GpuSharedMemoryType::GPU_ONLY, 1).GetPointer();
-	colorImage = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ Engine::GetWindow()->GetWindowSize().X, Engine::GetWindow()->GetWindowSize().Y, 1 }, OSK::GRAPHICS::GpuImageDimension::d2D, 1, OSK::GRAPHICS::Format::RGBA8_UNORM,
-		OSK::GRAPHICS::GpuImageUsage::COLOR | OSK::GRAPHICS::GpuImageUsage::SAMPLED, OSK::GRAPHICS::GpuSharedMemoryType::GPU_ONLY, 1).GetPointer();
-
-	normalRenderpass = Engine::GetRenderer()->CreateSecondaryRenderpass(normalImage.GetPointer()).GetPointer();
-	colorRenderpass = Engine::GetRenderer()->CreateSecondaryRenderpass(colorImage.GetPointer()).GetPointer();
+	normalRenderTarget.Create(size, Format::RGBA8_UNORM, Format::D32S8_SFLOAT_SUINT);
+	colorRenderTarget.Create(size, Format::RGBA8_UNORM, Format::D32S8_SFLOAT_SUINT);
 
 	IRenderSystem::CreateTargetImage(size);
 }
 
 void PbrDeferredRenderSystem::Resize(const Vector2ui& windowSize) {
-	normalImage = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ windowSize.X, windowSize.Y, 1 }, OSK::GRAPHICS::GpuImageDimension::d2D, 1, OSK::GRAPHICS::Format::RGBA8_UNORM,
-		OSK::GRAPHICS::GpuImageUsage::COLOR | OSK::GRAPHICS::GpuImageUsage::SAMPLED, OSK::GRAPHICS::GpuSharedMemoryType::GPU_ONLY, 1).GetPointer();
-	colorImage = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ 1920, 1080, 1 }, OSK::GRAPHICS::GpuImageDimension::d2D, 1, OSK::GRAPHICS::Format::RGBA8_UNORM,
-		OSK::GRAPHICS::GpuImageUsage::COLOR | OSK::GRAPHICS::GpuImageUsage::SAMPLED, OSK::GRAPHICS::GpuSharedMemoryType::GPU_ONLY, 1).GetPointer();
-
-	normalRenderpass->SetImages(normalImage.GetPointer(), normalImage.GetPointer(), normalImage.GetPointer());
-	colorRenderpass->SetImages(colorImage.GetPointer(), colorImage.GetPointer(), colorImage.GetPointer());
+	normalRenderTarget.Resize(windowSize);
+	colorRenderTarget.Resize(windowSize);
 
 	IRenderSystem::Resize(windowSize);
 }
@@ -65,20 +55,9 @@ void PbrDeferredRenderSystem::ExecuteNormalRenderpass(ICommandList* commandList)
 	IGpuVertexBuffer* previousVertexBuffer = nullptr;
 	IGpuIndexBuffer* previousIndexBuffer = nullptr;
 
-	commandList->BeginRenderpass(normalRenderpass.GetPointer());
+	commandList->BeginRenderpass(&normalRenderTarget);
 
-	OSK::Vector4ui imageRec = {
-		0,
-		0,
-		normalImage->GetSize().X,
-		normalImage->GetSize().Y
-	};
-
-	OSK::GRAPHICS::Viewport viewport{};
-	viewport.rectangle = imageRec;
-
-	commandList->SetViewport(viewport);
-	commandList->SetScissor(imageRec);
+	SetupViewport(commandList);
 
 	for (GameObjectIndex obj : GetObjects()) {
 		const ModelComponent3D& model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj);
@@ -108,7 +87,7 @@ void PbrDeferredRenderSystem::ExecuteNormalRenderpass(ICommandList* commandList)
 		}
 	}
 
-	commandList->EndRenderpass(normalRenderpass.GetPointer());
+	commandList->EndRenderpass(&normalRenderTarget);
 }
 
 void PbrDeferredRenderSystem::ExecuteColorRenderpass(ICommandList* commandList) {
@@ -116,13 +95,13 @@ void PbrDeferredRenderSystem::ExecuteColorRenderpass(ICommandList* commandList) 
 	IGpuVertexBuffer* previousVertexBuffer = nullptr;
 	IGpuIndexBuffer* previousIndexBuffer = nullptr;
 
-	commandList->BeginRenderpass(colorRenderpass.GetPointer());
+	commandList->BeginRenderpass(&normalRenderTarget);
 
 	OSK::Vector4ui imageRec = {
 		0,
 		0,
-		colorImage->GetSize().X,
-		colorImage->GetSize().Y
+		normalRenderTarget.GetSize().X,
+		normalRenderTarget.GetSize().Y
 	};
 
 	OSK::GRAPHICS::Viewport viewport{};
@@ -159,5 +138,5 @@ void PbrDeferredRenderSystem::ExecuteColorRenderpass(ICommandList* commandList) 
 		}
 	}
 
-	commandList->EndRenderpass(colorRenderpass.GetPointer());
+	commandList->EndRenderpass(&normalRenderTarget);
 }

@@ -2,10 +2,10 @@
 
 #include "OSKmacros.h"
 #include "UniquePtr.hpp"
+#include "IGpuImage.h"
 
 namespace OSK::GRAPHICS {
 
-	class GpuImage;
 	enum class RenderpassType;
 
 	/// <summary>

@@ -12,7 +12,6 @@ namespace OSK::GRAPHICS {
 	/// </summary>
 	/// 
 	/// @todo Implementación en DirectX 12.
-	/// @todo Implementación de actualización.
 	class OSKAPI_CALL ITopLevelAccelerationStructure {
 
 	public:
@@ -38,6 +37,16 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @todo Implementación en DX12.
 		virtual void Setup() = 0;
+
+		/// <summary>
+		/// Actualiza la estructura de aceleración, para que refleje los cambios producidos en
+		/// las estructuras de nivel inferior.
+		/// </summary>
+		/// 
+		/// @pre Esta estructura debe haber sido correctamente creada llamando a ITopLevelAccelerationStructure::Setup.
+		/// 
+		/// @todo Implementación en DX12.
+		virtual void Update() = 0;
 
 	protected:
 

@@ -10,6 +10,10 @@
 #include "GpuImageLayout.h"
 #include "ICommandList.h"
 #include "Window.h"
+#include "OSKengine.h"
+#include "EntityComponentSystem.h"
+#include "IRenderSystem.h"
+#include "Format.h"
 
 using namespace OSK;
 using namespace OSK::IO;
@@ -63,8 +67,16 @@ void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data
 void IRenderer::HandleResize() {
 	const Vector2ui windowSize = window->GetWindowSize();
 
-	renderTargetsCameraTransform.SetScale({ windowSize.X / 2.0f, windowSize.Y / 2.0f });
 	renderTargetsCamera->UpdateUniformBuffer(renderTargetsCameraTransform);
+
+	if (Engine::GetEntityComponentSystem())
+		for (auto i : Engine::GetEntityComponentSystem()->GetRenderSystems())
+			i->Resize(windowSize);
+
+	for (auto i : resizableRenderTargets)
+		i->Resize(windowSize);
+
+	finalRenderTarget->Resize(windowSize);
 }
 
 const TByte* IRenderer::FormatImageDataForGpu(const GpuImage* image, const TByte* data, TSize numLayers) {
@@ -90,8 +102,11 @@ MaterialSystem* IRenderer::GetMaterialSystem() const {
 	return materialSystem.GetPointer();
 }
 
-OwnedPtr<IRenderpass> IRenderer::CreateSecondaryRenderpass(GpuImage* targetImage) {
-	return CreateSecondaryRenderpass(targetImage, targetImage, targetImage);
+void IRenderer::CreateMainRenderpass() {
+	finalRenderTarget = new RenderTarget;
+	finalRenderTarget->SetRenderTargetType(RenderpassType::FINAL);
+	finalRenderTarget->Create({ swapchain->GetImage(0)->GetSize().X, swapchain->GetImage(0)->GetSize().Y },
+		swapchain->GetColorFormat(), Format::D32S8_SFLOAT_SUINT);
 }
 
 RenderApiType IRenderer::GetRenderApi() const {
@@ -106,10 +121,27 @@ bool IRenderer::IsOpen() const {
 	return isOpen;
 }
 
-IRenderpass* IRenderer::GetFinalRenderpass() const {
-	return finalRenderpass.GetPointer();
+RenderTarget* IRenderer::GetFinalRenderTarget() const {
+	return finalRenderTarget.GetPointer();
 }
 
 const ECS::CameraComponent2D& IRenderer::GetRenderTargetsCamera() const {
 	return *renderTargetsCamera.GetPointer();
+}
+
+ISwapchain* IRenderer::_GetSwapchain() const {
+	return swapchain.GetPointer();
+}
+
+bool IRenderer::_HasImplicitResizeHandling() const {
+	return implicitResizeHandling;
+}
+
+void IRenderer::RegisterRenderTarget(RenderTarget* renderTarget) {
+	if (!resizableRenderTargets.ContainsElement(renderTarget))
+		resizableRenderTargets.Insert(renderTarget);
+}
+
+void IRenderer::UnregisterRenderTarget(RenderTarget* renderTarget) {
+	resizableRenderTargets.Remove(renderTarget);
 }

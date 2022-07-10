@@ -19,11 +19,11 @@ namespace OSK::GRAPHICS {
 		void TransitionImageLayout(GpuImage*, GpuImageLayout, GpuImageLayout, TSize, TSize) override;
 
 		/// @deprecated OpenGL no implementado.
-		void BeginRenderpass(IRenderpass* renderpass) override;
+		void BeginRenderpass(RenderTarget* renderpass) override;
 		/// @deprecated OpenGL no implementado.
-		void BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) override;
+		void BeginAndClearRenderpass(RenderTarget* renderpass, const Color& color) override;
 		/// @deprecated OpenGL no implementado.
-		void EndRenderpass(IRenderpass* renderpass) override;
+		void EndRenderpass(RenderTarget* renderpass) override;
 
 		/// @deprecated OpenGL no implementado.
 		void BindMaterial(const Material* material) override;

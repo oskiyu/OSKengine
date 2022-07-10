@@ -30,6 +30,8 @@ namespace OSK::GRAPHICS {
 
 		/// <summary>
 		/// Carga un material.
+		/// 
+		/// Los materiales son cacheados: sólo se cargan una vez.
 		/// </summary>
 		/// <param name="path">Ruta al archivo del material (.json).</param>
 		Material* LoadMaterial(const std::string& path);

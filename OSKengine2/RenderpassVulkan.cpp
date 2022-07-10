@@ -163,9 +163,9 @@ void RenderpassVulkan::Create(const ISwapchain* swapchain, VkImageLayout finalLa
 	createInfo.dependencyCount = 1;
 	createInfo.pDependencies = &subpassDependency;
 
-	VkResult result = vkCreateRenderPass(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
-		&createInfo, nullptr, &renderpass);
-	OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear el renderpass. Code: " + std::to_string(result));
+	//VkResult result = vkCreateRenderPass(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
+	//	&createInfo, nullptr, &renderpass);
+	//OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear el renderpass. Code: " + std::to_string(result));
 }
 
 void RenderpassVulkan::SetImages(GpuImage* image0, GpuImage* image1, GpuImage* image2) {
@@ -176,7 +176,7 @@ void RenderpassVulkan::SetImages(GpuImage* image0, GpuImage* image1, GpuImage* i
 
 	const auto size = image0->GetSize();
 
-	const TSize numSamples = (TSize)Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetInfo().maxMsaaSamples;
+	TSize numSamples = image0->GetNumSamples();
 
 	images[0] = image0;
 	images[1] = image1;
@@ -219,9 +219,9 @@ void RenderpassVulkan::SetImages(GpuImage* image0, GpuImage* image1, GpuImage* i
 		framebufferInfo.height = image0->GetSize().Y;
 		framebufferInfo.layers = 1;
 
-		VkResult result = vkCreateFramebuffer(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
-			&framebufferInfo, nullptr, &framebuffer);
-		OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear el framebuffer. Code: " + std::to_string(result));
+		//VkResult result = vkCreateFramebuffer(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
+		//	&framebufferInfo, nullptr, &framebuffer);
+		//OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear el framebuffer. Code: " + std::to_string(result));
 
 		framebuffers.Insert(framebuffer);
 	}

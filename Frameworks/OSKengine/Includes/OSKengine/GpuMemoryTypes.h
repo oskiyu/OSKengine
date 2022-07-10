@@ -94,7 +94,12 @@ namespace OSK::GRAPHICS {
 		/// Se usará temporalmente para crear las estrcuturas de aceleración
 		/// de trazado de rayos.
 		/// </summary>
-		RT_ACCELERATION_STRUCTURE_BUILDING = 128
+		RT_ACCELERATION_STRUCTURE_BUILDING = 128,
+
+		/// <summary>
+		/// Se usara como buffer de lectura y escritura en shaders.
+		/// </summary>
+		STORAGE_BUFFER = 256
 
 	};
 

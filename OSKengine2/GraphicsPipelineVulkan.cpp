@@ -7,18 +7,20 @@
 #include "RenderpassVulkan.h"
 #include "PipelineLayoutVulkan.h"
 #include "VertexInfo.h"
+#include "Format.h"
+#include "FormatVulkan.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 
-GraphicsPipelineVulkan::GraphicsPipelineVulkan(RenderpassVulkan* renderpass)
-	: targetRenderpass(renderpass) {
+GraphicsPipelineVulkan::GraphicsPipelineVulkan() {
 
 }
 
-void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) {
+void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info, Format format, const VertexInfo& vertexInfo) {
 	gpu = device;
+	this->targetImageFormat = format;
 
 	layout = new PipelineLayoutVulkan(materialLayout);
 
@@ -74,9 +76,9 @@ void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* 
 	VkPipelineTessellationStateCreateInfo tesselationInfo = GetTesselationInfo(info);
 
 	// Estructuras dinámicas
-	VkDynamicState states[] = { 
+	const VkDynamicState states[] = { 
 		VK_DYNAMIC_STATE_VIEWPORT, 
-		VK_DYNAMIC_STATE_SCISSOR 
+		VK_DYNAMIC_STATE_SCISSOR
 	};
 
 	VkPipelineDynamicStateCreateInfo dynamicCreateInfo{};
@@ -96,6 +98,15 @@ void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* 
 	viewportInfo.scissorCount = 1;
 	viewportInfo.pScissors = &scissor;
 
+	// Renderpass
+	const VkFormat colorFormat = GetFormatVulkan(format);
+	VkPipelineRenderingCreateInfoKHR renderingCreateInfo{};
+	renderingCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO_KHR;
+	renderingCreateInfo.colorAttachmentCount = 1;
+	renderingCreateInfo.pColorAttachmentFormats = &colorFormat;
+	renderingCreateInfo.depthAttachmentFormat = GetFormatVulkan(Format::D32S8_SFLOAT_SUINT);
+	renderingCreateInfo.stencilAttachmentFormat = GetFormatVulkan(Format::D32S8_SFLOAT_SUINT);
+
 	// Pipeline
 	VkGraphicsPipelineCreateInfo pipelineCreateInfo{};
 	pipelineCreateInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
@@ -114,10 +125,11 @@ void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* 
 	else
 		pipelineCreateInfo.pTessellationState = &tesselationInfo;
 	pipelineCreateInfo.layout = layout->As<PipelineLayoutVulkan>()->GetLayout();
-	pipelineCreateInfo.renderPass = targetRenderpass->GetRenderpass();
+	pipelineCreateInfo.renderPass = VK_NULL_HANDLE;
 	pipelineCreateInfo.subpass = 0;
 	pipelineCreateInfo.basePipelineHandle = nullptr;
 	pipelineCreateInfo.basePipelineIndex = -1;
+	pipelineCreateInfo.pNext = &renderingCreateInfo;
 
 	VkResult result = vkCreateGraphicsPipelines(gpu->As<GpuVulkan>()->GetLogicalDevice(),
 		nullptr, 1, &pipelineCreateInfo, nullptr, &pipeline);
@@ -281,7 +293,7 @@ VkPipelineMultisampleStateCreateInfo GraphicsPipelineVulkan::GetMsaaInfo(const P
 
 	output.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
 	output.sampleShadingEnable = VK_FALSE;
-	output.rasterizationSamples = (VkSampleCountFlagBits)gpu.GetInfo().maxMsaaSamples;
+	output.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;//(VkSampleCountFlagBits)gpu.GetInfo().maxMsaaSamples; TODO: change?
 	output.minSampleShading = 1.0f;
 	output.pSampleMask = nullptr;
 	output.alphaToCoverageEnable = VK_FALSE;

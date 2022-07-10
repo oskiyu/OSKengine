@@ -26,3 +26,7 @@ IRenderpass* ISwapchain::GetTargetRenderpass() const {
 void ISwapchain::SetTargetRenderpass(IRenderpass* renderpass) {
 	targetRenderpass = renderpass;
 }
+
+Format ISwapchain::GetColorFormat() const {
+	return colorFormat;
+}

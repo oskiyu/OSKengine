@@ -126,7 +126,7 @@ OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorDx12::CreateUniformBuffer(TSize si
 }
 
 OwnedPtr<GpuImage> GpuMemoryAllocatorDx12::CreateImage(const Vector3ui& size, GpuImageDimension dimension, TSize numLayers, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, TSize msaaSamples, GpuImageSamplerDesc samplerDesc) {
-	auto output = new GpuImageDx12(size, dimension, usage, numLayers, format);
+	auto output = new GpuImageDx12(size, dimension, usage, numLayers, format, msaaSamples);
 	output->_SetPhysicalSize({
 		MATH::PrimerMultiploSuperior<uint32_t>(size.X, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT),
 		size.Y,

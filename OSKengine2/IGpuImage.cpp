@@ -13,8 +13,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImage::GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format)
-	: format(format), dimension(dimension), usage(usage), numLayers(numLayers), currentLayout(GpuImageLayout::UNDEFINED), size(size) {
+GpuImage::GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples)
+	: format(format), dimension(dimension), usage(usage), numLayers(numLayers), currentLayout(GpuImageLayout::UNDEFINED), size(size), numSamples(numSamples) {
 
 	_SetPhysicalSize(size);
 }
@@ -97,4 +97,8 @@ TSize GpuImage::GetNumberOfBytes() const {
 
 TSize GpuImage::GetPhysicalNumberOfBytes() const {
 	return physicalSize.X * physicalSize.Y * physicalSize.Z * GetFormatNumberOfBytes(GetFormat());
+}
+
+TSize GpuImage::GetNumSamples() const {
+	return numSamples;
 }

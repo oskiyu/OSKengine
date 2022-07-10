@@ -172,6 +172,11 @@ namespace OSK::GRAPHICS {
 
 		bool isRaytracing = false;
 
+		/// <summary>
+		/// True si es un material que renderizará a la imagen final.
+		/// </summary>
+		bool isFinal = false;
+
 	};
 
 }

@@ -57,17 +57,24 @@ const DynamicArray<const char*> validationLayers = {
 	"VK_LAYER_KHRONOS_validation"
 };
 
+const DynamicArray<uint32_t> ignoredValidationLayersMessages = {
+	0x609a13b // Shader attachmentt not used
+};
+
 VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
-	//Message severity:
+	// Message severity:
 	//	VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT: "diagnostic" message.
 	//	VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT: información.
 	//	VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT: warning.
 	//	VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT: error.
 
-	//Tipos de mensaje:
+	// Tipos de mensaje:
 	//	VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT: algo ha ocurrido, no tiene que ver con la especificación o el rendimiento.
 	//	VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT: algo ha ocurrido, incumple la especificación.
 	//	VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT: algo ha ocurrido, uso no óptimo de vulkan.
+
+	if (ignoredValidationLayersMessages.ContainsElement(pCallbackData->messageIdNumber))
+		return 0;
 
 	IO::LogLevel level = IO::LogLevel::WARNING;
 
@@ -99,7 +106,7 @@ VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBits
 
 
 RendererVulkan::RendererVulkan() : IRenderer(RenderApiType::VULKAN) {
-
+	implicitResizeHandling = true;
 }
 
 RendererVulkan::~RendererVulkan() {
@@ -120,7 +127,6 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	CreateSwapchain(mode);
 	CreateSyncDevice();
 	CreateGpuMemoryAllocator();
-	CreateMainRenderpass();
 	SetupRtFunctions(currentGpu->As<GpuVulkan>()->GetLogicalDevice());
 
 	renderTargetsCamera = new ECS::CameraComponent2D;
@@ -128,18 +134,24 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	renderTargetsCameraTransform.SetScale({ window.GetWindowSize().X / 2.0f, window.GetWindowSize().Y / 2.0f});
 	renderTargetsCamera->UpdateUniformBuffer(renderTargetsCameraTransform);
 
+	CreateMainRenderpass();
+
+	if (Engine::GetEntityComponentSystem())
+		for (auto i : Engine::GetEntityComponentSystem()->GetRenderSystems())
+			i->CreateTargetImage(window.GetWindowSize());
+
 	isOpen = true;
 }
 
-OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo& vertexInfo) {
-	GraphicsPipelineVulkan* pipeline = new GraphicsPipelineVulkan(renderpass->As<RenderpassVulkan>());
+OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, Format format, const VertexInfo& vertexInfo) {
+	GraphicsPipelineVulkan* pipeline = new GraphicsPipelineVulkan;
 
-	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
+	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, format, vertexInfo);
 
 	return pipeline;
 }
 
-OwnedPtr<IRaytracingPipeline> RendererVulkan::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const IRenderpass* renderpass, const VertexInfo& vertexTypeName) {
+OwnedPtr<IRaytracingPipeline> RendererVulkan::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexTypeName) {
 	RaytracingPipelineVulkan* pipeline = new RaytracingPipelineVulkan();
 	pipeline->Create(*layout, pipelineInfo);
 
@@ -152,7 +164,7 @@ void RendererVulkan::Close() {
 	syncDevice.Delete();
 	swapchain.Delete();
 
-	finalRenderpass.Delete();
+	finalRenderTarget.Delete();
 
 	renderTargetsCamera.Delete();
 
@@ -392,39 +404,18 @@ void RendererVulkan::CreateSyncDevice() {
 	syncDevice->As<SyncDeviceVulkan>()->SetSwapchain(*swapchain->As<SwapchainVulkan>());
 }
 
-OwnedPtr<IRenderpass> RendererVulkan::CreateSecondaryRenderpass(GpuImage* targetImage0, GpuImage* targetImage1, GpuImage* targetImage2) {
-	OwnedPtr<IRenderpass> output = new RenderpassVulkan(RenderpassType::INTERMEDIATE);
-	output->As<RenderpassVulkan>()->Create(nullptr, targetImage0->GetFormat());
-
-	targetImage1 ? output->SetImages(targetImage0, targetImage1, targetImage2) : output->SetImages(targetImage0, targetImage0, targetImage0);
-
-	materialSystem->RegisterRenderpass(output.GetPointer());
-
-	return output;
-}
-
 void RendererVulkan::CreateGpuMemoryAllocator() {
 	gpuMemoryAllocator = new GpuMemoryAllocatorVulkan(currentGpu.GetPointer());
 
 	Engine::GetLogger()->InfoLog("Creado el asignador de memoria de la GPU.");
 }
 
-void RendererVulkan::CreateMainRenderpass() {
-	finalRenderpass = new RenderpassVulkan(RenderpassType::FINAL);
-	finalRenderpass->As<RenderpassVulkan>()->CreateFinalPresent(swapchain.GetPointer());
-	finalRenderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
-
-	const Vector3ui imageSize = {
-		window->GetWindowSize().X,
-		window->GetWindowSize().Y,
-		1
-	};
-
-	materialSystem->RegisterRenderpass(finalRenderpass.GetPointer());
-}
-
 void RendererVulkan::PresentFrame() {
 	if (isFirstRender) {
+		const bool shouldResize = syncDevice->As<SyncDeviceVulkan>()->UpdateCurrentFrameIndex();
+		if (shouldResize)
+			return;
+
 		commandList->Reset();
 		commandList->Start();
 
@@ -432,12 +423,12 @@ void RendererVulkan::PresentFrame() {
 	}
 	commandList->Close();
 
-	// Sync
-	bool result = syncDevice->As<SyncDeviceVulkan>()->UpdateCurrentFrameIndex();
-	if (result)
-		return;
-
 	syncDevice->As<SyncDeviceVulkan>()->Flush(*graphicsQueue->As<CommandQueueVulkan>(), *presentQueue->As<CommandQueueVulkan>(), *commandList->As<CommandListVulkan>());
+
+	// Sync
+	const bool shouldResize = syncDevice->As<SyncDeviceVulkan>()->UpdateCurrentFrameIndex();
+	//if (shouldResize)
+		//return;
 
 	for (TSize i = 0; i < singleTimeCommandLists.GetSize(); i++)
 		singleTimeCommandLists.At(i)->DeleteAllStagingBuffers();

@@ -36,9 +36,9 @@ namespace OSK::GRAPHICS {
 		void Start() override;
 		void Close() override;
 
-		void BeginRenderpass(IRenderpass* renderpass) override;
-		void BeginAndClearRenderpass(IRenderpass* renderpass, const Color& color) override;
-		void EndRenderpass(IRenderpass* renderpass) override;
+		void BeginRenderpass(RenderTarget* renderTarget) override;
+		void BeginAndClearRenderpass(RenderTarget* renderTarget, const Color& color) override;
+		void EndRenderpass(RenderTarget* renderTarget) override;
 
 		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers) override;
 
