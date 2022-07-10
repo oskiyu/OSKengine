@@ -40,12 +40,19 @@ namespace OSK::GRAPHICS {
 		/// <param name="targetSize">Tamaño de las imágenes de renderizado.</param>
 		/// <param name="colorFormat">Formato de las imágenes de renderizado.</param>
 		/// <param name="depthFormat">Formato de las imágenes de profundidad.</param>
+		/// 
+		/// @note La resolución final de las imágenes también es afectada por 
+		/// la escala de resolución del render target (RenderTarget::SetResolutionScale).
 		void Create(const Vector2ui& targetSize, Format colorFormat, Format depthFormat);
 
 		/// <summary>
-		/// @todo Doc e implementación final.
+		/// Cambia de tamaño las imágenes de renderizado, tanto las de color
+		/// como las de profundidad.
 		/// </summary>
-		/// <param name="targetSize"></param>
+		/// <param name="targetSize">Nuevo tamaño de las imágenes de renderizado.</param>
+		/// 
+		/// @note La resolución final de las imágenes también es afectada por 
+		/// la escala de resolución del render target (RenderTarget::SetResolutionScale).
 		void Resize(const Vector2ui& targetSize);
 
 		/// <summary>
@@ -136,8 +143,6 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// 
 		/// @pre scale debe ser > 0.
-		/// 
-		/// @bug Sprite scale
 		void SetResolutionScale(float scale);
 
 	private:

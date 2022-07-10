@@ -141,6 +141,8 @@ defines</h2></td></tr>
 Funciones</h2></td></tr>
 <tr class="memitem:ab7816e17f79e6bc0d74d1d25386ba89d"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_model_loader3_d_8cpp.html#ab7816e17f79e6bc0d74d1d25386ba89d">GetNodeMatrix</a> (const tinygltf::Node &amp;node)</td></tr>
 <tr class="separator:ab7816e17f79e6bc0d74d1d25386ba89d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ed7c9e535827d3010991523720f035e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_model_loader3_d_8cpp.html#a5ed7c9e535827d3010991523720f035e">SmoothNormals</a> (<a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d.html">Vertex3D</a> &gt; *vertices, const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a05f5134cdcc67a7889c57e39aa2f25ae">TIndexSize</a> &gt; &amp;indices)</td></tr>
+<tr class="separator:a5ed7c9e535827d3010991523720f035e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a458b76689b3ead05bebcd4554de43d0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_model_loader3_d_8cpp.html#a458b76689b3ead05bebcd4554de43d0c">ProcessMeshNode</a> (const tinygltf::Node &amp;node, const tinygltf::Model &amp;model, const <a class="el" href="struct_gltf_model_info.html">GltfModelInfo</a> &amp;modelInfo, <a class="el" href="class_o_s_k_1_1_hash_map.html">HashMap</a>&lt; <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> &gt; *meshIdToMaterialId, <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh3_d.html">Mesh3D</a> &gt; *meshes, <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d.html">Vertex3D</a> &gt; *vertices, <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a05f5134cdcc67a7889c57e39aa2f25ae">TIndexSize</a> &gt; *indices, const glm::mat4 &amp;prevMatrix, float globalScale)</td></tr>
 <tr class="separator:a458b76689b3ead05bebcd4554de43d0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55c94be9b19f27beda4f6c0ce044dbc6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_gltf_material_info.html">GltfMaterialInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_model_loader3_d_8cpp.html#a55c94be9b19f27beda4f6c0ce044dbc6">LoadMaterials</a> (const tinygltf::Model &amp;model)</td></tr>
@@ -250,7 +252,7 @@ Funciones</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00284">284</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00311">311</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -272,7 +274,7 @@ Funciones</h2></td></tr>
 
 <p>Carga todos los materiales del modelo, y guarda la información relevante de cada uno. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00261">261</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00288">288</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -359,7 +361,37 @@ Funciones</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00116">116</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00143">143</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5ed7c9e535827d3010991523720f035e" name="a5ed7c9e535827d3010991523720f035e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ed7c9e535827d3010991523720f035e">&#9670;&nbsp;</a></span>SmoothNormals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SmoothNormals </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d.html">Vertex3D</a> &gt; *&#160;</td>
+          <td class="paramname"><em>vertices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a05f5134cdcc67a7889c57e39aa2f25ae">TIndexSize</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>indices</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00103">103</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -369,7 +401,7 @@ Funciones</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_model_loader3_d_8cpp.html">ModelLoader3D.cpp</a></li>
-    <li class="footer">Generado el Viernes, 8 de Julio de 2022 01:26:27 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Domingo, 10 de Julio de 2022 13:51:35 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

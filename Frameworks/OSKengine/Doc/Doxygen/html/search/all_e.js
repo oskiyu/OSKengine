@@ -11,5 +11,6 @@ var searchData=
   ['normalized_8',['Normalized',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_texture_coordinates2_d.html#a59f9d49c54960b075d69ab732b3c966d',1,'OSK::GRAPHICS::TextureCoordinates2D']]],
   ['normalized_9',['NORMALIZED',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a8850682b4f35c42bbcf63a1e81b29c9ca5dce94de2a2a2772111f3af42badb16f',1,'OSK::GRAPHICS']]],
   ['num_5flock_10',['NUM_LOCK',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eacb0d0bf9279e78f982deba761110e434',1,'OSK::IO']]],
-  ['num_5frender_5ftarget_5fimages_11',['NUM_RENDER_TARGET_IMAGES',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a92b901b2282ba60626f55be92e849ead',1,'OSK::GRAPHICS']]]
+  ['num_5frender_5ftarget_5fimages_11',['NUM_RENDER_TARGET_IMAGES',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a92b901b2282ba60626f55be92e849ead',1,'OSK::GRAPHICS']]],
+  ['numpointlights_12',['numPointLights',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_lights_buffer_struct.html#a0bfe37ca7f4663cec069c65a29073097',1,'OSK::GRAPHICS::LightsBufferStruct']]]
 ];

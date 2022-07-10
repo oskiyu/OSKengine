@@ -28,10 +28,6 @@ INFO: 	Tamaño: 134217728
 INFO: Creado bloque de memoria GPU.
 INFO: 	Tamaño: 134217728
 INFO: Creado bloque de memoria GPU.
-INFO: 	Tamaño: 135736368
-INFO: Creado bloque de memoria GPU.
-INFO: 	Tamaño: 135736368
-INFO: Creado bloque de memoria GPU.
 INFO: 	Tamaño: 134217728
 INFO: Creado bloque de memoria GPU.
 INFO: 	Tamaño: 134217728
@@ -41,6 +37,15 @@ INFO: Creado bloque de memoria GPU.
 INFO: 	Tamaño: 134217728
 INFO: Creado bloque de memoria GPU.
 INFO: 	Tamaño: 134217728
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
 INFO: Destruyendo el renderizador de Vulkan.
 INFO: Cerrado el log.
 

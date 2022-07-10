@@ -189,6 +189,7 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "ITopLevelAccelerationStructure.h", "_i_top_level_acceleration_structure_8h.html", "_i_top_level_acceleration_structure_8h" ],
     [ "KeyboardState.cpp", "_keyboard_state_8cpp.html", null ],
     [ "KeyboardState.h", "_keyboard_state_8h.html", "_keyboard_state_8h" ],
+    [ "Lights.h", "_lights_8h.html", "_lights_8h" ],
     [ "LinkedList.hpp", "_linked_list_8hpp.html", "_linked_list_8hpp" ],
     [ "Logger.cpp", "_logger_8cpp.html", null ],
     [ "Logger.h", "_logger_8h.html", "_logger_8h" ],

@@ -9,5 +9,6 @@ var _model_loader3_d_8cpp =
     [ "GetNodeMatrix", "_model_loader3_d_8cpp.html#ab7816e17f79e6bc0d74d1d25386ba89d", null ],
     [ "LoadImages", "_model_loader3_d_8cpp.html#abb7e6c494a601ac388178e513bd7b853", null ],
     [ "LoadMaterials", "_model_loader3_d_8cpp.html#a55c94be9b19f27beda4f6c0ce044dbc6", null ],
-    [ "ProcessMeshNode", "_model_loader3_d_8cpp.html#a458b76689b3ead05bebcd4554de43d0c", null ]
+    [ "ProcessMeshNode", "_model_loader3_d_8cpp.html#a458b76689b3ead05bebcd4554de43d0c", null ],
+    [ "SmoothNormals", "_model_loader3_d_8cpp.html#a5ed7c9e535827d3010991523720f035e", null ]
 ];

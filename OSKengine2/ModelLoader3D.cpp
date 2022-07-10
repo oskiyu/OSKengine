@@ -100,6 +100,33 @@ glm::mat4 GetNodeMatrix(const tinygltf::Node& node) {
 	return nodeMatrix;
 }
 
+void SmoothNormals(DynamicArray<Vertex3D>* vertices, const DynamicArray<TIndexSize>& indices) {
+	for (TSize i = 0; i < indices.GetSize(); i += 3) {
+		const TIndexSize localIndices[3] = {
+			indices.At(i + 0),
+			indices.At(i + 1),
+			indices.At(i + 2)
+		};
+
+		const Vertex3D localVertices[3] = {
+			vertices->At(localIndices[0]),
+			vertices->At(localIndices[1]),
+			vertices->At(localIndices[2])
+		};
+
+		const Vector3f v0 = localVertices[1].position - localVertices[0].position;
+		const Vector3f v1 = localVertices[2].position - localVertices[0].position;
+
+		const Vector3f faceNormal = v0.Cross(v1).GetNormalized();
+
+		for (TSize li = 0; li < 3; li++)
+			vertices->At(localIndices[li]).normal += faceNormal;
+	}
+
+	for (TSize v = 0; v < vertices->GetSize(); v++)
+		vertices->At(v).normal.Normalize();
+}
+
 /// <summary>
 /// Procesa un nodo del modelo, además de
 /// todos sus nodos hijos.
@@ -190,12 +217,12 @@ void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, c
 					normalsBuffer[v * 3 + 2]
 				}.GetNormalized();
 
-				vertex.normal = Vector3f(glm::vec3(glm::transpose(glm::inverse(nodeMatrix)) * glm::vec4(
-					originalNormal.X,
-					originalNormal.Y,
-					originalNormal.Z,
-					0.0f
-				))).GetNormalized();
+				//vertex.normal = Vector3f(glm::vec3(glm::transpose(glm::inverse(nodeMatrix)) * glm::vec4(
+				//	originalNormal.X,
+				//	originalNormal.Y,
+				//	originalNormal.Z,
+				//	0.0f
+				//))).GetNormalized();
 				
 				vertex.texCoords = {
 					texCoordsBuffer[v * 2 + 0],
@@ -364,6 +391,8 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 
 	for (TSize i = 0; i < scene.nodes.size(); i++)
 		ProcessMeshNode(gltfModel.nodes[scene.nodes[i]], gltfModel, modelInfo, &meshIdToMaterialId, &meshes, &vertices, &indices, initialTransform, assetInfo["scale"]);
+
+	SmoothNormals(&vertices, indices);
 
 	// GPU.
 	output->_SetVertexBuffer(Engine::GetRenderer()->GetMemoryAllocator()->CreateVertexBuffer(vertices, Vertex3D::GetVertexInfo()));

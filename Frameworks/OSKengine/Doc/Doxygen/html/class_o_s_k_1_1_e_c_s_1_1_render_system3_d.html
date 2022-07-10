@@ -110,8 +110,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:aec037cb8c46f11305e3c68a615a8ab4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af963cc4b47d5d60b0b33473e3c7f3c75"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#af963cc4b47d5d60b0b33473e3c7f3c75">CreateTargetImage</a> (const <a class="el" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a> &amp;size)</td></tr>
 <tr class="separator:af963cc4b47d5d60b0b33473e3c7f3c75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a519d62506df86372d342691971d24a03"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">GRAPHICS::RenderTarget</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a519d62506df86372d342691971d24a03">GetRenderTarget</a> () const</td></tr>
-<tr class="separator:a519d62506df86372d342691971d24a03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ead258d11d094f960bed0b7da407d85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">GRAPHICS::RenderTarget</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a7ead258d11d094f960bed0b7da407d85">GetRenderTarget</a> ()</td></tr>
+<tr class="separator:a7ead258d11d094f960bed0b7da407d85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab66937b130814e6f06f3d76648dd0fb6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ab66937b130814e6f06f3d76648dd0fb6">OnTick</a> (<a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime)</td></tr>
 <tr class="separator:ab66937b130814e6f06f3d76648dd0fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43e7608ce2a31c9c13b42cf4ce6eb0ef"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a43e7608ce2a31c9c13b42cf4ce6eb0ef">OnRemove</a> ()</td></tr>
@@ -129,6 +129,8 @@ Métodos públicos</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Métodos protegidos</h2></td></tr>
+<tr class="memitem:ae3c3f809429c0eb238b4b5a58e4a756a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#ae3c3f809429c0eb238b4b5a58e4a756a">SetupViewport</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a> *commandList)</td></tr>
+<tr class="separator:ae3c3f809429c0eb238b4b5a58e4a756a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9336e70706ab6ea24d9f5fe95955efd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ac9336e70706ab6ea24d9f5fe95955efd">SetSignature</a> (const <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a2e882236c9347a28293a4c8988371ad8">Signature</a> &amp;signature)</td></tr>
 <tr class="separator:ac9336e70706ab6ea24d9f5fe95955efd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3611590e6bde825b973c160d7a867d9"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a23d62d7bd6a58fd7f758079d87df6c71">GameObjectIndex</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ad3611590e6bde825b973c160d7a867d9">GetObjects</a> ()</td></tr>
@@ -233,7 +235,7 @@ Atributos protegidos</h2></td></tr>
 
 <p>Reimplementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#a89c47dfc0ce46e0af13ffea6128e9c8d">OSK::ECS::PbrDeferredRenderSystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00026">26</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00030">30</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -264,8 +266,8 @@ Atributos protegidos</h2></td></tr>
 
 </div>
 </div>
-<a id="a519d62506df86372d342691971d24a03" name="a519d62506df86372d342691971d24a03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a519d62506df86372d342691971d24a03">&#9670;&nbsp;</a></span>GetRenderTarget()</h2>
+<a id="a7ead258d11d094f960bed0b7da407d85" name="a7ead258d11d094f960bed0b7da407d85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ead258d11d094f960bed0b7da407d85">&#9670;&nbsp;</a></span>GetRenderTarget()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -274,10 +276,10 @@ Atributos protegidos</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">RenderTarget</a> &amp; IRenderSystem::GetRenderTarget </td>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">RenderTarget</a> &amp; IRenderSystem::GetRenderTarget </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
   </td>
@@ -287,7 +289,9 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00030">30</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+<p>Devuelve el render target principal sobre el que se renderiza el sistema. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00034">34</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -347,7 +351,7 @@ Atributos protegidos</h2></td></tr>
 
 <p>Reimplementado de <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a78d27d6a19bd0d3c9eadc3521c350001">OSK::ECS::ISystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00016">16</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00017">17</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -594,7 +598,7 @@ Atributos protegidos</h2></td></tr>
 
 <p>Reimplementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#ab83869d50d875c521a6627e7b727c062">OSK::ECS::PbrDeferredRenderSystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00022">22</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00026">26</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -626,6 +630,34 @@ Atributos protegidos</h2></td></tr>
 
 </div>
 </div>
+<a id="ae3c3f809429c0eb238b4b5a58e4a756a" name="ae3c3f809429c0eb238b4b5a58e4a756a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3c3f809429c0eb238b4b5a58e4a756a">&#9670;&nbsp;</a></span>SetupViewport()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IRenderSystem::SetupViewport </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a> *&#160;</td>
+          <td class="paramname"><em>commandList</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00038">38</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Documentación de los datos miembro</h2>
 <a id="a8e9d568865c3d41fbec6afd49acb3cfa" name="a8e9d568865c3d41fbec6afd49acb3cfa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8e9d568865c3d41fbec6afd49acb3cfa">&#9670;&nbsp;</a></span>renderTarget</h2>
@@ -647,7 +679,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8h_source.html#l00060">60</a> del archivo <a class="el" href="_i_render_system_8h_source.html">IRenderSystem.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8h_source.html#l00066">66</a> del archivo <a class="el" href="_i_render_system_8h_source.html">IRenderSystem.h</a>.</p>
 
 </div>
 </div>
@@ -661,7 +693,7 @@ Atributos protegidos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html">RenderSystem3D</a></li>
-    <li class="footer">Generado el Viernes, 8 de Julio de 2022 01:26:27 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Domingo, 10 de Julio de 2022 13:51:35 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

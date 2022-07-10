@@ -30,5 +30,6 @@ var searchData=
   ['pipelinecreateinfo_27',['PipelineCreateInfo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html',1,'OSK::GRAPHICS']]],
   ['pipelinelayoutdx12_28',['PipelineLayoutDx12',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12.html',1,'OSK::GRAPHICS']]],
   ['pipelinelayoutvulkan_29',['PipelineLayoutVulkan',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan.html',1,'OSK::GRAPHICS']]],
-  ['pushconst2d_30',['PushConst2D',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_push_const2_d.html',1,'OSK::GRAPHICS']]]
+  ['pointlight_30',['PointLight',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_point_light.html',1,'OSK::GRAPHICS']]],
+  ['pushconst2d_31',['PushConst2D',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_push_const2_d.html',1,'OSK::GRAPHICS']]]
 ];

@@ -116,15 +116,17 @@ $(document).ready(function(){initNavTree('_i_render_system_8h_source.html',''); 
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> CreateTargetImage(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a>&amp; size);</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">GRAPHICS::RenderTarget</a>&amp; GetRenderTarget() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a8e9d568865c3d41fbec6afd49acb3cfa">   60</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">GRAPHICS::RenderTarget</a> <a class="code hl_variable" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a8e9d568865c3d41fbec6afd49acb3cfa">renderTarget</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">GRAPHICS::RenderTarget</a>&amp; GetRenderTarget();</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    };</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keyword">protected</span>:</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordtype">void</span> SetupViewport(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* commandList);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a8e9d568865c3d41fbec6afd49acb3cfa">   66</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">GRAPHICS::RenderTarget</a> <a class="code hl_variable" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a8e9d568865c3d41fbec6afd49acb3cfa">renderTarget</a>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    };</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
 <div class="ttc" id="a_i_renderpass_8h_html"><div class="ttname"><a href="_i_renderpass_8h.html">IRenderpass.h</a></div></div>
 <div class="ttc" id="a_i_system_8h_html"><div class="ttname"><a href="_i_system_8h.html">ISystem.h</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
@@ -134,7 +136,7 @@ $(document).ready(function(){initNavTree('_i_render_system_8h_source.html',''); 
 <div class="ttc" id="a_vector2_8hpp_html"><div class="ttname"><a href="_vector2_8hpp.html">Vector2.hpp</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_render_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html">OSK::ECS::IRenderSystem</a></div><div class="ttdoc">Clase base para sistemas de renderizado.</div><div class="ttdef"><b>Definition:</b> <a href="_i_render_system_8h_source.html#l00023">IRenderSystem.h:23</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_render_system_html_a09d5e15f08aeff1cac75da8bada0f48d"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a09d5e15f08aeff1cac75da8bada0f48d">OSK::ECS::IRenderSystem::Render</a></div><div class="ttdeci">virtual void Render(GRAPHICS::ICommandList *commandList)=0</div><div class="ttdoc">Comando específico del sistema, para ejecutar el renderizado.</div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_render_system_html_a8e9d568865c3d41fbec6afd49acb3cfa"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a8e9d568865c3d41fbec6afd49acb3cfa">OSK::ECS::IRenderSystem::renderTarget</a></div><div class="ttdeci">GRAPHICS::RenderTarget renderTarget</div><div class="ttdef"><b>Definition:</b> <a href="_i_render_system_8h_source.html#l00060">IRenderSystem.h:60</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_render_system_html_a8e9d568865c3d41fbec6afd49acb3cfa"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a8e9d568865c3d41fbec6afd49acb3cfa">OSK::ECS::IRenderSystem::renderTarget</a></div><div class="ttdeci">GRAPHICS::RenderTarget renderTarget</div><div class="ttdef"><b>Definition:</b> <a href="_i_render_system_8h_source.html#l00066">IRenderSystem.h:66</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">OSK::ECS::ISystem</a></div><div class="ttdoc">Un sistema se encarga de ejecutar lógica con los datos de los componentes. Los componentes no son más...</div><div class="ttdef"><b>Definition:</b> <a href="_i_system_8h_source.html#l00025">ISystem.h:25</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">OSK::GRAPHICS::ICommandList</a></div><div class="ttdoc">Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución.</div><div class="ttdef"><b>Definition:</b> <a href="_i_command_list_8h_source.html#l00038">ICommandList.h:38</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">OSK::GRAPHICS::RenderTarget</a></div><div class="ttdoc">Representa una textura a la que se puede renderizar.</div><div class="ttdef"><b>Definition:</b> <a href="_render_target_8h_source.html#l00030">RenderTarget.h:30</a></div></div>
@@ -147,7 +149,7 @@ $(document).ready(function(){initNavTree('_i_render_system_8h_source.html',''); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_i_render_system_8h.html">IRenderSystem.h</a></li>
-    <li class="footer">Generado el Viernes, 8 de Julio de 2022 01:26:27 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Domingo, 10 de Julio de 2022 13:51:35 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>
