@@ -97,8 +97,7 @@ void MaterialSystem::LoadMaterialV0(MaterialLayout* layout, const nlohmann::json
 
 		int fileVersion = shaderInfo["spec_ver"];
 
-		if (Engine::GetRenderer()->GetRenderApi() == RenderApiType::OPENGL
-			|| Engine::GetRenderer()->GetRenderApi() == RenderApiType::VULKAN) {
+		if (Engine::GetRenderer()->GetRenderApi() == RenderApiType::VULKAN) {
 			info->vertexPath = shaderInfo["glsl_shaders"]["vertex"];
 			info->fragmentPath = shaderInfo["glsl_shaders"]["fragment"];
 
@@ -485,9 +484,12 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 				OSK_ASSERT(false, "Error en el archivo de material" + path + ": config cull_mode inválido.");
 		}
 
+		if (materialInfo["config"].contains("format"))
+			info.format = GetFormatFromString(materialInfo["config"]["format"]);
+
 		if (materialInfo["config"].contains("is_final")) {
 			if (materialInfo["config"]["is_final"] == "true")
-				info.isFinal = true;
+				info.format = Engine::GetRenderer()->_GetSwapchain()->GetColorFormat();
 		}
 	}
 

@@ -13,5 +13,6 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target =
     [ "GetTargetImages", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a05a99fdb142018512bc2a466b8b3c705", null ],
     [ "Resize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#ac9f5d87b43a7e692631a8269f4c97f2d", null ],
     [ "SetRenderTargetType", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#ab2a444d64b8f4cb199a00e06a90896f9", null ],
-    [ "SetResolutionScale", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a9431448779717dbaeedc829d27e5ba1e", null ]
+    [ "SetResolutionScale", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a9431448779717dbaeedc829d27e5ba1e", null ],
+    [ "SetTargetImageUsage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a1821b6eb7adcf7e73caa73942f91f0d5", null ]
 ];

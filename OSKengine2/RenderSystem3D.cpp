@@ -30,7 +30,7 @@ void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
 	IGpuVertexBuffer* previousVertexBuffer = nullptr;
 	IGpuIndexBuffer* previousIndexBuffer = nullptr;
 
-	commandList->BeginAndClearRenderpass(&renderTarget, { 0.0f, 0.0f, 0.0f, 0.0f });
+	commandList->BeginAndClearGraphicsRenderpass(&renderTarget, { 0.0f, 0.0f, 0.0f, 0.0f });
 
 	SetupViewport(commandList);
 
@@ -58,9 +58,17 @@ void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
 			for (const std::string& slotName : model.GetMaterial()->GetLayout()->GetAllSlotNames())
 				commandList->BindMaterialSlot(model.GetMeshMaterialInstance(i)->GetSlot(slotName));
 
+			const Vector4f materialInfo {
+				model.GetModel()->GetMetadata().meshesMetadata[i].metallicFactor,
+				model.GetModel()->GetMetadata().meshesMetadata[i].roughnessFactor,
+				0.0f,
+				0.0f
+			};
+			commandList->PushMaterialConstants("materialInfo", materialInfo);
+
 			commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
 		}
 	}
 
-	commandList->EndRenderpass(&renderTarget);
+	commandList->EndGraphicsRenderpass(&renderTarget);
 }

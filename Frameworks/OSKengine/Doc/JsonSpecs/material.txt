@@ -1,0 +1,21 @@
+/**
+ *\page My API document
+ **/
+
+/**
+ *\class BindedClassA
+ *\brief descriptions on it
+ **/
+
+/**
+ *\var member1
+ *\brief ssssssss
+ **/
+
+/**
+ *\fn bindedMethod1(arg1, arg2)
+ *\brief xxxxxxx
+ *\param arg1 yyyyyyy
+ *\param arg2 zzzzzzz
+ *\return wwwwww
+ **/

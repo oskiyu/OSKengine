@@ -53,9 +53,42 @@ struct GltfMaterialInfo {
 	TSize baseTextureIndex = 0;
 
 	/// <summary>
+	/// Factor metálico del material.
+	/// Afecta el reflejo metálico.
+	/// </summary>
+	float metallicFactor = 0.0f;
+
+	/// <summary>
+	/// ID de la textura que describe la naturaleza
+	/// metálica del material.
+	/// </summary>
+	TSize metallicTextureIndex = 0;
+
+	/// <summary>
+	/// Factor de rugosidad del material.
+	/// </summary>
+	float roughnessFactor = 0.0f;
+
+	/// <summary>
+	/// ID de la textura que describe la rugosidad
+	/// del material.
+	/// </summary>
+	TSize roughnessTextureIndex = 0;
+
+	/// <summary>
 	/// True si tiene textura.
 	/// </summary>
 	bool hasBaseTexture = false;
+
+	/// <summary>
+	/// True si tiene textura.
+	/// </summary>
+	bool hasMetallicTexture = false;
+
+	/// <summary>
+	/// True si tiene textura.
+	/// </summary>
+	bool hasRoughnessTexture = false;
 
 };
 
@@ -217,12 +250,7 @@ void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, c
 					normalsBuffer[v * 3 + 2]
 				}.GetNormalized();
 
-				//vertex.normal = Vector3f(glm::vec3(glm::transpose(glm::inverse(nodeMatrix)) * glm::vec4(
-				//	originalNormal.X,
-				//	originalNormal.Y,
-				//	originalNormal.Z,
-				//	0.0f
-				//))).GetNormalized();
+				// Las normales se calculan aparte.
 				
 				vertex.texCoords = {
 					texCoordsBuffer[v * 2 + 0],
@@ -291,17 +319,37 @@ DynamicArray<GltfMaterialInfo> LoadMaterials(const tinygltf::Model& model) {
 	for (TSize i = 0; i < model.materials.size(); i++) {
 		GltfMaterialInfo info{};
 		info.baseColor = {
-			(float)model.materials[i].pbrMetallicRoughness.baseColorFactor[0],
-			(float)model.materials[i].pbrMetallicRoughness.baseColorFactor[1],
-			(float)model.materials[i].pbrMetallicRoughness.baseColorFactor[2],
-			(float)model.materials[i].pbrMetallicRoughness.baseColorFactor[3],
+			static_cast<float>(model.materials[i].pbrMetallicRoughness.baseColorFactor[0]),
+			static_cast<float>(model.materials[i].pbrMetallicRoughness.baseColorFactor[1]),
+			static_cast<float>(model.materials[i].pbrMetallicRoughness.baseColorFactor[2]),
+			static_cast<float>(model.materials[i].pbrMetallicRoughness.baseColorFactor[3])
 		};
+
+		info.metallicFactor = static_cast<float>(model.materials[i].pbrMetallicRoughness.metallicFactor);
+		info.roughnessFactor = static_cast<float>(model.materials[i].pbrMetallicRoughness.roughnessFactor);
+
+		if (info.roughnessFactor == 1.0f)
+			info.roughnessFactor = 0.7f;
 
 		if (model.materials[i].pbrMetallicRoughness.baseColorTexture.index != -1) {
 			info.hasBaseTexture = true;
 			info.baseTextureIndex = model.textures[model.materials[i].pbrMetallicRoughness.baseColorTexture.index].source;
 		}
-		
+
+		if (model.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index != -1) {
+			info.hasMetallicTexture = true;
+			info.metallicTextureIndex = model.textures[model.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index].source;
+
+			Engine::GetLogger()->InfoLog("El material tiene textura metálica.");
+		}
+
+		if (model.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index != -1) {
+			info.hasRoughnessTexture = true;
+			info.metallicTextureIndex = model.textures[model.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index].source;
+
+			Engine::GetLogger()->InfoLog("El material tiene textura de rugosidad.");
+		}
+
 		output[i] = info;
 	}
 
@@ -407,6 +455,9 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 			GltfMaterialInfo& materialInfo = modelInfo.materialInfos.At(meshIdToMaterialId.Get(i));
 			if (materialInfo.hasBaseTexture)
 				meshMetadata.materialTextures.Insert("baseTexture", materialInfo.baseTextureIndex);
+
+			meshMetadata.metallicFactor = materialInfo.metallicFactor;
+			meshMetadata.roughnessFactor = materialInfo.roughnessFactor;
 		}
 
 		output->AddMesh(meshes.At(i), meshMetadata);

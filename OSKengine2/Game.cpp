@@ -58,7 +58,12 @@ void IGame::Run() {
 	}
 
 	CreateWindow();
+	Engine::RegisterBuiltinVertices();
 	SetupEngine();
+
+	Engine::RegisterBuiltinAssets();
+	Engine::RegisterBuiltinComponents();
+	Engine::RegisterBuiltinSystems();
 
 	const Vector2ui windowSize = Engine::GetWindow()->GetWindowSize();
 	for (auto i : Engine::GetEntityComponentSystem()->GetRenderSystems())

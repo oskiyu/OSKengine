@@ -48,7 +48,7 @@ void RenderTarget::CreateTargetImages() {
 	for (TSize i = 0; i < NUM_RENDER_TARGET_IMAGES; i++) {
 		GpuImage* image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
 			{ GetSize().X, GetSize().Y, 1 }, GpuImageDimension::d2D, 1, colorFormat,
-			GpuImageUsage::COLOR | GpuImageUsage::SAMPLED, GpuSharedMemoryType::GPU_ONLY, 1
+			targetUsage, GpuSharedMemoryType::GPU_ONLY, 1
 		).GetPointer();
 
 		if (targetImages[i].IsEmpty())
@@ -135,4 +135,8 @@ void RenderTarget::SetResolutionScale(float scale) {
 
 	resolutionScale = scale;
 	Resize(GetOriginalSize());
+}
+
+void RenderTarget::SetTargetImageUsage(GpuImageUsage usage) {
+	targetUsage = GpuImageUsage::COLOR | GpuImageUsage::SAMPLED | usage;
 }

@@ -9,6 +9,8 @@ var namespace_o_s_k_1_1_a_s_s_e_t_s =
     [ "FontLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_loader" ],
     [ "IAsset", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset" ],
     [ "IAssetLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader" ],
+    [ "IrradianceMap", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map" ],
+    [ "IrradianceMapLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map_loader" ],
     [ "MeshMetadata", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata.html", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata" ],
     [ "Model3D", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d" ],
     [ "ModelLoader3D", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d" ],

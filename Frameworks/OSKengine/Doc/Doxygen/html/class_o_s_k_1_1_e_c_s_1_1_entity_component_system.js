@@ -13,5 +13,6 @@ var class_o_s_k_1_1_e_c_s_1_1_entity_component_system =
     [ "RegisterComponent", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ad5682530350f1b13747d7ad837634a4c", null ],
     [ "RegisterSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a18836d4687754f3fc6415ecb355915bb", null ],
     [ "RemoveComponent", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a226967f05467575221ddb09a194e28b2", null ],
+    [ "RemoveSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a798a0e00bae8eecdee1ff9d4cdcb8ebd", null ],
     [ "SpawnObject", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a8fdd1a158a10e388946a2c3e0ddf1eb5", null ]
 ];

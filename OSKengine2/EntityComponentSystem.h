@@ -162,6 +162,20 @@ namespace OSK::ECS {
 		}
 
 		/// <summary>
+		/// Elimina un sistema.
+		/// </summary>
+		/// 
+		/// @note Si el sistema no está registrado, no ocurre nada.
+		template <typename TSystem> void RemoveSystem() {
+			if constexpr (std::is_base_of_v<IRenderSystem, TSystem>) {
+				if (systemManager->ContainsSystem<TSystem>())
+					renderSystems.Remove(reinterpret_cast<IRenderSystem*>(systemManager->GetSystem<TSystem>()));
+			}
+
+			systemManager->RemoveSystem<TSystem>();
+		}
+
+		/// <summary>
 		/// Devuelve la instancia almacenada del sistema del tipo dado.
 		/// </summary>
 		template <typename TSystem> TSystem* GetSystem() const {

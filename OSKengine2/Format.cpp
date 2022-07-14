@@ -1,7 +1,6 @@
 #include "Format.h"
 #include "FormatDx12.h"
 #include "FormatVulkan.h"
-#include "FormatOgl.h"
 
 #include "Assert.h"
 
@@ -41,6 +40,15 @@ VkFormat OSK::GRAPHICS::GetFormatVulkan(Format format) {
 	case Format::RGBA8_UNORM:
 		return VK_FORMAT_R8G8B8A8_UNORM;
 
+	case Format::RGBA16_SFLOAT:
+		return VK_FORMAT_R16G16B16A16_SFLOAT;
+
+	case Format::RGB16_SFLOAT:
+		return VK_FORMAT_R16G16B16_SFLOAT;
+
+	case Format::RGBA32_SFLOAT:
+		return VK_FORMAT_R32G32B32A32_SFLOAT;
+
 	case Format::B8G8R8A8_SRGB:
 		return VK_FORMAT_B8G8R8A8_UNORM;
 
@@ -68,6 +76,14 @@ unsigned int OSK::GRAPHICS::GetFormatNumberOfBytes(Format format) {
 		case Format::B8G8R8A8_SRGB:
 			return 4;
 
+		case Format::RGB16_SFLOAT:
+			return 3 * 2;
+		case Format::RGBA16_SFLOAT:
+			return 4 * 2;
+
+		case Format::RGBA32_SFLOAT:
+			return 4 * 4;
+
 		case Format::D32_SFLOAT:
 		case Format::D24S8_SFLOAT_SUINT:
 			return 4;
@@ -88,35 +104,6 @@ OSK::GRAPHICS::Format OSK::GRAPHICS::GetColorFormat(unsigned int numberOfChannel
 		return OSK::GRAPHICS::Format::RGBA8_UNORM;
 }
 
-unsigned int OSK::GRAPHICS::GetFormatOgl(GRAPHICS::Format format) {
-	switch (format) {
-	case GRAPHICS::Format::RGB8_UNORM:
-		return GL_RGB8_SNORM;
-
-	case GRAPHICS::Format::RGBA8_UNORM:
-		return GL_RGBA8_SNORM;
-
-	case GRAPHICS::Format::B8G8R8A8_SRGB:
-		return GL_BGRA;
-
-	case GRAPHICS::Format::D32_SFLOAT:
-		return GL_R32F;
-
-	case GRAPHICS::Format::D32S8_SFLOAT_SUINT:
-		return GL_DEPTH32F_STENCIL8;
-
-	case GRAPHICS::Format::D24S8_SFLOAT_SUINT:
-		return GL_DEPTH24_STENCIL8;
-	}
-
-	OSK_ASSERT(false, "El formato " + ToString<Format>(format) + " no está registrado en OSK::GRAPHICS::GetFormatOgl.");
-	return 0;
-}
-
-unsigned int OSK::GRAPHICS::GetFormatInternalOgl(Format format) {
-	return GetFormatOgl(format);
-}
-
 template <> std::string OSK::ToString<OSK::GRAPHICS::Format>(const OSK::GRAPHICS::Format& format) {
 	switch (format) {
 	case OSK::GRAPHICS::Format::B8G8R8A8_SRGB:
@@ -131,8 +118,36 @@ template <> std::string OSK::ToString<OSK::GRAPHICS::Format>(const OSK::GRAPHICS
 		return "RGB8_UNORM";
 	case OSK::GRAPHICS::Format::RGBA8_UNORM:
 		return "RGBA8_UNORM";
+	case OSK::GRAPHICS::Format::RGB16_SFLOAT:
+		return "RGB16_SFLOAT";
+	case OSK::GRAPHICS::Format::RGBA16_SFLOAT:
+		return "RGBA16_SFLOAT";
+	case OSK::GRAPHICS::Format::RGBA32_SFLOAT:
+		return "RGBA32_SFLOAT";
+
 	default:
 		return "UNKNOWN";
-		break;
 	}
+}
+
+OSK::GRAPHICS::Format OSK::GRAPHICS::GetFormatFromString(const std::string& formatStr) {
+	static Format formats[] = {
+		Format::RGB8_UNORM,
+		Format::RGBA8_UNORM,
+		Format::RGB16_SFLOAT,
+		Format::RGBA16_SFLOAT,
+		Format::RGBA32_SFLOAT,
+		Format::B8G8R8A8_SRGB,
+		Format::D32S8_SFLOAT_SUINT,
+		Format::D24S8_SFLOAT_SUINT,
+		Format::D32_SFLOAT
+	};
+
+	for (TSize i = 0; i < _countof(formats); i++)
+		if (ToString<Format>(formats[i]) == formatStr)
+			return formats[i];
+
+	OSK_ASSERT(false, "No se encuentra el formato " + formatStr + ".");
+
+	return Format::RGBA8_UNORM;
 }

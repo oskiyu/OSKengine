@@ -27,10 +27,12 @@ var searchData=
   ['irenderer_24',['IRenderer',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html',1,'OSK::GRAPHICS']]],
   ['irenderpass_25',['IRenderpass',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html',1,'OSK::GRAPHICS']]],
   ['irendersystem_26',['IRenderSystem',['../class_o_s_k_1_1_e_c_s_1_1_i_render_system.html',1,'OSK::ECS']]],
-  ['irtshadertable_27',['IRtShaderTable',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_rt_shader_table.html',1,'OSK::GRAPHICS']]],
-  ['iswapchain_28',['ISwapchain',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html',1,'OSK::GRAPHICS']]],
-  ['isyncdevice_29',['ISyncDevice',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sync_device.html',1,'OSK::GRAPHICS']]],
-  ['isystem_30',['ISystem',['../class_o_s_k_1_1_e_c_s_1_1_i_system.html',1,'OSK::ECS']]],
-  ['iterator_31',['Iterator',['../class_o_s_k_1_1_dynamic_array_1_1_iterator.html',1,'OSK::DynamicArray&lt; T &gt;::Iterator'],['../class_o_s_k_1_1_hash_map_1_1_iterator.html',1,'OSK::HashMap&lt; TKey, TValue, numBuckets &gt;::Iterator'],['../class_o_s_k_1_1_linked_list_1_1_iterator.html',1,'OSK::LinkedList&lt; T &gt;::Iterator']]],
-  ['itoplevelaccelerationstructure_32',['ITopLevelAccelerationStructure',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html',1,'OSK::GRAPHICS']]]
+  ['irradiancemap_27',['IrradianceMap',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html',1,'OSK::ASSETS']]],
+  ['irradiancemaploader_28',['IrradianceMapLoader',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map_loader.html',1,'OSK::ASSETS']]],
+  ['irtshadertable_29',['IRtShaderTable',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_rt_shader_table.html',1,'OSK::GRAPHICS']]],
+  ['iswapchain_30',['ISwapchain',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html',1,'OSK::GRAPHICS']]],
+  ['isyncdevice_31',['ISyncDevice',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sync_device.html',1,'OSK::GRAPHICS']]],
+  ['isystem_32',['ISystem',['../class_o_s_k_1_1_e_c_s_1_1_i_system.html',1,'OSK::ECS']]],
+  ['iterator_33',['Iterator',['../class_o_s_k_1_1_dynamic_array_1_1_iterator.html',1,'OSK::DynamicArray&lt; T &gt;::Iterator'],['../class_o_s_k_1_1_hash_map_1_1_iterator.html',1,'OSK::HashMap&lt; TKey, TValue, numBuckets &gt;::Iterator'],['../class_o_s_k_1_1_linked_list_1_1_iterator.html',1,'OSK::LinkedList&lt; T &gt;::Iterator']]],
+  ['itoplevelaccelerationstructure_34',['ITopLevelAccelerationStructure',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html',1,'OSK::GRAPHICS']]]
 ];

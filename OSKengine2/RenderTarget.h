@@ -9,6 +9,7 @@
 #include "Sprite.h"
 #include "Transform2D.h"
 #include "RenderpassType.h"
+#include "GpuImageUsage.h"
 
 namespace OSK::GRAPHICS {
 
@@ -23,8 +24,7 @@ namespace OSK::GRAPHICS {
 	/// Representa una textura a la que se puede renderizar.
 	/// 
 	/// Incluye:
-	///		- Imagen de renderizado.
-	///		- Renderpass.
+	///		- Imágenes de renderizado.
 	///		- Sprite
 	/// </summary>
 	class OSKAPI_CALL RenderTarget {
@@ -133,6 +133,10 @@ namespace OSK::GRAPHICS {
 		/// Establece el tipo de render target.
 		/// </summary>
 		/// 
+		/// @note Debe ser llamado antes de RenderTarget::Create.
+		/// @note Si es llamado después de RenderTarget::Create, no tendrá efecto hasta que se
+		/// llame a RenderTarget::Resize.
+		/// 
 		/// @note Únicamente se debe establecer como RenderpassType::FINAL si las imágenes
 		/// enlazadas al render target son las imágenes del propio swapchain.
 		void SetRenderTargetType(RenderpassType type);
@@ -143,7 +147,24 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// 
 		/// @pre scale debe ser > 0.
+		/// 
+		/// @note Debe ser llamado antes de RenderTarget::Create.
+		/// @note Si es llamado después de RenderTarget::Create, no tendrá efecto hasta que se
+		/// llame a RenderTarget::Resize.
 		void SetResolutionScale(float scale);
+
+		/// <summary>
+		/// Establece el uso que se le va a dar a las imágenes de renderizado.
+		/// </summary>
+		/// <param name="usage">Uso que se le va a dar.</param>
+		/// 
+		/// @note Debe ser llamado antes de RenderTarget::Create.
+		/// @note Si es llamado después de RenderTarget::Create, no tendrá efecto hasta que se
+		/// llame a RenderTarget::Resize.
+		/// 
+		/// @note Por defecto, será GpuImageUsage::COLOR | GpuImageUsage::SAMPLED.
+		/// @note Tendrá uso GpuImageUsage::COLOR | GpuImageUsage::SAMPLED | usage.
+		void SetTargetImageUsage(GpuImageUsage usage);
 
 	private:
 
@@ -155,6 +176,8 @@ namespace OSK::GRAPHICS {
 		float resolutionScale = 1.0f;
 		Format colorFormat;
 		Format depthFormat;
+
+		GpuImageUsage targetUsage = GpuImageUsage::COLOR | GpuImageUsage::SAMPLED;
 
 		DynamicArray<UniquePtr<GpuImage>> targetImages[NUM_RENDER_TARGET_IMAGES]; // Puede haber más de un target.
 		UniquePtr<GpuImage> depthImages[NUM_RENDER_TARGET_IMAGES];

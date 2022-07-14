@@ -57,6 +57,7 @@ void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data
 		commandList->CopyBufferToImage(stagingBuffer.GetPointer(), destination, i, offsetPerIteration * i);
 
 	commandList->TransitionImageLayout(destination, finalLayout, 0, numLayers);
+
 	commandList->Close();
 	SubmitSingleUseCommandList(commandList.GetPointer());
 

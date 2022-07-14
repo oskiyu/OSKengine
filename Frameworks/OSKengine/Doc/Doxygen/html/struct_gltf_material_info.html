@@ -98,8 +98,20 @@ Atributos públicos</h2></td></tr>
 <tr class="separator:a7080bc26f72ef01b2c1628f49466adc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c2918f61f3b3e5e1f6c72a484616fbd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_gltf_material_info.html#a2c2918f61f3b3e5e1f6c72a484616fbd">baseTextureIndex</a> = 0</td></tr>
 <tr class="separator:a2c2918f61f3b3e5e1f6c72a484616fbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66250ceb0e37badb390484f86e7ec1ee"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_gltf_material_info.html#a66250ceb0e37badb390484f86e7ec1ee">metallicFactor</a> = 0.0f</td></tr>
+<tr class="separator:a66250ceb0e37badb390484f86e7ec1ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75813a530398583b66c9a1c3a8ae9e86"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_gltf_material_info.html#a75813a530398583b66c9a1c3a8ae9e86">metallicTextureIndex</a> = 0</td></tr>
+<tr class="separator:a75813a530398583b66c9a1c3a8ae9e86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0dd949d530d4ee761dc94d6cbc06b64"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_gltf_material_info.html#ab0dd949d530d4ee761dc94d6cbc06b64">roughnessFactor</a> = 0.0f</td></tr>
+<tr class="separator:ab0dd949d530d4ee761dc94d6cbc06b64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a671030773db8d61ec81ac39f46303a13"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_gltf_material_info.html#a671030773db8d61ec81ac39f46303a13">roughnessTextureIndex</a> = 0</td></tr>
+<tr class="separator:a671030773db8d61ec81ac39f46303a13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a699650eb9b2e0e6eedf4b0600fce78b4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_gltf_material_info.html#a699650eb9b2e0e6eedf4b0600fce78b4">hasBaseTexture</a> = false</td></tr>
 <tr class="separator:a699650eb9b2e0e6eedf4b0600fce78b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a377d6b7cb679377d27d2d769459928db"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_gltf_material_info.html#a377d6b7cb679377d27d2d769459928db">hasMetallicTexture</a> = false</td></tr>
+<tr class="separator:a377d6b7cb679377d27d2d769459928db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ea6f0177d2fda1423d6986bcac3fd25"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_gltf_material_info.html#a6ea6f0177d2fda1423d6986bcac3fd25">hasRoughnessTexture</a> = false</td></tr>
+<tr class="separator:a6ea6f0177d2fda1423d6986bcac3fd25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p >Información relevante de un material del modelo GLTF. </p>
@@ -156,7 +168,115 @@ Atributos públicos</h2></td></tr>
 
 <p>True si tiene textura. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00058">58</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00081">81</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a377d6b7cb679377d27d2d769459928db" name="a377d6b7cb679377d27d2d769459928db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a377d6b7cb679377d27d2d769459928db">&#9670;&nbsp;</a></span>hasMetallicTexture</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool GltfMaterialInfo::hasMetallicTexture = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>True si tiene textura. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00086">86</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6ea6f0177d2fda1423d6986bcac3fd25" name="a6ea6f0177d2fda1423d6986bcac3fd25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ea6f0177d2fda1423d6986bcac3fd25">&#9670;&nbsp;</a></span>hasRoughnessTexture</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool GltfMaterialInfo::hasRoughnessTexture = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>True si tiene textura. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00091">91</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a66250ceb0e37badb390484f86e7ec1ee" name="a66250ceb0e37badb390484f86e7ec1ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66250ceb0e37badb390484f86e7ec1ee">&#9670;&nbsp;</a></span>metallicFactor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float GltfMaterialInfo::metallicFactor = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Factor metálico del material. Afecta el reflejo metálico. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00059">59</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a75813a530398583b66c9a1c3a8ae9e86" name="a75813a530398583b66c9a1c3a8ae9e86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75813a530398583b66c9a1c3a8ae9e86">&#9670;&nbsp;</a></span>metallicTextureIndex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> GltfMaterialInfo::metallicTextureIndex = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ID de la textura que describe la naturaleza metálica del material. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00065">65</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab0dd949d530d4ee761dc94d6cbc06b64" name="ab0dd949d530d4ee761dc94d6cbc06b64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0dd949d530d4ee761dc94d6cbc06b64">&#9670;&nbsp;</a></span>roughnessFactor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float GltfMaterialInfo::roughnessFactor = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Factor de rugosidad del material. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00070">70</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a671030773db8d61ec81ac39f46303a13" name="a671030773db8d61ec81ac39f46303a13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a671030773db8d61ec81ac39f46303a13">&#9670;&nbsp;</a></span>roughnessTextureIndex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> GltfMaterialInfo::roughnessTextureIndex = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ID de la textura que describe la rugosidad del material. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_model_loader3_d_8cpp_source.html#l00076">76</a> del archivo <a class="el" href="_model_loader3_d_8cpp_source.html">ModelLoader3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -169,7 +289,7 @@ Atributos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="struct_gltf_material_info.html">GltfMaterialInfo</a></li>
-    <li class="footer">Generado el Domingo, 10 de Julio de 2022 13:51:35 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 14 de Julio de 2022 17:37:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

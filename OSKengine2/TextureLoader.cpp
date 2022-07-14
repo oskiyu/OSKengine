@@ -28,9 +28,7 @@ void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	Texture* output = (Texture*)*asset;
 
 	// Asset file.
-
 	nlohmann::json assetInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(assetFilePath));
-
 
 	OSK_ASSERT(assetInfo.contains("file_type"), "Archivo de textura incorrecto: no se encuentra 'file_type'.");
 	OSK_ASSERT(assetInfo.contains("spec_ver"), "Archivo de textura incorrecto: no se encuentra 'spec_ver'.");
@@ -57,8 +55,12 @@ void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	output->_SetSize(Vector2ui(width, height));
 	output->_SetNumberOfChannels(numChannels);
 
-	Vector3ui size(width, height, 1);
-	auto image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(size, GRAPHICS::GpuImageDimension::d2D, 1, GRAPHICS::GetColorFormat(numChannels), GRAPHICS::GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION, GRAPHICS::GpuSharedMemoryType::GPU_ONLY, true);
+	const GRAPHICS::Format imageFormat = assetInfo.contains("is_hdr") && assetInfo["is_hdr"] == "true"
+		? GRAPHICS::Format::RGBA32_SFLOAT
+		: GRAPHICS::GetColorFormat(numChannels);
+
+	const Vector3ui size(width, height, 1);
+	auto image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(size, GRAPHICS::GpuImageDimension::d2D, 1, imageFormat, GRAPHICS::GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_SOURCE | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION, GRAPHICS::GpuSharedMemoryType::GPU_ONLY, true);
 	
 	Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), pixels, image->GetNumberOfBytes(), GRAPHICS::GpuImageLayout::SHADER_READ_ONLY);
 	stbi_image_free(pixels);

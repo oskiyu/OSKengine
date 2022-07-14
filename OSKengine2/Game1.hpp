@@ -63,6 +63,9 @@
 #include "RenderSystem2D.h"
 #include "RenderTarget.h"
 
+#include "IrradianceMap.h"
+#include "IrradianceMapLoader.h"
+
 OSK::GRAPHICS::Material* rtMaterial = nullptr;
 OSK::GRAPHICS::MaterialInstance* rtMaterialInstance = nullptr;
 OSK::GRAPHICS::GpuImage* rtTargetImage = nullptr;
@@ -116,10 +119,13 @@ protected:
 
 	void OnCreate() override {
 		// Material load
-		pbrColorMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/color.json");
-		pbrNormalMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/normal.json");
 
-		material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material.json");
+		Engine::GetLogger()->DebugLog("START");
+		auto irradianceMap = Engine::GetAssetManager()->Load<ASSETS::IrradianceMap>("Resources/Assets/IBL/irradiance0.json", "GLOBAL");
+		Engine::GetLogger()->DebugLog("END");
+
+		Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_irradiance_gen.json");
+		material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_pbr.json");
 		skyboxMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/skybox_material.json");
 		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json");
 		materialRenderTarget = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rendertarget.json");
@@ -177,22 +183,22 @@ protected:
 		transform.AddPosition({ 0, 0.1f, 0 });
 		//transform.SetScale(0.03f);
 
-		modelComponent->SetModel(model);
-		modelComponent->SetMaterial(material);
-
-		modelComponent->BindUniformBufferForAllMeshes("global", "camera", uniformBuffer.GetPointer());
-		modelComponent->BindTextureForAllMeshes("global", "stexture", texture);
-
 		DirectionalLight dirLight;
 		dirLight.direction = Vector3f(1.0f, -3.f, 0.0f).GetNormalized();
 		dirLight.color = Color(253 / 255.f, 253 / 255.f, 225 / 255.f);
-		dirLight.intensity = 0.8f;
-		
+		dirLight.intensity = 1.8f;
+
 		dirLightBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
 		dirLightBuffer->MapMemory();
 		dirLightBuffer->Write(dirLight);
 		dirLightBuffer->Unmap();
 
+		modelComponent->SetModel(model);
+		modelComponent->SetMaterial(material);
+
+		modelComponent->BindUniformBufferForAllMeshes("global", "camera", uniformBuffer.GetPointer());
+		modelComponent->BindTextureForAllMeshes("global", "stexture", texture);
+		modelComponent->BindGpuImageForAllMeshes("global", "irradianceMap", irradianceMap->GetGpuImage());
 		modelComponent->BindUniformBufferForAllMeshes("global", "dirLight", dirLightBuffer.GetPointer());
 
 		for (TSize i = 0; i < model->GetMeshes().GetSize(); i++) {
@@ -226,6 +232,8 @@ protected:
 
 		modelComponent2->BindUniformBufferForAllMeshes("global", "camera", uniformBuffer.GetPointer());
 		modelComponent2->BindTextureForAllMeshes("global", "stexture", texture);
+		modelComponent2->BindGpuImageForAllMeshes("global", "irradianceMap", irradianceMap->GetGpuImage());
+		modelComponent2->BindUniformBufferForAllMeshes("global", "dirLight", dirLightBuffer.GetPointer());
 
 		// Cubemap
 		cubemap = Engine::GetAssetManager()->Load<ASSETS::CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL");
@@ -286,6 +294,10 @@ protected:
 		Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->GetRenderTarget().SetResolutionScale(1.0f);
 	}
 
+	void RegisterSystems() override {
+		Engine::GetEntityComponentSystem()->RemoveSystem<ECS::RenderSystem2D>();
+	}
+
 	void OnTick(TDeltaTime deltaTime) override {
 		ECS::CameraComponent3D& camera = Engine::GetEntityComponentSystem()->GetComponent<ECS::CameraComponent3D>(cameraObject);
 		ECS::Transform3D& cameraTransform = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(cameraObject);
@@ -295,13 +307,18 @@ protected:
 		auto newKs = Engine::GetWindow()->GetKeyboardState();
 		auto oldKs = Engine::GetWindow()->GetPreviousKeyboardState();
 		if (newKs->IsKeyDown(IO::Key::W))
-			forwardMovement += 1.0f;
+			forwardMovement += 0.7f;
 		if (newKs->IsKeyDown(IO::Key::S))
-			forwardMovement -= 1.0f;
+			forwardMovement -= 0.7f;
 		if (newKs->IsKeyDown(IO::Key::A))
-			rightMovement -= 1.0f;
+			rightMovement -= 0.7f;
 		if (newKs->IsKeyDown(IO::Key::D))
-			rightMovement += 1.0f;
+			rightMovement += 0.7f;
+
+		if (newKs->IsKeyDown(IO::Key::LEFT_SHIFT)) {
+			forwardMovement *= 0.3f;
+			rightMovement *= 0.3f;
+		}
 
 		// Car
 		auto& carTransform = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(ballObject);
@@ -390,24 +407,24 @@ protected:
 		commandList->SetScissor(windowRec);
 
 		// Render skybox
-		commandList->BeginRenderpass(&skyboxRenderTarget);
+		commandList->BeginGraphicsRenderpass(&skyboxRenderTarget);
 		commandList->BindMaterial(skyboxMaterial);
 		commandList->BindMaterialSlot(skyboxMaterialInstance->GetSlot("global"));
 		commandList->BindVertexBuffer(cubemapModel->GetVertexBuffer());
 		commandList->BindIndexBuffer(cubemapModel->GetIndexBuffer());
 		commandList->DrawSingleInstance(cubemapModel->GetIndexCount());
-		commandList->EndRenderpass(&skyboxRenderTarget);
+		commandList->EndGraphicsRenderpass(&skyboxRenderTarget);
 
 		// Render text
-		commandList->BeginRenderpass(&textRenderTarget);
+		commandList->BeginGraphicsRenderpass(&textRenderTarget);
 		spriteRenderer.Begin();
 		spriteRenderer.DrawString(*font, 30, "OSKengine build " + Engine::GetBuild(), Vector2f{ 20.0f, 30.0f }, Vector2f{ 1.0f }, 0.0f, Color::WHITE());
 		spriteRenderer.DrawString(*font, 30, "FPS " + std::to_string(GetFps()), Vector2f{ 20.0f, 60.0f }, Vector2f{ 1.0f }, 0.0f, Color::WHITE());
 		spriteRenderer.End();
-		commandList->EndRenderpass(&textRenderTarget);
+		commandList->EndGraphicsRenderpass(&textRenderTarget);
 
 		commandList->BindMaterial(materialRenderTarget);
-		commandList->BeginRenderpass(renderpass);
+		commandList->BeginGraphicsRenderpass(renderpass);
 
 		spriteRenderer.Begin();
 		
@@ -416,12 +433,12 @@ protected:
 
 		spriteRenderer.Draw(skyboxRenderTarget.GetSprite(), skyboxRenderTarget.GetSpriteTransform());
 		spriteRenderer.Draw(Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->GetRenderTarget().GetSprite(), Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->GetRenderTarget().GetSpriteTransform());
-		spriteRenderer.Draw(Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem2D>()->GetRenderTarget().GetSprite(), Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem2D>()->GetRenderTarget().GetSpriteTransform());
-		spriteRenderer.Draw(textRenderTarget.GetSprite(), skyboxRenderTarget.GetSpriteTransform());
+		//spriteRenderer.Draw(Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem2D>()->GetRenderTarget().GetSprite(), Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem2D>()->GetRenderTarget().GetSpriteTransform());
+		spriteRenderer.Draw(textRenderTarget.GetSprite(), textRenderTarget.GetSpriteTransform());
 
 		spriteRenderer.End();
 
-		commandList->EndRenderpass(renderpass);
+		commandList->EndGraphicsRenderpass(renderpass);
 	}
 
 	void OnExit() override {

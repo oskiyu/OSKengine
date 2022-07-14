@@ -92,6 +92,9 @@ public:
 			control.messageQueue.Insert({ 0.0f, 1.0f });
 			break;
 
+		default:
+			break;
+
 		}
 
 	}

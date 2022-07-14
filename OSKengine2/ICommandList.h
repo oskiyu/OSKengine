@@ -75,6 +75,9 @@ namespace OSK::GRAPHICS {
 		/// <param name="next">Layout en el que estará la imagen.</param>
 		/// <param name="baseLayer">Primera capa a partir de la cual se cambiarán los layouts.</param>
 		/// <param name="numLayers">Número de capas a cambiar.</param>
+		/// <param name="baseMipLevel">Mip level al partir del que se aplica la transición del layout.</param>
+		/// <param name="numMipLevels">Número de mip levels que transicionarán de layout.
+		/// Si es 0, se transicionarán todos (a partir de baseMipLevel).</param>
 		/// 
 		/// @note Se debe cambiar el layout de la imagen antes de ejecutar un comando sobre ella,
 		/// si su layout actual no coincide con el necesario.
@@ -83,7 +86,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre El número de capas (numLayers) debe ser mayor que 0.
 		/// @pre La lista de comandos debe estar abierta.
-		void TransitionImageLayout(GpuImage* image, GpuImageLayout next, TSize baseLayer, TSize numLayers);
+		void TransitionImageLayout(GpuImage* image, GpuImageLayout next, TSize baseLayer, TSize numLayers, TSize baseMipLevel = 0, TSize numMipLevels = 0);
 
 		/// <summary>
 		/// Cambia el layout interno de la imagen en la memoria de la GPU.
@@ -91,13 +94,16 @@ namespace OSK::GRAPHICS {
 		/// <param name="next">Layout en el que estará la imagen.</param>
 		/// <param name="baseLayer">Primera capa a partir de la cual se cambiarán los layouts.</param>
 		/// <param name="numLayers">Número de capas a cambiar.</param>
+		/// <param name="baseMipLevel">Mip level al partir del que se aplica la transición del layout.</param>
+		/// <param name="numMipLevels">Número de mip levels que transicionarán de layout.
+		/// Si es 0, se transicionarán todos (a partir de baseMipLevel).</param>
 		/// 
 		/// @note Se debe cambiar el layout de la imagen antes de ejecutar un comando sobre ella,
 		/// si su layout actual no coincide con el necesario.
 		/// 
 		/// @pre El número de capas (numLayers) debe ser mayor que 0.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers) = 0;
+		virtual void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers, TSize baseMipLevel = 0, TSize numMipLevels = 0) = 0;
 
 
 		/// <summary>
@@ -108,7 +114,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre No debe haber ningún renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void BeginRenderpass(RenderTarget* renderpass) = 0;
+		virtual void BeginGraphicsRenderpass(RenderTarget* renderpass) = 0;
 
 		/// <summary>
 		/// Comienza el renderizado a un render target.
@@ -118,7 +124,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre No debe haber ningún renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void BeginAndClearRenderpass(RenderTarget* renderpass, const Color& color) = 0;
+		virtual void BeginAndClearGraphicsRenderpass(RenderTarget* renderpass, const Color& color) = 0;
 
 		/// <summary>
 		/// Finaliza el renderizado a un render target.
@@ -126,7 +132,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Debe haber un renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void EndRenderpass(RenderTarget* renderpass) = 0;
+		virtual void EndGraphicsRenderpass(RenderTarget* renderpass) = 0;
 
 
 		/// <summary>
@@ -286,6 +292,34 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note El layout de la imagen después de efectuarse la copia segirá siendo GpuImageLayout::TRANSFER_DESTINATION.
 		virtual void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer = 0, TSize offset = 0) = 0;
+
+		/// <summary>
+		/// Copia el contenido de una imagen a otra.
+		/// </summary>
+		/// <param name="source">Imagen con los contenidos a copiar.</param>
+		/// <param name="destination">Destino de la copia.</param>
+		/// 
+		/// <param name="numLayers">Número de capas que se van a copiar.</param>
+		/// <param name="srcStartLayer">Capa de origen a partir de la cual se copiará.</param>
+		/// <param name="dstStartLayer">Capa de destino a partir de la cual se escribirá.</param>
+		/// 
+		/// <param name="srcMipLevel">Mip level de la imagen de origen desde el cual se copiará.</param>
+		/// <param name="dstMipLevel">Mip level de la imagen de destino al que se copiará.</param>
+		/// 
+		/// <param name="copySize">Región de la imagen, en píxeles, que se copiará.
+		/// Por defecto, se copia la imagen entera.</param>
+		/// 
+		/// @pre La imagen de origen debe haber sido creado con GpuImageUsage::TRANSFER_SOURCE.
+		/// @pre La imagen de origen debe tener el layout GpuImageLayout::TRANSFER_SOURCE.
+		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
+		/// @pre La imagen de destino debe tener el layout GpuImageLayout::TRANSFER_DESTINATION.
+		/// @pre La lista de comandos debe estar abierta.
+		/// 
+		/// @post El layout de la imagen después de efectuarse la copia segirá siendo GpuImageLayout::TRANSFER_DESTINATION.
+		/// 
+		/// @warning Si se copia con srcMipLevel != 0 y/o dstMipLevel != 0, se debe establecer un tamaño de la
+		/// región de copia válido (copySize).
+		virtual void CopyImageToImage(const GpuImage* source, GpuImage* destination, TSize numLayers, TSize srcStartLayer, TSize dstStartLayer, TSize srcMipLevel, TSize dstMipLevel, Vector2ui copySize = Vector2ui(0u)) = 0;
 
 		/// <summary>
 		/// Registra un buffer intermedio.

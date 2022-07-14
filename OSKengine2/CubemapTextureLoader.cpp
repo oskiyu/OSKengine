@@ -67,7 +67,7 @@ void CubemapTextureLoader::Load(const std::string& assetFilePath, IAsset** asset
 		stbi_image_free(pixels);
 	}
 
-	OwnedPtr<GRAPHICS::GpuImage> image = Engine::GetRenderer()->GetMemoryAllocator()->CreateCubemapImage(Vector2i(width, height).ToVector2ui(), GRAPHICS::GetColorFormat(numChannels), GRAPHICS::GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION, GRAPHICS::GpuSharedMemoryType::GPU_ONLY);
+	OwnedPtr<GRAPHICS::GpuImage> image = Engine::GetRenderer()->GetMemoryAllocator()->CreateCubemapImage(Vector2i(width, height).ToVector2ui(), GRAPHICS::GetColorFormat(numChannels), GRAPHICS::GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_SOURCE| GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION, GRAPHICS::GpuSharedMemoryType::GPU_ONLY);
 
 	Engine::GetRenderer()->UploadCubemapImageToGpu(image.GetPointer(), data, width * height * numChannels * 6, GRAPHICS::GpuImageLayout::SHADER_READ_ONLY);
 

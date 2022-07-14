@@ -2,7 +2,6 @@
 
 #include "Logger.h"
 #include "Window.h"
-#include "RendererOgl.h"
 #include "RendererDx12.h"
 #include "RendererVulkan.h"
 #include "RenderApiType.h"
@@ -29,6 +28,7 @@
 #include "TerrainComponent.h"
 #include "TerrainRenderSystem.h"
 #include "InputManager.h"
+#include "IrradianceMapLoader.h"
 
 #include <GLFW/glfw3.h>
 #undef GetCurrentTime
@@ -59,11 +59,6 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 	logger->InfoLog("	Build " + GetBuild() + ".");
 
 	switch (type) {
-	case GRAPHICS::RenderApiType::OPENGL:
-		//renderer = new GRAPHICS::RendererOgl;
-		OSK_ASSERT(false, "OpenGL no soportado");
-
-		break;
 
 	case OSK::GRAPHICS::RenderApiType::VULKAN:
 		renderer = new GRAPHICS::RendererVulkan;
@@ -74,18 +69,13 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 		renderer = new GRAPHICS::RendererDx12;
 
 		break;
-
-	case OSK::GRAPHICS::RenderApiType::OPENGL_ES:
-		OSK_ASSERT(false, "El renderizador de OPENGL ES no está implementado.");
-
-		break;
 	}
 
 	assetManager = new ASSETS::AssetManager();
-	RegisterBuiltinAssets();
-	RegisterBuiltinComponents();
-	RegisterBuiltinSystems();
-	RegisterBuiltinVertices();
+	// RegisterBuiltinAssets();
+	// RegisterBuiltinComponents();
+	// RegisterBuiltinSystems();
+	// RegisterBuiltinVertices();
 }
 
 void Engine::Close() {
@@ -102,6 +92,7 @@ void Engine::RegisterBuiltinAssets() {
 	assetManager->RegisterLoader<ASSETS::ModelLoader3D>();
 	assetManager->RegisterLoader<ASSETS::CubemapTextureLoader>();
 	assetManager->RegisterLoader<ASSETS::FontLoader>();
+	assetManager->RegisterLoader<ASSETS::IrradianceMapLoader>();
 }
 
 void Engine::RegisterBuiltinComponents() {

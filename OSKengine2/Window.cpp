@@ -36,14 +36,7 @@ Window::~Window() {
 void Window::SetRenderApiType(GRAPHICS::RenderApiType type) {
 	renderApi = type;
 
-	if (type == GRAPHICS::RenderApiType::OPENGL) {
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	}
-	else {
-		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-	}
+	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 }
 
 void Window::Create(int32_t sizeX, int32_t sizeY, const std::string& title) {
@@ -78,9 +71,6 @@ void Window::Create(int32_t sizeX, int32_t sizeY, const std::string& title) {
 
 void Window::Update() {
 	glfwPollEvents();
-
-	if (renderApi == GRAPHICS::RenderApiType::OPENGL)
-		glfwSwapBuffers(window.GetPointer());
 }
 
 void Window::SetMouseReturnMode(MouseReturnMode mode) {
@@ -230,9 +220,6 @@ void Window::GlfwResizeCallback(GLFWwindow* window, int sizex, int sizey) {
 void Window::ResizeCallback(int sizex, int sizey) {
 	sizeX = sizex;
 	sizeY = sizey;
-
-	if (renderApi == GRAPHICS::RenderApiType::OPENGL)
-		glViewport(0, 0, GetWindowSize().X, GetWindowSize().Y);
 
 	if (!Engine::GetRenderer()->_HasImplicitResizeHandling())
 		Engine::GetRenderer()->HandleResize();

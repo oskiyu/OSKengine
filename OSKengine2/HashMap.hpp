@@ -266,9 +266,10 @@ namespace OSK {
 
 		/// <summary>
 		/// Elimina una pareja.
-		/// Si no existe la pareja, no ocurre nada.
 		/// </summary>
 		/// <param name="key">Valor llave de la pareja.</param>
+		/// 
+		/// @note Si no existe la pareja, no ocurre nada.
 		void Remove(const TKey& key) {
 			KeySearchResult result = _FindKey(key);
 
@@ -276,7 +277,7 @@ namespace OSK {
 				const_cast<TBucket*>(result.it.bucket)->RemoveAt(result.it.inBucketIndex);
 
 				if (result.it.bucket->GetSize() == 0)
-					occupiedBuckets.SetFalse(result.it.inBucketIndex);
+					occupiedBuckets.SetFalse(result.it.bucketIndex);
 			}
 		}
 

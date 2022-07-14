@@ -13,8 +13,10 @@ var searchData=
   ['memoryproperties_10',['memoryProperties',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a40be907a7d15190e9e91faa6e0f86851',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
   ['menor_11',['menor',['../struct_o_s_k_1_1_version.html#a8d49fd1c4065ec814354ada48981623c',1,'OSK::Version']]],
   ['meshesmetadata_12',['meshesMetadata',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata.html#a990f8bc4bc4c8c91586a992b79b8f582',1,'OSK::ASSETS::ModelMetadata']]],
-  ['minalignment_13',['minAlignment',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#af22b6bdea472500fa9f6d106707b3b5d',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
-  ['mindepth_14',['minDepth',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html#af6a903fd2845a147d6a3c4d4cea182a3',1,'OSK::GRAPHICS::Viewport']]],
-  ['mode_15',['mode',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a6a55d056d46f623dcbbb911b0b07b2af',1,'OSK::GRAPHICS::ISwapchain']]],
-  ['mousenumberofbuttons_16',['MouseNumberOfButtons',['../namespace_o_s_k_1_1_i_o.html#a2126937723636a6160e7c746cc47b61c',1,'OSK::IO']]]
+  ['metallicfactor_13',['metallicFactor',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata.html#a1edfafe70ba1f2267ba4846136392c7a',1,'OSK::ASSETS::MeshMetadata::metallicFactor()'],['../struct_gltf_material_info.html#a66250ceb0e37badb390484f86e7ec1ee',1,'GltfMaterialInfo::metallicFactor()']]],
+  ['metallictextureindex_14',['metallicTextureIndex',['../struct_gltf_material_info.html#a75813a530398583b66c9a1c3a8ae9e86',1,'GltfMaterialInfo']]],
+  ['minalignment_15',['minAlignment',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#af22b6bdea472500fa9f6d106707b3b5d',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
+  ['mindepth_16',['minDepth',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html#af6a903fd2845a147d6a3c4d4cea182a3',1,'OSK::GRAPHICS::Viewport']]],
+  ['mode_17',['mode',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a6a55d056d46f623dcbbb911b0b07b2af',1,'OSK::GRAPHICS::ISwapchain']]],
+  ['mousenumberofbuttons_18',['MouseNumberOfButtons',['../namespace_o_s_k_1_1_i_o.html#a2126937723636a6160e7c746cc47b61c',1,'OSK::IO']]]
 ];

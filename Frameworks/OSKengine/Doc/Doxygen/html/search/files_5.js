@@ -12,6 +12,5 @@ var searchData=
   ['format_2ecpp_9',['Format.cpp',['../_format_8cpp.html',1,'']]],
   ['format_2eh_10',['Format.h',['../_format_8h.html',1,'']]],
   ['formatdx12_2eh_11',['FormatDx12.h',['../_format_dx12_8h.html',1,'']]],
-  ['formatogl_2eh_12',['FormatOgl.h',['../_format_ogl_8h.html',1,'']]],
-  ['formatvulkan_2eh_13',['FormatVulkan.h',['../_format_vulkan_8h.html',1,'']]]
+  ['formatvulkan_2eh_12',['FormatVulkan.h',['../_format_vulkan_8h.html',1,'']]]
 ];

@@ -105,9 +105,15 @@ Métodos públicos</h2></td></tr>
 <tr class="memitem:ad0124e76a79fab63c57a4245b681c676"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; </td></tr>
 <tr class="memitem:ad0124e76a79fab63c57a4245b681c676"><td class="memTemplItemLeft" align="right" valign="top">TSystem *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#ad0124e76a79fab63c57a4245b681c676">RegisterSystem</a> ()</td></tr>
 <tr class="separator:ad0124e76a79fab63c57a4245b681c676"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa92c71eeef785c567ee3044bdf12ac4e"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; </td></tr>
+<tr class="memitem:aa92c71eeef785c567ee3044bdf12ac4e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#aa92c71eeef785c567ee3044bdf12ac4e">RemoveSystem</a> ()</td></tr>
+<tr class="separator:aa92c71eeef785c567ee3044bdf12ac4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66cf743efc50ce26d675ce7b9aa7fc07"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; </td></tr>
 <tr class="memitem:a66cf743efc50ce26d675ce7b9aa7fc07"><td class="memTemplItemLeft" align="right" valign="top">TSystem *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a66cf743efc50ce26d675ce7b9aa7fc07">GetSystem</a> () const</td></tr>
 <tr class="separator:a66cf743efc50ce26d675ce7b9aa7fc07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68f4be9244de796b67148379177b9f82"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; </td></tr>
+<tr class="memitem:a68f4be9244de796b67148379177b9f82"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a68f4be9244de796b67148379177b9f82">ContainsSystem</a> () const</td></tr>
+<tr class="separator:a68f4be9244de796b67148379177b9f82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p >El <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html" title="El SystemManager se encarga de almacenar y manejar los sistemas del juego. Es el encargado de llamar ...">SystemManager</a> se encarga de almacenar y manejar los sistemas del juego. Es el encargado de llamar a las funciones OnTick de los sistemas, además de introducir y eliminar de los sistemas a los GameObjects que cada sistema vaya a procesar. </p>
@@ -115,6 +121,37 @@ Métodos públicos</h2></td></tr>
 
 <p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00027">27</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
 </div><h2 class="groupheader">Documentación de las funciones miembro</h2>
+<a id="a68f4be9244de796b67148379177b9f82" name="a68f4be9244de796b67148379177b9f82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68f4be9244de796b67148379177b9f82">&#9670;&nbsp;</a></span>ContainsSystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TSystem &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OSK::ECS::SystemManager::ContainsSystem </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Comprueba si un sistema dado está registrado. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00081">81</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
+
+</div>
+</div>
 <a id="adeba4513a1ca0154da78f72d2bb3c408" name="adeba4513a1ca0154da78f72d2bb3c408"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adeba4513a1ca0154da78f72d2bb3c408">&#9670;&nbsp;</a></span>GameObjectDestroyed()</h2>
 
@@ -203,7 +240,7 @@ template&lt;typename TSystem &gt; </div>
 
 <p>Devuelve la instancia del sistema dado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00063">63</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00074">74</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
 
 </div>
 </div>
@@ -260,6 +297,39 @@ template&lt;typename TSystem &gt; </div>
 
 </div>
 </div>
+<a id="aa92c71eeef785c567ee3044bdf12ac4e" name="aa92c71eeef785c567ee3044bdf12ac4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa92c71eeef785c567ee3044bdf12ac4e">&#9670;&nbsp;</a></span>RemoveSystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TSystem &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OSK::ECS::SystemManager::RemoveSystem </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Elimina el sistema dado, para que no sea procesado a partir de ahora. </p>
+<dl class="section note"><dt>Nota</dt><dd>Si el sistema no está registrado, no ocurre nada.</dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000004">Bug:</a></b></dt><dd>No llama a <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a43e7608ce2a31c9c13b42cf4ce6eb0ef" title="Función que se ejecuta al destruirse el sistema.">ISystem::OnRemove()</a>. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00067">67</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
+
+</div>
+</div>
 <hr/>La documentación para esta clase fue generada a partir de los siguientes ficheros:<ul>
 <li>OSKengine2/<a class="el" href="_system_manager_8h_source.html">SystemManager.h</a></li>
 <li>OSKengine2/<a class="el" href="_system_manager_8cpp_source.html">SystemManager.cpp</a></li>
@@ -270,7 +340,7 @@ template&lt;typename TSystem &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html">SystemManager</a></li>
-    <li class="footer">Generado el Domingo, 10 de Julio de 2022 13:51:35 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 14 de Julio de 2022 17:37:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

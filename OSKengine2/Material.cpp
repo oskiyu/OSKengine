@@ -15,11 +15,7 @@ Material::Material(const PipelineCreateInfo& pipelineInfo, OwnedPtr<MaterialLayo
 	this->layout = layout.GetPointer();
 
 	if (!pipelineInfo.isRaytracing) {
-		const Format pipelineFormat = pipelineInfo.isFinal
-			? Engine::GetRenderer()->_GetSwapchain()->GetColorFormat()
-			: Format::RGBA8_UNORM;
-
-		graphicsPipeline = Engine::GetRenderer()->_CreateGraphicsPipeline(pipelineInfo, layout.GetPointer(), pipelineFormat, vertexInfo).GetPointer();
+		graphicsPipeline = Engine::GetRenderer()->_CreateGraphicsPipeline(pipelineInfo, layout.GetPointer(), pipelineInfo.format, vertexInfo).GetPointer();
 	}
 	else {
 		rtPipeline = Engine::GetRenderer()->_CreateRaytracingPipeline(pipelineInfo, layout.GetPointer(), vertexInfo).GetPointer();

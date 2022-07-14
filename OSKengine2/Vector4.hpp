@@ -342,7 +342,7 @@ namespace OSK {
 	/// Precisión = float.
 	/// </summary>
 	/// 
-	/// @deprecated
+	/// @deprecated Usar Vector4f.
 	typedef Vector4_t<float_t> Vector4;
 
 	/// <summary>

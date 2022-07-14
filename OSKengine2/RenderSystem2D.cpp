@@ -27,7 +27,7 @@ RenderSystem2D::RenderSystem2D() {
 void RenderSystem2D::Render(ICommandList* commandList) {
 	spriteRenderer.SetCommandList(commandList);
 
-	commandList->BeginAndClearRenderpass(&renderTarget, { 1.0f, 1.0f, 1.0f, 0.0f });
+	commandList->BeginAndClearGraphicsRenderpass(&renderTarget, { 1.0f, 1.0f, 1.0f, 0.0f });
 
 	SetupViewport(commandList);
 
@@ -42,5 +42,5 @@ void RenderSystem2D::Render(ICommandList* commandList) {
 
 	spriteRenderer.End();
 
-	commandList->EndRenderpass(&renderTarget);
+	commandList->EndGraphicsRenderpass(&renderTarget);
 }

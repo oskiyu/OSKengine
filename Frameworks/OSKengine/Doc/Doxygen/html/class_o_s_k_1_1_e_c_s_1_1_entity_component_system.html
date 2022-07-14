@@ -124,6 +124,9 @@ Métodos públicos</h2></td></tr>
 <tr class="memitem:a18836d4687754f3fc6415ecb355915bb"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; </td></tr>
 <tr class="memitem:a18836d4687754f3fc6415ecb355915bb"><td class="memTemplItemLeft" align="right" valign="top">TSystem *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a18836d4687754f3fc6415ecb355915bb">RegisterSystem</a> ()</td></tr>
 <tr class="separator:a18836d4687754f3fc6415ecb355915bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a798a0e00bae8eecdee1ff9d4cdcb8ebd"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; </td></tr>
+<tr class="memitem:a798a0e00bae8eecdee1ff9d4cdcb8ebd"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a798a0e00bae8eecdee1ff9d4cdcb8ebd">RemoveSystem</a> ()</td></tr>
+<tr class="separator:a798a0e00bae8eecdee1ff9d4cdcb8ebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a706590589270cf5d5aa1747915ba67f9"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; </td></tr>
 <tr class="memitem:a706590589270cf5d5aa1747915ba67f9"><td class="memTemplItemLeft" align="right" valign="top">TSystem *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a706590589270cf5d5aa1747915ba67f9">GetSystem</a> () const</td></tr>
 <tr class="separator:a706590589270cf5d5aa1747915ba67f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -442,7 +445,7 @@ template&lt;typename TSystem &gt; </div>
 
 <p>Devuelve la instancia almacenada del sistema del tipo dado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8h_source.html#l00167">167</a> del archivo <a class="el" href="_entity_component_system_8h_source.html">EntityComponentSystem.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8h_source.html#l00181">181</a> del archivo <a class="el" href="_entity_component_system_8h_source.html">EntityComponentSystem.h</a>.</p>
 
 </div>
 </div>
@@ -601,6 +604,38 @@ template&lt;typename TComponent &gt; </div>
 
 </div>
 </div>
+<a id="a798a0e00bae8eecdee1ff9d4cdcb8ebd" name="a798a0e00bae8eecdee1ff9d4cdcb8ebd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a798a0e00bae8eecdee1ff9d4cdcb8ebd">&#9670;&nbsp;</a></span>RemoveSystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TSystem &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OSK::ECS::EntityComponentSystem::RemoveSystem </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Elimina un sistema. </p>
+<dl class="section note"><dt>Nota</dt><dd>Si el sistema no está registrado, no ocurre nada. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8h_source.html#l00169">169</a> del archivo <a class="el" href="_entity_component_system_8h_source.html">EntityComponentSystem.h</a>.</p>
+
+</div>
+</div>
 <a id="a8fdd1a158a10e388946a2c3e0ddf1eb5" name="a8fdd1a158a10e388946a2c3e0ddf1eb5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8fdd1a158a10e388946a2c3e0ddf1eb5">&#9670;&nbsp;</a></span>SpawnObject()</h2>
 
@@ -633,7 +668,7 @@ template&lt;typename TComponent &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">EntityComponentSystem</a></li>
-    <li class="footer">Generado el Domingo, 10 de Julio de 2022 13:51:35 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 14 de Julio de 2022 17:37:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

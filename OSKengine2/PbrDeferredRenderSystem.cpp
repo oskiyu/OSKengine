@@ -55,7 +55,7 @@ void PbrDeferredRenderSystem::ExecuteNormalRenderpass(ICommandList* commandList)
 	IGpuVertexBuffer* previousVertexBuffer = nullptr;
 	IGpuIndexBuffer* previousIndexBuffer = nullptr;
 
-	commandList->BeginRenderpass(&normalRenderTarget);
+	commandList->BeginGraphicsRenderpass(&normalRenderTarget);
 
 	SetupViewport(commandList);
 
@@ -87,7 +87,7 @@ void PbrDeferredRenderSystem::ExecuteNormalRenderpass(ICommandList* commandList)
 		}
 	}
 
-	commandList->EndRenderpass(&normalRenderTarget);
+	commandList->EndGraphicsRenderpass(&normalRenderTarget);
 }
 
 void PbrDeferredRenderSystem::ExecuteColorRenderpass(ICommandList* commandList) {
@@ -95,7 +95,7 @@ void PbrDeferredRenderSystem::ExecuteColorRenderpass(ICommandList* commandList) 
 	IGpuVertexBuffer* previousVertexBuffer = nullptr;
 	IGpuIndexBuffer* previousIndexBuffer = nullptr;
 
-	commandList->BeginRenderpass(&normalRenderTarget);
+	commandList->BeginGraphicsRenderpass(&normalRenderTarget);
 
 	OSK::Vector4ui imageRec = {
 		0,
@@ -138,5 +138,5 @@ void PbrDeferredRenderSystem::ExecuteColorRenderpass(ICommandList* commandList) 
 		}
 	}
 
-	commandList->EndRenderpass(&normalRenderTarget);
+	commandList->EndGraphicsRenderpass(&normalRenderTarget);
 }

@@ -67,7 +67,6 @@
     <ClCompile Include="CameraComponent3D.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="CommandListDx12.cpp" />
-    <ClCompile Include="CommandListOgl.cpp" />
     <ClCompile Include="CommandListVulkan.cpp" />
     <ClCompile Include="CommandPoolDx12.cpp" />
     <ClCompile Include="CommandPoolVulkan.cpp" />
@@ -92,11 +91,8 @@
     <ClCompile Include="GpuImageDx12.cpp" />
     <ClCompile Include="GpuImageLayoutDx12.cpp" />
     <ClCompile Include="GpuImageLayoutVulkan.cpp" />
-    <ClCompile Include="GpuImageOgl.cpp" />
     <ClCompile Include="GpuImageVulkan.cpp" />
-    <ClCompile Include="GpuIndexBufferOgl.cpp" />
     <ClCompile Include="GpuIndexBufferVulkan.cpp" />
-    <ClCompile Include="GpuMemoryAllocatorOgl.cpp" />
     <ClCompile Include="GpuMemoryAllocatorVulkan.cpp" />
     <ClCompile Include="GpuMemoryAllocatorDx12.cpp" />
     <ClCompile Include="GpuMemoryBlockDx12.cpp" />
@@ -109,7 +105,6 @@
     <ClCompile Include="GpuUniformBufferDx12.cpp" />
     <ClCompile Include="GpuUniformBufferVulkan.cpp" />
     <ClCompile Include="GpuVertexBufferDx12.cpp" />
-    <ClCompile Include="GpuVertexBufferOgl.cpp" />
     <ClCompile Include="GpuVertexBufferVulkan.cpp" />
     <ClCompile Include="GpuVulkan.cpp" />
     <ClCompile Include="GraphicsPipelineDx12.cpp" />
@@ -124,6 +119,8 @@
     <ClCompile Include="IPipelineVulkan.cpp" />
     <ClCompile Include="IRaytracingPipeline.cpp" />
     <ClCompile Include="IRenderSystem.cpp" />
+    <ClCompile Include="IrradianceMap.cpp" />
+    <ClCompile Include="IrradianceMapLoader.cpp" />
     <ClCompile Include="ITopLevelAccelerationStructure.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MaterialInstance.cpp" />
@@ -139,7 +136,6 @@
     <ClCompile Include="PbrDeferredRenderSystem.cpp" />
     <ClCompile Include="PipelineLayoutDx12.cpp" />
     <ClCompile Include="PipelineLayoutVulkan.cpp" />
-    <ClCompile Include="GraphicsPipelineOgl.cpp" />
     <ClCompile Include="GraphicsPipelineVulkan.cpp" />
     <ClCompile Include="ICommandList.cpp" />
     <ClCompile Include="IGpuDataBuffer.cpp" />
@@ -164,10 +160,8 @@
     <ClCompile Include="RaytracingPipelineVulkan.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RendererDx12.cpp" />
-    <ClCompile Include="RendererOgl.cpp" />
     <ClCompile Include="RendererVulkan.cpp" />
     <ClCompile Include="RenderpassDx12.cpp" />
-    <ClCompile Include="RenderpassOgl.cpp" />
     <ClCompile Include="RenderpassVulkan.cpp" />
     <ClCompile Include="RenderSystem2D.cpp" />
     <ClCompile Include="RenderSystem3D.cpp" />
@@ -208,7 +202,6 @@
     <ClInclude Include="CameraComponent3D.h" />
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="CommandListDx12.h" />
-    <ClInclude Include="CommandListOgl.h" />
     <ClInclude Include="CommandListVulkan.h" />
     <ClInclude Include="CommandPoolDx12.h" />
     <ClInclude Include="CommandPoolVulkan.h" />
@@ -222,6 +215,9 @@
     <ClInclude Include="CubemapTextureLoader.h" />
     <ClInclude Include="DescriptorLayoutVulkan.h" />
     <ClInclude Include="DescriptorPoolVulkan.h" />
+    <ClInclude Include="Doc__MaterialJson.h" />
+    <ClInclude Include="IrradianceMap.h" />
+    <ClInclude Include="IrradianceMapLoader.h" />
     <ClInclude Include="Lights.h" />
     <ClInclude Include="DynamicArray.hpp" />
     <ClInclude Include="EntityComponentSystem.h" />
@@ -233,7 +229,6 @@
     <ClInclude Include="FontLoader.h" />
     <ClInclude Include="Format.h" />
     <ClInclude Include="FormatDx12.h" />
-    <ClInclude Include="FormatOgl.h" />
     <ClInclude Include="FormatVulkan.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game1.hpp" />
@@ -245,15 +240,12 @@
     <ClInclude Include="GpuImageLayout.h" />
     <ClInclude Include="GpuImageLayoutDx12.h" />
     <ClInclude Include="GpuImageLayoutVulkan.h" />
-    <ClInclude Include="GpuImageOgl.h" />
     <ClInclude Include="GpuImageDimensions.h" />
     <ClInclude Include="GpuImageSamplerDesc.h" />
     <ClInclude Include="GpuImageUsage.h" />
     <ClInclude Include="GpuImageVulkan.h" />
     <ClInclude Include="GpuIndexBufferDx12.h" />
-    <ClInclude Include="GpuIndexBufferOgl.h" />
     <ClInclude Include="GpuMemoryAllocatorDx12.h" />
-    <ClInclude Include="GpuMemoryAllocatorOgl.h" />
     <ClInclude Include="GpuMemoryAllocatorVulkan.h" />
     <ClInclude Include="GpuMemoryBlockDx12.h" />
     <ClInclude Include="GpuMemoryBlockVulkan.h" />
@@ -265,7 +257,6 @@
     <ClInclude Include="GpuUniformBufferDx12.h" />
     <ClInclude Include="GpuUniformBufferVulkan.h" />
     <ClInclude Include="GpuVertexBufferDx12.h" />
-    <ClInclude Include="GpuVertexBufferOgl.h" />
     <ClInclude Include="GpuVertexBufferVulkan.h" />
     <ClInclude Include="GpuVertexDescriptionVulkan.h" />
     <ClInclude Include="GpuVulkan.h" />
@@ -304,7 +295,6 @@
     <ClInclude Include="PbrDeferredRenderSystem.h" />
     <ClInclude Include="PipelineLayoutDx12.h" />
     <ClInclude Include="PipelineLayoutVulkan.h" />
-    <ClInclude Include="GraphicsPipelineOgl.h" />
     <ClInclude Include="GraphicsPipelineVulkan.h" />
     <ClInclude Include="HashMap.hpp" />
     <ClInclude Include="ICommandList.h" />
@@ -329,7 +319,6 @@
     <ClInclude Include="LinkedList.hpp" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MouseState.h" />
-    <ClInclude Include="OglTypes.h" />
     <ClInclude Include="OSKengine.h" />
     <ClInclude Include="OSKmacros.h" />
     <ClInclude Include="OwnedPtr.h" />
@@ -342,10 +331,8 @@
     <ClInclude Include="RaytracingPipelineVulkan.h" />
     <ClInclude Include="RenderApiType.h" />
     <ClInclude Include="RendererDx12.h" />
-    <ClInclude Include="RendererOgl.h" />
     <ClInclude Include="RendererVulkan.h" />
     <ClInclude Include="RenderpassDx12.h" />
-    <ClInclude Include="RenderpassOgl.h" />
     <ClInclude Include="RenderpassType.h" />
     <ClInclude Include="RenderpassVulkan.h" />
     <ClInclude Include="RenderSystem2D.h" />

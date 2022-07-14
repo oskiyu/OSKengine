@@ -160,7 +160,6 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageS
 
 	GpuImageVulkan* output = new GpuImageVulkan(imageSize, dimension, usage, numLayers, format, msaaSamples);
 
-
 	// ------ IMAGE ---------- //
 	VkImage vkImage = VK_NULL_HANDLE;
 
@@ -170,7 +169,7 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageS
 	imageInfo.extent.width = finalImageSize.X;
 	imageInfo.extent.height = finalImageSize.Y;
 	imageInfo.extent.depth = finalImageSize.Z;
-	imageInfo.mipLevels = GpuImage::GetMipLevels(finalImageSize.X, finalImageSize.Y);
+	imageInfo.mipLevels = output->GetMipLevels();
 	imageInfo.arrayLayers = numLayers;
 	imageInfo.format = GetFormatVulkan(format);
 	imageInfo.tiling = VK_IMAGE_TILING_OPTIMAL;
@@ -207,7 +206,7 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageS
 	viewInfo.format = GetFormatVulkan(format);
 	viewInfo.subresourceRange.aspectMask = GetGpuImageAspectVulkan(usage);
 	viewInfo.subresourceRange.baseMipLevel = 0;
-	viewInfo.subresourceRange.levelCount = GpuImage::GetMipLevels(imageSize.X, imageSize.Y);
+	viewInfo.subresourceRange.levelCount = output->GetMipLevels();
 	viewInfo.subresourceRange.baseArrayLayer = 0;
 	viewInfo.subresourceRange.layerCount = numLayers;
 
@@ -244,7 +243,7 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageS
 
 	samplerInfo.mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR;
 	samplerInfo.minLod = 0.0f;
-	samplerInfo.maxLod = (float)GpuImage::GetMipLevels(imageSize.X, imageSize.Y);
+	samplerInfo.maxLod = static_cast<float>(output->GetMipLevels());
 	samplerInfo.mipLodBias = 0.0f;
 
 	vkCreateSampler(device->As<GpuVulkan>()->GetLogicalDevice(),

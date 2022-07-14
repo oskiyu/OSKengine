@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/IrradianceMapLoader.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_irradiance_map_loader_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">IrradianceMapLoader.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_irradiance_map_loader_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_i_asset_loader_8h.html">IAssetLoader.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_unique_ptr_8hpp.html">UniquePtr.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_material_8h.html">Material.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_material_instance_8h.html">MaterialInstance.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_render_target_8h.html">RenderTarget.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;glm.hpp&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keyword">class </span>ICommandList;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">class </span>Model3D;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map_loader.html">   20</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map_loader.html">IrradianceMapLoader</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html">IAssetLoader</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map_loader.html">IrradianceMapLoader</a>();</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map_loader.html">~IrradianceMapLoader</a>();</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map_loader.html#af53f3470393360bbb3dcc007e338bf21">   27</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map_loader.html#af53f3470393360bbb3dcc007e338bf21">OSK_ASSET_TYPE_REG</a>(<span class="stringliteral">&quot;OSK::IrradianceMap&quot;</span>);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordtype">void</span> Load(<span class="keyword">const</span> std::string&amp; assetFilePath, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html">IAsset</a>** asset) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordtype">void</span> DrawCubemap(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GRAPHICS::GpuImage</a>* targetCubemap, <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* cmdList);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordtype">void</span> GenCubemap(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GRAPHICS::GpuImage</a>* targetCubemap, <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* cmdList);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordtype">void</span> ConvoluteCubemap(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GRAPHICS::GpuImage</a>* targetCubemap, <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* cmdList);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">GRAPHICS::Material</a>* cubemapGenMaterial = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">GRAPHICS::Material</a>* cubemapConvolutionMaterial = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GRAPHICS::MaterialInstance&gt;</a> cubemapGenMaterialInstance = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GRAPHICS::MaterialInstance&gt;</a> cubemapConvolutionMaterialInstance = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">GRAPHICS::RenderTarget</a> cubemapGenRenderTarget;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">Model3D</a>* cubemapModel = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a> irradianceLayerSize = <a class="code hl_typedef" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a>(512u, 512u);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keyword">static</span> glm::mat4 cameraProjection;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keyword">static</span> glm::mat4 cameraViews[6];</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    };</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
+<div class="ttc" id="a_i_asset_loader_8h_html"><div class="ttname"><a href="_i_asset_loader_8h.html">IAssetLoader.h</a></div></div>
+<div class="ttc" id="a_material_8h_html"><div class="ttname"><a href="_material_8h.html">Material.h</a></div></div>
+<div class="ttc" id="a_material_instance_8h_html"><div class="ttname"><a href="_material_instance_8h.html">MaterialInstance.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
+<div class="ttc" id="a_render_target_8h_html"><div class="ttname"><a href="_render_target_8h.html">RenderTarget.h</a></div></div>
+<div class="ttc" id="a_unique_ptr_8hpp_html"><div class="ttname"><a href="_unique_ptr_8hpp.html">UniquePtr.hpp</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html">OSK::ASSETS::IAsset</a></div><div class="ttdoc">Un asset es un archivo/contenido que se usa en un juego. Incluye contenido como texturas,...</div><div class="ttdef"><b>Definition:</b> <a href="_i_asset_8h_source.html#l00031">IAsset.h:31</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html">OSK::ASSETS::IAssetLoader</a></div><div class="ttdoc">Clase que se encarga de cargar un asset de un tipo en concreto.</div><div class="ttdef"><b>Definition:</b> <a href="_i_asset_loader_8h_source.html#l00024">IAssetLoader.h:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map_loader_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map_loader.html">OSK::ASSETS::IrradianceMapLoader</a></div><div class="ttdef"><b>Definition:</b> <a href="_irradiance_map_loader_8h_source.html#l00020">IrradianceMapLoader.h:20</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map_loader_html_af53f3470393360bbb3dcc007e338bf21"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map_loader.html#af53f3470393360bbb3dcc007e338bf21">OSK::ASSETS::IrradianceMapLoader::OSK_ASSET_TYPE_REG</a></div><div class="ttdeci">OSK_ASSET_TYPE_REG(&quot;OSK::IrradianceMap&quot;)</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">OSK::ASSETS::Model3D</a></div><div class="ttdoc">Un modelo 3D, para el renderizado 3D. Está compuesto por una serie de meshes 3D.</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8h_source.html#l00079">Model3D.h:79</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_image_8h_source.html#l00023">IGpuImage.h:23</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">OSK::GRAPHICS::ICommandList</a></div><div class="ttdoc">Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución.</div><div class="ttdef"><b>Definition:</b> <a href="_i_command_list_8h_source.html#l00038">ICommandList.h:38</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">OSK::GRAPHICS::Material</a></div><div class="ttdoc">Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la...</div><div class="ttdef"><b>Definition:</b> <a href="_material_8h_source.html#l00025">Material.h:25</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">OSK::GRAPHICS::RenderTarget</a></div><div class="ttdoc">Representa una textura a la que se puede renderizar.</div><div class="ttdef"><b>Definition:</b> <a href="_render_target_8h_source.html#l00030">RenderTarget.h:30</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Es dueño de un puntero. El puntero original es eliminado al destruirse el UniquePtr.</div><div class="ttdef"><b>Definition:</b> <a href="_unique_ptr_8hpp_source.html#l00020">UniquePtr.hpp:20</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; uint32_t &gt;</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition:</b> <a href="_asset_manager_8h_source.html#l00009">AssetManager.h:9</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_bottom_level_acceleration_structure_vulkan_8h_source.html#l00010">BottomLevelAccelerationStructureVulkan.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a29c2aa145248042c8045d1329efa4770"><div class="ttname"><a href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">OSK::Vector2ui</a></div><div class="ttdeci">Vector2_t&lt; uint32_t &gt; Vector2ui</div><div class="ttdoc">Precisión = uint32.</div><div class="ttdef"><b>Definition:</b> <a href="_vector2_8hpp_source.html#l00358">Vector2.hpp:358</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_irradiance_map_loader_8h.html">IrradianceMapLoader.h</a></li>
+    <li class="footer">Generado el Jueves, 14 de Julio de 2022 17:37:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

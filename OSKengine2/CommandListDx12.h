@@ -36,11 +36,11 @@ namespace OSK::GRAPHICS {
 		void Start() override;
 		void Close() override;
 
-		void BeginRenderpass(RenderTarget* renderTarget) override;
-		void BeginAndClearRenderpass(RenderTarget* renderTarget, const Color& color) override;
-		void EndRenderpass(RenderTarget* renderTarget) override;
+		void BeginGraphicsRenderpass(RenderTarget* renderTarget) override;
+		void BeginAndClearGraphicsRenderpass(RenderTarget* renderTarget, const Color& color) override;
+		void EndGraphicsRenderpass(RenderTarget* renderTarget) override;
 
-		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers) override;
+		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers, TSize baseMipLevel, TSize numMipLevels) override;
 
 		void BindMaterial(const Material* material) override;
 		void BindVertexBuffer(const IGpuVertexBuffer* buffer) override;
@@ -53,6 +53,7 @@ namespace OSK::GRAPHICS {
 		void TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) override;
 
 		void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer, TSize offset) override;
+		void CopyImageToImage(const GpuImage* source, GpuImage* destination, TSize numLayers, TSize srcStartLayer, TSize dstStartLayer, TSize srcMipLevel, TSize dstMipLevel, Vector2ui copySize) override;
 
 		void BindUniformBufferDx12(TSize index, const GpuUniformBufferDx12* buffer);
 		void BindImageDx12(TSize index, const GpuImageDx12* image);

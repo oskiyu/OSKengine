@@ -59,7 +59,7 @@ void CommandListVulkan::Close() {
 	OSK_ASSERT(result == VK_SUCCESS, "No se pudo finalizar la lista de comandos.");
 }
 
-void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers) {
+void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers, TSize baseMipLevel, TSize numMipLevels) {
 	VkImageMemoryBarrier barrier{};
 	barrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
 	barrier.oldLayout = GetGpuImageLayoutVulkan(previous);
@@ -68,8 +68,8 @@ void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout pr
 	barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
 	barrier.image = image->As<GpuImageVulkan>()->GetImage();
 	barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-	barrier.subresourceRange.baseMipLevel = 0;
-	barrier.subresourceRange.levelCount = VK_REMAINING_MIP_LEVELS;
+	barrier.subresourceRange.baseMipLevel = baseMipLevel;
+	barrier.subresourceRange.levelCount = numMipLevels == 0 ? VK_REMAINING_MIP_LEVELS : numMipLevels;
 	barrier.subresourceRange.baseArrayLayer = baseLayer;
 	barrier.subresourceRange.layerCount = numLayers;
 	barrier.srcAccessMask = 0;
@@ -82,6 +82,11 @@ void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout pr
 	case VK_IMAGE_LAYOUT_UNDEFINED:
 		barrier.srcAccessMask = 0;
 		sourceStage = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
+		break;
+
+	case VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL:
+		barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+		sourceStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
 		break;
 
 	case VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL:
@@ -113,6 +118,11 @@ void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout pr
 	}
 
 	switch (GetGpuImageLayoutVulkan(next)) {
+	case VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL:
+		barrier.dstAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
+		destinationStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
+		break;
+
 	case VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL:
 		barrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
 		destinationStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
@@ -172,6 +182,76 @@ void CommandListVulkan::CopyBufferToImage(const GpuDataBuffer* source, GpuImage*
 	vkCmdCopyBufferToImage(commandBuffers[GetCommandListIndex()],
 		source->GetMemoryBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer(), 
 		dest->As<GpuImageVulkan>()->GetImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
+
+	// Mip levels
+	Vector2i mipSize = { static_cast<int>(dest->GetSize().X), static_cast<int>(dest->GetSize().Y) };
+	// El nivel 0 ya está lleno.
+	for (TSize mipLevel = 1; mipLevel < dest->GetMipLevels(); mipLevel++) {
+		TransitionImageLayout(dest, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::TRANSFER_SOURCE, layer, 1, mipLevel - 1, 1);
+
+		VkImageBlit blit{};
+
+		blit.srcOffsets[0] = { 0, 0, 0 };
+		blit.srcOffsets[1] = { mipSize.X, mipSize.Y, 1 };
+
+		// Origen: mip level anterior.
+		blit.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+		blit.srcSubresource.mipLevel = mipLevel - 1;
+		blit.srcSubresource.baseArrayLayer = layer;
+		blit.srcSubresource.layerCount = 1;
+		
+		blit.dstOffsets[0] = { 0, 0, 0 };
+		blit.dstOffsets[1] = { mipSize.X > 1 ? mipSize.X / 2 : 1, mipSize.Y > 1 ? mipSize.Y / 2 : 1, 1 };
+
+		// Destino.
+		blit.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+		blit.dstSubresource.mipLevel = mipLevel;
+		blit.dstSubresource.baseArrayLayer = layer;
+		blit.dstSubresource.layerCount = 1;
+
+		vkCmdBlitImage(commandBuffers[GetCommandListIndex()],
+			dest->As<GpuImageVulkan>()->GetImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+			dest->As<GpuImageVulkan>()->GetImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+			1, &blit, VK_FILTER_LINEAR);
+
+		if (mipSize.X > 1) 
+			mipSize.X /= 2;
+		if (mipSize.Y > 1)
+			mipSize.Y /= 2;
+	}
+
+	TransitionImageLayout(dest, GpuImageLayout::TRANSFER_SOURCE, GpuImageLayout::TRANSFER_DESTINATION, layer, 1, 0, 0);
+}
+
+void CommandListVulkan::CopyImageToImage(const GpuImage* source, GpuImage* destination, TSize numLayers, TSize srcStartLayer, TSize dstStartLayer, TSize srcMipLevel, TSize dstMipLevel, Vector2ui copySize) {
+	VkImageCopy region{};
+
+	region.srcOffset = { 0, 0, 0 };
+	region.dstOffset = { 0, 0, 0 };
+
+	region.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+	region.srcSubresource.mipLevel = srcMipLevel;
+	region.srcSubresource.baseArrayLayer = srcStartLayer;
+	region.srcSubresource.layerCount = numLayers;
+
+	region.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+	region.dstSubresource.mipLevel = dstMipLevel;
+	region.dstSubresource.baseArrayLayer = dstStartLayer;
+	region.dstSubresource.layerCount = numLayers;
+
+	if (copySize.X == 0)
+		copySize.X = destination->GetSize().X;
+	if (copySize.Y == 0)
+		copySize.Y = destination->GetSize().Y;
+
+	region.extent.width = copySize.X;
+	region.extent.height= copySize.Y;
+	region.extent.depth = 1; /// @todo Size.Z
+
+	vkCmdCopyImage(commandBuffers[GetCommandListIndex()],
+		source->As<GpuImageVulkan>()->GetImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+		destination->As<GpuImageVulkan>()->GetImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+		1, &region);
 }
 
 void CommandListVulkan::CopyBuffer(const GpuDataBuffer* source, GpuDataBuffer* dest, TSize size, TSize sourceOffset, TSize destOffset) {
@@ -187,11 +267,11 @@ void CommandListVulkan::CopyBuffer(const GpuDataBuffer* source, GpuDataBuffer* d
 		1, &copyRegion);
 }
 
-void CommandListVulkan::BeginRenderpass(RenderTarget* renderTarget) {
-	BeginAndClearRenderpass(renderTarget, Color::BLACK() * 0.0f);
+void CommandListVulkan::BeginGraphicsRenderpass(RenderTarget* renderTarget) {
+	BeginAndClearGraphicsRenderpass(renderTarget, Color::BLACK() * 0.0f);
 }
 
-void CommandListVulkan::BeginAndClearRenderpass(RenderTarget* renderTarget, const Color& color) {
+void CommandListVulkan::BeginAndClearGraphicsRenderpass(RenderTarget* renderTarget, const Color& color) {
 	const auto size = renderTarget->GetSize();
 	const bool isFinal = renderTarget->GetRenderTargetType() == RenderpassType::FINAL;
 	DynamicArray<GpuImage*> colorImgs = isFinal
@@ -199,7 +279,7 @@ void CommandListVulkan::BeginAndClearRenderpass(RenderTarget* renderTarget, cons
 		: renderTarget->GetTargetImages(Engine::GetRenderer()->GetCurrentFrameIndex());
 
 	for (auto img : colorImgs)
-		TransitionImageLayout(img, GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, 0, 1);
+		TransitionImageLayout(img, GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, 0, 1, 0, 0);
 
 	DynamicArray<VkRenderingAttachmentInfo> colorAttachments = DynamicArray<VkRenderingAttachmentInfo>::CreateResizedArray(colorImgs.GetSize());
 	for (TSize i = 0; i < colorImgs.GetSize(); i++) {
@@ -240,7 +320,7 @@ void CommandListVulkan::BeginAndClearRenderpass(RenderTarget* renderTarget, cons
 	currentRenderpass = renderTarget;
 }
 
-void CommandListVulkan::EndRenderpass(RenderTarget* renderTarget) {
+void CommandListVulkan::EndGraphicsRenderpass(RenderTarget* renderTarget) {
 	vkCmdEndRendering(commandBuffers[GetCommandListIndex()]);
 
 	const bool isFinal = renderTarget->GetRenderTargetType() == RenderpassType::FINAL;
@@ -254,7 +334,7 @@ void CommandListVulkan::EndRenderpass(RenderTarget* renderTarget) {
 		: GpuImageLayout::SHADER_READ_ONLY;
 
 	for (auto img : colorImgs)
-		TransitionImageLayout(img, GpuImageLayout::COLOR_ATTACHMENT, finalLayout, 0, 1);
+		TransitionImageLayout(img, GpuImageLayout::COLOR_ATTACHMENT, finalLayout, 0, 1, 0, 0);
 }
 
 void CommandListVulkan::BindMaterial(const Material* material) {

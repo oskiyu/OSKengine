@@ -16,6 +16,7 @@ using namespace OSK::GRAPHICS;
 GpuImage::GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples)
 	: format(format), dimension(dimension), usage(usage), numLayers(numLayers), currentLayout(GpuImageLayout::UNDEFINED), size(size), numSamples(numSamples) {
 
+	mipLevels = GetMipLevels(size.X, size.Y);
 	_SetPhysicalSize(size);
 }
 
@@ -79,7 +80,6 @@ unsigned int GpuImage::GetMipLevels() const {
 }
 
 TSize GpuImage::GetMipLevels(uint32_t sizeX, uint32_t sizeY) {
-	return 1;
 	return static_cast<TSize>(glm::floor(glm::log2(glm::max((float)sizeX, (float)sizeY)))) + 1;
 }
 

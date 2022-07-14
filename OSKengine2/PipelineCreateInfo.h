@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "Format.h"
 
 namespace OSK::GRAPHICS {
 
@@ -173,9 +174,9 @@ namespace OSK::GRAPHICS {
 		bool isRaytracing = false;
 
 		/// <summary>
-		/// True si es un material que renderizará a la imagen final.
+		/// Formato de la imagen sobre la que se renderizará.
 		/// </summary>
-		bool isFinal = false;
+		Format format = Format::RGBA8_UNORM;
 
 	};
 

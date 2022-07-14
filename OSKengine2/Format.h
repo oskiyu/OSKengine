@@ -12,6 +12,9 @@ namespace OSK::GRAPHICS {
 		// COLOR
 		RGB8_UNORM,
 		RGBA8_UNORM,
+		RGB16_SFLOAT,
+		RGBA16_SFLOAT,
+		RGBA32_SFLOAT,
 		B8G8R8A8_SRGB,
 
 		// DEPTH-STENCIL
@@ -37,6 +40,15 @@ namespace OSK::GRAPHICS {
 	/// RGB8_UNORM o RGBA8_UNORM.
 	/// Si se pasa un número inválido, devolverá RGBA8_UNORM.</returns>
 	Format GetColorFormat(unsigned int numChannels);
+
+	/// <summary>
+	/// Devuelve el formato según el string dado.
+	/// </summary>
+	/// <param name="formatStr">String, tal y como aparece en el enum Format.</param>
+	/// <returns>Formato correspondiente.</returns>
+	/// 
+	/// @throws std::runtime_exception si no corresponde a ningún formato.
+	Format GetFormatFromString(const std::string& formatStr);
 
 }
 

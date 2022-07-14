@@ -11,8 +11,8 @@ ICommandList::~ICommandList() {
 	DeleteAllStagingBuffers();
 }
 
-void ICommandList::TransitionImageLayout(GpuImage* image, GpuImageLayout next, TSize baseLayer, TSize layerCount) {
-	TransitionImageLayout(image, image->GetLayout(), next, baseLayer, layerCount);
+void ICommandList::TransitionImageLayout(GpuImage* image, GpuImageLayout next, TSize baseLayer, TSize layerCount, TSize baseMipLevel, TSize numMipLevels) {
+	TransitionImageLayout(image, image->GetLayout(), next, baseLayer, layerCount, baseMipLevel, numMipLevels);
 }
 
 void ICommandList::RegisterStagingBuffer(OwnedPtr<GpuDataBuffer> stagingBuffer) {

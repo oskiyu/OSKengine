@@ -37,9 +37,9 @@ namespace OSK::GRAPHICS {
 		void Start() override;
 		void Close() override;
 
-		void BeginRenderpass(RenderTarget* renderpass) override;
-		void BeginAndClearRenderpass(RenderTarget* renderpass, const Color& color) override;
-		void EndRenderpass(RenderTarget* renderpass) override;
+		void BeginGraphicsRenderpass(RenderTarget* renderpass) override;
+		void BeginAndClearGraphicsRenderpass(RenderTarget* renderpass, const Color& color) override;
+		void EndGraphicsRenderpass(RenderTarget* renderpass) override;
 
 		void BindMaterial(const Material* material) override;
 		void BindVertexBuffer(const IGpuVertexBuffer* buffer) override;
@@ -51,9 +51,10 @@ namespace OSK::GRAPHICS {
 		void DrawSingleMesh(TSize firstIndex, TSize numIndices) override;
 		void TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) override;
 
-		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers) override;
+		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers, TSize baseMipLevel, TSize numMipLevels) override;
 
 		void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer, TSize offset) override;
+		void CopyImageToImage(const GpuImage* source, GpuImage* destination, TSize numLayers, TSize srcStartLayer, TSize dstStartLayer, TSize srcMipLevel, TSize dstMipLevel, Vector2ui copySize) override;
 
 		/// <summary>
 		/// Copia los contenidos del primer buffer al segundo.

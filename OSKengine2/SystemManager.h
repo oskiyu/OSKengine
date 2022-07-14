@@ -2,7 +2,7 @@
 
 #include "OSKmacros.h"
 #include "HashMap.hpp"
-#include "OwnedPtr.h"
+#include "UniquePtr.hpp"
 #include "GameObject.h"
 #include "Component.h"
 
@@ -58,15 +58,33 @@ namespace OSK::ECS {
 		}
 
 		/// <summary>
+		/// Elimina el sistema dado, para que no sea procesado a partir de ahora.
+		/// </summary>
+		/// 
+		/// @note Si el sistema no está registrado, no ocurre nada.
+		/// 
+		/// @bug No llama a ISystem::OnRemove().
+		template <typename TSystem> void RemoveSystem() {
+			sistemas.Remove(TSystem::GetSystemName());
+		}
+
+		/// <summary>
 		/// Devuelve la instancia del sistema dado.
 		/// </summary>
 		template <typename TSystem> TSystem* GetSystem() const {
 			return (TSystem*)sistemas.Get(TSystem::GetSystemName()).GetPointer();
 		}
 
+		/// <summary>
+		/// Comprueba si un sistema dado está registrado.
+		/// </summary>
+		template <typename TSystem> bool ContainsSystem() const {
+			return sistemas.ContainsKey(TSystem::GetSystemName());
+		}
+
 	private:
 
-		HashMap<std::string, OwnedPtr<ISystem>> sistemas;
+		HashMap<std::string, UniquePtr<ISystem>> sistemas;
 
 	};
 

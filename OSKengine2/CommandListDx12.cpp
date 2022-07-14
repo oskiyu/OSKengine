@@ -62,7 +62,7 @@ void CommandListDx12::Close() {
 	commandList->Close();
 }
 
-void CommandListDx12::TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers) {
+void CommandListDx12::TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers, TSize baseMipLevel, TSize numMipLevels) {
 	ID3D12Resource* resource = image->As<GpuImageDx12>()->GetResource();
 	
 	D3D12_RESOURCE_BARRIER barrierInfo{};
@@ -97,11 +97,15 @@ void CommandListDx12::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* d
 	commandList->CopyTextureRegion(&copyDest, 0, 0, 0, &copySource, nullptr);
 }
 
-void CommandListDx12::BeginRenderpass(RenderTarget* renderTarget) {
-	BeginAndClearRenderpass(renderTarget, Color::BLACK());
+void CommandListDx12::CopyImageToImage(const GpuImage* source, GpuImage* destination, TSize numLayers, TSize srcStartLayer, TSize dstStartLayer, TSize srcMipLevel, TSize dstMipLevel, Vector2ui copySize) {
+	OSK_ASSERT(false, "No implementado");
 }
 
-void CommandListDx12::BeginAndClearRenderpass(RenderTarget* renderTarget, const Color& color) {
+void CommandListDx12::BeginGraphicsRenderpass(RenderTarget* renderTarget) {
+	BeginAndClearGraphicsRenderpass(renderTarget, Color::BLACK());
+}
+
+void CommandListDx12::BeginAndClearGraphicsRenderpass(RenderTarget* renderTarget, const Color& color) {
 	DynamicArray<D3D12_CPU_DESCRIPTOR_HANDLE> colorAttachments{};
 	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilDesc{};
 
@@ -137,7 +141,7 @@ void CommandListDx12::BeginAndClearRenderpass(RenderTarget* renderTarget, const 
 	currentRenderpass = renderTarget;
 }
 
-void CommandListDx12::EndRenderpass(RenderTarget* renderTarget) {
+void CommandListDx12::EndGraphicsRenderpass(RenderTarget* renderTarget) {
 	GpuImageLayout finalLayout = GpuImageLayout::SHADER_READ_ONLY;
 	if (renderTarget->GetRenderTargetType() == RenderpassType::FINAL)
 		finalLayout = GpuImageLayout::PRESENT;
