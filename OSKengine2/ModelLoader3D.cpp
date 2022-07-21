@@ -241,7 +241,7 @@ void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, c
 					globalScale
 				);
 
-				GRAPHICS::Vertex3D vertex{};
+				Vertex3D vertex{};
 				vertex.position = glm::vec3(glm::scale(nodeMatrix, glm::vec3(globalScale)) * vertexPosition);
 
 				const Vector3f originalNormal = Vector3f{
@@ -278,7 +278,7 @@ void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, c
 				case TINYGLTF_PARAMETER_TYPE_UNSIGNED_INT: {
 					const uint32_t* indBuffer = (const uint32_t*)(&indicesBuffer.data[indicesAccesor.byteOffset + indicesView.byteOffset]);
 					for (TSize index = 0; index < indicesAccesor.count; index++)
-						indices->Insert((GRAPHICS::TIndexSize)indBuffer[index] + firstVertexId);
+						indices->Insert((TIndexSize)indBuffer[index] + firstVertexId);
 
 					break;
 				}
@@ -286,7 +286,7 @@ void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, c
 				case TINYGLTF_PARAMETER_TYPE_UNSIGNED_SHORT: {
 					const uint16_t* indBuffer = (const uint16_t*)(&indicesBuffer.data[indicesAccesor.byteOffset + indicesView.byteOffset]);
 					for (size_t index = 0; index < indicesAccesor.count; index++)
-						indices->Insert((GRAPHICS::TIndexSize)indBuffer[index] + firstVertexId);
+						indices->Insert((TIndexSize)indBuffer[index] + firstVertexId);
 
 					break;
 				}
@@ -294,7 +294,7 @@ void ProcessMeshNode(const tinygltf::Node& node, const tinygltf::Model& model, c
 				case TINYGLTF_PARAMETER_TYPE_UNSIGNED_BYTE: {
 					const uint8_t* indBuffer = (const uint8_t*)(&indicesBuffer.data[indicesAccesor.byteOffset + indicesView.byteOffset]);
 					for (size_t index = 0; index < indicesAccesor.count; index++)
-						indices->Insert((GRAPHICS::TIndexSize)indBuffer[index] + firstVertexId);
+						indices->Insert((TIndexSize)indBuffer[index] + firstVertexId);
 
 					break;
 				}
@@ -356,20 +356,21 @@ DynamicArray<GltfMaterialInfo> LoadMaterials(const tinygltf::Model& model) {
 	return output;
 }
 
-DynamicArray<OwnedPtr<GRAPHICS::GpuImage>> LoadImages(const tinygltf::Model& model) {
-	DynamicArray<OwnedPtr<GRAPHICS::GpuImage>> output;
+DynamicArray<OwnedPtr<GpuImage>> LoadImages(const tinygltf::Model& model) {
+	DynamicArray<OwnedPtr<GpuImage>> output;
 
 	for (TSize i = 0; i < model.images.size(); i++) {
 		const tinygltf::Image& originalImage = model.images[i];
 		
 		auto image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ (unsigned int)originalImage.width, (unsigned int)originalImage.height, 1 },
-			GRAPHICS::GpuImageDimension::d2D, 1, GRAPHICS::Format::RGBA8_UNORM, GpuImageUsage::TRANSFER_DESTINATION | GRAPHICS::GpuImageUsage::SAMPLED, 
-			GRAPHICS::GpuSharedMemoryType::GPU_ONLY, true);
+			GpuImageDimension::d2D, 1, Format::RGBA8_UNORM, GpuImageUsage::TRANSFER_SOURCE| GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED,
+			GpuSharedMemoryType::GPU_ONLY, true);
 
 		const TSize numBytes = originalImage.width * originalImage.height * 4;
 		if (originalImage.component == 3) {
 			TByte* data = (TByte*)malloc(numBytes);
 			memset(data, 255, numBytes);
+			OSK_ASSERT(data != NULL, "No se pudo reservar memoria para las imágenes del modelo 3d.");
 
 			TSize rgbPos = 0;
 			for (TSize i = 0; i < numBytes; i += 4) {
@@ -377,13 +378,15 @@ DynamicArray<OwnedPtr<GRAPHICS::GpuImage>> LoadImages(const tinygltf::Model& mod
 				rgbPos += 3;
 			}
 
-			Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), originalImage.image.data(), numBytes, GRAPHICS::GpuImageLayout::SHADER_READ_ONLY);
+			Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), originalImage.image.data(), numBytes, GpuImageLayout::SHADER_READ_ONLY);
 
 			free(data);
 		}
-
 		else if (originalImage.component == 4) {
-			Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), originalImage.image.data(), numBytes, GRAPHICS::GpuImageLayout::SHADER_READ_ONLY);
+			Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), originalImage.image.data(), numBytes, GpuImageLayout::SHADER_READ_ONLY);
+		}
+		else {
+			OSK_ASSERT(false, "Formato de imagen no soportado en gltf2.0.");
 		}
 
 		output.Insert(image);

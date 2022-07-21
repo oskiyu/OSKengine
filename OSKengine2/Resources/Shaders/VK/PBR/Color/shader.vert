@@ -12,6 +12,7 @@ layout(location = 2) out vec4 outColor;
 layout(location = 3) out vec2 outTexCoords;
 
 layout(location = 4) out vec3 outCameraPos;
+layout(location = 5) out vec4 fragPosInLightSpace;
 
 layout (set = 0, binding = 0) uniform Camera {
     mat4 view;
@@ -19,6 +20,10 @@ layout (set = 0, binding = 0) uniform Camera {
 
     vec3 cameraPos;
 } camera;
+
+layout (set = 0, binding = 1) uniform DirLightShadowMat {
+    mat4 matrix;
+} dirLightShadowMat;
 
 layout (push_constant) uniform Model {
     mat4 modelMatrix;
@@ -29,8 +34,9 @@ void main() {
     outNormal = normalize(mat3(transpose(inverse(model.modelMatrix))) * inNormal);
     outTexCoords = inTexCoords;
     outCameraPos = camera.cameraPos;
+    fragPosInLightSpace = dirLightShadowMat.matrix * model.modelMatrix * vec4(inPosition, 1.0);
 
-    vec4 oPos = model.modelMatrix * vec4(inPosition, 1.0);
-    outPosition = oPos.xyz;
-    gl_Position = camera.projection * camera.view * vec4(oPos);
+    outPosition = (model.modelMatrix * vec4(inPosition, 1.0)).xyz;
+
+    gl_Position = camera.projection * camera.view * vec4(outPosition, 1.0);
 }

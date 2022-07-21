@@ -98,8 +98,10 @@ unsigned int OSK::GRAPHICS::GetGpuImageAspectVulkan(GpuImageUsage usage) {
 	unsigned int flags = 0;
 
 	if (EFTraits::HasFlag(usage, GpuImageUsage::COLOR)
-		|| EFTraits::HasFlag(usage, GpuImageUsage::SAMPLED)
 		|| EFTraits::HasFlag(usage, GpuImageUsage::RT_TARGET_IMAGE))
+		flags = flags | VK_IMAGE_ASPECT_COLOR_BIT;
+
+	if (EFTraits::HasFlag(usage, GpuImageUsage::SAMPLED) && !EFTraits::HasFlag(usage, GpuImageUsage::DEPTH_STENCIL))
 		flags = flags | VK_IMAGE_ASPECT_COLOR_BIT;
 
 	if (OSK_CONTAINS_FLAG(usage, GpuImageUsage::DEPTH_STENCIL))

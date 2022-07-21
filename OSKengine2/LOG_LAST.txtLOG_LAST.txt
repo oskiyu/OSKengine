@@ -1,6 +1,6 @@
 INFO: Iniciando OSKengine.
 INFO: 	Version: 0.0.0.
-INFO: 	Build 2022.07.10a.
+INFO: 	Build 2022.07.15a.
 INFO: Ventana iniciada correctamente.
 INFO: 	Monitor sizeX: 1920
 INFO: 	Monitor sizeY: 1080
@@ -33,6 +33,12 @@ INFO: Creado bloque de memoria GPU.
 INFO: 	Tamaño: 134217728
 DEBUG: START
 DEBUG: END
+INFO: Creado bloque de memoria GPU.
+INFO: 	Tamaño: 134217728
+INFO: Creado bloque de memoria GPU.
+INFO: 	Tamaño: 134217728
+INFO: Creado bloque de memoria GPU.
+INFO: 	Tamaño: 134217728
 INFO: Creado bloque de memoria GPU.
 INFO: 	Tamaño: 134217728
 INFO: Creado bloque de memoria GPU.

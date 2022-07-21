@@ -421,6 +421,9 @@
     <Filter Include="Doc">
       <UniqueIdentifier>{8b39a36a-e265-44d2-a648-37146090c66b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\HighLevel\PBR">
+      <UniqueIdentifier>{458b5b52-5fb4-46df-9f84-41d90643eafd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -821,6 +824,9 @@
     </ClCompile>
     <ClCompile Include="IrradianceMapLoader.cpp">
       <Filter>Archivos de origen\OSKengine\Assets\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowMap.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\PBR</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1363,6 +1369,9 @@
     </ClInclude>
     <ClInclude Include="IrradianceMapLoader.h">
       <Filter>Archivos de encabezado\OSKengine\Assets\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowMap.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PBR</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

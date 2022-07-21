@@ -188,15 +188,17 @@ $(document).ready(function(){initNavTree('_gpu_memory_type_vulkan_8cpp_source.ht
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> flags = 0;</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">EFTraits::HasFlag</a>(usage, GpuImageUsage::COLOR)</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        || <a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">EFTraits::HasFlag</a>(usage, GpuImageUsage::SAMPLED)</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        || <a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">EFTraits::HasFlag</a>(usage, GpuImageUsage::RT_TARGET_IMAGE))</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        flags = flags | VK_IMAGE_ASPECT_COLOR_BIT;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="_gpu_memory_type_vulkan_8cpp.html#aae0a075d37434c06fb109f06b67e738d">OSK_CONTAINS_FLAG</a>(usage, GpuImageUsage::DEPTH_STENCIL))</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        flags = flags | (VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT);</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keywordflow">return</span> flags;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>}</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        || <a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">EFTraits::HasFlag</a>(usage, GpuImageUsage::RT_TARGET_IMAGE))</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        flags = flags | VK_IMAGE_ASPECT_COLOR_BIT;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">EFTraits::HasFlag</a>(usage, GpuImageUsage::SAMPLED) &amp;&amp; !<a class="code hl_function" href="namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c">EFTraits::HasFlag</a>(usage, GpuImageUsage::DEPTH_STENCIL))</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        flags = flags | VK_IMAGE_ASPECT_COLOR_BIT;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="_gpu_memory_type_vulkan_8cpp.html#aae0a075d37434c06fb109f06b67e738d">OSK_CONTAINS_FLAG</a>(usage, GpuImageUsage::DEPTH_STENCIL))</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        flags = flags | (VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">return</span> flags;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>}</div>
 <div class="ttc" id="a_assert_8h_html_adfbccaec84df99b8277f9d877554170c"><div class="ttname"><a href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a></div><div class="ttdeci">#define OSK_ASSERT(condition, msg)</div><div class="ttdoc">Comprueba si la condición se cumple. Si no se cumple, muestra un mensaje de error y throwea un error.</div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00064">Assert.h:64</a></div></div>
 <div class="ttc" id="a_gpu_image_usage_8h_html"><div class="ttname"><a href="_gpu_image_usage_8h.html">GpuImageUsage.h</a></div></div>
 <div class="ttc" id="a_gpu_memory_type_vulkan_8cpp_html_aae0a075d37434c06fb109f06b67e738d"><div class="ttname"><a href="_gpu_memory_type_vulkan_8cpp.html#aae0a075d37434c06fb109f06b67e738d">OSK_CONTAINS_FLAG</a></div><div class="ttdeci">#define OSK_CONTAINS_FLAG(a, b)</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_memory_type_vulkan_8cpp_source.html#l00010">GpuMemoryTypeVulkan.cpp:10</a></div></div>
@@ -219,7 +221,7 @@ $(document).ready(function(){initNavTree('_gpu_memory_type_vulkan_8cpp_source.ht
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_gpu_memory_type_vulkan_8cpp.html">GpuMemoryTypeVulkan.cpp</a></li>
-    <li class="footer">Generado el Jueves, 14 de Julio de 2022 17:37:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 21 de Julio de 2022 18:59:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

@@ -53,3 +53,19 @@ void GpuImageVulkan::SetSampler(VkSampler sampler) {
 VkSampler GpuImageVulkan::GetSampler() const {
 	return sampler;
 }
+
+void GpuImageVulkan::_SetDepthView(VkImageView view) {
+	depthView = view;
+}
+
+VkImageView GpuImageVulkan::GetDepthView() const {
+	return depthView;
+}
+
+void GpuImageVulkan::_SetStencilView(VkImageView view) {
+	stencilView = view;
+}
+
+VkImageView GpuImageVulkan::GetStencilView() const {
+	return stencilView;
+}

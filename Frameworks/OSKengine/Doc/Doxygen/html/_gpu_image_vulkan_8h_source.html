@@ -119,15 +119,24 @@ $(document).ready(function(){initNavTree('_gpu_image_vulkan_8h_source.html','');
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordtype">void</span> SetSampler(<a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#a600cc1aac896aa576ad1d794aea333b6">VkSampler</a> sampler);</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#a600cc1aac896aa576ad1d794aea333b6">VkSampler</a> GetSampler() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#ab67aebb4bb7dd78d66051d8fc16c8099">VkImage</a> image = 0;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#a28e620304ee7813cd5c30bd76c74c553">VkImageView</a> view = 0;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#a600cc1aac896aa576ad1d794aea333b6">VkSampler</a> sampler = 0;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordtype">void</span> _SetDepthView(<a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#a28e620304ee7813cd5c30bd76c74c553">VkImageView</a> view);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#a28e620304ee7813cd5c30bd76c74c553">VkImageView</a> GetDepthView() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordtype">void</span> _SetStencilView(<a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#a28e620304ee7813cd5c30bd76c74c553">VkImageView</a> view);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#a28e620304ee7813cd5c30bd76c74c553">VkImageView</a> GetStencilView() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    };</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#ab67aebb4bb7dd78d66051d8fc16c8099">VkImage</a> image = 0;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#a28e620304ee7813cd5c30bd76c74c553">VkImageView</a> view = 0;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#a600cc1aac896aa576ad1d794aea333b6">VkSampler</a> sampler = 0;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#a28e620304ee7813cd5c30bd76c74c553">VkImageView</a> depthView = 0;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <a class="code hl_typedef" href="_gpu_image_vulkan_8h.html#a28e620304ee7813cd5c30bd76c74c553">VkImageView</a> stencilView = 0;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    };</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
 <div class="ttc" id="a_gpu_image_vulkan_8h_html_a28e620304ee7813cd5c30bd76c74c553"><div class="ttname"><a href="_gpu_image_vulkan_8h.html#a28e620304ee7813cd5c30bd76c74c553">VkImageView</a></div><div class="ttdeci">VkImageView_T * VkImageView</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_vulkan_8h_source.html#l00009">GpuImageVulkan.h:9</a></div></div>
 <div class="ttc" id="a_gpu_image_vulkan_8h_html_a600cc1aac896aa576ad1d794aea333b6"><div class="ttname"><a href="_gpu_image_vulkan_8h.html#a600cc1aac896aa576ad1d794aea333b6">VkSampler</a></div><div class="ttdeci">VkSampler_T * VkSampler</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_vulkan_8h_source.html#l00012">GpuImageVulkan.h:12</a></div></div>
 <div class="ttc" id="a_gpu_image_vulkan_8h_html_ab67aebb4bb7dd78d66051d8fc16c8099"><div class="ttname"><a href="_gpu_image_vulkan_8h.html#ab67aebb4bb7dd78d66051d8fc16c8099">VkImage</a></div><div class="ttdeci">VkImage_T * VkImage</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_vulkan_8h_source.html#l00006">GpuImageVulkan.h:6</a></div></div>
@@ -147,7 +156,7 @@ $(document).ready(function(){initNavTree('_gpu_image_vulkan_8h_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_gpu_image_vulkan_8h.html">GpuImageVulkan.h</a></li>
-    <li class="footer">Generado el Jueves, 14 de Julio de 2022 17:37:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 21 de Julio de 2022 18:59:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

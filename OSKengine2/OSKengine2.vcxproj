@@ -169,6 +169,7 @@
     <ClCompile Include="RtShaderTableVulkan.cpp" />
     <ClCompile Include="ShaderBindingTypeVulkan.cpp" />
     <ClCompile Include="ShaderStages.cpp" />
+    <ClCompile Include="ShadowMap.cpp" />
     <ClCompile Include="SpirvToHlsl.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
@@ -341,6 +342,7 @@
     <ClInclude Include="RtShaderTableVulkan.h" />
     <ClInclude Include="ShaderBindingType.h" />
     <ClInclude Include="ShaderBindingTypeVulkan.h" />
+    <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="SharedPtr.hpp" />
     <ClInclude Include="SpirvToHlsl.h" />
     <ClInclude Include="Sprite.h" />

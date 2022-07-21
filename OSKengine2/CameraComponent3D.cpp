@@ -8,6 +8,7 @@
 
 #include "OSKengine.h"
 #include "Logger.h"
+#include "Math.h"
 
 #include <ext/matrix_clip_space.hpp>
 #include <ext/matrix_transform.hpp>
@@ -21,17 +22,7 @@ float CameraComponent3D::GetFov() const {
 }
 
 void CameraComponent3D::SetFov(float nfov) {
-	if (nfov < fovLimitDown) {
-		//OSK_CHECK(false, "Se ha intentado introducir un valor FOV por debajo del límite.");
-		fov = fovLimitDown;
-	}
-	else if (nfov > fovLimitUp) {
-		//OSK_CHECK(false, "Se ha intentado introducir un valor FOV por encima del límite.");
-		fov = fovLimitUp;
-	}
-	else {
-		fov = nfov;
-	}
+	fov = MATH::Clamp(nfov, fovLimitDown, fovLimitUp);
 }
 
 void CameraComponent3D::AddFov(float diff) {
@@ -85,9 +76,9 @@ void CameraComponent3D::UpdateTransform(Transform3D* transform) {
 }
 
 glm::mat4 CameraComponent3D::GetProjectionMatrix(const Transform3D& transform) const {
-	return glm::lookAt(transform.GetPosition().ToGLM(), (transform.GetPosition() + transform.GetForwardVector()).ToGLM(), transform.GetTopVector().ToGLM());
+	return glm::lookAt<float>(transform.GetPosition().ToGLM(), (transform.GetPosition() + transform.GetForwardVector()).ToGLM(), transform.GetTopVector().ToGLM());
 }
 
 glm::mat4 CameraComponent3D::GetViewMatrix() const {
-	return glm::perspective(glm::radians(fov), Engine::GetWindow()->GetScreenRatio(), nearPlane, farPlane);
+	return glm::perspective<float>(glm::radians(fov), Engine::GetWindow()->GetScreenRatio(), nearPlane, farPlane);
 }

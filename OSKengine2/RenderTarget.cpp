@@ -48,8 +48,7 @@ void RenderTarget::CreateTargetImages() {
 	for (TSize i = 0; i < NUM_RENDER_TARGET_IMAGES; i++) {
 		GpuImage* image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
 			{ GetSize().X, GetSize().Y, 1 }, GpuImageDimension::d2D, 1, colorFormat,
-			targetUsage, GpuSharedMemoryType::GPU_ONLY, 1
-		).GetPointer();
+			targetUsage, GpuSharedMemoryType::GPU_ONLY, 1, colorSampler).GetPointer();
 
 		if (targetImages[i].IsEmpty())
 			targetImages[i].Insert(image);
@@ -62,14 +61,16 @@ void RenderTarget::CreateDepthImages() {
 	for (TSize i = 0; i < NUM_RENDER_TARGET_IMAGES; i++) {
 		depthImages[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
 			{ GetSize().X, GetSize().Y, 1 }, GpuImageDimension::d2D, 1, depthFormat,
-			GpuImageUsage::DEPTH_STENCIL, GpuSharedMemoryType::GPU_ONLY, 1).GetPointer();
+			depthUsage, GpuSharedMemoryType::GPU_ONLY, 1, depthSampler).GetPointer();
 	}
 }
 
 void RenderTarget::UpdateSpriteImages() {
-	targetSprite.GetMaterialInstance()->GetSlot("texture")->SetGpuImage("stexture0", targetImages[0].At(0).GetPointer());
-	targetSprite.GetMaterialInstance()->GetSlot("texture")->SetGpuImage("stexture1", targetImages[1].At(0).GetPointer());
-	targetSprite.GetMaterialInstance()->GetSlot("texture")->SetGpuImage("stexture2", targetImages[2].At(0).GetPointer());
+	const GpuImage* images[NUM_RESOURCES_IN_FLIGHT]{};
+	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+		images[i] = targetImages[i].At(0).GetPointer();
+
+	targetSprite.GetMaterialInstance()->GetSlot("texture")->SetGpuImages("stexture", images);
 	targetSprite.GetMaterialInstance()->GetSlot("texture")->FlushUpdate();
 }
 
@@ -139,4 +140,16 @@ void RenderTarget::SetResolutionScale(float scale) {
 
 void RenderTarget::SetTargetImageUsage(GpuImageUsage usage) {
 	targetUsage = GpuImageUsage::COLOR | GpuImageUsage::SAMPLED | usage;
+}
+
+void RenderTarget::SetDepthImageUsage(GpuImageUsage usage) {
+	depthUsage = GpuImageUsage::DEPTH_STENCIL | usage;
+}
+
+void RenderTarget::SetColorImageSampler(const GpuImageSamplerDesc& sampler) {
+	colorSampler = sampler;
+}
+
+void RenderTarget::SetDepthImageSampler(const GpuImageSamplerDesc& sampler) {
+	depthSampler = sampler;
 }

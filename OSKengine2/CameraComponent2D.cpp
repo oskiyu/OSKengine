@@ -27,10 +27,9 @@ void CameraComponent2D::UnlinkWindow() {
 }
 
 glm::mat4 CameraComponent2D::GetProjection(const Transform2D& cameraTransform) const {
-	if (window)
-		return glm::ortho(cameraTransform.GetPosition().X, (float)window->GetWindowSize().X, (float)window->GetWindowSize().Y, cameraTransform.GetPosition().Y, -1.0f, 1.0f);
-	else
-		return glm::ortho((float)cameraTransform.GetPosition().X, targetSize.X, (float)cameraTransform.GetPosition().Y, targetSize.Y, -1.0f, 1.0f);
+	return window
+		? glm::ortho<float>(cameraTransform.GetPosition().X, (float)window->GetWindowSize().X, (float)window->GetWindowSize().Y, cameraTransform.GetPosition().Y, -1.0f, 1.0f)
+		: glm::ortho<float>(cameraTransform.GetPosition().X, targetSize.X, cameraTransform.GetPosition().Y, targetSize.Y, -1.0f, 1.0f);
 }
 
 void CameraComponent2D::UpdateUniformBuffer(const Transform2D& cameraTransform) {

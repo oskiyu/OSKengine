@@ -10,6 +10,7 @@
 #include "Transform2D.h"
 #include "RenderpassType.h"
 #include "GpuImageUsage.h"
+#include "GpuImageSamplerDesc.h"
 
 namespace OSK::GRAPHICS {
 
@@ -166,6 +167,32 @@ namespace OSK::GRAPHICS {
 		/// @note Tendrá uso GpuImageUsage::COLOR | GpuImageUsage::SAMPLED | usage.
 		void SetTargetImageUsage(GpuImageUsage usage);
 
+		/// <summary>
+		/// Establece el uso que se le va a dar a las imágenes de renderizado.
+		/// </summary>
+		/// <param name="usage">Uso que se le va a dar.</param>
+		/// 
+		/// @note Debe ser llamado antes de RenderTarget::Create.
+		/// @note Si es llamado después de RenderTarget::Create, no tendrá efecto hasta que se
+		/// llame a RenderTarget::Resize.
+		/// 
+		/// @note Por defecto, será GpuImageUsage::DEPTH_STENCIL.
+		/// @note Tendrá uso GpuImageUsage::DEPTH_STENCIL | usage.
+		void SetDepthImageUsage(GpuImageUsage usage);
+
+
+		/// <summary>
+		/// Establece el sampler para las imágenes de renderizado, que determina cómo se accede a la textura desde
+		/// los shaders.
+		/// </summary>
+		void SetColorImageSampler(const GpuImageSamplerDesc& sampler);
+
+		/// <summary>
+		/// Establece el sampler para las imágenes de profundidad, que determina cómo se accede a la textura desde
+		/// los shaders.
+		/// </summary>
+		void SetDepthImageSampler(const GpuImageSamplerDesc& sampler);
+
 	private:
 
 		void CreateTargetImages();
@@ -178,12 +205,16 @@ namespace OSK::GRAPHICS {
 		Format depthFormat;
 
 		GpuImageUsage targetUsage = GpuImageUsage::COLOR | GpuImageUsage::SAMPLED;
+		GpuImageUsage depthUsage = GpuImageUsage::DEPTH_STENCIL;
 
 		DynamicArray<UniquePtr<GpuImage>> targetImages[NUM_RENDER_TARGET_IMAGES]; // Puede haber más de un target.
 		UniquePtr<GpuImage> depthImages[NUM_RENDER_TARGET_IMAGES];
 
 		Sprite targetSprite;
 		ECS::Transform2D spriteTransform{ ECS::EMPTY_GAME_OBJECT };
+
+		GpuImageSamplerDesc colorSampler{};
+		GpuImageSamplerDesc depthSampler{};
 
 		RenderpassType targetType = RenderpassType::INTERMEDIATE;
 

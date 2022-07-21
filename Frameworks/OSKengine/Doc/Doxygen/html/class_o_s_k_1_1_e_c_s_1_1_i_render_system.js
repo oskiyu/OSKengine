@@ -1,5 +1,6 @@
 var class_o_s_k_1_1_e_c_s_1_1_i_render_system =
 [
+    [ "~IRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#ae46eb2ba5310ecbafd70b56228171a0a", null ],
     [ "AddObject", "class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a7c4d298e40f9d83aa00b85e59167e890", null ],
     [ "CreateTargetImage", "class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#af963cc4b47d5d60b0b33473e3c7f3c75", null ],
     [ "GetObjects", "class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#ad3611590e6bde825b973c160d7a867d9", null ],

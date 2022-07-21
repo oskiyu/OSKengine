@@ -11,6 +11,7 @@
 #include "Model3D.h"
 #include "Mesh3D.h"
 #include "Viewport.h"
+#include "GpuImageLayout.h"
 
 using namespace OSK;
 using namespace OSK::ECS;
@@ -23,9 +24,69 @@ RenderSystem3D::RenderSystem3D() {
 	signature.SetTrue(Engine::GetEntityComponentSystem()->GetComponentType<ModelComponent3D>());
 
 	SetSignature(signature);
+
+	shadowMap.Create({ 1024u, 1024u });
+
+	dirLightUniformBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
 }
 
-void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
+void RenderSystem3D::SetDirectionalLight(const DirectionalLight& dirLight) {
+	directionalLight = dirLight;
+
+	dirLightUniformBuffer->ResetCursor();
+	dirLightUniformBuffer->MapMemory();
+	dirLightUniformBuffer->Write(directionalLight);
+	dirLightUniformBuffer->Unmap();
+
+	shadowMap.SetDirectionalLight(dirLight);
+}
+
+const DirectionalLight& RenderSystem3D::GetDirectionalLight() const {
+	return directionalLight;
+}
+
+IGpuUniformBuffer* RenderSystem3D::GetDirLightUniformBuffer() const {
+	return dirLightUniformBuffer.GetPointer();
+}
+
+ShadowMap* RenderSystem3D::GetShadowMap() {
+	return &shadowMap;
+}
+
+void RenderSystem3D::GenerateShadows(ICommandList* commandList) {
+	const Viewport viewport {
+		.rectangle = { 0u, 0u, shadowMap.GetShadowsRenderTarget()->GetSize().X, shadowMap.GetShadowsRenderTarget()->GetSize().Y }
+	};
+
+	commandList->TransitionImageLayout(shadowMap.GetShadowImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::DEPTH_STENCIL_TARGET, 0, 1);
+
+	commandList->SetViewport(viewport);
+	commandList->SetScissor(viewport.rectangle);
+
+	commandList->BeginAndClearGraphicsRenderpass(shadowMap.GetShadowsRenderTarget(), { 1.0f, 1.0f, 1.0f, 1.0f });
+
+	commandList->BindMaterial(shadowMap.GetShadowsMaterial());
+	commandList->BindMaterialSlot(shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
+
+	for (const GameObjectIndex obj : GetObjects()) {
+		const ModelComponent3D& model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj);
+		const Transform3D& transform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(obj);
+		
+		commandList->BindVertexBuffer(model.GetModel()->GetVertexBuffer());
+		commandList->BindIndexBuffer(model.GetModel()->GetIndexBuffer());
+
+		commandList->PushMaterialConstants("model", transform.GetAsMatrix());
+
+		for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++)
+			commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
+	}
+
+	commandList->EndGraphicsRenderpass(shadowMap.GetShadowsRenderTarget());
+
+	commandList->TransitionImageLayout(shadowMap.GetShadowImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::SHADER_READ_ONLY, 0, 1);
+}
+
+void RenderSystem3D::RenderScene(GRAPHICS::ICommandList* commandList) {
 	Material* previousMaterial = nullptr;
 	IGpuVertexBuffer* previousVertexBuffer = nullptr;
 	IGpuIndexBuffer* previousIndexBuffer = nullptr;
@@ -58,7 +119,7 @@ void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
 			for (const std::string& slotName : model.GetMaterial()->GetLayout()->GetAllSlotNames())
 				commandList->BindMaterialSlot(model.GetMeshMaterialInstance(i)->GetSlot(slotName));
 
-			const Vector4f materialInfo {
+			const Vector4f materialInfo{
 				model.GetModel()->GetMetadata().meshesMetadata[i].metallicFactor,
 				model.GetModel()->GetMetadata().meshesMetadata[i].roughnessFactor,
 				0.0f,
@@ -71,4 +132,9 @@ void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
 	}
 
 	commandList->EndGraphicsRenderpass(&renderTarget);
+}
+
+void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
+	GenerateShadows(commandList);
+	RenderScene(commandList);
 }

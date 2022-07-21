@@ -290,7 +290,7 @@ namespace OSK::GRAPHICS {
 		/// @pre La imagen de destino debe tener el layout GpuImageLayout::TRANSFER_DESTINATION.
 		/// @pre La lista de comandos debe estar abierta.
 		/// 
-		/// @note El layout de la imagen después de efectuarse la copia segirá siendo GpuImageLayout::TRANSFER_DESTINATION.
+		/// @post El layout de la imagen después de efectuarse la copia segirá siendo GpuImageLayout::TRANSFER_DESTINATION.
 		virtual void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer = 0, TSize offset = 0) = 0;
 
 		/// <summary>

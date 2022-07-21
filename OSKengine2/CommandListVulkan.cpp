@@ -105,9 +105,9 @@ void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout pr
 		break;
 
 	case VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL:/*/*/
-		barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;
+		barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT;
 		barrier.srcAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT | VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
-		sourceStage = VK_PIPELINE_STAGE_RAY_TRACING_SHADER_BIT_KHR;
+		sourceStage = VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT;
 		break;
 
 	case VK_IMAGE_LAYOUT_GENERAL:
@@ -115,6 +115,9 @@ void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout pr
 		barrier.srcAccessMask = VK_ACCESS_MEMORY_WRITE_BIT;
 		sourceStage = VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT;
 
+	default:
+		OSK_ASSERT(false, "Layout no soportado.");
+		break;
 	}
 
 	switch (GetGpuImageLayoutVulkan(next)) {
@@ -139,9 +142,9 @@ void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout pr
 		break;
 
 	case VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL:
-		barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;
+		barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT;
 		barrier.dstAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT | VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
-		destinationStage = VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT;
+		destinationStage = VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
 		break;
 
 	case VK_IMAGE_LAYOUT_PRESENT_SRC_KHR:
@@ -153,6 +156,9 @@ void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout pr
 		destinationStage = VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT;
 		break;
 
+	default:
+		OSK_ASSERT(false, "Layout no soportado.");
+		break;
 	}
 
 	vkCmdPipelineBarrier(commandBuffers[GetCommandListIndex()], sourceStage, destinationStage, 0, 0, nullptr, 0, nullptr, 1, &barrier);
@@ -219,6 +225,7 @@ void CommandListVulkan::CopyBufferToImage(const GpuDataBuffer* source, GpuImage*
 		if (mipSize.Y > 1)
 			mipSize.Y /= 2;
 	}
+	TransitionImageLayout(dest, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::TRANSFER_SOURCE, layer, 1, dest->GetMipLevels() - 1, 1);
 
 	TransitionImageLayout(dest, GpuImageLayout::TRANSFER_SOURCE, GpuImageLayout::TRANSFER_DESTINATION, layer, 1, 0, 0);
 }
@@ -300,7 +307,7 @@ void CommandListVulkan::BeginAndClearGraphicsRenderpass(RenderTarget* renderTarg
 	depthAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
 	depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
 	depthAttachment.imageLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
-	depthAttachment.imageView = renderTarget->GetDepthImage(GetCommandListIndex())->As<GpuImageVulkan>()->GetView();
+	depthAttachment.imageView = renderTarget->GetDepthImage(Engine::GetRenderer()->GetCurrentFrameIndex())->As<GpuImageVulkan>()->GetView();
 	depthAttachment.resolveMode = VK_RESOLVE_MODE_NONE;
 	depthAttachment.resolveImageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 	depthAttachment.resolveImageView = VK_NULL_HANDLE;
@@ -411,10 +418,10 @@ void CommandListVulkan::TraceRays(TSize raygenEntry, TSize closestHitEntry, TSiz
 void CommandListVulkan::SetViewport(const Viewport& vp) {
 	VkViewport viewport{};
 
-	viewport.x = (float)vp.rectangle.GetRectanglePosition().X;
-	viewport.y = (float)vp.rectangle.GetRectanglePosition().Y + vp.rectangle.GetRectangleSize().Y;
-	viewport.width = (float)vp.rectangle.GetRectangleSize().X;
-	viewport.height = -((float)vp.rectangle.GetRectangleSize().Y);
+	viewport.x = static_cast<float>(vp.rectangle.GetRectanglePosition().X);
+	viewport.y = static_cast<float>(vp.rectangle.GetRectanglePosition().Y + vp.rectangle.GetRectangleSize().Y);
+	viewport.width = static_cast<float>(vp.rectangle.GetRectangleSize().X);
+	viewport.height = -static_cast<float>(vp.rectangle.GetRectangleSize().Y);
 
 	viewport.minDepth = vp.minDepth;
 	viewport.maxDepth = vp.maxDepth;

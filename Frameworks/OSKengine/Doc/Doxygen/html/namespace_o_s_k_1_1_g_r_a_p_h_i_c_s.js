@@ -82,6 +82,7 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "RenderTarget", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target" ],
     [ "RtShaderTableVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vulkan" ],
     [ "ShaderStageVulkan", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vulkan.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vulkan" ],
+    [ "ShadowMap", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map" ],
     [ "SpirvToHlsl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl" ],
     [ "Sprite", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite" ],
     [ "SpriteRenderer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer" ],
@@ -150,6 +151,11 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
       [ "TRANSFER_DESTINATION", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9ac61dfc60317a58b2843ec29f8e3c2359", null ],
       [ "GENERAL", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9ab61773b9b3968a9988d765d728985862", null ]
     ] ],
+    [ "GpuImageMipmapMode", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b3d3107477f334f9d9d85a64c930c8a", [
+      [ "NONE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b3d3107477f334f9d9d85a64c930c8aab50339a10e1de285ac99d4c3990b8693", null ],
+      [ "AUTO", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b3d3107477f334f9d9d85a64c930c8aae1f2d5134ed2543d38a0de9751cf75d9", null ],
+      [ "CUSTOM", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b3d3107477f334f9d9d85a64c930c8aa72baef04098f035e8a320b03ad197818", null ]
+    ] ],
     [ "GpuImageUsage", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa", [
       [ "COLOR", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa04bd834032febb3fda8c6936ee140949", null ],
       [ "DEPTH_STENCIL", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaaecaa8fe8cb0e85372f4cc76728c7cf3c", null ],
@@ -193,6 +199,11 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
       [ "INTERMEDIATE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a68c7e70128c792c56815e41b7f9c5fefa41dc7c9e385c4d2b6c1f7836973951bf", null ],
       [ "FINAL", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a68c7e70128c792c56815e41b7f9c5fefa6c8361dc2036c0559376fe4957699f69", null ]
     ] ],
+    [ "SampledChannel", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9d", [
+      [ "COLOR", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9da04bd834032febb3fda8c6936ee140949", null ],
+      [ "DEPTH", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9daaa1780b4fcce2d5d9af13dc25386d111", null ],
+      [ "STENCIL", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9da301b25ea9a653329b5d5d727f92514c4", null ]
+    ] ],
     [ "ShaderBindingType", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1d", [
       [ "UNIFORM_BUFFER", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da8d0be820da8f4fe5aa49e0ef3065ca29", null ],
       [ "TEXTURE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da3f92f542bd9ec48f912b9350e22736ac", null ],
@@ -230,5 +241,6 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "GetGpuSharedMemoryTypeDx12", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ac499da78f73320a680f1e7823c7aa60f", null ],
     [ "GetGpuSharedMemoryTypeVulkan", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ac01ee3f8d8aec2a1bf3a997743189824", null ],
     [ "GetShaderStageVk", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3a50046339fbf8642e14273583cd8118", null ],
-    [ "NUM_RENDER_TARGET_IMAGES", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a92b901b2282ba60626f55be92e849ead", null ]
+    [ "NUM_RENDER_TARGET_IMAGES", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a92b901b2282ba60626f55be92e849ead", null ],
+    [ "NUM_RESOURCES_IN_FLIGHT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a2790b1bb1dbf382ccd86a228f9f2ccbd", null ]
 ];

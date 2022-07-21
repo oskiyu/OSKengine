@@ -160,6 +160,19 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageS
 
 	GpuImageVulkan* output = new GpuImageVulkan(imageSize, dimension, usage, numLayers, format, msaaSamples);
 
+	TSize numMipLevels = 0;
+	switch (samplerDesc.mipMapMode) {
+	case GpuImageMipmapMode::AUTO:
+		numMipLevels = output->GetMipLevels();
+		break;
+	case GpuImageMipmapMode::CUSTOM:
+		numMipLevels = samplerDesc.maxMipLevel;
+		break;
+	case GpuImageMipmapMode::NONE:
+		numMipLevels = 1;
+		break;
+	}
+
 	// ------ IMAGE ---------- //
 	VkImage vkImage = VK_NULL_HANDLE;
 
@@ -169,7 +182,7 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageS
 	imageInfo.extent.width = finalImageSize.X;
 	imageInfo.extent.height = finalImageSize.Y;
 	imageInfo.extent.depth = finalImageSize.Z;
-	imageInfo.mipLevels = output->GetMipLevels();
+	imageInfo.mipLevels = numMipLevels;
 	imageInfo.arrayLayers = numLayers;
 	imageInfo.format = GetFormatVulkan(format);
 	imageInfo.tiling = VK_IMAGE_TILING_OPTIMAL;
@@ -206,7 +219,7 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageS
 	viewInfo.format = GetFormatVulkan(format);
 	viewInfo.subresourceRange.aspectMask = GetGpuImageAspectVulkan(usage);
 	viewInfo.subresourceRange.baseMipLevel = 0;
-	viewInfo.subresourceRange.levelCount = output->GetMipLevels();
+	viewInfo.subresourceRange.levelCount = numMipLevels;
 	viewInfo.subresourceRange.baseArrayLayer = 0;
 	viewInfo.subresourceRange.layerCount = numLayers;
 
@@ -214,6 +227,16 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageS
 		&viewInfo, nullptr, &view);
 
 	output->SetView(view);
+
+	if (EFTraits::HasFlag(usage, GpuImageUsage::DEPTH_STENCIL) && EFTraits::HasFlag(usage, GpuImageUsage::SAMPLED)) {
+		viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;
+		vkCreateImageView(device->As<GpuVulkan>()->GetLogicalDevice(), &viewInfo, nullptr, &view);
+		output->_SetDepthView(view);
+
+		viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_STENCIL_BIT;
+		vkCreateImageView(device->As<GpuVulkan>()->GetLogicalDevice(), &viewInfo, nullptr, &view);
+		output->_SetStencilView(view);
+	}
 
 
 	// ------ SAMPLER ---------- //
@@ -241,9 +264,24 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageS
 	samplerInfo.compareEnable = VK_FALSE;
 	samplerInfo.compareOp = VK_COMPARE_OP_ALWAYS;
 
+	switch (samplerDesc.mipMapMode) {
+	case GpuImageMipmapMode::AUTO:
+		samplerInfo.minLod = 0.0f;
+		samplerInfo.maxLod = static_cast<float>(output->GetMipLevels());
+		break;
+
+	case GpuImageMipmapMode::CUSTOM:
+		samplerInfo.minLod = static_cast<float>(samplerDesc.minMipLevel);
+		samplerInfo.maxLod = static_cast<float>(samplerDesc.maxMipLevel);
+		break;
+
+	case GpuImageMipmapMode::NONE:
+		samplerInfo.minLod = 0.0f;
+		samplerInfo.maxLod = 0.0f;
+		break;
+	}
+
 	samplerInfo.mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR;
-	samplerInfo.minLod = 0.0f;
-	samplerInfo.maxLod = static_cast<float>(output->GetMipLevels());
 	samplerInfo.mipLodBias = 0.0f;
 
 	vkCreateSampler(device->As<GpuVulkan>()->GetLogicalDevice(),

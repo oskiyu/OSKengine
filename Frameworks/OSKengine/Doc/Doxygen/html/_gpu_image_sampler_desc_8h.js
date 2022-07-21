@@ -11,5 +11,10 @@ var _gpu_image_sampler_desc_8h =
       [ "LIENAR", "_gpu_image_sampler_desc_8h.html#a169cbd3b800f2c408287690a502bace1a917f963fb315f9de01300a4e516a7b32", null ],
       [ "NEAREST", "_gpu_image_sampler_desc_8h.html#a169cbd3b800f2c408287690a502bace1aad135772d7cf93dd0ccf9d2474b34e6a", null ],
       [ "CUBIC", "_gpu_image_sampler_desc_8h.html#a169cbd3b800f2c408287690a502bace1accd681e34e5e40fbce74618c3ccffcff", null ]
+    ] ],
+    [ "GpuImageMipmapMode", "_gpu_image_sampler_desc_8h.html#a7b3d3107477f334f9d9d85a64c930c8a", [
+      [ "NONE", "_gpu_image_sampler_desc_8h.html#a7b3d3107477f334f9d9d85a64c930c8aab50339a10e1de285ac99d4c3990b8693", null ],
+      [ "AUTO", "_gpu_image_sampler_desc_8h.html#a7b3d3107477f334f9d9d85a64c930c8aae1f2d5134ed2543d38a0de9751cf75d9", null ],
+      [ "CUSTOM", "_gpu_image_sampler_desc_8h.html#a7b3d3107477f334f9d9d85a64c930c8aa72baef04098f035e8a320b03ad197818", null ]
     ] ]
 ];

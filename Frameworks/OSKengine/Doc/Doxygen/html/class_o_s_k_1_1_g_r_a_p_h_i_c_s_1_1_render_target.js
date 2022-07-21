@@ -12,6 +12,9 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target =
     [ "GetSpriteTransform", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a290108ff189978eda525ed0ce953ad22", null ],
     [ "GetTargetImages", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a05a99fdb142018512bc2a466b8b3c705", null ],
     [ "Resize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#ac9f5d87b43a7e692631a8269f4c97f2d", null ],
+    [ "SetColorImageSampler", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a32b0653cf595f5b089f5a56c7c2f3e41", null ],
+    [ "SetDepthImageSampler", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#aa17713ab44780a72070502b66a6e83d5", null ],
+    [ "SetDepthImageUsage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a8f40cd7fcb106ea31da454363a0f358f", null ],
     [ "SetRenderTargetType", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#ab2a444d64b8f4cb199a00e06a90896f9", null ],
     [ "SetResolutionScale", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a9431448779717dbaeedc829d27e5ba1e", null ],
     [ "SetTargetImageUsage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a1821b6eb7adcf7e73caa73942f91f0d5", null ]

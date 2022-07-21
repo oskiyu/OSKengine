@@ -25,7 +25,7 @@ namespace OSK::GRAPHICS {
 		/// Intensidad de la luz. 
 		/// (0.0 - 1.0)
 		/// </summary>
-		alignas(16) float intensity;
+		alignas(16) float intensity = 1.0f;
 
 	};
 

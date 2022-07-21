@@ -5,12 +5,13 @@ var searchData=
   ['nearest_2',['NEAREST',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a169cbd3b800f2c408287690a502bace1aad135772d7cf93dd0ccf9d2474b34e6a',1,'OSK::GRAPHICS']]],
   ['no_3',['NO',['../namespace_o_s_k_1_1_i_o.html#ab5911b02468e4b2c4e4b31322f777b16ac2f3f489a00553e7a01d369c103c7251',1,'OSK::IO']]],
   ['node_4',['Node',['../class_o_s_k_1_1_linked_list_1_1_node.html#a0cc1012ac94663769571a324b8d1fa3d',1,'OSK::LinkedList::Node::Node(T &amp;&amp;element)'],['../class_o_s_k_1_1_linked_list_1_1_node.html#adb8bf4952d08bf4513a14aafcc48da4c',1,'OSK::LinkedList::Node::Node(const T &amp;element)'],['../class_o_s_k_1_1_linked_list_1_1_node.html',1,'OSK::LinkedList&lt; T &gt;::Node']]],
-  ['none_5',['NONE',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922cab50339a10e1de285ac99d4c3990b8693',1,'OSK::GRAPHICS::NONE()'],['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027ddab50339a10e1de285ac99d4c3990b8693',1,'OSK::GRAPHICS::NONE()']]],
+  ['none_5',['NONE',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b3d3107477f334f9d9d85a64c930c8aab50339a10e1de285ac99d4c3990b8693',1,'OSK::GRAPHICS::NONE()'],['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922cab50339a10e1de285ac99d4c3990b8693',1,'OSK::GRAPHICS::NONE()'],['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027ddab50339a10e1de285ac99d4c3990b8693',1,'OSK::GRAPHICS::NONE()']]],
   ['normal_6',['normal',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d.html#a4862c0913e38313129a9a77468b12648',1,'OSK::GRAPHICS::Vertex3D']]],
   ['normalize_7',['Normalize',['../class_o_s_k_1_1_vector2__t.html#a91fc3cfe54ea2d6ca8c73a988317d598',1,'OSK::Vector2_t::Normalize()'],['../class_o_s_k_1_1_vector3__t.html#aad361b766898211bc069fc6c9b44cd96',1,'OSK::Vector3_t::Normalize()']]],
   ['normalized_8',['Normalized',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_texture_coordinates2_d.html#a59f9d49c54960b075d69ab732b3c966d',1,'OSK::GRAPHICS::TextureCoordinates2D']]],
   ['normalized_9',['NORMALIZED',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a8850682b4f35c42bbcf63a1e81b29c9ca5dce94de2a2a2772111f3af42badb16f',1,'OSK::GRAPHICS']]],
   ['num_5flock_10',['NUM_LOCK',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eacb0d0bf9279e78f982deba761110e434',1,'OSK::IO']]],
   ['num_5frender_5ftarget_5fimages_11',['NUM_RENDER_TARGET_IMAGES',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a92b901b2282ba60626f55be92e849ead',1,'OSK::GRAPHICS']]],
-  ['numpointlights_12',['numPointLights',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_lights_buffer_struct.html#a0bfe37ca7f4663cec069c65a29073097',1,'OSK::GRAPHICS::LightsBufferStruct']]]
+  ['num_5fresources_5fin_5fflight_12',['NUM_RESOURCES_IN_FLIGHT',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a2790b1bb1dbf382ccd86a228f9f2ccbd',1,'OSK::GRAPHICS']]],
+  ['numpointlights_13',['numPointLights',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_lights_buffer_struct.html#a0bfe37ca7f4663cec069c65a29073097',1,'OSK::GRAPHICS::LightsBufferStruct']]]
 ];

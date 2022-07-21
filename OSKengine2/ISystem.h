@@ -26,7 +26,7 @@ namespace OSK::ECS{
 
 	public:
 
-		~ISystem() = default;
+		virtual ~ISystem() = default;
 
 		/// <summary>
 		/// Función que se ejecuta al crearse el sistema.

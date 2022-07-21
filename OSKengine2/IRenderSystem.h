@@ -24,6 +24,8 @@ namespace OSK::ECS {
 
 	public:
 
+		virtual ~IRenderSystem() = default;
+
 		virtual void OnCreate() override;
 
 		/// <summary>
