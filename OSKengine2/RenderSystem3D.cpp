@@ -25,7 +25,7 @@ RenderSystem3D::RenderSystem3D() {
 
 	SetSignature(signature);
 
-	shadowMap.Create({ 1024u, 1024u });
+	shadowMap.Create({ 2048u, 2048u });
 
 	dirLightUniformBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
 }
@@ -55,35 +55,52 @@ ShadowMap* RenderSystem3D::GetShadowMap() {
 
 void RenderSystem3D::GenerateShadows(ICommandList* commandList) {
 	const Viewport viewport {
-		.rectangle = { 0u, 0u, shadowMap.GetShadowsRenderTarget()->GetSize().X, shadowMap.GetShadowsRenderTarget()->GetSize().Y }
+		.rectangle = { 0u, 0u, shadowMap.GetColorImage(0)->GetSize().X, shadowMap.GetColorImage(0)->GetSize().Y }
 	};
 
-	commandList->TransitionImageLayout(shadowMap.GetShadowImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::DEPTH_STENCIL_TARGET, 0, 1);
+	commandList->TransitionImageLayout(shadowMap.GetShadowImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::DEPTH_STENCIL_TARGET, 0, shadowMap.GetNumCascades());
 
 	commandList->SetViewport(viewport);
 	commandList->SetScissor(viewport.rectangle);
 
-	commandList->BeginAndClearGraphicsRenderpass(shadowMap.GetShadowsRenderTarget(), { 1.0f, 1.0f, 1.0f, 1.0f });
+	for (TSize i = 0; i < shadowMap.GetNumCascades(); i++) {
+		RenderPassImageInfo colorInfo{};
+		colorInfo.arrayLevel = i;
+		colorInfo.targetImage = shadowMap.GetColorImage(Engine::GetRenderer()->GetCurrentFrameIndex());
 
-	commandList->BindMaterial(shadowMap.GetShadowsMaterial());
-	commandList->BindMaterialSlot(shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
+		RenderPassImageInfo depthInfo{};
+		depthInfo.arrayLevel = i;
+		depthInfo.targetImage = shadowMap.GetShadowImage(Engine::GetRenderer()->GetCurrentFrameIndex());
 
-	for (const GameObjectIndex obj : GetObjects()) {
-		const ModelComponent3D& model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj);
-		const Transform3D& transform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(obj);
-		
-		commandList->BindVertexBuffer(model.GetModel()->GetVertexBuffer());
-		commandList->BindIndexBuffer(model.GetModel()->GetIndexBuffer());
+		commandList->BeginGraphicsRenderpass({ colorInfo }, depthInfo, { 1.0f, 1.0f, 1.0f, 1.0f });
 
-		commandList->PushMaterialConstants("model", transform.GetAsMatrix());
+		commandList->BindMaterial(shadowMap.GetShadowsMaterial());
+		commandList->BindMaterialSlot(shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
 
-		for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++)
-			commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
+		for (const GameObjectIndex obj : GetObjects()) {
+			const ModelComponent3D& model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj);
+			const Transform3D& transform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(obj);
+
+			commandList->BindVertexBuffer(model.GetModel()->GetVertexBuffer());
+			commandList->BindIndexBuffer(model.GetModel()->GetIndexBuffer());
+
+			struct {
+				glm::mat4 model;
+				int cascadeIndex;
+			} const pushConstant {
+				.model = transform.GetAsMatrix(),
+				.cascadeIndex = static_cast<int>(i)
+			};
+			commandList->PushMaterialConstants("model", pushConstant);
+
+			for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++)
+				commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
+		}
+
+		commandList->EndGraphicsRenderpass();
 	}
 
-	commandList->EndGraphicsRenderpass(shadowMap.GetShadowsRenderTarget());
-
-	commandList->TransitionImageLayout(shadowMap.GetShadowImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::SHADER_READ_ONLY, 0, 1);
+	commandList->TransitionImageLayout(shadowMap.GetShadowImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::SHADER_READ_ONLY, 0, shadowMap.GetNumCascades());
 }
 
 void RenderSystem3D::RenderScene(GRAPHICS::ICommandList* commandList) {
@@ -91,7 +108,7 @@ void RenderSystem3D::RenderScene(GRAPHICS::ICommandList* commandList) {
 	IGpuVertexBuffer* previousVertexBuffer = nullptr;
 	IGpuIndexBuffer* previousIndexBuffer = nullptr;
 
-	commandList->BeginAndClearGraphicsRenderpass(&renderTarget, { 0.0f, 0.0f, 0.0f, 0.0f });
+	commandList->BeginGraphicsRenderpass(&renderTarget, Color::WHITE() * 0.0f);
 
 	SetupViewport(commandList);
 
@@ -131,7 +148,7 @@ void RenderSystem3D::RenderScene(GRAPHICS::ICommandList* commandList) {
 		}
 	}
 
-	commandList->EndGraphicsRenderpass(&renderTarget);
+	commandList->EndGraphicsRenderpass();
 }
 
 void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {

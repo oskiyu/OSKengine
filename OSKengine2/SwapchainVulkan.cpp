@@ -8,7 +8,6 @@
 #include "Assert.h"
 #include "Logger.h"
 #include "OSKengine.h"
-#include "RenderpassVulkan.h"
 #include "RendererVulkan.h"
 #include "GpuVulkan.h"
 #include "GpuImageDimensions.h"
@@ -34,7 +33,7 @@ SwapchainVulkan::~SwapchainVulkan() {
 		swapchain, nullptr);
 
 	for (auto& i : images)
-		i->As<GpuImageVulkan>()->SetImage(VK_NULL_HANDLE);
+		i->As<GpuImageVulkan>()->_SetVkImage(VK_NULL_HANDLE);
 }
 
 void SwapchainVulkan::Create(PresentMode mode, Format format, const GpuVulkan& device, const IO::Window& window) {
@@ -106,9 +105,6 @@ void SwapchainVulkan::Create(PresentMode mode, Format format, const GpuVulkan& d
 	AcquireImages(extent.width, extent.height);
 	AcquireViews();
 
-	if (targetRenderpass)
-		targetRenderpass->SetImages(images[0].GetPointer(), images[1].GetPointer(), images[2].GetPointer());
-
 	Engine::GetLogger()->InfoLog("Creado correctamente el swapchain.");
 }
 
@@ -121,7 +117,7 @@ void SwapchainVulkan::AcquireImages(unsigned int sizeX, unsigned int sizeY) {
 	OSK_ASSERT(result == VK_SUCCESS, "Error al adquirir imagenes del swapchain. Code: " + std::to_string(result));
 
 	for (TSize i = 0; i < imageCount; i++)
-		images[i]->As<GpuImageVulkan>()->SetImage(tempImages[i]);
+		images[i]->As<GpuImageVulkan>()->_SetVkImage(tempImages[i]);
 
 	delete[] tempImages;
 
@@ -134,7 +130,7 @@ void SwapchainVulkan::AcquireViews() {
 	for (TSize i = 0; i < imageCount; i++) {
 		VkImageViewCreateInfo createInfo{};
 		createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-		createInfo.image = images[i]->As<GpuImageVulkan>()->GetImage();
+		createInfo.image = images[i]->As<GpuImageVulkan>()->GetVkImage();
 		createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
 		createInfo.format = GetFormatVulkan(colorFormat);
 		createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
@@ -150,9 +146,9 @@ void SwapchainVulkan::AcquireViews() {
 		VkResult result = vkCreateImageView(device->GetLogicalDevice(), &createInfo, nullptr, &tempViews[i]);
 		OSK_ASSERT(result == VK_SUCCESS, "Error al crear view de imagen del swapchain. Code: " + std::to_string(result));
 
-		if (images[i]->As<GpuImageVulkan>()->GetView() != VK_NULL_HANDLE)
-			vkDestroyImageView(Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(), images[i]->As<GpuImageVulkan>()->GetView(), 0);
-		images[i]->As<GpuImageVulkan>()->SetView(tempViews[i]);
+		//if (images[i]->As<GpuImageVulkan>()->GetColorView(0) != VK_NULL_HANDLE)
+		//	vkDestroyImageView(Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(), images[i]->As<GpuImageVulkan>()->GetColorView(0), 0);
+		images[i]->As<GpuImageVulkan>()->_SetView(tempViews[i]);
 	}
 
 	delete[] tempViews;
@@ -166,7 +162,7 @@ VkSwapchainKHR SwapchainVulkan::GetSwapchain() const {
 
 void SwapchainVulkan::Resize() {
 	for (auto& i : images) {
-		i->As<GpuImageVulkan>()->SetImage(VK_NULL_HANDLE);
+		i->As<GpuImageVulkan>()->_SetVkImage(VK_NULL_HANDLE);
 	}
 
 	vkDestroySwapchainKHR(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),

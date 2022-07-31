@@ -46,7 +46,13 @@ namespace OSK::GRAPHICS {
 		/// Se usará como imagen sobre la que se renderizará el
 		/// trazado de rayos.
 		/// </summary>
-		RT_TARGET_IMAGE = 64
+		RT_TARGET_IMAGE = 64,
+
+		/// <summary>
+		/// Se usará como read-only desde los shaders.
+		/// Es un array de imágenes.
+		/// </summary>
+		SAMPLED_ARRAY = 128
 
 	};
 

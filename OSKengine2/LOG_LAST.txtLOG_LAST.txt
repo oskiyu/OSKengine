@@ -1,6 +1,6 @@
 INFO: Iniciando OSKengine.
 INFO: 	Version: 0.0.0.
-INFO: 	Build 2022.07.15a.
+INFO: 	Build 2022.07.31a.
 INFO: Ventana iniciada correctamente.
 INFO: 	Monitor sizeX: 1920
 INFO: 	Monitor sizeY: 1080
@@ -45,6 +45,9 @@ INFO: Creado bloque de memoria GPU.
 INFO: 	Tamaño: 134217728
 INFO: Creado bloque de memoria GPU.
 INFO: 	Tamaño: 134217728
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
 INFO: Destruyendo el renderizador de Vulkan.
 INFO: Cerrado el log.
 

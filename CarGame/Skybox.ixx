@@ -42,7 +42,7 @@ public:
 
 	void SetCameraBuffer(const IGpuUniformBuffer& cameraBuffer) {
 		materialInstance->GetSlot("global")->SetUniformBuffer("camera", &cameraBuffer);
-		materialInstance->GetSlot("global")->SetGpuImage("cubemap", cubemap->GetGpuImage());
+		materialInstance->GetSlot("global")->SetGpuImage("skybox", cubemap->GetGpuImage());
 		materialInstance->GetSlot("global")->FlushUpdate();
 	}
 

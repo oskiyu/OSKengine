@@ -50,6 +50,39 @@ namespace OSK::GRAPHICS {
 
 	};
 
+
+	/// <summary>
+	/// Define qué parte de una imagen se leerá al
+	/// usar una imagen en un shader.
+	/// </summary>
+	enum class SampledChannel {
+
+		/// <summary>
+		/// La imagen es una imagen de color.
+		/// Es el funcionamiento por defecto.
+		/// </summary>
+		COLOR,
+
+		/// <summary>
+		/// Obtiene la parte de profundidad de una
+		/// imagen de depth/stencil.
+		/// 
+		/// @pre La imagen debe haber sido creada con
+		/// GpuImageUsage::DEPTH_STENCIL y GpuImageUsage::SAMPLED.
+		/// </summary>
+		DEPTH,
+
+		/// <summary>
+		/// Obtiene la parte de stencil de una
+		/// imagen de depth/stencil.
+		/// 
+		/// @pre La imagen debe haber sido creada con
+		/// GpuImageUsage::DEPTH_STENCIL y GpuImageUsage::SAMPLED.
+		/// </summary>
+		STENCIL
+
+	};
+
 }
 
 OSK_FLAGS(OSK::GRAPHICS::GpuImageUsage);

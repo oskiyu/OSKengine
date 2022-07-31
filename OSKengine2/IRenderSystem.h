@@ -5,7 +5,6 @@
 #include "Vector2.hpp"
 #include "UniquePtr.hpp"
 #include "SharedPtr.hpp"
-#include "IRenderpass.h"
 #include "RenderTarget.h"
 
 namespace OSK::GRAPHICS {

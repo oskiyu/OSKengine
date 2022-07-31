@@ -173,121 +173,40 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageS
 		break;
 	}
 
-	// ------ IMAGE ---------- //
-	VkImage vkImage = VK_NULL_HANDLE;
-
-	VkImageCreateInfo imageInfo{};
-	imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
-	imageInfo.imageType = (VkImageType)((TSize)dimension - 1);
-	imageInfo.extent.width = finalImageSize.X;
-	imageInfo.extent.height = finalImageSize.Y;
-	imageInfo.extent.depth = finalImageSize.Z;
-	imageInfo.mipLevels = numMipLevels;
-	imageInfo.arrayLayers = numLayers;
-	imageInfo.format = GetFormatVulkan(format);
-	imageInfo.tiling = VK_IMAGE_TILING_OPTIMAL;
-	imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-	imageInfo.usage = GetGpuImageUsageVulkan(usage);
-	imageInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
-	imageInfo.samples = (VkSampleCountFlagBits)msaaSamples;
-	imageInfo.flags = EFTraits::HasFlag(usage, GpuImageUsage::CUBEMAP) ? VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT : 0;
-
-	VkResult result = vkCreateImage(device->As<GpuVulkan>()->GetLogicalDevice(),
-		&imageInfo, nullptr, &vkImage);
-	OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear la imagen en la GPU.");
-
-	output->SetImage(vkImage);
-
+	output->CreateVkImage();
 	auto block = GpuMemoryBlockVulkan::CreateNewImageBlock(output, device, sharedType, usage);
 	output->SetBlock(block.GetPointer());
 
 	imageMemoryBlocks.Insert(block.GetPointer());
 
+	// ------ IMAGE ---------- //
+	output->CreateVkSampler(samplerDesc);
 
-	// ------ VIEW ---------- //
+	if (EFTraits::HasFlag(usage, GpuImageUsage::COLOR)) {
+		output->CreateColorViews();
 
-	VkImageView view = VK_NULL_HANDLE;
+		if (EFTraits::HasFlag(usage, GpuImageUsage::SAMPLED_ARRAY))
+			output->CreateColorArrayView();
+	}
+	else if (EFTraits::HasFlag(usage, GpuImageUsage::SAMPLED) && !EFTraits::HasFlag(usage, GpuImageUsage::DEPTH_STENCIL)) {
+		output->CreateColorViews();
 
-	VkImageViewCreateInfo viewInfo{};
-	viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-	viewInfo.image = vkImage;
-	viewInfo.viewType = (VkImageViewType)((TSize)dimension - 1);
-	if (numLayers > 1)
-		viewInfo.viewType = (VkImageViewType)((TSize)viewInfo.viewType + 3);
-	if (EFTraits::HasFlag(usage, GpuImageUsage::CUBEMAP))
-		viewInfo.viewType = VK_IMAGE_VIEW_TYPE_CUBE;
-	viewInfo.format = GetFormatVulkan(format);
-	viewInfo.subresourceRange.aspectMask = GetGpuImageAspectVulkan(usage);
-	viewInfo.subresourceRange.baseMipLevel = 0;
-	viewInfo.subresourceRange.levelCount = numMipLevels;
-	viewInfo.subresourceRange.baseArrayLayer = 0;
-	viewInfo.subresourceRange.layerCount = numLayers;
-
-	vkCreateImageView(device->As<GpuVulkan>()->GetLogicalDevice(),
-		&viewInfo, nullptr, &view);
-
-	output->SetView(view);
-
-	if (EFTraits::HasFlag(usage, GpuImageUsage::DEPTH_STENCIL) && EFTraits::HasFlag(usage, GpuImageUsage::SAMPLED)) {
-		viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;
-		vkCreateImageView(device->As<GpuVulkan>()->GetLogicalDevice(), &viewInfo, nullptr, &view);
-		output->_SetDepthView(view);
-
-		viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_STENCIL_BIT;
-		vkCreateImageView(device->As<GpuVulkan>()->GetLogicalDevice(), &viewInfo, nullptr, &view);
-		output->_SetStencilView(view);
+		if (EFTraits::HasFlag(usage, GpuImageUsage::SAMPLED_ARRAY))
+			output->CreateColorArrayView();
 	}
 
+	if (EFTraits::HasFlag(usage, GpuImageUsage::DEPTH_STENCIL))
+		output->CreateDepthStencilViews();
 
-	// ------ SAMPLER ---------- //
+	if (EFTraits::HasFlag(usage, GpuImageUsage::SAMPLED) && EFTraits::HasFlag(usage, GpuImageUsage::DEPTH_STENCIL)) {
+		output->CreateDepthOnlyViews();
+		output->CreateStencilOnlyViews();
 
-	//Info del sampler.
-	VkSamplerCreateInfo samplerInfo{};
-	samplerInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
-	//Filtro:
-	//	VK_FILTER_LINEAR: suavizado.
-	//	VK_FILTER_NEAREST: pixelado.
-	samplerInfo.minFilter = GetFilterTypeVulkan(samplerDesc.filteringType);
-	samplerInfo.magFilter = GetFilterTypeVulkan(samplerDesc.filteringType);
-	//AddressMode: como se accede a la imagen con TexCoords fuera de los límites.
-	samplerInfo.addressModeU = GetAddressModeVulkan(samplerDesc.addressMode);
-	samplerInfo.addressModeV = GetAddressModeVulkan(samplerDesc.addressMode);
-	samplerInfo.addressModeW = GetAddressModeVulkan(samplerDesc.addressMode);
-
-	samplerInfo.anisotropyEnable = VK_TRUE;
-	samplerInfo.maxAnisotropy = 16.0f;
-
-	samplerInfo.borderColor = VK_BORDER_COLOR_INT_OPAQUE_BLACK;
-
-	samplerInfo.unnormalizedCoordinates = VK_FALSE;
-
-	samplerInfo.compareEnable = VK_FALSE;
-	samplerInfo.compareOp = VK_COMPARE_OP_ALWAYS;
-
-	switch (samplerDesc.mipMapMode) {
-	case GpuImageMipmapMode::AUTO:
-		samplerInfo.minLod = 0.0f;
-		samplerInfo.maxLod = static_cast<float>(output->GetMipLevels());
-		break;
-
-	case GpuImageMipmapMode::CUSTOM:
-		samplerInfo.minLod = static_cast<float>(samplerDesc.minMipLevel);
-		samplerInfo.maxLod = static_cast<float>(samplerDesc.maxMipLevel);
-		break;
-
-	case GpuImageMipmapMode::NONE:
-		samplerInfo.minLod = 0.0f;
-		samplerInfo.maxLod = 0.0f;
-		break;
+		if (EFTraits::HasFlag(usage, GpuImageUsage::SAMPLED_ARRAY)) {
+			output->CreateDepthArrayView();
+			output->CreateStencilArrayView();
+		}
 	}
-
-	samplerInfo.mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR;
-	samplerInfo.mipLodBias = 0.0f;
-
-	vkCreateSampler(device->As<GpuVulkan>()->GetLogicalDevice(),
-		&samplerInfo, nullptr, &sampler);
-
-	output->SetSampler(sampler);
 
 	return output;
 }

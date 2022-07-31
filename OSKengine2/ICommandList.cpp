@@ -19,6 +19,23 @@ void ICommandList::RegisterStagingBuffer(OwnedPtr<GpuDataBuffer> stagingBuffer) 
 	stagingBuffersToDelete.Insert(stagingBuffer);
 }
 
+void ICommandList::BeginGraphicsRenderpass(RenderTarget* renderpass, const Color& color) {
+	currentRenderpassType = renderpass->GetRenderTargetType();
+
+	const TSize frameIndex = Engine::GetRenderer()->GetCurrentFrameIndex();
+	const bool isFinal = currentRenderpassType == RenderpassType::FINAL;
+
+	DynamicArray<RenderPassImageInfo> colorImages;
+
+	if (isFinal)
+		colorImages.Insert({ Engine::GetRenderer()->_GetSwapchain()->GetImage(frameIndex), 0 });
+	else
+		for (const auto renderTargetImage : renderpass->GetTargetImages(frameIndex))
+			colorImages.Insert({ renderTargetImage, 0 });
+
+	BeginGraphicsRenderpass(colorImages, { renderpass->GetDepthImage(frameIndex), 0 }, color);
+}
+
 void ICommandList::PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size) {
 	PushMaterialConstants(pushConstName, data, size, 0);
 }

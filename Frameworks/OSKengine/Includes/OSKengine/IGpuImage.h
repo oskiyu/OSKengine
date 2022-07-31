@@ -24,7 +24,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format);
+		GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples);
 		virtual ~GpuImage();
 
 		void _SetPhysicalSize(const Vector3ui& size);
@@ -92,6 +92,11 @@ namespace OSK::GRAPHICS {
 		/// se ha realizado la transición de layout.
 		GpuImageLayout GetLayout() const;
 
+		/// <summary>
+		/// Devuelve el número de muestras que esta imagen puede tener en un renderizado con MSAA.
+		/// </summary>
+		TSize GetNumSamples() const;
+
 	private:
 
 		UniquePtr<IGpuMemoryBlock> block;
@@ -101,6 +106,7 @@ namespace OSK::GRAPHICS {
 		Vector3ui physicalSize = 0;
 
 		TSize mipLevels = 0;
+		TSize numSamples = 0;
 		Format format;
 		GpuImageLayout currentLayout;
 		GpuImageDimension dimension;

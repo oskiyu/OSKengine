@@ -10,6 +10,10 @@
 
     "slots": {
         "0": "global"
+    },
+    
+    "config": {
+        "cull_mode": "none"
     }
     
 }

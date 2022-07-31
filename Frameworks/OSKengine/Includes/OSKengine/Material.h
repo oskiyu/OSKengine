@@ -20,7 +20,7 @@ namespace OSK::GRAPHICS {
 	/// Un material define el comportamiento del renderizador con un objeto en concreto.
 	/// Debe definirse el layout del material, indicando qué slots (y bindings) serán usados en los shaders.
 	/// 
-	/// @note Tiene la propiedad de los graphics pipelines (uno por cada renderpass registrado).
+	/// @note Tiene la propiedad del graphics pipeline.
 	/// </summary>
 	class OSKAPI_CALL Material {
 
@@ -39,22 +39,13 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Obtiene el graphics pipeline asignado al renderpass dado.
 		/// </summary>
-		const IGraphicsPipeline* GetGraphicsPipeline(const IRenderpass* ownerRenderpass) const;
+		const IGraphicsPipeline* GetGraphicsPipeline() const;
 
 		/// <summary>
 		/// Obtiene el raytracing pipeline asignado al renderpass dado.
 		/// </summary>
 		const IRaytracingPipeline* GetRaytracingPipeline() const;
 		
-		/// <summary>
-		/// Registra el renderpass, creando una nueva graphics pipeline asignada a dicho renderpass.
-		/// </summary>
-		void RegisterRenderpass(const IRenderpass* renderpass);
-		/// <summary>
-		/// Elimina el graphics pipeline asignado a dicho renderpass.
-		/// </summary>
-		void UnregisterRenderpass(const IRenderpass* renderpass);
-
 		/// <summary>
 		/// Crea y devuelve una nueva instancia de este material.
 		/// </summary>
@@ -74,8 +65,9 @@ namespace OSK::GRAPHICS {
 		PipelineCreateInfo pipelineInfo{};
 
 		UniquePtr<MaterialLayout> layout;
-		HashMap<const GRAPHICS::IRenderpass*, OwnedPtr<GRAPHICS::IGraphicsPipeline>> graphicsPipelines;
-		UniquePtr<GRAPHICS::IRaytracingPipeline> rtPipeline;
+
+		UniquePtr<GRAPHICS::IGraphicsPipeline> graphicsPipeline = nullptr;
+		UniquePtr<GRAPHICS::IRaytracingPipeline> rtPipeline = nullptr;
 
 		/// <summary>
 		/// Información del vértice para generar los pipelines.

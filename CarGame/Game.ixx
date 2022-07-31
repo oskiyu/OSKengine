@@ -38,6 +38,10 @@ module;
 #include <OSKengine/RenderSystem3D.h>
 #include <OSKengine/RenderSystem2D.h>
 
+#include <OSKengine/EnumFlags.hpp>
+#include <OSKengine/GpuImageUsage.h>
+#include <OSKengine/RenderTarget.h>
+
 #include <functional>
 
 export module Game;
@@ -96,8 +100,9 @@ protected:
 		// Load
 		Scene::Create();
 		Scene::LoadSkybox("Resources/Assets/skybox0.json", "Resources/Assets/cube.json", "GLOBAL");
-		PbrModelUtils::LoadMaterial("Resources/material.json");
+		PbrModelUtils::LoadMaterial("Resources/material_pbr.json");
 		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json");
+		materialRenderTarget = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rendertarget.json");
 
 		// Entitites
 		// 
@@ -132,8 +137,6 @@ protected:
 		Engine::GetInputManager()->AddListener(&gameInput);
 
 		// Sprite rendering
-		spriteRenderer.SetCommandList(Engine::GetRenderer()->GetCommandList());
-
 		cameraObject2D = Engine::GetEntityComponentSystem()->SpawnObject();
 		auto& camera2D = Engine::GetEntityComponentSystem()->AddComponent<CameraComponent2D>(cameraObject2D, {});
 		Engine::GetEntityComponentSystem()->AddComponent<Transform2D>(cameraObject2D, { cameraObject2D });
@@ -143,6 +146,9 @@ protected:
 		font->SetMaterial(Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json"));
 		font->GetInstance(30).sprite->GetMaterialInstance()->GetSlot("global")->SetUniformBuffer("camera", camera2D.GetUniformBuffer());
 		font->GetInstance(30).sprite->GetMaterialInstance()->GetSlot("global")->FlushUpdate();
+
+		textRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), Format::RGBA8_UNORM, Format::D32S8_SFLOAT_SUINT);
+		Engine::GetRenderer()->RegisterRenderTarget(&textRenderTarget);
 	}
 
 	void OnTick(TDeltaTime deltaTime) override {
@@ -155,8 +161,10 @@ protected:
 
 	void BuildFrame() override {
 		// Setup
+		SpriteRenderer spriteRenderer{};
+
 		auto commandList = Engine::GetRenderer()->GetCommandList();
-		auto renderpass = Engine::GetRenderer()->GetFinalRenderpass();
+		auto finalRenderTarget = Engine::GetRenderer()->GetFinalRenderTarget();
 
 		spriteRenderer.SetCommandList(commandList);
 
@@ -173,7 +181,7 @@ protected:
 		commandList->SetViewport(viewport);
 		commandList->SetScissor(windowRec);
 
-		commandList->BeginRenderpass(renderpass);
+		commandList->BeginGraphicsRenderpass(finalRenderTarget);
 
 		Scene::GetSkybox().Render(Engine::GetRenderer()->GetCommandList());
 		Engine::GetEntityComponentSystem()->GetSystem<TerrainRenderSystem>()->Render(Engine::GetRenderer()->GetCommandList());
@@ -181,21 +189,18 @@ protected:
 
 		spriteRenderer.Begin();
 
-		commandList->BindMaterial(material2d);
+		commandList->BindMaterial(materialRenderTarget);
 
 		Transform2D spriteTransform{ EMPTY_GAME_OBJECT };
 		spriteTransform.SetScale(Engine::GetWindow()->GetWindowSize().ToVector2f());
 
 		spriteRenderer.Draw(Engine::GetEntityComponentSystem()->GetSystem<RenderSystem3D>()->GetRenderTarget().GetSprite(), spriteTransform);
 		spriteRenderer.Draw(Engine::GetEntityComponentSystem()->GetSystem<RenderSystem2D>()->GetRenderTarget().GetSprite(), spriteTransform);
-
-		spriteRenderer.DrawString(*font, 30, "OSKengine Alpha 2", { 20.f, 40.f }, 1, 0, OSK::Color::BLUE());
-		spriteRenderer.DrawString(*font, 30, "FPS: " + std::to_string(GetFps()), { 20.0f, 80.f }, 1, 0, OSK::Color::WHITE());
-		spriteRenderer.DrawString(*font, 30, "v: " + Engine::GetBuild(), { 20, 110.f }, 1, 0, OSK::Color::WHITE());
+		spriteRenderer.Draw(textRenderTarget.GetSprite(), spriteTransform);
 
 		spriteRenderer.End();
 
-		commandList->EndRenderpass(renderpass);
+		commandList->EndGraphicsRenderpass(finalRenderTarget);
 	}
 
 	void OnExit() override {
@@ -209,10 +214,26 @@ protected:
 
 private:
 
+	void Render2D(ICommandList* commandList) {
+		SpriteRenderer spriteRenderer{};
+
+		spriteRenderer.SetCommandList(commandList);
+		spriteRenderer.Begin();
+
+		commandList->BeginAndClearGraphicsRenderpass(&textRenderTarget, Color::BLACK() * 0.0f);
+
+		spriteRenderer.DrawString(*font, 30, "OSKengine Alpha 2", { 20.f, 40.f }, 1, 0, OSK::Color::BLUE());
+		spriteRenderer.DrawString(*font, 30, "FPS: " + std::to_string(GetFps()), { 20.0f, 80.f }, 1, 0, OSK::Color::WHITE());
+		spriteRenderer.DrawString(*font, 30, "v: " + Engine::GetBuild(), { 20, 110.f }, 1, 0, OSK::Color::WHITE());
+
+		commandList->EndGraphicsRenderpass(&textRenderTarget);
+
+		spriteRenderer.End();
+	}
+
 	GameObjectIndex cameraObject = EMPTY_GAME_OBJECT;
 	GameObjectIndex modelObject = EMPTY_GAME_OBJECT;
-
-	SpriteRenderer spriteRenderer;
+		
 	GameObjectIndex cameraObject2D = EMPTY_GAME_OBJECT;
 	Font* font = nullptr;
 
@@ -221,5 +242,8 @@ private:
 	GameInputListener gameInput;
 
 	Material* material2d = nullptr;
+	Material* materialRenderTarget = nullptr;
+
+	RenderTarget textRenderTarget{};
 
 };

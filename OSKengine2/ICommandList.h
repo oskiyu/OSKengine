@@ -7,10 +7,8 @@
 #include "OwnedPtr.h"
 #include "IGpuDataBuffer.h"
 #include <string>
-
-namespace OSK {
-	class Color;
-}
+#include "Color.hpp"
+#include "RenderpassType.h"
 
 namespace OSK::GRAPHICS {
 
@@ -24,6 +22,11 @@ namespace OSK::GRAPHICS {
 	struct Viewport;
 	class IGraphicsPipeline;
 	class IRaytracingPipeline;
+
+	struct RenderPassImageInfo {
+		GpuImage* targetImage = nullptr;
+		TSize arrayLevel = 0;
+	};
 
 	/// <summary>
 	/// Una lista de comandos contiene una serie de comandos que serán
@@ -109,22 +112,15 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Comienza el renderizado a un render target.
 		/// </summary>
+		/// <param name="color">Color con el que limpiará la imagen.</param>
 		/// 
 		/// @note Se limpiará la imagen con color negro.
 		/// 
 		/// @pre No debe haber ningún renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void BeginGraphicsRenderpass(RenderTarget* renderpass) = 0;
+		void BeginGraphicsRenderpass(RenderTarget* renderpass, const Color& color = Color::BLACK());
 
-		/// <summary>
-		/// Comienza el renderizado a un render target.
-		/// </summary>
-		/// 
-		/// <param name="color">Color con el que limpiará la imagen.</param>
-		/// 
-		/// @pre No debe haber ningún renderpass activo.
-		/// @pre La lista de comandos debe estar abierta.
-		virtual void BeginAndClearGraphicsRenderpass(RenderTarget* renderpass, const Color& color) = 0;
+		virtual void BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color = Color::BLACK()) = 0;
 
 		/// <summary>
 		/// Finaliza el renderizado a un render target.
@@ -132,7 +128,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Debe haber un renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void EndGraphicsRenderpass(RenderTarget* renderpass) = 0;
+		virtual void EndGraphicsRenderpass() = 0;
 
 
 		/// <summary>
@@ -358,10 +354,9 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		const Material* currentMaterial = nullptr;
 
-		/// <summary>
-		/// Renderepass que está siendo grabado en un instante determinado.
-		/// </summary>
-		const RenderTarget* currentRenderpass = nullptr;
+		DynamicArray<RenderPassImageInfo> currentColorImages;
+		RenderPassImageInfo currentDepthImage;
+		RenderpassType currentRenderpassType = RenderpassType::INTERMEDIATE;
 
 		bool isSingleUse = false;
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ISystem.h"
+#include "IRenderSystem.h"
 
 namespace OSK::ECS {
 

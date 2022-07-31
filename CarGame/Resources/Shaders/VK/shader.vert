@@ -26,7 +26,7 @@ layout (push_constant) uniform Model {
 
 void main() {
     outColor = inColor;
-    outNormal = mat3(transpose(inverse(model.modelMatrix))) * inNormal;
+    outNormal = normalize(mat3(transpose(inverse(model.modelMatrix))) * inNormal);
     outTexCoords = inTexCoords;
     outCameraPos = camera.cameraPos;
 

@@ -67,7 +67,7 @@ GpuMemoryBlockVulkan::GpuMemoryBlockVulkan(GpuImage* image, IGpu* device, GpuIma
 	: IGpuMemoryBlock(GetFormatNumberOfBytes(image->GetFormat()) * image->GetSize().X * image->GetSize().Y, device, type, GpuMemoryUsage::IMAGE) {
 	
 	VkMemoryRequirements memRequirements{};
-	vkGetImageMemoryRequirements(device->As<GpuVulkan>()->GetLogicalDevice(), image->As<GpuImageVulkan>()->GetImage(), &memRequirements);
+	vkGetImageMemoryRequirements(device->As<GpuVulkan>()->GetLogicalDevice(), image->As<GpuImageVulkan>()->GetVkImage(), &memRequirements);
 
 	VkMemoryAllocateInfo allocInfo{};
 	allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
@@ -77,7 +77,7 @@ GpuMemoryBlockVulkan::GpuMemoryBlockVulkan(GpuImage* image, IGpu* device, GpuIma
 	VkResult result = vkAllocateMemory(device->As<GpuVulkan>()->GetLogicalDevice(), &allocInfo, nullptr, &memory);
 	OSK_ASSERT(result == VK_SUCCESS, "No se pudo reservar memoria para la imagen");
 
-	vkBindImageMemory(device->As<GpuVulkan>()->GetLogicalDevice(), image->As<GpuImageVulkan>()->GetImage(), memory, 0);
+	vkBindImageMemory(device->As<GpuVulkan>()->GetLogicalDevice(), image->As<GpuImageVulkan>()->GetVkImage(), memory, 0);
 }
 
 void GpuMemoryBlockVulkan::Free() {

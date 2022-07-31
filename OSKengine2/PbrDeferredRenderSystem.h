@@ -3,7 +3,6 @@
 #include "IRenderSystem.h"
 
 #include "UniquePtr.hpp"
-#include "IRenderpass.h"
 #include "IGpuImage.h"
 
 namespace OSK::ECS {

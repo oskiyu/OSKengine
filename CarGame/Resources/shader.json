@@ -46,14 +46,7 @@
 
                     "glsl_index": 1,
                     "hlsl_index": 0
-                },
-                {
-                    "name": "lights",
-
-                    "glsl_index": 2,
-                    "hlsl_index": 2
                 }
-
             ]
         }
     ]

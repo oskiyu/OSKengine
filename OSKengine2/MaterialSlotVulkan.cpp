@@ -135,32 +135,85 @@ void MaterialSlotVulkan::SetStorageBuffers(const std::string& binding, const Gpu
 		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
 }
 
-void MaterialSlotVulkan::SetGpuImage(const std::string& binding, const GpuImage* image, SampledChannel channel) {
+void MaterialSlotVulkan::SetGpuImage(const std::string& binding, const GpuImage* image, SampledChannel channel, TSize arrayLevel) {
 	const GpuImage* images[NUM_RESOURCES_IN_FLIGHT]{};
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
 		images[i] = image;
 
-	SetGpuImages(binding, images, channel);
+	SetGpuImages(binding, images, channel, arrayLevel);
 }
 
-void MaterialSlotVulkan::SetGpuImages(const std::string& binding, const GpuImage* image[NUM_RESOURCES_IN_FLIGHT], SampledChannel channel) {
+void MaterialSlotVulkan::SetGpuImages(const std::string& binding, const GpuImage* image[NUM_RESOURCES_IN_FLIGHT], SampledChannel channel, TSize arrayLevel) {
 	const bool containsBinding = bindingsLocations.ContainsKey(binding);
 
 	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
 		OwnedPtr<VkDescriptorImageInfo> imageInfo = new VkDescriptorImageInfo();
 		imageInfo->imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-		imageInfo->sampler = image[i]->As<GpuImageVulkan>()->GetSampler();
+		imageInfo->sampler = image[i]->As<GpuImageVulkan>()->GetVkSampler();
 
 		switch (channel) {
 		case SampledChannel::COLOR:
-			imageInfo->imageView = image[i]->As<GpuImageVulkan>()->GetView();
+			imageInfo->imageView = image[i]->As<GpuImageVulkan>()->GetColorView(arrayLevel);
 			break;
 		case SampledChannel::DEPTH:
-			imageInfo->imageView = image[i]->As<GpuImageVulkan>()->GetDepthView();
+			imageInfo->imageView = image[i]->As<GpuImageVulkan>()->GetDepthOnlyView(arrayLevel);
 			OSK_ASSERT(imageInfo->imageView != VK_NULL_HANDLE, "No se puede usar la imagen para leer la parte de profundidad.");
 			break;
 		case SampledChannel::STENCIL:
-			imageInfo->imageView = image[i]->As<GpuImageVulkan>()->GetStencilView();
+			imageInfo->imageView = image[i]->As<GpuImageVulkan>()->GetStencilOnlyView(arrayLevel);
+			OSK_ASSERT(imageInfo->imageView != VK_NULL_HANDLE, "No se puede usar la imagen para leer la parte de stencil.");
+			break;
+		}
+
+		VkWriteDescriptorSet descriptorWrite{};
+		descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+		descriptorWrite.dstSet = descriptorSets[i];
+		descriptorWrite.dstBinding = layout->GetSlot(name).bindings.Get(binding).glslIndex;
+		descriptorWrite.dstArrayElement = 0;
+		descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+		descriptorWrite.descriptorCount = 1;
+		descriptorWrite.pBufferInfo = nullptr;
+		descriptorWrite.pImageInfo = imageInfo.GetPointer();
+		descriptorWrite.pTexelBufferView = nullptr;
+
+		if (containsBinding)
+			bindings.At(i)[bindingsLocations.Get(binding)] = descriptorWrite;
+		else
+			bindings.At(i).Insert(descriptorWrite);
+
+		imageInfos.Insert(imageInfo.GetPointer());
+	}
+
+	if (!containsBinding)
+		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
+}
+
+void MaterialSlotVulkan::SetGpuArrayImage(const std::string& binding, const GpuImage* image, SampledChannel channel) {
+	const GpuImage* images[NUM_RESOURCES_IN_FLIGHT]{};
+	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+		images[i] = image;
+
+	SetGpuArrayImages(binding, images, channel);
+}
+
+void MaterialSlotVulkan::SetGpuArrayImages(const std::string& binding, const GpuImage* images[NUM_RESOURCES_IN_FLIGHT], SampledChannel channel) {
+	const bool containsBinding = bindingsLocations.ContainsKey(binding);
+
+	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
+		OwnedPtr<VkDescriptorImageInfo> imageInfo = new VkDescriptorImageInfo();
+		imageInfo->imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+		imageInfo->sampler = images[i]->As<GpuImageVulkan>()->GetVkSampler();
+
+		switch (channel) {
+		case SampledChannel::COLOR:
+			imageInfo->imageView = images[i]->As<GpuImageVulkan>()->GetColorArrayView();
+			break;
+		case SampledChannel::DEPTH:
+			imageInfo->imageView = images[i]->As<GpuImageVulkan>()->GetDepthArrayView();
+			OSK_ASSERT(imageInfo->imageView != VK_NULL_HANDLE, "No se puede usar la imagen para leer la parte de profundidad.");
+			break;
+		case SampledChannel::STENCIL:
+			imageInfo->imageView = images[i]->As<GpuImageVulkan>()->GetStencilArrayView();
 			OSK_ASSERT(imageInfo->imageView != VK_NULL_HANDLE, "No se puede usar la imagen para leer la parte de stencil.");
 			break;
 		}
@@ -202,8 +255,8 @@ void MaterialSlotVulkan::SetStorageImages(const std::string& binding, const GpuI
 	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
 		OwnedPtr<VkDescriptorImageInfo> imageInfo = new VkDescriptorImageInfo();
 		imageInfo->imageLayout = VK_IMAGE_LAYOUT_GENERAL;
-		imageInfo->imageView = image[i]->As<GpuImageVulkan>()->GetView();
-		imageInfo->sampler = image[i]->As<GpuImageVulkan>()->GetSampler();
+		imageInfo->imageView = image[i]->As<GpuImageVulkan>()->GetColorView(0);
+		imageInfo->sampler = image[i]->As<GpuImageVulkan>()->GetVkSampler();
 
 		VkWriteDescriptorSet descriptorWrite{};
 		descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;

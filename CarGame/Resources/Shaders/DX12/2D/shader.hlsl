@@ -8,7 +8,7 @@ struct PushConstants {
     float4 color;
     float4 texCoords;
 };
-ConstantBuffer<PushConstants> pushConstants : register(b0);
+ConstantBuffer<PushConstants> pushConstants : register(b0, space1);
 
 cbuffer CameraBuffer : register(b1) {
     float4x4 cameraView;
@@ -33,6 +33,5 @@ VS2PS vmain(float2 position : POSITION, float2 texCoords : BASETEXCOORDS) {
 }
 
 float4 fmain(VS2PS input) : SV_Target {
-
     return pushConstants.color * texture0.Sample(textureSampler, input.texCoords);
 }

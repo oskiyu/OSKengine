@@ -20,7 +20,6 @@
 #include "SyncDeviceDx12.h"
 #include "GpuMemoryAllocatorDx12.h"
 #include "GpuImageLayout.h"
-#include "RenderpassDx12.h"
 #include "RenderpassType.h"
 #include "Color.hpp"
 #include "GraphicsPipelineDx12.h"

@@ -75,10 +75,10 @@ void CameraComponent3D::UpdateTransform(Transform3D* transform) {
 	angles = 0.0f;
 }
 
-glm::mat4 CameraComponent3D::GetProjectionMatrix(const Transform3D& transform) const {
-	return glm::lookAt<float>(transform.GetPosition().ToGLM(), (transform.GetPosition() + transform.GetForwardVector()).ToGLM(), transform.GetTopVector().ToGLM());
+glm::mat4 CameraComponent3D::GetProjectionMatrix() const {
+	return glm::perspective<float>(glm::radians(fov), Engine::GetWindow()->GetScreenRatio(), nearPlane, farPlane);
 }
 
-glm::mat4 CameraComponent3D::GetViewMatrix() const {
-	return glm::perspective<float>(glm::radians(fov), Engine::GetWindow()->GetScreenRatio(), nearPlane, farPlane);
+glm::mat4 CameraComponent3D::GetViewMatrix(const Transform3D& transform) const {
+	return glm::lookAt<float>(transform.GetPosition().ToGLM(), (transform.GetPosition() + transform.GetForwardVector()).ToGLM(), transform.GetTopVector().ToGLM());
 }

@@ -9,18 +9,22 @@ layout(location = 2) in vec4 inColor;
 layout(location = 3) in vec2 inTexCoords;
 
 layout(location = 4) in vec3 inCameraPos;
-layout(location = 5) in vec4 fragPosInLightSpace;
+layout(location = 5) in vec3 inFragPosInCameraViewSpace;
 
 layout (location = 0) out vec4 outColor;
 
+layout (set = 0, binding = 1) uniform DirLightShadowMat {
+    mat4[4] matrix;
+    vec4 splits;
+} dirLightShadowMat;
+
 layout (set = 0, binding = 2) uniform DirLight {
-    vec3 direction;
+    vec4 directionAndIntensity;
     vec4 color;
-    float intensity;
 } dirLight;
 
 layout (set = 0, binding = 3) uniform samplerCube irradianceMap;
-layout (set = 0, binding = 4) uniform sampler2D dirLightShadowMap;
+layout (set = 0, binding = 4) uniform sampler2DArray dirLightShadowMap;
 
 layout (set = 1, binding = 0) uniform sampler2D stexture;
 // layout (set = 0, binding = 1) uniform sampler2D metallicTexture;
@@ -34,6 +38,8 @@ layout (push_constant) uniform MaterialInfo {
 
 vec3 GetRadiance(vec3 F0, vec3 direction, vec3 view, vec3 normal, vec3 lightColor, vec3 albedoColor, float roughnessFactor, float metallicFactor);
 float CalculateShadow();
+vec3 GetShadowmapCascade();
+vec3 GetShadowCoordinates();
 
 void main() {
     const vec3 normal = normalize(inNormal);
@@ -51,7 +57,7 @@ void main() {
     vec3 accummulatedRadiance = vec3(0.0);
 
     // Directional Light
-    accummulatedRadiance += CalculateShadow() * GetRadiance(F0, dirLight.direction, view, normal, dirLight.color.rgb * dirLight.intensity, albedo, roughnessFactor, metallicFactor);
+    accummulatedRadiance += CalculateShadow() * GetRadiance(F0, dirLight.directionAndIntensity.xyz, view, normal, dirLight.color.rgb * dirLight.directionAndIntensity.w, albedo, roughnessFactor, metallicFactor);
 
     // Irradiance Map
     vec3 kS = FreshnelShlick(max(dot(normal, view), 0.0), F0);
@@ -68,6 +74,7 @@ void main() {
     color = mix(color, scolor, 0.3);
 
     outColor = vec4(color, 1.0);
+    // outColor = vec4(mix(color, GetShadowmapCascade(), 0.3), 1.0);
 }
 
 vec3 GetRadiance(vec3 F0, vec3 direction, vec3 view, vec3 normal, vec3 lightColor, vec3 albedoColor, float roughnessFactor, float metallicFactor) {
@@ -92,21 +99,75 @@ vec3 GetRadiance(vec3 F0, vec3 direction, vec3 view, vec3 normal, vec3 lightColo
 }
 
 float CalculateShadow() {
+    // Cascaded Shadow Map
+    const float viewDepth = inFragPosInCameraViewSpace.z;
+    int shadowMapIndex = 0;
+    for(int i = 0; i < 4 - 1; i++) {
+		if(viewDepth < dirLightShadowMat.splits[i]) {	
+			shadowMapIndex = i + 1;
+		}
+	}
+
+    vec4 fragPosInLightSpace = dirLightShadowMat.matrix[shadowMapIndex] * vec4(inPosition, 1.0);
+   
     vec4 projCoords = (fragPosInLightSpace / fragPosInLightSpace.w);
     projCoords.xy = projCoords.xy * 0.5 + 0.5;
     projCoords.y = -projCoords.y;
-   
+
     const float currentDepth = projCoords.z - 0.01;
 
     float accumulatedShadow = 0.0;
-    const vec2 texelSize = 1.0 / textureSize(dirLightShadowMap, 0);
+    const vec2 texelSize = 1.0 / textureSize(dirLightShadowMap, 0).xy;
 
     for (int x = -1; x < 1; x++) {
         for (int y = -1; y < 1; y++) {
-            float pointDepth = texture(dirLightShadowMap, projCoords.xy + vec2(x, y) * texelSize).r;
+            const vec2 finalCoords = projCoords.xy + vec2(x, y) * texelSize;
+            if (finalCoords.x > 1.0 || finalCoords.x < -1.0 || finalCoords.y > 1.0 || finalCoords.y < -1.0) {
+                continue;
+            }
+
+            float pointDepth = texture(dirLightShadowMap, vec3(projCoords.xy + vec2(x, y) * texelSize, shadowMapIndex)).r;
             accumulatedShadow += (currentDepth < pointDepth) ? 1.0 : 0.0;
         }
     }
 
     return accumulatedShadow / 9.0;
+}
+
+vec3 GetShadowmapCascade() {
+    const float viewDepth = inFragPosInCameraViewSpace.z;
+    int shadowMapIndex = 0;
+    for(int i = 0; i < 4 - 1; i++) {
+		if(viewDepth < dirLightShadowMat.splits[i]) {	
+			shadowMapIndex = i + 1;
+		}
+	}
+
+    switch (shadowMapIndex) {
+        case 0: return vec3(0.0, 0.0, 0.0);
+        case 1: return vec3(1.0, 0.0, 0.0);
+        case 2: return vec3(0.0, 1.0, 0.0);
+        case 3: return vec3(0.0, 0.0, 1.0);
+
+        default: return vec3(1.0, 1.0, 1.0);
+    }
+    
+}
+
+vec3 GetShadowCoordinates() {
+      // Cascaded Shadow Map
+    const float viewDepth = inFragPosInCameraViewSpace.z;
+    int shadowMapIndex = 0;
+    for(int i = 0; i < 4 - 1; i++) {
+		if(viewDepth < dirLightShadowMat.splits[i]) {	
+			shadowMapIndex = i + 1;
+		}
+	}
+
+    const vec4 fragPosInLightSpace = dirLightShadowMat.matrix[shadowMapIndex] * vec4(inPosition, 1.0);
+    vec4 projCoords = (fragPosInLightSpace / fragPosInLightSpace.w);
+    projCoords.xy = projCoords.xy * 0.5 + 0.5;
+    projCoords.y = -projCoords.y;
+
+    return vec3(projCoords.xy, 1.0);
 }

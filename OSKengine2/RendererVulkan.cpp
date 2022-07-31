@@ -18,7 +18,6 @@
 #include "SyncDeviceVulkan.h"
 #include "DynamicArray.hpp"
 #include "GpuMemoryAllocatorVulkan.h"
-#include "RenderpassVulkan.h"
 #include "RenderpassType.h"
 #include "Color.hpp"
 #include "GraphicsPipelineVulkan.h"

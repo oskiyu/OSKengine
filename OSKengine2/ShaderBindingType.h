@@ -21,6 +21,11 @@ namespace OSK::GRAPHICS {
 		TEXTURE,
 
 		/// <summary>
+		/// Imagen array.
+		/// </summary>
+		TEXTURE_ARRAY,
+
+		/// <summary>
 		/// Textura cúbica.
 		/// </summary>
 		CUBEMAP,

@@ -28,7 +28,7 @@ namespace OSK::GRAPHICS {
 				/// <summary>
 				/// Capacidades de la superficie.
 				/// </summary>
-				VkSurfaceCapabilitiesKHR surfaceCapabilities;
+				VkSurfaceCapabilitiesKHR surfaceCapabilities{};
 
 				/// <summary>
 				/// Formatos soportados.
@@ -45,22 +45,22 @@ namespace OSK::GRAPHICS {
 			/// <summary>
 			/// Propiedades físicas.
 			/// </summary>
-			VkPhysicalDeviceProperties properties;
+			VkPhysicalDeviceProperties properties{};
 
 			/// <summary>
 			/// Cosas que soporta.
 			/// </summary>
-			VkPhysicalDeviceFeatures features;
+			VkPhysicalDeviceFeatures features{};
 
 			/// <summary>
 			/// Máximo nivel de MSAA disponible.
 			/// </summary>
-			VkSampleCountFlagBits maxMsaaSamples;
+			VkSampleCountFlagBits maxMsaaSamples{};
 
 			/// <summary>
 			/// Información de las memorias disponibles en la GPU.
 			/// </summary>
-			VkPhysicalDeviceMemoryProperties memoryProperties;
+			VkPhysicalDeviceMemoryProperties memoryProperties{};
 
 			VkPhysicalDeviceFeatures2 features2{};
 			VkPhysicalDeviceRayTracingPipelinePropertiesKHR rtPipelineProperties{};
@@ -69,22 +69,24 @@ namespace OSK::GRAPHICS {
 			VkPhysicalDeviceAccelerationStructurePropertiesKHR rtAccelerationStructuresProperites{};
 			VkPhysicalDeviceBufferDeviceAddressFeatures rtDeviceAddressFeatures{};
 
+			VkPhysicalDeviceDynamicRenderingFeatures dynamicRenderingFeatures{};
+
 			bool IsRtCompatible() const;
 
 			/// <summary>
 			/// Alineamiento mínimo para dynamic ubos.
 			/// </summary>
-			TSize minAlignment;
+			TSize minAlignment = 0;
 
 			/// <summary>
 			/// True si puede usarse en OSKengine.
 			/// </summary>
-			bool isSuitable;
+			bool isSuitable = false;
 
 			/// <summary>
 			/// Detalles del swapchain.
 			/// </summary>
-			SwapchainSupportDetails swapchainSupportDetails;
+			SwapchainSupportDetails swapchainSupportDetails{};
 
 			/// <summary>
 			/// Obtiene la información relevante de una GPU en concreto.
@@ -124,10 +126,10 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		VkPhysicalDevice physicalDevice;
-		VkDevice logicalDevice;
-		VkSurfaceKHR surface;
-		Info info;
+		VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
+		VkDevice logicalDevice = VK_NULL_HANDLE;
+		VkSurfaceKHR surface = VK_NULL_HANDLE;
+		Info info{};
 
 	};
 

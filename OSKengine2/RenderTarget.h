@@ -2,7 +2,6 @@
 
 #include "OSKmacros.h"
 #include "UniquePtr.hpp"
-#include "IRenderpass.h"
 #include "IGpuImage.h"
 #include "Vector2.hpp"
 

@@ -21,7 +21,7 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		VkQueue queue;
+		VkQueue queue = 0;
 
 	};
 

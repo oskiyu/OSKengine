@@ -6,7 +6,6 @@
 #include "GpuMemorySubblockVulkan.h"
 #include "GpuMemoryBlockVulkan.h"
 #include "GpuImageVulkan.h"
-#include "RenderpassVulkan.h"
 #include "Color.hpp"
 #include "RenderpassType.h"
 #include "IGpuDataBuffer.h"
@@ -66,7 +65,7 @@ void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout pr
 	barrier.newLayout = GetGpuImageLayoutVulkan(next);
 	barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
 	barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-	barrier.image = image->As<GpuImageVulkan>()->GetImage();
+	barrier.image = image->As<GpuImageVulkan>()->GetVkImage();
 	barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
 	barrier.subresourceRange.baseMipLevel = baseMipLevel;
 	barrier.subresourceRange.levelCount = numMipLevels == 0 ? VK_REMAINING_MIP_LEVELS : numMipLevels;
@@ -187,7 +186,7 @@ void CommandListVulkan::CopyBufferToImage(const GpuDataBuffer* source, GpuImage*
 
 	vkCmdCopyBufferToImage(commandBuffers[GetCommandListIndex()],
 		source->GetMemoryBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer(), 
-		dest->As<GpuImageVulkan>()->GetImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
+		dest->As<GpuImageVulkan>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
 
 	// Mip levels
 	Vector2i mipSize = { static_cast<int>(dest->GetSize().X), static_cast<int>(dest->GetSize().Y) };
@@ -216,8 +215,8 @@ void CommandListVulkan::CopyBufferToImage(const GpuDataBuffer* source, GpuImage*
 		blit.dstSubresource.layerCount = 1;
 
 		vkCmdBlitImage(commandBuffers[GetCommandListIndex()],
-			dest->As<GpuImageVulkan>()->GetImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
-			dest->As<GpuImageVulkan>()->GetImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+			dest->As<GpuImageVulkan>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+			dest->As<GpuImageVulkan>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
 			1, &blit, VK_FILTER_LINEAR);
 
 		if (mipSize.X > 1) 
@@ -256,8 +255,8 @@ void CommandListVulkan::CopyImageToImage(const GpuImage* source, GpuImage* desti
 	region.extent.depth = 1; /// @todo Size.Z
 
 	vkCmdCopyImage(commandBuffers[GetCommandListIndex()],
-		source->As<GpuImageVulkan>()->GetImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
-		destination->As<GpuImageVulkan>()->GetImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+		source->As<GpuImageVulkan>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+		destination->As<GpuImageVulkan>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
 		1, &region);
 }
 
@@ -274,28 +273,20 @@ void CommandListVulkan::CopyBuffer(const GpuDataBuffer* source, GpuDataBuffer* d
 		1, &copyRegion);
 }
 
-void CommandListVulkan::BeginGraphicsRenderpass(RenderTarget* renderTarget) {
-	BeginAndClearGraphicsRenderpass(renderTarget, Color::BLACK() * 0.0f);
-}
+void CommandListVulkan::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color) {
+	const Vector2ui targetSize = { colorImages[0].targetImage->GetSize().X, colorImages[0].targetImage->GetSize().Y };
 
-void CommandListVulkan::BeginAndClearGraphicsRenderpass(RenderTarget* renderTarget, const Color& color) {
-	const auto size = renderTarget->GetSize();
-	const bool isFinal = renderTarget->GetRenderTargetType() == RenderpassType::FINAL;
-	DynamicArray<GpuImage*> colorImgs = isFinal
-		? DynamicArray<GpuImage*>{ (Engine::GetRenderer()->_GetSwapchain()->GetImage(Engine::GetRenderer()->GetCurrentFrameIndex())) }
-		: renderTarget->GetTargetImages(Engine::GetRenderer()->GetCurrentFrameIndex());
+	for (const auto& img : colorImages)
+		TransitionImageLayout(img.targetImage, GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, img.arrayLevel, 1, 0, 0);
 
-	for (auto img : colorImgs)
-		TransitionImageLayout(img, GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, 0, 1, 0, 0);
-
-	DynamicArray<VkRenderingAttachmentInfo> colorAttachments = DynamicArray<VkRenderingAttachmentInfo>::CreateResizedArray(colorImgs.GetSize());
-	for (TSize i = 0; i < colorImgs.GetSize(); i++) {
+	DynamicArray<VkRenderingAttachmentInfo> colorAttachments = DynamicArray<VkRenderingAttachmentInfo>::CreateResizedArray(colorImages.GetSize());
+	for (TSize i = 0; i < colorImages.GetSize(); i++) {
 		colorAttachments[i] = {};
 		colorAttachments[i].sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO_KHR;
 		colorAttachments[i].loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
 		colorAttachments[i].storeOp = VK_ATTACHMENT_STORE_OP_STORE;
 		colorAttachments[i].imageLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
-		colorAttachments[i].imageView = colorImgs[i]->As<GpuImageVulkan>()->GetView();
+		colorAttachments[i].imageView = colorImages[i].targetImage->As<GpuImageVulkan>()->GetColorView(colorImages[i].arrayLevel);
 		colorAttachments[i].resolveMode = VK_RESOLVE_MODE_NONE;
 		colorAttachments[i].resolveImageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 		colorAttachments[i].resolveImageView = VK_NULL_HANDLE;
@@ -307,7 +298,7 @@ void CommandListVulkan::BeginAndClearGraphicsRenderpass(RenderTarget* renderTarg
 	depthAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
 	depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
 	depthAttachment.imageLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
-	depthAttachment.imageView = renderTarget->GetDepthImage(Engine::GetRenderer()->GetCurrentFrameIndex())->As<GpuImageVulkan>()->GetView();
+	depthAttachment.imageView = depthImage.targetImage->As<GpuImageVulkan>()->GetDepthStencilView(depthImage.arrayLevel);
 	depthAttachment.resolveMode = VK_RESOLVE_MODE_NONE;
 	depthAttachment.resolveImageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 	depthAttachment.resolveImageView = VK_NULL_HANDLE;
@@ -315,33 +306,33 @@ void CommandListVulkan::BeginAndClearGraphicsRenderpass(RenderTarget* renderTarg
 
 	VkRenderingInfo renderpassInfo{};
 	renderpassInfo.sType = VK_STRUCTURE_TYPE_RENDERING_INFO;
-	renderpassInfo.renderArea = { 0, 0, size.X, size.Y };
+	renderpassInfo.renderArea = { 0, 0, targetSize.X, targetSize.Y };
 	renderpassInfo.layerCount = 1;
 	renderpassInfo.colorAttachmentCount = colorAttachments.GetSize();
 	renderpassInfo.pColorAttachments = colorAttachments.GetData();
 	renderpassInfo.pDepthAttachment = &depthAttachment;
 	renderpassInfo.pStencilAttachment = &depthAttachment;
-		
+
 	vkCmdBeginRendering(commandBuffers.At(GetCommandListIndex()), &renderpassInfo);
 
-	currentRenderpass = renderTarget;
+	currentColorImages = colorImages;
+	currentDepthImage = depthImage;
 }
 
-void CommandListVulkan::EndGraphicsRenderpass(RenderTarget* renderTarget) {
+void CommandListVulkan::EndGraphicsRenderpass() {
 	vkCmdEndRendering(commandBuffers[GetCommandListIndex()]);
 
-	const bool isFinal = renderTarget->GetRenderTargetType() == RenderpassType::FINAL;
-
-	DynamicArray<GpuImage*> colorImgs = isFinal
-		? DynamicArray<GpuImage*>{ (Engine::GetRenderer()->_GetSwapchain()->GetImage(Engine::GetRenderer()->GetCurrentFrameIndex())) }
-		: renderTarget->GetTargetImages(Engine::GetRenderer()->GetCurrentFrameIndex());
+	const bool isFinal = currentRenderpassType == RenderpassType::FINAL;
 
 	const GpuImageLayout finalLayout = isFinal
 		? GpuImageLayout::PRESENT
 		: GpuImageLayout::SHADER_READ_ONLY;
 
-	for (auto img : colorImgs)
-		TransitionImageLayout(img, GpuImageLayout::COLOR_ATTACHMENT, finalLayout, 0, 1, 0, 0);
+	for (const auto& img : currentColorImages)
+		TransitionImageLayout(img.targetImage, GpuImageLayout::COLOR_ATTACHMENT, finalLayout, img.arrayLevel, 1, 0, 0);
+
+	if (currentRenderpassType != RenderpassType::INTERMEDIATE)
+		currentRenderpassType = RenderpassType::INTERMEDIATE;
 }
 
 void CommandListVulkan::BindMaterial(const Material* material) {

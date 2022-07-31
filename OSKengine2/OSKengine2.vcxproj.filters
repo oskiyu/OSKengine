@@ -555,20 +555,11 @@
     <ClCompile Include="GpuImageVulkan.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Image</Filter>
     </ClCompile>
-    <ClCompile Include="RenderpassVulkan.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Renderpass</Filter>
-    </ClCompile>
-    <ClCompile Include="IRenderpass.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Renderpass</Filter>
-    </ClCompile>
     <ClCompile Include="Color.cpp">
       <Filter>Archivos de origen\OSKengine\Types</Filter>
     </ClCompile>
     <ClCompile Include="IGpuImage.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Image</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderpassDx12.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Renderpass</Filter>
     </ClCompile>
     <ClCompile Include="IGpuVertexBuffer.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Vertex</Filter>
@@ -1028,19 +1019,10 @@
     <ClInclude Include="GpuIndexBufferVulkan.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Index</Filter>
     </ClInclude>
-    <ClInclude Include="RenderpassVulkan.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Renderpass</Filter>
-    </ClInclude>
     <ClInclude Include="RenderApiType.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel</Filter>
     </ClInclude>
-    <ClInclude Include="IRenderpass.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Renderpass</Filter>
-    </ClInclude>
     <ClInclude Include="RenderpassType.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Renderpass</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderpassDx12.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Renderpass</Filter>
     </ClInclude>
     <ClInclude Include="GpuVertexBufferVulkan.h">

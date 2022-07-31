@@ -82,7 +82,7 @@ namespace OSK::GRAPHICS {
 		/// <param name="binding">Nombre del binding al que se asignará la imagen.</param>
 		/// 
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
-		virtual void SetGpuImage(const std::string& binding, const GpuImage* image, SampledChannel channel = SampledChannel::COLOR) = 0;
+		virtual void SetGpuImage(const std::string& binding, const GpuImage* image, SampledChannel channel = SampledChannel::COLOR, TSize arrayLevel = 0) = 0;
 
 		/// <summary>
 		/// Establece la imagen que será asignada al binding con el nombre dado.
@@ -93,7 +93,29 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note Habrá una imagen por cada frame in flight.
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
-		virtual void SetGpuImages(const std::string& binding, const GpuImage* images[NUM_RESOURCES_IN_FLIGHT], SampledChannel channel = SampledChannel::COLOR) = 0;
+		virtual void SetGpuImages(const std::string& binding, const GpuImage* images[NUM_RESOURCES_IN_FLIGHT], SampledChannel channel = SampledChannel::COLOR, TSize arrayLevel = 0) = 0;
+
+		/// <summary>
+		/// Establece la imagen que será asignada al binding con el nombre dado.
+		/// Puede usarse esta función para alternar el recurso que está asignado al binding.
+		/// La imagen es un sampler2Darray.
+		/// </summary>
+		/// <param name="binding">Nombre del binding al que se asignará la imagen.</param>
+		/// 
+		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
+		virtual void SetGpuArrayImage(const std::string& binding, const GpuImage* image, SampledChannel channel = SampledChannel::COLOR) = 0;
+
+		/// <summary>
+		/// Establece la imagen que será asignada al binding con el nombre dado.
+		/// Puede usarse esta función para alternar el recurso que está asignado al binding.
+		/// La imagen es un sampler2Darray.
+		/// </summary>
+		/// <param name="binding">Nombre del binding al que se asignará la imagen.</param>
+		/// <param name="images">Imágenes.</param>
+		/// 
+		/// @note Habrá una imagen por cada frame in flight.
+		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
+		virtual void SetGpuArrayImages(const std::string& binding, const GpuImage* images[NUM_RESOURCES_IN_FLIGHT], SampledChannel channel = SampledChannel::COLOR) = 0;
 
 
 		/// <summary>

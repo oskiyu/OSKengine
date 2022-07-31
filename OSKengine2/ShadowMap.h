@@ -4,6 +4,7 @@
 #include "IGpuUniformBuffer.h"
 #include "MaterialInstance.h"
 #include "Vector4.hpp"
+#include "GameObject.h"
 
 namespace OSK::GRAPHICS {
 
@@ -106,16 +107,18 @@ namespace OSK::GRAPHICS {
 		/// @pre Se debe haber inicializado el ShadowMap con ShadowMap::Create.
 		/// @note Devolverá nullptr si no se cumple la precondición.
 		GpuImage* GetShadowImage(TSize index) const;
-
+		
 		/// <summary>
-		/// Devuelve el render target donde se renderizará el
-		/// mapa de sombras.
+		/// Devuelve la imagen de color del mapa de sombras.
+		/// Para su renderizado.
 		/// </summary>
+		/// <param name="index">Índice de la imagen en el swapchain.</param>
+		/// <returns>Mapa de profundidad.</returns>
 		/// 
 		/// @pre Se debe haber inicializado el ShadowMap con ShadowMap::Create.
-		/// @warning Devolverá un render target sin inicializar si no se cumple
-		/// la precondición.
-		RenderTarget* GetShadowsRenderTarget();
+		/// @note Devolverá nullptr si no se cumple la precondición.
+		GpuImage* GetColorImage(TSize index) const;
+
 
 		/// <summary>
 		/// Devuelve el material usado para la generación de sombras.
@@ -142,17 +145,33 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Se ha llamado a ShadowMap::Create.
 		/// @warning Devuelve nullptr si no se cumple las precondiciones.
-		GRAPHICS::IGpuUniformBuffer* GetDirLightMatrixUniformBuffer() const;
+		DynamicArray<GRAPHICS::IGpuUniformBuffer*> GetDirLightMatrixUniformBuffers() const;
+
+
+		/// <summary>
+		/// Establece la cámara de la escena, para poder configurar
+		/// los mapas de profundidad de una manera más óptima.
+		/// </summary>
+		/// <param name="cameraObject"></param>
+		void SetSceneCamera(ECS::GameObjectIndex cameraObject);
+
+		/// <summary>
+		/// Devuelve el número de mapas de sobras en cascada.
+		/// </summary>
+		TSize GetNumCascades() const;
 
 	private:
 
+		static DynamicArray<Vector3f> GetFrustumCorners(const glm::mat4& cameraMatrix);
+
 		void UpdateLightMatrixBuffer();
 
-		RenderTarget shadowsTarget;
+		UniquePtr<GpuImage> unusedColorArrayAttachment[NUM_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GpuImage> depthArrayAttachment[NUM_RESOURCES_IN_FLIGHT]{};
 
 		Vector2f lightArea = Vector2f(5.f, 5.f);
-		float nearPlane = -2.0f;
-		float farPlane = 2.0f;
+		float nearPlane = -5.0f;
+		float farPlane = 5.0f;
 
 		Vector3f lightDirection = Vector3f(0.0f, 1.0f, 0.0f);
 		Vector3f lightOrigin = Vector3f(0.0f);
@@ -160,7 +179,16 @@ namespace OSK::GRAPHICS {
 		Material* shadowsGenMaterial = nullptr;
 		UniquePtr<MaterialInstance> shadowsGenMaterialInstance = nullptr;
 
-		UniquePtr<IGpuUniformBuffer> lightUniformBuffer{};
+		UniquePtr<IGpuUniformBuffer> lightUniformBuffer[NUM_RESOURCES_IN_FLIGHT]{};
+
+		const static TSize numMaps = 4;
+
+		ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
+
+		struct ShadowsBufferContent {
+			alignas(16) glm::mat4 matrices[4];
+			alignas(16) Vector4f cascadeSplits;
+		};
 
 	};
 

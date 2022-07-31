@@ -37,16 +37,6 @@ namespace OSK::GRAPHICS {
 		Material* LoadMaterial(const std::string& path);
 
 		/// <summary>
-		/// Registra el renderpass en todos los materiales.
-		/// </summary>
-		void RegisterRenderpass(const IRenderpass* renderpass);
-
-		/// <summary>
-		/// Quita el renderpass de todos los materiales.
-		/// </summary>
-		void UnregisterRenderpass(const IRenderpass* renderpass);
-
-		/// <summary>
 		/// Registra un nuevo tipo de vértice, para que puedan crearse 
 		/// materiales para él.
 		/// 

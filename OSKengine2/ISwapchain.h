@@ -9,7 +9,6 @@ namespace OSK::GRAPHICS {
 	enum class PresentMode;
 
 	class IGpu;
-	class IRenderpass;
 
 	/// <summary>
 	/// Un swapchain es una estructura encargada de manejar el cambio de imagenes que
@@ -50,14 +49,6 @@ namespace OSK::GRAPHICS {
 		/// @pre El índice está dentro de los límites.
 		GpuImage* GetImage(unsigned int index) const;
 
-		/// <summary>
-		/// Establece el renderpass que representa el renderizado a la imagen final.
-		/// </summary>
-		void SetTargetRenderpass(IRenderpass* renderpass);
-
-		/// <returns>Renderpass que representa el renderizado a la imagen final</returns>
-		IRenderpass* GetTargetRenderpass() const;
-
 		PresentMode GetCurrentPresentMode() const;
 
 		/// <summary>
@@ -75,7 +66,6 @@ namespace OSK::GRAPHICS {
 
 		UniquePtr<GpuImage> images[3];
 		unsigned int currentFrameIndex = 0;
-		IRenderpass* targetRenderpass = nullptr;
 
 	};
 

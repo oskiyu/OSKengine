@@ -63,12 +63,12 @@ namespace OSK {
 		const static Version& GetVersion();
 		const static std::string& GetBuild();
 
-	private:
-
 		static void RegisterBuiltinAssets();
 		static void RegisterBuiltinComponents();
 		static void RegisterBuiltinSystems();
 		static void RegisterBuiltinVertices();
+
+	private:
 
 		static UniquePtr<IO::Logger> logger;
 		static UniquePtr<IO::Window> window;

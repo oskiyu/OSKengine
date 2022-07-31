@@ -87,7 +87,7 @@ void PbrDeferredRenderSystem::ExecuteNormalRenderpass(ICommandList* commandList)
 		}
 	}
 
-	commandList->EndGraphicsRenderpass(&normalRenderTarget);
+	commandList->EndGraphicsRenderpass();
 }
 
 void PbrDeferredRenderSystem::ExecuteColorRenderpass(ICommandList* commandList) {
@@ -138,5 +138,5 @@ void PbrDeferredRenderSystem::ExecuteColorRenderpass(ICommandList* commandList) 
 		}
 	}
 
-	commandList->EndGraphicsRenderpass(&normalRenderTarget);
+	commandList->EndGraphicsRenderpass();
 }

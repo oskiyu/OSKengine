@@ -81,6 +81,9 @@ unsigned int OSK::GRAPHICS::GetGpuImageUsageVulkan(GpuImageUsage usage) {
 	if (OSK_CONTAINS_FLAG(usage, GpuImageUsage::SAMPLED))
 		flags = flags | VK_IMAGE_USAGE_SAMPLED_BIT;
 
+	if (OSK_CONTAINS_FLAG(usage, GpuImageUsage::SAMPLED_ARRAY))
+		flags = flags | VK_IMAGE_USAGE_SAMPLED_BIT;
+
 	if (OSK_CONTAINS_FLAG(usage, GpuImageUsage::TRANSFER_SOURCE))
 		flags = flags | VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
 

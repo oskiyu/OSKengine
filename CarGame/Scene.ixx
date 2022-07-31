@@ -21,6 +21,8 @@ module;
 #include <OSKengine/AssetManager.h>
 #include <OSKengine/Texture.h>
 #include <OSKengine/Color.hpp>
+#include <OSKengine/RenderSystem3D.h>
+#include <OSKengine/IrradianceMap.h>
 
 export module Scene;
 
@@ -30,7 +32,6 @@ using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 export import Skybox;
-export import PointLight;
 
 export class Scene {
 
@@ -74,6 +75,11 @@ public:
 		lightsBuffer->MapMemory();
 		lightsBuffer->Write(directionalLight);
 		lightsBuffer->Unmap();
+
+		irradianceMap = Engine::GetAssetManager()->Load<IrradianceMap>("Resources/Assets/IBL/irradiance0.json", "GLOBAL");
+
+		// Shadows
+		Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->SetDirectionalLight(directionalLight);
 	}
 
 	static void Delete() {
@@ -132,6 +138,10 @@ public:
 		return lightsBuffer.GetPointer();
 	}
 
+	static inline IrradianceMap* GetIrradianceMap() {
+		return irradianceMap;
+	}
+
 private:
 
 	static Skybox skybox;
@@ -139,6 +149,7 @@ private:
 	static Material* terrainMaterial;
 
 	static DirectionalLight directionalLight;
+	static IrradianceMap* irradianceMap;
 
 	// Cámara activa.
 	static GameObjectIndex cameraObject;
@@ -156,3 +167,4 @@ Material* Scene::terrainMaterial = nullptr;
 
 DirectionalLight Scene::directionalLight = {};
 UniquePtr<IGpuUniformBuffer> Scene::lightsBuffer = nullptr;
+IrradianceMap* Scene::irradianceMap = nullptr;

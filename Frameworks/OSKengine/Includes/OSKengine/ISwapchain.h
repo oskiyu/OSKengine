@@ -60,9 +60,15 @@ namespace OSK::GRAPHICS {
 
 		PresentMode GetCurrentPresentMode() const;
 
+		/// <summary>
+		/// Devuelve el formato de las imágenes del swapchain.
+		/// </summary>
+		Format GetColorFormat() const;
+
 	protected:
 
 		PresentMode mode{};
+		Format colorFormat;
 
 		IGpu* device = nullptr;
 		unsigned int imageCount = 3;

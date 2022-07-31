@@ -19,14 +19,6 @@ GpuImage* ISwapchain::GetImage(unsigned int index) const {
 	return images[index].GetPointer();
 }
 
-IRenderpass* ISwapchain::GetTargetRenderpass() const {
-	return targetRenderpass;
-}
-
-void ISwapchain::SetTargetRenderpass(IRenderpass* renderpass) {
-	targetRenderpass = renderpass;
-}
-
 Format ISwapchain::GetColorFormat() const {
 	return colorFormat;
 }

@@ -86,12 +86,12 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Obtiene la matriz proyección de la cámara.
 		/// </summary>
-		glm::mat4 GetProjectionMatrix(const Transform3D& transform) const;
+		glm::mat4 GetProjectionMatrix() const;
 
 		/// <summary>
 		/// Obtiene la matriz view de la cámara.
 		/// </summary>
-		glm::mat4 GetViewMatrix() const;
+		glm::mat4 GetViewMatrix(const Transform3D& transform) const;
 
 	private:
 
@@ -100,7 +100,7 @@ namespace OSK::ECS {
 		float fovLimitUp = 45.0f;
 
 		float nearPlane = 0.001f;
-		float farPlane = 5000.0f;
+		float farPlane = 50.0f;
 
 		Vector2f angles = 0.0f;
 		Vector2f accumulatedAngles = 0.0f;

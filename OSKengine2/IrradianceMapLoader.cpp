@@ -142,7 +142,7 @@ void IrradianceMapLoader::DrawCubemap(GRAPHICS::GpuImage* targetCubemap, GRAPHIC
 			cmdList->BindIndexBuffer(cubemapModel->GetIndexBuffer());
 			cmdList->DrawSingleInstance(cubemapModel->GetIndexCount());
 
-			cmdList->EndGraphicsRenderpass(&cubemapGenRenderTarget);
+			cmdList->EndGraphicsRenderpass();
 
 			cmdList->TransitionImageLayout(cubemapGenRenderTarget.GetMainTargetImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::TRANSFER_SOURCE, 0, 1);
 			cmdList->CopyImageToImage(cubemapGenRenderTarget.GetMainTargetImage(Engine::GetRenderer()->GetCurrentFrameIndex()), targetCubemap, 1, 0, i, 0, mipLevel, viewport.rectangle.GetRectangleSize());

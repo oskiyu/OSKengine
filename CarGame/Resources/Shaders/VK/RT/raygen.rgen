@@ -1,0 +1,54 @@
+#version 460
+
+#extension GL_EXT_ray_tracing : require
+#extension GL_EXT_nonuniform_qualifier : require
+
+layout (set = 0, binding = 0) uniform accelerationStructureEXT topLevelAccelerationStructure;
+layout (set = 0, binding = 1, rgba8) uniform image2D targetImage;
+
+struct RayResult {
+    vec4 color;
+    float distance;
+    vec3 normal;
+};
+
+layout (location = 0) rayPayloadEXT RayResult rayResult;
+
+layout (constant_id = 0) const int MAX_RECURSION = 1;
+
+layout (set = 1, binding = 0) uniform Camera {
+    mat4 view;
+    mat4 projection;
+
+    vec3 cameraPos;
+} camera;
+
+void main() {
+    const vec2 pixelCenter = vec2(gl_LaunchIDEXT.x, gl_LaunchSizeEXT.y - gl_LaunchIDEXT.y) + vec2(0.5);
+    const vec2 inTexCoords = pixelCenter / vec2(gl_LaunchSizeEXT.xy);
+    const vec2 d = inTexCoords * 2.0 - 1.0;
+
+    vec4 origin = inverse(camera.view) * vec4(0, 0, 0, 1);
+    vec4 target = inverse(camera.projection) * vec4(d.x, d.y, 1, 1);
+    vec4 direction = inverse(camera.view) * vec4(normalize(target.xyz / target.w), 0);
+
+    uint rayFlags = gl_RayFlagsOpaqueEXT;
+    uint cullMask = 0xff;
+    float minDistance = 0.0000001;
+    float maxDistance = 100000000.0;
+
+    vec4 color = vec4(0.0);
+
+    for (int i = 0; i < 1; i++) {
+        traceRayEXT(topLevelAccelerationStructure, rayFlags, cullMask, 0, 0, 0, origin.xyz, minDistance, direction.xyz, maxDistance, 0);
+        
+        break;
+    }
+
+    if (rayResult.distance > 0.0)
+        color = vec4(rayResult.normal.xyz, 1.0);
+    else
+        color = vec4(rayResult.color.xyz, 1.0);
+
+    imageStore(targetImage, ivec2(gl_LaunchIDEXT.xy), color);
+}

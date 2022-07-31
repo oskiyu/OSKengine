@@ -3,7 +3,6 @@ struct VS2PS {
     float3 normal : NORMAL;
     float4 color : COLOR;
     float2 texCoords : TEXCOORD;
-    //float3 worldPosition : POSITION;
 };
 
 struct PushConstants {
@@ -28,7 +27,6 @@ VS2PS vmain(float3 position : POSITION, float3 normal : NORMAL, float4 color : C
     temp = mul(temp, pushConstants.modelMatrix);
 
     result.position = mul(temp, float4(position, 1.0));
-    //result.worldPosition = mul(pushConstants.modelMatrix, float4(position, 1.0)).xyz;
     result.color = color;
     result.texCoords = texCoords;
 

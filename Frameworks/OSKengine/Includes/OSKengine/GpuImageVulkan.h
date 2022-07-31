@@ -17,7 +17,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuImageVulkan(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format);
+		GpuImageVulkan(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples);
 		~GpuImageVulkan();
 
 		void SetImage(VkImage image);
@@ -29,11 +29,20 @@ namespace OSK::GRAPHICS {
 		void SetSampler(VkSampler sampler);
 		VkSampler GetSampler() const;
 
+		void _SetDepthView(VkImageView view);
+		VkImageView GetDepthView() const;
+
+		void _SetStencilView(VkImageView view);
+		VkImageView GetStencilView() const;
+
 	private:
 
 		VkImage image = 0;
 		VkImageView view = 0;
 		VkSampler sampler = 0;
+
+		VkImageView depthView = 0;
+		VkImageView stencilView = 0;
 
 	};
 

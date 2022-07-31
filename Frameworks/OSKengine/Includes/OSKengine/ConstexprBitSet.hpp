@@ -52,10 +52,12 @@ namespace OSK {
 		/// 
 		/// @pre Debe ser un índice válido (< size).
 		void SetValue(TSize index, bool value) {
-			TSize i = index / 8;
-			TSize offset = index % 8;
+			const TSize byteIndex = index / 8;
+			const TSize inByteOffset = index % 8;
 
-			bytes[i] |= 1U << offset;
+			value
+				? bytes[byteIndex] |=   1U << inByteOffset
+				: bytes[byteIndex] &= ~(1U << inByteOffset);
 		}
 
 		/// <summary>

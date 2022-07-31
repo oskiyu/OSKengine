@@ -147,7 +147,6 @@
     <ClCompile Include="GpuIndexBufferDx12.cpp" />
     <ClCompile Include="IGpuUniformBuffer.cpp" />
     <ClCompile Include="IGpuVertexBuffer.cpp" />
-    <ClCompile Include="IRenderpass.cpp" />
     <ClCompile Include="ISwapchain.cpp" />
     <ClCompile Include="KeyboardState.cpp" />
     <ClCompile Include="Logger.cpp" />
@@ -161,8 +160,6 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RendererDx12.cpp" />
     <ClCompile Include="RendererVulkan.cpp" />
-    <ClCompile Include="RenderpassDx12.cpp" />
-    <ClCompile Include="RenderpassVulkan.cpp" />
     <ClCompile Include="RenderSystem2D.cpp" />
     <ClCompile Include="RenderSystem3D.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
@@ -312,7 +309,6 @@
     <ClInclude Include="GpuIndexBufferVulkan.h" />
     <ClInclude Include="IGraphicsPipeline.h" />
     <ClInclude Include="IRenderer.h" />
-    <ClInclude Include="IRenderpass.h" />
     <ClInclude Include="ISwapchain.h" />
     <ClInclude Include="ISyncDevice.h" />
     <ClInclude Include="IGpuUniformBuffer.h" />
@@ -333,9 +329,7 @@
     <ClInclude Include="RenderApiType.h" />
     <ClInclude Include="RendererDx12.h" />
     <ClInclude Include="RendererVulkan.h" />
-    <ClInclude Include="RenderpassDx12.h" />
     <ClInclude Include="RenderpassType.h" />
-    <ClInclude Include="RenderpassVulkan.h" />
     <ClInclude Include="RenderSystem2D.h" />
     <ClInclude Include="RenderSystem3D.h" />
     <ClInclude Include="RenderTarget.h" />

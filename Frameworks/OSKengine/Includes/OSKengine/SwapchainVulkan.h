@@ -50,11 +50,9 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		static VkColorSpaceKHR GetSupportedColorSpace(const GpuVulkan& device);
 
-		VkSwapchainKHR swapchain;
+		VkSwapchainKHR swapchain = 0;
 		const IO::Window* window = nullptr;
 		const GpuVulkan* device = nullptr;
-
-		Format format;
 
 	};
 

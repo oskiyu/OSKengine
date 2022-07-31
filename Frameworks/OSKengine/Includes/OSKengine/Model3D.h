@@ -35,6 +35,16 @@ namespace OSK::ASSETS {
 		/// </summary>
 		HashMap<std::string, TSize> materialTextures;
 
+		/// <summary>
+		/// Factor metálico del material del mesh.
+		/// </summary>
+		float metallicFactor = 0.0f;
+
+		/// <summary>
+		/// Factor de rugosidad del material del mesh.
+		/// </summary>
+		float roughnessFactor = 0.0f;
+
 	};
 
 	/// <summary>

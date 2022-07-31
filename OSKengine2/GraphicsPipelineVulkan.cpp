@@ -4,7 +4,6 @@
 #include "FileIO.h"
 #include "GpuVulkan.h"
 #include "PipelineCreateInfo.h"
-#include "RenderpassVulkan.h"
 #include "PipelineLayoutVulkan.h"
 #include "VertexInfo.h"
 #include "Format.h"

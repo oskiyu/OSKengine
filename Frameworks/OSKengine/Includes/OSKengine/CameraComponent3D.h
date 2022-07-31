@@ -99,7 +99,7 @@ namespace OSK::ECS {
 		float fovLimitDown = 1.0f;
 		float fovLimitUp = 45.0f;
 
-		float nearPlane = 0.1f;
+		float nearPlane = 0.001f;
 		float farPlane = 5000.0f;
 
 		Vector2f angles = 0.0f;

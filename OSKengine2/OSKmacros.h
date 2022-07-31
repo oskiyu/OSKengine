@@ -24,4 +24,6 @@ using TSize = unsigned int;
 using TDeltaTime = float;
 using TByte = uint8_t;
 
+#define OKS_ARR_FUNC(num) *
+
 #include <type_traits>
