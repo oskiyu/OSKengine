@@ -26,7 +26,7 @@ namespace OSK::GRAPHICS {
 		/// Crea una instancia del material.
 		/// </summary>
 		/// <param name="material">Material del que se crea la instancia.</param>
-		MaterialInstance(const Material* material);
+		MaterialInstance(Material* material);
 
 		~MaterialInstance();
 
@@ -46,7 +46,7 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Devuelve el material del que es instancia esta instancia.
 		/// </summary>
-		const Material* GetMaterial() const;
+		Material* GetMaterial() const;
 
 		/// <summary>
 		/// Devuelve el layout de esta instancia (es decir, el layout del material padre).
@@ -57,7 +57,7 @@ namespace OSK::GRAPHICS {
 	private:
 
 		HashMap<std::string, UniquePtr<IMaterialSlot>> slots;
-		const Material* ownerMaterial;
+		Material* ownerMaterial = nullptr;
 
 	};
 

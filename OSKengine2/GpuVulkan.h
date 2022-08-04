@@ -102,7 +102,9 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		void Close() override;
 
-		OwnedPtr<ICommandPool> CreateCommandPool() override;
+		OwnedPtr<ICommandPool> CreateGraphicsCommandPool() override;
+		OwnedPtr<ICommandPool> CreateComputeCommandPool() override;
+
 		OwnedPtr<ISyncDevice> CreateSyncDevice() override;
 
 		void SetPhysicalDevice(VkPhysicalDevice gpu);

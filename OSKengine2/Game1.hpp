@@ -146,10 +146,10 @@ protected:
 		ASSETS::Model3D* model = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/f1.json", "GLOBAL");
 		ASSETS::Model3D* model_low = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/circuit0.json", "GLOBAL");
 
-		topLevelAccelerationStructure = Engine::GetRenderer()->GetMemoryAllocator()->CreateTopAccelerationStructure({
-			model->GetAccelerationStructure(),
-			model_low->GetAccelerationStructure()
-			}).GetPointer();
+		//topLevelAccelerationStructure = Engine::GetRenderer()->GetMemoryAllocator()->CreateTopAccelerationStructure({
+		//	model->GetAccelerationStructure(),
+		//	model_low->GetAccelerationStructure()
+		//	}).GetPointer();
 
 		DynamicArray<RtInstanceInfo> instancesInfo;
 		instancesInfo.Insert({
@@ -172,7 +172,7 @@ protected:
 		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("vertices", model->GetVertexBuffer());
 		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("indices", model->GetIndexBuffer());
 		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("instanceInfos", instancesInfoBuffer);
-		rtMaterialInstance->GetSlot("rt")->SetAccelerationStructure("topLevelAccelerationStructure", topLevelAccelerationStructure);
+//		rtMaterialInstance->GetSlot("rt")->SetAccelerationStructure("topLevelAccelerationStructure", topLevelAccelerationStructure);
 		rtMaterialInstance->GetSlot("rt")->SetStorageImage("targetImage", rtTargetImage);
 		rtMaterialInstance->GetSlot("rt")->FlushUpdate();
 		rtMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", cameraUbos);
@@ -187,7 +187,7 @@ protected:
 				
 		DirectionalLight dirLight;
 		const Vector3f direction = Vector3f(1.0f, -3.f, 0.0f).GetNormalized();
-		dirLight.directionAndIntensity = Vector4f(direction.X, direction.Y, direction.Z, 1.8f);
+		dirLight.directionAndIntensity = Vector4f(direction.X, direction.Y, direction.Z, 1.4f);
 		dirLight.color = Color(253 / 255.f, 253 / 255.f, 225 / 255.f);
 
 		ECS::RenderSystem3D* renderSystem = Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>();
@@ -417,12 +417,12 @@ protected:
 
 		const auto& transformComponent = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(ballObject);
 		auto& modelComponent = Engine::GetEntityComponentSystem()->GetComponent<ECS::ModelComponent3D>(ballObject);
-		modelComponent.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent.GetAsMatrix());
+		//modelComponent.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent.GetAsMatrix());
 		//modelComponent.GetModel()->GetAccelerationStructure()->Update();
 
 		const auto& transformComponent2 = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(smallBallObject);
 		auto& modelComponent2 = Engine::GetEntityComponentSystem()->GetComponent<ECS::ModelComponent3D>(smallBallObject);
-		modelComponent2.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent2.GetAsMatrix());
+		//modelComponent2.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent2.GetAsMatrix());
 		//modelComponent2.GetModel()->GetAccelerationStructure()->Update();
 		//topLevelAccelerationStructure->Update();
 
@@ -485,6 +485,7 @@ protected:
 
 		spriteRenderer.Draw(skyboxRenderTarget.GetSprite(), skyboxRenderTarget.GetSpriteTransform());
 		spriteRenderer.Draw(Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->GetRenderTarget().GetSprite(), Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->GetRenderTarget().GetSpriteTransform());
+		spriteRenderer.Draw(Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->GetBloomRenderTarget().GetSprite(), Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->GetBloomRenderTarget().GetSpriteTransform());
 		spriteRenderer.Draw(textRenderTarget.GetSprite(), textRenderTarget.GetSpriteTransform());
 
 		spriteRenderer.End();

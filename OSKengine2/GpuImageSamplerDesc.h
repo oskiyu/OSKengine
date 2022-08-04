@@ -49,7 +49,12 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Borde negro.
 		/// </summary>
-		BACKGROUND
+		BACKGROUND_BLACK,
+
+		/// <summary>
+		/// Borde blanco.
+		/// </summary>
+		BACKGROUND_WHITE,
 
 	};
 

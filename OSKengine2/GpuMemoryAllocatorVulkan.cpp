@@ -26,34 +26,6 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-VkSamplerAddressMode GetAddressModeVulkan(GpuImageAddressMode mode) {
-	switch (mode) {
-	case OSK::GRAPHICS::GpuImageAddressMode::REPEAT:
-		return VK_SAMPLER_ADDRESS_MODE_REPEAT;
-	case OSK::GRAPHICS::GpuImageAddressMode::MIRRORED_REPEAT:
-		return VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT;
-	case OSK::GRAPHICS::GpuImageAddressMode::EDGE:
-		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
-	case OSK::GRAPHICS::GpuImageAddressMode::BACKGROUND:
-		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
-	default:
-		return VK_SAMPLER_ADDRESS_MODE_REPEAT;
-	}
-}
-
-VkFilter GetFilterTypeVulkan(GpuImageFilteringType type) {
-	switch (type) {
-	case OSK::GRAPHICS::GpuImageFilteringType::LIENAR:
-		return VK_FILTER_LINEAR;
-	case OSK::GRAPHICS::GpuImageFilteringType::NEAREST:
-		return VK_FILTER_NEAREST;
-	case OSK::GRAPHICS::GpuImageFilteringType::CUBIC:
-		return VK_FILTER_CUBIC_IMG;
-	default:
-		return VK_FILTER_LINEAR;
-	}
-}
-
 GpuMemoryAllocatorVulkan::GpuMemoryAllocatorVulkan(IGpu* device)
 	: IGpuMemoryAllocator(device) {
 
@@ -158,7 +130,7 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageS
 
 	VkSampler sampler = VK_NULL_HANDLE;
 
-	GpuImageVulkan* output = new GpuImageVulkan(imageSize, dimension, usage, numLayers, format, msaaSamples);
+	GpuImageVulkan* output = new GpuImageVulkan(imageSize, dimension, usage, numLayers, format, msaaSamples, samplerDesc);
 
 	TSize numMipLevels = 0;
 	switch (samplerDesc.mipMapMode) {

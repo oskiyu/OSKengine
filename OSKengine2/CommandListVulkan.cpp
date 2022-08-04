@@ -24,6 +24,7 @@
 #include "OSKengine.h"
 #include "RendererVulkan.h"
 #include "RtShaderTableVulkan.h"
+#include "ComputePipelineVulkan.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -153,6 +154,7 @@ void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout pr
 
 	case VK_IMAGE_LAYOUT_GENERAL:
 		destinationStage = VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT;
+		barrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
 		break;
 
 	default:
@@ -293,6 +295,8 @@ void CommandListVulkan::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo
 		colorAttachments[i].clearValue.color = { color.Red, color.Green, color.Blue, color.Alpha };
 	}
 
+	OSK_ASSERT(colorAttachments.GetSize() == colorImages.GetSize(), "Error al iniciar el renderpass.");
+
 	VkRenderingAttachmentInfo depthAttachment{};
 	depthAttachment.sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO_KHR;
 	depthAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
@@ -335,7 +339,7 @@ void CommandListVulkan::EndGraphicsRenderpass() {
 		currentRenderpassType = RenderpassType::INTERMEDIATE;
 }
 
-void CommandListVulkan::BindMaterial(const Material* material) {
+void CommandListVulkan::BindMaterial(Material* material) {
 	currentMaterial = material;
 
 	if (material->IsRaytracing()) {
@@ -345,7 +349,11 @@ void CommandListVulkan::BindMaterial(const Material* material) {
 		vkCmdBindPipeline(commandBuffers[GetCommandListIndex()], VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR, currentRtPipeline->As<RaytracingPipelineVulkan>()->GetPipeline());
 	}
 	else {
-		currentPipeline = material->GetGraphicsPipeline();
+		DynamicArray<Format> colorFormats;
+		for (const auto& colorImg : currentColorImages)
+			colorFormats.Insert(colorImg.targetImage->GetFormat());
+
+		currentPipeline = material->GetGraphicsPipeline(colorFormats);
 		currentRtPipeline = nullptr;
 
 		vkCmdBindPipeline(commandBuffers[GetCommandListIndex()], VK_PIPELINE_BIND_POINT_GRAPHICS, currentPipeline->As<GraphicsPipelineVulkan>()->GetPipeline());
@@ -370,8 +378,12 @@ void CommandListVulkan::BindIndexBuffer(const IGpuIndexBuffer* buffer) {
 void CommandListVulkan::BindMaterialSlot(const IMaterialSlot* slot) {
 	VkDescriptorSet sets[] = { slot->As<MaterialSlotVulkan>()->GetDescriptorSet(Engine::GetRenderer()->GetCurrentCommandListIndex()) };
 
-	const VkPipelineBindPoint bindPoint = currentMaterial->IsRaytracing() ? VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR : VK_PIPELINE_BIND_POINT_GRAPHICS;
-	const VkPipelineLayout layout = currentMaterial->IsRaytracing() ? currentRtPipeline->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout()
+	const VkPipelineBindPoint bindPoint = currentMaterial->IsRaytracing() 
+		? VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR 
+		: VK_PIPELINE_BIND_POINT_GRAPHICS;
+
+	const VkPipelineLayout layout = currentMaterial->IsRaytracing() 
+		? currentRtPipeline->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout()
 		: currentPipeline->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout();
 
 	vkCmdBindDescriptorSets(commandBuffers[GetCommandListIndex()], bindPoint, layout,
@@ -404,6 +416,14 @@ void CommandListVulkan::TraceRays(TSize raygenEntry, TSize closestHitEntry, TSiz
 	RendererVulkan::pvkCmdTraceRaysKHR(commandBuffers[GetCommandListIndex()],
 						&raygenTable, &missTable, &closestHitTable, &emptyTable, 
 						resolution.X, resolution.Y, 1);
+}
+
+void CommandListVulkan::DispatchCompute(const Vector3ui& groupCount) {
+	vkCmdDispatch(commandBuffers[GetCommandListIndex()], groupCount.X, groupCount.Y, groupCount.Z);
+}
+
+void CommandListVulkan::BindComputePipeline(const IComputePipeline& computePipeline) {
+	vkCmdBindPipeline(commandBuffers[GetCommandListIndex()], VK_PIPELINE_BIND_POINT_COMPUTE, computePipeline.As<ComputePipelineVulkan>()->GetPipeline());
 }
 
 void CommandListVulkan::SetViewport(const Viewport& vp) {

@@ -115,7 +115,7 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IAsset** asset)
 	stbi_image_free(pixels);
 }
 
-void IrradianceMapLoader::DrawCubemap(GRAPHICS::GpuImage* targetCubemap, GRAPHICS::ICommandList* cmdList) {
+void IrradianceMapLoader::DrawCubemap(GpuImage* targetCubemap, ICommandList* cmdList, Material* material, IMaterialSlot* materialSlot) {
 	struct {
 		glm::mat4 cameraProjection = IrradianceMapLoader::cameraProjection;
 		glm::mat4 cameraView = glm::mat4(1.0f);
@@ -124,6 +124,9 @@ void IrradianceMapLoader::DrawCubemap(GRAPHICS::GpuImage* targetCubemap, GRAPHIC
 	for (TSize i = 0; i < 6; i++) {
 		for (TSize mipLevel = 0; mipLevel < targetCubemap->GetMipLevels(); mipLevel++) {
 			cmdList->BeginGraphicsRenderpass(&cubemapGenRenderTarget);
+
+			cmdList->BindMaterial(material);
+			cmdList->BindMaterialSlot(materialSlot);
 
 			Viewport viewport{};
 			viewport.rectangle = {
@@ -153,12 +156,9 @@ void IrradianceMapLoader::DrawCubemap(GRAPHICS::GpuImage* targetCubemap, GRAPHIC
 void IrradianceMapLoader::GenCubemap(GRAPHICS::GpuImage* targetCubemap, GRAPHICS::ICommandList* cmdList) {
 	cmdList->TransitionImageLayout(targetCubemap, GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION, 0, 6);
 
-	cmdList->BindMaterial(cubemapGenMaterial);
-	cmdList->BindMaterialSlot(cubemapGenMaterialInstance->GetSlot("global"));
-
 	cmdList->SetScissor({ 0, 0, irradianceLayerSize.X, irradianceLayerSize.Y });
 
-	DrawCubemap(targetCubemap, cmdList);
+	DrawCubemap(targetCubemap, cmdList, cubemapGenMaterial, cubemapGenMaterialInstance->GetSlot("global"));
 
 	cmdList->TransitionImageLayout(targetCubemap, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY, 0, 6);
 }
@@ -166,12 +166,9 @@ void IrradianceMapLoader::GenCubemap(GRAPHICS::GpuImage* targetCubemap, GRAPHICS
 void IrradianceMapLoader::ConvoluteCubemap(GRAPHICS::GpuImage* targetCubemap, GRAPHICS::ICommandList* cmdList) {
 	cmdList->TransitionImageLayout(targetCubemap, GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION, 0, 6);
 
-	cmdList->BindMaterial(cubemapConvolutionMaterial);
-	cmdList->BindMaterialSlot(cubemapConvolutionMaterialInstance->GetSlot("global"));
-
 	cmdList->SetScissor({ 0, 0, irradianceLayerSize.X, irradianceLayerSize.Y });
 
-	DrawCubemap(targetCubemap, cmdList);
+	DrawCubemap(targetCubemap, cmdList, cubemapConvolutionMaterial, cubemapConvolutionMaterialInstance->GetSlot("global"));
 
 	cmdList->TransitionImageLayout(targetCubemap, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY, 0, 6);
 }

@@ -30,7 +30,7 @@ namespace OSK::ASSETS {
 
 	private:
 
-		void DrawCubemap(GRAPHICS::GpuImage* targetCubemap, GRAPHICS::ICommandList* cmdList);
+		void DrawCubemap(GRAPHICS::GpuImage* targetCubemap, GRAPHICS::ICommandList* cmdList, GRAPHICS::Material* material, GRAPHICS::IMaterialSlot* materialSlot);
 
 		void GenCubemap(GRAPHICS::GpuImage* targetCubemap, GRAPHICS::ICommandList* cmdList);
 		void ConvoluteCubemap(GRAPHICS::GpuImage* targetCubemap, GRAPHICS::ICommandList* cmdList);

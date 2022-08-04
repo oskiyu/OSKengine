@@ -126,7 +126,7 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	CreateSwapchain(mode);
 	CreateSyncDevice();
 	CreateGpuMemoryAllocator();
-	SetupRtFunctions(currentGpu->As<GpuVulkan>()->GetLogicalDevice());
+	//SetupRtFunctions(currentGpu->As<GpuVulkan>()->GetLogicalDevice());
 
 	renderTargetsCamera = new ECS::CameraComponent2D;
 	renderTargetsCamera->LinkToWindow(&window);
@@ -142,10 +142,10 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	isOpen = true;
 }
 
-OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, Format format, const VertexInfo& vertexInfo) {
+OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexInfo) {
 	GraphicsPipelineVulkan* pipeline = new GraphicsPipelineVulkan;
 
-	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, format, vertexInfo);
+	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
 
 	return pipeline;
 }
@@ -167,7 +167,9 @@ void RendererVulkan::Close() {
 
 	renderTargetsCamera.Delete();
 
-	commandPool.Delete();
+	graphicsCommandPool.Delete();
+	computeCommandPool.Delete();
+
 	materialSystem.Delete();
 	gpuMemoryAllocator.Delete();
 
@@ -206,7 +208,7 @@ void RendererVulkan::SubmitSingleUseCommandList(ICommandList* commandList) {
 	result = vkQueueWaitIdle(graphicsQ);
 	OSK_ASSERT(result == VK_SUCCESS, "Error al esperar comando de uso único. Code: " + std::to_string(result));
 
-	vkFreeCommandBuffers(currentGpu->As<GpuVulkan>()->GetLogicalDevice(), commandPool->As<CommandPoolVulkan>()->GetCommandPool(), 1, &cmdBuffer);
+	vkFreeCommandBuffers(currentGpu->As<GpuVulkan>()->GetLogicalDevice(), graphicsCommandPool->As<CommandPoolVulkan>()->GetCommandPool(), 1, &cmdBuffer);
 
 	singleTimeCommandLists.Insert(commandList);
 }
@@ -351,12 +353,14 @@ void RendererVulkan::CreateCommandQueues() {
 	graphicsQueue->As<CommandQueueVulkan>()->SetQueue(graphicsQ);
 	presentQueue->As<CommandQueueVulkan>()->SetQueue(presentQ);
 
-	commandPool = currentGpu->As<GpuVulkan>()->CreateCommandPool().GetPointer();
-	Engine::GetLogger()->InfoLog("Creada el pool de comandos.");
+	graphicsCommandPool = currentGpu->As<GpuVulkan>()->CreateGraphicsCommandPool().GetPointer();
+	computeCommandPool = currentGpu->As<GpuVulkan>()->CreateComputeCommandPool().GetPointer();
 
-	commandPool->As<CommandPoolVulkan>()->SetSwapchainCount(3);
-	commandList = commandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
-	Engine::GetLogger()->InfoLog("Creada la lista de comandos.");
+	graphicsCommandPool->As<CommandPoolVulkan>()->SetSwapchainCount(3);
+	computeCommandPool->As<CommandPoolVulkan>()->SetSwapchainCount(3);
+
+	graphicsCommandList = graphicsCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
+	computeCommandList = computeCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
 }
 
 bool RendererVulkan::AreValidationLayersAvailable() const {
@@ -415,14 +419,18 @@ void RendererVulkan::PresentFrame() {
 		if (shouldResize)
 			return;
 
-		commandList->Reset();
-		commandList->Start();
+		graphicsCommandList->Reset();
+		graphicsCommandList->Start();
+
+		computeCommandList->Reset();
+		computeCommandList->Start();
 
 		isFirstRender = false;
 	}
-	commandList->Close();
+	graphicsCommandList->Close();
+	computeCommandList->Close();
 
-	syncDevice->As<SyncDeviceVulkan>()->Flush(*graphicsQueue->As<CommandQueueVulkan>(), *presentQueue->As<CommandQueueVulkan>(), *commandList->As<CommandListVulkan>());
+	syncDevice->As<SyncDeviceVulkan>()->Flush(*graphicsQueue->As<CommandQueueVulkan>(), *presentQueue->As<CommandQueueVulkan>(), *graphicsCommandList->As<CommandListVulkan>());
 
 	// Sync
 	const bool shouldResize = syncDevice->As<SyncDeviceVulkan>()->UpdateCurrentFrameIndex();
@@ -433,9 +441,12 @@ void RendererVulkan::PresentFrame() {
 		singleTimeCommandLists.At(i)->DeleteAllStagingBuffers();
 
 	//
-	
-	commandList->Reset();
-	commandList->Start();
+
+	graphicsCommandList->Reset();
+	graphicsCommandList->Start();
+
+	computeCommandList->Reset();
+	computeCommandList->Start();
 }
 
 void RendererVulkan::SetupRtFunctions(VkDevice device) {
@@ -449,6 +460,8 @@ void RendererVulkan::SetupRtFunctions(VkDevice device) {
 	pvkCmdTraceRaysKHR = reinterpret_cast<PFN_vkCmdTraceRaysKHR>(vkGetDeviceProcAddr(device, "vkCmdTraceRaysKHR"));
 	pvkGetRayTracingShaderGroupHandlesKHR = reinterpret_cast<PFN_vkGetRayTracingShaderGroupHandlesKHR>(vkGetDeviceProcAddr(device, "vkGetRayTracingShaderGroupHandlesKHR"));
 	pvkCreateRayTracingPipelinesKHR = reinterpret_cast<PFN_vkCreateRayTracingPipelinesKHR>(vkGetDeviceProcAddr(device, "vkCreateRayTracingPipelinesKHR"));
+
+	isRtActive = true;
 }
 
 TSize RendererVulkan::GetCurrentFrameIndex() const {

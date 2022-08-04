@@ -17,9 +17,8 @@ GraphicsPipelineVulkan::GraphicsPipelineVulkan() {
 
 }
 
-void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info, Format format, const VertexInfo& vertexInfo) {
+void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) {
 	gpu = device;
-	this->targetImageFormat = format;
 
 	layout = new PipelineLayoutVulkan(materialLayout);
 
@@ -52,13 +51,18 @@ void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* 
 	vertexInputInfo.pVertexAttributeDescriptions = vertexAttribDescription.GetData();
 
 	// Color blending.
-	VkPipelineColorBlendAttachmentState colorBlendAttachment = GetColorBlendInfo(info);
+	const VkPipelineColorBlendAttachmentState colorBlendAttachment = GetColorBlendInfo(info);
+
+	DynamicArray<VkPipelineColorBlendAttachmentState> colorBlends;
+	for (TSize i = 0; i < info.formats.GetSize(); i++)
+		colorBlends.Insert(colorBlendAttachment);
+
 	VkPipelineColorBlendStateCreateInfo colorBlendCreateInfo{};
 	colorBlendCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
 	colorBlendCreateInfo.logicOpEnable = VK_FALSE;
 	colorBlendCreateInfo.logicOp = VK_LOGIC_OP_COPY;
-	colorBlendCreateInfo.attachmentCount = 1;
-	colorBlendCreateInfo.pAttachments = &colorBlendAttachment;
+	colorBlendCreateInfo.attachmentCount = colorBlends.GetSize();
+	colorBlendCreateInfo.pAttachments = colorBlends.GetData();
 	colorBlendCreateInfo.blendConstants[0] = 0.0f;
 	colorBlendCreateInfo.blendConstants[1] = 0.0f;
 	colorBlendCreateInfo.blendConstants[2] = 0.0f;
@@ -98,11 +102,14 @@ void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* 
 	viewportInfo.pScissors = &scissor;
 
 	// Renderpass
-	const VkFormat colorFormat = GetFormatVulkan(format);
+	DynamicArray<VkFormat> colorFormats;
+	for (const auto format : info.formats)
+		colorFormats.Insert(GetFormatVulkan(format));
+
 	VkPipelineRenderingCreateInfoKHR renderingCreateInfo{};
 	renderingCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO_KHR;
-	renderingCreateInfo.colorAttachmentCount = 1;
-	renderingCreateInfo.pColorAttachmentFormats = &colorFormat;
+	renderingCreateInfo.colorAttachmentCount = colorFormats.GetSize();
+	renderingCreateInfo.pColorAttachmentFormats = colorFormats.GetData();
 	renderingCreateInfo.depthAttachmentFormat = GetFormatVulkan(Format::D32S8_SFLOAT_SUINT);
 	renderingCreateInfo.stencilAttachmentFormat = GetFormatVulkan(Format::D32S8_SFLOAT_SUINT);
 

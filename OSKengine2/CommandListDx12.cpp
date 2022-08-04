@@ -161,9 +161,14 @@ void CommandListDx12::ResourceBarrier(ID3D12Resource* resource, D3D12_RESOURCE_S
 	commandList->ResourceBarrier(1, &barrier);
 }
 
-void CommandListDx12::BindMaterial(const Material* material) {
+void CommandListDx12::BindMaterial(Material* material) {
 	currentMaterial = material;
-	currentPipeline = material->GetGraphicsPipeline();
+
+	DynamicArray<Format> colorFormats;
+	for (const auto& colorImg : currentColorImages)
+		colorFormats.Insert(colorImg.targetImage->GetFormat());
+
+	currentPipeline = material->GetGraphicsPipeline(colorFormats);
 	
 	commandList->SetGraphicsRootSignature(currentPipeline->As<GraphicsPipelineDx12>()->GetLayout());
 	commandList->SetPipelineState(currentPipeline->As<GraphicsPipelineDx12>()->GetPipelineState());
@@ -224,6 +229,14 @@ void CommandListDx12::DrawSingleMesh(TSize firstIndex, TSize numIndices) {
 }
 
 void CommandListDx12::TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) {
+	OSK_ASSERT(false, "No implementado.");
+}
+
+void CommandListDx12::DispatchCompute(const Vector3ui& groupCount) {
+	OSK_ASSERT(false, "No implementado.");
+}
+
+void CommandListDx12::BindComputePipeline(const IComputePipeline& pipeline) {
 	OSK_ASSERT(false, "No implementado.");
 }
 

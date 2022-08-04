@@ -485,11 +485,11 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 		}
 
 		if (materialInfo["config"].contains("format"))
-			info.format = GetFormatFromString(materialInfo["config"]["format"]);
+			info.formats = { GetFormatFromString(materialInfo["config"]["format"]) };
 
 		if (materialInfo["config"].contains("is_final")) {
 			if (materialInfo["config"]["is_final"] == "true")
-				info.format = Engine::GetRenderer()->_GetSwapchain()->GetColorFormat();
+				info.formats = { Engine::GetRenderer()->_GetSwapchain()->GetColorFormat() };
 		}
 	}
 

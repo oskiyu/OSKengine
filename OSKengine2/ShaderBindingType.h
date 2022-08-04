@@ -95,6 +95,11 @@ namespace OSK::GRAPHICS {
 		RT_MISS = 64,
 
 		/// <summary>
+		/// Shader para computación genérica.
+		/// </summary>
+		COMPUTE = 128,
+
+		/// <summary>
 		/// Todos los shaders de teselado.
 		/// </summary>
 		TESSELATION_ALL = TESSELATION_CONTROL | TESSELATION_EVALUATION,

@@ -22,6 +22,11 @@ namespace OSK::GRAPHICS {
 		std::optional<uint32_t> presentFamily;
 
 		/// <summary>
+		/// Cola de computación.
+		/// </summary>
+		std::optional<uint32_t> computeFamily;
+
+		/// <summary>
 		/// ¿Hay alguna cola?
 		/// </summary>
 		/// <returns>True si hay alguna cola disponible.</returns>

@@ -46,6 +46,15 @@ namespace OSK::GRAPHICS {
 		void Create(const Vector2ui& targetSize, Format colorFormat, Format depthFormat);
 
 		/// <summary>
+		/// Añade un nuevo color target.
+		/// </summary>
+		/// <param name="colorFormat">Formato de las imágenes de renderizado.</param>
+		/// 
+		/// @pre Debe haberse creado el rendertarget mediante RenderTarget::Create.
+		void AddColorTarget(Format colorFormat, GpuImageUsage usage = GpuImageUsage::COLOR | GpuImageUsage::SAMPLED, GpuImageSamplerDesc sampler = {});
+
+
+		/// <summary>
 		/// Cambia de tamaño las imágenes de renderizado, tanto las de color
 		/// como las de profundidad.
 		/// </summary>
@@ -194,14 +203,14 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		void CreateTargetImages();
-		void CreateDepthImages();
+		void CreateDepthImages(Format format);
 		void UpdateSpriteImages();
+
+		void RecreateTargetImages();
+		void RecreateDepthImages();
 
 		Vector2ui size = 0;
 		float resolutionScale = 1.0f;
-		Format colorFormat;
-		Format depthFormat;
 
 		GpuImageUsage targetUsage = GpuImageUsage::COLOR | GpuImageUsage::SAMPLED;
 		GpuImageUsage depthUsage = GpuImageUsage::DEPTH_STENCIL;

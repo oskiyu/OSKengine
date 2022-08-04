@@ -3,8 +3,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImageDx12::GpuImageDx12(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples)
-	: GpuImage(size, dimension, usage, numLayers, format, numSamples) {
+GpuImageDx12::GpuImageDx12(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples, GpuImageSamplerDesc samplerDesc)
+	: GpuImage(size, dimension, usage, numLayers, format, numSamples, samplerDesc) {
 
 }
 

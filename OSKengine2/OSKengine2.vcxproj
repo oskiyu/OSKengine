@@ -61,6 +61,7 @@
   <ItemGroup>
     <ClCompile Include="Assert.cpp" />
     <ClCompile Include="AssetManager.cpp" />
+    <ClCompile Include="ComputePipelineVulkan.cpp" />
     <ClCompile Include="IBottomLevelAccelerationStructure.cpp" />
     <ClCompile Include="BottomLevelAccelerationStructureVulkan.cpp" />
     <ClCompile Include="CameraComponent2D.cpp" />
@@ -111,6 +112,7 @@
     <ClCompile Include="HlslRuntimeCompiler.cpp" />
     <ClCompile Include="IAsset.cpp" />
     <ClCompile Include="IAssetLoader.cpp" />
+    <ClCompile Include="IComputePipeline.cpp" />
     <ClCompile Include="IGraphicsPipeline.cpp" />
     <ClCompile Include="IInputListener.cpp" />
     <ClCompile Include="IMaterialSlot.cpp" />
@@ -208,12 +210,14 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentContainer.h" />
     <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="ComputePipelineVulkan.h" />
     <ClInclude Include="ConstexprBitSet.hpp" />
     <ClInclude Include="CubemapTexture.h" />
     <ClInclude Include="CubemapTextureLoader.h" />
     <ClInclude Include="DescriptorLayoutVulkan.h" />
     <ClInclude Include="DescriptorPoolVulkan.h" />
     <ClInclude Include="Doc__MaterialJson.h" />
+    <ClInclude Include="IComputePipeline.h" />
     <ClInclude Include="IrradianceMap.h" />
     <ClInclude Include="IrradianceMapLoader.h" />
     <ClInclude Include="Lights.h" />

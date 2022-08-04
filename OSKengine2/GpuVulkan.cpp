@@ -18,13 +18,33 @@ GpuVulkan::~GpuVulkan() {
 	Close();
 }
 
-OwnedPtr<ICommandPool> GpuVulkan::CreateCommandPool() {
+OwnedPtr<ICommandPool> GpuVulkan::CreateGraphicsCommandPool() {
 	QueueFamilyIndices indices = GetQueueFamilyIndices(surface);
 
 	//Para la graphics q.
 	VkCommandPoolCreateInfo poolInfo{};
 	poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
 	poolInfo.queueFamilyIndex = indices.graphicsFamily.value();
+	poolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
+
+	VkCommandPool commandPool = VK_NULL_HANDLE;
+
+	VkResult result = vkCreateCommandPool(logicalDevice, &poolInfo, nullptr, &commandPool);
+	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear el command pool.");
+
+	auto output = new CommandPoolVulkan;
+	output->SetCommandPool(commandPool);
+
+	return output;
+}
+
+OwnedPtr<ICommandPool> GpuVulkan::CreateComputeCommandPool() {
+	QueueFamilyIndices indices = GetQueueFamilyIndices(surface);
+
+	//Para la compute q.
+	VkCommandPoolCreateInfo poolInfo{};
+	poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
+	poolInfo.queueFamilyIndex = indices.computeFamily.value();
 	poolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
 
 	VkCommandPool commandPool = VK_NULL_HANDLE;
@@ -87,7 +107,7 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 	features.fillModeNonSolid = VK_TRUE; /// \todo check
 
 	// RT
-	if (info.IsRtCompatible()) {
+	if (!info.IsRtCompatible()) {
 		gpuExtensions.Insert(VK_KHR_ACCELERATION_STRUCTURE_EXTENSION_NAME);
 		gpuExtensions.Insert(VK_KHR_RAY_TRACING_PIPELINE_EXTENSION_NAME);
 
@@ -110,11 +130,17 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 	createInfo.enabledExtensionCount = gpuExtensions.GetSize();
 	createInfo.ppEnabledExtensionNames = gpuExtensions.GetData();
 	
-	if (info.IsRtCompatible()) {
-		createInfo.pEnabledFeatures = nullptr;
-		createInfo.pNext = &info.features2;
-		info.features2.features = features;
-		info.features2.pNext = &info.rtAccelerationStructuresFeatures;
+	createInfo.pEnabledFeatures = nullptr;
+	createInfo.pNext = &info.features2;
+	info.features2.features = features;
+	info.features2.pNext = &info.dynamicRenderingFeatures;
+
+	info.dynamicRenderingFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES;
+	info.dynamicRenderingFeatures.dynamicRendering = VK_TRUE;
+	info.dynamicRenderingFeatures.pNext = nullptr;
+
+	if (!info.IsRtCompatible()) {
+		info.dynamicRenderingFeatures.pNext = &info.rtAccelerationStructuresFeatures;
 
 		info.rtAccelerationStructuresFeatures = {};
 		info.rtAccelerationStructuresFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR,
@@ -130,10 +156,6 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 		info.rtPipelineFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR,
 		info.rtPipelineFeatures.rayTracingPipeline = VK_TRUE;
 		info.rtPipelineFeatures.pNext = &info.dynamicRenderingFeatures;
-
-		info.dynamicRenderingFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES;
-		info.dynamicRenderingFeatures.dynamicRendering = VK_TRUE;
-		info.dynamicRenderingFeatures.pNext = nullptr;
 	}
 
 	// Crear el logical device.
@@ -181,6 +203,9 @@ QueueFamilyIndices GpuVulkan::GetQueueFamilyIndices(VkSurfaceKHR surface) const 
 
 		if (presentSupport)
 			indices.presentFamily = i;
+
+		if (q.queueFlags & VK_QUEUE_COMPUTE_BIT)
+			indices.computeFamily = i;
 
 		if (indices.IsComplete())
 			break;

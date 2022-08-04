@@ -8,7 +8,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-MaterialInstance::MaterialInstance(const Material* material)
+MaterialInstance::MaterialInstance(Material* material)
 	: ownerMaterial(material) {
 
 }
@@ -25,7 +25,7 @@ void MaterialInstance::RegisterSlot(const std::string& name) {
 	slots.Insert(name, Engine::GetRenderer()->_CreateMaterialSlot(name, GetLayout()).GetPointer());
 }
 
-const Material* MaterialInstance::GetMaterial() const {
+Material* MaterialInstance::GetMaterial() const {
 	return ownerMaterial;
 }
 

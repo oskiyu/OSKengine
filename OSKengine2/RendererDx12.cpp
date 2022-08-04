@@ -141,10 +141,10 @@ const TByte* RendererDx12::FormatImageDataForGpu(const GpuImage* image, const TB
 	return output;
 }
 
-OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, Format format, const VertexInfo& vertexInfo) {
+OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexInfo) {
 	GraphicsPipelineDx12* pipeline = new GraphicsPipelineDx12();
 
-	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, format, vertexInfo);
+	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
 
 	return pipeline;
 }
@@ -219,14 +219,10 @@ void RendererDx12::CreateCommandQueues() {
 	currentGpu->As<GpuDx12>()->GetDevice()->CreateCommandQueue(&createInfo, IID_PPV_ARGS(&commandQ));
 
 	graphicsQueue->As<CommandQueueDx12>()->SetCommandQueue(commandQ);
+	graphicsCommandPool = currentGpu->CreateGraphicsCommandPool().GetPointer();
 
-	Engine::GetLogger()->InfoLog("Creada la cola de comandos.");
-
-	commandPool = currentGpu->CreateCommandPool().GetPointer();
-	Engine::GetLogger()->InfoLog("Creada el pool de comandos.");
-
-	commandList = commandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
-	commandList->As<CommandListDx12>()->SetCommandPool(*commandPool->As<CommandPoolDx12>());
+	graphicsCommandList = graphicsCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
+	graphicsCommandList->As<CommandListDx12>()->SetCommandPool(*graphicsCommandPool->As<CommandPoolDx12>());
 	Engine::GetLogger()->InfoLog("Creada la lista de comandos.");
 }
 
@@ -250,18 +246,22 @@ void RendererDx12::CreateGpuMemoryAllocator() {
 
 void RendererDx12::PresentFrame() {
 	if (isFirstRender) {
-		commandList->Reset();
-		commandList->Start();
+		graphicsCommandList->Reset();
+		graphicsCommandList->Start();
+
+		computeCommandList->Reset();
+		computeCommandList->Start();
 
 		isFirstRender = false;
 	}
 
-	commandList->Close();
+	graphicsCommandList->Close();
+	computeCommandList->Close();
 
 	for (TSize i = 0; i < singleTimeCommandLists.GetSize(); i++)
 		singleTimeCommandLists.At(i)->DeleteAllStagingBuffers();
 
-	ID3D12CommandList* commandLists[] = { commandList->As<CommandListDx12>()->GetCommandList() };
+	ID3D12CommandList* commandLists[] = { graphicsCommandList->As<CommandListDx12>()->GetCommandList() };
 	graphicsQueue->As<CommandQueueDx12>()->GetCommandQueue()->ExecuteCommandLists(1, commandLists);
 
 	swapchain->Present();
@@ -269,7 +269,9 @@ void RendererDx12::PresentFrame() {
 	syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
 	syncDevice->As<SyncDeviceDx12>()->Await();
 
-	commandList->Reset();
+	graphicsCommandList->Reset();
+	computeCommandList->Reset();
+
 	//
 	if (mustResize) {
 		Resize();
@@ -280,7 +282,8 @@ void RendererDx12::PresentFrame() {
 		swapchain->As<SwapchainDx12>()->UpdateFrameIndex();
 	}
 
-	commandList->Start();
+	graphicsCommandList->Start();
+	computeCommandList->Start();
 }
 
 void RendererDx12::SubmitSingleUseCommandList(ICommandList* commandList) {

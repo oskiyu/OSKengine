@@ -25,7 +25,7 @@ namespace OSK::GRAPHICS {
 		void PresentFrame() override;
 		void SubmitSingleUseCommandList(ICommandList* commandList) override;
 
-		OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, Format format, const VertexInfo& vertexInfo) override;
+		OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexInfo) override;
 		OwnedPtr<IRaytracingPipeline> _CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexInfo) override;
 		OwnedPtr<IMaterialSlot> _CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const override;
 
@@ -60,7 +60,7 @@ namespace OSK::GRAPHICS {
 		void CreateSurface(const IO::Window& window);
 		void ChooseGpu();
 
-		static void SetupRtFunctions(VkDevice logicalDevice);
+		void SetupRtFunctions(VkDevice logicalDevice);
 
 		bool AreValidationLayersAvailable() const;
 

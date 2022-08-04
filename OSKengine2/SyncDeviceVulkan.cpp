@@ -100,6 +100,7 @@ void SyncDeviceVulkan::Flush(const CommandQueueVulkan& graphicsQueue, const Comm
 	//Esperar a que la imagen esté disponible antes de renderizar.
 	const VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
 	
+	// Submit Graphics
 	VkSubmitInfo submitInfo{};
 	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 	submitInfo.waitSemaphoreCount = 1;
@@ -113,6 +114,18 @@ void SyncDeviceVulkan::Flush(const CommandQueueVulkan& graphicsQueue, const Comm
 
 	VkResult result = vkQueueSubmit(graphicsQueue.GetQueue(), 1, &submitInfo, inFlightFences[currentFrame]);
 	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido enviar la cola gráfica.");
+
+	// Submit Compute
+	VkSubmitInfo computeSubmitInfo{};
+	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+	submitInfo.waitSemaphoreCount = 1;
+	submitInfo.pWaitSemaphores = &imageAvailableSemaphores[currentFrame]; // Debemos esperar hasta que esta imagen esté disponible.
+	submitInfo.pWaitDstStageMask = waitStages;
+	submitInfo.pSignalSemaphores = &renderFinishedSemaphores[currentFrame]; // Al terminar, indicamos que esta imagen se ha terminado de renderizar.
+	submitInfo.signalSemaphoreCount = 1;
+
+	submitInfo.commandBufferCount = 1;
+	submitInfo.pCommandBuffers = &commandList.GetCommandBuffers()[currentFrame];
 
 	// ---------------- PRESENT --------------------- //
 	// Presentar la imagen renderizada en la pantalla.

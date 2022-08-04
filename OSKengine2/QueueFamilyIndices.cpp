@@ -4,5 +4,5 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 bool QueueFamilyIndices::IsComplete() const {
-	return graphicsFamily.has_value() && presentFamily.has_value();
+	return graphicsFamily.has_value() && presentFamily.has_value() && computeFamily.has_value();
 }

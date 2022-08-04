@@ -2,13 +2,15 @@
 
 #include "OSKmacros.h"
 #include "Vector4.hpp"
-#include <type_traits>
 #include "DynamicArray.hpp"
 #include "OwnedPtr.h"
 #include "IGpuDataBuffer.h"
-#include <string>
 #include "Color.hpp"
 #include "RenderpassType.h"
+#include "Vector3.hpp"
+
+#include <string>
+#include <type_traits>
 
 namespace OSK::GRAPHICS {
 
@@ -22,6 +24,7 @@ namespace OSK::GRAPHICS {
 	struct Viewport;
 	class IGraphicsPipeline;
 	class IRaytracingPipeline;
+	class IComputePipeline;
 
 	struct RenderPassImageInfo {
 		GpuImage* targetImage = nullptr;
@@ -143,7 +146,7 @@ namespace OSK::GRAPHICS {
 		/// @pre Debe haber un renderpass activo.
 		/// @pre El material debe tener registrado el renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void BindMaterial(const Material* material) = 0;
+		virtual void BindMaterial(Material* material) = 0;
 
 		/// <summary>
 		/// Establece el vertex buffer que se va a usar en los próximos renderizados.
@@ -251,7 +254,32 @@ namespace OSK::GRAPHICS {
 		/// @pre La lista de comandos debe estar abierta.
 		virtual void DrawSingleMesh(TSize firstIndex, TSize numIndices) = 0;
 
+
+		/// <summary>
+		/// Ejecuta un trazado de rayos.
+		/// </summary>
+		/// <param name="raygenEntry">Índice del shader de generación de rayos que se va 
+		/// a usar, según su posición en la tabla de shaders.</param>
+		/// <param name="closestHitEntry">Índice del shader de colisión de rayos que se va 
+		/// a usar, según su posición en la tabla de shaders.</param>
+		/// <param name="missEntry">Índice del shader de fallo de rayos que se va 
+		/// a usar, según su posición en la tabla de shaders.</param>
+		/// <param name="resolution">Número de rayos generados en los ejes X e Y.</param>
+		/// 
+		/// @pre NO debe haber un renderpass activo.
+		/// @pre Debe haber un material de trazado de rayos enlazado.
+		/// @pre Deben estar enlazados los slots y los push constants necesarios
+		/// para rellenar el material.
+		/// @pre La lista de comandos debe estar abierta.
+		/// @pre Debe ejecutarse en un equipo compatible con trazado de rayos.
+		/// @pre Debe haberse activado la opción de trazado de rayos de OSKengine.
+		/// 
+		/// @todo Implementación en DX12.
 		virtual void TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) = 0;
+
+
+		virtual void DispatchCompute(const Vector3ui& groupCount) = 0;
+		virtual void BindComputePipeline(const IComputePipeline& computePipeline) = 0;
 
 
 		/// <summary>

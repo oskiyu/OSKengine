@@ -27,11 +27,15 @@ void ICommandList::BeginGraphicsRenderpass(RenderTarget* renderpass, const Color
 
 	DynamicArray<RenderPassImageInfo> colorImages;
 
-	if (isFinal)
+	if (isFinal) {
 		colorImages.Insert({ Engine::GetRenderer()->_GetSwapchain()->GetImage(frameIndex), 0 });
-	else
-		for (const auto renderTargetImage : renderpass->GetTargetImages(frameIndex))
+	}
+	else {
+		const DynamicArray<GpuImage*> targetImages = renderpass->GetTargetImages(frameIndex);
+		for (const auto renderTargetImage : targetImages) {
 			colorImages.Insert({ renderTargetImage, 0 });
+		}
+	}
 
 	BeginGraphicsRenderpass(colorImages, { renderpass->GetDepthImage(frameIndex), 0 }, color);
 }

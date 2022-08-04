@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+
+#include "DynamicArray.hpp"
 #include "Format.h"
 
 namespace OSK::GRAPHICS {
@@ -132,6 +134,8 @@ namespace OSK::GRAPHICS {
 		std::string rtClosestHitShaderPath = "";
 		std::string rtMissShaderPath = "";
 
+		std::string computeShaderPath = "";
+
 		/// <summary>
 		/// Número de vértices que tendrá cada patch del teselado.
 		/// </summary>
@@ -176,7 +180,7 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Formato de la imagen sobre la que se renderizará.
 		/// </summary>
-		Format format = Format::RGBA8_UNORM;
+		DynamicArray<Format> formats;
 
 	};
 

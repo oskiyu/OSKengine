@@ -109,6 +109,12 @@ template <> std::string OSK::ToString<OSK::GRAPHICS::ShaderStage>(const OSK::GRA
 		output += "ShaderStage::RT_MISS";
 	}
 
+	if (EFTraits::HasFlag(stage, OSK::GRAPHICS::ShaderStage::COMPUTE)) {
+		if (numFlags != 0)
+			output += " | ";
+		output += "ShaderStage::COMPUTE";
+	}
+
 	if (numFlags == 0)
 		return "Unknown";
 

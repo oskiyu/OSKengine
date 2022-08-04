@@ -65,10 +65,6 @@ void IGame::Run() {
 	Engine::RegisterBuiltinComponents();
 	Engine::RegisterBuiltinSystems();
 
-	const Vector2ui windowSize = Engine::GetWindow()->GetWindowSize();
-	for (auto i : Engine::GetEntityComponentSystem()->GetRenderSystems())
-		i->CreateTargetImage(windowSize);
-
 	OSK::DynamicArray<OSK::GRAPHICS::Vertex2D> vertices2d = {
 		{ { 0, 0 }, { 0, 0 } },
 		{ { 0, 1 }, { 0, 1 } },

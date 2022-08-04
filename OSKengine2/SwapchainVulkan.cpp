@@ -100,7 +100,7 @@ void SwapchainVulkan::Create(PresentMode mode, Format format, const GpuVulkan& d
 	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear el swapchain. Code: " + std::to_string(result));
 
 	for (TSize i = 0; i < imageCount; i++)		
-		images[i] = new GpuImageVulkan({ extent.width, extent.height, 1 }, GpuImageDimension::d2D, GpuImageUsage::COLOR, 1, format, 1);
+		images[i] = new GpuImageVulkan({ extent.width, extent.height, 1 }, GpuImageDimension::d2D, GpuImageUsage::COLOR, 1, format, 1, {});
 
 	AcquireImages(extent.width, extent.height);
 	AcquireViews();

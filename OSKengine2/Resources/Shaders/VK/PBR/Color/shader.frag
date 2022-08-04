@@ -12,6 +12,7 @@ layout(location = 4) in vec3 inCameraPos;
 layout(location = 5) in vec3 inFragPosInCameraViewSpace;
 
 layout (location = 0) out vec4 outColor;
+layout (location = 1) out vec4 outLightBrightness;
 
 layout (set = 0, binding = 1) uniform DirLightShadowMat {
     mat4[4] matrix;
@@ -75,6 +76,12 @@ void main() {
 
     outColor = vec4(color, 1.0);
     // outColor = vec4(mix(color, GetShadowmapCascade(), 0.3), 1.0);
+
+    const float brightness = dot(outColor.rgb, vec3(0.2126, 0.7152, 0.0722));
+    if (brightness > 1.0)
+        outLightBrightness = vec4(outColor.rgb, 1.0);
+    else
+        outLightBrightness = vec4(0.0, 0.0, 0.0, 0.0);
 }
 
 vec3 GetRadiance(vec3 F0, vec3 direction, vec3 view, vec3 normal, vec3 lightColor, vec3 albedoColor, float roughnessFactor, float metallicFactor) {

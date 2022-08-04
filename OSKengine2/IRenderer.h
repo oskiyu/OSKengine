@@ -135,7 +135,7 @@ namespace OSK::GRAPHICS {
 		/// <param name="pipelineInfo">Configuración del pipeline.</param>
 		/// <param name="layout">Layout del material del pipeline.</param>
 		/// <param name="format">Formato de la imagen a la que se renderizará.</param>
-		virtual OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, Format format, const VertexInfo& vertexTypeName) = 0;
+		virtual OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexTypeName) = 0;
 		/// <summary>
 		/// Crea un graphics pipeline.
 		/// </summary>
@@ -223,6 +223,11 @@ namespace OSK::GRAPHICS {
 		/// @note Si el render target no estaba registrado, no ocurrirá nada.
 		void UnregisterRenderTarget(RenderTarget* renderTarget);
 
+		/// <summary>
+		/// True si la funcionalidad de raytracing está activa.
+		/// </summary>
+		bool IsRtActive() const;
+
 	protected:
 
 		IRenderer(RenderApiType renderApiType);
@@ -251,13 +256,17 @@ namespace OSK::GRAPHICS {
 		UniquePtr<IGpu> currentGpu;
 
 		UniquePtr<ICommandQueue> graphicsQueue;
+		UniquePtr<ICommandQueue> computeQueue;
 		UniquePtr<ICommandQueue> presentQueue;
 
 		UniquePtr<ISwapchain> swapchain;
 		UniquePtr<ISyncDevice> syncDevice;
 
-		UniquePtr<ICommandPool> commandPool;
-		UniquePtr<ICommandList> commandList;
+		UniquePtr<ICommandPool> graphicsCommandPool;
+		UniquePtr<ICommandList> graphicsCommandList;
+
+		UniquePtr<ICommandPool> computeCommandPool;
+		UniquePtr<ICommandList> computeCommandList;
 
 		UniquePtr<IGpuMemoryAllocator> gpuMemoryAllocator;
 
@@ -284,6 +293,8 @@ namespace OSK::GRAPHICS {
 		/// cambie de tamaño.
 		/// </summary>
 		DynamicArray<RenderTarget*> resizableRenderTargets;
+
+		bool isRtActive = false;
 
 	private:
 

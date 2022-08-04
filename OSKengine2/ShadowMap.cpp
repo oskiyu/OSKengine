@@ -26,6 +26,7 @@ using namespace OSK::GRAPHICS;
 void ShadowMap::Create(const Vector2ui& imageSize) {
 	GpuImageSamplerDesc depthSampler{};
 	depthSampler.mipMapMode = GpuImageMipmapMode::NONE;
+	// depthSampler.addressMode = GpuImageAddressMode::BACKGROUND_WHITE;
 
 	const Vector3ui shadowmapSize = { imageSize.X, imageSize.Y, 1 };
 	IGpuMemoryAllocator* memAllocator = Engine::GetRenderer()->GetMemoryAllocator();

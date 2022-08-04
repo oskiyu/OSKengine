@@ -141,6 +141,9 @@ VkShaderStageFlagBits IPipelineVulkan::GetShaderStageVk(ShaderStage stage) const
 		return VK_SHADER_STAGE_CLOSEST_HIT_BIT_KHR;
 	if (EFTraits::HasFlag(stage, ShaderStage::RT_MISS))
 		return VK_SHADER_STAGE_MISS_BIT_KHR;
+
+	if (EFTraits::HasFlag(stage, ShaderStage::COMPUTE))
+		return VK_SHADER_STAGE_COMPUTE_BIT;
 	
 	OSK_ASSERT(false, "No se reconoce el shader stage " + ToString<ShaderStage>(stage));
 	return VK_SHADER_STAGE_ALL;

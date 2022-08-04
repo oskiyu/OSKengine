@@ -40,7 +40,7 @@ namespace OSK::GRAPHICS {
 		void BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color);
 		void EndGraphicsRenderpass() override;
 
-		void BindMaterial(const Material* material) override;
+		void BindMaterial(Material* material) override;
 		void BindVertexBuffer(const IGpuVertexBuffer* buffer) override;
 		void BindIndexBuffer(const IGpuIndexBuffer* buffer) override;
 		void BindMaterialSlot(const IMaterialSlot* slot) override;
@@ -49,6 +49,9 @@ namespace OSK::GRAPHICS {
 		void DrawSingleInstance(TSize numIndices) override;
 		void DrawSingleMesh(TSize firstIndex, TSize numIndices) override;
 		void TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) override;
+
+		void BindComputePipeline(const IComputePipeline& computePipeline);
+		void DispatchCompute(const Vector3ui& groupCount);
 
 		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers, TSize baseMipLevel, TSize numMipLevels) override;
 

@@ -466,7 +466,7 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 		output->AddMesh(meshes.At(i), meshMetadata);
 	}
 
-	if (Engine::GetRenderer()->SupportsRaytracing())
+	if (Engine::GetRenderer()->IsRtActive())
 		output->_SetAccelerationStructure(Engine::GetRenderer()->GetMemoryAllocator()->CreateBottomAccelerationStructure(*output->GetVertexBuffer(), *output->GetIndexBuffer()));
 
 	for (TSize i = 0; i < textures.GetSize(); i++)

@@ -4,6 +4,7 @@
 #include "OwnedPtr.h"
 #include "UniquePtr.hpp"
 #include "Vector3.hpp"
+#include "GpuImageSamplerDesc.h"
 
 #include "IGpuMemoryBlock.h"
 
@@ -24,7 +25,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples);
+		GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples, GpuImageSamplerDesc samplerDesc);
 		virtual ~GpuImage();
 
 		void _SetPhysicalSize(const Vector3ui& size);
@@ -41,6 +42,8 @@ namespace OSK::GRAPHICS {
 		GpuImageDimension GetDimension() const;
 		GpuImageUsage GetUsage() const;
 		TSize GetNumLayers() const;
+
+		GpuImageSamplerDesc GetImageSampler() const;
 
 		/// <summary>
 		/// Devuelve el número máximo de miplevels de esta imagen.
@@ -104,6 +107,8 @@ namespace OSK::GRAPHICS {
 
 		Vector3ui size = 0;
 		Vector3ui physicalSize = 0;
+
+		GpuImageSamplerDesc samplerDesc{};
 
 		TSize mipLevels = 0;
 		TSize numSamples = 0;

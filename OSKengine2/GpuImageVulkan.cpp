@@ -13,8 +13,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImageVulkan::GpuImageVulkan(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples)
-	: GpuImage(size, dimension, usage, numLayers, format, numSamples) {
+GpuImageVulkan::GpuImageVulkan(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples, GpuImageSamplerDesc samplerDesc)
+	: GpuImage(size, dimension, usage, numLayers, format, numSamples, samplerDesc) {
 
 }
 
@@ -329,6 +329,8 @@ void GpuImageVulkan::CreateVkSampler(const GpuImageSamplerDesc& samplerDesc) {
 	samplerInfo.maxAnisotropy = 16.0f;
 
 	samplerInfo.borderColor = VK_BORDER_COLOR_INT_OPAQUE_BLACK;
+	if (samplerDesc.addressMode == GpuImageAddressMode::BACKGROUND_WHITE)
+		samplerInfo.borderColor = VK_BORDER_COLOR_INT_OPAQUE_WHITE;
 
 	samplerInfo.unnormalizedCoordinates = VK_FALSE;
 
@@ -432,7 +434,9 @@ VkSamplerAddressMode GpuImageVulkan::GetAddressModeVulkan(GpuImageAddressMode mo
 		return VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT;
 	case OSK::GRAPHICS::GpuImageAddressMode::EDGE:
 		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
-	case OSK::GRAPHICS::GpuImageAddressMode::BACKGROUND:
+	case OSK::GRAPHICS::GpuImageAddressMode::BACKGROUND_BLACK:
+		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
+	case OSK::GRAPHICS::GpuImageAddressMode::BACKGROUND_WHITE:
 		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
 	default:
 		return VK_SAMPLER_ADDRESS_MODE_REPEAT;

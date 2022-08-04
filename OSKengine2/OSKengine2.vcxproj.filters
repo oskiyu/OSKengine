@@ -229,9 +229,6 @@
     <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline">
       <UniqueIdentifier>{7dcb0c62-f988-46b9-b61e-fc5f51441c90}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline">
-      <UniqueIdentifier>{7834c91a-1d27-4f14-abb3-4085fda7717d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Viewport">
       <UniqueIdentifier>{31c35286-2001-4330-9cfd-26b42fee0bbb}</UniqueIdentifier>
     </Filter>
@@ -388,20 +385,11 @@
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Pipeline">
       <UniqueIdentifier>{771f7ea8-8ae3-4ab6-a882-4c35d9d32460}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline">
-      <UniqueIdentifier>{90756499-3b15-4adf-adda-3788e01aca33}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Shader">
       <UniqueIdentifier>{f27b86fe-ff95-4a4a-bc98-b9c12dd4f73f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Pipeline">
       <UniqueIdentifier>{a6851734-b04f-4f11-a555-4059eeede51e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\RT\RtPipeline">
-      <UniqueIdentifier>{6cb258b9-07fb-4c69-897d-cbd0a0d39387}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\RT\Pipeline">
-      <UniqueIdentifier>{064c10e9-3042-45f2-a0e1-b3b9b3971718}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\RT\AS\BLAS">
       <UniqueIdentifier>{d9892f85-27b8-48d6-afe6-d0c45455811e}</UniqueIdentifier>
@@ -423,6 +411,24 @@
     </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\HighLevel\PBR">
       <UniqueIdentifier>{458b5b52-5fb4-46df-9f84-41d90643eafd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Compute">
+      <UniqueIdentifier>{d4c0105c-58b4-4c69-8dc1-1b7239b11e37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Compute">
+      <UniqueIdentifier>{ba4beee5-eb0c-4f1d-baf7-1675e6d91a3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Raytracing">
+      <UniqueIdentifier>{064c10e9-3042-45f2-a0e1-b3b9b3971718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Graphics">
+      <UniqueIdentifier>{90756499-3b15-4adf-adda-3788e01aca33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Graphics">
+      <UniqueIdentifier>{7834c91a-1d27-4f14-abb3-4085fda7717d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Raytracing">
+      <UniqueIdentifier>{6cb258b9-07fb-4c69-897d-cbd0a0d39387}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -583,13 +589,13 @@
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Uniform</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsPipelineDx12.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsPipelineVulkan.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="IGraphicsPipeline.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="GpuUniformBufferVulkan.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Uniform</Filter>
@@ -760,10 +766,10 @@
       <Filter>Archivos de origen\OSKengine\IO</Filter>
     </ClCompile>
     <ClCompile Include="SpirvToHlsl.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="HlslRuntimeCompiler.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="WindowsUtils.cpp">
       <Filter>Archivos de origen\OSKengine\Util</Filter>
@@ -781,10 +787,10 @@
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Shader</Filter>
     </ClCompile>
     <ClCompile Include="RaytracingPipelineVulkan.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\RT\Pipeline</Filter>
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Raytracing</Filter>
     </ClCompile>
     <ClCompile Include="IRaytracingPipeline.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\RT\Pipeline</Filter>
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Raytracing</Filter>
     </ClCompile>
     <ClCompile Include="BottomLevelAccelerationStructureVulkan.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\RT\AS\BLAS</Filter>
@@ -818,6 +824,12 @@
     </ClCompile>
     <ClCompile Include="ShadowMap.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\PBR</Filter>
+    </ClCompile>
+    <ClCompile Include="IComputePipeline.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Compute</Filter>
+    </ClCompile>
+    <ClCompile Include="ComputePipelineVulkan.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Compute</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1029,16 +1041,16 @@
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Vertex</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsPipelineDx12.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsPipelineVulkan.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="IGraphicsPipeline.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="PipelineCreateInfo.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Viewport.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Viewport</Filter>
@@ -1290,10 +1302,10 @@
       <Filter>Archivos de encabezado\OSKengine\IO</Filter>
     </ClInclude>
     <ClInclude Include="SpirvToHlsl.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="HlslRuntimeCompiler.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\GraphicsPipeline</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="WindowsUtils.h">
       <Filter>Archivos de encabezado\OSKengine\Util</Filter>
@@ -1311,10 +1323,10 @@
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="IRaytracingPipeline.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\RT\RtPipeline</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Raytracing</Filter>
     </ClInclude>
     <ClInclude Include="RaytracingPipelineVulkan.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\RT\RtPipeline</Filter>
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Raytracing</Filter>
     </ClInclude>
     <ClInclude Include="IBottomLevelAccelerationStructure.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\RT\AS\BLAS</Filter>
@@ -1354,6 +1366,12 @@
     </ClInclude>
     <ClInclude Include="ShadowMap.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PBR</Filter>
+    </ClInclude>
+    <ClInclude Include="IComputePipeline.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Compute</Filter>
+    </ClInclude>
+    <ClInclude Include="ComputePipelineVulkan.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Compute</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -13,8 +13,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImage::GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples)
-	: format(format), dimension(dimension), usage(usage), numLayers(numLayers), currentLayout(GpuImageLayout::UNDEFINED), size(size), numSamples(numSamples) {
+GpuImage::GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples, GpuImageSamplerDesc samplerDesc)
+	: format(format), dimension(dimension), usage(usage), numLayers(numLayers), currentLayout(GpuImageLayout::UNDEFINED), size(size), numSamples(numSamples), samplerDesc(samplerDesc) {
 
 	mipLevels = GetMipLevels(size.X, size.Y);
 	_SetPhysicalSize(size);
@@ -61,6 +61,10 @@ GpuImageUsage GpuImage::GetUsage() const {
 
 TSize GpuImage::GetNumLayers() const {
 	return numLayers;
+}
+
+GpuImageSamplerDesc GpuImage::GetImageSampler() const {
+	return samplerDesc;
 }
 
 Format GpuImage::GetFormat() const {

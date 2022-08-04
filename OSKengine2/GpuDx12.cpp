@@ -14,11 +14,22 @@ void GpuDx12::Close() {
 
 }
 
-OwnedPtr<ICommandPool> GpuDx12::CreateCommandPool() {
+OwnedPtr<ICommandPool> GpuDx12::CreateGraphicsCommandPool() {
 	auto output = new CommandPoolDx12;
 
 	ComPtr<ID3D12CommandAllocator> commandAllocator;
 	device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&commandAllocator));
+
+	output->SetCommandPool(commandAllocator);
+
+	return output;
+}
+
+OwnedPtr<ICommandPool> GpuDx12::CreateComputeCommandPool() {
+	auto output = new CommandPoolDx12;
+
+	ComPtr<ID3D12CommandAllocator> commandAllocator;
+	device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_COMPUTE, IID_PPV_ARGS(&commandAllocator));
 
 	output->SetCommandPool(commandAllocator);
 

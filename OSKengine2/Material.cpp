@@ -14,10 +14,7 @@ Material::Material(const PipelineCreateInfo& pipelineInfo, OwnedPtr<MaterialLayo
 
 	this->layout = layout.GetPointer();
 
-	if (!pipelineInfo.isRaytracing) {
-		graphicsPipeline = Engine::GetRenderer()->_CreateGraphicsPipeline(pipelineInfo, layout.GetPointer(), pipelineInfo.format, vertexInfo).GetPointer();
-	}
-	else {
+	if (pipelineInfo.isRaytracing && Engine::GetRenderer()->IsRtActive()) {
 		rtPipeline = Engine::GetRenderer()->_CreateRaytracingPipeline(pipelineInfo, layout.GetPointer(), vertexInfo).GetPointer();
 	}
 }
@@ -43,8 +40,35 @@ const MaterialLayout* Material::GetLayout() const {
 	return layout.GetPointer();
 }
 
-const IGraphicsPipeline* Material::GetGraphicsPipeline() const {
-	return graphicsPipeline.GetPointer();
+const IGraphicsPipeline* Material::GetGraphicsPipeline(const PipelineKey& key) {
+	for (TSize i = 0; i < graphicsPipelines.GetSize(); i++) {
+		const PipelineKey& iKey = graphicsPipelines[i].first;
+
+		if (key.GetSize() != iKey.GetSize())
+			continue;
+
+		bool compatible = true;
+		for (TSize j = 0; j < key.GetSize(); j++){
+			if (key[j] != iKey[j]) {
+				compatible = false;
+				continue;
+			}
+		}
+		
+		if (!compatible)
+			continue;
+		
+		// Compatible
+		return graphicsPipelines[i].second.GetPointer();
+	}
+
+	// Crear nuevo pipeline compatible.
+	pipelineInfo.formats = key;
+	OwnedPtr<IGraphicsPipeline> output = Engine::GetRenderer()->_CreateGraphicsPipeline(pipelineInfo, GetLayout(), vertexInfo);
+
+	graphicsPipelines.Insert({ key, output.GetPointer() });
+
+	return output.GetPointer();
 }
 
 const IRaytracingPipeline* Material::GetRaytracingPipeline() const {

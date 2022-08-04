@@ -15,11 +15,8 @@ using namespace OSK::GRAPHICS;
 void RenderTarget::Create(const Vector2ui& targetSize, Format colorFormat, Format depthFormat) {
 	this->size = targetSize;
 
-	this->colorFormat = colorFormat;
-	this->depthFormat = depthFormat;
-
-	CreateTargetImages();
-	CreateDepthImages();
+	AddColorTarget(colorFormat, targetUsage, colorSampler);
+	CreateDepthImages(depthFormat);
 
 	// Sprite
 	targetSprite.SetMaterialInstance(Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rendertarget.json")->CreateInstance());
@@ -35,8 +32,8 @@ void RenderTarget::Create(const Vector2ui& targetSize, Format colorFormat, Forma
 void RenderTarget::Resize(const Vector2ui& targetSize) {
 	this->size = targetSize;
 
-	CreateTargetImages();
-	CreateDepthImages();
+	RecreateTargetImages();
+	RecreateDepthImages();
 
 	if (targetType == RenderpassType::INTERMEDIATE)
 		UpdateSpriteImages();
@@ -44,25 +41,42 @@ void RenderTarget::Resize(const Vector2ui& targetSize) {
 	spriteTransform.SetScale(GetOriginalSize().ToVector2f());
 }
 
-void RenderTarget::CreateTargetImages() {
+void RenderTarget::AddColorTarget(Format colorFormat, GpuImageUsage usage, GpuImageSamplerDesc sampler) {
 	for (TSize i = 0; i < NUM_RENDER_TARGET_IMAGES; i++) {
 		GpuImage* image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
 			{ GetSize().X, GetSize().Y, 1 }, GpuImageDimension::d2D, 1, colorFormat,
-			targetUsage, GpuSharedMemoryType::GPU_ONLY, 1, colorSampler).GetPointer();
+			usage, GpuSharedMemoryType::GPU_ONLY, 1, sampler).GetPointer();
 
-		if (targetImages[i].IsEmpty())
-			targetImages[i].Insert(image);
-		else
-			targetImages[i].At(0) = image;
+		targetImages[i].Insert(image);
 	}
 }
 
-void RenderTarget::CreateDepthImages() {
+void RenderTarget::RecreateTargetImages() {
+	for (TSize i = 0; i < NUM_RENDER_TARGET_IMAGES; i++) {
+
+		for (TSize img = 0; img < targetImages[i].GetSize(); img++) {
+			const Format imgFormat = targetImages[i][img]->GetFormat();
+			const GpuImageUsage imgUsage = targetImages[i][img]->GetUsage();
+			const GpuImageSamplerDesc sampler = targetImages[i][img]->GetImageSampler();
+
+			targetImages[i][img] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
+				{ GetSize().X, GetSize().Y, 1 }, GpuImageDimension::d2D, 1, imgFormat,
+				imgUsage, GpuSharedMemoryType::GPU_ONLY, 1, sampler).GetPointer();
+		}
+
+	}
+}
+
+void RenderTarget::CreateDepthImages(Format format) {
 	for (TSize i = 0; i < NUM_RENDER_TARGET_IMAGES; i++) {
 		depthImages[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
-			{ GetSize().X, GetSize().Y, 1 }, GpuImageDimension::d2D, 1, depthFormat,
+			{ GetSize().X, GetSize().Y, 1 }, GpuImageDimension::d2D, 1, format,
 			depthUsage, GpuSharedMemoryType::GPU_ONLY, 1, depthSampler).GetPointer();
 	}
+}
+
+void RenderTarget::RecreateDepthImages() {
+	CreateDepthImages(depthImages[0]->GetFormat());
 }
 
 void RenderTarget::UpdateSpriteImages() {
@@ -116,11 +130,11 @@ Vector2ui RenderTarget::GetOriginalSize() const {
 }
 
 Format RenderTarget::GetColorFormat() const {
-	return colorFormat;
+	return targetImages[0][0]->GetFormat();
 }
 
 Format RenderTarget::GetDepthFormat() const {
-	return depthFormat;
+	return depthImages[0]->GetFormat();
 }
 
 RenderpassType RenderTarget::GetRenderTargetType() const {

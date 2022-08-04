@@ -25,7 +25,7 @@ IRenderer::IRenderer(RenderApiType type) : renderApiType(type) {
 }
 
 ICommandList* IRenderer::GetCommandList() const {
-	return commandList.GetPointer();
+	return graphicsCommandList.GetPointer();
 }
 
 IGpuMemoryAllocator* IRenderer::GetMemoryAllocator() const {
@@ -93,7 +93,7 @@ void IRenderer::UploadCubemapImageToGpu(GpuImage* destination, const TByte* data
 }
 
 OwnedPtr<ICommandList> IRenderer::CreateSingleUseCommandList() {
-	auto output = commandPool->CreateCommandList(currentGpu.GetValue());
+	auto output = graphicsCommandPool->CreateCommandList(currentGpu.GetValue());
 	output->_SetSingleTimeUse();
 
 	return output;
@@ -145,4 +145,8 @@ void IRenderer::RegisterRenderTarget(RenderTarget* renderTarget) {
 
 void IRenderer::UnregisterRenderTarget(RenderTarget* renderTarget) {
 	resizableRenderTargets.Remove(renderTarget);
+}
+
+bool IRenderer::IsRtActive() const {
+	return isRtActive;
 }

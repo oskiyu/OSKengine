@@ -16,6 +16,7 @@ namespace OSK::GRAPHICS {
 	struct PipelineCreateInfo;
 	class IRenderpass;
 
+
 	/// <summary>
 	/// Un material define el comportamiento del renderizador con un objeto en concreto.
 	/// Debe definirse el layout del material, indicando qué slots (y bindings) serán usados en los shaders.
@@ -25,6 +26,8 @@ namespace OSK::GRAPHICS {
 	class OSKAPI_CALL Material {
 
 	public:
+
+		using PipelineKey = DynamicArray<Format>;
 
 		/// <summary>
 		/// Crea un nuevo material.
@@ -39,7 +42,7 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Obtiene el graphics pipeline asignado al renderpass dado.
 		/// </summary>
-		const IGraphicsPipeline* GetGraphicsPipeline() const;
+		const IGraphicsPipeline* GetGraphicsPipeline(const PipelineKey& properties);
 
 		/// <summary>
 		/// Obtiene el raytracing pipeline asignado al renderpass dado.
@@ -66,7 +69,7 @@ namespace OSK::GRAPHICS {
 
 		UniquePtr<MaterialLayout> layout;
 
-		UniquePtr<GRAPHICS::IGraphicsPipeline> graphicsPipeline = nullptr;
+		DynamicArray<Pair<PipelineKey, UniquePtr<GRAPHICS::IGraphicsPipeline>>> graphicsPipelines;
 		UniquePtr<GRAPHICS::IRaytracingPipeline> rtPipeline = nullptr;
 
 		/// <summary>

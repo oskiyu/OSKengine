@@ -17,7 +17,7 @@ namespace OSK::GRAPHICS {
 
 		GraphicsPipelineVulkan();
 
-		void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, Format targetImageFormat, const VertexInfo& vertexInfo) override;
+		void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) override;
 
 	private:
 
