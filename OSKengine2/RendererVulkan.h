@@ -16,7 +16,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		RendererVulkan();
+		RendererVulkan(bool requestRayTracing);
 		~RendererVulkan();
 
 		void Initialize(const std::string& appName, const Version& version, const IO::Window& window, PresentMode mode) override;

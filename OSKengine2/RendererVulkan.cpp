@@ -104,7 +104,7 @@ VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBits
 }
 
 
-RendererVulkan::RendererVulkan() : IRenderer(RenderApiType::VULKAN) {
+RendererVulkan::RendererVulkan(bool requestRayTracing) : IRenderer(RenderApiType::VULKAN, requestRayTracing) {
 	implicitResizeHandling = true;
 }
 
@@ -144,7 +144,6 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 
 OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexInfo) {
 	GraphicsPipelineVulkan* pipeline = new GraphicsPipelineVulkan;
-
 	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
 
 	return pipeline;
@@ -340,18 +339,13 @@ void RendererVulkan::CreateCommandQueues() {
 	graphicsQueue = new CommandQueueVulkan;
 	presentQueue = new CommandQueueVulkan;
 
-	VkQueue graphicsQ;
-	VkQueue presentQ;
-
 	currentGpu->As<GpuVulkan>()->CreateLogicalDevice(surface);
-	auto queueFamilyIndices = currentGpu->As<GpuVulkan>()->GetQueueFamilyIndices(surface);
+	const QueueFamilyIndices queueFamilyIndices = currentGpu->As<GpuVulkan>()->GetQueueFamilyIndices(surface);
 
 	// Obtener las colas.
-	vkGetDeviceQueue(currentGpu->As<GpuVulkan>()->GetLogicalDevice(), queueFamilyIndices.graphicsFamily.value(), 0, &graphicsQ);
-	vkGetDeviceQueue(currentGpu->As<GpuVulkan>()->GetLogicalDevice(), queueFamilyIndices.presentFamily.value(), 0, &presentQ);
-
-	graphicsQueue->As<CommandQueueVulkan>()->SetQueue(graphicsQ);
-	presentQueue->As<CommandQueueVulkan>()->SetQueue(presentQ);
+	graphicsQueue->As<CommandQueueVulkan>()->Create(queueFamilyIndices.graphicsFamily.value(), *currentGpu->As<GpuVulkan>());
+	presentQueue->As<CommandQueueVulkan>()->Create(queueFamilyIndices.presentFamily.value(), *currentGpu->As<GpuVulkan>());
+	computeQueue->As<CommandQueueVulkan>()->Create(queueFamilyIndices.computeFamily.value(), *currentGpu->As<GpuVulkan>());
 
 	graphicsCommandPool = currentGpu->As<GpuVulkan>()->CreateGraphicsCommandPool().GetPointer();
 	computeCommandPool = currentGpu->As<GpuVulkan>()->CreateComputeCommandPool().GetPointer();
@@ -409,8 +403,6 @@ void RendererVulkan::CreateSyncDevice() {
 
 void RendererVulkan::CreateGpuMemoryAllocator() {
 	gpuMemoryAllocator = new GpuMemoryAllocatorVulkan(currentGpu.GetPointer());
-
-	Engine::GetLogger()->InfoLog("Creado el asignador de memoria de la GPU.");
 }
 
 void RendererVulkan::PresentFrame() {

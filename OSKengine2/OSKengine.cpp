@@ -31,6 +31,7 @@
 #include "IrradianceMapLoader.h"
 
 #include <GLFW/glfw3.h>
+#include "FileIO.h"
 #undef GetCurrentTime
 
 using namespace OSK;
@@ -58,24 +59,23 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 		+ std::to_string(GetVersion().parche) + ".");
 	logger->InfoLog("	Build " + GetBuild() + ".");
 
+	nlohmann::json engineConfig = nlohmann::json::parse(OSK::IO::FileIO::ReadFromFile("engine_config.json"));
+	const bool requestRayTracing = engineConfig.contains("use_rt") && engineConfig["use_rt"] == 1;
+
 	switch (type) {
 
 	case OSK::GRAPHICS::RenderApiType::VULKAN:
-		renderer = new GRAPHICS::RendererVulkan;
+		renderer = new GRAPHICS::RendererVulkan(requestRayTracing);
 
 		break;
 
 	case OSK::GRAPHICS::RenderApiType::DX12:
-		renderer = new GRAPHICS::RendererDx12;
+		renderer = new GRAPHICS::RendererDx12(requestRayTracing);
 
 		break;
 	}
 
 	assetManager = new ASSETS::AssetManager();
-	// RegisterBuiltinAssets();
-	// RegisterBuiltinComponents();
-	// RegisterBuiltinSystems();
-	// RegisterBuiltinVertices();
 }
 
 void Engine::Close() {

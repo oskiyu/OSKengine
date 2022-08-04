@@ -1,5 +1,7 @@
 #include "RendererDx12.h"
 
+#include "HlslRuntimeCompiler.h"
+
 #include <wrl.h>
 #include <dxgi1_6.h>
 #include <d3d12.h>
@@ -40,7 +42,6 @@
 #include "GpuImageDx12.h"
 #include "FormatDx12.h"
 #include "IGpuImage.h"
-#include "HlslRuntimeCompiler.h"
 
 #include "Texture.h"
 #include "Model3D.h"
@@ -51,7 +52,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-RendererDx12::RendererDx12() : IRenderer(RenderApiType::DX12) {
+RendererDx12::RendererDx12(bool requestRayTracing) : IRenderer(RenderApiType::DX12, requestRayTracing) {
 
 }
 

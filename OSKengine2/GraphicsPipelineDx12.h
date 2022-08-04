@@ -3,7 +3,7 @@
 #include <d3d12.h>
 #include <wrl.h>
 using Microsoft::WRL::ComPtr;
-#include <dxc/dxcapi.h>
+#include <dxcapi.h>
 
 #include "IGraphicsPipeline.h"
 #include <string>
@@ -38,6 +38,11 @@ namespace OSK::GRAPHICS {
 		D3D12_RASTERIZER_DESC GetRasterizerDesc(const PipelineCreateInfo& info) const;
 		D3D12_DEPTH_STENCIL_DESC GetDepthStencilDesc(const PipelineCreateInfo& info) const;
 		D3D12_BLEND_DESC GetBlendDesc(const PipelineCreateInfo& info) const;
+		DXGI_FORMAT GetVertexAttribFormatDx12(const VertexInfo::Entry& entry) const;
+		DynamicArray<D3D12_INPUT_ELEMENT_DESC> GetInputLayoutDescDx12(const VertexInfo& info) const;
+		D3D12_CULL_MODE GetCullMode(PolygonCullMode mode) const;
+		D3D12_FILL_MODE GetFillMode(PolygonMode mode) const;
+		ComPtr<ID3DBlob> LoadBlob(LPCWSTR filename) const;
 
 		//Patch para teselado, triángulos en el 
 		// resto de casos.

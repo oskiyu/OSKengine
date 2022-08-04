@@ -1,6 +1,9 @@
 #include <spirv_cross/spirv_cross.hpp>
 #include <spirv_cross/spirv_hlsl.hpp>
 
+#include "SpirvToHlsl.h"
+#include "HlslRuntimeCompiler.h"
+
 #include "GraphicsPipelineDx12.h"
 
 #include "GpuDx12.h"
@@ -22,111 +25,11 @@
 
 #include "WindowsUtils.h"
 
-#include "SpirvToHlsl.h"
-#include "HlslRuntimeCompiler.h"
 
 using namespace OSK;
 using namespace OSK::IO;
 using namespace OSK::GRAPHICS;
 
-DXGI_FORMAT GetVertexAttribFormatDx12(const VertexInfo::Entry& entry) {
-	switch (entry.type) {
-
-	case VertexInfo::Entry::Type::INT:
-		if (entry.size == 2 * sizeof(int)) return DXGI_FORMAT_R32G32_SINT;
-		if (entry.size == 3 * sizeof(int)) return DXGI_FORMAT_R32G32B32_SINT;
-		if (entry.size == 4 * sizeof(int)) return DXGI_FORMAT_R32G32B32A32_SINT;
-
-	case VertexInfo::Entry::Type::FLOAT:
-		if (entry.size == 2 * sizeof(float)) return DXGI_FORMAT_R32G32_FLOAT;
-		if (entry.size == 3 * sizeof(float)) return DXGI_FORMAT_R32G32B32_FLOAT;
-		if (entry.size == 4 * sizeof(float)) return DXGI_FORMAT_R32G32B32A32_FLOAT;
-	}
-
-	OSK_ASSERT(false, "Formato de vértice incorecto.");
-	return DXGI_FORMAT_UNKNOWN;
-}
-
-DynamicArray<D3D12_INPUT_ELEMENT_DESC> GetInputLayoutDescDx12(const VertexInfo& info) {
-	DynamicArray<D3D12_INPUT_ELEMENT_DESC> output{};
-
-	TSize offset = 0;
-	for (TSize i = 0; i < info.entries.GetSize(); i++) {
-		const VertexInfo::Entry& entry = info.entries.At(i);
-
-		D3D12_INPUT_ELEMENT_DESC desc = {
-			NULL,
-			0,
-			GetVertexAttribFormatDx12(entry),
-			0,
-			offset,
-			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
-			0
-		};
-
-		output.Insert(desc);
-
-		offset += entry.size;
-	}
-
-	return output;
-}
-
-
-D3D12_CULL_MODE GetCullMode(PolygonCullMode mode) {
-	switch (mode) {
-	case PolygonCullMode::FRONT:
-		return D3D12_CULL_MODE_FRONT;
-	case PolygonCullMode::BACK:
-		return D3D12_CULL_MODE_BACK;
-	case PolygonCullMode::NONE:
-		return D3D12_CULL_MODE_NONE;
-	default:
-		return D3D12_CULL_MODE_NONE;
-	}
-}
-
-D3D12_FILL_MODE GetFillMode(PolygonMode mode) {
-	switch (mode) {
-	case PolygonMode::FILL:
-		return D3D12_FILL_MODE_SOLID;
-	case PolygonMode::LINE:
-		return D3D12_FILL_MODE_WIREFRAME;
-	default:
-		return D3D12_FILL_MODE_SOLID;
-	}
-}
-
-ComPtr<ID3DBlob> LoadBlob(LPCWSTR filename) {
-	HRESULT hr{};
-
-	ComPtr<ID3DBlob> shaderBlob; // chunk of memory
-
-	hr = D3DReadFileToBlob(filename, &shaderBlob);
-
-	if (FAILED(hr))
-		OSK_ASSERT(false, "No se pudo compilar el shader. Code: " + std::to_string(hr));
-
-	return shaderBlob;
-}
-
-ComPtr<IDxcBlob> CompileShaderSpv(const std::string& spirvPath, const VertexInfo& vertexInfo, const std::string& hlslProfile, const MaterialLayout& layout) {
-	const auto bytecode = FileIO::ReadBinaryFromFile(spirvPath);
-	
-	// Generación del código HLSL.
-	SpirvToHlsl compilerToHlsl = SpirvToHlsl(bytecode);
-	compilerToHlsl.SetHlslTargetProfile(6, 1);
-	compilerToHlsl.SetVertexAttributesMapping(vertexInfo);
-	compilerToHlsl.SetLayoutMapping(layout);
-
-	const std::string hlslSourceCode = compilerToHlsl.CreateHlsl();
-
-	//Engine::GetLogger()->DebugLog(hlslSourceCode);
-	FileIO::WriteFile("./temp_shader", hlslSourceCode);
-
-	HlslRuntimeCompiler compiler;
-	return compiler.CompileFromFile("./temp_shader", hlslProfile);
-}
 
 void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info,  const VertexInfo& vertexInfo) {
 	layout = new PipelineLayoutDx12(materialLayout);
@@ -318,4 +221,103 @@ D3D12_BLEND_DESC GraphicsPipelineDx12::GetBlendDesc(const PipelineCreateInfo& in
 		desc.RenderTarget[i] = DefaultRenderTargetBlendDesc;
 
 	return desc;
+}
+
+DXGI_FORMAT GraphicsPipelineDx12::GetVertexAttribFormatDx12(const VertexInfo::Entry& entry) const {
+	switch (entry.type) {
+
+	case VertexInfo::Entry::Type::INT:
+		if (entry.size == 2 * sizeof(int)) return DXGI_FORMAT_R32G32_SINT;
+		if (entry.size == 3 * sizeof(int)) return DXGI_FORMAT_R32G32B32_SINT;
+		if (entry.size == 4 * sizeof(int)) return DXGI_FORMAT_R32G32B32A32_SINT;
+
+	case VertexInfo::Entry::Type::FLOAT:
+		if (entry.size == 2 * sizeof(float)) return DXGI_FORMAT_R32G32_FLOAT;
+		if (entry.size == 3 * sizeof(float)) return DXGI_FORMAT_R32G32B32_FLOAT;
+		if (entry.size == 4 * sizeof(float)) return DXGI_FORMAT_R32G32B32A32_FLOAT;
+	}
+
+	OSK_ASSERT(false, "Formato de vértice incorecto.");
+	return DXGI_FORMAT_UNKNOWN;
+}
+
+DynamicArray<D3D12_INPUT_ELEMENT_DESC> GraphicsPipelineDx12::GetInputLayoutDescDx12(const VertexInfo& info) const {
+	DynamicArray<D3D12_INPUT_ELEMENT_DESC> output{};
+
+	TSize offset = 0;
+	for (TSize i = 0; i < info.entries.GetSize(); i++) {
+		const VertexInfo::Entry& entry = info.entries.At(i);
+
+		D3D12_INPUT_ELEMENT_DESC desc = {
+			NULL,
+			0,
+			GetVertexAttribFormatDx12(entry),
+			0,
+			offset,
+			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
+			0
+		};
+
+		output.Insert(desc);
+
+		offset += entry.size;
+	}
+
+	return output;
+}
+
+
+D3D12_CULL_MODE GraphicsPipelineDx12::GetCullMode(PolygonCullMode mode) const {
+	switch (mode) {
+	case PolygonCullMode::FRONT:
+		return D3D12_CULL_MODE_FRONT;
+	case PolygonCullMode::BACK:
+		return D3D12_CULL_MODE_BACK;
+	case PolygonCullMode::NONE:
+		return D3D12_CULL_MODE_NONE;
+	default:
+		return D3D12_CULL_MODE_NONE;
+	}
+}
+
+D3D12_FILL_MODE GraphicsPipelineDx12::GetFillMode(PolygonMode mode) const {
+	switch (mode) {
+	case PolygonMode::FILL:
+		return D3D12_FILL_MODE_SOLID;
+	case PolygonMode::LINE:
+		return D3D12_FILL_MODE_WIREFRAME;
+	default:
+		return D3D12_FILL_MODE_SOLID;
+	}
+}
+
+ComPtr<ID3DBlob> GraphicsPipelineDx12::LoadBlob(LPCWSTR filename) const {
+	HRESULT hr{};
+
+	ComPtr<ID3DBlob> shaderBlob; // chunk of memory
+
+	hr = D3DReadFileToBlob(filename, &shaderBlob);
+
+	if (FAILED(hr))
+		OSK_ASSERT(false, "No se pudo compilar el shader. Code: " + std::to_string(hr));
+
+	return shaderBlob;
+}
+
+ComPtr<IDxcBlob> CompileShaderSpv(const std::string& spirvPath, const VertexInfo& vertexInfo, const std::string& hlslProfile, const MaterialLayout& layout) {
+	const auto bytecode = FileIO::ReadBinaryFromFile(spirvPath);
+
+	// Generación del código HLSL.
+	SpirvToHlsl compilerToHlsl = SpirvToHlsl(bytecode);
+	compilerToHlsl.SetHlslTargetProfile(6, 1);
+	compilerToHlsl.SetVertexAttributesMapping(vertexInfo);
+	compilerToHlsl.SetLayoutMapping(layout);
+
+	const std::string hlslSourceCode = compilerToHlsl.CreateHlsl();
+
+	//Engine::GetLogger()->DebugLog(hlslSourceCode);
+	FileIO::WriteFile("./temp_shader", hlslSourceCode);
+
+	HlslRuntimeCompiler compiler;
+	return compiler.CompileFromFile("./temp_shader", hlslProfile);
 }

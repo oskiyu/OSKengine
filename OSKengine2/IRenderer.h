@@ -230,7 +230,7 @@ namespace OSK::GRAPHICS {
 
 	protected:
 
-		IRenderer(RenderApiType renderApiType);
+		IRenderer(RenderApiType renderApiType, bool requestRayTracing);
 
 		/// <summary>
 		/// Debido a razones de alineamiento, es posible que se tengan que desplazar partes de la imagen
@@ -296,10 +296,12 @@ namespace OSK::GRAPHICS {
 
 		bool isRtActive = false;
 
+		bool IsRtRequested() const;
+
 	private:
 
 		RenderApiType renderApiType;
-
+		bool isRtRequested = false;
 
 	};
 

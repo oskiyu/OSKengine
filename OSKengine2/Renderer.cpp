@@ -20,7 +20,7 @@ using namespace OSK::IO;
 using namespace OSK::ECS;
 using namespace OSK::GRAPHICS;
 
-IRenderer::IRenderer(RenderApiType type) : renderApiType(type) {
+IRenderer::IRenderer(RenderApiType type, bool requestRayTracing) : renderApiType(type), isRtRequested(requestRayTracing) {
 	materialSystem = new MaterialSystem;
 }
 
@@ -149,4 +149,8 @@ void IRenderer::UnregisterRenderTarget(RenderTarget* renderTarget) {
 
 bool IRenderer::IsRtActive() const {
 	return isRtActive;
+}
+
+bool IRenderer::IsRtRequested() const {
+	return isRtRequested;
 }

@@ -558,28 +558,28 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\dxc\include;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\Dependencies\OSKengine\dxc\include;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\Dependencies\OSKengine\dxc\lib;..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\dxc\include;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\Dependencies\OSKengine\dxc\include;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\Dependencies\OSKengine\dxc\lib;..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\dxc\include;C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\SPIRV-Cross\RelWithDebInfo;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\Dependencies\OSKengine\dxc\include;..\Dependencies\OSKengine\SPIRV-Cross\RelWithDebInfo;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\Dependencies\OSKengine\dxc\lib;..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\dxc\include;C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\SPIRV-Cross\RelWithDebInfo;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\Dependencies\OSKengine\dxc\include;C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\SPIRV-Cross\RelWithDebInfo;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\Dependencies\OSKengine\dxc\lib;..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Frameworks\OSKengine\BinLib\</OutDir>
     <RunCodeAnalysis>false</RunCodeAnalysis>
@@ -587,14 +587,14 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\dxc\include;..\SPIRV-Cross\RelWithDebInfo;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\Dependencies\OSKengine\dxc\include;..\SPIRV-Cross\RelWithDebInfo;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\Dependencies\OSKengine\dxc\lib;..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL RVL|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\dxc\include;..\SPIRV-Cross\RelWithDebInfo;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\Dependencies\OSKengine\dxc\include;..\SPIRV-Cross\RelWithDebInfo;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\Dependencies\OSKengine\dxc\lib;..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Frameworks\OSKengine\BinLibDebug\</OutDir>
     <RunCodeAnalysis>false</RunCodeAnalysis>
@@ -602,7 +602,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\Oscar\source\repos\OSKengine\Dependencies\OSKengine\dxc\include;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\Dependencies\OSKengine\dxc\include;..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\GLAD;..\Dependencies\OSKengine\VulkanSDK\Include;..\Dependencies\OSKengine\freetype\include;..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\glm;..\Dependencies\OSKengine\glfw3\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\Dependencies\OSKengine\dxc\lib;..\Dependencies\OSKengine\freetype\objs\x64\Debug;..\Dependencies\OSKengine\VulkanSDK\Lib;..\Dependencies\OSKengine\OpenAL\libs\Win64;..\Dependencies\OSKengine\glfw3\lib-vc2022;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>

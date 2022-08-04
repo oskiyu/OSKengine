@@ -7,6 +7,8 @@ typedef VkQueue_T* VkQueue;
 
 namespace OSK::GRAPHICS {
 
+	class GpuVulkan;
+
 	/// <summary>
 	/// Una cola de comandos almacena todas las listas de comandos que se envían a la GPU.
 	/// 
@@ -16,7 +18,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		void SetQueue(VkQueue q);
+		void Create(TSize nativeQueueIndex, const GpuVulkan& gpu);
 		VkQueue GetQueue() const;
 
 	private:
