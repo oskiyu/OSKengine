@@ -201,6 +201,8 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		void SetDepthImageSampler(const GpuImageSamplerDesc& sampler);
 
+		void SetName(const std::string& name);
+
 	private:
 
 		void CreateDepthImages(Format format);

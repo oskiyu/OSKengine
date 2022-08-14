@@ -36,7 +36,7 @@ OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorDx12::CreateNewImageBlock(GpuImage* 
 
 OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorDx12::CreateStagingBuffer(TSize size) {
 	return new GpuDataBuffer(GetNextBufferMemoryBlock(size, 
-		GpuBufferUsage::TRANSFER_SOURCE, GpuSharedMemoryType::GPU_AND_CPU)->GetNextMemorySubblock(size, 0), size, 0);
+		GpuBufferUsage::TRANSFER_SOURCE, GpuSharedMemoryType::GPU_AND_CPU)->GetNextMemorySubblock(size, 65536), size, 0);
 }
 
 OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorDx12::CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices, const VertexInfo& vertexInfo) {

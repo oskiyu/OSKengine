@@ -9,6 +9,9 @@
 #include "RenderpassType.h"
 #include "Vector3.hpp"
 
+#include "IGpuObject.h"
+#include "GpuBarrierInfo.h"
+
 #include <string>
 #include <type_traits>
 
@@ -41,7 +44,7 @@ namespace OSK::GRAPHICS {
 	/// 
 	/// @note Los comandos serán ejecutados en orden una vez se envíe la lista
 	/// a la GPU.
-	class OSKAPI_CALL ICommandList {
+	class OSKAPI_CALL ICommandList : public IGpuObject {
 
 	public:
 
@@ -76,40 +79,44 @@ namespace OSK::GRAPHICS {
 		virtual void Close() = 0;
 
 		/// <summary>
-		/// Cambia el layout interno de la imagen en la memoria de la GPU.
+		/// Establece un barrier que sincroniza la ejecución de comandos.
+		/// Cambia el layout de la imagen.
 		/// </summary>
-		/// <param name="next">Layout en el que estará la imagen.</param>
-		/// <param name="baseLayer">Primera capa a partir de la cual se cambiarán los layouts.</param>
-		/// <param name="numLayers">Número de capas a cambiar.</param>
-		/// <param name="baseMipLevel">Mip level al partir del que se aplica la transición del layout.</param>
-		/// <param name="numMipLevels">Número de mip levels que transicionarán de layout.
-		/// Si es 0, se transicionarán todos (a partir de baseMipLevel).</param>
+		/// <param name="image">Imagen a la que se le cambiará el layout.</param>
+		/// <param name="previousLayout">Layout anterior.</param>
+		/// <param name="nextLayout">Nuevo layout.</param>
+		/// <param name="previous">Stage previo.</param>
+		/// <param name="next">Stage siguiente.</param>
+		/// <param name="imageInfo">Información sobre que subrecursos de la imagen serán afectados.</param>
+		/// <param name="nextImageInfo"></param>
 		/// 
 		/// @note Se debe cambiar el layout de la imagen antes de ejecutar un comando sobre ella,
 		/// si su layout actual no coincide con el necesario.
 		/// 
-		/// @note Se considerará el layout anterior el layout que tenía la imagen antes de este comando.
-		/// 
-		/// @pre El número de capas (numLayers) debe ser mayor que 0.
 		/// @pre La lista de comandos debe estar abierta.
-		void TransitionImageLayout(GpuImage* image, GpuImageLayout next, TSize baseLayer, TSize numLayers, TSize baseMipLevel = 0, TSize numMipLevels = 0);
+		/// @pre previousLayout debe ser el layout de la imagen antes de este comando.
+		/// 
+		/// @post Los subrecursos especificados por imageInfo estarán en el nuevo layout.
+		virtual void SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageBarrierInfo& prevImageInfo = {}) = 0;
 
 		/// <summary>
-		/// Cambia el layout interno de la imagen en la memoria de la GPU.
+		/// Establece un barrier que sincroniza la ejecución de comandos.
+		/// Cambia el layout de la imagen.
 		/// </summary>
-		/// <param name="next">Layout en el que estará la imagen.</param>
-		/// <param name="baseLayer">Primera capa a partir de la cual se cambiarán los layouts.</param>
-		/// <param name="numLayers">Número de capas a cambiar.</param>
-		/// <param name="baseMipLevel">Mip level al partir del que se aplica la transición del layout.</param>
-		/// <param name="numMipLevels">Número de mip levels que transicionarán de layout.
-		/// Si es 0, se transicionarán todos (a partir de baseMipLevel).</param>
+		/// <param name="image">Imagen a la que se le cambiará el layout.</param>
+		/// <param name="nextLayout">Nuevo layout.</param>
+		/// <param name="previous">Stage previo.</param>
+		/// <param name="next">Stage siguiente.</param>
+		/// <param name="imageInfo">Información sobre que subrecursos de la imagen serán afectados.</param>
+		/// <param name="nextImageInfo"></param>
 		/// 
 		/// @note Se debe cambiar el layout de la imagen antes de ejecutar un comando sobre ella,
 		/// si su layout actual no coincide con el necesario.
 		/// 
-		/// @pre El número de capas (numLayers) debe ser mayor que 0.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers, TSize baseMipLevel = 0, TSize numMipLevels = 0) = 0;
+		/// 
+		/// @post Los subrecursos especificados por imageInfo estarán en el nuevo layout.
+		void SetGpuImageBarrier(GpuImage* image, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageBarrierInfo& prevImageInfo = {});
 
 
 		/// <summary>
@@ -374,8 +381,11 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Pipeline que está siendo grabada en un instante determinado.
 		/// </summary>
-		const IGraphicsPipeline* currentPipeline = nullptr;
-		const IRaytracingPipeline* currentRtPipeline = nullptr;
+		union {
+			const IGraphicsPipeline* graphics;
+			const IRaytracingPipeline* raytracing;
+			const IComputePipeline* compute;
+		} currentPipeline;
 
 		/// <summary>
 		/// Material que está siendo usado en un instante determinado.

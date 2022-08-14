@@ -62,6 +62,8 @@ namespace OSK::GRAPHICS {
 		/// @note Si no se cumple la precondición, devuelve 0.
 		D3D12_CPU_DESCRIPTOR_HANDLE GetDepthUsageDescriptorHandle() const;
 
+		void SetDebugName(const std::string& name) override;
+
 	private:
 
 		ComPtr<ID3D12Resource> resource;

@@ -8,6 +8,7 @@
 #include "VertexInfo.h"
 #include "Format.h"
 #include "FormatVulkan.h"
+#include "RendererVulkan.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -15,6 +16,18 @@ using namespace OSK::GRAPHICS;
 
 GraphicsPipelineVulkan::GraphicsPipelineVulkan() {
 
+}
+
+void GraphicsPipelineVulkan::SetDebugName(const std::string& name) {
+	VkDebugUtilsObjectNameInfoEXT nameInfo{};
+	nameInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT;
+	nameInfo.objectType = VK_OBJECT_TYPE_PIPELINE;
+	nameInfo.objectHandle = (uint64_t)pipeline;
+	nameInfo.pObjectName = name.c_str();
+	nameInfo.pNext = nullptr;
+
+	if (RendererVulkan::pvkSetDebugUtilsObjectNameEXT != nullptr)
+		RendererVulkan::pvkSetDebugUtilsObjectNameEXT(gpu->As<GpuVulkan>()->GetLogicalDevice(), &nameInfo);
 }
 
 void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) {

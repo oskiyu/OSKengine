@@ -430,6 +430,9 @@
     <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Raytracing">
       <UniqueIdentifier>{6cb258b9-07fb-4c69-897d-cbd0a0d39387}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Object">
+      <UniqueIdentifier>{f2dad5fd-628a-4795-ac70-d0d6b355bd56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -830,6 +833,9 @@
     </ClCompile>
     <ClCompile Include="ComputePipelineVulkan.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Compute</Filter>
+    </ClCompile>
+    <ClCompile Include="BloomPass.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\PBR</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1372,6 +1378,18 @@
     </ClInclude>
     <ClInclude Include="ComputePipelineVulkan.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Compute</Filter>
+    </ClInclude>
+    <ClInclude Include="IGpuObject.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialType.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuBarrierInfo.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="BloomPass.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PBR</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

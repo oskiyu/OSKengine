@@ -17,14 +17,12 @@ namespace OSK::GRAPHICS {
 
 		void SetUniformBuffer(const std::string& binding, const IGpuUniformBuffer* buffer) override;
 		void SetUniformBuffers(const std::string& binding, const IGpuUniformBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]);
-		void SetGpuImage(const std::string& binding, const GpuImage* image, SampledChannel channel, TSize arrayLevel) override;
-		void SetGpuImages(const std::string& binding, const GpuImage* images[NUM_RESOURCES_IN_FLIGHT], SampledChannel channel, TSize arrayLevel) override;
-		void SetGpuArrayImage(const std::string& binding, const GpuImage* image, SampledChannel channel) override;
-		void SetGpuArrayImages(const std::string& binding, const GpuImage* images[NUM_RESOURCES_IN_FLIGHT], SampledChannel channel) override;
+		void SetGpuImage(const std::string& binding, const GpuImage* image, SampledChannel channel, SampledArrayType arrayType, TSize arrayLevel) override;
+		void SetGpuImages(const std::string& binding, const GpuImage* images[NUM_RESOURCES_IN_FLIGHT], SampledChannel channel, SampledArrayType arrayType, TSize arrayLevel) override;
 		void SetStorageBuffer(const std::string& binding, const GpuDataBuffer* buffer) override;
 		void SetStorageBuffers(const std::string& binding, const GpuDataBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]) override;
-		void SetStorageImage(const std::string& binding, const GpuImage* image) override;
-		void SetStorageImages(const std::string& binding, const GpuImage* images[NUM_RESOURCES_IN_FLIGHT]) override;
+		void SetStorageImage(const std::string& binding, const GpuImage* image, SampledArrayType arrayType, TSize arrayLevel) override;
+		void SetStorageImages(const std::string& binding, const GpuImage* images[NUM_RESOURCES_IN_FLIGHT], SampledArrayType arrayType, TSize arrayLevel) override;
 		void SetAccelerationStructure(const std::string& binding, const ITopLevelAccelerationStructure* accelerationStructure) override;
 		void SetAccelerationStructures(const std::string& binding, const ITopLevelAccelerationStructure* accelerationStructure[NUM_RESOURCES_IN_FLIGHT]) override;
 		void FlushUpdate() override;

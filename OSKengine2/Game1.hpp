@@ -69,7 +69,7 @@
 
 OSK::GRAPHICS::Material* rtMaterial = nullptr;
 OSK::GRAPHICS::MaterialInstance* rtMaterialInstance = nullptr;
-OSK::GRAPHICS::GpuImage* rtTargetImage = nullptr;
+OSK::GRAPHICS::GpuImage* rtTargetImage[3]{};
 
 OSK::GRAPHICS::Material* material = nullptr;
 OSK::GRAPHICS::Material* skyboxMaterial = nullptr;
@@ -115,7 +115,7 @@ protected:
 	}
 
 	void SetupEngine() override {
-		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetWindow(), PresentMode::VSYNC_ON);
+		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetWindow(), PresentMode::VSYNC_ON_TRIPLE_BUFFER);
 	}
 
 	void OnCreate() override {
@@ -130,6 +130,8 @@ protected:
 		skyboxMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/skybox_material.json");
 		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json");
 		materialRenderTarget = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rendertarget.json");
+		computeMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/compute0.json"); 
+		computeMaterialInstance = computeMaterial->CreateInstance().GetPointer();
 
 		texture = Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/texture0.json", "GLOBAL");
 
@@ -165,18 +167,27 @@ protected:
 		instancesInfoBuffer->Write(instancesInfo.GetData(), instancesInfo.GetSize() * sizeof(RtInstanceInfo));
 		instancesInfoBuffer->Unmap();/**/
 
-		rtTargetImage = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ 1920, 1080, 1 }, GpuImageDimension::d2D, 1, Format::RGBA8_UNORM,
-				GpuImageUsage::RT_TARGET_IMAGE | GpuImageUsage::SAMPLED, GpuSharedMemoryType::GPU_ONLY, 1).GetPointer();
+		for (TSize i = 0; i < _countof(rtTargetImage); i++) {
+			GpuImageSamplerDesc sampler{};
+			sampler.mipMapMode = GpuImageMipmapMode::NONE;
+			rtTargetImage[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ 1920, 1080, 1 }, GpuImageDimension::d2D, 1, Format::RGBA8_UNORM,
+				GpuImageUsage::RT_TARGET_IMAGE | GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE, GpuSharedMemoryType::GPU_ONLY, 1, sampler).GetPointer();
+			rtTargetImage[i]->SetDebugName("RtTargetImage [" + std::to_string(i) + "]");
+		}
+
 		rtMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rt.json");
 		rtMaterialInstance = rtMaterial->CreateInstance().GetPointer();
 		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("vertices", model->GetVertexBuffer());
 		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("indices", model->GetIndexBuffer());
 		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("instanceInfos", instancesInfoBuffer);
 //		rtMaterialInstance->GetSlot("rt")->SetAccelerationStructure("topLevelAccelerationStructure", topLevelAccelerationStructure);
-		rtMaterialInstance->GetSlot("rt")->SetStorageImage("targetImage", rtTargetImage);
+		const GpuImage* imgs[3] = { rtTargetImage[0], rtTargetImage[1], rtTargetImage[2] };
+		rtMaterialInstance->GetSlot("rt")->SetStorageImages("targetImage", imgs);
 		rtMaterialInstance->GetSlot("rt")->FlushUpdate();
 		rtMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", cameraUbos);
 		rtMaterialInstance->GetSlot("global")->FlushUpdate();
+		computeMaterialInstance->GetSlot("texture")->SetStorageImages("image", imgs);
+		computeMaterialInstance->GetSlot("texture")->FlushUpdate();
 
 
 		// ECS
@@ -210,7 +221,7 @@ protected:
 			for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
 				images[i] = renderSystem->GetShadowMap()->GetShadowImage(i);
 
-			modelComponent->GetMeshMaterialInstance(i)->GetSlot("global")->SetGpuArrayImages("dirLightShadowMap", images, SampledChannel::DEPTH);
+			modelComponent->GetMeshMaterialInstance(i)->GetSlot("global")->SetGpuImages("dirLightShadowMap", images, SampledChannel::DEPTH, SampledArrayType::ARRAY);
 			modelComponent->GetMeshMaterialInstance(i)->GetSlot("global")->SetUniformBuffers("dirLightShadowMat", shadowsMatUbos);
 			modelComponent->GetMeshMaterialInstance(i)->GetSlot("global")->SetUniformBuffers("camera", cameraUbos);
 			modelComponent->GetMeshMaterialInstance(i)->GetSlot("global")->FlushUpdate();
@@ -252,7 +263,7 @@ protected:
 			for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
 				images[i] = renderSystem->GetShadowMap()->GetShadowImage(i);
 
-			modelComponent2->GetMeshMaterialInstance(i)->GetSlot("global")->SetGpuArrayImages("dirLightShadowMap", images, SampledChannel::DEPTH);
+			modelComponent2->GetMeshMaterialInstance(i)->GetSlot("global")->SetGpuImages("dirLightShadowMap", images, SampledChannel::DEPTH, SampledArrayType::ARRAY);
 			modelComponent2->GetMeshMaterialInstance(i)->GetSlot("global")->SetUniformBuffers("camera", cameraUbos);
 			modelComponent2->GetMeshMaterialInstance(i)->GetSlot("global")->SetUniformBuffers("dirLightShadowMat", shadowsMatUbos);
 			modelComponent2->GetMeshMaterialInstance(i)->GetSlot("global")->FlushUpdate();
@@ -281,7 +292,7 @@ protected:
 
 		spriteObject = Engine::GetEntityComponentSystem()->SpawnObject();
 
-		spriteRenderer.SetCommandList(Engine::GetRenderer()->GetCommandList());
+		spriteRenderer.SetCommandList(Engine::GetRenderer()->GetGraphicsCommandList());
 
 		font->GetInstance(30).sprite->GetMaterialInstance()->GetSlot("global")->SetUniformBuffer("camera", camera2D.GetUniformBuffer());
 		font->GetInstance(30).sprite->GetMaterialInstance()->GetSlot("global")->FlushUpdate();
@@ -319,7 +330,7 @@ protected:
 		const GpuImage* depthImages[3]{nullptr};
 		for (TSize i = 0; i < 3; i++)
 			depthImages[i] = renderSystem->GetShadowMap()->GetShadowImage(i);
-		depthImageSprite.GetMaterialInstance()->GetSlot("texture")->SetGpuImages("stexture", depthImages, SampledChannel::DEPTH, 0);
+		depthImageSprite.GetMaterialInstance()->GetSlot("texture")->SetGpuImages("stexture", imgs);
 		depthImageSprite.GetMaterialInstance()->GetSlot("texture")->FlushUpdate();
 
 		depthImageSpriteTransform.SetScale({ 200.0f, 200.0f });
@@ -415,34 +426,57 @@ protected:
 			Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform2D>(cameraObject2d)
 		);
 
-		const auto& transformComponent = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(ballObject);
-		auto& modelComponent = Engine::GetEntityComponentSystem()->GetComponent<ECS::ModelComponent3D>(ballObject);
-		//modelComponent.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent.GetAsMatrix());
-		//modelComponent.GetModel()->GetAccelerationStructure()->Update();
+		if (OSK::Engine::GetRenderer()->IsRtActive()) {
+			const auto& transformComponent = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(ballObject);
+			auto& modelComponent = Engine::GetEntityComponentSystem()->GetComponent<ECS::ModelComponent3D>(ballObject);
+			modelComponent.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent.GetAsMatrix());
+			modelComponent.GetModel()->GetAccelerationStructure()->Update();
 
-		const auto& transformComponent2 = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(smallBallObject);
-		auto& modelComponent2 = Engine::GetEntityComponentSystem()->GetComponent<ECS::ModelComponent3D>(smallBallObject);
-		//modelComponent2.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent2.GetAsMatrix());
-		//modelComponent2.GetModel()->GetAccelerationStructure()->Update();
-		//topLevelAccelerationStructure->Update();
+			const auto& transformComponent2 = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(smallBallObject);
+			auto& modelComponent2 = Engine::GetEntityComponentSystem()->GetComponent<ECS::ModelComponent3D>(smallBallObject);
+			modelComponent2.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent2.GetAsMatrix());
+			modelComponent2.GetModel()->GetAccelerationStructure()->Update();
+			topLevelAccelerationStructure->Update();
 
-		/*auto commandList = OSK::Engine::GetRenderer()->GetCommandList();
-		commandList->TransitionImageLayout(rtTargetImage, OSK::GRAPHICS::GpuImageLayout::GENERAL, 0, 1);
-		commandList->BindMaterial(rtMaterial);
-		for (auto const& slotName : rtMaterialInstance->GetLayout()->GetAllSlotNames())
-			commandList->BindMaterialSlot(rtMaterialInstance->GetSlot(slotName));
-		commandList->TraceRays(0, 0, 0, { 1920, 1080 });
-		commandList->TransitionImageLayout(rtTargetImage, OSK::GRAPHICS::GpuImageLayout::SHADER_READ_ONLY, 0, 1);/**/
+			const TSize imgIndex = Engine::GetRenderer()->GetCurrentCommandListIndex();
+			auto commandList = OSK::Engine::GetRenderer()->GetGraphicsCommandList();
+
+			commandList->SetGpuImageBarrier(rtTargetImage[imgIndex], GpuImageLayout::SHADER_READ_ONLY, GpuImageLayout::GENERAL,
+				GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::RAYTRACING_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
+
+			commandList->BindMaterial(rtMaterial);
+			for (auto const& slotName : rtMaterialInstance->GetLayout()->GetAllSlotNames())
+				commandList->BindMaterialSlot(rtMaterialInstance->GetSlot(slotName));
+			commandList->TraceRays(0, 0, 0, { 1920, 1080 });
+
+			commandList->SetGpuImageBarrier(rtTargetImage[imgIndex], GpuImageLayout::GENERAL, GpuImageLayout::SHADER_READ_ONLY,
+				GpuBarrierInfo(GpuBarrierStage::RAYTRACING_SHADER, GpuBarrierAccessStage::SHADER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
+		}
+		else {
+			const TSize imgIndex = Engine::GetRenderer()->GetCurrentCommandListIndex();
+			auto commandList = OSK::Engine::GetRenderer()->GetPreComputeCommandList();
+
+			commandList->SetGpuImageBarrier(rtTargetImage[imgIndex], GpuImageLayout::SHADER_READ_ONLY, GpuImageLayout::GENERAL,
+				GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
+
+			commandList->BindMaterial(computeMaterial);
+			for (auto const& slotName : computeMaterialInstance->GetLayout()->GetAllSlotNames())
+				commandList->BindMaterialSlot(computeMaterialInstance->GetSlot(slotName));
+			commandList->DispatchCompute({ rtTargetImage[imgIndex]->GetSize().X / 16, rtTargetImage[imgIndex]->GetSize().Y / 16, 1});
+
+			commandList->SetGpuImageBarrier(rtTargetImage[imgIndex], GpuImageLayout::GENERAL, GpuImageLayout::SHADER_READ_ONLY,
+				GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
+		}
 	}
 
 	void BuildFrame() override {
-		auto commandList = Engine::GetRenderer()->GetCommandList();
+		auto commandList = Engine::GetRenderer()->GetGraphicsCommandList();
 		auto renderpass = Engine::GetRenderer()->GetFinalRenderTarget();
 
 		static SpriteRenderer spriteRenderer{};
 		spriteRenderer.SetCommandList(commandList);
 
-		Vector4ui windowRec = {
+		const Vector4ui windowRec = {
 			0,
 			0,
 			Engine::GetWindow()->GetWindowSize().X,
@@ -470,7 +504,7 @@ protected:
 		spriteRenderer.DrawString(*font, 30, "OSKengine build " + Engine::GetBuild(), Vector2f{ 20.0f, 30.0f }, Vector2f{ 1.0f }, 0.0f, Color::WHITE());
 		spriteRenderer.DrawString(*font, 30, "FPS " + std::to_string(GetFps()), Vector2f{ 20.0f, 60.0f }, Vector2f{ 1.0f }, 0.0f, Color::WHITE());
 
-		//spriteRenderer.Draw(depthImageSprite, depthImageSpriteTransform);
+		// spriteRenderer.Draw(depthImageSprite, depthImageSpriteTransform);
 
 		spriteRenderer.End();
 		commandList->EndGraphicsRenderpass();
@@ -510,6 +544,9 @@ private:
 	ECS::GameObjectIndex terrain = ECS::EMPTY_GAME_OBJECT;
 
 	UniquePtr<GRAPHICS::IGpuUniformBuffer> uniformBuffer[NUM_RESOURCES_IN_FLIGHT];
+
+	Material* computeMaterial = nullptr;
+	UniquePtr<MaterialInstance> computeMaterialInstance = nullptr;
 	
 	ASSETS::Texture* texture = nullptr;
 	ASSETS::Font* font = nullptr;

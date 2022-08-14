@@ -88,7 +88,22 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IAsset** asset)
 	// Crear imagen original y llenarla.
 	const Vector3ui size(width, height, 1);
 	UniquePtr<GpuImage> originalImage = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(size, GRAPHICS::GpuImageDimension::d2D, 1, Format::RGBA32_SFLOAT, GRAPHICS::GpuImageUsage::TRANSFER_SOURCE | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION | GRAPHICS::GpuImageUsage::SAMPLED, GRAPHICS::GpuSharedMemoryType::GPU_ONLY, 1).GetPointer();
-	Engine::GetRenderer()->UploadImageToGpu(originalImage.GetPointer(), (TByte*)pixels, size.X * size.Y * size.Z * GetFormatNumberOfBytes(Format::RGBA32_SFLOAT), GRAPHICS::GpuImageLayout::SHADER_READ_ONLY);
+
+	OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList().GetPointer();
+	uploadCmdList->Start();
+
+	uploadCmdList->SetGpuImageBarrier(originalImage.GetPointer(), GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION,
+		GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
+		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+
+	Engine::GetRenderer()->UploadImageToGpu(originalImage.GetPointer(), (TByte*)pixels, size.X * size.Y * size.Z * GetFormatNumberOfBytes(Format::RGBA32_SFLOAT), uploadCmdList.GetPointer());
+
+	uploadCmdList->SetGpuImageBarrier(originalImage.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY,
+		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
+		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+
+	uploadCmdList->Close();
+	Engine::GetRenderer()->SubmitSingleUseCommandList(uploadCmdList.GetPointer());
 
 	// Crear cubemap y renderizarlo.
 	OwnedPtr<GpuImage> intermediateCubemap = Engine::GetRenderer()->GetMemoryAllocator()->CreateCubemapImage(irradianceLayerSize, Format::RGBA32_SFLOAT, GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP, GpuSharedMemoryType::GPU_ONLY).GetPointer();
@@ -147,28 +162,39 @@ void IrradianceMapLoader::DrawCubemap(GpuImage* targetCubemap, ICommandList* cmd
 
 			cmdList->EndGraphicsRenderpass();
 
-			cmdList->TransitionImageLayout(cubemapGenRenderTarget.GetMainTargetImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::TRANSFER_SOURCE, 0, 1);
+			cmdList->SetGpuImageBarrier(cubemapGenRenderTarget.GetMainTargetImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::TRANSFER_SOURCE,
+				GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ),
+				GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+
 			cmdList->CopyImageToImage(cubemapGenRenderTarget.GetMainTargetImage(Engine::GetRenderer()->GetCurrentFrameIndex()), targetCubemap, 1, 0, i, 0, mipLevel, viewport.rectangle.GetRectangleSize());
 		}
 	}
 }
 
 void IrradianceMapLoader::GenCubemap(GRAPHICS::GpuImage* targetCubemap, GRAPHICS::ICommandList* cmdList) {
-	cmdList->TransitionImageLayout(targetCubemap, GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION, 0, 6);
+	cmdList->SetGpuImageBarrier(targetCubemap, GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION,
+		GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
+		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = 6, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
 	cmdList->SetScissor({ 0, 0, irradianceLayerSize.X, irradianceLayerSize.Y });
 
 	DrawCubemap(targetCubemap, cmdList, cubemapGenMaterial, cubemapGenMaterialInstance->GetSlot("global"));
 
-	cmdList->TransitionImageLayout(targetCubemap, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY, 0, 6);
+	cmdList->SetGpuImageBarrier(targetCubemap, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY,
+		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
+		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = 6, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 }
 
 void IrradianceMapLoader::ConvoluteCubemap(GRAPHICS::GpuImage* targetCubemap, GRAPHICS::ICommandList* cmdList) {
-	cmdList->TransitionImageLayout(targetCubemap, GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION, 0, 6);
+	cmdList->SetGpuImageBarrier(targetCubemap, GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION,
+		GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
+		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = 6, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
 	cmdList->SetScissor({ 0, 0, irradianceLayerSize.X, irradianceLayerSize.Y });
 
 	DrawCubemap(targetCubemap, cmdList, cubemapConvolutionMaterial, cubemapConvolutionMaterialInstance->GetSlot("global"));
 
-	cmdList->TransitionImageLayout(targetCubemap, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY, 0, 6);
+	cmdList->SetGpuImageBarrier(targetCubemap, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY,
+		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
+		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = 6, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 }

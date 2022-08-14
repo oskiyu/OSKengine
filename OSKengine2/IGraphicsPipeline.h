@@ -4,6 +4,7 @@
 #include "UniquePtr.hpp"
 #include "IPipelineLayout.h"
 #include "Format.h"
+#include "IGpuObject.h"
 
 namespace OSK::GRAPHICS {
 
@@ -17,7 +18,7 @@ namespace OSK::GRAPHICS {
 	/// Contiene información y ajustes que cambian este proceso de renerizado.
 	/// Debe usarse con shaders para que funcione.
 	/// </summary>
-	class OSKAPI_CALL IGraphicsPipeline {
+	class OSKAPI_CALL IGraphicsPipeline : public IGpuObject {
 
 	public:
 

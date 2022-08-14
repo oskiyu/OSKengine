@@ -61,6 +61,7 @@
   <ItemGroup>
     <ClCompile Include="Assert.cpp" />
     <ClCompile Include="AssetManager.cpp" />
+    <ClCompile Include="BloomPass.cpp" />
     <ClCompile Include="ComputePipelineVulkan.cpp" />
     <ClCompile Include="IBottomLevelAccelerationStructure.cpp" />
     <ClCompile Include="BottomLevelAccelerationStructureVulkan.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="Assert.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="BitSet.hpp" />
+    <ClInclude Include="BloomPass.h" />
     <ClInclude Include="BottomLevelAccelerationStructureVulkan.h" />
     <ClInclude Include="CameraComponent2D.h" />
     <ClInclude Include="CameraComponent3D.h" />
@@ -217,7 +219,9 @@
     <ClInclude Include="DescriptorLayoutVulkan.h" />
     <ClInclude Include="DescriptorPoolVulkan.h" />
     <ClInclude Include="Doc__MaterialJson.h" />
+    <ClInclude Include="GpuBarrierInfo.h" />
     <ClInclude Include="IComputePipeline.h" />
+    <ClInclude Include="IGpuObject.h" />
     <ClInclude Include="IrradianceMap.h" />
     <ClInclude Include="IrradianceMapLoader.h" />
     <ClInclude Include="Lights.h" />
@@ -286,6 +290,7 @@
     <ClInclude Include="MaterialSlotDx12.h" />
     <ClInclude Include="MaterialSlotVulkan.h" />
     <ClInclude Include="MaterialSystem.h" />
+    <ClInclude Include="MaterialType.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Mesh3D.h" />

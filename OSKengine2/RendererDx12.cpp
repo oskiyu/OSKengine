@@ -73,6 +73,7 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 
 	if (useDebugConsole) {
 		debugConsole->EnableDebugLayer();
+
 		auto result = CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&factory));
 		OSK_CHECK(SUCCEEDED(result), "No se ha podido crear las capas de validación.");
 
@@ -89,14 +90,19 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	CreateSwapchain(mode);
 	CreateSyncDevice();
 	CreateGpuMemoryAllocator();
-	CreateMainRenderpass();
-
-	isOpen = true;
 
 	renderTargetsCamera = new ECS::CameraComponent2D;
 	renderTargetsCamera->LinkToWindow(&window);
 	renderTargetsCameraTransform.SetScale({ window.GetWindowSize().X / 2.0f, window.GetWindowSize().Y / 2.0f });
 	renderTargetsCamera->UpdateUniformBuffer(renderTargetsCameraTransform);
+
+	CreateMainRenderpass();
+
+	if (Engine::GetEntityComponentSystem())
+		for (auto i : Engine::GetEntityComponentSystem()->GetRenderSystems())
+			i->CreateTargetImage(window.GetWindowSize());
+
+	isOpen = true;
 
 	HlslRuntimeCompiler::InitializeComponents();
 }
@@ -151,6 +157,11 @@ OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const Pipeline
 }
 
 OwnedPtr<IRaytracingPipeline> RendererDx12::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexTypeName) {
+	OSK_ASSERT(false, "No implementado.");
+	return nullptr;
+}
+
+OwnedPtr<IComputePipeline> RendererDx12::_CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout) {
 	OSK_ASSERT(false, "No implementado.");
 	return nullptr;
 }
@@ -250,14 +261,18 @@ void RendererDx12::PresentFrame() {
 		graphicsCommandList->Reset();
 		graphicsCommandList->Start();
 
-		computeCommandList->Reset();
-		computeCommandList->Start();
+		preComputeCommandList->Reset();
+		preComputeCommandList->Start();
+
+		postComputeCommandList->Reset();
+		postComputeCommandList->Start();
 
 		isFirstRender = false;
 	}
 
 	graphicsCommandList->Close();
-	computeCommandList->Close();
+	preComputeCommandList->Close();
+	postComputeCommandList->Close();
 
 	for (TSize i = 0; i < singleTimeCommandLists.GetSize(); i++)
 		singleTimeCommandLists.At(i)->DeleteAllStagingBuffers();
@@ -271,7 +286,8 @@ void RendererDx12::PresentFrame() {
 	syncDevice->As<SyncDeviceDx12>()->Await();
 
 	graphicsCommandList->Reset();
-	computeCommandList->Reset();
+	preComputeCommandList->Reset();
+	postComputeCommandList->Reset();
 
 	//
 	if (mustResize) {
@@ -284,7 +300,8 @@ void RendererDx12::PresentFrame() {
 	}
 
 	graphicsCommandList->Start();
-	computeCommandList->Start();
+	preComputeCommandList->Start();
+	postComputeCommandList->Start();
 }
 
 void RendererDx12::SubmitSingleUseCommandList(ICommandList* commandList) {

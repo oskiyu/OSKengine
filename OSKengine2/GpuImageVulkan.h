@@ -198,6 +198,8 @@ namespace OSK::GRAPHICS {
 		void _SetVkImage(VkImage img);
 		void _SetView(VkImageView view);
 
+		void SetDebugName(const std::string& name) override;
+
 	private:
 
 		VkImageType GetVkImageType() const;

@@ -15,6 +15,13 @@ DXGI_FORMAT OSK::GRAPHICS::GetFormatDx12(Format format) {
 
 		case Format::RGBA8_UNORM:
 			return DXGI_FORMAT_R8G8B8A8_UNORM;
+
+		case Format::RGBA16_SFLOAT:
+			return DXGI_FORMAT_R16G16B16A16_FLOAT;
+
+		case Format::RGBA32_SFLOAT:
+			return DXGI_FORMAT_R32G32B32A32_FLOAT;
+
 		case Format::B8G8R8A8_SRGB:
 			return DXGI_FORMAT_B8G8R8A8_UNORM_SRGB;
 

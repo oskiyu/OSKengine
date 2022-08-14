@@ -39,7 +39,7 @@ namespace OSK::GRAPHICS {
 		void BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color);
 		void EndGraphicsRenderpass() override;
 
-		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers, TSize baseMipLevel, TSize numMipLevels) override;
+		void SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageBarrierInfo& prevImageInfo) override;
 
 		void BindMaterial(Material* material) override;
 		void BindVertexBuffer(const IGpuVertexBuffer* buffer) override;
@@ -71,6 +71,8 @@ namespace OSK::GRAPHICS {
 
 		void SetViewport(const Viewport& viewport) override;
 		void SetScissor(const Vector4ui& scissor) override;
+
+		void SetDebugName(const std::string& name) override;
 
 	private:
 

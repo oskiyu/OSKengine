@@ -167,3 +167,12 @@ void RenderTarget::SetColorImageSampler(const GpuImageSamplerDesc& sampler) {
 void RenderTarget::SetDepthImageSampler(const GpuImageSamplerDesc& sampler) {
 	depthSampler = sampler;
 }
+
+void RenderTarget::SetName(const std::string& name) {
+	for (TSize i = 0; i < 3; i++)
+		for (TSize img = 0; img < targetImages[i].GetSize(); img++)
+			targetImages[i][img]->SetDebugName(name + " attachment " + std::to_string(img) + "[" + std::to_string(i) + "]");
+
+	for (TSize i = 0; i < 3; i++)
+			depthImages[i]->SetDebugName(name + " depth[" + std::to_string(i) + "]");
+}

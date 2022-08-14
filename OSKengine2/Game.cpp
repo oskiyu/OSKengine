@@ -99,7 +99,7 @@ void IGame::Run() {
 		Engine::GetEntityComponentSystem()->OnTick(deltaTime);
 		OnTick(deltaTime);
 		for (auto i : Engine::GetEntityComponentSystem()->GetRenderSystems())
-			i->Render(Engine::GetRenderer()->GetCommandList());
+			i->Render(Engine::GetRenderer()->GetGraphicsCommandList());
 
 		BuildFrame();
 

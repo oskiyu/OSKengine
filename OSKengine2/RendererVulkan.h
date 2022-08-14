@@ -27,6 +27,7 @@ namespace OSK::GRAPHICS {
 
 		OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexInfo) override;
 		OwnedPtr<IRaytracingPipeline> _CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexInfo) override;
+		OwnedPtr<IComputePipeline> _CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout) override;
 		OwnedPtr<IMaterialSlot> _CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const override;
 
 		TSize GetCurrentFrameIndex() const override;
@@ -46,6 +47,13 @@ namespace OSK::GRAPHICS {
 		static PFN_vkGetRayTracingShaderGroupHandlesKHR pvkGetRayTracingShaderGroupHandlesKHR;
 		static PFN_vkCreateRayTracingPipelinesKHR pvkCreateRayTracingPipelinesKHR;
 
+		// Debug markers
+		static PFN_vkSetDebugUtilsObjectNameEXT pvkSetDebugUtilsObjectNameEXT;
+		static PFN_vkSetDebugUtilsObjectTagEXT pvkSetDebugUtilsObjectTagEXT;
+		static PFN_vkCmdDebugMarkerBeginEXT pvkCmdDebugMarkerBeginEXT;
+		static PFN_vkCmdInsertDebugUtilsLabelEXT pvkCmdInsertDebugUtilsLabelEXT;
+		static PFN_vkCmdEndDebugUtilsLabelEXT pvkCmdEndDebugUtilsLabelEXT;
+
 	protected:
 
 		void CreateCommandQueues() override;
@@ -60,13 +68,35 @@ namespace OSK::GRAPHICS {
 		void CreateSurface(const IO::Window& window);
 		void ChooseGpu();
 
+		// Sync
+		void SubmitPreComputeCommands();
+		void SubmitGraphicsCommands();
+		void SubmitPostComputeCommands();
+
+		void SubmitFrame();
+		void AcquireNextFrame();
+
 		void SetupRtFunctions(VkDevice logicalDevice);
+		void SetupDebugFunctions(VkDevice instance);
 
 		bool AreValidationLayersAvailable() const;
 
 		VkInstance instance;
 		VkSurfaceKHR surface;
 		VkDebugUtilsMessengerEXT debugConsole;
+
+		// Sync
+		DynamicArray<VkSemaphore> imageAvailableSemaphores;
+		DynamicArray<VkSemaphore> renderFinishedSemaphores;
+		DynamicArray<VkSemaphore> preComputeFinishedSemaphores;
+		DynamicArray<VkSemaphore> postComputeFinishedSemaphores;
+
+		DynamicArray<VkFence> graphicsCommandsFences;
+		DynamicArray<VkFence> preComputeCommandsFences;
+		DynamicArray<VkFence> postComputeCommandsFences;
+
+		TSize currentCommandBufferIndex = 0;
+		TSize currentFrameIndex = 0;
 
 	};
 

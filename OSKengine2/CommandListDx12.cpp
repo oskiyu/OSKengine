@@ -24,6 +24,7 @@
 #include "Format.h"
 #include "MaterialLayout.h"
 #include "Math.h"
+#include "WindowsUtils.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -61,20 +62,20 @@ void CommandListDx12::Close() {
 	commandList->Close();
 }
 
-void CommandListDx12::TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers, TSize baseMipLevel, TSize numMipLevels) {
+void CommandListDx12::SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageBarrierInfo& prevImageInfo) {
 	ID3D12Resource* resource = image->As<GpuImageDx12>()->GetResource();
 	
 	D3D12_RESOURCE_BARRIER barrierInfo{};
 	barrierInfo.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
 	barrierInfo.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
 	barrierInfo.Transition.pResource = resource;
-	barrierInfo.Transition.StateBefore = GetGpuImageLayoutDx12(previous);
-	barrierInfo.Transition.StateAfter = GetGpuImageLayoutDx12(next);
+	barrierInfo.Transition.StateBefore = GetGpuImageLayoutDx12(previousLayout);
+	barrierInfo.Transition.StateAfter = GetGpuImageLayoutDx12(nextLayout);
 	barrierInfo.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
 
 	commandList->ResourceBarrier(1, &barrierInfo);
 
-	image->SetLayout(next);
+	image->SetLayout(nextLayout);
 }
 
 void CommandListDx12::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer, TSize offset) {
@@ -122,8 +123,18 @@ void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> 
 		depthStencilDesc = depthImage.targetImage->As<GpuImageDx12>()->GetDepthUsageDescriptorHandle();
 	}
 
-	for (auto& img : colorImages)
-		As<ICommandList>()->TransitionImageLayout(img.targetImage, GpuImageLayout::COLOR_ATTACHMENT, 0, 1);
+	for (const auto& img : colorImages) {
+		const GpuBarrierInfo prev(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT);
+		const GpuBarrierInfo next(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE);
+		const GpuImageBarrierInfo imgInfo = {
+			.baseLayer = img.arrayLevel,
+			.numLayers = 1,
+			.baseMipLevel = 0,
+			.numMipLevels = 1,
+		};
+
+		SetGpuImageBarrier(img.targetImage, GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, prev, next, imgInfo);
+	}
 
 	const FLOAT clearValue[] = { color.Red, color.Green, color.Blue, color.Alpha };
 	
@@ -142,8 +153,23 @@ void CommandListDx12::EndGraphicsRenderpass() {
 	if (currentRenderpassType == RenderpassType::FINAL)
 		finalLayout = GpuImageLayout::PRESENT;
 
-	for (auto& img : currentColorImages)
-		As<ICommandList>()->TransitionImageLayout(img.targetImage, finalLayout, img.arrayLevel, 1, 0, 0);
+	for (const auto& img : currentColorImages) {
+		GpuBarrierInfo prevBarrier{};
+		prevBarrier.stage = GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT;
+		prevBarrier.accessStage = GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE;
+
+		GpuBarrierInfo nextBarrier{};
+		nextBarrier.stage = GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT;
+		nextBarrier.accessStage = GpuBarrierAccessStage::SHADER_READ;
+
+		GpuImageBarrierInfo imgBarrier{};
+		imgBarrier.baseLayer = img.arrayLevel;
+		imgBarrier.numLayers = 1;
+		imgBarrier.baseMipLevel = 0;
+		imgBarrier.numMipLevels = ALL_MIP_LEVELS;
+
+		SetGpuImageBarrier(img.targetImage, GpuImageLayout::COLOR_ATTACHMENT, finalLayout, prevBarrier, nextBarrier, imgBarrier);
+	}
 
 	if (currentRenderpassType != RenderpassType::INTERMEDIATE)
 		currentRenderpassType = RenderpassType::INTERMEDIATE;
@@ -168,12 +194,12 @@ void CommandListDx12::BindMaterial(Material* material) {
 	for (const auto& colorImg : currentColorImages)
 		colorFormats.Insert(colorImg.targetImage->GetFormat());
 
-	currentPipeline = material->GetGraphicsPipeline(colorFormats);
+	currentPipeline.graphics = material->GetGraphicsPipeline(colorFormats);
 	
-	commandList->SetGraphicsRootSignature(currentPipeline->As<GraphicsPipelineDx12>()->GetLayout());
-	commandList->SetPipelineState(currentPipeline->As<GraphicsPipelineDx12>()->GetPipelineState());
+	commandList->SetGraphicsRootSignature(currentPipeline.graphics->As<GraphicsPipelineDx12>()->GetLayout());
+	commandList->SetPipelineState(currentPipeline.graphics->As<GraphicsPipelineDx12>()->GetPipelineState());
 
-	commandList->IASetPrimitiveTopology(currentPipeline->As<GraphicsPipelineDx12>()->GetTopologyType());
+	commandList->IASetPrimitiveTopology(currentPipeline.graphics->As<GraphicsPipelineDx12>()->GetTopologyType());
 }
 
 void CommandListDx12::BindVertexBuffer(const IGpuVertexBuffer* buffer) {
@@ -263,4 +289,8 @@ void CommandListDx12::SetScissor(const Vector4ui& scissor) {
 	scissorRect.bottom = scissor.GetRectangleSize().Y;
 
 	commandList->RSSetScissorRects(1, &scissorRect);
+}
+
+void CommandListDx12::SetDebugName(const std::string& name) {
+	commandList->SetName(StringToWideString(name).c_str());
 }

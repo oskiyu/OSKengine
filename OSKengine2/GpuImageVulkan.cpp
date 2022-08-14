@@ -9,6 +9,7 @@
 #include "GpuImageUsage.h"
 #include "GpuMemoryTypeVulkan.h"
 #include "GpuImageDimensions.h"
+#include "CommandQueueVulkan.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -55,6 +56,8 @@ GpuImageVulkan::~GpuImageVulkan() {
 /* VULKAN SPECIFICS */
 
 void GpuImageVulkan::CreateVkImage() {
+	bool usesMultipleQueues = EFTraits::HasFlag(GetUsage(), GpuImageUsage::COMPUTE) && GetUsage() != GpuImageUsage::COMPUTE;
+
 	VkImageCreateInfo imageInfo{};
 	
 	imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
@@ -71,8 +74,28 @@ void GpuImageVulkan::CreateVkImage() {
 	imageInfo.tiling = VK_IMAGE_TILING_OPTIMAL;
 	imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 	imageInfo.usage = GetGpuImageUsageVulkan(GetUsage());
-	imageInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 	imageInfo.samples = (VkSampleCountFlagBits)GetNumSamples();
+
+	DynamicArray<uint32_t> queueIndices;
+	if (usesMultipleQueues) {
+		queueIndices.Insert(Engine::GetRenderer()->GetGraphicsCommandQueue()->As<CommandQueueVulkan>()->GetQueueIndex());
+		queueIndices.Insert(Engine::GetRenderer()->GetComputeCommandQueue()->As<CommandQueueVulkan>()->GetQueueIndex());
+
+		if (queueIndices[0] == queueIndices[1])
+			usesMultipleQueues = false;
+	}
+	else if (GetUsage() == GpuImageUsage::COMPUTE) {
+		queueIndices.Insert(Engine::GetRenderer()->GetComputeCommandQueue()->As<CommandQueueVulkan>()->GetQueueIndex());
+	}
+	else {
+		queueIndices.Insert(Engine::GetRenderer()->GetGraphicsCommandQueue()->As<CommandQueueVulkan>()->GetQueueIndex());
+	}
+
+	imageInfo.queueFamilyIndexCount = usesMultipleQueues ? queueIndices.GetSize() : 1;
+	imageInfo.pQueueFamilyIndices = queueIndices.GetData();
+	imageInfo.sharingMode = usesMultipleQueues
+		? VK_SHARING_MODE_CONCURRENT
+		: VK_SHARING_MODE_EXCLUSIVE;
 
 	// Si la imagen se usará como cubemap, debemos especificarlo.
 	imageInfo.flags = EFTraits::HasFlag(GetUsage(), GpuImageUsage::CUBEMAP) ? VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT : 0;
@@ -89,7 +112,6 @@ VkImage GpuImageVulkan::GetVkImage() const {
 
 void GpuImageVulkan::CreateColorArrayView() {
 	OSK_ASSERT(image != VK_NULL_HANDLE, "Se debe crear la propia imagen antes de crear el view.");
-	OSK_ASSERT(EFTraits::HasFlag(GetUsage(), GpuImageUsage::COLOR), "La imagen debe haberse creado con GpuImageUsage::COLOR.");
 
 	VkImageViewCreateInfo viewInfo{};
 
@@ -374,6 +396,21 @@ void GpuImageVulkan::_SetView(VkImageView view) {
 		colorViews.Insert(view);
 	else
 		colorViews[0] = view;
+}
+
+void GpuImageVulkan::SetDebugName(const std::string& name) {
+	VkDebugUtilsObjectNameInfoEXT nameInfo{};
+	nameInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT;
+	nameInfo.objectType = VK_OBJECT_TYPE_IMAGE;
+	nameInfo.pNext = nullptr;
+
+	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
+
+	nameInfo.pObjectName = name.c_str();
+	nameInfo.objectHandle = (uint64_t)image;
+
+	if (RendererVulkan::pvkSetDebugUtilsObjectNameEXT != nullptr)
+		RendererVulkan::pvkSetDebugUtilsObjectNameEXT(logicalDevice, &nameInfo);
 }
 
 

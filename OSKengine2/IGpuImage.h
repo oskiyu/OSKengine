@@ -7,6 +7,7 @@
 #include "GpuImageSamplerDesc.h"
 
 #include "IGpuMemoryBlock.h"
+#include "IGpuObject.h"
 
 namespace OSK::GRAPHICS {
 
@@ -21,7 +22,7 @@ namespace OSK::GRAPHICS {
 	/// 
 	/// Puede referirse a la imagend e una textura, imágenes del swapchain, etc...
 	/// </summary>
-	class OSKAPI_CALL GpuImage {
+	class OSKAPI_CALL GpuImage : public IGpuObject {
 
 	public:
 

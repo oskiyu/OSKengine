@@ -18,6 +18,12 @@ namespace OSK::GRAPHICS {
 
 	inline constexpr TSize NUM_RESOURCES_IN_FLIGHT = 3;
 
+	enum class SampledArrayType {
+		SINGLE_LAYER,
+		ARRAY
+	};
+
+
 	/// <summary>
 	/// Un slot contiene referencias a los recursos (UNIFORM BUFFER, TEXTURE, etc...) que se envían a la GPU.
 	/// 
@@ -82,7 +88,7 @@ namespace OSK::GRAPHICS {
 		/// <param name="binding">Nombre del binding al que se asignará la imagen.</param>
 		/// 
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
-		virtual void SetGpuImage(const std::string& binding, const GpuImage* image, SampledChannel channel = SampledChannel::COLOR, TSize arrayLevel = 0) = 0;
+		virtual void SetGpuImage(const std::string& binding, const GpuImage* image, SampledChannel channel = SampledChannel::COLOR, SampledArrayType arrayType = SampledArrayType::SINGLE_LAYER, TSize arrayLevel = 0) = 0;
 
 		/// <summary>
 		/// Establece la imagen que será asignada al binding con el nombre dado.
@@ -93,29 +99,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note Habrá una imagen por cada frame in flight.
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
-		virtual void SetGpuImages(const std::string& binding, const GpuImage* images[NUM_RESOURCES_IN_FLIGHT], SampledChannel channel = SampledChannel::COLOR, TSize arrayLevel = 0) = 0;
-
-		/// <summary>
-		/// Establece la imagen que será asignada al binding con el nombre dado.
-		/// Puede usarse esta función para alternar el recurso que está asignado al binding.
-		/// La imagen es un sampler2Darray.
-		/// </summary>
-		/// <param name="binding">Nombre del binding al que se asignará la imagen.</param>
-		/// 
-		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
-		virtual void SetGpuArrayImage(const std::string& binding, const GpuImage* image, SampledChannel channel = SampledChannel::COLOR) = 0;
-
-		/// <summary>
-		/// Establece la imagen que será asignada al binding con el nombre dado.
-		/// Puede usarse esta función para alternar el recurso que está asignado al binding.
-		/// La imagen es un sampler2Darray.
-		/// </summary>
-		/// <param name="binding">Nombre del binding al que se asignará la imagen.</param>
-		/// <param name="images">Imágenes.</param>
-		/// 
-		/// @note Habrá una imagen por cada frame in flight.
-		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
-		virtual void SetGpuArrayImages(const std::string& binding, const GpuImage* images[NUM_RESOURCES_IN_FLIGHT], SampledChannel channel = SampledChannel::COLOR) = 0;
+		virtual void SetGpuImages(const std::string& binding, const GpuImage* images[NUM_RESOURCES_IN_FLIGHT], SampledChannel channel = SampledChannel::COLOR, SampledArrayType arrayType = SampledArrayType::SINGLE_LAYER, TSize arrayLevel = 0) = 0;
 
 
 		/// <summary>
@@ -144,7 +128,7 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// 
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
-		virtual void SetStorageImage(const std::string& binding, const GpuImage* image) = 0;
+		virtual void SetStorageImage(const std::string& binding, const GpuImage* image, SampledArrayType arrayType = SampledArrayType::SINGLE_LAYER, TSize arrayLayer = 0) = 0;
 
 		/// <summary>
 		/// Establece la imagen que será usada como storage image asignada al binding con el nombre dado.
@@ -155,7 +139,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note Habrá una imagen por cada frame in flight.
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
-		virtual void SetStorageImages(const std::string& binding, const GpuImage* images[NUM_RESOURCES_IN_FLIGHT]) = 0;
+		virtual void SetStorageImages(const std::string& binding, const GpuImage* images[NUM_RESOURCES_IN_FLIGHT], SampledArrayType arrayType = SampledArrayType::SINGLE_LAYER, TSize arrayLayer = 0) = 0;
 
 
 		/// <summary>

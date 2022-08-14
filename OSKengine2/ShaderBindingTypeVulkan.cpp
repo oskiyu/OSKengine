@@ -48,5 +48,8 @@ VkShaderStageFlags OSK::GRAPHICS::GetShaderStageVk(ShaderStage stage) {
 	if (EFTraits::HasFlag(stage, ShaderStage::RT_MISS))
 		output |= VK_SHADER_STAGE_MISS_BIT_KHR;
 
+	if (EFTraits::HasFlag(stage, ShaderStage::COMPUTE))
+		output |= VK_SHADER_STAGE_COMPUTE_BIT;
+
 	return output;
 }

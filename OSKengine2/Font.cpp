@@ -124,7 +124,22 @@ void Font::LoadSizedFont(TSize fontSize) {
 		finalPixels.Insert(data[i]);
 	}
 
-	Engine::GetRenderer()->UploadImageToGpu(gpuImage.GetPointer(), finalPixels.GetData(), numBytes, GpuImageLayout::SHADER_READ_ONLY);
+	OwnedPtr<ICommandList> copyCmdList = Engine::GetRenderer()->CreateSingleUseCommandList();
+	copyCmdList->Reset();
+	copyCmdList->Start();
+
+	copyCmdList->SetGpuImageBarrier(gpuImage.GetPointer(), GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION,
+		GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
+		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+
+	Engine::GetRenderer()->UploadImageToGpu(gpuImage.GetPointer(), finalPixels.GetData(), numBytes, copyCmdList.GetPointer());
+
+	copyCmdList->SetGpuImageBarrier(gpuImage.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY,
+		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
+		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+	copyCmdList->Close();
+	Engine::GetRenderer()->SubmitSingleUseCommandList(copyCmdList.GetPointer());
+
 
 	if (material) {
 		instance.sprite = new Sprite;

@@ -156,7 +156,7 @@ namespace OSK {
 			}
 
 			bool operator!= (const Iterator& other) const {
-				return bucketIndex != other.bucketIndex || inBucketIndex != other.inBucketIndex && bucket != other.bucket;
+				return bucketIndex != other.bucketIndex || (inBucketIndex != other.inBucketIndex && bucket != other.bucket);
 			}
 
 			/// <summary>

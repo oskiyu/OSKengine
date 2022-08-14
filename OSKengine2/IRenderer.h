@@ -85,7 +85,14 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		virtual void PresentFrame() = 0;
 
-		ICommandList* GetCommandList() const;
+		ICommandList* GetPreComputeCommandList() const;
+		ICommandList* GetGraphicsCommandList() const;
+		ICommandList* GetPostComputeCommandList() const;
+
+		inline ICommandQueue* GetGraphicsCommandQueue() const { return graphicsQueue.GetPointer(); }
+		inline ICommandQueue* GetComputeCommandQueue() const { return computeQueue.GetPointer(); }
+		inline ICommandQueue* GetPresentCommandQueue() const { return presentQueue.GetPointer(); }
+
 		IGpuMemoryAllocator* GetMemoryAllocator() const;
 		IGpu* GetGpu() const;
 
@@ -105,21 +112,24 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// 
 		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
-		void UploadLayeredImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout, TSize numLayers);
+		/// @pre La imagen de destino debe tener el layout GpuImageLayout::TRANSFER_DESTINATION.
+		void UploadLayeredImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, TSize numLayers, ICommandList* cmdList);
 
 		/// <summary>
 		/// Rellena la imagen en la GPU con los datos dados.
 		/// </summary>
 		/// 
 		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
-		void UploadImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout);
+		/// @pre La imagen de destino debe tener el layout GpuImageLayout::TRANSFER_DESTINATION.
+		void UploadImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, ICommandList* cmdList);
 
 		/// <summary>
 		/// Rellena la imagen en la GPU con los datos dados.
 		/// </summary>
 		/// 
 		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
-		void UploadCubemapImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout);
+		/// @pre La imagen de destino debe tener el layout GpuImageLayout::TRANSFER_DESTINATION.
+		void UploadCubemapImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, ICommandList* cmdList);
 
 		/// <summary>
 		/// Castea el renderizador al tipo dado.
@@ -137,11 +147,17 @@ namespace OSK::GRAPHICS {
 		/// <param name="format">Formato de la imagen a la que se renderizará.</param>
 		virtual OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexTypeName) = 0;
 		/// <summary>
-		/// Crea un graphics pipeline.
+		/// Crea un ray tracing pipeline.
 		/// </summary>
 		/// <param name="pipelineInfo">Configuración del pipeline.</param>
 		/// <param name="layout">Layout del material del pipeline.</param>
 		virtual OwnedPtr<IRaytracingPipeline> _CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexTypeName) = 0;
+		/// <summary>
+		/// Crea un compute pipeline.
+		/// </summary>
+		/// <param name="pipelineInfo">Configuración del pipeline.</param>
+		/// <param name="layout">Layout del material del pipeline.</param>
+		virtual OwnedPtr<IComputePipeline> _CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout) = 0;
 
 		/// <summary>
 		/// Devuelve el sistema de materiales.
@@ -266,7 +282,8 @@ namespace OSK::GRAPHICS {
 		UniquePtr<ICommandList> graphicsCommandList;
 
 		UniquePtr<ICommandPool> computeCommandPool;
-		UniquePtr<ICommandList> computeCommandList;
+		UniquePtr<ICommandList> preComputeCommandList;
+		UniquePtr<ICommandList> postComputeCommandList;
 
 		UniquePtr<IGpuMemoryAllocator> gpuMemoryAllocator;
 

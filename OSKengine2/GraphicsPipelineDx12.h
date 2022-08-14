@@ -6,6 +6,10 @@ using Microsoft::WRL::ComPtr;
 #include <dxcapi.h>
 
 #include "IGraphicsPipeline.h"
+#include "PipelineCreateInfo.h"
+#include "DynamicArray.hpp"
+#include "VertexInfo.h"
+
 #include <string>
 
 namespace OSK::GRAPHICS {
@@ -17,6 +21,8 @@ namespace OSK::GRAPHICS {
 	public:
 
 		void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) override;
+
+		void SetDebugName(const std::string& name);
 
 		ID3D12PipelineState* GetPipelineState() const;
 		ID3D12RootSignature* GetLayout() const;
@@ -43,6 +49,7 @@ namespace OSK::GRAPHICS {
 		D3D12_CULL_MODE GetCullMode(PolygonCullMode mode) const;
 		D3D12_FILL_MODE GetFillMode(PolygonMode mode) const;
 		ComPtr<ID3DBlob> LoadBlob(LPCWSTR filename) const;
+		ComPtr<IDxcBlob> CompileShaderSpv(const std::string& spirvPath, const VertexInfo& vertexInfo, const std::string& hlslProfile, const MaterialLayout& layout) const;
 
 		//Patch para teselado, triángulos en el 
 		// resto de casos.

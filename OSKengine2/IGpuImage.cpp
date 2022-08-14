@@ -15,8 +15,19 @@ using namespace OSK::GRAPHICS;
 
 GpuImage::GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples, GpuImageSamplerDesc samplerDesc)
 	: format(format), dimension(dimension), usage(usage), numLayers(numLayers), currentLayout(GpuImageLayout::UNDEFINED), size(size), numSamples(numSamples), samplerDesc(samplerDesc) {
+	
+	switch (samplerDesc.mipMapMode) {
+	case GpuImageMipmapMode::AUTO:
+		mipLevels = GetMipLevels(size.X, size.Y);
+		break;
+	case GpuImageMipmapMode::CUSTOM:
+		mipLevels = samplerDesc.maxMipLevel;
+		break;
+	case GpuImageMipmapMode::NONE:
+		mipLevels = 1;
+		break;
+	}
 
-	mipLevels = GetMipLevels(size.X, size.Y);
 	_SetPhysicalSize(size);
 }
 

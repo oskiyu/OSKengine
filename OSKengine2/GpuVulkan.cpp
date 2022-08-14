@@ -5,6 +5,8 @@
 #include "CommandPoolVulkan.h"
 #include "SyncDeviceVulkan.h"
 #include <vulkan/vulkan.h>
+#include "OSKengine.h"
+#include "Logger.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -83,7 +85,8 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 	DynamicArray<VkDeviceQueueCreateInfo> createInfos;
 	std::set<uint32_t> uniqueQueueFamilies = {
 		queueFamilyIndices.graphicsFamily.value(),
-		queueFamilyIndices.presentFamily.value()
+		queueFamilyIndices.presentFamily.value(),
+		queueFamilyIndices.computeFamily.value()
 	};
 
 	// Creación de las colas.
@@ -106,6 +109,15 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 	features.tessellationShader = VK_TRUE; /// \todo check
 	features.fillModeNonSolid = VK_TRUE; /// \todo check
 
+	DynamicArray<VkExtensionProperties> extensionProperties;
+	uint32_t extensionCount = 0;
+	vkEnumerateDeviceExtensionProperties(physicalDevice, nullptr, &extensionCount, nullptr);
+	extensionProperties.Resize(extensionCount);
+	vkEnumerateDeviceExtensionProperties(physicalDevice, nullptr, &extensionCount, extensionProperties.GetData());
+
+	//for (const auto& ext : extensionProperties)
+	//	Engine::GetLogger()->DebugLog("		Extensión: " + std::string(ext.extensionName));
+
 	// RT
 	if (!info.IsRtCompatible()) {
 		gpuExtensions.Insert(VK_KHR_ACCELERATION_STRUCTURE_EXTENSION_NAME);
@@ -119,7 +131,10 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 		gpuExtensions.Insert(VK_KHR_SHADER_FLOAT_CONTROLS_EXTENSION_NAME);
 	}
 
-	// gpuExtensions.Insert(VK_KHR_DYNAMIC_RENDERING_EXTENSION_NAME);
+#ifdef OSK_DEBUG
+	// gpuExtensions.Insert(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
+	// gpuExtensions.Insert(VK_EXT_DEBUG_MARKER_EXTENSION_NAME);
+#endif // OSK_DEBUG
 
 	// Crear el logical device.
 	VkDeviceCreateInfo createInfo{};
@@ -218,35 +233,6 @@ QueueFamilyIndices GpuVulkan::GetQueueFamilyIndices(VkSurfaceKHR surface) const 
 
 OwnedPtr<ISyncDevice> GpuVulkan::CreateSyncDevice() {
 	auto output = new SyncDeviceVulkan;
-
-	auto imageAvailableSemaphores = DynamicArray<VkSemaphore>::CreateResizedArray(3, VK_NULL_HANDLE);
-	auto renderFinishedSemaphores = DynamicArray<VkSemaphore>::CreateResizedArray(3, VK_NULL_HANDLE);
-
-	auto inFlightFences = DynamicArray<VkFence>::CreateResizedArray(3, VK_NULL_HANDLE);
-	auto imagesInFlight = DynamicArray<VkFence>::CreateResizedArray(3, VK_NULL_HANDLE);
-
-	VkSemaphoreCreateInfo semaphoreInfo{};
-	semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
-
-	VkFenceCreateInfo fenceInfo{};
-	fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
-	fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
-
-	for (TSize i = 0; i < 3; i++) {
-		VkResult result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &imageAvailableSemaphores[i]);
-		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el semáforo.");
-		
-		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &renderFinishedSemaphores[i]);
-		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el semáforo.");
-
-		result = vkCreateFence(logicalDevice, &fenceInfo, nullptr, &inFlightFences[i]); 
-		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el fence.");
-	}
-
-	output->SetImageAvailableSemaphores(imageAvailableSemaphores);
-	output->SetRenderFinishedSemaphores(renderFinishedSemaphores);
-	output->SetImagesInFlightFences(imagesInFlight);
-	output->SetInFlightFences(inFlightFences);
 
 	return output;
 }

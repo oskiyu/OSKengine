@@ -86,6 +86,10 @@ void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* de
 	OSK_ASSERT(SUCCEEDED(result), "Error al crear el pipeline. Code: " + std::to_string(result));
 }
 
+void GraphicsPipelineDx12::SetDebugName(const std::string& name) {
+	pipeline->SetName(StringToWideString(name).c_str());
+}
+
 ID3D12PipelineState* GraphicsPipelineDx12::GetPipelineState() const {
 	return pipeline.Get();
 }
@@ -304,7 +308,7 @@ ComPtr<ID3DBlob> GraphicsPipelineDx12::LoadBlob(LPCWSTR filename) const {
 	return shaderBlob;
 }
 
-ComPtr<IDxcBlob> CompileShaderSpv(const std::string& spirvPath, const VertexInfo& vertexInfo, const std::string& hlslProfile, const MaterialLayout& layout) {
+ComPtr<IDxcBlob> GraphicsPipelineDx12::CompileShaderSpv(const std::string& spirvPath, const VertexInfo& vertexInfo, const std::string& hlslProfile, const MaterialLayout& layout) const {
 	const auto bytecode = FileIO::ReadBinaryFromFile(spirvPath);
 
 	// Generación del código HLSL.

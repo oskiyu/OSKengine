@@ -15,11 +15,11 @@ void GpuMemorySubblockDx12::MapMemory() {
 }
 
 void GpuMemorySubblockDx12::MapMemory(TSize size, TSize offset) {
-	D3D12_RANGE range;
-	range.Begin = offset + totalOffsetFromBlock;
-	range.End = offset + totalOffsetFromBlock + size;
+	D3D12_RANGE range{};
+	range.Begin = offset;
+	range.End = offset + size;
 	
-	auto result = resource->Map(0, &range, &mappedData);
+	const HRESULT result = resource->Map(0, &range, &mappedData);
 
 	isMapped = true;
 }

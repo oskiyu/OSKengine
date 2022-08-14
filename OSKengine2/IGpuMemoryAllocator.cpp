@@ -14,7 +14,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-TSize IGpuMemoryAllocator::SizeOfMemoryBlockInMb = 128;
+TSize IGpuMemoryAllocator::SizeOfMemoryBlockInMb = 16;
 
 bool GpuBufferMemoryBlockInfo::operator==(const GpuBufferMemoryBlockInfo& other) const {
 	return size == other.size && usage == other.usage && sharedType == other.sharedType;
@@ -77,10 +77,10 @@ IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(TSize size, GpuBu
 	// Creamos un nuevo bloque.
 	OwnedPtr<IGpuMemoryBlock> newBlock = CreateNewBufferBlock(size, usage, sharedType);
 
-	Engine::GetLogger()->InfoLog("Creado bloque de memoria GPU.");
-	//Engine::GetLogger()->InfoLog("	Tipo: " + ToString(sharedType)); @bug ???
-	//Engine::GetLogger()->InfoLog("	Uso: " + ToString(usage)); @bug ???
-	Engine::GetLogger()->InfoLog("	Tamaño: " + std::to_string(size));
+	// Engine::GetLogger()->InfoLog("Creado bloque de memoria GPU.");
+	// Engine::GetLogger()->InfoLog("	Tipo: " + ToString(sharedType)); @bug ???
+	// Engine::GetLogger()->InfoLog("	Uso: " + ToString(usage)); @bug ???
+	// Engine::GetLogger()->InfoLog("	Tamaño: " + std::to_string(size));
 
 	LinkedList<OwnedPtr<IGpuMemoryBlock>> list;
 	list.Insert(OwnedPtr<IGpuMemoryBlock>(newBlock.GetPointer()));

@@ -1,5 +1,7 @@
 #include "GpuImageDx12.h"
 
+#include "WindowsUtils.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -48,4 +50,9 @@ D3D12_CPU_DESCRIPTOR_HANDLE GpuImageDx12::GetColorUsageDescriptorHandle() const 
 
 D3D12_CPU_DESCRIPTOR_HANDLE GpuImageDx12::GetDepthUsageDescriptorHandle() const {
 	return depthUsageDescriptorHandle;
+}
+
+void GpuImageDx12::SetDebugName(const std::string& name) {
+	auto str = StringToWideString(name);
+	resource->SetName(str.c_str());
 }

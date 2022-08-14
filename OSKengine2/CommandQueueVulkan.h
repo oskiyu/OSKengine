@@ -20,10 +20,12 @@ namespace OSK::GRAPHICS {
 
 		void Create(TSize nativeQueueIndex, const GpuVulkan& gpu);
 		VkQueue GetQueue() const;
+		uint32_t GetQueueIndex() const;
 
 	private:
 
 		VkQueue queue = 0;
+		uint32_t queueIndex = 0;
 
 	};
 

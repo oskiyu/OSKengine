@@ -19,6 +19,8 @@ namespace OSK::GRAPHICS {
 
 		void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) override;
 
+		void SetDebugName(const std::string& name) override;
+
 	private:
 
 		VkPipelineRasterizationStateCreateInfo GetResterizerInfo(const PipelineCreateInfo& info) const;

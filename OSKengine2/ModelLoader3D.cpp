@@ -366,6 +366,10 @@ DynamicArray<OwnedPtr<GpuImage>> LoadImages(const tinygltf::Model& model) {
 			GpuImageDimension::d2D, 1, Format::RGBA8_UNORM, GpuImageUsage::TRANSFER_SOURCE| GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED,
 			GpuSharedMemoryType::GPU_ONLY, true);
 
+		OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList();
+		uploadCmdList->Reset();
+		uploadCmdList->Start();
+
 		const TSize numBytes = originalImage.width * originalImage.height * 4;
 		if (originalImage.component == 3) {
 			TByte* data = (TByte*)malloc(numBytes);
@@ -378,16 +382,27 @@ DynamicArray<OwnedPtr<GpuImage>> LoadImages(const tinygltf::Model& model) {
 				rgbPos += 3;
 			}
 
-			Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), originalImage.image.data(), numBytes, GpuImageLayout::SHADER_READ_ONLY);
+			uploadCmdList->SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION,
+				GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE));
+			Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), originalImage.image.data(), numBytes, uploadCmdList.GetPointer());
+			uploadCmdList->SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY,
+				GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
 
 			free(data);
 		}
 		else if (originalImage.component == 4) {
-			Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), originalImage.image.data(), numBytes, GpuImageLayout::SHADER_READ_ONLY);
+			uploadCmdList->SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION,
+				GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE));
+			Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), originalImage.image.data(), numBytes, uploadCmdList.GetPointer());
+			uploadCmdList->SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY,
+				GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
 		}
 		else {
 			OSK_ASSERT(false, "Formato de imagen no soportado en gltf2.0.");
 		}
+
+		uploadCmdList->Close();
+		Engine::GetRenderer()->SubmitSingleUseCommandList(uploadCmdList.GetPointer());
 
 		output.Insert(image);
 	}

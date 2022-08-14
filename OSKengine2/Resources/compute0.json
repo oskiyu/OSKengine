@@ -1,0 +1,10 @@
+{
+    "file_type": "MATERIAL_COMPUTE",
+    "spec_ver": 1,
+    "name": "Compute",
+
+    "compute_shader": "Resources/Shaders/VK/Compute/comp.spv",
+    "slots": {
+        "0": "texture"
+    }
+}

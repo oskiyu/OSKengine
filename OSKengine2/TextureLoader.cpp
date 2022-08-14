@@ -19,6 +19,7 @@
 #include <json.hpp>
 
 using namespace OSK::ASSETS;
+using namespace OSK::GRAPHICS;
 
 bool HasRgbFormat(OSK::GRAPHICS::RenderApiType api) {
 	return false;
@@ -61,8 +62,20 @@ void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 
 	const Vector3ui size(width, height, 1);
 	auto image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(size, GRAPHICS::GpuImageDimension::d2D, 1, imageFormat, GRAPHICS::GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_SOURCE | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION, GRAPHICS::GpuSharedMemoryType::GPU_ONLY, true);
-	
-	Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), pixels, image->GetNumberOfBytes(), GRAPHICS::GpuImageLayout::SHADER_READ_ONLY);
+
+	OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList();
+	uploadCmdList->Reset();
+	uploadCmdList->Start();
+
+	uploadCmdList->SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION,
+		GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE));
+	Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), pixels, image->GetNumberOfBytes(), uploadCmdList.GetPointer());
+	uploadCmdList->SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY,
+		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
+
+	uploadCmdList->Close();
+	Engine::GetRenderer()->SubmitSingleUseCommandList(uploadCmdList.GetPointer());
+
 	stbi_image_free(pixels);
 
 	output->_SetImage(image);

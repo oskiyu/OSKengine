@@ -3,8 +3,7 @@
 #include "ICommandList.h"
 #include "DynamicArray.hpp"
 
-struct VkCommandBuffer_T;
-typedef VkCommandBuffer_T* VkCommandBuffer;
+#include <vulkan/vulkan.h>
 
 namespace OSK::GRAPHICS {
 
@@ -53,7 +52,7 @@ namespace OSK::GRAPHICS {
 		void BindComputePipeline(const IComputePipeline& computePipeline);
 		void DispatchCompute(const Vector3ui& groupCount);
 
-		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers, TSize baseMipLevel, TSize numMipLevels) override;
+		void SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageBarrierInfo& prevImageInfo) override;
 
 		void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer, TSize offset) override;
 		void CopyImageToImage(const GpuImage* source, GpuImage* destination, TSize numLayers, TSize srcStartLayer, TSize dstStartLayer, TSize srcMipLevel, TSize dstMipLevel, Vector2ui copySize) override;
@@ -71,7 +70,12 @@ namespace OSK::GRAPHICS {
 		void SetViewport(const Viewport& viewport) override;
 		void SetScissor(const Vector4ui& scissor) override;
 
+		void SetDebugName(const std::string& name) override;
+
 	private:
+
+		VkPipelineStageFlagBits GetPipelineStage(GpuBarrierStage stage) const;
+		VkAccessFlags GetPipelineAccess(GpuBarrierAccessStage stage) const;
 
 		/// <summary>
 		/// Varias listas nativas, una por cada imagen en el swapchain.

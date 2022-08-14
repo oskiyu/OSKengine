@@ -9,18 +9,27 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-Material::Material(const PipelineCreateInfo& pipelineInfo, OwnedPtr<MaterialLayout> layout, const VertexInfo& vertexInfo)
-	: pipelineInfo(pipelineInfo), vertexInfo(vertexInfo) {
+Material::Material(const PipelineCreateInfo& pipelineInfo, OwnedPtr<MaterialLayout> layout, const VertexInfo& vertexInfo, MaterialType materialType)
+	: pipelineInfo(pipelineInfo), vertexInfo(vertexInfo), materialType(materialType) {
 
 	this->layout = layout.GetPointer();
 
-	if (pipelineInfo.isRaytracing && Engine::GetRenderer()->IsRtActive()) {
-		rtPipeline = Engine::GetRenderer()->_CreateRaytracingPipeline(pipelineInfo, layout.GetPointer(), vertexInfo).GetPointer();
+	switch (materialType) {
+
+	case MaterialType::RAYTRACING:
+		if (Engine::GetRenderer()->IsRtActive())
+			rtPipeline = Engine::GetRenderer()->_CreateRaytracingPipeline(pipelineInfo, layout.GetPointer(), vertexInfo).GetPointer();
+		break;
+
+	case MaterialType::COMPUTE:
+		computePipeline = Engine::GetRenderer()->_CreateComputePipeline(pipelineInfo, layout.GetPointer()).GetPointer();
+	
 	}
+
 }
 
-Material::~Material() {
-
+void Material::SetName(const std::string& name) {
+	this->name = name;
 }
 
 OwnedPtr<MaterialInstance> Material::CreateInstance() {
@@ -32,8 +41,8 @@ OwnedPtr<MaterialInstance> Material::CreateInstance() {
 	return output;
 }
 
-bool Material::IsRaytracing() const {
-	return pipelineInfo.isRaytracing;
+MaterialType Material::GetMaterialType() const {
+	return materialType;
 }
 
 const MaterialLayout* Material::GetLayout() const {
@@ -65,6 +74,7 @@ const IGraphicsPipeline* Material::GetGraphicsPipeline(const PipelineKey& key) {
 	// Crear nuevo pipeline compatible.
 	pipelineInfo.formats = key;
 	OwnedPtr<IGraphicsPipeline> output = Engine::GetRenderer()->_CreateGraphicsPipeline(pipelineInfo, GetLayout(), vertexInfo);
+	output->SetDebugName(name);
 
 	graphicsPipelines.Insert({ key, output.GetPointer() });
 
@@ -73,4 +83,8 @@ const IGraphicsPipeline* Material::GetGraphicsPipeline(const PipelineKey& key) {
 
 const IRaytracingPipeline* Material::GetRaytracingPipeline() const {
 	return rtPipeline.GetPointer();
+}
+
+const IComputePipeline* Material::GetComputePipeline() const {
+	return computePipeline.GetPointer();
 }

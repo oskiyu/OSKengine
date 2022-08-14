@@ -374,7 +374,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 	}
 }
 
-void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info) {
+void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info, MaterialType type) {
 	TSize pushConstantsOffset = 0;
 
 	TSize numHlslBuffers = 0;
@@ -383,7 +383,7 @@ void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json
 
 	info->precompiledHlslShaders = false;
 
-	if (info->isRaytracing) {
+	if (type == MaterialType::RAYTRACING) {
 		info->rtRaygenShaderPath = materialInfo["rt_raygen_shader"];
 		info->rtClosestHitShaderPath = materialInfo["rt_closesthit_shader"];
 		info->rtMissShaderPath = materialInfo["rt_miss_shader"];
@@ -392,7 +392,7 @@ void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json
 		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["rt_closesthit_shader"]), ShaderStage::RT_CLOSEST_HIT, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
 		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["rt_miss_shader"]), ShaderStage::RT_MISS, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
 	}
-	else {
+	else if (type == MaterialType::GRAPHICS) {
 		info->vertexPath = materialInfo["vertex_shader"];
 		info->fragmentPath = materialInfo["fragment_shader"];
 
@@ -406,6 +406,10 @@ void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json
 			LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["tesselation_evaluation_shader"]), ShaderStage::TESSELATION_EVALUATION, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
 			info->tesselationEvaluationPath = materialInfo["tesselation_evaluation_shader"];
 		}
+	}
+	else if (type == MaterialType::COMPUTE) {
+		info->computeShaderPath = materialInfo["compute_shader"];
+		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["compute_shader"]), ShaderStage::COMPUTE, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
 	}
 
 	TSize nextHlslBinding = 0;
@@ -433,31 +437,34 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 
 	OSK_ASSERT(materialInfo.contains("file_type"), "Archivo de material incorrecto: no se encuentra 'file_type'.");
 	OSK_ASSERT(materialInfo.contains("name"), "Archivo de material incorrecto: no se encuentra 'name'.");
-	OSK_ASSERT(materialInfo.contains("vertex_type"), "Archivo de material incorrecto: no se encuentra 'vertex_type'.");
 
-	bool isRaytracing = false;
+	MaterialType type = MaterialType::GRAPHICS;
 	if (materialInfo["file_type"] == "MATERIAL_RT") {
 		OSK_ASSERT(Engine::GetRenderer()->SupportsRaytracing(), "No se puede cargar un material de raytracing.");
-		isRaytracing = true;
+		type = MaterialType::RAYTRACING;
 	}
-	else {
-		OSK_ASSERT(materialInfo["file_type"] == "MATERIAL", std::string("Archivo ") + path + "no es un material.");
+	else if (materialInfo["file_type"] == "MATERIAL_COMPUTE") {
+		type = MaterialType::COMPUTE;
 	}
 	
-	const std::string vertexName = materialInfo["vertex_type"];
-	const VertexInfo& vertexType = vertexTypesTable.Get(vertexName);
+	VertexInfo vertexType = {};
+	
+	if (type == MaterialType::GRAPHICS) {
+		OSK_ASSERT(materialInfo.contains("vertex_type"), "Archivo de material incorrecto: no se encuentra 'vertex_type'.");
+		vertexType = vertexTypesTable.Get(materialInfo["vertex_type"]);
+	}
 
 	int fileVersion = materialInfo["spec_ver"];
 
 	PipelineCreateInfo info{};
 	info.cullMode = PolygonCullMode::BACK;
 	info.frontFaceType = PolygonFrontFaceType::COUNTERCLOCKWISE;
-	info.isRaytracing = isRaytracing;
+	info.isRaytracing = type == MaterialType::RAYTRACING;
 
 	if (fileVersion == 0)
 		LoadMaterialV0(layout, materialInfo, &info);
 	else if (fileVersion == 1)
-		LoadMaterialV1(layout, materialInfo, &info);
+		LoadMaterialV1(layout, materialInfo, &info, type);
 	else
 		OSK_ASSERT(false, "La versión del archivo de material json no está soportada (" + std::to_string(fileVersion) + ").");
 
@@ -483,17 +490,10 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 			else
 				OSK_ASSERT(false, "Error en el archivo de material" + path + ": config cull_mode inválido.");
 		}
-
-		if (materialInfo["config"].contains("format"))
-			info.formats = { GetFormatFromString(materialInfo["config"]["format"]) };
-
-		if (materialInfo["config"].contains("is_final")) {
-			if (materialInfo["config"]["is_final"] == "true")
-				info.formats = { Engine::GetRenderer()->_GetSwapchain()->GetColorFormat() };
-		}
 	}
 
-	auto output = new Material(info, layout, vertexType);
+	auto output = new Material(info, layout, vertexType, type);
+	output->SetName(materialInfo["name"]);
 
 	materials.Insert(output);
 

@@ -93,6 +93,9 @@ unsigned int OSK::GRAPHICS::GetGpuImageUsageVulkan(GpuImageUsage usage) {
 	if (OSK_CONTAINS_FLAG(usage, GpuImageUsage::RT_TARGET_IMAGE))
 		flags = flags | VK_IMAGE_USAGE_STORAGE_BIT;
 
+	if (OSK_CONTAINS_FLAG(usage, GpuImageUsage::COMPUTE))
+		flags = flags | VK_IMAGE_USAGE_STORAGE_BIT;
+
 	return flags;
 }
 

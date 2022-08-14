@@ -26,7 +26,7 @@ GpuMemoryBlockDx12::GpuMemoryBlockDx12(GpuImage* image, IGpu* device, GpuSharedM
 	resourceDesc.Height = sizeY;
 	resourceDesc.DepthOrArraySize = image->GetNumLayers() == 1 ? image->GetPhysicalSize().Z : image->GetNumLayers();
 	resourceDesc.Dimension = (D3D12_RESOURCE_DIMENSION)((TSize)image->GetDimension() + 1);
-	resourceDesc.Alignment = 0;// D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
+	resourceDesc.Alignment =  D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
 	resourceDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
 	resourceDesc.MipLevels = 1;
 	resourceDesc.SampleDesc.Count = 1;
@@ -78,7 +78,7 @@ OwnedPtr<IGpuMemorySubblock> GpuMemoryBlockDx12::CreateNewMemorySubblock(TSize s
 		createInfo.Height = 1;
 		createInfo.DepthOrArraySize = 1;
 		createInfo.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
-		createInfo.Alignment = 0;// D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
+		createInfo.Alignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
 		createInfo.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
 		createInfo.Flags = D3D12_RESOURCE_FLAG_NONE;
 		createInfo.MipLevels = 1;

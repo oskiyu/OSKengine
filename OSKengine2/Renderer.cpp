@@ -24,9 +24,18 @@ IRenderer::IRenderer(RenderApiType type, bool requestRayTracing) : renderApiType
 	materialSystem = new MaterialSystem;
 }
 
-ICommandList* IRenderer::GetCommandList() const {
+ICommandList* IRenderer::GetPreComputeCommandList() const{
+	return preComputeCommandList.GetPointer();
+}
+
+ICommandList* IRenderer::GetGraphicsCommandList() const {
 	return graphicsCommandList.GetPointer();
 }
+
+ICommandList* IRenderer::GetPostComputeCommandList() const{
+	return postComputeCommandList.GetPointer();
+}
+
 
 IGpuMemoryAllocator* IRenderer::GetMemoryAllocator() const {
 	return gpuMemoryAllocator.GetPointer();
@@ -36,7 +45,7 @@ IGpu* IRenderer::GetGpu() const {
 	return currentGpu.GetPointer();
 }
 
-void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout, TSize numLayers) {
+void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, TSize numLayers, ICommandList* cmdList) {
 	TSize gpuNumBytes = destination->GetPhysicalNumberOfBytes() * numLayers;
 
 	const TByte* uploadableData = this->FormatImageDataForGpu(destination, data, numLayers);
@@ -46,20 +55,9 @@ void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data
 	stagingBuffer->Write(uploadableData, gpuNumBytes);
 	stagingBuffer->Unmap();
 
-	auto commandList = CreateSingleUseCommandList();
-	commandList->RegisterStagingBuffer(stagingBuffer);
-	commandList->Reset();
-	commandList->Start();
-	commandList->TransitionImageLayout(destination, GpuImageLayout::TRANSFER_DESTINATION, 0, numLayers);
-
 	TSize offsetPerIteration = gpuNumBytes / numLayers;
 	for (TSize i = 0; i < numLayers; i++)
-		commandList->CopyBufferToImage(stagingBuffer.GetPointer(), destination, i, offsetPerIteration * i);
-
-	commandList->TransitionImageLayout(destination, finalLayout, 0, numLayers);
-
-	commandList->Close();
-	SubmitSingleUseCommandList(commandList.GetPointer());
+		cmdList->CopyBufferToImage(stagingBuffer.GetPointer(), destination, i, offsetPerIteration * i);
 
 	if (data != uploadableData)
 		delete[] uploadableData;
@@ -84,12 +82,12 @@ const TByte* IRenderer::FormatImageDataForGpu(const GpuImage* image, const TByte
 	return data;
 }
 
-void IRenderer::UploadImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout) {
-	UploadLayeredImageToGpu(destination, data, numBytes, finalLayout, 1);
+void IRenderer::UploadImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, ICommandList* cmdList) {
+	UploadLayeredImageToGpu(destination, data, numBytes, 1, cmdList);
 }
 
-void IRenderer::UploadCubemapImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout) {
-	UploadLayeredImageToGpu(destination, data, numBytes, finalLayout, 6);
+void IRenderer::UploadCubemapImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, ICommandList* cmdList) {
+	UploadLayeredImageToGpu(destination, data, numBytes, 6, cmdList);
 }
 
 OwnedPtr<ICommandList> IRenderer::CreateSingleUseCommandList() {

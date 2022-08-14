@@ -1,17 +1,10 @@
 {
-    "file_type": "MATERIAL",
+    "file_type": "MATERIAL_COMPUTE",
     "spec_ver": 1,
     "name": "Bloom",
 
-    "vertex_shader": "Resources/Shaders/VK/PBR/Bloom/vert.spv",
-    "fragment_shader": "Resources/Shaders/VK/PBR/Bloom/frag.spv",
+    "compute_shader": "Resources/Shaders/VK/Compute/bloom.spv",
     
-    "vertex_type": "OSK::Vertex2D",
-    "config": {
-        "depth_testing": "none",
-        "cull_mode": "none"
-    },
-
     "slots": {
         "0": "texture"
     }

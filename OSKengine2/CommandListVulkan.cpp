@@ -25,6 +25,7 @@
 #include "RendererVulkan.h"
 #include "RtShaderTableVulkan.h"
 #include "ComputePipelineVulkan.h"
+#include "GpuVulkan.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -59,112 +60,36 @@ void CommandListVulkan::Close() {
 	OSK_ASSERT(result == VK_SUCCESS, "No se pudo finalizar la lista de comandos.");
 }
 
-void CommandListVulkan::TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers, TSize baseMipLevel, TSize numMipLevels) {
+void CommandListVulkan::SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageBarrierInfo& prevImageInfo) {
 	VkImageMemoryBarrier barrier{};
 	barrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
-	barrier.oldLayout = GetGpuImageLayoutVulkan(previous);
-	barrier.newLayout = GetGpuImageLayoutVulkan(next);
+	barrier.oldLayout = GetGpuImageLayoutVulkan(previousLayout);
+	barrier.newLayout = GetGpuImageLayoutVulkan(nextLayout);
 	barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
 	barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
 	barrier.image = image->As<GpuImageVulkan>()->GetVkImage();
-	barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-	barrier.subresourceRange.baseMipLevel = baseMipLevel;
-	barrier.subresourceRange.levelCount = numMipLevels == 0 ? VK_REMAINING_MIP_LEVELS : numMipLevels;
-	barrier.subresourceRange.baseArrayLayer = baseLayer;
-	barrier.subresourceRange.layerCount = numLayers;
-	barrier.srcAccessMask = 0;
-	barrier.dstAccessMask = 0;
+	barrier.subresourceRange.aspectMask = 0;
+	barrier.subresourceRange.baseMipLevel = prevImageInfo.baseMipLevel;
+	barrier.subresourceRange.levelCount = prevImageInfo.numMipLevels;
+	barrier.subresourceRange.baseArrayLayer = prevImageInfo.baseLayer;
+	barrier.subresourceRange.layerCount = prevImageInfo.numLayers;
 
-	VkPipelineStageFlags sourceStage{};
-	VkPipelineStageFlags destinationStage{};
+	if (EFTraits::HasFlag(prevImageInfo.channel, SampledChannel::COLOR))
+		barrier.subresourceRange.aspectMask = barrier.subresourceRange.aspectMask | VK_IMAGE_ASPECT_COLOR_BIT;
+	if (EFTraits::HasFlag(prevImageInfo.channel, SampledChannel::DEPTH))
+		barrier.subresourceRange.aspectMask = barrier.subresourceRange.aspectMask | VK_IMAGE_ASPECT_DEPTH_BIT;
+	if (EFTraits::HasFlag(prevImageInfo.channel, SampledChannel::STENCIL))
+		barrier.subresourceRange.aspectMask = barrier.subresourceRange.aspectMask | VK_IMAGE_ASPECT_STENCIL_BIT;
 
-	switch (GetGpuImageLayoutVulkan(previous)) {
-	case VK_IMAGE_LAYOUT_UNDEFINED:
-		barrier.srcAccessMask = 0;
-		sourceStage = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
-		break;
+	// TOdo: process defaults
 
-	case VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL:
-		barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
-		sourceStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
-		break;
+	barrier.srcAccessMask = GetPipelineAccess(previous.accessStage);
+	barrier.dstAccessMask = GetPipelineAccess(next.accessStage);
 
-	case VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL:
-		barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
-		sourceStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
-		break;
-
-	case VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL:
-		barrier.srcAccessMask = VK_ACCESS_SHADER_READ_BIT;
-		sourceStage = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
-		break;
-
-	case VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL:
-		barrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-		sourceStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-		break;
-
-	case VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL:/*/*/
-		barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT;
-		barrier.srcAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT | VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
-		sourceStage = VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT;
-		break;
-
-	case VK_IMAGE_LAYOUT_GENERAL:
-		barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-		barrier.srcAccessMask = VK_ACCESS_MEMORY_WRITE_BIT;
-		sourceStage = VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT;
-
-	default:
-		OSK_ASSERT(false, "Layout no soportado.");
-		break;
-	}
-
-	switch (GetGpuImageLayoutVulkan(next)) {
-	case VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL:
-		barrier.dstAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
-		destinationStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
-		break;
-
-	case VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL:
-		barrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
-		destinationStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
-		break;
-
-	case VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL:
-		barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
-		destinationStage = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
-		break;
-
-	case VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL:
-		barrier.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-		destinationStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-		break;
-
-	case VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL:
-		barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT;
-		barrier.dstAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT | VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
-		destinationStage = VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
-		break;
-
-	case VK_IMAGE_LAYOUT_PRESENT_SRC_KHR:
-		barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-		destinationStage = VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT;
-		break;
-
-	case VK_IMAGE_LAYOUT_GENERAL:
-		destinationStage = VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT;
-		barrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
-		break;
-
-	default:
-		OSK_ASSERT(false, "Layout no soportado.");
-		break;
-	}
+	const VkPipelineStageFlags sourceStage = GetPipelineStage(previous.stage);
+	const VkPipelineStageFlags destinationStage = GetPipelineStage(next.stage);
 
 	vkCmdPipelineBarrier(commandBuffers[GetCommandListIndex()], sourceStage, destinationStage, 0, 0, nullptr, 0, nullptr, 1, &barrier);
-
-	image->SetLayout(next);
 }
 
 void CommandListVulkan::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer, TSize offset) {
@@ -186,6 +111,7 @@ void CommandListVulkan::CopyBufferToImage(const GpuDataBuffer* source, GpuImage*
 		1
 	};
 
+	// Layout[0] = TRANSFER_DEST
 	vkCmdCopyBufferToImage(commandBuffers[GetCommandListIndex()],
 		source->GetMemoryBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer(), 
 		dest->As<GpuImageVulkan>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
@@ -194,7 +120,11 @@ void CommandListVulkan::CopyBufferToImage(const GpuDataBuffer* source, GpuImage*
 	Vector2i mipSize = { static_cast<int>(dest->GetSize().X), static_cast<int>(dest->GetSize().Y) };
 	// El nivel 0 ya está lleno.
 	for (TSize mipLevel = 1; mipLevel < dest->GetMipLevels(); mipLevel++) {
-		TransitionImageLayout(dest, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::TRANSFER_SOURCE, layer, 1, mipLevel - 1, 1);
+
+		// Mip anterior: layout DESTINATION -> SOURCE
+		SetGpuImageBarrier(dest, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::TRANSFER_SOURCE, 
+			GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ), 
+			{ .baseLayer = layer, .numLayers = 1, .baseMipLevel = mipLevel - 1, .numMipLevels = 1 });
 
 		VkImageBlit blit{};
 
@@ -216,6 +146,7 @@ void CommandListVulkan::CopyBufferToImage(const GpuDataBuffer* source, GpuImage*
 		blit.dstSubresource.baseArrayLayer = layer;
 		blit.dstSubresource.layerCount = 1;
 
+		// Mip actual: layout DESTINATION
 		vkCmdBlitImage(commandBuffers[GetCommandListIndex()],
 			dest->As<GpuImageVulkan>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
 			dest->As<GpuImageVulkan>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
@@ -226,9 +157,16 @@ void CommandListVulkan::CopyBufferToImage(const GpuDataBuffer* source, GpuImage*
 		if (mipSize.Y > 1)
 			mipSize.Y /= 2;
 	}
-	TransitionImageLayout(dest, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::TRANSFER_SOURCE, layer, 1, dest->GetMipLevels() - 1, 1);
 
-	TransitionImageLayout(dest, GpuImageLayout::TRANSFER_SOURCE, GpuImageLayout::TRANSFER_DESTINATION, layer, 1, 0, 0);
+	// Establecer layout del último nivel = TRANSFER_SOURCE
+	SetGpuImageBarrier(dest, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::TRANSFER_SOURCE, 
+		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ),
+		{ .baseLayer = layer, .numLayers = 1, .baseMipLevel = dest->GetMipLevels() - 1, .numMipLevels = 1 });
+
+	// Establecer todo TRANSFER_SOURCE -> TRANSFER_DESTINATION
+	SetGpuImageBarrier(dest, GpuImageLayout::TRANSFER_SOURCE, GpuImageLayout::TRANSFER_DESTINATION, 
+		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
+		{ .baseLayer = layer, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 }
 
 void CommandListVulkan::CopyImageToImage(const GpuImage* source, GpuImage* destination, TSize numLayers, TSize srcStartLayer, TSize dstStartLayer, TSize srcMipLevel, TSize dstMipLevel, Vector2ui copySize) {
@@ -278,8 +216,11 @@ void CommandListVulkan::CopyBuffer(const GpuDataBuffer* source, GpuDataBuffer* d
 void CommandListVulkan::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color) {
 	const Vector2ui targetSize = { colorImages[0].targetImage->GetSize().X, colorImages[0].targetImage->GetSize().Y };
 
-	for (const auto& img : colorImages)
-		TransitionImageLayout(img.targetImage, GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, img.arrayLevel, 1, 0, 0);
+	for (const auto& img : colorImages) {
+		SetGpuImageBarrier(img.targetImage, GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, 
+			GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT), GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE), 
+			{ .baseLayer = img.arrayLevel, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, });
+	}
 
 	DynamicArray<VkRenderingAttachmentInfo> colorAttachments = DynamicArray<VkRenderingAttachmentInfo>::CreateResizedArray(colorImages.GetSize());
 	for (TSize i = 0; i < colorImages.GetSize(); i++) {
@@ -332,8 +273,11 @@ void CommandListVulkan::EndGraphicsRenderpass() {
 		? GpuImageLayout::PRESENT
 		: GpuImageLayout::SHADER_READ_ONLY;
 
-	for (const auto& img : currentColorImages)
-		TransitionImageLayout(img.targetImage, GpuImageLayout::COLOR_ATTACHMENT, finalLayout, img.arrayLevel, 1, 0, 0);
+	for (const auto& img : currentColorImages) {
+		SetGpuImageBarrier(img.targetImage, GpuImageLayout::COLOR_ATTACHMENT, finalLayout,
+			GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
+			{ .baseLayer = img.arrayLevel, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, });
+	}
 
 	if (currentRenderpassType != RenderpassType::INTERMEDIATE)
 		currentRenderpassType = RenderpassType::INTERMEDIATE;
@@ -342,21 +286,29 @@ void CommandListVulkan::EndGraphicsRenderpass() {
 void CommandListVulkan::BindMaterial(Material* material) {
 	currentMaterial = material;
 
-	if (material->IsRaytracing()) {
-		currentRtPipeline = material->GetRaytracingPipeline();
-		currentPipeline = nullptr;
-
-		vkCmdBindPipeline(commandBuffers[GetCommandListIndex()], VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR, currentRtPipeline->As<RaytracingPipelineVulkan>()->GetPipeline());
-	}
-	else {
-		DynamicArray<Format> colorFormats;
+	switch (material->GetMaterialType()) {
+	case MaterialType::GRAPHICS: {
+		DynamicArray<Format> colorFormats{};
 		for (const auto& colorImg : currentColorImages)
 			colorFormats.Insert(colorImg.targetImage->GetFormat());
 
-		currentPipeline = material->GetGraphicsPipeline(colorFormats);
-		currentRtPipeline = nullptr;
+		currentPipeline.graphics = material->GetGraphicsPipeline(colorFormats);
 
-		vkCmdBindPipeline(commandBuffers[GetCommandListIndex()], VK_PIPELINE_BIND_POINT_GRAPHICS, currentPipeline->As<GraphicsPipelineVulkan>()->GetPipeline());
+		vkCmdBindPipeline(commandBuffers[GetCommandListIndex()], VK_PIPELINE_BIND_POINT_GRAPHICS, currentPipeline.graphics->As<GraphicsPipelineVulkan>()->GetPipeline());
+	}
+		break;
+
+	case MaterialType::RAYTRACING:
+		currentPipeline.raytracing = material->GetRaytracingPipeline();
+		vkCmdBindPipeline(commandBuffers[GetCommandListIndex()], VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR, currentPipeline.raytracing->As<RaytracingPipelineVulkan>()->GetPipeline());
+
+		break;
+
+	case MaterialType::COMPUTE:
+		currentPipeline.compute = material->GetComputePipeline();
+		vkCmdBindPipeline(commandBuffers[GetCommandListIndex()], VK_PIPELINE_BIND_POINT_COMPUTE, currentPipeline.compute->As<ComputePipelineVulkan>()->GetPipeline());
+
+		break;
 	}
 }
 
@@ -378,23 +330,33 @@ void CommandListVulkan::BindIndexBuffer(const IGpuIndexBuffer* buffer) {
 void CommandListVulkan::BindMaterialSlot(const IMaterialSlot* slot) {
 	VkDescriptorSet sets[] = { slot->As<MaterialSlotVulkan>()->GetDescriptorSet(Engine::GetRenderer()->GetCurrentCommandListIndex()) };
 
-	const VkPipelineBindPoint bindPoint = currentMaterial->IsRaytracing() 
-		? VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR 
-		: VK_PIPELINE_BIND_POINT_GRAPHICS;
+	VkPipelineBindPoint bindPoint{};
+	switch (currentMaterial->GetMaterialType()) {
+		case MaterialType::COMPUTE: bindPoint = VK_PIPELINE_BIND_POINT_COMPUTE; break;
+		case MaterialType::GRAPHICS: bindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS; break;
+		case MaterialType::RAYTRACING: bindPoint = VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR; break;
+	}
 
-	const VkPipelineLayout layout = currentMaterial->IsRaytracing() 
-		? currentRtPipeline->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout()
-		: currentPipeline->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout();
-
+	VkPipelineLayout layout = VK_NULL_HANDLE;
+	switch (currentMaterial->GetMaterialType()) {
+		case MaterialType::COMPUTE: layout = currentPipeline.compute->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout(); break;
+		case MaterialType::GRAPHICS: layout = currentPipeline.graphics->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout(); break;
+		case MaterialType::RAYTRACING: layout = currentPipeline.raytracing->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout(); break;
+	}
 	vkCmdBindDescriptorSets(commandBuffers[GetCommandListIndex()], bindPoint, layout,
 		currentMaterial->GetLayout()->GetSlot(slot->GetName()).glslSetIndex, 1, sets, 0, nullptr);
 }
 
 void CommandListVulkan::PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) {
-	VkPipelineLayout pipelineLayout = currentPipeline->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout();
+	VkPipelineLayout layout = VK_NULL_HANDLE;
+	switch (currentMaterial->GetMaterialType()) {
+		case MaterialType::COMPUTE: layout = currentPipeline.compute->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout(); break;
+		case MaterialType::GRAPHICS: layout = currentPipeline.graphics->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout(); break;
+		case MaterialType::RAYTRACING: layout = currentPipeline.raytracing->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout(); break;
+	}
 	auto& pushConstInfo = currentMaterial->GetLayout()->GetPushConstant(pushConstName);
 
-	vkCmdPushConstants(commandBuffers[GetCommandListIndex()], pipelineLayout, GetShaderStageVk(pushConstInfo.stage), pushConstInfo.offset + offset, size, data);
+	vkCmdPushConstants(commandBuffers[GetCommandListIndex()], layout, GetShaderStageVk(pushConstInfo.stage), pushConstInfo.offset + offset, size, data);
 }
 
 void CommandListVulkan::DrawSingleInstance(TSize numIndices) {
@@ -406,7 +368,7 @@ void CommandListVulkan::DrawSingleMesh(TSize firstIndex, TSize numIndices) {
 }
 
 void CommandListVulkan::TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) {
-	const RtShaderTableVulkan* shaderTable = currentRtPipeline->GetShaderTable()->As<RtShaderTableVulkan>();
+	const RtShaderTableVulkan* shaderTable = currentPipeline.raytracing->GetShaderTable()->As<RtShaderTableVulkan>();
 
 	const VkStridedDeviceAddressRegionKHR raygenTable = shaderTable->GetRaygenTableAddressRegion();
 	const VkStridedDeviceAddressRegionKHR closestHitTable = shaderTable->GetClosestHitTableAddressRegion();
@@ -454,4 +416,92 @@ void CommandListVulkan::SetScissor(const Vector4ui& scissorRect) {
 	};
 	
 	vkCmdSetScissor(commandBuffers[GetCommandListIndex()], 0, 1, &scissor);
+}
+
+void CommandListVulkan::SetDebugName(const std::string& name) {
+	VkDebugUtilsObjectNameInfoEXT nameInfo{};
+	nameInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT;
+	nameInfo.objectType = VK_OBJECT_TYPE_COMMAND_BUFFER;
+	nameInfo.pNext = nullptr;
+
+	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
+
+	for (TSize i = 0; i < commandBuffers.GetSize(); i++) {
+		std::string nname = name + "[" + std::to_string(i) + "]";
+		nameInfo.pObjectName = nname.c_str();
+		nameInfo.objectHandle = (uint64_t)commandBuffers.At(i);
+
+		if (RendererVulkan::pvkSetDebugUtilsObjectNameEXT != nullptr)
+			RendererVulkan::pvkSetDebugUtilsObjectNameEXT(logicalDevice, &nameInfo);
+	}
+}
+
+
+VkPipelineStageFlagBits CommandListVulkan::GetPipelineStage(GpuBarrierStage stage) const {
+	switch (stage) {
+	case OSK::GRAPHICS::GpuBarrierStage::VERTEX_SHADER:
+		return VK_PIPELINE_STAGE_VERTEX_SHADER_BIT;
+	case OSK::GRAPHICS::GpuBarrierStage::FRAGMENT_SHADER:
+		return VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+	case OSK::GRAPHICS::GpuBarrierStage::TESSELATION_CONTROL:
+		return VK_PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT;
+	case OSK::GRAPHICS::GpuBarrierStage::TESSELATION_EVALUATION:
+		return VK_PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT;
+	case OSK::GRAPHICS::GpuBarrierStage::RAYTRACING_SHADER:
+		return VK_PIPELINE_STAGE_RAY_TRACING_SHADER_BIT_KHR;
+	case OSK::GRAPHICS::GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT:
+		return VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+	case OSK::GRAPHICS::GpuBarrierStage::TRANSFER:
+		return VK_PIPELINE_STAGE_TRANSFER_BIT;
+	case OSK::GRAPHICS::GpuBarrierStage::COMPUTE_SHADER:
+		return VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT;
+	case OSK::GRAPHICS::GpuBarrierStage::RT_AS_BUILD:
+		return VK_PIPELINE_STAGE_ACCELERATION_STRUCTURE_BUILD_BIT_KHR;
+	case OSK::GRAPHICS::GpuBarrierStage::DEPTH_STENCIL_START:
+		return VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
+	case OSK::GRAPHICS::GpuBarrierStage::DEPTH_STENCIL_END:
+		return VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT;
+	case OSK::GRAPHICS::GpuBarrierStage::DEFAULT:
+		return VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
+
+	default:
+		OSK_ASSERT(false, "No se reconoce el GpuBarrierStage.");
+		return VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
+	}
+}
+
+VkAccessFlags CommandListVulkan::GetPipelineAccess(GpuBarrierAccessStage stage) const {
+	VkAccessFlags output = 0;
+
+	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::SHADER_READ))
+		output |= VK_ACCESS_SHADER_READ_BIT;
+	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::SHADER_WRITE))
+		output |= VK_ACCESS_SHADER_WRITE_BIT;
+	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::COLOR_ATTACHMENT_READ))
+		output |= VK_ACCESS_COLOR_ATTACHMENT_READ_BIT;
+	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE))
+		output |= VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::DEPTH_STENCIL_READ))
+		output |= VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT;
+	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::DEPTH_STENCIL_WRITE))
+		output |= VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
+	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::TRANSFER_READ))
+		output |= VK_ACCESS_TRANSFER_READ_BIT;
+	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::TRANSFER_WRITE))
+		output |= VK_ACCESS_TRANSFER_WRITE_BIT;
+	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::MEMORY_READ))
+		output |= VK_ACCESS_MEMORY_READ_BIT;
+	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::MEMORY_WRITE))
+		output |= VK_ACCESS_MEMORY_WRITE_BIT;
+	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::RT_AS_READ))
+		output |= VK_ACCESS_ACCELERATION_STRUCTURE_READ_BIT_KHR;
+	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::RT_AS_WRITE))
+		output |= VK_ACCESS_ACCELERATION_STRUCTURE_WRITE_BIT_KHR;
+	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::DEFAULT))
+		return 0;
+
+	if (output == 0)
+		OSK_ASSERT(false, "No se reconoce el GpuBarrierAccessStage.");
+
+	return output;
 }

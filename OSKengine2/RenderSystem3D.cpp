@@ -12,6 +12,10 @@
 #include "Mesh3D.h"
 #include "Viewport.h"
 #include "GpuImageLayout.h"
+#include "IGpuImage.h"
+#include "GpuImageDimensions.h"
+#include "GpuMemoryTypes.h"
+#include "GpuImageSamplerDesc.h"
 
 using namespace OSK;
 using namespace OSK::ECS;
@@ -30,69 +34,24 @@ RenderSystem3D::RenderSystem3D() {
 	dirLightUniformBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
 
 	// Bloom
-	bloomMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_bloom.json");
-	for (TSize i = 0; i < _countof(bloomMaterialInstances); i++)
-		bloomMaterialInstances[i] = bloomMaterial->CreateInstance().GetPointer();
-
-	bloomResolveMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_bloom_resolve.json");
-	bloomResolveMaterialInstance = bloomResolveMaterial->CreateInstance().GetPointer();
+	bloomPass = new BloomPass();
 }
 
 void RenderSystem3D::CreateTargetImage(const Vector2ui& size) {
 	renderTarget.Create(size, Format::RGBA32_SFLOAT, Format::D32S8_SFLOAT_SUINT);
 	renderTarget.AddColorTarget(Format::RGBA8_UNORM); // Color brightness para BLOOM
 
-	for (TSize i = 0; i < _countof(bloomRenderTarget); i++)
-		bloomRenderTarget[i].Create(size, Format::RGBA8_UNORM, Format::D32S8_SFLOAT_SUINT);
+	renderTarget.SetName("RenderSystem3D Target");
 
-	bloomResolveRenderTarget.Create(size, Format::RGBA8_UNORM, Format::D32S8_SFLOAT_SUINT);
-
-	SetupBloomMaterialSlots();
+	bloomPass->Create(size);
+	bloomPass->SetInput(renderTarget);
 }
 
 void RenderSystem3D::Resize(const Vector2ui& size) {
 	IRenderSystem::Resize(size);
 
-	for (TSize i = 0; i < _countof(bloomRenderTarget); i++)
-		bloomRenderTarget[i].Resize(size);
-
-	bloomResolveRenderTarget.Resize(size);
-
-	SetupBloomMaterialSlots();
-}
-
-void RenderSystem3D::SetupBloomMaterialSlots() {
-	const GpuImage* images[NUM_RESOURCES_IN_FLIGHT]{};
-
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		images[i] = renderTarget.GetTargetImages(i)[1];
-
-	bloomMaterialInstances[0]->GetSlot("texture")->SetGpuImages("bloomTexture", images);
-	bloomMaterialInstances[0]->GetSlot("texture")->FlushUpdate();
-
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		images[i] = bloomRenderTarget[0].GetMainTargetImage(i);
-
-	bloomMaterialInstances[1]->GetSlot("texture")->SetGpuImages("bloomTexture", images);
-	bloomMaterialInstances[1]->GetSlot("texture")->FlushUpdate();
-
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		images[i] = bloomRenderTarget[1].GetMainTargetImage(i);
-
-	bloomMaterialInstances[2]->GetSlot("texture")->SetGpuImages("bloomTexture", images);
-	bloomMaterialInstances[2]->GetSlot("texture")->FlushUpdate();
-
-	// Resolve
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		images[i] = renderTarget.GetMainTargetImage(i);
-
-	bloomResolveMaterialInstance->GetSlot("texture")->SetGpuImages("sceneTexture", images);
-
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		images[i] = bloomRenderTarget[1].GetMainTargetImage(i);
-
-	bloomResolveMaterialInstance->GetSlot("texture")->SetGpuImages("bloomTexture", images);
-	bloomResolveMaterialInstance->GetSlot("texture")->FlushUpdate();
+	bloomPass->Resize(size);
+	bloomPass->SetInput(renderTarget);
 }
 
 void RenderSystem3D::SetDirectionalLight(const DirectionalLight& dirLight) {
@@ -119,7 +78,7 @@ ShadowMap* RenderSystem3D::GetShadowMap() {
 }
 
 const RenderTarget& RenderSystem3D::GetBloomRenderTarget() const {
-	return bloomResolveRenderTarget;
+	return bloomPass->GetRenderTarget();
 }
 
 void RenderSystem3D::GenerateShadows(ICommandList* commandList) {
@@ -127,7 +86,9 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList) {
 		.rectangle = { 0u, 0u, shadowMap.GetColorImage(0)->GetSize().X, shadowMap.GetColorImage(0)->GetSize().Y }
 	};
 
-	commandList->TransitionImageLayout(shadowMap.GetShadowImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::DEPTH_STENCIL_TARGET, 0, shadowMap.GetNumCascades());
+	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::DEPTH_STENCIL_TARGET,
+		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_START, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE),
+		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH | SampledChannel::STENCIL });
 
 	commandList->SetViewport(viewport);
 	commandList->SetScissor(viewport.rectangle);
@@ -169,18 +130,21 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList) {
 		commandList->EndGraphicsRenderpass();
 	}
 
-	commandList->TransitionImageLayout(shadowMap.GetShadowImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::SHADER_READ_ONLY, 0, shadowMap.GetNumCascades());
+	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::SHADER_READ_ONLY,
+		GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_END, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
+		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH |SampledChannel::STENCIL });
 }
 
 void RenderSystem3D::RenderScene(GRAPHICS::ICommandList* commandList) {
-	commandList->TransitionImageLayout(renderTarget.GetTargetImages(Engine::GetRenderer()->GetCurrentFrameIndex()).At(1), GpuImageLayout::SHADER_READ_ONLY, GpuImageLayout::COLOR_ATTACHMENT, 0, 1);
+	commandList->SetGpuImageBarrier(renderTarget.GetTargetImages(Engine::GetRenderer()->GetCurrentFrameIndex()).At(1), GpuImageLayout::SHADER_READ_ONLY,
+		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE),
+		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
 	Material* previousMaterial = nullptr;
 	IGpuVertexBuffer* previousVertexBuffer = nullptr;
 	IGpuIndexBuffer* previousIndexBuffer = nullptr;
 
 	commandList->BeginGraphicsRenderpass(&renderTarget, Color::BLACK() * 0.0f);
-
 	SetupViewport(commandList);
 
 	for (GameObjectIndex obj : GetObjects()) {
@@ -222,63 +186,8 @@ void RenderSystem3D::RenderScene(GRAPHICS::ICommandList* commandList) {
 	commandList->EndGraphicsRenderpass();
 }
 
-void RenderSystem3D::BlurBloom(ICommandList* commandList) {
-	commandList->BindVertexBuffer(Sprite::globalVertexBuffer);
-	commandList->BindIndexBuffer(Sprite::globalIndexBuffer);
-
-	struct {
-		glm::mat4 camera;
-		glm::mat4 sprite;
-		int isHorizontal;
-	} pushConst {
-		.camera = glm::ortho<float>(0.0f, (float)Engine::GetWindow()->GetWindowSize().X, (float)Engine::GetWindow()->GetWindowSize().Y, 0.0f, -1.0f, 1.0f),
-		.sprite = glm::scale(glm::mat4(1.0f), glm::vec3((float)Engine::GetWindow()->GetWindowSize().X, (float)Engine::GetWindow()->GetWindowSize().Y, 1.0f))
-	};
-
-	for (TSize i = 0; i < 10; i++) {
-		const TSize renderTargetIndex = i % 2;
-		const TSize renderTargetInputIndex = 1 - renderTargetIndex;
-
-		const IMaterialSlot* textureSlot = i == 0
-			? bloomMaterialInstances[0]->GetSlot("texture")
-			: bloomMaterialInstances[renderTargetInputIndex + 1]->GetSlot("texture");
-
-		commandList->BeginGraphicsRenderpass(&bloomRenderTarget[renderTargetIndex], Color::BLACK() * 0.0f);
-		SetupViewport(commandList);
-		commandList->BindMaterial(bloomMaterial);
-		commandList->BindMaterialSlot(textureSlot);
-
-		pushConst.isHorizontal = static_cast<float>(renderTargetIndex);
-		commandList->PushMaterialConstants("camera", pushConst);
-
-		commandList->DrawSingleInstance(6);
-
-		commandList->EndGraphicsRenderpass();
-	}
-
-	// Resolve
-	commandList->BeginGraphicsRenderpass(&bloomResolveRenderTarget, Color::BLACK() * 0.0f);
-	SetupViewport(commandList);
-	commandList->BindMaterial(bloomResolveMaterial);
-	commandList->BindMaterialSlot(bloomResolveMaterialInstance->GetSlot("texture"));
-
-	struct {
-		glm::mat4 camera;
-		glm::mat4 sprite;
-	} pushConst2 {
-		.camera = glm::ortho<float>(0.0f, (float)Engine::GetWindow()->GetWindowSize().X, (float)Engine::GetWindow()->GetWindowSize().Y, 0.0f, -1.0f, 1.0f),
-		.sprite = glm::scale(glm::mat4(1.0f), glm::vec3((float)Engine::GetWindow()->GetWindowSize().X, (float)Engine::GetWindow()->GetWindowSize().Y, 1.0f))
-	};
-
-	commandList->PushMaterialConstants("camera", pushConst2);
-
-	commandList->DrawSingleInstance(6);
-
-	commandList->EndGraphicsRenderpass();
-}
-
 void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
 	GenerateShadows(commandList);
 	RenderScene(commandList);
-	BlurBloom(commandList);
+	bloomPass->Execute(Engine::GetRenderer()->GetPreComputeCommandList());
 }
