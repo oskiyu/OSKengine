@@ -34,6 +34,9 @@ D3D12_ROOT_PARAMETER_TYPE GetParamTypeDx12(ShaderBindingType type) {
 	switch (type) {
 	case ShaderBindingType::UNIFORM_BUFFER:
 		return D3D12_ROOT_PARAMETER_TYPE_CBV;
+	case ShaderBindingType::STORAGE_BUFFER:
+	case ShaderBindingType::STORAGE_IMAGE:
+		return D3D12_ROOT_PARAMETER_TYPE_UAV;
 	case ShaderBindingType::TEXTURE:
 		//break;
 	default:
@@ -54,20 +57,20 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 	for (auto& setName : layout->GetAllSlotNames()) {
 		auto& set = layout->GetSlot(setName);
 
-		for (auto& binding : set.bindings) {
-			if (binding.second.type == ShaderBindingType::UNIFORM_BUFFER) {
+		for (auto& [name, binding] : set.bindings) {
+			if (binding.type == ShaderBindingType::UNIFORM_BUFFER) {
 				D3D12_ROOT_PARAMETER param{};
 				param.ShaderVisibility = GetShaderStageDx12(set.stage);
-				param.ParameterType = GetParamTypeDx12(binding.second.type);
+				param.ParameterType = GetParamTypeDx12(binding.type);
 				param.Descriptor.RegisterSpace = 0;
-				param.Descriptor.ShaderRegister = binding.second.hlslIndex;
+				param.Descriptor.ShaderRegister = binding.hlslIndex;
 
 				nativeParams.Insert(param);
 			}
-			else if (binding.second.type == ShaderBindingType::TEXTURE
-					|| binding.second.type == ShaderBindingType::CUBEMAP) {
+			else if (binding.type == ShaderBindingType::TEXTURE
+					|| binding.type == ShaderBindingType::CUBEMAP) {
 				OwnedPtr<D3D12_DESCRIPTOR_RANGE> textureDescriptorRange = new D3D12_DESCRIPTOR_RANGE({});
-				textureDescriptorRange[0].BaseShaderRegister = binding.second.hlslIndex;
+				textureDescriptorRange[0].BaseShaderRegister = binding.hlslIndex;
 				textureDescriptorRange[0].NumDescriptors = 1;
 				textureDescriptorRange[0].OffsetInDescriptorsFromTableStart = 0;
 				textureDescriptorRange[0].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
@@ -75,7 +78,7 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 
 				D3D12_STATIC_SAMPLER_DESC sampler{};
 				sampler.RegisterSpace = 0;
-				sampler.ShaderRegister = binding.second.hlslIndex;
+				sampler.ShaderRegister = binding.hlslIndex;
 				sampler.ShaderVisibility = GetShaderStageDx12(set.stage);
 
 				sampler.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;
@@ -97,6 +100,32 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 
 				descriptorRanges.Insert(textureDescriptorRange.GetPointer());
 				staticSamplers.Insert(sampler);
+
+				nativeParams.Insert(param);
+			}
+			else if (binding.type == ShaderBindingType::STORAGE_BUFFER) {
+				
+			}
+			else if(binding.type == ShaderBindingType::STORAGE_IMAGE) {
+				OwnedPtr<D3D12_DESCRIPTOR_RANGE> textureDescriptorRange = new D3D12_DESCRIPTOR_RANGE({});
+				textureDescriptorRange[0].BaseShaderRegister = binding.hlslDescriptorIndex;
+				textureDescriptorRange[0].NumDescriptors = 1;
+				textureDescriptorRange[0].OffsetInDescriptorsFromTableStart = 0;
+				textureDescriptorRange[0].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_UAV;
+				textureDescriptorRange[0].RegisterSpace = 0;
+
+				D3D12_UNORDERED_ACCESS_VIEW_DESC desc{};
+				desc.ViewDimension = D3D12_UAV_DIMENSION_TEXTURE2D;
+				desc.Texture2D.PlaneSlice = 0; // @todo
+				desc.Texture2D.MipSlice = 0;
+
+				D3D12_ROOT_PARAMETER param{};
+				param.ShaderVisibility = GetShaderStageDx12(set.stage);
+				param.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+				param.DescriptorTable.NumDescriptorRanges = 1;
+				param.DescriptorTable.pDescriptorRanges = textureDescriptorRange.GetPointer();
+
+				descriptorRanges.Insert(textureDescriptorRange.GetPointer());
 
 				nativeParams.Insert(param);
 			}
@@ -126,7 +155,7 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 
 	GpuDx12* gpu = Engine::GetRenderer()->GetGpu()->As<GpuDx12>();
 
-	HRESULT result = D3D12SerializeRootSignature(&description, D3D_ROOT_SIGNATURE_VERSION_1_0, &sign, &error);
+	const HRESULT result = D3D12SerializeRootSignature(&description, D3D_ROOT_SIGNATURE_VERSION_1_0, &sign, &error);
 	gpu->GetDevice()->CreateRootSignature(0, sign->GetBufferPointer(), sign->GetBufferSize(), IID_PPV_ARGS(&signature));
 }
 

@@ -38,6 +38,8 @@ GpuMemoryBlockDx12::GpuMemoryBlockDx12(GpuImage* image, IGpu* device, GpuSharedM
 		flags |= D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;
 	if (EFTraits::HasFlag(imageUSage, GpuImageUsage::DEPTH_STENCIL))
 		flags |= D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL;
+	if (EFTraits::HasFlag(imageUSage, GpuImageUsage::COMPUTE))
+		flags |= D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS;
 
 	resourceDesc.Flags = flags;
 

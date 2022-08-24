@@ -43,6 +43,7 @@
 #include "FormatDx12.h"
 #include "IGpuImage.h"
 
+#include "ComputePipelineDx12.h"
 #include "Texture.h"
 #include "Model3D.h"
 #include "AssetManager.h"
@@ -76,7 +77,7 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 
 		auto result = CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&factory));
 		OSK_CHECK(SUCCEEDED(result), "No se ha podido crear las capas de validación.");
-
+		
 		Engine::GetLogger()->InfoLog("Capas de validación activas.");
 	}
 	else {
@@ -162,8 +163,7 @@ OwnedPtr<IRaytracingPipeline> RendererDx12::_CreateRaytracingPipeline(const Pipe
 }
 
 OwnedPtr<IComputePipeline> RendererDx12::_CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout) {
-	OSK_ASSERT(false, "No implementado.");
-	return nullptr;
+	return new ComputePipelineDx12(pipelineInfo, layout, currentGpu.GetPointer());
 }
 
 OwnedPtr<IMaterialSlot> RendererDx12::_CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const {

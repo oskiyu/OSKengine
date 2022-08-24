@@ -58,7 +58,6 @@ namespace OSK::GRAPHICS {
 		void CopyImageToImage(const GpuImage* source, GpuImage* destination, TSize numLayers, TSize srcStartLayer, TSize dstStartLayer, TSize srcMipLevel, TSize dstMipLevel, Vector2ui copySize) override;
 
 		void BindUniformBufferDx12(TSize index, const GpuUniformBufferDx12* buffer);
-		void BindImageDx12(TSize index, const GpuImageDx12* image);
 
 		/// <summary>
 		/// En ocasiones será necesario cambiar el estado de un recurso para hacer

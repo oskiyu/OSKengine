@@ -86,7 +86,7 @@ OSK::GRAPHICS::Material* terrainMaterial = nullptr;
 OSK::GRAPHICS::SpriteRenderer spriteRenderer;
 
 OSK::GRAPHICS::ITopLevelAccelerationStructure* topLevelAccelerationStructure = nullptr;
-OSK::GRAPHICS::GpuDataBuffer* instancesInfoBuffer = nullptr;
+OSK::GRAPHICS::IGpuStorageBuffer* instancesInfoBuffer = nullptr;
 
 OSK::GRAPHICS::GpuImage* normalImage = nullptr;
 
@@ -162,7 +162,7 @@ protected:
 			model_low->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - model->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock(),
 			model_low->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - model->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock()
 			});
-		instancesInfoBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateBuffer(sizeof(RtInstanceInfo) * 4, 0, OSK::GRAPHICS::GpuBufferUsage::STORAGE_BUFFER, OSK::GRAPHICS::GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+		instancesInfoBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateStorageBuffer(sizeof(RtInstanceInfo) * 4).GetPointer();
 		instancesInfoBuffer->MapMemory();
 		instancesInfoBuffer->Write(instancesInfo.GetData(), instancesInfo.GetSize() * sizeof(RtInstanceInfo));
 		instancesInfoBuffer->Unmap();/**/
@@ -177,8 +177,8 @@ protected:
 
 		rtMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rt.json");
 		rtMaterialInstance = rtMaterial->CreateInstance().GetPointer();
-		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("vertices", model->GetVertexBuffer());
-		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("indices", model->GetIndexBuffer());
+//		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("vertices", model->GetVertexBuffer());
+//		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("indices", model->GetIndexBuffer());
 		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("instanceInfos", instancesInfoBuffer);
 //		rtMaterialInstance->GetSlot("rt")->SetAccelerationStructure("topLevelAccelerationStructure", topLevelAccelerationStructure);
 		const GpuImage* imgs[3] = { rtTargetImage[0], rtTargetImage[1], rtTargetImage[2] };

@@ -382,9 +382,6 @@
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout">
       <UniqueIdentifier>{4991646e-9271-4a29-918e-bc31cea91894}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Pipeline">
-      <UniqueIdentifier>{771f7ea8-8ae3-4ab6-a882-4c35d9d32460}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Shader">
       <UniqueIdentifier>{f27b86fe-ff95-4a4a-bc98-b9c12dd4f73f}</UniqueIdentifier>
     </Filter>
@@ -432,6 +429,24 @@
     </Filter>
     <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Object">
       <UniqueIdentifier>{f2dad5fd-628a-4795-ac70-d0d6b355bd56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Image\View">
+      <UniqueIdentifier>{abc13a26-e73b-4a17-a8e2-d5658d21066b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\View">
+      <UniqueIdentifier>{150e542d-be0a-4e56-bb59-781d033d2ff4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Allocator\Dx12">
+      <UniqueIdentifier>{2caf9091-7261-44a4-9230-1bcf4cb295e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Memory\Allocator\Dx12">
+      <UniqueIdentifier>{46e7f15e-f8b4-4cfb-bb43-f1f9a8995985}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Storage">
+      <UniqueIdentifier>{73628782-0719-4f9b-8b48-82182f1710fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Storage">
+      <UniqueIdentifier>{0723e2ba-a42e-4c51-a5dc-51ef2f8f1f5f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -603,20 +618,11 @@
     <ClCompile Include="GpuUniformBufferVulkan.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Uniform</Filter>
     </ClCompile>
-    <ClCompile Include="IPipelineLayout.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="PipelineLayoutVulkan.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
-    </ClCompile>
     <ClCompile Include="MaterialSystem.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\Material</Filter>
     </ClCompile>
     <ClCompile Include="MaterialLayout.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\Material\Layout</Filter>
-    </ClCompile>
-    <ClCompile Include="PipelineLayoutDx12.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\Material</Filter>
@@ -836,6 +842,42 @@
     </ClCompile>
     <ClCompile Include="BloomPass.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\PBR</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuImageViewVulkan.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Image\View</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuImageViewDx12.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Image\View</Filter>
+    </ClCompile>
+    <ClCompile Include="IPipelineDx12.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="ComputePipelineDx12.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Compute</Filter>
+    </ClCompile>
+    <ClCompile Include="IGpuImageView.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Image\View</Filter>
+    </ClCompile>
+    <ClCompile Include="DescriptorDx12.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Memory\Allocator\Dx12</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuStorageBufferVk.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="IGpuStorageBuffer.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuStorageBufferDx12.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="IPipelineLayout.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="PipelineLayoutDx12.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="PipelineLayoutVulkan.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1390,6 +1432,33 @@
     </ClInclude>
     <ClInclude Include="BloomPass.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PBR</Filter>
+    </ClInclude>
+    <ClInclude Include="IGpuImageView.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\View</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuImageViewVulkan.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\View</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuImageViewDx12.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\View</Filter>
+    </ClInclude>
+    <ClInclude Include="ComputePipelineDx12.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Compute</Filter>
+    </ClInclude>
+    <ClInclude Include="IPipelineDx12.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="DescriptorDx12.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Allocator\Dx12</Filter>
+    </ClInclude>
+    <ClInclude Include="IGpuStorageBuffer.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuStorageBufferVk.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuStorageBufferDx12.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Storage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

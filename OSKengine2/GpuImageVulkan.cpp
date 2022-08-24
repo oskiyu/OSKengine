@@ -10,6 +10,7 @@
 #include "GpuMemoryTypeVulkan.h"
 #include "GpuImageDimensions.h"
 #include "CommandQueueVulkan.h"
+#include "GpuImageViewVulkan.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -24,29 +25,6 @@ GpuImageVulkan::~GpuImageVulkan() {
 
 	if (image != VK_NULL_HANDLE)
 		vkDestroyImage(logicalDevice, image, nullptr);
-
-	for (auto view : colorViews)
-		if (view != VK_NULL_HANDLE)
-			vkDestroyImageView(logicalDevice, view, nullptr);
-
-	for (auto view : depthStencilViews)
-		if (view != VK_NULL_HANDLE)
-			vkDestroyImageView(logicalDevice, view, nullptr);
-
-	for (auto view : depthViews)
-		if (view != VK_NULL_HANDLE)
-			vkDestroyImageView(logicalDevice, view, nullptr);
-
-	for (auto view : stencilViews)
-		if (view != VK_NULL_HANDLE)
-			vkDestroyImageView(logicalDevice, view, nullptr);
-
-	if (arrayColorView != VK_NULL_HANDLE)
-		vkDestroyImageView(logicalDevice, arrayColorView, nullptr);
-	if (arrayDepthView != VK_NULL_HANDLE)
-		vkDestroyImageView(logicalDevice, arrayDepthView, nullptr);
-	if (arrayStencilView != VK_NULL_HANDLE)
-		vkDestroyImageView(logicalDevice, arrayStencilView, nullptr);
 
 	if (sampler != VK_NULL_HANDLE)
 		vkDestroySampler(logicalDevice, sampler, nullptr);
@@ -109,230 +87,6 @@ VkImage GpuImageVulkan::GetVkImage() const {
 	return image;
 }
 
-
-void GpuImageVulkan::CreateColorArrayView() {
-	OSK_ASSERT(image != VK_NULL_HANDLE, "Se debe crear la propia imagen antes de crear el view.");
-
-	VkImageViewCreateInfo viewInfo{};
-
-	viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-	viewInfo.image = image;
-	viewInfo.viewType = GetVkImageArrayViewType();
-	viewInfo.format = GetFormatVulkan(GetFormat());
-
-	viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-
-	viewInfo.subresourceRange.baseMipLevel = 0;
-	viewInfo.subresourceRange.levelCount = GetMipLevels();
-
-	viewInfo.subresourceRange.baseArrayLayer = 0;
-	viewInfo.subresourceRange.layerCount = GetNumLayers();
-
-	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
-	VkResult result = vkCreateImageView(device, &viewInfo, nullptr, &arrayColorView);
-	OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear el view por defecto.");
-}
-
-VkImageView GpuImageVulkan::GetColorArrayView() const {
-	return arrayColorView;
-}
-
-void GpuImageVulkan::CreateColorViews() {
-	OSK_ASSERT(image != VK_NULL_HANDLE, "Se debe crear la propia imagen antes de crear el view.");
-
-	const bool isCubemap = EFTraits::HasFlag(GetUsage(), GpuImageUsage::CUBEMAP);
-
-	for (TSize i = 0; i < GetNumLayers(); i++) {
-		VkImageView view = VK_NULL_HANDLE;
-
-		VkImageViewCreateInfo viewInfo{};
-
-		viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-		viewInfo.image = image;
-		viewInfo.viewType = GetVkImageViewType();
-		viewInfo.format = GetFormatVulkan(GetFormat());
-
-		viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-
-		viewInfo.subresourceRange.baseMipLevel = 0;
-		viewInfo.subresourceRange.levelCount = GetMipLevels();
-
-		viewInfo.subresourceRange.baseArrayLayer = i;
-		viewInfo.subresourceRange.layerCount = isCubemap ? 6 : 1;
-
-		const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
-		VkResult result = vkCreateImageView(device, &viewInfo, nullptr, &view);
-		OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear el view por defecto.");
-
-		colorViews.Insert(view);
-
-		if (EFTraits::HasFlag(GetUsage(), GpuImageUsage::CUBEMAP))
-			i += 5;
-	}
-}
-
-VkImageView GpuImageVulkan::GetColorView(TSize arrayLevel) const {
-	return colorViews.At(arrayLevel);
-}
-
-void GpuImageVulkan::CreateDepthStencilViews() {
-	OSK_ASSERT(image != VK_NULL_HANDLE, "Se debe crear la propia imagen antes de crear el view.");
-	OSK_ASSERT(EFTraits::HasFlag(GetUsage(), GpuImageUsage::DEPTH_STENCIL), "La imagen debe haberse creado con GpuImageUsage::DEPTH_STENCIL.");
-
-	for (TSize i = 0; i < GetNumLayers(); i++) {
-		VkImageView view = VK_NULL_HANDLE;
-
-		VkImageViewCreateInfo viewInfo{};
-
-		viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-		viewInfo.image = image;
-		viewInfo.viewType = GetVkImageViewType();
-		viewInfo.format = GetFormatVulkan(GetFormat());
-
-		viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT;
-
-		viewInfo.subresourceRange.baseMipLevel = 0;
-		viewInfo.subresourceRange.levelCount = GetMipLevels();
-
-		viewInfo.subresourceRange.baseArrayLayer = i;
-		viewInfo.subresourceRange.layerCount = 1;
-
-		const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
-		VkResult result = vkCreateImageView(device, &viewInfo, nullptr, &view);
-		OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear el view por defecto.");
-
-		depthStencilViews.Insert(view);
-	}
-}
-
-VkImageView GpuImageVulkan::GetDepthStencilView(TSize arrayLevel) const {
-	return depthStencilViews.At(arrayLevel);
-}
-
-void GpuImageVulkan::CreateDepthArrayView() {
-	OSK_ASSERT(image != VK_NULL_HANDLE, "Se debe crear la propia imagen antes de crear el view.");
-	OSK_ASSERT(EFTraits::HasFlag(GetUsage(), GpuImageUsage::DEPTH_STENCIL), "La imagen debe haberse creado con GpuImageUsage::DEPTH_STENCIL.");
-
-	VkImageViewCreateInfo viewInfo{};
-
-	viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-	viewInfo.image = image;
-	viewInfo.viewType = GetVkImageArrayViewType();
-	viewInfo.format = GetFormatVulkan(GetFormat());
-
-	viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;
-
-	viewInfo.subresourceRange.baseMipLevel = 0;
-	viewInfo.subresourceRange.levelCount = GetMipLevels();
-
-	viewInfo.subresourceRange.baseArrayLayer = 0;
-	viewInfo.subresourceRange.layerCount = GetNumLayers();
-
-	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
-	VkResult result = vkCreateImageView(device, &viewInfo, nullptr, &arrayDepthView);
-	OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear el view por defecto.");
-}
-
-VkImageView GpuImageVulkan::GetDepthArrayView() const {
-	return arrayDepthView;
-}
-
-void GpuImageVulkan::CreateDepthOnlyViews() {
-	OSK_ASSERT(image != VK_NULL_HANDLE, "Se debe crear la propia imagen antes de crear el view.");
-	OSK_ASSERT(EFTraits::HasFlag(GetUsage(), GpuImageUsage::DEPTH_STENCIL), "La imagen debe haberse creado con GpuImageUsage::DEPTH_STENCIL.");
-
-	for (TSize i = 0; i < GetNumLayers(); i++) {
-		VkImageView view = VK_NULL_HANDLE;
-
-		VkImageViewCreateInfo viewInfo{};
-
-		viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-		viewInfo.image = image;
-		viewInfo.viewType = GetVkImageViewType();
-		viewInfo.format = GetFormatVulkan(GetFormat());
-
-		viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;
-
-		viewInfo.subresourceRange.baseMipLevel = 0;
-		viewInfo.subresourceRange.levelCount = GetMipLevels();
-
-		viewInfo.subresourceRange.baseArrayLayer = i;
-		viewInfo.subresourceRange.layerCount = 1;
-
-		const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
-		VkResult result = vkCreateImageView(device, &viewInfo, nullptr, &view);
-		OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear el view de profundidad.");
-
-		depthViews.Insert(view);
-	}
-}
-
-VkImageView GpuImageVulkan::GetDepthOnlyView(TSize arrayLevel) const {
-	return depthViews.At(arrayLevel);
-}
-
-void GpuImageVulkan::CreateStencilArrayView() {
-	OSK_ASSERT(image != VK_NULL_HANDLE, "Se debe crear la propia imagen antes de crear el view.");
-	OSK_ASSERT(EFTraits::HasFlag(GetUsage(), GpuImageUsage::DEPTH_STENCIL), "La imagen debe haberse creado con GpuImageUsage::DEPTH_STENCIL.");
-
-	VkImageViewCreateInfo viewInfo{};
-
-	viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-	viewInfo.image = image;
-	viewInfo.viewType = GetVkImageArrayViewType();
-	viewInfo.format = GetFormatVulkan(GetFormat());
-
-	viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_STENCIL_BIT;
-
-	viewInfo.subresourceRange.baseMipLevel = 0;
-	viewInfo.subresourceRange.levelCount = GetMipLevels();
-
-	viewInfo.subresourceRange.baseArrayLayer = 0;
-	viewInfo.subresourceRange.layerCount = GetNumLayers();
-
-	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
-	VkResult result = vkCreateImageView(device, &viewInfo, nullptr, &arrayStencilView);
-	OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear el view por defecto.");
-}
-
-VkImageView GpuImageVulkan::GetStencilArrayView() const {
-	return arrayStencilView;
-}
-
-void GpuImageVulkan::CreateStencilOnlyViews() {
-	OSK_ASSERT(image != VK_NULL_HANDLE, "Se debe crear la propia imagen antes de crear el view.");
-	OSK_ASSERT(EFTraits::HasFlag(GetUsage(), GpuImageUsage::DEPTH_STENCIL), "La imagen debe haberse creado con GpuImageUsage::DEPTH_STENCIL.");
-
-	for (TSize i = 0; i < GetNumLayers(); i++) {
-		VkImageView view = VK_NULL_HANDLE;
-
-		VkImageViewCreateInfo viewInfo{};
-
-		viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-		viewInfo.image = image;
-		viewInfo.viewType = GetVkImageViewType();
-		viewInfo.format = GetFormatVulkan(GetFormat());
-
-		viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_STENCIL_BIT;
-
-		viewInfo.subresourceRange.baseMipLevel = 0;
-		viewInfo.subresourceRange.levelCount = GetMipLevels();
-
-		viewInfo.subresourceRange.baseArrayLayer = i;
-		viewInfo.subresourceRange.layerCount = 1;
-
-		const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
-		VkResult result = vkCreateImageView(device, &viewInfo, nullptr, &view);
-		OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear el view de stencil.");
-
-		stencilViews.Insert(view);
-	}
-}
-
-VkImageView GpuImageVulkan::GetStencilOnlyView(TSize arrayLevel) const {
-	return stencilViews.At(arrayLevel);
-}
-
 void GpuImageVulkan::CreateVkSampler(const GpuImageSamplerDesc& samplerDesc) {
 	//Info del sampler.
 	VkSamplerCreateInfo samplerInfo{};
@@ -391,11 +145,45 @@ void GpuImageVulkan::_SetVkImage(VkImage img) {
 	image = img;
 }
 
-void GpuImageVulkan::_SetView(VkImageView view) {
-	if (colorViews.IsEmpty())
-		colorViews.Insert(view);
-	else
-		colorViews[0] = view;
+void GpuImageVulkan::SetSwapchainView(VkImageView view) {
+	swapchainView = view;
+}
+
+VkImageView GpuImageVulkan::GetSwapchainView() const {
+	return swapchainView;
+}
+
+OwnedPtr<IGpuImageView> GpuImageVulkan::CreateView(SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage) const {
+	VkImageView view = VK_NULL_HANDLE;
+	
+	VkImageViewCreateInfo viewInfo{};
+
+	viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
+	viewInfo.image = image;
+	viewInfo.viewType = GetVkImageViewType();
+	viewInfo.format = GetFormatVulkan(GetFormat());
+	
+	VkImageAspectFlags aspectMask = 0;
+	if (EFTraits::HasFlag(channel, SampledChannel::COLOR))
+		aspectMask |= VK_IMAGE_ASPECT_COLOR_BIT;
+	if (EFTraits::HasFlag(channel, SampledChannel::DEPTH))
+		aspectMask |= VK_IMAGE_ASPECT_DEPTH_BIT;
+	if (EFTraits::HasFlag(channel, SampledChannel::STENCIL))
+		aspectMask |= VK_IMAGE_ASPECT_STENCIL_BIT;
+
+	viewInfo.subresourceRange.aspectMask = aspectMask;
+
+	viewInfo.subresourceRange.baseMipLevel = 0;
+	viewInfo.subresourceRange.levelCount = GetMipLevels();
+
+	viewInfo.subresourceRange.baseArrayLayer = baseArrayLevel;
+	viewInfo.subresourceRange.layerCount = layerCount;
+
+	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
+	VkResult result = vkCreateImageView(device, &viewInfo, nullptr, &view);
+	OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear el view de stencil.");
+
+	return new GpuImageViewVulkan(view, channel, arrayType, baseArrayLevel, layerCount, usage);
 }
 
 void GpuImageVulkan::SetDebugName(const std::string& name) {

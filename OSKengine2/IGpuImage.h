@@ -9,6 +9,11 @@
 #include "IGpuMemoryBlock.h"
 #include "IGpuObject.h"
 
+#include "IGpuImageView.h"
+#include "IGpuMemorySubblock.h"
+#include "DynamicArray.hpp"
+#include "HashMap.hpp"
+
 namespace OSK::GRAPHICS {
 
 	enum class Format;
@@ -16,6 +21,7 @@ namespace OSK::GRAPHICS {
 	enum class GpuImageLayout;
 	enum class GpuImageDimension;
 	enum class GpuImageUsage;
+	class IGpu;
 
 	/// <summary>
 	/// Representación interna de una imagen en la GPU.
@@ -101,7 +107,15 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		TSize GetNumSamples() const;
 
+		IGpuImageView* GetView(SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage) const;
+
+	protected:
+
+		virtual OwnedPtr<IGpuImageView> CreateView(SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage) const = 0;
+
 	private:
+
+		mutable HashMap<IGpuImageView, UniquePtr<IGpuImageView>> views;
 
 		UniquePtr<IGpuMemoryBlock> block;
 		IGpuMemorySubblock* buffer = nullptr;

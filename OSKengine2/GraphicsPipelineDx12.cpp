@@ -47,22 +47,22 @@ void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* de
 
 	createInfo.InputLayout = inputLayout;
 
-	LoadVertexShader(info, vertexInfo, *materialLayout);
-	LoadFragmentShader(info, vertexInfo, *materialLayout);
+	vertexShader = LoadShader(info, vertexInfo, info.vertexPath, ShaderStage::VERTEX, *materialLayout);
+	fragmentShader = LoadShader(info, vertexInfo, info.fragmentPath, ShaderStage::FRAGMENT, *materialLayout);
+
+	createInfo.VS = vertexShader.bytecode;
+	createInfo.PS = fragmentShader.bytecode;
 
 	if (info.tesselationControlPath != "") {
-		LoadTeselationControlShader(info, vertexInfo, *materialLayout);
-		createInfo.HS = tesselationControlShaderBytecode;
+		tesselationControlShader = LoadShader(info, vertexInfo, info.tesselationControlPath, ShaderStage::TESSELATION_CONTROL, *materialLayout);
+		createInfo.HS = tesselationControlShader.bytecode;
 
 		topologyType = D3D_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST;
 	}
 	if (info.tesselationEvaluationPath != "") {
-		LoadTesselationEvaluationShader(info, vertexInfo, *materialLayout);
-		createInfo.DS = tesselationEvaluationShaderBytecode;
+		tesselationEvaluationShader = LoadShader(info, vertexInfo, info.tesselationEvaluationPath, ShaderStage::TESSELATION_EVALUATION, *materialLayout);
+		createInfo.DS = tesselationEvaluationShader.bytecode;
 	}
-
-	createInfo.VS = vertexShaderBytecode;
-	createInfo.PS = fragmentShaderBytecode;
 
 	createInfo.RasterizerState = GetRasterizerDesc(info);
 	createInfo.BlendState = GetBlendDesc(info);
@@ -82,80 +82,12 @@ void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* de
 
 	createInfo.pRootSignature = layout->As<PipelineLayoutDx12>()->GetSignature();
 
-	HRESULT result = device->As<GpuDx12>()->GetDevice()->CreateGraphicsPipelineState(&createInfo, IID_PPV_ARGS(&pipeline));
+	HRESULT result = device->As<GpuDx12>()->GetDevice()->CreateGraphicsPipelineState(&createInfo, IID_PPV_ARGS(&dxPipeline));
 	OSK_ASSERT(SUCCEEDED(result), "Error al crear el pipeline. Code: " + std::to_string(result));
 }
 
 void GraphicsPipelineDx12::SetDebugName(const std::string& name) {
-	pipeline->SetName(StringToWideString(name).c_str());
-}
-
-ID3D12PipelineState* GraphicsPipelineDx12::GetPipelineState() const {
-	return pipeline.Get();
-}
-
-ID3D12RootSignature* GraphicsPipelineDx12::GetLayout() const {
-	return layout->As<PipelineLayoutDx12>()->GetSignature();
-}
-
-void GraphicsPipelineDx12::LoadVertexShader(const PipelineCreateInfo& info, const VertexInfo& vertexInfo, const MaterialLayout& layout) {
-	if (info.precompiledHlslShaders) {
-		vertexShader = LoadBlob(StringToWideString(info.vertexPath).c_str());
-
-		vertexShaderBytecode.pShaderBytecode = vertexShader->GetBufferPointer();
-		vertexShaderBytecode.BytecodeLength = vertexShader->GetBufferSize();
-	}
-	else {
-		vertexShader2 = CompileShaderSpv(info.vertexPath, vertexInfo, "vs_6_1", layout);
-
-		vertexShaderBytecode.pShaderBytecode = vertexShader2->GetBufferPointer();
-		vertexShaderBytecode.BytecodeLength = vertexShader2->GetBufferSize();
-	}
-}
-
-void GraphicsPipelineDx12::LoadFragmentShader(const PipelineCreateInfo& info, const VertexInfo& vertexInfo, const MaterialLayout& layout) {
-	if (info.precompiledHlslShaders) {
-		fragmentShader = LoadBlob(StringToWideString(info.fragmentPath).c_str());
-
-		fragmentShaderBytecode.pShaderBytecode = fragmentShader->GetBufferPointer();
-		fragmentShaderBytecode.BytecodeLength = fragmentShader->GetBufferSize();
-	}
-	else {
-		fragmentShader2 = CompileShaderSpv(info.fragmentPath, vertexInfo, "ps_6_1", layout);
-
-		fragmentShaderBytecode.pShaderBytecode = fragmentShader2->GetBufferPointer();
-		fragmentShaderBytecode.BytecodeLength = fragmentShader2->GetBufferSize();
-	}
-}
-
-void GraphicsPipelineDx12::LoadTeselationControlShader(const PipelineCreateInfo& info, const VertexInfo& vertexInfo, const MaterialLayout& layout) {
-	if (info.precompiledHlslShaders) {
-		tesselationControlShader = LoadBlob(StringToWideString(info.tesselationControlPath).c_str());
-
-		tesselationControlShaderBytecode.pShaderBytecode = tesselationControlShader->GetBufferPointer();
-		tesselationControlShaderBytecode.BytecodeLength = tesselationControlShader->GetBufferSize();
-	}
-	else {
-		tesselationControlShader2 = CompileShaderSpv(info.tesselationControlPath, vertexInfo, "hs_6_1", layout);
-
-		tesselationControlShaderBytecode.pShaderBytecode = tesselationControlShader2->GetBufferPointer();
-		tesselationControlShaderBytecode.BytecodeLength = tesselationControlShader2->GetBufferSize();
-	}
-}
-
-void GraphicsPipelineDx12::LoadTesselationEvaluationShader(const PipelineCreateInfo& info, const VertexInfo& vertexInfo, const MaterialLayout& layout) {
-	if (info.precompiledHlslShaders) {
-		tesselationEvaluationShader = LoadBlob(StringToWideString(info.tesselationEvaluationPath).c_str());
-
-		tesselationEvaluationShaderBytecode.pShaderBytecode = tesselationEvaluationShader->GetBufferPointer();
-		tesselationEvaluationShaderBytecode.BytecodeLength = tesselationEvaluationShader->GetBufferSize();
-	}
-	else {
-		tesselationEvaluationShader2 = CompileShaderSpv(info.tesselationEvaluationPath, vertexInfo, "ds_6_1", layout);
-
-		tesselationEvaluationShaderBytecode.pShaderBytecode = tesselationEvaluationShader2->GetBufferPointer();
-		tesselationEvaluationShaderBytecode.BytecodeLength = tesselationEvaluationShader2->GetBufferSize();
-	}
+	dxPipeline->SetName(StringToWideString(name).c_str());
 }
 
 D3D_PRIMITIVE_TOPOLOGY GraphicsPipelineDx12::GetTopologyType() const {
@@ -270,7 +202,6 @@ DynamicArray<D3D12_INPUT_ELEMENT_DESC> GraphicsPipelineDx12::GetInputLayoutDescD
 	return output;
 }
 
-
 D3D12_CULL_MODE GraphicsPipelineDx12::GetCullMode(PolygonCullMode mode) const {
 	switch (mode) {
 	case PolygonCullMode::FRONT:
@@ -293,35 +224,4 @@ D3D12_FILL_MODE GraphicsPipelineDx12::GetFillMode(PolygonMode mode) const {
 	default:
 		return D3D12_FILL_MODE_SOLID;
 	}
-}
-
-ComPtr<ID3DBlob> GraphicsPipelineDx12::LoadBlob(LPCWSTR filename) const {
-	HRESULT hr{};
-
-	ComPtr<ID3DBlob> shaderBlob; // chunk of memory
-
-	hr = D3DReadFileToBlob(filename, &shaderBlob);
-
-	if (FAILED(hr))
-		OSK_ASSERT(false, "No se pudo compilar el shader. Code: " + std::to_string(hr));
-
-	return shaderBlob;
-}
-
-ComPtr<IDxcBlob> GraphicsPipelineDx12::CompileShaderSpv(const std::string& spirvPath, const VertexInfo& vertexInfo, const std::string& hlslProfile, const MaterialLayout& layout) const {
-	const auto bytecode = FileIO::ReadBinaryFromFile(spirvPath);
-
-	// Generación del código HLSL.
-	SpirvToHlsl compilerToHlsl = SpirvToHlsl(bytecode);
-	compilerToHlsl.SetHlslTargetProfile(6, 1);
-	compilerToHlsl.SetVertexAttributesMapping(vertexInfo);
-	compilerToHlsl.SetLayoutMapping(layout);
-
-	const std::string hlslSourceCode = compilerToHlsl.CreateHlsl();
-
-	//Engine::GetLogger()->DebugLog(hlslSourceCode);
-	FileIO::WriteFile("./temp_shader", hlslSourceCode);
-
-	HlslRuntimeCompiler compiler;
-	return compiler.CompileFromFile("./temp_shader", hlslProfile);
 }

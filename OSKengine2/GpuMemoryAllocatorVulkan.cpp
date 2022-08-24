@@ -22,6 +22,7 @@
 #include "BottomLevelAccelerationStructureVulkan.h"
 #include "TopLevelAccelerationStructureVulkan.h"
 #include "GpuMemoryTypes.h"
+#include "GpuStorageBufferVk.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -97,6 +98,12 @@ OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorVulkan::CreateUniformBuffer(TSize 
 	return new GpuUniformBufferVulkan(block->GetNextMemorySubblock(size, device->As<GpuVulkan>()->GetInfo().properties.limits.minUniformBufferOffsetAlignment), size, 0);;
 }
 
+OwnedPtr<IGpuStorageBuffer> GpuMemoryAllocatorVulkan::CreateStorageBuffer(TSize size) {
+	auto block = GetNextBufferMemoryBlock(size, GpuBufferUsage::STORAGE_BUFFER, GpuSharedMemoryType::GPU_AND_CPU);
+
+	return new GpuStorageBufferVk(block->GetNextMemorySubblock(size, device->As<GpuVulkan>()->GetInfo().properties.limits.minUniformBufferOffsetAlignment), size, 0);
+}
+
 OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorVulkan::CreateStagingBuffer(TSize size) {
 	return new GpuDataBuffer(GetNextBufferMemoryBlock(size,
 		GpuBufferUsage::TRANSFER_SOURCE,
@@ -153,32 +160,6 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageS
 
 	// ------ IMAGE ---------- //
 	output->CreateVkSampler(samplerDesc);
-
-	if (EFTraits::HasFlag(usage, GpuImageUsage::COLOR)) {
-		output->CreateColorViews();
-
-		if (EFTraits::HasFlag(usage, GpuImageUsage::SAMPLED_ARRAY))
-			output->CreateColorArrayView();
-	}
-	else if (EFTraits::HasFlag(usage, GpuImageUsage::SAMPLED) && !EFTraits::HasFlag(usage, GpuImageUsage::DEPTH_STENCIL)) {
-		output->CreateColorViews();
-
-		if (EFTraits::HasFlag(usage, GpuImageUsage::SAMPLED_ARRAY))
-			output->CreateColorArrayView();
-	}
-
-	if (EFTraits::HasFlag(usage, GpuImageUsage::DEPTH_STENCIL))
-		output->CreateDepthStencilViews();
-
-	if (EFTraits::HasFlag(usage, GpuImageUsage::SAMPLED) && EFTraits::HasFlag(usage, GpuImageUsage::DEPTH_STENCIL)) {
-		output->CreateDepthOnlyViews();
-		output->CreateStencilOnlyViews();
-
-		if (EFTraits::HasFlag(usage, GpuImageUsage::SAMPLED_ARRAY)) {
-			output->CreateDepthArrayView();
-			output->CreateStencilArrayView();
-		}
-	}
 
 	return output;
 }

@@ -26,6 +26,9 @@
 #include "RtShaderTableVulkan.h"
 #include "ComputePipelineVulkan.h"
 #include "GpuVulkan.h"
+#include "GpuImageViewVulkan.h"
+#include "GpuImageVulkan.h"
+#include "IGpuImage.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -80,8 +83,6 @@ void CommandListVulkan::SetGpuImageBarrier(GpuImage* image, GpuImageLayout previ
 		barrier.subresourceRange.aspectMask = barrier.subresourceRange.aspectMask | VK_IMAGE_ASPECT_DEPTH_BIT;
 	if (EFTraits::HasFlag(prevImageInfo.channel, SampledChannel::STENCIL))
 		barrier.subresourceRange.aspectMask = barrier.subresourceRange.aspectMask | VK_IMAGE_ASPECT_STENCIL_BIT;
-
-	// TOdo: process defaults
 
 	barrier.srcAccessMask = GetPipelineAccess(previous.accessStage);
 	barrier.dstAccessMask = GetPipelineAccess(next.accessStage);
@@ -229,7 +230,7 @@ void CommandListVulkan::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo
 		colorAttachments[i].loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
 		colorAttachments[i].storeOp = VK_ATTACHMENT_STORE_OP_STORE;
 		colorAttachments[i].imageLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
-		colorAttachments[i].imageView = colorImages[i].targetImage->As<GpuImageVulkan>()->GetColorView(colorImages[i].arrayLevel);
+		colorAttachments[i].imageView = colorImages[i].targetImage->GetView(SampledChannel::COLOR, SampledArrayType::SINGLE_LAYER, colorImages[i].arrayLevel, 1, ViewUsage::COLOR_TARGET)->As<GpuImageViewVulkan>()->GetVkView();
 		colorAttachments[i].resolveMode = VK_RESOLVE_MODE_NONE;
 		colorAttachments[i].resolveImageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 		colorAttachments[i].resolveImageView = VK_NULL_HANDLE;
@@ -243,7 +244,8 @@ void CommandListVulkan::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo
 	depthAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
 	depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
 	depthAttachment.imageLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
-	depthAttachment.imageView = depthImage.targetImage->As<GpuImageVulkan>()->GetDepthStencilView(depthImage.arrayLevel);
+	depthAttachment.imageView = depthImage.targetImage->GetView(SampledChannel::DEPTH | SampledChannel::STENCIL, SampledArrayType::SINGLE_LAYER, depthImage.arrayLevel, 1, ViewUsage::DEPTH_STENCIL_TARGET)
+		->As<GpuImageViewVulkan>()->GetVkView();
 	depthAttachment.resolveMode = VK_RESOLVE_MODE_NONE;
 	depthAttachment.resolveImageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 	depthAttachment.resolveImageView = VK_NULL_HANDLE;
@@ -258,14 +260,14 @@ void CommandListVulkan::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo
 	renderpassInfo.pDepthAttachment = &depthAttachment;
 	renderpassInfo.pStencilAttachment = &depthAttachment;
 
-	vkCmdBeginRendering(commandBuffers.At(GetCommandListIndex()), &renderpassInfo);
+	RendererVulkan::pvkCmdBeginRendering(commandBuffers.At(GetCommandListIndex()), &renderpassInfo);
 
 	currentColorImages = colorImages;
 	currentDepthImage = depthImage;
 }
 
 void CommandListVulkan::EndGraphicsRenderpass() {
-	vkCmdEndRendering(commandBuffers[GetCommandListIndex()]);
+	RendererVulkan::pvkCmdEndRendering(commandBuffers[GetCommandListIndex()]);
 
 	const bool isFinal = currentRenderpassType == RenderpassType::FINAL;
 

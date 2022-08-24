@@ -2,6 +2,13 @@
 
 #include "WindowsUtils.h"
 
+#include "OSKengine.h"
+#include "RendererDx12.h"
+#include "GpuDx12.h"
+#include "FormatDx12.h"
+#include "GpuImageViewDx12.h"
+#include "GpuMemoryAllocatorDx12.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -14,45 +21,169 @@ void GpuImageDx12::SetResource(const ComPtr<ID3D12Resource>& resource) {
 	this->resource = resource;
 }
 
-void GpuImageDx12::_SetSampledDescriptorHeap(ComPtr<ID3D12DescriptorHeap> descriptorHeap) {
-	sampledDescriptorHeap = descriptorHeap;
-}
-
-void GpuImageDx12::_SetRenderTargetDescriptorHeap(ComPtr<ID3D12DescriptorHeap> descriptorHeap) {
-	renderTargetDescriptorHeap = descriptorHeap;
-	colorUsageDescriptorHandle = GetRenderTargetDescriptorHeap()->GetCPUDescriptorHandleForHeapStart();
-}
-
-void GpuImageDx12::_SetDepthDescriptorHeap(ComPtr<ID3D12DescriptorHeap> descriptorHeap) {
-	depthDescriptorHeap = descriptorHeap;
-	colorUsageDescriptorHandle = GetDepthDescriptorHeap()->GetCPUDescriptorHandleForHeapStart();
-}
-
 ID3D12Resource* GpuImageDx12::GetResource() const {
 	return resource.Get();
-}
-
-ID3D12DescriptorHeap* GpuImageDx12::GetSampledDescriptorHeap() const {
-	return sampledDescriptorHeap.Get();
-}
-
-ID3D12DescriptorHeap* GpuImageDx12::GetRenderTargetDescriptorHeap() const {
-	return renderTargetDescriptorHeap.Get();
-}
-
-ID3D12DescriptorHeap* GpuImageDx12::GetDepthDescriptorHeap() const {
-	return depthDescriptorHeap.Get();
-}		
-
-D3D12_CPU_DESCRIPTOR_HANDLE GpuImageDx12::GetColorUsageDescriptorHandle() const {
-	return colorUsageDescriptorHandle;
-}
-
-D3D12_CPU_DESCRIPTOR_HANDLE GpuImageDx12::GetDepthUsageDescriptorHandle() const {
-	return depthUsageDescriptorHandle;
 }
 
 void GpuImageDx12::SetDebugName(const std::string& name) {
 	auto str = StringToWideString(name);
 	resource->SetName(str.c_str());
+}
+
+OwnedPtr<IGpuImageView> GpuImageDx12::CreateView(SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage) const {
+	switch (usage) {
+	case OSK::GRAPHICS::ViewUsage::SAMPLED: {
+		const auto descriptor = Engine::GetRenderer()->GetMemoryAllocator()->As<GpuMemoryAllocatorDx12>()->GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	
+		if (channel == SampledChannel::COLOR) {
+			D3D12_SHADER_RESOURCE_VIEW_DESC resourceViewDesc{};
+			resourceViewDesc.Format = GetFormatDx12(GetFormat());
+			resourceViewDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+
+			if (arrayType == SampledArrayType::SINGLE_LAYER) {
+				resourceViewDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+				resourceViewDesc.Texture2D.MipLevels = GetMipLevels();
+				resourceViewDesc.Texture2D.MostDetailedMip = 0;
+				resourceViewDesc.Texture2D.PlaneSlice = baseArrayLevel;
+			}
+			else if (arrayType == SampledArrayType::ARRAY) {
+				resourceViewDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2DARRAY;
+
+				resourceViewDesc.Texture2DArray.MostDetailedMip = 0;
+				resourceViewDesc.Texture2DArray.MipLevels = GetMipLevels();
+
+				resourceViewDesc.Texture2DArray.FirstArraySlice = baseArrayLevel;
+				resourceViewDesc.Texture2DArray.ArraySize = layerCount;
+				resourceViewDesc.Texture2DArray.PlaneSlice = 0;
+			}
+
+			Engine::GetRenderer()->GetGpu()->As<GpuDx12>()->GetDevice()
+				->CreateShaderResourceView(GetResource(), &resourceViewDesc, descriptor.cpuHandle);
+		}
+		else if (channel == SampledChannel::DEPTH) {
+			D3D12_DEPTH_STENCIL_VIEW_DESC desc{};
+			desc.Format = GetFormatDx12(GetFormat());
+			desc.Flags = D3D12_DSV_FLAG_READ_ONLY_DEPTH;
+
+			if (arrayType == SampledArrayType::SINGLE_LAYER) {
+				desc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
+				desc.Texture2D.MipSlice = baseArrayLevel;
+			}
+			else if (arrayType == SampledArrayType::ARRAY) {
+				desc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2DARRAY;
+				desc.Texture2DArray.MipSlice = 0;
+				desc.Texture2DArray.FirstArraySlice = baseArrayLevel;
+				desc.Texture2DArray.ArraySize = layerCount;
+			}
+
+			Engine::GetRenderer()->GetGpu()->As<GpuDx12>()->GetDevice()
+				->CreateDepthStencilView(GetResource(), &desc, descriptor.cpuHandle);
+		}
+		else if (channel == SampledChannel::STENCIL) {
+			D3D12_DEPTH_STENCIL_VIEW_DESC desc{};
+			desc.Format = GetFormatDx12(GetFormat());
+			desc.Flags = D3D12_DSV_FLAG_READ_ONLY_STENCIL;
+
+			if (arrayType == SampledArrayType::SINGLE_LAYER) {
+				desc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
+				desc.Texture2D.MipSlice = baseArrayLevel;
+			}
+			else if (arrayType == SampledArrayType::ARRAY) {
+				desc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2DARRAY;
+				desc.Texture2DArray.MipSlice = 0;
+				desc.Texture2DArray.FirstArraySlice = baseArrayLevel;
+				desc.Texture2DArray.ArraySize = layerCount;
+			}
+
+			Engine::GetRenderer()->GetGpu()->As<GpuDx12>()->GetDevice()
+				->CreateDepthStencilView(GetResource(), &desc, descriptor.cpuHandle);
+		}
+
+		return new GpuImageViewDx12(descriptor, channel, arrayType, baseArrayLevel, layerCount, usage);
+	}
+		break;
+
+	case OSK::GRAPHICS::ViewUsage::COLOR_TARGET: {
+		const auto descriptor = Engine::GetRenderer()->GetMemoryAllocator()->As<GpuMemoryAllocatorDx12>()->GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+
+		D3D12_RENDER_TARGET_VIEW_DESC resourceViewDesc{};
+		resourceViewDesc.Format = GetFormatDx12(GetFormat());
+
+		if (arrayType == SampledArrayType::SINGLE_LAYER) {
+			resourceViewDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;
+
+			resourceViewDesc.Texture2D.MipSlice = 0;
+			resourceViewDesc.Texture2D.PlaneSlice = baseArrayLevel;
+		}
+		else if (arrayType == SampledArrayType::ARRAY) {
+			D3D12_RENDER_TARGET_VIEW_DESC resourceViewDesc{};
+			resourceViewDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2DARRAY;
+
+			resourceViewDesc.Texture2DArray.MipSlice = 0;
+			resourceViewDesc.Texture2DArray.PlaneSlice = 0;
+			resourceViewDesc.Texture2DArray.FirstArraySlice = baseArrayLevel;
+			resourceViewDesc.Texture2DArray.ArraySize = layerCount;
+		}
+
+		Engine::GetRenderer()->GetGpu()->As<GpuDx12>()->GetDevice()
+			->CreateRenderTargetView(GetResource(), &resourceViewDesc, descriptor.cpuHandle);
+
+		return new GpuImageViewDx12(descriptor, channel, arrayType, baseArrayLevel, layerCount, usage);
+	}
+		break;
+
+	case OSK::GRAPHICS::ViewUsage::DEPTH_STENCIL_TARGET: {
+		const auto descriptor = Engine::GetRenderer()->GetMemoryAllocator()->As<GpuMemoryAllocatorDx12>()->GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
+		
+		D3D12_DEPTH_STENCIL_VIEW_DESC desc{};
+		desc.Format = GetFormatDx12(GetFormat());
+		desc.Flags = D3D12_DSV_FLAG_NONE;
+
+		if (arrayType == SampledArrayType::SINGLE_LAYER) {
+			desc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
+			desc.Texture2D.MipSlice = 0;
+		}
+		else if (arrayType == SampledArrayType::ARRAY) {
+			desc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2DARRAY;
+			desc.Texture2DArray.MipSlice = 0;
+			desc.Texture2DArray.FirstArraySlice = baseArrayLevel;
+			desc.Texture2DArray.ArraySize = layerCount;
+		}
+
+		Engine::GetRenderer()->GetGpu()->As<GpuDx12>()->GetDevice()
+			->CreateDepthStencilView(GetResource(), &desc, descriptor.cpuHandle);
+
+		return new GpuImageViewDx12(descriptor, channel, arrayType, baseArrayLevel, layerCount, usage);
+	}
+		break;
+
+	case OSK::GRAPHICS::ViewUsage::STORAGE: {
+		const auto descriptor = Engine::GetRenderer()->GetMemoryAllocator()->As<GpuMemoryAllocatorDx12>()->GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+
+		D3D12_UNORDERED_ACCESS_VIEW_DESC desc{};
+		desc.Format = GetFormatDx12(GetFormat());
+
+		if (arrayType == SampledArrayType::SINGLE_LAYER) {
+			desc.ViewDimension = D3D12_UAV_DIMENSION_TEXTURE2D;
+			desc.Texture2D.MipSlice = 0;
+			desc.Texture2D.PlaneSlice = baseArrayLevel;
+		}
+		else if (arrayType == SampledArrayType::ARRAY) {
+			desc.ViewDimension = D3D12_UAV_DIMENSION_TEXTURE2DARRAY;
+			desc.Texture2DArray.MipSlice = 0;
+			desc.Texture2DArray.PlaneSlice = 0;
+			desc.Texture2DArray.FirstArraySlice = baseArrayLevel;
+			desc.Texture2DArray.ArraySize = layerCount;
+		}
+
+		Engine::GetRenderer()->GetGpu()->As<GpuDx12>()->GetDevice()
+			->CreateUnorderedAccessView(GetResource(), nullptr, &desc, descriptor.cpuHandle);
+
+		return new GpuImageViewDx12(descriptor, channel, arrayType, baseArrayLevel, layerCount, usage);
+	}
+		break;
+	}
+	
+	OSK_ASSERT(false, "View no disponible.");
+	return nullptr;
 }

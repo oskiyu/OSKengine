@@ -23,7 +23,7 @@ void OSK::RuntimeAssertIsTrueFunction(bool condition, const std::string& msg, co
 
 void OSK::RuntimeCheckIsTrueFunction(bool condition, const std::string& msg, const std::string& functionName, uint32_t line, const std::string& file) {
 	if (!condition) {
-		std::string message = "Assertion failed: " + msg + "\n";
+		std::string message = "Check failed: " + msg + "\n";
 		message += "\t at " + std::string(functionName) + "\n"
 			+ "\t at line " + std::to_string(line) + "\n"
 			+ "\t at file " + std::string(file);
@@ -34,7 +34,7 @@ void OSK::RuntimeCheckIsTrueFunction(bool condition, const std::string& msg, con
 
 void OSK::RuntimeAssertIsFalseFunction(bool condition, const std::string& msg, const std::string& functionName, uint32_t line, const std::string& file) {
 	if (condition) {
-		std::string message = "Check failed: " + msg + "\n";
+		std::string message = "Assertion failed: " + msg + "\n";
 		message += "\t at " + std::string(functionName) + "\n"
 			+ "\t at line " + std::to_string(line) + "\n"
 			+ "\t at file " + std::string(file);

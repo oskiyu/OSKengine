@@ -1,4 +1,4 @@
 {
-    "graphics_backend": "VULKAN",
+    "graphics_backend": "DX12",
     "use_rt": 0
 }

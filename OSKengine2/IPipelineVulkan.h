@@ -9,16 +9,27 @@ namespace OSK::GRAPHICS {
 
 	enum class ShaderStage;
 
+	/// <summary>
+	/// Contiene los datos compilados de un shader.
+	/// </summary>
 	struct ShaderStageVulkan {
 		VkShaderModule shaderModule = VK_NULL_HANDLE;
 		VkPipelineShaderStageCreateInfo shaderCreateInfo{};
 	};
 
+
+	/// <summary>
+	/// Clase base para todos los pipelines de Vulkan.
+	/// </summary>
 	class OSKAPI_CALL IPipelineVulkan {
 
 	public:
 
 		virtual ~IPipelineVulkan();
+
+		/// <summary>
+		/// Devuelve el pipeline nativo.
+		/// </summary>
 		VkPipeline GetPipeline() const;
 
 	protected:

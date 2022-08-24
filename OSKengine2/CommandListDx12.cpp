@@ -1,5 +1,6 @@
 #include "CommandListDx12.h"
 
+#include "GraphicsPipelineDx12.h"
 #include "CommandPoolDx12.h"
 #include "GpuMemoryBlockDx12.h"
 #include "GpuMemorySubblockDx12.h"
@@ -14,7 +15,6 @@
 #include "OSKengine.h"
 #include "RendererDx12.h"
 #include "GpuDx12.h"
-#include "GraphicsPipelineDx12.h"
 #include "GpuVertexBufferDx12.h"
 #include "Viewport.h"
 #include "GpuIndexBufferDx12.h"
@@ -25,6 +25,9 @@
 #include "MaterialLayout.h"
 #include "Math.h"
 #include "WindowsUtils.h"
+#include "GpuImageViewDx12.h"
+#include "PipelineLayoutDx12.h"
+#include "GpuStorageBufferDx12.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -117,10 +120,12 @@ void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> 
 			Engine::GetRenderer()->As<RendererDx12>()->GetGpu()->As<GpuDx12>()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
 	}
 	else {
-		for (const auto& img : colorImages)
-			colorAttachments.Insert(img.targetImage->As<GpuImageDx12>()->GetColorUsageDescriptorHandle());
+		for (const auto& [image, layer] : colorImages)
+			colorAttachments.Insert(image->GetView(SampledChannel::COLOR, SampledArrayType::SINGLE_LAYER, layer, 1, ViewUsage::COLOR_TARGET)
+				->As<GpuImageViewDx12>()->GetCpuAddress());
 
-		depthStencilDesc = depthImage.targetImage->As<GpuImageDx12>()->GetDepthUsageDescriptorHandle();
+		depthStencilDesc = depthImage.targetImage->GetView(SampledChannel::DEPTH | SampledChannel::STENCIL, SampledArrayType::SINGLE_LAYER, depthImage.arrayLevel, 1, ViewUsage::DEPTH_STENCIL_TARGET)
+			->As<GpuImageViewDx12>()->GetCpuAddress();
 	}
 
 	for (const auto& img : colorImages) {
@@ -190,16 +195,34 @@ void CommandListDx12::ResourceBarrier(ID3D12Resource* resource, D3D12_RESOURCE_S
 void CommandListDx12::BindMaterial(Material* material) {
 	currentMaterial = material;
 
-	DynamicArray<Format> colorFormats;
-	for (const auto& colorImg : currentColorImages)
-		colorFormats.Insert(colorImg.targetImage->GetFormat());
+	switch (material->GetMaterialType()) {
+	case MaterialType::GRAPHICS: {
+		DynamicArray<Format> colorFormats{};
+		for (const auto& colorImg : currentColorImages)
+			colorFormats.Insert(colorImg.targetImage->GetFormat());
 
-	currentPipeline.graphics = material->GetGraphicsPipeline(colorFormats);
-	
-	commandList->SetGraphicsRootSignature(currentPipeline.graphics->As<GraphicsPipelineDx12>()->GetLayout());
-	commandList->SetPipelineState(currentPipeline.graphics->As<GraphicsPipelineDx12>()->GetPipelineState());
+		currentPipeline.graphics = material->GetGraphicsPipeline(colorFormats);
 
-	commandList->IASetPrimitiveTopology(currentPipeline.graphics->As<GraphicsPipelineDx12>()->GetTopologyType());
+		commandList->SetGraphicsRootSignature(currentPipeline.graphics->GetLayout()->As<PipelineLayoutDx12>()->GetSignature());
+		commandList->SetPipelineState(currentPipeline.graphics->As<GraphicsPipelineDx12>()->GetPipeline());
+
+		commandList->IASetPrimitiveTopology(currentPipeline.graphics->As<GraphicsPipelineDx12>()->GetTopologyType());
+	}
+		break;
+
+	case MaterialType::RAYTRACING:
+		OSK_ASSERT(false, "Raytracing no soportado.");
+
+		break;
+
+	case MaterialType::COMPUTE:
+		currentPipeline.compute = material->GetComputePipeline();
+		
+		commandList->SetComputeRootSignature(currentPipeline.graphics->GetLayout()->As<PipelineLayoutDx12>()->GetSignature());
+		commandList->SetPipelineState(currentPipeline.graphics->As<GraphicsPipelineDx12>()->GetPipeline());
+
+		break;
+	}
 }
 
 void CommandListDx12::BindVertexBuffer(const IGpuVertexBuffer* buffer) {
@@ -215,13 +238,69 @@ void CommandListDx12::BindIndexBuffer(const IGpuIndexBuffer* buffer) {
 }
 
 void CommandListDx12::BindMaterialSlot(const IMaterialSlot* slot) {
-	for (const auto& i : slot->As<MaterialSlotDx12>()->GetUniformBuffers())
-		if (i.second != nullptr)
-			BindUniformBufferDx12(i.first, i.second);
+	for (const auto& [index, buffer] : slot->As<MaterialSlotDx12>()->GetUniformBuffers()) {
+		if (buffer != nullptr) {
+			switch (currentMaterial->GetMaterialType())	{
+			case MaterialType::GRAPHICS:
+				commandList->SetGraphicsRootConstantBufferView(index,
+					buffer->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress());
+				break;
+			case MaterialType::COMPUTE:
+				commandList->SetComputeRootConstantBufferView(index,
+					buffer->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress());
+				break;
+			}
+		}
+	}
 
-	for (const auto& i : slot->As<MaterialSlotDx12>()->GetGpuImages())
-		if (i.second != nullptr)
-			BindImageDx12(i.first, i.second);
+	for (const auto& [index, buffer] : slot->As<MaterialSlotDx12>()->GetStorageBuffers()) {
+		if (buffer != nullptr) {
+			switch (currentMaterial->GetMaterialType()) {
+			case MaterialType::GRAPHICS:
+				commandList->SetGraphicsRootUnorderedAccessView(index,
+					buffer->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress());
+				break;
+			case MaterialType::COMPUTE:
+				commandList->SetComputeRootUnorderedAccessView(index,
+					buffer->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress());
+				break;
+			}
+		}
+	}
+
+	for (const auto& [index, image] : slot->As<MaterialSlotDx12>()->GetGpuImages()) {
+		if (image != nullptr) {
+			const GpuImageViewDx12* view = image->GetView(SampledChannel::COLOR, SampledArrayType::SINGLE_LAYER, 0, 1, ViewUsage::SAMPLED)->As<GpuImageViewDx12>();
+
+			ID3D12DescriptorHeap* heaps[] = { view->GetDescriptorHeap() };
+
+			commandList->SetDescriptorHeaps(1, heaps);
+			
+			switch (currentMaterial->GetMaterialType()) {
+			case MaterialType::GRAPHICS:
+				commandList->SetGraphicsRootDescriptorTable(index, view->GetGpuAddress());
+				break;
+			case MaterialType::COMPUTE:
+				commandList->SetComputeRootDescriptorTable(index, view->GetGpuAddress());
+				break;
+			}
+		}
+	}
+
+	for (const auto& [index, image] : slot->As<MaterialSlotDx12>()->GetStorageBuffers()) {
+		if (image != nullptr) {
+			switch (currentMaterial->GetMaterialType()) {
+			case MaterialType::GRAPHICS:
+				commandList->SetGraphicsRootUnorderedAccessView(index,
+					image->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress());
+				break;
+			case MaterialType::COMPUTE:
+				commandList->SetComputeRootUnorderedAccessView(index,
+					image->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress());
+				break;
+			}
+		}
+	}
 }
 
 void CommandListDx12::PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) {
@@ -237,13 +316,6 @@ void CommandListDx12::PushMaterialConstants(const std::string& pushConstName, co
 void CommandListDx12::BindUniformBufferDx12(TSize index, const GpuUniformBufferDx12* buffer) {
 	commandList->SetGraphicsRootConstantBufferView(index,
 		buffer->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress());
-}
-
-void CommandListDx12::BindImageDx12(TSize index, const GpuImageDx12* image) {
-	ID3D12DescriptorHeap* heaps[] = { image->GetSampledDescriptorHeap() };
-
-	commandList->SetDescriptorHeaps(1, heaps);
-	commandList->SetGraphicsRootDescriptorTable(index, heaps[0]->GetGPUDescriptorHandleForHeapStart());
 }
 
 void CommandListDx12::DrawSingleInstance(TSize numIndices) {

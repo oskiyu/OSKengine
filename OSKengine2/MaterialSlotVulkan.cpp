@@ -13,6 +13,7 @@
 #include "DescriptorPoolVulkan.h"
 #include "GpuImageVulkan.h"
 #include "TopLevelAccelerationStructureVulkan.h"
+#include "GpuImageViewVulkan.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -92,15 +93,15 @@ void MaterialSlotVulkan::SetUniformBuffers(const std::string& binding, const IGp
 		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
 }
 
-void MaterialSlotVulkan::SetStorageBuffer(const std::string& binding, const GpuDataBuffer* buffer) {
-	const GpuDataBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]{};
+void MaterialSlotVulkan::SetStorageBuffer(const std::string& binding, const IGpuStorageBuffer* buffer) {
+	const IGpuStorageBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]{};
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
 		buffers[i] = buffer;
 
 	SetStorageBuffers(binding, buffers);
 }
 
-void MaterialSlotVulkan::SetStorageBuffers(const std::string& binding, const GpuDataBuffer* buffer[NUM_RESOURCES_IN_FLIGHT]) {
+void MaterialSlotVulkan::SetStorageBuffers(const std::string& binding, const IGpuStorageBuffer* buffer[NUM_RESOURCES_IN_FLIGHT]) {
 	const bool containsBinding = bindingsLocations.ContainsKey(binding);
 
 	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
@@ -150,26 +151,8 @@ void MaterialSlotVulkan::SetGpuImages(const std::string& binding, const GpuImage
 		OwnedPtr<VkDescriptorImageInfo> imageInfo = new VkDescriptorImageInfo();
 		imageInfo->imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 		imageInfo->sampler = image[i]->As<GpuImageVulkan>()->GetVkSampler();
-
-		switch (channel) {
-		case SampledChannel::COLOR:
-			imageInfo->imageView = arrayType == SampledArrayType::SINGLE_LAYER 
-				? image[i]->As<GpuImageVulkan>()->GetColorView(arrayLevel) 
-				: image[i]->As<GpuImageVulkan>()->GetColorArrayView();
-			break;
-		case SampledChannel::DEPTH:
-			imageInfo->imageView = arrayType == SampledArrayType::SINGLE_LAYER
-				? image[i]->As<GpuImageVulkan>()->GetDepthOnlyView(arrayLevel)
-				: image[i]->As<GpuImageVulkan>()->GetDepthArrayView();
-			OSK_ASSERT(imageInfo->imageView != VK_NULL_HANDLE, "No se puede usar la imagen para leer la parte de profundidad.");
-			break;
-		case SampledChannel::STENCIL:
-			imageInfo->imageView = arrayType == SampledArrayType::SINGLE_LAYER
-				? image[i]->As<GpuImageVulkan>()->GetStencilOnlyView(arrayLevel)
-				: image[i]->As<GpuImageVulkan>()->GetStencilArrayView();
-			OSK_ASSERT(imageInfo->imageView != VK_NULL_HANDLE, "No se puede usar la imagen para leer la parte de stencil.");
-			break;
-		}
+		imageInfo->imageView = image[i]->GetView(channel, arrayType, arrayLevel, image[i]->GetNumLayers(), ViewUsage::SAMPLED)
+			->As<GpuImageViewVulkan>()->GetVkView();
 
 		VkWriteDescriptorSet descriptorWrite{};
 		descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -209,9 +192,8 @@ void MaterialSlotVulkan::SetStorageImages(const std::string& binding, const GpuI
 		OwnedPtr<VkDescriptorImageInfo> imageInfo = new VkDescriptorImageInfo();
 		imageInfo->imageLayout = VK_IMAGE_LAYOUT_GENERAL;
 		imageInfo->sampler = image[i]->As<GpuImageVulkan>()->GetVkSampler();
-		imageInfo->imageView = arrayType == SampledArrayType::SINGLE_LAYER
-				? image[i]->As<GpuImageVulkan>()->GetColorView(arrayLevel)
-				: image[i]->As<GpuImageVulkan>()->GetColorArrayView();
+		imageInfo->imageView = image[i]->GetView(SampledChannel::COLOR, arrayType, arrayLevel, image[i]->GetNumLayers(), ViewUsage::STORAGE)
+			->As<GpuImageViewVulkan>()->GetVkView();
 		
 		VkWriteDescriptorSet descriptorWrite{};
 		descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;

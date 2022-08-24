@@ -94,6 +94,12 @@ namespace OSK::GRAPHICS {
 
 	};
 
+
+	enum class SampledArrayType {
+		SINGLE_LAYER,
+		ARRAY
+	};
+
 }
 
 OSK_FLAGS(OSK::GRAPHICS::GpuImageUsage);

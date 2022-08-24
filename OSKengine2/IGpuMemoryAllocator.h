@@ -28,6 +28,7 @@ namespace OSK::GRAPHICS {
 	class IGpuVertexBuffer;
 	class IGpuIndexBuffer;
 	class IGpuUniformBuffer;
+	class IGpuStorageBuffer;
 	struct Vertex3D;
 	class VertexInfo;
 
@@ -119,6 +120,11 @@ namespace OSK::GRAPHICS {
 		/// Crea un uniform buffer, con el tamaño dado en bytes.
 		/// </summary>
 		virtual OwnedPtr<IGpuUniformBuffer> CreateUniformBuffer(TSize size) = 0;
+
+		/// <summary>
+		/// Crea un storage buffer, con el tamaño dado en bytes.
+		/// </summary>
+		virtual OwnedPtr<IGpuStorageBuffer> CreateStorageBuffer(TSize size) = 0;
 
 		/// <summary>
 		/// Crea un buffer temporal con el tamaño dado.

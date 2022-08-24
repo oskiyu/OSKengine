@@ -129,6 +129,7 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	CreateGpuMemoryAllocator();
 	if (IsRtRequested() && currentGpu->As<GpuVulkan>()->GetInfo().IsRtCompatible())
 		SetupRtFunctions(currentGpu->As<GpuVulkan>()->GetLogicalDevice());
+	SetupRenderingFunctions(currentGpu->As<GpuVulkan>()->GetLogicalDevice());
 
 	renderTargetsCamera = new ECS::CameraComponent2D;
 	renderTargetsCamera->LinkToWindow(&window);
@@ -220,6 +221,15 @@ void RendererVulkan::SubmitSingleUseCommandList(ICommandList* commandList) {
 }
 
 void RendererVulkan::CreateInstance(const std::string& appName, const Version& version) {
+	// Obtenemos la versión de vulkan soportada
+	PFN_vkEnumerateInstanceVersion pvkEnumeratInstanceVersion = (PFN_vkEnumerateInstanceVersion)vkGetInstanceProcAddr(nullptr, "vkEnumerateInstanceVersion");
+	if (pvkEnumeratInstanceVersion == nullptr) {
+		vulkanVersion = VK_API_VERSION_1_0;
+	}
+	else {
+		pvkEnumeratInstanceVersion(&vulkanVersion);
+	}
+
 	//Información de la app.
 	VkApplicationInfo appInfo{};
 	appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -227,7 +237,12 @@ void RendererVulkan::CreateInstance(const std::string& appName, const Version& v
 	appInfo.applicationVersion = VK_MAKE_VERSION((int)version.mayor, (int)version.menor, (int)version.parche);
 	appInfo.pEngineName = "OSKengine";
 	appInfo.engineVersion = VK_MAKE_VERSION(Engine::GetVersion().mayor, Engine::GetVersion().menor, Engine::GetVersion().parche);
-	appInfo.apiVersion = VK_API_VERSION_1_3;
+	appInfo.apiVersion = vulkanVersion;
+
+	Engine::GetLogger()->InfoLog("Versión de vulkan: "
+		+ std::to_string(VK_VERSION_MAJOR(vulkanVersion)) + "."
+		+ std::to_string(VK_VERSION_MINOR(vulkanVersion)) + "."
+		+ std::to_string(VK_VERSION_PATCH(vulkanVersion)));
 
 	//Create info.
 	VkInstanceCreateInfo createInfo{};
@@ -325,8 +340,11 @@ void RendererVulkan::ChooseGpu() {
 	for (const auto& gpu : devices) {
 		auto info = GpuVulkan::Info::Get(gpu, surface);
 
-		gpus.Insert(info);
+		if (info.isSuitable)
+				gpus.Insert(info);
 	}
+
+	OSK_ASSERT(!gpus.IsEmpty(), "No hay una GPU compatible.");
 
 	VkPhysicalDevice gpu = devices[0];
 	GpuVulkan::Info info = gpus[0];
@@ -682,6 +700,25 @@ void RendererVulkan::SetupDebugFunctions(VkDevice instance) {
 	pvkCmdEndDebugUtilsLabelEXT = reinterpret_cast<PFN_vkCmdEndDebugUtilsLabelEXT>(vkGetDeviceProcAddr(instance, "vkCmdEndDebugUtilsLabelEXT"));
 }
 
+void RendererVulkan::SetupRenderingFunctions(VkDevice logicalDevice) {
+	if (VK_VERSION_MAJOR(vulkanVersion) >= 1 && VK_VERSION_MINOR(vulkanVersion) >= 3) {
+		pvkCmdBeginRendering = vkCmdBeginRendering;
+		pvkCmdEndRendering = vkCmdEndRendering;
+
+		if (pvkCmdBeginRendering == nullptr or pvkCmdEndRendering == nullptr) {
+			pvkCmdBeginRendering = reinterpret_cast<PFN_vkCmdBeginRendering>(vkGetDeviceProcAddr(logicalDevice, "vkCmdBeginRendering"));
+			pvkCmdEndRendering = reinterpret_cast<PFN_vkCmdEndRendering>(vkGetDeviceProcAddr(logicalDevice, "vkCmdEndRendering"));
+		}
+	}
+	else {
+		pvkCmdBeginRendering = reinterpret_cast<PFN_vkCmdBeginRendering>(vkGetDeviceProcAddr(logicalDevice, "vkCmdBeginRendering"));
+		pvkCmdEndRendering = reinterpret_cast<PFN_vkCmdEndRendering>(vkGetDeviceProcAddr(logicalDevice, "vkCmdEndRendering"));
+	}
+
+	OSK_ASSERT(pvkCmdBeginRendering != nullptr, "No se puede iniciar el renderizador, falta Dynamic Rendering.");
+	OSK_ASSERT(pvkCmdEndRendering != nullptr, "No se puede iniciar el renderizador, falta Dynamic Rendering.");
+}
+
 TSize RendererVulkan::GetCurrentFrameIndex() const {
 	return currentFrameIndex;
 }
@@ -710,3 +747,6 @@ PFN_vkSetDebugUtilsObjectTagEXT RendererVulkan::pvkSetDebugUtilsObjectTagEXT = n
 PFN_vkCmdDebugMarkerBeginEXT RendererVulkan::pvkCmdDebugMarkerBeginEXT = nullptr;
 PFN_vkCmdInsertDebugUtilsLabelEXT RendererVulkan::pvkCmdInsertDebugUtilsLabelEXT = nullptr;
 PFN_vkCmdEndDebugUtilsLabelEXT RendererVulkan::pvkCmdEndDebugUtilsLabelEXT = nullptr;
+
+PFN_vkCmdBeginRendering RendererVulkan::pvkCmdBeginRendering = nullptr;
+PFN_vkCmdEndRendering RendererVulkan::pvkCmdEndRendering = nullptr;

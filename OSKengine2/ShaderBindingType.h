@@ -42,10 +42,15 @@ namespace OSK::GRAPHICS {
 		RT_ACCELERATION_STRUCTURE,
 
 		/// <summary>
+		/// Imagen read/write, que puede usarse en shaders de computación.
+		/// </summary>
+		STORAGE_IMAGE,
+
+		/// <summary>
 		/// Imagen en la que se renderizará el resultado del
 		/// trazado de rayos.
 		/// </summary>
-		RT_TARGET_IMAGE
+		RT_TARGET_IMAGE = STORAGE_IMAGE
 
 	};
 

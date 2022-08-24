@@ -117,3 +117,15 @@ TSize GpuImage::GetPhysicalNumberOfBytes() const {
 TSize GpuImage::GetNumSamples() const {
 	return numSamples;
 }
+
+IGpuImageView* GpuImage::GetView(SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage) const {
+	auto it = views.Find(IGpuImageView(channel, arrayType, baseArrayLevel, layerCount, usage));
+
+	if (!it.IsEmpty())
+		return it.GetValue().second.GetPointer();
+
+	OwnedPtr<IGpuImageView> view = CreateView(channel, arrayType, baseArrayLevel, layerCount, usage);
+	views.Insert(IGpuImageView(channel, arrayType, baseArrayLevel, layerCount, usage), view.GetPointer());
+
+	return view.GetPointer();
+}

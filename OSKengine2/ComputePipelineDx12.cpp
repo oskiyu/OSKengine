@@ -1,0 +1,21 @@
+#include "ComputePipelineDx12.h"
+
+#include "PipelineLayoutDx12.h"
+
+using namespace OSK;
+using namespace OSK::GRAPHICS;
+
+ComputePipelineDx12::ComputePipelineDx12(const PipelineCreateInfo& info, const MaterialLayout* materialLayout, IGpu* device) {
+	layout = new PipelineLayoutDx12(materialLayout);
+
+	computeShader = LoadShader(info, {}, info.computeShaderPath, ShaderStage::COMPUTE, *materialLayout);
+
+	D3D12_COMPUTE_PIPELINE_STATE_DESC createInfo{};
+	createInfo.CS = computeShader.bytecode;
+	createInfo.pRootSignature = layout->As<PipelineLayoutDx12>()->GetSignature();
+	createInfo.NodeMask = 0;
+	createInfo.Flags = D3D12_PIPELINE_STATE_FLAG_NONE;
+
+	const HRESULT result = device->As<GpuDx12>()->GetDevice()->CreateComputePipelineState(&createInfo, IID_PPV_ARGS(&dxPipeline));
+	OSK_ASSERT(SUCCEEDED(result), "Error al crear el pipeline. Code: " + std::to_string(result));
+}

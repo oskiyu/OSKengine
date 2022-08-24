@@ -54,6 +54,10 @@ namespace OSK::GRAPHICS {
 		static PFN_vkCmdInsertDebugUtilsLabelEXT pvkCmdInsertDebugUtilsLabelEXT;
 		static PFN_vkCmdEndDebugUtilsLabelEXT pvkCmdEndDebugUtilsLabelEXT;
 
+		// Sin renderpasses
+		static PFN_vkCmdBeginRendering pvkCmdBeginRendering;
+		static PFN_vkCmdEndRendering pvkCmdEndRendering;
+
 	protected:
 
 		void CreateCommandQueues() override;
@@ -78,6 +82,7 @@ namespace OSK::GRAPHICS {
 
 		void SetupRtFunctions(VkDevice logicalDevice);
 		void SetupDebugFunctions(VkDevice instance);
+		void SetupRenderingFunctions(VkDevice logicalDevice);
 
 		bool AreValidationLayersAvailable() const;
 
@@ -97,6 +102,8 @@ namespace OSK::GRAPHICS {
 
 		TSize currentCommandBufferIndex = 0;
 		TSize currentFrameIndex = 0;
+
+		TSize vulkanVersion = VK_API_VERSION_1_3;
 
 	};
 
