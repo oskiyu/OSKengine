@@ -166,7 +166,7 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 		info.rtPipelineFeatures = {};
 		info.rtPipelineFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR,
 		info.rtPipelineFeatures.rayTracingPipeline = VK_TRUE;
-		info.rtPipelineFeatures.pNext = &info.dynamicRenderingFeatures;
+		info.rtPipelineFeatures.pNext = nullptr;
 	}
 
 	// Crear el logical device.

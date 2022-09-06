@@ -22,8 +22,10 @@ void ICommandList::RegisterStagingBuffer(OwnedPtr<GpuDataBuffer> stagingBuffer) 
 void ICommandList::BeginGraphicsRenderpass(RenderTarget* renderpass, const Color& color) {
 	currentRenderpassType = renderpass->GetRenderTargetType();
 
-	const TSize frameIndex = Engine::GetRenderer()->GetCurrentFrameIndex();
 	const bool isFinal = currentRenderpassType == RenderpassType::FINAL;
+	const TSize frameIndex = isFinal 
+		? Engine::GetRenderer()->GetCurrentFrameIndex()
+		: Engine::GetRenderer()->GetCurrentCommandListIndex();
 
 	DynamicArray<RenderPassImageInfo> colorImages;
 

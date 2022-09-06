@@ -6,7 +6,7 @@
 D3D12_RESOURCE_STATES OSK::GRAPHICS::GetGpuImageLayoutDx12(GpuImageLayout layout) {
 	switch (layout) {
 		case GpuImageLayout::UNDEFINED:
-			return D3D12_RESOURCE_STATE_COMMON;
+			return D3D12_RESOURCE_STATE_GENERIC_READ;
 
 		case GpuImageLayout::PRESENT:
 			return D3D12_RESOURCE_STATE_PRESENT;
@@ -28,6 +28,9 @@ D3D12_RESOURCE_STATES OSK::GRAPHICS::GetGpuImageLayoutDx12(GpuImageLayout layout
 
 		case GpuImageLayout::TRANSFER_DESTINATION:
 			return D3D12_RESOURCE_STATE_COPY_DEST;
+
+		case GpuImageLayout::GENERAL:
+			return D3D12_RESOURCE_STATE_COMMON;
 
 		default:
 			return D3D12_RESOURCE_STATE_COMMON;

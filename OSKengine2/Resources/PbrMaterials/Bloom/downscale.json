@@ -1,0 +1,13 @@
+{
+    "file_type": "MATERIAL_COMPUTE",
+    "spec_ver": 1,
+    "name": "Bloom",
+
+    "compute_shader": "Resources/Shaders/VK/Compute/bloom_downscale.spv",
+    
+    "slots": {
+        "0": "texture",
+        "1": "exposure"
+    }
+
+}

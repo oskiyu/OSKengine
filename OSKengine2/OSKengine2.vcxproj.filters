@@ -448,6 +448,12 @@
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Storage">
       <UniqueIdentifier>{0723e2ba-a42e-4c51-a5dc-51ef2f8f1f5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\HighLevel\PostProcess">
+      <UniqueIdentifier>{449125c2-7c98-438e-b23c-aee20a467488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PostProcess">
+      <UniqueIdentifier>{2a49b4a9-99ba-41f0-bc5c-28e27f1b6228}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -840,9 +846,6 @@
     <ClCompile Include="ComputePipelineVulkan.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Compute</Filter>
     </ClCompile>
-    <ClCompile Include="BloomPass.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\PBR</Filter>
-    </ClCompile>
     <ClCompile Include="GpuImageViewVulkan.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Image\View</Filter>
     </ClCompile>
@@ -878,6 +881,18 @@
     </ClCompile>
     <ClCompile Include="PipelineLayoutVulkan.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="FxaaPass.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\PostProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="BloomPass.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\PostProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="IPostProcessPass.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\PostProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="ToneMappingPass.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\PostProcess</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1430,9 +1445,6 @@
     <ClInclude Include="GpuBarrierInfo.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="BloomPass.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PBR</Filter>
-    </ClInclude>
     <ClInclude Include="IGpuImageView.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\View</Filter>
     </ClInclude>
@@ -1459,6 +1471,18 @@
     </ClInclude>
     <ClInclude Include="GpuStorageBufferDx12.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="FxaaPass.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="IPostProcessPass.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="BloomPass.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="ToneMapping.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PostProcess</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

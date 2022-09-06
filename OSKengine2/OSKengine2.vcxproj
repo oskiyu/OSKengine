@@ -65,6 +65,7 @@
     <ClCompile Include="ComputePipelineDx12.cpp" />
     <ClCompile Include="ComputePipelineVulkan.cpp" />
     <ClCompile Include="DescriptorDx12.cpp" />
+    <ClCompile Include="FxaaPass.cpp" />
     <ClCompile Include="GpuImageViewDx12.cpp" />
     <ClCompile Include="GpuImageViewVulkan.cpp" />
     <ClCompile Include="GpuStorageBufferDx12.cpp" />
@@ -129,6 +130,7 @@
     <ClCompile Include="IPipelineDx12.cpp" />
     <ClCompile Include="IPipelineLayout.cpp" />
     <ClCompile Include="IPipelineVulkan.cpp" />
+    <ClCompile Include="IPostProcessPass.cpp" />
     <ClCompile Include="IRaytracingPipeline.cpp" />
     <ClCompile Include="IRenderSystem.cpp" />
     <ClCompile Include="IrradianceMap.cpp" />
@@ -193,6 +195,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureCoordinates.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
+    <ClCompile Include="ToneMappingPass.cpp" />
     <ClCompile Include="TopLevelAccelerationStructureVulkan.cpp" />
     <ClCompile Include="Transform2D.cpp" />
     <ClCompile Include="Transform3D.cpp" />
@@ -230,6 +233,7 @@
     <ClInclude Include="DescriptorLayoutVulkan.h" />
     <ClInclude Include="DescriptorPoolVulkan.h" />
     <ClInclude Include="Doc__MaterialJson.h" />
+    <ClInclude Include="FxaaPass.h" />
     <ClInclude Include="GpuBarrierInfo.h" />
     <ClInclude Include="GpuImageViewDx12.h" />
     <ClInclude Include="GpuImageViewVulkan.h" />
@@ -239,6 +243,7 @@
     <ClInclude Include="IGpuObject.h" />
     <ClInclude Include="IGpuImageView.h" />
     <ClInclude Include="IPipelineDx12.h" />
+    <ClInclude Include="IPostProcessPass.h" />
     <ClInclude Include="IrradianceMap.h" />
     <ClInclude Include="IrradianceMapLoader.h" />
     <ClInclude Include="IGpuStorageBuffer.h" />
@@ -379,6 +384,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureCoordinates.h" />
     <ClInclude Include="TextureLoader.h" />
+    <ClInclude Include="ToneMapping.h" />
     <ClInclude Include="TopLevelAccelerationStructureVulkan.h" />
     <ClInclude Include="ToString.h" />
     <ClInclude Include="Transform2D.h" />
@@ -748,6 +754,14 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>dxcompiler.lib;spirv-cross-cpp.lib;spirv-cross-glsl.lib;spirv-cross-hlsl.lib;spirv-cross-core.lib;vulkan-1.lib;freetype.lib;OpenAL32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'">
     <ClCompile>
@@ -763,6 +777,14 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>dxcompiler.lib;spirv-cross-cpp.lib;spirv-cross-glsl.lib;spirv-cross-hlsl.lib;spirv-cross-core.lib;vulkan-1.lib;freetype.lib;OpenAL32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -783,6 +805,14 @@
       <AdditionalDependencies>dxcompiler.lib;spirv-cross-cpp.lib;spirv-cross-glsl.lib;spirv-cross-hlsl.lib;spirv-cross-core.lib;vulkan-1.lib;freetype.lib;OpenAL32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|x64'">
     <ClCompile>
@@ -804,6 +834,14 @@
       <EntryPointSymbol>
       </EntryPointSymbol>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|x64'">
     <ClCompile>
@@ -826,6 +864,14 @@
       <EntryPointSymbol>
       </EntryPointSymbol>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL RVL|x64'">
     <ClCompile>
@@ -848,6 +894,14 @@
       <EntryPointSymbol>
       </EntryPointSymbol>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'">
     <ClCompile>
@@ -867,6 +921,14 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>dxcompiler.lib;spirv-cross-cpp.lib;spirv-cross-glsl.lib;spirv-cross-hlsl.lib;spirv-cross-core.lib;vulkan-1.lib;freetype.lib;OpenAL32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

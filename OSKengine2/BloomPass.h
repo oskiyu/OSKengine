@@ -1,11 +1,6 @@
 #pragma once
 
-#include "IGpuImage.h"
-#include "UniquePtr.hpp"
-#include "MaterialInstance.h"
-#include "Vector2.hpp"
-#include "RenderTarget.h"
-
+#include "IPostProcessPass.h"
 
 namespace OSK::GRAPHICS {
 
@@ -24,74 +19,18 @@ namespace OSK::GRAPHICS {
 	/// Usa shaders de computación para ejecutar un algoritmo basado en: 
 	/// http://www.iryoku.com/next-generation-post-processing-in-call-of-duty-advanced-warfare
 	/// </summary>
-	class BloomPass {
+	class OSKAPI_CALL BloomPass : public IPostProcessPass {
 
 	public:
 
-		/// <summary>
-		/// El constructor carga el material de bloom
-		/// y crea las instancias del material.
-		/// </summary>
-		/// 
-		/// @pre El renderizador está activo.
-		BloomPass();
+		void Create(const Vector2ui& size) override;
+		void Resize(const Vector2ui& size) override;
 
+		void Execute(ICommandList* computeCmdList) override;
 
-		/// <summary>
-		/// Crea las imágenes intermedias de resplandor y
-		/// el render target final.
-		/// </summary>
-		/// <param name="size">Tamaño de la imagen final.</param>
-		void Create(const Vector2ui& size);
+		void SetExposureBuffers(const IGpuStorageBuffer* [3]);
 
-		/// <summary>
-		/// Cambia de tamaño las imágenes intermedias de resplandor y
-		/// el render target final.
-		/// </summary>
-		/// <param name="size">Tamaño de la imagen final.</param>
-		void Resize(const Vector2ui& size);
-
-
-		/// <summary>
-		/// Establece las imágenes de entrada a partir de las que
-		/// se calculará el bloom.
-		/// </summary>
-		/// <param name="images">Imágenes de entrada.</param>
-		/// 
-		/// @warning Si las imágenes son invalidadas (porque su dueño
-		/// original se recrean o cambian de tamaño), se debe volver a 
-		/// establecer como imágenes de entrada con BloomPass::SetInput.
-		void SetInput(const GpuImage* images[3]);
-
-		/// <summary>
-		/// Establece las imágenes de entrada a partir de las que
-		/// se calculará el bloom.
-		/// </summary>
-		/// <param name="target">Render target de entrada.</param>
-		/// 
-		/// @warning Si las imágenes son invalidadas (porque su dueño
-		/// original se recrean o cambian de tamaño), se debe volver a 
-		/// establecer como imágenes de entrada con BloomPass::SetInput.
-		void SetInput(const RenderTarget& target);
-
-
-		/// <summary>
-		/// Genera la imagen de resplandor.
-		/// </summary>
-		/// <param name="computeCmdList">Lista de comandos de computación.</param>
-		/// 
-		/// @pre Se deben haber establecido las imágenes de entrada con BloomPass::SetInput.
-		/// @pre Las imágenes de entrada establecidas con BloomPass::SetInput deben estar
-		/// en un estado válido.
-		/// @pre computeCmdList debe ser una lista de comandos de computación.
-		void Execute(ICommandList* computeCmdList);
-
-
-		/// <summary>
-		/// Devuelve el render target con la imagen de bloom
-		/// renderizada en las imágenes de color.
-		/// </summary>
-		const RenderTarget& GetRenderTarget() const;
+		void UpdateMaterialInstance() override;
 
 	private:
 
@@ -147,10 +86,11 @@ namespace OSK::GRAPHICS {
 
 		UniquePtr<GpuImage> bloomTargets[3]{};
 
-		Material* bloomMaterial = nullptr;
-		UniquePtr<MaterialInstance> bloomMaterialInstances[3]{}; // 2 : original
-		
-		RenderTarget resolveRenderTarget{};
+		Material* downscaleMaterial = nullptr;
+		Material* upscaleMaterial = nullptr;
+		Material* finalMaterial = nullptr;
+
+		const static TSize numPasses = 4;
 
 	};
 

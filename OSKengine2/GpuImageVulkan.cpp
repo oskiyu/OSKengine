@@ -160,7 +160,7 @@ OwnedPtr<IGpuImageView> GpuImageVulkan::CreateView(SampledChannel channel, Sampl
 
 	viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 	viewInfo.image = image;
-	viewInfo.viewType = GetVkImageViewType();
+	viewInfo.viewType = arrayType == SampledArrayType::SINGLE_LAYER ? GetVkImageViewType() : GetVkImageArrayViewType();
 	viewInfo.format = GetFormatVulkan(GetFormat());
 	
 	VkImageAspectFlags aspectMask = 0;

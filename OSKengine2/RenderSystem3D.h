@@ -5,7 +5,6 @@
 #include "ShadowMap.h"
 #include "Lights.h"
 #include "IGpuUniformBuffer.h"
-#include "BloomPass.h"
 
 namespace OSK::GRAPHICS {
 	class ICommandList;
@@ -39,8 +38,6 @@ namespace OSK::ECS {
 		GRAPHICS::ShadowMap* GetShadowMap();
 		GRAPHICS::IGpuUniformBuffer* GetDirLightUniformBuffer() const;
 
-		const GRAPHICS::RenderTarget& GetBloomRenderTarget() const;
-
 	private:
 
 		void GenerateShadows(GRAPHICS::ICommandList* commandList);
@@ -50,8 +47,6 @@ namespace OSK::ECS {
 		UniquePtr<GRAPHICS::IGpuUniformBuffer> dirLightUniformBuffer;
 
 		GRAPHICS::ShadowMap shadowMap;
-
-		UniquePtr<GRAPHICS::BloomPass> bloomPass;
 
 	};
 

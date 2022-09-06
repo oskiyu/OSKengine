@@ -1,22 +1,15 @@
 INFO: Iniciando OSKengine.
 INFO: 	Version: 0.0.0.
-INFO: 	Build 2022.07.31a.
+INFO: 	Build 2022.08.30a.
 INFO: Ventana iniciada correctamente.
 INFO: 	Monitor sizeX: 1920
 INFO: 	Monitor sizeY: 1080
-INFO: 	Monitor refresh rate: 60
-INFO: Iniciando renderizador DX12.
-INFO: Capas de validación activas.
-INFO: GPU elegida: Intel(R) Iris(R) Xe Graphics
-INFO: Creada la lista de comandos.
-ERROR: Check failed: El modo de presentación PresentMode::VSYNC_ON_TRIPLE_BUFFER no está soportado. Se usará PresentMode::VSYNC_ON.
-	 at OSK::GRAPHICS::SwapchainDx12::Create
-	 at line 51
-	 at file C:\Users\Oscar\source\repos\OSKgames\OSKengine\OSKengine2\SwapchainDx12.cpp
+INFO: 	Monitor refresh rate: 144
+INFO: Versión de vulkan: 1.3.201
+INFO: GPU elegida: NVIDIA GeForce RTX 2060
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
 INFO: Creado el swapchain.
-INFO: Creado el asignador de memoria de la GPU.
-ERROR: Assertion failed: Error al crear el pipeline. Code: -2147024809
-	 at OSK::GRAPHICS::ComputePipelineDx12::ComputePipelineDx12
-	 at line 20
-	 at file C:\Users\Oscar\source\repos\OSKgames\OSKengine\OSKengine2\ComputePipelineDx12.cpp
+INFO: Cerrado el log.
 

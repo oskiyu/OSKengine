@@ -8,8 +8,6 @@ using namespace OSK::GRAPHICS;
 IGpuImageView::IGpuImageView(SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage) 
 	: channel(channel), arrayType(arrayType), baseArrayLevel(baseArrayLevel), layerCount(layerCount), usage(usage) {
 
-	if (arrayType == SampledArrayType::SINGLE_LAYER)
-		OSK_ASSERT(layerCount == 1, "Se ha intentado crear un image view con arrayType == SampledArrayType::SINGLE_LAYER, pero layerCount no es 1.");
 }
 
 SampledChannel IGpuImageView::GetChannel() const {

@@ -76,6 +76,7 @@ namespace OSK::GRAPHICS {
 		void SubmitPreComputeCommands();
 		void SubmitGraphicsCommands();
 		void SubmitPostComputeCommands();
+		void SubmitFrameBuildCommands();
 
 		void SubmitFrame();
 		void AcquireNextFrame();
@@ -92,13 +93,13 @@ namespace OSK::GRAPHICS {
 
 		// Sync
 		DynamicArray<VkSemaphore> imageAvailableSemaphores;
-		DynamicArray<VkSemaphore> renderFinishedSemaphores;
-		DynamicArray<VkSemaphore> preComputeFinishedSemaphores;
-		DynamicArray<VkSemaphore> postComputeFinishedSemaphores;
 
-		DynamicArray<VkFence> graphicsCommandsFences;
-		DynamicArray<VkFence> preComputeCommandsFences;
-		DynamicArray<VkFence> postComputeCommandsFences;
+		DynamicArray<VkSemaphore> preComputeFinishedSemaphores; // PreCompute -> RenderFinished
+		DynamicArray<VkSemaphore> renderFinishedSemaphores; // RenderFinished -> PostCompute
+		DynamicArray<VkSemaphore> postComputeFinishedSemaphores; // PostCompute -> Framebuild
+		DynamicArray<VkSemaphore> frameBuildSemaphores; // Framebuild -> Present
+
+		DynamicArray<VkFence> fullyRenderedFences;
 
 		TSize currentCommandBufferIndex = 0;
 		TSize currentFrameIndex = 0;

@@ -16,7 +16,12 @@ namespace OSK::GRAPHICS {
 
 		GpuImageDx12(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples, GpuImageSamplerDesc samplerDesc);
 
-		void SetResource(const ComPtr<ID3D12Resource>& resource);
+		void FillResourceDesc();
+		const D3D12_RESOURCE_DESC& GetResourceDesc();
+		void CreateResource(ID3D12Heap* memory, TSize memoryOffset);
+
+		// Swapchain
+		void _SetResource(ComPtr<ID3D12Resource> resource);
 
 		ID3D12Resource* GetResource() const;
 
@@ -28,19 +33,9 @@ namespace OSK::GRAPHICS {
 
 	private:
 
+		D3D12_RESOURCE_DESC resourceDesc{};
+
 		ComPtr<ID3D12Resource> resource;
-
-		ComPtr<ID3D12DescriptorHeap> arraySampledDescriptorHeap;
-		ComPtr<ID3D12DescriptorHeap> arrayColorDescriptorHeap;
-		ComPtr<ID3D12DescriptorHeap> arrayDepthStencilDescriptorHeap;
-		ComPtr<ID3D12DescriptorHeap> arrayDepthDescriptorHeap;
-		ComPtr<ID3D12DescriptorHeap> arrayStencilDescriptorHeap;
-
-		ComPtr<ID3D12DescriptorHeap> sampledDescriptorsHeap;
-		ComPtr<ID3D12DescriptorHeap> colorDescriptorsHeap;
-		ComPtr<ID3D12DescriptorHeap> depthStencilDescriptorsHeap;
-		ComPtr<ID3D12DescriptorHeap> depthDescriptorsHeap;
-		ComPtr<ID3D12DescriptorHeap> stencilDescriptorsHeap;
 
 	};
 

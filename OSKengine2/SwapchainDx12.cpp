@@ -113,7 +113,7 @@ void SwapchainDx12::CreateImages(const IO::Window& window) {
             ComPtr<ID3D12Resource> rTarget;
             swapchain->GetBuffer(i, IID_PPV_ARGS(&rTarget));
 
-            images[i]->As<GpuImageDx12>()->SetResource(rTarget);
+            images[i]->As<GpuImageDx12>()->_SetResource(rTarget);
 
             D3D12_RENDER_TARGET_VIEW_DESC renderTargetDesc{};
             renderTargetDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;
@@ -159,7 +159,7 @@ void SwapchainDx12::CreateImages(const IO::Window& window) {
             device->As<GpuDx12>()->GetDevice()->CreatePlacedResource(
                 depthHeaps[i].Get(), 0, &depthResourceDesc, D3D12_RESOURCE_STATE_DEPTH_WRITE,
                 &depthClearValue, IID_PPV_ARGS(&depthResource));
-            depthImages[i]->As<GpuImageDx12>()->SetResource(depthResource);
+            depthImages[i]->As<GpuImageDx12>()->_SetResource(depthResource);
 
             D3D12_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc{};
             depthStencilViewDesc.Format = GetFormatDx12(Format::D32S8_SFLOAT_SUINT);

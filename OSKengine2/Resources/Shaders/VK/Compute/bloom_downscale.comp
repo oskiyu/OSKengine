@@ -1,0 +1,69 @@
+#version 460
+
+layout (local_size_x = 32, local_size_y = 32) in;
+
+layout (set = 0, binding = 0, rgba32f) uniform image2D sceneImage;
+layout (set = 0, binding = 1, rgba32f) uniform image2DArray bloomImage;
+
+layout (set = 1, binding = 0) buffer ExposureInfo {
+    float exposure;
+} exposure;
+
+layout (push_constant) uniform Info{
+    vec4 infos;
+    ivec2 indices;
+} info;
+
+float GetBrightness(vec4 color) {
+    return dot(color.rgb, vec3(0.2126, 0.7152, 0.0722));
+}
+
+vec4 GetColor(vec2 pixelCoords, int inputIndex) {
+    if (inputIndex == 4)
+        return imageLoad(sceneImage, ivec2(pixelCoords));
+    else
+        return imageLoad(bloomImage, ivec3(pixelCoords, inputIndex));
+}
+
+void main() {
+    vec4 color = vec4(0.0);
+
+    const int inputIndex = info.indices.x;
+    const int outputIndex = info.indices.y;
+
+    const vec2 previousResolution = info.infos.xy;
+    const vec2 nextResolution = info.infos.zw;
+
+    const vec2 currentCoords = vec2(gl_GlobalInvocationID.xy);
+    
+    if (currentCoords.x > nextResolution.x || currentCoords.y > nextResolution.y)
+        return;
+    
+    const vec2 previousCoordinates = vec2(previousResolution / nextResolution * currentCoords);
+    const vec2 nextCoordinates = currentCoords;
+
+    const vec4 A = GetColor(previousCoordinates + vec2(-2, -2), inputIndex);
+    const vec4 B = GetColor(previousCoordinates + vec2(0, -2), inputIndex);
+    const vec4 C = GetColor(previousCoordinates + vec2(+2, -2), inputIndex);
+
+    const vec4 D = GetColor(previousCoordinates + vec2(-2, 0), inputIndex);
+    const vec4 E = GetColor(previousCoordinates + vec2(0, 0), inputIndex);
+    const vec4 F = GetColor(previousCoordinates + vec2(+2, 0), inputIndex);
+
+    const vec4 G = GetColor(previousCoordinates + vec2(-2, 2), inputIndex);
+    const vec4 H = GetColor(previousCoordinates + vec2(0, 2), inputIndex);
+    const vec4 I = GetColor(previousCoordinates + vec2(+2, 2), inputIndex);
+
+    const vec4 J = GetColor(previousCoordinates + vec2(-1, -1), inputIndex);
+    const vec4 K = GetColor(previousCoordinates + vec2(-1, +1), inputIndex);
+    const vec4 L = GetColor(previousCoordinates + vec2(+1, -1), inputIndex);
+    const vec4 M = GetColor(previousCoordinates + vec2(+1, +1), inputIndex);
+
+    color = (A + B + D + E) * 0.25 * 0.125
+          + (B + C + E + F) * 0.25 * 0.125
+          + (D + E + G + H) * 0.25 * 0.125
+          + (E + F + H + I) * 0.25 * 0.125
+          + (J + K + L + M) * 0.25 * 0.5;
+
+    imageStore(bloomImage, ivec3(currentCoords.xy, outputIndex), color);
+}

@@ -37,7 +37,7 @@ OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorDx12::CreateNewImageBlock(GpuImage* 
 
 OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorDx12::CreateStagingBuffer(TSize size) {
 	return new GpuDataBuffer(GetNextBufferMemoryBlock(size, 
-		GpuBufferUsage::TRANSFER_SOURCE, GpuSharedMemoryType::GPU_AND_CPU)->GetNextMemorySubblock(size, 65536), size, 0);
+		GpuBufferUsage::TRANSFER_SOURCE, GpuSharedMemoryType::GPU_AND_CPU)->GetNextMemorySubblock(size, D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT), size, 0);
 }
 
 OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorDx12::CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices, const VertexInfo& vertexInfo) {
@@ -49,7 +49,7 @@ OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorDx12::CreateVertexBuffer(const void
 	stagingBuffer->Write(data, bufferSize);
 	stagingBuffer->Unmap();
 
-	GpuVertexBufferDx12* output = new GpuVertexBufferDx12(block->GetNextMemorySubblock(bufferSize, 0), bufferSize, 0, numVertices, vertexInfo);
+	GpuVertexBufferDx12* output = new GpuVertexBufferDx12(block->GetNextMemorySubblock(bufferSize, D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT), bufferSize, 0, numVertices, vertexInfo);
 
 	auto singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList()->As<CommandListDx12>();
 	singleTimeCommandList->Reset();
@@ -89,7 +89,7 @@ OwnedPtr<IGpuIndexBuffer> GpuMemoryAllocatorDx12::CreateIndexBuffer(const Dynami
 	stagingBuffer->Write(indices.GetData(), bufferSize);
 	stagingBuffer->Unmap();
 
-	GpuIndexBufferDx12* output = new GpuIndexBufferDx12(block->GetNextMemorySubblock(bufferSize, 0), bufferSize, 0, indices.GetSize());
+	GpuIndexBufferDx12* output = new GpuIndexBufferDx12(block->GetNextMemorySubblock(bufferSize, D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT), bufferSize, 0, indices.GetSize());
 
 	auto singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList()->As<CommandListDx12>();
 	singleTimeCommandList->Reset();
@@ -123,13 +123,13 @@ OwnedPtr<IGpuIndexBuffer> GpuMemoryAllocatorDx12::CreateIndexBuffer(const Dynami
 OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorDx12::CreateUniformBuffer(TSize size) {
 	auto block = GetNextBufferMemoryBlock(size, GpuBufferUsage::UNIFORM_BUFFER, GpuSharedMemoryType::GPU_AND_CPU);
 
-	return new GpuUniformBufferDx12(block->GetNextMemorySubblock(size, 0), size, 0);
+	return new GpuUniformBufferDx12(block->GetNextMemorySubblock(size, D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT), size, 0);
 }
 
 OwnedPtr<IGpuStorageBuffer> OSK::GRAPHICS::GpuMemoryAllocatorDx12::CreateStorageBuffer(TSize size) {
 	auto block = GetNextBufferMemoryBlock(size, GpuBufferUsage::STORAGE_BUFFER, GpuSharedMemoryType::GPU_AND_CPU);
 
-	return new GpuStorageBufferDx12(block->GetNextMemorySubblock(size, 0), size, 0);
+	return new GpuStorageBufferDx12(block->GetNextMemorySubblock(size, D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT), size, 0);
 }
 
 OwnedPtr<GpuImage> GpuMemoryAllocatorDx12::CreateImage(const Vector3ui& size, GpuImageDimension dimension, TSize numLayers, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, TSize msaaSamples, GpuImageSamplerDesc samplerDesc) {
@@ -143,9 +143,6 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorDx12::CreateImage(const Vector3ui& size, Gp
 	auto block = GpuMemoryBlockDx12::CreateNewImageBlock(output, device, sharedType, usage, numLayers);
 
 	output->SetBlock(block.GetPointer());
-	output->SetResource(output->GetBuffer()->As<GpuMemorySubblockDx12>()->GetResource());
-
-
 
 	return output;
 }
@@ -179,9 +176,13 @@ OwnedPtr<ITopLevelAccelerationStructure> GpuMemoryAllocatorDx12::CreateTopAccele
 }
 
 DescriptorDx12 GpuMemoryAllocatorDx12::GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE type) {
-	auto& list = descriptorBlocks.Get(type);
+	const auto itertator = descriptorBlocks.Find(type);
 
-	if (list.Peek().IsFull())
+	if (itertator.IsEmpty())
+		descriptorBlocks.Insert(type, {});
+
+	auto& list = descriptorBlocks.Get(type);
+	if (list.IsEmpty() || list.Peek().IsFull())
 		list.Insert(DescriptorBlockDx12(type, 256, device->As<GpuDx12>()));
 		
 	return list.Peek().CreateDescriptor();

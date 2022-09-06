@@ -16,6 +16,9 @@ DXGI_FORMAT OSK::GRAPHICS::GetFormatDx12(Format format) {
 		case Format::RGBA8_UNORM:
 			return DXGI_FORMAT_R8G8B8A8_UNORM;
 
+		case Format::RGBA8_SRGB:
+			return DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
+
 		case Format::RGBA16_SFLOAT:
 			return DXGI_FORMAT_R16G16B16A16_FLOAT;
 
@@ -46,6 +49,9 @@ VkFormat OSK::GRAPHICS::GetFormatVulkan(Format format) {
 
 	case Format::RGBA8_UNORM:
 		return VK_FORMAT_R8G8B8A8_UNORM;
+
+	case Format::RGBA8_SRGB:
+		return VK_FORMAT_R8G8B8A8_SRGB;
 
 	case Format::RGBA16_SFLOAT:
 		return VK_FORMAT_R16G16B16A16_SFLOAT;
@@ -80,6 +86,7 @@ unsigned int OSK::GRAPHICS::GetFormatNumberOfBytes(Format format) {
 			return 4;
 
 		case Format::RGBA8_UNORM:
+		case Format::RGBA8_SRGB:
 		case Format::B8G8R8A8_SRGB:
 			return 4;
 
@@ -125,6 +132,8 @@ template <> std::string OSK::ToString<OSK::GRAPHICS::Format>(const OSK::GRAPHICS
 		return "RGB8_UNORM";
 	case OSK::GRAPHICS::Format::RGBA8_UNORM:
 		return "RGBA8_UNORM";
+	case OSK::GRAPHICS::Format::RGBA8_SRGB:
+		return "RGBA8_SRGB";
 	case OSK::GRAPHICS::Format::RGB16_SFLOAT:
 		return "RGB16_SFLOAT";
 	case OSK::GRAPHICS::Format::RGBA16_SFLOAT:

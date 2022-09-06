@@ -34,7 +34,8 @@ RenderSystem3D::RenderSystem3D() {
 	dirLightUniformBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
 
 	// Bloom
-	bloomPass = new BloomPass();
+
+	// Skybox
 }
 
 void RenderSystem3D::CreateTargetImage(const Vector2ui& size) {
@@ -42,16 +43,10 @@ void RenderSystem3D::CreateTargetImage(const Vector2ui& size) {
 	renderTarget.AddColorTarget(Format::RGBA8_UNORM); // Color brightness para BLOOM
 
 	renderTarget.SetName("RenderSystem3D Target");
-
-	bloomPass->Create(size);
-	bloomPass->SetInput(renderTarget);
 }
 
 void RenderSystem3D::Resize(const Vector2ui& size) {
 	IRenderSystem::Resize(size);
-
-	bloomPass->Resize(size);
-	bloomPass->SetInput(renderTarget);
 }
 
 void RenderSystem3D::SetDirectionalLight(const DirectionalLight& dirLight) {
@@ -77,16 +72,13 @@ ShadowMap* RenderSystem3D::GetShadowMap() {
 	return &shadowMap;
 }
 
-const RenderTarget& RenderSystem3D::GetBloomRenderTarget() const {
-	return bloomPass->GetRenderTarget();
-}
-
 void RenderSystem3D::GenerateShadows(ICommandList* commandList) {
+	const TSize currentFrameIndex = Engine::GetRenderer()->GetCurrentCommandListIndex();
 	const Viewport viewport {
 		.rectangle = { 0u, 0u, shadowMap.GetColorImage(0)->GetSize().X, shadowMap.GetColorImage(0)->GetSize().Y }
 	};
 
-	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::DEPTH_STENCIL_TARGET,
+	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(currentFrameIndex), GpuImageLayout::DEPTH_STENCIL_TARGET,
 		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_START, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH | SampledChannel::STENCIL });
 
@@ -96,11 +88,11 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList) {
 	for (TSize i = 0; i < shadowMap.GetNumCascades(); i++) {
 		RenderPassImageInfo colorInfo{};
 		colorInfo.arrayLevel = i;
-		colorInfo.targetImage = shadowMap.GetColorImage(Engine::GetRenderer()->GetCurrentFrameIndex());
+		colorInfo.targetImage = shadowMap.GetColorImage(currentFrameIndex);
 
 		RenderPassImageInfo depthInfo{};
 		depthInfo.arrayLevel = i;
-		depthInfo.targetImage = shadowMap.GetShadowImage(Engine::GetRenderer()->GetCurrentFrameIndex());
+		depthInfo.targetImage = shadowMap.GetShadowImage(currentFrameIndex);
 
 		commandList->BeginGraphicsRenderpass({ colorInfo }, depthInfo, { 1.0f, 1.0f, 1.0f, 1.0f });
 
@@ -130,13 +122,14 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList) {
 		commandList->EndGraphicsRenderpass();
 	}
 
-	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::SHADER_READ_ONLY,
+	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(currentFrameIndex), GpuImageLayout::SHADER_READ_ONLY,
 		GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_END, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH |SampledChannel::STENCIL });
 }
 
 void RenderSystem3D::RenderScene(GRAPHICS::ICommandList* commandList) {
-	commandList->SetGpuImageBarrier(renderTarget.GetTargetImages(Engine::GetRenderer()->GetCurrentFrameIndex()).At(1), GpuImageLayout::SHADER_READ_ONLY,
+	const TSize currentFrameIndex = Engine::GetRenderer()->GetCurrentCommandListIndex();
+	commandList->SetGpuImageBarrier(renderTarget.GetTargetImages(currentFrameIndex).At(1), GpuImageLayout::SHADER_READ_ONLY,
 		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
@@ -189,5 +182,4 @@ void RenderSystem3D::RenderScene(GRAPHICS::ICommandList* commandList) {
 void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
 	GenerateShadows(commandList);
 	RenderScene(commandList);
-	bloomPass->Execute(Engine::GetRenderer()->GetPreComputeCommandList());
 }

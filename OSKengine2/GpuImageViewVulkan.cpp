@@ -15,8 +15,10 @@ GpuImageViewVulkan::GpuImageViewVulkan(VkImageView view, SampledChannel channel,
 GpuImageViewVulkan::~GpuImageViewVulkan() {
 	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
 
-	if (view != VK_NULL_HANDLE)
+	if (view != VK_NULL_HANDLE) {
 		vkDestroyImageView(logicalDevice, view, nullptr);
+		view = VK_NULL_HANDLE;
+	}
 }
 
 VkImageView GpuImageViewVulkan::GetVkView() const {

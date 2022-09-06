@@ -14,6 +14,7 @@
 #include "EntityComponentSystem.h"
 #include "IRenderSystem.h"
 #include "Format.h"
+#include "IPostProcessPass.h"
 
 using namespace OSK;
 using namespace OSK::IO;
@@ -36,6 +37,9 @@ ICommandList* IRenderer::GetPostComputeCommandList() const{
 	return postComputeCommandList.GetPointer();
 }
 
+ICommandList* IRenderer::GetFrameBuildCommandList() const {
+	return frameBuildCommandList.GetPointer();
+}
 
 IGpuMemoryAllocator* IRenderer::GetMemoryAllocator() const {
 	return gpuMemoryAllocator.GetPointer();
@@ -74,6 +78,12 @@ void IRenderer::HandleResize() {
 
 	for (auto i : resizableRenderTargets)
 		i->Resize(windowSize);
+
+	for (auto i : resizablePostProcessingPasses)
+		i->Resize(windowSize);
+
+	for (auto& i : resizeCallbacks)
+		i(windowSize);
 
 	finalRenderTarget->Resize(windowSize);
 }
@@ -145,10 +155,23 @@ void IRenderer::UnregisterRenderTarget(RenderTarget* renderTarget) {
 	resizableRenderTargets.Remove(renderTarget);
 }
 
+void IRenderer::RegisterPostProcessingPass(IPostProcessPass* pass) {
+	if (!resizablePostProcessingPasses.ContainsElement(pass))
+		resizablePostProcessingPasses.Insert(pass);
+}
+
+void IRenderer::UnregisterPostProcessingPass(IPostProcessPass* pass) {
+	resizablePostProcessingPasses.Remove(pass);
+}
+
 bool IRenderer::IsRtActive() const {
 	return isRtActive;
 }
 
 bool IRenderer::IsRtRequested() const {
 	return isRtRequested;
+}
+
+void IRenderer::AddResizeCallback(std::function<void(const Vector2ui&)> callback) {
+	resizeCallbacks.Insert(callback);
 }

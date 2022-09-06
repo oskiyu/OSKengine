@@ -15,6 +15,7 @@
 #include "GpuImageDimensions.h"
 #include "GpuImageUsage.h"
 #include "Math.h"
+#include "GpuImageDx12.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -22,26 +23,8 @@ using namespace OSK::GRAPHICS;
 GpuMemoryBlockDx12::GpuMemoryBlockDx12(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage, TSize numLayers)
 	: IGpuMemoryBlock(image->GetPhysicalSize().X * image->GetPhysicalSize().Y * image->GetPhysicalSize().Z * GetFormatNumberOfBytes(image->GetFormat()), device, type, GpuMemoryUsage::IMAGE), sizeX(image->GetSize().X), sizeY(image->GetPhysicalSize().Y), format(image->GetFormat()) {
 
-	resourceDesc.Width = sizeX;
-	resourceDesc.Height = sizeY;
-	resourceDesc.DepthOrArraySize = image->GetNumLayers() == 1 ? image->GetPhysicalSize().Z : image->GetNumLayers();
-	resourceDesc.Dimension = (D3D12_RESOURCE_DIMENSION)((TSize)image->GetDimension() + 1);
-	resourceDesc.Alignment =  D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
-	resourceDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
-	resourceDesc.MipLevels = 1;
-	resourceDesc.SampleDesc.Count = 1;
-	resourceDesc.SampleDesc.Quality = 0;
-	resourceDesc.Format = GetFormatDx12(format);
-	
-	D3D12_RESOURCE_FLAGS flags = D3D12_RESOURCE_FLAG_NONE;
-	if (EFTraits::HasFlag(imageUSage, GpuImageUsage::COLOR))
-		flags |= D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;
-	if (EFTraits::HasFlag(imageUSage, GpuImageUsage::DEPTH_STENCIL))
-		flags |= D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL;
-	if (EFTraits::HasFlag(imageUSage, GpuImageUsage::COMPUTE))
-		flags |= D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS;
-
-	resourceDesc.Flags = flags;
+	image->As<GpuImageDx12>()->FillResourceDesc();
+	const D3D12_RESOURCE_DESC& resourceDesc = image->As<GpuImageDx12>()->GetResourceDesc();
 
 	D3D12_RESOURCE_ALLOCATION_INFO allocInfo = Engine::GetRenderer()->GetGpu()->As<GpuDx12>()->GetDevice()->GetResourceAllocationInfo(0, 1, &resourceDesc);
 
@@ -50,6 +33,8 @@ GpuMemoryBlockDx12::GpuMemoryBlockDx12(GpuImage* image, IGpu* device, GpuSharedM
 	memoryCreateInfo.Properties.Type = GetGpuSharedMemoryTypeDx12(type);
 
 	device->As<GpuDx12>()->GetDevice()->CreateHeap(&memoryCreateInfo, IID_PPV_ARGS(&memory));
+
+	resource.image = image;
 }
 
 GpuMemoryBlockDx12::GpuMemoryBlockDx12(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage) 
@@ -93,11 +78,8 @@ OwnedPtr<IGpuMemorySubblock> GpuMemoryBlockDx12::CreateNewMemorySubblock(TSize s
 		return new GpuMemorySubblockDx12(this, size, offset, resource);
 	}
 	else if (usage == GpuMemoryUsage::IMAGE) {
-		ComPtr<ID3D12Resource> resource;
-
-		device->As<GpuDx12>()->GetDevice()->CreatePlacedResource(memory.Get(), offset, &resourceDesc, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&resource));
-
-		return new GpuMemorySubblockDx12(this, size, offset, resource);
+		resource.image->As<GpuImageDx12>()->CreateResource(memory.Get(), offset);
+		return new GpuMemorySubblockDx12(this, size, offset, resource.image->As<GpuImageDx12>()->GetResource());
 	}
 
 	OSK_ASSERT(false, "No se puede crear subbloque para el uso de memoria dado.");

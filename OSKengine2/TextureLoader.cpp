@@ -58,7 +58,7 @@ void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 
 	const GRAPHICS::Format imageFormat = assetInfo.contains("is_hdr") && assetInfo["is_hdr"] == "true"
 		? GRAPHICS::Format::RGBA32_SFLOAT
-		: GRAPHICS::GetColorFormat(numChannels);
+		: GRAPHICS::Format::RGBA8_SRGB;
 
 	const Vector3ui size(width, height, 1);
 	auto image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(size, GRAPHICS::GpuImageDimension::d2D, 1, imageFormat, GRAPHICS::GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_SOURCE | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION, GRAPHICS::GpuSharedMemoryType::GPU_ONLY, true);

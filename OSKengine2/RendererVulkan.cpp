@@ -58,7 +58,10 @@ const DynamicArray<const char*> validationLayers = {
 };
 
 const DynamicArray<uint32_t> ignoredValidationLayersMessages = {
-	0x609a13b // Shader attachmentt not used
+	0x609a13b, // Shader attachmentt not used
+
+	0xd6d77e1e, // Dynamic Rendering
+	0x6c16bfb4
 };
 
 VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
@@ -381,10 +384,12 @@ void RendererVulkan::CreateCommandQueues() {
 	graphicsCommandList = graphicsCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
 	preComputeCommandList = computeCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
 	postComputeCommandList = computeCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
+	frameBuildCommandList = graphicsCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
 
 	graphicsCommandList->SetDebugName("Graphics CmdList");
 	preComputeCommandList->SetDebugName("Pre-Compute CmdList");
 	postComputeCommandList->SetDebugName("Post-Compute CmdList");
+	frameBuildCommandList->SetDebugName("Frame Build CmdList");
 }
 
 bool RendererVulkan::AreValidationLayersAvailable() const {
@@ -431,10 +436,9 @@ void RendererVulkan::CreateSyncDevice() {
 	renderFinishedSemaphores = DynamicArray<VkSemaphore>::CreateResizedArray(3, VK_NULL_HANDLE);
 	preComputeFinishedSemaphores = DynamicArray<VkSemaphore>::CreateResizedArray(3, VK_NULL_HANDLE);
 	postComputeFinishedSemaphores = DynamicArray<VkSemaphore>::CreateResizedArray(3, VK_NULL_HANDLE);
+	frameBuildSemaphores = DynamicArray<VkSemaphore>::CreateResizedArray(3, VK_NULL_HANDLE);
 
-	graphicsCommandsFences = DynamicArray<VkFence>::CreateResizedArray(3, VK_NULL_HANDLE);
-	preComputeCommandsFences = DynamicArray<VkFence>::CreateResizedArray(3, VK_NULL_HANDLE);
-	postComputeCommandsFences = DynamicArray<VkFence>::CreateResizedArray(3, VK_NULL_HANDLE);
+	fullyRenderedFences = DynamicArray<VkFence>::CreateResizedArray(3, VK_NULL_HANDLE);
 
 	VkSemaphoreCreateInfo semaphoreInfo{};
 	semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
@@ -448,23 +452,20 @@ void RendererVulkan::CreateSyncDevice() {
 		VkResult result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &imageAvailableSemaphores[i]);
 		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el semáforo.");
 
-		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &renderFinishedSemaphores[i]);
+		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &preComputeFinishedSemaphores[i]);
 		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el semáforo.");
 
-		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &preComputeFinishedSemaphores[i]);
+		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &renderFinishedSemaphores[i]);
 		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el semáforo.");
 
 		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &postComputeFinishedSemaphores[i]);
 		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el semáforo.");
 
+		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &frameBuildSemaphores[i]);
+		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el semáforo.");
+
 		// Fences
-		result = vkCreateFence(logicalDevice, &fenceInfo, nullptr, &graphicsCommandsFences[i]);
-		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el fence.");
-
-		result = vkCreateFence(logicalDevice, &fenceInfo, nullptr, &preComputeCommandsFences[i]);
-		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el fence.");
-
-		result = vkCreateFence(logicalDevice, &fenceInfo, nullptr, &postComputeCommandsFences[i]);
+		result = vkCreateFence(logicalDevice, &fenceInfo, nullptr, &fullyRenderedFences[i]);
 		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el fence.");
 
 		if (pvkSetDebugUtilsObjectNameEXT != nullptr) {
@@ -494,21 +495,17 @@ void RendererVulkan::CreateSyncDevice() {
 			debugName.objectHandle = (uint64_t)postComputeFinishedSemaphores[i];
 			result = pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
 
+			name = "Frame build Semaphore[" + std::to_string(i) + "]";
+			debugName.pObjectName = name.c_str();
+			debugName.objectHandle = (uint64_t)frameBuildSemaphores[i];
+			result = pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
+
 
 			debugName.objectType = VK_OBJECT_TYPE_FENCE;
-			name = "Graphics Fence[" + std::to_string(i) + "]";
-			debugName.pObjectName = name.c_str();
-			debugName.objectHandle = (uint64_t)graphicsCommandsFences[i];
-			result = pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
 
-			name = "Pre-Compute Fence[" + std::to_string(i) + "]";
+			name = "Fully Rendered Fence[" + std::to_string(i) + "]";
 			debugName.pObjectName = name.c_str();
-			debugName.objectHandle = (uint64_t)preComputeCommandsFences[i];
-			result = pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
-
-			name = "Post-Compute Fence[" + std::to_string(i) + "]";
-			debugName.pObjectName = name.c_str();
-			debugName.objectHandle = (uint64_t)postComputeCommandsFences[i];
+			debugName.objectHandle = (uint64_t)fullyRenderedFences[i];
 			result = pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
 		}
 
@@ -517,9 +514,7 @@ void RendererVulkan::CreateSyncDevice() {
 	// Las primeras fencees en enviarse deben estár UNSIGNALED,
 	// pero las hemos creado signaled.
 	const VkFence firstFencesToReset[] = {
-		graphicsCommandsFences[0],
-		preComputeCommandsFences[0],
-		postComputeCommandsFences[0]
+		fullyRenderedFences[0]
 	};
 	vkResetFences(logicalDevice, _countof(firstFencesToReset), firstFencesToReset);
 }
@@ -532,25 +527,30 @@ void RendererVulkan::PresentFrame() {
 	if (isFirstRender) {
 		AcquireNextFrame();
 
-		graphicsCommandList->Reset();
-		graphicsCommandList->Start();
-
 		preComputeCommandList->Reset();
 		preComputeCommandList->Start();
+
+		graphicsCommandList->Reset();
+		graphicsCommandList->Start();
 
 		postComputeCommandList->Reset();
 		postComputeCommandList->Start();
 
+		frameBuildCommandList->Reset();
+		frameBuildCommandList->Start();
+
 		isFirstRender = false;
 	}
-	graphicsCommandList->Close();
 	preComputeCommandList->Close();
+	graphicsCommandList->Close();
 	postComputeCommandList->Close();
+	frameBuildCommandList->Close();
 
 	// Sync
 	SubmitPreComputeCommands();
 	SubmitGraphicsCommands();
 	SubmitPostComputeCommands();
+	SubmitFrameBuildCommands();
 	SubmitFrame();
 	AcquireNextFrame();
 
@@ -559,13 +559,17 @@ void RendererVulkan::PresentFrame() {
 
 	//
 
+	preComputeCommandList->Reset();
+	preComputeCommandList->Start();
+
 	graphicsCommandList->Reset();
 	graphicsCommandList->Start();
 
-	preComputeCommandList->Reset();
-	preComputeCommandList->Start();
 	postComputeCommandList->Reset();
 	postComputeCommandList->Start();
+
+	frameBuildCommandList->Reset();
+	frameBuildCommandList->Start();
 }
 
 void RendererVulkan::SubmitPreComputeCommands() {
@@ -583,13 +587,13 @@ void RendererVulkan::SubmitPreComputeCommands() {
 	submitInfo.commandBufferCount = 1;
 	submitInfo.pCommandBuffers = &preComputeCommandList->As<CommandListVulkan>()->GetCommandBuffers()->At(currentCommandBufferIndex);
 
-	VkResult result = vkQueueSubmit(computeQueue->As<CommandQueueVulkan>()->GetQueue(), 1, &submitInfo, preComputeCommandsFences[currentCommandBufferIndex]);
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido enviar la cola gráfica.");
+	VkResult result = vkQueueSubmit(computeQueue->As<CommandQueueVulkan>()->GetQueue(), 1, &submitInfo, VK_NULL_HANDLE /*preComputeCommandsFences[currentCommandBufferIndex]*/);
+	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido enviar la cola PreCompute.");
 }
 
 void RendererVulkan::SubmitGraphicsCommands() {
 	// Esperar a que la imagen esté disponible antes de renderizar.
-	const VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT | VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT };
+	const VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT };
 	const VkSemaphore waitSemaphores[] = {
 		preComputeFinishedSemaphores[currentCommandBufferIndex]
 	};
@@ -605,7 +609,7 @@ void RendererVulkan::SubmitGraphicsCommands() {
 	submitInfo.commandBufferCount = 1;
 	submitInfo.pCommandBuffers = &graphicsCommandList->As<CommandListVulkan>()->GetCommandBuffers()->At(currentCommandBufferIndex);
 
-	VkResult result = vkQueueSubmit(graphicsQueue->As<CommandQueueVulkan>()->GetQueue(), 1, &submitInfo, graphicsCommandsFences[currentCommandBufferIndex]);
+	VkResult result = vkQueueSubmit(graphicsQueue->As<CommandQueueVulkan>()->GetQueue(), 1, &submitInfo, VK_NULL_HANDLE /*graphicsCommandsFences[currentCommandBufferIndex]*/);
 	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido enviar la cola gráfica.");
 }
 
@@ -627,15 +631,35 @@ void RendererVulkan::SubmitPostComputeCommands() {
 	submitInfo.commandBufferCount = 1;
 	submitInfo.pCommandBuffers = &postComputeCommandList->As<CommandListVulkan>()->GetCommandBuffers()->At(currentCommandBufferIndex);
 
-	VkResult result = vkQueueSubmit(computeQueue->As<CommandQueueVulkan>()->GetQueue(), 1, &submitInfo, postComputeCommandsFences[currentCommandBufferIndex]);
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido enviar la cola gráfica.");
+	VkResult result = vkQueueSubmit(computeQueue->As<CommandQueueVulkan>()->GetQueue(), 1, &submitInfo, VK_NULL_HANDLE);
+	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido enviar la cola PostCompute.");
+}
+
+void RendererVulkan::SubmitFrameBuildCommands() {
+	// Esperar a que la imagen esté disponible antes de renderizar.
+	const VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT };
+	const VkSemaphore waitSemaphores[] = {
+		postComputeFinishedSemaphores[currentCommandBufferIndex]
+	};
+
+	VkSubmitInfo submitInfo{};
+	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+	submitInfo.waitSemaphoreCount = _countof(waitSemaphores);
+	submitInfo.pWaitSemaphores = waitSemaphores;
+	submitInfo.pWaitDstStageMask = waitStages;
+	submitInfo.pSignalSemaphores = &frameBuildSemaphores[currentCommandBufferIndex]; // Al terminar, indicamos que esta imagen se ha terminado de renderizar.
+	submitInfo.signalSemaphoreCount = 1;
+
+	submitInfo.commandBufferCount = 1;
+	submitInfo.pCommandBuffers = &frameBuildCommandList->As<CommandListVulkan>()->GetCommandBuffers()->At(currentCommandBufferIndex);
+
+	VkResult result = vkQueueSubmit(graphicsQueue->As<CommandQueueVulkan>()->GetQueue(), 1, &submitInfo, fullyRenderedFences[currentCommandBufferIndex]);
+	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido enviar la cola FrameBuild.");
 }
 
 void RendererVulkan::SubmitFrame() {
 	const VkSwapchainKHR swapChains[] = { swapchain->As<SwapchainVulkan>()->GetSwapchain() };
-	const VkSemaphore waitSemaphores[] = {
-		postComputeFinishedSemaphores[currentCommandBufferIndex]
-	};
+	const VkSemaphore waitSemaphores[] = { frameBuildSemaphores[currentCommandBufferIndex] };
 
 	VkPresentInfoKHR presentInfo{};
 	presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
@@ -655,19 +679,17 @@ void RendererVulkan::SubmitFrame() {
 		/// @todo vkWaitForSemaphores
 
 		swapchain->As<SwapchainVulkan>()->Resize();
-		Engine::GetRenderer()->As<RendererVulkan>()->HandleResize();
+
+		if (window->GetWindowSize().X > 0 && window->GetWindowSize().Y > 0)
+			Engine::GetRenderer()->As<RendererVulkan>()->HandleResize();
 	}
 
 	currentCommandBufferIndex = (currentCommandBufferIndex + 1) % swapchain->GetImageCount();
 
 	// Si la siguiente imagen está siendo procesada, esperar a que termine.
-	if (!resized) {
-		/// @todo vkGetSemaphoreState
-		const VkFence fences[] = { graphicsCommandsFences[currentCommandBufferIndex], preComputeCommandsFences[currentCommandBufferIndex], postComputeCommandsFences[currentCommandBufferIndex] };
-
-		vkWaitForFences(currentGpu->As<GpuVulkan>()->GetLogicalDevice(), _countof(fences), fences, VK_TRUE, UINT64_MAX);
-		vkResetFences(currentGpu->As<GpuVulkan>()->GetLogicalDevice(), _countof(fences), fences);
-	}
+	// @todo vkGetSemaphoreState
+	vkWaitForFences(currentGpu->As<GpuVulkan>()->GetLogicalDevice(), 1, &fullyRenderedFences[currentCommandBufferIndex], VK_TRUE, UINT64_MAX);
+	vkResetFences(currentGpu->As<GpuVulkan>()->GetLogicalDevice(), 1, &fullyRenderedFences[currentCommandBufferIndex]);
 }
 
 void RendererVulkan::AcquireNextFrame() {

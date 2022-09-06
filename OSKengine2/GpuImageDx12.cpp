@@ -17,8 +17,39 @@ GpuImageDx12::GpuImageDx12(const Vector3ui& size, GpuImageDimension dimension, G
 
 }
 
-void GpuImageDx12::SetResource(const ComPtr<ID3D12Resource>& resource) {
+void GpuImageDx12::FillResourceDesc() {
+	resourceDesc.Width = GetSize().X;
+	resourceDesc.Height = GetSize().Y;
+	resourceDesc.DepthOrArraySize = GetNumLayers() == 1 ? GetPhysicalSize().Z : GetNumLayers();
+	resourceDesc.Dimension = (D3D12_RESOURCE_DIMENSION)((TSize)GetDimension() + 1);
+	resourceDesc.Alignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
+	resourceDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
+	resourceDesc.MipLevels = GetMipLevels();
+	resourceDesc.SampleDesc.Count = 1;
+	resourceDesc.SampleDesc.Quality = 0;
+	resourceDesc.Format = GetFormatDx12(GetFormat());
+
+	D3D12_RESOURCE_FLAGS flags = D3D12_RESOURCE_FLAG_NONE;
+	if (EFTraits::HasFlag(GetUsage(), GpuImageUsage::COLOR))
+		flags |= D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;
+	if (EFTraits::HasFlag(GetUsage(), GpuImageUsage::DEPTH_STENCIL))
+		flags |= D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL;
+	if (EFTraits::HasFlag(GetUsage(), GpuImageUsage::COMPUTE))
+		flags |= D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS;
+
+	resourceDesc.Flags = flags;
+}
+
+const D3D12_RESOURCE_DESC& GpuImageDx12::GetResourceDesc() {
+	return resourceDesc;
+}
+
+void GpuImageDx12::_SetResource(ComPtr<ID3D12Resource> resource) {
 	this->resource = resource;
+}
+
+void GpuImageDx12::CreateResource(ID3D12Heap* memory, TSize memoryOffset) {
+	Engine::GetRenderer()->GetGpu()->As<GpuDx12>()->GetDevice()->CreatePlacedResource(memory, memoryOffset, &resourceDesc, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&resource));
 }
 
 ID3D12Resource* GpuImageDx12::GetResource() const {

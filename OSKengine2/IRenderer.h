@@ -23,6 +23,7 @@
 #include "Transform2D.h"
 
 #include <string>
+#include <functional>
 
 namespace OSK {
 	struct Version;
@@ -40,6 +41,7 @@ namespace OSK::GRAPHICS {
 	class IRaytracingPipeline;
 	class GpuImage;
 	class VertexInfo;
+	class IPostProcessPass;
 
 	enum class RenderApiType;
 	enum class GpuImageLayout;
@@ -88,6 +90,7 @@ namespace OSK::GRAPHICS {
 		ICommandList* GetPreComputeCommandList() const;
 		ICommandList* GetGraphicsCommandList() const;
 		ICommandList* GetPostComputeCommandList() const;
+		ICommandList* GetFrameBuildCommandList() const;
 
 		inline ICommandQueue* GetGraphicsCommandQueue() const { return graphicsQueue.GetPointer(); }
 		inline ICommandQueue* GetComputeCommandQueue() const { return computeQueue.GetPointer(); }
@@ -222,7 +225,7 @@ namespace OSK::GRAPHICS {
 		/// en el renderizador.
 		/// </summary>
 		bool _HasImplicitResizeHandling() const;
-		
+
 		/// <summary>
 		/// Registra un render target que debe cambiar de tamaño cuando la ventana
 		/// cambie de tamaño.
@@ -239,10 +242,33 @@ namespace OSK::GRAPHICS {
 		/// @note Si el render target no estaba registrado, no ocurrirá nada.
 		void UnregisterRenderTarget(RenderTarget* renderTarget);
 
+
+		/// <summary>
+		/// Registra un efecto de postprocesamiento que debe cambiar de tamaño cuando la ventana
+		/// cambie de tamaño.
+		/// </summary>
+		/// 
+		/// @note El render target debe tener estabilidad de puntero.
+		void RegisterPostProcessingPass(IPostProcessPass* renderTarget);
+
+		/// <summary>
+		/// Quita un efecto de postprocesamiento de la lista de efectos de postprocesamiento que deben cambiar
+		/// de tamaño cuando la ventana cambie de tamaño.
+		/// </summary>
+		/// 
+		/// @note Si el efecto de postprocesamiento no estaba registrado, no ocurrirá nada.
+		void UnregisterPostProcessingPass(IPostProcessPass* renderTarget);
+
+
 		/// <summary>
 		/// True si la funcionalidad de raytracing está activa.
 		/// </summary>
 		bool IsRtActive() const;
+
+		/// <summary>
+		/// Añade una función que se ejecutará cuando cambie de tamaño la ventana.
+		/// </summary>
+		void AddResizeCallback(std::function<void(const Vector2ui&)> callback);
 
 	protected:
 
@@ -280,6 +306,7 @@ namespace OSK::GRAPHICS {
 
 		UniquePtr<ICommandPool> graphicsCommandPool;
 		UniquePtr<ICommandList> graphicsCommandList;
+		UniquePtr<ICommandList> frameBuildCommandList;
 
 		UniquePtr<ICommandPool> computeCommandPool;
 		UniquePtr<ICommandList> preComputeCommandList;
@@ -293,6 +320,8 @@ namespace OSK::GRAPHICS {
 		UniquePtr<MaterialSystem> materialSystem;
 
 		DynamicArray<UniquePtr<ICommandList>> singleTimeCommandLists;
+
+		LinkedList<std::function<void(const Vector2ui&)>> resizeCallbacks;
 
 		bool isFirstRender = true;
 
@@ -310,6 +339,7 @@ namespace OSK::GRAPHICS {
 		/// cambie de tamaño.
 		/// </summary>
 		DynamicArray<RenderTarget*> resizableRenderTargets;
+		DynamicArray<IPostProcessPass*> resizablePostProcessingPasses;
 
 		bool isRtActive = false;
 

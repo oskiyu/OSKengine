@@ -1,191 +1,47 @@
-static const uint3 gl_WorkGroupSize = uint3(16u, 16u, 1u);
+TextureCube<float4> image : register(t0, space0);
+SamplerState _image_sampler : register(s0, space0);
 
-cbuffer SPIRV_CROSS_RootConstant_info : register(b0, space1)
-{
-    float4 info_infos : packoffset(c0);
-    int2 info_indices : packoffset(c1);
-};
-RWTexture2DArray<float4> bloomImage : register(u1, space0);
-Texture2D<float4> sceneImage : register(t0, space0);
-SamplerState _sceneImage_sampler : register(s0, space0);
+static float3 inPosition;
+static float4 outColor;
 
-static uint3 gl_GlobalInvocationID;
 struct SPIRV_Cross_Input
 {
-    uint3 gl_GlobalInvocationID : SV_DispatchThreadID;
+    float3 inPosition : TEXCOORD0;
 };
 
-uint3 spvImageSize(RWTexture2DArray<float4> Tex, out uint Param)
+struct SPIRV_Cross_Output
 {
-    uint3 ret;
-    Tex.GetDimensions(ret.x, ret.y, ret.z);
-    Param = 0u;
-    return ret;
-}
+    float4 outColor : SV_Target0;
+};
 
-float GetBrightness(float4 color)
+void frag_main()
 {
-    return dot(color.xyz, float3(0.2125999927520751953125f, 0.715200006961822509765625f, 0.072200000286102294921875f));
-}
-
-float4 BilinearInterpolation(int2 pixelCoords)
-{
-    int2 topLeft = pixelCoords;
-    int inputIndex = info_indices.x;
-    float4 colors[4];
-    if (inputIndex == 2)
+    float3 pos = float3(inPosition.x, -inPosition.y, inPosition.z);
+    float3 normal = normalize(pos);
+    float3 right = normalize(cross(float3(0.0f, 1.0f, 0.0f), normal));
+    float3 up = normalize(cross(right, normal));
+    float3 accumulatedIrradiance = 0.0f.xxx;
+    float numSamples = 0.0f;
+    for (float phi = 0.0f; phi < 6.283185482025146484375f; phi += 0.07500000298023223876953125f)
     {
-        uint _77_dummy_parameter;
-        float2 normalizedTopLeft = float2(pixelCoords) / float2(int3(spvImageSize(bloomImage, _77_dummy_parameter)).xy);
-        uint _85_dummy_parameter;
-        float2 pixelSize = 1.0f.xx / float2(int3(spvImageSize(bloomImage, _85_dummy_parameter)).xy);
-        colors[0] = sceneImage.SampleLevel(_sceneImage_sampler, normalizedTopLeft, 0.0f);
-        colors[1] = sceneImage.SampleLevel(_sceneImage_sampler, normalizedTopLeft + float2(pixelSize.x, 0.0f), 0.0f);
-        colors[2] = sceneImage.SampleLevel(_sceneImage_sampler, normalizedTopLeft + float2(0.0f, pixelSize.y), 0.0f);
-        colors[3] = sceneImage.SampleLevel(_sceneImage_sampler, normalizedTopLeft + float2(pixelSize.x, pixelSize.y), 0.0f);
-        for (int i = 0; i < 4; i++)
+        for (float theta = 0.0f; theta < 1.57079637050628662109375f; theta += 0.07500000298023223876953125f)
         {
-            float4 param = colors[i];
-            if (GetBrightness(param) < 0.60000002384185791015625f)
-            {
-                colors[i] = 0.0f.xxxx;
-            }
-            else
-            {
-                float4 param_1 = colors[i];
-                if (GetBrightness(param_1) < 0.89999997615814208984375f)
-                {
-                    float4 param_2 = colors[i];
-                    colors[i].w = lerp(0.0f, 1.0f, GetBrightness(param_2) - 0.89999997615814208984375f);
-                }
-            }
+            float3 tangent = float3(sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta));
+            float3 sampleVec = ((right * tangent.x) + (up * tangent.y)) + (normal * tangent.z);
+            accumulatedIrradiance += ((image.Sample(_image_sampler, sampleVec).xyz * cos(theta)) * sin(theta));
+            numSamples += 1.0f;
         }
     }
-    else
-    {
-        colors[0] = bloomImage[int3(topLeft, inputIndex)];
-        colors[1] = bloomImage[int3(topLeft + int2(1, 0), inputIndex)];
-        colors[2] = bloomImage[int3(topLeft + int2(0, 1), inputIndex)];
-        colors[3] = bloomImage[int3(topLeft + int2(1, 1), inputIndex)];
-    }
-    float4 accumulatedColor = 0.0f.xxxx;
-    for (int i_1 = 0; i_1 < 4; i_1++)
-    {
-        accumulatedColor += colors[i_1];
-    }
-    return accumulatedColor / 4.0f.xxxx;
+    accumulatedIrradiance = (accumulatedIrradiance * 3.1415927410125732421875f) * (1.0f / numSamples);
+    outColor = float4(accumulatedIrradiance, 1.0f);
 }
 
-float4 GetSquareInterpolation(int2 pixelCoords)
+SPIRV_Cross_Output main(SPIRV_Cross_Input stage_input)
 {
-    int2 _251[4] = { pixelCoords + int2(1, 1), pixelCoords + int2(1, -1), pixelCoords + int2(-1, 1), pixelCoords + int2(-1, -1) };
-    int2 points[4] = _251;
-    float4 color = 0.0f.xxxx;
-    for (int i = 0; i < 4; i++)
-    {
-        int2 param = points[i];
-        color += BilinearInterpolation(param);
-    }
-    return color / 4.0f.xxxx;
-}
-
-float4 GetCenterSquare(int2 pixelCoords)
-{
-    int2 param = pixelCoords;
-    return GetSquareInterpolation(param);
-}
-
-float4 GetTopLeftSquare(int2 pixelCoords)
-{
-    int2 param = pixelCoords - int2(1, 1);
-    return GetSquareInterpolation(param);
-}
-
-float4 GetTopRightSquare(int2 pixelCoords)
-{
-    int2 param = pixelCoords + int2(1, -1);
-    return GetSquareInterpolation(param);
-}
-
-float4 GetBottomLeftSquare(int2 pixelCoords)
-{
-    int2 param = pixelCoords + int2(-1, 1);
-    return GetSquareInterpolation(param);
-}
-
-float4 GetBottomRightSquare(int2 pixelCoords)
-{
-    int2 param = pixelCoords + int2(1, 1);
-    return GetSquareInterpolation(param);
-}
-
-void comp_main()
-{
-    float4 color = 0.0f.xxxx;
-    int inputIndex = info_indices.x;
-    int outputIndex = info_indices.y;
-    float2 previousResolution = info_infos.xy;
-    float2 nextResolution = info_infos.zw;
-    bool isDownscaling = previousResolution.x > nextResolution.x;
-    int2 currentCoords = int2(gl_GlobalInvocationID.xy);
-    bool _340 = float(currentCoords.x) > nextResolution.x;
-    bool _350;
-    if (!_340)
-    {
-        _350 = float(currentCoords.y) > nextResolution.y;
-    }
-    else
-    {
-        _350 = _340;
-    }
-    if (_350)
-    {
-        return;
-    }
-    int2 previousCoordinates = int2((previousResolution / nextResolution) * float2(currentCoords));
-    int2 nextCoordinates = currentCoords;
-    if (isDownscaling)
-    {
-        int2 param = previousCoordinates;
-        color += (GetCenterSquare(param) * 0.5f);
-        int2 param_1 = previousCoordinates;
-        color += (GetTopLeftSquare(param_1) * 0.125f);
-        int2 param_2 = previousCoordinates;
-        color += (GetTopRightSquare(param_2) * 0.125f);
-        int2 param_3 = previousCoordinates;
-        color += (GetBottomLeftSquare(param_3) * 0.125f);
-        int2 param_4 = previousCoordinates;
-        color += (GetBottomRightSquare(param_4) * 0.125f);
-    }
-    else
-    {
-        int2 param_5 = previousCoordinates;
-        color += (BilinearInterpolation(param_5) * 4.0f);
-        int2 param_6 = previousCoordinates + int2(0, 1);
-        color += (BilinearInterpolation(param_6) * 2.0f);
-        int2 param_7 = previousCoordinates + int2(0, -1);
-        color += (BilinearInterpolation(param_7) * 2.0f);
-        int2 param_8 = previousCoordinates + int2(1, 0);
-        color += (BilinearInterpolation(param_8) * 2.0f);
-        int2 param_9 = previousCoordinates + int2(-1, 0);
-        color += (BilinearInterpolation(param_9) * 2.0f);
-        int2 param_10 = previousCoordinates + int2(-1, -1);
-        color += BilinearInterpolation(param_10);
-        int2 param_11 = previousCoordinates + int2(-1, 1);
-        color += BilinearInterpolation(param_11);
-        int2 param_12 = previousCoordinates + int2(1, -1);
-        color += BilinearInterpolation(param_12);
-        int2 param_13 = previousCoordinates + int2(1, 1);
-        color += BilinearInterpolation(param_13);
-        color /= 16.0f.xxxx;
-    }
-    bloomImage[int3(currentCoords, outputIndex)] = color;
-}
-
-[numthreads(16, 16, 1)]
-void main(SPIRV_Cross_Input stage_input)
-{
-    gl_GlobalInvocationID = stage_input.gl_GlobalInvocationID;
-    comp_main();
+    inPosition = stage_input.inPosition;
+    frag_main();
+    SPIRV_Cross_Output stage_output;
+    stage_output.outColor = outColor;
+    return stage_output;
 }
 

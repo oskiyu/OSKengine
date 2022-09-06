@@ -90,6 +90,7 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IAsset** asset)
 	UniquePtr<GpuImage> originalImage = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(size, GRAPHICS::GpuImageDimension::d2D, 1, Format::RGBA32_SFLOAT, GRAPHICS::GpuImageUsage::TRANSFER_SOURCE | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION | GRAPHICS::GpuImageUsage::SAMPLED, GRAPHICS::GpuSharedMemoryType::GPU_ONLY, 1).GetPointer();
 
 	OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList().GetPointer();
+	uploadCmdList->Reset();
 	uploadCmdList->Start();
 
 	uploadCmdList->SetGpuImageBarrier(originalImage.GetPointer(), GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION,
@@ -118,6 +119,7 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IAsset** asset)
 
 	// Renderizado
 	OwnedPtr<ICommandList> cmdList = Engine::GetRenderer()->CreateSingleUseCommandList().GetPointer();
+	cmdList->Reset();
 	cmdList->Start();
 	GenCubemap(intermediateCubemap.GetPointer(), cmdList.GetPointer());
 	ConvoluteCubemap(finalImage.GetPointer(), cmdList.GetPointer());

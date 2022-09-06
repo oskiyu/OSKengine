@@ -86,6 +86,8 @@ void IGame::Run() {
 	RegisterComponents();
 	RegisterSystems();
 
+	Engine::GetRenderer()->AddResizeCallback([this](const Vector2ui& size) { this->OnWindowResize(size); });
+
 	OnCreate();
 
 	Engine::GetRenderer()->PresentFrame();
@@ -126,6 +128,10 @@ void IGame::Run() {
 
 void IGame::Exit() {
 	Engine::GetWindow()->Close();
+}
+
+void IGame::OnWindowResize(const Vector2ui& size) {
+
 }
 
 TSize IGame::GetFps() const {

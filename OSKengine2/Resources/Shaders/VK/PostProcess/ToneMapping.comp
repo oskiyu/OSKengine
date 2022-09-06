@@ -1,0 +1,24 @@
+#version 460
+
+layout (local_size_x = 32, local_size_y = 32) in;
+
+layout (set = 0, binding = 0, rgba32f) uniform image2D sceneImage;
+layout (set = 0, binding = 1, rgba32f) uniform image2D finalImage;
+
+layout (set = 1, binding = 0) buffer ExposureInfo {
+    float exposure;
+} exposure;
+
+layout (push_constant) uniform Gamma {
+    float exposure;
+    float gamma;
+} gamma;
+
+void main() {
+    const vec3 hdrColor = imageLoad(sceneImage, ivec2(gl_GlobalInvocationID)).rgb;
+
+    vec3 ldrColor = vec3(1.0) - exp(-hdrColor * gamma.exposure);
+    ldrColor = pow(ldrColor, vec3(1.0 / gamma.gamma));
+
+    imageStore(finalImage, ivec2(gl_GlobalInvocationID), vec4(ldrColor, 1.0));
+}
