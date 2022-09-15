@@ -68,12 +68,10 @@ void BloomPass::SetupMaterialInstances() {
 }
 
 void BloomPass::ExecuteSinglePass(ICommandList* computeCmdList, const Vector2f& oldRes, const Vector2f& newRes, TSize inputIndex, TSize outputIndex) {
-	const TSize frameIndex = Engine::GetRenderer()->GetCurrentCommandListIndex();
-
 	struct {
 		Vector4f resolutions;
 		Vector2i indices;
-	} const pushConst{
+	} const pushConst {
 		.resolutions = {
 			oldRes.X, oldRes.Y,
 			newRes.X, newRes.Y

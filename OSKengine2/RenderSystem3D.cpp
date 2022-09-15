@@ -29,13 +29,9 @@ RenderSystem3D::RenderSystem3D() {
 
 	SetSignature(signature);
 
-	shadowMap.Create({ 2048u, 2048u });
+	shadowMap.Create({ 2048u });
 
 	dirLightUniformBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
-
-	// Bloom
-
-	// Skybox
 }
 
 void RenderSystem3D::CreateTargetImage(const Vector2ui& size) {

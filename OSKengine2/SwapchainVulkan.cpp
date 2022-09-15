@@ -26,6 +26,8 @@ VkPresentModeKHR GetPresentModeVk(PresentMode mode) {
 	case OSK::GRAPHICS::PresentMode::VSYNC_ON_TRIPLE_BUFFER:
 		return VK_PRESENT_MODE_MAILBOX_KHR;
 	}
+
+	return VK_PRESENT_MODE_MAX_ENUM_KHR;
 }
 
 SwapchainVulkan::~SwapchainVulkan() {
@@ -112,7 +114,7 @@ void SwapchainVulkan::AcquireImages(unsigned int sizeX, unsigned int sizeY) {
 	VkResult result = vkGetSwapchainImagesKHR(device->GetLogicalDevice(), swapchain, &imageCount, nullptr);
 	OSK_ASSERT(result == VK_SUCCESS, "Error al adquirir imagenes del swapchain. Code: " + std::to_string(result));
 
-	auto tempImages = new VkImage[imageCount];
+	VkImage* tempImages = new VkImage[imageCount];
 	vkGetSwapchainImagesKHR(device->GetLogicalDevice(), swapchain, &imageCount, tempImages);
 	OSK_ASSERT(result == VK_SUCCESS, "Error al adquirir imagenes del swapchain. Code: " + std::to_string(result));
 

@@ -26,7 +26,6 @@ using namespace OSK::GRAPHICS;
 void ShadowMap::Create(const Vector2ui& imageSize) {
 	GpuImageSamplerDesc depthSampler{};
 	depthSampler.mipMapMode = GpuImageMipmapMode::NONE;
-	// depthSampler.addressMode = GpuImageAddressMode::BACKGROUND_WHITE;
 
 	const Vector3ui shadowmapSize = { imageSize.X, imageSize.Y, 1 };
 	IGpuMemoryAllocator* memAllocator = Engine::GetRenderer()->GetMemoryAllocator();
@@ -85,31 +84,21 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 	const CameraComponent3D& camera = Engine::GetEntityComponentSystem()->GetComponent<CameraComponent3D>(cameraObject);
 	const Transform3D& cameraTransform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(cameraObject);
 
-	const float nearClip = camera.GetNearPlane(); /// @todo Poder establecer mínimo y máximo para el clip.
-	const float farClip = camera.GetFarPlane(); /// @todo Poder establecer mínimo y máximo para el clip.
-	const float cameraClipRange = farClip - nearClip;
-
-	const float minClip = nearClip;
-	const float maxClip = nearClip + cameraClipRange;
-
-	const float clipRange = maxClip - minClip;
-	const float clipRatio = maxClip / minClip;
-
-	const glm::mat4 cameraProjection = camera.GetProjectionMatrix();
-	const glm::mat4 cameraView = camera.GetViewMatrix(cameraTransform);
-
-	float cascadeSplits[numMaps]{ 0.0f };
-	for (TSize i = 0; i < numMaps; i++) {
-		float p = (i + 1) / static_cast<float>(numMaps);
-		float log = minClip * std::pow(clipRatio, p); //clip ratio
-		float uniform = minClip + clipRange * p;
-		float d = 0.95f * (log - uniform) + uniform;
-		cascadeSplits[i] = (d - nearClip) / clipRange;
-	}
+	float cascadeSplits[numMaps]{ 1, 5, 15, 50 };
+	for (TSize i = 0; i < numMaps; i++)
+		cascadeSplits[i] -= camera.GetNearPlane();
 
 	bufferContent.cascadeSplits = Vector4f(cascadeSplits[0], cascadeSplits[1], cascadeSplits[2], cascadeSplits[3]);
 
-	float lastClip = 0.0f;
+	float lastClip = camera.GetNearPlane();
+
+// #define OSK_SHADOWS_NVIDIA
+#ifndef OSK_SHADOWS_NVIDIA
+#define OSK_SHADOWS_CUSTOM
+#endif
+
+	// NVIDIA:
+#ifdef OSK_SHADOWS_NVIDIA
 	for (TSize i = 0; i < numMaps; i++) {
 
 		// Esquinas del frustum en world-space.
@@ -143,8 +132,59 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 
 		cascadeSplits[i] = ((nearClip + lastClip * clipRange) * -1.0f);
 	}
+#endif
+#ifdef OSK_SHADOWS_CUSTOM
+	
+	// CUSTOM:
+	for (TSize i = 0; i < numMaps; i++) {
 
-	bufferContent.cascadeSplits = Vector4f(cascadeSplits[0], cascadeSplits[1], cascadeSplits[2], cascadeSplits[3]);
+		// Creamos un frustum con NEAR = CascadeSplits[i - 1] y FAR = CascadeSplits[i],
+		// de tal manera que quede dentro toda la zona renderizada que está dentro del split.
+		CameraComponent3D clipCamera = camera;
+		clipCamera.SetPlanes(lastClip, cascadeSplits[i]);
+		// Obtiene las esquinas en el espacio del mundo.
+		DynamicArray<Vector3f> worldSpaceFrustumCorners = GetFrustumCorners(clipCamera.GetProjectionMatrix() * clipCamera.GetViewMatrix(cameraTransform));
+
+		// Calculamos el centro del frustum.
+		Vector3f frustumCenter = 0.0f;
+		for (const auto& corner : worldSpaceFrustumCorners)
+			frustumCenter += corner;
+		frustumCenter /= static_cast<float>(worldSpaceFrustumCorners.GetSize());
+
+		// Movemos para que el centro este en Y = 0.
+		for (auto& corner : worldSpaceFrustumCorners)
+			corner += lightDirection * frustumCenter.Y;
+		frustumCenter += lightDirection * frustumCenter.Y;
+
+		// Calculamos el radio, que será el radio del frustum que renderizará el mapa de sombras.
+		float radius = 0.0f;
+		for (const auto& corner : worldSpaceFrustumCorners)
+			radius = glm::max(radius, frustumCenter.GetDistanceTo(corner));
+		radius = glm::ceil(radius * 16.0f) / 16.0f;
+
+		// Obtenemos alturas min y max, para poder establecer correctamente los
+		// planos near y far del frustum final.
+		const float yPerUnit = 1.0f / glm::radians(90.0f - lightDirection.GetAngle({ 0.0f, -1.0f, 0.0f }));
+
+		float minCornerHeight = -yPerUnit * radius;
+		float maxCornerHeight = yPerUnit * radius;
+
+		const float shadowNearClip = (minCornerHeight) / yPerUnit;
+		const float shadowFarClip = maxCornerHeight / yPerUnit;
+
+		// Extents del frustum
+		const Vector2f maxExtent = radius;
+		const Vector2f minExtent = -maxExtent;
+
+		// 'Cámara' virtual para renderizar el mapa de sombras.
+		const glm::mat4 lightProjection = glm::ortho(minExtent.X, maxExtent.X, maxExtent.Y, minExtent.Y, -10.f, 10.f);
+		const glm::mat4 lightView = glm::lookAt((frustumCenter - lightDirection).ToGLM(), frustumCenter.ToGLM(), glm::vec3(0.0f, 1.0f, 0.0f));
+
+		bufferContent.matrices[i] = lightProjection * lightView;
+
+		lastClip = cascadeSplits[i];
+	}
+#endif
 
 	lightUniformBuffer[uniformBufferIndex]->ResetCursor();
 	lightUniformBuffer[uniformBufferIndex]->MapMemory();
@@ -213,12 +253,12 @@ DynamicArray<Vector3f> ShadowMap::GetFrustumCorners(const glm::mat4& cameraMatri
 	DynamicArray<Vector3f> corners = {
 		Vector3f(-1.0f,  1.0f, -1.0f),
 		Vector3f( 1.0f,  1.0f, -1.0f),
-		Vector3f( 1.0f, -1.0f, -1.0f),
-		Vector3f(-1.0f, -1.0f, -1.0f),
 		Vector3f(-1.0f,  1.0f,  1.0f),
 		Vector3f( 1.0f,  1.0f,  1.0f),
+		Vector3f( 1.0f, -1.0f, -1.0f),
+		Vector3f(-1.0f, -1.0f, -1.0f),
 		Vector3f( 1.0f, -1.0f,  1.0f),
-		Vector3f(-1.0f, -1.0f,  1.0f)
+		Vector3f(-1.0f, -1.0f,  1.0f),
 	};
 
 	for (auto& corner : corners) {

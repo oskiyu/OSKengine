@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm.hpp>
+#include <string>
 
 namespace OSK {
 
@@ -249,6 +250,22 @@ namespace OSK {
 		}
 
 		/// <summary>
+		/// Devuelve el ángulo, en grados, entre este vector y el vector dado.
+		/// 
+		/// El tipo de ángulo dependerá del resultado de this->Dot(vec):
+		/// - Agudo: resultado positivo.
+		/// - Recto: resultado 0.
+		/// - Obtuso: resultado negativo.
+		/// </summary>
+		T GetAngle(const Vector3_t& vec) const {
+			return glm::degrees(glm::acos(this->Dot(vec) / (this->GetLenght() * vec.GetLenght())));
+		}
+
+		//Vector3_t ProjectTo(const Vector3_t& vec) const {
+		//	return this->Dot(vec) / (vec.GetLenght() * vec.GetLenght()) * vec;
+		//}
+
+		/// <summary>
 		/// Obtiene el producto vectorial entre este vector y el vector 'vec'.
 		/// </summary>
 		Vector3_t Cross(const Vector3_t& vec) const {
@@ -323,6 +340,10 @@ namespace OSK {
 		/// </summary>
 		inline Vector3_t<uint32_t> ToVector3ui() const {
 			return ToVec3<uint32_t>();
+		}
+
+		inline std::string ToString() const {
+			return "{ " + std::to_string(X) + " " + std::to_string(Y) + " " + std::to_string(Z) + " }";
 		}
 
 		/// <summary>

@@ -60,7 +60,7 @@ void main() {
     const vec3 cameraSpacePosition = (temp / temp.w).xyz;
 
     // Directional Light
-    const vec3 accummulatedRadiance = CalculateShadowStrength(cameraSpacePosition, dirLightShadowMat.matrix, dirLightShadowMat.splits, dirLightShadowMap) 
+    const vec3 accummulatedRadiance = CalculateShadowStrength(cameraSpacePosition, dirLightShadowMat.matrix, dirLightShadowMat.splits, dirLightShadowMap, worlPosition) 
                     * GetRadiance(F0, dirLight.directionAndIntensity.xyz, view, normal, dirLight.color.rgb * dirLight.directionAndIntensity.w, albedo.rgb, roughnessFactor, metallicFactor);
 
     // Irradiance Map

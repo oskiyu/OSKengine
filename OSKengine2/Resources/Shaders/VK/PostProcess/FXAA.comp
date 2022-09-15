@@ -103,18 +103,18 @@ void main() {
     // Movemos el UV 1 en la dirección del steepestGradient.
     if (steepestGradientIndex == 0) {
         if (isHorizontal) {
-            uvOffset += vec2(-1, 0.0);
+            uvOffset += vec2(0.0, -1.0);
         }
         else {
-            uvOffset += vec2(0.0, -1);
+            uvOffset += vec2(-1.0, 0.0);
         }
     }
     else {
         if (isHorizontal) {
-            uvOffset += vec2(1, 0.0);
+            uvOffset += vec2(0.0, 1.0);
         }
         else {
-            uvOffset += vec2(0.0, 1);
+            uvOffset += vec2(1.0, 0.0);
         }
     }
 
@@ -167,9 +167,11 @@ void main() {
     float pixelOffset = distancePercentage;
 
     vec3 color = imageLoad(sceneImage, targetPixel).rgb;
-    vec3 offsetColor = GetAverageColor(targetPixel + ivec2(uvOffset));
+    vec3 offsetColor = GetAverageColor(targetPixel/* - ivec2(uvOffset)*/); //imageLoad(sceneImage, targetPixel + ivec2(uvOffset)).rgb;
 
-    color = mix(color, offsetColor, pixelOffset);
+    color = mix(offsetColor, color, 1 - (pixelOffset + 0.4));
+
+    // color = vec3(uvOffset, 1 - pixelOffset);
 
     imageStore(finalImage, targetPixel, vec4(color, 1.0));
 }

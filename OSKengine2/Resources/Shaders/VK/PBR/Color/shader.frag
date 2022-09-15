@@ -53,7 +53,8 @@ void main() {
     vec3 accummulatedRadiance = vec3(0.0);
 
     // Directional Light
-    accummulatedRadiance += CalculateShadow() * GetRadiance(F0, dirLight.directionAndIntensity.xyz, view, normal, dirLight.color.rgb * dirLight.directionAndIntensity.w, albedo, roughnessFactor, metallicFactor);
+    accummulatedRadiance += CalculateShadowStrength(inFragPosInCameraViewSpace, dirLightShadowMat.matrix, dirLightShadowMat.splits, dirLightShadowMap, inPosition) 
+        * GetRadiance(F0, dirLight.directionAndIntensity.xyz, view, normal, dirLight.color.rgb * dirLight.directionAndIntensity.w, albedo, roughnessFactor, metallicFactor);
 
     // Irradiance Map
     vec3 kS = FreshnelShlick(max(dot(normal, view), 0.0), F0);
