@@ -9,6 +9,7 @@ var struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info =
     [ "maxMsaaSamples", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a0cf036d8fe1322bb8bfdf2db8e6e7636", null ],
     [ "memoryProperties", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a40be907a7d15190e9e91faa6e0f86851", null ],
     [ "minAlignment", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#af22b6bdea472500fa9f6d106707b3b5d", null ],
+    [ "physicalDevice", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a975a54587aefeafb6140df57d4b60aee", null ],
     [ "properties", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#ae86a22042a0a794409c875c0e5ebe1d4", null ],
     [ "rtAccelerationStructuresFeatures", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a63271f2a20aba12d50ad99aa9881b124", null ],
     [ "rtAccelerationStructuresProperites", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#aeb425aee2e3336849746a2eca48e8db5", null ],

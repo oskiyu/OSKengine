@@ -54,30 +54,11 @@ void ShadowMap::SetDirectionalLight(const DirectionalLight& dirLight) {
 
 	lightDirection = Vector3f(dirLight.directionAndIntensity.X, dirLight.directionAndIntensity.Y, dirLight.directionAndIntensity.Z);
 
-	if (lightOrigin == Vector3f(0.0f))
-		SetLightOrigin(lightDirection * 5.0f);
-
 	UpdateLightMatrixBuffer();
 }
 
 void ShadowMap::UpdateLightMatrixBuffer() {
 	const TSize uniformBufferIndex = Engine::GetRenderer()->GetCurrentCommandListIndex();
-
-	if (cameraObject == EMPTY_GAME_OBJECT) {
-		const glm::mat4 lightMatrix =
-			glm::ortho(
-				-lightArea.X / 2.0f, lightArea.X / 2.0f,
-				-lightArea.Y / 2.0f, lightArea.Y / 2.0f,
-				nearPlane, farPlane)
-			* glm::lookAt((lightOrigin - lightDirection).ToGLM(), lightOrigin.ToGLM(), glm::vec3(0.0f, 1.0f, 0.0f));
-
-		lightUniformBuffer[uniformBufferIndex]->ResetCursor();
-		lightUniformBuffer[uniformBufferIndex]->MapMemory();
-		lightUniformBuffer[uniformBufferIndex]->Write(lightMatrix);
-		lightUniformBuffer[uniformBufferIndex]->Unmap();
-
-		return;
-	}
 
 	ShadowsBufferContent bufferContent{};
 
@@ -192,26 +173,12 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 	lightUniformBuffer[uniformBufferIndex]->Unmap();
 }
 
-void ShadowMap::SetLightArea(const Vector2f& area) {
-	lightArea = area;
-}
-
 void ShadowMap::SetNearPlane(float nearPlane) {
 	this->nearPlane = nearPlane;
 }
 
 void ShadowMap::SetFarPlane(float farPlane) {
 	this->farPlane = farPlane;
-}
-
-void ShadowMap::SetLightOrigin(const Vector3f& origin) {
-	lightOrigin = origin;
-
-	UpdateLightMatrixBuffer();
-}
-
-Vector3f ShadowMap::GetCurrentLigthOrigin() const {
-	return lightOrigin;
 }
 
 GpuImage* ShadowMap::GetShadowImage(TSize index) const {

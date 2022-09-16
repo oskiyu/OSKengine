@@ -64,8 +64,8 @@
 #include "RenderSystem2D.h"
 #include "RenderTarget.h"
 
+#include "PbrDeferredRenderSystem.h"
 #include "IrradianceMap.h"
-#include "IrradianceMapLoader.h"
 
 #include "FxaaPass.h"
 #include "ToneMapping.h"
@@ -108,6 +108,8 @@ using namespace OSK::GRAPHICS;
 Material* pbrColorMaterial = nullptr;
 Material* pbrNormalMaterial = nullptr;
 
+#define OSK_CURRENT_RSYSTEM OSK::ECS::PbrDeferredRenderSystem
+
 class Game1 : public OSK::IGame {
 
 protected:
@@ -127,13 +129,10 @@ protected:
 
 		auto irradianceMap = Engine::GetAssetManager()->Load<ASSETS::IrradianceMap>("Resources/Assets/IBL/irradiance0.json", "GLOBAL");
 
-		Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_irradiance_gen.json");
-		material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_pbr.json");
+		material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/deferred_gbuffer.json"); //Resources/PbrMaterials/deferred_gbuffer.json
 		skyboxMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/skybox_material.json");
 		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json");
 		materialRenderTarget = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rendertarget.json");
-		computeMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/compute0.json"); 
-		computeMaterialInstance = computeMaterial->CreateInstance().GetPointer();
 
 		texture = Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/texture0.json", "GLOBAL");
 
@@ -188,63 +187,26 @@ protected:
 		rtMaterialInstance->GetSlot("rt")->FlushUpdate();
 		rtMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", cameraUbos);
 		rtMaterialInstance->GetSlot("global")->FlushUpdate();*/
-		const GpuImage* imgs[3] = { rtTargetImage[0], rtTargetImage[1], rtTargetImage[2] };
-		computeMaterialInstance->GetSlot("texture")->SetStorageImages("image", imgs);
-		computeMaterialInstance->GetSlot("texture")->FlushUpdate();
-
 
 		// ECS
 		ballObject = Engine::GetEntityComponentSystem()->SpawnObject();
-
-		ECS::Transform3D& transform = Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(ballObject, ECS::Transform3D(ballObject));
-		ECS::ModelComponent3D* modelComponent = &Engine::GetEntityComponentSystem()->AddComponent<ECS::ModelComponent3D>(ballObject, {});
-				
-		DirectionalLight dirLight;
-		const Vector3f direction = Vector3f(1.0f, -3.f, 0.0f).GetNormalized();
-		dirLight.directionAndIntensity = Vector4f(direction.X, direction.Y, direction.Z, 1.2f);
-		dirLight.color = Color(253 / 255.f, 253 / 255.f, 225 / 255.f);
-
-		ECS::RenderSystem3D* renderSystem = Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>();
-
-		modelComponent->SetModel(model);
-		modelComponent->SetMaterial(material);
-
-		modelComponent->BindTextureForAllMeshes("model", "stexture", texture);
-		modelComponent->BindGpuImageForAllMeshes("global", "irradianceMap", irradianceMap->GetGpuImage());
-		modelComponent->BindUniformBufferForAllMeshes("global", "dirLight", renderSystem->GetDirLightUniformBuffer());
-
-		const IGpuUniformBuffer* shadowsMatUbos[NUM_RESOURCES_IN_FLIGHT]{};
-		for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-			shadowsMatUbos[i] = renderSystem->GetShadowMap()->GetDirLightMatrixUniformBuffers().At(i);
-
-		for (TSize i = 0; i < model->GetMeshes().GetSize(); i++) {
-			auto& metadata = model->GetMetadata().meshesMetadata[i];
-
-			const GpuImage* images[3]{};
-			for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-				images[i] = renderSystem->GetShadowMap()->GetShadowImage(i);
-
-			modelComponent->GetMeshMaterialInstance(i)->GetSlot("global")->SetGpuImages("dirLightShadowMap", images, SampledChannel::DEPTH, SampledArrayType::ARRAY);
-			modelComponent->GetMeshMaterialInstance(i)->GetSlot("global")->SetUniformBuffers("dirLightShadowMat", shadowsMatUbos);
-			modelComponent->GetMeshMaterialInstance(i)->GetSlot("global")->SetUniformBuffers("camera", cameraUbos);
-			modelComponent->GetMeshMaterialInstance(i)->GetSlot("global")->FlushUpdate();
-
-			if (metadata.materialTextures.GetSize() > 0) {
-				for (auto& texture : metadata.materialTextures)
-					modelComponent->GetMeshMaterialInstance(i)->GetSlot("model")->SetGpuImage("stexture", model->GetImage(texture.second));
-
-				modelComponent->GetMeshMaterialInstance(i)->GetSlot("model")->FlushUpdate();
-			}
-		}
 
 		cameraObject = Engine::GetEntityComponentSystem()->SpawnObject();
 
 		Engine::GetEntityComponentSystem()->AddComponent<ECS::CameraComponent3D>(cameraObject, {});
 		auto& cameraTransform = Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(cameraObject, ECS::Transform3D(cameraObject));
 		cameraTransform.AddPosition({ 0.0f, 0.3f, 0.0f });
-		cameraTransform.AttachToObject(ballObject);
-		renderSystem->GetShadowMap()->SetSceneCamera(cameraObject);
-		renderSystem->SetDirectionalLight(dirLight);
+		OSK_CURRENT_RSYSTEM* renderSystem = Engine::GetEntityComponentSystem()->GetSystem<OSK_CURRENT_RSYSTEM>();
+		renderSystem->Initialize(cameraObject, *irradianceMap);
+
+		ECS::Transform3D& transform = Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(ballObject, ECS::Transform3D(ballObject));
+		ECS::ModelComponent3D* modelComponent = &Engine::GetEntityComponentSystem()->AddComponent<ECS::ModelComponent3D>(ballObject, {});
+		
+		//cameraTransform.AttachToObject(ballObject);
+
+		modelComponent->SetModel(model);
+		modelComponent->SetMaterial(material);
+		modelComponent->BindTextureForAllMeshes("texture", "albedoTexture", texture);
 
 		// ECS 2
 		smallBallObject = Engine::GetEntityComponentSystem()->SpawnObject();
@@ -254,30 +216,7 @@ protected:
 
 		modelComponent2->SetModel(model_low);
 		modelComponent2->SetMaterial(material);
-
-		modelComponent2->BindTextureForAllMeshes("model", "stexture", texture);
-		modelComponent2->BindGpuImageForAllMeshes("global", "irradianceMap", irradianceMap->GetGpuImage());
-		modelComponent2->BindUniformBufferForAllMeshes("global", "dirLight", renderSystem->GetDirLightUniformBuffer());
-
-		for (TSize i = 0; i < model_low->GetMeshes().GetSize(); i++) {
-			auto& metadata = model_low->GetMetadata().meshesMetadata[i];
-			
-			const GpuImage* images[3]{};
-			for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-				images[i] = renderSystem->GetShadowMap()->GetShadowImage(i);
-
-			modelComponent2->GetMeshMaterialInstance(i)->GetSlot("global")->SetGpuImages("dirLightShadowMap", images, SampledChannel::DEPTH, SampledArrayType::ARRAY);
-			modelComponent2->GetMeshMaterialInstance(i)->GetSlot("global")->SetUniformBuffers("camera", cameraUbos);
-			modelComponent2->GetMeshMaterialInstance(i)->GetSlot("global")->SetUniformBuffers("dirLightShadowMat", shadowsMatUbos);
-			modelComponent2->GetMeshMaterialInstance(i)->GetSlot("global")->FlushUpdate();
-
-			if (metadata.materialTextures.GetSize() > 0) {
-				for (auto& texture : metadata.materialTextures)
-					modelComponent2->GetMeshMaterialInstance(i)->GetSlot("model")->SetGpuImage("stexture", model_low->GetImage(texture.second));
-
-				modelComponent2->GetMeshMaterialInstance(i)->GetSlot("model")->FlushUpdate();
-			}
-		}
+		modelComponent2->BindTextureForAllMeshes("texture", "albedoTexture", texture);
 
 		// Cubemap
 		cubemap = Engine::GetAssetManager()->Load<ASSETS::CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL");
@@ -320,26 +259,6 @@ protected:
 
 		terrainTransform.SetScale({ 10, 1, 10 });
 
-		// UI
-		mainUi = new UI::UiElement;
-		/*mainUi->sprite.SetMaterialInstance(material2d->CreateInstance().GetPointer());
-		mainUi->sprite.SetCamera(camera2D);
-		mainUi->sprite.SetGpuImage(rtTargetImage);
-		mainUi->SetPosition({ 100, 80 });
-		mainUi->SetSize({ 40, 40 });*/
-
-		depthImageSprite.SetMaterialInstance(material2d->CreateInstance().GetPointer());
-		depthImageSprite.SetCamera(camera2D);
-		const GpuImage* depthImages[3]{nullptr};
-		for (TSize i = 0; i < 3; i++)
-			depthImages[i] = renderSystem->GetShadowMap()->GetShadowImage(i);
-		depthImageSprite.GetMaterialInstance()->GetSlot("texture")->SetGpuImages("stexture", imgs);
-		depthImageSprite.GetMaterialInstance()->GetSlot("texture")->FlushUpdate();
-
-		depthImageSpriteTransform.SetScale({ 200.0f, 200.0f });
-
-		ECS::Transform2D depthImageSpriteTransform{ ECS::EMPTY_GAME_OBJECT };
-
 		skyboxRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), Format::RGBA32_SFLOAT, Format::D32S8_SFLOAT_SUINT);
 		textRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), Format::RGBA8_UNORM, Format::D32S8_SFLOAT_SUINT);
 		preEffectsRenderTarget.SetTargetImageUsage(GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE);
@@ -371,8 +290,6 @@ protected:
 
 		Engine::GetRenderer()->RegisterRenderTarget(&skyboxRenderTarget);
 		Engine::GetRenderer()->RegisterRenderTarget(&textRenderTarget);
-
-		Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->GetShadowMap()->SetLightOrigin(cameraTransform.GetPosition()* Vector3f { 1.0f, 0.0f, 1.0f });
 	}
 
 	void RegisterSystems() override {
@@ -472,8 +389,6 @@ protected:
 		uniformBuffer[frameIndex]->Write(cameraTransform.GetPosition());
 		uniformBuffer[frameIndex]->Unmap();
 
-		Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->GetShadowMap()->SetLightOrigin(cameraTransform.GetPosition() * Vector3f{ 1.0f, 0.0f, 1.0f});
-
 		Engine::GetEntityComponentSystem()->GetComponent<ECS::CameraComponent2D>(cameraObject2d).UpdateUniformBuffer(
 			Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform2D>(cameraObject2d)
 		);
@@ -551,7 +466,7 @@ protected:
 		graphicsCommandList->BeginGraphicsRenderpass(&preEffectsRenderTarget);
 		spriteRenderer.Begin();
 		spriteRenderer.Draw(skyboxRenderTarget.GetSprite(), skyboxRenderTarget.GetSpriteTransform());
-		spriteRenderer.Draw(Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->GetRenderTarget().GetSprite(), Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->GetRenderTarget().GetSpriteTransform());
+		spriteRenderer.Draw(Engine::GetEntityComponentSystem()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetSprite(), Engine::GetEntityComponentSystem()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetSpriteTransform());
 		spriteRenderer.End();
 		graphicsCommandList->EndGraphicsRenderpass();
 
@@ -619,14 +534,8 @@ private:
 
 	UniquePtr<GRAPHICS::IGpuUniformBuffer> uniformBuffer[NUM_RESOURCES_IN_FLIGHT];
 
-	Material* computeMaterial = nullptr;
-	UniquePtr<MaterialInstance> computeMaterialInstance = nullptr;
-	
 	ASSETS::Texture* texture = nullptr;
 	ASSETS::Font* font = nullptr;
-
-	Sprite depthImageSprite{};
-	ECS::Transform2D depthImageSpriteTransform{ ECS::EMPTY_GAME_OBJECT };
 
 	UI::UiRenderer uiRenderer;
 	UniquePtr<UI::UiElement> mainUi;

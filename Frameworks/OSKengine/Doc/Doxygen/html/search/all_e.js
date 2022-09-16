@@ -13,5 +13,7 @@ var searchData=
   ['num_5flock_10',['NUM_LOCK',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eacb0d0bf9279e78f982deba761110e434',1,'OSK::IO']]],
   ['num_5frender_5ftarget_5fimages_11',['NUM_RENDER_TARGET_IMAGES',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a92b901b2282ba60626f55be92e849ead',1,'OSK::GRAPHICS']]],
   ['num_5fresources_5fin_5fflight_12',['NUM_RESOURCES_IN_FLIGHT',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a2790b1bb1dbf382ccd86a228f9f2ccbd',1,'OSK::GRAPHICS']]],
-  ['numpointlights_13',['numPointLights',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_lights_buffer_struct.html#a0bfe37ca7f4663cec069c65a29073097',1,'OSK::GRAPHICS::LightsBufferStruct']]]
+  ['numlayers_13',['numLayers',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a7d622d573c1207bd01789dc7481c4ae7',1,'OSK::GRAPHICS::GpuImageBarrierInfo']]],
+  ['nummiplevels_14',['numMipLevels',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a1ef0b0902e0694136e2c9063127bab88',1,'OSK::GRAPHICS::GpuImageBarrierInfo']]],
+  ['numpointlights_15',['numPointLights',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_lights_buffer_struct.html#a0bfe37ca7f4663cec069c65a29073097',1,'OSK::GRAPHICS::LightsBufferStruct']]]
 ];

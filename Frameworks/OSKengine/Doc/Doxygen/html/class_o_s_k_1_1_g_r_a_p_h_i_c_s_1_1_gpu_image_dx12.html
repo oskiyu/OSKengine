@@ -88,6 +88,7 @@ $(document).ready(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gp
   <div class="summary">
 <a href="#pub-methods">Métodos públicos</a> &#124;
 <a href="#pub-static-methods">Métodos públicos estáticos</a> &#124;
+<a href="#pro-methods">Métodos protegidos</a> &#124;
 <a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12-members.html">Lista de todos los miembros</a>  </div>
   <div class="headertitle"><div class="title">Referencia de la Clase OSK::GRAPHICS::GpuImageDx12</div></div>
 </div><!--header-->
@@ -97,28 +98,20 @@ $(document).ready(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gp
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Métodos públicos</h2></td></tr>
-<tr class="memitem:afec888d32c9e22e3fadbc4926821c053"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#afec888d32c9e22e3fadbc4926821c053">GpuImageDx12</a> (const <a class="el" href="namespace_o_s_k.html#acbb1ebd73c8de7036fc0108df1bf612f">Vector3ui</a> &amp;size, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ab91ccc08d13454cfeb3c4f78deb72d59">GpuImageDimension</a> dimension, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">GpuImageUsage</a> usage, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> numLayers, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> format, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> numSamples)</td></tr>
-<tr class="separator:afec888d32c9e22e3fadbc4926821c053"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93c1aeceb5c0d8695ec64eaacb6d66db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#a93c1aeceb5c0d8695ec64eaacb6d66db">SetResource</a> (const ComPtr&lt; ID3D12Resource &gt; &amp;resource)</td></tr>
-<tr class="separator:a93c1aeceb5c0d8695ec64eaacb6d66db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2514cc1f4d1b75ebbdac3f392c31a792"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#a2514cc1f4d1b75ebbdac3f392c31a792">_SetSampledDescriptorHeap</a> (ComPtr&lt; ID3D12DescriptorHeap &gt; descriptorHeap)</td></tr>
-<tr class="separator:a2514cc1f4d1b75ebbdac3f392c31a792"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebef186379ba76da69cc73b647c4f462"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#aebef186379ba76da69cc73b647c4f462">_SetRenderTargetDescriptorHeap</a> (ComPtr&lt; ID3D12DescriptorHeap &gt; descriptorHeap)</td></tr>
-<tr class="separator:aebef186379ba76da69cc73b647c4f462"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2465440c1dd288cb534a90bc1390f5d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#a2465440c1dd288cb534a90bc1390f5d3">_SetDepthDescriptorHeap</a> (ComPtr&lt; ID3D12DescriptorHeap &gt; descriptorHeap)</td></tr>
-<tr class="separator:a2465440c1dd288cb534a90bc1390f5d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e9d78ef730f62d0dd143ea1597e09af"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#a6e9d78ef730f62d0dd143ea1597e09af">GpuImageDx12</a> (const <a class="el" href="namespace_o_s_k.html#acbb1ebd73c8de7036fc0108df1bf612f">Vector3ui</a> &amp;size, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ab91ccc08d13454cfeb3c4f78deb72d59">GpuImageDimension</a> dimension, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">GpuImageUsage</a> usage, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> numLayers, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> format, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> numSamples, <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">GpuImageSamplerDesc</a> samplerDesc)</td></tr>
+<tr class="separator:a6e9d78ef730f62d0dd143ea1597e09af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26e66a10adf1b6f4c22c9b8a7f162b5f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#a26e66a10adf1b6f4c22c9b8a7f162b5f">FillResourceDesc</a> ()</td></tr>
+<tr class="separator:a26e66a10adf1b6f4c22c9b8a7f162b5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3c432492797274c81b6428d9472b0da"><td class="memItemLeft" align="right" valign="top">const D3D12_RESOURCE_DESC &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#ab3c432492797274c81b6428d9472b0da">GetResourceDesc</a> ()</td></tr>
+<tr class="separator:ab3c432492797274c81b6428d9472b0da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac21fcddf8d3b17de4ccc186d3749c9d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#ac21fcddf8d3b17de4ccc186d3749c9d2">CreateResource</a> (ID3D12Heap *memory, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> memoryOffset)</td></tr>
+<tr class="separator:ac21fcddf8d3b17de4ccc186d3749c9d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec14b77bb3cc49649dbb34113fa4c710"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#aec14b77bb3cc49649dbb34113fa4c710">_SetResource</a> (ComPtr&lt; ID3D12Resource &gt; resource)</td></tr>
+<tr class="separator:aec14b77bb3cc49649dbb34113fa4c710"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac71ee7f557da19b1a8c1513c46f52c9c"><td class="memItemLeft" align="right" valign="top">ID3D12Resource *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#ac71ee7f557da19b1a8c1513c46f52c9c">GetResource</a> () const</td></tr>
 <tr class="separator:ac71ee7f557da19b1a8c1513c46f52c9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae779d687ae5930fc0f15f80d38b7e65c"><td class="memItemLeft" align="right" valign="top">ID3D12DescriptorHeap *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#ae779d687ae5930fc0f15f80d38b7e65c">GetSampledDescriptorHeap</a> () const</td></tr>
-<tr class="separator:ae779d687ae5930fc0f15f80d38b7e65c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac6cbd547084f6fc46ac363c7d117a9e"><td class="memItemLeft" align="right" valign="top">ID3D12DescriptorHeap *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#aac6cbd547084f6fc46ac363c7d117a9e">GetRenderTargetDescriptorHeap</a> () const</td></tr>
-<tr class="separator:aac6cbd547084f6fc46ac363c7d117a9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7876e616bc8e43dd2d3545b67b1b425"><td class="memItemLeft" align="right" valign="top">ID3D12DescriptorHeap *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#af7876e616bc8e43dd2d3545b67b1b425">GetDepthDescriptorHeap</a> () const</td></tr>
-<tr class="separator:af7876e616bc8e43dd2d3545b67b1b425"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3b6ae1cc9bd936bd69e64e08b0bb878"><td class="memItemLeft" align="right" valign="top">D3D12_CPU_DESCRIPTOR_HANDLE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#af3b6ae1cc9bd936bd69e64e08b0bb878">GetColorUsageDescriptorHandle</a> () const</td></tr>
-<tr class="separator:af3b6ae1cc9bd936bd69e64e08b0bb878"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a265cde2bebbccd5ab4032dbd562fa361"><td class="memItemLeft" align="right" valign="top">D3D12_CPU_DESCRIPTOR_HANDLE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#a265cde2bebbccd5ab4032dbd562fa361">GetDepthUsageDescriptorHandle</a> () const</td></tr>
-<tr class="separator:a265cde2bebbccd5ab4032dbd562fa361"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70902e8c19134eb15b3d281f60a7a885"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#a70902e8c19134eb15b3d281f60a7a885">SetDebugName</a> (const std::string &amp;name) override</td></tr>
+<tr class="separator:a70902e8c19134eb15b3d281f60a7a885"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad23f506b8bdde8faac2dac9d6a86f7e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ad23f506b8bdde8faac2dac9d6a86f7e7">_SetPhysicalSize</a> (const <a class="el" href="namespace_o_s_k.html#acbb1ebd73c8de7036fc0108df1bf612f">Vector3ui</a> &amp;size)</td></tr>
 <tr class="separator:ad23f506b8bdde8faac2dac9d6a86f7e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8ccb6026e41702b87d1d5da50c3af5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ac8ccb6026e41702b87d1d5da50c3af5d">SetData</a> (const void *data, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size)</td></tr>
@@ -141,6 +134,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a339142f665e7289fafcd8e52cb03f9cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f6e78b29f06b1b423ab89377a139b46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a3f6e78b29f06b1b423ab89377a139b46">GetNumLayers</a> () const</td></tr>
 <tr class="separator:a3f6e78b29f06b1b423ab89377a139b46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a217992f6d3fcb28043b60531004c5e92"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">GpuImageSamplerDesc</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a217992f6d3fcb28043b60531004c5e92">GetImageSampler</a> () const</td></tr>
+<tr class="separator:a217992f6d3fcb28043b60531004c5e92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0220799f28ec1c45c888926243867e9"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aa0220799f28ec1c45c888926243867e9">GetMipLevels</a> () const</td></tr>
 <tr class="separator:aa0220799f28ec1c45c888926243867e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6bc3268b57ede5f9f0541b20d12dfea0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; <br />
@@ -157,18 +152,25 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 <tr class="separator:ae48a1a723ee92230591f19ecaa9a81e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad32d36e931b0d7b6633549834b4b8813"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ad32d36e931b0d7b6633549834b4b8813">GetNumSamples</a> () const</td></tr>
 <tr class="separator:ad32d36e931b0d7b6633549834b4b8813"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1084f28e42d5b2d03ac2a831ac395e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html">IGpuImageView</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aa1084f28e42d5b2d03ac2a831ac395e1">GetView</a> (<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9d">SampledChannel</a> channel, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a55e114ba828198c2146f5233e462ba39">SampledArrayType</a> arrayType, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> baseArrayLevel, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> layerCount, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bca">ViewUsage</a> usage) const</td></tr>
+<tr class="separator:aa1084f28e42d5b2d03ac2a831ac395e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Métodos públicos estáticos</h2></td></tr>
 <tr class="memitem:a4cd33700ebbc4b65f7fd53007d7f8b6c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a4cd33700ebbc4b65f7fd53007d7f8b6c">GetMipLevels</a> (uint32_t sizeX, uint32_t sizeY)</td></tr>
 <tr class="separator:a4cd33700ebbc4b65f7fd53007d7f8b6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Métodos protegidos</h2></td></tr>
+<tr class="memitem:a8bcbb138b289e9ae0c4a55440dfcac42"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html">IGpuImageView</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#a8bcbb138b289e9ae0c4a55440dfcac42">CreateView</a> (<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9d">SampledChannel</a> channel, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a55e114ba828198c2146f5233e462ba39">SampledArrayType</a> arrayType, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> baseArrayLevel, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> layerCount, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bca">ViewUsage</a> usage) const override</td></tr>
+<tr class="separator:a8bcbb138b289e9ae0c4a55440dfcac42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock">
 <p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8h_source.html#l00013">13</a> del archivo <a class="el" href="_gpu_image_dx12_8h_source.html">GpuImageDx12.h</a>.</p>
 </div><h2 class="groupheader">Documentación del constructor y destructor</h2>
-<a id="afec888d32c9e22e3fadbc4926821c053" name="afec888d32c9e22e3fadbc4926821c053"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afec888d32c9e22e3fadbc4926821c053">&#9670;&nbsp;</a></span>GpuImageDx12()</h2>
+<a id="a6e9d78ef730f62d0dd143ea1597e09af" name="a6e9d78ef730f62d0dd143ea1597e09af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e9d78ef730f62d0dd143ea1597e09af">&#9670;&nbsp;</a></span>GpuImageDx12()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -207,7 +209,13 @@ Métodos públicos estáticos</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
-          <td class="paramname"><em>numSamples</em>&#160;</td>
+          <td class="paramname"><em>numSamples</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">GpuImageSamplerDesc</a>&#160;</td>
+          <td class="paramname"><em>samplerDesc</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -217,31 +225,11 @@ Métodos públicos estáticos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00006">6</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00015">15</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Documentación de las funciones miembro</h2>
-<a id="a2465440c1dd288cb534a90bc1390f5d3" name="a2465440c1dd288cb534a90bc1390f5d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2465440c1dd288cb534a90bc1390f5d3">&#9670;&nbsp;</a></span>_SetDepthDescriptorHeap()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void GpuImageDx12::_SetDepthDescriptorHeap </td>
-          <td>(</td>
-          <td class="paramtype">ComPtr&lt; ID3D12DescriptorHeap &gt;&#160;</td>
-          <td class="paramname"><em>descriptorHeap</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00024">24</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
-
-</div>
-</div>
 <a id="ad23f506b8bdde8faac2dac9d6a86f7e7" name="ad23f506b8bdde8faac2dac9d6a86f7e7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad23f506b8bdde8faac2dac9d6a86f7e7">&#9670;&nbsp;</a></span>_SetPhysicalSize()</h2>
 
@@ -266,47 +254,27 @@ Métodos públicos estáticos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00042">42</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00053">53</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aebef186379ba76da69cc73b647c4f462" name="aebef186379ba76da69cc73b647c4f462"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebef186379ba76da69cc73b647c4f462">&#9670;&nbsp;</a></span>_SetRenderTargetDescriptorHeap()</h2>
+<a id="aec14b77bb3cc49649dbb34113fa4c710" name="aec14b77bb3cc49649dbb34113fa4c710"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec14b77bb3cc49649dbb34113fa4c710">&#9670;&nbsp;</a></span>_SetResource()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void GpuImageDx12::_SetRenderTargetDescriptorHeap </td>
+          <td class="memname">void GpuImageDx12::_SetResource </td>
           <td>(</td>
-          <td class="paramtype">ComPtr&lt; ID3D12DescriptorHeap &gt;&#160;</td>
-          <td class="paramname"><em>descriptorHeap</em></td><td>)</td>
+          <td class="paramtype">ComPtr&lt; ID3D12Resource &gt;&#160;</td>
+          <td class="paramname"><em>resource</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00019">19</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2514cc1f4d1b75ebbdac3f392c31a792" name="a2514cc1f4d1b75ebbdac3f392c31a792"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2514cc1f4d1b75ebbdac3f392c31a792">&#9670;&nbsp;</a></span>_SetSampledDescriptorHeap()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void GpuImageDx12::_SetSampledDescriptorHeap </td>
-          <td>(</td>
-          <td class="paramtype">ComPtr&lt; ID3D12DescriptorHeap &gt;&#160;</td>
-          <td class="paramname"><em>descriptorHeap</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00015">15</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00047">47</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
 
 </div>
 </div>
@@ -336,7 +304,114 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8h_source.html#l00050">50</a> del archivo <a class="el" href="_i_gpu_image_8h_source.html">IGpuImage.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8h_source.html#l00060">60</a> del archivo <a class="el" href="_i_gpu_image_8h_source.html">IGpuImage.h</a>.</p>
+
+</div>
+</div>
+<a id="ac21fcddf8d3b17de4ccc186d3749c9d2" name="ac21fcddf8d3b17de4ccc186d3749c9d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac21fcddf8d3b17de4ccc186d3749c9d2">&#9670;&nbsp;</a></span>CreateResource()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GpuImageDx12::CreateResource </td>
+          <td>(</td>
+          <td class="paramtype">ID3D12Heap *&#160;</td>
+          <td class="paramname"><em>memory</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
+          <td class="paramname"><em>memoryOffset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00051">51</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8bcbb138b289e9ae0c4a55440dfcac42" name="a8bcbb138b289e9ae0c4a55440dfcac42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bcbb138b289e9ae0c4a55440dfcac42">&#9670;&nbsp;</a></span>CreateView()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html">IGpuImageView</a> &gt; GpuImageDx12::CreateView </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9d">SampledChannel</a>&#160;</td>
+          <td class="paramname"><em>channel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a55e114ba828198c2146f5233e462ba39">SampledArrayType</a>&#160;</td>
+          <td class="paramname"><em>arrayType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
+          <td class="paramname"><em>baseArrayLevel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
+          <td class="paramname"><em>layerCount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bca">ViewUsage</a>&#160;</td>
+          <td class="paramname"><em>usage</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a52b0c9170bac73a8e525244e071396ec">OSK::GRAPHICS::GpuImage</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00064">64</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a26e66a10adf1b6f4c22c9b8a7f162b5f" name="a26e66a10adf1b6f4c22c9b8a7f162b5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26e66a10adf1b6f4c22c9b8a7f162b5f">&#9670;&nbsp;</a></span>FillResourceDesc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GpuImageDx12::FillResourceDesc </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00020">20</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
 
 </div>
 </div>
@@ -363,74 +438,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00074">74</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af3b6ae1cc9bd936bd69e64e08b0bb878" name="af3b6ae1cc9bd936bd69e64e08b0bb878"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3b6ae1cc9bd936bd69e64e08b0bb878">&#9670;&nbsp;</a></span>GetColorUsageDescriptorHandle()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">D3D12_CPU_DESCRIPTOR_HANDLE GpuImageDx12::GetColorUsageDescriptorHandle </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Devuelve un hanlde para el uso de esta imagen como imagen de renderizado de un render target. </p>
-<dl class="section pre"><dt>Precondición</dt><dd>Se debe haber creado con <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa04bd834032febb3fda8c6936ee140949" title="Se usará como imagen final para el renderizado 3D. Almacenará la imagen de color final.">GpuImageUsage::COLOR</a>.</dd></dl>
-<dl class="section note"><dt>Nota</dt><dd>Si no se cumple la precondición, devuelve 0. </dd></dl>
-
-<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00045">45</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af7876e616bc8e43dd2d3545b67b1b425" name="af7876e616bc8e43dd2d3545b67b1b425"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7876e616bc8e43dd2d3545b67b1b425">&#9670;&nbsp;</a></span>GetDepthDescriptorHeap()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ID3D12DescriptorHeap * GpuImageDx12::GetDepthDescriptorHeap </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Devuelve la memoria del descriptor para uso como depth/stencil target. Null si no será usado de esa manera. </p>
-
-<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00041">41</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a265cde2bebbccd5ab4032dbd562fa361" name="a265cde2bebbccd5ab4032dbd562fa361"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a265cde2bebbccd5ab4032dbd562fa361">&#9670;&nbsp;</a></span>GetDepthUsageDescriptorHandle()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">D3D12_CPU_DESCRIPTOR_HANDLE GpuImageDx12::GetDepthUsageDescriptorHandle </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Devuelve un hanlde para el uso de esta imagen como imagen de renderizado de un render target. </p>
-<dl class="section pre"><dt>Precondición</dt><dd>Se debe haber creado con <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaaecaa8fe8cb0e85372f4cc76728c7cf3c" title="Se usará como imagen de profundidad para el renderizado 3D.">GpuImageUsage::DEPTH_STENCIL</a>.</dd></dl>
-<dl class="section note"><dt>Nota</dt><dd>Si no se cumple la precondición, devuelve 0. </dd></dl>
-
-<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00049">49</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00089">89</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
 
 </div>
 </div>
@@ -457,7 +465,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00054">54</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00065">65</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
 
 </div>
 </div>
@@ -484,7 +492,34 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00066">66</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00081">81</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a217992f6d3fcb28043b60531004c5e92" name="a217992f6d3fcb28043b60531004c5e92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a217992f6d3fcb28043b60531004c5e92">&#9670;&nbsp;</a></span>GetImageSampler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">GpuImageSamplerDesc</a> GpuImage::GetImageSampler </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00077">77</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
 
 </div>
 </div>
@@ -515,7 +550,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 <dl class="section warning"><dt>Atención</dt><dd>Al ser una variable informativa (no vinculante), puede no devolver el layout real actual.</dd></dl>
 <dl class="section note"><dt>Nota</dt><dd>Únicamente mostrará el valor real cuando se ejecute la lista de comandos con la cual se ha realizado la transición de layout. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00090">90</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00105">105</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
 
 </div>
 </div>
@@ -542,7 +577,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00070">70</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00085">85</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
 
 </div>
 </div>
@@ -571,7 +606,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Devuelve el número máximo de miplevels de esta imagen. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00078">78</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00093">93</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
 
 </div>
 </div>
@@ -618,7 +653,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00082">82</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00097">97</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
 
 </div>
 </div>
@@ -649,7 +684,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 <dl class="section return"><dt>Devuelve</dt><dd>Espacio ocupado en la GPU.</dd></dl>
 <dl class="section note"><dt>Nota</dt><dd>Debido a cuestiones de alineamiento y demás, puede ocupar más espacio del esperado. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00094">94</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00109">109</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
 
 </div>
 </div>
@@ -676,7 +711,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00062">62</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00073">73</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
 
 </div>
 </div>
@@ -705,7 +740,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Devuelve el número de muestras que esta imagen puede tener en un renderizado con MSAA. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00102">102</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00117">117</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
 
 </div>
 </div>
@@ -735,7 +770,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 <p>Devuelve el número de bytes reales que ocupa esta imagen en la memoria de la GPU </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Espacio ocupado en la GPU.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00098">98</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00113">113</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
 
 </div>
 </div>
@@ -762,28 +797,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00050">50</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aac6cbd547084f6fc46ac363c7d117a9e" name="aac6cbd547084f6fc46ac363c7d117a9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac6cbd547084f6fc46ac363c7d117a9e">&#9670;&nbsp;</a></span>GetRenderTargetDescriptorHeap()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ID3D12DescriptorHeap * GpuImageDx12::GetRenderTargetDescriptorHeap </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Devuelve la memoria del descriptor para uso como render target. Null si no será usado de esa manera. </p>
-
-<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00037">37</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00061">61</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
 
 </div>
 </div>
@@ -802,28 +816,26 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00029">29</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00055">55</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ae779d687ae5930fc0f15f80d38b7e65c" name="ae779d687ae5930fc0f15f80d38b7e65c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae779d687ae5930fc0f15f80d38b7e65c">&#9670;&nbsp;</a></span>GetSampledDescriptorHeap()</h2>
+<a id="ab3c432492797274c81b6428d9472b0da" name="ab3c432492797274c81b6428d9472b0da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3c432492797274c81b6428d9472b0da">&#9670;&nbsp;</a></span>GetResourceDesc()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">ID3D12DescriptorHeap * GpuImageDx12::GetSampledDescriptorHeap </td>
+          <td class="memname">const D3D12_RESOURCE_DESC &amp; GpuImageDx12::GetResourceDesc </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Devuelve la memoria del descriptor para uso como textura. Null si no será usado de esa manera. </p>
-
-<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00033">33</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00043">43</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
 
 </div>
 </div>
@@ -850,7 +862,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00046">46</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00057">57</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
 
 </div>
 </div>
@@ -877,7 +889,63 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00058">58</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00069">69</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa1084f28e42d5b2d03ac2a831ac395e1" name="aa1084f28e42d5b2d03ac2a831ac395e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1084f28e42d5b2d03ac2a831ac395e1">&#9670;&nbsp;</a></span>GetView()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html">IGpuImageView</a> * GpuImage::GetView </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9d">SampledChannel</a>&#160;</td>
+          <td class="paramname"><em>channel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a55e114ba828198c2146f5233e462ba39">SampledArrayType</a>&#160;</td>
+          <td class="paramname"><em>arrayType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
+          <td class="paramname"><em>baseArrayLevel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
+          <td class="paramname"><em>layerCount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bca">ViewUsage</a>&#160;</td>
+          <td class="paramname"><em>usage</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00121">121</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
 
 </div>
 </div>
@@ -905,7 +973,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00042">42</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
 
 </div>
 </div>
@@ -943,7 +1011,39 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00036">36</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00047">47</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a70902e8c19134eb15b3d281f60a7a885" name="a70902e8c19134eb15b3d281f60a7a885"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70902e8c19134eb15b3d281f60a7a885">&#9670;&nbsp;</a></span>SetDebugName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GpuImageDx12::SetDebugName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Establece un nombre que lo identifique. Para debug. </p>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_object.html#a4ced0b9bf575c7801e54f046604eee10">OSK::GRAPHICS::IGpuObject</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00059">59</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
 
 </div>
 </div>
@@ -973,29 +1073,9 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Actualiza el layout de la imagen, para que represente el layout actual. </p>
 <dl class="section warning"><dt>Atención</dt><dd>Función interna: no llamar.</dd></dl>
-<dl class="section note"><dt>Nota</dt><dd>Función puramente informativa: no cambia el layout real de la imagen. Para ello, debe usarse <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aadaa85cda3a81bad4b7a5595589a3899" title="Cambia el layout interno de la imagen en la memoria de la GPU.">ICommandList::TransitionImageLayout</a>. </dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Función puramente informativa: no cambia el layout real de la imagen. Para ello, debe usarse ICommandList::TransitionImageLayout. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00086">86</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a93c1aeceb5c0d8695ec64eaacb6d66db" name="a93c1aeceb5c0d8695ec64eaacb6d66db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93c1aeceb5c0d8695ec64eaacb6d66db">&#9670;&nbsp;</a></span>SetResource()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void GpuImageDx12::SetResource </td>
-          <td>(</td>
-          <td class="paramtype">const ComPtr&lt; ID3D12Resource &gt; &amp;&#160;</td>
-          <td class="paramname"><em>resource</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_gpu_image_dx12_8cpp_source.html#l00011">11</a> del archivo <a class="el" href="_gpu_image_dx12_8cpp_source.html">GpuImageDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_8cpp_source.html#l00101">101</a> del archivo <a class="el" href="_i_gpu_image_8cpp_source.html">IGpuImage.cpp</a>.</p>
 
 </div>
 </div>
@@ -1009,7 +1089,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html">GpuImageDx12</a></li>
-    <li class="footer">Generado el Jueves, 21 de Julio de 2022 18:59:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Sábado, 17 de Septiembre de 2022 00:04:45 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

@@ -143,6 +143,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a7ec7d40bc7e1dc4c9a5becfe3f29f5ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79f857bd13e3e7b131fb1c171e38b069"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_vector3__t.html#a79f857bd13e3e7b131fb1c171e38b069">Dot</a> (const <a class="el" href="class_o_s_k_1_1_vector3__t.html">Vector3_t</a> &amp;vec) const</td></tr>
 <tr class="separator:a79f857bd13e3e7b131fb1c171e38b069"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5d96539c377e3710621779b99c45496"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_vector3__t.html#ae5d96539c377e3710621779b99c45496">GetAngle</a> (const <a class="el" href="class_o_s_k_1_1_vector3__t.html">Vector3_t</a> &amp;vec) const</td></tr>
+<tr class="separator:ae5d96539c377e3710621779b99c45496"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11968baed38c50bb37083845b41efd72"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_vector3__t.html">Vector3_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_vector3__t.html#a11968baed38c50bb37083845b41efd72">Cross</a> (const <a class="el" href="class_o_s_k_1_1_vector3__t.html">Vector3_t</a> &amp;vec) const</td></tr>
 <tr class="separator:a11968baed38c50bb37083845b41efd72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef1702c4230df139c7f0e28cd27bc4a6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_vector3__t.html">Vector3_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_vector3__t.html#aef1702c4230df139c7f0e28cd27bc4a6">GetNormalized</a> () const</td></tr>
@@ -164,6 +166,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a82768eac04f68ac8103249ffc02c8ce2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5776dfaf6bec9b0093ef8e86568338f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_vector3__t.html">Vector3_t</a>&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_vector3__t.html#aa5776dfaf6bec9b0093ef8e86568338f">ToVector3ui</a> () const</td></tr>
 <tr class="separator:aa5776dfaf6bec9b0093ef8e86568338f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77e5e92418afd018151b84eb3ee60cf9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_vector3__t.html#a77e5e92418afd018151b84eb3ee60cf9">ToString</a> () const</td></tr>
+<tr class="separator:a77e5e92418afd018151b84eb3ee60cf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Atributos públicos</h2></td></tr>
@@ -184,7 +188,7 @@ class OSK::Vector3_t&lt; T &gt;</div><p >Representa un vector 3D. </p>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00011">11</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00012">12</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 </div><h2 class="groupheader">Documentación del constructor y destructor</h2>
 <a id="abfc61058c184a3320c0e6d1993b7a037" name="abfc61058c184a3320c0e6d1993b7a037"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abfc61058c184a3320c0e6d1993b7a037">&#9670;&nbsp;</a></span>Vector3_t() <span class="overload">[1/4]</span></h2>
@@ -213,7 +217,7 @@ template&lt;typename T &gt; </div>
 
 <p>Crea un vector 3D nulo { 0, 0, 0 }. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00018">18</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00019">19</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -261,7 +265,7 @@ template&lt;typename T &gt; </div>
 
 <p>Crea un vector 3D. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00027">27</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00028">28</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -299,7 +303,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00037">37</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00038">38</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -331,7 +335,7 @@ template&lt;typename T &gt; </div>
 
 <p>Crea un vector 3D con los parámetros de vec. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00046">46</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00047">47</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -364,7 +368,7 @@ template&lt;typename T &gt; </div>
 
 <p>Obtiene el producto vectorial entre este vector y el vector 'vec'. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00254">254</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00271">271</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -396,7 +400,44 @@ template&lt;typename T &gt; </div>
 
 <p>Obtiene el producto escalar entre este vector y el vector 'vec'. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00247">247</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00248">248</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae5d96539c377e3710621779b99c45496" name="ae5d96539c377e3710621779b99c45496"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5d96539c377e3710621779b99c45496">&#9670;&nbsp;</a></span>GetAngle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T <a class="el" href="class_o_s_k_1_1_vector3__t.html">OSK::Vector3_t</a>&lt; T &gt;::GetAngle </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_vector3__t.html">Vector3_t</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vec</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve el ángulo, en grados, entre este vector y el vector dado. </p>
+<p >El tipo de ángulo dependerá del resultado de this-&gt;Dot(vec):</p><ul>
+<li>Agudo: resultado positivo.</li>
+<li>Recto: resultado 0.</li>
+<li>Obtuso: resultado negativo. </li>
+</ul>
+
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00260">260</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -428,7 +469,7 @@ template&lt;typename T &gt; </div>
 
 <p>Obtiene la distancia entre la posición representada por este vector y por el vector 'vec'. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00224">224</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00225">225</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -460,7 +501,7 @@ template&lt;typename T &gt; </div>
 
 <p>Obtiene la distancia entre la posición representada por este vector y por el vector 'vec'. Al cuadrado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00236">236</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00237">237</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -491,7 +532,7 @@ template&lt;typename T &gt; </div>
 
 <p>Módulo del vector. Obtiene la longitud del vector. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00217">217</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00218">218</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -522,7 +563,7 @@ template&lt;typename T &gt; </div>
 
 <p>Devuelve un vector 3D normalizado con la misma dirección que este. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00261">261</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00278">278</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -553,7 +594,7 @@ template&lt;typename T &gt; </div>
 
 <p>Normaliza el vector 3D para que su módulo (GetLength()) sea 1. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00270">270</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00287">287</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -585,7 +626,7 @@ template&lt;typename T &gt; </div>
 
 <p>Comparación. True si no todos los componentes son iguales. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00209">209</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00210">210</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -618,7 +659,7 @@ template&lt;typename T &gt; </div>
 <p>Operación Vector3 * T. </p>
 <dl class="section note"><dt>Nota</dt><dd>X * value; Y * value; Z * value. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00134">134</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00135">135</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -651,7 +692,7 @@ template&lt;typename T &gt; </div>
 <p>Operación Vector3 * Vector3. </p>
 <dl class="section note"><dt>Nota</dt><dd>X1 * X2; Y1 * Y2; Z1 * Z2. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00111">111</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00112">112</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -686,7 +727,7 @@ template&lt;typename T &gt; </div>
 <dd>
 Modifica este vector. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00144">144</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00145">145</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -721,7 +762,7 @@ template&lt;typename T &gt; </div>
 <dd>
 Modifica este vector. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00121">121</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00122">122</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -754,7 +795,7 @@ template&lt;typename T &gt; </div>
 <p>Operación Vector3 + Vector3. </p>
 <dl class="section note"><dt>Nota</dt><dd>X1 + X2; Y1 + Y2, Z1 + Z2. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00057">57</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00058">58</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -789,7 +830,7 @@ template&lt;typename T &gt; </div>
 <dd>
 Modifica este vector. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00067">67</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00068">68</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -821,7 +862,7 @@ template&lt;typename T &gt; </div>
 <p>Negación del Vector3. </p>
 <dl class="section note"><dt>Nota</dt><dd>-X; -Y; -Z. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00079">79</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00080">80</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -854,7 +895,7 @@ template&lt;typename T &gt; </div>
 <p>Operación Vector3 - Vector3. </p>
 <dl class="section note"><dt>Nota</dt><dd>X1 - X2; Y1 - Y2; Z1 - Z2. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00088">88</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00089">89</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -889,7 +930,7 @@ template&lt;typename T &gt; </div>
 <dd>
 Modifica este vector. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00098">98</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00099">99</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -922,7 +963,7 @@ template&lt;typename T &gt; </div>
 <p>Operación Vector3 / float_t. </p>
 <dl class="section note"><dt>Nota</dt><dd>X / value; Y / value; Z / value. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00179">179</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00180">180</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -955,7 +996,7 @@ template&lt;typename T &gt; </div>
 <p>Operación Vector3 / Vector3. </p>
 <dl class="section note"><dt>Nota</dt><dd>X / vec.X; Y / vec.Y, Z / vec.Z. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00156">156</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00157">157</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -990,7 +1031,7 @@ template&lt;typename T &gt; </div>
 <dd>
 Modifica este vector. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00189">189</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00190">190</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -1025,7 +1066,7 @@ template&lt;typename T &gt; </div>
 <dd>
 Modifica este vector. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00166">166</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00167">167</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -1057,7 +1098,7 @@ template&lt;typename T &gt; </div>
 
 <p>Comparación. True si todos los componentes son iguales. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00201">201</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00202">202</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -1088,7 +1129,7 @@ template&lt;typename T &gt; </div>
 
 <p><a class="el" href="namespace_o_s_k.html#a29418e6a0cd922e229790e5d2c0fc6cf" title="Precisión = float.">OSK::Vector2</a> a glm::vec3. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00281">281</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00298">298</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -1119,7 +1160,36 @@ template&lt;typename T &gt; </div>
 
 <p><a class="el" href="namespace_o_s_k.html#a29418e6a0cd922e229790e5d2c0fc6cf" title="Precisión = float.">OSK::Vector2</a> a glm::vec. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00288">288</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00305">305</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a77e5e92418afd018151b84eb3ee60cf9" name="a77e5e92418afd018151b84eb3ee60cf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77e5e92418afd018151b84eb3ee60cf9">&#9670;&nbsp;</a></span>ToString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="class_o_s_k_1_1_vector3__t.html">OSK::Vector3_t</a>&lt; T &gt;::ToString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00345">345</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -1152,7 +1222,7 @@ template&lt;typename P &gt; </div>
 
 <p>Devuelve un vector con variables de distinto tipo. P = nuevo tipo de las variables. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00296">296</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00313">313</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -1183,7 +1253,7 @@ template&lt;typename T &gt; </div>
 
 <p>Devuelve un Vector3d a partir de este. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00310">310</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00327">327</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -1214,7 +1284,7 @@ template&lt;typename T &gt; </div>
 
 <p>Devuelve un Vector3f a partir de este. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00303">303</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00320">320</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -1245,7 +1315,7 @@ template&lt;typename T &gt; </div>
 
 <p>Devuelve un Vector3i a partir de este. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00317">317</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00334">334</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -1276,7 +1346,7 @@ template&lt;typename T &gt; </div>
 
 <p>Devuelve un Vector3ui a partir de este. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00324">324</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00341">341</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -1297,7 +1367,7 @@ template&lt;typename T &gt; </div>
 
 <p>Representa la primera coordenada. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00331">331</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00352">352</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -1317,7 +1387,7 @@ template&lt;typename T &gt; </div>
 
 <p>Representa la segunda coordenada. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00336">336</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00357">357</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -1337,7 +1407,7 @@ template&lt;typename T &gt; </div>
 
 <p>Representa la tercera coordenada. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00341">341</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_vector3_8hpp_source.html#l00362">362</a> del archivo <a class="el" href="_vector3_8hpp_source.html">Vector3.hpp</a>.</p>
 
 </div>
 </div>
@@ -1350,7 +1420,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_vector3__t.html">Vector3_t</a></li>
-    <li class="footer">Generado el Jueves, 21 de Julio de 2022 18:59:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Sábado, 17 de Septiembre de 2022 00:04:45 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

@@ -46,18 +46,6 @@ namespace OSK::GRAPHICS {
 
 
 		/// <summary>
-		/// Establece el área de la escena que será renderizada al
-		/// mapa de sombras.
-		/// 
-		/// Cuanto mayor sea más área será sombreada, pero las sombras
-		/// tendrán una menor resolución
-		/// </summary>
-		/// <param name="area">Área de la escena sombreada, en metros.</param>
-		/// 
-		/// @note Por defecto, 100, 100.
-		void SetLightArea(const Vector2f& area);
-
-		/// <summary>
 		/// Establece el near plane del renderizado.
 		/// </summary>
 		/// <param name="nearPlane">Distancia mínima al origen
@@ -74,28 +62,6 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note Por defecto, 5.0f.
 		void SetFarPlane(float farPlane);
-
-		/// <summary>
-		/// Establece el punto del que se origina la luz direccional.
-		/// 
-		/// Aunque teóricamente la luz direccional se origina en un punto
-		/// infinitamente lejano, se debe usar un punto de origen para
-		/// saber qué área de la escena se debe procesar, ya que no disponemos
-		/// de una imagen infinitamente grande.
-		/// </summary>
-		/// 
-		/// <param name="origin">Punto desde el que se renderizarán las sombras.</param>
-		/// 
-		/// @note Debe estar lo suficientemente alto como para que los objetos puedan
-		/// proyectar sombras.
-		/// @note Por defecto, será el punto (0, 0, 0) - dirLight.direction * 50, generando
-		/// sombras para los elementos en el centro de la escena.
-		void SetLightOrigin(const Vector3f& origin);
-
-		/// <summary>
-		/// Devuelve el punto del que se origina la luz direccional en este instante.
-		/// </summary>
-		Vector3f GetCurrentLigthOrigin() const;
 
 
 		/// <summary>

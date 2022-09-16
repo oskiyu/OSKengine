@@ -5,10 +5,11 @@
 
 layout(location = 0) in vec4 inColor;
 layout(location = 1) in vec2 inTexCoords;
+layout(location = 2) in vec2 inPos;
 
 layout (location = 0) out vec4 outColor;
 
-layout (set = 0, binding = 0) uniform Camera {
+layout (set = 0, binding = 1) uniform Camera {
     mat4 projection;
     mat4 view;
 
@@ -17,29 +18,23 @@ layout (set = 0, binding = 0) uniform Camera {
 
 
 // Lights & shadows
-layout (set = 0, binding = 1) uniform DirLightShadowMat {
+layout (set = 0, binding = 2) uniform DirLightShadowMat {
     mat4[4] matrix;
     vec4 splits;
 } dirLightShadowMat;
 
-layout (set = 0, binding = 2) uniform DirLight {
+layout (set = 0, binding = 3) uniform DirLight {
     vec4 directionAndIntensity;
     vec4 color;
 } dirLight;
 
-layout (set = 0, binding = 3) uniform samplerCube irradianceMap;
-layout (set = 0, binding = 4) uniform sampler2DArray dirLightShadowMap;
+layout (set = 0, binding = 4) uniform samplerCube irradianceMap;
+layout (set = 0, binding = 5) uniform sampler2DArray dirLightShadowMap;
 
 
 layout (set = 1, binding = 0) uniform sampler2D positionTexture;
 layout (set = 1, binding = 1) uniform sampler2D colorTexture;
 layout (set = 1, binding = 2) uniform sampler2D normalTexture;
-
-layout (push_constant) uniform MaterialInfo {
-    // x = metallic
-    // y = roughness
-    layout (offset = 64) vec4 infos;
-} materialInfo;
 
 void main() {
     const vec3 worlPosition = texture(positionTexture, inTexCoords).xyz;
@@ -49,8 +44,8 @@ void main() {
     const vec3 view = normalize(camera.cameraPos - worlPosition);
     const vec3 reflectDirection = reflect(-view, normal);
     
-    const float metallicFactor = materialInfo.infos.x; // TODO: texture
-    const float roughnessFactor = materialInfo.infos.y; // TODO: texture
+    const float metallicFactor = 0.5; // TODO: texture
+    const float roughnessFactor = 0.5; // TODO: texture
     
     vec3 F0 = vec3(DEFAULT_F0);
     F0 = mix(F0, albedo.rgb, metallicFactor);
@@ -71,5 +66,6 @@ void main() {
     const vec3 irradiance = texture(irradianceMap, normal).rgb;
     const vec3 ambient = albedo.rgb * kD * irradiance;
     
-    outColor = vec4(ambient * (dirLight.directionAndIntensity.w * 0.25) + accummulatedRadiance * 1.25, 1.0);
+    outColor = vec4(ambient * (dirLight.directionAndIntensity.w * 0.25) + accummulatedRadiance * 1.25, texture(normalTexture, inTexCoords).a);
+    //outColor = vec4(dirLight.directionAndIntensity.w);
 }

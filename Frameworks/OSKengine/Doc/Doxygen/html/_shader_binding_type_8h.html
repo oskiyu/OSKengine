@@ -109,11 +109,13 @@ Enumeraciones</h2></td></tr>
 <tr class="memitem:a4a3cc5ac5a7f3c8753e7f74d576d6e1d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1d">OSK::GRAPHICS::ShaderBindingType</a> { <br />
 &#160;&#160;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da8d0be820da8f4fe5aa49e0ef3065ca29">OSK::GRAPHICS::UNIFORM_BUFFER</a>
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da3f92f542bd9ec48f912b9350e22736ac">OSK::GRAPHICS::TEXTURE</a>
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da35586d57c794c8dde4d19d0c3316d51d">OSK::GRAPHICS::TEXTURE_ARRAY</a>
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1daf28b30e806ea29c1d6011d1feeea8913">OSK::GRAPHICS::CUBEMAP</a>
-, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1daa486db75420308f63af20d85e2b6489d">OSK::GRAPHICS::STORAGE_BUFFER</a>
 , <br />
-&#160;&#160;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da56da21e70ea85d8efa9392d6fd11f2ee">OSK::GRAPHICS::RT_ACCELERATION_STRUCTURE</a>
-, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da3d5dffc952403caa0bd4efd243e72e25">OSK::GRAPHICS::RT_TARGET_IMAGE</a>
+&#160;&#160;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1daa486db75420308f63af20d85e2b6489d">OSK::GRAPHICS::STORAGE_BUFFER</a>
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da56da21e70ea85d8efa9392d6fd11f2ee">OSK::GRAPHICS::RT_ACCELERATION_STRUCTURE</a>
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da17a99bfdcbe59e8209f17c4da5de6ff9">OSK::GRAPHICS::STORAGE_IMAGE</a>
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da3d5dffc952403caa0bd4efd243e72e25">OSK::GRAPHICS::RT_TARGET_IMAGE</a> = STORAGE_IMAGE
 <br />
  }</td></tr>
 <tr class="separator:a4a3cc5ac5a7f3c8753e7f74d576d6e1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,9 +128,10 @@ Enumeraciones</h2></td></tr>
 &#160;&#160;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba949f4e4e16184d8e16e4125517a1c6c3">OSK::GRAPHICS::RT_RAYGEN</a> = 16
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcbaee8f06a600f854fc2cd6d6fc69089b6d">OSK::GRAPHICS::RT_CLOSEST_HIT</a> = 32
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcbaa81021d99de178d7979c2c96b7e3e47d">OSK::GRAPHICS::RT_MISS</a> = 64
-, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba829c2b0ccdf8939e47b86bb510ef222f">OSK::GRAPHICS::TESSELATION_ALL</a> = TESSELATION_CONTROL | TESSELATION_EVALUATION
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcbaac404d7ce6ca5862e9b8a2641fbafd90">OSK::GRAPHICS::COMPUTE</a> = 128
 , <br />
-&#160;&#160;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba1fdd1a5172989f84205922b257b753a1">OSK::GRAPHICS::RT_ALL</a> = RT_RAYGEN | RT_CLOSEST_HIT |RT_MISS
+&#160;&#160;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba829c2b0ccdf8939e47b86bb510ef222f">OSK::GRAPHICS::TESSELATION_ALL</a> = TESSELATION_CONTROL | TESSELATION_EVALUATION
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba1fdd1a5172989f84205922b257b753a1">OSK::GRAPHICS::RT_ALL</a> = RT_RAYGEN | RT_CLOSEST_HIT |RT_MISS
 <br />
  }</td></tr>
 <tr class="separator:aa7e7dcffcab27051f141128e66a50fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -213,7 +216,7 @@ template&lt;&gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_shader_binding_type_8h.html">ShaderBindingType.h</a></li>
-    <li class="footer">Generado el Jueves, 21 de Julio de 2022 18:59:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Sábado, 17 de Septiembre de 2022 00:04:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

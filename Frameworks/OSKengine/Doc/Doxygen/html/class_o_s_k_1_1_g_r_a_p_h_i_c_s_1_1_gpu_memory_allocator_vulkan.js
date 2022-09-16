@@ -9,6 +9,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan =
     [ "CreateNewBufferBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#a318d45713432c98597384fd85492c559", null ],
     [ "CreateNewImageBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#ab352c9922bba681dd4c29676ac08416d", null ],
     [ "CreateStagingBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#a3c918e33eec9f4230299a348c16d5fdf", null ],
+    [ "CreateStorageBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#ae88596f53526eebf6007f8c999a152cc", null ],
     [ "CreateTopAccelerationStructure", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#aae10c6dfbf119a91a802f4f501a1da3a", null ],
     [ "CreateUniformBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#a053695e4a5255c4e5a682ebf06963a48", null ],
     [ "CreateVertexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#abef0fcbc0dade8bdf27d14959313fa51", null ],

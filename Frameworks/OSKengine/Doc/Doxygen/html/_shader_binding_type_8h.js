@@ -3,9 +3,11 @@ var _shader_binding_type_8h =
     [ "ShaderBindingType", "_shader_binding_type_8h.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1d", [
       [ "UNIFORM_BUFFER", "_shader_binding_type_8h.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da8d0be820da8f4fe5aa49e0ef3065ca29", null ],
       [ "TEXTURE", "_shader_binding_type_8h.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da3f92f542bd9ec48f912b9350e22736ac", null ],
+      [ "TEXTURE_ARRAY", "_shader_binding_type_8h.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da35586d57c794c8dde4d19d0c3316d51d", null ],
       [ "CUBEMAP", "_shader_binding_type_8h.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1daf28b30e806ea29c1d6011d1feeea8913", null ],
       [ "STORAGE_BUFFER", "_shader_binding_type_8h.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1daa486db75420308f63af20d85e2b6489d", null ],
       [ "RT_ACCELERATION_STRUCTURE", "_shader_binding_type_8h.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da56da21e70ea85d8efa9392d6fd11f2ee", null ],
+      [ "STORAGE_IMAGE", "_shader_binding_type_8h.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da17a99bfdcbe59e8209f17c4da5de6ff9", null ],
       [ "RT_TARGET_IMAGE", "_shader_binding_type_8h.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da3d5dffc952403caa0bd4efd243e72e25", null ]
     ] ],
     [ "ShaderStage", "_shader_binding_type_8h.html#aa7e7dcffcab27051f141128e66a50fcb", [
@@ -16,6 +18,7 @@ var _shader_binding_type_8h =
       [ "RT_RAYGEN", "_shader_binding_type_8h.html#aa7e7dcffcab27051f141128e66a50fcba949f4e4e16184d8e16e4125517a1c6c3", null ],
       [ "RT_CLOSEST_HIT", "_shader_binding_type_8h.html#aa7e7dcffcab27051f141128e66a50fcbaee8f06a600f854fc2cd6d6fc69089b6d", null ],
       [ "RT_MISS", "_shader_binding_type_8h.html#aa7e7dcffcab27051f141128e66a50fcbaa81021d99de178d7979c2c96b7e3e47d", null ],
+      [ "COMPUTE", "_shader_binding_type_8h.html#aa7e7dcffcab27051f141128e66a50fcbaac404d7ce6ca5862e9b8a2641fbafd90", null ],
       [ "TESSELATION_ALL", "_shader_binding_type_8h.html#aa7e7dcffcab27051f141128e66a50fcba829c2b0ccdf8939e47b86bb510ef222f", null ],
       [ "RT_ALL", "_shader_binding_type_8h.html#aa7e7dcffcab27051f141128e66a50fcba1fdd1a5172989f84205922b257b753a1", null ]
     ] ],

@@ -75,6 +75,7 @@ namespace OSK::GRAPHICS {
 
 		/// <summary>
 		/// Devuelve las imágenes de renderizado con el índice dado.
+		/// El índice es el índice del frame.
 		/// </summary>
 		/// 
 		/// @pre El índice debe estar entre 0 y 2, ambos incluidos.
@@ -200,6 +201,11 @@ namespace OSK::GRAPHICS {
 		/// los shaders.
 		/// </summary>
 		void SetDepthImageSampler(const GpuImageSamplerDesc& sampler);
+
+		/// <summary>
+		/// Devuelve el número de imágenes de color del render target.
+		/// </summary>
+		TSize GetNumColorTargets() const;
 
 		void SetName(const std::string& name);
 

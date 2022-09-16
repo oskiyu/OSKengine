@@ -3,13 +3,14 @@
     "spec_ver": 1,
     "name": "GBufferColor",
 
-    "vertex_shader": "Resources/Shaders/VK/PBR/GBuffer/Color/vert.spv",
-    "fragment_shader": "Resources/Shaders/VK/PBR/GBuffer/Color/frag.spv",
+    "vertex_shader": "Resources/Shaders/VK/PBR/Deferred/GBuffer/vert.spv",
+    "fragment_shader": "Resources/Shaders/VK/PBR/Deferred/GBuffer/frag.spv",
     
     "vertex_type": "OSK::Vertex3D",
 
     "slots": {
-        "0": "global"
+        "0": "global",
+        "1": "texture"
     },
     
     "config": {

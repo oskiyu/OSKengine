@@ -7,23 +7,19 @@ layout(location = 2) in vec4 inColor;
 layout(location = 3) in vec2 inTexCoords;
 
 layout (location = 0) out vec4 outWorldPosition;
-layout (location = 1) out vec4 outNormal;
-layout (location = 2) out vec4 outColor;
+layout (location = 1) out vec4 outColor;
+layout (location = 2) out vec4 outNormal;
 
-layout (set = 0, binding = 1) uniform DirLightShadowMat {
-    mat4[4] matrix;
-    vec4 splits;
-} dirLightShadowMat;
+layout (set = 1, binding = 0) uniform sampler2D albedoTexture;
 
-layout (set = 0, binding = 2) uniform DirLight {
-    vec4 directionAndIntensity;
-    vec4 color;
-} dirLight;
-
-layout (set = 0, binding = 1) uniform sampler2D albedoTexture;
+layout (push_constant) uniform MaterialInfo {
+    // x = metallic
+    // y = roughness
+    layout (offset = 64) vec4 infos;
+} materialInfo;
 
 void main() {
     outWorldPosition = vec4(inWorldPosition, 1.0);
+    outColor = inColor * vec4(texture(albedoTexture, inTexCoords).rgb, materialInfo.infos.x + materialInfo.infos.y * 10);
     outNormal = vec4(inNormal, 1.0);
-    outColor = inColor * texture(albedoTexture, inTexCoords);
 }

@@ -1,11 +1,17 @@
 #pragma once
 
-#include "IRenderSystem.h"
+#include "RenderSystem3D.h"
 
 #include "UniquePtr.hpp"
 #include "IGpuImage.h"
 
+namespace OSK::ASSETS {
+	class IrradianceMap;
+}
+
 namespace OSK::ECS {
+
+	class CameraComponent3D;
 
 	class OSKAPI_CALL PbrDeferredRenderSystem : public IRenderSystem {
 
@@ -15,18 +21,41 @@ namespace OSK::ECS {
 
 		PbrDeferredRenderSystem();
 
-		void Render(GRAPHICS::ICommandList* commandList) override;
+		void Initialize(ECS::GameObjectIndex cameraObject, const ASSETS::IrradianceMap& irradianceMap);
 
 		void CreateTargetImage(const Vector2ui& size) override;
-		void Resize(const Vector2ui& windowSize) override;
+		void Resize(const Vector2ui& size) override;
+
+		void Render(GRAPHICS::ICommandList* commandList) override;
+
+		const static TSize GBUFFER_POSITION_TARGET_INDEX = 0;
+		const static TSize GBUFFER_COLOR_TARGET_INDEX = 1;
+		const static TSize GBUFFER_NORMAL_TARGET_INDEX = 2;
 
 	private:
-		
-		void ExecuteNormalRenderpass(GRAPHICS::ICommandList* commandList);
-		void ExecuteColorRenderpass(GRAPHICS::ICommandList* commandList);
 
-		GRAPHICS::RenderTarget normalRenderTarget;
-		GRAPHICS::RenderTarget colorRenderTarget;
+		void UpdateResolveMaterial();
+
+		void GenerateShadows(GRAPHICS::ICommandList* commandList);
+		void RenderGBuffer(GRAPHICS::ICommandList* commandList);
+		void Resolve(GRAPHICS::ICommandList* commandList);
+
+		GRAPHICS::RenderTarget gBuffer;
+
+		UniquePtr<GRAPHICS::IGpuUniformBuffer> cameraUbos[3]{};
+		UniquePtr<GRAPHICS::IGpuUniformBuffer> dirLightUbos[3]{};
+		GRAPHICS::DirectionalLight dirLight{};
+
+		GRAPHICS::ShadowMap shadowMap;
+		ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
+
+		GRAPHICS::Material* gbufferMaterial = nullptr;
+		UniquePtr<GRAPHICS::MaterialInstance> globalGbufferMaterialInstance;
+
+		GRAPHICS::Material* resolveMaterial = nullptr;
+		UniquePtr<GRAPHICS::MaterialInstance> resolveMaterialInstance;
+
+		bool hasBeenInitialized = false;
 
 	};
 

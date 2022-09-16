@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/GpuBarrierInfo.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_gpu_barrier_info_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">GpuBarrierInfo.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_gpu_barrier_info_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kmacros_8h.html">OSKmacros.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_enum_flags_8hpp.html">EnumFlags.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_usage_8h.html">GpuImageUsage.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af4ec621c557d492c7de3493e2b2bd1a9">    9</a></span>    <span class="keyword">constexpr</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> <a class="code hl_variable" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af4ec621c557d492c7de3493e2b2bd1a9">ALL_MIP_LEVELS</a> = (~0);</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a180d96d3f745a60bce6b0ffd5209ce35">   10</a></span>    <span class="keyword">constexpr</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> <a class="code hl_variable" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a180d96d3f745a60bce6b0ffd5209ce35">ALL_IMAGE_LAYERS</a> = (~0);</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7">   23</a></span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7">GpuBarrierStage</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7a9861721c6c2dfbdc35d20746c386a090">VERTEX_SHADER</a>,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7aaf58ae9f6cade42be9607c7298fd97d1">FRAGMENT_SHADER</a>,</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7af448507fb26809d25c13899dfc57e230">TESSELATION_CONTROL</a>,</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7a9196126eff57d73bb45dc36a6367e58d">TESSELATION_EVALUATION</a>,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7aff6553905d3335ae47fc83b139b95870">RAYTRACING_SHADER</a>,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7a8d2880f2cd7f8d74c139dae619771f0b">COLOR_ATTACHMENT_OUTPUT</a>,</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7a97f28c5b69d3578bbd47326575d6854b">DEPTH_STENCIL_START</a>,</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7adabf961ca14253eeb4d65d3e2cc1c121">DEPTH_STENCIL_END</a>,</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7aeb5ddb3b6096fb90ff720d9c3e2a6628">TRANSFER</a>,</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7ae6ae2d0a1bee9d966dcae11a201a3c56">COMPUTE_SHADER</a>,</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7a7e72dc7ff3c335fd2bf5fbfc66f2d2d9">RT_AS_BUILD</a>,</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7a5b39c8b553c821e7cddc6da64b5bd2ee">DEFAULT</a></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    };</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdd">   90</a></span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdd">GpuBarrierAccessStage</a> {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fddaf7fa6448008bb7c923369ea64e315518">SHADER_READ</a> = 1,</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdda66eb578ef321c4ad6ff674bd3e9209d6">SHADER_WRITE</a> = 2,</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdda1293c19a211a2b52b28d667dabf4481a">COLOR_ATTACHMENT_READ</a> = 4,</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdda2d5975adc5f0129364458ddedfaaa88e">COLOR_ATTACHMENT_WRITE</a> = 8,</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdda46a45aa60d73bb5e761b5b503684e9c1">DEPTH_STENCIL_READ</a> = 16,</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdda90348e17527ad0393b938a05737320a7">DEPTH_STENCIL_WRITE</a> = 32,</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdda666cbf12350de6ce2062553ccf1b4837">TRANSFER_READ</a> = 64,</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fddab5ca404a51ead36c6fa38cff8121dd25">TRANSFER_WRITE</a> = 128,</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fddaa3e5498451254c3225b4a45a962263e7">MEMORY_READ</a> = 256,</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fddaa34a7d2201196f8dc6b50a2a2ef25036">MEMORY_WRITE</a> = 512,</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdda4a248c6019913f3665d997b9f57cd07f">RT_AS_READ</a> = 1024,</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fddae35cbc6768d268effce046b5c32a05a1">RT_AS_WRITE</a> = 2048,</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7a5b39c8b553c821e7cddc6da64b5bd2ee">DEFAULT</a> = 4096</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    };</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html">  155</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html">GpuBarrierInfo</a> {</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#ab729f190f569012b102a5e17160d6050">  156</a></span>        <a class="code hl_function" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#ab729f190f569012b102a5e17160d6050">GpuBarrierInfo</a>() {}</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a94a5f9e295108d024feb58dda0e75f2f">  157</a></span>        <a class="code hl_function" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a94a5f9e295108d024feb58dda0e75f2f">GpuBarrierInfo</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7">GpuBarrierStage</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a377ec6b1294f4cbd0dc5f1243606b832">stage</a>, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdd">GpuBarrierAccessStage</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a2859856d82b6fc7bf96e9b31e03ccfe0">accessStage</a>) : <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a377ec6b1294f4cbd0dc5f1243606b832">stage</a>(<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a377ec6b1294f4cbd0dc5f1243606b832">stage</a>), <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a2859856d82b6fc7bf96e9b31e03ccfe0">accessStage</a>(<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a2859856d82b6fc7bf96e9b31e03ccfe0">accessStage</a>) {}</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a377ec6b1294f4cbd0dc5f1243606b832">  159</a></span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7">GpuBarrierStage</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a377ec6b1294f4cbd0dc5f1243606b832">stage</a> = <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7a5b39c8b553c821e7cddc6da64b5bd2ee">GpuBarrierStage::DEFAULT</a>;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a2859856d82b6fc7bf96e9b31e03ccfe0">  160</a></span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdd">GpuBarrierAccessStage</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a2859856d82b6fc7bf96e9b31e03ccfe0">accessStage</a> = <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdda5b39c8b553c821e7cddc6da64b5bd2ee">GpuBarrierAccessStage::DEFAULT</a>;</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    };</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html">  163</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html">GpuImageBarrierInfo</a> {</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a89f637c4de7944fc1228348171b23830">  164</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a89f637c4de7944fc1228348171b23830">baseLayer</a> = 0;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a7d622d573c1207bd01789dc7481c4ae7">  165</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a7d622d573c1207bd01789dc7481c4ae7">numLayers</a> = <a class="code hl_variable" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a180d96d3f745a60bce6b0ffd5209ce35">ALL_IMAGE_LAYERS</a>;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a8eee0ad887e8d8e8fc1756ef30932a4c">  166</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a8eee0ad887e8d8e8fc1756ef30932a4c">baseMipLevel</a> = 0;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a1ef0b0902e0694136e2c9063127bab88">  167</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a1ef0b0902e0694136e2c9063127bab88">numMipLevels</a> = <a class="code hl_variable" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af4ec621c557d492c7de3493e2b2bd1a9">ALL_MIP_LEVELS</a>;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a84bce929941ec5fda9af186cb2a62c8c">  169</a></span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9d">SampledChannel</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a84bce929941ec5fda9af186cb2a62c8c">channel</a> = <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9da04bd834032febb3fda8c6936ee140949">SampledChannel::COLOR</a>;</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    };</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>}</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="_gpu_barrier_info_8h.html#ac6d919d333c928fa99fc3af9a4235008">  174</a></span><a class="code hl_function" href="_gpu_barrier_info_8h.html#ac6d919d333c928fa99fc3af9a4235008">OSK_FLAGS</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdd">OSK::GRAPHICS::GpuBarrierAccessStage</a>);</div>
+<div class="ttc" id="a_enum_flags_8hpp_html"><div class="ttname"><a href="_enum_flags_8hpp.html">EnumFlags.hpp</a></div></div>
+<div class="ttc" id="a_gpu_barrier_info_8h_html_ac6d919d333c928fa99fc3af9a4235008"><div class="ttname"><a href="_gpu_barrier_info_8h.html#ac6d919d333c928fa99fc3af9a4235008">OSK_FLAGS</a></div><div class="ttdeci">OSK_FLAGS(OSK::GRAPHICS::GpuBarrierAccessStage)</div></div>
+<div class="ttc" id="a_gpu_image_usage_8h_html"><div class="ttname"><a href="_gpu_image_usage_8h.html">GpuImageUsage.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00023">OSKmacros.h:23</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_bloom_pass_8h_source.html#l00005">BloomPass.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a02ed44392ae1f51786ead8911c3afe9d"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9d">OSK::GRAPHICS::SampledChannel</a></div><div class="ttdeci">SampledChannel</div><div class="ttdoc">Define qué parte de una imagen se leerá al usar una imagen en un shader.</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_usage_8h_source.html#l00069">GpuImageUsage.h:69</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a02ed44392ae1f51786ead8911c3afe9da04bd834032febb3fda8c6936ee140949"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9da04bd834032febb3fda8c6936ee140949">OSK::GRAPHICS::SampledChannel::COLOR</a></div><div class="ttdeci">@ COLOR</div><div class="ttdoc">La imagen es una imagen de color. Es el funcionamiento por defecto.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a180d96d3f745a60bce6b0ffd5209ce35"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a180d96d3f745a60bce6b0ffd5209ce35">OSK::GRAPHICS::ALL_IMAGE_LAYERS</a></div><div class="ttdeci">constexpr TSize ALL_IMAGE_LAYERS</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_barrier_info_8h_source.html#l00010">GpuBarrierInfo.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3001155dae3ee09f282cdc4e21196fdd"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdd">OSK::GRAPHICS::GpuBarrierAccessStage</a></div><div class="ttdeci">GpuBarrierAccessStage</div><div class="ttdoc">Operación en concreto que queremos esperar/bloquear.</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_barrier_info_8h_source.html#l00090">GpuBarrierInfo.h:90</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3001155dae3ee09f282cdc4e21196fdda1293c19a211a2b52b28d667dabf4481a"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdda1293c19a211a2b52b28d667dabf4481a">OSK::GRAPHICS::GpuBarrierAccessStage::COLOR_ATTACHMENT_READ</a></div><div class="ttdeci">@ COLOR_ATTACHMENT_READ</div><div class="ttdoc">Lectura de los datos de color de la imagen.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3001155dae3ee09f282cdc4e21196fdda2d5975adc5f0129364458ddedfaaa88e"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdda2d5975adc5f0129364458ddedfaaa88e">OSK::GRAPHICS::GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE</a></div><div class="ttdeci">@ COLOR_ATTACHMENT_WRITE</div><div class="ttdoc">Escritura a un render target.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3001155dae3ee09f282cdc4e21196fdda46a45aa60d73bb5e761b5b503684e9c1"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdda46a45aa60d73bb5e761b5b503684e9c1">OSK::GRAPHICS::GpuBarrierAccessStage::DEPTH_STENCIL_READ</a></div><div class="ttdeci">@ DEPTH_STENCIL_READ</div><div class="ttdoc">Lectura de depth/stencil.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3001155dae3ee09f282cdc4e21196fdda4a248c6019913f3665d997b9f57cd07f"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdda4a248c6019913f3665d997b9f57cd07f">OSK::GRAPHICS::GpuBarrierAccessStage::RT_AS_READ</a></div><div class="ttdeci">@ RT_AS_READ</div><div class="ttdoc">Lectura de la estructura de aceleración.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3001155dae3ee09f282cdc4e21196fdda5b39c8b553c821e7cddc6da64b5bd2ee"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdda5b39c8b553c821e7cddc6da64b5bd2ee">OSK::GRAPHICS::GpuBarrierAccessStage::DEFAULT</a></div><div class="ttdeci">@ DEFAULT</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3001155dae3ee09f282cdc4e21196fdda666cbf12350de6ce2062553ccf1b4837"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdda666cbf12350de6ce2062553ccf1b4837">OSK::GRAPHICS::GpuBarrierAccessStage::TRANSFER_READ</a></div><div class="ttdeci">@ TRANSFER_READ</div><div class="ttdoc">Lectura de los datos en una operación de transferencia.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3001155dae3ee09f282cdc4e21196fdda66eb578ef321c4ad6ff674bd3e9209d6"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdda66eb578ef321c4ad6ff674bd3e9209d6">OSK::GRAPHICS::GpuBarrierAccessStage::SHADER_WRITE</a></div><div class="ttdeci">@ SHADER_WRITE</div><div class="ttdoc">Escritrura de los datos en cualquier shader.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3001155dae3ee09f282cdc4e21196fdda90348e17527ad0393b938a05737320a7"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdda90348e17527ad0393b938a05737320a7">OSK::GRAPHICS::GpuBarrierAccessStage::DEPTH_STENCIL_WRITE</a></div><div class="ttdeci">@ DEPTH_STENCIL_WRITE</div><div class="ttdoc">Escritura de depth/stencil.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3001155dae3ee09f282cdc4e21196fddaa34a7d2201196f8dc6b50a2a2ef25036"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fddaa34a7d2201196f8dc6b50a2a2ef25036">OSK::GRAPHICS::GpuBarrierAccessStage::MEMORY_WRITE</a></div><div class="ttdeci">@ MEMORY_WRITE</div><div class="ttdoc">Escritura de la memoria.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3001155dae3ee09f282cdc4e21196fddaa3e5498451254c3225b4a45a962263e7"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fddaa3e5498451254c3225b4a45a962263e7">OSK::GRAPHICS::GpuBarrierAccessStage::MEMORY_READ</a></div><div class="ttdeci">@ MEMORY_READ</div><div class="ttdoc">Lectura de la memoria.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3001155dae3ee09f282cdc4e21196fddab5ca404a51ead36c6fa38cff8121dd25"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fddab5ca404a51ead36c6fa38cff8121dd25">OSK::GRAPHICS::GpuBarrierAccessStage::TRANSFER_WRITE</a></div><div class="ttdeci">@ TRANSFER_WRITE</div><div class="ttdoc">Escritura de los datos en una operación de transferencia.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3001155dae3ee09f282cdc4e21196fddae35cbc6768d268effce046b5c32a05a1"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fddae35cbc6768d268effce046b5c32a05a1">OSK::GRAPHICS::GpuBarrierAccessStage::RT_AS_WRITE</a></div><div class="ttdeci">@ RT_AS_WRITE</div><div class="ttdoc">Escritura de la estructura de aceleración.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3001155dae3ee09f282cdc4e21196fddaf7fa6448008bb7c923369ea64e315518"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fddaf7fa6448008bb7c923369ea64e315518">OSK::GRAPHICS::GpuBarrierAccessStage::SHADER_READ</a></div><div class="ttdeci">@ SHADER_READ</div><div class="ttdoc">Lectura de los datos en cualquier shader.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a5c67a4dab480f62eb6083332acdcb8c7"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7">OSK::GRAPHICS::GpuBarrierStage</a></div><div class="ttdeci">GpuBarrierStage</div><div class="ttdoc">Al establecer un gpu barrier, dividimos todos los comandos en la lista de comandos en dos grupos.</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_barrier_info_8h_source.html#l00023">GpuBarrierInfo.h:23</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a5c67a4dab480f62eb6083332acdcb8c7a5b39c8b553c821e7cddc6da64b5bd2ee"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7a5b39c8b553c821e7cddc6da64b5bd2ee">OSK::GRAPHICS::GpuBarrierStage::DEFAULT</a></div><div class="ttdeci">@ DEFAULT</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a5c67a4dab480f62eb6083332acdcb8c7a7e72dc7ff3c335fd2bf5fbfc66f2d2d9"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7a7e72dc7ff3c335fd2bf5fbfc66f2d2d9">OSK::GRAPHICS::GpuBarrierStage::RT_AS_BUILD</a></div><div class="ttdeci">@ RT_AS_BUILD</div><div class="ttdoc">Construcción de estructuras de aceleración.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a5c67a4dab480f62eb6083332acdcb8c7a8d2880f2cd7f8d74c139dae619771f0b"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7a8d2880f2cd7f8d74c139dae619771f0b">OSK::GRAPHICS::GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT</a></div><div class="ttdeci">@ COLOR_ATTACHMENT_OUTPUT</div><div class="ttdoc">Uso de la imagen como render target.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a5c67a4dab480f62eb6083332acdcb8c7a9196126eff57d73bb45dc36a6367e58d"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7a9196126eff57d73bb45dc36a6367e58d">OSK::GRAPHICS::GpuBarrierStage::TESSELATION_EVALUATION</a></div><div class="ttdeci">@ TESSELATION_EVALUATION</div><div class="ttdoc">Ejecución del shader de evaluación del teselado.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a5c67a4dab480f62eb6083332acdcb8c7a97f28c5b69d3578bbd47326575d6854b"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7a97f28c5b69d3578bbd47326575d6854b">OSK::GRAPHICS::GpuBarrierStage::DEPTH_STENCIL_START</a></div><div class="ttdeci">@ DEPTH_STENCIL_START</div><div class="ttdoc">Uso como depth/stencil.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a5c67a4dab480f62eb6083332acdcb8c7a9861721c6c2dfbdc35d20746c386a090"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7a9861721c6c2dfbdc35d20746c386a090">OSK::GRAPHICS::GpuBarrierStage::VERTEX_SHADER</a></div><div class="ttdeci">@ VERTEX_SHADER</div><div class="ttdoc">Procesado de los vértices en el vertex shader.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a5c67a4dab480f62eb6083332acdcb8c7aaf58ae9f6cade42be9607c7298fd97d1"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7aaf58ae9f6cade42be9607c7298fd97d1">OSK::GRAPHICS::GpuBarrierStage::FRAGMENT_SHADER</a></div><div class="ttdeci">@ FRAGMENT_SHADER</div><div class="ttdoc">Procesado de los píxeles en el fragment/pixel shader.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a5c67a4dab480f62eb6083332acdcb8c7adabf961ca14253eeb4d65d3e2cc1c121"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7adabf961ca14253eeb4d65d3e2cc1c121">OSK::GRAPHICS::GpuBarrierStage::DEPTH_STENCIL_END</a></div><div class="ttdeci">@ DEPTH_STENCIL_END</div><div class="ttdoc">Uso como depth/stencil.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a5c67a4dab480f62eb6083332acdcb8c7ae6ae2d0a1bee9d966dcae11a201a3c56"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7ae6ae2d0a1bee9d966dcae11a201a3c56">OSK::GRAPHICS::GpuBarrierStage::COMPUTE_SHADER</a></div><div class="ttdeci">@ COMPUTE_SHADER</div><div class="ttdoc">Shader de computación.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a5c67a4dab480f62eb6083332acdcb8c7aeb5ddb3b6096fb90ff720d9c3e2a6628"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7aeb5ddb3b6096fb90ff720d9c3e2a6628">OSK::GRAPHICS::GpuBarrierStage::TRANSFER</a></div><div class="ttdeci">@ TRANSFER</div><div class="ttdoc">Transferencia de datos.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a5c67a4dab480f62eb6083332acdcb8c7af448507fb26809d25c13899dfc57e230"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7af448507fb26809d25c13899dfc57e230">OSK::GRAPHICS::GpuBarrierStage::TESSELATION_CONTROL</a></div><div class="ttdeci">@ TESSELATION_CONTROL</div><div class="ttdoc">Ejecución del shader de control del teselado.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a5c67a4dab480f62eb6083332acdcb8c7aff6553905d3335ae47fc83b139b95870"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7aff6553905d3335ae47fc83b139b95870">OSK::GRAPHICS::GpuBarrierStage::RAYTRACING_SHADER</a></div><div class="ttdeci">@ RAYTRACING_SHADER</div><div class="ttdoc">Shaders de trazado de rayos.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_af4ec621c557d492c7de3493e2b2bd1a9"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af4ec621c557d492c7de3493e2b2bd1a9">OSK::GRAPHICS::ALL_MIP_LEVELS</a></div><div class="ttdeci">constexpr TSize ALL_MIP_LEVELS</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_barrier_info_8h_source.html#l00009">GpuBarrierInfo.h:9</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html">OSK::GRAPHICS::GpuBarrierInfo</a></div><div class="ttdef"><b>Definition:</b> <a href="_gpu_barrier_info_8h_source.html#l00155">GpuBarrierInfo.h:155</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_html_a2859856d82b6fc7bf96e9b31e03ccfe0"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a2859856d82b6fc7bf96e9b31e03ccfe0">OSK::GRAPHICS::GpuBarrierInfo::accessStage</a></div><div class="ttdeci">GpuBarrierAccessStage accessStage</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_barrier_info_8h_source.html#l00160">GpuBarrierInfo.h:160</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_html_a377ec6b1294f4cbd0dc5f1243606b832"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a377ec6b1294f4cbd0dc5f1243606b832">OSK::GRAPHICS::GpuBarrierInfo::stage</a></div><div class="ttdeci">GpuBarrierStage stage</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_barrier_info_8h_source.html#l00159">GpuBarrierInfo.h:159</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_html_a94a5f9e295108d024feb58dda0e75f2f"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a94a5f9e295108d024feb58dda0e75f2f">OSK::GRAPHICS::GpuBarrierInfo::GpuBarrierInfo</a></div><div class="ttdeci">GpuBarrierInfo(GpuBarrierStage stage, GpuBarrierAccessStage accessStage)</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_barrier_info_8h_source.html#l00157">GpuBarrierInfo.h:157</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_html_ab729f190f569012b102a5e17160d6050"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#ab729f190f569012b102a5e17160d6050">OSK::GRAPHICS::GpuBarrierInfo::GpuBarrierInfo</a></div><div class="ttdeci">GpuBarrierInfo()</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_barrier_info_8h_source.html#l00156">GpuBarrierInfo.h:156</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html">OSK::GRAPHICS::GpuImageBarrierInfo</a></div><div class="ttdef"><b>Definition:</b> <a href="_gpu_barrier_info_8h_source.html#l00163">GpuBarrierInfo.h:163</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info_html_a1ef0b0902e0694136e2c9063127bab88"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a1ef0b0902e0694136e2c9063127bab88">OSK::GRAPHICS::GpuImageBarrierInfo::numMipLevels</a></div><div class="ttdeci">TSize numMipLevels</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_barrier_info_8h_source.html#l00167">GpuBarrierInfo.h:167</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info_html_a7d622d573c1207bd01789dc7481c4ae7"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a7d622d573c1207bd01789dc7481c4ae7">OSK::GRAPHICS::GpuImageBarrierInfo::numLayers</a></div><div class="ttdeci">TSize numLayers</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_barrier_info_8h_source.html#l00165">GpuBarrierInfo.h:165</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info_html_a84bce929941ec5fda9af186cb2a62c8c"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a84bce929941ec5fda9af186cb2a62c8c">OSK::GRAPHICS::GpuImageBarrierInfo::channel</a></div><div class="ttdeci">SampledChannel channel</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_barrier_info_8h_source.html#l00169">GpuBarrierInfo.h:169</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info_html_a89f637c4de7944fc1228348171b23830"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a89f637c4de7944fc1228348171b23830">OSK::GRAPHICS::GpuImageBarrierInfo::baseLayer</a></div><div class="ttdeci">TSize baseLayer</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_barrier_info_8h_source.html#l00164">GpuBarrierInfo.h:164</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info_html_a8eee0ad887e8d8e8fc1756ef30932a4c"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a8eee0ad887e8d8e8fc1756ef30932a4c">OSK::GRAPHICS::GpuImageBarrierInfo::baseMipLevel</a></div><div class="ttdeci">TSize baseMipLevel</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_barrier_info_8h_source.html#l00166">GpuBarrierInfo.h:166</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_gpu_barrier_info_8h.html">GpuBarrierInfo.h</a></li>
+    <li class="footer">Generado el Sábado, 17 de Septiembre de 2022 00:04:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

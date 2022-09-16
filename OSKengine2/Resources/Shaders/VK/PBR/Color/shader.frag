@@ -12,7 +12,6 @@ layout(location = 4) in vec3 inCameraPos;
 layout(location = 5) in vec3 inFragPosInCameraViewSpace;
 
 layout (location = 0) out vec4 outColor;
-layout (location = 1) out vec4 outLightBrightness;
 
 layout (set = 0, binding = 1) uniform DirLightShadowMat {
     mat4[4] matrix;
@@ -27,7 +26,7 @@ layout (set = 0, binding = 2) uniform DirLight {
 layout (set = 0, binding = 3) uniform samplerCube irradianceMap;
 layout (set = 0, binding = 4) uniform sampler2DArray dirLightShadowMap;
 
-layout (set = 1, binding = 0) uniform sampler2D stexture;
+layout (set = 1, binding = 0) uniform sampler2D albedoTexture;
 // layout (set = 0, binding = 1) uniform sampler2D metallicTexture;
 // layout (set = 0, binding = 2) uniform sampler2D roughnessTexture;
 
@@ -45,7 +44,7 @@ void main() {
     const float metallicFactor = materialInfo.infos.x; // TODO: texture
     const float roughnessFactor = materialInfo.infos.y; // TODO: texture
 
-    vec3 albedo = texture(stexture, inTexCoords).xyz;
+    vec3 albedo = texture(albedoTexture, inTexCoords).xyz;
 
     vec3 F0 = vec3(DEFAULT_F0);
     F0 = mix(F0, albedo, metallicFactor);
@@ -59,7 +58,7 @@ void main() {
     // Irradiance Map
     vec3 kS = FreshnelShlick(max(dot(normal, view), 0.0), F0);
     vec3 kD = 1.0 - kS;
-    kD *= 1.0 - metallicFactor;
+    kD *= 1.0 - (metallicFactor * 0.2);
 
     const vec3 irradiance = texture(irradianceMap, normal).rgb;
     const vec3 ambient = albedo * kD * irradiance;

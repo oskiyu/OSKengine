@@ -29,6 +29,7 @@
 #include "TerrainRenderSystem.h"
 #include "InputManager.h"
 #include "IrradianceMapLoader.h"
+#include "PbrDeferredRenderSystem.h"
 
 #include <GLFW/glfw3.h>
 #include "FileIO.h"
@@ -106,7 +107,7 @@ void Engine::RegisterBuiltinComponents() {
 }
 
 void Engine::RegisterBuiltinSystems() {
-	entityComponentSystem->RegisterSystem<ECS::RenderSystem3D>();
+	entityComponentSystem->RegisterSystem<ECS::PbrDeferredRenderSystem>();
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem2D>();
 	entityComponentSystem->RegisterSystem<ECS::TerrainRenderSystem>();
 }

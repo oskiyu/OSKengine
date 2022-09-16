@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('_assert_8cpp_source.html',''); initRes
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="namespace_o_s_k.html#a36a63552a00a3bef7358ac807829d369">   24</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="namespace_o_s_k.html#a36a63552a00a3bef7358ac807829d369">OSK::RuntimeCheckIsTrueFunction</a>(<span class="keywordtype">bool</span> condition, <span class="keyword">const</span> std::string&amp; msg, <span class="keyword">const</span> std::string&amp; functionName, uint32_t line, <span class="keyword">const</span> std::string&amp; file) {</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">if</span> (!condition) {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        std::string message = <span class="stringliteral">&quot;Assertion failed: &quot;</span> + msg + <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        std::string message = <span class="stringliteral">&quot;Check failed: &quot;</span> + msg + <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        message += <span class="stringliteral">&quot;\t at &quot;</span> + std::string(functionName) + <span class="stringliteral">&quot;\n&quot;</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            + <span class="stringliteral">&quot;\t at line &quot;</span> + std::to_string(line) + <span class="stringliteral">&quot;\n&quot;</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            + <span class="stringliteral">&quot;\t at file &quot;</span> + std::string(file);</div>
@@ -124,7 +124,7 @@ $(document).ready(function(){initNavTree('_assert_8cpp_source.html',''); initRes
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="namespace_o_s_k.html#a3163432a64cd59a24c27a5f35cd9fe3e">   35</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="namespace_o_s_k.html#a3163432a64cd59a24c27a5f35cd9fe3e">OSK::RuntimeAssertIsFalseFunction</a>(<span class="keywordtype">bool</span> condition, <span class="keyword">const</span> std::string&amp; msg, <span class="keyword">const</span> std::string&amp; functionName, uint32_t line, <span class="keyword">const</span> std::string&amp; file) {</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">if</span> (condition) {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        std::string message = <span class="stringliteral">&quot;Check failed: &quot;</span> + msg + <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        std::string message = <span class="stringliteral">&quot;Assertion failed: &quot;</span> + msg + <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        message += <span class="stringliteral">&quot;\t at &quot;</span> + std::string(functionName) + <span class="stringliteral">&quot;\n&quot;</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            + <span class="stringliteral">&quot;\t at line &quot;</span> + std::to_string(line) + <span class="stringliteral">&quot;\n&quot;</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            + <span class="stringliteral">&quot;\t at file &quot;</span> + std::string(file);</div>
@@ -158,7 +158,7 @@ $(document).ready(function(){initNavTree('_assert_8cpp_source.html',''); initRes
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_assert_8cpp.html">Assert.cpp</a></li>
-    <li class="footer">Generado el Jueves, 21 de Julio de 2022 18:59:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Sábado, 17 de Septiembre de 2022 00:04:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

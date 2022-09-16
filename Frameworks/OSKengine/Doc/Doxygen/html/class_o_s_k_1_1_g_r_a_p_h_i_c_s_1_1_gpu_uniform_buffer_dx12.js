@@ -1,7 +1,6 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12 =
 [
     [ "GpuUniformBufferDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12.html#ad840df8503683709868410d65c93207a", null ],
-    [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12.html#ae22c3a5613cc64c823b088e7bcf94842", null ],
     [ "Free", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12.html#a15808b222370a1a0a81be7f27b310b83", null ],
     [ "GetAlignment", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12.html#ac873fedc6e58f364fb6a08e4bdf009fd", null ],
     [ "GetMemoryBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12.html#a43f298eb4cdf029351a103d159c4abf8", null ],
@@ -10,6 +9,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12 =
     [ "GetView", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12.html#a08b362d7d229a92850cd7fb94c73adb1", null ],
     [ "MapMemory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12.html#a794d4d1ba8f5f2e81288398e59894eb9", null ],
     [ "MapMemory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12.html#ae204c031cbc4771d7338eec6ceeb7c58", null ],
+    [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12.html#a92de618bcaaad080508331ca04cb72ff", null ],
     [ "ResetCursor", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12.html#a1f115bd0e7ad7fcfc785a4a88a7b0af6", null ],
     [ "SetCursor", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12.html#a78daa7cdf309a13082eeb53e0b32ed13", null ],
     [ "Unmap", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12.html#ae807883f0c19342039d54ba88d45e968", null ],

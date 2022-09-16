@@ -1,5 +1,6 @@
 var _o_s_kmacros_8h =
 [
+    [ "OKS_ARR_FUNC", "_o_s_kmacros_8h.html#a8d42f4a4757e4cc1cd71e9491a14c8df", null ],
     [ "OSK_DEFINE_AS", "_o_s_kmacros_8h.html#ae38bf25dd8d8ec477d83ed205e1d8aaa", null ],
     [ "OSK_DISABLE_COPY", "_o_s_kmacros_8h.html#aebcc973f4db4a26ea3d60325d769741f", null ],
     [ "OSK_NODISCARD", "_o_s_kmacros_8h.html#a0b474619a247da5962d555753c6299b4", null ],

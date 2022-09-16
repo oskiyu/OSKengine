@@ -10,7 +10,13 @@ namespace OSK::GRAPHICS {
 	class ICommandList;
 }
 
+namespace OSK::ASSETS {
+	class IrradianceMap;
+}
+
 namespace OSK::ECS {
+
+	class CameraComponent3D;
 
 	/// <summary>
 	/// Sistema que se encarga del renderizado de modelos 3D de los objetos.
@@ -27,26 +33,29 @@ namespace OSK::ECS {
 
 		RenderSystem3D();
 
+		void Initialize(ECS::GameObjectIndex cameraObject, const ASSETS::IrradianceMap& irradianceMap);
+
 		void CreateTargetImage(const Vector2ui& size) override;
 		void Resize(const Vector2ui& size) override;
 
 		void Render(GRAPHICS::ICommandList* commandList) override;
 		
-		void SetDirectionalLight(const GRAPHICS::DirectionalLight& dirLight);
-		const GRAPHICS::DirectionalLight& GetDirectionalLight() const;
-
 		GRAPHICS::ShadowMap* GetShadowMap();
-		GRAPHICS::IGpuUniformBuffer* GetDirLightUniformBuffer() const;
-
+		
 	private:
-
+		
 		void GenerateShadows(GRAPHICS::ICommandList* commandList);
 		void RenderScene(GRAPHICS::ICommandList* commandList);
 
-		GRAPHICS::DirectionalLight directionalLight{};
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> dirLightUniformBuffer;
+		UniquePtr<GRAPHICS::IGpuUniformBuffer> cameraUbos[3]{};
+		UniquePtr<GRAPHICS::IGpuUniformBuffer> dirLightUbos[3]{};
+		GRAPHICS::DirectionalLight dirLight{};
 
 		GRAPHICS::ShadowMap shadowMap;
+		ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
+
+		GRAPHICS::Material* sceneMaterial = nullptr;
+		UniquePtr<GRAPHICS::MaterialInstance> sceneMaterialInstance;
 
 	};
 

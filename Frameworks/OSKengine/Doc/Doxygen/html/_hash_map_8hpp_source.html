@@ -204,7 +204,7 @@ $(document).ready(function(){initNavTree('_hash_map_8hpp_source.html',''); initR
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            }</div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#aed8cf7295ee65b68306bb7f80ba39358">  158</a></span>            <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#aed8cf7295ee65b68306bb7f80ba39358">operator!= </a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_hash_map_1_1_iterator.html">Iterator</a>&amp; other)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                <span class="keywordflow">return</span> bucketIndex != other.bucketIndex || inBucketIndex != other.inBucketIndex &amp;&amp; bucket != other.bucket;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                <span class="keywordflow">return</span> bucketIndex != other.bucketIndex || (inBucketIndex != other.inBucketIndex &amp;&amp; bucket != other.bucket);</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            }</div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#aadf90408cd8bab9e5f332a0883080427">  165</a></span>            <a class="code hl_class" href="struct_o_s_k_1_1_pair.html">TPair</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_hash_map_1_1_iterator.html#aadf90408cd8bab9e5f332a0883080427">operator*</a>()<span class="keyword"> const </span>{</div>
@@ -433,7 +433,7 @@ $(document).ready(function(){initNavTree('_hash_map_8hpp_source.html',''); initR
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_hash_map_8hpp.html">HashMap.hpp</a></li>
-    <li class="footer">Generado el Jueves, 21 de Julio de 2022 18:59:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Sábado, 17 de Septiembre de 2022 00:04:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

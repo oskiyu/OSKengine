@@ -98,6 +98,8 @@ $(document).ready(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_re
 Métodos públicos</h2></td></tr>
 <tr class="memitem:a2762dc66547722dc7742657d52f000bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a2762dc66547722dc7742657d52f000bb">Create</a> (const <a class="el" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a> &amp;targetSize, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> colorFormat, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> depthFormat)</td></tr>
 <tr class="separator:a2762dc66547722dc7742657d52f000bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8040f68b08e665d6c6f14f6367253ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#ad8040f68b08e665d6c6f14f6367253ef">AddColorTarget</a> (<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> colorFormat, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">GpuImageUsage</a> usage=<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa04bd834032febb3fda8c6936ee140949">GpuImageUsage::COLOR</a>|<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa5d0791856a3081df75c6093017a61a36">GpuImageUsage::SAMPLED</a>, <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">GpuImageSamplerDesc</a> sampler={})</td></tr>
+<tr class="separator:ad8040f68b08e665d6c6f14f6367253ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9f5d87b43a7e692631a8269f4c97f2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#ac9f5d87b43a7e692631a8269f4c97f2d">Resize</a> (const <a class="el" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a> &amp;targetSize)</td></tr>
 <tr class="separator:ac9f5d87b43a7e692631a8269f4c97f2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c608c1c1f6d5b15d6a69e0e5baee7de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a8c608c1c1f6d5b15d6a69e0e5baee7de">GetMainTargetImage</a> (<a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> index) const</td></tr>
@@ -132,6 +134,10 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a32b0653cf595f5b089f5a56c7c2f3e41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa17713ab44780a72070502b66a6e83d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#aa17713ab44780a72070502b66a6e83d5">SetDepthImageSampler</a> (const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">GpuImageSamplerDesc</a> &amp;sampler)</td></tr>
 <tr class="separator:aa17713ab44780a72070502b66a6e83d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd3aafc81082329531ea639e23be0f8c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#afd3aafc81082329531ea639e23be0f8c">GetNumColorTargets</a> () const</td></tr>
+<tr class="separator:afd3aafc81082329531ea639e23be0f8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af79cef3ae998b47fd109d86c3c19ee35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#af79cef3ae998b47fd109d86c3c19ee35">SetName</a> (const std::string &amp;name)</td></tr>
+<tr class="separator:af79cef3ae998b47fd109d86c3c19ee35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p >Representa una textura a la que se puede renderizar. </p>
@@ -140,8 +146,53 @@ Métodos públicos</h2></td></tr>
 <li><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html" title="Representa un sprite: una textura que puede ser renderizada. También es un componente que permite a u...">Sprite</a> </li>
 </ul>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8h_source.html#l00031">31</a> del archivo <a class="el" href="_render_target_8h_source.html">RenderTarget.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8h_source.html#l00030">30</a> del archivo <a class="el" href="_render_target_8h_source.html">RenderTarget.h</a>.</p>
 </div><h2 class="groupheader">Documentación de las funciones miembro</h2>
+<a id="ad8040f68b08e665d6c6f14f6367253ef" name="ad8040f68b08e665d6c6f14f6367253ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8040f68b08e665d6c6f14f6367253ef">&#9670;&nbsp;</a></span>AddColorTarget()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RenderTarget::AddColorTarget </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a>&#160;</td>
+          <td class="paramname"><em>colorFormat</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">GpuImageUsage</a>&#160;</td>
+          <td class="paramname"><em>usage</em> = <code><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa04bd834032febb3fda8c6936ee140949">GpuImageUsage::COLOR</a>&#160;|&#160;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa5d0791856a3081df75c6093017a61a36">GpuImageUsage::SAMPLED</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">GpuImageSamplerDesc</a>&#160;</td>
+          <td class="paramname"><em>sampler</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Añade un nuevo color target. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">colorFormat</td><td>Formato de las imágenes de renderizado.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>Debe haberse creado el rendertarget mediante <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a2762dc66547722dc7742657d52f000bb" title="Crea un render target.">RenderTarget::Create</a>. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00044">44</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a2762dc66547722dc7742657d52f000bb" name="a2762dc66547722dc7742657d52f000bb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2762dc66547722dc7742657d52f000bb">&#9670;&nbsp;</a></span>Create()</h2>
 
@@ -207,7 +258,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Devuelve el formato del render target. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00118">118</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00132">132</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -228,7 +279,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Devuelve el formato de las imágenes de profundidad. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00122">122</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00136">136</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -257,7 +308,7 @@ Métodos públicos</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00095">95</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00109">109</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -286,7 +337,28 @@ Métodos públicos</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00077">77</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00091">91</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afd3aafc81082329531ea639e23be0f8c" name="afd3aafc81082329531ea639e23be0f8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd3aafc81082329531ea639e23be0f8c">&#9670;&nbsp;</a></span>GetNumColorTargets()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> RenderTarget::GetNumColorTargets </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Devuelve el número de imágenes de color del render target. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00171">171</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -308,7 +380,7 @@ Métodos públicos</h2></td></tr>
 <p>Devuelve el tamaño del render target. </p>
 <dl class="section note"><dt>Nota</dt><dd>Si no se ha inicializado, será 0. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00114">114</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00128">128</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -330,7 +402,7 @@ Métodos públicos</h2></td></tr>
 <p>Devuelve el tipo de render target (intermedio para ser usado con el sprite, o final para ser renderizado en la propia pantalla). </p>
 <dl class="section note"><dt>Nota</dt><dd>Por defecto, es <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a68c7e70128c792c56815e41b7f9c5fefa41dc7c9e385c4d2b6c1f7836973951bf" title="El renderpass es intermedio.">RenderpassType::INTERMEDIATE</a>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00126">126</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00140">140</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -352,7 +424,7 @@ Métodos públicos</h2></td></tr>
 <p>Devuelve el tamaño del render target. </p>
 <dl class="section note"><dt>Nota</dt><dd>Si no se ha inicializado, será 0. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00110">110</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00124">124</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -376,7 +448,7 @@ Métodos públicos</h2></td></tr>
 <dd>
 Se debe renderizar con el material 2D de render target. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00102">102</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00116">116</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -398,7 +470,7 @@ Se debe renderizar con el material 2D de render target. </dd></dl>
 <p>Devuelve el transform del sprite. </p>
 <p >El transform está configurado para que su renderizado ocupe toda la pantalla. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00106">106</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00120">120</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -418,7 +490,7 @@ Se debe renderizar con el material 2D de render target. </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Devuelve las imágenes de renderizado con el índice dado. </p>
+<p>Devuelve las imágenes de renderizado con el índice dado. El índice es el índice del frame. </p>
 <dl class="section pre"><dt>Precondición</dt><dd>El índice debe estar entre 0 y 2, ambos incluidos.</dd></dl>
 <dl class="exception"><dt>Excepciones</dt><dd>
   <table class="exception">
@@ -427,7 +499,7 @@ Se debe renderizar con el material 2D de render target. </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00084">84</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00098">98</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -456,7 +528,7 @@ Se debe renderizar con el material 2D de render target. </dd></dl>
 </dl>
 <dl class="section note"><dt>Nota</dt><dd>La resolución final de las imágenes también es afectada por la escala de resolución del render target (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a9431448779717dbaeedc829d27e5ba1e" title="Establece un multiplicador a la resolución del render target.">RenderTarget::SetResolutionScale</a>). </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00035">35</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00032">32</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -478,7 +550,7 @@ Se debe renderizar con el material 2D de render target. </dd></dl>
 
 <p>Establece el sampler para las imágenes de renderizado, que determina cómo se accede a la textura desde los shaders. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00149">149</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00163">163</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -500,7 +572,7 @@ Se debe renderizar con el material 2D de render target. </dd></dl>
 
 <p>Establece el sampler para las imágenes de profundidad, que determina cómo se accede a la textura desde los shaders. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00153">153</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00167">167</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -535,7 +607,27 @@ Por defecto, será <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#
 <dd>
 Tendrá uso <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaaecaa8fe8cb0e85372f4cc76728c7cf3c" title="Se usará como imagen de profundidad para el renderizado 3D.">GpuImageUsage::DEPTH_STENCIL</a> | usage. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00145">145</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00159">159</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af79cef3ae998b47fd109d86c3c19ee35" name="af79cef3ae998b47fd109d86c3c19ee35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af79cef3ae998b47fd109d86c3c19ee35">&#9670;&nbsp;</a></span>SetName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RenderTarget::SetName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00175">175</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -562,7 +654,7 @@ Si es llamado después de <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_
 <dd>
 Únicamente se debe establecer como <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a68c7e70128c792c56815e41b7f9c5fefa6c8361dc2036c0559376fe4957699f69" title="El renderpass renderiza al swapchain.">RenderpassType::FINAL</a> si las imágenes enlazadas al render target son las imágenes del propio swapchain. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00130">130</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00144">144</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -588,7 +680,7 @@ Si es llamado después de <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_
 <dd>
 Si es llamado después de <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a2762dc66547722dc7742657d52f000bb" title="Crea un render target.">RenderTarget::Create</a>, no tendrá efecto hasta que se llame a <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#ac9f5d87b43a7e692631a8269f4c97f2d" title="Cambia de tamaño las imágenes de renderizado, tanto las de color como las de profundidad.">RenderTarget::Resize</a>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00134">134</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00148">148</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -623,7 +715,7 @@ Por defecto, será <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#
 <dd>
 Tendrá uso <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa04bd834032febb3fda8c6936ee140949" title="Se usará como imagen final para el renderizado 3D. Almacenará la imagen de color final.">GpuImageUsage::COLOR</a> | <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa5d0791856a3081df75c6093017a61a36" title="Se usará como read-only desde los shaders.">GpuImageUsage::SAMPLED</a> | usage. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00141">141</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00155">155</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -637,7 +729,7 @@ Tendrá uso <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f7
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">RenderTarget</a></li>
-    <li class="footer">Generado el Jueves, 21 de Julio de 2022 18:59:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Sábado, 17 de Septiembre de 2022 00:04:45 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

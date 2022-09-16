@@ -87,12 +87,14 @@ $(document).ready(function(){initNavTree('_gpu_image_vulkan_8h.html',''); initRe
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Clases</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">typedefs</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle"><div class="title">Referencia del Archivo GpuImageVulkan.h</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="_i_gpu_image_8h_source.html">IGpuImage.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_gpu_image_sampler_desc_8h_source.html">GpuImageSamplerDesc.h</a>&quot;</code><br />
+<code>#include &lt;vulkan/vulkan.h&gt;</code><br />
 </div>
 <p><a href="_gpu_image_vulkan_8h_source.html">Ir al código fuente de este archivo.</a></p>
 <table class="memberdecls">
@@ -107,72 +109,14 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespace_o_s_k_1_1_g_r_a_p_h_i_c_s"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-typedefs</h2></td></tr>
-<tr class="memitem:ab67aebb4bb7dd78d66051d8fc16c8099"><td class="memItemLeft" align="right" valign="top">typedef VkImage_T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_gpu_image_vulkan_8h.html#ab67aebb4bb7dd78d66051d8fc16c8099">VkImage</a></td></tr>
-<tr class="separator:ab67aebb4bb7dd78d66051d8fc16c8099"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28e620304ee7813cd5c30bd76c74c553"><td class="memItemLeft" align="right" valign="top">typedef VkImageView_T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_gpu_image_vulkan_8h.html#a28e620304ee7813cd5c30bd76c74c553">VkImageView</a></td></tr>
-<tr class="separator:a28e620304ee7813cd5c30bd76c74c553"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a600cc1aac896aa576ad1d794aea333b6"><td class="memItemLeft" align="right" valign="top">typedef VkSampler_T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_gpu_image_vulkan_8h.html#a600cc1aac896aa576ad1d794aea333b6">VkSampler</a></td></tr>
-<tr class="separator:a600cc1aac896aa576ad1d794aea333b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Documentación de los 'typedefs'</h2>
-<a id="ab67aebb4bb7dd78d66051d8fc16c8099" name="ab67aebb4bb7dd78d66051d8fc16c8099"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab67aebb4bb7dd78d66051d8fc16c8099">&#9670;&nbsp;</a></span>VkImage</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef VkImage_T* <a class="el" href="_gpu_image_vulkan_8h.html#ab67aebb4bb7dd78d66051d8fc16c8099">VkImage</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_gpu_image_vulkan_8h_source.html#l00006">6</a> del archivo <a class="el" href="_gpu_image_vulkan_8h_source.html">GpuImageVulkan.h</a>.</p>
-
-</div>
-</div>
-<a id="a28e620304ee7813cd5c30bd76c74c553" name="a28e620304ee7813cd5c30bd76c74c553"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28e620304ee7813cd5c30bd76c74c553">&#9670;&nbsp;</a></span>VkImageView</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef VkImageView_T* <a class="el" href="_gpu_image_vulkan_8h.html#a28e620304ee7813cd5c30bd76c74c553">VkImageView</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_gpu_image_vulkan_8h_source.html#l00009">9</a> del archivo <a class="el" href="_gpu_image_vulkan_8h_source.html">GpuImageVulkan.h</a>.</p>
-
-</div>
-</div>
-<a id="a600cc1aac896aa576ad1d794aea333b6" name="a600cc1aac896aa576ad1d794aea333b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a600cc1aac896aa576ad1d794aea333b6">&#9670;&nbsp;</a></span>VkSampler</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef VkSampler_T* <a class="el" href="_gpu_image_vulkan_8h.html#a600cc1aac896aa576ad1d794aea333b6">VkSampler</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_gpu_image_vulkan_8h_source.html#l00012">12</a> del archivo <a class="el" href="_gpu_image_vulkan_8h_source.html">GpuImageVulkan.h</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_gpu_image_vulkan_8h.html">GpuImageVulkan.h</a></li>
-    <li class="footer">Generado el Jueves, 21 de Julio de 2022 18:59:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Sábado, 17 de Septiembre de 2022 00:04:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

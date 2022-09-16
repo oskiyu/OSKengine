@@ -168,6 +168,10 @@ void RenderTarget::SetDepthImageSampler(const GpuImageSamplerDesc& sampler) {
 	depthSampler = sampler;
 }
 
+TSize RenderTarget::GetNumColorTargets() const {
+	return targetImages[0].GetSize();
+}
+
 void RenderTarget::SetName(const std::string& name) {
 	for (TSize i = 0; i < 3; i++)
 		for (TSize img = 0; img < targetImages[i].GetSize(); img++)

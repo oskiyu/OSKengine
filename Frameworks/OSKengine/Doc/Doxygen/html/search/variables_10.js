@@ -13,11 +13,12 @@ var searchData=
   ['sizex_10',['sizeX',['../class_o_s_k_1_1_i_o_1_1_window.html#ae1a9edb0bca16a7a30e411670f123477',1,'OSK::IO::Window']]],
   ['sizey_11',['sizeY',['../class_o_s_k_1_1_i_o_1_1_window.html#a0706e3fcef7ed334aa692f87b4ba8997',1,'OSK::IO::Window']]],
   ['spaces_5fper_5ftab_12',['SPACES_PER_TAB',['../_font_instance_8cpp.html#a0ac9fc6256ac03be44969635deb9eab0',1,'FontInstance.cpp']]],
-  ['sprite_13',['sprite',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#ad006fe151e2ee7bbbbadf4003aab748d',1,'OSK::ASSETS::FontInstance::sprite()'],['../class_o_s_k_1_1_u_i_1_1_ui_element.html#ac8c2d56b8db4dcca8c0fb1ae289cddca',1,'OSK::UI::UiElement::sprite()']]],
-  ['stage_14',['stage',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html#ac6f939387d72b666b8e1a565435cef2f',1,'OSK::GRAPHICS::MaterialLayoutPushConstant::stage()'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#ab6b6cab3b108fa5179ff16d4c24b60d4',1,'OSK::GRAPHICS::MaterialLayoutSlot::stage()']]],
-  ['subblocks_15',['subblocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a993a008834e190bd4d4af0f0d4ee7f90',1,'OSK::GRAPHICS::IGpuMemoryBlock']]],
-  ['surfacecapabilities_16',['surfaceCapabilities',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_1_1_swapchain_support_details.html#a7d66af43659a3f783491dea07de30946',1,'OSK::GRAPHICS::GpuVulkan::Info::SwapchainSupportDetails']]],
-  ['swapchain_17',['swapchain',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a4c5061452a68969f433306c2e5984a70',1,'OSK::GRAPHICS::IRenderer']]],
-  ['swapchainsupportdetails_18',['swapchainSupportDetails',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a54ea02d5ee56136801a07bb10aeb0e0a',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
-  ['syncdevice_19',['syncDevice',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#aed39f82dfcb5e92d9ed9efdca4f346ee',1,'OSK::GRAPHICS::IRenderer']]]
+  ['spirvcompiled_13',['spirvCompiled',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html#a163f2ffe6501a05d9782442259189600',1,'OSK::GRAPHICS::ShaderStageDx12']]],
+  ['sprite_14',['sprite',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#ad006fe151e2ee7bbbbadf4003aab748d',1,'OSK::ASSETS::FontInstance::sprite()'],['../class_o_s_k_1_1_u_i_1_1_ui_element.html#ac8c2d56b8db4dcca8c0fb1ae289cddca',1,'OSK::UI::UiElement::sprite()']]],
+  ['stage_15',['stage',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a377ec6b1294f4cbd0dc5f1243606b832',1,'OSK::GRAPHICS::GpuBarrierInfo::stage()'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html#ac6f939387d72b666b8e1a565435cef2f',1,'OSK::GRAPHICS::MaterialLayoutPushConstant::stage()'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#ab6b6cab3b108fa5179ff16d4c24b60d4',1,'OSK::GRAPHICS::MaterialLayoutSlot::stage()']]],
+  ['subblocks_16',['subblocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a993a008834e190bd4d4af0f0d4ee7f90',1,'OSK::GRAPHICS::IGpuMemoryBlock']]],
+  ['surfacecapabilities_17',['surfaceCapabilities',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_1_1_swapchain_support_details.html#a7d66af43659a3f783491dea07de30946',1,'OSK::GRAPHICS::GpuVulkan::Info::SwapchainSupportDetails']]],
+  ['swapchain_18',['swapchain',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a4c5061452a68969f433306c2e5984a70',1,'OSK::GRAPHICS::IRenderer']]],
+  ['swapchainsupportdetails_19',['swapchainSupportDetails',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a54ea02d5ee56136801a07bb10aeb0e0a',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
+  ['syncdevice_20',['syncDevice',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#aed39f82dfcb5e92d9ed9efdca4f346ee',1,'OSK::GRAPHICS::IRenderer']]]
 ];

@@ -3,6 +3,7 @@ var _format_8h =
     [ "Format", "_format_8h.html#aac59f9d056e083c0b49ea768f974e3e8", [
       [ "RGB8_UNORM", "_format_8h.html#aac59f9d056e083c0b49ea768f974e3e8ac9aa547414d25dcf450f0f005ebad9a0", null ],
       [ "RGBA8_UNORM", "_format_8h.html#aac59f9d056e083c0b49ea768f974e3e8a909cc8c5cc8fe4f16bec84a291aadbdb", null ],
+      [ "RGBA8_SRGB", "_format_8h.html#aac59f9d056e083c0b49ea768f974e3e8ae5a76309919d3c679c642c13125eb930", null ],
       [ "RGB16_SFLOAT", "_format_8h.html#aac59f9d056e083c0b49ea768f974e3e8a9affdaf059abfd1a34e1389d81194594", null ],
       [ "RGBA16_SFLOAT", "_format_8h.html#aac59f9d056e083c0b49ea768f974e3e8ac822761144be33230ff41357a5cb22ca", null ],
       [ "RGBA32_SFLOAT", "_format_8h.html#aac59f9d056e083c0b49ea768f974e3e8ab90166b94483824b0f67dbb9ae2feef3", null ],
