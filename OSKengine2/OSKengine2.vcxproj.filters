@@ -894,6 +894,9 @@
     <ClCompile Include="ToneMappingPass.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\PostProcess</Filter>
     </ClCompile>
+    <ClCompile Include="SkyboxRenderSystem.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Model3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
@@ -1483,6 +1486,9 @@
     </ClInclude>
     <ClInclude Include="ToneMapping.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyboxRenderSystem.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Model3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

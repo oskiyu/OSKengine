@@ -32,8 +32,8 @@ void FxaaPass::Execute(ICommandList* computeCmdList) {
 	computeCmdList->BindMaterialSlot(postProcessingMaterialInstance->GetSlot("texture"));
 
 	const Vector3ui dispatchRes = {
-		static_cast<TSize>(glm::ceil(resolveRenderTarget.GetSize().X / 32.f)),
-		static_cast<TSize>(glm::ceil(resolveRenderTarget.GetSize().Y / 32.f)),
+		static_cast<TSize>(glm::ceil(resolveRenderTarget.GetSize().X / 8.0f)),
+		static_cast<TSize>(glm::ceil(resolveRenderTarget.GetSize().Y / 8.0f)),
 		1
 	};
 

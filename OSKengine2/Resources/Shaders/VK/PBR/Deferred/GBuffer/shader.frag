@@ -15,7 +15,7 @@ layout (set = 1, binding = 0) uniform sampler2D albedoTexture;
 layout (push_constant) uniform MaterialInfo {
     // x = metallic
     // y = roughness
-    layout (offset = 64) vec4 infos;
+    layout (offset = 128) vec4 infos;
 } materialInfo;
 
 void main() {

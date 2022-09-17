@@ -20,11 +20,12 @@ layout (set = 0, binding = 0) uniform Camera {
 
 layout (push_constant) uniform Model {
     mat4 modelMatrix;
+    mat4 transposedInversedMatrix;
 } model;
 
 void main() {
     outColor = inColor;
-    outNormal = normalize(mat3(transpose(inverse(model.modelMatrix))) * inNormal);
+    outNormal = normalize(mat3(model.transposedInversedMatrix) * inNormal);
     outTexCoords = inTexCoords;
 
     outWorldPosition = (model.modelMatrix * vec4(inPosition, 1.0)).xyz;

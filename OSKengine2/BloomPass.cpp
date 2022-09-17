@@ -18,6 +18,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
+constexpr float BLOCK_SIZE = 4.f;
+
 void BloomPass::Create(const Vector2ui& size) {
 	downscaleMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/Bloom/downscale.json");
 	upscaleMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/Bloom/upscale.json");
@@ -87,8 +89,8 @@ void BloomPass::ExecuteSinglePass(ICommandList* computeCmdList, const Vector2f& 
 	computeCmdList->PushMaterialConstants("info", pushConst);
 
 	Vector2ui dispatchRes = {
-		static_cast<TSize>(glm::ceil((glm::max(oldRes.X, newRes.X)) / 32.f)),
-		static_cast<TSize>(glm::ceil((glm::max(oldRes.Y, newRes.Y)) / 32.f))
+		static_cast<TSize>(glm::ceil((glm::max(oldRes.X, newRes.X)) / BLOCK_SIZE)),
+		static_cast<TSize>(glm::ceil((glm::max(oldRes.Y, newRes.Y)) / BLOCK_SIZE))
 	};
 
 	computeCmdList->SetGpuImageBarrier(bloomTargets[Engine::GetRenderer()->GetCurrentCommandListIndex()].GetPointer(), GpuImageLayout::GENERAL,

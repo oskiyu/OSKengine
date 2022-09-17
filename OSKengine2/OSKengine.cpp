@@ -30,6 +30,7 @@
 #include "InputManager.h"
 #include "IrradianceMapLoader.h"
 #include "PbrDeferredRenderSystem.h"
+#include "SkyboxRenderSystem.h"
 
 #include <GLFW/glfw3.h>
 #include "FileIO.h"
@@ -108,8 +109,9 @@ void Engine::RegisterBuiltinComponents() {
 
 void Engine::RegisterBuiltinSystems() {
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem3D>();
+	entityComponentSystem->RegisterSystem<ECS::SkyboxRenderSystem>();
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem2D>();
-	entityComponentSystem->RegisterSystem<ECS::TerrainRenderSystem>();
+	// entityComponentSystem->RegisterSystem<ECS::TerrainRenderSystem>();
 }
 
 void Engine::RegisterBuiltinVertices() {
@@ -152,7 +154,7 @@ const Version& Engine::GetVersion() {
 }
 
 const std::string& Engine::GetBuild() {
-	static std::string build = "2022.09.17a";
+	static std::string build = "2022.09.17b";
 
 	return build;
 }

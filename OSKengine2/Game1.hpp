@@ -57,6 +57,7 @@
 #include "UiRenderer.h"
 #include "Viewport.h"
 #include "Lights.h"
+#include "SkyboxRenderSystem.h"
 
 #include "Math.h"
 
@@ -77,12 +78,8 @@ OSK::GRAPHICS::MaterialInstance* rtMaterialInstance = nullptr;
 OSK::GRAPHICS::GpuImage* rtTargetImage[3]{};
 
 OSK::GRAPHICS::Material* material = nullptr;
-OSK::GRAPHICS::Material* skyboxMaterial = nullptr;
 OSK::GRAPHICS::Material* material2d = nullptr;
 OSK::GRAPHICS::Material* materialRenderTarget = nullptr;
-OSK::GRAPHICS::MaterialInstance* skyboxMaterialInstance = nullptr;
-OSK::ASSETS::CubemapTexture* cubemap = nullptr;
-OSK::ASSETS::Model3D* cubemapModel = nullptr;
 
 OSK::GRAPHICS::Material* terrainMaterialFill = nullptr;
 OSK::GRAPHICS::Material* terrainMaterialLine = nullptr;
@@ -93,9 +90,6 @@ OSK::GRAPHICS::SpriteRenderer spriteRenderer;
 OSK::GRAPHICS::ITopLevelAccelerationStructure* topLevelAccelerationStructure = nullptr;
 OSK::GRAPHICS::IGpuStorageBuffer* instancesInfoBuffer = nullptr;
 
-OSK::GRAPHICS::GpuImage* normalImage = nullptr;
-
-OSK::GRAPHICS::RenderTarget skyboxRenderTarget;
 OSK::GRAPHICS::RenderTarget textRenderTarget;
 
 struct RtInstanceInfo {
@@ -123,7 +117,7 @@ protected:
 	}
 
 	void SetupEngine() override {
-		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetWindow(), PresentMode::VSYNC_ON);
+		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetWindow(), PresentMode::VSYNC_ON_TRIPLE_BUFFER);
 	}
 
 	void OnCreate() override {
@@ -132,7 +126,6 @@ protected:
 		auto irradianceMap = Engine::GetAssetManager()->Load<ASSETS::IrradianceMap>("Resources/Assets/IBL/irradiance0.json", "GLOBAL");
 
 		material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_pbr.json"); //Resources/PbrMaterials/deferred_gbuffer.json
-		skyboxMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/skybox_material.json");
 		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json");
 		materialRenderTarget = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rendertarget.json");
 
@@ -142,12 +135,6 @@ protected:
 		font->LoadSizedFont(22);
 		font->SetMaterial(material2d);
 
-		const IGpuUniformBuffer* cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
-		for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-			uniformBuffer[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4)).GetPointer();
-			cameraUbos[i] = uniformBuffer[i].GetPointer();
-		}
-		
 		ASSETS::Model3D* model = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/f1.json", "GLOBAL");
 		ASSETS::Model3D* model_low = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/circuit0.json", "GLOBAL");
 
@@ -200,6 +187,7 @@ protected:
 		cameraTransform.AddPosition({ 0.0f, 0.3f, 0.0f });
 		OSK_CURRENT_RSYSTEM* renderSystem = Engine::GetEntityComponentSystem()->GetSystem<OSK_CURRENT_RSYSTEM>();
 		renderSystem->Initialize(cameraObject, *irradianceMap);
+		Engine::GetEntityComponentSystem()->GetSystem<ECS::SkyboxRenderSystem>()->SetCamera(cameraObject);
 
 		ECS::Transform3D& transform = Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(ballObject, ECS::Transform3D(ballObject));
 		ECS::ModelComponent3D* modelComponent = &Engine::GetEntityComponentSystem()->AddComponent<ECS::ModelComponent3D>(ballObject, {});
@@ -223,14 +211,8 @@ protected:
 		ModelLoader3D::SetupPbrModel(model_low, modelComponent2);
 
 		// Cubemap
-		cubemap = Engine::GetAssetManager()->Load<ASSETS::CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL");
-		cubemapModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/cube.json", "GLOBAL");
-
-		skyboxMaterialInstance = skyboxMaterial->CreateInstance().GetPointer();
-		skyboxMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", cameraUbos);
-		skyboxMaterialInstance->GetSlot("global")->SetGpuImage("skybox", cubemap->GetGpuImage());
-		skyboxMaterialInstance->GetSlot("global")->FlushUpdate();
-
+		Engine::GetEntityComponentSystem()->GetSystem<ECS::SkyboxRenderSystem>()->SetCubemap(*Engine::GetAssetManager()->Load<ASSETS::CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL"));
+		
 		cameraObject2d = Engine::GetEntityComponentSystem()->SpawnObject();
 		auto& camera2D = Engine::GetEntityComponentSystem()->AddComponent<ECS::CameraComponent2D>(cameraObject2d, {});
 		Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform2D>(cameraObject2d, { cameraObject2d });
@@ -254,7 +236,7 @@ protected:
 
 		terrainComponent.SetMaterialInstance(terrainMaterial->CreateInstance());
 
-		terrainComponent.GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("camera", cameraUbos);
+		//terrainComponent.GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("camera", cameraUbos);
 		terrainComponent.GetMaterialInstance()->GetSlot("global")->SetTexture("heightmap",
 			Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/heightmap0.json", "GLOBAL"));
 		terrainComponent.GetMaterialInstance()->GetSlot("global")->SetTexture("texture",
@@ -263,7 +245,6 @@ protected:
 
 		terrainTransform.SetScale({ 10, 1, 10 });
 
-		skyboxRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), Format::RGBA32_SFLOAT, Format::D32S8_SFLOAT_SUINT);
 		textRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), Format::RGBA8_UNORM, Format::D32S8_SFLOAT_SUINT);
 		preEffectsRenderTarget.SetTargetImageUsage(GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE);
 		preEffectsRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), Format::RGBA32_SFLOAT, Format::D32S8_SFLOAT_SUINT);
@@ -292,7 +273,6 @@ protected:
 		bloomPass->SetExposureBuffers(epxBuffers);
 		toneMappingPass->SetExposureBuffers(epxBuffers);
 
-		Engine::GetRenderer()->RegisterRenderTarget(&skyboxRenderTarget);
 		Engine::GetRenderer()->RegisterRenderTarget(&textRenderTarget);
 	}
 
@@ -385,14 +365,6 @@ protected:
 		cameraTransform.AddPosition(cameraTransform.GetRightVector().GetNormalized() * rightMovement * deltaTime);
 		camera.UpdateTransform(&cameraTransform);
 
-		const TSize frameIndex = Engine::GetRenderer()->GetCurrentCommandListIndex();
-		uniformBuffer[frameIndex]->ResetCursor();
-		uniformBuffer[frameIndex]->MapMemory();
-		uniformBuffer[frameIndex]->Write(camera.GetProjectionMatrix());
-		uniformBuffer[frameIndex]->Write(camera.GetViewMatrix(cameraTransform));
-		uniformBuffer[frameIndex]->Write(cameraTransform.GetPosition());
-		uniformBuffer[frameIndex]->Unmap();
-
 		Engine::GetEntityComponentSystem()->GetComponent<ECS::CameraComponent2D>(cameraObject2d).UpdateUniformBuffer(
 			Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform2D>(cameraObject2d)
 		);
@@ -446,16 +418,6 @@ protected:
 		graphicsCommandList->SetViewport(viewport);
 		graphicsCommandList->SetScissor(windowRec);
 
-		// Render skybox
-		graphicsCommandList->BeginGraphicsRenderpass(&skyboxRenderTarget, Color::BLACK() * 0.0f);
-		graphicsCommandList->BindMaterial(skyboxMaterial);
-		graphicsCommandList->BindMaterialSlot(skyboxMaterialInstance->GetSlot("global"));
-		graphicsCommandList->BindVertexBuffer(cubemapModel->GetVertexBuffer());
-		graphicsCommandList->BindIndexBuffer(cubemapModel->GetIndexBuffer());
-		graphicsCommandList->PushMaterialConstants("brightness", 1.0f /*Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->GetDirectionalLight().directionAndIntensity.W*/);
-		graphicsCommandList->DrawSingleInstance(cubemapModel->GetIndexCount());
-		graphicsCommandList->EndGraphicsRenderpass();
-
 		// Render text
 		graphicsCommandList->BeginGraphicsRenderpass(&textRenderTarget, Color::BLACK() * 0.0f);
 		spriteRenderer.Begin();
@@ -469,7 +431,7 @@ protected:
 		graphicsCommandList->BindMaterial(material2d);
 		graphicsCommandList->BeginGraphicsRenderpass(&preEffectsRenderTarget);
 		spriteRenderer.Begin();
-		spriteRenderer.Draw(skyboxRenderTarget.GetSprite(), skyboxRenderTarget.GetSpriteTransform());
+		spriteRenderer.Draw(Engine::GetEntityComponentSystem()->GetSystem<ECS::SkyboxRenderSystem>()->GetRenderTarget().GetSprite(), Engine::GetEntityComponentSystem()->GetSystem<ECS::SkyboxRenderSystem>()->GetRenderTarget().GetSpriteTransform());
 		spriteRenderer.Draw(Engine::GetEntityComponentSystem()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetSprite(), Engine::GetEntityComponentSystem()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetSpriteTransform());
 		spriteRenderer.End();
 		graphicsCommandList->EndGraphicsRenderpass();
@@ -514,10 +476,7 @@ protected:
 	}
 
 	void OnExit() override {
-		for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-			uniformBuffer[i].Delete();
 
-		delete skyboxMaterialInstance;
 	}
 
 private:
@@ -535,8 +494,6 @@ private:
 	ECS::GameObjectIndex spriteObject = ECS::EMPTY_GAME_OBJECT;
 	ECS::GameObjectIndex cameraObject2d = ECS::EMPTY_GAME_OBJECT;
 	ECS::GameObjectIndex terrain = ECS::EMPTY_GAME_OBJECT;
-
-	UniquePtr<GRAPHICS::IGpuUniformBuffer> uniformBuffer[NUM_RESOURCES_IN_FLIGHT];
 
 	ASSETS::Texture* texture = nullptr;
 	ASSETS::Font* font = nullptr;

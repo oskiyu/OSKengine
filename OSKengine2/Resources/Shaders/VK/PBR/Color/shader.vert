@@ -23,6 +23,7 @@ layout (set = 0, binding = 0) uniform Camera {
 
 layout (push_constant) uniform Model {
     mat4 modelMatrix;
+    mat4 transposedInversedMatrix;
 } model;
 
 void main() {

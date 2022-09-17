@@ -169,7 +169,14 @@ void RenderSystem3D::RenderScene(GRAPHICS::ICommandList* commandList) {
 			previousIndexBuffer = model.GetModel()->GetIndexBuffer();
 		}
 
-		commandList->PushMaterialConstants("model", transform.GetAsMatrix());
+		struct {
+			glm::mat4 model;
+			glm::mat4 transposedInverseModel;
+		} const modelConsts {
+			.model = transform.GetAsMatrix(),
+			.transposedInverseModel = glm::transpose(glm::inverse(transform.GetAsMatrix()))
+		};
+		commandList->PushMaterialConstants("model", modelConsts);
 
 		for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
 			commandList->BindMaterialSlot(model.GetMeshMaterialInstance(i)->GetSlot("texture"));
