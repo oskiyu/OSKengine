@@ -65,6 +65,7 @@
 #include "RenderTarget.h"
 
 #include "PbrDeferredRenderSystem.h"
+#include "ModelLoader3D.h"
 #include "IrradianceMap.h"
 
 #include "FxaaPass.h"
@@ -104,11 +105,12 @@ struct RtInstanceInfo {
 
 // PBR
 using namespace OSK;
+using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 Material* pbrColorMaterial = nullptr;
 Material* pbrNormalMaterial = nullptr;
 
-#define OSK_CURRENT_RSYSTEM OSK::ECS::PbrDeferredRenderSystem
+#define OSK_CURRENT_RSYSTEM OSK::ECS::RenderSystem3D
 
 class Game1 : public OSK::IGame {
 
@@ -121,7 +123,7 @@ protected:
 	}
 
 	void SetupEngine() override {
-		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetWindow(), PresentMode::VSYNC_ON_TRIPLE_BUFFER);
+		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetWindow(), PresentMode::VSYNC_ON);
 	}
 
 	void OnCreate() override {
@@ -129,7 +131,7 @@ protected:
 
 		auto irradianceMap = Engine::GetAssetManager()->Load<ASSETS::IrradianceMap>("Resources/Assets/IBL/irradiance0.json", "GLOBAL");
 
-		material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/deferred_gbuffer.json"); //Resources/PbrMaterials/deferred_gbuffer.json
+		material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_pbr.json"); //Resources/PbrMaterials/deferred_gbuffer.json
 		skyboxMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/skybox_material.json");
 		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json");
 		materialRenderTarget = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rendertarget.json");
@@ -207,6 +209,7 @@ protected:
 		modelComponent->SetModel(model);
 		modelComponent->SetMaterial(material);
 		modelComponent->BindTextureForAllMeshes("texture", "albedoTexture", texture);
+		ModelLoader3D::SetupPbrModel(model, modelComponent);
 
 		// ECS 2
 		smallBallObject = Engine::GetEntityComponentSystem()->SpawnObject();
@@ -217,6 +220,7 @@ protected:
 		modelComponent2->SetModel(model_low);
 		modelComponent2->SetMaterial(material);
 		modelComponent2->BindTextureForAllMeshes("texture", "albedoTexture", texture);
+		ModelLoader3D::SetupPbrModel(model_low, modelComponent2);
 
 		// Cubemap
 		cubemap = Engine::GetAssetManager()->Load<ASSETS::CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL");

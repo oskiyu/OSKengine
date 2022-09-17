@@ -37,15 +37,18 @@ layout (set = 1, binding = 1) uniform sampler2D colorTexture;
 layout (set = 1, binding = 2) uniform sampler2D normalTexture;
 
 void main() {
+    const vec4 colorInfo = texture(colorTexture, inTexCoords);
+    const vec4 normalInfo = texture(normalTexture, inTexCoords);
+
     const vec3 worlPosition = texture(positionTexture, inTexCoords).xyz;
-    const vec4 albedo = vec4(texture(colorTexture, inTexCoords).rgb, 1.0);
-    const vec3 normal = texture(normalTexture, inTexCoords).xyz;
+    const vec4 albedo = vec4(colorInfo.rgb, 1.0);
+    const vec3 normal = normalInfo.xyz;
 
     const vec3 view = normalize(camera.cameraPos - worlPosition);
     const vec3 reflectDirection = reflect(-view, normal);
     
-    const float metallicFactor = 0.5; // TODO: texture
-    const float roughnessFactor = 0.5; // TODO: texture
+    const float metallicFactor = float(int(normalInfo.a)) * 0.001; // TODO: texture
+    const float roughnessFactor = (normalInfo.a - float(int(normalInfo.a))) * 10; // TODO: texture
     
     vec3 F0 = vec3(DEFAULT_F0);
     F0 = mix(F0, albedo.rgb, metallicFactor);
@@ -66,6 +69,6 @@ void main() {
     const vec3 irradiance = texture(irradianceMap, normal).rgb;
     const vec3 ambient = albedo.rgb * kD * irradiance;
     
-    outColor = vec4(ambient * (dirLight.directionAndIntensity.w * 0.25) + accummulatedRadiance * 1.25, texture(normalTexture, inTexCoords).a);
-    //outColor = vec4(dirLight.directionAndIntensity.w);
+    outColor = vec4(ambient * (dirLight.directionAndIntensity.w * 0.25) + accummulatedRadiance * 1.25, colorInfo.a);
+    // outColor = vec4(vec3(roughnessFactor), 1.0);
 }

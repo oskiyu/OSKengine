@@ -107,7 +107,7 @@ void Engine::RegisterBuiltinComponents() {
 }
 
 void Engine::RegisterBuiltinSystems() {
-	entityComponentSystem->RegisterSystem<ECS::PbrDeferredRenderSystem>();
+	entityComponentSystem->RegisterSystem<ECS::RenderSystem3D>();
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem2D>();
 	entityComponentSystem->RegisterSystem<ECS::TerrainRenderSystem>();
 }
@@ -152,7 +152,7 @@ const Version& Engine::GetVersion() {
 }
 
 const std::string& Engine::GetBuild() {
-	static std::string build = "2022.09.14a";
+	static std::string build = "2022.09.17a";
 
 	return build;
 }

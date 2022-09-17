@@ -14,7 +14,8 @@
     },
     
     "config": {
-        "cull_mode": "none"
+        "cull_mode": "none",
+        "disable_alpha_blending": "true"
     }
     
 }

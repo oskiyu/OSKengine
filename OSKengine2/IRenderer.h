@@ -345,6 +345,9 @@ namespace OSK::GRAPHICS {
 
 		bool IsRtRequested() const;
 
+		// True si se usa la misma queue para enviar comandos gráficos y de computación.
+		bool singleCommandQueue = false;
+
 	private:
 
 		RenderApiType renderApiType;

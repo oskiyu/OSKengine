@@ -26,7 +26,7 @@ IRenderer::IRenderer(RenderApiType type, bool requestRayTracing) : renderApiType
 }
 
 ICommandList* IRenderer::GetPreComputeCommandList() const{
-	return preComputeCommandList.GetPointer();
+	return singleCommandQueue ? graphicsCommandList.GetPointer() : preComputeCommandList.GetPointer();
 }
 
 ICommandList* IRenderer::GetGraphicsCommandList() const {
@@ -34,11 +34,11 @@ ICommandList* IRenderer::GetGraphicsCommandList() const {
 }
 
 ICommandList* IRenderer::GetPostComputeCommandList() const{
-	return postComputeCommandList.GetPointer();
+	return singleCommandQueue ? graphicsCommandList.GetPointer() : postComputeCommandList.GetPointer();
 }
 
 ICommandList* IRenderer::GetFrameBuildCommandList() const {
-	return frameBuildCommandList.GetPointer();
+	return singleCommandQueue ? graphicsCommandList.GetPointer() : frameBuildCommandList.GetPointer();
 }
 
 IGpuMemoryAllocator* IRenderer::GetMemoryAllocator() const {

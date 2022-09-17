@@ -375,6 +375,9 @@ void RendererVulkan::CreateCommandQueues() {
 	presentQueue->As<CommandQueueVulkan>()->Create(queueFamilyIndices.presentFamily.value(), *currentGpu->As<GpuVulkan>());
 	computeQueue->As<CommandQueueVulkan>()->Create(queueFamilyIndices.computeFamily.value(), *currentGpu->As<GpuVulkan>());
 
+	if (graphicsQueue->As<CommandQueueVulkan>()->GetQueueIndex() == computeQueue->As<CommandQueueVulkan>()->GetQueueIndex())
+		singleCommandQueue = true;
+
 	graphicsCommandPool = currentGpu->As<GpuVulkan>()->CreateGraphicsCommandPool().GetPointer();
 	computeCommandPool = currentGpu->As<GpuVulkan>()->CreateComputeCommandPool().GetPointer();
 
@@ -382,14 +385,17 @@ void RendererVulkan::CreateCommandQueues() {
 	computeCommandPool->As<CommandPoolVulkan>()->SetSwapchainCount(3);
 
 	graphicsCommandList = graphicsCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
-	preComputeCommandList = computeCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
-	postComputeCommandList = computeCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
-	frameBuildCommandList = graphicsCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
-
 	graphicsCommandList->SetDebugName("Graphics CmdList");
-	preComputeCommandList->SetDebugName("Pre-Compute CmdList");
-	postComputeCommandList->SetDebugName("Post-Compute CmdList");
-	frameBuildCommandList->SetDebugName("Frame Build CmdList");
+
+	if (!singleCommandQueue) {
+		preComputeCommandList = computeCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
+		postComputeCommandList = computeCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
+		frameBuildCommandList = graphicsCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
+
+		preComputeCommandList->SetDebugName("Pre-Compute CmdList");
+		postComputeCommandList->SetDebugName("Post-Compute CmdList");
+		frameBuildCommandList->SetDebugName("Frame Build CmdList");
+	}
 }
 
 bool RendererVulkan::AreValidationLayersAvailable() const {
@@ -527,30 +533,40 @@ void RendererVulkan::PresentFrame() {
 	if (isFirstRender) {
 		AcquireNextFrame();
 
-		preComputeCommandList->Reset();
-		preComputeCommandList->Start();
-
 		graphicsCommandList->Reset();
 		graphicsCommandList->Start();
 
-		postComputeCommandList->Reset();
-		postComputeCommandList->Start();
+		if (!singleCommandQueue) {
+			preComputeCommandList->Reset();
+			preComputeCommandList->Start();
 
-		frameBuildCommandList->Reset();
-		frameBuildCommandList->Start();
+			postComputeCommandList->Reset();
+			postComputeCommandList->Start();
+
+			frameBuildCommandList->Reset();
+			frameBuildCommandList->Start();
+		}
 
 		isFirstRender = false;
 	}
-	preComputeCommandList->Close();
+
 	graphicsCommandList->Close();
-	postComputeCommandList->Close();
-	frameBuildCommandList->Close();
+	if (!singleCommandQueue) {
+		preComputeCommandList->Close();
+		postComputeCommandList->Close();
+		frameBuildCommandList->Close();
+	}
 
 	// Sync
-	SubmitPreComputeCommands();
-	SubmitGraphicsCommands();
-	SubmitPostComputeCommands();
-	SubmitFrameBuildCommands();
+	if (singleCommandQueue) {
+		SubmitGraphicsAndComputeCommands();
+	}
+	else {
+		SubmitPreComputeCommands();
+		SubmitGraphicsCommands();
+		SubmitPostComputeCommands();
+		SubmitFrameBuildCommands();
+	}
 	SubmitFrame();
 	AcquireNextFrame();
 
@@ -559,17 +575,19 @@ void RendererVulkan::PresentFrame() {
 
 	//
 
-	preComputeCommandList->Reset();
-	preComputeCommandList->Start();
-
 	graphicsCommandList->Reset();
 	graphicsCommandList->Start();
 
-	postComputeCommandList->Reset();
-	postComputeCommandList->Start();
+	if (!singleCommandQueue) {
+		preComputeCommandList->Reset();
+		preComputeCommandList->Start();
 
-	frameBuildCommandList->Reset();
-	frameBuildCommandList->Start();
+		postComputeCommandList->Reset();
+		postComputeCommandList->Start();
+
+		frameBuildCommandList->Reset();
+		frameBuildCommandList->Start();
+	}
 }
 
 void RendererVulkan::SubmitPreComputeCommands() {
@@ -633,6 +651,25 @@ void RendererVulkan::SubmitPostComputeCommands() {
 
 	VkResult result = vkQueueSubmit(computeQueue->As<CommandQueueVulkan>()->GetQueue(), 1, &submitInfo, VK_NULL_HANDLE);
 	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido enviar la cola PostCompute.");
+}
+
+void RendererVulkan::SubmitGraphicsAndComputeCommands() {
+	// Esperar a que la imagen esté disponible antes de renderizar.
+	const VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
+
+	VkSubmitInfo submitInfo{};
+	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+	submitInfo.waitSemaphoreCount = 1;
+	submitInfo.pWaitSemaphores = &imageAvailableSemaphores[currentCommandBufferIndex]; // Debemos esperar hasta que esta imagen esté disponible.
+	submitInfo.pWaitDstStageMask = waitStages;
+	submitInfo.pSignalSemaphores = &frameBuildSemaphores[currentCommandBufferIndex]; // Al terminar, indicamos que esta imagen se ha terminado de renderizar.
+	submitInfo.signalSemaphoreCount = 1;
+
+	submitInfo.commandBufferCount = 1;
+	submitInfo.pCommandBuffers = &graphicsCommandList->As<CommandListVulkan>()->GetCommandBuffers()->At(currentCommandBufferIndex);
+
+	VkResult result = vkQueueSubmit(graphicsQueue->As<CommandQueueVulkan>()->GetQueue(), 1, &submitInfo, fullyRenderedFences[currentCommandBufferIndex]);
+	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido enviar la cola PreCompute.");
 }
 
 void RendererVulkan::SubmitFrameBuildCommands() {

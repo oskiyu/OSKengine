@@ -182,6 +182,8 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		DynamicArray<Format> formats;
 
+		bool useAlphaBlending = true;
+
 	};
 
 }

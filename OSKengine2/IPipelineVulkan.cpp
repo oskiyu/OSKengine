@@ -79,10 +79,13 @@ VkPipelineColorBlendAttachmentState IPipelineVulkan::GetColorBlendInfo(const Pip
 	VkPipelineColorBlendAttachmentState output{};
 
 	output.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-	output.blendEnable = VK_TRUE;
+	
+	output.blendEnable = info.useAlphaBlending ? VK_TRUE : VK_FALSE;
+
 	output.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
 	output.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
 	output.colorBlendOp = VK_BLEND_OP_ADD;
+
 	output.srcAlphaBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
 	output.dstAlphaBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
 	output.alphaBlendOp = VK_BLEND_OP_ADD;

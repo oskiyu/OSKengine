@@ -22,31 +22,22 @@ vec4 GetColor(vec2 pixelCoords, int inputIndex) {
     return imageLoad(bloomImage, ivec3(pixelCoords, inputIndex));
 }
 
-vec4 BilinearInterpolation(vec2 pixelCoords, int inputIndex) {
-    // return GetColor(pixelCoords, inputIndex);
-    const vec2 fractVec = vec2(fract(pixelCoords.x), fract(pixelCoords.y));
-    const ivec2 topLeft = ivec2(floor(pixelCoords.x), floor(pixelCoords.y));
-
-    // 0 -> TOP_LEFT
-    // 1 -> TOP_RIGHT
-    // 2 -> BOT_LEFT
-    // 3 -> BOT_RIGHT
-    vec4 colors[4];
+// ORIGINAL, +X, +Y, +X+Y
+vec3 BilinearInterpolation(vec3 color1, vec3 color2, vec3 color3, vec3 color4) {
+    // colors[0] = imageLoad(bloomImage, ivec3(topLeft, inputIndex));
+    // colors[1] = imageLoad(bloomImage, ivec3(topLeft + ivec2(1, 0), inputIndex));
+    // colors[2] = imageLoad(bloomImage, ivec3(topLeft + ivec2(0, 1), inputIndex));
+    // colors[3] = imageLoad(bloomImage, ivec3(topLeft + ivec2(1, 1), inputIndex));
     
-    colors[0] = imageLoad(bloomImage, ivec3(topLeft + ivec2(0, 0), inputIndex));
-    colors[1] = imageLoad(bloomImage, ivec3(topLeft + ivec2(1, 0), inputIndex));
-    colors[2] = imageLoad(bloomImage, ivec3(topLeft + ivec2(0, 1), inputIndex));
-    colors[3] = imageLoad(bloomImage, ivec3(topLeft + ivec2(1, 1), inputIndex));
-
-    const vec4 inter1 = mix(colors[0], colors[1], fractVec.x);
-    const vec4 inter2 = mix(colors[2], colors[3], fractVec.x);
-    const vec4 interFinal = mix(inter1, inter2, fractVec.y);
+    const vec3 inter1 = mix(color1, color2, 0.5);
+    const vec3 inter2 = mix(color3, color4, 0.5);
+    const vec3 interFinal = mix(inter1, inter2, 0.5);
 
     return interFinal;
 }
 
 void main() {
-    vec4 color = vec4(0.0);
+    vec3 color = vec3(0.0);
 
     const int inputIndex = info.indices.x;
     const int outputIndex = info.indices.y;
@@ -62,23 +53,39 @@ void main() {
     const vec2 previousCoordinates = vec2(previousResolution / nextResolution * currentCoords);
     const vec2 nextCoordinates = currentCoords;
 
-    color += BilinearInterpolation(previousCoordinates, inputIndex) * 4;
+    const vec3 A = GetColor(previousCoordinates + ivec2(-1, -1), inputIndex).rgb;
+    const vec3 B = GetColor(previousCoordinates + ivec2(-1, 0), inputIndex).rgb;
+    const vec3 C = GetColor(previousCoordinates + ivec2(-1, 1), inputIndex).rgb;
+    const vec3 D = GetColor(previousCoordinates + ivec2(0, -1), inputIndex).rgb;
+    const vec3 E = GetColor(previousCoordinates + ivec2(0, 0), inputIndex).rgb;
+    const vec3 F = GetColor(previousCoordinates + ivec2(0, 1), inputIndex).rgb;
+    const vec3 G = GetColor(previousCoordinates + ivec2(1, -1), inputIndex).rgb;
+    const vec3 H = GetColor(previousCoordinates + ivec2(1, 0), inputIndex).rgb;
+    const vec3 I = GetColor(previousCoordinates + ivec2(1, 1), inputIndex).rgb;
 
-    color += BilinearInterpolation(previousCoordinates + vec2(0, 1), inputIndex) * 2;
-    color += BilinearInterpolation(previousCoordinates + vec2(0, -1), inputIndex) * 2;
-    color += BilinearInterpolation(previousCoordinates + vec2(1, 0), inputIndex) * 2;
-    color += BilinearInterpolation(previousCoordinates + vec2(-1, 0), inputIndex) * 2;
+    const vec3 E0 = GetColor(previousCoordinates + ivec2(-1, 2), inputIndex).rgb;
+    const vec3 E1 = GetColor(previousCoordinates + ivec2(0, 2), inputIndex).rgb;
+    const vec3 E2 = GetColor(previousCoordinates + ivec2(1, 2), inputIndex).rgb;
+    const vec3 E3 = GetColor(previousCoordinates + ivec2(2, 2), inputIndex).rgb;
+    const vec3 E4 = GetColor(previousCoordinates + ivec2(2, 1), inputIndex).rgb;
+    const vec3 E5 = GetColor(previousCoordinates + ivec2(2, 0), inputIndex).rgb;
+    const vec3 E6 = GetColor(previousCoordinates + ivec2(2, -1), inputIndex).rgb;
+
+    color += BilinearInterpolation(E, F, H, I) * 4;
+
+    color += BilinearInterpolation(B, C, E, F) * 2;
+    color += BilinearInterpolation(D, E, G, H) * 2;
+    color += BilinearInterpolation(F, E1, I, E2) * 2;
+    color += BilinearInterpolation(H, I, E5, E4) * 2;
     
-    color += BilinearInterpolation(previousCoordinates + vec2(-1, -1), inputIndex);
-    color += BilinearInterpolation(previousCoordinates + vec2(-1, +1), inputIndex);
-    color += BilinearInterpolation(previousCoordinates + vec2(+1, -1), inputIndex);
-    color += BilinearInterpolation(previousCoordinates + vec2(+1, +1), inputIndex);
+    color += BilinearInterpolation(A, B, D, E);
+    color += BilinearInterpolation(C, E0, F, E1);
+    color += BilinearInterpolation(I, E2, E4, E3);
+    color += BilinearInterpolation(G, H, E6, E5);
 
     color /= 16.0;
 
-    color += BilinearInterpolation(nextCoordinates, outputIndex); // Addition
+    color += imageLoad(bloomImage, ivec3(nextCoordinates, outputIndex)).rgb; // Addition
     
-    color.a = max(color.a, 0.0);
-
-    imageStore(bloomImage, ivec3(currentCoords.xy, outputIndex), color);
+    imageStore(bloomImage, ivec3(currentCoords.xy, outputIndex), vec4(color, 1.0));
 }

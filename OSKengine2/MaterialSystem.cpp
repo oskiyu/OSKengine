@@ -490,6 +490,9 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 			else
 				OSK_ASSERT(false, "Error en el archivo de material" + path + ": config cull_mode inválido.");
 		}
+
+		if (materialInfo["config"].contains("disable_alpha_blending"))
+			info.useAlphaBlending = false;
 	}
 
 	auto output = new Material(info, layout, vertexType, type);

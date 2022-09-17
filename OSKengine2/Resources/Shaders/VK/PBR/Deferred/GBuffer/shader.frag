@@ -20,6 +20,8 @@ layout (push_constant) uniform MaterialInfo {
 
 void main() {
     outWorldPosition = vec4(inWorldPosition, 1.0);
-    outColor = inColor * vec4(texture(albedoTexture, inTexCoords).rgb, materialInfo.infos.x + materialInfo.infos.y * 10);
-    outNormal = vec4(inNormal, 1.0);
+    outColor = inColor * vec4(texture(albedoTexture, inTexCoords).rgb, 1.0);
+
+    // Info packaging: (x.xxx) . (y.yyy)
+    outNormal = vec4(inNormal, (materialInfo.infos.x * 1000) + (materialInfo.infos.y * 0.1));
 }

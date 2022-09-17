@@ -19,6 +19,7 @@
 #include "GpuImageDimensions.h"
 #include "Color.hpp"
 #include "Vertex3D.h"
+#include "ModelComponent3D.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <gtx/matrix_decompose.hpp>
@@ -486,4 +487,17 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 
 	for (TSize i = 0; i < textures.GetSize(); i++)
 		output->AddGpuImage(textures.At(i));
+}
+
+void ModelLoader3D::SetupPbrModel(Model3D* model, ECS::ModelComponent3D* component) {
+	for (TSize i = 0; i < model->GetMeshes().GetSize(); i++) {
+		auto& meshMetadata = model->GetMetadata().meshesMetadata[i];
+
+		if (meshMetadata.materialTextures.GetSize() > 0) {
+			for (auto& [_, texture] : meshMetadata.materialTextures) {
+				component->GetMeshMaterialInstance(i)->GetSlot("texture")->SetGpuImage("albedoTexture", model->GetImage(texture));
+				component->GetMeshMaterialInstance(i)->GetSlot("texture")->FlushUpdate();
+			}
+		}
+	}
 }

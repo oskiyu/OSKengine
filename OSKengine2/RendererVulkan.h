@@ -76,6 +76,8 @@ namespace OSK::GRAPHICS {
 		void SubmitPreComputeCommands();
 		void SubmitGraphicsCommands();
 		void SubmitPostComputeCommands();
+
+		void SubmitGraphicsAndComputeCommands();
 		void SubmitFrameBuildCommands();
 
 		void SubmitFrame();
