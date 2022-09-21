@@ -91,15 +91,13 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON1               ICON                    "Resources\\OSKengine_icon_lowres_64.ico"
+GLFW_ICON               ICON                    "C:\\Users\\Oscar\\source\\repos\\OSKengine\\OSKengine2\\Resources\\Icons\\GLFW_ICON.ico"
 
-IDI_ICON2               ICON                    "Resources\\OSKengine_icon_lowres_48.ico"
+IDI_ICON1               ICON                    "F:\\Users\\óscar\\Documents\\OSCAR\\OSK\\OSKengine\\icons\\OSKengine_icon_lowres_64.ico"
 
-IDI_ICON3               ICON                    "Resources\\OSKengine_icon_lowres_32.ico"
+IDI_ICON2               ICON                    "F:\\Users\\óscar\\Documents\\OSCAR\\OSK\\OSKengine\\icons\\OSKengine_icon_lowres_48.ico"
 
-IDI_ICON4               ICON                    "Resources\\OSKengine_icon_lowres_16.ico"
-
-GLFW_ICON               ICON                    "Resources\\OSKengine_icon_lowres_32.ico"
+IDI_ICON3               ICON                    "F:\\Users\\óscar\\Documents\\OSCAR\\OSK\\OSKengine\\icons\\OSKengine_icon_lowres_16.ico"
 
 #endif    // Español (España, alfabetización internacional) resources
 /////////////////////////////////////////////////////////////////////////////

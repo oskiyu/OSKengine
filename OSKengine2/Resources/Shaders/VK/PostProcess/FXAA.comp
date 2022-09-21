@@ -10,43 +10,29 @@ layout (local_size_x = 8, local_size_y = 8) in;
 layout (set = 0, binding = 0, rgba32f) uniform readonly image2D sceneImage;
 layout (set = 0, binding = 1, rgba32f) uniform writeonly image2D finalImage;
 
-const float MIN_DIFF_FOR_EDGE = 0.120;
+const float MIN_DIFF_FOR_EDGE = 0.1;
+
+const int DIRECTION_HORIZONTAL = 0;
+const int DIRECTION_VERTICAL = 1;
 
 float GetLuminosity(vec3 color) {
     return dot(color, vec3(0.299, 0.587, 0.114));
 }
 
-float GetLuminosityDiff(ivec2 coords) {
-    float luminosityTargetPixel = GetLuminosity(imageLoad(sceneImage, ivec2(coords + ivec2(0, 0))).rgb);
-    float luminosityTop = GetLuminosity(imageLoad(sceneImage, ivec2(coords + ivec2(0, -1))).rgb);
-    float luminosityBottom = GetLuminosity(imageLoad(sceneImage, ivec2(coords + ivec2(0, 1))).rgb);
-    float luminosityLeft = GetLuminosity(imageLoad(sceneImage, ivec2(coords + ivec2(-1, 0))).rgb);
-    float luminosityRight = GetLuminosity(imageLoad(sceneImage, ivec2(coords + ivec2(1, 0))).rgb);
-    
-    const float minLuminosity = min(min(luminosityTargetPixel, luminosityTop), min(min(luminosityBottom, luminosityLeft), luminosityRight));
-    const float maxLuminosity = max(min(luminosityTargetPixel, luminosityTop), max(max(luminosityBottom, luminosityLeft), luminosityRight));
-
-    return maxLuminosity - minLuminosity;
-}
-
-vec3 GetAverageColor(ivec2 coords) {
-    return (imageLoad(sceneImage, ivec2(coords + ivec2(0, 0)))
-        + imageLoad(sceneImage, ivec2(coords + ivec2(0, -1)))
-        + imageLoad(sceneImage, ivec2(coords + ivec2(0, 1)))
-        + imageLoad(sceneImage, ivec2(coords + ivec2(-1, 0)))
-        + imageLoad(sceneImage, ivec2(coords + ivec2(1, 0)))).rgb / 5;
+float GetLuminosity(vec4 color) {
+    return GetLuminosity(color.rgb);
 }
 
 void main() {
-    const ivec2 targetPixel = ivec2(gl_GlobalInvocationID.xy);
-    imageLoad(sceneImage, ivec2(targetPixel + ivec2(0, 0)));
+    const ivec2 uv = ivec2(gl_GlobalInvocationID.xy);
     
+    /*
     // Luminosidad de los píxeles adyacentes.
-    float luminosityTargetPixel = GetLuminosity(imageLoad(sceneImage, ivec2(targetPixel + ivec2(0, 0))).rgb);
-    float luminosityTop = GetLuminosity(imageLoad(sceneImage, ivec2(targetPixel + ivec2(0, -1))).rgb);
-    float luminosityBottom = GetLuminosity(imageLoad(sceneImage, ivec2(targetPixel + ivec2(0, 1))).rgb);
-    float luminosityLeft = GetLuminosity(imageLoad(sceneImage, ivec2(targetPixel + ivec2(-1, 0))).rgb);
-    float luminosityRight = GetLuminosity(imageLoad(sceneImage, ivec2(targetPixel + ivec2(1, 0))).rgb);
+    float luminosityTargetPixel =   GetLuminosity(imageLoad(sceneImage, ivec2(uv + ivec2(0, 0))).rgb);
+    float luminosityTop =           GetLuminosity(imageLoad(sceneImage, ivec2(uv + ivec2(0, -1))).rgb);
+    float luminosityBottom =        GetLuminosity(imageLoad(sceneImage, ivec2(uv + ivec2(0, 1))).rgb);
+    float luminosityLeft =          GetLuminosity(imageLoad(sceneImage, ivec2(uv + ivec2(-1, 0))).rgb);
+    float luminosityRight =         GetLuminosity(imageLoad(sceneImage, ivec2(uv + ivec2(1, 0))).rgb);
 
     const float minLuminosity = min(min(luminosityTargetPixel, luminosityTop), min(min(luminosityBottom, luminosityLeft), luminosityRight));
     const float maxLuminosity = max(min(luminosityTargetPixel, luminosityTop), max(max(luminosityBottom, luminosityLeft), luminosityRight));
@@ -54,15 +40,15 @@ void main() {
     const float luminosityDiff = maxLuminosity - minLuminosity;
     if (luminosityDiff < MIN_DIFF_FOR_EDGE) {
         // No hay bordes
-        imageStore(finalImage, targetPixel, imageLoad(sceneImage, targetPixel).rgba);
+        imageStore(finalImage, uv, imageLoad(sceneImage, uv).rgba);
         return;
     }
 
     // Luminosidad de los píxeles adyacentes en diagonal.
-    float luminosityTopLeft = GetLuminosity(imageLoad(sceneImage, ivec2(targetPixel + ivec2(-1, -1))).rgb);
-    float luminosityBottomLeft = GetLuminosity(imageLoad(sceneImage, ivec2(targetPixel + ivec2(-1, 1))).rgb);
-    float luminosityTopRight = GetLuminosity(imageLoad(sceneImage, ivec2(targetPixel + ivec2(1, -1))).rgb);
-    float luminosityBottomRight = GetLuminosity(imageLoad(sceneImage, ivec2(targetPixel + ivec2(1, 1))).rgb);
+    float luminosityTopLeft =       GetLuminosity(imageLoad(sceneImage, ivec2(uv + ivec2(-1, -1))).rgb);
+    float luminosityBottomLeft =    GetLuminosity(imageLoad(sceneImage, ivec2(uv + ivec2(-1, 1))).rgb);
+    float luminosityTopRight =      GetLuminosity(imageLoad(sceneImage, ivec2(uv + ivec2(1, -1))).rgb);
+    float luminosityBottomRight =   GetLuminosity(imageLoad(sceneImage, ivec2(uv + ivec2(1, 1))).rgb);
 
     // Luminosidades sumadas (adyacentes)
     const float upDownLuminosity = luminosityBottom + luminosityTop;
@@ -74,14 +60,7 @@ void main() {
     const float leftCornersLuminosity = luminosityBottomLeft + luminosityTopLeft;
     const float rightCornersLuminosity = luminosityTopRight + luminosityBottomRight;
 
-    const float edgeHorizontalStrenght = abs(2.0 * luminosityLeft * leftCornersLuminosity)
-                                    + abs(2.0 * luminosityTargetPixel + upDownLuminosity) * 2.0
-                                    + abs(2.0 * luminosityRight + rightCornersLuminosity);
-    const float edgeVerticalStrenght = abs(2.0 * luminosityTop * topCornersLuminosity)
-                                    + abs(2.0 * luminosityTargetPixel + leftRightLuminosity) * 2.0
-                                    + abs(2.0 * luminosityBottom + bottomCornersLuminosity);
-
-    const float horizontalStrength = max(abs((luminosityTop * 2.0 + topCornersLuminosity) - (luminosityBottom * 2.0 + bottomCornersLuminosity)),
+    const float horizontalStrength = max(abs((luminosityTop * 2.0 + topCornersLuminosity) - (luminosityTargetPixel * 2.0 + leftRightLuminosity)),
                                          abs((luminosityTargetPixel * 2.0 + leftRightLuminosity) - (luminosityBottom * 2.0 + bottomCornersLuminosity)));
     const float verticalStrength = max(abs((luminosityLeft * 2.0 + leftCornersLuminosity) - (luminosityTargetPixel * 2.0 + upDownLuminosity)),
                                          abs((luminosityTargetPixel * 2.0 + upDownLuminosity) - (luminosityRight * 2.0 + rightCornersLuminosity)));
@@ -91,41 +70,41 @@ void main() {
 
     // Diferencia entre la luminosidad del pixel target y (arriba / izquierda) / (abajo / derecha), dependiendo de si el borde es horizontal o no.
     const vec2 luminosityDiffs = vec2(
-        (isHorizontal ? luminosityTop : luminosityLeft) - luminosityTargetPixel,
-        (isHorizontal ? luminosityBottom : luminosityRight) - luminosityTargetPixel
+        abs((isHorizontal ? luminosityTop : luminosityLeft) - luminosityTargetPixel),
+        abs((isHorizontal ? luminosityBottom : luminosityRight) - luminosityTargetPixel)
     );
 
     // ¿Hay más diferencia con (izquierda / arriba) o con (derecha / abajo)?
     // Izquierda / arriba = 0.
     // Derecha / abajo = 1.
-    const int steepestGradientIndex = abs(luminosityDiffs[0]) >= abs(luminosityDiffs[1]) ? 0 : 1;
+    const int steepestGradientIndex = luminosityDiffs[0] >= luminosityDiffs[1] ? 0 : 1;
 
-    const vec2 uv = vec2(targetPixel);
+    const vec2 vecUv = vec2(uv);
     vec2 uvOffset = vec2(0);
     
-    // Movemos el UV 1 en la dirección del steepestGradient.
+    // Movemos el UV 0.5 en la dirección del steepestGradient.
     if (steepestGradientIndex == 0) {
         if (isHorizontal) {
-            uvOffset += vec2(0.0, -1.0);
+            uvOffset += vec2(0.0, -0.5);
         }
         else {
-            uvOffset += vec2(-1.0, 0.0);
+            uvOffset += vec2(-0.5, 0.0);
         }
     }
     else {
         if (isHorizontal) {
-            uvOffset += vec2(0.0, 1.0);
+            uvOffset += vec2(0.0, 0.5);
         }
         else {
-            uvOffset += vec2(1.0, 0.0);
+            uvOffset += vec2(0.5, 0.0);
         }
     }
 
     // Offset (tanto para un lado como para otro) por cada iteración.
     const vec2 iterationOffset = isHorizontal ? vec2(1, 0) : vec2(0, 1);
 
-    vec2 uv1 = uv; // Dirección 1.
-    vec2 uv2 = uv; // Dirección 2.
+    vec2 uv1 = vecUv; // Dirección 1.
+    vec2 uv2 = vecUv; // Dirección 2.
 
     vec2 luminositiesDiff = vec2(0.0);
     bool reached[2] = { false, false };
@@ -133,17 +112,25 @@ void main() {
     bool reachedBothSides = reached[0] && reached[1];
 
     if (!reachedBothSides) {
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 2; i++) {
             if (!reached[0]) {
                 uv1 -= iterationOffset;
-                luminositiesDiff[0] = GetLuminosityDiff(ivec2(uv1));
+
+                const float luminosity0 = GetLuminosity(imageLoad(sceneImage, ivec2(floor(uv1 + uvOffset))).rgb);
+                const float luminosity1 = GetLuminosity(imageLoad(sceneImage, ivec2(ceil(uv1 + uvOffset))).rgb);
+
+                luminositiesDiff[0] = abs(luminosity0 - luminosity1);
 
                 reached[0] = luminositiesDiff[0] < MIN_DIFF_FOR_EDGE;
             }
             
             if (!reached[1]) {
                 uv2 += iterationOffset;
-                luminositiesDiff[1] = GetLuminosityDiff(ivec2(uv2));
+                
+                const float luminosity0 = GetLuminosity(imageLoad(sceneImage, ivec2(floor(uv2 + uvOffset))).rgb);
+                const float luminosity1 = GetLuminosity(imageLoad(sceneImage, ivec2(ceil(uv2 + uvOffset))).rgb);
+
+                luminositiesDiff[1] = abs(luminosity0 - luminosity1);
 
                 reached[1] = luminositiesDiff[1] < MIN_DIFF_FOR_EDGE;
             }
@@ -155,26 +142,153 @@ void main() {
         
     }
 
-    // uv = vec2(gl_GlobalInvocationID.xy);
     // Obtener posición del píxel relativo a los límites del borde.
     // Si está en los límites, el efecto AA será mayor.
-    const float distance1 = isHorizontal ? abs(uv.x - uv1.x) : abs(uv.y - uv1.y);
-    const float distance2 = isHorizontal ? abs(uv.x - uv2.x) : abs(uv.y - uv2.y);
+    const float distance1 = isHorizontal ? abs(vecUv.x - uv1.x) : abs(vecUv.y - uv1.y);
+    const float distance2 = isHorizontal ? abs(vecUv.x - uv2.x) : abs(vecUv.y - uv2.y);
 
     const float closestDistance = min(distance1, distance2);
     const float edgeLenght = distance1 + distance2;
     const float minDistance = edgeLenght * 0.5;
-    const float maxDistance = 0.0;
-    const float distancePercentage = closestDistance / minDistance;
+    float pixelOffset = closestDistance / edgeLenght + 0.5;
+    /**/
+
+    /**/// NEW:
+    /*const vec4 targetColor = imageLoad(sceneImage, uv);
+    const vec4 topColor = imageLoad(sceneImage, uv + ivec2(0, -1));
+    const vec4 leftColor = imageLoad(sceneImage, uv + ivec2(-1, 0));
+
+    const float targetLuminosity = GetLuminosity(targetColor);
+    const float topLuminosity = GetLuminosity(topColor);
+    const float leftLuminosity = GetLuminosity(leftColor);
+
+    // Bordes con { arriba, izquierda }
+    const vec2 borders = vec2(
+        abs(targetLuminosity - topLuminosity),
+        abs(targetLuminosity - leftLuminosity)
+    );
+
+    // 0 = arriba
+    // 1 = izquierda
+    const int borderIndex = int(borders.x < borders.y);
+
+    if (borders[borderIndex] < MIN_DIFF_FOR_EDGE) {
+        imageStore(finalImage, uv, targetColor);
+        return;
+    }
+
+    const vec2 uvOffset = borderIndex == DIRECTION_HORIZONTAL ? vec2(0.0, -0.5) : vec2(-0.5, 0.0);
+    const vec2 iterationOffset = borderIndex == DIRECTION_HORIZONTAL ? vec2(1, 0) : vec2(0, 1);
+
+    vec2 end1 = vec2(uv);
+    vec2 end2 = vec2(uv);
+
+    float luminositiesDiff[2] = { 0.0, 0.0 };
+
+    bool reached[2] = { false, false };
+    bool reachedBothSides = reached[0] && reached[1];
+    // Bucle
+    if (!reachedBothSides) {
+        for (int i = 0; i < 12; i++) {
+            if (!reached[0]) {
+                end1 -= iterationOffset;
+
+                const float luminosity0 = GetLuminosity(imageLoad(sceneImage, ivec2(floor(end1 + uvOffset))).rgb);
+                const float luminosity1 = GetLuminosity(imageLoad(sceneImage, ivec2(ceil(end1 + uvOffset))).rgb);
+
+                luminositiesDiff[0] = abs(luminosity0 - luminosity1);
+
+                reached[0] = luminositiesDiff[0] < MIN_DIFF_FOR_EDGE;
+            }
+            
+            if (!reached[1]) {
+                end2 += iterationOffset;
+                
+                const float luminosity0 = GetLuminosity(imageLoad(sceneImage, ivec2(floor(end2 + uvOffset))).rgb);
+                const float luminosity1 = GetLuminosity(imageLoad(sceneImage, ivec2(ceil(end2 + uvOffset))).rgb);
+
+                luminositiesDiff[1] = abs(luminosity0 - luminosity1);
+
+                reached[1] = luminositiesDiff[1] < MIN_DIFF_FOR_EDGE;
+            }
+
+            reachedBothSides = reached[0] && reached[1];
+            
+            if (reachedBothSides) break;
+        };
+        
+    }
+
+      // Obtener posición del píxel relativo a los límites del borde.
+    // Si está en los límites, el efecto AA será mayor.
+    const float distance1 = borderIndex == DIRECTION_HORIZONTAL ? abs(uv.x - end1.x) : abs(uv.y - end1.y);
+    const float distance2 = borderIndex == DIRECTION_HORIZONTAL ? abs(uv.x - end2.x) : abs(uv.y - end2.y);
+
+    const float closestDistance = min(distance1, distance2);
+    const float edgeLenght = distance1 + distance2;
+    const float minDistance = edgeLenght * 0.5;
+    float pixelOffset = closestDistance / minDistance;
+    /**/
+
+    // OLD: 
+
+#ifndef FXAA_REDUCE_MIN
+    #define FXAA_REDUCE_MIN   (1.0/ 128.0)
+#endif
+#ifndef FXAA_REDUCE_MUL
+    #define FXAA_REDUCE_MUL   (1.0 / 8.0)
+#endif
+#ifndef FXAA_SPAN_MAX
+    #define FXAA_SPAN_MAX     8.0
+#endif
+
+    vec4 color = vec4(0.0);
+     
+    ivec2 v_rgbNW = (uv + ivec2(-1.0, -1.0));
+    ivec2 v_rgbNE = (uv + ivec2(1.0, -1.0));
+    ivec2 v_rgbSW = (uv + ivec2(-1.0, 1.0));
+    ivec2 v_rgbSE = (uv + ivec2(1.0, 1.0));
+    ivec2 v_rgbM = ivec2(uv);
     
-    float pixelOffset = distancePercentage;
+    vec3 rgbNW = imageLoad(sceneImage, v_rgbNW).xyz;
+    vec3 rgbNE = imageLoad(sceneImage, v_rgbNE).xyz;
+    vec3 rgbSW = imageLoad(sceneImage, v_rgbSW).xyz;
+    vec3 rgbSE = imageLoad(sceneImage, v_rgbSE).xyz;
+    vec4 texColor = imageLoad(sceneImage, v_rgbM);
+    vec3 rgbM  = texColor.xyz;
+    vec3 luma = vec3(0.299, 0.587, 0.114);
+    float lumaNW = dot(rgbNW, luma);
+    float lumaNE = dot(rgbNE, luma);
+    float lumaSW = dot(rgbSW, luma);
+    float lumaSE = dot(rgbSE, luma);
+    float lumaM  = dot(rgbM,  luma);
+    float lumaMin = min(lumaM, min(min(lumaNW, lumaNE), min(lumaSW, lumaSE)));
+    float lumaMax = max(lumaM, max(max(lumaNW, lumaNE), max(lumaSW, lumaSE)));
+    
+    mediump vec2 dir;
+    dir.x = -((lumaNW + lumaNE) - (lumaSW + lumaSE));
+    dir.y =  ((lumaNW + lumaSW) - (lumaNE + lumaSE));
+    
+    float dirReduce = max((lumaNW + lumaNE + lumaSW + lumaSE) *
+                            (0.25 * FXAA_REDUCE_MUL), FXAA_REDUCE_MIN);
+    
+    float rcpDirMin = 1.0 / (min(abs(dir.x), abs(dir.y)) + dirReduce);
+    dir = min(vec2(FXAA_SPAN_MAX, FXAA_SPAN_MAX),
+                max(vec2(-FXAA_SPAN_MAX, -FXAA_SPAN_MAX),
+                dir * rcpDirMin));
+    
+    vec3 rgbA = 0.5 * (
+        imageLoad(sceneImage, uv + ivec2(dir * (1.0 / 3.0 - 0.5))).xyz +
+        imageLoad(sceneImage, uv + ivec2(dir * (2.0 / 3.0 - 0.5))).xyz);
+    vec3 rgbB = rgbA * 0.5 + 0.25 * (
+        imageLoad(sceneImage, uv + ivec2(dir * -0.5)).xyz +
+        imageLoad(sceneImage, uv + ivec2(dir * 0.5)).xyz);
+    
+    float lumaB = dot(rgbB, luma);
+    if ((lumaB < lumaMin) || (lumaB > lumaMax))
+        color = vec4(rgbA, texColor.a);
+    else
+        color = vec4(rgbB, texColor.a);
 
-    vec3 color = imageLoad(sceneImage, targetPixel).rgb;
-    vec3 offsetColor = GetAverageColor(targetPixel/* - ivec2(uvOffset)*/); //imageLoad(sceneImage, targetPixel + ivec2(uvOffset)).rgb;
-
-    color = mix(offsetColor, color, 1 - (pixelOffset + 0.4));
-
-    // color = vec3(uvOffset, 1 - pixelOffset);
-
-    imageStore(finalImage, targetPixel, vec4(color, 1.0));
+    imageStore(finalImage, uv, color);
 }

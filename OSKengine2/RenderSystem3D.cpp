@@ -18,9 +18,11 @@
 #include "GpuImageSamplerDesc.h"
 #include "IrradianceMap.h"
 #include "CameraComponent3D.h"
+#include "Texture.h"
 
 using namespace OSK;
 using namespace OSK::ECS;
+using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 RenderSystem3D::RenderSystem3D() {// Signature del sistema
@@ -36,6 +38,10 @@ RenderSystem3D::RenderSystem3D() {// Signature del sistema
 	const Vector3f direction = Vector3f(1.0f, -3.f, 0.0f).GetNormalized();
 	dirLight.directionAndIntensity = Vector4f(direction.X, direction.Y, direction.Z, 1.2f);
 	dirLight.color = Color(253 / 255.f, 253 / 255.f, 225 / 255.f);
+
+	// Material del terreno
+	terrainMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/terrain.json");
+	terrain.SetMaterialInstance(terrainMaterial->CreateInstance());
 
 	// Material de la escena
 	sceneMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_pbr.json");
@@ -63,13 +69,40 @@ RenderSystem3D::RenderSystem3D() {// Signature del sistema
 
 }
 
-void RenderSystem3D::Initialize(GameObjectIndex camera, const ASSETS::IrradianceMap& irradianceMap) {
+void RenderSystem3D::Initialize(GameObjectIndex camera, const IrradianceMap& irradianceMap) {
 	cameraObject = camera;
 
 	sceneMaterialInstance->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage());
 	sceneMaterialInstance->GetSlot("global")->FlushUpdate();
 
+	terrain.GetMaterialInstance()->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage());
+	terrain.GetMaterialInstance()->GetSlot("global")->FlushUpdate();
+
 	shadowMap.SetSceneCamera(camera);
+}
+
+void RenderSystem3D::InitializeTerrain(const Vector2ui& resolution, const Texture& heightMap, const Texture& texture) {
+	terrain.Generate(resolution);
+
+	terrain.GetMaterialInstance()->GetSlot("global")->SetGpuImage("heightmap", heightMap.GetGpuImage());
+
+	const IGpuUniformBuffer* ubos[3]{};
+	for (TSize i = 0; i < 3; i++) ubos[i] = cameraUbos[i].GetPointer();
+	terrain.GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("camera", ubos);
+
+	for (TSize i = 0; i < 3; i++) ubos[i] = dirLightUbos[i].GetPointer();
+	terrain.GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("dirLight", ubos);
+
+	for (TSize i = 0; i < 3; i++) ubos[i] = shadowMap.GetDirLightMatrixUniformBuffers()[i];
+	terrain.GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("dirLightShadowMat", ubos);
+
+	const GpuImage* shadowMaps[3]{ shadowMap.GetShadowImage(0), shadowMap.GetShadowImage(1), shadowMap.GetShadowImage(2) };
+	terrain.GetMaterialInstance()->GetSlot("global")->SetGpuImages("dirLightShadowMap", shadowMaps, SampledChannel::DEPTH, SampledArrayType::ARRAY);
+	terrain.GetMaterialInstance()->GetSlot("global")->FlushUpdate();
+
+	// Albedo
+	terrain.GetMaterialInstance()->GetSlot("texture")->SetGpuImage("albedoTexture", texture.GetGpuImage());
+	terrain.GetMaterialInstance()->GetSlot("texture")->FlushUpdate();
 }
 
 void RenderSystem3D::CreateTargetImage(const Vector2ui& size) {
@@ -155,7 +188,7 @@ void RenderSystem3D::RenderScene(GRAPHICS::ICommandList* commandList) {
 	SetupViewport(commandList);
 	commandList->BindMaterial(sceneMaterial);
 	commandList->BindMaterialSlot(sceneMaterialInstance->GetSlot("global"));
-
+	/**/
 	for (GameObjectIndex obj : GetObjects()) {
 		const ModelComponent3D& model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj);
 		const Transform3D& transform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(obj);
@@ -172,28 +205,52 @@ void RenderSystem3D::RenderScene(GRAPHICS::ICommandList* commandList) {
 		struct {
 			glm::mat4 model;
 			glm::mat4 transposedInverseModel;
-		} const modelConsts {
+			glm::vec4 materialInfos;
+		} pushConsts {
 			.model = transform.GetAsMatrix(),
 			.transposedInverseModel = glm::transpose(glm::inverse(transform.GetAsMatrix()))
 		};
-		commandList->PushMaterialConstants("model", modelConsts);
 
 		for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
 			commandList->BindMaterialSlot(model.GetMeshMaterialInstance(i)->GetSlot("texture"));
 
-			const Vector4f materialInfo {
-				model.GetModel()->GetMetadata().meshesMetadata[i].metallicFactor,
-				model.GetModel()->GetMetadata().meshesMetadata[i].roughnessFactor,
-				0.0f,
-				0.0f
-			};
-			commandList->PushMaterialConstants("materialInfo", materialInfo);
+			pushConsts.materialInfos.x = model.GetModel()->GetMetadata().meshesMetadata[i].metallicFactor;
+			pushConsts.materialInfos.y = model.GetModel()->GetMetadata().meshesMetadata[i].roughnessFactor;
+			
+			commandList->PushMaterialConstants("pushConstants", pushConsts);
 
 			commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
 		}
 	}
-
+	/**/
+	if (terrain.GetVertexBuffer() != nullptr)
+		RenderTerrain(commandList);
+	
 	commandList->EndGraphicsRenderpass();
+}
+
+void RenderSystem3D::RenderTerrain(ICommandList* commandList) {
+	commandList->BindMaterial(terrainMaterial);
+	commandList->BindMaterialSlot(terrain.GetMaterialInstance()->GetSlot("global"));
+	commandList->BindMaterialSlot(terrain.GetMaterialInstance()->GetSlot("texture"));
+
+	commandList->BindVertexBuffer(terrain.GetVertexBuffer());
+	commandList->BindIndexBuffer(terrain.GetIndexBuffer());
+	
+	glm::mat4 model = glm::scale(glm::mat4(1.0f), { 100.f, 5.f, 100.f });
+
+	struct {
+		glm::mat4 model;
+		glm::mat4 transposedInverseModel;
+		glm::vec4 materialInfos;
+	} pushConsts{
+		.model = model,
+		.transposedInverseModel = glm::transpose(glm::inverse(model)),
+		.materialInfos = { 0.5f, 0.5f, 0.0f, 0.0f }
+	};
+	commandList->PushMaterialConstants("pushConstants", pushConsts);
+	
+	commandList->DrawSingleMesh(0, terrain.GetNumIndices());
 }
 
 void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {

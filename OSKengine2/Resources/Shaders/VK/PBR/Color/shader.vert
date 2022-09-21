@@ -23,16 +23,18 @@ layout (set = 0, binding = 0) uniform Camera {
 
 layout (push_constant) uniform Model {
     mat4 modelMatrix;
-    mat4 transposedInversedMatrix;
-} model;
+    mat4 transposedInverseModelMatrix;
+    vec4 materialInfos;
+} pushConstants;
+
 
 void main() {
     outColor = inColor;
-    outNormal = normalize(mat3(transpose(inverse(model.modelMatrix))) * inNormal);
+    outNormal = normalize(mat3(transpose(inverse(pushConstants.modelMatrix))) * inNormal);
     outTexCoords = inTexCoords;
     outCameraPos = camera.cameraPos;
 
-    outPosition = (model.modelMatrix * vec4(inPosition, 1.0)).xyz;
+    outPosition = (pushConstants.modelMatrix * vec4(inPosition, 1.0)).xyz;
     const vec4 temp = camera.view * vec4(outPosition, 1.0);
     fragPosInCameraViewSpace = (temp / temp.w).xyz;
 

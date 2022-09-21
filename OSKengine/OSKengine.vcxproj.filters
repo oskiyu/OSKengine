@@ -1063,6 +1063,12 @@
     <Image Include="Resources\OSKengine_icon_lowres_16.ico">
       <Filter>Archivos de recursos</Filter>
     </Image>
+    <Image Include="..\OSKengine2\Resources\Icons\GLFW_ICON.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Resources\OSKengine_icon_lowres_64.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODO.txt">

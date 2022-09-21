@@ -37,7 +37,7 @@ PbrDeferredRenderSystem::PbrDeferredRenderSystem() {
 	SetSignature(signature);
 
 	// Mapa de sombras
-	shadowMap.Create({ 2048u });
+	shadowMap.Create({ 4096u });
 
 	// Directional light por defecto
 	const Vector3f direction = Vector3f(1.0f, -3.f, 0.0f).GetNormalized();

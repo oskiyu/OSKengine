@@ -9,6 +9,10 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 void IPostProcessPass::Create(const Vector2ui& size) {
+	GpuImageSamplerDesc sampler{};
+	sampler.addressMode = GpuImageAddressMode::EDGE;
+
+	resolveRenderTarget.SetColorImageSampler(sampler);
 	resolveRenderTarget.SetTargetImageUsage(GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED);
 	resolveRenderTarget.Create(size, Format::RGBA32_SFLOAT, Format::D32S8_SFLOAT_SUINT);
 	

@@ -169,7 +169,11 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 
 	lightUniformBuffer[uniformBufferIndex]->ResetCursor();
 	lightUniformBuffer[uniformBufferIndex]->MapMemory();
-	lightUniformBuffer[uniformBufferIndex]->Write(bufferContent);
+	lightUniformBuffer[uniformBufferIndex]->Write(bufferContent.matrices[0]);
+	lightUniformBuffer[uniformBufferIndex]->Write(bufferContent.matrices[1]);
+	lightUniformBuffer[uniformBufferIndex]->Write(bufferContent.matrices[2]);
+	lightUniformBuffer[uniformBufferIndex]->Write(bufferContent.matrices[3]);
+	lightUniformBuffer[uniformBufferIndex]->Write(bufferContent.cascadeSplits);
 	lightUniformBuffer[uniformBufferIndex]->Unmap();
 }
 

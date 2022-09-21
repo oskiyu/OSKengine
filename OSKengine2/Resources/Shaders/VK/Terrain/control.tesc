@@ -67,5 +67,4 @@ void main() {
 	outNormal[gl_InvocationID] = inNormal[gl_InvocationID];
 	outTexCoords[gl_InvocationID] = inTexCoords[gl_InvocationID];
     outColor[gl_InvocationID] = inColor[gl_InvocationID];
-
 }

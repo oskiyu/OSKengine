@@ -858,11 +858,13 @@
     <ResourceCompile Include="OSKengine.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\OSKengine2\Resources\Icons\GLFW_ICON.ico" />
     <Image Include="Resources\OSKengine_icon_lowres.ico" />
     <Image Include="Resources\OSKengine_icon_lowres_16.ico" />
     <Image Include="Resources\OSKengine_icon_lowres_32.ico" />
     <Image Include="Resources\OSKengine_icon_lowres_48.ico" />
     <Image Include="Resources\OSKengine_icon_lowres_64.ico" />
+    <Image Include="Resources\OSKengine_icon_lowres_64.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

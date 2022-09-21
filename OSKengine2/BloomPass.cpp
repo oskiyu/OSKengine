@@ -48,6 +48,7 @@ void BloomPass::Resize(const Vector2ui& size) {
 	for (TSize i = 0; i < _countof(bloomTargets); i++) {
 		GpuImageSamplerDesc sampler{};
 		sampler.mipMapMode = GpuImageMipmapMode::NONE;
+		sampler.addressMode = GpuImageAddressMode::EDGE;
 
 		bloomTargets[i] = Engine::GetRenderer()->GetMemoryAllocator()
 			->CreateImage({ size.X, size.Y, 1 }, GpuImageDimension::d2D, numPasses, Format::RGBA32_SFLOAT,

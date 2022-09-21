@@ -397,7 +397,6 @@ void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json
 		info->fragmentPath = materialInfo["fragment_shader"];
 
 		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["vertex_shader"]), ShaderStage::VERTEX, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
-		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["fragment_shader"]), ShaderStage::FRAGMENT, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
 		if (materialInfo.contains("tesselation_control_shader")) {
 			LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["tesselation_control_shader"]), ShaderStage::TESSELATION_CONTROL, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
 			info->tesselationControlPath = materialInfo["tesselation_control_shader"];
@@ -406,6 +405,7 @@ void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json
 			LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["tesselation_evaluation_shader"]), ShaderStage::TESSELATION_EVALUATION, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
 			info->tesselationEvaluationPath = materialInfo["tesselation_evaluation_shader"];
 		}
+		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["fragment_shader"]), ShaderStage::FRAGMENT, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
 	}
 	else if (type == MaterialType::COMPUTE) {
 		info->computeShaderPath = materialInfo["compute_shader"];
@@ -414,14 +414,14 @@ void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json
 
 	TSize nextHlslBinding = 0;
 	for (const auto& slotName : layout->GetAllSlotNames()) {
-		for (auto& binding : layout->GetSlot(slotName).bindings) {
-			binding.second.hlslDescriptorIndex = nextHlslBinding;
+		for (auto& [_, binding] : layout->GetSlot(slotName).bindings) {
+			binding.hlslDescriptorIndex = nextHlslBinding;
 			nextHlslBinding++;
 		}
 	}
 
-	for (auto& pushConstant : layout->GetAllPushConstants()) {
-		pushConstant.second.hlslBindingIndex = nextHlslBinding;
+	for (auto& [_, pushConstant] : layout->GetAllPushConstants()) {
+		pushConstant.hlslBindingIndex = nextHlslBinding;
 		nextHlslBinding++;
 	}
 }

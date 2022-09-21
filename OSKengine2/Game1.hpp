@@ -72,6 +72,7 @@
 #include "FxaaPass.h"
 #include "ToneMapping.h"
 #include "BloomPass.h"
+#include "SmaaPass.h"
 
 OSK::GRAPHICS::Material* rtMaterial = nullptr;
 OSK::GRAPHICS::MaterialInstance* rtMaterialInstance = nullptr;
@@ -117,7 +118,7 @@ protected:
 	}
 
 	void SetupEngine() override {
-		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetWindow(), PresentMode::VSYNC_ON_TRIPLE_BUFFER);
+		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetWindow(), PresentMode::VSYNC_ON);
 	}
 
 	void OnCreate() override {
@@ -192,7 +193,7 @@ protected:
 		ECS::Transform3D& transform = Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(ballObject, ECS::Transform3D(ballObject));
 		ECS::ModelComponent3D* modelComponent = &Engine::GetEntityComponentSystem()->AddComponent<ECS::ModelComponent3D>(ballObject, {});
 		
-		//cameraTransform.AttachToObject(ballObject);
+		cameraTransform.AttachToObject(ballObject);
 
 		modelComponent->SetModel(model);
 		modelComponent->SetMaterial(material);
@@ -226,25 +227,8 @@ protected:
 		font->GetInstance(30).sprite->GetMaterialInstance()->GetSlot("global")->FlushUpdate();
 
 		// Terrain
-		terrain = Engine::GetEntityComponentSystem()->SpawnObject();
-		auto& terrainComponent = Engine::GetEntityComponentSystem()->AddComponent<ECS::TerrainComponent>(terrain, {});
-		auto& terrainTransform = Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(terrain, { terrain });
-		terrainComponent.Generate({ 100 });
-
-		terrainMaterialFill = terrainMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_terrain.json");
-		terrainMaterialLine = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_terrain_lines.json");
-
-		terrainComponent.SetMaterialInstance(terrainMaterial->CreateInstance());
-
-		//terrainComponent.GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("camera", cameraUbos);
-		terrainComponent.GetMaterialInstance()->GetSlot("global")->SetTexture("heightmap",
-			Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/heightmap0.json", "GLOBAL"));
-		terrainComponent.GetMaterialInstance()->GetSlot("global")->SetTexture("texture",
-			Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/terrain0.json", "GLOBAL"));
-		terrainComponent.GetMaterialInstance()->GetSlot("global")->FlushUpdate();
-
-		terrainTransform.SetScale({ 10, 1, 10 });
-
+		renderSystem->InitializeTerrain({ 10u }, *Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/heightmap0.json", "GLOBAL"), *Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/terrain0.json", "GLOBAL"));
+		
 		textRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), Format::RGBA8_UNORM, Format::D32S8_SFLOAT_SUINT);
 		preEffectsRenderTarget.SetTargetImageUsage(GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE);
 		preEffectsRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), Format::RGBA32_SFLOAT, Format::D32S8_SFLOAT_SUINT);
@@ -439,6 +423,7 @@ protected:
 		fxaaPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
 		bloomPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
 		toneMappingPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
+		//smaaPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
 
 		frameBuildCommandList->BeginGraphicsRenderpass(renderpass);
 
@@ -484,6 +469,7 @@ private:
 	RenderTarget preEffectsRenderTarget;
 	UniquePtr<BloomPass> bloomPass;
 	UniquePtr<FxaaPass> fxaaPass;
+	UniquePtr<SmaaPass> smaaPass;
 	UniquePtr<ToneMappingPass> toneMappingPass;
 
 	UniquePtr<IGpuStorageBuffer> exposureBuffers[3];

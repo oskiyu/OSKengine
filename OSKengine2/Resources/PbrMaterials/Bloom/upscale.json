@@ -3,7 +3,7 @@
     "spec_ver": 1,
     "name": "Bloom",
 
-    "compute_shader": "Resources/Shaders/VK/Compute/bloom_upscale.spv",
+    "compute_shader": "Resources/Shaders/VK/PostProcess/Bloom/bloom_upscale.spv",
     
     "slots": {
         "0": "texture",

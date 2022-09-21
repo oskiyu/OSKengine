@@ -11,6 +11,8 @@
 #include "IRenderer.h"
 #include "MouseModes.h"
 
+#include <stbi_image.h>
+
 using namespace OSK;
 using namespace OSK::IO;
 
@@ -65,6 +67,20 @@ void Window::Create(int32_t sizeX, int32_t sizeY, const std::string& title) {
 	Engine::GetLogger()->InfoLog("	Monitor sizeX: " + std::to_string(monitorInfo->width));
 	Engine::GetLogger()->InfoLog("	Monitor sizeY: " + std::to_string(monitorInfo->height));
 	Engine::GetLogger()->InfoLog("	Monitor refresh rate: " + std::to_string(monitorInfo->refreshRate));
+
+	int x = 0;
+	int y = 0;
+	int nmChannels = 0;
+	stbi_uc* icon = stbi_load("Resources/Icons/engineIcon.png", &x, &y, &nmChannels, 4);
+
+	GLFWimage glfwIcon[1]{};
+	glfwIcon[0].width = x;
+	glfwIcon[0].height = y;
+	glfwIcon[0].pixels = icon;
+
+	glfwSetWindowIcon(window.GetPointer(), _countof(glfwIcon), glfwIcon);
+
+	stbi_image_free(icon);
 
 	isOpen = true;
 }

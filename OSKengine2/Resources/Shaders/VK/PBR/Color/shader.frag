@@ -30,19 +30,21 @@ layout (set = 1, binding = 0) uniform sampler2D albedoTexture;
 // layout (set = 0, binding = 1) uniform sampler2D metallicTexture;
 // layout (set = 0, binding = 2) uniform sampler2D roughnessTexture;
 
-layout (push_constant) uniform MaterialInfo {
-    // x = metallic
-    // y = roughness
-    layout (offset = 128) vec4 infos;
-} materialInfo;
+
+layout (push_constant) uniform Model {
+    mat4 modelMatrix;
+    mat4 transposedInverseModelMatrix;
+    vec4 materialInfos;
+} pushConstants;
+
 
 void main() {
     const vec3 normal = normalize(inNormal);
     const vec3 view = normalize(inCameraPos - inPosition);
     const vec3 reflectVec = reflect(-view, normal);
 
-    const float metallicFactor = materialInfo.infos.x; // TODO: texture
-    const float roughnessFactor = materialInfo.infos.y; // TODO: texture
+    const float metallicFactor = pushConstants.materialInfos.x; // TODO: texture
+    const float roughnessFactor = pushConstants.materialInfos.y; // TODO: texture
 
     vec3 albedo = texture(albedoTexture, inTexCoords).xyz;
 

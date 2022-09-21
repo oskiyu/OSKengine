@@ -174,7 +174,7 @@ OwnedPtr<IGpuImageView> GpuImageVulkan::CreateView(SampledChannel channel, Sampl
 	viewInfo.subresourceRange.aspectMask = aspectMask;
 
 	viewInfo.subresourceRange.baseMipLevel = 0;
-	viewInfo.subresourceRange.levelCount = GetMipLevels();
+	viewInfo.subresourceRange.levelCount = usage == ViewUsage::COLOR_TARGET ? 1 : GetMipLevels();
 
 	viewInfo.subresourceRange.baseArrayLayer = baseArrayLevel;
 	viewInfo.subresourceRange.layerCount = layerCount;

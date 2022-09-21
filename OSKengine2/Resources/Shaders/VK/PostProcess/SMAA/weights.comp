@@ -1,0 +1,66 @@
+#version 460
+
+layout (local_size_x = 8, local_size_y = 8) in;
+
+layout (set = 0, binding = 0, rgba32f) uniform readonly image2D edgesImage;
+layout (set = 0, binding = 1, rgba32f) uniform writeonly image2D finalImage;
+
+// NOTE: Gamma-corrected colors (no SRGB).
+
+#define MAX_SMAA_SEARCH_STEPS 10
+
+float GetLuminosity(vec3 color) {
+    return dot(color, vec3(0.299, 0.587, 0.114));
+}
+
+// x = 
+// y = longitud de la diagonal
+vec2 SearchDiagonalPattern1(vec2 targetPixelEdges, vec2 uv, vec2 direction, out vec2 refEnd) {
+    // Coordenadas usadas en cada iteración.
+    // Inicializadas al pixel en el que se inica la búsqueda.
+    // z = número de iteraciones realizadas sobre la diagonal = longitud de la diagonal.
+    vec4 coords = vec4(uv, -1.0, 1.0);
+
+    // Bordes del pixel en la iteración.
+    vec2 currentEdge = targetPixelEdges;
+
+    for (int i = 0; i < MAX_SMAA_SEARCH_STEPS; i++){
+        if (coords.z > float(MAX_SMAA_SEARCH_STEPS - 1) || coords.w < 0.9) break;
+
+        coords.xyz = vec3(direction, 1.0) + coords.xyz;
+        
+        currentEdge = imageLoad(edgesImage, ivec2(coords.xy)).rg;
+
+        coords.w = dot(currentEdge, vec2(0.5));
+    }
+
+    return coords.wz;
+}
+
+vec2 GetDiagonalWeights(vec2 targetPixelEdges) {
+    vec2 weights = vec2(0.0);
+
+    // Búsqueda de diagonales
+    vec4 diagonal = vec4(0.0);
+    vec2 finDiagonal = vec2(0.0);
+
+    if (targetPixelEdges.r > 0.0) {
+        diagonal.xz = SearchDiagonalPattern1(targetPixelEdges, vec2(gl_GlobalInvocationID), vec2(-1.0, 1.0), finDiagonal);
+    }
+
+    return weights;
+}
+
+void main() {
+    const ivec2 uv = ivec2(gl_GlobalInvocationID);
+
+    const vec2 edges = imageLoad(sceneImage, uv).rg;
+    vec4 weights = vec4(0.0);
+
+    // Borde arriba
+    if (edges.g > 0.0) {
+
+    }
+
+    imageStore(finalImage, ivec2(uv), vec4(edges, 0.0, 1.0));
+}

@@ -5,6 +5,7 @@
 #include "ShadowMap.h"
 #include "Lights.h"
 #include "IGpuUniformBuffer.h"
+#include "TerrainComponent.h"
 
 namespace OSK::GRAPHICS {
 	class ICommandList;
@@ -12,6 +13,7 @@ namespace OSK::GRAPHICS {
 
 namespace OSK::ASSETS {
 	class IrradianceMap;
+	class Texture;
 }
 
 namespace OSK::ECS {
@@ -35,6 +37,8 @@ namespace OSK::ECS {
 
 		void Initialize(ECS::GameObjectIndex cameraObject, const ASSETS::IrradianceMap& irradianceMap);
 
+		void InitializeTerrain(const Vector2ui& resolution, const ASSETS::Texture& heightMap, const ASSETS::Texture& texture);
+
 		void CreateTargetImage(const Vector2ui& size) override;
 		void Resize(const Vector2ui& size) override;
 
@@ -46,6 +50,7 @@ namespace OSK::ECS {
 		
 		void GenerateShadows(GRAPHICS::ICommandList* commandList);
 		void RenderScene(GRAPHICS::ICommandList* commandList);
+		void RenderTerrain(GRAPHICS::ICommandList* commandList);
 
 		UniquePtr<GRAPHICS::IGpuUniformBuffer> cameraUbos[3]{};
 		UniquePtr<GRAPHICS::IGpuUniformBuffer> dirLightUbos[3]{};
@@ -56,6 +61,9 @@ namespace OSK::ECS {
 
 		GRAPHICS::Material* sceneMaterial = nullptr;
 		UniquePtr<GRAPHICS::MaterialInstance> sceneMaterialInstance;
+
+		TerrainComponent terrain{};
+		GRAPHICS::Material* terrainMaterial = nullptr;
 
 	};
 

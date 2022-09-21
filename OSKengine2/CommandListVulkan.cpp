@@ -358,7 +358,7 @@ void CommandListVulkan::PushMaterialConstants(const std::string& pushConstName, 
 	}
 	auto& pushConstInfo = currentMaterial->GetLayout()->GetPushConstant(pushConstName);
 
-	vkCmdPushConstants(commandBuffers[GetCommandListIndex()], layout, GetShaderStageVk(pushConstInfo.stage), pushConstInfo.offset + offset, size, data);
+	vkCmdPushConstants(commandBuffers[GetCommandListIndex()], layout, GetShaderStageVk(pushConstInfo.stage), 0 + offset, size, data);
 }
 
 void CommandListVulkan::DrawSingleInstance(TSize numIndices) {

@@ -25,7 +25,7 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		float exposure = 4.0f;
+		float exposure = 6.0f;
 		float gamma = 2.2f;
 
 	};

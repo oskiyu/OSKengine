@@ -5,6 +5,11 @@
 
 #include <stdexcept>
 
+#ifdef _WIN64
+#include <Windows.h>
+#include "WindowsUtils.h"
+#endif
+
 using namespace OSK;
 
 void OSK::RuntimeAssertIsTrueFunction(bool condition, const std::string& msg, const std::string& functionName, uint32_t line, const std::string& file) {
@@ -16,6 +21,13 @@ void OSK::RuntimeAssertIsTrueFunction(bool condition, const std::string& msg, co
 
 		Engine::GetLogger()->Log(OSK::IO::LogLevel::L_ERROR, message);
 		Engine::GetLogger()->Save();
+
+#ifdef _WIN64
+		auto widestring = StringToWideString(message);
+		MessageBox(NULL, widestring.c_str(), NULL, MB_OK | MB_ICONERROR);
+#endif // _WIN64
+
+		Engine::GetWindow()->Close();
 
 		throw std::runtime_error(message);
 	}

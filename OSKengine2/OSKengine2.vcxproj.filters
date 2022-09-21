@@ -454,6 +454,9 @@
     <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PostProcess">
       <UniqueIdentifier>{2a49b4a9-99ba-41f0-bc5c-28e27f1b6228}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PostProcess\SMAA">
+      <UniqueIdentifier>{7c314c9d-993f-48b8-b5e1-367f437704d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -896,6 +899,9 @@
     </ClCompile>
     <ClCompile Include="SkyboxRenderSystem.cpp">
       <Filter>Archivos de origen\OSKengine\ECS\Builtin\Model3D</Filter>
+    </ClCompile>
+    <ClCompile Include="SmaaPass.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\PostProcess</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1490,6 +1496,12 @@
     <ClInclude Include="SkyboxRenderSystem.h">
       <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Model3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\OSKengine\resource.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="SmaaPass.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PostProcess</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\OSKengine\OSKengine.rc">
@@ -1510,6 +1522,21 @@
       <Filter>Archivos de recursos</Filter>
     </Image>
     <Image Include="..\OSKengine\Resources\OSKengine_icon_lowres_64.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Resources\Icons\GLFW_ICON.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Resources\OSKengine_icon_lowres_64.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="F:\Users\óscar\Documents\OSCAR\OSK\OSKengine\icons\OSKengine_icon_lowres_64.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="F:\Users\óscar\Documents\OSCAR\OSK\OSKengine\icons\OSKengine_icon_lowres_48.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="F:\Users\óscar\Documents\OSCAR\OSK\OSKengine\icons\OSKengine_icon_lowres_16.ico">
       <Filter>Archivos de recursos</Filter>
     </Image>
   </ItemGroup>
