@@ -1,0 +1,72 @@
+\hypertarget{_assert_8cpp_source}{}\doxysection{Assert.\+cpp}
+\label{_assert_8cpp_source}\index{OSKengine2/Assert.cpp@{OSKengine2/Assert.cpp}}
+\mbox{\hyperlink{_assert_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_assert_8h}{Assert.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kengine_8h}{OSKengine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_logger_8h}{Logger.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00006}00006 \textcolor{preprocessor}{\#include <stdexcept>}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00008}00008 \textcolor{preprocessor}{\#ifdef \_WIN64}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00009}00009 \textcolor{preprocessor}{\#include <Windows.h>}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00010}00010 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_windows_utils_8h}{WindowsUtils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00011}00011 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00013}00013 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00015}\mbox{\hyperlink{namespace_o_s_k_a4b450eab95d33329ca194e00a23b79c1}{00015}} \textcolor{keywordtype}{void} \mbox{\hyperlink{namespace_o_s_k_a4b450eab95d33329ca194e00a23b79c1}{OSK::RuntimeAssertIsTrueFunction}}(\textcolor{keywordtype}{bool} condition, \textcolor{keyword}{const} std::string\& msg, \textcolor{keyword}{const} std::string\& functionName, uint32\_t line, \textcolor{keyword}{const} std::string\& file) \{}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00016}00016     \textcolor{keywordflow}{if} (!condition) \{}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00017}00017         std::string message = \textcolor{stringliteral}{"{}Assertion failed: "{}} + msg + \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00018}00018         message += \textcolor{stringliteral}{"{}\(\backslash\)t at "{}} + std::string(functionName) + \textcolor{stringliteral}{"{}\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00019}00019             + \textcolor{stringliteral}{"{}\(\backslash\)t at line "{}} + std::to\_string(line) + \textcolor{stringliteral}{"{}\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00020}00020             + \textcolor{stringliteral}{"{}\(\backslash\)t at file "{}} + std::string(file);}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00022}00022         Engine::GetLogger()-\/>Log(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab5911b02468e4b2c4e4b31322f777b16a09a4958c62797939de4f305385bb41cb}{OSK::IO::LogLevel::L\_ERROR}}, message);}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00023}00023         Engine::GetLogger()-\/>Save();}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00025}00025 \textcolor{preprocessor}{\#ifdef \_WIN64}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00026}00026         \textcolor{keyword}{auto} widestring = \mbox{\hyperlink{namespace_o_s_k_a543f1e2eaed4543c687adc9f9a0622ac}{StringToWideString}}(message);}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00027}00027         MessageBox(NULL, widestring.c\_str(), NULL, MB\_OK | MB\_ICONERROR);}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00028}00028 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// \_WIN64}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00030}00030         Engine::GetWindow()-\/>Close();}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00032}00032         \textcolor{keywordflow}{throw} std::runtime\_error(message);}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00033}00033     \}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00034}00034 \}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00036}\mbox{\hyperlink{namespace_o_s_k_a36a63552a00a3bef7358ac807829d369}{00036}} \textcolor{keywordtype}{void} \mbox{\hyperlink{namespace_o_s_k_a36a63552a00a3bef7358ac807829d369}{OSK::RuntimeCheckIsTrueFunction}}(\textcolor{keywordtype}{bool} condition, \textcolor{keyword}{const} std::string\& msg, \textcolor{keyword}{const} std::string\& functionName, uint32\_t line, \textcolor{keyword}{const} std::string\& file) \{}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00037}00037     \textcolor{keywordflow}{if} (!condition) \{}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00038}00038         std::string message = \textcolor{stringliteral}{"{}Check failed: "{}} + msg + \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00039}00039         message += \textcolor{stringliteral}{"{}\(\backslash\)t at "{}} + std::string(functionName) + \textcolor{stringliteral}{"{}\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00040}00040             + \textcolor{stringliteral}{"{}\(\backslash\)t at line "{}} + std::to\_string(line) + \textcolor{stringliteral}{"{}\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00041}00041             + \textcolor{stringliteral}{"{}\(\backslash\)t at file "{}} + std::string(file);}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00042}00042 }
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00043}00043         Engine::GetLogger()-\/>Log(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab5911b02468e4b2c4e4b31322f777b16a09a4958c62797939de4f305385bb41cb}{OSK::IO::LogLevel::L\_ERROR}}, message);}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00044}00044     \}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00045}00045 \}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00047}\mbox{\hyperlink{namespace_o_s_k_a3163432a64cd59a24c27a5f35cd9fe3e}{00047}} \textcolor{keywordtype}{void} \mbox{\hyperlink{namespace_o_s_k_a3163432a64cd59a24c27a5f35cd9fe3e}{OSK::RuntimeAssertIsFalseFunction}}(\textcolor{keywordtype}{bool} condition, \textcolor{keyword}{const} std::string\& msg, \textcolor{keyword}{const} std::string\& functionName, uint32\_t line, \textcolor{keyword}{const} std::string\& file) \{}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00048}00048     \textcolor{keywordflow}{if} (condition) \{}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00049}00049         std::string message = \textcolor{stringliteral}{"{}Assertion failed: "{}} + msg + \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00050}00050         message += \textcolor{stringliteral}{"{}\(\backslash\)t at "{}} + std::string(functionName) + \textcolor{stringliteral}{"{}\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00051}00051             + \textcolor{stringliteral}{"{}\(\backslash\)t at line "{}} + std::to\_string(line) + \textcolor{stringliteral}{"{}\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00052}00052             + \textcolor{stringliteral}{"{}\(\backslash\)t at file "{}} + std::string(file);}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00054}00054         Engine::GetLogger()-\/>Log(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab5911b02468e4b2c4e4b31322f777b16a059e9861e0400dfbe05c98a841f3f96b}{OSK::IO::LogLevel::WARNING}}, message);}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00055}00055         Engine::GetLogger()-\/>Save();}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00056}00056     \}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00057}00057 \}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00059}\mbox{\hyperlink{namespace_o_s_k_a3e9a86198e02c285bef47e0ced8c481b}{00059}} \textcolor{keywordtype}{void} \mbox{\hyperlink{namespace_o_s_k_a3e9a86198e02c285bef47e0ced8c481b}{OSK::RuntimeCheckIsFalseFunction}}(\textcolor{keywordtype}{bool} condition, \textcolor{keyword}{const} std::string\& msg, \textcolor{keyword}{const} std::string\& functionName, uint32\_t line, \textcolor{keyword}{const} std::string\& file) \{}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00060}00060     std::string message = \textcolor{stringliteral}{"{}Check failed: "{}} + msg + \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00061}00061     message += \textcolor{stringliteral}{"{}\(\backslash\)t at "{}} + std::string(functionName) + \textcolor{stringliteral}{"{}\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00062}00062         + \textcolor{stringliteral}{"{}\(\backslash\)t at line "{}} + std::to\_string(line) + \textcolor{stringliteral}{"{}\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00063}00063         + \textcolor{stringliteral}{"{}\(\backslash\)t at file "{}} + std::string(file);}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00065}00065     Engine::GetLogger()-\/>Log(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab5911b02468e4b2c4e4b31322f777b16a059e9861e0400dfbe05c98a841f3f96b}{OSK::IO::LogLevel::WARNING}}, message);}
+\DoxyCodeLine{\Hypertarget{_assert_8cpp_source_l00066}00066 \}}
+
+\end{DoxyCode}

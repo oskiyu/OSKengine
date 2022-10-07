@@ -1,0 +1,19 @@
+digraph "OSK::LinkedList::Remove"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::LinkedList::Remove",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Elimina el elemento dado, si existe."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::LinkedList::Node\l::GetNext",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_linked_list_1_1_node.html#a3e895c13deda11380d421a57d6feaa99",tooltip="Obtiene el siguiente nodo en la lista."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="OSK::LinkedList::GetSize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_linked_list.html#aca2d8a70810319dcf8a082a7f5e999d7",tooltip="Devuelve el número de elementos en el stack."];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="OSK::LinkedList::Node\l::GetValue",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_linked_list_1_1_node.html#a8ebd20dfa1d1861dd74e14374f5606b8",tooltip="Crea un nodo con el elemento dado."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="OSK::LinkedList::RemoveAt",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_linked_list.html#ad9b73d40df6ea457bbbf3fe6684c1d75",tooltip="Elimina el elemento en la posición dada."];
+  Node5 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="OSK::LinkedList::IsEmpty",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_linked_list.html#aa50c2cb81a7674bea9ec0387e47f2e5d",tooltip="Devuelve true si no hay ningún elemento en el stack."];
+}

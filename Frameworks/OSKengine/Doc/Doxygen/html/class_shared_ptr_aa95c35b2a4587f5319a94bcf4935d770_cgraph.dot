@@ -1,0 +1,10 @@
+digraph "SharedPtr::operator*"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="SharedPtr::operator*",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Devuelve el valor apuntado por el puntero."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="SharedPtr::Get",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_shared_ptr.html#a4461d619a1ea060cffe342e946bbfc35",tooltip="Devuelve el valor apuntado por el puntero."];
+}

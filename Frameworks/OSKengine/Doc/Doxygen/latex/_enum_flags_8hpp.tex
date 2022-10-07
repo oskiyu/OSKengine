@@ -1,0 +1,129 @@
+\hypertarget{_enum_flags_8hpp}{}\doxysection{Referencia del Archivo OSKengine2/\+Enum\+Flags.hpp}
+\label{_enum_flags_8hpp}\index{OSKengine2/EnumFlags.hpp@{OSKengine2/EnumFlags.hpp}}
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+Dependencia gráfica adjunta para Enum\+Flags.\+hpp\+:
+% FIG 0
+Gráfico de los archivos que directa o indirectamente incluyen a este archivo\+:
+% FIG 1
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespace_o_s_k}{OSK}}
+\item 
+namespace \mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits}{OSK\+::\+EFTraits}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Concepts}
+\begin{DoxyCompactItemize}
+\item 
+concept \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}
+\end{DoxyCompactItemize}
+\doxysubsection*{defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_enum_flags_8hpp_a300a0bab085bddd0e2bd3cbb15bb68b6}{OSK\+\_\+\+FLAGS}}(T)~template $<$$>$ constexpr bool \mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a0ff8b6034acc94d42d63922fcf45cb07}{OSK\+::\+EFTraits\+::\+Is\+Enum\+Flag}}$<$T$>$(T) \{ return true; \};
+\end{DoxyCompactItemize}
+\doxysubsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\constexpr bool \mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a0ff8b6034acc94d42d63922fcf45cb07}{OSK\+::\+EFTraits\+::\+Is\+Enum\+Flag}} (T)
+\item 
+{\footnotesize template$<$typename TEnum $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$TEnum$>$}\\constexpr TEnum \mbox{\hyperlink{_enum_flags_8hpp_ad116c9c7bd5089125180b55265abdde8}{operator\&}} (TEnum left, TEnum right)
+\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$T$>$}\\constexpr T \mbox{\hyperlink{_enum_flags_8hpp_ad4d719061b525bfeb4b67fad2e95a077}{operator\&=}} (T \&left, T right)
+\item 
+{\footnotesize template$<$typename TEnum $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$TEnum$>$}\\constexpr TEnum \mbox{\hyperlink{_enum_flags_8hpp_a2d3d6fd042fc84242ac239ed28423cc4}{operator$\vert$}} (TEnum left, TEnum right)
+\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$T$>$}\\constexpr T \mbox{\hyperlink{_enum_flags_8hpp_ac8da0bbdb609fc037f9aaf60adb27638}{operator$\vert$=}} (T \&left, T right)
+\item 
+{\footnotesize template$<$typename TEnum $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$TEnum$>$}\\constexpr TEnum \mbox{\hyperlink{_enum_flags_8hpp_aa9e875703ecb3e2b451e09dbb36c3b13}{operator$\sim$}} (TEnum left)
+\item 
+{\footnotesize template$<$typename TEnum $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$TEnum$>$}\\constexpr bool \mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{OSK\+::\+EFTraits\+::\+Has\+Flag}} (TEnum value, TEnum flag)
+\item 
+{\footnotesize template$<$typename TEnum $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$TEnum$>$}\\constexpr void \mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_aaa9d8f73148fc7211f6713016bbab4aa}{OSK\+::\+EFTraits\+::\+Add\+Flag}} (TEnum $\ast$value, TEnum flag)
+\item 
+{\footnotesize template$<$typename TEnum $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$TEnum$>$}\\constexpr void \mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a1d703d4f4c9fb9abe1ab4905b9a6c458}{OSK\+::\+EFTraits\+::\+Remove\+Flag}} (TEnum $\ast$value, TEnum flag)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentación de los \textquotesingle{}defines\textquotesingle{}}
+\mbox{\Hypertarget{_enum_flags_8hpp_a300a0bab085bddd0e2bd3cbb15bb68b6}\label{_enum_flags_8hpp_a300a0bab085bddd0e2bd3cbb15bb68b6}} 
+\index{EnumFlags.hpp@{EnumFlags.hpp}!OSK\_FLAGS@{OSK\_FLAGS}}
+\index{OSK\_FLAGS@{OSK\_FLAGS}!EnumFlags.hpp@{EnumFlags.hpp}}
+\doxysubsubsection{\texorpdfstring{OSK\_FLAGS}{OSK\_FLAGS}}
+{\footnotesize\ttfamily \#define OSK\+\_\+\+FLAGS(\begin{DoxyParamCaption}\item[{}]{T }\end{DoxyParamCaption})~template $<$$>$ constexpr bool \mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a0ff8b6034acc94d42d63922fcf45cb07}{OSK\+::\+EFTraits\+::\+Is\+Enum\+Flag}}$<$T$>$(T) \{ return true; \};}
+
+
+
+Definición en la línea \mbox{\hyperlink{_enum_flags_8hpp_source_l00066}{66}} del archivo \mbox{\hyperlink{_enum_flags_8hpp_source}{Enum\+Flags.\+hpp}}.
+
+
+
+\doxysubsection{Documentación de las funciones}
+\mbox{\Hypertarget{_enum_flags_8hpp_ad116c9c7bd5089125180b55265abdde8}\label{_enum_flags_8hpp_ad116c9c7bd5089125180b55265abdde8}} 
+\index{EnumFlags.hpp@{EnumFlags.hpp}!operator\&@{operator\&}}
+\index{operator\&@{operator\&}!EnumFlags.hpp@{EnumFlags.hpp}}
+\doxysubsubsection{\texorpdfstring{operator\&()}{operator\&()}}
+{\footnotesize\ttfamily template$<$typename TEnum $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$TEnum$>$\\
+constexpr TEnum operator\& (\begin{DoxyParamCaption}\item[{TEnum}]{left,  }\item[{TEnum}]{right }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_enum_flags_8hpp_source_l00028}{28}} del archivo \mbox{\hyperlink{_enum_flags_8hpp_source}{Enum\+Flags.\+hpp}}.
+
+\mbox{\Hypertarget{_enum_flags_8hpp_ad4d719061b525bfeb4b67fad2e95a077}\label{_enum_flags_8hpp_ad4d719061b525bfeb4b67fad2e95a077}} 
+\index{EnumFlags.hpp@{EnumFlags.hpp}!operator\&=@{operator\&=}}
+\index{operator\&=@{operator\&=}!EnumFlags.hpp@{EnumFlags.hpp}}
+\doxysubsubsection{\texorpdfstring{operator\&=()}{operator\&=()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$T$>$\\
+constexpr T operator\&= (\begin{DoxyParamCaption}\item[{T \&}]{left,  }\item[{T}]{right }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_enum_flags_8hpp_source_l00037}{37}} del archivo \mbox{\hyperlink{_enum_flags_8hpp_source}{Enum\+Flags.\+hpp}}.
+
+\mbox{\Hypertarget{_enum_flags_8hpp_a2d3d6fd042fc84242ac239ed28423cc4}\label{_enum_flags_8hpp_a2d3d6fd042fc84242ac239ed28423cc4}} 
+\index{EnumFlags.hpp@{EnumFlags.hpp}!operator\texttt{"|}@{operator\texttt{"|}}}
+\index{operator\texttt{"|}@{operator\texttt{"|}}!EnumFlags.hpp@{EnumFlags.hpp}}
+\doxysubsubsection{\texorpdfstring{operator\texttt{"|}()}{operator|()}}
+{\footnotesize\ttfamily template$<$typename TEnum $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$TEnum$>$\\
+constexpr TEnum operator$\vert$ (\begin{DoxyParamCaption}\item[{TEnum}]{left,  }\item[{TEnum}]{right }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_enum_flags_8hpp_source_l00043}{43}} del archivo \mbox{\hyperlink{_enum_flags_8hpp_source}{Enum\+Flags.\+hpp}}.
+
+\mbox{\Hypertarget{_enum_flags_8hpp_ac8da0bbdb609fc037f9aaf60adb27638}\label{_enum_flags_8hpp_ac8da0bbdb609fc037f9aaf60adb27638}} 
+\index{EnumFlags.hpp@{EnumFlags.hpp}!operator\texttt{"|}=@{operator\texttt{"|}=}}
+\index{operator\texttt{"|}=@{operator\texttt{"|}=}!EnumFlags.hpp@{EnumFlags.hpp}}
+\doxysubsubsection{\texorpdfstring{operator\texttt{"|}=()}{operator|=()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$T$>$\\
+constexpr T operator$\vert$= (\begin{DoxyParamCaption}\item[{T \&}]{left,  }\item[{T}]{right }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_enum_flags_8hpp_source_l00052}{52}} del archivo \mbox{\hyperlink{_enum_flags_8hpp_source}{Enum\+Flags.\+hpp}}.
+
+\mbox{\Hypertarget{_enum_flags_8hpp_aa9e875703ecb3e2b451e09dbb36c3b13}\label{_enum_flags_8hpp_aa9e875703ecb3e2b451e09dbb36c3b13}} 
+\index{EnumFlags.hpp@{EnumFlags.hpp}!operator$\sim$@{operator$\sim$}}
+\index{operator$\sim$@{operator$\sim$}!EnumFlags.hpp@{EnumFlags.hpp}}
+\doxysubsubsection{\texorpdfstring{operator$\sim$()}{operator~()}}
+{\footnotesize\ttfamily template$<$typename TEnum $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$TEnum$>$\\
+constexpr TEnum operator$\sim$ (\begin{DoxyParamCaption}\item[{TEnum}]{left }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_enum_flags_8hpp_source_l00058}{58}} del archivo \mbox{\hyperlink{_enum_flags_8hpp_source}{Enum\+Flags.\+hpp}}.
+

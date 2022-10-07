@@ -1,9 +1,8 @@
 digraph "Representación gráfica de la clase"
 {
- // INTERACTIVE_SVG=YES
  // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="OSK::IO::KeyboardState",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_keyboard_state.html",tooltip="Representa el estado del teclado en un instante determinado. Contiene el estado (presionado o suelto)..."];
+  Node0 [label="OSK::GRAPHICS::Mesh3D",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh3_d.html",tooltip="Un mesh representa una serie de primitivas (triángulos) de un modelo 3D que comparten unas mismas pro..."];
 }

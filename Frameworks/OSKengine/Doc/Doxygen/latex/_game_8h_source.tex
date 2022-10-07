@@ -1,0 +1,62 @@
+\hypertarget{_game_8h_source}{}\doxysection{Game.\+h}
+\label{_game_8h_source}\index{OSKengine2/Game.h@{OSKengine2/Game.h}}
+\mbox{\hyperlink{_game_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kmacros_8h}{OSKmacros.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_vector2_8hpp}{Vector2.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00006}00006 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00008}00008 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}} \{}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00010}00010     \textcolor{keyword}{struct }Version;}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00021}\mbox{\hyperlink{class_o_s_k_1_1_i_game}{00021}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_i_game}{IGame}} \{}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00023}00023     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00025}\mbox{\hyperlink{class_o_s_k_1_1_i_game_a8bbe8755f305ca2c169f547b9eaec5a7}{00025}}         \textcolor{keyword}{virtual} \mbox{\hyperlink{class_o_s_k_1_1_i_game_a8bbe8755f305ca2c169f547b9eaec5a7}{\string~IGame}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00031}00031         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} RegisterAssets();}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00036}00036         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} RegisterComponents();}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00041}00041         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} RegisterSystems();}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00042}00042 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00049}00049         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} OnCreate();}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00060}00060         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} OnTick(\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDeltaTime}} deltaTime);}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00070}\mbox{\hyperlink{class_o_s_k_1_1_i_game_a1fd5e113ad6425b6a8fdc99c87c49167}{00070}}         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_i_game_a1fd5e113ad6425b6a8fdc99c87c49167}{BuildFrame}}() = 0;}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00071}00071 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00075}00075         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} OnExit();}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00080}00080         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} OnWindowResize(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2ui}}\& size);}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00085}00085         \textcolor{keywordtype}{void} Run();}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00090}00090         \textcolor{keywordtype}{void} Exit();}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00091}00091 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00095}00095         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} GetFps() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00096}00096 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00097}00097     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00098}00098 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00102}\mbox{\hyperlink{class_o_s_k_1_1_i_game_af033542cc50642b5e1325ee4c7c93cf7}{00102}}         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_i_game_af033542cc50642b5e1325ee4c7c93cf7}{CreateWindow}}() = 0;}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00103}00103 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00107}\mbox{\hyperlink{class_o_s_k_1_1_i_game_a3fff81bfbca1fc25efa8a10f2318d46b}{00107}}         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_i_game_a3fff81bfbca1fc25efa8a10f2318d46b}{SetupEngine}}() = 0;}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00109}00109     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00111}00111         \mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDeltaTime}} deltaTime = 1.0f;}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00113}00113         \mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDeltaTime}} framerateCountTimer = 0.0f;}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00114}00114         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} currentFps = 0;}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00115}00115         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} frameCount = 0;}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00116}00116 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00117}00117     \};}
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00118}00118 }
+\DoxyCodeLine{\Hypertarget{_game_8h_source_l00119}00119 \}}
+
+\end{DoxyCode}

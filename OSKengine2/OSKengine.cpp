@@ -117,6 +117,7 @@ void Engine::RegisterBuiltinSystems() {
 void Engine::RegisterBuiltinVertices() {
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::Vertex2D>();
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::Vertex3D>();
+	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::VertexAnim3D>();
 }
 
 IO::Logger* Engine::GetLogger() {
@@ -154,7 +155,7 @@ const Version& Engine::GetVersion() {
 }
 
 const std::string& Engine::GetBuild() {
-	static std::string build = "2022.09.17b";
+	static std::string build = "2022.10.07a";
 
 	return build;
 }

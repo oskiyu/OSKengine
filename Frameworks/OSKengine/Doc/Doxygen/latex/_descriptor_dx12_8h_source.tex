@@ -1,0 +1,53 @@
+\hypertarget{_descriptor_dx12_8h_source}{}\doxysection{Descriptor\+Dx12.\+h}
+\label{_descriptor_dx12_8h_source}\index{OSKengine2/DescriptorDx12.h@{OSKengine2/DescriptorDx12.h}}
+\mbox{\hyperlink{_descriptor_dx12_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_dynamic_array_8hpp}{DynamicArray.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <wrl.h>}}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00006}00006 \textcolor{keyword}{using }Microsoft::WRL::ComPtr;}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00007}00007 \textcolor{preprocessor}{\#include <d3d12.h>}}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00009}00009 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}} \{}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00011}00011     \textcolor{keyword}{class }GpuDx12;}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00014}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12}{00014}}     \textcolor{keyword}{struct }\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12}{DescriptorDx12}} \{}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00015}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12_ac23ef40c3959213d87c4ef927e449574}{00015}}         ID3D12DescriptorHeap* \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12_ac23ef40c3959213d87c4ef927e449574}{heap}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00016}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12_a2d646d4cb2a072d09f8715a41735765a}{00016}}         D3D12\_CPU\_DESCRIPTOR\_HANDLE \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12_a2d646d4cb2a072d09f8715a41735765a}{cpuHandle}}\{ NULL \};}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00017}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12_a69f59fd6f36e62630e4f2433843bb70e}{00017}}         D3D12\_GPU\_DESCRIPTOR\_HANDLE \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12_a69f59fd6f36e62630e4f2433843bb70e}{gpuHandle}}\{ NULL \};}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00018}00018     \};}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00024}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_block_dx12}{00024}}     \textcolor{keyword}{class }\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_block_dx12}{DescriptorBlockDx12}} \{}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00026}00026     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00028}00028         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_block_dx12_a392d227ce89ed05c5c9ea1334b55a005}{DescriptorBlockDx12}}(D3D12\_DESCRIPTOR\_HEAP\_TYPE type, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numDescriptors, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12}{GpuDx12}}* gpu);}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00030}00030         ID3D12DescriptorHeap* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_block_dx12_ac02b59ea5e8be16e28117bc54053e49b}{GetHeap}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00031}00031         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_block_dx12_aaa1bc9247ce082819cb52afbae808f23}{GetNumRemainingDescriptors}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00033}00033         \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_block_dx12_a5f7ebc46ce9cb40c6a5e69cea3974d64}{IsFull}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00035}00035         \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12}{DescriptorDx12}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_block_dx12_ad656517e3423ccbec71c85b7a1fb6efd}{CreateDescriptor}}();}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00037}00037     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00042}00042         ComPtr<ID3D12DescriptorHeap> heap;}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00047}00047         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} remainingDescriptors = 0;}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00053}00053         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} nextDescriptorIndex = 0;}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00055}00055         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12}{GpuDx12}}* gpu = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00056}00056         D3D12\_DESCRIPTOR\_HEAP\_TYPE type\{\};}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00058}00058     \};}
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_descriptor_dx12_8h_source_l00060}00060 \}}
+
+\end{DoxyCode}

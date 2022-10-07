@@ -1,0 +1,176 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::Material}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}\index{OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}}
+
+
+{\ttfamily \#include $<$Material.\+h$>$}
+
+\doxysubsection*{Tipos públicos}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_aeb901798f6ead616fd5686fc31284914}{Pipeline\+Key}} = \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8}{Format}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_a7f0b1a176f88c0ae392aa158eca2c769}{Material}} (const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{GRAPHICS\+::\+Pipeline\+Create\+Info}} \&pipeline\+Info, \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} $>$ layout, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{Vertex\+Info}} \&vertex\+Info, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aad769de4b6a68624571ab3ae7ec13f97}{Material\+Type}} type)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_a81bad4c57e869998238a88af6cae6109}{Set\+Name}} (const std\+::string \&name)
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_a29f2fe999bf8857dbbb65fb73df335ca}{Get\+Layout}} () const
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline}{IGraphics\+Pipeline}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_a39d6bc2358c846834fe3750122f68c67}{Get\+Graphics\+Pipeline}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_aeb901798f6ead616fd5686fc31284914}{Pipeline\+Key}} \&properties)
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_raytracing_pipeline}{IRaytracing\+Pipeline}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_ace3413ec1b0f594398434ce7013e1800}{Get\+Raytracing\+Pipeline}} () const
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_compute_pipeline}{ICompute\+Pipeline}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_af6fed9156170cd97b18cc42c7e60c952}{Get\+Compute\+Pipeline}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance}{Material\+Instance}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_acf1dacea3b45a53ca86d96e30af22af1}{Create\+Instance}} ()
+\item 
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aad769de4b6a68624571ab3ae7ec13f97}{Material\+Type}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_af145277bed3af0474a0e1abbd2a12fac}{Get\+Material\+Type}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el layout del material, indicando qué slots (y bindings) serán usados en los shaders. 
+
+\begin{DoxyNote}{Nota}
+Tiene la propiedad del graphics pipeline. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_material_8h_source_l00030}{30}} del archivo \mbox{\hyperlink{_material_8h_source}{Material.\+h}}.
+
+
+
+\doxysubsection{Documentación de los \textquotesingle{}Typedef\textquotesingle{} miembros de la clase}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_aeb901798f6ead616fd5686fc31284914}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_aeb901798f6ead616fd5686fc31284914}} 
+\index{OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}!PipelineKey@{PipelineKey}}
+\index{PipelineKey@{PipelineKey}!OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}}
+\doxysubsubsection{\texorpdfstring{PipelineKey}{PipelineKey}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_aeb901798f6ead616fd5686fc31284914}{OSK\+::\+GRAPHICS\+::\+Material\+::\+Pipeline\+Key}} =  \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8}{Format}}$>$}
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_8h_source_l00034}{34}} del archivo \mbox{\hyperlink{_material_8h_source}{Material.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_a7f0b1a176f88c0ae392aa158eca2c769}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_a7f0b1a176f88c0ae392aa158eca2c769}} 
+\index{OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}!Material@{Material}}
+\index{Material@{Material}!OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}}
+\doxysubsubsection{\texorpdfstring{Material()}{Material()}}
+{\footnotesize\ttfamily Material\+::\+Material (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{GRAPHICS\+::\+Pipeline\+Create\+Info}} \&}]{pipeline\+Info,  }\item[{\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} $>$}]{layout,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{Vertex\+Info}} \&}]{vertex\+Info,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aad769de4b6a68624571ab3ae7ec13f97}{Material\+Type}}}]{type }\end{DoxyParamCaption})}
+
+
+
+Crea un nuevo material. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em pipeline\+Info} & Información de las características del graphics pipeline.\\
+\hline
+{\em layout} & Layout del material. \\
+\hline
+\end{DoxyParams}
+Este material será el dueño del layout.
+
+Definición en la línea \mbox{\hyperlink{_material_8cpp_source_l00012}{12}} del archivo \mbox{\hyperlink{_material_8cpp_source}{Material.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 0
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_acf1dacea3b45a53ca86d96e30af22af1}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_acf1dacea3b45a53ca86d96e30af22af1}} 
+\index{OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}!CreateInstance@{CreateInstance}}
+\index{CreateInstance@{CreateInstance}!OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}}
+\doxysubsubsection{\texorpdfstring{CreateInstance()}{CreateInstance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance}{Material\+Instance}} $>$ Material\+::\+Create\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Crea y devuelve una nueva instancia de este material. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_8cpp_source_l00035}{35}} del archivo \mbox{\hyperlink{_material_8cpp_source}{Material.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 1
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_af6fed9156170cd97b18cc42c7e60c952}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_af6fed9156170cd97b18cc42c7e60c952}} 
+\index{OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}!GetComputePipeline@{GetComputePipeline}}
+\index{GetComputePipeline@{GetComputePipeline}!OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}}
+\doxysubsubsection{\texorpdfstring{GetComputePipeline()}{GetComputePipeline()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_compute_pipeline}{ICompute\+Pipeline}} $\ast$ Material\+::\+Get\+Compute\+Pipeline (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_8cpp_source_l00088}{88}} del archivo \mbox{\hyperlink{_material_8cpp_source}{Material.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_a39d6bc2358c846834fe3750122f68c67}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_a39d6bc2358c846834fe3750122f68c67}} 
+\index{OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}!GetGraphicsPipeline@{GetGraphicsPipeline}}
+\index{GetGraphicsPipeline@{GetGraphicsPipeline}!OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}}
+\doxysubsubsection{\texorpdfstring{GetGraphicsPipeline()}{GetGraphicsPipeline()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline}{IGraphics\+Pipeline}} $\ast$ Material\+::\+Get\+Graphics\+Pipeline (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_aeb901798f6ead616fd5686fc31284914}{Pipeline\+Key}} \&}]{properties }\end{DoxyParamCaption})}
+
+
+
+Obtiene el graphics pipeline con las propiedades dadas. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_8cpp_source_l00052}{52}} del archivo \mbox{\hyperlink{_material_8cpp_source}{Material.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_a29f2fe999bf8857dbbb65fb73df335ca}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_a29f2fe999bf8857dbbb65fb73df335ca}} 
+\index{OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}!GetLayout@{GetLayout}}
+\index{GetLayout@{GetLayout}!OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}}
+\doxysubsubsection{\texorpdfstring{GetLayout()}{GetLayout()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} $\ast$ Material\+::\+Get\+Layout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_8cpp_source_l00048}{48}} del archivo \mbox{\hyperlink{_material_8cpp_source}{Material.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_af145277bed3af0474a0e1abbd2a12fac}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_af145277bed3af0474a0e1abbd2a12fac}} 
+\index{OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}!GetMaterialType@{GetMaterialType}}
+\index{GetMaterialType@{GetMaterialType}!OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}}
+\doxysubsubsection{\texorpdfstring{GetMaterialType()}{GetMaterialType()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aad769de4b6a68624571ab3ae7ec13f97}{Material\+Type}} Material\+::\+Get\+Material\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_8cpp_source_l00044}{44}} del archivo \mbox{\hyperlink{_material_8cpp_source}{Material.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_ace3413ec1b0f594398434ce7013e1800}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_ace3413ec1b0f594398434ce7013e1800}} 
+\index{OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}!GetRaytracingPipeline@{GetRaytracingPipeline}}
+\index{GetRaytracingPipeline@{GetRaytracingPipeline}!OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}}
+\doxysubsubsection{\texorpdfstring{GetRaytracingPipeline()}{GetRaytracingPipeline()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_raytracing_pipeline}{IRaytracing\+Pipeline}} $\ast$ Material\+::\+Get\+Raytracing\+Pipeline (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Obtiene el raytracing pipeline. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_8cpp_source_l00084}{84}} del archivo \mbox{\hyperlink{_material_8cpp_source}{Material.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_a81bad4c57e869998238a88af6cae6109}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_a81bad4c57e869998238a88af6cae6109}} 
+\index{OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}!SetName@{SetName}}
+\index{SetName@{SetName}!OSK::GRAPHICS::Material@{OSK::GRAPHICS::Material}}
+\doxysubsubsection{\texorpdfstring{SetName()}{SetName()}}
+{\footnotesize\ttfamily void Material\+::\+Set\+Name (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_8cpp_source_l00031}{31}} del archivo \mbox{\hyperlink{_material_8cpp_source}{Material.\+cpp}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_material_8h}{Material.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_material_8cpp}{Material.\+cpp}}\end{DoxyCompactItemize}

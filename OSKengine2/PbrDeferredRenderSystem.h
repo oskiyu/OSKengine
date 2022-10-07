@@ -28,6 +28,8 @@ namespace OSK::ECS {
 
 		void Render(GRAPHICS::ICommandList* commandList) override;
 
+		void OnTick(TDeltaTime deltaTime) override;
+
 		const static TSize GBUFFER_POSITION_TARGET_INDEX = 0;
 		const static TSize GBUFFER_COLOR_TARGET_INDEX = 1;
 		const static TSize GBUFFER_NORMAL_TARGET_INDEX = 2;
@@ -40,6 +42,9 @@ namespace OSK::ECS {
 		void RenderGBuffer(GRAPHICS::ICommandList* commandList);
 		void Resolve(GRAPHICS::ICommandList* commandList);
 
+		void GBufferRenderLoop(GRAPHICS::ICommandList* commandList, ASSETS::ModelType modelType);
+		void ShadowsRenderLoop(ASSETS::ModelType modelType, GRAPHICS::ICommandList* commandList, TSize cascadeIndex);
+
 		GRAPHICS::RenderTarget gBuffer;
 
 		UniquePtr<GRAPHICS::IGpuUniformBuffer> cameraUbos[3]{};
@@ -50,6 +55,7 @@ namespace OSK::ECS {
 		ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
 
 		GRAPHICS::Material* gbufferMaterial = nullptr;
+		GRAPHICS::Material* animatedGbufferMaterial = nullptr;
 		UniquePtr<GRAPHICS::MaterialInstance> globalGbufferMaterialInstance;
 
 		GRAPHICS::Material* resolveMaterial = nullptr;

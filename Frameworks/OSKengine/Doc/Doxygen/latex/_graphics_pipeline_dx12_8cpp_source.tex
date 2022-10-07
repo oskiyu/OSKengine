@@ -1,0 +1,233 @@
+\hypertarget{_graphics_pipeline_dx12_8cpp_source}{}\doxysection{Graphics\+Pipeline\+Dx12.\+cpp}
+\label{_graphics_pipeline_dx12_8cpp_source}\index{OSKengine2/GraphicsPipelineDx12.cpp@{OSKengine2/GraphicsPipelineDx12.cpp}}
+\mbox{\hyperlink{_graphics_pipeline_dx12_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include <spirv\_cross/spirv\_cross.hpp>}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00002}00002 \textcolor{preprocessor}{\#include <spirv\_cross/spirv\_hlsl.hpp>}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_spirv_to_hlsl_8h}{SpirvToHlsl.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_hlsl_runtime_compiler_8h}{HlslRuntimeCompiler.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_graphics_pipeline_dx12_8h}{GraphicsPipelineDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00009}00009 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_dx12_8h}{GpuDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00010}00010 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00011}00011 \textcolor{preprocessor}{\#include <d3dcompiler.h>}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00012}00012 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_assert_8h}{Assert.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00013}00013 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_pipeline_create_info_8h}{PipelineCreateInfo.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00014}00014 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_pipeline_layout_dx12_8h}{PipelineLayoutDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00015}00015 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_format_8h}{Format.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00016}00016 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_format_dx12_8h}{FormatDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00017}00017 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_vertex_info_8h}{VertexInfo.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00018}00018 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_linked_list_8hpp}{LinkedList.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00019}00019 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_material_layout_8h}{MaterialLayout.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00021}00021 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_file_i_o_8h}{FileIO.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00023}00023 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kengine_8h}{OSKengine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00024}00024 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_logger_8h}{Logger.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00026}00026 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_windows_utils_8h}{WindowsUtils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00029}00029 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00030}00030 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_i_o}{OSK::IO}};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00031}00031 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00034}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12_a164ad846a2010825fbbd9d474b2a82f3}{00034}} \textcolor{keywordtype}{void} GraphicsPipelineDx12::Create(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{MaterialLayout}}* materialLayout, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}}* device, \textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{PipelineCreateInfo}}\& info,  \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{VertexInfo}}\& vertexInfo) \{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00035}00035     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_afeebc6144c3cf7852837a5f08b3a6444}{layout}} = \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12}{PipelineLayoutDx12}}(materialLayout);}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00036}00036     }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00037}00037     D3D12\_GRAPHICS\_PIPELINE\_STATE\_DESC createInfo\{\};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00039}00039     \textcolor{keyword}{auto} layoutDesc = GetInputLayoutDescDx12(vertexInfo);}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00041}00041     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < layoutDesc.GetSize(); i++)}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00042}00042         layoutDesc.At(i).SemanticName = vertexInfo.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_a15eaeeac531672e355aa72bf8bf74ba4}{entries}}[i].GetName().c\_str();}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00044}00044     D3D12\_INPUT\_LAYOUT\_DESC inputLayout\{\};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00045}00045     inputLayout.NumElements = layoutDesc.GetSize();}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00046}00046     inputLayout.pInputElementDescs = layoutDesc.GetData();}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00048}00048     createInfo.InputLayout = inputLayout;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00050}00050     vertexShader = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_a5bc7a9722e29f569c95325ccb0124852}{LoadShader}}(info, vertexInfo, info.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_a3fac189838e4f2c919f229eadf5bdb62}{vertexPath}}, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba0c3e47aef93a7f244f41ab309a33634b}{ShaderStage::VERTEX}}, *materialLayout);}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00051}00051     fragmentShader = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_a5bc7a9722e29f569c95325ccb0124852}{LoadShader}}(info, vertexInfo, info.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_a4c3aff625b37077df47c3b631db00301}{fragmentPath}}, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba7345a249ed5c2f850d85dc1727c24716}{ShaderStage::FRAGMENT}}, *materialLayout);}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00053}00053     createInfo.VS = vertexShader.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_a1dbb2aca29ef242c6a9c8efdeb04265e}{bytecode}};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00054}00054     createInfo.PS = fragmentShader.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_a1dbb2aca29ef242c6a9c8efdeb04265e}{bytecode}};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00056}00056     \textcolor{keywordflow}{if} (info.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_a848c4a29ab5c3469851cc714aaba9621}{tesselationControlPath}} != \textcolor{stringliteral}{"{}"{}}) \{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00057}00057         tesselationControlShader = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_a5bc7a9722e29f569c95325ccb0124852}{LoadShader}}(info, vertexInfo, info.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_a848c4a29ab5c3469851cc714aaba9621}{tesselationControlPath}}, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcbaf448507fb26809d25c13899dfc57e230}{ShaderStage::TESSELATION\_CONTROL}}, *materialLayout);}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00058}00058         createInfo.HS = tesselationControlShader.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_a1dbb2aca29ef242c6a9c8efdeb04265e}{bytecode}};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00060}00060         topologyType = D3D\_PRIMITIVE\_TOPOLOGY\_3\_CONTROL\_POINT\_PATCHLIST;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00061}00061     \}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00062}00062     \textcolor{keywordflow}{if} (info.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_ad6aaaaa5814f2a26e3937cb128f6843e}{tesselationEvaluationPath}} != \textcolor{stringliteral}{"{}"{}}) \{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00063}00063         tesselationEvaluationShader = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_a5bc7a9722e29f569c95325ccb0124852}{LoadShader}}(info, vertexInfo, info.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_ad6aaaaa5814f2a26e3937cb128f6843e}{tesselationEvaluationPath}}, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba9196126eff57d73bb45dc36a6367e58d}{ShaderStage::TESSELATION\_EVALUATION}}, *materialLayout);}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00064}00064         createInfo.DS = tesselationEvaluationShader.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_a1dbb2aca29ef242c6a9c8efdeb04265e}{bytecode}};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00065}00065     \}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00067}00067     createInfo.RasterizerState = GetRasterizerDesc(info);}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00068}00068     createInfo.BlendState = GetBlendDesc(info);}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00069}00069     createInfo.DepthStencilState = GetDepthStencilDesc(info);}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00070}00070     createInfo.SampleMask = UINT\_MAX;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00071}00071     \textcolor{keywordflow}{if} (info.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_a848c4a29ab5c3469851cc714aaba9621}{tesselationControlPath}} != \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00072}00072         createInfo.PrimitiveTopologyType = D3D12\_PRIMITIVE\_TOPOLOGY\_TYPE\_PATCH;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00073}00073     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00074}00074         createInfo.PrimitiveTopologyType = D3D12\_PRIMITIVE\_TOPOLOGY\_TYPE\_TRIANGLE;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00076}00076     createInfo.NumRenderTargets = info.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_a031c05fb2778c508449834a5281e84fd}{formats}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}();}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00077}00077     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < info.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_a031c05fb2778c508449834a5281e84fd}{formats}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}(); i++)}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00078}00078         createInfo.RTVFormats[i] = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a100a7488e1eee158da65062d0b5e5277}{GetFormatDx12}}(info.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_a031c05fb2778c508449834a5281e84fd}{formats}}[i]);}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00080}00080     createInfo.DSVFormat = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a100a7488e1eee158da65062d0b5e5277}{GetFormatDx12}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8a369fdc4770e12435c7f86a893edbcb06}{Format::D32S8\_SFLOAT\_SUINT}});}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00081}00081     createInfo.SampleDesc.Count = 1;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00083}00083     createInfo.pRootSignature = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_afeebc6144c3cf7852837a5f08b3a6444}{layout}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12}{PipelineLayoutDx12}}>()-\/>GetSignature();}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00085}00085     HRESULT result = device-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_a1b0e5d22fed49696034d38442892121c}{As}}<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12}{GpuDx12}}>()-\/>\mbox{\hyperlink{_material_slot_vulkan_8cpp_adead74bea72029d218144e2a94a1eb1e}{GetDevice}}()-\/>CreateGraphicsPipelineState(\&createInfo, IID\_PPV\_ARGS(\&\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_a1a1833badaf5367685c6c9d743185342}{dxPipeline}}));}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00086}00086     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(SUCCEEDED(result), \textcolor{stringliteral}{"{}Error al crear el pipeline. Code: "{}} + std::to\_string(result));}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00087}00087 \}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00089}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12_a67880835c29a14d6d599d9c0a117b526}{00089}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12_a67880835c29a14d6d599d9c0a117b526}{GraphicsPipelineDx12::SetDebugName}}(\textcolor{keyword}{const} std::string\& name) \{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00090}00090     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_a1a1833badaf5367685c6c9d743185342}{dxPipeline}}-\/>SetName(\mbox{\hyperlink{namespace_o_s_k_a543f1e2eaed4543c687adc9f9a0622ac}{StringToWideString}}(name).c\_str());}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00091}00091 \}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00093}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12_aeb396d39dc237a97a3474ac338023f3b}{00093}} D3D\_PRIMITIVE\_TOPOLOGY \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12_aeb396d39dc237a97a3474ac338023f3b}{GraphicsPipelineDx12::GetTopologyType}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00094}00094     \textcolor{keywordflow}{return} topologyType;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00095}00095 \}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00096}00096 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00097}00097 D3D12\_RASTERIZER\_DESC GraphicsPipelineDx12::GetRasterizerDesc(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{PipelineCreateInfo}}\& info)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00098}00098     D3D12\_RASTERIZER\_DESC desc\{\};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00099}00099     desc.FillMode = GetFillMode(info.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_a374bbb3534c447ec42cf7edb5380ae84}{polygonMode}});}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00100}00100     desc.CullMode = GetCullMode(info.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_acfe51d79edebcbe9e45e8f9586d05c10}{cullMode}});}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00101}00101     desc.FrontCounterClockwise = info.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_a735bb08e92ec77c4f39f8a80ebf1c149}{frontFaceType}} == \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad6329cdca67793d3a3ffec0de1fab44cab437c6ed212434e8984c403374fe494c}{PolygonFrontFaceType::COUNTERCLOCKWISE}};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00102}00102     desc.DepthBias = D3D12\_DEFAULT\_DEPTH\_BIAS;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00103}00103     desc.DepthBiasClamp = D3D12\_DEFAULT\_DEPTH\_BIAS\_CLAMP;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00104}00104     desc.SlopeScaledDepthBias = D3D12\_DEFAULT\_SLOPE\_SCALED\_DEPTH\_BIAS;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00105}00105     desc.DepthClipEnable = TRUE;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00106}00106     desc.MultisampleEnable = FALSE;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00107}00107     desc.AntialiasedLineEnable = FALSE;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00108}00108     desc.ForcedSampleCount = 0;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00109}00109     desc.ConservativeRaster = D3D12\_CONSERVATIVE\_RASTERIZATION\_MODE\_OFF;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00111}00111     \textcolor{keywordflow}{return} desc;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00112}00112 \}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00113}00113 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00114}00114 D3D12\_DEPTH\_STENCIL\_DESC GraphicsPipelineDx12::GetDepthStencilDesc(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{PipelineCreateInfo}}\& info)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00115}00115     D3D12\_DEPTH\_STENCIL\_DESC desc\{\};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00116}00116 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00117}00117     \textcolor{keywordflow}{if} (info.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_a944b54b561e76f4ca2efb71b03395ac4}{depthTestingType}} == \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a9f540971911df275819dd542e32027ddab50339a10e1de285ac99d4c3990b8693}{DepthTestingType::NONE}})}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00118}00118         desc.DepthEnable = FALSE;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00119}00119     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00120}00120         desc.DepthEnable = TRUE;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00121}00121 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00122}00122     \textcolor{keywordflow}{if} (info.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_a944b54b561e76f4ca2efb71b03395ac4}{depthTestingType}} == \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a9f540971911df275819dd542e32027ddaa7b843fb734e3b3fea8e5f902d3f4144}{DepthTestingType::READ\_WRITE}})}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00123}00123         desc.DepthWriteMask = D3D12\_DEPTH\_WRITE\_MASK\_ALL;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00124}00124     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00125}00125         desc.DepthWriteMask = D3D12\_DEPTH\_WRITE\_MASK\_ZERO;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00126}00126 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00127}00127     desc.StencilEnable = FALSE;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00128}00128     desc.DepthFunc = D3D12\_COMPARISON\_FUNC\_LESS;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00129}00129     }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00130}00130     \textcolor{keyword}{const} D3D12\_DEPTH\_STENCILOP\_DESC defaultStencilOp =  \{ }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00131}00131         D3D12\_STENCIL\_OP\_KEEP, }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00132}00132         D3D12\_STENCIL\_OP\_KEEP, }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00133}00133         D3D12\_STENCIL\_OP\_KEEP, }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00134}00134         D3D12\_COMPARISON\_FUNC\_ALWAYS }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00135}00135     \};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00136}00136 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00137}00137     desc.BackFace = defaultStencilOp;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00138}00138     desc.FrontFace = defaultStencilOp;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00139}00139 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00140}00140     \textcolor{keywordflow}{return} desc;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00141}00141 \}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00142}00142 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00143}00143 D3D12\_BLEND\_DESC GraphicsPipelineDx12::GetBlendDesc(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{PipelineCreateInfo}}\& info)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00144}00144     D3D12\_BLEND\_DESC desc\{\};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00145}00145     desc.AlphaToCoverageEnable = FALSE;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00146}00146     desc.IndependentBlendEnable = FALSE;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00147}00147 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00148}00148     \textcolor{keyword}{const} \textcolor{keyword}{static} D3D12\_RENDER\_TARGET\_BLEND\_DESC DefaultRenderTargetBlendDesc = \{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00149}00149       TRUE, FALSE,}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00150}00150       D3D12\_BLEND\_SRC\_ALPHA, D3D12\_BLEND\_INV\_SRC\_ALPHA, D3D12\_BLEND\_OP\_ADD,}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00151}00151       D3D12\_BLEND\_ONE, D3D12\_BLEND\_ZERO, D3D12\_BLEND\_OP\_ADD,}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00152}00152       D3D12\_LOGIC\_OP\_NOOP,}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00153}00153       D3D12\_COLOR\_WRITE\_ENABLE\_ALL,}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00154}00154     \};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00155}00155 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00156}00156     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < D3D12\_SIMULTANEOUS\_RENDER\_TARGET\_COUNT; i++)}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00157}00157         desc.RenderTarget[i] = DefaultRenderTargetBlendDesc;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00158}00158 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00159}00159     \textcolor{keywordflow}{return} desc;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00160}00160 \}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00161}00161 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00162}00162 DXGI\_FORMAT GraphicsPipelineDx12::GetVertexAttribFormatDx12(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry}{VertexInfo::Entry}}\& entry)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00163}00163     \textcolor{keywordflow}{switch} (entry.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a5cf4e4e7fb1c7adf1a4ecd521d6936e8}{type}}) \{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00164}00164 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00165}00165     \textcolor{keywordflow}{case} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a0062a8ce8808345b70e06db4d4b6d3a8a53f93baa3057821107c750323892fa92}{VertexInfo::Entry::Type::INT}}:}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00166}00166         \textcolor{keywordflow}{if} (entry.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a0cefb614716fe1dbc7d11706023eab6a}{size}} == 2 * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int})) \textcolor{keywordflow}{return} DXGI\_FORMAT\_R32G32\_SINT;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00167}00167         \textcolor{keywordflow}{if} (entry.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a0cefb614716fe1dbc7d11706023eab6a}{size}} == 3 * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int})) \textcolor{keywordflow}{return} DXGI\_FORMAT\_R32G32B32\_SINT;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00168}00168         \textcolor{keywordflow}{if} (entry.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a0cefb614716fe1dbc7d11706023eab6a}{size}} == 4 * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int})) \textcolor{keywordflow}{return} DXGI\_FORMAT\_R32G32B32A32\_SINT;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00169}00169 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00170}00170     \textcolor{keywordflow}{case} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a0062a8ce8808345b70e06db4d4b6d3a8ae738c26bf4ce1037fa81b039a915cbf6}{VertexInfo::Entry::Type::FLOAT}}:}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00171}00171         \textcolor{keywordflow}{if} (entry.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a0cefb614716fe1dbc7d11706023eab6a}{size}} == 2 * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float})) \textcolor{keywordflow}{return} DXGI\_FORMAT\_R32G32\_FLOAT;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00172}00172         \textcolor{keywordflow}{if} (entry.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a0cefb614716fe1dbc7d11706023eab6a}{size}} == 3 * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float})) \textcolor{keywordflow}{return} DXGI\_FORMAT\_R32G32B32\_FLOAT;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00173}00173         \textcolor{keywordflow}{if} (entry.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a0cefb614716fe1dbc7d11706023eab6a}{size}} == 4 * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float})) \textcolor{keywordflow}{return} DXGI\_FORMAT\_R32G32B32A32\_FLOAT;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00174}00174     \}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00175}00175 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00176}00176     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(\textcolor{keyword}{false}, \textcolor{stringliteral}{"{}Formato de vértice incorecto."{}});}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00177}00177     \textcolor{keywordflow}{return} DXGI\_FORMAT\_UNKNOWN;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00178}00178 \}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00179}00179 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00180}00180 \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<D3D12\_INPUT\_ELEMENT\_DESC>}} GraphicsPipelineDx12::GetInputLayoutDescDx12(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{VertexInfo}}\& info)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00181}00181     \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<D3D12\_INPUT\_ELEMENT\_DESC>}} output\{\};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00182}00182 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00183}00183     \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} offset = 0;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00184}00184     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < info.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_a15eaeeac531672e355aa72bf8bf74ba4}{entries}}.GetSize(); i++) \{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00185}00185         \textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry}{VertexInfo::Entry}}\& entry = info.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_a15eaeeac531672e355aa72bf8bf74ba4}{entries}}.At(i);}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00186}00186 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00187}00187         D3D12\_INPUT\_ELEMENT\_DESC desc = \{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00188}00188             NULL,}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00189}00189             0,}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00190}00190             GetVertexAttribFormatDx12(entry),}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00191}00191             0,}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00192}00192             offset,}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00193}00193             D3D12\_INPUT\_CLASSIFICATION\_PER\_VERTEX\_DATA,}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00194}00194             0}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00195}00195         \};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00196}00196 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00197}00197         output.Insert(desc);}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00198}00198 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00199}00199         offset += entry.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a0cefb614716fe1dbc7d11706023eab6a}{size}};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00200}00200     \}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00201}00201 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00202}00202     \textcolor{keywordflow}{return} output;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00203}00203 \}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00204}00204 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00205}00205 D3D12\_CULL\_MODE GraphicsPipelineDx12::GetCullMode(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a30ce77ebba3a46932046ff265f17922c}{PolygonCullMode}} mode)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00206}00206     \textcolor{keywordflow}{switch} (mode) \{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00207}00207     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a30ce77ebba3a46932046ff265f17922cabb2fe5c916efb43aab8cbb68f997d2ee}{PolygonCullMode::FRONT}}:}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00208}00208         \textcolor{keywordflow}{return} D3D12\_CULL\_MODE\_FRONT;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00209}00209     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a30ce77ebba3a46932046ff265f17922ca1dd26f1f1790f0b56d5752fb0fbecef0}{PolygonCullMode::BACK}}:}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00210}00210         \textcolor{keywordflow}{return} D3D12\_CULL\_MODE\_BACK;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00211}00211     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a30ce77ebba3a46932046ff265f17922cab50339a10e1de285ac99d4c3990b8693}{PolygonCullMode::NONE}}:}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00212}00212         \textcolor{keywordflow}{return} D3D12\_CULL\_MODE\_NONE;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00213}00213     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00214}00214         \textcolor{keywordflow}{return} D3D12\_CULL\_MODE\_NONE;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00215}00215     \}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00216}00216 \}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00217}00217 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00218}00218 D3D12\_FILL\_MODE GraphicsPipelineDx12::GetFillMode(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a9bf4af2a8108b7a3939f60c4efafcfd8}{PolygonMode}} mode)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00219}00219     \textcolor{keywordflow}{switch} (mode) \{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00220}00220     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a9bf4af2a8108b7a3939f60c4efafcfd8ae8225b11842409df543692aebed34fd1}{PolygonMode::FILL}}:}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00221}00221         \textcolor{keywordflow}{return} D3D12\_FILL\_MODE\_SOLID;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00222}00222     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a9bf4af2a8108b7a3939f60c4efafcfd8a17b8ef2c330f1430e00c9de5469fc7e7}{PolygonMode::LINE}}:}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00223}00223         \textcolor{keywordflow}{return} D3D12\_FILL\_MODE\_WIREFRAME;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00224}00224     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00225}00225         \textcolor{keywordflow}{return} D3D12\_FILL\_MODE\_SOLID;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00226}00226     \}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_dx12_8cpp_source_l00227}00227 \}}
+
+\end{DoxyCode}

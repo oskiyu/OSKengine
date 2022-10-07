@@ -1,0 +1,9 @@
+digraph "OSK::GRAPHICS::PipelineLayoutDx12"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="OSK::GRAPHICS::PipelineLayoutDx12",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::GRAPHICS::IPipeline\lLayout",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html",tooltip="Un pipeline layout define el layout del pipeline, es decir: define qué recursos necesita para el rend..."];
+}

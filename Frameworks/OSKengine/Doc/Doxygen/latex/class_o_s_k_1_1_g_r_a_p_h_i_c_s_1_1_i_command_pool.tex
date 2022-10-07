@@ -1,0 +1,96 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::ICommand\+Pool}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool}\index{OSK::GRAPHICS::ICommandPool@{OSK::GRAPHICS::ICommandPool}}
+
+
+{\ttfamily \#include $<$ICommand\+Pool.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::ICommand\+Pool
+% FIG 0
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a19bf7e6bd1cdc186d87287880adc43d3}{$\sim$\+ICommand\+Pool}} ()=default
+\item 
+virtual \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a9521df93202d6cc54715a70582436d52}{Create\+Command\+List}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} \&device)=0
+\item 
+virtual \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a6d7c4775e1c1a11dcb08a1e8d3aec8cc}{Create\+Single\+Time\+Command\+List}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} \&device)=0
+\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool}{ICommand\+Pool}}, T$>$}\\T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a3b603fec5d827e9b225815739557dbbf}{As}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Una pool de comandos se encarga de crear una serie de listas de comandos. Al mismo tiempo, al destruir el pool se destruirán cada una de las listas creadas por el pool. 
+
+Definición en la línea \mbox{\hyperlink{_i_command_pool_8h_source_l00016}{16}} del archivo \mbox{\hyperlink{_i_command_pool_8h_source}{ICommand\+Pool.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a19bf7e6bd1cdc186d87287880adc43d3}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a19bf7e6bd1cdc186d87287880adc43d3}} 
+\index{OSK::GRAPHICS::ICommandPool@{OSK::GRAPHICS::ICommandPool}!````~ICommandPool@{$\sim$ICommandPool}}
+\index{````~ICommandPool@{$\sim$ICommandPool}!OSK::GRAPHICS::ICommandPool@{OSK::GRAPHICS::ICommandPool}}
+\doxysubsubsection{\texorpdfstring{$\sim$ICommandPool()}{~ICommandPool()}}
+{\footnotesize\ttfamily virtual OSK\+::\+GRAPHICS\+::\+ICommand\+Pool\+::$\sim$\+ICommand\+Pool (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a3b603fec5d827e9b225815739557dbbf}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a3b603fec5d827e9b225815739557dbbf}} 
+\index{OSK::GRAPHICS::ICommandPool@{OSK::GRAPHICS::ICommandPool}!As@{As}}
+\index{As@{As}!OSK::GRAPHICS::ICommandPool@{OSK::GRAPHICS::ICommandPool}}
+\doxysubsubsection{\texorpdfstring{As()}{As()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool}{ICommand\+Pool}}, T$>$\\
+T $\ast$ OSK\+::\+GRAPHICS\+::\+ICommand\+Pool\+::\+As (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_pool_8h_source_l00034}{34}} del archivo \mbox{\hyperlink{_i_command_pool_8h_source}{ICommand\+Pool.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a9521df93202d6cc54715a70582436d52}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a9521df93202d6cc54715a70582436d52}} 
+\index{OSK::GRAPHICS::ICommandPool@{OSK::GRAPHICS::ICommandPool}!CreateCommandList@{CreateCommandList}}
+\index{CreateCommandList@{CreateCommandList}!OSK::GRAPHICS::ICommandPool@{OSK::GRAPHICS::ICommandPool}}
+\doxysubsubsection{\texorpdfstring{CreateCommandList()}{CreateCommandList()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ OSK\+::\+GRAPHICS\+::\+ICommand\+Pool\+::\+Create\+Command\+List (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} \&}]{device }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Crea una lista de comandos. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em device} & GPU donde se alamcenarán las listas.\\
+\hline
+\end{DoxyParams}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12_a7730827f38174764f2dfd3b3e20aedee}{OSK\+::\+GRAPHICS\+::\+Command\+Pool\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_ac8829c0b300a62f250d066cfc27df817}{OSK\+::\+GRAPHICS\+::\+Command\+Pool\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a6d7c4775e1c1a11dcb08a1e8d3aec8cc}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a6d7c4775e1c1a11dcb08a1e8d3aec8cc}} 
+\index{OSK::GRAPHICS::ICommandPool@{OSK::GRAPHICS::ICommandPool}!CreateSingleTimeCommandList@{CreateSingleTimeCommandList}}
+\index{CreateSingleTimeCommandList@{CreateSingleTimeCommandList}!OSK::GRAPHICS::ICommandPool@{OSK::GRAPHICS::ICommandPool}}
+\doxysubsubsection{\texorpdfstring{CreateSingleTimeCommandList()}{CreateSingleTimeCommandList()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ OSK\+::\+GRAPHICS\+::\+ICommand\+Pool\+::\+Create\+Single\+Time\+Command\+List (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} \&}]{device }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Crea una lista de comandos de un sólo uso. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em device} & GPU donde se alamcenarán las listas.\\
+\hline
+\end{DoxyParams}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12_a921a33ea7ce0f46139e7575660871474}{OSK\+::\+GRAPHICS\+::\+Command\+Pool\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_a1659d7dba6960737071aeb2cac4256f1}{OSK\+::\+GRAPHICS\+::\+Command\+Pool\+Vulkan}}.
+
+
+
+La documentación para esta clase fue generada a partir del siguiente fichero\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_i_command_pool_8h}{ICommand\+Pool.\+h}}\end{DoxyCompactItemize}

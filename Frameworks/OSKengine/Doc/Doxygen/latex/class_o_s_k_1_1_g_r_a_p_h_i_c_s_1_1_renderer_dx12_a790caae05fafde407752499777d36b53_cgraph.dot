@@ -1,0 +1,16 @@
+digraph "OSK::GRAPHICS::RendererDx12::CreateCommandQueues"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::RendererDx12\l::CreateCommandQueues",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="GetDevice",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e",tooltip=" "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="OSK::Engine::GetLogger",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="OSK::IO::Logger::InfoLog",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_logger.html#a3d2a88ffa05f6a74f9d669f1182bacca",tooltip="Manda un mensaje de información."];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="OSK::IO::Logger::Log",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_logger.html#ac2af30faaa120261990f4deb1b566e7b",tooltip="Manda un mensaje por el logger."];
+}

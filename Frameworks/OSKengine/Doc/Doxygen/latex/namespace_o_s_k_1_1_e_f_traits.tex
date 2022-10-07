@@ -1,0 +1,124 @@
+\hypertarget{namespace_o_s_k_1_1_e_f_traits}{}\doxysection{Referencia del Namespace OSK\+::EFTraits}
+\label{namespace_o_s_k_1_1_e_f_traits}\index{OSK::EFTraits@{OSK::EFTraits}}
+\doxysubsection*{Concepts}
+\begin{DoxyCompactItemize}
+\item 
+concept \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{Is\+Enum}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\constexpr bool \mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a0ff8b6034acc94d42d63922fcf45cb07}{Is\+Enum\+Flag}} (T)
+\item 
+{\footnotesize template$<$typename TEnum $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$TEnum$>$}\\constexpr bool \mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{Has\+Flag}} (TEnum value, TEnum flag)
+\item 
+{\footnotesize template$<$typename TEnum $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$TEnum$>$}\\constexpr void \mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_aaa9d8f73148fc7211f6713016bbab4aa}{Add\+Flag}} (TEnum $\ast$value, TEnum flag)
+\item 
+{\footnotesize template$<$typename TEnum $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$TEnum$>$}\\constexpr void \mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a1d703d4f4c9fb9abe1ab4905b9a6c458}{Remove\+Flag}} (TEnum $\ast$value, TEnum flag)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Permite la manipulación de enum class como flags de un enum. 
+
+\doxysubsection{Documentación de las funciones}
+\mbox{\Hypertarget{namespace_o_s_k_1_1_e_f_traits_aaa9d8f73148fc7211f6713016bbab4aa}\label{namespace_o_s_k_1_1_e_f_traits_aaa9d8f73148fc7211f6713016bbab4aa}} 
+\index{OSK::EFTraits@{OSK::EFTraits}!AddFlag@{AddFlag}}
+\index{AddFlag@{AddFlag}!OSK::EFTraits@{OSK::EFTraits}}
+\doxysubsubsection{\texorpdfstring{AddFlag()}{AddFlag()}}
+{\footnotesize\ttfamily template$<$typename TEnum $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$TEnum$>$\\
+constexpr void OSK\+::\+EFTraits\+::\+Add\+Flag (\begin{DoxyParamCaption}\item[{TEnum $\ast$}]{value,  }\item[{TEnum}]{flag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Añade un flag al enum dado. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em value} & Puntero al enum que se va a modificar.\\
+\hline
+{\em flag} & Flag que se va a añadir.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_enum_flags_8hpp_source_l00086}{86}} del archivo \mbox{\hyperlink{_enum_flags_8hpp_source}{Enum\+Flags.\+hpp}}.
+
+\mbox{\Hypertarget{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}\label{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}} 
+\index{OSK::EFTraits@{OSK::EFTraits}!HasFlag@{HasFlag}}
+\index{HasFlag@{HasFlag}!OSK::EFTraits@{OSK::EFTraits}}
+\doxysubsubsection{\texorpdfstring{HasFlag()}{HasFlag()}}
+{\footnotesize\ttfamily template$<$typename TEnum $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$TEnum$>$\\
+constexpr bool OSK\+::\+EFTraits\+::\+Has\+Flag (\begin{DoxyParamCaption}\item[{TEnum}]{value,  }\item[{TEnum}]{flag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Devuelve true si el enum \textquotesingle{}value\textquotesingle{} tiene la flag \textquotesingle{}flag\textquotesingle{}. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em value} & Enum a comrpobar.\\
+\hline
+{\em flag} & Flag que el enum debe tener para devolver true.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_enum_flags_8hpp_source_l00075}{75}} del archivo \mbox{\hyperlink{_enum_flags_8hpp_source}{Enum\+Flags.\+hpp}}.
+
+\mbox{\Hypertarget{namespace_o_s_k_1_1_e_f_traits_a0ff8b6034acc94d42d63922fcf45cb07}\label{namespace_o_s_k_1_1_e_f_traits_a0ff8b6034acc94d42d63922fcf45cb07}} 
+\index{OSK::EFTraits@{OSK::EFTraits}!IsEnumFlag@{IsEnumFlag}}
+\index{IsEnumFlag@{IsEnumFlag}!OSK::EFTraits@{OSK::EFTraits}}
+\doxysubsubsection{\texorpdfstring{IsEnumFlag()}{IsEnumFlag()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+constexpr bool OSK\+::\+EFTraits\+::\+Is\+Enum\+Flag (\begin{DoxyParamCaption}\item[{T}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+
+
+\begin{DoxyNote}{Nota}
+Por defecto, cualquier tipo NO se considera un enum flags, al no ser que se especifique lo contrario con OSK\+\_\+\+FLAGS. 
+\end{DoxyNote}
+
+
+
+\begin{DoxyTemplParams}{Parámetros del template}
+{\em T} & Tipo de dato.\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Devuelve}
+Falso, al no ser que se sobreescriba con OSK\+\_\+\+FLAGS.
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_enum_flags_8hpp_source_l00016}{16}} del archivo \mbox{\hyperlink{_enum_flags_8hpp_source}{Enum\+Flags.\+hpp}}.
+
+\mbox{\Hypertarget{namespace_o_s_k_1_1_e_f_traits_a1d703d4f4c9fb9abe1ab4905b9a6c458}\label{namespace_o_s_k_1_1_e_f_traits_a1d703d4f4c9fb9abe1ab4905b9a6c458}} 
+\index{OSK::EFTraits@{OSK::EFTraits}!RemoveFlag@{RemoveFlag}}
+\index{RemoveFlag@{RemoveFlag}!OSK::EFTraits@{OSK::EFTraits}}
+\doxysubsubsection{\texorpdfstring{RemoveFlag()}{RemoveFlag()}}
+{\footnotesize\ttfamily template$<$typename TEnum $>$ \newline
+requires \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK\+::\+EFTraits\+::\+Is\+Enum}}$<$TEnum$>$\\
+constexpr void OSK\+::\+EFTraits\+::\+Remove\+Flag (\begin{DoxyParamCaption}\item[{TEnum $\ast$}]{value,  }\item[{TEnum}]{flag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Elimina un flag del enum dado. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em value} & Puntero al enum que se va a modificar.\\
+\hline
+{\em flag} & Flag que se va a eliminar.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_enum_flags_8hpp_source_l00097}{97}} del archivo \mbox{\hyperlink{_enum_flags_8hpp_source}{Enum\+Flags.\+hpp}}.
+

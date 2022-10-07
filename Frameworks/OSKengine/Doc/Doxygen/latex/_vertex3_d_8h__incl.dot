@@ -1,0 +1,49 @@
+digraph "OSKengine2/Vertex3D.h"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="OSKengine2/Vertex3D.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="Vector2.hpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_vector2_8hpp.html",tooltip=" "];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="glm.hpp",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="Vector3.hpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_vector3_8hpp.html",tooltip=" "];
+  Node4 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="string",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="Vector4.hpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_vector4_8hpp.html",tooltip=" "];
+  Node6 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="Color.hpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_color_8hpp.html",tooltip=" "];
+  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="OSKmacros.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_o_s_kmacros_8h.html",tooltip=" "];
+  Node8 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="stdint.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node8 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="type_traits",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node7 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="VertexInfo.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_vertex_info_8h.html",tooltip=" "];
+  Node11 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="DynamicArray.hpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_dynamic_array_8hpp.html",tooltip=" "];
+  Node12 -> Node13 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="corecrt_memory.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node12 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="malloc.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node12 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node12 -> Node15 [color="midnightblue",fontsize="10",style="solid"];
+  Node15 [label="initializer_list",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node12 -> Node16 [color="midnightblue",fontsize="10",style="solid"];
+  Node16 [label="Assert.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_assert_8h.html",tooltip=" "];
+  Node16 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node16 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node17 [color="midnightblue",fontsize="10",style="solid"];
+  Node17 [label="Vertex.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_vertex_8h.html",tooltip=" "];
+  Node17 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node17 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+}

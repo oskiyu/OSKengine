@@ -1,0 +1,186 @@
+\hypertarget{_i_pipeline_vulkan_8cpp_source}{}\doxysection{IPipeline\+Vulkan.\+cpp}
+\label{_i_pipeline_vulkan_8cpp_source}\index{OSKengine2/IPipelineVulkan.cpp@{OSKengine2/IPipelineVulkan.cpp}}
+\mbox{\hyperlink{_i_pipeline_vulkan_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_pipeline_vulkan_8h}{IPipelineVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_file_i_o_8h}{FileIO.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kengine_8h}{OSKengine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_renderer_8h}{IRenderer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_vulkan_8h}{GpuVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00008}00008 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_shader_binding_type_8h}{ShaderBindingType.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00010}00010 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00011}00011 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00013}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a38531c9df8c72c550803dc8cb7426cf6}{00013}} IPipelineVulkan::\string~IPipelineVulkan() \{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00014}00014     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a88a7f33d91767bab198a06ff5c4055db}{shaderModulesToDelete}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}(); i++)}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00015}00015         vkDestroyShaderModule(\mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>GetGpu()-\/>As<GpuVulkan>()-\/>GetLogicalDevice(),}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00016}00016             \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a88a7f33d91767bab198a06ff5c4055db}{shaderModulesToDelete}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a9691f5eaf46654d59525c6c342d69cbb}{At}}(i), \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00018}00018     vkDestroyPipeline(\mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>GetGpu()-\/>As<GpuVulkan>()-\/>GetLogicalDevice(),}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00019}00019         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a3a162dbe4cabddfd3a63c7fbd3460198}{pipeline}}, \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00020}00020 \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00022}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a434315b6b8e53a7718cb29835d3627c4}{00022}} VkPipeline \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a434315b6b8e53a7718cb29835d3627c4}{IPipelineVulkan::GetPipeline}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00023}00023     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a3a162dbe4cabddfd3a63c7fbd3460198}{pipeline}};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00024}00024 \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00026}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_ad1fca29d5c2e9832579dfb5559865734}{00026}} VkVertexInputBindingDescription \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_ad1fca29d5c2e9832579dfb5559865734}{IPipelineVulkan::GetBindingDescription}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{VertexInfo}}\& info)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00027}00027     VkVertexInputBindingDescription bindingDescription\{\};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00029}00029     \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size = 0;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00030}00030     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& i : info.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_a15eaeeac531672e355aa72bf8bf74ba4}{entries}})}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00031}00031         size += i.size;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00033}00033     bindingDescription.binding = 0;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00034}00034     bindingDescription.stride = size;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00035}00035     bindingDescription.inputRate = VK\_VERTEX\_INPUT\_RATE\_VERTEX;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00037}00037     \textcolor{keywordflow}{return} bindingDescription;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00038}00038 \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00040}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a7da64952ed199b2d82b9ead6e4fbb528}{00040}} VkFormat \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a7da64952ed199b2d82b9ead6e4fbb528}{IPipelineVulkan::GetVertexAttribFormat}}(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry}{VertexInfo::Entry}}\& entry)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00041}00041     \textcolor{keywordflow}{switch} (entry.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a5cf4e4e7fb1c7adf1a4ecd521d6936e8}{type}}) \{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00042}00042 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00043}00043     \textcolor{keywordflow}{case} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a0062a8ce8808345b70e06db4d4b6d3a8a53f93baa3057821107c750323892fa92}{VertexInfo::Entry::Type::INT}}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00044}00044         \textcolor{keywordflow}{if} (entry.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a0cefb614716fe1dbc7d11706023eab6a}{size}} == 2 * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int})) \textcolor{keywordflow}{return} VK\_FORMAT\_R32G32\_SINT;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00045}00045         \textcolor{keywordflow}{if} (entry.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a0cefb614716fe1dbc7d11706023eab6a}{size}} == 3 * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int})) \textcolor{keywordflow}{return} VK\_FORMAT\_R32G32B32\_SINT;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00046}00046         \textcolor{keywordflow}{if} (entry.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a0cefb614716fe1dbc7d11706023eab6a}{size}} == 4 * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int})) \textcolor{keywordflow}{return} VK\_FORMAT\_R32G32B32A32\_SINT;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00048}00048     \textcolor{keywordflow}{case} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a0062a8ce8808345b70e06db4d4b6d3a8ae738c26bf4ce1037fa81b039a915cbf6}{VertexInfo::Entry::Type::FLOAT}}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00049}00049         \textcolor{keywordflow}{if} (entry.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a0cefb614716fe1dbc7d11706023eab6a}{size}} == 2 * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float})) \textcolor{keywordflow}{return} VK\_FORMAT\_R32G32\_SFLOAT;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00050}00050         \textcolor{keywordflow}{if} (entry.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a0cefb614716fe1dbc7d11706023eab6a}{size}} == 3 * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float})) \textcolor{keywordflow}{return} VK\_FORMAT\_R32G32B32\_SFLOAT;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00051}00051         \textcolor{keywordflow}{if} (entry.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_a0cefb614716fe1dbc7d11706023eab6a}{size}} == 4 * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float})) \textcolor{keywordflow}{return} VK\_FORMAT\_R32G32B32A32\_SFLOAT;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00052}00052     \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00054}00054     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(\textcolor{keyword}{false}, \textcolor{stringliteral}{"{}Formato de vértice incorecto."{}});}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00055}00055     \textcolor{keywordflow}{return} VK\_FORMAT\_MAX\_ENUM;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00056}00056 \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00058}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a1d236c2f7cc4330d7cd10bf50828f0a2}{00058}} \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkVertexInputAttributeDescription>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a1d236c2f7cc4330d7cd10bf50828f0a2}{IPipelineVulkan::GetAttributeDescription}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{VertexInfo}}\& info)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00059}00059     \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkVertexInputAttributeDescription>}} output;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00060}00060 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00061}00061     \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} offset = 0;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00062}00062     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < info.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_a15eaeeac531672e355aa72bf8bf74ba4}{entries}}.GetSize(); i++) \{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00063}00063         VkVertexInputAttributeDescription desc\{\};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00065}00065         desc.binding = 0;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00066}00066         desc.location = i;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00067}00067         desc.offset = offset;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00068}00068         desc.format = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a7da64952ed199b2d82b9ead6e4fbb528}{GetVertexAttribFormat}}(info.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_a15eaeeac531672e355aa72bf8bf74ba4}{entries}}.At(i));}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00070}00070         output.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(desc);}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00071}00071 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00072}00072         offset += info.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_a15eaeeac531672e355aa72bf8bf74ba4}{entries}}.At(i).size;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00073}00073     \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00075}00075     \textcolor{keywordflow}{return} output;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00076}00076 \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00078}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a8869f410d6c8cd06729ef34051111770}{00078}} VkPipelineColorBlendAttachmentState \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a8869f410d6c8cd06729ef34051111770}{IPipelineVulkan::GetColorBlendInfo}}(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{PipelineCreateInfo}}\& info)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00079}00079     VkPipelineColorBlendAttachmentState output\{\};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00081}00081     output.colorWriteMask = VK\_COLOR\_COMPONENT\_R\_BIT | VK\_COLOR\_COMPONENT\_G\_BIT | VK\_COLOR\_COMPONENT\_B\_BIT | VK\_COLOR\_COMPONENT\_A\_BIT;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00082}00082     }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00083}00083     output.blendEnable = info.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_a15c6dab63bc5eea84af6aee414d0eb61}{useAlphaBlending}} ? VK\_TRUE : VK\_FALSE;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00085}00085     output.srcColorBlendFactor = VK\_BLEND\_FACTOR\_SRC\_ALPHA;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00086}00086     output.dstColorBlendFactor = VK\_BLEND\_FACTOR\_ONE\_MINUS\_SRC\_ALPHA;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00087}00087     output.colorBlendOp = VK\_BLEND\_OP\_ADD;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00089}00089     output.srcAlphaBlendFactor = VK\_BLEND\_FACTOR\_SRC\_ALPHA;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00090}00090     output.dstAlphaBlendFactor = VK\_BLEND\_FACTOR\_ONE\_MINUS\_SRC\_ALPHA;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00091}00091     output.alphaBlendOp = VK\_BLEND\_OP\_ADD;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00093}00093     \textcolor{keywordflow}{return} output;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00094}00094 \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00095}00095 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00096}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a159fb5ed00ff8e84b3dc5afbed632533}{00096}} VkPolygonMode \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a159fb5ed00ff8e84b3dc5afbed632533}{IPipelineVulkan::GetPolygonMode}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a9bf4af2a8108b7a3939f60c4efafcfd8}{PolygonMode}} mode)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00097}00097     \textcolor{keywordflow}{switch} (mode) \{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00098}00098     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a9bf4af2a8108b7a3939f60c4efafcfd8ae8225b11842409df543692aebed34fd1}{PolygonMode::FILL}}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00099}00099         \textcolor{keywordflow}{return} VK\_POLYGON\_MODE\_FILL;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00100}00100     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a9bf4af2a8108b7a3939f60c4efafcfd8a17b8ef2c330f1430e00c9de5469fc7e7}{PolygonMode::LINE}}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00101}00101         \textcolor{keywordflow}{return} VK\_POLYGON\_MODE\_LINE;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00102}00102     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00103}00103         \textcolor{keywordflow}{return} VK\_POLYGON\_MODE\_FILL;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00104}00104     \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00105}00105 \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00107}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_af1066b5ae98ebd35e258e74e92df52cd}{00107}} VkCullModeFlagBits \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_af1066b5ae98ebd35e258e74e92df52cd}{IPipelineVulkan::GetCullMode}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a30ce77ebba3a46932046ff265f17922c}{PolygonCullMode}} mode)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00108}00108     \textcolor{keywordflow}{switch} (mode) \{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00109}00109     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a30ce77ebba3a46932046ff265f17922cabb2fe5c916efb43aab8cbb68f997d2ee}{PolygonCullMode::FRONT}}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00110}00110         \textcolor{keywordflow}{return} VK\_CULL\_MODE\_FRONT\_BIT;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00111}00111     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a30ce77ebba3a46932046ff265f17922ca1dd26f1f1790f0b56d5752fb0fbecef0}{PolygonCullMode::BACK}}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00112}00112         \textcolor{keywordflow}{return} VK\_CULL\_MODE\_BACK\_BIT;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00113}00113     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a30ce77ebba3a46932046ff265f17922cab50339a10e1de285ac99d4c3990b8693}{PolygonCullMode::NONE}}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00114}00114         \textcolor{keywordflow}{return} VK\_CULL\_MODE\_NONE;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00115}00115     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00116}00116         \textcolor{keywordflow}{return} VK\_CULL\_MODE\_FRONT\_AND\_BACK;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00117}00117     \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00118}00118 \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00119}00119 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00120}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_ae41b5dcf574ef685c90a220eb3208e58}{00120}} VkFrontFace \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_ae41b5dcf574ef685c90a220eb3208e58}{IPipelineVulkan::GetFrontFaceMode}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad6329cdca67793d3a3ffec0de1fab44c}{PolygonFrontFaceType}} type)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00121}00121     \textcolor{keywordflow}{switch} (type) \{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00122}00122     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad6329cdca67793d3a3ffec0de1fab44cacfe39a5621dfe382d2991f32c4ae08da}{PolygonFrontFaceType::CLOCKWISE}}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00123}00123         \textcolor{keywordflow}{return} VK\_FRONT\_FACE\_CLOCKWISE;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00124}00124     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad6329cdca67793d3a3ffec0de1fab44cab437c6ed212434e8984c403374fe494c}{PolygonFrontFaceType::COUNTERCLOCKWISE}}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00125}00125         \textcolor{keywordflow}{return} VK\_FRONT\_FACE\_COUNTER\_CLOCKWISE;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00126}00126     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00127}00127         \textcolor{keywordflow}{return} VK\_FRONT\_FACE\_CLOCKWISE;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00128}00128     \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00129}00129 \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00131}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a7c31868f25b7d33d3d9b3688b865b055}{00131}} VkShaderStageFlagBits \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a7c31868f25b7d33d3d9b3688b865b055}{IPipelineVulkan::GetShaderStageVk}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcb}{ShaderStage}} stage)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00132}00132     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(stage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba0c3e47aef93a7f244f41ab309a33634b}{ShaderStage::VERTEX}}))}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00133}00133         \textcolor{keywordflow}{return} VK\_SHADER\_STAGE\_VERTEX\_BIT;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00134}00134     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(stage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba7345a249ed5c2f850d85dc1727c24716}{ShaderStage::FRAGMENT}}))}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00135}00135         \textcolor{keywordflow}{return} VK\_SHADER\_STAGE\_FRAGMENT\_BIT;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00136}00136     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(stage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcbaf448507fb26809d25c13899dfc57e230}{ShaderStage::TESSELATION\_CONTROL}}))}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00137}00137         \textcolor{keywordflow}{return} VK\_SHADER\_STAGE\_TESSELLATION\_CONTROL\_BIT;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00138}00138     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(stage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba9196126eff57d73bb45dc36a6367e58d}{ShaderStage::TESSELATION\_EVALUATION}}))}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00139}00139         \textcolor{keywordflow}{return} VK\_SHADER\_STAGE\_TESSELLATION\_EVALUATION\_BIT;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00140}00140 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00141}00141     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(stage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba949f4e4e16184d8e16e4125517a1c6c3}{ShaderStage::RT\_RAYGEN}}))}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00142}00142         \textcolor{keywordflow}{return} VK\_SHADER\_STAGE\_RAYGEN\_BIT\_KHR;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00143}00143     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(stage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcbaee8f06a600f854fc2cd6d6fc69089b6d}{ShaderStage::RT\_CLOSEST\_HIT}}))}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00144}00144         \textcolor{keywordflow}{return} VK\_SHADER\_STAGE\_CLOSEST\_HIT\_BIT\_KHR;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00145}00145     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(stage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcbaa81021d99de178d7979c2c96b7e3e47d}{ShaderStage::RT\_MISS}}))}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00146}00146         \textcolor{keywordflow}{return} VK\_SHADER\_STAGE\_MISS\_BIT\_KHR;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00147}00147 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00148}00148     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(stage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcbaac404d7ce6ca5862e9b8a2641fbafd90}{ShaderStage::COMPUTE}}))}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00149}00149         \textcolor{keywordflow}{return} VK\_SHADER\_STAGE\_COMPUTE\_BIT;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00150}00150     }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00151}00151     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(\textcolor{keyword}{false}, \textcolor{stringliteral}{"{}No se reconoce el shader stage "{}} + ToString<ShaderStage>(stage));}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00152}00152     \textcolor{keywordflow}{return} VK\_SHADER\_STAGE\_ALL;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00153}00153 \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00154}00154 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00155}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a4b808c2d306123a3873ed5ae703b5d92}{00155}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vulkan}{ShaderStageVulkan}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a4b808c2d306123a3873ed5ae703b5d92}{IPipelineVulkan::LoadShader}}(\textcolor{keyword}{const} std::string\& path, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcb}{ShaderStage}} stage) \{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00156}00156     \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vulkan}{ShaderStageVulkan}} output\{\};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00157}00157 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00158}00158     \textcolor{comment}{// Lee el código SPIR-\/V.}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00159}00159     \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<char>}} code = \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_file_i_o_aee26ea7c3ddf90ed6b0c3043f968c9d5}{IO::FileIO::ReadBinaryFromFile}}(path);}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00160}00160 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00161}00161     VkShaderModuleCreateInfo createInfo\{\};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00162}00162     createInfo.sType = VK\_STRUCTURE\_TYPE\_SHADER\_MODULE\_CREATE\_INFO;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00163}00163     createInfo.codeSize = code.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}();}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00164}00164     createInfo.pCode = \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }uint32\_t*\textcolor{keyword}{>}(code.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_ac8a6d70f938c482e1f7aa68c7d186bb8}{GetData}}());}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00165}00165 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00166}00166     VkResult result = vkCreateShaderModule(\mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>GetGpu()-\/>As<GpuVulkan>()-\/>GetLogicalDevice(),}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00167}00167         \&createInfo, \textcolor{keyword}{nullptr}, \&output.shaderModule);}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00168}00168     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(result == VK\_SUCCESS, \textcolor{stringliteral}{"{}No se ha podido cargar el tesselation control shader."{}});}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00169}00169 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00170}00170     \textcolor{comment}{// Insertar el stage en el array, para poder insertarlo al crear el pipeline.}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00171}00171     output.shaderCreateInfo.sType = VK\_STRUCTURE\_TYPE\_PIPELINE\_SHADER\_STAGE\_CREATE\_INFO;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00172}00172     output.shaderCreateInfo.stage = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a7c31868f25b7d33d3d9b3688b865b055}{GetShaderStageVk}}(stage);}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00173}00173     output.shaderCreateInfo.module = output.shaderModule;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00174}00174     output.shaderCreateInfo.pName = \textcolor{stringliteral}{"{}main"{}};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00175}00175 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00176}00176     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a5728bbde8c17e0366bcf0dfe6dbcccdf}{shaderStagesInfo}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(output.shaderCreateInfo);}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00177}00177     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan_a88a7f33d91767bab198a06ff5c4055db}{shaderModulesToDelete}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(output.shaderModule);}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00178}00178 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00179}00179     \textcolor{keywordflow}{return} output;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_vulkan_8cpp_source_l00180}00180 \}}
+
+\end{DoxyCode}

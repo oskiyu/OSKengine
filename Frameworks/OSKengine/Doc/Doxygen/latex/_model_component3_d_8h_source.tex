@@ -1,0 +1,67 @@
+\hypertarget{_model_component3_d_8h_source}{}\doxysection{Model\+Component3\+D.\+h}
+\label{_model_component3_d_8h_source}\index{OSKengine2/ModelComponent3D.h@{OSKengine2/ModelComponent3D.h}}
+\mbox{\hyperlink{_model_component3_d_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_component_8h}{Component.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_owned_ptr_8h}{OwnedPtr.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_dynamic_array_8hpp}{DynamicArray.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_hash_map_8hpp}{HashMap.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00008}00008 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00010}00010 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}} \{}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00011}00011     \textcolor{keyword}{namespace }ASSETS \{}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00012}00012         \textcolor{keyword}{class }Model3D;}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00013}00013         \textcolor{keyword}{class }Texture;}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00014}00014     \}}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00015}00015     \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aad769de4b6a68624571ab3ae7ec13f97a6f49448c79d7d58c6e60cf7129b84d1c}{GRAPHICS}} \{}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00016}00016         \textcolor{keyword}{class }Material;}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00017}00017         \textcolor{keyword}{class }MaterialInstance;}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00018}00018         \textcolor{keyword}{class }GpuImage;}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00019}00019         \textcolor{keyword}{class }IGpuUniformBuffer;}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00020}00020     \}}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00021}00021 \}}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00023}00023 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s}{OSK::ECS}} \{}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00033}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_model_component3_d}{00033}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_model_component3_d}{ModelComponent3D}} \{}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00035}00035     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00037}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_model_component3_d_a8fd566d9156bf9241240e50629ec459f}{00037}}         \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_model_component3_d_a8fd566d9156bf9241240e50629ec459f}{OSK\_COMPONENT}}(\textcolor{stringliteral}{"{}OSK::ModelComponent3D"{}});}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00039}00039         \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_model_component3_d}{\string~ModelComponent3D}}();}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00047}00047         \textcolor{keywordtype}{void} SetModel(\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d}{ASSETS::Model3D}}* model);}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00056}00056         \textcolor{keywordtype}{void} SetMaterial(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{GRAPHICS::Material}}* material);}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00058}00058         \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d}{ASSETS::Model3D}}* GetModel() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00059}00059         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{GRAPHICS::Material}}* GetMaterial() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00060}00060 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00067}00067         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance}{GRAPHICS::MaterialInstance}}* GetMeshMaterialInstance(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} meshId) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00080}00080         \textcolor{keywordtype}{void} BindTextureForAllMeshes(\textcolor{keyword}{const} std::string\& slot, \textcolor{keyword}{const} std::string\& binding, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture}{ASSETS::Texture}}* texture);}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00093}00093         \textcolor{keywordtype}{void} BindGpuImageForAllMeshes(\textcolor{keyword}{const} std::string\& slot, \textcolor{keyword}{const} std::string\& binding, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GRAPHICS::GpuImage}}* image);}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00106}00106         \textcolor{keywordtype}{void} BindUniformBufferForAllMeshes(\textcolor{keyword}{const} std::string\& slot, \textcolor{keyword}{const} std::string\& binding, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer}{GRAPHICS::IGpuUniformBuffer}}* buffer);}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00107}00107 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00108}00108     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00109}00109 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00110}00110         \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d}{ASSETS::Model3D}}* model = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00111}00111         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{GRAPHICS::Material}}* material = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00113}00113         \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<OwnedPtr<GRAPHICS::MaterialInstance>}}> meshesMaterialInstances;}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00114}00114 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00115}00115         \mbox{\hyperlink{class_o_s_k_1_1_hash_map}{HashMap<Pair<std::string, std::string>}}, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture}{ASSETS::Texture}}*> texturesBound;}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00116}00116         \mbox{\hyperlink{class_o_s_k_1_1_hash_map}{HashMap<Pair<std::string, std::string>}}, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GRAPHICS::GpuImage}}*> imagesBound;}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00117}00117         \mbox{\hyperlink{class_o_s_k_1_1_hash_map}{HashMap<Pair<std::string, std::string>}}, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer}{GRAPHICS::IGpuUniformBuffer}}*> uniformBuffersBound;}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00118}00118 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00119}00119     \};}
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00120}00120 }
+\DoxyCodeLine{\Hypertarget{_model_component3_d_8h_source_l00121}00121 \}}
+
+\end{DoxyCode}

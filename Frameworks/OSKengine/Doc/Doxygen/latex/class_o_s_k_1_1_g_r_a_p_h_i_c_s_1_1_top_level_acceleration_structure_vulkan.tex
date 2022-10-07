@@ -1,0 +1,148 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::Top\+Level\+Acceleration\+Structure\+Vulkan}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan}\index{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan@{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan}}
+
+
+{\ttfamily \#include $<$Top\+Level\+Acceleration\+Structure\+Vulkan.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::Top\+Level\+Acceleration\+Structure\+Vulkan
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::Top\+Level\+Acceleration\+Structure\+Vulkan\+:
+% FIG 1
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan_acf12f2af1b1dda211b5c482022a686da}{Setup}} () override
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan_a854f74c3dac32effb17f950ae95957a6}{Update}} () override
+\item 
+Vk\+Acceleration\+Structure\+KHR \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan_a9c808fd39edd637690d4d1b019ec2571}{Get\+Acceleration\+Structure}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure_ad4285d619a4c129b5b85ec31c8b24487}{OSK\+\_\+\+DEFINE\+\_\+\+AS}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure}{ITop\+Level\+Acceleration\+Structure}})
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure_a8055b28d6c3279175f3d5b6f810b2232}{Add\+Bottom\+Level\+Acceleration\+Structure}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{IBottom\+Level\+Acceleration\+Structure}} $\ast$blas)
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{IBottom\+Level\+Acceleration\+Structure}} $\ast$ $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure_a78734acdf7ee644938266f2f5909bfec}{blass}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+
+
+Definición en la línea \mbox{\hyperlink{_top_level_acceleration_structure_vulkan_8h_source_l00012}{12}} del archivo \mbox{\hyperlink{_top_level_acceleration_structure_vulkan_8h_source}{Top\+Level\+Acceleration\+Structure\+Vulkan.\+h}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure_a8055b28d6c3279175f3d5b6f810b2232}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure_a8055b28d6c3279175f3d5b6f810b2232}} 
+\index{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan@{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan}!AddBottomLevelAccelerationStructure@{AddBottomLevelAccelerationStructure}}
+\index{AddBottomLevelAccelerationStructure@{AddBottomLevelAccelerationStructure}!OSK::GRAPHICS::TopLevelAccelerationStructureVulkan@{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan}}
+\doxysubsubsection{\texorpdfstring{AddBottomLevelAccelerationStructure()}{AddBottomLevelAccelerationStructure()}}
+{\footnotesize\ttfamily void ITop\+Level\+Acceleration\+Structure\+::\+Add\+Bottom\+Level\+Acceleration\+Structure (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{IBottom\+Level\+Acceleration\+Structure}} $\ast$}]{blas }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Añade una estructura de nivel bajo a la estructura de nivel alto. 
+
+\begin{DoxyNote}{Nota}
+Añadirla después de llamar a \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure_a38a3541235fbb79778dd9513e78f070d}{ITop\+Level\+Acceleration\+Structure\+::\+Setup}} no hará nada. 
+
+No se añadirá propiamente a la estructura de nivel superior hasta que se llame a \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure_a38a3541235fbb79778dd9513e78f070d}{ITop\+Level\+Acceleration\+Structure\+::\+Setup}}. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_i_top_level_acceleration_structure_8cpp_source_l00006}{6}} del archivo \mbox{\hyperlink{_i_top_level_acceleration_structure_8cpp_source}{ITop\+Level\+Acceleration\+Structure.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan_a9c808fd39edd637690d4d1b019ec2571}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan_a9c808fd39edd637690d4d1b019ec2571}} 
+\index{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan@{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan}!GetAccelerationStructure@{GetAccelerationStructure}}
+\index{GetAccelerationStructure@{GetAccelerationStructure}!OSK::GRAPHICS::TopLevelAccelerationStructureVulkan@{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan}}
+\doxysubsubsection{\texorpdfstring{GetAccelerationStructure()}{GetAccelerationStructure()}}
+{\footnotesize\ttfamily Vk\+Acceleration\+Structure\+KHR Top\+Level\+Acceleration\+Structure\+Vulkan\+::\+Get\+Acceleration\+Structure (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_top_level_acceleration_structure_vulkan_8cpp_source_l00175}{175}} del archivo \mbox{\hyperlink{_top_level_acceleration_structure_vulkan_8cpp_source}{Top\+Level\+Acceleration\+Structure\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure_ad4285d619a4c129b5b85ec31c8b24487}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure_ad4285d619a4c129b5b85ec31c8b24487}} 
+\index{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan@{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan}!OSK\_DEFINE\_AS@{OSK\_DEFINE\_AS}}
+\index{OSK\_DEFINE\_AS@{OSK\_DEFINE\_AS}!OSK::GRAPHICS::TopLevelAccelerationStructureVulkan@{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan}}
+\doxysubsubsection{\texorpdfstring{OSK\_DEFINE\_AS()}{OSK\_DEFINE\_AS()}}
+{\footnotesize\ttfamily OSK\+::\+GRAPHICS\+::\+ITop\+Level\+Acceleration\+Structure\+::\+OSK\+\_\+\+DEFINE\+\_\+\+AS (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure}{ITop\+Level\+Acceleration\+Structure}}}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan_acf12f2af1b1dda211b5c482022a686da}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan_acf12f2af1b1dda211b5c482022a686da}} 
+\index{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan@{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan}!Setup@{Setup}}
+\index{Setup@{Setup}!OSK::GRAPHICS::TopLevelAccelerationStructureVulkan@{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan}}
+\doxysubsubsection{\texorpdfstring{Setup()}{Setup()}}
+{\footnotesize\ttfamily void Top\+Level\+Acceleration\+Structure\+Vulkan\+::\+Setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea la estructura de aceleración. 
+
+\begin{DoxyPrecond}{Precondición}
+Debe haber al menos una estructura \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{IBottom\+Level\+Acceleration\+Structure}} registrada (se debe haber llamado a IBottom\+Level\+Acceleration\+Structure\+::\+Add\+Bottom\+Level\+Acceleration\+Structure al menos una vez). 
+
+Todas las estructuras de aceleración de nivel inferior deben haber sido correctamente creadas.
+\end{DoxyPrecond}
+\begin{DoxyRefDesc}{Tareas pendientes}
+\item[\mbox{\hyperlink{todo__todo000015}{Tareas pendientes}}]Implementación en DX12. \end{DoxyRefDesc}
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure_a38a3541235fbb79778dd9513e78f070d}{OSK\+::\+GRAPHICS\+::\+ITop\+Level\+Acceleration\+Structure}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_top_level_acceleration_structure_vulkan_8cpp_source_l00016}{16}} del archivo \mbox{\hyperlink{_top_level_acceleration_structure_vulkan_8cpp_source}{Top\+Level\+Acceleration\+Structure\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan_a854f74c3dac32effb17f950ae95957a6}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan_a854f74c3dac32effb17f950ae95957a6}} 
+\index{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan@{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan}!Update@{Update}}
+\index{Update@{Update}!OSK::GRAPHICS::TopLevelAccelerationStructureVulkan@{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Top\+Level\+Acceleration\+Structure\+Vulkan\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Actualiza la estructura de aceleración, para que refleje los cambios producidos en las estructuras de nivel inferior. 
+
+\begin{DoxyPrecond}{Precondición}
+Esta estructura debe haber sido correctamente creada llamando a \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure_a38a3541235fbb79778dd9513e78f070d}{ITop\+Level\+Acceleration\+Structure\+::\+Setup}}.
+\end{DoxyPrecond}
+\begin{DoxyRefDesc}{Tareas pendientes}
+\item[\mbox{\hyperlink{todo__todo000016}{Tareas pendientes}}]Implementación en DX12. \end{DoxyRefDesc}
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure_ad7223ca05f358dd3aa82d53cf20f6dfa}{OSK\+::\+GRAPHICS\+::\+ITop\+Level\+Acceleration\+Structure}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_top_level_acceleration_structure_vulkan_8cpp_source_l00127}{127}} del archivo \mbox{\hyperlink{_top_level_acceleration_structure_vulkan_8cpp_source}{Top\+Level\+Acceleration\+Structure\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 3
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure_a78734acdf7ee644938266f2f5909bfec}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure_a78734acdf7ee644938266f2f5909bfec}} 
+\index{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan@{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan}!blass@{blass}}
+\index{blass@{blass}!OSK::GRAPHICS::TopLevelAccelerationStructureVulkan@{OSK::GRAPHICS::TopLevelAccelerationStructureVulkan}}
+\doxysubsubsection{\texorpdfstring{blass}{blass}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{IBottom\+Level\+Acceleration\+Structure}}$\ast$$>$ OSK\+::\+GRAPHICS\+::\+ITop\+Level\+Acceleration\+Structure\+::blass\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_top_level_acceleration_structure_8h_source_l00053}{53}} del archivo \mbox{\hyperlink{_i_top_level_acceleration_structure_8h_source}{ITop\+Level\+Acceleration\+Structure.\+h}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_top_level_acceleration_structure_vulkan_8h}{Top\+Level\+Acceleration\+Structure\+Vulkan.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_top_level_acceleration_structure_vulkan_8cpp}{Top\+Level\+Acceleration\+Structure\+Vulkan.\+cpp}}\end{DoxyCompactItemize}

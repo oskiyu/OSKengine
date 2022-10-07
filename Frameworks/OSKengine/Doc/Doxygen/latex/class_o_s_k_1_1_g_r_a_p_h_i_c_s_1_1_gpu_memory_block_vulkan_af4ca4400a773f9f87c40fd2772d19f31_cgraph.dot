@@ -1,0 +1,14 @@
+digraph "OSK::GRAPHICS::GpuMemoryBlockVulkan::~GpuMemoryBlockVulkan"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::GpuMemory\lBlockVulkan::~GpuMemoryBlock\lVulkan",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::GRAPHICS::GpuMemory\lBlockVulkan::Free",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html#abcd02c8fe025cf4af34254f1ca692ce2",tooltip="Libera la memoria."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="OSK::GRAPHICS::IGpu::As",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#a1b0e5d22fed49696034d38442892121c",tooltip="Castea la clase al tipo dado."];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="OSK::GRAPHICS::GpuVulkan\l::GetLogicalDevice",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#a9f3d2735d7bb54ecb4056d5284cb686f",tooltip=" "];
+}

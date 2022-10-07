@@ -1,0 +1,280 @@
+\hypertarget{class_o_s_k_1_1_constexpr_bit_set}{}\doxysection{Referencia de la plantilla de la Clase OSK\+::Constexpr\+Bit\+Set\texorpdfstring{$<$}{<} size \texorpdfstring{$>$}{>}}
+\label{class_o_s_k_1_1_constexpr_bit_set}\index{OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}}
+
+
+{\ttfamily \#include $<$Constexpr\+Bit\+Set.\+hpp$>$}
+
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set_a0aac2f4ae767f20718fb4c283952c8c3}{Constexpr\+Bit\+Set}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set_a2ed44d2a40faf6ff664947caf93846b4}{Set\+True}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} index)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set_aa38919327c6e8810f8b2304a2d25ce8b}{Set\+False}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} index)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set_a38329a6523ad679a76be70f2c9faff16}{Set\+Value}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} index, bool value)
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set_a1cfb3e09504658f4bddf67f18ce5f69c}{Get}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} index) const
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set_ac43b194a8c7bb84b4e098770d2314b84}{Get\+Next\+True\+Index}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} initial\+Index=0) const
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set_aaef70ed63eefe042a55d2ad352a86368}{Is\+All\+False}} () const
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set_ad24c35fd64629d2a5cdd55d2a6e3542e}{Is\+All\+True}} () const
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set_a676f02631856b21434e2ee88540add93}{Is\+Compatible}} (const \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set}{Constexpr\+Bit\+Set}} \&other) const
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set_ad2907fb8b5cf843d2d0207124ecd6053}{Get\+Length}} () const
+\item 
+\mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set_a8d016d47a6859f533ed6e7ecfb67e4a1}{Get\+Data}} () const
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set_ace730fdd308ea782b50cb8a2caa48942}{Reset}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+\subsubsection*{template$<$\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size$>$\newline
+class OSK\+::\+Constexpr\+Bit\+Set$<$ size $>$}
+Un bitset representa un array de bits. 
+
+El número de bits está establecido en tiempo de compilación. 
+
+Definición en la línea \mbox{\hyperlink{_constexpr_bit_set_8hpp_source_l00014}{14}} del archivo \mbox{\hyperlink{_constexpr_bit_set_8hpp_source}{Constexpr\+Bit\+Set.\+hpp}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_constexpr_bit_set_a0aac2f4ae767f20718fb4c283952c8c3}\label{class_o_s_k_1_1_constexpr_bit_set_a0aac2f4ae767f20718fb4c283952c8c3}} 
+\index{OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}!ConstexprBitSet@{ConstexprBitSet}}
+\index{ConstexprBitSet@{ConstexprBitSet}!OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}}
+\doxysubsubsection{\texorpdfstring{ConstexprBitSet()}{ConstexprBitSet()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size$>$ \\
+\mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set}{OSK\+::\+Constexpr\+Bit\+Set}}$<$ size $>$\+::\+Constexpr\+Bit\+Set (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Crea un bitset. 
+
+\begin{DoxyNote}{Nota}
+El valor de los bits será 0. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_constexpr_bit_set_8hpp_source_l00023}{23}} del archivo \mbox{\hyperlink{_constexpr_bit_set_8hpp_source}{Constexpr\+Bit\+Set.\+hpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 0
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_constexpr_bit_set_a1cfb3e09504658f4bddf67f18ce5f69c}\label{class_o_s_k_1_1_constexpr_bit_set_a1cfb3e09504658f4bddf67f18ce5f69c}} 
+\index{OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}!Get@{Get}}
+\index{Get@{Get}!OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}}
+\doxysubsubsection{\texorpdfstring{Get()}{Get()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size$>$ \\
+bool \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set}{OSK\+::\+Constexpr\+Bit\+Set}}$<$ size $>$\+::\+Get (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Devuelve el valor del bit en la posición dada. 
+
+\begin{DoxyPrecond}{Precondición}
+Debe ser un índice válido (\texorpdfstring{$<$}{<} size). 
+\end{DoxyPrecond}
+
+
+Definición en la línea \mbox{\hyperlink{_constexpr_bit_set_8hpp_source_l00068}{68}} del archivo \mbox{\hyperlink{_constexpr_bit_set_8hpp_source}{Constexpr\+Bit\+Set.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_constexpr_bit_set_a8d016d47a6859f533ed6e7ecfb67e4a1}\label{class_o_s_k_1_1_constexpr_bit_set_a8d016d47a6859f533ed6e7ecfb67e4a1}} 
+\index{OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}!GetData@{GetData}}
+\index{GetData@{GetData}!OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}}
+\doxysubsubsection{\texorpdfstring{GetData()}{GetData()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size$>$ \\
+\mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set}{OSK\+::\+Constexpr\+Bit\+Set}}$<$ size $>$\+::\+Get\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Array con los bits. 
+
+\begin{DoxyNote}{Nota}
+Los bits están almacenados dentro de los bytes. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_constexpr_bit_set_8hpp_source_l00144}{144}} del archivo \mbox{\hyperlink{_constexpr_bit_set_8hpp_source}{Constexpr\+Bit\+Set.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_constexpr_bit_set_ad2907fb8b5cf843d2d0207124ecd6053}\label{class_o_s_k_1_1_constexpr_bit_set_ad2907fb8b5cf843d2d0207124ecd6053}} 
+\index{OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}!GetLength@{GetLength}}
+\index{GetLength@{GetLength}!OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}}
+\doxysubsubsection{\texorpdfstring{GetLength()}{GetLength()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size$>$ \\
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set}{OSK\+::\+Constexpr\+Bit\+Set}}$<$ size $>$\+::\+Get\+Length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Número de bits. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_constexpr_bit_set_8hpp_source_l00135}{135}} del archivo \mbox{\hyperlink{_constexpr_bit_set_8hpp_source}{Constexpr\+Bit\+Set.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_constexpr_bit_set_ac43b194a8c7bb84b4e098770d2314b84}\label{class_o_s_k_1_1_constexpr_bit_set_ac43b194a8c7bb84b4e098770d2314b84}} 
+\index{OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}!GetNextTrueIndex@{GetNextTrueIndex}}
+\index{GetNextTrueIndex@{GetNextTrueIndex}!OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}}
+\doxysubsubsection{\texorpdfstring{GetNextTrueIndex()}{GetNextTrueIndex()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size$>$ \\
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set}{OSK\+::\+Constexpr\+Bit\+Set}}$<$ size $>$\+::\+Get\+Next\+True\+Index (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{initial\+Index = {\ttfamily 0} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Devuelve el índice del siguiente bit en la secuencia que es 1. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em initial\+Index} & Posición desde la que se comienza la búsqueda. Incluido en la búsqueda.\\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyNote}{Nota}
+Si no encuentra ningún bit después del dado, devuelve 0. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_constexpr_bit_set_8hpp_source_l00082}{82}} del archivo \mbox{\hyperlink{_constexpr_bit_set_8hpp_source}{Constexpr\+Bit\+Set.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_constexpr_bit_set_aaef70ed63eefe042a55d2ad352a86368}\label{class_o_s_k_1_1_constexpr_bit_set_aaef70ed63eefe042a55d2ad352a86368}} 
+\index{OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}!IsAllFalse@{IsAllFalse}}
+\index{IsAllFalse@{IsAllFalse}!OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}}
+\doxysubsubsection{\texorpdfstring{IsAllFalse()}{IsAllFalse()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size$>$ \\
+bool \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set}{OSK\+::\+Constexpr\+Bit\+Set}}$<$ size $>$\+::\+Is\+All\+False (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Comprueba si todos los bits valen 0. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_constexpr_bit_set_8hpp_source_l00105}{105}} del archivo \mbox{\hyperlink{_constexpr_bit_set_8hpp_source}{Constexpr\+Bit\+Set.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_constexpr_bit_set_ad24c35fd64629d2a5cdd55d2a6e3542e}\label{class_o_s_k_1_1_constexpr_bit_set_ad24c35fd64629d2a5cdd55d2a6e3542e}} 
+\index{OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}!IsAllTrue@{IsAllTrue}}
+\index{IsAllTrue@{IsAllTrue}!OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}}
+\doxysubsubsection{\texorpdfstring{IsAllTrue()}{IsAllTrue()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size$>$ \\
+bool \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set}{OSK\+::\+Constexpr\+Bit\+Set}}$<$ size $>$\+::\+Is\+All\+True (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Comprueba si todos los bits valen 1. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_constexpr_bit_set_8hpp_source_l00116}{116}} del archivo \mbox{\hyperlink{_constexpr_bit_set_8hpp_source}{Constexpr\+Bit\+Set.\+hpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 1
+\mbox{\Hypertarget{class_o_s_k_1_1_constexpr_bit_set_a676f02631856b21434e2ee88540add93}\label{class_o_s_k_1_1_constexpr_bit_set_a676f02631856b21434e2ee88540add93}} 
+\index{OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}!IsCompatible@{IsCompatible}}
+\index{IsCompatible@{IsCompatible}!OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}}
+\doxysubsubsection{\texorpdfstring{IsCompatible()}{IsCompatible()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size$>$ \\
+bool \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set}{OSK\+::\+Constexpr\+Bit\+Set}}$<$ size $>$\+::\+Is\+Compatible (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set}{Constexpr\+Bit\+Set}}$<$ size $>$ \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Comprueba si el otro bitset tiene en 1 los bits que este tiene en 1. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_constexpr_bit_set_8hpp_source_l00124}{124}} del archivo \mbox{\hyperlink{_constexpr_bit_set_8hpp_source}{Constexpr\+Bit\+Set.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_constexpr_bit_set_ace730fdd308ea782b50cb8a2caa48942}\label{class_o_s_k_1_1_constexpr_bit_set_ace730fdd308ea782b50cb8a2caa48942}} 
+\index{OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}!Reset@{Reset}}
+\index{Reset@{Reset}!OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}}
+\doxysubsubsection{\texorpdfstring{Reset()}{Reset()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size$>$ \\
+void \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set}{OSK\+::\+Constexpr\+Bit\+Set}}$<$ size $>$\+::\+Reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Establece el valor de todos los bits a 0. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_constexpr_bit_set_8hpp_source_l00151}{151}} del archivo \mbox{\hyperlink{_constexpr_bit_set_8hpp_source}{Constexpr\+Bit\+Set.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_constexpr_bit_set_aa38919327c6e8810f8b2304a2d25ce8b}\label{class_o_s_k_1_1_constexpr_bit_set_aa38919327c6e8810f8b2304a2d25ce8b}} 
+\index{OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}!SetFalse@{SetFalse}}
+\index{SetFalse@{SetFalse}!OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}}
+\doxysubsubsection{\texorpdfstring{SetFalse()}{SetFalse()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size$>$ \\
+void \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set}{OSK\+::\+Constexpr\+Bit\+Set}}$<$ size $>$\+::\+Set\+False (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Establece el valor del bit dado a 0. 
+
+\begin{DoxyPrecond}{Precondición}
+Debe ser un índice válido (\texorpdfstring{$<$}{<} size). 
+\end{DoxyPrecond}
+
+
+Definición en la línea \mbox{\hyperlink{_constexpr_bit_set_8hpp_source_l00044}{44}} del archivo \mbox{\hyperlink{_constexpr_bit_set_8hpp_source}{Constexpr\+Bit\+Set.\+hpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_constexpr_bit_set_a2ed44d2a40faf6ff664947caf93846b4}\label{class_o_s_k_1_1_constexpr_bit_set_a2ed44d2a40faf6ff664947caf93846b4}} 
+\index{OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}!SetTrue@{SetTrue}}
+\index{SetTrue@{SetTrue}!OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}}
+\doxysubsubsection{\texorpdfstring{SetTrue()}{SetTrue()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size$>$ \\
+void \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set}{OSK\+::\+Constexpr\+Bit\+Set}}$<$ size $>$\+::\+Set\+True (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Establece el valor del bit dado a 1. 
+
+\begin{DoxyPrecond}{Precondición}
+Debe ser un índice válido (\texorpdfstring{$<$}{<} size). 
+\end{DoxyPrecond}
+
+
+Definición en la línea \mbox{\hyperlink{_constexpr_bit_set_8hpp_source_l00036}{36}} del archivo \mbox{\hyperlink{_constexpr_bit_set_8hpp_source}{Constexpr\+Bit\+Set.\+hpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 3
+\mbox{\Hypertarget{class_o_s_k_1_1_constexpr_bit_set_a38329a6523ad679a76be70f2c9faff16}\label{class_o_s_k_1_1_constexpr_bit_set_a38329a6523ad679a76be70f2c9faff16}} 
+\index{OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}!SetValue@{SetValue}}
+\index{SetValue@{SetValue}!OSK::ConstexprBitSet$<$ size $>$@{OSK::ConstexprBitSet$<$ size $>$}}
+\doxysubsubsection{\texorpdfstring{SetValue()}{SetValue()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size$>$ \\
+void \mbox{\hyperlink{class_o_s_k_1_1_constexpr_bit_set}{OSK\+::\+Constexpr\+Bit\+Set}}$<$ size $>$\+::\+Set\+Value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{index,  }\item[{bool}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Establece el valor del bit en la posición dada. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em index} & Índice del bit.\\
+\hline
+{\em value} & Valor (1 ó 0).\\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyPrecond}{Precondición}
+Debe ser un índice válido (\texorpdfstring{$<$}{<} size). 
+\end{DoxyPrecond}
+
+
+Definición en la línea \mbox{\hyperlink{_constexpr_bit_set_8hpp_source_l00054}{54}} del archivo \mbox{\hyperlink{_constexpr_bit_set_8hpp_source}{Constexpr\+Bit\+Set.\+hpp}}.
+
+
+
+La documentación para esta clase fue generada a partir del siguiente fichero\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_constexpr_bit_set_8hpp}{Constexpr\+Bit\+Set.\+hpp}}\end{DoxyCompactItemize}

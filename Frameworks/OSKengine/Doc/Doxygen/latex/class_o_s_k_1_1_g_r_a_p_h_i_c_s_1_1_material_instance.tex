@@ -1,0 +1,142 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::Material\+Instance}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance}\index{OSK::GRAPHICS::MaterialInstance@{OSK::GRAPHICS::MaterialInstance}}
+
+
+{\ttfamily \#include $<$Material\+Instance.\+h$>$}
+
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_a0f82bba6d8404b11a5a594af377f50d4}{Material\+Instance}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{Material}} $\ast$material)
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_afe0c9e51cb3f5ab3f888f2a1de919b67}{$\sim$\+Material\+Instance}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_a2293d59b8bd0c6c02dfb5cafc41261c0}{Register\+Slot}} (const std\+::string \&name)
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot}{IMaterial\+Slot}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_a0cc12aae6dc313b4c4f24abe461b5f04}{Get\+Slot}} (const std\+::string \&name) const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{Material}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_ac3d9ff9441f2ff807e666f7c067ae1f2}{Get\+Material}} () const
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_a5d7d87b3da1560a7a77fd9b3cafc957f}{Get\+Layout}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Mientras que un \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{Material}} define a grandes rasgos el comportamiento al renderizarse los objetos, un \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance}{Material\+Instance}} permite ajustar el renderizado más finamente, permitiendo asignar qué recursos se envían a los shaders (UNIFORM BUFFER, TEXTURE, etc...). 
+
+Definición en la línea \mbox{\hyperlink{_material_instance_8h_source_l00021}{21}} del archivo \mbox{\hyperlink{_material_instance_8h_source}{Material\+Instance.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_a0f82bba6d8404b11a5a594af377f50d4}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_a0f82bba6d8404b11a5a594af377f50d4}} 
+\index{OSK::GRAPHICS::MaterialInstance@{OSK::GRAPHICS::MaterialInstance}!MaterialInstance@{MaterialInstance}}
+\index{MaterialInstance@{MaterialInstance}!OSK::GRAPHICS::MaterialInstance@{OSK::GRAPHICS::MaterialInstance}}
+\doxysubsubsection{\texorpdfstring{MaterialInstance()}{MaterialInstance()}}
+{\footnotesize\ttfamily Material\+Instance\+::\+Material\+Instance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{Material}} $\ast$}]{material }\end{DoxyParamCaption})}
+
+
+
+Crea una instancia del material. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em material} & \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{Material}} del que se crea la instancia.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_material_instance_8cpp_source_l00011}{11}} del archivo \mbox{\hyperlink{_material_instance_8cpp_source}{Material\+Instance.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_afe0c9e51cb3f5ab3f888f2a1de919b67}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_afe0c9e51cb3f5ab3f888f2a1de919b67}} 
+\index{OSK::GRAPHICS::MaterialInstance@{OSK::GRAPHICS::MaterialInstance}!````~MaterialInstance@{$\sim$MaterialInstance}}
+\index{````~MaterialInstance@{$\sim$MaterialInstance}!OSK::GRAPHICS::MaterialInstance@{OSK::GRAPHICS::MaterialInstance}}
+\doxysubsubsection{\texorpdfstring{$\sim$MaterialInstance()}{~MaterialInstance()}}
+{\footnotesize\ttfamily Material\+Instance\+::$\sim$\+Material\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_instance_8cpp_source_l00016}{16}} del archivo \mbox{\hyperlink{_material_instance_8cpp_source}{Material\+Instance.\+cpp}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_a5d7d87b3da1560a7a77fd9b3cafc957f}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_a5d7d87b3da1560a7a77fd9b3cafc957f}} 
+\index{OSK::GRAPHICS::MaterialInstance@{OSK::GRAPHICS::MaterialInstance}!GetLayout@{GetLayout}}
+\index{GetLayout@{GetLayout}!OSK::GRAPHICS::MaterialInstance@{OSK::GRAPHICS::MaterialInstance}}
+\doxysubsubsection{\texorpdfstring{GetLayout()}{GetLayout()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} $\ast$ Material\+Instance\+::\+Get\+Layout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el layout de esta instancia (es decir, el layout del material padre). 
+
+\begin{DoxyReturn}{Devuelve}
+
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_material_instance_8cpp_source_l00032}{32}} del archivo \mbox{\hyperlink{_material_instance_8cpp_source}{Material\+Instance.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 0
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_ac3d9ff9441f2ff807e666f7c067ae1f2}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_ac3d9ff9441f2ff807e666f7c067ae1f2}} 
+\index{OSK::GRAPHICS::MaterialInstance@{OSK::GRAPHICS::MaterialInstance}!GetMaterial@{GetMaterial}}
+\index{GetMaterial@{GetMaterial}!OSK::GRAPHICS::MaterialInstance@{OSK::GRAPHICS::MaterialInstance}}
+\doxysubsubsection{\texorpdfstring{GetMaterial()}{GetMaterial()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{Material}} $\ast$ Material\+Instance\+::\+Get\+Material (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el material del que es instancia esta instancia. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_instance_8cpp_source_l00028}{28}} del archivo \mbox{\hyperlink{_material_instance_8cpp_source}{Material\+Instance.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_a0cc12aae6dc313b4c4f24abe461b5f04}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_a0cc12aae6dc313b4c4f24abe461b5f04}} 
+\index{OSK::GRAPHICS::MaterialInstance@{OSK::GRAPHICS::MaterialInstance}!GetSlot@{GetSlot}}
+\index{GetSlot@{GetSlot}!OSK::GRAPHICS::MaterialInstance@{OSK::GRAPHICS::MaterialInstance}}
+\doxysubsubsection{\texorpdfstring{GetSlot()}{GetSlot()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot}{IMaterial\+Slot}} $\ast$ Material\+Instance\+::\+Get\+Slot (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el slot con el nombre dado. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_instance_8cpp_source_l00020}{20}} del archivo \mbox{\hyperlink{_material_instance_8cpp_source}{Material\+Instance.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_a2293d59b8bd0c6c02dfb5cafc41261c0}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_a2293d59b8bd0c6c02dfb5cafc41261c0}} 
+\index{OSK::GRAPHICS::MaterialInstance@{OSK::GRAPHICS::MaterialInstance}!RegisterSlot@{RegisterSlot}}
+\index{RegisterSlot@{RegisterSlot}!OSK::GRAPHICS::MaterialInstance@{OSK::GRAPHICS::MaterialInstance}}
+\doxysubsubsection{\texorpdfstring{RegisterSlot()}{RegisterSlot()}}
+{\footnotesize\ttfamily void Material\+Instance\+::\+Register\+Slot (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption})}
+
+
+
+Registra un slot. 
+
+\begin{DoxyNote}{Nota}
+TODOS los slots del \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{Material}} (presentes en su layout) deben registrarse. 
+\end{DoxyNote}
+
+
+
+\begin{DoxyParams}{Parámetros}
+{\em name} & \\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_material_instance_8cpp_source_l00024}{24}} del archivo \mbox{\hyperlink{_material_instance_8cpp_source}{Material\+Instance.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 1
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_material_instance_8h}{Material\+Instance.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_material_instance_8cpp}{Material\+Instance.\+cpp}}\end{DoxyCompactItemize}

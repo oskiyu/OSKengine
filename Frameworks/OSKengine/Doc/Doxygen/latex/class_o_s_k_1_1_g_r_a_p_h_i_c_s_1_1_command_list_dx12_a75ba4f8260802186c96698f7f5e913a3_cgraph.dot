@@ -1,0 +1,12 @@
+digraph "OSK::GRAPHICS::CommandListDx12::BindIndexBuffer"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::CommandList\lDx12::BindIndexBuffer",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Establece el index buffer que se va a usar en los próximos renderizados."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::GRAPHICS::IGpuIndex\lBuffer::As",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html#af755613ed6b614d09310f7d1686a6dc8",tooltip=" "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="OSK::GRAPHICS::GpuIndexBuffer\lDx12::GetView",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_dx12.html#a9ec171d0a8f22d7215f0e039b08b2c8f",tooltip=" "];
+}

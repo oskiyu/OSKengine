@@ -26,6 +26,7 @@
 
 using namespace OSK;
 using namespace OSK::ECS;
+using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 
@@ -72,6 +73,7 @@ PbrDeferredRenderSystem::PbrDeferredRenderSystem() {
 
 	// Material del renderizado del gbuffer.
 	gbufferMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/deferred_gbuffer.json");
+	animatedGbufferMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/deferred_gbuffer_anim.json");
 	globalGbufferMaterialInstance = gbufferMaterial->CreateInstance().GetPointer();
 
 	globalGbufferMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
@@ -173,28 +175,14 @@ void PbrDeferredRenderSystem::GenerateShadows(ICommandList* commandList) {
 
 		commandList->BeginGraphicsRenderpass({ colorInfo }, depthInfo, { 1.0f, 1.0f, 1.0f, 1.0f });
 
-		commandList->BindMaterial(shadowMap.GetShadowsMaterial());
+		commandList->BindMaterial(shadowMap.GetShadowsMaterial(ASSETS::ModelType::STATIC_MESH));
 		commandList->BindMaterialSlot(shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
 
-		for (const GameObjectIndex obj : GetObjects()) {
-			const ModelComponent3D& model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj);
-			const Transform3D& transform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(obj);
-
-			commandList->BindVertexBuffer(model.GetModel()->GetVertexBuffer());
-			commandList->BindIndexBuffer(model.GetModel()->GetIndexBuffer());
-
-			struct {
-				glm::mat4 model;
-				int cascadeIndex;
-			} const pushConstant{
-				.model = transform.GetAsMatrix(),
-				.cascadeIndex = static_cast<int>(i)
-			};
-			commandList->PushMaterialConstants("model", pushConstant);
-
-			for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++)
-				commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
-		}
+		ShadowsRenderLoop(ModelType::STATIC_MESH, commandList, i);
+		
+		commandList->BindMaterial(shadowMap.GetShadowsMaterial(ModelType::ANIMATED_MODEL));
+		commandList->BindMaterialSlot(shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
+		ShadowsRenderLoop(ModelType::ANIMATED_MODEL, commandList, i);
 
 		commandList->EndGraphicsRenderpass();
 	}
@@ -204,28 +192,21 @@ void PbrDeferredRenderSystem::GenerateShadows(ICommandList* commandList) {
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH | SampledChannel::STENCIL });
 }
 
-void PbrDeferredRenderSystem::RenderGBuffer(ICommandList* commandList) {
-	const TSize currentFrameIndex = Engine::GetRenderer()->GetCurrentCommandListIndex();
-	
-	// Sincronización con todos los targets de color sobre los que vamos a escribir.
-	for (auto targetImage : gBuffer.GetTargetImages(currentFrameIndex))
-		commandList->SetGpuImageBarrier(targetImage, GpuImageLayout::SHADER_READ_ONLY,
-			GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE),
-			GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
-
-	// Cache de materiales y buffers
+void PbrDeferredRenderSystem::GBufferRenderLoop(GRAPHICS::ICommandList* commandList, ASSETS::ModelType modelType) {
 	IGpuVertexBuffer* previousVertexBuffer = nullptr;
 	IGpuIndexBuffer* previousIndexBuffer = nullptr;
-
-	commandList->BeginGraphicsRenderpass(&gBuffer, Color::BLACK() * 0.0f);
-	SetupViewport(commandList);
-	commandList->BindMaterial(gbufferMaterial);
-	commandList->BindMaterialSlot(globalGbufferMaterialInstance->GetSlot("global"));
-
-	// LOOP:
+	
 	for (GameObjectIndex obj : GetObjects()) {
 		const ModelComponent3D& model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj);
 		const Transform3D& transform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(obj);
+
+		if (modelType != model.GetModel()->GetType())
+			continue;
+
+		if (modelType == ModelType::STATIC_MESH)
+			commandList->BindMaterial(gbufferMaterial);
+		else
+			commandList->BindMaterial(animatedGbufferMaterial);
 
 		// Actualizamos el modelo 3D, si es necesario.
 		if (previousVertexBuffer != model.GetModel()->GetVertexBuffer()) {
@@ -237,30 +218,79 @@ void PbrDeferredRenderSystem::RenderGBuffer(ICommandList* commandList) {
 			previousIndexBuffer = model.GetModel()->GetIndexBuffer();
 		}
 
-		// Establecemos los material slots.
-		struct {
-			glm::mat4 model;
-			glm::mat4 transposedInverseModel;
-		} modelConsts {
-			.model = transform.GetAsMatrix(),
-			.transposedInverseModel = glm::transpose(glm::inverse(transform.GetAsMatrix()))
-		};
-		commandList->PushMaterialConstants("model", modelConsts);
+		if (modelType == ModelType::ANIMATED_MODEL)
+			commandList->BindMaterialSlot(model.GetModel()->GetAnimator()->GetMaterialInstance()->GetSlot("animation"));
 
 		for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
 			commandList->BindMaterialSlot(model.GetMeshMaterialInstance(i)->GetSlot("texture"));
 
-			const Vector4f materialInfo{
+			const Vector4f materialInfo {
 				model.GetModel()->GetMetadata().meshesMetadata[i].metallicFactor,
 				model.GetModel()->GetMetadata().meshesMetadata[i].roughnessFactor,
 				0.0f,
 				0.0f
 			};
-			commandList->PushMaterialConstants("materialInfo", materialInfo);
+			struct {
+				glm::mat4 model;
+				glm::mat4 transposedInverseModel;
+				Vector4f materialInfo;
+			} modelConsts{
+				.model = transform.GetAsMatrix(),
+				.transposedInverseModel = glm::transpose(glm::inverse(transform.GetAsMatrix())),
+				.materialInfo = materialInfo
+			};
+			commandList->PushMaterialConstants("model", modelConsts);
 
 			commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
 		}
 	}
+}
+
+void PbrDeferredRenderSystem::ShadowsRenderLoop(ModelType modelType, ICommandList* commandList, TSize cascadeIndex) {
+	for (const GameObjectIndex obj : GetObjects()) {
+		const ModelComponent3D& model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj);
+		const Transform3D& transform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(obj);
+
+		if (model.GetModel()->GetType() != modelType)
+			continue;
+
+		commandList->BindVertexBuffer(model.GetModel()->GetVertexBuffer());
+		commandList->BindIndexBuffer(model.GetModel()->GetIndexBuffer());
+
+		if (modelType == ModelType::ANIMATED_MODEL)
+			commandList->BindMaterialSlot(model.GetModel()->GetAnimator()->GetMaterialInstance()->GetSlot("animation"));
+
+		struct {
+			glm::mat4 model;
+			int cascadeIndex;
+		} const pushConstant{
+			.model = transform.GetAsMatrix(),
+			.cascadeIndex = static_cast<int>(cascadeIndex)
+		};
+		commandList->PushMaterialConstants("model", pushConstant);
+
+		for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++)
+			commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
+	}
+}
+
+void PbrDeferredRenderSystem::RenderGBuffer(ICommandList* commandList) {
+	const TSize currentFrameIndex = Engine::GetRenderer()->GetCurrentCommandListIndex();
+	
+	// Sincronización con todos los targets de color sobre los que vamos a escribir.
+	for (auto targetImage : gBuffer.GetTargetImages(currentFrameIndex))
+		commandList->SetGpuImageBarrier(targetImage, GpuImageLayout::SHADER_READ_ONLY,
+			GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE),
+			GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+
+
+	commandList->BeginGraphicsRenderpass(&gBuffer, Color::BLACK() * 0.0f);
+	SetupViewport(commandList);
+	commandList->BindMaterial(gbufferMaterial);
+	commandList->BindMaterialSlot(globalGbufferMaterialInstance->GetSlot("global"));
+
+	GBufferRenderLoop(commandList, ModelType::STATIC_MESH);
+	GBufferRenderLoop(commandList, ModelType::ANIMATED_MODEL);
 
 	commandList->EndGraphicsRenderpass();
 
@@ -291,4 +321,15 @@ void PbrDeferredRenderSystem::Resolve(ICommandList* cmdList) {
 	cmdList->DrawSingleInstance(6);
 
 	cmdList->EndGraphicsRenderpass();
+}
+
+void PbrDeferredRenderSystem::OnTick(TDeltaTime deltaTime) {
+	for (const GameObjectIndex obj : GetObjects()) {
+		Model3D* model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj).GetModel();
+
+		if (model->GetType() == ModelType::STATIC_MESH)
+			continue;
+
+		model->GetAnimator()->Update(deltaTime, Vector3f(1.0f));
+	}
 }

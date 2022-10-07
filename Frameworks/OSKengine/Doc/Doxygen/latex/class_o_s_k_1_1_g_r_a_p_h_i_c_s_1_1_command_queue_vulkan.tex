@@ -1,0 +1,88 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::Command\+Queue\+Vulkan}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan}\index{OSK::GRAPHICS::CommandQueueVulkan@{OSK::GRAPHICS::CommandQueueVulkan}}
+
+
+{\ttfamily \#include $<$Command\+Queue\+Vulkan.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::Command\+Queue\+Vulkan
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::Command\+Queue\+Vulkan\+:
+% FIG 1
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan_aaad3ce96e84c3231ae773c9b1eace789}{Create}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} native\+Queue\+Index, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{Gpu\+Vulkan}} \&gpu)
+\item 
+\mbox{\hyperlink{_command_queue_vulkan_8h_adf663a0b6a84b072362ce0f2b39a5a1c}{Vk\+Queue}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan_ab8ce61a5604b9d90ff9246da6b9b11a2}{Get\+Queue}} () const
+\item 
+uint32\+\_\+t \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan_a4bd16f3f1ff28ac6cb61ccd8bb6a3c6b}{Get\+Queue\+Index}} () const
+\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommand\+Queue}}, T$>$}\\T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_a9142d2a17779a273bc0fccf4d6cc9918}{As}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Una cola de comandos almacena todas las listas de comandos que se envían a la GPU. 
+
+Implementación de la interfaz para el renderizador de Vulkan. 
+
+Definición en la línea \mbox{\hyperlink{_command_queue_vulkan_8h_source_l00017}{17}} del archivo \mbox{\hyperlink{_command_queue_vulkan_8h_source}{Command\+Queue\+Vulkan.\+h}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_a9142d2a17779a273bc0fccf4d6cc9918}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_a9142d2a17779a273bc0fccf4d6cc9918}} 
+\index{OSK::GRAPHICS::CommandQueueVulkan@{OSK::GRAPHICS::CommandQueueVulkan}!As@{As}}
+\index{As@{As}!OSK::GRAPHICS::CommandQueueVulkan@{OSK::GRAPHICS::CommandQueueVulkan}}
+\doxysubsubsection{\texorpdfstring{As()}{As()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommand\+Queue}}, T$>$\\
+T $\ast$ OSK\+::\+GRAPHICS\+::\+ICommand\+Queue\+::\+As (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_queue_8h_source_l00020}{20}} del archivo \mbox{\hyperlink{_i_command_queue_8h_source}{ICommand\+Queue.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan_aaad3ce96e84c3231ae773c9b1eace789}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan_aaad3ce96e84c3231ae773c9b1eace789}} 
+\index{OSK::GRAPHICS::CommandQueueVulkan@{OSK::GRAPHICS::CommandQueueVulkan}!Create@{Create}}
+\index{Create@{Create}!OSK::GRAPHICS::CommandQueueVulkan@{OSK::GRAPHICS::CommandQueueVulkan}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily void Command\+Queue\+Vulkan\+::\+Create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{native\+Queue\+Index,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{Gpu\+Vulkan}} \&}]{gpu }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_command_queue_vulkan_8cpp_source_l00009}{9}} del archivo \mbox{\hyperlink{_command_queue_vulkan_8cpp_source}{Command\+Queue\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan_ab8ce61a5604b9d90ff9246da6b9b11a2}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan_ab8ce61a5604b9d90ff9246da6b9b11a2}} 
+\index{OSK::GRAPHICS::CommandQueueVulkan@{OSK::GRAPHICS::CommandQueueVulkan}!GetQueue@{GetQueue}}
+\index{GetQueue@{GetQueue}!OSK::GRAPHICS::CommandQueueVulkan@{OSK::GRAPHICS::CommandQueueVulkan}}
+\doxysubsubsection{\texorpdfstring{GetQueue()}{GetQueue()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_command_queue_vulkan_8h_adf663a0b6a84b072362ce0f2b39a5a1c}{Vk\+Queue}} Command\+Queue\+Vulkan\+::\+Get\+Queue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_command_queue_vulkan_8cpp_source_l00014}{14}} del archivo \mbox{\hyperlink{_command_queue_vulkan_8cpp_source}{Command\+Queue\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan_a4bd16f3f1ff28ac6cb61ccd8bb6a3c6b}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan_a4bd16f3f1ff28ac6cb61ccd8bb6a3c6b}} 
+\index{OSK::GRAPHICS::CommandQueueVulkan@{OSK::GRAPHICS::CommandQueueVulkan}!GetQueueIndex@{GetQueueIndex}}
+\index{GetQueueIndex@{GetQueueIndex}!OSK::GRAPHICS::CommandQueueVulkan@{OSK::GRAPHICS::CommandQueueVulkan}}
+\doxysubsubsection{\texorpdfstring{GetQueueIndex()}{GetQueueIndex()}}
+{\footnotesize\ttfamily uint32\+\_\+t Command\+Queue\+Vulkan\+::\+Get\+Queue\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_command_queue_vulkan_8cpp_source_l00018}{18}} del archivo \mbox{\hyperlink{_command_queue_vulkan_8cpp_source}{Command\+Queue\+Vulkan.\+cpp}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_command_queue_vulkan_8h}{Command\+Queue\+Vulkan.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_command_queue_vulkan_8cpp}{Command\+Queue\+Vulkan.\+cpp}}\end{DoxyCompactItemize}

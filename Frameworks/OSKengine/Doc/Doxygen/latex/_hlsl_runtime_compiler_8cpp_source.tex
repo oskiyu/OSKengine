@@ -1,0 +1,67 @@
+\hypertarget{_hlsl_runtime_compiler_8cpp_source}{}\doxysection{Hlsl\+Runtime\+Compiler.\+cpp}
+\label{_hlsl_runtime_compiler_8cpp_source}\index{OSKengine2/HlslRuntimeCompiler.cpp@{OSKengine2/HlslRuntimeCompiler.cpp}}
+\mbox{\hyperlink{_hlsl_runtime_compiler_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_hlsl_runtime_compiler_8h}{HlslRuntimeCompiler.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_assert_8h}{Assert.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_dynamic_array_8hpp}{DynamicArray.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_windows_utils_8h}{WindowsUtils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00007}00007 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00008}00008 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}};}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00010}00010 ComPtr<IDxcCompiler3> HlslRuntimeCompiler::compiler = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00011}00011 ComPtr<IDxcUtils> HlslRuntimeCompiler::utils = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00012}00012 ComPtr<IDxcIncludeHandler> HlslRuntimeCompiler::includeHandler = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00014}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler_ad56975c12b8c57456b4e213e2937281c}{00014}} \textcolor{keywordtype}{void} HlslRuntimeCompiler::InitializeComponents() \{}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00015}00015     HRESULT result = DxcCreateInstance(CLSID\_DxcCompiler, IID\_PPV\_ARGS(\&compiler));}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00016}00016     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(SUCCEEDED(result), \textcolor{stringliteral}{"{}No se pudo instanciar la libreria del compilador DX12."{}});}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00018}00018     result = DxcCreateInstance(CLSID\_DxcUtils, IID\_PPV\_ARGS(utils.GetAddressOf()));}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00019}00019     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(SUCCEEDED(result), \textcolor{stringliteral}{"{}No se pudo instanciar el compilador DX12."{}});}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00021}00021     result = utils-\/>CreateDefaultIncludeHandler(\&includeHandler);}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00022}00022     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(SUCCEEDED(result), \textcolor{stringliteral}{"{}No se pudo instanciar el iclude handler compilador DX12."{}});}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00023}00023 \}}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00025}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler_a82745de6cab664215a954ab69a709c91}{00025}} ComPtr<IDxcBlob> \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler_a82745de6cab664215a954ab69a709c91}{HlslRuntimeCompiler::CompileFromFile}}(\textcolor{keyword}{const} std::string\& path, \textcolor{keyword}{const} std::string\& hlslProfile) \{}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00026}00026     \textcolor{comment}{// Prerpocesar el código}}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00027}00027     ComPtr<IDxcBlobEncoding> sourceBlob;}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00028}00028     \textcolor{keyword}{static} UINT32 encoding = CP\_UTF8;}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00030}00030     HRESULT result = utils-\/>LoadFile(L\textcolor{stringliteral}{"{}./temp\_shader"{}}, \&encoding, sourceBlob.GetAddressOf());}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00031}00031     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(SUCCEEDED(result), \textcolor{stringliteral}{"{}No se pudo prerpocesar el shader "{}} + path + \textcolor{stringliteral}{"{}."{}});}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00033}00033     \textcolor{comment}{// Región del shader compilado}}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00034}00034     DxcBuffer sourceBuffer;}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00035}00035     sourceBuffer.Ptr = sourceBlob-\/>GetBufferPointer();}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00036}00036     sourceBuffer.Size = sourceBlob-\/>GetBufferSize();}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00037}00037     sourceBuffer.Encoding = DXC\_CP\_ACP;}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00039}00039     \textcolor{comment}{// Argumentos}}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00040}00040     std::wstring profile = \mbox{\hyperlink{namespace_o_s_k_a543f1e2eaed4543c687adc9f9a0622ac}{StringToWideString}}(hlslProfile);}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00041}00041     \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<LPCWSTR>}} args;}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00042}00042     args.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(L\textcolor{stringliteral}{"{}-\/E"{}});}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00043}00043     args.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(L\textcolor{stringliteral}{"{}main"{}});}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00044}00044     args.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(L\textcolor{stringliteral}{"{}-\/T"{}});}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00045}00045     args.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(profile.c\_str());}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00047}00047     \textcolor{comment}{// Compilación}}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00048}00048     ComPtr<IDxcResult> compiled;}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00049}00049     result = compiler-\/>Compile(\&sourceBuffer, args.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_ac8a6d70f938c482e1f7aa68c7d186bb8}{GetData}}(), args.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}(), includeHandler.Get(), IID\_PPV\_ARGS(\&compiled));}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00051}00051     ComPtr<IDxcBlobUtf8> compilationErrors;}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00052}00052     compiled-\/>GetOutput(DXC\_OUT\_ERRORS, IID\_PPV\_ARGS(compilationErrors.GetAddressOf()), \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00053}00053     \textcolor{keywordflow}{if} (compilationErrors \&\& compilationErrors-\/>GetStringLength() > 0)}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00054}00054         \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(\textcolor{keyword}{false}, \textcolor{stringliteral}{"{}Error al compilar shaders DX12: "{}} + std::string((\textcolor{keywordtype}{char}*)compilationErrors-\/>GetBufferPointer()));}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00056}00056     ComPtr<IDxcBlob> output;}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00058}00058     compiled-\/>GetResult(\&output);}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00060}00060     \textcolor{keywordflow}{return} output;}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8cpp_source_l00061}00061 \}}
+
+\end{DoxyCode}

@@ -1,0 +1,59 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::ICommand\+Queue}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}\index{OSK::GRAPHICS::ICommandQueue@{OSK::GRAPHICS::ICommandQueue}}
+
+
+{\ttfamily \#include $<$ICommand\+Queue.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::ICommand\+Queue
+% FIG 0
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_a1bcde153e4720be26fdd7c580eee3220}{$\sim$\+ICommand\+Queue}} ()=default
+\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommand\+Queue}}, T$>$}\\T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_a9142d2a17779a273bc0fccf4d6cc9918}{As}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Una cola de comandos almacena todas las listas de comandos que se envían a la GPU. 
+
+\begin{DoxyNote}{Nota}
+Esta interfaz no implementa ningún código, se debe usar una instancia de \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan}{Command\+Queue\+Vulkan}} o \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12}{Command\+Queue\+Dx12}}. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_queue_8h_source_l00014}{14}} del archivo \mbox{\hyperlink{_i_command_queue_8h_source}{ICommand\+Queue.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_a1bcde153e4720be26fdd7c580eee3220}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_a1bcde153e4720be26fdd7c580eee3220}} 
+\index{OSK::GRAPHICS::ICommandQueue@{OSK::GRAPHICS::ICommandQueue}!````~ICommandQueue@{$\sim$ICommandQueue}}
+\index{````~ICommandQueue@{$\sim$ICommandQueue}!OSK::GRAPHICS::ICommandQueue@{OSK::GRAPHICS::ICommandQueue}}
+\doxysubsubsection{\texorpdfstring{$\sim$ICommandQueue()}{~ICommandQueue()}}
+{\footnotesize\ttfamily virtual OSK\+::\+GRAPHICS\+::\+ICommand\+Queue\+::$\sim$\+ICommand\+Queue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_a9142d2a17779a273bc0fccf4d6cc9918}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_a9142d2a17779a273bc0fccf4d6cc9918}} 
+\index{OSK::GRAPHICS::ICommandQueue@{OSK::GRAPHICS::ICommandQueue}!As@{As}}
+\index{As@{As}!OSK::GRAPHICS::ICommandQueue@{OSK::GRAPHICS::ICommandQueue}}
+\doxysubsubsection{\texorpdfstring{As()}{As()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommand\+Queue}}, T$>$\\
+T $\ast$ OSK\+::\+GRAPHICS\+::\+ICommand\+Queue\+::\+As (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_queue_8h_source_l00020}{20}} del archivo \mbox{\hyperlink{_i_command_queue_8h_source}{ICommand\+Queue.\+h}}.
+
+
+
+La documentación para esta clase fue generada a partir del siguiente fichero\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_i_command_queue_8h}{ICommand\+Queue.\+h}}\end{DoxyCompactItemize}

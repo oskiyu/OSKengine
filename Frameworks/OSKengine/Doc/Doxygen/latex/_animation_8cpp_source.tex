@@ -1,0 +1,73 @@
+\hypertarget{_animation_8cpp_source}{}\doxysection{Animation.\+cpp}
+\label{_animation_8cpp_source}\index{OSKengine2/Animation.cpp@{OSKengine2/Animation.cpp}}
+\mbox{\hyperlink{_animation_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_animation_8h}{Animation.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_math_8h}{Math.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_animator_8h}{Animator.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00006}00006 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00007}00007 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}};}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00009}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_ac49b9992ea062bcf3e8f32784ef9cc18}{00009}} \textcolor{keywordtype}{void} Animation::Update(\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDeltaTime}} deltaTime, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator}{Animator}}\& owner) \{}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00010}00010     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a805e2ffe74563ab75ac8e7fc241ab81b}{currentTime}} += deltaTime;}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00012}00012     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a805e2ffe74563ab75ac8e7fc241ab81b}{currentTime}} > \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a1bbe7b253148fef044a4b3c701b3251d}{endTime}}) \{}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00013}00013         \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a1d32cd5277a1963d9b81adf03c274275}{shouldLoop}})}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00014}00014             \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a805e2ffe74563ab75ac8e7fc241ab81b}{currentTime}} -\/= \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a1bbe7b253148fef044a4b3c701b3251d}{endTime}};}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00015}00015         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00016}00016             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00017}00017     \}}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00019}00019     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& channel : \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a2afaa19d75a97d1fa99ac8b627885b71}{channels}}) \{}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00020}00020         \textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler}{AnimationSampler}}\& sampler = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_ad5f18ae8947a5e4b38956cf8ee3b233b}{samplers}}[channel.samplerIndex];}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00022}00022         \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_af25c279b1c224125d922bfab868d4b32}{timestamps}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}() -\/ 1; i++) \{}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00023}00023             \textcolor{comment}{// TODO: check interpolation type}}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00025}00025             \textcolor{comment}{// Si el timestamp actual está entre los dos, se hace una interpolación lineal.}}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00026}00026             \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a805e2ffe74563ab75ac8e7fc241ab81b}{currentTime}} >= sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_af25c279b1c224125d922bfab868d4b32}{timestamps}}[i] \&\& \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a805e2ffe74563ab75ac8e7fc241ab81b}{currentTime}} <= sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_af25c279b1c224125d922bfab868d4b32}{timestamps}}[i + 1]) \{}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00027}00027                 \textcolor{keyword}{const} \textcolor{keywordtype}{float} ratio = (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a805e2ffe74563ab75ac8e7fc241ab81b}{currentTime}} -\/ sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_af25c279b1c224125d922bfab868d4b32}{timestamps}}[i]) / (sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_af25c279b1c224125d922bfab868d4b32}{timestamps}}[i + 1] -\/ sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_af25c279b1c224125d922bfab868d4b32}{timestamps}}[i]);}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00029}00029                 \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node}{MeshNode}}* node = owner.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a555e36c572061489c74bdabdff6eaee7}{GetNode}}(channel.nodeId);}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00031}00031                 \textcolor{keywordflow}{switch} (channel.type) \{}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00033}00033                 \textcolor{keywordflow}{case} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel_a62d84b4a26f9fbd5a7ffa2bdb05f8e27a0da044e5b37e6bcb3a8d01dc7362b276}{AnimationChannel::ChannelType::TRANSLATION}}: \{}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00034}00034                     \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector4__t}{Vector4f}} vec4 = \mbox{\hyperlink{namespace_o_s_k_1_1_m_a_t_h_a59ecac3bc9181efeef2f758f583bdb65}{MATH::LinearInterpolation\_Fast}}(sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a3adfbec52fec632c3a191478d0130f90}{outputs}}[i], sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a3adfbec52fec632c3a191478d0130f90}{outputs}}[i + 1], ratio);}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00035}00035                     node-\/>\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a7c83ae400ea863906d1c3df3960ea630}{position}} = \{ vec4.\mbox{\hyperlink{class_o_s_k_1_1_vector4__t_ad27addc7f8f6638f20e6ff44289bc399}{X}}, vec4.\mbox{\hyperlink{class_o_s_k_1_1_vector4__t_af301a3a48643f842d421ed441440c766}{Y}}, vec4.\mbox{\hyperlink{class_o_s_k_1_1_vector4__t_a0b2280749f7a332b7b3d4a1390a2d527}{Z}} \};}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00036}00036                 \}}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00037}00037                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00039}00039                 \textcolor{keywordflow}{case} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel_a62d84b4a26f9fbd5a7ffa2bdb05f8e27aa27939099e0fe4086159364fcf8d5f73}{AnimationChannel::ChannelType::ROTATION}}: \{}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00040}00040                     glm::quat prev\{\};}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00041}00041                     prev.x = sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a3adfbec52fec632c3a191478d0130f90}{outputs}}[i].X;}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00042}00042                     prev.y = sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a3adfbec52fec632c3a191478d0130f90}{outputs}}[i].Y;}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00043}00043                     prev.z = sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a3adfbec52fec632c3a191478d0130f90}{outputs}}[i].Z;}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00044}00044                     prev.w = sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a3adfbec52fec632c3a191478d0130f90}{outputs}}[i].W;}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00045}00045 }
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00046}00046                     glm::quat next\{\};}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00047}00047                     next.x = sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a3adfbec52fec632c3a191478d0130f90}{outputs}}[i + 1].X;}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00048}00048                     next.y = sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a3adfbec52fec632c3a191478d0130f90}{outputs}}[i + 1].Y;}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00049}00049                     next.z = sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a3adfbec52fec632c3a191478d0130f90}{outputs}}[i + 1].Z;}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00050}00050                     next.w = sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a3adfbec52fec632c3a191478d0130f90}{outputs}}[i + 1].W;}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00052}00052                     node-\/>\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a9b72d3ea552bae1e2d4c36e18c788cbe}{rotation}} = \mbox{\hyperlink{class_o_s_k_1_1_quaternion_a0cbf0edcbfd33647de6fa20d641d2216}{Quaternion::FromGlm}}(glm::normalize(glm::slerp(prev, next, ratio)));}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00053}00053                 \}}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00054}00054                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00056}00056                 \textcolor{keywordflow}{case} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel_a62d84b4a26f9fbd5a7ffa2bdb05f8e27a127ea1d20becc4dba06d9d152db0c2e5}{AnimationChannel::ChannelType::SCALE}}: \{}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00057}00057                     \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector4__t}{Vector4f}} vec4 = \mbox{\hyperlink{namespace_o_s_k_1_1_m_a_t_h_a59ecac3bc9181efeef2f758f583bdb65}{MATH::LinearInterpolation\_Fast}}(sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a3adfbec52fec632c3a191478d0130f90}{outputs}}[i], sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a3adfbec52fec632c3a191478d0130f90}{outputs}}[i + 1], ratio);}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00058}00058                     node-\/>\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_ae785291924f9fffd0c82bc3ea0d5648d}{scale}} = \{ vec4.\mbox{\hyperlink{class_o_s_k_1_1_vector4__t_ad27addc7f8f6638f20e6ff44289bc399}{X}}, vec4.\mbox{\hyperlink{class_o_s_k_1_1_vector4__t_af301a3a48643f842d421ed441440c766}{Y}}, vec4.\mbox{\hyperlink{class_o_s_k_1_1_vector4__t_a0b2280749f7a332b7b3d4a1390a2d527}{Z}} \};}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00059}00059                 \}}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00060}00060                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00062}00062                 \}}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00063}00063             }
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00064}00064             \}}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00065}00065         \}}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00066}00066     \}}
+\DoxyCodeLine{\Hypertarget{_animation_8cpp_source_l00067}00067 \}}
+
+\end{DoxyCode}

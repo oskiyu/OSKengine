@@ -1,0 +1,205 @@
+\hypertarget{_i_renderer_8h_source}{}\doxysection{IRenderer.\+h}
+\label{_i_renderer_8h_source}\index{OSKengine2/IRenderer.h@{OSKengine2/IRenderer.h}}
+\mbox{\hyperlink{_i_renderer_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kmacros_8h}{OSKmacros.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_unique_ptr_8hpp}{UniquePtr.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_owned_ptr_8h}{OwnedPtr.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_dynamic_array_8hpp}{DynamicArray.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00009}00009 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_8h}{IGpu.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00010}00010 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_command_queue_8h}{ICommandQueue.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00011}00011 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_swapchain_8h}{ISwapchain.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00012}00012 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_sync_device_8h}{ISyncDevice.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00013}00013 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_command_list_8h}{ICommandList.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00014}00014 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_command_pool_8h}{ICommandPool.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00015}00015 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_memory_allocator_8h}{IGpuMemoryAllocator.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00016}00016 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_render_target_8h}{RenderTarget.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00017}00017 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_material_system_8h}{MaterialSystem.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00018}00018 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_present_mode_8h}{PresentMode.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00019}00019 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_image_8h}{IGpuImage.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00021}00021 \textcolor{comment}{// Camera 2D para renderizar a la pantalla}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00022}00022 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_camera_component2_d_8h}{CameraComponent2D.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00023}00023 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_transform2_d_8h}{Transform2D.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00025}00025 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00026}00026 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00028}00028 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}} \{}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00029}00029     \textcolor{keyword}{struct }Version;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00030}00030     \textcolor{keyword}{namespace }IO \{}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00031}00031         \textcolor{keyword}{class }Window;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00032}00032     \}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00033}00033 \}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00035}00035 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}} \{}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00037}00037     \textcolor{keyword}{class }MaterialLayout;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00038}00038     \textcolor{keyword}{class }IMaterialSlot;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00039}00039     \textcolor{keyword}{struct }PipelineCreateInfo;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00040}00040     \textcolor{keyword}{class }IGraphicsPipeline;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00041}00041     \textcolor{keyword}{class }IRaytracingPipeline;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00042}00042     \textcolor{keyword}{class }GpuImage;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00043}00043     \textcolor{keyword}{class }VertexInfo;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00044}00044     \textcolor{keyword}{class }IPostProcessPass;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00045}00045 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00046}00046     \textcolor{keyword}{enum class} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3057691f190dabf7642cfde72cf2430f}{RenderApiType}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00047}00047     \textcolor{keyword}{enum class} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9}{GpuImageLayout}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00055}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer}{00055}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer}{IRenderer}} \{}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00057}00057     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00062}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aa168ea76a7cb69e1f6483080f7bb05d3}{00062}}         \textcolor{keyword}{virtual} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aa168ea76a7cb69e1f6483080f7bb05d3}{\string~IRenderer}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00070}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aea554b8f5ef48b983b5f26e1e4384bf9}{00070}}         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aea554b8f5ef48b983b5f26e1e4384bf9}{Initialize}}(\textcolor{keyword}{const} std::string\& appName, \textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_version}{Version}}\& version, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window}{IO::Window}}\& window, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a47a7b3817b8aca438c20b7674fad28ab}{PresentMode}} mode) = 0;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00071}00071 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00076}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ace147aba8abf236698e2c46238aa7561}{00076}}         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ace147aba8abf236698e2c46238aa7561}{Close}}() = 0;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00082}00082         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} HandleResize();}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00083}00083 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00088}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a90aa9f12a25efdcc002be083fdc9c701}{00088}}         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a90aa9f12a25efdcc002be083fdc9c701}{PresentFrame}}() = 0;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00090}00090         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommandList}}* GetPreComputeCommandList() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00091}00091         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommandList}}* GetGraphicsCommandList() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00092}00092         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommandList}}* GetPostComputeCommandList() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00093}00093         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommandList}}* GetFrameBuildCommandList() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00095}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7fa021d03868e15428c6a382864b9d6c}{00095}}         \textcolor{keyword}{inline} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommandQueue}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7fa021d03868e15428c6a382864b9d6c}{GetGraphicsCommandQueue}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} graphicsQueue.GetPointer(); \}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00096}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a83515ed3a33b174a43d88d10dad68121}{00096}}         \textcolor{keyword}{inline} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommandQueue}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a83515ed3a33b174a43d88d10dad68121}{GetComputeCommandQueue}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} computeQueue.GetPointer(); \}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00097}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a24810cb6a5383c1a4073bd4374fb9bb4}{00097}}         \textcolor{keyword}{inline} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommandQueue}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a24810cb6a5383c1a4073bd4374fb9bb4}{GetPresentCommandQueue}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} presentQueue.GetPointer(); \}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00098}00098 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00099}00099         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator}{IGpuMemoryAllocator}}* GetMemoryAllocator() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00100}00100         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}}* GetGpu() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00101}00101 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00106}00106         \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<ICommandList>}} CreateSingleUseCommandList();}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00107}00107 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00111}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_af337a6b45b1e298a4edff91981586d14}{00111}}         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_af337a6b45b1e298a4edff91981586d14}{SubmitSingleUseCommandList}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommandList}}* commandList) = 0;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00119}00119         \textcolor{keywordtype}{void} UploadLayeredImageToGpu(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GpuImage}}* destination, \textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}}* data, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numBytes, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numLayers, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommandList}}* cmdList);}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00120}00120 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00127}00127         \textcolor{keywordtype}{void} UploadImageToGpu(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GpuImage}}* destination, \textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}}* data, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numBytes, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommandList}}* cmdList);}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00128}00128 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00135}00135         \textcolor{keywordtype}{void} UploadCubemapImageToGpu(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GpuImage}}* destination, \textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}}* data, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numBytes, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommandList}}* cmdList);}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00136}00136 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00141}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7e06601c9bc5325e2ee5904e58a3af3d}{00141}}         \textcolor{keyword}{template} <\textcolor{keyword}{typename} T> T* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7e06601c9bc5325e2ee5904e58a3af3d}{As}}() \textcolor{keyword}{requires} std::is\_base\_of\_v<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer}{IRenderer}}, T> \{}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00142}00142             \textcolor{keywordflow}{return} (T*)\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00143}00143         \}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00144}00144 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00151}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a96b60646b6f54af001815e3385f6fc30}{00151}}         \textcolor{keyword}{virtual} \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<IGraphicsPipeline>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a96b60646b6f54af001815e3385f6fc30}{\_CreateGraphicsPipeline}}(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{PipelineCreateInfo}}\& pipelineInfo, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{MaterialLayout}}* layout, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{VertexInfo}}\& vertexTypeName) = 0;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00157}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a1dbf6c028bf507121eaaaeffbebb57e4}{00157}}         \textcolor{keyword}{virtual} \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<IRaytracingPipeline>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a1dbf6c028bf507121eaaaeffbebb57e4}{\_CreateRaytracingPipeline}}(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{PipelineCreateInfo}}\& pipelineInfo, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{MaterialLayout}}* layout, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{VertexInfo}}\& vertexTypeName) = 0;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00163}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a3816b3a4de498a8d648572a849ebe97e}{00163}}         \textcolor{keyword}{virtual} \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<IComputePipeline>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a3816b3a4de498a8d648572a849ebe97e}{\_CreateComputePipeline}}(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{PipelineCreateInfo}}\& pipelineInfo, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{MaterialLayout}}* layout) = 0;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00164}00164 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00169}00169         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system}{MaterialSystem}}* GetMaterialSystem() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00170}00170 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00174}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a81af7c94176e15a0b9b1e0e3d79d4961}{00174}}         \textcolor{keyword}{virtual} \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<IMaterialSlot>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a81af7c94176e15a0b9b1e0e3d79d4961}{\_CreateMaterialSlot}}(\textcolor{keyword}{const} std::string\& name, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{MaterialLayout}}* layout) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00175}00175 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00180}00180         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3057691f190dabf7642cfde72cf2430f}{RenderApiType}} GetRenderApi() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00181}00181 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00186}00186         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} GetSwapchainImagesCount() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00187}00187 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00191}00191         \textcolor{keywordtype}{bool} IsOpen() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00192}00192         }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00197}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_af6c2b503a6e4f7757e58062fcdf60ebc}{00197}}         \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_af6c2b503a6e4f7757e58062fcdf60ebc}{SupportsRaytracing}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00198}00198 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00202}00202         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{RenderTarget}}* GetFinalRenderTarget() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00203}00203 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00204}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4ab0c3c7114ddbc503d81c25546013e7}{00204}}         \textcolor{keyword}{virtual} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4ab0c3c7114ddbc503d81c25546013e7}{GetCurrentFrameIndex}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00205}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4a779e3af14025ec16d8a0c0a6cf0fe5}{00205}}         \textcolor{keyword}{virtual} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4a779e3af14025ec16d8a0c0a6cf0fe5}{GetCurrentCommandListIndex}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00206}00206 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00214}00214         \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d}{ECS::CameraComponent2D}}\& GetRenderTargetsCamera() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00215}00215 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00221}00221         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain}{ISwapchain}}* \_GetSwapchain() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00222}00222 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00227}00227         \textcolor{keywordtype}{bool} \_HasImplicitResizeHandling() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00228}00228 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00235}00235         \textcolor{keywordtype}{void} RegisterRenderTarget(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{RenderTarget}}* renderTarget);}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00236}00236 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00243}00243         \textcolor{keywordtype}{void} UnregisterRenderTarget(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{RenderTarget}}* renderTarget);}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00244}00244 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00245}00245 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00252}00252         \textcolor{keywordtype}{void} RegisterPostProcessingPass(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass}{IPostProcessPass}}* renderTarget);}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00253}00253 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00260}00260         \textcolor{keywordtype}{void} UnregisterPostProcessingPass(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass}{IPostProcessPass}}* renderTarget);}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00261}00261 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00262}00262 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00266}00266         \textcolor{keywordtype}{bool} IsRtActive() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00267}00267 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00271}00271         \textcolor{keywordtype}{void} AddResizeCallback(std::function<\textcolor{keywordtype}{void}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2ui}}\&)> callback);}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00272}00272 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00273}00273     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00274}00274 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00275}00275         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer}{IRenderer}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3057691f190dabf7642cfde72cf2430f}{RenderApiType}} renderApiType, \textcolor{keywordtype}{bool} requestRayTracing);}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00276}00276 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00289}00289         \textcolor{keyword}{virtual} \textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}}* FormatImageDataForGpu(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GpuImage}}* image, \textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}}* data, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numLayers);}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00290}00290 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00291}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a68c35e96c0520bb5121761b79bb5bf61}{00291}}         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a68c35e96c0520bb5121761b79bb5bf61}{CreateCommandQueues}}() = 0;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00292}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6cee4717a48eca50317d899ad9079210}{00292}}         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6cee4717a48eca50317d899ad9079210}{CreateSwapchain}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a47a7b3817b8aca438c20b7674fad28ab}{PresentMode}} mode) = 0;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00293}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4ccdbb2d5dfb24ac0f576e7de59d2eab}{00293}}         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4ccdbb2d5dfb24ac0f576e7de59d2eab}{CreateSyncDevice}}() = 0;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00294}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aeddc71ea58f84ac13bf7017133a8d2b0}{00294}}         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aeddc71ea58f84ac13bf7017133a8d2b0}{CreateGpuMemoryAllocator}}() = 0;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00295}00295         }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00296}00296         \textcolor{keywordtype}{void} CreateMainRenderpass();}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00297}00297 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00298}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a2928763ae4948a9de9bafad902fd9696}{00298}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<IGpu>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a2928763ae4948a9de9bafad902fd9696}{currentGpu}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00299}00299 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00300}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ada7ad73436c32df92625b7af4e708e17}{00300}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<ICommandQueue>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ada7ad73436c32df92625b7af4e708e17}{graphicsQueue}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00301}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a05fc17f5d2cbaa3895f5d3a626107e47}{00301}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<ICommandQueue>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a05fc17f5d2cbaa3895f5d3a626107e47}{computeQueue}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00302}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a9fd87ed15539f6d249ce8d2e8247b522}{00302}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<ICommandQueue>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a9fd87ed15539f6d249ce8d2e8247b522}{presentQueue}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00303}00303 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00304}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}{00304}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<ISwapchain>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}{swapchain}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00305}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aed39f82dfcb5e92d9ed9efdca4f346ee}{00305}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<ISyncDevice>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aed39f82dfcb5e92d9ed9efdca4f346ee}{syncDevice}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00306}00306 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00307}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acad78f090fc5cf8a54762d863452b419}{00307}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<ICommandPool>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acad78f090fc5cf8a54762d863452b419}{graphicsCommandPool}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00308}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a34603566a0187941cbff752e587db881}{00308}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<ICommandList>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a34603566a0187941cbff752e587db881}{graphicsCommandList}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00309}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a3b31beb9b077f69dddeed7b30745ae81}{00309}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<ICommandList>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a3b31beb9b077f69dddeed7b30745ae81}{frameBuildCommandList}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00310}00310 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00311}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a76bddfef891f966b5d0001cc5063986f}{00311}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<ICommandPool>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a76bddfef891f966b5d0001cc5063986f}{computeCommandPool}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00312}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aea4737662d1590969769cd958cb7adaf}{00312}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<ICommandList>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aea4737662d1590969769cd958cb7adaf}{preComputeCommandList}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00313}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0574dda9de1a0beaffbe4326f374cbee}{00313}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<ICommandList>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0574dda9de1a0beaffbe4326f374cbee}{postComputeCommandList}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00314}00314 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00315}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a046cb6d9d3bd12965b1abc3e9bd3c2c3}{00315}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<IGpuMemoryAllocator>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a046cb6d9d3bd12965b1abc3e9bd3c2c3}{gpuMemoryAllocator}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00316}00316 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00317}00317         \textcolor{comment}{// Renderpasses}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00318}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a30073a14bdd20555c38f5326b0ea9b89}{00318}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<RenderTarget>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a30073a14bdd20555c38f5326b0ea9b89}{finalRenderTarget}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00319}00319         }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00320}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6bca4cd0b04eecbf58432b51c221da77}{00320}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<MaterialSystem>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6bca4cd0b04eecbf58432b51c221da77}{materialSystem}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00321}00321 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00322}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0493d3e86b3a5f32f74acf9a280c812f}{00322}}         \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<UniquePtr<ICommandList>}}> \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0493d3e86b3a5f32f74acf9a280c812f}{singleTimeCommandLists}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00323}00323 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00324}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a094df08d451deaab468fffe79dfb689a}{00324}}         \mbox{\hyperlink{class_o_s_k_1_1_linked_list}{LinkedList}}<std::function<void(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2ui}}\&)>> \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a094df08d451deaab468fffe79dfb689a}{resizeCallbacks}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00325}00325 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00326}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0dd4df1f6aedb79c660b511c673e1318}{00326}}         \textcolor{keywordtype}{bool} isFirstRender = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00327}00327 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00328}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4db58d26d84e9e636d2162264f69430d}{00328}}         \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window}{IO::Window}}* window = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00329}00329 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00330}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a92b402ae79fb7b6b7a262d8efe790a4b}{00330}}         \textcolor{keywordtype}{bool} isOpen = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00331}00331 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00332}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aae0f70bb0d6940710331e6b251812c81}{00332}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<ECS::CameraComponent2D>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aae0f70bb0d6940710331e6b251812c81}{renderTargetsCamera}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00333}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ad4be6bdc6e9ed15a10bf4e333b722c58}{00333}}         \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_transform2_d}{ECS::Transform2D}} renderTargetsCameraTransform\{ \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a46b3731582093c6a4b02a2024b9edf81}{ECS::EMPTY\_GAME\_OBJECT}} \};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00334}00334 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00335}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8a9bd673e93ebce0a7e60a8133f51de7}{00335}}         \textcolor{keywordtype}{bool} implicitResizeHandling = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00336}00336 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00341}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a35cde40eec42292e6059763aae496525}{00341}}         \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<RenderTarget*>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a35cde40eec42292e6059763aae496525}{resizableRenderTargets}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00342}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7e98e72a6fb34491cdd3b358c225747f}{00342}}         \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<IPostProcessPass*>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7e98e72a6fb34491cdd3b358c225747f}{resizablePostProcessingPasses}};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00343}00343 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00344}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a54e890abc204e8918aae618cf4642a0b}{00344}}         \textcolor{keywordtype}{bool} isRtActive = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00345}00345 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00346}00346         \textcolor{keywordtype}{bool} IsRtRequested() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00347}00347 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00348}00348         \textcolor{comment}{// True si se usa la misma queue para enviar comandos gráficos y de computación.}}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00349}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7575d99920b80cf3481c26d2e170ebd6}{00349}}         \textcolor{keywordtype}{bool} singleCommandQueue = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00350}00350 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00351}00351     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00352}00352 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00353}00353         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3057691f190dabf7642cfde72cf2430f}{RenderApiType}} renderApiType;}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00354}00354         \textcolor{keywordtype}{bool} isRtRequested = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00355}00355 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00356}00356     \};}
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00357}00357 }
+\DoxyCodeLine{\Hypertarget{_i_renderer_8h_source_l00358}00358 \}}
+
+\end{DoxyCode}

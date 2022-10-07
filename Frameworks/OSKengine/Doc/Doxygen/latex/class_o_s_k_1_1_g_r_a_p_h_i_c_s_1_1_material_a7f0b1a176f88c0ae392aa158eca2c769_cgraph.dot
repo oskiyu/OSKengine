@@ -1,0 +1,16 @@
+digraph "OSK::GRAPHICS::Material::Material"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::Material\l::Material",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Crea un nuevo material."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::GRAPHICS::IRenderer\l::_CreateComputePipeline",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a3816b3a4de498a8d648572a849ebe97e",tooltip="Crea un compute pipeline."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="OSK::GRAPHICS::IRenderer\l::_CreateRaytracingPipeline",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a1dbf6c028bf507121eaaaeffbebb57e4",tooltip="Crea un ray tracing pipeline."];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="OSK::OwnedPtr::GetPointer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042",tooltip="Devuelve el puntero nativo."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="OSK::Engine::GetRenderer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00",tooltip=" "];
+}

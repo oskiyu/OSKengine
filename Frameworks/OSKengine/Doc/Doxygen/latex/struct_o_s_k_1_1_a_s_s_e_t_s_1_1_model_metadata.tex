@@ -1,0 +1,66 @@
+\hypertarget{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata}{}\doxysection{Referencia de la Estructura OSK\+::ASSETS\+::Model\+Metadata}
+\label{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata}\index{OSK::ASSETS::ModelMetadata@{OSK::ASSETS::ModelMetadata}}
+
+
+{\ttfamily \#include $<$Model3\+D.\+h$>$}
+
+
+
+Diagrama de colaboración para OSK\+::ASSETS\+::Model\+Metadata\+:
+% FIG 0
+\doxysubsection*{Atributos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata}{Mesh\+Metadata}} $>$ \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata_a990f8bc4bc4c8c91586a992b79b8f582}{meshes\+Metadata}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GRAPHICS\+::\+Gpu\+Image}} $>$ $>$ \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata_a7824812fa70fc1b9f50db53aa84d6d84}{textures}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Contiene datos necesarios para seguir procesando el modelo. Estos datos se pueden procesar de manera distinta dependiendo del proceso de renderizado implementado. 
+
+Definición en la línea \mbox{\hyperlink{_model3_d_8h_source_l00062}{62}} del archivo \mbox{\hyperlink{_model3_d_8h_source}{Model3\+D.\+h}}.
+
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata_a990f8bc4bc4c8c91586a992b79b8f582}\label{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata_a990f8bc4bc4c8c91586a992b79b8f582}} 
+\index{OSK::ASSETS::ModelMetadata@{OSK::ASSETS::ModelMetadata}!meshesMetadata@{meshesMetadata}}
+\index{meshesMetadata@{meshesMetadata}!OSK::ASSETS::ModelMetadata@{OSK::ASSETS::ModelMetadata}}
+\doxysubsubsection{\texorpdfstring{meshesMetadata}{meshesMetadata}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$\mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata}{Mesh\+Metadata}}$>$ OSK\+::\+ASSETS\+::\+Model\+Metadata\+::meshes\+Metadata}
+
+
+
+Metadatos por cada uno de los meshes. 
+
+\begin{DoxyNote}{Nota}
+ID de mesh -\/\texorpdfstring{$>$}{>} metadatos. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_model3_d_8h_source_l00069}{69}} del archivo \mbox{\hyperlink{_model3_d_8h_source}{Model3\+D.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata_a7824812fa70fc1b9f50db53aa84d6d84}\label{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata_a7824812fa70fc1b9f50db53aa84d6d84}} 
+\index{OSK::ASSETS::ModelMetadata@{OSK::ASSETS::ModelMetadata}!textures@{textures}}
+\index{textures@{textures}!OSK::ASSETS::ModelMetadata@{OSK::ASSETS::ModelMetadata}}
+\doxysubsubsection{\texorpdfstring{textures}{textures}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GRAPHICS\+::\+Gpu\+Image}}$>$ $>$ OSK\+::\+ASSETS\+::\+Model\+Metadata\+::textures}
+
+
+
+Texturas de los meshes. 
+
+\begin{DoxyNote}{Nota}
+Meshes de otros modelos no compartirán texturas, aunque usen las mismas. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_model3_d_8h_source_l00077}{77}} del archivo \mbox{\hyperlink{_model3_d_8h_source}{Model3\+D.\+h}}.
+
+
+
+La documentación para esta estructura fue generada a partir del siguiente fichero\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_model3_d_8h}{Model3\+D.\+h}}\end{DoxyCompactItemize}

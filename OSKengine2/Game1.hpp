@@ -58,6 +58,7 @@
 #include "Viewport.h"
 #include "Lights.h"
 #include "SkyboxRenderSystem.h"
+#include "IGpuStorageBuffer.h"
 
 #include "Math.h"
 
@@ -81,10 +82,6 @@ OSK::GRAPHICS::GpuImage* rtTargetImage[3]{};
 OSK::GRAPHICS::Material* material = nullptr;
 OSK::GRAPHICS::Material* material2d = nullptr;
 OSK::GRAPHICS::Material* materialRenderTarget = nullptr;
-
-OSK::GRAPHICS::Material* terrainMaterialFill = nullptr;
-OSK::GRAPHICS::Material* terrainMaterialLine = nullptr;
-OSK::GRAPHICS::Material* terrainMaterial = nullptr;
 
 OSK::GRAPHICS::SpriteRenderer spriteRenderer;
 
@@ -118,13 +115,14 @@ protected:
 	}
 
 	void SetupEngine() override {
-		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetWindow(), PresentMode::VSYNC_ON);
+		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetWindow(), PresentMode::VSYNC_ON_TRIPLE_BUFFER);
 	}
 
 	void OnCreate() override {
 		// Material load
 
 		auto irradianceMap = Engine::GetAssetManager()->Load<ASSETS::IrradianceMap>("Resources/Assets/IBL/irradiance0.json", "GLOBAL");
+		auto animModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/animmodel.json", "GLOBAL");
 
 		material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_pbr.json"); //Resources/PbrMaterials/deferred_gbuffer.json
 		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json");
@@ -136,8 +134,8 @@ protected:
 		font->LoadSizedFont(22);
 		font->SetMaterial(material2d);
 
-		ASSETS::Model3D* model = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/f1.json", "GLOBAL");
-		ASSETS::Model3D* model_low = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/circuit0.json", "GLOBAL");
+		ASSETS::Model3D* carModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/f1.json", "GLOBAL");
+		ASSETS::Model3D* circuitModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/circuit0.json", "GLOBAL");
 
 		//topLevelAccelerationStructure = Engine::GetRenderer()->GetMemoryAllocator()->CreateTopAccelerationStructure({
 		//	model->GetAccelerationStructure(),
@@ -146,12 +144,12 @@ protected:
 
 		DynamicArray<RtInstanceInfo> instancesInfo;
 		instancesInfo.Insert({
-			model->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - model->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock(),
-			model->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - model->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock()
+			carModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - carModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock(),
+			carModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - carModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock()
 			});
 		instancesInfo.Insert({ 
-			model_low->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - model->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock(),
-			model_low->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - model->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock()
+			circuitModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - circuitModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock(),
+			circuitModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - circuitModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock()
 			});
 		instancesInfoBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateStorageBuffer(sizeof(RtInstanceInfo) * 4).GetPointer();
 		instancesInfoBuffer->MapMemory();
@@ -161,25 +159,25 @@ protected:
 		for (TSize i = 0; i < _countof(rtTargetImage); i++) {
 			GpuImageSamplerDesc sampler{};
 			sampler.mipMapMode = GpuImageMipmapMode::NONE;
-			rtTargetImage[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ 1920, 1080, 1 }, GpuImageDimension::d2D, 1, Format::RGBA8_UNORM,
+			rtTargetImage[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ 1920, 1080, 1 }, GpuImageDimension::d2D, 1, Format::RGBA32_SFLOAT,
 				GpuImageUsage::RT_TARGET_IMAGE | GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE, GpuSharedMemoryType::GPU_ONLY, 1, sampler).GetPointer();
 			rtTargetImage[i]->SetDebugName("RtTargetImage [" + std::to_string(i) + "]");
 		}
 
 		/*rtMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rt.json");
 		rtMaterialInstance = rtMaterial->CreateInstance().GetPointer();
-//		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("vertices", model->GetVertexBuffer());
-//		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("indices", model->GetIndexBuffer());
+		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("vertices", carModel->GetVertexBuffer());
+		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("indices", carModel->GetIndexBuffer());
 		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("instanceInfos", instancesInfoBuffer);
-//		rtMaterialInstance->GetSlot("rt")->SetAccelerationStructure("topLevelAccelerationStructure", topLevelAccelerationStructure);
+		rtMaterialInstance->GetSlot("rt")->SetAccelerationStructure("topLevelAccelerationStructure", topLevelAccelerationStructure);
 		
-		rtMaterialInstance->GetSlot("rt")->SetStorageImages("targetImage", imgs);
+		/*rtMaterialInstance->GetSlot("rt")->SetStorageImages("targetImage", imgs);
 		rtMaterialInstance->GetSlot("rt")->FlushUpdate();
 		rtMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", cameraUbos);
 		rtMaterialInstance->GetSlot("global")->FlushUpdate();*/
 
 		// ECS
-		ballObject = Engine::GetEntityComponentSystem()->SpawnObject();
+		carObject = Engine::GetEntityComponentSystem()->SpawnObject();
 
 		cameraObject = Engine::GetEntityComponentSystem()->SpawnObject();
 
@@ -190,26 +188,27 @@ protected:
 		renderSystem->Initialize(cameraObject, *irradianceMap);
 		Engine::GetEntityComponentSystem()->GetSystem<ECS::SkyboxRenderSystem>()->SetCamera(cameraObject);
 
-		ECS::Transform3D& transform = Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(ballObject, ECS::Transform3D(ballObject));
-		ECS::ModelComponent3D* modelComponent = &Engine::GetEntityComponentSystem()->AddComponent<ECS::ModelComponent3D>(ballObject, {});
+		ECS::Transform3D& transform = Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(carObject, ECS::Transform3D(carObject));
+		ECS::ModelComponent3D* modelComponent = &Engine::GetEntityComponentSystem()->AddComponent<ECS::ModelComponent3D>(carObject, {});
 		
-		cameraTransform.AttachToObject(ballObject);
+		cameraTransform.AttachToObject(carObject);
 
-		modelComponent->SetModel(model);
+		modelComponent->SetModel(carModel);
 		modelComponent->SetMaterial(material);
 		modelComponent->BindTextureForAllMeshes("texture", "albedoTexture", texture);
-		ModelLoader3D::SetupPbrModel(model, modelComponent);
+		ModelLoader3D::SetupPbrModel(carModel, modelComponent);
 
 		// ECS 2
-		smallBallObject = Engine::GetEntityComponentSystem()->SpawnObject();
+		circuitObject = Engine::GetEntityComponentSystem()->SpawnObject();
 
-		auto& transform2 = Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(smallBallObject, ECS::Transform3D(smallBallObject));
-		auto modelComponent2 = &Engine::GetEntityComponentSystem()->AddComponent<ECS::ModelComponent3D>(smallBallObject, {});
+		auto& transform2 = Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(circuitObject, ECS::Transform3D(circuitObject));
+		auto modelComponent2 = &Engine::GetEntityComponentSystem()->AddComponent<ECS::ModelComponent3D>(circuitObject, {});
 
-		modelComponent2->SetModel(model_low);
+		modelComponent2->SetModel(animModel); // circuitModel
 		modelComponent2->SetMaterial(material);
 		modelComponent2->BindTextureForAllMeshes("texture", "albedoTexture", texture);
-		ModelLoader3D::SetupPbrModel(model_low, modelComponent2);
+		ModelLoader3D::SetupPbrModel(animModel, modelComponent2);
+		animModel->GetAnimator()->SetActiveAnimation("ArmatureAction");
 
 		// Cubemap
 		Engine::GetEntityComponentSystem()->GetSystem<ECS::SkyboxRenderSystem>()->SetCubemap(*Engine::GetAssetManager()->Load<ASSETS::CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL"));
@@ -219,15 +218,13 @@ protected:
 		Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform2D>(cameraObject2d, { cameraObject2d });
 		camera2D.LinkToWindow(Engine::GetWindow());
 
-		spriteObject = Engine::GetEntityComponentSystem()->SpawnObject();
-
 		spriteRenderer.SetCommandList(Engine::GetRenderer()->GetGraphicsCommandList());
 
 		font->GetInstance(30).sprite->GetMaterialInstance()->GetSlot("global")->SetUniformBuffer("camera", camera2D.GetUniformBuffer());
 		font->GetInstance(30).sprite->GetMaterialInstance()->GetSlot("global")->FlushUpdate();
 
 		// Terrain
-		renderSystem->InitializeTerrain({ 10u }, *Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/heightmap0.json", "GLOBAL"), *Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/terrain0.json", "GLOBAL"));
+		// renderSystem->InitializeTerrain({ 10u }, *Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/heightmap0.json", "GLOBAL"), *Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/terrain0.json", "GLOBAL"));
 		
 		textRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), Format::RGBA8_UNORM, Format::D32S8_SFLOAT_SUINT);
 		preEffectsRenderTarget.SetTargetImageUsage(GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE);
@@ -312,7 +309,7 @@ protected:
 		// Car
 		static float carSpeed = 0.0f;
 		float speedDiff = 0.0f;
-		auto& carTransform = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(ballObject);
+		auto& carTransform = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(carObject);
 		if (newKs->IsKeyDown(IO::Key::UP))
 			speedDiff += 0.5f * deltaTime;
 		if (newKs->IsKeyDown(IO::Key::DOWN))
@@ -327,13 +324,6 @@ protected:
 
 		if (newKs->IsKeyDown(IO::Key::F11) && oldKs->IsKeyUp(IO::Key::F11))
 			Engine::GetWindow()->ToggleFullScreen();
-
-		if (newKs->IsKeyDown(IO::Key::F1) && oldKs->IsKeyUp(IO::Key::F1)) {
-			if (terrainMaterial == terrainMaterialFill)
-				terrainMaterial = terrainMaterialLine;
-			else
-				terrainMaterial = terrainMaterialFill;
-		}
 
 		if (newKs->IsKeyDown(IO::Key::ESCAPE))
 			this->Exit();
@@ -354,13 +344,13 @@ protected:
 		);
 
 		if (OSK::Engine::GetRenderer()->IsRtActive()) {
-			const auto& transformComponent = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(ballObject);
-			auto& modelComponent = Engine::GetEntityComponentSystem()->GetComponent<ECS::ModelComponent3D>(ballObject);
+			const auto& transformComponent = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(carObject);
+			auto& modelComponent = Engine::GetEntityComponentSystem()->GetComponent<ECS::ModelComponent3D>(carObject);
 			modelComponent.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent.GetAsMatrix());
 			modelComponent.GetModel()->GetAccelerationStructure()->Update();
 
-			const auto& transformComponent2 = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(smallBallObject);
-			auto& modelComponent2 = Engine::GetEntityComponentSystem()->GetComponent<ECS::ModelComponent3D>(smallBallObject);
+			const auto& transformComponent2 = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(circuitObject);
+			auto& modelComponent2 = Engine::GetEntityComponentSystem()->GetComponent<ECS::ModelComponent3D>(circuitObject);
 			modelComponent2.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent2.GetAsMatrix());
 			modelComponent2.GetModel()->GetAccelerationStructure()->Update();
 			topLevelAccelerationStructure->Update();
@@ -474,12 +464,10 @@ private:
 
 	UniquePtr<IGpuStorageBuffer> exposureBuffers[3];
 
-	ECS::GameObjectIndex ballObject = ECS::EMPTY_GAME_OBJECT;
-	ECS::GameObjectIndex smallBallObject = ECS::EMPTY_GAME_OBJECT;
+	ECS::GameObjectIndex carObject = ECS::EMPTY_GAME_OBJECT;
+	ECS::GameObjectIndex circuitObject = ECS::EMPTY_GAME_OBJECT;
 	ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
-	ECS::GameObjectIndex spriteObject = ECS::EMPTY_GAME_OBJECT;
 	ECS::GameObjectIndex cameraObject2d = ECS::EMPTY_GAME_OBJECT;
-	ECS::GameObjectIndex terrain = ECS::EMPTY_GAME_OBJECT;
 
 	ASSETS::Texture* texture = nullptr;
 	ASSETS::Font* font = nullptr;

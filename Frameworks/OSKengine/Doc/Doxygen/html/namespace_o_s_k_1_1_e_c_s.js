@@ -13,6 +13,7 @@ var namespace_o_s_k_1_1_e_c_s =
     [ "PbrDeferredRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system" ],
     [ "RenderSystem2D", "class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html", "class_o_s_k_1_1_e_c_s_1_1_render_system2_d" ],
     [ "RenderSystem3D", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d" ],
+    [ "SkyboxRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_skybox_render_system" ],
     [ "SystemManager", "class_o_s_k_1_1_e_c_s_1_1_system_manager.html", "class_o_s_k_1_1_e_c_s_1_1_system_manager" ],
     [ "TerrainComponent", "struct_o_s_k_1_1_e_c_s_1_1_terrain_component.html", "struct_o_s_k_1_1_e_c_s_1_1_terrain_component" ],
     [ "TerrainRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_terrain_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_terrain_render_system" ],

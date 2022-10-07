@@ -1,0 +1,14 @@
+digraph "OSK::GRAPHICS::GpuImage::SetData"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::GpuImage\l::SetData",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::GRAPHICS::IGpuMemory\lSubblock::MapMemory",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a29f38899723247f6e8c3e2e910f35e70",tooltip="Mapea toda la memoria del subbloque."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="OSK::GRAPHICS::IGpuMemory\lSubblock::Unmap",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a94d195cd88d1376227eae2ee9a69b6de",tooltip="Desmapea el subbloque. Debe llamarse al terminar de escribir."];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="OSK::GRAPHICS::IGpuMemory\lSubblock::Write",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#aa2b51252dea910f22d1bb87f7e9109a3",tooltip="Escribe información en la GPU."];
+}

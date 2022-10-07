@@ -1,0 +1,182 @@
+\hypertarget{_renderer_8cpp_source}{}\doxysection{Renderer.\+cpp}
+\label{_renderer_8cpp_source}\index{OSKengine2/Renderer.cpp@{OSKengine2/Renderer.cpp}}
+\mbox{\hyperlink{_renderer_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_renderer_8h}{IRenderer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_command_pool_8h}{ICommandPool.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_8h}{IGpu.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_swapchain_8h}{ISwapchain.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_material_system_8h}{MaterialSystem.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_image_8h}{IGpuImage.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00008}00008 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_memory_allocator_8h}{IGpuMemoryAllocator.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00009}00009 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_data_buffer_8h}{IGpuDataBuffer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00010}00010 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_layout_8h}{GpuImageLayout.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00011}00011 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_command_list_8h}{ICommandList.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00012}00012 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_window_8h}{Window.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00013}00013 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kengine_8h}{OSKengine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00014}00014 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_entity_component_system_8h}{EntityComponentSystem.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00015}00015 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_render_system_8h}{IRenderSystem.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00016}00016 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_format_8h}{Format.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00017}00017 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_post_process_pass_8h}{IPostProcessPass.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00019}00019 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00020}00020 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_i_o}{OSK::IO}};}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00021}00021 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s}{OSK::ECS}};}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00022}00022 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}};}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00024}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acf7c479dfcbed1f2ea905fc73eef8b87}{00024}} IRenderer::IRenderer(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3057691f190dabf7642cfde72cf2430f}{RenderApiType}} type, \textcolor{keywordtype}{bool} requestRayTracing) : renderApiType(type), isRtRequested(requestRayTracing) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00025}00025     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6bca4cd0b04eecbf58432b51c221da77}{materialSystem}} = \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system}{MaterialSystem}};}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00026}00026 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00028}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a04b67d0a496c0fb5de04d468ba7ab658}{00028}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommandList}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a04b67d0a496c0fb5de04d468ba7ab658}{IRenderer::GetPreComputeCommandList}}()\textcolor{keyword}{ const}\{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00029}00029     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7575d99920b80cf3481c26d2e170ebd6}{singleCommandQueue}} ? \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a34603566a0187941cbff752e587db881}{graphicsCommandList}}.GetPointer() : \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aea4737662d1590969769cd958cb7adaf}{preComputeCommandList}}.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00030}00030 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00032}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a181fa5cc9ca0761482c658589fd95aff}{00032}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommandList}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a181fa5cc9ca0761482c658589fd95aff}{IRenderer::GetGraphicsCommandList}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00033}00033     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a34603566a0187941cbff752e587db881}{graphicsCommandList}}.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00034}00034 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00036}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8a093f8614b14b57864ec3d0791ba91a}{00036}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommandList}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8a093f8614b14b57864ec3d0791ba91a}{IRenderer::GetPostComputeCommandList}}()\textcolor{keyword}{ const}\{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00037}00037     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7575d99920b80cf3481c26d2e170ebd6}{singleCommandQueue}} ? \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a34603566a0187941cbff752e587db881}{graphicsCommandList}}.GetPointer() : \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0574dda9de1a0beaffbe4326f374cbee}{postComputeCommandList}}.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00038}00038 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00040}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a12dbfa8d440cadd6fcc8ac7b80deff89}{00040}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommandList}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a12dbfa8d440cadd6fcc8ac7b80deff89}{IRenderer::GetFrameBuildCommandList}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00041}00041     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7575d99920b80cf3481c26d2e170ebd6}{singleCommandQueue}} ? \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a34603566a0187941cbff752e587db881}{graphicsCommandList}}.GetPointer() : \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a3b31beb9b077f69dddeed7b30745ae81}{frameBuildCommandList}}.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00042}00042 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00044}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acf03703bbb6f031f905612d86f104b38}{00044}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator}{IGpuMemoryAllocator}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acf03703bbb6f031f905612d86f104b38}{IRenderer::GetMemoryAllocator}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00045}00045     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a046cb6d9d3bd12965b1abc3e9bd3c2c3}{gpuMemoryAllocator}}.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00046}00046 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00048}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8b6b1698afeb3bb07f3b91e5ddb79b2d}{00048}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8b6b1698afeb3bb07f3b91e5ddb79b2d}{IRenderer::GetGpu}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00049}00049     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a2928763ae4948a9de9bafad902fd9696}{currentGpu}}.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00050}00050 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00052}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0dea54038eea4c0f8c0a7013ab6adac7}{00052}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0dea54038eea4c0f8c0a7013ab6adac7}{IRenderer::UploadLayeredImageToGpu}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GpuImage}}* destination, \textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}}* data, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numBytes, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numLayers, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommandList}}* cmdList) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00053}00053     \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} gpuNumBytes = destination-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ac8e03db4a14a8612958758e67703e33f}{GetPhysicalNumberOfBytes}}() * numLayers;}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00055}00055     \textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}}* uploadableData = data;}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00057}00057     \textcolor{keyword}{auto} stagingBuffer = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acf03703bbb6f031f905612d86f104b38}{GetMemoryAllocator}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a8c3f7f23fc42ae519483fcd4c5dac305}{CreateStagingBuffer}}(gpuNumBytes);}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00058}00058     stagingBuffer-\/>MapMemory();}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00059}00059     stagingBuffer-\/>Write(uploadableData, gpuNumBytes);}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00060}00060     stagingBuffer-\/>Unmap();}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00062}00062     \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} offsetPerIteration = gpuNumBytes / numLayers;}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00063}00063     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < numLayers; i++)}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00064}00064         cmdList-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a9676cdfe4a2411cb5993f9509a24e3c5}{CopyBufferToImage}}(stagingBuffer.GetPointer(), destination, i, offsetPerIteration * i);}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00066}00066     cmdList-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a78589eeb1aaa3971b96da0d8d3abbf0d}{RegisterStagingBuffer}}(stagingBuffer);}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00067}00067 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00069}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a5222eda186e06692ee1e591a085473eb}{00069}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a5222eda186e06692ee1e591a085473eb}{IRenderer::HandleResize}}() \{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00070}00070     \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2ui}} windowSize = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4db58d26d84e9e636d2162264f69430d}{window}}-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aa7f9f244691159612d42ddbc1fdc9288}{GetWindowSize}}();}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00071}00071 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00072}00072     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aae0f70bb0d6940710331e6b251812c81}{renderTargetsCamera}}-\/>UpdateUniformBuffer(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ad4be6bdc6e9ed15a10bf4e333b722c58}{renderTargetsCameraTransform}});}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00074}00074     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_o_s_k_1_1_engine_a17fd2842c078b7ddb4aaa70cd04549ab}{Engine::GetEntityComponentSystem}}())}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00075}00075         \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i : \mbox{\hyperlink{class_o_s_k_1_1_engine_a17fd2842c078b7ddb4aaa70cd04549ab}{Engine::GetEntityComponentSystem}}()-\/>GetRenderSystems())}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00076}00076             i-\/>Resize(windowSize);}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00078}00078     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i : \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a35cde40eec42292e6059763aae496525}{resizableRenderTargets}})}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00079}00079         i-\/>Resize(windowSize);}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00081}00081     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i : \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7e98e72a6fb34491cdd3b358c225747f}{resizablePostProcessingPasses}})}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00082}00082         i-\/>Resize(windowSize);}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00083}00083 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00084}00084     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& i : \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a094df08d451deaab468fffe79dfb689a}{resizeCallbacks}})}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00085}00085         i(windowSize);}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00087}00087     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a30073a14bdd20555c38f5326b0ea9b89}{finalRenderTarget}}-\/>Resize(windowSize);}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00088}00088 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00090}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6bc3460eece49621aa2411460cc65138}{00090}} \textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6bc3460eece49621aa2411460cc65138}{IRenderer::FormatImageDataForGpu}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GpuImage}}* image, \textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}}* data, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numLayers) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00091}00091     \textcolor{keywordflow}{return} data;}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00092}00092 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00093}00093 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00094}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a84c879978d05eb6e5ac7828dd115ab5d}{00094}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a84c879978d05eb6e5ac7828dd115ab5d}{IRenderer::UploadImageToGpu}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GpuImage}}* destination, \textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}}* data, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numBytes, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommandList}}* cmdList) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00095}00095     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0dea54038eea4c0f8c0a7013ab6adac7}{UploadLayeredImageToGpu}}(destination, data, numBytes, 1, cmdList);}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00096}00096 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00098}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a127f65d1c173f1578a180f70b9cc0942}{00098}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a127f65d1c173f1578a180f70b9cc0942}{IRenderer::UploadCubemapImageToGpu}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GpuImage}}* destination, \textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}}* data, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numBytes, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommandList}}* cmdList) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00099}00099     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0dea54038eea4c0f8c0a7013ab6adac7}{UploadLayeredImageToGpu}}(destination, data, numBytes, 6, cmdList);}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00100}00100 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00101}00101 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00102}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0fa1cd26067c520e90cfa647f66e8366}{00102}} \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<ICommandList>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0fa1cd26067c520e90cfa647f66e8366}{IRenderer::CreateSingleUseCommandList}}() \{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00103}00103     \textcolor{keyword}{auto} output = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acad78f090fc5cf8a54762d863452b419}{graphicsCommandPool}}-\/>CreateCommandList(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a2928763ae4948a9de9bafad902fd9696}{currentGpu}}.GetValue());}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00104}00104     output-\/>\_SetSingleTimeUse();}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00105}00105 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00106}00106     \textcolor{keywordflow}{return} output;}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00107}00107 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00109}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a15a2d271ad61c59ce4414dbdf016d277}{00109}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system}{MaterialSystem}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a15a2d271ad61c59ce4414dbdf016d277}{IRenderer::GetMaterialSystem}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00110}00110     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6bca4cd0b04eecbf58432b51c221da77}{materialSystem}}.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00111}00111 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00113}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a71ad70cf2d9210887d1b6f67fc0b7a84}{00113}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a71ad70cf2d9210887d1b6f67fc0b7a84}{IRenderer::CreateMainRenderpass}}() \{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00114}00114     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a30073a14bdd20555c38f5326b0ea9b89}{finalRenderTarget}} = \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{RenderTarget}};}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00115}00115     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a30073a14bdd20555c38f5326b0ea9b89}{finalRenderTarget}}-\/>SetRenderTargetType(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a68c7e70128c792c56815e41b7f9c5fefa6c8361dc2036c0559376fe4957699f69}{RenderpassType::FINAL}});}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00116}00116     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a30073a14bdd20555c38f5326b0ea9b89}{finalRenderTarget}}-\/>Create(\{ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}{swapchain}}-\/>GetImage(0)-\/>GetSize().\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ad1d8e1f23e2f2515648a3ad1b93ff345a02129bb861061d1a052c592e2dc6b383}{X}}, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}{swapchain}}-\/>GetImage(0)-\/>GetSize().Y \},}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00117}00117         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}{swapchain}}-\/>GetColorFormat(), \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8a369fdc4770e12435c7f86a893edbcb06}{Format::D32S8\_SFLOAT\_SUINT}});}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00118}00118 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00119}00119 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00120}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a5715d7eea84cc2dae21fb5ef208e5a8e}{00120}} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3057691f190dabf7642cfde72cf2430f}{RenderApiType}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a5715d7eea84cc2dae21fb5ef208e5a8e}{IRenderer::GetRenderApi}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00121}00121     \textcolor{keywordflow}{return} renderApiType;}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00122}00122 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00123}00123 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00124}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6bdcecd10ad67576f386bb8d42503bcd}{00124}} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6bdcecd10ad67576f386bb8d42503bcd}{IRenderer::GetSwapchainImagesCount}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00125}00125     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}{swapchain}}-\/>GetImageCount();}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00126}00126 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00127}00127 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00128}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6c686e7448f5b58d4a82bd65a7edd525}{00128}} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6c686e7448f5b58d4a82bd65a7edd525}{IRenderer::IsOpen}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00129}00129     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a92b402ae79fb7b6b7a262d8efe790a4b}{isOpen}};}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00130}00130 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00131}00131 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00132}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_afdb99df53b3996540c53a323c1ffd0fa}{00132}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{RenderTarget}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_afdb99df53b3996540c53a323c1ffd0fa}{IRenderer::GetFinalRenderTarget}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00133}00133     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a30073a14bdd20555c38f5326b0ea9b89}{finalRenderTarget}}.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00134}00134 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00135}00135 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00136}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ac39e6512c39a6a82dea2ed73a0575a42}{00136}} \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d}{ECS::CameraComponent2D}}\& \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ac39e6512c39a6a82dea2ed73a0575a42}{IRenderer::GetRenderTargetsCamera}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00137}00137     \textcolor{keywordflow}{return} *\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aae0f70bb0d6940710331e6b251812c81}{renderTargetsCamera}}.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00138}00138 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00139}00139 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00140}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0dad039a7b86341155a12030a504e764}{00140}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain}{ISwapchain}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0dad039a7b86341155a12030a504e764}{IRenderer::\_GetSwapchain}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00141}00141     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}{swapchain}}.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00142}00142 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00143}00143 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00144}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a307921e2de08c4749fa4d55c34a9b53f}{00144}} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a307921e2de08c4749fa4d55c34a9b53f}{IRenderer::\_HasImplicitResizeHandling}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00145}00145     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8a9bd673e93ebce0a7e60a8133f51de7}{implicitResizeHandling}};}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00146}00146 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00147}00147 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00148}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acfac8d227aa448336e5de652c8095afb}{00148}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acfac8d227aa448336e5de652c8095afb}{IRenderer::RegisterRenderTarget}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{RenderTarget}}* renderTarget) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00149}00149     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a35cde40eec42292e6059763aae496525}{resizableRenderTargets}}.ContainsElement(renderTarget))}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00150}00150         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a35cde40eec42292e6059763aae496525}{resizableRenderTargets}}.Insert(renderTarget);}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00151}00151 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00152}00152 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00153}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ad1f7fcb03859d8312fbde048e51e2700}{00153}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ad1f7fcb03859d8312fbde048e51e2700}{IRenderer::UnregisterRenderTarget}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{RenderTarget}}* renderTarget) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00154}00154     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a35cde40eec42292e6059763aae496525}{resizableRenderTargets}}.Remove(renderTarget);}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00155}00155 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00156}00156 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00157}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a5cf02432b5cd076e4118e4d6638926fe}{00157}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a5cf02432b5cd076e4118e4d6638926fe}{IRenderer::RegisterPostProcessingPass}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass}{IPostProcessPass}}* pass) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00158}00158     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7e98e72a6fb34491cdd3b358c225747f}{resizablePostProcessingPasses}}.ContainsElement(pass))}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00159}00159         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7e98e72a6fb34491cdd3b358c225747f}{resizablePostProcessingPasses}}.Insert(pass);}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00160}00160 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00161}00161 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00162}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ac946fea7ddba02f6307178fa82218849}{00162}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ac946fea7ddba02f6307178fa82218849}{IRenderer::UnregisterPostProcessingPass}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass}{IPostProcessPass}}* pass) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00163}00163     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7e98e72a6fb34491cdd3b358c225747f}{resizablePostProcessingPasses}}.Remove(pass);}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00164}00164 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00165}00165 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00166}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a39cec2c1506cbde7b9da2b75cdebddf8}{00166}} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a39cec2c1506cbde7b9da2b75cdebddf8}{IRenderer::IsRtActive}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00167}00167     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a54e890abc204e8918aae618cf4642a0b}{isRtActive}};}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00168}00168 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00169}00169 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00170}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acf22c29d74bcd9d7e992d5f59becb681}{00170}} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acf22c29d74bcd9d7e992d5f59becb681}{IRenderer::IsRtRequested}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00171}00171     \textcolor{keywordflow}{return} isRtRequested;}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00172}00172 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00173}00173 }
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00174}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ae132981b28209658bcc2ca90fef26a54}{00174}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ae132981b28209658bcc2ca90fef26a54}{IRenderer::AddResizeCallback}}(std::function<\textcolor{keywordtype}{void}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2ui}}\&)> callback) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00175}00175     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a094df08d451deaab468fffe79dfb689a}{resizeCallbacks}}.Insert(callback);}
+\DoxyCodeLine{\Hypertarget{_renderer_8cpp_source_l00176}00176 \}}
+
+\end{DoxyCode}

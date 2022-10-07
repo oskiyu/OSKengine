@@ -1,0 +1,138 @@
+\hypertarget{class_o_s_k_1_1_i_o_1_1_file_i_o}{}\doxysection{Referencia de la Clase OSK\+::IO\+::File\+IO}
+\label{class_o_s_k_1_1_i_o_1_1_file_i_o}\index{OSK::IO::FileIO@{OSK::IO::FileIO}}
+
+
+{\ttfamily \#include $<$File\+IO.\+h$>$}
+
+\doxysubsection*{Métodos públicos estáticos}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_file_i_o_a60596c399337706874f179deb78ef575}{Write\+File}} (const std\+::string \&path, const std\+::string \&text)
+\item 
+static std\+::string \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_file_i_o_aad968707ec7b00bce0540c804f476dc9}{Read\+From\+File}} (const std\+::string \&path)
+\item 
+static \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ char $>$ \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_file_i_o_aee26ea7c3ddf90ed6b0c3043f968c9d5}{Read\+Binary\+From\+File}} (const std\+::string \&filename)
+\item 
+static bool \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_file_i_o_ac7fe213b79ce97b178a7e27f7216a2f4}{File\+Exists}} (const std\+::string \&path)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Clase que actúa de interfaz para la lectura y escritura de atchivos. 
+
+Definición en la línea \mbox{\hyperlink{_file_i_o_8h_source_l00013}{13}} del archivo \mbox{\hyperlink{_file_i_o_8h_source}{File\+IO.\+h}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_file_i_o_ac7fe213b79ce97b178a7e27f7216a2f4}\label{class_o_s_k_1_1_i_o_1_1_file_i_o_ac7fe213b79ce97b178a7e27f7216a2f4}} 
+\index{OSK::IO::FileIO@{OSK::IO::FileIO}!FileExists@{FileExists}}
+\index{FileExists@{FileExists}!OSK::IO::FileIO@{OSK::IO::FileIO}}
+\doxysubsubsection{\texorpdfstring{FileExists()}{FileExists()}}
+{\footnotesize\ttfamily bool File\+IO\+::\+File\+Exists (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Comprueba si un archivo existe. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em path} & Ruta del archivo (con extensión).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+True si existe.
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_file_i_o_8cpp_source_l00058}{58}} del archivo \mbox{\hyperlink{_file_i_o_8cpp_source}{File\+IO.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_file_i_o_aee26ea7c3ddf90ed6b0c3043f968c9d5}\label{class_o_s_k_1_1_i_o_1_1_file_i_o_aee26ea7c3ddf90ed6b0c3043f968c9d5}} 
+\index{OSK::IO::FileIO@{OSK::IO::FileIO}!ReadBinaryFromFile@{ReadBinaryFromFile}}
+\index{ReadBinaryFromFile@{ReadBinaryFromFile}!OSK::IO::FileIO@{OSK::IO::FileIO}}
+\doxysubsubsection{\texorpdfstring{ReadBinaryFromFile()}{ReadBinaryFromFile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ char $>$ File\+IO\+::\+Read\+Binary\+From\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Lee un archivo binario. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em filename} & Ruta del archivo (con extensión).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+Vector de bytes.
+\end{DoxyReturn}
+
+
+
+\begin{DoxyExceptions}{Excepciones}
+{\em std\+::runtime\+\_\+error} & Si el archivo no existe. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definición en la línea \mbox{\hyperlink{_file_i_o_8cpp_source_l00038}{38}} del archivo \mbox{\hyperlink{_file_i_o_8cpp_source}{File\+IO.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 0
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_file_i_o_aad968707ec7b00bce0540c804f476dc9}\label{class_o_s_k_1_1_i_o_1_1_file_i_o_aad968707ec7b00bce0540c804f476dc9}} 
+\index{OSK::IO::FileIO@{OSK::IO::FileIO}!ReadFromFile@{ReadFromFile}}
+\index{ReadFromFile@{ReadFromFile}!OSK::IO::FileIO@{OSK::IO::FileIO}}
+\doxysubsubsection{\texorpdfstring{ReadFromFile()}{ReadFromFile()}}
+{\footnotesize\ttfamily std\+::string File\+IO\+::\+Read\+From\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Lee un archivo de texto. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em path} & Ruta del archivo (con extensión).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+String con el contenido del archivo.
+\end{DoxyReturn}
+
+
+
+\begin{DoxyExceptions}{Excepciones}
+{\em std\+::runtime\+\_\+error} & Si el archivo no existe. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definición en la línea \mbox{\hyperlink{_file_i_o_8cpp_source_l00020}{20}} del archivo \mbox{\hyperlink{_file_i_o_8cpp_source}{File\+IO.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 1
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_file_i_o_a60596c399337706874f179deb78ef575}\label{class_o_s_k_1_1_i_o_1_1_file_i_o_a60596c399337706874f179deb78ef575}} 
+\index{OSK::IO::FileIO@{OSK::IO::FileIO}!WriteFile@{WriteFile}}
+\index{WriteFile@{WriteFile}!OSK::IO::FileIO@{OSK::IO::FileIO}}
+\doxysubsubsection{\texorpdfstring{WriteFile()}{WriteFile()}}
+{\footnotesize\ttfamily void File\+IO\+::\+Write\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path,  }\item[{const std\+::string \&}]{text }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Escribe un archivo de texto. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em path} & Ruta del archivo (con extensión).\\
+\hline
+{\em text} & Texto que se va a escribir.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_file_i_o_8cpp_source_l00012}{12}} del archivo \mbox{\hyperlink{_file_i_o_8cpp_source}{File\+IO.\+cpp}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_file_i_o_8h}{File\+IO.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_file_i_o_8cpp}{File\+IO.\+cpp}}\end{DoxyCompactItemize}

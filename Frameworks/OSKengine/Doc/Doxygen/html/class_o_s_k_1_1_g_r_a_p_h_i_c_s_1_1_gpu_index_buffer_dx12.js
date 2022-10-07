@@ -2,7 +2,6 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_dx12 =
 [
     [ "GpuIndexBufferDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_dx12.html#a840444fb43c3fdd259e4bddc5ff1beb9", null ],
     [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_dx12.html#af755613ed6b614d09310f7d1686a6dc8", null ],
-    [ "Free", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_dx12.html#a15808b222370a1a0a81be7f27b310b83", null ],
     [ "GetAlignment", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_dx12.html#ac873fedc6e58f364fb6a08e4bdf009fd", null ],
     [ "GetMemoryBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_dx12.html#a43f298eb4cdf029351a103d159c4abf8", null ],
     [ "GetMemorySubblock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_dx12.html#a0e688b372c65d28e21d562528355a08d", null ],
@@ -19,5 +18,5 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_dx12 =
     [ "Write", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_dx12.html#a3adde058f79922199f3c6971c899b227", null ],
     [ "Write", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_dx12.html#aadfb37dc25b557c76dc43a3de3667d18", null ],
     [ "WriteOffset", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_dx12.html#ac8e57fa1d9a9e692b7320fd0a8dd5cd0", null ],
-    [ "buffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_dx12.html#a9221ec74febac1fb10c483e25328796a", null ]
+    [ "buffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_dx12.html#a461883dff4d2ff0f0957d9f5a40991aa", null ]
 ];

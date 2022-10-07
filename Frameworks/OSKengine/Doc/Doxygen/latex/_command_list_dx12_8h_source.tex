@@ -1,0 +1,73 @@
+\hypertarget{_command_list_dx12_8h_source}{}\doxysection{Command\+List\+Dx12.\+h}
+\label{_command_list_dx12_8h_source}\index{OSKengine2/CommandListDx12.h@{OSKengine2/CommandListDx12.h}}
+\mbox{\hyperlink{_command_list_dx12_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_command_list_8h}{ICommandList.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_uniform_buffer_dx12_8h}{GpuUniformBufferDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00007}00007 \textcolor{preprocessor}{\#include <wrl.h>}}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00008}00008 \textcolor{keyword}{using namespace }Microsoft::WRL;}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00010}00010 \textcolor{preprocessor}{\#include <d3d12.h>}}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00012}00012 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}} \{}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00014}00014     \textcolor{keyword}{class }CommandPoolDx12;}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00015}00015     \textcolor{keyword}{class }GpuImageDx12;}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00026}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12}{00026}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12}{CommandListDx12}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommandList}} \{}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00028}00028     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00030}00030         \textcolor{keywordtype}{void} SetCommandPool(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12}{CommandPoolDx12}}\& commandPool);}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00032}00032         \textcolor{keywordtype}{void} SetCommandList(\textcolor{keyword}{const} ComPtr<ID3D12GraphicsCommandList>\& commandList);}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00033}00033         ID3D12GraphicsCommandList* GetCommandList() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00035}00035         \textcolor{keywordtype}{void} Reset() \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00036}00036         \textcolor{keywordtype}{void} Start() \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00037}00037         \textcolor{keywordtype}{void} Close() \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00039}00039         \textcolor{keywordtype}{void} BeginGraphicsRenderpass(\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<RenderPassImageInfo>}} colorImages, \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_pass_image_info}{RenderPassImageInfo}} depthImage, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_color}{Color}}\& color);}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00040}00040         \textcolor{keywordtype}{void} EndGraphicsRenderpass() \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00042}00042         \textcolor{keywordtype}{void} SetGpuImageBarrier(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GpuImage}}* image, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9}{GpuImageLayout}} previousLayout, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9}{GpuImageLayout}} nextLayout, \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info}{GpuBarrierInfo}} previous, \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info}{GpuBarrierInfo}} next, \textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info}{GpuImageBarrierInfo}}\& prevImageInfo) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00044}00044         \textcolor{keywordtype}{void} BindMaterial(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{Material}}* material) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00045}00045         \textcolor{keywordtype}{void} BindVertexBuffer(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpuVertexBuffer}}* buffer) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00046}00046         \textcolor{keywordtype}{void} BindIndexBuffer(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer}{IGpuIndexBuffer}}* buffer) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00047}00047         \textcolor{keywordtype}{void} BindMaterialSlot(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot}{IMaterialSlot}}* slot) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00048}00048         \textcolor{keywordtype}{void} PushMaterialConstants(\textcolor{keyword}{const} std::string\& pushConstName, \textcolor{keyword}{const} \textcolor{keywordtype}{void}* data, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} offset) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00050}00050         \textcolor{keywordtype}{void} DrawSingleInstance(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numIndices) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00051}00051         \textcolor{keywordtype}{void} DrawSingleMesh(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} firstIndex, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numIndices) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00052}00052         \textcolor{keywordtype}{void} TraceRays(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} raygenEntry, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} closestHitEntry, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} missEntry, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2ui}}\& resolution) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00054}00054         \textcolor{keywordtype}{void} DispatchCompute(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector3__t}{Vector3ui}}\& groupCount) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00055}00055         \textcolor{keywordtype}{void} BindComputePipeline(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_compute_pipeline}{IComputePipeline}}\& computePipeline) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00057}00057         \textcolor{keywordtype}{void} CopyBufferToImage(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer}{GpuDataBuffer}}* source, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GpuImage}}* dest, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} layer, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} offset) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00058}00058         \textcolor{keywordtype}{void} CopyImageToImage(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GpuImage}}* source, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GpuImage}}* destination, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numLayers, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} srcStartLayer, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} dstStartLayer, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} srcMipLevel, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} dstMipLevel, \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2ui}} copySize) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00060}00060         \textcolor{keywordtype}{void} BindUniformBufferDx12(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} index, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12}{GpuUniformBufferDx12}}* buffer);}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00069}00069         \textcolor{keywordtype}{void} ResourceBarrier(ID3D12Resource* resource, D3D12\_RESOURCE\_STATES from, D3D12\_RESOURCE\_STATES to);}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00071}00071         \textcolor{keywordtype}{void} SetViewport(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport}{Viewport}}\& viewport) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00072}00072         \textcolor{keywordtype}{void} SetScissor(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector4__t}{Vector4ui}}\& scissor) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00074}00074         \textcolor{keywordtype}{void} SetDebugName(\textcolor{keyword}{const} std::string\& name) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00076}00076     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00078}00078         ComPtr<ID3D12GraphicsCommandList> commandList;}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00079}00079         \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12}{CommandPoolDx12}}* commandPool;}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00081}00081     \};}
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{_command_list_dx12_8h_source_l00083}00083 \}}
+
+\end{DoxyCode}

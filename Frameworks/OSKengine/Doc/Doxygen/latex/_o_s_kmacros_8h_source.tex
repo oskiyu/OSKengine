@@ -1,0 +1,36 @@
+\hypertarget{_o_s_kmacros_8h_source}{}\doxysection{OSKmacros.\+h}
+\label{_o_s_kmacros_8h_source}\index{OSKengine2/OSKmacros.h@{OSKengine2/OSKmacros.h}}
+\mbox{\hyperlink{_o_s_kmacros_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00003}00003 \textcolor{preprocessor}{\#ifndef OSK\_DEVELOPMENT}}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00004}00004 \textcolor{preprocessor}{\#ifdef OSK\_DLL\_EXPORT}}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00005}00005 \textcolor{preprocessor}{\#define OSKAPI\_CALL \_declspec(dllexport)}}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00006}00006 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00007}\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{00007}} \textcolor{preprocessor}{\#define OSKAPI\_CALL \_declspec(dllimport)}}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00008}00008 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00009}00009 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00010}00010 \textcolor{preprocessor}{\#define OSKAPI\_CALL}}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00011}00011 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00013}\mbox{\hyperlink{_o_s_kmacros_8h_aebcc973f4db4a26ea3d60325d769741f}{00013}} \textcolor{preprocessor}{\#define OSK\_DISABLE\_COPY(className) \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00014}00014 \textcolor{preprocessor}{className(const className\&) = delete; \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00015}00015 \textcolor{preprocessor}{className\& operator=(const className\&) = delete;}}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00017}\mbox{\hyperlink{_o_s_kmacros_8h_ae38bf25dd8d8ec477d83ed205e1d8aaa}{00017}} \textcolor{preprocessor}{\#define OSK\_DEFINE\_AS(className) template <typename T> constexpr T* As() const requires std::is\_base\_of\_v<className, T> \{ return (T*)this; \}}}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00019}\mbox{\hyperlink{_o_s_kmacros_8h_a0b474619a247da5962d555753c6299b4}{00019}} \textcolor{preprocessor}{\#define OSK\_NODISCARD [[nodiscard]]}}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00021}00021 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00023}\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{00023}} \textcolor{keyword}{using }\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} = \textcolor{keywordtype}{unsigned} int;}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00024}\mbox{\hyperlink{_o_s_kmacros_8h_a0f6b3171fdbde641ab165b26c2e54a8d}{00024}} \textcolor{keyword}{using }\mbox{\hyperlink{_o_s_kmacros_8h_a0f6b3171fdbde641ab165b26c2e54a8d}{TIndex}} = \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}};}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00025}\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{00025}} \textcolor{keyword}{using }\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDeltaTime}} = float;}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00026}\mbox{\hyperlink{_o_s_kmacros_8h_a6d686bea7f1faeb6478b9450ba6915ed}{00026}} \textcolor{keyword}{using }\mbox{\hyperlink{_o_s_kmacros_8h_a6d686bea7f1faeb6478b9450ba6915ed}{TByte}} = uint8\_t;}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00028}\mbox{\hyperlink{_o_s_kmacros_8h_a8d42f4a4757e4cc1cd71e9491a14c8df}{00028}} \textcolor{preprocessor}{\#define OKS\_ARR\_FUNC(num) *}}
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{_o_s_kmacros_8h_source_l00030}00030 \textcolor{preprocessor}{\#include <type\_traits>}}
+
+\end{DoxyCode}

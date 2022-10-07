@@ -1,0 +1,98 @@
+\hypertarget{_i_pipeline_dx12_8cpp_source}{}\doxysection{IPipeline\+Dx12.\+cpp}
+\label{_i_pipeline_dx12_8cpp_source}\index{OSKengine2/IPipelineDx12.cpp@{OSKengine2/IPipelineDx12.cpp}}
+\mbox{\hyperlink{_i_pipeline_dx12_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_pipeline_dx12_8h}{IPipelineDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include <d3dcompiler.h>}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#undef min}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_file_i_o_8h}{FileIO.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00008}00008 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_spirv_to_hlsl_8h}{SpirvToHlsl.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00009}00009 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_windows_utils_8h}{WindowsUtils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00011}00011 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00012}00012 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_i_o}{OSK::IO}};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00013}00013 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00015}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_ab27afb785ce3f3e1f0f647d9273eb2c4}{00015}} ID3D12PipelineState* IPipelineDx12::GetPipeline()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00016}00016     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_a1a1833badaf5367685c6c9d743185342}{dxPipeline}}.Get();}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00017}00017 \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00019}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_a1846e733f383dc7fac065c1beb93da59}{00019}} ComPtr<ID3DBlob> \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_a1846e733f383dc7fac065c1beb93da59}{IPipelineDx12::LoadBlob}}(LPCWSTR filename) \{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00020}00020     ComPtr<ID3DBlob> shaderBlob;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00021}00021     \textcolor{keyword}{const} HRESULT hr = D3DReadFileToBlob(filename, \&shaderBlob);}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00023}00023     \textcolor{keywordflow}{if} (FAILED(hr))}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00024}00024         \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(\textcolor{keyword}{false}, \textcolor{stringliteral}{"{}No se pudo compilar el shader. Code: "{}} + std::to\_string(hr));}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00026}00026     \textcolor{keywordflow}{return} shaderBlob;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00027}00027 \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00029}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_a5c2d32d01215cc92012df25cff8a0238}{00029}} ComPtr<IDxcBlob> \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_a5c2d32d01215cc92012df25cff8a0238}{IPipelineDx12::CompileBlob}}(\textcolor{keyword}{const} std::string\& spirvPath, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{VertexInfo}}\& vertexInfo, \textcolor{keyword}{const} std::string\& hlslProfile, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{MaterialLayout}}\& layout) \{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00030}00030     \textcolor{keyword}{const} \textcolor{keyword}{auto} bytecode = FileIO::ReadBinaryFromFile(spirvPath);}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00032}00032     \textcolor{comment}{// Generación del código HLSL.}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00033}00033     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl}{SpirvToHlsl}} compilerToHlsl = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl}{SpirvToHlsl}}(bytecode);}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00034}00034     compilerToHlsl.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_adab7513d1156f853f3eef6f11dd4fd28}{SetHlslTargetProfile}}(6, 1);}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00035}00035     compilerToHlsl.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_abd08d4b056b56461f377590fd8398125}{SetVertexAttributesMapping}}(vertexInfo);}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00036}00036     compilerToHlsl.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_a778a9fd7930df44f9966a18ba42355b9}{SetLayoutMapping}}(layout);}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00038}00038     \textcolor{keyword}{const} std::string hlslSourceCode = compilerToHlsl.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_aca77e7a7b9137553110886012ca91c68}{CreateHlsl}}();}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00040}00040     \textcolor{comment}{//Engine::GetLogger()-\/>DebugLog(hlslSourceCode);}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00041}00041     FileIO::WriteFile(\textcolor{stringliteral}{"{}./temp\_shader"{}}, hlslSourceCode);}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00042}00042 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00043}00043     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler}{HlslRuntimeCompiler}} compiler;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00044}00044     \textcolor{keywordflow}{return} compiler.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler_a82745de6cab664215a954ab69a709c91}{CompileFromFile}}(\textcolor{stringliteral}{"{}./temp\_shader"{}}, hlslProfile);}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00045}00045 \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00047}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_a5bc7a9722e29f569c95325ccb0124852}{00047}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12}{ShaderStageDx12}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_a5bc7a9722e29f569c95325ccb0124852}{IPipelineDx12::LoadShader}}(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{PipelineCreateInfo}}\& info, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{VertexInfo}}\& vertexInfo, \textcolor{keyword}{const} std::string\& path, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcb}{ShaderStage}} stage, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{MaterialLayout}}\& mLayout) \{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00048}00048     \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12}{ShaderStageDx12}} output\{\};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00050}00050     \textcolor{keywordflow}{if} (info.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_aefde218953366f55118fc7d07cf3cbd4}{precompiledHlslShaders}}) \{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00051}00051         \textcolor{keyword}{const} \textcolor{keyword}{auto} wPath = \mbox{\hyperlink{namespace_o_s_k_a543f1e2eaed4543c687adc9f9a0622ac}{StringToWideString}}(path);}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00052}00052         output.isBlobPrecompiled = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00053}00053         output.precompiled = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_a1846e733f383dc7fac065c1beb93da59}{LoadBlob}}(wPath.c\_str());}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00055}00055         output.bytecode.BytecodeLength = output.precompiled-\/>GetBufferSize();}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00056}00056         output.bytecode.pShaderBytecode = output.precompiled-\/>GetBufferPointer();}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00057}00057     \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00058}00058     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00059}00059         output.isBlobPrecompiled = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00060}00060         output.spirvCompiled = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_a5c2d32d01215cc92012df25cff8a0238}{CompileBlob}}(path, vertexInfo, GetHlslProfile(stage), mLayout);}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00062}00062         output.bytecode.BytecodeLength = output.spirvCompiled-\/>GetBufferSize();}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00063}00063         output.bytecode.pShaderBytecode = output.spirvCompiled-\/>GetBufferPointer();}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00064}00064     \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00066}00066     \textcolor{keywordflow}{return} output;}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00067}00067 \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00069}00069 std::string IPipelineDx12::GetHlslProfile(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcb}{ShaderStage}} stage) \{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00070}00070     \textcolor{keywordflow}{switch} (stage) \{}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00071}00071     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba0c3e47aef93a7f244f41ab309a33634b}{OSK::GRAPHICS::ShaderStage::VERTEX}}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00072}00072         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}vs\_6\_1"{}};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00073}00073     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba7345a249ed5c2f850d85dc1727c24716}{OSK::GRAPHICS::ShaderStage::FRAGMENT}}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00074}00074         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}ps\_6\_1"{}};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00075}00075     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcbaf448507fb26809d25c13899dfc57e230}{OSK::GRAPHICS::ShaderStage::TESSELATION\_CONTROL}}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00076}00076         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}hs\_6\_1"{}};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00077}00077     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba9196126eff57d73bb45dc36a6367e58d}{OSK::GRAPHICS::ShaderStage::TESSELATION\_EVALUATION}}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00078}00078         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}ds\_6\_1"{}};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00079}00079     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba949f4e4e16184d8e16e4125517a1c6c3}{OSK::GRAPHICS::ShaderStage::RT\_RAYGEN}}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00080}00080         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}lib\_6\_3"{}};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00081}00081     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcbaee8f06a600f854fc2cd6d6fc69089b6d}{OSK::GRAPHICS::ShaderStage::RT\_CLOSEST\_HIT}}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00082}00082         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}lib\_6\_3"{}};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00083}00083     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcbaa81021d99de178d7979c2c96b7e3e47d}{OSK::GRAPHICS::ShaderStage::RT\_MISS}}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00084}00084         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}lib\_6\_3"{}};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00085}00085     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcbaac404d7ce6ca5862e9b8a2641fbafd90}{OSK::GRAPHICS::ShaderStage::COMPUTE}}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00086}00086         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}cs\_6\_1"{}};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00087}00087 }
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00088}00088     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00089}00089         \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(\textcolor{keyword}{false}, \textcolor{stringliteral}{"{}Shader stage "{}} + \mbox{\hyperlink{namespace_o_s_k_a0e02ca313c1894ead83ab76001063684}{ToString}}(stage) + \textcolor{stringliteral}{"{} no soportado en DX12."{}});}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00090}00090         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00091}00091     \}}
+\DoxyCodeLine{\Hypertarget{_i_pipeline_dx12_8cpp_source_l00092}00092 \}}
+
+\end{DoxyCode}

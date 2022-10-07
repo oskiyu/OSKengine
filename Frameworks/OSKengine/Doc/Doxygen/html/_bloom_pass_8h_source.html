@@ -92,63 +92,64 @@ $(document).ready(function(){initNavTree('_bloom_pass_8h_source.html',''); initR
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_i_post_process_pass_8h.html">IPostProcessPass.h</a>&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">    5</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>;</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html">   22</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html">BloomPass</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html">IPostProcessPass</a> {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">void</span> Create(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a>&amp; size) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordtype">void</span> Resize(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a>&amp; size) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordtype">void</span> Execute(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>* computeCmdList) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordtype">void</span> SetExposureBuffers(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_storage_buffer.html">IGpuStorageBuffer</a>* [3]);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordtype">void</span> UpdateMaterialInstance() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordtype">void</span> SetupMaterialInstances();</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keyword">class </span>ICommandList;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keyword">class </span>IGpuStorageBuffer;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html">   23</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html">BloomPass</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html">IPostProcessPass</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordtype">void</span> Create(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a>&amp; size) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordtype">void</span> Resize(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a>&amp; size) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordtype">void</span> Execute(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>* computeCmdList) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordtype">void</span> SetExposureBuffers(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_storage_buffer.html">IGpuStorageBuffer</a>* [3]);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">void</span> UpdateMaterialInstance() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordtype">void</span> SetupMaterialInstances();</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordtype">void</span> ExecuteSinglePass(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>* computeCmdList, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; oldRes, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; newRes, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> inputIndex, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> outputIndex);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordtype">void</span> DownscaleBloom(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>* computeCmdList, <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>* res);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordtype">void</span> UpscaleBloom(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>* computeCmdList, <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>* res);</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GpuImage&gt;</a> bloomTargets[3]{};</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a>* downscaleMaterial = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a>* upscaleMaterial = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a>* finalMaterial = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keyword">const</span> <span class="keyword">static</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> numPasses = 4;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    };</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>}</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordtype">void</span> ExecuteSinglePass(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>* computeCmdList, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; oldRes, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; newRes, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> inputIndex, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> outputIndex);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordtype">void</span> DownscaleBloom(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>* computeCmdList, <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>* res);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordtype">void</span> UpscaleBloom(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>* computeCmdList, <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>* res);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GpuImage&gt;</a> bloomTargets[3]{};</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a>* downscaleMaterial = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a>* upscaleMaterial = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a>* finalMaterial = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keyword">const</span> <span class="keyword">static</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> numPasses = 4;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    };</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>}</div>
 <div class="ttc" id="a_i_post_process_pass_8h_html"><div class="ttname"><a href="_i_post_process_pass_8h.html">IPostProcessPass.h</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00023">OSKmacros.h:23</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html">OSK::GRAPHICS::BloomPass</a></div><div class="ttdoc">Clase auxiliar que permite una capa de bloom / resplandor.</div><div class="ttdef"><b>Definition:</b> <a href="_bloom_pass_8h_source.html#l00022">BloomPass.h:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html">OSK::GRAPHICS::BloomPass</a></div><div class="ttdoc">Clase auxiliar que permite una capa de bloom / resplandor.</div><div class="ttdef"><b>Definition:</b> <a href="_bloom_pass_8h_source.html#l00023">BloomPass.h:23</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">OSK::GRAPHICS::ICommandList</a></div><div class="ttdoc">Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución.</div><div class="ttdef"><b>Definition:</b> <a href="_i_command_list_8h_source.html#l00047">ICommandList.h:47</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_storage_buffer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_storage_buffer.html">OSK::GRAPHICS::IGpuStorageBuffer</a></div><div class="ttdoc">Un buffer que contiene información read-write. Equivalente a un UAV buffer en DX12.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_storage_buffer_8h_source.html#l00011">IGpuStorageBuffer.h:11</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html">OSK::GRAPHICS::IPostProcessPass</a></div><div class="ttdoc">Clase base que permite ejecutar pases de efectos de postprocesamiento.</div><div class="ttdef"><b>Definition:</b> <a href="_i_post_process_pass_8h_source.html#l00019">IPostProcessPass.h:19</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">OSK::GRAPHICS::Material</a></div><div class="ttdoc">Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la...</div><div class="ttdef"><b>Definition:</b> <a href="_material_8h_source.html#l00030">Material.h:30</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Es dueño de un puntero. El puntero original es eliminado al destruirse el UniquePtr.</div><div class="ttdef"><b>Definition:</b> <a href="_unique_ptr_8hpp_source.html#l00020">UniquePtr.hpp:20</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; uint32_t &gt;</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_bloom_pass_8h_source.html#l00005">BloomPass.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_animation_8h_source.html#l00013">Animation.h:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_bloom_pass_8h.html">BloomPass.h</a></li>
-    <li class="footer">Generado el Sábado, 17 de Septiembre de 2022 00:04:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 6 de Octubre de 2022 19:30:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

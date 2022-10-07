@@ -1,0 +1,86 @@
+\hypertarget{_component_container_8h_source}{}\doxysection{Component\+Container.\+h}
+\label{_component_container_8h_source}\index{OSKengine2/ComponentContainer.h@{OSKengine2/ComponentContainer.h}}
+\mbox{\hyperlink{_component_container_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_component_container_8h}{IComponentContainer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_dynamic_array_8hpp}{DynamicArray.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_hash_map_8hpp}{HashMap.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_component_8h}{Component.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_memory_8h}{Memory.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00009}00009 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s}{OSK::ECS}} \{}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00017}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container}{00017}}     \textcolor{keyword}{template} <\textcolor{keyword}{typename} TComponent> \textcolor{keyword}{class }\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container}{ComponentContainer}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_component_container}{IComponentContainer}} \{}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00019}00019     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00021}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container_aaf4a09e52c546c79b71b26fa5a110f57}{00021}}         \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container_aaf4a09e52c546c79b71b26fa5a110f57}{\string~ComponentContainer}}() \{}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00022}00022             \textcolor{keywordflow}{while} (!components.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_ab772cd3a1f2c189505ea17d604dfc164}{IsEmpty}}())}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00023}00023                 components.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a90bb67f64f4e41f06ec2db0e18dc563f}{RemoveLast}}();}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00024}00024         \}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00032}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container_af1fb0c5b18e59eee44e7f3dc8321140e}{00032}}         TComponent\& \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container_af1fb0c5b18e59eee44e7f3dc8321140e}{AddComponent}}(\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{GameObjectIndex}} obj, \textcolor{keyword}{const} TComponent\& component) \{}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00033}00033             \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_ab5c95debae1feaa2c43ccb5c59171545}{ComponentIndex}} componentId = components.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}();}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00035}00035             objectToComponent.\mbox{\hyperlink{class_o_s_k_1_1_hash_map_a9840da146cc95d82bc7c505334db32a4}{Insert}}(obj, componentId);}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00036}00036             componentToObject.\mbox{\hyperlink{class_o_s_k_1_1_hash_map_a9840da146cc95d82bc7c505334db32a4}{Insert}}(componentId, obj);}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00037}00037             components.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(component);}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00039}00039             \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container_a3b5cac3a5c7ac15f1f7bf0e24f4e0027}{GetComponent}}(obj);}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00040}00040         \}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00048}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container_aada8120359f7e0a7c7a4f93d55764f6f}{00048}}         TComponent\& \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container_aada8120359f7e0a7c7a4f93d55764f6f}{AddComponentMove}}(\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{GameObjectIndex}} obj, TComponent\&\& component) \{}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00049}00049             \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_ab5c95debae1feaa2c43ccb5c59171545}{ComponentIndex}} componentId = components.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}();}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00051}00051             objectToComponent.\mbox{\hyperlink{class_o_s_k_1_1_hash_map_a9840da146cc95d82bc7c505334db32a4}{Insert}}(obj, componentId);}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00052}00052             componentToObject.\mbox{\hyperlink{class_o_s_k_1_1_hash_map_a9840da146cc95d82bc7c505334db32a4}{Insert}}(componentId, obj);}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00053}00053             components.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(std::move(component));}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00055}00055             \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container_a3b5cac3a5c7ac15f1f7bf0e24f4e0027}{GetComponent}}(obj);}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00056}00056         \}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00064}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container_a9b71e06dbdfd14318e62df1352ff646d}{00064}}         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container_a9b71e06dbdfd14318e62df1352ff646d}{RemoveComponent}}(\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{GameObjectIndex}} obj) \{}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00065}00065             \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_ab5c95debae1feaa2c43ccb5c59171545}{ComponentIndex}} compIndex = objectToComponent.\mbox{\hyperlink{class_o_s_k_1_1_hash_map_a93a98e2495dab16229085c7109a27b30}{Get}}(obj);}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00066}00066             \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} indexOfLast = components.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}() -\/ 1;}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00068}00068             \textcolor{comment}{// Hacemos que el componente a eliminar esté en la última posición.}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00069}00069             \textcolor{comment}{// El último componente se coloca en el hueco del componente eliminado,}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00070}00070             \textcolor{comment}{// para evitar dejar huecos en el array.}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00071}00071             \mbox{\hyperlink{namespace_o_s_k_1_1_m_e_m_o_r_y_a35e3458f3c005afe03cc0655371008e5}{MEMORY::MemorySwap}}(\&components[compIndex], \&components[indexOfLast], \textcolor{keyword}{sizeof}(TComponent));}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00072}00072 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00073}00073             \textcolor{comment}{// Obtenemos el objeto dueño del componente que acabamos de colocar}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00074}00074             \textcolor{comment}{// donde el componente eliminado.}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00075}00075             \textcolor{comment}{// Actualizamos las tablas para que apunten al nuevo lugar que ocupa.}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00076}00076             \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{GameObjectIndex}} objectOfLast = componentToObject.\mbox{\hyperlink{class_o_s_k_1_1_hash_map_a93a98e2495dab16229085c7109a27b30}{Get}}(indexOfLast);}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00077}00077             objectToComponent.\mbox{\hyperlink{class_o_s_k_1_1_hash_map_a93a98e2495dab16229085c7109a27b30}{Get}}(objectOfLast) = compIndex;}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00078}00078             componentToObject.\mbox{\hyperlink{class_o_s_k_1_1_hash_map_a93a98e2495dab16229085c7109a27b30}{Get}}(compIndex) = objectOfLast;}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00080}00080             \textcolor{comment}{// Eliminación final.}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00081}00081             components.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a90bb67f64f4e41f06ec2db0e18dc563f}{RemoveLast}}();}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00083}00083             objectToComponent.\mbox{\hyperlink{class_o_s_k_1_1_hash_map_a27a67cdaac41f7ac1073c248a68a5926}{Remove}}(obj);}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00084}00084             componentToObject.\mbox{\hyperlink{class_o_s_k_1_1_hash_map_a27a67cdaac41f7ac1073c248a68a5926}{Remove}}(indexOfLast);}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00085}00085         \}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00092}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container_a3b5cac3a5c7ac15f1f7bf0e24f4e0027}{00092}}         TComponent\& \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container_a3b5cac3a5c7ac15f1f7bf0e24f4e0027}{GetComponent}}(\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{GameObjectIndex}} obj)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00093}00093             \textcolor{keywordflow}{return} components.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a9691f5eaf46654d59525c6c342d69cbb}{At}}(objectToComponent.\mbox{\hyperlink{class_o_s_k_1_1_hash_map_a93a98e2495dab16229085c7109a27b30}{Get}}(obj));}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00094}00094         \}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00095}00095 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00101}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container_aa2ae3332ee4b0c80860b7cc3d60d5d55}{00101}}         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container_aa2ae3332ee4b0c80860b7cc3d60d5d55}{GameObjectDestroyerd}}(\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{GameObjectIndex}} obj)\textcolor{keyword}{ override }\{}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00102}00102             \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container_a9b71e06dbdfd14318e62df1352ff646d}{RemoveComponent}}(obj);}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00103}00103         \}}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00104}00104 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00105}00105     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00110}00110         \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<TComponent>}} components;}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00111}00111 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00115}00115         \mbox{\hyperlink{class_o_s_k_1_1_hash_map}{HashMap<GameObjectIndex, ComponentIndex>}} objectToComponent;}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00119}00119         \mbox{\hyperlink{class_o_s_k_1_1_hash_map}{HashMap<ComponentIndex, GameObjectIndex>}} componentToObject;}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00120}00120 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00121}00121     \};}
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00122}00122 }
+\DoxyCodeLine{\Hypertarget{_component_container_8h_source_l00123}00123 \}}
+
+\end{DoxyCode}

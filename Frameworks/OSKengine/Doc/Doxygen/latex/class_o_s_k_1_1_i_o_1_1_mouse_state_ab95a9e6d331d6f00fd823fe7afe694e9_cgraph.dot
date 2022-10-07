@@ -1,0 +1,12 @@
+digraph "OSK::IO::MouseState::IsButtonUp"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::IO::MouseState\l::IsButtonUp",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Obtiene si un botón no está siendo pulsado."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::IO::MouseState\l::IsButtonDown",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_mouse_state.html#af0b7921cedc90d38386069181705dfb9",tooltip="Obtiene si un botón está siendo pulsado."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="OSK::IO::MouseState\l::GetButtonState",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_mouse_state.html#ab81f3eeb6c2c5db16d67dc17012dae40",tooltip="Obtiene el estado de un botón."];
+}

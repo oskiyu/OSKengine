@@ -1,0 +1,253 @@
+\hypertarget{class_o_s_k_1_1_engine}{}\doxysection{Referencia de la Clase OSK\+::Engine}
+\label{class_o_s_k_1_1_engine}\index{OSK::Engine@{OSK::Engine}}
+
+
+{\ttfamily \#include $<$OSKengine.\+h$>$}
+
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_engine_a4cebbff4288a89796d09f5060dea8c27}{Engine}} ()=delete
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_engine_a14fa3ec009597e470a2c301108d57879}{Engine}} (const \mbox{\hyperlink{class_o_s_k_1_1_engine}{Engine}} \&)=delete
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_engine_a523836b34f219549596cb5d402b560b8}{Engine}} (\mbox{\hyperlink{class_o_s_k_1_1_engine}{Engine}} \&\&)=delete
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_engine}{Engine}} \& \mbox{\hyperlink{class_o_s_k_1_1_engine_a07a9fcf411c42f80ea0b7df1e065e5f6}{operator=}} (const \mbox{\hyperlink{class_o_s_k_1_1_engine}{Engine}} \&e)=delete
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_engine}{Engine}} \& \mbox{\hyperlink{class_o_s_k_1_1_engine_a0a72830e83c0f58c00b0c5f32b52abfe}{operator=}} (\mbox{\hyperlink{class_o_s_k_1_1_engine}{Engine}} \&\&e)=delete
+\end{DoxyCompactItemize}
+\doxysubsection*{Métodos públicos estáticos}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_o_s_k_1_1_engine_a88150153e8f935f46f0eb728740cb9b5}{Create}} (\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3057691f190dabf7642cfde72cf2430f}{GRAPHICS\+::\+Render\+Api\+Type}} type)
+\item 
+static void \mbox{\hyperlink{class_o_s_k_1_1_engine_ac7dc8c00262aee2a11183e4080fa5faf}{Close}} ()
+\item 
+static float \mbox{\hyperlink{class_o_s_k_1_1_engine_a23b66a6d56164e64d289902ad16b625a}{Get\+Current\+Time}} ()
+\item 
+static \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_logger}{IO\+::\+Logger}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_engine_ac39b79a3e665381630f6c710f3772a2b}{Get\+Logger}} ()
+\item 
+static \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window}{IO\+::\+Window}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_engine_a96eab59df83d63ab65869fea551bb272}{Get\+Window}} ()
+\item 
+static \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer}{GRAPHICS\+::\+IRenderer}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Get\+Renderer}} ()
+\item 
+static \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager}{ASSETS\+::\+Asset\+Manager}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_engine_ab092fdb69a9c816c93f177192477d97c}{Get\+Asset\+Manager}} ()
+\item 
+static \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_entity_component_system}{ECS\+::\+Entity\+Component\+System}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_engine_a17fd2842c078b7ddb4aaa70cd04549ab}{Get\+Entity\+Component\+System}} ()
+\item 
+static \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_input_manager}{IO\+::\+Input\+Manager}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_engine_a5893cf5817c0ab30ae0c0d9761ce71f2}{Get\+Input\+Manager}} ()
+\item 
+static const \mbox{\hyperlink{struct_o_s_k_1_1_version}{Version}} \& \mbox{\hyperlink{class_o_s_k_1_1_engine_ae7fa09bffe338e2361df47c4f2f704b0}{Get\+Version}} ()
+\item 
+static const std\+::string \& \mbox{\hyperlink{class_o_s_k_1_1_engine_a6b9ee02d043a6bd62d96c28fe3987f3d}{Get\+Build}} ()
+\item 
+static void \mbox{\hyperlink{class_o_s_k_1_1_engine_a06a8dfc576c0564c3299c887c461e1a3}{Register\+Builtin\+Assets}} ()
+\item 
+static void \mbox{\hyperlink{class_o_s_k_1_1_engine_a04a69ed11fc232d069052d6f022aff42}{Register\+Builtin\+Components}} ()
+\item 
+static void \mbox{\hyperlink{class_o_s_k_1_1_engine_a42efdb059fdfcc7c93b2cd1338d66c9e}{Register\+Builtin\+Systems}} ()
+\item 
+static void \mbox{\hyperlink{class_o_s_k_1_1_engine_a68d1b1d787f29b6a6ba0a617f1919e67}{Register\+Builtin\+Vertices}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Clase principal de OSKengine. 
+
+Definición en la línea \mbox{\hyperlink{_o_s_kengine_8h_source_l00040}{40}} del archivo \mbox{\hyperlink{_o_s_kengine_8h_source}{OSKengine.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_a4cebbff4288a89796d09f5060dea8c27}\label{class_o_s_k_1_1_engine_a4cebbff4288a89796d09f5060dea8c27}} 
+\index{OSK::Engine@{OSK::Engine}!Engine@{Engine}}
+\index{Engine@{Engine}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{Engine()}{Engine()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily OSK\+::\+Engine\+::\+Engine (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_a14fa3ec009597e470a2c301108d57879}\label{class_o_s_k_1_1_engine_a14fa3ec009597e470a2c301108d57879}} 
+\index{OSK::Engine@{OSK::Engine}!Engine@{Engine}}
+\index{Engine@{Engine}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{Engine()}{Engine()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily OSK\+::\+Engine\+::\+Engine (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_engine}{Engine}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_a523836b34f219549596cb5d402b560b8}\label{class_o_s_k_1_1_engine_a523836b34f219549596cb5d402b560b8}} 
+\index{OSK::Engine@{OSK::Engine}!Engine@{Engine}}
+\index{Engine@{Engine}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{Engine()}{Engine()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily OSK\+::\+Engine\+::\+Engine (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_engine}{Engine}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_ac7dc8c00262aee2a11183e4080fa5faf}\label{class_o_s_k_1_1_engine_ac7dc8c00262aee2a11183e4080fa5faf}} 
+\index{OSK::Engine@{OSK::Engine}!Close@{Close}}
+\index{Close@{Close}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{Close()}{Close()}}
+{\footnotesize\ttfamily void Engine\+::\+Close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_o_s_kengine_8cpp_source_l00083}{83}} del archivo \mbox{\hyperlink{_o_s_kengine_8cpp_source}{OSKengine.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_a88150153e8f935f46f0eb728740cb9b5}\label{class_o_s_k_1_1_engine_a88150153e8f935f46f0eb728740cb9b5}} 
+\index{OSK::Engine@{OSK::Engine}!Create@{Create}}
+\index{Create@{Create}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily void Engine\+::\+Create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3057691f190dabf7642cfde72cf2430f}{GRAPHICS\+::\+Render\+Api\+Type}}}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_o_s_kengine_8cpp_source_l00048}{48}} del archivo \mbox{\hyperlink{_o_s_kengine_8cpp_source}{OSKengine.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 0
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_ab092fdb69a9c816c93f177192477d97c}\label{class_o_s_k_1_1_engine_ab092fdb69a9c816c93f177192477d97c}} 
+\index{OSK::Engine@{OSK::Engine}!GetAssetManager@{GetAssetManager}}
+\index{GetAssetManager@{GetAssetManager}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{GetAssetManager()}{GetAssetManager()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager}{ASSETS\+::\+Asset\+Manager}} $\ast$ Engine\+::\+Get\+Asset\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_o_s_kengine_8cpp_source_l00135}{135}} del archivo \mbox{\hyperlink{_o_s_kengine_8cpp_source}{OSKengine.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_a6b9ee02d043a6bd62d96c28fe3987f3d}\label{class_o_s_k_1_1_engine_a6b9ee02d043a6bd62d96c28fe3987f3d}} 
+\index{OSK::Engine@{OSK::Engine}!GetBuild@{GetBuild}}
+\index{GetBuild@{GetBuild}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{GetBuild()}{GetBuild()}}
+{\footnotesize\ttfamily const std\+::string \& Engine\+::\+Get\+Build (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_o_s_kengine_8cpp_source_l00157}{157}} del archivo \mbox{\hyperlink{_o_s_kengine_8cpp_source}{OSKengine.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_a23b66a6d56164e64d289902ad16b625a}\label{class_o_s_k_1_1_engine_a23b66a6d56164e64d289902ad16b625a}} 
+\index{OSK::Engine@{OSK::Engine}!GetCurrentTime@{GetCurrentTime}}
+\index{GetCurrentTime@{GetCurrentTime}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{GetCurrentTime()}{GetCurrentTime()}}
+{\footnotesize\ttfamily float Engine\+::\+Get\+Current\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_o_s_kengine_8cpp_source_l00147}{147}} del archivo \mbox{\hyperlink{_o_s_kengine_8cpp_source}{OSKengine.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_a17fd2842c078b7ddb4aaa70cd04549ab}\label{class_o_s_k_1_1_engine_a17fd2842c078b7ddb4aaa70cd04549ab}} 
+\index{OSK::Engine@{OSK::Engine}!GetEntityComponentSystem@{GetEntityComponentSystem}}
+\index{GetEntityComponentSystem@{GetEntityComponentSystem}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{GetEntityComponentSystem()}{GetEntityComponentSystem()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_entity_component_system}{ECS\+::\+Entity\+Component\+System}} $\ast$ Engine\+::\+Get\+Entity\+Component\+System (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_o_s_kengine_8cpp_source_l00139}{139}} del archivo \mbox{\hyperlink{_o_s_kengine_8cpp_source}{OSKengine.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_a5893cf5817c0ab30ae0c0d9761ce71f2}\label{class_o_s_k_1_1_engine_a5893cf5817c0ab30ae0c0d9761ce71f2}} 
+\index{OSK::Engine@{OSK::Engine}!GetInputManager@{GetInputManager}}
+\index{GetInputManager@{GetInputManager}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{GetInputManager()}{GetInputManager()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_input_manager}{IO\+::\+Input\+Manager}} $\ast$ Engine\+::\+Get\+Input\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_o_s_kengine_8cpp_source_l00143}{143}} del archivo \mbox{\hyperlink{_o_s_kengine_8cpp_source}{OSKengine.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_ac39b79a3e665381630f6c710f3772a2b}\label{class_o_s_k_1_1_engine_ac39b79a3e665381630f6c710f3772a2b}} 
+\index{OSK::Engine@{OSK::Engine}!GetLogger@{GetLogger}}
+\index{GetLogger@{GetLogger}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{GetLogger()}{GetLogger()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_logger}{IO\+::\+Logger}} $\ast$ Engine\+::\+Get\+Logger (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_o_s_kengine_8cpp_source_l00123}{123}} del archivo \mbox{\hyperlink{_o_s_kengine_8cpp_source}{OSKengine.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}\label{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}} 
+\index{OSK::Engine@{OSK::Engine}!GetRenderer@{GetRenderer}}
+\index{GetRenderer@{GetRenderer}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{GetRenderer()}{GetRenderer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer}{GRAPHICS\+::\+IRenderer}} $\ast$ Engine\+::\+Get\+Renderer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_o_s_kengine_8cpp_source_l00131}{131}} del archivo \mbox{\hyperlink{_o_s_kengine_8cpp_source}{OSKengine.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_ae7fa09bffe338e2361df47c4f2f704b0}\label{class_o_s_k_1_1_engine_ae7fa09bffe338e2361df47c4f2f704b0}} 
+\index{OSK::Engine@{OSK::Engine}!GetVersion@{GetVersion}}
+\index{GetVersion@{GetVersion}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{GetVersion()}{GetVersion()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{struct_o_s_k_1_1_version}{Version}} \& Engine\+::\+Get\+Version (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_o_s_kengine_8cpp_source_l00151}{151}} del archivo \mbox{\hyperlink{_o_s_kengine_8cpp_source}{OSKengine.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_a96eab59df83d63ab65869fea551bb272}\label{class_o_s_k_1_1_engine_a96eab59df83d63ab65869fea551bb272}} 
+\index{OSK::Engine@{OSK::Engine}!GetWindow@{GetWindow}}
+\index{GetWindow@{GetWindow}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{GetWindow()}{GetWindow()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window}{IO\+::\+Window}} $\ast$ Engine\+::\+Get\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_o_s_kengine_8cpp_source_l00127}{127}} del archivo \mbox{\hyperlink{_o_s_kengine_8cpp_source}{OSKengine.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_a07a9fcf411c42f80ea0b7df1e065e5f6}\label{class_o_s_k_1_1_engine_a07a9fcf411c42f80ea0b7df1e065e5f6}} 
+\index{OSK::Engine@{OSK::Engine}!operator=@{operator=}}
+\index{operator=@{operator=}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_engine}{Engine}} \& OSK\+::\+Engine\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_engine}{Engine}} \&}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_a0a72830e83c0f58c00b0c5f32b52abfe}\label{class_o_s_k_1_1_engine_a0a72830e83c0f58c00b0c5f32b52abfe}} 
+\index{OSK::Engine@{OSK::Engine}!operator=@{operator=}}
+\index{operator=@{operator=}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_engine}{Engine}} \& OSK\+::\+Engine\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_engine}{Engine}} \&\&}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_a06a8dfc576c0564c3299c887c461e1a3}\label{class_o_s_k_1_1_engine_a06a8dfc576c0564c3299c887c461e1a3}} 
+\index{OSK::Engine@{OSK::Engine}!RegisterBuiltinAssets@{RegisterBuiltinAssets}}
+\index{RegisterBuiltinAssets@{RegisterBuiltinAssets}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{RegisterBuiltinAssets()}{RegisterBuiltinAssets()}}
+{\footnotesize\ttfamily void Engine\+::\+Register\+Builtin\+Assets (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_o_s_kengine_8cpp_source_l00092}{92}} del archivo \mbox{\hyperlink{_o_s_kengine_8cpp_source}{OSKengine.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_a04a69ed11fc232d069052d6f022aff42}\label{class_o_s_k_1_1_engine_a04a69ed11fc232d069052d6f022aff42}} 
+\index{OSK::Engine@{OSK::Engine}!RegisterBuiltinComponents@{RegisterBuiltinComponents}}
+\index{RegisterBuiltinComponents@{RegisterBuiltinComponents}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{RegisterBuiltinComponents()}{RegisterBuiltinComponents()}}
+{\footnotesize\ttfamily void Engine\+::\+Register\+Builtin\+Components (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_o_s_kengine_8cpp_source_l00100}{100}} del archivo \mbox{\hyperlink{_o_s_kengine_8cpp_source}{OSKengine.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_a42efdb059fdfcc7c93b2cd1338d66c9e}\label{class_o_s_k_1_1_engine_a42efdb059fdfcc7c93b2cd1338d66c9e}} 
+\index{OSK::Engine@{OSK::Engine}!RegisterBuiltinSystems@{RegisterBuiltinSystems}}
+\index{RegisterBuiltinSystems@{RegisterBuiltinSystems}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{RegisterBuiltinSystems()}{RegisterBuiltinSystems()}}
+{\footnotesize\ttfamily void Engine\+::\+Register\+Builtin\+Systems (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_o_s_kengine_8cpp_source_l00110}{110}} del archivo \mbox{\hyperlink{_o_s_kengine_8cpp_source}{OSKengine.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_engine_a68d1b1d787f29b6a6ba0a617f1919e67}\label{class_o_s_k_1_1_engine_a68d1b1d787f29b6a6ba0a617f1919e67}} 
+\index{OSK::Engine@{OSK::Engine}!RegisterBuiltinVertices@{RegisterBuiltinVertices}}
+\index{RegisterBuiltinVertices@{RegisterBuiltinVertices}!OSK::Engine@{OSK::Engine}}
+\doxysubsubsection{\texorpdfstring{RegisterBuiltinVertices()}{RegisterBuiltinVertices()}}
+{\footnotesize\ttfamily void Engine\+::\+Register\+Builtin\+Vertices (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_o_s_kengine_8cpp_source_l00117}{117}} del archivo \mbox{\hyperlink{_o_s_kengine_8cpp_source}{OSKengine.\+cpp}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_o_s_kengine_8h}{OSKengine.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_o_s_kengine_8cpp}{OSKengine.\+cpp}}\end{DoxyCompactItemize}

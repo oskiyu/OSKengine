@@ -1,0 +1,168 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::Command\+Pool\+Vulkan}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan}\index{OSK::GRAPHICS::CommandPoolVulkan@{OSK::GRAPHICS::CommandPoolVulkan}}
+
+
+{\ttfamily \#include $<$Command\+Pool\+Vulkan.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::Command\+Pool\+Vulkan
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::Command\+Pool\+Vulkan\+:
+% FIG 1
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_a326cae1f533f6e493ae51ce19c314fab}{$\sim$\+Command\+Pool\+Vulkan}} ()
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_ac8829c0b300a62f250d066cfc27df817}{Create\+Command\+List}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} \&device) override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_a1659d7dba6960737071aeb2cac4256f1}{Create\+Single\+Time\+Command\+List}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} \&device) override
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_aae016c5c25cc0cee0ecaebae36dcdb67}{Set\+Swapchain\+Count}} (unsigned int count)
+\item 
+unsigned int \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_a412a77683fd470fbf7a6707e923e99fc}{Get\+Swapchain\+Count}} () const
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_aeaa066f3b693815d9a2ef346f105e990}{Set\+Command\+Pool}} (\mbox{\hyperlink{_command_pool_vulkan_8h_a34725f122d5ceb1034f7a0392e919fd7}{Vk\+Command\+Pool}} command\+Pool)
+\item 
+\mbox{\hyperlink{_command_pool_vulkan_8h_a34725f122d5ceb1034f7a0392e919fd7}{Vk\+Command\+Pool}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_a11ed750dda8616e7f42b4c81d88d1e5a}{Get\+Command\+Pool}} () const
+\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool}{ICommand\+Pool}}, T$>$}\\T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a3b603fec5d827e9b225815739557dbbf}{As}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Una pool de comandos se encarga de crear una serie de listas de comandos. 
+
+Esta es la implementación del pool para el renderizador de Vulkan. 
+
+Definición en la línea \mbox{\hyperlink{_command_pool_vulkan_8h_source_l00015}{15}} del archivo \mbox{\hyperlink{_command_pool_vulkan_8h_source}{Command\+Pool\+Vulkan.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_a326cae1f533f6e493ae51ce19c314fab}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_a326cae1f533f6e493ae51ce19c314fab}} 
+\index{OSK::GRAPHICS::CommandPoolVulkan@{OSK::GRAPHICS::CommandPoolVulkan}!````~CommandPoolVulkan@{$\sim$CommandPoolVulkan}}
+\index{````~CommandPoolVulkan@{$\sim$CommandPoolVulkan}!OSK::GRAPHICS::CommandPoolVulkan@{OSK::GRAPHICS::CommandPoolVulkan}}
+\doxysubsubsection{\texorpdfstring{$\sim$CommandPoolVulkan()}{~CommandPoolVulkan()}}
+{\footnotesize\ttfamily Command\+Pool\+Vulkan\+::$\sim$\+Command\+Pool\+Vulkan (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_command_pool_vulkan_8cpp_source_l00015}{15}} del archivo \mbox{\hyperlink{_command_pool_vulkan_8cpp_source}{Command\+Pool\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a3b603fec5d827e9b225815739557dbbf}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a3b603fec5d827e9b225815739557dbbf}} 
+\index{OSK::GRAPHICS::CommandPoolVulkan@{OSK::GRAPHICS::CommandPoolVulkan}!As@{As}}
+\index{As@{As}!OSK::GRAPHICS::CommandPoolVulkan@{OSK::GRAPHICS::CommandPoolVulkan}}
+\doxysubsubsection{\texorpdfstring{As()}{As()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool}{ICommand\+Pool}}, T$>$\\
+T $\ast$ OSK\+::\+GRAPHICS\+::\+ICommand\+Pool\+::\+As (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_pool_8h_source_l00034}{34}} del archivo \mbox{\hyperlink{_i_command_pool_8h_source}{ICommand\+Pool.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_ac8829c0b300a62f250d066cfc27df817}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_ac8829c0b300a62f250d066cfc27df817}} 
+\index{OSK::GRAPHICS::CommandPoolVulkan@{OSK::GRAPHICS::CommandPoolVulkan}!CreateCommandList@{CreateCommandList}}
+\index{CreateCommandList@{CreateCommandList}!OSK::GRAPHICS::CommandPoolVulkan@{OSK::GRAPHICS::CommandPoolVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateCommandList()}{CreateCommandList()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ Command\+Pool\+Vulkan\+::\+Create\+Command\+List (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} \&}]{device }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea una nueva lista de comandos. 
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a9521df93202d6cc54715a70582436d52}{OSK\+::\+GRAPHICS\+::\+ICommand\+Pool}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_command_pool_vulkan_8cpp_source_l00020}{20}} del archivo \mbox{\hyperlink{_command_pool_vulkan_8cpp_source}{Command\+Pool\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_a1659d7dba6960737071aeb2cac4256f1}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_a1659d7dba6960737071aeb2cac4256f1}} 
+\index{OSK::GRAPHICS::CommandPoolVulkan@{OSK::GRAPHICS::CommandPoolVulkan}!CreateSingleTimeCommandList@{CreateSingleTimeCommandList}}
+\index{CreateSingleTimeCommandList@{CreateSingleTimeCommandList}!OSK::GRAPHICS::CommandPoolVulkan@{OSK::GRAPHICS::CommandPoolVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateSingleTimeCommandList()}{CreateSingleTimeCommandList()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ Command\+Pool\+Vulkan\+::\+Create\+Single\+Time\+Command\+List (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} \&}]{device }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea una lista de comandos de un sólo uso. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em device} & GPU donde se alamcenarán las listas.\\
+\hline
+\end{DoxyParams}
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a6d7c4775e1c1a11dcb08a1e8d3aec8cc}{OSK\+::\+GRAPHICS\+::\+ICommand\+Pool}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_command_pool_vulkan_8cpp_source_l00024}{24}} del archivo \mbox{\hyperlink{_command_pool_vulkan_8cpp_source}{Command\+Pool\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_a11ed750dda8616e7f42b4c81d88d1e5a}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_a11ed750dda8616e7f42b4c81d88d1e5a}} 
+\index{OSK::GRAPHICS::CommandPoolVulkan@{OSK::GRAPHICS::CommandPoolVulkan}!GetCommandPool@{GetCommandPool}}
+\index{GetCommandPool@{GetCommandPool}!OSK::GRAPHICS::CommandPoolVulkan@{OSK::GRAPHICS::CommandPoolVulkan}}
+\doxysubsubsection{\texorpdfstring{GetCommandPool()}{GetCommandPool()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_command_pool_vulkan_8h_a34725f122d5ceb1034f7a0392e919fd7}{Vk\+Command\+Pool}} Command\+Pool\+Vulkan\+::\+Get\+Command\+Pool (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_command_pool_vulkan_8cpp_source_l00059}{59}} del archivo \mbox{\hyperlink{_command_pool_vulkan_8cpp_source}{Command\+Pool\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_a412a77683fd470fbf7a6707e923e99fc}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_a412a77683fd470fbf7a6707e923e99fc}} 
+\index{OSK::GRAPHICS::CommandPoolVulkan@{OSK::GRAPHICS::CommandPoolVulkan}!GetSwapchainCount@{GetSwapchainCount}}
+\index{GetSwapchainCount@{GetSwapchainCount}!OSK::GRAPHICS::CommandPoolVulkan@{OSK::GRAPHICS::CommandPoolVulkan}}
+\doxysubsubsection{\texorpdfstring{GetSwapchainCount()}{GetSwapchainCount()}}
+{\footnotesize\ttfamily unsigned int Command\+Pool\+Vulkan\+::\+Get\+Swapchain\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Obtiene el número de imágenes del swapchain. 
+
+Cada imagen tiene su propia lista de comandos. La lista de comandos contendrá varias listas nativas. 
+
+Definición en la línea \mbox{\hyperlink{_command_pool_vulkan_8cpp_source_l00051}{51}} del archivo \mbox{\hyperlink{_command_pool_vulkan_8cpp_source}{Command\+Pool\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_aeaa066f3b693815d9a2ef346f105e990}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_aeaa066f3b693815d9a2ef346f105e990}} 
+\index{OSK::GRAPHICS::CommandPoolVulkan@{OSK::GRAPHICS::CommandPoolVulkan}!SetCommandPool@{SetCommandPool}}
+\index{SetCommandPool@{SetCommandPool}!OSK::GRAPHICS::CommandPoolVulkan@{OSK::GRAPHICS::CommandPoolVulkan}}
+\doxysubsubsection{\texorpdfstring{SetCommandPool()}{SetCommandPool()}}
+{\footnotesize\ttfamily void Command\+Pool\+Vulkan\+::\+Set\+Command\+Pool (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_command_pool_vulkan_8h_a34725f122d5ceb1034f7a0392e919fd7}{Vk\+Command\+Pool}}}]{command\+Pool }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_command_pool_vulkan_8cpp_source_l00055}{55}} del archivo \mbox{\hyperlink{_command_pool_vulkan_8cpp_source}{Command\+Pool\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_aae016c5c25cc0cee0ecaebae36dcdb67}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan_aae016c5c25cc0cee0ecaebae36dcdb67}} 
+\index{OSK::GRAPHICS::CommandPoolVulkan@{OSK::GRAPHICS::CommandPoolVulkan}!SetSwapchainCount@{SetSwapchainCount}}
+\index{SetSwapchainCount@{SetSwapchainCount}!OSK::GRAPHICS::CommandPoolVulkan@{OSK::GRAPHICS::CommandPoolVulkan}}
+\doxysubsubsection{\texorpdfstring{SetSwapchainCount()}{SetSwapchainCount()}}
+{\footnotesize\ttfamily void Command\+Pool\+Vulkan\+::\+Set\+Swapchain\+Count (\begin{DoxyParamCaption}\item[{unsigned int}]{count }\end{DoxyParamCaption})}
+
+
+
+Establece el número de imágenes del swapchain. 
+
+Cada imagen tiene su propia lista de comandos. La lista de comandos contendrá varias listas nativas. 
+
+Definición en la línea \mbox{\hyperlink{_command_pool_vulkan_8cpp_source_l00047}{47}} del archivo \mbox{\hyperlink{_command_pool_vulkan_8cpp_source}{Command\+Pool\+Vulkan.\+cpp}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_command_pool_vulkan_8h}{Command\+Pool\+Vulkan.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_command_pool_vulkan_8cpp}{Command\+Pool\+Vulkan.\+cpp}}\end{DoxyCompactItemize}

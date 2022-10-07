@@ -2,12 +2,19 @@
 
 #include "IGpuMemorySubblock.h"
 
+#include "OSKengine.h"
+#include "Logger.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 GpuDataBuffer::GpuDataBuffer(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment) 
-	: buffer(buffer), size(size), alignment(alignment) {
+	: buffer(buffer.GetPointer()), size(size), alignment(alignment) {
 
+}
+
+GpuDataBuffer::~GpuDataBuffer() {
+	Engine::GetLogger()->InfoLog("Buffer eliminado");
 }
 
 IGpuMemorySubblock* GpuDataBuffer::GetMemorySubblock() const {
@@ -16,10 +23,6 @@ IGpuMemorySubblock* GpuDataBuffer::GetMemorySubblock() const {
 
 IGpuMemoryBlock* GpuDataBuffer::GetMemoryBlock() const {
 	return GetMemorySubblock()->GetOwnerBlock();
-}
-
-GpuDataBuffer::~GpuDataBuffer() {
-	Free();
 }
 
 void GpuDataBuffer::MapMemory() {
@@ -48,10 +51,6 @@ TSize GpuDataBuffer::GetSize() const {
 
 TSize GpuDataBuffer::GetAlignment() const {
 	return alignment;
-}
-
-void GpuDataBuffer::Free() {
-	buffer.Delete();
 }
 
 void GpuDataBuffer::SetCursor(TSize position) {

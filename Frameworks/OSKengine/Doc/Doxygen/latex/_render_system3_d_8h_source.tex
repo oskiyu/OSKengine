@@ -1,0 +1,77 @@
+\hypertarget{_render_system3_d_8h_source}{}\doxysection{Render\+System3\+D.\+h}
+\label{_render_system3_d_8h_source}\index{OSKengine2/RenderSystem3D.h@{OSKengine2/RenderSystem3D.h}}
+\mbox{\hyperlink{_render_system3_d_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_render_system_8h}{IRenderSystem.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_shadow_map_8h}{ShadowMap.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_lights_8h}{Lights.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_uniform_buffer_8h}{IGpuUniformBuffer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00008}00008 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_terrain_component_8h}{TerrainComponent.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00010}00010 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}} \{}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00011}00011     \textcolor{keyword}{class }ICommandList;}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00012}00012 \}}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00014}00014 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_a_s_s_e_t_s}{OSK::ASSETS}} \{}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00015}00015     \textcolor{keyword}{class }IrradianceMap;}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00016}00016     \textcolor{keyword}{class }Texture;}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00017}00017     \textcolor{keyword}{enum class} \mbox{\hyperlink{namespace_o_s_k_1_1_a_s_s_e_t_s_a192866f841033401ce3c83efcaf81027}{ModelType}};}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00018}00018 \}}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00020}00020 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s}{OSK::ECS}} \{}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00022}00022     \textcolor{keyword}{class }CameraComponent3D;}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00031}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_render_system3_d}{00031}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_render_system3_d}{RenderSystem3D}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_render_system}{IRenderSystem}} \{}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00033}00033     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00035}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_render_system3_d_a493b2f75e14d1d63509e90df7edd326e}{00035}}         \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_render_system3_d_a493b2f75e14d1d63509e90df7edd326e}{OSK\_SYSTEM}}(\textcolor{stringliteral}{"{}OSK::RenderSystem3D"{}});}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00037}00037         \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_render_system3_d}{RenderSystem3D}}();}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00039}00039         \textcolor{keywordtype}{void} Initialize(\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{ECS::GameObjectIndex}} cameraObject, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map}{ASSETS::IrradianceMap}}\& irradianceMap);}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00041}00041         \textcolor{keywordtype}{void} InitializeTerrain(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2ui}}\& resolution, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture}{ASSETS::Texture}}\& heightMap, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture}{ASSETS::Texture}}\& texture);}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00042}00042 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00043}00043         \textcolor{keywordtype}{void} CreateTargetImage(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2ui}}\& size) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00044}00044         \textcolor{keywordtype}{void} Resize(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2ui}}\& size) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00045}00045 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00046}00046         \textcolor{keywordtype}{void} OnTick(\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDeltaTime}} deltaTime) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00047}00047         \textcolor{keywordtype}{void} Render(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{GRAPHICS::ICommandList}}* commandList) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00048}00048         }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00049}00049         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map}{GRAPHICS::ShadowMap}}* GetShadowMap();}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00050}00050         }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00051}00051     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00052}00052         }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00053}00053         \textcolor{keywordtype}{void} GenerateShadows(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{GRAPHICS::ICommandList}}* commandList, \mbox{\hyperlink{namespace_o_s_k_1_1_a_s_s_e_t_s_a192866f841033401ce3c83efcaf81027}{ASSETS::ModelType}} modelType);}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00054}00054         \textcolor{keywordtype}{void} RenderScene(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{GRAPHICS::ICommandList}}* commandList);}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00056}00056         \textcolor{keywordtype}{void} SceneRenderLoop(\mbox{\hyperlink{namespace_o_s_k_1_1_a_s_s_e_t_s_a192866f841033401ce3c83efcaf81027}{ASSETS::ModelType}} modelType, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{GRAPHICS::ICommandList}}* commandList);}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00057}00057         \textcolor{keywordtype}{void} ShadowsRenderLoop(\mbox{\hyperlink{namespace_o_s_k_1_1_a_s_s_e_t_s_a192866f841033401ce3c83efcaf81027}{ASSETS::ModelType}} modelType, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{GRAPHICS::ICommandList}}* commandList, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} cascadeIndex);}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00059}00059         \textcolor{keywordtype}{void} RenderTerrain(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{GRAPHICS::ICommandList}}* commandList);}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00060}00060 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00061}00061         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<GRAPHICS::IGpuUniformBuffer>}} cameraUbos[3]\{\};}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00062}00062         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<GRAPHICS::IGpuUniformBuffer>}} dirLightUbos[3]\{\};}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00063}00063         \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_directional_light}{GRAPHICS::DirectionalLight}} dirLight\{\};}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00065}00065         GRAPHICS::ShadowMap shadowMap;}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00066}00066         \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{ECS::GameObjectIndex}} cameraObject = \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a46b3731582093c6a4b02a2024b9edf81}{ECS::EMPTY\_GAME\_OBJECT}};}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00068}00068         GRAPHICS::Material* sceneMaterial = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00069}00069         GRAPHICS::Material* animatedSceneMaterial = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00071}00071         UniquePtr<GRAPHICS::MaterialInstance> sceneMaterialInstance;}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00072}00072 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00073}00073         TerrainComponent terrain\{\};}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00074}00074         GRAPHICS::Material* terrainMaterial = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00076}00076     \};}
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{_render_system3_d_8h_source_l00078}00078 \}}
+
+\end{DoxyCode}

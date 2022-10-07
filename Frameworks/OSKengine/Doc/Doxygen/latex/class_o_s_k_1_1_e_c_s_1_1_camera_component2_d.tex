@@ -1,0 +1,190 @@
+\hypertarget{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d}{}\doxysection{Referencia de la Clase OSK\+::ECS\+::Camera\+Component2D}
+\label{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d}\index{OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}}
+
+
+{\ttfamily \#include $<$Camera\+Component2\+D.\+h$>$}
+
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_aa7c89b0d072e7602f3e570b57e8511cb}{OSK\+\_\+\+COMPONENT}} (\char`\"{}OSK\+::\+Camera\+Component2D\char`\"{})
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a64066d153575cc59daa7af38447f529d}{Camera\+Component2D}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a252da56695331ab5ac11f442b74a30db}{Link\+To\+Window}} (const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window}{IO\+::\+Window}} $\ast$window)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a77cce7ba0c2d3f9dfbe64bddf81337fd}{Unlink\+Window}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_ae5fc342d2560e9ad4aed1fda3e028b18}{Set\+Target\+Size}} (const \mbox{\hyperlink{namespace_o_s_k_a2bb07020775133505c4b2c473ec79fa9}{Vector2f}} \&target\+Size)
+\item 
+glm\+::mat4 \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a71d1244d09ce7a404779cb5acfb2cf31}{Get\+Projection}} (const \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_transform2_d}{Transform2D}} \&camera\+Transform) const
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a630de7348f82ab9d7b835c6c94efeca9}{Update\+Uniform\+Buffer}} (const \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_transform2_d}{Transform2D}} \&camera\+Transform)
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer}{GRAPHICS\+::\+IGpu\+Uniform\+Buffer}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a883c81f8df90e08fae9a726926fe958a}{Get\+Uniform\+Buffer}} () const
+\item 
+\mbox{\hyperlink{namespace_o_s_k_a2bb07020775133505c4b2c473ec79fa9}{Vector2f}} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a57c5b72e9c0ccfa5f11f44bae2e98c80}{Point\+In\+Window\+To\+Point\+In\+World}} (const \mbox{\hyperlink{namespace_o_s_k_a29418e6a0cd922e229790e5d2c0fc6cf}{Vector2}} \&point) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Cámara para un mundo de dos dimensiones. 
+
+Definición en la línea \mbox{\hyperlink{_camera_component2_d_8h_source_l00022}{22}} del archivo \mbox{\hyperlink{_camera_component2_d_8h_source}{Camera\+Component2\+D.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a64066d153575cc59daa7af38447f529d}\label{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a64066d153575cc59daa7af38447f529d}} 
+\index{OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}!CameraComponent2D@{CameraComponent2D}}
+\index{CameraComponent2D@{CameraComponent2D}!OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}}
+\doxysubsubsection{\texorpdfstring{CameraComponent2D()}{CameraComponent2D()}}
+{\footnotesize\ttfamily Camera\+Component2\+D\+::\+Camera\+Component2D (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_camera_component2_d_8cpp_source_l00017}{17}} del archivo \mbox{\hyperlink{_camera_component2_d_8cpp_source}{Camera\+Component2\+D.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 0
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a71d1244d09ce7a404779cb5acfb2cf31}\label{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a71d1244d09ce7a404779cb5acfb2cf31}} 
+\index{OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}!GetProjection@{GetProjection}}
+\index{GetProjection@{GetProjection}!OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}}
+\doxysubsubsection{\texorpdfstring{GetProjection()}{GetProjection()}}
+{\footnotesize\ttfamily glm\+::mat4 Camera\+Component2\+D\+::\+Get\+Projection (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_transform2_d}{Transform2D}} \&}]{camera\+Transform }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve la matriz proyección de la cámara. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_camera_component2_d_8cpp_source_l00029}{29}} del archivo \mbox{\hyperlink{_camera_component2_d_8cpp_source}{Camera\+Component2\+D.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 1
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a883c81f8df90e08fae9a726926fe958a}\label{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a883c81f8df90e08fae9a726926fe958a}} 
+\index{OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}!GetUniformBuffer@{GetUniformBuffer}}
+\index{GetUniformBuffer@{GetUniformBuffer}!OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}}
+\doxysubsubsection{\texorpdfstring{GetUniformBuffer()}{GetUniformBuffer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer}{IGpu\+Uniform\+Buffer}} $\ast$ Camera\+Component2\+D\+::\+Get\+Uniform\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_camera_component2_d_8cpp_source_l00041}{41}} del archivo \mbox{\hyperlink{_camera_component2_d_8cpp_source}{Camera\+Component2\+D.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a252da56695331ab5ac11f442b74a30db}\label{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a252da56695331ab5ac11f442b74a30db}} 
+\index{OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}!LinkToWindow@{LinkToWindow}}
+\index{LinkToWindow@{LinkToWindow}!OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}}
+\doxysubsubsection{\texorpdfstring{LinkToWindow()}{LinkToWindow()}}
+{\footnotesize\ttfamily void Camera\+Component2\+D\+::\+Link\+To\+Window (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window}{IO\+::\+Window}} $\ast$}]{window }\end{DoxyParamCaption})}
+
+
+
+Enlaza la cámara a una ventana, para que tenga el tamaño de la ventana. 
+
+\begin{DoxyWarning}{Atención}
+El puntero a la ventana debe ser ESTABLE. 
+\end{DoxyWarning}
+
+
+Definición en la línea \mbox{\hyperlink{_camera_component2_d_8cpp_source_l00021}{21}} del archivo \mbox{\hyperlink{_camera_component2_d_8cpp_source}{Camera\+Component2\+D.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_aa7c89b0d072e7602f3e570b57e8511cb}\label{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_aa7c89b0d072e7602f3e570b57e8511cb}} 
+\index{OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}!OSK\_COMPONENT@{OSK\_COMPONENT}}
+\index{OSK\_COMPONENT@{OSK\_COMPONENT}!OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}}
+\doxysubsubsection{\texorpdfstring{OSK\_COMPONENT()}{OSK\_COMPONENT()}}
+{\footnotesize\ttfamily OSK\+::\+ECS\+::\+Camera\+Component2\+D\+::\+OSK\+\_\+\+COMPONENT (\begin{DoxyParamCaption}\item[{\char`\"{}OSK\+::\+Camera\+Component2D\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a57c5b72e9c0ccfa5f11f44bae2e98c80}\label{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a57c5b72e9c0ccfa5f11f44bae2e98c80}} 
+\index{OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}!PointInWindowToPointInWorld@{PointInWindowToPointInWorld}}
+\index{PointInWindowToPointInWorld@{PointInWindowToPointInWorld}!OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}}
+\doxysubsubsection{\texorpdfstring{PointInWindowToPointInWorld()}{PointInWindowToPointInWorld()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_a2bb07020775133505c4b2c473ec79fa9}{Vector2f}} Camera\+Component2\+D\+::\+Point\+In\+Window\+To\+Point\+In\+World (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_o_s_k_a29418e6a0cd922e229790e5d2c0fc6cf}{Vector2}} \&}]{point }\end{DoxyParamCaption}) const}
+
+
+
+Transforma un punto 2D en la ventana al punto 2D al que apunta la cámara en el mundo 2D. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em point} & Punto en coordenadas de la ventana.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+Punto, en coordenadas del mundo 2D.
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_camera_component2_d_8cpp_source_l00049}{49}} del archivo \mbox{\hyperlink{_camera_component2_d_8cpp_source}{Camera\+Component2\+D.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_ae5fc342d2560e9ad4aed1fda3e028b18}\label{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_ae5fc342d2560e9ad4aed1fda3e028b18}} 
+\index{OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}!SetTargetSize@{SetTargetSize}}
+\index{SetTargetSize@{SetTargetSize}!OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}}
+\doxysubsubsection{\texorpdfstring{SetTargetSize()}{SetTargetSize()}}
+{\footnotesize\ttfamily void Camera\+Component2\+D\+::\+Set\+Target\+Size (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_o_s_k_a2bb07020775133505c4b2c473ec79fa9}{Vector2f}} \&}]{target\+Size }\end{DoxyParamCaption})}
+
+
+
+Establece el tamaño del área a renderizar. 
+
+\begin{DoxyWarning}{Atención}
+Se ignorará si se ha enlazado a una ventana. 
+\end{DoxyWarning}
+
+
+Definición en la línea \mbox{\hyperlink{_camera_component2_d_8cpp_source_l00045}{45}} del archivo \mbox{\hyperlink{_camera_component2_d_8cpp_source}{Camera\+Component2\+D.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a77cce7ba0c2d3f9dfbe64bddf81337fd}\label{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a77cce7ba0c2d3f9dfbe64bddf81337fd}} 
+\index{OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}!UnlinkWindow@{UnlinkWindow}}
+\index{UnlinkWindow@{UnlinkWindow}!OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}}
+\doxysubsubsection{\texorpdfstring{UnlinkWindow()}{UnlinkWindow()}}
+{\footnotesize\ttfamily void Camera\+Component2\+D\+::\+Unlink\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Quita el enlace a la ventana. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_camera_component2_d_8cpp_source_l00025}{25}} del archivo \mbox{\hyperlink{_camera_component2_d_8cpp_source}{Camera\+Component2\+D.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 3
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a630de7348f82ab9d7b835c6c94efeca9}\label{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d_a630de7348f82ab9d7b835c6c94efeca9}} 
+\index{OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}!UpdateUniformBuffer@{UpdateUniformBuffer}}
+\index{UpdateUniformBuffer@{UpdateUniformBuffer}!OSK::ECS::CameraComponent2D@{OSK::ECS::CameraComponent2D}}
+\doxysubsubsection{\texorpdfstring{UpdateUniformBuffer()}{UpdateUniformBuffer()}}
+{\footnotesize\ttfamily void Camera\+Component2\+D\+::\+Update\+Uniform\+Buffer (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_transform2_d}{Transform2D}} \&}]{camera\+Transform }\end{DoxyParamCaption})}
+
+
+
+Actualiza el buffer en la GPU. 
+
+\begin{DoxyNote}{Nota}
+Debe llamarse cada frame que se haya modificado la cámara. 
+\end{DoxyNote}
+
+
+
+\begin{DoxyParams}{Parámetros}
+{\em camera\+Transform} & Transform de la cámara.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_camera_component2_d_8cpp_source_l00035}{35}} del archivo \mbox{\hyperlink{_camera_component2_d_8cpp_source}{Camera\+Component2\+D.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 4
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_camera_component2_d_8h}{Camera\+Component2\+D.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_camera_component2_d_8cpp}{Camera\+Component2\+D.\+cpp}}\end{DoxyCompactItemize}

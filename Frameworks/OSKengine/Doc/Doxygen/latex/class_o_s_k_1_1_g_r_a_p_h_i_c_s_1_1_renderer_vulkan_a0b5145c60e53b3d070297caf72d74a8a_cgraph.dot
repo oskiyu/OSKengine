@@ -1,0 +1,10 @@
+digraph "OSK::GRAPHICS::RendererVulkan::~RendererVulkan"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::RendererVulkan\l::~RendererVulkan",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::GRAPHICS::RendererVulkan\l::Close",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a8c0aa7a8d272950bf1066f915c92f4b8",tooltip="Cierra el renderizador. También se llama en el destructor."];
+}

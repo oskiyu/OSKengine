@@ -457,6 +457,18 @@
     <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PostProcess\SMAA">
       <UniqueIdentifier>{7c314c9d-993f-48b8-b5e1-367f437704d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Assets\Loaders\Models">
+      <UniqueIdentifier>{daf623d6-613f-49b8-812a-05d266555b03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Assets\Loaders\Models">
+      <UniqueIdentifier>{c12d7c78-952a-4afc-8e4e-c8b4ebb0bb32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\HighLevel\AnimatedModel">
+      <UniqueIdentifier>{af5b23fb-74a7-4bc1-8d79-f5b49a815a9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\HighLevel\AnimatedModel">
+      <UniqueIdentifier>{e9b696f5-76bc-4e3b-acec-86f3513d17af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -902,6 +914,27 @@
     </ClCompile>
     <ClCompile Include="SmaaPass.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\PostProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticMeshLoader.cpp">
+      <Filter>Archivos de origen\OSKengine\Assets\Loaders\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="IMeshLoader.cpp">
+      <Filter>Archivos de origen\OSKengine\Assets\Loaders\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimMeshLoader.cpp">
+      <Filter>Archivos de origen\OSKengine\Assets\Loaders\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\AnimatedModel</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\AnimatedModel</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationSkin.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\AnimatedModel</Filter>
+    </ClCompile>
+    <ClCompile Include="Bone.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\AnimatedModel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1501,6 +1534,33 @@
     </ClInclude>
     <ClInclude Include="SmaaPass.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticMeshLoader.h">
+      <Filter>Archivos de encabezado\OSKengine\Assets\Loaders\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="IMeshLoader.h">
+      <Filter>Archivos de encabezado\OSKengine\Assets\Loaders\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimMeshLoader.h">
+      <Filter>Archivos de encabezado\OSKengine\Assets\Loaders\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Bone.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\AnimatedModel</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationSkin.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\AnimatedModel</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationSampler.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\AnimatedModel</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationChannel.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\AnimatedModel</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\AnimatedModel</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\AnimatedModel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

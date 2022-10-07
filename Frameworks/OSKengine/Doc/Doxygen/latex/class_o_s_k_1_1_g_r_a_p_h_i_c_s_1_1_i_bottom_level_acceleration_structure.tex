@@ -1,0 +1,151 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::IBottom\+Level\+Acceleration\+Structure}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}\index{OSK::GRAPHICS::IBottomLevelAccelerationStructure@{OSK::GRAPHICS::IBottomLevelAccelerationStructure}}
+
+
+{\ttfamily \#include $<$IBottom\+Level\+Acceleration\+Structure.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::IBottom\+Level\+Acceleration\+Structure
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::IBottom\+Level\+Acceleration\+Structure\+:
+% FIG 1
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_a56556b538d58fb56a885e00b7d5ecc99}{OSK\+\_\+\+DEFINE\+\_\+\+AS}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{IBottom\+Level\+Acceleration\+Structure}})
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_ad0eef5bed4788a7590ba001fb8b84901}{Setup}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpu\+Vertex\+Buffer}} \&vertex\+Buffer, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer}{IGpu\+Index\+Buffer}} \&index\+Buffer)=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_adc5ee7267c61dff7571d7f72c1374b9b}{Update}} ()=0
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aa9861db9eac37cc449c5bc3aad871a83}{Set\+Matrix}} (const glm\+::mat4 \&matrix)
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aa8a9c840623a5e8b836647cf8b79f582}{Is\+Dirty}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer}{Gpu\+Data\+Buffer}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_af7a4d5aaa27b13dfc51829ad2f2f5bd5}{matrix\+Buffer}}
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aebde73345ad718c32c4a070095f62dbc}{is\+Dirty}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Estructura de aceleración de nivel bajo\+: contiene la geometría de un modelo 3D. 
+
+\begin{DoxyRefDesc}{Tareas pendientes}
+\item[\mbox{\hyperlink{todo__todo000006}{Tareas pendientes}}]Permitir usar meshes en vez de modelos enteros. 
+
+Implementación en DirectX 12. \end{DoxyRefDesc}
+
+
+Definición en la línea \mbox{\hyperlink{_i_bottom_level_acceleration_structure_8h_source_l00022}{22}} del archivo \mbox{\hyperlink{_i_bottom_level_acceleration_structure_8h_source}{IBottom\+Level\+Acceleration\+Structure.\+h}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aa8a9c840623a5e8b836647cf8b79f582}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aa8a9c840623a5e8b836647cf8b79f582}} 
+\index{OSK::GRAPHICS::IBottomLevelAccelerationStructure@{OSK::GRAPHICS::IBottomLevelAccelerationStructure}!IsDirty@{IsDirty}}
+\index{IsDirty@{IsDirty}!OSK::GRAPHICS::IBottomLevelAccelerationStructure@{OSK::GRAPHICS::IBottomLevelAccelerationStructure}}
+\doxysubsubsection{\texorpdfstring{IsDirty()}{IsDirty()}}
+{\footnotesize\ttfamily bool IBottom\+Level\+Acceleration\+Structure\+::\+Is\+Dirty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+True si se ha establecido la matriz pero no se ha llamado a Update. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_bottom_level_acceleration_structure_8cpp_source_l00018}{18}} del archivo \mbox{\hyperlink{_i_bottom_level_acceleration_structure_8cpp_source}{IBottom\+Level\+Acceleration\+Structure.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_a56556b538d58fb56a885e00b7d5ecc99}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_a56556b538d58fb56a885e00b7d5ecc99}} 
+\index{OSK::GRAPHICS::IBottomLevelAccelerationStructure@{OSK::GRAPHICS::IBottomLevelAccelerationStructure}!OSK\_DEFINE\_AS@{OSK\_DEFINE\_AS}}
+\index{OSK\_DEFINE\_AS@{OSK\_DEFINE\_AS}!OSK::GRAPHICS::IBottomLevelAccelerationStructure@{OSK::GRAPHICS::IBottomLevelAccelerationStructure}}
+\doxysubsubsection{\texorpdfstring{OSK\_DEFINE\_AS()}{OSK\_DEFINE\_AS()}}
+{\footnotesize\ttfamily OSK\+::\+GRAPHICS\+::\+IBottom\+Level\+Acceleration\+Structure\+::\+OSK\+\_\+\+DEFINE\+\_\+\+AS (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{IBottom\+Level\+Acceleration\+Structure}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aa9861db9eac37cc449c5bc3aad871a83}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aa9861db9eac37cc449c5bc3aad871a83}} 
+\index{OSK::GRAPHICS::IBottomLevelAccelerationStructure@{OSK::GRAPHICS::IBottomLevelAccelerationStructure}!SetMatrix@{SetMatrix}}
+\index{SetMatrix@{SetMatrix}!OSK::GRAPHICS::IBottomLevelAccelerationStructure@{OSK::GRAPHICS::IBottomLevelAccelerationStructure}}
+\doxysubsubsection{\texorpdfstring{SetMatrix()}{SetMatrix()}}
+{\footnotesize\ttfamily void IBottom\+Level\+Acceleration\+Structure\+::\+Set\+Matrix (\begin{DoxyParamCaption}\item[{const glm\+::mat4 \&}]{matrix }\end{DoxyParamCaption})}
+
+
+
+Establece la matriz de modelo de la geometría contenida dentro de la estructura. 
+
+\begin{DoxyNote}{Nota}
+Para poder aplicarse, se debe llamar después a \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_adc5ee7267c61dff7571d7f72c1374b9b}{IBottom\+Level\+Acceleration\+Structure\+::\+Update}}. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_i_bottom_level_acceleration_structure_8cpp_source_l00008}{8}} del archivo \mbox{\hyperlink{_i_bottom_level_acceleration_structure_8cpp_source}{IBottom\+Level\+Acceleration\+Structure.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_ad0eef5bed4788a7590ba001fb8b84901}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_ad0eef5bed4788a7590ba001fb8b84901}} 
+\index{OSK::GRAPHICS::IBottomLevelAccelerationStructure@{OSK::GRAPHICS::IBottomLevelAccelerationStructure}!Setup@{Setup}}
+\index{Setup@{Setup}!OSK::GRAPHICS::IBottomLevelAccelerationStructure@{OSK::GRAPHICS::IBottomLevelAccelerationStructure}}
+\doxysubsubsection{\texorpdfstring{Setup()}{Setup()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+IBottom\+Level\+Acceleration\+Structure\+::\+Setup (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpu\+Vertex\+Buffer}} \&}]{vertex\+Buffer,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer}{IGpu\+Index\+Buffer}} \&}]{index\+Buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Crea la estructura de aceleración con los triangulos definidos por los vértices y los índices. 
+
+\begin{DoxyRefDesc}{Tareas pendientes}
+\item[\mbox{\hyperlink{todo__todo000007}{Tareas pendientes}}]Permitir determinar qué vértices y qué indices a usar, en vez de usar todos los vértices y todos los índices dados. \end{DoxyRefDesc}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_ac668dd6d47642db969a9b0fa917df778}{OSK\+::\+GRAPHICS\+::\+Bottom\+Level\+Acceleration\+Structure\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_adc5ee7267c61dff7571d7f72c1374b9b}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_adc5ee7267c61dff7571d7f72c1374b9b}} 
+\index{OSK::GRAPHICS::IBottomLevelAccelerationStructure@{OSK::GRAPHICS::IBottomLevelAccelerationStructure}!Update@{Update}}
+\index{Update@{Update}!OSK::GRAPHICS::IBottomLevelAccelerationStructure@{OSK::GRAPHICS::IBottomLevelAccelerationStructure}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+IBottom\+Level\+Acceleration\+Structure\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Actualiza la estructura de aceleración, para reflejar los cambios realizados en la matriz de modelo. 
+
+\begin{DoxyPrecond}{Precondición}
+Se debe haber creado la estructura, llamando a \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_ad0eef5bed4788a7590ba001fb8b84901}{IBottom\+Level\+Acceleration\+Structure\+::\+Setup}}.
+\end{DoxyPrecond}
+\begin{DoxyRefDesc}{Tareas pendientes}
+\item[\mbox{\hyperlink{todo__todo000008}{Tareas pendientes}}]Implementación DX12. \end{DoxyRefDesc}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_a383778d0817f1e8d970995e1338db01b}{OSK\+::\+GRAPHICS\+::\+Bottom\+Level\+Acceleration\+Structure\+Vulkan}}.
+
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aebde73345ad718c32c4a070095f62dbc}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aebde73345ad718c32c4a070095f62dbc}} 
+\index{OSK::GRAPHICS::IBottomLevelAccelerationStructure@{OSK::GRAPHICS::IBottomLevelAccelerationStructure}!isDirty@{isDirty}}
+\index{isDirty@{isDirty}!OSK::GRAPHICS::IBottomLevelAccelerationStructure@{OSK::GRAPHICS::IBottomLevelAccelerationStructure}}
+\doxysubsubsection{\texorpdfstring{isDirty}{isDirty}}
+{\footnotesize\ttfamily bool OSK\+::\+GRAPHICS\+::\+IBottom\+Level\+Acceleration\+Structure\+::is\+Dirty = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_bottom_level_acceleration_structure_8h_source_l00063}{63}} del archivo \mbox{\hyperlink{_i_bottom_level_acceleration_structure_8h_source}{IBottom\+Level\+Acceleration\+Structure.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_af7a4d5aaa27b13dfc51829ad2f2f5bd5}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_af7a4d5aaa27b13dfc51829ad2f2f5bd5}} 
+\index{OSK::GRAPHICS::IBottomLevelAccelerationStructure@{OSK::GRAPHICS::IBottomLevelAccelerationStructure}!matrixBuffer@{matrixBuffer}}
+\index{matrixBuffer@{matrixBuffer}!OSK::GRAPHICS::IBottomLevelAccelerationStructure@{OSK::GRAPHICS::IBottomLevelAccelerationStructure}}
+\doxysubsubsection{\texorpdfstring{matrixBuffer}{matrixBuffer}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer}{Gpu\+Data\+Buffer}}$>$ OSK\+::\+GRAPHICS\+::\+IBottom\+Level\+Acceleration\+Structure\+::matrix\+Buffer\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_bottom_level_acceleration_structure_8h_source_l00062}{62}} del archivo \mbox{\hyperlink{_i_bottom_level_acceleration_structure_8h_source}{IBottom\+Level\+Acceleration\+Structure.\+h}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_i_bottom_level_acceleration_structure_8h}{IBottom\+Level\+Acceleration\+Structure.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_i_bottom_level_acceleration_structure_8cpp}{IBottom\+Level\+Acceleration\+Structure.\+cpp}}\end{DoxyCompactItemize}

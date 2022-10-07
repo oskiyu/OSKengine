@@ -1,0 +1,263 @@
+\hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader}{}\doxysection{Referencia de la Clase OSK\+::ASSETS\+::IMesh\+Loader}
+\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader}\index{OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}}
+
+
+{\ttfamily \#include $<$IMesh\+Loader.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::ASSETS\+::IMesh\+Loader
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::ASSETS\+::IMesh\+Loader\+:
+% FIG 1
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a43c08f7bf7238c29c3a433893358e9c4}{Load}} (const std\+::string \&raw\+Asset\+Path, float \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac931328cb85a161544c8fb1c8dcb963e}{global\+Scale}})
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a290793d3b941e0d9162a0dcbd5cb6c50}{Setup\+Model}} (\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d}{Model3D}} $\ast$model)
+\end{DoxyCompactItemize}
+\doxysubsection*{Métodos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a4f47f10f0fe34bbba7433d0aa030e172}{Process\+Node}} (const tinygltf\+::\+Node \&node, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} node\+Id, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} parent\+Id, const glm\+::mat4 \&prev\+Mat)=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a8c6e9430b6e35ff1a090f670af3cf753}{Smooth\+Normals}} ()=0
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GRAPHICS\+::\+Gpu\+Image}} $>$ $>$ \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a7274124723c8b2aa1fe15f61462eaa07}{Load\+Images}} ()
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_material_info}{Gltf\+Material\+Info}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ab3c7e5438ddddb499468728a83a54ca8}{Load\+Materials}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Métodos protegidos estáticos}
+\begin{DoxyCompactItemize}
+\item 
+static glm\+::mat4 \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a747200f086fa73749e89a093cc5d4b6f}{Get\+Node\+Matrix}} (const tinygltf\+::\+Node \&node)
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a05f5134cdcc67a7889c57e39aa2f25ae}{GRAPHICS\+::\+TIndex\+Size}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a959ef8e127e315b6c0c8c36a84e6668b}{indices}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh3_d}{GRAPHICS\+::\+Mesh3D}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a166cefbfbf4daa3a50a1230befcbe495}{meshes}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_hash_map}{Hash\+Map}}$<$ \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_abd487d53bcb45bc6c67fb2dcf1df5dc8}{mesh\+Id\+To\+Material\+Id}}
+\item 
+float \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac931328cb85a161544c8fb1c8dcb963e}{global\+Scale}} = 1.\+0f
+\item 
+tinygltf\+::\+Model \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltf\+Model}} \{\}
+\item 
+\mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_model_info}{Gltf\+Model\+Info}} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a349edf8e41b582ca8f20d8a646bdda2b}{model\+Info}} \{\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Clase base para poder importar un modelo GLTF. Se debe crear una clase hija por cada tipo de vértice que se quiera cargar. 
+
+Por defecto hay 2\+:
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader}{Static\+Mesh\+Loader}} para modelos 3D no animados (Vertex3D).
+\item \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader}{Anim\+Mesh\+Loader}} para modelos 3D animados (Anim\+Vertex3D). 
+\end{DoxyItemize}
+
+Definición en la línea \mbox{\hyperlink{_i_mesh_loader_8h_source_l00101}{101}} del archivo \mbox{\hyperlink{_i_mesh_loader_8h_source}{IMesh\+Loader.\+h}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a747200f086fa73749e89a093cc5d4b6f}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a747200f086fa73749e89a093cc5d4b6f}} 
+\index{OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}!GetNodeMatrix@{GetNodeMatrix}}
+\index{GetNodeMatrix@{GetNodeMatrix}!OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}}
+\doxysubsubsection{\texorpdfstring{GetNodeMatrix()}{GetNodeMatrix()}}
+{\footnotesize\ttfamily glm\+::mat4 IMesh\+Loader\+::\+Get\+Node\+Matrix (\begin{DoxyParamCaption}\item[{const tinygltf\+::\+Node \&}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Devuelve una matriz en formato GLM con el transform del nodo. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_mesh_loader_8cpp_source_l00066}{66}} del archivo \mbox{\hyperlink{_i_mesh_loader_8cpp_source}{IMesh\+Loader.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a43c08f7bf7238c29c3a433893358e9c4}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a43c08f7bf7238c29c3a433893358e9c4}} 
+\index{OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}!Load@{Load}}
+\index{Load@{Load}!OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}}
+\doxysubsubsection{\texorpdfstring{Load()}{Load()}}
+{\footnotesize\ttfamily void IMesh\+Loader\+::\+Load (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{raw\+Asset\+Path,  }\item[{float}]{global\+Scale }\end{DoxyParamCaption})}
+
+
+
+Carga el modelo 3D. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em raw\+Asset\+Path} & Dirección del archivo .glb.\\
+\hline
+{\em global\+Scale} & Escala aplicada al modelo.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_i_mesh_loader_8cpp_source_l00019}{19}} del archivo \mbox{\hyperlink{_i_mesh_loader_8cpp_source}{IMesh\+Loader.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a7274124723c8b2aa1fe15f61462eaa07}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a7274124723c8b2aa1fe15f61462eaa07}} 
+\index{OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}!LoadImages@{LoadImages}}
+\index{LoadImages@{LoadImages}!OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}}
+\doxysubsubsection{\texorpdfstring{LoadImages()}{LoadImages()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $>$ $>$ IMesh\+Loader\+::\+Load\+Images (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Carga todas las texturas usadas en el modelo 3D. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_mesh_loader_8cpp_source_l00093}{93}} del archivo \mbox{\hyperlink{_i_mesh_loader_8cpp_source}{IMesh\+Loader.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 3
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ab3c7e5438ddddb499468728a83a54ca8}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ab3c7e5438ddddb499468728a83a54ca8}} 
+\index{OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}!LoadMaterials@{LoadMaterials}}
+\index{LoadMaterials@{LoadMaterials}!OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}}
+\doxysubsubsection{\texorpdfstring{LoadMaterials()}{LoadMaterials()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_material_info}{Gltf\+Material\+Info}} $>$ IMesh\+Loader\+::\+Load\+Materials (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Carga todos los materiales usados en el modelo 3D. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_mesh_loader_8cpp_source_l00147}{147}} del archivo \mbox{\hyperlink{_i_mesh_loader_8cpp_source}{IMesh\+Loader.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 4
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a4f47f10f0fe34bbba7433d0aa030e172}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a4f47f10f0fe34bbba7433d0aa030e172}} 
+\index{OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}!ProcessNode@{ProcessNode}}
+\index{ProcessNode@{ProcessNode}!OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}}
+\doxysubsubsection{\texorpdfstring{ProcessNode()}{ProcessNode()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+ASSETS\+::\+IMesh\+Loader\+::\+Process\+Node (\begin{DoxyParamCaption}\item[{const tinygltf\+::\+Node \&}]{node,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{node\+Id,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{parent\+Id,  }\item[{const glm\+::mat4 \&}]{prev\+Mat }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Procesa un nodo. 
+
+\begin{DoxyNote}{Nota}
+Debe ser sobreescrito, para poder manejar los tipos de vértices distintos. 
+\end{DoxyNote}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a11d55449219f6a21f62c76851986c44b}{OSK\+::\+ASSETS\+::\+Anim\+Mesh\+Loader}} y \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader_a5dc6a329e3c2f79eedad42aefeba13f7}{OSK\+::\+ASSETS\+::\+Static\+Mesh\+Loader}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a290793d3b941e0d9162a0dcbd5cb6c50}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a290793d3b941e0d9162a0dcbd5cb6c50}} 
+\index{OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}!SetupModel@{SetupModel}}
+\index{SetupModel@{SetupModel}!OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}}
+\doxysubsubsection{\texorpdfstring{SetupModel()}{SetupModel()}}
+{\footnotesize\ttfamily void IMesh\+Loader\+::\+Setup\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d}{Model3D}} $\ast$}]{model }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Configura el modelo 3D. 
+
+\begin{DoxyNote}{Nota}
+Las clases derivadas deben sobreescribir esta función, creando dentro el vertex buffer del modelo 3D. 
+\end{DoxyNote}
+
+
+Reimplementado en \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a8e9c46b3fa1d7af4ecef73f544c27374}{OSK\+::\+ASSETS\+::\+Anim\+Mesh\+Loader}} y \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader_a454d0b7dcbc2897bfcc57d50fe399742}{OSK\+::\+ASSETS\+::\+Static\+Mesh\+Loader}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_mesh_loader_8cpp_source_l00039}{39}} del archivo \mbox{\hyperlink{_i_mesh_loader_8cpp_source}{IMesh\+Loader.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 5
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a8c6e9430b6e35ff1a090f670af3cf753}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a8c6e9430b6e35ff1a090f670af3cf753}} 
+\index{OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}!SmoothNormals@{SmoothNormals}}
+\index{SmoothNormals@{SmoothNormals}!OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}}
+\doxysubsubsection{\texorpdfstring{SmoothNormals()}{SmoothNormals()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+ASSETS\+::\+IMesh\+Loader\+::\+Smooth\+Normals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Establece las normales del vértice (si tiene). 
+
+\begin{DoxyNote}{Nota}
+Debe ser sobreescrito, para poder manejar los tipos de vértices distintos. 
+\end{DoxyNote}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a8cd98695f9b0402dfe8490f48626175e}{OSK\+::\+ASSETS\+::\+Anim\+Mesh\+Loader}} y \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader_a99afee2487b413559da40abc3130ad62}{OSK\+::\+ASSETS\+::\+Static\+Mesh\+Loader}}.
+
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac931328cb85a161544c8fb1c8dcb963e}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac931328cb85a161544c8fb1c8dcb963e}} 
+\index{OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}!globalScale@{globalScale}}
+\index{globalScale@{globalScale}!OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}}
+\doxysubsubsection{\texorpdfstring{globalScale}{globalScale}}
+{\footnotesize\ttfamily float OSK\+::\+ASSETS\+::\+IMesh\+Loader\+::global\+Scale = 1.\+0f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_mesh_loader_8h_source_l00139}{139}} del archivo \mbox{\hyperlink{_i_mesh_loader_8h_source}{IMesh\+Loader.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}} 
+\index{OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}!gltfModel@{gltfModel}}
+\index{gltfModel@{gltfModel}!OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}}
+\doxysubsubsection{\texorpdfstring{gltfModel}{gltfModel}}
+{\footnotesize\ttfamily tinygltf\+::\+Model OSK\+::\+ASSETS\+::\+IMesh\+Loader\+::gltf\+Model \{\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_mesh_loader_8h_source_l00141}{141}} del archivo \mbox{\hyperlink{_i_mesh_loader_8h_source}{IMesh\+Loader.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a959ef8e127e315b6c0c8c36a84e6668b}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a959ef8e127e315b6c0c8c36a84e6668b}} 
+\index{OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}!indices@{indices}}
+\index{indices@{indices}!OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}}
+\doxysubsubsection{\texorpdfstring{indices}{indices}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a05f5134cdcc67a7889c57e39aa2f25ae}{GRAPHICS\+::\+TIndex\+Size}}$>$ OSK\+::\+ASSETS\+::\+IMesh\+Loader\+::indices\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_mesh_loader_8h_source_l00134}{134}} del archivo \mbox{\hyperlink{_i_mesh_loader_8h_source}{IMesh\+Loader.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a166cefbfbf4daa3a50a1230befcbe495}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a166cefbfbf4daa3a50a1230befcbe495}} 
+\index{OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}!meshes@{meshes}}
+\index{meshes@{meshes}!OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}}
+\doxysubsubsection{\texorpdfstring{meshes}{meshes}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh3_d}{GRAPHICS\+::\+Mesh3D}}$>$ OSK\+::\+ASSETS\+::\+IMesh\+Loader\+::meshes\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_mesh_loader_8h_source_l00135}{135}} del archivo \mbox{\hyperlink{_i_mesh_loader_8h_source}{IMesh\+Loader.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_abd487d53bcb45bc6c67fb2dcf1df5dc8}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_abd487d53bcb45bc6c67fb2dcf1df5dc8}} 
+\index{OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}!meshIdToMaterialId@{meshIdToMaterialId}}
+\index{meshIdToMaterialId@{meshIdToMaterialId}!OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}}
+\doxysubsubsection{\texorpdfstring{meshIdToMaterialId}{meshIdToMaterialId}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_hash_map}{Hash\+Map}}$<$\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}$>$ OSK\+::\+ASSETS\+::\+IMesh\+Loader\+::mesh\+Id\+To\+Material\+Id\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_mesh_loader_8h_source_l00137}{137}} del archivo \mbox{\hyperlink{_i_mesh_loader_8h_source}{IMesh\+Loader.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a349edf8e41b582ca8f20d8a646bdda2b}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a349edf8e41b582ca8f20d8a646bdda2b}} 
+\index{OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}!modelInfo@{modelInfo}}
+\index{modelInfo@{modelInfo}!OSK::ASSETS::IMeshLoader@{OSK::ASSETS::IMeshLoader}}
+\doxysubsubsection{\texorpdfstring{modelInfo}{modelInfo}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_model_info}{Gltf\+Model\+Info}} OSK\+::\+ASSETS\+::\+IMesh\+Loader\+::model\+Info \{\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_mesh_loader_8h_source_l00143}{143}} del archivo \mbox{\hyperlink{_i_mesh_loader_8h_source}{IMesh\+Loader.\+h}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_i_mesh_loader_8h}{IMesh\+Loader.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_i_mesh_loader_8cpp}{IMesh\+Loader.\+cpp}}\end{DoxyCompactItemize}

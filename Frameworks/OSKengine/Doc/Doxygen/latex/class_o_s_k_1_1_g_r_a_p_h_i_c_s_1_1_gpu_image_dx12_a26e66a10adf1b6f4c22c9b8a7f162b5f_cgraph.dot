@@ -1,0 +1,26 @@
+digraph "OSK::GRAPHICS::GpuImageDx12::FillResourceDesc"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::GpuImageDx12\l::FillResourceDesc",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::GRAPHICS::GpuImage\l::GetDimension",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#abce3e3ba3ec90fc147c6de62884e55ab",tooltip=" "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="OSK::GRAPHICS::GpuImage\l::GetFormat",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a7fbd0307d9e9147312004fecca6b73ba",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="OSK::GRAPHICS::GetFormatDx12",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a100a7488e1eee158da65062d0b5e5277",tooltip="Obtiene la representación nativa del formato para DirectX 12."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="OSK::GRAPHICS::GpuImage\l::GetMipLevels",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aa0220799f28ec1c45c888926243867e9",tooltip="Devuelve el número máximo de miplevels de esta imagen."];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="OSK::GRAPHICS::GpuImage\l::GetNumLayers",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a3f6e78b29f06b1b423ab89377a139b46",tooltip=" "];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="OSK::GRAPHICS::GpuImage\l::GetPhysicalSize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a010e504f13e07ce86e1d82e344493860",tooltip=" "];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="OSK::GRAPHICS::GpuImage\l::GetSize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a244ebc8ce3ae3095698ea0c3eaba58fc",tooltip=" "];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="OSK::GRAPHICS::GpuImage\l::GetUsage",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a339142f665e7289fafcd8e52cb03f9cb",tooltip=" "];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="OSK::EFTraits::HasFlag",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c",tooltip="Devuelve true si el enum 'value' tiene la flag 'flag'."];
+}

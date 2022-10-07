@@ -1,0 +1,81 @@
+\hypertarget{class_o_s_k_1_1_i_o_1_1_input_manager}{}\doxysection{Referencia de la Clase OSK\+::IO\+::Input\+Manager}
+\label{class_o_s_k_1_1_i_o_1_1_input_manager}\index{OSK::IO::InputManager@{OSK::IO::InputManager}}
+
+
+{\ttfamily \#include $<$Input\+Manager.\+h$>$}
+
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_input_manager_a0eb1e1b01f71fc4f20df182a4b69c089}{Add\+Listener}} (\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_i_input_listener}{IInput\+Listener}} $\ast$listener)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_input_manager_a33cc695133fa579007e7d1773c9179af}{Remove\+Listener}} (\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_i_input_listener}{IInput\+Listener}} $\ast$listener)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_input_manager_ad497666aa43971058e6d1473366ad364}{\+\_\+\+Update}} (const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window}{Window}} \&window)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Maneja los input listeners del juego, llamando a sus funciones cuando sea necesario. 
+
+Definición en la línea \mbox{\hyperlink{_input_manager_8h_source_l00015}{15}} del archivo \mbox{\hyperlink{_input_manager_8h_source}{Input\+Manager.\+h}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_input_manager_ad497666aa43971058e6d1473366ad364}\label{class_o_s_k_1_1_i_o_1_1_input_manager_ad497666aa43971058e6d1473366ad364}} 
+\index{OSK::IO::InputManager@{OSK::IO::InputManager}!\_Update@{\_Update}}
+\index{\_Update@{\_Update}!OSK::IO::InputManager@{OSK::IO::InputManager}}
+\doxysubsubsection{\texorpdfstring{\_Update()}{\_Update()}}
+{\footnotesize\ttfamily void Input\+Manager\+::\+\_\+\+Update (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window}{Window}} \&}]{window }\end{DoxyParamCaption})}
+
+
+
+Comprueba el estado del input, llamando a las funciones de los listeneres cuando sea necesario. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_input_manager_8cpp_source_l00042}{42}} del archivo \mbox{\hyperlink{_input_manager_8cpp_source}{Input\+Manager.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 0
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_input_manager_a0eb1e1b01f71fc4f20df182a4b69c089}\label{class_o_s_k_1_1_i_o_1_1_input_manager_a0eb1e1b01f71fc4f20df182a4b69c089}} 
+\index{OSK::IO::InputManager@{OSK::IO::InputManager}!AddListener@{AddListener}}
+\index{AddListener@{AddListener}!OSK::IO::InputManager@{OSK::IO::InputManager}}
+\doxysubsubsection{\texorpdfstring{AddListener()}{AddListener()}}
+{\footnotesize\ttfamily void Input\+Manager\+::\+Add\+Listener (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_i_input_listener}{IInput\+Listener}} $\ast$}]{listener }\end{DoxyParamCaption})}
+
+
+
+Añade un listener para que sea manejado por el juego. 
+
+\begin{DoxyNote}{Nota}
+Si el listener ya ha sido añadido, no ocurre nada. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_input_manager_8cpp_source_l00033}{33}} del archivo \mbox{\hyperlink{_input_manager_8cpp_source}{Input\+Manager.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_input_manager_a33cc695133fa579007e7d1773c9179af}\label{class_o_s_k_1_1_i_o_1_1_input_manager_a33cc695133fa579007e7d1773c9179af}} 
+\index{OSK::IO::InputManager@{OSK::IO::InputManager}!RemoveListener@{RemoveListener}}
+\index{RemoveListener@{RemoveListener}!OSK::IO::InputManager@{OSK::IO::InputManager}}
+\doxysubsubsection{\texorpdfstring{RemoveListener()}{RemoveListener()}}
+{\footnotesize\ttfamily void Input\+Manager\+::\+Remove\+Listener (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_i_input_listener}{IInput\+Listener}} $\ast$}]{listener }\end{DoxyParamCaption})}
+
+
+
+Quita un listener para que ya no sea manejado por el juego. 
+
+\begin{DoxyNote}{Nota}
+Si el listener no está dentro del manager, no ocurre nada. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_input_manager_8cpp_source_l00038}{38}} del archivo \mbox{\hyperlink{_input_manager_8cpp_source}{Input\+Manager.\+cpp}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_input_manager_8h}{Input\+Manager.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_input_manager_8cpp}{Input\+Manager.\+cpp}}\end{DoxyCompactItemize}

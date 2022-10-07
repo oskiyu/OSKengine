@@ -1,0 +1,31 @@
+\hypertarget{_assert_8h_source}{}\doxysection{Assert.\+h}
+\label{_assert_8h_source}\index{OSKengine2/Assert.h@{OSKengine2/Assert.h}}
+\mbox{\hyperlink{_assert_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kmacros_8h}{OSKmacros.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00007}00007 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}} \{}
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00019}00019     \textcolor{keywordtype}{void} \mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{namespace_o_s_k_a4b450eab95d33329ca194e00a23b79c1}{RuntimeAssertIsTrueFunction}}(\textcolor{keywordtype}{bool} condition, \textcolor{keyword}{const} std::string\& message, \textcolor{keyword}{const} std::string\& functionName, uint32\_t line, \textcolor{keyword}{const} std::string\& file);}
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00030}00030     \textcolor{keywordtype}{void} \mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{namespace_o_s_k_a36a63552a00a3bef7358ac807829d369}{RuntimeCheckIsTrueFunction}}(\textcolor{keywordtype}{bool} condition, \textcolor{keyword}{const} std::string\& message, \textcolor{keyword}{const} std::string\& functionName, uint32\_t line, \textcolor{keyword}{const} std::string\& file);}
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00042}00042     \textcolor{keywordtype}{void} \mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{namespace_o_s_k_a3163432a64cd59a24c27a5f35cd9fe3e}{RuntimeAssertIsFalseFunction}}(\textcolor{keywordtype}{bool} condition, \textcolor{keyword}{const} std::string\& message, \textcolor{keyword}{const} std::string\& functionName, uint32\_t line, \textcolor{keyword}{const} std::string\& file);}
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00053}00053     \textcolor{keywordtype}{void} \mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{namespace_o_s_k_a3e9a86198e02c285bef47e0ced8c481b}{RuntimeCheckIsFalseFunction}}(\textcolor{keywordtype}{bool} condition, \textcolor{keyword}{const} std::string\& message, \textcolor{keyword}{const} std::string\& functionName, uint32\_t line, \textcolor{keyword}{const} std::string\& file);}
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00055}00055 \}}
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00064}\mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{00064}} \textcolor{preprocessor}{\#define OSK\_ASSERT(condition, msg) OSK::RuntimeAssertIsTrueFunction(condition, (msg), \_\_FUNCTION\_\_, \_\_LINE\_\_, \_\_FILE\_\_)}}
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00072}\mbox{\hyperlink{_assert_8h_ab17a47d656881cd12f1529fb2fd20d7e}{00072}} \textcolor{preprocessor}{\#define OSK\_CHECK(condition, msg) OSK::RuntimeCheckIsTrueFunction(condition, msg, \_\_FUNCTION\_\_, \_\_LINE\_\_, \_\_FILE\_\_)}}
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00081}\mbox{\hyperlink{_assert_8h_a5944940696757a1e863bb7e763c84d2e}{00081}} \textcolor{preprocessor}{\#define OSK\_ASSERT\_FALSE(condition, msg) OSK::RuntimeAssertIsFalseFunction(condition, msg, \_\_FUNCTION\_\_, \_\_LINE\_\_, \_\_FILE\_\_)}}
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{_assert_8h_source_l00089}\mbox{\hyperlink{_assert_8h_ab52d4c1073c7aa3b1e41b6e6359aa3dc}{00089}} \textcolor{preprocessor}{\#define OSK\_CHECK\_FALSE(condition, msg) OSK::RuntimeCheckIsFalseFunction(condition, msg, \_\_FUNCTION\_\_, \_\_LINE\_\_, \_\_FILE\_\_)}}
+
+\end{DoxyCode}

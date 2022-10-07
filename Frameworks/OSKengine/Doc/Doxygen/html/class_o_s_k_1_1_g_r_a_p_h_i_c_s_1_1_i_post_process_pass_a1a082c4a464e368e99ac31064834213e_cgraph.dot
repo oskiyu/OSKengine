@@ -1,0 +1,12 @@
+digraph "OSK::GRAPHICS::IPostProcessPass::SetInput"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::IPostProcess\lPass::SetInput",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Establece las imágenes de entrada a partir de las que se calculará el efecto."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::GRAPHICS::RenderTarget\l::GetMainTargetImage",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a8c608c1c1f6d5b15d6a69e0e5baee7de",tooltip="Devuelve la imagen de renderizado con el índice dado."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="OSK::GRAPHICS::IPostProcess\lPass::SetInput",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#af7e88a9869fe68ca02e156ec242bbf82",tooltip="Establece las imágenes de entrada a partir de las que se calculará el efecto."];
+}

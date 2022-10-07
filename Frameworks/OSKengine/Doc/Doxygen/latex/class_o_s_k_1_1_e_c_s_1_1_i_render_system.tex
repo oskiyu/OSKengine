@@ -1,0 +1,349 @@
+\hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_render_system}{}\doxysection{Referencia de la Clase OSK\+::ECS\+::IRender\+System}
+\label{class_o_s_k_1_1_e_c_s_1_1_i_render_system}\index{OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}}
+
+
+{\ttfamily \#include $<$IRender\+System.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::ECS\+::IRender\+System
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::ECS\+::IRender\+System\+:
+% FIG 1
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_render_system_ae46eb2ba5310ecbafd70b56228171a0a}{$\sim$\+IRender\+System}} ()=default
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_render_system_ab99fd447d1c640bcc003dc5713768b6c}{On\+Create}} () override
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_render_system_a09d5e15f08aeff1cac75da8bada0f48d}{Render}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{GRAPHICS\+::\+ICommand\+List}} $\ast$command\+List)=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_render_system_aec037cb8c46f11305e3c68a615a8ab4c}{Resize}} (const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&window\+Size)
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_render_system_af963cc4b47d5d60b0b33473e3c7f3c75}{Create\+Target\+Image}} (const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&size)
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{GRAPHICS\+::\+Render\+Target}} \& \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_render_system_a7ead258d11d094f960bed0b7da407d85}{Get\+Render\+Target}} ()
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_ab66937b130814e6f06f3d76648dd0fb6}{On\+Tick}} (\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDelta\+Time}} delta\+Time)
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_a43e7608ce2a31c9c13b42cf4ce6eb0ef}{On\+Remove}} ()
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_a9958f3923d9872cb58b62f62f286bc01}{On\+Object\+Added}} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} obj)
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_a0507ade65b07509199201d1a50e97052}{On\+Object\+Removed}} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} obj)
+\item 
+const \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a2e882236c9347a28293a4c8988371ad8}{Signature}} \& \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_aa548f5ab0d097dca7a168a986ee98647}{Get\+Signature}} () const
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_a7c4d298e40f9d83aa00b85e59167e890}{Add\+Object}} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} obj)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_aae0fdc7cd122ec66de6efb60e0fdc596}{Remove\+Object}} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} obj)
+\end{DoxyCompactItemize}
+\doxysubsection*{Métodos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_render_system_ae3c3f809429c0eb238b4b5a58e4a756a}{Setup\+Viewport}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{GRAPHICS\+::\+ICommand\+List}} $\ast$command\+List)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_ac9336e70706ab6ea24d9f5fe95955efd}{Set\+Signature}} (const \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a2e882236c9347a28293a4c8988371ad8}{Signature}} \&signature)
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} $>$ \& \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_ad3611590e6bde825b973c160d7a867d9}{Get\+Objects}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{GRAPHICS\+::\+Render\+Target}} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_render_system_a8e9d568865c3d41fbec6afd49acb3cfa}{render\+Target}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Clase base para sistemas de renderizado. 
+
+Cada sistema de renderizado renderizará en una imagen propia (IRender\+System\+::\+Get\+System\+Target\+Image). 
+
+Definición en la línea \mbox{\hyperlink{_i_render_system_8h_source_l00022}{22}} del archivo \mbox{\hyperlink{_i_render_system_8h_source}{IRender\+System.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_render_system_ae46eb2ba5310ecbafd70b56228171a0a}\label{class_o_s_k_1_1_e_c_s_1_1_i_render_system_ae46eb2ba5310ecbafd70b56228171a0a}} 
+\index{OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}!````~IRenderSystem@{$\sim$IRenderSystem}}
+\index{````~IRenderSystem@{$\sim$IRenderSystem}!OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}}
+\doxysubsubsection{\texorpdfstring{$\sim$IRenderSystem()}{~IRenderSystem()}}
+{\footnotesize\ttfamily virtual OSK\+::\+ECS\+::\+IRender\+System\+::$\sim$\+IRender\+System (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_a7c4d298e40f9d83aa00b85e59167e890}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_a7c4d298e40f9d83aa00b85e59167e890}} 
+\index{OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}!AddObject@{AddObject}}
+\index{AddObject@{AddObject}!OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}}
+\doxysubsubsection{\texorpdfstring{AddObject()}{AddObject()}}
+{\footnotesize\ttfamily void ISystem\+::\+Add\+Object (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}}}]{obj }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Añade un objeto a la lista de objetos procesables. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00025}{25}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_render_system_af963cc4b47d5d60b0b33473e3c7f3c75}\label{class_o_s_k_1_1_e_c_s_1_1_i_render_system_af963cc4b47d5d60b0b33473e3c7f3c75}} 
+\index{OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}!CreateTargetImage@{CreateTargetImage}}
+\index{CreateTargetImage@{CreateTargetImage}!OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}}
+\doxysubsubsection{\texorpdfstring{CreateTargetImage()}{CreateTargetImage()}}
+{\footnotesize\ttfamily void IRender\+System\+::\+Create\+Target\+Image (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Crea la imagen de renderizado. 
+
+Si el render system va a usar más imágenes de renderizado, se deben inicializar sobreescribiendo esta función. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em size} & Tamaño de la imagen de renderizado.\\
+\hline
+\end{DoxyParams}
+
+
+Reimplementado en \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system_a89c47dfc0ce46e0af13ffea6128e9c8d}{OSK\+::\+ECS\+::\+Pbr\+Deferred\+Render\+System}}, \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_render_system3_d_a5f61471f90f9586b0b24be7bd0226bf3}{OSK\+::\+ECS\+::\+Render\+System3D}} y \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_skybox_render_system_a0677cf0b09628f6dcd0f7d81de88eff9}{OSK\+::\+ECS\+::\+Skybox\+Render\+System}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_render_system_8cpp_source_l00030}{30}} del archivo \mbox{\hyperlink{_i_render_system_8cpp_source}{IRender\+System.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 3
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_ad3611590e6bde825b973c160d7a867d9}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_ad3611590e6bde825b973c160d7a867d9}} 
+\index{OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}!GetObjects@{GetObjects}}
+\index{GetObjects@{GetObjects}!OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}}
+\doxysubsubsection{\texorpdfstring{GetObjects()}{GetObjects()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{OSK\+::\+Dynamic\+Array}}$<$ \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} $>$ \& ISystem\+::\+Get\+Objects (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00041}{41}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_render_system_a7ead258d11d094f960bed0b7da407d85}\label{class_o_s_k_1_1_e_c_s_1_1_i_render_system_a7ead258d11d094f960bed0b7da407d85}} 
+\index{OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}!GetRenderTarget@{GetRenderTarget}}
+\index{GetRenderTarget@{GetRenderTarget}!OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}}
+\doxysubsubsection{\texorpdfstring{GetRenderTarget()}{GetRenderTarget()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}} \& IRender\+System\+::\+Get\+Render\+Target (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Devuelve el render target principal sobre el que se renderiza el sistema. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_render_system_8cpp_source_l00034}{34}} del archivo \mbox{\hyperlink{_i_render_system_8cpp_source}{IRender\+System.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_aa548f5ab0d097dca7a168a986ee98647}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_aa548f5ab0d097dca7a168a986ee98647}} 
+\index{OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}!GetSignature@{GetSignature}}
+\index{GetSignature@{GetSignature}!OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}}
+\doxysubsubsection{\texorpdfstring{GetSignature()}{GetSignature()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a2e882236c9347a28293a4c8988371ad8}{Signature}} \& ISystem\+::\+Get\+Signature (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Devuelve el signature del sistema, indicando qué componentes necesita. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00045}{45}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_render_system_ab99fd447d1c640bcc003dc5713768b6c}\label{class_o_s_k_1_1_e_c_s_1_1_i_render_system_ab99fd447d1c640bcc003dc5713768b6c}} 
+\index{OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}!OnCreate@{OnCreate}}
+\index{OnCreate@{OnCreate}!OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}}
+\doxysubsubsection{\texorpdfstring{OnCreate()}{OnCreate()}}
+{\footnotesize\ttfamily void IRender\+System\+::\+On\+Create (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Función que se ejecuta al crearse el sistema. 
+
+
+
+Reimplementado de \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_a78d27d6a19bd0d3c9eadc3521c350001}{OSK\+::\+ECS\+::\+ISystem}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_render_system_8cpp_source_l00017}{17}} del archivo \mbox{\hyperlink{_i_render_system_8cpp_source}{IRender\+System.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 4
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_a9958f3923d9872cb58b62f62f286bc01}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_a9958f3923d9872cb58b62f62f286bc01}} 
+\index{OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}!OnObjectAdded@{OnObjectAdded}}
+\index{OnObjectAdded@{OnObjectAdded}!OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}}
+\doxysubsubsection{\texorpdfstring{OnObjectAdded()}{OnObjectAdded()}}
+{\footnotesize\ttfamily void ISystem\+::\+On\+Object\+Added (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}}}]{obj }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [inherited]}}
+
+
+
+Función que se ejecuta cuando un Game\+Object entra en la lista de objetos procesables por el sistema. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00017}{17}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_a0507ade65b07509199201d1a50e97052}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_a0507ade65b07509199201d1a50e97052}} 
+\index{OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}!OnObjectRemoved@{OnObjectRemoved}}
+\index{OnObjectRemoved@{OnObjectRemoved}!OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}}
+\doxysubsubsection{\texorpdfstring{OnObjectRemoved()}{OnObjectRemoved()}}
+{\footnotesize\ttfamily void ISystem\+::\+On\+Object\+Removed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}}}]{obj }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [inherited]}}
+
+
+
+Función que se ejecuta cuando un Game\+Object sale de la lista de objetos procesables por el sistema. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00021}{21}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_a43e7608ce2a31c9c13b42cf4ce6eb0ef}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_a43e7608ce2a31c9c13b42cf4ce6eb0ef}} 
+\index{OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}!OnRemove@{OnRemove}}
+\index{OnRemove@{OnRemove}!OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}}
+\doxysubsubsection{\texorpdfstring{OnRemove()}{OnRemove()}}
+{\footnotesize\ttfamily void ISystem\+::\+On\+Remove (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [inherited]}}
+
+
+
+Función que se ejecuta al destruirse el sistema. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00013}{13}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_ab66937b130814e6f06f3d76648dd0fb6}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_ab66937b130814e6f06f3d76648dd0fb6}} 
+\index{OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}!OnTick@{OnTick}}
+\index{OnTick@{OnTick}!OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}}
+\doxysubsubsection{\texorpdfstring{OnTick()}{OnTick()}}
+{\footnotesize\ttfamily void ISystem\+::\+On\+Tick (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDelta\+Time}}}]{delta\+Time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [inherited]}}
+
+
+
+Función que se ejecuta una vez por frame. 
+
+La lógica en la mayoría de sistemas estará implementada en este método. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em delta\+Time} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplementado en \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system_a6d1959599b80933c42431525efd4c12f}{OSK\+::\+ECS\+::\+Pbr\+Deferred\+Render\+System}} y \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_render_system3_d_a65a6b4272468a563ea381aaf9f5e480d}{OSK\+::\+ECS\+::\+Render\+System3D}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00009}{9}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_aae0fdc7cd122ec66de6efb60e0fdc596}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_aae0fdc7cd122ec66de6efb60e0fdc596}} 
+\index{OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}!RemoveObject@{RemoveObject}}
+\index{RemoveObject@{RemoveObject}!OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}}
+\doxysubsubsection{\texorpdfstring{RemoveObject()}{RemoveObject()}}
+{\footnotesize\ttfamily void ISystem\+::\+Remove\+Object (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}}}]{obj }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Elimina un objeto de la lista de objetos procesables. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00031}{31}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 5
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_render_system_a09d5e15f08aeff1cac75da8bada0f48d}\label{class_o_s_k_1_1_e_c_s_1_1_i_render_system_a09d5e15f08aeff1cac75da8bada0f48d}} 
+\index{OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}!Render@{Render}}
+\index{Render@{Render}!OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}}
+\doxysubsubsection{\texorpdfstring{Render()}{Render()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+ECS\+::\+IRender\+System\+::\+Render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{GRAPHICS\+::\+ICommand\+List}} $\ast$}]{command\+List }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Comando específico del sistema, para ejecutar el renderizado. 
+
+\begin{DoxyPrecond}{Precondición}
+La lista de comandos debe estar abierta. 
+\end{DoxyPrecond}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_render_system2_d_a3d6e69772dfbd5a028740fbbdbf8fd07}{OSK\+::\+ECS\+::\+Render\+System2D}}, \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system_a85151789fcc029575e6f6800e8ba68aa}{OSK\+::\+ECS\+::\+Pbr\+Deferred\+Render\+System}}, \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_render_system3_d_a0f6ecaafe704974730190d0b7f274b1a}{OSK\+::\+ECS\+::\+Render\+System3D}} y \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_skybox_render_system_a9f65491ce1cc366aa36cb63d8a1a85d4}{OSK\+::\+ECS\+::\+Skybox\+Render\+System}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_render_system_aec037cb8c46f11305e3c68a615a8ab4c}\label{class_o_s_k_1_1_e_c_s_1_1_i_render_system_aec037cb8c46f11305e3c68a615a8ab4c}} 
+\index{OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}!Resize@{Resize}}
+\index{Resize@{Resize}!OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}}
+\doxysubsubsection{\texorpdfstring{Resize()}{Resize()}}
+{\footnotesize\ttfamily void IRender\+System\+::\+Resize (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&}]{window\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Cambia el tamaño de la imagen de render target. 
+
+Se llama cada vez que la ventana cambia de tamaño.
+
+Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em window\+Size} & Nuevo tamaño de la ventana.\\
+\hline
+\end{DoxyParams}
+
+
+Reimplementado en \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system_aaece8432a7dd1a62b67b1c76b707c211}{OSK\+::\+ECS\+::\+Pbr\+Deferred\+Render\+System}} y \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_render_system3_d_a69771f412015a908acba9b67a4dc99bd}{OSK\+::\+ECS\+::\+Render\+System3D}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_render_system_8cpp_source_l00026}{26}} del archivo \mbox{\hyperlink{_i_render_system_8cpp_source}{IRender\+System.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 6
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_ac9336e70706ab6ea24d9f5fe95955efd}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_ac9336e70706ab6ea24d9f5fe95955efd}} 
+\index{OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}!SetSignature@{SetSignature}}
+\index{SetSignature@{SetSignature}!OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}}
+\doxysubsubsection{\texorpdfstring{SetSignature()}{SetSignature()}}
+{\footnotesize\ttfamily void ISystem\+::\+Set\+Signature (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a2e882236c9347a28293a4c8988371ad8}{Signature}} \&}]{signature }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00037}{37}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_render_system_ae3c3f809429c0eb238b4b5a58e4a756a}\label{class_o_s_k_1_1_e_c_s_1_1_i_render_system_ae3c3f809429c0eb238b4b5a58e4a756a}} 
+\index{OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}!SetupViewport@{SetupViewport}}
+\index{SetupViewport@{SetupViewport}!OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}}
+\doxysubsubsection{\texorpdfstring{SetupViewport()}{SetupViewport()}}
+{\footnotesize\ttfamily void IRender\+System\+::\+Setup\+Viewport (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{GRAPHICS\+::\+ICommand\+List}} $\ast$}]{command\+List }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_render_system_8cpp_source_l00038}{38}} del archivo \mbox{\hyperlink{_i_render_system_8cpp_source}{IRender\+System.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 7
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_render_system_a8e9d568865c3d41fbec6afd49acb3cfa}\label{class_o_s_k_1_1_e_c_s_1_1_i_render_system_a8e9d568865c3d41fbec6afd49acb3cfa}} 
+\index{OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}!renderTarget@{renderTarget}}
+\index{renderTarget@{renderTarget}!OSK::ECS::IRenderSystem@{OSK::ECS::IRenderSystem}}
+\doxysubsubsection{\texorpdfstring{renderTarget}{renderTarget}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{GRAPHICS\+::\+Render\+Target}} OSK\+::\+ECS\+::\+IRender\+System\+::render\+Target\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_render_system_8h_source_l00067}{67}} del archivo \mbox{\hyperlink{_i_render_system_8h_source}{IRender\+System.\+h}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_i_render_system_8h}{IRender\+System.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_i_render_system_8cpp}{IRender\+System.\+cpp}}\end{DoxyCompactItemize}

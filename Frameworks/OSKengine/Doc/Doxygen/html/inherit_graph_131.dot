@@ -1,9 +1,12 @@
 digraph "Representación gráfica de la clase"
 {
- // INTERACTIVE_SVG=YES
  // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="OSK::HashMap\< OSK::\lPair\< std::string, std\l::string \>, const OSK\l::GRAPHICS::GpuImage * \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_hash_map.html",tooltip=" "];
+  Node0 [label="OSK::GRAPHICS::IGpuImageView",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html",tooltip="Un image view describe cómo y a qúe parte de una imagen se va a acceder al usarla."];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="OSK::GRAPHICS::GpuImageViewDx12",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_dx12.html",tooltip=" "];
+  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::GRAPHICS::GpuImageView\lVulkan",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vulkan.html",tooltip=" "];
 }

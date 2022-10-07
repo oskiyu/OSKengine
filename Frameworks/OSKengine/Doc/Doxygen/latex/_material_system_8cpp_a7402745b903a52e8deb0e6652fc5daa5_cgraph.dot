@@ -1,0 +1,37 @@
+digraph "LoadSpirvCrossShader"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="LoadSpirvCrossShader",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::EFTraits::AddFlag",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespace_o_s_k_1_1_e_f_traits.html#aaa9d8f73148fc7211f6713016bbab4aa",tooltip="Añade un flag al enum dado."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="OSK::GRAPHICS::MaterialLayout\l::AddPushConstant",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#accc4d04a6e7b796eb95519f9431798e5",tooltip="Registra un slot para un push constant."];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="OSK::GRAPHICS::MaterialLayout\l::AddSlot",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#ab5ca4f05ed6d7cea3b81d9ee94f6350a",tooltip="Añade el slot dado al layout. El nombre del slot se usará como llave."];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="OSK::LinkedList::Push",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_linked_list.html#a1daf5ca9d77018980cdcd2bda761093b",tooltip=" "];
+  Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="OSK::LinkedList::Insert",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_linked_list.html#a8fa021e2fec2e977c18544e6e5807963",tooltip="Añade un elemento a la lista."];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="OSK::LinkedList::Contains\lElement",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_linked_list.html#a46a991a7080fa8f7cfb3156eeda9834a",tooltip=" "];
+  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="OSK::LinkedList::end",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_linked_list.html#afb559cdbc1b8386d76344457f2fb2216",tooltip="Iterador final."];
+  Node7 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="OSK::LinkedList::Find",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_linked_list.html#a5c49d53a693353adf1ad988469fb00ba",tooltip=" "];
+  Node9 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="OSK::LinkedList::begin",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_linked_list.html#add8f1ee4c977e7e5d22309e252fcf02c",tooltip="Iterador que apunta al inicio de la lista."];
+  Node9 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="OSK::GRAPHICS::MaterialLayout\l::GetAllPushConstants",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#aeb38d6651a3696756da72767b802913a",tooltip="Devuelve todos los slots push constants registrados."];
+  Node1 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="OSK::GRAPHICS::MaterialLayout\l::GetAllSlotNames",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a82de8efeace9ce18733634fb7c1cc8a3",tooltip="Obtiene los nombres de todos los slots registrados en el layout."];
+  Node1 -> Node13 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="OSK::DynamicArray::\lGetData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#ac8a6d70f938c482e1f7aa68c7d186bb8",tooltip="Devuelve el array original."];
+  Node1 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="OSK::DynamicArray::\lGetSize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90",tooltip="Devuelve el número de elementos almacenados."];
+  Node1 -> Node15 [color="midnightblue",fontsize="10",style="solid"];
+  Node15 [label="OSK::GRAPHICS::MaterialLayout\l::GetSlot",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a7a1845df7f0113a0285adfbea469df90",tooltip="Obtiene el slot con el nombre dado, si existe."];
+}

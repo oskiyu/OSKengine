@@ -1,0 +1,74 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::Command\+Queue\+Dx12}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12}\index{OSK::GRAPHICS::CommandQueueDx12@{OSK::GRAPHICS::CommandQueueDx12}}
+
+
+{\ttfamily \#include $<$Command\+Queue\+Dx12.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::Command\+Queue\+Dx12
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::Command\+Queue\+Dx12\+:
+% FIG 1
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12_a2c17d273521b37e98fe2c90ef5f10907}{Set\+Command\+Queue}} (const Com\+Ptr$<$ ID3\+D12\+Command\+Queue $>$ \&command\+Queue)
+\item 
+ID3\+D12\+Command\+Queue $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12_a32e793d2cd29e4bcb7d064f24cc45128}{Get\+Command\+Queue}} () const
+\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommand\+Queue}}, T$>$}\\T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_a9142d2a17779a273bc0fccf4d6cc9918}{As}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Una cola de comandos almacena todas las listas de comandos que se envían a la GPU. 
+
+Implementación de la interfaz para el renderizador de DirectX 12. 
+
+Definición en la línea \mbox{\hyperlink{_command_queue_dx12_8h_source_l00020}{20}} del archivo \mbox{\hyperlink{_command_queue_dx12_8h_source}{Command\+Queue\+Dx12.\+h}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_a9142d2a17779a273bc0fccf4d6cc9918}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_a9142d2a17779a273bc0fccf4d6cc9918}} 
+\index{OSK::GRAPHICS::CommandQueueDx12@{OSK::GRAPHICS::CommandQueueDx12}!As@{As}}
+\index{As@{As}!OSK::GRAPHICS::CommandQueueDx12@{OSK::GRAPHICS::CommandQueueDx12}}
+\doxysubsubsection{\texorpdfstring{As()}{As()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommand\+Queue}}, T$>$\\
+T $\ast$ OSK\+::\+GRAPHICS\+::\+ICommand\+Queue\+::\+As (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_queue_8h_source_l00020}{20}} del archivo \mbox{\hyperlink{_i_command_queue_8h_source}{ICommand\+Queue.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12_a32e793d2cd29e4bcb7d064f24cc45128}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12_a32e793d2cd29e4bcb7d064f24cc45128}} 
+\index{OSK::GRAPHICS::CommandQueueDx12@{OSK::GRAPHICS::CommandQueueDx12}!GetCommandQueue@{GetCommandQueue}}
+\index{GetCommandQueue@{GetCommandQueue}!OSK::GRAPHICS::CommandQueueDx12@{OSK::GRAPHICS::CommandQueueDx12}}
+\doxysubsubsection{\texorpdfstring{GetCommandQueue()}{GetCommandQueue()}}
+{\footnotesize\ttfamily ID3\+D12\+Command\+Queue $\ast$ Command\+Queue\+Dx12\+::\+Get\+Command\+Queue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_command_queue_dx12_8cpp_source_l00014}{14}} del archivo \mbox{\hyperlink{_command_queue_dx12_8cpp_source}{Command\+Queue\+Dx12.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12_a2c17d273521b37e98fe2c90ef5f10907}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12_a2c17d273521b37e98fe2c90ef5f10907}} 
+\index{OSK::GRAPHICS::CommandQueueDx12@{OSK::GRAPHICS::CommandQueueDx12}!SetCommandQueue@{SetCommandQueue}}
+\index{SetCommandQueue@{SetCommandQueue}!OSK::GRAPHICS::CommandQueueDx12@{OSK::GRAPHICS::CommandQueueDx12}}
+\doxysubsubsection{\texorpdfstring{SetCommandQueue()}{SetCommandQueue()}}
+{\footnotesize\ttfamily void Command\+Queue\+Dx12\+::\+Set\+Command\+Queue (\begin{DoxyParamCaption}\item[{const Com\+Ptr$<$ ID3\+D12\+Command\+Queue $>$ \&}]{command\+Queue }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_command_queue_dx12_8cpp_source_l00010}{10}} del archivo \mbox{\hyperlink{_command_queue_dx12_8cpp_source}{Command\+Queue\+Dx12.\+cpp}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_command_queue_dx12_8h}{Command\+Queue\+Dx12.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_command_queue_dx12_8cpp}{Command\+Queue\+Dx12.\+cpp}}\end{DoxyCompactItemize}

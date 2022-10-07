@@ -1,0 +1,61 @@
+\hypertarget{_shader_binding_type_vulkan_8cpp_source}{}\doxysection{Shader\+Binding\+Type\+Vulkan.\+cpp}
+\label{_shader_binding_type_vulkan_8cpp_source}\index{OSKengine2/ShaderBindingTypeVulkan.cpp@{OSKengine2/ShaderBindingTypeVulkan.cpp}}
+\mbox{\hyperlink{_shader_binding_type_vulkan_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_shader_binding_type_vulkan_8h}{ShaderBindingTypeVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_shader_binding_type_8h}{ShaderBindingType.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_enum_flags_8hpp}{EnumFlags.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00006}\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4c5b747cc726d69ca2876e77875618dc}{00006}} VkDescriptorType \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4c5b747cc726d69ca2876e77875618dc}{OSK::GRAPHICS::GetDescriptorTypeVk}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1d}{ShaderBindingType}} type) \{}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00007}00007     \textcolor{keywordflow}{switch} (type) \{}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00008}00008     \textcolor{keywordflow}{case} ShaderBindingType::UNIFORM\_BUFFER:}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00009}00009         \textcolor{keywordflow}{return} VK\_DESCRIPTOR\_TYPE\_UNIFORM\_BUFFER;}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00010}00010     \textcolor{keywordflow}{case} ShaderBindingType::TEXTURE:}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00011}00011         \textcolor{keywordflow}{return} VK\_DESCRIPTOR\_TYPE\_COMBINED\_IMAGE\_SAMPLER;}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00012}00012     \textcolor{keywordflow}{case} ShaderBindingType::TEXTURE\_ARRAY:}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00013}00013         \textcolor{keywordflow}{return} VK\_DESCRIPTOR\_TYPE\_COMBINED\_IMAGE\_SAMPLER;}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00014}00014     \textcolor{keywordflow}{case} ShaderBindingType::CUBEMAP:}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00015}00015         \textcolor{keywordflow}{return} VK\_DESCRIPTOR\_TYPE\_COMBINED\_IMAGE\_SAMPLER;}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00016}00016     \textcolor{keywordflow}{case} ShaderBindingType::STORAGE\_BUFFER:}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00017}00017         \textcolor{keywordflow}{return} VK\_DESCRIPTOR\_TYPE\_STORAGE\_BUFFER;}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00018}00018     \textcolor{keywordflow}{case} ShaderBindingType::RT\_ACCELERATION\_STRUCTURE:}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00019}00019         \textcolor{keywordflow}{return} VK\_DESCRIPTOR\_TYPE\_ACCELERATION\_STRUCTURE\_KHR;}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00020}00020     \textcolor{keywordflow}{case} ShaderBindingType::RT\_TARGET\_IMAGE:}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00021}00021         \textcolor{keywordflow}{return} VK\_DESCRIPTOR\_TYPE\_STORAGE\_IMAGE;}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00022}00022     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00023}00023         \textcolor{keywordflow}{return} VK\_DESCRIPTOR\_TYPE\_MAX\_ENUM;}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00024}00024     \}}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00025}00025 \}}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00027}\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3a50046339fbf8642e14273583cd8118}{00027}} VkShaderStageFlags \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3a50046339fbf8642e14273583cd8118}{OSK::GRAPHICS::GetShaderStageVk}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcb}{ShaderStage}} stage) \{}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00028}00028     VkShaderStageFlags output = 0;}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00030}00030     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(stage, ShaderStage::VERTEX))}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00031}00031         output |= VK\_SHADER\_STAGE\_VERTEX\_BIT;}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00033}00033     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(stage, ShaderStage::FRAGMENT))}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00034}00034         output |= VK\_SHADER\_STAGE\_FRAGMENT\_BIT;}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00036}00036     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(stage, ShaderStage::TESSELATION\_CONTROL))}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00037}00037         output |= VK\_SHADER\_STAGE\_TESSELLATION\_CONTROL\_BIT;}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00039}00039     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(stage, ShaderStage::TESSELATION\_EVALUATION))}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00040}00040         output |= VK\_SHADER\_STAGE\_TESSELLATION\_EVALUATION\_BIT;}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00042}00042     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(stage, ShaderStage::RT\_RAYGEN))}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00043}00043         output |= VK\_SHADER\_STAGE\_RAYGEN\_BIT\_KHR;}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00044}00044 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00045}00045     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(stage, ShaderStage::RT\_CLOSEST\_HIT))}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00046}00046         output |= VK\_SHADER\_STAGE\_CLOSEST\_HIT\_BIT\_KHR;}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00048}00048     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(stage, ShaderStage::RT\_MISS))}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00049}00049         output |= VK\_SHADER\_STAGE\_MISS\_BIT\_KHR;}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00051}00051     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(stage, ShaderStage::COMPUTE))}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00052}00052         output |= VK\_SHADER\_STAGE\_COMPUTE\_BIT;}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00054}00054     \textcolor{keywordflow}{return} output;}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_vulkan_8cpp_source_l00055}00055 \}}
+
+\end{DoxyCode}

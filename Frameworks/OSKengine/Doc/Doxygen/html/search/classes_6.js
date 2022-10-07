@@ -2,8 +2,8 @@ var searchData=
 [
   ['gameobjectmanager_0',['GameObjectManager',['../class_o_s_k_1_1_e_c_s_1_1_game_object_manager.html',1,'OSK::ECS']]],
   ['gamepadstate_1',['GamepadState',['../class_o_s_k_1_1_i_o_1_1_gamepad_state.html',1,'OSK::IO']]],
-  ['gltfmaterialinfo_2',['GltfMaterialInfo',['../struct_gltf_material_info.html',1,'']]],
-  ['gltfmodelinfo_3',['GltfModelInfo',['../struct_gltf_model_info.html',1,'']]],
+  ['gltfmaterialinfo_2',['GltfMaterialInfo',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_material_info.html',1,'OSK::ASSETS']]],
+  ['gltfmodelinfo_3',['GltfModelInfo',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_model_info.html',1,'OSK::ASSETS']]],
   ['gpubarrierinfo_4',['GpuBarrierInfo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html',1,'OSK::GRAPHICS']]],
   ['gpubuffermemoryblockinfo_5',['GpuBufferMemoryBlockInfo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info.html',1,'OSK::GRAPHICS']]],
   ['gpudatabuffer_6',['GpuDataBuffer',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html',1,'OSK::GRAPHICS']]],

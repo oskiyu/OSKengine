@@ -1,0 +1,33 @@
+\hypertarget{_font_instance_8h_source}{}\doxysection{Font\+Instance.\+h}
+\label{_font_instance_8h_source}\index{OSKengine2/FontInstance.h@{OSKengine2/FontInstance.h}}
+\mbox{\hyperlink{_font_instance_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_unique_ptr_8hpp}{UniquePtr.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_image_8h}{IGpuImage.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_hash_map_8hpp}{HashMap.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_font_character_8h}{FontCharacter.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_vector2_8hpp}{Vector2.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00008}00008 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_sprite_8h}{Sprite.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00009}00009 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00011}00011 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_a_s_s_e_t_s}{OSK::ASSETS}} \{}
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00017}\mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance}{00017}}     \textcolor{keyword}{struct }\mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance}{FontInstance}} \{}
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00024}\mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a5bc616e3014ce0290c984a4810f19448}{00024}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<GRAPHICS::GpuImage>}} \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a5bc616e3014ce0290c984a4810f19448}{image}};}
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00029}\mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_ad006fe151e2ee7bbbbadf4003aab748d}{00029}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<GRAPHICS::Sprite>}} \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_ad006fe151e2ee7bbbbadf4003aab748d}{sprite}};}
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00034}\mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a080de74a5027833e0966af431ccfac22}{00034}}         \mbox{\hyperlink{class_o_s_k_1_1_hash_map}{HashMap<char, FontCharacter>}} \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a080de74a5027833e0966af431ccfac22}{characters}};}
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00040}\mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a249050b1ac80fb09697a94567257466e}{00040}}         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a249050b1ac80fb09697a94567257466e}{fontSize}} = 0;}
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00047}00047         \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2f}} \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a6994983f9bf3e3b24e68fd0f548b13de}{GetTextSize}}(\textcolor{keyword}{const} std::string\& \textcolor{keywordtype}{string}) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00049}00049     \};}
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{_font_instance_8h_source_l00051}00051 \}}
+
+\end{DoxyCode}

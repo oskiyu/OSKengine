@@ -1,0 +1,77 @@
+\hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader}{}\doxysection{Referencia de la Clase OSK\+::ASSETS\+::Texture\+Loader}
+\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader}\index{OSK::ASSETS::TextureLoader@{OSK::ASSETS::TextureLoader}}
+
+
+{\ttfamily \#include $<$Texture\+Loader.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::ASSETS\+::Texture\+Loader
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::ASSETS\+::Texture\+Loader\+:
+% FIG 1
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader_ae639179a2474aca1ca8e6f9c001a8fc3}{OSK\+\_\+\+ASSET\+\_\+\+TYPE\+\_\+\+REG}} (\char`\"{}OSK\+::\+Texture\char`\"{})
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader_a64796c79bab29f0c01f547501e1a87c9}{Load}} (const std\+::string \&asset\+File\+Path, \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset}{IAsset}} $\ast$$\ast$asset) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+
+
+Definición en la línea \mbox{\hyperlink{_texture_loader_8h_source_l00007}{7}} del archivo \mbox{\hyperlink{_texture_loader_8h_source}{Texture\+Loader.\+h}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader_a64796c79bab29f0c01f547501e1a87c9}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader_a64796c79bab29f0c01f547501e1a87c9}} 
+\index{OSK::ASSETS::TextureLoader@{OSK::ASSETS::TextureLoader}!Load@{Load}}
+\index{Load@{Load}!OSK::ASSETS::TextureLoader@{OSK::ASSETS::TextureLoader}}
+\doxysubsubsection{\texorpdfstring{Load()}{Load()}}
+{\footnotesize\ttfamily void Texture\+Loader\+::\+Load (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{asset\+File\+Path,  }\item[{\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset}{IAsset}} $\ast$$\ast$}]{asset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Carga el asset. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em asset\+File\+Path} & Ruta del archivo .json que describe el asset.\\
+\hline
+{\em asset} & Puntero al puntero del asset a cargar.\\
+\hline
+\end{DoxyParams}
+
+
+
+\begin{DoxyExceptions}{Excepciones}
+{\em std\+::runtime\+\_\+exception} & Si el archivo \textquotesingle{}.json\textquotesingle{} no existe. \\
+\hline
+\end{DoxyExceptions}
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader_a26333a860353d1c29192db6378183f0d}{OSK\+::\+ASSETS\+::\+IAsset\+Loader}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_texture_loader_8cpp_source_l00028}{28}} del archivo \mbox{\hyperlink{_texture_loader_8cpp_source}{Texture\+Loader.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader_ae639179a2474aca1ca8e6f9c001a8fc3}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader_ae639179a2474aca1ca8e6f9c001a8fc3}} 
+\index{OSK::ASSETS::TextureLoader@{OSK::ASSETS::TextureLoader}!OSK\_ASSET\_TYPE\_REG@{OSK\_ASSET\_TYPE\_REG}}
+\index{OSK\_ASSET\_TYPE\_REG@{OSK\_ASSET\_TYPE\_REG}!OSK::ASSETS::TextureLoader@{OSK::ASSETS::TextureLoader}}
+\doxysubsubsection{\texorpdfstring{OSK\_ASSET\_TYPE\_REG()}{OSK\_ASSET\_TYPE\_REG()}}
+{\footnotesize\ttfamily OSK\+::\+ASSETS\+::\+Texture\+Loader\+::\+OSK\+\_\+\+ASSET\+\_\+\+TYPE\+\_\+\+REG (\begin{DoxyParamCaption}\item[{\char`\"{}OSK\+::\+Texture\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_texture_loader_8h}{Texture\+Loader.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_texture_loader_8cpp}{Texture\+Loader.\+cpp}}\end{DoxyCompactItemize}

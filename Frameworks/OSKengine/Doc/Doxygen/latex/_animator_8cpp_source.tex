@@ -1,0 +1,126 @@
+\hypertarget{_animator_8cpp_source}{}\doxysection{Animator.\+cpp}
+\label{_animator_8cpp_source}\index{OSKengine2/Animator.cpp@{OSKengine2/Animator.cpp}}
+\mbox{\hyperlink{_animator_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_animator_8h}{Animator.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kengine_8h}{OSKengine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_renderer_8h}{IRenderer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_material_8h}{Material.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_math_8h}{Math.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00008}00008 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00009}00009 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}};}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00011}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_ad1b014b27ba0910a4c46b16316acb936}{00011}} \textcolor{keywordtype}{void} Animator::Setup() \{}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00012}00012     materialInstance = \mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a15a2d271ad61c59ce4414dbdf016d277}{GetMaterialSystem}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system_ad39c519e3a5f58cc2a7622ba9b39687a}{LoadMaterial}}(\textcolor{stringliteral}{"{}Resources/PbrMaterials/Animated/material\_pbr.json"{}})-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_acf1dacea3b45a53ca86d96e30af22af1}{CreateInstance}}().GetPointer();}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00014}00014     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < \_countof(boneBuffers); i++) \{}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00015}00015         boneBuffers[i] = \mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acf03703bbb6f031f905612d86f104b38}{GetMemoryAllocator}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a9f2995f2b3ab6ab05578358aa663b619}{CreateStorageBuffer}}(\textcolor{keyword}{sizeof}(glm::mat4) * boneMatrices.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}()).GetPointer();}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00017}00017         boneBuffers[i]-\/>MapMemory();}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00018}00018         boneBuffers[i]-\/>Write(boneMatrices.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_ac8a6d70f938c482e1f7aa68c7d186bb8}{GetData}}(), boneMatrices.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}() * \textcolor{keyword}{sizeof}(glm::mat4));}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00019}00019         boneBuffers[i]-\/>Unmap();}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00020}00020     \}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00022}00022     \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer}{GpuDataBuffer}}* buffers[3] = \{}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00023}00023         boneBuffers[0].GetPointer(),}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00024}00024         boneBuffers[1].GetPointer(),}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00025}00025         boneBuffers[2].GetPointer()}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00026}00026     \};}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00028}00028     materialInstance-\/>GetSlot(\textcolor{stringliteral}{"{}animation"{}})-\/>SetStorageBuffers(\textcolor{stringliteral}{"{}animation"{}}, buffers);}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00029}00029     materialInstance-\/>GetSlot(\textcolor{stringliteral}{"{}animation"{}})-\/>FlushUpdate();}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00030}00030 \}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00032}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a86dd1eb6f3267c766efd02c617a7afcb}{00032}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a86dd1eb6f3267c766efd02c617a7afcb}{Animator::Update}}(\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDeltaTime}} deltaTime, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector3__t}{Vector3f}}\& globalScale) \{}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00033}00033     \textcolor{keywordflow}{if} (activeAnimation != \textcolor{stringliteral}{"{}"{}}) \{}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00034}00034         availableAnimations.Get(activeAnimation).Update(deltaTime, *\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00036}00036         \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& [index, node] : nodes)}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00037}00037             \textcolor{keywordflow}{if} (node.parentIndex == std::numeric\_limits<TIndex>::max())}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00038}00038                 node.UpdateSkeletonTree(glm::scale(glm::mat4(1.0f), globalScale.\mbox{\hyperlink{class_o_s_k_1_1_vector3__t_acb2737aa41e9e488c3e93a30fcedfb1c}{ToGLM}}()), *\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00039}00039     \}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00041}00041     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a0f6b3171fdbde641ab165b26c2e54a8d}{TIndex}} boneIndex = 0; boneIndex < \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_ab111329da7b08c3a10ed561fb96a2767}{GetActiveSkin}}()-\/>\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_a36b72f60726fb78f92b01ce07619ffcf}{bonesIds}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}(); boneIndex++)}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00042}00042         boneMatrices[boneIndex] = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a389202a40b3bda8c3eca63dc71340e05}{GetBone}}(boneIndex)-\/>\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a87cdea0d4d78f284bb68dd8890fe015f}{globalMatrix}} * \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_ab111329da7b08c3a10ed561fb96a2767}{GetActiveSkin}}()-\/>\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_a6c539224d3e1c6fc691243d1766de6f9}{inverseMatrices}}[boneIndex];}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00044}00044     boneBuffers[\mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4a779e3af14025ec16d8a0c0a6cf0fe5}{GetCurrentCommandListIndex}}()]-\/>MapMemory();}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00045}00045     boneBuffers[\mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4a779e3af14025ec16d8a0c0a6cf0fe5}{GetCurrentCommandListIndex}}()]-\/>Write(boneMatrices.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_ac8a6d70f938c482e1f7aa68c7d186bb8}{GetData}}(), \textcolor{keyword}{sizeof}(glm::mat4) * boneMatrices.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}());}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00046}00046     boneBuffers[\mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4a779e3af14025ec16d8a0c0a6cf0fe5}{GetCurrentCommandListIndex}}()]-\/>Unmap();}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00047}00047 \}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00049}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_aac8ea88e32bb7eab3076ff628913f289}{00049}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_aac8ea88e32bb7eab3076ff628913f289}{Animator::DeactivateAnimation}}() \{}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00050}00050     activeAnimation = \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00051}00051 \}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00053}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a64dd38e5ad99abc30f920a0dd2dcd6cb}{00053}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a64dd38e5ad99abc30f920a0dd2dcd6cb}{Animator::SetActiveAnimation}}(\textcolor{keyword}{const} std::string\& name) \{}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00054}00054     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(availableAnimations.ContainsKey(name),}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00055}00055         \textcolor{stringliteral}{"{}Se ha intentado acceder a la animación "{}}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00056}00056         + name + \textcolor{stringliteral}{"{} pero no existe."{}});}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00058}00058     activeAnimation = name;}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00059}00059 \}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00060}00060 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00061}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a4c7647e0bcafd4852421df6d6979005b}{00061}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a4c7647e0bcafd4852421df6d6979005b}{Animator::\_AddNode}}(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node}{MeshNode}}\& bone) \{}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00062}00062     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(!nodes.ContainsKey(bone.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a71a32d054f16745b07653e6a2b595673}{thisIndex}}),}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00063}00063         \textcolor{stringliteral}{"{}Se ha añadir el bone "{}}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00064}00064         + std::to\_string(bone.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a71a32d054f16745b07653e6a2b595673}{thisIndex}}) + \textcolor{stringliteral}{"{} pero ya existe."{}});}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00066}00066     nodes.Insert(bone.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a71a32d054f16745b07653e6a2b595673}{thisIndex}}, bone);}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00067}00067     boneMatrices.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(glm::mat4(1.0f));}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00068}00068 \}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00070}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a555e36c572061489c74bdabdff6eaee7}{00070}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node}{MeshNode}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a555e36c572061489c74bdabdff6eaee7}{Animator::GetNode}}(\mbox{\hyperlink{_o_s_kmacros_8h_a0f6b3171fdbde641ab165b26c2e54a8d}{TIndex}} nodeIndex)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00071}00071     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(nodes.ContainsKey(nodeIndex),}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00072}00072         \textcolor{stringliteral}{"{}Se ha intentado acceder al bone "{}}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00073}00073         + std::to\_string(nodeIndex) + \textcolor{stringliteral}{"{} pero no existe."{}});}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00075}00075     \textcolor{keywordflow}{return} \&nodes.Get(nodeIndex);}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00076}00076 \}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00078}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a389202a40b3bda8c3eca63dc71340e05}{00078}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node}{Bone}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a389202a40b3bda8c3eca63dc71340e05}{Animator::GetBone}}(\mbox{\hyperlink{_o_s_kmacros_8h_a0f6b3171fdbde641ab165b26c2e54a8d}{TIndex}} boneIndex)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00079}00079     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_ab111329da7b08c3a10ed561fb96a2767}{GetActiveSkin}}() == \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00080}00080         \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00082}00082     \textcolor{keyword}{const} \mbox{\hyperlink{_o_s_kmacros_8h_a0f6b3171fdbde641ab165b26c2e54a8d}{TIndex}} nodeIndex = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_ab111329da7b08c3a10ed561fb96a2767}{GetActiveSkin}}()-\/>\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_a36b72f60726fb78f92b01ce07619ffcf}{bonesIds}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a9691f5eaf46654d59525c6c342d69cbb}{At}}(boneIndex);}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00083}00083     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(nodes.ContainsKey(nodeIndex),}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00084}00084         \textcolor{stringliteral}{"{}Se ha intentado acceder al bone "{}}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00085}00085         + std::to\_string(nodeIndex) + \textcolor{stringliteral}{"{} pero no existe."{}});}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00087}00087     \textcolor{keywordflow}{return} \&nodes.Get(nodeIndex);}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00088}00088 \}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00090}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a234f8197d2686515423cd41196ae9448}{00090}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a234f8197d2686515423cd41196ae9448}{Animator::\_AddAnimation}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation}{Animation}}\& animation) \{}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00091}00091     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(!availableAnimations.ContainsKey(animation.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a22f5b8714bdaba90ee91283bdcf6a97d}{name}}),}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00092}00092         \textcolor{stringliteral}{"{}Se ha intentado añadir a la animación "{}}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00093}00093         + animation.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a22f5b8714bdaba90ee91283bdcf6a97d}{name}} + \textcolor{stringliteral}{"{} pero ya existe."{}});}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00095}00095     availableAnimations.Insert(animation.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a22f5b8714bdaba90ee91283bdcf6a97d}{name}}, animation);}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00096}00096 \}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00098}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_ae9d3048570e06db894d3d6b8b42783df}{00098}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_ae9d3048570e06db894d3d6b8b42783df}{Animator::\_AddSkin}}(\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin}{AnimationSkin}}\&\& skin) \{}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00099}00099     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(!availableSkins.ContainsKey(skin.name),}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00100}00100         \textcolor{stringliteral}{"{}Se ha intentado añadir la skin "{}}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00101}00101         + skin.name + \textcolor{stringliteral}{"{} pero ya existe."{}});}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00102}00102 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00103}00103     availableSkins.InsertMove(skin.name, std::move(skin));}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00104}00104 \}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00105}00105 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00106}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a7909cbbbffc1001009d351c2fa3e91e0}{00106}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a7909cbbbffc1001009d351c2fa3e91e0}{Animator::SetActiveSkin}}(\textcolor{keyword}{const} std::string\& name) \{}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00107}00107     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(availableSkins.ContainsKey(name),}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00108}00108         \textcolor{stringliteral}{"{}Se ha intentado acceder a la skin "{}}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00109}00109         + name + \textcolor{stringliteral}{"{} pero no existe."{}});}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00111}00111     activeSkin = name;}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00112}00112 \}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00113}00113 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00114}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_ab111329da7b08c3a10ed561fb96a2767}{00114}} \textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin}{AnimationSkin}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_ab111329da7b08c3a10ed561fb96a2767}{Animator::GetActiveSkin}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00115}00115     \textcolor{keywordflow}{return} activeSkin == \textcolor{stringliteral}{"{}"{}} ? nullptr : \&availableSkins.Get(activeSkin);}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00116}00116 \}}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00117}00117 }
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00118}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a0e7388a40a856c0a9388c07d5b81900f}{00118}} \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance}{MaterialInstance}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a0e7388a40a856c0a9388c07d5b81900f}{Animator::GetMaterialInstance}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00119}00119     \textcolor{keywordflow}{return} materialInstance.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_animator_8cpp_source_l00120}00120 \}}
+
+\end{DoxyCode}

@@ -1,0 +1,42 @@
+\hypertarget{_i_bottom_level_acceleration_structure_8h_source}{}\doxysection{IBottom\+Level\+Acceleration\+Structure.\+h}
+\label{_i_bottom_level_acceleration_structure_8h_source}\index{OSKengine2/IBottomLevelAccelerationStructure.h@{OSKengine2/IBottomLevelAccelerationStructure.h}}
+\mbox{\hyperlink{_i_bottom_level_acceleration_structure_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kmacros_8h}{OSKmacros.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_unique_ptr_8hpp}{UniquePtr.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_data_buffer_8h}{IGpuDataBuffer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00008}00008 \textcolor{preprocessor}{\#include <glm.hpp>}}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00010}00010 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}} \{}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00012}00012     \textcolor{keyword}{class }IGpuVertexBuffer;}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00013}00013     \textcolor{keyword}{class }IGpuIndexBuffer;}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00022}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{00022}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{IBottomLevelAccelerationStructure}} \{}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00024}00024     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00026}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_a56556b538d58fb56a885e00b7d5ecc99}{00026}}         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_a56556b538d58fb56a885e00b7d5ecc99}{OSK\_DEFINE\_AS}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{IBottomLevelAccelerationStructure}});}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00035}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_ad0eef5bed4788a7590ba001fb8b84901}{00035}}         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_ad0eef5bed4788a7590ba001fb8b84901}{Setup}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpuVertexBuffer}}\& vertexBuffer, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer}{IGpuIndexBuffer}}\& indexBuffer) = 0;}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00045}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_adc5ee7267c61dff7571d7f72c1374b9b}{00045}}         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_adc5ee7267c61dff7571d7f72c1374b9b}{Update}}() = 0;}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00053}00053         \textcolor{keywordtype}{void} SetMatrix(\textcolor{keyword}{const} glm::mat4\& matrix);}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00058}00058         \textcolor{keywordtype}{bool} IsDirty() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00060}00060     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00062}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_af7a4d5aaa27b13dfc51829ad2f2f5bd5}{00062}}         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<GpuDataBuffer>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_af7a4d5aaa27b13dfc51829ad2f2f5bd5}{matrixBuffer}};}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00063}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aebde73345ad718c32c4a070095f62dbc}{00063}}         \textcolor{keywordtype}{bool} isDirty = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00065}00065     \};}
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{_i_bottom_level_acceleration_structure_8h_source_l00067}00067 \}}
+
+\end{DoxyCode}

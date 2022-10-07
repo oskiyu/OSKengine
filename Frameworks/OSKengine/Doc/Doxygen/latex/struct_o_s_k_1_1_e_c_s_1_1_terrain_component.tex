@@ -1,0 +1,127 @@
+\hypertarget{struct_o_s_k_1_1_e_c_s_1_1_terrain_component}{}\doxysection{Referencia de la Estructura OSK\+::ECS\+::Terrain\+Component}
+\label{struct_o_s_k_1_1_e_c_s_1_1_terrain_component}\index{OSK::ECS::TerrainComponent@{OSK::ECS::TerrainComponent}}
+
+
+{\ttfamily \#include $<$Terrain\+Component.\+h$>$}
+
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_aa622e14d74866761a309b7ac044a3c39}{OSK\+\_\+\+COMPONENT}} (\char`\"{}OSK\+::\+Terrain\+Component\char`\"{})
+\item 
+void \mbox{\hyperlink{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_a8d923c2329e5d00304d23043c6686132}{Generate}} (const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&resolution)
+\item 
+void \mbox{\hyperlink{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_acdee489fde34e4aa92c379db15e1c3e5}{Set\+Material\+Instance}} (\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance}{GRAPHICS\+::\+Material\+Instance}} $>$ material\+Instance)
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{GRAPHICS\+::\+IGpu\+Vertex\+Buffer}} $\ast$ \mbox{\hyperlink{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_a5d75b32a1f9e28c0de7bb6ce2406f845}{Get\+Vertex\+Buffer}} () const
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer}{GRAPHICS\+::\+IGpu\+Index\+Buffer}} $\ast$ \mbox{\hyperlink{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_af9ddf9b01543cad93d12b7cf2e933e1c}{Get\+Index\+Buffer}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance}{GRAPHICS\+::\+Material\+Instance}} $\ast$ \mbox{\hyperlink{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_adb670059a07068fcd5636acbd1c26c6c}{Get\+Material\+Instance}} () const
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_a752f821ce4fc666ec331a803b91493c4}{Get\+Num\+Indices}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Componente que se puede usar para renderizar un terreno. El terreno debe haber sido antes generado. 
+
+A la hora de generarse, se generará un terreno con dimensiones \{ 1, 0, 1 \}\+: los vértices no tendrán altura ninguna. Las coordenadas de texturas se asignarán para que una textura esté entera dentro del terreno. 
+
+\begin{DoxyNote}{Nota}
+Si se le quiere dar relieve al terreno, se debe hacer a través de shaders.
+\end{DoxyNote}
+\begin{DoxyWarning}{Atención}
+Se debe establecer la instancia del material (\mbox{\hyperlink{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_acdee489fde34e4aa92c379db15e1c3e5}{Terrain\+Component\+::\+Set\+Material\+Instance()}}). 
+\end{DoxyWarning}
+
+
+Definición en la línea \mbox{\hyperlink{_terrain_component_8h_source_l00025}{25}} del archivo \mbox{\hyperlink{_terrain_component_8h_source}{Terrain\+Component.\+h}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_a8d923c2329e5d00304d23043c6686132}\label{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_a8d923c2329e5d00304d23043c6686132}} 
+\index{OSK::ECS::TerrainComponent@{OSK::ECS::TerrainComponent}!Generate@{Generate}}
+\index{Generate@{Generate}!OSK::ECS::TerrainComponent@{OSK::ECS::TerrainComponent}}
+\doxysubsubsection{\texorpdfstring{Generate()}{Generate()}}
+{\footnotesize\ttfamily void Terrain\+Component\+::\+Generate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&}]{resolution }\end{DoxyParamCaption})}
+
+
+
+Genera una malla de X $\ast$ Y vértices. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_terrain_component_8cpp_source_l00013}{13}} del archivo \mbox{\hyperlink{_terrain_component_8cpp_source}{Terrain\+Component.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 0
+\mbox{\Hypertarget{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_af9ddf9b01543cad93d12b7cf2e933e1c}\label{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_af9ddf9b01543cad93d12b7cf2e933e1c}} 
+\index{OSK::ECS::TerrainComponent@{OSK::ECS::TerrainComponent}!GetIndexBuffer@{GetIndexBuffer}}
+\index{GetIndexBuffer@{GetIndexBuffer}!OSK::ECS::TerrainComponent@{OSK::ECS::TerrainComponent}}
+\doxysubsubsection{\texorpdfstring{GetIndexBuffer()}{GetIndexBuffer()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer}{IGpu\+Index\+Buffer}} $\ast$ Terrain\+Component\+::\+Get\+Index\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_terrain_component_8cpp_source_l00049}{49}} del archivo \mbox{\hyperlink{_terrain_component_8cpp_source}{Terrain\+Component.\+cpp}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_adb670059a07068fcd5636acbd1c26c6c}\label{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_adb670059a07068fcd5636acbd1c26c6c}} 
+\index{OSK::ECS::TerrainComponent@{OSK::ECS::TerrainComponent}!GetMaterialInstance@{GetMaterialInstance}}
+\index{GetMaterialInstance@{GetMaterialInstance}!OSK::ECS::TerrainComponent@{OSK::ECS::TerrainComponent}}
+\doxysubsubsection{\texorpdfstring{GetMaterialInstance()}{GetMaterialInstance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance}{Material\+Instance}} $\ast$ Terrain\+Component\+::\+Get\+Material\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_terrain_component_8cpp_source_l00054}{54}} del archivo \mbox{\hyperlink{_terrain_component_8cpp_source}{Terrain\+Component.\+cpp}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_a752f821ce4fc666ec331a803b91493c4}\label{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_a752f821ce4fc666ec331a803b91493c4}} 
+\index{OSK::ECS::TerrainComponent@{OSK::ECS::TerrainComponent}!GetNumIndices@{GetNumIndices}}
+\index{GetNumIndices@{GetNumIndices}!OSK::ECS::TerrainComponent@{OSK::ECS::TerrainComponent}}
+\doxysubsubsection{\texorpdfstring{GetNumIndices()}{GetNumIndices()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} Terrain\+Component\+::\+Get\+Num\+Indices (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_terrain_component_8cpp_source_l00058}{58}} del archivo \mbox{\hyperlink{_terrain_component_8cpp_source}{Terrain\+Component.\+cpp}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_a5d75b32a1f9e28c0de7bb6ce2406f845}\label{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_a5d75b32a1f9e28c0de7bb6ce2406f845}} 
+\index{OSK::ECS::TerrainComponent@{OSK::ECS::TerrainComponent}!GetVertexBuffer@{GetVertexBuffer}}
+\index{GetVertexBuffer@{GetVertexBuffer}!OSK::ECS::TerrainComponent@{OSK::ECS::TerrainComponent}}
+\doxysubsubsection{\texorpdfstring{GetVertexBuffer()}{GetVertexBuffer()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpu\+Vertex\+Buffer}} $\ast$ Terrain\+Component\+::\+Get\+Vertex\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_terrain_component_8cpp_source_l00045}{45}} del archivo \mbox{\hyperlink{_terrain_component_8cpp_source}{Terrain\+Component.\+cpp}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_aa622e14d74866761a309b7ac044a3c39}\label{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_aa622e14d74866761a309b7ac044a3c39}} 
+\index{OSK::ECS::TerrainComponent@{OSK::ECS::TerrainComponent}!OSK\_COMPONENT@{OSK\_COMPONENT}}
+\index{OSK\_COMPONENT@{OSK\_COMPONENT}!OSK::ECS::TerrainComponent@{OSK::ECS::TerrainComponent}}
+\doxysubsubsection{\texorpdfstring{OSK\_COMPONENT()}{OSK\_COMPONENT()}}
+{\footnotesize\ttfamily OSK\+::\+ECS\+::\+Terrain\+Component\+::\+OSK\+\_\+\+COMPONENT (\begin{DoxyParamCaption}\item[{\char`\"{}OSK\+::\+Terrain\+Component\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_acdee489fde34e4aa92c379db15e1c3e5}\label{struct_o_s_k_1_1_e_c_s_1_1_terrain_component_acdee489fde34e4aa92c379db15e1c3e5}} 
+\index{OSK::ECS::TerrainComponent@{OSK::ECS::TerrainComponent}!SetMaterialInstance@{SetMaterialInstance}}
+\index{SetMaterialInstance@{SetMaterialInstance}!OSK::ECS::TerrainComponent@{OSK::ECS::TerrainComponent}}
+\doxysubsubsection{\texorpdfstring{SetMaterialInstance()}{SetMaterialInstance()}}
+{\footnotesize\ttfamily void Terrain\+Component\+::\+Set\+Material\+Instance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance}{GRAPHICS\+::\+Material\+Instance}} $>$}]{material\+Instance }\end{DoxyParamCaption})}
+
+
+
+Establece la instancia del material para el renderizado. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_terrain_component_8cpp_source_l00041}{41}} del archivo \mbox{\hyperlink{_terrain_component_8cpp_source}{Terrain\+Component.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 1
+
+
+La documentación para esta estructura fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_terrain_component_8h}{Terrain\+Component.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_terrain_component_8cpp}{Terrain\+Component.\+cpp}}\end{DoxyCompactItemize}

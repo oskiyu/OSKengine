@@ -1,0 +1,142 @@
+\hypertarget{_shared_ptr_8hpp_source}{}\doxysection{Shared\+Ptr.\+hpp}
+\label{_shared_ptr_8hpp_source}\index{OSKengine2/SharedPtr.hpp@{OSKengine2/SharedPtr.hpp}}
+\mbox{\hyperlink{_shared_ptr_8hpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00001}00001 \textcolor{preprocessor}{\#ifndef OSK\_SHARED\_PTR}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00002}00002 \textcolor{preprocessor}{\#define OSK\_SHARED\_PTR}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00004}00004 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kmacros_8h}{OSKmacros.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00015}\mbox{\hyperlink{class_shared_ptr}{00015}} \textcolor{keyword}{template} <\textcolor{keyword}{typename} T> \textcolor{keyword}{class }\mbox{\hyperlink{class_shared_ptr}{SharedPtr}} \{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00017}00017 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00022}\mbox{\hyperlink{class_shared_ptr_a8b08806704038d3625f602770ab86b5c}{00022}}     \mbox{\hyperlink{class_shared_ptr_a8b08806704038d3625f602770ab86b5c}{SharedPtr}}() \{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00023}00023         instanceCount = \textcolor{keyword}{new} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}};}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00024}00024         *instanceCount = 0;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00025}00025     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00032}\mbox{\hyperlink{class_shared_ptr_aed2530c5ec0c2a3b82371e16c558c0ed}{00032}}     \mbox{\hyperlink{class_shared_ptr_aed2530c5ec0c2a3b82371e16c558c0ed}{SharedPtr}}(T* data) \{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00033}00033         pointer = data;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00035}00035         instanceCount = \textcolor{keyword}{new} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}};}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00036}00036         *instanceCount = 1;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00037}00037     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00043}\mbox{\hyperlink{class_shared_ptr_ae587e1b0f76a90dfa14e0fa14a2f91ef}{00043}}     \mbox{\hyperlink{class_shared_ptr_ae587e1b0f76a90dfa14e0fa14a2f91ef}{\string~SharedPtr}}() \{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00044}00044         destructor();}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00045}00045     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00051}\mbox{\hyperlink{class_shared_ptr_a59f650eeb22bb62b130b38937bd8b838}{00051}}     \mbox{\hyperlink{class_shared_ptr_a59f650eeb22bb62b130b38937bd8b838}{SharedPtr}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_shared_ptr}{SharedPtr}}\& other) \{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00052}00052         share(other);}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00053}00053     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00060}\mbox{\hyperlink{class_shared_ptr_a2dcf552f178a35b82d6eb7e85a377ffd}{00060}}     \mbox{\hyperlink{class_shared_ptr}{SharedPtr}}\& \mbox{\hyperlink{class_shared_ptr_a2dcf552f178a35b82d6eb7e85a377ffd}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_shared_ptr}{SharedPtr}}\& other) \{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00061}00061         destructor();}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00063}00063         share(other);}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00065}00065         \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00066}00066     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00072}\mbox{\hyperlink{class_shared_ptr_adbcc6ed672f9d68f66d3abbed301d5c5}{00072}}     \mbox{\hyperlink{class_shared_ptr_adbcc6ed672f9d68f66d3abbed301d5c5}{SharedPtr}}(\mbox{\hyperlink{class_shared_ptr}{SharedPtr}}\&\& other) \textcolor{keyword}{noexcept} \{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00073}00073         this-\/>pointer = other.pointer;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00074}00074         this-\/>instanceCount = other.instanceCount;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00076}00076         other.pointer = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00077}00077         other.instanceCount = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00079}00079     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00086}\mbox{\hyperlink{class_shared_ptr_a542324700d5f3e459b644ac7cb263e31}{00086}}     \mbox{\hyperlink{class_shared_ptr}{SharedPtr}}\& \mbox{\hyperlink{class_shared_ptr_a542324700d5f3e459b644ac7cb263e31}{operator=}}(\mbox{\hyperlink{class_shared_ptr}{SharedPtr}}\&\& other) \textcolor{keyword}{noexcept} \{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00087}00087         destructor();}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00089}00089         this-\/>pointer = other.pointer;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00090}00090         this-\/>instanceCount = other.instanceCount;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00091}00091 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00092}00092         other.pointer = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00093}00093         other.instanceCount = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00095}00095         \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00096}00096     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00102}\mbox{\hyperlink{class_shared_ptr_a19c352bc2bd272485c00252dca3f106b}{00102}}     \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_shared_ptr_a19c352bc2bd272485c00252dca3f106b}{GetInstanceCount}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00103}00103         \textcolor{keywordflow}{return} *instanceCount;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00104}00104     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00105}00105 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00110}\mbox{\hyperlink{class_shared_ptr_a88e4d157aaabf1d69c9693aa1baeae8f}{00110}}     T* \mbox{\hyperlink{class_shared_ptr_a88e4d157aaabf1d69c9693aa1baeae8f}{GetPointer}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00111}00111         \textcolor{keywordflow}{return} pointer;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00112}00112     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00113}00113 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00118}\mbox{\hyperlink{class_shared_ptr_ae973b429e946b06599966b6e2b96389b}{00118}}     T* \mbox{\hyperlink{class_shared_ptr_ae973b429e946b06599966b6e2b96389b}{operator-\/>}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00119}00119         \textcolor{keywordflow}{return} \mbox{\hyperlink{class_shared_ptr_a88e4d157aaabf1d69c9693aa1baeae8f}{GetPointer}}();}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00120}00120     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00121}00121 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00126}\mbox{\hyperlink{class_shared_ptr_aa95c35b2a4587f5319a94bcf4935d770}{00126}}     T\& \mbox{\hyperlink{class_shared_ptr_aa95c35b2a4587f5319a94bcf4935d770}{operator*}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00127}00127         \textcolor{keywordflow}{return} \mbox{\hyperlink{class_shared_ptr_a4461d619a1ea060cffe342e946bbfc35}{Get}}();}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00128}00128     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00129}00129 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00134}\mbox{\hyperlink{class_shared_ptr_a4461d619a1ea060cffe342e946bbfc35}{00134}}     T\& \mbox{\hyperlink{class_shared_ptr_a4461d619a1ea060cffe342e946bbfc35}{Get}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00135}00135         \textcolor{keywordflow}{return} *pointer;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00136}00136     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00137}00137 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00142}\mbox{\hyperlink{class_shared_ptr_a550f7b2c0a5737cde8ddccbd707233b4}{00142}}     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_shared_ptr_a550f7b2c0a5737cde8ddccbd707233b4}{HasValue}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00143}00143         \textcolor{keywordflow}{return} pointer != \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00144}00144     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00145}00145 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00146}\mbox{\hyperlink{class_shared_ptr_aa4ef07162132336237df6451b5cdc978}{00146}}     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_shared_ptr_aa4ef07162132336237df6451b5cdc978}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_shared_ptr}{SharedPtr}}\& other)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00147}00147         \textcolor{keywordflow}{return} pointer == other.pointer \&\& instanceCount == other.instanceCount;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00148}00148     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00149}\mbox{\hyperlink{class_shared_ptr_ae82b95ab10cc24f98eab54a2829f96a0}{00149}}     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_shared_ptr_ae82b95ab10cc24f98eab54a2829f96a0}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_shared_ptr}{SharedPtr}}\& other)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00150}00150         \textcolor{keywordflow}{return} !\mbox{\hyperlink{class_shared_ptr_aa4ef07162132336237df6451b5cdc978}{operator==}}(other);}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00151}00151     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00152}00152 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00153}00153 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00154}00154 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00158}00158     \textcolor{keywordtype}{void} destructor() \{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00159}00159         \textcolor{keywordflow}{if} (!instanceCount)}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00160}00160             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00161}00161 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00162}00162         (*instanceCount)-\/-\/;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00163}00163 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00164}00164         \textcolor{keywordflow}{if} (*instanceCount == 0)}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00165}00165             finalDelete();}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00166}00166 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00167}00167         instanceCount = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00168}00168         pointer = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00169}00169     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00170}00170 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00175}00175     \textcolor{keywordtype}{void} share(\textcolor{keyword}{const} \mbox{\hyperlink{class_shared_ptr}{SharedPtr}}\& original) \{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00176}00176         pointer = original.pointer;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00177}00177         instanceCount = original.instanceCount;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00178}00178 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00179}00179         \textcolor{keywordflow}{if} (pointer != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00180}00180             (*instanceCount)++;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00181}00181     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00182}00182 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00187}00187     \textcolor{keywordtype}{void} move(\mbox{\hyperlink{class_shared_ptr}{SharedPtr}}\&\& other) \{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00188}00188         this-\/>pointer = other.pointer;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00189}00189         this-\/>instanceCount = other.instanceCount;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00190}00190 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00191}00191         other.pointer = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00192}00192         other.instanceCount = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00193}00193     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00194}00194 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00198}00198     \textcolor{keywordtype}{void} finalDelete() \{}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00199}00199         \textcolor{keywordflow}{if} (pointer)}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00200}00200             \textcolor{keyword}{delete} pointer;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00201}00201 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00202}00202         \textcolor{keyword}{delete} instanceCount;}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00203}00203     \}}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00204}00204 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00208}00208     \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eab9ece18c950afbfa6b0fdbfa4ff731d3}{T}}* pointer = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00209}00209 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00213}00213     \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}* instanceCount = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00214}00214 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00215}00215 \};}
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00216}00216 }
+\DoxyCodeLine{\Hypertarget{_shared_ptr_8hpp_source_l00217}00217 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

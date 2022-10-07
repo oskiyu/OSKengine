@@ -43,7 +43,7 @@ void MaterialSlotDx12::SetGpuImages(const std::string& binding, const GpuImage* 
 	SetGpuImage(binding, image[0], channel, arrayType, arrayLevel);
 }
 
-void MaterialSlotDx12::SetStorageBuffer(const std::string& binding, const IGpuStorageBuffer* buffer) {
+void MaterialSlotDx12::SetStorageBuffer(const std::string& binding, const GpuDataBuffer* buffer) {
 	OSK_ASSERT(false, "No implementado.");
 }
 
@@ -60,7 +60,7 @@ void MaterialSlotDx12::SetAccelerationStructure(const std::string& binding, cons
 	OSK_ASSERT(false, "No implementado.");
 }
 
-void MaterialSlotDx12::SetStorageBuffers(const std::string& binding, const IGpuStorageBuffer* buffer[NUM_RESOURCES_IN_FLIGHT]) {
+void MaterialSlotDx12::SetStorageBuffers(const std::string& binding, const GpuDataBuffer* buffer[NUM_RESOURCES_IN_FLIGHT]) {
 	OSK_ASSERT(false, "No implementado.");
 }
 

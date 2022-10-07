@@ -64,3 +64,17 @@ const GpuImage* Model3D::GetImage(TSize index) const {
 const ModelMetadata& Model3D::GetMetadata() const {
 	return metadata;
 }
+
+void Model3D::SetAnimator(GRAPHICS::Animator&& animator) {
+	this->animator = new Animator(std::move(animator));
+}
+
+Animator* Model3D::GetAnimator() const {
+	return animator.GetPointer();
+}
+
+ModelType Model3D::GetType() const {
+	return GetAnimator() == nullptr
+			? ModelType::STATIC_MESH
+			: ModelType::ANIMATED_MODEL;
+}

@@ -1,0 +1,530 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::Gpu\+Memory\+Allocator\+Vulkan}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan}\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+
+
+{\ttfamily \#include $<$Gpu\+Memory\+Allocator\+Vulkan.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::Gpu\+Memory\+Allocator\+Vulkan
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::Gpu\+Memory\+Allocator\+Vulkan\+:
+% FIG 1
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_a4c909856bc75b15f38fa643a5c537bf9}{Gpu\+Memory\+Allocator\+Vulkan}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} $\ast$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a8f655b1e1884b8285b6d90b3d8f94e98}{device}})
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpu\+Vertex\+Buffer}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_a89332520bdd825057e45a549e4283192}{Create\+Vertex\+Buffer}} (const void $\ast$data, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} vertex\+Size, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} num\+Vertices, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{Vertex\+Info}} \&vertex\+Info) override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer}{IGpu\+Index\+Buffer}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_aef89e9652f13e27fa5b5940052fce007}{Create\+Index\+Buffer}} (const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a05f5134cdcc67a7889c57e39aa2f25ae}{TIndex\+Size}} $>$ \&vertices) override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer}{IGpu\+Uniform\+Buffer}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_a053695e4a5255c4e5a682ebf06963a48}{Create\+Uniform\+Buffer}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size) override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_storage_buffer}{IGpu\+Storage\+Buffer}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_ae88596f53526eebf6007f8c999a152cc}{Create\+Storage\+Buffer}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size) override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_aad18acc2028b57d737421b15f95fb5af}{Create\+Image}} (const \mbox{\hyperlink{namespace_o_s_k_acbb1ebd73c8de7036fc0108df1bf612f}{Vector3ui}} \&size, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ab91ccc08d13454cfeb3c4f78deb72d59}{Gpu\+Image\+Dimension}} dimension, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} num\+Layers, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8}{Format}} format, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffa}{Gpu\+Image\+Usage}} usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}} shared\+Type, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} msaa\+Samples, \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc}{Gpu\+Image\+Sampler\+Desc}} sampler\+Desc) override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer}{Gpu\+Data\+Buffer}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_a3c918e33eec9f4230299a348c16d5fdf}{Create\+Staging\+Buffer}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size) override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer}{Gpu\+Data\+Buffer}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_a39857f376887acede43b84a6273368d3}{Create\+Buffer}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} alignment, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7f}{Gpu\+Buffer\+Usage}} usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}} shared\+Type) override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{IBottom\+Level\+Acceleration\+Structure}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_ad7d6914e923db763bf2c94dfff5dbd5f}{Create\+Bottom\+Acceleration\+Structure}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpu\+Vertex\+Buffer}} \&vertex\+Buffer, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer}{IGpu\+Index\+Buffer}} \&index\+Buffer) override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure}{ITop\+Level\+Acceleration\+Structure}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_aae10c6dfbf119a91a802f4f501a1da3a}{Create\+Top\+Acceleration\+Structure}} (\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{IBottom\+Level\+Acceleration\+Structure}} $\ast$ $>$ bottom\+Structures) override
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a7d91b7ebc0b4e537cf8a77366abdd505}{Free}} ()
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_aa89880ddaadfee627c68f7c4cb6d5d30}{OSK\+\_\+\+DEFINE\+\_\+\+AS}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator}{IGpu\+Memory\+Allocator}})
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a5ffe3d30b281dd779e43a430a46447cf}{Create\+Cubemap\+Image}} (const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&face\+Size, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8}{Format}} format, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffa}{Gpu\+Image\+Usage}} usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}} shared\+Type, \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc}{Gpu\+Image\+Sampler\+Desc}} sampler\+Desc=\{\})
+\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpu\+Vertex\+Buffer}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_abef0fcbc0dade8bdf27d14959313fa51}{Create\+Vertex\+Buffer}} (const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ T $>$ \&vertices, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{Vertex\+Info}} \&vertex\+Info)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a6b7676a476f7cd0db5f9b4634ef0c852}{Remove\+Image\+Block}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block}{IGpu\+Memory\+Block}} $\ast$block)
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos públicos estáticos}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_ad3bb71a59933368693da358e40fd9cff}{Size\+Of\+Memory\+Block\+In\+Mb}} = 16
+\end{DoxyCompactItemize}
+\doxysubsection*{Métodos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block}{IGpu\+Memory\+Block}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_a318d45713432c98597384fd85492c559}{Create\+New\+Buffer\+Block}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7f}{Gpu\+Buffer\+Usage}} usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}} shared\+Type) override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block}{IGpu\+Memory\+Block}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_ab352c9922bba681dd4c29676ac08416d}{Create\+New\+Image\+Block}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$image, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffa}{Gpu\+Image\+Usage}} usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}} shared\+Type) override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block}{IGpu\+Memory\+Block}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a688b3d07de2ec4181441bb0c220aaa49}{Get\+Next\+Buffer\+Memory\+Block}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7f}{Gpu\+Buffer\+Usage}} usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}} shared\+Type)
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock}{IGpu\+Memory\+Subblock}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_ab409ca931f6491adc73e78ac3b5aa019}{Get\+Next\+Buffer\+Memory\+Subblock}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7f}{Gpu\+Buffer\+Usage}} usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}} shared\+Type)
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{struct_o_s_k_1_1_pair}{Pair}}$<$ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info}{Gpu\+Buffer\+Memory\+Block\+Info}}, \mbox{\hyperlink{class_o_s_k_1_1_linked_list}{Linked\+List}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block}{IGpu\+Memory\+Block}} $>$ $>$ $>$ $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_abd4e4fe493da63688ae1dfebcdcb2f8b}{buffer\+Memory\+Blocks}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_linked_list}{Linked\+List}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block}{IGpu\+Memory\+Block}} $>$ $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a942def028b7a723f67c4bca4ced25a30}{image\+Memory\+Blocks}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a8f655b1e1884b8285b6d90b3d8f94e98}{device}} = nullptr
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8h_source_l00026}{26}} del archivo \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8h_source}{Gpu\+Memory\+Allocator\+Vulkan.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_a4c909856bc75b15f38fa643a5c537bf9}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_a4c909856bc75b15f38fa643a5c537bf9}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!GpuMemoryAllocatorVulkan@{GpuMemoryAllocatorVulkan}}
+\index{GpuMemoryAllocatorVulkan@{GpuMemoryAllocatorVulkan}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{GpuMemoryAllocatorVulkan()}{GpuMemoryAllocatorVulkan()}}
+{\footnotesize\ttfamily Gpu\+Memory\+Allocator\+Vulkan\+::\+Gpu\+Memory\+Allocator\+Vulkan (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} $\ast$}]{device }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source_l00030}{30}} del archivo \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source}{Gpu\+Memory\+Allocator\+Vulkan.\+cpp}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_ad7d6914e923db763bf2c94dfff5dbd5f}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_ad7d6914e923db763bf2c94dfff5dbd5f}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!CreateBottomAccelerationStructure@{CreateBottomAccelerationStructure}}
+\index{CreateBottomAccelerationStructure@{CreateBottomAccelerationStructure}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateBottomAccelerationStructure()}{CreateBottomAccelerationStructure()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{IBottom\+Level\+Acceleration\+Structure}} $>$ Gpu\+Memory\+Allocator\+Vulkan\+::\+Create\+Bottom\+Acceleration\+Structure (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpu\+Vertex\+Buffer}} \&}]{vertex\+Buffer,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer}{IGpu\+Index\+Buffer}} \&}]{index\+Buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea una estructura de aceleración espacial para el trazado de rayos. 
+
+La estructura será de bajo nivel y contendrá la geometría definida por los vértices e índices dados. 
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a6626d04bac0b649fa90c57f2b1878b17}{OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Allocator}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source_l00178}{178}} del archivo \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source}{Gpu\+Memory\+Allocator\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_a39857f376887acede43b84a6273368d3}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_a39857f376887acede43b84a6273368d3}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!CreateBuffer@{CreateBuffer}}
+\index{CreateBuffer@{CreateBuffer}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateBuffer()}{CreateBuffer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer}{Gpu\+Data\+Buffer}} $>$ Gpu\+Memory\+Allocator\+Vulkan\+::\+Create\+Buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{size,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{alignment,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7f}{Gpu\+Buffer\+Usage}}}]{usage,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}}}]{shared\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea un buffer genérico con las características dadas. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em size} & Tamaño del buffer, en bytes.\\
+\hline
+{\em usage} & Uso que se le dará al buffer.\\
+\hline
+{\em shared\+Type} & Configura si se accederá únicamente desde la GPU, o si también se accederá desde la CPU.\\
+\hline
+\end{DoxyParams}
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_aa30f9572c0af149d0072bc69d3eb09d3}{OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Allocator}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source_l00113}{113}} del archivo \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source}{Gpu\+Memory\+Allocator\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 3
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a5ffe3d30b281dd779e43a430a46447cf}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a5ffe3d30b281dd779e43a430a46447cf}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!CreateCubemapImage@{CreateCubemapImage}}
+\index{CreateCubemapImage@{CreateCubemapImage}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateCubemapImage()}{CreateCubemapImage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $>$ IGpu\+Memory\+Allocator\+::\+Create\+Cubemap\+Image (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&}]{face\+Size,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8}{Format}}}]{format,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffa}{Gpu\+Image\+Usage}}}]{usage,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}}}]{shared\+Type,  }\item[{\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc}{Gpu\+Image\+Sampler\+Desc}}}]{sampler\+Desc = {\ttfamily \{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Crea una imagen cubemap en la GPU. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_allocator_8cpp_source_l00053}{53}} del archivo \mbox{\hyperlink{_i_gpu_memory_allocator_8cpp_source}{IGpu\+Memory\+Allocator.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 4
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_aad18acc2028b57d737421b15f95fb5af}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_aad18acc2028b57d737421b15f95fb5af}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!CreateImage@{CreateImage}}
+\index{CreateImage@{CreateImage}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateImage()}{CreateImage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $>$ Gpu\+Memory\+Allocator\+Vulkan\+::\+Create\+Image (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_o_s_k_acbb1ebd73c8de7036fc0108df1bf612f}{Vector3ui}} \&}]{size,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ab91ccc08d13454cfeb3c4f78deb72d59}{Gpu\+Image\+Dimension}}}]{dimension,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{num\+Layers,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8}{Format}}}]{format,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffa}{Gpu\+Image\+Usage}}}]{usage,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}}}]{shared\+Type,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{msaa\+Samples,  }\item[{\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc}{Gpu\+Image\+Sampler\+Desc}}}]{sampler\+Desc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea una nueva imagen en la GPU. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em size} & Tamaño de la imagen. \\
+\hline
+\end{DoxyParams}
+Para imágenes 2D, Z se ignora. \begin{DoxyNote}{Nota}
+Para imágenes 1D, Y y Z se ignoran. 
+\end{DoxyNote}
+
+
+
+\begin{DoxyParams}{Parámetros}
+{\em dimension} & Dimensión de la imagen.\\
+\hline
+{\em num\+Layers} & Número de capas. \\
+\hline
+\end{DoxyParams}
+1 es una imagen sencilla. \begin{DoxyNote}{Nota}
+2 o más forman un array de imágenes. 
+\end{DoxyNote}
+\begin{DoxyPrecond}{Precondición}
+Debe ser mayor que 0.
+\end{DoxyPrecond}
+
+
+
+\begin{DoxyParams}{Parámetros}
+{\em format} & Formato.\\
+\hline
+{\em usage} & Uso que se le va a dar.\\
+\hline
+{\em shared\+Type} & GPU o GPU-\/\+CPU.\\
+\hline
+{\em msaa\+Samples} & Número de muestreos. \\
+\hline
+\end{DoxyParams}
+Para imágenes normales, 1.
+
+
+\begin{DoxyParams}{Parámetros}
+{\em sampler\+Desc} & Descipción del sampler.\\
+\hline
+\end{DoxyParams}
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a9edc56722522b79a352ce378e1ac8595}{OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Allocator}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source_l00117}{117}} del archivo \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source}{Gpu\+Memory\+Allocator\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 5
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_aef89e9652f13e27fa5b5940052fce007}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_aef89e9652f13e27fa5b5940052fce007}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!CreateIndexBuffer@{CreateIndexBuffer}}
+\index{CreateIndexBuffer@{CreateIndexBuffer}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateIndexBuffer()}{CreateIndexBuffer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer}{IGpu\+Index\+Buffer}} $>$ Gpu\+Memory\+Allocator\+Vulkan\+::\+Create\+Index\+Buffer (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a05f5134cdcc67a7889c57e39aa2f25ae}{TIndex\+Size}} $>$ \&}]{indices }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea un buffer de índices con los índices dados. 
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a2423c77cb94a4d943a45458228170db4}{OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Allocator}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source_l00069}{69}} del archivo \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source}{Gpu\+Memory\+Allocator\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 6
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_a318d45713432c98597384fd85492c559}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_a318d45713432c98597384fd85492c559}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!CreateNewBufferBlock@{CreateNewBufferBlock}}
+\index{CreateNewBufferBlock@{CreateNewBufferBlock}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateNewBufferBlock()}{CreateNewBufferBlock()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block}{IGpu\+Memory\+Block}} $>$ Gpu\+Memory\+Allocator\+Vulkan\+::\+Create\+New\+Buffer\+Block (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{size,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7f}{Gpu\+Buffer\+Usage}}}]{usage,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}}}]{shared\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_ac7dfea900bcde8fb8992cbd87054ffad}{OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Allocator}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source_l00035}{35}} del archivo \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source}{Gpu\+Memory\+Allocator\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 7
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_ab352c9922bba681dd4c29676ac08416d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_ab352c9922bba681dd4c29676ac08416d}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!CreateNewImageBlock@{CreateNewImageBlock}}
+\index{CreateNewImageBlock@{CreateNewImageBlock}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateNewImageBlock()}{CreateNewImageBlock()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block}{IGpu\+Memory\+Block}} $>$ Gpu\+Memory\+Allocator\+Vulkan\+::\+Create\+New\+Image\+Block (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$}]{image,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffa}{Gpu\+Image\+Usage}}}]{usage,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}}}]{shared\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_aa3dde1f347c24ad134d3a5cefb6fbf66}{OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Allocator}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source_l00039}{39}} del archivo \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source}{Gpu\+Memory\+Allocator\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 8
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_a3c918e33eec9f4230299a348c16d5fdf}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_a3c918e33eec9f4230299a348c16d5fdf}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!CreateStagingBuffer@{CreateStagingBuffer}}
+\index{CreateStagingBuffer@{CreateStagingBuffer}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateStagingBuffer()}{CreateStagingBuffer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer}{Gpu\+Data\+Buffer}} $>$ Gpu\+Memory\+Allocator\+Vulkan\+::\+Create\+Staging\+Buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea un buffer temporal con el tamaño dado. 
+
+Este buffer alojará memoria en una región donde la CPU tiene acceso, de tal manera que se podrán enviar datos a esta región, y después la GPU podrá copiar esta región de memoria a una región de memoria de video más rápida. 
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a8c3f7f23fc42ae519483fcd4c5dac305}{OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Allocator}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source_l00107}{107}} del archivo \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source}{Gpu\+Memory\+Allocator\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 9
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_ae88596f53526eebf6007f8c999a152cc}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_ae88596f53526eebf6007f8c999a152cc}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!CreateStorageBuffer@{CreateStorageBuffer}}
+\index{CreateStorageBuffer@{CreateStorageBuffer}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateStorageBuffer()}{CreateStorageBuffer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_storage_buffer}{IGpu\+Storage\+Buffer}} $>$ Gpu\+Memory\+Allocator\+Vulkan\+::\+Create\+Storage\+Buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea un storage buffer, con el tamaño dado en bytes. 
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a9f2995f2b3ab6ab05578358aa663b619}{OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Allocator}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source_l00101}{101}} del archivo \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source}{Gpu\+Memory\+Allocator\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 10
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_aae10c6dfbf119a91a802f4f501a1da3a}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_aae10c6dfbf119a91a802f4f501a1da3a}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!CreateTopAccelerationStructure@{CreateTopAccelerationStructure}}
+\index{CreateTopAccelerationStructure@{CreateTopAccelerationStructure}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateTopAccelerationStructure()}{CreateTopAccelerationStructure()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure}{ITop\+Level\+Acceleration\+Structure}} $>$ Gpu\+Memory\+Allocator\+Vulkan\+::\+Create\+Top\+Acceleration\+Structure (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{IBottom\+Level\+Acceleration\+Structure}} $\ast$ $>$}]{bottom\+Structures }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea una estructura de aceleración espacial para el trazado de rayos. 
+
+La estructura agrupará varias estructuras de bajo nivel. 
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a1b99a69ed53054b74e26fcc577e5babb}{OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Allocator}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source_l00167}{167}} del archivo \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source}{Gpu\+Memory\+Allocator\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_a053695e4a5255c4e5a682ebf06963a48}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_a053695e4a5255c4e5a682ebf06963a48}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!CreateUniformBuffer@{CreateUniformBuffer}}
+\index{CreateUniformBuffer@{CreateUniformBuffer}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateUniformBuffer()}{CreateUniformBuffer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer}{IGpu\+Uniform\+Buffer}} $>$ Gpu\+Memory\+Allocator\+Vulkan\+::\+Create\+Uniform\+Buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea un uniform buffer, con el tamaño dado en bytes. 
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_ac8beb74ff85ed07f8d96a60683ac0599}{OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Allocator}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source_l00095}{95}} del archivo \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source}{Gpu\+Memory\+Allocator\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 11
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_abef0fcbc0dade8bdf27d14959313fa51}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_abef0fcbc0dade8bdf27d14959313fa51}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!CreateVertexBuffer@{CreateVertexBuffer}}
+\index{CreateVertexBuffer@{CreateVertexBuffer}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateVertexBuffer()}{CreateVertexBuffer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpu\+Vertex\+Buffer}} $>$ OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Allocator\+::\+Create\+Vertex\+Buffer (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ T $>$ \&}]{vertices,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{Vertex\+Info}} \&}]{vertex\+Info }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Crea un buffer de vértices con los vértices dados. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_allocator_8h_source_l00110}{110}} del archivo \mbox{\hyperlink{_i_gpu_memory_allocator_8h_source}{IGpu\+Memory\+Allocator.\+h}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 12
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_a89332520bdd825057e45a549e4283192}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan_a89332520bdd825057e45a549e4283192}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!CreateVertexBuffer@{CreateVertexBuffer}}
+\index{CreateVertexBuffer@{CreateVertexBuffer}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateVertexBuffer()}{CreateVertexBuffer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpu\+Vertex\+Buffer}} $>$ Gpu\+Memory\+Allocator\+Vulkan\+::\+Create\+Vertex\+Buffer (\begin{DoxyParamCaption}\item[{const void $\ast$}]{data,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{vertex\+Size,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{num\+Vertices,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{Vertex\+Info}} \&}]{vertex\+Info }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea un buffer de vértices con los vértices dados. 
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a23b2a9a96603898bd4cb13ed154c8746}{OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Allocator}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source_l00043}{43}} del archivo \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp_source}{Gpu\+Memory\+Allocator\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 13
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a7d91b7ebc0b4e537cf8a77366abdd505}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a7d91b7ebc0b4e537cf8a77366abdd505}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!Free@{Free}}
+\index{Free@{Free}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{Free()}{Free()}}
+{\footnotesize\ttfamily void IGpu\+Memory\+Allocator\+::\+Free (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Libera toda la memoria. Libera todos los bloques. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_allocator_8cpp_source_l00040}{40}} del archivo \mbox{\hyperlink{_i_gpu_memory_allocator_8cpp_source}{IGpu\+Memory\+Allocator.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a688b3d07de2ec4181441bb0c220aaa49}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a688b3d07de2ec4181441bb0c220aaa49}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!GetNextBufferMemoryBlock@{GetNextBufferMemoryBlock}}
+\index{GetNextBufferMemoryBlock@{GetNextBufferMemoryBlock}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{GetNextBufferMemoryBlock()}{GetNextBufferMemoryBlock()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block}{IGpu\+Memory\+Block}} $\ast$ IGpu\+Memory\+Allocator\+::\+Get\+Next\+Buffer\+Memory\+Block (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{size,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7f}{Gpu\+Buffer\+Usage}}}]{usage,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}}}]{shared\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Devuelve un bloque con las características dadas. 
+
+Si no hay ningún bloque con tamaño suficiente, se crea uno nuevo. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em size} & Tamaño libre necesitado.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_allocator_8cpp_source_l00060}{60}} del archivo \mbox{\hyperlink{_i_gpu_memory_allocator_8cpp_source}{IGpu\+Memory\+Allocator.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 14
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_ab409ca931f6491adc73e78ac3b5aa019}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_ab409ca931f6491adc73e78ac3b5aa019}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!GetNextBufferMemorySubblock@{GetNextBufferMemorySubblock}}
+\index{GetNextBufferMemorySubblock@{GetNextBufferMemorySubblock}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{GetNextBufferMemorySubblock()}{GetNextBufferMemorySubblock()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock}{IGpu\+Memory\+Subblock}} $\ast$ IGpu\+Memory\+Allocator\+::\+Get\+Next\+Buffer\+Memory\+Subblock (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{size,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7f}{Gpu\+Buffer\+Usage}}}]{usage,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}}}]{shared\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Devuelve un subbloque con las características dadas. 
+
+Si no hay ningún subbloque con tamaño suficiente, se crea uno nuevo. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em size} & Tamaño libre necesitado.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_allocator_8cpp_source_l00096}{96}} del archivo \mbox{\hyperlink{_i_gpu_memory_allocator_8cpp_source}{IGpu\+Memory\+Allocator.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 15
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_aa89880ddaadfee627c68f7c4cb6d5d30}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_aa89880ddaadfee627c68f7c4cb6d5d30}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!OSK\_DEFINE\_AS@{OSK\_DEFINE\_AS}}
+\index{OSK\_DEFINE\_AS@{OSK\_DEFINE\_AS}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{OSK\_DEFINE\_AS()}{OSK\_DEFINE\_AS()}}
+{\footnotesize\ttfamily OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Allocator\+::\+OSK\+\_\+\+DEFINE\+\_\+\+AS (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator}{IGpu\+Memory\+Allocator}}}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a6b7676a476f7cd0db5f9b4634ef0c852}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a6b7676a476f7cd0db5f9b4634ef0c852}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!RemoveImageBlock@{RemoveImageBlock}}
+\index{RemoveImageBlock@{RemoveImageBlock}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{RemoveImageBlock()}{RemoveImageBlock()}}
+{\footnotesize\ttfamily void IGpu\+Memory\+Allocator\+::\+Remove\+Image\+Block (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block}{IGpu\+Memory\+Block}} $\ast$}]{block }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Quita uno de los bloques, que ha sido eliminado. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_allocator_8cpp_source_l00036}{36}} del archivo \mbox{\hyperlink{_i_gpu_memory_allocator_8cpp_source}{IGpu\+Memory\+Allocator.\+cpp}}.
+
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_abd4e4fe493da63688ae1dfebcdcb2f8b}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_abd4e4fe493da63688ae1dfebcdcb2f8b}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!bufferMemoryBlocks@{bufferMemoryBlocks}}
+\index{bufferMemoryBlocks@{bufferMemoryBlocks}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{bufferMemoryBlocks}{bufferMemoryBlocks}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$\mbox{\hyperlink{struct_o_s_k_1_1_pair}{Pair}}$<$\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info}{Gpu\+Buffer\+Memory\+Block\+Info}}, \mbox{\hyperlink{class_o_s_k_1_1_linked_list}{Linked\+List}}$<$\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block}{IGpu\+Memory\+Block}}$>$ $>$ $>$ $>$ OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Allocator\+::buffer\+Memory\+Blocks\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Bloques ya reservados. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_allocator_8h_source_l00192}{192}} del archivo \mbox{\hyperlink{_i_gpu_memory_allocator_8h_source}{IGpu\+Memory\+Allocator.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a8f655b1e1884b8285b6d90b3d8f94e98}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a8f655b1e1884b8285b6d90b3d8f94e98}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!device@{device}}
+\index{device@{device}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{device}{device}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}}$\ast$ OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Allocator\+::device = nullptr\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_allocator_8h_source_l00195}{195}} del archivo \mbox{\hyperlink{_i_gpu_memory_allocator_8h_source}{IGpu\+Memory\+Allocator.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a942def028b7a723f67c4bca4ced25a30}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a942def028b7a723f67c4bca4ced25a30}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!imageMemoryBlocks@{imageMemoryBlocks}}
+\index{imageMemoryBlocks@{imageMemoryBlocks}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{imageMemoryBlocks}{imageMemoryBlocks}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_linked_list}{Linked\+List}}$<$\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block}{IGpu\+Memory\+Block}}$>$ $>$ OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Allocator\+::image\+Memory\+Blocks\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_allocator_8h_source_l00193}{193}} del archivo \mbox{\hyperlink{_i_gpu_memory_allocator_8h_source}{IGpu\+Memory\+Allocator.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_ad3bb71a59933368693da358e40fd9cff}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_ad3bb71a59933368693da358e40fd9cff}} 
+\index{OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}!SizeOfMemoryBlockInMb@{SizeOfMemoryBlockInMb}}
+\index{SizeOfMemoryBlockInMb@{SizeOfMemoryBlockInMb}!OSK::GRAPHICS::GpuMemoryAllocatorVulkan@{OSK::GRAPHICS::GpuMemoryAllocatorVulkan}}
+\doxysubsubsection{\texorpdfstring{SizeOfMemoryBlockInMb}{SizeOfMemoryBlockInMb}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} IGpu\+Memory\+Allocator\+::\+Size\+Of\+Memory\+Block\+In\+Mb = 16\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [inherited]}}
+
+
+
+El tamaño de memoria que, por defecto, tendrá cada bloque de memoria. 
+
+\begin{DoxyNote}{Nota}
+Un bloque puede tener más tamaño, si se usa para almacenar un recurso que ocupe más espacio. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_allocator_8h_source_l00065}{65}} del archivo \mbox{\hyperlink{_i_gpu_memory_allocator_8h_source}{IGpu\+Memory\+Allocator.\+h}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_gpu_memory_allocator_vulkan_8h}{Gpu\+Memory\+Allocator\+Vulkan.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_gpu_memory_allocator_vulkan_8cpp}{Gpu\+Memory\+Allocator\+Vulkan.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,278 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::Swapchain\+Vulkan}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan}\index{OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}}
+
+
+{\ttfamily \#include $<$Swapchain\+Vulkan.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::Swapchain\+Vulkan
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::Swapchain\+Vulkan\+:
+% FIG 1
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_a1116bcd040c89d75f4e62dfa97629705}{$\sim$\+Swapchain\+Vulkan}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_a151411824411a839175332993a130d89}{Create}} (\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a47a7b3817b8aca438c20b7674fad28ab}{Present\+Mode}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a6a55d056d46f623dcbbb911b0b07b2af}{mode}}, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8}{Format}} format, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{Gpu\+Vulkan}} \&device, const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window}{IO\+::\+Window}} \&window)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_a5eed4a14de2b74443b5da96486cbd0d4}{Resize}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_ae1c4768b0136c2ab7805f8bc28645251}{Present}} () override
+\item 
+\mbox{\hyperlink{_swapchain_vulkan_8h_a7e0743809e381dcc6dc703b13487b4b5}{Vk\+Swapchain\+KHR}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_ad1589571a0e00a84e0687f4c9bd82813}{Get\+Swapchain}} () const
+\item 
+unsigned int \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a052206c1de590606bfdef279f326d16c}{Get\+Image\+Count}} () const
+\item 
+unsigned int \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_abbf1668873549c12b0bc43afd19304a3}{Get\+Current\+Frame\+Index}} () const
+\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain}{ISwapchain}}, T$>$}\\T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a04699bb97612d6142b1a5895fdeeaf24}{As}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a5936949da83e48f3f0f337d1459e5989}{Get\+Image}} (unsigned int index) const
+\item 
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a47a7b3817b8aca438c20b7674fad28ab}{Present\+Mode}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_ac9b32cc5c676785be45a965fdfacb4de}{Get\+Current\+Present\+Mode}} () const
+\item 
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8}{Format}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_ac1ece865145e2eeafa9300bb88fb9eb3}{Get\+Color\+Format}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a47a7b3817b8aca438c20b7674fad28ab}{Present\+Mode}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a6a55d056d46f623dcbbb911b0b07b2af}{mode}} \{\}
+\item 
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8}{Format}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a84b81852e103dd84da5a874e327b96be}{color\+Format}}
+\item 
+unsigned int \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a85599f1e213f7ebdf66b6d5cd2a8fd14}{image\+Count}} = 3
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_af4b44c935f04512a891cd9daf8dfec8e}{images}} \mbox{[}3\mbox{]}
+\item 
+unsigned int \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a7720e506b7ca0147c2296dc33b2d119a}{current\+Frame\+Index}} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+
+
+Definición en la línea \mbox{\hyperlink{_swapchain_vulkan_8h_source_l00020}{20}} del archivo \mbox{\hyperlink{_swapchain_vulkan_8h_source}{Swapchain\+Vulkan.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_a1116bcd040c89d75f4e62dfa97629705}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_a1116bcd040c89d75f4e62dfa97629705}} 
+\index{OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}!````~SwapchainVulkan@{$\sim$SwapchainVulkan}}
+\index{````~SwapchainVulkan@{$\sim$SwapchainVulkan}!OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}}
+\doxysubsubsection{\texorpdfstring{$\sim$SwapchainVulkan()}{~SwapchainVulkan()}}
+{\footnotesize\ttfamily Swapchain\+Vulkan\+::$\sim$\+Swapchain\+Vulkan (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_swapchain_vulkan_8cpp_source_l00033}{33}} del archivo \mbox{\hyperlink{_swapchain_vulkan_8cpp_source}{Swapchain\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a04699bb97612d6142b1a5895fdeeaf24}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a04699bb97612d6142b1a5895fdeeaf24}} 
+\index{OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}!As@{As}}
+\index{As@{As}!OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}}
+\doxysubsubsection{\texorpdfstring{As()}{As()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain}{ISwapchain}}, T$>$\\
+T $\ast$ OSK\+::\+GRAPHICS\+::\+ISwapchain\+::\+As (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_swapchain_8h_source_l00041}{41}} del archivo \mbox{\hyperlink{_i_swapchain_8h_source}{ISwapchain.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_a151411824411a839175332993a130d89}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_a151411824411a839175332993a130d89}} 
+\index{OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}!Create@{Create}}
+\index{Create@{Create}!OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily void Swapchain\+Vulkan\+::\+Create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a47a7b3817b8aca438c20b7674fad28ab}{Present\+Mode}}}]{mode,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8}{Format}}}]{format,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{Gpu\+Vulkan}} \&}]{device,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window}{IO\+::\+Window}} \&}]{window }\end{DoxyParamCaption})}
+
+
+
+Crea el swapchain. Obtiene automáticamente el tamaño de las imágenes a partir del tamaño de la ventana. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_swapchain_vulkan_8cpp_source_l00041}{41}} del archivo \mbox{\hyperlink{_swapchain_vulkan_8cpp_source}{Swapchain\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 3
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_ac1ece865145e2eeafa9300bb88fb9eb3}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_ac1ece865145e2eeafa9300bb88fb9eb3}} 
+\index{OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}!GetColorFormat@{GetColorFormat}}
+\index{GetColorFormat@{GetColorFormat}!OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}}
+\doxysubsubsection{\texorpdfstring{GetColorFormat()}{GetColorFormat()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8}{Format}} ISwapchain\+::\+Get\+Color\+Format (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Devuelve el formato de las imágenes del swapchain. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_swapchain_8cpp_source_l00022}{22}} del archivo \mbox{\hyperlink{_i_swapchain_8cpp_source}{ISwapchain.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_abbf1668873549c12b0bc43afd19304a3}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_abbf1668873549c12b0bc43afd19304a3}} 
+\index{OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}!GetCurrentFrameIndex@{GetCurrentFrameIndex}}
+\index{GetCurrentFrameIndex@{GetCurrentFrameIndex}!OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}}
+\doxysubsubsection{\texorpdfstring{GetCurrentFrameIndex()}{GetCurrentFrameIndex()}}
+{\footnotesize\ttfamily unsigned int ISwapchain\+::\+Get\+Current\+Frame\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Devuelve el índice de la imagen renderizada en un momento dado. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_swapchain_8cpp_source_l00014}{14}} del archivo \mbox{\hyperlink{_i_swapchain_8cpp_source}{ISwapchain.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_ac9b32cc5c676785be45a965fdfacb4de}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_ac9b32cc5c676785be45a965fdfacb4de}} 
+\index{OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}!GetCurrentPresentMode@{GetCurrentPresentMode}}
+\index{GetCurrentPresentMode@{GetCurrentPresentMode}!OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}}
+\doxysubsubsection{\texorpdfstring{GetCurrentPresentMode()}{GetCurrentPresentMode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a47a7b3817b8aca438c20b7674fad28ab}{Present\+Mode}} ISwapchain\+::\+Get\+Current\+Present\+Mode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_swapchain_8cpp_source_l00006}{6}} del archivo \mbox{\hyperlink{_i_swapchain_8cpp_source}{ISwapchain.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a5936949da83e48f3f0f337d1459e5989}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a5936949da83e48f3f0f337d1459e5989}} 
+\index{OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}!GetImage@{GetImage}}
+\index{GetImage@{GetImage}!OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}}
+\doxysubsubsection{\texorpdfstring{GetImage()}{GetImage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$ ISwapchain\+::\+Get\+Image (\begin{DoxyParamCaption}\item[{unsigned int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Devuelve la imagen con el índice dado. 
+
+\begin{DoxyPrecond}{Precondición}
+El índice está dentro de los límites. 
+\end{DoxyPrecond}
+
+
+Definición en la línea \mbox{\hyperlink{_i_swapchain_8cpp_source_l00018}{18}} del archivo \mbox{\hyperlink{_i_swapchain_8cpp_source}{ISwapchain.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a052206c1de590606bfdef279f326d16c}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a052206c1de590606bfdef279f326d16c}} 
+\index{OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}!GetImageCount@{GetImageCount}}
+\index{GetImageCount@{GetImageCount}!OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}}
+\doxysubsubsection{\texorpdfstring{GetImageCount()}{GetImageCount()}}
+{\footnotesize\ttfamily unsigned int ISwapchain\+::\+Get\+Image\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Devuelve el número de imágenes del swapchain. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_swapchain_8cpp_source_l00010}{10}} del archivo \mbox{\hyperlink{_i_swapchain_8cpp_source}{ISwapchain.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_ad1589571a0e00a84e0687f4c9bd82813}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_ad1589571a0e00a84e0687f4c9bd82813}} 
+\index{OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}!GetSwapchain@{GetSwapchain}}
+\index{GetSwapchain@{GetSwapchain}!OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}}
+\doxysubsubsection{\texorpdfstring{GetSwapchain()}{GetSwapchain()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_swapchain_vulkan_8h_a7e0743809e381dcc6dc703b13487b4b5}{Vk\+Swapchain\+KHR}} Swapchain\+Vulkan\+::\+Get\+Swapchain (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_swapchain_vulkan_8cpp_source_l00161}{161}} del archivo \mbox{\hyperlink{_swapchain_vulkan_8cpp_source}{Swapchain\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_ae1c4768b0136c2ab7805f8bc28645251}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_ae1c4768b0136c2ab7805f8bc28645251}} 
+\index{OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}!Present@{Present}}
+\index{Present@{Present}!OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}}
+\doxysubsubsection{\texorpdfstring{Present()}{Present()}}
+{\footnotesize\ttfamily void Swapchain\+Vulkan\+::\+Present (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Envía la imagen renderizada al monitor. 
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_ab42ef18df4fc72d0a6b17829b2aa8b7f}{OSK\+::\+GRAPHICS\+::\+ISwapchain}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_swapchain_vulkan_8cpp_source_l00184}{184}} del archivo \mbox{\hyperlink{_swapchain_vulkan_8cpp_source}{Swapchain\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_a5eed4a14de2b74443b5da96486cbd0d4}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_a5eed4a14de2b74443b5da96486cbd0d4}} 
+\index{OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}!Resize@{Resize}}
+\index{Resize@{Resize}!OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}}
+\doxysubsubsection{\texorpdfstring{Resize()}{Resize()}}
+{\footnotesize\ttfamily void Swapchain\+Vulkan\+::\+Resize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Recrea el swapchain con el tamaño de la ventana. Para cuando se ha cambiado de tamaño la ventana. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_swapchain_vulkan_8cpp_source_l00165}{165}} del archivo \mbox{\hyperlink{_swapchain_vulkan_8cpp_source}{Swapchain\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 4
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a84b81852e103dd84da5a874e327b96be}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a84b81852e103dd84da5a874e327b96be}} 
+\index{OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}!colorFormat@{colorFormat}}
+\index{colorFormat@{colorFormat}!OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}}
+\doxysubsubsection{\texorpdfstring{colorFormat}{colorFormat}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8}{Format}} OSK\+::\+GRAPHICS\+::\+ISwapchain\+::color\+Format\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_swapchain_8h_source_l00062}{62}} del archivo \mbox{\hyperlink{_i_swapchain_8h_source}{ISwapchain.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a7720e506b7ca0147c2296dc33b2d119a}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a7720e506b7ca0147c2296dc33b2d119a}} 
+\index{OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}!currentFrameIndex@{currentFrameIndex}}
+\index{currentFrameIndex@{currentFrameIndex}!OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}}
+\doxysubsubsection{\texorpdfstring{currentFrameIndex}{currentFrameIndex}}
+{\footnotesize\ttfamily unsigned int OSK\+::\+GRAPHICS\+::\+ISwapchain\+::current\+Frame\+Index = 0\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_swapchain_8h_source_l00068}{68}} del archivo \mbox{\hyperlink{_i_swapchain_8h_source}{ISwapchain.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a85599f1e213f7ebdf66b6d5cd2a8fd14}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a85599f1e213f7ebdf66b6d5cd2a8fd14}} 
+\index{OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}!imageCount@{imageCount}}
+\index{imageCount@{imageCount}!OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}}
+\doxysubsubsection{\texorpdfstring{imageCount}{imageCount}}
+{\footnotesize\ttfamily unsigned int OSK\+::\+GRAPHICS\+::\+ISwapchain\+::image\+Count = 3\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_swapchain_8h_source_l00065}{65}} del archivo \mbox{\hyperlink{_i_swapchain_8h_source}{ISwapchain.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_af4b44c935f04512a891cd9daf8dfec8e}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_af4b44c935f04512a891cd9daf8dfec8e}} 
+\index{OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}!images@{images}}
+\index{images@{images}!OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}}
+\doxysubsubsection{\texorpdfstring{images}{images}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}}$>$ OSK\+::\+GRAPHICS\+::\+ISwapchain\+::images\mbox{[}3\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_swapchain_8h_source_l00067}{67}} del archivo \mbox{\hyperlink{_i_swapchain_8h_source}{ISwapchain.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a6a55d056d46f623dcbbb911b0b07b2af}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a6a55d056d46f623dcbbb911b0b07b2af}} 
+\index{OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}!mode@{mode}}
+\index{mode@{mode}!OSK::GRAPHICS::SwapchainVulkan@{OSK::GRAPHICS::SwapchainVulkan}}
+\doxysubsubsection{\texorpdfstring{mode}{mode}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a47a7b3817b8aca438c20b7674fad28ab}{Present\+Mode}} OSK\+::\+GRAPHICS\+::\+ISwapchain\+::mode \{\}\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_swapchain_8h_source_l00061}{61}} del archivo \mbox{\hyperlink{_i_swapchain_8h_source}{ISwapchain.\+h}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_swapchain_vulkan_8h}{Swapchain\+Vulkan.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_swapchain_vulkan_8cpp}{Swapchain\+Vulkan.\+cpp}}\end{DoxyCompactItemize}

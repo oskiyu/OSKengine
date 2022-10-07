@@ -1,0 +1,43 @@
+\hypertarget{_top_level_acceleration_structure_vulkan_8h_source}{}\doxysection{Top\+Level\+Acceleration\+Structure\+Vulkan.\+h}
+\label{_top_level_acceleration_structure_vulkan_8h_source}\index{OSKengine2/TopLevelAccelerationStructureVulkan.h@{OSKengine2/TopLevelAccelerationStructureVulkan.h}}
+\mbox{\hyperlink{_top_level_acceleration_structure_vulkan_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_top_level_acceleration_structure_8h}{ITopLevelAccelerationStructure.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_unique_ptr_8hpp}{UniquePtr.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_data_buffer_8h}{IGpuDataBuffer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00008}00008 \textcolor{preprocessor}{\#include <vulkan/vulkan.h>}}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00010}00010 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}} \{}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00012}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan}{00012}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan}{TopLevelAccelerationStructureVulkan}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure}{ITopLevelAccelerationStructure}} \{}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00014}00014     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00016}00016         \textcolor{keywordtype}{void} Setup() \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00017}00017         \textcolor{keywordtype}{void} Update() \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00019}00019         VkAccelerationStructureKHR GetAccelerationStructure() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00021}00021     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00023}00023         \textcolor{keyword}{static} VkDeviceAddress GetBufferDeviceAddress(\textcolor{keyword}{const} VkBuffer buffer, \textcolor{keyword}{const} VkDevice logicalDevice);}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00024}00024         \textcolor{keyword}{static} VkDeviceAddress GetTlasDeviceAddress(\textcolor{keyword}{const} VkAccelerationStructureKHR tlas, \textcolor{keyword}{const} VkDevice logicalDevice);}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00026}00026         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<GpuDataBuffer>}} accelerationStructureBuffer;}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00027}00027         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<GpuDataBuffer>}} buildBuffer;}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00028}00028         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<GpuDataBuffer>}} instanceBuffer;}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00030}00030         VkAccelerationStructureKHR blasHandle = VK\_NULL\_HANDLE;}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00031}00031         VkAccelerationStructureKHR tlasHandle = VK\_NULL\_HANDLE;}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00032}00032         VkDeviceOrHostAddressConstKHR tlasAddress\{\};}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00033}00033         VkAccelerationStructureGeometryKHR geometryInfo\{\};}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00035}00035     \};}
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{_top_level_acceleration_structure_vulkan_8h_source_l00037}00037 \}}
+
+\end{DoxyCode}

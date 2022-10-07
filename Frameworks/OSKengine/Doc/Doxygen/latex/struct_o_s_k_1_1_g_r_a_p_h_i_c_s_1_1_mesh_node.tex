@@ -1,0 +1,198 @@
+\hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node}{}\doxysection{Referencia de la Estructura OSK\+::GRAPHICS\+::Mesh\+Node}
+\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node}\index{OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}}
+
+
+{\ttfamily \#include $<$Bone.\+h$>$}
+
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::Mesh\+Node\+:
+% FIG 0
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a3d29565f96de756ea38bc400f8ecca73}{Update\+Skeleton\+Tree}} (const glm\+::mat4 \&prev\+Matrix, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator}{Animator}} \&animator)
+\item 
+glm\+::mat4 \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a8418c8498db1edc7fc4a06b0936b7b1d}{Get\+Local\+Matrix}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_o_s_k_a5e479af2ede269150542d90384ce3ee2}{Vector3f}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a7c83ae400ea863906d1c3df3960ea630}{position}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_quaternion}{Quaternion}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a9b72d3ea552bae1e2d4c36e18c788cbe}{rotation}}
+\item 
+\mbox{\hyperlink{namespace_o_s_k_a5e479af2ede269150542d90384ce3ee2}{Vector3f}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_ae785291924f9fffd0c82bc3ea0d5648d}{scale}} = 1.\+0f
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a0f6b3171fdbde641ab165b26c2e54a8d}{TIndex}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a71a32d054f16745b07653e6a2b595673}{this\+Index}} = 0
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a0f6b3171fdbde641ab165b26c2e54a8d}{TIndex}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a4ff904f1ef9bcfd2ebbe122f5ec2c5d6}{parent\+Index}} = 0
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{_o_s_kmacros_8h_a0f6b3171fdbde641ab165b26c2e54a8d}{TIndex}} $>$ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a81f33bd635ca9a5523be469043fbfce4}{child\+Indices}}
+\item 
+glm\+::mat4 \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a8da410bcd8d57555db7cc34086c42003}{original\+Matrix}} = glm\+::mat4(1.\+0f)
+\item 
+glm\+::mat4 \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a87cdea0d4d78f284bb68dd8890fe015f}{global\+Matrix}} = glm\+::mat4(1.\+0f)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Hueso de la animación. 
+
+Definición en la línea \mbox{\hyperlink{_bone_8h_source_l00012}{12}} del archivo \mbox{\hyperlink{_bone_8h_source}{Bone.\+h}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a8418c8498db1edc7fc4a06b0936b7b1d}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a8418c8498db1edc7fc4a06b0936b7b1d}} 
+\index{OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}!GetLocalMatrix@{GetLocalMatrix}}
+\index{GetLocalMatrix@{GetLocalMatrix}!OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}}
+\doxysubsubsection{\texorpdfstring{GetLocalMatrix()}{GetLocalMatrix()}}
+{\footnotesize\ttfamily glm\+::mat4 OSK\+::\+GRAPHICS\+::\+Mesh\+Node\+::\+Get\+Local\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Devuelve la matriz de modelo del hueso. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_bone_8h_source_l00034}{34}} del archivo \mbox{\hyperlink{_bone_8h_source}{Bone.\+h}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 1
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a3d29565f96de756ea38bc400f8ecca73}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a3d29565f96de756ea38bc400f8ecca73}} 
+\index{OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}!UpdateSkeletonTree@{UpdateSkeletonTree}}
+\index{UpdateSkeletonTree@{UpdateSkeletonTree}!OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}}
+\doxysubsubsection{\texorpdfstring{UpdateSkeletonTree()}{UpdateSkeletonTree()}}
+{\footnotesize\ttfamily void Mesh\+Node\+::\+Update\+Skeleton\+Tree (\begin{DoxyParamCaption}\item[{const glm\+::mat4 \&}]{prev\+Matrix,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator}{Animator}} \&}]{animator }\end{DoxyParamCaption})}
+
+
+
+Actualiza la matriz propia y la de los huesos hijos. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em prev\+Matrix} & Matriz del hueso padre.\\
+\hline
+{\em animator} & \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator}{Animator}} que contiene los huesos hijos.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_bone_8cpp_source_l00008}{8}} del archivo \mbox{\hyperlink{_bone_8cpp_source}{Bone.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a81f33bd635ca9a5523be469043fbfce4}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a81f33bd635ca9a5523be469043fbfce4}} 
+\index{OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}!childIndices@{childIndices}}
+\index{childIndices@{childIndices}!OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}}
+\doxysubsubsection{\texorpdfstring{childIndices}{childIndices}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$\mbox{\hyperlink{_o_s_kmacros_8h_a0f6b3171fdbde641ab165b26c2e54a8d}{TIndex}}$>$ OSK\+::\+GRAPHICS\+::\+Mesh\+Node\+::child\+Indices}
+
+
+
+Índices de los huesos hijos. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_bone_8h_source_l00031}{31}} del archivo \mbox{\hyperlink{_bone_8h_source}{Bone.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a87cdea0d4d78f284bb68dd8890fe015f}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a87cdea0d4d78f284bb68dd8890fe015f}} 
+\index{OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}!globalMatrix@{globalMatrix}}
+\index{globalMatrix@{globalMatrix}!OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}}
+\doxysubsubsection{\texorpdfstring{globalMatrix}{globalMatrix}}
+{\footnotesize\ttfamily glm\+::mat4 OSK\+::\+GRAPHICS\+::\+Mesh\+Node\+::global\+Matrix = glm\+::mat4(1.\+0f)}
+
+
+
+Definición en la línea \mbox{\hyperlink{_bone_8h_source_l00039}{39}} del archivo \mbox{\hyperlink{_bone_8h_source}{Bone.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a8da410bcd8d57555db7cc34086c42003}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a8da410bcd8d57555db7cc34086c42003}} 
+\index{OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}!originalMatrix@{originalMatrix}}
+\index{originalMatrix@{originalMatrix}!OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}}
+\doxysubsubsection{\texorpdfstring{originalMatrix}{originalMatrix}}
+{\footnotesize\ttfamily glm\+::mat4 OSK\+::\+GRAPHICS\+::\+Mesh\+Node\+::original\+Matrix = glm\+::mat4(1.\+0f)}
+
+
+
+Definición en la línea \mbox{\hyperlink{_bone_8h_source_l00038}{38}} del archivo \mbox{\hyperlink{_bone_8h_source}{Bone.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a4ff904f1ef9bcfd2ebbe122f5ec2c5d6}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a4ff904f1ef9bcfd2ebbe122f5ec2c5d6}} 
+\index{OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}!parentIndex@{parentIndex}}
+\index{parentIndex@{parentIndex}!OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}}
+\doxysubsubsection{\texorpdfstring{parentIndex}{parentIndex}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a0f6b3171fdbde641ab165b26c2e54a8d}{TIndex}} OSK\+::\+GRAPHICS\+::\+Mesh\+Node\+::parent\+Index = 0}
+
+
+
+Índice del hueso padre. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_bone_8h_source_l00029}{29}} del archivo \mbox{\hyperlink{_bone_8h_source}{Bone.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a7c83ae400ea863906d1c3df3960ea630}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a7c83ae400ea863906d1c3df3960ea630}} 
+\index{OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}!position@{position}}
+\index{position@{position}!OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}}
+\doxysubsubsection{\texorpdfstring{position}{position}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_a5e479af2ede269150542d90384ce3ee2}{Vector3f}} OSK\+::\+GRAPHICS\+::\+Mesh\+Node\+::position}
+
+
+
+Posición actual. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_bone_8h_source_l00020}{20}} del archivo \mbox{\hyperlink{_bone_8h_source}{Bone.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a9b72d3ea552bae1e2d4c36e18c788cbe}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a9b72d3ea552bae1e2d4c36e18c788cbe}} 
+\index{OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}!rotation@{rotation}}
+\index{rotation@{rotation}!OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}}
+\doxysubsubsection{\texorpdfstring{rotation}{rotation}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_quaternion}{Quaternion}} OSK\+::\+GRAPHICS\+::\+Mesh\+Node\+::rotation}
+
+
+
+Orientación actual. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_bone_8h_source_l00022}{22}} del archivo \mbox{\hyperlink{_bone_8h_source}{Bone.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_ae785291924f9fffd0c82bc3ea0d5648d}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_ae785291924f9fffd0c82bc3ea0d5648d}} 
+\index{OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}!scale@{scale}}
+\index{scale@{scale}!OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}}
+\doxysubsubsection{\texorpdfstring{scale}{scale}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_a5e479af2ede269150542d90384ce3ee2}{Vector3f}} OSK\+::\+GRAPHICS\+::\+Mesh\+Node\+::scale = 1.\+0f}
+
+
+
+Escala actual. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_bone_8h_source_l00024}{24}} del archivo \mbox{\hyperlink{_bone_8h_source}{Bone.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a71a32d054f16745b07653e6a2b595673}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a71a32d054f16745b07653e6a2b595673}} 
+\index{OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}!thisIndex@{thisIndex}}
+\index{thisIndex@{thisIndex}!OSK::GRAPHICS::MeshNode@{OSK::GRAPHICS::MeshNode}}
+\doxysubsubsection{\texorpdfstring{thisIndex}{thisIndex}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a0f6b3171fdbde641ab165b26c2e54a8d}{TIndex}} OSK\+::\+GRAPHICS\+::\+Mesh\+Node\+::this\+Index = 0}
+
+
+
+Índice del hueso. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_bone_8h_source_l00027}{27}} del archivo \mbox{\hyperlink{_bone_8h_source}{Bone.\+h}}.
+
+
+
+La documentación para esta estructura fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_bone_8h}{Bone.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_bone_8cpp}{Bone.\+cpp}}\end{DoxyCompactItemize}

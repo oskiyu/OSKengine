@@ -1,0 +1,12 @@
+digraph "OSK::GRAPHICS::ICommandList::SetGpuImageBarrier"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::ICommandList\l::SetGpuImageBarrier",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Establece un barrier que sincroniza la ejecución de comandos. Cambia el layout de la imagen."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::GRAPHICS::GpuImage\l::GetLayout",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ae48a1a723ee92230591f19ecaa9a81e9",tooltip="Devuelve el layout actual de la imagen."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="OSK::GRAPHICS::ICommandList\l::SetGpuImageBarrier",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a4f744548e824c36b684f4d35bd1b90b2",tooltip="Establece un barrier que sincroniza la ejecución de comandos. Cambia el layout de la imagen."];
+}

@@ -14,6 +14,7 @@
 #include "GpuImageVulkan.h"
 #include "TopLevelAccelerationStructureVulkan.h"
 #include "GpuImageViewVulkan.h"
+#include "IGpuStorageBuffer.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -93,15 +94,15 @@ void MaterialSlotVulkan::SetUniformBuffers(const std::string& binding, const IGp
 		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
 }
 
-void MaterialSlotVulkan::SetStorageBuffer(const std::string& binding, const IGpuStorageBuffer* buffer) {
-	const IGpuStorageBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]{};
+void MaterialSlotVulkan::SetStorageBuffer(const std::string& binding, const GpuDataBuffer* buffer) {
+	const GpuDataBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]{};
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
 		buffers[i] = buffer;
 
 	SetStorageBuffers(binding, buffers);
 }
 
-void MaterialSlotVulkan::SetStorageBuffers(const std::string& binding, const IGpuStorageBuffer* buffer[NUM_RESOURCES_IN_FLIGHT]) {
+void MaterialSlotVulkan::SetStorageBuffers(const std::string& binding, const GpuDataBuffer* buffer[NUM_RESOURCES_IN_FLIGHT]) {
 	const bool containsBinding = bindingsLocations.ContainsKey(binding);
 
 	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {

@@ -1,0 +1,22 @@
+digraph "OSK::GRAPHICS::IGpuMemoryAllocator::GetNextBufferMemorySubblock"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::IGpuMemory\lAllocator::GetNextBufferMemory\lSubblock",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Devuelve un subbloque con las características dadas."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::GRAPHICS::IGpuMemory\lAllocator::GetNextBufferMemoryBlock",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a688b3d07de2ec4181441bb0c220aaa49",tooltip="Devuelve un bloque con las características dadas."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="OSK::GRAPHICS::IGpuMemory\lAllocator::CreateNewBufferBlock",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#ac7dfea900bcde8fb8992cbd87054ffad",tooltip=" "];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="OSK::OwnedPtr::GetPointer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042",tooltip="Devuelve el puntero nativo."];
+  Node2 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="OSK::LinkedList::Insert",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_linked_list.html#a8fa021e2fec2e977c18544e6e5807963",tooltip="Añade un elemento a la lista."];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="OSK::GRAPHICS::IGpuMemory\lBlock::GetNextMemorySubblock",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a8be42e86b3c636e81a8c47a56fd29b09",tooltip="Obtiene un subbloque con el tamaño dado, ya sea nuevo o reutilizado."];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="OSK::GRAPHICS::IGpuMemory\lBlock::CreateNewMemorySubblock",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a4c08a6d5973d3854c6b90ccbcf03628f",tooltip=" "];
+  Node6 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="OSK::GRAPHICS::IGpuMemory\lBlock::GetAvailableSpace",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a5470b45782d39a27ed93ed2b52737727",tooltip="Devuelve la cantidad de memoria disponible que nunca ha sido reclamada."];
+}

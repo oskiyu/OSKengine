@@ -1,0 +1,12 @@
+digraph "OSK::GRAPHICS::GpuImage::GpuImage"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::GpuImage\l::GpuImage",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::GRAPHICS::GpuImage\l::_SetPhysicalSize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ad23f506b8bdde8faac2dac9d6a86f7e7",tooltip=" "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="OSK::GRAPHICS::GpuImage\l::GetMipLevels",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aa0220799f28ec1c45c888926243867e9",tooltip="Devuelve el número máximo de miplevels de esta imagen."];
+}

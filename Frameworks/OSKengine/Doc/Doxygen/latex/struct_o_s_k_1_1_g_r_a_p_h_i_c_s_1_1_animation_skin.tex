@@ -1,0 +1,76 @@
+\hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin}{}\doxysection{Referencia de la Estructura OSK\+::GRAPHICS\+::Animation\+Skin}
+\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin}\index{OSK::GRAPHICS::AnimationSkin@{OSK::GRAPHICS::AnimationSkin}}
+
+
+{\ttfamily \#include $<$Animation\+Skin.\+h$>$}
+
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::Animation\+Skin\+:
+% FIG 0
+\doxysubsection*{Atributos públicos}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_a92fac1b4585e4cd9508dd127cbdafb6e}{name}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ glm\+::mat4 $>$ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_a6c539224d3e1c6fc691243d1766de6f9}{inverse\+Matrices}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{_o_s_kmacros_8h_a0f6b3171fdbde641ab165b26c2e54a8d}{TIndex}} $>$ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_a36b72f60726fb78f92b01ce07619ffcf}{bones\+Ids}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Indica cómo aplicar una animación a un modelo animado. 
+
+Definición en la línea \mbox{\hyperlink{_animation_skin_8h_source_l00015}{15}} del archivo \mbox{\hyperlink{_animation_skin_8h_source}{Animation\+Skin.\+h}}.
+
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_a36b72f60726fb78f92b01ce07619ffcf}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_a36b72f60726fb78f92b01ce07619ffcf}} 
+\index{OSK::GRAPHICS::AnimationSkin@{OSK::GRAPHICS::AnimationSkin}!bonesIds@{bonesIds}}
+\index{bonesIds@{bonesIds}!OSK::GRAPHICS::AnimationSkin@{OSK::GRAPHICS::AnimationSkin}}
+\doxysubsubsection{\texorpdfstring{bonesIds}{bonesIds}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$\mbox{\hyperlink{_o_s_kmacros_8h_a0f6b3171fdbde641ab165b26c2e54a8d}{TIndex}}$>$ OSK\+::\+GRAPHICS\+::\+Animation\+Skin\+::bones\+Ids}
+
+
+
+Huesos a los que se aplica la Skin. También funciona como un mapa bone\+ID -\/\texorpdfstring{$>$}{>} node\+ID. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_animation_skin_8h_source_l00027}{27}} del archivo \mbox{\hyperlink{_animation_skin_8h_source}{Animation\+Skin.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_a6c539224d3e1c6fc691243d1766de6f9}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_a6c539224d3e1c6fc691243d1766de6f9}} 
+\index{OSK::GRAPHICS::AnimationSkin@{OSK::GRAPHICS::AnimationSkin}!inverseMatrices@{inverseMatrices}}
+\index{inverseMatrices@{inverseMatrices}!OSK::GRAPHICS::AnimationSkin@{OSK::GRAPHICS::AnimationSkin}}
+\doxysubsubsection{\texorpdfstring{inverseMatrices}{inverseMatrices}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$glm\+::mat4$>$ OSK\+::\+GRAPHICS\+::\+Animation\+Skin\+::inverse\+Matrices}
+
+
+
+Matrices inversas de la transformación global de los huesos en el estado inicial. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_animation_skin_8h_source_l00021}{21}} del archivo \mbox{\hyperlink{_animation_skin_8h_source}{Animation\+Skin.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_a92fac1b4585e4cd9508dd127cbdafb6e}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_a92fac1b4585e4cd9508dd127cbdafb6e}} 
+\index{OSK::GRAPHICS::AnimationSkin@{OSK::GRAPHICS::AnimationSkin}!name@{name}}
+\index{name@{name}!OSK::GRAPHICS::AnimationSkin@{OSK::GRAPHICS::AnimationSkin}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily std\+::string OSK\+::\+GRAPHICS\+::\+Animation\+Skin\+::name}
+
+
+
+Nombre original de la animación. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_animation_skin_8h_source_l00018}{18}} del archivo \mbox{\hyperlink{_animation_skin_8h_source}{Animation\+Skin.\+h}}.
+
+
+
+La documentación para esta estructura fue generada a partir del siguiente fichero\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_animation_skin_8h}{Animation\+Skin.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,14 @@
+digraph "OSK::ECS::PbrDeferredRenderSystem::Initialize"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::ECS::PbrDeferredRender\lSystem::Initialize",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::ASSETS::IrradianceMap\l::GetGpuImage",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html#a1ccaa4464e037058aeabc27de7854f7a",tooltip="Devuelve la imagen con el irradiance map."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="OSK::Engine::GetRenderer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="OSK::GRAPHICS::ShadowMap\l::SetSceneCamera",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a2049f04835be03e41411a54457933d50",tooltip="Establece la cámara de la escena, para poder configurar los mapas de profundidad de una manera más óp..."];
+}

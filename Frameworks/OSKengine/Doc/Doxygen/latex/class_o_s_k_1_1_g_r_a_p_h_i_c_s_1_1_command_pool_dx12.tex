@@ -1,0 +1,123 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::Command\+Pool\+Dx12}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12}\index{OSK::GRAPHICS::CommandPoolDx12@{OSK::GRAPHICS::CommandPoolDx12}}
+
+
+{\ttfamily \#include $<$Command\+Pool\+Dx12.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::Command\+Pool\+Dx12
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::Command\+Pool\+Dx12\+:
+% FIG 1
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12_a7730827f38174764f2dfd3b3e20aedee}{Create\+Command\+List}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} \&device) override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12_a921a33ea7ce0f46139e7575660871474}{Create\+Single\+Time\+Command\+List}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} \&device) override
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12_a856c55c146301a139b6cd496cc1ac7f8}{Set\+Command\+Pool}} (const Com\+Ptr$<$ ID3\+D12\+Command\+Allocator $>$ \&command\+Pool)
+\item 
+ID3\+D12\+Command\+Allocator $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12_a1e399b93e2df637f2ca055b660a37f02}{Get\+Command\+Allocator}} () const
+\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool}{ICommand\+Pool}}, T$>$}\\T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a3b603fec5d827e9b225815739557dbbf}{As}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Una pool de comandos se encarga de crear una serie de listas de comandos. 
+
+Esta es la implementación del pool para el renderizador de DirectX 12. 
+
+Definición en la línea \mbox{\hyperlink{_command_pool_dx12_8h_source_l00016}{16}} del archivo \mbox{\hyperlink{_command_pool_dx12_8h_source}{Command\+Pool\+Dx12.\+h}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a3b603fec5d827e9b225815739557dbbf}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a3b603fec5d827e9b225815739557dbbf}} 
+\index{OSK::GRAPHICS::CommandPoolDx12@{OSK::GRAPHICS::CommandPoolDx12}!As@{As}}
+\index{As@{As}!OSK::GRAPHICS::CommandPoolDx12@{OSK::GRAPHICS::CommandPoolDx12}}
+\doxysubsubsection{\texorpdfstring{As()}{As()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool}{ICommand\+Pool}}, T$>$\\
+T $\ast$ OSK\+::\+GRAPHICS\+::\+ICommand\+Pool\+::\+As (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_pool_8h_source_l00034}{34}} del archivo \mbox{\hyperlink{_i_command_pool_8h_source}{ICommand\+Pool.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12_a7730827f38174764f2dfd3b3e20aedee}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12_a7730827f38174764f2dfd3b3e20aedee}} 
+\index{OSK::GRAPHICS::CommandPoolDx12@{OSK::GRAPHICS::CommandPoolDx12}!CreateCommandList@{CreateCommandList}}
+\index{CreateCommandList@{CreateCommandList}!OSK::GRAPHICS::CommandPoolDx12@{OSK::GRAPHICS::CommandPoolDx12}}
+\doxysubsubsection{\texorpdfstring{CreateCommandList()}{CreateCommandList()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ Command\+Pool\+Dx12\+::\+Create\+Command\+List (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} \&}]{device }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea una nueva lista de comandos. 
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a9521df93202d6cc54715a70582436d52}{OSK\+::\+GRAPHICS\+::\+ICommand\+Pool}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_command_pool_dx12_8cpp_source_l00009}{9}} del archivo \mbox{\hyperlink{_command_pool_dx12_8cpp_source}{Command\+Pool\+Dx12.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12_a921a33ea7ce0f46139e7575660871474}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12_a921a33ea7ce0f46139e7575660871474}} 
+\index{OSK::GRAPHICS::CommandPoolDx12@{OSK::GRAPHICS::CommandPoolDx12}!CreateSingleTimeCommandList@{CreateSingleTimeCommandList}}
+\index{CreateSingleTimeCommandList@{CreateSingleTimeCommandList}!OSK::GRAPHICS::CommandPoolDx12@{OSK::GRAPHICS::CommandPoolDx12}}
+\doxysubsubsection{\texorpdfstring{CreateSingleTimeCommandList()}{CreateSingleTimeCommandList()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ Command\+Pool\+Dx12\+::\+Create\+Single\+Time\+Command\+List (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} \&}]{device }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea una lista de comandos de un sólo uso. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em device} & GPU donde se alamcenarán las listas.\\
+\hline
+\end{DoxyParams}
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_a6d7c4775e1c1a11dcb08a1e8d3aec8cc}{OSK\+::\+GRAPHICS\+::\+ICommand\+Pool}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_command_pool_dx12_8cpp_source_l00024}{24}} del archivo \mbox{\hyperlink{_command_pool_dx12_8cpp_source}{Command\+Pool\+Dx12.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 3
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12_a1e399b93e2df637f2ca055b660a37f02}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12_a1e399b93e2df637f2ca055b660a37f02}} 
+\index{OSK::GRAPHICS::CommandPoolDx12@{OSK::GRAPHICS::CommandPoolDx12}!GetCommandAllocator@{GetCommandAllocator}}
+\index{GetCommandAllocator@{GetCommandAllocator}!OSK::GRAPHICS::CommandPoolDx12@{OSK::GRAPHICS::CommandPoolDx12}}
+\doxysubsubsection{\texorpdfstring{GetCommandAllocator()}{GetCommandAllocator()}}
+{\footnotesize\ttfamily ID3\+D12\+Command\+Allocator $\ast$ Command\+Pool\+Dx12\+::\+Get\+Command\+Allocator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_command_pool_dx12_8cpp_source_l00032}{32}} del archivo \mbox{\hyperlink{_command_pool_dx12_8cpp_source}{Command\+Pool\+Dx12.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12_a856c55c146301a139b6cd496cc1ac7f8}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12_a856c55c146301a139b6cd496cc1ac7f8}} 
+\index{OSK::GRAPHICS::CommandPoolDx12@{OSK::GRAPHICS::CommandPoolDx12}!SetCommandPool@{SetCommandPool}}
+\index{SetCommandPool@{SetCommandPool}!OSK::GRAPHICS::CommandPoolDx12@{OSK::GRAPHICS::CommandPoolDx12}}
+\doxysubsubsection{\texorpdfstring{SetCommandPool()}{SetCommandPool()}}
+{\footnotesize\ttfamily void Command\+Pool\+Dx12\+::\+Set\+Command\+Pool (\begin{DoxyParamCaption}\item[{const Com\+Ptr$<$ ID3\+D12\+Command\+Allocator $>$ \&}]{command\+Pool }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_command_pool_dx12_8cpp_source_l00028}{28}} del archivo \mbox{\hyperlink{_command_pool_dx12_8cpp_source}{Command\+Pool\+Dx12.\+cpp}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_command_pool_dx12_8h}{Command\+Pool\+Dx12.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_command_pool_dx12_8cpp}{Command\+Pool\+Dx12.\+cpp}}\end{DoxyCompactItemize}

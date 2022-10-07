@@ -1,0 +1,45 @@
+\hypertarget{_i_asset_8h_source}{}\doxysection{IAsset.\+h}
+\label{_i_asset_8h_source}\index{OSKengine2/IAsset.h@{OSKengine2/IAsset.h}}
+\mbox{\hyperlink{_i_asset_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kmacros_8h}{OSKmacros.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_dynamic_array_8hpp}{DynamicArray.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_hash_map_8hpp}{HashMap.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_linked_list_8hpp}{LinkedList.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00008}00008 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00010}00010 \textcolor{preprocessor}{\#ifndef OSK\_ASSET\_TYPE\_REG}}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00011}\mbox{\hyperlink{_i_asset_8h_a3e685a2f04ef161e28b89a7c548363d3}{00011}} \textcolor{preprocessor}{\#define OSK\_ASSET\_TYPE\_REG(typeName) const static std::string GetAssetType() \{ return typeName; \}}}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00012}00012 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00014}00014 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_a_s_s_e_t_s}{OSK::ASSETS}} \{}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00031}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset}{00031}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset}{IAsset}} \{}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00033}00033     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00035}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_a99ac97c0e8e719bd9a7870d939959c70}{00035}}         \textcolor{keyword}{virtual} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_a99ac97c0e8e719bd9a7870d939959c70}{\string~IAsset}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00042}00042         \textcolor{keywordtype}{void} SetName(\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00047}00047         std::string GetName() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00053}00053         std::string GetAssetFilename() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00055}00055     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00057}00057         \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset}{IAsset}}(\textcolor{keyword}{const} std::string\& assetFile);}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00059}00059     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00060}00060 }
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00061}00061         std::string name;}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00062}00062         std::string assetFileName;}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00064}00064     \};}
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00065}00065     }
+\DoxyCodeLine{\Hypertarget{_i_asset_8h_source_l00066}00066 \}}
+
+\end{DoxyCode}

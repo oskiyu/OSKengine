@@ -1,0 +1,333 @@
+\hypertarget{_renderer_dx12_8cpp_source}{}\doxysection{Renderer\+Dx12.\+cpp}
+\label{_renderer_dx12_8cpp_source}\index{OSKengine2/RendererDx12.cpp@{OSKengine2/RendererDx12.cpp}}
+\mbox{\hyperlink{_renderer_dx12_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_renderer_dx12_8h}{RendererDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_hlsl_runtime_compiler_8h}{HlslRuntimeCompiler.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include <wrl.h>}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00006}00006 \textcolor{preprocessor}{\#include <dxgi1\_6.h>}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00007}00007 \textcolor{preprocessor}{\#include <d3d12.h>}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00008}00008 \textcolor{preprocessor}{\#include <AtlBase.h>}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00009}00009 \textcolor{preprocessor}{\#include <atlconv.h>}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00011}00011 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kengine_8h}{OSKengine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00012}00012 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_logger_8h}{Logger.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00013}00013 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_dx12_8h}{GpuDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00014}00014 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_command_queue_dx12_8h}{CommandQueueDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00015}00015 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_assert_8h}{Assert.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00016}00016 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_command_pool_dx12_8h}{CommandPoolDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00017}00017 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_command_list_dx12_8h}{CommandListDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00018}00018 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_swapchain_dx12_8h}{SwapchainDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00019}00019 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_window_8h}{Window.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00020}00020 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_format_8h}{Format.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00021}00021 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_version_8h}{Version.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00022}00022 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_sync_device_dx12_8h}{SyncDeviceDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00023}00023 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_memory_allocator_dx12_8h}{GpuMemoryAllocatorDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00024}00024 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_layout_8h}{GpuImageLayout.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00025}00025 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_renderpass_type_8h}{RenderpassType.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00026}00026 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_color_8hpp}{Color.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00027}00027 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_graphics_pipeline_dx12_8h}{GraphicsPipelineDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00028}00028 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_pipeline_create_info_8h}{PipelineCreateInfo.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_vertex_8h}{Vertex.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00030}00030 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_vertex_buffer_dx12_8h}{GpuVertexBufferDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00031}00031 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_memory_subblock_dx12_8h}{GpuMemorySubblockDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00032}00032 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_viewport_8h}{Viewport.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00033}00033 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_index_buffer_dx12_8h}{GpuIndexBufferDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00034}00034 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_material_layout_8h}{MaterialLayout.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00035}00035 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_uniform_buffer_dx12_8h}{GpuUniformBufferDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00036}00036 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_shader_binding_type_8h}{ShaderBindingType.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00037}00037 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_render_api_type_8h}{RenderApiType.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00038}00038 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_material_8h}{Material.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00039}00039 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_material_system_8h}{MaterialSystem.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00040}00040 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_material_instance_8h}{MaterialInstance.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00041}00041 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_material_slot_dx12_8h}{MaterialSlotDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00042}00042 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_dx12_8h}{GpuImageDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00043}00043 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_format_dx12_8h}{FormatDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00044}00044 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_image_8h}{IGpuImage.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00045}00045 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00046}00046 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_compute_pipeline_dx12_8h}{ComputePipelineDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00047}00047 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_texture_8h}{Texture.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00048}00048 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_model3_d_8h}{Model3D.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00049}00049 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_asset_manager_8h}{AssetManager.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00051}00051 \textcolor{preprocessor}{\#include <ext/matrix\_transform.hpp>}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00053}00053 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00054}00054 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00056}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a8717133b6a83522f43c6a6857ccf98ff}{00056}} RendererDx12::RendererDx12(\textcolor{keywordtype}{bool} requestRayTracing) : \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer}{IRenderer}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3057691f190dabf7642cfde72cf2430f}{RenderApiType}}::\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3057691f190dabf7642cfde72cf2430fa8bfc0c05d68d95476338b4d64a879c33}{DX12}}, requestRayTracing) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00058}00058 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00060}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_ab7878bf42ca91f9deb51a24a581ed547}{00060}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_ab7878bf42ca91f9deb51a24a581ed547}{RendererDx12::\string~RendererDx12}}() \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00061}00061     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a3ffe7a32d7b6503e007d5aba46b8fc2f}{Close}}();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00062}00062 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00064}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a51d80fc7e562d6b5472701de8e525957}{00064}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a51d80fc7e562d6b5472701de8e525957}{RendererDx12::Initialize}}(\textcolor{keyword}{const} std::string\& appName, \textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_version}{Version}}\& version, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window}{IO::Window}}\& window, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a47a7b3817b8aca438c20b7674fad28ab}{PresentMode}} mode) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00065}00065     \mbox{\hyperlink{class_o_s_k_1_1_engine_ac39b79a3e665381630f6c710f3772a2b}{Engine::GetLogger}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_logger_a3d2a88ffa05f6a74f9d669f1182bacca}{InfoLog}}(\textcolor{stringliteral}{"{}Iniciando renderizador DX12."{}});}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00067}00067     this-\/>window = \&\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4db58d26d84e9e636d2162264f69430d}{window}};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00069}00069 \textcolor{preprocessor}{\#ifdef OSK\_RELEASE}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00070}00070     \textcolor{keywordtype}{bool} useDebugConsole = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00071}00071 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00072}00072     \textcolor{keywordtype}{bool} useDebugConsole = SUCCEEDED(D3D12GetDebugInterface(IID\_PPV\_ARGS(\&debugConsole)));}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00073}00073 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00075}00075     \textcolor{keywordflow}{if} (useDebugConsole) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00076}00076         debugConsole-\/>EnableDebugLayer();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00078}00078         \textcolor{keyword}{auto} result = CreateDXGIFactory2(DXGI\_CREATE\_FACTORY\_DEBUG, IID\_PPV\_ARGS(\&factory));}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00079}00079         \mbox{\hyperlink{_assert_8h_ab17a47d656881cd12f1529fb2fd20d7e}{OSK\_CHECK}}(SUCCEEDED(result), \textcolor{stringliteral}{"{}No se ha podido crear las capas de validación."{}});}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00080}00080         }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00081}00081         \mbox{\hyperlink{class_o_s_k_1_1_engine_ac39b79a3e665381630f6c710f3772a2b}{Engine::GetLogger}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_logger_a3d2a88ffa05f6a74f9d669f1182bacca}{InfoLog}}(\textcolor{stringliteral}{"{}Capas de validación activas."{}});}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00082}00082     \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00083}00083     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00084}00084         \mbox{\hyperlink{class_o_s_k_1_1_engine_ac39b79a3e665381630f6c710f3772a2b}{Engine::GetLogger}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_logger_a3d2a88ffa05f6a74f9d669f1182bacca}{InfoLog}}(\textcolor{stringliteral}{"{}Capas de validación no disponibles."{}});}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00085}00085 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00086}00086         CreateDXGIFactory1(IID\_PPV\_ARGS(\&factory));}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00087}00087     \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00089}00089     ChooseGpu();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00090}00090     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a790caae05fafde407752499777d36b53}{CreateCommandQueues}}();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00091}00091     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_af9d96f008109e2bbcfdb13a3ca19aa0f}{CreateSwapchain}}(mode);}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00092}00092     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a155f617b6467a6777021840feb666065}{CreateSyncDevice}}();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00093}00093     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_afb7ad12b727fb09e20c09abb25421f1e}{CreateGpuMemoryAllocator}}();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00095}00095     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aae0f70bb0d6940710331e6b251812c81}{renderTargetsCamera}} = \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d}{ECS::CameraComponent2D}};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00096}00096     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aae0f70bb0d6940710331e6b251812c81}{renderTargetsCamera}}-\/>LinkToWindow(\&\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4db58d26d84e9e636d2162264f69430d}{window}});}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00097}00097     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ad4be6bdc6e9ed15a10bf4e333b722c58}{renderTargetsCameraTransform}}.\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_transform2_d_a4dacdf71db229722717bc2fe710edc36}{SetScale}}(\{ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4db58d26d84e9e636d2162264f69430d}{window}}.\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aa7f9f244691159612d42ddbc1fdc9288}{GetWindowSize}}().X / 2.0f, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4db58d26d84e9e636d2162264f69430d}{window}}.\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aa7f9f244691159612d42ddbc1fdc9288}{GetWindowSize}}().\mbox{\hyperlink{class_o_s_k_1_1_vector2__t_ab320f5a65251faed82bd06dcbfabbdf5}{Y}} / 2.0f \});}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00098}00098     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aae0f70bb0d6940710331e6b251812c81}{renderTargetsCamera}}-\/>UpdateUniformBuffer(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ad4be6bdc6e9ed15a10bf4e333b722c58}{renderTargetsCameraTransform}});}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00099}00099 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00100}00100     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a71ad70cf2d9210887d1b6f67fc0b7a84}{CreateMainRenderpass}}();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00101}00101 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00102}00102     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_o_s_k_1_1_engine_a17fd2842c078b7ddb4aaa70cd04549ab}{Engine::GetEntityComponentSystem}}())}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00103}00103         \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i : \mbox{\hyperlink{class_o_s_k_1_1_engine_a17fd2842c078b7ddb4aaa70cd04549ab}{Engine::GetEntityComponentSystem}}()-\/>GetRenderSystems())}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00104}00104             i-\/>CreateTargetImage(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4db58d26d84e9e636d2162264f69430d}{window}}.\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aa7f9f244691159612d42ddbc1fdc9288}{GetWindowSize}}());}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00105}00105 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00106}00106     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a92b402ae79fb7b6b7a262d8efe790a4b}{isOpen}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00107}00107 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00108}00108     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler_ad56975c12b8c57456b4e213e2937281c}{HlslRuntimeCompiler::InitializeComponents}}();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00109}00109 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00111}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a3ffe7a32d7b6503e007d5aba46b8fc2f}{00111}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a3ffe7a32d7b6503e007d5aba46b8fc2f}{RendererDx12::Close}}() \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00112}00112     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a92b402ae79fb7b6b7a262d8efe790a4b}{isOpen}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00113}00113 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00114}00114 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00115}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_ac2032b9e4dee210d952aa51081408525}{00115}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_ac2032b9e4dee210d952aa51081408525}{RendererDx12::HandleResize}}() \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00116}00116     mustResize = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00117}00117 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00118}00118     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a5222eda186e06692ee1e591a085473eb}{IRenderer::HandleResize}}();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00119}00119 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00120}00120 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00121}00121 \textcolor{keywordtype}{void} RendererDx12::Resize() \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00122}00122     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4db58d26d84e9e636d2162264f69430d}{window}}-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aa7f9f244691159612d42ddbc1fdc9288}{GetWindowSize}}().\mbox{\hyperlink{class_o_s_k_1_1_vector2__t_aab000bf2b18b21608055adaf4b8586b6}{X}} == 0 \&\& \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4db58d26d84e9e636d2162264f69430d}{window}}-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aa7f9f244691159612d42ddbc1fdc9288}{GetWindowSize}}().\mbox{\hyperlink{class_o_s_k_1_1_vector2__t_ab320f5a65251faed82bd06dcbfabbdf5}{Y}} == 0)}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00123}00123         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00124}00124 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00125}00125     \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8}{Format}} format = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}{swapchain}}-\/>GetImage(0)-\/>GetFormat();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00126}00126 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00127}00127     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}{swapchain}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12}{SwapchainDx12}}>()-\/>DeleteImages();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00128}00128 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00129}00129     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}{swapchain}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12}{SwapchainDx12}}>()-\/>GetSwapchain()-\/>ResizeBuffers(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}{swapchain}}-\/>GetImageCount(),}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00130}00130         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4db58d26d84e9e636d2162264f69430d}{window}}-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aa7f9f244691159612d42ddbc1fdc9288}{GetWindowSize}}().\mbox{\hyperlink{class_o_s_k_1_1_vector2__t_aab000bf2b18b21608055adaf4b8586b6}{X}}, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4db58d26d84e9e636d2162264f69430d}{window}}-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aa7f9f244691159612d42ddbc1fdc9288}{GetWindowSize}}().\mbox{\hyperlink{class_o_s_k_1_1_vector2__t_ab320f5a65251faed82bd06dcbfabbdf5}{Y}}, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a100a7488e1eee158da65062d0b5e5277}{GetFormatDx12}}(format), 0);}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00131}00131 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00132}00132     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}{swapchain}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12}{SwapchainDx12}}>()-\/>CreateImages(*\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4db58d26d84e9e636d2162264f69430d}{window}});}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00133}00133     \textcolor{comment}{//finalRenderpass-\/>SetImages(swapchain-\/>GetImage(0), swapchain-\/>GetImage(1), swapchain-\/>GetImage(2));}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00134}00134 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00135}00135 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00136}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_ab6a13de17b200ccc537a56bd61eb8b8f}{00136}} \textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_ab6a13de17b200ccc537a56bd61eb8b8f}{RendererDx12::FormatImageDataForGpu}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GpuImage}}* image, \textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}}* data, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numLayers) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00137}00137     \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}}* output = \textcolor{keyword}{new} \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}}[image-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ac8e03db4a14a8612958758e67703e33f}{GetPhysicalNumberOfBytes}}() * numLayers];}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00138}00138 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00139}00139     \textcolor{keyword}{const} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numBytesPerPixel = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_abd894ab72db6cb1f2762684830d7354c}{GetFormatNumberOfBytes}}(image-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_a7fbd0307d9e9147312004fecca6b73ba}{GetFormat}}());}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00140}00140     \textcolor{keyword}{const} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numBytesPerLayer = image-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ac8e03db4a14a8612958758e67703e33f}{GetPhysicalNumberOfBytes}}();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00141}00141 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00142}00142     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < numLayers + 0; i++) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00143}00143         \textcolor{keyword}{const} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} layerOffset = numBytesPerLayer * i;}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00144}00144 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00145}00145         \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} y = 0; y < image-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_a010e504f13e07ce86e1d82e344493860}{GetPhysicalSize}}().Y; y++)}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00146}00146             memcpy(\&output[layerOffset + y * image-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_a010e504f13e07ce86e1d82e344493860}{GetPhysicalSize}}().\mbox{\hyperlink{class_o_s_k_1_1_vector3__t_a9dd92e8b519b62ce53eb71f58eba6d50}{X}} * numBytesPerPixel], \&data[layerOffset + y * image-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_a244ebc8ce3ae3095698ea0c3eaba58fc}{GetSize}}().\mbox{\hyperlink{class_o_s_k_1_1_vector3__t_a9dd92e8b519b62ce53eb71f58eba6d50}{X}} * numBytesPerPixel], image-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_a244ebc8ce3ae3095698ea0c3eaba58fc}{GetSize}}().\mbox{\hyperlink{class_o_s_k_1_1_vector3__t_a9dd92e8b519b62ce53eb71f58eba6d50}{X}} * numBytesPerPixel);}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00147}00147     \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00148}00148 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00149}00149     \textcolor{keywordflow}{return} output;}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00150}00150 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00151}00151 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00152}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_af46ea93c4a69576f69cb0000a0c39364}{00152}} \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<IGraphicsPipeline>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_af46ea93c4a69576f69cb0000a0c39364}{RendererDx12::\_CreateGraphicsPipeline}}(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{PipelineCreateInfo}}\& pipelineInfo, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{MaterialLayout}}* layout, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{VertexInfo}}\& vertexInfo) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00153}00153     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12}{GraphicsPipelineDx12}}* pipeline = \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12}{GraphicsPipelineDx12}}();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00154}00154 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00155}00155     pipeline-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12_a164ad846a2010825fbbd9d474b2a82f3}{Create}}(layout, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a2928763ae4948a9de9bafad902fd9696}{currentGpu}}.GetPointer(), pipelineInfo, vertexInfo);}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00156}00156 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00157}00157     \textcolor{keywordflow}{return} pipeline;}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00158}00158 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00159}00159 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00160}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a7ccb60bf3ae04f2f858a067602ea18c2}{00160}} \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<IRaytracingPipeline>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a7ccb60bf3ae04f2f858a067602ea18c2}{RendererDx12::\_CreateRaytracingPipeline}}(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{PipelineCreateInfo}}\& pipelineInfo, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{MaterialLayout}}* layout, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{VertexInfo}}\& vertexTypeName) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00161}00161     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(\textcolor{keyword}{false}, \textcolor{stringliteral}{"{}No implementado."{}});}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00162}00162     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00163}00163 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00164}00164 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00165}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a1ea1839d85f6b1847f929f749267e9c4}{00165}} \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<IComputePipeline>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a1ea1839d85f6b1847f929f749267e9c4}{RendererDx12::\_CreateComputePipeline}}(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{PipelineCreateInfo}}\& pipelineInfo, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{MaterialLayout}}* layout) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00166}00166     \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_compute_pipeline_dx12}{ComputePipelineDx12}}(pipelineInfo, layout, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a2928763ae4948a9de9bafad902fd9696}{currentGpu}}.GetPointer());}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00167}00167 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00168}00168 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00169}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_af2adc55fe722200c02008cb341d23bac}{00169}} \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<IMaterialSlot>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_af2adc55fe722200c02008cb341d23bac}{RendererDx12::\_CreateMaterialSlot}}(\textcolor{keyword}{const} std::string\& name, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{MaterialLayout}}* layout)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00170}00170     \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12}{MaterialSlotDx12}}(name, layout);}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00171}00171 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00172}00172 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00173}00173 \textcolor{keywordtype}{void} RendererDx12::ChooseGpu() \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00174}00174     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a2928763ae4948a9de9bafad902fd9696}{currentGpu}} = \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12}{GpuDx12}};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00175}00175     ComPtr<IDXGIAdapter1> adapter;}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00176}00176 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00177}00177     \textcolor{keywordtype}{bool} found = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00178}00178     \textcolor{comment}{// Iteramos sobre todas las gpu disponibles.}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00179}00179     \textcolor{keywordflow}{for} (uint32\_t i = 0; !found \&\& factory-\/>EnumAdapters1(i, \&adapter) != DXGI\_ERROR\_NOT\_FOUND; ++i) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00180}00180         DXGI\_ADAPTER\_DESC1 description;}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00181}00181         adapter-\/>GetDesc1(\&description);}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00182}00182 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00183}00183         \textcolor{comment}{// que este adaptador no sea emulado por software}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00184}00184         \textcolor{keywordflow}{if} (description.Flags \& DXGI\_ADAPTER\_FLAG\_SOFTWARE)}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00185}00185             \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00186}00186 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00187}00187         \textcolor{comment}{// decidir con bAdapterFound si es este adaptador el que queramos }}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00188}00188         \textcolor{keyword}{auto} isValid = D3D12CreateDevice(adapter.Get(), D3D\_FEATURE\_LEVEL\_12\_0, \_uuidof(ID3D12Device), \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00189}00189         \textcolor{keywordflow}{if} (SUCCEEDED(isValid)) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00190}00190             \mbox{\hyperlink{class_o_s_k_1_1_engine_ac39b79a3e665381630f6c710f3772a2b}{Engine::GetLogger}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_logger_a3d2a88ffa05f6a74f9d669f1182bacca}{InfoLog}}(\textcolor{stringliteral}{"{}GPU elegida: "{}} + std::string(CW2A(description.Description)));}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00191}00191 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00192}00192             found = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00193}00193         \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00194}00194     \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00195}00195 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00196}00196     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(found, \textcolor{stringliteral}{"{}No se ha encontrado ninguna GPU compatible con DirectX 12"{}});}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00197}00197 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00198}00198     ComPtr<ID3D12Device> device;}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00199}00199     D3D12CreateDevice(adapter.Get(), D3D\_FEATURE\_LEVEL\_12\_0, IID\_PPV\_ARGS(\&device));}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00200}00200         }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00201}00201     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a2928763ae4948a9de9bafad902fd9696}{currentGpu}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12}{GpuDx12}}>()-\/>SetAdapter(adapter);}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00202}00202     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a2928763ae4948a9de9bafad902fd9696}{currentGpu}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12}{GpuDx12}}>()-\/>SetDevice(device);}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00203}00203 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00204}00204 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00205}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a790caae05fafde407752499777d36b53}{00205}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a790caae05fafde407752499777d36b53}{RendererDx12::CreateCommandQueues}}() \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00206}00206     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ada7ad73436c32df92625b7af4e708e17}{graphicsQueue}} = \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12}{CommandQueueDx12}};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00207}00207 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00208}00208     ComPtr<ID3D12CommandQueue> commandQ;}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00209}00209 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00210}00210     D3D12\_COMMAND\_QUEUE\_DESC createInfo\{\};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00211}00211 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00212}00212     \textcolor{comment}{// Hay distintos tipos de colas como:}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00213}00213     \textcolor{comment}{//  D3D12\_COMMAND\_LIST\_TYPE\_COMPUTE}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00214}00214     \textcolor{comment}{// para temas relacionados con compute shader}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00215}00215     \textcolor{comment}{// pero nosotros queremos usar la cola gráfica:}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00216}00216     createInfo.Type = D3D12\_COMMAND\_LIST\_TYPE\_DIRECT;}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00217}00217 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00218}00218     \textcolor{comment}{// para temas de usar múltiples nodos GPU.}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00219}00219     \textcolor{comment}{// para uso de una sola GPU se pone a 0}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00220}00220     createInfo.NodeMask = 0;}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00221}00221 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00222}00222     \textcolor{comment}{// La prioridad de la cola, normalmente NORMAL}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00223}00223     createInfo.Priority = D3D12\_COMMAND\_QUEUE\_PRIORITY\_NORMAL;}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00224}00224 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00225}00225     \textcolor{comment}{// Flags adicionales. En estos momentos solo hay dos:}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00226}00226     \textcolor{comment}{//  D3D12\_COMMAND\_LIST\_TYPE\_BUNDLE}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00227}00227     \textcolor{comment}{//  D3D12\_COMMAND\_QUEUE\_FLAG\_DISABLE\_GPU\_TIMEOUT}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00228}00228     createInfo.Flags = D3D12\_COMMAND\_QUEUE\_FLAG\_NONE;}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00229}00229 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00230}00230     \textcolor{comment}{// Una vez rellenada la estructura, crear el CommandQueue}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00231}00231     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a2928763ae4948a9de9bafad902fd9696}{currentGpu}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12}{GpuDx12}}>()-\/>\mbox{\hyperlink{_material_slot_vulkan_8cpp_adead74bea72029d218144e2a94a1eb1e}{GetDevice}}()-\/>CreateCommandQueue(\&createInfo, IID\_PPV\_ARGS(\&commandQ));}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00232}00232 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00233}00233     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ada7ad73436c32df92625b7af4e708e17}{graphicsQueue}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12}{CommandQueueDx12}}>()-\/>SetCommandQueue(commandQ);}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00234}00234     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acad78f090fc5cf8a54762d863452b419}{graphicsCommandPool}} = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a2928763ae4948a9de9bafad902fd9696}{currentGpu}}-\/>CreateGraphicsCommandPool().GetPointer();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00235}00235 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00236}00236     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a34603566a0187941cbff752e587db881}{graphicsCommandList}} = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acad78f090fc5cf8a54762d863452b419}{graphicsCommandPool}}-\/>CreateCommandList(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a2928763ae4948a9de9bafad902fd9696}{currentGpu}}.GetValue()).GetPointer();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00237}00237     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a34603566a0187941cbff752e587db881}{graphicsCommandList}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12}{CommandListDx12}}>()-\/>SetCommandPool(*\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acad78f090fc5cf8a54762d863452b419}{graphicsCommandPool}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12}{CommandPoolDx12}}>());}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00238}00238     \mbox{\hyperlink{class_o_s_k_1_1_engine_ac39b79a3e665381630f6c710f3772a2b}{Engine::GetLogger}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_logger_a3d2a88ffa05f6a74f9d669f1182bacca}{InfoLog}}(\textcolor{stringliteral}{"{}Creada la lista de comandos."{}});}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00239}00239 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00240}00240 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00241}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_af9d96f008109e2bbcfdb13a3ca19aa0f}{00241}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_af9d96f008109e2bbcfdb13a3ca19aa0f}{RendererDx12::CreateSwapchain}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a47a7b3817b8aca438c20b7674fad28ab}{PresentMode}} mode) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00242}00242     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}{swapchain}} = \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12}{SwapchainDx12}};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00243}00243 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00244}00244     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}{swapchain}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12}{SwapchainDx12}}>()-\/>Create(mode, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a2928763ae4948a9de9bafad902fd9696}{currentGpu}}.GetPointer(), \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8a909cc8c5cc8fe4f16bec84a291aadbdb}{Format::RGBA8\_UNORM}}, *\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ada7ad73436c32df92625b7af4e708e17}{graphicsQueue}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12}{CommandQueueDx12}}>(), factory.Get(), *\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4db58d26d84e9e636d2162264f69430d}{window}});}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00245}00245 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00246}00246     \mbox{\hyperlink{class_o_s_k_1_1_engine_ac39b79a3e665381630f6c710f3772a2b}{Engine::GetLogger}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_logger_a3d2a88ffa05f6a74f9d669f1182bacca}{InfoLog}}(\textcolor{stringliteral}{"{}Creado el swapchain."{}});}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00247}00247 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00248}00248 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00249}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a155f617b6467a6777021840feb666065}{00249}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a155f617b6467a6777021840feb666065}{RendererDx12::CreateSyncDevice}}() \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00250}00250     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aed39f82dfcb5e92d9ed9efdca4f346ee}{syncDevice}} = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a2928763ae4948a9de9bafad902fd9696}{currentGpu}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12}{GpuDx12}}>()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a155f617b6467a6777021840feb666065}{CreateSyncDevice}}().GetPointer();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00251}00251 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00252}00252 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00253}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_afb7ad12b727fb09e20c09abb25421f1e}{00253}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_afb7ad12b727fb09e20c09abb25421f1e}{RendererDx12::CreateGpuMemoryAllocator}}() \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00254}00254     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a046cb6d9d3bd12965b1abc3e9bd3c2c3}{gpuMemoryAllocator}} = \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12}{GpuMemoryAllocatorDx12}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a2928763ae4948a9de9bafad902fd9696}{currentGpu}}.GetPointer());}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00255}00255 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00256}00256     \mbox{\hyperlink{class_o_s_k_1_1_engine_ac39b79a3e665381630f6c710f3772a2b}{Engine::GetLogger}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_logger_a3d2a88ffa05f6a74f9d669f1182bacca}{InfoLog}}(\textcolor{stringliteral}{"{}Creado el asignador de memoria de la GPU."{}});}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00257}00257 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00258}00258 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00259}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_ac38d009020f9002c7c6f4e13a348361d}{00259}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_ac38d009020f9002c7c6f4e13a348361d}{RendererDx12::PresentFrame}}() \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00260}00260     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0dd4df1f6aedb79c660b511c673e1318}{isFirstRender}}) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00261}00261         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a34603566a0187941cbff752e587db881}{graphicsCommandList}}-\/>Reset();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00262}00262         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a34603566a0187941cbff752e587db881}{graphicsCommandList}}-\/>Start();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00263}00263 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00264}00264         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aea4737662d1590969769cd958cb7adaf}{preComputeCommandList}}-\/>Reset();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00265}00265         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aea4737662d1590969769cd958cb7adaf}{preComputeCommandList}}-\/>Start();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00266}00266 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00267}00267         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0574dda9de1a0beaffbe4326f374cbee}{postComputeCommandList}}-\/>Reset();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00268}00268         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0574dda9de1a0beaffbe4326f374cbee}{postComputeCommandList}}-\/>Start();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00269}00269 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00270}00270         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0dd4df1f6aedb79c660b511c673e1318}{isFirstRender}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00271}00271     \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00272}00272 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00273}00273     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a34603566a0187941cbff752e587db881}{graphicsCommandList}}-\/>Close();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00274}00274     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aea4737662d1590969769cd958cb7adaf}{preComputeCommandList}}-\/>Close();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00275}00275     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0574dda9de1a0beaffbe4326f374cbee}{postComputeCommandList}}-\/>Close();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00276}00276 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00277}00277     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0493d3e86b3a5f32f74acf9a280c812f}{singleTimeCommandLists}}.GetSize(); i++)}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00278}00278         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0493d3e86b3a5f32f74acf9a280c812f}{singleTimeCommandLists}}.At(i)-\/>DeleteAllStagingBuffers();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00279}00279 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00280}00280     ID3D12CommandList* commandLists[] = \{ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a34603566a0187941cbff752e587db881}{graphicsCommandList}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12}{CommandListDx12}}>()-\/>GetCommandList() \};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00281}00281     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ada7ad73436c32df92625b7af4e708e17}{graphicsQueue}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12}{CommandQueueDx12}}>()-\/>GetCommandQueue()-\/>ExecuteCommandLists(1, commandLists);}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00282}00282 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00283}00283     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}{swapchain}}-\/>Present();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00284}00284 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00285}00285     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aed39f82dfcb5e92d9ed9efdca4f346ee}{syncDevice}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_dx12}{SyncDeviceDx12}}>()-\/>Flush(*\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ada7ad73436c32df92625b7af4e708e17}{graphicsQueue}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12}{CommandQueueDx12}}>());}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00286}00286     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aed39f82dfcb5e92d9ed9efdca4f346ee}{syncDevice}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_dx12}{SyncDeviceDx12}}>()-\/>Await();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00287}00287 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00288}00288     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a34603566a0187941cbff752e587db881}{graphicsCommandList}}-\/>Reset();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00289}00289     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aea4737662d1590969769cd958cb7adaf}{preComputeCommandList}}-\/>Reset();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00290}00290     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0574dda9de1a0beaffbe4326f374cbee}{postComputeCommandList}}-\/>Reset();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00291}00291 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00292}00292     \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00293}00293     \textcolor{keywordflow}{if} (mustResize) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00294}00294         Resize();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00295}00295         mustResize = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00296}00296 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00297}00297         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aed39f82dfcb5e92d9ed9efdca4f346ee}{syncDevice}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_dx12}{SyncDeviceDx12}}>()-\/>Flush(*\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ada7ad73436c32df92625b7af4e708e17}{graphicsQueue}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12}{CommandQueueDx12}}>());}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00298}00298         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aed39f82dfcb5e92d9ed9efdca4f346ee}{syncDevice}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_dx12}{SyncDeviceDx12}}>()-\/>Await();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00299}00299         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}{swapchain}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12}{SwapchainDx12}}>()-\/>UpdateFrameIndex();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00300}00300     \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00301}00301 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00302}00302     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a34603566a0187941cbff752e587db881}{graphicsCommandList}}-\/>Start();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00303}00303     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aea4737662d1590969769cd958cb7adaf}{preComputeCommandList}}-\/>Start();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00304}00304     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0574dda9de1a0beaffbe4326f374cbee}{postComputeCommandList}}-\/>Start();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00305}00305 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00306}00306 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00307}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_aee3fe2ba62f45e78d160fa9b96c810cb}{00307}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_aee3fe2ba62f45e78d160fa9b96c810cb}{RendererDx12::SubmitSingleUseCommandList}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommandList}}* commandList) \{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00308}00308     ID3D12CommandList* commandLists[] = \{ commandList-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a7bf40442c718857b7b6b6ced797d5b2a}{As}}<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12}{CommandListDx12}}>()-\/>GetCommandList() \};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00309}00309     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ada7ad73436c32df92625b7af4e708e17}{graphicsQueue}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12}{CommandQueueDx12}}>()-\/>GetCommandQueue()-\/>ExecuteCommandLists(1, commandLists);}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00310}00310 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00311}00311     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aed39f82dfcb5e92d9ed9efdca4f346ee}{syncDevice}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_dx12}{SyncDeviceDx12}}>()-\/>Flush(*\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ada7ad73436c32df92625b7af4e708e17}{graphicsQueue}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_dx12}{CommandQueueDx12}}>());}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00312}00312     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aed39f82dfcb5e92d9ed9efdca4f346ee}{syncDevice}}-\/>As<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_dx12}{SyncDeviceDx12}}>()-\/>Await();}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00313}00313 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00314}00314     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0493d3e86b3a5f32f74acf9a280c812f}{singleTimeCommandLists}}.Insert(commandList);}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00315}00315 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00316}00316 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00317}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_ad58b31f5e198bd490ce1a6c44595d1b7}{00317}} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_ad58b31f5e198bd490ce1a6c44595d1b7}{RendererDx12::GetCurrentFrameIndex}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00318}00318     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00319}00319 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00320}00320 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00321}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a0a045df2620e85742bcca0133d01beef}{00321}} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_a0a045df2620e85742bcca0133d01beef}{RendererDx12::GetCurrentCommandListIndex}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00322}00322     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00323}00323 \}}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00324}00324 }
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00325}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_aa05a68391391ba558bbbf116a51f674d}{00325}} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_aa05a68391391ba558bbbf116a51f674d}{RendererDx12::SupportsRaytracing}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00326}00326     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_renderer_dx12_8cpp_source_l00327}00327 \}}
+
+\end{DoxyCode}

@@ -1,0 +1,74 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::IPipeline\+Layout}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout}\index{OSK::GRAPHICS::IPipelineLayout@{OSK::GRAPHICS::IPipelineLayout}}
+
+
+{\ttfamily \#include $<$IPipeline\+Layout.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::IPipeline\+Layout
+% FIG 0
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout_a41e897524c76dfa2abd3d773108de7ff}{IPipeline\+Layout}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} $\ast$layout)
+\item 
+virtual \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout_a6f28e32e0214d804fdd211cceaab960d}{$\sim$\+IPipeline\+Layout}} ()=default
+\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout}{IPipeline\+Layout}}, T$>$}\\T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout_ab7b56d4f89c4be3813932ecc24f1b3a3}{As}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Un pipeline layout define el layout del pipeline, es decir\+: define qué recursos necesita para el renderizado (textura, buffers, push constants...). 
+
+Representación nativa de \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}}.
+
+\begin{DoxySeeAlso}{Ver también}
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}}. 
+\end{DoxySeeAlso}
+
+
+Definición en la línea \mbox{\hyperlink{_i_pipeline_layout_8h_source_l00018}{18}} del archivo \mbox{\hyperlink{_i_pipeline_layout_8h_source}{IPipeline\+Layout.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout_a41e897524c76dfa2abd3d773108de7ff}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout_a41e897524c76dfa2abd3d773108de7ff}} 
+\index{OSK::GRAPHICS::IPipelineLayout@{OSK::GRAPHICS::IPipelineLayout}!IPipelineLayout@{IPipelineLayout}}
+\index{IPipelineLayout@{IPipelineLayout}!OSK::GRAPHICS::IPipelineLayout@{OSK::GRAPHICS::IPipelineLayout}}
+\doxysubsubsection{\texorpdfstring{IPipelineLayout()}{IPipelineLayout()}}
+{\footnotesize\ttfamily IPipeline\+Layout\+::\+IPipeline\+Layout (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} $\ast$}]{layout }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_pipeline_layout_8cpp_source_l00006}{6}} del archivo \mbox{\hyperlink{_i_pipeline_layout_8cpp_source}{IPipeline\+Layout.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout_a6f28e32e0214d804fdd211cceaab960d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout_a6f28e32e0214d804fdd211cceaab960d}} 
+\index{OSK::GRAPHICS::IPipelineLayout@{OSK::GRAPHICS::IPipelineLayout}!````~IPipelineLayout@{$\sim$IPipelineLayout}}
+\index{````~IPipelineLayout@{$\sim$IPipelineLayout}!OSK::GRAPHICS::IPipelineLayout@{OSK::GRAPHICS::IPipelineLayout}}
+\doxysubsubsection{\texorpdfstring{$\sim$IPipelineLayout()}{~IPipelineLayout()}}
+{\footnotesize\ttfamily virtual OSK\+::\+GRAPHICS\+::\+IPipeline\+Layout\+::$\sim$\+IPipeline\+Layout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout_ab7b56d4f89c4be3813932ecc24f1b3a3}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout_ab7b56d4f89c4be3813932ecc24f1b3a3}} 
+\index{OSK::GRAPHICS::IPipelineLayout@{OSK::GRAPHICS::IPipelineLayout}!As@{As}}
+\index{As@{As}!OSK::GRAPHICS::IPipelineLayout@{OSK::GRAPHICS::IPipelineLayout}}
+\doxysubsubsection{\texorpdfstring{As()}{As()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout}{IPipeline\+Layout}}, T$>$\\
+T $\ast$ OSK\+::\+GRAPHICS\+::\+IPipeline\+Layout\+::\+As (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_pipeline_layout_8h_source_l00025}{25}} del archivo \mbox{\hyperlink{_i_pipeline_layout_8h_source}{IPipeline\+Layout.\+h}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_i_pipeline_layout_8h}{IPipeline\+Layout.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_i_pipeline_layout_8cpp}{IPipeline\+Layout.\+cpp}}\end{DoxyCompactItemize}

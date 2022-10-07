@@ -82,8 +82,6 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IAsset** asset)
 	int numChannels = 0;
 
 	float* pixels = stbi_loadf(texturePath.c_str(), &width, &height, &numChannels, 4);
-	float npixels[500];
-	memcpy(npixels, pixels, sizeof(float) * 500);
 
 	// Crear imagen original y llenarla.
 	const Vector3ui size(width, height, 1);

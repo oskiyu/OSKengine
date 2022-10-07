@@ -138,7 +138,11 @@ $(document).ready(function(){initNavTree('_math_8h_source.html',''); initResizab
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keywordflow">return</span> value;</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    }</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>}</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keyword">static</span> <span class="keyword">inline</span> glm::mat4 GetMatrixOffset(<span class="keyword">const</span> glm::mat4&amp; first, <span class="keyword">const</span> glm::mat4&amp; second) {</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="keywordflow">return</span> glm::inverse(first) - second;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    }</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>}</div>
 <div class="ttc" id="aconcept_o_s_k_1_1_m_a_t_h_1_1_is_integer_html"><div class="ttname"><a href="concept_o_s_k_1_1_m_a_t_h_1_1_is_integer.html">OSK::MATH::IsInteger</a></div><div class="ttdoc">Concepto que permite distinguir cualquier tipo numérico entero.</div><div class="ttdef"><b>Definition:</b> <a href="_math_8h_source.html#l00022">Math.h:22</a></div></div>
 <div class="ttc" id="aconcept_o_s_k_1_1_m_a_t_h_1_1_is_numeric_html"><div class="ttname"><a href="concept_o_s_k_1_1_m_a_t_h_1_1_is_numeric.html">OSK::MATH::IsNumeric</a></div><div class="ttdoc">Concepto que permite distinguir cualquier tipo numérico.</div><div class="ttdef"><b>Definition:</b> <a href="_math_8h_source.html#l00014">Math.h:14</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_m_a_t_h_html"><div class="ttname"><a href="namespace_o_s_k_1_1_m_a_t_h.html">OSK::MATH</a></div><div class="ttdef"><b>Definition:</b> <a href="_math_8h_source.html#l00005">Math.h:5</a></div></div>
@@ -153,7 +157,7 @@ $(document).ready(function(){initNavTree('_math_8h_source.html',''); initResizab
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_math_8h.html">Math.h</a></li>
-    <li class="footer">Generado el Sábado, 17 de Septiembre de 2022 00:04:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 6 de Octubre de 2022 19:30:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

@@ -1,0 +1,14 @@
+digraph "OSK::DynamicArray::CreateResizedArray"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::DynamicArray::\lCreateResizedArray",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Crea un DynamicArray con un número de elementos ya creados e insertados."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::DynamicArray::\lResize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#adcbd5bb6ce88469bc9e6f65be06ceae6",tooltip="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda. Se añaden elementos hasta q..."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="OSK::DynamicArray::\lReserve",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#a34323ddf4963e2097def5d8c3f80c08e",tooltip="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="OSK::DynamicArray::\lAllocate",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#acf322bf27bf4bfd581079500c67171a6",tooltip="Reserva espacio para 'size' elementos. Preserva los elementos anteriores."];
+}

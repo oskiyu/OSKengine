@@ -1,0 +1,10 @@
+digraph "OSK::LinkedList::InsertAll"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::LinkedList::InsertAll",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Añade los elementos de la otra lista a esta lista."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::LinkedList::Insert",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_linked_list.html#a8fa021e2fec2e977c18544e6e5807963",tooltip="Añade un elemento a la lista."];
+}

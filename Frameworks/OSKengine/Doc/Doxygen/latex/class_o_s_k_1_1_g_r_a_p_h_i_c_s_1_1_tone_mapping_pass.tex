@@ -1,0 +1,383 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::Tone\+Mapping\+Pass}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass}\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+
+
+{\ttfamily \#include $<$Tone\+Mapping.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::Tone\+Mapping\+Pass
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::Tone\+Mapping\+Pass\+:
+% FIG 1
+\doxysubsection*{Tipos públicos}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a96bf7489b9b90da1c5f3943906ad54e5}{Input\+Type}} \{ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a96bf7489b9b90da1c5f3943906ad54e5a17a99bfdcbe59e8209f17c4da5de6ff9}{STORAGE\+\_\+\+IMAGE}}
+, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a96bf7489b9b90da1c5f3943906ad54e5aaa4fc1f642950410dd11d691fe974cca}{SAMPLER}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_ae4b800abcdc909dee3da88a751498a5d}{Create}} (const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&size) override
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_a2122a40b89ffe02dd1475eb994eb6a10}{Execute}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $\ast$compute\+Cmd\+List) override
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_a05e860b1d53147b26d99c55c11bac298}{Set\+Exposure\+Buffers}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_storage_buffer}{IGpu\+Storage\+Buffer}} $\ast$\mbox{[}3\mbox{]})
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_a81013c6301c60a6c37b1b8853f3f01b8}{Set\+Exposure}} (float exposure)
+\item 
+float \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_a9058562637da7745f7cfea88813449f2}{Get\+Exposure}} () const
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_aefc83e498c0cb582b3653dfc8b3ea220}{Set\+Gamma}} (float gamma)
+\item 
+float \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_a8ee9234e3d09329957b80896ca286710}{Get\+Gamma}} () const
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a5755b9283180f003c9d77fbebebfb322}{Resize}} (const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&size)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_af7e88a9869fe68ca02e156ec242bbf82}{Set\+Input}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$images\mbox{[}3\mbox{]}, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a96bf7489b9b90da1c5f3943906ad54e5}{Input\+Type}} type=\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a96bf7489b9b90da1c5f3943906ad54e5a17a99bfdcbe59e8209f17c4da5de6ff9}{Input\+Type\+::\+STORAGE\+\_\+\+IMAGE}})
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a1a082c4a464e368e99ac31064834213e}{Set\+Input}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}} \&target, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a96bf7489b9b90da1c5f3943906ad54e5}{Input\+Type}} type=\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a96bf7489b9b90da1c5f3943906ad54e5a17a99bfdcbe59e8209f17c4da5de6ff9}{Input\+Type\+::\+STORAGE\+\_\+\+IMAGE}})
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}} \& \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a7d0bbf3e16f85b802fd4e493f583ae9a}{Get\+Output}} () const
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a8208778343f1ebf2150487856afec2ab}{Update\+Material\+Instance}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Métodos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_af8ba42331100543dd02e05a5d3c228ab}{Setup\+Default\+Material\+Instances}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{Material}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a4ec65c16dde8276324f202ba41c399f6}{post\+Processing\+Material}} = nullptr
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance}{Material\+Instance}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a2ae9345b24bc12cc56e0749a548aef7c}{post\+Processing\+Material\+Instance}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_aeb2b153e46784f2b55333cc63b19f605}{resolve\+Render\+Target}} \{\}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a790f63a17cb829756f149c9b3a29dbcd}{input\+Images}} \mbox{[}3\mbox{]} \{\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+
+
+Definición en la línea \mbox{\hyperlink{_tone_mapping_8h_source_l00010}{10}} del archivo \mbox{\hyperlink{_tone_mapping_8h_source}{Tone\+Mapping.\+h}}.
+
+
+
+\doxysubsection{Documentación de las enumeraciones miembro de la clase}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a96bf7489b9b90da1c5f3943906ad54e5}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a96bf7489b9b90da1c5f3943906ad54e5}} 
+\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!InputType@{InputType}}
+\index{InputType@{InputType}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+\doxysubsubsection{\texorpdfstring{InputType}{InputType}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a96bf7489b9b90da1c5f3943906ad54e5}{OSK\+::\+GRAPHICS\+::\+IPost\+Process\+Pass\+::\+Input\+Type}}\hspace{0.3cm}{\ttfamily [strong]}, {\ttfamily [inherited]}}
+
+\begin{DoxyEnumFields}{Valores de enumeraciones}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STORAGE\_IMAGE@{STORAGE\_IMAGE}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!STORAGE\_IMAGE@{STORAGE\_IMAGE}}}\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a96bf7489b9b90da1c5f3943906ad54e5a17a99bfdcbe59e8209f17c4da5de6ff9}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a96bf7489b9b90da1c5f3943906ad54e5a17a99bfdcbe59e8209f17c4da5de6ff9}} 
+STORAGE\+\_\+\+IMAGE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SAMPLER@{SAMPLER}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!SAMPLER@{SAMPLER}}}\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a96bf7489b9b90da1c5f3943906ad54e5aaa4fc1f642950410dd11d691fe974cca}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a96bf7489b9b90da1c5f3943906ad54e5aaa4fc1f642950410dd11d691fe974cca}} 
+SAMPLER&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definición en la línea \mbox{\hyperlink{_i_post_process_pass_8h_source_l00023}{23}} del archivo \mbox{\hyperlink{_i_post_process_pass_8h_source}{IPost\+Process\+Pass.\+h}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_ae4b800abcdc909dee3da88a751498a5d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_ae4b800abcdc909dee3da88a751498a5d}} 
+\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!Create@{Create}}
+\index{Create@{Create}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily void Tone\+Mapping\+Pass\+::\+Create (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea el render target de salida. Se puede sobreescribir para crear recursos intermedios. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em size} & Tamaño de la imagen final.\\
+\hline
+\end{DoxyParams}
+
+
+Reimplementado de \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a92aa17faa014d558ac7cc79eb982c03c}{OSK\+::\+GRAPHICS\+::\+IPost\+Process\+Pass}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_tone_mapping_pass_8cpp_source_l00013}{13}} del archivo \mbox{\hyperlink{_tone_mapping_pass_8cpp_source}{Tone\+Mapping\+Pass.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_a2122a40b89ffe02dd1475eb994eb6a10}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_a2122a40b89ffe02dd1475eb994eb6a10}} 
+\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!Execute@{Execute}}
+\index{Execute@{Execute}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+\doxysubsubsection{\texorpdfstring{Execute()}{Execute()}}
+{\footnotesize\ttfamily void Tone\+Mapping\+Pass\+::\+Execute (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $\ast$}]{compute\+Cmd\+List }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Genera la imagen final. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em compute\+Cmd\+List} & Lista de comandos de computación.\\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyPrecond}{Precondición}
+Se deben haber establecido las imágenes de entrada con \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_af7e88a9869fe68ca02e156ec242bbf82}{IPost\+Process\+Pass\+::\+Set\+Input}}. 
+
+Las imágenes de entrada establecidas con \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_af7e88a9869fe68ca02e156ec242bbf82}{IPost\+Process\+Pass\+::\+Set\+Input}} deben estar en un estado válido. 
+
+compute\+Cmd\+List debe ser una lista de comandos de computación. 
+\end{DoxyPrecond}
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a05388cf0f2e8bc5e1b94cdc76cd58c8e}{OSK\+::\+GRAPHICS\+::\+IPost\+Process\+Pass}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_tone_mapping_pass_8cpp_source_l00022}{22}} del archivo \mbox{\hyperlink{_tone_mapping_pass_8cpp_source}{Tone\+Mapping\+Pass.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 3
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_a9058562637da7745f7cfea88813449f2}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_a9058562637da7745f7cfea88813449f2}} 
+\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!GetExposure@{GetExposure}}
+\index{GetExposure@{GetExposure}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+\doxysubsubsection{\texorpdfstring{GetExposure()}{GetExposure()}}
+{\footnotesize\ttfamily float Tone\+Mapping\+Pass\+::\+Get\+Exposure (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_tone_mapping_pass_8cpp_source_l00058}{58}} del archivo \mbox{\hyperlink{_tone_mapping_pass_8cpp_source}{Tone\+Mapping\+Pass.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_a8ee9234e3d09329957b80896ca286710}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_a8ee9234e3d09329957b80896ca286710}} 
+\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!GetGamma@{GetGamma}}
+\index{GetGamma@{GetGamma}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+\doxysubsubsection{\texorpdfstring{GetGamma()}{GetGamma()}}
+{\footnotesize\ttfamily float Tone\+Mapping\+Pass\+::\+Get\+Gamma (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_tone_mapping_pass_8cpp_source_l00066}{66}} del archivo \mbox{\hyperlink{_tone_mapping_pass_8cpp_source}{Tone\+Mapping\+Pass.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a7d0bbf3e16f85b802fd4e493f583ae9a}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a7d0bbf3e16f85b802fd4e493f583ae9a}} 
+\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!GetOutput@{GetOutput}}
+\index{GetOutput@{GetOutput}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+\doxysubsubsection{\texorpdfstring{GetOutput()}{GetOutput()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}} \& IPost\+Process\+Pass\+::\+Get\+Output (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Devuelve el render target con la imagen final en las imágenes de color. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_post_process_pass_8cpp_source_l00049}{49}} del archivo \mbox{\hyperlink{_i_post_process_pass_8cpp_source}{IPost\+Process\+Pass.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a5755b9283180f003c9d77fbebebfb322}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a5755b9283180f003c9d77fbebebfb322}} 
+\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!Resize@{Resize}}
+\index{Resize@{Resize}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+\doxysubsubsection{\texorpdfstring{Resize()}{Resize()}}
+{\footnotesize\ttfamily void IPost\+Process\+Pass\+::\+Resize (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [inherited]}}
+
+
+
+Cambia de tamaño el render target de salida. Se puede sobreescribir para crear recursos intermedios. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em size} & Tamaño de la imagen final.\\
+\hline
+\end{DoxyParams}
+
+
+Reimplementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass_a5545a4f6b434519d5fb2873ed72b2b25}{OSK\+::\+GRAPHICS\+::\+Bloom\+Pass}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_smaa_pass_a2a479e329ad2604b9f51f935d830d436}{OSK\+::\+GRAPHICS\+::\+Smaa\+Pass}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_post_process_pass_8cpp_source_l00022}{22}} del archivo \mbox{\hyperlink{_i_post_process_pass_8cpp_source}{IPost\+Process\+Pass.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 4
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_a81013c6301c60a6c37b1b8853f3f01b8}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_a81013c6301c60a6c37b1b8853f3f01b8}} 
+\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!SetExposure@{SetExposure}}
+\index{SetExposure@{SetExposure}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+\doxysubsubsection{\texorpdfstring{SetExposure()}{SetExposure()}}
+{\footnotesize\ttfamily void Tone\+Mapping\+Pass\+::\+Set\+Exposure (\begin{DoxyParamCaption}\item[{float}]{exposure }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_tone_mapping_pass_8cpp_source_l00054}{54}} del archivo \mbox{\hyperlink{_tone_mapping_pass_8cpp_source}{Tone\+Mapping\+Pass.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_a05e860b1d53147b26d99c55c11bac298}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_a05e860b1d53147b26d99c55c11bac298}} 
+\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!SetExposureBuffers@{SetExposureBuffers}}
+\index{SetExposureBuffers@{SetExposureBuffers}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+\doxysubsubsection{\texorpdfstring{SetExposureBuffers()}{SetExposureBuffers()}}
+{\footnotesize\ttfamily void Tone\+Mapping\+Pass\+::\+Set\+Exposure\+Buffers (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_storage_buffer}{IGpu\+Storage\+Buffer}} $\ast$}]{buffers\mbox{[}3\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_tone_mapping_pass_8cpp_source_l00070}{70}} del archivo \mbox{\hyperlink{_tone_mapping_pass_8cpp_source}{Tone\+Mapping\+Pass.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_aefc83e498c0cb582b3653dfc8b3ea220}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass_aefc83e498c0cb582b3653dfc8b3ea220}} 
+\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!SetGamma@{SetGamma}}
+\index{SetGamma@{SetGamma}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+\doxysubsubsection{\texorpdfstring{SetGamma()}{SetGamma()}}
+{\footnotesize\ttfamily void Tone\+Mapping\+Pass\+::\+Set\+Gamma (\begin{DoxyParamCaption}\item[{float}]{gamma }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_tone_mapping_pass_8cpp_source_l00062}{62}} del archivo \mbox{\hyperlink{_tone_mapping_pass_8cpp_source}{Tone\+Mapping\+Pass.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a1a082c4a464e368e99ac31064834213e}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a1a082c4a464e368e99ac31064834213e}} 
+\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!SetInput@{SetInput}}
+\index{SetInput@{SetInput}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+\doxysubsubsection{\texorpdfstring{SetInput()}{SetInput()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void IPost\+Process\+Pass\+::\+Set\+Input (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}} \&}]{target,  }\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a96bf7489b9b90da1c5f3943906ad54e5}{Input\+Type}}}]{type = {\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a96bf7489b9b90da1c5f3943906ad54e5a17a99bfdcbe59e8209f17c4da5de6ff9}{Input\+Type\+::\+STORAGE\+\_\+\+IMAGE}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Establece las imágenes de entrada a partir de las que se calculará el efecto. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em target} & Render target de entrada.\\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyWarning}{Atención}
+Si las imágenes son invalidadas (porque su dueño original se recrean o cambian de tamaño), se debe volver a establecer como imágenes de entrada con \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_af7e88a9869fe68ca02e156ec242bbf82}{IPost\+Process\+Pass\+::\+Set\+Input}}. 
+\end{DoxyWarning}
+
+
+Definición en la línea \mbox{\hyperlink{_i_post_process_pass_8cpp_source_l00041}{41}} del archivo \mbox{\hyperlink{_i_post_process_pass_8cpp_source}{IPost\+Process\+Pass.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 5
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_af7e88a9869fe68ca02e156ec242bbf82}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_af7e88a9869fe68ca02e156ec242bbf82}} 
+\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!SetInput@{SetInput}}
+\index{SetInput@{SetInput}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+\doxysubsubsection{\texorpdfstring{SetInput()}{SetInput()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void IPost\+Process\+Pass\+::\+Set\+Input (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$}]{images\mbox{[}3\mbox{]},  }\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a96bf7489b9b90da1c5f3943906ad54e5}{Input\+Type}}}]{type = {\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a96bf7489b9b90da1c5f3943906ad54e5a17a99bfdcbe59e8209f17c4da5de6ff9}{Input\+Type\+::\+STORAGE\+\_\+\+IMAGE}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Establece las imágenes de entrada a partir de las que se calculará el efecto. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em images} & Imágenes de entrada.\\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyWarning}{Atención}
+Si las imágenes son invalidadas (porque su dueño original se recrean o cambian de tamaño), se debe volver a establecer como imágenes de entrada con \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_af7e88a9869fe68ca02e156ec242bbf82}{IPost\+Process\+Pass\+::\+Set\+Input}}. 
+\end{DoxyWarning}
+
+
+Definición en la línea \mbox{\hyperlink{_i_post_process_pass_8cpp_source_l00028}{28}} del archivo \mbox{\hyperlink{_i_post_process_pass_8cpp_source}{IPost\+Process\+Pass.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_af8ba42331100543dd02e05a5d3c228ab}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_af8ba42331100543dd02e05a5d3c228ab}} 
+\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!SetupDefaultMaterialInstances@{SetupDefaultMaterialInstances}}
+\index{SetupDefaultMaterialInstances@{SetupDefaultMaterialInstances}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+\doxysubsubsection{\texorpdfstring{SetupDefaultMaterialInstances()}{SetupDefaultMaterialInstances()}}
+{\footnotesize\ttfamily void IPost\+Process\+Pass\+::\+Setup\+Default\+Material\+Instances (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_post_process_pass_8cpp_source_l00053}{53}} del archivo \mbox{\hyperlink{_i_post_process_pass_8cpp_source}{IPost\+Process\+Pass.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 6
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a8208778343f1ebf2150487856afec2ab}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a8208778343f1ebf2150487856afec2ab}} 
+\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!UpdateMaterialInstance@{UpdateMaterialInstance}}
+\index{UpdateMaterialInstance@{UpdateMaterialInstance}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+\doxysubsubsection{\texorpdfstring{UpdateMaterialInstance()}{UpdateMaterialInstance()}}
+{\footnotesize\ttfamily void IPost\+Process\+Pass\+::\+Update\+Material\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [inherited]}}
+
+
+
+Actualiza la instancia de material. Se debe llamar después de haber creado/recreado el pass y después de haber establecido las imágenes de entrada. 
+
+\begin{DoxyPrecond}{Precondición}
+Debe haberse creado el pase con \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a92aa17faa014d558ac7cc79eb982c03c}{IPost\+Process\+Pass\+::\+Create}}. 
+
+Debe llamarse desapués de cambiar de tamaño el pase con \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a5755b9283180f003c9d77fbebebfb322}{IPost\+Process\+Pass\+::\+Resize}}. 
+
+Las imágenes de entrada deben haberse establecido con \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_af7e88a9869fe68ca02e156ec242bbf82}{IPost\+Process\+Pass\+::\+Set\+Input}}. 
+
+Si las imágenes de entrada han sido invalidadas, se deben establecer de nuevo con \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_af7e88a9869fe68ca02e156ec242bbf82}{IPost\+Process\+Pass\+::\+Set\+Input}}. 
+\end{DoxyPrecond}
+
+
+Reimplementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass_a40b847730935dd0c838d5ce76e8ad65c}{OSK\+::\+GRAPHICS\+::\+Bloom\+Pass}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_post_process_pass_8cpp_source_l00061}{61}} del archivo \mbox{\hyperlink{_i_post_process_pass_8cpp_source}{IPost\+Process\+Pass.\+cpp}}.
+
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a790f63a17cb829756f149c9b3a29dbcd}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a790f63a17cb829756f149c9b3a29dbcd}} 
+\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!inputImages@{inputImages}}
+\index{inputImages@{inputImages}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+\doxysubsubsection{\texorpdfstring{inputImages}{inputImages}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}}$\ast$ OSK\+::\+GRAPHICS\+::\+IPost\+Process\+Pass\+::input\+Images\mbox{[}3\mbox{]} \{\}\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_post_process_pass_8h_source_l00109}{109}} del archivo \mbox{\hyperlink{_i_post_process_pass_8h_source}{IPost\+Process\+Pass.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a4ec65c16dde8276324f202ba41c399f6}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a4ec65c16dde8276324f202ba41c399f6}} 
+\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!postProcessingMaterial@{postProcessingMaterial}}
+\index{postProcessingMaterial@{postProcessingMaterial}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+\doxysubsubsection{\texorpdfstring{postProcessingMaterial}{postProcessingMaterial}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{Material}}$\ast$ OSK\+::\+GRAPHICS\+::\+IPost\+Process\+Pass\+::post\+Processing\+Material = nullptr\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_post_process_pass_8h_source_l00104}{104}} del archivo \mbox{\hyperlink{_i_post_process_pass_8h_source}{IPost\+Process\+Pass.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a2ae9345b24bc12cc56e0749a548aef7c}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a2ae9345b24bc12cc56e0749a548aef7c}} 
+\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!postProcessingMaterialInstance@{postProcessingMaterialInstance}}
+\index{postProcessingMaterialInstance@{postProcessingMaterialInstance}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+\doxysubsubsection{\texorpdfstring{postProcessingMaterialInstance}{postProcessingMaterialInstance}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance}{Material\+Instance}}$>$ OSK\+::\+GRAPHICS\+::\+IPost\+Process\+Pass\+::post\+Processing\+Material\+Instance\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_post_process_pass_8h_source_l00105}{105}} del archivo \mbox{\hyperlink{_i_post_process_pass_8h_source}{IPost\+Process\+Pass.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_aeb2b153e46784f2b55333cc63b19f605}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_aeb2b153e46784f2b55333cc63b19f605}} 
+\index{OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}!resolveRenderTarget@{resolveRenderTarget}}
+\index{resolveRenderTarget@{resolveRenderTarget}!OSK::GRAPHICS::ToneMappingPass@{OSK::GRAPHICS::ToneMappingPass}}
+\doxysubsubsection{\texorpdfstring{resolveRenderTarget}{resolveRenderTarget}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}} OSK\+::\+GRAPHICS\+::\+IPost\+Process\+Pass\+::resolve\+Render\+Target \{\}\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_post_process_pass_8h_source_l00107}{107}} del archivo \mbox{\hyperlink{_i_post_process_pass_8h_source}{IPost\+Process\+Pass.\+h}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_tone_mapping_8h}{Tone\+Mapping.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_tone_mapping_pass_8cpp}{Tone\+Mapping\+Pass.\+cpp}}\end{DoxyCompactItemize}

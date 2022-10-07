@@ -1,0 +1,998 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::ICommand\+List}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+
+
+{\ttfamily \#include $<$ICommand\+List.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::ICommand\+List
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::ICommand\+List\+:
+% FIG 1
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aeeec6b511ff9c19d16c2d52c0f9f6678}{$\sim$\+ICommand\+List}} ()
+\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}}, T$>$}\\T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a7bf40442c718857b7b6b6ced797d5b2a}{As}} () const
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a6791d0b0caa149ea0c2b33babf3f916d}{Reset}} ()=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aeac85c5825b4d9f34f7b285ddfcd4367}{Start}} ()=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_acbdde9b678e5db46d82b162c2a0f9730}{Close}} ()=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a4f744548e824c36b684f4d35bd1b90b2}{Set\+Gpu\+Image\+Barrier}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$image, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9}{Gpu\+Image\+Layout}} previous\+Layout, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9}{Gpu\+Image\+Layout}} next\+Layout, \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info}{Gpu\+Barrier\+Info}} previous, \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info}{Gpu\+Barrier\+Info}} next, const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info}{Gpu\+Image\+Barrier\+Info}} \&prev\+Image\+Info=\{\})=0
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aea8a55a6c79006ab5107789609a56726}{Set\+Gpu\+Image\+Barrier}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$image, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9}{Gpu\+Image\+Layout}} next\+Layout, \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info}{Gpu\+Barrier\+Info}} previous, \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info}{Gpu\+Barrier\+Info}} next, const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info}{Gpu\+Image\+Barrier\+Info}} \&prev\+Image\+Info=\{\})
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_ae3d1fda12c227f4b1782a16c2dca7f5c}{Begin\+Graphics\+Renderpass}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}} $\ast$renderpass, const \mbox{\hyperlink{class_o_s_k_1_1_color}{Color}} \&color=\mbox{\hyperlink{class_o_s_k_1_1_color_a59c0bb4e7d3b7d396f97e1119f01f1ca}{Color\+::\+BLACK}}())
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aa9e4a784a088c6b2a479485498d4fdd5}{Begin\+Graphics\+Renderpass}} (\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_pass_image_info}{Render\+Pass\+Image\+Info}} $>$ color\+Images, \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_pass_image_info}{Render\+Pass\+Image\+Info}} depth\+Image, const \mbox{\hyperlink{class_o_s_k_1_1_color}{Color}} \&color=\mbox{\hyperlink{class_o_s_k_1_1_color_a59c0bb4e7d3b7d396f97e1119f01f1ca}{Color\+::\+BLACK}}())=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a27c970b0c75c78d08fa173eb3b875eb1}{End\+Graphics\+Renderpass}} ()=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aced1453da2f79b5e435df27c330ab8d1}{Bind\+Material}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{Material}} $\ast$material)=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a5e41e7a449345ecc167ea9bc5a857211}{Bind\+Vertex\+Buffer}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpu\+Vertex\+Buffer}} $\ast$buffer)=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a12d4cae3d3f616dcc3a4b827a8abb5d5}{Bind\+Index\+Buffer}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer}{IGpu\+Index\+Buffer}} $\ast$buffer)=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aebccacb95627e6c8c9da33367ca14368}{Bind\+Material\+Slot}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot}{IMaterial\+Slot}} $\ast$slot)=0
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aa78c754b21eb1cf45f2c05e36bdb9276}{Push\+Material\+Constants}} (const std\+::string \&push\+Const\+Name, const void $\ast$data, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size)
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a0d46ca565299ba80f80ac603ffd4b88c}{Push\+Material\+Constants}} (const std\+::string \&push\+Const\+Name, const T \&data)
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a531c4b84cea12941095977fe7279e498}{Push\+Material\+Constants}} (const std\+::string \&push\+Const\+Name, const void $\ast$data, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} offset)=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_ae3aa0f9da7dcfb03843196c7036c0209}{Draw\+Single\+Instance}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} num\+Indices)=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a359d8435654ddea9fdcc77d8cca9ff30}{Draw\+Single\+Mesh}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} first\+Index, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} num\+Indices)=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a6a335bc609cb8cb3d3e81005902f7545}{Trace\+Rays}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} raygen\+Entry, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} closest\+Hit\+Entry, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} miss\+Entry, const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&resolution)=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_af7750153e20238f0ae1476c1c179c673}{Dispatch\+Compute}} (const \mbox{\hyperlink{namespace_o_s_k_acbb1ebd73c8de7036fc0108df1bf612f}{Vector3ui}} \&group\+Count)=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_af03e480dca12a4ce8eb2ec8f2dc58e22}{Bind\+Compute\+Pipeline}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_compute_pipeline}{ICompute\+Pipeline}} \&compute\+Pipeline)=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_ad7cd8a020a86d10e75f1b0241e41cc37}{Set\+Viewport}} (const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport}{Viewport}} \&viewport)=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_ad7246c4be8141d70827ee91c1686144e}{Set\+Scissor}} (const \mbox{\hyperlink{namespace_o_s_k_a388745491b9a70d4760a7b979ef3fe19}{Vector4ui}} \&scissor)=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a9676cdfe4a2411cb5993f9509a24e3c5}{Copy\+Buffer\+To\+Image}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer}{Gpu\+Data\+Buffer}} $\ast$source, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$dest, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} layer=0, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} offset=0)=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a68e72a36c4670bb7de7b3fdab6c2bb99}{Copy\+Image\+To\+Image}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$source, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$destination, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} num\+Layers, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} src\+Start\+Layer, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} dst\+Start\+Layer, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} src\+Mip\+Level, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} dst\+Mip\+Level, \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} copy\+Size=\mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}}(0u))=0
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a78589eeb1aaa3971b96da0d8d3abbf0d}{Register\+Staging\+Buffer}} (\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer}{Gpu\+Data\+Buffer}} $>$ staging\+Buffer)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_ab7109911a37fcb344856f013eab554da}{Delete\+All\+Staging\+Buffers}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a91dd0015d5deefbbcbc1abacdb6be2c6}{\+\_\+\+Set\+Single\+Time\+Use}} ()
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a2737fdfdca1c275d18f54cbb326dbc0d}{Get\+Command\+List\+Index}} () const
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_object_a4ced0b9bf575c7801e54f046604eee10}{Set\+Debug\+Name}} (const std\+::string \&name)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline}{IGraphicsPipeline}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a97c317674cf2dc1bcf5e0cd3a5b5d6e9}{graphics}}\\
+\>const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_raytracing_pipeline}{IRaytracingPipeline}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_ad0c6fb52ec460cf8a90c91c661378712}{raytracing}}\\
+\>const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_compute_pipeline}{IComputePipeline}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a382ca275252b4bce5983fd3a3101d885}{compute}}\\
+\} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a464e4eb351aea615c761715190fd99c1}{currentPipeline}}\\
+
+\end{tabbing}\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{Material}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a38a16050295d9b1591859ddce9f8668e}{current\+Material}} = nullptr
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_pass_image_info}{Render\+Pass\+Image\+Info}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a02c47b88c3dc12edf97b63bf9cfaf1e1}{current\+Color\+Images}}
+\item 
+\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_pass_image_info}{Render\+Pass\+Image\+Info}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aa3afac2fc07d160a8f9ea58fbcf4f745}{current\+Depth\+Image}}
+\item 
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a68c7e70128c792c56815e41b7f9c5fef}{Renderpass\+Type}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a32e5847e802024bcd2fc7cc5215c733a}{current\+Renderpass\+Type}} = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a68c7e70128c792c56815e41b7f9c5fefa41dc7c9e385c4d2b6c1f7836973951bf}{Renderpass\+Type\+::\+INTERMEDIATE}}
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a3298bbf2bbc07fce7dd4a04a20b0bf44}{is\+Single\+Use}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución. 
+
+La lista es creada por una pool de comandos, y se introduce en una cola de comandos para su ejecución. 
+
+\begin{DoxyNote}{Nota}
+Los comandos serán ejecutados en orden una vez se envíe la lista a la GPU. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8h_source_l00047}{47}} del archivo \mbox{\hyperlink{_i_command_list_8h_source}{ICommand\+List.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aeeec6b511ff9c19d16c2d52c0f9f6678}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aeeec6b511ff9c19d16c2d52c0f9f6678}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!````~ICommandList@{$\sim$ICommandList}}
+\index{````~ICommandList@{$\sim$ICommandList}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{$\sim$ICommandList()}{~ICommandList()}}
+{\footnotesize\ttfamily ICommand\+List\+::$\sim$\+ICommand\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8cpp_source_l00010}{10}} del archivo \mbox{\hyperlink{_i_command_list_8cpp_source}{ICommand\+List.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a91dd0015d5deefbbcbc1abacdb6be2c6}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a91dd0015d5deefbbcbc1abacdb6be2c6}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!\_SetSingleTimeUse@{\_SetSingleTimeUse}}
+\index{\_SetSingleTimeUse@{\_SetSingleTimeUse}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{\_SetSingleTimeUse()}{\_SetSingleTimeUse()}}
+{\footnotesize\ttfamily void ICommand\+List\+::\+\_\+\+Set\+Single\+Time\+Use (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8cpp_source_l00053}{53}} del archivo \mbox{\hyperlink{_i_command_list_8cpp_source}{ICommand\+List.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a7bf40442c718857b7b6b6ced797d5b2a}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a7bf40442c718857b7b6b6ced797d5b2a}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!As@{As}}
+\index{As@{As}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{As()}{As()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}}, T$>$\\
+T $\ast$ OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+As (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8h_source_l00053}{53}} del archivo \mbox{\hyperlink{_i_command_list_8h_source}{ICommand\+List.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aa9e4a784a088c6b2a479485498d4fdd5}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aa9e4a784a088c6b2a479485498d4fdd5}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!BeginGraphicsRenderpass@{BeginGraphicsRenderpass}}
+\index{BeginGraphicsRenderpass@{BeginGraphicsRenderpass}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{BeginGraphicsRenderpass()}{BeginGraphicsRenderpass()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Begin\+Graphics\+Renderpass (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_pass_image_info}{Render\+Pass\+Image\+Info}} $>$}]{color\+Images,  }\item[{\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_pass_image_info}{Render\+Pass\+Image\+Info}}}]{depth\+Image,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_color}{Color}} \&}]{color = {\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_color_a59c0bb4e7d3b7d396f97e1119f01f1ca}{Color\+::\+BLACK}}()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_ae3c08439df0f986e7a2e30e50f13bc91}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_a36463a2d55487caea98937b62e0aad4e}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_ae3d1fda12c227f4b1782a16c2dca7f5c}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_ae3d1fda12c227f4b1782a16c2dca7f5c}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!BeginGraphicsRenderpass@{BeginGraphicsRenderpass}}
+\index{BeginGraphicsRenderpass@{BeginGraphicsRenderpass}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{BeginGraphicsRenderpass()}{BeginGraphicsRenderpass()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void ICommand\+List\+::\+Begin\+Graphics\+Renderpass (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}} $\ast$}]{renderpass,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_color}{Color}} \&}]{color = {\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_color_a59c0bb4e7d3b7d396f97e1119f01f1ca}{Color\+::\+BLACK}}()} }\end{DoxyParamCaption})}
+
+
+
+Comienza el renderizado a un render target. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em color} & \mbox{\hyperlink{class_o_s_k_1_1_color}{Color}} con el que limpiará la imagen.\\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyNote}{Nota}
+Se limpiará la imagen con color negro.
+\end{DoxyNote}
+\begin{DoxyPrecond}{Precondición}
+No debe haber ningún renderpass activo. 
+
+La lista de comandos debe estar abierta. 
+\end{DoxyPrecond}
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8cpp_source_l00022}{22}} del archivo \mbox{\hyperlink{_i_command_list_8cpp_source}{ICommand\+List.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 3
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_af03e480dca12a4ce8eb2ec8f2dc58e22}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_af03e480dca12a4ce8eb2ec8f2dc58e22}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!BindComputePipeline@{BindComputePipeline}}
+\index{BindComputePipeline@{BindComputePipeline}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{BindComputePipeline()}{BindComputePipeline()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Bind\+Compute\+Pipeline (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_compute_pipeline}{ICompute\+Pipeline}} \&}]{compute\+Pipeline }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_a80d86d0909d168a2c902ec52dfcc3fec}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_aad3dd1ccf00cad575469cb2a77371184}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a12d4cae3d3f616dcc3a4b827a8abb5d5}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a12d4cae3d3f616dcc3a4b827a8abb5d5}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!BindIndexBuffer@{BindIndexBuffer}}
+\index{BindIndexBuffer@{BindIndexBuffer}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{BindIndexBuffer()}{BindIndexBuffer()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Bind\+Index\+Buffer (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer}{IGpu\+Index\+Buffer}} $\ast$}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Establece el index buffer que se va a usar en los próximos renderizados. 
+
+\begin{DoxyPrecond}{Precondición}
+Debe haber un renderpass activo. 
+
+La lista de comandos debe estar abierta. 
+\end{DoxyPrecond}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_a75ba4f8260802186c96698f7f5e913a3}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_acad28fb9832c44c1a6ebb54f2b42b823}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aced1453da2f79b5e435df27c330ab8d1}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aced1453da2f79b5e435df27c330ab8d1}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!BindMaterial@{BindMaterial}}
+\index{BindMaterial@{BindMaterial}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{BindMaterial()}{BindMaterial()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Bind\+Material (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{Material}} $\ast$}]{material }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Establece el material que se va a usar a la hora de renderizar los próximos comandos. 
+
+\begin{DoxyNote}{Nota}
+Los slots que se enlacen después de este comando deben ser compatibles con este material. 
+
+Los buffers de vértices que se enlacen después de este comando deben tener el tipo de vértice del material.
+\end{DoxyNote}
+\begin{DoxyPrecond}{Precondición}
+Debe haber un renderpass activo. 
+
+El material debe tener registrado el renderpass activo. 
+
+La lista de comandos debe estar abierta. 
+\end{DoxyPrecond}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_adba475156d7a3e34acb0823206907e79}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_abdd3f97dcc528a642f9b3a8a87df9b3e}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aebccacb95627e6c8c9da33367ca14368}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aebccacb95627e6c8c9da33367ca14368}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!BindMaterialSlot@{BindMaterialSlot}}
+\index{BindMaterialSlot@{BindMaterialSlot}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{BindMaterialSlot()}{BindMaterialSlot()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Bind\+Material\+Slot (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot}{IMaterial\+Slot}} $\ast$}]{slot }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Establece un material slot que estará asignado en los próximos comandos de renderizado. Pueden haber varios slots asignados en un mismo instante, siempre que no tengan el mismo id. 
+
+\begin{DoxyPrecond}{Precondición}
+Debe haber un renderpass activo. 
+
+Debe haber un material enlazado. 
+
+El slot debe ser compatible con el material enlazado. 
+
+La lista de comandos debe estar abierta. 
+\end{DoxyPrecond}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_a91bb2e65a00b95212c04426c942c1105}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_a678648c82c2ff474e674a99adc63dc8d}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a5e41e7a449345ecc167ea9bc5a857211}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a5e41e7a449345ecc167ea9bc5a857211}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!BindVertexBuffer@{BindVertexBuffer}}
+\index{BindVertexBuffer@{BindVertexBuffer}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{BindVertexBuffer()}{BindVertexBuffer()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Bind\+Vertex\+Buffer (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpu\+Vertex\+Buffer}} $\ast$}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Establece el vertex buffer que se va a usar en los próximos renderizados. 
+
+\begin{DoxyNote}{Nota}
+Los materiales que se usen después de este comando deben tener el mismo tipo de vértice.
+\end{DoxyNote}
+\begin{DoxyPrecond}{Precondición}
+Debe haber un renderpass activo. 
+
+La lista de comandos debe estar abierta. 
+\end{DoxyPrecond}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_a78c3c7ff04b7f73da8f0e555f4d7da2c}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_a603b57e9ec577b635dbc812145f65077}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_acbdde9b678e5db46d82b162c2a0f9730}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_acbdde9b678e5db46d82b162c2a0f9730}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!Close@{Close}}
+\index{Close@{Close}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{Close()}{Close()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Cierra la lista de comandos, y la deja lista para ser enviada a la GPU. 
+
+\begin{DoxyPrecond}{Precondición}
+Debe estar abierto. 
+\end{DoxyPrecond}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_af236e3ff5d3bf1b8ced471a2fd9c4ed7}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_ae5c82554679405d3fa3c0548ba6b756a}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a9676cdfe4a2411cb5993f9509a24e3c5}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a9676cdfe4a2411cb5993f9509a24e3c5}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!CopyBufferToImage@{CopyBufferToImage}}
+\index{CopyBufferToImage@{CopyBufferToImage}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{CopyBufferToImage()}{CopyBufferToImage()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Copy\+Buffer\+To\+Image (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer}{Gpu\+Data\+Buffer}} $\ast$}]{source,  }\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$}]{dest,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{layer = {\ttfamily 0},  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{offset = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Copia la imagen guardada en un buffer a una imagen en la GPU. Para poder subir una imagen a la GPU, primero debemos subir la imagen a un buffer intermedio, y después copiamos el contenido de ese buffer intermedio a la imagen final de la GPU. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em source} & Buffer con los contenidos de la textura.\\
+\hline
+{\em dest} & Imagen final.\\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyPrecond}{Precondición}
+El buffer de origen debe haber sido creado con \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7fafb3bb8503e5cd907a3a7b02a495c229e}{Gpu\+Buffer\+Usage\+::\+TRANSFER\+\_\+\+SOURCE}}. 
+
+La imagen de destino debe haber sido creada con \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaac61dfc60317a58b2843ec29f8e3c2359}{Gpu\+Image\+Usage\+::\+TRANSFER\+\_\+\+DESTINATION}}. 
+
+La imagen de destino debe tener el layout \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9ac61dfc60317a58b2843ec29f8e3c2359}{Gpu\+Image\+Layout\+::\+TRANSFER\+\_\+\+DESTINATION}}. 
+
+La lista de comandos debe estar abierta.
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondición}
+El layout de la imagen después de efectuarse la copia segirá siendo \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9ac61dfc60317a58b2843ec29f8e3c2359}{Gpu\+Image\+Layout\+::\+TRANSFER\+\_\+\+DESTINATION}}. 
+\end{DoxyPostcond}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_a4b89d32326161602a638dd6e80d79fef}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_af8d183b4f6ba4658afb4ff5aaf75572e}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a68e72a36c4670bb7de7b3fdab6c2bb99}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a68e72a36c4670bb7de7b3fdab6c2bb99}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!CopyImageToImage@{CopyImageToImage}}
+\index{CopyImageToImage@{CopyImageToImage}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{CopyImageToImage()}{CopyImageToImage()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Copy\+Image\+To\+Image (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$}]{source,  }\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$}]{destination,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{num\+Layers,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{src\+Start\+Layer,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{dst\+Start\+Layer,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{src\+Mip\+Level,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{dst\+Mip\+Level,  }\item[{\mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}}}]{copy\+Size = {\ttfamily \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}}(0u)} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Copia el contenido de una imagen a otra. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em source} & Imagen con los contenidos a copiar.\\
+\hline
+{\em destination} & Destino de la copia.\\
+\hline
+\end{DoxyParams}
+
+
+
+\begin{DoxyParams}{Parámetros}
+{\em num\+Layers} & Número de capas que se van a copiar.\\
+\hline
+{\em src\+Start\+Layer} & Capa de origen a partir de la cual se copiará.\\
+\hline
+{\em dst\+Start\+Layer} & Capa de destino a partir de la cual se escribirá.\\
+\hline
+\end{DoxyParams}
+
+
+
+\begin{DoxyParams}{Parámetros}
+{\em src\+Mip\+Level} & Mip level de la imagen de origen desde el cual se copiará.\\
+\hline
+{\em dst\+Mip\+Level} & Mip level de la imagen de destino al que se copiará.\\
+\hline
+\end{DoxyParams}
+
+
+
+\begin{DoxyParams}{Parámetros}
+{\em copy\+Size} & Región de la imagen, en píxeles, que se copiará. Por defecto, se copia la imagen entera.\\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyPrecond}{Precondición}
+La imagen de origen debe haber sido creado con \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaafb3bb8503e5cd907a3a7b02a495c229e}{Gpu\+Image\+Usage\+::\+TRANSFER\+\_\+\+SOURCE}}. 
+
+La imagen de origen debe tener el layout \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9afb3bb8503e5cd907a3a7b02a495c229e}{Gpu\+Image\+Layout\+::\+TRANSFER\+\_\+\+SOURCE}}. 
+
+La imagen de destino debe haber sido creada con \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaac61dfc60317a58b2843ec29f8e3c2359}{Gpu\+Image\+Usage\+::\+TRANSFER\+\_\+\+DESTINATION}}. 
+
+La imagen de destino debe tener el layout \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9ac61dfc60317a58b2843ec29f8e3c2359}{Gpu\+Image\+Layout\+::\+TRANSFER\+\_\+\+DESTINATION}}. 
+
+La lista de comandos debe estar abierta.
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondición}
+El layout de la imagen después de efectuarse la copia segirá siendo \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9ac61dfc60317a58b2843ec29f8e3c2359}{Gpu\+Image\+Layout\+::\+TRANSFER\+\_\+\+DESTINATION}}.
+\end{DoxyPostcond}
+\begin{DoxyWarning}{Atención}
+Si se copia con src\+Mip\+Level != 0 y/o dst\+Mip\+Level != 0, se debe establecer un tamaño de la región de copia válido (copy\+Size). 
+\end{DoxyWarning}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_a7cb33b674e3c5e14394363190ed7bad0}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_aadf5b8b38327576a65816803cf7fee3c}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_ab7109911a37fcb344856f013eab554da}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_ab7109911a37fcb344856f013eab554da}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!DeleteAllStagingBuffers@{DeleteAllStagingBuffers}}
+\index{DeleteAllStagingBuffers@{DeleteAllStagingBuffers}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{DeleteAllStagingBuffers()}{DeleteAllStagingBuffers()}}
+{\footnotesize\ttfamily void ICommand\+List\+::\+Delete\+All\+Staging\+Buffers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Elimina todos los buffers intermedios que ya no son necesarios. 
+
+\begin{DoxyPrecond}{Precondición}
+La lista debe haberse ejecutado antes de llamar a esta función. 
+\end{DoxyPrecond}
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8cpp_source_l00049}{49}} del archivo \mbox{\hyperlink{_i_command_list_8cpp_source}{ICommand\+List.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_af7750153e20238f0ae1476c1c179c673}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_af7750153e20238f0ae1476c1c179c673}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!DispatchCompute@{DispatchCompute}}
+\index{DispatchCompute@{DispatchCompute}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{DispatchCompute()}{DispatchCompute()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Dispatch\+Compute (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_o_s_k_acbb1ebd73c8de7036fc0108df1bf612f}{Vector3ui}} \&}]{group\+Count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_a1e31ae5edb7c1a3f5068895d8b72ea9b}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_aaaa724e9334b0281d5a72c5eec838e1b}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_ae3aa0f9da7dcfb03843196c7036c0209}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_ae3aa0f9da7dcfb03843196c7036c0209}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!DrawSingleInstance@{DrawSingleInstance}}
+\index{DrawSingleInstance@{DrawSingleInstance}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{DrawSingleInstance()}{DrawSingleInstance()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Draw\+Single\+Instance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{num\+Indices }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Renderiza los triángulos del vertex e index buffer, con el material enlazado. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em num\+Indices} & Número de vértices/índices del vertex buffer.\\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyPrecond}{Precondición}
+Debe haber un renderpass activo. 
+
+Debe haber un material enlazado. 
+
+Debe haber un buffer de vértices enlazado. 
+
+Debe haber un buffer de índices enlazado. 
+
+Debe estar establecido el viewport y el scissor. 
+
+Deben estar enlazados los slots y los push constants necesarios para rellenar el material. 
+
+La lista de comandos debe estar abierta. 
+\end{DoxyPrecond}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_a8dba675ac31600b4c0bbab76b22c0f8d}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_add1d8f754b1d5f40fe1b260273eeda55}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a359d8435654ddea9fdcc77d8cca9ff30}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a359d8435654ddea9fdcc77d8cca9ff30}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!DrawSingleMesh@{DrawSingleMesh}}
+\index{DrawSingleMesh@{DrawSingleMesh}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{DrawSingleMesh()}{DrawSingleMesh()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Draw\+Single\+Mesh (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{first\+Index,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{num\+Indices }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Renderiza los triángulos del mesh, con el material enlazado. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em num\+Indices} & Número de vértices/índices del mesh.\\
+\hline
+{\em first\+Index} & Primer vértice del mesh.\\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyPrecond}{Precondición}
+Debe haber un renderpass activo. 
+
+Debe haber un material enlazado. 
+
+Debe haber un buffer de vértices enlazado. 
+
+Debe haber un buffer de índices enlazado. 
+
+Debe estar establecido el viewport y el scissor. 
+
+Deben estar enlazados los slots y los push constants necesarios para rellenar el material. 
+
+La lista de comandos debe estar abierta. 
+\end{DoxyPrecond}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_a7f68fd5258093b3d128dbf7f80bc53c1}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_abfc3b99e96d222ef8cca93bf6115188b}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a27c970b0c75c78d08fa173eb3b875eb1}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a27c970b0c75c78d08fa173eb3b875eb1}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!EndGraphicsRenderpass@{EndGraphicsRenderpass}}
+\index{EndGraphicsRenderpass@{EndGraphicsRenderpass}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{EndGraphicsRenderpass()}{EndGraphicsRenderpass()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+End\+Graphics\+Renderpass (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Finaliza el renderizado a un render target. 
+
+\begin{DoxyPrecond}{Precondición}
+Debe haber un renderpass activo. 
+
+La lista de comandos debe estar abierta. 
+\end{DoxyPrecond}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_a6999a57609ee570303603bcf846a7eff}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_a8f85702fa62ebde5ded546961cc59e5e}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a2737fdfdca1c275d18f54cbb326dbc0d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a2737fdfdca1c275d18f54cbb326dbc0d}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!GetCommandListIndex@{GetCommandListIndex}}
+\index{GetCommandListIndex@{GetCommandListIndex}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{GetCommandListIndex()}{GetCommandListIndex()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} ICommand\+List\+::\+Get\+Command\+List\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8cpp_source_l00057}{57}} del archivo \mbox{\hyperlink{_i_command_list_8cpp_source}{ICommand\+List.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 4
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a0d46ca565299ba80f80ac603ffd4b88c}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a0d46ca565299ba80f80ac603ffd4b88c}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!PushMaterialConstants@{PushMaterialConstants}}
+\index{PushMaterialConstants@{PushMaterialConstants}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{PushMaterialConstants()}{PushMaterialConstants()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Push\+Material\+Constants (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{push\+Const\+Name,  }\item[{const T \&}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Envía datos push constant al shader. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em push\+Const\+Name} & Nombre de los push const en el shader.\\
+\hline
+{\em data} & Información a enviar.\\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyPrecond}{Precondición}
+Debe haber un renderpass activo. 
+
+Debe haber un material enlazado. 
+
+El push constant debe ser compatible con el material enlazado. 
+
+La lista de comandos debe estar abierta. 
+\end{DoxyPrecond}
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8h_source_l00212}{212}} del archivo \mbox{\hyperlink{_i_command_list_8h_source}{ICommand\+List.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aa78c754b21eb1cf45f2c05e36bdb9276}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aa78c754b21eb1cf45f2c05e36bdb9276}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!PushMaterialConstants@{PushMaterialConstants}}
+\index{PushMaterialConstants@{PushMaterialConstants}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{PushMaterialConstants()}{PushMaterialConstants()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void ICommand\+List\+::\+Push\+Material\+Constants (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{push\+Const\+Name,  }\item[{const void $\ast$}]{data,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{size }\end{DoxyParamCaption})}
+
+
+
+Envía datos push constant al shader. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em push\+Const\+Name} & Nombre de los push const en el shader.\\
+\hline
+{\em data} & Información a enviar.\\
+\hline
+{\em size} & Número de bytes a enviar.\\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyPrecond}{Precondición}
+Debe haber un renderpass activo. 
+
+Debe haber un material enlazado. 
+
+El push constant debe ser compatible con el material enlazado. 
+
+La lista de comandos debe estar abierta. 
+\end{DoxyPrecond}
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8cpp_source_l00045}{45}} del archivo \mbox{\hyperlink{_i_command_list_8cpp_source}{ICommand\+List.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 5
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a531c4b84cea12941095977fe7279e498}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a531c4b84cea12941095977fe7279e498}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!PushMaterialConstants@{PushMaterialConstants}}
+\index{PushMaterialConstants@{PushMaterialConstants}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{PushMaterialConstants()}{PushMaterialConstants()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Push\+Material\+Constants (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{push\+Const\+Name,  }\item[{const void $\ast$}]{data,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{size,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{offset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Envía datos push constant al shader. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em push\+Const\+Name} & Nombre de los push const en el shader.\\
+\hline
+{\em data} & Información a enviar.\\
+\hline
+{\em size} & Número de bytes a enviar.\\
+\hline
+{\em offset} & Offset, dentro de este push constant, con el que se mandarán datos.\\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyPrecond}{Precondición}
+Debe haber un renderpass activo. 
+
+Debe haber un material enlazado. 
+
+El push constant debe ser compatible con el material enlazado. 
+
+La lista de comandos debe estar abierta. 
+\end{DoxyPrecond}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_a33e4345c2ec143c94ea24051cb921949}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_a085cf6634f096d3c46715f33351ab7ce}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a78589eeb1aaa3971b96da0d8d3abbf0d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a78589eeb1aaa3971b96da0d8d3abbf0d}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!RegisterStagingBuffer@{RegisterStagingBuffer}}
+\index{RegisterStagingBuffer@{RegisterStagingBuffer}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{RegisterStagingBuffer()}{RegisterStagingBuffer()}}
+{\footnotesize\ttfamily void ICommand\+List\+::\+Register\+Staging\+Buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer}{Gpu\+Data\+Buffer}} $>$}]{staging\+Buffer }\end{DoxyParamCaption})}
+
+
+
+Registra un buffer intermedio. Como la operación de copia de datos de un buffer intermedio a un buffer final no se realiza hasta que se ejecute la lista de comandos, no podemos eliminar el buffer intermedio hasta la próxima ejecución de la lista de comandos. 
+
+\begin{DoxyPrecond}{Precondición}
+El buffer debe haber sido creado con \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7fafb3bb8503e5cd907a3a7b02a495c229e}{Gpu\+Buffer\+Usage\+::\+TRANSFER\+\_\+\+SOURCE}}. 
+
+El buffer debe haber sido creado con \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042cea096f8c31942629a91cc086cbda5f5465}{Gpu\+Shared\+Memory\+Type\+::\+GPU\+\_\+\+AND\+\_\+\+CPU}}. 
+
+La lista de comandos debe estar abierta. 
+\end{DoxyPrecond}
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8cpp_source_l00018}{18}} del archivo \mbox{\hyperlink{_i_command_list_8cpp_source}{ICommand\+List.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 6
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a6791d0b0caa149ea0c2b33babf3f916d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a6791d0b0caa149ea0c2b33babf3f916d}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!Reset@{Reset}}
+\index{Reset@{Reset}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{Reset()}{Reset()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Vacía la lista de comandos. 
+
+\begin{DoxyNote}{Nota}
+Debe llamarse antes de comenzar a grabar comandos. 
+\end{DoxyNote}
+
+
+\begin{DoxyPrecond}{Precondición}
+Debe estar cerrado. 
+\end{DoxyPrecond}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_a759a7b5bafbc49c807e324cf7f21df4b}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_a439119fa0f25443732cdfb32aed59c8a}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_object_a4ced0b9bf575c7801e54f046604eee10}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_object_a4ced0b9bf575c7801e54f046604eee10}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!SetDebugName@{SetDebugName}}
+\index{SetDebugName@{SetDebugName}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{SetDebugName()}{SetDebugName()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+IGpu\+Object\+::\+Set\+Debug\+Name (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [inherited]}}
+
+
+
+Establece un nombre que lo identifique. Para debug. 
+
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_a2b50ad5958b73d266bbe46a4eab1762c}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}}, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_a4aa8c746ff0f41417597f0cd485c9bfc}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12_a70902e8c19134eb15b3d281f60a7a885}{OSK\+::\+GRAPHICS\+::\+Gpu\+Image\+Dx12}}, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_a4330a34cdae5f41d85bde2bacc9e976b}{OSK\+::\+GRAPHICS\+::\+Gpu\+Image\+Vulkan}}, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12_a67880835c29a14d6d599d9c0a117b526}{OSK\+::\+GRAPHICS\+::\+Graphics\+Pipeline\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan_aae388f460d6fcc0c50b30e997b6a6985}{OSK\+::\+GRAPHICS\+::\+Graphics\+Pipeline\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aea8a55a6c79006ab5107789609a56726}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aea8a55a6c79006ab5107789609a56726}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!SetGpuImageBarrier@{SetGpuImageBarrier}}
+\index{SetGpuImageBarrier@{SetGpuImageBarrier}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{SetGpuImageBarrier()}{SetGpuImageBarrier()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void ICommand\+List\+::\+Set\+Gpu\+Image\+Barrier (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$}]{image,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9}{Gpu\+Image\+Layout}}}]{next\+Layout,  }\item[{\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info}{Gpu\+Barrier\+Info}}}]{previous,  }\item[{\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info}{Gpu\+Barrier\+Info}}}]{next,  }\item[{const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info}{Gpu\+Image\+Barrier\+Info}} \&}]{prev\+Image\+Info = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+
+
+Establece un barrier que sincroniza la ejecución de comandos. Cambia el layout de la imagen. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em image} & Imagen a la que se le cambiará el layout.\\
+\hline
+{\em next\+Layout} & Nuevo layout.\\
+\hline
+{\em previous} & Stage previo.\\
+\hline
+{\em next} & Stage siguiente.\\
+\hline
+{\em image\+Info} & Información sobre que subrecursos de la imagen serán afectados.\\
+\hline
+{\em next\+Image\+Info} & \\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyNote}{Nota}
+Se debe cambiar el layout de la imagen antes de ejecutar un comando sobre ella, si su layout actual no coincide con el necesario.
+\end{DoxyNote}
+\begin{DoxyPrecond}{Precondición}
+La lista de comandos debe estar abierta.
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondición}
+Los subrecursos especificados por image\+Info estarán en el nuevo layout. 
+\end{DoxyPostcond}
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8cpp_source_l00014}{14}} del archivo \mbox{\hyperlink{_i_command_list_8cpp_source}{ICommand\+List.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 7
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a4f744548e824c36b684f4d35bd1b90b2}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a4f744548e824c36b684f4d35bd1b90b2}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!SetGpuImageBarrier@{SetGpuImageBarrier}}
+\index{SetGpuImageBarrier@{SetGpuImageBarrier}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{SetGpuImageBarrier()}{SetGpuImageBarrier()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Set\+Gpu\+Image\+Barrier (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$}]{image,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9}{Gpu\+Image\+Layout}}}]{previous\+Layout,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9}{Gpu\+Image\+Layout}}}]{next\+Layout,  }\item[{\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info}{Gpu\+Barrier\+Info}}}]{previous,  }\item[{\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info}{Gpu\+Barrier\+Info}}}]{next,  }\item[{const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info}{Gpu\+Image\+Barrier\+Info}} \&}]{prev\+Image\+Info = {\ttfamily \{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Establece un barrier que sincroniza la ejecución de comandos. Cambia el layout de la imagen. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em image} & Imagen a la que se le cambiará el layout.\\
+\hline
+{\em previous\+Layout} & Layout anterior.\\
+\hline
+{\em next\+Layout} & Nuevo layout.\\
+\hline
+{\em previous} & Stage previo.\\
+\hline
+{\em next} & Stage siguiente.\\
+\hline
+{\em image\+Info} & Información sobre que subrecursos de la imagen serán afectados.\\
+\hline
+{\em next\+Image\+Info} & \\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyNote}{Nota}
+Se debe cambiar el layout de la imagen antes de ejecutar un comando sobre ella, si su layout actual no coincide con el necesario.
+\end{DoxyNote}
+\begin{DoxyPrecond}{Precondición}
+La lista de comandos debe estar abierta. 
+
+previous\+Layout debe ser el layout de la imagen antes de este comando.
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondición}
+Los subrecursos especificados por image\+Info estarán en el nuevo layout. 
+\end{DoxyPostcond}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_aa5e99ae1fbcae83b1d4ac0d4c385933d}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_a221d2d5bcd64a817d3942bc4097fd948}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_ad7246c4be8141d70827ee91c1686144e}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_ad7246c4be8141d70827ee91c1686144e}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!SetScissor@{SetScissor}}
+\index{SetScissor@{SetScissor}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{SetScissor()}{SetScissor()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Set\+Scissor (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_o_s_k_a388745491b9a70d4760a7b979ef3fe19}{Vector4ui}} \&}]{scissor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Establece qué área del renderizado será visible en la textura final. 
+
+\begin{DoxyPrecond}{Precondición}
+Debe haber un renderpass activo. 
+
+La lista de comandos debe estar abierta. 
+\end{DoxyPrecond}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_afe28fc16ef6b00db3c43868bd3c46183}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_a82ca90db1cc8623fbc779933b7579f85}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_ad7cd8a020a86d10e75f1b0241e41cc37}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_ad7cd8a020a86d10e75f1b0241e41cc37}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!SetViewport@{SetViewport}}
+\index{SetViewport@{SetViewport}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{SetViewport()}{SetViewport()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Set\+Viewport (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport}{Viewport}} \&}]{viewport }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Establece el viewport a renderizar. El viewport describe el área de la patnalla que se va a renderizar. Además, establece la profundida mínima y máxima. 
+
+\begin{DoxyPrecond}{Precondición}
+Debe haber un renderpass activo. 
+
+La lista de comandos debe estar abierta. 
+\end{DoxyPrecond}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_a1087b08b918688640e1ab66ea43ed5ff}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_af3f4a2ed06a7939d6de69a834e688416}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aeac85c5825b4d9f34f7b285ddfcd4367}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aeac85c5825b4d9f34f7b285ddfcd4367}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!Start@{Start}}
+\index{Start@{Start}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{Start()}{Start()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Comienza a grabar comandos en la lista. 
+
+\begin{DoxyPrecond}{Precondición}
+Debe estar cerrado. 
+\end{DoxyPrecond}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_aa1cb8f548c08c6d2105f99ceda562582}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_acc710c0c469ac3d93546fda95fbc315e}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a6a335bc609cb8cb3d3e81005902f7545}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a6a335bc609cb8cb3d3e81005902f7545}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!TraceRays@{TraceRays}}
+\index{TraceRays@{TraceRays}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{TraceRays()}{TraceRays()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::\+Trace\+Rays (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{raygen\+Entry,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{closest\+Hit\+Entry,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{miss\+Entry,  }\item[{const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&}]{resolution }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Ejecuta un trazado de rayos. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em raygen\+Entry} & Índice del shader de generación de rayos que se va a usar, según su posición en la tabla de shaders.\\
+\hline
+{\em closest\+Hit\+Entry} & Índice del shader de colisión de rayos que se va a usar, según su posición en la tabla de shaders.\\
+\hline
+{\em miss\+Entry} & Índice del shader de fallo de rayos que se va a usar, según su posición en la tabla de shaders.\\
+\hline
+{\em resolution} & Número de rayos generados en los ejes X e Y.\\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyPrecond}{Precondición}
+NO debe haber un renderpass activo. 
+
+Debe haber un material de trazado de rayos enlazado. 
+
+Deben estar enlazados los slots y los push constants necesarios para rellenar el material. 
+
+La lista de comandos debe estar abierta. 
+
+Debe ejecutarse en un equipo compatible con trazado de rayos. 
+
+Debe haberse activado la opción de trazado de rayos de OSKengine.
+\end{DoxyPrecond}
+\begin{DoxyRefDesc}{Tareas pendientes}
+\item[\mbox{\hyperlink{todo__todo000011}{Tareas pendientes}}]Implementación en DX12. \end{DoxyRefDesc}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_af3833c51984818038a00e26361a6e92a}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_a6afe178a57ad3814de1d5a8d9d35d5b9}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}.
+
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a382ca275252b4bce5983fd3a3101d885}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a382ca275252b4bce5983fd3a3101d885}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!compute@{compute}}
+\index{compute@{compute}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{compute}{compute}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_compute_pipeline}{ICompute\+Pipeline}}$\ast$ OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::compute}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8h_source_l00387}{387}} del archivo \mbox{\hyperlink{_i_command_list_8h_source}{ICommand\+List.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a02c47b88c3dc12edf97b63bf9cfaf1e1}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a02c47b88c3dc12edf97b63bf9cfaf1e1}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!currentColorImages@{currentColorImages}}
+\index{currentColorImages@{currentColorImages}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{currentColorImages}{currentColorImages}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_pass_image_info}{Render\+Pass\+Image\+Info}}$>$ OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::current\+Color\+Images\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8h_source_l00395}{395}} del archivo \mbox{\hyperlink{_i_command_list_8h_source}{ICommand\+List.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aa3afac2fc07d160a8f9ea58fbcf4f745}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_aa3afac2fc07d160a8f9ea58fbcf4f745}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!currentDepthImage@{currentDepthImage}}
+\index{currentDepthImage@{currentDepthImage}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{currentDepthImage}{currentDepthImage}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_pass_image_info}{Render\+Pass\+Image\+Info}} OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::current\+Depth\+Image\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8h_source_l00396}{396}} del archivo \mbox{\hyperlink{_i_command_list_8h_source}{ICommand\+List.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a38a16050295d9b1591859ddce9f8668e}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a38a16050295d9b1591859ddce9f8668e}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!currentMaterial@{currentMaterial}}
+\index{currentMaterial@{currentMaterial}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{currentMaterial}{currentMaterial}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{Material}}$\ast$ OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::current\+Material = nullptr\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{Material}} que está siendo usado en un instante determinado. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8h_source_l00393}{393}} del archivo \mbox{\hyperlink{_i_command_list_8h_source}{ICommand\+List.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a464e4eb351aea615c761715190fd99c1}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a464e4eb351aea615c761715190fd99c1}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!currentPipeline@{currentPipeline}}
+\index{currentPipeline@{currentPipeline}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{}{}}
+{\footnotesize\ttfamily union  \{ ... \}  OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::current\+Pipeline\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Pipeline que está siendo grabada en un instante determinado. 
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a32e5847e802024bcd2fc7cc5215c733a}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a32e5847e802024bcd2fc7cc5215c733a}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!currentRenderpassType@{currentRenderpassType}}
+\index{currentRenderpassType@{currentRenderpassType}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{currentRenderpassType}{currentRenderpassType}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a68c7e70128c792c56815e41b7f9c5fef}{Renderpass\+Type}} OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::current\+Renderpass\+Type = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a68c7e70128c792c56815e41b7f9c5fefa41dc7c9e385c4d2b6c1f7836973951bf}{Renderpass\+Type\+::\+INTERMEDIATE}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8h_source_l00397}{397}} del archivo \mbox{\hyperlink{_i_command_list_8h_source}{ICommand\+List.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a97c317674cf2dc1bcf5e0cd3a5b5d6e9}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a97c317674cf2dc1bcf5e0cd3a5b5d6e9}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!graphics@{graphics}}
+\index{graphics@{graphics}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{graphics}{graphics}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline}{IGraphics\+Pipeline}}$\ast$ OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::graphics}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8h_source_l00385}{385}} del archivo \mbox{\hyperlink{_i_command_list_8h_source}{ICommand\+List.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a3298bbf2bbc07fce7dd4a04a20b0bf44}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_a3298bbf2bbc07fce7dd4a04a20b0bf44}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!isSingleUse@{isSingleUse}}
+\index{isSingleUse@{isSingleUse}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{isSingleUse}{isSingleUse}}
+{\footnotesize\ttfamily bool OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::is\+Single\+Use = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8h_source_l00399}{399}} del archivo \mbox{\hyperlink{_i_command_list_8h_source}{ICommand\+List.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_ad0c6fb52ec460cf8a90c91c661378712}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_ad0c6fb52ec460cf8a90c91c661378712}} 
+\index{OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}!raytracing@{raytracing}}
+\index{raytracing@{raytracing}!OSK::GRAPHICS::ICommandList@{OSK::GRAPHICS::ICommandList}}
+\doxysubsubsection{\texorpdfstring{raytracing}{raytracing}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_raytracing_pipeline}{IRaytracing\+Pipeline}}$\ast$ OSK\+::\+GRAPHICS\+::\+ICommand\+List\+::raytracing}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_command_list_8h_source_l00386}{386}} del archivo \mbox{\hyperlink{_i_command_list_8h_source}{ICommand\+List.\+h}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_i_command_list_8h}{ICommand\+List.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_i_command_list_8cpp}{ICommand\+List.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,44 @@
+\hypertarget{_gpu_image_layout_dx12_8cpp_source}{}\doxysection{Gpu\+Image\+Layout\+Dx12.\+cpp}
+\label{_gpu_image_layout_dx12_8cpp_source}\index{OSKengine2/GpuImageLayoutDx12.cpp@{OSKengine2/GpuImageLayoutDx12.cpp}}
+\mbox{\hyperlink{_gpu_image_layout_dx12_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_layout_dx12_8h}{GpuImageLayoutDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_layout_8h}{GpuImageLayout.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include <d3d12.h>}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00006}\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_acf9b4413f63c5494786640270a4fafcb}{00006}} D3D12\_RESOURCE\_STATES \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_acf9b4413f63c5494786640270a4fafcb}{OSK::GRAPHICS::GetGpuImageLayoutDx12}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9}{GpuImageLayout}} layout) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00007}00007     \textcolor{keywordflow}{switch} (layout) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00008}00008         \textcolor{keywordflow}{case} GpuImageLayout::UNDEFINED:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00009}00009             \textcolor{keywordflow}{return} D3D12\_RESOURCE\_STATE\_GENERIC\_READ;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00011}00011         \textcolor{keywordflow}{case} GpuImageLayout::PRESENT:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00012}00012             \textcolor{keywordflow}{return} D3D12\_RESOURCE\_STATE\_PRESENT;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00014}00014         \textcolor{keywordflow}{case} GpuImageLayout::COLOR\_ATTACHMENT:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00015}00015             \textcolor{keywordflow}{return} D3D12\_RESOURCE\_STATE\_RENDER\_TARGET;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00017}00017         \textcolor{keywordflow}{case} GpuImageLayout::DEPTH\_STENCIL\_TARGET:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00018}00018             \textcolor{keywordflow}{return} D3D12\_RESOURCE\_STATE\_DEPTH\_WRITE;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00020}00020         \textcolor{keywordflow}{case} GpuImageLayout::DEPTH\_STENCIL\_READ\_ONLY:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00021}00021             \textcolor{keywordflow}{return} D3D12\_RESOURCE\_STATE\_DEPTH\_READ;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00023}00023         \textcolor{keywordflow}{case} GpuImageLayout::SHADER\_READ\_ONLY:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00024}00024             \textcolor{keywordflow}{return} D3D12\_RESOURCE\_STATE\_GENERIC\_READ;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00026}00026         \textcolor{keywordflow}{case} GpuImageLayout::TRANSFER\_SOURCE:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00027}00027             \textcolor{keywordflow}{return} D3D12\_RESOURCE\_STATE\_COPY\_SOURCE;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00029}00029         \textcolor{keywordflow}{case} GpuImageLayout::TRANSFER\_DESTINATION:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00030}00030             \textcolor{keywordflow}{return} D3D12\_RESOURCE\_STATE\_COPY\_DEST;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00032}00032         \textcolor{keywordflow}{case} GpuImageLayout::GENERAL:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00033}00033             \textcolor{keywordflow}{return} D3D12\_RESOURCE\_STATE\_COMMON;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00035}00035         \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00036}00036             \textcolor{keywordflow}{return} D3D12\_RESOURCE\_STATE\_COMMON;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00037}00037     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_layout_dx12_8cpp_source_l00038}00038 \}}
+
+\end{DoxyCode}

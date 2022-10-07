@@ -1,0 +1,543 @@
+\hypertarget{class_o_s_k_1_1_i_o_1_1_window}{}\doxysection{Referencia de la Clase OSK\+::IO\+::Window}
+\label{class_o_s_k_1_1_i_o_1_1_window}\index{OSK::IO::Window@{OSK::IO::Window}}
+
+
+{\ttfamily \#include $<$Window.\+h$>$}
+
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a74e6087da23d3c24e9fac0245e5ec92c}{Window}} ()
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a245d821e6016fa1f6970ccbbedd635f6}{$\sim$\+Window}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_ad7d09e8f17ac3d0ecf3f5148a434b221}{Set\+Render\+Api\+Type}} (\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3057691f190dabf7642cfde72cf2430f}{GRAPHICS\+::\+Render\+Api\+Type}} type)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a3bb6de90d630ef9c23ed7172b1f9de03}{Create}} (int32\+\_\+t sizeX, int32\+\_\+t sizeY, const std\+::string \&title)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_ab8d28dce3166c70eb5744466460795df}{Update}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_addb2e8c43715c45b731e56e527673564}{Update\+Mouse\+And\+Keyboard\+Old\+States}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a20771b3a4b4192cbb7242fff51be8bdc}{Set\+Full\+Screen}} (bool fullscreen)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a65149d93f9842363f53bdc3e07f459a6}{Toggle\+Full\+Screen}} ()
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a202139170598c83c2de7fbfdaf673863}{Is\+Full\+Screen}} () const
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a8ccf37a95b199aa9fbaeea71210269b7}{Set\+Mouse\+Position}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_ae47c2f4ef13950e63ced240291893f37}{posX}}, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a040a00576ae1438e3959cb26800a7583}{posY}})
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aa5d7ef0d00a2882f15d52d5c8f3d767b}{Set\+Mouse\+Return\+Mode}} (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a2f854259da792bdb856dedf2a07ee49d}{Mouse\+Return\+Mode}} mode)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aaebf430eb401e68c0ff79d8c0a215819}{Set\+Mouse\+Motion\+Mode}} (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a5ba6ec63fc3ebf3e796c86246821b317}{Mouse\+Motion\+Mode}} mode)
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a57ff1cba3082f14aa7f29f02aae3827e}{Should\+Close}} () const
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a4ef67808752d9e9b618859e698f31362}{Close}} ()
+\item 
+\mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aa7f9f244691159612d42ddbc1fdc9288}{Get\+Window\+Size}} () const
+\item 
+float \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a4c46b86ae4195a7a997fa77bcd051403}{Get\+Screen\+Ratio}} () const
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a26a42bde21a6ad4b9a7b6731d92c4215}{Get\+Refresh\+Rate}} () const
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state}{Keyboard\+State}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a73426320ee277db3c1f5c8dc525a766e}{Get\+Keyboard\+State}} () const
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state}{Keyboard\+State}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_ae29585b8dc924d25380a87c664cc03ab}{Get\+Previous\+Keyboard\+State}} () const
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state}{Mouse\+State}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a0b06f12298dfc2da7a11d7ed99a56fcd}{Get\+Mouse\+State}} () const
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state}{Mouse\+State}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aeb618bc432cbd54c6107cf8ba95c8f81}{Get\+Previous\+Mouse\+State}} () const
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state}{Gamepad\+State}} \& \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a52dae4cfee2763b13581c175ceb64015}{Get\+Gamepad\+State}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} identifier) const
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state}{Gamepad\+State}} \& \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a40360800368a38534f0cb2f009976304}{Get\+Previous\+Gamepad\+State}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} identifier) const
+\item 
+GLFWwindow $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aeb6da49da6d72505687d04088cc79cbd}{\+\_\+\+Get\+Glfw}} () const
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_ad735ec09123e1633186b3bbcfcb8365d}{Is\+Open}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Clase que representa una ventana. En esta ventana se renderizará el juego. También se encarga del input mediante teclado, ratón, mando, etc... 
+
+\begin{DoxyNote}{Nota}
+Esta clase debe usarse de manera estática, accediendo a ella mediante la función Get\+Window(). 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_window_8h_source_l00034}{34}} del archivo \mbox{\hyperlink{_window_8h_source}{Window.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_a74e6087da23d3c24e9fac0245e5ec92c}\label{class_o_s_k_1_1_i_o_1_1_window_a74e6087da23d3c24e9fac0245e5ec92c}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!Window@{Window}}
+\index{Window@{Window}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{Window()}{Window()}}
+{\footnotesize\ttfamily Window\+::\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Crea una instancia de una ventana. 
+
+\begin{DoxyWarning}{Atención}
+No se crea la ventana directamente, hay que llamar a \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a3bb6de90d630ef9c23ed7172b1f9de03}{Window\+::\+Create()}}. 
+\end{DoxyWarning}
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00019}{19}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_a245d821e6016fa1f6970ccbbedd635f6}\label{class_o_s_k_1_1_i_o_1_1_window_a245d821e6016fa1f6970ccbbedd635f6}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!````~Window@{$\sim$Window}}
+\index{````~Window@{$\sim$Window}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{$\sim$Window()}{~Window()}}
+{\footnotesize\ttfamily Window\+::$\sim$\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destruye la ventana. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00034}{34}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_aeb6da49da6d72505687d04088cc79cbd}\label{class_o_s_k_1_1_i_o_1_1_window_aeb6da49da6d72505687d04088cc79cbd}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!\_GetGlfw@{\_GetGlfw}}
+\index{\_GetGlfw@{\_GetGlfw}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{\_GetGlfw()}{\_GetGlfw()}}
+{\footnotesize\ttfamily GLFWwindow $\ast$ Window\+::\+\_\+\+Get\+Glfw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Obtiene el handler de la ventana, de GLFW. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00211}{211}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 0
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_a4ef67808752d9e9b618859e698f31362}\label{class_o_s_k_1_1_i_o_1_1_window_a4ef67808752d9e9b618859e698f31362}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!Close@{Close}}
+\index{Close@{Close}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{Close()}{Close()}}
+{\footnotesize\ttfamily void Window\+::\+Close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Cierra la ventana. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00165}{165}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 1
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_a3bb6de90d630ef9c23ed7172b1f9de03}\label{class_o_s_k_1_1_i_o_1_1_window_a3bb6de90d630ef9c23ed7172b1f9de03}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!Create@{Create}}
+\index{Create@{Create}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily void Window\+::\+Create (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{sizeX,  }\item[{int32\+\_\+t}]{sizeY,  }\item[{const std\+::string \&}]{title }\end{DoxyParamCaption})}
+
+
+
+Crea una ventana. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em sizeX} & Tamaño horizontal, en píxeles.\\
+\hline
+{\em sizeY} & Tamaño vertical, en píxeles.\\
+\hline
+{\em title} & Título.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00044}{44}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_a52dae4cfee2763b13581c175ceb64015}\label{class_o_s_k_1_1_i_o_1_1_window_a52dae4cfee2763b13581c175ceb64015}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!GetGamepadState@{GetGamepadState}}
+\index{GetGamepadState@{GetGamepadState}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{GetGamepadState()}{GetGamepadState()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state}{Gamepad\+State}} \& Window\+::\+Get\+Gamepad\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{identifier }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el estado de todos los botones y todos los ejes en el instante actual. 
+
+\begin{DoxyPrecond}{Precondición}
+El identificador debe ser 0 \texorpdfstring{$<$}{<}= identifier \texorpdfstring{$<$}{<}= 3.
+\end{DoxyPrecond}
+
+\begin{DoxyExceptions}{Excepciones}
+{\em std\+::runtime\+\_\+error} & si no cumple la precondición. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00197}{197}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_a73426320ee277db3c1f5c8dc525a766e}\label{class_o_s_k_1_1_i_o_1_1_window_a73426320ee277db3c1f5c8dc525a766e}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!GetKeyboardState@{GetKeyboardState}}
+\index{GetKeyboardState@{GetKeyboardState}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{GetKeyboardState()}{GetKeyboardState()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state}{Keyboard\+State}} $\ast$ Window\+::\+Get\+Keyboard\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el estado actual del teclado. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00181}{181}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_a0b06f12298dfc2da7a11d7ed99a56fcd}\label{class_o_s_k_1_1_i_o_1_1_window_a0b06f12298dfc2da7a11d7ed99a56fcd}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!GetMouseState@{GetMouseState}}
+\index{GetMouseState@{GetMouseState}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{GetMouseState()}{GetMouseState()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state}{Mouse\+State}} $\ast$ Window\+::\+Get\+Mouse\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el estado actual del ratón. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00189}{189}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_a40360800368a38534f0cb2f009976304}\label{class_o_s_k_1_1_i_o_1_1_window_a40360800368a38534f0cb2f009976304}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!GetPreviousGamepadState@{GetPreviousGamepadState}}
+\index{GetPreviousGamepadState@{GetPreviousGamepadState}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{GetPreviousGamepadState()}{GetPreviousGamepadState()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state}{Gamepad\+State}} \& Window\+::\+Get\+Previous\+Gamepad\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{identifier }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el estado de todos los botones y todos los ejes en el frame anterior. 
+
+\begin{DoxyPrecond}{Precondición}
+El identificador debe ser 0 \texorpdfstring{$<$}{<}= identifier \texorpdfstring{$<$}{<}= 3.
+\end{DoxyPrecond}
+
+\begin{DoxyExceptions}{Excepciones}
+{\em std\+::runtime\+\_\+error} & si no cumple la precondición. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00204}{204}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_ae29585b8dc924d25380a87c664cc03ab}\label{class_o_s_k_1_1_i_o_1_1_window_ae29585b8dc924d25380a87c664cc03ab}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!GetPreviousKeyboardState@{GetPreviousKeyboardState}}
+\index{GetPreviousKeyboardState@{GetPreviousKeyboardState}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{GetPreviousKeyboardState()}{GetPreviousKeyboardState()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state}{Keyboard\+State}} $\ast$ Window\+::\+Get\+Previous\+Keyboard\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el estado del teclado en el anterior frame. 
+
+\begin{DoxyReturn}{Devuelve}
+
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00185}{185}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_aeb618bc432cbd54c6107cf8ba95c8f81}\label{class_o_s_k_1_1_i_o_1_1_window_aeb618bc432cbd54c6107cf8ba95c8f81}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!GetPreviousMouseState@{GetPreviousMouseState}}
+\index{GetPreviousMouseState@{GetPreviousMouseState}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{GetPreviousMouseState()}{GetPreviousMouseState()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state}{Mouse\+State}} $\ast$ Window\+::\+Get\+Previous\+Mouse\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el estado del ratón del estado anterior. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00193}{193}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_a26a42bde21a6ad4b9a7b6731d92c4215}\label{class_o_s_k_1_1_i_o_1_1_window_a26a42bde21a6ad4b9a7b6731d92c4215}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!GetRefreshRate@{GetRefreshRate}}
+\index{GetRefreshRate@{GetRefreshRate}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{GetRefreshRate()}{GetRefreshRate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} Window\+::\+Get\+Refresh\+Rate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve la velocidad de refresco del monitor, en Hz. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00177}{177}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_a4c46b86ae4195a7a997fa77bcd051403}\label{class_o_s_k_1_1_i_o_1_1_window_a4c46b86ae4195a7a997fa77bcd051403}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!GetScreenRatio@{GetScreenRatio}}
+\index{GetScreenRatio@{GetScreenRatio}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{GetScreenRatio()}{GetScreenRatio()}}
+{\footnotesize\ttfamily float Window\+::\+Get\+Screen\+Ratio (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el ratio de la ventana (ancho / alto). 
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00173}{173}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_aa7f9f244691159612d42ddbc1fdc9288}\label{class_o_s_k_1_1_i_o_1_1_window_aa7f9f244691159612d42ddbc1fdc9288}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!GetWindowSize@{GetWindowSize}}
+\index{GetWindowSize@{GetWindowSize}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{GetWindowSize()}{GetWindowSize()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} Window\+::\+Get\+Window\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el tamaño de la ventana, en píxeles. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00170}{170}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_a202139170598c83c2de7fbfdaf673863}\label{class_o_s_k_1_1_i_o_1_1_window_a202139170598c83c2de7fbfdaf673863}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!IsFullScreen@{IsFullScreen}}
+\index{IsFullScreen@{IsFullScreen}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{IsFullScreen()}{IsFullScreen()}}
+{\footnotesize\ttfamily bool Window\+::\+Is\+Full\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+True si ahora mismo se está en pantalla completa. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00153}{153}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_ad735ec09123e1633186b3bbcfcb8365d}\label{class_o_s_k_1_1_i_o_1_1_window_ad735ec09123e1633186b3bbcfcb8365d}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!IsOpen@{IsOpen}}
+\index{IsOpen@{IsOpen}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{IsOpen()}{IsOpen()}}
+{\footnotesize\ttfamily bool Window\+::\+Is\+Open (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve true si la ventana ha sido creada y está abierta. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00320}{320}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_a20771b3a4b4192cbb7242fff51be8bdc}\label{class_o_s_k_1_1_i_o_1_1_window_a20771b3a4b4192cbb7242fff51be8bdc}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!SetFullScreen@{SetFullScreen}}
+\index{SetFullScreen@{SetFullScreen}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{SetFullScreen()}{SetFullScreen()}}
+{\footnotesize\ttfamily void Window\+::\+Set\+Full\+Screen (\begin{DoxyParamCaption}\item[{bool}]{fullscreen }\end{DoxyParamCaption})}
+
+
+
+Establece la ventana en modo pantalla completa (o no). 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em fullscreen} & True para entrar en pantalla completa.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00124}{124}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 3
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_aaebf430eb401e68c0ff79d8c0a215819}\label{class_o_s_k_1_1_i_o_1_1_window_aaebf430eb401e68c0ff79d8c0a215819}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!SetMouseMotionMode@{SetMouseMotionMode}}
+\index{SetMouseMotionMode@{SetMouseMotionMode}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{SetMouseMotionMode()}{SetMouseMotionMode()}}
+{\footnotesize\ttfamily void Window\+::\+Set\+Mouse\+Motion\+Mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a5ba6ec63fc3ebf3e796c86246821b317}{Mouse\+Motion\+Mode}}}]{mode }\end{DoxyParamCaption})}
+
+
+
+Establece si el ratón puede moverse libremente o si volverá siempre al centro de la pantalla, para controlar la cámara. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00099}{99}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 4
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_a8ccf37a95b199aa9fbaeea71210269b7}\label{class_o_s_k_1_1_i_o_1_1_window_a8ccf37a95b199aa9fbaeea71210269b7}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!SetMousePosition@{SetMousePosition}}
+\index{SetMousePosition@{SetMousePosition}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{SetMousePosition()}{SetMousePosition()}}
+{\footnotesize\ttfamily void Window\+::\+Set\+Mouse\+Position (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{posX,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{posY }\end{DoxyParamCaption})}
+
+
+
+Establece la posición del ratón, desde la esquina superior izquierda. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em posX} & Posición, en pixeles, en X.\\
+\hline
+{\em posY} & Posición, en pixeles, en Y.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00157}{157}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 5
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_aa5d7ef0d00a2882f15d52d5c8f3d767b}\label{class_o_s_k_1_1_i_o_1_1_window_aa5d7ef0d00a2882f15d52d5c8f3d767b}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!SetMouseReturnMode@{SetMouseReturnMode}}
+\index{SetMouseReturnMode@{SetMouseReturnMode}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{SetMouseReturnMode()}{SetMouseReturnMode()}}
+{\footnotesize\ttfamily void Window\+::\+Set\+Mouse\+Return\+Mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a2f854259da792bdb856dedf2a07ee49d}{Mouse\+Return\+Mode}}}]{mode }\end{DoxyParamCaption})}
+
+
+
+Establece si el ratón puede moverse libremente o si volverá siempre al centro de la pantalla, para controlar la cámara. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00092}{92}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 6
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_ad7d09e8f17ac3d0ecf3f5148a434b221}\label{class_o_s_k_1_1_i_o_1_1_window_ad7d09e8f17ac3d0ecf3f5148a434b221}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!SetRenderApiType@{SetRenderApiType}}
+\index{SetRenderApiType@{SetRenderApiType}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{SetRenderApiType()}{SetRenderApiType()}}
+{\footnotesize\ttfamily void Window\+::\+Set\+Render\+Api\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3057691f190dabf7642cfde72cf2430f}{GRAPHICS\+::\+Render\+Api\+Type}}}]{type }\end{DoxyParamCaption})}
+
+
+
+Establece el api de renderizado que se va a utilizar en la ventana. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00038}{38}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_a57ff1cba3082f14aa7f29f02aae3827e}\label{class_o_s_k_1_1_i_o_1_1_window_a57ff1cba3082f14aa7f29f02aae3827e}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!ShouldClose@{ShouldClose}}
+\index{ShouldClose@{ShouldClose}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{ShouldClose()}{ShouldClose()}}
+{\footnotesize\ttfamily bool Window\+::\+Should\+Close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+True si la ventana va a cerrarse. 
+
+Útil para crear el bucle principal 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{while} (GetWindow()-\/>ShoudlClose())}
+\DoxyCodeLine{\{ ... \} }
+
+\end{DoxyCode}
+ 
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00161}{161}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 7
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_a65149d93f9842363f53bdc3e07f459a6}\label{class_o_s_k_1_1_i_o_1_1_window_a65149d93f9842363f53bdc3e07f459a6}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!ToggleFullScreen@{ToggleFullScreen}}
+\index{ToggleFullScreen@{ToggleFullScreen}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{ToggleFullScreen()}{ToggleFullScreen()}}
+{\footnotesize\ttfamily void Window\+::\+Toggle\+Full\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Cambia el estado de la pantalla completa. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00149}{149}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 8
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_ab8d28dce3166c70eb5744466460795df}\label{class_o_s_k_1_1_i_o_1_1_window_ab8d28dce3166c70eb5744466460795df}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!Update@{Update}}
+\index{Update@{Update}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Window\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Actualiza la ventana, procesando todos los eventos relacionados. También actualiza sus estados internos del ratón y teclado. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00088}{88}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_addb2e8c43715c45b731e56e527673564}\label{class_o_s_k_1_1_i_o_1_1_window_addb2e8c43715c45b731e56e527673564}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!UpdateMouseAndKeyboardOldStates@{UpdateMouseAndKeyboardOldStates}}
+\index{UpdateMouseAndKeyboardOldStates@{UpdateMouseAndKeyboardOldStates}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{UpdateMouseAndKeyboardOldStates()}{UpdateMouseAndKeyboardOldStates()}}
+{\footnotesize\ttfamily void Window\+::\+Update\+Mouse\+And\+Keyboard\+Old\+States (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Actualiza los valores del mouse y del frame anterior. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8cpp_source_l00111}{111}} del archivo \mbox{\hyperlink{_window_8cpp_source}{Window.\+cpp}}.
+
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_ae47c2f4ef13950e63ced240291893f37}\label{class_o_s_k_1_1_i_o_1_1_window_ae47c2f4ef13950e63ced240291893f37}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!posX@{posX}}
+\index{posX@{posX}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{posX}{posX}}
+{\footnotesize\ttfamily int32\+\_\+t OSK\+::\+IO\+::\+Window\+::posX = 0}
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8h_source_l00277}{277}} del archivo \mbox{\hyperlink{_window_8h_source}{Window.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_a040a00576ae1438e3959cb26800a7583}\label{class_o_s_k_1_1_i_o_1_1_window_a040a00576ae1438e3959cb26800a7583}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!posY@{posY}}
+\index{posY@{posY}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{posY}{posY}}
+{\footnotesize\ttfamily int32\+\_\+t OSK\+::\+IO\+::\+Window\+::posY = 0}
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8h_source_l00278}{278}} del archivo \mbox{\hyperlink{_window_8h_source}{Window.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_ae1a9edb0bca16a7a30e411670f123477}\label{class_o_s_k_1_1_i_o_1_1_window_ae1a9edb0bca16a7a30e411670f123477}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!sizeX@{sizeX}}
+\index{sizeX@{sizeX}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{sizeX}{sizeX}}
+{\footnotesize\ttfamily int32\+\_\+t OSK\+::\+IO\+::\+Window\+::sizeX = 0}
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8h_source_l00274}{274}} del archivo \mbox{\hyperlink{_window_8h_source}{Window.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_window_a0706e3fcef7ed334aa692f87b4ba8997}\label{class_o_s_k_1_1_i_o_1_1_window_a0706e3fcef7ed334aa692f87b4ba8997}} 
+\index{OSK::IO::Window@{OSK::IO::Window}!sizeY@{sizeY}}
+\index{sizeY@{sizeY}!OSK::IO::Window@{OSK::IO::Window}}
+\doxysubsubsection{\texorpdfstring{sizeY}{sizeY}}
+{\footnotesize\ttfamily int32\+\_\+t OSK\+::\+IO\+::\+Window\+::sizeY = 0}
+
+
+
+Definición en la línea \mbox{\hyperlink{_window_8h_source_l00275}{275}} del archivo \mbox{\hyperlink{_window_8h_source}{Window.\+h}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_window_8h}{Window.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_window_8cpp}{Window.\+cpp}}\end{DoxyCompactItemize}

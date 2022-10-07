@@ -1,0 +1,98 @@
+\hypertarget{_gpu_vulkan_8h_source}{}\doxysection{Gpu\+Vulkan.\+h}
+\label{_gpu_vulkan_8h_source}\index{OSKengine2/GpuVulkan.h@{OSKengine2/GpuVulkan.h}}
+\mbox{\hyperlink{_gpu_vulkan_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00003}00003 \textcolor{preprocessor}{\#include <vulkan/vulkan.h>}}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_8h}{IGpu.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_queue_family_indices_8h}{QueueFamilyIndices.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_dynamic_array_8hpp}{DynamicArray.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00009}00009 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}} \{}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00014}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{00014}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{GpuVulkan}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} \{}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00016}00016     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00021}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info}{00021}}         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info}{Info}} \{}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00026}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_1_1_swapchain_support_details}{00026}}             \textcolor{keyword}{struct }\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_1_1_swapchain_support_details}{SwapchainSupportDetails}} \{}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00031}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_1_1_swapchain_support_details_a7d66af43659a3f783491dea07de30946}{00031}}                 VkSurfaceCapabilitiesKHR surfaceCapabilities\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00036}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_1_1_swapchain_support_details_a601d0d95053799bcbfc36c4839fbcc80}{00036}}                 \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkSurfaceFormatKHR>}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_1_1_swapchain_support_details_a601d0d95053799bcbfc36c4839fbcc80}{formats}};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00041}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_1_1_swapchain_support_details_a45f3d36dc7815e2c5e5f958b61126dc7}{00041}}                 \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkPresentModeKHR>}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_1_1_swapchain_support_details_a45f3d36dc7815e2c5e5f958b61126dc7}{presentModes}};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00042}00042 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00043}00043             \};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00044}00044 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00048}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_ae86a22042a0a794409c875c0e5ebe1d4}{00048}}             VkPhysicalDeviceProperties properties\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00053}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_a4863535bd75c3fa0793014143c21aa63}{00053}}             VkPhysicalDeviceFeatures features\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00058}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_a0cf036d8fe1322bb8bfdf2db8e6e7636}{00058}}             VkSampleCountFlagBits maxMsaaSamples\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00063}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_a40be907a7d15190e9e91faa6e0f86851}{00063}}             VkPhysicalDeviceMemoryProperties memoryProperties\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00065}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_a8bb70e63d6caa1080c4301d385d604db}{00065}}             VkPhysicalDeviceFeatures2 features2\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00066}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_a609fc8205d62efa53d1cc5e7fa9d5689}{00066}}             VkPhysicalDeviceRayTracingPipelinePropertiesKHR rtPipelineProperties\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00067}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_a5c58bb1872672211be3da7233d865a8b}{00067}}             VkPhysicalDeviceRayTracingPipelineFeaturesKHR rtPipelineFeatures\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00068}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_a63271f2a20aba12d50ad99aa9881b124}{00068}}             VkPhysicalDeviceAccelerationStructureFeaturesKHR rtAccelerationStructuresFeatures\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00069}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_aeb425aee2e3336849746a2eca48e8db5}{00069}}             VkPhysicalDeviceAccelerationStructurePropertiesKHR rtAccelerationStructuresProperites\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00070}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_ac757e22132902c0a2fd489be4f439ffa}{00070}}             VkPhysicalDeviceBufferDeviceAddressFeatures rtDeviceAddressFeatures\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00071}00071 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00072}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_a1244fe8c928c061a5ffbb9d46299e32b}{00072}}             VkPhysicalDeviceDynamicRenderingFeatures dynamicRenderingFeatures\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00074}00074             \textcolor{keywordtype}{bool} IsRtCompatible() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00079}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_af22b6bdea472500fa9f6d106707b3b5d}{00079}}             \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} minAlignment = 0;}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00084}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_aac4796d28f454427cc15055773e45460}{00084}}             \textcolor{keywordtype}{bool} isSuitable = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00085}00085 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00089}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_a54ea02d5ee56136801a07bb10aeb0e0a}{00089}}             \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_1_1_swapchain_support_details}{SwapchainSupportDetails}} swapchainSupportDetails\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00094}00094             \textcolor{keyword}{static} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info}{Info}} Get(VkPhysicalDevice gpu, VkSurfaceKHR surface);}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00095}00095 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00096}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_a975a54587aefeafb6140df57d4b60aee}{00096}}             VkPhysicalDevice physicalDevice = VK\_NULL\_HANDLE;}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00098}00098         \};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00099}00099 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00100}00100         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{\string~GpuVulkan}}();}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00101}00101 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00105}00105         \textcolor{keywordtype}{void} Close() \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00107}00107         \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<ICommandPool>}} CreateGraphicsCommandPool() \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00108}00108         \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<ICommandPool>}} CreateComputeCommandPool() \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00109}00109 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00110}00110         \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<ISyncDevice>}} CreateSyncDevice() \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00111}00111 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00112}00112         \textcolor{keywordtype}{void} SetPhysicalDevice(VkPhysicalDevice gpu);}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00113}00113         VkPhysicalDevice GetPhysicalDevice() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00114}00114 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00118}00118         \textcolor{keywordtype}{void} SetInfo(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info}{Info}}\& info);}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00119}00119         \textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info}{Info}}\& GetInfo() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00120}00120 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00121}00121         \textcolor{keywordtype}{void} CreateLogicalDevice(VkSurfaceKHR surface);}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00122}00122         VkDevice GetLogicalDevice() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00123}00123 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00124}00124         VkSurfaceKHR GetSurface() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00125}00125 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00129}00129         \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices}{QueueFamilyIndices}} GetQueueFamilyIndices(VkSurfaceKHR surface) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00131}00131     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00132}00132 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00133}00133         \textcolor{keyword}{static} \textcolor{keywordtype}{bool} IsExtensionPresent(\textcolor{keyword}{const} \textcolor{keywordtype}{char}* name, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkExtensionProperties>}}\& extensions);}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00134}00134         \textcolor{keyword}{static} \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkExtensionProperties>}} GetAvailableExtensions(VkPhysicalDevice gpu);}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00135}00135 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00136}00136         VkPhysicalDevice physicalDevice = VK\_NULL\_HANDLE;}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00137}00137         VkDevice logicalDevice = VK\_NULL\_HANDLE;}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00138}00138         VkSurfaceKHR surface = VK\_NULL\_HANDLE;}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00139}00139         \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info}{Info}} info\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00140}00140 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00141}00141     \};}
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00142}00142 }
+\DoxyCodeLine{\Hypertarget{_gpu_vulkan_8h_source_l00143}00143 \}}
+
+\end{DoxyCode}

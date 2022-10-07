@@ -276,14 +276,17 @@ $(document).ready(function(){initNavTree('_i_renderer_8h_source.html',''); initR
 <div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span> </div>
 <div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>        <span class="keywordtype">bool</span> IsRtRequested() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span> </div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span> </div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430f">RenderApiType</a> renderApiType;</div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        <span class="keywordtype">bool</span> isRtRequested = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        <span class="comment">// True si se usa la misma queue para enviar comandos gráficos y de computación.</span></div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a7575d99920b80cf3481c26d2e170ebd6">  349</a></span>        <span class="keywordtype">bool</span> singleCommandQueue = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span> </div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>    <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span> </div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    };</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span> </div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>}</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430f">RenderApiType</a> renderApiType;</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>        <span class="keywordtype">bool</span> isRtRequested = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span> </div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>    };</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span> </div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>}</div>
 <div class="ttc" id="a_camera_component2_d_8h_html"><div class="ttname"><a href="_camera_component2_d_8h.html">CameraComponent2D.h</a></div></div>
 <div class="ttc" id="a_dynamic_array_8hpp_html"><div class="ttname"><a href="_dynamic_array_8hpp.html">DynamicArray.hpp</a></div></div>
 <div class="ttc" id="a_i_command_list_8h_html"><div class="ttname"><a href="_i_command_list_8h.html">ICommandList.h</a></div></div>
@@ -364,11 +367,11 @@ $(document).ready(function(){initNavTree('_i_renderer_8h_source.html',''); initR
 <div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Es dueño de un puntero. El puntero original es eliminado al destruirse el UniquePtr.</div><div class="ttdef"><b>Definition:</b> <a href="_unique_ptr_8hpp_source.html#l00020">UniquePtr.hpp:20</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; uint32_t &gt;</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a46b3731582093c6a4b02a2024b9edf81"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">OSK::ECS::EMPTY_GAME_OBJECT</a></div><div class="ttdeci">constexpr GameObjectIndex EMPTY_GAME_OBJECT</div><div class="ttdoc">El id no identifica a ningún objeto válido.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00024">GameObject.h:24</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_bloom_pass_8h_source.html#l00005">BloomPass.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_animation_8h_source.html#l00013">Animation.h:13</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a20f40e3d3e967090ee1884e0c77b9df9"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9">OSK::GRAPHICS::GpuImageLayout</a></div><div class="ttdeci">GpuImageLayout</div><div class="ttdoc">Define el layout actual de una imagen.</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_layout_8h_source.html#l00015">GpuImageLayout.h:15</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3057691f190dabf7642cfde72cf2430f"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430f">OSK::GRAPHICS::RenderApiType</a></div><div class="ttdeci">RenderApiType</div><div class="ttdef"><b>Definition:</b> <a href="_render_api_type_8h_source.html#l00005">RenderApiType.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a47a7b3817b8aca438c20b7674fad28ab"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">OSK::GRAPHICS::PresentMode</a></div><div class="ttdeci">PresentMode</div><div class="ttdoc">Define el modo de sincronización vertical.</div><div class="ttdef"><b>Definition:</b> <a href="_present_mode_8h_source.html#l00013">PresentMode.h:13</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_assert_8h_source.html#l00007">Assert.h:7</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_animation_8h_source.html#l00013">Animation.h:13</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_a13be6d03821c950ec38db0531c1d5f5c"><div class="ttname"><a href="namespace_o_s_k.html#a13be6d03821c950ec38db0531c1d5f5c">OSK::TByte</a></div><div class="ttdeci">uint8_t TByte</div><div class="ttdef"><b>Definition:</b> <a href="_constexpr_bit_set_8hpp_source.html#l00007">ConstexprBitSet.hpp:7</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">OSK::GRAPHICS::PipelineCreateInfo</a></div><div class="ttdoc">Contiene la información necesaria para configurar un nuevo graphics pipeline.</div><div class="ttdef"><b>Definition:</b> <a href="_pipeline_create_info_8h_source.html#l00096">PipelineCreateInfo.h:96</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_version_html"><div class="ttname"><a href="struct_o_s_k_1_1_version.html">OSK::Version</a></div><div class="ttdoc">Representa una versión.</div><div class="ttdef"><b>Definition:</b> <a href="_version_8h_source.html#l00008">Version.h:8</a></div></div>
@@ -378,7 +381,7 @@ $(document).ready(function(){initNavTree('_i_renderer_8h_source.html',''); initR
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_i_renderer_8h.html">IRenderer.h</a></li>
-    <li class="footer">Generado el Sábado, 17 de Septiembre de 2022 00:04:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 6 de Octubre de 2022 19:30:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

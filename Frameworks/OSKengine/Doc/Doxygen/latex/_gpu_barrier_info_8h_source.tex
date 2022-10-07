@@ -1,0 +1,95 @@
+\hypertarget{_gpu_barrier_info_8h_source}{}\doxysection{Gpu\+Barrier\+Info.\+h}
+\label{_gpu_barrier_info_8h_source}\index{OSKengine2/GpuBarrierInfo.h@{OSKengine2/GpuBarrierInfo.h}}
+\mbox{\hyperlink{_gpu_barrier_info_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kmacros_8h}{OSKmacros.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_enum_flags_8hpp}{EnumFlags.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_usage_8h}{GpuImageUsage.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00007}00007 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}} \{}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00009}\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_af4ec621c557d492c7de3493e2b2bd1a9}{00009}}     \textcolor{keyword}{constexpr} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_af4ec621c557d492c7de3493e2b2bd1a9}{ALL\_MIP\_LEVELS}} = (\string~0);}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00010}\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a180d96d3f745a60bce6b0ffd5209ce35}{00010}}     \textcolor{keyword}{constexpr} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a180d96d3f745a60bce6b0ffd5209ce35}{ALL\_IMAGE\_LAYERS}} = (\string~0);}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00023}\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7}{00023}}     \textcolor{keyword}{enum class} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7}{GpuBarrierStage}} \{}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00028}00028         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7a9861721c6c2dfbdc35d20746c386a090}{VERTEX\_SHADER}},}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00033}00033         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7aaf58ae9f6cade42be9607c7298fd97d1}{FRAGMENT\_SHADER}},}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00038}00038         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7af448507fb26809d25c13899dfc57e230}{TESSELATION\_CONTROL}},}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00043}00043         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7a9196126eff57d73bb45dc36a6367e58d}{TESSELATION\_EVALUATION}},}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00044}00044 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00048}00048         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7aff6553905d3335ae47fc83b139b95870}{RAYTRACING\_SHADER}},}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00053}00053         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7a8d2880f2cd7f8d74c139dae619771f0b}{COLOR\_ATTACHMENT\_OUTPUT}},}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00058}00058         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7a97f28c5b69d3578bbd47326575d6854b}{DEPTH\_STENCIL\_START}},}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00063}00063         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7adabf961ca14253eeb4d65d3e2cc1c121}{DEPTH\_STENCIL\_END}},}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00068}00068         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7aeb5ddb3b6096fb90ff720d9c3e2a6628}{TRANSFER}},}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00073}00073         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7ae6ae2d0a1bee9d966dcae11a201a3c56}{COMPUTE\_SHADER}},}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00078}00078         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7a7e72dc7ff3c335fd2bf5fbfc66f2d2d9}{RT\_AS\_BUILD}},}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00083}00083         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7a5b39c8b553c821e7cddc6da64b5bd2ee}{DEFAULT}}}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00085}00085     \};}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00090}\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3001155dae3ee09f282cdc4e21196fdd}{00090}}     \textcolor{keyword}{enum class} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3001155dae3ee09f282cdc4e21196fdd}{GpuBarrierAccessStage}} \{}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00091}00091 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00095}00095         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3001155dae3ee09f282cdc4e21196fddaf7fa6448008bb7c923369ea64e315518}{SHADER\_READ}} = 1,}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00096}00096 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00100}00100         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3001155dae3ee09f282cdc4e21196fdda66eb578ef321c4ad6ff674bd3e9209d6}{SHADER\_WRITE}} = 2,}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00101}00101 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00105}00105         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3001155dae3ee09f282cdc4e21196fdda1293c19a211a2b52b28d667dabf4481a}{COLOR\_ATTACHMENT\_READ}} = 4,}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00110}00110         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3001155dae3ee09f282cdc4e21196fdda2d5975adc5f0129364458ddedfaaa88e}{COLOR\_ATTACHMENT\_WRITE}} = 8,}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00111}00111 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00115}00115         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3001155dae3ee09f282cdc4e21196fdda46a45aa60d73bb5e761b5b503684e9c1}{DEPTH\_STENCIL\_READ}} = 16,}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00116}00116 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00120}00120         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3001155dae3ee09f282cdc4e21196fdda90348e17527ad0393b938a05737320a7}{DEPTH\_STENCIL\_WRITE}} = 32,}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00121}00121 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00125}00125         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3001155dae3ee09f282cdc4e21196fdda666cbf12350de6ce2062553ccf1b4837}{TRANSFER\_READ}} = 64,}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00126}00126 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00130}00130         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3001155dae3ee09f282cdc4e21196fddab5ca404a51ead36c6fa38cff8121dd25}{TRANSFER\_WRITE}} = 128,}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00131}00131 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00135}00135         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3001155dae3ee09f282cdc4e21196fddaa3e5498451254c3225b4a45a962263e7}{MEMORY\_READ}} = 256,}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00136}00136 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00140}00140         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3001155dae3ee09f282cdc4e21196fddaa34a7d2201196f8dc6b50a2a2ef25036}{MEMORY\_WRITE}} = 512,}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00141}00141 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00145}00145         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3001155dae3ee09f282cdc4e21196fdda4a248c6019913f3665d997b9f57cd07f}{RT\_AS\_READ}} = 1024,}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00146}00146 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00150}00150         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3001155dae3ee09f282cdc4e21196fddae35cbc6768d268effce046b5c32a05a1}{RT\_AS\_WRITE}} = 2048,}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00151}00151 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00152}00152         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7a5b39c8b553c821e7cddc6da64b5bd2ee}{DEFAULT}} = 4096}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00153}00153     \};}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00154}00154 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00155}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info}{00155}}     \textcolor{keyword}{struct }\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info}{GpuBarrierInfo}} \{}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00156}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_ab729f190f569012b102a5e17160d6050}{00156}}         \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_ab729f190f569012b102a5e17160d6050}{GpuBarrierInfo}}() \{\}}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00157}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_a94a5f9e295108d024feb58dda0e75f2f}{00157}}         \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_a94a5f9e295108d024feb58dda0e75f2f}{GpuBarrierInfo}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7}{GpuBarrierStage}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_a377ec6b1294f4cbd0dc5f1243606b832}{stage}}, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3001155dae3ee09f282cdc4e21196fdd}{GpuBarrierAccessStage}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_a2859856d82b6fc7bf96e9b31e03ccfe0}{accessStage}}) : \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_a377ec6b1294f4cbd0dc5f1243606b832}{stage}}(\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_a377ec6b1294f4cbd0dc5f1243606b832}{stage}}), \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_a2859856d82b6fc7bf96e9b31e03ccfe0}{accessStage}}(\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_a2859856d82b6fc7bf96e9b31e03ccfe0}{accessStage}}) \{\}}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00158}00158 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00159}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_a377ec6b1294f4cbd0dc5f1243606b832}{00159}}         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7}{GpuBarrierStage}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_a377ec6b1294f4cbd0dc5f1243606b832}{stage}} = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7a5b39c8b553c821e7cddc6da64b5bd2ee}{GpuBarrierStage::DEFAULT}};}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00160}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_a2859856d82b6fc7bf96e9b31e03ccfe0}{00160}}         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3001155dae3ee09f282cdc4e21196fdd}{GpuBarrierAccessStage}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_a2859856d82b6fc7bf96e9b31e03ccfe0}{accessStage}} = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3001155dae3ee09f282cdc4e21196fdda5b39c8b553c821e7cddc6da64b5bd2ee}{GpuBarrierAccessStage::DEFAULT}};}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00161}00161     \};}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00162}00162 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00163}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info}{00163}}     \textcolor{keyword}{struct }\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info}{GpuImageBarrierInfo}} \{}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00164}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info_a89f637c4de7944fc1228348171b23830}{00164}}         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info_a89f637c4de7944fc1228348171b23830}{baseLayer}} = 0;}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00165}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info_a7d622d573c1207bd01789dc7481c4ae7}{00165}}         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info_a7d622d573c1207bd01789dc7481c4ae7}{numLayers}} = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a180d96d3f745a60bce6b0ffd5209ce35}{ALL\_IMAGE\_LAYERS}};}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00166}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info_a8eee0ad887e8d8e8fc1756ef30932a4c}{00166}}         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info_a8eee0ad887e8d8e8fc1756ef30932a4c}{baseMipLevel}} = 0;}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00167}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info_a1ef0b0902e0694136e2c9063127bab88}{00167}}         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info_a1ef0b0902e0694136e2c9063127bab88}{numMipLevels}} = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_af4ec621c557d492c7de3493e2b2bd1a9}{ALL\_MIP\_LEVELS}};}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00168}00168 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00169}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info_a84bce929941ec5fda9af186cb2a62c8c}{00169}}         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a02ed44392ae1f51786ead8911c3afe9d}{SampledChannel}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info_a84bce929941ec5fda9af186cb2a62c8c}{channel}} = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a02ed44392ae1f51786ead8911c3afe9da04bd834032febb3fda8c6936ee140949}{SampledChannel::COLOR}};}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00170}00170     \};}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00171}00171 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00172}00172 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00173}00173 }
+\DoxyCodeLine{\Hypertarget{_gpu_barrier_info_8h_source_l00174}\mbox{\hyperlink{_gpu_barrier_info_8h_ac6d919d333c928fa99fc3af9a4235008}{00174}} \mbox{\hyperlink{_gpu_barrier_info_8h_ac6d919d333c928fa99fc3af9a4235008}{OSK\_FLAGS}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3001155dae3ee09f282cdc4e21196fdd}{OSK::GRAPHICS::GpuBarrierAccessStage}});}
+
+\end{DoxyCode}

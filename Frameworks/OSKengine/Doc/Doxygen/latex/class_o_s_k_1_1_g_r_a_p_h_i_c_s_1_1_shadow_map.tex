@@ -1,0 +1,309 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::Shadow\+Map}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map}\index{OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}}
+
+
+{\ttfamily \#include $<$Shadow\+Map.\+h$>$}
+
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a0830a954dc3dfb5b404edc5e85ec6406}{Create}} (const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&image\+Size)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_ab750efcb37e8e0e58084096c18d1d0d6}{Set\+Directional\+Light}} (const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_directional_light}{Directional\+Light}} \&dir\+Light)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a9a93be174ec456f33bf027dff2dc7ef6}{Set\+Near\+Plane}} (float near\+Plane)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a442fb43c3f179fe4ff0fb45d25a9516c}{Set\+Far\+Plane}} (float far\+Plane)
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a3c867730c2810236e1983be4d0e2190c}{Get\+Shadow\+Image}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} index) const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_aa9abc4993f6720c28ee54faa2df13cac}{Get\+Color\+Image}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} index) const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{Material}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_ac65819749ffb51ef5ce805ac35b7910d}{Get\+Shadows\+Material}} (\mbox{\hyperlink{namespace_o_s_k_1_1_a_s_s_e_t_s_a192866f841033401ce3c83efcaf81027}{ASSETS\+::\+Model\+Type}} model\+Type) const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance}{Material\+Instance}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_ad7263c5e330f9148ba87ebff3aae13b3}{Get\+Shadows\+Material\+Instance}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer}{GRAPHICS\+::\+IGpu\+Uniform\+Buffer}} $\ast$ $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a3623673ebffd02cd44830d38b5e52b95}{Get\+Dir\+Light\+Matrix\+Uniform\+Buffers}} () const
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a2049f04835be03e41411a54457933d50}{Set\+Scene\+Camera}} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{ECS\+::\+Game\+Object\+Index}} camera\+Object)
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a19ef749dc3d51d127b5191dfcbb09ca2}{Get\+Num\+Cascades}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Renderiza un mapa de profundidad de la escena desde el punto de vista de una luz direccional. 
+
+Este mapa de profundidad puede usarse para proyectar las sombras de la luz direccional dentro de una escena.
+
+Para usar un \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map}{Shadow\+Map}}, en el bucle de renderizado\+:
+\begin{DoxyItemize}
+\item Iniciar un renderpass con el render target Shadow\+Map\+::\+Get\+Shadows\+Render\+Target.
+\item Enlazar el material \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_ac65819749ffb51ef5ce805ac35b7910d}{Shadow\+Map\+::\+Get\+Shadows\+Material}}.
+\item Enlazar la instancia de material \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_ad7263c5e330f9148ba87ebff3aae13b3}{Shadow\+Map\+::\+Get\+Shadows\+Material\+Instance}}.
+\item Renderizar todos los objetos que deban proyectar sombras.
+\item Finalizar el renderpass. 
+\end{DoxyItemize}
+
+Definición en la línea \mbox{\hyperlink{_shadow_map_8h_source_l00031}{31}} del archivo \mbox{\hyperlink{_shadow_map_8h_source}{Shadow\+Map.\+h}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a0830a954dc3dfb5b404edc5e85ec6406}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a0830a954dc3dfb5b404edc5e85ec6406}} 
+\index{OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}!Create@{Create}}
+\index{Create@{Create}!OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily void Shadow\+Map\+::\+Create (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&}]{image\+Size }\end{DoxyParamCaption})}
+
+
+
+Inicializa el shadow map. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em image\+Size} & Resolución de la imagen del shadow map. Cuanto más alta, mayor calidad de sombras.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_shadow_map_8cpp_source_l00028}{28}} del archivo \mbox{\hyperlink{_shadow_map_8cpp_source}{Shadow\+Map.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 0
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_aa9abc4993f6720c28ee54faa2df13cac}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_aa9abc4993f6720c28ee54faa2df13cac}} 
+\index{OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}!GetColorImage@{GetColorImage}}
+\index{GetColorImage@{GetColorImage}!OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}}
+\doxysubsubsection{\texorpdfstring{GetColorImage()}{GetColorImage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$ Shadow\+Map\+::\+Get\+Color\+Image (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{index }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve la imagen de color del mapa de sombras. Para su renderizado. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em index} & Índice de la imagen en el swapchain.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+Mapa de profundidad.
+\end{DoxyReturn}
+
+
+\begin{DoxyPrecond}{Precondición}
+Se debe haber inicializado el \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map}{Shadow\+Map}} con \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a0830a954dc3dfb5b404edc5e85ec6406}{Shadow\+Map\+::\+Create}}. 
+\end{DoxyPrecond}
+\begin{DoxyNote}{Nota}
+Devolverá nullptr si no se cumple la precondición. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_shadow_map_8cpp_source_l00195}{195}} del archivo \mbox{\hyperlink{_shadow_map_8cpp_source}{Shadow\+Map.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a3623673ebffd02cd44830d38b5e52b95}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a3623673ebffd02cd44830d38b5e52b95}} 
+\index{OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}!GetDirLightMatrixUniformBuffers@{GetDirLightMatrixUniformBuffers}}
+\index{GetDirLightMatrixUniformBuffers@{GetDirLightMatrixUniformBuffers}!OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}}
+\doxysubsubsection{\texorpdfstring{GetDirLightMatrixUniformBuffers()}{GetDirLightMatrixUniformBuffers()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer}{IGpu\+Uniform\+Buffer}} $\ast$ $>$ Shadow\+Map\+::\+Get\+Dir\+Light\+Matrix\+Uniform\+Buffers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el uniform buffer que contiene la matriz de proyección y vista de la luz que proyecta la sombra. 
+
+\begin{DoxyPrecond}{Precondición}
+Se ha llamado a \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a0830a954dc3dfb5b404edc5e85ec6406}{Shadow\+Map\+::\+Create}}. 
+\end{DoxyPrecond}
+\begin{DoxyWarning}{Atención}
+Devuelve nullptr si no se cumple las precondiciones. 
+\end{DoxyWarning}
+
+
+Definición en la línea \mbox{\hyperlink{_shadow_map_8cpp_source_l00210}{210}} del archivo \mbox{\hyperlink{_shadow_map_8cpp_source}{Shadow\+Map.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 1
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a19ef749dc3d51d127b5191dfcbb09ca2}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a19ef749dc3d51d127b5191dfcbb09ca2}} 
+\index{OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}!GetNumCascades@{GetNumCascades}}
+\index{GetNumCascades@{GetNumCascades}!OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}}
+\doxysubsubsection{\texorpdfstring{GetNumCascades()}{GetNumCascades()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} Shadow\+Map\+::\+Get\+Num\+Cascades (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el número de mapas de sobras en cascada. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_shadow_map_8cpp_source_l00222}{222}} del archivo \mbox{\hyperlink{_shadow_map_8cpp_source}{Shadow\+Map.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a3c867730c2810236e1983be4d0e2190c}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a3c867730c2810236e1983be4d0e2190c}} 
+\index{OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}!GetShadowImage@{GetShadowImage}}
+\index{GetShadowImage@{GetShadowImage}!OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}}
+\doxysubsubsection{\texorpdfstring{GetShadowImage()}{GetShadowImage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$ Shadow\+Map\+::\+Get\+Shadow\+Image (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{index }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve la imagen del mapa de sombras. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em index} & Índice de la imagen en el swapchain.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+Mapa de profundidad.
+\end{DoxyReturn}
+
+
+\begin{DoxyPrecond}{Precondición}
+Se debe haber inicializado el \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map}{Shadow\+Map}} con \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a0830a954dc3dfb5b404edc5e85ec6406}{Shadow\+Map\+::\+Create}}. 
+\end{DoxyPrecond}
+\begin{DoxyNote}{Nota}
+Devolverá nullptr si no se cumple la precondición. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_shadow_map_8cpp_source_l00191}{191}} del archivo \mbox{\hyperlink{_shadow_map_8cpp_source}{Shadow\+Map.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_ac65819749ffb51ef5ce805ac35b7910d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_ac65819749ffb51ef5ce805ac35b7910d}} 
+\index{OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}!GetShadowsMaterial@{GetShadowsMaterial}}
+\index{GetShadowsMaterial@{GetShadowsMaterial}!OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}}
+\doxysubsubsection{\texorpdfstring{GetShadowsMaterial()}{GetShadowsMaterial()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material}{Material}} $\ast$ Shadow\+Map\+::\+Get\+Shadows\+Material (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_a_s_s_e_t_s_a192866f841033401ce3c83efcaf81027}{ASSETS\+::\+Model\+Type}}}]{model\+Type }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el material usado para la generación de sombras. 
+
+\begin{DoxyPrecond}{Precondición}
+Se debe haber inicializado el \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map}{Shadow\+Map}} con \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a0830a954dc3dfb5b404edc5e85ec6406}{Shadow\+Map\+::\+Create}}. 
+\end{DoxyPrecond}
+\begin{DoxyNote}{Nota}
+Devolverá nullptr si no se cumple la precondición. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_shadow_map_8cpp_source_l00199}{199}} del archivo \mbox{\hyperlink{_shadow_map_8cpp_source}{Shadow\+Map.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_ad7263c5e330f9148ba87ebff3aae13b3}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_ad7263c5e330f9148ba87ebff3aae13b3}} 
+\index{OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}!GetShadowsMaterialInstance@{GetShadowsMaterialInstance}}
+\index{GetShadowsMaterialInstance@{GetShadowsMaterialInstance}!OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}}
+\doxysubsubsection{\texorpdfstring{GetShadowsMaterialInstance()}{GetShadowsMaterialInstance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance}{Material\+Instance}} $\ast$ Shadow\+Map\+::\+Get\+Shadows\+Material\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve la instancia del material para la generación de sombras. 
+
+\begin{DoxyNote}{Nota}
+Se debe vincular el slot \char`\"{}global\char`\"{} para poder ser usado correctamente.
+\end{DoxyNote}
+\begin{DoxyPrecond}{Precondición}
+Se debe haber inicializado el \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map}{Shadow\+Map}} con \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a0830a954dc3dfb5b404edc5e85ec6406}{Shadow\+Map\+::\+Create}}. 
+\end{DoxyPrecond}
+\begin{DoxyNote}{Nota}
+Devolverá nullptr si no se cumple la precondición. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_shadow_map_8cpp_source_l00206}{206}} del archivo \mbox{\hyperlink{_shadow_map_8cpp_source}{Shadow\+Map.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_ab750efcb37e8e0e58084096c18d1d0d6}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_ab750efcb37e8e0e58084096c18d1d0d6}} 
+\index{OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}!SetDirectionalLight@{SetDirectionalLight}}
+\index{SetDirectionalLight@{SetDirectionalLight}!OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}}
+\doxysubsubsection{\texorpdfstring{SetDirectionalLight()}{SetDirectionalLight()}}
+{\footnotesize\ttfamily void Shadow\+Map\+::\+Set\+Directional\+Light (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_directional_light}{Directional\+Light}} \&}]{dir\+Light }\end{DoxyParamCaption})}
+
+
+
+Establece la luz direccional que proyectará las sobras sobre este mapa de sombras. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em dir\+Light} & Luz direccional que proyectará sombras.\\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyPrecond}{Precondición}
+Debe llamarse después de inicializar el mapa de sombras (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a0830a954dc3dfb5b404edc5e85ec6406}{Shadow\+Map\+::\+Create}}). 
+\end{DoxyPrecond}
+
+
+Definición en la línea \mbox{\hyperlink{_shadow_map_8cpp_source_l00054}{54}} del archivo \mbox{\hyperlink{_shadow_map_8cpp_source}{Shadow\+Map.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a442fb43c3f179fe4ff0fb45d25a9516c}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a442fb43c3f179fe4ff0fb45d25a9516c}} 
+\index{OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}!SetFarPlane@{SetFarPlane}}
+\index{SetFarPlane@{SetFarPlane}!OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}}
+\doxysubsubsection{\texorpdfstring{SetFarPlane()}{SetFarPlane()}}
+{\footnotesize\ttfamily void Shadow\+Map\+::\+Set\+Far\+Plane (\begin{DoxyParamCaption}\item[{float}]{far\+Plane }\end{DoxyParamCaption})}
+
+
+
+Establece el far plane del renderizado. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em far\+Plane} & Distancia máxima al origen de la luz para que sean renderizados.\\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyNote}{Nota}
+Por defecto, 5.\+0f. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_shadow_map_8cpp_source_l00187}{187}} del archivo \mbox{\hyperlink{_shadow_map_8cpp_source}{Shadow\+Map.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a9a93be174ec456f33bf027dff2dc7ef6}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a9a93be174ec456f33bf027dff2dc7ef6}} 
+\index{OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}!SetNearPlane@{SetNearPlane}}
+\index{SetNearPlane@{SetNearPlane}!OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}}
+\doxysubsubsection{\texorpdfstring{SetNearPlane()}{SetNearPlane()}}
+{\footnotesize\ttfamily void Shadow\+Map\+::\+Set\+Near\+Plane (\begin{DoxyParamCaption}\item[{float}]{near\+Plane }\end{DoxyParamCaption})}
+
+
+
+Establece el near plane del renderizado. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em near\+Plane} & Distancia mínima al origen de la luz para que sean renderizados.\\
+\hline
+\end{DoxyParams}
+
+
+\begin{DoxyNote}{Nota}
+Por defecto, -\/5.\+0f. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_shadow_map_8cpp_source_l00183}{183}} del archivo \mbox{\hyperlink{_shadow_map_8cpp_source}{Shadow\+Map.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a2049f04835be03e41411a54457933d50}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_a2049f04835be03e41411a54457933d50}} 
+\index{OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}!SetSceneCamera@{SetSceneCamera}}
+\index{SetSceneCamera@{SetSceneCamera}!OSK::GRAPHICS::ShadowMap@{OSK::GRAPHICS::ShadowMap}}
+\doxysubsubsection{\texorpdfstring{SetSceneCamera()}{SetSceneCamera()}}
+{\footnotesize\ttfamily void Shadow\+Map\+::\+Set\+Scene\+Camera (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{ECS\+::\+Game\+Object\+Index}}}]{camera\+Object }\end{DoxyParamCaption})}
+
+
+
+Establece la cámara de la escena, para poder configurar los mapas de profundidad de una manera más óptima. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em camera\+Object} & \\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_shadow_map_8cpp_source_l00218}{218}} del archivo \mbox{\hyperlink{_shadow_map_8cpp_source}{Shadow\+Map.\+cpp}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_shadow_map_8h}{Shadow\+Map.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_shadow_map_8cpp}{Shadow\+Map.\+cpp}}\end{DoxyCompactItemize}

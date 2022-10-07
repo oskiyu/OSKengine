@@ -1,0 +1,98 @@
+\hypertarget{_cubemap_texture_loader_8cpp_source}{}\doxysection{Cubemap\+Texture\+Loader.\+cpp}
+\label{_cubemap_texture_loader_8cpp_source}\index{OSKengine2/CubemapTextureLoader.cpp@{OSKengine2/CubemapTextureLoader.cpp}}
+\mbox{\hyperlink{_cubemap_texture_loader_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_cubemap_texture_loader_8h}{CubemapTextureLoader.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_cubemap_texture_8h}{CubemapTexture.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_file_i_o_8h}{FileIO.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kengine_8h}{OSKengine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_renderer_8h}{IRenderer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_memory_allocator_8h}{IGpuMemoryAllocator.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00008}00008 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_format_8h}{Format.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00009}00009 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_memory_types_8h}{GpuMemoryTypes.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00010}00010 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_layout_8h}{GpuImageLayout.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00011}00011 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_usage_8h}{GpuImageUsage.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00012}00012 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_format_8h}{Format.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00014}00014 \textcolor{preprocessor}{\#include <json.hpp>}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00015}00015 \textcolor{preprocessor}{\#include <stbi\_image.h>}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00017}00017 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00018}00018 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_a_s_s_e_t_s}{OSK::ASSETS}};}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00019}00019 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}};}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00021}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_loader_a015b1daa6d8d910f7337bc513c8d3285}{00021}} \textcolor{keywordtype}{void} CubemapTextureLoader::Load(\textcolor{keyword}{const} std::string\& assetFilePath, \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset}{IAsset}}** asset) \{}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00022}00022     \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture}{CubemapTexture}}* output = (\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture}{CubemapTexture}}*)*asset;}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00024}00024     \textcolor{comment}{// Asset file.}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00026}00026     nlohmann::json assetInfo = nlohmann::json::parse(\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_file_i_o_aad968707ec7b00bce0540c804f476dc9}{IO::FileIO::ReadFromFile}}(assetFilePath));}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00028}00028     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(assetInfo.contains(\textcolor{stringliteral}{"{}file\_type"{}}), \textcolor{stringliteral}{"{}Archivo de cubemap incorrecto: no se encuentra 'file\_type'."{}});}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00029}00029     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(assetInfo.contains(\textcolor{stringliteral}{"{}spec\_ver"{}}), \textcolor{stringliteral}{"{}Archivo de cubemap incorrecto: no se encuentra 'spec\_ver'."{}});}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00030}00030     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(assetInfo.contains(\textcolor{stringliteral}{"{}name"{}}), \textcolor{stringliteral}{"{}Archivo de cubemap incorrecto: no se encuentra 'name'."{}});}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00031}00031     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(assetInfo.contains(\textcolor{stringliteral}{"{}asset\_type"{}}), \textcolor{stringliteral}{"{}Archivo de cubemap incorrecto: no se encuentra 'asset\_type'."{}});}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00032}00032     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(assetInfo.contains(\textcolor{stringliteral}{"{}faces\_files"{}}), \textcolor{stringliteral}{"{}Archivo de cubemap incorrecto: no se encuentra 'faces\_files'."{}});}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00034}00034     output-\/>\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_af0bbd1c59b2cd81667b63cb6d015c11c}{SetName}}(assetInfo[\textcolor{stringliteral}{"{}name"{}}]);}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00036}00036     \textcolor{keyword}{const} \textcolor{keyword}{static} std::string facesNames[] = \{}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00037}00037         \textcolor{stringliteral}{"{}right"{}},}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00038}00038         \textcolor{stringliteral}{"{}left"{}},}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00039}00039         \textcolor{stringliteral}{"{}top"{}},}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00040}00040         \textcolor{stringliteral}{"{}bottom"{}},}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00041}00041         \textcolor{stringliteral}{"{}front"{}},}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00042}00042         \textcolor{stringliteral}{"{}back"{}}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00043}00043     \};}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00044}00044 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00045}00045     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& i : facesNames) \{}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00046}00046         \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(assetInfo[\textcolor{stringliteral}{"{}faces\_files"{}}].contains(i), \textcolor{stringliteral}{"{}Archivo de cubemap incorrecto: no existe '"{}} + i + \textcolor{stringliteral}{"{}'."{}});}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00047}00047     \}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00049}00049     \textcolor{comment}{// Texture.}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00051}00051     \textcolor{keywordtype}{int} width = 0;}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00052}00052     \textcolor{keywordtype}{int} height = 0;}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00053}00053     \textcolor{keywordtype}{int} numChannels = 0;}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00054}00054     stbi\_info(((std::string)assetInfo[\textcolor{stringliteral}{"{}faces\_files"{}}][facesNames[0]]).c\_str(), \&width, \&height, \&numChannels);}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00056}00056     \textcolor{comment}{// Las gráficas no soportan imágenes de 24 bits de manera nativa.}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00057}00057     \textcolor{keywordflow}{if} (numChannels == 3)}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00058}00058         numChannels = 4;}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00060}00060     \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}}* data = \textcolor{keyword}{new} \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}}[width * height * 4 * 6];}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00062}00062     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < 6; i++) \{}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00063}00063         std::string facePath = assetInfo[\textcolor{stringliteral}{"{}faces\_files"{}}][facesNames[i]];}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00064}00064         \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_file_i_o_ac7fe213b79ce97b178a7e27f7216a2f4}{IO::FileIO::FileExists}}(facePath), \textcolor{stringliteral}{"{}No existe la textura "{}} + facePath + \textcolor{stringliteral}{"{}."{}});}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00066}00066         stbi\_uc* pixels = stbi\_load(facePath.c\_str(), \&width, \&height, \textcolor{keyword}{nullptr}, 4);}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00067}00067         memcpy(data + i * width * height * 4, pixels, width * height * 4);}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00068}00068         stbi\_image\_free(pixels);}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00069}00069     \}}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00071}00071     \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<GRAPHICS::GpuImage>}} image = \mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acf03703bbb6f031f905612d86f104b38}{GetMemoryAllocator}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a5ffe3d30b281dd779e43a430a46447cf}{CreateCubemapImage}}(\mbox{\hyperlink{namespace_o_s_k_a60585fafba08f2a5a86a4d5788b58280}{Vector2i}}(width, height).ToVector2ui(), \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8ae5a76309919d3c679c642c13125eb930}{GRAPHICS::Format::RGBA8\_SRGB}}, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaa5d0791856a3081df75c6093017a61a36}{GRAPHICS::GpuImageUsage::SAMPLED}} | \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaafb3bb8503e5cd907a3a7b02a495c229e}{GRAPHICS::GpuImageUsage::TRANSFER\_SOURCE}}| \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaac61dfc60317a58b2843ec29f8e3c2359}{GRAPHICS::GpuImageUsage::TRANSFER\_DESTINATION}}, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042cea95c8166e4f408834884bbe57fef928f6}{GRAPHICS::GpuSharedMemoryType::GPU\_ONLY}});}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00072}00072 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00073}00073     \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<ICommandList>}} copyCmdList = \mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0fa1cd26067c520e90cfa647f66e8366}{CreateSingleUseCommandList}}();}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00074}00074     copyCmdList-\/>Reset();}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00075}00075     copyCmdList-\/>Start();}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00077}00077     copyCmdList-\/>SetGpuImageBarrier(image.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER\_DESTINATION,}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00078}00078         \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info}{GpuBarrierInfo}}(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT), \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info}{GpuBarrierInfo}}(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER\_WRITE),}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00079}00079         \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info}{GpuImageBarrierInfo}}\{ .\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info_a89f637c4de7944fc1228348171b23830}{baseLayer}} = 0, .numLayers = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a180d96d3f745a60bce6b0ffd5209ce35}{ALL\_IMAGE\_LAYERS}}, .baseMipLevel = 0, .numMipLevels = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_af4ec621c557d492c7de3493e2b2bd1a9}{ALL\_MIP\_LEVELS}} \});}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00081}00081     \mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a127f65d1c173f1578a180f70b9cc0942}{UploadCubemapImageToGpu}}(image.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), data, width * height * numChannels * 6, copyCmdList.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}());}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00083}00083     copyCmdList-\/>SetGpuImageBarrier(image.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), GpuImageLayout::TRANSFER\_DESTINATION, GpuImageLayout::SHADER\_READ\_ONLY,}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00084}00084         \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info}{GpuBarrierInfo}}(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER\_WRITE), \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info}{GpuBarrierInfo}}(GpuBarrierStage::FRAGMENT\_SHADER, GpuBarrierAccessStage::SHADER\_READ),}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00085}00085         \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info}{GpuImageBarrierInfo}}\{ .\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info_a89f637c4de7944fc1228348171b23830}{baseLayer}} = 0, .numLayers = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a180d96d3f745a60bce6b0ffd5209ce35}{ALL\_IMAGE\_LAYERS}}, .baseMipLevel = 0, .numMipLevels = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_af4ec621c557d492c7de3493e2b2bd1a9}{ALL\_MIP\_LEVELS}} \});}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00086}00086     copyCmdList-\/>Close();}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00087}00087     \mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_af337a6b45b1e298a4edff91981586d14}{SubmitSingleUseCommandList}}(copyCmdList.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}());}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00089}00089     output-\/>\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_aae0dfa0be961b9c39efa8f5427d61a69}{\_SetImage}}(image);}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00091}00091     \textcolor{keyword}{delete}[] data;}
+\DoxyCodeLine{\Hypertarget{_cubemap_texture_loader_8cpp_source_l00092}00092 \}}
+
+\end{DoxyCode}

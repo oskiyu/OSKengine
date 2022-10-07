@@ -15,5 +15,6 @@ var struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info =
     [ "tesselationControlPath", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a848c4a29ab5c3469851cc714aaba9621", null ],
     [ "tesselationEvaluationPath", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#ad6aaaaa5814f2a26e3937cb128f6843e", null ],
     [ "tesselationPatchControlPoints", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a6582451a9351668d1fa04f833c784666", null ],
+    [ "useAlphaBlending", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a15c6dab63bc5eea84af6aee414d0eb61", null ],
     [ "vertexPath", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a3fac189838e4f2c919f229eadf5bdb62", null ]
 ];

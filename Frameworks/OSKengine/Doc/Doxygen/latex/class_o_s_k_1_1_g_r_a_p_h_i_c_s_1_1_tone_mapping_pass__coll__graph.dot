@@ -1,0 +1,20 @@
+digraph "OSK::GRAPHICS::ToneMappingPass"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::ToneMappingPass",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::GRAPHICS::IPostProcessPass",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html",tooltip="Clase base que permite ejecutar pases de efectos de postprocesamiento."];
+  Node3 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" postProcessingMaterial" ];
+  Node3 [label="OSK::GRAPHICS::Material",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html",tooltip="Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la..."];
+  Node4 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" postProcessingMaterialInstance" ];
+  Node4 [label="OSK::UniquePtr\< OSK\l::GRAPHICS::MaterialInstance \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_unique_ptr.html",tooltip=" "];
+  Node5 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" resolveRenderTarget" ];
+  Node5 [label="OSK::GRAPHICS::RenderTarget",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html",tooltip="Representa una textura a la que se puede renderizar."];
+  Node6 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" inputImages" ];
+  Node6 [label="OSK::GRAPHICS::GpuImage",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html",tooltip="Representación interna de una imagen en la GPU."];
+  Node7 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="OSK::GRAPHICS::IGpuObject",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_object.html",tooltip="Interfaz común para los objetos almacenados en la CPU."];
+}

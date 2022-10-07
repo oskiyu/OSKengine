@@ -1,0 +1,66 @@
+\hypertarget{_i_gpu_image_view_8h_source}{}\doxysection{IGpu\+Image\+View.\+h}
+\label{_i_gpu_image_view_8h_source}\index{OSKengine2/IGpuImageView.h@{OSKengine2/IGpuImageView.h}}
+\mbox{\hyperlink{_i_gpu_image_view_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kmacros_8h}{OSKmacros.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_usage_8h}{GpuImageUsage.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00006}00006 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}} \{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00012}\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ade40ecf1619c14b53344301c1eca1bca}{00012}}     \textcolor{keyword}{enum class} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ade40ecf1619c14b53344301c1eca1bca}{ViewUsage}} \{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00017}00017         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaa5d0791856a3081df75c6093017a61a36}{SAMPLED}},}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00023}00023         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ade40ecf1619c14b53344301c1eca1bcaadf45780d7dc144f8c73766fae316d606}{COLOR\_TARGET}},}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00028}00028         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9aad449a013a6d7a34d5ea38b6263ff6d8}{DEPTH\_STENCIL\_TARGET}},}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00034}00034         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ade40ecf1619c14b53344301c1eca1bcaa754a5d433173b5ddc7debc2110ac575f}{STORAGE}}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00036}00036     \};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00043}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view}{00043}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view}{IGpuImageView}} \{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00044}00044 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00045}00045     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00047}00047         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view}{IGpuImageView}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a02ed44392ae1f51786ead8911c3afe9d}{SampledChannel}} channel, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a55e114ba828198c2146f5233e462ba39}{SampledArrayType}} arrayType, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} baseArrayLevel, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} layerCount, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ade40ecf1619c14b53344301c1eca1bca}{ViewUsage}} usage);}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00049}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_a8cf554bcdc9c6b8455305c847e1c7b95}{00049}}         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_a8cf554bcdc9c6b8455305c847e1c7b95}{OSK\_DEFINE\_AS}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view}{IGpuImageView}});}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00055}00055         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a02ed44392ae1f51786ead8911c3afe9d}{SampledChannel}} GetChannel() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00061}00061         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a55e114ba828198c2146f5233e462ba39}{SampledArrayType}} GetArrayType() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00068}00068         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} GetBaseArrayLevel() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00077}00077         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} GetLayerCount() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00082}00082         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ade40ecf1619c14b53344301c1eca1bca}{ViewUsage}} GetViewUsage() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00083}00083 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00084}00084         \textcolor{keywordtype}{bool} operator==(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view}{IGpuImageView}}\& other);}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00085}00085 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00086}00086     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00087}00087 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00088}00088         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a02ed44392ae1f51786ead8911c3afe9d}{SampledChannel}} channel = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a02ed44392ae1f51786ead8911c3afe9da04bd834032febb3fda8c6936ee140949}{SampledChannel::COLOR}};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00089}00089         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a55e114ba828198c2146f5233e462ba39}{SampledArrayType}} arrayType = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a55e114ba828198c2146f5233e462ba39acb4fb1757fb37c43cded35d3eb857c43}{SampledArrayType::ARRAY}};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00091}00091         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} baseArrayLevel = 0;}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00092}00092         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} layerCount = 0;}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00093}00093 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00094}00094         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ade40ecf1619c14b53344301c1eca1bca}{ViewUsage}} usage = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ade40ecf1619c14b53344301c1eca1bcaa5d0791856a3081df75c6093017a61a36}{ViewUsage::SAMPLED}};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00095}00095 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00096}00096     \};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00098}00098 \}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00099}00099 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00100}\mbox{\hyperlink{structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_01_4}{00100}} \textcolor{keyword}{template}<> \textcolor{keyword}{struct }std::hash<\mbox{\hyperlink{namespace_o_s_k}{OSK}}::GRAPHICS::IGpuImageView> \{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00101}\mbox{\hyperlink{structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_01_4_ad2823241a3e5f9532283d7668e00974c}{00101}}     std::size\_t \mbox{\hyperlink{structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_01_4_ad2823241a3e5f9532283d7668e00974c}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view}{OSK::GRAPHICS::IGpuImageView}}\& view)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00102}00102         \textcolor{keywordflow}{return} std::hash<std::size\_t>()((std::size\_t)(view.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_ab72dfff413e31d46c097f7a55c12ef97}{GetArrayType}}()));}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00103}00103         \textcolor{comment}{// @todo improve}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00104}00104     \}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_image_view_8h_source_l00105}00105 \};}
+
+\end{DoxyCode}

@@ -1,0 +1,173 @@
+\hypertarget{_keyboard_state_8h_source}{}\doxysection{Keyboard\+State.\+h}
+\label{_keyboard_state_8h_source}\index{OSKengine2/KeyboardState.h@{OSKengine2/KeyboardState.h}}
+\mbox{\hyperlink{_keyboard_state_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kmacros_8h}{OSKmacros.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00005}00005 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_i_o}{OSK::IO}} \{}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00010}\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{00010}}     \textcolor{keyword}{enum class} \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}} \{}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00011}00011         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea6506ae39fdca9845e3a6de3865183e57}{SPACE}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00012}00012         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea9df35983f4024e31955de0f1e545e888}{APOSTROPHE}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00013}00013         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea4d9b3e9fc12849d060371eb65154c751}{COMMA}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00014}00014         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eaffc0d9b54a1fe677c4c9e6b050e67c81}{MINUS}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00015}00015         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea73ca001ad9c37019a44b6d67c2a08b33}{PERIDO}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00016}00016         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea646da671ca01bb5d84dbb5fb2238dc8e}{SLASH}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00017}00017         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea8350baa5fded880538b27097753a9ce8}{KEY\_0}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00018}00018         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea43f1c1b2bb217aa04013aa12fb9695a8}{KEY\_1}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00019}00019         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea20032871e1dec9155433946ecbfbcf61}{KEY\_2}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00020}00020         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eab53b75d7f6543b71273a9e4f58d54046}{KEY\_3}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00021}00021         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea954e8b825fe85b083fbc2b64edad125e}{KEY\_4}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00022}00022         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea5117a084c57c2ab875e0bfe86c4a638d}{KEY\_5}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00023}00023         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea318bd217f20261f6eec3f4afbf965f9c}{KEY\_6}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00024}00024         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea56ee05d27060b80811d25784a5cce206}{KEY\_7}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00025}00025         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea85de2b5ecd586b46d5cea0015a15afac}{KEY\_8}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00026}00026         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eaa4a7bcce597644128fbeb7cdebbeb666}{KEY\_9}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00027}00027         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eabaaceccc27b1d4e0968c999583f97de5}{SEMICOLON}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00028}00028         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea969f331a87d8c958473c32b4d0e61a44}{EQUAL}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00029}00029         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ad1d8e1f23e2f2515648a3ad1b93ff345a7fc56270e7a70fa81a5935b72eacbe29}{A}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00030}00030         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ad1d8e1f23e2f2515648a3ad1b93ff345a9d5ed678fe57bcca610140957afab571}{B}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00031}00031         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea0d61f8370cad1d412f80b84d143e1257}{C}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00032}00032         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eaf623e75af30e62bbd73d6df5b50bb7b5}{D}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00033}00033         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea3a3ea00cfc35332cedf6e5e9a32e94da}{E}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00034}00034         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea800618943025315f869e4e1f09471012}{F}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00035}00035         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eadfcf28d0734569a6a693bc8194de62bf}{G}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00036}00036         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eac1d9f50f86825a1a2302ec2449c17196}{H}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00037}00037         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eadd7536794b63bf90eccfd37f9b147d7f}{I}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00038}00038         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eaff44570aca8241914870afbc310cdb85}{J}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00039}00039         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eaa5f3c6a11b03839d46af9fb43c97c188}{K}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00040}00040         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ead20caec3b48a1eef164cb4ca81ba2587}{L}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00041}00041         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea69691c7bdcc3ce6d5d8a1361f22d04ac}{M}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00042}00042         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea8d9c307cb7f3c4a32822a51922d1ceaa}{N}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00043}00043         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eaf186217753c37b9b9f958d906208506e}{O}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00044}00044         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea44c29edb103a2872f519ad0c9a0fdaaa}{P}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00045}00045         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eaf09564c9ca56850d4cd6b3319e541aee}{Q}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00046}00046         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eae1e1d3d40573127e9ee0480caf1283d6}{R}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00047}00047         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea5dbc98dcc983a70728bd082d1a47546e}{S}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00048}00048         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eab9ece18c950afbfa6b0fdbfa4ff731d3}{T}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00049}00049         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea4c614360da93c0a041b22e537de151eb}{U}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00050}00050         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea5206560a306a2e085a437fd258eb57ce}{V}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00051}00051         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea61e9c06ea9a85a5088a499df6458d276}{W}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00052}00052         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ad1d8e1f23e2f2515648a3ad1b93ff345a02129bb861061d1a052c592e2dc6b383}{X}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00053}00053         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ad1d8e1f23e2f2515648a3ad1b93ff345a57cec4137b614c87cb4e24a3d003a3e0}{Y}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00054}00054         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea21c2e59531c8710156d34a3c30ac81d5}{Z}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00055}00055         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea0c2629e56daed25c9df918961d0cc03f}{LEFT\_BRACKET}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00056}00056         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eaecb4a6f3440c2ed0dff59f17375a27c0}{BACKSLASH}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00057}00057         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea37d522b3a1a6a8eb09ee603503ad8a0d}{REIGHT\_BRACKET}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00058}00058         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea1547ad05c44be2cc614be32159bf666b}{GRAVE\_ACCENT}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00059}00059         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea1ab6dcd85380f2d3e882fbd2f6fda566}{WORLD\_1}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00060}00060         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eacb8104ace1979f9537c7f40de0622a22}{WORLD\_2}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00061}00061         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eadaaedac409335b869929ea43fa44be5d}{ESCAPE}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00062}00062         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea331b3100a485d8cacff1d3df8e9b0c13}{ENTER}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00063}00063         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eaf684bf05fa3e81528c84d1d281d839f1}{TAB}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00064}00064         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea6f5d8e41084b4d3d47fa621c459eede1}{BACKSPACE}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00065}00065         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea61ee777e7f71dc466c3b2c685d8d313b}{INSERT}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00066}00066         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea2bbe23c0e8b3f638f0f5aed4b6864513}{DEL}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00067}00067         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea21507b40c80068eda19865706fdc2403}{RIGHT}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00068}00068         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea684d325a7303f52e64011467ff5c5758}{LEFT}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00069}00069         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eac4e0e4e3118472beeb2ae75827450f1f}{DOWN}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00070}00070         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eafbaedde498cdead4f2780217646e9ba1}{UP}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00071}00071         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eae791d936f894ce58dd18bf603edcb9b4}{PAGE\_UP}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00072}00072         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eae9a23c5ce3d34b40123d65ca14b2e88f}{PAGE\_DOWN}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00073}00073         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea710533dd879dd1202e5c73b27705bf02}{HOME}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00074}00074         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eab1a326c06d88bf042f73d70f50197905}{END}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00075}00075         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eae40af1d5cc55c55ae0bb25953f7a7ee2}{CAPS\_LOCK}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00076}00076         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea324bf1f059b99e2882bc1d567080d8ed}{SCROLL\_LOCK}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00077}00077         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eacb0d0bf9279e78f982deba761110e434}{NUM\_LOCK}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00078}00078         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea853f8ded7a96b5a765704974e6a3ca96}{PRINT\_SCREEN}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00079}00079         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea291554596c183e837f0a6bec3767c891}{PAUSE}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00080}00080         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eae1dffc8709f31a4987c8a88334107e89}{F1}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00081}00081         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eafe5c3684dce76cdd9f7f42430868aa74}{F2}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00082}00082         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea4b6bf4b531770872d4328ce69bef5627}{F3}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00083}00083         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eae7e0e72401a9f2718ed0f39f2861d702}{F4}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00084}00084         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea37f438df6a6d5ba4c17ef8ca58562f00}{F5}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00085}00085         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea1faf42f2823f184eb2c9f0dffe5d73f2}{F6}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00086}00086         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea47489eb597b7db34caa24b1fc78fc839}{F7}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00087}00087         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea4787509ad9f9d747a81a30e9dde3d4a7}{F8}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00088}00088         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea892a245e287c163080b23db737d3c4c9}{F9}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00089}00089         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eab213ce22ca6ad4eda8db82966b9b6e5a}{F10}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00090}00090         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea643b0662422d1d0dffa3fca2e2bf28a8}{F11}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00091}00091         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eae902674982fc99aa343cdd94da7476c3}{F12}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00092}00092         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea95dfde4807d4d6a9eec499203b3c24a0}{F13}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00093}00093         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea2468649b6215c4cdd2aef5095b3f5932}{F14}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00094}00094         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eae53b55851b9ff4979f2c3ff434a4a138}{F15}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00095}00095         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea56d8353718e6fdc78b8d69078a2cdb94}{F16}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00096}00096         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eaffa5882d1ddcf903bf0d0dbc30bfc604}{F17}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00097}00097         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea810b30cdfc07fd7fff553a94b828ff78}{F18}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00098}00098         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eacd7c2a221ef5d0a34acc0bcd679b2054}{F19}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00099}00099         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eafc335adb3d69d3d8270769e1923ea4dc}{F20}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00100}00100         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea77e9eee7c579eef5f3731ecf1053c02e}{F21}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00101}00101         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea7fa06ead699fcbd63132370ffe13335a}{F22}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00102}00102         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea889645d530078147e7dc69a9caadc31e}{F23}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00103}00103         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eaebd7820c520d05eca2d775c37d141273}{F24}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00104}00104         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eaabf9846f265ae3dea4bf9d740f5cb1aa}{F25}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00105}00105         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea957845bc887cf9c729098634ff707338}{KEYPAD\_0}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00106}00106         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea080b894b2cce98d65634089f043f7fd8}{KEYPAD\_1}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00107}00107         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea3a347a9bc01bf97c17deb8f102cd56c3}{KEYPAD\_2}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00108}00108         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea6e744526a6fe0b6e9d29a1c597ab4337}{KEYPAD\_3}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00109}00109         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea9d1ebfba4b03a426803811761d0b1116}{KEYPAD\_4}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00110}00110         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea3b6e8f8cda6bb4dd39644878da3c6cff}{KEYPAD\_5}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00111}00111         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea7f0f5820cf7aa6476e6af13282d6193d}{KEYPAD\_6}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00112}00112         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea320d23c4f248cfe92ae073ba17145818}{KEYPAD\_7}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00113}00113         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea2209d9677700e702d8cf41cef953ba1e}{KEYPAD\_8}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00114}00114         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea372163187a9a40d0c84d2b38a67d4ddb}{KEYPAD\_9}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00115}00115         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea7e0da1daa4958a22c87040632d308c91}{KEYPAD\_DECIMAL}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00116}00116         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea681823b13d0569ba6ed75efe05bf7563}{KEYPAD\_DIVIDE}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00117}00117         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea2e6edb38f454ce4d1903cb0353e2394c}{KEYPAD\_MULTIPLY}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00118}00118         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ead3d53f7667b07f3bd9db31f4453240db}{KEYPAD\_SUBSTRACT}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00119}00119         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea1f752be177c2938ae9d60b98e40cf3ee}{KEYPAD\_ADD}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00120}00120         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea3bb97b2ea7b13cbba2e34ed4e63f4f1c}{KEYPAD\_ENTER}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00121}00121         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea480a19a2c02c47d566fb11471f091b6c}{KEYPAD\_EQUAL}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00122}00122         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eab6c7e6204e97690efd79d6f513ed5613}{LEFT\_SHIFT}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00123}00123         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eaddf133566f544b297f2f84874c283589}{LEFT\_CONTROL}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00124}00124         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea3a92f3bbf26e4ea5ea7ce7db2f432c56}{LEFT\_ALT}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00125}00125         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eafd816cf0346d4939b4cf3bed78dd7fde}{LEFT\_SUPER}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00126}00126         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea63a707029860972efa1c44ac6016e098}{RIGHT\_SHIFT}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00127}00127         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea80cdb34a10d276950f8b20b6814c9194}{RIGHT\_CONTROL}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00128}00128         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea0123827c03dce5d07ebd43bd649a1073}{RIGHT\_ALT}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00129}00129         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea8825bb5d58b44b72465799553acb964d}{RIGHT\_SUPER}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00130}00130         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea3ed53fbeb1eab0443561b68ca0c0b5cf}{MENU}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00131}00131 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00132}00132         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea5ac6da47cfa6f5e51b607378ad6927f4}{ANY\_SHIFT}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00133}00133         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eaf62243e85cb79aa6e7b5b4226e7eaf8e}{ANY\_ALT}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00134}00134 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00135}00135         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a37e62c3e569002298eedcfd13bad4dd4a72b49a7cbf0c0e3dff052d091d838252}{\_\_END}}}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00136}00136     \};}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00137}00137 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00141}\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{00141}}     \textcolor{keyword}{enum class} \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{KeyState}} \{}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00142}00142 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00146}00146         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_aaddc5e8725ac9d930e313af0044eb968a109d54efbb64d71f9a6ab18d0fb8add8}{RELEASED}},}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00147}00147 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00151}00151         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_aaddc5e8725ac9d930e313af0044eb968a5381dc876ab002103a027265bc14ae52}{PRESSED}}}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00152}00152 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00153}00153     \};}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00154}00154 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00158}\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab6538119e8f374865c6ac58dab067993}{00158}}     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab6538119e8f374865c6ac58dab067993}{KeyboardNumberOfKeys}} = (int)\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea72b49a7cbf0c0e3dff052d091d838252}{Key::\_\_END}};}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00159}00159 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00164}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state}{00164}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state}{KeyboardState}} \{}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00165}00165 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00166}00166     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00167}00167 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00168}00168         \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state}{KeyboardState}}();}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00169}00169 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00174}00174         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{KeyState}} GetKeyState(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}} key) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00175}00175 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00180}00180         \textcolor{keywordtype}{bool} IsKeyDown(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}} key) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00181}00181 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00186}00186         \textcolor{keywordtype}{bool} IsKeyUp(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}} key) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00187}00187 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00194}00194         \textcolor{keywordtype}{void} \_SetKeyState(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}} key, \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{KeyState}} state);}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00195}00195 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00199}00199         \textcolor{keywordtype}{void} operator=(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state}{KeyboardState}}\& other);}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00200}00200 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00201}00201     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00202}00202 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00206}00206         \textcolor{keywordtype}{int} keyStates[\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab6538119e8f374865c6ac58dab067993}{KeyboardNumberOfKeys}}];}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00207}00207 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00208}00208     \};}
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00209}00209 }
+\DoxyCodeLine{\Hypertarget{_keyboard_state_8h_source_l00210}00210 \}}
+
+\end{DoxyCode}

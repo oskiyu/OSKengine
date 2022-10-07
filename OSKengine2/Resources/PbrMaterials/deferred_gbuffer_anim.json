@@ -1,0 +1,21 @@
+{
+    "file_type": "MATERIAL",
+    "spec_ver": 1,
+    "name": "GBufferColor Animated",
+
+    "vertex_shader": "Resources/Shaders/VK/PBR/Deferred/GBuffer/anim.spv",
+    "fragment_shader": "Resources/Shaders/VK/PBR/Deferred/GBuffer/frag.spv",
+    
+    "vertex_type": "OSK::VertexAnim3D",
+
+    "slots": {
+        "0": "global",
+        "1": "texture",
+        "2": "animation"
+    },
+    
+    "config": {
+        "disable_alpha_blending": "true"
+    }
+    
+}

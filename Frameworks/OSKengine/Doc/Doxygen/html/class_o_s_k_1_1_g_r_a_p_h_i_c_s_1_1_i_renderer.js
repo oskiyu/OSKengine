@@ -71,6 +71,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer =
     [ "resizablePostProcessingPasses", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a7e98e72a6fb34491cdd3b358c225747f", null ],
     [ "resizableRenderTargets", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a35cde40eec42292e6059763aae496525", null ],
     [ "resizeCallbacks", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a094df08d451deaab468fffe79dfb689a", null ],
+    [ "singleCommandQueue", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a7575d99920b80cf3481c26d2e170ebd6", null ],
     [ "singleTimeCommandLists", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a0493d3e86b3a5f32f74acf9a280c812f", null ],
     [ "swapchain", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a4c5061452a68969f433306c2e5984a70", null ],
     [ "syncDevice", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#aed39f82dfcb5e92d9ed9efdca4f346ee", null ],

@@ -1,0 +1,259 @@
+\hypertarget{class_o_s_k_1_1_i_game}{}\doxysection{Referencia de la Clase OSK\+::IGame}
+\label{class_o_s_k_1_1_i_game}\index{OSK::IGame@{OSK::IGame}}
+
+
+{\ttfamily \#include $<$Game.\+h$>$}
+
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_o_s_k_1_1_i_game_a8bbe8755f305ca2c169f547b9eaec5a7}{$\sim$\+IGame}} ()=default
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_i_game_a92ccf921e939bcf8409ab9326e7571b4}{Register\+Assets}} ()
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_i_game_a6c43af37f9365f6490d1a0a2c9250f0e}{Register\+Components}} ()
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_i_game_a6595c60375b1f2f14e6e96e1f8ca404e}{Register\+Systems}} ()
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_i_game_ab00e969b9d69316da10501747d0fdebe}{On\+Create}} ()
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_i_game_af5b3dafcf09ca96ea589b1a799ee1a54}{On\+Tick}} (\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDelta\+Time}} delta\+Time)
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_i_game_a1fd5e113ad6425b6a8fdc99c87c49167}{Build\+Frame}} ()=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_i_game_a02044212501aee6fc59d1a75c0129892}{On\+Exit}} ()
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_i_game_a49a11ed87fecf78d0ac7297b34382e5f}{On\+Window\+Resize}} (const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&size)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_i_game_a061c6604f59ca3ef9f5093b1fb78f844}{Run}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_i_game_ae8194150599c2c8d05a49efe80fe1b47}{Exit}} ()
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_i_game_a145aa2e1a77bd7e159a03cc6620165ab}{Get\+Fps}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Métodos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_i_game_af033542cc50642b5e1325ee4c7c93cf7}{Create\+Window}} ()=0
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_i_game_a3fff81bfbca1fc25efa8a10f2318d46b}{Setup\+Engine}} ()=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Esta clase representa la clase principal de un juego de OSKengine. No es estrictamente necesaria para desarrollar con OSKengine, pero es un buen punto de partida. Ofrece una abstracción mínima. 
+
+\begin{DoxyPrecond}{Precondición}
+Deben sobreescribirse las funciones de \mbox{\hyperlink{class_o_s_k_1_1_i_game_af033542cc50642b5e1325ee4c7c93cf7}{Create\+Window()}} y \mbox{\hyperlink{class_o_s_k_1_1_i_game_a3fff81bfbca1fc25efa8a10f2318d46b}{Setup\+Engine()}} de manera obligatoria. 
+\end{DoxyPrecond}
+
+
+Definición en la línea \mbox{\hyperlink{_game_8h_source_l00021}{21}} del archivo \mbox{\hyperlink{_game_8h_source}{Game.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_i_game_a8bbe8755f305ca2c169f547b9eaec5a7}\label{class_o_s_k_1_1_i_game_a8bbe8755f305ca2c169f547b9eaec5a7}} 
+\index{OSK::IGame@{OSK::IGame}!````~IGame@{$\sim$IGame}}
+\index{````~IGame@{$\sim$IGame}!OSK::IGame@{OSK::IGame}}
+\doxysubsubsection{\texorpdfstring{$\sim$IGame()}{~IGame()}}
+{\footnotesize\ttfamily virtual OSK\+::\+IGame\+::$\sim$\+IGame (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_i_game_a1fd5e113ad6425b6a8fdc99c87c49167}\label{class_o_s_k_1_1_i_game_a1fd5e113ad6425b6a8fdc99c87c49167}} 
+\index{OSK::IGame@{OSK::IGame}!BuildFrame@{BuildFrame}}
+\index{BuildFrame@{BuildFrame}!OSK::IGame@{OSK::IGame}}
+\doxysubsubsection{\texorpdfstring{BuildFrame()}{BuildFrame()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+IGame\+::\+Build\+Frame (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Esta función debe renderizar la imagen final que se representará en la ventana. 
+
+Los comandos de renderizado finales deben ejecutarse en el renderpass principal del motor (IRenderer\+::\+Get\+Main\+Renderpass).
+
+Para construir el frame, se pueden usar las imágenes de los sistemas de renderizado. \mbox{\Hypertarget{class_o_s_k_1_1_i_game_af033542cc50642b5e1325ee4c7c93cf7}\label{class_o_s_k_1_1_i_game_af033542cc50642b5e1325ee4c7c93cf7}} 
+\index{OSK::IGame@{OSK::IGame}!CreateWindow@{CreateWindow}}
+\index{CreateWindow@{CreateWindow}!OSK::IGame@{OSK::IGame}}
+\doxysubsubsection{\texorpdfstring{CreateWindow()}{CreateWindow()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+IGame\+::\+Create\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Debe crear la ventana del \mbox{\hyperlink{class_o_s_k_1_1_engine}{Engine}}. 
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_game_ae8194150599c2c8d05a49efe80fe1b47}\label{class_o_s_k_1_1_i_game_ae8194150599c2c8d05a49efe80fe1b47}} 
+\index{OSK::IGame@{OSK::IGame}!Exit@{Exit}}
+\index{Exit@{Exit}!OSK::IGame@{OSK::IGame}}
+\doxysubsubsection{\texorpdfstring{Exit()}{Exit()}}
+{\footnotesize\ttfamily void IGame\+::\+Exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Fuerza el shutdown del juego. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_game_8cpp_source_l00129}{129}} del archivo \mbox{\hyperlink{_game_8cpp_source}{Game.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 0
+\mbox{\Hypertarget{class_o_s_k_1_1_i_game_a145aa2e1a77bd7e159a03cc6620165ab}\label{class_o_s_k_1_1_i_game_a145aa2e1a77bd7e159a03cc6620165ab}} 
+\index{OSK::IGame@{OSK::IGame}!GetFps@{GetFps}}
+\index{GetFps@{GetFps}!OSK::IGame@{OSK::IGame}}
+\doxysubsubsection{\texorpdfstring{GetFps()}{GetFps()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} IGame\+::\+Get\+Fps (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el número de frames en el último segundo. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_game_8cpp_source_l00137}{137}} del archivo \mbox{\hyperlink{_game_8cpp_source}{Game.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_game_ab00e969b9d69316da10501747d0fdebe}\label{class_o_s_k_1_1_i_game_ab00e969b9d69316da10501747d0fdebe}} 
+\index{OSK::IGame@{OSK::IGame}!OnCreate@{OnCreate}}
+\index{OnCreate@{OnCreate}!OSK::IGame@{OSK::IGame}}
+\doxysubsubsection{\texorpdfstring{OnCreate()}{OnCreate()}}
+{\footnotesize\ttfamily void IGame\+::\+On\+Create (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Función ejecutada al cargar el juego. 
+
+\begin{DoxyNote}{Nota}
+Se ejecuta dfespués de haber cargado todos los sistemas del juego. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_game_8cpp_source_l00036}{36}} del archivo \mbox{\hyperlink{_game_8cpp_source}{Game.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_game_a02044212501aee6fc59d1a75c0129892}\label{class_o_s_k_1_1_i_game_a02044212501aee6fc59d1a75c0129892}} 
+\index{OSK::IGame@{OSK::IGame}!OnExit@{OnExit}}
+\index{OnExit@{OnExit}!OSK::IGame@{OSK::IGame}}
+\doxysubsubsection{\texorpdfstring{OnExit()}{OnExit()}}
+{\footnotesize\ttfamily void IGame\+::\+On\+Exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Función que se ejecuta al salir del juego. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_game_8cpp_source_l00044}{44}} del archivo \mbox{\hyperlink{_game_8cpp_source}{Game.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_game_af5b3dafcf09ca96ea589b1a799ee1a54}\label{class_o_s_k_1_1_i_game_af5b3dafcf09ca96ea589b1a799ee1a54}} 
+\index{OSK::IGame@{OSK::IGame}!OnTick@{OnTick}}
+\index{OnTick@{OnTick}!OSK::IGame@{OSK::IGame}}
+\doxysubsubsection{\texorpdfstring{OnTick()}{OnTick()}}
+{\footnotesize\ttfamily void IGame\+::\+On\+Tick (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDelta\+Time}}}]{delta\+Time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Función que se ejecuta cada frame. Para hacer actualización del estado del juego. 
+
+\begin{DoxyNote}{Nota}
+Es preferible usar \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s}{ECS}} para manejar actualizaciones del estado del juego. 
+\end{DoxyNote}
+
+
+
+\begin{DoxyParams}{Parámetros}
+{\em delta\+Time} & Tiempo que ha pasado desde el último frame, en segundos.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_game_8cpp_source_l00040}{40}} del archivo \mbox{\hyperlink{_game_8cpp_source}{Game.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_game_a49a11ed87fecf78d0ac7297b34382e5f}\label{class_o_s_k_1_1_i_game_a49a11ed87fecf78d0ac7297b34382e5f}} 
+\index{OSK::IGame@{OSK::IGame}!OnWindowResize@{OnWindowResize}}
+\index{OnWindowResize@{OnWindowResize}!OSK::IGame@{OSK::IGame}}
+\doxysubsubsection{\texorpdfstring{OnWindowResize()}{OnWindowResize()}}
+{\footnotesize\ttfamily void IGame\+::\+On\+Window\+Resize (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Función que se ejecuta cuando la ventana cambia de tamaño. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_game_8cpp_source_l00133}{133}} del archivo \mbox{\hyperlink{_game_8cpp_source}{Game.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_game_a92ccf921e939bcf8409ab9326e7571b4}\label{class_o_s_k_1_1_i_game_a92ccf921e939bcf8409ab9326e7571b4}} 
+\index{OSK::IGame@{OSK::IGame}!RegisterAssets@{RegisterAssets}}
+\index{RegisterAssets@{RegisterAssets}!OSK::IGame@{OSK::IGame}}
+\doxysubsubsection{\texorpdfstring{RegisterAssets()}{RegisterAssets()}}
+{\footnotesize\ttfamily void IGame\+::\+Register\+Assets (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Registra los assets y los loaders específicos del juego. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_game_8cpp_source_l00024}{24}} del archivo \mbox{\hyperlink{_game_8cpp_source}{Game.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_game_a6c43af37f9365f6490d1a0a2c9250f0e}\label{class_o_s_k_1_1_i_game_a6c43af37f9365f6490d1a0a2c9250f0e}} 
+\index{OSK::IGame@{OSK::IGame}!RegisterComponents@{RegisterComponents}}
+\index{RegisterComponents@{RegisterComponents}!OSK::IGame@{OSK::IGame}}
+\doxysubsubsection{\texorpdfstring{RegisterComponents()}{RegisterComponents()}}
+{\footnotesize\ttfamily void IGame\+::\+Register\+Components (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Registra los componentes específicos del juego. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_game_8cpp_source_l00028}{28}} del archivo \mbox{\hyperlink{_game_8cpp_source}{Game.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_game_a6595c60375b1f2f14e6e96e1f8ca404e}\label{class_o_s_k_1_1_i_game_a6595c60375b1f2f14e6e96e1f8ca404e}} 
+\index{OSK::IGame@{OSK::IGame}!RegisterSystems@{RegisterSystems}}
+\index{RegisterSystems@{RegisterSystems}!OSK::IGame@{OSK::IGame}}
+\doxysubsubsection{\texorpdfstring{RegisterSystems()}{RegisterSystems()}}
+{\footnotesize\ttfamily void IGame\+::\+Register\+Systems (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Registra los sistemas específicos del juego. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_game_8cpp_source_l00032}{32}} del archivo \mbox{\hyperlink{_game_8cpp_source}{Game.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_game_a061c6604f59ca3ef9f5093b1fb78f844}\label{class_o_s_k_1_1_i_game_a061c6604f59ca3ef9f5093b1fb78f844}} 
+\index{OSK::IGame@{OSK::IGame}!Run@{Run}}
+\index{Run@{Run}!OSK::IGame@{OSK::IGame}}
+\doxysubsubsection{\texorpdfstring{Run()}{Run()}}
+{\footnotesize\ttfamily void IGame\+::\+Run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Inicia la ejecución del juego. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_game_8cpp_source_l00048}{48}} del archivo \mbox{\hyperlink{_game_8cpp_source}{Game.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 1
+\mbox{\Hypertarget{class_o_s_k_1_1_i_game_a3fff81bfbca1fc25efa8a10f2318d46b}\label{class_o_s_k_1_1_i_game_a3fff81bfbca1fc25efa8a10f2318d46b}} 
+\index{OSK::IGame@{OSK::IGame}!SetupEngine@{SetupEngine}}
+\index{SetupEngine@{SetupEngine}!OSK::IGame@{OSK::IGame}}
+\doxysubsubsection{\texorpdfstring{SetupEngine()}{SetupEngine()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+IGame\+::\+Setup\+Engine (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Debe inicializar el renderizador del \mbox{\hyperlink{class_o_s_k_1_1_engine}{Engine}}. 
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_game_8h}{Game.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_game_8cpp}{Game.\+cpp}}\end{DoxyCompactItemize}

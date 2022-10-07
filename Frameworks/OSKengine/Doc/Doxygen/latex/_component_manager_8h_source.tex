@@ -1,0 +1,69 @@
+\hypertarget{_component_manager_8h_source}{}\doxysection{Component\+Manager.\+h}
+\label{_component_manager_8h_source}\index{OSKengine2/ComponentManager.h@{OSKengine2/ComponentManager.h}}
+\mbox{\hyperlink{_component_manager_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_component_container_8h}{ComponentContainer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_component_8h}{Component.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_hash_map_8hpp}{HashMap.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_owned_ptr_8h}{OwnedPtr.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_unique_ptr_8hpp}{UniquePtr.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00009}00009 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00011}00011 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s}{OSK::ECS}} \{}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00017}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_manager}{00017}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_manager}{ComponentManager}} \{}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00019}00019     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00021}00021         \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_manager}{\string~ComponentManager}}();}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00028}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_manager_adc6f673558c9c9d2df9868199a8f0f76}{00028}}         \textcolor{keyword}{template} <\textcolor{keyword}{typename} TComponent> \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_manager_adc6f673558c9c9d2df9868199a8f0f76}{RegisterComponent}}() \{}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00029}00029             std::string key = TComponent::GetComponentTypeName();}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00031}00031             componentTypes.Insert(key, nextComponentType);}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00032}00032             componentContainers.Insert(key, \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container}{ComponentContainer<TComponent>}}());}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00034}00034             nextComponentType++;}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00035}00035         \}}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00040}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_manager_a2b248c62c48465489f1f7b3eeb76aa87}{00040}}         \textcolor{keyword}{template} <\textcolor{keyword}{typename} TComponent> \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_abe66f77f80fc594e988b8d0c01468dd0}{ComponentType}} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_manager_a2b248c62c48465489f1f7b3eeb76aa87}{GetComponentType}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00041}00041             \textcolor{keywordflow}{return} componentTypes.Get(TComponent::GetComponentTypeName());}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00042}00042         \}}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00048}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_manager_a6c9e6a845554c44ca445ba48598f371d}{00048}}         \textcolor{keyword}{template} <\textcolor{keyword}{typename} TComponent> TComponent\& \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_manager_a6c9e6a845554c44ca445ba48598f371d}{AddComponent}}(\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{GameObjectIndex}} obj, \textcolor{keyword}{const} TComponent\& component) \{}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00049}00049             \textcolor{keywordflow}{return} GetComponentContainer<TComponent>()-\/>AddComponent(obj, component);}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00050}00050         \}}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00056}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_manager_aaced8a78336ebe61db86f04f928f7ddb}{00056}}         \textcolor{keyword}{template} <\textcolor{keyword}{typename} TComponent> TComponent\& \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_manager_aaced8a78336ebe61db86f04f928f7ddb}{AddComponentMove}}(\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{GameObjectIndex}} obj, TComponent\&\& component) \{}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00057}00057             \textcolor{keywordflow}{return} GetComponentContainer<TComponent>()-\/>AddComponentMove(obj, std::move(component));}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00058}00058         \}}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00064}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_manager_a7b891ed0cf0b4360d315bd276bdb1784}{00064}}         \textcolor{keyword}{template} <\textcolor{keyword}{typename} TComponent> \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_manager_a7b891ed0cf0b4360d315bd276bdb1784}{RemoveComponent}}(\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{GameObjectIndex}} obj) \{}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00065}00065             GetComponentContainer<TComponent>()-\/>RemoveComponent(obj);}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00066}00066         \}}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00074}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_manager_a3c2cdf37952e70c19086fc1863e256a7}{00074}}         \textcolor{keyword}{template} <\textcolor{keyword}{typename} TComponent> TComponent\& \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_manager_a3c2cdf37952e70c19086fc1863e256a7}{GetComponent}}(\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{GameObjectIndex}} obj)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00075}00075             \textcolor{keywordflow}{return} GetComponentContainer<TComponent>()-\/>GetComponent(obj);}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00076}00076         \}}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00082}00082         \textcolor{keywordtype}{void} GameObjectDestroyed(\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{GameObjectIndex}} obj);}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00083}00083 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00084}00084     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00085}00085 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00089}00089         \mbox{\hyperlink{class_o_s_k_1_1_hash_map}{HashMap<std::string, ComponentType>}} componentTypes;}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00093}00093         \mbox{\hyperlink{class_o_s_k_1_1_hash_map}{HashMap<std::string, OwnedPtr<IComponentContainer>}}> componentContainers;}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00098}00098         \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_abe66f77f80fc594e988b8d0c01468dd0}{ComponentType}} nextComponentType = 0;}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00099}00099 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00103}00103         \textcolor{keyword}{template} <\textcolor{keyword}{typename} TComponent> \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container}{ComponentContainer<TComponent>}}* GetComponentContainer()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00104}00104             \textcolor{keywordflow}{return} (\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_component_container}{ComponentContainer<TComponent>}}*)componentContainers.\mbox{\hyperlink{class_o_s_k_1_1_hash_map_a93a98e2495dab16229085c7109a27b30}{Get}}(TComponent::GetComponentTypeName()).GetPointer();}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00105}00105         \}}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00106}00106             }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00107}00107     \};}
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{_component_manager_8h_source_l00109}00109 \}}
+
+\end{DoxyCode}

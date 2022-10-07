@@ -1,0 +1,219 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::Sync\+Device\+Vulkan}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan}\index{OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}}
+
+
+{\ttfamily \#include $<$Sync\+Device\+Vulkan.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::Sync\+Device\+Vulkan
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::Sync\+Device\+Vulkan\+:
+% FIG 1
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a5682c26691f1c69b02e04d886169ddf1}{$\sim$\+Sync\+Device\+Vulkan}} ()
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a92ee7f68622d18dd4a7ed56d9ca55051}{Sync\+Device\+Vulkan}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a84ce5ae7ca644bc63a60a776a419c79e}{Set\+Image\+Available\+Semaphores}} (const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{_sync_device_vulkan_8h_a2e08671f6ab4c3f6b498c7f5ebb81255}{Vk\+Semaphore}} $>$ \&semaphores)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a9eaebb40f97bf4a1981c083b650451bf}{Set\+Render\+Finished\+Semaphores}} (const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{_sync_device_vulkan_8h_a2e08671f6ab4c3f6b498c7f5ebb81255}{Vk\+Semaphore}} $>$ \&semaphores)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a67145ae40ed941309d9823566ec535f0}{Set\+In\+Flight\+Fences}} (const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{_sync_device_vulkan_8h_aa8137065b12f2e81be57ce3145cf4341}{Vk\+Fence}} $>$ \&fences)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a6ba441a32cfc266f1fb236fd2e75011d}{Set\+Images\+In\+Flight\+Fences}} (const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{_sync_device_vulkan_8h_aa8137065b12f2e81be57ce3145cf4341}{Vk\+Fence}} $>$ \&fences)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a8ff45f255abf7024b032785f9eba31a1}{Set\+Device}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{Gpu\+Vulkan}} \&device)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a58729394109ec1d07af9e18adaef53bc}{Set\+Swapchain}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan}{Swapchain\+Vulkan}} \&swapchain)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a74b5441b4ff50c77c6b114a15365fc7a}{First\+Await}} ()
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a5a9110a4da448f607b783f949fb941d9}{Update\+Current\+Frame\+Index}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a372f1f09902e5735edb66cf7ed4c1a84}{Flush}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan}{Command\+Queue\+Vulkan}} \&graphics\+Queue, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan}{Command\+Queue\+Vulkan}} \&present\+Queue, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan}{Command\+List\+Vulkan}} \&command\+List)
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a5624b7d5d1a7e05d93d718c8fe8349c5}{Get\+Current\+Frame\+Index}} () const
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_ac71cc1708d54ae31a1d6b5090b8a7d1f}{Get\+Current\+Command\+List\+Index}} () const
+\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sync_device}{ISync\+Device}}, T$>$}\\T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sync_device_aac392bc4e2f0da5f3600a6eb7972bf1b}{As}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+
+
+Definición en la línea \mbox{\hyperlink{_sync_device_vulkan_8h_source_l00019}{19}} del archivo \mbox{\hyperlink{_sync_device_vulkan_8h_source}{Sync\+Device\+Vulkan.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a5682c26691f1c69b02e04d886169ddf1}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a5682c26691f1c69b02e04d886169ddf1}} 
+\index{OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}!````~SyncDeviceVulkan@{$\sim$SyncDeviceVulkan}}
+\index{````~SyncDeviceVulkan@{$\sim$SyncDeviceVulkan}!OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}}
+\doxysubsubsection{\texorpdfstring{$\sim$SyncDeviceVulkan()}{~SyncDeviceVulkan()}}
+{\footnotesize\ttfamily Sync\+Device\+Vulkan\+::$\sim$\+Sync\+Device\+Vulkan (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_sync_device_vulkan_8cpp_source_l00022}{22}} del archivo \mbox{\hyperlink{_sync_device_vulkan_8cpp_source}{Sync\+Device\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a92ee7f68622d18dd4a7ed56d9ca55051}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a92ee7f68622d18dd4a7ed56d9ca55051}} 
+\index{OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}!SyncDeviceVulkan@{SyncDeviceVulkan}}
+\index{SyncDeviceVulkan@{SyncDeviceVulkan}!OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}}
+\doxysubsubsection{\texorpdfstring{SyncDeviceVulkan()}{SyncDeviceVulkan()}}
+{\footnotesize\ttfamily Sync\+Device\+Vulkan\+::\+Sync\+Device\+Vulkan (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_sync_device_vulkan_8cpp_source_l00018}{18}} del archivo \mbox{\hyperlink{_sync_device_vulkan_8cpp_source}{Sync\+Device\+Vulkan.\+cpp}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sync_device_aac392bc4e2f0da5f3600a6eb7972bf1b}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sync_device_aac392bc4e2f0da5f3600a6eb7972bf1b}} 
+\index{OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}!As@{As}}
+\index{As@{As}!OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}}
+\doxysubsubsection{\texorpdfstring{As()}{As()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sync_device}{ISync\+Device}}, T$>$\\
+T $\ast$ OSK\+::\+GRAPHICS\+::\+ISync\+Device\+::\+As (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_sync_device_8h_source_l00023}{23}} del archivo \mbox{\hyperlink{_i_sync_device_8h_source}{ISync\+Device.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a74b5441b4ff50c77c6b114a15365fc7a}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a74b5441b4ff50c77c6b114a15365fc7a}} 
+\index{OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}!FirstAwait@{FirstAwait}}
+\index{FirstAwait@{FirstAwait}!OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}}
+\doxysubsubsection{\texorpdfstring{FirstAwait()}{FirstAwait()}}
+{\footnotesize\ttfamily void Sync\+Device\+Vulkan\+::\+First\+Await (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_sync_device_vulkan_8cpp_source_l00078}{78}} del archivo \mbox{\hyperlink{_sync_device_vulkan_8cpp_source}{Sync\+Device\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a372f1f09902e5735edb66cf7ed4c1a84}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a372f1f09902e5735edb66cf7ed4c1a84}} 
+\index{OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}!Flush@{Flush}}
+\index{Flush@{Flush}!OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}}
+\doxysubsubsection{\texorpdfstring{Flush()}{Flush()}}
+{\footnotesize\ttfamily void Sync\+Device\+Vulkan\+::\+Flush (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan}{Command\+Queue\+Vulkan}} \&}]{graphics\+Queue,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan}{Command\+Queue\+Vulkan}} \&}]{present\+Queue,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan}{Command\+List\+Vulkan}} \&}]{command\+List }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Tareas pendientes}
+\item[\mbox{\hyperlink{todo__todo000019}{Tareas pendientes}}]vk\+Wait\+For\+Semaphores \end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Tareas pendientes}
+\item[\mbox{\hyperlink{todo__todo000020}{Tareas pendientes}}]vk\+Get\+Semaphore\+State \end{DoxyRefDesc}
+
+
+Definición en la línea \mbox{\hyperlink{_sync_device_vulkan_8cpp_source_l00098}{98}} del archivo \mbox{\hyperlink{_sync_device_vulkan_8cpp_source}{Sync\+Device\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 3
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_ac71cc1708d54ae31a1d6b5090b8a7d1f}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_ac71cc1708d54ae31a1d6b5090b8a7d1f}} 
+\index{OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}!GetCurrentCommandListIndex@{GetCurrentCommandListIndex}}
+\index{GetCurrentCommandListIndex@{GetCurrentCommandListIndex}!OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}}
+\doxysubsubsection{\texorpdfstring{GetCurrentCommandListIndex()}{GetCurrentCommandListIndex()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} Sync\+Device\+Vulkan\+::\+Get\+Current\+Command\+List\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_sync_device_vulkan_8cpp_source_l00170}{170}} del archivo \mbox{\hyperlink{_sync_device_vulkan_8cpp_source}{Sync\+Device\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a5624b7d5d1a7e05d93d718c8fe8349c5}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a5624b7d5d1a7e05d93d718c8fe8349c5}} 
+\index{OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}!GetCurrentFrameIndex@{GetCurrentFrameIndex}}
+\index{GetCurrentFrameIndex@{GetCurrentFrameIndex}!OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}}
+\doxysubsubsection{\texorpdfstring{GetCurrentFrameIndex()}{GetCurrentFrameIndex()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} Sync\+Device\+Vulkan\+::\+Get\+Current\+Frame\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_sync_device_vulkan_8cpp_source_l00166}{166}} del archivo \mbox{\hyperlink{_sync_device_vulkan_8cpp_source}{Sync\+Device\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a8ff45f255abf7024b032785f9eba31a1}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a8ff45f255abf7024b032785f9eba31a1}} 
+\index{OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}!SetDevice@{SetDevice}}
+\index{SetDevice@{SetDevice}!OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}}
+\doxysubsubsection{\texorpdfstring{SetDevice()}{SetDevice()}}
+{\footnotesize\ttfamily void Sync\+Device\+Vulkan\+::\+Set\+Device (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{Gpu\+Vulkan}} \&}]{device }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_sync_device_vulkan_8cpp_source_l00070}{70}} del archivo \mbox{\hyperlink{_sync_device_vulkan_8cpp_source}{Sync\+Device\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a84ce5ae7ca644bc63a60a776a419c79e}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a84ce5ae7ca644bc63a60a776a419c79e}} 
+\index{OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}!SetImageAvailableSemaphores@{SetImageAvailableSemaphores}}
+\index{SetImageAvailableSemaphores@{SetImageAvailableSemaphores}!OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}}
+\doxysubsubsection{\texorpdfstring{SetImageAvailableSemaphores()}{SetImageAvailableSemaphores()}}
+{\footnotesize\ttfamily void Sync\+Device\+Vulkan\+::\+Set\+Image\+Available\+Semaphores (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{_sync_device_vulkan_8h_a2e08671f6ab4c3f6b498c7f5ebb81255}{Vk\+Semaphore}} $>$ \&}]{semaphores }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_sync_device_vulkan_8cpp_source_l00048}{48}} del archivo \mbox{\hyperlink{_sync_device_vulkan_8cpp_source}{Sync\+Device\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a6ba441a32cfc266f1fb236fd2e75011d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a6ba441a32cfc266f1fb236fd2e75011d}} 
+\index{OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}!SetImagesInFlightFences@{SetImagesInFlightFences}}
+\index{SetImagesInFlightFences@{SetImagesInFlightFences}!OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}}
+\doxysubsubsection{\texorpdfstring{SetImagesInFlightFences()}{SetImagesInFlightFences()}}
+{\footnotesize\ttfamily void Sync\+Device\+Vulkan\+::\+Set\+Images\+In\+Flight\+Fences (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{_sync_device_vulkan_8h_aa8137065b12f2e81be57ce3145cf4341}{Vk\+Fence}} $>$ \&}]{fences }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_sync_device_vulkan_8cpp_source_l00066}{66}} del archivo \mbox{\hyperlink{_sync_device_vulkan_8cpp_source}{Sync\+Device\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a67145ae40ed941309d9823566ec535f0}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a67145ae40ed941309d9823566ec535f0}} 
+\index{OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}!SetInFlightFences@{SetInFlightFences}}
+\index{SetInFlightFences@{SetInFlightFences}!OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}}
+\doxysubsubsection{\texorpdfstring{SetInFlightFences()}{SetInFlightFences()}}
+{\footnotesize\ttfamily void Sync\+Device\+Vulkan\+::\+Set\+In\+Flight\+Fences (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{_sync_device_vulkan_8h_aa8137065b12f2e81be57ce3145cf4341}{Vk\+Fence}} $>$ \&}]{fences }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_sync_device_vulkan_8cpp_source_l00056}{56}} del archivo \mbox{\hyperlink{_sync_device_vulkan_8cpp_source}{Sync\+Device\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a9eaebb40f97bf4a1981c083b650451bf}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a9eaebb40f97bf4a1981c083b650451bf}} 
+\index{OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}!SetRenderFinishedSemaphores@{SetRenderFinishedSemaphores}}
+\index{SetRenderFinishedSemaphores@{SetRenderFinishedSemaphores}!OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}}
+\doxysubsubsection{\texorpdfstring{SetRenderFinishedSemaphores()}{SetRenderFinishedSemaphores()}}
+{\footnotesize\ttfamily void Sync\+Device\+Vulkan\+::\+Set\+Render\+Finished\+Semaphores (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{_sync_device_vulkan_8h_a2e08671f6ab4c3f6b498c7f5ebb81255}{Vk\+Semaphore}} $>$ \&}]{semaphores }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_sync_device_vulkan_8cpp_source_l00052}{52}} del archivo \mbox{\hyperlink{_sync_device_vulkan_8cpp_source}{Sync\+Device\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a58729394109ec1d07af9e18adaef53bc}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a58729394109ec1d07af9e18adaef53bc}} 
+\index{OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}!SetSwapchain@{SetSwapchain}}
+\index{SetSwapchain@{SetSwapchain}!OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}}
+\doxysubsubsection{\texorpdfstring{SetSwapchain()}{SetSwapchain()}}
+{\footnotesize\ttfamily void Sync\+Device\+Vulkan\+::\+Set\+Swapchain (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan}{Swapchain\+Vulkan}} \&}]{swapchain }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_sync_device_vulkan_8cpp_source_l00074}{74}} del archivo \mbox{\hyperlink{_sync_device_vulkan_8cpp_source}{Sync\+Device\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a5a9110a4da448f607b783f949fb941d9}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a5a9110a4da448f607b783f949fb941d9}} 
+\index{OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}!UpdateCurrentFrameIndex@{UpdateCurrentFrameIndex}}
+\index{UpdateCurrentFrameIndex@{UpdateCurrentFrameIndex}!OSK::GRAPHICS::SyncDeviceVulkan@{OSK::GRAPHICS::SyncDeviceVulkan}}
+\doxysubsubsection{\texorpdfstring{UpdateCurrentFrameIndex()}{UpdateCurrentFrameIndex()}}
+{\footnotesize\ttfamily bool Sync\+Device\+Vulkan\+::\+Update\+Current\+Frame\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_sync_device_vulkan_8cpp_source_l00083}{83}} del archivo \mbox{\hyperlink{_sync_device_vulkan_8cpp_source}{Sync\+Device\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 4
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_sync_device_vulkan_8h}{Sync\+Device\+Vulkan.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_sync_device_vulkan_8cpp}{Sync\+Device\+Vulkan.\+cpp}}\end{DoxyCompactItemize}

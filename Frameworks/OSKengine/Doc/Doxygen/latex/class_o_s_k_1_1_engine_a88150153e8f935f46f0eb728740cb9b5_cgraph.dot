@@ -1,0 +1,16 @@
+digraph "OSK::Engine::Create"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::Engine::Create",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::Engine::GetBuild",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_engine.html#a6b9ee02d043a6bd62d96c28fe3987f3d",tooltip=" "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="OSK::Engine::GetVersion",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_engine.html#ae7fa09bffe338e2361df47c4f2f704b0",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="OSK::IO::FileIO::ReadFromFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_file_i_o.html#aad968707ec7b00bce0540c804f476dc9",tooltip="Lee un archivo de texto."];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="OSK::IO::FileIO::FileExists",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_file_i_o.html#ac7fe213b79ce97b178a7e27f7216a2f4",tooltip="Comprueba si un archivo existe."];
+}

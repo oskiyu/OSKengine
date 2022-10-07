@@ -1,0 +1,275 @@
+\hypertarget{_gpu_image_vulkan_8cpp_source}{}\doxysection{Gpu\+Image\+Vulkan.\+cpp}
+\label{_gpu_image_vulkan_8cpp_source}\index{OSKengine2/GpuImageVulkan.cpp@{OSKengine2/GpuImageVulkan.cpp}}
+\mbox{\hyperlink{_gpu_image_vulkan_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_vulkan_8h}{GpuImageVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kengine_8h}{OSKengine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_renderer_vulkan_8h}{RendererVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_vulkan_8h}{GpuVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_logger_8h}{Logger.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00008}00008 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_format_vulkan_8h}{FormatVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00009}00009 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_usage_8h}{GpuImageUsage.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00010}00010 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_memory_type_vulkan_8h}{GpuMemoryTypeVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00011}00011 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_dimensions_8h}{GpuImageDimensions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00012}00012 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_command_queue_vulkan_8h}{CommandQueueVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00013}00013 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_view_vulkan_8h}{GpuImageViewVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00015}00015 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00016}00016 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00018}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_a7f1c174dce57140f07d85b525a782420}{00018}} GpuImageVulkan::GpuImageVulkan(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector3__t}{Vector3ui}}\& size, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ab91ccc08d13454cfeb3c4f78deb72d59}{GpuImageDimension}} dimension, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffa}{GpuImageUsage}} usage, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numLayers, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8}{Format}} format, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numSamples, \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc}{GpuImageSamplerDesc}} samplerDesc)}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00019}00019     : \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GpuImage}}(size, dimension, usage, numLayers, format, numSamples, samplerDesc) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00021}00021 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00023}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_a2ddb5c72492ece55375eb0ae3b575012}{00023}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_a2ddb5c72492ece55375eb0ae3b575012}{GpuImageVulkan::\string~GpuImageVulkan}}() \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00024}00024     \textcolor{keyword}{const} VkDevice logicalDevice = \mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8b6b1698afeb3bb07f3b91e5ddb79b2d}{GetGpu}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_a1b0e5d22fed49696034d38442892121c}{As}}<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{GpuVulkan}}>()-\/>GetLogicalDevice();}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00026}00026     \textcolor{keywordflow}{if} (image != VK\_NULL\_HANDLE)}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00027}00027         vkDestroyImage(logicalDevice, image, \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00029}00029     \textcolor{keywordflow}{if} (sampler != VK\_NULL\_HANDLE)}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00030}00030         vkDestroySampler(logicalDevice, sampler, \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00031}00031 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00034}00034 \textcolor{comment}{/* VULKAN SPECIFICS */}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00036}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_a81e07178f8bf17b2d3bf297392f73ad5}{00036}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_a81e07178f8bf17b2d3bf297392f73ad5}{GpuImageVulkan::CreateVkImage}}() \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00037}00037     \textcolor{keywordtype}{bool} usesMultipleQueues = \mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_a339142f665e7289fafcd8e52cb03f9cb}{GetUsage}}(), \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaaac404d7ce6ca5862e9b8a2641fbafd90}{GpuImageUsage::COMPUTE}}) \&\& \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_a339142f665e7289fafcd8e52cb03f9cb}{GetUsage}}() != \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaaac404d7ce6ca5862e9b8a2641fbafd90}{GpuImageUsage::COMPUTE}};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00039}00039     VkImageCreateInfo imageInfo\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00040}00040     }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00041}00041     imageInfo.sType = VK\_STRUCTURE\_TYPE\_IMAGE\_CREATE\_INFO;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00042}00042     imageInfo.imageType = GetVkImageType();}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00044}00044     imageInfo.extent.width = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_a244ebc8ce3ae3095698ea0c3eaba58fc}{GetSize}}().\mbox{\hyperlink{class_o_s_k_1_1_vector3__t_a9dd92e8b519b62ce53eb71f58eba6d50}{X}};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00045}00045     imageInfo.extent.height = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_a244ebc8ce3ae3095698ea0c3eaba58fc}{GetSize}}().\mbox{\hyperlink{class_o_s_k_1_1_vector3__t_afb19e7227d4047f7a666c03cea2b1658}{Y}};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00046}00046     imageInfo.extent.depth = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_a244ebc8ce3ae3095698ea0c3eaba58fc}{GetSize}}().\mbox{\hyperlink{class_o_s_k_1_1_vector3__t_a50505b9a44529ae5aff66a956214549b}{Z}};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00048}00048     imageInfo.mipLevels = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_aa0220799f28ec1c45c888926243867e9}{GetMipLevels}}();}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00049}00049     imageInfo.arrayLayers = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_a3f6e78b29f06b1b423ab89377a139b46}{GetNumLayers}}();}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00051}00051     imageInfo.format = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa15e92a412a9d26d5213e4f716762081}{GetFormatVulkan}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_a7fbd0307d9e9147312004fecca6b73ba}{GetFormat}}());}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00052}00052     imageInfo.tiling = VK\_IMAGE\_TILING\_OPTIMAL;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00053}00053     imageInfo.initialLayout = VK\_IMAGE\_LAYOUT\_UNDEFINED;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00054}00054     imageInfo.usage = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4cac52b403f9d7d5d84c566cd32ba382}{GetGpuImageUsageVulkan}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_a339142f665e7289fafcd8e52cb03f9cb}{GetUsage}}());}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00055}00055     imageInfo.samples = (VkSampleCountFlagBits)\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ad32d36e931b0d7b6633549834b4b8813}{GetNumSamples}}();}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00057}00057     \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<uint32\_t>}} queueIndices;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00058}00058     \textcolor{keywordflow}{if} (usesMultipleQueues) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00059}00059         queueIndices.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(\mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7fa021d03868e15428c6a382864b9d6c}{GetGraphicsCommandQueue}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_a9142d2a17779a273bc0fccf4d6cc9918}{As}}<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan}{CommandQueueVulkan}}>()-\/>GetQueueIndex());}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00060}00060         queueIndices.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(\mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a83515ed3a33b174a43d88d10dad68121}{GetComputeCommandQueue}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_a9142d2a17779a273bc0fccf4d6cc9918}{As}}<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan}{CommandQueueVulkan}}>()-\/>GetQueueIndex());}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00062}00062         \textcolor{keywordflow}{if} (queueIndices[0] == queueIndices[1])}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00063}00063             usesMultipleQueues = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00064}00064     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00065}00065     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_a339142f665e7289fafcd8e52cb03f9cb}{GetUsage}}() == \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaaac404d7ce6ca5862e9b8a2641fbafd90}{GpuImageUsage::COMPUTE}}) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00066}00066         queueIndices.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(\mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a83515ed3a33b174a43d88d10dad68121}{GetComputeCommandQueue}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_a9142d2a17779a273bc0fccf4d6cc9918}{As}}<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan}{CommandQueueVulkan}}>()-\/>GetQueueIndex());}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00067}00067     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00068}00068     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00069}00069         queueIndices.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(\mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7fa021d03868e15428c6a382864b9d6c}{GetGraphicsCommandQueue}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_a9142d2a17779a273bc0fccf4d6cc9918}{As}}<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan}{CommandQueueVulkan}}>()-\/>GetQueueIndex());}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00070}00070     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00071}00071 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00072}00072     imageInfo.queueFamilyIndexCount = usesMultipleQueues ? queueIndices.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}() : 1;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00073}00073     imageInfo.pQueueFamilyIndices = queueIndices.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_ac8a6d70f938c482e1f7aa68c7d186bb8}{GetData}}();}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00074}00074     imageInfo.sharingMode = usesMultipleQueues}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00075}00075         ? VK\_SHARING\_MODE\_CONCURRENT}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00076}00076         : VK\_SHARING\_MODE\_EXCLUSIVE;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00078}00078     \textcolor{comment}{// Si la imagen se usará como cubemap, debemos especificarlo.}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00079}00079     imageInfo.flags = \mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_a339142f665e7289fafcd8e52cb03f9cb}{GetUsage}}(), \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaaf28b30e806ea29c1d6011d1feeea8913}{GpuImageUsage::CUBEMAP}}) ? VK\_IMAGE\_CREATE\_CUBE\_COMPATIBLE\_BIT : 0;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00081}00081     \textcolor{keyword}{const} VkDevice device = \mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8b6b1698afeb3bb07f3b91e5ddb79b2d}{GetGpu}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_a1b0e5d22fed49696034d38442892121c}{As}}<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{GpuVulkan}}>()-\/>GetLogicalDevice();}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00082}00082     VkResult result = vkCreateImage(device, \&imageInfo, \textcolor{keyword}{nullptr}, \&image);}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00083}00083     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(result == VK\_SUCCESS, \textcolor{stringliteral}{"{}No se pudo crear la imagen en la GPU."{}});}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00084}00084 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00085}00085 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00086}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_af8d6837c58436089b575b8b96ee9fcba}{00086}} \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8h_ab67aebb4bb7dd78d66051d8fc16c8099}{VkImage}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_af8d6837c58436089b575b8b96ee9fcba}{GpuImageVulkan::GetVkImage}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00087}00087     \textcolor{keywordflow}{return} image;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00088}00088 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00090}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_a5908ac6e3dd4eb0ed9f9a5aff91303c9}{00090}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_a5908ac6e3dd4eb0ed9f9a5aff91303c9}{GpuImageVulkan::CreateVkSampler}}(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc}{GpuImageSamplerDesc}}\& samplerDesc) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00091}00091     \textcolor{comment}{//Info del sampler.}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00092}00092     VkSamplerCreateInfo samplerInfo\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00093}00093     samplerInfo.sType = VK\_STRUCTURE\_TYPE\_SAMPLER\_CREATE\_INFO;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00094}00094     \textcolor{comment}{//Filtro:}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00095}00095     \textcolor{comment}{//  VK\_FILTER\_LINEAR: suavizado.}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00096}00096     \textcolor{comment}{//  VK\_FILTER\_NEAREST: pixelado.}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00097}00097     samplerInfo.minFilter = GetFilterTypeVulkan(samplerDesc.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc_a7e95181a05295e608cbd46d2ba40e86f}{filteringType}});}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00098}00098     samplerInfo.magFilter = GetFilterTypeVulkan(samplerDesc.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc_a7e95181a05295e608cbd46d2ba40e86f}{filteringType}});}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00099}00099     \textcolor{comment}{//AddressMode: como se accede a la imagen con TexCoords fuera de los límites.}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00100}00100     samplerInfo.addressModeU = GetAddressModeVulkan(samplerDesc.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc_a5a47105ae69b63f01f5aea2ce71ac1ef}{addressMode}});}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00101}00101     samplerInfo.addressModeV = GetAddressModeVulkan(samplerDesc.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc_a5a47105ae69b63f01f5aea2ce71ac1ef}{addressMode}});}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00102}00102     samplerInfo.addressModeW = GetAddressModeVulkan(samplerDesc.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc_a5a47105ae69b63f01f5aea2ce71ac1ef}{addressMode}});}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00103}00103 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00104}00104     samplerInfo.anisotropyEnable = VK\_TRUE;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00105}00105     samplerInfo.maxAnisotropy = 16.0f;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00107}00107     samplerInfo.borderColor = VK\_BORDER\_COLOR\_INT\_OPAQUE\_BLACK;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00108}00108     \textcolor{keywordflow}{if} (samplerDesc.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc_a5a47105ae69b63f01f5aea2ce71ac1ef}{addressMode}} == \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ac1b7e80a6459c1c2dcff1fb7b4784ea2ab99d0d2b7902400a1a0fac311f795676}{GpuImageAddressMode::BACKGROUND\_WHITE}})}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00109}00109         samplerInfo.borderColor = VK\_BORDER\_COLOR\_INT\_OPAQUE\_WHITE;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00111}00111     samplerInfo.unnormalizedCoordinates = VK\_FALSE;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00113}00113     samplerInfo.compareEnable = VK\_FALSE;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00114}00114     samplerInfo.compareOp = VK\_COMPARE\_OP\_ALWAYS;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00115}00115 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00116}00116     \textcolor{keywordflow}{switch} (samplerDesc.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc_a741e70e94808535310cd680c4c4fcded}{mipMapMode}}) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00117}00117     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a7b3d3107477f334f9d9d85a64c930c8aae1f2d5134ed2543d38a0de9751cf75d9}{GpuImageMipmapMode::AUTO}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00118}00118         samplerInfo.minLod = 0.0f;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00119}00119         samplerInfo.maxLod = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_aa0220799f28ec1c45c888926243867e9}{GetMipLevels}}());}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00120}00120         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00121}00121 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00122}00122     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a7b3d3107477f334f9d9d85a64c930c8aa72baef04098f035e8a320b03ad197818}{GpuImageMipmapMode::CUSTOM}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00123}00123         samplerInfo.minLod = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(samplerDesc.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc_a291e9184aaa6eda9a822f48285b1a04a}{minMipLevel}});}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00124}00124         samplerInfo.maxLod = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(samplerDesc.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc_ad82e0ed1c6457566719cb4436df5d1da}{maxMipLevel}});}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00125}00125         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00126}00126 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00127}00127     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a7b3d3107477f334f9d9d85a64c930c8aab50339a10e1de285ac99d4c3990b8693}{GpuImageMipmapMode::NONE}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00128}00128         samplerInfo.minLod = 0.0f;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00129}00129         samplerInfo.maxLod = 0.0f;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00130}00130         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00131}00131     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00132}00132 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00133}00133     samplerInfo.mipmapMode = VK\_SAMPLER\_MIPMAP\_MODE\_LINEAR;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00134}00134     samplerInfo.mipLodBias = 0.0f;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00135}00135 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00136}00136     \textcolor{keyword}{const} VkDevice device = \mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8b6b1698afeb3bb07f3b91e5ddb79b2d}{GetGpu}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_a1b0e5d22fed49696034d38442892121c}{As}}<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{GpuVulkan}}>()-\/>GetLogicalDevice();}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00137}00137     vkCreateSampler(device, \&samplerInfo, \textcolor{keyword}{nullptr}, \&sampler);}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00138}00138 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00139}00139 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00140}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_ac742ac7756a3bb3735b3bc21b9ace3f6}{00140}} \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8h_a600cc1aac896aa576ad1d794aea333b6}{VkSampler}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_ac742ac7756a3bb3735b3bc21b9ace3f6}{GpuImageVulkan::GetVkSampler}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00141}00141     \textcolor{keywordflow}{return} sampler;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00142}00142 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00143}00143 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00144}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_a2a8d80dbc007bc324e8b52109649458b}{00144}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_a2a8d80dbc007bc324e8b52109649458b}{GpuImageVulkan::\_SetVkImage}}(\mbox{\hyperlink{_gpu_memory_allocator_vulkan_8h_ab67aebb4bb7dd78d66051d8fc16c8099}{VkImage}} img) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00145}00145     image = img;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00146}00146 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00147}00147 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00148}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_aaa42d2b63e33da7b586c1163bcfa9678}{00148}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_aaa42d2b63e33da7b586c1163bcfa9678}{GpuImageVulkan::SetSwapchainView}}(\mbox{\hyperlink{_gpu_memory_allocator_vulkan_8h_a28e620304ee7813cd5c30bd76c74c553}{VkImageView}} view) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00149}00149     swapchainView = view;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00150}00150 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00151}00151 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00152}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_a4e27365cdc8c2f201735805fa0b95bde}{00152}} \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8h_a28e620304ee7813cd5c30bd76c74c553}{VkImageView}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_a4e27365cdc8c2f201735805fa0b95bde}{GpuImageVulkan::GetSwapchainView}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00153}00153     \textcolor{keywordflow}{return} swapchainView;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00154}00154 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00155}00155 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00156}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_a79112c94be134dcadbdb6fb46fc32e14}{00156}} \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<IGpuImageView>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_a79112c94be134dcadbdb6fb46fc32e14}{GpuImageVulkan::CreateView}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a02ed44392ae1f51786ead8911c3afe9d}{SampledChannel}} channel, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a55e114ba828198c2146f5233e462ba39}{SampledArrayType}} arrayType, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} baseArrayLevel, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} layerCount, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ade40ecf1619c14b53344301c1eca1bca}{ViewUsage}} usage)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00157}00157     \mbox{\hyperlink{_gpu_memory_allocator_vulkan_8h_a28e620304ee7813cd5c30bd76c74c553}{VkImageView}} view = VK\_NULL\_HANDLE;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00158}00158     }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00159}00159     VkImageViewCreateInfo viewInfo\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00160}00160 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00161}00161     viewInfo.sType = VK\_STRUCTURE\_TYPE\_IMAGE\_VIEW\_CREATE\_INFO;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00162}00162     viewInfo.image = image;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00163}00163     viewInfo.viewType = arrayType == \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a55e114ba828198c2146f5233e462ba39a827be7f5269fdb21e2fb90ab4f60e785}{SampledArrayType::SINGLE\_LAYER}} ? GetVkImageViewType() : GetVkImageArrayViewType();}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00164}00164     viewInfo.format = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa15e92a412a9d26d5213e4f716762081}{GetFormatVulkan}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_a7fbd0307d9e9147312004fecca6b73ba}{GetFormat}}());}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00165}00165     }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00166}00166     VkImageAspectFlags aspectMask = 0;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00167}00167     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(channel, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a02ed44392ae1f51786ead8911c3afe9da04bd834032febb3fda8c6936ee140949}{SampledChannel::COLOR}}))}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00168}00168         aspectMask |= VK\_IMAGE\_ASPECT\_COLOR\_BIT;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00169}00169     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(channel, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a02ed44392ae1f51786ead8911c3afe9daaa1780b4fcce2d5d9af13dc25386d111}{SampledChannel::DEPTH}}))}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00170}00170         aspectMask |= VK\_IMAGE\_ASPECT\_DEPTH\_BIT;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00171}00171     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(channel, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a02ed44392ae1f51786ead8911c3afe9da301b25ea9a653329b5d5d727f92514c4}{SampledChannel::STENCIL}}))}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00172}00172         aspectMask |= VK\_IMAGE\_ASPECT\_STENCIL\_BIT;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00173}00173 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00174}00174     viewInfo.subresourceRange.aspectMask = aspectMask;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00175}00175 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00176}00176     viewInfo.subresourceRange.baseMipLevel = 0;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00177}00177     viewInfo.subresourceRange.levelCount = usage == \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ade40ecf1619c14b53344301c1eca1bcaadf45780d7dc144f8c73766fae316d606}{ViewUsage::COLOR\_TARGET}} ? 1 : \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_aa0220799f28ec1c45c888926243867e9}{GetMipLevels}}();}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00178}00178 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00179}00179     viewInfo.subresourceRange.baseArrayLayer = baseArrayLevel;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00180}00180     viewInfo.subresourceRange.layerCount = layerCount;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00181}00181 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00182}00182     \textcolor{keyword}{const} VkDevice device = \mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8b6b1698afeb3bb07f3b91e5ddb79b2d}{GetGpu}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_a1b0e5d22fed49696034d38442892121c}{As}}<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{GpuVulkan}}>()-\/>GetLogicalDevice();}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00183}00183     VkResult result = vkCreateImageView(device, \&viewInfo, \textcolor{keyword}{nullptr}, \&view);}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00184}00184     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(result == VK\_SUCCESS, \textcolor{stringliteral}{"{}No se pudo crear el view de stencil."{}});}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00185}00185 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00186}00186     \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vulkan}{GpuImageViewVulkan}}(view, channel, arrayType, baseArrayLevel, layerCount, usage);}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00187}00187 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00188}00188 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00189}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_a4330a34cdae5f41d85bde2bacc9e976b}{00189}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_a4330a34cdae5f41d85bde2bacc9e976b}{GpuImageVulkan::SetDebugName}}(\textcolor{keyword}{const} std::string\& name) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00190}00190     VkDebugUtilsObjectNameInfoEXT nameInfo\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00191}00191     nameInfo.sType = VK\_STRUCTURE\_TYPE\_DEBUG\_UTILS\_OBJECT\_NAME\_INFO\_EXT;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00192}00192     nameInfo.objectType = VK\_OBJECT\_TYPE\_IMAGE;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00193}00193     nameInfo.pNext = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00194}00194 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00195}00195     \textcolor{keyword}{const} VkDevice logicalDevice = \mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8b6b1698afeb3bb07f3b91e5ddb79b2d}{GetGpu}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_a1b0e5d22fed49696034d38442892121c}{As}}<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{GpuVulkan}}>()-\/>GetLogicalDevice();}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00196}00196 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00197}00197     nameInfo.pObjectName = name.c\_str();}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00198}00198     nameInfo.objectHandle = (uint64\_t)image;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00199}00199 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00200}00200     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a2b178940af46d1d652e68f93f8a8390d}{RendererVulkan::pvkSetDebugUtilsObjectNameEXT}} != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00201}00201         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a2b178940af46d1d652e68f93f8a8390d}{RendererVulkan::pvkSetDebugUtilsObjectNameEXT}}(logicalDevice, \&nameInfo);}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00202}00202 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00203}00203 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00204}00204 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00205}00205 VkImageType GpuImageVulkan::GetVkImageType()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00206}00206     \textcolor{keywordflow}{switch} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_abce3e3ba3ec90fc147c6de62884e55ab}{GetDimension}}()) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00207}00207     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ab91ccc08d13454cfeb3c4f78deb72d59a998ea20c9e08b9bebbb4557f046e73b0}{GpuImageDimension::d1D}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00208}00208         \textcolor{keywordflow}{return} VK\_IMAGE\_TYPE\_1D;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00209}00209     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ab91ccc08d13454cfeb3c4f78deb72d59a096d0d67e4521bdc9ae95ad5ba97c596}{GpuImageDimension::d2D}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00210}00210         \textcolor{keywordflow}{return} VK\_IMAGE\_TYPE\_2D;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00211}00211     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ab91ccc08d13454cfeb3c4f78deb72d59acd3c2cd4dacbc96d56861a2a8946e5ba}{GpuImageDimension::d3D}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00212}00212         \textcolor{keywordflow}{return} VK\_IMAGE\_TYPE\_3D;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00213}00213     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00214}00214 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00215}00215 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00216}00216 VkImageViewType GpuImageVulkan::GetVkImageViewType()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00217}00217     \textcolor{comment}{// Es cubo}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00218}00218     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_a339142f665e7289fafcd8e52cb03f9cb}{GetUsage}}(), \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaaf28b30e806ea29c1d6011d1feeea8913}{GpuImageUsage::CUBEMAP}}))}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00219}00219         \textcolor{keywordflow}{return} VK\_IMAGE\_VIEW\_TYPE\_CUBE;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00220}00220 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00221}00221     \textcolor{keywordflow}{switch} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_abce3e3ba3ec90fc147c6de62884e55ab}{GetDimension}}()) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00222}00222     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ab91ccc08d13454cfeb3c4f78deb72d59a998ea20c9e08b9bebbb4557f046e73b0}{GpuImageDimension::d1D}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00223}00223         \textcolor{keywordflow}{return} VK\_IMAGE\_VIEW\_TYPE\_1D;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00224}00224     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ab91ccc08d13454cfeb3c4f78deb72d59a096d0d67e4521bdc9ae95ad5ba97c596}{GpuImageDimension::d2D}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00225}00225         \textcolor{keywordflow}{return} VK\_IMAGE\_VIEW\_TYPE\_2D;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00226}00226     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ab91ccc08d13454cfeb3c4f78deb72d59acd3c2cd4dacbc96d56861a2a8946e5ba}{GpuImageDimension::d3D}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00227}00227         \textcolor{keywordflow}{return} VK\_IMAGE\_VIEW\_TYPE\_3D;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00228}00228 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00229}00229     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00230}00230 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00231}00231 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00232}00232 VkImageViewType GpuImageVulkan::GetVkImageArrayViewType()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00233}00233     \textcolor{keywordflow}{switch} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_abce3e3ba3ec90fc147c6de62884e55ab}{GetDimension}}()) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00234}00234     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ab91ccc08d13454cfeb3c4f78deb72d59a998ea20c9e08b9bebbb4557f046e73b0}{GpuImageDimension::d1D}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00235}00235         \textcolor{keywordflow}{return} VK\_IMAGE\_VIEW\_TYPE\_1D\_ARRAY;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00236}00236     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ab91ccc08d13454cfeb3c4f78deb72d59a096d0d67e4521bdc9ae95ad5ba97c596}{GpuImageDimension::d2D}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00237}00237         \textcolor{keywordflow}{return} VK\_IMAGE\_VIEW\_TYPE\_2D\_ARRAY;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00238}00238     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00239}00239 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00240}00240 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00241}00241 VkFilter GpuImageVulkan::GetFilterTypeVulkan(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a169cbd3b800f2c408287690a502bace1}{GpuImageFilteringType}} type) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00242}00242     \textcolor{keywordflow}{switch} (type) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00243}00243     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a169cbd3b800f2c408287690a502bace1a917f963fb315f9de01300a4e516a7b32}{OSK::GRAPHICS::GpuImageFilteringType::LIENAR}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00244}00244         \textcolor{keywordflow}{return} VK\_FILTER\_LINEAR;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00245}00245     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a169cbd3b800f2c408287690a502bace1aad135772d7cf93dd0ccf9d2474b34e6a}{OSK::GRAPHICS::GpuImageFilteringType::NEAREST}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00246}00246         \textcolor{keywordflow}{return} VK\_FILTER\_NEAREST;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00247}00247     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a169cbd3b800f2c408287690a502bace1accd681e34e5e40fbce74618c3ccffcff}{OSK::GRAPHICS::GpuImageFilteringType::CUBIC}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00248}00248         \textcolor{keywordflow}{return} VK\_FILTER\_CUBIC\_IMG;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00249}00249     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00250}00250         \textcolor{keywordflow}{return} VK\_FILTER\_LINEAR;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00251}00251     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00252}00252 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00253}00253 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00254}00254 VkSamplerAddressMode GpuImageVulkan::GetAddressModeVulkan(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ac1b7e80a6459c1c2dcff1fb7b4784ea2}{GpuImageAddressMode}} mode) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00255}00255     \textcolor{keywordflow}{switch} (mode) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00256}00256     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ac1b7e80a6459c1c2dcff1fb7b4784ea2a5be68175be14dfaa080165456c2e9555}{OSK::GRAPHICS::GpuImageAddressMode::REPEAT}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00257}00257         \textcolor{keywordflow}{return} VK\_SAMPLER\_ADDRESS\_MODE\_REPEAT;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00258}00258     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ac1b7e80a6459c1c2dcff1fb7b4784ea2acf6164235e7bfffb5c4c7c4b685f660a}{OSK::GRAPHICS::GpuImageAddressMode::MIRRORED\_REPEAT}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00259}00259         \textcolor{keywordflow}{return} VK\_SAMPLER\_ADDRESS\_MODE\_MIRRORED\_REPEAT;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00260}00260     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ac1b7e80a6459c1c2dcff1fb7b4784ea2a6563b7570ee4add31ffc4e94fa86b6fb}{OSK::GRAPHICS::GpuImageAddressMode::EDGE}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00261}00261         \textcolor{keywordflow}{return} VK\_SAMPLER\_ADDRESS\_MODE\_CLAMP\_TO\_EDGE;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00262}00262     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ac1b7e80a6459c1c2dcff1fb7b4784ea2acda75fcc851f092ec368da0b8428a610}{OSK::GRAPHICS::GpuImageAddressMode::BACKGROUND\_BLACK}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00263}00263         \textcolor{keywordflow}{return} VK\_SAMPLER\_ADDRESS\_MODE\_CLAMP\_TO\_BORDER;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00264}00264     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ac1b7e80a6459c1c2dcff1fb7b4784ea2ab99d0d2b7902400a1a0fac311f795676}{OSK::GRAPHICS::GpuImageAddressMode::BACKGROUND\_WHITE}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00265}00265         \textcolor{keywordflow}{return} VK\_SAMPLER\_ADDRESS\_MODE\_CLAMP\_TO\_BORDER;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00266}00266     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00267}00267         \textcolor{keywordflow}{return} VK\_SAMPLER\_ADDRESS\_MODE\_REPEAT;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00268}00268     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_vulkan_8cpp_source_l00269}00269 \}}
+
+\end{DoxyCode}

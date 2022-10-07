@@ -1,7 +1,7 @@
 var searchData=
 [
   ['mappeddata_0',['mappedData',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#ae410a7a22ad14bb5db166444b306cb0d',1,'OSK::GRAPHICS::IGpuMemorySubblock']]],
-  ['materialinfos_1',['materialInfos',['../struct_gltf_model_info.html#a1edd36904e653070d3b8eaff4e579b97',1,'GltfModelInfo']]],
+  ['materialinfos_1',['materialInfos',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_model_info.html#ac493b41919ba8ddcf21e9e2c2163ed08',1,'OSK::ASSETS::GltfModelInfo']]],
   ['materialsystem_2',['materialSystem',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6bca4cd0b04eecbf58432b51c221da77',1,'OSK::GRAPHICS::IRenderer']]],
   ['materialtextures_3',['materialTextures',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata.html#a2ed2d5081e2fdad7673a286cbf6271a2',1,'OSK::ASSETS::MeshMetadata']]],
   ['matrix_4',['matrix',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_push_const2_d.html#a404a09f7dfc43e492b80e33f5ce53b18',1,'OSK::GRAPHICS::PushConst2D']]],
@@ -13,13 +13,16 @@ var searchData=
   ['mayor_10',['mayor',['../struct_o_s_k_1_1_version.html#a7ef31a2a9493bce7d92a3fa3cb5d1327',1,'OSK::Version']]],
   ['memoryproperties_11',['memoryProperties',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a40be907a7d15190e9e91faa6e0f86851',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
   ['menor_12',['menor',['../struct_o_s_k_1_1_version.html#a8d49fd1c4065ec814354ada48981623c',1,'OSK::Version']]],
-  ['meshesmetadata_13',['meshesMetadata',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata.html#a990f8bc4bc4c8c91586a992b79b8f582',1,'OSK::ASSETS::ModelMetadata']]],
-  ['metallicfactor_14',['metallicFactor',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata.html#a1edfafe70ba1f2267ba4846136392c7a',1,'OSK::ASSETS::MeshMetadata::metallicFactor()'],['../struct_gltf_material_info.html#a66250ceb0e37badb390484f86e7ec1ee',1,'GltfMaterialInfo::metallicFactor()']]],
-  ['metallictextureindex_15',['metallicTextureIndex',['../struct_gltf_material_info.html#a75813a530398583b66c9a1c3a8ae9e86',1,'GltfMaterialInfo']]],
-  ['minalignment_16',['minAlignment',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#af22b6bdea472500fa9f6d106707b3b5d',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
-  ['mindepth_17',['minDepth',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html#af6a903fd2845a147d6a3c4d4cea182a3',1,'OSK::GRAPHICS::Viewport']]],
-  ['minmiplevel_18',['minMipLevel',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html#a291e9184aaa6eda9a822f48285b1a04a',1,'OSK::GRAPHICS::GpuImageSamplerDesc']]],
-  ['mipmapmode_19',['mipMapMode',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html#a741e70e94808535310cd680c4c4fcded',1,'OSK::GRAPHICS::GpuImageSamplerDesc']]],
-  ['mode_20',['mode',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a6a55d056d46f623dcbbb911b0b07b2af',1,'OSK::GRAPHICS::ISwapchain']]],
-  ['mousenumberofbuttons_21',['MouseNumberOfButtons',['../namespace_o_s_k_1_1_i_o.html#a2126937723636a6160e7c746cc47b61c',1,'OSK::IO']]]
+  ['meshes_13',['meshes',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a166cefbfbf4daa3a50a1230befcbe495',1,'OSK::ASSETS::IMeshLoader']]],
+  ['meshesmetadata_14',['meshesMetadata',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata.html#a990f8bc4bc4c8c91586a992b79b8f582',1,'OSK::ASSETS::ModelMetadata']]],
+  ['meshidtomaterialid_15',['meshIdToMaterialId',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#abd487d53bcb45bc6c67fb2dcf1df5dc8',1,'OSK::ASSETS::IMeshLoader']]],
+  ['metallicfactor_16',['metallicFactor',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_material_info.html#a788a94d271f065685d7a19a0ac1a63d4',1,'OSK::ASSETS::GltfMaterialInfo::metallicFactor()'],['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata.html#a1edfafe70ba1f2267ba4846136392c7a',1,'OSK::ASSETS::MeshMetadata::metallicFactor()']]],
+  ['metallictextureindex_17',['metallicTextureIndex',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_material_info.html#a48f629fe4f4d5f62946315602a89c595',1,'OSK::ASSETS::GltfMaterialInfo']]],
+  ['minalignment_18',['minAlignment',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#af22b6bdea472500fa9f6d106707b3b5d',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
+  ['mindepth_19',['minDepth',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html#af6a903fd2845a147d6a3c4d4cea182a3',1,'OSK::GRAPHICS::Viewport']]],
+  ['minmiplevel_20',['minMipLevel',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html#a291e9184aaa6eda9a822f48285b1a04a',1,'OSK::GRAPHICS::GpuImageSamplerDesc']]],
+  ['mipmapmode_21',['mipMapMode',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html#a741e70e94808535310cd680c4c4fcded',1,'OSK::GRAPHICS::GpuImageSamplerDesc']]],
+  ['mode_22',['mode',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a6a55d056d46f623dcbbb911b0b07b2af',1,'OSK::GRAPHICS::ISwapchain']]],
+  ['modelinfo_23',['modelInfo',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a349edf8e41b582ca8f20d8a646bdda2b',1,'OSK::ASSETS::IMeshLoader']]],
+  ['mousenumberofbuttons_24',['MouseNumberOfButtons',['../namespace_o_s_k_1_1_i_o.html#a2126937723636a6160e7c746cc47b61c',1,'OSK::IO']]]
 ];

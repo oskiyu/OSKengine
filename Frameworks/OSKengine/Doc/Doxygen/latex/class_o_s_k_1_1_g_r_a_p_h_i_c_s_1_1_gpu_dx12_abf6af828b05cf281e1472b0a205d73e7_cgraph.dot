@@ -1,0 +1,10 @@
+digraph "OSK::GRAPHICS::GpuDx12::~GpuDx12"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::GpuDx12\l::~GpuDx12",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::GRAPHICS::GpuDx12\l::Close",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html#a3e1a12fa60fe4ec828b1992b9c4631a6",tooltip="Elimina los recursos asociados a la GPU."];
+}

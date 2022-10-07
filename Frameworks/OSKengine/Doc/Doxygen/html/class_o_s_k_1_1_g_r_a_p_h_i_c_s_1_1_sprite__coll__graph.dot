@@ -1,0 +1,18 @@
+digraph "OSK::GRAPHICS::Sprite"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="OSK::GRAPHICS::Sprite",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Representa un sprite: una textura que puede ser renderizada. También es un componente que permite a u..."];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" color" ,fontname="Helvetica"];
+  Node2 [label="OSK::Color",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_color.html",tooltip="Representa un color en formato RGBA."];
+  Node3 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" globalVertexBuffer" ,fontname="Helvetica"];
+  Node3 [label="OSK::GRAPHICS::IGpuVertex\lBuffer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html",tooltip="Un vertex buffer es un buffer de memoria en la GPU que almacena los vértices de un modelo 3D o un spr..."];
+  Node4 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="OSK::GRAPHICS::GpuDataBuffer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html",tooltip="Representa un buffer genérico en la GPU."];
+  Node5 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" buffer" ,fontname="Helvetica"];
+  Node5 [label="OSK::UniquePtr\< OSK\l::GRAPHICS::IGpuMemorySubblock \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_unique_ptr.html",tooltip=" "];
+  Node6 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" globalIndexBuffer" ,fontname="Helvetica"];
+  Node6 [label="OSK::GRAPHICS::IGpuIndex\lBuffer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html",tooltip="Un index buffer contiene los índices para el renderizado de un modelo 2D o 3D."];
+  Node4 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

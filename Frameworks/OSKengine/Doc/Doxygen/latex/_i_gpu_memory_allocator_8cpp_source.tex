@@ -1,0 +1,104 @@
+\hypertarget{_i_gpu_memory_allocator_8cpp_source}{}\doxysection{IGpu\+Memory\+Allocator.\+cpp}
+\label{_i_gpu_memory_allocator_8cpp_source}\index{OSKengine2/IGpuMemoryAllocator.cpp@{OSKengine2/IGpuMemoryAllocator.cpp}}
+\mbox{\hyperlink{_i_gpu_memory_allocator_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_memory_allocator_8h}{IGpuMemoryAllocator.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_memory_block_8h}{IGpuMemoryBlock.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_memory_subblock_8h}{IGpuMemorySubblock.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_data_buffer_8h}{IGpuDataBuffer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_image_8h}{IGpuImage.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_usage_8h}{GpuImageUsage.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00008}00008 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_dimensions_8h}{GpuImageDimensions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00009}00009 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_format_8h}{Format.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00011}00011 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kengine_8h}{OSKengine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00012}00012 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_logger_8h}{Logger.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00014}00014 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00015}00015 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00017}00017 \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} IGpuMemoryAllocator::SizeOfMemoryBlockInMb = 16;}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00019}\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info_a15ae79e2b5a7f53347a56e852b14c162}{00019}} \textcolor{keywordtype}{bool} GpuBufferMemoryBlockInfo::operator==(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info}{GpuBufferMemoryBlockInfo}}\& other)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00020}00020     \textcolor{keywordflow}{return} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info_afb2fc32f1ddbcd33e511a1387893677b}{size}} == other.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info_afb2fc32f1ddbcd33e511a1387893677b}{size}} \&\& \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info_a5837385dfcfb82fdac20cb57c4afeae6}{usage}} == other.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info_a5837385dfcfb82fdac20cb57c4afeae6}{usage}} \&\& \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info_a76ee057672f63305fce42906ce04ce37}{sharedType}} == other.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info_a76ee057672f63305fce42906ce04ce37}{sharedType}};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00021}00021 \}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00023}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a5eb4af797b1cd9c31aa51233fcdf7af1}{00023}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a5eb4af797b1cd9c31aa51233fcdf7af1}{IGpuMemoryAllocator::IGpuMemoryAllocator}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}}* device) : device(device) \{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00024}00024     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_abd4e4fe493da63688ae1dfebcdcb2f8b}{bufferMemoryBlocks}} = \{\};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00025}00025 \}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00027}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_ab9077dcba1bcd90e6cbb81564e542d40}{00027}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_ab9077dcba1bcd90e6cbb81564e542d40}{IGpuMemoryAllocator::\string~IGpuMemoryAllocator}}() \{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00028}00028     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& list : \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_abd4e4fe493da63688ae1dfebcdcb2f8b}{bufferMemoryBlocks}})}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00029}00029         \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& block : list.second)}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00030}00030             \textcolor{keyword}{delete} block.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00032}00032     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& i : \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a942def028b7a723f67c4bca4ced25a30}{imageMemoryBlocks}})}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00033}00033         \textcolor{keyword}{delete} i.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00034}00034 \}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00036}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a6b7676a476f7cd0db5f9b4634ef0c852}{00036}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a6b7676a476f7cd0db5f9b4634ef0c852}{IGpuMemoryAllocator::RemoveImageBlock}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block}{IGpuMemoryBlock}}* iblock) \{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00037}00037     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a942def028b7a723f67c4bca4ced25a30}{imageMemoryBlocks}}.Remove(\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr}}(iblock));}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00038}00038     \}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00040}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a7d91b7ebc0b4e537cf8a77366abdd505}{00040}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a7d91b7ebc0b4e537cf8a77366abdd505}{IGpuMemoryAllocator::Free}}() \{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00041}00041     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& list : \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_abd4e4fe493da63688ae1dfebcdcb2f8b}{bufferMemoryBlocks}}) \{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00042}00042         \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& i : list.second)}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00043}00043             i-\/>Free();}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00044}00044 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00045}00045         list.second.Free();}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00046}00046     \}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00048}00048     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i : \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a942def028b7a723f67c4bca4ced25a30}{imageMemoryBlocks}})}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00049}00049         i-\/>Free();}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00051}00051     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a942def028b7a723f67c4bca4ced25a30}{imageMemoryBlocks}}.Free();}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00052}00052 \}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00053}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a5ffe3d30b281dd779e43a430a46447cf}{00053}} \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<GpuImage>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a5ffe3d30b281dd779e43a430a46447cf}{IGpuMemoryAllocator::CreateCubemapImage}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2ui}}\& faceSize, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8}{Format}} format, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffa}{GpuImageUsage}} usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{GpuSharedMemoryType}} sharedType, \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc}{GpuImageSamplerDesc}} samplerDesc) \{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00054}00054     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaaf28b30e806ea29c1d6011d1feeea8913}{GpuImageUsage::CUBEMAP}}))}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00055}00055         \mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_aaa9d8f73148fc7211f6713016bbab4aa}{EFTraits::AddFlag}}(\&usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaaf28b30e806ea29c1d6011d1feeea8913}{GpuImageUsage::CUBEMAP}});}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00057}00057     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a9edc56722522b79a352ce378e1ac8595}{CreateImage}}(\{ faceSize.\mbox{\hyperlink{class_o_s_k_1_1_vector2__t_aab000bf2b18b21608055adaf4b8586b6}{X}}, faceSize.\mbox{\hyperlink{class_o_s_k_1_1_vector2__t_ab320f5a65251faed82bd06dcbfabbdf5}{Y}}, 1 \}, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ab91ccc08d13454cfeb3c4f78deb72d59a096d0d67e4521bdc9ae95ad5ba97c596}{GpuImageDimension::d2D}}, 6, format, usage, sharedType, 1, samplerDesc);}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00058}00058 \}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00060}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a688b3d07de2ec4181441bb0c220aaa49}{00060}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block}{IGpuMemoryBlock}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a688b3d07de2ec4181441bb0c220aaa49}{IGpuMemoryAllocator::GetNextBufferMemoryBlock}}(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7f}{GpuBufferUsage}} usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{GpuSharedMemoryType}} sharedType) \{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00061}00061     \textcolor{comment}{// Miramos todas las listas de bloques para comprobar si hay alguna que}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00062}00062     \textcolor{comment}{// tiene bloques con las características necesarias.}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00063}00063     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& [blockInfo, list] : \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_abd4e4fe493da63688ae1dfebcdcb2f8b}{bufferMemoryBlocks}}) \{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00064}00064         \textcolor{keywordflow}{if} (blockInfo.usage == usage \&\& blockInfo.sharedType == sharedType) \{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00065}00065             \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& i : list)}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00066}00066                 \textcolor{keywordflow}{if} (i-\/>GetAvailableSpace() >= size)}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00067}00067                     \textcolor{keywordflow}{return} i.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00069}00069             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00070}00070         \}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00071}00071     \}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00072}00072 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00073}00073     \textcolor{comment}{// Creamos uno nuevo}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00074}00074     \textcolor{keywordflow}{if} (size < \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_ad3bb71a59933368693da358e40fd9cff}{IGpuMemoryAllocator::SizeOfMemoryBlockInMb}} * 1024 * 1024)}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00075}00075         size = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_ad3bb71a59933368693da358e40fd9cff}{IGpuMemoryAllocator::SizeOfMemoryBlockInMb}} * 1024 * 1024;}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00077}00077     \textcolor{comment}{// Creamos un nuevo bloque.}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00078}00078     \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<IGpuMemoryBlock>}} newBlock = \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_ac7dfea900bcde8fb8992cbd87054ffad}{CreateNewBufferBlock}}(size, usage, sharedType);}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00080}00080     \textcolor{comment}{// Engine::GetLogger()-\/>InfoLog("{}Creado bloque de memoria GPU."{});}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00081}00081     \textcolor{comment}{// Engine::GetLogger()-\/>InfoLog("{}   Tipo: "{} + ToString(sharedType)); @bug ???}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00082}00082     \textcolor{comment}{// Engine::GetLogger()-\/>InfoLog("{}   Uso: "{} + ToString(usage)); @bug ???}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00083}00083     \textcolor{comment}{// Engine::GetLogger()-\/>InfoLog("{}   Tamaño: "{} + std::to\_string(size));}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00085}00085     \mbox{\hyperlink{class_o_s_k_1_1_linked_list}{LinkedList<OwnedPtr<IGpuMemoryBlock>}}> list;}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00086}00086     list.\mbox{\hyperlink{class_o_s_k_1_1_linked_list_a8fa021e2fec2e977c18544e6e5807963}{Insert}}(\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<IGpuMemoryBlock>}}(newBlock.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}()));}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00087}00087 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00088}00088     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_abd4e4fe493da63688ae1dfebcdcb2f8b}{bufferMemoryBlocks}}.Insert(\mbox{\hyperlink{struct_o_s_k_1_1_pair}{Pair}}\{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00089}00089         \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info}{GpuBufferMemoryBlockInfo}}\{size, usage, sharedType \},}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00090}00090         list}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00091}00091         \});}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00093}00093     \textcolor{keywordflow}{return} newBlock.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}();}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00094}00094 \}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00095}00095 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00096}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_ab409ca931f6491adc73e78ac3b5aa019}{00096}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock}{IGpuMemorySubblock}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_ab409ca931f6491adc73e78ac3b5aa019}{IGpuMemoryAllocator::GetNextBufferMemorySubblock}}(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7f}{GpuBufferUsage}} usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{GpuSharedMemoryType}} sharedType) \{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00097}00097     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_a688b3d07de2ec4181441bb0c220aaa49}{GetNextBufferMemoryBlock}}(size, usage, sharedType)-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a8be42e86b3c636e81a8c47a56fd29b09}{GetNextMemorySubblock}}(size, 0);}
+\DoxyCodeLine{\Hypertarget{_i_gpu_memory_allocator_8cpp_source_l00098}00098 \}}
+
+\end{DoxyCode}

@@ -2,6 +2,7 @@ var annotated_dup =
 [
     [ "OSK", "namespace_o_s_k.html", [
       [ "ASSETS", "namespace_o_s_k_1_1_a_s_s_e_t_s.html", [
+        [ "AnimMeshLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader" ],
         [ "AssetManager", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager" ],
         [ "CubemapTexture", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture" ],
         [ "CubemapTextureLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_loader" ],
@@ -9,14 +10,18 @@ var annotated_dup =
         [ "FontCharacter", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character" ],
         [ "FontInstance", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance" ],
         [ "FontLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_loader" ],
+        [ "GltfMaterialInfo", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_material_info.html", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_material_info" ],
+        [ "GltfModelInfo", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_model_info.html", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_model_info" ],
         [ "IAsset", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset" ],
         [ "IAssetLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader" ],
+        [ "IMeshLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader" ],
         [ "IrradianceMap", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map" ],
         [ "IrradianceMapLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map_loader" ],
         [ "MeshMetadata", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata.html", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata" ],
         [ "Model3D", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d" ],
         [ "ModelLoader3D", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d" ],
         [ "ModelMetadata", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata.html", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata" ],
+        [ "StaticMeshLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader" ],
         [ "Texture", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture" ],
         [ "TextureLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader" ]
       ] ],
@@ -34,6 +39,7 @@ var annotated_dup =
         [ "PbrDeferredRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system" ],
         [ "RenderSystem2D", "class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html", "class_o_s_k_1_1_e_c_s_1_1_render_system2_d" ],
         [ "RenderSystem3D", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d" ],
+        [ "SkyboxRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_skybox_render_system" ],
         [ "SystemManager", "class_o_s_k_1_1_e_c_s_1_1_system_manager.html", "class_o_s_k_1_1_e_c_s_1_1_system_manager" ],
         [ "TerrainComponent", "struct_o_s_k_1_1_e_c_s_1_1_terrain_component.html", "struct_o_s_k_1_1_e_c_s_1_1_terrain_component" ],
         [ "TerrainRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_terrain_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_terrain_render_system" ],
@@ -41,6 +47,11 @@ var annotated_dup =
         [ "Transform3D", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html", "class_o_s_k_1_1_e_c_s_1_1_transform3_d" ]
       ] ],
       [ "GRAPHICS", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html", [
+        [ "Animation", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation" ],
+        [ "AnimationChannel", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel" ],
+        [ "AnimationSampler", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler" ],
+        [ "AnimationSkin", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin" ],
+        [ "Animator", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator" ],
         [ "BloomPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass" ],
         [ "BottomLevelAccelerationStructureVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan" ],
         [ "CommandListDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12" ],
@@ -126,6 +137,7 @@ var annotated_dup =
         [ "MaterialSlotVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan" ],
         [ "MaterialSystem", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system" ],
         [ "Mesh3D", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh3_d.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh3_d" ],
+        [ "MeshNode", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node" ],
         [ "PipelineCreateInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info" ],
         [ "PipelineLayoutDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12" ],
         [ "PipelineLayoutVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan" ],
@@ -141,6 +153,7 @@ var annotated_dup =
         [ "ShaderStageDx12", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12" ],
         [ "ShaderStageVulkan", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vulkan.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vulkan" ],
         [ "ShadowMap", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map" ],
+        [ "SmaaPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_smaa_pass.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_smaa_pass" ],
         [ "SpirvToHlsl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl" ],
         [ "Sprite", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite" ],
         [ "SpriteRenderer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer" ],
@@ -153,6 +166,7 @@ var annotated_dup =
         [ "TopLevelAccelerationStructureVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan" ],
         [ "Vertex2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d" ],
         [ "Vertex3D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d" ],
+        [ "VertexAnim3D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d" ],
         [ "VertexInfo", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info" ],
         [ "Viewport", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport" ]
       ] ],
@@ -192,7 +206,5 @@ var annotated_dup =
       [ "hash< OSK::GRAPHICS::IGpuImageView >", "structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_01_4.html", "structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_01_4" ],
       [ "hash< OSK::Pair< std::string, std::string > >", "structstd_1_1hash_3_01_o_s_k_1_1_pair_3_01std_1_1string_00_01std_1_1string_01_4_01_4.html", "structstd_1_1hash_3_01_o_s_k_1_1_pair_3_01std_1_1string_00_01std_1_1string_01_4_01_4" ]
     ] ],
-    [ "GltfMaterialInfo", "struct_gltf_material_info.html", "struct_gltf_material_info" ],
-    [ "GltfModelInfo", "struct_gltf_model_info.html", "struct_gltf_model_info" ],
     [ "SharedPtr", "class_shared_ptr.html", "class_shared_ptr" ]
 ];

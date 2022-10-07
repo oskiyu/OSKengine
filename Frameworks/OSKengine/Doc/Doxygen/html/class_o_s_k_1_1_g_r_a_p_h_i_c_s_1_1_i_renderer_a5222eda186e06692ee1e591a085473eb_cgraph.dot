@@ -1,0 +1,12 @@
+digraph "OSK::GRAPHICS::IRenderer::HandleResize"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::IRenderer\l::HandleResize",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Reconfigura el swapchain al haberse cambiado de tamaño la ventana."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::Engine::GetEntityComponent\lSystem",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_engine.html#a17fd2842c078b7ddb4aaa70cd04549ab",tooltip=" "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="OSK::IO::Window::GetWindowSize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_window.html#aa7f9f244691159612d42ddbc1fdc9288",tooltip="Devuelve el tamaño de la ventana, en píxeles."];
+}

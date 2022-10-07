@@ -1,0 +1,38 @@
+digraph "OSK::GRAPHICS::CommandListDx12::BeginGraphicsRenderpass"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::CommandList\lDx12::BeginGraphicsRenderpass",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::GRAPHICS::IRenderer\l::_GetSwapchain",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a0dad039a7b86341155a12030a504e764",tooltip="Devuelve el swapchain de la aplicación."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="OSK::GRAPHICS::IRenderer::As",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a7e06601c9bc5325e2ee5904e58a3af3d",tooltip="Castea el renderizador al tipo dado. Este tipo debe ser una implementación de esta interfaz."];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="OSK::GRAPHICS::ISwapchain::As",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a04699bb97612d6142b1a5895fdeeaf24",tooltip=" "];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="OSK::GRAPHICS::ISwapchain\l::GetCurrentFrameIndex",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#abbf1668873549c12b0bc43afd19304a3",tooltip="Devuelve el índice de la imagen renderizada en un momento dado."];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="OSK::GRAPHICS::Swapchain\lDx12::GetDepthStencilMemory",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#afbcba548854002631cd026be996e5318",tooltip=" "];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="GetDevice",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e",tooltip=" "];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="OSK::Engine::GetRenderer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00",tooltip=" "];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="OSK::GRAPHICS::Swapchain\lDx12::GetRenderTargetMemory",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a9c0ad49dec6559c30c63442858aad650",tooltip=" "];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="OSK::GRAPHICS::GpuImage\l::GetView",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aa1084f28e42d5b2d03ac2a831ac395e1",tooltip=" "];
+  Node10 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="OSK::GRAPHICS::GpuImage\l::CreateView",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a52b0c9170bac73a8e525244e071396ec",tooltip=" "];
+  Node10 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="OSK::OwnedPtr::GetPointer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042",tooltip="Devuelve el puntero nativo."];
+  Node1 -> Node13 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="OSK::GRAPHICS::CommandList\lDx12::SetGpuImageBarrier",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#aa5e99ae1fbcae83b1d4ac0d4c385933d",tooltip="Establece un barrier que sincroniza la ejecución de comandos. Cambia el layout de la imagen."];
+  Node13 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="OSK::GRAPHICS::GpuImage::As",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a6bc3268b57ede5f9f0541b20d12dfea0",tooltip=" "];
+  Node13 -> Node15 [color="midnightblue",fontsize="10",style="solid"];
+  Node15 [label="OSK::GRAPHICS::GetGpuImage\lLayoutDx12",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#acf9b4413f63c5494786640270a4fafcb",tooltip=" "];
+  Node13 -> Node16 [color="midnightblue",fontsize="10",style="solid"];
+  Node16 [label="OSK::GRAPHICS::GpuImage\l::SetLayout",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a97171829d26c35669ca2df87a8fc5389",tooltip="Actualiza el layout de la imagen, para que represente el layout actual."];
+}

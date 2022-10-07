@@ -21,6 +21,7 @@ className& operator=(const className&) = delete;
 #include <stdint.h>
 
 using TSize = unsigned int;
+using TIndex = TSize;
 using TDeltaTime = float;
 using TByte = uint8_t;
 

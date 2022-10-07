@@ -1,0 +1,176 @@
+\hypertarget{_sync_device_vulkan_8cpp_source}{}\doxysection{Sync\+Device\+Vulkan.\+cpp}
+\label{_sync_device_vulkan_8cpp_source}\index{OSKengine2/SyncDeviceVulkan.cpp@{OSKengine2/SyncDeviceVulkan.cpp}}
+\mbox{\hyperlink{_sync_device_vulkan_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_sync_device_vulkan_8h}{SyncDeviceVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include <vulkan/vulkan.h>}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_vulkan_8h}{GpuVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_swapchain_vulkan_8h}{SwapchainVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_command_queue_vulkan_8h}{CommandQueueVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_command_list_vulkan_8h}{CommandListVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00008}00008 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_assert_8h}{Assert.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00009}00009 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kengine_8h}{OSKengine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00010}00010 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_renderer_vulkan_8h}{RendererVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00011}00011 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_vulkan_8h}{GpuVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00013}00013 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_logger_8h}{Logger.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00015}00015 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00016}00016 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00018}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a92ee7f68622d18dd4a7ed56d9ca55051}{00018}} SyncDeviceVulkan::SyncDeviceVulkan() \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00019}00019     }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00020}00020 \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00022}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a5682c26691f1c69b02e04d886169ddf1}{00022}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a5682c26691f1c69b02e04d886169ddf1}{SyncDeviceVulkan::\string~SyncDeviceVulkan}}() \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00023}00023     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < imageAvailableSemaphores.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}(); i++) \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00024}00024         \textcolor{keywordflow}{if} (imageAvailableSemaphores[i] != VK\_NULL\_HANDLE) \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00025}00025             vkDestroySemaphore(\mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>As<RendererVulkan>()-\/>GetGpu()-\/>As<GpuVulkan>()-\/>GetLogicalDevice(),}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00026}00026                 imageAvailableSemaphores[i], \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00027}00027             imageAvailableSemaphores[i] = VK\_NULL\_HANDLE;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00028}00028         \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00029}00029     \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00031}00031     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < renderFinishedSemaphores.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}(); i++) \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00032}00032         \textcolor{keywordflow}{if} (renderFinishedSemaphores[i] != VK\_NULL\_HANDLE) \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00033}00033             vkDestroySemaphore(\mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>As<RendererVulkan>()-\/>GetGpu()-\/>As<GpuVulkan>()-\/>GetLogicalDevice(),}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00034}00034                 renderFinishedSemaphores[i], \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00035}00035             renderFinishedSemaphores[i] = VK\_NULL\_HANDLE;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00036}00036         \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00037}00037     \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00039}00039     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < inFlightFences.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}(); i++) \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00040}00040         \textcolor{keywordflow}{if} (inFlightFences[i] != VK\_NULL\_HANDLE) \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00041}00041             vkDestroyFence(\mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>As<RendererVulkan>()-\/>GetGpu()-\/>As<GpuVulkan>()-\/>GetLogicalDevice(),}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00042}00042                 inFlightFences[i], \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00043}00043             inFlightFences[i] = VK\_NULL\_HANDLE;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00044}00044         \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00045}00045     \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00046}00046 \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00048}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a84ce5ae7ca644bc63a60a776a419c79e}{00048}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a84ce5ae7ca644bc63a60a776a419c79e}{SyncDeviceVulkan::SetImageAvailableSemaphores}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkSemaphore>}}\& semaphores) \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00049}00049     imageAvailableSemaphores = semaphores;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00050}00050 \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00052}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a9eaebb40f97bf4a1981c083b650451bf}{00052}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a9eaebb40f97bf4a1981c083b650451bf}{SyncDeviceVulkan::SetRenderFinishedSemaphores}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkSemaphore>}}\& semaphores) \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00053}00053     renderFinishedSemaphores = semaphores;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00054}00054 \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00056}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a67145ae40ed941309d9823566ec535f0}{00056}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a67145ae40ed941309d9823566ec535f0}{SyncDeviceVulkan::SetInFlightFences}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkFence>}}\& fences) \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00057}00057     inFlightFences = fences;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00059}00059     VkFenceCreateInfo fenceInfo\{\};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00060}00060     fenceInfo.sType = VK\_STRUCTURE\_TYPE\_FENCE\_CREATE\_INFO;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00061}00061     fenceInfo.flags = VK\_FENCE\_CREATE\_SIGNALED\_BIT;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00063}00063     \textcolor{comment}{//vkCreateFence(device-\/>GetLogicalDevice(), \&fenceInfo, nullptr, \&imageAcquireFence);}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00064}00064 \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00066}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a6ba441a32cfc266f1fb236fd2e75011d}{00066}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a6ba441a32cfc266f1fb236fd2e75011d}{SyncDeviceVulkan::SetImagesInFlightFences}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkFence>}}\& fences) \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00067}00067     imagesInFlight = \{ 0, 0, 0 \};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00068}00068 \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00070}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a8ff45f255abf7024b032785f9eba31a1}{00070}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a8ff45f255abf7024b032785f9eba31a1}{SyncDeviceVulkan::SetDevice}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{GpuVulkan}}\& device) \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00071}00071     this-\/>device = \&device;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00072}00072 \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00074}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a58729394109ec1d07af9e18adaef53bc}{00074}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a58729394109ec1d07af9e18adaef53bc}{SyncDeviceVulkan::SetSwapchain}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan}{SwapchainVulkan}}\& swapchain) \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00075}00075     this-\/>swapchain = \textcolor{keyword}{const\_cast<}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan}{SwapchainVulkan}}*\textcolor{keyword}{>}(\&swapchain);}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00076}00076 \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00078}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a74b5441b4ff50c77c6b114a15365fc7a}{00078}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a74b5441b4ff50c77c6b114a15365fc7a}{SyncDeviceVulkan::FirstAwait}}() \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00079}00079     \textcolor{comment}{//vkWaitForFences(device-\/>GetLogicalDevice(), 1, \&inFlightFences[currentFrame], VK\_TRUE, UINT64\_MAX);}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00080}00080     \textcolor{comment}{//vkResetFences(device-\/>GetLogicalDevice(), 1, \&inFlightFences[currentFrame]);}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00081}00081 \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00083}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a5a9110a4da448f607b783f949fb941d9}{00083}} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a5a9110a4da448f607b783f949fb941d9}{SyncDeviceVulkan::UpdateCurrentFrameIndex}}() \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00084}00084     \textcolor{comment}{// Adquirimos el índice de la próxima imagen a procesar.}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00085}00085     \textcolor{comment}{// NOTA: puede que tengamos que esperar a que esta imagen quede disponible.}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00086}00086     VkResult result = vkAcquireNextImageKHR(device-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a9f3d2735d7bb54ecb4056d5284cb686f}{GetLogicalDevice}}(), swapchain-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_ad1589571a0e00a84e0687f4c9bd82813}{GetSwapchain}}(), UINT64\_MAX, imageAvailableSemaphores[currentFrame], VK\_NULL\_HANDLE, \&framebufferIndex);}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00087}00087     \mbox{\hyperlink{_assert_8h_ab17a47d656881cd12f1529fb2fd20d7e}{OSK\_CHECK}}(result == VK\_SUCCESS, \textcolor{stringliteral}{"{}vkAcquireNextImageKHR code: "{}} + std::to\_string(result));}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00089}00089     \textcolor{keywordflow}{if} (result == VK\_ERROR\_OUT\_OF\_DATE\_KHR) \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00090}00090         \textcolor{comment}{//swapchain-\/>Resize();}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00091}00091 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00092}00092         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00093}00093     \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00095}00095     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00096}00096 \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00098}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a372f1f09902e5735edb66cf7ed4c1a84}{00098}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a372f1f09902e5735edb66cf7ed4c1a84}{SyncDeviceVulkan::Flush}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan}{CommandQueueVulkan}}\& graphicsQueue, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan}{CommandQueueVulkan}}\& presentQueue, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan}{CommandListVulkan}}\& commandList) \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00099}00099 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00100}00100     \textcolor{comment}{//Esperar a que la imagen esté disponible antes de renderizar.}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00101}00101     \textcolor{keyword}{const} VkPipelineStageFlags waitStages[] = \{ VK\_PIPELINE\_STAGE\_COLOR\_ATTACHMENT\_OUTPUT\_BIT \};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00102}00102     }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00103}00103     \textcolor{comment}{// Submit Graphics}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00104}00104     VkSubmitInfo submitInfo\{\};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00105}00105     submitInfo.sType = VK\_STRUCTURE\_TYPE\_SUBMIT\_INFO;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00106}00106     submitInfo.waitSemaphoreCount = 1;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00107}00107     submitInfo.pWaitSemaphores = \&imageAvailableSemaphores[currentFrame]; \textcolor{comment}{// Debemos esperar hasta que esta imagen esté disponible.}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00108}00108     submitInfo.pWaitDstStageMask = waitStages;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00109}00109     submitInfo.pSignalSemaphores = \&renderFinishedSemaphores[currentFrame]; \textcolor{comment}{// Al terminar, indicamos que esta imagen se ha terminado de renderizar.}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00110}00110     submitInfo.signalSemaphoreCount = 1;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00111}00111 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00112}00112     submitInfo.commandBufferCount = 1;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00113}00113     submitInfo.pCommandBuffers = \&commandList.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_a222a24c9f23c317f07799ba7cb492595}{GetCommandBuffers}}()[currentFrame];}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00114}00114 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00115}00115     VkResult result = vkQueueSubmit(graphicsQueue.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan_ab8ce61a5604b9d90ff9246da6b9b11a2}{GetQueue}}(), 1, \&submitInfo, inFlightFences[currentFrame]);}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00116}00116     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(result == VK\_SUCCESS, \textcolor{stringliteral}{"{}No se ha podido enviar la cola gráfica."{}});}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00117}00117 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00118}00118     \textcolor{comment}{// Submit Compute}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00119}00119     VkSubmitInfo computeSubmitInfo\{\};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00120}00120     submitInfo.sType = VK\_STRUCTURE\_TYPE\_SUBMIT\_INFO;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00121}00121     submitInfo.waitSemaphoreCount = 1;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00122}00122     submitInfo.pWaitSemaphores = \&imageAvailableSemaphores[currentFrame]; \textcolor{comment}{// Debemos esperar hasta que esta imagen esté disponible.}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00123}00123     submitInfo.pWaitDstStageMask = waitStages;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00124}00124     submitInfo.pSignalSemaphores = \&renderFinishedSemaphores[currentFrame]; \textcolor{comment}{// Al terminar, indicamos que esta imagen se ha terminado de renderizar.}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00125}00125     submitInfo.signalSemaphoreCount = 1;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00126}00126 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00127}00127     submitInfo.commandBufferCount = 1;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00128}00128     submitInfo.pCommandBuffers = \&commandList.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_a222a24c9f23c317f07799ba7cb492595}{GetCommandBuffers}}()[currentFrame];}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00129}00129 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00130}00130     \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ PRESENT -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ //}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00131}00131     \textcolor{comment}{// Presentar la imagen renderizada en la pantalla.}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00132}00132     }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00133}00133     \mbox{\hyperlink{_swapchain_vulkan_8h_a7e0743809e381dcc6dc703b13487b4b5}{VkSwapchainKHR}} swapChains[] = \{ swapchain-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_ad1589571a0e00a84e0687f4c9bd82813}{GetSwapchain}}()\};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00134}00134 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00135}00135     VkPresentInfoKHR presentInfo\{\};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00136}00136     presentInfo.sType = VK\_STRUCTURE\_TYPE\_PRESENT\_INFO\_KHR;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00137}00137     presentInfo.waitSemaphoreCount = 1;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00138}00138     presentInfo.pWaitSemaphores = \&renderFinishedSemaphores[currentFrame]; \textcolor{comment}{// Debemos esperar a que la imagen actual termine de renderizarse.}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00139}00139     presentInfo.swapchainCount = 1;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00140}00140     presentInfo.pSwapchains = swapChains;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00141}00141     presentInfo.pImageIndices = \&framebufferIndex; \textcolor{comment}{// Lo presentamos en esta imagen.}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00142}00142     presentInfo.pResults = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00143}00143 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00144}00144     result = vkQueuePresentKHR(presentQueue.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan_ab8ce61a5604b9d90ff9246da6b9b11a2}{GetQueue}}(), \&presentInfo);}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00145}00145     \textcolor{keyword}{const} \textcolor{keywordtype}{bool} resized = result == VK\_ERROR\_OUT\_OF\_DATE\_KHR || result == VK\_SUBOPTIMAL\_KHR;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00146}00146     \textcolor{keywordflow}{if} (resized) \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00147}00147         \textcolor{comment}{// Esperamos a que se terminen todas las listas de comandos para}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00148}00148         \textcolor{comment}{// poder cambiar de tamaño los render targets.}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00149}00149         vkDeviceWaitIdle(device-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a9f3d2735d7bb54ecb4056d5284cb686f}{GetLogicalDevice}}());}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00151}00151 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00152}00152         swapchain-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan_a5eed4a14de2b74443b5da96486cbd0d4}{Resize}}();}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00153}00153         \mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7e06601c9bc5325e2ee5904e58a3af3d}{As}}<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan}{RendererVulkan}}>()-\/>HandleResize();}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00154}00154     \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00155}00155 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00156}00156     currentFrame = (currentFrame + 1) \% swapchain-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_a052206c1de590606bfdef279f326d16c}{GetImageCount}}();}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00157}00157     }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00158}00158     \textcolor{comment}{// Si la siguiente imagen está siendo procesada, esperar a que termine.}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00159}00159     \textcolor{keywordflow}{if} (!resized) \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00161}00161         vkWaitForFences(device-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a9f3d2735d7bb54ecb4056d5284cb686f}{GetLogicalDevice}}(), 1, \&inFlightFences[currentFrame], VK\_TRUE, UINT64\_MAX);}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00162}00162         vkResetFences(device-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a9f3d2735d7bb54ecb4056d5284cb686f}{GetLogicalDevice}}(), 1, \&inFlightFences[currentFrame]);}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00163}00163     \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00164}00164 \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00165}00165 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00166}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a5624b7d5d1a7e05d93d718c8fe8349c5}{00166}} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_a5624b7d5d1a7e05d93d718c8fe8349c5}{SyncDeviceVulkan::GetCurrentFrameIndex}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00167}00167     \textcolor{keywordflow}{return} framebufferIndex;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00168}00168 \}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00169}00169 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00170}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_ac71cc1708d54ae31a1d6b5090b8a7d1f}{00170}} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan_ac71cc1708d54ae31a1d6b5090b8a7d1f}{SyncDeviceVulkan::GetCurrentCommandListIndex}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00171}00171     \textcolor{keywordflow}{return} currentFrame;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8cpp_source_l00172}00172 \}}
+
+\end{DoxyCode}

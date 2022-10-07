@@ -1,6 +1,5 @@
 digraph "OSK::GRAPHICS::GpuVulkan::Info::Get"
 {
- // INTERACTIVE_SVG=YES
  // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];

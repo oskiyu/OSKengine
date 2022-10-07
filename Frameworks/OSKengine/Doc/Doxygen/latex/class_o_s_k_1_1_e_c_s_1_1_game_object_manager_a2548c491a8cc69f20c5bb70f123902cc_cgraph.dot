@@ -1,0 +1,20 @@
+digraph "OSK::ECS::GameObjectManager::CreateGameObject"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::ECS::GameObjectManager\l::CreateGameObject",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Registra un nuevo objeto."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::DynamicArray::\lIsEmpty",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#ab772cd3a1f2c189505ea17d604dfc164",tooltip="Devuelve true si el array está vacío."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="OSK::DynamicArray::Pop",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#a0a3dca21beab01e5193082a2803e32db",tooltip="Devuelve el último elemento de la lista."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="OSK::DynamicArray::At",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#a9691f5eaf46654d59525c6c342d69cbb",tooltip="Devuelve el elemento en la posición dada."];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="OSK::DynamicArray::\lHasBeenInitialized",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef",tooltip="Devuelve true si el array se ha inicializado."];
+  Node3 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="OSK::DynamicArray::\lRemoveLast",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#a90bb67f64f4e41f06ec2db0e18dc563f",tooltip="Elimina el último elemento del array."];
+  Node6 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+}

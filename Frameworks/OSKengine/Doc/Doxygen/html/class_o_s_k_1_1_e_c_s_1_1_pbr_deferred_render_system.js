@@ -11,7 +11,7 @@ var class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system =
     [ "OnObjectAdded", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#a9958f3923d9872cb58b62f62f286bc01", null ],
     [ "OnObjectRemoved", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#a0507ade65b07509199201d1a50e97052", null ],
     [ "OnRemove", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#a43e7608ce2a31c9c13b42cf4ce6eb0ef", null ],
-    [ "OnTick", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#ab66937b130814e6f06f3d76648dd0fb6", null ],
+    [ "OnTick", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#a6d1959599b80933c42431525efd4c12f", null ],
     [ "OSK_SYSTEM", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#a85564c0803facba86437a8989ccf9f44", null ],
     [ "RemoveObject", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#aae0fdc7cd122ec66de6efb60e0fdc596", null ],
     [ "Render", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#a85151789fcc029575e6f6800e8ba68aa", null ],

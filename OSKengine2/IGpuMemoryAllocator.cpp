@@ -35,7 +35,7 @@ IGpuMemoryAllocator::~IGpuMemoryAllocator() {
 
 void IGpuMemoryAllocator::RemoveImageBlock(IGpuMemoryBlock* iblock) {
 	imageMemoryBlocks.Remove(OwnedPtr(iblock));
-}
+	}
 
 void IGpuMemoryAllocator::Free() {
 	for (auto& list : bufferMemoryBlocks) {

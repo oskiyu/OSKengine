@@ -1,0 +1,59 @@
+\hypertarget{_descriptor_layout_vulkan_8cpp_source}{}\doxysection{Descriptor\+Layout\+Vulkan.\+cpp}
+\label{_descriptor_layout_vulkan_8cpp_source}\index{OSKengine2/DescriptorLayoutVulkan.cpp@{OSKengine2/DescriptorLayoutVulkan.cpp}}
+\mbox{\hyperlink{_descriptor_layout_vulkan_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_descriptor_layout_vulkan_8h}{DescriptorLayoutVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_material_layout_slot_8h}{MaterialLayoutSlot.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_shader_binding_type_8h}{ShaderBindingType.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kengine_8h}{OSKengine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_renderer_8h}{IRenderer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_shader_binding_type_vulkan_8h}{ShaderBindingTypeVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00008}00008 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_dynamic_array_8hpp}{DynamicArray.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00009}00009 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_vulkan_8h}{GpuVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00011}00011 \textcolor{preprocessor}{\#include <vulkan/vulkan.h>}}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00013}00013 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00014}00014 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}};}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00016}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan_a401d8c72bb07cda1308124fc166f55ef}{00016}} DescriptorLayoutVulkan::DescriptorLayoutVulkan(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot}{MaterialLayoutSlot}}* slotLayout)}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00017}00017     : slotLayout(slotLayout)  \{}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00019}00019     \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkDescriptorSetLayoutBinding>}} bindings;}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00021}00021     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& i : slotLayout-\/>\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_aae656bee485d2b46a0996ebe97ae97d3}{bindings}}) \{}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00022}00022         VkDescriptorSetLayoutBinding layoutBinding\{\};}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00023}00023         layoutBinding.binding = i.second.glslIndex;}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00024}00024         layoutBinding.descriptorType = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4c5b747cc726d69ca2876e77875618dc}{GetDescriptorTypeVk}}(i.second.type);}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00025}00025         layoutBinding.descriptorCount = 1;}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00026}00026         layoutBinding.stageFlags = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3a50046339fbf8642e14273583cd8118}{GetShaderStageVk}}(slotLayout-\/>\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_ab6b6cab3b108fa5179ff16d4c24b60d4}{stage}});}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00027}00027         layoutBinding.pImmutableSamplers = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00029}00029         bindings.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(layoutBinding);}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00030}00030     \}}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00032}00032     VkDescriptorSetLayoutCreateInfo layoutInfo\{\};}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00033}00033     layoutInfo.sType = VK\_STRUCTURE\_TYPE\_DESCRIPTOR\_SET\_LAYOUT\_CREATE\_INFO;}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00034}00034     layoutInfo.bindingCount = (uint32\_t)bindings.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}();}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00035}00035     layoutInfo.pBindings = bindings.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_ac8a6d70f938c482e1f7aa68c7d186bb8}{GetData}}();}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00037}00037     VkResult result = vkCreateDescriptorSetLayout(\mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>GetGpu()-\/>As<GpuVulkan>()-\/>GetLogicalDevice(), }
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00038}00038         \&layoutInfo, \textcolor{keyword}{nullptr}, \&layout);}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00039}00039     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(result == VK\_SUCCESS, \textcolor{stringliteral}{"{}No se pudo crear el descriptor set layout."{}});}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00040}00040 \}}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00042}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan_a360ce2fd84add62bdce5dc236fe1104c}{00042}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan_a360ce2fd84add62bdce5dc236fe1104c}{DescriptorLayoutVulkan::\string~DescriptorLayoutVulkan}}() \{}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00043}00043     vkDestroyDescriptorSetLayout(\mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>GetGpu()-\/>As<GpuVulkan>()-\/>GetLogicalDevice(),}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00044}00044         layout, \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00045}00045 \}}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00047}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan_a69d99477ab96a623e81a42cc9cf11c79}{00047}} \mbox{\hyperlink{_descriptor_layout_vulkan_8h_a0d22c7c7f4168456bc3c2275e263f184}{VkDescriptorSetLayout}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan_a69d99477ab96a623e81a42cc9cf11c79}{DescriptorLayoutVulkan::GetLayout}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00048}00048     \textcolor{keywordflow}{return} layout;}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00049}00049 \}}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00051}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan_a49f4c2f2536588cb688811ab2094180a}{00051}} \textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot}{MaterialLayoutSlot}}* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan_a49f4c2f2536588cb688811ab2094180a}{DescriptorLayoutVulkan::GetMaterialSlotLayout}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00052}00052     \textcolor{keywordflow}{return} slotLayout;}
+\DoxyCodeLine{\Hypertarget{_descriptor_layout_vulkan_8cpp_source_l00053}00053 \}}
+
+\end{DoxyCode}

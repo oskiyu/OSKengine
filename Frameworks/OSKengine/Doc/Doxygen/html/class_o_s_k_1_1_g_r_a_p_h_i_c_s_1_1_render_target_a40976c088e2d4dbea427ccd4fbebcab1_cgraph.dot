@@ -1,0 +1,12 @@
+digraph "OSK::GRAPHICS::RenderTarget::GetSize"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::RenderTarget\l::GetSize",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Devuelve el tamaño del render target."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::Vector2_t::ToVector2f",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_vector2__t.html#a0d2ae26c0e6fc58b9a3013a443ff3923",tooltip="Devuelve un Vector2f a partir de este."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="OSK::Vector2_t::ToVector2ui",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_vector2__t.html#ab94e13708997d27a82e001f8782e290b",tooltip="Devuelve un Vector2ui a partir de este."];
+}

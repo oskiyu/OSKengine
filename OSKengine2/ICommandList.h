@@ -3,7 +3,7 @@
 #include "OSKmacros.h"
 #include "Vector4.hpp"
 #include "DynamicArray.hpp"
-#include "OwnedPtr.h"
+#include "UniquePtr.hpp"
 #include "IGpuDataBuffer.h"
 #include "Color.hpp"
 #include "RenderpassType.h"
@@ -400,7 +400,7 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		DynamicArray<OwnedPtr<GpuDataBuffer>> stagingBuffersToDelete{};
+		DynamicArray<UniquePtr<GpuDataBuffer>> stagingBuffersToDelete{};
 
 	};
 

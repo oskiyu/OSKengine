@@ -1,0 +1,86 @@
+\hypertarget{_model3_d_8cpp_source}{}\doxysection{Model3\+D.\+cpp}
+\label{_model3_d_8cpp_source}\index{OSKengine2/Model3D.cpp@{OSKengine2/Model3D.cpp}}
+\mbox{\hyperlink{_model3_d_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_model3_d_8h}{Model3D.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_mesh3_d_8h}{Mesh3D.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_image_8h}{IGpuImage.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00006}00006 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00007}00007 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_a_s_s_e_t_s}{OSK::ASSETS}};}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00008}00008 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}};}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00010}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_adc976a68735a701fc05f9c50ff826212}{00010}} Model3D::Model3D(\textcolor{keyword}{const} std::string\& assetFile)}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00011}00011     : \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset}{IAsset}}(assetFile) \{}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00013}00013 \}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00015}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a480cf3e35730e8fb88c1e40cef76fdea}{00015}} \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<Mesh3D>}}\& \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a480cf3e35730e8fb88c1e40cef76fdea}{Model3D::GetMeshes}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00016}00016     \textcolor{keywordflow}{return} meshes;}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00017}00017 \}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00019}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_aefe11c4a01aba22ec8fbda78404026e8}{00019}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_aefe11c4a01aba22ec8fbda78404026e8}{Model3D::AddMesh}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh3_d}{Mesh3D}}\& mesh, \textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata}{MeshMetadata}}\& meshMetadata) \{}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00020}00020     meshes.Insert(mesh);}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00021}00021     metadata.\mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata_a990f8bc4bc4c8c91586a992b79b8f582}{meshesMetadata}}.Insert(meshMetadata);}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00022}00022 \}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00024}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a1b82d0d66290f0968dd61b34cbe785ed}{00024}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a1b82d0d66290f0968dd61b34cbe785ed}{Model3D::\_SetVertexBuffer}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<GRAPHICS::IGpuVertexBuffer>}}\& vertexBuffer) \{}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00025}00025     this-\/>vertexBuffer = vertexBuffer.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}();}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00026}00026 \}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00028}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_af71969c2d3b415801459a341b4d91c21}{00028}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_af71969c2d3b415801459a341b4d91c21}{Model3D::\_SetIndexBuffer}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<GRAPHICS::IGpuIndexBuffer>}}\& indexBuffer) \{}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00029}00029     this-\/>indexBuffer = indexBuffer.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}();}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00030}00030 \}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00032}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a35dbcfd55eae24fe503a83ca889a47c1}{00032}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a35dbcfd55eae24fe503a83ca889a47c1}{Model3D::\_SetAccelerationStructure}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<GRAPHICS::IBottomLevelAccelerationStructure>}}\& accelerationStructure) \{}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00033}00033     this-\/>accelerationStructure = accelerationStructure.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}();}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00034}00034 \}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00036}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a2e19e626c0b40235285bf546e8cc1378}{00036}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a2e19e626c0b40235285bf546e8cc1378}{Model3D::\_SetIndexCount}}(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} count) \{}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00037}00037     numIndices = count;}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00038}00038 \}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00040}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_ae71e7cb40f766ce9b5490b22971174ac}{00040}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpuVertexBuffer}}* \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_ae71e7cb40f766ce9b5490b22971174ac}{Model3D::GetVertexBuffer}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00041}00041     \textcolor{keywordflow}{return} vertexBuffer.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00042}00042 \}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00044}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a7c1aaf201341a6e0666998cb7b13d98e}{00044}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer}{IGpuIndexBuffer}}* \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a7c1aaf201341a6e0666998cb7b13d98e}{Model3D::GetIndexBuffer}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00045}00045     \textcolor{keywordflow}{return} indexBuffer.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00046}00046 \}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00048}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a551b190f06c44a84d937a79f4f251d0f}{00048}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{IBottomLevelAccelerationStructure}}* \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a551b190f06c44a84d937a79f4f251d0f}{Model3D::GetAccelerationStructure}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00049}00049     \textcolor{keywordflow}{return} accelerationStructure.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00050}00050 \}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00052}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a88f36a4771a22884eaa3933a9d18ae56}{00052}} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a88f36a4771a22884eaa3933a9d18ae56}{Model3D::GetIndexCount}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00053}00053     \textcolor{keywordflow}{return} numIndices;}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00054}00054 \}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00056}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_aff55e57875562bb3dbc82ad0d0d71fcc}{00056}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_aff55e57875562bb3dbc82ad0d0d71fcc}{Model3D::AddGpuImage}}(\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<GRAPHICS::GpuImage>}} image) \{}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00057}00057     metadata.\mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata_a7824812fa70fc1b9f50db53aa84d6d84}{textures}}.Insert(image.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}());}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00058}00058 \}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00060}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a46ac841ad1f82be255e68f5b188b6278}{00060}} \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GpuImage}}* \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a46ac841ad1f82be255e68f5b188b6278}{Model3D::GetImage}}(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} index)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00061}00061     \textcolor{keywordflow}{return} metadata.\mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata_a7824812fa70fc1b9f50db53aa84d6d84}{textures}}.At(index).GetPointer();}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00062}00062 \}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00064}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_abde872df60b377efa267618057c5bfe4}{00064}} \textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata}{ModelMetadata}}\& \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_abde872df60b377efa267618057c5bfe4}{Model3D::GetMetadata}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00065}00065     \textcolor{keywordflow}{return} metadata;}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00066}00066 \}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00068}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a35b5d39c77745aba836bb5ee74bee7ee}{00068}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a35b5d39c77745aba836bb5ee74bee7ee}{Model3D::SetAnimator}}(\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator}{GRAPHICS::Animator}}\&\& animator) \{}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00069}00069     this-\/>animator = \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator}{Animator}}(std::move(animator));}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00070}00070 \}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00071}00071 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00072}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a00630e4f7a8e059586932b395e8f1f2b}{00072}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator}{Animator}}* \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a00630e4f7a8e059586932b395e8f1f2b}{Model3D::GetAnimator}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00073}00073     \textcolor{keywordflow}{return} animator.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00074}00074 \}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00076}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a29273ffaa49b5726cf7b942268a93e84}{00076}} \mbox{\hyperlink{namespace_o_s_k_1_1_a_s_s_e_t_s_a192866f841033401ce3c83efcaf81027}{ModelType}} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a29273ffaa49b5726cf7b942268a93e84}{Model3D::GetType}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00077}00077     \textcolor{keywordflow}{return} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a00630e4f7a8e059586932b395e8f1f2b}{GetAnimator}}() == \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00078}00078             ? \mbox{\hyperlink{namespace_o_s_k_1_1_a_s_s_e_t_s_a192866f841033401ce3c83efcaf81027a9ae070d34a7ef3af54b1fd95652c0e18}{ModelType::STATIC\_MESH}}}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00079}00079             : \mbox{\hyperlink{namespace_o_s_k_1_1_a_s_s_e_t_s_a192866f841033401ce3c83efcaf81027a4977f736e80475f02eb114d4352c037c}{ModelType::ANIMATED\_MODEL}};}
+\DoxyCodeLine{\Hypertarget{_model3_d_8cpp_source_l00080}00080 \}}
+
+\end{DoxyCode}

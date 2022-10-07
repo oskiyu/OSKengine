@@ -1,0 +1,141 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::Animation}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation}\index{OSK::GRAPHICS::Animation@{OSK::GRAPHICS::Animation}}
+
+
+{\ttfamily \#include $<$Animation.\+h$>$}
+
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::Animation\+:
+% FIG 0
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_ac49b9992ea062bcf3e8f32784ef9cc18}{Update}} (\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDelta\+Time}} delta\+Time, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator}{Animator}} \&owner)
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos públicos}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a22f5b8714bdaba90ee91283bdcf6a97d}{name}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler}{Animation\+Sampler}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_ad5f18ae8947a5e4b38956cf8ee3b233b}{samplers}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel}{Animation\+Channel}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a2afaa19d75a97d1fa99ac8b627885b71}{channels}}
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDelta\+Time}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a6d8d586d46c08c736268a5269ccfe5b0}{start\+Time}} = 0.\+0f
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDelta\+Time}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a1bbe7b253148fef044a4b3c701b3251d}{end\+Time}} = 0.\+0f
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDelta\+Time}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a805e2ffe74563ab75ac8e7fc241ab81b}{current\+Time}} = 0.\+0f
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a1d32cd5277a1963d9b81adf03c274275}{should\+Loop}} = true
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Animación para un modelo 3D. 
+
+Definición en la línea \mbox{\hyperlink{_animation_8h_source_l00020}{20}} del archivo \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_ac49b9992ea062bcf3e8f32784ef9cc18}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_ac49b9992ea062bcf3e8f32784ef9cc18}} 
+\index{OSK::GRAPHICS::Animation@{OSK::GRAPHICS::Animation}!Update@{Update}}
+\index{Update@{Update}!OSK::GRAPHICS::Animation@{OSK::GRAPHICS::Animation}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Animation\+::\+Update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDelta\+Time}}}]{delta\+Time,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator}{Animator}} \&}]{owner }\end{DoxyParamCaption})}
+
+
+
+Mueve la animación. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_animation_8cpp_source_l00009}{9}} del archivo \mbox{\hyperlink{_animation_8cpp_source}{Animation.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 1
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a2afaa19d75a97d1fa99ac8b627885b71}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a2afaa19d75a97d1fa99ac8b627885b71}} 
+\index{OSK::GRAPHICS::Animation@{OSK::GRAPHICS::Animation}!channels@{channels}}
+\index{channels@{channels}!OSK::GRAPHICS::Animation@{OSK::GRAPHICS::Animation}}
+\doxysubsubsection{\texorpdfstring{channels}{channels}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel}{Animation\+Channel}}$>$ OSK\+::\+GRAPHICS\+::\+Animation\+::channels}
+
+
+
+Definición en la línea \mbox{\hyperlink{_animation_8h_source_l00031}{31}} del archivo \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a805e2ffe74563ab75ac8e7fc241ab81b}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a805e2ffe74563ab75ac8e7fc241ab81b}} 
+\index{OSK::GRAPHICS::Animation@{OSK::GRAPHICS::Animation}!currentTime@{currentTime}}
+\index{currentTime@{currentTime}!OSK::GRAPHICS::Animation@{OSK::GRAPHICS::Animation}}
+\doxysubsubsection{\texorpdfstring{currentTime}{currentTime}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDelta\+Time}} OSK\+::\+GRAPHICS\+::\+Animation\+::current\+Time = 0.\+0f}
+
+
+
+Definición en la línea \mbox{\hyperlink{_animation_8h_source_l00036}{36}} del archivo \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a1bbe7b253148fef044a4b3c701b3251d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a1bbe7b253148fef044a4b3c701b3251d}} 
+\index{OSK::GRAPHICS::Animation@{OSK::GRAPHICS::Animation}!endTime@{endTime}}
+\index{endTime@{endTime}!OSK::GRAPHICS::Animation@{OSK::GRAPHICS::Animation}}
+\doxysubsubsection{\texorpdfstring{endTime}{endTime}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDelta\+Time}} OSK\+::\+GRAPHICS\+::\+Animation\+::end\+Time = 0.\+0f}
+
+
+
+Definición en la línea \mbox{\hyperlink{_animation_8h_source_l00034}{34}} del archivo \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a22f5b8714bdaba90ee91283bdcf6a97d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a22f5b8714bdaba90ee91283bdcf6a97d}} 
+\index{OSK::GRAPHICS::Animation@{OSK::GRAPHICS::Animation}!name@{name}}
+\index{name@{name}!OSK::GRAPHICS::Animation@{OSK::GRAPHICS::Animation}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily std\+::string OSK\+::\+GRAPHICS\+::\+Animation\+::name}
+
+
+
+Nombre original de la animación. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_animation_8h_source_l00028}{28}} del archivo \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_ad5f18ae8947a5e4b38956cf8ee3b233b}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_ad5f18ae8947a5e4b38956cf8ee3b233b}} 
+\index{OSK::GRAPHICS::Animation@{OSK::GRAPHICS::Animation}!samplers@{samplers}}
+\index{samplers@{samplers}!OSK::GRAPHICS::Animation@{OSK::GRAPHICS::Animation}}
+\doxysubsubsection{\texorpdfstring{samplers}{samplers}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler}{Animation\+Sampler}}$>$ OSK\+::\+GRAPHICS\+::\+Animation\+::samplers}
+
+
+
+Definición en la línea \mbox{\hyperlink{_animation_8h_source_l00030}{30}} del archivo \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a1d32cd5277a1963d9b81adf03c274275}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a1d32cd5277a1963d9b81adf03c274275}} 
+\index{OSK::GRAPHICS::Animation@{OSK::GRAPHICS::Animation}!shouldLoop@{shouldLoop}}
+\index{shouldLoop@{shouldLoop}!OSK::GRAPHICS::Animation@{OSK::GRAPHICS::Animation}}
+\doxysubsubsection{\texorpdfstring{shouldLoop}{shouldLoop}}
+{\footnotesize\ttfamily bool OSK\+::\+GRAPHICS\+::\+Animation\+::should\+Loop = true}
+
+
+
+Definición en la línea \mbox{\hyperlink{_animation_8h_source_l00038}{38}} del archivo \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a6d8d586d46c08c736268a5269ccfe5b0}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a6d8d586d46c08c736268a5269ccfe5b0}} 
+\index{OSK::GRAPHICS::Animation@{OSK::GRAPHICS::Animation}!startTime@{startTime}}
+\index{startTime@{startTime}!OSK::GRAPHICS::Animation@{OSK::GRAPHICS::Animation}}
+\doxysubsubsection{\texorpdfstring{startTime}{startTime}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDelta\+Time}} OSK\+::\+GRAPHICS\+::\+Animation\+::start\+Time = 0.\+0f}
+
+
+
+Definición en la línea \mbox{\hyperlink{_animation_8h_source_l00033}{33}} del archivo \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_animation_8h}{Animation.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_animation_8cpp}{Animation.\+cpp}}\end{DoxyCompactItemize}

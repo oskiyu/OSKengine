@@ -1,0 +1,9 @@
+digraph "OSK::ASSETS::GltfModelInfo"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="OSK::ASSETS::GltfModelInfo",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Información relevante de un modelo GLTF, necesario para la correcta generación de meshes."];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" materialInfos" ,fontname="Helvetica"];
+  Node2 [label="OSK::DynamicArray\<\l OSK::ASSETS::GltfMaterial\lInfo \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html",tooltip=" "];
+}

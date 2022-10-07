@@ -1,0 +1,46 @@
+\hypertarget{_graphics_pipeline_vulkan_8h_source}{}\doxysection{Graphics\+Pipeline\+Vulkan.\+h}
+\label{_graphics_pipeline_vulkan_8h_source}\index{OSKengine2/GraphicsPipelineVulkan.h@{OSKengine2/GraphicsPipelineVulkan.h}}
+\mbox{\hyperlink{_graphics_pipeline_vulkan_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_graphics_pipeline_8h}{IGraphicsPipeline.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_pipeline_vulkan_8h}{IPipelineVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_dynamic_array_8hpp}{DynamicArray.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00008}00008 \textcolor{preprocessor}{\#include <vulkan/vulkan.h>}}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00010}00010 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}} \{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00012}00012     \textcolor{keyword}{class }GpuVulkan;}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00014}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan}{00014}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan}{GraphicsPipelineVulkan}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline}{IGraphicsPipeline}}, \textcolor{keyword}{public} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan}{IPipelineVulkan}} \{}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00016}00016     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00018}00018         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan}{GraphicsPipelineVulkan}}();}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00020}00020         \textcolor{keywordtype}{void} Create(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{MaterialLayout}}* layout, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}}* device, \textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{PipelineCreateInfo}}\& info, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{VertexInfo}}\& vertexInfo) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00022}00022         \textcolor{keywordtype}{void} SetDebugName(\textcolor{keyword}{const} std::string\& name) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00024}00024     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00026}00026         VkPipelineRasterizationStateCreateInfo GetResterizerInfo(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{PipelineCreateInfo}}\& info) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00027}00027         VkPipelineDepthStencilStateCreateInfo GetDepthInfo(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{PipelineCreateInfo}}\& info) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00028}00028         VkPipelineMultisampleStateCreateInfo GetMsaaInfo(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{PipelineCreateInfo}}\& info, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{GpuVulkan}}\& gpu) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00029}00029         VkPipelineTessellationStateCreateInfo GetTesselationInfo(\textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{PipelineCreateInfo}}\& info) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00031}00031         \textcolor{keywordtype}{void} LoadVertexShader(\textcolor{keyword}{const} std::string\& path);}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00032}00032         \textcolor{keywordtype}{void} LoadFragmentShader(\textcolor{keyword}{const} std::string\& path);}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00033}00033         \textcolor{keywordtype}{void} LoadTesselationControlShader(\textcolor{keyword}{const} std::string\& path);}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00034}00034         \textcolor{keywordtype}{void} LoadTesselationEvaluationShader(\textcolor{keyword}{const} std::string\& path);}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00036}00036         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}}* gpu = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00038}00038     \};}
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{_graphics_pipeline_vulkan_8h_source_l00040}00040 \}}
+
+\end{DoxyCode}

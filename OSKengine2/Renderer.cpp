@@ -52,7 +52,7 @@ IGpu* IRenderer::GetGpu() const {
 void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, TSize numLayers, ICommandList* cmdList) {
 	TSize gpuNumBytes = destination->GetPhysicalNumberOfBytes() * numLayers;
 
-	const TByte* uploadableData = this->FormatImageDataForGpu(destination, data, numLayers);
+	const TByte* uploadableData = data;
 
 	auto stagingBuffer = GetMemoryAllocator()->CreateStagingBuffer(gpuNumBytes);
 	stagingBuffer->MapMemory();
@@ -63,8 +63,7 @@ void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data
 	for (TSize i = 0; i < numLayers; i++)
 		cmdList->CopyBufferToImage(stagingBuffer.GetPointer(), destination, i, offsetPerIteration * i);
 
-	if (data != uploadableData)
-		delete[] uploadableData;
+	cmdList->RegisterStagingBuffer(stagingBuffer);
 }
 
 void IRenderer::HandleResize() {

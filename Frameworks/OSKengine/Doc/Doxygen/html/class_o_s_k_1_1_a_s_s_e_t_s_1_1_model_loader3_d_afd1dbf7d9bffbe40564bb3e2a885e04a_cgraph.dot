@@ -1,0 +1,37 @@
+digraph "OSK::ASSETS::ModelLoader3D::Load"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::ASSETS::ModelLoader3\lD::Load",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Carga el asset."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::IO::FileIO::FileExists",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_file_i_o.html#ac7fe213b79ce97b178a7e27f7216a2f4",tooltip="Comprueba si un archivo existe."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="OSK::ASSETS::IMeshLoader\l::Load",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a43c08f7bf7238c29c3a433893358e9c4",tooltip="Carga el modelo 3D."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="OSK::ASSETS::IMeshLoader\l::LoadMaterials",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#ab3c7e5438ddddb499468728a83a54ca8",tooltip="Carga todos los materiales usados en el modelo 3D."];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="OSK::DynamicArray::\lCreateResizedArray",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#a6560c13598111f1aa6b53357ae120116",tooltip="Crea un DynamicArray con un número de elementos ya creados e insertados."];
+  Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="OSK::DynamicArray::\lResize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#adcbd5bb6ce88469bc9e6f65be06ceae6",tooltip="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda. Se añaden elementos hasta q..."];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="OSK::DynamicArray::\lReserve",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#a34323ddf4963e2097def5d8c3f80c08e",tooltip="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda."];
+  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="OSK::DynamicArray::\lAllocate",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#acf322bf27bf4bfd581079500c67171a6",tooltip="Reserva espacio para 'size' elementos. Preserva los elementos anteriores."];
+  Node4 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="OSK::Engine::GetLogger",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b",tooltip=" "];
+  Node4 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="OSK::IO::Logger::InfoLog",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_logger.html#a3d2a88ffa05f6a74f9d669f1182bacca",tooltip="Manda un mensaje de información."];
+  Node10 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="OSK::IO::Logger::Log",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_logger.html#ac2af30faaa120261990f4deb1b566e7b",tooltip="Manda un mensaje por el logger."];
+  Node3 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="OSK::ASSETS::IMeshLoader\l::ProcessNode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a4f47f10f0fe34bbba7433d0aa030e172",tooltip="Procesa un nodo."];
+  Node3 -> Node13 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="OSK::ASSETS::IMeshLoader\l::SmoothNormals",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a8c6e9430b6e35ff1a090f670af3cf753",tooltip="Establece las normales del vértice (si tiene)."];
+  Node1 -> Node14 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="OSK::IO::FileIO::ReadFromFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_file_i_o.html#aad968707ec7b00bce0540c804f476dc9",tooltip="Lee un archivo de texto."];
+  Node14 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node15 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="OSK::ASSETS::IAsset\l::SetName",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html#af0bbd1c59b2cd81667b63cb6d015c11c",tooltip="Establece el nombre de la instancia de este asset."];
+}

@@ -1,0 +1,18 @@
+digraph "OSK::ASSETS::IAsset"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::ASSETS::IAsset",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Un asset es un archivo/contenido que se usa en un juego. Incluye contenido como texturas,..."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::ASSETS::CubemapTexture",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html",tooltip="Representa una textura para un cubemap. Se puede usar para renderizar un skybox."];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="OSK::ASSETS::Font",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html",tooltip="Representa una fuente: un asset que almacena una fuente que nos permite renderizar texto."];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="OSK::ASSETS::IrradianceMap",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html",tooltip="Un irradiance map es un cubemap que contiene información sobre el color de la luz procedente de la es..."];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="OSK::ASSETS::Model3D",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html",tooltip="Un modelo 3D, para el renderizado 3D. Está compuesto por una serie de meshes 3D."];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="OSK::ASSETS::Texture",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html",tooltip="Una textura que será usada en renderizado 2D / 3D."];
+}

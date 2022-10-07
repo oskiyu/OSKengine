@@ -92,76 +92,78 @@ $(document).ready(function(){initNavTree('_i_gpu_data_buffer_8h_source.html','')
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kmacros_8h.html">OSKmacros.h</a>&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_owned_ptr_8h.html">OwnedPtr.h</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_unique_ptr_8hpp.html">UniquePtr.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_i_gpu_memory_subblock_8h.html">IGpuMemorySubblock.h</a>&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keyword">class </span>IGpuMemorySubblock;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">class </span>IGpuMemoryBlock;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">   14</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">GpuDataBuffer</a> {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">GpuDataBuffer</a>(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IGpuMemorySubblock&gt;</a> buffer, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> alignment);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keyword">virtual</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">~GpuDataBuffer</a>();</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordtype">void</span> MapMemory();</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordtype">void</span> MapMemory(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> offset);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordtype">void</span> Write(<span class="keyword">const</span> <span class="keywordtype">void</span>* data, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordtype">void</span> WriteOffset(<span class="keyword">const</span> <span class="keywordtype">void</span>* data, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> offset);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordtype">void</span> Unmap();</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a3adde058f79922199f3c6971c899b227">   90</a></span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a3adde058f79922199f3c6971c899b227">Write</a>(<span class="keyword">const</span> T&amp; data) {</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            Write(&amp;data, <span class="keyword">sizeof</span>(T));</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        }</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordtype">void</span> SetCursor(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> position);</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordtype">void</span> ResetCursor();</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> GetSize() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> GetAlignment() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html">IGpuMemorySubblock</a>* GetMemorySubblock() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html">IGpuMemoryBlock</a>* GetMemoryBlock() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="keywordtype">void</span> Free();</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a9221ec74febac1fb10c483e25328796a">  123</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IGpuMemorySubblock&gt;</a> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a9221ec74febac1fb10c483e25328796a">buffer</a>;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size = 0;</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> alignment = 0;</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    };</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>}</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">class </span>IGpuMemoryBlock;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">   15</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">GpuDataBuffer</a> {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">GpuDataBuffer</a>(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IGpuMemorySubblock&gt;</a> buffer, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> alignment);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">virtual</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">~GpuDataBuffer</a>();</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">void</span> MapMemory();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordtype">void</span> MapMemory(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> offset);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordtype">void</span> Write(<span class="keyword">const</span> <span class="keywordtype">void</span>* data, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordtype">void</span> WriteOffset(<span class="keyword">const</span> <span class="keywordtype">void</span>* data, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> offset);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordtype">void</span> Unmap();</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a3adde058f79922199f3c6971c899b227">   91</a></span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a3adde058f79922199f3c6971c899b227">Write</a>(<span class="keyword">const</span> T&amp; data) {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            Write(&amp;data, <span class="keyword">sizeof</span>(T));</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        }</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordtype">void</span> SetCursor(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> position);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordtype">void</span> ResetCursor();</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> GetSize() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> GetAlignment() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html">IGpuMemorySubblock</a>* GetMemorySubblock() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html">IGpuMemoryBlock</a>* GetMemoryBlock() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a461883dff4d2ff0f0957d9f5a40991aa">  122</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IGpuMemorySubblock&gt;</a> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a461883dff4d2ff0f0957d9f5a40991aa">buffer</a>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size = 0;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> alignment = 0;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    };</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>}</div>
+<div class="ttc" id="a_i_gpu_memory_subblock_8h_html"><div class="ttname"><a href="_i_gpu_memory_subblock_8h.html">IGpuMemorySubblock.h</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00023">OSKmacros.h:23</a></div></div>
 <div class="ttc" id="a_owned_ptr_8h_html"><div class="ttname"><a href="_owned_ptr_8h.html">OwnedPtr.h</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">OSK::GRAPHICS::GpuDataBuffer</a></div><div class="ttdoc">Representa un buffer genérico en la GPU.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_data_buffer_8h_source.html#l00014">IGpuDataBuffer.h:14</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer_html_a3adde058f79922199f3c6971c899b227"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a3adde058f79922199f3c6971c899b227">OSK::GRAPHICS::GpuDataBuffer::Write</a></div><div class="ttdeci">void Write(const T &amp;data)</div><div class="ttdoc">Escribe la información del elemento dado en el buffer.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_data_buffer_8h_source.html#l00090">IGpuDataBuffer.h:90</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer_html_a9221ec74febac1fb10c483e25328796a"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a9221ec74febac1fb10c483e25328796a">OSK::GRAPHICS::GpuDataBuffer::buffer</a></div><div class="ttdeci">OwnedPtr&lt; IGpuMemorySubblock &gt; buffer</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_data_buffer_8h_source.html#l00123">IGpuDataBuffer.h:123</a></div></div>
+<div class="ttc" id="a_unique_ptr_8hpp_html"><div class="ttname"><a href="_unique_ptr_8hpp.html">UniquePtr.hpp</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">OSK::GRAPHICS::GpuDataBuffer</a></div><div class="ttdoc">Representa un buffer genérico en la GPU.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_data_buffer_8h_source.html#l00015">IGpuDataBuffer.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer_html_a3adde058f79922199f3c6971c899b227"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a3adde058f79922199f3c6971c899b227">OSK::GRAPHICS::GpuDataBuffer::Write</a></div><div class="ttdeci">void Write(const T &amp;data)</div><div class="ttdoc">Escribe la información del elemento dado en el buffer.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_data_buffer_8h_source.html#l00091">IGpuDataBuffer.h:91</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer_html_a461883dff4d2ff0f0957d9f5a40991aa"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a461883dff4d2ff0f0957d9f5a40991aa">OSK::GRAPHICS::GpuDataBuffer::buffer</a></div><div class="ttdeci">UniquePtr&lt; IGpuMemorySubblock &gt; buffer</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_data_buffer_8h_source.html#l00122">IGpuDataBuffer.h:122</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html">OSK::GRAPHICS::IGpuMemoryBlock</a></div><div class="ttdoc">Un bloque de memoria representa una región de memoria que ha sidon reservada.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_memory_block_8h_source.html#l00025">IGpuMemoryBlock.h:25</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html">OSK::GRAPHICS::IGpuMemorySubblock</a></div><div class="ttdoc">Representa una región de memoria dedicada a un único recurso.</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_memory_subblock_8h_source.html#l00024">IGpuMemorySubblock.h:24</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition:</b> <a href="_owned_ptr_8h_source.html#l00016">OwnedPtr.h:16</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_bloom_pass_8h_source.html#l00005">BloomPass.h:5</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Es dueño de un puntero. El puntero original es eliminado al destruirse el UniquePtr.</div><div class="ttdef"><b>Definition:</b> <a href="_unique_ptr_8hpp_source.html#l00020">UniquePtr.hpp:20</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_animation_8h_source.html#l00013">Animation.h:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_i_gpu_data_buffer_8h.html">IGpuDataBuffer.h</a></li>
-    <li class="footer">Generado el Sábado, 17 de Septiembre de 2022 00:04:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 6 de Octubre de 2022 19:30:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

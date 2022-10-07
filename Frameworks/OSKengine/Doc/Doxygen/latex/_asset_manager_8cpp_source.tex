@@ -1,0 +1,25 @@
+\hypertarget{_asset_manager_8cpp_source}{}\doxysection{Asset\+Manager.\+cpp}
+\label{_asset_manager_8cpp_source}\index{OSKengine2/AssetManager.cpp@{OSKengine2/AssetManager.cpp}}
+\mbox{\hyperlink{_asset_manager_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_asset_manager_8h}{AssetManager.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_asset_8h}{IAsset.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00005}00005 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_a_s_s_e_t_s}{OSK::ASSETS}};}
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00007}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_a9c89817cbf3516f1451c116e89f47d30}{00007}} AssetManager::\string~AssetManager() \{}
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00008}00008     }
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00009}00009 \}}
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00011}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_a032603cd4ddeedebe56ec8c9516469f5}{00011}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_a032603cd4ddeedebe56ec8c9516469f5}{AssetManager::DeleteLifetime}}(\textcolor{keyword}{const} std::string\& lifetime) \{}
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00012}00012     \textcolor{keywordflow}{if} (!assetsPerLifetime.ContainsKey(lifetime))}
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00013}00013         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00015}00015     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& i : assetsPerLifetime.Get(lifetime))}
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00016}00016         assetsTable.Remove(i-\/>GetAssetFilename());}
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00018}00018     assetsPerLifetime.Remove(lifetime);}
+\DoxyCodeLine{\Hypertarget{_asset_manager_8cpp_source_l00019}00019 \}}
+
+\end{DoxyCode}

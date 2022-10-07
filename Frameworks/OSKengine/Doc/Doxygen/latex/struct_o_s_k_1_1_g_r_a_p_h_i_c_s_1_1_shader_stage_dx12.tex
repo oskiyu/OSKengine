@@ -1,0 +1,96 @@
+\hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12}{}\doxysection{Referencia de la Estructura OSK\+::GRAPHICS\+::Shader\+Stage\+Dx12}
+\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12}\index{OSK::GRAPHICS::ShaderStageDx12@{OSK::GRAPHICS::ShaderStageDx12}}
+
+
+{\ttfamily \#include $<$IPipeline\+Dx12.\+h$>$}
+
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::Shader\+Stage\+Dx12\+:
+% FIG 0
+\doxysubsection*{Atributos públicos}
+\begin{DoxyCompactItemize}
+\item 
+Com\+Ptr$<$ ID3\+DBlob $>$ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_a39794d6e1beb3a299e0274b35e2eb4a0}{precompiled}}
+\item 
+Com\+Ptr$<$ IDxc\+Blob $>$ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_a163f2ffe6501a05d9782442259189600}{spirv\+Compiled}}
+\item 
+bool \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_a0ea8d6bd487ea3552ecd9d1d56ff73df}{is\+Blob\+Precompiled}} = false
+\item 
+D3\+D12\+\_\+\+SHADER\+\_\+\+BYTECODE \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_a1dbb2aca29ef242c6a9c8efdeb04265e}{bytecode}} \{\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Contiene los datos compilados de un shader. 
+
+Definición en la línea \mbox{\hyperlink{_i_pipeline_dx12_8h_source_l00021}{21}} del archivo \mbox{\hyperlink{_i_pipeline_dx12_8h_source}{IPipeline\+Dx12.\+h}}.
+
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_a1dbb2aca29ef242c6a9c8efdeb04265e}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_a1dbb2aca29ef242c6a9c8efdeb04265e}} 
+\index{OSK::GRAPHICS::ShaderStageDx12@{OSK::GRAPHICS::ShaderStageDx12}!bytecode@{bytecode}}
+\index{bytecode@{bytecode}!OSK::GRAPHICS::ShaderStageDx12@{OSK::GRAPHICS::ShaderStageDx12}}
+\doxysubsubsection{\texorpdfstring{bytecode}{bytecode}}
+{\footnotesize\ttfamily D3\+D12\+\_\+\+SHADER\+\_\+\+BYTECODE OSK\+::\+GRAPHICS\+::\+Shader\+Stage\+Dx12\+::bytecode \{\}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_pipeline_dx12_8h_source_l00044}{44}} del archivo \mbox{\hyperlink{_i_pipeline_dx12_8h_source}{IPipeline\+Dx12.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_a0ea8d6bd487ea3552ecd9d1d56ff73df}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_a0ea8d6bd487ea3552ecd9d1d56ff73df}} 
+\index{OSK::GRAPHICS::ShaderStageDx12@{OSK::GRAPHICS::ShaderStageDx12}!isBlobPrecompiled@{isBlobPrecompiled}}
+\index{isBlobPrecompiled@{isBlobPrecompiled}!OSK::GRAPHICS::ShaderStageDx12@{OSK::GRAPHICS::ShaderStageDx12}}
+\doxysubsubsection{\texorpdfstring{isBlobPrecompiled}{isBlobPrecompiled}}
+{\footnotesize\ttfamily bool OSK\+::\+GRAPHICS\+::\+Shader\+Stage\+Dx12\+::is\+Blob\+Precompiled = false}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_pipeline_dx12_8h_source_l00043}{43}} del archivo \mbox{\hyperlink{_i_pipeline_dx12_8h_source}{IPipeline\+Dx12.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_a39794d6e1beb3a299e0274b35e2eb4a0}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_a39794d6e1beb3a299e0274b35e2eb4a0}} 
+\index{OSK::GRAPHICS::ShaderStageDx12@{OSK::GRAPHICS::ShaderStageDx12}!precompiled@{precompiled}}
+\index{precompiled@{precompiled}!OSK::GRAPHICS::ShaderStageDx12@{OSK::GRAPHICS::ShaderStageDx12}}
+\doxysubsubsection{\texorpdfstring{precompiled}{precompiled}}
+{\footnotesize\ttfamily Com\+Ptr$<$ID3\+DBlob$>$ OSK\+::\+GRAPHICS\+::\+Shader\+Stage\+Dx12\+::precompiled}
+
+
+
+Blob de datos con el shader compilado. 
+
+\begin{DoxyPrecond}{Precondición}
+Únicamente válido si el shader ha sido cargado desde un archivo precompilado. 
+\end{DoxyPrecond}
+\begin{DoxyNote}{Nota}
+Si no fue cargado desde un archivo precompilado, será nullptr. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_i_pipeline_dx12_8h_source_l00031}{31}} del archivo \mbox{\hyperlink{_i_pipeline_dx12_8h_source}{IPipeline\+Dx12.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_a163f2ffe6501a05d9782442259189600}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_a163f2ffe6501a05d9782442259189600}} 
+\index{OSK::GRAPHICS::ShaderStageDx12@{OSK::GRAPHICS::ShaderStageDx12}!spirvCompiled@{spirvCompiled}}
+\index{spirvCompiled@{spirvCompiled}!OSK::GRAPHICS::ShaderStageDx12@{OSK::GRAPHICS::ShaderStageDx12}}
+\doxysubsubsection{\texorpdfstring{spirvCompiled}{spirvCompiled}}
+{\footnotesize\ttfamily Com\+Ptr$<$IDxc\+Blob$>$ OSK\+::\+GRAPHICS\+::\+Shader\+Stage\+Dx12\+::spirv\+Compiled}
+
+
+
+Blob de datos con el shader compilado. 
+
+\begin{DoxyPrecond}{Precondición}
+Únicamente válido si el shader ha sido compilado a partir de un shader SPIR-\/V. 
+\end{DoxyPrecond}
+\begin{DoxyNote}{Nota}
+Si no fue cargado desde un archivo precompilado, será nullptr. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_i_pipeline_dx12_8h_source_l00041}{41}} del archivo \mbox{\hyperlink{_i_pipeline_dx12_8h_source}{IPipeline\+Dx12.\+h}}.
+
+
+
+La documentación para esta estructura fue generada a partir del siguiente fichero\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_i_pipeline_dx12_8h}{IPipeline\+Dx12.\+h}}\end{DoxyCompactItemize}

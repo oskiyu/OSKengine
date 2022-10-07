@@ -1,0 +1,129 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::IGraphics\+Pipeline}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline}\index{OSK::GRAPHICS::IGraphicsPipeline@{OSK::GRAPHICS::IGraphicsPipeline}}
+
+
+{\ttfamily \#include $<$IGraphics\+Pipeline.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::IGraphics\+Pipeline
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::IGraphics\+Pipeline\+:
+% FIG 1
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_a60cdf6f49d2e725bb9fd47057c0e3ecc}{$\sim$\+IGraphics\+Pipeline}} ()=default
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_a43ee1272c3b640192395ed9d02d0ea29}{Create}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} $\ast$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_afeebc6144c3cf7852837a5f08b3a6444}{layout}}, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} $\ast$device, const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{Pipeline\+Create\+Info}} \&info, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{Vertex\+Info}} \&vertex\+Info)=0
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_a547e7d3956ed0b3e5e0b6d9a576edcc2}{OSK\+\_\+\+DEFINE\+\_\+\+AS}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline}{IGraphics\+Pipeline}})
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout}{IPipeline\+Layout}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_a4834a8877c7903bc98791cd7c8caba4f}{Get\+Layout}} () const
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_object_a4ced0b9bf575c7801e54f046604eee10}{Set\+Debug\+Name}} (const std\+::string \&name)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout}{IPipeline\+Layout}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_afeebc6144c3cf7852837a5f08b3a6444}{layout}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+El graphics pipeline es el encargado de transformar los modelos 3D en una imagen final. Contiene información y ajustes que cambian este proceso de renerizado. Debe usarse con shaders para que funcione. 
+
+Definición en la línea \mbox{\hyperlink{_i_graphics_pipeline_8h_source_l00021}{21}} del archivo \mbox{\hyperlink{_i_graphics_pipeline_8h_source}{IGraphics\+Pipeline.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_a60cdf6f49d2e725bb9fd47057c0e3ecc}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_a60cdf6f49d2e725bb9fd47057c0e3ecc}} 
+\index{OSK::GRAPHICS::IGraphicsPipeline@{OSK::GRAPHICS::IGraphicsPipeline}!````~IGraphicsPipeline@{$\sim$IGraphicsPipeline}}
+\index{````~IGraphicsPipeline@{$\sim$IGraphicsPipeline}!OSK::GRAPHICS::IGraphicsPipeline@{OSK::GRAPHICS::IGraphicsPipeline}}
+\doxysubsubsection{\texorpdfstring{$\sim$IGraphicsPipeline()}{~IGraphicsPipeline()}}
+{\footnotesize\ttfamily virtual OSK\+::\+GRAPHICS\+::\+IGraphics\+Pipeline\+::$\sim$\+IGraphics\+Pipeline (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_a43ee1272c3b640192395ed9d02d0ea29}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_a43ee1272c3b640192395ed9d02d0ea29}} 
+\index{OSK::GRAPHICS::IGraphicsPipeline@{OSK::GRAPHICS::IGraphicsPipeline}!Create@{Create}}
+\index{Create@{Create}!OSK::GRAPHICS::IGraphicsPipeline@{OSK::GRAPHICS::IGraphicsPipeline}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+IGraphics\+Pipeline\+::\+Create (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} $\ast$}]{layout,  }\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} $\ast$}]{device,  }\item[{const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{Pipeline\+Create\+Info}} \&}]{info,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{Vertex\+Info}} \&}]{vertex\+Info }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Crea el pipeline con la configuración dada. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em info} & Configuración del pipeline.\\
+\hline
+\end{DoxyParams}
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12_a164ad846a2010825fbbd9d474b2a82f3}{OSK\+::\+GRAPHICS\+::\+Graphics\+Pipeline\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan_a3061cf5122c4b68ccf20679c2221624b}{OSK\+::\+GRAPHICS\+::\+Graphics\+Pipeline\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_a4834a8877c7903bc98791cd7c8caba4f}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_a4834a8877c7903bc98791cd7c8caba4f}} 
+\index{OSK::GRAPHICS::IGraphicsPipeline@{OSK::GRAPHICS::IGraphicsPipeline}!GetLayout@{GetLayout}}
+\index{GetLayout@{GetLayout}!OSK::GRAPHICS::IGraphicsPipeline@{OSK::GRAPHICS::IGraphicsPipeline}}
+\doxysubsubsection{\texorpdfstring{GetLayout()}{GetLayout()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout}{IPipeline\+Layout}} $\ast$ IGraphics\+Pipeline\+::\+Get\+Layout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el layout usado por este pipeline. 
+
+\begin{DoxyPrecond}{Precondición}
+Se debe haber creado correctamente el pipeline. 
+\end{DoxyPrecond}
+\begin{DoxyNote}{Nota}
+Si no se ha creado correctamente el pipeline, devolverá null. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_i_graphics_pipeline_8cpp_source_l00006}{6}} del archivo \mbox{\hyperlink{_i_graphics_pipeline_8cpp_source}{IGraphics\+Pipeline.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_a547e7d3956ed0b3e5e0b6d9a576edcc2}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_a547e7d3956ed0b3e5e0b6d9a576edcc2}} 
+\index{OSK::GRAPHICS::IGraphicsPipeline@{OSK::GRAPHICS::IGraphicsPipeline}!OSK\_DEFINE\_AS@{OSK\_DEFINE\_AS}}
+\index{OSK\_DEFINE\_AS@{OSK\_DEFINE\_AS}!OSK::GRAPHICS::IGraphicsPipeline@{OSK::GRAPHICS::IGraphicsPipeline}}
+\doxysubsubsection{\texorpdfstring{OSK\_DEFINE\_AS()}{OSK\_DEFINE\_AS()}}
+{\footnotesize\ttfamily OSK\+::\+GRAPHICS\+::\+IGraphics\+Pipeline\+::\+OSK\+\_\+\+DEFINE\+\_\+\+AS (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline}{IGraphics\+Pipeline}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_object_a4ced0b9bf575c7801e54f046604eee10}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_object_a4ced0b9bf575c7801e54f046604eee10}} 
+\index{OSK::GRAPHICS::IGraphicsPipeline@{OSK::GRAPHICS::IGraphicsPipeline}!SetDebugName@{SetDebugName}}
+\index{SetDebugName@{SetDebugName}!OSK::GRAPHICS::IGraphicsPipeline@{OSK::GRAPHICS::IGraphicsPipeline}}
+\doxysubsubsection{\texorpdfstring{SetDebugName()}{SetDebugName()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+IGpu\+Object\+::\+Set\+Debug\+Name (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [inherited]}}
+
+
+
+Establece un nombre que lo identifique. Para debug. 
+
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12_a2b50ad5958b73d266bbe46a4eab1762c}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Dx12}}, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan_a4aa8c746ff0f41417597f0cd485c9bfc}{OSK\+::\+GRAPHICS\+::\+Command\+List\+Vulkan}}, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12_a70902e8c19134eb15b3d281f60a7a885}{OSK\+::\+GRAPHICS\+::\+Gpu\+Image\+Dx12}}, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan_a4330a34cdae5f41d85bde2bacc9e976b}{OSK\+::\+GRAPHICS\+::\+Gpu\+Image\+Vulkan}}, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12_a67880835c29a14d6d599d9c0a117b526}{OSK\+::\+GRAPHICS\+::\+Graphics\+Pipeline\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan_aae388f460d6fcc0c50b30e997b6a6985}{OSK\+::\+GRAPHICS\+::\+Graphics\+Pipeline\+Vulkan}}.
+
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_afeebc6144c3cf7852837a5f08b3a6444}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_afeebc6144c3cf7852837a5f08b3a6444}} 
+\index{OSK::GRAPHICS::IGraphicsPipeline@{OSK::GRAPHICS::IGraphicsPipeline}!layout@{layout}}
+\index{layout@{layout}!OSK::GRAPHICS::IGraphicsPipeline@{OSK::GRAPHICS::IGraphicsPipeline}}
+\doxysubsubsection{\texorpdfstring{layout}{layout}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout}{IPipeline\+Layout}}$>$ OSK\+::\+GRAPHICS\+::\+IGraphics\+Pipeline\+::layout\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_graphics_pipeline_8h_source_l00045}{45}} del archivo \mbox{\hyperlink{_i_graphics_pipeline_8h_source}{IGraphics\+Pipeline.\+h}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_i_graphics_pipeline_8h}{IGraphics\+Pipeline.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_i_graphics_pipeline_8cpp}{IGraphics\+Pipeline.\+cpp}}\end{DoxyCompactItemize}

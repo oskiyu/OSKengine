@@ -1,0 +1,97 @@
+\hypertarget{_gpu_memory_types_8cpp_source}{}\doxysection{Gpu\+Memory\+Types.\+cpp}
+\label{_gpu_memory_types_8cpp_source}\index{OSKengine2/GpuMemoryTypes.cpp@{OSKengine2/GpuMemoryTypes.cpp}}
+\mbox{\hyperlink{_gpu_memory_types_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_memory_types_8h}{GpuMemoryTypes.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00002}00002 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kmacros_8h}{OSKmacros.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00004}\mbox{\hyperlink{_gpu_memory_types_8cpp_a7fd330a6b06eb8e5b331d9a379bb86d8}{00004}} \textcolor{keyword}{template} <> std::string OSK::ToString<OSK::GRAPHICS::GpuSharedMemoryType>(\textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{OSK::GRAPHICS::GpuSharedMemoryType}}\& type) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00005}00005     \textcolor{keywordflow}{switch} (type) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00006}00006     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042cea096f8c31942629a91cc086cbda5f5465}{OSK::GRAPHICS::GpuSharedMemoryType::GPU\_AND\_CPU}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00007}00007         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}GpuSharedMemoryType::GPU\_AND\_CPU"{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00008}00008     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042cea95c8166e4f408834884bbe57fef928f6}{OSK::GRAPHICS::GpuSharedMemoryType::GPU\_ONLY}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00009}00009         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}GpuSharedMemoryType::GPU\_ONLY"{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00010}00010     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00012}00012     \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Unknown"{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00013}00013 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00015}\mbox{\hyperlink{_gpu_memory_types_8cpp_aa5619ca7979866ca4dcea6c4a1322767}{00015}} \textcolor{keyword}{template} <> std::string OSK::ToString<OSK::GRAPHICS::GpuMemoryUsage>(\textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ae5e58e16d9268fde60c3eae698b225ec}{OSK::GRAPHICS::GpuMemoryUsage}}\& usage) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00016}00016     \textcolor{keywordflow}{switch} (usage) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00017}00017     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ae5e58e16d9268fde60c3eae698b225eca17de626bcae5109bb2f7a66dfc4a8a1d}{OSK::GRAPHICS::GpuMemoryUsage::BUFFER}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00018}00018         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}GpuMemoryUsage::BUFFER"{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00019}00019     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ae5e58e16d9268fde60c3eae698b225eca23a12f67f614b5518c7f1c2465bf95e3}{OSK::GRAPHICS::GpuMemoryUsage::IMAGE}}:}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00020}00020         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}GpuMemoryUsage::IMAGE"{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00021}00021     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00023}00023     \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Unknown"{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00024}00024 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00026}\mbox{\hyperlink{_gpu_memory_types_8cpp_a26246c67682e4ffc5d48120e0ca522a2}{00026}} \textcolor{keyword}{template} <> std::string OSK::ToString<OSK::GRAPHICS::GpuBufferUsage>(\textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7f}{OSK::GRAPHICS::GpuBufferUsage}}\& usage) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00027}00027     \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numFlags = 0;}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00028}00028     }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00029}00029     std::string output = \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00031}00031     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7fa8d0be820da8f4fe5aa49e0ef3065ca29}{OSK::GRAPHICS::GpuBufferUsage::UNIFORM\_BUFFER}})) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00032}00032         \textcolor{keywordflow}{if} (numFlags != 0)}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00033}00033             output += \textcolor{stringliteral}{"{} | "{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00034}00034         output += \textcolor{stringliteral}{"{}GpuBufferUsage::UNIFORM\_BUFFER"{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00036}00036         numFlags++;}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00037}00037     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00039}00039     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7faa77fcc0c8db7e3e4c3ca370997298c34}{OSK::GRAPHICS::GpuBufferUsage::VERTEX\_BUFFER}})) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00040}00040         \textcolor{keywordflow}{if} (numFlags != 0)}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00041}00041             output += \textcolor{stringliteral}{"{} | "{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00042}00042         output += \textcolor{stringliteral}{"{}GpuBufferUsage::VERTEX\_BUFFER"{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00044}00044         numFlags++;}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00045}00045     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00047}00047     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7fa24ba47a6b7ca772e4185e7a7b54d4c90}{OSK::GRAPHICS::GpuBufferUsage::INDEX\_BUFFER}})) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00048}00048         \textcolor{keywordflow}{if} (numFlags != 0)}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00049}00049             output += \textcolor{stringliteral}{"{} | "{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00050}00050         output += \textcolor{stringliteral}{"{}GpuBufferUsage::INDEX\_BUFFER"{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00052}00052         numFlags++;}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00053}00053     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00055}00055     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7fafb3bb8503e5cd907a3a7b02a495c229e}{OSK::GRAPHICS::GpuBufferUsage::TRANSFER\_SOURCE}})) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00056}00056         \textcolor{keywordflow}{if} (numFlags != 0)}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00057}00057             output += \textcolor{stringliteral}{"{} | "{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00058}00058         output += \textcolor{stringliteral}{"{}GpuBufferUsage::TRANSFER\_SOURCE"{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00060}00060         numFlags++;}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00061}00061     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00063}00063     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7fac61dfc60317a58b2843ec29f8e3c2359}{OSK::GRAPHICS::GpuBufferUsage::TRANSFER\_DESTINATION}})) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00064}00064         \textcolor{keywordflow}{if} (numFlags != 0)}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00065}00065             output += \textcolor{stringliteral}{"{} | "{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00066}00066         output += \textcolor{stringliteral}{"{}GpuBufferUsage::TRANSFER\_DESTINATION"{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00068}00068         numFlags++;}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00069}00069     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00071}00071     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7fa56da21e70ea85d8efa9392d6fd11f2ee}{OSK::GRAPHICS::GpuBufferUsage::RT\_ACCELERATION\_STRUCTURE}})) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00072}00072         \textcolor{keywordflow}{if} (numFlags != 0)}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00073}00073             output += \textcolor{stringliteral}{"{} | "{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00074}00074         output += \textcolor{stringliteral}{"{}GpuBufferUsage::RT\_ACCELERATION\_STRUCTURE"{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00076}00076         numFlags++;}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00077}00077     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00079}00079     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{EFTraits::HasFlag}}(usage, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7faf4723b84fe089b99fa8bd437f42b0167}{OSK::GRAPHICS::GpuBufferUsage::RT\_SHADER\_BINDING\_TABLE}})) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00080}00080         \textcolor{keywordflow}{if} (numFlags != 0)}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00081}00081             output += \textcolor{stringliteral}{"{} | "{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00082}00082         output += \textcolor{stringliteral}{"{}GpuBufferUsage::RT\_SHADER\_BINDING\_TABLE"{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00083}00083 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00084}00084         numFlags++;}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00085}00085     \}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00087}00087     \textcolor{keywordflow}{if} (numFlags == 0)}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00088}00088         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Unknown"{}};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00090}00090     \textcolor{keywordflow}{return} output;}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8cpp_source_l00091}00091 \}}
+
+\end{DoxyCode}

@@ -5,6 +5,7 @@
 #include "MaterialSystem.h"
 #include "Material.h"
 #include "GpuImageLayout.h"
+#include "IGpuStorageBuffer.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -67,6 +68,6 @@ float ToneMappingPass::GetGamma() const {
 }
 
 void ToneMappingPass::SetExposureBuffers(const IGpuStorageBuffer* buffers[3]) {
-	postProcessingMaterialInstance->GetSlot("exposure")->SetStorageBuffers("exposure", buffers);
+	postProcessingMaterialInstance->GetSlot("exposure")->SetStorageBuffers("exposure", (const GpuDataBuffer**)buffers);
 	postProcessingMaterialInstance->GetSlot("exposure")->FlushUpdate();
 }

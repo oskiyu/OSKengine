@@ -1,0 +1,10 @@
+digraph "OSK::ECS::CameraComponent2D::UnlinkWindow"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::ECS::CameraComponent2\lD::UnlinkWindow",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Quita el enlace a la ventana."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::ECS::CameraComponent2\lD::LinkToWindow",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#a252da56695331ab5ac11f442b74a30db",tooltip="Enlaza la cámara a una ventana, para que tenga el tamaño de la ventana."];
+}

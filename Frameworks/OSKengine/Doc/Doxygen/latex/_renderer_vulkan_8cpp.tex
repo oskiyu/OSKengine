@@ -1,0 +1,114 @@
+\hypertarget{_renderer_vulkan_8cpp}{}\doxysection{Referencia del Archivo OSKengine2/\+Renderer\+Vulkan.cpp}
+\label{_renderer_vulkan_8cpp}\index{OSKengine2/RendererVulkan.cpp@{OSKengine2/RendererVulkan.cpp}}
+{\ttfamily \#include $<$vulkan/vulkan.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Renderer\+Vulkan.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}OSKengine.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Logger.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Assert.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Gpu\+Vulkan.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Command\+Queue\+Vulkan.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Command\+List\+Vulkan.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Command\+Pool\+Vulkan.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Version.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Window.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Format\+Vulkan.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Format.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Swapchain\+Vulkan.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Sync\+Device\+Vulkan.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Dynamic\+Array.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Gpu\+Memory\+Allocator\+Vulkan.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Renderpass\+Type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Color.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Graphics\+Pipeline\+Vulkan.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Pipeline\+Create\+Info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}IGpu\+Vertex\+Buffer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Vertex.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Viewport.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Gpu\+Index\+Buffer\+Vulkan.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Render\+Api\+Type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Material\+System.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Material.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Material\+Instance.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Material\+Slot\+Vulkan.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}IGpu\+Uniform\+Buffer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Raytracing\+Pipeline\+Vulkan.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Compute\+Pipeline\+Vulkan.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Gpu\+Image\+Dimensions.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Gpu\+Image\+Usage.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Gpu\+Memory\+Types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Asset\+Manager.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Texture.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Model3\+D.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Transform3\+D.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Model\+Component3\+D.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Entity\+Component\+System.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$GLFW/glfw3.\+h$>$}\newline
+{\ttfamily \#include $<$set$>$}\newline
+{\ttfamily \#include $<$ext/matrix\+\_\+transform.\+hpp$>$}\newline
+Dependencia gráfica adjunta para Renderer\+Vulkan.\+cpp\+:
+% FIG 0
+\doxysubsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+VKAPI\+\_\+\+ATTR Vk\+Bool32 VKAPI\+\_\+\+CALL \mbox{\hyperlink{_renderer_vulkan_8cpp_a8a6884eba602b8b6a77a072b159af6ba}{Debug\+Callback}} (Vk\+Debug\+Utils\+Message\+Severity\+Flag\+Bits\+EXT message\+Severity, Vk\+Debug\+Utils\+Message\+Type\+Flags\+EXT message\+Type, const Vk\+Debug\+Utils\+Messenger\+Callback\+Data\+EXT $\ast$p\+Callback\+Data, void $\ast$p\+User\+Data)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ const char $\ast$ $>$ \mbox{\hyperlink{_renderer_vulkan_8cpp_a8625dd68167cffbcd5a916810c9d27d0}{validation\+Layers}}
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ uint32\+\_\+t $>$ \mbox{\hyperlink{_renderer_vulkan_8cpp_a55a695b28a84ed1f97e74bd6da006e6c}{ignored\+Validation\+Layers\+Messages}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentación de las funciones}
+\mbox{\Hypertarget{_renderer_vulkan_8cpp_a8a6884eba602b8b6a77a072b159af6ba}\label{_renderer_vulkan_8cpp_a8a6884eba602b8b6a77a072b159af6ba}} 
+\index{RendererVulkan.cpp@{RendererVulkan.cpp}!DebugCallback@{DebugCallback}}
+\index{DebugCallback@{DebugCallback}!RendererVulkan.cpp@{RendererVulkan.cpp}}
+\doxysubsubsection{\texorpdfstring{DebugCallback()}{DebugCallback()}}
+{\footnotesize\ttfamily VKAPI\+\_\+\+ATTR Vk\+Bool32 VKAPI\+\_\+\+CALL Debug\+Callback (\begin{DoxyParamCaption}\item[{Vk\+Debug\+Utils\+Message\+Severity\+Flag\+Bits\+EXT}]{message\+Severity,  }\item[{Vk\+Debug\+Utils\+Message\+Type\+Flags\+EXT}]{message\+Type,  }\item[{const Vk\+Debug\+Utils\+Messenger\+Callback\+Data\+EXT $\ast$}]{p\+Callback\+Data,  }\item[{void $\ast$}]{p\+User\+Data }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00067}{67}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+
+
+\doxysubsection{Documentación de las variables}
+\mbox{\Hypertarget{_renderer_vulkan_8cpp_a55a695b28a84ed1f97e74bd6da006e6c}\label{_renderer_vulkan_8cpp_a55a695b28a84ed1f97e74bd6da006e6c}} 
+\index{RendererVulkan.cpp@{RendererVulkan.cpp}!ignoredValidationLayersMessages@{ignoredValidationLayersMessages}}
+\index{ignoredValidationLayersMessages@{ignoredValidationLayersMessages}!RendererVulkan.cpp@{RendererVulkan.cpp}}
+\doxysubsubsection{\texorpdfstring{ignoredValidationLayersMessages}{ignoredValidationLayersMessages}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$uint32\+\_\+t$>$ ignored\+Validation\+Layers\+Messages}
+
+{\bfseries Valor inicial\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    0x609a13b, }
+\DoxyCodeLine{}
+\DoxyCodeLine{    0xd6d77e1e, }
+\DoxyCodeLine{    0x6c16bfb4}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00060}{60}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{_renderer_vulkan_8cpp_a8625dd68167cffbcd5a916810c9d27d0}\label{_renderer_vulkan_8cpp_a8625dd68167cffbcd5a916810c9d27d0}} 
+\index{RendererVulkan.cpp@{RendererVulkan.cpp}!validationLayers@{validationLayers}}
+\index{validationLayers@{validationLayers}!RendererVulkan.cpp@{RendererVulkan.cpp}}
+\doxysubsubsection{\texorpdfstring{validationLayers}{validationLayers}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$const char$\ast$$>$ validation\+Layers}
+
+{\bfseries Valor inicial\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}VK\_LAYER\_KHRONOS\_validation"{}}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00056}{56}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+

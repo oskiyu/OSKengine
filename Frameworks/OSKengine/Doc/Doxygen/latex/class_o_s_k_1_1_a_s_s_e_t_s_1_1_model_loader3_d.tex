@@ -1,0 +1,94 @@
+\hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d}{}\doxysection{Referencia de la Clase OSK\+::ASSETS\+::Model\+Loader3D}
+\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d}\index{OSK::ASSETS::ModelLoader3D@{OSK::ASSETS::ModelLoader3D}}
+
+
+{\ttfamily \#include $<$Model\+Loader3\+D.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::ASSETS\+::Model\+Loader3D
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::ASSETS\+::Model\+Loader3D\+:
+% FIG 1
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d_af009d51d1f3e2bcbcd600c7bd26315d4}{OSK\+\_\+\+ASSET\+\_\+\+TYPE\+\_\+\+REG}} (\char`\"{}OSK\+::\+Model3D\char`\"{})
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d_afd1dbf7d9bffbe40564bb3e2a885e04a}{Load}} (const std\+::string \&asset\+File\+Path, \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset}{IAsset}} $\ast$$\ast$asset) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Métodos públicos estáticos}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d_a48c2493ba7329db2ab0ab5309be7a6ac}{Setup\+Pbr\+Model}} (\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d}{Model3D}} $\ast$model, \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_model_component3_d}{ECS\+::\+Model\+Component3D}} $\ast$component)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+
+
+Definición en la línea \mbox{\hyperlink{_model_loader3_d_8h_source_l00013}{13}} del archivo \mbox{\hyperlink{_model_loader3_d_8h_source}{Model\+Loader3\+D.\+h}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d_afd1dbf7d9bffbe40564bb3e2a885e04a}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d_afd1dbf7d9bffbe40564bb3e2a885e04a}} 
+\index{OSK::ASSETS::ModelLoader3D@{OSK::ASSETS::ModelLoader3D}!Load@{Load}}
+\index{Load@{Load}!OSK::ASSETS::ModelLoader3D@{OSK::ASSETS::ModelLoader3D}}
+\doxysubsubsection{\texorpdfstring{Load()}{Load()}}
+{\footnotesize\ttfamily void Model\+Loader3\+D\+::\+Load (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{asset\+File\+Path,  }\item[{\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset}{IAsset}} $\ast$$\ast$}]{asset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Carga el asset. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em asset\+File\+Path} & Ruta del archivo .json que describe el asset.\\
+\hline
+{\em asset} & Puntero al puntero del asset a cargar.\\
+\hline
+\end{DoxyParams}
+
+
+
+\begin{DoxyExceptions}{Excepciones}
+{\em std\+::runtime\+\_\+exception} & Si el archivo \textquotesingle{}.json\textquotesingle{} no existe. \\
+\hline
+\end{DoxyExceptions}
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader_a26333a860353d1c29192db6378183f0d}{OSK\+::\+ASSETS\+::\+IAsset\+Loader}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_model_loader3_d_8cpp_source_l00044}{44}} del archivo \mbox{\hyperlink{_model_loader3_d_8cpp_source}{Model\+Loader3\+D.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d_af009d51d1f3e2bcbcd600c7bd26315d4}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d_af009d51d1f3e2bcbcd600c7bd26315d4}} 
+\index{OSK::ASSETS::ModelLoader3D@{OSK::ASSETS::ModelLoader3D}!OSK\_ASSET\_TYPE\_REG@{OSK\_ASSET\_TYPE\_REG}}
+\index{OSK\_ASSET\_TYPE\_REG@{OSK\_ASSET\_TYPE\_REG}!OSK::ASSETS::ModelLoader3D@{OSK::ASSETS::ModelLoader3D}}
+\doxysubsubsection{\texorpdfstring{OSK\_ASSET\_TYPE\_REG()}{OSK\_ASSET\_TYPE\_REG()}}
+{\footnotesize\ttfamily OSK\+::\+ASSETS\+::\+Model\+Loader3\+D\+::\+OSK\+\_\+\+ASSET\+\_\+\+TYPE\+\_\+\+REG (\begin{DoxyParamCaption}\item[{\char`\"{}OSK\+::\+Model3D\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d_a48c2493ba7329db2ab0ab5309be7a6ac}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d_a48c2493ba7329db2ab0ab5309be7a6ac}} 
+\index{OSK::ASSETS::ModelLoader3D@{OSK::ASSETS::ModelLoader3D}!SetupPbrModel@{SetupPbrModel}}
+\index{SetupPbrModel@{SetupPbrModel}!OSK::ASSETS::ModelLoader3D@{OSK::ASSETS::ModelLoader3D}}
+\doxysubsubsection{\texorpdfstring{SetupPbrModel()}{SetupPbrModel()}}
+{\footnotesize\ttfamily void Model\+Loader3\+D\+::\+Setup\+Pbr\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d}{Model3D}} $\ast$}]{model,  }\item[{\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_model_component3_d}{ECS\+::\+Model\+Component3D}} $\ast$}]{component }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_model_loader3_d_8cpp_source_l00087}{87}} del archivo \mbox{\hyperlink{_model_loader3_d_8cpp_source}{Model\+Loader3\+D.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 3
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_model_loader3_d_8h}{Model\+Loader3\+D.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_model_loader3_d_8cpp}{Model\+Loader3\+D.\+cpp}}\end{DoxyCompactItemize}

@@ -95,6 +95,24 @@ $(document).ready(function(){initNavTree('class_o_s_k_1_1_e_c_s_1_1_render_syste
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="_render_system3_d_8h_source.html">RenderSystem3D.h</a>&gt;</code></p>
+<div class="dynheader">
+Diagrama de herencias de OSK::ECS::RenderSystem3D</div>
+<div class="dyncontent">
+<div class="center"><img src="class_o_s_k_1_1_e_c_s_1_1_render_system3_d__inherit__graph.png" border="0" usemap="#a_o_s_k_1_1_e_c_s_1_1_render_system3_d_inherit__map" alt="Inheritance graph"/></div>
+<map name="a_o_s_k_1_1_e_c_s_1_1_render_system3_d_inherit__map" id="a_o_s_k_1_1_e_c_s_1_1_render_system3_d_inherit__map">
+<area shape="rect" title="Sistema que se encarga del renderizado de modelos 3D de los objetos." alt="" coords="5,277,200,384"/>
+<area shape="rect" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html" title="Un sistema se encarga de ejecutar lógica con los datos de los componentes. Los componentes no son más..." alt="" coords="27,5,178,229"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">significado de colores y flechas</a>]</span></center></div>
+<div class="dynheader">
+Diagrama de colaboración para OSK::ECS::RenderSystem3D:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_o_s_k_1_1_e_c_s_1_1_render_system3_d__coll__graph.png" border="0" usemap="#a_o_s_k_1_1_e_c_s_1_1_render_system3_d_coll__map" alt="Collaboration graph"/></div>
+<map name="a_o_s_k_1_1_e_c_s_1_1_render_system3_d_coll__map" id="a_o_s_k_1_1_e_c_s_1_1_render_system3_d_coll__map">
+<area shape="rect" title="Sistema que se encarga del renderizado de modelos 3D de los objetos." alt="" coords="5,277,200,384"/>
+<area shape="rect" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html" title="Un sistema se encarga de ejecutar lógica con los datos de los componentes. Los componentes no son más..." alt="" coords="27,5,178,229"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">significado de colores y flechas</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Métodos públicos</h2></td></tr>
@@ -104,10 +122,14 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a1ee1a85dba0dab30f922b0f8a43b01a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a007beacc80a26e67367e7deda812d65c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a007beacc80a26e67367e7deda812d65c">Initialize</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a23d62d7bd6a58fd7f758079d87df6c71">ECS::GameObjectIndex</a> cameraObject, const <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html">ASSETS::IrradianceMap</a> &amp;irradianceMap)</td></tr>
 <tr class="separator:a007beacc80a26e67367e7deda812d65c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a890108dd7d405eb602d0d80fefefdada"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a890108dd7d405eb602d0d80fefefdada">InitializeTerrain</a> (const <a class="el" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a> &amp;resolution, const <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">ASSETS::Texture</a> &amp;heightMap, const <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">ASSETS::Texture</a> &amp;texture)</td></tr>
+<tr class="separator:a890108dd7d405eb602d0d80fefefdada"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f61471f90f9586b0b24be7bd0226bf3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a5f61471f90f9586b0b24be7bd0226bf3">CreateTargetImage</a> (const <a class="el" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a> &amp;size) override</td></tr>
 <tr class="separator:a5f61471f90f9586b0b24be7bd0226bf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69771f412015a908acba9b67a4dc99bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a69771f412015a908acba9b67a4dc99bd">Resize</a> (const <a class="el" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a> &amp;size) override</td></tr>
 <tr class="separator:a69771f412015a908acba9b67a4dc99bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65a6b4272468a563ea381aaf9f5e480d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a65a6b4272468a563ea381aaf9f5e480d">OnTick</a> (<a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime) override</td></tr>
+<tr class="separator:a65a6b4272468a563ea381aaf9f5e480d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f6ecaafe704974730190d0b7f274b1a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a0f6ecaafe704974730190d0b7f274b1a">Render</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a> *commandList) override</td></tr>
 <tr class="separator:a0f6ecaafe704974730190d0b7f274b1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b8811a0612a96336cca1402e1004d97"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">GRAPHICS::ShadowMap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a6b8811a0612a96336cca1402e1004d97">GetShadowMap</a> ()</td></tr>
@@ -116,8 +138,6 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:ab99fd447d1c640bcc003dc5713768b6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ead258d11d094f960bed0b7da407d85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">GRAPHICS::RenderTarget</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a7ead258d11d094f960bed0b7da407d85">GetRenderTarget</a> ()</td></tr>
 <tr class="separator:a7ead258d11d094f960bed0b7da407d85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab66937b130814e6f06f3d76648dd0fb6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ab66937b130814e6f06f3d76648dd0fb6">OnTick</a> (<a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime)</td></tr>
-<tr class="separator:ab66937b130814e6f06f3d76648dd0fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43e7608ce2a31c9c13b42cf4ce6eb0ef"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a43e7608ce2a31c9c13b42cf4ce6eb0ef">OnRemove</a> ()</td></tr>
 <tr class="separator:a43e7608ce2a31c9c13b42cf4ce6eb0ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9958f3923d9872cb58b62f62f286bc01"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a9958f3923d9872cb58b62f62f286bc01">OnObjectAdded</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a23d62d7bd6a58fd7f758079d87df6c71">GameObjectIndex</a> obj)</td></tr>
@@ -152,7 +172,7 @@ Atributos protegidos</h2></td></tr>
 <li><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>. </li>
 </ul>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8h_source.html#l00028">28</a> del archivo <a class="el" href="_render_system3_d_8h_source.html">RenderSystem3D.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8h_source.html#l00031">31</a> del archivo <a class="el" href="_render_system3_d_8h_source.html">RenderSystem3D.h</a>.</p>
 </div><h2 class="groupheader">Documentación del constructor y destructor</h2>
 <a id="a1ee1a85dba0dab30f922b0f8a43b01a5" name="a1ee1a85dba0dab30f922b0f8a43b01a5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1ee1a85dba0dab30f922b0f8a43b01a5">&#9670;&nbsp;</a></span>RenderSystem3D()</h2>
@@ -169,7 +189,21 @@ Atributos protegidos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00026">26</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00029">29</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+<div class="dynheader">
+Gráfico de llamadas para esta función:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_o_s_k_1_1_e_c_s_1_1_render_system3_d_a1ee1a85dba0dab30f922b0f8a43b01a5_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_e_c_s_1_1_render_system3_d_a1ee1a85dba0dab30f922b0f8a43b01a5_cgraph" alt=""/></div>
+<map name="aclass_o_s_k_1_1_e_c_s_1_1_render_system3_d_a1ee1a85dba0dab30f922b0f8a43b01a5_cgraph" id="aclass_o_s_k_1_1_e_c_s_1_1_render_system3_d_a1ee1a85dba0dab30f922b0f8a43b01a5_cgraph">
+<area shape="rect" title=" " alt="" coords="5,71,200,112"/>
+<area shape="rect" href="class_o_s_k_1_1_engine.html#a17fd2842c078b7ddb4aaa70cd04549ab" title=" " alt="" coords="248,5,475,47"/>
+<area shape="rect" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ac9336e70706ab6ea24d9f5fe95955efd" title=" " alt="" coords="287,71,436,112"/>
+<area shape="rect" href="class_o_s_k_1_1_constexpr_bit_set.html#a2ed44d2a40faf6ff664947caf93846b4" title="Establece el valor del bit dado a 1." alt="" coords="285,136,438,177"/>
+<area shape="rect" href="class_o_s_k_1_1_constexpr_bit_set.html#a38329a6523ad679a76be70f2c9faff16" title="Establece el valor del bit en la posición dada." alt="" coords="523,136,676,177"/>
+<area shape="rect" href="class_o_s_k_1_1_dynamic_array.html#a9691f5eaf46654d59525c6c342d69cbb" title="Devuelve el elemento en la posición dada." alt="" coords="724,143,885,170"/>
+<area shape="rect" href="class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef" title="Devuelve true si el array se ha inicializado." alt="" coords="933,136,1081,177"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -201,6 +235,19 @@ Atributos protegidos</h2></td></tr>
 <p>Añade un objeto a la lista de objetos procesables. </p>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00025">25</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+<div class="dynheader">
+Gráfico de llamadas para esta función:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_o_s_k_1_1_e_c_s_1_1_i_system_a7c4d298e40f9d83aa00b85e59167e890_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_e_c_s_1_1_i_system_a7c4d298e40f9d83aa00b85e59167e890_cgraph" alt=""/></div>
+<map name="aclass_o_s_k_1_1_e_c_s_1_1_i_system_a7c4d298e40f9d83aa00b85e59167e890_cgraph" id="aclass_o_s_k_1_1_e_c_s_1_1_i_system_a7c4d298e40f9d83aa00b85e59167e890_cgraph">
+<area shape="rect" title="Añade un objeto a la lista de objetos procesables." alt="" coords="5,72,155,113"/>
+<area shape="rect" href="class_o_s_k_1_1_dynamic_array.html#ae8c61261c812df8ed2a69641d49eca5b" title="Inserta un elemento al final del array." alt="" coords="203,39,351,80"/>
+<area shape="rect" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a9958f3923d9872cb58b62f62f286bc01" title="Función que se ejecuta cuando un GameObject entra en la lista de objetos procesables por el sistema." alt="" coords="203,104,352,145"/>
+<area shape="rect" href="class_o_s_k_1_1_dynamic_array.html#a270b01e677a57b96f3f0443b3ef9e289" title="Inserta una copia del elemento al final del array." alt="" coords="400,39,548,80"/>
+<area shape="rect" href="class_o_s_k_1_1_dynamic_array.html#acf322bf27bf4bfd581079500c67171a6" title="Reserva espacio para &#39;size&#39; elementos. Preserva los elementos anteriores." alt="" coords="596,5,744,47"/>
+<area shape="rect" href="class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef" title="Devuelve true si el array se ha inicializado." alt="" coords="596,71,744,112"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -239,7 +286,12 @@ Atributos protegidos</h2></td></tr>
 
 <p>Reimplementado de <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#af963cc4b47d5d60b0b33473e3c7f3c75">OSK::ECS::IRenderSystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00075">75</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00110">110</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+<div class="dynheader">
+Gráfico de llamadas para esta función:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_o_s_k_1_1_e_c_s_1_1_render_system3_d_a5f61471f90f9586b0b24be7bd0226bf3_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_e_c_s_1_1_render_system3_d_a5f61471f90f9586b0b24be7bd0226bf3_cgraph" alt=""/></div>
+</div>
 
 </div>
 </div>
@@ -314,7 +366,7 @@ Atributos protegidos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00085">85</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00120">120</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -373,7 +425,53 @@ Atributos protegidos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00066">66</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00074">74</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+<div class="dynheader">
+Gráfico de llamadas para esta función:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_o_s_k_1_1_e_c_s_1_1_render_system3_d_a007beacc80a26e67367e7deda812d65c_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_e_c_s_1_1_render_system3_d_a007beacc80a26e67367e7deda812d65c_cgraph" alt=""/></div>
+</div>
+
+</div>
+</div>
+<a id="a890108dd7d405eb602d0d80fefefdada" name="a890108dd7d405eb602d0d80fefefdada"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a890108dd7d405eb602d0d80fefefdada">&#9670;&nbsp;</a></span>InitializeTerrain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RenderSystem3D::InitializeTerrain </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a> &amp;&#160;</td>
+          <td class="paramname"><em>resolution</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">ASSETS::Texture</a> &amp;&#160;</td>
+          <td class="paramname"><em>heightMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">ASSETS::Texture</a> &amp;&#160;</td>
+          <td class="paramname"><em>texture</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00086">86</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+<div class="dynheader">
+Gráfico de llamadas para esta función:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_o_s_k_1_1_e_c_s_1_1_render_system3_d_a890108dd7d405eb602d0d80fefefdada_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_e_c_s_1_1_render_system3_d_a890108dd7d405eb602d0d80fefefdada_cgraph" alt=""/></div>
+</div>
 
 </div>
 </div>
@@ -405,6 +503,11 @@ Atributos protegidos</h2></td></tr>
 <p>Reimplementado de <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a78d27d6a19bd0d3c9eadc3521c350001">OSK::ECS::ISystem</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00017">17</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+<div class="dynheader">
+Gráfico de llamadas para esta función:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_o_s_k_1_1_e_c_s_1_1_i_render_system_ab99fd447d1c640bcc003dc5713768b6c_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_e_c_s_1_1_i_render_system_ab99fd447d1c640bcc003dc5713768b6c_cgraph" alt=""/></div>
+</div>
 
 </div>
 </div>
@@ -497,8 +600,8 @@ Atributos protegidos</h2></td></tr>
 
 </div>
 </div>
-<a id="ab66937b130814e6f06f3d76648dd0fb6" name="ab66937b130814e6f06f3d76648dd0fb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab66937b130814e6f06f3d76648dd0fb6">&#9670;&nbsp;</a></span>OnTick()</h2>
+<a id="a65a6b4272468a563ea381aaf9f5e480d" name="a65a6b4272468a563ea381aaf9f5e480d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65a6b4272468a563ea381aaf9f5e480d">&#9670;&nbsp;</a></span>OnTick()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -507,7 +610,7 @@ Atributos protegidos</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void ISystem::OnTick </td>
+          <td class="memname">void RenderSystem3D::OnTick </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a>&#160;</td>
           <td class="paramname"><em>deltaTime</em></td><td>)</td>
@@ -516,7 +619,7 @@ Atributos protegidos</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -530,7 +633,14 @@ Atributos protegidos</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00009">9</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+<p>Reimplementado de <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ab66937b130814e6f06f3d76648dd0fb6">OSK::ECS::ISystem</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00306">306</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+<div class="dynheader">
+Gráfico de llamadas para esta función:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_o_s_k_1_1_e_c_s_1_1_render_system3_d_a65a6b4272468a563ea381aaf9f5e480d_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_e_c_s_1_1_render_system3_d_a65a6b4272468a563ea381aaf9f5e480d_cgraph" alt=""/></div>
+</div>
 
 </div>
 </div>
@@ -579,6 +689,20 @@ Atributos protegidos</h2></td></tr>
 <p>Elimina un objeto de la lista de objetos procesables. </p>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+<div class="dynheader">
+Gráfico de llamadas para esta función:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_o_s_k_1_1_e_c_s_1_1_i_system_aae0fdc7cd122ec66de6efb60e0fdc596_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_e_c_s_1_1_i_system_aae0fdc7cd122ec66de6efb60e0fdc596_cgraph" alt=""/></div>
+<map name="aclass_o_s_k_1_1_e_c_s_1_1_i_system_aae0fdc7cd122ec66de6efb60e0fdc596_cgraph" id="aclass_o_s_k_1_1_e_c_s_1_1_i_system_aae0fdc7cd122ec66de6efb60e0fdc596_cgraph">
+<area shape="rect" title="Elimina un objeto de la lista de objetos procesables." alt="" coords="5,39,155,80"/>
+<area shape="rect" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a0507ade65b07509199201d1a50e97052" title="Función que se ejecuta cuando un GameObject sale de la lista de objetos procesables por el sistema." alt="" coords="203,5,352,47"/>
+<area shape="rect" href="class_o_s_k_1_1_dynamic_array.html#a0a3bb760970ebe40178e9976c53d73ea" title="Elimina el eleemento dado de la lista." alt="" coords="203,71,351,112"/>
+<area shape="rect" href="class_o_s_k_1_1_dynamic_array.html#a1631d885e5ebe9c44c943291faa39918" title="Obtiene el iterador del primer elemento almacenado que sea igual a el dado." alt="" coords="400,49,573,75"/>
+<area shape="rect" href="class_o_s_k_1_1_dynamic_array.html#ab975ce0e8a0540266ee9636a3794c052" title="Elimina el elemento en la posición dada. Llama al destructor." alt="" coords="413,100,561,141"/>
+<area shape="rect" href="class_o_s_k_1_1_dynamic_array.html#a9691f5eaf46654d59525c6c342d69cbb" title="Devuelve el elemento en la posición dada." alt="" coords="621,82,783,109"/>
+<area shape="rect" href="class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef" title="Devuelve true si el array se ha inicializado." alt="" coords="831,100,979,141"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -611,7 +735,12 @@ Atributos protegidos</h2></td></tr>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a09d5e15f08aeff1cac75da8bada0f48d">OSK::ECS::IRenderSystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00192">192</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00284">284</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+<div class="dynheader">
+Gráfico de llamadas para esta función:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_o_s_k_1_1_e_c_s_1_1_render_system3_d_a0f6ecaafe704974730190d0b7f274b1a_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_e_c_s_1_1_render_system3_d_a0f6ecaafe704974730190d0b7f274b1a_cgraph" alt=""/></div>
+</div>
 
 </div>
 </div>
@@ -651,7 +780,12 @@ Atributos protegidos</h2></td></tr>
 
 <p>Reimplementado de <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#aec037cb8c46f11305e3c68a615a8ab4c">OSK::ECS::IRenderSystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00081">81</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00116">116</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+<div class="dynheader">
+Gráfico de llamadas para esta función:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_o_s_k_1_1_e_c_s_1_1_render_system3_d_a69771f412015a908acba9b67a4dc99bd_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_e_c_s_1_1_render_system3_d_a69771f412015a908acba9b67a4dc99bd_cgraph" alt=""/></div>
+</div>
 
 </div>
 </div>
@@ -708,6 +842,11 @@ Atributos protegidos</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00038">38</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+<div class="dynheader">
+Gráfico de llamadas para esta función:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_o_s_k_1_1_e_c_s_1_1_i_render_system_ae3c3f809429c0eb238b4b5a58e4a756a_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_e_c_s_1_1_i_render_system_ae3c3f809429c0eb238b4b5a58e4a756a_cgraph" alt=""/></div>
+</div>
 
 </div>
 </div>
@@ -746,7 +885,7 @@ Atributos protegidos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html">RenderSystem3D</a></li>
-    <li class="footer">Generado el Sábado, 17 de Septiembre de 2022 00:04:45 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 6 de Octubre de 2022 19:30:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

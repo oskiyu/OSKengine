@@ -1,0 +1,174 @@
+\hypertarget{class_o_s_k_1_1_linked_list_1_1_iterator}{}\doxysection{Referencia de la Clase OSK\+::Linked\+List\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+::Iterator}
+\label{class_o_s_k_1_1_linked_list_1_1_iterator}\index{OSK::LinkedList$<$ T $>$::Iterator@{OSK::LinkedList$<$ T $>$::Iterator}}
+
+
+{\ttfamily \#include $<$Linked\+List.\+hpp$>$}
+
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_iterator_a3fd72950643840c7e21bc577785adbe8}{Iterator}} (const \mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_node}{Node}} $\ast$node)
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_iterator}{Iterator}} \& \mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_iterator_ad3eff783a9513f63f2638f10127a1b99}{operator++}} ()
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_iterator}{Iterator}} \& \mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_iterator_abfb3e3e7ffaf4e3a73c49519a5679f4c}{operator-\/-\/}} ()
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_iterator_a8ba02c92303297580c3b6c69de307c0a}{operator==}} (const \mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_iterator}{Iterator}} \&other) const
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_iterator_af2193c13aeb7a99327dd6ea80e50cdb2}{operator!=}} (const \mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_iterator}{Iterator}} \&other) const
+\item 
+T \& \mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_iterator_aeaaf6a5ef6bfbb6e78e3fd815892e3ca}{operator$\ast$}} ()
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_node}{Node}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_iterator_a7578fffc6b0fc8f3d4e45d1cf37b3dd8}{Get\+Node}} () const
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_iterator_accdd894525ab45d3922b181781c6c19a}{Has\+Value}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+\subsubsection*{template$<$typename T$>$\newline
+class OSK\+::\+Linked\+List$<$ T $>$\+::\+Iterator}
+Iterador de una linked list. 
+
+Definición en la línea \mbox{\hyperlink{_linked_list_8hpp_source_l00123}{123}} del archivo \mbox{\hyperlink{_linked_list_8hpp_source}{Linked\+List.\+hpp}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_linked_list_1_1_iterator_a3fd72950643840c7e21bc577785adbe8}\label{class_o_s_k_1_1_linked_list_1_1_iterator_a3fd72950643840c7e21bc577785adbe8}} 
+\index{OSK::LinkedList$<$ T $>$::Iterator@{OSK::LinkedList$<$ T $>$::Iterator}!Iterator@{Iterator}}
+\index{Iterator@{Iterator}!OSK::LinkedList$<$ T $>$::Iterator@{OSK::LinkedList$<$ T $>$::Iterator}}
+\doxysubsubsection{\texorpdfstring{Iterator()}{Iterator()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{class_o_s_k_1_1_linked_list}{OSK\+::\+Linked\+List}}$<$ T $>$\+::\+Iterator\+::\+Iterator (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_node}{Node}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Crea el iterador. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_linked_list_8hpp_source_l00130}{130}} del archivo \mbox{\hyperlink{_linked_list_8hpp_source}{Linked\+List.\+hpp}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_linked_list_1_1_iterator_a7578fffc6b0fc8f3d4e45d1cf37b3dd8}\label{class_o_s_k_1_1_linked_list_1_1_iterator_a7578fffc6b0fc8f3d4e45d1cf37b3dd8}} 
+\index{OSK::LinkedList$<$ T $>$::Iterator@{OSK::LinkedList$<$ T $>$::Iterator}!GetNode@{GetNode}}
+\index{GetNode@{GetNode}!OSK::LinkedList$<$ T $>$::Iterator@{OSK::LinkedList$<$ T $>$::Iterator}}
+\doxysubsubsection{\texorpdfstring{GetNode()}{GetNode()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_node}{Node}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_linked_list}{OSK\+::\+Linked\+List}}$<$ T $>$\+::\+Iterator\+::\+Get\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Devuelve el nodo al que apunta el iterador. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_linked_list_8hpp_source_l00179}{179}} del archivo \mbox{\hyperlink{_linked_list_8hpp_source}{Linked\+List.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_linked_list_1_1_iterator_accdd894525ab45d3922b181781c6c19a}\label{class_o_s_k_1_1_linked_list_1_1_iterator_accdd894525ab45d3922b181781c6c19a}} 
+\index{OSK::LinkedList$<$ T $>$::Iterator@{OSK::LinkedList$<$ T $>$::Iterator}!HasValue@{HasValue}}
+\index{HasValue@{HasValue}!OSK::LinkedList$<$ T $>$::Iterator@{OSK::LinkedList$<$ T $>$::Iterator}}
+\doxysubsubsection{\texorpdfstring{HasValue()}{HasValue()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool \mbox{\hyperlink{class_o_s_k_1_1_linked_list}{OSK\+::\+Linked\+List}}$<$ T $>$\+::\+Iterator\+::\+Has\+Value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Devuelve true si el iterador apunta a un elemento válido. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_linked_list_8hpp_source_l00186}{186}} del archivo \mbox{\hyperlink{_linked_list_8hpp_source}{Linked\+List.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_linked_list_1_1_iterator_af2193c13aeb7a99327dd6ea80e50cdb2}\label{class_o_s_k_1_1_linked_list_1_1_iterator_af2193c13aeb7a99327dd6ea80e50cdb2}} 
+\index{OSK::LinkedList$<$ T $>$::Iterator@{OSK::LinkedList$<$ T $>$::Iterator}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!OSK::LinkedList$<$ T $>$::Iterator@{OSK::LinkedList$<$ T $>$::Iterator}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool \mbox{\hyperlink{class_o_s_k_1_1_linked_list}{OSK\+::\+Linked\+List}}$<$ T $>$\+::\+Iterator\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_iterator}{Iterator}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Compara dos iteradores. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_linked_list_8hpp_source_l00164}{164}} del archivo \mbox{\hyperlink{_linked_list_8hpp_source}{Linked\+List.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_linked_list_1_1_iterator_aeaaf6a5ef6bfbb6e78e3fd815892e3ca}\label{class_o_s_k_1_1_linked_list_1_1_iterator_aeaaf6a5ef6bfbb6e78e3fd815892e3ca}} 
+\index{OSK::LinkedList$<$ T $>$::Iterator@{OSK::LinkedList$<$ T $>$::Iterator}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!OSK::LinkedList$<$ T $>$::Iterator@{OSK::LinkedList$<$ T $>$::Iterator}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$()}{operator*()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T \& \mbox{\hyperlink{class_o_s_k_1_1_linked_list}{OSK\+::\+Linked\+List}}$<$ T $>$\+::\+Iterator\+::operator$\ast$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Devuelve el valor apuntado por el iterador. 
+
+\begin{DoxyReturn}{Devuelve}
+
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_linked_list_8hpp_source_l00172}{172}} del archivo \mbox{\hyperlink{_linked_list_8hpp_source}{Linked\+List.\+hpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 0
+\mbox{\Hypertarget{class_o_s_k_1_1_linked_list_1_1_iterator_ad3eff783a9513f63f2638f10127a1b99}\label{class_o_s_k_1_1_linked_list_1_1_iterator_ad3eff783a9513f63f2638f10127a1b99}} 
+\index{OSK::LinkedList$<$ T $>$::Iterator@{OSK::LinkedList$<$ T $>$::Iterator}!operator++@{operator++}}
+\index{operator++@{operator++}!OSK::LinkedList$<$ T $>$::Iterator@{OSK::LinkedList$<$ T $>$::Iterator}}
+\doxysubsubsection{\texorpdfstring{operator++()}{operator++()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_iterator}{Iterator}} \& \mbox{\hyperlink{class_o_s_k_1_1_linked_list}{OSK\+::\+Linked\+List}}$<$ T $>$\+::\+Iterator\+::operator++ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Avaza el iterador una posición. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_linked_list_8hpp_source_l00137}{137}} del archivo \mbox{\hyperlink{_linked_list_8hpp_source}{Linked\+List.\+hpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 1
+\mbox{\Hypertarget{class_o_s_k_1_1_linked_list_1_1_iterator_abfb3e3e7ffaf4e3a73c49519a5679f4c}\label{class_o_s_k_1_1_linked_list_1_1_iterator_abfb3e3e7ffaf4e3a73c49519a5679f4c}} 
+\index{OSK::LinkedList$<$ T $>$::Iterator@{OSK::LinkedList$<$ T $>$::Iterator}!operator-\/-\/@{operator-\/-\/}}
+\index{operator-\/-\/@{operator-\/-\/}!OSK::LinkedList$<$ T $>$::Iterator@{OSK::LinkedList$<$ T $>$::Iterator}}
+\doxysubsubsection{\texorpdfstring{operator-\/-\/()}{operator--()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_iterator}{Iterator}} \& \mbox{\hyperlink{class_o_s_k_1_1_linked_list}{OSK\+::\+Linked\+List}}$<$ T $>$\+::\+Iterator\+::operator-\/-\/ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retrocede el iterador una posición. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_linked_list_8hpp_source_l00147}{147}} del archivo \mbox{\hyperlink{_linked_list_8hpp_source}{Linked\+List.\+hpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_linked_list_1_1_iterator_a8ba02c92303297580c3b6c69de307c0a}\label{class_o_s_k_1_1_linked_list_1_1_iterator_a8ba02c92303297580c3b6c69de307c0a}} 
+\index{OSK::LinkedList$<$ T $>$::Iterator@{OSK::LinkedList$<$ T $>$::Iterator}!operator==@{operator==}}
+\index{operator==@{operator==}!OSK::LinkedList$<$ T $>$::Iterator@{OSK::LinkedList$<$ T $>$::Iterator}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool \mbox{\hyperlink{class_o_s_k_1_1_linked_list}{OSK\+::\+Linked\+List}}$<$ T $>$\+::\+Iterator\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_linked_list_1_1_iterator}{Iterator}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Compara dos iteradores. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_linked_list_8hpp_source_l00157}{157}} del archivo \mbox{\hyperlink{_linked_list_8hpp_source}{Linked\+List.\+hpp}}.
+
+
+
+La documentación para esta clase fue generada a partir del siguiente fichero\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_linked_list_8hpp}{Linked\+List.\+hpp}}\end{DoxyCompactItemize}

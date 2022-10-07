@@ -1,0 +1,36 @@
+\hypertarget{_i_gpu_vertex_buffer_8h_source}{}\doxysection{IGpu\+Vertex\+Buffer.\+h}
+\label{_i_gpu_vertex_buffer_8h_source}\index{OSKengine2/IGpuVertexBuffer.h@{OSKengine2/IGpuVertexBuffer.h}}
+\mbox{\hyperlink{_i_gpu_vertex_buffer_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_data_buffer_8h}{IGpuDataBuffer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_vertex_info_8h}{VertexInfo.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00006}00006 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}} \{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00012}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{00012}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpuVertexBuffer}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer}{GpuDataBuffer}} \{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00014}00014     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00016}00016         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpuVertexBuffer}}(\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<IGpuMemorySubblock>}} buffer, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} size, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} alignment, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numVertices, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{VertexInfo}}\& vertexInfo);}
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00018}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer_a62feff01dce3df54d206bb36d5f27a96}{00018}}         \textcolor{keyword}{virtual} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer_a62feff01dce3df54d206bb36d5f27a96}{\string~IGpuVertexBuffer}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00020}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer_a33bc8c6062a92079aec9d14eee48b832}{00020}}         \textcolor{keyword}{template} <\textcolor{keyword}{typename} T> T* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer_a33bc8c6062a92079aec9d14eee48b832}{As}}() const requires std::is\_base\_of\_v<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpuVertexBuffer}}, T> \{}
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00021}00021             \textcolor{keywordflow}{return} (T*)\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00022}00022         \}}
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00024}00024         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} GetNumVertices() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00025}00025         \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{VertexInfo}}\& GetVertexInfo() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00027}00027     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00029}00029         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numVertices = 0;}
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00030}00030         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{VertexInfo}} vertexInfo\{\};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00032}00032     \};}
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{_i_gpu_vertex_buffer_8h_source_l00034}00034 \}}
+
+\end{DoxyCode}

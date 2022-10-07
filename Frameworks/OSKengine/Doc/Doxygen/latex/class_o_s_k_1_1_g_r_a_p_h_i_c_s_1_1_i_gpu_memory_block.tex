@@ -1,0 +1,345 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::IGpu\+Memory\+Block}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block}\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+
+
+{\ttfamily \#include $<$IGpu\+Memory\+Block.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::IGpu\+Memory\+Block
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::IGpu\+Memory\+Block\+:
+% FIG 1
+\doxysubsection*{Clases}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_1_1_reusable_memory_subblock}{Reusable\+Memory\+Subblock}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Tipos públicos}
+\begin{DoxyCompactItemize}
+\item 
+typedef unsigned int \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_ab7bfc7d07ee839e9660e44cf9c15f5ce}{$\sim$\+IGpu\+Memory\+Block}} ()=default
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_ac50c32d7196021216b2bc98d182a9726}{Free}} ()=0
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_adfe42ab34135cb8dcf5adc7cffb44d96}{Remove\+Subblock}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock}{IGpu\+Memory\+Subblock}} $\ast$subblock)
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock}{IGpu\+Memory\+Subblock}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a8be42e86b3c636e81a8c47a56fd29b09}{Get\+Next\+Memory\+Subblock}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}} size, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}} alignment)
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_ac6b75bf30f8b512bbc0b60c41fdaedb6}{Get\+Allocated\+Size}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a5470b45782d39a27ed93ed2b52737727}{Get\+Available\+Space}} () const
+\item 
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a0bbdd382268b0bb587b03c1180cecde8}{Get\+Share\+Type}} () const
+\item 
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ae5e58e16d9268fde60c3eae698b225ec}{Gpu\+Memory\+Usage}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a80aec8670a12157bc819ed904d71e60e}{Get\+Usage\+Type}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a580935b95ec1677cff56582f347e8900}{Get\+Device}} () const
+\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block}{IGpu\+Memory\+Block}}, T$>$}\\T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a91118fa3b6e9b9bc8964bd4a71ab6233}{As}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Métodos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_ab4f41f6ec47b71266572279f815908f7}{IGpu\+Memory\+Block}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}} reserved\+Size, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} $\ast$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_ac75aa44cce34a964dfe1d6026d4d3c5f}{device}}, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a49883b25223e08eefef3da606eacf367}{type}}, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ae5e58e16d9268fde60c3eae698b225ec}{Gpu\+Memory\+Usage}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a2e98cccefbc350a426c8d10d66f58769}{usage}})
+\item 
+virtual \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock}{IGpu\+Memory\+Subblock}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a4c08a6d5973d3854c6b90ccbcf03628f}{Create\+New\+Memory\+Subblock}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}} size, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}} offset)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_linked_list}{Linked\+List}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock}{IGpu\+Memory\+Subblock}} $\ast$ $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a993a008834e190bd4d4af0f0d4ee7f90}{subblocks}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_linked_list}{Linked\+List}}$<$ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_1_1_reusable_memory_subblock}{Reusable\+Memory\+Subblock}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a152182de55cd4f7b16f86505db4276cf}{reusable\+Subblocks}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6c30b84de9fc00a4eb001e9aa074f924}{total\+Size}} = 0
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a71872852ab858a95c9af96ab49e1ec2a}{available\+Space}} = 0
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_acabc1fbe85c9cda983e9d7306e3f03da}{current\+Offset}} = 0
+\item 
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a49883b25223e08eefef3da606eacf367}{type}}
+\item 
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ae5e58e16d9268fde60c3eae698b225ec}{Gpu\+Memory\+Usage}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a2e98cccefbc350a426c8d10d66f58769}{usage}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_ac75aa44cce34a964dfe1d6026d4d3c5f}{device}} = nullptr
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Un bloque de memoria representa una región de memoria que ha sidon reservada. 
+
+El bloque tiene una lista de subbloques, cada uno representando una subregión de memoria que almacena un recurso. 
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8h_source_l00025}{25}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8h_source}{IGpu\+Memory\+Block.\+h}}.
+
+
+
+\doxysubsection{Documentación de los \textquotesingle{}Typedef\textquotesingle{} miembros de la clase}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!TSize@{TSize}}
+\index{TSize@{TSize}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{TSize}{TSize}}
+{\footnotesize\ttfamily typedef unsigned int \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Block\+::\+TSize}}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8h_source_l00029}{29}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8h_source}{IGpu\+Memory\+Block.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_ab7bfc7d07ee839e9660e44cf9c15f5ce}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_ab7bfc7d07ee839e9660e44cf9c15f5ce}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!````~IGpuMemoryBlock@{$\sim$IGpuMemoryBlock}}
+\index{````~IGpuMemoryBlock@{$\sim$IGpuMemoryBlock}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{$\sim$IGpuMemoryBlock()}{~IGpuMemoryBlock()}}
+{\footnotesize\ttfamily virtual OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Block\+::$\sim$\+IGpu\+Memory\+Block (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_ab4f41f6ec47b71266572279f815908f7}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_ab4f41f6ec47b71266572279f815908f7}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!IGpuMemoryBlock@{IGpuMemoryBlock}}
+\index{IGpuMemoryBlock@{IGpuMemoryBlock}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{IGpuMemoryBlock()}{IGpuMemoryBlock()}}
+{\footnotesize\ttfamily IGpu\+Memory\+Block\+::\+IGpu\+Memory\+Block (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}}}]{reserved\+Size,  }\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} $\ast$}]{device,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}}}]{type,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ae5e58e16d9268fde60c3eae698b225ec}{Gpu\+Memory\+Usage}}}]{usage }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Reserva un bloque de memoria con el tamaño dado para un buffer. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8cpp_source_l00008}{8}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8cpp_source}{IGpu\+Memory\+Block.\+cpp}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a91118fa3b6e9b9bc8964bd4a71ab6233}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a91118fa3b6e9b9bc8964bd4a71ab6233}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!As@{As}}
+\index{As@{As}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{As()}{As()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block}{IGpu\+Memory\+Block}}, T$>$\\
+T $\ast$ OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Block\+::\+As (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8h_source_l00074}{74}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8h_source}{IGpu\+Memory\+Block.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a4c08a6d5973d3854c6b90ccbcf03628f}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a4c08a6d5973d3854c6b90ccbcf03628f}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!CreateNewMemorySubblock@{CreateNewMemorySubblock}}
+\index{CreateNewMemorySubblock@{CreateNewMemorySubblock}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{CreateNewMemorySubblock()}{CreateNewMemorySubblock()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock}{IGpu\+Memory\+Subblock}} $>$ OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Block\+::\+Create\+New\+Memory\+Subblock (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}}}]{size,  }\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}}}]{offset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_ac50c32d7196021216b2bc98d182a9726}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_ac50c32d7196021216b2bc98d182a9726}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!Free@{Free}}
+\index{Free@{Free}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{Free()}{Free()}}
+{\footnotesize\ttfamily virtual void OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Block\+::\+Free (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Libera la memoria. 
+
+
+
+Implementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12_a65e4f85d3ccd7d34009082ea9cf6b646}{OSK\+::\+GRAPHICS\+::\+Gpu\+Memory\+Block\+Dx12}} y \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan_abcd02c8fe025cf4af34254f1ca692ce2}{OSK\+::\+GRAPHICS\+::\+Gpu\+Memory\+Block\+Vulkan}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_ac6b75bf30f8b512bbc0b60c41fdaedb6}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_ac6b75bf30f8b512bbc0b60c41fdaedb6}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!GetAllocatedSize@{GetAllocatedSize}}
+\index{GetAllocatedSize@{GetAllocatedSize}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{GetAllocatedSize()}{GetAllocatedSize()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{IGpu\+Memory\+Block\+::\+TSize}} IGpu\+Memory\+Block\+::\+Get\+Allocated\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el tamaño del bloque. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8cpp_source_l00015}{15}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8cpp_source}{IGpu\+Memory\+Block.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a5470b45782d39a27ed93ed2b52737727}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a5470b45782d39a27ed93ed2b52737727}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!GetAvailableSpace@{GetAvailableSpace}}
+\index{GetAvailableSpace@{GetAvailableSpace}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{GetAvailableSpace()}{GetAvailableSpace()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{IGpu\+Memory\+Block\+::\+TSize}} IGpu\+Memory\+Block\+::\+Get\+Available\+Space (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve la cantidad de memoria disponible que nunca ha sido reclamada. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8cpp_source_l00019}{19}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8cpp_source}{IGpu\+Memory\+Block.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a580935b95ec1677cff56582f347e8900}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a580935b95ec1677cff56582f347e8900}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!GetDevice@{GetDevice}}
+\index{GetDevice@{GetDevice}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{GetDevice()}{GetDevice()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} $\ast$ IGpu\+Memory\+Block\+::\+Get\+Device (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8cpp_source_l00070}{70}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8cpp_source}{IGpu\+Memory\+Block.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a8be42e86b3c636e81a8c47a56fd29b09}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a8be42e86b3c636e81a8c47a56fd29b09}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!GetNextMemorySubblock@{GetNextMemorySubblock}}
+\index{GetNextMemorySubblock@{GetNextMemorySubblock}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{GetNextMemorySubblock()}{GetNextMemorySubblock()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock}{IGpu\+Memory\+Subblock}} $\ast$ IGpu\+Memory\+Block\+::\+Get\+Next\+Memory\+Subblock (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}}}]{size,  }\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}}}]{alignment }\end{DoxyParamCaption})}
+
+
+
+Obtiene un subbloque con el tamaño dado, ya sea nuevo o reutilizado. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8cpp_source_l00035}{35}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8cpp_source}{IGpu\+Memory\+Block.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a0bbdd382268b0bb587b03c1180cecde8}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a0bbdd382268b0bb587b03c1180cecde8}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!GetShareType@{GetShareType}}
+\index{GetShareType@{GetShareType}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{GetShareType()}{GetShareType()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}} IGpu\+Memory\+Block\+::\+Get\+Share\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el tipo de memoria que es, según sea GPU o GPU-\/\+CPU. 
+
+\begin{DoxySeeAlso}{Ver también}
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}} 
+\end{DoxySeeAlso}
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8cpp_source_l00027}{27}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8cpp_source}{IGpu\+Memory\+Block.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a80aec8670a12157bc819ed904d71e60e}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a80aec8670a12157bc819ed904d71e60e}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!GetUsageType@{GetUsageType}}
+\index{GetUsageType@{GetUsageType}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{GetUsageType()}{GetUsageType()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ae5e58e16d9268fde60c3eae698b225ec}{Gpu\+Memory\+Usage}} IGpu\+Memory\+Block\+::\+Get\+Usage\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el tipo de uso que se le da a esta memoria. 
+
+\begin{DoxySeeAlso}{Ver también}
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ae5e58e16d9268fde60c3eae698b225ec}{Gpu\+Memory\+Usage}} 
+\end{DoxySeeAlso}
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8cpp_source_l00031}{31}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8cpp_source}{IGpu\+Memory\+Block.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_adfe42ab34135cb8dcf5adc7cffb44d96}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_adfe42ab34135cb8dcf5adc7cffb44d96}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!RemoveSubblock@{RemoveSubblock}}
+\index{RemoveSubblock@{RemoveSubblock}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{RemoveSubblock()}{RemoveSubblock()}}
+{\footnotesize\ttfamily void IGpu\+Memory\+Block\+::\+Remove\+Subblock (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock}{IGpu\+Memory\+Subblock}} $\ast$}]{subblock }\end{DoxyParamCaption})}
+
+
+
+Marca uno de los subbloques como no utilizado. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8cpp_source_l00011}{11}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8cpp_source}{IGpu\+Memory\+Block.\+cpp}}.
+
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a71872852ab858a95c9af96ab49e1ec2a}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a71872852ab858a95c9af96ab49e1ec2a}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!availableSpace@{availableSpace}}
+\index{availableSpace@{availableSpace}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{availableSpace}{availableSpace}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}} OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Block\+::available\+Space = 0\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8h_source_l00103}{103}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8h_source}{IGpu\+Memory\+Block.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_acabc1fbe85c9cda983e9d7306e3f03da}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_acabc1fbe85c9cda983e9d7306e3f03da}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!currentOffset@{currentOffset}}
+\index{currentOffset@{currentOffset}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{currentOffset}{currentOffset}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}} OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Block\+::current\+Offset = 0\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8h_source_l00104}{104}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8h_source}{IGpu\+Memory\+Block.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_ac75aa44cce34a964dfe1d6026d4d3c5f}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_ac75aa44cce34a964dfe1d6026d4d3c5f}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!device@{device}}
+\index{device@{device}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{device}{device}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}}$\ast$ OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Block\+::device = nullptr\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8h_source_l00109}{109}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8h_source}{IGpu\+Memory\+Block.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a152182de55cd4f7b16f86505db4276cf}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a152182de55cd4f7b16f86505db4276cf}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!reusableSubblocks@{reusableSubblocks}}
+\index{reusableSubblocks@{reusableSubblocks}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{reusableSubblocks}{reusableSubblocks}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_linked_list}{Linked\+List}}$<$\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_1_1_reusable_memory_subblock}{Reusable\+Memory\+Subblock}}$>$ OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Block\+::reusable\+Subblocks\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8h_source_l00100}{100}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8h_source}{IGpu\+Memory\+Block.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a993a008834e190bd4d4af0f0d4ee7f90}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a993a008834e190bd4d4af0f0d4ee7f90}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!subblocks@{subblocks}}
+\index{subblocks@{subblocks}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{subblocks}{subblocks}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_linked_list}{Linked\+List}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock}{IGpu\+Memory\+Subblock}}$\ast$$>$ OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Block\+::subblocks\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8h_source_l00099}{99}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8h_source}{IGpu\+Memory\+Block.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6c30b84de9fc00a4eb001e9aa074f924}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6c30b84de9fc00a4eb001e9aa074f924}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!totalSize@{totalSize}}
+\index{totalSize@{totalSize}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{totalSize}{totalSize}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a6a0d2f6c5928204bd7707bf8d4324e9b}{TSize}} OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Block\+::total\+Size = 0\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8h_source_l00102}{102}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8h_source}{IGpu\+Memory\+Block.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a49883b25223e08eefef3da606eacf367}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a49883b25223e08eefef3da606eacf367}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!type@{type}}
+\index{type@{type}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{Gpu\+Shared\+Memory\+Type}} OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Block\+::type\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8h_source_l00106}{106}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8h_source}{IGpu\+Memory\+Block.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a2e98cccefbc350a426c8d10d66f58769}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_a2e98cccefbc350a426c8d10d66f58769}} 
+\index{OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}!usage@{usage}}
+\index{usage@{usage}!OSK::GRAPHICS::IGpuMemoryBlock@{OSK::GRAPHICS::IGpuMemoryBlock}}
+\doxysubsubsection{\texorpdfstring{usage}{usage}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ae5e58e16d9268fde60c3eae698b225ec}{Gpu\+Memory\+Usage}} OSK\+::\+GRAPHICS\+::\+IGpu\+Memory\+Block\+::usage\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_memory_block_8h_source_l00107}{107}} del archivo \mbox{\hyperlink{_i_gpu_memory_block_8h_source}{IGpu\+Memory\+Block.\+h}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_i_gpu_memory_block_8h}{IGpu\+Memory\+Block.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_i_gpu_memory_block_8cpp}{IGpu\+Memory\+Block.\+cpp}}\end{DoxyCompactItemize}

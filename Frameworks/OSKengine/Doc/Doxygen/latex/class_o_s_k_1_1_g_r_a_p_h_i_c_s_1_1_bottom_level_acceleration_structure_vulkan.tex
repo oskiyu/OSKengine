@@ -1,0 +1,205 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::Bottom\+Level\+Acceleration\+Structure\+Vulkan}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan}\index{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}}
+
+
+{\ttfamily \#include $<$Bottom\+Level\+Acceleration\+Structure\+Vulkan.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::Bottom\+Level\+Acceleration\+Structure\+Vulkan
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::Bottom\+Level\+Acceleration\+Structure\+Vulkan\+:
+% FIG 1
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_ac668dd6d47642db969a9b0fa917df778}{Setup}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpu\+Vertex\+Buffer}} \&vertex\+Buffer, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer}{IGpu\+Index\+Buffer}} \&index\+Buffer) override
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_a383778d0817f1e8d970995e1338db01b}{Update}} () override
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_ae934c49d218246a6592cb42e8fae09df}{Get\+Num\+Triangles}} () const
+\item 
+Vk\+Acceleration\+Structure\+Geometry\+KHR \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_aca9540351b79ada48afbfe5d04c56a6d}{Get\+Geometry\+Info}} () const
+\item 
+Vk\+Acceleration\+Structure\+KHR \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_a11096804deeb3aaf0d93e2d4ff4e7505}{Get\+Handle}} () const
+\item 
+Vk\+Device\+Or\+Host\+Address\+Const\+KHR \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_a5d1973741ed13913a6f5e273c36bbb3f}{Get\+Gpu\+Address}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_a56556b538d58fb56a885e00b7d5ecc99}{OSK\+\_\+\+DEFINE\+\_\+\+AS}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{IBottom\+Level\+Acceleration\+Structure}})
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aa9861db9eac37cc449c5bc3aad871a83}{Set\+Matrix}} (const glm\+::mat4 \&matrix)
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aa8a9c840623a5e8b836647cf8b79f582}{Is\+Dirty}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer}{Gpu\+Data\+Buffer}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_af7a4d5aaa27b13dfc51829ad2f2f5bd5}{matrix\+Buffer}}
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aebde73345ad718c32c4a070095f62dbc}{is\+Dirty}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+
+
+Definición en la línea \mbox{\hyperlink{_bottom_level_acceleration_structure_vulkan_8h_source_l00012}{12}} del archivo \mbox{\hyperlink{_bottom_level_acceleration_structure_vulkan_8h_source}{Bottom\+Level\+Acceleration\+Structure\+Vulkan.\+h}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_aca9540351b79ada48afbfe5d04c56a6d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_aca9540351b79ada48afbfe5d04c56a6d}} 
+\index{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}!GetGeometryInfo@{GetGeometryInfo}}
+\index{GetGeometryInfo@{GetGeometryInfo}!OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}}
+\doxysubsubsection{\texorpdfstring{GetGeometryInfo()}{GetGeometryInfo()}}
+{\footnotesize\ttfamily Vk\+Acceleration\+Structure\+Geometry\+KHR Bottom\+Level\+Acceleration\+Structure\+Vulkan\+::\+Get\+Geometry\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_bottom_level_acceleration_structure_vulkan_8cpp_source_l00181}{181}} del archivo \mbox{\hyperlink{_bottom_level_acceleration_structure_vulkan_8cpp_source}{Bottom\+Level\+Acceleration\+Structure\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_a5d1973741ed13913a6f5e273c36bbb3f}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_a5d1973741ed13913a6f5e273c36bbb3f}} 
+\index{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}!GetGpuAddress@{GetGpuAddress}}
+\index{GetGpuAddress@{GetGpuAddress}!OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}}
+\doxysubsubsection{\texorpdfstring{GetGpuAddress()}{GetGpuAddress()}}
+{\footnotesize\ttfamily Vk\+Device\+Or\+Host\+Address\+Const\+KHR Bottom\+Level\+Acceleration\+Structure\+Vulkan\+::\+Get\+Gpu\+Address (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_bottom_level_acceleration_structure_vulkan_8cpp_source_l00189}{189}} del archivo \mbox{\hyperlink{_bottom_level_acceleration_structure_vulkan_8cpp_source}{Bottom\+Level\+Acceleration\+Structure\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_a11096804deeb3aaf0d93e2d4ff4e7505}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_a11096804deeb3aaf0d93e2d4ff4e7505}} 
+\index{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}!GetHandle@{GetHandle}}
+\index{GetHandle@{GetHandle}!OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}}
+\doxysubsubsection{\texorpdfstring{GetHandle()}{GetHandle()}}
+{\footnotesize\ttfamily Vk\+Acceleration\+Structure\+KHR Bottom\+Level\+Acceleration\+Structure\+Vulkan\+::\+Get\+Handle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_bottom_level_acceleration_structure_vulkan_8cpp_source_l00185}{185}} del archivo \mbox{\hyperlink{_bottom_level_acceleration_structure_vulkan_8cpp_source}{Bottom\+Level\+Acceleration\+Structure\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_ae934c49d218246a6592cb42e8fae09df}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_ae934c49d218246a6592cb42e8fae09df}} 
+\index{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}!GetNumTriangles@{GetNumTriangles}}
+\index{GetNumTriangles@{GetNumTriangles}!OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}}
+\doxysubsubsection{\texorpdfstring{GetNumTriangles()}{GetNumTriangles()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} Bottom\+Level\+Acceleration\+Structure\+Vulkan\+::\+Get\+Num\+Triangles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_bottom_level_acceleration_structure_vulkan_8cpp_source_l00177}{177}} del archivo \mbox{\hyperlink{_bottom_level_acceleration_structure_vulkan_8cpp_source}{Bottom\+Level\+Acceleration\+Structure\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aa8a9c840623a5e8b836647cf8b79f582}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aa8a9c840623a5e8b836647cf8b79f582}} 
+\index{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}!IsDirty@{IsDirty}}
+\index{IsDirty@{IsDirty}!OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}}
+\doxysubsubsection{\texorpdfstring{IsDirty()}{IsDirty()}}
+{\footnotesize\ttfamily bool IBottom\+Level\+Acceleration\+Structure\+::\+Is\+Dirty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+True si se ha establecido la matriz pero no se ha llamado a Update. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_bottom_level_acceleration_structure_8cpp_source_l00018}{18}} del archivo \mbox{\hyperlink{_i_bottom_level_acceleration_structure_8cpp_source}{IBottom\+Level\+Acceleration\+Structure.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_a56556b538d58fb56a885e00b7d5ecc99}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_a56556b538d58fb56a885e00b7d5ecc99}} 
+\index{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}!OSK\_DEFINE\_AS@{OSK\_DEFINE\_AS}}
+\index{OSK\_DEFINE\_AS@{OSK\_DEFINE\_AS}!OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}}
+\doxysubsubsection{\texorpdfstring{OSK\_DEFINE\_AS()}{OSK\_DEFINE\_AS()}}
+{\footnotesize\ttfamily OSK\+::\+GRAPHICS\+::\+IBottom\+Level\+Acceleration\+Structure\+::\+OSK\+\_\+\+DEFINE\+\_\+\+AS (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{IBottom\+Level\+Acceleration\+Structure}}}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aa9861db9eac37cc449c5bc3aad871a83}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aa9861db9eac37cc449c5bc3aad871a83}} 
+\index{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}!SetMatrix@{SetMatrix}}
+\index{SetMatrix@{SetMatrix}!OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}}
+\doxysubsubsection{\texorpdfstring{SetMatrix()}{SetMatrix()}}
+{\footnotesize\ttfamily void IBottom\+Level\+Acceleration\+Structure\+::\+Set\+Matrix (\begin{DoxyParamCaption}\item[{const glm\+::mat4 \&}]{matrix }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Establece la matriz de modelo de la geometría contenida dentro de la estructura. 
+
+\begin{DoxyNote}{Nota}
+Para poder aplicarse, se debe llamar después a \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_adc5ee7267c61dff7571d7f72c1374b9b}{IBottom\+Level\+Acceleration\+Structure\+::\+Update}}. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_i_bottom_level_acceleration_structure_8cpp_source_l00008}{8}} del archivo \mbox{\hyperlink{_i_bottom_level_acceleration_structure_8cpp_source}{IBottom\+Level\+Acceleration\+Structure.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_ac668dd6d47642db969a9b0fa917df778}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_ac668dd6d47642db969a9b0fa917df778}} 
+\index{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}!Setup@{Setup}}
+\index{Setup@{Setup}!OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}}
+\doxysubsubsection{\texorpdfstring{Setup()}{Setup()}}
+{\footnotesize\ttfamily void Bottom\+Level\+Acceleration\+Structure\+Vulkan\+::\+Setup (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpu\+Vertex\+Buffer}} \&}]{vertex\+Buffer,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer}{IGpu\+Index\+Buffer}} \&}]{index\+Buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea la estructura de aceleración con los triangulos definidos por los vértices y los índices. 
+
+\begin{DoxyRefDesc}{Tareas pendientes}
+\item[\mbox{\hyperlink{todo__todo000007}{Tareas pendientes}}]Permitir determinar qué vértices y qué indices a usar, en vez de usar todos los vértices y todos los índices dados. \end{DoxyRefDesc}
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_ad0eef5bed4788a7590ba001fb8b84901}{OSK\+::\+GRAPHICS\+::\+IBottom\+Level\+Acceleration\+Structure}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_bottom_level_acceleration_structure_vulkan_8cpp_source_l00017}{17}} del archivo \mbox{\hyperlink{_bottom_level_acceleration_structure_vulkan_8cpp_source}{Bottom\+Level\+Acceleration\+Structure\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_a383778d0817f1e8d970995e1338db01b}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan_a383778d0817f1e8d970995e1338db01b}} 
+\index{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}!Update@{Update}}
+\index{Update@{Update}!OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Bottom\+Level\+Acceleration\+Structure\+Vulkan\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Actualiza la estructura de aceleración, para reflejar los cambios realizados en la matriz de modelo. 
+
+\begin{DoxyPrecond}{Precondición}
+Se debe haber creado la estructura, llamando a \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_ad0eef5bed4788a7590ba001fb8b84901}{IBottom\+Level\+Acceleration\+Structure\+::\+Setup}}.
+\end{DoxyPrecond}
+\begin{DoxyRefDesc}{Tareas pendientes}
+\item[\mbox{\hyperlink{todo__todo000008}{Tareas pendientes}}]Implementación DX12. \end{DoxyRefDesc}
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_adc5ee7267c61dff7571d7f72c1374b9b}{OSK\+::\+GRAPHICS\+::\+IBottom\+Level\+Acceleration\+Structure}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_bottom_level_acceleration_structure_vulkan_8cpp_source_l00145}{145}} del archivo \mbox{\hyperlink{_bottom_level_acceleration_structure_vulkan_8cpp_source}{Bottom\+Level\+Acceleration\+Structure\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 3
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aebde73345ad718c32c4a070095f62dbc}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_aebde73345ad718c32c4a070095f62dbc}} 
+\index{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}!isDirty@{isDirty}}
+\index{isDirty@{isDirty}!OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}}
+\doxysubsubsection{\texorpdfstring{isDirty}{isDirty}}
+{\footnotesize\ttfamily bool OSK\+::\+GRAPHICS\+::\+IBottom\+Level\+Acceleration\+Structure\+::is\+Dirty = false\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_bottom_level_acceleration_structure_8h_source_l00063}{63}} del archivo \mbox{\hyperlink{_i_bottom_level_acceleration_structure_8h_source}{IBottom\+Level\+Acceleration\+Structure.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_af7a4d5aaa27b13dfc51829ad2f2f5bd5}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure_af7a4d5aaa27b13dfc51829ad2f2f5bd5}} 
+\index{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}!matrixBuffer@{matrixBuffer}}
+\index{matrixBuffer@{matrixBuffer}!OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan@{OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan}}
+\doxysubsubsection{\texorpdfstring{matrixBuffer}{matrixBuffer}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer}{Gpu\+Data\+Buffer}}$>$ OSK\+::\+GRAPHICS\+::\+IBottom\+Level\+Acceleration\+Structure\+::matrix\+Buffer\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_bottom_level_acceleration_structure_8h_source_l00062}{62}} del archivo \mbox{\hyperlink{_i_bottom_level_acceleration_structure_8h_source}{IBottom\+Level\+Acceleration\+Structure.\+h}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_bottom_level_acceleration_structure_vulkan_8h}{Bottom\+Level\+Acceleration\+Structure\+Vulkan.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_bottom_level_acceleration_structure_vulkan_8cpp}{Bottom\+Level\+Acceleration\+Structure\+Vulkan.\+cpp}}\end{DoxyCompactItemize}

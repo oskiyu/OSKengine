@@ -16,7 +16,7 @@ void ICommandList::SetGpuImageBarrier(GpuImage* image, GpuImageLayout nextLayout
 }
 
 void ICommandList::RegisterStagingBuffer(OwnedPtr<GpuDataBuffer> stagingBuffer) {
-	stagingBuffersToDelete.Insert(stagingBuffer);
+	stagingBuffersToDelete.Insert(stagingBuffer.GetPointer());
 }
 
 void ICommandList::BeginGraphicsRenderpass(RenderTarget* renderpass, const Color& color) {
@@ -47,9 +47,6 @@ void ICommandList::PushMaterialConstants(const std::string& pushConstName, const
 }
 
 void ICommandList::DeleteAllStagingBuffers() {
-	for (TSize i = 0; i < stagingBuffersToDelete.GetSize(); i++)
-		stagingBuffersToDelete.At(i).Delete();
-
 	stagingBuffersToDelete.Free();
 }
 

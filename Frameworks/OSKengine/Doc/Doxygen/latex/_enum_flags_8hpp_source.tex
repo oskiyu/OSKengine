@@ -1,0 +1,82 @@
+\hypertarget{_enum_flags_8hpp_source}{}\doxysection{Enum\+Flags.\+hpp}
+\label{_enum_flags_8hpp_source}\index{OSKengine2/EnumFlags.hpp@{OSKengine2/EnumFlags.hpp}}
+\mbox{\hyperlink{_enum_flags_8hpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00003}00003 \textcolor{preprocessor}{\#include <type\_traits>}}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00008}\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits}{00008}} \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits}{OSK::EFTraits}} \{}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00009}00009     }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00016}\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a0ff8b6034acc94d42d63922fcf45cb07}{00016}}     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T> \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a0ff8b6034acc94d42d63922fcf45cb07}{IsEnumFlag}}(T) \{}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00017}00017         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00018}00018     \}}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00023}\mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{00023}}     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T> \textcolor{keyword}{concept }\mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{IsEnum}} = IsEnumFlag<T>(\{\});}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00025}00025 \}}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00028}\mbox{\hyperlink{_enum_flags_8hpp_ad116c9c7bd5089125180b55265abdde8}{00028}} \textcolor{keyword}{template} <\textcolor{keyword}{typename} TEnum> \textcolor{keyword}{constexpr} TEnum \mbox{\hyperlink{_enum_flags_8hpp_ad116c9c7bd5089125180b55265abdde8}{operator\&}}(TEnum left, TEnum right) \textcolor{keyword}{requires} \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK::EFTraits::IsEnum<TEnum>}} \{}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00029}00029     \textcolor{keyword}{using }TUType = std::underlying\_type\_t<TEnum>;}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00031}00031     \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}TEnum\textcolor{keyword}{>}(}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00032}00032         \textcolor{keyword}{static\_cast<}TUType\textcolor{keyword}{>}(left) \&}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00033}00033         \textcolor{keyword}{static\_cast<}TUType\textcolor{keyword}{>}(right)}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00034}00034         );}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00035}00035 \}}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00037}\mbox{\hyperlink{_enum_flags_8hpp_ad4d719061b525bfeb4b67fad2e95a077}{00037}} \textcolor{keyword}{template} <\textcolor{keyword}{typename} T> \textcolor{keyword}{constexpr} T \mbox{\hyperlink{_enum_flags_8hpp_ad4d719061b525bfeb4b67fad2e95a077}{operator\&=}}(T\& left, T right) \textcolor{keyword}{requires} \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK::EFTraits::IsEnum<T>}} \{}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00038}00038     left = left \& right;}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00040}00040     \textcolor{keywordflow}{return} left;}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00041}00041 \}}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00042}00042 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00043}\mbox{\hyperlink{_enum_flags_8hpp_a2d3d6fd042fc84242ac239ed28423cc4}{00043}} \textcolor{keyword}{template} <\textcolor{keyword}{typename} TEnum> \textcolor{keyword}{constexpr} TEnum \mbox{\hyperlink{_enum_flags_8hpp_a2d3d6fd042fc84242ac239ed28423cc4}{operator|}}(TEnum left, TEnum right) \textcolor{keyword}{requires} \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK::EFTraits::IsEnum<TEnum>}} \{}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00044}00044     \textcolor{keyword}{using }TUType = std::underlying\_type\_t<TEnum>;}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00045}00045 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00046}00046     \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}TEnum\textcolor{keyword}{>}(}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00047}00047         \textcolor{keyword}{static\_cast<}TUType\textcolor{keyword}{>}(left) |}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00048}00048         \textcolor{keyword}{static\_cast<}TUType\textcolor{keyword}{>}(right)}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00049}00049         );}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00050}00050 \}}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00052}\mbox{\hyperlink{_enum_flags_8hpp_ac8da0bbdb609fc037f9aaf60adb27638}{00052}} \textcolor{keyword}{template} <\textcolor{keyword}{typename} T> \textcolor{keyword}{constexpr} T \mbox{\hyperlink{_enum_flags_8hpp_ac8da0bbdb609fc037f9aaf60adb27638}{operator|=}}(T\& left, T right) \textcolor{keyword}{requires} \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK::EFTraits::IsEnum<T>}} \{}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00053}00053     left = left | right;}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00055}00055     \textcolor{keywordflow}{return} left;}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00056}00056 \}}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00058}\mbox{\hyperlink{_enum_flags_8hpp_aa9e875703ecb3e2b451e09dbb36c3b13}{00058}} \textcolor{keyword}{template} <\textcolor{keyword}{typename} TEnum> \textcolor{keyword}{constexpr} TEnum \mbox{\hyperlink{_enum_flags_8hpp_aa9e875703ecb3e2b451e09dbb36c3b13}{operator\string~}}(TEnum left) \textcolor{keyword}{requires} \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK::EFTraits::IsEnum<TEnum>}} \{}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00059}00059     \textcolor{keyword}{using }TUType = std::underlying\_type\_t<TEnum>;}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00060}00060 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00061}00061     \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}TEnum\textcolor{keyword}{>}(}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00062}00062         \string~static\_cast<TUType>(left)}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00063}00063         );}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00064}00064 \}}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00066}\mbox{\hyperlink{_enum_flags_8hpp_a300a0bab085bddd0e2bd3cbb15bb68b6}{00066}} \textcolor{preprocessor}{\#define OSK\_FLAGS(T) template <> constexpr bool OSK::EFTraits::IsEnumFlag<T>(T) \{ return true; \};}}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00068}00068 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits}{OSK::EFTraits}} \{}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00075}\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{00075}}     \textcolor{keyword}{template} <\textcolor{keyword}{typename} TEnum> \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a8b4d083d34df5ab4cc95043f91b5a24c}{HasFlag}}(TEnum value, TEnum flag) \textcolor{keyword}{requires} \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK::EFTraits::IsEnum<TEnum>}} \{}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00076}00076         \textcolor{keyword}{using }TUType = std::underlying\_type\_t<TEnum>;}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00078}00078         \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}TUType\textcolor{keyword}{>}((TEnum)value \& (TEnum)flag) != 0;}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00079}00079     \}}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00086}\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_aaa9d8f73148fc7211f6713016bbab4aa}{00086}}     \textcolor{keyword}{template} <\textcolor{keyword}{typename} TEnum> \textcolor{keyword}{constexpr} \textcolor{keywordtype}{void} \mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_aaa9d8f73148fc7211f6713016bbab4aa}{AddFlag}}(TEnum* value, TEnum flag) \textcolor{keyword}{requires} \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK::EFTraits::IsEnum<TEnum>}} \{}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00087}00087         \textcolor{keyword}{using }TUType = std::underlying\_type\_t<TEnum>;}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00089}00089         *value |= flag;}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00090}00090     \}}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00091}00091 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00097}\mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a1d703d4f4c9fb9abe1ab4905b9a6c458}{00097}}     \textcolor{keyword}{template} <\textcolor{keyword}{typename} TEnum> \textcolor{keyword}{constexpr} \textcolor{keywordtype}{void} \mbox{\hyperlink{namespace_o_s_k_1_1_e_f_traits_a1d703d4f4c9fb9abe1ab4905b9a6c458}{RemoveFlag}}(TEnum* value, TEnum flag) \textcolor{keyword}{requires} \mbox{\hyperlink{concept_o_s_k_1_1_e_f_traits_1_1_is_enum}{OSK::EFTraits::IsEnum<TEnum>}} \{}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00098}00098         \textcolor{keyword}{using }TUType = std::underlying\_type\_t<TEnum>;}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00099}00099 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00100}00100         *value \&= \string~flag;}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00101}00101     \}}
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00102}00102 }
+\DoxyCodeLine{\Hypertarget{_enum_flags_8hpp_source_l00103}00103 \}}
+
+\end{DoxyCode}

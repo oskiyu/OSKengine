@@ -1,5 +1,10 @@
 var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
 [
+    [ "Animation", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation" ],
+    [ "AnimationChannel", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel" ],
+    [ "AnimationSampler", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler" ],
+    [ "AnimationSkin", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin" ],
+    [ "Animator", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator" ],
     [ "BloomPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass" ],
     [ "BottomLevelAccelerationStructureVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan" ],
     [ "CommandListDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12" ],
@@ -85,6 +90,7 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "MaterialSlotVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan" ],
     [ "MaterialSystem", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system" ],
     [ "Mesh3D", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh3_d.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh3_d" ],
+    [ "MeshNode", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node" ],
     [ "PipelineCreateInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info" ],
     [ "PipelineLayoutDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12" ],
     [ "PipelineLayoutVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan" ],
@@ -100,6 +106,7 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "ShaderStageDx12", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12" ],
     [ "ShaderStageVulkan", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vulkan.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vulkan" ],
     [ "ShadowMap", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map" ],
+    [ "SmaaPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_smaa_pass.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_smaa_pass" ],
     [ "SpirvToHlsl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl" ],
     [ "Sprite", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite" ],
     [ "SpriteRenderer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer" ],
@@ -112,8 +119,10 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "TopLevelAccelerationStructureVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan" ],
     [ "Vertex2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d" ],
     [ "Vertex3D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d" ],
+    [ "VertexAnim3D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d" ],
     [ "VertexInfo", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info" ],
     [ "Viewport", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport" ],
+    [ "Bone", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4f5b85b215c02279051f4041a44b512c", null ],
     [ "TIndexSize", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a05f5134cdcc67a7889c57e39aa2f25ae", null ],
     [ "DepthTestingType", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027dd", [
       [ "NONE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027ddab50339a10e1de285ac99d4c3990b8693", null ],

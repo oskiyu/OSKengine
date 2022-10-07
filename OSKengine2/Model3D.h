@@ -12,6 +12,8 @@
 #include "IGpuIndexBuffer.h"
 #include "IBottomLevelAccelerationStructure.h"
 
+#include "Animator.h"
+
 #include <string>
 
 namespace OSK::GRAPHICS {
@@ -19,6 +21,11 @@ namespace OSK::GRAPHICS {
 }
 
 namespace OSK::ASSETS {
+
+	enum class ModelType {
+		STATIC_MESH,
+		ANIMATED_MODEL
+	};
 
 	/// <summary>
 	/// Contiene datos necesarios para seguir procesando los meshes.
@@ -171,11 +178,18 @@ namespace OSK::ASSETS {
 		/// </summary>
 		const ModelMetadata& GetMetadata() const;
 
+		void SetAnimator(GRAPHICS::Animator&& animator);
+		GRAPHICS::Animator* GetAnimator() const;
+
+		ModelType GetType() const;
+
 	private:
 
 		UniquePtr<GRAPHICS::IGpuVertexBuffer> vertexBuffer;
 		UniquePtr<GRAPHICS::IGpuIndexBuffer> indexBuffer;
 		UniquePtr<GRAPHICS::IBottomLevelAccelerationStructure> accelerationStructure;
+
+		UniquePtr<GRAPHICS::Animator> animator;
 
 		DynamicArray<GRAPHICS::Mesh3D> meshes;
 

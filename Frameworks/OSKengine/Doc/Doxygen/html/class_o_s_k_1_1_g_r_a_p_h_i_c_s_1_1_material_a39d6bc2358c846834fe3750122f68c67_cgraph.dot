@@ -1,0 +1,18 @@
+digraph "OSK::GRAPHICS::Material::GetGraphicsPipeline"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::Material\l::GetGraphicsPipeline",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Obtiene el graphics pipeline con las propiedades dadas."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::GRAPHICS::IRenderer\l::_CreateGraphicsPipeline",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a96b60646b6f54af001815e3385f6fc30",tooltip="Crea un graphics pipeline."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="OSK::GRAPHICS::Material\l::GetLayout",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#a29f2fe999bf8857dbbb65fb73df335ca",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="OSK::OwnedPtr::GetPointer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042",tooltip="Devuelve el puntero nativo."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="OSK::Engine::GetRenderer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00",tooltip=" "];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="OSK::DynamicArray::\lGetSize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90",tooltip="Devuelve el número de elementos almacenados."];
+}

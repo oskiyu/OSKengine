@@ -1,0 +1,132 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::Spirv\+To\+Hlsl}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl}\index{OSK::GRAPHICS::SpirvToHlsl@{OSK::GRAPHICS::SpirvToHlsl}}
+
+
+{\ttfamily \#include $<$Spirv\+To\+Hlsl.\+h$>$}
+
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_a779f1bd94af7e00da015d0690a8ad221}{Spirv\+To\+Hlsl}} (const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ char $>$ \&spirv\+Bytecode)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_abd08d4b056b56461f377590fd8398125}{Set\+Vertex\+Attributes\+Mapping}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{Vertex\+Info}} \&vertex\+Info)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_a778a9fd7930df44f9966a18ba42355b9}{Set\+Layout\+Mapping}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} \&layout)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_adab7513d1156f853f3eef6f11dd4fd28}{Set\+Hlsl\+Target\+Profile}} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} mayor, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} minor)
+\item 
+std\+::string \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_aca77e7a7b9137553110886012ca91c68}{Create\+Hlsl}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Clase auxiliar que genera código HLSL a partir de código SPIR-\/V, usando spirv\+\_\+cross. 
+
+Definición en la línea \mbox{\hyperlink{_spirv_to_hlsl_8h_source_l00021}{21}} del archivo \mbox{\hyperlink{_spirv_to_hlsl_8h_source}{Spirv\+To\+Hlsl.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_a779f1bd94af7e00da015d0690a8ad221}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_a779f1bd94af7e00da015d0690a8ad221}} 
+\index{OSK::GRAPHICS::SpirvToHlsl@{OSK::GRAPHICS::SpirvToHlsl}!SpirvToHlsl@{SpirvToHlsl}}
+\index{SpirvToHlsl@{SpirvToHlsl}!OSK::GRAPHICS::SpirvToHlsl@{OSK::GRAPHICS::SpirvToHlsl}}
+\doxysubsubsection{\texorpdfstring{SpirvToHlsl()}{SpirvToHlsl()}}
+{\footnotesize\ttfamily Spirv\+To\+Hlsl\+::\+Spirv\+To\+Hlsl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ char $>$ \&}]{spirv\+Bytecode }\end{DoxyParamCaption})}
+
+
+
+Inicializa el compilador SPIRV-\/\+HLSL con el bytecode SPIR-\/V dado. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em spirv\+Bytecode} & Bytecode SPIRV válido.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_spirv_to_hlsl_8cpp_source_l00009}{9}} del archivo \mbox{\hyperlink{_spirv_to_hlsl_8cpp_source}{Spirv\+To\+Hlsl.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 0
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_aca77e7a7b9137553110886012ca91c68}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_aca77e7a7b9137553110886012ca91c68}} 
+\index{OSK::GRAPHICS::SpirvToHlsl@{OSK::GRAPHICS::SpirvToHlsl}!CreateHlsl@{CreateHlsl}}
+\index{CreateHlsl@{CreateHlsl}!OSK::GRAPHICS::SpirvToHlsl@{OSK::GRAPHICS::SpirvToHlsl}}
+\doxysubsubsection{\texorpdfstring{CreateHlsl()}{CreateHlsl()}}
+{\footnotesize\ttfamily std\+::string Spirv\+To\+Hlsl\+::\+Create\+Hlsl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Devuelve el código HLSL. 
+
+\begin{DoxyPrecond}{Precondición}
+Se ha llamado a \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_abd08d4b056b56461f377590fd8398125}{Spirv\+To\+Hlsl\+::\+Set\+Vertex\+Attributes\+Mapping}}. 
+
+Se ha llamado a \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_a778a9fd7930df44f9966a18ba42355b9}{Spirv\+To\+Hlsl\+::\+Set\+Layout\+Mapping}}. 
+
+Se ha llamado a \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_adab7513d1156f853f3eef6f11dd4fd28}{Spirv\+To\+Hlsl\+::\+Set\+Hlsl\+Target\+Profile}}. 
+\end{DoxyPrecond}
+
+
+Definición en la línea \mbox{\hyperlink{_spirv_to_hlsl_8cpp_source_l00079}{79}} del archivo \mbox{\hyperlink{_spirv_to_hlsl_8cpp_source}{Spirv\+To\+Hlsl.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_adab7513d1156f853f3eef6f11dd4fd28}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_adab7513d1156f853f3eef6f11dd4fd28}} 
+\index{OSK::GRAPHICS::SpirvToHlsl@{OSK::GRAPHICS::SpirvToHlsl}!SetHlslTargetProfile@{SetHlslTargetProfile}}
+\index{SetHlslTargetProfile@{SetHlslTargetProfile}!OSK::GRAPHICS::SpirvToHlsl@{OSK::GRAPHICS::SpirvToHlsl}}
+\doxysubsubsection{\texorpdfstring{SetHlslTargetProfile()}{SetHlslTargetProfile()}}
+{\footnotesize\ttfamily void Spirv\+To\+Hlsl\+::\+Set\+Hlsl\+Target\+Profile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{mayor,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{minor }\end{DoxyParamCaption})}
+
+
+
+Establece el perfil de HLSL generado. Por defecto usa 6.\+1. 
+
+\begin{DoxyWarning}{Atención}
+No comprueba si es un perfil válido. 
+\end{DoxyWarning}
+
+
+Definición en la línea \mbox{\hyperlink{_spirv_to_hlsl_8cpp_source_l00073}{73}} del archivo \mbox{\hyperlink{_spirv_to_hlsl_8cpp_source}{Spirv\+To\+Hlsl.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_a778a9fd7930df44f9966a18ba42355b9}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_a778a9fd7930df44f9966a18ba42355b9}} 
+\index{OSK::GRAPHICS::SpirvToHlsl@{OSK::GRAPHICS::SpirvToHlsl}!SetLayoutMapping@{SetLayoutMapping}}
+\index{SetLayoutMapping@{SetLayoutMapping}!OSK::GRAPHICS::SpirvToHlsl@{OSK::GRAPHICS::SpirvToHlsl}}
+\doxysubsubsection{\texorpdfstring{SetLayoutMapping()}{SetLayoutMapping()}}
+{\footnotesize\ttfamily void Spirv\+To\+Hlsl\+::\+Set\+Layout\+Mapping (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} \&}]{layout }\end{DoxyParamCaption})}
+
+
+
+Se establece qué registros ocupará cada 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em layout} & \\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_spirv_to_hlsl_8cpp_source_l00020}{20}} del archivo \mbox{\hyperlink{_spirv_to_hlsl_8cpp_source}{Spirv\+To\+Hlsl.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 1
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_abd08d4b056b56461f377590fd8398125}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl_abd08d4b056b56461f377590fd8398125}} 
+\index{OSK::GRAPHICS::SpirvToHlsl@{OSK::GRAPHICS::SpirvToHlsl}!SetVertexAttributesMapping@{SetVertexAttributesMapping}}
+\index{SetVertexAttributesMapping@{SetVertexAttributesMapping}!OSK::GRAPHICS::SpirvToHlsl@{OSK::GRAPHICS::SpirvToHlsl}}
+\doxysubsubsection{\texorpdfstring{SetVertexAttributesMapping()}{SetVertexAttributesMapping()}}
+{\footnotesize\ttfamily void Spirv\+To\+Hlsl\+::\+Set\+Vertex\+Attributes\+Mapping (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{Vertex\+Info}} \&}]{vertex\+Info }\end{DoxyParamCaption})}
+
+
+
+Establece los nombres semánticos que tendrán los atributos de los vértices en el shader. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_spirv_to_hlsl_8cpp_source_l00015}{15}} del archivo \mbox{\hyperlink{_spirv_to_hlsl_8cpp_source}{Spirv\+To\+Hlsl.\+cpp}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_spirv_to_hlsl_8h}{Spirv\+To\+Hlsl.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_spirv_to_hlsl_8cpp}{Spirv\+To\+Hlsl.\+cpp}}\end{DoxyCompactItemize}

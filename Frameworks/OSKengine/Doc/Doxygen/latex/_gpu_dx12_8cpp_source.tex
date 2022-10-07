@@ -1,0 +1,72 @@
+\hypertarget{_gpu_dx12_8cpp_source}{}\doxysection{Gpu\+Dx12.\+cpp}
+\label{_gpu_dx12_8cpp_source}\index{OSKengine2/GpuDx12.cpp@{OSKengine2/GpuDx12.cpp}}
+\mbox{\hyperlink{_gpu_dx12_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_dx12_8h}{GpuDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_command_pool_dx12_8h}{CommandPoolDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_sync_device_dx12_8h}{SyncDeviceDx12.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00006}00006 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00007}00007 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}};}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00009}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_abf6af828b05cf281e1472b0a205d73e7}{00009}} GpuDx12::\string~GpuDx12() \{}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00010}00010     \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_a3e1a12fa60fe4ec828b1992b9c4631a6}{Close}}();}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00011}00011 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00013}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_a3e1a12fa60fe4ec828b1992b9c4631a6}{00013}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_a3e1a12fa60fe4ec828b1992b9c4631a6}{GpuDx12::Close}}() \{}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00015}00015 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00017}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_aa94146b9b5afc01e7727c34aa6cbe839}{00017}} \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<ICommandPool>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_aa94146b9b5afc01e7727c34aa6cbe839}{GpuDx12::CreateGraphicsCommandPool}}() \{}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00018}00018     \textcolor{keyword}{auto} output = \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12}{CommandPoolDx12}};}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00020}00020     ComPtr<ID3D12CommandAllocator> commandAllocator;}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00021}00021     device-\/>CreateCommandAllocator(D3D12\_COMMAND\_LIST\_TYPE\_DIRECT, IID\_PPV\_ARGS(\&commandAllocator));}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00023}00023     output-\/>SetCommandPool(commandAllocator);}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00025}00025     \textcolor{keywordflow}{return} output;}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00026}00026 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00028}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_a8b6b68a706171f972472acb576d8c05b}{00028}} \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<ICommandPool>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_a8b6b68a706171f972472acb576d8c05b}{GpuDx12::CreateComputeCommandPool}}() \{}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00029}00029     \textcolor{keyword}{auto} output = \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12}{CommandPoolDx12}};}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00031}00031     ComPtr<ID3D12CommandAllocator> commandAllocator;}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00032}00032     device-\/>CreateCommandAllocator(D3D12\_COMMAND\_LIST\_TYPE\_COMPUTE, IID\_PPV\_ARGS(\&commandAllocator));}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00034}00034     output-\/>SetCommandPool(commandAllocator);}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00036}00036     \textcolor{keywordflow}{return} output;}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00037}00037 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00039}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_a35442e23a152e697457491e6ab398230}{00039}} \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<ISyncDevice>}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_a35442e23a152e697457491e6ab398230}{GpuDx12::CreateSyncDevice}}() \{}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00040}00040     \textcolor{keyword}{auto} output = \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_dx12}{SyncDeviceDx12}};}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00042}00042     ComPtr<ID3D12Fence> fence;}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00043}00043     device-\/>CreateFence(0, D3D12\_FENCE\_FLAG\_NONE, IID\_PPV\_ARGS(\&fence));}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00044}00044     HANDLE fenceEvent = CreateEvent(\textcolor{keyword}{nullptr}, FALSE, FALSE, \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00045}00045 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00046}00046     output-\/>SetFence(fence);}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00047}00047     output-\/>SetFenceEvent(fenceEvent);}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00049}00049     \textcolor{keywordflow}{return} output;}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00050}00050 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00052}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_a8e8817cb2a5a0f368898a0d70b0b7e3b}{00052}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_a8e8817cb2a5a0f368898a0d70b0b7e3b}{GpuDx12::SetAdapter}}(\textcolor{keyword}{const} ComPtr<IDXGIAdapter1>\& adapter) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00053}00053     this-\/>adapter = adapter;}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00054}00054 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00056}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_a99e06b90cac714db0a2361335d31a7cd}{00056}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_a99e06b90cac714db0a2361335d31a7cd}{GpuDx12::SetDevice}}(\textcolor{keyword}{const} ComPtr<ID3D12Device>\& device) \{}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00057}00057     this-\/>device = device;}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00058}00058 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00060}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_aa71f4a70e827ab51e7047700efdf60ee}{00060}} IDXGIAdapter1* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_aa71f4a70e827ab51e7047700efdf60ee}{GpuDx12::GetAdapter}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00061}00061     \textcolor{keywordflow}{return} adapter.Get();}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00062}00062 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00064}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_ab84e92317bb196210a9a4193763d5329}{00064}} ID3D12Device* \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_ab84e92317bb196210a9a4193763d5329}{GpuDx12::GetDevice}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00065}00065     \textcolor{keywordflow}{return} this-\/>device.Get();}
+\DoxyCodeLine{\Hypertarget{_gpu_dx12_8cpp_source_l00066}00066 \}}
+
+\end{DoxyCode}

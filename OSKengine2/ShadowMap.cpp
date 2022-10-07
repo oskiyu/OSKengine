@@ -18,9 +18,11 @@
 #include "Transform3D.h"
 #include "GpuImageDimensions.h"
 #include "GpuMemoryTypes.h"
+#include "Model3D.h"
 
 using namespace OSK;
 using namespace OSK::ECS;
+using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 void ShadowMap::Create(const Vector2ui& imageSize) {
@@ -36,6 +38,7 @@ void ShadowMap::Create(const Vector2ui& imageSize) {
 	}
 
 	shadowsGenMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_shadows.json");
+	shadowsGenAnimMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_shadows_anim.json");
 	shadowsGenMaterialInstance = shadowsGenMaterial->CreateInstance().GetPointer();
 
 	const IGpuUniformBuffer* lightUbos[3]{};
@@ -193,8 +196,11 @@ GpuImage* ShadowMap::GetColorImage(TSize index) const {
 	return unusedColorArrayAttachment[index].GetPointer();
 }
 
-Material* ShadowMap::GetShadowsMaterial() const {
-	return shadowsGenMaterial;
+Material* ShadowMap::GetShadowsMaterial(ModelType modelType) const {
+	if (modelType == ModelType::STATIC_MESH)
+		return shadowsGenMaterial;
+	else
+		return shadowsGenAnimMaterial;
 }
 
 MaterialInstance* ShadowMap::GetShadowsMaterialInstance() const {

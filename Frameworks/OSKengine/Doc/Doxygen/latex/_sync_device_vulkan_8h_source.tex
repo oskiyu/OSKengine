@@ -1,0 +1,64 @@
+\hypertarget{_sync_device_vulkan_8h_source}{}\doxysection{Sync\+Device\+Vulkan.\+h}
+\label{_sync_device_vulkan_8h_source}\index{OSKengine2/SyncDeviceVulkan.h@{OSKengine2/SyncDeviceVulkan.h}}
+\mbox{\hyperlink{_sync_device_vulkan_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_sync_device_8h}{ISyncDevice.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_dynamic_array_8hpp}{DynamicArray.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00007}00007 \textcolor{keyword}{struct }VkFence\_T;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00008}\mbox{\hyperlink{_sync_device_vulkan_8h_aa8137065b12f2e81be57ce3145cf4341}{00008}} \textcolor{keyword}{typedef} VkFence\_T* \mbox{\hyperlink{_sync_device_vulkan_8h_aa8137065b12f2e81be57ce3145cf4341}{VkFence}};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00009}00009 \textcolor{keyword}{struct }VkSemaphore\_T;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00010}\mbox{\hyperlink{_sync_device_vulkan_8h_a2e08671f6ab4c3f6b498c7f5ebb81255}{00010}} \textcolor{keyword}{typedef} VkSemaphore\_T* \mbox{\hyperlink{_sync_device_vulkan_8h_a2e08671f6ab4c3f6b498c7f5ebb81255}{VkSemaphore}};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00012}00012 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}} \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00014}00014     \textcolor{keyword}{class }GpuVulkan;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00015}00015     \textcolor{keyword}{class }SwapchainVulkan;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00016}00016     \textcolor{keyword}{class }CommandQueueVulkan;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00017}00017     \textcolor{keyword}{class }CommandListVulkan;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00019}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan}{00019}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan}{SyncDeviceVulkan}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sync_device}{ISyncDevice}} \{}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00021}00021     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00023}00023         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan}{\string~SyncDeviceVulkan}}();}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00024}00024         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan}{SyncDeviceVulkan}}();}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00026}00026         \textcolor{keywordtype}{void} SetImageAvailableSemaphores(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkSemaphore>}}\& semaphores);}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00027}00027         \textcolor{keywordtype}{void} SetRenderFinishedSemaphores(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkSemaphore>}}\& semaphores);}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00029}00029         \textcolor{keywordtype}{void} SetInFlightFences(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkFence>}}\& fences);}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00030}00030         \textcolor{keywordtype}{void} SetImagesInFlightFences(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkFence>}}\& fences);}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00032}00032         \textcolor{keywordtype}{void} SetDevice(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{GpuVulkan}}\& device);}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00033}00033         \textcolor{keywordtype}{void} SetSwapchain(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan}{SwapchainVulkan}}\& swapchain);}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00035}00035         \textcolor{keywordtype}{void} FirstAwait();}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00036}00036         \textcolor{keywordtype}{bool} UpdateCurrentFrameIndex();}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00037}00037         \textcolor{keywordtype}{void} Flush(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan}{CommandQueueVulkan}}\& graphicsQueue, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan}{CommandQueueVulkan}}\& presentQueue, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan}{CommandListVulkan}}\& commandList);}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00039}00039         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} GetCurrentFrameIndex() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00040}00040         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} GetCurrentCommandListIndex() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00042}00042     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00044}00044         \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkSemaphore>}} imageAvailableSemaphores;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00045}00045         \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkSemaphore>}} renderFinishedSemaphores;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00047}00047         \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkFence>}} inFlightFences;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00048}00048         \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkFence>}} imagesInFlight;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00050}00050         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} framebufferIndex = 0;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00051}00051         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} currentFrame = 0;}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00053}00053         \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{GpuVulkan}}* device = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00054}00054         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan}{SwapchainVulkan}}* swapchain = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00056}00056     \};}
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{_sync_device_vulkan_8h_source_l00058}00058 \}}
+
+\end{DoxyCode}

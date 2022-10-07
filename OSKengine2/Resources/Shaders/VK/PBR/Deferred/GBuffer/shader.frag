@@ -12,16 +12,16 @@ layout (location = 2) out vec4 outNormal;
 
 layout (set = 1, binding = 0) uniform sampler2D albedoTexture;
 
-layout (push_constant) uniform MaterialInfo {
-    // x = metallic
-    // y = roughness
+layout (push_constant) uniform Model {
+    mat4 modelMatrix;
+    mat4 transposedInversedMatrix;
     layout (offset = 128) vec4 infos;
-} materialInfo;
+} model;
 
 void main() {
     outWorldPosition = vec4(inWorldPosition, 1.0);
     outColor = inColor * vec4(texture(albedoTexture, inTexCoords).rgb, 1.0);
 
     // Info packaging: (x.xxx) . (y.yyy)
-    outNormal = vec4(inNormal, (materialInfo.infos.x * 1000) + (materialInfo.infos.y * 0.1));
+    outNormal = vec4(inNormal, (model.infos.x * 1000) + (model.infos.y * 0.1));
 }

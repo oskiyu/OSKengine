@@ -1,0 +1,63 @@
+\hypertarget{_shader_binding_type_8h_source}{}\doxysection{Shader\+Binding\+Type.\+h}
+\label{_shader_binding_type_8h_source}\index{OSKengine2/ShaderBindingType.h@{OSKengine2/ShaderBindingType.h}}
+\mbox{\hyperlink{_shader_binding_type_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_enum_flags_8hpp}{EnumFlags.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_to_string_8h}{ToString.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00006}00006 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}} \{}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00011}\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1d}{00011}}     \textcolor{keyword}{enum class} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1d}{ShaderBindingType}} \{}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00016}00016         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7fa8d0be820da8f4fe5aa49e0ef3065ca29}{UNIFORM\_BUFFER}},}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00021}00021         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1da3f92f542bd9ec48f912b9350e22736ac}{TEXTURE}},}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00026}00026         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1da35586d57c794c8dde4d19d0c3316d51d}{TEXTURE\_ARRAY}},}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00031}00031         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaaf28b30e806ea29c1d6011d1feeea8913}{CUBEMAP}},}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00036}00036         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7faa486db75420308f63af20d85e2b6489d}{STORAGE\_BUFFER}},}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00042}00042         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7fa56da21e70ea85d8efa9392d6fd11f2ee}{RT\_ACCELERATION\_STRUCTURE}},}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00047}00047         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1da17a99bfdcbe59e8209f17c4da5de6ff9}{STORAGE\_IMAGE}},}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00053}00053         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaa3d5dffc952403caa0bd4efd243e72e25}{RT\_TARGET\_IMAGE}} = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1da17a99bfdcbe59e8209f17c4da5de6ff9}{STORAGE\_IMAGE}}}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00055}00055     \};}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00062}\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcb}{00062}}     \textcolor{keyword}{enum class} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcb}{ShaderStage}} \{}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00067}00067         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba0c3e47aef93a7f244f41ab309a33634b}{VERTEX}} = 1,}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00072}00072         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba7345a249ed5c2f850d85dc1727c24716}{FRAGMENT}} = 2,}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00077}00077         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7af448507fb26809d25c13899dfc57e230}{TESSELATION\_CONTROL}} = 4,}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00082}00082         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7a9196126eff57d73bb45dc36a6367e58d}{TESSELATION\_EVALUATION}} = 8,}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00083}00083 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00087}00087         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba949f4e4e16184d8e16e4125517a1c6c3}{RT\_RAYGEN}} = 16,}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00094}00094         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcbaee8f06a600f854fc2cd6d6fc69089b6d}{RT\_CLOSEST\_HIT}} = 32,}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00095}00095 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00100}00100         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcbaa81021d99de178d7979c2c96b7e3e47d}{RT\_MISS}} = 64,}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00101}00101 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00105}00105         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaaac404d7ce6ca5862e9b8a2641fbafd90}{COMPUTE}} = 128,}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00110}00110         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba829c2b0ccdf8939e47b86bb510ef222f}{TESSELATION\_ALL}} = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7af448507fb26809d25c13899dfc57e230}{TESSELATION\_CONTROL}} | \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a5c67a4dab480f62eb6083332acdcb8c7a9196126eff57d73bb45dc36a6367e58d}{TESSELATION\_EVALUATION}},}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00111}00111 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00112}00112         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba1fdd1a5172989f84205922b257b753a1}{RT\_ALL}} = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba949f4e4e16184d8e16e4125517a1c6c3}{RT\_RAYGEN}} | \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcbaee8f06a600f854fc2cd6d6fc69089b6d}{RT\_CLOSEST\_HIT}} |\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcbaa81021d99de178d7979c2c96b7e3e47d}{RT\_MISS}}}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00113}00113 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00114}00114     \};}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00115}00115 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00116}00116 \}}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00117}00117 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00118}\mbox{\hyperlink{_shader_binding_type_8h_a4bb03a6e470cf0fd5203cdead6306b7e}{00118}} \mbox{\hyperlink{_shader_binding_type_8h_a4bb03a6e470cf0fd5203cdead6306b7e}{OSK\_FLAGS}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcb}{OSK::GRAPHICS::ShaderStage}});}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00119}00119 }
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00120}00120 \textcolor{keyword}{template} <> std::string OSK::ToString<OSK::GRAPHICS::ShaderBindingType>(\textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1d}{OSK::GRAPHICS::ShaderBindingType}}\& type);}
+\DoxyCodeLine{\Hypertarget{_shader_binding_type_8h_source_l00121}00121 \textcolor{keyword}{template} <> std::string OSK::ToString<OSK::GRAPHICS::ShaderStage>(\textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcb}{OSK::GRAPHICS::ShaderStage}}\& stage);}
+
+\end{DoxyCode}

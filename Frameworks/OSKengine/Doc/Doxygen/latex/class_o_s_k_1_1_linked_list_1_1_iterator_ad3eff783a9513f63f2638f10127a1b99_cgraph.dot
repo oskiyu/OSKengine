@@ -1,0 +1,10 @@
+digraph "OSK::LinkedList::Iterator::operator++"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::LinkedList::Iterator\l::operator++",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Avaza el iterador una posición."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::LinkedList::Node\l::GetNext",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_linked_list_1_1_node.html#a3e895c13deda11380d421a57d6feaa99",tooltip="Obtiene el siguiente nodo en la lista."];
+}

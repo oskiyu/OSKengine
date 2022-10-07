@@ -1,0 +1,92 @@
+\hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot}{}\doxysection{Referencia de la Estructura OSK\+::GRAPHICS\+::Material\+Layout\+Slot}
+\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot}\index{OSK::GRAPHICS::MaterialLayoutSlot@{OSK::GRAPHICS::MaterialLayoutSlot}}
+
+
+{\ttfamily \#include $<$Material\+Layout\+Slot.\+h$>$}
+
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::Material\+Layout\+Slot\+:
+% FIG 0
+\doxysubsection*{Atributos públicos}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_a5396464c0b7e928a41db5b80ff004309}{name}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_hash_map}{Hash\+Map}}$<$ std\+::string, \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding}{Material\+Layout\+Binding}} $>$ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_aae656bee485d2b46a0996ebe97ae97d3}{bindings}}
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_a9619a1823cd7ae6ff9f14f4a0e8cd0b7}{glsl\+Set\+Index}}
+\item 
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcb}{Shader\+Stage}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_ab6b6cab3b108fa5179ff16d4c24b60d4}{stage}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Un \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot}{Material\+Layout\+Slot}} agrupa varios Material\+Layout\+Bindings\+: son una manera de unir bindings que se usen en una frecuencia similar. 
+
+Definición en la línea \mbox{\hyperlink{_material_layout_slot_8h_source_l00013}{13}} del archivo \mbox{\hyperlink{_material_layout_slot_8h_source}{Material\+Layout\+Slot.\+h}}.
+
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_aae656bee485d2b46a0996ebe97ae97d3}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_aae656bee485d2b46a0996ebe97ae97d3}} 
+\index{OSK::GRAPHICS::MaterialLayoutSlot@{OSK::GRAPHICS::MaterialLayoutSlot}!bindings@{bindings}}
+\index{bindings@{bindings}!OSK::GRAPHICS::MaterialLayoutSlot@{OSK::GRAPHICS::MaterialLayoutSlot}}
+\doxysubsubsection{\texorpdfstring{bindings}{bindings}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_hash_map}{Hash\+Map}}$<$std\+::string, \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding}{Material\+Layout\+Binding}}$>$ OSK\+::\+GRAPHICS\+::\+Material\+Layout\+Slot\+::bindings}
+
+
+
+Todos los bindings que componene este slot. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_layout_slot_8h_source_l00024}{24}} del archivo \mbox{\hyperlink{_material_layout_slot_8h_source}{Material\+Layout\+Slot.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_a9619a1823cd7ae6ff9f14f4a0e8cd0b7}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_a9619a1823cd7ae6ff9f14f4a0e8cd0b7}} 
+\index{OSK::GRAPHICS::MaterialLayoutSlot@{OSK::GRAPHICS::MaterialLayoutSlot}!glslSetIndex@{glslSetIndex}}
+\index{glslSetIndex@{glslSetIndex}!OSK::GRAPHICS::MaterialLayoutSlot@{OSK::GRAPHICS::MaterialLayoutSlot}}
+\doxysubsubsection{\texorpdfstring{glslSetIndex}{glslSetIndex}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} OSK\+::\+GRAPHICS\+::\+Material\+Layout\+Slot\+::glsl\+Set\+Index}
+
+
+
+Índice del descriptor set del shader .glsl (Vulkan/\+Open\+GL) al que se asocia este slot. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_layout_slot_8h_source_l00029}{29}} del archivo \mbox{\hyperlink{_material_layout_slot_8h_source}{Material\+Layout\+Slot.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_a5396464c0b7e928a41db5b80ff004309}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_a5396464c0b7e928a41db5b80ff004309}} 
+\index{OSK::GRAPHICS::MaterialLayoutSlot@{OSK::GRAPHICS::MaterialLayoutSlot}!name@{name}}
+\index{name@{name}!OSK::GRAPHICS::MaterialLayoutSlot@{OSK::GRAPHICS::MaterialLayoutSlot}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily std\+::string OSK\+::\+GRAPHICS\+::\+Material\+Layout\+Slot\+::name}
+
+
+
+Nombre del slot. Debe ser único en el layout. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_layout_slot_8h_source_l00019}{19}} del archivo \mbox{\hyperlink{_material_layout_slot_8h_source}{Material\+Layout\+Slot.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_ab6b6cab3b108fa5179ff16d4c24b60d4}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_ab6b6cab3b108fa5179ff16d4c24b60d4}} 
+\index{OSK::GRAPHICS::MaterialLayoutSlot@{OSK::GRAPHICS::MaterialLayoutSlot}!stage@{stage}}
+\index{stage@{stage}!OSK::GRAPHICS::MaterialLayoutSlot@{OSK::GRAPHICS::MaterialLayoutSlot}}
+\doxysubsubsection{\texorpdfstring{stage}{stage}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcb}{Shader\+Stage}} OSK\+::\+GRAPHICS\+::\+Material\+Layout\+Slot\+::stage}
+
+
+
+Stage del shader desde el que se accede al slot (VERTEX/\+FRAGMENT). 
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_layout_slot_8h_source_l00034}{34}} del archivo \mbox{\hyperlink{_material_layout_slot_8h_source}{Material\+Layout\+Slot.\+h}}.
+
+
+
+La documentación para esta estructura fue generada a partir del siguiente fichero\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_material_layout_slot_8h}{Material\+Layout\+Slot.\+h}}\end{DoxyCompactItemize}

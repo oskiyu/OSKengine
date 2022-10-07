@@ -1,0 +1,53 @@
+\hypertarget{_gamepad_state_8cpp_source}{}\doxysection{Gamepad\+State.\+cpp}
+\label{_gamepad_state_8cpp_source}\index{OSKengine2/GamepadState.cpp@{OSKengine2/GamepadState.cpp}}
+\mbox{\hyperlink{_gamepad_state_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gamepad_state_8h}{GamepadState.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00003}00003 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00004}00004 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_i_o}{OSK::IO}};}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00006}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_ae97d5e801d1f6ead6f0cd9070ac5129e}{00006}} GamepadState::GamepadState(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} identifier) : identifier(identifier) \{}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00007}00007     }
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00008}00008 \}}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00010}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_ab1ba708769062c820dd521d9c72df482}{00010}} \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_aaddc5e8725ac9d930e313af0044eb968}{GamepadButtonState}} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_ab1ba708769062c820dd521d9c72df482}{GamepadState::GetButtonState}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ad1d8e1f23e2f2515648a3ad1b93ff345}{GamepadButton}} button)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00011}00011     \textcolor{keywordflow}{return} buttonState[(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}})button];}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00012}00012 \}}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00014}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_a27f2e6f75e6f978083a82fd24ef7f0e2}{00014}} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_a27f2e6f75e6f978083a82fd24ef7f0e2}{GamepadState::IsButtonDown}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ad1d8e1f23e2f2515648a3ad1b93ff345}{GamepadButton}} button)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00015}00015     \textcolor{keywordflow}{return} buttonState[(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}})button] == \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_aaddc5e8725ac9d930e313af0044eb968a5381dc876ab002103a027265bc14ae52}{GamepadButtonState::PRESSED}};}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00016}00016 \}}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00018}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_a8ec30aac82fd180074ffe1e0fe2189c5}{00018}} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_a8ec30aac82fd180074ffe1e0fe2189c5}{GamepadState::IsButtonUp}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ad1d8e1f23e2f2515648a3ad1b93ff345}{GamepadButton}} button)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00019}00019     \textcolor{keywordflow}{return} buttonState[(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}})button] == \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_aaddc5e8725ac9d930e313af0044eb968a109d54efbb64d71f9a6ab18d0fb8add8}{GamepadButtonState::RELEASED}};}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00020}00020 \}}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00022}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_a42d64406d8578512b3855c576a5e73c9}{00022}} \textcolor{keywordtype}{float} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_a42d64406d8578512b3855c576a5e73c9}{GamepadState::GetAxisState}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a37e62c3e569002298eedcfd13bad4dd4}{GamepadAxis}} axis)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00023}00023     \textcolor{keywordflow}{if} (axis == \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a37e62c3e569002298eedcfd13bad4dd4a7e6aa2d53f6ee2b1a34b017fa403cb76}{GamepadAxis::L2}} || axis == \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a37e62c3e569002298eedcfd13bad4dd4a8c6d22ff6f63fc6711cfa315cb80b314}{GamepadAxis::R2}})}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00024}00024         \textcolor{keywordflow}{return} (axesStates[(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}})axis] + 1.0f) / 2.0f;}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00026}00026     \textcolor{keywordflow}{return} axesStates[(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}})axis];}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00027}00027 \}}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00029}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_a277cb93fb4639da6724e84c2a3e28331}{00029}} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_a277cb93fb4639da6724e84c2a3e28331}{GamepadState::GetIdentifier}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00030}00030     \textcolor{keywordflow}{return} identifier;}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00031}00031 \}}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00033}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_a8fe299f466fcf5935f69850d2ba637f7}{00033}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_a8fe299f466fcf5935f69850d2ba637f7}{GamepadState::\_SetButtonState}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ad1d8e1f23e2f2515648a3ad1b93ff345}{GamepadButton}} button, \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_aaddc5e8725ac9d930e313af0044eb968}{GamepadButtonState}} state) \{}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00034}00034     buttonState[(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}})button] = state;}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00035}00035 \}}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00037}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_a7daa88f54f4c1183dde2cbc4b90fcf2a}{00037}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_a7daa88f54f4c1183dde2cbc4b90fcf2a}{GamepadState::\_SetAxisState}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a37e62c3e569002298eedcfd13bad4dd4}{GamepadAxis}} axis, \textcolor{keywordtype}{float} value) \{}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00038}00038     axesStates[(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}})axis] = value;}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00039}00039 \}}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00041}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_af3cdba016f819ae75022a1d51b153724}{00041}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_af3cdba016f819ae75022a1d51b153724}{GamepadState::\_SetConnectionState}}(\textcolor{keywordtype}{bool} isConnected) \{}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00042}00042     this-\/>isConnected = isConnected;}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00043}00043 \}}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00044}00044 }
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00045}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_aa359f7b60c5bf64d787e1c2b4a7617d6}{00045}} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_aa359f7b60c5bf64d787e1c2b4a7617d6}{GamepadState::IsConnected}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00046}00046     \textcolor{keywordflow}{return} isConnected;}
+\DoxyCodeLine{\Hypertarget{_gamepad_state_8cpp_source_l00047}00047 \}}
+
+\end{DoxyCode}

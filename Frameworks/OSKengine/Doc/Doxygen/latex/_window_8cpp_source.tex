@@ -1,0 +1,328 @@
+\hypertarget{_window_8cpp_source}{}\doxysection{Window.\+cpp}
+\label{_window_8cpp_source}\index{OSKengine2/Window.cpp@{OSKengine2/Window.cpp}}
+\mbox{\hyperlink{_window_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_window_8h}{Window.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include <GLFW/glfw3.h>}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_mouse_state_8h}{MouseState.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_keyboard_state_8h}{KeyboardState.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_render_api_type_8h}{RenderApiType.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00008}00008 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kengine_8h}{OSKengine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00009}00009 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_logger_8h}{Logger.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00010}00010 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_assert_8h}{Assert.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00011}00011 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_renderer_8h}{IRenderer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00012}00012 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_mouse_modes_8h}{MouseModes.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00014}00014 \textcolor{preprocessor}{\#include <stbi\_image.h>}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00016}00016 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00017}00017 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_i_o}{OSK::IO}};}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00019}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a74e6087da23d3c24e9fac0245e5ec92c}{00019}} Window::Window() \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00020}00020     glfwInit();}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00022}00022     oldMouseState = \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state}{MouseState}};}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00023}00023     newMouseState = \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state}{MouseState}};}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00025}00025     oldKeyboardState = \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state}{KeyboardState}};}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00026}00026     newKeyboardState = \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state}{KeyboardState}};}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00028}00028     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < 4; i++) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00029}00029         newGamepadStates[i] = \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state}{GamepadState}}(i);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00030}00030         oldGamepadStates[i] = \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state}{GamepadState}}(i);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00031}00031     \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00032}00032 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00034}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a245d821e6016fa1f6970ccbbedd635f6}{00034}} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a245d821e6016fa1f6970ccbbedd635f6}{Window::\string~Window}}() \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00035}00035     glfwTerminate();}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00036}00036 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00038}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_ad7d09e8f17ac3d0ecf3f5148a434b221}{00038}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_ad7d09e8f17ac3d0ecf3f5148a434b221}{Window::SetRenderApiType}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3057691f190dabf7642cfde72cf2430f}{GRAPHICS::RenderApiType}} type) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00039}00039     renderApi = type;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00041}00041     glfwWindowHint(GLFW\_CLIENT\_API, GLFW\_NO\_API);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00042}00042 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00044}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a3bb6de90d630ef9c23ed7172b1f9de03}{00044}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a3bb6de90d630ef9c23ed7172b1f9de03}{Window::Create}}(int32\_t sizeX, int32\_t sizeY, \textcolor{keyword}{const} std::string\& title) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00045}00045     \textcolor{comment}{// Creación de la ventana.}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00046}00046     window = glfwCreateWindow(sizeX, sizeY, title.c\_str(), NULL, NULL);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00047}00047     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a6ff1efe3764161c4fdf7dd8e72f16fea}{HasValue}}(), \textcolor{stringliteral}{"{}No se ha podido iniciar la ventana."{}});}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00048}00048     glfwMakeContextCurrent(window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}());}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00050}00050     this-\/>sizeX = sizeX;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00051}00051     this-\/>sizeY = sizeY;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00053}00053     UpdateScreenRatio();}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00055}00055     \textcolor{comment}{// Obtención de variables de glfw.}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00056}00056     glfwSetWindowUserPointer(window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), \textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00057}00057     monitor = glfwGetPrimaryMonitor();}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00058}00058     monitorInfo = glfwGetVideoMode(monitor.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}());}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00060}00060     \textcolor{comment}{// Establece los callbacks.}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00061}00061     glfwSetFramebufferSizeCallback(window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), Window::GlfwResizeCallback);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00062}00062     glfwSetCursorPosCallback(window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), Window::GlfwMouseInputCallback);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00063}00063     glfwSetScrollCallback(window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), Window::GlfwMouseScrollCallback);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00065}00065     \textcolor{comment}{// Info-\/log.}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00066}00066     \mbox{\hyperlink{class_o_s_k_1_1_engine_ac39b79a3e665381630f6c710f3772a2b}{Engine::GetLogger}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_logger_a3d2a88ffa05f6a74f9d669f1182bacca}{InfoLog}}(\textcolor{stringliteral}{"{}Ventana iniciada correctamente."{}});}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00067}00067     \mbox{\hyperlink{class_o_s_k_1_1_engine_ac39b79a3e665381630f6c710f3772a2b}{Engine::GetLogger}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_logger_a3d2a88ffa05f6a74f9d669f1182bacca}{InfoLog}}(\textcolor{stringliteral}{"{}  Monitor sizeX: "{}} + std::to\_string(monitorInfo-\/>width));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00068}00068     \mbox{\hyperlink{class_o_s_k_1_1_engine_ac39b79a3e665381630f6c710f3772a2b}{Engine::GetLogger}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_logger_a3d2a88ffa05f6a74f9d669f1182bacca}{InfoLog}}(\textcolor{stringliteral}{"{}  Monitor sizeY: "{}} + std::to\_string(monitorInfo-\/>height));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00069}00069     \mbox{\hyperlink{class_o_s_k_1_1_engine_ac39b79a3e665381630f6c710f3772a2b}{Engine::GetLogger}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_logger_a3d2a88ffa05f6a74f9d669f1182bacca}{InfoLog}}(\textcolor{stringliteral}{"{}  Monitor refresh rate: "{}} + std::to\_string(monitorInfo-\/>refreshRate));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00071}00071     \textcolor{keywordtype}{int} x = 0;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00072}00072     \textcolor{keywordtype}{int} y = 0;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00073}00073     \textcolor{keywordtype}{int} nmChannels = 0;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00074}00074     stbi\_uc* icon = stbi\_load(\textcolor{stringliteral}{"{}Resources/Icons/engineIcon.png"{}}, \&x, \&y, \&nmChannels, 4);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00076}00076     GLFWimage glfwIcon[1]\{\};}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00077}00077     glfwIcon[0].width = x;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00078}00078     glfwIcon[0].height = y;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00079}00079     glfwIcon[0].pixels = icon;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00081}00081     glfwSetWindowIcon(window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), \_countof(glfwIcon), glfwIcon);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00083}00083     stbi\_image\_free(icon);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00085}00085     isOpen = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00086}00086 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00087}00087 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00088}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_ab8d28dce3166c70eb5744466460795df}{00088}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_ab8d28dce3166c70eb5744466460795df}{Window::Update}}() \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00089}00089     glfwPollEvents();}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00090}00090 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00091}00091 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00092}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aa5d7ef0d00a2882f15d52d5c8f3d767b}{00092}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aa5d7ef0d00a2882f15d52d5c8f3d767b}{Window::SetMouseReturnMode}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a2f854259da792bdb856dedf2a07ee49d}{MouseReturnMode}} mode) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00093}00093     \textcolor{keywordflow}{if} (mode == \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a2f854259da792bdb856dedf2a07ee49da42190ae7de8d84128ff7d1abcc9894a4}{MouseReturnMode::ALWAYS\_RETURN}})}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00094}00094         glfwSetInputMode(window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), GLFW\_CURSOR, GLFW\_CURSOR\_DISABLED);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00095}00095     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (mode == \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a2f854259da792bdb856dedf2a07ee49da88c189a42c87aa49d667fc8ab76bc323}{MouseReturnMode::FREE}})}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00096}00096         glfwSetInputMode(window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), GLFW\_CURSOR, GLFW\_CURSOR\_NORMAL);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00097}00097 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00098}00098 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00099}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aaebf430eb401e68c0ff79d8c0a215819}{00099}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aaebf430eb401e68c0ff79d8c0a215819}{Window::SetMouseMotionMode}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a5ba6ec63fc3ebf3e796c86246821b317}{MouseMotionMode}} mode) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00100}00100     \textcolor{keywordflow}{if} (mode == \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a5ba6ec63fc3ebf3e796c86246821b317a8f1270de21fbcf7d1a5216d7761ee58c}{MouseMotionMode::ACCELERATED}}) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00101}00101         glfwSetInputMode(window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), GLFW\_RAW\_MOUSE\_MOTION, GLFW\_FALSE);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00102}00102     \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00103}00103     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00104}00104         \textcolor{keywordflow}{if} (glfwRawMouseMotionSupported())}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00105}00105             glfwSetInputMode(window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), GLFW\_RAW\_MOUSE\_MOTION, GLFW\_TRUE);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00106}00106         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00107}00107             \mbox{\hyperlink{_assert_8h_ab17a47d656881cd12f1529fb2fd20d7e}{OSK\_CHECK}}(\textcolor{keyword}{false}, \textcolor{stringliteral}{"{}Raw mouse mode no soportado."{}});}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00108}00108     \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00109}00109 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00111}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_addb2e8c43715c45b731e56e527673564}{00111}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_addb2e8c43715c45b731e56e527673564}{Window::UpdateMouseAndKeyboardOldStates}}() \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00112}00112     *oldKeyboardState = *newKeyboardState;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00113}00113     UpdateKeyboardState(newKeyboardState.GetPointer());}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00114}00114 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00115}00115     *oldMouseState = *newMouseState;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00116}00116     UpdateMouseState(newMouseState.GetPointer());}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00117}00117 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00118}00118     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < 4; i++) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00119}00119         oldGamepadStates[i] = newGamepadStates[i];}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00120}00120         UpdateGamepadState(\&newGamepadStates[i]);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00121}00121     \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00122}00122 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00123}00123 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00124}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a20771b3a4b4192cbb7242fff51be8bdc}{00124}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a20771b3a4b4192cbb7242fff51be8bdc}{Window::SetFullScreen}}(\textcolor{keywordtype}{bool} fullscreen) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00125}00125     \textcolor{keywordflow}{if} (isFullScreen == fullscreen)}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00126}00126         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00127}00127 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00128}00128     \textcolor{keywordflow}{if} (fullscreen) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00129}00129         \textcolor{comment}{// Obtenemos la posición de la ventana,}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00130}00130         \textcolor{comment}{// para poder reestablecerla después de salir de}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00131}00131         \textcolor{comment}{// la ventana completa.}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00132}00132         glfwGetWindowPos(window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), \&previous.posX, \&previous.posY);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00133}00133         glfwGetWindowSize(window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), \&previous.sizeX, \&previous.sizeY);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00134}00134 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00135}00135         glfwSetWindowMonitor(window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), monitor.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), 0, 0, monitorInfo-\/>width, monitorInfo-\/>height, monitorInfo-\/>refreshRate);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00136}00136 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00137}00137         sizeX = monitorInfo-\/>width;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00138}00138         sizeY = monitorInfo-\/>height;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00139}00139 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00140}00140         UpdateScreenRatio();}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00141}00141     \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00142}00142     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00143}00143         glfwSetWindowMonitor(window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), \textcolor{keyword}{nullptr}, previous.posX, previous.posY, previous.sizeX, previous.sizeY, monitorInfo-\/>refreshRate);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00144}00144     \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00145}00145 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00146}00146     isFullScreen = fullscreen;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00147}00147 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00148}00148 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00149}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a65149d93f9842363f53bdc3e07f459a6}{00149}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a65149d93f9842363f53bdc3e07f459a6}{Window::ToggleFullScreen}}() \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00150}00150     \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a20771b3a4b4192cbb7242fff51be8bdc}{SetFullScreen}}(!isFullScreen);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00151}00151 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00152}00152 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00153}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a202139170598c83c2de7fbfdaf673863}{00153}} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a202139170598c83c2de7fbfdaf673863}{Window::IsFullScreen}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00154}00154     \textcolor{keywordflow}{return} isFullScreen;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00155}00155 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00156}00156 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00157}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a8ccf37a95b199aa9fbaeea71210269b7}{00157}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a8ccf37a95b199aa9fbaeea71210269b7}{Window::SetMousePosition}}(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} posX, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} posY) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00158}00158     glfwSetCursorPos(window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_ae47c2f4ef13950e63ced240291893f37}{posX}}, \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a040a00576ae1438e3959cb26800a7583}{posY}});}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00159}00159 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00160}00160 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00161}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a57ff1cba3082f14aa7f29f02aae3827e}{00161}} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a57ff1cba3082f14aa7f29f02aae3827e}{Window::ShouldClose}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00162}00162     \textcolor{keywordflow}{return} glfwWindowShouldClose(window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}());}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00163}00163 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00164}00164 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00165}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a4ef67808752d9e9b618859e698f31362}{00165}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a4ef67808752d9e9b618859e698f31362}{Window::Close}}() \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00166}00166     glfwSetWindowShouldClose(window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}(), \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00167}00167     isOpen = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00168}00168 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00169}00169 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00170}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aa7f9f244691159612d42ddbc1fdc9288}{00170}} \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2ui}} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aa7f9f244691159612d42ddbc1fdc9288}{Window::GetWindowSize}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00171}00171     \textcolor{keywordflow}{return} \{ sizeX, sizeY \};}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00172}00172 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00173}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a4c46b86ae4195a7a997fa77bcd051403}{00173}} \textcolor{keywordtype}{float} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a4c46b86ae4195a7a997fa77bcd051403}{Window::GetScreenRatio}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00174}00174     \textcolor{keywordflow}{return} screenRatio;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00175}00175 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00176}00176 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00177}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a26a42bde21a6ad4b9a7b6731d92c4215}{00177}} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a26a42bde21a6ad4b9a7b6731d92c4215}{Window::GetRefreshRate}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00178}00178     \textcolor{keywordflow}{return} monitorInfo-\/>refreshRate;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00179}00179 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00180}00180 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00181}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a73426320ee277db3c1f5c8dc525a766e}{00181}} \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state}{KeyboardState}}* \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a73426320ee277db3c1f5c8dc525a766e}{Window::GetKeyboardState}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00182}00182     \textcolor{keywordflow}{return} newKeyboardState.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00183}00183 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00184}00184 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00185}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_ae29585b8dc924d25380a87c664cc03ab}{00185}} \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state}{KeyboardState}}* \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_ae29585b8dc924d25380a87c664cc03ab}{Window::GetPreviousKeyboardState}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00186}00186     \textcolor{keywordflow}{return} oldKeyboardState.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00187}00187 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00188}00188 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00189}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a0b06f12298dfc2da7a11d7ed99a56fcd}{00189}} \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state}{MouseState}}* \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a0b06f12298dfc2da7a11d7ed99a56fcd}{Window::GetMouseState}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00190}00190     \textcolor{keywordflow}{return} newMouseState.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00191}00191 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00192}00192 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00193}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aeb618bc432cbd54c6107cf8ba95c8f81}{00193}} \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state}{MouseState}}* \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aeb618bc432cbd54c6107cf8ba95c8f81}{Window::GetPreviousMouseState}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00194}00194     \textcolor{keywordflow}{return} oldMouseState.GetPointer();}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00195}00195 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00196}00196 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00197}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a52dae4cfee2763b13581c175ceb64015}{00197}} \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state}{GamepadState}}\& \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a52dae4cfee2763b13581c175ceb64015}{Window::GetGamepadState}}(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} identifier)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00198}00198     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(identifier < 4, \textcolor{stringliteral}{"{}Índice del gamepad incorrecto."{}});}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00199}00199     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(identifier >= 0, \textcolor{stringliteral}{"{}Índice del gamepad incorrecto."{}});}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00200}00200 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00201}00201     \textcolor{keywordflow}{return} newGamepadStates[identifier];}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00202}00202 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00203}00203 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00204}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a40360800368a38534f0cb2f009976304}{00204}} \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state}{GamepadState}}\& \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a40360800368a38534f0cb2f009976304}{Window::GetPreviousGamepadState}}(\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} identifier)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00205}00205     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(identifier < 4, \textcolor{stringliteral}{"{}Índice del gamepad incorrecto."{}});}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00206}00206     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(identifier >= 0, \textcolor{stringliteral}{"{}Índice del gamepad incorrecto."{}});}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00207}00207 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00208}00208     \textcolor{keywordflow}{return} oldGamepadStates[identifier];}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00209}00209 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00210}00210 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00211}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aeb6da49da6d72505687d04088cc79cbd}{00211}} GLFWwindow* \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aeb6da49da6d72505687d04088cc79cbd}{Window::\_GetGlfw}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00212}00212     \textcolor{keywordflow}{return} window.\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr_a81dfab2299056fc9858aace55fca0042}{GetPointer}}();}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00213}00213 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00214}00214 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00215}00215 \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window}{Window}}* Window::GetWindowForCallback(GLFWwindow* window) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00216}00216     \textcolor{keywordtype}{void}* ptr = glfwGetWindowUserPointer(window);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00217}00217     \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} winPtr = (\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window}{Window}}*)ptr)}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00218}00218         \textcolor{keywordflow}{return} winPtr;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00219}00219 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00220}00220     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00221}00221 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00222}00222 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00223}00223 \textcolor{keywordtype}{void} Window::GlfwMouseInputCallback(GLFWwindow* window, \textcolor{keywordtype}{double} posX, \textcolor{keywordtype}{double} posY) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00224}00224     GetWindowForCallback(window)-\/>MouseInputCallback(\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_ae47c2f4ef13950e63ced240291893f37}{posX}}, \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a040a00576ae1438e3959cb26800a7583}{posY}});}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00225}00225 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00226}00226 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00227}00227 \textcolor{keywordtype}{void} Window::MouseInputCallback(\textcolor{keywordtype}{double} posX, \textcolor{keywordtype}{double} posY) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00228}00228     newMouseState-\/>\_SetPosition(\mbox{\hyperlink{namespace_o_s_k_a178564ff4b076fef7c0bb865299ba20b}{Vector2d}}(\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_ae47c2f4ef13950e63ced240291893f37}{posX}}, \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a040a00576ae1438e3959cb26800a7583}{posY}}).ToVector2i());}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00229}00229     newMouseState-\/>\_SetRelativePosition(\mbox{\hyperlink{namespace_o_s_k_a178564ff4b076fef7c0bb865299ba20b}{Vector2d}}(\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_ae47c2f4ef13950e63ced240291893f37}{posX}}, \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_a040a00576ae1438e3959cb26800a7583}{posY}}).ToVector2f() / \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_aa7f9f244691159612d42ddbc1fdc9288}{GetWindowSize}}().ToVector2f());}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00230}00230 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00231}00231 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00232}00232 \textcolor{keywordtype}{void} Window::GlfwResizeCallback(GLFWwindow* window, \textcolor{keywordtype}{int} sizex, \textcolor{keywordtype}{int} sizey) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00233}00233     GetWindowForCallback(window)-\/>ResizeCallback(sizex, sizey);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00234}00234 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00235}00235 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00236}00236 \textcolor{keywordtype}{void} Window::ResizeCallback(\textcolor{keywordtype}{int} sizex, \textcolor{keywordtype}{int} sizey) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00237}00237     sizeX = sizex;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00238}00238     sizeY = sizey;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00239}00239 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00240}00240     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\_HasImplicitResizeHandling())}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00241}00241         \mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a5222eda186e06692ee1e591a085473eb}{HandleResize}}();}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00242}00242 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00243}00243     UpdateScreenRatio();}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00244}00244 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00245}00245 \textcolor{keywordtype}{void} Window::GlfwMouseScrollCallback(GLFWwindow* window, \textcolor{keywordtype}{double} dX, \textcolor{keywordtype}{double} dY) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00246}00246     GetWindowForCallback(window)-\/>MouseScrollCallback(dX, dY);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00247}00247 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00248}00248 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00249}00249 \textcolor{keywordtype}{void} Window::MouseScrollCallback(\textcolor{keywordtype}{double} dX, \textcolor{keywordtype}{double} dY) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00250}00250     newMouseState-\/>\_SetScrollX((\textcolor{keywordtype}{int})dX);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00251}00251     newMouseState-\/>\_SetScrollY((\textcolor{keywordtype}{int})dY);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00252}00252 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00253}00253 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00254}00254 \textcolor{keywordtype}{void} Window::UpdateScreenRatio() \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00255}00255     \textcolor{keywordflow}{if} (sizeY != 0)}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00256}00256         screenRatio = (float)sizeX / sizeY;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00257}00257 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00258}00258 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00259}00259 \textcolor{keywordtype}{void} Window::UpdateKeyboardState(\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state}{KeyboardState}}* keyboard) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00260}00260     keyboard-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state_aa9050a71661db1622ca20abf45130982}{\_SetKeyState}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea6506ae39fdca9845e3a6de3865183e57}{Key::SPACE}}, (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{KeyState}})glfwGetKey(window.GetPointer(), GLFW\_KEY\_SPACE));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00261}00261     keyboard-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state_aa9050a71661db1622ca20abf45130982}{\_SetKeyState}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea9df35983f4024e31955de0f1e545e888}{Key::APOSTROPHE}}, (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{KeyState}})glfwGetKey(window.GetPointer(), GLFW\_KEY\_APOSTROPHE));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00262}00262 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00263}00263     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 14; i++)}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00264}00264         keyboard-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state_aa9050a71661db1622ca20abf45130982}{\_SetKeyState}}((\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}})((\textcolor{keywordtype}{int})\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea4d9b3e9fc12849d060371eb65154c751}{Key::COMMA}} + i), (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{KeyState}})glfwGetKey(window.GetPointer(), GLFW\_KEY\_COMMA + i));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00265}00265 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00266}00266     keyboard-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state_aa9050a71661db1622ca20abf45130982}{\_SetKeyState}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eabaaceccc27b1d4e0968c999583f97de5}{Key::SEMICOLON}}, (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{KeyState}})glfwGetKey(window.GetPointer(), GLFW\_KEY\_SEMICOLON));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00267}00267     keyboard-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state_aa9050a71661db1622ca20abf45130982}{\_SetKeyState}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea969f331a87d8c958473c32b4d0e61a44}{Key::EQUAL}}, (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{KeyState}})glfwGetKey(window.GetPointer(), GLFW\_KEY\_EQUAL));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00268}00268 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00269}00269     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 29; i++)}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00270}00270         keyboard-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state_aa9050a71661db1622ca20abf45130982}{\_SetKeyState}}((\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}})((\textcolor{keywordtype}{int})\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea7fc56270e7a70fa81a5935b72eacbe29}{Key::A}} + i), (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{KeyState}})glfwGetKey(window.GetPointer(), GLFW\_KEY\_A + i));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00271}00271 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00272}00272     keyboard-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state_aa9050a71661db1622ca20abf45130982}{\_SetKeyState}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea1547ad05c44be2cc614be32159bf666b}{Key::GRAVE\_ACCENT}}, (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{KeyState}})glfwGetKey(window.GetPointer(), GLFW\_KEY\_GRAVE\_ACCENT));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00273}00273 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00274}00274     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 14; i++)}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00275}00275         keyboard-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state_aa9050a71661db1622ca20abf45130982}{\_SetKeyState}}((\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}})((\textcolor{keywordtype}{int})\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eadaaedac409335b869929ea43fa44be5d}{Key::ESCAPE}} + i), (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{KeyState}})glfwGetKey(window.GetPointer(), GLFW\_KEY\_ESCAPE + i));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00276}00276 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00277}00277     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 5; i++)}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00278}00278         keyboard-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state_aa9050a71661db1622ca20abf45130982}{\_SetKeyState}}((\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}})((\textcolor{keywordtype}{int})\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eae40af1d5cc55c55ae0bb25953f7a7ee2}{Key::CAPS\_LOCK}} + i), (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{KeyState}})glfwGetKey(window.GetPointer(), GLFW\_KEY\_CAPS\_LOCK + i));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00279}00279 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00280}00280     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 25; i++)}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00281}00281         keyboard-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state_aa9050a71661db1622ca20abf45130982}{\_SetKeyState}}((\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}})((\textcolor{keywordtype}{int})\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eae1dffc8709f31a4987c8a88334107e89}{Key::F1}} + i), (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{KeyState}})glfwGetKey(window.GetPointer(), GLFW\_KEY\_F1 + i));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00282}00282 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00283}00283     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 17; i++)}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00284}00284         keyboard-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state_aa9050a71661db1622ca20abf45130982}{\_SetKeyState}}((\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}})((\textcolor{keywordtype}{int})\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39ea957845bc887cf9c729098634ff707338}{Key::KEYPAD\_0}} + i), (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{KeyState}})glfwGetKey(window.GetPointer(), GLFW\_KEY\_KP\_0 + i));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00285}00285 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00286}00286     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 9; i++)}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00287}00287         keyboard-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state_aa9050a71661db1622ca20abf45130982}{\_SetKeyState}}((\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}})((\textcolor{keywordtype}{int})\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39eab6c7e6204e97690efd79d6f513ed5613}{Key::LEFT\_SHIFT}} + i), (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{KeyState}})glfwGetKey(window.GetPointer(), GLFW\_KEY\_LEFT\_SHIFT + i));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00288}00288 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00289}00289 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00290}00290 \textcolor{keywordtype}{void} Window::UpdateMouseState(\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state}{MouseState}}* mouse) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00291}00291     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 8; i++)}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00292}00292         mouse-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state_abda1cba5a272211dc538769f209675a5}{\_SetButtonState}}((\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77}{MouseButton}})i, (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a59bf216682b802b6dad7d81be5ea3f31}{ButtonState}})glfwGetMouseButton(window.GetPointer(), i));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00293}00293 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00294}00294     mouse-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state_abda1cba5a272211dc538769f209675a5}{\_SetButtonState}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77a36d9e3a4330b098458b81de2a861cbaa}{MouseButton::BUTTON\_LEFT}}, mouse-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state_ab81f3eeb6c2c5db16d67dc17012dae40}{GetButtonState}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77ac8dcbbd6eda649ff9bdb9873ae813ce4}{MouseButton::BUTTON\_1}}));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00295}00295     mouse-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state_abda1cba5a272211dc538769f209675a5}{\_SetButtonState}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77ae075c9b2c5940dd1aa3b1564a8353f27}{MouseButton::BUTTON\_RIGHT}}, mouse-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state_ab81f3eeb6c2c5db16d67dc17012dae40}{GetButtonState}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77aa1a723bed8032bec8965b277db1282fd}{MouseButton::BUTTON\_2}}));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00296}00296     mouse-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state_abda1cba5a272211dc538769f209675a5}{\_SetButtonState}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77a02029eeec1878b3c58e83b74ce07d11c}{MouseButton::BUTTON\_MIDDLE}}, mouse-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state_ab81f3eeb6c2c5db16d67dc17012dae40}{GetButtonState}}(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77abed7db4dd815234cab9bc093ce7211ce}{MouseButton::BUTTON\_3}}));}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00297}00297 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00298}00298 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00299}00299 \textcolor{keywordtype}{void} Window::UpdateGamepadState(\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state}{GamepadState}}* gamepad) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00300}00300     \textcolor{keyword}{const} \textcolor{keyword}{auto} \textcolor{keywordtype}{id} = GLFW\_JOYSTICK\_1 + gamepad-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_a277cb93fb4639da6724e84c2a3e28331}{GetIdentifier}}();}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00301}00301 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00302}00302     \textcolor{keywordflow}{if} (glfwJoystickPresent(\textcolor{keywordtype}{id})) \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00303}00303         \textcolor{keywordtype}{int} count;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00304}00304         \textcolor{keyword}{const} \textcolor{keywordtype}{float}* axes = glfwGetJoystickAxes(\textcolor{keywordtype}{id}, \&count);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00305}00305 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00306}00306         gamepad-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_af3cdba016f819ae75022a1d51b153724}{\_SetConnectionState}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00307}00307 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00308}00308         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} axis = 0; axis < 6; axis++)}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00309}00309             gamepad-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_a7daa88f54f4c1183dde2cbc4b90fcf2a}{\_SetAxisState}}((\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a37e62c3e569002298eedcfd13bad4dd4}{GamepadAxis}})axis, axes[axis]);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00310}00310 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00311}00311         \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}* buttons = glfwGetJoystickButtons(\textcolor{keywordtype}{id}, \&count);}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00312}00312         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} button = 0; button < 4; button++)}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00313}00313             gamepad-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_a8fe299f466fcf5935f69850d2ba637f7}{\_SetButtonState}}((\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ad1d8e1f23e2f2515648a3ad1b93ff345}{GamepadButton}})button, (\textcolor{keywordtype}{bool})buttons[button] ? \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_aaddc5e8725ac9d930e313af0044eb968a5381dc876ab002103a027265bc14ae52}{GamepadButtonState::PRESSED}} : \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_aaddc5e8725ac9d930e313af0044eb968a109d54efbb64d71f9a6ab18d0fb8add8}{GamepadButtonState::RELEASED}});}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00314}00314     \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00315}00315     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00316}00316         gamepad-\/>\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_gamepad_state_af3cdba016f819ae75022a1d51b153724}{\_SetConnectionState}}(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00317}00317     \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00318}00318 \}}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00319}00319 }
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00320}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_ad735ec09123e1633186b3bbcfcb8365d}{00320}} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window_ad735ec09123e1633186b3bbcfcb8365d}{Window::IsOpen}}()\textcolor{keyword}{ const}\{}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00321}00321     \textcolor{keywordflow}{return} isOpen;}
+\DoxyCodeLine{\Hypertarget{_window_8cpp_source_l00322}00322 \}}
+
+\end{DoxyCode}

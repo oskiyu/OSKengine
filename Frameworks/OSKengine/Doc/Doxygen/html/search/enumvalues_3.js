@@ -15,5 +15,6 @@ var searchData=
   ['counterclockwise_12',['COUNTERCLOCKWISE',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad6329cdca67793d3a3ffec0de1fab44cab437c6ed212434e8984c403374fe494c',1,'OSK::GRAPHICS']]],
   ['cubemap_13',['CUBEMAP',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaaf28b30e806ea29c1d6011d1feeea8913',1,'OSK::GRAPHICS::CUBEMAP()'],['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1daf28b30e806ea29c1d6011d1feeea8913',1,'OSK::GRAPHICS::CUBEMAP()']]],
   ['cubic_14',['CUBIC',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a169cbd3b800f2c408287690a502bace1accd681e34e5e40fbce74618c3ccffcff',1,'OSK::GRAPHICS']]],
-  ['custom_15',['CUSTOM',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b3d3107477f334f9d9d85a64c930c8aa72baef04098f035e8a320b03ad197818',1,'OSK::GRAPHICS']]]
+  ['cubicspline_15',['CUBICSPLINE',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler.html#a983eff4f6a588ac5e94af54c40f73245adbec938b5d93ee323a15ef285cab513a',1,'OSK::GRAPHICS::AnimationSampler']]],
+  ['custom_16',['CUSTOM',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b3d3107477f334f9d9d85a64c930c8aa72baef04098f035e8a320b03ad197818',1,'OSK::GRAPHICS']]]
 ];

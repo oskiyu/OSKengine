@@ -1,0 +1,18 @@
+digraph "OSK::ECS::IRenderSystem::SetupViewport"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::ECS::IRenderSystem\l::SetupViewport",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::GRAPHICS::RenderTarget\l::GetSize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a40976c088e2d4dbea427ccd4fbebcab1",tooltip="Devuelve el tamaño del render target."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="OSK::Vector2_t::ToVector2f",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_vector2__t.html#a0d2ae26c0e6fc58b9a3013a443ff3923",tooltip="Devuelve un Vector2f a partir de este."];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="OSK::Vector2_t::ToVector2ui",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_vector2__t.html#ab94e13708997d27a82e001f8782e290b",tooltip="Devuelve un Vector2ui a partir de este."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="OSK::GRAPHICS::ICommandList\l::SetScissor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ad7246c4be8141d70827ee91c1686144e",tooltip="Establece qué área del renderizado será visible en la textura final."];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="OSK::GRAPHICS::ICommandList\l::SetViewport",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ad7cd8a020a86d10e75f1b0241e41cc37",tooltip="Establece el viewport a renderizar. El viewport describe el área de la patnalla que se va a renderiza..."];
+}

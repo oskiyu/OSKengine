@@ -5,7 +5,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map =
     [ "GetDirLightMatrixUniformBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a3623673ebffd02cd44830d38b5e52b95", null ],
     [ "GetNumCascades", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a19ef749dc3d51d127b5191dfcbb09ca2", null ],
     [ "GetShadowImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a3c867730c2810236e1983be4d0e2190c", null ],
-    [ "GetShadowsMaterial", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a646f5d7197996e9867dda03d9a902014", null ],
+    [ "GetShadowsMaterial", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#ac65819749ffb51ef5ce805ac35b7910d", null ],
     [ "GetShadowsMaterialInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#ad7263c5e330f9148ba87ebff3aae13b3", null ],
     [ "SetDirectionalLight", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#ab750efcb37e8e0e58084096c18d1d0d6", null ],
     [ "SetFarPlane", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a442fb43c3f179fe4ff0fb45d25a9516c", null ],

@@ -1,0 +1,116 @@
+\hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding}{}\doxysection{Referencia de la Estructura OSK\+::GRAPHICS\+::Material\+Layout\+Binding}
+\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding}\index{OSK::GRAPHICS::MaterialLayoutBinding@{OSK::GRAPHICS::MaterialLayoutBinding}}
+
+
+{\ttfamily \#include $<$Material\+Layout\+Binding.\+h$>$}
+
+\doxysubsection*{Atributos públicos}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_abf80f1b1de075dd88db4a741925f8f4d}{name}}
+\item 
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1d}{Shader\+Binding\+Type}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_a62bfb58cc5b65fd202a039cf08f9add4}{type}}
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_a7b97663b938cad26efa8ab760e7168e2}{glsl\+Index}}
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_a7de534e0d2b1dd90bc7e268ca2ddc393}{hlsl\+Index}}
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_a67e64668da16bfe557d70ec55c152938}{hlsl\+Descriptor\+Index}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Un binding de un layout. 
+
+Un binding corresponde a una única unidad de información que puede enlazarse al shader (uniform buffer, texture, etc...).
+
+Varios bindings se pueden agrupar en un \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot}{Material\+Layout\+Slot}}.
+
+Determina\+:
+\begin{DoxyItemize}
+\item El nombre del binding.
+\item El tipo de binding (UNIFORM, TEXTURE, etc...).
+\item Índice del binding en hlsl.
+\item Índice del binding (dentro del set) en glsl. 
+\end{DoxyItemize}
+
+Definición en la línea \mbox{\hyperlink{_material_layout_binding_8h_source_l00023}{23}} del archivo \mbox{\hyperlink{_material_layout_binding_8h_source}{Material\+Layout\+Binding.\+h}}.
+
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_a7b97663b938cad26efa8ab760e7168e2}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_a7b97663b938cad26efa8ab760e7168e2}} 
+\index{OSK::GRAPHICS::MaterialLayoutBinding@{OSK::GRAPHICS::MaterialLayoutBinding}!glslIndex@{glslIndex}}
+\index{glslIndex@{glslIndex}!OSK::GRAPHICS::MaterialLayoutBinding@{OSK::GRAPHICS::MaterialLayoutBinding}}
+\doxysubsubsection{\texorpdfstring{glslIndex}{glslIndex}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} OSK\+::\+GRAPHICS\+::\+Material\+Layout\+Binding\+::glsl\+Index}
+
+
+
+Índice del binding en el shader .glsl (Vulkan, Open\+GL). Es un índice local respecto al slot (al descriptor set). 
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_layout_binding_8h_source_l00041}{41}} del archivo \mbox{\hyperlink{_material_layout_binding_8h_source}{Material\+Layout\+Binding.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_a67e64668da16bfe557d70ec55c152938}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_a67e64668da16bfe557d70ec55c152938}} 
+\index{OSK::GRAPHICS::MaterialLayoutBinding@{OSK::GRAPHICS::MaterialLayoutBinding}!hlslDescriptorIndex@{hlslDescriptorIndex}}
+\index{hlslDescriptorIndex@{hlslDescriptorIndex}!OSK::GRAPHICS::MaterialLayoutBinding@{OSK::GRAPHICS::MaterialLayoutBinding}}
+\doxysubsubsection{\texorpdfstring{hlslDescriptorIndex}{hlslDescriptorIndex}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} OSK\+::\+GRAPHICS\+::\+Material\+Layout\+Binding\+::hlsl\+Descriptor\+Index}
+
+
+
+Índice del descriptor del shader .hlsl. Interno. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_layout_binding_8h_source_l00053}{53}} del archivo \mbox{\hyperlink{_material_layout_binding_8h_source}{Material\+Layout\+Binding.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_a7de534e0d2b1dd90bc7e268ca2ddc393}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_a7de534e0d2b1dd90bc7e268ca2ddc393}} 
+\index{OSK::GRAPHICS::MaterialLayoutBinding@{OSK::GRAPHICS::MaterialLayoutBinding}!hlslIndex@{hlslIndex}}
+\index{hlslIndex@{hlslIndex}!OSK::GRAPHICS::MaterialLayoutBinding@{OSK::GRAPHICS::MaterialLayoutBinding}}
+\doxysubsubsection{\texorpdfstring{hlslIndex}{hlslIndex}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} OSK\+::\+GRAPHICS\+::\+Material\+Layout\+Binding\+::hlsl\+Index}
+
+
+
+Índice del binding en el shader .hlsl (DirectX 12). Es un índice global, independiente del slot al que pertenezca. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_layout_binding_8h_source_l00047}{47}} del archivo \mbox{\hyperlink{_material_layout_binding_8h_source}{Material\+Layout\+Binding.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_abf80f1b1de075dd88db4a741925f8f4d}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_abf80f1b1de075dd88db4a741925f8f4d}} 
+\index{OSK::GRAPHICS::MaterialLayoutBinding@{OSK::GRAPHICS::MaterialLayoutBinding}!name@{name}}
+\index{name@{name}!OSK::GRAPHICS::MaterialLayoutBinding@{OSK::GRAPHICS::MaterialLayoutBinding}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily std\+::string OSK\+::\+GRAPHICS\+::\+Material\+Layout\+Binding\+::name}
+
+
+
+Nombre del binding. Debe ser único en un slot, pero pueden haber varios bindings con el mismo nombre en distintos slots. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_layout_binding_8h_source_l00030}{30}} del archivo \mbox{\hyperlink{_material_layout_binding_8h_source}{Material\+Layout\+Binding.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_a62bfb58cc5b65fd202a039cf08f9add4}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_a62bfb58cc5b65fd202a039cf08f9add4}} 
+\index{OSK::GRAPHICS::MaterialLayoutBinding@{OSK::GRAPHICS::MaterialLayoutBinding}!type@{type}}
+\index{type@{type}!OSK::GRAPHICS::MaterialLayoutBinding@{OSK::GRAPHICS::MaterialLayoutBinding}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1d}{Shader\+Binding\+Type}} OSK\+::\+GRAPHICS\+::\+Material\+Layout\+Binding\+::type}
+
+
+
+Tipo de binding. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_material_layout_binding_8h_source_l00035}{35}} del archivo \mbox{\hyperlink{_material_layout_binding_8h_source}{Material\+Layout\+Binding.\+h}}.
+
+
+
+La documentación para esta estructura fue generada a partir del siguiente fichero\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_material_layout_binding_8h}{Material\+Layout\+Binding.\+h}}\end{DoxyCompactItemize}

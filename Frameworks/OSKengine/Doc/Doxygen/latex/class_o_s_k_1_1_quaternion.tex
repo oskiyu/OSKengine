@@ -1,0 +1,209 @@
+\hypertarget{class_o_s_k_1_1_quaternion}{}\doxysection{Referencia de la Clase OSK\+::Quaternion}
+\label{class_o_s_k_1_1_quaternion}\index{OSK::Quaternion@{OSK::Quaternion}}
+
+
+{\ttfamily \#include $<$Quaternion.\+h$>$}
+
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_quaternion_abcc01358aada56ea5f0db4da18aaf77d}{Quaternion}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_quaternion_adb48d1d2334b6a47fde67ab2313e6447}{Rotate\+\_\+\+World\+Space}} (float angle, const \mbox{\hyperlink{namespace_o_s_k_a5e479af2ede269150542d90384ce3ee2}{Vector3f}} \&axis)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_quaternion_a75e8c10361739559544d11313264bd0c}{Rotate\+\_\+\+Local\+Space}} (float angle, const \mbox{\hyperlink{namespace_o_s_k_a5e479af2ede269150542d90384ce3ee2}{Vector3f}} \&axis)
+\item 
+\mbox{\hyperlink{namespace_o_s_k_a5e479af2ede269150542d90384ce3ee2}{Vector3f}} \mbox{\hyperlink{class_o_s_k_1_1_quaternion_a7ca39363e99e03a9feacca9c5691ce51}{To\+Euler\+Angles}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_quaternion}{Quaternion}} \mbox{\hyperlink{class_o_s_k_1_1_quaternion_af54cdc7831c4cf47741c86b34c22cfd8}{Interpolate}} (const \mbox{\hyperlink{class_o_s_k_1_1_quaternion}{Quaternion}} \&other, float factor) const
+\item 
+glm\+::quat \mbox{\hyperlink{class_o_s_k_1_1_quaternion_ac88cc76e26ff73c65e593e6273c8f4e9}{To\+Glm}} () const
+\item 
+glm\+::mat4 \mbox{\hyperlink{class_o_s_k_1_1_quaternion_a5ab0ea79fd870ee2e32b836c2c4f5525}{To\+Mat4}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Métodos públicos estáticos}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_o_s_k_1_1_quaternion}{Quaternion}} \mbox{\hyperlink{class_o_s_k_1_1_quaternion_add8e5106b98ff75f9d02db8955885307}{Create\+From\+Euler\+Angles}} (const \mbox{\hyperlink{namespace_o_s_k_a5e479af2ede269150542d90384ce3ee2}{Vector3f}} \&rot)
+\item 
+static \mbox{\hyperlink{class_o_s_k_1_1_quaternion}{Quaternion}} \mbox{\hyperlink{class_o_s_k_1_1_quaternion_a0cbf0edcbfd33647de6fa20d641d2216}{From\+Glm}} (const glm\+::quat \&quat)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Representa un cuaternión, para representar una orientación. 
+
+Definición en la línea \mbox{\hyperlink{_quaternion_8h_source_l00013}{13}} del archivo \mbox{\hyperlink{_quaternion_8h_source}{Quaternion.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_quaternion_abcc01358aada56ea5f0db4da18aaf77d}\label{class_o_s_k_1_1_quaternion_abcc01358aada56ea5f0db4da18aaf77d}} 
+\index{OSK::Quaternion@{OSK::Quaternion}!Quaternion@{Quaternion}}
+\index{Quaternion@{Quaternion}!OSK::Quaternion@{OSK::Quaternion}}
+\doxysubsubsection{\texorpdfstring{Quaternion()}{Quaternion()}}
+{\footnotesize\ttfamily Quaternion\+::\+Quaternion (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Crea el cuaternión. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_quaternion_8cpp_source_l00008}{8}} del archivo \mbox{\hyperlink{_quaternion_8cpp_source}{Quaternion.\+cpp}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_quaternion_add8e5106b98ff75f9d02db8955885307}\label{class_o_s_k_1_1_quaternion_add8e5106b98ff75f9d02db8955885307}} 
+\index{OSK::Quaternion@{OSK::Quaternion}!CreateFromEulerAngles@{CreateFromEulerAngles}}
+\index{CreateFromEulerAngles@{CreateFromEulerAngles}!OSK::Quaternion@{OSK::Quaternion}}
+\doxysubsubsection{\texorpdfstring{CreateFromEulerAngles()}{CreateFromEulerAngles()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{class_o_s_k_1_1_quaternion}{Quaternion}} OSK\+::\+Quaternion\+::\+Create\+From\+Euler\+Angles (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_o_s_k_a5e479af2ede269150542d90384ce3ee2}{Vector3f}} \&}]{rot }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Crea un cuaternión a partir de las coordenadas de Euler. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em rot} & Rotación.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+Quaternión.
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_o_s_k_1_1_quaternion_a0cbf0edcbfd33647de6fa20d641d2216}\label{class_o_s_k_1_1_quaternion_a0cbf0edcbfd33647de6fa20d641d2216}} 
+\index{OSK::Quaternion@{OSK::Quaternion}!FromGlm@{FromGlm}}
+\index{FromGlm@{FromGlm}!OSK::Quaternion@{OSK::Quaternion}}
+\doxysubsubsection{\texorpdfstring{FromGlm()}{FromGlm()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_quaternion}{Quaternion}} Quaternion\+::\+From\+Glm (\begin{DoxyParamCaption}\item[{const glm\+::quat \&}]{quat }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Crea un cuaternión a partir del dado. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_quaternion_8cpp_source_l00027}{27}} del archivo \mbox{\hyperlink{_quaternion_8cpp_source}{Quaternion.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_quaternion_af54cdc7831c4cf47741c86b34c22cfd8}\label{class_o_s_k_1_1_quaternion_af54cdc7831c4cf47741c86b34c22cfd8}} 
+\index{OSK::Quaternion@{OSK::Quaternion}!Interpolate@{Interpolate}}
+\index{Interpolate@{Interpolate}!OSK::Quaternion@{OSK::Quaternion}}
+\doxysubsubsection{\texorpdfstring{Interpolate()}{Interpolate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_quaternion}{Quaternion}} OSK\+::\+Quaternion\+::\+Interpolate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_quaternion}{Quaternion}} \&}]{other,  }\item[{float}]{factor }\end{DoxyParamCaption}) const}
+
+
+
+Interpola este cuaternion con otro. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em other} & Otro cuaternion.\\
+\hline
+{\em factor} & Factor de interpolación.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+\mbox{\hyperlink{class_o_s_k_1_1_quaternion}{Quaternion}} interpolado.
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_o_s_k_1_1_quaternion_a75e8c10361739559544d11313264bd0c}\label{class_o_s_k_1_1_quaternion_a75e8c10361739559544d11313264bd0c}} 
+\index{OSK::Quaternion@{OSK::Quaternion}!Rotate\_LocalSpace@{Rotate\_LocalSpace}}
+\index{Rotate\_LocalSpace@{Rotate\_LocalSpace}!OSK::Quaternion@{OSK::Quaternion}}
+\doxysubsubsection{\texorpdfstring{Rotate\_LocalSpace()}{Rotate\_LocalSpace()}}
+{\footnotesize\ttfamily void Quaternion\+::\+Rotate\+\_\+\+Local\+Space (\begin{DoxyParamCaption}\item[{float}]{angle,  }\item[{const \mbox{\hyperlink{namespace_o_s_k_a5e479af2ede269150542d90384ce3ee2}{Vector3f}} \&}]{axis }\end{DoxyParamCaption})}
+
+
+
+Rota el cuaternión dado un eje, que se interpreta en espacio local. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em angle} & Ángulo que se va a rotar.\\
+\hline
+{\em axis} & Eje, en coordenadas del cuaternión, sobre el que se va a rotar.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_quaternion_8cpp_source_l00019}{19}} del archivo \mbox{\hyperlink{_quaternion_8cpp_source}{Quaternion.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 0
+\mbox{\Hypertarget{class_o_s_k_1_1_quaternion_adb48d1d2334b6a47fde67ab2313e6447}\label{class_o_s_k_1_1_quaternion_adb48d1d2334b6a47fde67ab2313e6447}} 
+\index{OSK::Quaternion@{OSK::Quaternion}!Rotate\_WorldSpace@{Rotate\_WorldSpace}}
+\index{Rotate\_WorldSpace@{Rotate\_WorldSpace}!OSK::Quaternion@{OSK::Quaternion}}
+\doxysubsubsection{\texorpdfstring{Rotate\_WorldSpace()}{Rotate\_WorldSpace()}}
+{\footnotesize\ttfamily void Quaternion\+::\+Rotate\+\_\+\+World\+Space (\begin{DoxyParamCaption}\item[{float}]{angle,  }\item[{const \mbox{\hyperlink{namespace_o_s_k_a5e479af2ede269150542d90384ce3ee2}{Vector3f}} \&}]{axis }\end{DoxyParamCaption})}
+
+
+
+Rota el cuaternión dado un eje, que se interpreta en espacio del mundo. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em angle} & Ángulo que se va a rotar.\\
+\hline
+{\em axis} & Eje, en coordenadas del mundo, sobre el que se va a rotar.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_quaternion_8cpp_source_l00013}{13}} del archivo \mbox{\hyperlink{_quaternion_8cpp_source}{Quaternion.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 1
+\mbox{\Hypertarget{class_o_s_k_1_1_quaternion_a7ca39363e99e03a9feacca9c5691ce51}\label{class_o_s_k_1_1_quaternion_a7ca39363e99e03a9feacca9c5691ce51}} 
+\index{OSK::Quaternion@{OSK::Quaternion}!ToEulerAngles@{ToEulerAngles}}
+\index{ToEulerAngles@{ToEulerAngles}!OSK::Quaternion@{OSK::Quaternion}}
+\doxysubsubsection{\texorpdfstring{ToEulerAngles()}{ToEulerAngles()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_a5e479af2ede269150542d90384ce3ee2}{Vector3f}} Quaternion\+::\+To\+Euler\+Angles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve la rotación del cuaternión como coordenadas de Euler. 
+
+\begin{DoxyReturn}{Devuelve}
+Rotación.
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_quaternion_8cpp_source_l00023}{23}} del archivo \mbox{\hyperlink{_quaternion_8cpp_source}{Quaternion.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_quaternion_ac88cc76e26ff73c65e593e6273c8f4e9}\label{class_o_s_k_1_1_quaternion_ac88cc76e26ff73c65e593e6273c8f4e9}} 
+\index{OSK::Quaternion@{OSK::Quaternion}!ToGlm@{ToGlm}}
+\index{ToGlm@{ToGlm}!OSK::Quaternion@{OSK::Quaternion}}
+\doxysubsubsection{\texorpdfstring{ToGlm()}{ToGlm()}}
+{\footnotesize\ttfamily glm\+::quat Quaternion\+::\+To\+Glm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el cuaternión en formato GLM. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_quaternion_8cpp_source_l00038}{38}} del archivo \mbox{\hyperlink{_quaternion_8cpp_source}{Quaternion.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_quaternion_a5ab0ea79fd870ee2e32b836c2c4f5525}\label{class_o_s_k_1_1_quaternion_a5ab0ea79fd870ee2e32b836c2c4f5525}} 
+\index{OSK::Quaternion@{OSK::Quaternion}!ToMat4@{ToMat4}}
+\index{ToMat4@{ToMat4}!OSK::Quaternion@{OSK::Quaternion}}
+\doxysubsubsection{\texorpdfstring{ToMat4()}{ToMat4()}}
+{\footnotesize\ttfamily glm\+::mat4 Quaternion\+::\+To\+Mat4 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve una matriz de rotación. 
+
+\begin{DoxyReturn}{Devuelve}
+Matriz de rotación.
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_quaternion_8cpp_source_l00034}{34}} del archivo \mbox{\hyperlink{_quaternion_8cpp_source}{Quaternion.\+cpp}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_quaternion_8h}{Quaternion.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_quaternion_8cpp}{Quaternion.\+cpp}}\end{DoxyCompactItemize}

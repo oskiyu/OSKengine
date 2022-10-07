@@ -1,0 +1,47 @@
+\hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source}{}\doxysection{Bottom\+Level\+Acceleration\+Structure\+Vulkan.\+h}
+\label{_bottom_level_acceleration_structure_vulkan_8h_source}\index{OSKengine2/BottomLevelAccelerationStructureVulkan.h@{OSKengine2/BottomLevelAccelerationStructureVulkan.h}}
+\mbox{\hyperlink{_bottom_level_acceleration_structure_vulkan_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_bottom_level_acceleration_structure_8h}{IBottomLevelAccelerationStructure.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_unique_ptr_8hpp}{UniquePtr.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_data_buffer_8h}{IGpuDataBuffer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00008}00008 \textcolor{preprocessor}{\#include <vulkan/vulkan.h>}}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00010}00010 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}} \{}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00012}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan}{00012}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan}{BottomLevelAccelerationStructureVulkan}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure}{IBottomLevelAccelerationStructure}} \{}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00014}00014     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00016}00016         \textcolor{keywordtype}{void} Setup(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer}{IGpuVertexBuffer}}\& vertexBuffer, \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer}{IGpuIndexBuffer}}\& indexBuffer) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00017}00017         \textcolor{keywordtype}{void} Update() \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00019}00019         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} GetNumTriangles() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00020}00020         VkAccelerationStructureGeometryKHR GetGeometryInfo() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00022}00022         VkAccelerationStructureKHR GetHandle() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00023}00023         VkDeviceOrHostAddressConstKHR GetGpuAddress() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00025}00025     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00027}00027         \textcolor{keyword}{static} VkDeviceAddress GetBufferDeviceAddress(\textcolor{keyword}{const} VkBuffer buffer, \textcolor{keyword}{const} VkDevice logicalDevice);}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00028}00028         \textcolor{keyword}{static} VkDeviceAddress GetBlasDeviceAddress(\textcolor{keyword}{const} VkAccelerationStructureKHR tlas, \textcolor{keyword}{const} VkDevice logicalDevice);}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00030}00030         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<GpuDataBuffer>}} accelerationStructureBuffer;}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00031}00031         \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{UniquePtr<GpuDataBuffer>}} buildBuffer;}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00033}00033         VkAccelerationStructureKHR accelerationStructureHandle = VK\_NULL\_HANDLE;}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00034}00034         VkAccelerationStructureGeometryKHR geometryInfo\{\};}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00035}00035         VkDeviceOrHostAddressConstKHR accelerationStructureGpuAddress\{\};}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00037}00037         \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numTriangles = 0;}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00039}00039     \};}
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{_bottom_level_acceleration_structure_vulkan_8h_source_l00041}00041 \}}
+
+\end{DoxyCode}

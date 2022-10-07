@@ -1,0 +1,16 @@
+digraph "OSK::ECS::Transform3D::ApplyRotation"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::ECS::Transform3D\l::ApplyRotation",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Aplica una rotación al transform."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::Quaternion::FromGlm",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_quaternion.html#a0cbf0edcbfd33647de6fa20d641d2216",tooltip="Crea un cuaternión a partir del dado."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="OSK::ECS::Transform3D\l::SetRotation",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a5e6b4d0eb8915eefd7bcd0aeaa424163",tooltip="Establece la rotación."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="OSK::ECS::Transform3D\l::UpdateModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a64ea91f4fb800524683b5f0332e562cb",tooltip="Actualiza la matriz modelo, y la de sus hijos."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="OSK::Quaternion::ToGlm",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_quaternion.html#ac88cc76e26ff73c65e593e6273c8f4e9",tooltip="Devuelve el cuaternión en formato GLM."];
+}

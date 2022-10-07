@@ -1,0 +1,33 @@
+\hypertarget{_hlsl_runtime_compiler_8h_source}{}\doxysection{Hlsl\+Runtime\+Compiler.\+h}
+\label{_hlsl_runtime_compiler_8h_source}\index{OSKengine2/HlslRuntimeCompiler.h@{OSKengine2/HlslRuntimeCompiler.h}}
+\mbox{\hyperlink{_hlsl_runtime_compiler_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00003}00003 \textcolor{preprocessor}{\#include <wrl.h>}}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00004}00004 \textcolor{keyword}{using }Microsoft::WRL::ComPtr;}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}../Dependencies/OSKengine/dxc/include/dxc/dxcapi.h"{}}}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00007}00007 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00009}00009 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}} \{}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00015}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler}{00015}}     \textcolor{keyword}{class }\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler}{HlslRuntimeCompiler}} \{}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00017}00017     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00022}00022         \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler_ad56975c12b8c57456b4e213e2937281c}{InitializeComponents}}();}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00032}00032         ComPtr<IDxcBlob> \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler_a82745de6cab664215a954ab69a709c91}{CompileFromFile}}(\textcolor{keyword}{const} std::string\& path, \textcolor{keyword}{const} std::string\& hlslProfile);}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00034}00034     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00036}00036         \textcolor{keyword}{static} ComPtr<IDxcCompiler3> compiler;}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00037}00037         \textcolor{keyword}{static} ComPtr<IDxcUtils> utils;}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00038}00038         \textcolor{keyword}{static} ComPtr<IDxcIncludeHandler> includeHandler;}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00040}00040     \};}
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{_hlsl_runtime_compiler_8h_source_l00042}00042 \}}
+
+\end{DoxyCode}

@@ -14,6 +14,7 @@ namespace OSK::GRAPHICS {
 namespace OSK::ASSETS {
 	class IrradianceMap;
 	class Texture;
+	enum class ModelType;
 }
 
 namespace OSK::ECS {
@@ -42,14 +43,19 @@ namespace OSK::ECS {
 		void CreateTargetImage(const Vector2ui& size) override;
 		void Resize(const Vector2ui& size) override;
 
+		void OnTick(TDeltaTime deltaTime) override;
 		void Render(GRAPHICS::ICommandList* commandList) override;
 		
 		GRAPHICS::ShadowMap* GetShadowMap();
 		
 	private:
 		
-		void GenerateShadows(GRAPHICS::ICommandList* commandList);
+		void GenerateShadows(GRAPHICS::ICommandList* commandList, ASSETS::ModelType modelType);
 		void RenderScene(GRAPHICS::ICommandList* commandList);
+
+		void SceneRenderLoop(ASSETS::ModelType modelType, GRAPHICS::ICommandList* commandList);
+		void ShadowsRenderLoop(ASSETS::ModelType modelType, GRAPHICS::ICommandList* commandList, TSize cascadeIndex);
+
 		void RenderTerrain(GRAPHICS::ICommandList* commandList);
 
 		UniquePtr<GRAPHICS::IGpuUniformBuffer> cameraUbos[3]{};
@@ -60,6 +66,8 @@ namespace OSK::ECS {
 		ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
 
 		GRAPHICS::Material* sceneMaterial = nullptr;
+		GRAPHICS::Material* animatedSceneMaterial = nullptr;
+
 		UniquePtr<GRAPHICS::MaterialInstance> sceneMaterialInstance;
 
 		TerrainComponent terrain{};

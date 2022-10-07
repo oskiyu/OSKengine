@@ -1,0 +1,24 @@
+digraph "OSK::GRAPHICS::CommandListDx12::BindMaterialSlot"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::CommandList\lDx12::BindMaterialSlot",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Establece un material slot que estará asignado en los próximos comandos de renderizado...."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::GRAPHICS::IMaterial\lSlot::As",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#af2d37e6bc927e323f076e07508455f28",tooltip=" "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="OSK::GRAPHICS::GpuImageView\lDx12::GetDescriptorHeap",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_dx12.html#ad29f7a237d4a65b00c122f00756b0a99",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="OSK::GRAPHICS::GpuImageView\lDx12::GetGpuAddress",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_dx12.html#a1247f583d75c2d8b00e810e78b133122",tooltip=" "];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="OSK::GRAPHICS::MaterialSlot\lDx12::GetGpuImages",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a7d1a4be34395853243fcf9a8719bec35",tooltip=" "];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="OSK::GRAPHICS::Material\l::GetMaterialType",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#af145277bed3af0474a0e1abbd2a12fac",tooltip=" "];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="OSK::GRAPHICS::GpuMemory\lSubblockDx12::GetResource",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aeed70f548ec527591047d3bcb3764c0e",tooltip=" "];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="OSK::GRAPHICS::MaterialSlot\lDx12::GetStorageBuffers",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#aea6d7c108f29a0a4b77602745063ed21",tooltip=" "];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="OSK::GRAPHICS::MaterialSlot\lDx12::GetUniformBuffers",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a57e87e7a9bac2871336899e6842e583e",tooltip=" "];
+}

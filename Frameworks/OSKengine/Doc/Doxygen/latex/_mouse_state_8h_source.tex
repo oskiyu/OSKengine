@@ -1,0 +1,87 @@
+\hypertarget{_mouse_state_8h_source}{}\doxysection{Mouse\+State.\+h}
+\label{_mouse_state_8h_source}\index{OSKengine2/MouseState.h@{OSKengine2/MouseState.h}}
+\mbox{\hyperlink{_mouse_state_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kmacros_8h}{OSKmacros.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_vector2_8hpp}{Vector2.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00007}00007 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_i_o}{OSK::IO}} \{}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00012}\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77}{00012}}     \textcolor{keyword}{enum class} \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77}{MouseButton}} \{}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00017}00017         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77ac8dcbbd6eda649ff9bdb9873ae813ce4}{BUTTON\_1}},}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00022}00022         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77aa1a723bed8032bec8965b277db1282fd}{BUTTON\_2}},}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00027}00027         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77abed7db4dd815234cab9bc093ce7211ce}{BUTTON\_3}},}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00032}00032         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77aced95fd58604044d16afa405cc000f15}{BUTTON\_4}},}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00037}00037         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77a8ff4e0dd37cc18b1e5f58a03b587cc58}{BUTTON\_5}},}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00042}00042         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77a34bb46927945c34d8fb1cd3cca06f777}{BUTTON\_6}},}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00047}00047         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77a4f9e8a2c91b9d7fb9ed8db0caff8397a}{BUTTON\_7}},}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00052}00052         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77a36d9e3a4330b098458b81de2a861cbaa}{BUTTON\_LEFT}},}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00057}00057         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77ae075c9b2c5940dd1aa3b1564a8353f27}{BUTTON\_RIGHT}},}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00062}00062         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77a02029eeec1878b3c58e83b74ce07d11c}{BUTTON\_MIDDLE}},}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00064}00064         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a37e62c3e569002298eedcfd13bad4dd4a72b49a7cbf0c0e3dff052d091d838252}{\_\_END}}}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00066}00066     \};}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00071}\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a59bf216682b802b6dad7d81be5ea3f31}{00071}}     \textcolor{keyword}{enum class} \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a59bf216682b802b6dad7d81be5ea3f31}{ButtonState}} \{}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00072}00072 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00076}00076         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_aaddc5e8725ac9d930e313af0044eb968a109d54efbb64d71f9a6ab18d0fb8add8}{RELEASED}},}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00081}00081         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_aaddc5e8725ac9d930e313af0044eb968a5381dc876ab002103a027265bc14ae52}{PRESSED}}}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00083}00083     \};}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00088}\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a2126937723636a6160e7c746cc47b61c}{00088}}     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a2126937723636a6160e7c746cc47b61c}{MouseNumberOfButtons}} = (int)\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77a72b49a7cbf0c0e3dff052d091d838252}{MouseButton::\_\_END}};}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00094}\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state}{00094}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state}{MouseState}} \{}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00095}00095 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00096}00096     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00098}00098         \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_mouse_state}{MouseState}}();}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00099}00099 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00105}00105         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a59bf216682b802b6dad7d81be5ea3f31}{ButtonState}} GetButtonState(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77}{MouseButton}} button) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00112}00112         \textcolor{keywordtype}{bool} IsButtonDown(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77}{MouseButton}} button) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00113}00113 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00119}00119         \textcolor{keywordtype}{bool} IsButtonUp(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77}{MouseButton}} button) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00120}00120 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00124}00124         \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2i}} GetPosition() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00125}00125 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00132}00132         \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2}} GetRelativePosition() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00133}00133 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00137}00137         \textcolor{keywordtype}{int} GetScroll() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00138}00138 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00142}00142         \textcolor{keywordtype}{int} GetHorizontalScroll() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00143}00143 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00144}00144         \textcolor{keywordtype}{void} \_SetScrollX(\textcolor{keywordtype}{int} x);}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00145}00145         \textcolor{keywordtype}{void} \_SetScrollY(\textcolor{keywordtype}{int} y);}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00146}00146         \textcolor{keywordtype}{void} \_SetPosition(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2i}}\& pos);}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00147}00147         \textcolor{keywordtype}{void} \_SetRelativePosition(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2}}\& pos);}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00148}00148         \textcolor{keywordtype}{void} \_SetButtonState(\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_ab1308b3812c6bb66739549adf2501e77}{MouseButton}} button, \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a59bf216682b802b6dad7d81be5ea3f31}{ButtonState}} state);}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00149}00149 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00150}00150     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00151}00151 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00152}00152         \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2i}} position = 0;}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00153}00153         \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2}} relativePosition = 0.0f;}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00154}00154         \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2i}} scroll = 0;}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00155}00155 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00156}00156         \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a59bf216682b802b6dad7d81be5ea3f31}{ButtonState}} buttonStates[\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a2126937723636a6160e7c746cc47b61c}{MouseNumberOfButtons}}];}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00157}00157 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00158}00158     \};}
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00159}00159 }
+\DoxyCodeLine{\Hypertarget{_mouse_state_8h_source_l00160}00160 \}}
+
+\end{DoxyCode}

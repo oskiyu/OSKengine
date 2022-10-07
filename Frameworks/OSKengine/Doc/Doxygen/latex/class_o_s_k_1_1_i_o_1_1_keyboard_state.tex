@@ -1,0 +1,134 @@
+\hypertarget{class_o_s_k_1_1_i_o_1_1_keyboard_state}{}\doxysection{Referencia de la Clase OSK\+::IO\+::Keyboard\+State}
+\label{class_o_s_k_1_1_i_o_1_1_keyboard_state}\index{OSK::IO::KeyboardState@{OSK::IO::KeyboardState}}
+
+
+{\ttfamily \#include $<$Keyboard\+State.\+h$>$}
+
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state_a408807475b344a15e75e56757d7715d7}{Keyboard\+State}} ()
+\item 
+\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{Key\+State}} \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state_a34fa2bf30b1532db4066b72fa2b8f7cd}{Get\+Key\+State}} (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}} key) const
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state_a7b0105eda9c1f9c4f0182781a0cb0506}{Is\+Key\+Down}} (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}} key) const
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state_a13ac7fab7db9af7320e82a60bef49354}{Is\+Key\+Up}} (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}} key) const
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state_aa9050a71661db1622ca20abf45130982}{\+\_\+\+Set\+Key\+State}} (\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}} key, \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{Key\+State}} state)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state_af394cade4c71f70caab4b5700250718b}{operator=}} (const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state}{Keyboard\+State}} \&other)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Representa el estado del teclado en un instante determinado. Contiene el estado (presionado o suelto) de las teclas. 
+
+Definición en la línea \mbox{\hyperlink{_keyboard_state_8h_source_l00164}{164}} del archivo \mbox{\hyperlink{_keyboard_state_8h_source}{Keyboard\+State.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_keyboard_state_a408807475b344a15e75e56757d7715d7}\label{class_o_s_k_1_1_i_o_1_1_keyboard_state_a408807475b344a15e75e56757d7715d7}} 
+\index{OSK::IO::KeyboardState@{OSK::IO::KeyboardState}!KeyboardState@{KeyboardState}}
+\index{KeyboardState@{KeyboardState}!OSK::IO::KeyboardState@{OSK::IO::KeyboardState}}
+\doxysubsubsection{\texorpdfstring{KeyboardState()}{KeyboardState()}}
+{\footnotesize\ttfamily Keyboard\+State\+::\+Keyboard\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_keyboard_state_8cpp_source_l00007}{7}} del archivo \mbox{\hyperlink{_keyboard_state_8cpp_source}{Keyboard\+State.\+cpp}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_keyboard_state_aa9050a71661db1622ca20abf45130982}\label{class_o_s_k_1_1_i_o_1_1_keyboard_state_aa9050a71661db1622ca20abf45130982}} 
+\index{OSK::IO::KeyboardState@{OSK::IO::KeyboardState}!\_SetKeyState@{\_SetKeyState}}
+\index{\_SetKeyState@{\_SetKeyState}!OSK::IO::KeyboardState@{OSK::IO::KeyboardState}}
+\doxysubsubsection{\texorpdfstring{\_SetKeyState()}{\_SetKeyState()}}
+{\footnotesize\ttfamily void Keyboard\+State\+::\+\_\+\+Set\+Key\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}}}]{key,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{Key\+State}}}]{state }\end{DoxyParamCaption})}
+
+
+
+Establece el valor que va a tener la tecla, esté presionada o no. 
+
+\begin{DoxyWarning}{Atención}
+Función interna\+: para llamarse desde la ventana. 
+\end{DoxyWarning}
+
+
+Definición en la línea \mbox{\hyperlink{_keyboard_state_8cpp_source_l00023}{23}} del archivo \mbox{\hyperlink{_keyboard_state_8cpp_source}{Keyboard\+State.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_keyboard_state_a34fa2bf30b1532db4066b72fa2b8f7cd}\label{class_o_s_k_1_1_i_o_1_1_keyboard_state_a34fa2bf30b1532db4066b72fa2b8f7cd}} 
+\index{OSK::IO::KeyboardState@{OSK::IO::KeyboardState}!GetKeyState@{GetKeyState}}
+\index{GetKeyState@{GetKeyState}!OSK::IO::KeyboardState@{OSK::IO::KeyboardState}}
+\doxysubsubsection{\texorpdfstring{GetKeyState()}{GetKeyState()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a78afb37a98c122d12c3a1a38aba9e56e}{Key\+State}} Keyboard\+State\+::\+Get\+Key\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}}}]{key }\end{DoxyParamCaption}) const}
+
+
+
+Retorna el estado de una tecla dada. 
+
+\begin{DoxyReturn}{Devuelve}
+RELEASED o PRESSED.
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_keyboard_state_8cpp_source_l00011}{11}} del archivo \mbox{\hyperlink{_keyboard_state_8cpp_source}{Keyboard\+State.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_keyboard_state_a7b0105eda9c1f9c4f0182781a0cb0506}\label{class_o_s_k_1_1_i_o_1_1_keyboard_state_a7b0105eda9c1f9c4f0182781a0cb0506}} 
+\index{OSK::IO::KeyboardState@{OSK::IO::KeyboardState}!IsKeyDown@{IsKeyDown}}
+\index{IsKeyDown@{IsKeyDown}!OSK::IO::KeyboardState@{OSK::IO::KeyboardState}}
+\doxysubsubsection{\texorpdfstring{IsKeyDown()}{IsKeyDown()}}
+{\footnotesize\ttfamily bool Keyboard\+State\+::\+Is\+Key\+Down (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}}}]{key }\end{DoxyParamCaption}) const}
+
+
+
+Comprueba si una tecla está siendo pulsada. 
+
+\begin{DoxyReturn}{Devuelve}
+\textquotesingle{}true\textquotesingle{} = PRESSED. \textquotesingle{}false\textquotesingle{} = RELEASED.
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_keyboard_state_8cpp_source_l00015}{15}} del archivo \mbox{\hyperlink{_keyboard_state_8cpp_source}{Keyboard\+State.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_keyboard_state_a13ac7fab7db9af7320e82a60bef49354}\label{class_o_s_k_1_1_i_o_1_1_keyboard_state_a13ac7fab7db9af7320e82a60bef49354}} 
+\index{OSK::IO::KeyboardState@{OSK::IO::KeyboardState}!IsKeyUp@{IsKeyUp}}
+\index{IsKeyUp@{IsKeyUp}!OSK::IO::KeyboardState@{OSK::IO::KeyboardState}}
+\doxysubsubsection{\texorpdfstring{IsKeyUp()}{IsKeyUp()}}
+{\footnotesize\ttfamily bool Keyboard\+State\+::\+Is\+Key\+Up (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_i_o_a0b92714a4a778072d4824502589bd39e}{Key}}}]{key }\end{DoxyParamCaption}) const}
+
+
+
+Comprueba si una tecla no está siendo pulsada. 
+
+\begin{DoxyReturn}{Devuelve}
+\textquotesingle{}true\textquotesingle{} = RELEASED. \textquotesingle{}false\textquotesingle{} = PRESSED.
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_keyboard_state_8cpp_source_l00019}{19}} del archivo \mbox{\hyperlink{_keyboard_state_8cpp_source}{Keyboard\+State.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 0
+\mbox{\Hypertarget{class_o_s_k_1_1_i_o_1_1_keyboard_state_af394cade4c71f70caab4b5700250718b}\label{class_o_s_k_1_1_i_o_1_1_keyboard_state_af394cade4c71f70caab4b5700250718b}} 
+\index{OSK::IO::KeyboardState@{OSK::IO::KeyboardState}!operator=@{operator=}}
+\index{operator=@{operator=}!OSK::IO::KeyboardState@{OSK::IO::KeyboardState}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily void Keyboard\+State\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_keyboard_state}{Keyboard\+State}} \&}]{other }\end{DoxyParamCaption})}
+
+
+
+Copia los estados del otro teclado a este. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_keyboard_state_8cpp_source_l00027}{27}} del archivo \mbox{\hyperlink{_keyboard_state_8cpp_source}{Keyboard\+State.\+cpp}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_keyboard_state_8h}{Keyboard\+State.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_keyboard_state_8cpp}{Keyboard\+State.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,10 @@
+digraph "OSK::GRAPHICS::RendererDx12::SubmitSingleUseCommandList"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::RendererDx12\l::SubmitSingleUseCommandList",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Ejecuta el contenido de la lista de comandos."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::GRAPHICS::ICommandList::As",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a7bf40442c718857b7b6b6ced797d5b2a",tooltip=" "];
+}

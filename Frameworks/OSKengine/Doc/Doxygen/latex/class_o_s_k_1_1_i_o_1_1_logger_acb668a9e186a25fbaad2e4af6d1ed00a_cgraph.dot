@@ -1,0 +1,19 @@
+digraph "OSK::IO::Logger::~Logger"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::IO::Logger::~Logger",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Cierra el logger, guardando el archivo."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::IO::Logger::Close",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_logger.html#ab13114d60ca5f1f69f2ba0f2f1a5bd19",tooltip="Cierra el logger, guardando el archivo."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="OSK::IO::Logger::Clear",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_logger.html#a1191038d1044a1121e03cc267e9c681c",tooltip="Limpia los contenidos del archivo del log."];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="OSK::IO::Logger::InfoLog",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_logger.html#a3d2a88ffa05f6a74f9d669f1182bacca",tooltip="Manda un mensaje de información."];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="OSK::IO::Logger::Log",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_logger.html#ac2af30faaa120261990f4deb1b566e7b",tooltip="Manda un mensaje por el logger."];
+  Node2 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="OSK::IO::Logger::Save",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_logger.html#ab493233540e62404d594ea32de744fc3",tooltip="Guarda el archivo del log, en la ruta especificada en Logger::Start()."];
+  Node6 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+}

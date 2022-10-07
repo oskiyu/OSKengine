@@ -18,6 +18,7 @@
 #include "GpuImageSamplerDesc.h"
 #include "IrradianceMap.h"
 #include "CameraComponent3D.h"
+#include "Model3D.h"
 #include "Texture.h"
 
 using namespace OSK;
@@ -46,6 +47,7 @@ RenderSystem3D::RenderSystem3D() {// Signature del sistema
 	// Material de la escena
 	sceneMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_pbr.json");
 	sceneMaterialInstance = sceneMaterial->CreateInstance().GetPointer();
+	animatedSceneMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/Animated/material_pbr.json");
 
 	const IGpuUniformBuffer* _cameraUbos[3]{};
 	const IGpuUniformBuffer* _dirLightUbos[3]{};
@@ -119,7 +121,7 @@ ShadowMap* RenderSystem3D::GetShadowMap() {
 	return &shadowMap;
 }
 
-void RenderSystem3D::GenerateShadows(ICommandList* commandList) {
+void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelType) {
 	const TSize currentFrameIndex = Engine::GetRenderer()->GetCurrentCommandListIndex();
 	const Viewport viewport {
 		.rectangle = { 0u, 0u, shadowMap.GetColorImage(0)->GetSize().X, shadowMap.GetColorImage(0)->GetSize().Y }
@@ -143,28 +145,14 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList) {
 
 		commandList->BeginGraphicsRenderpass({ colorInfo }, depthInfo, { 1.0f, 1.0f, 1.0f, 1.0f });
 
-		commandList->BindMaterial(shadowMap.GetShadowsMaterial());
+		commandList->BindMaterial(shadowMap.GetShadowsMaterial(ModelType::STATIC_MESH));
 		commandList->BindMaterialSlot(shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
 
-		for (const GameObjectIndex obj : GetObjects()) {
-			const ModelComponent3D& model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj);
-			const Transform3D& transform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(obj);
+		ShadowsRenderLoop(ModelType::STATIC_MESH, commandList, i);
 
-			commandList->BindVertexBuffer(model.GetModel()->GetVertexBuffer());
-			commandList->BindIndexBuffer(model.GetModel()->GetIndexBuffer());
-
-			struct {
-				glm::mat4 model;
-				int cascadeIndex;
-			} const pushConstant {
-				.model = transform.GetAsMatrix(),
-				.cascadeIndex = static_cast<int>(i)
-			};
-			commandList->PushMaterialConstants("model", pushConstant);
-
-			for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++)
-				commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
-		}
+		commandList->BindMaterial(shadowMap.GetShadowsMaterial(ModelType::ANIMATED_MODEL));
+		commandList->BindMaterialSlot(shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
+		ShadowsRenderLoop(ModelType::ANIMATED_MODEL, commandList, i);
 
 		commandList->EndGraphicsRenderpass();
 	}
@@ -174,24 +162,38 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList) {
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH |SampledChannel::STENCIL });
 }
 
-void RenderSystem3D::RenderScene(GRAPHICS::ICommandList* commandList) {
+void RenderSystem3D::RenderScene(ICommandList* commandList) {
 	const TSize currentFrameIndex = Engine::GetRenderer()->GetCurrentCommandListIndex();
 	
 	commandList->SetGpuImageBarrier(renderTarget.GetMainTargetImage(currentFrameIndex), GpuImageLayout::SHADER_READ_ONLY,
 		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
+	commandList->BeginGraphicsRenderpass(&renderTarget, Color::BLACK() * 0.0f);
+	SetupViewport(commandList);
+
+	SceneRenderLoop(ModelType::STATIC_MESH, commandList);
+	SceneRenderLoop(ModelType::ANIMATED_MODEL, commandList);
+
+	if (terrain.GetVertexBuffer() != nullptr)
+		RenderTerrain(commandList);
+	
+	commandList->EndGraphicsRenderpass();
+}
+
+void RenderSystem3D::SceneRenderLoop(ModelType modelType, ICommandList* commandList) {
 	IGpuVertexBuffer* previousVertexBuffer = nullptr;
 	IGpuIndexBuffer* previousIndexBuffer = nullptr;
 
-	commandList->BeginGraphicsRenderpass(&renderTarget, Color::BLACK() * 0.0f);
-	SetupViewport(commandList);
-	commandList->BindMaterial(sceneMaterial);
+	commandList->BindMaterial(modelType == ModelType::STATIC_MESH ? sceneMaterial : animatedSceneMaterial);
 	commandList->BindMaterialSlot(sceneMaterialInstance->GetSlot("global"));
-	/**/
+	
 	for (GameObjectIndex obj : GetObjects()) {
 		const ModelComponent3D& model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj);
 		const Transform3D& transform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(obj);
+
+		if (model.GetModel()->GetType() != modelType)
+			continue;
 
 		if (previousVertexBuffer != model.GetModel()->GetVertexBuffer()) {
 			commandList->BindVertexBuffer(model.GetModel()->GetVertexBuffer());
@@ -206,27 +208,53 @@ void RenderSystem3D::RenderScene(GRAPHICS::ICommandList* commandList) {
 			glm::mat4 model;
 			glm::mat4 transposedInverseModel;
 			glm::vec4 materialInfos;
-		} pushConsts {
+		} pushConsts{
 			.model = transform.GetAsMatrix(),
 			.transposedInverseModel = glm::transpose(glm::inverse(transform.GetAsMatrix()))
 		};
+
+		if (modelType == ModelType::ANIMATED_MODEL)
+			commandList->BindMaterialSlot(model.GetModel()->GetAnimator()->GetMaterialInstance()->GetSlot("animation"));
 
 		for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
 			commandList->BindMaterialSlot(model.GetMeshMaterialInstance(i)->GetSlot("texture"));
 
 			pushConsts.materialInfos.x = model.GetModel()->GetMetadata().meshesMetadata[i].metallicFactor;
 			pushConsts.materialInfos.y = model.GetModel()->GetMetadata().meshesMetadata[i].roughnessFactor;
-			
+
 			commandList->PushMaterialConstants("pushConstants", pushConsts);
 
 			commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
 		}
 	}
-	/**/
-	if (terrain.GetVertexBuffer() != nullptr)
-		RenderTerrain(commandList);
-	
-	commandList->EndGraphicsRenderpass();
+}
+
+void RenderSystem3D::ShadowsRenderLoop(ModelType modelType, ICommandList* commandList, TSize cascadeIndex) {
+	for (const GameObjectIndex obj : GetObjects()) {
+		const ModelComponent3D& model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj);
+		const Transform3D& transform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(obj);
+
+		if (model.GetModel()->GetType() != modelType)
+			continue;
+
+		commandList->BindVertexBuffer(model.GetModel()->GetVertexBuffer());
+		commandList->BindIndexBuffer(model.GetModel()->GetIndexBuffer());
+
+		if (modelType == ModelType::ANIMATED_MODEL)
+			commandList->BindMaterialSlot(model.GetModel()->GetAnimator()->GetMaterialInstance()->GetSlot("animation"));
+
+		struct {
+			glm::mat4 model;
+			int cascadeIndex;
+		} const pushConstant{
+			.model = transform.GetAsMatrix(),
+			.cascadeIndex = static_cast<int>(cascadeIndex)
+		};
+		commandList->PushMaterialConstants("model", pushConstant);
+
+		for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++)
+			commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
+	}
 }
 
 void RenderSystem3D::RenderTerrain(ICommandList* commandList) {
@@ -271,6 +299,17 @@ void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
 
 	shadowMap.SetDirectionalLight(dirLight);
 	
-	GenerateShadows(commandList);
+	GenerateShadows(commandList, ModelType::STATIC_MESH);
 	RenderScene(commandList);
+}
+
+void RenderSystem3D::OnTick(TDeltaTime deltaTime) {
+	for (const GameObjectIndex obj : GetObjects()) {
+		Model3D* model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj).GetModel();
+
+		if (model->GetType() == ModelType::STATIC_MESH)
+			continue;
+
+		model->GetAnimator()->Update(deltaTime, Vector3f(1.0f));
+	}
 }

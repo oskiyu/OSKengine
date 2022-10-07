@@ -1,0 +1,388 @@
+\hypertarget{class_o_s_k_1_1_unique_ptr}{}\doxysection{Referencia de la plantilla de la Clase OSK\+::Unique\+Ptr\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}}
+\label{class_o_s_k_1_1_unique_ptr}\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+
+
+{\ttfamily \#include $<$Unique\+Ptr.\+hpp$>$}
+
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_a4678a9a65f48ff77f1c751010d6c870c}{Unique\+Ptr}} ()
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_ac7d9ba3d378be135a071268fed5dd0e9}{Unique\+Ptr}} (T $\ast$data)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_a2b541d7235bc9bdad7bec36fe4a778e9}{operator=}} (T $\ast$data)
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_a5922899585bf6cb4745238b09c1ccce3}{$\sim$\+Unique\+Ptr}} ()
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_a826bb459fd6c7a78b59942d69aaf048c}{Unique\+Ptr}} (const \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}} \&)=delete
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}} \& \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_aeb863ab4be85e6c46b23520b814eb19c}{operator=}} (const \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}} \&)=delete
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_a9ab9d755f7d9721ce936bb7568139df5}{Unique\+Ptr}} (\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}} \&\&other) noexcept
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}} \& \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_a38e7b9325d9020dd2a220d0c296ec070}{operator=}} (\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}} \&\&other) noexcept
+\item 
+T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_abf2f6b6e820f745e03c87b6695c21b0a}{Release}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_a02df140640da15131866950714467fb9}{Set\+New\+Value}} (T $\ast$new\+Value)
+\item 
+T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_a4ff8b3d184f88a3fabfd311cedb1f683}{Get\+Pointer}} () const
+\item 
+T \& \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_ae444e352257effada8e79f33d1953023}{Get\+Value}} ()
+\item 
+T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_a6b874e8359089fe93cea40a95d0db83e}{operator-\/$>$}} () const
+\item 
+T \& \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_af2b9b6cba9a377c57491de5134aef420}{operator$\ast$}} ()
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_a749f82b5131afb4f29527e1749d8d255}{Has\+Value}} () const
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_a39da2bc8dc4424258a8455eae98c4497}{Delete}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_a3c6725a56406ebbce68e3eac61ac14b2}{Swap}} (\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ T $>$ \&other)
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_a2e066e6c844a2bb6833dfb95e2b54af9}{operator==}} (const \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}} \&other) const
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr_a160be32b235347126c8a2169585270cd}{operator!=}} (const \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}} \&other) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+\subsubsection*{template$<$typename T$>$\newline
+class OSK\+::\+Unique\+Ptr$<$ T $>$}
+Es dueño de un puntero. El puntero original es eliminado al destruirse el \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}. 
+
+\begin{DoxyNote}{Nota}
+Usarse como miembro deshabilita el constructor de copia.
+\end{DoxyNote}
+\begin{DoxyPrecond}{Precondición}
+Debe incluirse el tipo que se vaya a usar dentro del \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}T.h"{}} }
+
+\end{DoxyCode}
+ De lo contrario, no se llamará al destructor al eliminarse. 
+\end{DoxyPrecond}
+
+
+
+\begin{DoxyTemplParams}{Parámetros del template}
+{\em T} & Tipo del puntero.\\
+\hline
+\end{DoxyTemplParams}
+
+
+Definición en la línea \mbox{\hyperlink{_unique_ptr_8hpp_source_l00020}{20}} del archivo \mbox{\hyperlink{_unique_ptr_8hpp_source}{Unique\+Ptr.\+hpp}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_a4678a9a65f48ff77f1c751010d6c870c}\label{class_o_s_k_1_1_unique_ptr_a4678a9a65f48ff77f1c751010d6c870c}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!UniquePtr@{UniquePtr}}
+\index{UniquePtr@{UniquePtr}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{UniquePtr()}{UniquePtr()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::\+Unique\+Ptr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Crea un \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}} vacío. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_unique_ptr_8hpp_source_l00029}{29}} del archivo \mbox{\hyperlink{_unique_ptr_8hpp_source}{Unique\+Ptr.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_ac7d9ba3d378be135a071268fed5dd0e9}\label{class_o_s_k_1_1_unique_ptr_ac7d9ba3d378be135a071268fed5dd0e9}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!UniquePtr@{UniquePtr}}
+\index{UniquePtr@{UniquePtr}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{UniquePtr()}{UniquePtr()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::\+Unique\+Ptr (\begin{DoxyParamCaption}\item[{T $\ast$}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_unique_ptr_8hpp_source_l00033}{33}} del archivo \mbox{\hyperlink{_unique_ptr_8hpp_source}{Unique\+Ptr.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_a5922899585bf6cb4745238b09c1ccce3}\label{class_o_s_k_1_1_unique_ptr_a5922899585bf6cb4745238b09c1ccce3}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!````~UniquePtr@{$\sim$UniquePtr}}
+\index{````~UniquePtr@{$\sim$UniquePtr}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$UniquePtr()}{~UniquePtr()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::$\sim$\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Destruye el puntero, eliminándolo. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_unique_ptr_8hpp_source_l00049}{49}} del archivo \mbox{\hyperlink{_unique_ptr_8hpp_source}{Unique\+Ptr.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_a826bb459fd6c7a78b59942d69aaf048c}\label{class_o_s_k_1_1_unique_ptr_a826bb459fd6c7a78b59942d69aaf048c}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!UniquePtr@{UniquePtr}}
+\index{UniquePtr@{UniquePtr}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{UniquePtr()}{UniquePtr()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::\+Unique\+Ptr (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ T $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_a9ab9d755f7d9721ce936bb7568139df5}\label{class_o_s_k_1_1_unique_ptr_a9ab9d755f7d9721ce936bb7568139df5}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!UniquePtr@{UniquePtr}}
+\index{UniquePtr@{UniquePtr}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{UniquePtr()}{UniquePtr()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::\+Unique\+Ptr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ T $>$ \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Este puntero será dueño del puntero de other. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em other} & Otro puntero.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_unique_ptr_8hpp_source_l00060}{60}} del archivo \mbox{\hyperlink{_unique_ptr_8hpp_source}{Unique\+Ptr.\+hpp}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_a39da2bc8dc4424258a8455eae98c4497}\label{class_o_s_k_1_1_unique_ptr_a39da2bc8dc4424258a8455eae98c4497}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!Delete@{Delete}}
+\index{Delete@{Delete}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Delete()}{Delete()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::\+Delete (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Elimina el puntero. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_unique_ptr_8hpp_source_l00138}{138}} del archivo \mbox{\hyperlink{_unique_ptr_8hpp_source}{Unique\+Ptr.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_a4ff8b3d184f88a3fabfd311cedb1f683}\label{class_o_s_k_1_1_unique_ptr_a4ff8b3d184f88a3fabfd311cedb1f683}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!GetPointer@{GetPointer}}
+\index{GetPointer@{GetPointer}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetPointer()}{GetPointer()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::\+Get\+Pointer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Devuelve el puntero nativo. 
+
+\begin{DoxyReturn}{Devuelve}
+Puntero.
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_unique_ptr_8hpp_source_l00099}{99}} del archivo \mbox{\hyperlink{_unique_ptr_8hpp_source}{Unique\+Ptr.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_ae444e352257effada8e79f33d1953023}\label{class_o_s_k_1_1_unique_ptr_ae444e352257effada8e79f33d1953023}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!GetValue@{GetValue}}
+\index{GetValue@{GetValue}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetValue()}{GetValue()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T \& \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::\+Get\+Value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Devuelve el valor apuntado por el puntero. 
+
+\begin{DoxyReturn}{Devuelve}
+Valor.
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_unique_ptr_8hpp_source_l00107}{107}} del archivo \mbox{\hyperlink{_unique_ptr_8hpp_source}{Unique\+Ptr.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_a749f82b5131afb4f29527e1749d8d255}\label{class_o_s_k_1_1_unique_ptr_a749f82b5131afb4f29527e1749d8d255}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!HasValue@{HasValue}}
+\index{HasValue@{HasValue}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{HasValue()}{HasValue()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::\+Has\+Value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Devuelve true si el puntero no es null. 
+
+\begin{DoxyReturn}{Devuelve}
+Estado del puntero.
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_unique_ptr_8hpp_source_l00131}{131}} del archivo \mbox{\hyperlink{_unique_ptr_8hpp_source}{Unique\+Ptr.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_a160be32b235347126c8a2169585270cd}\label{class_o_s_k_1_1_unique_ptr_a160be32b235347126c8a2169585270cd}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ T $>$ \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_unique_ptr_8hpp_source_l00155}{155}} del archivo \mbox{\hyperlink{_unique_ptr_8hpp_source}{Unique\+Ptr.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_af2b9b6cba9a377c57491de5134aef420}\label{class_o_s_k_1_1_unique_ptr_af2b9b6cba9a377c57491de5134aef420}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$()}{operator*()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T \& \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::operator$\ast$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Devuelve el valor apuntado por el puntero. 
+
+\begin{DoxyReturn}{Devuelve}
+Valor.
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_unique_ptr_8hpp_source_l00123}{123}} del archivo \mbox{\hyperlink{_unique_ptr_8hpp_source}{Unique\+Ptr.\+hpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 0
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_a6b874e8359089fe93cea40a95d0db83e}\label{class_o_s_k_1_1_unique_ptr_a6b874e8359089fe93cea40a95d0db83e}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!operator-\/$>$@{operator-\/$>$}}
+\index{operator-\/$>$@{operator-\/$>$}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator-\/$>$()}{operator->()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::operator-\/$>$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Devuelve el puntero nativo. 
+
+\begin{DoxyReturn}{Devuelve}
+Puntero.
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_unique_ptr_8hpp_source_l00115}{115}} del archivo \mbox{\hyperlink{_unique_ptr_8hpp_source}{Unique\+Ptr.\+hpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 1
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_aeb863ab4be85e6c46b23520b814eb19c}\label{class_o_s_k_1_1_unique_ptr_aeb863ab4be85e6c46b23520b814eb19c}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}} \& \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ T $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_a2b541d7235bc9bdad7bec36fe4a778e9}\label{class_o_s_k_1_1_unique_ptr_a2b541d7235bc9bdad7bec36fe4a778e9}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::operator= (\begin{DoxyParamCaption}\item[{T $\ast$}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Crea un \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}} que será dueño de \textquotesingle{}data\textquotesingle{}. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em data} & Puntero original.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_unique_ptr_8hpp_source_l00041}{41}} del archivo \mbox{\hyperlink{_unique_ptr_8hpp_source}{Unique\+Ptr.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_a38e7b9325d9020dd2a220d0c296ec070}\label{class_o_s_k_1_1_unique_ptr_a38e7b9325d9020dd2a220d0c296ec070}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}} \& \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ T $>$ \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Este puntero será dueño del puntero de other. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em other} & Otro puntero.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+Self.
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_unique_ptr_8hpp_source_l00069}{69}} del archivo \mbox{\hyperlink{_unique_ptr_8hpp_source}{Unique\+Ptr.\+hpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_a2e066e6c844a2bb6833dfb95e2b54af9}\label{class_o_s_k_1_1_unique_ptr_a2e066e6c844a2bb6833dfb95e2b54af9}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ T $>$ \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_unique_ptr_8hpp_source_l00152}{152}} del archivo \mbox{\hyperlink{_unique_ptr_8hpp_source}{Unique\+Ptr.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_abf2f6b6e820f745e03c87b6695c21b0a}\label{class_o_s_k_1_1_unique_ptr_abf2f6b6e820f745e03c87b6695c21b0a}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!Release@{Release}}
+\index{Release@{Release}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Release()}{Release()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::\+Release (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+
+
+
+
+Definición en la línea \mbox{\hyperlink{_unique_ptr_8hpp_source_l00078}{78}} del archivo \mbox{\hyperlink{_unique_ptr_8hpp_source}{Unique\+Ptr.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_a02df140640da15131866950714467fb9}\label{class_o_s_k_1_1_unique_ptr_a02df140640da15131866950714467fb9}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!SetNewValue@{SetNewValue}}
+\index{SetNewValue@{SetNewValue}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{SetNewValue()}{SetNewValue()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::\+Set\+New\+Value (\begin{DoxyParamCaption}\item[{T $\ast$}]{new\+Value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Cambia el puntero de este \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}} (eliminando el anterior). 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em new\+Value} & Nuevo valor.\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \mbox{\hyperlink{_unique_ptr_8hpp_source_l00089}{89}} del archivo \mbox{\hyperlink{_unique_ptr_8hpp_source}{Unique\+Ptr.\+hpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_unique_ptr_a3c6725a56406ebbce68e3eac61ac14b2}\label{class_o_s_k_1_1_unique_ptr_a3c6725a56406ebbce68e3eac61ac14b2}} 
+\index{OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}!Swap@{Swap}}
+\index{Swap@{Swap}!OSK::UniquePtr$<$ T $>$@{OSK::UniquePtr$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Swap()}{Swap()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{OSK\+::\+Unique\+Ptr}}$<$ T $>$\+::\+Swap (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ T $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Intercambia el puntero con el otro \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_unique_ptr_8hpp_source_l00146}{146}} del archivo \mbox{\hyperlink{_unique_ptr_8hpp_source}{Unique\+Ptr.\+hpp}}.
+
+
+
+La documentación para esta clase fue generada a partir del siguiente fichero\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_unique_ptr_8hpp}{Unique\+Ptr.\+hpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,14 @@
+digraph "OSK::GRAPHICS::IGpuMemoryAllocator"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::IGpuMemory\lAllocator",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="El asignador de memoria se encarga de reservar grandes bloques de memoria en la GPU,..."];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" bufferMemoryBlocks" ,fontname="Helvetica"];
+  Node2 [label="OSK::DynamicArray\<\l OSK::Pair\< OSK::GRAPHICS\l::GpuBufferMemoryBlockInfo,\l OSK::LinkedList\< OSK::OwnedPtr\l\< OSK::GRAPHICS::IGpuMemoryBlock \> \> \> \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html",tooltip=" "];
+  Node3 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" imageMemoryBlocks" ,fontname="Helvetica"];
+  Node3 [label="OSK::LinkedList\< OSK\l::OwnedPtr\< OSK::GRAPHICS\l::IGpuMemoryBlock \> \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_linked_list.html",tooltip=" "];
+  Node4 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" device" ,fontname="Helvetica"];
+  Node4 [label="OSK::GRAPHICS::IGpu",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html",tooltip="Interfaz de una tarjeta gráfica."];
+}

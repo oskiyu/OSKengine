@@ -1,0 +1,275 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::Gpu\+Vulkan}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}\index{OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}}
+
+
+{\ttfamily \#include $<$Gpu\+Vulkan.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::Gpu\+Vulkan
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::Gpu\+Vulkan\+:
+% FIG 1
+\doxysubsection*{Clases}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info}{Info}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a3333e86fa8addb27c1a36bd31f965d61}{$\sim$\+Gpu\+Vulkan}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_ade54f44448af92b77f9bbbf5d8b0238e}{Close}} () override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool}{ICommand\+Pool}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a69a2679fe95387142b334c0f0d80a10f}{Create\+Graphics\+Command\+Pool}} () override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool}{ICommand\+Pool}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_aad74041f06f17bfdc884a4f7fdba584e}{Create\+Compute\+Command\+Pool}} () override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sync_device}{ISync\+Device}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a72e81edd358721f159de68f4e61ef786}{Create\+Sync\+Device}} () override
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_adf81eb314519ecdb7f987c37433e516a}{Set\+Physical\+Device}} (Vk\+Physical\+Device gpu)
+\item 
+Vk\+Physical\+Device \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a1a6237ead3829c839c2665c50c4fef77}{Get\+Physical\+Device}} () const
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a5fe436790457ca4399c9500c17f708ad}{Set\+Info}} (const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info}{Info}} \&info)
+\item 
+const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info}{Info}} \& \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_aee5a2fabcfefd4fc26f06f30f2d83ed5}{Get\+Info}} () const
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a5a806e010c5e1feabf3cc82ff7ec3d37}{Create\+Logical\+Device}} (Vk\+Surface\+KHR surface)
+\item 
+Vk\+Device \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a9f3d2735d7bb54ecb4056d5284cb686f}{Get\+Logical\+Device}} () const
+\item 
+Vk\+Surface\+KHR \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_aea2f9eabd4f091110f92af0af9b0be4e}{Get\+Surface}} () const
+\item 
+\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices}{Queue\+Family\+Indices}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_aa66415743a9c4fa79891e6a1aaf11543}{Get\+Queue\+Family\+Indices}} (Vk\+Surface\+KHR surface) const
+\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}}, T$>$}\\T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_a1b0e5d22fed49696034d38442892121c}{As}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Implementación de la interfaz para el renderizador de Vulkan. 
+
+Definición en la línea \mbox{\hyperlink{_gpu_vulkan_8h_source_l00014}{14}} del archivo \mbox{\hyperlink{_gpu_vulkan_8h_source}{Gpu\+Vulkan.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a3333e86fa8addb27c1a36bd31f965d61}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a3333e86fa8addb27c1a36bd31f965d61}} 
+\index{OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}!````~GpuVulkan@{$\sim$GpuVulkan}}
+\index{````~GpuVulkan@{$\sim$GpuVulkan}!OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}}
+\doxysubsubsection{\texorpdfstring{$\sim$GpuVulkan()}{~GpuVulkan()}}
+{\footnotesize\ttfamily Gpu\+Vulkan\+::$\sim$\+Gpu\+Vulkan (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_vulkan_8cpp_source_l00019}{19}} del archivo \mbox{\hyperlink{_gpu_vulkan_8cpp_source}{Gpu\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_a1b0e5d22fed49696034d38442892121c}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_a1b0e5d22fed49696034d38442892121c}} 
+\index{OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}!As@{As}}
+\index{As@{As}!OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}}
+\doxysubsubsection{\texorpdfstring{As()}{As()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}}, T$>$\\
+T $\ast$ OSK\+::\+GRAPHICS\+::\+IGpu\+::\+As (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Castea la clase al tipo dado. 
+
+\begin{DoxyNote}{Nota}
+Este tipo debe ser una implementación de esta interfaz. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_i_gpu_8h_source_l00049}{49}} del archivo \mbox{\hyperlink{_i_gpu_8h_source}{IGpu.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_ade54f44448af92b77f9bbbf5d8b0238e}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_ade54f44448af92b77f9bbbf5d8b0238e}} 
+\index{OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}!Close@{Close}}
+\index{Close@{Close}!OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}}
+\doxysubsubsection{\texorpdfstring{Close()}{Close()}}
+{\footnotesize\ttfamily void Gpu\+Vulkan\+::\+Close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Elimina el logical device. 
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_ab505de7218654c86ee2d63eed1915b71}{OSK\+::\+GRAPHICS\+::\+IGpu}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_vulkan_8cpp_source_l00067}{67}} del archivo \mbox{\hyperlink{_gpu_vulkan_8cpp_source}{Gpu\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_aad74041f06f17bfdc884a4f7fdba584e}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_aad74041f06f17bfdc884a4f7fdba584e}} 
+\index{OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}!CreateComputeCommandPool@{CreateComputeCommandPool}}
+\index{CreateComputeCommandPool@{CreateComputeCommandPool}!OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateComputeCommandPool()}{CreateComputeCommandPool()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool}{ICommand\+Pool}} $>$ Gpu\+Vulkan\+::\+Create\+Compute\+Command\+Pool (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea una pool de comandos, para poder crear listas de comandos de computación. 
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_a0c87d0b7604e00ae3ef78fd12905b82b}{OSK\+::\+GRAPHICS\+::\+IGpu}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_vulkan_8cpp_source_l00043}{43}} del archivo \mbox{\hyperlink{_gpu_vulkan_8cpp_source}{Gpu\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 3
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a69a2679fe95387142b334c0f0d80a10f}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a69a2679fe95387142b334c0f0d80a10f}} 
+\index{OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}!CreateGraphicsCommandPool@{CreateGraphicsCommandPool}}
+\index{CreateGraphicsCommandPool@{CreateGraphicsCommandPool}!OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateGraphicsCommandPool()}{CreateGraphicsCommandPool()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool}{ICommand\+Pool}} $>$ Gpu\+Vulkan\+::\+Create\+Graphics\+Command\+Pool (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea una pool de comandos, para poder crear listas de comandos gráficos y de presentación. 
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_a91dd60fd85afa10dc814b4a026f00c4a}{OSK\+::\+GRAPHICS\+::\+IGpu}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_vulkan_8cpp_source_l00023}{23}} del archivo \mbox{\hyperlink{_gpu_vulkan_8cpp_source}{Gpu\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 4
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a5a806e010c5e1feabf3cc82ff7ec3d37}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a5a806e010c5e1feabf3cc82ff7ec3d37}} 
+\index{OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}!CreateLogicalDevice@{CreateLogicalDevice}}
+\index{CreateLogicalDevice@{CreateLogicalDevice}!OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateLogicalDevice()}{CreateLogicalDevice()}}
+{\footnotesize\ttfamily void Gpu\+Vulkan\+::\+Create\+Logical\+Device (\begin{DoxyParamCaption}\item[{Vk\+Surface\+KHR}]{surface }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Tareas pendientes}
+\item[\mbox{\hyperlink{todo__todo000009}{Tareas pendientes}}]check \end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Tareas pendientes}
+\item[\mbox{\hyperlink{todo__todo000010}{Tareas pendientes}}]check \end{DoxyRefDesc}
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_vulkan_8cpp_source_l00082}{82}} del archivo \mbox{\hyperlink{_gpu_vulkan_8cpp_source}{Gpu\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 5
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a72e81edd358721f159de68f4e61ef786}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a72e81edd358721f159de68f4e61ef786}} 
+\index{OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}!CreateSyncDevice@{CreateSyncDevice}}
+\index{CreateSyncDevice@{CreateSyncDevice}!OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateSyncDevice()}{CreateSyncDevice()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sync_device}{ISync\+Device}} $>$ Gpu\+Vulkan\+::\+Create\+Sync\+Device (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea un dispositivo de sincronización GPU -\/ CPU. 
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_a310ead68015201310d92bd3a1d9eca11}{OSK\+::\+GRAPHICS\+::\+IGpu}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_vulkan_8cpp_source_l00230}{230}} del archivo \mbox{\hyperlink{_gpu_vulkan_8cpp_source}{Gpu\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_aee5a2fabcfefd4fc26f06f30f2d83ed5}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_aee5a2fabcfefd4fc26f06f30f2d83ed5}} 
+\index{OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}!GetInfo@{GetInfo}}
+\index{GetInfo@{GetInfo}!OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}}
+\doxysubsubsection{\texorpdfstring{GetInfo()}{GetInfo()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info}{Gpu\+Vulkan\+::\+Info}} \& Gpu\+Vulkan\+::\+Get\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_vulkan_8cpp_source_l00189}{189}} del archivo \mbox{\hyperlink{_gpu_vulkan_8cpp_source}{Gpu\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a9f3d2735d7bb54ecb4056d5284cb686f}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a9f3d2735d7bb54ecb4056d5284cb686f}} 
+\index{OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}!GetLogicalDevice@{GetLogicalDevice}}
+\index{GetLogicalDevice@{GetLogicalDevice}!OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}}
+\doxysubsubsection{\texorpdfstring{GetLogicalDevice()}{GetLogicalDevice()}}
+{\footnotesize\ttfamily Vk\+Device Gpu\+Vulkan\+::\+Get\+Logical\+Device (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_vulkan_8cpp_source_l00181}{181}} del archivo \mbox{\hyperlink{_gpu_vulkan_8cpp_source}{Gpu\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a1a6237ead3829c839c2665c50c4fef77}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a1a6237ead3829c839c2665c50c4fef77}} 
+\index{OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}!GetPhysicalDevice@{GetPhysicalDevice}}
+\index{GetPhysicalDevice@{GetPhysicalDevice}!OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}}
+\doxysubsubsection{\texorpdfstring{GetPhysicalDevice()}{GetPhysicalDevice()}}
+{\footnotesize\ttfamily Vk\+Physical\+Device Gpu\+Vulkan\+::\+Get\+Physical\+Device (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_vulkan_8cpp_source_l00078}{78}} del archivo \mbox{\hyperlink{_gpu_vulkan_8cpp_source}{Gpu\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_aa66415743a9c4fa79891e6a1aaf11543}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_aa66415743a9c4fa79891e6a1aaf11543}} 
+\index{OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}!GetQueueFamilyIndices@{GetQueueFamilyIndices}}
+\index{GetQueueFamilyIndices@{GetQueueFamilyIndices}!OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}}
+\doxysubsubsection{\texorpdfstring{GetQueueFamilyIndices()}{GetQueueFamilyIndices()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices}{Queue\+Family\+Indices}} Gpu\+Vulkan\+::\+Get\+Queue\+Family\+Indices (\begin{DoxyParamCaption}\item[{Vk\+Surface\+KHR}]{surface }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve información sobre las colas soportadas por esta GPU. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_vulkan_8cpp_source_l00193}{193}} del archivo \mbox{\hyperlink{_gpu_vulkan_8cpp_source}{Gpu\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 6
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_aea2f9eabd4f091110f92af0af9b0be4e}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_aea2f9eabd4f091110f92af0af9b0be4e}} 
+\index{OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}!GetSurface@{GetSurface}}
+\index{GetSurface@{GetSurface}!OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}}
+\doxysubsubsection{\texorpdfstring{GetSurface()}{GetSurface()}}
+{\footnotesize\ttfamily Vk\+Surface\+KHR Gpu\+Vulkan\+::\+Get\+Surface (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_vulkan_8cpp_source_l00063}{63}} del archivo \mbox{\hyperlink{_gpu_vulkan_8cpp_source}{Gpu\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a5fe436790457ca4399c9500c17f708ad}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_a5fe436790457ca4399c9500c17f708ad}} 
+\index{OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}!SetInfo@{SetInfo}}
+\index{SetInfo@{SetInfo}!OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}}
+\doxysubsubsection{\texorpdfstring{SetInfo()}{SetInfo()}}
+{\footnotesize\ttfamily void Gpu\+Vulkan\+::\+Set\+Info (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info}{Info}} \&}]{info }\end{DoxyParamCaption})}
+
+
+
+Actualiza la información conocida sobre esta gráfica. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_vulkan_8cpp_source_l00185}{185}} del archivo \mbox{\hyperlink{_gpu_vulkan_8cpp_source}{Gpu\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_adf81eb314519ecdb7f987c37433e516a}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_adf81eb314519ecdb7f987c37433e516a}} 
+\index{OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}!SetPhysicalDevice@{SetPhysicalDevice}}
+\index{SetPhysicalDevice@{SetPhysicalDevice}!OSK::GRAPHICS::GpuVulkan@{OSK::GRAPHICS::GpuVulkan}}
+\doxysubsubsection{\texorpdfstring{SetPhysicalDevice()}{SetPhysicalDevice()}}
+{\footnotesize\ttfamily void Gpu\+Vulkan\+::\+Set\+Physical\+Device (\begin{DoxyParamCaption}\item[{Vk\+Physical\+Device}]{gpu }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_gpu_vulkan_8cpp_source_l00074}{74}} del archivo \mbox{\hyperlink{_gpu_vulkan_8cpp_source}{Gpu\+Vulkan.\+cpp}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_gpu_vulkan_8h}{Gpu\+Vulkan.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_gpu_vulkan_8cpp}{Gpu\+Vulkan.\+cpp}}\end{DoxyCompactItemize}

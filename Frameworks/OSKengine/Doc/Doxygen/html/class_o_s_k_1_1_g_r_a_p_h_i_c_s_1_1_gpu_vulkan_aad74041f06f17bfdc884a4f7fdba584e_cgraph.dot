@@ -1,0 +1,20 @@
+digraph "OSK::GRAPHICS::GpuVulkan::CreateComputeCommandPool"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::GpuVulkan\l::CreateComputeCommandPool",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Crea una pool de comandos, para poder crear listas de comandos de computación."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::GRAPHICS::GpuVulkan\l::GetQueueFamilyIndices",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#aa66415743a9c4fa79891e6a1aaf11543",tooltip="Devuelve información sobre las colas soportadas por esta GPU."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="OSK::DynamicArray::\lCreateResizedArray",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#a6560c13598111f1aa6b53357ae120116",tooltip="Crea un DynamicArray con un número de elementos ya creados e insertados."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="OSK::DynamicArray::\lResize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#adcbd5bb6ce88469bc9e6f65be06ceae6",tooltip="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda. Se añaden elementos hasta q..."];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="OSK::DynamicArray::\lReserve",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#a34323ddf4963e2097def5d8c3f80c08e",tooltip="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda."];
+  Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="OSK::DynamicArray::\lAllocate",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#acf322bf27bf4bfd581079500c67171a6",tooltip="Reserva espacio para 'size' elementos. Preserva los elementos anteriores."];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="OSK::GRAPHICS::CommandPool\lVulkan::SetCommandPool",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan.html#aeaa066f3b693815d9a2ef346f105e990",tooltip=" "];
+}

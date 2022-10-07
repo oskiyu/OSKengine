@@ -1,0 +1,48 @@
+\hypertarget{_gpu_image_dx12_8h_source}{}\doxysection{Gpu\+Image\+Dx12.\+h}
+\label{_gpu_image_dx12_8h_source}\index{OSKengine2/GpuImageDx12.h@{OSKengine2/GpuImageDx12.h}}
+\mbox{\hyperlink{_gpu_image_dx12_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_image_8h}{IGpuImage.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <wrl.h>}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00006}00006 \textcolor{preprocessor}{\#include <dxgi1\_6.h>}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00007}00007 \textcolor{preprocessor}{\#include <d3d12.h>}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00009}00009 \textcolor{keyword}{using namespace }Microsoft::WRL;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00011}00011 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}} \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00013}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12}{00013}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12}{GpuImageDx12}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GpuImage}} \{}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00015}00015     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00017}00017         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12}{GpuImageDx12}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector3__t}{Vector3ui}}\& size, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ab91ccc08d13454cfeb3c4f78deb72d59}{GpuImageDimension}} dimension, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffa}{GpuImageUsage}} usage, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numLayers, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aac59f9d056e083c0b49ea768f974e3e8}{Format}} format, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numSamples, \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc}{GpuImageSamplerDesc}} samplerDesc);}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00019}00019         \textcolor{keywordtype}{void} FillResourceDesc();}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00020}00020         \textcolor{keyword}{const} D3D12\_RESOURCE\_DESC\& GetResourceDesc();}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00021}00021         \textcolor{keywordtype}{void} CreateResource(ID3D12Heap* memory, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} memoryOffset);}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00023}00023         \textcolor{comment}{// Swapchain}}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00024}00024         \textcolor{keywordtype}{void} \_SetResource(ComPtr<ID3D12Resource> resource);}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00026}00026         ID3D12Resource* GetResource() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00028}00028         \textcolor{keywordtype}{void} SetDebugName(\textcolor{keyword}{const} std::string\& name) \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00030}00030     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00032}00032         \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{OwnedPtr<IGpuImageView>}} CreateView(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a02ed44392ae1f51786ead8911c3afe9d}{SampledChannel}} channel, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a55e114ba828198c2146f5233e462ba39}{SampledArrayType}} arrayType, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} baseArrayLevel, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} layerCount, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ade40ecf1619c14b53344301c1eca1bca}{ViewUsage}} usage) \textcolor{keyword}{const override};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00034}00034     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00036}00036         D3D12\_RESOURCE\_DESC resourceDesc\{\};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00038}00038         ComPtr<ID3D12Resource> resource;}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00040}00040     \};}
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{_gpu_image_dx12_8h_source_l00042}00042 \}}
+
+\end{DoxyCode}

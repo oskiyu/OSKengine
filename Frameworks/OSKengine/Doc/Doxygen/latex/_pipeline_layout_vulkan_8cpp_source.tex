@@ -1,0 +1,89 @@
+\hypertarget{_pipeline_layout_vulkan_8cpp_source}{}\doxysection{Pipeline\+Layout\+Vulkan.\+cpp}
+\label{_pipeline_layout_vulkan_8cpp_source}\index{OSKengine2/PipelineLayoutVulkan.cpp@{OSKengine2/PipelineLayoutVulkan.cpp}}
+\mbox{\hyperlink{_pipeline_layout_vulkan_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_pipeline_layout_vulkan_8h}{PipelineLayoutVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include <vulkan/vulkan.h>}}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_enum_flags_8hpp}{EnumFlags.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_material_layout_8h}{MaterialLayout.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_shader_binding_type_8h}{ShaderBindingType.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00009}00009 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kengine_8h}{OSKengine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00010}00010 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_renderer_vulkan_8h}{RendererVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00011}00011 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_vulkan_8h}{GpuVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00012}00012 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_descriptor_layout_vulkan_8h}{DescriptorLayoutVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00013}00013 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_shader_binding_type_vulkan_8h}{ShaderBindingTypeVulkan.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00015}00015 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00016}00016 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}};}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00018}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan_a871bc8e169a40dec39d218b798eee126}{00018}} PipelineLayoutVulkan::PipelineLayoutVulkan(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{MaterialLayout}}* materialLayout)}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00019}00019     : \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout}{IPipelineLayout}}(materialLayout) \{}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00021}00021     \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkDescriptorSetLayoutBinding>}} params;}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00022}00022     \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<OwnedPtr<DescriptorLayoutVulkan>}}> descLayouts;}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00023}00023     \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkDescriptorSetLayout>}} nativeDescLayouts;}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00024}00024     \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<VkPushConstantRange>}} pushConstantRanges;}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00025}00025     VkDevice device = \mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8b6b1698afeb3bb07f3b91e5ddb79b2d}{GetGpu}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_a1b0e5d22fed49696034d38442892121c}{As}}<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{GpuVulkan}}>()-\/>GetLogicalDevice();}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00027}00027     \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{DynamicArray<MaterialLayoutSlot>}} orderedSlots\{\};}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00028}00028     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} \textcolor{keyword}{const}\& slotName : materialLayout-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_a82de8efeace9ce18733634fb7c1cc8a3}{GetAllSlotNames}}())}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00029}00029         orderedSlots.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(materialLayout-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_a7a1845df7f0113a0285adfbea469df90}{GetSlot}}(slotName));}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00031}00031     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < orderedSlots.GetSize() -\/ 1; i++) \{}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00032}00032         \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} j = 0; j < orderedSlots.GetSize() -\/ 1; j++) \{}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00033}00033             \textcolor{keyword}{const} \textcolor{keyword}{auto}\& slot1 = orderedSlots[j + 1].glslSetIndex;}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00034}00034             \textcolor{keyword}{const} \textcolor{keyword}{auto}\& slot2 = orderedSlots[j].glslSetIndex;}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00036}00036             \textcolor{keywordflow}{if} (slot1 < slot2) \{}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00037}00037                 \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot}{MaterialLayoutSlot}} temp = orderedSlots[j + 1];}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00038}00038                 orderedSlots[j + 1] = orderedSlots[j];}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00039}00039                 orderedSlots[j] = temp;}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00040}00040             \}}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00041}00041         \}}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00042}00042     \}}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00044}00044     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& slot : orderedSlots) \{}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00045}00045         \textcolor{keyword}{auto} descLayout = \textcolor{keyword}{new} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan}{DescriptorLayoutVulkan}}(\&slot);}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00046}00046         descLayouts.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(descLayout);}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00047}00047         nativeDescLayouts.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(descLayout-\/>GetLayout());}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00048}00048     \}}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00050}00050     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& i : materialLayout-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_aeb38d6651a3696756da72767b802913a}{GetAllPushConstants}}()) \{}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00051}00051         VkPushConstantRange range\{\};}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00053}00053         range.stageFlags = \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3a50046339fbf8642e14273583cd8118}{GetShaderStageVk}}(i.second.stage);}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00054}00054         range.offset = i.second.offset;}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00055}00055         range.size = i.second.size;}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00057}00057         pushConstantRanges.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(range);}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00058}00058     \}}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00060}00060     \textcolor{comment}{// PIPELINE LAYOUT}}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00061}00061     VkPipelineLayoutCreateInfo pipelineLayoutInfo\{\};}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00062}00062     pipelineLayoutInfo.sType = VK\_STRUCTURE\_TYPE\_PIPELINE\_LAYOUT\_CREATE\_INFO;}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00063}00063     pipelineLayoutInfo.setLayoutCount = nativeDescLayouts.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}();}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00064}00064     pipelineLayoutInfo.pSetLayouts = nativeDescLayouts.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_ac8a6d70f938c482e1f7aa68c7d186bb8}{GetData}}();}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00065}00065     pipelineLayoutInfo.pushConstantRangeCount = pushConstantRanges.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}();}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00066}00066     pipelineLayoutInfo.pPushConstantRanges = pushConstantRanges.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_ac8a6d70f938c482e1f7aa68c7d186bb8}{GetData}}();}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00067}00067     }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00068}00068     VkResult result = vkCreatePipelineLayout(device, \&pipelineLayoutInfo, \textcolor{keyword}{nullptr}, \&layout);}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00069}00069     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(result == VK\_SUCCESS, \textcolor{stringliteral}{"{}No se ha podido crear el pipeline layout."{}});}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00071}00071     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < descLayouts.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}(); i++)}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00072}00072         \textcolor{keyword}{delete} descLayouts.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a9691f5eaf46654d59525c6c342d69cbb}{At}}(i).GetPointer();}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00073}00073 \}}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00075}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan_a1e908de630a416559cb68296fe7f1f7a}{00075}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan_a1e908de630a416559cb68296fe7f1f7a}{PipelineLayoutVulkan::\string~PipelineLayoutVulkan}}() \{}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00076}00076     VkDevice device = \mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8b6b1698afeb3bb07f3b91e5ddb79b2d}{GetGpu}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_a1b0e5d22fed49696034d38442892121c}{As}}<\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan}{GpuVulkan}}>()-\/>GetLogicalDevice();}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00078}00078     vkDestroyPipelineLayout(device, layout, \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00079}00079 \}}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00081}\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan_a0e696c665dd2ae8981307e8eedaf4d72}{00081}} \mbox{\hyperlink{_pipeline_layout_vulkan_8h_ab677b8770dbd4de18d116401a3c15086}{VkPipelineLayout}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan_a0e696c665dd2ae8981307e8eedaf4d72}{PipelineLayoutVulkan::GetLayout}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00082}00082     \textcolor{keywordflow}{return} layout;}
+\DoxyCodeLine{\Hypertarget{_pipeline_layout_vulkan_8cpp_source_l00083}00083 \}}
+
+\end{DoxyCode}

@@ -5,6 +5,7 @@ var class_o_s_k_1_1_linked_list =
     [ "TSize", "class_o_s_k_1_1_linked_list.html#a7585498d30ebf2f03fee951aa257983d", null ],
     [ "LinkedList", "class_o_s_k_1_1_linked_list.html#a3a3b1a75bde33f519c6bf275f588a050", null ],
     [ "LinkedList", "class_o_s_k_1_1_linked_list.html#a25b20868271186d7ee597a740655a4e7", null ],
+    [ "LinkedList", "class_o_s_k_1_1_linked_list.html#afebc4e22c8214b1c3d0a782b71c78ba0", null ],
     [ "LinkedList", "class_o_s_k_1_1_linked_list.html#a057961bcc29828942f1c9f5055c6bf12", null ],
     [ "~LinkedList", "class_o_s_k_1_1_linked_list.html#adfd1498621a066c0259f4de82ad7c380", null ],
     [ "At", "class_o_s_k_1_1_linked_list.html#aedc9d34e76f08d7e298b1f90f5f69af9", null ],

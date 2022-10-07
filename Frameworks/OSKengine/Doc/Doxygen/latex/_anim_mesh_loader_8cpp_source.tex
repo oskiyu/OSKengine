@@ -1,0 +1,405 @@
+\hypertarget{_anim_mesh_loader_8cpp_source}{}\doxysection{Anim\+Mesh\+Loader.\+cpp}
+\label{_anim_mesh_loader_8cpp_source}\index{OSKengine2/AnimMeshLoader.cpp@{OSKengine2/AnimMeshLoader.cpp}}
+\mbox{\hyperlink{_anim_mesh_loader_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_anim_mesh_loader_8h}{AnimMeshLoader.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kengine_8h}{OSKengine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_renderer_8h}{IRenderer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_memory_allocator_8h}{IGpuMemoryAllocator.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_dimensions_8h}{GpuImageDimensions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_format_8h}{Format.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00008}00008 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_memory_types_8h}{GpuMemoryTypes.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00009}00009 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_layout_8h}{GpuImageLayout.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00011}00011 \textcolor{preprocessor}{\#include <ext/matrix\_transform.hpp>}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00012}00012 \textcolor{preprocessor}{\#include <gtc/type\_ptr.hpp>}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00014}00014 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_animation_8h}{Animation.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00015}00015 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_animation_sampler_8h}{AnimationSampler.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00016}00016 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_material_8h}{Material.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00017}00017 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_animation_skin_8h}{AnimationSkin.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00019}00019 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00020}00020 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_a_s_s_e_t_s}{OSK::ASSETS}};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00021}00021 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00024}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a8cd98695f9b0402dfe8490f48626175e}{00024}} \textcolor{keywordtype}{void} AnimMeshLoader::SmoothNormals() \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00025}00025     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a959ef8e127e315b6c0c8c36a84e6668b}{indices}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}(); i += 3) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00026}00026         \textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a05f5134cdcc67a7889c57e39aa2f25ae}{TIndexSize}} localIndices[3] = \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00027}00027             \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a959ef8e127e315b6c0c8c36a84e6668b}{indices}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a9691f5eaf46654d59525c6c342d69cbb}{At}}(i + 0),}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00028}00028             \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a959ef8e127e315b6c0c8c36a84e6668b}{indices}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a9691f5eaf46654d59525c6c342d69cbb}{At}}(i + 1),}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00029}00029             \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a959ef8e127e315b6c0c8c36a84e6668b}{indices}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a9691f5eaf46654d59525c6c342d69cbb}{At}}(i + 2)}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00030}00030         \};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00032}00032         \textcolor{keyword}{const} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d}{VertexAnim3D}} localVertices[3] = \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00033}00033             \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_aebf6d2e64fec46bddda959aff0cbc626}{vertices}}.At(localIndices[0]),}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00034}00034             \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_aebf6d2e64fec46bddda959aff0cbc626}{vertices}}.At(localIndices[1]),}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00035}00035             \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_aebf6d2e64fec46bddda959aff0cbc626}{vertices}}.At(localIndices[2])}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00036}00036         \};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00038}00038         \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector3__t}{Vector3f}} v0 = localVertices[1].\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d_a87163d548c9cc71e2cbacb8befcdd66c}{position}} -\/ localVertices[0].\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d_a87163d548c9cc71e2cbacb8befcdd66c}{position}};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00039}00039         \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector3__t}{Vector3f}} v1 = localVertices[2].\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d_a87163d548c9cc71e2cbacb8befcdd66c}{position}} -\/ localVertices[0].\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d_a87163d548c9cc71e2cbacb8befcdd66c}{position}};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00041}00041         \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector3__t}{Vector3f}} faceNormal = v0.\mbox{\hyperlink{class_o_s_k_1_1_vector3__t_a11968baed38c50bb37083845b41efd72}{Cross}}(v1).\mbox{\hyperlink{class_o_s_k_1_1_vector3__t_aef1702c4230df139c7f0e28cd27bc4a6}{GetNormalized}}();}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00042}00042 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00043}00043         \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} li = 0; li < 3; li++)}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00044}00044             \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_aebf6d2e64fec46bddda959aff0cbc626}{vertices}}.At(localIndices[li]).normal += faceNormal;}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00045}00045     \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00047}00047     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} v = 0; v < \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_aebf6d2e64fec46bddda959aff0cbc626}{vertices}}.GetSize(); v++)}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00048}00048         \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_aebf6d2e64fec46bddda959aff0cbc626}{vertices}}.At(v).normal.Normalize();}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00049}00049 \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00051}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a11d55449219f6a21f62c76851986c44b}{00051}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a11d55449219f6a21f62c76851986c44b}{AnimMeshLoader::ProcessNode}}(\textcolor{keyword}{const} tinygltf::Node\& node, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} nodeId, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} parentId, \textcolor{keyword}{const} glm::mat4\& prevMat) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00052}00052     \textcolor{keywordflow}{if} (\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a24080b45f94d8af3473ac5c5434715bd}{tempAnimator}}.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_ab111329da7b08c3a10ed561fb96a2767}{GetActiveSkin}}() == \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00053}00053         LoadSkins();}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00055}00055     \textcolor{keyword}{const} glm::mat4 nodeMatrix = glm::scale(\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a747200f086fa73749e89a093cc5d4b6f}{GetNodeMatrix}}(node), glm::vec3(\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac931328cb85a161544c8fb1c8dcb963e}{globalScale}}));}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00057}00057     \textcolor{comment}{// Proceso del polígono.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00058}00058     \textcolor{keywordflow}{if} (node.mesh > -\/1) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00059}00059         \textcolor{keyword}{const} tinygltf::Mesh\& mesh = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.meshes[node.mesh];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00060}00060 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00061}00061         \textcolor{keywordflow}{if} (mesh.primitives[0].material > -\/1)}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00062}00062             \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_abd487d53bcb45bc6c67fb2dcf1df5dc8}{meshIdToMaterialId}}.\mbox{\hyperlink{class_o_s_k_1_1_hash_map_a9840da146cc95d82bc7c505334db32a4}{Insert}}(\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a166cefbfbf4daa3a50a1230befcbe495}{meshes}}.GetSize(), mesh.primitives[0].material);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00064}00064         \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < mesh.primitives.size(); i++) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00065}00065             \textcolor{keyword}{const} tinygltf::Primitive\& primitive = mesh.primitives[i];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00067}00067             \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(primitive.mode == TINYGLTF\_MODE\_TRIANGLES, \textcolor{stringliteral}{"{}El modelo no está en modo TRIÁNGULOS."{}});}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00069}00069             \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numVertices = 0;}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00070}00070             \textcolor{keyword}{const} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} firstVertexId = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_aebf6d2e64fec46bddda959aff0cbc626}{vertices}}.GetSize();}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00071}00071             \textcolor{keyword}{const} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} firstIndexId = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a959ef8e127e315b6c0c8c36a84e6668b}{indices}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a94d0cbf0543d0c976de674d31b15df90}{GetSize}}();}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00072}00072 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00073}00073             \textcolor{comment}{// Los datos se almacenan en forma de buffers.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00074}00074             \textcolor{keyword}{const} \textcolor{keywordtype}{float}* positionsBuffer = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00075}00075             \textcolor{keyword}{const} \textcolor{keywordtype}{float}* normalsBuffer = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00076}00076             \textcolor{keyword}{const} \textcolor{keywordtype}{float}* texCoordsBuffer = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00078}00078             \textcolor{keyword}{const} \textcolor{keywordtype}{void}* boneIds = \textcolor{keyword}{nullptr}; \textcolor{comment}{// Puede ser de varios tipos}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00079}00079             \textcolor{keyword}{const} \textcolor{keywordtype}{float}* boneWeights = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00080}00080             \textcolor{keywordtype}{int} jointsDataType = 0;}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00082}00082             \textcolor{comment}{// Comprobamos que tiene almacenado info de posición.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00083}00083             \textcolor{keywordflow}{if} (primitive.attributes.find(\textcolor{stringliteral}{"{}POSITION"{}}) != primitive.attributes.end()) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00084}00084                 \textcolor{comment}{// Para poder acceder a la información en forma de buffer.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00085}00085                 \textcolor{keyword}{const} tinygltf::Accessor\& accessor = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.accessors[primitive.attributes.find(\textcolor{stringliteral}{"{}POSITION"{}})-\/>second];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00086}00086                 \textcolor{keyword}{const} tinygltf::BufferView\& view = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.bufferViews[accessor.bufferView];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00087}00087 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00088}00088                 \textcolor{comment}{// Leemos el buffer.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00089}00089                 positionsBuffer = \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }\textcolor{keywordtype}{float}*\textcolor{keyword}{>}(\&(\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00090}00090                 numVertices = \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}\textcolor{keyword}{>}(accessor.count);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00091}00091             \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00093}00093             \textcolor{comment}{// Comprobamos que tiene almacenado info de normales.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00094}00094             \textcolor{keywordflow}{if} (primitive.attributes.find(\textcolor{stringliteral}{"{}NORMAL"{}}) != primitive.attributes.end()) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00095}00095                 \textcolor{comment}{// Para poder acceder a la información en forma de buffer.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00096}00096                 \textcolor{keyword}{const} tinygltf::Accessor\& accessor = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.accessors[primitive.attributes.find(\textcolor{stringliteral}{"{}NORMAL"{}})-\/>second];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00097}00097                 \textcolor{keyword}{const} tinygltf::BufferView\& view = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.bufferViews[accessor.bufferView];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00098}00098 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00099}00099                 \textcolor{comment}{// Leemos el buffer.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00100}00100                 normalsBuffer = \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }\textcolor{keywordtype}{float}*\textcolor{keyword}{>}(\&(\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00101}00101             \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00102}00102 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00103}00103             \textcolor{comment}{// Comprobamos que tiene almacenado info de coordenadas de texturas.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00104}00104             \textcolor{keywordflow}{if} (primitive.attributes.find(\textcolor{stringliteral}{"{}TEXCOORD\_0"{}}) != primitive.attributes.end()) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00105}00105                 \textcolor{comment}{// Para poder acceder a la información en forma de buffer.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00106}00106                 \textcolor{keyword}{const} tinygltf::Accessor\& accessor = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.accessors[primitive.attributes.find(\textcolor{stringliteral}{"{}TEXCOORD\_0"{}})-\/>second];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00107}00107                 \textcolor{keyword}{const} tinygltf::BufferView\& view = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.bufferViews[accessor.bufferView];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00109}00109                 \textcolor{comment}{// Leemos el buffer.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00110}00110                 texCoordsBuffer = \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }\textcolor{keywordtype}{float}*\textcolor{keyword}{>}(\&(\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00111}00111             \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00113}00113             \textcolor{comment}{// Comprobamos que tiene almacenado info de animación.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00114}00114             \textcolor{keywordflow}{if} (primitive.attributes.find(\textcolor{stringliteral}{"{}JOINTS\_0"{}}) != primitive.attributes.end()) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00115}00115                 \textcolor{comment}{// Para poder acceder a la información en forma de buffer.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00116}00116                 \textcolor{keyword}{const} tinygltf::Accessor\& accessor = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.accessors[primitive.attributes.find(\textcolor{stringliteral}{"{}JOINTS\_0"{}})-\/>second];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00117}00117                 \textcolor{keyword}{const} tinygltf::BufferView\& view = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.bufferViews[accessor.bufferView];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00118}00118 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00119}00119                 \textcolor{comment}{// Leemos el buffer.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00120}00120                 boneIds = \&(\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00121}00121                 jointsDataType = accessor.componentType;}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00122}00122             \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00123}00123 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00124}00124             \textcolor{keywordflow}{if} (primitive.attributes.find(\textcolor{stringliteral}{"{}WEIGHTS\_0"{}}) != primitive.attributes.end()) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00125}00125                 \textcolor{comment}{// Para poder acceder a la información en forma de buffer.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00126}00126                 \textcolor{keyword}{const} tinygltf::Accessor\& accessor = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.accessors[primitive.attributes.find(\textcolor{stringliteral}{"{}WEIGHTS\_0"{}})-\/>second];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00127}00127                 \textcolor{keyword}{const} tinygltf::BufferView\& view = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.bufferViews[accessor.bufferView];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00128}00128 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00129}00129                 \textcolor{comment}{// Leemos el buffer.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00130}00130                 boneWeights = \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }\textcolor{keywordtype}{float}*\textcolor{keyword}{>}(\&(\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00131}00131             \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00132}00132 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00133}00133             \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(positionsBuffer != \textcolor{keyword}{nullptr}, \textcolor{stringliteral}{"{}No se encontraron posiciones."{}});}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00134}00134             \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(normalsBuffer != \textcolor{keyword}{nullptr}, \textcolor{stringliteral}{"{}No se encontraron normales."{}});}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00135}00135             \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(texCoordsBuffer != \textcolor{keyword}{nullptr}, \textcolor{stringliteral}{"{}No se encontraron coordenadas de texturas."{}});}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00136}00136 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00137}00137             \textcolor{comment}{// Procesamos los buffers y generamos nuevos vértices.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00138}00138             \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} v = 0; v < numVertices; v++) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00139}00139                 glm::vec4 vertexPosition = glm::vec4(}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00140}00140                     positionsBuffer[v * 3 + 0],}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00141}00141                     positionsBuffer[v * 3 + 1],}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00142}00142                     positionsBuffer[v * 3 + 2],}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00143}00143                     \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac931328cb85a161544c8fb1c8dcb963e}{globalScale}}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00144}00144                 );}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00145}00145 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00146}00146                 \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d}{VertexAnim3D}} vertex\{\};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00147}00147                 vertex.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d_a87163d548c9cc71e2cbacb8befcdd66c}{position}} = glm::vec3(nodeMatrix * vertexPosition);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00148}00148 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00149}00149                 \textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_vector3__t}{Vector3f}} originalNormal = \mbox{\hyperlink{class_o_s_k_1_1_vector3__t}{Vector3f}}\{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00150}00150                     normalsBuffer[v * 3 + 0],}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00151}00151                     normalsBuffer[v * 3 + 1],}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00152}00152                     normalsBuffer[v * 3 + 2]}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00153}00153                 \}.\mbox{\hyperlink{class_o_s_k_1_1_vector3__t_aef1702c4230df139c7f0e28cd27bc4a6}{GetNormalized}}();}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00154}00154 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00155}00155                 \textcolor{comment}{// Las normales se calculan aparte.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00156}00156 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00157}00157                 vertex.texCoords = \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00158}00158                     texCoordsBuffer[v * 2 + 0],}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00159}00159                     texCoordsBuffer[v * 2 + 1]}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00160}00160                 \};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00161}00161 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00162}00162                 \textcolor{keywordflow}{if} (primitive.material > -\/1)}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00163}00163                     vertex.color = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a349edf8e41b582ca8f20d8a646bdda2b}{modelInfo}}.\mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_model_info_ac493b41919ba8ddcf21e9e2c2163ed08}{materialInfos}}[primitive.material].baseColor;}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00164}00164                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00165}00165                     vertex.color = 1.0f;}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00166}00166 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00167}00167                 \textcolor{keywordflow}{switch} (jointsDataType) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00168}00168                 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00169}00169                 \textcolor{keywordflow}{case} TINYGLTF\_PARAMETER\_TYPE\_UNSIGNED\_INT: \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00170}00170                     vertex.boneIndices = \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00171}00171                         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }uint32\_t*\textcolor{keyword}{>}(boneIds)[v * 4 + 0]),}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00172}00172                         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }uint32\_t*\textcolor{keyword}{>}(boneIds)[v * 4 + 1]),}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00173}00173                         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }uint32\_t*\textcolor{keyword}{>}(boneIds)[v * 4 + 2]),}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00174}00174                         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }uint32\_t*\textcolor{keyword}{>}(boneIds)[v * 4 + 3])}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00175}00175                     \};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00176}00176 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00177}00177                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00178}00178                 \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00179}00179 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00180}00180                 \textcolor{keywordflow}{case} TINYGLTF\_PARAMETER\_TYPE\_UNSIGNED\_SHORT: \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00181}00181                     vertex.boneIndices = \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00182}00182                         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }uint16\_t*\textcolor{keyword}{>}(boneIds)[v * 4 + 0]),}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00183}00183                         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }uint16\_t*\textcolor{keyword}{>}(boneIds)[v * 4 + 1]),}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00184}00184                         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }uint16\_t*\textcolor{keyword}{>}(boneIds)[v * 4 + 2]),}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00185}00185                         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }uint16\_t*\textcolor{keyword}{>}(boneIds)[v * 4 + 3])}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00186}00186                     \};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00187}00187 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00188}00188                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00189}00189                 \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00190}00190 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00191}00191                 \textcolor{keywordflow}{case} TINYGLTF\_PARAMETER\_TYPE\_UNSIGNED\_BYTE: \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00192}00192                     vertex.boneIndices = \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00193}00193                         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }uint8\_t*\textcolor{keyword}{>}(boneIds)[v * 4 + 0]),}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00194}00194                         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }uint8\_t*\textcolor{keyword}{>}(boneIds)[v * 4 + 1]),}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00195}00195                         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }uint8\_t*\textcolor{keyword}{>}(boneIds)[v * 4 + 2]),}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00196}00196                         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }uint8\_t*\textcolor{keyword}{>}(boneIds)[v * 4 + 3])}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00197}00197                     \};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00198}00198 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00199}00199                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00200}00200                 \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00201}00201 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00202}00202                 \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00203}00203                     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(\textcolor{keyword}{false}, \textcolor{stringliteral}{"{}Tipo de JOINT no soportado: "{}} + std::to\_string(jointsDataType) + \textcolor{stringliteral}{"{}."{}});}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00204}00204                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00205}00205 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00206}00206                 \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00207}00207 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00208}00208                 vertex.boneWeights = \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00209}00209                     boneWeights[v * 4 + 0],}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00210}00210                     boneWeights[v * 4 + 1],}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00211}00211                     boneWeights[v * 4 + 2],}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00212}00212                     boneWeights[v * 4 + 3]}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00213}00213                 \};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00214}00214 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00215}00215                 \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_aebf6d2e64fec46bddda959aff0cbc626}{vertices}}.Insert(vertex);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00216}00216             \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00217}00217 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00218}00218             \textcolor{comment}{// Índices}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00219}00219             \textcolor{keyword}{const} tinygltf::Accessor\& indicesAccesor = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.accessors[primitive.indices];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00220}00220             \textcolor{keyword}{const} tinygltf::BufferView\& indicesView = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.bufferViews[indicesAccesor.bufferView];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00221}00221             \textcolor{keyword}{const} tinygltf::Buffer\& indicesBuffer = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.buffers[indicesView.buffer];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00222}00222 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00223}00223             \textcolor{comment}{// Los índices tambien se guardan en buffers.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00224}00224             \textcolor{comment}{// Necesitamos saber su tipo para procesar el buffer.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00225}00225             \textcolor{comment}{// El índice es el ID del vértice dentro de la primitiva.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00226}00226             \textcolor{comment}{// Para obtener el ID real, debemos tener en cuenta todos los vértices anteriormente procesados.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00227}00227             \textcolor{keywordflow}{switch} (indicesAccesor.componentType) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00228}00228             \textcolor{keywordflow}{case} TINYGLTF\_PARAMETER\_TYPE\_UNSIGNED\_INT: \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00229}00229                 \textcolor{keyword}{const} uint32\_t* indBuffer = (\textcolor{keyword}{const} uint32\_t*)(\&indicesBuffer.data[indicesAccesor.byteOffset + indicesView.byteOffset]);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00230}00230                 \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} index = 0; index < indicesAccesor.count; index++)}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00231}00231                     \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a959ef8e127e315b6c0c8c36a84e6668b}{indices}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a05f5134cdcc67a7889c57e39aa2f25ae}{TIndexSize}}\textcolor{keyword}{>}(indBuffer[index]) + firstVertexId);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00232}00232 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00233}00233                 \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00234}00234             \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00235}00235 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00236}00236             \textcolor{keywordflow}{case} TINYGLTF\_PARAMETER\_TYPE\_UNSIGNED\_SHORT: \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00237}00237                 \textcolor{keyword}{const} uint16\_t* indBuffer = (\textcolor{keyword}{const} uint16\_t*)(\&indicesBuffer.data[indicesAccesor.byteOffset + indicesView.byteOffset]);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00238}00238                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} index = 0; index < indicesAccesor.count; index++)}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00239}00239                     \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a959ef8e127e315b6c0c8c36a84e6668b}{indices}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a05f5134cdcc67a7889c57e39aa2f25ae}{TIndexSize}}\textcolor{keyword}{>}(indBuffer[index]) + firstVertexId);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00240}00240 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00241}00241                 \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00242}00242             \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00243}00243 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00244}00244             \textcolor{keywordflow}{case} TINYGLTF\_PARAMETER\_TYPE\_UNSIGNED\_BYTE: \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00245}00245                 \textcolor{keyword}{const} uint8\_t* indBuffer = (\textcolor{keyword}{const} uint8\_t*)(\&indicesBuffer.data[indicesAccesor.byteOffset + indicesView.byteOffset]);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00246}00246                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} index = 0; index < indicesAccesor.count; index++)}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00247}00247                     \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a959ef8e127e315b6c0c8c36a84e6668b}{indices}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a05f5134cdcc67a7889c57e39aa2f25ae}{TIndexSize}}\textcolor{keyword}{>}(indBuffer[index]) + firstVertexId);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00248}00248 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00249}00249                 \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00250}00250             \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00251}00251 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00252}00252             \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00253}00253 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00254}00254             \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a166cefbfbf4daa3a50a1230befcbe495}{meshes}}.Insert(\{ (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}})indicesAccesor.count, firstIndexId \});}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00255}00255         \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00256}00256     \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00257}00257 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00258}00258     \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node}{MeshNode}} animNode\{\};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00259}00259     animNode.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node_a71a32d054f16745b07653e6a2b595673}{thisIndex}} = nodeId;}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00260}00260     animNode.parentIndex = parentId;}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00261}00261     animNode.originalMatrix = nodeMatrix;}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00262}00262 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00263}00263     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < node.children.size(); i++) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00264}00264         \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a11d55449219f6a21f62c76851986c44b}{ProcessNode}}(\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.nodes[node.children[i]], node.children[i], nodeId, nodeMatrix);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00265}00265         animNode.childIndices.Insert(node.children[i]);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00266}00266     \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00267}00267 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00268}00268     \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a24080b45f94d8af3473ac5c5434715bd}{tempAnimator}}.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a4c7647e0bcafd4852421df6d6979005b}{\_AddNode}}(animNode);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00269}00269 \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00270}00270 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00271}00271 \textcolor{keywordtype}{void} AnimMeshLoader::LoadAnimations() \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00272}00272     \textcolor{keyword}{const} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numAnimations = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.animations.size();}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00273}00273 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00274}00274     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} animationId = 0; animationId < numAnimations; animationId++) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00275}00275         tinygltf::Animation gltfAnimation = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.animations[animationId];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00276}00276         \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation}{Animation}} animation\{\};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00277}00277 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00278}00278         animation.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_a22f5b8714bdaba90ee91283bdcf6a97d}{name}} = gltfAnimation.name;}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00279}00279         animation.samplers.Resize(gltfAnimation.samplers.size());}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00280}00280         animation.channels.Resize(gltfAnimation.channels.size());}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00281}00281 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00282}00282         \textcolor{comment}{// Samplers}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00283}00283         \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} samplerId = 0; samplerId < gltfAnimation.samplers.size(); samplerId++) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00284}00284             tinygltf::AnimationSampler gltfSampler = gltfAnimation.samplers[samplerId];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00285}00285 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00286}00286             \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler}{AnimationSampler}}\& sampler = animation.samplers[samplerId];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00287}00287             \textcolor{comment}{// TODO: sampler interpolation type}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00288}00288 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00289}00289             \textcolor{comment}{// Establece los valores de entrada del sampler, es decir,}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00290}00290             \textcolor{comment}{// los timestamps en el que se produce una transforamción de algún tipo.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00291}00291             \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00292}00292                 \textcolor{keyword}{const} tinygltf::Accessor\& accessor = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.accessors[gltfSampler.input];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00293}00293                 \textcolor{keyword}{const} tinygltf::BufferView\& bufferView = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.bufferViews[accessor.bufferView];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00294}00294                 \textcolor{keyword}{const} tinygltf::Buffer\& buffer = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.buffers[bufferView.buffer];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00295}00295 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00296}00296                 \textcolor{keyword}{const} \textcolor{keywordtype}{void}* data = \&buffer.data[accessor.byteOffset + bufferView.byteOffset];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00297}00297                 \textcolor{keyword}{const} \textcolor{keywordtype}{float}* timestampsBuffer = \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }\textcolor{keywordtype}{float}*\textcolor{keyword}{>}(data);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00298}00298 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00299}00299                 \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < accessor.count; i++)}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00300}00300                     sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_af25c279b1c224125d922bfab868d4b32}{timestamps}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(timestampsBuffer[i]);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00301}00301 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00302}00302                 \textcolor{comment}{// Timestamps de inicio y fin de la animación.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00303}00303                 \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDeltaTime}} timestamp : sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_af25c279b1c224125d922bfab868d4b32}{timestamps}}) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00304}00304                     animation.startTime = glm::min(animation.startTime, timestamp);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00305}00305                     animation.endTime = glm::max(animation.endTime, timestamp);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00306}00306                 \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00307}00307             \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00308}00308 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00309}00309             \textcolor{comment}{// Establece los valores de salida del sampler, es decir,}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00310}00310             \textcolor{comment}{// la transformación de cada timestamp.}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00311}00311             \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00312}00312                 \textcolor{keyword}{const} tinygltf::Accessor\& accessor = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.accessors[gltfSampler.output];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00313}00313                 \textcolor{keyword}{const} tinygltf::BufferView\& bufferView = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.bufferViews[accessor.bufferView];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00314}00314                 \textcolor{keyword}{const} tinygltf::Buffer\& buffer = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.buffers[bufferView.buffer];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00315}00315                 \textcolor{keyword}{const} \textcolor{keywordtype}{void}* data = \&buffer.data[accessor.byteOffset + bufferView.byteOffset];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00316}00316 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00317}00317                 \textcolor{keywordflow}{switch} (accessor.type) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00318}00318 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00319}00319                 \textcolor{keywordflow}{case} TINYGLTF\_TYPE\_VEC3: \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00320}00320                     \textcolor{keyword}{const} glm::vec3* vecBuffer = \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }glm::vec3*\textcolor{keyword}{>}(data);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00321}00321                     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < accessor.count; i++)}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00322}00322                         sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a3adfbec52fec632c3a191478d0130f90}{outputs}}.Insert(glm::vec4(vecBuffer[i], 0.0));}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00323}00323                 \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00324}00324                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00325}00325 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00326}00326                 \textcolor{keywordflow}{case} TINYGLTF\_TYPE\_VEC4: \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00327}00327                     \textcolor{keyword}{const} glm::vec4* vecBuffer = \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }glm::vec4*\textcolor{keyword}{>}(data);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00328}00328                     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < accessor.count; i++)}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00329}00329                         sampler.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a3adfbec52fec632c3a191478d0130f90}{outputs}}.Insert(vecBuffer[i]);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00330}00330                 \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00331}00331                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00332}00332 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00333}00333                 \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00334}00334             \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00335}00335         \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00336}00336 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00337}00337         \textcolor{comment}{// Channels}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00338}00338         \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} channelId = 0; channelId < gltfAnimation.channels.size(); channelId++) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00339}00339             tinygltf::AnimationChannel gltfChannel = gltfAnimation.channels[channelId];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00340}00340 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00341}00341             \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel}{AnimationChannel}}\& channel = animation.channels[channelId];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00342}00342             channel.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel_ad17b0989eb671a9dcd22968cf1f46d3a}{samplerIndex}} = channelId;}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00343}00343             channel.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel_aff9cd06a49bd9358e59d0125ada0bfb9}{nodeId}} = gltfChannel.target\_node;}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00344}00344 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00345}00345             \textcolor{keywordflow}{if} (gltfChannel.target\_path == \textcolor{stringliteral}{"{}translation"{}})}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00346}00346                 channel.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel_a722543f9a9bc901670f56f4419a12c79}{type}} = AnimationChannel::ChannelType::TRANSLATION;}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00347}00347             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (gltfChannel.target\_path == \textcolor{stringliteral}{"{}rotation"{}})}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00348}00348                 channel.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel_a722543f9a9bc901670f56f4419a12c79}{type}} = AnimationChannel::ChannelType::ROTATION;}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00349}00349             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (gltfChannel.target\_path == \textcolor{stringliteral}{"{}scale"{}})}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00350}00350                 channel.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel_a722543f9a9bc901670f56f4419a12c79}{type}} = AnimationChannel::ChannelType::SCALE;}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00351}00351             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00352}00352                 \mbox{\hyperlink{_assert_8h_ab17a47d656881cd12f1529fb2fd20d7e}{OSK\_CHECK}}(\textcolor{keyword}{false}, \textcolor{stringliteral}{"{}El canal de animación "{}} + gltfChannel.target\_path + \textcolor{stringliteral}{"{} no está soportado."{}});}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00353}00353         \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00354}00354 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00355}00355         \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a24080b45f94d8af3473ac5c5434715bd}{tempAnimator}}.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a234f8197d2686515423cd41196ae9448}{\_AddAnimation}}(animation);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00356}00356     \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00357}00357 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00358}00358 \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00359}00359 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00360}00360 \textcolor{keywordtype}{void} AnimMeshLoader::LoadSkins() \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00361}00361     \textcolor{keyword}{const} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} numSkins = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.skins.size();}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00362}00362     }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00363}00363     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} skinId = 0; skinId < \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.skins.size(); skinId++) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00364}00364         tinygltf::Skin\& gltfSkin = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.skins[skinId];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00365}00365 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00366}00366         \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin}{AnimationSkin}} skin;}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00367}00367         skin.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_a92fac1b4585e4cd9508dd127cbdafb6e}{name}} = gltfSkin.name;}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00368}00368         }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00369}00369         \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} bone : gltfSkin.joints)}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00370}00370             skin.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_a36b72f60726fb78f92b01ce07619ffcf}{bonesIds}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_a2c1e7bd2efbadf8b163f67c26921ba53}{Insert}}(bone);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00371}00371 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00372}00372         \textcolor{keywordflow}{if} (gltfSkin.inverseBindMatrices > -\/1) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00373}00373             \textcolor{keyword}{const} tinygltf::Accessor\& accessor = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.accessors[gltfSkin.inverseBindMatrices];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00374}00374             \textcolor{keyword}{const} tinygltf::BufferView\& bufferView = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.bufferViews[accessor.bufferView];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00375}00375             \textcolor{keyword}{const} tinygltf::Buffer\& buffer = \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ac02152fadbf30086cbf54730604ce915}{gltfModel}}.buffers[bufferView.buffer];}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00376}00376 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00377}00377             \textcolor{keyword}{const} \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} matricesSize = accessor.count * \textcolor{keyword}{sizeof}(glm::mat4);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00378}00378 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00379}00379             skin.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_a6c539224d3e1c6fc691243d1766de6f9}{inverseMatrices}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_adcbd5bb6ce88469bc9e6f65be06ceae6}{Resize}}(accessor.count);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00380}00380             memcpy(skin.\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_a6c539224d3e1c6fc691243d1766de6f9}{inverseMatrices}}.\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array_ac8a6d70f938c482e1f7aa68c7d186bb8}{GetData}}(), \&buffer.data[accessor.byteOffset + bufferView.byteOffset], matricesSize);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00381}00381         \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00382}00382 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00383}00383         \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a24080b45f94d8af3473ac5c5434715bd}{tempAnimator}}.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_ae9d3048570e06db894d3d6b8b42783df}{\_AddSkin}}(std::move(skin));}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00384}00384         \textcolor{keywordflow}{if} (skinId == 0)}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00385}00385             \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a24080b45f94d8af3473ac5c5434715bd}{tempAnimator}}.\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_a7909cbbbffc1001009d351c2fa3e91e0}{SetActiveSkin}}(gltfSkin.name);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00386}00386     \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00387}00387     }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00388}00388 \}}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00389}00389 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00390}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a8e9c46b3fa1d7af4ecef73f544c27374}{00390}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a8e9c46b3fa1d7af4ecef73f544c27374}{AnimMeshLoader::SetupModel}}(\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d}{Model3D}}* model) \{}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00391}00391     model-\/>\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a1b82d0d66290f0968dd61b34cbe785ed}{\_SetVertexBuffer}}(\mbox{\hyperlink{class_o_s_k_1_1_engine_a019c5397d042224c134b7fd22c739d00}{Engine::GetRenderer}}()-\/>GetMemoryAllocator()-\/>CreateVertexBuffer(\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_aebf6d2e64fec46bddda959aff0cbc626}{vertices}}, VertexAnim3D::GetVertexInfo()));}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00392}00392 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00393}00393     LoadAnimations();}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00394}00394     }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00395}00395     model-\/>\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a35b5d39c77745aba836bb5ee74bee7ee}{SetAnimator}}(std::move(\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a24080b45f94d8af3473ac5c5434715bd}{tempAnimator}}));}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00396}00396     model-\/>\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a00630e4f7a8e059586932b395e8f1f2b}{GetAnimator}}()-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator_ad1b014b27ba0910a4c46b16316acb936}{Setup}}();}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00397}00397 }
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00398}00398     \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a290793d3b941e0d9162a0dcbd5cb6c50}{IMeshLoader::SetupModel}}(model);}
+\DoxyCodeLine{\Hypertarget{_anim_mesh_loader_8cpp_source_l00399}00399 \}}
+
+\end{DoxyCode}

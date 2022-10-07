@@ -1,0 +1,87 @@
+\hypertarget{_shader_binding_type_8h}{}\doxysection{Referencia del Archivo OSKengine2/\+Shader\+Binding\+Type.h}
+\label{_shader_binding_type_8h}\index{OSKengine2/ShaderBindingType.h@{OSKengine2/ShaderBindingType.h}}
+{\ttfamily \#include \char`\"{}Enum\+Flags.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}To\+String.\+h\char`\"{}}\newline
+Dependencia gráfica adjunta para Shader\+Binding\+Type.\+h\+:
+% FIG 0
+Gráfico de los archivos que directa o indirectamente incluyen a este archivo\+:
+% FIG 1
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespace_o_s_k}{OSK}}
+\item 
+namespace \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK\+::\+GRAPHICS}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumeraciones}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1d}{OSK\+::\+GRAPHICS\+::\+Shader\+Binding\+Type}} \{ \newline
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1da8d0be820da8f4fe5aa49e0ef3065ca29}{OSK\+::\+GRAPHICS\+::\+UNIFORM\+\_\+\+BUFFER}}
+, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1da3f92f542bd9ec48f912b9350e22736ac}{OSK\+::\+GRAPHICS\+::\+TEXTURE}}
+, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1da35586d57c794c8dde4d19d0c3316d51d}{OSK\+::\+GRAPHICS\+::\+TEXTURE\+\_\+\+ARRAY}}
+, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1daf28b30e806ea29c1d6011d1feeea8913}{OSK\+::\+GRAPHICS\+::\+CUBEMAP}}
+, \newline
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1daa486db75420308f63af20d85e2b6489d}{OSK\+::\+GRAPHICS\+::\+STORAGE\+\_\+\+BUFFER}}
+, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1da56da21e70ea85d8efa9392d6fd11f2ee}{OSK\+::\+GRAPHICS\+::\+RT\+\_\+\+ACCELERATION\+\_\+\+STRUCTURE}}
+, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1da17a99bfdcbe59e8209f17c4da5de6ff9}{OSK\+::\+GRAPHICS\+::\+STORAGE\+\_\+\+IMAGE}}
+, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1da3d5dffc952403caa0bd4efd243e72e25}{OSK\+::\+GRAPHICS\+::\+RT\+\_\+\+TARGET\+\_\+\+IMAGE}} = STORAGE\+\_\+\+IMAGE
+ \}
+\item 
+enum class \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcb}{OSK\+::\+GRAPHICS\+::\+Shader\+Stage}} \{ \newline
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba0c3e47aef93a7f244f41ab309a33634b}{OSK\+::\+GRAPHICS\+::\+VERTEX}} = 1
+, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba7345a249ed5c2f850d85dc1727c24716}{OSK\+::\+GRAPHICS\+::\+FRAGMENT}} = 2
+, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcbaf448507fb26809d25c13899dfc57e230}{OSK\+::\+GRAPHICS\+::\+TESSELATION\+\_\+\+CONTROL}} = 4
+, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba9196126eff57d73bb45dc36a6367e58d}{OSK\+::\+GRAPHICS\+::\+TESSELATION\+\_\+\+EVALUATION}} = 8
+, \newline
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba949f4e4e16184d8e16e4125517a1c6c3}{OSK\+::\+GRAPHICS\+::\+RT\+\_\+\+RAYGEN}} = 16
+, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcbaee8f06a600f854fc2cd6d6fc69089b6d}{OSK\+::\+GRAPHICS\+::\+RT\+\_\+\+CLOSEST\+\_\+\+HIT}} = 32
+, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcbaa81021d99de178d7979c2c96b7e3e47d}{OSK\+::\+GRAPHICS\+::\+RT\+\_\+\+MISS}} = 64
+, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcbaac404d7ce6ca5862e9b8a2641fbafd90}{OSK\+::\+GRAPHICS\+::\+COMPUTE}} = 128
+, \newline
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba829c2b0ccdf8939e47b86bb510ef222f}{OSK\+::\+GRAPHICS\+::\+TESSELATION\+\_\+\+ALL}} = TESSELATION\+\_\+\+CONTROL $\vert$ TESSELATION\+\_\+\+EVALUATION
+, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcba1fdd1a5172989f84205922b257b753a1}{OSK\+::\+GRAPHICS\+::\+RT\+\_\+\+ALL}} = RT\+\_\+\+RAYGEN $\vert$ RT\+\_\+\+CLOSEST\+\_\+\+HIT $\vert$\+RT\+\_\+\+MISS
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_shader_binding_type_8h_a4bb03a6e470cf0fd5203cdead6306b7e}{OSK\+\_\+\+FLAGS}} (\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcb}{OSK\+::\+GRAPHICS\+::\+Shader\+Stage}})
+\item 
+template$<$$>$ std\+::string \mbox{\hyperlink{_shader_binding_type_8h_a97c7e187c9fc456597a0dc7a57fc92c9}{OSK\+::\+To\+String$<$ OSK\+::\+GRAPHICS\+::\+Shader\+Binding\+Type $>$}} (const \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1d}{OSK\+::\+GRAPHICS\+::\+Shader\+Binding\+Type}} \&type)
+\item 
+template$<$$>$ std\+::string \mbox{\hyperlink{_shader_binding_type_8h_a62aa9785ad0ca19922a9e0057ecfc02d}{OSK\+::\+To\+String$<$ OSK\+::\+GRAPHICS\+::\+Shader\+Stage $>$}} (const \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcb}{OSK\+::\+GRAPHICS\+::\+Shader\+Stage}} \&stage)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentación de las funciones}
+\mbox{\Hypertarget{_shader_binding_type_8h_a97c7e187c9fc456597a0dc7a57fc92c9}\label{_shader_binding_type_8h_a97c7e187c9fc456597a0dc7a57fc92c9}} 
+\index{ShaderBindingType.h@{ShaderBindingType.h}!OSK::ToString$<$ OSK::GRAPHICS::ShaderBindingType $>$@{OSK::ToString$<$ OSK::GRAPHICS::ShaderBindingType $>$}}
+\index{OSK::ToString$<$ OSK::GRAPHICS::ShaderBindingType $>$@{OSK::ToString$<$ OSK::GRAPHICS::ShaderBindingType $>$}!ShaderBindingType.h@{ShaderBindingType.h}}
+\doxysubsubsection{\texorpdfstring{OSK::ToString$<$ OSK::GRAPHICS::ShaderBindingType $>$()}{OSK::ToString< OSK::GRAPHICS::ShaderBindingType >()}}
+{\footnotesize\ttfamily template$<$$>$ \\
+std\+::string \mbox{\hyperlink{namespace_o_s_k_a0e02ca313c1894ead83ab76001063684}{OSK\+::\+To\+String}}$<$ \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1d}{OSK\+::\+GRAPHICS\+::\+Shader\+Binding\+Type}} $>$ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a4a3cc5ac5a7f3c8753e7f74d576d6e1d}{OSK\+::\+GRAPHICS\+::\+Shader\+Binding\+Type}} \&}]{type }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_shader_stages_8cpp_source_l00005}{5}} del archivo \mbox{\hyperlink{_shader_stages_8cpp_source}{Shader\+Stages.\+cpp}}.
+
+\mbox{\Hypertarget{_shader_binding_type_8h_a62aa9785ad0ca19922a9e0057ecfc02d}\label{_shader_binding_type_8h_a62aa9785ad0ca19922a9e0057ecfc02d}} 
+\index{ShaderBindingType.h@{ShaderBindingType.h}!OSK::ToString$<$ OSK::GRAPHICS::ShaderStage $>$@{OSK::ToString$<$ OSK::GRAPHICS::ShaderStage $>$}}
+\index{OSK::ToString$<$ OSK::GRAPHICS::ShaderStage $>$@{OSK::ToString$<$ OSK::GRAPHICS::ShaderStage $>$}!ShaderBindingType.h@{ShaderBindingType.h}}
+\doxysubsubsection{\texorpdfstring{OSK::ToString$<$ OSK::GRAPHICS::ShaderStage $>$()}{OSK::ToString< OSK::GRAPHICS::ShaderStage >()}}
+{\footnotesize\ttfamily template$<$$>$ \\
+std\+::string \mbox{\hyperlink{namespace_o_s_k_a0e02ca313c1894ead83ab76001063684}{OSK\+::\+To\+String}}$<$ \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcb}{OSK\+::\+GRAPHICS\+::\+Shader\+Stage}} $>$ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcb}{OSK\+::\+GRAPHICS\+::\+Shader\+Stage}} \&}]{stage }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_shader_stages_8cpp_source_l00065}{65}} del archivo \mbox{\hyperlink{_shader_stages_8cpp_source}{Shader\+Stages.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{_shader_binding_type_8h_a4bb03a6e470cf0fd5203cdead6306b7e}\label{_shader_binding_type_8h_a4bb03a6e470cf0fd5203cdead6306b7e}} 
+\index{ShaderBindingType.h@{ShaderBindingType.h}!OSK\_FLAGS@{OSK\_FLAGS}}
+\index{OSK\_FLAGS@{OSK\_FLAGS}!ShaderBindingType.h@{ShaderBindingType.h}}
+\doxysubsubsection{\texorpdfstring{OSK\_FLAGS()}{OSK\_FLAGS()}}
+{\footnotesize\ttfamily OSK\+\_\+\+FLAGS (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_aa7e7dcffcab27051f141128e66a50fcb}{OSK\+::\+GRAPHICS\+::\+Shader\+Stage}}}]{ }\end{DoxyParamCaption})}
+

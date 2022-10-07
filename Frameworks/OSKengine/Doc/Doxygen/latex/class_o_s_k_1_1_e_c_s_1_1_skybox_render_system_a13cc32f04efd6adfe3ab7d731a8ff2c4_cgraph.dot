@@ -1,0 +1,29 @@
+digraph "OSK::ECS::SkyboxRenderSystem::SkyboxRenderSystem"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::ECS::SkyboxRenderSystem\l::SkyboxRenderSystem",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::GRAPHICS::IGpuMemory\lAllocator::CreateUniformBuffer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#ac8beb74ff85ed07f8d96a60683ac0599",tooltip="Crea un uniform buffer, con el tamaño dado en bytes."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="OSK::Engine::GetAssetManager",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_engine.html#ab092fdb69a9c816c93f177192477d97c",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="OSK::GRAPHICS::IRenderer\l::GetMaterialSystem",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a15a2d271ad61c59ce4414dbdf016d277",tooltip="Devuelve el sistema de materiales. Necesario mara manejar materiales y crear instancias de materiales..."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="OSK::GRAPHICS::IRenderer\l::GetMemoryAllocator",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#acf03703bbb6f031f905612d86f104b38",tooltip=" "];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="OSK::Engine::GetRenderer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00",tooltip=" "];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="OSK::ASSETS::AssetManager\l::Load",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#ac0ee74e39c90d597beb90338a31bdae3",tooltip="Carga un asset."];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="OSK::GRAPHICS::MaterialSystem\l::LoadMaterial",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#ad39c519e3a5f58cc2a7622ba9b39687a",tooltip="Carga un material."];
+  Node8 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="OSK::IO::FileIO::ReadFromFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_file_i_o.html#aad968707ec7b00bce0540c804f476dc9",tooltip="Lee un archivo de texto."];
+  Node9 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="OSK::IO::FileIO::FileExists",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_file_i_o.html#ac7fe213b79ce97b178a7e27f7216a2f4",tooltip="Comprueba si un archivo existe."];
+  Node1 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="OSK::ECS::ISystem::\lSetSignature",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_e_c_s_1_1_i_system.html#ac9336e70706ab6ea24d9f5fe95955efd",tooltip=" "];
+}

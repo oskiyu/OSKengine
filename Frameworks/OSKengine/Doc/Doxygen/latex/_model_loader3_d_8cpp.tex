@@ -1,0 +1,85 @@
+\hypertarget{_model_loader3_d_8cpp}{}\doxysection{Referencia del Archivo OSKengine2/\+Model\+Loader3D.cpp}
+\label{_model_loader3_d_8cpp}\index{OSKengine2/ModelLoader3D.cpp@{OSKengine2/ModelLoader3D.cpp}}
+{\ttfamily \#include \char`\"{}Model\+Loader3\+D.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Model3\+D.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Dynamic\+Array.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Vertex.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}OSKengine.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}IRenderer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}IGpu\+Vertex\+Buffer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}IGpu\+Index\+Buffer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}IGpu\+Memory\+Allocator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}File\+IO.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Mesh3\+D.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Format.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Gpu\+Memory\+Types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}IGpu\+Image.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Gpu\+Image\+Layout.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Owned\+Ptr.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Gpu\+Image\+Usage.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Gpu\+Image\+Dimensions.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Color.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Vertex3\+D.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Model\+Component3\+D.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$gtx/matrix\+\_\+decompose.\+hpp$>$}\newline
+{\ttfamily \#include $<$gtc/type\+\_\+ptr.\+hpp$>$}\newline
+{\ttfamily \#include $<$json.\+hpp$>$}\newline
+{\ttfamily \#include $<$tiny\+\_\+gltf.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Static\+Mesh\+Loader.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Anim\+Mesh\+Loader.\+h\char`\"{}}\newline
+Dependencia gráfica adjunta para Model\+Loader3\+D.\+cpp\+:
+% FIG 0
+\doxysubsection*{defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_model_loader3_d_8cpp_abd75661fe7969e19439052a5f69ba5d1}{GLM\+\_\+\+ENABLE\+\_\+\+EXPERIMENTAL}}
+\item 
+\#define \mbox{\hyperlink{_model_loader3_d_8cpp_ac203b64c0edef3702d707aed38ab024a}{TINYGLTF\+\_\+\+IMPLEMENTATION}}
+\item 
+\#define \mbox{\hyperlink{_model_loader3_d_8cpp_a18372412ad2fc3ce1e3240b3cf0efe78}{STB\+\_\+\+IMAGE\+\_\+\+IMPLEMENTATION}}
+\item 
+\#define \mbox{\hyperlink{_model_loader3_d_8cpp_ab85d274e208f7c3760dee26d2ab13eb8}{TINYGLTF\+\_\+\+NO\+\_\+\+STB\+\_\+\+IMAGE\+\_\+\+WRITE}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentación de los \textquotesingle{}defines\textquotesingle{}}
+\mbox{\Hypertarget{_model_loader3_d_8cpp_abd75661fe7969e19439052a5f69ba5d1}\label{_model_loader3_d_8cpp_abd75661fe7969e19439052a5f69ba5d1}} 
+\index{ModelLoader3D.cpp@{ModelLoader3D.cpp}!GLM\_ENABLE\_EXPERIMENTAL@{GLM\_ENABLE\_EXPERIMENTAL}}
+\index{GLM\_ENABLE\_EXPERIMENTAL@{GLM\_ENABLE\_EXPERIMENTAL}!ModelLoader3D.cpp@{ModelLoader3D.cpp}}
+\doxysubsubsection{\texorpdfstring{GLM\_ENABLE\_EXPERIMENTAL}{GLM\_ENABLE\_EXPERIMENTAL}}
+{\footnotesize\ttfamily \#define GLM\+\_\+\+ENABLE\+\_\+\+EXPERIMENTAL}
+
+
+
+Definición en la línea \mbox{\hyperlink{_model_loader3_d_8cpp_source_l00024}{24}} del archivo \mbox{\hyperlink{_model_loader3_d_8cpp_source}{Model\+Loader3\+D.\+cpp}}.
+
+\mbox{\Hypertarget{_model_loader3_d_8cpp_a18372412ad2fc3ce1e3240b3cf0efe78}\label{_model_loader3_d_8cpp_a18372412ad2fc3ce1e3240b3cf0efe78}} 
+\index{ModelLoader3D.cpp@{ModelLoader3D.cpp}!STB\_IMAGE\_IMPLEMENTATION@{STB\_IMAGE\_IMPLEMENTATION}}
+\index{STB\_IMAGE\_IMPLEMENTATION@{STB\_IMAGE\_IMPLEMENTATION}!ModelLoader3D.cpp@{ModelLoader3D.cpp}}
+\doxysubsubsection{\texorpdfstring{STB\_IMAGE\_IMPLEMENTATION}{STB\_IMAGE\_IMPLEMENTATION}}
+{\footnotesize\ttfamily \#define STB\+\_\+\+IMAGE\+\_\+\+IMPLEMENTATION}
+
+
+
+Definición en la línea \mbox{\hyperlink{_model_loader3_d_8cpp_source_l00030}{30}} del archivo \mbox{\hyperlink{_model_loader3_d_8cpp_source}{Model\+Loader3\+D.\+cpp}}.
+
+\mbox{\Hypertarget{_model_loader3_d_8cpp_ac203b64c0edef3702d707aed38ab024a}\label{_model_loader3_d_8cpp_ac203b64c0edef3702d707aed38ab024a}} 
+\index{ModelLoader3D.cpp@{ModelLoader3D.cpp}!TINYGLTF\_IMPLEMENTATION@{TINYGLTF\_IMPLEMENTATION}}
+\index{TINYGLTF\_IMPLEMENTATION@{TINYGLTF\_IMPLEMENTATION}!ModelLoader3D.cpp@{ModelLoader3D.cpp}}
+\doxysubsubsection{\texorpdfstring{TINYGLTF\_IMPLEMENTATION}{TINYGLTF\_IMPLEMENTATION}}
+{\footnotesize\ttfamily \#define TINYGLTF\+\_\+\+IMPLEMENTATION}
+
+
+
+Definición en la línea \mbox{\hyperlink{_model_loader3_d_8cpp_source_l00029}{29}} del archivo \mbox{\hyperlink{_model_loader3_d_8cpp_source}{Model\+Loader3\+D.\+cpp}}.
+
+\mbox{\Hypertarget{_model_loader3_d_8cpp_ab85d274e208f7c3760dee26d2ab13eb8}\label{_model_loader3_d_8cpp_ab85d274e208f7c3760dee26d2ab13eb8}} 
+\index{ModelLoader3D.cpp@{ModelLoader3D.cpp}!TINYGLTF\_NO\_STB\_IMAGE\_WRITE@{TINYGLTF\_NO\_STB\_IMAGE\_WRITE}}
+\index{TINYGLTF\_NO\_STB\_IMAGE\_WRITE@{TINYGLTF\_NO\_STB\_IMAGE\_WRITE}!ModelLoader3D.cpp@{ModelLoader3D.cpp}}
+\doxysubsubsection{\texorpdfstring{TINYGLTF\_NO\_STB\_IMAGE\_WRITE}{TINYGLTF\_NO\_STB\_IMAGE\_WRITE}}
+{\footnotesize\ttfamily \#define TINYGLTF\+\_\+\+NO\+\_\+\+STB\+\_\+\+IMAGE\+\_\+\+WRITE}
+
+
+
+Definición en la línea \mbox{\hyperlink{_model_loader3_d_8cpp_source_l00031}{31}} del archivo \mbox{\hyperlink{_model_loader3_d_8cpp_source}{Model\+Loader3\+D.\+cpp}}.
+

@@ -1,0 +1,121 @@
+\hypertarget{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance}{}\doxysection{Referencia de la Estructura OSK\+::ASSETS\+::Font\+Instance}
+\label{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance}\index{OSK::ASSETS::FontInstance@{OSK::ASSETS::FontInstance}}
+
+
+{\ttfamily \#include $<$Font\+Instance.\+h$>$}
+
+
+
+Diagrama de colaboración para OSK\+::ASSETS\+::Font\+Instance\+:
+% FIG 0
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_o_s_k_a2bb07020775133505c4b2c473ec79fa9}{Vector2f}} \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a6994983f9bf3e3b24e68fd0f548b13de}{Get\+Text\+Size}} (const std\+::string \&string) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GRAPHICS\+::\+Gpu\+Image}} $>$ \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a5bc616e3014ce0290c984a4810f19448}{image}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite}{GRAPHICS\+::\+Sprite}} $>$ \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_ad006fe151e2ee7bbbbadf4003aab748d}{sprite}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_hash_map}{Hash\+Map}}$<$ char, \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character}{Font\+Character}} $>$ \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a080de74a5027833e0966af431ccfac22}{characters}}
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a249050b1ac80fb09697a94567257466e}{font\+Size}} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Representa una fuente que ha sido generada con un tamaño específico. Cada tamaño de fuente tendrá su propia imagen cargada. 
+
+Definición en la línea \mbox{\hyperlink{_font_instance_8h_source_l00017}{17}} del archivo \mbox{\hyperlink{_font_instance_8h_source}{Font\+Instance.\+h}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a6994983f9bf3e3b24e68fd0f548b13de}\label{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a6994983f9bf3e3b24e68fd0f548b13de}} 
+\index{OSK::ASSETS::FontInstance@{OSK::ASSETS::FontInstance}!GetTextSize@{GetTextSize}}
+\index{GetTextSize@{GetTextSize}!OSK::ASSETS::FontInstance@{OSK::ASSETS::FontInstance}}
+\doxysubsubsection{\texorpdfstring{GetTextSize()}{GetTextSize()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_a2bb07020775133505c4b2c473ec79fa9}{Vector2f}} Font\+Instance\+::\+Get\+Text\+Size (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{string }\end{DoxyParamCaption}) const}
+
+
+
+Calcula el tamaño que tendrá este texto si es renderizado con esta instancia de la fuente. 
+
+\begin{DoxyReturn}{Devuelve}
+Tamaño, en píxeles.
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_font_instance_8cpp_source_l00012}{12}} del archivo \mbox{\hyperlink{_font_instance_8cpp_source}{Font\+Instance.\+cpp}}.
+
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a080de74a5027833e0966af431ccfac22}\label{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a080de74a5027833e0966af431ccfac22}} 
+\index{OSK::ASSETS::FontInstance@{OSK::ASSETS::FontInstance}!characters@{characters}}
+\index{characters@{characters}!OSK::ASSETS::FontInstance@{OSK::ASSETS::FontInstance}}
+\doxysubsubsection{\texorpdfstring{characters}{characters}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_hash_map}{Hash\+Map}}$<$char, \mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character}{Font\+Character}}$>$ OSK\+::\+ASSETS\+::\+Font\+Instance\+::characters}
+
+
+
+Información de los sprites del carácter. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_font_instance_8h_source_l00034}{34}} del archivo \mbox{\hyperlink{_font_instance_8h_source}{Font\+Instance.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a249050b1ac80fb09697a94567257466e}\label{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a249050b1ac80fb09697a94567257466e}} 
+\index{OSK::ASSETS::FontInstance@{OSK::ASSETS::FontInstance}!fontSize@{fontSize}}
+\index{fontSize@{fontSize}!OSK::ASSETS::FontInstance@{OSK::ASSETS::FontInstance}}
+\doxysubsubsection{\texorpdfstring{fontSize}{fontSize}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} OSK\+::\+ASSETS\+::\+Font\+Instance\+::font\+Size = 0}
+
+
+
+Tammaño de fuente de esta instancia. En píxeles. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_font_instance_8h_source_l00040}{40}} del archivo \mbox{\hyperlink{_font_instance_8h_source}{Font\+Instance.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a5bc616e3014ce0290c984a4810f19448}\label{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_a5bc616e3014ce0290c984a4810f19448}} 
+\index{OSK::ASSETS::FontInstance@{OSK::ASSETS::FontInstance}!image@{image}}
+\index{image@{image}!OSK::ASSETS::FontInstance@{OSK::ASSETS::FontInstance}}
+\doxysubsubsection{\texorpdfstring{image}{image}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{GRAPHICS\+::\+Gpu\+Image}}$>$ OSK\+::\+ASSETS\+::\+Font\+Instance\+::image}
+
+
+
+Imagen en la GPU. 
+
+\begin{DoxyNote}{Nota}
+Nunca será null. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_font_instance_8h_source_l00024}{24}} del archivo \mbox{\hyperlink{_font_instance_8h_source}{Font\+Instance.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_ad006fe151e2ee7bbbbadf4003aab748d}\label{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_ad006fe151e2ee7bbbbadf4003aab748d}} 
+\index{OSK::ASSETS::FontInstance@{OSK::ASSETS::FontInstance}!sprite@{sprite}}
+\index{sprite@{sprite}!OSK::ASSETS::FontInstance@{OSK::ASSETS::FontInstance}}
+\doxysubsubsection{\texorpdfstring{sprite}{sprite}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite}{GRAPHICS\+::\+Sprite}}$>$ OSK\+::\+ASSETS\+::\+Font\+Instance\+::sprite}
+
+
+
+Sprite para el renderizado 2D. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_font_instance_8h_source_l00029}{29}} del archivo \mbox{\hyperlink{_font_instance_8h_source}{Font\+Instance.\+h}}.
+
+
+
+La documentación para esta estructura fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_font_instance_8h}{Font\+Instance.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_font_instance_8cpp}{Font\+Instance.\+cpp}}\end{DoxyCompactItemize}

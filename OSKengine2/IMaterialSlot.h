@@ -2,7 +2,6 @@
 
 #include "OSKmacros.h"
 #include "GpuImageUsage.h"
-#include "IGpuStorageBuffer.h"
 #include <string>
 
 namespace OSK::ASSETS {
@@ -15,6 +14,7 @@ namespace OSK::GRAPHICS {
 	class GpuImage;
 	class MaterialLayout;
 	class ITopLevelAccelerationStructure;
+	class GpuDataBuffer;
 
 	inline constexpr TSize NUM_RESOURCES_IN_FLIGHT = 3;
 
@@ -103,7 +103,7 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// 
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
-		virtual void SetStorageBuffer(const std::string& binding, const IGpuStorageBuffer* buffer) = 0;
+		virtual void SetStorageBuffer(const std::string& binding, const GpuDataBuffer* buffer) = 0;
 
 		/// <summary>
 		/// Establece el buffer que será usado como storage buffer asignado al binding con el nombre dado.
@@ -114,7 +114,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note Habrá un buffer por cada frame in flight.
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
-		virtual void SetStorageBuffers(const std::string& binding, const IGpuStorageBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]) = 0;
+		virtual void SetStorageBuffers(const std::string& binding, const GpuDataBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]) = 0;
 
 
 		/// <summary>

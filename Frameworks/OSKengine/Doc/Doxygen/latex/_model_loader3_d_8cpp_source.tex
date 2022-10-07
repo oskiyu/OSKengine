@@ -1,0 +1,104 @@
+\hypertarget{_model_loader3_d_8cpp_source}{}\doxysection{Model\+Loader3\+D.\+cpp}
+\label{_model_loader3_d_8cpp_source}\index{OSKengine2/ModelLoader3D.cpp@{OSKengine2/ModelLoader3D.cpp}}
+\mbox{\hyperlink{_model_loader3_d_8cpp}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_model_loader3_d_8h}{ModelLoader3D.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_model3_d_8h}{Model3D.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_dynamic_array_8hpp}{DynamicArray.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_vertex_8h}{Vertex.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kengine_8h}{OSKengine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_renderer_8h}{IRenderer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00008}00008 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_vertex_buffer_8h}{IGpuVertexBuffer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00009}00009 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_index_buffer_8h}{IGpuIndexBuffer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00010}00010 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_memory_allocator_8h}{IGpuMemoryAllocator.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00011}00011 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_file_i_o_8h}{FileIO.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00012}00012 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_mesh3_d_8h}{Mesh3D.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00013}00013 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_format_8h}{Format.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00014}00014 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_memory_types_8h}{GpuMemoryTypes.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00015}00015 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_gpu_image_8h}{IGpuImage.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00016}00016 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_layout_8h}{GpuImageLayout.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00017}00017 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_owned_ptr_8h}{OwnedPtr.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00018}00018 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_usage_8h}{GpuImageUsage.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00019}00019 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_gpu_image_dimensions_8h}{GpuImageDimensions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00020}00020 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_color_8hpp}{Color.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00021}00021 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_vertex3_d_8h}{Vertex3D.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00022}00022 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_model_component3_d_8h}{ModelComponent3D.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00024}\mbox{\hyperlink{_model_loader3_d_8cpp_abd75661fe7969e19439052a5f69ba5d1}{00024}} \textcolor{preprocessor}{\#define GLM\_ENABLE\_EXPERIMENTAL}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00025}00025 \textcolor{preprocessor}{\#include <gtx/matrix\_decompose.hpp>}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00026}00026 \textcolor{preprocessor}{\#include <gtc/type\_ptr.hpp>}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00027}00027 \textcolor{preprocessor}{\#include <json.hpp>}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00029}\mbox{\hyperlink{_model_loader3_d_8cpp_ac203b64c0edef3702d707aed38ab024a}{00029}} \textcolor{preprocessor}{\#define TINYGLTF\_IMPLEMENTATION}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00030}\mbox{\hyperlink{_model_loader3_d_8cpp_a18372412ad2fc3ce1e3240b3cf0efe78}{00030}} \textcolor{preprocessor}{\#define STB\_IMAGE\_IMPLEMENTATION}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00031}\mbox{\hyperlink{_model_loader3_d_8cpp_ab85d274e208f7c3760dee26d2ab13eb8}{00031}} \textcolor{preprocessor}{\#define TINYGLTF\_NO\_STB\_IMAGE\_WRITE}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00032}00032 \textcolor{preprocessor}{\#include <tiny\_gltf.h>}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00033}00033 \textcolor{preprocessor}{\#undef TINYGLTF\_IMPLEMENTATION}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00034}00034 \textcolor{preprocessor}{\#undef STB\_IMAGE\_IMPLEMENTATION}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00035}00035 \textcolor{preprocessor}{\#undef TINYGLTF\_NO\_STB\_IMAGE\_WRITE}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00037}00037 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_static_mesh_loader_8h}{StaticMeshLoader.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00038}00038 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_anim_mesh_loader_8h}{AnimMeshLoader.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00040}00040 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k}{OSK}};}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00041}00041 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_a_s_s_e_t_s}{OSK::ASSETS}};}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00042}00042 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}};}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00044}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d_afd1dbf7d9bffbe40564bb3e2a885e04a}{00044}} \textcolor{keywordtype}{void} ModelLoader3D::Load(\textcolor{keyword}{const} std::string\& assetFilePath, \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset}{IAsset}}** asset) \{}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00045}00045     \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d}{Model3D}}* output = (\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d}{Model3D}}*)*asset;}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00047}00047     \textcolor{comment}{// a}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00048}00048     nlohmann::json assetInfo = nlohmann::json::parse(\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_file_i_o_aad968707ec7b00bce0540c804f476dc9}{IO::FileIO::ReadFromFile}}(assetFilePath));}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00050}00050     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(assetInfo.contains(\textcolor{stringliteral}{"{}file\_type"{}}), \textcolor{stringliteral}{"{}Archivo de modelo 3D incorrecto: no se encuentra 'file\_type'."{}});}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00051}00051     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(assetInfo.contains(\textcolor{stringliteral}{"{}spec\_ver"{}}), \textcolor{stringliteral}{"{}Archivo de modelo 3D incorrecto: no se encuentra 'spec\_ver'."{}});}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00052}00052     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(assetInfo.contains(\textcolor{stringliteral}{"{}name"{}}), \textcolor{stringliteral}{"{}Archivo de modelo 3D incorrecto: no se encuentra 'name'."{}});}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00053}00053     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(assetInfo.contains(\textcolor{stringliteral}{"{}asset\_type"{}}), \textcolor{stringliteral}{"{}Archivo de modelo 3D incorrecto: no se encuentra 'asset\_type'."{}});}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00054}00054     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(assetInfo.contains(\textcolor{stringliteral}{"{}raw\_asset\_path"{}}), \textcolor{stringliteral}{"{}Archivo de modelo 3D incorrecto: no se encuentra 'faces\_files'."{}});}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00055}00055     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(assetInfo.contains(\textcolor{stringliteral}{"{}scale"{}}), \textcolor{stringliteral}{"{}Archivo de modelo 3D incorrecto: no se encuentra 'scale'."{}});}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00057}00057     std::string texturePath = assetInfo[\textcolor{stringliteral}{"{}raw\_asset\_path"{}}];}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00058}00058     output-\/>\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_af0bbd1c59b2cd81667b63cb6d015c11c}{SetName}}(assetInfo[\textcolor{stringliteral}{"{}name"{}}]);}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00060}00060     \mbox{\hyperlink{_assert_8h_adfbccaec84df99b8277f9d877554170c}{OSK\_ASSERT}}(\mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_file_i_o_ac7fe213b79ce97b178a7e27f7216a2f4}{IO::FileIO::FileExists}}(assetInfo[\textcolor{stringliteral}{"{}raw\_asset\_path"{}}]), \textcolor{stringliteral}{"{}El modelo en no existe."{}});}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00062}00062     \textcolor{keyword}{const} \textcolor{keywordtype}{bool} isAnimated = assetInfo.contains(\textcolor{stringliteral}{"{}animated"{}});}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00065}00065     \textcolor{keywordflow}{if} (isAnimated) \{}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00066}00066         \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader}{AnimMeshLoader}} loader\{\};}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00067}00067         loader.\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a43c08f7bf7238c29c3a433893358e9c4}{Load}}(assetInfo[\textcolor{stringliteral}{"{}raw\_asset\_path"{}}], assetInfo[\textcolor{stringliteral}{"{}scale"{}}]);}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00068}00068         loader.SetupModel(output);}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00069}00069     \}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00070}00070     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00071}00071         \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader}{StaticMeshLoader}} loader\{\};}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00072}00072         loader.\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a43c08f7bf7238c29c3a433893358e9c4}{Load}}(assetInfo[\textcolor{stringliteral}{"{}raw\_asset\_path"{}}], assetInfo[\textcolor{stringliteral}{"{}scale"{}}]);}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00073}00073         loader.SetupModel(output);}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00074}00074     \}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00077}00077     glm::mat4 initialTransform = glm::mat4(1.0f);}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00079}00079     \textcolor{keywordflow}{if} (assetInfo.contains(\textcolor{stringliteral}{"{}rotation\_offset"{}})) \{}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00080}00080         initialTransform = glm::rotate(initialTransform, glm::radians((\textcolor{keywordtype}{float})assetInfo[\textcolor{stringliteral}{"{}rotation\_offset"{}}][0]), \{ 1.0f, 0.0f, 0.0f\});}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00081}00081         initialTransform = glm::rotate(initialTransform, glm::radians((\textcolor{keywordtype}{float})assetInfo[\textcolor{stringliteral}{"{}rotation\_offset"{}}][1]), \{ 0.0f, 1.0f, 0.0f \});}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00082}00082         initialTransform = glm::rotate(initialTransform, glm::radians((\textcolor{keywordtype}{float})assetInfo[\textcolor{stringliteral}{"{}rotation\_offset"{}}][2]), \{ 0.0f, 0.0f, 1.0f \});}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00083}00083     \}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00085}00085 \}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00087}\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d_a48c2493ba7329db2ab0ab5309be7a6ac}{00087}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d_a48c2493ba7329db2ab0ab5309be7a6ac}{ModelLoader3D::SetupPbrModel}}(\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d}{Model3D}}* model, \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_model_component3_d}{ECS::ModelComponent3D}}* component) \{}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00088}00088     \textcolor{keywordflow}{for} (\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} i = 0; i < model-\/>\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a480cf3e35730e8fb88c1e40cef76fdea}{GetMeshes}}().GetSize(); i++) \{}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00089}00089         \textcolor{keyword}{auto}\& meshMetadata = model-\/>\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_abde872df60b377efa267618057c5bfe4}{GetMetadata}}().\mbox{\hyperlink{struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata_a990f8bc4bc4c8c91586a992b79b8f582}{meshesMetadata}}[i];}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00091}00091         \textcolor{keywordflow}{if} (meshMetadata.materialTextures.GetSize() > 0) \{}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00092}00092             \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& [\_, texture] : meshMetadata.materialTextures) \{}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00093}00093                 component-\/>\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_model_component3_d_ad9162b7e1cb7978be75adda96e17ab79}{GetMeshMaterialInstance}}(i)-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_a0cc12aae6dc313b4c4f24abe461b5f04}{GetSlot}}(\textcolor{stringliteral}{"{}texture"{}})-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot_a5e2359e7cd0c026983bce50b75c96f8b}{SetGpuImage}}(\textcolor{stringliteral}{"{}albedoTexture"{}}, model-\/>\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_a46ac841ad1f82be255e68f5b188b6278}{GetImage}}(texture));}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00094}00094                 component-\/>\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_model_component3_d_ad9162b7e1cb7978be75adda96e17ab79}{GetMeshMaterialInstance}}(i)-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_a0cc12aae6dc313b4c4f24abe461b5f04}{GetSlot}}(\textcolor{stringliteral}{"{}texture"{}})-\/>\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot_a71d6977bf0f937b5086a32ca8af9d3b3}{FlushUpdate}}();}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00095}00095             \}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00096}00096         \}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00097}00097     \}}
+\DoxyCodeLine{\Hypertarget{_model_loader3_d_8cpp_source_l00098}00098 \}}
+
+\end{DoxyCode}

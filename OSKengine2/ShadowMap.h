@@ -6,6 +6,10 @@
 #include "Vector4.hpp"
 #include "GameObject.h"
 
+namespace OSK::ASSETS {
+	enum class ModelType;
+}
+
 namespace OSK::GRAPHICS {
 
 	class DirectionalLight;
@@ -92,7 +96,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Se debe haber inicializado el ShadowMap con ShadowMap::Create.
 		/// @note Devolverá nullptr si no se cumple la precondición.
-		Material* GetShadowsMaterial() const;
+		Material* GetShadowsMaterial(ASSETS::ModelType modelType) const;
 
 		/// <summary>
 		/// Devuelve la instancia del material para la generación de sombras.
@@ -143,6 +147,7 @@ namespace OSK::GRAPHICS {
 		Vector3f lightOrigin = Vector3f(0.0f);
 
 		Material* shadowsGenMaterial = nullptr;
+		Material* shadowsGenAnimMaterial = nullptr;
 		UniquePtr<MaterialInstance> shadowsGenMaterialInstance = nullptr;
 
 		UniquePtr<IGpuUniformBuffer> lightUniformBuffer[NUM_RESOURCES_IN_FLIGHT]{};

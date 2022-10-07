@@ -1,0 +1,366 @@
+\hypertarget{class_o_s_k_1_1_e_c_s_1_1_entity_component_system}{}\doxysection{Referencia de la Clase OSK\+::ECS\+::Entity\+Component\+System}
+\label{class_o_s_k_1_1_e_c_s_1_1_entity_component_system}\index{OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}}
+
+
+{\ttfamily \#include $<$Entity\+Component\+System.\+h$>$}
+
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_acd92280893189d6862ff1044f13a58e5}{Entity\+Component\+System}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a5a836db0967b2e872e8d66b379bb0728}{On\+Tick}} (\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDelta\+Time}} delta\+Time)
+\item 
+{\footnotesize template$<$typename TComponent $>$ }\\void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_ad5682530350f1b13747d7ad837634a4c}{Register\+Component}} ()
+\item 
+{\footnotesize template$<$typename TComponent $>$ }\\TComponent \& \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_ac1d06cd361c773ba69b09002079c3660}{Add\+Component}} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} obj, const TComponent \&component)
+\item 
+{\footnotesize template$<$typename TComponent $>$ }\\TComponent \& \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_aa1d48a588fa699cb4f947eed3959c4b9}{Add\+Component}} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} obj, TComponent \&\&component)
+\item 
+{\footnotesize template$<$typename TComponent $>$ }\\bool \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_ad5ba5ecdf2ce00a8f8a748d7a4d8dd16}{Object\+Has\+Component}} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} obj) const
+\item 
+{\footnotesize template$<$typename TComponent $>$ }\\void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a226967f05467575221ddb09a194e28b2}{Remove\+Component}} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} obj)
+\item 
+{\footnotesize template$<$typename TComponent $>$ }\\TComponent \& \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_ab543c5c91b9b319ed21a01da96ea06d9}{Get\+Component}} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} obj) const
+\item 
+{\footnotesize template$<$typename TComponent $>$ }\\\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_abe66f77f80fc594e988b8d0c01468dd0}{Component\+Type}} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_af46449bd1febf59fec08e94e73c4fc80}{Get\+Component\+Type}} () const
+\item 
+{\footnotesize template$<$typename TSystem $>$ }\\TSystem $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a18836d4687754f3fc6415ecb355915bb}{Register\+System}} ()
+\item 
+{\footnotesize template$<$typename TSystem $>$ }\\void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a798a0e00bae8eecdee1ff9d4cdcb8ebd}{Remove\+System}} ()
+\item 
+{\footnotesize template$<$typename TSystem $>$ }\\TSystem $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a706590589270cf5d5aa1747915ba67f9}{Get\+System}} () const
+\item 
+\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} \mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\+\_\+\+CALL}} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a8fdd1a158a10e388946a2c3e0ddf1eb5}{Spawn\+Object}} ()
+\item 
+void \mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\+\_\+\+CALL}} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_ae529c5094ca66a4eacc5da0a028eaa52}{Destroy\+Object}} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} $\ast$obj)
+\item 
+const \mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\+\_\+\+CALL}} \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_render_system}{IRender\+System}} $\ast$ $>$ \& \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a15609b984e64143136dcca658f7c1f1a}{Get\+Render\+Systems}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Entity-\/\+Component-\/\+System es un paradigma de programación en el cual los objetos se dividen en 3 partes diferenciables\+: 
+
+
+\begin{DoxyItemize}
+\item Game\+Object\+:
+\begin{DoxyItemize}
+\item Representa un objeto en concreto.
+\item Es simplemente un identificador único.
+\end{DoxyItemize}
+\item Componente\+:
+\begin{DoxyItemize}
+\item Estructura que almacena datos específicos de un tipo dado de un Game\+Object.
+\item Los componentes no ejecutan lógica alguna, y sólo son contenedores de información relacionada con un Game\+Object.
+\end{DoxyItemize}
+\item Sistemas\+:
+\begin{DoxyItemize}
+\item Sencarga de ejecutar lógica con los datos de los componentes.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+Esta clase es la encargada de manejar este sistema, proporcionando una capa de abstracción sobre la implementación del sistema.
+
+\begin{DoxyNote}{Nota}
+Toda operación que el juego quiera hacer sobre el \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s}{ECS}} debe hacerse a través de esta clase. 
+
+Esta clase es dueña de los sistemas. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_entity_component_system_8h_source_l00038}{38}} del archivo \mbox{\hyperlink{_entity_component_system_8h_source}{Entity\+Component\+System.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_acd92280893189d6862ff1044f13a58e5}\label{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_acd92280893189d6862ff1044f13a58e5}} 
+\index{OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}!EntityComponentSystem@{EntityComponentSystem}}
+\index{EntityComponentSystem@{EntityComponentSystem}!OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}}
+\doxysubsubsection{\texorpdfstring{EntityComponentSystem()}{EntityComponentSystem()}}
+{\footnotesize\ttfamily Entity\+Component\+System\+::\+Entity\+Component\+System (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_entity_component_system_8cpp_source_l00010}{10}} del archivo \mbox{\hyperlink{_entity_component_system_8cpp_source}{Entity\+Component\+System.\+cpp}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_ac1d06cd361c773ba69b09002079c3660}\label{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_ac1d06cd361c773ba69b09002079c3660}} 
+\index{OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}!AddComponent@{AddComponent}}
+\index{AddComponent@{AddComponent}!OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}}
+\doxysubsubsection{\texorpdfstring{AddComponent()}{AddComponent()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename TComponent $>$ \\
+TComponent \& OSK\+::\+ECS\+::\+Entity\+Component\+System\+::\+Add\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}}}]{obj,  }\item[{const TComponent \&}]{component }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Añade el componente dado al objeto. 
+
+
+\begin{DoxyTemplParams}{Parámetros del template}
+{\em TComponent} & Tipo de componente.\\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parámetros}
+{\em obj} & ID del objeto al que se va a añadir..\\
+\hline
+{\em component} & Componente a añadir.\\
+\hline
+\end{DoxyParams}
+
+
+
+\begin{DoxyExceptions}{Excepciones}
+{\em std\+::runtime\+\_\+exception} & si el objeto ya tiene un componente del tipo. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definición en la línea \mbox{\hyperlink{_entity_component_system_8h_source_l00066}{66}} del archivo \mbox{\hyperlink{_entity_component_system_8h_source}{Entity\+Component\+System.\+h}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 0
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_aa1d48a588fa699cb4f947eed3959c4b9}\label{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_aa1d48a588fa699cb4f947eed3959c4b9}} 
+\index{OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}!AddComponent@{AddComponent}}
+\index{AddComponent@{AddComponent}!OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}}
+\doxysubsubsection{\texorpdfstring{AddComponent()}{AddComponent()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename TComponent $>$ \\
+TComponent \& OSK\+::\+ECS\+::\+Entity\+Component\+System\+::\+Add\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}}}]{obj,  }\item[{TComponent \&\&}]{component }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Añade el componente dado al objeto. 
+
+
+\begin{DoxyTemplParams}{Parámetros del template}
+{\em TComponent} & Tipo de componente.\\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parámetros}
+{\em obj} & ID del objeto al que se va a añadir..\\
+\hline
+{\em component} & Componente a añadir.\\
+\hline
+\end{DoxyParams}
+
+
+
+\begin{DoxyExceptions}{Excepciones}
+{\em std\+::runtime\+\_\+exception} & si el objeto ya tiene un componente del tipo. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definición en la línea \mbox{\hyperlink{_entity_component_system_8h_source_l00089}{89}} del archivo \mbox{\hyperlink{_entity_component_system_8h_source}{Entity\+Component\+System.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_ae529c5094ca66a4eacc5da0a028eaa52}\label{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_ae529c5094ca66a4eacc5da0a028eaa52}} 
+\index{OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}!DestroyObject@{DestroyObject}}
+\index{DestroyObject@{DestroyObject}!OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}}
+\doxysubsubsection{\texorpdfstring{DestroyObject()}{DestroyObject()}}
+{\footnotesize\ttfamily void Entity\+Component\+System\+::\+Destroy\+Object (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Elimina un objeto. 
+
+\begin{DoxyNote}{Nota}
+Su ID cambia a 0 para indicar que ya no es una ID válida. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_entity_component_system_8cpp_source_l00024}{24}} del archivo \mbox{\hyperlink{_entity_component_system_8cpp_source}{Entity\+Component\+System.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_ab543c5c91b9b319ed21a01da96ea06d9}\label{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_ab543c5c91b9b319ed21a01da96ea06d9}} 
+\index{OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}!GetComponent@{GetComponent}}
+\index{GetComponent@{GetComponent}!OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}}
+\doxysubsubsection{\texorpdfstring{GetComponent()}{GetComponent()}}
+{\footnotesize\ttfamily template$<$typename TComponent $>$ \\
+TComponent \& OSK\+::\+ECS\+::\+Entity\+Component\+System\+::\+Get\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}}}]{obj }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Devuelve una referencia al componente del tipo dado del objeto. 
+
+
+\begin{DoxyExceptions}{Excepciones}
+{\em std\+::runtime\+\_\+exception} & Si el objeto no tiene el componente. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definición en la línea \mbox{\hyperlink{_entity_component_system_8h_source_l00135}{135}} del archivo \mbox{\hyperlink{_entity_component_system_8h_source}{Entity\+Component\+System.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_af46449bd1febf59fec08e94e73c4fc80}\label{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_af46449bd1febf59fec08e94e73c4fc80}} 
+\index{OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}!GetComponentType@{GetComponentType}}
+\index{GetComponentType@{GetComponentType}!OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}}
+\doxysubsubsection{\texorpdfstring{GetComponentType()}{GetComponentType()}}
+{\footnotesize\ttfamily template$<$typename TComponent $>$ \\
+\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_abe66f77f80fc594e988b8d0c01468dd0}{Component\+Type}} OSK\+::\+ECS\+::\+Entity\+Component\+System\+::\+Get\+Component\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Devuelve el código identificativo del componente dado. 
+
+\begin{DoxyWarning}{Atención}
+El componente tiene que haber sido registrado. 
+\end{DoxyWarning}
+
+
+Definición en la línea \mbox{\hyperlink{_entity_component_system_8h_source_l00145}{145}} del archivo \mbox{\hyperlink{_entity_component_system_8h_source}{Entity\+Component\+System.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a15609b984e64143136dcca658f7c1f1a}\label{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a15609b984e64143136dcca658f7c1f1a}} 
+\index{OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}!GetRenderSystems@{GetRenderSystems}}
+\index{GetRenderSystems@{GetRenderSystems}!OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}}
+\doxysubsubsection{\texorpdfstring{GetRenderSystems()}{GetRenderSystems()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_render_system}{IRender\+System}} $\ast$ $>$ \& Entity\+Component\+System\+::\+Get\+Render\+Systems (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve los render systems registrados. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_entity_component_system_8cpp_source_l00028}{28}} del archivo \mbox{\hyperlink{_entity_component_system_8cpp_source}{Entity\+Component\+System.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a706590589270cf5d5aa1747915ba67f9}\label{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a706590589270cf5d5aa1747915ba67f9}} 
+\index{OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}!GetSystem@{GetSystem}}
+\index{GetSystem@{GetSystem}!OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}}
+\doxysubsubsection{\texorpdfstring{GetSystem()}{GetSystem()}}
+{\footnotesize\ttfamily template$<$typename TSystem $>$ \\
+TSystem $\ast$ OSK\+::\+ECS\+::\+Entity\+Component\+System\+::\+Get\+System (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Devuelve la instancia almacenada del sistema del tipo dado. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_entity_component_system_8h_source_l00180}{180}} del archivo \mbox{\hyperlink{_entity_component_system_8h_source}{Entity\+Component\+System.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_ad5ba5ecdf2ce00a8f8a748d7a4d8dd16}\label{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_ad5ba5ecdf2ce00a8f8a748d7a4d8dd16}} 
+\index{OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}!ObjectHasComponent@{ObjectHasComponent}}
+\index{ObjectHasComponent@{ObjectHasComponent}!OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}}
+\doxysubsubsection{\texorpdfstring{ObjectHasComponent()}{ObjectHasComponent()}}
+{\footnotesize\ttfamily template$<$typename TComponent $>$ \\
+bool OSK\+::\+ECS\+::\+Entity\+Component\+System\+::\+Object\+Has\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}}}]{obj }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Comprueba si el objeto dado tiene añadido un componente del tipo dado. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_entity_component_system_8h_source_l00107}{107}} del archivo \mbox{\hyperlink{_entity_component_system_8h_source}{Entity\+Component\+System.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a5a836db0967b2e872e8d66b379bb0728}\label{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a5a836db0967b2e872e8d66b379bb0728}} 
+\index{OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}!OnTick@{OnTick}}
+\index{OnTick@{OnTick}!OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}}
+\doxysubsubsection{\texorpdfstring{OnTick()}{OnTick()}}
+{\footnotesize\ttfamily void Entity\+Component\+System\+::\+On\+Tick (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDelta\+Time}}}]{delta\+Time }\end{DoxyParamCaption})}
+
+
+
+Ejecuta la lógica On\+Tick de todos los sistemas registrados. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_entity_component_system_8cpp_source_l00016}{16}} del archivo \mbox{\hyperlink{_entity_component_system_8cpp_source}{Entity\+Component\+System.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_ad5682530350f1b13747d7ad837634a4c}\label{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_ad5682530350f1b13747d7ad837634a4c}} 
+\index{OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}!RegisterComponent@{RegisterComponent}}
+\index{RegisterComponent@{RegisterComponent}!OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}}
+\doxysubsubsection{\texorpdfstring{RegisterComponent()}{RegisterComponent()}}
+{\footnotesize\ttfamily template$<$typename TComponent $>$ \\
+void OSK\+::\+ECS\+::\+Entity\+Component\+System\+::\+Register\+Component (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Registra un tipo de componente. 
+
+\begin{DoxyWarning}{Atención}
+Todo componente que se quiera usar debe ser primero registrado. 
+\end{DoxyWarning}
+
+
+Definición en la línea \mbox{\hyperlink{_entity_component_system_8h_source_l00054}{54}} del archivo \mbox{\hyperlink{_entity_component_system_8h_source}{Entity\+Component\+System.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a18836d4687754f3fc6415ecb355915bb}\label{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a18836d4687754f3fc6415ecb355915bb}} 
+\index{OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}!RegisterSystem@{RegisterSystem}}
+\index{RegisterSystem@{RegisterSystem}!OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}}
+\doxysubsubsection{\texorpdfstring{RegisterSystem()}{RegisterSystem()}}
+{\footnotesize\ttfamily template$<$typename TSystem $>$ \\
+TSystem $\ast$ OSK\+::\+ECS\+::\+Entity\+Component\+System\+::\+Register\+System (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Registra y almacena un nuevo sistema del tipo dado. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_entity_component_system_8h_source_l00152}{152}} del archivo \mbox{\hyperlink{_entity_component_system_8h_source}{Entity\+Component\+System.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a226967f05467575221ddb09a194e28b2}\label{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a226967f05467575221ddb09a194e28b2}} 
+\index{OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}!RemoveComponent@{RemoveComponent}}
+\index{RemoveComponent@{RemoveComponent}!OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}}
+\doxysubsubsection{\texorpdfstring{RemoveComponent()}{RemoveComponent()}}
+{\footnotesize\ttfamily template$<$typename TComponent $>$ \\
+void OSK\+::\+ECS\+::\+Entity\+Component\+System\+::\+Remove\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}}}]{obj }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Elimina el componente del objeto. 
+
+
+\begin{DoxyExceptions}{Excepciones}
+{\em std\+::runtime\+\_\+exception} & Si el objeto no tiene el componente del tipo dado. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definición en la línea \mbox{\hyperlink{_entity_component_system_8h_source_l00118}{118}} del archivo \mbox{\hyperlink{_entity_component_system_8h_source}{Entity\+Component\+System.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a798a0e00bae8eecdee1ff9d4cdcb8ebd}\label{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a798a0e00bae8eecdee1ff9d4cdcb8ebd}} 
+\index{OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}!RemoveSystem@{RemoveSystem}}
+\index{RemoveSystem@{RemoveSystem}!OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}}
+\doxysubsubsection{\texorpdfstring{RemoveSystem()}{RemoveSystem()}}
+{\footnotesize\ttfamily template$<$typename TSystem $>$ \\
+void OSK\+::\+ECS\+::\+Entity\+Component\+System\+::\+Remove\+System (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Elimina un sistema. 
+
+\begin{DoxyNote}{Nota}
+Si el sistema no está registrado, no ocurre nada. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_entity_component_system_8h_source_l00169}{169}} del archivo \mbox{\hyperlink{_entity_component_system_8h_source}{Entity\+Component\+System.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a8fdd1a158a10e388946a2c3e0ddf1eb5}\label{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_a8fdd1a158a10e388946a2c3e0ddf1eb5}} 
+\index{OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}!SpawnObject@{SpawnObject}}
+\index{SpawnObject@{SpawnObject}!OSK::ECS::EntityComponentSystem@{OSK::ECS::EntityComponentSystem}}
+\doxysubsubsection{\texorpdfstring{SpawnObject()}{SpawnObject()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} Entity\+Component\+System\+::\+Spawn\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Spawnea un nuevo objeto, y devuelve su ID. 
+
+\begin{DoxyWarning}{Atención}
+\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s}{ECS}} NO ES DUEÑO DEL OBJETO, el juego es el encargado de eliminarlo mediante \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_entity_component_system_ae529c5094ca66a4eacc5da0a028eaa52}{Destroy\+Object()}}. 
+\end{DoxyWarning}
+
+
+Definición en la línea \mbox{\hyperlink{_entity_component_system_8cpp_source_l00020}{20}} del archivo \mbox{\hyperlink{_entity_component_system_8cpp_source}{Entity\+Component\+System.\+cpp}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_entity_component_system_8h}{Entity\+Component\+System.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_entity_component_system_8cpp}{Entity\+Component\+System.\+cpp}}\end{DoxyCompactItemize}

@@ -5,6 +5,7 @@
 namespace OSK::GRAPHICS {
 
 	class ICommandList;
+	class IGpuStorageBuffer;
 
 	/// <summary>
 	/// Clase auxiliar que permite una capa de bloom / resplandor.

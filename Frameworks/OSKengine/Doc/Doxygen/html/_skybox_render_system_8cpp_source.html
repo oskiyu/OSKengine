@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/SkyboxRenderSystem.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_skybox_render_system_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">SkyboxRenderSystem.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_skybox_render_system_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_skybox_render_system_8h.html">SkyboxRenderSystem.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_format_8h.html">Format.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_material_8h.html">Material.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_material_system_8h.html">MaterialSystem.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_cubemap_texture_8h.html">CubemapTexture.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_model3_d_8h.html">Model3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="_camera_component3_d_8h.html">CameraComponent3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="_transform3_d_8h.html">Transform3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a>;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a13cc32f04efd6adfe3ab7d731a8ff2c4">   18</a></span>SkyboxRenderSystem::SkyboxRenderSystem() {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ac9336e70706ab6ea24d9f5fe95955efd">SetSignature</a>({});</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    skyboxMaterial = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a15a2d271ad61c59ce4414dbdf016d277">GetMaterialSystem</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#ad39c519e3a5f58cc2a7622ba9b39687a">LoadMaterial</a>(<span class="stringliteral">&quot;Resources/skybox_material.json&quot;</span>);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    skyboxMaterialInstance = skyboxMaterial-&gt;CreateInstance().GetPointer();</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    cubemapModel = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ab092fdb69a9c816c93f177192477d97c">Engine::GetAssetManager</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#ac0ee74e39c90d597beb90338a31bdae3">Load</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">Model3D</a>&gt;(<span class="stringliteral">&quot;Resources/Assets/cube.json&quot;</span>, <span class="stringliteral">&quot;GLOBAL&quot;</span>);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html">IGpuUniformBuffer</a>* buffers[3]{};</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> i = 0; i &lt; <a class="code hl_variable" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a2790b1bb1dbf382ccd86a228f9f2ccbd">NUM_RESOURCES_IN_FLIGHT</a>; i++) {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        cameraUbos[i] = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#acf03703bbb6f031f905612d86f104b38">GetMemoryAllocator</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#ac8beb74ff85ed07f8d96a60683ac0599">CreateUniformBuffer</a>(<span class="keyword">sizeof</span>(glm::mat4) * 2).GetPointer();</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        buffers[i] = cameraUbos[i].GetPointer();</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    }</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    skyboxMaterialInstance-&gt;GetSlot(<span class="stringliteral">&quot;camera&quot;</span>)-&gt;SetUniformBuffers(<span class="stringliteral">&quot;camera&quot;</span>, buffers);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    skyboxMaterialInstance-&gt;GetSlot(<span class="stringliteral">&quot;camera&quot;</span>)-&gt;FlushUpdate();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a0677cf0b09628f6dcd0f7d81de88eff9">   36</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a0677cf0b09628f6dcd0f7d81de88eff9">SkyboxRenderSystem::CreateTargetImage</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a>&amp; size) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_variable" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a8e9d568865c3d41fbec6afd49acb3cfa">renderTarget</a>.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a2762dc66547722dc7742657d52f000bb">Create</a>(size, Format::RGBA32_SFLOAT, Format::D32S8_SFLOAT_SUINT);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_variable" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a8e9d568865c3d41fbec6afd49acb3cfa">renderTarget</a>.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#af79cef3ae998b47fd109d86c3c19ee35">SetName</a>(<span class="stringliteral">&quot;Skybox Render Target&quot;</span>);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a5e8e8073fcf0d516cd1a996687adf1a3">   41</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a5e8e8073fcf0d516cd1a996687adf1a3">SkyboxRenderSystem::SetCamera</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a23d62d7bd6a58fd7f758079d87df6c71">GameObjectIndex</a> cameraObject) {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    this-&gt;cameraObject = cameraObject;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a7ce7fadae48351b4e0fb0a25091c1f84">   45</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a7ce7fadae48351b4e0fb0a25091c1f84">SkyboxRenderSystem::SetCubemap</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html">CubemapTexture</a>&amp; texture) {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    skyboxMaterialInstance-&gt;GetSlot(<span class="stringliteral">&quot;texture&quot;</span>)-&gt;SetGpuImage(<span class="stringliteral">&quot;skybox&quot;</span>, texture.<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html#a73363a797a34fad840f774acff088baa">GetGpuImage</a>());</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    skyboxMaterialInstance-&gt;GetSlot(<span class="stringliteral">&quot;texture&quot;</span>)-&gt;FlushUpdate();</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a9f65491ce1cc366aa36cb63d8a1a85d4">   50</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a9f65491ce1cc366aa36cb63d8a1a85d4">SkyboxRenderSystem::Render</a>(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>* commandList) {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">if</span> (cameraObject == <a class="code hl_variable" href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">EMPTY_GAME_OBJECT</a>)</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> currentFrameIndex = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a4a779e3af14025ec16d8a0c0a6cf0fe5">GetCurrentCommandListIndex</a>();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html">CameraComponent3D</a>&amp; camera = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a17fd2842c078b7ddb4aaa70cd04549ab">Engine::GetEntityComponentSystem</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ab543c5c91b9b319ed21a01da96ea06d9">GetComponent</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html">CameraComponent3D</a>&gt;(cameraObject);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&amp; cameraTransform = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a17fd2842c078b7ddb4aaa70cd04549ab">Engine::GetEntityComponentSystem</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ab543c5c91b9b319ed21a01da96ea06d9">GetComponent</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&gt;(cameraObject);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    cameraUbos[currentFrameIndex]-&gt;MapMemory();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    cameraUbos[currentFrameIndex]-&gt;Write(camera.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#a68079a946e3c8d14718ef8d0f560b9c0">GetProjectionMatrix</a>());</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    cameraUbos[currentFrameIndex]-&gt;Write(camera.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#a5cc4bc7e2d2d8c23c93b13096970acdb">GetViewMatrix</a>(cameraTransform));</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    cameraUbos[currentFrameIndex]-&gt;Unmap();</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ae3d1fda12c227f4b1782a16c2dca7f5c">BeginGraphicsRenderpass</a>(&amp;<a class="code hl_variable" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a8e9d568865c3d41fbec6afd49acb3cfa">renderTarget</a>, <a class="code hl_function" href="class_o_s_k_1_1_color.html#a59c0bb4e7d3b7d396f97e1119f01f1ca">Color::BLACK</a>() * 0.0f);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aced1453da2f79b5e435df27c330ab8d1">BindMaterial</a>(skyboxMaterial);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aebccacb95627e6c8c9da33367ca14368">BindMaterialSlot</a>(skyboxMaterialInstance-&gt;GetSlot(<span class="stringliteral">&quot;camera&quot;</span>));</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aebccacb95627e6c8c9da33367ca14368">BindMaterialSlot</a>(skyboxMaterialInstance-&gt;GetSlot(<span class="stringliteral">&quot;texture&quot;</span>));</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a5e41e7a449345ecc167ea9bc5a857211">BindVertexBuffer</a>(cubemapModel-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#ae71e7cb40f766ce9b5490b22971174ac">GetVertexBuffer</a>());</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a12d4cae3d3f616dcc3a4b827a8abb5d5">BindIndexBuffer</a>(cubemapModel-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a7c1aaf201341a6e0666998cb7b13d98e">GetIndexBuffer</a>());</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aa78c754b21eb1cf45f2c05e36bdb9276">PushMaterialConstants</a>(<span class="stringliteral">&quot;brightness&quot;</span>, 1.0f);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ae3aa0f9da7dcfb03843196c7036c0209">DrawSingleInstance</a>(cubemapModel-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a88f36a4771a22884eaa3933a9d18ae56">GetIndexCount</a>());</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a27c970b0c75c78d08fa173eb3b875eb1">EndGraphicsRenderpass</a>();</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
+<div class="ttc" id="a_camera_component3_d_8h_html"><div class="ttname"><a href="_camera_component3_d_8h.html">CameraComponent3D.h</a></div></div>
+<div class="ttc" id="a_cubemap_texture_8h_html"><div class="ttname"><a href="_cubemap_texture_8h.html">CubemapTexture.h</a></div></div>
+<div class="ttc" id="a_format_8h_html"><div class="ttname"><a href="_format_8h.html">Format.h</a></div></div>
+<div class="ttc" id="a_material_8h_html"><div class="ttname"><a href="_material_8h.html">Material.h</a></div></div>
+<div class="ttc" id="a_material_system_8h_html"><div class="ttname"><a href="_material_system_8h.html">MaterialSystem.h</a></div></div>
+<div class="ttc" id="a_model3_d_8h_html"><div class="ttname"><a href="_model3_d_8h.html">Model3D.h</a></div></div>
+<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00023">OSKmacros.h:23</a></div></div>
+<div class="ttc" id="a_skybox_render_system_8h_html"><div class="ttname"><a href="_skybox_render_system_8h.html">SkyboxRenderSystem.h</a></div></div>
+<div class="ttc" id="a_transform3_d_8h_html"><div class="ttname"><a href="_transform3_d_8h.html">Transform3D.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_ac0ee74e39c90d597beb90338a31bdae3"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#ac0ee74e39c90d597beb90338a31bdae3">OSK::ASSETS::AssetManager::Load</a></div><div class="ttdeci">T * Load(const std::string &amp;assetFilePath, const std::string lifetimePool)</div><div class="ttdoc">Carga un asset.</div><div class="ttdef"><b>Definition:</b> <a href="_asset_manager_8h_source.html#l00034">AssetManager.h:34</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html">OSK::ASSETS::CubemapTexture</a></div><div class="ttdoc">Representa una textura para un cubemap. Se puede usar para renderizar un skybox.</div><div class="ttdef"><b>Definition:</b> <a href="_cubemap_texture_8h_source.html#l00019">CubemapTexture.h:19</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_html_a73363a797a34fad840f774acff088baa"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html#a73363a797a34fad840f774acff088baa">OSK::ASSETS::CubemapTexture::GetGpuImage</a></div><div class="ttdeci">GRAPHICS::GpuImage * GetGpuImage() const</div><div class="ttdoc">Imagen guardada en la GPU. Para renderizado.</div><div class="ttdef"><b>Definition:</b> <a href="_cubemap_texture_8cpp_source.html#l00011">CubemapTexture.cpp:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">OSK::ASSETS::Model3D</a></div><div class="ttdoc">Un modelo 3D, para el renderizado 3D. Está compuesto por una serie de meshes 3D.</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8h_source.html#l00086">Model3D.h:86</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_a7c1aaf201341a6e0666998cb7b13d98e"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a7c1aaf201341a6e0666998cb7b13d98e">OSK::ASSETS::Model3D::GetIndexBuffer</a></div><div class="ttdeci">GRAPHICS::IGpuIndexBuffer * GetIndexBuffer() const</div><div class="ttdoc">Devuelve el buffer de la GPU con los índices del modelo.</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8cpp_source.html#l00044">Model3D.cpp:44</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_a88f36a4771a22884eaa3933a9d18ae56"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a88f36a4771a22884eaa3933a9d18ae56">OSK::ASSETS::Model3D::GetIndexCount</a></div><div class="ttdeci">TSize GetIndexCount() const</div><div class="ttdoc">Número de índices.</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8cpp_source.html#l00052">Model3D.cpp:52</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_ae71e7cb40f766ce9b5490b22971174ac"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#ae71e7cb40f766ce9b5490b22971174ac">OSK::ASSETS::Model3D::GetVertexBuffer</a></div><div class="ttdeci">GRAPHICS::IGpuVertexBuffer * GetVertexBuffer() const</div><div class="ttdoc">Devuelve el buffer de la GPU con los vértices del modelo.</div><div class="ttdef"><b>Definition:</b> <a href="_model3_d_8cpp_source.html#l00040">Model3D.cpp:40</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_color_html_a59c0bb4e7d3b7d396f97e1119f01f1ca"><div class="ttname"><a href="class_o_s_k_1_1_color.html#a59c0bb4e7d3b7d396f97e1119f01f1ca">OSK::Color::BLACK</a></div><div class="ttdeci">static Color BLACK()</div><div class="ttdoc">Color negro. (0.0f, 0.0f, 0.0f)</div><div class="ttdef"><b>Definition:</b> <a href="_color_8cpp_source.html#l00049">Color.cpp:49</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_camera_component3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html">OSK::ECS::CameraComponent3D</a></div><div class="ttdoc">Cámara para un mundo tridimensional.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_component3_d_8h_source.html#l00015">CameraComponent3D.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_camera_component3_d_html_a5cc4bc7e2d2d8c23c93b13096970acdb"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#a5cc4bc7e2d2d8c23c93b13096970acdb">OSK::ECS::CameraComponent3D::GetViewMatrix</a></div><div class="ttdeci">glm::mat4 GetViewMatrix(const Transform3D &amp;transform) const</div><div class="ttdoc">Obtiene la matriz view de la cámara.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_component3_d_8cpp_source.html#l00082">CameraComponent3D.cpp:82</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_camera_component3_d_html_a68079a946e3c8d14718ef8d0f560b9c0"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#a68079a946e3c8d14718ef8d0f560b9c0">OSK::ECS::CameraComponent3D::GetProjectionMatrix</a></div><div class="ttdeci">glm::mat4 GetProjectionMatrix() const</div><div class="ttdoc">Obtiene la matriz proyección de la cámara.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_component3_d_8cpp_source.html#l00078">CameraComponent3D.cpp:78</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_entity_component_system_html_ab543c5c91b9b319ed21a01da96ea06d9"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ab543c5c91b9b319ed21a01da96ea06d9">OSK::ECS::EntityComponentSystem::GetComponent</a></div><div class="ttdeci">TComponent &amp; GetComponent(GameObjectIndex obj) const</div><div class="ttdoc">Devuelve una referencia al componente del tipo dado del objeto.</div><div class="ttdef"><b>Definition:</b> <a href="_entity_component_system_8h_source.html#l00135">EntityComponentSystem.h:135</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_render_system_html_a8e9d568865c3d41fbec6afd49acb3cfa"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a8e9d568865c3d41fbec6afd49acb3cfa">OSK::ECS::IRenderSystem::renderTarget</a></div><div class="ttdeci">GRAPHICS::RenderTarget renderTarget</div><div class="ttdef"><b>Definition:</b> <a href="_i_render_system_8h_source.html#l00067">IRenderSystem.h:67</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_system_html_ac9336e70706ab6ea24d9f5fe95955efd"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ac9336e70706ab6ea24d9f5fe95955efd">OSK::ECS::ISystem::SetSignature</a></div><div class="ttdeci">void SetSignature(const Signature &amp;signature)</div><div class="ttdef"><b>Definition:</b> <a href="_i_system_8cpp_source.html#l00037">ISystem.cpp:37</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_skybox_render_system_html_a0677cf0b09628f6dcd0f7d81de88eff9"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a0677cf0b09628f6dcd0f7d81de88eff9">OSK::ECS::SkyboxRenderSystem::CreateTargetImage</a></div><div class="ttdeci">void CreateTargetImage(const Vector2ui &amp;size) override</div><div class="ttdoc">Crea la imagen de renderizado.</div><div class="ttdef"><b>Definition:</b> <a href="_skybox_render_system_8cpp_source.html#l00036">SkyboxRenderSystem.cpp:36</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_skybox_render_system_html_a5e8e8073fcf0d516cd1a996687adf1a3"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a5e8e8073fcf0d516cd1a996687adf1a3">OSK::ECS::SkyboxRenderSystem::SetCamera</a></div><div class="ttdeci">void SetCamera(GameObjectIndex cameraObject)</div><div class="ttdef"><b>Definition:</b> <a href="_skybox_render_system_8cpp_source.html#l00041">SkyboxRenderSystem.cpp:41</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_skybox_render_system_html_a7ce7fadae48351b4e0fb0a25091c1f84"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a7ce7fadae48351b4e0fb0a25091c1f84">OSK::ECS::SkyboxRenderSystem::SetCubemap</a></div><div class="ttdeci">void SetCubemap(const ASSETS::CubemapTexture &amp;texture)</div><div class="ttdef"><b>Definition:</b> <a href="_skybox_render_system_8cpp_source.html#l00045">SkyboxRenderSystem.cpp:45</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_skybox_render_system_html_a9f65491ce1cc366aa36cb63d8a1a85d4"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a9f65491ce1cc366aa36cb63d8a1a85d4">OSK::ECS::SkyboxRenderSystem::Render</a></div><div class="ttdeci">void Render(GRAPHICS::ICommandList *commandList) override</div><div class="ttdoc">Comando específico del sistema, para ejecutar el renderizado.</div><div class="ttdef"><b>Definition:</b> <a href="_skybox_render_system_8cpp_source.html#l00050">SkyboxRenderSystem.cpp:50</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">OSK::ECS::Transform3D</a></div><div class="ttdef"><b>Definition:</b> <a href="_transform3_d_8h_source.html#l00010">Transform3D.h:10</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a019c5397d042224c134b7fd22c739d00"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">OSK::Engine::GetRenderer</a></div><div class="ttdeci">static GRAPHICS::IRenderer * GetRenderer()</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kengine_8cpp_source.html#l00131">OSKengine.cpp:131</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a17fd2842c078b7ddb4aaa70cd04549ab"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a17fd2842c078b7ddb4aaa70cd04549ab">OSK::Engine::GetEntityComponentSystem</a></div><div class="ttdeci">static ECS::EntityComponentSystem * GetEntityComponentSystem()</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kengine_8cpp_source.html#l00139">OSKengine.cpp:139</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_ab092fdb69a9c816c93f177192477d97c"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#ab092fdb69a9c816c93f177192477d97c">OSK::Engine::GetAssetManager</a></div><div class="ttdeci">static ASSETS::AssetManager * GetAssetManager()</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kengine_8cpp_source.html#l00135">OSKengine.cpp:135</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">OSK::GRAPHICS::ICommandList</a></div><div class="ttdoc">Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución.</div><div class="ttdef"><b>Definition:</b> <a href="_i_command_list_8h_source.html#l00047">ICommandList.h:47</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_a12d4cae3d3f616dcc3a4b827a8abb5d5"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a12d4cae3d3f616dcc3a4b827a8abb5d5">OSK::GRAPHICS::ICommandList::BindIndexBuffer</a></div><div class="ttdeci">virtual void BindIndexBuffer(const IGpuIndexBuffer *buffer)=0</div><div class="ttdoc">Establece el index buffer que se va a usar en los próximos renderizados.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_a27c970b0c75c78d08fa173eb3b875eb1"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a27c970b0c75c78d08fa173eb3b875eb1">OSK::GRAPHICS::ICommandList::EndGraphicsRenderpass</a></div><div class="ttdeci">virtual void EndGraphicsRenderpass()=0</div><div class="ttdoc">Finaliza el renderizado a un render target.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_a5e41e7a449345ecc167ea9bc5a857211"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a5e41e7a449345ecc167ea9bc5a857211">OSK::GRAPHICS::ICommandList::BindVertexBuffer</a></div><div class="ttdeci">virtual void BindVertexBuffer(const IGpuVertexBuffer *buffer)=0</div><div class="ttdoc">Establece el vertex buffer que se va a usar en los próximos renderizados.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_aa78c754b21eb1cf45f2c05e36bdb9276"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aa78c754b21eb1cf45f2c05e36bdb9276">OSK::GRAPHICS::ICommandList::PushMaterialConstants</a></div><div class="ttdeci">void PushMaterialConstants(const std::string &amp;pushConstName, const void *data, TSize size)</div><div class="ttdoc">Envía datos push constant al shader.</div><div class="ttdef"><b>Definition:</b> <a href="_i_command_list_8cpp_source.html#l00045">ICommandList.cpp:45</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_aced1453da2f79b5e435df27c330ab8d1"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aced1453da2f79b5e435df27c330ab8d1">OSK::GRAPHICS::ICommandList::BindMaterial</a></div><div class="ttdeci">virtual void BindMaterial(Material *material)=0</div><div class="ttdoc">Establece el material que se va a usar a la hora de renderizar los próximos comandos.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_ae3aa0f9da7dcfb03843196c7036c0209"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ae3aa0f9da7dcfb03843196c7036c0209">OSK::GRAPHICS::ICommandList::DrawSingleInstance</a></div><div class="ttdeci">virtual void DrawSingleInstance(TSize numIndices)=0</div><div class="ttdoc">Renderiza los triángulos del vertex e index buffer, con el material enlazado.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_ae3d1fda12c227f4b1782a16c2dca7f5c"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ae3d1fda12c227f4b1782a16c2dca7f5c">OSK::GRAPHICS::ICommandList::BeginGraphicsRenderpass</a></div><div class="ttdeci">void BeginGraphicsRenderpass(RenderTarget *renderpass, const Color &amp;color=Color::BLACK())</div><div class="ttdoc">Comienza el renderizado a un render target.</div><div class="ttdef"><b>Definition:</b> <a href="_i_command_list_8cpp_source.html#l00022">ICommandList.cpp:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_aebccacb95627e6c8c9da33367ca14368"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aebccacb95627e6c8c9da33367ca14368">OSK::GRAPHICS::ICommandList::BindMaterialSlot</a></div><div class="ttdeci">virtual void BindMaterialSlot(const IMaterialSlot *slot)=0</div><div class="ttdoc">Establece un material slot que estará asignado en los próximos comandos de renderizado....</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_html_ac8beb74ff85ed07f8d96a60683ac0599"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#ac8beb74ff85ed07f8d96a60683ac0599">OSK::GRAPHICS::IGpuMemoryAllocator::CreateUniformBuffer</a></div><div class="ttdeci">virtual OwnedPtr&lt; IGpuUniformBuffer &gt; CreateUniformBuffer(TSize size)=0</div><div class="ttdoc">Crea un uniform buffer, con el tamaño dado en bytes.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html">OSK::GRAPHICS::IGpuUniformBuffer</a></div><div class="ttdoc">Un uniform buffer contiene información arbitraria a la que se puede acceder a la hora de renderizar....</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_uniform_buffer_8h_source.html#l00012">IGpuUniformBuffer.h:12</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a15a2d271ad61c59ce4414dbdf016d277"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a15a2d271ad61c59ce4414dbdf016d277">OSK::GRAPHICS::IRenderer::GetMaterialSystem</a></div><div class="ttdeci">MaterialSystem * GetMaterialSystem() const</div><div class="ttdoc">Devuelve el sistema de materiales. Necesario mara manejar materiales y crear instancias de materiales...</div><div class="ttdef"><b>Definition:</b> <a href="_renderer_8cpp_source.html#l00109">Renderer.cpp:109</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a4a779e3af14025ec16d8a0c0a6cf0fe5"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a4a779e3af14025ec16d8a0c0a6cf0fe5">OSK::GRAPHICS::IRenderer::GetCurrentCommandListIndex</a></div><div class="ttdeci">virtual TSize GetCurrentCommandListIndex() const =0</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_acf03703bbb6f031f905612d86f104b38"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#acf03703bbb6f031f905612d86f104b38">OSK::GRAPHICS::IRenderer::GetMemoryAllocator</a></div><div class="ttdeci">IGpuMemoryAllocator * GetMemoryAllocator() const</div><div class="ttdef"><b>Definition:</b> <a href="_renderer_8cpp_source.html#l00044">Renderer.cpp:44</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system_html_ad39c519e3a5f58cc2a7622ba9b39687a"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#ad39c519e3a5f58cc2a7622ba9b39687a">OSK::GRAPHICS::MaterialSystem::LoadMaterial</a></div><div class="ttdeci">Material * LoadMaterial(const std::string &amp;path)</div><div class="ttdoc">Carga un material.</div><div class="ttdef"><b>Definition:</b> <a href="_material_system_8cpp_source.html#l00429">MaterialSystem.cpp:429</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_html_a2762dc66547722dc7742657d52f000bb"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a2762dc66547722dc7742657d52f000bb">OSK::GRAPHICS::RenderTarget::Create</a></div><div class="ttdeci">void Create(const Vector2ui &amp;targetSize, Format colorFormat, Format depthFormat)</div><div class="ttdoc">Crea un render target.</div><div class="ttdef"><b>Definition:</b> <a href="_render_target_8cpp_source.html#l00015">RenderTarget.cpp:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_html_af79cef3ae998b47fd109d86c3c19ee35"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#af79cef3ae998b47fd109d86c3c19ee35">OSK::GRAPHICS::RenderTarget::SetName</a></div><div class="ttdeci">void SetName(const std::string &amp;name)</div><div class="ttdef"><b>Definition:</b> <a href="_render_target_8cpp_source.html#l00175">RenderTarget.cpp:175</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; uint32_t &gt;</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition:</b> <a href="_anim_mesh_loader_8h_source.html#l00008">AnimMeshLoader.h:8</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition:</b> <a href="_camera_component2_d_8h_source.html#l00015">CameraComponent2D.h:15</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a23d62d7bd6a58fd7f758079d87df6c71"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a23d62d7bd6a58fd7f758079d87df6c71">OSK::ECS::GameObjectIndex</a></div><div class="ttdeci">TSize GameObjectIndex</div><div class="ttdoc">Identificador único para un Game Object.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00019">GameObject.h:19</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a46b3731582093c6a4b02a2024b9edf81"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">OSK::ECS::EMPTY_GAME_OBJECT</a></div><div class="ttdeci">constexpr GameObjectIndex EMPTY_GAME_OBJECT</div><div class="ttdoc">El id no identifica a ningún objeto válido.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00024">GameObject.h:24</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_animation_8h_source.html#l00013">Animation.h:13</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a2790b1bb1dbf382ccd86a228f9f2ccbd"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a2790b1bb1dbf382ccd86a228f9f2ccbd">OSK::GRAPHICS::NUM_RESOURCES_IN_FLIGHT</a></div><div class="ttdeci">constexpr TSize NUM_RESOURCES_IN_FLIGHT</div><div class="ttdef"><b>Definition:</b> <a href="_i_material_slot_8h_source.html#l00019">IMaterialSlot.h:19</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_animation_8h_source.html#l00013">Animation.h:13</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_skybox_render_system_8cpp.html">SkyboxRenderSystem.cpp</a></li>
+    <li class="footer">Generado el Jueves, 6 de Octubre de 2022 19:30:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+\hypertarget{_gpu_memory_types_8h_source}{}\doxysection{Gpu\+Memory\+Types.\+h}
+\label{_gpu_memory_types_8h_source}\index{OSKengine2/GpuMemoryTypes.h@{OSKengine2/GpuMemoryTypes.h}}
+\mbox{\hyperlink{_gpu_memory_types_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_enum_flags_8hpp}{EnumFlags.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_to_string_8h}{ToString.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00006}00006 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s}{OSK::GRAPHICS}} \{}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00015}\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{00015}}     \textcolor{keyword}{enum class} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{GpuSharedMemoryType}} \{}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00023}00023         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042cea096f8c31942629a91cc086cbda5f5465}{GPU\_AND\_CPU}},}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00032}00032         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042cea95c8166e4f408834884bbe57fef928f6}{GPU\_ONLY}}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00034}00034     \};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00040}\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ae5e58e16d9268fde60c3eae698b225ec}{00040}}     \textcolor{keyword}{enum class} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ae5e58e16d9268fde60c3eae698b225ec}{GpuMemoryUsage}} \{}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00041}00041         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ae5e58e16d9268fde60c3eae698b225eca17de626bcae5109bb2f7a66dfc4a8a1d}{BUFFER}},}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00042}00042         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ae5e58e16d9268fde60c3eae698b225eca23a12f67f614b5518c7f1c2465bf95e3}{IMAGE}}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00043}00043     \};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00044}00044 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00049}\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7f}{00049}}     \textcolor{keyword}{enum class} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7f}{GpuBufferUsage}} \{}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00056}00056         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7fa8d0be820da8f4fe5aa49e0ef3065ca29}{UNIFORM\_BUFFER}} = 1,}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00061}00061         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7faa77fcc0c8db7e3e4c3ca370997298c34}{VERTEX\_BUFFER}} = 2,}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00066}00066         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7fa24ba47a6b7ca772e4185e7a7b54d4c90}{INDEX\_BUFFER}} = 4,}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00072}00072         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9afb3bb8503e5cd907a3a7b02a495c229e}{TRANSFER\_SOURCE}} = 8,}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00077}00077         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9ac61dfc60317a58b2843ec29f8e3c2359}{TRANSFER\_DESTINATION}} = 16,}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00085}00085         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7fa56da21e70ea85d8efa9392d6fd11f2ee}{RT\_ACCELERATION\_STRUCTURE}} = 32,}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00086}00086         }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00091}00091         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7faf4723b84fe089b99fa8bd437f42b0167}{RT\_SHADER\_BINDING\_TABLE}} = 64,}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00097}00097         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7fa10395d241b657a656306f94cbfb24021}{RT\_ACCELERATION\_STRUCTURE\_BUILDING}} = 128,}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00098}00098 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00102}00102         \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7faa486db75420308f63af20d85e2b6489d}{STORAGE\_BUFFER}} = 256}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00103}00103 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00104}00104     \};}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00105}00105 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00106}00106 \}}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00107}00107 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00108}\mbox{\hyperlink{_gpu_memory_types_8h_a518773a9d0f6ce2fb4bdcdf2a669d05c}{00108}} \mbox{\hyperlink{_gpu_memory_types_8h_a518773a9d0f6ce2fb4bdcdf2a669d05c}{OSK\_FLAGS}}(\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7f}{OSK::GRAPHICS::GpuBufferUsage}});}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00109}00109 }
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00110}00110 \textcolor{keyword}{template} <> std::string OSK::ToString<OSK::GRAPHICS::GpuSharedMemoryType>(\textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a85a830e82585f3a565d1f097491042ce}{OSK::GRAPHICS::GpuSharedMemoryType}}\& type);}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00111}00111 \textcolor{keyword}{template} <> std::string OSK::ToString<OSK::GRAPHICS::GpuMemoryUsage>(\textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ae5e58e16d9268fde60c3eae698b225ec}{OSK::GRAPHICS::GpuMemoryUsage}}\& usage);}
+\DoxyCodeLine{\Hypertarget{_gpu_memory_types_8h_source_l00112}00112 \textcolor{keyword}{template} <> std::string OSK::ToString<OSK::GRAPHICS::GpuBufferUsage>(\textcolor{keyword}{const} \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_ad8b871b506bab7c4021326a1a10bbc7f}{OSK::GRAPHICS::GpuBufferUsage}}\& usage);}
+
+\end{DoxyCode}

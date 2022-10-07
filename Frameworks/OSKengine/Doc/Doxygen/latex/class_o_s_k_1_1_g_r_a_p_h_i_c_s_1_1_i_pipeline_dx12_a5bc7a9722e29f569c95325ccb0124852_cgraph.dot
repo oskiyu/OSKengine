@@ -1,0 +1,43 @@
+digraph "OSK::GRAPHICS::IPipelineDx12::LoadShader"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::IPipeline\lDx12::LoadShader",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::GRAPHICS::IPipeline\lDx12::CompileBlob",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12.html#a5c2d32d01215cc92012df25cff8a0238",tooltip="Compila un shader."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="OSK::GRAPHICS::HlslRuntime\lCompiler::CompileFromFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler.html#a82745de6cab664215a954ab69a709c91",tooltip="Compila el código HLSL almacenado en el archivo indicado."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="OSK::DynamicArray::\lGetData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#ac8a6d70f938c482e1f7aa68c7d186bb8",tooltip="Devuelve el array original."];
+  Node3 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="OSK::DynamicArray::\lGetSize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90",tooltip="Devuelve el número de elementos almacenados."];
+  Node3 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="OSK::DynamicArray::\lInsert",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#a2c1e7bd2efbadf8b163f67c26921ba53",tooltip="Inserta un elemento al final del array."];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="OSK::DynamicArray::\lInsertCopy",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#a037c4e2c0414718e5fc3cc608167a261",tooltip="Inserta una copia del elemento al final del array."];
+  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="OSK::DynamicArray::\lAllocate",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#acf322bf27bf4bfd581079500c67171a6",tooltip="Reserva espacio para 'size' elementos. Preserva los elementos anteriores."];
+  Node7 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="OSK::DynamicArray::\lHasBeenInitialized",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef",tooltip="Devuelve true si el array se ha inicializado."];
+  Node3 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="OSK::StringToWideString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespace_o_s_k.html#a543f1e2eaed4543c687adc9f9a0622ac",tooltip=" "];
+  Node2 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="OSK::GRAPHICS::SpirvToHlsl\l::CreateHlsl",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl.html#aca77e7a7b9137553110886012ca91c68",tooltip="Devuelve el código HLSL."];
+  Node2 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="OSK::GRAPHICS::SpirvToHlsl\l::SetHlslTargetProfile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl.html#adab7513d1156f853f3eef6f11dd4fd28",tooltip="Establece el perfil de HLSL generado. Por defecto usa 6.1."];
+  Node2 -> Node13 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="OSK::GRAPHICS::SpirvToHlsl\l::SetLayoutMapping",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl.html#a778a9fd7930df44f9966a18ba42355b9",tooltip="Se establece qué registros ocupará cada"];
+  Node13 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="OSK::GRAPHICS::MaterialLayout\l::GetAllPushConstants",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#aeb38d6651a3696756da72767b802913a",tooltip="Devuelve todos los slots push constants registrados."];
+  Node13 -> Node15 [color="midnightblue",fontsize="10",style="solid"];
+  Node15 [label="OSK::GRAPHICS::MaterialLayout\l::GetAllSlotNames",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a82de8efeace9ce18733634fb7c1cc8a3",tooltip="Obtiene los nombres de todos los slots registrados en el layout."];
+  Node13 -> Node16 [color="midnightblue",fontsize="10",style="solid"];
+  Node16 [label="OSK::GRAPHICS::MaterialLayout\l::GetSlot",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a7a1845df7f0113a0285adfbea469df90",tooltip="Obtiene el slot con el nombre dado, si existe."];
+  Node2 -> Node17 [color="midnightblue",fontsize="10",style="solid"];
+  Node17 [label="OSK::GRAPHICS::SpirvToHlsl\l::SetVertexAttributesMapping",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl.html#abd08d4b056b56461f377590fd8398125",tooltip="Establece los nombres semánticos que tendrán los atributos de los vértices en el shader."];
+  Node1 -> Node18 [color="midnightblue",fontsize="10",style="solid"];
+  Node18 [label="OSK::GRAPHICS::IPipeline\lDx12::LoadBlob",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12.html#a1846e733f383dc7fac065c1beb93da59",tooltip="Compila un shader."];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+}

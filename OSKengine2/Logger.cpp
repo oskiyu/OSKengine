@@ -61,6 +61,7 @@ void Logger::InfoLog(const std::string& message) {
 void Logger::Save() {
 	Save(path);
 }
+
 void Logger::Save(const std::string& filename) {
 	if (!hasBeenStarted)
 		throw std::runtime_error("OSK::Logger no ha sido inicializado. Usa Logger::Start() antes.");

@@ -1,0 +1,1463 @@
+\hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan}{}\doxysection{Referencia de la Clase OSK\+::GRAPHICS\+::Renderer\+Vulkan}
+\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan}\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+
+
+{\ttfamily \#include $<$Renderer\+Vulkan.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::GRAPHICS\+::Renderer\+Vulkan
+% FIG 0
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::Renderer\+Vulkan\+:
+% FIG 1
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a78b5592be0dd741d498c131ddf8db34c}{Renderer\+Vulkan}} (bool request\+Ray\+Tracing)
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a0b5145c60e53b3d070297caf72d74a8a}{$\sim$\+Renderer\+Vulkan}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a1dae0f06f4555567aad3adf711d567da}{Initialize}} (const std\+::string \&app\+Name, const \mbox{\hyperlink{struct_o_s_k_1_1_version}{Version}} \&version, const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window}{IO\+::\+Window}} \&\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4db58d26d84e9e636d2162264f69430d}{window}}, \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a47a7b3817b8aca438c20b7674fad28ab}{Present\+Mode}} mode) override
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a8c0aa7a8d272950bf1066f915c92f4b8}{Close}} () override
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_ab881f4230ac3ee122182e6cb2b39f77b}{Handle\+Resize}} () override
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a0f642ecb0d29928e33c17f6f7d1d8e71}{Present\+Frame}} () override
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_ae7fb15c3cbed5340cc112c95ff86450a}{Submit\+Single\+Use\+Command\+List}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $\ast$command\+List) override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline}{IGraphics\+Pipeline}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_af8d02f2ee0528895b7acafdf76e268d3}{\+\_\+\+Create\+Graphics\+Pipeline}} (const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{Pipeline\+Create\+Info}} \&pipeline\+Info, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} $\ast$layout, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{Vertex\+Info}} \&vertex\+Info) override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_raytracing_pipeline}{IRaytracing\+Pipeline}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_aebbba59f3adf461c2d29b8f00005d895}{\+\_\+\+Create\+Raytracing\+Pipeline}} (const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{Pipeline\+Create\+Info}} \&pipeline\+Info, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} $\ast$layout, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{Vertex\+Info}} \&vertex\+Info) override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_compute_pipeline}{ICompute\+Pipeline}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a1e333e5bb2e7aae859b7d180f54194f9}{\+\_\+\+Create\+Compute\+Pipeline}} (const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{Pipeline\+Create\+Info}} \&pipeline\+Info, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} $\ast$layout) override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot}{IMaterial\+Slot}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a67bcbba1b5023d850bec3fd09d8108ce}{\+\_\+\+Create\+Material\+Slot}} (const std\+::string \&name, const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} $\ast$layout) const override
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_acb88d72e870fcfad0edbc05275c6ff3d}{Get\+Current\+Frame\+Index}} () const override
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_aa24b61237d77b4e7983383bbd99e17d7}{Get\+Current\+Command\+List\+Index}} () const override
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a30c112561d1abcf5fee184c26428b169}{Supports\+Raytracing}} () const override
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a04b67d0a496c0fb5de04d468ba7ab658}{Get\+Pre\+Compute\+Command\+List}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a181fa5cc9ca0761482c658589fd95aff}{Get\+Graphics\+Command\+List}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8a093f8614b14b57864ec3d0791ba91a}{Get\+Post\+Compute\+Command\+List}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a12dbfa8d440cadd6fcc8ac7b80deff89}{Get\+Frame\+Build\+Command\+List}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommand\+Queue}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7fa021d03868e15428c6a382864b9d6c}{Get\+Graphics\+Command\+Queue}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommand\+Queue}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a83515ed3a33b174a43d88d10dad68121}{Get\+Compute\+Command\+Queue}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommand\+Queue}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a24810cb6a5383c1a4073bd4374fb9bb4}{Get\+Present\+Command\+Queue}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator}{IGpu\+Memory\+Allocator}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acf03703bbb6f031f905612d86f104b38}{Get\+Memory\+Allocator}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8b6b1698afeb3bb07f3b91e5ddb79b2d}{Get\+Gpu}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0fa1cd26067c520e90cfa647f66e8366}{Create\+Single\+Use\+Command\+List}} ()
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0dea54038eea4c0f8c0a7013ab6adac7}{Upload\+Layered\+Image\+To\+Gpu}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$destination, const \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}} $\ast$data, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} num\+Bytes, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} num\+Layers, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $\ast$cmd\+List)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a84c879978d05eb6e5ac7828dd115ab5d}{Upload\+Image\+To\+Gpu}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$destination, const \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}} $\ast$data, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} num\+Bytes, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $\ast$cmd\+List)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a127f65d1c173f1578a180f70b9cc0942}{Upload\+Cubemap\+Image\+To\+Gpu}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$destination, const \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}} $\ast$data, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} num\+Bytes, \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $\ast$cmd\+List)
+\item 
+{\footnotesize template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer}{IRenderer}}, T$>$}\\T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7e06601c9bc5325e2ee5904e58a3af3d}{As}} ()
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system}{Material\+System}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a15a2d271ad61c59ce4414dbdf016d277}{Get\+Material\+System}} () const
+\item 
+\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3057691f190dabf7642cfde72cf2430f}{Render\+Api\+Type}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a5715d7eea84cc2dae21fb5ef208e5a8e}{Get\+Render\+Api}} () const
+\item 
+\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6bdcecd10ad67576f386bb8d42503bcd}{Get\+Swapchain\+Images\+Count}} () const
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6c686e7448f5b58d4a82bd65a7edd525}{Is\+Open}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_afdb99df53b3996540c53a323c1ffd0fa}{Get\+Final\+Render\+Target}} () const
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d}{ECS\+::\+Camera\+Component2D}} \& \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ac39e6512c39a6a82dea2ed73a0575a42}{Get\+Render\+Targets\+Camera}} () const
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain}{ISwapchain}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0dad039a7b86341155a12030a504e764}{\+\_\+\+Get\+Swapchain}} () const
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a307921e2de08c4749fa4d55c34a9b53f}{\+\_\+\+Has\+Implicit\+Resize\+Handling}} () const
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acfac8d227aa448336e5de652c8095afb}{Register\+Render\+Target}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}} $\ast$render\+Target)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ad1f7fcb03859d8312fbde048e51e2700}{Unregister\+Render\+Target}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}} $\ast$render\+Target)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a5cf02432b5cd076e4118e4d6638926fe}{Register\+Post\+Processing\+Pass}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass}{IPost\+Process\+Pass}} $\ast$render\+Target)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ac946fea7ddba02f6307178fa82218849}{Unregister\+Post\+Processing\+Pass}} (\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass}{IPost\+Process\+Pass}} $\ast$render\+Target)
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a39cec2c1506cbde7b9da2b75cdebddf8}{Is\+Rt\+Active}} () const
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ae132981b28209658bcc2ca90fef26a54}{Add\+Resize\+Callback}} (std\+::function$<$ void(const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&)$>$ callback)
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos públicos estáticos}
+\begin{DoxyCompactItemize}
+\item 
+static PFN\+\_\+vk\+Get\+Buffer\+Device\+Address\+KHR \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_ad177dbaf9fbeb426aa4b7dda64b72264}{pvk\+Get\+Buffer\+Device\+Address\+KHR}} = nullptr
+\item 
+static PFN\+\_\+vk\+Cmd\+Build\+Acceleration\+Structures\+KHR \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a9922636adeec8a099209b107ed22e3f8}{pvk\+Cmd\+Build\+Acceleration\+Structures\+KHR}} = nullptr
+\item 
+static PFN\+\_\+vk\+Build\+Acceleration\+Structures\+KHR \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_ad44f39b58218fc501077b78853fb0925}{pvk\+Build\+Acceleration\+Structures\+KHR}} = nullptr
+\item 
+static PFN\+\_\+vk\+Create\+Acceleration\+Structure\+KHR \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a07ade011e04ba6f635e6cbaa5b9eef16}{pvk\+Create\+Acceleration\+Structure\+KHR}} = nullptr
+\item 
+static PFN\+\_\+vk\+Destroy\+Acceleration\+Structure\+KHR \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a75f0ec692e815a896824eb407b6a656d}{pvk\+Destroy\+Acceleration\+Structure\+KHR}} = nullptr
+\item 
+static PFN\+\_\+vk\+Get\+Acceleration\+Structure\+Build\+Sizes\+KHR \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_ad642685910fe2899f29760106e468a9c}{pvk\+Get\+Acceleration\+Structure\+Build\+Sizes\+KHR}} = nullptr
+\item 
+static PFN\+\_\+vk\+Get\+Acceleration\+Structure\+Device\+Address\+KHR \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a03bc0c9af5049e5e5ede68e1e82198d1}{pvk\+Get\+Acceleration\+Structure\+Device\+Address\+KHR}} = nullptr
+\item 
+static PFN\+\_\+vk\+Cmd\+Trace\+Rays\+KHR \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a2f0b560716bde5688ae9e0947b263379}{pvk\+Cmd\+Trace\+Rays\+KHR}} = nullptr
+\item 
+static PFN\+\_\+vk\+Get\+Ray\+Tracing\+Shader\+Group\+Handles\+KHR \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a4914dd3e39e804bbb2b05f652c4d1488}{pvk\+Get\+Ray\+Tracing\+Shader\+Group\+Handles\+KHR}} = nullptr
+\item 
+static PFN\+\_\+vk\+Create\+Ray\+Tracing\+Pipelines\+KHR \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a632097b3a7f3b6f68ace9cd47754b1ef}{pvk\+Create\+Ray\+Tracing\+Pipelines\+KHR}} = nullptr
+\item 
+static PFN\+\_\+vk\+Set\+Debug\+Utils\+Object\+Name\+EXT \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a2b178940af46d1d652e68f93f8a8390d}{pvk\+Set\+Debug\+Utils\+Object\+Name\+EXT}} = nullptr
+\item 
+static PFN\+\_\+vk\+Set\+Debug\+Utils\+Object\+Tag\+EXT \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a2af8636521e49d8fdc03b889a1b49e13}{pvk\+Set\+Debug\+Utils\+Object\+Tag\+EXT}} = nullptr
+\item 
+static PFN\+\_\+vk\+Cmd\+Debug\+Marker\+Begin\+EXT \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a2e207f0132864f08d5cf1a8d80cfd46f}{pvk\+Cmd\+Debug\+Marker\+Begin\+EXT}} = nullptr
+\item 
+static PFN\+\_\+vk\+Cmd\+Insert\+Debug\+Utils\+Label\+EXT \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a967de921db66d4ecec3b649ff40e7807}{pvk\+Cmd\+Insert\+Debug\+Utils\+Label\+EXT}} = nullptr
+\item 
+static PFN\+\_\+vk\+Cmd\+End\+Debug\+Utils\+Label\+EXT \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_aaafc6d4f9636782e5d51fbee163e91ba}{pvk\+Cmd\+End\+Debug\+Utils\+Label\+EXT}} = nullptr
+\item 
+static PFN\+\_\+vk\+Cmd\+Begin\+Rendering \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a4400a92fffd611864e4edd4f8ed6350c}{pvk\+Cmd\+Begin\+Rendering}} = nullptr
+\item 
+static PFN\+\_\+vk\+Cmd\+End\+Rendering \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_ac136f5e5dc519bfe6e1b313fa971200d}{pvk\+Cmd\+End\+Rendering}} = nullptr
+\end{DoxyCompactItemize}
+\doxysubsection*{Métodos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_aa014878764e7a5d2eb6303dd44d702bf}{Create\+Command\+Queues}} () override
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a9e068a5a49375eb97333ab11d0f75da8}{Create\+Swapchain}} (\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a47a7b3817b8aca438c20b7674fad28ab}{Present\+Mode}} mode) override
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a4c975e2c18c28bcfb4d190c2fcf1de46}{Create\+Sync\+Device}} () override
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a1a5083ac960d4ce379683f35f66c993e}{Create\+Gpu\+Memory\+Allocator}} () override
+\item 
+virtual const \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6bc3460eece49621aa2411460cc65138}{Format\+Image\+Data\+For\+Gpu}} (const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$image, const \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}} $\ast$data, \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} num\+Layers)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a71ad70cf2d9210887d1b6f67fc0b7a84}{Create\+Main\+Renderpass}} ()
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acf22c29d74bcd9d7e992d5f59becb681}{Is\+Rt\+Requested}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a2928763ae4948a9de9bafad902fd9696}{current\+Gpu}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommand\+Queue}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ada7ad73436c32df92625b7af4e708e17}{graphics\+Queue}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommand\+Queue}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a05fc17f5d2cbaa3895f5d3a626107e47}{compute\+Queue}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommand\+Queue}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a9fd87ed15539f6d249ce8d2e8247b522}{present\+Queue}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain}{ISwapchain}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}{swapchain}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sync_device}{ISync\+Device}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aed39f82dfcb5e92d9ed9efdca4f346ee}{sync\+Device}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool}{ICommand\+Pool}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acad78f090fc5cf8a54762d863452b419}{graphics\+Command\+Pool}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a34603566a0187941cbff752e587db881}{graphics\+Command\+List}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a3b31beb9b077f69dddeed7b30745ae81}{frame\+Build\+Command\+List}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool}{ICommand\+Pool}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a76bddfef891f966b5d0001cc5063986f}{compute\+Command\+Pool}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aea4737662d1590969769cd958cb7adaf}{pre\+Compute\+Command\+List}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0574dda9de1a0beaffbe4326f374cbee}{post\+Compute\+Command\+List}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator}{IGpu\+Memory\+Allocator}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a046cb6d9d3bd12965b1abc3e9bd3c2c3}{gpu\+Memory\+Allocator}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a30073a14bdd20555c38f5326b0ea9b89}{final\+Render\+Target}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system}{Material\+System}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6bca4cd0b04eecbf58432b51c221da77}{material\+System}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0493d3e86b3a5f32f74acf9a280c812f}{single\+Time\+Command\+Lists}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_linked_list}{Linked\+List}}$<$ std\+::function$<$ void(const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&)$>$ $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a094df08d451deaab468fffe79dfb689a}{resize\+Callbacks}}
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0dd4df1f6aedb79c660b511c673e1318}{is\+First\+Render}} = true
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window}{IO\+::\+Window}} $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4db58d26d84e9e636d2162264f69430d}{window}} = nullptr
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a92b402ae79fb7b6b7a262d8efe790a4b}{is\+Open}} = false
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d}{ECS\+::\+Camera\+Component2D}} $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aae0f70bb0d6940710331e6b251812c81}{render\+Targets\+Camera}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_transform2_d}{ECS\+::\+Transform2D}} \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ad4be6bdc6e9ed15a10bf4e333b722c58}{render\+Targets\+Camera\+Transform}} \{ \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a46b3731582093c6a4b02a2024b9edf81}{ECS\+::\+EMPTY\+\_\+\+GAME\+\_\+\+OBJECT}} \}
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8a9bd673e93ebce0a7e60a8133f51de7}{implicit\+Resize\+Handling}} = false
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}} $\ast$ $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a35cde40eec42292e6059763aae496525}{resizable\+Render\+Targets}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass}{IPost\+Process\+Pass}} $\ast$ $>$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7e98e72a6fb34491cdd3b358c225747f}{resizable\+Post\+Processing\+Passes}}
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a54e890abc204e8918aae618cf4642a0b}{is\+Rt\+Active}} = false
+\item 
+bool \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7575d99920b80cf3481c26d2e170ebd6}{single\+Command\+Queue}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Implementación de la interfaz para el renderizador de Vulkan. 
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8h_source_l00015}{15}} del archivo \mbox{\hyperlink{_renderer_vulkan_8h_source}{Renderer\+Vulkan.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a78b5592be0dd741d498c131ddf8db34c}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a78b5592be0dd741d498c131ddf8db34c}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!RendererVulkan@{RendererVulkan}}
+\index{RendererVulkan@{RendererVulkan}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{RendererVulkan()}{RendererVulkan()}}
+{\footnotesize\ttfamily Renderer\+Vulkan\+::\+Renderer\+Vulkan (\begin{DoxyParamCaption}\item[{bool}]{request\+Ray\+Tracing }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00108}{108}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a0b5145c60e53b3d070297caf72d74a8a}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a0b5145c60e53b3d070297caf72d74a8a}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!````~RendererVulkan@{$\sim$RendererVulkan}}
+\index{````~RendererVulkan@{$\sim$RendererVulkan}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{$\sim$RendererVulkan()}{~RendererVulkan()}}
+{\footnotesize\ttfamily Renderer\+Vulkan\+::$\sim$\+Renderer\+Vulkan (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00112}{112}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a1e333e5bb2e7aae859b7d180f54194f9}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a1e333e5bb2e7aae859b7d180f54194f9}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!\_CreateComputePipeline@{\_CreateComputePipeline}}
+\index{\_CreateComputePipeline@{\_CreateComputePipeline}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{\_CreateComputePipeline()}{\_CreateComputePipeline()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_compute_pipeline}{ICompute\+Pipeline}} $>$ Renderer\+Vulkan\+::\+\_\+\+Create\+Compute\+Pipeline (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{Pipeline\+Create\+Info}} \&}]{pipeline\+Info,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} $\ast$}]{layout }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea un compute pipeline. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em pipeline\+Info} & Configuración del pipeline.\\
+\hline
+{\em layout} & Layout del material del pipeline.\\
+\hline
+\end{DoxyParams}
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a3816b3a4de498a8d648572a849ebe97e}{OSK\+::\+GRAPHICS\+::\+IRenderer}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00165}{165}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 3
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_af8d02f2ee0528895b7acafdf76e268d3}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_af8d02f2ee0528895b7acafdf76e268d3}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!\_CreateGraphicsPipeline@{\_CreateGraphicsPipeline}}
+\index{\_CreateGraphicsPipeline@{\_CreateGraphicsPipeline}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{\_CreateGraphicsPipeline()}{\_CreateGraphicsPipeline()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline}{IGraphics\+Pipeline}} $>$ Renderer\+Vulkan\+::\+\_\+\+Create\+Graphics\+Pipeline (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{Pipeline\+Create\+Info}} \&}]{pipeline\+Info,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} $\ast$}]{layout,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{Vertex\+Info}} \&}]{vertex\+Type\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea un graphics pipeline. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em pipeline\+Info} & Configuración del pipeline.\\
+\hline
+{\em layout} & Layout del material del pipeline.\\
+\hline
+{\em format} & Formato de la imagen a la que se renderizará.\\
+\hline
+\end{DoxyParams}
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a96b60646b6f54af001815e3385f6fc30}{OSK\+::\+GRAPHICS\+::\+IRenderer}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00151}{151}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 4
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a67bcbba1b5023d850bec3fd09d8108ce}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a67bcbba1b5023d850bec3fd09d8108ce}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!\_CreateMaterialSlot@{\_CreateMaterialSlot}}
+\index{\_CreateMaterialSlot@{\_CreateMaterialSlot}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{\_CreateMaterialSlot()}{\_CreateMaterialSlot()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot}{IMaterial\+Slot}} $>$ Renderer\+Vulkan\+::\+\_\+\+Create\+Material\+Slot (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} $\ast$}]{layout }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea un slot del layout del material dado. 
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a81af7c94176e15a0b9b1e0e3d79d4961}{OSK\+::\+GRAPHICS\+::\+IRenderer}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00434}{434}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_aebbba59f3adf461c2d29b8f00005d895}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_aebbba59f3adf461c2d29b8f00005d895}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!\_CreateRaytracingPipeline@{\_CreateRaytracingPipeline}}
+\index{\_CreateRaytracingPipeline@{\_CreateRaytracingPipeline}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{\_CreateRaytracingPipeline()}{\_CreateRaytracingPipeline()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_raytracing_pipeline}{IRaytracing\+Pipeline}} $>$ Renderer\+Vulkan\+::\+\_\+\+Create\+Raytracing\+Pipeline (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info}{Pipeline\+Create\+Info}} \&}]{pipeline\+Info,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout}{Material\+Layout}} $\ast$}]{layout,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info}{Vertex\+Info}} \&}]{vertex\+Type\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Crea un ray tracing pipeline. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em pipeline\+Info} & Configuración del pipeline.\\
+\hline
+{\em layout} & Layout del material del pipeline.\\
+\hline
+\end{DoxyParams}
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a1dbf6c028bf507121eaaaeffbebb57e4}{OSK\+::\+GRAPHICS\+::\+IRenderer}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00158}{158}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 5
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0dad039a7b86341155a12030a504e764}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0dad039a7b86341155a12030a504e764}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!\_GetSwapchain@{\_GetSwapchain}}
+\index{\_GetSwapchain@{\_GetSwapchain}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{\_GetSwapchain()}{\_GetSwapchain()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain}{ISwapchain}} $\ast$ IRenderer\+::\+\_\+\+Get\+Swapchain (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Devuelve el swapchain de la aplicación. 
+
+\begin{DoxyWarning}{Atención}
+Función interna, no usar. 
+\end{DoxyWarning}
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00140}{140}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a307921e2de08c4749fa4d55c34a9b53f}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a307921e2de08c4749fa4d55c34a9b53f}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!\_HasImplicitResizeHandling@{\_HasImplicitResizeHandling}}
+\index{\_HasImplicitResizeHandling@{\_HasImplicitResizeHandling}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{\_HasImplicitResizeHandling()}{\_HasImplicitResizeHandling()}}
+{\footnotesize\ttfamily bool IRenderer\+::\+\_\+\+Has\+Implicit\+Resize\+Handling (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+True si el cambio de tamaño de la ventana se maneja implícitamente en el renderizador. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00144}{144}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ae132981b28209658bcc2ca90fef26a54}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ae132981b28209658bcc2ca90fef26a54}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!AddResizeCallback@{AddResizeCallback}}
+\index{AddResizeCallback@{AddResizeCallback}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{AddResizeCallback()}{AddResizeCallback()}}
+{\footnotesize\ttfamily void IRenderer\+::\+Add\+Resize\+Callback (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}} \&)$>$}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Añade una función que se ejecutará cuando cambie de tamaño la ventana. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00174}{174}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7e06601c9bc5325e2ee5904e58a3af3d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7e06601c9bc5325e2ee5904e58a3af3d}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!As@{As}}
+\index{As@{As}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{As()}{As()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \newline
+requires std\+::is\+\_\+base\+\_\+of\+\_\+v$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer}{IRenderer}}, T$>$\\
+T $\ast$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::\+As (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Castea el renderizador al tipo dado. Este tipo debe ser una implementación de esta interfaz. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00141}{141}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a8c0aa7a8d272950bf1066f915c92f4b8}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a8c0aa7a8d272950bf1066f915c92f4b8}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!Close@{Close}}
+\index{Close@{Close}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{Close()}{Close()}}
+{\footnotesize\ttfamily void Renderer\+Vulkan\+::\+Close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Cierra el renderizador. También se llama en el destructor. 
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ace147aba8abf236698e2c46238aa7561}{OSK\+::\+GRAPHICS\+::\+IRenderer}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00172}{172}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_aa014878764e7a5d2eb6303dd44d702bf}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_aa014878764e7a5d2eb6303dd44d702bf}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!CreateCommandQueues@{CreateCommandQueues}}
+\index{CreateCommandQueues@{CreateCommandQueues}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateCommandQueues()}{CreateCommandQueues()}}
+{\footnotesize\ttfamily void Renderer\+Vulkan\+::\+Create\+Command\+Queues (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a68c35e96c0520bb5121761b79bb5bf61}{OSK\+::\+GRAPHICS\+::\+IRenderer}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00366}{366}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 6
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a1a5083ac960d4ce379683f35f66c993e}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a1a5083ac960d4ce379683f35f66c993e}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!CreateGpuMemoryAllocator@{CreateGpuMemoryAllocator}}
+\index{CreateGpuMemoryAllocator@{CreateGpuMemoryAllocator}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateGpuMemoryAllocator()}{CreateGpuMemoryAllocator()}}
+{\footnotesize\ttfamily void Renderer\+Vulkan\+::\+Create\+Gpu\+Memory\+Allocator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aeddc71ea58f84ac13bf7017133a8d2b0}{OSK\+::\+GRAPHICS\+::\+IRenderer}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00528}{528}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a71ad70cf2d9210887d1b6f67fc0b7a84}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a71ad70cf2d9210887d1b6f67fc0b7a84}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!CreateMainRenderpass@{CreateMainRenderpass}}
+\index{CreateMainRenderpass@{CreateMainRenderpass}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateMainRenderpass()}{CreateMainRenderpass()}}
+{\footnotesize\ttfamily void IRenderer\+::\+Create\+Main\+Renderpass (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00113}{113}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0fa1cd26067c520e90cfa647f66e8366}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0fa1cd26067c520e90cfa647f66e8366}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!CreateSingleUseCommandList@{CreateSingleUseCommandList}}
+\index{CreateSingleUseCommandList@{CreateSingleUseCommandList}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateSingleUseCommandList()}{CreateSingleUseCommandList()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_owned_ptr}{Owned\+Ptr}}$<$ \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $>$ IRenderer\+::\+Create\+Single\+Use\+Command\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Crea una lista de comandos para un único uso. Útil para enviar datos a la GPU, por ejemplo. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00102}{102}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a9e068a5a49375eb97333ab11d0f75da8}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a9e068a5a49375eb97333ab11d0f75da8}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!CreateSwapchain@{CreateSwapchain}}
+\index{CreateSwapchain@{CreateSwapchain}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateSwapchain()}{CreateSwapchain()}}
+{\footnotesize\ttfamily void Renderer\+Vulkan\+::\+Create\+Swapchain (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a47a7b3817b8aca438c20b7674fad28ab}{Present\+Mode}}}]{mode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6cee4717a48eca50317d899ad9079210}{OSK\+::\+GRAPHICS\+::\+IRenderer}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00297}{297}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 7
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a4c975e2c18c28bcfb4d190c2fcf1de46}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a4c975e2c18c28bcfb4d190c2fcf1de46}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!CreateSyncDevice@{CreateSyncDevice}}
+\index{CreateSyncDevice@{CreateSyncDevice}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{CreateSyncDevice()}{CreateSyncDevice()}}
+{\footnotesize\ttfamily void Renderer\+Vulkan\+::\+Create\+Sync\+Device (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4ccdbb2d5dfb24ac0f576e7de59d2eab}{OSK\+::\+GRAPHICS\+::\+IRenderer}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00438}{438}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 8
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6bc3460eece49621aa2411460cc65138}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6bc3460eece49621aa2411460cc65138}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!FormatImageDataForGpu@{FormatImageDataForGpu}}
+\index{FormatImageDataForGpu@{FormatImageDataForGpu}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{FormatImageDataForGpu()}{FormatImageDataForGpu()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}} $\ast$ IRenderer\+::\+Format\+Image\+Data\+For\+Gpu (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$}]{image,  }\item[{const \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}} $\ast$}]{data,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{num\+Layers }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}, {\ttfamily [inherited]}}
+
+
+
+Debido a razones de alineamiento, es posible que se tengan que desplazar partes de la imagen para que se pueda realizar correctamente una copia de la imagen a la GPU. 
+
+Por defecto, devuelve el puntero original. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em image} & Imagen para la que se va a formatear los datos.\\
+\hline
+{\em data} & Datos originales.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+Datos con formato.
+
+
+
+Si se sobreescribe, devolverá un puntero distinto al original, el cual deberá ser eliminado tras llamar a esta función.
+\end{DoxyReturn}
+
+
+Reimplementado en \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12_ab6a13de17b200ccc537a56bd61eb8b8f}{OSK\+::\+GRAPHICS\+::\+Renderer\+Dx12}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00090}{90}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a83515ed3a33b174a43d88d10dad68121}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a83515ed3a33b174a43d88d10dad68121}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!GetComputeCommandQueue@{GetComputeCommandQueue}}
+\index{GetComputeCommandQueue@{GetComputeCommandQueue}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{GetComputeCommandQueue()}{GetComputeCommandQueue()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommand\+Queue}} $\ast$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::\+Get\+Compute\+Command\+Queue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00096}{96}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_aa24b61237d77b4e7983383bbd99e17d7}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_aa24b61237d77b4e7983383bbd99e17d7}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!GetCurrentCommandListIndex@{GetCurrentCommandListIndex}}
+\index{GetCurrentCommandListIndex@{GetCurrentCommandListIndex}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{GetCurrentCommandListIndex()}{GetCurrentCommandListIndex()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} Renderer\+Vulkan\+::\+Get\+Current\+Command\+List\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4a779e3af14025ec16d8a0c0a6cf0fe5}{OSK\+::\+GRAPHICS\+::\+IRenderer}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00786}{786}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_acb88d72e870fcfad0edbc05275c6ff3d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_acb88d72e870fcfad0edbc05275c6ff3d}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!GetCurrentFrameIndex@{GetCurrentFrameIndex}}
+\index{GetCurrentFrameIndex@{GetCurrentFrameIndex}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{GetCurrentFrameIndex()}{GetCurrentFrameIndex()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} Renderer\+Vulkan\+::\+Get\+Current\+Frame\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4ab0c3c7114ddbc503d81c25546013e7}{OSK\+::\+GRAPHICS\+::\+IRenderer}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00782}{782}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_afdb99df53b3996540c53a323c1ffd0fa}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_afdb99df53b3996540c53a323c1ffd0fa}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!GetFinalRenderTarget@{GetFinalRenderTarget}}
+\index{GetFinalRenderTarget@{GetFinalRenderTarget}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{GetFinalRenderTarget()}{GetFinalRenderTarget()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}} $\ast$ IRenderer\+::\+Get\+Final\+Render\+Target (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Devuelve el render target que renderiza sobre la imagen final del swapchain. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00132}{132}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a12dbfa8d440cadd6fcc8ac7b80deff89}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a12dbfa8d440cadd6fcc8ac7b80deff89}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!GetFrameBuildCommandList@{GetFrameBuildCommandList}}
+\index{GetFrameBuildCommandList@{GetFrameBuildCommandList}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{GetFrameBuildCommandList()}{GetFrameBuildCommandList()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $\ast$ IRenderer\+::\+Get\+Frame\+Build\+Command\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00040}{40}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8b6b1698afeb3bb07f3b91e5ddb79b2d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8b6b1698afeb3bb07f3b91e5ddb79b2d}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!GetGpu@{GetGpu}}
+\index{GetGpu@{GetGpu}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{GetGpu()}{GetGpu()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}} $\ast$ IRenderer\+::\+Get\+Gpu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00048}{48}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a181fa5cc9ca0761482c658589fd95aff}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a181fa5cc9ca0761482c658589fd95aff}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!GetGraphicsCommandList@{GetGraphicsCommandList}}
+\index{GetGraphicsCommandList@{GetGraphicsCommandList}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{GetGraphicsCommandList()}{GetGraphicsCommandList()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $\ast$ IRenderer\+::\+Get\+Graphics\+Command\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00032}{32}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7fa021d03868e15428c6a382864b9d6c}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7fa021d03868e15428c6a382864b9d6c}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!GetGraphicsCommandQueue@{GetGraphicsCommandQueue}}
+\index{GetGraphicsCommandQueue@{GetGraphicsCommandQueue}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{GetGraphicsCommandQueue()}{GetGraphicsCommandQueue()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommand\+Queue}} $\ast$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::\+Get\+Graphics\+Command\+Queue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00095}{95}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a15a2d271ad61c59ce4414dbdf016d277}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a15a2d271ad61c59ce4414dbdf016d277}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!GetMaterialSystem@{GetMaterialSystem}}
+\index{GetMaterialSystem@{GetMaterialSystem}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{GetMaterialSystem()}{GetMaterialSystem()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system}{Material\+System}} $\ast$ IRenderer\+::\+Get\+Material\+System (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Devuelve el sistema de materiales. Necesario mara manejar materiales y crear instancias de materiales. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00109}{109}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acf03703bbb6f031f905612d86f104b38}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acf03703bbb6f031f905612d86f104b38}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!GetMemoryAllocator@{GetMemoryAllocator}}
+\index{GetMemoryAllocator@{GetMemoryAllocator}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{GetMemoryAllocator()}{GetMemoryAllocator()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator}{IGpu\+Memory\+Allocator}} $\ast$ IRenderer\+::\+Get\+Memory\+Allocator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00044}{44}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8a093f8614b14b57864ec3d0791ba91a}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8a093f8614b14b57864ec3d0791ba91a}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!GetPostComputeCommandList@{GetPostComputeCommandList}}
+\index{GetPostComputeCommandList@{GetPostComputeCommandList}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{GetPostComputeCommandList()}{GetPostComputeCommandList()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $\ast$ IRenderer\+::\+Get\+Post\+Compute\+Command\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00036}{36}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a04b67d0a496c0fb5de04d468ba7ab658}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a04b67d0a496c0fb5de04d468ba7ab658}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!GetPreComputeCommandList@{GetPreComputeCommandList}}
+\index{GetPreComputeCommandList@{GetPreComputeCommandList}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{GetPreComputeCommandList()}{GetPreComputeCommandList()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $\ast$ IRenderer\+::\+Get\+Pre\+Compute\+Command\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00028}{28}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a24810cb6a5383c1a4073bd4374fb9bb4}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a24810cb6a5383c1a4073bd4374fb9bb4}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!GetPresentCommandQueue@{GetPresentCommandQueue}}
+\index{GetPresentCommandQueue@{GetPresentCommandQueue}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{GetPresentCommandQueue()}{GetPresentCommandQueue()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommand\+Queue}} $\ast$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::\+Get\+Present\+Command\+Queue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00097}{97}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a5715d7eea84cc2dae21fb5ef208e5a8e}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a5715d7eea84cc2dae21fb5ef208e5a8e}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!GetRenderApi@{GetRenderApi}}
+\index{GetRenderApi@{GetRenderApi}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{GetRenderApi()}{GetRenderApi()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a3057691f190dabf7642cfde72cf2430f}{Render\+Api\+Type}} IRenderer\+::\+Get\+Render\+Api (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Devuelve el API de renderizado de bajo nivel del renderizador actual. (DX12/\+VULKAN/\+OPENGL). 
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00120}{120}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ac39e6512c39a6a82dea2ed73a0575a42}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ac39e6512c39a6a82dea2ed73a0575a42}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!GetRenderTargetsCamera@{GetRenderTargetsCamera}}
+\index{GetRenderTargetsCamera@{GetRenderTargetsCamera}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{GetRenderTargetsCamera()}{GetRenderTargetsCamera()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d}{ECS\+::\+Camera\+Component2D}} \& IRenderer\+::\+Get\+Render\+Targets\+Camera (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Devuelve una cámara 2D que renderiza en la resolución completa de la pantalla. 
+
+Para poder renderizar con facilidad los diferentes render targets en los sistemas de renderizado y en \mbox{\hyperlink{class_o_s_k_1_1_i_game_a1fd5e113ad6425b6a8fdc99c87c49167}{IGame\+::\+Build\+Frame}}. 
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00136}{136}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6bdcecd10ad67576f386bb8d42503bcd}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6bdcecd10ad67576f386bb8d42503bcd}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!GetSwapchainImagesCount@{GetSwapchainImagesCount}}
+\index{GetSwapchainImagesCount@{GetSwapchainImagesCount}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{GetSwapchainImagesCount()}{GetSwapchainImagesCount()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}} IRenderer\+::\+Get\+Swapchain\+Images\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Devuelve el número de imágenes del swapchain. Para recursos que necesiten tener una copia por imagen del swapchain. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00124}{124}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_ab881f4230ac3ee122182e6cb2b39f77b}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_ab881f4230ac3ee122182e6cb2b39f77b}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!HandleResize@{HandleResize}}
+\index{HandleResize@{HandleResize}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{HandleResize()}{HandleResize()}}
+{\footnotesize\ttfamily void Renderer\+Vulkan\+::\+Handle\+Resize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reconfigura el swapchain al haberse cambiado de tamaño la ventana. 
+
+
+
+Reimplementado de \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a5222eda186e06692ee1e591a085473eb}{OSK\+::\+GRAPHICS\+::\+IRenderer}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00201}{201}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 9
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a1dae0f06f4555567aad3adf711d567da}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a1dae0f06f4555567aad3adf711d567da}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!Initialize@{Initialize}}
+\index{Initialize@{Initialize}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{Initialize()}{Initialize()}}
+{\footnotesize\ttfamily void Renderer\+Vulkan\+::\+Initialize (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{app\+Name,  }\item[{const \mbox{\hyperlink{struct_o_s_k_1_1_version}{Version}} \&}]{version,  }\item[{const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window}{IO\+::\+Window}} \&}]{window,  }\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a47a7b3817b8aca438c20b7674fad28ab}{Present\+Mode}}}]{mode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Inicializa todo el sistema de renderizado. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em app\+Name} & Nombre de la aplicación / juego.\\
+\hline
+{\em version} & Versión de la aplicación / juego.\\
+\hline
+{\em window} & Ventana enlazada.\\
+\hline
+\end{DoxyParams}
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aea554b8f5ef48b983b5f26e1e4384bf9}{OSK\+::\+GRAPHICS\+::\+IRenderer}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00116}{116}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 10
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6c686e7448f5b58d4a82bd65a7edd525}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6c686e7448f5b58d4a82bd65a7edd525}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!IsOpen@{IsOpen}}
+\index{IsOpen@{IsOpen}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{IsOpen()}{IsOpen()}}
+{\footnotesize\ttfamily bool IRenderer\+::\+Is\+Open (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Devuelve true si el renderizador está inicializado y funcionando. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00128}{128}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a39cec2c1506cbde7b9da2b75cdebddf8}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a39cec2c1506cbde7b9da2b75cdebddf8}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!IsRtActive@{IsRtActive}}
+\index{IsRtActive@{IsRtActive}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{IsRtActive()}{IsRtActive()}}
+{\footnotesize\ttfamily bool IRenderer\+::\+Is\+Rt\+Active (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+True si la funcionalidad de raytracing está activa. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00166}{166}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acf22c29d74bcd9d7e992d5f59becb681}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acf22c29d74bcd9d7e992d5f59becb681}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!IsRtRequested@{IsRtRequested}}
+\index{IsRtRequested@{IsRtRequested}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{IsRtRequested()}{IsRtRequested()}}
+{\footnotesize\ttfamily bool IRenderer\+::\+Is\+Rt\+Requested (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00170}{170}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a0f642ecb0d29928e33c17f6f7d1d8e71}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a0f642ecb0d29928e33c17f6f7d1d8e71}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!PresentFrame@{PresentFrame}}
+\index{PresentFrame@{PresentFrame}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{PresentFrame()}{PresentFrame()}}
+{\footnotesize\ttfamily void Renderer\+Vulkan\+::\+Present\+Frame (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Una vez se han grabado todos los comandos, se debe iniciar su ejecución en la GPU para ser renderizados. 
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a90aa9f12a25efdcc002be083fdc9c701}{OSK\+::\+GRAPHICS\+::\+IRenderer}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00532}{532}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a5cf02432b5cd076e4118e4d6638926fe}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a5cf02432b5cd076e4118e4d6638926fe}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!RegisterPostProcessingPass@{RegisterPostProcessingPass}}
+\index{RegisterPostProcessingPass@{RegisterPostProcessingPass}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{RegisterPostProcessingPass()}{RegisterPostProcessingPass()}}
+{\footnotesize\ttfamily void IRenderer\+::\+Register\+Post\+Processing\+Pass (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass}{IPost\+Process\+Pass}} $\ast$}]{render\+Target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Registra un efecto de postprocesamiento que debe cambiar de tamaño cuando la ventana cambie de tamaño. 
+
+\begin{DoxyNote}{Nota}
+El render target debe tener estabilidad de puntero. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00157}{157}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acfac8d227aa448336e5de652c8095afb}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acfac8d227aa448336e5de652c8095afb}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!RegisterRenderTarget@{RegisterRenderTarget}}
+\index{RegisterRenderTarget@{RegisterRenderTarget}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{RegisterRenderTarget()}{RegisterRenderTarget()}}
+{\footnotesize\ttfamily void IRenderer\+::\+Register\+Render\+Target (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}} $\ast$}]{render\+Target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Registra un render target que debe cambiar de tamaño cuando la ventana cambie de tamaño. 
+
+\begin{DoxyNote}{Nota}
+El render target debe tener estabilidad de puntero. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00148}{148}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_ae7fb15c3cbed5340cc112c95ff86450a}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_ae7fb15c3cbed5340cc112c95ff86450a}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!SubmitSingleUseCommandList@{SubmitSingleUseCommandList}}
+\index{SubmitSingleUseCommandList@{SubmitSingleUseCommandList}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{SubmitSingleUseCommandList()}{SubmitSingleUseCommandList()}}
+{\footnotesize\ttfamily void Renderer\+Vulkan\+::\+Submit\+Single\+Use\+Command\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $\ast$}]{command\+List }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Ejecuta el contenido de la lista de comandos. 
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_af337a6b45b1e298a4edff91981586d14}{OSK\+::\+GRAPHICS\+::\+IRenderer}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00206}{206}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 11
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a30c112561d1abcf5fee184c26428b169}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a30c112561d1abcf5fee184c26428b169}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!SupportsRaytracing@{SupportsRaytracing}}
+\index{SupportsRaytracing@{SupportsRaytracing}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{SupportsRaytracing()}{SupportsRaytracing()}}
+{\footnotesize\ttfamily bool Renderer\+Vulkan\+::\+Supports\+Raytracing (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+True si el renderizador soporta trazado de rayos. Depende de la GPU usada. 
+
+
+
+Implementa \mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_af6c2b503a6e4f7757e58062fcdf60ebc}{OSK\+::\+GRAPHICS\+::\+IRenderer}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8cpp_source_l00790}{790}} del archivo \mbox{\hyperlink{_renderer_vulkan_8cpp_source}{Renderer\+Vulkan.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ac946fea7ddba02f6307178fa82218849}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ac946fea7ddba02f6307178fa82218849}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!UnregisterPostProcessingPass@{UnregisterPostProcessingPass}}
+\index{UnregisterPostProcessingPass@{UnregisterPostProcessingPass}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{UnregisterPostProcessingPass()}{UnregisterPostProcessingPass()}}
+{\footnotesize\ttfamily void IRenderer\+::\+Unregister\+Post\+Processing\+Pass (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass}{IPost\+Process\+Pass}} $\ast$}]{render\+Target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Quita un efecto de postprocesamiento de la lista de efectos de postprocesamiento que deben cambiar de tamaño cuando la ventana cambie de tamaño. 
+
+\begin{DoxyNote}{Nota}
+Si el efecto de postprocesamiento no estaba registrado, no ocurrirá nada. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00162}{162}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ad1f7fcb03859d8312fbde048e51e2700}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ad1f7fcb03859d8312fbde048e51e2700}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!UnregisterRenderTarget@{UnregisterRenderTarget}}
+\index{UnregisterRenderTarget@{UnregisterRenderTarget}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{UnregisterRenderTarget()}{UnregisterRenderTarget()}}
+{\footnotesize\ttfamily void IRenderer\+::\+Unregister\+Render\+Target (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}} $\ast$}]{render\+Target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Quita un render target de la lista de render targers que deben cambiar de tamaño cuando la ventana cambie de tamaño. 
+
+\begin{DoxyNote}{Nota}
+Si el render target no estaba registrado, no ocurrirá nada. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00153}{153}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a127f65d1c173f1578a180f70b9cc0942}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a127f65d1c173f1578a180f70b9cc0942}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!UploadCubemapImageToGpu@{UploadCubemapImageToGpu}}
+\index{UploadCubemapImageToGpu@{UploadCubemapImageToGpu}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{UploadCubemapImageToGpu()}{UploadCubemapImageToGpu()}}
+{\footnotesize\ttfamily void IRenderer\+::\+Upload\+Cubemap\+Image\+To\+Gpu (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$}]{destination,  }\item[{const \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}} $\ast$}]{data,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{num\+Bytes,  }\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $\ast$}]{cmd\+List }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Rellena la imagen en la GPU con los datos dados. 
+
+\begin{DoxyPrecond}{Precondición}
+La imagen de destino debe haber sido creada con \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaac61dfc60317a58b2843ec29f8e3c2359}{Gpu\+Image\+Usage\+::\+TRANSFER\+\_\+\+DESTINATION}}. 
+
+La imagen de destino debe tener el layout \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9ac61dfc60317a58b2843ec29f8e3c2359}{Gpu\+Image\+Layout\+::\+TRANSFER\+\_\+\+DESTINATION}}. 
+\end{DoxyPrecond}
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00098}{98}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 12
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a84c879978d05eb6e5ac7828dd115ab5d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a84c879978d05eb6e5ac7828dd115ab5d}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!UploadImageToGpu@{UploadImageToGpu}}
+\index{UploadImageToGpu@{UploadImageToGpu}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{UploadImageToGpu()}{UploadImageToGpu()}}
+{\footnotesize\ttfamily void IRenderer\+::\+Upload\+Image\+To\+Gpu (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$}]{destination,  }\item[{const \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}} $\ast$}]{data,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{num\+Bytes,  }\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $\ast$}]{cmd\+List }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Rellena la imagen en la GPU con los datos dados. 
+
+\begin{DoxyPrecond}{Precondición}
+La imagen de destino debe haber sido creada con \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaac61dfc60317a58b2843ec29f8e3c2359}{Gpu\+Image\+Usage\+::\+TRANSFER\+\_\+\+DESTINATION}}. 
+
+La imagen de destino debe tener el layout \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9ac61dfc60317a58b2843ec29f8e3c2359}{Gpu\+Image\+Layout\+::\+TRANSFER\+\_\+\+DESTINATION}}. 
+\end{DoxyPrecond}
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00094}{94}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 13
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0dea54038eea4c0f8c0a7013ab6adac7}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0dea54038eea4c0f8c0a7013ab6adac7}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!UploadLayeredImageToGpu@{UploadLayeredImageToGpu}}
+\index{UploadLayeredImageToGpu@{UploadLayeredImageToGpu}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{UploadLayeredImageToGpu()}{UploadLayeredImageToGpu()}}
+{\footnotesize\ttfamily void IRenderer\+::\+Upload\+Layered\+Image\+To\+Gpu (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image}{Gpu\+Image}} $\ast$}]{destination,  }\item[{const \mbox{\hyperlink{namespace_o_s_k_a13be6d03821c950ec38db0531c1d5f5c}{TByte}} $\ast$}]{data,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{num\+Bytes,  }\item[{\mbox{\hyperlink{_o_s_kmacros_8h_a1acaf9dff8b00604e55d38b35a744a9a}{TSize}}}]{num\+Layers,  }\item[{\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}} $\ast$}]{cmd\+List }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Rellena la imagen en la GPU con los datos dados. 
+
+\begin{DoxyPrecond}{Precondición}
+La imagen de destino debe haber sido creada con \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a19a2f70fc994c00eb022e520608c5ffaac61dfc60317a58b2843ec29f8e3c2359}{Gpu\+Image\+Usage\+::\+TRANSFER\+\_\+\+DESTINATION}}. 
+
+La imagen de destino debe tener el layout \mbox{\hyperlink{namespace_o_s_k_1_1_g_r_a_p_h_i_c_s_a20f40e3d3e967090ee1884e0c77b9df9ac61dfc60317a58b2843ec29f8e3c2359}{Gpu\+Image\+Layout\+::\+TRANSFER\+\_\+\+DESTINATION}}. 
+\end{DoxyPrecond}
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_8cpp_source_l00052}{52}} del archivo \mbox{\hyperlink{_renderer_8cpp_source}{Renderer.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 14
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a76bddfef891f966b5d0001cc5063986f}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a76bddfef891f966b5d0001cc5063986f}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!computeCommandPool@{computeCommandPool}}
+\index{computeCommandPool@{computeCommandPool}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{computeCommandPool}{computeCommandPool}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool}{ICommand\+Pool}}$>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::compute\+Command\+Pool\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00311}{311}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a05fc17f5d2cbaa3895f5d3a626107e47}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a05fc17f5d2cbaa3895f5d3a626107e47}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!computeQueue@{computeQueue}}
+\index{computeQueue@{computeQueue}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{computeQueue}{computeQueue}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommand\+Queue}}$>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::compute\+Queue\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00301}{301}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a2928763ae4948a9de9bafad902fd9696}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a2928763ae4948a9de9bafad902fd9696}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!currentGpu@{currentGpu}}
+\index{currentGpu@{currentGpu}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{currentGpu}{currentGpu}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu}{IGpu}}$>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::current\+Gpu\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00298}{298}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a30073a14bdd20555c38f5326b0ea9b89}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a30073a14bdd20555c38f5326b0ea9b89}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!finalRenderTarget@{finalRenderTarget}}
+\index{finalRenderTarget@{finalRenderTarget}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{finalRenderTarget}{finalRenderTarget}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}}$>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::final\+Render\+Target\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00318}{318}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a3b31beb9b077f69dddeed7b30745ae81}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a3b31beb9b077f69dddeed7b30745ae81}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!frameBuildCommandList@{frameBuildCommandList}}
+\index{frameBuildCommandList@{frameBuildCommandList}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{frameBuildCommandList}{frameBuildCommandList}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}}$>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::frame\+Build\+Command\+List\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00309}{309}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a046cb6d9d3bd12965b1abc3e9bd3c2c3}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a046cb6d9d3bd12965b1abc3e9bd3c2c3}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!gpuMemoryAllocator@{gpuMemoryAllocator}}
+\index{gpuMemoryAllocator@{gpuMemoryAllocator}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{gpuMemoryAllocator}{gpuMemoryAllocator}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator}{IGpu\+Memory\+Allocator}}$>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::gpu\+Memory\+Allocator\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00315}{315}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a34603566a0187941cbff752e587db881}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a34603566a0187941cbff752e587db881}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!graphicsCommandList@{graphicsCommandList}}
+\index{graphicsCommandList@{graphicsCommandList}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{graphicsCommandList}{graphicsCommandList}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}}$>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::graphics\+Command\+List\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00308}{308}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acad78f090fc5cf8a54762d863452b419}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_acad78f090fc5cf8a54762d863452b419}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!graphicsCommandPool@{graphicsCommandPool}}
+\index{graphicsCommandPool@{graphicsCommandPool}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{graphicsCommandPool}{graphicsCommandPool}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool}{ICommand\+Pool}}$>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::graphics\+Command\+Pool\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00307}{307}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ada7ad73436c32df92625b7af4e708e17}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ada7ad73436c32df92625b7af4e708e17}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!graphicsQueue@{graphicsQueue}}
+\index{graphicsQueue@{graphicsQueue}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{graphicsQueue}{graphicsQueue}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommand\+Queue}}$>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::graphics\+Queue\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00300}{300}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8a9bd673e93ebce0a7e60a8133f51de7}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a8a9bd673e93ebce0a7e60a8133f51de7}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!implicitResizeHandling@{implicitResizeHandling}}
+\index{implicitResizeHandling@{implicitResizeHandling}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{implicitResizeHandling}{implicitResizeHandling}}
+{\footnotesize\ttfamily bool OSK\+::\+GRAPHICS\+::\+IRenderer\+::implicit\+Resize\+Handling = false\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00335}{335}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0dd4df1f6aedb79c660b511c673e1318}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0dd4df1f6aedb79c660b511c673e1318}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!isFirstRender@{isFirstRender}}
+\index{isFirstRender@{isFirstRender}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{isFirstRender}{isFirstRender}}
+{\footnotesize\ttfamily bool OSK\+::\+GRAPHICS\+::\+IRenderer\+::is\+First\+Render = true\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00326}{326}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a92b402ae79fb7b6b7a262d8efe790a4b}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a92b402ae79fb7b6b7a262d8efe790a4b}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!isOpen@{isOpen}}
+\index{isOpen@{isOpen}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{isOpen}{isOpen}}
+{\footnotesize\ttfamily bool OSK\+::\+GRAPHICS\+::\+IRenderer\+::is\+Open = false\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00330}{330}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a54e890abc204e8918aae618cf4642a0b}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a54e890abc204e8918aae618cf4642a0b}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!isRtActive@{isRtActive}}
+\index{isRtActive@{isRtActive}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{isRtActive}{isRtActive}}
+{\footnotesize\ttfamily bool OSK\+::\+GRAPHICS\+::\+IRenderer\+::is\+Rt\+Active = false\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00344}{344}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6bca4cd0b04eecbf58432b51c221da77}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a6bca4cd0b04eecbf58432b51c221da77}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!materialSystem@{materialSystem}}
+\index{materialSystem@{materialSystem}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{materialSystem}{materialSystem}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system}{Material\+System}}$>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::material\+System\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00320}{320}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0574dda9de1a0beaffbe4326f374cbee}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0574dda9de1a0beaffbe4326f374cbee}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!postComputeCommandList@{postComputeCommandList}}
+\index{postComputeCommandList@{postComputeCommandList}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{postComputeCommandList}{postComputeCommandList}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}}$>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::post\+Compute\+Command\+List\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00313}{313}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aea4737662d1590969769cd958cb7adaf}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aea4737662d1590969769cd958cb7adaf}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!preComputeCommandList@{preComputeCommandList}}
+\index{preComputeCommandList@{preComputeCommandList}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{preComputeCommandList}{preComputeCommandList}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}}$>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::pre\+Compute\+Command\+List\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00312}{312}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a9fd87ed15539f6d249ce8d2e8247b522}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a9fd87ed15539f6d249ce8d2e8247b522}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!presentQueue@{presentQueue}}
+\index{presentQueue@{presentQueue}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{presentQueue}{presentQueue}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue}{ICommand\+Queue}}$>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::present\+Queue\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00302}{302}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_ad44f39b58218fc501077b78853fb0925}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_ad44f39b58218fc501077b78853fb0925}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!pvkBuildAccelerationStructuresKHR@{pvkBuildAccelerationStructuresKHR}}
+\index{pvkBuildAccelerationStructuresKHR@{pvkBuildAccelerationStructuresKHR}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{pvkBuildAccelerationStructuresKHR}{pvkBuildAccelerationStructuresKHR}}
+{\footnotesize\ttfamily PFN\+\_\+vk\+Build\+Acceleration\+Structures\+KHR Renderer\+Vulkan\+::pvk\+Build\+Acceleration\+Structures\+KHR = nullptr\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8h_source_l00041}{41}} del archivo \mbox{\hyperlink{_renderer_vulkan_8h_source}{Renderer\+Vulkan.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a4400a92fffd611864e4edd4f8ed6350c}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a4400a92fffd611864e4edd4f8ed6350c}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!pvkCmdBeginRendering@{pvkCmdBeginRendering}}
+\index{pvkCmdBeginRendering@{pvkCmdBeginRendering}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{pvkCmdBeginRendering}{pvkCmdBeginRendering}}
+{\footnotesize\ttfamily PFN\+\_\+vk\+Cmd\+Begin\+Rendering Renderer\+Vulkan\+::pvk\+Cmd\+Begin\+Rendering = nullptr\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8h_source_l00058}{58}} del archivo \mbox{\hyperlink{_renderer_vulkan_8h_source}{Renderer\+Vulkan.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a9922636adeec8a099209b107ed22e3f8}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a9922636adeec8a099209b107ed22e3f8}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!pvkCmdBuildAccelerationStructuresKHR@{pvkCmdBuildAccelerationStructuresKHR}}
+\index{pvkCmdBuildAccelerationStructuresKHR@{pvkCmdBuildAccelerationStructuresKHR}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{pvkCmdBuildAccelerationStructuresKHR}{pvkCmdBuildAccelerationStructuresKHR}}
+{\footnotesize\ttfamily PFN\+\_\+vk\+Cmd\+Build\+Acceleration\+Structures\+KHR Renderer\+Vulkan\+::pvk\+Cmd\+Build\+Acceleration\+Structures\+KHR = nullptr\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8h_source_l00040}{40}} del archivo \mbox{\hyperlink{_renderer_vulkan_8h_source}{Renderer\+Vulkan.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a2e207f0132864f08d5cf1a8d80cfd46f}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a2e207f0132864f08d5cf1a8d80cfd46f}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!pvkCmdDebugMarkerBeginEXT@{pvkCmdDebugMarkerBeginEXT}}
+\index{pvkCmdDebugMarkerBeginEXT@{pvkCmdDebugMarkerBeginEXT}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{pvkCmdDebugMarkerBeginEXT}{pvkCmdDebugMarkerBeginEXT}}
+{\footnotesize\ttfamily PFN\+\_\+vk\+Cmd\+Debug\+Marker\+Begin\+EXT Renderer\+Vulkan\+::pvk\+Cmd\+Debug\+Marker\+Begin\+EXT = nullptr\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8h_source_l00053}{53}} del archivo \mbox{\hyperlink{_renderer_vulkan_8h_source}{Renderer\+Vulkan.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_aaafc6d4f9636782e5d51fbee163e91ba}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_aaafc6d4f9636782e5d51fbee163e91ba}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!pvkCmdEndDebugUtilsLabelEXT@{pvkCmdEndDebugUtilsLabelEXT}}
+\index{pvkCmdEndDebugUtilsLabelEXT@{pvkCmdEndDebugUtilsLabelEXT}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{pvkCmdEndDebugUtilsLabelEXT}{pvkCmdEndDebugUtilsLabelEXT}}
+{\footnotesize\ttfamily PFN\+\_\+vk\+Cmd\+End\+Debug\+Utils\+Label\+EXT Renderer\+Vulkan\+::pvk\+Cmd\+End\+Debug\+Utils\+Label\+EXT = nullptr\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8h_source_l00055}{55}} del archivo \mbox{\hyperlink{_renderer_vulkan_8h_source}{Renderer\+Vulkan.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_ac136f5e5dc519bfe6e1b313fa971200d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_ac136f5e5dc519bfe6e1b313fa971200d}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!pvkCmdEndRendering@{pvkCmdEndRendering}}
+\index{pvkCmdEndRendering@{pvkCmdEndRendering}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{pvkCmdEndRendering}{pvkCmdEndRendering}}
+{\footnotesize\ttfamily PFN\+\_\+vk\+Cmd\+End\+Rendering Renderer\+Vulkan\+::pvk\+Cmd\+End\+Rendering = nullptr\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8h_source_l00059}{59}} del archivo \mbox{\hyperlink{_renderer_vulkan_8h_source}{Renderer\+Vulkan.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a967de921db66d4ecec3b649ff40e7807}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a967de921db66d4ecec3b649ff40e7807}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!pvkCmdInsertDebugUtilsLabelEXT@{pvkCmdInsertDebugUtilsLabelEXT}}
+\index{pvkCmdInsertDebugUtilsLabelEXT@{pvkCmdInsertDebugUtilsLabelEXT}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{pvkCmdInsertDebugUtilsLabelEXT}{pvkCmdInsertDebugUtilsLabelEXT}}
+{\footnotesize\ttfamily PFN\+\_\+vk\+Cmd\+Insert\+Debug\+Utils\+Label\+EXT Renderer\+Vulkan\+::pvk\+Cmd\+Insert\+Debug\+Utils\+Label\+EXT = nullptr\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8h_source_l00054}{54}} del archivo \mbox{\hyperlink{_renderer_vulkan_8h_source}{Renderer\+Vulkan.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a2f0b560716bde5688ae9e0947b263379}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a2f0b560716bde5688ae9e0947b263379}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!pvkCmdTraceRaysKHR@{pvkCmdTraceRaysKHR}}
+\index{pvkCmdTraceRaysKHR@{pvkCmdTraceRaysKHR}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{pvkCmdTraceRaysKHR}{pvkCmdTraceRaysKHR}}
+{\footnotesize\ttfamily PFN\+\_\+vk\+Cmd\+Trace\+Rays\+KHR Renderer\+Vulkan\+::pvk\+Cmd\+Trace\+Rays\+KHR = nullptr\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8h_source_l00046}{46}} del archivo \mbox{\hyperlink{_renderer_vulkan_8h_source}{Renderer\+Vulkan.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a07ade011e04ba6f635e6cbaa5b9eef16}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a07ade011e04ba6f635e6cbaa5b9eef16}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!pvkCreateAccelerationStructureKHR@{pvkCreateAccelerationStructureKHR}}
+\index{pvkCreateAccelerationStructureKHR@{pvkCreateAccelerationStructureKHR}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{pvkCreateAccelerationStructureKHR}{pvkCreateAccelerationStructureKHR}}
+{\footnotesize\ttfamily PFN\+\_\+vk\+Create\+Acceleration\+Structure\+KHR Renderer\+Vulkan\+::pvk\+Create\+Acceleration\+Structure\+KHR = nullptr\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8h_source_l00042}{42}} del archivo \mbox{\hyperlink{_renderer_vulkan_8h_source}{Renderer\+Vulkan.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a632097b3a7f3b6f68ace9cd47754b1ef}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a632097b3a7f3b6f68ace9cd47754b1ef}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!pvkCreateRayTracingPipelinesKHR@{pvkCreateRayTracingPipelinesKHR}}
+\index{pvkCreateRayTracingPipelinesKHR@{pvkCreateRayTracingPipelinesKHR}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{pvkCreateRayTracingPipelinesKHR}{pvkCreateRayTracingPipelinesKHR}}
+{\footnotesize\ttfamily PFN\+\_\+vk\+Create\+Ray\+Tracing\+Pipelines\+KHR Renderer\+Vulkan\+::pvk\+Create\+Ray\+Tracing\+Pipelines\+KHR = nullptr\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8h_source_l00048}{48}} del archivo \mbox{\hyperlink{_renderer_vulkan_8h_source}{Renderer\+Vulkan.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a75f0ec692e815a896824eb407b6a656d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a75f0ec692e815a896824eb407b6a656d}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!pvkDestroyAccelerationStructureKHR@{pvkDestroyAccelerationStructureKHR}}
+\index{pvkDestroyAccelerationStructureKHR@{pvkDestroyAccelerationStructureKHR}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{pvkDestroyAccelerationStructureKHR}{pvkDestroyAccelerationStructureKHR}}
+{\footnotesize\ttfamily PFN\+\_\+vk\+Destroy\+Acceleration\+Structure\+KHR Renderer\+Vulkan\+::pvk\+Destroy\+Acceleration\+Structure\+KHR = nullptr\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8h_source_l00043}{43}} del archivo \mbox{\hyperlink{_renderer_vulkan_8h_source}{Renderer\+Vulkan.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_ad642685910fe2899f29760106e468a9c}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_ad642685910fe2899f29760106e468a9c}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!pvkGetAccelerationStructureBuildSizesKHR@{pvkGetAccelerationStructureBuildSizesKHR}}
+\index{pvkGetAccelerationStructureBuildSizesKHR@{pvkGetAccelerationStructureBuildSizesKHR}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{pvkGetAccelerationStructureBuildSizesKHR}{pvkGetAccelerationStructureBuildSizesKHR}}
+{\footnotesize\ttfamily PFN\+\_\+vk\+Get\+Acceleration\+Structure\+Build\+Sizes\+KHR Renderer\+Vulkan\+::pvk\+Get\+Acceleration\+Structure\+Build\+Sizes\+KHR = nullptr\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8h_source_l00044}{44}} del archivo \mbox{\hyperlink{_renderer_vulkan_8h_source}{Renderer\+Vulkan.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a03bc0c9af5049e5e5ede68e1e82198d1}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a03bc0c9af5049e5e5ede68e1e82198d1}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!pvkGetAccelerationStructureDeviceAddressKHR@{pvkGetAccelerationStructureDeviceAddressKHR}}
+\index{pvkGetAccelerationStructureDeviceAddressKHR@{pvkGetAccelerationStructureDeviceAddressKHR}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{pvkGetAccelerationStructureDeviceAddressKHR}{pvkGetAccelerationStructureDeviceAddressKHR}}
+{\footnotesize\ttfamily PFN\+\_\+vk\+Get\+Acceleration\+Structure\+Device\+Address\+KHR Renderer\+Vulkan\+::pvk\+Get\+Acceleration\+Structure\+Device\+Address\+KHR = nullptr\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8h_source_l00045}{45}} del archivo \mbox{\hyperlink{_renderer_vulkan_8h_source}{Renderer\+Vulkan.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_ad177dbaf9fbeb426aa4b7dda64b72264}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_ad177dbaf9fbeb426aa4b7dda64b72264}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!pvkGetBufferDeviceAddressKHR@{pvkGetBufferDeviceAddressKHR}}
+\index{pvkGetBufferDeviceAddressKHR@{pvkGetBufferDeviceAddressKHR}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{pvkGetBufferDeviceAddressKHR}{pvkGetBufferDeviceAddressKHR}}
+{\footnotesize\ttfamily PFN\+\_\+vk\+Get\+Buffer\+Device\+Address\+KHR Renderer\+Vulkan\+::pvk\+Get\+Buffer\+Device\+Address\+KHR = nullptr\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8h_source_l00039}{39}} del archivo \mbox{\hyperlink{_renderer_vulkan_8h_source}{Renderer\+Vulkan.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a4914dd3e39e804bbb2b05f652c4d1488}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a4914dd3e39e804bbb2b05f652c4d1488}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!pvkGetRayTracingShaderGroupHandlesKHR@{pvkGetRayTracingShaderGroupHandlesKHR}}
+\index{pvkGetRayTracingShaderGroupHandlesKHR@{pvkGetRayTracingShaderGroupHandlesKHR}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{pvkGetRayTracingShaderGroupHandlesKHR}{pvkGetRayTracingShaderGroupHandlesKHR}}
+{\footnotesize\ttfamily PFN\+\_\+vk\+Get\+Ray\+Tracing\+Shader\+Group\+Handles\+KHR Renderer\+Vulkan\+::pvk\+Get\+Ray\+Tracing\+Shader\+Group\+Handles\+KHR = nullptr\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8h_source_l00047}{47}} del archivo \mbox{\hyperlink{_renderer_vulkan_8h_source}{Renderer\+Vulkan.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a2b178940af46d1d652e68f93f8a8390d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a2b178940af46d1d652e68f93f8a8390d}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!pvkSetDebugUtilsObjectNameEXT@{pvkSetDebugUtilsObjectNameEXT}}
+\index{pvkSetDebugUtilsObjectNameEXT@{pvkSetDebugUtilsObjectNameEXT}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{pvkSetDebugUtilsObjectNameEXT}{pvkSetDebugUtilsObjectNameEXT}}
+{\footnotesize\ttfamily PFN\+\_\+vk\+Set\+Debug\+Utils\+Object\+Name\+EXT Renderer\+Vulkan\+::pvk\+Set\+Debug\+Utils\+Object\+Name\+EXT = nullptr\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8h_source_l00051}{51}} del archivo \mbox{\hyperlink{_renderer_vulkan_8h_source}{Renderer\+Vulkan.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a2af8636521e49d8fdc03b889a1b49e13}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan_a2af8636521e49d8fdc03b889a1b49e13}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!pvkSetDebugUtilsObjectTagEXT@{pvkSetDebugUtilsObjectTagEXT}}
+\index{pvkSetDebugUtilsObjectTagEXT@{pvkSetDebugUtilsObjectTagEXT}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{pvkSetDebugUtilsObjectTagEXT}{pvkSetDebugUtilsObjectTagEXT}}
+{\footnotesize\ttfamily PFN\+\_\+vk\+Set\+Debug\+Utils\+Object\+Tag\+EXT Renderer\+Vulkan\+::pvk\+Set\+Debug\+Utils\+Object\+Tag\+EXT = nullptr\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_renderer_vulkan_8h_source_l00052}{52}} del archivo \mbox{\hyperlink{_renderer_vulkan_8h_source}{Renderer\+Vulkan.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aae0f70bb0d6940710331e6b251812c81}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aae0f70bb0d6940710331e6b251812c81}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!renderTargetsCamera@{renderTargetsCamera}}
+\index{renderTargetsCamera@{renderTargetsCamera}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{renderTargetsCamera}{renderTargetsCamera}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component2_d}{ECS\+::\+Camera\+Component2D}}$>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::render\+Targets\+Camera\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00332}{332}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ad4be6bdc6e9ed15a10bf4e333b722c58}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_ad4be6bdc6e9ed15a10bf4e333b722c58}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!renderTargetsCameraTransform@{renderTargetsCameraTransform}}
+\index{renderTargetsCameraTransform@{renderTargetsCameraTransform}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{renderTargetsCameraTransform}{renderTargetsCameraTransform}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_transform2_d}{ECS\+::\+Transform2D}} OSK\+::\+GRAPHICS\+::\+IRenderer\+::render\+Targets\+Camera\+Transform \{ \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a46b3731582093c6a4b02a2024b9edf81}{ECS\+::\+EMPTY\+\_\+\+GAME\+\_\+\+OBJECT}} \}\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00333}{333}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7e98e72a6fb34491cdd3b358c225747f}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7e98e72a6fb34491cdd3b358c225747f}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!resizablePostProcessingPasses@{resizablePostProcessingPasses}}
+\index{resizablePostProcessingPasses@{resizablePostProcessingPasses}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{resizablePostProcessingPasses}{resizablePostProcessingPasses}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass}{IPost\+Process\+Pass}}$\ast$$>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::resizable\+Post\+Processing\+Passes\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00342}{342}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a35cde40eec42292e6059763aae496525}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a35cde40eec42292e6059763aae496525}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!resizableRenderTargets@{resizableRenderTargets}}
+\index{resizableRenderTargets@{resizableRenderTargets}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{resizableRenderTargets}{resizableRenderTargets}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target}{Render\+Target}}$\ast$$>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::resizable\+Render\+Targets\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Contiene render targets que deben cambiar de tamaño cuando la ventana cambie de tamaño. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00341}{341}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a094df08d451deaab468fffe79dfb689a}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a094df08d451deaab468fffe79dfb689a}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!resizeCallbacks@{resizeCallbacks}}
+\index{resizeCallbacks@{resizeCallbacks}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{resizeCallbacks}{resizeCallbacks}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_linked_list}{Linked\+List}}$<$std\+::function$<$void(const \mbox{\hyperlink{namespace_o_s_k_a29c2aa145248042c8045d1329efa4770}{Vector2ui}}\&)$>$ $>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::resize\+Callbacks\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00324}{324}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7575d99920b80cf3481c26d2e170ebd6}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a7575d99920b80cf3481c26d2e170ebd6}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!singleCommandQueue@{singleCommandQueue}}
+\index{singleCommandQueue@{singleCommandQueue}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{singleCommandQueue}{singleCommandQueue}}
+{\footnotesize\ttfamily bool OSK\+::\+GRAPHICS\+::\+IRenderer\+::single\+Command\+Queue = false\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00349}{349}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0493d3e86b3a5f32f74acf9a280c812f}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a0493d3e86b3a5f32f74acf9a280c812f}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!singleTimeCommandLists@{singleTimeCommandLists}}
+\index{singleTimeCommandLists@{singleTimeCommandLists}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{singleTimeCommandLists}{singleTimeCommandLists}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$\mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list}{ICommand\+List}}$>$ $>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::single\+Time\+Command\+Lists\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00322}{322}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4c5061452a68969f433306c2e5984a70}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!swapchain@{swapchain}}
+\index{swapchain@{swapchain}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{swapchain}{swapchain}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain}{ISwapchain}}$>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::swapchain\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00304}{304}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aed39f82dfcb5e92d9ed9efdca4f346ee}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_aed39f82dfcb5e92d9ed9efdca4f346ee}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!syncDevice@{syncDevice}}
+\index{syncDevice@{syncDevice}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{syncDevice}{syncDevice}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_unique_ptr}{Unique\+Ptr}}$<$\mbox{\hyperlink{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sync_device}{ISync\+Device}}$>$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::sync\+Device\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00305}{305}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4db58d26d84e9e636d2162264f69430d}\label{class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_a4db58d26d84e9e636d2162264f69430d}} 
+\index{OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}!window@{window}}
+\index{window@{window}!OSK::GRAPHICS::RendererVulkan@{OSK::GRAPHICS::RendererVulkan}}
+\doxysubsubsection{\texorpdfstring{window}{window}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_i_o_1_1_window}{IO\+::\+Window}}$\ast$ OSK\+::\+GRAPHICS\+::\+IRenderer\+::window = nullptr\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_renderer_8h_source_l00328}{328}} del archivo \mbox{\hyperlink{_i_renderer_8h_source}{IRenderer.\+h}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_renderer_vulkan_8h}{Renderer\+Vulkan.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_renderer_vulkan_8cpp}{Renderer\+Vulkan.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,10 @@
+digraph "OSK::DynamicArray::Reserve"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::DynamicArray::\lReserve",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="OSK::DynamicArray::\lAllocate",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html#acf322bf27bf4bfd581079500c67171a6",tooltip="Reserva espacio para 'size' elementos. Preserva los elementos anteriores."];
+}

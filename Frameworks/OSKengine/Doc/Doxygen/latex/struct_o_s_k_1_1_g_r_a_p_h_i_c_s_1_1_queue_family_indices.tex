@@ -1,0 +1,98 @@
+\hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices}{}\doxysection{Referencia de la Estructura OSK\+::GRAPHICS\+::Queue\+Family\+Indices}
+\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices}\index{OSK::GRAPHICS::QueueFamilyIndices@{OSK::GRAPHICS::QueueFamilyIndices}}
+
+
+{\ttfamily \#include $<$Queue\+Family\+Indices.\+h$>$}
+
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices_a8e3d3ed5c50fc1bf537a7ed921d090f7}{Is\+Complete}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos públicos}
+\begin{DoxyCompactItemize}
+\item 
+std\+::optional$<$ uint32\+\_\+t $>$ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices_ae8e20f4bbff29ba441b5a03e9cc37829}{graphics\+Family}}
+\item 
+std\+::optional$<$ uint32\+\_\+t $>$ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices_a5c08134681a4d76cac92f2afd223910b}{present\+Family}}
+\item 
+std\+::optional$<$ uint32\+\_\+t $>$ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices_aa1ac10b67dd9917d1c4a97675f408226}{compute\+Family}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Contiene información sobre qué familias de comandos soporta una GPU. 
+
+Definición en la línea \mbox{\hyperlink{_queue_family_indices_8h_source_l00011}{11}} del archivo \mbox{\hyperlink{_queue_family_indices_8h_source}{Queue\+Family\+Indices.\+h}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices_a8e3d3ed5c50fc1bf537a7ed921d090f7}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices_a8e3d3ed5c50fc1bf537a7ed921d090f7}} 
+\index{OSK::GRAPHICS::QueueFamilyIndices@{OSK::GRAPHICS::QueueFamilyIndices}!IsComplete@{IsComplete}}
+\index{IsComplete@{IsComplete}!OSK::GRAPHICS::QueueFamilyIndices@{OSK::GRAPHICS::QueueFamilyIndices}}
+\doxysubsubsection{\texorpdfstring{IsComplete()}{IsComplete()}}
+{\footnotesize\ttfamily bool Queue\+Family\+Indices\+::\+Is\+Complete (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+¿\+Hay alguna cola? 
+
+\begin{DoxyReturn}{Devuelve}
+True si hay alguna cola disponible.
+\end{DoxyReturn}
+
+
+Definición en la línea \mbox{\hyperlink{_queue_family_indices_8cpp_source_l00006}{6}} del archivo \mbox{\hyperlink{_queue_family_indices_8cpp_source}{Queue\+Family\+Indices.\+cpp}}.
+
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices_aa1ac10b67dd9917d1c4a97675f408226}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices_aa1ac10b67dd9917d1c4a97675f408226}} 
+\index{OSK::GRAPHICS::QueueFamilyIndices@{OSK::GRAPHICS::QueueFamilyIndices}!computeFamily@{computeFamily}}
+\index{computeFamily@{computeFamily}!OSK::GRAPHICS::QueueFamilyIndices@{OSK::GRAPHICS::QueueFamilyIndices}}
+\doxysubsubsection{\texorpdfstring{computeFamily}{computeFamily}}
+{\footnotesize\ttfamily std\+::optional$<$uint32\+\_\+t$>$ OSK\+::\+GRAPHICS\+::\+Queue\+Family\+Indices\+::compute\+Family}
+
+
+
+Cola de computación. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_queue_family_indices_8h_source_l00027}{27}} del archivo \mbox{\hyperlink{_queue_family_indices_8h_source}{Queue\+Family\+Indices.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices_ae8e20f4bbff29ba441b5a03e9cc37829}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices_ae8e20f4bbff29ba441b5a03e9cc37829}} 
+\index{OSK::GRAPHICS::QueueFamilyIndices@{OSK::GRAPHICS::QueueFamilyIndices}!graphicsFamily@{graphicsFamily}}
+\index{graphicsFamily@{graphicsFamily}!OSK::GRAPHICS::QueueFamilyIndices@{OSK::GRAPHICS::QueueFamilyIndices}}
+\doxysubsubsection{\texorpdfstring{graphicsFamily}{graphicsFamily}}
+{\footnotesize\ttfamily std\+::optional$<$uint32\+\_\+t$>$ OSK\+::\+GRAPHICS\+::\+Queue\+Family\+Indices\+::graphics\+Family}
+
+
+
+Cola gráfica. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_queue_family_indices_8h_source_l00016}{16}} del archivo \mbox{\hyperlink{_queue_family_indices_8h_source}{Queue\+Family\+Indices.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices_a5c08134681a4d76cac92f2afd223910b}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices_a5c08134681a4d76cac92f2afd223910b}} 
+\index{OSK::GRAPHICS::QueueFamilyIndices@{OSK::GRAPHICS::QueueFamilyIndices}!presentFamily@{presentFamily}}
+\index{presentFamily@{presentFamily}!OSK::GRAPHICS::QueueFamilyIndices@{OSK::GRAPHICS::QueueFamilyIndices}}
+\doxysubsubsection{\texorpdfstring{presentFamily}{presentFamily}}
+{\footnotesize\ttfamily std\+::optional$<$uint32\+\_\+t$>$ OSK\+::\+GRAPHICS\+::\+Queue\+Family\+Indices\+::present\+Family}
+
+
+
+Cola de presentación. (Pueden no ser la misma). 
+
+
+
+Definición en la línea \mbox{\hyperlink{_queue_family_indices_8h_source_l00022}{22}} del archivo \mbox{\hyperlink{_queue_family_indices_8h_source}{Queue\+Family\+Indices.\+h}}.
+
+
+
+La documentación para esta estructura fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_queue_family_indices_8h}{Queue\+Family\+Indices.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_queue_family_indices_8cpp}{Queue\+Family\+Indices.\+cpp}}\end{DoxyCompactItemize}

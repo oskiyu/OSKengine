@@ -1,0 +1,65 @@
+\hypertarget{_camera_component3_d_8h_source}{}\doxysection{Camera\+Component3\+D.\+h}
+\label{_camera_component3_d_8h_source}\index{OSKengine2/CameraComponent3D.h@{OSKengine2/CameraComponent3D.h}}
+\mbox{\hyperlink{_camera_component3_d_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00001}00001 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_o_s_kmacros_8h}{OSKmacros.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_vector3_8hpp}{Vector3.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_vector2_8hpp}{Vector2.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_component_8h}{Component.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00008}00008 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s}{OSK::ECS}} \{}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00010}00010     \textcolor{keyword}{class }Transform3D;}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00015}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component3_d}{00015}}     \textcolor{keyword}{class }\mbox{\hyperlink{_o_s_kmacros_8h_a09ec5b46ece998ad096bceff312bb36c}{OSKAPI\_CALL}} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component3_d}{CameraComponent3D}} \{}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00017}00017     \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00019}\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component3_d_ab542c00aad8fab84e59a66fc53de9d90}{00019}}         \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_camera_component3_d_ab542c00aad8fab84e59a66fc53de9d90}{OSK\_COMPONENT}}(\textcolor{stringliteral}{"{}OSK::CameraComponent3D"{}});}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00026}00026         \textcolor{keywordtype}{float} GetFov() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00034}00034         \textcolor{keywordtype}{void} SetFov(\textcolor{keywordtype}{float} fov);}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00040}00040         \textcolor{keywordtype}{void} AddFov(\textcolor{keywordtype}{float} diff);}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00047}00047         \textcolor{keywordtype}{void} SetFovLimits(\textcolor{keywordtype}{float} min, \textcolor{keywordtype}{float} max);}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00054}00054         \textcolor{keywordtype}{float} GetNearPlane() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00060}00060         \textcolor{keywordtype}{float} GetFarPlane() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00069}00069         \textcolor{keywordtype}{void} SetPlanes(\textcolor{keywordtype}{float} near, \textcolor{keywordtype}{float} far);}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00071}00071 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00077}00077         \textcolor{keywordtype}{void} Rotate(\textcolor{keywordtype}{float} angleX, \textcolor{keywordtype}{float} angleY);}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00078}00078         }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00083}00083         \textcolor{keywordtype}{void} UpdateTransform(\mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_transform3_d}{Transform3D}}* transform);}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00085}00085 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00089}00089         glm::mat4 GetProjectionMatrix() \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00094}00094         glm::mat4 GetViewMatrix(\textcolor{keyword}{const} \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_transform3_d}{Transform3D}}\& transform) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00095}00095 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00096}00096     \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00098}00098         \textcolor{keywordtype}{float} fov = 45.0f;}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00099}00099         \textcolor{keywordtype}{float} fovLimitDown = 1.0f;}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00100}00100         \textcolor{keywordtype}{float} fovLimitUp = 45.0f;}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00101}00101 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00102}00102         \textcolor{keywordtype}{float} nearPlane = 0.001f;}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00103}00103         \textcolor{keywordtype}{float} farPlane = 50.0f;}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00104}00104 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00105}00105         \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2f}} angles = 0.0f;}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00106}00106         \mbox{\hyperlink{class_o_s_k_1_1_vector2__t}{Vector2f}} accumulatedAngles = 0.0f;}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00107}00107 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00111}00111         \textcolor{keyword}{const} \textcolor{keyword}{static} \mbox{\hyperlink{class_o_s_k_1_1_vector3__t}{Vector3f}} worldUpVector;}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00113}00113     \};}
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00114}00114 }
+\DoxyCodeLine{\Hypertarget{_camera_component3_d_8h_source_l00115}00115 \}}
+
+\end{DoxyCode}

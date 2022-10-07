@@ -1,0 +1,110 @@
+\hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager}{}\doxysection{Referencia de la Clase OSK\+::ASSETS\+::Asset\+Manager}
+\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager}\index{OSK::ASSETS::AssetManager@{OSK::ASSETS::AssetManager}}
+
+
+{\ttfamily \#include $<$Asset\+Manager.\+h$>$}
+
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_a9c89817cbf3516f1451c116e89f47d30}{$\sim$\+Asset\+Manager}} ()
+\item 
+{\footnotesize template$<$typename T $>$ }\\T $\ast$ \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_ac0ee74e39c90d597beb90338a31bdae3}{Load}} (const std\+::string \&asset\+File\+Path, const std\+::string lifetime\+Pool)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_a032603cd4ddeedebe56ec8c9516469f5}{Delete\+Lifetime}} (const std\+::string \&lifetime)
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_a37f73c3a4d17bb495b38eb65f7073d67}{Register\+Loader}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+El \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager}{Asset\+Manager}} se encarga de manejar los loaders de los assets y los lifetimes de los assets. 
+
+\begin{DoxyNote}{Nota}
+Se deben registrar todos los loaders mediante \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_a37f73c3a4d17bb495b38eb65f7073d67}{Register\+Loader()}}. 
+
+Al cargar un asset mediante \mbox{\hyperlink{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_ac0ee74e39c90d597beb90338a31bdae3}{Load()}}, debemos especificar a qué lifetime corresponde. Un lifetime agrupa assets que tienen un ciclo de vida común. Al terminar el ciclo de vida, todos los assets del lifetime son eliminados. 
+
+Esta clase es dueña de los assets. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_asset_manager_8h_source_l00023}{23}} del archivo \mbox{\hyperlink{_asset_manager_8h_source}{Asset\+Manager.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_a9c89817cbf3516f1451c116e89f47d30}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_a9c89817cbf3516f1451c116e89f47d30}} 
+\index{OSK::ASSETS::AssetManager@{OSK::ASSETS::AssetManager}!````~AssetManager@{$\sim$AssetManager}}
+\index{````~AssetManager@{$\sim$AssetManager}!OSK::ASSETS::AssetManager@{OSK::ASSETS::AssetManager}}
+\doxysubsubsection{\texorpdfstring{$\sim$AssetManager()}{~AssetManager()}}
+{\footnotesize\ttfamily Asset\+Manager\+::$\sim$\+Asset\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definición en la línea \mbox{\hyperlink{_asset_manager_8cpp_source_l00007}{7}} del archivo \mbox{\hyperlink{_asset_manager_8cpp_source}{Asset\+Manager.\+cpp}}.
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_a032603cd4ddeedebe56ec8c9516469f5}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_a032603cd4ddeedebe56ec8c9516469f5}} 
+\index{OSK::ASSETS::AssetManager@{OSK::ASSETS::AssetManager}!DeleteLifetime@{DeleteLifetime}}
+\index{DeleteLifetime@{DeleteLifetime}!OSK::ASSETS::AssetManager@{OSK::ASSETS::AssetManager}}
+\doxysubsubsection{\texorpdfstring{DeleteLifetime()}{DeleteLifetime()}}
+{\footnotesize\ttfamily void Asset\+Manager\+::\+Delete\+Lifetime (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{lifetime }\end{DoxyParamCaption})}
+
+
+
+Elimina todos assets del lifetime dado. 
+
+\begin{DoxyNote}{Nota}
+Si el lifetime no existe (o ya fue eliminado), no ocurre nada. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_asset_manager_8cpp_source_l00011}{11}} del archivo \mbox{\hyperlink{_asset_manager_8cpp_source}{Asset\+Manager.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_ac0ee74e39c90d597beb90338a31bdae3}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_ac0ee74e39c90d597beb90338a31bdae3}} 
+\index{OSK::ASSETS::AssetManager@{OSK::ASSETS::AssetManager}!Load@{Load}}
+\index{Load@{Load}!OSK::ASSETS::AssetManager@{OSK::ASSETS::AssetManager}}
+\doxysubsubsection{\texorpdfstring{Load()}{Load()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T $\ast$ OSK\+::\+ASSETS\+::\+Asset\+Manager\+::\+Load (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{asset\+File\+Path,  }\item[{const std\+::string}]{lifetime\+Pool }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Carga un asset. 
+
+\begin{DoxyNote}{Nota}
+Esta función debe ser sobreescrita por todos los loaders. 
+\end{DoxyNote}
+
+
+Definición en la línea \mbox{\hyperlink{_asset_manager_8h_source_l00034}{34}} del archivo \mbox{\hyperlink{_asset_manager_8h_source}{Asset\+Manager.\+h}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_a37f73c3a4d17bb495b38eb65f7073d67}\label{class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_a37f73c3a4d17bb495b38eb65f7073d67}} 
+\index{OSK::ASSETS::AssetManager@{OSK::ASSETS::AssetManager}!RegisterLoader@{RegisterLoader}}
+\index{RegisterLoader@{RegisterLoader}!OSK::ASSETS::AssetManager@{OSK::ASSETS::AssetManager}}
+\doxysubsubsection{\texorpdfstring{RegisterLoader()}{RegisterLoader()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void OSK\+::\+ASSETS\+::\+Asset\+Manager\+::\+Register\+Loader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Registra un loader, para poder cargar assets de un tipo determinado. 
+
+\begin{DoxyWarning}{Atención}
+T debe ser el tipo de asset, NO el loader. 
+
+Todo loader debe ser registrado para poder usarse. 
+\end{DoxyWarning}
+
+
+Definición en la línea \mbox{\hyperlink{_asset_manager_8h_source_l00064}{64}} del archivo \mbox{\hyperlink{_asset_manager_8h_source}{Asset\+Manager.\+h}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_asset_manager_8h}{Asset\+Manager.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_asset_manager_8cpp}{Asset\+Manager.\+cpp}}\end{DoxyCompactItemize}

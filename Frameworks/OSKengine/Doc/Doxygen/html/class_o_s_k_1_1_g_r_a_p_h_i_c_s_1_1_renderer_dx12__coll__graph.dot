@@ -1,0 +1,42 @@
+digraph "OSK::GRAPHICS::RendererDx12"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="OSK::GRAPHICS::RendererDx12",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Implementación de la interfaz para el renderizador de DirectX 12."];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::GRAPHICS::IRenderer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html",tooltip="Proporciona la interfaz de un renderizador."];
+  Node3 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" currentGpu" ,fontname="Helvetica"];
+  Node3 [label="OSK::UniquePtr\< OSK\l::GRAPHICS::IGpu \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_unique_ptr.html",tooltip=" "];
+  Node4 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" computeQueue\ngraphicsQueue\npresentQueue" ,fontname="Helvetica"];
+  Node4 [label="OSK::UniquePtr\< OSK\l::GRAPHICS::ICommandQueue \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_unique_ptr.html",tooltip=" "];
+  Node5 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" swapchain" ,fontname="Helvetica"];
+  Node5 [label="OSK::UniquePtr\< OSK\l::GRAPHICS::ISwapchain \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_unique_ptr.html",tooltip=" "];
+  Node6 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" syncDevice" ,fontname="Helvetica"];
+  Node6 [label="OSK::UniquePtr\< OSK\l::GRAPHICS::ISyncDevice \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_unique_ptr.html",tooltip=" "];
+  Node7 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" computeCommandPool\ngraphicsCommandPool" ,fontname="Helvetica"];
+  Node7 [label="OSK::UniquePtr\< OSK\l::GRAPHICS::ICommandPool \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_unique_ptr.html",tooltip=" "];
+  Node8 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" frameBuildCommandList\ngraphicsCommandList\npostComputeCommandList\npreComputeCommandList" ,fontname="Helvetica"];
+  Node8 [label="OSK::UniquePtr\< OSK\l::GRAPHICS::ICommandList \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_unique_ptr.html",tooltip=" "];
+  Node9 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" gpuMemoryAllocator" ,fontname="Helvetica"];
+  Node9 [label="OSK::UniquePtr\< OSK\l::GRAPHICS::IGpuMemoryAllocator \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_unique_ptr.html",tooltip=" "];
+  Node10 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" finalRenderTarget" ,fontname="Helvetica"];
+  Node10 [label="OSK::UniquePtr\< OSK\l::GRAPHICS::RenderTarget \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_unique_ptr.html",tooltip=" "];
+  Node11 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" materialSystem" ,fontname="Helvetica"];
+  Node11 [label="OSK::UniquePtr\< OSK\l::GRAPHICS::MaterialSystem \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_unique_ptr.html",tooltip=" "];
+  Node12 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" singleTimeCommandLists" ,fontname="Helvetica"];
+  Node12 [label="OSK::DynamicArray\<\l OSK::UniquePtr\< OSK\l::GRAPHICS::ICommandList \> \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html",tooltip=" "];
+  Node13 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" resizeCallbacks" ,fontname="Helvetica"];
+  Node13 [label="OSK::LinkedList\< std\l::function\< void(const\l OSK::Vector2_t &)\> \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_linked_list.html",tooltip=" "];
+  Node14 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" window" ,fontname="Helvetica"];
+  Node14 [label="OSK::IO::Window",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_window.html",tooltip="Clase que representa una ventana. En esta ventana se renderizará el juego. También se encarga del inp..."];
+  Node15 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" renderTargetsCamera" ,fontname="Helvetica"];
+  Node15 [label="OSK::UniquePtr\< OSK\l::ECS::CameraComponent2D \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_unique_ptr.html",tooltip=" "];
+  Node16 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" renderTargetsCameraTransform" ,fontname="Helvetica"];
+  Node16 [label="OSK::ECS::Transform2D",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_e_c_s_1_1_transform2_d.html",tooltip="Clase que almacena el 'transform' de un objeto en un mundo 2D. El transform contiene posición,..."];
+  Node17 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" resizableRenderTargets" ,fontname="Helvetica"];
+  Node17 [label="OSK::DynamicArray\<\l OSK::GRAPHICS::RenderTarget * \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html",tooltip=" "];
+  Node18 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" resizablePostProcessingPasses" ,fontname="Helvetica"];
+  Node18 [label="OSK::DynamicArray\<\l OSK::GRAPHICS::IPostProcess\lPass * \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html",tooltip=" "];
+}

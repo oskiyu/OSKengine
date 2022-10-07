@@ -1,0 +1,222 @@
+\hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system}{}\doxysection{Referencia de la Clase OSK\+::ECS\+::ISystem}
+\label{class_o_s_k_1_1_e_c_s_1_1_i_system}\index{OSK::ECS::ISystem@{OSK::ECS::ISystem}}
+
+
+{\ttfamily \#include $<$ISystem.\+h$>$}
+
+
+
+Diagrama de herencias de OSK\+::ECS\+::ISystem
+% FIG 0
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_add6feeb7e64c9eea2563dcece799c55d}{$\sim$\+ISystem}} ()=default
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_a78d27d6a19bd0d3c9eadc3521c350001}{On\+Create}} ()
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_ab66937b130814e6f06f3d76648dd0fb6}{On\+Tick}} (\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDelta\+Time}} delta\+Time)
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_a43e7608ce2a31c9c13b42cf4ce6eb0ef}{On\+Remove}} ()
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_a9958f3923d9872cb58b62f62f286bc01}{On\+Object\+Added}} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} obj)
+\item 
+virtual void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_a0507ade65b07509199201d1a50e97052}{On\+Object\+Removed}} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} obj)
+\item 
+const \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a2e882236c9347a28293a4c8988371ad8}{Signature}} \& \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_aa548f5ab0d097dca7a168a986ee98647}{Get\+Signature}} () const
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_a7c4d298e40f9d83aa00b85e59167e890}{Add\+Object}} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} obj)
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_aae0fdc7cd122ec66de6efb60e0fdc596}{Remove\+Object}} (\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} obj)
+\end{DoxyCompactItemize}
+\doxysubsection*{Métodos protegidos}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_ac9336e70706ab6ea24d9f5fe95955efd}{Set\+Signature}} (const \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a2e882236c9347a28293a4c8988371ad8}{Signature}} \&signature)
+\item 
+const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} $>$ \& \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_system_ad3611590e6bde825b973c160d7a867d9}{Get\+Objects}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Un sistema se encarga de ejecutar lógica con los datos de los componentes. Los componentes no son más que colecciones de datos\+: la lógica está en los sistemas. 
+
+\begin{DoxyNote}{Nota}
+Cada sistema tiene un Signature, que indica qué componentes debe tener un Game\+Object para ser procesado por el sistema.
+\end{DoxyNote}
+\begin{DoxyWarning}{Atención}
+Para que una clase pueda ser usada como sistema, debe tener implementado \mbox{\hyperlink{_i_system_8h_a8f8e44bc705ee82b3070d63d8d702148}{OSK\+\_\+\+SYSTEM(class\+Name)}}. Este debe ser un identificador único\+: no pueden haber dos tipos de sistemas con el mismo class\+Name. 
+\end{DoxyWarning}
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8h_source_l00025}{25}} del archivo \mbox{\hyperlink{_i_system_8h_source}{ISystem.\+h}}.
+
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_add6feeb7e64c9eea2563dcece799c55d}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_add6feeb7e64c9eea2563dcece799c55d}} 
+\index{OSK::ECS::ISystem@{OSK::ECS::ISystem}!````~ISystem@{$\sim$ISystem}}
+\index{````~ISystem@{$\sim$ISystem}!OSK::ECS::ISystem@{OSK::ECS::ISystem}}
+\doxysubsubsection{\texorpdfstring{$\sim$ISystem()}{~ISystem()}}
+{\footnotesize\ttfamily virtual OSK\+::\+ECS\+::\+ISystem\+::$\sim$\+ISystem (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_a7c4d298e40f9d83aa00b85e59167e890}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_a7c4d298e40f9d83aa00b85e59167e890}} 
+\index{OSK::ECS::ISystem@{OSK::ECS::ISystem}!AddObject@{AddObject}}
+\index{AddObject@{AddObject}!OSK::ECS::ISystem@{OSK::ECS::ISystem}}
+\doxysubsubsection{\texorpdfstring{AddObject()}{AddObject()}}
+{\footnotesize\ttfamily void ISystem\+::\+Add\+Object (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}}}]{obj }\end{DoxyParamCaption})}
+
+
+
+Añade un objeto a la lista de objetos procesables. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00025}{25}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 1
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_ad3611590e6bde825b973c160d7a867d9}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_ad3611590e6bde825b973c160d7a867d9}} 
+\index{OSK::ECS::ISystem@{OSK::ECS::ISystem}!GetObjects@{GetObjects}}
+\index{GetObjects@{GetObjects}!OSK::ECS::ISystem@{OSK::ECS::ISystem}}
+\doxysubsubsection{\texorpdfstring{GetObjects()}{GetObjects()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{OSK\+::\+Dynamic\+Array}}$<$ \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}} $>$ \& ISystem\+::\+Get\+Objects (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00041}{41}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_aa548f5ab0d097dca7a168a986ee98647}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_aa548f5ab0d097dca7a168a986ee98647}} 
+\index{OSK::ECS::ISystem@{OSK::ECS::ISystem}!GetSignature@{GetSignature}}
+\index{GetSignature@{GetSignature}!OSK::ECS::ISystem@{OSK::ECS::ISystem}}
+\doxysubsubsection{\texorpdfstring{GetSignature()}{GetSignature()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a2e882236c9347a28293a4c8988371ad8}{Signature}} \& ISystem\+::\+Get\+Signature (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Devuelve el signature del sistema, indicando qué componentes necesita. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00045}{45}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_a78d27d6a19bd0d3c9eadc3521c350001}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_a78d27d6a19bd0d3c9eadc3521c350001}} 
+\index{OSK::ECS::ISystem@{OSK::ECS::ISystem}!OnCreate@{OnCreate}}
+\index{OnCreate@{OnCreate}!OSK::ECS::ISystem@{OSK::ECS::ISystem}}
+\doxysubsubsection{\texorpdfstring{OnCreate()}{OnCreate()}}
+{\footnotesize\ttfamily void ISystem\+::\+On\+Create (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Función que se ejecuta al crearse el sistema. 
+
+
+
+Reimplementado en \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_i_render_system_ab99fd447d1c640bcc003dc5713768b6c}{OSK\+::\+ECS\+::\+IRender\+System}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00005}{5}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_a9958f3923d9872cb58b62f62f286bc01}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_a9958f3923d9872cb58b62f62f286bc01}} 
+\index{OSK::ECS::ISystem@{OSK::ECS::ISystem}!OnObjectAdded@{OnObjectAdded}}
+\index{OnObjectAdded@{OnObjectAdded}!OSK::ECS::ISystem@{OSK::ECS::ISystem}}
+\doxysubsubsection{\texorpdfstring{OnObjectAdded()}{OnObjectAdded()}}
+{\footnotesize\ttfamily void ISystem\+::\+On\+Object\+Added (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}}}]{obj }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Función que se ejecuta cuando un Game\+Object entra en la lista de objetos procesables por el sistema. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00017}{17}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_a0507ade65b07509199201d1a50e97052}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_a0507ade65b07509199201d1a50e97052}} 
+\index{OSK::ECS::ISystem@{OSK::ECS::ISystem}!OnObjectRemoved@{OnObjectRemoved}}
+\index{OnObjectRemoved@{OnObjectRemoved}!OSK::ECS::ISystem@{OSK::ECS::ISystem}}
+\doxysubsubsection{\texorpdfstring{OnObjectRemoved()}{OnObjectRemoved()}}
+{\footnotesize\ttfamily void ISystem\+::\+On\+Object\+Removed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}}}]{obj }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Función que se ejecuta cuando un Game\+Object sale de la lista de objetos procesables por el sistema. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00021}{21}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_a43e7608ce2a31c9c13b42cf4ce6eb0ef}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_a43e7608ce2a31c9c13b42cf4ce6eb0ef}} 
+\index{OSK::ECS::ISystem@{OSK::ECS::ISystem}!OnRemove@{OnRemove}}
+\index{OnRemove@{OnRemove}!OSK::ECS::ISystem@{OSK::ECS::ISystem}}
+\doxysubsubsection{\texorpdfstring{OnRemove()}{OnRemove()}}
+{\footnotesize\ttfamily void ISystem\+::\+On\+Remove (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Función que se ejecuta al destruirse el sistema. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00013}{13}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_ab66937b130814e6f06f3d76648dd0fb6}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_ab66937b130814e6f06f3d76648dd0fb6}} 
+\index{OSK::ECS::ISystem@{OSK::ECS::ISystem}!OnTick@{OnTick}}
+\index{OnTick@{OnTick}!OSK::ECS::ISystem@{OSK::ECS::ISystem}}
+\doxysubsubsection{\texorpdfstring{OnTick()}{OnTick()}}
+{\footnotesize\ttfamily void ISystem\+::\+On\+Tick (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDelta\+Time}}}]{delta\+Time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Función que se ejecuta una vez por frame. 
+
+La lógica en la mayoría de sistemas estará implementada en este método. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em delta\+Time} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplementado en \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system_a6d1959599b80933c42431525efd4c12f}{OSK\+::\+ECS\+::\+Pbr\+Deferred\+Render\+System}} y \mbox{\hyperlink{class_o_s_k_1_1_e_c_s_1_1_render_system3_d_a65a6b4272468a563ea381aaf9f5e480d}{OSK\+::\+ECS\+::\+Render\+System3D}}.
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00009}{9}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_aae0fdc7cd122ec66de6efb60e0fdc596}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_aae0fdc7cd122ec66de6efb60e0fdc596}} 
+\index{OSK::ECS::ISystem@{OSK::ECS::ISystem}!RemoveObject@{RemoveObject}}
+\index{RemoveObject@{RemoveObject}!OSK::ECS::ISystem@{OSK::ECS::ISystem}}
+\doxysubsubsection{\texorpdfstring{RemoveObject()}{RemoveObject()}}
+{\footnotesize\ttfamily void ISystem\+::\+Remove\+Object (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a23d62d7bd6a58fd7f758079d87df6c71}{Game\+Object\+Index}}}]{obj }\end{DoxyParamCaption})}
+
+
+
+Elimina un objeto de la lista de objetos procesables. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00031}{31}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+Gráfico de llamadas para esta función\+:
+% FIG 2
+\mbox{\Hypertarget{class_o_s_k_1_1_e_c_s_1_1_i_system_ac9336e70706ab6ea24d9f5fe95955efd}\label{class_o_s_k_1_1_e_c_s_1_1_i_system_ac9336e70706ab6ea24d9f5fe95955efd}} 
+\index{OSK::ECS::ISystem@{OSK::ECS::ISystem}!SetSignature@{SetSignature}}
+\index{SetSignature@{SetSignature}!OSK::ECS::ISystem@{OSK::ECS::ISystem}}
+\doxysubsubsection{\texorpdfstring{SetSignature()}{SetSignature()}}
+{\footnotesize\ttfamily void ISystem\+::\+Set\+Signature (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_o_s_k_1_1_e_c_s_a2e882236c9347a28293a4c8988371ad8}{Signature}} \&}]{signature }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_i_system_8cpp_source_l00037}{37}} del archivo \mbox{\hyperlink{_i_system_8cpp_source}{ISystem.\+cpp}}.
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_i_system_8h}{ISystem.\+h}}\item 
+OSKengine2/\mbox{\hyperlink{_i_system_8cpp}{ISystem.\+cpp}}\end{DoxyCompactItemize}

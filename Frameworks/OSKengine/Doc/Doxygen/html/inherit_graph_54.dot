@@ -1,9 +1,8 @@
 digraph "Representación gráfica de la clase"
 {
- // INTERACTIVE_SVG=YES
  // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="OSK::DynamicArray\<\l Pair\< TSize, OSK::GRAPHICS\l::GpuUniformBufferDx12 * \> \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html",tooltip=" "];
+  Node0 [label="OSK::DynamicArray\<\l Pair\< D3D12_DESCRIPTOR\l_HEAP_TYPE, OSK::DynamicArray\l\< OSK::GRAPHICS::DescriptorBlockDx12 \> \> \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html",tooltip=" "];
 }

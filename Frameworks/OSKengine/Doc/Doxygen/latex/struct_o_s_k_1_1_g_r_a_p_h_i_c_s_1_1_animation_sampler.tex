@@ -1,0 +1,107 @@
+\hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler}{}\doxysection{Referencia de la Estructura OSK\+::GRAPHICS\+::Animation\+Sampler}
+\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler}\index{OSK::GRAPHICS::AnimationSampler@{OSK::GRAPHICS::AnimationSampler}}
+
+
+{\ttfamily \#include $<$Animation\+Sampler.\+h$>$}
+
+
+
+Diagrama de colaboración para OSK\+::GRAPHICS\+::Animation\+Sampler\+:
+% FIG 0
+\doxysubsection*{Tipos públicos}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a983eff4f6a588ac5e94af54c40f73245}{Interpolation\+Type}} \{ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a983eff4f6a588ac5e94af54c40f73245aaac544aacc3615aada24897a215f5046}{LINEAR}}
+, \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a983eff4f6a588ac5e94af54c40f73245a522f694f92e679d874a1cc2b2616c3d7}{STEP}}
+, \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a983eff4f6a588ac5e94af54c40f73245adbec938b5d93ee323a15ef285cab513a}{CUBICSPLINE}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a983eff4f6a588ac5e94af54c40f73245}{Interpolation\+Type}} \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a58edc2b35e56e021e5ad10486163d588}{interpolation\+Type}} = \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a983eff4f6a588ac5e94af54c40f73245aaac544aacc3615aada24897a215f5046}{Interpolation\+Type\+::\+LINEAR}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDelta\+Time}} $>$ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_af25c279b1c224125d922bfab868d4b32}{timestamps}}
+\item 
+\mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$ \mbox{\hyperlink{namespace_o_s_k_a98c42bf0a7665f299a3a66c8d4cdcdc2}{Vector4f}} $>$ \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a3adfbec52fec632c3a191478d0130f90}{outputs}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Incluye los valores de transform y timestamps de la animación de un hueso, y cómo interpolarlos. 
+
+Definición en la línea \mbox{\hyperlink{_animation_sampler_8h_source_l00012}{12}} del archivo \mbox{\hyperlink{_animation_sampler_8h_source}{Animation\+Sampler.\+h}}.
+
+
+
+\doxysubsection{Documentación de las enumeraciones miembro de la clase}
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a983eff4f6a588ac5e94af54c40f73245}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a983eff4f6a588ac5e94af54c40f73245}} 
+\index{OSK::GRAPHICS::AnimationSampler@{OSK::GRAPHICS::AnimationSampler}!InterpolationType@{InterpolationType}}
+\index{InterpolationType@{InterpolationType}!OSK::GRAPHICS::AnimationSampler@{OSK::GRAPHICS::AnimationSampler}}
+\doxysubsubsection{\texorpdfstring{InterpolationType}{InterpolationType}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a983eff4f6a588ac5e94af54c40f73245}{OSK\+::\+GRAPHICS\+::\+Animation\+Sampler\+::\+Interpolation\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Valores de enumeraciones}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LINEAR@{LINEAR}!OSK::GRAPHICS::AnimationSampler@{OSK::GRAPHICS::AnimationSampler}}\index{OSK::GRAPHICS::AnimationSampler@{OSK::GRAPHICS::AnimationSampler}!LINEAR@{LINEAR}}}\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a983eff4f6a588ac5e94af54c40f73245aaac544aacc3615aada24897a215f5046}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a983eff4f6a588ac5e94af54c40f73245aaac544aacc3615aada24897a215f5046}} 
+LINEAR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STEP@{STEP}!OSK::GRAPHICS::AnimationSampler@{OSK::GRAPHICS::AnimationSampler}}\index{OSK::GRAPHICS::AnimationSampler@{OSK::GRAPHICS::AnimationSampler}!STEP@{STEP}}}\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a983eff4f6a588ac5e94af54c40f73245a522f694f92e679d874a1cc2b2616c3d7}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a983eff4f6a588ac5e94af54c40f73245a522f694f92e679d874a1cc2b2616c3d7}} 
+STEP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CUBICSPLINE@{CUBICSPLINE}!OSK::GRAPHICS::AnimationSampler@{OSK::GRAPHICS::AnimationSampler}}\index{OSK::GRAPHICS::AnimationSampler@{OSK::GRAPHICS::AnimationSampler}!CUBICSPLINE@{CUBICSPLINE}}}\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a983eff4f6a588ac5e94af54c40f73245adbec938b5d93ee323a15ef285cab513a}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a983eff4f6a588ac5e94af54c40f73245adbec938b5d93ee323a15ef285cab513a}} 
+CUBICSPLINE&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definición en la línea \mbox{\hyperlink{_animation_sampler_8h_source_l00014}{14}} del archivo \mbox{\hyperlink{_animation_sampler_8h_source}{Animation\+Sampler.\+h}}.
+
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a58edc2b35e56e021e5ad10486163d588}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a58edc2b35e56e021e5ad10486163d588}} 
+\index{OSK::GRAPHICS::AnimationSampler@{OSK::GRAPHICS::AnimationSampler}!interpolationType@{interpolationType}}
+\index{interpolationType@{interpolationType}!OSK::GRAPHICS::AnimationSampler@{OSK::GRAPHICS::AnimationSampler}}
+\doxysubsubsection{\texorpdfstring{interpolationType}{interpolationType}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a983eff4f6a588ac5e94af54c40f73245}{Interpolation\+Type}} OSK\+::\+GRAPHICS\+::\+Animation\+Sampler\+::interpolation\+Type = \mbox{\hyperlink{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a983eff4f6a588ac5e94af54c40f73245aaac544aacc3615aada24897a215f5046}{Interpolation\+Type\+::\+LINEAR}}}
+
+
+
+Definición en la línea \mbox{\hyperlink{_animation_sampler_8h_source_l00020}{20}} del archivo \mbox{\hyperlink{_animation_sampler_8h_source}{Animation\+Sampler.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a3adfbec52fec632c3a191478d0130f90}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_a3adfbec52fec632c3a191478d0130f90}} 
+\index{OSK::GRAPHICS::AnimationSampler@{OSK::GRAPHICS::AnimationSampler}!outputs@{outputs}}
+\index{outputs@{outputs}!OSK::GRAPHICS::AnimationSampler@{OSK::GRAPHICS::AnimationSampler}}
+\doxysubsubsection{\texorpdfstring{outputs}{outputs}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$\mbox{\hyperlink{namespace_o_s_k_a98c42bf0a7665f299a3a66c8d4cdcdc2}{Vector4f}}$>$ OSK\+::\+GRAPHICS\+::\+Animation\+Sampler\+::outputs}
+
+
+
+Valor final de la posición / rotación escala de un bone en un timestamp.
+
+
+
+Definición en la línea \mbox{\hyperlink{_animation_sampler_8h_source_l00025}{25}} del archivo \mbox{\hyperlink{_animation_sampler_8h_source}{Animation\+Sampler.\+h}}.
+
+\mbox{\Hypertarget{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_af25c279b1c224125d922bfab868d4b32}\label{struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler_af25c279b1c224125d922bfab868d4b32}} 
+\index{OSK::GRAPHICS::AnimationSampler@{OSK::GRAPHICS::AnimationSampler}!timestamps@{timestamps}}
+\index{timestamps@{timestamps}!OSK::GRAPHICS::AnimationSampler@{OSK::GRAPHICS::AnimationSampler}}
+\doxysubsubsection{\texorpdfstring{timestamps}{timestamps}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_o_s_k_1_1_dynamic_array}{Dynamic\+Array}}$<$\mbox{\hyperlink{_o_s_kmacros_8h_ad05d5eacc527d5b61240124daf13b33b}{TDelta\+Time}}$>$ OSK\+::\+GRAPHICS\+::\+Animation\+Sampler\+::timestamps}
+
+
+
+Timestamps en los que se realiza alguna transformación en la animación. 
+
+
+
+Definición en la línea \mbox{\hyperlink{_animation_sampler_8h_source_l00023}{23}} del archivo \mbox{\hyperlink{_animation_sampler_8h_source}{Animation\+Sampler.\+h}}.
+
+
+
+La documentación para esta estructura fue generada a partir del siguiente fichero\+:\begin{DoxyCompactItemize}
+\item 
+OSKengine2/\mbox{\hyperlink{_animation_sampler_8h}{Animation\+Sampler.\+h}}\end{DoxyCompactItemize}
