@@ -115,7 +115,7 @@ protected:
 	}
 
 	void SetupEngine() override {
-		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetWindow(), PresentMode::VSYNC_ON_TRIPLE_BUFFER);
+		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetWindow(), PresentMode::VSYNC_ON);
 	}
 
 	void OnCreate() override {
@@ -208,7 +208,8 @@ protected:
 		modelComponent2->SetMaterial(material);
 		modelComponent2->BindTextureForAllMeshes("texture", "albedoTexture", texture);
 		ModelLoader3D::SetupPbrModel(animModel, modelComponent2);
-		animModel->GetAnimator()->SetActiveAnimation("ArmatureAction");
+		// animModel->GetAnimator()->AddActiveAnimation("Idle");
+		animModel->GetAnimator()->AddActiveAnimation("Run");
 
 		// Cubemap
 		Engine::GetEntityComponentSystem()->GetSystem<ECS::SkyboxRenderSystem>()->SetCubemap(*Engine::GetAssetManager()->Load<ASSETS::CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL"));

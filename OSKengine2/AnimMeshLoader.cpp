@@ -54,6 +54,14 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize
 
 	const glm::mat4 nodeMatrix = glm::scale(GetNodeMatrix(node), glm::vec3(globalScale));
 
+	MeshNode animNode{};
+	animNode.name = node.name;
+	animNode.thisIndex = nodeId;
+	animNode.parentIndex = parentId;
+
+	if (node.skin > -1)
+		animNode.skinIndex = node.skin;
+
 	// Proceso del polígono.
 	if (node.mesh > -1) {
 		const tinygltf::Mesh& mesh = gltfModel.meshes[node.mesh];
@@ -255,13 +263,10 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize
 		}
 	}
 
-	MeshNode animNode{};
-	animNode.thisIndex = nodeId;
-	animNode.parentIndex = parentId;
-	animNode.originalMatrix = nodeMatrix;
+	Engine::GetLogger()->InfoLog("Nodo cargado: " + animNode.name + " índice: " + std::to_string(animNode.thisIndex) + " parent: " + std::to_string(animNode.parentIndex));
 
 	for (TSize i = 0; i < node.children.size(); i++) {
-		ProcessNode(gltfModel.nodes[node.children[i]], node.children[i], nodeId, nodeMatrix);
+		ProcessNode(gltfModel.nodes[node.children[i]], node.children[i], nodeId, glm::mat4(1.0f));
 		animNode.childIndices.Insert(node.children[i]);
 	}
 
@@ -356,6 +361,7 @@ void AnimMeshLoader::LoadAnimations() {
 			}
 		}
 
+		Engine::GetLogger()->InfoLog("Animación cargada: " + animation.name);
 		tempAnimator._AddAnimation(animation);
 	}
 
@@ -369,6 +375,10 @@ void AnimMeshLoader::LoadSkins() {
 
 		AnimationSkin skin;
 		skin.name = gltfSkin.name;
+		skin.thisIndex = skinId;
+
+		if (gltfSkin.skeleton > -1)
+			skin.rootIndex = static_cast<TIndex>(gltfSkin.skeleton);
 		
 		for (const TSize bone : gltfSkin.joints)
 			skin.bonesIds.Insert(bone);
@@ -384,6 +394,7 @@ void AnimMeshLoader::LoadSkins() {
 			memcpy(skin.inverseMatrices.GetData(), &buffer.data[accessor.byteOffset + bufferView.byteOffset], matricesSize);
 		}
 
+		Engine::GetLogger()->InfoLog("Skin cargada: " + skin.name + ", root: " + std::to_string(skin.rootIndex));
 		tempAnimator._AddSkin(std::move(skin));
 		if (skinId == 0)
 			tempAnimator.SetActiveSkin(gltfSkin.name);

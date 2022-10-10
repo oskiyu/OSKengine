@@ -187,6 +187,7 @@
     <ClCompile Include="ShaderBindingTypeVulkan.cpp" />
     <ClCompile Include="ShaderStages.cpp" />
     <ClCompile Include="ShadowMap.cpp" />
+    <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="SkyboxRenderSystem.cpp" />
     <ClCompile Include="SmaaPass.cpp" />
     <ClCompile Include="SpirvToHlsl.cpp" />
@@ -388,6 +389,7 @@
     <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="SharedPtr.hpp" />
     <ClInclude Include="AnimationSkin.h" />
+    <ClInclude Include="Skeleton.h" />
     <ClInclude Include="SkyboxRenderSystem.h" />
     <ClInclude Include="SmaaPass.h" />
     <ClInclude Include="SpirvToHlsl.h" />

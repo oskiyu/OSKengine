@@ -40,10 +40,14 @@ void main() {
     outTexCoords = inTexCoords;
     outCameraPos = camera.cameraPos;
 
-    const mat4 animationMatrix = animation.boneMatrices[int(inBoneIndices[0])] * inBoneWeights[0]
+    const bool hasAnimation = inBoneWeights[0] + inBoneWeights[1] + inBoneWeights[2] + inBoneWeights[3] > 0;
+    const mat4 animationMatrix = hasAnimation
+        ? animation.boneMatrices[int(inBoneIndices[0])] * inBoneWeights[0]
                                 + animation.boneMatrices[int(inBoneIndices[1])] * inBoneWeights[1]
                                 + animation.boneMatrices[int(inBoneIndices[2])] * inBoneWeights[2]
-                                + animation.boneMatrices[int(inBoneIndices[3])] * inBoneWeights[3];
+                                + animation.boneMatrices[int(inBoneIndices[3])] * inBoneWeights[3]
+                                
+        : mat4(1.0);
 
 
     const vec3 worldPosition = (pushConstants.modelMatrix * animationMatrix * vec4(inPosition, 1.0)).xyz;

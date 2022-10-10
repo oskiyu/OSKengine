@@ -7,12 +7,14 @@
 #include "Bone.h"
 #include "AnimationChannel.h"
 #include "AnimationSampler.h"
+#include "Skeleton.h"
 
 #include <limits>
 
 namespace OSK::GRAPHICS {
 
 	class Animator;
+	class AnimationSkin;
 
 	/// <summary>
 	/// Animación para un modelo 3D.
@@ -22,10 +24,12 @@ namespace OSK::GRAPHICS {
 	public:
 
 		/// <summary> Mueve la animación. </summary>
-		void Update(TDeltaTime deltaTime, const Animator& owner);
+		void Update(TDeltaTime deltaTime, const AnimationSkin& skin);
 
 		/// <summary> Nombre original de la animación. </summary>
 		std::string name;
+
+		Skeleton skeleton{};
 
 		DynamicArray<AnimationSampler> samplers;
 		DynamicArray<AnimationChannel> channels;

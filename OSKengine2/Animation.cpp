@@ -6,7 +6,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-void Animation::Update(TDeltaTime deltaTime, const Animator& owner) {
+void Animation::Update(TDeltaTime deltaTime, const AnimationSkin& skin) {
 	currentTime += deltaTime;
 
 	if (currentTime > endTime) {
@@ -26,7 +26,7 @@ void Animation::Update(TDeltaTime deltaTime, const Animator& owner) {
 			if (currentTime >= sampler.timestamps[i] && currentTime <= sampler.timestamps[i + 1]) {
 				const float ratio = (currentTime - sampler.timestamps[i]) / (sampler.timestamps[i + 1] - sampler.timestamps[i]);
 
-				MeshNode* node = owner.GetNode(channel.nodeId);
+				MeshNode* node = skeleton.GetNode(channel.nodeId);
 
 				switch (channel.type) {
 
@@ -64,4 +64,6 @@ void Animation::Update(TDeltaTime deltaTime, const Animator& owner) {
 			}
 		}
 	}
+
+	skeleton.UpdateMatrices(skin);
 }

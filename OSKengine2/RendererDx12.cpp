@@ -8,6 +8,10 @@
 #include <AtlBase.h>
 #include <atlconv.h>
 
+#undef max
+
+#include <limits>
+
 #include "OSKengine.h"
 #include "Logger.h"
 #include "GpuDx12.h"

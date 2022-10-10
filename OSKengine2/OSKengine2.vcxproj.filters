@@ -936,6 +936,9 @@
     <ClCompile Include="Bone.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\AnimatedModel</Filter>
     </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\AnimatedModel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
@@ -1560,6 +1563,9 @@
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\AnimatedModel</Filter>
     </ClInclude>
     <ClInclude Include="Animator.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\AnimatedModel</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\AnimatedModel</Filter>
     </ClInclude>
   </ItemGroup>

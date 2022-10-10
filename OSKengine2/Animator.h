@@ -40,7 +40,13 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Debe haber una animación disponible con el nombre dado.
 		/// @throws std::runtime_error si no se cumple la precondición.
-		void SetActiveAnimation(const std::string& name);
+		void AddActiveAnimation(const std::string& name);
+
+		/// <summary> Quita una animación activa del modelo. </summary>
+		/// <param name="name">Nombre de la animación.</param>
+		/// 
+		/// @note Si no hay una animación activa, no ocurrirá nada.
+		void RemoveActiveAnimation(const std::string& name);
 
 		/// <summary> 
 		/// Establece la skin activa del modelo,
@@ -56,22 +62,13 @@ namespace OSK::GRAPHICS {
 		/// <returns>Puntero nulo si no hay ninguna skin activa.</returns>
 		const AnimationSkin* GetActiveSkin() const;
 
-		/// <summary> Devuelve el nodo con el índice dado. </summary>
-		/// <param name="nodeIndex">Índice del nodo.</param>
-		/// <returns>Puntero no nulo.</returns>
+		/// <summary>
+		/// Devuelve la skin con el índice dado.
+		/// </summary>
 		/// 
-		/// @pre Debe existir un nodo con el índice dado.
-		/// @throws std::runtime_error si se incumple la precondición.
-		MeshNode* GetNode(TIndex nodeIndex) const;
-
-		/// <summary> Devuelve el hueso con el índice dado. </summary>
-		/// <param name="boneIndex">Índice del hueso.</param>
-		/// <returns>Puntero nulo si no hay una skin activa.</returns>
-		/// 
-		/// @pre Debe existir un hueso con el índice dado en la animación activa.
-		/// @throws std::runtime_error si se incumple la precondición.
-		Bone* GetBone(TIndex boneIndex) const;
-
+		/// @pre Debe existir la skin con el índice dado.
+		const AnimationSkin& GetSkin(TIndex index) const;
+		
 		/// <summary>
 		/// Devuelve un material instance que únicamente tiene 
 		/// el slot "animation", que contiene las matrices de los huesos.
@@ -79,29 +76,29 @@ namespace OSK::GRAPHICS {
 		/// <returns>Not null.</returns>
 		const MaterialInstance* GetMaterialInstance() const;
 
-		void _AddNode(const MeshNode& node);
 		void _AddAnimation(const Animation& animation);
 		void _AddSkin(AnimationSkin&& skin);
+		void _AddNode(const MeshNode& node);
 
 	private:
 
-		/// <summary> Mapa índice del nodo -> nodo. </summary>
-		/// @note No todos los nodos son huesos.
-		HashMap<TIndex, MeshNode> nodes;
-
-
-		/// <summary> Matrices de los huesos que se envían al vertex shader. </summary>
+		/// <summary> Esqueleto resultado de combinar todas las animaciones activas. </summary>
 		DynamicArray<glm::mat4> boneMatrices;
+		
+		DynamicArray<MeshNode> nodes;
+				
 		/// <summary> Buffers que almacenan las matrices de los huesos que se envían al vertex shader. </summary>
 		UniquePtr<IGpuStorageBuffer> boneBuffers[NUM_RESOURCES_IN_FLIGHT]{};
 
 		/// <summary> Contiene un único material slot: "animation". </summary>
 		UniquePtr<MaterialInstance> materialInstance;
 
-		HashMap<std::string, AnimationSkin> availableSkins;
+		DynamicArray<AnimationSkin> availableSkins;
+
+		HashMap<std::string, TIndex> availableSkinsByName;
 		HashMap<std::string, Animation> availableAnimations;
 
-		std::string activeAnimation = "";
+		DynamicArray<std::string> activeAnimations;
 		std::string activeSkin = "";
 
 	};

@@ -30,61 +30,42 @@ void Animator::Setup() {
 }
 
 void Animator::Update(TDeltaTime deltaTime, const Vector3f& globalScale) {
-	if (activeAnimation != "") {
-		availableAnimations.Get(activeAnimation).Update(deltaTime, *this);
+	for (const auto& animationName : activeAnimations)
+		availableAnimations.Get(animationName).Update(deltaTime, *GetActiveSkin());
+	
+	for (auto& matrix : boneMatrices)
+		matrix = glm::mat4(0.0f);
 
-		for (auto& [index, node] : nodes)
-			if (node.parentIndex == std::numeric_limits<TIndex>::max())
-				node.UpdateSkeletonTree(glm::scale(glm::mat4(1.0f), globalScale.ToGLM()), *this);
+	for (const std::string& animationName : activeAnimations) {
+		const Animation& animation = availableAnimations.Get(animationName);
+
+		for (TIndex boneIndex = 0; boneIndex < GetActiveSkin()->bonesIds.GetSize(); boneIndex++) {
+			const float ratio = 1.0f / activeAnimations.GetSize();
+
+			// Transforma de espacio local a espacio de joint.
+			// Contiene la inversa del transform original del hueso.
+			const glm::mat4 inverseMatrix = GetActiveSkin()->inverseMatrices[boneIndex];
+			const glm::mat4 boneMatrix = animation.skeleton.GetBone(boneIndex, *GetActiveSkin())->globalMatrix;
+
+			boneMatrices[boneIndex] += ratio * boneMatrix * inverseMatrix;
+		}
 	}
-
-	for (TIndex boneIndex = 0; boneIndex < GetActiveSkin()->bonesIds.GetSize(); boneIndex++)
-		boneMatrices[boneIndex] = GetBone(boneIndex)->globalMatrix * GetActiveSkin()->inverseMatrices[boneIndex];
 
 	boneBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()]->MapMemory();
 	boneBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()]->Write(boneMatrices.GetData(), sizeof(glm::mat4) * boneMatrices.GetSize());
 	boneBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()]->Unmap();
 }
 
-void Animator::DeactivateAnimation() {
-	activeAnimation = "";
-}
-
-void Animator::SetActiveAnimation(const std::string& name) {
+void Animator::AddActiveAnimation(const std::string& name) {
 	OSK_ASSERT(availableAnimations.ContainsKey(name),
 		"Se ha intentado acceder a la animación "
 		+ name + " pero no existe.");
 
-	activeAnimation = name;
+	activeAnimations.Insert(name);
 }
 
-void Animator::_AddNode(const MeshNode& bone) {
-	OSK_ASSERT(!nodes.ContainsKey(bone.thisIndex),
-		"Se ha añadir el bone "
-		+ std::to_string(bone.thisIndex) + " pero ya existe.");
-
-	nodes.Insert(bone.thisIndex, bone);
-	boneMatrices.Insert(glm::mat4(1.0f));
-}
-
-MeshNode* Animator::GetNode(TIndex nodeIndex) const {
-	OSK_ASSERT(nodes.ContainsKey(nodeIndex),
-		"Se ha intentado acceder al bone "
-		+ std::to_string(nodeIndex) + " pero no existe.");
-
-	return &nodes.Get(nodeIndex);
-}
-
-Bone* Animator::GetBone(TIndex boneIndex) const {
-	if (GetActiveSkin() == nullptr)
-		return nullptr;
-
-	const TIndex nodeIndex = GetActiveSkin()->bonesIds.At(boneIndex);
-	OSK_ASSERT(nodes.ContainsKey(nodeIndex),
-		"Se ha intentado acceder al bone "
-		+ std::to_string(nodeIndex) + " pero no existe.");
-
-	return &nodes.Get(nodeIndex);
+void Animator::RemoveActiveAnimation(const std::string& name) {
+	activeAnimations.Remove(name);
 }
 
 void Animator::_AddAnimation(const Animation& animation) {
@@ -93,18 +74,25 @@ void Animator::_AddAnimation(const Animation& animation) {
 		+ animation.name + " pero ya existe.");
 
 	availableAnimations.Insert(animation.name, animation);
+
+	for (const auto& node : nodes)
+		availableAnimations.Get(animation.name).skeleton._AddNode(node);
+}
+
+void Animator::_AddNode(const MeshNode& node) {
+	nodes.Insert(node);
+	boneMatrices.Insert(glm::mat4(1.0f));
 }
 
 void Animator::_AddSkin(AnimationSkin&& skin) {
-	OSK_ASSERT(!availableSkins.ContainsKey(skin.name),
-		"Se ha intentado añadir la skin "
-		+ skin.name + " pero ya existe.");
+	const TIndex skinIndex = availableSkins.GetSize();
 
-	availableSkins.InsertMove(skin.name, std::move(skin));
+	availableSkins.Insert(skin);
+	availableSkinsByName.Insert(skin.name, skinIndex);
 }
 
 void Animator::SetActiveSkin(const std::string& name) {
-	OSK_ASSERT(availableSkins.ContainsKey(name),
+	OSK_ASSERT(availableSkinsByName.ContainsKey(name),
 		"Se ha intentado acceder a la skin "
 		+ name + " pero no existe.");
 
@@ -112,7 +100,13 @@ void Animator::SetActiveSkin(const std::string& name) {
 }
 
 const AnimationSkin* Animator::GetActiveSkin() const {
-	return activeSkin == "" ? nullptr : &availableSkins.Get(activeSkin);
+	return activeSkin == "" ? nullptr : &availableSkins.At(availableSkinsByName.Get(activeSkin));
+}
+
+const AnimationSkin& Animator::GetSkin(TIndex index) const {
+	OSK_ASSERT(index < availableSkins.GetSize(), "No existe la skin con el índice " + std::to_string(index));
+
+	return availableSkins[index];
 }
 
 const MaterialInstance* Animator::GetMaterialInstance() const {
