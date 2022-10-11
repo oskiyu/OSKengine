@@ -30,24 +30,24 @@ void Animator::Setup() {
 }
 
 void Animator::Update(TDeltaTime deltaTime, const Vector3f& globalScale) {
-	for (const auto& animationName : activeAnimations)
+	for (const std::string& animationName : activeAnimations)
 		availableAnimations.Get(animationName).Update(deltaTime, *GetActiveSkin());
 	
 	for (auto& matrix : boneMatrices)
-		matrix = glm::mat4(0.0f);
+		matrix = glm::mat4(1.0f);
 
 	for (const std::string& animationName : activeAnimations) {
 		const Animation& animation = availableAnimations.Get(animationName);
 
 		for (TIndex boneIndex = 0; boneIndex < GetActiveSkin()->bonesIds.GetSize(); boneIndex++) {
-			const float ratio = 1.0f / activeAnimations.GetSize();
+			const float ratio = 1.0f;// / activeAnimations.GetSize();
 
 			// Transforma de espacio local a espacio de joint.
 			// Contiene la inversa del transform original del hueso.
 			const glm::mat4 inverseMatrix = GetActiveSkin()->inverseMatrices[boneIndex];
 			const glm::mat4 boneMatrix = animation.skeleton.GetBone(boneIndex, *GetActiveSkin())->globalMatrix;
-
-			boneMatrices[boneIndex] += ratio * boneMatrix * inverseMatrix;
+			
+			boneMatrices[boneIndex] *= ratio * boneMatrix * inverseMatrix;
 		}
 	}
 
