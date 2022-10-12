@@ -105,7 +105,7 @@ namespace OSK::ASSETS {
 		/// <summary> Carga el modelo 3D. </summary>
 		/// <param name="rawAssetPath">Dirección del archivo .glb.</param>
 		/// <param name="globalScale">Escala aplicada al modelo.</param>
-		void Load(const std::string& rawAssetPath, float globalScale);
+		void Load(const std::string& rawAssetPath, const glm::mat4& modelTransform);
 
 		/// <summary> Configura el modelo 3D. </summary>
 		/// @note Las clases derivadas deben sobreescribir esta función,
@@ -137,6 +137,7 @@ namespace OSK::ASSETS {
 		HashMap<TSize, TSize> meshIdToMaterialId;
 
 		float globalScale = 1.0f;
+		glm::mat4 modelTransform = glm::mat4(1.0f);
 
 		tinygltf::Model gltfModel{};
 

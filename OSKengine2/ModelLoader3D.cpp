@@ -61,27 +61,27 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 
 	const bool isAnimated = assetInfo.contains("animated");
 
+	glm::mat4 modelTransform = glm::mat4(1.0f);
+
+	modelTransform = glm::scale(modelTransform, glm::vec3(assetInfo["scale"]));
+
+	if (assetInfo.contains("rotation_offset")) {
+		modelTransform = glm::rotate(modelTransform, glm::radians((float)assetInfo["rotation_offset"][0]), { 1.0f, 0.0f, 0.0f});
+		modelTransform = glm::rotate(modelTransform, glm::radians((float)assetInfo["rotation_offset"][1]), { 0.0f, 1.0f, 0.0f });
+		modelTransform = glm::rotate(modelTransform, glm::radians((float)assetInfo["rotation_offset"][2]), { 0.0f, 0.0f, 1.0f });
+	}
+
 
 	if (isAnimated) {
 		AnimMeshLoader loader{};
-		loader.Load(assetInfo["raw_asset_path"], assetInfo["scale"]);
+		loader.Load(assetInfo["raw_asset_path"], modelTransform);
 		loader.SetupModel(output);
 	}
 	else {
 		StaticMeshLoader loader{};
-		loader.Load(assetInfo["raw_asset_path"], assetInfo["scale"]);
+		loader.Load(assetInfo["raw_asset_path"], modelTransform);
 		loader.SetupModel(output);
 	}
-
-
-	glm::mat4 initialTransform = glm::mat4(1.0f);
-
-	if (assetInfo.contains("rotation_offset")) {
-		initialTransform = glm::rotate(initialTransform, glm::radians((float)assetInfo["rotation_offset"][0]), { 1.0f, 0.0f, 0.0f});
-		initialTransform = glm::rotate(initialTransform, glm::radians((float)assetInfo["rotation_offset"][1]), { 0.0f, 1.0f, 0.0f });
-		initialTransform = glm::rotate(initialTransform, glm::radians((float)assetInfo["rotation_offset"][2]), { 0.0f, 0.0f, 1.0f });
-	}
-
 }
 
 void ModelLoader3D::SetupPbrModel(Model3D* model, ECS::ModelComponent3D* component) {

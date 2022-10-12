@@ -204,12 +204,12 @@ protected:
 		auto& transform2 = Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(circuitObject, ECS::Transform3D(circuitObject));
 		auto modelComponent2 = &Engine::GetEntityComponentSystem()->AddComponent<ECS::ModelComponent3D>(circuitObject, {});
 
-		modelComponent2->SetModel(circuitModel); // animModel
+		modelComponent2->SetModel(animModel); // circuitModel
 		modelComponent2->SetMaterial(material);
 		modelComponent2->BindTextureForAllMeshes("texture", "albedoTexture", texture);
-		ModelLoader3D::SetupPbrModel(circuitModel, modelComponent2);
-		//animModel->GetAnimator()->AddActiveAnimation("Idle");
-		//animModel->GetAnimator()->AddActiveAnimation("Run");
+		ModelLoader3D::SetupPbrModel(animModel, modelComponent2);
+		animModel->GetAnimator()->AddActiveAnimation("Idle");
+		animModel->GetAnimator()->AddActiveAnimation("Run");
 
 		// Cubemap
 		Engine::GetEntityComponentSystem()->GetSystem<ECS::SkyboxRenderSystem>()->SetCubemap(*Engine::GetAssetManager()->Load<ASSETS::CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL"));

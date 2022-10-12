@@ -25,7 +25,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		void Setup();
+		void Setup(const glm::mat4& initialTransform);
 
 		/// <summary> Actualiza el esqueleto de acuerdo a la animación activa. </summary>
 		/// @note Si no hay ninguna animacióna ctiva, no ocurrirá nada.
@@ -76,6 +76,8 @@ namespace OSK::GRAPHICS {
 		/// <returns>Not null.</returns>
 		const MaterialInstance* GetMaterialInstance() const;
 
+		glm::mat4 GetInitialTransform() const;
+
 		void _AddAnimation(const Animation& animation);
 		void _AddSkin(AnimationSkin&& skin);
 		void _AddNode(const MeshNode& node);
@@ -100,6 +102,8 @@ namespace OSK::GRAPHICS {
 
 		DynamicArray<std::string> activeAnimations;
 		std::string activeSkin = "";
+
+		glm::mat4 initialTransform = glm::mat4(1.0f);
 
 	};
 

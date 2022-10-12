@@ -16,7 +16,8 @@ using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 
-void IMeshLoader::Load(const std::string& rawAssetPath, float globalScale) {
+void IMeshLoader::Load(const std::string& rawAssetPath, const glm::mat4& modelTransform) {
+	this->modelTransform = modelTransform;
 	this->globalScale = globalScale;
 
 	tinygltf::TinyGLTF context;
@@ -186,4 +187,3 @@ DynamicArray<GltfMaterialInfo> IMeshLoader::LoadMaterials() {
 
 	return output;
 }
-

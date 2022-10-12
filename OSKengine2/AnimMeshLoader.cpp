@@ -52,7 +52,8 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize
 	if (tempAnimator.GetActiveSkin() == nullptr)
 		LoadSkins();
 
-	const glm::mat4 nodeMatrix = glm::scale(GetNodeMatrix(node), glm::vec3(globalScale));
+	// La matriz inicial se aplica en la animación.
+	const glm::mat4 nodeMatrix = GetNodeMatrix(node);
 
 	MeshNode animNode{};
 	animNode.name = node.name;
@@ -408,7 +409,7 @@ void AnimMeshLoader::SetupModel(Model3D* model) {
 	LoadAnimations();
 	
 	model->SetAnimator(std::move(tempAnimator));
-	model->GetAnimator()->Setup();
+	model->GetAnimator()->Setup(modelTransform);
 
 	IMeshLoader::SetupModel(model);
 }

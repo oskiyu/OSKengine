@@ -8,7 +8,9 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-void Animator::Setup() {
+void Animator::Setup(const glm::mat4& initialTransform) {
+	this->initialTransform = initialTransform;
+
 	materialInstance = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/Animated/material_pbr.json")->CreateInstance().GetPointer();
 
 	for (TSize i = 0; i < _countof(boneBuffers); i++) {
@@ -50,6 +52,8 @@ void Animator::Update(TDeltaTime deltaTime, const Vector3f& globalScale) {
 			boneMatrices[boneIndex] *= ratio * boneMatrix * inverseMatrix;
 		}
 	}
+
+	for (auto& matrix : boneMatrices) matrix = initialTransform * matrix;
 
 	boneBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()]->MapMemory();
 	boneBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()]->Write(boneMatrices.GetData(), sizeof(glm::mat4) * boneMatrices.GetSize());
@@ -111,4 +115,8 @@ const AnimationSkin& Animator::GetSkin(TIndex index) const {
 
 const MaterialInstance* Animator::GetMaterialInstance() const {
 	return materialInstance.GetPointer();
+}
+
+glm::mat4 Animator::GetInitialTransform() const {
+	return initialTransform;
 }

@@ -44,7 +44,7 @@ void StaticMeshLoader::SmoothNormals() {
 }
 
 void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize parentId, const glm::mat4& prevMat) {
-	glm::mat4 nodeMatrix = /*prevMatrix * */ GetNodeMatrix(node);
+	const glm::mat4 nodeMatrix = modelTransform * GetNodeMatrix(node);
 
 	// Proceso del polígono.
 	if (node.mesh > -1) {
@@ -112,7 +112,7 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSi
 				);
 
 				Vertex3D vertex{};
-				vertex.position = glm::vec3(glm::scale(nodeMatrix, glm::vec3(globalScale)) * vertexPosition);
+				vertex.position = glm::vec3(nodeMatrix * vertexPosition);
 
 				const Vector3f originalNormal = Vector3f{
 					normalsBuffer[v * 3 + 0],
