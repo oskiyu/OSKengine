@@ -29,7 +29,7 @@ namespace OSK::GRAPHICS {
 
 		/// <summary> Actualiza el esqueleto de acuerdo a la animación activa. </summary>
 		/// @note Si no hay ninguna animacióna ctiva, no ocurrirá nada.
-		void Update(TDeltaTime deltaTime, const Vector3f& globalScale);
+		void Update(TDeltaTime deltaTime);
 
 		/// <summary> Desactiva la animación, de tal manera que no haya una animación activa. </summary>
 		/// @note Si no hay una animación activa, no ocurrirá nada.

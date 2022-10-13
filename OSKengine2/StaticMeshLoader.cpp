@@ -180,7 +180,7 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSi
 }
 
 void StaticMeshLoader::SetupModel(Model3D* model) {
-	model->_SetVertexBuffer(Engine::GetRenderer()->GetMemoryAllocator()->CreateVertexBuffer(vertices, Vertex3D::GetVertexInfo()));
+	model->_SetVertexBuffer(Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(vertices, Vertex3D::GetVertexInfo()));
 	
 	IMeshLoader::SetupModel(model);
 }

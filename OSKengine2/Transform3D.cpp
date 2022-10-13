@@ -10,7 +10,7 @@ using namespace OSK;
 using namespace OSK::ECS;
 
 const static ECS::EntityComponentSystem* GetEcs() {
-	return Engine::GetEntityComponentSystem();
+	return Engine::GetEcs();
 }
 
 Transform3D::Transform3D(ECS::GameObjectIndex owner) : owner(owner) {

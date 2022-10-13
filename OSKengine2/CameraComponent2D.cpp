@@ -15,7 +15,7 @@ using namespace OSK::ECS;
 using namespace OSK::GRAPHICS;
 
 CameraComponent2D::CameraComponent2D() {
-	uniformBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateUniformBuffer(sizeof(glm::mat4)).GetPointer();
+	uniformBuffer = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4)).GetPointer();
 }
 
 void CameraComponent2D::LinkToWindow(const Window* window) {

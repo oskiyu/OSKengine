@@ -18,11 +18,11 @@ Material::Material(const PipelineCreateInfo& pipelineInfo, OwnedPtr<MaterialLayo
 
 	case MaterialType::RAYTRACING:
 		if (Engine::GetRenderer()->IsRtActive())
-			rtPipeline = Engine::GetRenderer()->_CreateRaytracingPipeline(pipelineInfo, layout.GetPointer(), vertexInfo).GetPointer();
+			rtPipeline = Engine::GetRenderer()->_CreateRaytracingPipeline(pipelineInfo, layout.GetValue(), vertexInfo).GetPointer();
 		break;
 
 	case MaterialType::COMPUTE:
-		computePipeline = Engine::GetRenderer()->_CreateComputePipeline(pipelineInfo, layout.GetPointer()).GetPointer();
+		computePipeline = Engine::GetRenderer()->_CreateComputePipeline(pipelineInfo, layout.GetValue()).GetPointer();
 	
 	}
 
@@ -73,7 +73,7 @@ const IGraphicsPipeline* Material::GetGraphicsPipeline(const PipelineKey& key) {
 
 	// Crear nuevo pipeline compatible.
 	pipelineInfo.formats = key;
-	OwnedPtr<IGraphicsPipeline> output = Engine::GetRenderer()->_CreateGraphicsPipeline(pipelineInfo, GetLayout(), vertexInfo);
+	OwnedPtr<IGraphicsPipeline> output = Engine::GetRenderer()->_CreateGraphicsPipeline(pipelineInfo, *GetLayout(), vertexInfo);
 	output->SetDebugName(name);
 
 	graphicsPipelines.Insert({ key, output.GetPointer() });

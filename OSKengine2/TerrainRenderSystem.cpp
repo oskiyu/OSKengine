@@ -15,16 +15,16 @@ using namespace OSK::GRAPHICS;
 TerrainRenderSystem::TerrainRenderSystem() {
 	Signature signature{};
 
-	signature.SetTrue(Engine::GetEntityComponentSystem()->GetComponentType<Transform3D>());
-	signature.SetTrue(Engine::GetEntityComponentSystem()->GetComponentType<TerrainComponent>());
+	signature.SetTrue(Engine::GetEcs()->GetComponentType<Transform3D>());
+	signature.SetTrue(Engine::GetEcs()->GetComponentType<TerrainComponent>());
 
 	SetSignature(signature);
 }
 
 void TerrainRenderSystem::Render(ICommandList* commandList) {
 	for (const GameObjectIndex obj : GetObjects()) {
-		const TerrainComponent& model = Engine::GetEntityComponentSystem()->GetComponent<TerrainComponent>(obj);
-		const Transform3D& transform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(obj);
+		const TerrainComponent& model = Engine::GetEcs()->GetComponent<TerrainComponent>(obj);
+		const Transform3D& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
 
 		commandList->BindMaterial(model.GetMaterialInstance()->GetMaterial());
 

@@ -96,23 +96,13 @@ $(document).ready(function(){initNavTree('class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_m
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="_anim_mesh_loader_8h_source.html">AnimMeshLoader.h</a>&gt;</code></p>
-<div class="dynheader">
-Diagrama de herencias de OSK::ASSETS::AnimMeshLoader</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader__inherit__graph.png" border="0" usemap="#a_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_inherit__map" alt="Inheritance graph"/></div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">significado de colores y flechas</a>]</span></center></div>
-<div class="dynheader">
-Diagrama de colaboración para OSK::ASSETS::AnimMeshLoader:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader__coll__graph.png" border="0" usemap="#a_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_coll__map" alt="Collaboration graph"/></div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">significado de colores y flechas</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Métodos públicos</h2></td></tr>
 <tr class="memitem:a8e9c46b3fa1d7af4ecef73f544c27374"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader.html#a8e9c46b3fa1d7af4ecef73f544c27374">SetupModel</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">Model3D</a> *model) override</td></tr>
 <tr class="separator:a8e9c46b3fa1d7af4ecef73f544c27374"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43c08f7bf7238c29c3a433893358e9c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a43c08f7bf7238c29c3a433893358e9c4">Load</a> (const std::string &amp;rawAssetPath, float <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#ac931328cb85a161544c8fb1c8dcb963e">globalScale</a>)</td></tr>
-<tr class="separator:a43c08f7bf7238c29c3a433893358e9c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae88bf8691e570384b5067fc55354bba7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#ae88bf8691e570384b5067fc55354bba7">Load</a> (const std::string &amp;rawAssetPath, const glm::mat4 &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a1602e5b71a5b3726803bd3f059b20e77">modelTransform</a>)</td></tr>
+<tr class="separator:ae88bf8691e570384b5067fc55354bba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Métodos protegidos</h2></td></tr>
@@ -144,15 +134,16 @@ Atributos protegidos</h2></td></tr>
 <tr class="separator:abd487d53bcb45bc6c67fb2dcf1df5dc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac931328cb85a161544c8fb1c8dcb963e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#ac931328cb85a161544c8fb1c8dcb963e">globalScale</a> = 1.0f</td></tr>
 <tr class="separator:ac931328cb85a161544c8fb1c8dcb963e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1602e5b71a5b3726803bd3f059b20e77"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a1602e5b71a5b3726803bd3f059b20e77">modelTransform</a> = glm::mat4(1.0f)</td></tr>
+<tr class="separator:a1602e5b71a5b3726803bd3f059b20e77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac02152fadbf30086cbf54730604ce915"><td class="memItemLeft" align="right" valign="top">tinygltf::Model&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#ac02152fadbf30086cbf54730604ce915">gltfModel</a> {}</td></tr>
 <tr class="separator:ac02152fadbf30086cbf54730604ce915"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a349edf8e41b582ca8f20d8a646bdda2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_model_info.html">GltfModelInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a349edf8e41b582ca8f20d8a646bdda2b">modelInfo</a> {}</td></tr>
 <tr class="separator:a349edf8e41b582ca8f20d8a646bdda2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
-<div class="textblock"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Tareas pendientes:</a></b></dt><dd>Carga correcta con el tamaño indicado en el archivo JSON. </dd></dl>
-
-<p class="definition">Definición en la línea <a class="el" href="_anim_mesh_loader_8h_source.html#l00015">15</a> del archivo <a class="el" href="_anim_mesh_loader_8h_source.html">AnimMeshLoader.h</a>.</p>
+<div class="textblock">
+<p class="definition">Definición en la línea <a class="el" href="_anim_mesh_loader_8h_source.html#l00010">10</a> del archivo <a class="el" href="_anim_mesh_loader_8h_source.html">AnimMeshLoader.h</a>.</p>
 </div><h2 class="groupheader">Documentación de las funciones miembro</h2>
 <a id="a747200f086fa73749e89a093cc5d4b6f" name="a747200f086fa73749e89a093cc5d4b6f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a747200f086fa73749e89a093cc5d4b6f">&#9670;&nbsp;</a></span>GetNodeMatrix()</h2>
@@ -180,12 +171,12 @@ Atributos protegidos</h2></td></tr>
 
 <p>Devuelve una matriz en formato GLM con el transform del nodo. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8cpp_source.html#l00066">66</a> del archivo <a class="el" href="_i_mesh_loader_8cpp_source.html">IMeshLoader.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8cpp_source.html#l00067">67</a> del archivo <a class="el" href="_i_mesh_loader_8cpp_source.html">IMeshLoader.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a43c08f7bf7238c29c3a433893358e9c4" name="a43c08f7bf7238c29c3a433893358e9c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43c08f7bf7238c29c3a433893358e9c4">&#9670;&nbsp;</a></span>Load()</h2>
+<a id="ae88bf8691e570384b5067fc55354bba7" name="ae88bf8691e570384b5067fc55354bba7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae88bf8691e570384b5067fc55354bba7">&#9670;&nbsp;</a></span>Load()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -202,8 +193,8 @@ Atributos protegidos</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>globalScale</em>&#160;</td>
+          <td class="paramtype">const glm::mat4 &amp;&#160;</td>
+          <td class="paramname"><em>modelTransform</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -228,11 +219,6 @@ Atributos protegidos</h2></td></tr>
 </dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8cpp_source.html#l00019">19</a> del archivo <a class="el" href="_i_mesh_loader_8cpp_source.html">IMeshLoader.cpp</a>.</p>
-<div class="dynheader">
-Gráfico de llamadas para esta función:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a43c08f7bf7238c29c3a433893358e9c4_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a43c08f7bf7238c29c3a433893358e9c4_cgraph" alt=""/></div>
-</div>
 
 </div>
 </div>
@@ -261,12 +247,7 @@ Gráfico de llamadas para esta función:</div>
 
 <p>Carga todas las texturas usadas en el modelo 3D. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8cpp_source.html#l00093">93</a> del archivo <a class="el" href="_i_mesh_loader_8cpp_source.html">IMeshLoader.cpp</a>.</p>
-<div class="dynheader">
-Gráfico de llamadas para esta función:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a7274124723c8b2aa1fe15f61462eaa07_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_a7274124723c8b2aa1fe15f61462eaa07_cgraph" alt=""/></div>
-</div>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8cpp_source.html#l00094">94</a> del archivo <a class="el" href="_i_mesh_loader_8cpp_source.html">IMeshLoader.cpp</a>.</p>
 
 </div>
 </div>
@@ -295,12 +276,7 @@ Gráfico de llamadas para esta función:</div>
 
 <p>Carga todos los materiales usados en el modelo 3D. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8cpp_source.html#l00147">147</a> del archivo <a class="el" href="_i_mesh_loader_8cpp_source.html">IMeshLoader.cpp</a>.</p>
-<div class="dynheader">
-Gráfico de llamadas para esta función:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ab3c7e5438ddddb499468728a83a54ca8_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader_ab3c7e5438ddddb499468728a83a54ca8_cgraph" alt=""/></div>
-</div>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8cpp_source.html#l00148">148</a> del archivo <a class="el" href="_i_mesh_loader_8cpp_source.html">IMeshLoader.cpp</a>.</p>
 
 </div>
 </div>
@@ -356,11 +332,6 @@ Gráfico de llamadas para esta función:</div>
 <p>Implementa <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a4f47f10f0fe34bbba7433d0aa030e172">OSK::ASSETS::IMeshLoader</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_anim_mesh_loader_8cpp_source.html#l00051">51</a> del archivo <a class="el" href="_anim_mesh_loader_8cpp_source.html">AnimMeshLoader.cpp</a>.</p>
-<div class="dynheader">
-Gráfico de llamadas para esta función:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a11d55449219f6a21f62c76851986c44b_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a11d55449219f6a21f62c76851986c44b_cgraph" alt=""/></div>
-</div>
 
 </div>
 </div>
@@ -393,12 +364,7 @@ Gráfico de llamadas para esta función:</div>
 
 <p>Reimplementado de <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a290793d3b941e0d9162a0dcbd5cb6c50">OSK::ASSETS::IMeshLoader</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_anim_mesh_loader_8cpp_source.html#l00390">390</a> del archivo <a class="el" href="_anim_mesh_loader_8cpp_source.html">AnimMeshLoader.cpp</a>.</p>
-<div class="dynheader">
-Gráfico de llamadas para esta función:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a8e9c46b3fa1d7af4ecef73f544c27374_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a8e9c46b3fa1d7af4ecef73f544c27374_cgraph" alt=""/></div>
-</div>
+<p class="definition">Definición en la línea <a class="el" href="_anim_mesh_loader_8cpp_source.html#l00406">406</a> del archivo <a class="el" href="_anim_mesh_loader_8cpp_source.html">AnimMeshLoader.cpp</a>.</p>
 
 </div>
 </div>
@@ -431,11 +397,6 @@ Gráfico de llamadas para esta función:</div>
 <p>Implementa <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a8c6e9430b6e35ff1a090f670af3cf753">OSK::ASSETS::IMeshLoader</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_anim_mesh_loader_8cpp_source.html#l00024">24</a> del archivo <a class="el" href="_anim_mesh_loader_8cpp_source.html">AnimMeshLoader.cpp</a>.</p>
-<div class="dynheader">
-Gráfico de llamadas para esta función:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a8cd98695f9b0402dfe8490f48626175e_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_a8cd98695f9b0402dfe8490f48626175e_cgraph" alt=""/></div>
-</div>
 
 </div>
 </div>
@@ -484,7 +445,7 @@ Gráfico de llamadas para esta función:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00141">141</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00142">142</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -580,7 +541,31 @@ Gráfico de llamadas para esta función:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00143">143</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00144">144</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
+
+</div>
+</div>
+<a id="a1602e5b71a5b3726803bd3f059b20e77" name="a1602e5b71a5b3726803bd3f059b20e77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1602e5b71a5b3726803bd3f059b20e77">&#9670;&nbsp;</a></span>modelTransform</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::mat4 OSK::ASSETS::IMeshLoader::modelTransform = glm::mat4(1.0f)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00140">140</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -604,7 +589,7 @@ Gráfico de llamadas para esta función:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_anim_mesh_loader_8h_source.html#l00028">28</a> del archivo <a class="el" href="_anim_mesh_loader_8h_source.html">AnimMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_anim_mesh_loader_8h_source.html#l00023">23</a> del archivo <a class="el" href="_anim_mesh_loader_8h_source.html">AnimMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -628,7 +613,7 @@ Gráfico de llamadas para esta función:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_anim_mesh_loader_8h_source.html#l00026">26</a> del archivo <a class="el" href="_anim_mesh_loader_8h_source.html">AnimMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_anim_mesh_loader_8h_source.html#l00021">21</a> del archivo <a class="el" href="_anim_mesh_loader_8h_source.html">AnimMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -642,7 +627,7 @@ Gráfico de llamadas para esta función:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">ASSETS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader.html">AnimMeshLoader</a></li>
-    <li class="footer">Generado el Jueves, 6 de Octubre de 2022 19:30:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Miércoles, 12 de Octubre de 2022 21:13:15 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

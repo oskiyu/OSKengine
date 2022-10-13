@@ -153,6 +153,7 @@ var annotated_dup =
         [ "ShaderStageDx12", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12" ],
         [ "ShaderStageVulkan", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vulkan.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vulkan" ],
         [ "ShadowMap", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map" ],
+        [ "Skeleton", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton" ],
         [ "SmaaPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_smaa_pass.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_smaa_pass" ],
         [ "SpirvToHlsl", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl" ],
         [ "Sprite", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite" ],

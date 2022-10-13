@@ -6,10 +6,6 @@
 using namespace OSK;
 using namespace OSK::ECS;
 
-const static ECS::EntityComponentSystem* GetEcs() {
-	return Engine::GetEntityComponentSystem();
-}
-
 Transform2D::Transform2D(ECS::GameObjectIndex owner) : owner(owner) {
 	localPosition = Vector2(0);
 	localScale = Vector2(1);
@@ -86,7 +82,7 @@ void Transform2D::UpdateModel() {
 
 	DynamicArray<GameObjectIndex> childrenToRemove;
 	for (TSize i = 0; i < childTransforms.GetSize(); i++) {
-		Transform2D& child = GetEcs()->GetComponent<Transform2D>(childTransforms.At(i));
+		Transform2D& child = Engine::GetEcs()->GetComponent<Transform2D>(childTransforms.At(i));
 		if (child.parent == owner) {
 			child.rotationOffset = globalRotation;
 			child.positionOffset = globalPosition;
@@ -108,12 +104,13 @@ void Transform2D::AttachToObject(GameObjectIndex baseTransform) {
 			return;
 
 	parent = baseTransform;
-	GetEcs()->GetComponent<Transform2D>(baseTransform).childTransforms.Insert(owner);
+	Engine::GetEcs()->GetComponent<Transform2D>(baseTransform).childTransforms.Insert(owner);
 }
 
 void Transform2D::UnAttach() {
 	if (owner && parent)
-		GetEcs()->GetComponent<Transform2D>(parent).childTransforms.Remove(owner);
+		Engine::GetEcs()->GetComponent<Transform2D>(parent).childTransforms.Remove(owner);
+
 	owner = EMPTY_GAME_OBJECT;
 }
 

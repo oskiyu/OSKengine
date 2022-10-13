@@ -301,6 +301,8 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "ShadowMap.cpp", "_shadow_map_8cpp.html", "_shadow_map_8cpp" ],
     [ "ShadowMap.h", "_shadow_map_8h.html", "_shadow_map_8h" ],
     [ "SharedPtr.hpp", "_shared_ptr_8hpp.html", "_shared_ptr_8hpp" ],
+    [ "Skeleton.cpp", "_skeleton_8cpp.html", null ],
+    [ "Skeleton.h", "_skeleton_8h.html", "_skeleton_8h" ],
     [ "SkyboxRenderSystem.cpp", "_skybox_render_system_8cpp.html", null ],
     [ "SkyboxRenderSystem.h", "_skybox_render_system_8h.html", "_skybox_render_system_8h" ],
     [ "SmaaPass.cpp", "_smaa_pass_8cpp.html", null ],

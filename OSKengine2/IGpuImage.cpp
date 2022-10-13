@@ -35,7 +35,7 @@ GpuImage::~GpuImage() {
 	if (buffer)
 		block->RemoveSubblock(buffer);
 
-	Engine::GetRenderer()->GetMemoryAllocator()->RemoveImageBlock(block.GetPointer());
+	Engine::GetRenderer()->GetAllocator()->RemoveImageBlock(block.GetPointer());
 	block.Delete();
 }
 

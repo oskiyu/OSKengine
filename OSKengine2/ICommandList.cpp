@@ -23,23 +23,23 @@ void ICommandList::BeginGraphicsRenderpass(RenderTarget* renderpass, const Color
 	currentRenderpassType = renderpass->GetRenderTargetType();
 
 	const bool isFinal = currentRenderpassType == RenderpassType::FINAL;
-	const TSize frameIndex = isFinal 
+	const TSize resourceIndex = isFinal 
 		? Engine::GetRenderer()->GetCurrentFrameIndex()
-		: Engine::GetRenderer()->GetCurrentCommandListIndex();
+		: Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	DynamicArray<RenderPassImageInfo> colorImages;
 
 	if (isFinal) {
-		colorImages.Insert({ Engine::GetRenderer()->_GetSwapchain()->GetImage(frameIndex), 0 });
+		colorImages.Insert({ Engine::GetRenderer()->_GetSwapchain()->GetImage(resourceIndex), 0 });
 	}
 	else {
-		const DynamicArray<GpuImage*> targetImages = renderpass->GetTargetImages(frameIndex);
+		const DynamicArray<GpuImage*> targetImages = renderpass->GetTargetImages(resourceIndex);
 		for (const auto renderTargetImage : targetImages) {
 			colorImages.Insert({ renderTargetImage, 0 });
 		}
 	}
 
-	BeginGraphicsRenderpass(colorImages, { renderpass->GetDepthImage(frameIndex), 0 }, color);
+	BeginGraphicsRenderpass(colorImages, { renderpass->GetDepthImage(resourceIndex), 0 }, color);
 }
 
 void ICommandList::PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size) {

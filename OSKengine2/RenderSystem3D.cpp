@@ -28,8 +28,8 @@ using namespace OSK::GRAPHICS;
 
 RenderSystem3D::RenderSystem3D() {// Signature del sistema
 	Signature signature{};
-	signature.SetTrue(Engine::GetEntityComponentSystem()->GetComponentType<Transform3D>());
-	signature.SetTrue(Engine::GetEntityComponentSystem()->GetComponentType<ModelComponent3D>());
+	signature.SetTrue(Engine::GetEcs()->GetComponentType<Transform3D>());
+	signature.SetTrue(Engine::GetEcs()->GetComponentType<ModelComponent3D>());
 	SetSignature(signature);
 
 	// Mapa de sombras
@@ -54,10 +54,10 @@ RenderSystem3D::RenderSystem3D() {// Signature del sistema
 	const IGpuUniformBuffer* _shadowsMatricesUbos[3]{};
 	const GpuImage* _shadowsMaps[3]{};
 	for (TSize i = 0; i < 3; i++) {
-		cameraUbos[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4)).GetPointer();
+		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4)).GetPointer();
 		_cameraUbos[i] = cameraUbos[i].GetPointer();
 
-		dirLightUbos[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
+		dirLightUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
 		_dirLightUbos[i] = dirLightUbos[i].GetPointer();
 
 		_shadowsMatricesUbos[i] = shadowMap.GetDirLightMatrixUniformBuffers()[i];
@@ -122,12 +122,12 @@ ShadowMap* RenderSystem3D::GetShadowMap() {
 }
 
 void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelType) {
-	const TSize currentFrameIndex = Engine::GetRenderer()->GetCurrentCommandListIndex();
+	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	const Viewport viewport {
 		.rectangle = { 0u, 0u, shadowMap.GetColorImage(0)->GetSize().X, shadowMap.GetColorImage(0)->GetSize().Y }
 	};
 
-	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(currentFrameIndex), GpuImageLayout::DEPTH_STENCIL_TARGET,
+	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(resourceIndex), GpuImageLayout::DEPTH_STENCIL_TARGET,
 		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_START, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH | SampledChannel::STENCIL });
 
@@ -137,11 +137,11 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 	for (TSize i = 0; i < shadowMap.GetNumCascades(); i++) {
 		RenderPassImageInfo colorInfo{};
 		colorInfo.arrayLevel = i;
-		colorInfo.targetImage = shadowMap.GetColorImage(currentFrameIndex);
+		colorInfo.targetImage = shadowMap.GetColorImage(resourceIndex);
 
 		RenderPassImageInfo depthInfo{};
 		depthInfo.arrayLevel = i;
-		depthInfo.targetImage = shadowMap.GetShadowImage(currentFrameIndex);
+		depthInfo.targetImage = shadowMap.GetShadowImage(resourceIndex);
 
 		commandList->BeginGraphicsRenderpass({ colorInfo }, depthInfo, { 1.0f, 1.0f, 1.0f, 1.0f });
 
@@ -157,15 +157,15 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 		commandList->EndGraphicsRenderpass();
 	}
 
-	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(currentFrameIndex), GpuImageLayout::SHADER_READ_ONLY,
+	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(resourceIndex), GpuImageLayout::SHADER_READ_ONLY,
 		GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_END, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH |SampledChannel::STENCIL });
 }
 
 void RenderSystem3D::RenderScene(ICommandList* commandList) {
-	const TSize currentFrameIndex = Engine::GetRenderer()->GetCurrentCommandListIndex();
+	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	
-	commandList->SetGpuImageBarrier(renderTarget.GetMainTargetImage(currentFrameIndex), GpuImageLayout::SHADER_READ_ONLY,
+	commandList->SetGpuImageBarrier(renderTarget.GetMainTargetImage(resourceIndex), GpuImageLayout::SHADER_READ_ONLY,
 		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
@@ -189,8 +189,8 @@ void RenderSystem3D::SceneRenderLoop(ModelType modelType, ICommandList* commandL
 	commandList->BindMaterialSlot(sceneMaterialInstance->GetSlot("global"));
 	
 	for (GameObjectIndex obj : GetObjects()) {
-		const ModelComponent3D& model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj);
-		const Transform3D& transform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(obj);
+		const ModelComponent3D& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
+		const Transform3D& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
 
 		if (model.GetModel()->GetType() != modelType)
 			continue;
@@ -231,8 +231,8 @@ void RenderSystem3D::SceneRenderLoop(ModelType modelType, ICommandList* commandL
 
 void RenderSystem3D::ShadowsRenderLoop(ModelType modelType, ICommandList* commandList, TSize cascadeIndex) {
 	for (const GameObjectIndex obj : GetObjects()) {
-		const ModelComponent3D& model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj);
-		const Transform3D& transform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(obj);
+		const ModelComponent3D& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
+		const Transform3D& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
 
 		if (model.GetModel()->GetType() != modelType)
 			continue;
@@ -282,20 +282,20 @@ void RenderSystem3D::RenderTerrain(ICommandList* commandList) {
 }
 
 void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
-	const TSize currentIndex = Engine::GetRenderer()->GetCurrentCommandListIndex();
+	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
-	const CameraComponent3D& camera = Engine::GetEntityComponentSystem()->GetComponent<CameraComponent3D>(cameraObject);
-	const Transform3D& cameraTransform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(cameraObject);
+	const CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(cameraObject);
+	const Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(cameraObject);
 
-	cameraUbos[currentIndex]->MapMemory();
-	cameraUbos[currentIndex]->Write(camera.GetProjectionMatrix());
-	cameraUbos[currentIndex]->Write(camera.GetViewMatrix(cameraTransform));
-	cameraUbos[currentIndex]->Write(cameraTransform.GetPosition());
-	cameraUbos[currentIndex]->Unmap();
+	cameraUbos[resourceIndex]->MapMemory();
+	cameraUbos[resourceIndex]->Write(camera.GetProjectionMatrix());
+	cameraUbos[resourceIndex]->Write(camera.GetViewMatrix(cameraTransform));
+	cameraUbos[resourceIndex]->Write(cameraTransform.GetPosition());
+	cameraUbos[resourceIndex]->Unmap();
 
-	dirLightUbos[currentIndex]->MapMemory();
-	dirLightUbos[currentIndex]->Write(dirLight);
-	dirLightUbos[currentIndex]->Unmap();
+	dirLightUbos[resourceIndex]->MapMemory();
+	dirLightUbos[resourceIndex]->Write(dirLight);
+	dirLightUbos[resourceIndex]->Unmap();
 
 	shadowMap.SetDirectionalLight(dirLight);
 	
@@ -305,11 +305,11 @@ void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
 
 void RenderSystem3D::OnTick(TDeltaTime deltaTime) {
 	for (const GameObjectIndex obj : GetObjects()) {
-		Model3D* model = Engine::GetEntityComponentSystem()->GetComponent<ModelComponent3D>(obj).GetModel();
+		Model3D* model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj).GetModel();
 
 		if (model->GetType() == ModelType::STATIC_MESH)
 			continue;
 
-		model->GetAnimator()->Update(deltaTime, Vector3f(1.0f));
+		model->GetAnimator()->Update(deltaTime);
 	}
 }

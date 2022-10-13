@@ -103,8 +103,8 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 
 	CreateMainRenderpass();
 
-	if (Engine::GetEntityComponentSystem())
-		for (auto i : Engine::GetEntityComponentSystem()->GetRenderSystems())
+	if (Engine::GetEcs())
+		for (auto i : Engine::GetEcs()->GetRenderSystems())
 			i->CreateTargetImage(window.GetWindowSize());
 
 	isOpen = true;
@@ -153,25 +153,25 @@ const TByte* RendererDx12::FormatImageDataForGpu(const GpuImage* image, const TB
 	return output;
 }
 
-OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexInfo) {
+OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexInfo) {
 	GraphicsPipelineDx12* pipeline = new GraphicsPipelineDx12();
 
-	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
+	pipeline->Create(&layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
 
 	return pipeline;
 }
 
-OwnedPtr<IRaytracingPipeline> RendererDx12::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexTypeName) {
+OwnedPtr<IRaytracingPipeline> RendererDx12::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexTypeName) {
 	OSK_ASSERT(false, "No implementado.");
 	return nullptr;
 }
 
-OwnedPtr<IComputePipeline> RendererDx12::_CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout) {
-	return new ComputePipelineDx12(pipelineInfo, layout, currentGpu.GetPointer());
+OwnedPtr<IComputePipeline> RendererDx12::_CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) {
+	return new ComputePipelineDx12(pipelineInfo, &layout, currentGpu.GetPointer());
 }
 
-OwnedPtr<IMaterialSlot> RendererDx12::_CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const {
-	return new MaterialSlotDx12(name, layout);
+OwnedPtr<IMaterialSlot> RendererDx12::_CreateMaterialSlot(const std::string& name, const MaterialLayout& layout) const {
+	return new MaterialSlotDx12(name, &layout);
 }
 
 void RendererDx12::ChooseGpu() {
@@ -308,14 +308,14 @@ void RendererDx12::PresentFrame() {
 	postComputeCommandList->Start();
 }
 
-void RendererDx12::SubmitSingleUseCommandList(ICommandList* commandList) {
+void RendererDx12::SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) {
 	ID3D12CommandList* commandLists[] = { commandList->As<CommandListDx12>()->GetCommandList() };
 	graphicsQueue->As<CommandQueueDx12>()->GetCommandQueue()->ExecuteCommandLists(1, commandLists);
 
 	syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
 	syncDevice->As<SyncDeviceDx12>()->Await();
 
-	singleTimeCommandLists.Insert(commandList);
+	singleTimeCommandLists.Insert(commandList.GetPointer());
 }
 
 TSize RendererDx12::GetCurrentFrameIndex() const {

@@ -94,21 +94,18 @@ $(document).ready(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_an
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="_animation_8h_source.html">Animation.h</a>&gt;</code></p>
-<div class="dynheader">
-Diagrama de colaboración para OSK::GRAPHICS::Animation:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation__coll__graph.png" border="0" usemap="#a_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_coll__map" alt="Collaboration graph"/></div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">significado de colores y flechas</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Métodos públicos</h2></td></tr>
-<tr class="memitem:ac49b9992ea062bcf3e8f32784ef9cc18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html#ac49b9992ea062bcf3e8f32784ef9cc18">Update</a> (<a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html">Animator</a> &amp;owner)</td></tr>
-<tr class="separator:ac49b9992ea062bcf3e8f32784ef9cc18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46bc42619e5c82c2ba16ab51e23c3019"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html#a46bc42619e5c82c2ba16ab51e23c3019">Update</a> (<a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime, const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a> &amp;skin)</td></tr>
+<tr class="separator:a46bc42619e5c82c2ba16ab51e23c3019"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Atributos públicos</h2></td></tr>
 <tr class="memitem:a22f5b8714bdaba90ee91283bdcf6a97d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html#a22f5b8714bdaba90ee91283bdcf6a97d">name</a></td></tr>
 <tr class="separator:a22f5b8714bdaba90ee91283bdcf6a97d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01e2c7a1cd418c2115af4699a7c463ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html">Skeleton</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html#a01e2c7a1cd418c2115af4699a7c463ff">skeleton</a> {}</td></tr>
+<tr class="separator:a01e2c7a1cd418c2115af4699a7c463ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5f18ae8947a5e4b38956cf8ee3b233b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler.html">AnimationSampler</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html#ad5f18ae8947a5e4b38956cf8ee3b233b">samplers</a></td></tr>
 <tr class="separator:ad5f18ae8947a5e4b38956cf8ee3b233b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2afaa19d75a97d1fa99ac8b627885b71"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel.html">AnimationChannel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html#a2afaa19d75a97d1fa99ac8b627885b71">channels</a></td></tr>
@@ -125,10 +122,10 @@ Atributos públicos</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p >Animación para un modelo 3D. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_animation_8h_source.html#l00020">20</a> del archivo <a class="el" href="_animation_8h_source.html">Animation.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_animation_8h_source.html#l00022">22</a> del archivo <a class="el" href="_animation_8h_source.html">Animation.h</a>.</p>
 </div><h2 class="groupheader">Documentación de las funciones miembro</h2>
-<a id="ac49b9992ea062bcf3e8f32784ef9cc18" name="ac49b9992ea062bcf3e8f32784ef9cc18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac49b9992ea062bcf3e8f32784ef9cc18">&#9670;&nbsp;</a></span>Update()</h2>
+<a id="a46bc42619e5c82c2ba16ab51e23c3019" name="a46bc42619e5c82c2ba16ab51e23c3019"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46bc42619e5c82c2ba16ab51e23c3019">&#9670;&nbsp;</a></span>Update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -142,8 +139,8 @@ Atributos públicos</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html">Animator</a> &amp;&#160;</td>
-          <td class="paramname"><em>owner</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a> &amp;&#160;</td>
+          <td class="paramname"><em>skin</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -156,11 +153,6 @@ Atributos públicos</h2></td></tr>
 <p>Mueve la animación. </p>
 
 <p class="definition">Definición en la línea <a class="el" href="_animation_8cpp_source.html#l00009">9</a> del archivo <a class="el" href="_animation_8cpp_source.html">Animation.cpp</a>.</p>
-<div class="dynheader">
-Gráfico de llamadas para esta función:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_ac49b9992ea062bcf3e8f32784ef9cc18_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_ac49b9992ea062bcf3e8f32784ef9cc18_cgraph" alt=""/></div>
-</div>
 
 </div>
 </div>
@@ -177,7 +169,7 @@ Gráfico de llamadas para esta función:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_animation_8h_source.html#l00031">31</a> del archivo <a class="el" href="_animation_8h_source.html">Animation.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_animation_8h_source.html#l00035">35</a> del archivo <a class="el" href="_animation_8h_source.html">Animation.h</a>.</p>
 
 </div>
 </div>
@@ -193,7 +185,7 @@ Gráfico de llamadas para esta función:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_animation_8h_source.html#l00036">36</a> del archivo <a class="el" href="_animation_8h_source.html">Animation.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_animation_8h_source.html#l00040">40</a> del archivo <a class="el" href="_animation_8h_source.html">Animation.h</a>.</p>
 
 </div>
 </div>
@@ -209,7 +201,7 @@ Gráfico de llamadas para esta función:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_animation_8h_source.html#l00034">34</a> del archivo <a class="el" href="_animation_8h_source.html">Animation.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_animation_8h_source.html#l00038">38</a> del archivo <a class="el" href="_animation_8h_source.html">Animation.h</a>.</p>
 
 </div>
 </div>
@@ -227,7 +219,7 @@ Gráfico de llamadas para esta función:</div>
 
 <p>Nombre original de la animación. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_animation_8h_source.html#l00028">28</a> del archivo <a class="el" href="_animation_8h_source.html">Animation.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_animation_8h_source.html#l00030">30</a> del archivo <a class="el" href="_animation_8h_source.html">Animation.h</a>.</p>
 
 </div>
 </div>
@@ -243,7 +235,7 @@ Gráfico de llamadas para esta función:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_animation_8h_source.html#l00030">30</a> del archivo <a class="el" href="_animation_8h_source.html">Animation.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_animation_8h_source.html#l00034">34</a> del archivo <a class="el" href="_animation_8h_source.html">Animation.h</a>.</p>
 
 </div>
 </div>
@@ -259,7 +251,23 @@ Gráfico de llamadas para esta función:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_animation_8h_source.html#l00038">38</a> del archivo <a class="el" href="_animation_8h_source.html">Animation.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_animation_8h_source.html#l00042">42</a> del archivo <a class="el" href="_animation_8h_source.html">Animation.h</a>.</p>
+
+</div>
+</div>
+<a id="a01e2c7a1cd418c2115af4699a7c463ff" name="a01e2c7a1cd418c2115af4699a7c463ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01e2c7a1cd418c2115af4699a7c463ff">&#9670;&nbsp;</a></span>skeleton</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html">Skeleton</a> OSK::GRAPHICS::Animation::skeleton {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_animation_8h_source.html#l00032">32</a> del archivo <a class="el" href="_animation_8h_source.html">Animation.h</a>.</p>
 
 </div>
 </div>
@@ -275,7 +283,7 @@ Gráfico de llamadas para esta función:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_animation_8h_source.html#l00033">33</a> del archivo <a class="el" href="_animation_8h_source.html">Animation.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_animation_8h_source.html#l00037">37</a> del archivo <a class="el" href="_animation_8h_source.html">Animation.h</a>.</p>
 
 </div>
 </div>
@@ -289,7 +297,7 @@ Gráfico de llamadas para esta función:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html">Animation</a></li>
-    <li class="footer">Generado el Jueves, 6 de Octubre de 2022 19:30:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Miércoles, 12 de Octubre de 2022 21:13:15 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

@@ -32,8 +32,8 @@ void TerrainComponent::Generate(const Vector2ui& resolution) {
 		}
 	}
 
-	vertexBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateVertexBuffer(terrainVertices, Vertex3D::GetVertexInfo()).GetPointer();
-	indexBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateIndexBuffer(terrainIndices).GetPointer();
+	vertexBuffer = Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(terrainVertices, Vertex3D::GetVertexInfo()).GetPointer();
+	indexBuffer = Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(terrainIndices).GetPointer();
 
 	numIndices = terrainIndices.GetSize();
 }

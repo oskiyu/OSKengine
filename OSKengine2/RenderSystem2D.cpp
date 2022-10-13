@@ -18,8 +18,8 @@ using namespace OSK::GRAPHICS;
 RenderSystem2D::RenderSystem2D() {
 	Signature signature{};
 
-	signature.SetTrue(Engine::GetEntityComponentSystem()->GetComponentType<Transform2D>());
-	signature.SetTrue(Engine::GetEntityComponentSystem()->GetComponentType<Sprite>());
+	signature.SetTrue(Engine::GetEcs()->GetComponentType<Transform2D>());
+	signature.SetTrue(Engine::GetEcs()->GetComponentType<Sprite>());
 
 	SetSignature(signature);
 }
@@ -35,8 +35,8 @@ void RenderSystem2D::Render(ICommandList* commandList) {
 
 	for (GameObjectIndex obj : GetObjects()) {
 		spriteRenderer.Draw(
-			Engine::GetEntityComponentSystem()->GetComponent<Sprite>(obj), 
-			Engine::GetEntityComponentSystem()->GetComponent<Transform2D>(obj)
+			Engine::GetEcs()->GetComponent<Sprite>(obj),
+			Engine::GetEcs()->GetComponent<Transform2D>(obj)
 		);
 	}
 

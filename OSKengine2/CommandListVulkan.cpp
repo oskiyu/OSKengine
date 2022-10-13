@@ -330,7 +330,7 @@ void CommandListVulkan::BindIndexBuffer(const IGpuIndexBuffer* buffer) {
 }
 
 void CommandListVulkan::BindMaterialSlot(const IMaterialSlot* slot) {
-	VkDescriptorSet sets[] = { slot->As<MaterialSlotVulkan>()->GetDescriptorSet(Engine::GetRenderer()->GetCurrentCommandListIndex()) };
+	VkDescriptorSet sets[] = { slot->As<MaterialSlotVulkan>()->GetDescriptorSet(Engine::GetRenderer()->GetCurrentResourceIndex()) };
 
 	VkPipelineBindPoint bindPoint{};
 	switch (currentMaterial->GetMaterialType()) {

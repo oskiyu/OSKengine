@@ -404,7 +404,7 @@ void AnimMeshLoader::LoadSkins() {
 }
 
 void AnimMeshLoader::SetupModel(Model3D* model) {
-	model->_SetVertexBuffer(Engine::GetRenderer()->GetMemoryAllocator()->CreateVertexBuffer(vertices, VertexAnim3D::GetVertexInfo()));
+	model->_SetVertexBuffer(Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(vertices, VertexAnim3D::GetVertexInfo()));
 
 	LoadAnimations();
 	

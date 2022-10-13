@@ -83,7 +83,7 @@ void Font::LoadSizedFont(TSize fontSize) {
 	}
 
 	// Creación de la imagen.
-	OwnedPtr<GpuImage> gpuImage = Engine::GetRenderer()->GetMemoryAllocator()
+	OwnedPtr<GpuImage> gpuImage = Engine::GetRenderer()->GetAllocator()
 		->CreateImage({ gpuImageSize.X, gpuImageSize.Y, 1 }, GpuImageDimension::d2D, 1,
 			Format::RGBA8_SRGB, GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_SOURCE | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION,
 			GpuSharedMemoryType::GPU_ONLY, 1);

@@ -115,7 +115,7 @@ protected:
 	}
 
 	void SetupEngine() override {
-		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetWindow(), PresentMode::VSYNC_ON);
+		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetWindow(), PresentMode::VSYNC_ON_TRIPLE_BUFFER);
 	}
 
 	void OnCreate() override {
@@ -151,7 +151,7 @@ protected:
 			circuitModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - circuitModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock(),
 			circuitModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - circuitModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock()
 			});
-		instancesInfoBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateStorageBuffer(sizeof(RtInstanceInfo) * 4).GetPointer();
+		instancesInfoBuffer = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(RtInstanceInfo) * 4).GetPointer();
 		instancesInfoBuffer->MapMemory();
 		instancesInfoBuffer->Write(instancesInfo.GetData(), instancesInfo.GetSize() * sizeof(RtInstanceInfo));
 		instancesInfoBuffer->Unmap();/**/
@@ -159,7 +159,7 @@ protected:
 		for (TSize i = 0; i < _countof(rtTargetImage); i++) {
 			GpuImageSamplerDesc sampler{};
 			sampler.mipMapMode = GpuImageMipmapMode::NONE;
-			rtTargetImage[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ 1920, 1080, 1 }, GpuImageDimension::d2D, 1, Format::RGBA32_SFLOAT,
+			rtTargetImage[i] = Engine::GetRenderer()->GetAllocator()->CreateImage({ 1920, 1080, 1 }, GpuImageDimension::d2D, 1, Format::RGBA32_SFLOAT,
 				GpuImageUsage::RT_TARGET_IMAGE | GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE, GpuSharedMemoryType::GPU_ONLY, 1, sampler).GetPointer();
 			rtTargetImage[i]->SetDebugName("RtTargetImage [" + std::to_string(i) + "]");
 		}
@@ -177,19 +177,19 @@ protected:
 		rtMaterialInstance->GetSlot("global")->FlushUpdate();*/
 
 		// ECS
-		carObject = Engine::GetEntityComponentSystem()->SpawnObject();
+		carObject = Engine::GetEcs()->SpawnObject();
 
-		cameraObject = Engine::GetEntityComponentSystem()->SpawnObject();
+		cameraObject = Engine::GetEcs()->SpawnObject();
 
-		Engine::GetEntityComponentSystem()->AddComponent<ECS::CameraComponent3D>(cameraObject, {});
-		auto& cameraTransform = Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(cameraObject, ECS::Transform3D(cameraObject));
+		Engine::GetEcs()->AddComponent<ECS::CameraComponent3D>(cameraObject, {});
+		auto& cameraTransform = Engine::GetEcs()->AddComponent<ECS::Transform3D>(cameraObject, ECS::Transform3D(cameraObject));
 		cameraTransform.AddPosition({ 0.0f, 0.3f, 0.0f });
-		OSK_CURRENT_RSYSTEM* renderSystem = Engine::GetEntityComponentSystem()->GetSystem<OSK_CURRENT_RSYSTEM>();
+		OSK_CURRENT_RSYSTEM* renderSystem = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>();
 		renderSystem->Initialize(cameraObject, *irradianceMap);
-		Engine::GetEntityComponentSystem()->GetSystem<ECS::SkyboxRenderSystem>()->SetCamera(cameraObject);
+		Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->SetCamera(cameraObject);
 
-		ECS::Transform3D& transform = Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(carObject, ECS::Transform3D(carObject));
-		ECS::ModelComponent3D* modelComponent = &Engine::GetEntityComponentSystem()->AddComponent<ECS::ModelComponent3D>(carObject, {});
+		ECS::Transform3D& transform = Engine::GetEcs()->AddComponent<ECS::Transform3D>(carObject, ECS::Transform3D(carObject));
+		ECS::ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ECS::ModelComponent3D>(carObject, {});
 		
 		cameraTransform.AttachToObject(carObject);
 
@@ -199,10 +199,10 @@ protected:
 		ModelLoader3D::SetupPbrModel(carModel, modelComponent);
 
 		// ECS 2
-		circuitObject = Engine::GetEntityComponentSystem()->SpawnObject();
+		circuitObject = Engine::GetEcs()->SpawnObject();
 
-		auto& transform2 = Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(circuitObject, ECS::Transform3D(circuitObject));
-		auto modelComponent2 = &Engine::GetEntityComponentSystem()->AddComponent<ECS::ModelComponent3D>(circuitObject, {});
+		auto& transform2 = Engine::GetEcs()->AddComponent<ECS::Transform3D>(circuitObject, ECS::Transform3D(circuitObject));
+		auto modelComponent2 = &Engine::GetEcs()->AddComponent<ECS::ModelComponent3D>(circuitObject, {});
 
 		modelComponent2->SetModel(animModel); // circuitModel
 		modelComponent2->SetMaterial(material);
@@ -212,11 +212,11 @@ protected:
 		animModel->GetAnimator()->AddActiveAnimation("Run");
 
 		// Cubemap
-		Engine::GetEntityComponentSystem()->GetSystem<ECS::SkyboxRenderSystem>()->SetCubemap(*Engine::GetAssetManager()->Load<ASSETS::CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL"));
+		Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->SetCubemap(*Engine::GetAssetManager()->Load<ASSETS::CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL"));
 		
-		cameraObject2d = Engine::GetEntityComponentSystem()->SpawnObject();
-		auto& camera2D = Engine::GetEntityComponentSystem()->AddComponent<ECS::CameraComponent2D>(cameraObject2d, {});
-		Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform2D>(cameraObject2d, { cameraObject2d });
+		cameraObject2d = Engine::GetEcs()->SpawnObject();
+		auto& camera2D = Engine::GetEcs()->AddComponent<ECS::CameraComponent2D>(cameraObject2d, {});
+		Engine::GetEcs()->AddComponent<ECS::Transform2D>(cameraObject2d, { cameraObject2d });
 		camera2D.LinkToWindow(Engine::GetWindow());
 
 		spriteRenderer.SetCommandList(Engine::GetRenderer()->GetGraphicsCommandList());
@@ -244,7 +244,7 @@ protected:
 
 		const IGpuStorageBuffer* epxBuffers[3]{};
 		for (TSize i = 0; i < _countof(exposureBuffers); i++) {
-			exposureBuffers[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateStorageBuffer(sizeof(float)).GetPointer();
+			exposureBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(float)).GetPointer();
 			epxBuffers[i] = exposureBuffers[i].GetPointer();
 
 			exposureBuffers[i]->MapMemory();
@@ -259,12 +259,12 @@ protected:
 	}
 
 	void RegisterSystems() override {
-		Engine::GetEntityComponentSystem()->RemoveSystem<ECS::RenderSystem2D>();
+		Engine::GetEcs()->RemoveSystem<ECS::RenderSystem2D>();
 	}
 
 	void OnTick(TDeltaTime deltaTime) override {
-		ECS::CameraComponent3D& camera = Engine::GetEntityComponentSystem()->GetComponent<ECS::CameraComponent3D>(cameraObject);
-		ECS::Transform3D& cameraTransform = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(cameraObject);
+		ECS::CameraComponent3D& camera = Engine::GetEcs()->GetComponent<ECS::CameraComponent3D>(cameraObject);
+		ECS::Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<ECS::Transform3D>(cameraObject);
 
 		float forwardMovement = 0.0f;
 		float rightMovement = 0.0f;
@@ -310,7 +310,7 @@ protected:
 		// Car
 		static float carSpeed = 0.0f;
 		float speedDiff = 0.0f;
-		auto& carTransform = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(carObject);
+		auto& carTransform = Engine::GetEcs()->GetComponent<ECS::Transform3D>(carObject);
 		if (newKs->IsKeyDown(IO::Key::UP))
 			speedDiff += 0.5f * deltaTime;
 		if (newKs->IsKeyDown(IO::Key::DOWN))
@@ -340,23 +340,23 @@ protected:
 		cameraTransform.AddPosition(cameraTransform.GetRightVector().GetNormalized() * rightMovement * deltaTime);
 		camera.UpdateTransform(&cameraTransform);
 
-		Engine::GetEntityComponentSystem()->GetComponent<ECS::CameraComponent2D>(cameraObject2d).UpdateUniformBuffer(
-			Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform2D>(cameraObject2d)
+		Engine::GetEcs()->GetComponent<ECS::CameraComponent2D>(cameraObject2d).UpdateUniformBuffer(
+			Engine::GetEcs()->GetComponent<ECS::Transform2D>(cameraObject2d)
 		);
 
 		if (OSK::Engine::GetRenderer()->IsRtActive()) {
-			const auto& transformComponent = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(carObject);
-			auto& modelComponent = Engine::GetEntityComponentSystem()->GetComponent<ECS::ModelComponent3D>(carObject);
+			const auto& transformComponent = Engine::GetEcs()->GetComponent<ECS::Transform3D>(carObject);
+			auto& modelComponent = Engine::GetEcs()->GetComponent<ECS::ModelComponent3D>(carObject);
 			modelComponent.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent.GetAsMatrix());
 			modelComponent.GetModel()->GetAccelerationStructure()->Update();
 
-			const auto& transformComponent2 = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(circuitObject);
-			auto& modelComponent2 = Engine::GetEntityComponentSystem()->GetComponent<ECS::ModelComponent3D>(circuitObject);
+			const auto& transformComponent2 = Engine::GetEcs()->GetComponent<ECS::Transform3D>(circuitObject);
+			auto& modelComponent2 = Engine::GetEcs()->GetComponent<ECS::ModelComponent3D>(circuitObject);
 			modelComponent2.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent2.GetAsMatrix());
 			modelComponent2.GetModel()->GetAccelerationStructure()->Update();
 			topLevelAccelerationStructure->Update();
 
-			const TSize imgIndex = Engine::GetRenderer()->GetCurrentCommandListIndex();
+			const TSize imgIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 			auto commandList = OSK::Engine::GetRenderer()->GetGraphicsCommandList();
 
 			commandList->SetGpuImageBarrier(rtTargetImage[imgIndex], GpuImageLayout::SHADER_READ_ONLY, GpuImageLayout::GENERAL,
@@ -406,8 +406,8 @@ protected:
 		graphicsCommandList->BindMaterial(material2d);
 		graphicsCommandList->BeginGraphicsRenderpass(&preEffectsRenderTarget);
 		spriteRenderer.Begin();
-		spriteRenderer.Draw(Engine::GetEntityComponentSystem()->GetSystem<ECS::SkyboxRenderSystem>()->GetRenderTarget().GetSprite(), Engine::GetEntityComponentSystem()->GetSystem<ECS::SkyboxRenderSystem>()->GetRenderTarget().GetSpriteTransform());
-		spriteRenderer.Draw(Engine::GetEntityComponentSystem()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetSprite(), Engine::GetEntityComponentSystem()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetSpriteTransform());
+		spriteRenderer.Draw(Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->GetRenderTarget().GetSprite(), Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->GetRenderTarget().GetSpriteTransform());
+		spriteRenderer.Draw(Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetSprite(), Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetSpriteTransform());
 		spriteRenderer.End();
 		graphicsCommandList->EndGraphicsRenderpass();
 

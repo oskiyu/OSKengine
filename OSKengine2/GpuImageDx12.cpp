@@ -64,7 +64,7 @@ void GpuImageDx12::SetDebugName(const std::string& name) {
 OwnedPtr<IGpuImageView> GpuImageDx12::CreateView(SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage) const {
 	switch (usage) {
 	case OSK::GRAPHICS::ViewUsage::SAMPLED: {
-		const auto descriptor = Engine::GetRenderer()->GetMemoryAllocator()->As<GpuMemoryAllocatorDx12>()->GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+		const auto descriptor = Engine::GetRenderer()->GetAllocator()->As<GpuMemoryAllocatorDx12>()->GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 	
 		if (channel == SampledChannel::COLOR) {
 			D3D12_SHADER_RESOURCE_VIEW_DESC resourceViewDesc{};
@@ -135,7 +135,7 @@ OwnedPtr<IGpuImageView> GpuImageDx12::CreateView(SampledChannel channel, Sampled
 		break;
 
 	case OSK::GRAPHICS::ViewUsage::COLOR_TARGET: {
-		const auto descriptor = Engine::GetRenderer()->GetMemoryAllocator()->As<GpuMemoryAllocatorDx12>()->GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+		const auto descriptor = Engine::GetRenderer()->GetAllocator()->As<GpuMemoryAllocatorDx12>()->GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 
 		D3D12_RENDER_TARGET_VIEW_DESC resourceViewDesc{};
 		resourceViewDesc.Format = GetFormatDx12(GetFormat());
@@ -164,7 +164,7 @@ OwnedPtr<IGpuImageView> GpuImageDx12::CreateView(SampledChannel channel, Sampled
 		break;
 
 	case OSK::GRAPHICS::ViewUsage::DEPTH_STENCIL_TARGET: {
-		const auto descriptor = Engine::GetRenderer()->GetMemoryAllocator()->As<GpuMemoryAllocatorDx12>()->GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
+		const auto descriptor = Engine::GetRenderer()->GetAllocator()->As<GpuMemoryAllocatorDx12>()->GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
 		
 		D3D12_DEPTH_STENCIL_VIEW_DESC desc{};
 		desc.Format = GetFormatDx12(GetFormat());
@@ -189,7 +189,7 @@ OwnedPtr<IGpuImageView> GpuImageDx12::CreateView(SampledChannel channel, Sampled
 		break;
 
 	case OSK::GRAPHICS::ViewUsage::STORAGE: {
-		const auto descriptor = Engine::GetRenderer()->GetMemoryAllocator()->As<GpuMemoryAllocatorDx12>()->GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+		const auto descriptor = Engine::GetRenderer()->GetAllocator()->As<GpuMemoryAllocatorDx12>()->GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 		D3D12_UNORDERED_ACCESS_VIEW_DESC desc{};
 		desc.Format = GetFormatDx12(GetFormat());

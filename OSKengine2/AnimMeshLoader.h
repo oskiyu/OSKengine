@@ -7,11 +7,6 @@
 
 namespace OSK::ASSETS {
 
-	/// <summary>
-	/// 
-	/// </summary>
-	/// 
-	/// @todo Carga correcta con el tamaño indicado en el archivo JSON.
 	class AnimMeshLoader : public IMeshLoader {
 
 	public:

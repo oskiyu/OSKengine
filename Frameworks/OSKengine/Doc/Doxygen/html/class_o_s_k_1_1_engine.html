@@ -126,6 +126,8 @@ Métodos públicos estáticos</h2></td></tr>
 <tr class="separator:ab092fdb69a9c816c93f177192477d97c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17fd2842c078b7ddb4aaa70cd04549ab"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">ECS::EntityComponentSystem</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_engine.html#a17fd2842c078b7ddb4aaa70cd04549ab">GetEntityComponentSystem</a> ()</td></tr>
 <tr class="separator:a17fd2842c078b7ddb4aaa70cd04549ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e36571452395c924ab2211ad380298f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">ECS::EntityComponentSystem</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">GetEcs</a> ()</td></tr>
+<tr class="separator:a2e36571452395c924ab2211ad380298f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5893cf5817c0ab30ae0c0d9761ce71f2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_o_s_k_1_1_i_o_1_1_input_manager.html">IO::InputManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_engine.html#a5893cf5817c0ab30ae0c0d9761ce71f2">GetInputManager</a> ()</td></tr>
 <tr class="separator:a5893cf5817c0ab30ae0c0d9761ce71f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7fa09bffe338e2361df47c4f2f704b0"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="struct_o_s_k_1_1_version.html">Version</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_engine.html#ae7fa09bffe338e2361df47c4f2f704b0">GetVersion</a> ()</td></tr>
@@ -276,16 +278,6 @@ Métodos públicos estáticos</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definición en la línea <a class="el" href="_o_s_kengine_8cpp_source.html#l00048">48</a> del archivo <a class="el" href="_o_s_kengine_8cpp_source.html">OSKengine.cpp</a>.</p>
-<div class="dynheader">
-Gráfico de llamadas para esta función:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_engine_a88150153e8f935f46f0eb728740cb9b5_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_engine_a88150153e8f935f46f0eb728740cb9b5_cgraph" alt=""/></div>
-<map name="aclass_o_s_k_1_1_engine_a88150153e8f935f46f0eb728740cb9b5_cgraph" id="aclass_o_s_k_1_1_engine_a88150153e8f935f46f0eb728740cb9b5_cgraph">
-<area shape="rect" title=" " alt="" coords="5,31,149,57"/>
-<area shape="rect" href="class_o_s_k_1_1_engine.html#a6b9ee02d043a6bd62d96c28fe3987f3d" title=" " alt="" coords="205,5,361,32"/>
-<area shape="rect" href="class_o_s_k_1_1_engine.html#ae7fa09bffe338e2361df47c4f2f704b0" title=" " alt="" coords="197,56,368,83"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -311,6 +303,10 @@ Gráfico de llamadas para esta función:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Devuelve un puntero al sistema de assets del motor. </p>
+<dl class="section note"><dt>Nota</dt><dd>El puntero es estable. </dd></dl>
+<dl class="section warning"><dt>Atención</dt><dd>Será nullptr hasta que no se llame a <a class="el" href="class_o_s_k_1_1_engine.html#a88150153e8f935f46f0eb728740cb9b5">Engine::Create</a>. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_o_s_kengine_8cpp_source.html#l00135">135</a> del archivo <a class="el" href="_o_s_kengine_8cpp_source.html">OSKengine.cpp</a>.</p>
 
@@ -339,7 +335,9 @@ Gráfico de llamadas para esta función:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_o_s_kengine_8cpp_source.html#l00157">157</a> del archivo <a class="el" href="_o_s_kengine_8cpp_source.html">OSKengine.cpp</a>.</p>
+<p>Devuelve la build del motor, en formato aaaa.mm.dd.n </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_o_s_kengine_8cpp_source.html#l00161">161</a> del archivo <a class="el" href="_o_s_kengine_8cpp_source.html">OSKengine.cpp</a>.</p>
 
 </div>
 </div>
@@ -366,7 +364,38 @@ Gráfico de llamadas para esta función:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_o_s_kengine_8cpp_source.html#l00147">147</a> del archivo <a class="el" href="_o_s_kengine_8cpp_source.html">OSKengine.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_o_s_kengine_8cpp_source.html#l00151">151</a> del archivo <a class="el" href="_o_s_kengine_8cpp_source.html">OSKengine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2e36571452395c924ab2211ad380298f" name="a2e36571452395c924ab2211ad380298f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e36571452395c924ab2211ad380298f">&#9670;&nbsp;</a></span>GetEcs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">ECS::EntityComponentSystem</a> * Engine::GetEcs </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve un puntero al <a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a> del motor. </p>
+<dl class="section note"><dt>Nota</dt><dd>El puntero es estable. </dd></dl>
+<dl class="section warning"><dt>Atención</dt><dd>Será nullptr hasta que no se llame a <a class="el" href="class_o_s_k_1_1_engine.html#a88150153e8f935f46f0eb728740cb9b5">Engine::Create</a>. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_o_s_kengine_8cpp_source.html#l00143">143</a> del archivo <a class="el" href="_o_s_kengine_8cpp_source.html">OSKengine.cpp</a>.</p>
 
 </div>
 </div>
@@ -420,7 +449,11 @@ Gráfico de llamadas para esta función:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_o_s_kengine_8cpp_source.html#l00143">143</a> del archivo <a class="el" href="_o_s_kengine_8cpp_source.html">OSKengine.cpp</a>.</p>
+<p>Devuelve un puntero al sistema de input del motor. </p>
+<dl class="section note"><dt>Nota</dt><dd>El puntero es estable. </dd></dl>
+<dl class="section warning"><dt>Atención</dt><dd>Será nullptr hasta que no se llame a <a class="el" href="class_o_s_k_1_1_engine.html#a88150153e8f935f46f0eb728740cb9b5">Engine::Create</a>. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_o_s_kengine_8cpp_source.html#l00147">147</a> del archivo <a class="el" href="_o_s_kengine_8cpp_source.html">OSKengine.cpp</a>.</p>
 
 </div>
 </div>
@@ -446,6 +479,10 @@ Gráfico de llamadas para esta función:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Devuelve un puntero al logger del motor. </p>
+<dl class="section note"><dt>Nota</dt><dd>El puntero es estable. </dd></dl>
+<dl class="section warning"><dt>Atención</dt><dd>Será nullptr hasta que no se llame a <a class="el" href="class_o_s_k_1_1_engine.html#a88150153e8f935f46f0eb728740cb9b5">Engine::Create</a>. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_o_s_kengine_8cpp_source.html#l00123">123</a> del archivo <a class="el" href="_o_s_kengine_8cpp_source.html">OSKengine.cpp</a>.</p>
 
@@ -474,6 +511,12 @@ Gráfico de llamadas para esta función:</div>
 </table>
 </div><div class="memdoc">
 
+<p>Devuelve un puntero al renderizador del motor. </p>
+<dl class="section note"><dt>Nota</dt><dd>El puntero es estable. </dd></dl>
+<dl class="section warning"><dt>Atención</dt><dd>Será nullptr hasta que no se llame a <a class="el" href="class_o_s_k_1_1_engine.html#a88150153e8f935f46f0eb728740cb9b5">Engine::Create</a>. </dd>
+<dd>
+El renderizador no será usable hasta que no se llame a IRenderer::Initialize. </dd></dl>
+
 <p class="definition">Definición en la línea <a class="el" href="_o_s_kengine_8cpp_source.html#l00131">131</a> del archivo <a class="el" href="_o_s_kengine_8cpp_source.html">OSKengine.cpp</a>.</p>
 
 </div>
@@ -501,7 +544,9 @@ Gráfico de llamadas para esta función:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_o_s_kengine_8cpp_source.html#l00151">151</a> del archivo <a class="el" href="_o_s_kengine_8cpp_source.html">OSKengine.cpp</a>.</p>
+<p>Devuelve la versión del motor. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_o_s_kengine_8cpp_source.html#l00155">155</a> del archivo <a class="el" href="_o_s_kengine_8cpp_source.html">OSKengine.cpp</a>.</p>
 
 </div>
 </div>
@@ -527,6 +572,10 @@ Gráfico de llamadas para esta función:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Devuelve un puntero a la ventana del juego. </p>
+<dl class="section note"><dt>Nota</dt><dd>El puntero es estable. </dd></dl>
+<dl class="section warning"><dt>Atención</dt><dd>Será nullptr hasta que no se llame a <a class="el" href="class_o_s_k_1_1_engine.html#a88150153e8f935f46f0eb728740cb9b5">Engine::Create</a>. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_o_s_kengine_8cpp_source.html#l00127">127</a> del archivo <a class="el" href="_o_s_kengine_8cpp_source.html">OSKengine.cpp</a>.</p>
 
@@ -702,7 +751,7 @@ Gráfico de llamadas para esta función:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_engine.html">Engine</a></li>
-    <li class="footer">Generado el Jueves, 6 de Octubre de 2022 19:30:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Miércoles, 12 de Octubre de 2022 21:13:15 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

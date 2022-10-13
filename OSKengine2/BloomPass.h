@@ -14,8 +14,7 @@ namespace OSK::GRAPHICS {
 	/// con un formato HDR) genera una nueva imagen con un resplandor
 	/// alrededor de las zonas más brillantes de la imagen de entrada.
 	/// 
-	/// La imagen final únicamente consisitira del resplandor, siendo el resto
-	/// de la imagen transparente.
+	/// La imagen final contiene la imagen original + resplandor.
 	/// 
 	/// Usa shaders de computación para ejecutar un algoritmo basado en: 
 	/// http://www.iryoku.com/next-generation-post-processing-in-call-of-duty-advanced-warfare

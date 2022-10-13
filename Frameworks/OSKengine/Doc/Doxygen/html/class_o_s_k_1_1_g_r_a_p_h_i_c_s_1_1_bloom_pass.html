@@ -96,16 +96,6 @@ $(document).ready(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bl
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="_bloom_pass_8h_source.html">BloomPass.h</a>&gt;</code></p>
-<div class="dynheader">
-Diagrama de herencias de OSK::GRAPHICS::BloomPass</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass__inherit__graph.png" border="0" usemap="#a_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass_inherit__map" alt="Inheritance graph"/></div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">significado de colores y flechas</a>]</span></center></div>
-<div class="dynheader">
-Diagrama de colaboración para OSK::GRAPHICS::BloomPass:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass__coll__graph.png" border="0" usemap="#a_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass_coll__map" alt="Collaboration graph"/></div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">significado de colores y flechas</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Tipos públicos</h2></td></tr>
@@ -152,10 +142,10 @@ Atributos protegidos</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p >Clase auxiliar que permite una capa de bloom / resplandor. </p>
 <p >Partiendo de una imagen de entrada (preferiblemente con un formato HDR) genera una nueva imagen con un resplandor alrededor de las zonas más brillantes de la imagen de entrada.</p>
-<p >La imagen final únicamente consisitira del resplandor, siendo el resto de la imagen transparente.</p>
+<p >La imagen final contiene la imagen original + resplandor.</p>
 <p >Usa shaders de computación para ejecutar un algoritmo basado en: <a href="http://www.iryoku.com/next-generation-post-processing-in-call-of-duty-advanced-warfare">http://www.iryoku.com/next-generation-post-processing-in-call-of-duty-advanced-warfare</a> </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_bloom_pass_8h_source.html#l00023">23</a> del archivo <a class="el" href="_bloom_pass_8h_source.html">BloomPass.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_bloom_pass_8h_source.html#l00022">22</a> del archivo <a class="el" href="_bloom_pass_8h_source.html">BloomPass.h</a>.</p>
 </div><h2 class="groupheader">Documentación de las enumeraciones miembro de la clase</h2>
 <a id="a96bf7489b9b90da1c5f3943906ad54e5" name="a96bf7489b9b90da1c5f3943906ad54e5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a96bf7489b9b90da1c5f3943906ad54e5">&#9670;&nbsp;</a></span>InputType</h2>
@@ -221,11 +211,6 @@ Atributos protegidos</h2></td></tr>
 <p>Reimplementado de <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a92aa17faa014d558ac7cc79eb982c03c">OSK::GRAPHICS::IPostProcessPass</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_bloom_pass_8cpp_source.html#l00023">23</a> del archivo <a class="el" href="_bloom_pass_8cpp_source.html">BloomPass.cpp</a>.</p>
-<div class="dynheader">
-Gráfico de llamadas para esta función:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass_ab781f1bb2f373dc907b406a4182b9768_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass_ab781f1bb2f373dc907b406a4182b9768_cgraph" alt=""/></div>
-</div>
 
 </div>
 </div>
@@ -268,12 +253,7 @@ computeCmdList debe ser una lista de comandos de computación. </dd></dl>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a05388cf0f2e8bc5e1b94cdc76cd58c8e">OSK::GRAPHICS::IPostProcessPass</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_bloom_pass_8cpp_source.html#l00139">139</a> del archivo <a class="el" href="_bloom_pass_8cpp_source.html">BloomPass.cpp</a>.</p>
-<div class="dynheader">
-Gráfico de llamadas para esta función:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass_a2391f9f93653168b0bfc3a84cdcff0a2_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass_a2391f9f93653168b0bfc3a84cdcff0a2_cgraph" alt=""/></div>
-</div>
+<p class="definition">Definición en la línea <a class="el" href="_bloom_pass_8cpp_source.html#l00141">141</a> del archivo <a class="el" href="_bloom_pass_8cpp_source.html">BloomPass.cpp</a>.</p>
 
 </div>
 </div>
@@ -341,11 +321,6 @@ Gráfico de llamadas para esta función:</div>
 <p>Reimplementado de <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a5755b9283180f003c9d77fbebebfb322">OSK::GRAPHICS::IPostProcessPass</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_bloom_pass_8cpp_source.html#l00047">47</a> del archivo <a class="el" href="_bloom_pass_8cpp_source.html">BloomPass.cpp</a>.</p>
-<div class="dynheader">
-Gráfico de llamadas para esta función:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass_a5545a4f6b434519d5fb2873ed72b2b25_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass_a5545a4f6b434519d5fb2873ed72b2b25_cgraph" alt=""/></div>
-</div>
 
 </div>
 </div>
@@ -365,7 +340,7 @@ Gráfico de llamadas para esta función:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_bloom_pass_8cpp_source.html#l00167">167</a> del archivo <a class="el" href="_bloom_pass_8cpp_source.html">BloomPass.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_bloom_pass_8cpp_source.html#l00169">169</a> del archivo <a class="el" href="_bloom_pass_8cpp_source.html">BloomPass.cpp</a>.</p>
 
 </div>
 </div>
@@ -413,11 +388,6 @@ Gráfico de llamadas para esta función:</div>
 <dl class="section warning"><dt>Atención</dt><dd>Si las imágenes son invalidadas (porque su dueño original se recrean o cambian de tamaño), se debe volver a establecer como imágenes de entrada con <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#af7e88a9869fe68ca02e156ec242bbf82" title="Establece las imágenes de entrada a partir de las que se calculará el efecto.">IPostProcessPass::SetInput</a>. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8cpp_source.html#l00041">41</a> del archivo <a class="el" href="_i_post_process_pass_8cpp_source.html">IPostProcessPass.cpp</a>.</p>
-<div class="dynheader">
-Gráfico de llamadas para esta función:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a1a082c4a464e368e99ac31064834213e_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_a1a082c4a464e368e99ac31064834213e_cgraph" alt=""/></div>
-</div>
 
 </div>
 </div>
@@ -492,11 +462,6 @@ Gráfico de llamadas para esta función:</div>
 </div><div class="memdoc">
 
 <p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8cpp_source.html#l00053">53</a> del archivo <a class="el" href="_i_post_process_pass_8cpp_source.html">IPostProcessPass.cpp</a>.</p>
-<div class="dynheader">
-Gráfico de llamadas para esta función:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_af8ba42331100543dd02e05a5d3c228ab_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_af8ba42331100543dd02e05a5d3c228ab_cgraph" alt=""/></div>
-</div>
 
 </div>
 </div>
@@ -534,12 +499,7 @@ Si las imágenes de entrada han sido invalidadas, se deben establecer de nuevo c
 
 <p>Reimplementado de <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a8208778343f1ebf2150487856afec2ab">OSK::GRAPHICS::IPostProcessPass</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_bloom_pass_8cpp_source.html#l00172">172</a> del archivo <a class="el" href="_bloom_pass_8cpp_source.html">BloomPass.cpp</a>.</p>
-<div class="dynheader">
-Gráfico de llamadas para esta función:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass_a40b847730935dd0c838d5ce76e8ad65c_cgraph.png" border="0" usemap="#aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass_a40b847730935dd0c838d5ce76e8ad65c_cgraph" alt=""/></div>
-</div>
+<p class="definition">Definición en la línea <a class="el" href="_bloom_pass_8cpp_source.html#l00174">174</a> del archivo <a class="el" href="_bloom_pass_8cpp_source.html">BloomPass.cpp</a>.</p>
 
 </div>
 </div>
@@ -650,7 +610,7 @@ Gráfico de llamadas para esta función:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html">BloomPass</a></li>
-    <li class="footer">Generado el Jueves, 6 de Octubre de 2022 19:30:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Miércoles, 12 de Octubre de 2022 21:13:15 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

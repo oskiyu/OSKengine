@@ -38,7 +38,7 @@ void IMeshLoader::Load(const std::string& rawAssetPath, const glm::mat4& modelTr
 }
 
 void IMeshLoader::SetupModel(Model3D* model) {
-	model->_SetIndexBuffer(Engine::GetRenderer()->GetMemoryAllocator()->CreateIndexBuffer(indices));
+	model->_SetIndexBuffer(Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices));
 	model->_SetIndexCount(indices.GetSize());
 
 	for (TSize i = 0; i < meshes.GetSize(); i++) {
@@ -57,7 +57,7 @@ void IMeshLoader::SetupModel(Model3D* model) {
 	}
 
 	if (Engine::GetRenderer()->IsRtActive())
-		model->_SetAccelerationStructure(Engine::GetRenderer()->GetMemoryAllocator()->CreateBottomAccelerationStructure(*model->GetVertexBuffer(), *model->GetIndexBuffer()));
+		model->_SetAccelerationStructure(Engine::GetRenderer()->GetAllocator()->CreateBottomAccelerationStructure(*model->GetVertexBuffer(), *model->GetIndexBuffer()));
 
 	DynamicArray<OwnedPtr<GpuImage>> textures = LoadImages();
 	for (TSize i = 0; i < textures.GetSize(); i++)
@@ -97,7 +97,7 @@ DynamicArray<OwnedPtr<GpuImage>> IMeshLoader::LoadImages() {
 	for (TSize i = 0; i < gltfModel.images.size(); i++) {
 		const tinygltf::Image& originalImage = gltfModel.images[i];
 
-		auto image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ (unsigned int)originalImage.width, (unsigned int)originalImage.height, 1 },
+		auto image = Engine::GetRenderer()->GetAllocator()->CreateImage({ (unsigned int)originalImage.width, (unsigned int)originalImage.height, 1 },
 			GpuImageDimension::d2D, 1, Format::RGBA8_UNORM, GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED,
 			GpuSharedMemoryType::GPU_ONLY, true);
 

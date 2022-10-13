@@ -14,7 +14,7 @@ void Animator::Setup(const glm::mat4& initialTransform) {
 	materialInstance = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/Animated/material_pbr.json")->CreateInstance().GetPointer();
 
 	for (TSize i = 0; i < _countof(boneBuffers); i++) {
-		boneBuffers[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateStorageBuffer(sizeof(glm::mat4) * boneMatrices.GetSize()).GetPointer();
+		boneBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(glm::mat4) * boneMatrices.GetSize()).GetPointer();
 
 		boneBuffers[i]->MapMemory();
 		boneBuffers[i]->Write(boneMatrices.GetData(), boneMatrices.GetSize() * sizeof(glm::mat4));
@@ -31,7 +31,7 @@ void Animator::Setup(const glm::mat4& initialTransform) {
 	materialInstance->GetSlot("animation")->FlushUpdate();
 }
 
-void Animator::Update(TDeltaTime deltaTime, const Vector3f& globalScale) {
+void Animator::Update(TDeltaTime deltaTime) {
 	for (const std::string& animationName : activeAnimations)
 		availableAnimations.Get(animationName).Update(deltaTime, *GetActiveSkin());
 	
@@ -55,9 +55,9 @@ void Animator::Update(TDeltaTime deltaTime, const Vector3f& globalScale) {
 
 	for (auto& matrix : boneMatrices) matrix = initialTransform * matrix;
 
-	boneBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()]->MapMemory();
-	boneBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()]->Write(boneMatrices.GetData(), sizeof(glm::mat4) * boneMatrices.GetSize());
-	boneBuffers[Engine::GetRenderer()->GetCurrentCommandListIndex()]->Unmap();
+	boneBuffers[Engine::GetRenderer()->GetCurrentResourceIndex()]->MapMemory();
+	boneBuffers[Engine::GetRenderer()->GetCurrentResourceIndex()]->Write(boneMatrices.GetData(), sizeof(glm::mat4) * boneMatrices.GetSize());
+	boneBuffers[Engine::GetRenderer()->GetCurrentResourceIndex()]->Unmap();
 }
 
 void Animator::AddActiveAnimation(const std::string& name) {

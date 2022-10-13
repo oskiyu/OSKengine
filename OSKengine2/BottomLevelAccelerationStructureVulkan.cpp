@@ -16,9 +16,9 @@ using namespace OSK::GRAPHICS;
 
 void BottomLevelAccelerationStructureVulkan::Setup(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer) {
 	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
-	IGpuMemoryAllocator* memoryAllocator = Engine::GetRenderer()->GetMemoryAllocator();
+	IGpuMemoryAllocator* memoryAllocator = Engine::GetRenderer()->GetAllocator();
 
-	matrixBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateBuffer(sizeof(VkTransformMatrixKHR), 0, GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+	matrixBuffer = Engine::GetRenderer()->GetAllocator()->CreateBuffer(sizeof(VkTransformMatrixKHR), 0, GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
 	SetMatrix(glm::mat4(1.0f));
 
 	// Obtene la localización en la memoria de la GPU de los buffers.

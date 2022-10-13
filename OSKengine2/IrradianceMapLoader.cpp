@@ -85,7 +85,7 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IAsset** asset)
 
 	// Crear imagen original y llenarla.
 	const Vector3ui size(width, height, 1);
-	UniquePtr<GpuImage> originalImage = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(size, GRAPHICS::GpuImageDimension::d2D, 1, Format::RGBA32_SFLOAT, GRAPHICS::GpuImageUsage::TRANSFER_SOURCE | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION | GRAPHICS::GpuImageUsage::SAMPLED, GRAPHICS::GpuSharedMemoryType::GPU_ONLY, 1).GetPointer();
+	UniquePtr<GpuImage> originalImage = Engine::GetRenderer()->GetAllocator()->CreateImage(size, GRAPHICS::GpuImageDimension::d2D, 1, Format::RGBA32_SFLOAT, GRAPHICS::GpuImageUsage::TRANSFER_SOURCE | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION | GRAPHICS::GpuImageUsage::SAMPLED, GRAPHICS::GpuSharedMemoryType::GPU_ONLY, 1).GetPointer();
 
 	OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList().GetPointer();
 	uploadCmdList->Reset();
@@ -105,8 +105,8 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IAsset** asset)
 	Engine::GetRenderer()->SubmitSingleUseCommandList(uploadCmdList.GetPointer());
 
 	// Crear cubemap y renderizarlo.
-	OwnedPtr<GpuImage> intermediateCubemap = Engine::GetRenderer()->GetMemoryAllocator()->CreateCubemapImage(irradianceLayerSize, Format::RGBA32_SFLOAT, GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP, GpuSharedMemoryType::GPU_ONLY).GetPointer();
-	OwnedPtr<GpuImage> finalImage = Engine::GetRenderer()->GetMemoryAllocator()->CreateCubemapImage(irradianceLayerSize, Format::RGBA32_SFLOAT, GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP, GpuSharedMemoryType::GPU_ONLY);
+	OwnedPtr<GpuImage> intermediateCubemap = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(irradianceLayerSize, Format::RGBA32_SFLOAT, GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP, GpuSharedMemoryType::GPU_ONLY).GetPointer();
+	OwnedPtr<GpuImage> finalImage = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(irradianceLayerSize, Format::RGBA32_SFLOAT, GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP, GpuSharedMemoryType::GPU_ONLY);
 
 	// Material
 	cubemapGenMaterialInstance->GetSlot("global")->SetGpuImage("image", originalImage.GetPointer());

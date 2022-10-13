@@ -41,7 +41,7 @@ ICommandList* IRenderer::GetFrameBuildCommandList() const {
 	return singleCommandQueue ? graphicsCommandList.GetPointer() : frameBuildCommandList.GetPointer();
 }
 
-IGpuMemoryAllocator* IRenderer::GetMemoryAllocator() const {
+IGpuMemoryAllocator* IRenderer::GetAllocator() const {
 	return gpuMemoryAllocator.GetPointer();
 }
 
@@ -54,7 +54,7 @@ void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data
 
 	const TByte* uploadableData = data;
 
-	auto stagingBuffer = GetMemoryAllocator()->CreateStagingBuffer(gpuNumBytes);
+	auto stagingBuffer = GetAllocator()->CreateStagingBuffer(gpuNumBytes);
 	stagingBuffer->MapMemory();
 	stagingBuffer->Write(uploadableData, gpuNumBytes);
 	stagingBuffer->Unmap();
@@ -71,8 +71,8 @@ void IRenderer::HandleResize() {
 
 	renderTargetsCamera->UpdateUniformBuffer(renderTargetsCameraTransform);
 
-	if (Engine::GetEntityComponentSystem())
-		for (auto i : Engine::GetEntityComponentSystem()->GetRenderSystems())
+	if (Engine::GetEcs())
+		for (auto i : Engine::GetEcs()->GetRenderSystems())
 			i->Resize(windowSize);
 
 	for (auto i : resizableRenderTargets)
@@ -131,6 +131,10 @@ bool IRenderer::IsOpen() const {
 
 RenderTarget* IRenderer::GetFinalRenderTarget() const {
 	return finalRenderTarget.GetPointer();
+}
+
+TIndex IRenderer::GetCurrentResourceIndex() const {
+	return this->GetCurrentCommandListIndex();
 }
 
 const ECS::CameraComponent2D& IRenderer::GetRenderTargetsCamera() const {

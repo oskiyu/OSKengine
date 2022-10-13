@@ -43,7 +43,7 @@ void RenderTarget::Resize(const Vector2ui& targetSize) {
 
 void RenderTarget::AddColorTarget(Format colorFormat, GpuImageUsage usage, GpuImageSamplerDesc sampler) {
 	for (TSize i = 0; i < NUM_RENDER_TARGET_IMAGES; i++) {
-		GpuImage* image = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
+		GpuImage* image = Engine::GetRenderer()->GetAllocator()->CreateImage(
 			{ GetSize().X, GetSize().Y, 1 }, GpuImageDimension::d2D, 1, colorFormat,
 			usage, GpuSharedMemoryType::GPU_ONLY, 1, sampler).GetPointer();
 
@@ -59,7 +59,7 @@ void RenderTarget::RecreateTargetImages() {
 			const GpuImageUsage imgUsage = targetImages[i][img]->GetUsage();
 			const GpuImageSamplerDesc sampler = targetImages[i][img]->GetImageSampler();
 
-			targetImages[i][img] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
+			targetImages[i][img] = Engine::GetRenderer()->GetAllocator()->CreateImage(
 				{ GetSize().X, GetSize().Y, 1 }, GpuImageDimension::d2D, 1, imgFormat,
 				imgUsage, GpuSharedMemoryType::GPU_ONLY, 1, sampler).GetPointer();
 		}
@@ -69,7 +69,7 @@ void RenderTarget::RecreateTargetImages() {
 
 void RenderTarget::CreateDepthImages(Format format) {
 	for (TSize i = 0; i < NUM_RENDER_TARGET_IMAGES; i++) {
-		depthImages[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage(
+		depthImages[i] = Engine::GetRenderer()->GetAllocator()->CreateImage(
 			{ GetSize().X, GetSize().Y, 1 }, GpuImageDimension::d2D, 1, format,
 			depthUsage, GpuSharedMemoryType::GPU_ONLY, 1, depthSampler).GetPointer();
 	}

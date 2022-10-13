@@ -140,6 +140,10 @@ ECS::EntityComponentSystem* Engine::GetEntityComponentSystem() {
 	return entityComponentSystem.GetPointer();
 }
 
+ECS::EntityComponentSystem* Engine::GetEcs() {
+	return entityComponentSystem.GetPointer();
+}
+
 IO::InputManager* Engine::GetInputManager() {
 	return inputManager.GetPointer();
 }

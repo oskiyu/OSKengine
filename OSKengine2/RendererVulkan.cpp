@@ -141,30 +141,30 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 
 	CreateMainRenderpass();
 
-	if (Engine::GetEntityComponentSystem())
-		for (auto i : Engine::GetEntityComponentSystem()->GetRenderSystems())
+	if (Engine::GetEcs())
+		for (auto i : Engine::GetEcs()->GetRenderSystems())
 			i->CreateTargetImage(window.GetWindowSize());
 
 	isOpen = true;
 }
 
-OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexInfo) {
+OwnedPtr<IGraphicsPipeline> RendererVulkan::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexInfo) {
 	GraphicsPipelineVulkan* pipeline = new GraphicsPipelineVulkan;
-	pipeline->Create(layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
+	pipeline->Create(&layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
 
 	return pipeline;
 }
 
-OwnedPtr<IRaytracingPipeline> RendererVulkan::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexTypeName) {
+OwnedPtr<IRaytracingPipeline> RendererVulkan::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexTypeName) {
 	RaytracingPipelineVulkan* pipeline = new RaytracingPipelineVulkan();
-	pipeline->Create(*layout, pipelineInfo);
+	pipeline->Create(layout, pipelineInfo);
 
 	return pipeline;
 }
 
-OwnedPtr<IComputePipeline> RendererVulkan::_CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout) {
+OwnedPtr<IComputePipeline> RendererVulkan::_CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) {
 	ComputePipelineVulkan* pipeline = new ComputePipelineVulkan();
-	pipeline->Create(*layout, pipelineInfo);
+	pipeline->Create(layout, pipelineInfo);
 
 	return pipeline;
 }
@@ -203,7 +203,7 @@ void RendererVulkan::HandleResize() {
 	IRenderer::HandleResize();
 }
 
-void RendererVulkan::SubmitSingleUseCommandList(ICommandList* commandList) {
+void RendererVulkan::SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) {
 	const TSize cmdIndex = commandList->GetCommandListIndex();
 	const VkQueue graphicsQ = graphicsQueue->As<CommandQueueVulkan>()->GetQueue();
 	const VkCommandBuffer cmdBuffer = commandList->As<CommandListVulkan>()->GetCommandBuffers()->At(cmdIndex);
@@ -220,7 +220,7 @@ void RendererVulkan::SubmitSingleUseCommandList(ICommandList* commandList) {
 
 	vkFreeCommandBuffers(currentGpu->As<GpuVulkan>()->GetLogicalDevice(), graphicsCommandPool->As<CommandPoolVulkan>()->GetCommandPool(), 1, &cmdBuffer);
 
-	singleTimeCommandLists.Insert(commandList);
+	singleTimeCommandLists.Insert(commandList.GetPointer());
 }
 
 void RendererVulkan::CreateInstance(const std::string& appName, const Version& version) {
@@ -431,8 +431,8 @@ bool RendererVulkan::AreValidationLayersAvailable() const {
 #endif 
 }
 
-OwnedPtr<IMaterialSlot> RendererVulkan::_CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const {
-	return new MaterialSlotVulkan(name, layout);
+OwnedPtr<IMaterialSlot> RendererVulkan::_CreateMaterialSlot(const std::string& name, const MaterialLayout& layout) const {
+	return new MaterialSlotVulkan(name, &layout);
 }
 
 void RendererVulkan::CreateSyncDevice() {

@@ -76,8 +76,8 @@ void IGame::Run() {
 		0, 1, 2, 1, 2, 3
 	};
 
-	OSK::GRAPHICS::Sprite::globalVertexBuffer = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateVertexBuffer(vertices2d, OSK::GRAPHICS::Vertex2D::GetVertexInfo()).GetPointer();
-	OSK::GRAPHICS::Sprite::globalIndexBuffer = OSK::Engine::GetRenderer()->GetMemoryAllocator()->CreateIndexBuffer(indices2d).GetPointer();
+	OSK::GRAPHICS::Sprite::globalVertexBuffer = OSK::Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(vertices2d, OSK::GRAPHICS::Vertex2D::GetVertexInfo()).GetPointer();
+	OSK::GRAPHICS::Sprite::globalIndexBuffer = OSK::Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices2d).GetPointer();
 
 	OSK_ASSERT(Engine::GetWindow()->IsOpen(), "No se ha creado correctamente la ventana en CreateWindow().");
 	OSK_ASSERT(Engine::GetRenderer()->IsOpen(), "No se ha inicializado correctamente el renderizador en SetupEngine().");
@@ -98,9 +98,9 @@ void IGame::Run() {
 
 		Engine::GetInputManager()->_Update(*Engine::GetWindow());
 
-		Engine::GetEntityComponentSystem()->OnTick(deltaTime);
+		Engine::GetEcs()->OnTick(deltaTime);
 		OnTick(deltaTime);
-		for (auto i : Engine::GetEntityComponentSystem()->GetRenderSystems())
+		for (auto i : Engine::GetEcs()->GetRenderSystems())
 			i->Render(Engine::GetRenderer()->GetGraphicsCommandList());
 
 		BuildFrame();

@@ -15,7 +15,7 @@ using namespace OSK::GRAPHICS;
 
 void TopLevelAccelerationStructureVulkan::Setup() {
 	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
-	IGpuMemoryAllocator* memoryAllocator = Engine::GetRenderer()->GetMemoryAllocator();
+	IGpuMemoryAllocator* memoryAllocator = Engine::GetRenderer()->GetAllocator();
 
 	const VkTransformMatrixKHR transform {
 		1.0f, 0.0f, 0.0f, 0.0f,

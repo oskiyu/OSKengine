@@ -30,7 +30,7 @@ void ShadowMap::Create(const Vector2ui& imageSize) {
 	depthSampler.mipMapMode = GpuImageMipmapMode::NONE;
 
 	const Vector3ui shadowmapSize = { imageSize.X, imageSize.Y, 1 };
-	IGpuMemoryAllocator* memAllocator = Engine::GetRenderer()->GetMemoryAllocator();
+	IGpuMemoryAllocator* memAllocator = Engine::GetRenderer()->GetAllocator();
 
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		unusedColorArrayAttachment[i] = memAllocator->CreateImage(shadowmapSize, GpuImageDimension::d2D, 4, Format::RGBA8_UNORM, GpuImageUsage::COLOR | GpuImageUsage::SAMPLED, GpuSharedMemoryType::GPU_ONLY, 1, depthSampler).GetPointer();
@@ -43,7 +43,7 @@ void ShadowMap::Create(const Vector2ui& imageSize) {
 
 	const IGpuUniformBuffer* lightUbos[3]{};
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		lightUniformBuffer[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 4 + sizeof(Vector3f)).GetPointer();
+		lightUniformBuffer[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 4 + sizeof(Vector3f)).GetPointer();
 		lightUbos[i] = lightUniformBuffer[i].GetPointer();
 	}
 
@@ -61,12 +61,12 @@ void ShadowMap::SetDirectionalLight(const DirectionalLight& dirLight) {
 }
 
 void ShadowMap::UpdateLightMatrixBuffer() {
-	const TSize uniformBufferIndex = Engine::GetRenderer()->GetCurrentCommandListIndex();
+	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	ShadowsBufferContent bufferContent{};
 
-	const CameraComponent3D& camera = Engine::GetEntityComponentSystem()->GetComponent<CameraComponent3D>(cameraObject);
-	const Transform3D& cameraTransform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(cameraObject);
+	const CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(cameraObject);
+	const Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(cameraObject);
 
 	float cascadeSplits[numMaps]{ 1, 5, 15, 50 };
 	for (TSize i = 0; i < numMaps; i++)
@@ -170,14 +170,14 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 	}
 #endif
 
-	lightUniformBuffer[uniformBufferIndex]->ResetCursor();
-	lightUniformBuffer[uniformBufferIndex]->MapMemory();
-	lightUniformBuffer[uniformBufferIndex]->Write(bufferContent.matrices[0]);
-	lightUniformBuffer[uniformBufferIndex]->Write(bufferContent.matrices[1]);
-	lightUniformBuffer[uniformBufferIndex]->Write(bufferContent.matrices[2]);
-	lightUniformBuffer[uniformBufferIndex]->Write(bufferContent.matrices[3]);
-	lightUniformBuffer[uniformBufferIndex]->Write(bufferContent.cascadeSplits);
-	lightUniformBuffer[uniformBufferIndex]->Unmap();
+	lightUniformBuffer[resourceIndex]->ResetCursor();
+	lightUniformBuffer[resourceIndex]->MapMemory();
+	lightUniformBuffer[resourceIndex]->Write(bufferContent.matrices[0]);
+	lightUniformBuffer[resourceIndex]->Write(bufferContent.matrices[1]);
+	lightUniformBuffer[resourceIndex]->Write(bufferContent.matrices[2]);
+	lightUniformBuffer[resourceIndex]->Write(bufferContent.matrices[3]);
+	lightUniformBuffer[resourceIndex]->Write(bufferContent.cascadeSplits);
+	lightUniformBuffer[resourceIndex]->Unmap();
 }
 
 void ShadowMap::SetNearPlane(float nearPlane) {

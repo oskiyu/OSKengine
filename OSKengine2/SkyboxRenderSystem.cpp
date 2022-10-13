@@ -25,7 +25,7 @@ SkyboxRenderSystem::SkyboxRenderSystem() {
 
 	const IGpuUniformBuffer* buffers[3]{};
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		cameraUbos[i] = Engine::GetRenderer()->GetMemoryAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
+		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
 		buffers[i] = cameraUbos[i].GetPointer();
 	}
 
@@ -51,15 +51,15 @@ void SkyboxRenderSystem::Render(ICommandList* commandList) {
 	if (cameraObject == EMPTY_GAME_OBJECT)
 		return;
 
-	const TSize currentFrameIndex = Engine::GetRenderer()->GetCurrentCommandListIndex();
+	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
-	CameraComponent3D& camera = Engine::GetEntityComponentSystem()->GetComponent<CameraComponent3D>(cameraObject);
-	Transform3D& cameraTransform = Engine::GetEntityComponentSystem()->GetComponent<Transform3D>(cameraObject);
+	CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(cameraObject);
+	Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(cameraObject);
 
-	cameraUbos[currentFrameIndex]->MapMemory();
-	cameraUbos[currentFrameIndex]->Write(camera.GetProjectionMatrix());
-	cameraUbos[currentFrameIndex]->Write(camera.GetViewMatrix(cameraTransform));
-	cameraUbos[currentFrameIndex]->Unmap();
+	cameraUbos[resourceIndex]->MapMemory();
+	cameraUbos[resourceIndex]->Write(camera.GetProjectionMatrix());
+	cameraUbos[resourceIndex]->Write(camera.GetViewMatrix(cameraTransform));
+	cameraUbos[resourceIndex]->Unmap();
 
 	commandList->BeginGraphicsRenderpass(&renderTarget, Color::BLACK() * 0.0f);
 	commandList->BindMaterial(skyboxMaterial);
