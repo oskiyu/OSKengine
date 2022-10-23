@@ -1,0 +1,77 @@
+#version 460
+
+#include "../../PBR/common.glsl"
+
+layout (local_size_x = 8, local_size_y = 8) in;
+
+layout (set = 0, binding = 0, rgba32f) uniform image2D positionImg;
+layout (set = 0, binding = 1) uniform sampler2D colorImg;
+layout (set = 0, binding = 2, rgba32f) uniform image2D normalImg;
+layout (set = 0, binding = 3, rgba8) uniform image2D shadowsImg;
+
+layout (set = 0, binding = 4, rgba32f) uniform image2D finalImg;
+
+layout (set = 1, binding = 0) uniform Camera {
+    mat4 projection;
+    mat4 view;
+
+    vec3 cameraPos;
+} camera;
+
+layout (set = 1, binding = 1) uniform DirLight {
+    vec4 directionAndIntensity;
+    vec4 color;
+} dirLight;
+
+layout (set = 1, binding = 2) uniform samplerCube irradianceMap;
+
+float LinearToSRGB(float value) { 
+    if(value< 0.0031308 )
+        value*= 12.92;
+    else
+        value = 1.055 * pow(value, 1.0/2.4) - 0.055;
+
+    return value;
+}
+
+void main() {
+    const ivec2 coords = ivec2(gl_GlobalInvocationID);
+    if (coords.x > imageSize(finalImg).x || coords.y > imageSize(finalImg).y)
+        return;
+
+    const vec4 colorImageInfo = texture(colorImg, coords);
+    const vec4 normalImageInfo = imageLoad(normalImg, coords);
+
+    const vec3 position = imageLoad(positionImg, coords).xyz;
+    const vec3 color = colorImageInfo.rgb;
+    const vec3 normal = normalImageInfo.xyz;
+
+    const float shadow = imageLoad(shadowsImg, coords).r;
+
+
+    // 
+    const vec3 view = normalize(camera.cameraPos - position);
+    const vec3 reflectDirection = reflect(-view, normal);
+    
+    const float metallicFactor = float(int(normalImageInfo.a)) * 0.001; // TODO: texture
+    const float roughnessFactor = (normalImageInfo.a - float(int(normalImageInfo.a))) * 10; // TODO: texture
+    
+    vec3 F0 = vec3(DEFAULT_F0);
+    F0 = mix(F0, color.rgb, metallicFactor);
+
+    // Directional Light
+    const vec3 accummulatedRadiance = shadow 
+                    * GetRadiance(F0, dirLight.directionAndIntensity.xyz, view, normal, dirLight.color.rgb * dirLight.directionAndIntensity.w, color.rgb, roughnessFactor, metallicFactor);
+
+    // Irradiance Map
+    vec3 kS = FreshnelShlick(max(dot(normal, view), 0.0), F0);
+    vec3 kD = 1.0 - kS;
+    kD *= 1.0 - metallicFactor;
+
+    const vec3 irradiance = texture(irradianceMap, normal).rgb;
+    const vec3 ambient = color.rgb * kD * irradiance;
+    
+    const vec4 outColor = vec4(ambient * (dirLight.directionAndIntensity.w * 0.25) + accummulatedRadiance * 1.25, colorImageInfo.a);
+
+    imageStore(finalImg, coords, outColor);
+}

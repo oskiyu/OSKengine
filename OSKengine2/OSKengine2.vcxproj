@@ -75,6 +75,7 @@
     <ClCompile Include="GpuImageViewVulkan.cpp" />
     <ClCompile Include="GpuStorageBufferDx12.cpp" />
     <ClCompile Include="GpuStorageBufferVk.cpp" />
+    <ClCompile Include="HybridRenderSystem.cpp" />
     <ClCompile Include="IBottomLevelAccelerationStructure.cpp" />
     <ClCompile Include="BottomLevelAccelerationStructureVulkan.cpp" />
     <ClCompile Include="CameraComponent2D.cpp" />
@@ -256,6 +257,7 @@
     <ClInclude Include="GpuImageViewVulkan.h" />
     <ClInclude Include="GpuStorageBufferDx12.h" />
     <ClInclude Include="GpuStorageBufferVk.h" />
+    <ClInclude Include="HybridRenderSystem.h" />
     <ClInclude Include="IComputePipeline.h" />
     <ClInclude Include="IGpuObject.h" />
     <ClInclude Include="IGpuImageView.h" />

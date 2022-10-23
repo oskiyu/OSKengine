@@ -197,7 +197,12 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 		(*numBindings)++;
 
 		// Tipo de imagen
-		const auto& imageInfo = compiler.get_type(i.type_id).image;
+		const auto& typeInfo = compiler.get_type(i.type_id);
+		const auto& imageInfo = typeInfo.image;
+
+		binding.numArrayLayers = typeInfo.array.size() > 0 ? typeInfo.array[0] : 1;
+		binding.isUnsizedArray = (typeInfo.array.size() == 1) && (typeInfo.array[0] == 1);
+
 		if (imageInfo.dim == spv::Dim::DimCube)
 			binding.type = ShaderBindingType::CUBEMAP;
 		else
@@ -233,6 +238,10 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 		binding.type = ShaderBindingType::UNIFORM_BUFFER;
 		binding.hlslIndex = *numBuffers;
 		binding.hlslDescriptorIndex = *numBindings;
+
+		const auto& typeInfo = compiler.get_type(i.type_id);
+		binding.numArrayLayers = typeInfo.array.size() > 0 ? typeInfo.array[0] : 1;
+		binding.isUnsizedArray = (typeInfo.array.size() == 1) && (typeInfo.array[0] == 1);
 
 		(*numBuffers)++;
 		(*numBindings)++;
@@ -273,6 +282,10 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 		//(*numBuffers)++;
 		//(*numBindings)++;
 
+		const auto& typeInfo = compiler.get_type(i.type_id);
+		binding.numArrayLayers = typeInfo.array.size() > 0 ? typeInfo.array[0] : 1;
+		binding.isUnsizedArray = (typeInfo.array.size() == 1) && (typeInfo.array[0] == 1);
+
 		layout->GetSlot(setName).bindings.Insert(binding.name, binding);
 	}
 
@@ -306,6 +319,10 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 		//(*numBuffers)++;
 		//(*numBindings)++;
 
+		const auto& typeInfo = compiler.get_type(i.type_id);
+		binding.numArrayLayers = typeInfo.array.size() > 0 ? typeInfo.array[0] : 1;
+		binding.isUnsizedArray = (typeInfo.array.size() == 1) && (typeInfo.array[0] == 1);
+
 		layout->GetSlot(setName).bindings.Insert(binding.name, binding);
 	}
 	for (auto& i : resources.storage_buffers) {
@@ -337,6 +354,10 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 
 		//(*numBuffers)++;
 		//(*numBindings)++;
+
+		const auto& typeInfo = compiler.get_type(i.type_id);
+		binding.numArrayLayers = typeInfo.array.size() > 0 ? typeInfo.array[0] : 1;
+		binding.isUnsizedArray = (typeInfo.array.size() == 1) && (typeInfo.array[0] == 1);
 
 		layout->GetSlot(setName).bindings.Insert(binding.name, binding);
 	}

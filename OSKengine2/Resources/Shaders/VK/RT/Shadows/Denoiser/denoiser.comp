@@ -1,0 +1,32 @@
+#version 460
+
+layout (local_size_x = 8, local_size_y = 8) in;
+
+layout (set = 0, binding = 0, rgba8) uniform image2D shadowMask;
+layout (set = 0, binding = 1, rgba8) uniform image2D finalShadows;
+
+
+void main() {
+    const ivec2 coords = ivec2(gl_GlobalInvocationID);
+    imageStore(finalShadows, coords, vec4(imageLoad(shadowMask, coords).r, 0, 0, 1));
+    return;
+
+    const int kernelSize = 2;
+    const int kernelHalfSize = kernelSize / 2;
+
+    if (coords.x > imageSize(finalShadows).x || coords.y > imageSize(finalShadows).y)
+        return;
+
+    float mean = 0.0;
+    float median = 0.0;
+    for (int x = -kernelHalfSize; x < kernelHalfSize; x++){
+        for (int y = -kernelHalfSize; y < kernelHalfSize; y++){
+            const float shadow  = imageLoad(shadowMask, coords + ivec2(x, y)).r;
+
+            mean += shadow / (kernelSize * kernelSize);
+            median += (shadow * shadow) / (kernelSize * kernelSize);
+        }   
+    }
+
+    imageStore(finalShadows, coords, vec4(mean, 0, 0, 1));
+}

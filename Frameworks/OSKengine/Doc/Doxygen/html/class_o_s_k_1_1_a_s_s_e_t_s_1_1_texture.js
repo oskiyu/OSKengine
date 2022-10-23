@@ -1,7 +1,6 @@
 var class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture =
 [
     [ "Texture", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a73989d7926a60a99f29dff7726127638", null ],
-    [ "~Texture", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a09c4bcb7462f64c1d20fa69dba3cee8a", null ],
     [ "_SetImage", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#ac48b769e17329079b1348a7b7dab4e4c", null ],
     [ "_SetNumberOfChannels", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#ad052ebbde1bef14f74b8217bc790b77f", null ],
     [ "_SetSize", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a5b8b6744153b2fb25dfef0b8e20ba970", null ],

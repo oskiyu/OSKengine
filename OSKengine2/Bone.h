@@ -6,6 +6,10 @@
 
 #include <limits>
 
+#ifdef max
+#undef max
+#endif
+
 namespace OSK::GRAPHICS {
 
 	class Skeleton;

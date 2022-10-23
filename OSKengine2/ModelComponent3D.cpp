@@ -11,11 +11,6 @@ using namespace OSK::ECS;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
-ModelComponent3D::~ModelComponent3D() {
-	for (auto i : meshesMaterialInstances)
-		delete i.GetPointer();
-}
-
 void ModelComponent3D::SetModel(Model3D* model) {
 	this->model = model;
 
@@ -24,7 +19,7 @@ void ModelComponent3D::SetModel(Model3D* model) {
 
 	if (material != nullptr) {
 		for (TSize i = prevSize; i < meshesMaterialInstances.GetSize(); i++) {
-			meshesMaterialInstances.At(i) = material->CreateInstance();
+			meshesMaterialInstances.At(i) = material->CreateInstance().GetPointer();
 
 			for (auto& t : texturesBound)
 				meshesMaterialInstances.At(i)->GetSlot(t.first.first)->SetTexture(t.first.second, t.second);
@@ -43,7 +38,7 @@ void ModelComponent3D::SetMaterial(Material* material) {
 
 	for (auto& i : meshesMaterialInstances) {
 		if (i.GetPointer() == nullptr) {
-			i = material->CreateInstance();
+			i = material->CreateInstance().GetPointer();
 
 			for (auto& t : texturesBound)
 				i->GetSlot(t.first.first)->SetTexture(t.first.second, t.second);
@@ -61,16 +56,12 @@ Model3D* ModelComponent3D::GetModel() const {
 	return model;
 }
 
-Material* ModelComponent3D::GetMaterial() const {
-	return material;
-}
-
 MaterialInstance* ModelComponent3D::GetMeshMaterialInstance(TSize meshId) const {
 	return meshesMaterialInstances.At(meshId).GetPointer();
 }
 
 void ModelComponent3D::BindTextureForAllMeshes(const std::string& slot, const std::string& binding, const ASSETS::Texture* texture) {
-	for (auto i : meshesMaterialInstances) {
+	for (auto& i : meshesMaterialInstances) {
 		i->GetSlot(slot)->SetTexture(binding, texture);
 		i->GetSlot(slot)->FlushUpdate();
 	}
@@ -79,7 +70,7 @@ void ModelComponent3D::BindTextureForAllMeshes(const std::string& slot, const st
 }
 
 void ModelComponent3D::BindGpuImageForAllMeshes(const std::string& slot, const std::string& binding, const GRAPHICS::GpuImage* image) {
-	for (auto i : meshesMaterialInstances) {
+	for (auto& i : meshesMaterialInstances) {
 		i->GetSlot(slot)->SetGpuImage(binding, image);
 		i->GetSlot(slot)->FlushUpdate();
 	}
@@ -88,7 +79,7 @@ void ModelComponent3D::BindGpuImageForAllMeshes(const std::string& slot, const s
 }
 
 void ModelComponent3D::BindUniformBufferForAllMeshes(const std::string& slot, const std::string& binding, const GRAPHICS::IGpuUniformBuffer* buffer) {
-	for (auto i : meshesMaterialInstances) {
+	for (auto& i : meshesMaterialInstances) {
 		i->GetSlot(slot)->SetUniformBuffer(binding, buffer);
 		i->GetSlot(slot)->FlushUpdate();
 	}

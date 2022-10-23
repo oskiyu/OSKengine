@@ -30,9 +30,7 @@ namespace OSK::ASSETS {
 		/// </summary>
 		GRAPHICS::GpuImage* GetGpuImage() const;
 
-		/// <summary>
-		/// Establece la imagen que contiene el cubemap.
-		/// </summary>
+		/// <summary> Establece la imagen que contiene el cubemap. </summary>
 		/// 
 		/// @warning Función interna: no llamar.
 		void _SetImage(OwnedPtr<GRAPHICS::GpuImage> image);

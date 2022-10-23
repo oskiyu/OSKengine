@@ -18,11 +18,11 @@ DescriptorLayoutVulkan::DescriptorLayoutVulkan(const MaterialLayoutSlot* slotLay
 
 	DynamicArray<VkDescriptorSetLayoutBinding> bindings;
 
-	for (auto& i : slotLayout->bindings) {
+	for (auto& [name, binding] : slotLayout->bindings) {
 		VkDescriptorSetLayoutBinding layoutBinding{};
-		layoutBinding.binding = i.second.glslIndex;
-		layoutBinding.descriptorType = GetDescriptorTypeVk(i.second.type);
-		layoutBinding.descriptorCount = 1;
+		layoutBinding.binding = binding.glslIndex;
+		layoutBinding.descriptorType = GetDescriptorTypeVk(binding.type);
+		layoutBinding.descriptorCount = binding.numArrayLayers;
 		layoutBinding.stageFlags = GetShaderStageVk(slotLayout->stage);
 		layoutBinding.pImmutableSamplers = nullptr;
 

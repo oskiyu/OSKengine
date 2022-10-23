@@ -1,5 +1,7 @@
 #version 460
+
 #extension GL_ARB_separate_shader_objects : enable
+#extension GL_EXT_nonuniform_qualifier : require
 
 layout(location = 0) in vec3 inPosition;
 layout(location = 1) in vec3 inNormal;
@@ -26,6 +28,9 @@ layout (push_constant) uniform Model {
     mat4 transposedInverseModelMatrix;
     vec4 materialInfos;
 } pushConstants;
+
+layout (set = 4, binding = 0) uniform sampler2D images[];
+layout (set = 4, binding = 1) uniform sampler2D images2[5];
 
 
 void main() {

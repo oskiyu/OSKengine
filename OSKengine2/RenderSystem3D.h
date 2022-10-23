@@ -48,6 +48,10 @@ namespace OSK::ECS {
 		
 		GRAPHICS::ShadowMap* GetShadowMap();
 		
+		const GRAPHICS::IGpuUniformBuffer* GetCameraBuffer(TIndex index) const {
+			return cameraUbos[index].GetPointer();
+		}
+
 	private:
 		
 		void GenerateShadows(GRAPHICS::ICommandList* commandList, ASSETS::ModelType modelType);

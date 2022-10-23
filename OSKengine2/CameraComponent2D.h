@@ -27,57 +27,41 @@ namespace OSK::ECS {
 
 		CameraComponent2D();
 
-		/// <summary>
-		/// Enlaza la cámara a una ventana, para que tenga el tamaño de la ventana.
+		/// <summary> Enlaza la cámara a una ventana, para que tenga el tamaño de la ventana. </summary>
 		/// 
-		/// @warning El puntero a la ventana debe ser ESTABLE.
-		/// </summary>
+		/// @pre window no debe ser null.
+		/// @pre El puntero a la ventana debe ser ESTABLE.
 		void LinkToWindow(const IO::Window* window);
 
-		/// <summary>
-		/// Quita el enlace a la ventana.
-		/// </summary>
+		/// <summary> Quita el enlace a la ventana. </summary>
 		void UnlinkWindow();
 
-		/// <summary>
-		/// Establece el tamaño del área a renderizar.
+		/// <summary> Establece el tamaño del área a renderizar. </summary>
 		/// 
 		/// @warning Se ignorará si se ha enlazado a una ventana.
-		/// </summary>
 		void SetTargetSize(const Vector2f& targetSize);
 
-		/// <summary>
-		/// Devuelve la matriz proyección de la cámara.
-		/// </summary>
+
+		/// <summary> Devuelve la matriz proyección de la cámara. </summary>
 		glm::mat4 GetProjection(const Transform2D& cameraTransform) const;
 
-		/// <summary>
-		/// Actualiza el buffer en la GPU.
+		/// <summary> Actualiza el buffer en la GPU. </summary>
+		/// <param name="cameraTransform">Transform de la cámara.</param>
 		/// 
 		/// @note Debe llamarse cada frame que se haya modificado la cámara.
-		/// </summary>
-		/// <param name="cameraTransform">Transform de la cámara.</param>
 		void UpdateUniformBuffer(const Transform2D& cameraTransform);
 
 		GRAPHICS::IGpuUniformBuffer* GetUniformBuffer() const;
 
-		/// <summary>
-		/// Transforma un punto 2D en la ventana al punto 2D al que apunta la cámara en el mundo 2D.
-		/// </summary>
+		/// <summary> Transforma un punto 2D en la ventana al punto 2D al que apunta la cámara en el mundo 2D. </summary>
 		/// <param name="point">Punto en coordenadas de la ventana.</param>
 		/// <returns>Punto, en coordenadas del mundo 2D.</returns>
 		Vector2f PointInWindowToPointInWorld(const Vector2& point) const;
 
 	private:
 
-		/// <summary>
-		/// Ventana.
-		/// </summary>
 		const IO::Window* window = nullptr;
 
-		/// <summary>
-		/// Matriz de la cámara.
-		/// </summary>
 		glm::mat4 projection;
 
 		Vector2f targetSize;

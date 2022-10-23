@@ -18,9 +18,7 @@ namespace OSK::GRAPHICS {
 namespace OSK::ASSETS {
 
 
-	/// <summary>
-	/// Información relevante de un material del modelo GLTF.
-	/// </summary>
+	/// <summary> Información relevante de un material del modelo GLTF. </summary>
 	struct GltfMaterialInfo {
 
 		/// <summary>
@@ -29,15 +27,15 @@ namespace OSK::ASSETS {
 		/// </summary>
 		Color baseColor;
 
-		/// <summary>
-		/// ID de la textura base.
-		/// </summary>
+		/// <summary> ID de la textura base. </summary>
 		TSize baseTextureIndex = 0;
 
 		/// <summary>
 		/// Factor metálico del material.
 		/// Afecta el reflejo metálico.
 		/// </summary>
+		///
+		/// @note Entre 0 y 1, ambos incluidos.
 		float metallicFactor = 0.0f;
 
 		/// <summary>
@@ -46,9 +44,9 @@ namespace OSK::ASSETS {
 		/// </summary>
 		TSize metallicTextureIndex = 0;
 
-		/// <summary>
-		/// Factor de rugosidad del material.
-		/// </summary>
+		/// <summary> Factor de rugosidad del material. </summary>
+		///
+		/// @note Entre 0 y 1, ambos incluidos.
 		float roughnessFactor = 0.0f;
 
 		/// <summary>
@@ -57,22 +55,17 @@ namespace OSK::ASSETS {
 		/// </summary>
 		TSize roughnessTextureIndex = 0;
 
-		/// <summary>
-		/// True si tiene textura.
-		/// </summary>
+		/// <summary> True si tiene textura. </summary>
 		bool hasBaseTexture = false;
 
-		/// <summary>
-		/// True si tiene textura.
-		/// </summary>
+		/// <summary> True si tiene textura metálica. </summary>
 		bool hasMetallicTexture = false;
 
-		/// <summary>
-		/// True si tiene textura.
-		/// </summary>
+		/// <summary> True si tiene textura de rugosidad. </summary>
 		bool hasRoughnessTexture = false;
 
 	};
+
 
 	/// <summary>
 	/// Información relevante de un modelo GLTF,
@@ -103,11 +96,13 @@ namespace OSK::ASSETS {
 	public:
 
 		/// <summary> Carga el modelo 3D. </summary>
+		/// 
 		/// <param name="rawAssetPath">Dirección del archivo .glb.</param>
 		/// <param name="globalScale">Escala aplicada al modelo.</param>
 		void Load(const std::string& rawAssetPath, const glm::mat4& modelTransform);
 
 		/// <summary> Configura el modelo 3D. </summary>
+		/// 
 		/// @note Las clases derivadas deben sobreescribir esta función,
 		/// creando dentro el vertex buffer del modelo 3D.
 		virtual void SetupModel(Model3D* model);
@@ -117,11 +112,21 @@ namespace OSK::ASSETS {
 		/// <summary> Devuelve una matriz en formato GLM con el transform del nodo. </summary>
 		static glm::mat4 GetNodeMatrix(const tinygltf::Node& node);
 
-		/// <summary> Procesa un nodo. </summary>
+		/// <summary>
+		/// Procesa un nodo de un modelo GLTF.
+		/// Este nodo puede contener o no geometría 3D en forma
+		/// de meshes.
+		/// </summary>
+		/// 
+		/// <param name="node">Nodo GLTF.</param>
+		/// <param name="nodeId">ID del nodo procesado.</param>
+		/// <param name="parentId">ID del nodo padre (TSize::max si no tiene padre).</param>
+		/// 
 		/// @note Debe ser sobreescrito, para poder manejar los tipos de vértices distintos.
-		virtual void ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize parentId, const glm::mat4& prevMat) = 0;
+		virtual void ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize parentId) = 0;
 
 		/// <summary> Establece las normales del vértice (si tiene). </summary>
+		/// 
 		/// @note Debe ser sobreescrito, para poder manejar los tipos de vértices distintos.
 		virtual void SmoothNormals() = 0;
 

@@ -98,8 +98,6 @@ $(document).ready(function(){initNavTree('class_o_s_k_1_1_a_s_s_e_t_s_1_1_textur
 Métodos públicos</h2></td></tr>
 <tr class="memitem:a73989d7926a60a99f29dff7726127638"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a73989d7926a60a99f29dff7726127638">Texture</a> (const std::string &amp;assetFile)</td></tr>
 <tr class="separator:a73989d7926a60a99f29dff7726127638"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09c4bcb7462f64c1d20fa69dba3cee8a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a09c4bcb7462f64c1d20fa69dba3cee8a">~Texture</a> ()</td></tr>
-<tr class="separator:a09c4bcb7462f64c1d20fa69dba3cee8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a823d551190aa912e281f7ac41be05c3f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a823d551190aa912e281f7ac41be05c3f">OSK_ASSET_TYPE_REG</a> (&quot;OSK::Texture&quot;)</td></tr>
 <tr class="separator:a823d551190aa912e281f7ac41be05c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2624c642f8e05c628cf903e8faf8088f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a2624c642f8e05c628cf903e8faf8088f">GetSize</a> () const</td></tr>
@@ -124,7 +122,7 @@ Métodos públicos</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p >Una textura que será usada en renderizado 2D / 3D. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_texture_8h_source.html#l00013">13</a> del archivo <a class="el" href="_texture_8h_source.html">Texture.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_texture_8h_source.html#l00014">14</a> del archivo <a class="el" href="_texture_8h_source.html">Texture.h</a>.</p>
 </div><h2 class="groupheader">Documentación del constructor y destructor</h2>
 <a id="a73989d7926a60a99f29dff7726127638" name="a73989d7926a60a99f29dff7726127638"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a73989d7926a60a99f29dff7726127638">&#9670;&nbsp;</a></span>Texture()</h2>
@@ -146,25 +144,6 @@ Métodos públicos</h2></td></tr>
 
 </div>
 </div>
-<a id="a09c4bcb7462f64c1d20fa69dba3cee8a" name="a09c4bcb7462f64c1d20fa69dba3cee8a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09c4bcb7462f64c1d20fa69dba3cee8a">&#9670;&nbsp;</a></span>~Texture()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Texture::~Texture </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_texture_8cpp_source.html#l00014">14</a> del archivo <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
-
-</div>
-</div>
 <h2 class="groupheader">Documentación de las funciones miembro</h2>
 <a id="ac48b769e17329079b1348a7b7dab4e4c" name="ac48b769e17329079b1348a7b7dab4e4c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac48b769e17329079b1348a7b7dab4e4c">&#9670;&nbsp;</a></span>_SetImage()</h2>
@@ -182,7 +161,7 @@ Métodos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Establece la imagen de la textura. </p>
+<p>Establece la imagen GPU de la textura. </p>
 <dl class="section warning"><dt>Atención</dt><dd>Función interna: no llamar. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_texture_8cpp_source.html#l00038">38</a> del archivo <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
@@ -205,7 +184,7 @@ Métodos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Establece el número de canales.. </p>
+<p>Establece el número de canales (red green blue, etc...). </p>
 <dl class="section warning"><dt>Atención</dt><dd>Función interna: no llamar. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_texture_8cpp_source.html#l00034">34</a> del archivo <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
@@ -229,7 +208,7 @@ Métodos públicos</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Establece el tamaño de la textura. </p>
-<dl class="section warning"><dt>Atención</dt><dd>Función interna: no llamar.</dd></dl>
+<dl class="section warning"><dt>Atención</dt><dd>Función interna: no llamar. </dd></dl>
 <dl class="section note"><dt>Nota</dt><dd>En píxeles. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_texture_8cpp_source.html#l00030">30</a> del archivo <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
@@ -259,7 +238,7 @@ Métodos públicos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Obtiene la ruta del archivo '.json' que describe esta instancia del asset. </p>
+<p>Obtiene la ruta del archivo JSON que describe esta instancia del asset. </p>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_asset_8cpp_source.html#l00018">18</a> del archivo <a class="el" href="_i_asset_8cpp_source.html">IAsset.cpp</a>.</p>
 
@@ -418,7 +397,7 @@ Métodos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">ASSETS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">Texture</a></li>
-    <li class="footer">Generado el Miércoles, 12 de Octubre de 2022 21:13:15 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Sábado, 15 de Octubre de 2022 00:57:46 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

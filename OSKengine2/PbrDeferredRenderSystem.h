@@ -13,6 +13,9 @@ namespace OSK::ECS {
 
 	class CameraComponent3D;
 
+	/// <summary>
+	/// Sistema de renderizado PBR en diferido.
+	/// </summary>
 	class OSKAPI_CALL PbrDeferredRenderSystem : public IRenderSystem {
 
 	public:

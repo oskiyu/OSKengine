@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('class_o_s_k_1_1_a_s_s_e_t_s_1_1_static
 <a href="#pro-static-methods">Métodos protegidos estáticos</a> &#124;
 <a href="#pro-attribs">Atributos protegidos</a> &#124;
 <a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader-members.html">Lista de todos los miembros</a>  </div>
-  <div class="headertitle"><div class="title">Referencia de la Clase OSK::ASSETS::StaticMeshLoader</div></div>
+  <div class="headertitle"><div class="title">Referencia de la Clase OSK::ASSETS::StaticMeshLoader<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -110,6 +110,8 @@ Métodos protegidos</h2></td></tr>
 <tr class="separator:a5dc6a329e3c2f79eedad42aefeba13f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99afee2487b413559da40abc3130ad62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html#a99afee2487b413559da40abc3130ad62">SmoothNormals</a> () override</td></tr>
 <tr class="separator:a99afee2487b413559da40abc3130ad62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb734404f6168fa20d7fdffed7028798"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#aeb734404f6168fa20d7fdffed7028798">ProcessNode</a> (const tinygltf::Node &amp;node, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> nodeId, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> parentId)=0</td></tr>
+<tr class="separator:aeb734404f6168fa20d7fdffed7028798"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7274124723c8b2aa1fe15f61462eaa07"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GRAPHICS::GpuImage</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a7274124723c8b2aa1fe15f61462eaa07">LoadImages</a> ()</td></tr>
 <tr class="separator:a7274124723c8b2aa1fe15f61462eaa07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3c7e5438ddddb499468728a83a54ca8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_material_info.html">GltfMaterialInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#ab3c7e5438ddddb499468728a83a54ca8">LoadMaterials</a> ()</td></tr>
@@ -140,8 +142,9 @@ Atributos protegidos</h2></td></tr>
 <tr class="separator:a349edf8e41b582ca8f20d8a646bdda2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
-<div class="textblock">
-<p class="definition">Definición en la línea <a class="el" href="_static_mesh_loader_8h_source.html#l00009">9</a> del archivo <a class="el" href="_static_mesh_loader_8h_source.html">StaticMeshLoader.h</a>.</p>
+<div class="textblock"><p >Clase auxiliar que permite la carga de modelos 3D estáticos. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_static_mesh_loader_8h_source.html#l00011">11</a> del archivo <a class="el" href="_static_mesh_loader_8h_source.html">StaticMeshLoader.h</a>.</p>
 </div><h2 class="groupheader">Documentación de las funciones miembro</h2>
 <a id="a747200f086fa73749e89a093cc5d4b6f" name="a747200f086fa73749e89a093cc5d4b6f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a747200f086fa73749e89a093cc5d4b6f">&#9670;&nbsp;</a></span>GetNodeMatrix()</h2>
@@ -278,8 +281,61 @@ Atributos protegidos</h2></td></tr>
 
 </div>
 </div>
+<a id="aeb734404f6168fa20d7fdffed7028798" name="aeb734404f6168fa20d7fdffed7028798"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb734404f6168fa20d7fdffed7028798">&#9670;&nbsp;</a></span>ProcessNode() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OSK::ASSETS::IMeshLoader::ProcessNode </td>
+          <td>(</td>
+          <td class="paramtype">const tinygltf::Node &amp;&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
+          <td class="paramname"><em>nodeId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
+          <td class="paramname"><em>parentId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Procesa un nodo de un modelo GLTF. Este nodo puede contener o no geometría 3D en forma de meshes. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Nodo GLTF.</td></tr>
+    <tr><td class="paramname">nodeId</td><td>ID del nodo procesado.</td></tr>
+    <tr><td class="paramname">parentId</td><td>ID del nodo padre (TSize::max si no tiene padre).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Nota</dt><dd>Debe ser sobreescrito, para poder manejar los tipos de vértices distintos. </dd></dl>
+
+</div>
+</div>
 <a id="a5dc6a329e3c2f79eedad42aefeba13f7" name="a5dc6a329e3c2f79eedad42aefeba13f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5dc6a329e3c2f79eedad42aefeba13f7">&#9670;&nbsp;</a></span>ProcessNode()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dc6a329e3c2f79eedad42aefeba13f7">&#9670;&nbsp;</a></span>ProcessNode() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -319,15 +375,10 @@ Atributos protegidos</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Procesa un nodo. </p>
-<dl class="section note"><dt>Nota</dt><dd>Debe ser sobreescrito, para poder manejar los tipos de vértices distintos. </dd></dl>
-
-<p>Implementa <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a4f47f10f0fe34bbba7433d0aa030e172">OSK::ASSETS::IMeshLoader</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_static_mesh_loader_8cpp_source.html#l00046">46</a> del archivo <a class="el" href="_static_mesh_loader_8cpp_source.html">StaticMeshLoader.cpp</a>.</p>
 
@@ -358,7 +409,7 @@ Atributos protegidos</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Configura el modelo 3D. </p>
-<dl class="section note"><dt>Nota</dt><dd>Las clases derivadas deben sobreescribir esta función, creando dentro el vertex buffer del modelo 3D. </dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>model no puede ser null. </dd></dl>
 
 <p>Reimplementado de <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a290793d3b941e0d9162a0dcbd5cb6c50">OSK::ASSETS::IMeshLoader</a>.</p>
 
@@ -419,7 +470,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00139">139</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00144">144</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -443,7 +494,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00142">142</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00147">147</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -467,7 +518,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00134">134</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00139">139</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -491,7 +542,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00135">135</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00140">140</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -515,7 +566,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00137">137</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00142">142</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -539,7 +590,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00144">144</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00149">149</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -563,7 +614,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00140">140</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00145">145</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -587,7 +638,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_static_mesh_loader_8h_source.html#l00020">20</a> del archivo <a class="el" href="_static_mesh_loader_8h_source.html">StaticMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_static_mesh_loader_8h_source.html#l00025">25</a> del archivo <a class="el" href="_static_mesh_loader_8h_source.html">StaticMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -601,7 +652,7 @@ Atributos protegidos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">ASSETS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html">StaticMeshLoader</a></li>
-    <li class="footer">Generado el Miércoles, 12 de Octubre de 2022 21:13:15 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Sábado, 15 de Octubre de 2022 00:57:46 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

@@ -68,6 +68,7 @@ namespace OSK::GRAPHICS {
 			VkPhysicalDeviceAccelerationStructureFeaturesKHR rtAccelerationStructuresFeatures{};
 			VkPhysicalDeviceAccelerationStructurePropertiesKHR rtAccelerationStructuresProperites{};
 			VkPhysicalDeviceBufferDeviceAddressFeatures rtDeviceAddressFeatures{};
+			VkPhysicalDeviceDescriptorIndexingFeatures bindlessTexturesSets{};
 
 			VkPhysicalDeviceDynamicRenderingFeatures dynamicRenderingFeatures{};
 

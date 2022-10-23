@@ -40,12 +40,11 @@ Vertex GetVertex(uint index, InstanceInfo info) {
     vec4 data0 = vertices.data[initialVec4Offset + vec4OffsetPerVertex * index + 0];
 	vec4 data1 = vertices.data[initialVec4Offset + vec4OffsetPerVertex * index + 1];
 	vec4 data2 = vertices.data[initialVec4Offset + vec4OffsetPerVertex * index + 2];
-	vec4 data3 = vertices.data[initialVec4Offset + vec4OffsetPerVertex * index + 3];
 
     v.position = data0.xyz;
     v.normal = vec3(data0.w, data1.x, data1.y);
-    v.color = vec4(data1.z, data2.x, data2.y, data2.z);
-    v.texCoords = data3.xy;
+    v.color = vec4(data1.z, data1.w, data2.x, data2.y);
+    v.texCoords = data2.zw;
 
     return v;
 }

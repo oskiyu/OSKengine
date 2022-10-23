@@ -16,27 +16,20 @@ namespace OSK::ASSETS {
 	/// </summary>
 	struct FontInstance {
 
-		/// <summary>
-		/// Imagen en la GPU.
+		/// <summary> Imagen en la GPU. </summary>
 		/// 
 		/// @note Nunca será null.
-		/// </summary>
 		UniquePtr<GRAPHICS::GpuImage> image;
 
-		/// <summary>
-		/// Sprite para el renderizado 2D.
-		/// </summary>
+		/// <summary> Sprite para el renderizado 2D. </summary>
 		UniquePtr<GRAPHICS::Sprite> sprite;
 
-		/// <summary>
-		/// Información de los sprites del carácter.
-		/// </summary>
+		/// <summary> Información de los sprites del carácter. </summary>
 		HashMap<char, FontCharacter> characters;
 
-		/// <summary>
-		/// Tammaño de fuente de esta instancia.
-		/// En píxeles.
-		/// </summary>
+		/// <summary> Tammaño de fuente de esta instancia. </summary>
+		/// 
+		/// @note En píxeles.
 		TSize fontSize = 0;
 
 		/// <summary>

@@ -142,7 +142,7 @@ void BottomLevelAccelerationStructureVulkan::Setup(const IGpuVertexBuffer& verte
 	accelerationStructureGpuAddress.deviceAddress = RendererVulkan::pvkGetAccelerationStructureDeviceAddressKHR(logicalDevice, &finalBlasAddressInfo);
 }
 
-void BottomLevelAccelerationStructureVulkan::Update() {
+void BottomLevelAccelerationStructureVulkan::Update(ICommandList* cmdList) {
 	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
 
 	// TODO
@@ -167,11 +167,17 @@ void BottomLevelAccelerationStructureVulkan::Update() {
 	// Construcción final
 	const VkAccelerationStructureBuildRangeInfoKHR* ranges[] = { &blasBuildRangeInfo };
 
-	auto blasCommandList = Engine::GetRenderer()->CreateSingleUseCommandList();
-	blasCommandList->Start();
-	RendererVulkan::pvkCmdBuildAccelerationStructuresKHR(blasCommandList->As<CommandListVulkan>()->GetCommandBuffers()->At(blasCommandList->GetCommandListIndex()), 1, &accelerationBuildGeometryInfo, ranges);
-	blasCommandList->Close();
-	Engine::GetRenderer()->SubmitSingleUseCommandList(blasCommandList.GetPointer());
+	const VkCommandBuffer vkCmdList = cmdList->As<CommandListVulkan>()->GetCommandBuffers()->At(cmdList->GetCommandListIndex());
+	RendererVulkan::pvkCmdBuildAccelerationStructuresKHR(vkCmdList, 1, &accelerationBuildGeometryInfo, ranges);
+
+	// Sincronización para que no se pueda usar el blas hasta que haya sido reconstruido correctamente.
+	VkMemoryBarrier barrier{};
+	barrier.sType = VK_STRUCTURE_TYPE_MEMORY_BARRIER;
+	barrier.srcAccessMask = VK_ACCESS_ACCELERATION_STRUCTURE_WRITE_BIT_KHR;
+	barrier.dstAccessMask = VK_ACCESS_ACCELERATION_STRUCTURE_READ_BIT_KHR;
+
+	vkCmdPipelineBarrier(vkCmdList, VK_PIPELINE_STAGE_ACCELERATION_STRUCTURE_BUILD_BIT_KHR,
+		VK_PIPELINE_STAGE_ACCELERATION_STRUCTURE_BUILD_BIT_KHR, 0, 1, &barrier, 0, nullptr, 0, nullptr);
 }
 
 TSize BottomLevelAccelerationStructureVulkan::GetNumTriangles() const {

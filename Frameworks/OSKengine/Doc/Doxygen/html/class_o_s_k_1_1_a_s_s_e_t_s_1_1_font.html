@@ -124,13 +124,13 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:acf0bac3849facb6afb0499907186840b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
-<div class="textblock"><p >Representa una fuente: un asset que almacena una fuente que nos permite renderizar texto. </p>
-<dl class="section note"><dt>Nota</dt><dd>Al cargar una fuente, en realidad no se carga la fuente: debemos cargar una fuente de manera independiente por cada tamaño de letra que queramos usar.</dd>
+<div class="textblock"><p >Representa una fuente que nos permite renderizar texto. </p>
+<dl class="section note"><dt>Nota</dt><dd>Usa una estrategia de cración perezosa: debemos cargar una fuente de manera independiente por cada tamaño de letra que queramos usar.</dd>
 <dd>
 Considere precargar los tamaños de letra que se vayan a usar más adelante, para evitar pérdidas de rendimiento durante la ejecución.</dd></dl>
 <dl class="section warning"><dt>Atención</dt><dd>Únicamente soporta caracteres ASCII. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_font_8h_source.html#l00030">30</a> del archivo <a class="el" href="_font_8h_source.html">Font.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_font_8h_source.html#l00027">27</a> del archivo <a class="el" href="_font_8h_source.html">Font.h</a>.</p>
 </div><h2 class="groupheader">Documentación del constructor y destructor</h2>
 <a id="a78c9042a19344790d5f54b1c498cdad8" name="a78c9042a19344790d5f54b1c498cdad8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a78c9042a19344790d5f54b1c498cdad8">&#9670;&nbsp;</a></span>Font()</h2>
@@ -205,7 +205,7 @@ Considere precargar los tamaños de letra que se vayan a usar más adelante, par
 </table>
 </div><div class="memdoc">
 
-<p>Obtiene la ruta del archivo '.json' que describe esta instancia del asset. </p>
+<p>Obtiene la ruta del archivo JSON que describe esta instancia del asset. </p>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_asset_8cpp_source.html#l00018">18</a> del archivo <a class="el" href="_i_asset_8cpp_source.html">IAsset.cpp</a>.</p>
 
@@ -268,13 +268,13 @@ Considere precargar los tamaños de letra que se vayan a usar más adelante, par
 </div><div class="memdoc">
 
 <p>Devuelve la imagen de GPU correspondiente a la fuente del tamaño dado. </p>
-<dl class="section note"><dt>Nota</dt><dd>Si la fuente no está cargada, se cargará automáticamente.</dd></dl>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">fontSize</td><td>Tamaño de la fuente, en píxeles.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Nota</dt><dd>Si la fuente no está cargada, se cargará automáticamente. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_font_8cpp_source.html#l00168">168</a> del archivo <a class="el" href="_font_8cpp_source.html">Font.cpp</a>.</p>
 
@@ -476,13 +476,13 @@ Considere precargar los tamaños de letra que se vayan a usar más adelante, par
 </div><div class="memdoc">
 
 <p>Descarga la instancia de la funente con el tamaño dado. </p>
-<p >Si la instancia no existe, no ocurre nada. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">size</td><td>Tamaño de letra, en píxeles.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Nota</dt><dd>Si la instancia no existe, no ocurre nada. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_font_8cpp_source.html#l00154">154</a> del archivo <a class="el" href="_font_8cpp_source.html">Font.cpp</a>.</p>
 
@@ -498,7 +498,7 @@ Considere precargar los tamaños de letra que se vayan a usar más adelante, par
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">ASSETS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html">Font</a></li>
-    <li class="footer">Generado el Miércoles, 12 de Octubre de 2022 21:13:15 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Sábado, 15 de Octubre de 2022 00:57:46 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

@@ -43,7 +43,7 @@ void StaticMeshLoader::SmoothNormals() {
 		vertices.At(v).normal.Normalize();
 }
 
-void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize parentId, const glm::mat4& prevMat) {
+void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize parentId) {
 	const glm::mat4 nodeMatrix = modelTransform * GetNodeMatrix(node);
 
 	// Proceso del polígono.
@@ -176,7 +176,7 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSi
 	}
 
 	for (TSize i = 0; i < node.children.size(); i++)
-		ProcessNode(gltfModel.nodes[node.children[i]], node.children[i], parentId, nodeMatrix);
+		ProcessNode(gltfModel.nodes[node.children[i]], node.children[i], parentId);
 }
 
 void StaticMeshLoader::SetupModel(Model3D* model) {

@@ -17,8 +17,8 @@ layout (location = 0) rayPayloadEXT RayResult rayResult;
 layout (constant_id = 0) const int MAX_RECURSION = 1;
 
 layout (set = 1, binding = 0) uniform Camera {
-    mat4 view;
     mat4 projection;
+    mat4 view;
 
     vec3 cameraPos;
 } camera;
@@ -34,8 +34,8 @@ void main() {
 
     uint rayFlags = gl_RayFlagsOpaqueEXT;
     uint cullMask = 0xff;
-    float minDistance = 0.0000001;
-    float maxDistance = 100000000.0;
+    float minDistance = 0.0001;
+    float maxDistance = 1000.0;
 
     vec4 color = vec4(0.0);
 
@@ -45,10 +45,7 @@ void main() {
         break;
     }
 
-    if (rayResult.distance > 0.0)
-        color = vec4(rayResult.normal.xyz, 1.0);
-    else
-        color = vec4(rayResult.color.xyz, 1.0);
+    color = vec4(rayResult.normal.xyz, 1.0);
 
     imageStore(targetImage, ivec2(gl_LaunchIDEXT.xy), color);
 }

@@ -64,6 +64,7 @@
 
 #include "RenderSystem3D.h"
 #include "RenderSystem2D.h"
+#include "HybridRenderSystem.h"
 #include "RenderTarget.h"
 
 #include "PbrDeferredRenderSystem.h"
@@ -102,7 +103,7 @@ using namespace OSK::GRAPHICS;
 Material* pbrColorMaterial = nullptr;
 Material* pbrNormalMaterial = nullptr;
 
-#define OSK_CURRENT_RSYSTEM OSK::ECS::RenderSystem3D
+#define OSK_CURRENT_RSYSTEM OSK::ECS::HybridRenderSystem
 
 class Game1 : public OSK::IGame {
 
@@ -115,15 +116,14 @@ protected:
 	}
 
 	void SetupEngine() override {
-		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetWindow(), PresentMode::VSYNC_ON_TRIPLE_BUFFER);
+		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetWindow(), PresentMode::VSYNC_ON);
 	}
 
 	void OnCreate() override {
-		// Material load
-
 		auto irradianceMap = Engine::GetAssetManager()->Load<ASSETS::IrradianceMap>("Resources/Assets/IBL/irradiance0.json", "GLOBAL");
 		auto animModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/animmodel.json", "GLOBAL");
 
+		// Material load
 		material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_pbr.json"); //Resources/PbrMaterials/deferred_gbuffer.json
 		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json");
 		materialRenderTarget = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rendertarget.json");
@@ -137,10 +137,10 @@ protected:
 		ASSETS::Model3D* carModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/f1.json", "GLOBAL");
 		ASSETS::Model3D* circuitModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/circuit0.json", "GLOBAL");
 
-		//topLevelAccelerationStructure = Engine::GetRenderer()->GetMemoryAllocator()->CreateTopAccelerationStructure({
-		//	model->GetAccelerationStructure(),
-		//	model_low->GetAccelerationStructure()
-		//	}).GetPointer();
+		topLevelAccelerationStructure = Engine::GetRenderer()->GetAllocator()->CreateTopAccelerationStructure({
+			carModel->GetAccelerationStructure(),
+			circuitModel->GetAccelerationStructure()
+			}).GetPointer();
 
 		DynamicArray<RtInstanceInfo> instancesInfo;
 		instancesInfo.Insert({
@@ -164,17 +164,32 @@ protected:
 			rtTargetImage[i]->SetDebugName("RtTargetImage [" + std::to_string(i) + "]");
 		}
 
-		/*rtMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rt.json");
+		OSK_CURRENT_RSYSTEM* renderSystem = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>();
+		rtMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rt.json");
 		rtMaterialInstance = rtMaterial->CreateInstance().GetPointer();
 		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("vertices", carModel->GetVertexBuffer());
 		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("indices", carModel->GetIndexBuffer());
 		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("instanceInfos", instancesInfoBuffer);
 		rtMaterialInstance->GetSlot("rt")->SetAccelerationStructure("topLevelAccelerationStructure", topLevelAccelerationStructure);
-		
-		/*rtMaterialInstance->GetSlot("rt")->SetStorageImages("targetImage", imgs);
+
+		renderSystem->AddBlas(carModel->GetAccelerationStructure());
+		renderSystem->AddBlas(circuitModel->GetAccelerationStructure());
+
+		const IGpuUniformBuffer* cameraBuffers[3] {
+			renderSystem->GetCameraBuffer(0),
+			renderSystem->GetCameraBuffer(1),
+			renderSystem->GetCameraBuffer(2)
+		};
+		const GpuImage* rtImages[3]{
+			rtTargetImage[0],
+			rtTargetImage[1],
+			rtTargetImage[2]
+		};
+
+		rtMaterialInstance->GetSlot("rt")->SetStorageImages("targetImage", rtImages);
 		rtMaterialInstance->GetSlot("rt")->FlushUpdate();
-		rtMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", cameraUbos);
-		rtMaterialInstance->GetSlot("global")->FlushUpdate();*/
+		rtMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", cameraBuffers);
+		rtMaterialInstance->GetSlot("global")->FlushUpdate();
 
 		// ECS
 		carObject = Engine::GetEcs()->SpawnObject();
@@ -184,7 +199,6 @@ protected:
 		Engine::GetEcs()->AddComponent<ECS::CameraComponent3D>(cameraObject, {});
 		auto& cameraTransform = Engine::GetEcs()->AddComponent<ECS::Transform3D>(cameraObject, ECS::Transform3D(cameraObject));
 		cameraTransform.AddPosition({ 0.0f, 0.3f, 0.0f });
-		OSK_CURRENT_RSYSTEM* renderSystem = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>();
 		renderSystem->Initialize(cameraObject, *irradianceMap);
 		Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->SetCamera(cameraObject);
 
@@ -204,12 +218,12 @@ protected:
 		auto& transform2 = Engine::GetEcs()->AddComponent<ECS::Transform3D>(circuitObject, ECS::Transform3D(circuitObject));
 		auto modelComponent2 = &Engine::GetEcs()->AddComponent<ECS::ModelComponent3D>(circuitObject, {});
 
-		modelComponent2->SetModel(animModel); // circuitModel
+		modelComponent2->SetModel(circuitModel); // animModel
 		modelComponent2->SetMaterial(material);
 		modelComponent2->BindTextureForAllMeshes("texture", "albedoTexture", texture);
-		ModelLoader3D::SetupPbrModel(animModel, modelComponent2);
-		animModel->GetAnimator()->AddActiveAnimation("Idle");
-		animModel->GetAnimator()->AddActiveAnimation("Run");
+		ModelLoader3D::SetupPbrModel(circuitModel, modelComponent2);
+		// circuitModel->GetAnimator()->AddActiveAnimation("Idle");
+		// circuitModel->GetAnimator()->AddActiveAnimation("Run");
 
 		// Cubemap
 		Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->SetCubemap(*Engine::GetAssetManager()->Load<ASSETS::CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL"));
@@ -302,6 +316,21 @@ protected:
 		if (newKs->IsKeyDown(IO::Key::D))
 			rightMovement += 0.7f;
 
+		Vector2f cameraRotation = {
+			(float)(Engine::GetWindow()->GetMouseState()->GetPosition().X - Engine::GetWindow()->GetPreviousMouseState()->GetPosition().X),
+			(float)(Engine::GetWindow()->GetMouseState()->GetPosition().Y - Engine::GetWindow()->GetPreviousMouseState()->GetPosition().Y)
+		};
+
+		const IO::GamepadState& gamepadState = Engine::GetWindow()->GetGamepadState(0);
+		if (gamepadState.IsConnected()) {
+			forwardMovement -= gamepadState.GetAxisState(IO::GamepadAxis::LEFT_Y);
+
+			rightMovement += gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
+
+			cameraRotation.X += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_X);
+			cameraRotation.Y += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_Y);
+		}
+
 		if (newKs->IsKeyDown(IO::Key::LEFT_SHIFT)) {
 			forwardMovement *= 0.3f;
 			rightMovement *= 0.3f;
@@ -331,10 +360,7 @@ protected:
 		if (newKs->IsKeyDown(IO::Key::P))
 			this->Exit();
 
-		camera.Rotate(
-			(float)(Engine::GetWindow()->GetMouseState()->GetPosition().X - Engine::GetWindow()->GetPreviousMouseState()->GetPosition().X),
-			(float)(Engine::GetWindow()->GetMouseState()->GetPosition().Y - Engine::GetWindow()->GetPreviousMouseState()->GetPosition().Y)
-		);
+		camera.Rotate(cameraRotation.X, cameraRotation.Y);
 
 		cameraTransform.AddPosition(cameraTransform.GetForwardVector().GetNormalized() * forwardMovement * deltaTime);
 		cameraTransform.AddPosition(cameraTransform.GetRightVector().GetNormalized() * rightMovement * deltaTime);
@@ -345,19 +371,20 @@ protected:
 		);
 
 		if (OSK::Engine::GetRenderer()->IsRtActive()) {
+			auto commandList = OSK::Engine::GetRenderer()->GetGraphicsCommandList();
+
 			const auto& transformComponent = Engine::GetEcs()->GetComponent<ECS::Transform3D>(carObject);
 			auto& modelComponent = Engine::GetEcs()->GetComponent<ECS::ModelComponent3D>(carObject);
 			modelComponent.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent.GetAsMatrix());
-			modelComponent.GetModel()->GetAccelerationStructure()->Update();
+			modelComponent.GetModel()->GetAccelerationStructure()->Update(commandList);
 
 			const auto& transformComponent2 = Engine::GetEcs()->GetComponent<ECS::Transform3D>(circuitObject);
 			auto& modelComponent2 = Engine::GetEcs()->GetComponent<ECS::ModelComponent3D>(circuitObject);
 			modelComponent2.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent2.GetAsMatrix());
-			modelComponent2.GetModel()->GetAccelerationStructure()->Update();
-			topLevelAccelerationStructure->Update();
+			modelComponent2.GetModel()->GetAccelerationStructure()->Update(commandList);
+			/*topLevelAccelerationStructure->Update(commandList);
 
 			const TSize imgIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-			auto commandList = OSK::Engine::GetRenderer()->GetGraphicsCommandList();
 
 			commandList->SetGpuImageBarrier(rtTargetImage[imgIndex], GpuImageLayout::SHADER_READ_ONLY, GpuImageLayout::GENERAL,
 				GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::RAYTRACING_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
@@ -368,7 +395,7 @@ protected:
 			commandList->TraceRays(0, 0, 0, { 1920, 1080 });
 
 			commandList->SetGpuImageBarrier(rtTargetImage[imgIndex], GpuImageLayout::GENERAL, GpuImageLayout::SHADER_READ_ONLY,
-				GpuBarrierInfo(GpuBarrierStage::RAYTRACING_SHADER, GpuBarrierAccessStage::SHADER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
+				GpuBarrierInfo(GpuBarrierStage::RAYTRACING_SHADER, GpuBarrierAccessStage::SHADER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));*/
 		}
 	}
 
@@ -407,7 +434,7 @@ protected:
 		graphicsCommandList->BeginGraphicsRenderpass(&preEffectsRenderTarget);
 		spriteRenderer.Begin();
 		spriteRenderer.Draw(Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->GetRenderTarget().GetSprite(), Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->GetRenderTarget().GetSpriteTransform());
-		spriteRenderer.Draw(Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetSprite(), Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetSpriteTransform());
+		spriteRenderer.Draw(Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetSprite(), Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetShadowsImage().GetSpriteTransform());
 		spriteRenderer.End();
 		graphicsCommandList->EndGraphicsRenderpass();
 

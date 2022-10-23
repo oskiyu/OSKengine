@@ -14,7 +14,7 @@ namespace OSK::GRAPHICS {
 	public:
 
 		void Setup(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer) override;
-		void Update() override;
+		void Update(ICommandList* cmdList) override;
 
 		TSize GetNumTriangles() const;
 		VkAccelerationStructureGeometryKHR GetGeometryInfo() const;

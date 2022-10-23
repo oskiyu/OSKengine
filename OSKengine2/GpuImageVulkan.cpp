@@ -77,7 +77,7 @@ void GpuImageVulkan::CreateVkImage() {
 
 	// Si la imagen se usará como cubemap, debemos especificarlo.
 	imageInfo.flags = EFTraits::HasFlag(GetUsage(), GpuImageUsage::CUBEMAP) ? VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT : 0;
-
+	
 	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
 	VkResult result = vkCreateImage(device,	&imageInfo, nullptr, &image);
 	OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear la imagen en la GPU.");

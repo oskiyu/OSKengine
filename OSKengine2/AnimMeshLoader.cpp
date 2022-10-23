@@ -48,7 +48,7 @@ void AnimMeshLoader::SmoothNormals() {
 		vertices.At(v).normal.Normalize();
 }
 
-void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize parentId, const glm::mat4& prevMat) {
+void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize parentId) {
 	if (tempAnimator.GetActiveSkin() == nullptr)
 		LoadSkins();
 
@@ -267,7 +267,7 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize
 	Engine::GetLogger()->InfoLog("Nodo cargado: " + animNode.name + " índice: " + std::to_string(animNode.thisIndex) + " parent: " + std::to_string(animNode.parentIndex));
 
 	for (TSize i = 0; i < node.children.size(); i++) {
-		ProcessNode(gltfModel.nodes[node.children[i]], node.children[i], nodeId, glm::mat4(1.0f));
+		ProcessNode(gltfModel.nodes[node.children[i]], node.children[i], nodeId);
 		animNode.childIndices.Insert(node.children[i]);
 	}
 
@@ -408,7 +408,7 @@ void AnimMeshLoader::SetupModel(Model3D* model) {
 
 	LoadAnimations();
 	
-	model->SetAnimator(std::move(tempAnimator));
+	model->_SetAnimator(std::move(tempAnimator));
 	model->GetAnimator()->Setup(modelTransform);
 
 	IMeshLoader::SetupModel(model);

@@ -5,16 +5,21 @@
 
 namespace OSK::ASSETS {
 
-
+	/// <summary>
+	/// Clase auxiliar que permite la carga de modelos 3D estáticos.
+	/// </summary>
 	class StaticMeshLoader : public IMeshLoader {
 
 	public:
 
+		/// <summary> Configura el modelo 3D. </summary>
+		/// 
+		/// @pre model no puede ser null.
 		void SetupModel(Model3D* model) override;
 
 	protected:
 
-		void ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize parentId, const glm::mat4& prevMat) override;
+		void ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize parentId) override;
 		void SmoothNormals() override;
 
 		DynamicArray<GRAPHICS::Vertex3D> vertices;

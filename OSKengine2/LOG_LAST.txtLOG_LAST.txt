@@ -1,6 +1,6 @@
 INFO: Iniciando OSKengine.
 INFO: 	Version: 0.0.0.
-INFO: 	Build 2022.10.11a.
+INFO: 	Build 2022.10.23a.
 INFO: Ventana iniciada correctamente.
 INFO: 	Monitor sizeX: 1920
 INFO: 	Monitor sizeY: 1080
@@ -49,6 +49,21 @@ INFO: Buffer eliminado
 INFO: Buffer eliminado
 INFO: Buffer eliminado
 INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
 INFO: Buffer eliminado
 INFO: Buffer eliminado
 INFO: Buffer eliminado

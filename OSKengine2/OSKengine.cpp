@@ -19,6 +19,7 @@
 #include "Vertex3D.h"
 #include "MaterialSystem.h"
 #include "RenderSystem2D.h"
+#include "HybridRenderSystem.h"
 #include "IGpuMemoryAllocator.h"
 #include "CameraComponent2D.h"
 #include "Sprite.h"
@@ -108,7 +109,7 @@ void Engine::RegisterBuiltinComponents() {
 }
 
 void Engine::RegisterBuiltinSystems() {
-	entityComponentSystem->RegisterSystem<ECS::RenderSystem3D>();
+	entityComponentSystem->RegisterSystem<ECS::HybridRenderSystem>();
 	entityComponentSystem->RegisterSystem<ECS::SkyboxRenderSystem>();
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem2D>();
 	// entityComponentSystem->RegisterSystem<ECS::TerrainRenderSystem>();
@@ -159,7 +160,7 @@ const Version& Engine::GetVersion() {
 }
 
 const std::string& Engine::GetBuild() {
-	static std::string build = "2022.10.11a";
+	static std::string build = "2022.10.23a";
 
 	return build;
 }

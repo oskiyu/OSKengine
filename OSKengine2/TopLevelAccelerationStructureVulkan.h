@@ -14,7 +14,7 @@ namespace OSK::GRAPHICS {
 	public:
 
 		void Setup() override;
-		void Update() override;
+		void Update(ICommandList* cmdList) override;
 
 		VkAccelerationStructureKHR GetAccelerationStructure() const;
 

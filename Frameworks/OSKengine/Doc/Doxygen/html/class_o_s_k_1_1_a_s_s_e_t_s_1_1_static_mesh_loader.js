@@ -3,6 +3,7 @@ var class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader =
     [ "Load", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html#ae88bf8691e570384b5067fc55354bba7", null ],
     [ "LoadImages", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html#a7274124723c8b2aa1fe15f61462eaa07", null ],
     [ "LoadMaterials", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html#ab3c7e5438ddddb499468728a83a54ca8", null ],
+    [ "ProcessNode", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html#aeb734404f6168fa20d7fdffed7028798", null ],
     [ "ProcessNode", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html#a5dc6a329e3c2f79eedad42aefeba13f7", null ],
     [ "SetupModel", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html#a454d0b7dcbc2897bfcc57d50fe399742", null ],
     [ "SmoothNormals", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html#a99afee2487b413559da40abc3130ad62", null ],

@@ -4,10 +4,6 @@
 
 using namespace OSK::ASSETS;
 
-AssetManager::~AssetManager() {
-	
-}
-
 void AssetManager::DeleteLifetime(const std::string& lifetime) {
 	if (!assetsPerLifetime.ContainsKey(lifetime))
 		return;

@@ -29,7 +29,7 @@ void Model3D::_SetIndexBuffer(const OwnedPtr<GRAPHICS::IGpuIndexBuffer>& indexBu
 	this->indexBuffer = indexBuffer.GetPointer();
 }
 
-void Model3D::_SetAccelerationStructure(const OwnedPtr<GRAPHICS::IBottomLevelAccelerationStructure>& accelerationStructure) {
+void Model3D::_SetAccelerationStructure(OwnedPtr<GRAPHICS::IBottomLevelAccelerationStructure> accelerationStructure) {
 	this->accelerationStructure = accelerationStructure.GetPointer();
 }
 
@@ -65,7 +65,7 @@ const ModelMetadata& Model3D::GetMetadata() const {
 	return metadata;
 }
 
-void Model3D::SetAnimator(GRAPHICS::Animator&& animator) {
+void Model3D::_SetAnimator(GRAPHICS::Animator&& animator) {
 	this->animator = new Animator(std::move(animator));
 }
 

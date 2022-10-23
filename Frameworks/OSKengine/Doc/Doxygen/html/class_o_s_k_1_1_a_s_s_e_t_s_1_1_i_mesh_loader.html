@@ -106,8 +106,8 @@ Métodos públicos</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Métodos protegidos</h2></td></tr>
-<tr class="memitem:a4f47f10f0fe34bbba7433d0aa030e172"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a4f47f10f0fe34bbba7433d0aa030e172">ProcessNode</a> (const tinygltf::Node &amp;node, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> nodeId, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> parentId, const glm::mat4 &amp;prevMat)=0</td></tr>
-<tr class="separator:a4f47f10f0fe34bbba7433d0aa030e172"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb734404f6168fa20d7fdffed7028798"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#aeb734404f6168fa20d7fdffed7028798">ProcessNode</a> (const tinygltf::Node &amp;node, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> nodeId, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> parentId)=0</td></tr>
+<tr class="separator:aeb734404f6168fa20d7fdffed7028798"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c6e9430b6e35ff1a090f670af3cf753"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a8c6e9430b6e35ff1a090f670af3cf753">SmoothNormals</a> ()=0</td></tr>
 <tr class="separator:a8c6e9430b6e35ff1a090f670af3cf753"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7274124723c8b2aa1fe15f61462eaa07"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GRAPHICS::GpuImage</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a7274124723c8b2aa1fe15f61462eaa07">LoadImages</a> ()</td></tr>
@@ -140,11 +140,11 @@ Atributos protegidos</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p >Clase base para poder importar un modelo GLTF. Se debe crear una clase hija por cada tipo de vértice que se quiera cargar. </p>
 <p >Por defecto hay 2:</p><ul>
-<li><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html">StaticMeshLoader</a> para modelos 3D no animados (Vertex3D).</li>
-<li><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader.html">AnimMeshLoader</a> para modelos 3D animados (AnimVertex3D). </li>
+<li><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html" title="Clase auxiliar que permite la carga de modelos 3D estáticos.">StaticMeshLoader</a> para modelos 3D no animados (Vertex3D).</li>
+<li><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader.html" title="Clase auxiliar que permite la carga de modelos 3D animados junto a sus animaciones.">AnimMeshLoader</a> para modelos 3D animados (AnimVertex3D). </li>
 </ul>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00101">101</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00094">94</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
 </div><h2 class="groupheader">Documentación de las funciones miembro</h2>
 <a id="a747200f086fa73749e89a093cc5d4b6f" name="a747200f086fa73749e89a093cc5d4b6f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a747200f086fa73749e89a093cc5d4b6f">&#9670;&nbsp;</a></span>GetNodeMatrix()</h2>
@@ -273,8 +273,8 @@ Atributos protegidos</h2></td></tr>
 
 </div>
 </div>
-<a id="a4f47f10f0fe34bbba7433d0aa030e172" name="a4f47f10f0fe34bbba7433d0aa030e172"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f47f10f0fe34bbba7433d0aa030e172">&#9670;&nbsp;</a></span>ProcessNode()</h2>
+<a id="aeb734404f6168fa20d7fdffed7028798" name="aeb734404f6168fa20d7fdffed7028798"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb734404f6168fa20d7fdffed7028798">&#9670;&nbsp;</a></span>ProcessNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -298,13 +298,7 @@ Atributos protegidos</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
-          <td class="paramname"><em>parentId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const glm::mat4 &amp;&#160;</td>
-          <td class="paramname"><em>prevMat</em>&#160;</td>
+          <td class="paramname"><em>parentId</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -319,10 +313,16 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Procesa un nodo. </p>
+<p>Procesa un nodo de un modelo GLTF. Este nodo puede contener o no geometría 3D en forma de meshes. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Nodo GLTF.</td></tr>
+    <tr><td class="paramname">nodeId</td><td>ID del nodo procesado.</td></tr>
+    <tr><td class="paramname">parentId</td><td>ID del nodo padre (TSize::max si no tiene padre).</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section note"><dt>Nota</dt><dd>Debe ser sobreescrito, para poder manejar los tipos de vértices distintos. </dd></dl>
-
-<p>Implementado en <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader.html#a11d55449219f6a21f62c76851986c44b">OSK::ASSETS::AnimMeshLoader</a> y <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html#a5dc6a329e3c2f79eedad42aefeba13f7">OSK::ASSETS::StaticMeshLoader</a>.</p>
 
 </div>
 </div>
@@ -410,7 +410,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00139">139</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00144">144</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -434,7 +434,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00142">142</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00147">147</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -458,7 +458,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00134">134</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00139">139</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -482,7 +482,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00135">135</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00140">140</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -506,7 +506,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00137">137</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00142">142</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -530,7 +530,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00144">144</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00149">149</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -554,7 +554,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00140">140</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_mesh_loader_8h_source.html#l00145">145</a> del archivo <a class="el" href="_i_mesh_loader_8h_source.html">IMeshLoader.h</a>.</p>
 
 </div>
 </div>
@@ -568,7 +568,7 @@ Atributos protegidos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">ASSETS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html">IMeshLoader</a></li>
-    <li class="footer">Generado el Miércoles, 12 de Octubre de 2022 21:13:15 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Sábado, 15 de Octubre de 2022 00:57:46 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

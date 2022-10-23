@@ -105,11 +105,11 @@ Métodos públicos</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p >Un mesh representa una serie de primitivas (triángulos) de un modelo 3D que comparten unas mismas propiedades de material. </p>
-<dl class="section note"><dt>Nota</dt><dd>Los buffers con vértices e índices son propiedad del modelo 3D. </dd>
+<dl class="section note"><dt>Nota</dt><dd>Los buffers con vértices e índices son propiedad del modelo 3D.</dd>
 <dd>
 Un mesh únicamente almacena los índices que le corresponden, representados por el ID del primer índice y el número de índices. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_mesh3_d_8h_source.html#l00015">15</a> del archivo <a class="el" href="_mesh3_d_8h_source.html">Mesh3D.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_mesh3_d_8h_source.html#l00016">16</a> del archivo <a class="el" href="_mesh3_d_8h_source.html">Mesh3D.h</a>.</p>
 </div><h2 class="groupheader">Documentación del constructor y destructor</h2>
 <a id="a4d617a90fd95bec270f51d3237d4d663" name="a4d617a90fd95bec270f51d3237d4d663"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4d617a90fd95bec270f51d3237d4d663">&#9670;&nbsp;</a></span>Mesh3D()</h2>
@@ -137,6 +137,11 @@ Un mesh únicamente almacena los índices que le corresponden, representados por
       </table>
 </div><div class="memdoc">
 
+<p>Crea el mesh que será compuesto por los los triángulos compuestos con los índices dados. </p>
+<dl class="section pre"><dt>Precondición</dt><dd>El número de índices debe ser múltipo de 3. </dd>
+<dd>
+El número de índices debe ser mayor que 0. </dd></dl>
+
 <p class="definition">Definición en la línea <a class="el" href="_mesh3_d_8cpp_source.html#l00006">6</a> del archivo <a class="el" href="_mesh3_d_8cpp_source.html">Mesh3D.cpp</a>.</p>
 
 </div>
@@ -157,6 +162,8 @@ Un mesh únicamente almacena los índices que le corresponden, representados por
       </table>
 </div><div class="memdoc">
 
+<p>Offset del primer índice respecto al buffer de índices del modelo 3D al que pertenece este mesh. </p>
+
 <p class="definition">Definición en la línea <a class="el" href="_mesh3_d_8cpp_source.html#l00015">15</a> del archivo <a class="el" href="_mesh3_d_8cpp_source.html">Mesh3D.cpp</a>.</p>
 
 </div>
@@ -176,6 +183,9 @@ Un mesh únicamente almacena los índices que le corresponden, representados por
       </table>
 </div><div class="memdoc">
 
+<p>Devuelve el número de índices que componen la malla de este mesh. </p>
+<dl class="section note"><dt>Nota</dt><dd>Mútliplo de 3. </dd></dl>
+
 <p class="definition">Definición en la línea <a class="el" href="_mesh3_d_8cpp_source.html#l00011">11</a> del archivo <a class="el" href="_mesh3_d_8cpp_source.html">Mesh3D.cpp</a>.</p>
 
 </div>
@@ -190,7 +200,7 @@ Un mesh únicamente almacena los índices que le corresponden, representados por
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh3_d.html">Mesh3D</a></li>
-    <li class="footer">Generado el Miércoles, 12 de Octubre de 2022 21:13:15 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Sábado, 15 de Octubre de 2022 00:57:46 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

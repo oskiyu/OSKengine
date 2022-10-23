@@ -11,10 +11,6 @@ Texture::Texture(const std::string& assetFile)
 
 }
 
-Texture::~Texture() {
-	delete image.GetPointer();
-}
-
 Vector2ui Texture::GetSize() const {
 	return size;
 }
@@ -36,5 +32,5 @@ void Texture::_SetNumberOfChannels(TSize numChannels) {
 }
 
 void Texture::_SetImage(OwnedPtr<GRAPHICS::GpuImage> image) {
-	this->image = image;
+	this->image = image.GetPointer();
 }

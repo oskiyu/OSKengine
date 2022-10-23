@@ -32,7 +32,7 @@ void IMeshLoader::Load(const std::string& rawAssetPath, const glm::mat4& modelTr
 	const tinygltf::Scene scene = gltfModel.scenes[0];
 
 	for (TSize i = 0; i < scene.nodes.size(); i++)
-		ProcessNode(gltfModel.nodes[scene.nodes[i]], scene.nodes[i], std::numeric_limits<TIndex>::max(), glm::mat4(1.0f));
+		ProcessNode(gltfModel.nodes[scene.nodes[i]], scene.nodes[i], std::numeric_limits<TIndex>::max());
 
 	SmoothNormals();
 }

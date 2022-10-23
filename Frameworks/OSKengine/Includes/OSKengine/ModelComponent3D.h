@@ -36,8 +36,6 @@ namespace OSK::ECS {
 
 		OSK_COMPONENT("OSK::ModelComponent3D");
 
-		~ModelComponent3D();
-
 		/// <summary>
 		/// Establece el modelo 3D que se renderizará.
 		/// </summary>
