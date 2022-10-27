@@ -722,7 +722,7 @@ void RendererVulkan::SubmitFrame() {
 			Engine::GetRenderer()->As<RendererVulkan>()->HandleResize();
 	}
 
-	currentCommandBufferIndex = (currentCommandBufferIndex + 1) % swapchain->GetImageCount();
+	currentCommandBufferIndex = (currentCommandBufferIndex + 1) % NUM_RESOURCES_IN_FLIGHT; //swapchain->GetImageCount()
 
 	// Si la siguiente imagen está siendo procesada, esperar a que termine.
 	// @todo vkGetSemaphoreState

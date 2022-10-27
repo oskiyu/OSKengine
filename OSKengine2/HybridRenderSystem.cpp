@@ -48,8 +48,10 @@ void HybridRenderSystem::SetupGBufferResources() {
 	animatedGbufferMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/deferred_gbuffer_anim.json");
 	globalGbufferMaterialInstance = gbufferMaterial->CreateInstance().GetPointer();
 
-	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4)).GetPointer();
+		previousCameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
+	}
 
 	SetupGBufferInstance();
 }
@@ -65,10 +67,14 @@ void HybridRenderSystem::SetupRtResources() {
 
 void HybridRenderSystem::SetupGBufferInstance() {
 	const IGpuUniformBuffer* _cameraUbos[3]{};
-	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+	const IGpuUniformBuffer* _prevCameraUbos[3]{};
+	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		_cameraUbos[i] = cameraUbos[i].GetPointer();
+		_prevCameraUbos[i] = previousCameraUbos[i].GetPointer();
+	}
 
 	globalGbufferMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
+	globalGbufferMaterialInstance->GetSlot("global")->SetUniformBuffers("previousCamera", _prevCameraUbos);
 	globalGbufferMaterialInstance->GetSlot("global")->FlushUpdate();
 }
 
@@ -77,14 +83,28 @@ void HybridRenderSystem::SetupShadowsInstance() {
 	const GpuImage* positionImgs[NUM_RESOURCES_IN_FLIGHT]{};
 	const GpuImage* shadowsImgs[NUM_RESOURCES_IN_FLIGHT]{};
 	const GpuImage* finalShadowsImgs[NUM_RESOURCES_IN_FLIGHT]{};
+	const GpuImage* historicalShadowsImgs[NUM_RESOURCES_IN_FLIGHT]{};
+	const GpuImage* velocityImgs[NUM_RESOURCES_IN_FLIGHT]{};
 	const IGpuUniformBuffer* _dirLightUbos[NUM_RESOURCES_IN_FLIGHT]{};
+
+	const GpuImage* currentGbufferPositionImgs[NUM_RESOURCES_IN_FLIGHT]{};
+	const GpuImage* currentGbufferNormalImgs[NUM_RESOURCES_IN_FLIGHT]{};
+	const GpuImage* historicalGbufferPositionImgs[NUM_RESOURCES_IN_FLIGHT]{};
+	const GpuImage* historicalGbufferNormalImgs[NUM_RESOURCES_IN_FLIGHT]{};
 
 	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		tlas[i] = topLevelAccelerationStructures[i].GetPointer();
 		positionImgs[i] = gBuffer.GetTargetImages(i).At(GBUFFER_POSITION_TARGET_INDEX);
 		shadowsImgs[i] = shadowsBuffer.GetMainTargetImage(i);
 		finalShadowsImgs[i] = shadowsFinalMask.GetMainTargetImage(i);
+		historicalShadowsImgs[i] = shadowsHistoricalMask.GetMainTargetImage(i);
+		velocityImgs[i] = gBuffer.GetTargetImages(i).At(GBUFFER_VELOCITY_TARGET_INDEX);
 		_dirLightUbos[i] = dirLightUbos->GetPointer();
+
+		currentGbufferPositionImgs[i] = gBuffer.GetTargetImages(i).At(GBUFFER_POSITION_TARGET_INDEX);
+		currentGbufferNormalImgs[i] = gBuffer.GetTargetImages(i).At(GBUFFER_NORMAL_TARGET_INDEX);
+		historicalGbufferPositionImgs[i] = historicalGBuffer.GetTargetImages(i).At(GBUFFER_POSITION_TARGET_INDEX);
+		historicalGbufferNormalImgs[i] = historicalGBuffer.GetTargetImages(i).At(GBUFFER_NORMAL_TARGET_INDEX);
 	}
 
 	shadowsMaterialInstance->GetSlot("rt")->SetAccelerationStructures("topLevelAccelerationStructure", tlas);
@@ -98,6 +118,13 @@ void HybridRenderSystem::SetupShadowsInstance() {
 
 	shadowsDenoiseMaterialInstance->GetSlot("shadows")->SetStorageImages("shadowMask", shadowsImgs);
 	shadowsDenoiseMaterialInstance->GetSlot("shadows")->SetStorageImages("finalShadows", finalShadowsImgs);
+	shadowsDenoiseMaterialInstance->GetSlot("shadows")->SetStorageImages("historicalShadows", historicalShadowsImgs);
+	shadowsDenoiseMaterialInstance->GetSlot("shadows")->SetStorageImages("velocityImg", velocityImgs);
+
+	shadowsDenoiseMaterialInstance->GetSlot("shadows")->SetStorageImages("currentPositionImg", currentGbufferPositionImgs);
+	shadowsDenoiseMaterialInstance->GetSlot("shadows")->SetStorageImages("historicalPositionImg", historicalGbufferPositionImgs);
+	shadowsDenoiseMaterialInstance->GetSlot("shadows")->SetStorageImages("currentNormalImg", currentGbufferNormalImgs);
+	shadowsDenoiseMaterialInstance->GetSlot("shadows")->SetStorageImages("historicalNormalImg", historicalGbufferNormalImgs);
 
 	shadowsDenoiseMaterialInstance->GetSlot("shadows")->FlushUpdate();
 }
@@ -149,13 +176,23 @@ void HybridRenderSystem::CreateTargetImage(const Vector2ui& size) {
 	sampler.filteringType = GpuImageFilteringType::NEAREST;
 
 	// GBuffer.
-	gBuffer.SetTargetImageUsage(GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED);
+	gBuffer.SetTargetImageUsage(GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_SOURCE);
 	gBuffer.SetColorImageSampler(sampler); 
 	gBuffer.SetDepthImageSampler(sampler);
 	gBuffer.Create(size, Format::RGBA32_SFLOAT, Format::D32S8_SFLOAT_SUINT);  // POSITION
-	gBuffer.AddColorTarget(Format::RGBA8_UNORM, GpuImageUsage::COLOR | GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED, sampler); // COLOR
-	gBuffer.AddColorTarget(Format::RGBA32_SFLOAT, GpuImageUsage::COLOR | GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED, sampler); // NORMAL
+	gBuffer.AddColorTarget(Format::RGBA8_UNORM, GpuImageUsage::COLOR | GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_SOURCE, sampler); // COLOR
+	gBuffer.AddColorTarget(Format::RGBA32_SFLOAT, GpuImageUsage::COLOR | GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_SOURCE, sampler); // NORMAL
+	gBuffer.AddColorTarget(Format::RGBA16_SFLOAT, GpuImageUsage::COLOR | GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_SOURCE, sampler); // VELOCITY
 	gBuffer.SetName("GBuffer");
+
+	historicalGBuffer.SetTargetImageUsage(GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_DESTINATION);
+	historicalGBuffer.SetColorImageSampler(sampler);
+	historicalGBuffer.SetDepthImageSampler(sampler);
+	historicalGBuffer.Create(size, Format::RGBA32_SFLOAT, Format::D32S8_SFLOAT_SUINT);  // POSITION
+	historicalGBuffer.AddColorTarget(Format::RGBA8_UNORM, GpuImageUsage::COLOR | GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_DESTINATION, sampler); // COLOR
+	historicalGBuffer.AddColorTarget(Format::RGBA32_SFLOAT, GpuImageUsage::COLOR | GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_DESTINATION, sampler); // NORMAL
+	historicalGBuffer.AddColorTarget(Format::RGBA16_SFLOAT, GpuImageUsage::COLOR | GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_DESTINATION, sampler); // VELOCITY
+	historicalGBuffer.SetName("GBuffer");
 
 	// Imagen final.
 	renderTarget.SetColorImageSampler(sampler);
@@ -171,8 +208,13 @@ void HybridRenderSystem::CreateTargetImage(const Vector2ui& size) {
 
 	shadowsFinalMask.SetTargetImageUsage(GpuImageUsage::COMPUTE);
 	shadowsFinalMask.SetColorImageSampler(sampler);
-	shadowsFinalMask.Create(size, Format::RGBA8_UNORM, Format::D32S8_SFLOAT_SUINT);
+	shadowsFinalMask.Create(size, Format::RGBA32_SFLOAT, Format::D32S8_SFLOAT_SUINT);
 	shadowsFinalMask.SetName("RayTraced Denoised Shadows");
+
+	shadowsHistoricalMask.SetTargetImageUsage(GpuImageUsage::COMPUTE);
+	shadowsHistoricalMask.SetColorImageSampler(sampler);
+	shadowsHistoricalMask.Create(size, Format::RGBA32_SFLOAT, Format::D32S8_SFLOAT_SUINT);
+	shadowsHistoricalMask.SetName("RayTraced Previous Denoised Shadows");
 
 	SetupShadowsInstance();
 	SetupResolveInstance();
@@ -180,8 +222,11 @@ void HybridRenderSystem::CreateTargetImage(const Vector2ui& size) {
 
 void HybridRenderSystem::Resize(const Vector2ui& size) {
 	gBuffer.Resize(size);
+	historicalGBuffer.Resize(size);
+
 	shadowsBuffer.Resize(size);
 	shadowsFinalMask.Resize(size);
+	shadowsHistoricalMask.Resize(size);
 
 	IRenderSystem::Resize(size);
 
@@ -222,6 +267,9 @@ void HybridRenderSystem::GBufferRenderLoop(GRAPHICS::ICommandList* commandList, 
 		for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
 			commandList->BindMaterialSlot(model.GetMeshMaterialInstance(i)->GetSlot("texture"));
 
+			const glm::mat4 previousModelMatrix = previousModelMatrices.ContainsKey(obj)
+				? previousModelMatrices.Get(obj) : glm::mat4(1.0f);
+
 			const Vector4f materialInfo{
 				model.GetModel()->GetMetadata().meshesMetadata[i].metallicFactor,
 				model.GetModel()->GetMetadata().meshesMetadata[i].roughnessFactor,
@@ -230,11 +278,11 @@ void HybridRenderSystem::GBufferRenderLoop(GRAPHICS::ICommandList* commandList, 
 			};
 			struct {
 				glm::mat4 model;
-				glm::mat4 transposedInverseModel;
+				glm::mat4 previousModel;
 				Vector4f materialInfo;
 			} modelConsts{
 				.model = transform.GetAsMatrix(),
-				.transposedInverseModel = glm::transpose(glm::inverse(transform.GetAsMatrix())),
+				.previousModel = previousModelMatrix,
 				.materialInfo = materialInfo
 			};
 			commandList->PushMaterialConstants("model", modelConsts);
@@ -264,6 +312,26 @@ void HybridRenderSystem::RenderGBuffer(GRAPHICS::ICommandList* commandList) {
 
 	commandList->EndGraphicsRenderpass();
 
+
+	// Copia al gbuffer historico
+	for (TIndex i = 0; i < gBuffer.GetNumColorTargets(); i++) {
+		GpuImage* previousImage = gBuffer.GetTargetImages((resourceIndex + NUM_RESOURCES_IN_FLIGHT - 1) % NUM_RESOURCES_IN_FLIGHT)[i];
+		GpuImage* targetImage = historicalGBuffer.GetTargetImages((resourceIndex + NUM_RESOURCES_IN_FLIGHT - 1) % NUM_RESOURCES_IN_FLIGHT)[i];
+
+		commandList->SetGpuImageBarrier(previousImage, GpuImageLayout::GENERAL,
+			GpuBarrierInfo(GpuBarrierStage::RAYTRACING_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ));
+		commandList->SetGpuImageBarrier(targetImage, GpuImageLayout::GENERAL,
+			GpuBarrierInfo(GpuBarrierStage::RAYTRACING_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE));
+
+		commandList->CopyImageToImage(previousImage, targetImage, 1, 0, 0, 0, 0);
+
+		commandList->SetGpuImageBarrier(previousImage, GpuImageLayout::GENERAL,
+			GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ), GpuBarrierInfo(GpuBarrierStage::RAYTRACING_SHADER, GpuBarrierAccessStage::SHADER_READ));
+		commandList->SetGpuImageBarrier(targetImage, GpuImageLayout::GENERAL,
+			GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::RAYTRACING_SHADER, GpuBarrierAccessStage::SHADER_READ));
+	}
+	
+
 	// Sincronización con todos los targets de color sobre los que vamos a leer en la fase resolve.
 	for (GpuImage* targetImage : gBuffer.GetTargetImages(resourceIndex))
 		commandList->SetGpuImageBarrier(targetImage, GpuImageLayout::GENERAL,
@@ -273,10 +341,16 @@ void HybridRenderSystem::RenderGBuffer(GRAPHICS::ICommandList* commandList) {
 
 void HybridRenderSystem::RenderShadows(GRAPHICS::ICommandList* cmdList) {
 	const TSize imgIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-	GpuImage* targetImage = shadowsBuffer.GetMainTargetImage(imgIndex);
-	GpuImage* targetFinalImage = shadowsFinalMask.GetMainTargetImage(imgIndex);
 
-	cmdList->SetGpuImageBarrier(targetImage, GpuImageLayout::SHADER_READ_ONLY, GpuImageLayout::GENERAL,
+	GpuImage* rayTracedImage = shadowsBuffer.GetMainTargetImage(imgIndex);
+	GpuImage* denoisedImage = shadowsFinalMask.GetMainTargetImage(imgIndex);
+	GpuImage* previousDenoisedImage = shadowsFinalMask.GetMainTargetImage((imgIndex + NUM_RESOURCES_IN_FLIGHT - 1) % NUM_RESOURCES_IN_FLIGHT);
+	GpuImage* historicalImage = shadowsHistoricalMask.GetMainTargetImage(imgIndex);
+
+
+	// Ray traces
+
+	cmdList->SetGpuImageBarrier(rayTracedImage, GpuImageLayout::GENERAL, GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::RAYTRACING_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
 
 	cmdList->BindMaterial(shadowsMaterial);
@@ -285,28 +359,45 @@ void HybridRenderSystem::RenderShadows(GRAPHICS::ICommandList* cmdList) {
 
 	static int temporalIndex = 0;
 	temporalIndex++;
-	temporalIndex = temporalIndex % 4;
+	temporalIndex = temporalIndex % 32;
 
 	cmdList->PushMaterialConstants("frameInfo", temporalIndex);
 
-	cmdList->TraceRays(0, 0, 0, { 1920, 1080 });
+	cmdList->TraceRays(0, 0, 0, { rayTracedImage->GetSize().X, rayTracedImage->GetSize().Y });
 
-	cmdList->SetGpuImageBarrier(targetImage, GpuImageLayout::GENERAL, GpuImageLayout::SHADER_READ_ONLY,
+	cmdList->SetGpuImageBarrier(rayTracedImage, GpuImageLayout::GENERAL, GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuBarrierStage::RAYTRACING_SHADER, GpuBarrierAccessStage::SHADER_WRITE), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ));
 
-	// 
 
-	cmdList->SetGpuImageBarrier(targetImage, GpuImageLayout::GENERAL, GpuImageLayout::GENERAL,
+	// Copia hacia la imagen histórica del frame anterior
+
+	cmdList->SetGpuImageBarrier(previousDenoisedImage, GpuImageLayout::GENERAL, GpuImageLayout::TRANSFER_SOURCE,
+		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ));
+	cmdList->SetGpuImageBarrier(historicalImage, GpuImageLayout::GENERAL, GpuImageLayout::TRANSFER_DESTINATION,
+		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE));
+
+	cmdList->CopyImageToImage(previousDenoisedImage, historicalImage, 1, 0, 0, 0, 0);
+
+	cmdList->SetGpuImageBarrier(previousDenoisedImage, GpuImageLayout::TRANSFER_SOURCE, GpuImageLayout::GENERAL,
+		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ));
+	cmdList->SetGpuImageBarrier(historicalImage, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::GENERAL,
+		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ));
+	
+	
+	// Denoising
+
+	cmdList->SetGpuImageBarrier(denoisedImage, GpuImageLayout::GENERAL, GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
-
+	
 	const Vector2ui resoulution = shadowsFinalMask.GetSize();
 	const Vector2ui threadGroupSize = { 8u, 8u };
 	const Vector2ui dispatchRes = resoulution / threadGroupSize + Vector2ui(1u, 1u);
 	cmdList->BindMaterial(shadowsDenoiseMaterial);
 	cmdList->BindMaterialSlot(shadowsDenoiseMaterialInstance->GetSlot("shadows"));
+	cmdList->PushMaterialConstants("frameInfo", Vector2f{ (float)resoulution.X, (float)resoulution.Y });
 	cmdList->DispatchCompute({ dispatchRes.X, dispatchRes.Y, 1 });
 
-	cmdList->SetGpuImageBarrier(targetFinalImage, GpuImageLayout::GENERAL, GpuImageLayout::SHADER_READ_ONLY,
+	cmdList->SetGpuImageBarrier(denoisedImage, GpuImageLayout::GENERAL, GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ));
 }
 
@@ -352,6 +443,14 @@ void HybridRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 	cameraUbos[resourceIndex]->Write(cameraTransform.GetPosition());
 	cameraUbos[resourceIndex]->Unmap();
 
+	previousCameraUbos[resourceIndex]->MapMemory();
+	previousCameraUbos[resourceIndex]->Write(previousProjection);
+	previousCameraUbos[resourceIndex]->Write(previousView);
+	previousCameraUbos[resourceIndex]->Unmap();
+
+	previousProjection = camera.GetProjectionMatrix();
+	previousView = camera.GetViewMatrix(cameraTransform);
+
 	dirLightUbos[resourceIndex]->MapMemory();
 	dirLightUbos[resourceIndex]->Write(dirLight);
 	dirLightUbos[resourceIndex]->Unmap();
@@ -359,6 +458,10 @@ void HybridRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 	RenderGBuffer(commandList);
 	RenderShadows(commandList);
 	Resolve(commandList);
+
+	for (const GameObjectIndex obj : GetObjects()) {
+		previousModelMatrices.Insert(obj, Engine::GetEcs()->GetComponent<Transform3D>(obj).GetAsMatrix());
+	}
 }
 
 void HybridRenderSystem::OnTick(TDeltaTime deltaTime) {

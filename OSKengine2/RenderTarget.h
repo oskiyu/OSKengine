@@ -203,6 +203,15 @@ namespace OSK::GRAPHICS {
 		void SetDepthImageSampler(const GpuImageSamplerDesc& sampler);
 
 		/// <summary>
+		/// Especifica cual de todas las imágenes de target del render target
+		/// será mostrada como output al usarlo como sprite.
+		/// </summary>
+		/// <param name="targetImage">Índice del target ímage, según el orden en el que se hayan añadido. </param>
+		/// 
+		/// @pre targetImage debe ser menor al número de targets registrados en el render target.
+		void SetSpriteTargetImage(TIndex targetImage);
+
+		/// <summary>
 		/// Devuelve el número de imágenes de color del render target.
 		/// </summary>
 		TSize GetNumColorTargets() const;
@@ -233,6 +242,8 @@ namespace OSK::GRAPHICS {
 		GpuImageSamplerDesc depthSampler{};
 
 		RenderpassType targetType = RenderpassType::INTERMEDIATE;
+
+		TIndex targetSpriteImage = 0;
 
 	};
 

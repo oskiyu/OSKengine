@@ -32,7 +32,7 @@ void main() {
     vec4 target = inverse(camera.projection) * vec4(d.x, d.y, 1, 1);
     vec4 direction = inverse(camera.view) * vec4(normalize(target.xyz / target.w), 0);
 
-    uint rayFlags = gl_RayFlagsOpaqueEXT;
+    uint rayFlags = gl_RayFlagsOpaqueEXT | gl_RayFlagsTerminateOnFirstHitEXT;
     uint cullMask = 0xff;
     float minDistance = 0.0001;
     float maxDistance = 1000.0;

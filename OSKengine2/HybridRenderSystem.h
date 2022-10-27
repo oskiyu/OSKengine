@@ -49,6 +49,10 @@ namespace OSK::ECS {
 			return shadowsBuffer;
 		}
 
+		const GRAPHICS::RenderTarget& GetGBuffer() const {
+			return gBuffer;
+		}
+
 		const GRAPHICS::RenderTarget& GetShadowsImage() const {
 			return shadowsFinalMask;
 		}
@@ -63,6 +67,14 @@ namespace OSK::ECS {
 		void SetupGBufferInstance();
 		void SetupResolveInstance();
 
+
+		// Velocity buffer
+		glm::mat4 previousView = glm::mat4(1.0f);
+		glm::mat4 previousProjection = glm::mat4(1.0f);
+
+		HashMap<GameObjectIndex, glm::mat4> previousModelMatrices;
+
+
 		// Renders
 		void RenderGBuffer(GRAPHICS::ICommandList* cmdList);
 		void GBufferRenderLoop(GRAPHICS::ICommandList* cmdList, ASSETS::ModelType modelType);
@@ -72,6 +84,7 @@ namespace OSK::ECS {
 		ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
 
 		GRAPHICS::RenderTarget gBuffer;
+		GRAPHICS::RenderTarget historicalGBuffer;
 
 		GRAPHICS::DirectionalLight dirLight{};
 
@@ -90,6 +103,7 @@ namespace OSK::ECS {
 
 		GRAPHICS::RenderTarget shadowsBuffer;
 		GRAPHICS::RenderTarget shadowsFinalMask; // final
+		GRAPHICS::RenderTarget shadowsHistoricalMask; // final del frame anterior
 
 		// Resolve
 		GRAPHICS::Material* resolveMaterial = nullptr;
@@ -97,6 +111,7 @@ namespace OSK::ECS {
 
 		// Resources
 		UniquePtr<GRAPHICS::IGpuUniformBuffer> cameraUbos[3]{};
+		UniquePtr<GRAPHICS::IGpuUniformBuffer> previousCameraUbos[3]{};
 		UniquePtr<GRAPHICS::IGpuUniformBuffer> dirLightUbos[3]{};
 
 		// Materiales

@@ -61,9 +61,39 @@ INFO: Buffer eliminado
 INFO: Buffer eliminado
 INFO: Buffer eliminado
 INFO: Buffer eliminado
-INFO: 	Adquiridas las imágenes del swapchain.
-INFO: 	Adquiridas las views del swapchain.
-INFO: Creado correctamente el swapchain.
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
+INFO: Buffer eliminado
 INFO: Buffer eliminado
 INFO: Buffer eliminado
 INFO: Buffer eliminado

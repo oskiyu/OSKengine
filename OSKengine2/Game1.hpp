@@ -110,7 +110,7 @@ class Game1 : public OSK::IGame {
 protected:
 
 	void CreateWindow() override {
-		Engine::GetWindow()->Create(800, 600, "OSKengine");
+		Engine::GetWindow()->Create(1280, 720, "OSKengine");
 		Engine::GetWindow()->SetMouseReturnMode(IO::MouseReturnMode::ALWAYS_RETURN);
 		Engine::GetWindow()->SetMouseMotionMode(IO::MouseMotionMode::RAW);
 	}

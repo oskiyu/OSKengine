@@ -7,7 +7,7 @@ layout (local_size_x = 8, local_size_y = 8) in;
 layout (set = 0, binding = 0, rgba32f) uniform image2D positionImg;
 layout (set = 0, binding = 1) uniform sampler2D colorImg;
 layout (set = 0, binding = 2, rgba32f) uniform image2D normalImg;
-layout (set = 0, binding = 3, rgba8) uniform image2D shadowsImg;
+layout (set = 0, binding = 3, rgba16f) uniform image2D shadowsImg;
 
 layout (set = 0, binding = 4, rgba32f) uniform image2D finalImg;
 
@@ -24,15 +24,6 @@ layout (set = 1, binding = 1) uniform DirLight {
 } dirLight;
 
 layout (set = 1, binding = 2) uniform samplerCube irradianceMap;
-
-float LinearToSRGB(float value) { 
-    if(value< 0.0031308 )
-        value*= 12.92;
-    else
-        value = 1.055 * pow(value, 1.0/2.4) - 0.055;
-
-    return value;
-}
 
 void main() {
     const ivec2 coords = ivec2(gl_GlobalInvocationID);

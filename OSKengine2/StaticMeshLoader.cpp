@@ -50,11 +50,11 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSi
 	if (node.mesh > -1) {
 		const tinygltf::Mesh& mesh = gltfModel.meshes[node.mesh];
 
-		if (mesh.primitives[0].material > -1)
-			meshIdToMaterialId.Insert(meshes.GetSize(), mesh.primitives[0].material);
-
 		for (TSize i = 0; i < mesh.primitives.size(); i++) {
 			const tinygltf::Primitive& primitive = mesh.primitives[i];
+
+			if (primitive.material > -1)
+				meshIdToMaterialId.Insert(meshes.GetSize(), primitive.material);
 
 			OSK_ASSERT(primitive.mode == TINYGLTF_MODE_TRIANGLES, "El modelo no está en modo TRIÁNGULOS.");
 

@@ -94,13 +94,18 @@ const vec2 BlueNoiseInDisk[64] = vec2[64](
 void main() {
     const vec2 pixelCoords = vec2(gl_LaunchIDEXT.x, gl_LaunchIDEXT.y);
     
-    // if ((int(pixelCoords.x) + frameInfo.frameIndex) % 3 != 0) return;
+    const vec4 positionData = imageLoad(gBufferPosition, ivec2(pixelCoords));
 
-    const vec3 position = imageLoad(gBufferPosition, ivec2(pixelCoords)).xyz;
+    if (positionData.a < 0.8) {
+        imageStore(shadowsImage, ivec2(pixelCoords), vec4(1.0, 0, 0, 1));
+        return;
+    }
+
+    const vec3 position = positionData.xyz;
     
     const vec3 origin = position;
-    const vec3 direction = -dirLight.directionAndIntensity.xyz;
-    const vec3 lightTangent   = normalize(cross(direction, vec3(0.0f, 1.0f, 0.0f)));
+    const vec3 direction = -normalize(dirLight.directionAndIntensity.xyz);
+    const vec3 lightTangent   = normalize(cross(direction, vec3(0.0, 1.0, 0.0)));
     const vec3 lightBitangent = normalize(cross(lightTangent, direction));
 
     uint rayFlags = gl_RayFlagsOpaqueEXT;
@@ -110,24 +115,24 @@ void main() {
 
     const vec3 noiseImgColor = texture(noiseImage, pixelCoords / textureSize(noiseImage, 0).xy).rgb;
     float angle = fract(noiseImgColor.r + float(frameInfo.frameIndex) * 0.61803398875) * 2.0 * 3.14159;
-    angle = noiseImgColor.r * 1.2 * 3.14159;
 
     float currentShadow = 0.0;
     const int numSamples = 1;
     for (int i = 0; i < numSamples; i++) {
-        const vec2 noiseSample = BlueNoiseInDisk[i];
+        const vec2 noiseSample = BlueNoiseInDisk[i + frameInfo.frameIndex];
+        const float radius = 0.1;// * pow(noiseSample.x, 2);
 
-        vec2 diskPoint = vec2(0.0);  
-        diskPoint.x = noiseSample.x * cos(angle) - noiseSample.y * sin(angle);
-        diskPoint.y = noiseSample.x * sin(angle) + noiseSample.y * cos(angle);
-        diskPoint *= 0.5; // radius
+        vec2 diskPoint = vec2(radius * cos(angle), radius * sin(angle));  
+        //diskPoint.x = noiseSample.x * cos(angle) - noiseSample.y * sin(angle);
+        //diskPoint.y = noiseSample.x * sin(angle) + noiseSample.y * cos(angle);
+        //diskPoint *= 0.5; // radius
 
         const vec3 currentDir = normalize(direction + diskPoint.x * lightTangent + diskPoint.y * lightBitangent);
 
-        traceRayEXT(topLevelAccelerationStructure, rayFlags, cullMask, 0, 0, 0, origin, minDistance, mix(direction, currentDir, 0.0), maxDistance, 0);
+        traceRayEXT(topLevelAccelerationStructure, rayFlags, cullMask, 0, 0, 0, origin, minDistance, currentDir, maxDistance, 0);
         currentShadow += float(!rayResult.isInShadows);
     }
 
     float shadow = currentShadow / numSamples;
-    imageStore(shadowsImage, ivec2(gl_LaunchIDEXT.xy), vec4(shadow, 0, 0, 1));
+    imageStore(shadowsImage, ivec2(pixelCoords), vec4(shadow, 0, 0, 1));
 }

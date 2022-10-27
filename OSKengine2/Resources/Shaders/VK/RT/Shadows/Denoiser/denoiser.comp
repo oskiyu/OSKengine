@@ -2,31 +2,105 @@
 
 layout (local_size_x = 8, local_size_y = 8) in;
 
-layout (set = 0, binding = 0, rgba8) uniform image2D shadowMask;
-layout (set = 0, binding = 1, rgba8) uniform image2D finalShadows;
+layout (set = 0, binding = 0, rgba8)   uniform readonly image2D shadowMask;
+layout (set = 0, binding = 1, rgba32f) uniform image2D finalShadows;
+layout (set = 0, binding = 2, rgba32f) uniform readonly image2D historicalShadows;
+layout (set = 0, binding = 3, rgba16f) uniform readonly image2D velocityImg;
 
+layout (set = 0, binding = 4, rgba32f) uniform readonly image2D currentPositionImg;
+layout (set = 0, binding = 5, rgba32f) uniform readonly image2D historicalPositionImg;
+
+layout (set = 0, binding = 6, rgba32f) uniform readonly image2D currentNormalImg;
+layout (set = 0, binding = 7, rgba32f) uniform readonly image2D historicalNormalImg;
+
+layout (push_constant) uniform Info {
+    vec2 resolution;
+} frameInfo;
+
+
+// Número de frames tope para la convergencia.
+// Mayor da mejores resultados.
+const int NUM_TEMPORAL_SAMPLES = 50;
+
+const float gaussianKernel[5] = float[5](1, 4, 6, 4, 1);
+
+// computes a 3x3 gaussian blur of the variance, centered around
+// the current pixel
+float GaussianBlur(ivec2 coords) {
+    float shadow = 0.0;
+
+    const int radius = 2;
+    for (int yy = -radius; yy <= radius; yy++) {
+        for (int xx = -radius; xx <= radius; xx++) {
+            float k = gaussianKernel[xx + radius] * gaussianKernel[yy + radius] / 256.0;
+
+            shadow += imageLoad(shadowMask, coords + ivec2(xx, yy)).r * k;
+        }
+    }
+
+    return shadow;
+}
+
+bool SamePlaneOcclussionCheck(vec3 currentPosition, vec3 previousPosition, vec3 currentNormal) {
+    // Vector contenido dentro del plano formado entre el punto anterior y el actual.
+    const vec3 planeVector = currentPosition - previousPosition;
+
+    // Para que ambos puntos pertenezcan al mismo plano, su producto dot debe ser 0.
+    const float dotResult = abs(dot(planeVector, currentNormal));
+
+    return dotResult < 0.1;
+}
+bool NormalOcclussionCheck(vec3 currentNormal, vec3 previousNormal) {
+    return pow(abs(dot(currentNormal, previousNormal)), 2) < 5.0;
+}
+
+vec2 Truncate(vec2 vec) {
+    return round(vec);
+}
 
 void main() {
     const ivec2 coords = ivec2(gl_GlobalInvocationID);
-    imageStore(finalShadows, coords, vec4(imageLoad(shadowMask, coords).r, 0, 0, 1));
-    return;
-
-    const int kernelSize = 2;
-    const int kernelHalfSize = kernelSize / 2;
 
     if (coords.x > imageSize(finalShadows).x || coords.y > imageSize(finalShadows).y)
         return;
 
-    float mean = 0.0;
-    float median = 0.0;
-    for (int x = -kernelHalfSize; x < kernelHalfSize; x++){
-        for (int y = -kernelHalfSize; y < kernelHalfSize; y++){
-            const float shadow  = imageLoad(shadowMask, coords + ivec2(x, y)).r;
+    // Recuperar datos de frames anteriores
+    const vec2 screenSpaceMotion = imageLoad(velocityImg, ivec2(coords)).rg;
 
-            mean += shadow / (kernelSize * kernelSize);
-            median += (shadow * shadow) / (kernelSize * kernelSize);
-        }   
+    // Número de frames acumulados en el píxel + 1.0
+    int history = 1;
+
+    float newShadowWeight = 1.0;
+    float prevShadow = 0.0;
+
+    const vec2 normalizedScreenSpaceMotion = screenSpaceMotion;
+
+    // Cambio en número de píxeles según el motion buffer actual.
+    const vec2 currentFrameContDiff = normalizedScreenSpaceMotion * frameInfo.resolution;
+    // Cambio en número de píxeles acumulado en frames anteriores.
+    const vec2 previousFramesContDiff = imageLoad(finalShadows, coords).zw;
+
+    // Cambio de píxeles en espacio discreto
+    vec2 discreteCoordsDiff = Truncate(previousFramesContDiff + currentFrameContDiff);
+    ivec2 previousCoords = coords + ivec2(discreteCoordsDiff);
+
+    const bool historicalDataWasOnScreen = previousCoords.x > 0 && previousCoords.y > 0 && previousCoords.x < frameInfo.resolution.x && previousCoords.y < frameInfo.resolution.y;
+    const bool previousAreValid = historicalDataWasOnScreen
+                        && SamePlaneOcclussionCheck(imageLoad(currentPositionImg, coords).xyz, imageLoad(historicalPositionImg, previousCoords).xyz, imageLoad(currentNormalImg, coords).xyz)
+                        && NormalOcclussionCheck(imageLoad(currentNormalImg, coords).xyz, imageLoad(historicalNormalImg, previousCoords).xyz);
+    
+    if (previousAreValid) {
+        history = int(imageLoad(historicalShadows, ivec2(previousCoords)).g) + 1;
+        prevShadow = imageLoad(historicalShadows, ivec2(previousCoords)).r;
+        
+        newShadowWeight = 1.0 / float(history);
+
+        history = min(history, NUM_TEMPORAL_SAMPLES);
     }
 
-    imageStore(finalShadows, coords, vec4(mean, 0, 0, 1));
+
+    const float newShadows = GaussianBlur(coords);
+
+    imageStore(finalShadows, coords, vec4(mix(prevShadow, newShadows, newShadowWeight), float(history), previousFramesContDiff + currentFrameContDiff - Truncate(previousFramesContDiff + currentFrameContDiff)));
+    imageStore(finalShadows, coords, vec4(currentFrameContDiff, discreteCoordsDiff));
 }

@@ -82,7 +82,7 @@ void RenderTarget::RecreateDepthImages() {
 void RenderTarget::UpdateSpriteImages() {
 	const GpuImage* images[NUM_RESOURCES_IN_FLIGHT]{};
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		images[i] = targetImages[i].At(0).GetPointer();
+		images[i] = targetImages[i].At(targetSpriteImage).GetPointer();
 
 	targetSprite.GetMaterialInstance()->GetSlot("texture")->SetGpuImages("stexture", images);
 	targetSprite.GetMaterialInstance()->GetSlot("texture")->FlushUpdate();
@@ -166,6 +166,11 @@ void RenderTarget::SetColorImageSampler(const GpuImageSamplerDesc& sampler) {
 
 void RenderTarget::SetDepthImageSampler(const GpuImageSamplerDesc& sampler) {
 	depthSampler = sampler;
+}
+
+void RenderTarget::SetSpriteTargetImage(TIndex targetImage) {
+	targetSpriteImage = targetImage;
+	UpdateSpriteImages();
 }
 
 TSize RenderTarget::GetNumColorTargets() const {
