@@ -172,7 +172,7 @@ void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> 
 }
 
 void CommandListDx12::EndGraphicsRenderpass() {
-	GpuImageLayout finalLayout = GpuImageLayout::SHADER_READ_ONLY;
+	GpuImageLayout finalLayout = GpuImageLayout::SAMPLED;
 	if (currentRenderpassType == RenderpassType::FINAL)
 		finalLayout = GpuImageLayout::PRESENT;
 

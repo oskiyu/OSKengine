@@ -103,17 +103,19 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a8055b28d6c3279175f3d5b6f810b2232"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38a3541235fbb79778dd9513e78f070d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html#a38a3541235fbb79778dd9513e78f070d">Setup</a> ()=0</td></tr>
 <tr class="separator:a38a3541235fbb79778dd9513e78f070d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7223ca05f358dd3aa82d53cf20f6dfa"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html#ad7223ca05f358dd3aa82d53cf20f6dfa">Update</a> ()=0</td></tr>
-<tr class="separator:ad7223ca05f358dd3aa82d53cf20f6dfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98c190dd62f735ece342f5e5317e7d9d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html#a98c190dd62f735ece342f5e5317e7d9d">Update</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *cmdList)=0</td></tr>
+<tr class="separator:a98c190dd62f735ece342f5e5317e7d9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Atributos protegidos</h2></td></tr>
 <tr class="memitem:a78734acdf7ee644938266f2f5909bfec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html">IBottomLevelAccelerationStructure</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html#a78734acdf7ee644938266f2f5909bfec">blass</a></td></tr>
 <tr class="separator:a78734acdf7ee644938266f2f5909bfec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adde47a5d09dc1f6b6c1adbb30540d499"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html#adde47a5d09dc1f6b6c1adbb30540d499">needsRebuild</a> = false</td></tr>
+<tr class="separator:adde47a5d09dc1f6b6c1adbb30540d499"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p >Estructura de aceleración de nivel alto. Contiene la geometría a renderizar mediante trazado de rayos, la cual estará contenida en las estructuras de nivel bajo <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html" title="Estructura de aceleración de nivel bajo: contiene la geometría de un modelo 3D.">IBottomLevelAccelerationStructure</a>. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">Tareas pendientes:</a></b></dt><dd>Implementación en DirectX 12. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Tareas pendientes:</a></b></dt><dd>Implementación en DirectX 12. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_top_level_acceleration_structure_8h_source.html#l00015">15</a> del archivo <a class="el" href="_i_top_level_acceleration_structure_8h_source.html">ITopLevelAccelerationStructure.h</a>.</p>
 </div><h2 class="groupheader">Documentación de las funciones miembro</h2>
@@ -193,8 +195,8 @@ Todas las estructuras de aceleración de nivel inferior deben haber sido correct
 
 </div>
 </div>
-<a id="ad7223ca05f358dd3aa82d53cf20f6dfa" name="ad7223ca05f358dd3aa82d53cf20f6dfa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7223ca05f358dd3aa82d53cf20f6dfa">&#9670;&nbsp;</a></span>Update()</h2>
+<a id="a98c190dd62f735ece342f5e5317e7d9d" name="a98c190dd62f735ece342f5e5317e7d9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98c190dd62f735ece342f5e5317e7d9d">&#9670;&nbsp;</a></span>Update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -205,7 +207,8 @@ Todas las estructuras de aceleración de nivel inferior deben haber sido correct
         <tr>
           <td class="memname">virtual void OSK::GRAPHICS::ITopLevelAccelerationStructure::Update </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *&#160;</td>
+          <td class="paramname"><em>cmdList</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -220,7 +223,7 @@ Todas las estructuras de aceleración de nivel inferior deben haber sido correct
 <dl class="section pre"><dt>Precondición</dt><dd>Esta estructura debe haber sido correctamente creada llamando a <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html#a38a3541235fbb79778dd9513e78f070d" title="Crea la estructura de aceleración.">ITopLevelAccelerationStructure::Setup</a>.</dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Tareas pendientes:</a></b></dt><dd>Implementación en DX12. </dd></dl>
 
-<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan.html#a854f74c3dac32effb17f950ae95957a6">OSK::GRAPHICS::TopLevelAccelerationStructureVulkan</a>.</p>
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan.html#a7b713c20d5ce7c767c596c427c3401ae">OSK::GRAPHICS::TopLevelAccelerationStructureVulkan</a>.</p>
 
 </div>
 </div>
@@ -249,6 +252,30 @@ Todas las estructuras de aceleración de nivel inferior deben haber sido correct
 
 </div>
 </div>
+<a id="adde47a5d09dc1f6b6c1adbb30540d499" name="adde47a5d09dc1f6b6c1adbb30540d499"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adde47a5d09dc1f6b6c1adbb30540d499">&#9670;&nbsp;</a></span>needsRebuild</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OSK::GRAPHICS::ITopLevelAccelerationStructure::needsRebuild = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_top_level_acceleration_structure_8h_source.html#l00054">54</a> del archivo <a class="el" href="_i_top_level_acceleration_structure_8h_source.html">ITopLevelAccelerationStructure.h</a>.</p>
+
+</div>
+</div>
 <hr/>La documentación para esta clase fue generada a partir de los siguientes ficheros:<ul>
 <li>OSKengine2/<a class="el" href="_i_top_level_acceleration_structure_8h_source.html">ITopLevelAccelerationStructure.h</a></li>
 <li>OSKengine2/<a class="el" href="_i_top_level_acceleration_structure_8cpp_source.html">ITopLevelAccelerationStructure.cpp</a></li>
@@ -259,7 +286,7 @@ Todas las estructuras de aceleración de nivel inferior deben haber sido correct
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html">ITopLevelAccelerationStructure</a></li>
-    <li class="footer">Generado el Sábado, 15 de Octubre de 2022 00:57:46 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Martes, 1 de Noviembre de 2022 23:59:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

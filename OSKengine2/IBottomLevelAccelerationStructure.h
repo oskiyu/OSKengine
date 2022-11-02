@@ -4,6 +4,7 @@
 
 #include "UniquePtr.hpp"
 #include "IGpuDataBuffer.h"
+#include "RtAccelerationStructureFlags.h"
 
 #include <glm.hpp>
 
@@ -34,7 +35,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @todo Permitir determinar qué vértices y qué indices a usar, en vez de usar
 		/// todos los vértices y todos los índices dados.
-		virtual void Setup(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer) = 0;
+		virtual void Setup(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer, RtAccelerationStructureFlags flags) = 0;
 
 		/// <summary>
 		/// Actualiza la estructura de aceleración, para reflejar los cambios realizados en

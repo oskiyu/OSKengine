@@ -9,12 +9,11 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 void IPostProcessPass::Create(const Vector2ui& size) {
-	GpuImageSamplerDesc sampler{};
-	sampler.addressMode = GpuImageAddressMode::EDGE;
-
-	resolveRenderTarget.SetColorImageSampler(sampler);
-	resolveRenderTarget.SetTargetImageUsage(GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED);
-	resolveRenderTarget.Create(size, Format::RGBA32_SFLOAT, Format::D32S8_SFLOAT_SUINT);
+	RenderTargetAttachmentInfo info{};
+	info.format = Format::RGBA32_SFLOAT;
+	info.usage = GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED;
+	info.sampler = GpuImageSamplerDesc::CreateDefault();
+	resolveRenderTarget.Create(size, info);
 	
 	SetupDefaultMaterialInstances();
 }
@@ -41,19 +40,27 @@ void IPostProcessPass::SetInput(GpuImage* images[3], InputType type) {
 void IPostProcessPass::SetInput(const RenderTarget& target, InputType type) {
 	GpuImage* images[3]{};
 	for (TSize i = 0; i < 3; i++)
-		images[i] = target.GetMainTargetImage(i);
+		images[i] = target.GetMainColorImage(i);
 
 	SetInput(images, type);
 }
 
-const RenderTarget& IPostProcessPass::GetOutput() const {
+void IPostProcessPass::SetInput(const RtRenderTarget& target, InputType type) {
+	GpuImage* images[3]{};
+	for (TSize i = 0; i < 3; i++)
+		images[i] = target.GetTargetImage(i);
+
+	SetInput(images, type);
+}
+
+const ComputeRenderTarget& IPostProcessPass::GetOutput() const {
 	return resolveRenderTarget;
 }
 
 void IPostProcessPass::SetupDefaultMaterialInstances() {
 	const GpuImage* images[NUM_RESOURCES_IN_FLIGHT]{};
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		images[i] = resolveRenderTarget.GetMainTargetImage(i);
+		images[i] = resolveRenderTarget.GetTargetImage(i);
 
 	postProcessingMaterialInstance->GetSlot("texture")->SetStorageImages("finalImage", images);
 }

@@ -2,7 +2,6 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list =
 [
     [ "~ICommandList", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aeeec6b511ff9c19d16c2d52c0f9f6678", null ],
     [ "_SetSingleTimeUse", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a91dd0015d5deefbbcbc1abacdb6be2c6", null ],
-    [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a7bf40442c718857b7b6b6ced797d5b2a", null ],
     [ "BeginGraphicsRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aa9e4a784a088c6b2a479485498d4fdd5", null ],
     [ "BeginGraphicsRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ae3d1fda12c227f4b1782a16c2dca7f5c", null ],
     [ "BindComputePipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#af03e480dca12a4ce8eb2ec8f2dc58e22", null ],
@@ -19,6 +18,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list =
     [ "DrawSingleMesh", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a359d8435654ddea9fdcc77d8cca9ff30", null ],
     [ "EndGraphicsRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a27c970b0c75c78d08fa173eb3b875eb1", null ],
     [ "GetCommandListIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a2737fdfdca1c275d18f54cbb326dbc0d", null ],
+    [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a58b18da32a81e18a764ed60ec5b93972", null ],
     [ "PushMaterialConstants", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a0d46ca565299ba80f80ac603ffd4b88c", null ],
     [ "PushMaterialConstants", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aa78c754b21eb1cf45f2c05e36bdb9276", null ],
     [ "PushMaterialConstants", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a531c4b84cea12941095977fe7279e498", null ],

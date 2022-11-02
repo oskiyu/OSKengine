@@ -16,7 +16,7 @@ layout (set = 1, binding = 0) buffer ExposureInfo {
     float exposure;
 } exposure;
 
-layout (push_constant) uniform Info{
+layout (push_constant) uniform Info {
     vec4 infos;
     ivec2 indices;
 } info;

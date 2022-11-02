@@ -6,6 +6,8 @@
 #include "ITopLevelAccelerationStructure.h"
 #include "Model3D.h"
 #include "Texture.h"
+#include "GBuffer.h"
+#include "RtRenderTarget.h"
 
 namespace OSK::GRAPHICS {
 	class IBottomLevelAccelerationStructure;
@@ -34,26 +36,17 @@ namespace OSK::ECS {
 
 		void OnTick(TDeltaTime deltaTime) override;
 
-		const static TSize GBUFFER_POSITION_TARGET_INDEX = 0;
-		const static TSize GBUFFER_COLOR_TARGET_INDEX = 1;
-		const static TSize GBUFFER_NORMAL_TARGET_INDEX = 2;
-		const static TSize GBUFFER_VELOCITY_TARGET_INDEX = 3;
-
 		void AddBlas(GRAPHICS::IBottomLevelAccelerationStructure* blas);
 
 		const GRAPHICS::IGpuUniformBuffer* GetCameraBuffer(TIndex index) const {
 			return cameraUbos[index].GetPointer();
 		}
 
-		const GRAPHICS::RenderTarget& GetShadowsIntermediateImage() const {
+		const GRAPHICS::RtRenderTarget& GetShadowsIntermediateImage() const {
 			return shadowsBuffer;
 		}
 
-		const GRAPHICS::RenderTarget& GetGBuffer() const {
-			return gBuffer;
-		}
-
-		const GRAPHICS::RenderTarget& GetShadowsImage() const {
+		const GRAPHICS::RtRenderTarget& GetShadowsImage() const {
 			return shadowsFinalMask;
 		}
 
@@ -83,8 +76,8 @@ namespace OSK::ECS {
 
 		ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
 
-		GRAPHICS::RenderTarget gBuffer;
-		GRAPHICS::RenderTarget historicalGBuffer;
+		GRAPHICS::GBuffer gBuffer;
+		GRAPHICS::GBuffer historicalGBuffer;
 
 		GRAPHICS::DirectionalLight dirLight{};
 
@@ -101,9 +94,9 @@ namespace OSK::ECS {
 		GRAPHICS::Material* shadowsDenoiseMaterial = nullptr;
 		UniquePtr<GRAPHICS::MaterialInstance> shadowsDenoiseMaterialInstance;
 
-		GRAPHICS::RenderTarget shadowsBuffer;
-		GRAPHICS::RenderTarget shadowsFinalMask; // final
-		GRAPHICS::RenderTarget shadowsHistoricalMask; // final del frame anterior
+		GRAPHICS::RtRenderTarget shadowsBuffer;
+		GRAPHICS::ComputeRenderTarget shadowsFinalMask; // final
+		GRAPHICS::ComputeRenderTarget shadowsHistoricalMask; // final del frame anterior
 
 		// Resolve
 		GRAPHICS::Material* resolveMaterial = nullptr;

@@ -1,7 +1,6 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12 =
 [
     [ "_SetSingleTimeUse", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a91dd0015d5deefbbcbc1abacdb6be2c6", null ],
-    [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a7bf40442c718857b7b6b6ced797d5b2a", null ],
     [ "BeginGraphicsRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#ae3c08439df0f986e7a2e30e50f13bc91", null ],
     [ "BeginGraphicsRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#ae3d1fda12c227f4b1782a16c2dca7f5c", null ],
     [ "BindComputePipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#aad3dd1ccf00cad575469cb2a77371184", null ],
@@ -20,6 +19,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12 =
     [ "EndGraphicsRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a6999a57609ee570303603bcf846a7eff", null ],
     [ "GetCommandList", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a621a55a5d29e7e84795a49f1793052db", null ],
     [ "GetCommandListIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a2737fdfdca1c275d18f54cbb326dbc0d", null ],
+    [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a58b18da32a81e18a764ed60ec5b93972", null ],
     [ "PushMaterialConstants", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a0d46ca565299ba80f80ac603ffd4b88c", null ],
     [ "PushMaterialConstants", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#aa78c754b21eb1cf45f2c05e36bdb9276", null ],
     [ "PushMaterialConstants", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a33e4345c2ec143c94ea24051cb921949", null ],

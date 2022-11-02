@@ -26,11 +26,13 @@ var searchData=
   ['f7_23',['F7',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea47489eb597b7db34caa24b1fc78fc839',1,'OSK::IO']]],
   ['f8_24',['F8',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea4787509ad9f9d747a81a30e9dde3d4a7',1,'OSK::IO']]],
   ['f9_25',['F9',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea892a245e287c163080b23db737d3c4c9',1,'OSK::IO']]],
-  ['fill_26',['FILL',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8ae8225b11842409df543692aebed34fd1',1,'OSK::GRAPHICS']]],
-  ['final_27',['FINAL',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a68c7e70128c792c56815e41b7f9c5fefa6c8361dc2036c0559376fe4957699f69',1,'OSK::GRAPHICS']]],
-  ['float_28',['FLOAT',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry.html#a0062a8ce8808345b70e06db4d4b6d3a8ae738c26bf4ce1037fa81b039a915cbf6',1,'OSK::GRAPHICS::VertexInfo::Entry']]],
-  ['fragment_29',['FRAGMENT',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba7345a249ed5c2f850d85dc1727c24716',1,'OSK::GRAPHICS']]],
-  ['fragment_5fshader_30',['FRAGMENT_SHADER',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7aaf58ae9f6cade42be9607c7298fd97d1',1,'OSK::GRAPHICS']]],
-  ['free_31',['FREE',['../namespace_o_s_k_1_1_i_o.html#a2f854259da792bdb856dedf2a07ee49da88c189a42c87aa49d667fc8ab76bc323',1,'OSK::IO']]],
-  ['front_32',['FRONT',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922cabb2fe5c916efb43aab8cbb68f997d2ee',1,'OSK::GRAPHICS']]]
+  ['fast_5fbuild_26',['FAST_BUILD',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a84d581108aac32ea8bf5a139abafb864a8f43d2d9234f74c301bb1cb64f947505',1,'OSK::GRAPHICS']]],
+  ['fast_5ftrace_27',['FAST_TRACE',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a84d581108aac32ea8bf5a139abafb864a3f684dca71b75eb53a8a25920db6a67f',1,'OSK::GRAPHICS']]],
+  ['fill_28',['FILL',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8ae8225b11842409df543692aebed34fd1',1,'OSK::GRAPHICS']]],
+  ['final_29',['FINAL',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a68c7e70128c792c56815e41b7f9c5fefa6c8361dc2036c0559376fe4957699f69',1,'OSK::GRAPHICS']]],
+  ['float_30',['FLOAT',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry.html#a0062a8ce8808345b70e06db4d4b6d3a8ae738c26bf4ce1037fa81b039a915cbf6',1,'OSK::GRAPHICS::VertexInfo::Entry']]],
+  ['fragment_31',['FRAGMENT',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba7345a249ed5c2f850d85dc1727c24716',1,'OSK::GRAPHICS']]],
+  ['fragment_5fshader_32',['FRAGMENT_SHADER',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5c67a4dab480f62eb6083332acdcb8c7aaf58ae9f6cade42be9607c7298fd97d1',1,'OSK::GRAPHICS']]],
+  ['free_33',['FREE',['../namespace_o_s_k_1_1_i_o.html#a2f854259da792bdb856dedf2a07ee49da88c189a42c87aa49d667fc8ab76bc323',1,'OSK::IO']]],
+  ['front_34',['FRONT',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922cabb2fe5c916efb43aab8cbb68f997d2ee',1,'OSK::GRAPHICS']]]
 ];

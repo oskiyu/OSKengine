@@ -212,6 +212,10 @@ var NAVTREEINDEX0 =
 "_fxaa_pass_8cpp_source.html":[7,0,0,76],
 "_fxaa_pass_8h.html":[7,0,0,77],
 "_fxaa_pass_8h_source.html":[7,0,0,77],
+"_g_buffer_8cpp.html":[7,0,0,86],
+"_g_buffer_8cpp_source.html":[7,0,0,86],
+"_g_buffer_8h.html":[7,0,0,87],
+"_g_buffer_8h_source.html":[7,0,0,87],
 "_game1_8hpp.html":[7,0,0,80],
 "_game1_8hpp_source.html":[7,0,0,80],
 "_game_8cpp.html":[7,0,0,78],
@@ -245,9 +249,5 @@ var NAVTREEINDEX0 =
 "_gamepad_state_8h.html#ad1d8e1f23e2f2515648a3ad1b93ff345a02129bb861061d1a052c592e2dc6b383":[7,0,0,85,2,0],
 "_gamepad_state_8h.html#ad1d8e1f23e2f2515648a3ad1b93ff345a0634239a328057c4cf72e09bef7c056b":[7,0,0,85,2,9],
 "_gamepad_state_8h.html#ad1d8e1f23e2f2515648a3ad1b93ff345a1dd26f1f1790f0b56d5752fb0fbecef0":[7,0,0,85,2,5],
-"_gamepad_state_8h.html#ad1d8e1f23e2f2515648a3ad1b93ff345a383c253a0c1fb4693a76a140e27c32fb":[7,0,0,85,2,10],
-"_gamepad_state_8h.html#ad1d8e1f23e2f2515648a3ad1b93ff345a57cec4137b614c87cb4e24a3d003a3e0":[7,0,0,85,2,1],
-"_gamepad_state_8h.html#ad1d8e1f23e2f2515648a3ad1b93ff345a7fc56270e7a70fa81a5935b72eacbe29":[7,0,0,85,2,2],
-"_gamepad_state_8h.html#ad1d8e1f23e2f2515648a3ad1b93ff345a8086e04686895d3e8396649873703c58":[7,0,0,85,2,11],
-"_gamepad_state_8h.html#ad1d8e1f23e2f2515648a3ad1b93ff345a9d5ed678fe57bcca610140957afab571":[7,0,0,85,2,3]
+"_gamepad_state_8h.html#ad1d8e1f23e2f2515648a3ad1b93ff345a383c253a0c1fb4693a76a140e27c32fb":[7,0,0,85,2,10]
 };

@@ -4,6 +4,7 @@
 
 #include "UniquePtr.hpp"
 #include "IGpuImage.h"
+#include "GBuffer.h"
 
 namespace OSK::ASSETS {
 	class IrradianceMap;
@@ -48,7 +49,7 @@ namespace OSK::ECS {
 		void GBufferRenderLoop(GRAPHICS::ICommandList* commandList, ASSETS::ModelType modelType);
 		void ShadowsRenderLoop(ASSETS::ModelType modelType, GRAPHICS::ICommandList* commandList, TSize cascadeIndex);
 
-		GRAPHICS::RenderTarget gBuffer;
+		GRAPHICS::GBuffer gBuffer;
 
 		UniquePtr<GRAPHICS::IGpuUniformBuffer> cameraUbos[3]{};
 		UniquePtr<GRAPHICS::IGpuUniformBuffer> dirLightUbos[3]{};

@@ -20,7 +20,7 @@ VkImageLayout OSK::GRAPHICS::GetGpuImageLayoutVulkan(GpuImageLayout layout) {
 		case GpuImageLayout::DEPTH_STENCIL_READ_ONLY:
 			return VK_IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL;
 
-		case GpuImageLayout::SHADER_READ_ONLY:
+		case GpuImageLayout::SAMPLED:
 			return VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 
 		case GpuImageLayout::TRANSFER_SOURCE:

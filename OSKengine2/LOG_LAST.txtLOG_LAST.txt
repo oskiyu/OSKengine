@@ -1,6 +1,6 @@
 INFO: Iniciando OSKengine.
 INFO: 	Version: 0.0.0.
-INFO: 	Build 2022.10.23a.
+INFO: 	Build 2022.11.02a.
 INFO: Ventana iniciada correctamente.
 INFO: 	Monitor sizeX: 1920
 INFO: 	Monitor sizeY: 1080

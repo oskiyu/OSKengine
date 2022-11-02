@@ -94,13 +94,13 @@ void PbrDeferredRenderSystem::Initialize(GameObjectIndex camera, const ASSETS::I
 
 void PbrDeferredRenderSystem::UpdateResolveMaterial() {
 	const GpuImage* images[3]{};
-	for (TSize i = 0; i < 3; i++) images[i] = gBuffer.GetTargetImages(i)[GBUFFER_POSITION_TARGET_INDEX];
+	for (TSize i = 0; i < 3; i++) images[i] = gBuffer.GetImage(i, GBuffer::Target::POSITION);
 	resolveMaterialInstance->GetSlot("gbuffer")->SetGpuImages("positionTexture", images);
 
-	for (TSize i = 0; i < 3; i++) images[i] = gBuffer.GetTargetImages(i)[GBUFFER_COLOR_TARGET_INDEX];
+	for (TSize i = 0; i < 3; i++) images[i] = gBuffer.GetImage(i, GBuffer::Target::COLOR);
 	resolveMaterialInstance->GetSlot("gbuffer")->SetGpuImages("colorTexture", images);
 
-	for (TSize i = 0; i < 3; i++) images[i] = gBuffer.GetTargetImages(i)[GBUFFER_NORMAL_TARGET_INDEX];
+	for (TSize i = 0; i < 3; i++) images[i] = gBuffer.GetImage(i, GBuffer::Target::NORMAL);
 	resolveMaterialInstance->GetSlot("gbuffer")->SetGpuImages("normalTexture", images);
 
 	resolveMaterialInstance->GetSlot("gbuffer")->FlushUpdate();
@@ -108,14 +108,17 @@ void PbrDeferredRenderSystem::UpdateResolveMaterial() {
 
 void PbrDeferredRenderSystem::CreateTargetImage(const Vector2ui& size) {
 	// GBuffer.
-	gBuffer.Create(size, Format::RGBA32_SFLOAT, Format::D32S8_SFLOAT_SUINT);  // POSITION
-	gBuffer.AddColorTarget(Format::RGBA8_SRGB); // COLOR
-	gBuffer.AddColorTarget(Format::RGBA32_SFLOAT); // NORMAL
-	gBuffer.SetName("GBuffer");
+	gBuffer.Create(size);
 
 	// Imagen final.
-	renderTarget.Create(size, Format::RGBA32_SFLOAT, Format::D32S8_SFLOAT_SUINT);
-	renderTarget.SetName("Deferred Target");
+	RenderTargetAttachmentInfo colorAttachment{};
+	colorAttachment.format = Format::RGBA32_SFLOAT;
+	colorAttachment.name = "Deferred Target";
+
+	RenderTargetAttachmentInfo depthAttachment{};
+	colorAttachment.format = Format::D32S8_SFLOAT_SUINT;
+	colorAttachment.name = "Deferred Target Depth";
+	renderTarget.Create(size, { colorAttachment }, depthAttachment);
 
 	UpdateResolveMaterial();
 }
@@ -187,7 +190,7 @@ void PbrDeferredRenderSystem::GenerateShadows(ICommandList* commandList) {
 		commandList->EndGraphicsRenderpass();
 	}
 
-	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(resourceIndex), GpuImageLayout::SHADER_READ_ONLY,
+	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(resourceIndex), GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_END, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH | SampledChannel::STENCIL });
 }
@@ -278,13 +281,12 @@ void PbrDeferredRenderSystem::RenderGBuffer(ICommandList* commandList) {
 	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	
 	// Sincronización con todos los targets de color sobre los que vamos a escribir.
-	for (auto targetImage : gBuffer.GetTargetImages(resourceIndex))
-		commandList->SetGpuImageBarrier(targetImage, GpuImageLayout::SHADER_READ_ONLY,
+	for (TIndex t = 0; t < _countof(GBuffer::ColorTargetTypes); t++)
+		commandList->SetGpuImageBarrier(gBuffer.GetImage(resourceIndex, GBuffer::ColorTargetTypes[t]), GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE),
 			GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
-
-	commandList->BeginGraphicsRenderpass(&gBuffer, Color::BLACK() * 0.0f);
+	gBuffer.BeginRenderpass(commandList, Color::BLACK() * 0.0f);
 	SetupViewport(commandList);
 	commandList->BindMaterial(gbufferMaterial);
 	commandList->BindMaterialSlot(globalGbufferMaterialInstance->GetSlot("global"));
@@ -295,8 +297,8 @@ void PbrDeferredRenderSystem::RenderGBuffer(ICommandList* commandList) {
 	commandList->EndGraphicsRenderpass();
 
 	// Sincronización con todos los targets de color sobre los que vamos a leer en la fase resolve.
-	for (auto targetImage : gBuffer.GetTargetImages(resourceIndex))
-		commandList->SetGpuImageBarrier(targetImage, GpuImageLayout::SHADER_READ_ONLY,
+	for (TIndex t = 0; t < _countof(GBuffer::ColorTargetTypes); t++)
+		commandList->SetGpuImageBarrier(gBuffer.GetImage(resourceIndex, GBuffer::ColorTargetTypes[t]), GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
 			GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 }
@@ -314,7 +316,7 @@ void PbrDeferredRenderSystem::Resolve(ICommandList* cmdList) {
 
 	PushConst2D pushConstants{};
 	pushConstants.color = Color::WHITE();
-	pushConstants.matrix = renderTarget.GetSpriteTransform().GetAsMatrix();
+	//pushConstants.matrix = renderTarget.GetSpriteTransform().GetAsMatrix();
 	pushConstants.texCoords = { -1.0f, -1.0f, 1.0f, 1.0f };
 	cmdList->PushMaterialConstants("sprite", pushConstants);
 

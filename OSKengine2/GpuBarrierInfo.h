@@ -10,16 +10,7 @@ namespace OSK::GRAPHICS {
 	constexpr TSize ALL_IMAGE_LAYERS = (~0);
 
 
-	/// <summary>
-	/// Al establecer un gpu barrier, dividimos todos
-	/// los comandos en la lista de comandos en dos grupos.
-	/// 
-	/// Al establecer el barrier, la GPU esperará hasta que se
-	/// hayan completado todos los comandos en el stage sourceStage.
-	/// 
-	/// Todos los comandos enviados después del gpu barrier deben esperar
-	/// a que finalicen todos los comandos en el stage destinationStage.
-	/// </summary>
+
 	enum class GpuBarrierStage {
 
 		/// <summary>
@@ -152,6 +143,17 @@ namespace OSK::GRAPHICS {
 		DEFAULT = 4096
 	};
 
+
+	/// <summary>
+	/// Al establecer un gpu barrier, dividimos todos
+	/// los comandos en la lista de comandos en dos grupos.
+	/// 
+	/// Al establecer el barrier, la GPU esperará hasta que se
+	/// hayan completado todos los comandos en el stage sourceStage.
+	/// 
+	/// Todos los comandos enviados después del gpu barrier deben esperar
+	/// a que finalicen todos los comandos en el stage destinationStage.
+	/// </summary>
 	struct GpuBarrierInfo {
 		GpuBarrierInfo() {}
 		GpuBarrierInfo(GpuBarrierStage stage, GpuBarrierAccessStage accessStage) : stage(stage), accessStage(accessStage) {}
@@ -160,13 +162,35 @@ namespace OSK::GRAPHICS {
 		GpuBarrierAccessStage accessStage = GpuBarrierAccessStage::DEFAULT;
 	};
 
+
+	/// <summary>
+	/// Al establecer un gpu barrier, dividimos todos
+	/// los comandos en la lista de comandos en dos grupos.
+	/// 
+	/// Al establecer el barrier, la GPU esperará hasta que se
+	/// hayan completado todos los comandos en el stage sourceStage.
+	/// 
+	/// Todos los comandos enviados después del gpu barrier deben esperar
+	/// a que finalicen todos los comandos en el stage destinationStage.
+	/// </summary>
 	struct GpuImageBarrierInfo {
+
+		/// @brief Índice de la primera capa que será afectada por el barrier.
+		/// @pre Si la imagen NO es array, debe ser 0.
 		TSize baseLayer = 0;
+		
+		/// @brief Número de capas del array afectadas por el barrier.
 		TSize numLayers = ALL_IMAGE_LAYERS;
+
+		/// @brief Nivel más bajo de mip que será afectado por el barrier.
 		TSize baseMipLevel = 0;
+		/// @brief Número de niveles de mip que serán afectados por el barrier.
 		TSize numMipLevels = ALL_MIP_LEVELS;
 
+
+		/// @brief Canal(es) afectados por el barrier.
 		SampledChannel channel = SampledChannel::COLOR;
+
 	};
 
 }

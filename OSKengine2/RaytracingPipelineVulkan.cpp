@@ -20,7 +20,7 @@ void RaytracingPipelineVulkan::Create(const MaterialLayout& materialLayout, cons
 	specializationMapEntry.offset = 0;
 	specializationMapEntry.size = sizeof(TSize);
 
-	const TSize maxRecursion = 4;
+	const TSize maxRecursion = 1; ///@todo Permitir su modificación.
 
 	VkSpecializationInfo specializationInfo{};
 	specializationInfo.dataSize = sizeof(TSize);
@@ -72,7 +72,7 @@ void RaytracingPipelineVulkan::Create(const MaterialLayout& materialLayout, cons
 	createInfo.pStages = shaderStagesInfo.GetData();
 	createInfo.groupCount = shaderGroupCreateInfos.GetSize();
 	createInfo.pGroups = shaderGroupCreateInfos.GetData();
-	createInfo.maxPipelineRayRecursionDepth = 8; // TODO: config
+	createInfo.maxPipelineRayRecursionDepth = 1; // @todo config
 	createInfo.layout = layout->As<PipelineLayoutVulkan>()->GetLayout();
 
 	VkResult result = RendererVulkan::pvkCreateRayTracingPipelinesKHR(Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),

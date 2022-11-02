@@ -22,6 +22,13 @@ namespace OSK::GRAPHICS {
 
 namespace OSK::ASSETS {
 
+	enum class ModelMobilityType {
+		STATIC,
+		MOSTLY_STATIC,
+		DYNAMIC
+	};
+
+
 	enum class ModelType {
 		/// <summary> Malla estática sin animaciones. </summary>
 		STATIC_MESH,

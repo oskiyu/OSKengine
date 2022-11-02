@@ -139,7 +139,7 @@ protected:
 
 		topLevelAccelerationStructure = Engine::GetRenderer()->GetAllocator()->CreateTopAccelerationStructure({
 			carModel->GetAccelerationStructure(),
-			circuitModel->GetAccelerationStructure()
+			//circuitModel->GetAccelerationStructure()
 			}).GetPointer();
 
 		DynamicArray<RtInstanceInfo> instancesInfo;
@@ -147,10 +147,10 @@ protected:
 			carModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - carModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock(),
 			carModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - carModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock()
 			});
-		instancesInfo.Insert({ 
-			circuitModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - circuitModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock(),
-			circuitModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - circuitModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock()
-			});
+		//instancesInfo.Insert({ 
+			//circuitModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - circuitModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock(),
+			//circuitModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - circuitModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock()
+			//});
 		instancesInfoBuffer = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(RtInstanceInfo) * 4).GetPointer();
 		instancesInfoBuffer->MapMemory();
 		instancesInfoBuffer->Write(instancesInfo.GetData(), instancesInfo.GetSize() * sizeof(RtInstanceInfo));
@@ -173,7 +173,7 @@ protected:
 		rtMaterialInstance->GetSlot("rt")->SetAccelerationStructure("topLevelAccelerationStructure", topLevelAccelerationStructure);
 
 		renderSystem->AddBlas(carModel->GetAccelerationStructure());
-		renderSystem->AddBlas(circuitModel->GetAccelerationStructure());
+		//renderSystem->AddBlas(circuitModel->GetAccelerationStructure());
 
 		const IGpuUniformBuffer* cameraBuffers[3] {
 			renderSystem->GetCameraBuffer(0),
@@ -216,12 +216,12 @@ protected:
 		circuitObject = Engine::GetEcs()->SpawnObject();
 
 		auto& transform2 = Engine::GetEcs()->AddComponent<ECS::Transform3D>(circuitObject, ECS::Transform3D(circuitObject));
-		auto modelComponent2 = &Engine::GetEcs()->AddComponent<ECS::ModelComponent3D>(circuitObject, {});
+		/*auto modelComponent2 = &Engine::GetEcs()->AddComponent<ECS::ModelComponent3D>(circuitObject, {});
 
 		modelComponent2->SetModel(circuitModel); // animModel
 		modelComponent2->SetMaterial(material);
 		modelComponent2->BindTextureForAllMeshes("texture", "albedoTexture", texture);
-		ModelLoader3D::SetupPbrModel(circuitModel, modelComponent2);
+		ModelLoader3D::SetupPbrModel(circuitModel, modelComponent2);*/
 		// circuitModel->GetAnimator()->AddActiveAnimation("Idle");
 		// circuitModel->GetAnimator()->AddActiveAnimation("Run");
 
@@ -240,10 +240,15 @@ protected:
 
 		// Terrain
 		// renderSystem->InitializeTerrain({ 10u }, *Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/heightmap0.json", "GLOBAL"), *Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/terrain0.json", "GLOBAL"));
+
+		RenderTargetAttachmentInfo textColorInfo{ .format = Format::RGBA8_UNORM, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE };
+		RenderTargetAttachmentInfo textDepthInfo{ .format = Format::D32S8_SFLOAT_SUINT };
+		textRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), { textColorInfo }, textDepthInfo);
+
+		RenderTargetAttachmentInfo preEffectsColorInfo{ .format = Format::RGBA32_SFLOAT, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE };
+		RenderTargetAttachmentInfo preEffectsDepthInfo{ .format = Format::D32S8_SFLOAT_SUINT };
+		preEffectsRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), { preEffectsColorInfo }, preEffectsDepthInfo);
 		
-		textRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), Format::RGBA8_UNORM, Format::D32S8_SFLOAT_SUINT);
-		preEffectsRenderTarget.SetTargetImageUsage(GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE);
-		preEffectsRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), Format::RGBA32_SFLOAT, Format::D32S8_SFLOAT_SUINT);
 
 		fxaaPass = new FxaaPass();
 		fxaaPass->Create(Engine::GetWindow()->GetWindowSize());
@@ -376,12 +381,12 @@ protected:
 			const auto& transformComponent = Engine::GetEcs()->GetComponent<ECS::Transform3D>(carObject);
 			auto& modelComponent = Engine::GetEcs()->GetComponent<ECS::ModelComponent3D>(carObject);
 			modelComponent.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent.GetAsMatrix());
-			modelComponent.GetModel()->GetAccelerationStructure()->Update(commandList);
+			//modelComponent.GetModel()->GetAccelerationStructure()->Update(commandList);
 
-			const auto& transformComponent2 = Engine::GetEcs()->GetComponent<ECS::Transform3D>(circuitObject);
+			/*const auto& transformComponent2 = Engine::GetEcs()->GetComponent<ECS::Transform3D>(circuitObject);
 			auto& modelComponent2 = Engine::GetEcs()->GetComponent<ECS::ModelComponent3D>(circuitObject);
 			modelComponent2.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent2.GetAsMatrix());
-			modelComponent2.GetModel()->GetAccelerationStructure()->Update(commandList);
+			//modelComponent2.GetModel()->GetAccelerationStructure()->Update(commandList);
 			/*topLevelAccelerationStructure->Update(commandList);
 
 			const TSize imgIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
@@ -429,32 +434,43 @@ protected:
 		spriteRenderer.End();
 		graphicsCommandList->EndGraphicsRenderpass();
 
+		// Full-screen rendering
+		//
 		// Pre-Effects
-		graphicsCommandList->BindMaterial(material2d);
+		graphicsCommandList->BindVertexBuffer(Sprite::globalVertexBuffer);
+		graphicsCommandList->BindIndexBuffer(Sprite::globalIndexBuffer);
+
 		graphicsCommandList->BeginGraphicsRenderpass(&preEffectsRenderTarget);
-		spriteRenderer.Begin();
-		spriteRenderer.Draw(Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->GetRenderTarget().GetSprite(), Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->GetRenderTarget().GetSpriteTransform());
-		spriteRenderer.Draw(Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetSprite(), Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetShadowsImage().GetSpriteTransform());
-		spriteRenderer.End();
+		graphicsCommandList->BindMaterial(Engine::GetRenderer()->GetFullscreenRenderingMaterial());
+
+		graphicsCommandList->BindMaterialSlot(Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->GetRenderTarget().GetFullscreenSpriteMaterialSlot());
+		graphicsCommandList->DrawSingleInstance(6);
+
+		graphicsCommandList->BindMaterialSlot(Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetFullscreenSpriteMaterialSlot());
+		graphicsCommandList->DrawSingleInstance(6);
+
 		graphicsCommandList->EndGraphicsRenderpass();
 
+		// Post-processing effects:
 		fxaaPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
 		bloomPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
 		toneMappingPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
-		//smaaPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
 
-		frameBuildCommandList->BeginGraphicsRenderpass(renderpass);
+		// Frame build:
+		frameBuildCommandList->BindVertexBuffer(Sprite::globalVertexBuffer);
+		frameBuildCommandList->BindIndexBuffer(Sprite::globalIndexBuffer);
 
-		spriteRenderer.SetCommandList(frameBuildCommandList);
-		spriteRenderer.Begin();
-		
 		frameBuildCommandList->SetViewport(viewport);
 		frameBuildCommandList->SetScissor(windowRec);
 
-		spriteRenderer.Draw(toneMappingPass->GetOutput().GetSprite(), toneMappingPass->GetOutput().GetSpriteTransform());
-		spriteRenderer.Draw(textRenderTarget.GetSprite(), textRenderTarget.GetSpriteTransform());
+		frameBuildCommandList->BeginGraphicsRenderpass(renderpass);
+		frameBuildCommandList->BindMaterial(Engine::GetRenderer()->GetFullscreenRenderingMaterial());
 
-		spriteRenderer.End();
+		frameBuildCommandList->BindMaterialSlot(toneMappingPass->GetOutput().GetFullscreenSpriteMaterialSlot());
+		frameBuildCommandList->DrawSingleInstance(6);
+
+		frameBuildCommandList->BindMaterialSlot(textRenderTarget.GetFullscreenSpriteMaterialSlot());
+		frameBuildCommandList->DrawSingleInstance(6);
 
 		frameBuildCommandList->EndGraphicsRenderpass();
 	}

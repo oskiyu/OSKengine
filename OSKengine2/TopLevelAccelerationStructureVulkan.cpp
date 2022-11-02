@@ -35,9 +35,11 @@ void TopLevelAccelerationStructureVulkan::Setup() {
 
 	// Geometría única del TLAS
 	instanceBuffer = memoryAllocator->CreateBuffer(sizeof(VkAccelerationStructureInstanceKHR) * instances.GetSize(), 0, GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
-	instanceBuffer->MapMemory();
-	instanceBuffer->Write(instances.GetData(), sizeof(VkAccelerationStructureInstanceKHR) * instances.GetSize());
-	instanceBuffer->Unmap();
+	if (!instances.IsEmpty()) {
+		instanceBuffer->MapMemory();
+		instanceBuffer->Write(instances.GetData(), sizeof(VkAccelerationStructureInstanceKHR) * instances.GetSize());
+		instanceBuffer->Unmap();
+	}
 
 	const VkDeviceOrHostAddressConstKHR instancesAddress {
 		.deviceAddress = GetBufferDeviceAddress(instanceBuffer->GetMemoryBlock()->As<GpuMemoryBlockVulkan>()->GetVulkanBuffer(), logicalDevice)

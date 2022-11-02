@@ -267,6 +267,8 @@ namespace OSK::GRAPHICS {
 		bool _HasImplicitResizeHandling() const;
 
 
+		Material* GetFullscreenRenderingMaterial() const;
+
 	protected:
 
 		IRenderer(RenderApiType renderApiType, bool requestRayTracing);

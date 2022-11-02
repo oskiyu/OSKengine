@@ -28,9 +28,6 @@
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel">
       <UniqueIdentifier>{9f05af95-2413-4d79-9535-f76cd2c20cc3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Renderpass">
-      <UniqueIdentifier>{800eebf3-b3d6-4ace-8f1c-509d8af50ad3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\LowLevel\Renderer">
       <UniqueIdentifier>{3d7513f7-f14b-4f52-86bf-4b190874d8b0}</UniqueIdentifier>
     </Filter>
@@ -469,6 +466,12 @@
     <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\HighLevel\AnimatedModel">
       <UniqueIdentifier>{e9b696f5-76bc-4e3b-acec-86f3513d17af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\RenderAPI\HighLevel\RenderTargets">
+      <UniqueIdentifier>{b78af121-6466-4a1e-bced-5b1d84d715f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\RenderAPI\HighLevel\RenderTargets">
+      <UniqueIdentifier>{d42d12b5-a203-403b-b62c-35dd5c3b5d30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -843,9 +846,6 @@
     <ClCompile Include="IRenderSystem.cpp">
       <Filter>Archivos de origen\OSKengine\ECS\Builtin\Model3D</Filter>
     </ClCompile>
-    <ClCompile Include="RenderTarget.cpp">
-      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel</Filter>
-    </ClCompile>
     <ClCompile Include="IrradianceMap.cpp">
       <Filter>Archivos de origen\OSKengine\Assets\Builtin</Filter>
     </ClCompile>
@@ -941,6 +941,21 @@
     </ClCompile>
     <ClCompile Include="HybridRenderSystem.cpp">
       <Filter>Archivos de origen\OSKengine\ECS\Builtin\Model3D</Filter>
+    </ClCompile>
+    <ClCompile Include="RtAccelerationStructureFlags.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\RT\AS</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTarget.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\RenderTargets</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTargetAttachment.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\RenderTargets</Filter>
+    </ClCompile>
+    <ClCompile Include="RtRenderTarget.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\RenderTargets</Filter>
+    </ClCompile>
+    <ClCompile Include="GBuffer.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1460,9 +1475,6 @@
     <ClInclude Include="IRenderSystem.h">
       <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Model3D</Filter>
     </ClInclude>
-    <ClInclude Include="RenderTarget.h">
-      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel</Filter>
-    </ClInclude>
     <ClInclude Include="Lights.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PBR</Filter>
     </ClInclude>
@@ -1574,6 +1586,24 @@
     <ClInclude Include="HybridRenderSystem.h">
       <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Model3D</Filter>
     </ClInclude>
+    <ClInclude Include="RtAccelerationStructureFlags.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\RT\AS</Filter>
+    </ClInclude>
+    <ClInclude Include="GBuffer.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTarget.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\RenderTargets</Filter>
+    </ClInclude>
+    <ClInclude Include="RtRenderTarget.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\RenderTargets</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTargetAttachmentInfo.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\RenderTargets</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTargetAttachment.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\RenderTargets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\OSKengine\OSKengine.rc">
@@ -1611,5 +1641,9 @@
     <Image Include="F:\Users\óscar\Documents\OSCAR\OSK\OSKengine\icons\OSKengine_icon_lowres_16.ico">
       <Filter>Archivos de recursos</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="OSKengine2.licenseheader" />
+    <None Include="OSKengine22.licenseheader" />
   </ItemGroup>
 </Project>

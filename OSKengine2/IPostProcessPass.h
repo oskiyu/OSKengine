@@ -3,11 +3,12 @@
 #include "UniquePtr.hpp"
 #include "MaterialInstance.h"
 #include "Vector2.hpp"
-#include "RenderTarget.h"
+#include "RtRenderTarget.h"
 
 namespace OSK::GRAPHICS {
 
 	class ICommandList;
+	class RenderTarget;
 
 	/// <summary>
 	/// Clase base que permite ejecutar pases de efectos de postprocesamiento.
@@ -54,16 +55,23 @@ namespace OSK::GRAPHICS {
 		/// establecer como imágenes de entrada con IPostProcessPass::SetInput.
 		void SetInput(GpuImage* images[3], InputType type = InputType::STORAGE_IMAGE);
 
-		/// <summary>
-		/// Establece las imágenes de entrada a partir de las que
+		/// @brief Establece las imágenes de entrada a partir de las que
 		/// se calculará el efecto.
-		/// </summary>
-		/// <param name="target">Render target de entrada.</param>
+		/// @param target Render target de entrada.
 		/// 
 		/// @warning Si las imágenes son invalidadas (porque su dueño
 		/// original se recrean o cambian de tamaño), se debe volver a 
 		/// establecer como imágenes de entrada con IPostProcessPass::SetInput.
 		void SetInput(const RenderTarget& target, InputType type = InputType::STORAGE_IMAGE);
+		
+		/// @brief Establece las imágenes de entrada a partir de las que
+		/// se calculará el efecto.
+		/// @param target Render target de entrada.
+		/// 
+		/// @warning Si las imágenes son invalidadas (porque su dueño
+		/// original se recrean o cambian de tamaño), se debe volver a 
+		/// establecer como imágenes de entrada con IPostProcessPass::SetInput.
+		void SetInput(const RtRenderTarget& target, InputType type = InputType::STORAGE_IMAGE);
 
 
 		/// <summary>
@@ -82,7 +90,7 @@ namespace OSK::GRAPHICS {
 		/// Devuelve el render target con la imagen final
 		/// en las imágenes de color.
 		/// </summary>
-		const RenderTarget& GetOutput() const;
+		const ComputeRenderTarget& GetOutput() const;
 
 
 		/// <summary>
@@ -104,7 +112,7 @@ namespace OSK::GRAPHICS {
 		Material* postProcessingMaterial = nullptr;
 		UniquePtr<MaterialInstance> postProcessingMaterialInstance;
 
-		RenderTarget resolveRenderTarget{};
+		ComputeRenderTarget resolveRenderTarget{};
 
 		GpuImage* inputImages[3]{};
 

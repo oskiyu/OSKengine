@@ -134,7 +134,7 @@ void Font::LoadSizedFont(TSize fontSize) {
 
 	Engine::GetRenderer()->UploadImageToGpu(gpuImage.GetPointer(), finalPixels.GetData(), numBytes, copyCmdList.GetPointer());
 
-	copyCmdList->SetGpuImageBarrier(gpuImage.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY,
+	copyCmdList->SetGpuImageBarrier(gpuImage.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 	copyCmdList->Close();

@@ -149,10 +149,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:afe28fc16ef6b00db3c43868bd3c46183"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b50ad5958b73d266bbe46a4eab1762c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a2b50ad5958b73d266bbe46a4eab1762c">SetDebugName</a> (const std::string &amp;name) override</td></tr>
 <tr class="separator:a2b50ad5958b73d266bbe46a4eab1762c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7bf40442c718857b7b6b6ced797d5b2a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; <br />
-requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>, T&gt;</td></tr>
-<tr class="memitem:a7bf40442c718857b7b6b6ced797d5b2a"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a7bf40442c718857b7b6b6ced797d5b2a">As</a> () const</td></tr>
-<tr class="separator:a7bf40442c718857b7b6b6ced797d5b2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58b18da32a81e18a764ed60ec5b93972"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a58b18da32a81e18a764ed60ec5b93972">OSK_DEFINE_AS</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>)</td></tr>
+<tr class="separator:a58b18da32a81e18a764ed60ec5b93972"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea8a55a6c79006ab5107789609a56726"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aea8a55a6c79006ab5107789609a56726">SetGpuImageBarrier</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *image, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9">GpuImageLayout</a> nextLayout, <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html">GpuBarrierInfo</a> previous, <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html">GpuBarrierInfo</a> next, const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html">GpuImageBarrierInfo</a> &amp;prevImageInfo={})</td></tr>
 <tr class="separator:aea8a55a6c79006ab5107789609a56726"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3d1fda12c227f4b1782a16c2dca7f5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ae3d1fda12c227f4b1782a16c2dca7f5c">BeginGraphicsRenderpass</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">RenderTarget</a> *renderpass, const <a class="el" href="class_o_s_k_1_1_color.html">Color</a> &amp;color=<a class="el" href="class_o_s_k_1_1_color.html#a59c0bb4e7d3b7d396f97e1119f01f1ca">Color::BLACK</a>())</td></tr>
@@ -222,37 +220,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00053">53</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a7bf40442c718857b7b6b6ced797d5b2a" name="a7bf40442c718857b7b6b6ced797d5b2a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bf40442c718857b7b6b6ced797d5b2a">&#9670;&nbsp;</a></span>As()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; <br />
-requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>, T&gt;</div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">T * OSK::GRAPHICS::ICommandList::As </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00053">53</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00051">51</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -449,7 +417,8 @@ Los buffers de vértices que se enlacen después de este comando deben tener el 
 <dd>
 El material debe tener registrado el renderpass activo. </dd>
 <dd>
-La lista de comandos debe estar abierta. </dd></dl>
+La lista de comandos debe estar abierta.</dd></dl>
+<dl class="section warning"><dt>Atención</dt><dd>Para materiales de rasterizado, debe estar activo el renderpass con el que se vaya a renderizar usando este material. </dd></dl>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aced1453da2f79b5e435df27c330ab8d1">OSK::GRAPHICS::ICommandList</a>.</p>
 
@@ -806,7 +775,7 @@ La lista de comandos debe estar abierta.</dd></dl>
 <p>Elimina todos los buffers intermedios que ya no son necesarios. </p>
 <dl class="section pre"><dt>Precondición</dt><dd>La lista debe haberse ejecutado antes de llamar a esta función. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00049">49</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00047">47</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -1029,7 +998,33 @@ La lista de comandos debe estar abierta. </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00057">57</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00055">55</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a58b18da32a81e18a764ed60ec5b93972" name="a58b18da32a81e18a764ed60ec5b93972"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58b18da32a81e18a764ed60ec5b93972">&#9670;&nbsp;</a></span>OSK_DEFINE_AS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::GRAPHICS::ICommandList::OSK_DEFINE_AS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1085,7 +1080,7 @@ El push constant debe ser compatible con el material enlazado. </dd>
 <dd>
 La lista de comandos debe estar abierta. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00212">212</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00200">200</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1146,7 +1141,7 @@ El push constant debe ser compatible con el material enlazado. </dd>
 <dd>
 La lista de comandos debe estar abierta. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00045">45</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00043">43</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -1279,8 +1274,8 @@ La lista de comandos debe estar abierta. </dd></dl>
 </div><div class="memdoc">
 
 <p>Vacía la lista de comandos. </p>
-<dl class="section note"><dt>Nota</dt><dd>Debe llamarse antes de comenzar a grabar comandos. </dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>Debe estar cerrado. </dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Debe llamarse antes de comenzar a grabar comandos. </dd></dl>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a6791d0b0caa149ea0c2b33babf3f916d">OSK::GRAPHICS::ICommandList</a>.</p>
 
@@ -1537,15 +1532,15 @@ La lista de comandos debe estar abierta. </dd></dl>
 </div><div class="memdoc">
 
 <p>Establece un barrier que sincroniza la ejecución de comandos. Cambia el layout de la imagen. </p>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html" title="Al establecer un gpu barrier, dividimos todos los comandos en la lista de comandos en dos grupos.">GpuImageBarrierInfo</a>. </dd></dl>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">image</td><td>Imagen a la que se le cambiará el layout.</td></tr>
-    <tr><td class="paramname">previousLayout</td><td>Layout anterior.</td></tr>
-    <tr><td class="paramname">nextLayout</td><td>Nuevo layout.</td></tr>
-    <tr><td class="paramname">previous</td><td>Stage previo.</td></tr>
-    <tr><td class="paramname">next</td><td>Stage siguiente.</td></tr>
-    <tr><td class="paramname">imageInfo</td><td>Información sobre que subrecursos de la imagen serán afectados.</td></tr>
-    <tr><td class="paramname">nextImageInfo</td><td></td></tr>
+    <tr><td class="paramname">image</td><td>Imagen a la que se le cambiará el layout. </td></tr>
+    <tr><td class="paramname">previousLayout</td><td>Layout anterior. </td></tr>
+    <tr><td class="paramname">nextLayout</td><td>Nuevo layout. </td></tr>
+    <tr><td class="paramname">previous</td><td>Stage previo. </td></tr>
+    <tr><td class="paramname">next</td><td>Stage siguiente. </td></tr>
+    <tr><td class="paramname">prevImageInfo</td><td>Información sobre que subrecursos de la imagen serán afectados.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1730,7 +1725,7 @@ La lista de comandos debe estar abierta. </dd>
 Debe ejecutarse en un equipo compatible con trazado de rayos. </dd>
 <dd>
 Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Tareas pendientes:</a></b></dt><dd>Implementación en DX12. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Tareas pendientes:</a></b></dt><dd>Implementación en DX12. </dd></dl>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a6a335bc609cb8cb3d3e81005902f7545">OSK::GRAPHICS::ICommandList</a>.</p>
 
@@ -1759,7 +1754,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00387">387</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00375">375</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1783,7 +1778,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00395">395</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00383">383</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1807,7 +1802,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00396">396</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00384">384</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1833,7 +1828,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 
 <p><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html" title="Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la...">Material</a> que está siendo usado en un instante determinado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00393">393</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00381">381</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1873,7 +1868,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00397">397</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00385">385</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1897,7 +1892,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00385">385</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00373">373</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1921,7 +1916,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00399">399</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00387">387</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1945,7 +1940,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00386">386</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00374">374</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1959,7 +1954,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html">CommandListDx12</a></li>
-    <li class="footer">Generado el Sábado, 15 de Octubre de 2022 00:57:46 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Martes, 1 de Noviembre de 2022 23:59:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

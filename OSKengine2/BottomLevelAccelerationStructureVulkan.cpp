@@ -14,7 +14,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-void BottomLevelAccelerationStructureVulkan::Setup(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer) {
+void BottomLevelAccelerationStructureVulkan::Setup(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer, RtAccelerationStructureFlags flags) {
 	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
 	IGpuMemoryAllocator* memoryAllocator = Engine::GetRenderer()->GetAllocator();
 
@@ -69,11 +69,19 @@ void BottomLevelAccelerationStructureVulkan::Setup(const IGpuVertexBuffer& verte
 	blasBuildRangeInfo.firstVertex = 0;
 	blasBuildRangeInfo.transformOffset = 0;
 
+	VkBuildAccelerationStructureFlagsKHR buildFlags = 0;
+	if (EFTraits::HasFlag(flags, RtAccelerationStructureFlags::ALLOW_UPDATE))
+		buildFlags |= VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_UPDATE_BIT_KHR;
+	if (EFTraits::HasFlag(flags, RtAccelerationStructureFlags::FAST_BUILD))
+		buildFlags |= VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_BUILD_BIT_KHR;
+	if (EFTraits::HasFlag(flags, RtAccelerationStructureFlags::FAST_TRACE))
+		buildFlags |= VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_TRACE_BIT_KHR;
+
 	// Obtenemos la cantidad de memoria necesaria
 	VkAccelerationStructureBuildGeometryInfoKHR blasBuildGeometryInfo{};
 	blasBuildGeometryInfo.sType = VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR;
 	blasBuildGeometryInfo.type = VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR;
-	blasBuildGeometryInfo.flags = VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_TRACE_BIT_KHR;
+	blasBuildGeometryInfo.flags = buildFlags;
 	blasBuildGeometryInfo.geometryCount = 1;
 	blasBuildGeometryInfo.pGeometries = &geometryInfo;
 
@@ -149,7 +157,7 @@ void BottomLevelAccelerationStructureVulkan::Update(ICommandList* cmdList) {
 	VkAccelerationStructureBuildGeometryInfoKHR accelerationBuildGeometryInfo{};
 	accelerationBuildGeometryInfo.sType = VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR;
 	accelerationBuildGeometryInfo.type = VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR;
-	accelerationBuildGeometryInfo.flags = VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_BUILD_BIT_KHR | VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_UPDATE_BIT_KHR;
+	accelerationBuildGeometryInfo.flags = VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_TRACE_BIT_KHR | VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_UPDATE_BIT_KHR;
 	accelerationBuildGeometryInfo.mode = VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR;
 	accelerationBuildGeometryInfo.srcAccelerationStructure = accelerationStructureHandle;
 	accelerationBuildGeometryInfo.dstAccelerationStructure = accelerationStructureHandle;

@@ -1,0 +1,319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Referencia de la Clase OSK::GRAPHICS::GBuffer</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Tipos públicos</a> &#124;
+<a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="#pub-static-attribs">Atributos públicos estáticos</a> &#124;
+<a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer-members.html">Lista de todos los miembros</a>  </div>
+  <div class="headertitle"><div class="title">Referencia de la Clase OSK::GRAPHICS::GBuffer</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_g_buffer_8h_source.html">GBuffer.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Tipos públicos</h2></td></tr>
+<tr class="memitem:a471719964d9a51d608bcc5705404c814"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814">Target</a> : TIndex { <br />
+&#160;&#160;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814a90b4ba73224408e82ade8a072a3712c1">POSITION</a> = 0
+, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814a04bd834032febb3fda8c6936ee140949">COLOR</a> = 1
+, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814a1e23852820b9154316c7c06e2b7ba051">NORMAL</a> = 2
+, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814af96e6ea7a7375bd60bad3f3caae3cf27">MOTION</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814aaa1780b4fcce2d5d9af13dc25386d111">DEPTH</a> = std::numeric_limits&lt;TIndex&gt;::max()
+<br />
+ }</td></tr>
+<tr class="separator:a471719964d9a51d608bcc5705404c814"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Métodos públicos</h2></td></tr>
+<tr class="memitem:ab4768e9af525c61ff55a7bd181299afa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#ab4768e9af525c61ff55a7bd181299afa">Create</a> (const <a class="el" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a> &amp;resolution, <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">GpuImageSamplerDesc</a> sampler=<a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html#a7141f4646d5bafd13be400d6cc5597cb">GpuImageSamplerDesc::CreateDefault</a>(), <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">GpuImageUsage</a> usage=<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa04bd834032febb3fda8c6936ee140949">GpuImageUsage::COLOR</a>|<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa5d0791856a3081df75c6093017a61a36">GpuImageUsage::SAMPLED</a>)</td></tr>
+<tr class="separator:ab4768e9af525c61ff55a7bd181299afa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf1f6e141e5bc94d9bd4317bdc27a0d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#abf1f6e141e5bc94d9bd4317bdc27a0d7">Resize</a> (const <a class="el" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a> &amp;resolution)</td></tr>
+<tr class="separator:abf1f6e141e5bc94d9bd4317bdc27a0d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a673b7df7110ce0f95c50eb3d824197b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a673b7df7110ce0f95c50eb3d824197b3">GetImage</a> (<a class="el" href="_o_s_kmacros_8h.html#a0f6b3171fdbde641ab165b26c2e54a8d">TIndex</a> frameIndex, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814">Target</a> targetType)</td></tr>
+<tr class="separator:a673b7df7110ce0f95c50eb3d824197b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a9bd1fac10f94ebb3707f3bbb6f56fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a0a9bd1fac10f94ebb3707f3bbb6f56fa">BeginRenderpass</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *cmdList, <a class="el" href="class_o_s_k_1_1_color.html">Color</a> color)</td></tr>
+<tr class="separator:a0a9bd1fac10f94ebb3707f3bbb6f56fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Atributos públicos estáticos</h2></td></tr>
+<tr class="memitem:afc4aadb276c3b8a1072eb1b5a06735f0"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814">Target</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#afc4aadb276c3b8a1072eb1b5a06735f0">ColorTargetTypes</a> [4] = {<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814a90b4ba73224408e82ade8a072a3712c1">Target::POSITION</a>, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814a04bd834032febb3fda8c6936ee140949">Target::COLOR</a>, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814a1e23852820b9154316c7c06e2b7ba051">Target::NORMAL</a>, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814af96e6ea7a7375bd60bad3f3caae3cf27">Target::MOTION</a> }</td></tr>
+<tr class="separator:afc4aadb276c3b8a1072eb1b5a06735f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock">
+<p class="definition">Definición en la línea <a class="el" href="_g_buffer_8h_source.html#l00009">9</a> del archivo <a class="el" href="_g_buffer_8h_source.html">GBuffer.h</a>.</p>
+</div><h2 class="groupheader">Documentación de las enumeraciones miembro de la clase</h2>
+<a id="a471719964d9a51d608bcc5705404c814" name="a471719964d9a51d608bcc5705404c814"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a471719964d9a51d608bcc5705404c814">&#9670;&nbsp;</a></span>Target</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814">OSK::GRAPHICS::GBuffer::Target</a> : <a class="el" href="_o_s_kmacros_8h.html#a0f6b3171fdbde641ab165b26c2e54a8d">TIndex</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a471719964d9a51d608bcc5705404c814a90b4ba73224408e82ade8a072a3712c1" name="a471719964d9a51d608bcc5705404c814a90b4ba73224408e82ade8a072a3712c1"></a>POSITION&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a471719964d9a51d608bcc5705404c814a04bd834032febb3fda8c6936ee140949" name="a471719964d9a51d608bcc5705404c814a04bd834032febb3fda8c6936ee140949"></a>COLOR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a471719964d9a51d608bcc5705404c814a1e23852820b9154316c7c06e2b7ba051" name="a471719964d9a51d608bcc5705404c814a1e23852820b9154316c7c06e2b7ba051"></a>NORMAL&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a471719964d9a51d608bcc5705404c814af96e6ea7a7375bd60bad3f3caae3cf27" name="a471719964d9a51d608bcc5705404c814af96e6ea7a7375bd60bad3f3caae3cf27"></a>MOTION&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a471719964d9a51d608bcc5705404c814aaa1780b4fcce2d5d9af13dc25386d111" name="a471719964d9a51d608bcc5705404c814aaa1780b4fcce2d5d9af13dc25386d111"></a>DEPTH&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="_g_buffer_8h_source.html#l00013">13</a> del archivo <a class="el" href="_g_buffer_8h_source.html">GBuffer.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de las funciones miembro</h2>
+<a id="a0a9bd1fac10f94ebb3707f3bbb6f56fa" name="a0a9bd1fac10f94ebb3707f3bbb6f56fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a9bd1fac10f94ebb3707f3bbb6f56fa">&#9670;&nbsp;</a></span>BeginRenderpass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GBuffer::BeginRenderpass </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *&#160;</td>
+          <td class="paramname"><em>cmdList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_color.html">Color</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_g_buffer_8cpp_source.html#l00029">29</a> del archivo <a class="el" href="_g_buffer_8cpp_source.html">GBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab4768e9af525c61ff55a7bd181299afa" name="ab4768e9af525c61ff55a7bd181299afa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4768e9af525c61ff55a7bd181299afa">&#9670;&nbsp;</a></span>Create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GBuffer::Create </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a> &amp;&#160;</td>
+          <td class="paramname"><em>resolution</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">GpuImageSamplerDesc</a>&#160;</td>
+          <td class="paramname"><em>sampler</em> = <code><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html#a7141f4646d5bafd13be400d6cc5597cb">GpuImageSamplerDesc::CreateDefault</a>()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">GpuImageUsage</a>&#160;</td>
+          <td class="paramname"><em>usage</em> = <code><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa04bd834032febb3fda8c6936ee140949">GpuImageUsage::COLOR</a>&#160;|&#160;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa5d0791856a3081df75c6093017a61a36">GpuImageUsage::SAMPLED</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_g_buffer_8cpp_source.html#l00009">9</a> del archivo <a class="el" href="_g_buffer_8cpp_source.html">GBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a673b7df7110ce0f95c50eb3d824197b3" name="a673b7df7110ce0f95c50eb3d824197b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a673b7df7110ce0f95c50eb3d824197b3">&#9670;&nbsp;</a></span>GetImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> * GBuffer::GetImage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a0f6b3171fdbde641ab165b26c2e54a8d">TIndex</a>&#160;</td>
+          <td class="paramname"><em>frameIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814">Target</a>&#160;</td>
+          <td class="paramname"><em>targetType</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_g_buffer_8cpp_source.html#l00023">23</a> del archivo <a class="el" href="_g_buffer_8cpp_source.html">GBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abf1f6e141e5bc94d9bd4317bdc27a0d7" name="abf1f6e141e5bc94d9bd4317bdc27a0d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf1f6e141e5bc94d9bd4317bdc27a0d7">&#9670;&nbsp;</a></span>Resize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GBuffer::Resize </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a> &amp;&#160;</td>
+          <td class="paramname"><em>resolution</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_g_buffer_8cpp_source.html#l00019">19</a> del archivo <a class="el" href="_g_buffer_8cpp_source.html">GBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de los datos miembro</h2>
+<a id="afc4aadb276c3b8a1072eb1b5a06735f0" name="afc4aadb276c3b8a1072eb1b5a06735f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc4aadb276c3b8a1072eb1b5a06735f0">&#9670;&nbsp;</a></span>ColorTargetTypes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814">GBuffer::Target</a> GBuffer::ColorTargetTypes = {<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814a90b4ba73224408e82ade8a072a3712c1">Target::POSITION</a>, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814a04bd834032febb3fda8c6936ee140949">Target::COLOR</a>, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814a1e23852820b9154316c7c06e2b7ba051">Target::NORMAL</a>, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814af96e6ea7a7375bd60bad3f3caae3cf27">Target::MOTION</a> }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_g_buffer_8h_source.html#l00022">22</a> del archivo <a class="el" href="_g_buffer_8h_source.html">GBuffer.h</a>.</p>
+
+</div>
+</div>
+<hr/>La documentación para esta clase fue generada a partir de los siguientes ficheros:<ul>
+<li>OSKengine2/<a class="el" href="_g_buffer_8h_source.html">GBuffer.h</a></li>
+<li>OSKengine2/<a class="el" href="_g_buffer_8cpp_source.html">GBuffer.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html">GBuffer</a></li>
+    <li class="footer">Generado el Martes, 1 de Noviembre de 2022 23:59:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

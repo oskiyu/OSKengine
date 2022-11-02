@@ -273,7 +273,7 @@ void CommandListVulkan::EndGraphicsRenderpass() {
 
 	const GpuImageLayout finalLayout = isFinal
 		? GpuImageLayout::PRESENT
-		: GpuImageLayout::SHADER_READ_ONLY;
+		: GpuImageLayout::SAMPLED;
 
 	for (const auto& img : currentColorImages) {
 		SetGpuImageBarrier(img.targetImage, GpuImageLayout::COLOR_ATTACHMENT, finalLayout,
@@ -345,8 +345,9 @@ void CommandListVulkan::BindMaterialSlot(const IMaterialSlot* slot) {
 		case MaterialType::GRAPHICS: layout = currentPipeline.graphics->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout(); break;
 		case MaterialType::RAYTRACING: layout = currentPipeline.raytracing->GetLayout()->As<PipelineLayoutVulkan>()->GetLayout(); break;
 	}
-	vkCmdBindDescriptorSets(commandBuffers[GetCommandListIndex()], bindPoint, layout,
-		currentMaterial->GetLayout()->GetSlot(slot->GetName()).glslSetIndex, 1, sets, 0, nullptr);
+
+	const TIndex glslSetIndex = currentMaterial->GetLayout()->GetSlot(slot->GetName()).glslSetIndex;
+	vkCmdBindDescriptorSets(commandBuffers[GetCommandListIndex()], bindPoint, layout, glslSetIndex, 1, sets, 0, nullptr);
 }
 
 void CommandListVulkan::PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) {

@@ -24,6 +24,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan =
     [ "GetCurrentResourceIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a4e01c1a22662c8777aa2f285ffc51c3f", null ],
     [ "GetFinalRenderTarget", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#afdb99df53b3996540c53a323c1ffd0fa", null ],
     [ "GetFrameBuildCommandList", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a12dbfa8d440cadd6fcc8ac7b80deff89", null ],
+    [ "GetFullscreenRenderingMaterial", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a32302de219063bdb551ab8200cb122a1", null ],
     [ "GetGpu", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a8b6b1698afeb3bb07f3b91e5ddb79b2d", null ],
     [ "GetGraphicsCommandList", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a181fa5cc9ca0761482c658589fd95aff", null ],
     [ "GetGraphicsCommandQueue", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a7fa021d03868e15428c6a382864b9d6c", null ],

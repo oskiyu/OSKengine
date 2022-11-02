@@ -6,6 +6,7 @@ var namespace_o_s_k_1_1_e_c_s =
     [ "ComponentManager", "class_o_s_k_1_1_e_c_s_1_1_component_manager.html", "class_o_s_k_1_1_e_c_s_1_1_component_manager" ],
     [ "EntityComponentSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system" ],
     [ "GameObjectManager", "class_o_s_k_1_1_e_c_s_1_1_game_object_manager.html", "class_o_s_k_1_1_e_c_s_1_1_game_object_manager" ],
+    [ "HybridRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system" ],
     [ "IComponentContainer", "class_o_s_k_1_1_e_c_s_1_1_i_component_container.html", "class_o_s_k_1_1_e_c_s_1_1_i_component_container" ],
     [ "IRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_i_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_i_render_system" ],
     [ "ISystem", "class_o_s_k_1_1_e_c_s_1_1_i_system.html", "class_o_s_k_1_1_e_c_s_1_1_i_system" ],

@@ -28,7 +28,9 @@ void IRenderSystem::Resize(const Vector2ui& windowSize) {
 }
 
 void IRenderSystem::CreateTargetImage(const Vector2ui& size) {
-	renderTarget.Create(size, Format::RGBA8_UNORM, Format::D32S8_SFLOAT_SUINT);
+	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA8_UNORM };
+	RenderTargetAttachmentInfo depthInfo{ .format = Format::D32S8_SFLOAT_SUINT };
+	renderTarget.Create(size, { colorInfo }, depthInfo);
 }
 
 RenderTarget& IRenderSystem::GetRenderTarget() {

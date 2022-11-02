@@ -120,7 +120,7 @@ DynamicArray<OwnedPtr<GpuImage>> IMeshLoader::LoadImages() {
 			uploadCmdList->SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION,
 				GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE));
 			Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), originalImage.image.data(), numBytes, uploadCmdList.GetPointer());
-			uploadCmdList->SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY,
+			uploadCmdList->SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SAMPLED,
 				GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
 
 			free(data);
@@ -129,7 +129,7 @@ DynamicArray<OwnedPtr<GpuImage>> IMeshLoader::LoadImages() {
 			uploadCmdList->SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION,
 				GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE));
 			Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), originalImage.image.data(), numBytes, uploadCmdList.GetPointer());
-			uploadCmdList->SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY,
+			uploadCmdList->SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SAMPLED,
 				GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
 		}
 		else {

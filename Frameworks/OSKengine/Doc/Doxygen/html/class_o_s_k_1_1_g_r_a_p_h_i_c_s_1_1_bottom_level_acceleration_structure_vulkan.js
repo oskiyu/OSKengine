@@ -7,8 +7,8 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulk
     [ "IsDirty", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan.html#aa8a9c840623a5e8b836647cf8b79f582", null ],
     [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan.html#a56556b538d58fb56a885e00b7d5ecc99", null ],
     [ "SetMatrix", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan.html#aa9861db9eac37cc449c5bc3aad871a83", null ],
-    [ "Setup", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan.html#ac668dd6d47642db969a9b0fa917df778", null ],
-    [ "Update", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan.html#a383778d0817f1e8d970995e1338db01b", null ],
+    [ "Setup", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan.html#ad88b8daa60cad1aaaf93a6c22d8f6831", null ],
+    [ "Update", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan.html#ad23f58364bc4148f92c44ab24cca6d83", null ],
     [ "isDirty", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan.html#aebde73345ad718c32c4a070095f62dbc", null ],
     [ "matrixBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan.html#af7a4d5aaa27b13dfc51829ad2f2f5bd5", null ]
 ];

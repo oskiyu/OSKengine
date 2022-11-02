@@ -20,5 +20,6 @@ var searchData=
   ['israytracing_17',['isRaytracing',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a341e2b9eb5690f41edd35ea01c16c3ff',1,'OSK::GRAPHICS::PipelineCreateInfo']]],
   ['isrtactive_18',['isRtActive',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a54e890abc204e8918aae618cf4642a0b',1,'OSK::GRAPHICS::IRenderer']]],
   ['issingleuse_19',['isSingleUse',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a3298bbf2bbc07fce7dd4a04a20b0bf44',1,'OSK::GRAPHICS::ICommandList']]],
-  ['issuitable_20',['isSuitable',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#aac4796d28f454427cc15055773e45460',1,'OSK::GRAPHICS::GpuVulkan::Info']]]
+  ['issuitable_20',['isSuitable',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#aac4796d28f454427cc15055773e45460',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
+  ['isunsizedarray_21',['isUnsizedArray',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding.html#a8ee493a9078bcb8aaeb5a46606d2011d',1,'OSK::GRAPHICS::MaterialLayoutBinding']]]
 ];

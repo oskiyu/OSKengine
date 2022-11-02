@@ -177,7 +177,7 @@ OwnedPtr<ITopLevelAccelerationStructure> GpuMemoryAllocatorVulkan::CreateTopAcce
 
 OwnedPtr<IBottomLevelAccelerationStructure> GpuMemoryAllocatorVulkan::CreateBottomAccelerationStructure(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer) {
 	BottomLevelAccelerationStructureVulkan* output = new BottomLevelAccelerationStructureVulkan();
-	output->Setup(vertexBuffer, indexBuffer);
+	output->Setup(vertexBuffer, indexBuffer, RtAccelerationStructureFlags::FAST_TRACE); /// @todo
 	output->SetMatrix(glm::mat4(1.0f));
 
 	return output;

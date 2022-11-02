@@ -21,6 +21,7 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "DescriptorPoolVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_pool_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_pool_vulkan" ],
     [ "DirectionalLight", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_directional_light.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_directional_light" ],
     [ "FxaaPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_fxaa_pass.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_fxaa_pass" ],
+    [ "GBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer" ],
     [ "GpuBarrierInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info" ],
     [ "GpuBufferMemoryBlockInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info" ],
     [ "GpuDataBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer" ],
@@ -102,6 +103,9 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "RendererVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan" ],
     [ "RenderPassImageInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_pass_image_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_pass_image_info" ],
     [ "RenderTarget", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target" ],
+    [ "RenderTargetAttachment", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment" ],
+    [ "RenderTargetAttachmentInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment_info" ],
+    [ "RtRenderTarget", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target" ],
     [ "RtShaderTableVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vulkan" ],
     [ "ShaderStageDx12", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12" ],
     [ "ShaderStageVulkan", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vulkan.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vulkan" ],
@@ -124,6 +128,7 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "VertexInfo", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info" ],
     [ "Viewport", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport" ],
     [ "Bone", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4f5b85b215c02279051f4041a44b512c", null ],
+    [ "ComputeRenderTarget", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#afd24b20e15d7e1eb9c7fa8355cc1177d", null ],
     [ "TIndexSize", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a05f5134cdcc67a7889c57e39aa2f25ae", null ],
     [ "DepthTestingType", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027dd", [
       [ "NONE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027ddab50339a10e1de285ac99d4c3990b8693", null ],
@@ -265,6 +270,15 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
       [ "INTERMEDIATE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a68c7e70128c792c56815e41b7f9c5fefa41dc7c9e385c4d2b6c1f7836973951bf", null ],
       [ "FINAL", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a68c7e70128c792c56815e41b7f9c5fefa6c8361dc2036c0559376fe4957699f69", null ]
     ] ],
+    [ "RtAccelerationStructureFlags", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a84d581108aac32ea8bf5a139abafb864", [
+      [ "FAST_TRACE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a84d581108aac32ea8bf5a139abafb864a3f684dca71b75eb53a8a25920db6a67f", null ],
+      [ "FAST_BUILD", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a84d581108aac32ea8bf5a139abafb864a8f43d2d9234f74c301bb1cb64f947505", null ],
+      [ "ALLOW_UPDATE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a84d581108aac32ea8bf5a139abafb864a079a30b0592505b5965a5db0388c511c", null ]
+    ] ],
+    [ "RtAccelerationStructureUpdateType", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a36849b56fb8ca2a551ef010d857bea90", [
+      [ "UPDATE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a36849b56fb8ca2a551ef010d857bea90a15a8022d0ed9cd9c2a2e756822703eb4", null ],
+      [ "REBUILD", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a36849b56fb8ca2a551ef010d857bea90ac75592fa549dce0833e49b89944bf685", null ]
+    ] ],
     [ "SampledArrayType", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a55e114ba828198c2146f5233e462ba39", [
       [ "SINGLE_LAYER", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a55e114ba828198c2146f5233e462ba39a827be7f5269fdb21e2fb90ab4f60e785", null ],
       [ "ARRAY", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a55e114ba828198c2146f5233e462ba39acb4fb1757fb37c43cded35d3eb857c43", null ]
@@ -306,6 +320,7 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
       [ "DEPTH_STENCIL_TARGET", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bcaaad449a013a6d7a34d5ea38b6263ff6d8", null ],
       [ "STORAGE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bcaa754a5d433173b5ddc7debc2110ac575f", null ]
     ] ],
+    [ "GetAsBuildFlags", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a28c68761749c9dceca3b090f7a62a898", null ],
     [ "GetColorFormat", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#addcbf799331ac7f383130540011e4a02", null ],
     [ "GetDescriptorTypeVk", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4c5b747cc726d69ca2876e77875618dc", null ],
     [ "GetFormatDx12", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a100a7488e1eee158da65062d0b5e5277", null ],
@@ -322,6 +337,5 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "GetShaderStageVk", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3a50046339fbf8642e14273583cd8118", null ],
     [ "ALL_IMAGE_LAYERS", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a180d96d3f745a60bce6b0ffd5209ce35", null ],
     [ "ALL_MIP_LEVELS", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af4ec621c557d492c7de3493e2b2bd1a9", null ],
-    [ "NUM_RENDER_TARGET_IMAGES", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a92b901b2282ba60626f55be92e849ead", null ],
     [ "NUM_RESOURCES_IN_FLIGHT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a2790b1bb1dbf382ccd86a228f9f2ccbd", null ]
 ];

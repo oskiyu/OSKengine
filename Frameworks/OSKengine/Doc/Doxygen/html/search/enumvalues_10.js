@@ -10,7 +10,8 @@ var searchData=
   ['pause_7',['PAUSE',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea291554596c183e837f0a6bec3767c891',1,'OSK::IO']]],
   ['perido_8',['PERIDO',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea73ca001ad9c37019a44b6d67c2a08b33',1,'OSK::IO']]],
   ['pixels_9',['PIXELS',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a8850682b4f35c42bbcf63a1e81b29c9ca02c1922d900c1b47ff041388e102e225',1,'OSK::GRAPHICS']]],
-  ['present_10',['PRESENT',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9a720ff3fec5d13dcf3d3aec6d5726fc36',1,'OSK::GRAPHICS']]],
-  ['pressed_11',['PRESSED',['../namespace_o_s_k_1_1_i_o.html#aaddc5e8725ac9d930e313af0044eb968a5381dc876ab002103a027265bc14ae52',1,'OSK::IO::PRESSED()'],['../namespace_o_s_k_1_1_i_o.html#a78afb37a98c122d12c3a1a38aba9e56ea5381dc876ab002103a027265bc14ae52',1,'OSK::IO::PRESSED()'],['../namespace_o_s_k_1_1_i_o.html#a59bf216682b802b6dad7d81be5ea3f31a5381dc876ab002103a027265bc14ae52',1,'OSK::IO::PRESSED()']]],
-  ['print_5fscreen_12',['PRINT_SCREEN',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea853f8ded7a96b5a765704974e6a3ca96',1,'OSK::IO']]]
+  ['position_10',['POSITION',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a471719964d9a51d608bcc5705404c814a90b4ba73224408e82ade8a072a3712c1',1,'OSK::GRAPHICS::GBuffer']]],
+  ['present_11',['PRESENT',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9a720ff3fec5d13dcf3d3aec6d5726fc36',1,'OSK::GRAPHICS']]],
+  ['pressed_12',['PRESSED',['../namespace_o_s_k_1_1_i_o.html#aaddc5e8725ac9d930e313af0044eb968a5381dc876ab002103a027265bc14ae52',1,'OSK::IO::PRESSED()'],['../namespace_o_s_k_1_1_i_o.html#a78afb37a98c122d12c3a1a38aba9e56ea5381dc876ab002103a027265bc14ae52',1,'OSK::IO::PRESSED()'],['../namespace_o_s_k_1_1_i_o.html#a59bf216682b802b6dad7d81be5ea3f31a5381dc876ab002103a027265bc14ae52',1,'OSK::IO::PRESSED()']]],
+  ['print_5fscreen_13',['PRINT_SCREEN',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea853f8ded7a96b5a765704974e6a3ca96',1,'OSK::IO']]]
 ];

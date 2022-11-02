@@ -50,9 +50,10 @@ IrradianceMapLoader::IrradianceMapLoader() {
 
 	cubemapGenMaterialInstance = cubemapGenMaterial->CreateInstance().GetPointer();
 	cubemapConvolutionMaterialInstance = cubemapConvolutionMaterial->CreateInstance().GetPointer();
-	
-	cubemapGenRenderTarget.SetTargetImageUsage(GpuImageUsage::TRANSFER_SOURCE);
-	cubemapGenRenderTarget.Create(irradianceLayerSize, Format::RGBA32_SFLOAT, Format::D32S8_SFLOAT_SUINT);
+
+	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA32_SFLOAT, .usage = GpuImageUsage::TRANSFER_SOURCE };
+	RenderTargetAttachmentInfo depthInfo{ .format = Format::D32S8_SFLOAT_SUINT };
+	cubemapGenRenderTarget.Create(irradianceLayerSize, { colorInfo }, depthInfo);
 
 	cubemapModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/cube.json", "OSK::IrradianceMapLoader");
 }
@@ -97,7 +98,7 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IAsset** asset)
 
 	Engine::GetRenderer()->UploadImageToGpu(originalImage.GetPointer(), (TByte*)pixels, size.X * size.Y * size.Z * GetFormatNumberOfBytes(Format::RGBA32_SFLOAT), uploadCmdList.GetPointer());
 
-	uploadCmdList->SetGpuImageBarrier(originalImage.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY,
+	uploadCmdList->SetGpuImageBarrier(originalImage.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
@@ -162,11 +163,11 @@ void IrradianceMapLoader::DrawCubemap(GpuImage* targetCubemap, ICommandList* cmd
 
 			cmdList->EndGraphicsRenderpass();
 
-			cmdList->SetGpuImageBarrier(cubemapGenRenderTarget.GetMainTargetImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::TRANSFER_SOURCE,
+			cmdList->SetGpuImageBarrier(cubemapGenRenderTarget.GetMainColorImage(Engine::GetRenderer()->GetCurrentFrameIndex()), GpuImageLayout::TRANSFER_SOURCE,
 				GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ),
 				GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
-			cmdList->CopyImageToImage(cubemapGenRenderTarget.GetMainTargetImage(Engine::GetRenderer()->GetCurrentFrameIndex()), targetCubemap, 1, 0, i, 0, mipLevel, viewport.rectangle.GetRectangleSize());
+			cmdList->CopyImageToImage(cubemapGenRenderTarget.GetMainColorImage(Engine::GetRenderer()->GetCurrentFrameIndex()), targetCubemap, 1, 0, i, 0, mipLevel, viewport.rectangle.GetRectangleSize());
 		}
 	}
 }
@@ -180,7 +181,7 @@ void IrradianceMapLoader::GenCubemap(GRAPHICS::GpuImage* targetCubemap, GRAPHICS
 
 	DrawCubemap(targetCubemap, cmdList, cubemapGenMaterial, cubemapGenMaterialInstance->GetSlot("global"));
 
-	cmdList->SetGpuImageBarrier(targetCubemap, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY,
+	cmdList->SetGpuImageBarrier(targetCubemap, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = 6, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 }
@@ -194,7 +195,7 @@ void IrradianceMapLoader::ConvoluteCubemap(GRAPHICS::GpuImage* targetCubemap, GR
 
 	DrawCubemap(targetCubemap, cmdList, cubemapConvolutionMaterial, cubemapConvolutionMaterialInstance->GetSlot("global"));
 
-	cmdList->SetGpuImageBarrier(targetCubemap, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY,
+	cmdList->SetGpuImageBarrier(targetCubemap, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = 6, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 }

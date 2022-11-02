@@ -2,16 +2,16 @@
 
 layout (local_size_x = 8, local_size_y = 8) in;
 
-layout (set = 0, binding = 0, rgba8)   uniform readonly image2D shadowMask;
-layout (set = 0, binding = 1, rgba32f) uniform image2D finalShadows;
-layout (set = 0, binding = 2, rgba32f) uniform readonly image2D historicalShadows;
-layout (set = 0, binding = 3, rgba16f) uniform readonly image2D velocityImg;
+layout (set = 0, binding = 0)   uniform sampler2D raytracedShadowsImg;
+layout (set = 0, binding = 1, rgba32f) uniform image2D denoisedShadowsImg;
+layout (set = 0, binding = 2) uniform sampler2D historicalImg;
+layout (set = 0, binding = 3) uniform sampler2D velocityImg;
 
-layout (set = 0, binding = 4, rgba32f) uniform readonly image2D currentPositionImg;
-layout (set = 0, binding = 5, rgba32f) uniform readonly image2D historicalPositionImg;
+layout (set = 0, binding = 4) uniform sampler2D currentPositionImg;
+layout (set = 0, binding = 5) uniform sampler2D historicalPositionImg;
 
-layout (set = 0, binding = 6, rgba32f) uniform readonly image2D currentNormalImg;
-layout (set = 0, binding = 7, rgba32f) uniform readonly image2D historicalNormalImg;
+layout (set = 0, binding = 6) uniform sampler2D currentNormalImg;
+layout (set = 0, binding = 7) uniform sampler2D historicalNormalImg;
 
 layout (push_constant) uniform Info {
     vec2 resolution;
@@ -20,12 +20,11 @@ layout (push_constant) uniform Info {
 
 // Número de frames tope para la convergencia.
 // Mayor da mejores resultados.
-const int NUM_TEMPORAL_SAMPLES = 50;
+const float NUM_TEMPORAL_SAMPLES = 60.0;
 
 const float gaussianKernel[5] = float[5](1, 4, 6, 4, 1);
 
-// computes a 3x3 gaussian blur of the variance, centered around
-// the current pixel
+// 5x5 Gaussian-Blur
 float GaussianBlur(ivec2 coords) {
     float shadow = 0.0;
 
@@ -34,7 +33,7 @@ float GaussianBlur(ivec2 coords) {
         for (int xx = -radius; xx <= radius; xx++) {
             float k = gaussianKernel[xx + radius] * gaussianKernel[yy + radius] / 256.0;
 
-            shadow += imageLoad(shadowMask, coords + ivec2(xx, yy)).r * k;
+            shadow += texelFetch(raytracedShadowsImg, coords + ivec2(xx, yy), 0).r * k;
         }
     }
 
@@ -55,52 +54,57 @@ bool NormalOcclussionCheck(vec3 currentNormal, vec3 previousNormal) {
 }
 
 vec2 Truncate(vec2 vec) {
-    return round(vec);
+    return floor(vec);
 }
 
 void main() {
     const ivec2 coords = ivec2(gl_GlobalInvocationID);
 
-    if (coords.x > imageSize(finalShadows).x || coords.y > imageSize(finalShadows).y)
+    if (coords.x > imageSize(denoisedShadowsImg).x || coords.y > imageSize(denoisedShadowsImg).y)
         return;
 
-    // Recuperar datos de frames anteriores
-    const vec2 screenSpaceMotion = imageLoad(velocityImg, ivec2(coords)).rg;
+    const vec2 historicalMotionData = imageLoad(denoisedShadowsImg, coords).zw;
+    const vec4 gbufferPositionData = texelFetch(currentPositionImg, coords, 0);
+    const vec4 historicalGbufferPositionData = texelFetch(historicalPositionImg, coords, 0);
+    const vec4 gbufferNormalData = texelFetch(currentNormalImg, coords, 0);
+    const vec4 historicalGbufferNormalData = texelFetch(historicalNormalImg, coords, 0);
 
-    // Número de frames acumulados en el píxel + 1.0
-    int history = 1;
-
-    float newShadowWeight = 1.0;
-    float prevShadow = 0.0;
-
-    const vec2 normalizedScreenSpaceMotion = screenSpaceMotion;
+    const vec2 normalizedScreenSpaceMotion = texelFetch(velocityImg, ivec2(coords), 0).rg;
 
     // Cambio en número de píxeles según el motion buffer actual.
     const vec2 currentFrameContDiff = normalizedScreenSpaceMotion * frameInfo.resolution;
     // Cambio en número de píxeles acumulado en frames anteriores.
-    const vec2 previousFramesContDiff = imageLoad(finalShadows, coords).zw;
+    const vec2 historicalFramesContDiff = historicalMotionData;
+
+    // Número de frames acumulados en el píxel + 1.0
+    float historyLength = 1.0;
+
+    float newShadowWeight = 1.0;
+    float historicalShadow = 0.0;
 
     // Cambio de píxeles en espacio discreto
-    vec2 discreteCoordsDiff = Truncate(previousFramesContDiff + currentFrameContDiff);
-    ivec2 previousCoords = coords + ivec2(discreteCoordsDiff);
+    vec2 discreteCoordsDiff = Truncate(historicalFramesContDiff + currentFrameContDiff);
+    ivec2 historicalCoords = coords + ivec2(discreteCoordsDiff);
 
-    const bool historicalDataWasOnScreen = previousCoords.x > 0 && previousCoords.y > 0 && previousCoords.x < frameInfo.resolution.x && previousCoords.y < frameInfo.resolution.y;
+    const bool historicalDataWasOnScreen = historicalCoords.x > 0 && historicalCoords.y > 0 && historicalCoords.x < frameInfo.resolution.x && historicalCoords.y < frameInfo.resolution.y;
     const bool previousAreValid = historicalDataWasOnScreen
-                        && SamePlaneOcclussionCheck(imageLoad(currentPositionImg, coords).xyz, imageLoad(historicalPositionImg, previousCoords).xyz, imageLoad(currentNormalImg, coords).xyz)
-                        && NormalOcclussionCheck(imageLoad(currentNormalImg, coords).xyz, imageLoad(historicalNormalImg, previousCoords).xyz);
+                        && SamePlaneOcclussionCheck(gbufferPositionData.xyz, historicalGbufferPositionData.xyz, gbufferNormalData.xyz)
+                        && NormalOcclussionCheck(gbufferNormalData.xyz, historicalGbufferNormalData.xyz);
     
     if (previousAreValid) {
-        history = int(imageLoad(historicalShadows, ivec2(previousCoords)).g) + 1;
-        prevShadow = imageLoad(historicalShadows, ivec2(previousCoords)).r;
-        
-        newShadowWeight = 1.0 / float(history);
+        const vec4 historicalData = texelFetch(historicalImg, ivec2(historicalCoords), 0);
 
-        history = min(history, NUM_TEMPORAL_SAMPLES);
+        historicalShadow = historicalData.r;
+        historyLength = historicalData.g + 1.0;
+        
+        newShadowWeight = 1.0 / historyLength;
+
+        historyLength = min(historyLength, NUM_TEMPORAL_SAMPLES);
     }
 
 
     const float newShadows = GaussianBlur(coords);
-
-    imageStore(finalShadows, coords, vec4(mix(prevShadow, newShadows, newShadowWeight), float(history), previousFramesContDiff + currentFrameContDiff - Truncate(previousFramesContDiff + currentFrameContDiff)));
-    imageStore(finalShadows, coords, vec4(currentFrameContDiff, discreteCoordsDiff));
+    const vec2 newHistoricalMotion = fract(historicalFramesContDiff + currentFrameContDiff);
+    
+    imageStore(denoisedShadowsImg, coords, vec4(mix(historicalShadow, newShadows, newShadowWeight), historyLength, newHistoricalMotion));
 }

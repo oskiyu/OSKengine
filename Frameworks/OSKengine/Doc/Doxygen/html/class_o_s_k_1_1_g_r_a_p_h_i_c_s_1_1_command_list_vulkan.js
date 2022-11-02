@@ -1,7 +1,6 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan =
 [
     [ "_SetSingleTimeUse", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a91dd0015d5deefbbcbc1abacdb6be2c6", null ],
-    [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a7bf40442c718857b7b6b6ced797d5b2a", null ],
     [ "BeginGraphicsRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a36463a2d55487caea98937b62e0aad4e", null ],
     [ "BeginGraphicsRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#ae3d1fda12c227f4b1782a16c2dca7f5c", null ],
     [ "BindComputePipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a80d86d0909d168a2c902ec52dfcc3fec", null ],
@@ -21,6 +20,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan =
     [ "GetCommandBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a248746c7ba1e62cb1c4ec1debcb28d42", null ],
     [ "GetCommandBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a222a24c9f23c317f07799ba7cb492595", null ],
     [ "GetCommandListIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a2737fdfdca1c275d18f54cbb326dbc0d", null ],
+    [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a58b18da32a81e18a764ed60ec5b93972", null ],
     [ "PushMaterialConstants", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a0d46ca565299ba80f80ac603ffd4b88c", null ],
     [ "PushMaterialConstants", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#aa78c754b21eb1cf45f2c05e36bdb9276", null ],
     [ "PushMaterialConstants", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a085cf6634f096d3c46715f33351ab7ce", null ],

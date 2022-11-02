@@ -33,10 +33,8 @@ void ICommandList::BeginGraphicsRenderpass(RenderTarget* renderpass, const Color
 		colorImages.Insert({ Engine::GetRenderer()->_GetSwapchain()->GetImage(resourceIndex), 0 });
 	}
 	else {
-		const DynamicArray<GpuImage*> targetImages = renderpass->GetTargetImages(resourceIndex);
-		for (const auto renderTargetImage : targetImages) {
-			colorImages.Insert({ renderTargetImage, 0 });
-		}
+		for (TIndex i = 0; i < renderpass->GetNumColorTargets(); i++)
+			colorImages.Insert({ renderpass->GetColorImage(i, resourceIndex), 0});
 	}
 
 	BeginGraphicsRenderpass(colorImages, { renderpass->GetDepthImage(resourceIndex), 0 }, color);

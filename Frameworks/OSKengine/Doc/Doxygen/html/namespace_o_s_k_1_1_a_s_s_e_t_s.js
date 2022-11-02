@@ -22,6 +22,11 @@ var namespace_o_s_k_1_1_a_s_s_e_t_s =
     [ "StaticMeshLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader" ],
     [ "Texture", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture" ],
     [ "TextureLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader" ],
+    [ "ModelMobilityType", "namespace_o_s_k_1_1_a_s_s_e_t_s.html#abe608719d1d14e6e8f0c485348f82b46", [
+      [ "STATIC", "namespace_o_s_k_1_1_a_s_s_e_t_s.html#abe608719d1d14e6e8f0c485348f82b46afe6f99ef1ec99efbdc19a9786cf1facc", null ],
+      [ "MOSTLY_STATIC", "namespace_o_s_k_1_1_a_s_s_e_t_s.html#abe608719d1d14e6e8f0c485348f82b46a5c07222288077e12664b8028bc4fe3be", null ],
+      [ "DYNAMIC", "namespace_o_s_k_1_1_a_s_s_e_t_s.html#abe608719d1d14e6e8f0c485348f82b46a0fcc90da4811c877ba9f9c12f7d60bc9", null ]
+    ] ],
     [ "ModelType", "namespace_o_s_k_1_1_a_s_s_e_t_s.html#a192866f841033401ce3c83efcaf81027", [
       [ "STATIC_MESH", "namespace_o_s_k_1_1_a_s_s_e_t_s.html#a192866f841033401ce3c83efcaf81027a9ae070d34a7ef3af54b1fd95652c0e18", null ],
       [ "ANIMATED_MODEL", "namespace_o_s_k_1_1_a_s_s_e_t_s.html#a192866f841033401ce3c83efcaf81027a4977f736e80475f02eb114d4352c037c", null ]

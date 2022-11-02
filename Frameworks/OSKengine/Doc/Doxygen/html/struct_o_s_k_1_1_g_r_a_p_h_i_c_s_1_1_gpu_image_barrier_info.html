@@ -108,8 +108,11 @@ Atributos públicos</h2></td></tr>
 <tr class="separator:a84bce929941ec5fda9af186cb2a62c8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
-<div class="textblock">
-<p class="definition">Definición en la línea <a class="el" href="_gpu_barrier_info_8h_source.html#l00163">163</a> del archivo <a class="el" href="_gpu_barrier_info_8h_source.html">GpuBarrierInfo.h</a>.</p>
+<div class="textblock"><p >Al establecer un gpu barrier, dividimos todos los comandos en la lista de comandos en dos grupos. </p>
+<p >Al establecer el barrier, la GPU esperará hasta que se hayan completado todos los comandos en el stage sourceStage.</p>
+<p >Todos los comandos enviados después del gpu barrier deben esperar a que finalicen todos los comandos en el stage destinationStage. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_barrier_info_8h_source.html#l00176">176</a> del archivo <a class="el" href="_gpu_barrier_info_8h_source.html">GpuBarrierInfo.h</a>.</p>
 </div><h2 class="groupheader">Documentación de los datos miembro</h2>
 <a id="a89f637c4de7944fc1228348171b23830" name="a89f637c4de7944fc1228348171b23830"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a89f637c4de7944fc1228348171b23830">&#9670;&nbsp;</a></span>baseLayer</h2>
@@ -123,7 +126,10 @@ Atributos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_barrier_info_8h_source.html#l00164">164</a> del archivo <a class="el" href="_gpu_barrier_info_8h_source.html">GpuBarrierInfo.h</a>.</p>
+<p>Índice de la primera capa que será afectada por el barrier. </p>
+<dl class="section pre"><dt>Precondición</dt><dd>Si la imagen NO es array, debe ser 0. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_barrier_info_8h_source.html#l00180">180</a> del archivo <a class="el" href="_gpu_barrier_info_8h_source.html">GpuBarrierInfo.h</a>.</p>
 
 </div>
 </div>
@@ -139,7 +145,9 @@ Atributos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_barrier_info_8h_source.html#l00166">166</a> del archivo <a class="el" href="_gpu_barrier_info_8h_source.html">GpuBarrierInfo.h</a>.</p>
+<p>Nivel más bajo de mip que será afectado por el barrier. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_barrier_info_8h_source.html#l00186">186</a> del archivo <a class="el" href="_gpu_barrier_info_8h_source.html">GpuBarrierInfo.h</a>.</p>
 
 </div>
 </div>
@@ -155,7 +163,9 @@ Atributos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_barrier_info_8h_source.html#l00169">169</a> del archivo <a class="el" href="_gpu_barrier_info_8h_source.html">GpuBarrierInfo.h</a>.</p>
+<p>Canal(es) afectados por el barrier. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_barrier_info_8h_source.html#l00192">192</a> del archivo <a class="el" href="_gpu_barrier_info_8h_source.html">GpuBarrierInfo.h</a>.</p>
 
 </div>
 </div>
@@ -171,7 +181,9 @@ Atributos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_barrier_info_8h_source.html#l00165">165</a> del archivo <a class="el" href="_gpu_barrier_info_8h_source.html">GpuBarrierInfo.h</a>.</p>
+<p>Número de capas del array afectadas por el barrier. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_barrier_info_8h_source.html#l00183">183</a> del archivo <a class="el" href="_gpu_barrier_info_8h_source.html">GpuBarrierInfo.h</a>.</p>
 
 </div>
 </div>
@@ -187,7 +199,9 @@ Atributos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_barrier_info_8h_source.html#l00167">167</a> del archivo <a class="el" href="_gpu_barrier_info_8h_source.html">GpuBarrierInfo.h</a>.</p>
+<p>Número de niveles de mip que serán afectados por el barrier. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_barrier_info_8h_source.html#l00188">188</a> del archivo <a class="el" href="_gpu_barrier_info_8h_source.html">GpuBarrierInfo.h</a>.</p>
 
 </div>
 </div>
@@ -200,7 +214,7 @@ Atributos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html">GpuImageBarrierInfo</a></li>
-    <li class="footer">Generado el Sábado, 15 de Octubre de 2022 00:57:46 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Martes, 1 de Noviembre de 2022 23:59:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

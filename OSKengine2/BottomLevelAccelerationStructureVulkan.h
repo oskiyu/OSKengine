@@ -13,7 +13,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		void Setup(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer) override;
+		void Setup(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer, RtAccelerationStructureFlags flags) override;
 		void Update(ICommandList* cmdList) override;
 
 		TSize GetNumTriangles() const;

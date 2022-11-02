@@ -4,12 +4,12 @@
 
 layout (local_size_x = 8, local_size_y = 8) in;
 
-layout (set = 0, binding = 0, rgba32f) uniform image2D positionImg;
+layout (set = 0, binding = 0) uniform sampler2D positionImg;
 layout (set = 0, binding = 1) uniform sampler2D colorImg;
-layout (set = 0, binding = 2, rgba32f) uniform image2D normalImg;
-layout (set = 0, binding = 3, rgba16f) uniform image2D shadowsImg;
+layout (set = 0, binding = 2) uniform sampler2D normalImg;
+layout (set = 0, binding = 3) uniform sampler2D shadowsImg;
 
-layout (set = 0, binding = 4, rgba32f) uniform image2D finalImg;
+layout (set = 0, binding = 4, rgba32f) uniform writeonly image2D finalImg;
 
 layout (set = 1, binding = 0) uniform Camera {
     mat4 projection;
@@ -30,14 +30,14 @@ void main() {
     if (coords.x > imageSize(finalImg).x || coords.y > imageSize(finalImg).y)
         return;
 
-    const vec4 colorImageInfo = texture(colorImg, coords);
-    const vec4 normalImageInfo = imageLoad(normalImg, coords);
+    const vec4 colorImageInfo = texelFetch(colorImg, coords, 0);
+    const vec4 normalImageInfo = texelFetch(normalImg, coords, 0);
 
-    const vec3 position = imageLoad(positionImg, coords).xyz;
+    const vec3 position = texelFetch(positionImg, coords, 0).xyz;
     const vec3 color = colorImageInfo.rgb;
     const vec3 normal = normalImageInfo.xyz;
 
-    const float shadow = imageLoad(shadowsImg, coords).r;
+    const float shadow = texelFetch(shadowsImg, coords, 0).r;
 
 
     // 

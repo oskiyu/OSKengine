@@ -115,6 +115,14 @@ namespace OSK::GRAPHICS {
 		/// @warning Únicamente se usa este valor si mipMapMode == GpuImageMipmapMode::CUSTOM.
 		TSize maxMipLevel = 0;
 
+		static GpuImageSamplerDesc CreateDefault() {
+			return GpuImageSamplerDesc{ .mipMapMode = GpuImageMipmapMode::NONE };
+		}
+
+		static GpuImageSamplerDesc CreateTextureDefault() {
+			return GpuImageSamplerDesc{ .mipMapMode = GpuImageMipmapMode::AUTO };
+		}
+
 	};
 
 }

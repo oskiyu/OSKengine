@@ -71,6 +71,7 @@
     <ClCompile Include="ComputePipelineVulkan.cpp" />
     <ClCompile Include="DescriptorDx12.cpp" />
     <ClCompile Include="FxaaPass.cpp" />
+    <ClCompile Include="GBuffer.cpp" />
     <ClCompile Include="GpuImageViewDx12.cpp" />
     <ClCompile Include="GpuImageViewVulkan.cpp" />
     <ClCompile Include="GpuStorageBufferDx12.cpp" />
@@ -184,6 +185,9 @@
     <ClCompile Include="RenderSystem2D.cpp" />
     <ClCompile Include="RenderSystem3D.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
+    <ClCompile Include="RenderTargetAttachment.cpp" />
+    <ClCompile Include="RtAccelerationStructureFlags.cpp" />
+    <ClCompile Include="RtRenderTarget.cpp" />
     <ClCompile Include="RtShaderTableVulkan.cpp" />
     <ClCompile Include="ShaderBindingTypeVulkan.cpp" />
     <ClCompile Include="ShaderStages.cpp" />
@@ -252,6 +256,7 @@
     <ClInclude Include="DescriptorPoolVulkan.h" />
     <ClInclude Include="Doc__MaterialJson.h" />
     <ClInclude Include="FxaaPass.h" />
+    <ClInclude Include="GBuffer.h" />
     <ClInclude Include="GpuBarrierInfo.h" />
     <ClInclude Include="GpuImageViewDx12.h" />
     <ClInclude Include="GpuImageViewVulkan.h" />
@@ -385,6 +390,10 @@
     <ClInclude Include="RenderSystem2D.h" />
     <ClInclude Include="RenderSystem3D.h" />
     <ClInclude Include="RenderTarget.h" />
+    <ClInclude Include="RenderTargetAttachment.h" />
+    <ClInclude Include="RenderTargetAttachmentInfo.h" />
+    <ClInclude Include="RtAccelerationStructureFlags.h" />
+    <ClInclude Include="RtRenderTarget.h" />
     <ClInclude Include="RtShaderTableVulkan.h" />
     <ClInclude Include="ShaderBindingType.h" />
     <ClInclude Include="ShaderBindingTypeVulkan.h" />
@@ -443,6 +452,10 @@
     <Image Include="F:\Users\óscar\Documents\OSCAR\OSK\OSKengine\icons\OSKengine_icon_lowres_64.ico" />
     <Image Include="Resources\Icons\GLFW_ICON.ico" />
     <Image Include="Resources\OSKengine_icon_lowres_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="OSKengine2.licenseheader" />
+    <None Include="OSKengine22.licenseheader" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

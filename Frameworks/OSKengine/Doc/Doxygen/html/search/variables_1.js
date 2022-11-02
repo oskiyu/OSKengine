@@ -7,13 +7,14 @@ var searchData=
   ['basetextureindex_4',['baseTextureIndex',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_material_info.html#a56ae36eb037cc72c252c5c2a5bedb6a7',1,'OSK::ASSETS::GltfMaterialInfo']]],
   ['bearing_5',['bearing',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html#ada0b3fcf610421d9ce5691d9a6ec70d9',1,'OSK::ASSETS::FontCharacter']]],
   ['bindings_6',['bindings',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#aae656bee485d2b46a0996ebe97ae97d3',1,'OSK::GRAPHICS::MaterialLayoutSlot']]],
-  ['blass_7',['blass',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html#a78734acdf7ee644938266f2f5909bfec',1,'OSK::GRAPHICS::ITopLevelAccelerationStructure']]],
-  ['block_5fsize_8',['BLOCK_SIZE',['../_bloom_pass_8cpp.html#a318ad2332c1c2975056f00c81b7f9697',1,'BloomPass.cpp']]],
-  ['blue_9',['Blue',['../class_o_s_k_1_1_color.html#a614da6bd0a19bd1099faca04bbc8809d',1,'OSK::Color']]],
-  ['boneindices_10',['boneIndices',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html#a3d6e01f3c68242e9dfa8db6698d4a57b',1,'OSK::GRAPHICS::VertexAnim3D']]],
-  ['bonesids_11',['bonesIds',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a36b72f60726fb78f92b01ce07619ffcf',1,'OSK::GRAPHICS::AnimationSkin']]],
-  ['boneweights_12',['boneWeights',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html#a18dcb8301cfac29965206b88745d867d',1,'OSK::GRAPHICS::VertexAnim3D']]],
-  ['buffer_13',['buffer',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#ab023c0b5ce84a83d886f3dcb8c7f3dce',1,'OSK::GRAPHICS::GpuMemoryBlockDx12::buffer()'],['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a461883dff4d2ff0f0957d9f5a40991aa',1,'OSK::GRAPHICS::GpuDataBuffer::buffer()']]],
-  ['buffermemoryblocks_14',['bufferMemoryBlocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#abd4e4fe493da63688ae1dfebcdcb2f8b',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
-  ['bytecode_15',['bytecode',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html#a1dbb2aca29ef242c6a9c8efdeb04265e',1,'OSK::GRAPHICS::ShaderStageDx12']]]
+  ['bindlesstexturessets_7',['bindlessTexturesSets',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#acf268c8a1a80b4b36c8f709d8f8b41da',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
+  ['blass_8',['blass',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html#a78734acdf7ee644938266f2f5909bfec',1,'OSK::GRAPHICS::ITopLevelAccelerationStructure']]],
+  ['block_5fsize_9',['BLOCK_SIZE',['../_bloom_pass_8cpp.html#a318ad2332c1c2975056f00c81b7f9697',1,'BloomPass.cpp']]],
+  ['blue_10',['Blue',['../class_o_s_k_1_1_color.html#a614da6bd0a19bd1099faca04bbc8809d',1,'OSK::Color']]],
+  ['boneindices_11',['boneIndices',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html#a3d6e01f3c68242e9dfa8db6698d4a57b',1,'OSK::GRAPHICS::VertexAnim3D']]],
+  ['bonesids_12',['bonesIds',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a36b72f60726fb78f92b01ce07619ffcf',1,'OSK::GRAPHICS::AnimationSkin']]],
+  ['boneweights_13',['boneWeights',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html#a18dcb8301cfac29965206b88745d867d',1,'OSK::GRAPHICS::VertexAnim3D']]],
+  ['buffer_14',['buffer',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#ab023c0b5ce84a83d886f3dcb8c7f3dce',1,'OSK::GRAPHICS::GpuMemoryBlockDx12::buffer()'],['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a461883dff4d2ff0f0957d9f5a40991aa',1,'OSK::GRAPHICS::GpuDataBuffer::buffer()']]],
+  ['buffermemoryblocks_15',['bufferMemoryBlocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#abd4e4fe493da63688ae1dfebcdcb2f8b',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
+  ['bytecode_16',['bytecode',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html#a1dbb2aca29ef242c6a9c8efdeb04265e',1,'OSK::GRAPHICS::ShaderStageDx12']]]
 ];

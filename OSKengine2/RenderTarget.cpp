@@ -12,176 +12,85 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-void RenderTarget::Create(const Vector2ui& targetSize, Format colorFormat, Format depthFormat) {
-	this->size = targetSize;
+void RenderTarget::Create(const Vector2ui& targetSize, DynamicArray<RenderTargetAttachmentInfo> colorInfos, RenderTargetAttachmentInfo depthInfo) {
+	OSK_ASSERT(colorInfos.GetSize() > 0, "Debe haber al menos un attachment");
 
-	AddColorTarget(colorFormat, targetUsage, colorSampler);
-	CreateDepthImages(depthFormat);
+	for (auto& attachmentInfo : colorInfos) {
+		attachmentInfo.usage |= GpuImageUsage::COLOR | GpuImageUsage::SAMPLED;
+		colorAttachments.Insert(RenderTargetAttachment::Create(attachmentInfo, targetSize));
+	}
+	depthInfo.usage |= GpuImageUsage::DEPTH_STENCIL;
+	depthAttachment.Initialize(depthInfo, targetSize);
 
-	// Sprite
-	targetSprite.SetMaterialInstance(Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rendertarget.json")->CreateInstance());
-	targetSprite.SetCamera(Engine::GetRenderer()->GetRenderTargetsCamera());
-	targetSprite.SetTexCoords({ { 0.0f, 0.0f, 1.0f, 1.0f }, TextureCoordsType::NORMALIZED });
+	targetType = RenderpassType::INTERMEDIATE;
 
-	if (targetType == RenderpassType::INTERMEDIATE)
-		UpdateSpriteImages();
+	fullscreenSpriteMaterialInstance = Engine::GetRenderer()->GetFullscreenRenderingMaterial()->CreateInstance().GetPointer();
+	SetupSpriteMaterial();
+}
 
-	spriteTransform.SetScale(GetOriginalSize().ToVector2f());
+void RenderTarget::CreateAsFinal(const Vector2ui& targetSize, RenderTargetAttachmentInfo colorInfo, RenderTargetAttachmentInfo depthInfo) {
+	colorInfo.usage |= GpuImageUsage::COLOR | GpuImageUsage::SAMPLED;
+	colorAttachments.Insert(RenderTargetAttachment::Create(colorInfo, targetSize));
+	
+	depthInfo.usage |= GpuImageUsage::DEPTH_STENCIL;
+	depthAttachment.Initialize(depthInfo, targetSize);
+
+	targetType = RenderpassType::FINAL;
+
+	fullscreenSpriteMaterialInstance = Engine::GetRenderer()->GetFullscreenRenderingMaterial()->CreateInstance().GetPointer();
+	SetupSpriteMaterial();
+}
+
+void RenderTarget::SetupSpriteMaterial() {
+	const GpuImage* images[NUM_RESOURCES_IN_FLIGHT]{};
+	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+		images[i] = GetColorImage(0, i);
+
+	fullscreenSpriteMaterialInstance->GetSlot("texture")->SetGpuImages("spriteTexture", images);
+	fullscreenSpriteMaterialInstance->GetSlot("texture")->FlushUpdate();
 }
 
 void RenderTarget::Resize(const Vector2ui& targetSize) {
-	this->size = targetSize;
+	for (auto& i : colorAttachments)
+		i.Resize(targetSize);
+	depthAttachment.Resize(targetSize);
 
-	RecreateTargetImages();
-	RecreateDepthImages();
-
-	if (targetType == RenderpassType::INTERMEDIATE)
-		UpdateSpriteImages();
-
-	spriteTransform.SetScale(GetOriginalSize().ToVector2f());
+	SetupSpriteMaterial();
 }
 
-void RenderTarget::AddColorTarget(Format colorFormat, GpuImageUsage usage, GpuImageSamplerDesc sampler) {
-	for (TSize i = 0; i < NUM_RENDER_TARGET_IMAGES; i++) {
-		GpuImage* image = Engine::GetRenderer()->GetAllocator()->CreateImage(
-			{ GetSize().X, GetSize().Y, 1 }, GpuImageDimension::d2D, 1, colorFormat,
-			usage, GpuSharedMemoryType::GPU_ONLY, 1, sampler).GetPointer();
+GpuImage* RenderTarget::GetColorImage(TIndex colorImageIndex, TIndex resourceIndex) const {
+	OSK_ASSERT(resourceIndex < NUM_RESOURCES_IN_FLIGHT, "El índice de la imagen debe estar entre 0 y " + std::to_string(NUM_RESOURCES_IN_FLIGHT - 1));
+	OSK_ASSERT(colorImageIndex < colorAttachments.GetSize(), "Sólo hay " + std::to_string(colorAttachments.GetSize()) + " imágenes de color.");
 
-		targetImages[i].Insert(image);
-	}
+	return colorAttachments[colorImageIndex].GetImage(resourceIndex);
 }
 
-void RenderTarget::RecreateTargetImages() {
-	for (TSize i = 0; i < NUM_RENDER_TARGET_IMAGES; i++) {
-
-		for (TSize img = 0; img < targetImages[i].GetSize(); img++) {
-			const Format imgFormat = targetImages[i][img]->GetFormat();
-			const GpuImageUsage imgUsage = targetImages[i][img]->GetUsage();
-			const GpuImageSamplerDesc sampler = targetImages[i][img]->GetImageSampler();
-
-			targetImages[i][img] = Engine::GetRenderer()->GetAllocator()->CreateImage(
-				{ GetSize().X, GetSize().Y, 1 }, GpuImageDimension::d2D, 1, imgFormat,
-				imgUsage, GpuSharedMemoryType::GPU_ONLY, 1, sampler).GetPointer();
-		}
-
-	}
+GpuImage* RenderTarget::GetMainColorImage(TIndex resourceIndex) const {
+	return GetColorImage(0, resourceIndex);
 }
 
-void RenderTarget::CreateDepthImages(Format format) {
-	for (TSize i = 0; i < NUM_RENDER_TARGET_IMAGES; i++) {
-		depthImages[i] = Engine::GetRenderer()->GetAllocator()->CreateImage(
-			{ GetSize().X, GetSize().Y, 1 }, GpuImageDimension::d2D, 1, format,
-			depthUsage, GpuSharedMemoryType::GPU_ONLY, 1, depthSampler).GetPointer();
-	}
-}
+GpuImage* RenderTarget::GetDepthImage(TIndex index) const {
+	OSK_ASSERT(index < NUM_RESOURCES_IN_FLIGHT, "El índice de la imagen debe estar entre 0 y " + std::to_string(NUM_RESOURCES_IN_FLIGHT - 1));
 
-void RenderTarget::RecreateDepthImages() {
-	CreateDepthImages(depthImages[0]->GetFormat());
-}
-
-void RenderTarget::UpdateSpriteImages() {
-	const GpuImage* images[NUM_RESOURCES_IN_FLIGHT]{};
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		images[i] = targetImages[i].At(targetSpriteImage).GetPointer();
-
-	targetSprite.GetMaterialInstance()->GetSlot("texture")->SetGpuImages("stexture", images);
-	targetSprite.GetMaterialInstance()->GetSlot("texture")->FlushUpdate();
-}
-
-GpuImage* RenderTarget::GetMainTargetImage(TSize index) const {
-	OSK_ASSERT(index >= 0, "El índice de la imagen debe estar entre 0 y " + std::to_string(NUM_RENDER_TARGET_IMAGES - 1));
-	OSK_ASSERT(index < NUM_RENDER_TARGET_IMAGES, "El índice de la imagen debe estar entre 0 y " + std::to_string(NUM_RENDER_TARGET_IMAGES - 1));
-
-	return targetImages[index].At(0).GetPointer();
-}
-
-DynamicArray<GpuImage*> RenderTarget::GetTargetImages(TSize index) const {
-	OSK_ASSERT(index >= 0, "El índice de la imagen debe estar entre 0 y " + std::to_string(NUM_RENDER_TARGET_IMAGES - 1));
-	OSK_ASSERT(index < NUM_RENDER_TARGET_IMAGES, "El índice de la imagen debe estar entre 0 y " + std::to_string(NUM_RENDER_TARGET_IMAGES - 1));
-
-	DynamicArray<GpuImage*> output = DynamicArray<GpuImage*>::CreateReservedArray(targetImages[index].GetSize());
-	for (auto& img : targetImages[index])
-		output.Insert(img.GetPointer());
-
-	return output;
-}
-
-GpuImage* RenderTarget::GetDepthImage(TSize index) const {
-	OSK_ASSERT(index >= 0, "El índice de la imagen debe estar entre 0 y " + std::to_string(NUM_RENDER_TARGET_IMAGES - 1));
-	OSK_ASSERT(index < NUM_RENDER_TARGET_IMAGES, "El índice de la imagen debe estar entre 0 y " + std::to_string(NUM_RENDER_TARGET_IMAGES - 1));
-
-	return depthImages[index].GetPointer();
-}
-
-const Sprite& RenderTarget::GetSprite() const {
-	return targetSprite;
-}
-
-const ECS::Transform2D& RenderTarget::GetSpriteTransform() const {
-	return spriteTransform;
+	return depthAttachment.GetImage(index);
 }
 
 Vector2ui RenderTarget::GetSize() const {
-	return (size.ToVector2f() * resolutionScale).ToVector2ui();
-}
-
-Vector2ui RenderTarget::GetOriginalSize() const {
-	return size;
-}
-
-Format RenderTarget::GetColorFormat() const {
-	return targetImages[0][0]->GetFormat();
-}
-
-Format RenderTarget::GetDepthFormat() const {
-	return depthImages[0]->GetFormat();
+	return { depthAttachment.GetImage(0)->GetSize().X, depthAttachment.GetImage(0)->GetSize().Y };
 }
 
 RenderpassType RenderTarget::GetRenderTargetType() const {
 	return targetType;
 }
 
-void RenderTarget::SetRenderTargetType(RenderpassType type) {
-	targetType = type;
-}
-
-void RenderTarget::SetResolutionScale(float scale) {
-	OSK_ASSERT(scale > 0.0f, "La escala del render target debe ser > 0.");
-
-	resolutionScale = scale;
-	Resize(GetOriginalSize());
-}
-
-void RenderTarget::SetTargetImageUsage(GpuImageUsage usage) {
-	targetUsage = GpuImageUsage::COLOR | GpuImageUsage::SAMPLED | usage;
-}
-
-void RenderTarget::SetDepthImageUsage(GpuImageUsage usage) {
-	depthUsage = GpuImageUsage::DEPTH_STENCIL | usage;
-}
-
-void RenderTarget::SetColorImageSampler(const GpuImageSamplerDesc& sampler) {
-	colorSampler = sampler;
-}
-
-void RenderTarget::SetDepthImageSampler(const GpuImageSamplerDesc& sampler) {
-	depthSampler = sampler;
-}
-
-void RenderTarget::SetSpriteTargetImage(TIndex targetImage) {
-	targetSpriteImage = targetImage;
-	UpdateSpriteImages();
-}
-
 TSize RenderTarget::GetNumColorTargets() const {
-	return targetImages[0].GetSize();
+	return colorAttachments.GetSize();
 }
 
-void RenderTarget::SetName(const std::string& name) {
-	for (TSize i = 0; i < 3; i++)
-		for (TSize img = 0; img < targetImages[i].GetSize(); img++)
-			targetImages[i][img]->SetDebugName(name + " attachment " + std::to_string(img) + "[" + std::to_string(i) + "]");
+MaterialInstance* RenderTarget::GetFullscreenSpriteMaterialInstance() const {
+	return fullscreenSpriteMaterialInstance.GetPointer();
+}
 
-	for (TSize i = 0; i < 3; i++)
-			depthImages[i]->SetDebugName(name + " depth[" + std::to_string(i) + "]");
+IMaterialSlot* RenderTarget::GetFullscreenSpriteMaterialSlot() const {
+	return fullscreenSpriteMaterialInstance->GetSlot("texture");
 }

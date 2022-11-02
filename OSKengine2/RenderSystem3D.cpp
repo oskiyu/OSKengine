@@ -108,9 +108,9 @@ void RenderSystem3D::InitializeTerrain(const Vector2ui& resolution, const Textur
 }
 
 void RenderSystem3D::CreateTargetImage(const Vector2ui& size) {
-	renderTarget.Create(size, Format::RGBA32_SFLOAT, Format::D32S8_SFLOAT_SUINT);
-
-	renderTarget.SetName("RenderSystem3D Target");
+	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA32_SFLOAT, .name = "RenderSystem3D Target" };
+	RenderTargetAttachmentInfo depthInfo{ .format = Format::D32S8_SFLOAT_SUINT, .name = "RenderSystem3D Depth" };
+	renderTarget.Create(size, { colorInfo }, depthInfo);
 }
 
 void RenderSystem3D::Resize(const Vector2ui& size) {
@@ -157,7 +157,7 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 		commandList->EndGraphicsRenderpass();
 	}
 
-	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(resourceIndex), GpuImageLayout::SHADER_READ_ONLY,
+	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(resourceIndex), GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_END, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH |SampledChannel::STENCIL });
 }
@@ -165,7 +165,7 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 void RenderSystem3D::RenderScene(ICommandList* commandList) {
 	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	
-	commandList->SetGpuImageBarrier(renderTarget.GetMainTargetImage(resourceIndex), GpuImageLayout::SHADER_READ_ONLY,
+	commandList->SetGpuImageBarrier(renderTarget.GetMainColorImage(resourceIndex), GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 

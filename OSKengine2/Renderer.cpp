@@ -111,10 +111,11 @@ MaterialSystem* IRenderer::GetMaterialSystem() const {
 }
 
 void IRenderer::CreateMainRenderpass() {
+	RenderTargetAttachmentInfo colorInfo{ .format = swapchain->GetColorFormat() };
+	RenderTargetAttachmentInfo depthInfo{ .format = Format::D32S8_SFLOAT_SUINT };
 	finalRenderTarget = new RenderTarget;
-	finalRenderTarget->SetRenderTargetType(RenderpassType::FINAL);
-	finalRenderTarget->Create({ swapchain->GetImage(0)->GetSize().X, swapchain->GetImage(0)->GetSize().Y },
-		swapchain->GetColorFormat(), Format::D32S8_SFLOAT_SUINT);
+	finalRenderTarget->CreateAsFinal({ swapchain->GetImage(0)->GetSize().X, swapchain->GetImage(0)->GetSize().Y },
+		{ colorInfo }, depthInfo);
 }
 
 RenderApiType IRenderer::GetRenderApi() const {
@@ -147,6 +148,10 @@ ISwapchain* IRenderer::_GetSwapchain() const {
 
 bool IRenderer::_HasImplicitResizeHandling() const {
 	return implicitResizeHandling;
+}
+
+Material* IRenderer::GetFullscreenRenderingMaterial() const {
+	return materialSystem->LoadMaterial("Resources/material_rendertarget.json");
 }
 
 void IRenderer::RegisterRenderTarget(RenderTarget* renderTarget) {

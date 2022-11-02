@@ -20,7 +20,7 @@ D3D12_RESOURCE_STATES OSK::GRAPHICS::GetGpuImageLayoutDx12(GpuImageLayout layout
 		case GpuImageLayout::DEPTH_STENCIL_READ_ONLY:
 			return D3D12_RESOURCE_STATE_DEPTH_READ;
 
-		case GpuImageLayout::SHADER_READ_ONLY:
+		case GpuImageLayout::SAMPLED:
 			return D3D12_RESOURCE_STATE_GENERIC_READ;
 
 		case GpuImageLayout::TRANSFER_SOURCE:

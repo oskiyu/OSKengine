@@ -34,13 +34,10 @@ namespace OSK::GRAPHICS {
 		TSize arrayLevel = 0;
 	};
 
-	/// <summary>
-	/// Una lista de comandos contiene una serie de comandos que serán
+	/// @brief Una lista de comandos contiene una serie de comandos que serán
 	/// enviados a la GPU para su ejecución.
-	/// 
 	/// La lista es creada por una pool de comandos, y se introduce
 	/// en una cola de comandos para su ejecución.
-	/// </summary>
 	/// 
 	/// @note Los comandos serán ejecutados en orden una vez se envíe la lista
 	/// a la GPU.
@@ -50,46 +47,38 @@ namespace OSK::GRAPHICS {
 
 		virtual ~ICommandList();
 
-		template <typename T> T* As() const requires std::is_base_of_v<ICommandList, T> {
-			return (T*)this;
-		}
+		OSK_DEFINE_AS(ICommandList);
 
-		/// <summary>
-		/// Vacía la lista de comandos.
-		/// 
-		/// @note Debe llamarse antes de comenzar a grabar comandos.
-		/// </summary>
+		/// @brief Vacía la lista de comandos.
 		/// 
 		/// @pre Debe estar cerrado.
+		/// @note Debe llamarse antes de comenzar a grabar comandos.
 		virtual void Reset() = 0;
 
-		/// <summary>
-		/// Comienza a grabar comandos en la lista.
-		/// </summary>
+		/// @brief Comienza a grabar comandos en la lista.
 		/// 
 		/// @pre Debe estar cerrado.
 		virtual void Start() = 0;
 
-		/// <summary>
-		/// Cierra la lista de comandos, y la deja lista para ser enviada
+		/// @brief Cierra la lista de comandos, y la deja lista para ser enviada
 		/// a la GPU.
-		/// </summary>
 		/// 
 		/// @pre Debe estar abierto.
 		virtual void Close() = 0;
 
-		/// <summary>
-		/// Establece un barrier que sincroniza la ejecución de comandos.
-		/// Cambia el layout de la imagen.
-		/// </summary>
-		/// <param name="image">Imagen a la que se le cambiará el layout.</param>
-		/// <param name="previousLayout">Layout anterior.</param>
-		/// <param name="nextLayout">Nuevo layout.</param>
-		/// <param name="previous">Stage previo.</param>
-		/// <param name="next">Stage siguiente.</param>
-		/// <param name="imageInfo">Información sobre que subrecursos de la imagen serán afectados.</param>
-		/// <param name="nextImageInfo"></param>
+
+		/// @brief Establece un barrier que sincroniza la ejecución de comandos.
+		/// También cambia el layout de la imagen.
 		/// 
+		/// @see GpuImageBarrierInfo.
+		/// 
+		/// @param image Imagen a la que se le cambiará el layout.
+		/// @param previousLayout Layout anterior.
+		/// @param nextLayout Nuevo layout.
+		/// @param previous Stage previo.
+		/// @param next Stage siguiente.
+		/// @param prevImageInfo Información sobre que subrecursos de la imagen serán afectados.
+		///
 		/// @note Se debe cambiar el layout de la imagen antes de ejecutar un comando sobre ella,
 		/// si su layout actual no coincide con el necesario.
 		/// 
@@ -138,13 +127,13 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Debe haber un renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
+		/// @post Aplica a los color targets un GpuImageBarrier con nuevo layout = SHADER_READ_ONLY para 
+		/// fragment shader.
 		virtual void EndGraphicsRenderpass() = 0;
 
 
-		/// <summary>
-		/// Establece el material que se va a usar a la hora de renderizar los próximos comandos.
-		/// </summary>
-		/// 
+		/// @brief Establece el material que se va a usar a la hora de renderizar los próximos comandos.
+		///
 		/// @note Los slots que se enlacen después de este comando deben ser compatibles
 		/// con este material.
 		/// @note Los buffers de vértices que se enlacen después de este comando deben tener
@@ -153,6 +142,9 @@ namespace OSK::GRAPHICS {
 		/// @pre Debe haber un renderpass activo.
 		/// @pre El material debe tener registrado el renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
+		/// 
+		/// @warning Para materiales de rasterizado, debe estar activo el renderpass
+		/// con el que se vaya a renderizar usando este material.
 		virtual void BindMaterial(Material* material) = 0;
 
 		/// <summary>

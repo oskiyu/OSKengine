@@ -28,7 +28,7 @@ void SmaaPass::Create(const Vector2ui& size) {
 			GpuImageUsage::SAMPLED | GpuImageUsage::SAMPLED_ARRAY | GpuImageUsage::COMPUTE | GpuImageUsage::TRANSFER_SOURCE, GpuSharedMemoryType::GPU_ONLY, 1, sampler).GetPointer();
 	}
 
-	resolveRenderTarget.SetName("SMAA Output");
+	// resolveRenderTarget.SetName("SMAA Output");
 }
 
 void SmaaPass::Resize(const Vector2ui& size) {
@@ -54,7 +54,7 @@ void SmaaPass::Execute(ICommandList* computeCmdList) {
 	computeCmdList->SetGpuImageBarrier(inputImages[resourceIndex], GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ),
 		{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
-	computeCmdList->SetGpuImageBarrier(resolveRenderTarget.GetMainTargetImage(resourceIndex), GpuImageLayout::GENERAL,
+	computeCmdList->SetGpuImageBarrier(resolveRenderTarget.GetTargetImage(resourceIndex), GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE),
 		{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
@@ -69,10 +69,10 @@ void SmaaPass::Execute(ICommandList* computeCmdList) {
 
 	computeCmdList->DispatchCompute(dispatchRes);
 
-	computeCmdList->SetGpuImageBarrier(inputImages[resourceIndex], GpuImageLayout::SHADER_READ_ONLY,
+	computeCmdList->SetGpuImageBarrier(inputImages[resourceIndex], GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
 		{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
-	computeCmdList->SetGpuImageBarrier(resolveRenderTarget.GetMainTargetImage(resourceIndex), GpuImageLayout::GENERAL,
+	computeCmdList->SetGpuImageBarrier(resolveRenderTarget.GetTargetImage(resourceIndex), GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ),
 		{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 }

@@ -80,7 +80,7 @@ void CubemapTextureLoader::Load(const std::string& assetFilePath, IAsset** asset
 
 	Engine::GetRenderer()->UploadCubemapImageToGpu(image.GetPointer(), data, width * height * numChannels * 6, copyCmdList.GetPointer());
 
-	copyCmdList->SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY,
+	copyCmdList->SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 	copyCmdList->Close();

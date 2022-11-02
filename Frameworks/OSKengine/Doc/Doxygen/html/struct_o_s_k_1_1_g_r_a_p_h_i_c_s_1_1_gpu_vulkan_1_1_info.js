@@ -2,6 +2,7 @@ var struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info =
 [
     [ "SwapchainSupportDetails", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_1_1_swapchain_support_details.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_1_1_swapchain_support_details" ],
     [ "IsRtCompatible", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a2f6cd1f322c8eb0cff8e080bff104fef", null ],
+    [ "bindlessTexturesSets", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#acf268c8a1a80b4b36c8f709d8f8b41da", null ],
     [ "dynamicRenderingFeatures", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a1244fe8c928c061a5ffbb9d46299e32b", null ],
     [ "features", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a4863535bd75c3fa0793014143c21aa63", null ],
     [ "features2", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a8bb70e63d6caa1080c4301d385d604db", null ],

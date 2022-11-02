@@ -3,6 +3,7 @@ var class_o_s_k_1_1_e_c_s_1_1_render_system3_d =
     [ "RenderSystem3D", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a1ee1a85dba0dab30f922b0f8a43b01a5", null ],
     [ "AddObject", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a7c4d298e40f9d83aa00b85e59167e890", null ],
     [ "CreateTargetImage", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a5f61471f90f9586b0b24be7bd0226bf3", null ],
+    [ "GetCameraBuffer", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a5bb2ad19ab9a76425b6e488df05eed6b", null ],
     [ "GetObjects", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#ad3611590e6bde825b973c160d7a867d9", null ],
     [ "GetRenderTarget", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a7ead258d11d094f960bed0b7da407d85", null ],
     [ "GetShadowMap", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a6b8811a0612a96336cca1402e1004d97", null ],
