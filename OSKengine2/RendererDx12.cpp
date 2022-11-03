@@ -71,9 +71,9 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	this->window = &window;
 
 #ifdef OSK_RELEASE
-	bool useDebugConsole = false;
+	useDebugConsole = false;
 #else
-	bool useDebugConsole = SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debugConsole)));
+	useDebugConsole = SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debugConsole)));
 #endif
 
 	if (useDebugConsole) {
@@ -199,11 +199,24 @@ void RendererDx12::ChooseGpu() {
 
 	OSK_ASSERT(found, "No se ha encontrado ninguna GPU compatible con DirectX 12");
 
-	ComPtr<ID3D12Device> device;
+	ComPtr<ID3D12Device1> device;
 	D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_0, IID_PPV_ARGS(&device));
 		
 	currentGpu->As<GpuDx12>()->SetAdapter(adapter);
 	currentGpu->As<GpuDx12>()->SetDevice(device);
+
+	if (useDebugConsole) {
+		ID3D12InfoQueue* infoQueue1 = nullptr;
+		HRESULT result = device->QueryInterface(IID_ID3D12InfoQueue, (LPVOID*)&infoQueue1);
+
+		if (SUCCEEDED(result)) {
+			result = device->QueryInterface(IID_ID3D12InfoQueue1, (LPVOID*)&debugMessageQueue);
+			debugMessageQueue->RegisterMessageCallback(RendererDx12::DebugCallback, D3D12_MESSAGE_CALLBACK_FLAG_NONE, nullptr, NULL);
+		}
+		else {
+			Engine::GetLogger()->InfoLog("NO se ha podido establecer el callback de mensajes de log.");
+		}
+	}
 }
 
 void RendererDx12::CreateCommandQueues() {
@@ -328,4 +341,8 @@ TSize RendererDx12::GetCurrentCommandListIndex() const {
 
 bool RendererDx12::SupportsRaytracing() const {
 	return false;
+}
+
+void RendererDx12::DebugCallback(D3D12_MESSAGE_CATEGORY category, D3D12_MESSAGE_SEVERITY severity, D3D12_MESSAGE_ID id, LPCSTR description, void* context) {
+	Engine::GetLogger()->DebugLog(std::string(description));
 }

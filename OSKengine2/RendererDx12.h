@@ -52,16 +52,22 @@ namespace OSK::GRAPHICS {
 
 	private:
 
+		static void DebugCallback(D3D12_MESSAGE_CATEGORY category, D3D12_MESSAGE_SEVERITY severity, D3D12_MESSAGE_ID id, LPCSTR description, void* context);
+
 		void ChooseGpu();
 
 		void Resize();
 		bool mustResize = false;
+
+		bool useDebugConsole = false;
 
 		/// <summary>
 		/// Se usa para crear cosas de dx12.
 		/// </summary>
 		ComPtr<IDXGIFactory4> factory;
 		ComPtr<ID3D12Debug> debugConsole;
+
+		ID3D12InfoQueue1* debugMessageQueue = nullptr;
 
 	};
 

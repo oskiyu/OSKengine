@@ -271,7 +271,6 @@ protected:
 			exposureBuffers[i]->Unmap();
 		}
 
-		bloomPass->SetExposureBuffers(epxBuffers);
 		toneMappingPass->SetExposureBuffers(epxBuffers);
 
 		Engine::GetRenderer()->RegisterRenderTarget(&textRenderTarget);
@@ -476,9 +475,9 @@ protected:
 	}
 
 	void SetupPostProcessingChain() {
-		fxaaPass->SetInput(preEffectsRenderTarget);
-		bloomPass->SetInput(fxaaPass->GetOutput());
-		toneMappingPass->SetInput(bloomPass->GetOutput());
+		fxaaPass->SetInput(preEffectsRenderTarget, IPostProcessPass::InputType::SAMPLER);
+		bloomPass->SetInput(fxaaPass->GetOutput(), IPostProcessPass::InputType::SAMPLER);
+		toneMappingPass->SetInput(bloomPass->GetOutput(), IPostProcessPass::InputType::SAMPLER);
 
 		fxaaPass->UpdateMaterialInstance();
 		bloomPass->UpdateMaterialInstance();

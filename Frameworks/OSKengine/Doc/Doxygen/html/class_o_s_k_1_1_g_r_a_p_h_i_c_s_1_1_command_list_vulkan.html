@@ -769,7 +769,7 @@ La imagen de destino debe tener el layout <a class="el" href="namespace_o_s_k_1_
 La lista de comandos debe estar abierta.</dd></dl>
 <dl class="section post"><dt>Postcondición</dt><dd>El layout de la imagen después de efectuarse la copia segirá siendo <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9ac61dfc60317a58b2843ec29f8e3c2359" title="Los contenidos de otra imagen se copiarán a esta.">GpuImageLayout::TRANSFER_DESTINATION</a>.</dd></dl>
 <dl class="section warning"><dt>Atención</dt><dd>Si se copia con srcMipLevel != 0 y/o dstMipLevel != 0, se debe establecer un tamaño de la región de copia válido (copySize). </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Tareas pendientes:</a></b></dt><dd>Size.Z </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Tareas pendientes:</a></b></dt><dd>Size.Z </dd></dl>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a68e72a36c4670bb7de7b3fdab6c2bb99">OSK::GRAPHICS::ICommandList</a>.</p>
 
@@ -977,6 +977,7 @@ La lista de comandos debe estar abierta. </dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>Debe haber un renderpass activo. </dd>
 <dd>
 La lista de comandos debe estar abierta. </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Aplica a los color targets un GpuImageBarrier con nuevo layout = SHADER_READ_ONLY para fragment shader. </dd></dl>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a27c970b0c75c78d08fa173eb3b875eb1">OSK::GRAPHICS::ICommandList</a>.</p>
 
@@ -1127,7 +1128,7 @@ El push constant debe ser compatible con el material enlazado. </dd>
 <dd>
 La lista de comandos debe estar abierta. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00200">200</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00204">204</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1492,8 +1493,8 @@ La lista de comandos debe estar abierta. </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Establece un barrier que sincroniza la ejecución de comandos. Cambia el layout de la imagen. </p>
-<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html" title="Al establecer un gpu barrier, dividimos todos los comandos en la lista de comandos en dos grupos.">GpuImageBarrierInfo</a>. </dd></dl>
+<p>Establece un barrier que sincroniza la ejecución de comandos. También cambia el layout de la imagen. </p>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html" title="Al establecer un gpu barrier, dividimos todos los comandos en la lista de comandos en dos grupos.">GpuImageBarrierInfo</a>.</dd></dl>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">image</td><td>Imagen a la que se le cambiará el layout. </td></tr>
@@ -1715,7 +1716,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00375">375</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00379">379</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1739,7 +1740,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00383">383</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00387">387</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1763,7 +1764,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00384">384</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00388">388</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1789,7 +1790,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 
 <p><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html" title="Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la...">Material</a> que está siendo usado en un instante determinado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00381">381</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00385">385</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1829,7 +1830,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00385">385</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00389">389</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1853,7 +1854,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00373">373</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00377">377</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1877,7 +1878,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00387">387</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00391">391</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1901,7 +1902,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00374">374</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00378">378</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1915,7 +1916,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html">CommandListVulkan</a></li>
-    <li class="footer">Generado el Martes, 1 de Noviembre de 2022 23:59:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 3 de Noviembre de 2022 17:35:01 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

@@ -21,7 +21,7 @@ void FxaaPass::Create(const Vector2ui& size) {
 void FxaaPass::Execute(ICommandList* computeCmdList) {
 	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
-	computeCmdList->SetGpuImageBarrier(inputImages[resourceIndex], GpuImageLayout::GENERAL,
+	computeCmdList->SetGpuImageBarrier(inputImages[resourceIndex], GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ),
 		{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 	computeCmdList->SetGpuImageBarrier(resolveRenderTarget.GetTargetImage(resourceIndex), GpuImageLayout::GENERAL,
@@ -42,7 +42,7 @@ void FxaaPass::Execute(ICommandList* computeCmdList) {
 	computeCmdList->SetGpuImageBarrier(inputImages[resourceIndex], GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
 		{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
-	computeCmdList->SetGpuImageBarrier(resolveRenderTarget.GetTargetImage(resourceIndex), GpuImageLayout::GENERAL,
+	computeCmdList->SetGpuImageBarrier(resolveRenderTarget.GetTargetImage(resourceIndex), GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ),
 		{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 }

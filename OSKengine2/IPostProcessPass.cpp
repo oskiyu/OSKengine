@@ -31,10 +31,12 @@ void IPostProcessPass::SetInput(GpuImage* images[3], InputType type) {
 		inputImages[i] = images[i];
 	}
 
-	if (type == InputType::STORAGE_IMAGE)
-		postProcessingMaterialInstance->GetSlot("texture")->SetStorageImages("sceneImage", imgs);
-	else
-		postProcessingMaterialInstance->GetSlot("texture")->SetGpuImages("sceneImage", imgs);
+	if (postProcessingMaterialInstance.HasValue()) {
+		if (type == InputType::STORAGE_IMAGE)
+			postProcessingMaterialInstance->GetSlot("texture")->SetStorageImages("sceneImage", imgs);
+		else
+			postProcessingMaterialInstance->GetSlot("texture")->SetGpuImages("sceneImage", imgs);
+	}
 }
 
 void IPostProcessPass::SetInput(const RenderTarget& target, InputType type) {
@@ -62,7 +64,8 @@ void IPostProcessPass::SetupDefaultMaterialInstances() {
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
 		images[i] = resolveRenderTarget.GetTargetImage(i);
 
-	postProcessingMaterialInstance->GetSlot("texture")->SetStorageImages("finalImage", images);
+	if (postProcessingMaterialInstance.HasValue())
+		postProcessingMaterialInstance->GetSlot("texture")->SetStorageImages("finalImage", images);
 }
 
 void IPostProcessPass::UpdateMaterialInstance() {

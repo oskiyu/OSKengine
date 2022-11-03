@@ -6,8 +6,7 @@
     "compute_shader": "Resources/Shaders/VK/PostProcess/Bloom/bloom_final.spv",
     
     "slots": {
-        "0": "texture",
-        "1": "exposure"
+        "0": "texture"
     }
 
 }

@@ -2,9 +2,6 @@
 
 #include "IGpuMemorySubblock.h"
 
-#include "OSKengine.h"
-#include "Logger.h"
-
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -14,7 +11,7 @@ GpuDataBuffer::GpuDataBuffer(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TS
 }
 
 GpuDataBuffer::~GpuDataBuffer() {
-	Engine::GetLogger()->InfoLog("Buffer eliminado");
+
 }
 
 IGpuMemorySubblock* GpuDataBuffer::GetMemorySubblock() const {

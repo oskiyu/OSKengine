@@ -160,7 +160,7 @@ $(document).ready(function(){initNavTree('_texture_loader_8cpp_source.html','');
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    uploadCmdList-&gt;SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION,</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html">GpuBarrierInfo</a>(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT), <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html">GpuBarrierInfo</a>(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE));</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a84c879978d05eb6e5ac7828dd115ab5d">UploadImageToGpu</a>(image.GetPointer(), pixels, image-&gt;GetNumberOfBytes(), uploadCmdList.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>());</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    uploadCmdList-&gt;SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SHADER_READ_ONLY,</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    uploadCmdList-&gt;SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SAMPLED,</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html">GpuBarrierInfo</a>(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html">GpuBarrierInfo</a>(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    uploadCmdList-&gt;Close();</div>
@@ -221,7 +221,7 @@ $(document).ready(function(){initNavTree('_texture_loader_8cpp_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_texture_loader_8cpp.html">TextureLoader.cpp</a></li>
-    <li class="footer">Generado el Martes, 1 de Noviembre de 2022 23:59:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 3 de Noviembre de 2022 17:35:01 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

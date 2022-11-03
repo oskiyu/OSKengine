@@ -28,8 +28,6 @@ namespace OSK::GRAPHICS {
 
 		void Execute(ICommandList* computeCmdList) override;
 
-		void SetExposureBuffers(const IGpuStorageBuffer* [3]);
-
 		void UpdateMaterialInstance() override;
 
 	private:
@@ -84,13 +82,29 @@ namespace OSK::GRAPHICS {
 		/// @post *res será la resolución después de haberse realizado todo el escalado.
 		void UpscaleBloom(ICommandList* computeCmdList, Vector2f* res);
 
-		UniquePtr<GpuImage> bloomTargets[3]{};
+		RtRenderTarget bloomIntermediateTargets[2]{};
+		UniquePtr<MaterialInstance> intermediateInstances[2]{};
+		UniquePtr<MaterialInstance> resolveInstance;
 
 		Material* downscaleMaterial = nullptr;
 		Material* upscaleMaterial = nullptr;
-		Material* finalMaterial = nullptr;
+		Material* resolveMaterial = nullptr;
 
 		const static TSize numPasses = 4;
+
+		const static TIndex firstSource = 0;
+		const static TIndex firstDestination = 1;
+
+		const static TIndex lastDestination = (firstDestination + numPasses - 1) % 2;
+		const static TIndex lastSource = (lastDestination + 1) % 2;
+		// 0 1 <- FULL
+		// 1 0 <- FULL / 2
+		// 0 1 <- FULL / 4
+		// 1 0 <- FULL / 8
+
+		// 0 1 <- FULL / 4
+		// 1 0 <- FULL / 2
+		// 0 1 <- FULL
 
 	};
 

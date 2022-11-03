@@ -112,8 +112,6 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a5545a4f6b434519d5fb2873ed72b2b25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2391f9f93653168b0bfc3a84cdcff0a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html#a2391f9f93653168b0bfc3a84cdcff0a2">Execute</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *computeCmdList) override</td></tr>
 <tr class="separator:a2391f9f93653168b0bfc3a84cdcff0a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a529ba4b0d65f951ec6a221b13dd7484b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html#a529ba4b0d65f951ec6a221b13dd7484b">SetExposureBuffers</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_storage_buffer.html">IGpuStorageBuffer</a> *[3])</td></tr>
-<tr class="separator:a529ba4b0d65f951ec6a221b13dd7484b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40b847730935dd0c838d5ce76e8ad65c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html#a40b847730935dd0c838d5ce76e8ad65c">UpdateMaterialInstance</a> () override</td></tr>
 <tr class="separator:a40b847730935dd0c838d5ce76e8ad65c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7e88a9869fe68ca02e156ec242bbf82"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#af7e88a9869fe68ca02e156ec242bbf82">SetInput</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *images[3], <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a96bf7489b9b90da1c5f3943906ad54e5">InputType</a> type=<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a96bf7489b9b90da1c5f3943906ad54e5a17a99bfdcbe59e8209f17c4da5de6ff9">InputType::STORAGE_IMAGE</a>)</td></tr>
@@ -255,7 +253,7 @@ computeCmdList debe ser una lista de comandos de computación. </dd></dl>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a05388cf0f2e8bc5e1b94cdc76cd58c8e">OSK::GRAPHICS::IPostProcessPass</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_bloom_pass_8cpp_source.html#l00142">142</a> del archivo <a class="el" href="_bloom_pass_8cpp_source.html">BloomPass.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_bloom_pass_8cpp_source.html#l00149">149</a> del archivo <a class="el" href="_bloom_pass_8cpp_source.html">BloomPass.cpp</a>.</p>
 
 </div>
 </div>
@@ -284,7 +282,7 @@ computeCmdList debe ser una lista de comandos de computación. </dd></dl>
 
 <p>Devuelve el render target con la imagen final en las imágenes de color. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8cpp_source.html#l00056">56</a> del archivo <a class="el" href="_i_post_process_pass_8cpp_source.html">IPostProcessPass.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8cpp_source.html#l00058">58</a> del archivo <a class="el" href="_i_post_process_pass_8cpp_source.html">IPostProcessPass.cpp</a>.</p>
 
 </div>
 </div>
@@ -322,27 +320,7 @@ computeCmdList debe ser una lista de comandos de computación. </dd></dl>
 
 <p>Reimplementado de <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a5755b9283180f003c9d77fbebebfb322">OSK::GRAPHICS::IPostProcessPass</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_bloom_pass_8cpp_source.html#l00048">48</a> del archivo <a class="el" href="_bloom_pass_8cpp_source.html">BloomPass.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a529ba4b0d65f951ec6a221b13dd7484b" name="a529ba4b0d65f951ec6a221b13dd7484b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a529ba4b0d65f951ec6a221b13dd7484b">&#9670;&nbsp;</a></span>SetExposureBuffers()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void BloomPass::SetExposureBuffers </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_storage_buffer.html">IGpuStorageBuffer</a> *&#160;</td>
-          <td class="paramname"><em>buffers</em>[3]</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_bloom_pass_8cpp_source.html#l00170">170</a> del archivo <a class="el" href="_bloom_pass_8cpp_source.html">BloomPass.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_bloom_pass_8cpp_source.html#l00050">50</a> del archivo <a class="el" href="_bloom_pass_8cpp_source.html">BloomPass.cpp</a>.</p>
 
 </div>
 </div>
@@ -389,7 +367,7 @@ computeCmdList debe ser una lista de comandos de computación. </dd></dl>
 </dl>
 <dl class="section warning"><dt>Atención</dt><dd>Si las imágenes son invalidadas (porque su dueño original se recrean o cambian de tamaño), se debe volver a establecer como imágenes de entrada con <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#af7e88a9869fe68ca02e156ec242bbf82" title="Establece las imágenes de entrada a partir de las que se calculará el efecto.">IPostProcessPass::SetInput</a>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8cpp_source.html#l00040">40</a> del archivo <a class="el" href="_i_post_process_pass_8cpp_source.html">IPostProcessPass.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8cpp_source.html#l00042">42</a> del archivo <a class="el" href="_i_post_process_pass_8cpp_source.html">IPostProcessPass.cpp</a>.</p>
 
 </div>
 </div>
@@ -436,7 +414,7 @@ computeCmdList debe ser una lista de comandos de computación. </dd></dl>
 </dl>
 <dl class="section warning"><dt>Atención</dt><dd>Si las imágenes son invalidadas (porque su dueño original se recrean o cambian de tamaño), se debe volver a establecer como imágenes de entrada con <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#af7e88a9869fe68ca02e156ec242bbf82" title="Establece las imágenes de entrada a partir de las que se calculará el efecto.">IPostProcessPass::SetInput</a>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8cpp_source.html#l00048">48</a> del archivo <a class="el" href="_i_post_process_pass_8cpp_source.html">IPostProcessPass.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8cpp_source.html#l00050">50</a> del archivo <a class="el" href="_i_post_process_pass_8cpp_source.html">IPostProcessPass.cpp</a>.</p>
 
 </div>
 </div>
@@ -510,7 +488,7 @@ computeCmdList debe ser una lista de comandos de computación. </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8cpp_source.html#l00060">60</a> del archivo <a class="el" href="_i_post_process_pass_8cpp_source.html">IPostProcessPass.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8cpp_source.html#l00062">62</a> del archivo <a class="el" href="_i_post_process_pass_8cpp_source.html">IPostProcessPass.cpp</a>.</p>
 
 </div>
 </div>
@@ -548,7 +526,7 @@ Si las imágenes de entrada han sido invalidadas, se deben establecer de nuevo c
 
 <p>Reimplementado de <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a8208778343f1ebf2150487856afec2ab">OSK::GRAPHICS::IPostProcessPass</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_bloom_pass_8cpp_source.html#l00175">175</a> del archivo <a class="el" href="_bloom_pass_8cpp_source.html">BloomPass.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_bloom_pass_8cpp_source.html#l00208">208</a> del archivo <a class="el" href="_bloom_pass_8cpp_source.html">BloomPass.cpp</a>.</p>
 
 </div>
 </div>
@@ -659,7 +637,7 @@ Si las imágenes de entrada han sido invalidadas, se deben establecer de nuevo c
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html">BloomPass</a></li>
-    <li class="footer">Generado el Martes, 1 de Noviembre de 2022 23:59:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 3 de Noviembre de 2022 17:35:01 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>
