@@ -33,7 +33,7 @@ var searchData=
   ['linkedlist_3c_20std_3a_3astring_20_3e_30',['LinkedList&lt; std::string &gt;',['../class_o_s_k_1_1_linked_list.html',1,'OSK']]],
   ['linkedlist_3c_20vkaccelerationstructurekhr_20_3e_31',['LinkedList&lt; VkAccelerationStructureKHR &gt;',['../class_o_s_k_1_1_linked_list.html',1,'OSK']]],
   ['linkedstack_32',['LinkedStack',['../namespace_o_s_k.html#ada87f3cddac1f0e2cfb5c75728cd8a34',1,'OSK']]],
-  ['linktowindow_33',['LinkToWindow',['../class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#a252da56695331ab5ac11f442b74a30db',1,'OSK::ECS::CameraComponent2D']]],
+  ['linktodisplay_33',['LinkToDisplay',['../class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#afbecc6e1d8107b76924d323da82e6008',1,'OSK::ECS::CameraComponent2D']]],
   ['lista_20de_20bugs_34',['Lista de bugs',['../bug.html',1,'']]],
   ['lista_20de_20obsoletos_35',['Lista de obsoletos',['../deprecated.html',1,'']]],
   ['lista_20de_20tareas_20pendientes_36',['Lista de tareas pendientes',['../todo.html',1,'']]],

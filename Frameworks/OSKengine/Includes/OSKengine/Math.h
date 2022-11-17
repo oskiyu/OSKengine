@@ -110,4 +110,14 @@ namespace OSK::MATH {
 		return value;
 	}
 
+	/// <summary>
+	/// Para dos matrices modelo, devuelve una matriz con la diferencia de posición, rotación y escala entra ambas.
+	/// </summary>
+	/// <param name="first">Matriz modelo A.</param>
+	/// <param name="second">Matriz modelo B.</param>
+	/// <returns>Offset de B respecto a A (A - B).</returns>
+	static inline glm::mat4 GetMatrixOffset(const glm::mat4& first, const glm::mat4& second) {
+		return glm::inverse(first) - second;
+	}
+
 }

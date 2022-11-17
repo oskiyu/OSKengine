@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('_camera_component2_d_8h_source.html','
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;glm.hpp&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_i_o.html">   11</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a> {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_window.html">Window</a>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_display.html">IDisplay</a>;</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>}</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_e_c_s.html">   15</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a> {</div>
@@ -114,9 +114,9 @@ $(document).ready(function(){initNavTree('_camera_component2_d_8h_source.html','
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html">CameraComponent2D</a>();</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">void</span> LinkToWindow(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_window.html">IO::Window</a>* window);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">void</span> LinkToDisplay(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_display.html">IO::IDisplay</a>* display);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordtype">void</span> UnlinkWindow();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordtype">void</span> UnlinkDsiplay();</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordtype">void</span> SetTargetSize(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; targetSize);</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
@@ -131,7 +131,7 @@ $(document).ready(function(){initNavTree('_camera_component2_d_8h_source.html','
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_window.html">IO::Window</a>* window = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_display.html">IO::IDisplay</a>* display = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        glm::mat4 projection;</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
@@ -153,7 +153,7 @@ $(document).ready(function(){initNavTree('_camera_component2_d_8h_source.html','
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_camera_component2_d_html_aa7c89b0d072e7602f3e570b57e8511cb"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#aa7c89b0d072e7602f3e570b57e8511cb">OSK::ECS::CameraComponent2D::OSK_COMPONENT</a></div><div class="ttdeci">OSK_COMPONENT(&quot;OSK::CameraComponent2D&quot;)</div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform2_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">OSK::ECS::Transform2D</a></div><div class="ttdoc">Clase que almacena el 'transform' de un objeto en un mundo 2D. El transform contiene posición,...</div><div class="ttdef"><b>Definition:</b> <a href="_transform2_d_8h_source.html#l00018">Transform2D.h:18</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html">OSK::GRAPHICS::IGpuUniformBuffer</a></div><div class="ttdoc">Un uniform buffer contiene información arbitraria a la que se puede acceder a la hora de renderizar....</div><div class="ttdef"><b>Definition:</b> <a href="_i_gpu_uniform_buffer_8h_source.html#l00012">IGpuUniformBuffer.h:12</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_window_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_window.html">OSK::IO::Window</a></div><div class="ttdoc">Clase que representa una ventana. En esta ventana se renderizará el juego. También se encarga del inp...</div><div class="ttdef"><b>Definition:</b> <a href="_window_8h_source.html#l00034">Window.h:34</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_display_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_display.html">OSK::IO::IDisplay</a></div><div class="ttdoc">Interfaz que representa un display: la pantalla sobre la que se renderiza.</div><div class="ttdef"><b>Definition:</b> <a href="_i_display_8h_source.html#l00017">IDisplay.h:17</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Es dueño de un puntero. El puntero original es eliminado al destruirse el UniquePtr.</div><div class="ttdef"><b>Definition:</b> <a href="_unique_ptr_8hpp_source.html#l00020">UniquePtr.hpp:20</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; float_t &gt;</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition:</b> <a href="_camera_component2_d_8h_source.html#l00015">CameraComponent2D.h:15</a></div></div>
@@ -164,7 +164,7 @@ $(document).ready(function(){initNavTree('_camera_component2_d_8h_source.html','
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_camera_component2_d_8h.html">CameraComponent2D.h</a></li>
-    <li class="footer">Generado el Jueves, 3 de Noviembre de 2022 17:35:01 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 17 de Noviembre de 2022 13:54:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

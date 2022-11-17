@@ -43,7 +43,7 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Se usará desde los shaders (read-only).
 		/// </summary>
-		SHADER_READ_ONLY,
+		SAMPLED,
 
 		/// <summary>
 		/// Se usará para copiar sus datos a otra imagen.

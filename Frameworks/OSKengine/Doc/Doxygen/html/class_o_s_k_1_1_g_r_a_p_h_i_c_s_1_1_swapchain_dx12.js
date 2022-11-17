@@ -2,8 +2,8 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12 =
 [
     [ "~SwapchainDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a8c6df9c7e2332e028b5e32309fd78a9a", null ],
     [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a04699bb97612d6142b1a5895fdeeaf24", null ],
-    [ "Create", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#aa009a4c0a6159b41b927e3929db8d7f4", null ],
-    [ "CreateImages", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#accc82740cb7dbef6c41854d1c9f622b5", null ],
+    [ "Create", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a82aa859dd4cfd5da4e9291d3730bec3e", null ],
+    [ "CreateImages", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a7f41da93dcec39b219e22a5edddc301f", null ],
     [ "DeleteImages", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a8cd685c26735335357cb36ff917f9faf", null ],
     [ "GetColorFormat", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#ac1ece865145e2eeafa9300bb88fb9eb3", null ],
     [ "GetCurrentFrameIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#abbf1668873549c12b0bc43afd19304a3", null ],

@@ -49,7 +49,12 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Borde negro.
 		/// </summary>
-		BACKGROUND
+		BACKGROUND_BLACK,
+
+		/// <summary>
+		/// Borde blanco.
+		/// </summary>
+		BACKGROUND_WHITE,
 
 	};
 
@@ -109,6 +114,14 @@ namespace OSK::GRAPHICS {
 		/// @note El valor 0 identifica a la imagen original.
 		/// @warning Únicamente se usa este valor si mipMapMode == GpuImageMipmapMode::CUSTOM.
 		TSize maxMipLevel = 0;
+
+		static GpuImageSamplerDesc CreateDefault() {
+			return GpuImageSamplerDesc{ .mipMapMode = GpuImageMipmapMode::NONE };
+		}
+
+		static GpuImageSamplerDesc CreateTextureDefault() {
+			return GpuImageSamplerDesc{ .mipMapMode = GpuImageMipmapMode::AUTO };
+		}
 
 	};
 

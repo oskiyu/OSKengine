@@ -19,4 +19,16 @@ namespace OSK::GRAPHICS {
 
 	};
 
+	struct VertexAnim3D {
+		OSK_VERTEX_TYPE_REG("OSK::VertexAnim3D");
+
+		Vector3f position;
+		Vector3f normal;
+		Color color;
+		Vector2f texCoords;
+
+		Vector4f boneIndices;
+		Vector4f boneWeights;
+	};
+
 }

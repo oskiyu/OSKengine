@@ -4,8 +4,9 @@ var searchData=
   ['quaternion_1',['Quaternion',['../class_o_s_k_1_1_quaternion.html',1,'OSK::Quaternion'],['../class_o_s_k_1_1_quaternion.html#abcc01358aada56ea5f0db4da18aaf77d',1,'OSK::Quaternion::Quaternion()']]],
   ['quaternion_2ecpp_2',['Quaternion.cpp',['../_quaternion_8cpp.html',1,'']]],
   ['quaternion_2eh_3',['Quaternion.h',['../_quaternion_8h.html',1,'']]],
-  ['queue_4',['Queue',['../namespace_o_s_k.html#a0188d155693310732a0d1a5b5ce0f0a5',1,'OSK']]],
-  ['queuefamilyindices_5',['QueueFamilyIndices',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices.html',1,'OSK::GRAPHICS']]],
-  ['queuefamilyindices_2ecpp_6',['QueueFamilyIndices.cpp',['../_queue_family_indices_8cpp.html',1,'']]],
-  ['queuefamilyindices_2eh_7',['QueueFamilyIndices.h',['../_queue_family_indices_8h.html',1,'']]]
+  ['queryinterface_4',['QueryInterface',['../class_o_s_k_1_1_i_query_interface.html#abf1b865ec9b11ced8c2d35660aab9346',1,'OSK::IQueryInterface::QueryInterface(TInterfaceUuid interfaceUuid, void **ptr) const =0'],['../class_o_s_k_1_1_i_query_interface.html#a96e28be0f3cec3a83c161d417162288f',1,'OSK::IQueryInterface::QueryInterface(IUUID uuid, void **ptr) const'],['../class_o_s_k_1_1_i_o_1_1_pc_user_input.html#adc05725ed42f9df7fcc020822378a49f',1,'OSK::IO::PcUserInput::QueryInterface()'],['../class_o_s_k_1_1_i_o_1_1_window.html#a57a3c9c0e6f2e028cb551d9b2df5c49b',1,'OSK::IO::Window::QueryInterface()']]],
+  ['queue_5',['Queue',['../namespace_o_s_k.html#a0188d155693310732a0d1a5b5ce0f0a5',1,'OSK']]],
+  ['queuefamilyindices_6',['QueueFamilyIndices',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices.html',1,'OSK::GRAPHICS']]],
+  ['queuefamilyindices_2ecpp_7',['QueueFamilyIndices.cpp',['../_queue_family_indices_8cpp.html',1,'']]],
+  ['queuefamilyindices_2eh_8',['QueueFamilyIndices.h',['../_queue_family_indices_8h.html',1,'']]]
 ];

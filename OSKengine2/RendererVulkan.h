@@ -19,7 +19,7 @@ namespace OSK::GRAPHICS {
 		RendererVulkan(bool requestRayTracing);
 		~RendererVulkan();
 
-		void Initialize(const std::string& appName, const Version& version, const IO::Window& window, PresentMode mode) override;
+		void Initialize(const std::string& appName, const Version& version, const IO::IDisplay& display, PresentMode mode) override;
 		void Close() override;
 		void HandleResize() override;
 		void PresentFrame() override;
@@ -69,7 +69,7 @@ namespace OSK::GRAPHICS {
 
 		void CreateInstance(const std::string& appName, const Version& version);
 		void SetupDebugLogging();
-		void CreateSurface(const IO::Window& window);
+		void CreateSurface(const IO::IDisplay& display);
 		void ChooseGpu();
 
 		// Sync

@@ -65,10 +65,10 @@ RendererDx12::~RendererDx12() {
 	Close();
 }
 
-void RendererDx12::Initialize(const std::string& appName, const Version& version, const IO::Window& window, PresentMode mode) {
+void RendererDx12::Initialize(const std::string& appName, const Version& version, const IO::IDisplay& display, PresentMode mode) {
 	Engine::GetLogger()->InfoLog("Iniciando renderizador DX12.");
 
-	this->window = &window;
+	this->display = &display;
 
 #ifdef OSK_RELEASE
 	useDebugConsole = false;
@@ -97,15 +97,15 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	CreateGpuMemoryAllocator();
 
 	renderTargetsCamera = new ECS::CameraComponent2D;
-	renderTargetsCamera->LinkToWindow(&window);
-	renderTargetsCameraTransform.SetScale({ window.GetWindowSize().X / 2.0f, window.GetWindowSize().Y / 2.0f });
+	renderTargetsCamera->LinkToDisplay(&display);
+	renderTargetsCameraTransform.SetScale({ display.GetResolution().X / 2.0f, display.GetResolution().Y / 2.0f });
 	renderTargetsCamera->UpdateUniformBuffer(renderTargetsCameraTransform);
 
 	CreateMainRenderpass();
 
 	if (Engine::GetEcs())
 		for (auto i : Engine::GetEcs()->GetRenderSystems())
-			i->CreateTargetImage(window.GetWindowSize());
+			i->CreateTargetImage(display.GetResolution());
 
 	isOpen = true;
 
@@ -123,7 +123,7 @@ void RendererDx12::HandleResize() {
 }
 
 void RendererDx12::Resize() {
-	if (window->GetWindowSize().X == 0 && window->GetWindowSize().Y == 0)
+	if (display->GetResolution().X == 0 && display->GetResolution().Y == 0)
 		return;
 
 	Format format = swapchain->GetImage(0)->GetFormat();
@@ -131,9 +131,9 @@ void RendererDx12::Resize() {
 	swapchain->As<SwapchainDx12>()->DeleteImages();
 
 	swapchain->As<SwapchainDx12>()->GetSwapchain()->ResizeBuffers(swapchain->GetImageCount(),
-		window->GetWindowSize().X, window->GetWindowSize().Y, GetFormatDx12(format), 0);
+		display->GetResolution().X, display->GetResolution().Y, GetFormatDx12(format), 0);
 
-	swapchain->As<SwapchainDx12>()->CreateImages(*window);
+	swapchain->As<SwapchainDx12>()->CreateImages(*display);
 	//finalRenderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
 }
 
@@ -258,7 +258,7 @@ void RendererDx12::CreateCommandQueues() {
 void RendererDx12::CreateSwapchain(PresentMode mode) {
 	swapchain = new SwapchainDx12;
 
-	swapchain->As<SwapchainDx12>()->Create(mode, currentGpu.GetPointer(), Format::RGBA8_UNORM, *graphicsQueue->As<CommandQueueDx12>(), factory.Get(), *window);
+	swapchain->As<SwapchainDx12>()->Create(mode, currentGpu.GetPointer(), Format::RGBA8_UNORM, *graphicsQueue->As<CommandQueueDx12>(), factory.Get(), *display);
 
 	Engine::GetLogger()->InfoLog("Creado el swapchain.");
 }

@@ -114,21 +114,26 @@ $(document).ready(function(){initNavTree('_o_s_kmacros_8h_source.html',''); init
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="_o_s_kmacros_8h.html#a0f6b3171fdbde641ab165b26c2e54a8d">   24</a></span><span class="keyword">using </span><a class="code hl_typedef" href="_o_s_kmacros_8h.html#a0f6b3171fdbde641ab165b26c2e54a8d">TIndex</a> = <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">   25</a></span><span class="keyword">using </span><a class="code hl_typedef" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> = float;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="_o_s_kmacros_8h.html#a6d686bea7f1faeb6478b9450ba6915ed">   26</a></span><span class="keyword">using </span><a class="code hl_typedef" href="_o_s_kmacros_8h.html#a6d686bea7f1faeb6478b9450ba6915ed">TByte</a> = uint8_t;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="_o_s_kmacros_8h.html#a8d42f4a4757e4cc1cd71e9491a14c8df">   28</a></span><span class="preprocessor">#define OKS_ARR_FUNC(num) *</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="_o_s_kmacros_8h.html#af408bd83a39d07fd2d37ecbc5e2fbf15">   27</a></span><span class="keyword">using </span><a class="code hl_typedef" href="_o_s_kmacros_8h.html#af408bd83a39d07fd2d37ecbc5e2fbf15">TInterfaceUuid</a> = <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a0f6b3171fdbde641ab165b26c2e54a8d">TIndex</a>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="_o_s_kmacros_8h.html#a8d42f4a4757e4cc1cd71e9491a14c8df">   29</a></span><span class="preprocessor">#define OKS_ARR_FUNC(num) *</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="_o_s_kmacros_8h.html#ae5034a2411685f3051a088309c6621e0">   33</a></span><span class="preprocessor">#define OSK_DEFINE_IUUID(uuid) static TInterfaceUuid GetInterfaceUuid() { return uuid; }</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="_o_s_kmacros_8h.html#ab50df35cdc0a6fe9356e3dcaaf670f16">   34</a></span><span class="preprocessor">#define OSK_IUUID(interfaceClass) (interfaceClass ::GetInterfaceUuid())</span></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_a0f6b3171fdbde641ab165b26c2e54a8d"><div class="ttname"><a href="_o_s_kmacros_8h.html#a0f6b3171fdbde641ab165b26c2e54a8d">TIndex</a></div><div class="ttdeci">TSize TIndex</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00024">OSKmacros.h:24</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00023">OSKmacros.h:23</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_a6d686bea7f1faeb6478b9450ba6915ed"><div class="ttname"><a href="_o_s_kmacros_8h.html#a6d686bea7f1faeb6478b9450ba6915ed">TByte</a></div><div class="ttdeci">uint8_t TByte</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00026">OSKmacros.h:26</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_ad05d5eacc527d5b61240124daf13b33b"><div class="ttname"><a href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a></div><div class="ttdeci">float TDeltaTime</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00025">OSKmacros.h:25</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_af408bd83a39d07fd2d37ecbc5e2fbf15"><div class="ttname"><a href="_o_s_kmacros_8h.html#af408bd83a39d07fd2d37ecbc5e2fbf15">TInterfaceUuid</a></div><div class="ttdeci">TIndex TInterfaceUuid</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00027">OSKmacros.h:27</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_o_s_kmacros_8h.html">OSKmacros.h</a></li>
-    <li class="footer">Generado el Jueves, 3 de Noviembre de 2022 17:35:01 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 17 de Noviembre de 2022 13:54:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

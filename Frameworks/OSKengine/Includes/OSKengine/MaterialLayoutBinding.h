@@ -29,9 +29,7 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		std::string name;
 
-		/// <summary>
-		/// Tipo de binding.
-		/// </summary>
+		/// <summary> Tipo de binding. </summary>
 		ShaderBindingType type;
 
 		/// <summary>
@@ -51,6 +49,19 @@ namespace OSK::GRAPHICS {
 		/// Interno.
 		/// </summary>
 		TSize hlslDescriptorIndex;
+
+		/// <summary>
+		/// True si el recurso en el shader corresponde a una array
+		/// de recursos tamaño indeterminado.
+		/// </summary>
+		/// 
+		/// @example uniform sampler2D images[];
+		bool isUnsizedArray = false;
+
+		/// <summary> Número de capas del array. </summary>
+		/// 
+		/// @note Si no es un array, será 1.
+		TSize numArrayLayers = 1;
 
 	};
 

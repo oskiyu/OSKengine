@@ -1,12 +1,12 @@
 var searchData=
 [
   ['b_0',['B',['../namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a9d5ed678fe57bcca610140957afab571',1,'OSK::IO::B()'],['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea9d5ed678fe57bcca610140957afab571',1,'OSK::IO::B()']]],
-  ['b8g8r8a8_5fsrgb_1',['B8G8R8A8_SRGB',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8af76dbb655425d5bbcf8f4b8f5d316960',1,'OSK::GRAPHICS']]],
-  ['back_2',['BACK',['../namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a1dd26f1f1790f0b56d5752fb0fbecef0',1,'OSK::IO::BACK()'],['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922ca1dd26f1f1790f0b56d5752fb0fbecef0',1,'OSK::GRAPHICS::BACK()']]],
-  ['background_5fblack_3',['BACKGROUND_BLACK',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ac1b7e80a6459c1c2dcff1fb7b4784ea2acda75fcc851f092ec368da0b8428a610',1,'OSK::GRAPHICS']]],
-  ['background_5fwhite_4',['BACKGROUND_WHITE',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ac1b7e80a6459c1c2dcff1fb7b4784ea2ab99d0d2b7902400a1a0fac311f795676',1,'OSK::GRAPHICS']]],
-  ['backslash_5',['BACKSLASH',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eaecb4a6f3440c2ed0dff59f17375a27c0',1,'OSK::IO']]],
-  ['backspace_6',['BACKSPACE',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea6f5d8e41084b4d3d47fa621c459eede1',1,'OSK::IO']]],
+  ['back_1',['BACK',['../namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a1dd26f1f1790f0b56d5752fb0fbecef0',1,'OSK::IO::BACK()'],['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922ca1dd26f1f1790f0b56d5752fb0fbecef0',1,'OSK::GRAPHICS::BACK()']]],
+  ['background_5fblack_2',['BACKGROUND_BLACK',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ac1b7e80a6459c1c2dcff1fb7b4784ea2acda75fcc851f092ec368da0b8428a610',1,'OSK::GRAPHICS']]],
+  ['background_5fwhite_3',['BACKGROUND_WHITE',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ac1b7e80a6459c1c2dcff1fb7b4784ea2ab99d0d2b7902400a1a0fac311f795676',1,'OSK::GRAPHICS']]],
+  ['backslash_4',['BACKSLASH',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eaecb4a6f3440c2ed0dff59f17375a27c0',1,'OSK::IO']]],
+  ['backspace_5',['BACKSPACE',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea6f5d8e41084b4d3d47fa621c459eede1',1,'OSK::IO']]],
+  ['bgra8_5fsrgb_6',['BGRA8_SRGB',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8af4a701ac1b36032e705eb34a8283e7e8',1,'OSK::GRAPHICS']]],
   ['buffer_7',['BUFFER',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5e58e16d9268fde60c3eae698b225eca17de626bcae5109bb2f7a66dfc4a8a1d',1,'OSK::GRAPHICS']]],
   ['button_5f1_8',['BUTTON_1',['../namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77ac8dcbbd6eda649ff9bdb9873ae813ce4',1,'OSK::IO']]],
   ['button_5f2_9',['BUTTON_2',['../namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77aa1a723bed8032bec8965b277db1282fd',1,'OSK::IO']]],

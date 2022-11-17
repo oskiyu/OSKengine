@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Color.hpp"
-#include "Vector3.hpp"
+#include "Vector4.hpp"
 #include "DynamicArray.hpp"
 
 namespace OSK::GRAPHICS {
@@ -14,18 +14,12 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Dirección de la luz.
 		/// </summary>
-		alignas(16) Vector3 direction;
+		alignas(16) Vector4f directionAndIntensity;
 
 		/// <summary>
 		/// Color de la luz.
 		/// </summary>
 		alignas(16) Color color;
-
-		/// <summary>
-		/// Intensidad de la luz. 
-		/// (0.0 - 1.0)
-		/// </summary>
-		alignas(16) float intensity = 1.0f;
 
 	};
 

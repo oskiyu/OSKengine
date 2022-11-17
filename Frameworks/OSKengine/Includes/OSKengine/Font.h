@@ -14,11 +14,9 @@ namespace OSK::GRAPHICS {
 
 namespace OSK::ASSETS {
 
-	/// <summary>
-	/// Representa una fuente: un asset que almacena una fuente que nos
-	/// permite renderizar texto.
+	/// <summary> Representa una fuente que nos permite renderizar texto. </summary>
 	/// 
-	/// @note Al cargar una fuente, en realidad no se carga la fuente:
+	/// @note Usa una estrategia de cración perezosa:
 	/// debemos cargar una fuente de manera independiente por cada tamaño
 	/// de letra que queramos usar.
 	/// 
@@ -26,7 +24,6 @@ namespace OSK::ASSETS {
 	/// más adelante, para evitar pérdidas de rendimiento durante la ejecución.
 	/// 
 	/// @warning Únicamente soporta caracteres ASCII.
-	/// </summary>
 	class OSKAPI_CALL Font : public IAsset {
 
 	public:
@@ -47,32 +44,23 @@ namespace OSK::ASSETS {
 		/// </param>
 		void _SetFontFilePath(const std::string& rawFile);
 
-		/// <summary>
-		/// Genera la imagen de la fuente para el tamaño de letra dado.
-		/// </summary>
+		/// <summary> Genera la imagen de la fuente para el tamaño de letra dado. </summary>
 		/// <param name="size">Tamaño de letra, en píxeles.</param>
 		void LoadSizedFont(TSize size);
 
-		/// <summary>
-		/// Descarga la instancia de la funente con el tamaño dado.
-		/// 
-		/// Si la instancia no existe, no ocurre nada.
-		/// </summary>
+		/// <summary> Descarga la instancia de la funente con el tamaño dado. </summary>
 		/// <param name="size">Tamaño de letra, en píxeles.</param>
+		/// 
+		/// @note Si la instancia no existe, no ocurre nada.
 		void UnloadSizedFont(TSize size);
 
-		/// <summary>
-		/// Devuelve la imagen de GPU correspondiente a la fuente del tamaño dado.
-		/// </summary>
+		/// <summary> Devuelve la imagen de GPU correspondiente a la fuente del tamaño dado. </summary>
+		/// <param name="fontSize">Tamaño de la fuente, en píxeles.</param>
 		/// 
 		/// @note Si la fuente no está cargada, se cargará automáticamente.
-		/// 
-		/// <param name="fontSize">Tamaño de la fuente, en píxeles.</param>
 		GRAPHICS::GpuImage* GetGpuImage(TSize fontSize);
 
-		/// <summary>
-		/// Devuelve la información de un carácter para un tamaño de fuente dado.
-		/// </summary>
+		/// <summary> Devuelve la información de un carácter para un tamaño de fuente dado. </summary>
 		/// 
 		/// @note Si la fuente no está cargada, se cargará automáticamente.
 		/// 
@@ -80,9 +68,7 @@ namespace OSK::ASSETS {
 		/// <param name="character">Caracter.</param>
 		const FontCharacter& GetCharacterInfo(TSize size, char character);
 
-		/// <summary>
-		/// Devuelve la información de una instancia de la fuente con el tamaño dado.
-		/// </summary>
+		/// <summary> Devuelve la información de una instancia de la fuente con el tamaño dado. </summary>
 		/// 
 		/// @note Si la fuente no está cargada, se cargará automáticamente.
 		/// 

@@ -17,6 +17,7 @@ namespace OSK::GRAPHICS {
 	class VertexInfo;
 	class MaterialLayout;
 	struct PipelineCreateInfo;
+	enum class MaterialType;
 
 	/// <summary>
 	/// Clase que se encarga de cargar y manejar los materiales.
@@ -50,7 +51,7 @@ namespace OSK::GRAPHICS {
 	private:
 
 		void LoadMaterialV0(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info);
-		void LoadMaterialV1(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info);
+		void LoadMaterialV1(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info, MaterialType type);
 
 		LinkedList<OwnedPtr<Material>> materials;
 		HashMap<std::string, Material*> materialsTable;

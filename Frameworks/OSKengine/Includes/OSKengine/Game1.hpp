@@ -35,7 +35,6 @@
 #include "CubemapTexture.h"
 #include "ICommandList.h"
 
-#include "IRenderpass.h"
 #include "GpuImageDimensions.h"
 #include "GpuImageUsage.h"
 #include "Format.h"
@@ -58,40 +57,38 @@
 #include "UiRenderer.h"
 #include "Viewport.h"
 #include "Lights.h"
+#include "SkyboxRenderSystem.h"
+#include "IGpuStorageBuffer.h"
 
 #include "Math.h"
 
 #include "RenderSystem3D.h"
 #include "RenderSystem2D.h"
+#include "HybridRenderSystem.h"
 #include "RenderTarget.h"
 
+#include "PbrDeferredRenderSystem.h"
+#include "ModelLoader3D.h"
 #include "IrradianceMap.h"
-#include "IrradianceMapLoader.h"
+
+#include "FxaaPass.h"
+#include "ToneMapping.h"
+#include "BloomPass.h"
+#include "SmaaPass.h"
 
 OSK::GRAPHICS::Material* rtMaterial = nullptr;
 OSK::GRAPHICS::MaterialInstance* rtMaterialInstance = nullptr;
-OSK::GRAPHICS::GpuImage* rtTargetImage = nullptr;
+OSK::GRAPHICS::GpuImage* rtTargetImage[3]{};
 
 OSK::GRAPHICS::Material* material = nullptr;
-OSK::GRAPHICS::Material* skyboxMaterial = nullptr;
 OSK::GRAPHICS::Material* material2d = nullptr;
 OSK::GRAPHICS::Material* materialRenderTarget = nullptr;
-OSK::GRAPHICS::MaterialInstance* skyboxMaterialInstance = nullptr;
-OSK::ASSETS::CubemapTexture* cubemap = nullptr;
-OSK::ASSETS::Model3D* cubemapModel = nullptr;
-
-OSK::GRAPHICS::Material* terrainMaterialFill = nullptr;
-OSK::GRAPHICS::Material* terrainMaterialLine = nullptr;
-OSK::GRAPHICS::Material* terrainMaterial = nullptr;
 
 OSK::GRAPHICS::SpriteRenderer spriteRenderer;
 
 OSK::GRAPHICS::ITopLevelAccelerationStructure* topLevelAccelerationStructure = nullptr;
-OSK::GRAPHICS::GpuDataBuffer* instancesInfoBuffer = nullptr;
+OSK::GRAPHICS::IGpuStorageBuffer* instancesInfoBuffer = nullptr;
 
-OSK::GRAPHICS::GpuImage* normalImage = nullptr;
-
-OSK::GRAPHICS::RenderTarget skyboxRenderTarget;
 OSK::GRAPHICS::RenderTarget textRenderTarget;
 
 struct RtInstanceInfo {
@@ -101,16 +98,19 @@ struct RtInstanceInfo {
 
 // PBR
 using namespace OSK;
+using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 Material* pbrColorMaterial = nullptr;
 Material* pbrNormalMaterial = nullptr;
+
+#define OSK_CURRENT_RSYSTEM OSK::ECS::HybridRenderSystem
 
 class Game1 : public OSK::IGame {
 
 protected:
 
 	void CreateWindow() override {
-		Engine::GetWindow()->Create(800, 600, "OSKengine");
+		Engine::GetWindow()->Create(1280, 720, "OSKengine");
 		Engine::GetWindow()->SetMouseReturnMode(IO::MouseReturnMode::ALWAYS_RETURN);
 		Engine::GetWindow()->SetMouseMotionMode(IO::MouseMotionMode::RAW);
 	}
@@ -120,15 +120,11 @@ protected:
 	}
 
 	void OnCreate() override {
-		// Material load
-
-		Engine::GetLogger()->DebugLog("START");
 		auto irradianceMap = Engine::GetAssetManager()->Load<ASSETS::IrradianceMap>("Resources/Assets/IBL/irradiance0.json", "GLOBAL");
-		Engine::GetLogger()->DebugLog("END");
+		auto animModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/animmodel.json", "GLOBAL");
 
-		Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_irradiance_gen.json");
-		material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_pbr.json");
-		skyboxMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/skybox_material.json");
+		// Material load
+		material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_pbr.json"); //Resources/PbrMaterials/deferred_gbuffer.json
 		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json");
 		materialRenderTarget = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rendertarget.json");
 
@@ -138,207 +134,183 @@ protected:
 		font->LoadSizedFont(22);
 		font->SetMaterial(material2d);
 
-		uniformBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4)).GetPointer();
-		
-		ASSETS::Model3D* model = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/f1.json", "GLOBAL");
-		ASSETS::Model3D* model_low = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/circuit0.json", "GLOBAL");
+		ASSETS::Model3D* carModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/f1.json", "GLOBAL");
+		ASSETS::Model3D* circuitModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/circuit0.json", "GLOBAL");
 
-		topLevelAccelerationStructure = Engine::GetRenderer()->GetMemoryAllocator()->CreateTopAccelerationStructure({
-			model->GetAccelerationStructure(),
-			model_low->GetAccelerationStructure()
+		topLevelAccelerationStructure = Engine::GetRenderer()->GetAllocator()->CreateTopAccelerationStructure({
+			carModel->GetAccelerationStructure(),
+			//circuitModel->GetAccelerationStructure()
 			}).GetPointer();
 
 		DynamicArray<RtInstanceInfo> instancesInfo;
 		instancesInfo.Insert({
-			model->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - model->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock(),
-			model->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - model->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock()
+			carModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - carModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock(),
+			carModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - carModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock()
 			});
-		instancesInfo.Insert({ 
-			model_low->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - model->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock(),
-			model_low->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - model->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock()
-			});
-		instancesInfoBuffer = Engine::GetRenderer()->GetMemoryAllocator()->CreateBuffer(sizeof(RtInstanceInfo) * 4, 0, OSK::GRAPHICS::GpuBufferUsage::STORAGE_BUFFER, OSK::GRAPHICS::GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+		//instancesInfo.Insert({ 
+			//circuitModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - circuitModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock(),
+			//circuitModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - circuitModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock()
+			//});
+		instancesInfoBuffer = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(RtInstanceInfo) * 4).GetPointer();
 		instancesInfoBuffer->MapMemory();
 		instancesInfoBuffer->Write(instancesInfo.GetData(), instancesInfo.GetSize() * sizeof(RtInstanceInfo));
 		instancesInfoBuffer->Unmap();/**/
 
-		rtTargetImage = Engine::GetRenderer()->GetMemoryAllocator()->CreateImage({ 1920, 1080, 1 }, GpuImageDimension::d2D, 1, Format::RGBA8_UNORM,
-				GpuImageUsage::RT_TARGET_IMAGE | GpuImageUsage::SAMPLED, GpuSharedMemoryType::GPU_ONLY, 1).GetPointer();
+		for (TSize i = 0; i < _countof(rtTargetImage); i++) {
+			GpuImageSamplerDesc sampler{};
+			sampler.mipMapMode = GpuImageMipmapMode::NONE;
+			rtTargetImage[i] = Engine::GetRenderer()->GetAllocator()->CreateImage({ 1920, 1080, 1 }, GpuImageDimension::d2D, 1, Format::RGBA32_SFLOAT,
+				GpuImageUsage::RT_TARGET_IMAGE | GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE, GpuSharedMemoryType::GPU_ONLY, 1, sampler).GetPointer();
+			rtTargetImage[i]->SetDebugName("RtTargetImage [" + std::to_string(i) + "]");
+		}
+
+		OSK_CURRENT_RSYSTEM* renderSystem = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>();
 		rtMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rt.json");
 		rtMaterialInstance = rtMaterial->CreateInstance().GetPointer();
-		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("vertices", model->GetVertexBuffer());
-		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("indices", model->GetIndexBuffer());
+		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("vertices", carModel->GetVertexBuffer());
+		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("indices", carModel->GetIndexBuffer());
 		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("instanceInfos", instancesInfoBuffer);
 		rtMaterialInstance->GetSlot("rt")->SetAccelerationStructure("topLevelAccelerationStructure", topLevelAccelerationStructure);
-		rtMaterialInstance->GetSlot("rt")->SetStorageImage("targetImage", rtTargetImage);
+
+		renderSystem->AddBlas(carModel->GetAccelerationStructure());
+		//renderSystem->AddBlas(circuitModel->GetAccelerationStructure());
+
+		const IGpuUniformBuffer* cameraBuffers[3] {
+			renderSystem->GetCameraBuffer(0),
+			renderSystem->GetCameraBuffer(1),
+			renderSystem->GetCameraBuffer(2)
+		};
+		const GpuImage* rtImages[3]{
+			rtTargetImage[0],
+			rtTargetImage[1],
+			rtTargetImage[2]
+		};
+
+		rtMaterialInstance->GetSlot("rt")->SetStorageImages("targetImage", rtImages);
 		rtMaterialInstance->GetSlot("rt")->FlushUpdate();
-		rtMaterialInstance->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer.GetPointer());
+		rtMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", cameraBuffers);
 		rtMaterialInstance->GetSlot("global")->FlushUpdate();
 
-
 		// ECS
-		ballObject = Engine::GetEntityComponentSystem()->SpawnObject();
+		carObject = Engine::GetEcs()->SpawnObject();
 
-		ECS::Transform3D& transform = Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(ballObject, ECS::Transform3D(ballObject));
-		ECS::ModelComponent3D* modelComponent = &Engine::GetEntityComponentSystem()->AddComponent<ECS::ModelComponent3D>(ballObject, {});
-				
-		DirectionalLight dirLight;
-		dirLight.direction = Vector3f(1.0f, -3.f, 0.0f).GetNormalized();
-		dirLight.color = Color(253 / 255.f, 253 / 255.f, 225 / 255.f);
-		dirLight.intensity = 1.8f;
+		cameraObject = Engine::GetEcs()->SpawnObject();
 
-		ECS::RenderSystem3D* renderSystem = Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>();
-		renderSystem->SetDirectionalLight(dirLight);
-
-		modelComponent->SetModel(model);
-		modelComponent->SetMaterial(material);
-
-		modelComponent->BindUniformBufferForAllMeshes("global", "camera", uniformBuffer.GetPointer());
-		modelComponent->BindTextureForAllMeshes("model", "stexture", texture);
-		modelComponent->BindGpuImageForAllMeshes("global", "irradianceMap", irradianceMap->GetGpuImage());
-		modelComponent->BindUniformBufferForAllMeshes("global", "dirLightShadowMat", renderSystem->GetShadowMap()->GetDirLightMatrixUniformBuffer());
-		modelComponent->BindUniformBufferForAllMeshes("global", "dirLight", renderSystem->GetDirLightUniformBuffer());
-
-		for (TSize i = 0; i < model->GetMeshes().GetSize(); i++) {
-			auto& metadata = model->GetMetadata().meshesMetadata[i];
-
-			const GpuImage* images[3]{};
-			for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-				images[i] = renderSystem->GetShadowMap()->GetShadowImage(i);
-
-			modelComponent->GetMeshMaterialInstance(i)->GetSlot("global")->SetGpuImages("dirLightShadowMap", images, SampledChannel::DEPTH);
-			modelComponent->GetMeshMaterialInstance(i)->GetSlot("global")->FlushUpdate();
-
-			if (metadata.materialTextures.GetSize() > 0) {
-				for (auto& texture : metadata.materialTextures)
-					modelComponent->GetMeshMaterialInstance(i)->GetSlot("model")->SetGpuImage("stexture", model->GetImage(texture.second));
-
-				modelComponent->GetMeshMaterialInstance(i)->GetSlot("model")->FlushUpdate();
-			}
-		}
-
-		cameraObject = Engine::GetEntityComponentSystem()->SpawnObject();
-
-		Engine::GetEntityComponentSystem()->AddComponent<ECS::CameraComponent3D>(cameraObject, {});
-		auto& cameraTransform = Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(cameraObject, ECS::Transform3D(cameraObject));
+		Engine::GetEcs()->AddComponent<ECS::CameraComponent3D>(cameraObject, {});
+		auto& cameraTransform = Engine::GetEcs()->AddComponent<ECS::Transform3D>(cameraObject, ECS::Transform3D(cameraObject));
 		cameraTransform.AddPosition({ 0.0f, 0.3f, 0.0f });
-		//cameraTransform.AttachToObject(ballObject);
+		renderSystem->Initialize(cameraObject, *irradianceMap);
+		Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->SetCamera(cameraObject);
+
+		ECS::Transform3D& transform = Engine::GetEcs()->AddComponent<ECS::Transform3D>(carObject, ECS::Transform3D(carObject));
+		ECS::ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ECS::ModelComponent3D>(carObject, {});
+		
+		cameraTransform.AttachToObject(carObject);
+
+		modelComponent->SetModel(carModel);
+		modelComponent->SetMaterial(material);
+		modelComponent->BindTextureForAllMeshes("texture", "albedoTexture", texture);
+		ModelLoader3D::SetupPbrModel(carModel, modelComponent);
 
 		// ECS 2
-		smallBallObject = Engine::GetEntityComponentSystem()->SpawnObject();
+		circuitObject = Engine::GetEcs()->SpawnObject();
 
-		auto& transform2 = Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(smallBallObject, ECS::Transform3D(smallBallObject));
-		auto modelComponent2 = &Engine::GetEntityComponentSystem()->AddComponent<ECS::ModelComponent3D>(smallBallObject, {});
+		auto& transform2 = Engine::GetEcs()->AddComponent<ECS::Transform3D>(circuitObject, ECS::Transform3D(circuitObject));
+		/*auto modelComponent2 = &Engine::GetEcs()->AddComponent<ECS::ModelComponent3D>(circuitObject, {});
 
-		modelComponent2->SetModel(model_low);
+		modelComponent2->SetModel(circuitModel); // animModel
 		modelComponent2->SetMaterial(material);
-
-		modelComponent2->BindUniformBufferForAllMeshes("global", "camera", uniformBuffer.GetPointer());
-		modelComponent2->BindTextureForAllMeshes("model", "stexture", texture);
-		modelComponent2->BindGpuImageForAllMeshes("global", "irradianceMap", irradianceMap->GetGpuImage());
-		modelComponent2->BindUniformBufferForAllMeshes("global", "dirLight", renderSystem->GetDirLightUniformBuffer());
-		modelComponent2->BindUniformBufferForAllMeshes("global", "dirLightShadowMat", renderSystem->GetShadowMap()->GetDirLightMatrixUniformBuffer());
-
-		for (TSize i = 0; i < model_low->GetMeshes().GetSize(); i++) {
-			auto& metadata = model_low->GetMetadata().meshesMetadata[i];
-			
-			const GpuImage* images[3]{};
-			for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-				images[i] = renderSystem->GetShadowMap()->GetShadowImage(i);
-
-			modelComponent2->GetMeshMaterialInstance(i)->GetSlot("global")->SetGpuImages("dirLightShadowMap", images, SampledChannel::DEPTH);
-			modelComponent2->GetMeshMaterialInstance(i)->GetSlot("global")->FlushUpdate();
-
-			if (metadata.materialTextures.GetSize() > 0) {
-				for (auto& texture : metadata.materialTextures)
-					modelComponent2->GetMeshMaterialInstance(i)->GetSlot("model")->SetGpuImage("stexture", model_low->GetImage(texture.second));
-
-				modelComponent2->GetMeshMaterialInstance(i)->GetSlot("model")->FlushUpdate();
-			}
-		}
+		modelComponent2->BindTextureForAllMeshes("texture", "albedoTexture", texture);
+		ModelLoader3D::SetupPbrModel(circuitModel, modelComponent2);*/
+		// circuitModel->GetAnimator()->AddActiveAnimation("Idle");
+		// circuitModel->GetAnimator()->AddActiveAnimation("Run");
 
 		// Cubemap
-		cubemap = Engine::GetAssetManager()->Load<ASSETS::CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL");
-		cubemapModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/cube.json", "GLOBAL");
-
-		skyboxMaterialInstance = skyboxMaterial->CreateInstance().GetPointer();
-		skyboxMaterialInstance->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer.GetPointer());
-		skyboxMaterialInstance->GetSlot("global")->SetGpuImage("skybox", cubemap->GetGpuImage());
-		skyboxMaterialInstance->GetSlot("global")->FlushUpdate();
-
-		cameraObject2d = Engine::GetEntityComponentSystem()->SpawnObject();
-		auto& camera2D = Engine::GetEntityComponentSystem()->AddComponent<ECS::CameraComponent2D>(cameraObject2d, {});
-		Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform2D>(cameraObject2d, { cameraObject2d });
+		Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->SetCubemap(*Engine::GetAssetManager()->Load<ASSETS::CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL"));
+		
+		cameraObject2d = Engine::GetEcs()->SpawnObject();
+		auto& camera2D = Engine::GetEcs()->AddComponent<ECS::CameraComponent2D>(cameraObject2d, {});
+		Engine::GetEcs()->AddComponent<ECS::Transform2D>(cameraObject2d, { cameraObject2d });
 		camera2D.LinkToWindow(Engine::GetWindow());
 
-		spriteObject = Engine::GetEntityComponentSystem()->SpawnObject();
-
-		spriteRenderer.SetCommandList(Engine::GetRenderer()->GetCommandList());
+		spriteRenderer.SetCommandList(Engine::GetRenderer()->GetGraphicsCommandList());
 
 		font->GetInstance(30).sprite->GetMaterialInstance()->GetSlot("global")->SetUniformBuffer("camera", camera2D.GetUniformBuffer());
 		font->GetInstance(30).sprite->GetMaterialInstance()->GetSlot("global")->FlushUpdate();
 
 		// Terrain
-		terrain = Engine::GetEntityComponentSystem()->SpawnObject();
-		auto& terrainComponent = Engine::GetEntityComponentSystem()->AddComponent<ECS::TerrainComponent>(terrain, {});
-		auto& terrainTransform = Engine::GetEntityComponentSystem()->AddComponent<ECS::Transform3D>(terrain, { terrain });
-		terrainComponent.Generate({ 100 });
+		// renderSystem->InitializeTerrain({ 10u }, *Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/heightmap0.json", "GLOBAL"), *Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/terrain0.json", "GLOBAL"));
 
-		terrainMaterialFill = terrainMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_terrain.json");
-		terrainMaterialLine = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_terrain_lines.json");
+		RenderTargetAttachmentInfo textColorInfo{ .format = Format::RGBA8_UNORM, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE };
+		RenderTargetAttachmentInfo textDepthInfo{ .format = Format::D32S8_SFLOAT_SUINT };
+		textRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), { textColorInfo }, textDepthInfo);
 
-		terrainComponent.SetMaterialInstance(terrainMaterial->CreateInstance());
+		RenderTargetAttachmentInfo preEffectsColorInfo{ .format = Format::RGBA32_SFLOAT, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE };
+		RenderTargetAttachmentInfo preEffectsDepthInfo{ .format = Format::D32S8_SFLOAT_SUINT };
+		preEffectsRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), { preEffectsColorInfo }, preEffectsDepthInfo);
+		
 
-		terrainComponent.GetMaterialInstance()->GetSlot("global")->SetUniformBuffer("camera", uniformBuffer.GetPointer());
-		terrainComponent.GetMaterialInstance()->GetSlot("global")->SetTexture("heightmap",
-			Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/heightmap0.json", "GLOBAL"));
-		terrainComponent.GetMaterialInstance()->GetSlot("global")->SetTexture("texture",
-			Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/terrain0.json", "GLOBAL"));
-		terrainComponent.GetMaterialInstance()->GetSlot("global")->FlushUpdate();
+		fxaaPass = new FxaaPass();
+		fxaaPass->Create(Engine::GetWindow()->GetWindowSize());
 
-		terrainTransform.SetScale({ 10, 1, 10 });
+		bloomPass = new BloomPass();
+		bloomPass->Create(Engine::GetWindow()->GetWindowSize());
 
-		// UI
-		mainUi = new UI::UiElement;
-		/*mainUi->sprite.SetMaterialInstance(material2d->CreateInstance().GetPointer());
-		mainUi->sprite.SetCamera(camera2D);
-		mainUi->sprite.SetGpuImage(rtTargetImage);
-		mainUi->SetPosition({ 100, 80 });
-		mainUi->SetSize({ 40, 40 });*/
+		toneMappingPass = new ToneMappingPass();
+		toneMappingPass->Create(Engine::GetWindow()->GetWindowSize());
 
-		depthImageSprite.SetMaterialInstance(material2d->CreateInstance().GetPointer());
-		depthImageSprite.SetCamera(camera2D);
-		const GpuImage* depthImages[3]{nullptr};
-		for (TSize i = 0; i < 3; i++)
-			depthImages[i] = renderSystem->GetShadowMap()->GetShadowImage(i);
-		depthImageSprite.GetMaterialInstance()->GetSlot("texture")->SetGpuImages("stexture", depthImages, SampledChannel::DEPTH);
-		depthImageSprite.GetMaterialInstance()->GetSlot("texture")->FlushUpdate();
+		SetupPostProcessingChain();
 
-		depthImageSpriteTransform.SetScale({ 200.0f, 200.0f });
+		const IGpuStorageBuffer* epxBuffers[3]{};
+		for (TSize i = 0; i < _countof(exposureBuffers); i++) {
+			exposureBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(float)).GetPointer();
+			epxBuffers[i] = exposureBuffers[i].GetPointer();
 
-		ECS::Transform2D depthImageSpriteTransform{ ECS::EMPTY_GAME_OBJECT };
+			exposureBuffers[i]->MapMemory();
+			exposureBuffers[i]->Write(toneMappingPass->GetExposure());
+			exposureBuffers[i]->Unmap();
+		}
 
-		skyboxRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), Format::RGBA8_UNORM, Format::D32S8_SFLOAT_SUINT);
-		textRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), Format::RGBA8_UNORM, Format::D32S8_SFLOAT_SUINT);
+		toneMappingPass->SetExposureBuffers(epxBuffers);
 
-		Engine::GetRenderer()->RegisterRenderTarget(&skyboxRenderTarget);
 		Engine::GetRenderer()->RegisterRenderTarget(&textRenderTarget);
-
-		Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->GetShadowMap()->SetLightOrigin(cameraTransform.GetPosition()* Vector3f { 1.0f, 0.0f, 1.0f });
 	}
 
 	void RegisterSystems() override {
-		Engine::GetEntityComponentSystem()->RemoveSystem<ECS::RenderSystem2D>();
+		Engine::GetEcs()->RemoveSystem<ECS::RenderSystem2D>();
 	}
 
 	void OnTick(TDeltaTime deltaTime) override {
-		ECS::CameraComponent3D& camera = Engine::GetEntityComponentSystem()->GetComponent<ECS::CameraComponent3D>(cameraObject);
-		ECS::Transform3D& cameraTransform = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(cameraObject);
+		ECS::CameraComponent3D& camera = Engine::GetEcs()->GetComponent<ECS::CameraComponent3D>(cameraObject);
+		ECS::Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<ECS::Transform3D>(cameraObject);
 
 		float forwardMovement = 0.0f;
 		float rightMovement = 0.0f;
 		auto newKs = Engine::GetWindow()->GetKeyboardState();
 		auto oldKs = Engine::GetWindow()->GetPreviousKeyboardState();
+
+		if (newKs->IsKeyUp(IO::Key::F1)) {
+			toneMappingPass->SetExposure(toneMappingPass->GetExposure() - deltaTime * 2);
+			for (TSize i = 0; i < _countof(exposureBuffers); i++) {
+				exposureBuffers[i]->MapMemory();
+				exposureBuffers[i]->Write(toneMappingPass->GetExposure());
+				exposureBuffers[i]->Unmap();
+			}
+		}
+		if (newKs->IsKeyUp(IO::Key::F2)) {
+			toneMappingPass->SetExposure(toneMappingPass->GetExposure() + deltaTime * 2);
+			for (TSize i = 0; i < _countof(exposureBuffers); i++) {
+				exposureBuffers[i]->MapMemory();
+				exposureBuffers[i]->Write(toneMappingPass->GetExposure());
+				exposureBuffers[i]->Unmap();
+			}
+		}
+
+		if (newKs->IsKeyUp(IO::Key::J))
+			toneMappingPass->SetGamma(toneMappingPass->GetGamma() - deltaTime * 2);
+		if (newKs->IsKeyUp(IO::Key::K))
+			toneMappingPass->SetGamma(toneMappingPass->GetGamma() + deltaTime * 2);
+
 		if (newKs->IsKeyDown(IO::Key::W))
 			forwardMovement += 0.7f;
 		if (newKs->IsKeyDown(IO::Key::S))
@@ -348,6 +320,21 @@ protected:
 		if (newKs->IsKeyDown(IO::Key::D))
 			rightMovement += 0.7f;
 
+		Vector2f cameraRotation = {
+			(float)(Engine::GetWindow()->GetMouseState()->GetPosition().X - Engine::GetWindow()->GetPreviousMouseState()->GetPosition().X),
+			(float)(Engine::GetWindow()->GetMouseState()->GetPosition().Y - Engine::GetWindow()->GetPreviousMouseState()->GetPosition().Y)
+		};
+
+		const IO::GamepadState& gamepadState = Engine::GetWindow()->GetGamepadState(0);
+		if (gamepadState.IsConnected()) {
+			forwardMovement -= gamepadState.GetAxisState(IO::GamepadAxis::LEFT_Y);
+
+			rightMovement += gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
+
+			cameraRotation.X += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_X);
+			cameraRotation.Y += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_Y);
+		}
+
 		if (newKs->IsKeyDown(IO::Key::LEFT_SHIFT)) {
 			forwardMovement *= 0.3f;
 			rightMovement *= 0.3f;
@@ -356,7 +343,7 @@ protected:
 		// Car
 		static float carSpeed = 0.0f;
 		float speedDiff = 0.0f;
-		auto& carTransform = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(ballObject);
+		auto& carTransform = Engine::GetEcs()->GetComponent<ECS::Transform3D>(carObject);
 		if (newKs->IsKeyDown(IO::Key::UP))
 			speedDiff += 0.5f * deltaTime;
 		if (newKs->IsKeyDown(IO::Key::DOWN))
@@ -372,68 +359,59 @@ protected:
 		if (newKs->IsKeyDown(IO::Key::F11) && oldKs->IsKeyUp(IO::Key::F11))
 			Engine::GetWindow()->ToggleFullScreen();
 
-		if (newKs->IsKeyDown(IO::Key::F1) && oldKs->IsKeyUp(IO::Key::F1)) {
-			if (terrainMaterial == terrainMaterialFill)
-				terrainMaterial = terrainMaterialLine;
-			else
-				terrainMaterial = terrainMaterialFill;
-		}
-
 		if (newKs->IsKeyDown(IO::Key::ESCAPE))
 			this->Exit();
 		if (newKs->IsKeyDown(IO::Key::P))
 			this->Exit();
 
-		camera.Rotate(
-			(float)(Engine::GetWindow()->GetMouseState()->GetPosition().X - Engine::GetWindow()->GetPreviousMouseState()->GetPosition().X),
-			(float)(Engine::GetWindow()->GetMouseState()->GetPosition().Y - Engine::GetWindow()->GetPreviousMouseState()->GetPosition().Y)
-		);
+		camera.Rotate(cameraRotation.X, cameraRotation.Y);
 
 		cameraTransform.AddPosition(cameraTransform.GetForwardVector().GetNormalized() * forwardMovement * deltaTime);
 		cameraTransform.AddPosition(cameraTransform.GetRightVector().GetNormalized() * rightMovement * deltaTime);
 		camera.UpdateTransform(&cameraTransform);
 
-		uniformBuffer->ResetCursor();
-		uniformBuffer->MapMemory();
-		uniformBuffer->Write(camera.GetProjectionMatrix(cameraTransform));
-		uniformBuffer->Write(camera.GetViewMatrix());
-		uniformBuffer->Write(cameraTransform.GetPosition());
-		uniformBuffer->Unmap();
-
-		Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->GetShadowMap()->SetLightOrigin(cameraTransform.GetPosition() * Vector3f{ 1.0f, 0.0f, 1.0f});
-
-		Engine::GetEntityComponentSystem()->GetComponent<ECS::CameraComponent2D>(cameraObject2d).UpdateUniformBuffer(
-			Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform2D>(cameraObject2d)
+		Engine::GetEcs()->GetComponent<ECS::CameraComponent2D>(cameraObject2d).UpdateUniformBuffer(
+			Engine::GetEcs()->GetComponent<ECS::Transform2D>(cameraObject2d)
 		);
 
-		const auto& transformComponent = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(ballObject);
-		auto& modelComponent = Engine::GetEntityComponentSystem()->GetComponent<ECS::ModelComponent3D>(ballObject);
-		modelComponent.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent.GetAsMatrix());
-		//modelComponent.GetModel()->GetAccelerationStructure()->Update();
+		if (OSK::Engine::GetRenderer()->IsRtActive()) {
+			auto commandList = OSK::Engine::GetRenderer()->GetGraphicsCommandList();
 
-		const auto& transformComponent2 = Engine::GetEntityComponentSystem()->GetComponent<ECS::Transform3D>(smallBallObject);
-		auto& modelComponent2 = Engine::GetEntityComponentSystem()->GetComponent<ECS::ModelComponent3D>(smallBallObject);
-		modelComponent2.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent2.GetAsMatrix());
-		//modelComponent2.GetModel()->GetAccelerationStructure()->Update();
-		//topLevelAccelerationStructure->Update();
+			const auto& transformComponent = Engine::GetEcs()->GetComponent<ECS::Transform3D>(carObject);
+			auto& modelComponent = Engine::GetEcs()->GetComponent<ECS::ModelComponent3D>(carObject);
+			modelComponent.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent.GetAsMatrix());
+			//modelComponent.GetModel()->GetAccelerationStructure()->Update(commandList);
 
-		/*auto commandList = OSK::Engine::GetRenderer()->GetCommandList();
-		commandList->TransitionImageLayout(rtTargetImage, OSK::GRAPHICS::GpuImageLayout::GENERAL, 0, 1);
-		commandList->BindMaterial(rtMaterial);
-		for (auto const& slotName : rtMaterialInstance->GetLayout()->GetAllSlotNames())
-			commandList->BindMaterialSlot(rtMaterialInstance->GetSlot(slotName));
-		commandList->TraceRays(0, 0, 0, { 1920, 1080 });
-		commandList->TransitionImageLayout(rtTargetImage, OSK::GRAPHICS::GpuImageLayout::SHADER_READ_ONLY, 0, 1);/**/
+			/*const auto& transformComponent2 = Engine::GetEcs()->GetComponent<ECS::Transform3D>(circuitObject);
+			auto& modelComponent2 = Engine::GetEcs()->GetComponent<ECS::ModelComponent3D>(circuitObject);
+			modelComponent2.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent2.GetAsMatrix());
+			//modelComponent2.GetModel()->GetAccelerationStructure()->Update(commandList);
+			/*topLevelAccelerationStructure->Update(commandList);
+
+			const TSize imgIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+
+			commandList->SetGpuImageBarrier(rtTargetImage[imgIndex], GpuImageLayout::SHADER_READ_ONLY, GpuImageLayout::GENERAL,
+				GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::RAYTRACING_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
+
+			commandList->BindMaterial(rtMaterial);
+			for (auto const& slotName : rtMaterialInstance->GetLayout()->GetAllSlotNames())
+				commandList->BindMaterialSlot(rtMaterialInstance->GetSlot(slotName));
+			commandList->TraceRays(0, 0, 0, { 1920, 1080 });
+
+			commandList->SetGpuImageBarrier(rtTargetImage[imgIndex], GpuImageLayout::GENERAL, GpuImageLayout::SHADER_READ_ONLY,
+				GpuBarrierInfo(GpuBarrierStage::RAYTRACING_SHADER, GpuBarrierAccessStage::SHADER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));*/
+		}
 	}
 
 	void BuildFrame() override {
-		auto commandList = Engine::GetRenderer()->GetCommandList();
+		auto graphicsCommandList = Engine::GetRenderer()->GetGraphicsCommandList();
+		auto frameBuildCommandList = Engine::GetRenderer()->GetFrameBuildCommandList();
 		auto renderpass = Engine::GetRenderer()->GetFinalRenderTarget();
 
 		static SpriteRenderer spriteRenderer{};
-		spriteRenderer.SetCommandList(commandList);
+		spriteRenderer.SetCommandList(graphicsCommandList);
 
-		Vector4ui windowRec = {
+		const Vector4ui windowRec = {
 			0,
 			0,
 			Engine::GetWindow()->GetWindowSize().X,
@@ -443,68 +421,99 @@ protected:
 		Viewport viewport{};
 		viewport.rectangle = windowRec;
 
-		commandList->SetViewport(viewport);
-		commandList->SetScissor(windowRec);
-
-		// Render skybox
-		commandList->BeginGraphicsRenderpass(&skyboxRenderTarget);
-		commandList->BindMaterial(skyboxMaterial);
-		commandList->BindMaterialSlot(skyboxMaterialInstance->GetSlot("global"));
-		commandList->BindVertexBuffer(cubemapModel->GetVertexBuffer());
-		commandList->BindIndexBuffer(cubemapModel->GetIndexBuffer());
-		commandList->DrawSingleInstance(cubemapModel->GetIndexCount());
-		commandList->EndGraphicsRenderpass(&skyboxRenderTarget);
+		graphicsCommandList->SetViewport(viewport);
+		graphicsCommandList->SetScissor(windowRec);
 
 		// Render text
-		commandList->BeginGraphicsRenderpass(&textRenderTarget);
+		graphicsCommandList->BeginGraphicsRenderpass(&textRenderTarget, Color::BLACK() * 0.0f);
 		spriteRenderer.Begin();
 		spriteRenderer.DrawString(*font, 30, "OSKengine build " + Engine::GetBuild(), Vector2f{ 20.0f, 30.0f }, Vector2f{ 1.0f }, 0.0f, Color::WHITE());
 		spriteRenderer.DrawString(*font, 30, "FPS " + std::to_string(GetFps()), Vector2f{ 20.0f, 60.0f }, Vector2f{ 1.0f }, 0.0f, Color::WHITE());
 
-		spriteRenderer.Draw(depthImageSprite, depthImageSpriteTransform);
-
 		spriteRenderer.End();
-		commandList->EndGraphicsRenderpass(&textRenderTarget);
+		graphicsCommandList->EndGraphicsRenderpass();
 
-		commandList->BindMaterial(materialRenderTarget);
-		commandList->BeginGraphicsRenderpass(renderpass);
+		// Full-screen rendering
+		//
+		// Pre-Effects
+		graphicsCommandList->BindVertexBuffer(Sprite::globalVertexBuffer);
+		graphicsCommandList->BindIndexBuffer(Sprite::globalIndexBuffer);
 
-		spriteRenderer.Begin();
-		
-		commandList->SetViewport(viewport);
-		commandList->SetScissor(windowRec);
+		graphicsCommandList->BeginGraphicsRenderpass(&preEffectsRenderTarget);
+		graphicsCommandList->BindMaterial(Engine::GetRenderer()->GetFullscreenRenderingMaterial());
 
-		spriteRenderer.Draw(skyboxRenderTarget.GetSprite(), skyboxRenderTarget.GetSpriteTransform());
-		spriteRenderer.Draw(Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->GetRenderTarget().GetSprite(), Engine::GetEntityComponentSystem()->GetSystem<ECS::RenderSystem3D>()->GetRenderTarget().GetSpriteTransform());
-		spriteRenderer.Draw(textRenderTarget.GetSprite(), textRenderTarget.GetSpriteTransform());
+		graphicsCommandList->BindMaterialSlot(Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->GetRenderTarget().GetFullscreenSpriteMaterialSlot());
+		graphicsCommandList->DrawSingleInstance(6);
 
-		spriteRenderer.End();
+		graphicsCommandList->BindMaterialSlot(Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetFullscreenSpriteMaterialSlot());
+		graphicsCommandList->DrawSingleInstance(6);
 
-		commandList->EndGraphicsRenderpass(renderpass);
+		graphicsCommandList->EndGraphicsRenderpass();
+
+		// Post-processing effects:
+		fxaaPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
+		bloomPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
+		toneMappingPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
+
+		// Frame build:
+		frameBuildCommandList->BindVertexBuffer(Sprite::globalVertexBuffer);
+		frameBuildCommandList->BindIndexBuffer(Sprite::globalIndexBuffer);
+
+		frameBuildCommandList->SetViewport(viewport);
+		frameBuildCommandList->SetScissor(windowRec);
+
+		frameBuildCommandList->BeginGraphicsRenderpass(renderpass);
+		frameBuildCommandList->BindMaterial(Engine::GetRenderer()->GetFullscreenRenderingMaterial());
+
+		frameBuildCommandList->BindMaterialSlot(toneMappingPass->GetOutput().GetFullscreenSpriteMaterialSlot());
+		frameBuildCommandList->DrawSingleInstance(6);
+
+		frameBuildCommandList->BindMaterialSlot(textRenderTarget.GetFullscreenSpriteMaterialSlot());
+		frameBuildCommandList->DrawSingleInstance(6);
+
+		frameBuildCommandList->EndGraphicsRenderpass();
+	}
+
+	void SetupPostProcessingChain() {
+		fxaaPass->SetInput(preEffectsRenderTarget, IPostProcessPass::InputType::SAMPLER);
+		bloomPass->SetInput(fxaaPass->GetOutput(), IPostProcessPass::InputType::SAMPLER);
+		toneMappingPass->SetInput(bloomPass->GetOutput(), IPostProcessPass::InputType::SAMPLER);
+
+		fxaaPass->UpdateMaterialInstance();
+		bloomPass->UpdateMaterialInstance();
+		toneMappingPass->UpdateMaterialInstance();
+	}
+
+	void OnWindowResize(const Vector2ui& size) {
+		preEffectsRenderTarget.Resize(size);
+		fxaaPass->Resize(size);
+		bloomPass->Resize(size);
+		toneMappingPass->Resize(size);
+
+		SetupPostProcessingChain();
 	}
 
 	void OnExit() override {
-		uniformBuffer.Delete();
 
-		delete skyboxMaterialInstance;
 	}
 
 private:
 
-	ECS::GameObjectIndex ballObject = ECS::EMPTY_GAME_OBJECT;
-	ECS::GameObjectIndex smallBallObject = ECS::EMPTY_GAME_OBJECT;
-	ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
-	ECS::GameObjectIndex spriteObject = ECS::EMPTY_GAME_OBJECT;
-	ECS::GameObjectIndex cameraObject2d = ECS::EMPTY_GAME_OBJECT;
-	ECS::GameObjectIndex terrain = ECS::EMPTY_GAME_OBJECT;
+	RenderTarget preEffectsRenderTarget;
+	UniquePtr<BloomPass> bloomPass;
+	UniquePtr<FxaaPass> fxaaPass;
+	UniquePtr<SmaaPass> smaaPass;
+	UniquePtr<ToneMappingPass> toneMappingPass;
 
-	UniquePtr<GRAPHICS::IGpuUniformBuffer> uniformBuffer;
-	
+	UniquePtr<IGpuStorageBuffer> exposureBuffers[3];
+
+	ECS::GameObjectIndex carObject = ECS::EMPTY_GAME_OBJECT;
+	ECS::GameObjectIndex circuitObject = ECS::EMPTY_GAME_OBJECT;
+	ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
+	ECS::GameObjectIndex cameraObject2d = ECS::EMPTY_GAME_OBJECT;
+
 	ASSETS::Texture* texture = nullptr;
 	ASSETS::Font* font = nullptr;
-
-	Sprite depthImageSprite{};
-	ECS::Transform2D depthImageSpriteTransform{ ECS::EMPTY_GAME_OBJECT };
 
 	UI::UiRenderer uiRenderer;
 	UniquePtr<UI::UiElement> mainUi;

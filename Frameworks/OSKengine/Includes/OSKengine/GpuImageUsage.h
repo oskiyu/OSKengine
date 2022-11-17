@@ -46,7 +46,18 @@ namespace OSK::GRAPHICS {
 		/// Se usará como imagen sobre la que se renderizará el
 		/// trazado de rayos.
 		/// </summary>
-		RT_TARGET_IMAGE = 64
+		RT_TARGET_IMAGE = 64,
+
+		/// <summary>
+		/// Se usará como read-only desde los shaders.
+		/// Es un array de imágenes.
+		/// </summary>
+		SAMPLED_ARRAY = 128,
+
+		/// <summary>
+		/// Usado en shaders de computación.
+		/// </summary>
+		COMPUTE = 256
 
 	};
 
@@ -61,7 +72,7 @@ namespace OSK::GRAPHICS {
 		/// La imagen es una imagen de color.
 		/// Es el funcionamiento por defecto.
 		/// </summary>
-		COLOR,
+		COLOR = 1,
 
 		/// <summary>
 		/// Obtiene la parte de profundidad de una
@@ -70,7 +81,7 @@ namespace OSK::GRAPHICS {
 		/// @pre La imagen debe haber sido creada con
 		/// GpuImageUsage::DEPTH_STENCIL y GpuImageUsage::SAMPLED.
 		/// </summary>
-		DEPTH,
+		DEPTH = 2,
 
 		/// <summary>
 		/// Obtiene la parte de stencil de una
@@ -79,10 +90,17 @@ namespace OSK::GRAPHICS {
 		/// @pre La imagen debe haber sido creada con
 		/// GpuImageUsage::DEPTH_STENCIL y GpuImageUsage::SAMPLED.
 		/// </summary>
-		STENCIL
+		STENCIL = 4
 
+	};
+
+
+	enum class SampledArrayType {
+		SINGLE_LAYER,
+		ARRAY
 	};
 
 }
 
 OSK_FLAGS(OSK::GRAPHICS::GpuImageUsage);
+OSK_FLAGS(OSK::GRAPHICS::SampledChannel);

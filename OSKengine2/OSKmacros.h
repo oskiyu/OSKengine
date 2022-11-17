@@ -24,7 +24,11 @@ using TSize = unsigned int;
 using TIndex = TSize;
 using TDeltaTime = float;
 using TByte = uint8_t;
+using TInterfaceUuid = TIndex;
 
 #define OKS_ARR_FUNC(num) *
 
 #include <type_traits>
+
+#define OSK_DEFINE_IUUID(uuid) static TInterfaceUuid GetInterfaceUuid() { return uuid; }
+#define OSK_IUUID(interfaceClass) (interfaceClass ::GetInterfaceUuid())

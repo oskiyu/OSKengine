@@ -2,7 +2,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan =
 [
     [ "~SwapchainVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#a1116bcd040c89d75f4e62dfa97629705", null ],
     [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#a04699bb97612d6142b1a5895fdeeaf24", null ],
-    [ "Create", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#a151411824411a839175332993a130d89", null ],
+    [ "Create", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#ae9978e3f478ccfd3d4ffb856bbe250a8", null ],
     [ "GetColorFormat", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#ac1ece865145e2eeafa9300bb88fb9eb3", null ],
     [ "GetCurrentFrameIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#abbf1668873549c12b0bc43afd19304a3", null ],
     [ "GetCurrentPresentMode", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vulkan.html#ac9b32cc5c676785be45a965fdfacb4de", null ],

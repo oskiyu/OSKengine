@@ -10,6 +10,7 @@
 #include "Assert.h"
 #include "IRenderer.h"
 #include "MouseModes.h"
+#include "PcUserInput.h"
 
 #include <stbi_image.h>
 
@@ -18,194 +19,92 @@ using namespace OSK::IO;
 
 Window::Window() {
 	glfwInit();
-
-	oldMouseState = new MouseState;
-	newMouseState = new MouseState;
-
-	oldKeyboardState = new KeyboardState;
-	newKeyboardState = new KeyboardState;
-
-	for (TSize i = 0; i < 4; i++) {
-		newGamepadStates[i] = GamepadState(i);
-		oldGamepadStates[i] = GamepadState(i);
-	}
+	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 }
 
 Window::~Window() {
 	glfwTerminate();
 }
 
-void Window::SetRenderApiType(GRAPHICS::RenderApiType type) {
-	renderApi = type;
 
-	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-}
+void Window::Create(Vector2ui size, const std::string& title) {
 
-void Window::Create(int32_t sizeX, int32_t sizeY, const std::string& title) {
 	// Creación de la ventana.
-	window = glfwCreateWindow(sizeX, sizeY, title.c_str(), NULL, NULL);
+	window = glfwCreateWindow(size.X, size.Y, title.c_str(), NULL, NULL);
 	OSK_ASSERT(window.HasValue(), "No se ha podido iniciar la ventana.");
 	glfwMakeContextCurrent(window.GetPointer());
 
-	this->sizeX = sizeX;
-	this->sizeY = sizeY;
-
-	UpdateScreenRatio();
+	resolution = size;
 
 	// Obtención de variables de glfw.
 	glfwSetWindowUserPointer(window.GetPointer(), this);
 	monitor = glfwGetPrimaryMonitor();
 	monitorInfo = glfwGetVideoMode(monitor.GetPointer());
 
+	refreshRate = monitorInfo->refreshRate;
+
 	// Establece los callbacks.
 	glfwSetFramebufferSizeCallback(window.GetPointer(), Window::GlfwResizeCallback);
-	glfwSetCursorPosCallback(window.GetPointer(), Window::GlfwMouseInputCallback);
-	glfwSetScrollCallback(window.GetPointer(), Window::GlfwMouseScrollCallback);
 
-	// Info-log.
-	Engine::GetLogger()->InfoLog("Ventana iniciada correctamente.");
-	Engine::GetLogger()->InfoLog("	Monitor sizeX: " + std::to_string(monitorInfo->width));
-	Engine::GetLogger()->InfoLog("	Monitor sizeY: " + std::to_string(monitorInfo->height));
-	Engine::GetLogger()->InfoLog("	Monitor refresh rate: " + std::to_string(monitorInfo->refreshRate));
+	{
+		int x = 0;
+		int y = 0;
+		int nmChannels = 0;
+		stbi_uc* icon = stbi_load("Resources/Icons/engineIcon.png", &x, &y, &nmChannels, 4);
 
-	int x = 0;
-	int y = 0;
-	int nmChannels = 0;
-	stbi_uc* icon = stbi_load("Resources/Icons/engineIcon.png", &x, &y, &nmChannels, 4);
+		GLFWimage glfwIcon[1]{};
+		glfwIcon[0].width = x;
+		glfwIcon[0].height = y;
+		glfwIcon[0].pixels = icon;
 
-	GLFWimage glfwIcon[1]{};
-	glfwIcon[0].width = x;
-	glfwIcon[0].height = y;
-	glfwIcon[0].pixels = icon;
+		glfwSetWindowIcon(window.GetPointer(), _countof(glfwIcon), glfwIcon);
 
-	glfwSetWindowIcon(window.GetPointer(), _countof(glfwIcon), glfwIcon);
-
-	stbi_image_free(icon);
+		stbi_image_free(icon);
+	}
 
 	isOpen = true;
+
+	reinterpret_cast<PcUserInput*>(Engine::GetInput())->Initialize(*this);
+}
+
+void Window::QueryInterface(TInterfaceUuid uuid, void** ptr) const {
+	if (uuid == OSK_IUUID(IFullscreenableDisplay))
+		*ptr = (IFullscreenableDisplay*)this;
+	else
+		*ptr = nullptr;
 }
 
 void Window::Update() {
 	glfwPollEvents();
+	isOpen = !glfwWindowShouldClose(window.GetPointer());
 }
 
-void Window::SetMouseReturnMode(MouseReturnMode mode) {
-	if (mode == MouseReturnMode::ALWAYS_RETURN)
-		glfwSetInputMode(window.GetPointer(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	else if (mode == MouseReturnMode::FREE)
-		glfwSetInputMode(window.GetPointer(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-}
-
-void Window::SetMouseMotionMode(MouseMotionMode mode) {
-	if (mode == MouseMotionMode::ACCELERATED) {
-		glfwSetInputMode(window.GetPointer(), GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
-	}
-	else {
-		if (glfwRawMouseMotionSupported())
-			glfwSetInputMode(window.GetPointer(), GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
-		else
-			OSK_CHECK(false, "Raw mouse mode no soportado.");
-	}
-}
-
-void Window::UpdateMouseAndKeyboardOldStates() {
-	*oldKeyboardState = *newKeyboardState;
-	UpdateKeyboardState(newKeyboardState.GetPointer());
-
-	*oldMouseState = *newMouseState;
-	UpdateMouseState(newMouseState.GetPointer());
-
-	for (TSize i = 0; i < 4; i++) {
-		oldGamepadStates[i] = newGamepadStates[i];
-		UpdateGamepadState(&newGamepadStates[i]);
-	}
-}
-
-void Window::SetFullScreen(bool fullscreen) {
-	if (isFullScreen == fullscreen)
+void Window::SetFullscreen(bool fullscreen) {
+	if (isFullscreen == fullscreen)
 		return;
 
 	if (fullscreen) {
 		// Obtenemos la posición de la ventana,
 		// para poder reestablecerla después de salir de
 		// la ventana completa.
-		glfwGetWindowPos(window.GetPointer(), &previous.posX, &previous.posY);
-		glfwGetWindowSize(window.GetPointer(), &previous.sizeX, &previous.sizeY);
+		glfwGetWindowPos(window.GetPointer(), &previous.position.X, &previous.position.Y);
+		glfwGetWindowSize(window.GetPointer(), &previous.size.X, &previous.size.Y);
 
 		glfwSetWindowMonitor(window.GetPointer(), monitor.GetPointer(), 0, 0, monitorInfo->width, monitorInfo->height, monitorInfo->refreshRate);
 
-		sizeX = monitorInfo->width;
-		sizeY = monitorInfo->height;
-
-		UpdateScreenRatio();
+		resolution.X = monitorInfo->width;
+		resolution.Y = monitorInfo->height;
 	}
 	else {
-		glfwSetWindowMonitor(window.GetPointer(), nullptr, previous.posX, previous.posY, previous.sizeX, previous.sizeY, monitorInfo->refreshRate);
+		glfwSetWindowMonitor(window.GetPointer(), nullptr, previous.position.X, previous.position.Y, previous.size.X, previous.size.Y, monitorInfo->refreshRate);
 	}
 
-	isFullScreen = fullscreen;
-}
-
-void Window::ToggleFullScreen() {
-	SetFullScreen(!isFullScreen);
-}
-
-bool Window::IsFullScreen() const {
-	return isFullScreen;
-}
-
-void Window::SetMousePosition(TSize posX, TSize posY) {
-	glfwSetCursorPos(window.GetPointer(), posX, posY);
-}
-
-bool Window::ShouldClose() const {
-	return glfwWindowShouldClose(window.GetPointer());
+	isFullscreen = fullscreen;
 }
 
 void Window::Close() {
 	glfwSetWindowShouldClose(window.GetPointer(), true);
 	isOpen = false;
-}
-
-Vector2ui Window::GetWindowSize() const {
-	return { sizeX, sizeY };
-}
-float Window::GetScreenRatio() const {
-	return screenRatio;
-}
-
-TSize Window::GetRefreshRate() const {
-	return monitorInfo->refreshRate;
-}
-
-const KeyboardState* Window::GetKeyboardState() const {
-	return newKeyboardState.GetPointer();
-}
-
-const KeyboardState* Window::GetPreviousKeyboardState() const {
-	return oldKeyboardState.GetPointer();
-}
-
-const MouseState* Window::GetMouseState() const {
-	return newMouseState.GetPointer();
-}
-
-const MouseState* Window::GetPreviousMouseState() const {
-	return oldMouseState.GetPointer();
-}
-
-const GamepadState& Window::GetGamepadState(TSize identifier) const {
-	OSK_ASSERT(identifier < 4, "Índice del gamepad incorrecto.");
-	OSK_ASSERT(identifier >= 0, "Índice del gamepad incorrecto.");
-
-	return newGamepadStates[identifier];
-}
-
-const GamepadState& Window::GetPreviousGamepadState(TSize identifier) const {
-	OSK_ASSERT(identifier < 4, "Índice del gamepad incorrecto.");
-	OSK_ASSERT(identifier >= 0, "Índice del gamepad incorrecto.");
-
-	return oldGamepadStates[identifier];
 }
 
 GLFWwindow* Window::_GetGlfw() const {
@@ -220,103 +119,14 @@ Window* Window::GetWindowForCallback(GLFWwindow* window) {
 	return nullptr;
 }
 
-void Window::GlfwMouseInputCallback(GLFWwindow* window, double posX, double posY) {
-	GetWindowForCallback(window)->MouseInputCallback(posX, posY);
-}
-
-void Window::MouseInputCallback(double posX, double posY) {
-	newMouseState->_SetPosition(Vector2d(posX, posY).ToVector2i());
-	newMouseState->_SetRelativePosition(Vector2d(posX, posY).ToVector2f() / GetWindowSize().ToVector2f());
-}
-
 void Window::GlfwResizeCallback(GLFWwindow* window, int sizex, int sizey) {
 	GetWindowForCallback(window)->ResizeCallback(sizex, sizey);
 }
 
 void Window::ResizeCallback(int sizex, int sizey) {
-	sizeX = sizex;
-	sizeY = sizey;
+	resolution.X = sizex;
+	resolution.Y = sizey;
 
 	if (!Engine::GetRenderer()->_HasImplicitResizeHandling())
 		Engine::GetRenderer()->HandleResize();
-
-	UpdateScreenRatio();
-}
-void Window::GlfwMouseScrollCallback(GLFWwindow* window, double dX, double dY) {
-	GetWindowForCallback(window)->MouseScrollCallback(dX, dY);
-}
-
-void Window::MouseScrollCallback(double dX, double dY) {
-	newMouseState->_SetScrollX((int)dX);
-	newMouseState->_SetScrollY((int)dY);
-}
-
-void Window::UpdateScreenRatio() {
-	if (sizeY != 0)
-		screenRatio = (float)sizeX / sizeY;
-}
-
-void Window::UpdateKeyboardState(KeyboardState* keyboard) {
-	keyboard->_SetKeyState(Key::SPACE, (KeyState)glfwGetKey(window.GetPointer(), GLFW_KEY_SPACE));
-	keyboard->_SetKeyState(Key::APOSTROPHE, (KeyState)glfwGetKey(window.GetPointer(), GLFW_KEY_APOSTROPHE));
-
-	for (int i = 0; i < 14; i++)
-		keyboard->_SetKeyState((Key)((int)Key::COMMA + i), (KeyState)glfwGetKey(window.GetPointer(), GLFW_KEY_COMMA + i));
-
-	keyboard->_SetKeyState(Key::SEMICOLON, (KeyState)glfwGetKey(window.GetPointer(), GLFW_KEY_SEMICOLON));
-	keyboard->_SetKeyState(Key::EQUAL, (KeyState)glfwGetKey(window.GetPointer(), GLFW_KEY_EQUAL));
-
-	for (int i = 0; i < 29; i++)
-		keyboard->_SetKeyState((Key)((int)Key::A + i), (KeyState)glfwGetKey(window.GetPointer(), GLFW_KEY_A + i));
-
-	keyboard->_SetKeyState(Key::GRAVE_ACCENT, (KeyState)glfwGetKey(window.GetPointer(), GLFW_KEY_GRAVE_ACCENT));
-
-	for (int i = 0; i < 14; i++)
-		keyboard->_SetKeyState((Key)((int)Key::ESCAPE + i), (KeyState)glfwGetKey(window.GetPointer(), GLFW_KEY_ESCAPE + i));
-
-	for (int i = 0; i < 5; i++)
-		keyboard->_SetKeyState((Key)((int)Key::CAPS_LOCK + i), (KeyState)glfwGetKey(window.GetPointer(), GLFW_KEY_CAPS_LOCK + i));
-
-	for (int i = 0; i < 25; i++)
-		keyboard->_SetKeyState((Key)((int)Key::F1 + i), (KeyState)glfwGetKey(window.GetPointer(), GLFW_KEY_F1 + i));
-
-	for (int i = 0; i < 17; i++)
-		keyboard->_SetKeyState((Key)((int)Key::KEYPAD_0 + i), (KeyState)glfwGetKey(window.GetPointer(), GLFW_KEY_KP_0 + i));
-
-	for (int i = 0; i < 9; i++)
-		keyboard->_SetKeyState((Key)((int)Key::LEFT_SHIFT + i), (KeyState)glfwGetKey(window.GetPointer(), GLFW_KEY_LEFT_SHIFT + i));
-}
-
-void Window::UpdateMouseState(MouseState* mouse) {
-	for (int i = 0; i < 8; i++)
-		mouse->_SetButtonState((MouseButton)i, (ButtonState)glfwGetMouseButton(window.GetPointer(), i));
-
-	mouse->_SetButtonState(MouseButton::BUTTON_LEFT, mouse->GetButtonState(MouseButton::BUTTON_1));
-	mouse->_SetButtonState(MouseButton::BUTTON_RIGHT, mouse->GetButtonState(MouseButton::BUTTON_2));
-	mouse->_SetButtonState(MouseButton::BUTTON_MIDDLE, mouse->GetButtonState(MouseButton::BUTTON_3));
-}
-
-void Window::UpdateGamepadState(GamepadState* gamepad) {
-	const auto id = GLFW_JOYSTICK_1 + gamepad->GetIdentifier();
-
-	if (glfwJoystickPresent(id)) {
-		int count;
-		const float* axes = glfwGetJoystickAxes(id, &count);
-
-		gamepad->_SetConnectionState(true);
-
-		for (int axis = 0; axis < 6; axis++)
-			gamepad->_SetAxisState((GamepadAxis)axis, axes[axis]);
-
-		const unsigned char* buttons = glfwGetJoystickButtons(id, &count);
-		for (int button = 0; button < 4; button++)
-			gamepad->_SetButtonState((GamepadButton)button, (bool)buttons[button] ? GamepadButtonState::PRESSED : GamepadButtonState::RELEASED);
-	}
-	else {
-		gamepad->_SetConnectionState(false);
-	}
-}
-
-bool Window::IsOpen() const{
-	return isOpen;
 }

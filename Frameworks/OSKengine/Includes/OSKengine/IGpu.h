@@ -22,9 +22,14 @@ namespace OSK::GRAPHICS {
 		virtual ~IGpu() = default;
 
 		/// <summary>
-		/// Crea una pool de comandos, para poder crear listas de comandos.
+		/// Crea una pool de comandos, para poder crear listas de comandos gráficos y de presentación.
 		/// </summary>
-		virtual OwnedPtr<ICommandPool> CreateCommandPool() = 0;
+		virtual OwnedPtr<ICommandPool> CreateGraphicsCommandPool() = 0;
+
+		/// <summary>
+		/// Crea una pool de comandos, para poder crear listas de comandos de computación.
+		/// </summary>
+		virtual OwnedPtr<ICommandPool> CreateComputeCommandPool() = 0;
 
 		/// <summary>
 		/// Crea un dispositivo de sincronización GPU - CPU.

@@ -18,31 +18,26 @@ namespace OSK::ECS {
 
 		OSK_COMPONENT("OSK::CameraComponent3D");
 
-		/// <summary>
-		/// FoV de la cámara.
+		/// <summary> FoV de la cámara. </summary>
 		/// 
 		/// @note Zoom de la cámara.
-		/// </summary>
 		float GetFov() const;
 
-		/// <summary>
-		/// Establece el FoV de la cámara, si está en los límites de FoV.
+		/// <summary> Establece el FoV de la cámara, si está en los límites de FoV. </summary>
 		/// 
 		/// @note Si el valor está fuera de los límites, se pondrá el valor válido
 		/// más cercano.
-		/// </summary>
 		void SetFov(float fov);
 
-		/// <summary>
-		/// Añade FoV a la cámara.
-		/// </summary>
+		/// <summary> Añade FoV a la cámara. </summary>
 		/// <param name="diff">FoV delta.</param>
+		/// 
+		/// @note Si el valor está fuera de los límites, se pondrá el valor válido
 		void AddFov(float diff);
 
-		/// <summary>
-		/// Establece los límites mínimos y máximos de field of view.
-		/// </summary>
+		/// <summary>  Establece los límites mínimos y máximos de field of view. </summary>
 		/// 
+		/// @pre Max debe ser > min.
 		/// @throws std::runtime_exception Si min >= max.
 		void SetFovLimits(float min, float max);
 
@@ -59,19 +54,21 @@ namespace OSK::ECS {
 		/// </summary>
 		float GetFarPlane() const;
 
+
+
 		/// <summary>
 		/// Establece los límites de distancia de renderizado.
 		/// Se renderizarán los objetos que estén dentro de los
 		/// límites.
 		/// </summary>
 		/// 
+		/// @pre Max debe ser > min.
 		/// @throws std::runtime_exception si near >= far.
 		void SetPlanes(float near, float far);
 
 
-		/// <summary>
-		/// Rota la cámara.
-		/// </summary>
+		/// <summary> Rota la cámara. </summary>
+		/// 
 		/// <param name="angleX">Yaw.</param>
 		/// <param name="angleY">Pitch.</param>
 		void Rotate(float angleX, float angleY);
@@ -80,18 +77,22 @@ namespace OSK::ECS {
 		/// Actualiza el transform de la cámara, para que tenga
 		/// su rotación.
 		/// </summary>
+		/// 
+		/// @pre transform no debe ser null.
 		void UpdateTransform(Transform3D* transform);
 
 
-		/// <summary>
-		/// Obtiene la matriz proyección de la cámara.
-		/// </summary>
-		glm::mat4 GetProjectionMatrix(const Transform3D& transform) const;
+		/// <summary> Obtiene la matriz proyección de la cámara. </summary>
+		glm::mat4 GetProjectionMatrix() const;
 
 		/// <summary>
 		/// Obtiene la matriz view de la cámara.
 		/// </summary>
-		glm::mat4 GetViewMatrix() const;
+		/// <
+		
+		/// <summary> Obtiene la matriz view de la cámara. </summary>
+		/// <param name="transform">Transform de la cámara.</param>
+		glm::mat4 GetViewMatrix(const Transform3D& transform) const;
 
 	private:
 
@@ -100,14 +101,12 @@ namespace OSK::ECS {
 		float fovLimitUp = 45.0f;
 
 		float nearPlane = 0.001f;
-		float farPlane = 5000.0f;
+		float farPlane = 50.0f;
 
 		Vector2f angles = 0.0f;
 		Vector2f accumulatedAngles = 0.0f;
 
-		/// <summary>
-		/// Vector 'arriba' del mundo. { 0, 1, 0 }.
-		/// </summary>
+		/// <summary>  Vector 'arriba' del mundo. { 0, 1, 0 }. </summary>
 		const static Vector3f worldUpVector;
 
 	};

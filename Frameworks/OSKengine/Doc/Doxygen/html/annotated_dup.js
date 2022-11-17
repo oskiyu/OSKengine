@@ -179,11 +179,18 @@ var annotated_dup =
       [ "IO", "namespace_o_s_k_1_1_i_o.html", [
         [ "FileIO", "class_o_s_k_1_1_i_o_1_1_file_i_o.html", null ],
         [ "GamepadState", "class_o_s_k_1_1_i_o_1_1_gamepad_state.html", "class_o_s_k_1_1_i_o_1_1_gamepad_state" ],
+        [ "IDisplay", "class_o_s_k_1_1_i_o_1_1_i_display.html", "class_o_s_k_1_1_i_o_1_1_i_display" ],
+        [ "IFullscreenableDisplay", "class_o_s_k_1_1_i_o_1_1_i_fullscreenable_display.html", "class_o_s_k_1_1_i_o_1_1_i_fullscreenable_display" ],
+        [ "IGamepadInput", "class_o_s_k_1_1_i_o_1_1_i_gamepad_input.html", "class_o_s_k_1_1_i_o_1_1_i_gamepad_input" ],
         [ "IInputListener", "class_o_s_k_1_1_i_o_1_1_i_input_listener.html", "class_o_s_k_1_1_i_o_1_1_i_input_listener" ],
+        [ "IKeyboardInput", "class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html", "class_o_s_k_1_1_i_o_1_1_i_keyboard_input" ],
+        [ "IMouseInput", "class_o_s_k_1_1_i_o_1_1_i_mouse_input.html", "class_o_s_k_1_1_i_o_1_1_i_mouse_input" ],
         [ "InputManager", "class_o_s_k_1_1_i_o_1_1_input_manager.html", "class_o_s_k_1_1_i_o_1_1_input_manager" ],
+        [ "IUserInput", "class_o_s_k_1_1_i_o_1_1_i_user_input.html", "class_o_s_k_1_1_i_o_1_1_i_user_input" ],
         [ "KeyboardState", "class_o_s_k_1_1_i_o_1_1_keyboard_state.html", "class_o_s_k_1_1_i_o_1_1_keyboard_state" ],
         [ "Logger", "class_o_s_k_1_1_i_o_1_1_logger.html", "class_o_s_k_1_1_i_o_1_1_logger" ],
         [ "MouseState", "class_o_s_k_1_1_i_o_1_1_mouse_state.html", "class_o_s_k_1_1_i_o_1_1_mouse_state" ],
+        [ "PcUserInput", "class_o_s_k_1_1_i_o_1_1_pc_user_input.html", "class_o_s_k_1_1_i_o_1_1_pc_user_input" ],
         [ "Window", "class_o_s_k_1_1_i_o_1_1_window.html", "class_o_s_k_1_1_i_o_1_1_window" ]
       ] ],
       [ "UI", "namespace_o_s_k_1_1_u_i.html", [
@@ -197,6 +204,7 @@ var annotated_dup =
       [ "Engine", "class_o_s_k_1_1_engine.html", "class_o_s_k_1_1_engine" ],
       [ "HashMap", "class_o_s_k_1_1_hash_map.html", "class_o_s_k_1_1_hash_map" ],
       [ "IGame", "class_o_s_k_1_1_i_game.html", "class_o_s_k_1_1_i_game" ],
+      [ "IQueryInterface", "class_o_s_k_1_1_i_query_interface.html", "class_o_s_k_1_1_i_query_interface" ],
       [ "LinkedList", "class_o_s_k_1_1_linked_list.html", "class_o_s_k_1_1_linked_list" ],
       [ "OwnedPtr", "class_o_s_k_1_1_owned_ptr.html", "class_o_s_k_1_1_owned_ptr" ],
       [ "Pair", "struct_o_s_k_1_1_pair.html", "struct_o_s_k_1_1_pair" ],

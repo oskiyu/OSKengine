@@ -4,8 +4,15 @@
 #include "OwnedPtr.h"
 #include "UniquePtr.hpp"
 #include "Vector3.hpp"
+#include "GpuImageSamplerDesc.h"
 
 #include "IGpuMemoryBlock.h"
+#include "IGpuObject.h"
+
+#include "IGpuImageView.h"
+#include "IGpuMemorySubblock.h"
+#include "DynamicArray.hpp"
+#include "HashMap.hpp"
 
 namespace OSK::GRAPHICS {
 
@@ -14,17 +21,18 @@ namespace OSK::GRAPHICS {
 	enum class GpuImageLayout;
 	enum class GpuImageDimension;
 	enum class GpuImageUsage;
+	class IGpu;
 
 	/// <summary>
 	/// Representación interna de una imagen en la GPU.
 	/// 
 	/// Puede referirse a la imagend e una textura, imágenes del swapchain, etc...
 	/// </summary>
-	class OSKAPI_CALL GpuImage {
+	class OSKAPI_CALL GpuImage : public IGpuObject {
 
 	public:
 
-		GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples);
+		GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples, GpuImageSamplerDesc samplerDesc);
 		virtual ~GpuImage();
 
 		void _SetPhysicalSize(const Vector3ui& size);
@@ -41,6 +49,8 @@ namespace OSK::GRAPHICS {
 		GpuImageDimension GetDimension() const;
 		GpuImageUsage GetUsage() const;
 		TSize GetNumLayers() const;
+
+		GpuImageSamplerDesc GetImageSampler() const;
 
 		/// <summary>
 		/// Devuelve el número máximo de miplevels de esta imagen.
@@ -97,13 +107,23 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		TSize GetNumSamples() const;
 
+		IGpuImageView* GetView(SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage) const;
+
+	protected:
+
+		virtual OwnedPtr<IGpuImageView> CreateView(SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage) const = 0;
+
 	private:
+
+		mutable HashMap<IGpuImageView, UniquePtr<IGpuImageView>> views;
 
 		UniquePtr<IGpuMemoryBlock> block;
 		IGpuMemorySubblock* buffer = nullptr;
 
 		Vector3ui size = 0;
 		Vector3ui physicalSize = 0;
+
+		GpuImageSamplerDesc samplerDesc{};
 
 		TSize mipLevels = 0;
 		TSize numSamples = 0;

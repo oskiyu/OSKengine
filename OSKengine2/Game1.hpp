@@ -33,8 +33,10 @@
 #include "MouseModes.h"
 #include "Mesh3D.h"
 #include "CubemapTexture.h"
+#include "IKeyboardInput.h"
 #include "ICommandList.h"
 
+#include "PcUserInput.h"
 #include "GpuImageDimensions.h"
 #include "GpuImageUsage.h"
 #include "Format.h"
@@ -110,19 +112,23 @@ class Game1 : public OSK::IGame {
 protected:
 
 	void CreateWindow() override {
-		Engine::GetWindow()->Create(1280, 720, "OSKengine");
-		Engine::GetWindow()->SetMouseReturnMode(IO::MouseReturnMode::ALWAYS_RETURN);
-		Engine::GetWindow()->SetMouseMotionMode(IO::MouseMotionMode::RAW);
+		Engine::GetDisplay()->Create({ 1280u, 720u }, "OSKengine");
+
+		IO::IMouseInput* mouseInput = nullptr;
+		Engine::GetInput()->QueryInterface(IUUID::IMouseInput, (void**)&mouseInput);
+
+		mouseInput->SetReturnMode(IO::MouseReturnMode::ALWAYS_RETURN);
+		mouseInput->SetMotionMode(IO::MouseMotionMode::RAW);
 	}
 
 	void SetupEngine() override {
-		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetWindow(), PresentMode::VSYNC_ON);
+		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetDisplay(), PresentMode::VSYNC_ON);
 	}
 
 	void OnCreate() override {
 		auto irradianceMap = Engine::GetAssetManager()->Load<ASSETS::IrradianceMap>("Resources/Assets/IBL/irradiance0.json", "GLOBAL");
 		auto animModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/animmodel.json", "GLOBAL");
-
+		
 		// Material load
 		material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_pbr.json"); //Resources/PbrMaterials/deferred_gbuffer.json
 		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json");
@@ -231,7 +237,7 @@ protected:
 		cameraObject2d = Engine::GetEcs()->SpawnObject();
 		auto& camera2D = Engine::GetEcs()->AddComponent<ECS::CameraComponent2D>(cameraObject2d, {});
 		Engine::GetEcs()->AddComponent<ECS::Transform2D>(cameraObject2d, { cameraObject2d });
-		camera2D.LinkToWindow(Engine::GetWindow());
+		camera2D.LinkToDisplay(Engine::GetDisplay());
 
 		spriteRenderer.SetCommandList(Engine::GetRenderer()->GetGraphicsCommandList());
 
@@ -243,21 +249,21 @@ protected:
 
 		RenderTargetAttachmentInfo textColorInfo{ .format = Format::RGBA8_UNORM, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE };
 		RenderTargetAttachmentInfo textDepthInfo{ .format = Format::D32S8_SFLOAT_SUINT };
-		textRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), { textColorInfo }, textDepthInfo);
+		textRenderTarget.Create(Engine::GetDisplay()->GetResolution(), { textColorInfo }, textDepthInfo);
 
 		RenderTargetAttachmentInfo preEffectsColorInfo{ .format = Format::RGBA32_SFLOAT, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE };
 		RenderTargetAttachmentInfo preEffectsDepthInfo{ .format = Format::D32S8_SFLOAT_SUINT };
-		preEffectsRenderTarget.Create(Engine::GetWindow()->GetWindowSize(), { preEffectsColorInfo }, preEffectsDepthInfo);
+		preEffectsRenderTarget.Create(Engine::GetDisplay()->GetResolution(), { preEffectsColorInfo }, preEffectsDepthInfo);
 		
 
 		fxaaPass = new FxaaPass();
-		fxaaPass->Create(Engine::GetWindow()->GetWindowSize());
+		fxaaPass->Create(Engine::GetDisplay()->GetResolution());
 
 		bloomPass = new BloomPass();
-		bloomPass->Create(Engine::GetWindow()->GetWindowSize());
+		bloomPass->Create(Engine::GetDisplay()->GetResolution());
 
 		toneMappingPass = new ToneMappingPass();
-		toneMappingPass->Create(Engine::GetWindow()->GetWindowSize());
+		toneMappingPass->Create(Engine::GetDisplay()->GetResolution());
 
 		SetupPostProcessingChain();
 
@@ -286,10 +292,16 @@ protected:
 
 		float forwardMovement = 0.0f;
 		float rightMovement = 0.0f;
-		auto newKs = Engine::GetWindow()->GetKeyboardState();
-		auto oldKs = Engine::GetWindow()->GetPreviousKeyboardState();
 
-		if (newKs->IsKeyUp(IO::Key::F1)) {
+		const IO::IKeyboardInput* keyboard = nullptr;
+		const IO::IGamepadInput* gamepad = nullptr;
+		const IO::IMouseInput* mouse = nullptr;
+
+		Engine::GetInput()->QueryInterface(IUUID::IKeyboardInput, (void**)&keyboard);
+		Engine::GetInput()->QueryInterface(IUUID::IGamepadInput, (void**)&gamepad);
+		Engine::GetInput()->QueryInterface(IUUID::IMouseInput, (void**)&mouse);
+
+		if (keyboard->IsKeyUp(IO::Key::F1)) {
 			toneMappingPass->SetExposure(toneMappingPass->GetExposure() - deltaTime * 2);
 			for (TSize i = 0; i < _countof(exposureBuffers); i++) {
 				exposureBuffers[i]->MapMemory();
@@ -297,7 +309,7 @@ protected:
 				exposureBuffers[i]->Unmap();
 			}
 		}
-		if (newKs->IsKeyUp(IO::Key::F2)) {
+		if (keyboard->IsKeyUp(IO::Key::F2)) {
 			toneMappingPass->SetExposure(toneMappingPass->GetExposure() + deltaTime * 2);
 			for (TSize i = 0; i < _countof(exposureBuffers); i++) {
 				exposureBuffers[i]->MapMemory();
@@ -306,26 +318,26 @@ protected:
 			}
 		}
 
-		if (newKs->IsKeyUp(IO::Key::J))
+		if (keyboard->IsKeyUp(IO::Key::J))
 			toneMappingPass->SetGamma(toneMappingPass->GetGamma() - deltaTime * 2);
-		if (newKs->IsKeyUp(IO::Key::K))
+		if (keyboard->IsKeyUp(IO::Key::K))
 			toneMappingPass->SetGamma(toneMappingPass->GetGamma() + deltaTime * 2);
 
-		if (newKs->IsKeyDown(IO::Key::W))
+		if (keyboard->IsKeyDown(IO::Key::W))
 			forwardMovement += 0.7f;
-		if (newKs->IsKeyDown(IO::Key::S))
+		if (keyboard->IsKeyDown(IO::Key::S))
 			forwardMovement -= 0.7f;
-		if (newKs->IsKeyDown(IO::Key::A))
+		if (keyboard->IsKeyDown(IO::Key::A))
 			rightMovement -= 0.7f;
-		if (newKs->IsKeyDown(IO::Key::D))
+		if (keyboard->IsKeyDown(IO::Key::D))
 			rightMovement += 0.7f;
 
 		Vector2f cameraRotation = {
-			(float)(Engine::GetWindow()->GetMouseState()->GetPosition().X - Engine::GetWindow()->GetPreviousMouseState()->GetPosition().X),
-			(float)(Engine::GetWindow()->GetMouseState()->GetPosition().Y - Engine::GetWindow()->GetPreviousMouseState()->GetPosition().Y)
+			(float)(mouse->GetMouseState().GetPosition().X - mouse->GetPreviousMouseState().GetPosition().X),
+			(float)(mouse->GetMouseState().GetPosition().Y - mouse->GetPreviousMouseState().GetPosition().Y)
 		};
 
-		const IO::GamepadState& gamepadState = Engine::GetWindow()->GetGamepadState(0);
+		const IO::GamepadState& gamepadState = gamepad->GetGamepadState(0);
 		if (gamepadState.IsConnected()) {
 			forwardMovement -= gamepadState.GetAxisState(IO::GamepadAxis::LEFT_Y);
 
@@ -335,7 +347,7 @@ protected:
 			cameraRotation.Y += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_Y);
 		}
 
-		if (newKs->IsKeyDown(IO::Key::LEFT_SHIFT)) {
+		if (keyboard->IsKeyDown(IO::Key::LEFT_SHIFT)) {
 			forwardMovement *= 0.3f;
 			rightMovement *= 0.3f;
 		}
@@ -344,24 +356,28 @@ protected:
 		static float carSpeed = 0.0f;
 		float speedDiff = 0.0f;
 		auto& carTransform = Engine::GetEcs()->GetComponent<ECS::Transform3D>(carObject);
-		if (newKs->IsKeyDown(IO::Key::UP))
+		if (keyboard->IsKeyDown(IO::Key::UP))
 			speedDiff += 0.5f * deltaTime;
-		if (newKs->IsKeyDown(IO::Key::DOWN))
+		if (keyboard->IsKeyDown(IO::Key::DOWN))
 			speedDiff -= 0.5f * deltaTime;
 		carSpeed += speedDiff;
 		carSpeed = OSK::MATH::Clamp(carSpeed, -1.0f, 7.0f);
 		carTransform.AddPosition(carTransform.GetForwardVector() * deltaTime * carSpeed);
-		if (newKs->IsKeyDown(IO::Key::LEFT))
+		if (keyboard->IsKeyDown(IO::Key::LEFT))
 			carTransform.RotateWorldSpace(deltaTime * 2, { 0, 1, 0 });
-		if (newKs->IsKeyDown(IO::Key::RIGHT))
+		if (keyboard->IsKeyDown(IO::Key::RIGHT))
 			carTransform.RotateWorldSpace(deltaTime * 2, { 0, -1, 0 });
 
-		if (newKs->IsKeyDown(IO::Key::F11) && oldKs->IsKeyUp(IO::Key::F11))
-			Engine::GetWindow()->ToggleFullScreen();
+		if (keyboard->IsKeyStroked(IO::Key::F11)) {
+			IO::IFullscreenableDisplay* display = nullptr;
+			Engine::GetDisplay()->QueryInterface(OSK_IUUID(IO::IFullscreenableDisplay), (void**)&display);
 
-		if (newKs->IsKeyDown(IO::Key::ESCAPE))
+			display->ToggleFullscreen();
+		}
+
+		if (keyboard->IsKeyDown(IO::Key::ESCAPE))
 			this->Exit();
-		if (newKs->IsKeyDown(IO::Key::P))
+		if (keyboard->IsKeyDown(IO::Key::P))
 			this->Exit();
 
 		camera.Rotate(cameraRotation.X, cameraRotation.Y);
@@ -380,26 +396,6 @@ protected:
 			const auto& transformComponent = Engine::GetEcs()->GetComponent<ECS::Transform3D>(carObject);
 			auto& modelComponent = Engine::GetEcs()->GetComponent<ECS::ModelComponent3D>(carObject);
 			modelComponent.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent.GetAsMatrix());
-			//modelComponent.GetModel()->GetAccelerationStructure()->Update(commandList);
-
-			/*const auto& transformComponent2 = Engine::GetEcs()->GetComponent<ECS::Transform3D>(circuitObject);
-			auto& modelComponent2 = Engine::GetEcs()->GetComponent<ECS::ModelComponent3D>(circuitObject);
-			modelComponent2.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent2.GetAsMatrix());
-			//modelComponent2.GetModel()->GetAccelerationStructure()->Update(commandList);
-			/*topLevelAccelerationStructure->Update(commandList);
-
-			const TSize imgIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-
-			commandList->SetGpuImageBarrier(rtTargetImage[imgIndex], GpuImageLayout::SHADER_READ_ONLY, GpuImageLayout::GENERAL,
-				GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::RAYTRACING_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
-
-			commandList->BindMaterial(rtMaterial);
-			for (auto const& slotName : rtMaterialInstance->GetLayout()->GetAllSlotNames())
-				commandList->BindMaterialSlot(rtMaterialInstance->GetSlot(slotName));
-			commandList->TraceRays(0, 0, 0, { 1920, 1080 });
-
-			commandList->SetGpuImageBarrier(rtTargetImage[imgIndex], GpuImageLayout::GENERAL, GpuImageLayout::SHADER_READ_ONLY,
-				GpuBarrierInfo(GpuBarrierStage::RAYTRACING_SHADER, GpuBarrierAccessStage::SHADER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));*/
 		}
 	}
 
@@ -414,8 +410,8 @@ protected:
 		const Vector4ui windowRec = {
 			0,
 			0,
-			Engine::GetWindow()->GetWindowSize().X,
-			Engine::GetWindow()->GetWindowSize().Y
+			Engine::GetDisplay()->GetResolution().X,
+			Engine::GetDisplay()->GetResolution().Y
 		};
 
 		Viewport viewport{};

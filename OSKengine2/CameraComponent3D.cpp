@@ -76,7 +76,7 @@ void CameraComponent3D::UpdateTransform(Transform3D* transform) {
 }
 
 glm::mat4 CameraComponent3D::GetProjectionMatrix() const {
-	return glm::perspective<float>(glm::radians(fov), Engine::GetWindow()->GetScreenRatio(), nearPlane, farPlane);
+	return glm::perspective<float>(glm::radians(fov), Engine::GetDisplay()->GetScreenRatio(), nearPlane, farPlane);
 }
 
 glm::mat4 CameraComponent3D::GetViewMatrix(const Transform3D& transform) const {

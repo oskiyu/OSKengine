@@ -1,6 +1,7 @@
 #pragma once
 
 #include "OSKmacros.h"
+#include "Vector2.hpp"
 
 #include <string>
 
@@ -73,6 +74,10 @@ namespace OSK {
 		/// </summary>
 		virtual void OnExit();
 
+		/// <summary>
+		/// Función que se ejecuta cuando la ventana cambia de tamaño.
+		/// </summary>
+		virtual void OnWindowResize(const Vector2ui& size);
 
 		/// <summary>
 		/// Inicia la ejecución del juego.

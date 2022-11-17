@@ -4,6 +4,7 @@
 #include "UniquePtr.hpp"
 #include "IPipelineLayout.h"
 #include "Format.h"
+#include "IGpuObject.h"
 
 namespace OSK::GRAPHICS {
 
@@ -17,7 +18,7 @@ namespace OSK::GRAPHICS {
 	/// Contiene información y ajustes que cambian este proceso de renerizado.
 	/// Debe usarse con shaders para que funcione.
 	/// </summary>
-	class OSKAPI_CALL IGraphicsPipeline {
+	class OSKAPI_CALL IGraphicsPipeline : public IGpuObject {
 
 	public:
 
@@ -27,19 +28,21 @@ namespace OSK::GRAPHICS {
 		/// Crea el pipeline con la configuración dada.
 		/// </summary>
 		/// <param name="info">Configuración del pipeline.</param>
-		virtual void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, Format targetImageFormat, const VertexInfo& vertexInfo) = 0;
+		virtual void Create(const MaterialLayout* layout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) = 0;
 
-		template <typename T> T* As() const requires std::is_base_of_v<IGraphicsPipeline, T> {
-			return (T*)this;
-		}
+		OSK_DEFINE_AS(IGraphicsPipeline);
 
+		/// <summary>
+		/// Devuelve el layout usado por este pipeline.
+		/// </summary>
+		/// 
+		/// @pre Se debe haber creado correctamente el pipeline.
+		/// @note Si no se ha creado correctamente el pipeline, devolverá null.
 		IPipelineLayout* GetLayout() const;
 
 	protected:
 
 		UniquePtr<IPipelineLayout> layout;
-
-		Format targetImageFormat;
 
 	};
 

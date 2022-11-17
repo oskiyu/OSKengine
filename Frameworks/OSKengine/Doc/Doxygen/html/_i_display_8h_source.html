@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/IDisplay.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_i_display_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">IDisplay.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_i_display_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// OSKengine by oskiyu</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Copyright (c) 2019-2022 oskiyu. All rights reserved.</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_vector2_8hpp.html">Vector2.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_i_query_interface_8h.html">IQueryInterface.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a> {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_display.html">   17</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_display.html">IDisplay</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_i_query_interface.html">IQueryInterface</a> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_display.html#a730805b9103d3bfa5dce186f4c1ab6b3">   21</a></span>        <span class="keyword">virtual</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_display.html#a730805b9103d3bfa5dce186f4c1ab6b3">~IDisplay</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_display.html#a0b9f0951865c72ee8f259335361c4b28">   23</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_display.html#a0b9f0951865c72ee8f259335361c4b28">OSK_DEFINE_AS</a>(<a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_display.html">IDisplay</a>);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_display.html#a02d15a8a04e8173df7436a15f094f444">   29</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_display.html#a02d15a8a04e8173df7436a15f094f444">Create</a>(<a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a> resolution, <span class="keyword">const</span> std::string&amp; title) = 0;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_display.html#a8a36d884b6cab3904331d910507cf2cc">   33</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_display.html#a8a36d884b6cab3904331d910507cf2cc">Update</a>() = 0;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_display.html#a018f65daf04add6768c23f76ecf6ace1">   36</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_display.html#a018f65daf04add6768c23f76ecf6ace1">Close</a>() = 0;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordtype">bool</span> IsOpen() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a> GetResolution() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordtype">float</span> GetScreenRatio() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> GetRefreshRate() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_display.html#a0087d89a72a5d4faa930924ac33d68f7">   56</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a> resolution = 0;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_display.html#a3d363c853d51d6ecfc884caf33379fd4">   57</a></span>        <span class="keywordtype">bool</span> isOpen = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_display.html#ad43da342b834589879c3a2eaf1405390">   58</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> refreshRate = 60;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    };</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>}</div>
+<div class="ttc" id="a_i_query_interface_8h_html"><div class="ttname"><a href="_i_query_interface_8h.html">IQueryInterface.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00023">OSKmacros.h:23</a></div></div>
+<div class="ttc" id="a_vector2_8hpp_html"><div class="ttname"><a href="_vector2_8hpp.html">Vector2.hpp</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_display_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_display.html">OSK::IO::IDisplay</a></div><div class="ttdoc">Interfaz que representa un display: la pantalla sobre la que se renderiza.</div><div class="ttdef"><b>Definition:</b> <a href="_i_display_8h_source.html#l00017">IDisplay.h:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_display_html_a018f65daf04add6768c23f76ecf6ace1"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_display.html#a018f65daf04add6768c23f76ecf6ace1">OSK::IO::IDisplay::Close</a></div><div class="ttdeci">virtual void Close()=0</div><div class="ttdoc">Cierra el display.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_display_html_a02d15a8a04e8173df7436a15f094f444"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_display.html#a02d15a8a04e8173df7436a15f094f444">OSK::IO::IDisplay::Create</a></div><div class="ttdeci">virtual void Create(Vector2ui resolution, const std::string &amp;title)=0</div><div class="ttdoc">Crea el display con los argumentos dados.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_display_html_a0b9f0951865c72ee8f259335361c4b28"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_display.html#a0b9f0951865c72ee8f259335361c4b28">OSK::IO::IDisplay::OSK_DEFINE_AS</a></div><div class="ttdeci">OSK_DEFINE_AS(IDisplay)</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_display_html_a730805b9103d3bfa5dce186f4c1ab6b3"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_display.html#a730805b9103d3bfa5dce186f4c1ab6b3">OSK::IO::IDisplay::~IDisplay</a></div><div class="ttdeci">virtual ~IDisplay()=default</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_display_html_a8a36d884b6cab3904331d910507cf2cc"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_display.html#a8a36d884b6cab3904331d910507cf2cc">OSK::IO::IDisplay::Update</a></div><div class="ttdeci">virtual void Update()=0</div><div class="ttdoc">Realiza cualquier función de actualización que necesite el display.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_query_interface_html"><div class="ttname"><a href="class_o_s_k_1_1_i_query_interface.html">OSK::IQueryInterface</a></div><div class="ttdoc">Esta interfaz permite obtener acceso a los métodos de una interfaz en concreto del objeto....</div><div class="ttdef"><b>Definition:</b> <a href="_i_query_interface_8h_source.html#l00021">IQueryInterface.h:21</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; uint32_t &gt;</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a></div><div class="ttdef"><b>Definition:</b> <a href="_camera_component2_d_8h_source.html#l00011">CameraComponent2D.h:11</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_i_display_8h.html">IDisplay.h</a></li>
+    <li class="footer">Generado el Jueves, 17 de Noviembre de 2022 13:54:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

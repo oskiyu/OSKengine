@@ -67,7 +67,7 @@ void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data
 }
 
 void IRenderer::HandleResize() {
-	const Vector2ui windowSize = window->GetWindowSize();
+	const Vector2ui windowSize = display->GetResolution();
 
 	renderTargetsCamera->UpdateUniformBuffer(renderTargetsCameraTransform);
 

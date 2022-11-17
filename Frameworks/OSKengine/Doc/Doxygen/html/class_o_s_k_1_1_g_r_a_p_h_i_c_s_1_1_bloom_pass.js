@@ -8,7 +8,6 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass =
     [ "Execute", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html#a2391f9f93653168b0bfc3a84cdcff0a2", null ],
     [ "GetOutput", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html#a4b49581bc321be779142519f48d7b263", null ],
     [ "Resize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html#a5545a4f6b434519d5fb2873ed72b2b25", null ],
-    [ "SetExposureBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html#a529ba4b0d65f951ec6a221b13dd7484b", null ],
     [ "SetInput", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html#a1a082c4a464e368e99ac31064834213e", null ],
     [ "SetInput", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html#af1eccd261c72016cd37f73c7fddb46b5", null ],
     [ "SetInput", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bloom_pass.html#af7e88a9869fe68ca02e156ec242bbf82", null ],

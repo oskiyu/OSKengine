@@ -14,70 +14,28 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuImageDx12(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples);
+		GpuImageDx12(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples, GpuImageSamplerDesc samplerDesc);
 
-		void SetResource(const ComPtr<ID3D12Resource>& resource);
+		void FillResourceDesc();
+		const D3D12_RESOURCE_DESC& GetResourceDesc();
+		void CreateResource(ID3D12Heap* memory, TSize memoryOffset);
 
-		void _SetSampledDescriptorHeap(ComPtr<ID3D12DescriptorHeap> descriptorHeap);
-		void _SetRenderTargetDescriptorHeap(ComPtr<ID3D12DescriptorHeap> descriptorHeap);
-		void _SetDepthDescriptorHeap(ComPtr<ID3D12DescriptorHeap> descriptorHeap);
+		// Swapchain
+		void _SetResource(ComPtr<ID3D12Resource> resource);
 
 		ID3D12Resource* GetResource() const;
 
-		/// <summary>
-		/// Devuelve la memoria del descriptor para uso como textura.
-		/// Null si no será usado de esa manera.
-		/// </summary>
-		ID3D12DescriptorHeap* GetSampledDescriptorHeap() const;
+		void SetDebugName(const std::string& name) override;
 
-		/// <summary>
-		/// Devuelve la memoria del descriptor para uso como render target.
-		/// Null si no será usado de esa manera.
-		/// </summary>
-		ID3D12DescriptorHeap* GetRenderTargetDescriptorHeap() const;
+	protected:
 
-		/// <summary>
-		/// Devuelve la memoria del descriptor para uso como depth/stencil target.
-		/// Null si no será usado de esa manera.
-		/// </summary>
-		ID3D12DescriptorHeap* GetDepthDescriptorHeap() const;
-
-		/// <summary>
-		/// Devuelve un hanlde para el uso de esta imagen como imagen de renderizado
-		/// de un render target.
-		/// </summary>
-		/// 
-		/// @pre Se debe haber creado con GpuImageUsage::COLOR.
-		/// 
-		/// @note Si no se cumple la precondición, devuelve 0.
-		D3D12_CPU_DESCRIPTOR_HANDLE GetColorUsageDescriptorHandle() const;
-
-		/// <summary>
-		/// Devuelve un hanlde para el uso de esta imagen como imagen de renderizado
-		/// de un render target.
-		/// </summary>
-		/// 
-		/// @pre Se debe haber creado con GpuImageUsage::DEPTH_STENCIL.
-		/// 
-		/// @note Si no se cumple la precondición, devuelve 0.
-		D3D12_CPU_DESCRIPTOR_HANDLE GetDepthUsageDescriptorHandle() const;
+		OwnedPtr<IGpuImageView> CreateView(SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage) const override;
 
 	private:
 
+		D3D12_RESOURCE_DESC resourceDesc{};
+
 		ComPtr<ID3D12Resource> resource;
-
-		ComPtr<ID3D12DescriptorHeap> sampledDescriptorHeap;
-		ComPtr<ID3D12DescriptorHeap> renderTargetDescriptorHeap;
-		ComPtr<ID3D12DescriptorHeap> depthDescriptorHeap;
-
-		/// <summary>
-		/// Handle para poder usar esta imagen como render target de color.
-		/// </summary>
-		D3D12_CPU_DESCRIPTOR_HANDLE colorUsageDescriptorHandle{ 0 };
-		/// <summary>
-		/// Handle para poder usar esta imagen como render target de profundidad.
-		/// </summary>
-		D3D12_CPU_DESCRIPTOR_HANDLE depthUsageDescriptorHandle{ 0 };
 
 	};
 

@@ -6,7 +6,7 @@
 namespace OSK::IO {
 
 	class IInputListener;
-	class Window;
+	class IUserInput;
 	
 	/// <summary>
 	/// Maneja los input listeners del juego, llamando a sus funciones
@@ -34,7 +34,7 @@ namespace OSK::IO {
 		/// Comprueba el estado del input, llamando a las funciones
 		/// de los listeneres cuando sea necesario.
 		/// </summary>
-		void _Update(const Window& window);
+		void _Update(const IUserInput& input);
 
 	private:
 

@@ -21,7 +21,10 @@ className& operator=(const className&) = delete;
 #include <stdint.h>
 
 using TSize = unsigned int;
+using TIndex = TSize;
 using TDeltaTime = float;
 using TByte = uint8_t;
+
+#define OKS_ARR_FUNC(num) *
 
 #include <type_traits>

@@ -7,17 +7,18 @@
 #include <string>
 
 #include "Logger.h"
-#include "Window.h"
+#include "IDisplay.h"
 #include "IRenderer.h"
 #include "AssetManager.h"
 #include "EntityComponentSystem.h"
+#include "IUserInput.h"
 #include "InputManager.h"
 
 namespace OSK {
-
+	
 	namespace IO {
 		class Logger;
-		class Window;
+		class IDisplay;
 		class InputManager;
 	}
 
@@ -32,7 +33,6 @@ namespace OSK {
 	namespace ECS {
 		class EntityComponentSystem;
 	}
-	
 
 	/// <summary>
 	/// Clase principal de OSKengine.
@@ -59,10 +59,10 @@ namespace OSK {
 		/// @warning Será nullptr hasta que no se llame a Engine::Create.
 		static IO::Logger* GetLogger();
 
-		/// <summary> Devuelve un puntero a la ventana del juego. </summary>
+		/// <summary> Devuelve un puntero al display del juego. </summary>
 		/// @note El puntero es estable.
 		/// @warning Será nullptr hasta que no se llame a Engine::Create.
-		static IO::Window* GetWindow();
+		static IO::IDisplay* GetDisplay();
 
 		/// <summary> Devuelve un puntero al renderizador del motor. </summary>
 		/// @note El puntero es estable.
@@ -75,13 +75,15 @@ namespace OSK {
 		/// @warning Será nullptr hasta que no se llame a Engine::Create.
 		static ASSETS::AssetManager* GetAssetManager();
 
-		[[deprecated("Usar Engine::GetEcs()")]]
-		static ECS::EntityComponentSystem* GetEntityComponentSystem();
-
 		/// <summary> Devuelve un puntero al ECS del motor. </summary>
 		/// @note El puntero es estable.
 		/// @warning Será nullptr hasta que no se llame a Engine::Create.
 		static ECS::EntityComponentSystem* GetEcs();
+
+		/// @brief Devuelve un puntero a los estados del input del motor.
+		/// @note El puntero es estable.
+		/// @warning Será nullptr hasta que no se llame a Engine::Create.
+		static IO::IUserInput* GetInput();
 
 		/// <summary> Devuelve un puntero al sistema de input del motor. </summary>
 		/// @note El puntero es estable.
@@ -101,10 +103,11 @@ namespace OSK {
 	private:
 
 		static UniquePtr<IO::Logger> logger;
-		static UniquePtr<IO::Window> window;
+		static UniquePtr<IO::IDisplay> display;
 		static UniquePtr<GRAPHICS::IRenderer> renderer;
 		static UniquePtr<ASSETS::AssetManager> assetManager;
 		static UniquePtr<ECS::EntityComponentSystem> entityComponentSystem;
+		static UniquePtr<IO::IUserInput> input;
 		static UniquePtr<IO::InputManager> inputManager;
 
 	};

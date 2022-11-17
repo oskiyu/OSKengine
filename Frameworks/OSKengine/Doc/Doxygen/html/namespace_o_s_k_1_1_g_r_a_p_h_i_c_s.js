@@ -136,13 +136,13 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
       [ "READ_WRITE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027ddaa7b843fb734e3b3fea8e5f902d3f4144", null ]
     ] ],
     [ "Format", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8", [
-      [ "RGB8_UNORM", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8ac9aa547414d25dcf450f0f005ebad9a0", null ],
       [ "RGBA8_UNORM", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8a909cc8c5cc8fe4f16bec84a291aadbdb", null ],
       [ "RGBA8_SRGB", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8ae5a76309919d3c679c642c13125eb930", null ],
-      [ "RGB16_SFLOAT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8a9affdaf059abfd1a34e1389d81194594", null ],
       [ "RGBA16_SFLOAT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8ac822761144be33230ff41357a5cb22ca", null ],
       [ "RGBA32_SFLOAT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8ab90166b94483824b0f67dbb9ae2feef3", null ],
-      [ "B8G8R8A8_SRGB", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8af76dbb655425d5bbcf8f4b8f5d316960", null ],
+      [ "BGRA8_SRGB", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8af4a701ac1b36032e705eb34a8283e7e8", null ],
+      [ "RG16", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8a2b66caa416f0a28686ade3fc30ab223a", null ],
+      [ "RG32", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8aa8725115efc714421823b7397f9c130c", null ],
       [ "D32S8_SFLOAT_SUINT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8a369fdc4770e12435c7f86a893edbcb06", null ],
       [ "D24S8_SFLOAT_SUINT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8ae7ae944f2e4ea995e572c26d22196850", null ],
       [ "D32_SFLOAT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8a23a4ce33815655871d103d3071d91072", null ]

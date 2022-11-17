@@ -5,7 +5,6 @@
 #include "Vector2.hpp"
 #include "UniquePtr.hpp"
 #include "SharedPtr.hpp"
-#include "IRenderpass.h"
 #include "RenderTarget.h"
 
 namespace OSK::GRAPHICS {
@@ -28,9 +27,7 @@ namespace OSK::ECS {
 
 		virtual void OnCreate() override;
 
-		/// <summary>
-		/// Comando específico del sistema, para ejecutar el renderizado.
-		/// </summary>
+		/// <summary> Comando específico del sistema, para ejecutar el renderizado. </summary>
 		/// 
 		/// @pre La lista de comandos debe estar abierta.
 		virtual void Render(GRAPHICS::ICommandList* commandList) = 0;
@@ -63,6 +60,12 @@ namespace OSK::ECS {
 
 	protected:
 
+		/// <summary>
+		/// Configura el viewport que se usará en la lista de comandos
+		/// para que incluya toda la imagen del render system.
+		/// </summary>
+		/// 
+		/// @pre commandList no debe ser null.
 		void SetupViewport(GRAPHICS::ICommandList* commandList);
 
 		GRAPHICS::RenderTarget renderTarget;

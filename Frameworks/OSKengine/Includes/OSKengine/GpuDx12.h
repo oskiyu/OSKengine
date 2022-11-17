@@ -19,7 +19,9 @@ namespace OSK::GRAPHICS {
 		~GpuDx12();
 		void Close() override;
 
-		OwnedPtr<ICommandPool> CreateCommandPool() override;
+		OwnedPtr<ICommandPool> CreateGraphicsCommandPool() override;
+		OwnedPtr<ICommandPool> CreateComputeCommandPool() override;
+
 		OwnedPtr<ISyncDevice> CreateSyncDevice() override;
 
 		void SetAdapter(const ComPtr<IDXGIAdapter1>& adapter);

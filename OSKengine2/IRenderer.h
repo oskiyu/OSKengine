@@ -28,7 +28,7 @@
 namespace OSK {
 	struct Version;
 	namespace IO {
-		class Window;
+		class IDisplay;
 	}
 }
 
@@ -65,7 +65,7 @@ namespace OSK::GRAPHICS {
 		/// <param name="appName">Nombre de la aplicación / juego.</param>
 		/// <param name="version">Versión de la aplicación / juego.</param>
 		/// <param name="window">Ventana enlazada.</param>
-		virtual void Initialize(const std::string& appName, const Version& version, const IO::Window& window, PresentMode mode) = 0;
+		virtual void Initialize(const std::string& appName, const Version& version, const IO::IDisplay& display, PresentMode mode) = 0;
 
 		/// <summary> Cierra el renderizador. </summary>
 		/// 
@@ -324,7 +324,7 @@ namespace OSK::GRAPHICS {
 
 		bool isFirstRender = true;
 
-		const IO::Window* window = nullptr;
+		const IO::IDisplay* display = nullptr;
 
 		bool isOpen = false;
 

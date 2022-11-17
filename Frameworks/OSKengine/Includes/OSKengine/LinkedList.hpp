@@ -219,6 +219,14 @@ namespace OSK {
 		}
 
 		/// <summary>
+		/// Crea el dynamic array con los elementos dados.
+		/// </summary>
+		LinkedList(const std::initializer_list<T>& list) {
+			for (auto& i : list)
+				Insert(i);
+		}
+
+		/// <summary>
 		/// Copia los contenidos de la otra lista.
 		/// </summary>
 		LinkedList& operator=(const LinkedList& other) {

@@ -1,11 +1,7 @@
 INFO: Iniciando OSKengine.
 INFO: 	Version: 0.0.0.
 INFO: 	Build 2022.11.03a.
-INFO: Ventana iniciada correctamente.
-INFO: 	Monitor sizeX: 1920
-INFO: 	Monitor sizeY: 1080
-INFO: 	Monitor refresh rate: 144
-INFO: Versión de vulkan: 1.3.204
+INFO: Versión de vulkan: 1.3.224
 INFO: GPU elegida: NVIDIA GeForce RTX 2060
 INFO: 	Adquiridas las imágenes del swapchain.
 INFO: 	Adquiridas las views del swapchain.

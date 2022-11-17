@@ -36,7 +36,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12 =
     [ "GetRenderTargetsCamera", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#ac39e6512c39a6a82dea2ed73a0575a42", null ],
     [ "GetSwapchainImagesCount", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a6bdcecd10ad67576f386bb8d42503bcd", null ],
     [ "HandleResize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#ac2032b9e4dee210d952aa51081408525", null ],
-    [ "Initialize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a51d80fc7e562d6b5472701de8e525957", null ],
+    [ "Initialize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a1c6503e018c0345211f45fbffe7c0060", null ],
     [ "IsOpen", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a6c686e7448f5b58d4a82bd65a7edd525", null ],
     [ "IsRtActive", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a39cec2c1506cbde7b9da2b75cdebddf8", null ],
     [ "IsRtRequested", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#acf22c29d74bcd9d7e992d5f59becb681", null ],
@@ -54,6 +54,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12 =
     [ "computeCommandPool", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a76bddfef891f966b5d0001cc5063986f", null ],
     [ "computeQueue", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a05fc17f5d2cbaa3895f5d3a626107e47", null ],
     [ "currentGpu", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a2928763ae4948a9de9bafad902fd9696", null ],
+    [ "display", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a21af846b7072ce67ae57ab6ed4c24111", null ],
     [ "finalRenderTarget", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a30073a14bdd20555c38f5326b0ea9b89", null ],
     [ "frameBuildCommandList", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a3b31beb9b077f69dddeed7b30745ae81", null ],
     [ "gpuMemoryAllocator", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a046cb6d9d3bd12965b1abc3e9bd3c2c3", null ],
@@ -76,6 +77,5 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12 =
     [ "singleCommandQueue", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a7575d99920b80cf3481c26d2e170ebd6", null ],
     [ "singleTimeCommandLists", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a0493d3e86b3a5f32f74acf9a280c812f", null ],
     [ "swapchain", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a4c5061452a68969f433306c2e5984a70", null ],
-    [ "syncDevice", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#aed39f82dfcb5e92d9ed9efdca4f346ee", null ],
-    [ "window", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a4db58d26d84e9e636d2162264f69430d", null ]
+    [ "syncDevice", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#aed39f82dfcb5e92d9ed9efdca4f346ee", null ]
 ];

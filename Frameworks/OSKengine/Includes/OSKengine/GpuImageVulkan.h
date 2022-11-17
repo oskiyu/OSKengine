@@ -1,15 +1,10 @@
 #pragma once
 
 #include "IGpuImage.h"
+#include "DynamicArray.hpp"
+#include "GpuImageSamplerDesc.h"
 
-struct VkImage_T;
-typedef VkImage_T* VkImage;
-
-struct VkImageView_T;
-typedef VkImageView_T* VkImageView;
-
-struct VkSampler_T;
-typedef VkSampler_T* VkSampler;
+#include <vulkan/vulkan.h>
 
 namespace OSK::GRAPHICS {
 	
@@ -17,32 +12,54 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuImageVulkan(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples);
+		GpuImageVulkan(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples, GpuImageSamplerDesc samplerDesc);
 		~GpuImageVulkan();
 
-		void SetImage(VkImage image);
-		VkImage GetImage() const;
+		OSK_DISABLE_COPY(GpuImageVulkan);
 
-		void SetView(VkImageView view);
-		VkImageView GetView() const;
+		/// <summary>
+		/// Crea la imagen con los parámetros pasados por el constructor.
+		/// </summary>
+		/// 
+		/// @throws std::runtime_exception si no se puede crear la imagen en la GPU.
+		void CreateVkImage();
+		VkImage GetVkImage() const;
 
-		void SetSampler(VkSampler sampler);
-		VkSampler GetSampler() const;
+		/// <summary>
+		/// Crea el sampler para la imagen.
+		/// </summary>
+		void CreateVkSampler(const GpuImageSamplerDesc& sampler);
 
-		void _SetDepthView(VkImageView view);
-		VkImageView GetDepthView() const;
+		/// <summary>
+		/// Devuelve el sampler de la imagen.
+		/// </summary>
+		VkSampler GetVkSampler() const;
 
-		void _SetStencilView(VkImageView view);
-		VkImageView GetStencilView() const;
+		/* SWAPCHAIN */
+		void _SetVkImage(VkImage img);
+		
+		void SetSwapchainView(VkImageView view);
+		VkImageView GetSwapchainView() const;
+
+		void SetDebugName(const std::string& name) override;
+
+	protected:
+
+		OwnedPtr<IGpuImageView> CreateView(SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage) const override;
 
 	private:
 
-		VkImage image = 0;
-		VkImageView view = 0;
-		VkSampler sampler = 0;
+		VkImageType GetVkImageType() const;
+		VkImageViewType GetVkImageViewType() const;
+		VkImageViewType GetVkImageArrayViewType() const;
 
-		VkImageView depthView = 0;
-		VkImageView stencilView = 0;
+		static VkFilter GetFilterTypeVulkan(GpuImageFilteringType type);
+		static VkSamplerAddressMode GetAddressModeVulkan(GpuImageAddressMode mode);
+
+		VkImage image = VK_NULL_HANDLE;
+		VkSampler sampler = VK_NULL_HANDLE;
+
+		VkImageView swapchainView = VK_NULL_HANDLE;
 
 	};
 

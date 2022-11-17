@@ -25,7 +25,7 @@ void main() {
     
     const vec2 previousCoordinates = currentCoords * 0.5; //(previousResolution / nextResolution) * currentCoords;
 
-    const float radius = 1;
+    const float radius = 2;
     const vec2 sourcePixelSize = 1.0 / textureSize(inputImg, 0);
 
     color += texture(inputImg, (previousCoordinates + vec2( 0,  0) * radius) * sourcePixelSize) * 4;

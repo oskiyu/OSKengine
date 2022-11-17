@@ -24,7 +24,7 @@ namespace OSK::GRAPHICS {
 		RendererDx12(bool requestRayTracing);
 		~RendererDx12();
 
-		void Initialize(const std::string& appName, const Version& version, const IO::Window& window, PresentMode mode) override;
+		void Initialize(const std::string& appName, const Version& version, const IO::IDisplay& display, PresentMode mode) override;
 		void Close() override;
 		void HandleResize() override;
 

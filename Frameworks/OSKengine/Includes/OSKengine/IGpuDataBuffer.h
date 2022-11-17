@@ -2,10 +2,11 @@
 
 #include "OSKmacros.h"
 #include "OwnedPtr.h"
+#include "UniquePtr.hpp"
+#include "IGpuMemorySubblock.h"
 
 namespace OSK::GRAPHICS {
 
-	class IGpuMemorySubblock;
 	class IGpuMemoryBlock;
 
 	/// <summary>
@@ -118,9 +119,7 @@ namespace OSK::GRAPHICS {
 
 	protected:
 
-		void Free();
-
-		OwnedPtr<IGpuMemorySubblock> buffer;
+		UniquePtr<IGpuMemorySubblock> buffer;
 
 	private:
 

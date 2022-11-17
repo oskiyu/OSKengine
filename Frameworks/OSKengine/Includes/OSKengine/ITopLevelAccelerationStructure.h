@@ -46,11 +46,12 @@ namespace OSK::GRAPHICS {
 		/// @pre Esta estructura debe haber sido correctamente creada llamando a ITopLevelAccelerationStructure::Setup.
 		/// 
 		/// @todo Implementación en DX12.
-		virtual void Update() = 0;
+		virtual void Update(ICommandList* cmdList) = 0;
 
 	protected:
 
 		DynamicArray<IBottomLevelAccelerationStructure*> blass;
+		bool needsRebuild = false;
 
 	};
 	

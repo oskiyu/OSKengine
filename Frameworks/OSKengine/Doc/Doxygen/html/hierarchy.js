@@ -200,7 +200,13 @@ var hierarchy =
       [ "OSK::GRAPHICS::ComputePipelineDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_compute_pipeline_dx12.html", null ],
       [ "OSK::GRAPHICS::ComputePipelineVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_compute_pipeline_vulkan.html", null ]
     ] ],
+    [ "OSK::IO::IFullscreenableDisplay", "class_o_s_k_1_1_i_o_1_1_i_fullscreenable_display.html", [
+      [ "OSK::IO::Window", "class_o_s_k_1_1_i_o_1_1_window.html", null ]
+    ] ],
     [ "OSK::IGame", "class_o_s_k_1_1_i_game.html", null ],
+    [ "OSK::IO::IGamepadInput", "class_o_s_k_1_1_i_o_1_1_i_gamepad_input.html", [
+      [ "OSK::IO::PcUserInput", "class_o_s_k_1_1_i_o_1_1_pc_user_input.html", null ]
+    ] ],
     [ "OSK::GRAPHICS::IGpu", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html", [
       [ "OSK::GRAPHICS::GpuDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html", null ],
       [ "OSK::GRAPHICS::GpuVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html", null ]
@@ -239,6 +245,9 @@ var hierarchy =
       [ "OSK::GRAPHICS::GpuVertexDescriptionVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vertex_description_vulkan.html", null ]
     ] ],
     [ "OSK::IO::IInputListener", "class_o_s_k_1_1_i_o_1_1_i_input_listener.html", null ],
+    [ "OSK::IO::IKeyboardInput", "class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html", [
+      [ "OSK::IO::PcUserInput", "class_o_s_k_1_1_i_o_1_1_pc_user_input.html", null ]
+    ] ],
     [ "OSK::GRAPHICS::IMaterialSlot", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html", [
       [ "OSK::GRAPHICS::MaterialSlotDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html", null ],
       [ "OSK::GRAPHICS::MaterialSlotVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html", null ]
@@ -246,6 +255,9 @@ var hierarchy =
     [ "OSK::ASSETS::IMeshLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html", [
       [ "OSK::ASSETS::AnimMeshLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader.html", null ],
       [ "OSK::ASSETS::StaticMeshLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html", null ]
+    ] ],
+    [ "OSK::IO::IMouseInput", "class_o_s_k_1_1_i_o_1_1_i_mouse_input.html", [
+      [ "OSK::IO::PcUserInput", "class_o_s_k_1_1_i_o_1_1_pc_user_input.html", null ]
     ] ],
     [ "OSK::GRAPHICS::GpuVulkan::Info", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html", null ],
     [ "OSK::IO::InputManager", "class_o_s_k_1_1_i_o_1_1_input_manager.html", null ],
@@ -267,6 +279,14 @@ var hierarchy =
       [ "OSK::GRAPHICS::FxaaPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_fxaa_pass.html", null ],
       [ "OSK::GRAPHICS::SmaaPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_smaa_pass.html", null ],
       [ "OSK::GRAPHICS::ToneMappingPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass.html", null ]
+    ] ],
+    [ "OSK::IQueryInterface", "class_o_s_k_1_1_i_query_interface.html", [
+      [ "OSK::IO::IDisplay", "class_o_s_k_1_1_i_o_1_1_i_display.html", [
+        [ "OSK::IO::Window", "class_o_s_k_1_1_i_o_1_1_window.html", null ]
+      ] ],
+      [ "OSK::IO::IUserInput", "class_o_s_k_1_1_i_o_1_1_i_user_input.html", [
+        [ "OSK::IO::PcUserInput", "class_o_s_k_1_1_i_o_1_1_pc_user_input.html", null ]
+      ] ]
     ] ],
     [ "OSK::GRAPHICS::IRaytracingPipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_raytracing_pipeline.html", [
       [ "OSK::GRAPHICS::RaytracingPipelineVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_raytracing_pipeline_vulkan.html", null ]
@@ -369,6 +389,7 @@ var hierarchy =
     [ "OSK::Pair< TSize, TSize >", "struct_o_s_k_1_1_pair.html", null ],
     [ "OSK::GRAPHICS::PipelineCreateInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html", null ],
     [ "OSK::GRAPHICS::PointLight", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_point_light.html", null ],
+    [ "OSK::IO::IFullscreenableDisplay::PreviousDisplayState", "struct_o_s_k_1_1_i_o_1_1_i_fullscreenable_display_1_1_previous_display_state.html", null ],
     [ "OSK::GRAPHICS::PushConst2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_push_const2_d.html", null ],
     [ "OSK::Quaternion", "class_o_s_k_1_1_quaternion.html", null ],
     [ "OSK::GRAPHICS::QueueFamilyIndices", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices.html", null ],
@@ -436,11 +457,10 @@ var hierarchy =
     [ "OSK::UniquePtr< OSK::GRAPHICS::MaterialSystem >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::RenderTarget >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::Sprite >", "class_o_s_k_1_1_unique_ptr.html", null ],
+    [ "OSK::UniquePtr< OSK::IO::IDisplay >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::IO::InputManager >", "class_o_s_k_1_1_unique_ptr.html", null ],
-    [ "OSK::UniquePtr< OSK::IO::KeyboardState >", "class_o_s_k_1_1_unique_ptr.html", null ],
+    [ "OSK::UniquePtr< OSK::IO::IUserInput >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::IO::Logger >", "class_o_s_k_1_1_unique_ptr.html", null ],
-    [ "OSK::UniquePtr< OSK::IO::MouseState >", "class_o_s_k_1_1_unique_ptr.html", null ],
-    [ "OSK::UniquePtr< OSK::IO::Window >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< T[]>", "class_o_s_k_1_1_unique_ptr_3_01_t_0f_0e_4.html", null ],
     [ "OSK::UniquePtr< VkDescriptorBufferInfo >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< VkDescriptorImageInfo >", "class_o_s_k_1_1_unique_ptr.html", null ],
@@ -461,6 +481,5 @@ var hierarchy =
     [ "OSK::GRAPHICS::Vertex3D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d.html", null ],
     [ "OSK::GRAPHICS::VertexAnim3D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html", null ],
     [ "OSK::GRAPHICS::VertexInfo", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html", null ],
-    [ "OSK::GRAPHICS::Viewport", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html", null ],
-    [ "OSK::IO::Window", "class_o_s_k_1_1_i_o_1_1_window.html", null ]
+    [ "OSK::GRAPHICS::Viewport", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html", null ]
 ];

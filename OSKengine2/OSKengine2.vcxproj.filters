@@ -472,6 +472,24 @@
     <Filter Include="Archivos de origen\OSKengine\RenderAPI\HighLevel\RenderTargets">
       <UniqueIdentifier>{d42d12b5-a203-403b-b62c-35dd5c3b5d30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\IO\Input">
+      <UniqueIdentifier>{f67e49d3-f1f3-4133-bea4-77f455b73d36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\IO\Input">
+      <UniqueIdentifier>{e6d289eb-82bf-4b61-a942-def6f57ba2cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\IO\Input\Components">
+      <UniqueIdentifier>{792c2c48-5016-48d6-ad25-6de6032fd765}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\IO\Input\Components">
+      <UniqueIdentifier>{5dac9e13-520a-4a59-a2ae-b952ca6b2c3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\IO\Display">
+      <UniqueIdentifier>{703e0e21-432b-41c3-ad47-ec66ca28e06a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\IO\Display">
+      <UniqueIdentifier>{90603647-467d-4313-98da-37018d949b3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -956,6 +974,24 @@
     </ClCompile>
     <ClCompile Include="GBuffer.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="IGamepadInput.cpp">
+      <Filter>Archivos de origen\OSKengine\IO\Input\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="IKeyboardInput.cpp">
+      <Filter>Archivos de origen\OSKengine\IO\Input\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="IMouseInput.cpp">
+      <Filter>Archivos de origen\OSKengine\IO\Input\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PcUserInput.cpp">
+      <Filter>Archivos de origen\OSKengine\IO\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="IDisplay.cpp">
+      <Filter>Archivos de origen\OSKengine\IO\Display</Filter>
+    </ClCompile>
+    <ClCompile Include="IFullscreenableDisplay.cpp">
+      <Filter>Archivos de origen\OSKengine\IO\Display</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1603,6 +1639,30 @@
     </ClInclude>
     <ClInclude Include="RenderTargetAttachment.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\RenderTargets</Filter>
+    </ClInclude>
+    <ClInclude Include="IGamepadInput.h">
+      <Filter>Archivos de encabezado\OSKengine\IO\Input\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="IKeyboardInput.h">
+      <Filter>Archivos de encabezado\OSKengine\IO\Input\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="IMouseInput.h">
+      <Filter>Archivos de encabezado\OSKengine\IO\Input\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="IUserInput.h">
+      <Filter>Archivos de encabezado\OSKengine\IO\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="PcUserInput.h">
+      <Filter>Archivos de encabezado\OSKengine\IO\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="IDisplay.h">
+      <Filter>Archivos de encabezado\OSKengine\IO\Display</Filter>
+    </ClInclude>
+    <ClInclude Include="IFullscreenableDisplay.h">
+      <Filter>Archivos de encabezado\OSKengine\IO\Display</Filter>
+    </ClInclude>
+    <ClInclude Include="IQueryInterface.h">
+      <Filter>Archivos de encabezado\OSKengine\Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

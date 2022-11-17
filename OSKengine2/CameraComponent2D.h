@@ -9,7 +9,7 @@
 #include <glm.hpp>
 
 namespace OSK::IO {
-	class Window;
+	class IDisplay;
 }
 
 namespace OSK::ECS {
@@ -27,14 +27,14 @@ namespace OSK::ECS {
 
 		CameraComponent2D();
 
-		/// <summary> Enlaza la cámara a una ventana, para que tenga el tamaño de la ventana. </summary>
+		/// @brief Enlaza la cámara a un display, para que tenga el tamaño del display.
 		/// 
-		/// @pre window no debe ser null.
-		/// @pre El puntero a la ventana debe ser ESTABLE.
-		void LinkToWindow(const IO::Window* window);
+		/// @pre display no debe ser null.
+		/// @pre El puntero al display debe ser ESTABLE.
+		void LinkToDisplay(const IO::IDisplay* display);
 
-		/// <summary> Quita el enlace a la ventana. </summary>
-		void UnlinkWindow();
+		/// <summary> Quita el enlace al display. </summary>
+		void UnlinkDsiplay();
 
 		/// <summary> Establece el tamaño del área a renderizar. </summary>
 		/// 
@@ -60,7 +60,7 @@ namespace OSK::ECS {
 
 	private:
 
-		const IO::Window* window = nullptr;
+		const IO::IDisplay* display = nullptr;
 
 		glm::mat4 projection;
 

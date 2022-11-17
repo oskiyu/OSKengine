@@ -16,6 +16,7 @@ namespace OSK::ASSETS {
 	/// <summary>
 	/// Un asset es un archivo/contenido que se usa en un juego. Incluye
 	/// contenido como texturas, modelos 3D, efectos de sonido, música, etc...
+	/// </summary>
 	/// 
 	/// @note Un asset estará reperesentado por un archivo '.json'.
 	/// 
@@ -23,31 +24,26 @@ namespace OSK::ASSETS {
 	/// lifetimes idénticos. Una vez que se termine el ciclo de vida, todos los
 	/// assets con ese lifetime se eliminan.
 	/// 
-	/// @note Se pueden crear assets específicos para cada juego. 
+	/// @note Se pueden definir assets específicos para cada juego. 
 	/// 
 	/// @warning La clase asset debe tener definido el tipo de asset (un string identificador de tipo único) usando el
 	/// macro OSK_ASSET_TYPE_REG.
-	/// </summary>
 	class OSKAPI_CALL IAsset {
 
 	public:
 
 		virtual ~IAsset() = default;
 
-		/// <summary>
-		/// Establece el nombre de la instancia de este asset.
+		/// <summary> Establece el nombre de la instancia de este asset. </summary>
 		/// 
 		/// @warning Es un identificador único.
-		/// </summary>
 		void SetName(const std::string& name);
 
-		/// <summary>
-		/// Nombre de la instancia del asset.
-		/// </summary>
+		/// <summary> Nombre de la instancia del asset. </summary>
 		std::string GetName() const;
 
 		/// <summary>
-		/// Obtiene la ruta del archivo '.json' que
+		/// Obtiene la ruta del archivo JSON que
 		/// describe esta instancia del asset.
 		/// </summary>
 		std::string GetAssetFilename() const;
@@ -59,6 +55,7 @@ namespace OSK::ASSETS {
 	private:
 
 		std::string name;
+		/// <summary> Ruta del archivo JSON. </summary>
 		std::string assetFileName;
 
 	};

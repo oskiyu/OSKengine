@@ -18,17 +18,17 @@ CameraComponent2D::CameraComponent2D() {
 	uniformBuffer = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4)).GetPointer();
 }
 
-void CameraComponent2D::LinkToWindow(const Window* window) {
-	this->window = window;
+void CameraComponent2D::LinkToDisplay(const IO::IDisplay* display) {
+	this->display = display;
 }
 
-void CameraComponent2D::UnlinkWindow() {
-	LinkToWindow(nullptr);
+void CameraComponent2D::UnlinkDsiplay() {
+	LinkToDisplay(nullptr);
 }
 
 glm::mat4 CameraComponent2D::GetProjection(const Transform2D& cameraTransform) const {
-	return window
-		? glm::ortho<float>(cameraTransform.GetPosition().X, (float)window->GetWindowSize().X, (float)window->GetWindowSize().Y, cameraTransform.GetPosition().Y, -1.0f, 1.0f)
+	return display
+		? glm::ortho<float>(cameraTransform.GetPosition().X, (float)display->GetResolution().X, (float)display->GetResolution().Y, cameraTransform.GetPosition().Y, -1.0f, 1.0f)
 		: glm::ortho<float>(cameraTransform.GetPosition().X, targetSize.X, cameraTransform.GetPosition().Y, targetSize.Y, -1.0f, 1.0f);
 }
 
@@ -48,8 +48,8 @@ void CameraComponent2D::SetTargetSize(const Vector2f& size) {
 
 Vector2f CameraComponent2D::PointInWindowToPointInWorld(const Vector2f& point) const {
 	Vector2 relative = Vector2(0);
-	relative.X = point.X / Engine::GetWindow()->GetWindowSize().X;
-	relative.Y = point.Y / Engine::GetWindow()->GetWindowSize().Y;
+	relative.X = point.X / Engine::GetDisplay()->GetResolution().X;
+	relative.Y = point.Y / Engine::GetDisplay()->GetResolution().Y;
 
 	return relative * targetSize;
 }

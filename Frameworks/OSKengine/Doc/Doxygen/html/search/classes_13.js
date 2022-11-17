@@ -43,13 +43,12 @@ var searchData=
   ['uniqueptr_3c_20osk_3a_3agraphics_3a_3amaterialsystem_20_3e_40',['UniquePtr&lt; OSK::GRAPHICS::MaterialSystem &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
   ['uniqueptr_3c_20osk_3a_3agraphics_3a_3arendertarget_20_3e_41',['UniquePtr&lt; OSK::GRAPHICS::RenderTarget &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
   ['uniqueptr_3c_20osk_3a_3agraphics_3a_3asprite_20_3e_42',['UniquePtr&lt; OSK::GRAPHICS::Sprite &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
-  ['uniqueptr_3c_20osk_3a_3aio_3a_3ainputmanager_20_3e_43',['UniquePtr&lt; OSK::IO::InputManager &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
-  ['uniqueptr_3c_20osk_3a_3aio_3a_3akeyboardstate_20_3e_44',['UniquePtr&lt; OSK::IO::KeyboardState &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
-  ['uniqueptr_3c_20osk_3a_3aio_3a_3alogger_20_3e_45',['UniquePtr&lt; OSK::IO::Logger &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
-  ['uniqueptr_3c_20osk_3a_3aio_3a_3amousestate_20_3e_46',['UniquePtr&lt; OSK::IO::MouseState &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
-  ['uniqueptr_3c_20osk_3a_3aio_3a_3awindow_20_3e_47',['UniquePtr&lt; OSK::IO::Window &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
-  ['uniqueptr_3c_20t_5b_5d_3e_48',['UniquePtr&lt; T[]&gt;',['../class_o_s_k_1_1_unique_ptr_3_01_t_0f_0e_4.html',1,'OSK']]],
-  ['uniqueptr_3c_20vkdescriptorbufferinfo_20_3e_49',['UniquePtr&lt; VkDescriptorBufferInfo &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
-  ['uniqueptr_3c_20vkdescriptorimageinfo_20_3e_50',['UniquePtr&lt; VkDescriptorImageInfo &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
-  ['uniqueptr_3c_20vkwritedescriptorsetaccelerationstructurekhr_20_3e_51',['UniquePtr&lt; VkWriteDescriptorSetAccelerationStructureKHR &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]]
+  ['uniqueptr_3c_20osk_3a_3aio_3a_3aidisplay_20_3e_43',['UniquePtr&lt; OSK::IO::IDisplay &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
+  ['uniqueptr_3c_20osk_3a_3aio_3a_3ainputmanager_20_3e_44',['UniquePtr&lt; OSK::IO::InputManager &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
+  ['uniqueptr_3c_20osk_3a_3aio_3a_3aiuserinput_20_3e_45',['UniquePtr&lt; OSK::IO::IUserInput &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
+  ['uniqueptr_3c_20osk_3a_3aio_3a_3alogger_20_3e_46',['UniquePtr&lt; OSK::IO::Logger &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
+  ['uniqueptr_3c_20t_5b_5d_3e_47',['UniquePtr&lt; T[]&gt;',['../class_o_s_k_1_1_unique_ptr_3_01_t_0f_0e_4.html',1,'OSK']]],
+  ['uniqueptr_3c_20vkdescriptorbufferinfo_20_3e_48',['UniquePtr&lt; VkDescriptorBufferInfo &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
+  ['uniqueptr_3c_20vkdescriptorimageinfo_20_3e_49',['UniquePtr&lt; VkDescriptorImageInfo &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
+  ['uniqueptr_3c_20vkwritedescriptorsetaccelerationstructurekhr_20_3e_50',['UniquePtr&lt; VkWriteDescriptorSetAccelerationStructureKHR &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]]
 ];

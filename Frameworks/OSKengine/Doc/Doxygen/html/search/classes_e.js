@@ -36,9 +36,11 @@ var searchData=
   ['pair_3c_20tsize_2c_20osk_3a_3aassets_3a_3afontinstance_20_3e_33',['Pair&lt; TSize, OSK::ASSETS::FontInstance &gt;',['../struct_o_s_k_1_1_pair.html',1,'OSK']]],
   ['pair_3c_20tsize_2c_20tsize_20_3e_34',['Pair&lt; TSize, TSize &gt;',['../struct_o_s_k_1_1_pair.html',1,'OSK']]],
   ['pbrdeferredrendersystem_35',['PbrDeferredRenderSystem',['../class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html',1,'OSK::ECS']]],
-  ['pipelinecreateinfo_36',['PipelineCreateInfo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html',1,'OSK::GRAPHICS']]],
-  ['pipelinelayoutdx12_37',['PipelineLayoutDx12',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12.html',1,'OSK::GRAPHICS']]],
-  ['pipelinelayoutvulkan_38',['PipelineLayoutVulkan',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan.html',1,'OSK::GRAPHICS']]],
-  ['pointlight_39',['PointLight',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_point_light.html',1,'OSK::GRAPHICS']]],
-  ['pushconst2d_40',['PushConst2D',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_push_const2_d.html',1,'OSK::GRAPHICS']]]
+  ['pcuserinput_36',['PcUserInput',['../class_o_s_k_1_1_i_o_1_1_pc_user_input.html',1,'OSK::IO']]],
+  ['pipelinecreateinfo_37',['PipelineCreateInfo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html',1,'OSK::GRAPHICS']]],
+  ['pipelinelayoutdx12_38',['PipelineLayoutDx12',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12.html',1,'OSK::GRAPHICS']]],
+  ['pipelinelayoutvulkan_39',['PipelineLayoutVulkan',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan.html',1,'OSK::GRAPHICS']]],
+  ['pointlight_40',['PointLight',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_point_light.html',1,'OSK::GRAPHICS']]],
+  ['previousdisplaystate_41',['PreviousDisplayState',['../struct_o_s_k_1_1_i_o_1_1_i_fullscreenable_display_1_1_previous_display_state.html',1,'OSK::IO::IFullscreenableDisplay']]],
+  ['pushconst2d_42',['PushConst2D',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_push_const2_d.html',1,'OSK::GRAPHICS']]]
 ];

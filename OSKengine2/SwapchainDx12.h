@@ -10,7 +10,7 @@
 using namespace Microsoft::WRL;
 
 namespace OSK::IO {
-	class Window;
+	class IDisplay;
 }
 
 namespace OSK::GRAPHICS {
@@ -39,10 +39,10 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// <param name="commandQueue">Al cambiar de imagen, el swapchain
 		/// de DirectX 12 fuerza un flush de la cola de comandos.</param>
-		void Create(PresentMode mode, IGpu* device, Format format, const CommandQueueDx12& commandQueue, IDXGIFactory4* factory, const IO::Window& window);
+		void Create(PresentMode mode, IGpu* device, Format format, const CommandQueueDx12& commandQueue, IDXGIFactory4* factory, const IO::IDisplay& display);
 		
 		void DeleteImages();
-		void CreateImages(const IO::Window& window);
+		void CreateImages(const IO::IDisplay& display);
 
 		void Present() override;
 

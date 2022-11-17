@@ -27,7 +27,7 @@ void OSK::RuntimeAssertIsTrueFunction(bool condition, const std::string& msg, co
 		MessageBox(NULL, widestring.c_str(), NULL, MB_OK | MB_ICONERROR);
 #endif // _WIN64
 
-		Engine::GetWindow()->Close();
+		Engine::GetDisplay()->Close();
 
 		throw std::runtime_error(message);
 	}

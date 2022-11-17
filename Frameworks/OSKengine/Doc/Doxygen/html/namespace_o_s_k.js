@@ -17,6 +17,7 @@ var namespace_o_s_k =
     [ "Engine", "class_o_s_k_1_1_engine.html", "class_o_s_k_1_1_engine" ],
     [ "HashMap", "class_o_s_k_1_1_hash_map.html", "class_o_s_k_1_1_hash_map" ],
     [ "IGame", "class_o_s_k_1_1_i_game.html", "class_o_s_k_1_1_i_game" ],
+    [ "IQueryInterface", "class_o_s_k_1_1_i_query_interface.html", "class_o_s_k_1_1_i_query_interface" ],
     [ "LinkedList", "class_o_s_k_1_1_linked_list.html", "class_o_s_k_1_1_linked_list" ],
     [ "OwnedPtr", "class_o_s_k_1_1_owned_ptr.html", "class_o_s_k_1_1_owned_ptr" ],
     [ "Pair", "struct_o_s_k_1_1_pair.html", "struct_o_s_k_1_1_pair" ],
@@ -49,6 +50,12 @@ var namespace_o_s_k =
     [ "GrowthFactorType", "namespace_o_s_k.html#abaa28774128d414c059ee31f2759d274", [
       [ "EXPONENTIAL", "namespace_o_s_k.html#abaa28774128d414c059ee31f2759d274adcd5fc33e211f31cef0cd7cb36518d31", null ],
       [ "LINEAL", "namespace_o_s_k.html#abaa28774128d414c059ee31f2759d274a9b9ff7f1774e06092c715225f3c8a59e", null ]
+    ] ],
+    [ "IUUID", "namespace_o_s_k.html#a0287ef455fdcae91ac6c147bf0d4b7b5", [
+      [ "IGamepadInput", "namespace_o_s_k.html#a0287ef455fdcae91ac6c147bf0d4b7b5afb2484f39d9382ef3653d83720e30ca3", null ],
+      [ "IKeyboardInput", "namespace_o_s_k.html#a0287ef455fdcae91ac6c147bf0d4b7b5afa1b6f895a7dcf321fcbbc85207eee58", null ],
+      [ "IMouseInput", "namespace_o_s_k.html#a0287ef455fdcae91ac6c147bf0d4b7b5a3b1efa14e99a4a5e24d8b1e386aa7994", null ],
+      [ "IFullscreenableDisplay", "namespace_o_s_k.html#a0287ef455fdcae91ac6c147bf0d4b7b5aecda737c019bd2db19e2493667819307", null ]
     ] ],
     [ "Hash", "namespace_o_s_k.html#a04b5e685357657e277fd7bc30efd93ba", null ],
     [ "RuntimeAssertIsFalseFunction", "namespace_o_s_k.html#a3163432a64cd59a24c27a5f35cd9fe3e", null ],

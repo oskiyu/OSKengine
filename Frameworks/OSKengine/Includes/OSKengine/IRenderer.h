@@ -23,6 +23,7 @@
 #include "Transform2D.h"
 
 #include <string>
+#include <functional>
 
 namespace OSK {
 	struct Version;
@@ -40,6 +41,7 @@ namespace OSK::GRAPHICS {
 	class IRaytracingPipeline;
 	class GpuImage;
 	class VertexInfo;
+	class IPostProcessPass;
 
 	enum class RenderApiType;
 	enum class GpuImageLayout;
@@ -54,29 +56,23 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		/// <summary>
-		/// Destruye el renderizador.
-		/// </summary>
+		OSK_DEFINE_AS(IRenderer);
+
 		virtual ~IRenderer() = default;
 
-		/// <summary>
-		/// Inicializa todo el sistema de renderizado.
-		/// </summary>
+		/// <summary> Inicializa todo el sistema de renderizado. </summary>
+		/// 
 		/// <param name="appName">Nombre de la aplicación / juego.</param>
 		/// <param name="version">Versión de la aplicación / juego.</param>
 		/// <param name="window">Ventana enlazada.</param>
 		virtual void Initialize(const std::string& appName, const Version& version, const IO::Window& window, PresentMode mode) = 0;
 
-		/// <summary>
-		/// Cierra el renderizador.
-		/// También se llama en el destructor.
-		/// </summary>
+		/// <summary> Cierra el renderizador. </summary>
+		/// 
+		/// @note También se llama en el destructor.
 		virtual void Close() = 0;
 
-		/// <summary>
-		/// Reconfigura el swapchain al haberse cambiado de tamaño
-		/// la ventana.
-		/// </summary>
+		/// <summary> Reconfigura el swapchain al cambiar de tamaño la ventana. </summary>
 		virtual void HandleResize();
 
 		/// <summary>
@@ -85,105 +81,53 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		virtual void PresentFrame() = 0;
 
-		ICommandList* GetCommandList() const;
-		IGpuMemoryAllocator* GetMemoryAllocator() const;
+#pragma region Getters
+
+		ICommandList* GetPreComputeCommandList() const;
+		ICommandList* GetGraphicsCommandList() const;
+		ICommandList* GetPostComputeCommandList() const;
+		ICommandList* GetFrameBuildCommandList() const;
+
+		inline ICommandQueue* GetGraphicsCommandQueue() const { return graphicsQueue.GetPointer(); }
+		inline ICommandQueue* GetComputeCommandQueue() const { return computeQueue.GetPointer(); }
+		inline ICommandQueue* GetPresentCommandQueue() const { return presentQueue.GetPointer(); }
+
+		/// <summary> Devuelve un puntero al asignador de memoria de la GPU. </summary>
+		/// 
+		/// @pre Se ha llamado a IRenderer::Initialize.
+		/// @note Es un puntero estable.
+		/// @warning Será nulo si no se ha llamado a IRenderer::Initialize.
+		IGpuMemoryAllocator* GetAllocator() const;
+
+		/// <summary> Devuelve un puntero al objeto Gpu. </summary>
+		/// 
+		/// @pre Se ha llamado a IRenderer::Initialize.
+		/// @note Es un puntero estable.
+		/// @warning Será nulo si no se ha llamado a IRenderer::Initialize.
 		IGpu* GetGpu() const;
 
-		/// <summary>
-		/// Crea una lista de comandos para un único uso.
-		/// Útil para enviar datos a la GPU, por ejemplo.
-		/// </summary>
-		OwnedPtr<ICommandList> CreateSingleUseCommandList();
-
-		/// <summary>
-		/// Ejecuta el contenido de la lista de comandos.
-		/// </summary>
-		virtual void SubmitSingleUseCommandList(ICommandList* commandList) = 0;
-
-		/// <summary>
-		/// Rellena la imagen en la GPU con los datos dados.
-		/// </summary>
+		/// <summary> Devuelve un puntero al sistema de materiales. </summary>
 		/// 
-		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
-		void UploadLayeredImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout, TSize numLayers);
-
-		/// <summary>
-		/// Rellena la imagen en la GPU con los datos dados.
-		/// </summary>
-		/// 
-		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
-		void UploadImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout);
-
-		/// <summary>
-		/// Rellena la imagen en la GPU con los datos dados.
-		/// </summary>
-		/// 
-		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
-		void UploadCubemapImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, GpuImageLayout finalLayout);
-
-		/// <summary>
-		/// Castea el renderizador al tipo dado.
-		/// Este tipo debe ser una implementación de esta interfaz.
-		/// </summary>
-		template <typename T> T* As() requires std::is_base_of_v<IRenderer, T> {
-			return (T*)this;
-		}
-
-		/// <summary>
-		/// Crea un graphics pipeline.
-		/// </summary>
-		/// <param name="pipelineInfo">Configuración del pipeline.</param>
-		/// <param name="layout">Layout del material del pipeline.</param>
-		/// <param name="format">Formato de la imagen a la que se renderizará.</param>
-		virtual OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, Format format, const VertexInfo& vertexTypeName) = 0;
-		/// <summary>
-		/// Crea un graphics pipeline.
-		/// </summary>
-		/// <param name="pipelineInfo">Configuración del pipeline.</param>
-		/// <param name="layout">Layout del material del pipeline.</param>
-		virtual OwnedPtr<IRaytracingPipeline> _CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout* layout, const VertexInfo& vertexTypeName) = 0;
-
-		/// <summary>
-		/// Devuelve el sistema de materiales.
-		/// Necesario mara manejar materiales y crear instancias de materiales.
-		/// </summary>
+		/// @pre Se ha llamado a IRenderer::Initialize.
+		/// @note Es un puntero estable.
+		/// @warning Será nulo si no se ha llamado a IRenderer::Initialize.
 		MaterialSystem* GetMaterialSystem() const;
 
-		/// <summary>
-		/// Crea un slot del layout del material dado.
-		/// </summary>
-		virtual OwnedPtr<IMaterialSlot> _CreateMaterialSlot(const std::string& name, const MaterialLayout* layout) const = 0;
+		/// <summary> Devuelve el swapchain de la aplicación. </summary>
+		/// 
+		/// @pre Se ha llamado a IRenderer::Initialize.
+		/// @note Es un puntero estable.
+		/// @warning Será nulo si no se ha llamado a IRenderer::Initialize.
+		/// @warning Función interna, no usar.
+		ISwapchain* _GetSwapchain() const;
 
-		/// <summary>
-		/// Devuelve el API de renderizado de bajo nivel del renderizador actual.
-		/// (DX12/VULKAN/OPENGL).
-		/// </summary>
-		RenderApiType GetRenderApi() const;
 
-		/// <summary>
-		/// Devuelve el número de imágenes del swapchain.
-		/// Para recursos que necesiten tener una copia por imagen del swapchain.
-		/// </summary>
-		TSize GetSwapchainImagesCount() const;
-
-		/// <summary>
-		/// Devuelve true si el renderizador está inicializado y funcionando.
-		/// </summary>
-		bool IsOpen() const;
-		
-		/// <summary>
-		/// True si el renderizador soporta trazado de rayos.
-		/// Depende de la GPU usada.
-		/// </summary>
-		virtual bool SupportsRaytracing() const = 0;
-
-		/// <summary>
-		/// Devuelve el render target que renderiza sobre la imagen final del swapchain.
-		/// </summary>
+		/// <summary> Devuelve el render target que renderiza sobre la imagen final del swapchain. </summary>
+		/// 
+		/// @pre Se ha llamado a IRenderer::Initialize.
+		/// @note Es un puntero estable.
+		/// @warning Será nulo si no se ha llamado a IRenderer::Initialize.
 		RenderTarget* GetFinalRenderTarget() const;
-
-		virtual TSize GetCurrentFrameIndex() const = 0;
-		virtual TSize GetCurrentCommandListIndex() const = 0;
 
 		/// <summary>
 		/// Devuelve una cámara 2D que renderiza en la resolución
@@ -192,21 +136,86 @@ namespace OSK::GRAPHICS {
 		/// Para poder renderizar con facilidad los diferentes render targets
 		/// en los sistemas de renderizado y en IGame::BuildFrame.
 		/// </summary>
+		/// 
+		/// @pre Se ha llamado a IRenderer::Initialize.
 		const ECS::CameraComponent2D& GetRenderTargetsCamera() const;
 
-		/// <summary>
-		/// Devuelve el swapchain de la aplicación.
-		/// </summary>
-		/// 
-		/// @warning Función interna, no usar.
-		ISwapchain* _GetSwapchain() const;
+
+		/// <summary> Devuelve true si el renderizador está inicializado y funcionando. </summary>
+		bool IsOpen() const;
 
 		/// <summary>
-		/// True si el cambio de tamaño de la ventana se maneja implícitamente
-		/// en el renderizador.
+		/// True si el renderizador soporta trazado de rayos.
+		/// Depende de la GPU usada.
 		/// </summary>
-		bool _HasImplicitResizeHandling() const;
-		
+		virtual bool SupportsRaytracing() const = 0;
+
+
+		/// <summary>
+		/// Devuelve el número de imágenes del swapchain.
+		/// Para recursos que necesiten tener una copia por imagen del swapchain.
+		/// </summary>
+		TSize GetSwapchainImagesCount() const;
+
+		/// <summary> Devuelve el índidce del próximo fotograma que será presentado. </summary>
+		virtual TSize GetCurrentFrameIndex() const = 0;
+
+		/// <summary> Devuelve el índidce de la lista de comandos que será usada en el prximo fotograma. </summary>
+		virtual TSize GetCurrentCommandListIndex() const = 0;
+
+		/// <summary> Devuelve el índidce de los recursos procesados en el fotograma actual. </summary>
+		TIndex GetCurrentResourceIndex() const;
+
+
+		/// <summary>
+		/// Devuelve el API de renderizado de bajo nivel del renderizador actual.
+		/// (DX12/VULKAN/OPENGL).
+		/// </summary>
+		RenderApiType GetRenderApi() const;
+
+#pragma endregion
+
+
+#pragma region Image upload
+
+		/// <summary> Rellena la imagen en la GPU con los datos dados. </summary>
+		/// 
+		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
+		/// @pre La imagen de destino debe tener el layout GpuImageLayout::TRANSFER_DESTINATION.
+		void UploadLayeredImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, TSize numLayers, ICommandList* cmdList);
+
+		/// <summary> Rellena la imagen en la GPU con los datos dados. </summary>
+		/// 
+		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
+		/// @pre La imagen de destino debe tener el layout GpuImageLayout::TRANSFER_DESTINATION.
+		void UploadImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, ICommandList* cmdList);
+
+		/// <summary>
+		/// Rellena la imagen en la GPU con los datos dados.
+		/// </summary>
+		/// 
+		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
+		/// @pre La imagen de destino debe tener el layout GpuImageLayout::TRANSFER_DESTINATION.
+		void UploadCubemapImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, ICommandList* cmdList);
+
+#pragma endregion
+
+#pragma region Factory methods
+
+		virtual OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexTypeName) = 0;
+		virtual OwnedPtr<IRaytracingPipeline> _CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexTypeName) = 0;
+		virtual OwnedPtr<IComputePipeline> _CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) = 0;
+
+		virtual OwnedPtr<IMaterialSlot> _CreateMaterialSlot(const std::string& name, const MaterialLayout& layout) const = 0;
+
+		/// <summary> Crea una lista de comandos para un único uso. </summary>
+		OwnedPtr<ICommandList> CreateSingleUseCommandList();
+		/// <summary> Ejecuta el contenido de la lista de comandos. </summary>
+		virtual void SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) = 0;
+
+#pragma endregion
+
+
 		/// <summary>
 		/// Registra un render target que debe cambiar de tamaño cuando la ventana
 		/// cambie de tamaño.
@@ -223,9 +232,46 @@ namespace OSK::GRAPHICS {
 		/// @note Si el render target no estaba registrado, no ocurrirá nada.
 		void UnregisterRenderTarget(RenderTarget* renderTarget);
 
+
+		/// <summary>
+		/// Registra un efecto de postprocesamiento que debe cambiar de tamaño cuando la ventana
+		/// cambie de tamaño.
+		/// </summary>
+		/// 
+		/// @note El render target debe tener estabilidad de puntero.
+		void RegisterPostProcessingPass(IPostProcessPass* renderTarget);
+
+		/// <summary>
+		/// Quita un efecto de postprocesamiento de la lista de efectos de postprocesamiento que deben cambiar
+		/// de tamaño cuando la ventana cambie de tamaño.
+		/// </summary>
+		/// 
+		/// @note Si el efecto de postprocesamiento no estaba registrado, no ocurrirá nada.
+		void UnregisterPostProcessingPass(IPostProcessPass* renderTarget);
+
+
+		/// <summary>
+		/// True si la funcionalidad de raytracing está activa.
+		/// </summary>
+		bool IsRtActive() const;
+
+		/// <summary>
+		/// Añade una función que se ejecutará cuando cambie de tamaño la ventana.
+		/// </summary>
+		void AddResizeCallback(std::function<void(const Vector2ui&)> callback);
+
+		/// <summary>
+		/// True si el cambio de tamaño de la ventana se maneja implícitamente
+		/// en el renderizador.
+		/// </summary>
+		bool _HasImplicitResizeHandling() const;
+
+
+		Material* GetFullscreenRenderingMaterial() const;
+
 	protected:
 
-		IRenderer(RenderApiType renderApiType);
+		IRenderer(RenderApiType renderApiType, bool requestRayTracing);
 
 		/// <summary>
 		/// Debido a razones de alineamiento, es posible que se tengan que desplazar partes de la imagen
@@ -251,13 +297,19 @@ namespace OSK::GRAPHICS {
 		UniquePtr<IGpu> currentGpu;
 
 		UniquePtr<ICommandQueue> graphicsQueue;
+		UniquePtr<ICommandQueue> computeQueue;
 		UniquePtr<ICommandQueue> presentQueue;
 
 		UniquePtr<ISwapchain> swapchain;
 		UniquePtr<ISyncDevice> syncDevice;
 
-		UniquePtr<ICommandPool> commandPool;
-		UniquePtr<ICommandList> commandList;
+		UniquePtr<ICommandPool> graphicsCommandPool;
+		UniquePtr<ICommandList> graphicsCommandList;
+		UniquePtr<ICommandList> frameBuildCommandList;
+
+		UniquePtr<ICommandPool> computeCommandPool;
+		UniquePtr<ICommandList> preComputeCommandList;
+		UniquePtr<ICommandList> postComputeCommandList;
 
 		UniquePtr<IGpuMemoryAllocator> gpuMemoryAllocator;
 
@@ -267,6 +319,8 @@ namespace OSK::GRAPHICS {
 		UniquePtr<MaterialSystem> materialSystem;
 
 		DynamicArray<UniquePtr<ICommandList>> singleTimeCommandLists;
+
+		LinkedList<std::function<void(const Vector2ui&)>> resizeCallbacks;
 
 		bool isFirstRender = true;
 
@@ -284,11 +338,19 @@ namespace OSK::GRAPHICS {
 		/// cambie de tamaño.
 		/// </summary>
 		DynamicArray<RenderTarget*> resizableRenderTargets;
+		DynamicArray<IPostProcessPass*> resizablePostProcessingPasses;
+
+		bool isRtActive = false;
+
+		bool IsRtRequested() const;
+
+		// True si se usa la misma queue para enviar comandos gráficos y de computación.
+		bool singleCommandQueue = false;
 
 	private:
 
 		RenderApiType renderApiType;
-
+		bool isRtRequested = false;
 
 	};
 

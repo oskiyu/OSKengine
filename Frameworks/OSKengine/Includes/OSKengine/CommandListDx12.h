@@ -36,13 +36,12 @@ namespace OSK::GRAPHICS {
 		void Start() override;
 		void Close() override;
 
-		void BeginGraphicsRenderpass(RenderTarget* renderTarget) override;
-		void BeginAndClearGraphicsRenderpass(RenderTarget* renderTarget, const Color& color) override;
-		void EndGraphicsRenderpass(RenderTarget* renderTarget) override;
+		void BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color);
+		void EndGraphicsRenderpass() override;
 
-		void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers, TSize baseMipLevel, TSize numMipLevels) override;
+		void SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageBarrierInfo& prevImageInfo) override;
 
-		void BindMaterial(const Material* material) override;
+		void BindMaterial(Material* material) override;
 		void BindVertexBuffer(const IGpuVertexBuffer* buffer) override;
 		void BindIndexBuffer(const IGpuIndexBuffer* buffer) override;
 		void BindMaterialSlot(const IMaterialSlot* slot) override;
@@ -52,11 +51,13 @@ namespace OSK::GRAPHICS {
 		void DrawSingleMesh(TSize firstIndex, TSize numIndices) override;
 		void TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) override;
 
+		void DispatchCompute(const Vector3ui& groupCount) override;
+		void BindComputePipeline(const IComputePipeline& computePipeline) override;
+
 		void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer, TSize offset) override;
 		void CopyImageToImage(const GpuImage* source, GpuImage* destination, TSize numLayers, TSize srcStartLayer, TSize dstStartLayer, TSize srcMipLevel, TSize dstMipLevel, Vector2ui copySize) override;
 
 		void BindUniformBufferDx12(TSize index, const GpuUniformBufferDx12* buffer);
-		void BindImageDx12(TSize index, const GpuImageDx12* image);
 
 		/// <summary>
 		/// En ocasiones será necesario cambiar el estado de un recurso para hacer
@@ -69,6 +70,8 @@ namespace OSK::GRAPHICS {
 
 		void SetViewport(const Viewport& viewport) override;
 		void SetScissor(const Vector4ui& scissor) override;
+
+		void SetDebugName(const std::string& name) override;
 
 	private:
 

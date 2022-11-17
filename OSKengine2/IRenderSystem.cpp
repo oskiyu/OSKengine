@@ -18,7 +18,7 @@ void IRenderSystem::OnCreate() {
 	// Si el renderizador está activo, se crean las imágenes.
 	// Si no, se crearán cuando el renderizador se inicialice.
 	if (Engine::GetRenderer()->IsOpen())
-		CreateTargetImage(Engine::GetWindow()->GetWindowSize());
+		CreateTargetImage(Engine::GetDisplay()->GetResolution());
 
 	ISystem::OnCreate();
 }

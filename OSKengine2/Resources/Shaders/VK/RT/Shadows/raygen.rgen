@@ -11,7 +11,6 @@ layout (set = 1, binding = 3) uniform sampler2D noiseImage;
 
 struct RayResult {
     bool isInShadows;
-    float distance;
 };
 
 layout (location = 0) rayPayloadEXT RayResult rayResult;
@@ -129,7 +128,7 @@ void main() {
 
     const vec3 currentDir = normalize(direction + diskPoint.x * lightTangent + diskPoint.y * lightBitangent);
 
-    traceRayEXT(topLevelAccelerationStructure, rayFlags, cullMask, 0, 0, 0, origin, minDistance, currentDir, maxDistance, 0);
+    traceRayEXT(topLevelAccelerationStructure, rayFlags, cullMask, 0, 0, 0, origin, minDistance, direction, maxDistance, 0);
     
     const float shadow = float(!rayResult.isInShadows);
     imageStore(shadowsImage, ivec2(pixelCoords), vec4(shadow, 0, 0, 1));

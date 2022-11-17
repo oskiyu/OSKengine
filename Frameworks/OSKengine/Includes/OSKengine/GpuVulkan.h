@@ -68,6 +68,7 @@ namespace OSK::GRAPHICS {
 			VkPhysicalDeviceAccelerationStructureFeaturesKHR rtAccelerationStructuresFeatures{};
 			VkPhysicalDeviceAccelerationStructurePropertiesKHR rtAccelerationStructuresProperites{};
 			VkPhysicalDeviceBufferDeviceAddressFeatures rtDeviceAddressFeatures{};
+			VkPhysicalDeviceDescriptorIndexingFeatures bindlessTexturesSets{};
 
 			VkPhysicalDeviceDynamicRenderingFeatures dynamicRenderingFeatures{};
 
@@ -93,6 +94,8 @@ namespace OSK::GRAPHICS {
 			/// </summary>
 			static Info Get(VkPhysicalDevice gpu, VkSurfaceKHR surface);
 
+			VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
+
 		};
 
 		~GpuVulkan();
@@ -102,7 +105,9 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		void Close() override;
 
-		OwnedPtr<ICommandPool> CreateCommandPool() override;
+		OwnedPtr<ICommandPool> CreateGraphicsCommandPool() override;
+		OwnedPtr<ICommandPool> CreateComputeCommandPool() override;
+
 		OwnedPtr<ISyncDevice> CreateSyncDevice() override;
 
 		void SetPhysicalDevice(VkPhysicalDevice gpu);
@@ -125,6 +130,9 @@ namespace OSK::GRAPHICS {
 		QueueFamilyIndices GetQueueFamilyIndices(VkSurfaceKHR surface) const;
 
 	private:
+
+		static bool IsExtensionPresent(const char* name, const DynamicArray<VkExtensionProperties>& extensions);
+		static DynamicArray<VkExtensionProperties> GetAvailableExtensions(VkPhysicalDevice gpu);
 
 		VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
 		VkDevice logicalDevice = VK_NULL_HANDLE;

@@ -38,8 +38,8 @@ SwapchainVulkan::~SwapchainVulkan() {
 		i->As<GpuImageVulkan>()->_SetVkImage(VK_NULL_HANDLE);
 }
 
-void SwapchainVulkan::Create(PresentMode mode, Format format, const GpuVulkan& device, const IO::Window& window) {
-	this->window = &window;
+void SwapchainVulkan::Create(PresentMode mode, Format format, const GpuVulkan& device, const IO::IDisplay& display) {
+	this->display = &display;
 	this->device = &device;
 	this->colorFormat = format;
 
@@ -57,8 +57,8 @@ void SwapchainVulkan::Create(PresentMode mode, Format format, const GpuVulkan& d
 
 	//tamaño.
 	VkExtent2D extent{};
-	extent.width = window.GetWindowSize().X;
-	extent.height = window.GetWindowSize().Y;
+	extent.width = display.GetResolution().X;
+	extent.height = display.GetResolution().Y;
 
 	//Número de imágenes en el swapchain.
 	imageCount = info.swapchainSupportDetails.surfaceCapabilities.minImageCount + 1;
@@ -170,7 +170,7 @@ void SwapchainVulkan::Resize() {
 	vkDestroySwapchainKHR(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
 		swapchain, nullptr);
 
-	Create(mode, colorFormat, *device, *window);
+	Create(mode, colorFormat, *device, *display);
 }
 
 VkColorSpaceKHR SwapchainVulkan::GetSupportedColorSpace(const GpuVulkan& device) {

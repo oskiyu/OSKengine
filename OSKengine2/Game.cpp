@@ -79,7 +79,7 @@ void IGame::Run() {
 	OSK::GRAPHICS::Sprite::globalVertexBuffer = OSK::Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(vertices2d, OSK::GRAPHICS::Vertex2D::GetVertexInfo()).GetPointer();
 	OSK::GRAPHICS::Sprite::globalIndexBuffer = OSK::Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices2d).GetPointer();
 
-	OSK_ASSERT(Engine::GetWindow()->IsOpen(), "No se ha creado correctamente la ventana en CreateWindow().");
+	OSK_ASSERT(Engine::GetDisplay()->IsOpen(), "No se ha creado correctamente la ventana en CreateWindow().");
 	OSK_ASSERT(Engine::GetRenderer()->IsOpen(), "No se ha inicializado correctamente el renderizador en SetupEngine().");
 
 	RegisterAssets();
@@ -91,12 +91,13 @@ void IGame::Run() {
 	OnCreate();
 
 	Engine::GetRenderer()->PresentFrame();
-	while (!Engine::GetWindow()->ShouldClose()) {
+	while (Engine::GetDisplay()->IsOpen()) {
 		const TDeltaTime startTime = Engine::GetCurrentTime();
 
-		Engine::GetWindow()->Update();
+		Engine::GetDisplay()->Update();
 
-		Engine::GetInputManager()->_Update(*Engine::GetWindow());
+		Engine::GetInput()->Update();
+		Engine::GetInputManager()->_Update(*Engine::GetInput());
 
 		Engine::GetEcs()->OnTick(deltaTime);
 		OnTick(deltaTime);
@@ -106,8 +107,6 @@ void IGame::Run() {
 		BuildFrame();
 
 		Engine::GetRenderer()->PresentFrame();
-
-		Engine::GetWindow()->UpdateMouseAndKeyboardOldStates();
 
 		framerateCountTimer += deltaTime;
 		frameCount++;
@@ -127,7 +126,7 @@ void IGame::Run() {
 }
 
 void IGame::Exit() {
-	Engine::GetWindow()->Close();
+	Engine::GetDisplay()->Close();
 }
 
 void IGame::OnWindowResize(const Vector2ui& size) {

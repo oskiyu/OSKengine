@@ -2,15 +2,18 @@
 
 #include "OSKmacros.h"
 #include "Vector4.hpp"
-#include <type_traits>
 #include "DynamicArray.hpp"
-#include "OwnedPtr.h"
+#include "UniquePtr.hpp"
 #include "IGpuDataBuffer.h"
-#include <string>
+#include "Color.hpp"
+#include "RenderpassType.h"
+#include "Vector3.hpp"
 
-namespace OSK {
-	class Color;
-}
+#include "IGpuObject.h"
+#include "GpuBarrierInfo.h"
+
+#include <string>
+#include <type_traits>
 
 namespace OSK::GRAPHICS {
 
@@ -24,107 +27,99 @@ namespace OSK::GRAPHICS {
 	struct Viewport;
 	class IGraphicsPipeline;
 	class IRaytracingPipeline;
+	class IComputePipeline;
 
-	/// <summary>
-	/// Una lista de comandos contiene una serie de comandos que serán
+	struct RenderPassImageInfo {
+		GpuImage* targetImage = nullptr;
+		TSize arrayLevel = 0;
+	};
+
+	/// @brief Una lista de comandos contiene una serie de comandos que serán
 	/// enviados a la GPU para su ejecución.
-	/// 
 	/// La lista es creada por una pool de comandos, y se introduce
 	/// en una cola de comandos para su ejecución.
-	/// </summary>
 	/// 
 	/// @note Los comandos serán ejecutados en orden una vez se envíe la lista
 	/// a la GPU.
-	class OSKAPI_CALL ICommandList {
+	class OSKAPI_CALL ICommandList : public IGpuObject {
 
 	public:
 
 		virtual ~ICommandList();
 
-		template <typename T> T* As() const requires std::is_base_of_v<ICommandList, T> {
-			return (T*)this;
-		}
+		OSK_DEFINE_AS(ICommandList);
 
-		/// <summary>
-		/// Vacía la lista de comandos.
-		/// 
-		/// @note Debe llamarse antes de comenzar a grabar comandos.
-		/// </summary>
+		/// @brief Vacía la lista de comandos.
 		/// 
 		/// @pre Debe estar cerrado.
+		/// @note Debe llamarse antes de comenzar a grabar comandos.
 		virtual void Reset() = 0;
 
-		/// <summary>
-		/// Comienza a grabar comandos en la lista.
-		/// </summary>
+		/// @brief Comienza a grabar comandos en la lista.
 		/// 
 		/// @pre Debe estar cerrado.
 		virtual void Start() = 0;
 
-		/// <summary>
-		/// Cierra la lista de comandos, y la deja lista para ser enviada
+		/// @brief Cierra la lista de comandos, y la deja lista para ser enviada
 		/// a la GPU.
-		/// </summary>
 		/// 
 		/// @pre Debe estar abierto.
 		virtual void Close() = 0;
 
-		/// <summary>
-		/// Cambia el layout interno de la imagen en la memoria de la GPU.
-		/// </summary>
-		/// <param name="next">Layout en el que estará la imagen.</param>
-		/// <param name="baseLayer">Primera capa a partir de la cual se cambiarán los layouts.</param>
-		/// <param name="numLayers">Número de capas a cambiar.</param>
-		/// <param name="baseMipLevel">Mip level al partir del que se aplica la transición del layout.</param>
-		/// <param name="numMipLevels">Número de mip levels que transicionarán de layout.
-		/// Si es 0, se transicionarán todos (a partir de baseMipLevel).</param>
+
+		/// @brief Establece un barrier que sincroniza la ejecución de comandos.
+		/// También cambia el layout de la imagen.
 		/// 
+		/// @see GpuImageBarrierInfo.
+		/// 
+		/// @param image Imagen a la que se le cambiará el layout.
+		/// @param previousLayout Layout anterior.
+		/// @param nextLayout Nuevo layout.
+		/// @param previous Stage previo.
+		/// @param next Stage siguiente.
+		/// @param prevImageInfo Información sobre que subrecursos de la imagen serán afectados.
+		///
 		/// @note Se debe cambiar el layout de la imagen antes de ejecutar un comando sobre ella,
 		/// si su layout actual no coincide con el necesario.
 		/// 
-		/// @note Se considerará el layout anterior el layout que tenía la imagen antes de este comando.
-		/// 
-		/// @pre El número de capas (numLayers) debe ser mayor que 0.
 		/// @pre La lista de comandos debe estar abierta.
-		void TransitionImageLayout(GpuImage* image, GpuImageLayout next, TSize baseLayer, TSize numLayers, TSize baseMipLevel = 0, TSize numMipLevels = 0);
+		/// @pre previousLayout debe ser el layout de la imagen antes de este comando.
+		/// 
+		/// @post Los subrecursos especificados por imageInfo estarán en el nuevo layout.
+		virtual void SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageBarrierInfo& prevImageInfo = {}) = 0;
 
 		/// <summary>
-		/// Cambia el layout interno de la imagen en la memoria de la GPU.
+		/// Establece un barrier que sincroniza la ejecución de comandos.
+		/// Cambia el layout de la imagen.
 		/// </summary>
-		/// <param name="next">Layout en el que estará la imagen.</param>
-		/// <param name="baseLayer">Primera capa a partir de la cual se cambiarán los layouts.</param>
-		/// <param name="numLayers">Número de capas a cambiar.</param>
-		/// <param name="baseMipLevel">Mip level al partir del que se aplica la transición del layout.</param>
-		/// <param name="numMipLevels">Número de mip levels que transicionarán de layout.
-		/// Si es 0, se transicionarán todos (a partir de baseMipLevel).</param>
+		/// <param name="image">Imagen a la que se le cambiará el layout.</param>
+		/// <param name="nextLayout">Nuevo layout.</param>
+		/// <param name="previous">Stage previo.</param>
+		/// <param name="next">Stage siguiente.</param>
+		/// <param name="imageInfo">Información sobre que subrecursos de la imagen serán afectados.</param>
+		/// <param name="nextImageInfo"></param>
 		/// 
 		/// @note Se debe cambiar el layout de la imagen antes de ejecutar un comando sobre ella,
 		/// si su layout actual no coincide con el necesario.
 		/// 
-		/// @pre El número de capas (numLayers) debe ser mayor que 0.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void TransitionImageLayout(GpuImage* image, GpuImageLayout previous, GpuImageLayout next, TSize baseLayer, TSize numLayers, TSize baseMipLevel = 0, TSize numMipLevels = 0) = 0;
+		/// 
+		/// @post Los subrecursos especificados por imageInfo estarán en el nuevo layout.
+		void SetGpuImageBarrier(GpuImage* image, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageBarrierInfo& prevImageInfo = {});
 
 
 		/// <summary>
 		/// Comienza el renderizado a un render target.
 		/// </summary>
+		/// <param name="color">Color con el que limpiará la imagen.</param>
 		/// 
 		/// @note Se limpiará la imagen con color negro.
 		/// 
 		/// @pre No debe haber ningún renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void BeginGraphicsRenderpass(RenderTarget* renderpass) = 0;
+		void BeginGraphicsRenderpass(RenderTarget* renderpass, const Color& color = Color::BLACK());
 
-		/// <summary>
-		/// Comienza el renderizado a un render target.
-		/// </summary>
-		/// 
-		/// <param name="color">Color con el que limpiará la imagen.</param>
-		/// 
-		/// @pre No debe haber ningún renderpass activo.
-		/// @pre La lista de comandos debe estar abierta.
-		virtual void BeginAndClearGraphicsRenderpass(RenderTarget* renderpass, const Color& color) = 0;
+		virtual void BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color = Color::BLACK()) = 0;
 
 		/// <summary>
 		/// Finaliza el renderizado a un render target.
@@ -132,13 +127,13 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Debe haber un renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void EndGraphicsRenderpass(RenderTarget* renderpass) = 0;
+		/// @post Aplica a los color targets un GpuImageBarrier con nuevo layout = SHADER_READ_ONLY para 
+		/// fragment shader.
+		virtual void EndGraphicsRenderpass() = 0;
 
 
-		/// <summary>
-		/// Establece el material que se va a usar a la hora de renderizar los próximos comandos.
-		/// </summary>
-		/// 
+		/// @brief Establece el material que se va a usar a la hora de renderizar los próximos comandos.
+		///
 		/// @note Los slots que se enlacen después de este comando deben ser compatibles
 		/// con este material.
 		/// @note Los buffers de vértices que se enlacen después de este comando deben tener
@@ -147,7 +142,10 @@ namespace OSK::GRAPHICS {
 		/// @pre Debe haber un renderpass activo.
 		/// @pre El material debe tener registrado el renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void BindMaterial(const Material* material) = 0;
+		/// 
+		/// @warning Para materiales de rasterizado, debe estar activo el renderpass
+		/// con el que se vaya a renderizar usando este material.
+		virtual void BindMaterial(Material* material) = 0;
 
 		/// <summary>
 		/// Establece el vertex buffer que se va a usar en los próximos renderizados.
@@ -255,7 +253,32 @@ namespace OSK::GRAPHICS {
 		/// @pre La lista de comandos debe estar abierta.
 		virtual void DrawSingleMesh(TSize firstIndex, TSize numIndices) = 0;
 
+
+		/// <summary>
+		/// Ejecuta un trazado de rayos.
+		/// </summary>
+		/// <param name="raygenEntry">Índice del shader de generación de rayos que se va 
+		/// a usar, según su posición en la tabla de shaders.</param>
+		/// <param name="closestHitEntry">Índice del shader de colisión de rayos que se va 
+		/// a usar, según su posición en la tabla de shaders.</param>
+		/// <param name="missEntry">Índice del shader de fallo de rayos que se va 
+		/// a usar, según su posición en la tabla de shaders.</param>
+		/// <param name="resolution">Número de rayos generados en los ejes X e Y.</param>
+		/// 
+		/// @pre NO debe haber un renderpass activo.
+		/// @pre Debe haber un material de trazado de rayos enlazado.
+		/// @pre Deben estar enlazados los slots y los push constants necesarios
+		/// para rellenar el material.
+		/// @pre La lista de comandos debe estar abierta.
+		/// @pre Debe ejecutarse en un equipo compatible con trazado de rayos.
+		/// @pre Debe haberse activado la opción de trazado de rayos de OSKengine.
+		/// 
+		/// @todo Implementación en DX12.
 		virtual void TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) = 0;
+
+
+		virtual void DispatchCompute(const Vector3ui& groupCount) = 0;
+		virtual void BindComputePipeline(const IComputePipeline& computePipeline) = 0;
 
 
 		/// <summary>
@@ -350,24 +373,26 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Pipeline que está siendo grabada en un instante determinado.
 		/// </summary>
-		const IGraphicsPipeline* currentPipeline = nullptr;
-		const IRaytracingPipeline* currentRtPipeline = nullptr;
+		union {
+			const IGraphicsPipeline* graphics;
+			const IRaytracingPipeline* raytracing;
+			const IComputePipeline* compute;
+		} currentPipeline;
 
 		/// <summary>
 		/// Material que está siendo usado en un instante determinado.
 		/// </summary>
 		const Material* currentMaterial = nullptr;
 
-		/// <summary>
-		/// Renderepass que está siendo grabado en un instante determinado.
-		/// </summary>
-		const RenderTarget* currentRenderpass = nullptr;
+		DynamicArray<RenderPassImageInfo> currentColorImages;
+		RenderPassImageInfo currentDepthImage;
+		RenderpassType currentRenderpassType = RenderpassType::INTERMEDIATE;
 
 		bool isSingleUse = false;
 
 	private:
 
-		DynamicArray<OwnedPtr<GpuDataBuffer>> stagingBuffersToDelete{};
+		DynamicArray<UniquePtr<GpuDataBuffer>> stagingBuffersToDelete{};
 
 	};
 

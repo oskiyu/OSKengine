@@ -32,6 +32,7 @@
 #include "IrradianceMapLoader.h"
 #include "PbrDeferredRenderSystem.h"
 #include "SkyboxRenderSystem.h"
+#include "PcUserInput.h"
 
 #include <GLFW/glfw3.h>
 #include "FileIO.h"
@@ -40,20 +41,21 @@
 using namespace OSK;
 
 UniquePtr<IO::Logger> Engine::logger;
-UniquePtr<IO::Window> Engine::window;
+UniquePtr<IO::IDisplay> Engine::display;
 UniquePtr<GRAPHICS::IRenderer> Engine::renderer;
 UniquePtr<ASSETS::AssetManager> Engine::assetManager;
 UniquePtr<ECS::EntityComponentSystem> Engine::entityComponentSystem;
+UniquePtr<IO::IUserInput> Engine::input;
 UniquePtr<IO::InputManager> Engine::inputManager;
 
 void Engine::Create(GRAPHICS::RenderApiType type) {
 	logger = new IO::Logger;
-	window = new IO::Window;
+	display = new IO::Window;
 	entityComponentSystem = new ECS::EntityComponentSystem;
+	input = new IO::PcUserInput;
 	inputManager = new IO::InputManager;
 
 	logger->Start("LOG_LAST.txt");
-	window->SetRenderApiType(type);
 
 	logger->InfoLog("Iniciando OSKengine.");
 	logger->InfoLog("	Version: " 
@@ -85,7 +87,7 @@ void Engine::Close() {
 	entityComponentSystem.Delete();
 	assetManager.Delete();
 	renderer.Delete();
-	window.Delete();
+	display.Delete();
 	logger.Delete();
 	inputManager.Delete();
 }
@@ -125,8 +127,8 @@ IO::Logger* Engine::GetLogger() {
 	return logger.GetPointer();
 }
 
-IO::Window* Engine::GetWindow() {
-	return window.GetPointer();
+IO::IDisplay* Engine::GetDisplay() {
+	return display.GetPointer();
 }
 
 GRAPHICS::IRenderer* Engine::GetRenderer() {
@@ -137,12 +139,12 @@ ASSETS::AssetManager* Engine::GetAssetManager() {
 	return assetManager.GetPointer();
 }
 
-ECS::EntityComponentSystem* Engine::GetEntityComponentSystem() {
+ECS::EntityComponentSystem* Engine::GetEcs() {
 	return entityComponentSystem.GetPointer();
 }
 
-ECS::EntityComponentSystem* Engine::GetEcs() {
-	return entityComponentSystem.GetPointer();
+IO::IUserInput* Engine::GetInput() {
+	return input.GetPointer();
 }
 
 IO::InputManager* Engine::GetInputManager() {

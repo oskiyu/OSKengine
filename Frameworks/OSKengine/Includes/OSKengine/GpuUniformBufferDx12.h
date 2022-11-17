@@ -19,7 +19,7 @@ namespace OSK::GRAPHICS {
 		void SetView();
 
 		D3D12_CONSTANT_BUFFER_VIEW_DESC view{};
-
+		
 	};
 
 }

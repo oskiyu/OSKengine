@@ -113,14 +113,14 @@ RendererVulkan::~RendererVulkan() {
 	Close();
 }
 
-void RendererVulkan::Initialize(const std::string& appName, const Version& version, const IO::Window& window, PresentMode mode) {
-	this->window = &window;
+void RendererVulkan::Initialize(const std::string& appName, const Version& version, const IO::IDisplay& display, PresentMode mode) {
+	this->display = &display;
 	
 	CreateInstance(appName, version);
 
 	if (AreValidationLayersAvailable())
 		SetupDebugLogging();
-	CreateSurface(window);
+	CreateSurface(display);
 	ChooseGpu();
 	if (AreValidationLayersAvailable())
 		SetupDebugFunctions(currentGpu->As<GpuVulkan>()->GetLogicalDevice());
@@ -135,15 +135,15 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 	SetupRenderingFunctions(currentGpu->As<GpuVulkan>()->GetLogicalDevice());
 
 	renderTargetsCamera = new ECS::CameraComponent2D;
-	renderTargetsCamera->LinkToWindow(&window);
-	renderTargetsCameraTransform.SetScale({ window.GetWindowSize().X / 2.0f, window.GetWindowSize().Y / 2.0f});
+	renderTargetsCamera->LinkToDisplay(&display);
+	renderTargetsCameraTransform.SetScale({ display.GetResolution().X / 2.0f, display.GetResolution().Y / 2.0f});
 	renderTargetsCamera->UpdateUniformBuffer(renderTargetsCameraTransform);
 
 	CreateMainRenderpass();
 
 	if (Engine::GetEcs())
 		for (auto i : Engine::GetEcs()->GetRenderSystems())
-			i->CreateTargetImage(window.GetWindowSize());
+			i->CreateTargetImage(display.GetResolution());
 
 	isOpen = true;
 }
@@ -297,7 +297,7 @@ void RendererVulkan::CreateInstance(const std::string& appName, const Version& v
 void RendererVulkan::CreateSwapchain(PresentMode mode) {
 	swapchain = new SwapchainVulkan;
 
-	swapchain->As<SwapchainVulkan>()->Create(mode, Format::B8G8R8A8_SRGB, *currentGpu->As<GpuVulkan>(), *window);
+	swapchain->As<SwapchainVulkan>()->Create(mode, Format::BGRA8_SRGB, *currentGpu->As<GpuVulkan>(), *display);
 	Engine::GetLogger()->InfoLog("Creado el swapchain.");
 }
 
@@ -317,8 +317,8 @@ void RendererVulkan::SetupDebugLogging() {
 	Engine::GetLogger()->InfoLog("Capas de validación activas.");
 }
 
-void RendererVulkan::CreateSurface(const IO::Window& window) {
-	const VkResult result = glfwCreateWindowSurface(instance, window._GetGlfw(), nullptr, &surface);
+void RendererVulkan::CreateSurface(const IO::IDisplay& display) {
+	const VkResult result = glfwCreateWindowSurface(instance, display.As<IO::Window>()->_GetGlfw(), nullptr, &surface);
 	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear la superficie. " + std::to_string(result));
 }
 
@@ -718,7 +718,7 @@ void RendererVulkan::SubmitFrame() {
 
 		swapchain->As<SwapchainVulkan>()->Resize();
 
-		if (window->GetWindowSize().X > 0 && window->GetWindowSize().Y > 0)
+		if (display->GetResolution().X > 0 && display->GetResolution().Y > 0)
 			Engine::GetRenderer()->As<RendererVulkan>()->HandleResize();
 	}
 
