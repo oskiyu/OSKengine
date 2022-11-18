@@ -4,5 +4,5 @@
 
     "name": "BlueNoise",
     "asset_type": "Texture",
-    "raw_asset_path": "Resources/Assets/Textures/BlueNoise470.png"
+    "raw_asset_path": "Resources/Assets/Textures/BlueNoise/LDR_RGBA_63.png"
 }

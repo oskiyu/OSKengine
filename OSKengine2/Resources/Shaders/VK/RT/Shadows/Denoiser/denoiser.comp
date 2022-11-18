@@ -1,5 +1,7 @@
 #version 460
 
+#include "../../Common/denoising.glsl"
+
 layout (local_size_x = 8, local_size_y = 8) in;
 
 layout (set = 0, binding = 0) uniform sampler2D raytracedShadowsImg;
@@ -21,9 +23,11 @@ layout (push_constant) uniform Info {
 
 // Número de frames tope para la convergencia.
 // Mayor da mejores resultados.
-const float NUM_TEMPORAL_SAMPLES = 60.0;
+const float NUM_TEMPORAL_SAMPLES = 100.0;
 
 const float gaussianKernel[5] = float[5](1, 4, 6, 4, 1);
+
+
 
 // 5x5 Gaussian-Blur
 float GaussianBlur(ivec2 coords) {
@@ -33,7 +37,7 @@ float GaussianBlur(ivec2 coords) {
     for (int yy = -radius; yy <= radius; yy++) {
         for (int xx = -radius; xx <= radius; xx++) {
             float k = gaussianKernel[xx + radius] * gaussianKernel[yy + radius] / 256.0;
-
+            
             shadow += texelFetch(raytracedShadowsImg, coords + ivec2(xx, yy), 0).r * k;
         }
     }
@@ -41,40 +45,148 @@ float GaussianBlur(ivec2 coords) {
     return shadow;
 }
 
-bool SamePlaneOcclussionCheck(vec3 currentPosition, vec3 previousPosition, vec3 currentNormal) {
-    // Vector contenido dentro del plano formado entre el punto anterior y el actual.
-    const vec3 planeVector = currentPosition - previousPosition;
+float ATorusBlur(ivec2 coords) {
+    const float kernelWeights[3] = { 1.0, 2.0 / 3.0, 1.0 / 6.0 };
 
-    // Para que ambos puntos pertenezcan al mismo plano, su producto dot debe ser 0.
-    const float dotResult = abs(dot(planeVector, currentNormal));
+    float shadow = 0.0;
+    float weights = 0.0;
 
-    return dotResult < 0.1;
+    const int radius = 2;
+    const int numIterations = 3;
+
+    for (int i = 0; i < numIterations; i++) {
+        const int step = 1 << i;
+
+        for (int x = -radius; x <= radius; x++) {
+            for (int y = -radius; y <= radius; y++) {
+                if (i != 0 && x == 0 && y == 0) continue;
+                
+                const ivec2 nCoords = coords + ivec2(x * step, y * step);
+                const float weight = kernelWeights[abs(x)] * kernelWeights[abs(y)];
+                
+                shadow += texelFetch(raytracedShadowsImg, nCoords, 0).r * weight;
+                weights += weight;
+            }
+        }
+    }
+
+    return shadow / weights;
 }
-bool NormalOcclussionCheck(vec3 currentNormal, vec3 previousNormal) {
-    return pow(abs(dot(currentNormal, previousNormal)), 2) < 5.0;
+
+float NoBlur(ivec2 coords) {
+    return texelFetch(raytracedShadowsImg, coords, 0).r;
 }
 
-vec2 Truncate(vec2 vec) {
-    return floor(vec);
+// Calcula la reproyección del píxel.
+// Establece el valor histórico y el número de veces que ha sido actualizado correctamente.
+// Si la reproyección falla, devuelve false y historicalValue y historyLenght valen 0.
+bool Reproject(ivec2 coords, out float historicalValue, out float historyLength) {
+
+    const vec2 imageSize = vec2(imageSize(denoisedShadowsImg));
+    const vec2 pixelCenter = vec2(coords) + vec2(0.5);
+    const vec2 sampledCoords = pixelCenter / vec2(imageSize);
+
+    const vec2 currentMotion = texelFetch(velocityImg, ivec2(coords), 0).rg * frameInfo.resolution;
+    const vec3 currentNormal = texelFetch(historicalNormalImg, coords, 0).xyz;
+    const vec3 currentPosition = texelFetch(historicalPositionImg, coords, 0).xyz;
+
+
+    // +0.5 to account for texel center offset
+    const ivec2 historyCoords = ivec2(vec2(coords) + currentMotion.xy + vec2(0.5));
+    const vec2 historyCoordsFloor = floor(coords.xy) + currentMotion.xy;
+    const vec2 historyTexCoord = coords + currentMotion.xy;
+
+    historicalValue = 0.0;
+
+    bool isSubprojectionValid[4];
+    const ivec2 offsets[4] = { ivec2(0, 0), ivec2(1, 0), ivec2(0, 1), ivec2(1, 1) };
+
+    // check for all 4 taps of the bilinear filter for validity
+    bool valid = false;
+    for (int i = 0; i < 4; i++) {
+        ivec2 nCoords = ivec2(historyCoordsFloor) + offsets[i];
+
+        const vec4 gbufferPositionData = texelFetch(currentPositionImg, coords, 0);
+        const vec4 gbufferNormalData = texelFetch(currentNormalImg, coords, 0);
+        const vec4 historicalPositionData = texelFetch(historicalPositionImg, coords, 0);
+        const vec4 historicalNormalData = texelFetch(historicalNormalImg, coords, 0);
+
+        isSubprojectionValid[i] = SamePlaneOcclussionCheck(gbufferPositionData.xyz, historicalPositionData.xyz, gbufferNormalData.xyz)
+                               && NormalOcclussionCheck(gbufferNormalData.xyz, historicalNormalData.xyz)
+                               && nCoords.x < imageSize.x && nCoords.y < imageSize.y;
+
+        valid = valid || isSubprojectionValid[i];
+    }
+
+    if (valid) {
+        float sumWeights = 0;
+
+        const float x = fract(historyCoordsFloor.x);
+        const float y = fract(historyCoordsFloor.y);
+
+        // bilinear weights
+        float weights[4] = { (1 - x) * (1 - y),
+                       x * (1 - y),
+                       (1 - x) * y,
+                       x * y };
+
+        // perform the actual bilinear interpolation
+        for (int i = 0; i < 4; i++)  {
+            ivec2 nCoords = ivec2(historyCoordsFloor) + offsets[i];
+
+            if (isSubprojectionValid[i]) {
+                historicalValue += weights[i] * texelFetch(historicalImg, nCoords, 0).r;
+                sumWeights += weights[i];
+            }
+        }
+
+        // redistribute weights in case not all taps were used
+        valid = sumWeights >= 0.01;
+        historicalValue = valid ? historicalValue / sumWeights : 0.0;
+    }
+
+    /* if (!valid) // perform cross-bilateral filter in the hope to find some suitable samples somewhere
+    {
+        float cnt = 0.0;
+
+        // this code performs a binary descision for each tap of the cross-bilateral filter
+        const int radius = 1;
+        for (int yy = -radius; yy <= radius; yy++) {
+            for (int xx = -radius; xx <= radius; xx++) {
+                ivec2 p = history_coord + ivec2(xx, yy);
+
+                vec4  sample_g_buffer_2 = texelFetch(sampler_prev_gbuffer_2, p, g_buffer_mip);
+                vec4  sample_g_buffer_3 = texelFetch(sampler_prev_gbuffer_3, p, g_buffer_mip);
+                float sample_depth      = texelFetch(sampler_prev_gbuffer_depth, p, g_buffer_mip).r;
+
+                vec3  history_normal  = octohedral_to_direction(sample_g_buffer_2.xy);
+                float history_mesh_id = sample_g_buffer_3.z;
+                vec3  history_pos     = world_position_from_depth(history_tex_coord, sample_depth, view_proj_inverse);
+
+                if (is_reprojection_valid(history_coord, current_pos, history_pos, current_normal, history_normal, current_mesh_id, history_mesh_id, ivec2(image_dim)))
+                {
+                    history_color += texelFetch(sampler_history_output, p, 0).r;       
+                    cnt += 1.0;
+                }
+            }
+        }
+        if (cnt > 0)
+        {
+            valid = true;
+            history_color /= cnt;
+        }
+    }*/
+
+    if (valid) {
+        historyLength = texelFetch(historicalImg, historyCoords, 0).g;
+    }    
+    else {
+        historicalValue = 0.0;
+        historyLength  = 0.0;
+    }
+
+    return valid;
 }
-
-
-/*
-
-    00 10 20 30 40 50 60
-    01 11 21 31 41 51 61
-    02 12 22 32 42 52 62
-    03 13 23 33 43 53 63
-
-             |
-            \ /
-
-    00 10 20 30 40 50 60
-    01 11 21 31 41 51 61
-    02 12 22 32 42 52 62
-    03 13 23 33 43 53 63
-
-*/
 
 void main() {
     const ivec2 coords = ivec2(gl_GlobalInvocationID);
@@ -82,46 +194,20 @@ void main() {
     if (coords.x > imageSize(denoisedShadowsImg).x || coords.y > imageSize(denoisedShadowsImg).y)
         return;
 
-    // Movimiento, en píxeles
-    // Obtenemos las coordenadas del píxel donde están las coordenadas históricas acumuladas.
-    const vec2 screenSpaceMotion = texelFetch(velocityImg, ivec2(coords), 0).rg * frameInfo.resolution;
-    ivec2 historicalCoords = coords + ivec2(screenSpaceMotion);
-
-    {
-        // Comrobamos los píxeles de alrededor para asegurarnos de escoger el píxel necesario
-        
-    }
-
-    const vec4 gbufferPositionData = texelFetch(currentPositionImg, coords, 0);
-    const vec4 historicalGbufferPositionData = texelFetch(historicalPositionImg, coords, 0);
-
-    const vec4 gbufferNormalData = texelFetch(currentNormalImg, coords, 0);
-    const vec4 historicalGbufferNormalData = texelFetch(historicalNormalImg, coords, 0);
-
+  
     // Número de frames acumulados en el píxel + 1.0
-    float historyLength = 1.0;
+    float historyLength = 0.0;
 
     float newShadowWeight = 1.0;
     float historicalShadow = 0.0;
 
-    const bool historicalDataWasOnScreen = historicalCoords.x > 0 && historicalCoords.y > 0 && historicalCoords.x < frameInfo.resolution.x && historicalCoords.y < frameInfo.resolution.y;
-    const bool previousAreValid = historicalDataWasOnScreen
-                        && SamePlaneOcclussionCheck(gbufferPositionData.xyz, historicalGbufferPositionData.xyz, gbufferNormalData.xyz)
-                        && NormalOcclussionCheck(gbufferNormalData.xyz, historicalGbufferNormalData.xyz);
+    Reproject(coords, historicalShadow, historyLength);
+    historyLength++;
 
-    if (previousAreValid) {
-        const vec4 historicalData = texelFetch(historicalImg, ivec2(historicalCoords), 0);
+    newShadowWeight = 1.0 / historyLength;
+    historyLength = min(historyLength, NUM_TEMPORAL_SAMPLES);
 
-        historicalShadow = historicalData.r;
-        historyLength = historicalData.g + 1.0;
-        
-        newShadowWeight = 1.0 / historyLength;
-
-        historyLength = min(historyLength, NUM_TEMPORAL_SAMPLES);
-    }
-
-
-    const float newShadows = GaussianBlur(coords);
+    const float newShadows = ATorusBlur(coords);
     
     imageStore(denoisedShadowsImg, coords, vec4(mix(historicalShadow, newShadows, newShadowWeight), historyLength, 0, 0));
     // imageStore(denoisedShadowsImg, coords, vec4(screenSpaceMotion, historicalMotion));

@@ -62,7 +62,8 @@ void HybridRenderSystem::SetupRtResources() {
 		dirLightUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
 	}
 
-	noise = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/bluenoise.json", "GLOBAL");
+	noise = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/BlueNoise/bluenoise.json", "GLOBAL");
+	noiseX = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/BlueNoise/bluenoisex.json", "GLOBAL");
 }
 
 void HybridRenderSystem::SetupGBufferInstance() {
@@ -112,6 +113,7 @@ void HybridRenderSystem::SetupShadowsInstance() {
 	shadowsMaterialInstance->GetSlot("shadows")->SetStorageImages("shadowsImage", shadowsImgs);
 	shadowsMaterialInstance->GetSlot("shadows")->SetUniformBuffers("dirLight", _dirLightUbos);
 	shadowsMaterialInstance->GetSlot("shadows")->SetGpuImage("noiseImage", noise->GetGpuImage());
+	shadowsMaterialInstance->GetSlot("shadows")->SetGpuImage("noiseImageX", noiseX->GetGpuImage());
 
 	shadowsMaterialInstance->GetSlot("rt")->FlushUpdate();
 	shadowsMaterialInstance->GetSlot("shadows")->FlushUpdate();

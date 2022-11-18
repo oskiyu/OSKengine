@@ -88,7 +88,6 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "GamepadState.h", "_gamepad_state_8h.html", "_gamepad_state_8h" ],
     [ "GBuffer.cpp", "_g_buffer_8cpp.html", null ],
     [ "GBuffer.h", "_g_buffer_8h.html", "_g_buffer_8h" ],
-    [ "glad.c", "glad_8c.html", "glad_8c" ],
     [ "GpuBarrierInfo.h", "_gpu_barrier_info_8h.html", "_gpu_barrier_info_8h" ],
     [ "GpuDx12.cpp", "_gpu_dx12_8cpp.html", null ],
     [ "GpuDx12.h", "_gpu_dx12_8h.html", "_gpu_dx12_8h" ],

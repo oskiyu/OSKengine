@@ -81,8 +81,9 @@ namespace OSK::ECS {
 
 		GRAPHICS::DirectionalLight dirLight{};
 
-		// Noise
+		// Noises
 		ASSETS::Texture* noise = nullptr;
+		ASSETS::Texture* noiseX = nullptr;
 
 		// RayTracing
 		UniquePtr<GRAPHICS::ITopLevelAccelerationStructure> topLevelAccelerationStructures[3]{};

@@ -13,7 +13,7 @@ var class_o_s_k_1_1_e_c_s_1_1_i_render_system =
     [ "OnTick", "class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#ab66937b130814e6f06f3d76648dd0fb6", null ],
     [ "RemoveObject", "class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#aae0fdc7cd122ec66de6efb60e0fdc596", null ],
     [ "Render", "class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a09d5e15f08aeff1cac75da8bada0f48d", null ],
-    [ "Resize", "class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#aec037cb8c46f11305e3c68a615a8ab4c", null ],
+    [ "Resize", "class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a73d2840e29adafef2ccface8fbd76303", null ],
     [ "SetSignature", "class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#ac9336e70706ab6ea24d9f5fe95955efd", null ],
     [ "SetupViewport", "class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#ae3c3f809429c0eb238b4b5a58e4a756a", null ],
     [ "renderTarget", "class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a8e9d568865c3d41fbec6afd49acb3cfa", null ]

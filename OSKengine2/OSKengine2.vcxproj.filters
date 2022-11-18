@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Archivos de origen\ThirdParty">
-      <UniqueIdentifier>{283691c5-b145-4be5-ab16-02e2a66fbce2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de origen\OSKengine">
       <UniqueIdentifier>{0d708705-372d-41b8-8ede-05547485f832}</UniqueIdentifier>
     </Filter>
@@ -490,6 +487,12 @@
     <Filter Include="Archivos de origen\OSKengine\IO\Display">
       <UniqueIdentifier>{90603647-467d-4313-98da-37018d949b3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\ECS\Builtin\RenderSystems">
+      <UniqueIdentifier>{b96c853d-59f1-4fed-925a-68c926d92d84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\ECS\Builtin\RenderSystems">
+      <UniqueIdentifier>{74ab1726-ef10-4114-ab5d-7e97136d5794}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -554,9 +557,6 @@
     </ClCompile>
     <ClCompile Include="SwapchainVulkan.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Swapchain</Filter>
-    </ClCompile>
-    <ClCompile Include="glad.c">
-      <Filter>Archivos de origen\ThirdParty</Filter>
     </ClCompile>
     <ClCompile Include="SyncDeviceDx12.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Sync</Filter>
@@ -741,9 +741,6 @@
     <ClCompile Include="ModelComponent3D.cpp">
       <Filter>Archivos de origen\OSKengine\ECS\Builtin\Model3D</Filter>
     </ClCompile>
-    <ClCompile Include="RenderSystem3D.cpp">
-      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Model3D</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Archivos de origen\OSKengine</Filter>
     </ClCompile>
@@ -858,12 +855,6 @@
     <ClCompile Include="TopLevelAccelerationStructureVulkan.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\RT\AS\TLAS</Filter>
     </ClCompile>
-    <ClCompile Include="PbrDeferredRenderSystem.cpp">
-      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Model3D</Filter>
-    </ClCompile>
-    <ClCompile Include="IRenderSystem.cpp">
-      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Model3D</Filter>
-    </ClCompile>
     <ClCompile Include="IrradianceMap.cpp">
       <Filter>Archivos de origen\OSKengine\Assets\Builtin</Filter>
     </ClCompile>
@@ -927,9 +918,6 @@
     <ClCompile Include="ToneMappingPass.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\PostProcess</Filter>
     </ClCompile>
-    <ClCompile Include="SkyboxRenderSystem.cpp">
-      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Model3D</Filter>
-    </ClCompile>
     <ClCompile Include="SmaaPass.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\PostProcess</Filter>
     </ClCompile>
@@ -956,9 +944,6 @@
     </ClCompile>
     <ClCompile Include="Skeleton.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\AnimatedModel</Filter>
-    </ClCompile>
-    <ClCompile Include="HybridRenderSystem.cpp">
-      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Model3D</Filter>
     </ClCompile>
     <ClCompile Include="RtAccelerationStructureFlags.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\RT\AS</Filter>
@@ -992,6 +977,21 @@
     </ClCompile>
     <ClCompile Include="IFullscreenableDisplay.cpp">
       <Filter>Archivos de origen\OSKengine\IO\Display</Filter>
+    </ClCompile>
+    <ClCompile Include="HybridRenderSystem.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\RenderSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="IRenderSystem.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\RenderSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="PbrDeferredRenderSystem.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\RenderSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSystem3D.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\RenderSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyboxRenderSystem.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\RenderSystems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1346,9 +1346,6 @@
     <ClInclude Include="ModelComponent3D.h">
       <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Model3D</Filter>
     </ClInclude>
-    <ClInclude Include="RenderSystem3D.h">
-      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Model3D</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Archivos de encabezado\OSKengine</Filter>
     </ClInclude>
@@ -1505,12 +1502,6 @@
     <ClInclude Include="PresentMode.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel</Filter>
     </ClInclude>
-    <ClInclude Include="PbrDeferredRenderSystem.h">
-      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Model3D</Filter>
-    </ClInclude>
-    <ClInclude Include="IRenderSystem.h">
-      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Model3D</Filter>
-    </ClInclude>
     <ClInclude Include="Lights.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PBR</Filter>
     </ClInclude>
@@ -1580,9 +1571,6 @@
     <ClInclude Include="ToneMapping.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PostProcess</Filter>
     </ClInclude>
-    <ClInclude Include="SkyboxRenderSystem.h">
-      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Model3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\OSKengine\resource.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -1618,9 +1606,6 @@
     </ClInclude>
     <ClInclude Include="Skeleton.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\AnimatedModel</Filter>
-    </ClInclude>
-    <ClInclude Include="HybridRenderSystem.h">
-      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Model3D</Filter>
     </ClInclude>
     <ClInclude Include="RtAccelerationStructureFlags.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\RT\AS</Filter>
@@ -1663,6 +1648,21 @@
     </ClInclude>
     <ClInclude Include="IQueryInterface.h">
       <Filter>Archivos de encabezado\OSKengine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="HybridRenderSystem.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\RenderSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderSystem.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\RenderSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="PbrDeferredRenderSystem.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\RenderSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem3D.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\RenderSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyboxRenderSystem.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\RenderSystems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

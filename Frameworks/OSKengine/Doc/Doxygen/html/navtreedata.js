@@ -60,9 +60,9 @@ var NAVTREE =
     [ "Archivos", "files.html", [
       [ "Lista de archivos", "files.html", "files_dup" ],
       [ "Miembros de los ficheros", "globals.html", [
-        [ "Todo", "globals.html", "globals_dup" ],
+        [ "Todo", "globals.html", null ],
         [ "Funciones", "globals_func.html", null ],
-        [ "Variables", "globals_vars.html", "globals_vars" ],
+        [ "Variables", "globals_vars.html", null ],
         [ "typedefs", "globals_type.html", null ],
         [ "defines", "globals_defs.html", null ]
       ] ]
@@ -99,13 +99,10 @@ var NAVTREEINDEX =
 "class_o_s_k_1_1_i_o_1_1_logger.html#a1191038d1044a1121e03cc267e9c681c",
 "class_o_s_k_1_1_linked_list_1_1_node.html#aaab1de597c3262d0fa690893c1f21b99",
 "class_o_s_k_1_1_vector3__t.html#a50505b9a44529ae5aff66a956214549b",
-"glad_8c.html#a00aa740b57bdeb17cd0c0a7a05b74c16",
-"glad_8c.html#a664c002e6ecc81c8b6494acd7a2672b5",
-"glad_8c.html#ab40b7074d5d32b07fb7da712182c4bdd",
-"namespace_o_s_k.html",
-"namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea1f752be177c2938ae9d60b98e40cf3ee",
-"struct_o_s_k_1_1_e_c_s_1_1_terrain_component.html#a5d75b32a1f9e28c0de7bb6ce2406f845",
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a374bbb3534c447ec42cf7edb5380ae84"
+"globals_type.html",
+"namespace_o_s_k_1_1_i_o.html",
+"struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata.html#adf1f5296d70e715244afe02580fee46e",
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a031c05fb2778c508449834a5281e84fd"
 ];
 
 var SYNCONMSG = 'click en deshabilitar sincronización';

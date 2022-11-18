@@ -186,7 +186,7 @@ protected:
 			renderSystem->GetCameraBuffer(1),
 			renderSystem->GetCameraBuffer(2)
 		};
-		const GpuImage* rtImages[3]{
+		const GpuImage* rtImages[3] {
 			rtTargetImage[0],
 			rtTargetImage[1],
 			rtTargetImage[2]

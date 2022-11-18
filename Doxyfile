@@ -981,7 +981,14 @@ FILE_PATTERNS          = *.c \
                          *.vhdl \
                          *.ucf \
                          *.qsf \
-                         *.ice
+                         *.ice \
+                         .glsl \
+                         .comp \
+                         .vert \
+                         .frag \
+                         .rgen \
+                         .rchit \
+                         .rmiss
 
 # The RECURSIVE tag can be used to specify whether or not subdirectories should
 # be searched for input files as well.

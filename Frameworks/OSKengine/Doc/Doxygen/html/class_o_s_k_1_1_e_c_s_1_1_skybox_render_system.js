@@ -14,7 +14,7 @@ var class_o_s_k_1_1_e_c_s_1_1_skybox_render_system =
     [ "OSK_SYSTEM", "class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#af15beefc33cc54e57f3aaaf4c29c3d43", null ],
     [ "RemoveObject", "class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#aae0fdc7cd122ec66de6efb60e0fdc596", null ],
     [ "Render", "class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a9f65491ce1cc366aa36cb63d8a1a85d4", null ],
-    [ "Resize", "class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#aec037cb8c46f11305e3c68a615a8ab4c", null ],
+    [ "Resize", "class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a73d2840e29adafef2ccface8fbd76303", null ],
     [ "SetCamera", "class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a5e8e8073fcf0d516cd1a996687adf1a3", null ],
     [ "SetCubemap", "class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a7ce7fadae48351b4e0fb0a25091c1f84", null ],
     [ "SetSignature", "class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#ac9336e70706ab6ea24d9f5fe95955efd", null ],

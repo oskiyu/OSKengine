@@ -13,29 +13,25 @@ namespace OSK::GRAPHICS {
 
 	class Animator;
 
-	/// <summary> Indica cómo aplicar una animación a un modelo animado. </summary>
+	/// @brief Indica cómo aplicar una animación a un modelo animado.
 	struct AnimationSkin {
 
-		/// <summary> Nombre original de la animación. </summary>
+		/// @brief Nombre original de la animación.
 		std::string name;
 
 
-		/// <summary> Índice de este nodo. </summary>
+		/// @brief Índice de este nodo.
 		TIndex thisIndex = std::numeric_limits<TIndex>::max();
 
-		/// <summary>
-		/// Índice del nodo  root de la skin.
-		/// </summary>
+		/// @brief Índice del nodo  root de la skin.
 		/// @note opcional.
 		TIndex rootIndex = std::numeric_limits<TIndex>::max();
 
-		/// <summary> Matrices inversas de la transformación global de los huesos en el estado inicial. </summary>
+		/// @brief Matrices inversas de la transformación global de los huesos en el estado inicial.
 		DynamicArray<glm::mat4> inverseMatrices;
 
-		/// <summary> 
-		/// Huesos a los que se aplica la Skin. 
+		/// @brief Huesos a los que se aplica la Skin. 
 		/// También funciona como un mapa boneID -> nodeID.
-		/// </summary>
 		DynamicArray<TIndex> bonesIds;
 
 	};

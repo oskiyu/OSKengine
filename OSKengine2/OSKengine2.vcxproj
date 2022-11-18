@@ -86,7 +86,6 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GamepadState.cpp" />
-    <ClCompile Include="glad.c" />
     <ClCompile Include="GpuDx12.cpp" />
     <ClCompile Include="GpuImageDx12.cpp" />
     <ClCompile Include="GpuImageLayoutDx12.cpp" />
