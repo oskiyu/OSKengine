@@ -123,6 +123,7 @@ digraph "OSKengine2/Sprite.cpp"
   Node36 -> Node31 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node36 -> Node15 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node35 -> Node26 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node35 -> Node21 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node35 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node35 -> Node27 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node1 -> Node37 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];

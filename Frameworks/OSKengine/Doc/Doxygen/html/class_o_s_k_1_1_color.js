@@ -5,6 +5,8 @@ var class_o_s_k_1_1_color =
     [ "Color", "class_o_s_k_1_1_color.html#a6ae361bb378725e0df1efd66099779ec", null ],
     [ "Color", "class_o_s_k_1_1_color.html#a343330ef7779d2a749de566f0c86c780", null ],
     [ "operator*", "class_o_s_k_1_1_color.html#a87a6fa44ca0503a6a3546480dd8fc34e", null ],
+    [ "operator+", "class_o_s_k_1_1_color.html#a3ab037dee3e61e41f181d7568905679e", null ],
+    [ "operator+=", "class_o_s_k_1_1_color.html#a244cbf4d2ed0d3dc8f02af1517a64510", null ],
     [ "ToGlm", "class_o_s_k_1_1_color.html#a65fed942039b8d530bd679befb359b79", null ],
     [ "Update", "class_o_s_k_1_1_color.html#a6bc35a63ca7229bfbebe24ffdfa0ec07", null ],
     [ "Alpha", "class_o_s_k_1_1_color.html#a0472d3d0429df1740a78158c7815ab9b", null ],

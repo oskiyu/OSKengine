@@ -13,6 +13,7 @@ namespace OSK::GRAPHICS {
 
 namespace OSK::ASSETS {
 	class IrradianceMap;
+	class CubemapTexture;
 	class Texture;
 	enum class ModelType;
 }
@@ -36,7 +37,7 @@ namespace OSK::ECS {
 
 		RenderSystem3D();
 
-		void Initialize(ECS::GameObjectIndex cameraObject, const ASSETS::IrradianceMap& irradianceMap);
+		void Initialize(ECS::GameObjectIndex cameraObject, const ASSETS::IrradianceMap& irradianceMap, const ASSETS::CubemapTexture& skybox);
 
 		void InitializeTerrain(const Vector2ui& resolution, const ASSETS::Texture& heightMap, const ASSETS::Texture& texture);
 
@@ -62,8 +63,8 @@ namespace OSK::ECS {
 
 		void RenderTerrain(GRAPHICS::ICommandList* commandList);
 
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> cameraUbos[3]{};
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> dirLightUbos[3]{};
+		UniquePtr<GRAPHICS::IGpuUniformBuffer> cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GRAPHICS::IGpuUniformBuffer> dirLightUbos[NUM_RESOURCES_IN_FLIGHT]{};
 		GRAPHICS::DirectionalLight dirLight{};
 
 		GRAPHICS::ShadowMap shadowMap;

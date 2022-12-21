@@ -6,9 +6,14 @@
 layout (set = 0, binding = 0) uniform accelerationStructureEXT topLevelAccelerationStructure;
 
 layout (set = 1, binding = 0) uniform sampler2D gBufferPosition;
-layout (set = 1, binding = 1, rgba8) uniform image2D shadowsImage;
+layout (set = 1, binding = 1, rgba8) uniform writeonly image2D shadowsImage;
+
+// Ruido por píxel
 layout (set = 1, binding = 3) uniform sampler2D noiseImage;
+// Ruido por frame
 layout (set = 1, binding = 4) uniform sampler2D noiseImageX;
+
+
 
 struct RayResult {
     bool isInShadows;
@@ -25,11 +30,15 @@ layout (push_constant) uniform Info {
     int frameIndex;
 } frameInfo;
 
+
+
 void main() {
     const vec2 pixelCoords = vec2(gl_LaunchIDEXT.x, gl_LaunchIDEXT.y);
     
     const vec4 positionData = texelFetch(gBufferPosition, ivec2(pixelCoords), 0);
 
+    // Comprobar si hay geometría registrada en el píxel.
+    // Si alfa < 1.0, no se renderizó geometría en el GBuffer.
     if (positionData.a < 0.8) {
         imageStore(shadowsImage, ivec2(pixelCoords), vec4(1.0, 0, 0, 1));
         return;
@@ -47,6 +56,7 @@ void main() {
     float minDistance = 0.01;
     float maxDistance = 100.0;
 
+    // Monte-Carlo:
     vec2 perFrameNoise = texture(noiseImageX, vec2(0, frameInfo.frameIndex) / textureSize(noiseImageX, 0).xy).rg;
     float perPixelNoise = texture(noiseImage, (perFrameNoise + pixelCoords * float(frameInfo.frameIndex)) / textureSize(noiseImage, 0).xy).r;
     
@@ -58,8 +68,9 @@ void main() {
     diskPoint.y = perFrameNoise.x * sin(angle) + perFrameNoise.y * cos(angle);
     diskPoint *= radius;
 
-    const vec3 currentDir = normalize(direction + diskPoint.x * lightTangent + diskPoint.y * lightBitangent);
+    // Trazado:
 
+    const vec3 currentDir = normalize(direction + diskPoint.x * lightTangent + diskPoint.y * lightBitangent);
     traceRayEXT(topLevelAccelerationStructure, rayFlags, cullMask, 0, 0, 0, origin, minDistance, currentDir, maxDistance, 0);
     
     const float shadow = float(!rayResult.isInShadows);

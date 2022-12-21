@@ -30,7 +30,7 @@ ViewUsage IGpuImageView::GetViewUsage() const {
 	return usage;
 }
 
-bool IGpuImageView::operator==(const IGpuImageView& other) {
+bool IGpuImageView::operator==(const IGpuImageView& other) const {
 	return this->channel == other.channel
 		&& this->arrayType == other.arrayType
 		&& this->baseArrayLevel == other.baseArrayLevel

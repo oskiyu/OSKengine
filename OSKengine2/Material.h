@@ -72,7 +72,9 @@ namespace OSK::GRAPHICS {
 
 		UniquePtr<MaterialLayout> layout;
 
-		DynamicArray<Pair<PipelineKey, UniquePtr<GRAPHICS::IGraphicsPipeline>>> graphicsPipelines;
+		DynamicArray<UniquePtr<GRAPHICS::IGraphicsPipeline>> graphicsPipelines;
+		DynamicArray<PipelineKey> graphicsPipelinesKeys;
+
 		UniquePtr<GRAPHICS::IRaytracingPipeline> rtPipeline = nullptr;
 		UniquePtr<GRAPHICS::IComputePipeline> computePipeline = nullptr;
 

@@ -93,25 +93,24 @@ $(document).ready(function(){initNavTree('_component_manager_8cpp_source.html','
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a>;</div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_manager.html#aa4269438ec6e184a60ea15423bb2fb6c">    5</a></span>ComponentManager::~ComponentManager() {</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; i : componentContainers)</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>        <span class="keyword">delete</span> i.second.GetPointer();</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>}</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_manager.html#a16a5d5a2b1f3601de2f1794c6cafa6b1">   10</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_manager.html#a16a5d5a2b1f3601de2f1794c6cafa6b1">ComponentManager::GameObjectDestroyed</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a23d62d7bd6a58fd7f758079d87df6c71">GameObjectIndex</a> obj) {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; i : componentContainers)</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        i.second-&gt;GameObjectDestroyerd(obj);</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>}</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>}</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_manager.html#a16a5d5a2b1f3601de2f1794c6cafa6b1">    9</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_manager.html#a16a5d5a2b1f3601de2f1794c6cafa6b1">ComponentManager::GameObjectDestroyed</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">GameObjectIndex</a> obj) {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; i : componentContainers)</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        i.second-&gt;GameObjectDestroyerd(obj);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}</div>
 <div class="ttc" id="a_component_manager_8h_html"><div class="ttname"><a href="_component_manager_8h.html">ComponentManager.h</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_component_manager_html_a16a5d5a2b1f3601de2f1794c6cafa6b1"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_component_manager.html#a16a5d5a2b1f3601de2f1794c6cafa6b1">OSK::ECS::ComponentManager::GameObjectDestroyed</a></div><div class="ttdeci">void GameObjectDestroyed(GameObjectIndex obj)</div><div class="ttdoc">Se llama cuando un objeto es destruido. Se encarga de eliminar todos los componentes del objeto.</div><div class="ttdef"><b>Definition:</b> <a href="_component_manager_8cpp_source.html#l00010">ComponentManager.cpp:10</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_component_manager_html_a16a5d5a2b1f3601de2f1794c6cafa6b1"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_component_manager.html#a16a5d5a2b1f3601de2f1794c6cafa6b1">OSK::ECS::ComponentManager::GameObjectDestroyed</a></div><div class="ttdeci">void GameObjectDestroyed(GameObjectIndex obj)</div><div class="ttdoc">Se llama cuando un objeto es destruido. Se encarga de eliminar todos los componentes del objeto.</div><div class="ttdef"><b>Definition:</b> <a href="_component_manager_8cpp_source.html#l00009">ComponentManager.cpp:9</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition:</b> <a href="_camera_component2_d_8h_source.html#l00015">CameraComponent2D.h:15</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a23d62d7bd6a58fd7f758079d87df6c71"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a23d62d7bd6a58fd7f758079d87df6c71">OSK::ECS::GameObjectIndex</a></div><div class="ttdeci">TSize GameObjectIndex</div><div class="ttdoc">Identificador único para un Game Object.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00019">GameObject.h:19</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a99c18565dd4a06fe73e18b7f987584f6"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">OSK::ECS::GameObjectIndex</a></div><div class="ttdeci">TIndex GameObjectIndex</div><div class="ttdoc">Identificador único para un Game Object.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00019">GameObject.h:19</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_component_manager_8cpp.html">ComponentManager.cpp</a></li>
-    <li class="footer">Generado el Viernes, 18 de Noviembre de 2022 17:22:36 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Miércoles, 21 de Diciembre de 2022 21:33:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

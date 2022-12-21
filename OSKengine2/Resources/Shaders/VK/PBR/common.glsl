@@ -84,7 +84,7 @@ float CalculateShadowStrength(vec3 cameraSpacePosition, mat4[4] shadowMatrices, 
     const vec4 fragPosInLightSpace = shadowMatrices[shadowMapIndex] * vec4(fragPosition, 1.0);
    
     const vec4 projCoords = GetShadowCoordinates(shadowMatrices, shadowMapIndex, fragPosition);
-    const float currentDepth = projCoords.z - 0.00001;
+    const float currentDepth = projCoords.z - 0.001;
 
     float accumulatedShadow = 0.0;
     const vec2 texelSize = 1.0 / textureSize(dirLightShadowMap, 0).xy;

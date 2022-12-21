@@ -115,7 +115,7 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:ad7263c5e330f9148ba87ebff3aae13b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3623673ebffd02cd44830d38b5e52b95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html">GRAPHICS::IGpuUniformBuffer</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a3623673ebffd02cd44830d38b5e52b95">GetDirLightMatrixUniformBuffers</a> () const</td></tr>
 <tr class="separator:a3623673ebffd02cd44830d38b5e52b95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2049f04835be03e41411a54457933d50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a2049f04835be03e41411a54457933d50">SetSceneCamera</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a23d62d7bd6a58fd7f758079d87df6c71">ECS::GameObjectIndex</a> cameraObject)</td></tr>
+<tr class="memitem:a2049f04835be03e41411a54457933d50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a2049f04835be03e41411a54457933d50">SetSceneCamera</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">ECS::GameObjectIndex</a> cameraObject)</td></tr>
 <tr class="separator:a2049f04835be03e41411a54457933d50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19ef749dc3d51d127b5191dfcbb09ca2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a19ef749dc3d51d127b5191dfcbb09ca2">GetNumCascades</a> () const</td></tr>
 <tr class="separator:a19ef749dc3d51d127b5191dfcbb09ca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,7 +131,7 @@ Métodos públicos</h2></td></tr>
 <li>Finalizar el renderpass. </li>
 </ul>
 
-<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8h_source.html#l00031">31</a> del archivo <a class="el" href="_shadow_map_8h_source.html">ShadowMap.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8h_source.html#l00030">30</a> del archivo <a class="el" href="_shadow_map_8h_source.html">ShadowMap.h</a>.</p>
 </div><h2 class="groupheader">Documentación de las funciones miembro</h2>
 <a id="a0830a954dc3dfb5b404edc5e85ec6406" name="a0830a954dc3dfb5b404edc5e85ec6406"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0830a954dc3dfb5b404edc5e85ec6406">&#9670;&nbsp;</a></span>Create()</h2>
@@ -152,7 +152,7 @@ Métodos públicos</h2></td></tr>
 <p>Inicializa el shadow map. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">imageSize</td><td>Resolución de la imagen del shadow map. Cuanto más alta, mayor calidad de sombras.</td></tr>
+    <tr><td class="paramname">imageSize</td><td>Resolución de la imagen del shadow map. Cuanto más alta, mayor calidad de sombras. </td></tr>
   </table>
   </dd>
 </dl>
@@ -180,15 +180,13 @@ Métodos públicos</h2></td></tr>
 <p>Devuelve la imagen de color del mapa de sombras. Para su renderizado. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">index</td><td>Índice de la imagen en el swapchain.</td></tr>
+    <tr><td class="paramname">index</td><td>Índice de la imagen en el swapchain. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Devuelve</dt><dd>Mapa de profundidad.</dd></dl>
-<dl class="section pre"><dt>Precondición</dt><dd>Se debe haber inicializado el <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html" title="Renderiza un mapa de profundidad de la escena desde el punto de vista de una luz direccional.">ShadowMap</a> con <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a0830a954dc3dfb5b404edc5e85ec6406" title="Inicializa el shadow map.">ShadowMap::Create</a>. </dd></dl>
-<dl class="section note"><dt>Nota</dt><dd>Devolverá nullptr si no se cumple la precondición. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Mapa de profundidad. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00195">195</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00202">202</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -211,7 +209,7 @@ Métodos públicos</h2></td></tr>
 <dl class="section pre"><dt>Precondición</dt><dd>Se ha llamado a <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a0830a954dc3dfb5b404edc5e85ec6406" title="Inicializa el shadow map.">ShadowMap::Create</a>. </dd></dl>
 <dl class="section warning"><dt>Atención</dt><dd>Devuelve nullptr si no se cumple las precondiciones. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00210">210</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00217">217</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -229,10 +227,9 @@ Métodos públicos</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Número de mapas de sobras en cascada. </dd></dl>
 
-<p>Devuelve el número de mapas de sobras en cascada. </p>
-
-<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00222">222</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00229">229</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -255,7 +252,7 @@ Métodos públicos</h2></td></tr>
 <p>Devuelve la imagen del mapa de sombras. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">index</td><td>Índice de la imagen en el swapchain.</td></tr>
+    <tr><td class="paramname">index</td><td>Índice de la imagen en el swapchain. </td></tr>
   </table>
   </dd>
 </dl>
@@ -263,7 +260,7 @@ Métodos públicos</h2></td></tr>
 <dl class="section pre"><dt>Precondición</dt><dd>Se debe haber inicializado el <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html" title="Renderiza un mapa de profundidad de la escena desde el punto de vista de una luz direccional.">ShadowMap</a> con <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a0830a954dc3dfb5b404edc5e85ec6406" title="Inicializa el shadow map.">ShadowMap::Create</a>. </dd></dl>
 <dl class="section note"><dt>Nota</dt><dd>Devolverá nullptr si no se cumple la precondición. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00191">191</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00198">198</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -287,7 +284,7 @@ Métodos públicos</h2></td></tr>
 <dl class="section pre"><dt>Precondición</dt><dd>Se debe haber inicializado el <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html" title="Renderiza un mapa de profundidad de la escena desde el punto de vista de una luz direccional.">ShadowMap</a> con <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a0830a954dc3dfb5b404edc5e85ec6406" title="Inicializa el shadow map.">ShadowMap::Create</a>. </dd></dl>
 <dl class="section note"><dt>Nota</dt><dd>Devolverá nullptr si no se cumple la precondición. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00199">199</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00206">206</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -311,7 +308,7 @@ Métodos públicos</h2></td></tr>
 <dl class="section pre"><dt>Precondición</dt><dd>Se debe haber inicializado el <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html" title="Renderiza un mapa de profundidad de la escena desde el punto de vista de una luz direccional.">ShadowMap</a> con <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a0830a954dc3dfb5b404edc5e85ec6406" title="Inicializa el shadow map.">ShadowMap::Create</a>. </dd></dl>
 <dl class="section note"><dt>Nota</dt><dd>Devolverá nullptr si no se cumple la precondición. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00206">206</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00213">213</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -332,15 +329,9 @@ Métodos públicos</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Establece la luz direccional que proyectará las sobras sobre este mapa de sombras. </p>
-<dl class="params"><dt>Parámetros</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dirLight</td><td>Luz direccional que proyectará sombras.</td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="section pre"><dt>Precondición</dt><dd>Debe llamarse después de inicializar el mapa de sombras (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a0830a954dc3dfb5b404edc5e85ec6406" title="Inicializa el shadow map.">ShadowMap::Create</a>). </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00054">54</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00061">61</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -360,7 +351,7 @@ Métodos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Establece el far plane del renderizado. </p>
+<p>Establece el far plane del frustum de renderizado. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">farPlane</td><td>Distancia máxima al origen de la luz para que sean renderizados.</td></tr>
@@ -369,7 +360,7 @@ Métodos públicos</h2></td></tr>
 </dl>
 <dl class="section note"><dt>Nota</dt><dd>Por defecto, 5.0f. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00187">187</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00194">194</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -389,7 +380,7 @@ Métodos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Establece el near plane del renderizado. </p>
+<p>Establece el near plane del frustum de renderizado. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">nearPlane</td><td>Distancia mínima al origen de la luz para que sean renderizados.</td></tr>
@@ -398,7 +389,7 @@ Métodos públicos</h2></td></tr>
 </dl>
 <dl class="section note"><dt>Nota</dt><dd>Por defecto, -5.0f. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00183">183</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00190">190</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -411,7 +402,7 @@ Métodos públicos</h2></td></tr>
         <tr>
           <td class="memname">void ShadowMap::SetSceneCamera </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a23d62d7bd6a58fd7f758079d87df6c71">ECS::GameObjectIndex</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">ECS::GameObjectIndex</a>&#160;</td>
           <td class="paramname"><em>cameraObject</em></td><td>)</td>
           <td></td>
         </tr>
@@ -421,12 +412,13 @@ Métodos públicos</h2></td></tr>
 <p>Establece la cámara de la escena, para poder configurar los mapas de profundidad de una manera más óptima. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">cameraObject</td><td></td></tr>
+    <tr><td class="paramname">cameraObject</td><td>Objeto <a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a> que contiene la cámara.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section pre"><dt>Precondición</dt><dd>cameraObject debe tener asociado un componente de tipo <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html" title="Cámara para un mundo tridimensional.">ECS::CameraComponent3D</a>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00218">218</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_shadow_map_8cpp_source.html#l00225">225</a> del archivo <a class="el" href="_shadow_map_8cpp_source.html">ShadowMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -440,7 +432,7 @@ Métodos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">ShadowMap</a></li>
-    <li class="footer">Generado el Viernes, 18 de Noviembre de 2022 17:22:37 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Miércoles, 21 de Diciembre de 2022 21:33:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

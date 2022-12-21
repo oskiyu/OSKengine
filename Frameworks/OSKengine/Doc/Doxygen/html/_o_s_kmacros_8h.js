@@ -11,5 +11,6 @@ var _o_s_kmacros_8h =
     [ "TDeltaTime", "_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b", null ],
     [ "TIndex", "_o_s_kmacros_8h.html#a0f6b3171fdbde641ab165b26c2e54a8d", null ],
     [ "TInterfaceUuid", "_o_s_kmacros_8h.html#af408bd83a39d07fd2d37ecbc5e2fbf15", null ],
-    [ "TSize", "_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a", null ]
+    [ "TSize", "_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a", null ],
+    [ "NUM_RESOURCES_IN_FLIGHT", "_o_s_kmacros_8h.html#ace2d8d7ffe07c4a5b8791f83994ad52f", null ]
 ];

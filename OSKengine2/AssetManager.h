@@ -1,14 +1,15 @@
 #pragma once
 
+#include <string>
+
+#include "HashMap.hpp"
 #include "OSKmacros.h"
 #include "LinkedList.hpp"
-#include "HashMap.hpp"
 #include "SharedPtr.hpp"
 #include "IAssetLoader.h"
+#include "IAsset.h"
 
 namespace OSK::ASSETS {
-
-	class IAsset;
 
 	/// <summary>
 	/// El AssetManager se encarga de manejar los loaders de los assets y los lifetimes

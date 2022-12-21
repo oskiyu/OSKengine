@@ -11,7 +11,7 @@ var searchData=
   ['resizablepostprocessingpasses_8',['resizablePostProcessingPasses',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a7e98e72a6fb34491cdd3b358c225747f',1,'OSK::GRAPHICS::IRenderer']]],
   ['resizablerendertargets_9',['resizableRenderTargets',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a35cde40eec42292e6059763aae496525',1,'OSK::GRAPHICS::IRenderer']]],
   ['resizecallbacks_10',['resizeCallbacks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a094df08d451deaab468fffe79dfb689a',1,'OSK::GRAPHICS::IRenderer']]],
-  ['resolution_11',['resolution',['../class_o_s_k_1_1_i_o_1_1_i_display.html#a0087d89a72a5d4faa930924ac33d68f7',1,'OSK::IO::IDisplay']]],
+  ['resolution_11',['resolution',['../class_o_s_k_1_1_i_o_1_1_i_display.html#a0087d89a72a5d4faa930924ac33d68f7',1,'OSK::IO::IDisplay::resolution()'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a8092753c9ee6afb0d2d436bd67022090',1,'OSK::GRAPHICS::GpuImageCreateInfo::resolution()']]],
   ['resolverendertarget_12',['resolveRenderTarget',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a395b387f29e345e76f4a147516b21098',1,'OSK::GRAPHICS::IPostProcessPass']]],
   ['reusablesubblocks_13',['reusableSubblocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a152182de55cd4f7b16f86505db4276cf',1,'OSK::GRAPHICS::IGpuMemoryBlock']]],
   ['rootindex_14',['rootIndex',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a9ceba33776014bb6cc1d749c329e4347',1,'OSK::GRAPHICS::AnimationSkin']]],

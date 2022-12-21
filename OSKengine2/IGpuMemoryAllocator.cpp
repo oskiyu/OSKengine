@@ -54,7 +54,12 @@ OwnedPtr<GpuImage> IGpuMemoryAllocator::CreateCubemapImage(const Vector2ui& face
 	if (!EFTraits::HasFlag(usage, GpuImageUsage::CUBEMAP))
 		EFTraits::AddFlag(&usage, GpuImageUsage::CUBEMAP);
 
-	return CreateImage({ faceSize.X, faceSize.Y, 1 }, GpuImageDimension::d2D, 6, format, usage, sharedType, 1, samplerDesc);
+	GpuImageCreateInfo info = GpuImageCreateInfo::CreateDefault2D(faceSize, format, usage);
+	info.memoryType = sharedType;
+	info.samplerDesc = samplerDesc;
+	info.numLayers = 6;
+
+	return CreateImage(info);
 }
 
 IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
@@ -95,4 +100,46 @@ IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(TSize size, GpuBu
 
 IGpuMemorySubblock* IGpuMemoryAllocator::GetNextBufferMemorySubblock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
 	return GetNextBufferMemoryBlock(size, usage, sharedType)->GetNextMemorySubblock(size, 0);
+}
+
+GpuImageCreateInfo GpuImageCreateInfo::CreateDefault1D(uint32_t resolution, Format format, GpuImageUsage usage) {
+	GpuImageCreateInfo output{};
+	output.resolution = Vector3ui{ resolution, 1, 1 };
+	output.format = format;
+	output.usage = usage;
+	output.dimension = GpuImageDimension::d1D;
+
+	return output;
+}
+
+GpuImageCreateInfo GpuImageCreateInfo::CreateDefault2D(const Vector2ui& resolution, Format format, GpuImageUsage usage) {
+	GpuImageCreateInfo output{};
+	output.resolution = Vector3ui{ resolution.X, resolution.Y, 1 };
+	output.format = format;
+	output.usage = usage;
+	output.dimension = GpuImageDimension::d2D;
+
+	return output;
+}
+
+GpuImageCreateInfo GpuImageCreateInfo::CreateDefault3D(const Vector3ui& resolution, Format format, GpuImageUsage usage) {
+	GpuImageCreateInfo output{};
+	output.resolution = resolution;
+	output.format = format;
+	output.usage = usage;
+	output.dimension = GpuImageDimension::d3D;
+
+	return output;
+}
+
+void GpuImageCreateInfo::SetMsaaSamples(TSize msaaSamples) {
+	this->msaaSamples = msaaSamples;
+}
+
+void GpuImageCreateInfo::SetSamplerDescription(const GpuImageSamplerDesc& description) {
+	samplerDesc = description;
+}
+
+void GpuImageCreateInfo::SetMemoryType(GpuSharedMemoryType memoryType) {
+	this->memoryType = memoryType;
 }

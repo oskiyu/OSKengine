@@ -19,6 +19,7 @@ var namespace_o_s_k_1_1_a_s_s_e_t_s =
     [ "Model3D", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d" ],
     [ "ModelLoader3D", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d" ],
     [ "ModelMetadata", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata.html", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata" ],
+    [ "SpecularMapLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map_loader" ],
     [ "StaticMeshLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader" ],
     [ "Texture", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture" ],
     [ "TextureLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader" ],

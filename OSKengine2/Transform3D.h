@@ -91,6 +91,8 @@ namespace OSK::ECS {
 		/// </summary>
 		void UpdateModel();
 
+		Vector3f TransformPoint(const Vector3f& point) const;
+
 		/// <summary>
 		/// Enlaza este transform a su nuevo transform padre.
 		/// </summary>

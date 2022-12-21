@@ -4,5 +4,5 @@ digraph "Representación gráfica de la clase"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="OSK::GRAPHICS::SpirvToHlsl",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl.html",tooltip="Clase auxiliar que genera código HLSL a partir de código SPIR-V, usando spirv_cross."];
+  Node0 [label="OSK::GRAPHICS::Material",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html",tooltip="Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la..."];
 }

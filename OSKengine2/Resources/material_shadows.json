@@ -7,6 +7,9 @@
     "fragment_shader": "Resources/Shaders/VK/Shadows/frag.spv",
     
     "vertex_type": "OSK::Vertex3D",
+    "config": {
+        "cull_mode": "none"
+    },
 
     "slots": {
         "0": "global"

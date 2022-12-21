@@ -23,6 +23,7 @@ var class_o_s_k_1_1_e_c_s_1_1_transform3_d =
     [ "SetPosition", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#abe67f13052baadaf4439950bc4b555db", null ],
     [ "SetRotation", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a5e6b4d0eb8915eefd7bcd0aeaa424163", null ],
     [ "SetScale", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a067dcb3c5276e24e0252ac78eeaa7259", null ],
+    [ "TransformPoint", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a865f66350d13df8b492abc200ec755d7", null ],
     [ "UnAttach", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aa2499c517f7531f84f1232987d148dc5", null ],
     [ "UpdateModel", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a64ea91f4fb800524683b5f0332e562cb", null ]
 ];

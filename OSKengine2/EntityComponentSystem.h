@@ -14,8 +14,7 @@
 
 namespace OSK::ECS {
 
-	/// <summary>
-	/// Entity-Component-System es un paradigma de programación en el cual los objetos se dividen
+	/// @brief Entity-Component-System es un paradigma de programación en el cual los objetos se dividen
 	/// en 3 partes diferenciables:
 	/// 
 	///	- GameObject:
@@ -34,36 +33,39 @@ namespace OSK::ECS {
 	/// @note Toda operación que el juego quiera hacer sobre el ECS debe hacerse a través de
 	/// esta clase.
 	/// @note Esta clase es dueña de los sistemas.
-	/// </summary>
 	class EntityComponentSystem {
 
 	public:
 
 		EntityComponentSystem();
 
-		/// <summary>
-		/// Ejecuta la lógica OnTick de todos los sistemas registrados.
-		/// </summary>
+		/// @brief Ejecuta la lógica OnTick de todos los sistemas registrados.
+		/// @param deltaTime Tiempo, en segundos, que ha pasado desde la
+		/// última ejecución de esta función.
 		void OnTick(TDeltaTime deltaTime);
 
-		/// <summary>
-		/// Registra un tipo de componente.
+
+		/// @brief Registra un tipo de componente.
+		/// @tparam TComponent Tipo del componente.
 		/// 
 		/// @warning Todo componente que se quiera usar debe ser primero registrado.
-		/// </summary>
-		template <typename TComponent> void RegisterComponent() {
+		/// @pre TComponent debe validar IsEcsComponent.
+		template <typename TComponent> requires IsEcsComponent<TComponent>
+		void RegisterComponent() {
 			componentManager->RegisterComponent<TComponent>();
 		}
 
-		/// <summary>
-		/// Añade el componente dado al objeto.
-		/// </summary>
-		/// <typeparam name="TComponent">Tipo de componente.</typeparam>
-		/// <param name="obj">ID del objeto al que se va a añadir..</param>
-		/// <param name="component">Componente a añadir.</param>
+
+		/// @brief Añade el componente dado al objeto.
+		/// @tparam TComponent Tipo del componente.
+		/// @param obj ID del objeto al que se va a añadir.
+		/// @param component Componente a añadir.
+		/// @return Referencia no estable al componente recién añadido.
 		/// 
 		/// @throws std::runtime_exception si el objeto ya tiene un componente del tipo.
-		template <typename TComponent> TComponent& AddComponent(GameObjectIndex obj, const TComponent& component) {
+		/// @pre TComponent debe validar IsEcsComponent.
+		template <typename TComponent> requires IsEcsComponent<TComponent>
+		TComponent& AddComponent(GameObjectIndex obj, const TComponent& component) {
 			OSK_ASSERT(!ObjectHasComponent<TComponent>(obj), "El objeto " + std::to_string(obj) + " ya tiene el componente " + TComponent::GetComponentTypeName() + ".");
 
 			TComponent& oComponent = componentManager->AddComponent(obj, component);
@@ -78,15 +80,16 @@ namespace OSK::ECS {
 			return oComponent;
 		}
 
-		/// <summary>
-		/// Añade el componente dado al objeto.
-		/// </summary>
-		/// <typeparam name="TComponent">Tipo de componente.</typeparam>
-		/// <param name="obj">ID del objeto al que se va a añadir..</param>
-		/// <param name="component">Componente a añadir.</param>
+		/// @brief Añade el componente dado al objeto.
+		/// @tparam TComponent Tipo del componente.
+		/// @param obj ID del objeto al que se va a añadir.
+		/// @param component Componente a añadir.
+		/// @return Referencia no estable al componente recién añadido.
 		/// 
 		/// @throws std::runtime_exception si el objeto ya tiene un componente del tipo.
-		template <typename TComponent> TComponent& AddComponent(GameObjectIndex obj, TComponent&& component) {
+		/// @pre TComponent debe validar IsEcsComponent.
+		template <typename TComponent> requires IsEcsComponent<TComponent>
+		TComponent& AddComponent(GameObjectIndex obj, TComponent&& component) {
 			OSK_ASSERT(!ObjectHasComponent<TComponent>(obj), "El objeto " + std::to_string(obj) + " ya tiene el componente " + TComponent::GetComponentTypeName() + ".");
 
 			auto& oComponent = componentManager->AddComponentMove<TComponent>(obj, std::move(component));
@@ -101,21 +104,27 @@ namespace OSK::ECS {
 			return oComponent;
 		}
 
-		/// <summary>
-		/// Comprueba si el objeto dado tiene añadido un componente del tipo dado.
-		/// </summary>
-		template <typename TComponent> bool ObjectHasComponent(GameObjectIndex obj) const {
+		/// @brief Comprueba si el objeto dado tiene añadido un componente del tipo dado.
+		/// @tparam TComponent Tipo del componente.
+		/// @param obj Entidad comprobada.
+		/// 
+		/// @pre TComponent debe validar IsEcsComponent.
+		template <typename TComponent> requires IsEcsComponent<TComponent>
+		bool ObjectHasComponent(GameObjectIndex obj) const {
 			return gameObjectManager->GetSignature(obj).Get(
 				componentManager->GetComponentType<TComponent>()
 			);
 		}
 
-		/// <summary>
-		/// Elimina el componente del objeto.
-		/// </summary>
+		
+		/// @brief Elimina el componente del objeto.
+		/// @tparam TComponent Tipo del componente.
+		/// @param obj Objeto al que se va a quitar el componente.
 		/// 
 		/// @throws std::runtime_exception Si el objeto no tiene el componente del tipo dado.
-		template <typename TComponent> void RemoveComponent(GameObjectIndex obj) {
+		/// @pre TComponent debe validar IsEcsComponent.
+		template <typename TComponent> requires IsEcsComponent<TComponent>
+		void RemoveComponent(GameObjectIndex obj) {
 			OSK_ASSERT(ObjectHasComponent<TComponent>(obj), "El objeto " + std::to_string(obj) + " no tiene el componente " + TComponent::GetComponentTypeName() + ".");
 			
 			componentManager->RemoveComponent<TComponent>(obj);
@@ -127,22 +136,26 @@ namespace OSK::ECS {
 			systemManager->GameObjectSignatureChanged(obj, signature);
 		}
 
-		/// <summary>
-		/// Devuelve una referencia al componente del tipo dado del objeto.
-		/// </summary>
+		/// @brief Devuelve una referencia no estable al componente del tipo dado del objeto.
+		/// @tparam TComponent Tipo del componente.
+		/// @param obj Objeto poseedor del componente.
+		/// @return Referencia no estable al componente del tipo dado del objeto.
 		/// 
 		/// @throws std::runtime_exception Si el objeto no tiene el componente.
-		template <typename TComponent> TComponent& GetComponent(GameObjectIndex obj) const {
+		/// @pre TComponent debe validar IsEcsComponent.
+		template <typename TComponent> requires IsEcsComponent<TComponent>
+		TComponent& GetComponent(GameObjectIndex obj) const {
 			OSK_ASSERT(ObjectHasComponent<TComponent>(obj), "El objeto " + std::to_string(obj) + " no tiene el componente " + TComponent::GetComponentTypeName() + ".");
 			return componentManager->GetComponent<TComponent>(obj);
 		}
 
-		/// <summary>
-		/// Devuelve el código identificativo del componente dado.
+		/// @tparam TComponent Tipo del componente.
+		/// @return Código identificativo del componente dado.
 		/// 
 		/// @warning El componente tiene que haber sido registrado.
-		/// </summary>
-		template <typename TComponent> ComponentType GetComponentType() const {
+		/// @pre TComponent debe validar IsEcsComponent.
+		template <typename TComponent> requires IsEcsComponent<TComponent>
+		ComponentType GetComponentType() const {
 			return componentManager->GetComponentType<TComponent>();
 		}
 

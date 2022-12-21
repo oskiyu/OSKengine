@@ -32,3 +32,5 @@ using TInterfaceUuid = TIndex;
 
 #define OSK_DEFINE_IUUID(uuid) static TInterfaceUuid GetInterfaceUuid() { return uuid; }
 #define OSK_IUUID(interfaceClass) (interfaceClass ::GetInterfaceUuid())
+
+inline constexpr TSize NUM_RESOURCES_IN_FLIGHT = 3;

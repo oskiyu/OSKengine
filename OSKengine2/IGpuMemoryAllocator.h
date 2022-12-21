@@ -8,18 +8,20 @@
 #include "Vertex.h"
 #include "Vector2.hpp"
 #include "Vector3.hpp"
+
 #include "GpuImageSamplerDesc.h"
+#include "GpuMemoryTypes.h"
+#include "GpuImageDimensions.h"
+#include "GpuImageUsage.h"
+#include "GpuImageLayout.h"
+#include "Format.h"
 
 namespace OSK::GRAPHICS {
 
-	enum class Format;
 	class IGpuMemoryBlock;
 	class IGpuMemorySubblock;
 	class IGpu;
-	enum class GpuSharedMemoryType;
 	enum class GpuBufferUsage;
-	enum class GpuImageUsage;
-	enum class GpuImageDimension;
 
 	class IBottomLevelAccelerationStructure;
 	class ITopLevelAccelerationStructure;
@@ -38,6 +40,48 @@ namespace OSK::GRAPHICS {
 		GpuSharedMemoryType sharedType;
 
 		bool operator==(const GpuBufferMemoryBlockInfo& other) const;
+	};
+
+	struct GpuImageCreateInfo {
+
+		static GpuImageCreateInfo CreateDefault1D(uint32_t resolution, Format format, GpuImageUsage usage);
+		static GpuImageCreateInfo CreateDefault2D(const Vector2ui& resolution, Format format, GpuImageUsage usage);
+		static GpuImageCreateInfo CreateDefault3D(const Vector3ui& resolution, Format format, GpuImageUsage usage);
+
+		void SetMsaaSamples(TSize msaaSamples);
+		void SetSamplerDescription(const GpuImageSamplerDesc& description);
+		void SetMemoryType(GpuSharedMemoryType memoryType);
+
+		/// @brief Resolución de la imagen, en píxeles.
+		/// Para imágenes 2D, Z se ignora. 
+		/// Para imágenes 1D, Y y Z se ignoran.
+		Vector3ui resolution;
+
+		/// @brief Formato de la imagen.
+		Format format;
+
+		/// @brief Tareas para las que se usará la imagen.
+		GpuImageUsage usage;
+
+		/// @brief Número de dimensiones de la imagen.
+		GpuImageDimension dimension;
+
+		/// @brief Número de capas.
+		/// Si se trata de una imagen sencilla, debe ser 1.
+		/// Si se trata de un array de imágenes, debe ser >= 2.
+		/// 
+		/// @pre Debe ser > 0.
+		TSize numLayers = 1;
+
+		/// @brief Número de muestreos.
+		/// Para imágenes normales, 1.
+		TSize msaaSamples = 1;
+
+		/// @brief Estructura con información sobre cómo se accederá a la imagen desde los shaders.
+		GpuImageSamplerDesc samplerDesc = {};
+
+		GpuSharedMemoryType memoryType = GpuSharedMemoryType::GPU_ONLY;
+
 	};
 
 	/// <summary>
@@ -72,27 +116,10 @@ namespace OSK::GRAPHICS {
 
 		OSK_DEFINE_AS(IGpuMemoryAllocator);
 
-		/// <summary>
-		/// Crea una nueva imagen en la GPU.
-		/// </summary>
-		/// <param name="size">
-		/// Tamaño de la imagen. 
-		/// @note Para imágenes 2D, Z se ignora. 
-		/// @note Para imágenes 1D, Y y Z se ignoran.
-		/// </param>
-		/// <param name="dimension">Dimensión de la imagen.</param>
-		/// <param name="numLayers">
-		/// Número de capas.
-		/// @note  1 es una imagen sencilla.
-		/// @note 2 o más forman un array de imágenes.
-		/// @pre Debe ser mayor que 0.</param>
-		/// <param name="format">Formato.</param>
-		/// <param name="usage">Uso que se le va a dar.</param>
-		/// <param name="sharedType">GPU o GPU-CPU.</param>
-		/// <param name="msaaSamples">Número de muestreos. 
-		/// @note Para imágenes normales, 1.</param>
-		/// <param name="samplerDesc">Descipción del sampler.</param>
-		virtual OwnedPtr<GpuImage> CreateImage(const Vector3ui& size, GpuImageDimension dimension, TSize numLayers, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, TSize msaaSamples, GpuImageSamplerDesc samplerDesc = {}) = 0;
+		
+		/// @brief Crea una nueva imagen en la GPU.
+		/// @param info Información para la creación de la imagen.
+		virtual OwnedPtr<GpuImage> CreateImage(const GpuImageCreateInfo& info) = 0;
 
 		/// <summary>
 		/// Crea una imagen cubemap en la GPU.

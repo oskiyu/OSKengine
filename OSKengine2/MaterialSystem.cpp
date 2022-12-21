@@ -145,10 +145,8 @@ void MaterialSystem::LoadMaterialV0(MaterialLayout* layout, const nlohmann::json
 	}
 
 	TSize hlslDescIndex = 0;
-	for (auto& setName : layout->GetAllSlotNames()) {
-		auto& set = layout->GetSlot(setName);
-
-		for (auto& binding : set.bindings) {
+	for (auto& [name, slot] : layout->GetAllSlots()) {
+		for (auto& binding : slot.bindings) {
 			binding.second.hlslDescriptorIndex = hlslDescIndex;
 
 			hlslDescIndex++;
@@ -175,7 +173,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
 
 		// Si el slot no está registrado, registrarlo
-		if (!layout->GetAllSlotNames().ContainsElement(setName)) {
+		if (!layout->GetAllSlots().ContainsKey(setName)) {
 			MaterialLayoutSlot slot{};
 			slot.name = setName;
 			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
@@ -220,7 +218,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
 
 		// Si el slot no está registrado, registrarlo
-		if (!layout->GetAllSlotNames().ContainsElement(setName)) {
+		if (!layout->GetAllSlots().ContainsKey(setName)) {
 			MaterialLayoutSlot slot{};
 			slot.name = setName;
 			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
@@ -260,7 +258,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
 
 		// Si el slot no está registrado, registrarlo
-		if (!layout->GetAllSlotNames().ContainsElement(setName)) {
+		if (!layout->GetAllSlots().ContainsKey(setName)) {
 			MaterialLayoutSlot slot{};
 			slot.name = setName;
 			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
@@ -297,7 +295,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
 
 		// Si el slot no está registrado, registrarlo
-		if (!layout->GetAllSlotNames().ContainsElement(setName)) {
+		if (!layout->GetAllSlots().ContainsKey(setName)) {
 			MaterialLayoutSlot slot{};
 			slot.name = setName;
 			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
@@ -333,7 +331,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
 
 		// Si el slot no está registrado, registrarlo
-		if (!layout->GetAllSlotNames().ContainsElement(setName)) {
+		if (!layout->GetAllSlots().ContainsKey(setName)) {
 			MaterialLayoutSlot slot{};
 			slot.name = setName;
 			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
@@ -434,8 +432,8 @@ void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json
 	}
 
 	TSize nextHlslBinding = 0;
-	for (const auto& slotName : layout->GetAllSlotNames()) {
-		for (auto& [_, binding] : layout->GetSlot(slotName).bindings) {
+	for (auto& [slotName, slot] : layout->GetAllSlots()) {
+		for (auto& [_, binding] : slot.bindings) {
 			binding.hlslDescriptorIndex = nextHlslBinding;
 			nextHlslBinding++;
 		}

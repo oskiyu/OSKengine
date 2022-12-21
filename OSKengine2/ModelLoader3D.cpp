@@ -88,11 +88,10 @@ void ModelLoader3D::SetupPbrModel(Model3D* model, ECS::ModelComponent3D* compone
 	for (TSize i = 0; i < model->GetMeshes().GetSize(); i++) {
 		auto& meshMetadata = model->GetMetadata().meshesMetadata[i];
 
-		if (meshMetadata.materialTextures.GetSize() > 0) {
-			for (auto& [_, texture] : meshMetadata.materialTextures) {
+		if (meshMetadata.materialTextures.GetSize() > 0)
+			for (auto& [_, texture] : meshMetadata.materialTextures)
 				component->GetMeshMaterialInstance(i)->GetSlot("texture")->SetGpuImage("albedoTexture", model->GetImage(texture));
-				component->GetMeshMaterialInstance(i)->GetSlot("texture")->FlushUpdate();
-			}
-		}
+
+		component->GetMeshMaterialInstance(i)->GetSlot("texture")->FlushUpdate();
 	}
 }

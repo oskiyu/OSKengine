@@ -32,7 +32,7 @@ void TerrainRenderSystem::Render(ICommandList* commandList) {
 		commandList->BindIndexBuffer(model.GetIndexBuffer());
 		commandList->PushMaterialConstants("model", transform.GetAsMatrix());
 
-		for (const std::string& slotName : model.GetMaterialInstance()->GetLayout()->GetAllSlotNames())
+		for (const auto& [slotName, slot] : model.GetMaterialInstance()->GetLayout()->GetAllSlots())
 			commandList->BindMaterialSlot(model.GetMaterialInstance()->GetSlot(slotName));
 
 		commandList->DrawSingleMesh(0, model.GetNumIndices());

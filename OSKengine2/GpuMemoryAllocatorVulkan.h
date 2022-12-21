@@ -33,7 +33,7 @@ namespace OSK::GRAPHICS {
 		OwnedPtr<IGpuIndexBuffer> CreateIndexBuffer(const DynamicArray<TIndexSize>& vertices) override;
 		OwnedPtr<IGpuUniformBuffer> CreateUniformBuffer(TSize size) override;
 		OwnedPtr<IGpuStorageBuffer> CreateStorageBuffer(TSize size) override;
-		OwnedPtr<GpuImage> CreateImage(const Vector3ui& size, GpuImageDimension dimension, TSize numLayers, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, TSize msaaSamples, GpuImageSamplerDesc samplerDesc) override;
+		OwnedPtr<GpuImage> CreateImage(const GpuImageCreateInfo& info) override;
 		OwnedPtr<GpuDataBuffer> CreateStagingBuffer(TSize size) override;
 		OwnedPtr<GpuDataBuffer> CreateBuffer(TSize size, TSize alignment, GpuBufferUsage usage, GpuSharedMemoryType sharedType) override;
 		OwnedPtr<IBottomLevelAccelerationStructure> CreateBottomAccelerationStructure(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer) override;

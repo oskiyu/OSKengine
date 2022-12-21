@@ -9,5 +9,5 @@ digraph "OSK::ECS::RenderSystem2D"
   Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node3 [label="OSK::ECS::ISystem",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_e_c_s_1_1_i_system.html",tooltip="Un sistema se encarga de ejecutar lógica con los datos de los componentes. Los componentes no son más..."];
   Node4 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" renderTarget" ,fontname="Helvetica"];
-  Node4 [label="OSK::GRAPHICS::RenderTarget",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html",tooltip="Representa una textura a la que se puede renderizar."];
+  Node4 [label="OSK::GRAPHICS::RenderTarget",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html",tooltip="Render target para el renderizado de imágenes desde shaders de rasterización."];
 }

@@ -4,5 +4,5 @@ digraph "Representación gráfica de la clase"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="OSK::Vector3_t\< float_t \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_vector3__t.html",tooltip=" "];
+  Node0 [label="OSK::UniquePtr\< OSK\l::GRAPHICS::IGpuMemoryBlock \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_unique_ptr.html",tooltip=" "];
 }

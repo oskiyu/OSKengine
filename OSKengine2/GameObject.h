@@ -16,7 +16,7 @@ namespace OSK::ECS {
 	/// 
 	/// @warning Cada GameObject sólo puede tener un componente de cada tipo.
 	/// </summary>
-	using GameObjectIndex = TSize;
+	using GameObjectIndex = TIndex;
 
 	/// <summary>
 	/// El id no identifica a ningún objeto válido.

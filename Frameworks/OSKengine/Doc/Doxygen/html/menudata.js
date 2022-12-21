@@ -41,7 +41,6 @@ var menudata={children:[
 {text:"k",url:"namespacemembers.html#index_k"},
 {text:"l",url:"namespacemembers.html#index_l"},
 {text:"m",url:"namespacemembers.html#index_m"},
-{text:"n",url:"namespacemembers.html#index_n"},
 {text:"p",url:"namespacemembers.html#index_p"},
 {text:"q",url:"namespacemembers.html#index_q"},
 {text:"r",url:"namespacemembers.html#index_r"},
@@ -174,6 +173,7 @@ var menudata={children:[
 {text:"i",url:"globals.html#index_i"},
 {text:"l",url:"globals.html#index_l"},
 {text:"m",url:"globals.html#index_m"},
+{text:"n",url:"globals.html#index_n"},
 {text:"o",url:"globals.html#index_o"},
 {text:"s",url:"globals.html#index_s"},
 {text:"t",url:"globals.html#index_t"},
@@ -187,5 +187,9 @@ var menudata={children:[
 {text:"o",url:"globals_func.html#index_o"}]},
 {text:"Variables",url:"globals_vars.html"},
 {text:"typedefs",url:"globals_type.html"},
-{text:"defines",url:"globals_defs.html"}]}]},
+{text:"defines",url:"globals_defs.html",children:[
+{text:"g",url:"globals_defs.html#index_g"},
+{text:"o",url:"globals_defs.html#index_o"},
+{text:"s",url:"globals_defs.html#index_s"},
+{text:"t",url:"globals_defs.html#index_t"}]}]}]},
 {text:"Ejemplos",url:"examples.html"}]}

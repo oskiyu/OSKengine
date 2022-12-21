@@ -132,15 +132,15 @@ OwnedPtr<IGpuStorageBuffer> OSK::GRAPHICS::GpuMemoryAllocatorDx12::CreateStorage
 	return new GpuStorageBufferDx12(block->GetNextMemorySubblock(size, D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT), size, 0);
 }
 
-OwnedPtr<GpuImage> GpuMemoryAllocatorDx12::CreateImage(const Vector3ui& size, GpuImageDimension dimension, TSize numLayers, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, TSize msaaSamples, GpuImageSamplerDesc samplerDesc) {
-	auto output = new GpuImageDx12(size, dimension, usage, numLayers, format, msaaSamples, samplerDesc);
+OwnedPtr<GpuImage> GpuMemoryAllocatorDx12::CreateImage(const GpuImageCreateInfo& info) {
+	auto output = new GpuImageDx12(info.resolution, info.dimension, info.usage, info.numLayers, info.format, info.msaaSamples, info.samplerDesc);
 	output->_SetPhysicalSize({
-		MATH::PrimerMultiploSuperior<uint32_t>(size.X, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT),
-		size.Y,
-		size.Z
+		MATH::PrimerMultiploSuperior<uint32_t>(info.resolution.X, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT),
+		info.resolution.Y,
+		info.resolution.Z
 		});
 
-	auto block = GpuMemoryBlockDx12::CreateNewImageBlock(output, device, sharedType, usage, numLayers);
+	auto block = GpuMemoryBlockDx12::CreateNewImageBlock(output, device, info.memoryType, info.usage, info.numLayers);
 
 	output->SetBlock(block.GetPointer());
 
@@ -176,9 +176,7 @@ OwnedPtr<ITopLevelAccelerationStructure> GpuMemoryAllocatorDx12::CreateTopAccele
 }
 
 DescriptorDx12 GpuMemoryAllocatorDx12::GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE type) {
-	const auto itertator = descriptorBlocks.Find(type);
-
-	if (itertator.IsEmpty())
+	if (!descriptorBlocks.HasValue(type))
 		descriptorBlocks.Insert(type, {});
 
 	auto& list = descriptorBlocks.Get(type);

@@ -52,6 +52,18 @@ namespace OSK {
 		/// <returns>Color.</returns>
 		Color operator*(float value) const;
 
+		/// @brief Suma aditiva del color.
+		/// @param other Otro color.
+		/// @return Color + Color.
+		Color operator+(const Color& other) const;
+
+		/// @brief Suma aditiva del color.
+		/// @param other Otro color.
+		/// @return Color + Color.
+		void operator+=(const Color& other) {
+			*this = *this + other;
+		}
+
 		/// <summary>
 		/// Devuelve un glm::vec4 con los valores de este color.
 		/// </summary>

@@ -35,8 +35,8 @@ void Material::SetName(const std::string& name) {
 OwnedPtr<MaterialInstance> Material::CreateInstance() {
 	MaterialInstance* output = new MaterialInstance(this);
 
-	for (const auto& i : layout->GetAllSlotNames())
-		output->RegisterSlot(i);
+	for (const auto& [name, slot] : layout->GetAllSlots())
+		output->RegisterSlot(name);
 
 	return output;
 }
@@ -51,7 +51,7 @@ const MaterialLayout* Material::GetLayout() const {
 
 const IGraphicsPipeline* Material::GetGraphicsPipeline(const PipelineKey& key) {
 	for (TSize i = 0; i < graphicsPipelines.GetSize(); i++) {
-		const PipelineKey& iKey = graphicsPipelines[i].first;
+		const PipelineKey& iKey = graphicsPipelinesKeys[i];
 
 		if (key.GetSize() != iKey.GetSize())
 			continue;
@@ -68,7 +68,7 @@ const IGraphicsPipeline* Material::GetGraphicsPipeline(const PipelineKey& key) {
 			continue;
 		
 		// Compatible
-		return graphicsPipelines[i].second.GetPointer();
+		return graphicsPipelines[i].GetPointer();
 	}
 
 	// Crear nuevo pipeline compatible.
@@ -76,7 +76,8 @@ const IGraphicsPipeline* Material::GetGraphicsPipeline(const PipelineKey& key) {
 	OwnedPtr<IGraphicsPipeline> output = Engine::GetRenderer()->_CreateGraphicsPipeline(pipelineInfo, *GetLayout(), vertexInfo);
 	output->SetDebugName(name);
 
-	graphicsPipelines.Insert({ key, output.GetPointer() });
+	graphicsPipelines.Insert(output.GetPointer());
+	graphicsPipelinesKeys.Insert(key);
 
 	return output.GetPointer();
 }

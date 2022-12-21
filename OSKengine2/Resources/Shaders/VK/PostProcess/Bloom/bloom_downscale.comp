@@ -29,7 +29,7 @@ void main() {
     if (currentCoords.x > nextResolution.x || currentCoords.y > nextResolution.y)
         return;
     
-    const vec2 previousCoordinates = currentCoords * 2.0; //(previousResolution / nextResolution) * currentCoords;
+    const vec2 previousCoordinates = currentCoords * 2.0 + 0.5; //(previousResolution / nextResolution) * currentCoords;
 
     const vec2 sourcePixelSize = 1.0 / textureSize(inputImg, 0);
 

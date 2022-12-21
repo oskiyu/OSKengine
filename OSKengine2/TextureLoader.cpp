@@ -60,8 +60,9 @@ void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 		? GRAPHICS::Format::RGBA32_SFLOAT
 		: GRAPHICS::Format::RGBA8_SRGB;
 
-	const Vector3ui size(width, height, 1);
-	auto image = Engine::GetRenderer()->GetAllocator()->CreateImage(size, GRAPHICS::GpuImageDimension::d2D, 1, imageFormat, GRAPHICS::GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_SOURCE | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION, GRAPHICS::GpuSharedMemoryType::GPU_ONLY, true);
+	const Vector2ui size(width, height);
+	const auto imageInfo = GpuImageCreateInfo::CreateDefault2D(size, imageFormat, GRAPHICS::GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_SOURCE | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION);
+	auto image = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo);
 
 	OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList();
 	uploadCmdList->Reset();

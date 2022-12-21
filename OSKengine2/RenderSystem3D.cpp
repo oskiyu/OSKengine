@@ -17,6 +17,7 @@
 #include "GpuMemoryTypes.h"
 #include "GpuImageSamplerDesc.h"
 #include "IrradianceMap.h"
+#include "CubemapTexture.h"
 #include "CameraComponent3D.h"
 #include "Model3D.h"
 #include "Texture.h"
@@ -34,11 +35,13 @@ RenderSystem3D::RenderSystem3D() {// Signature del sistema
 
 	// Mapa de sombras
 	shadowMap.Create({ 4096u });
+	// shadowMap.SetNearPlane(-100);
+	// shadowMap.SetFarPlane(100);
 
 	// Directional light por defecto
 	const Vector3f direction = Vector3f(1.0f, -3.f, 0.0f).GetNormalized();
 	dirLight.directionAndIntensity = Vector4f(direction.X, direction.Y, direction.Z, 1.2f);
-	dirLight.color = Color(253 / 255.f, 253 / 255.f, 225 / 255.f);
+	dirLight.color = Color(255 / 255.f, 253 / 255.f, 225 / 255.f);
 
 	// Material del terreno
 	terrainMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/terrain.json");
@@ -49,11 +52,11 @@ RenderSystem3D::RenderSystem3D() {// Signature del sistema
 	sceneMaterialInstance = sceneMaterial->CreateInstance().GetPointer();
 	animatedSceneMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/Animated/material_pbr.json");
 
-	const IGpuUniformBuffer* _cameraUbos[3]{};
-	const IGpuUniformBuffer* _dirLightUbos[3]{};
-	const IGpuUniformBuffer* _shadowsMatricesUbos[3]{};
-	const GpuImage* _shadowsMaps[3]{};
-	for (TSize i = 0; i < 3; i++) {
+	const IGpuUniformBuffer* _cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
+	const IGpuUniformBuffer* _dirLightUbos[NUM_RESOURCES_IN_FLIGHT]{};
+	const IGpuUniformBuffer* _shadowsMatricesUbos[NUM_RESOURCES_IN_FLIGHT]{};
+	const GpuImage* _shadowsMaps[NUM_RESOURCES_IN_FLIGHT]{};
+	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4)).GetPointer();
 		_cameraUbos[i] = cameraUbos[i].GetPointer();
 
@@ -68,13 +71,13 @@ RenderSystem3D::RenderSystem3D() {// Signature del sistema
 	sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("dirLight", _dirLightUbos);
 	sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("dirLightShadowMat", _shadowsMatricesUbos);
 	sceneMaterialInstance->GetSlot("global")->SetGpuImages("dirLightShadowMap", _shadowsMaps, SampledChannel::DEPTH, SampledArrayType::ARRAY);
-
 }
 
-void RenderSystem3D::Initialize(GameObjectIndex camera, const IrradianceMap& irradianceMap) {
+void RenderSystem3D::Initialize(GameObjectIndex camera, const IrradianceMap& irradianceMap, const ASSETS::CubemapTexture& skybox) {
 	cameraObject = camera;
 
 	sceneMaterialInstance->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage());
+	//sceneMaterialInstance->GetSlot("global")->SetGpuImage("skybox", skybox.GetGpuImage());
 	sceneMaterialInstance->GetSlot("global")->FlushUpdate();
 
 	terrain.GetMaterialInstance()->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage());

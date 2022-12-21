@@ -21,14 +21,17 @@ void ModelComponent3D::SetModel(Model3D* model) {
 		for (TSize i = prevSize; i < meshesMaterialInstances.GetSize(); i++) {
 			meshesMaterialInstances.At(i) = material->CreateInstance().GetPointer();
 
-			for (auto& t : texturesBound)
-				meshesMaterialInstances.At(i)->GetSlot(t.first.first)->SetTexture(t.first.second, t.second);
+			for (auto& [slotName, bindings] : texturesBound)
+				for (auto& [bindingName, binding] : bindings)
+					meshesMaterialInstances.At(i)->GetSlot(slotName)->SetTexture(bindingName, binding);
 
-			for (auto& t : imagesBound)
-				meshesMaterialInstances.At(i)->GetSlot(t.first.first)->SetGpuImage(t.first.second, t.second);
+			for (auto& [slotName, bindings] : imagesBound)
+				for (auto& [bindingName, binding] : bindings)
+					meshesMaterialInstances.At(i)->GetSlot(slotName)->SetGpuImage(bindingName, binding);
 
-			for (auto& t : uniformBuffersBound)
-				meshesMaterialInstances.At(i)->GetSlot(t.first.first)->SetUniformBuffer(t.first.second, t.second);
+			for (auto& [slotName, bindings] : uniformBuffersBound)
+				for (auto& [bindingName, binding] : bindings)
+					meshesMaterialInstances.At(i)->GetSlot(slotName)->SetUniformBuffer(bindingName, binding);
 		}
 	}
 }
@@ -40,14 +43,17 @@ void ModelComponent3D::SetMaterial(Material* material) {
 		if (i.GetPointer() == nullptr) {
 			i = material->CreateInstance().GetPointer();
 
-			for (auto& t : texturesBound)
-				i->GetSlot(t.first.first)->SetTexture(t.first.second, t.second);
+			for (auto& [slotName, bindings] : texturesBound)
+				for (auto& [bindingName, binding] : bindings)
+					i->GetSlot(slotName)->SetTexture(bindingName, binding);
 
-			for (auto& t : imagesBound)
-				i->GetSlot(t.first.first)->SetGpuImage(t.first.second, t.second);
+			for (auto& [slotName, bindings] : imagesBound)
+				for (auto& [bindingName, binding] : bindings)
+					i->GetSlot(slotName)->SetGpuImage(bindingName, binding);
 
-			for (auto& t : uniformBuffersBound)
-				i->GetSlot(t.first.first)->SetUniformBuffer(t.first.second, t.second);
+			for (auto& [slotName, bindings] : uniformBuffersBound)
+				for (auto& [bindingName, binding] : bindings)
+					i->GetSlot(slotName)->SetUniformBuffer(bindingName, binding);
 		}
 	}
 }
@@ -66,7 +72,10 @@ void ModelComponent3D::BindTextureForAllMeshes(const std::string& slot, const st
 		i->GetSlot(slot)->FlushUpdate();
 	}
 
-	texturesBound.Insert({ slot, binding }, texture);
+	if (!texturesBound.HasValue(slot))
+		texturesBound.Insert(slot, {});
+
+	texturesBound.Get(slot).Insert(binding, texture);
 }
 
 void ModelComponent3D::BindGpuImageForAllMeshes(const std::string& slot, const std::string& binding, const GRAPHICS::GpuImage* image) {
@@ -75,7 +84,10 @@ void ModelComponent3D::BindGpuImageForAllMeshes(const std::string& slot, const s
 		i->GetSlot(slot)->FlushUpdate();
 	}
 
-	imagesBound.Insert({ slot, binding }, image);
+	if (!imagesBound.HasValue(slot))
+		imagesBound.Insert(slot, {});
+
+	imagesBound.Get(slot).Insert(binding, image);
 }
 
 void ModelComponent3D::BindUniformBufferForAllMeshes(const std::string& slot, const std::string& binding, const GRAPHICS::IGpuUniformBuffer* buffer) {
@@ -84,12 +96,16 @@ void ModelComponent3D::BindUniformBufferForAllMeshes(const std::string& slot, co
 		i->GetSlot(slot)->FlushUpdate();
 	}
 
-	uniformBuffersBound.Insert({ slot, binding }, buffer);
+
+	if (!uniformBuffersBound.HasValue(slot))
+		uniformBuffersBound.Insert(slot, {});
+
+	uniformBuffersBound.Get(slot).Insert(binding, buffer);
 }
 
-template <> struct std::hash<OSK::Pair<std::string, std::string>> {
+/*template <> struct std::hash<OSK::Pair<std::string, std::string>> {
 	size_t operator()(const Pair<std::string, std::string>& x) const
 	{
 		return std::hash<std::string>()(x.first);
 	}
-};
+};*/

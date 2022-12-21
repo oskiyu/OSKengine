@@ -66,6 +66,10 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSi
 			const float* positionsBuffer = nullptr;
 			const float* normalsBuffer = nullptr;
 			const float* texCoordsBuffer = nullptr;
+			const void* colorBuffer = nullptr;
+
+			int colorDataType = 0;
+			int colorVectorType = 0;
 
 			// Comprobamos que tiene almacenado info de posición.
 			if (primitive.attributes.find("POSITION") != primitive.attributes.end()) {
@@ -98,6 +102,19 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSi
 				texCoordsBuffer = reinterpret_cast<const float*>(&(gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
 			}
 
+			// Comprobamos que tiene almacenado el color del vértice.
+			if (primitive.attributes.find("COLOR_0") != primitive.attributes.end()) {
+				// Para poder acceder a la información en forma de buffer.
+				const tinygltf::Accessor& accessor = gltfModel.accessors[primitive.attributes.find("COLOR_0")->second];
+				const tinygltf::BufferView& view = gltfModel.bufferViews[accessor.bufferView];
+
+				// Leemos el buffer.
+				colorBuffer = &(gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]);
+
+				colorVectorType = accessor.type;
+				colorDataType = accessor.componentType;
+			}
+
 			OSK_ASSERT(positionsBuffer != nullptr, "No se encontraron posiciones.");
 			OSK_ASSERT(normalsBuffer != nullptr, "No se encontraron normales.");
 			OSK_ASSERT(texCoordsBuffer != nullptr, "No se encontraron coordenadas de texturas.");
@@ -127,10 +144,53 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSi
 					texCoordsBuffer[v * 2 + 1]
 				};
 
+				vertex.color = Color::WHITE();
 				if (primitive.material > -1)
 					vertex.color = modelInfo.materialInfos[primitive.material].baseColor;
-				else
-					vertex.color = 1.0f;
+				
+				if (colorBuffer) {
+					const int stride = colorVectorType;
+
+					switch (colorDataType) {
+
+					case TINYGLTF_PARAMETER_TYPE_UNSIGNED_BYTE: {
+						constexpr float denom = std::numeric_limits<uint8_t>::max();
+						vertex.color += {
+							static_cast<float>(static_cast<const uint8_t*>(colorBuffer)[v * stride + 0] / denom),
+							static_cast<float>(static_cast<const uint8_t*>(colorBuffer)[v * stride + 1] / denom),
+							static_cast<float>(static_cast<const uint8_t*>(colorBuffer)[v * stride + 2] / denom),
+							1.0f
+						};
+
+						break;
+					}
+
+					case TINYGLTF_PARAMETER_TYPE_UNSIGNED_SHORT: {
+						constexpr float denom = std::numeric_limits<uint16_t>::max();
+						vertex.color += {
+							static_cast<float>(static_cast<const uint16_t*>(colorBuffer)[v * stride + 0] / denom),
+							static_cast<float>(static_cast<const uint16_t*>(colorBuffer)[v * stride + 1] / denom),
+							static_cast<float>(static_cast<const uint16_t*>(colorBuffer)[v * stride + 2] / denom),
+							1.0f
+						};
+
+						break;
+					}
+
+					case TINYGLTF_PARAMETER_TYPE_FLOAT: {
+						vertex.color += Color{
+							static_cast<float>(static_cast<const float*>(colorBuffer)[v * stride + 0]),
+							static_cast<float>(static_cast<const float*>(colorBuffer)[v * stride + 1]),
+							static_cast<float>(static_cast<const float*>(colorBuffer)[v * stride + 2]),
+							1.0f
+						};
+
+						break;
+					}
+
+					}
+				}
+				
 
 				vertices.Insert(vertex);
 			}

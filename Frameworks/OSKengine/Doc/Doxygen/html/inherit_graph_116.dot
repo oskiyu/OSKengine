@@ -4,5 +4,5 @@ digraph "Representación gráfica de la clase"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="OSK::GRAPHICS::Descriptor\lPoolVulkan",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_pool_vulkan.html",tooltip="Wrapper de un VkDescriptorPool. Se encarga de crear el pool a partir del MaterialLayoutSlot."];
+  Node0 [label="OSK::ECS::GameObjectManager",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_e_c_s_1_1_game_object_manager.html",tooltip="Se encarga de registrar y eliminar GameObjects."];
 }

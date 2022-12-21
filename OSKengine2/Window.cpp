@@ -32,7 +32,6 @@ void Window::Create(Vector2ui size, const std::string& title) {
 	// Creación de la ventana.
 	window = glfwCreateWindow(size.X, size.Y, title.c_str(), NULL, NULL);
 	OSK_ASSERT(window.HasValue(), "No se ha podido iniciar la ventana.");
-	glfwMakeContextCurrent(window.GetPointer());
 
 	resolution = size;
 
@@ -112,11 +111,7 @@ GLFWwindow* Window::_GetGlfw() const {
 }
 
 Window* Window::GetWindowForCallback(GLFWwindow* window) {
-	void* ptr = glfwGetWindowUserPointer(window);
-	if (auto winPtr = (Window*)ptr)
-		return winPtr;
-
-	return nullptr;
+	return static_cast<Window*>(glfwGetWindowUserPointer(window));
 }
 
 void Window::GlfwResizeCallback(GLFWwindow* window, int sizex, int sizey) {

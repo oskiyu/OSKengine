@@ -7,28 +7,24 @@
 #include "Memory.h"
 
 namespace OSK::ECS {
-
-	/// <summary>
-	/// Contenedor para el dynamic array de componentes del tipo dado.
+		
+	/// @brief Contenedor para el dynamic array de componentes del tipo dado.
 	/// Se encarga de manejar la introducción y eliminación de componentes.
 	/// Los componentes se almacenan en memoria contínua.
-	/// </summary>
-	/// <typeparam name="TComponent">Tipo del componente.</typeparam>
-	template <typename TComponent> class ComponentContainer : public IComponentContainer {
+	/// @tparam TComponent Tipo del componente.
+	/// 
+	/// @pre TComponent debe validar IsEcsComponent.
+	template <typename TComponent> requires IsEcsComponent<TComponent>
+	class ComponentContainer : public IComponentContainer {
 
 	public:
 
-		~ComponentContainer() {
-			while (!components.IsEmpty())
-				components.RemoveLast();
-		}
+		~ComponentContainer() = default;
 
-		/// <summary>
-		/// Añade un componente asignado al objeto dado.
-		/// </summary>
-		/// <param name="obj">Objeto dueño del componente.</param>
-		/// <param name="component">Componente a añadir.</param>
-		/// <returns>El componente ya añadido.</returns>
+		/// @brief Añade un componente asignado al objeto dado.
+		/// @param obj Objeto dueño del componente.
+		/// @param component Componente a añadir.
+		/// @return Referencia no estable al componente añadido.
 		TComponent& AddComponent(GameObjectIndex obj, const TComponent& component) {
 			ComponentIndex componentId = components.GetSize();
 
@@ -39,12 +35,10 @@ namespace OSK::ECS {
 			return GetComponent(obj);
 		}
 
-		/// <summary>
-		/// Añade un componente asignado al objeto dado.
-		/// </summary>
-		/// <param name="obj">Objeto dueño del componente.</param>
-		/// <param name="component">Componente a añadir.</param>
-		/// <returns>El componente ya añadido.</returns>
+		/// @brief Añade un componente asignado al objeto dado.
+		/// @param obj Objeto dueño del componente.
+		/// @param component Componente a añadir.
+		/// @return Referencia no estable al componente añadido.
 		TComponent& AddComponentMove(GameObjectIndex obj, TComponent&& component) {
 			ComponentIndex componentId = components.GetSize();
 
@@ -54,13 +48,12 @@ namespace OSK::ECS {
 
 			return GetComponent(obj);
 		}
-
-		/// <summary>
-		/// Elimina el componente cuyo dueño es el dado.
-		/// </summary>
-		/// <param name="obj">Dueño del componente.</param>
+				
+		/// @brief Elimina el componente cuyo dueño es el dado.
+		/// @param obj Dueño del componente.
 		/// 
 		/// @warning No comprueba que el objeto tenga el componente.
+		/// @pre El objeto debe tener el componente.
 		void RemoveComponent(GameObjectIndex obj) {
 			ComponentIndex compIndex = objectToComponent.Get(obj);
 			TSize indexOfLast = components.GetSize() - 1;
@@ -84,38 +77,34 @@ namespace OSK::ECS {
 			componentToObject.Remove(indexOfLast);
 		}
 
-		/// <summary>
-		/// Devuelve una referencia al componente del objeto dado.
-		/// </summary>
+		/// @brief Devuelve una 
+		/// @param obj ID del objeto.
+		/// @return Referencia no estable al componente del objeto dado.
 		/// 
 		/// @warning No comprueba que el objeto tenga el componente.
+		/// @pre El objeto debe tener el componente.
 		TComponent& GetComponent(GameObjectIndex obj) const {
 			return components.At(objectToComponent.Get(obj));
 		}
-
-		/// <summary>
-		/// Elimina el componente del objeto eliminado.
-		/// </summary>
+				
+		/// @brief Elimina el componente del objeto eliminado.
+		/// @param obj ID del objeto.
 		/// 
 		/// @warning No comprueba que el objeto tenga el componente.
+		/// @pre El objeto debe tener el componente.
 		void GameObjectDestroyerd(GameObjectIndex obj) override {
 			RemoveComponent(obj);
 		}
 
 	private:
 
-		/// <summary>
-		/// Array con todos los componentes de un mismo tipo.
-		/// </summary>
+		/// @brief Array con todos los componentes de un mismo tipo.
 		DynamicArray<TComponent> components;
 
-		/// <summary>
-		/// Mapa dueño -> componente.
-		/// </summary>
+		/// @brief Mapa dueño -> componente.
 		HashMap<GameObjectIndex, ComponentIndex> objectToComponent;
-		/// <summary>
-		/// Mapa componente -> dueño.
-		/// </summary>
+		
+		/// @brief Mapa componente -> dueño.
 		HashMap<ComponentIndex, GameObjectIndex> componentToObject;
 
 	};

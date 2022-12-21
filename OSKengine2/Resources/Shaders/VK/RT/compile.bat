@@ -7,6 +7,7 @@ C:/Users/Oscar/source/repos/OSKengine/Dependencies/OSKengine/VulkanSDK/Bin/glslc
 C:/Users/Oscar/source/repos/OSKengine/Dependencies/OSKengine/VulkanSDK/Bin/glslc.exe Shadows/miss.rmiss --target-env=vulkan1.3 -o Shadows/miss.spv
 
 C:/Users/Oscar/source/repos/OSKengine/Dependencies/OSKengine/VulkanSDK/Bin/glslc.exe Shadows/Denoiser/denoiser.comp --target-env=vulkan1.3 -o Shadows/Denoiser/denoiser.spv
+C:/Users/Oscar/source/repos/OSKengine/Dependencies/OSKengine/VulkanSDK/Bin/glslc.exe Shadows/Denoiser/reprojection.comp --target-env=vulkan1.3 -o Shadows/Denoiser/reprojection.spv
 
 C:/Users/Oscar/source/repos/OSKengine/Dependencies/OSKengine/VulkanSDK/Bin/glslc.exe Resolve/resolve.comp --target-env=vulkan1.3 -o Resolve/resolve.spv
 

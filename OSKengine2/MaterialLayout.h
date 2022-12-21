@@ -13,7 +13,13 @@ namespace OSK::GRAPHICS {
 	class OSKAPI_CALL MaterialLayout {
 
 	public:
-		
+
+		using PushConstantsContainer = HashMap<std::string, MaterialLayoutPushConstant>;
+		using PushConstantsIterable = PushConstantsContainer;
+
+		using MaterialSlotsContainer = HashMap<std::string, MaterialLayoutSlot>;
+		using MaterialSlotsIterable = MaterialSlotsContainer;
+
 		/// <summary>
 		/// Añade el slot dado al layout.
 		/// El nombre del slot se usará como llave.
@@ -42,21 +48,30 @@ namespace OSK::GRAPHICS {
 		MaterialLayoutPushConstant& GetPushConstant(const std::string& name) const;
 
 		/// <summary>
-		/// Obtiene los nombres de todos los slots registrados en el layout.
+		/// Obtiene los slots.
 		/// </summary>
-		const LinkedList<std::string>& GetAllSlotNames() const;
+		const MaterialSlotsIterable& GetAllSlots() const;
 
 		/// <summary>
 		/// Devuelve todos los slots push constants registrados.
 		/// </summary>
-		const HashMap<std::string, MaterialLayoutPushConstant>& GetAllPushConstants() const;
+		const PushConstantsIterable& GetAllPushConstants() const;
+
+		/// <summary>
+		/// Obtiene los slots.
+		/// </summary>
+		MaterialSlotsIterable& GetAllSlots();
+
+		/// <summary>
+		/// Devuelve todos los slots push constants registrados.
+		/// </summary>
+		PushConstantsIterable& GetAllPushConstants();
 
 	private:
 
 		std::string name;
 		HashMap<std::string, MaterialLayoutSlot> slots;
 		HashMap<std::string, MaterialLayoutPushConstant> pushConstants;
-		LinkedList<std::string> slotNames{};
 		TSize accumulatedPushConstOffset = 0;
 
 	};

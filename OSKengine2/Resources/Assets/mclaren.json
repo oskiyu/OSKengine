@@ -1,0 +1,13 @@
+{
+    "file_type": "ASSET",
+    "spec_ver": 0,
+
+    "name": "Model0",
+    "asset_type": "Model3D",
+    "raw_asset_path": "Resources/Assets/Models/chass.glb",
+
+    "scale": 0.15,
+    "load_textures": false,
+    "load_materials": false,
+    "rotation_offset": [0, 0, 0]
+}

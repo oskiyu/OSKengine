@@ -4,5 +4,5 @@ digraph "Representación gráfica de la clase"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="OSK::GRAPHICS::Vertex2D",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html",tooltip=" "];
+  Node0 [label="OSK::GRAPHICS::MaterialLayout\lPushConstant",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html",tooltip="Un push constant permite enviar datos a la GPU directamente en la lista de comandos."];
 }

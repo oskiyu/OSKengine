@@ -18,8 +18,7 @@ void SpirvToHlsl::SetVertexAttributesMapping(const VertexInfo& vertexInfo) {
 }
 
 void SpirvToHlsl::SetLayoutMapping(const MaterialLayout& layout) {
-	for (const auto& slotName : layout.GetAllSlotNames()) {
-		const auto& slot = layout.GetSlot(slotName);
+	for (const auto& [slotName, slot] : layout.GetAllSlots()) {
 
 		for (const auto& binding : slot.bindings) {
 

@@ -158,7 +158,9 @@ void BloomPass::Execute(ICommandList* computeCmdList) {
 		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
 		{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
-	computeCmdList->CopyImageToImage(inputImages[resourceIndex], bloomIntermediateTargets[firstSource].GetTargetImage(resourceIndex), 1, 0, 0, 0, 0);
+	const Vector2ui imgSize = { inputImages[resourceIndex]->GetSize().X, inputImages[resourceIndex]->GetSize().Y };
+	CopyImageInfo copyInfo = CopyImageInfo::CreateDefault2D(imgSize);
+	computeCmdList->CopyImageToImage(inputImages[resourceIndex], bloomIntermediateTargets[firstSource].GetTargetImage(resourceIndex), copyInfo);
 
 	computeCmdList->SetGpuImageBarrier(bloomIntermediateTargets[firstSource].GetTargetImage(resourceIndex), GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE),

@@ -14,6 +14,7 @@ var class_o_s_k_1_1_hash_map =
     [ "GetIterator", "class_o_s_k_1_1_hash_map.html#aa9668747767e3460d66b72e4e2f9edd1", null ],
     [ "GetNumberOfBuckets", "class_o_s_k_1_1_hash_map.html#a70f8d610958d298df1e32bab4913bc2b", null ],
     [ "GetSize", "class_o_s_k_1_1_hash_map.html#aaafe40d918402b549fdbd32270323de4", null ],
+    [ "HasValue", "class_o_s_k_1_1_hash_map.html#a930cf74abc2de7b76345afd3cbd70487", null ],
     [ "Insert", "class_o_s_k_1_1_hash_map.html#a9840da146cc95d82bc7c505334db32a4", null ],
     [ "Insert", "class_o_s_k_1_1_hash_map.html#a40beb2f2b1239af8cb2ed6c54eaa79f2", null ],
     [ "InsertCopy", "class_o_s_k_1_1_hash_map.html#af771fb92432ce33ada3fa200b99bb180", null ],

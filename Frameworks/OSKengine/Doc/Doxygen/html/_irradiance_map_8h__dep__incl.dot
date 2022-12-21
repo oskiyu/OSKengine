@@ -5,11 +5,13 @@ digraph "OSKengine2/IrradianceMap.h"
   node [fontname="Helvetica",fontsize="10",shape=record];
   Node1 [label="OSKengine2/IrradianceMap.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
   Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="OSKengine2/IrradianceMap.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_irradiance_map_8cpp.html",tooltip=" "];
+  Node2 [label="OSKengine2/HybridRenderSystem.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_hybrid_render_system_8cpp.html",tooltip=" "];
   Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node3 [label="OSKengine2/IrradianceMap\lLoader.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_irradiance_map_loader_8cpp.html",tooltip=" "];
+  Node3 [label="OSKengine2/IrradianceMap.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_irradiance_map_8cpp.html",tooltip=" "];
   Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node4 [label="OSKengine2/PbrDeferredRender\lSystem.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_pbr_deferred_render_system_8cpp.html",tooltip=" "];
+  Node4 [label="OSKengine2/IrradianceMap\lLoader.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_irradiance_map_loader_8cpp.html",tooltip=" "];
   Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node5 [label="OSKengine2/RenderSystem3\lD.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_render_system3_d_8cpp.html",tooltip=" "];
+  Node5 [label="OSKengine2/PbrDeferredRender\lSystem.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_pbr_deferred_render_system_8cpp.html",tooltip=" "];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="OSKengine2/RenderSystem3\lD.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_render_system3_d_8cpp.html",tooltip=" "];
 }

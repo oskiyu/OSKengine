@@ -25,6 +25,7 @@ layout (set = 0, binding = 2) uniform DirLight {
 
 layout (set = 0, binding = 3) uniform samplerCube irradianceMap;
 layout (set = 0, binding = 4) uniform sampler2DArray dirLightShadowMap;
+layout (set = 0, binding = 5) uniform samplerCube skyboxImg;
 
 layout (set = 1, binding = 0) uniform sampler2D albedoTexture;
 // layout (set = 0, binding = 1) uniform sampler2D metallicTexture;
@@ -43,10 +44,10 @@ void main() {
     const vec3 view = normalize(inCameraPos - inPosition);
     const vec3 reflectVec = reflect(-view, normal);
 
-    const float metallicFactor = pushConstants.materialInfos.x; // TODO: texture
-    const float roughnessFactor = pushConstants.materialInfos.y; // TODO: texture
+    const float metallicFactor = clamp(pushConstants.materialInfos.x, 0.1, 1); // TODO: texture
+    const float roughnessFactor = clamp(pushConstants.materialInfos.y, 0.1, 1); // TODO: texture
 
-    vec3 albedo = texture(albedoTexture, inTexCoords).xyz;
+    vec3 albedo = inColor.rgb * texture(albedoTexture, inTexCoords).xyz;
 
     vec3 F0 = vec3(DEFAULT_F0);
     F0 = mix(F0, albedo, metallicFactor);
@@ -60,11 +61,16 @@ void main() {
     // Irradiance Map
     vec3 kS = FreshnelShlick(max(dot(normal, view), 0.0), F0);
     vec3 kD = 1.0 - kS;
-    kD *= 1.0 - (metallicFactor * 0.2);
+    kD *= 1.0 - (metallicFactor); // * 0.2
 
     const vec3 irradiance = texture(irradianceMap, normal).rgb;
-    const vec3 ambient = albedo * kD * irradiance;
-    vec3 color = ambient * (dirLight.directionAndIntensity.w * 0.25) + accummulatedRadiance * 1.25;
+    vec3 ambient = albedo * kD * irradiance;
+
+    ambient = mix(ambient, dirLight.color.rgb  / 255.0, 0.5);
+
+    // vec3 color = ambient * (dirLight.directionAndIntensity.w * 0.25) + accummulatedRadiance * 1.25;
+    vec3 color = ambient * (dirLight.directionAndIntensity.w * 0.5) + accummulatedRadiance * 1.25;
+    // vec3 color = ambient + accummulatedRadiance;
 
     outColor = vec4(color, 1.0);
 }

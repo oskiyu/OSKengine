@@ -90,63 +90,65 @@ $(document).ready(function(){initNavTree('_asset_manager_8h_source.html',''); in
 <div class="contents">
 <a href="_asset_manager_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kmacros_8h.html">OSKmacros.h</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_linked_list_8hpp.html">LinkedList.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_hash_map_8hpp.html">HashMap.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_shared_ptr_8hpp.html">SharedPtr.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_i_asset_loader_8h.html">IAssetLoader.h</a>&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a> {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">class </span>IAsset;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html">   30</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html">AssetManager</a> {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#ac0ee74e39c90d597beb90338a31bdae3">   37</a></span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; T* <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#ac0ee74e39c90d597beb90338a31bdae3">Load</a>(<span class="keyword">const</span> std::string&amp; assetFilePath, <span class="keyword">const</span> std::string lifetimePool) {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            <span class="keywordflow">if</span> (assetsTable.ContainsKey(assetFilePath))</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                <span class="keywordflow">return</span> (T*)assetsTable.Get(assetFilePath);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            T* output = <span class="keyword">new</span> T(assetFilePath);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            loaders.Get(T::GetAssetType())-&gt;Load(assetFilePath, (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html">IAsset</a>**)&amp;output);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            assetsTable.Insert(output-&gt;GetName(), output);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="keywordflow">if</span> (!assetsPerLifetime.ContainsKey(lifetimePool))</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                assetsPerLifetime.Insert(lifetimePool, {});</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            assetsPerLifetime.Get(lifetimePool).Insert(output);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <span class="keywordflow">return</span> output;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        }</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a032603cd4ddeedebe56ec8c9516469f5">DeleteLifetime</a>(<span class="keyword">const</span> std::string&amp; lifetime);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a37f73c3a4d17bb495b38eb65f7073d67">   65</a></span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a37f73c3a4d17bb495b38eb65f7073d67">RegisterLoader</a>() {</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            loaders.Insert(T::GetAssetType(), <span class="keyword">new</span> T);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        }</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">HashMap&lt;std::string, IAsset*&gt;</a> assetsTable;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">HashMap&lt;std::string, DynamicArray&lt;SharedPtr&lt;IAsset&gt;</a>&gt;&gt; assetsPerLifetime;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">HashMap&lt;std::string, IAssetLoader*&gt;</a> loaders;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    };</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kmacros_8h.html">OSKmacros.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_linked_list_8hpp.html">LinkedList.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_shared_ptr_8hpp.html">SharedPtr.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_i_asset_loader_8h.html">IAssetLoader.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="_i_asset_8h.html">IAsset.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a> {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html">   31</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html">AssetManager</a> {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#ac0ee74e39c90d597beb90338a31bdae3">   38</a></span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; T* <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#ac0ee74e39c90d597beb90338a31bdae3">Load</a>(<span class="keyword">const</span> std::string&amp; assetFilePath, <span class="keyword">const</span> std::string lifetimePool) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <span class="keywordflow">if</span> (assetsTable.ContainsKey(assetFilePath))</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                <span class="keywordflow">return</span> (T*)assetsTable.Get(assetFilePath);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            T* output = <span class="keyword">new</span> T(assetFilePath);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            loaders.Get(T::GetAssetType())-&gt;Load(assetFilePath, (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html">IAsset</a>**)&amp;output);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            assetsTable.Insert(output-&gt;GetName(), output);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="keywordflow">if</span> (!assetsPerLifetime.ContainsKey(lifetimePool))</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                assetsPerLifetime.Insert(lifetimePool, {});</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            assetsPerLifetime.Get(lifetimePool).Insert(output);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <span class="keywordflow">return</span> output;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a032603cd4ddeedebe56ec8c9516469f5">DeleteLifetime</a>(<span class="keyword">const</span> std::string&amp; lifetime);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a37f73c3a4d17bb495b38eb65f7073d67">   66</a></span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a37f73c3a4d17bb495b38eb65f7073d67">RegisterLoader</a>() {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            loaders.Insert(T::GetAssetType(), <span class="keyword">new</span> T);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">HashMap&lt;std::string, IAsset*&gt;</a> assetsTable;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">HashMap&lt;std::string, DynamicArray&lt;SharedPtr&lt;IAsset&gt;</a>&gt;&gt; assetsPerLifetime;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">HashMap&lt;std::string, IAssetLoader*&gt;</a> loaders;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    };</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}</div>
 <div class="ttc" id="a_hash_map_8hpp_html"><div class="ttname"><a href="_hash_map_8hpp.html">HashMap.hpp</a></div></div>
+<div class="ttc" id="a_i_asset_8h_html"><div class="ttname"><a href="_i_asset_8h.html">IAsset.h</a></div></div>
 <div class="ttc" id="a_i_asset_loader_8h_html"><div class="ttname"><a href="_i_asset_loader_8h.html">IAssetLoader.h</a></div></div>
 <div class="ttc" id="a_linked_list_8hpp_html"><div class="ttname"><a href="_linked_list_8hpp.html">LinkedList.hpp</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
 <div class="ttc" id="a_shared_ptr_8hpp_html"><div class="ttname"><a href="_shared_ptr_8hpp.html">SharedPtr.hpp</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html">OSK::ASSETS::AssetManager</a></div><div class="ttdoc">El AssetManager se encarga de manejar los loaders de los assets y los lifetimes de los assets.</div><div class="ttdef"><b>Definition:</b> <a href="_asset_manager_8h_source.html#l00030">AssetManager.h:30</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html">OSK::ASSETS::AssetManager</a></div><div class="ttdoc">El AssetManager se encarga de manejar los loaders de los assets y los lifetimes de los assets.</div><div class="ttdef"><b>Definition:</b> <a href="_asset_manager_8h_source.html#l00031">AssetManager.h:31</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_a032603cd4ddeedebe56ec8c9516469f5"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a032603cd4ddeedebe56ec8c9516469f5">OSK::ASSETS::AssetManager::DeleteLifetime</a></div><div class="ttdeci">void DeleteLifetime(const std::string &amp;lifetime)</div><div class="ttdoc">Elimina todos assets del lifetime dado.</div><div class="ttdef"><b>Definition:</b> <a href="_asset_manager_8cpp_source.html#l00007">AssetManager.cpp:7</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_a37f73c3a4d17bb495b38eb65f7073d67"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a37f73c3a4d17bb495b38eb65f7073d67">OSK::ASSETS::AssetManager::RegisterLoader</a></div><div class="ttdeci">void RegisterLoader()</div><div class="ttdoc">Registra un loader, para poder cargar assets de un tipo determinado.</div><div class="ttdef"><b>Definition:</b> <a href="_asset_manager_8h_source.html#l00065">AssetManager.h:65</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_ac0ee74e39c90d597beb90338a31bdae3"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#ac0ee74e39c90d597beb90338a31bdae3">OSK::ASSETS::AssetManager::Load</a></div><div class="ttdeci">T * Load(const std::string &amp;assetFilePath, const std::string lifetimePool)</div><div class="ttdoc">Carga un asset.</div><div class="ttdef"><b>Definition:</b> <a href="_asset_manager_8h_source.html#l00037">AssetManager.h:37</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_a37f73c3a4d17bb495b38eb65f7073d67"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a37f73c3a4d17bb495b38eb65f7073d67">OSK::ASSETS::AssetManager::RegisterLoader</a></div><div class="ttdeci">void RegisterLoader()</div><div class="ttdoc">Registra un loader, para poder cargar assets de un tipo determinado.</div><div class="ttdef"><b>Definition:</b> <a href="_asset_manager_8h_source.html#l00066">AssetManager.h:66</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_ac0ee74e39c90d597beb90338a31bdae3"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#ac0ee74e39c90d597beb90338a31bdae3">OSK::ASSETS::AssetManager::Load</a></div><div class="ttdeci">T * Load(const std::string &amp;assetFilePath, const std::string lifetimePool)</div><div class="ttdoc">Carga un asset.</div><div class="ttdef"><b>Definition:</b> <a href="_asset_manager_8h_source.html#l00038">AssetManager.h:38</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html">OSK::ASSETS::IAsset</a></div><div class="ttdoc">Un asset es un archivo/contenido que se usa en un juego. Incluye contenido como texturas,...</div><div class="ttdef"><b>Definition:</b> <a href="_i_asset_8h_source.html#l00031">IAsset.h:31</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html">OSK::HashMap</a></div><div class="ttdoc">Un HashMap representa una colleción que enlaza un valor a otro. Está compuesto internamente por varia...</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00026">HashMap.hpp:26</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html">OSK::HashMap</a></div><div class="ttdoc">Un HashMap representa una colleción que enlaza un valor a otro. Está compuesto internamente por varia...</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00028">HashMap.hpp:28</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition:</b> <a href="_anim_mesh_loader_8h_source.html#l00008">AnimMeshLoader.h:8</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -154,7 +156,7 @@ $(document).ready(function(){initNavTree('_asset_manager_8h_source.html',''); in
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_asset_manager_8h.html">AssetManager.h</a></li>
-    <li class="footer">Generado el Viernes, 18 de Noviembre de 2022 17:22:36 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Miércoles, 21 de Diciembre de 2022 21:33:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

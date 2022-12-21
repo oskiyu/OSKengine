@@ -127,6 +127,8 @@ Clases</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_compute_pipeline_vulkan.html">ComputePipelineVulkan</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_copy_image_info.html">CopyImageInfo</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_block_dx12.html">DescriptorBlockDx12</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12.html">DescriptorDx12</a></td></tr>
@@ -152,6 +154,8 @@ Clases</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html">GpuImageBarrierInfo</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html">GpuImageCreateInfo</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html">GpuImageDx12</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -628,8 +632,6 @@ Variables</h2></td></tr>
 <tr class="separator:af4ec621c557d492c7de3493e2b2bd1a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a180d96d3f745a60bce6b0ffd5209ce35"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a180d96d3f745a60bce6b0ffd5209ce35">ALL_IMAGE_LAYERS</a> = (~0)</td></tr>
 <tr class="separator:a180d96d3f745a60bce6b0ffd5209ce35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2790b1bb1dbf382ccd86a228f9f2ccbd"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a2790b1bb1dbf382ccd86a228f9f2ccbd">NUM_RESOURCES_IN_FLIGHT</a> = 3</td></tr>
-<tr class="separator:a2790b1bb1dbf382ccd86a228f9f2ccbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Documentación de los 'typedefs'</h2>
 <a id="a4f5b85b215c02279051f4041a44b512c" name="a4f5b85b215c02279051f4041a44b512c"></a>
@@ -850,7 +852,7 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="a5c67a4dab480f62eb6083332acdcb8c7a7e72dc7ff3c335fd2bf5fbfc66f2d2d9" name="a5c67a4dab480f62eb6083332acdcb8c7a7e72dc7ff3c335fd2bf5fbfc66f2d2d9"></a>RT_AS_BUILD&#160;</td><td class="fielddoc"><p >Construcción de estructuras de aceleración. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a5c67a4dab480f62eb6083332acdcb8c7a5b39c8b553c821e7cddc6da64b5bd2ee" name="a5c67a4dab480f62eb6083332acdcb8c7a5b39c8b553c821e7cddc6da64b5bd2ee"></a>DEFAULT&#160;</td><td class="fielddoc"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Tareas pendientes:</a></b></dt><dd>Documentación. </dd></dl>
+<tr><td class="fieldname"><a id="a5c67a4dab480f62eb6083332acdcb8c7a5b39c8b553c821e7cddc6da64b5bd2ee" name="a5c67a4dab480f62eb6083332acdcb8c7a5b39c8b553c821e7cddc6da64b5bd2ee"></a>DEFAULT&#160;</td><td class="fielddoc"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Tareas pendientes:</a></b></dt><dd>Documentación. </dd></dl>
 </td></tr>
 </table>
 
@@ -2099,37 +2101,13 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a2790b1bb1dbf382ccd86a228f9f2ccbd" name="a2790b1bb1dbf382ccd86a228f9f2ccbd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2790b1bb1dbf382ccd86a228f9f2ccbd">&#9670;&nbsp;</a></span>NUM_RESOURCES_IN_FLIGHT</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> OSK::GRAPHICS::NUM_RESOURCES_IN_FLIGHT = 3</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_i_material_slot_8h_source.html#l00019">19</a> del archivo <a class="el" href="_i_material_slot_8h_source.html">IMaterialSlot.h</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li>
-    <li class="footer">Generado el Viernes, 18 de Noviembre de 2022 17:22:37 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Miércoles, 21 de Diciembre de 2022 21:33:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

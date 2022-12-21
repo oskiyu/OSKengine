@@ -34,6 +34,10 @@ namespace OSK {
 		return Color(Red, Green, Blue, value);
 	}
 
+	Color Color::operator+(const Color& other) const {
+		return Color(Red + other.Red * other.Alpha, Green + other.Green * other.Alpha, Blue + other.Blue * other.Alpha, Alpha + other.Alpha);
+	}
+
 	glm::vec4 Color::ToGlm() const {
 		return glm::vec4(Red, Green, Blue, Alpha);
 	}

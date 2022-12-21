@@ -54,13 +54,11 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 	DynamicArray<D3D12_STATIC_SAMPLER_DESC> staticSamplers;
 
 	DynamicArray<D3D12_ROOT_PARAMETER> nativeParams;
-	for (auto& setName : layout->GetAllSlotNames()) {
-		auto& set = layout->GetSlot(setName);
-
-		for (auto& [name, binding] : set.bindings) {
+	for (auto& [setName, slot] : layout->GetAllSlots()) {
+		for (auto& [name, binding] : slot.bindings) {
 			if (binding.type == ShaderBindingType::UNIFORM_BUFFER) {
 				D3D12_ROOT_PARAMETER param{};
-				param.ShaderVisibility = GetShaderStageDx12(set.stage);
+				param.ShaderVisibility = GetShaderStageDx12(slot.stage);
 				param.ParameterType = GetParamTypeDx12(binding.type);
 				param.Descriptor.RegisterSpace = 0;
 				param.Descriptor.ShaderRegister = binding.hlslIndex;
@@ -79,7 +77,7 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 				D3D12_STATIC_SAMPLER_DESC sampler{};
 				sampler.RegisterSpace = 0;
 				sampler.ShaderRegister = binding.hlslIndex;
-				sampler.ShaderVisibility = GetShaderStageDx12(set.stage);
+				sampler.ShaderVisibility = GetShaderStageDx12(slot.stage);
 
 				sampler.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;
 				sampler.AddressU = D3D12_TEXTURE_ADDRESS_MODE_MIRROR;
@@ -93,7 +91,7 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 				sampler.MaxLOD = D3D12_FLOAT32_MAX;
 
 				D3D12_ROOT_PARAMETER param{};
-				param.ShaderVisibility = GetShaderStageDx12(set.stage);
+				param.ShaderVisibility = GetShaderStageDx12(slot.stage);
 				param.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
 				param.DescriptorTable.NumDescriptorRanges = 1;
 				param.DescriptorTable.pDescriptorRanges = textureDescriptorRange.GetPointer();
@@ -120,7 +118,7 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 				desc.Texture2D.MipSlice = 0;
 
 				D3D12_ROOT_PARAMETER param{};
-				param.ShaderVisibility = GetShaderStageDx12(set.stage);
+				param.ShaderVisibility = GetShaderStageDx12(slot.stage);
 				param.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
 				param.DescriptorTable.NumDescriptorRanges = 1;
 				param.DescriptorTable.pDescriptorRanges = textureDescriptorRange.GetPointer();

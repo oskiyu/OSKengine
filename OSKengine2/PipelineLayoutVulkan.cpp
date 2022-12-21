@@ -25,8 +25,8 @@ PipelineLayoutVulkan::PipelineLayoutVulkan(const MaterialLayout* materialLayout)
 	VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
 
 	DynamicArray<MaterialLayoutSlot> orderedSlots{};
-	for (auto const& slotName : materialLayout->GetAllSlotNames())
-		orderedSlots.Insert(materialLayout->GetSlot(slotName));
+	for (auto const& [name, slot] : materialLayout->GetAllSlots())
+		orderedSlots.Insert(slot);
 
 	for (TSize i = 0; i < orderedSlots.GetSize() - 1; i++) {
 		for (TSize j = 0; j < orderedSlots.GetSize() - 1; j++) {

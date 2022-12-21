@@ -16,8 +16,6 @@ namespace OSK::GRAPHICS {
 	class ITopLevelAccelerationStructure;
 	class GpuDataBuffer;
 
-	inline constexpr TSize NUM_RESOURCES_IN_FLIGHT = 3;
-
 
 	/// <summary>
 	/// Un slot contiene referencias a los recursos (UNIFORM BUFFER, TEXTURE, etc...) que se envían a la GPU.

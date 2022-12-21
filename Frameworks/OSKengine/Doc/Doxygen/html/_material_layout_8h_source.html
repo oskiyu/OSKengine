@@ -100,30 +100,39 @@ $(document).ready(function(){initNavTree('_material_layout_8h_source.html',''); 
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">   13</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a> {</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordtype">void</span> AddSlot(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html">MaterialLayoutSlot</a>&amp; slot);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordtype">void</span> AddPushConstant(<a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html">MaterialLayoutPushConstant</a> pushConstant);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html">MaterialLayoutSlot</a>&amp; GetSlot(<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html">MaterialLayoutPushConstant</a>&amp; GetPushConstant(<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_linked_list.html">LinkedList&lt;std::string&gt;</a>&amp; GetAllSlotNames() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">HashMap&lt;std::string, MaterialLayoutPushConstant&gt;</a>&amp; GetAllPushConstants() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        std::string name;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">HashMap&lt;std::string, MaterialLayoutSlot&gt;</a> slots;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">HashMap&lt;std::string, MaterialLayoutPushConstant&gt;</a> pushConstants;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <a class="code hl_class" href="class_o_s_k_1_1_linked_list.html">LinkedList&lt;std::string&gt;</a> slotNames{};</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> accumulatedPushConstOffset = 0;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    };</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a2cf82eef519b13888bbd4ca816810722">   17</a></span>        <span class="keyword">using </span><a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">PushConstantsContainer</a> = <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">HashMap&lt;std::string, MaterialLayoutPushConstant&gt;</a>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a7bb8fe6e5b2630d3d02f9201ead4c7cf">   18</a></span>        <span class="keyword">using </span><a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">PushConstantsIterable</a> = <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">PushConstantsContainer</a>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#ae24f862aff7c9a7fc61abb81a5eda8bf">   20</a></span>        <span class="keyword">using </span><a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">MaterialSlotsContainer</a> = <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">HashMap&lt;std::string, MaterialLayoutSlot&gt;</a>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a1e33adb58fa8a6e529f26892fea44f3e">   21</a></span>        <span class="keyword">using </span><a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">MaterialSlotsIterable</a> = <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">MaterialSlotsContainer</a>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordtype">void</span> AddSlot(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html">MaterialLayoutSlot</a>&amp; slot);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">void</span> AddPushConstant(<a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html">MaterialLayoutPushConstant</a> pushConstant);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html">MaterialLayoutSlot</a>&amp; GetSlot(<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html">MaterialLayoutPushConstant</a>&amp; GetPushConstant(<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">MaterialSlotsIterable</a>&amp; GetAllSlots() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">PushConstantsIterable</a>&amp; GetAllPushConstants() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">MaterialSlotsIterable</a>&amp; GetAllSlots();</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">PushConstantsIterable</a>&amp; GetAllPushConstants();</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        std::string name;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">HashMap&lt;std::string, MaterialLayoutSlot&gt;</a> slots;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <a class="code hl_class" href="class_o_s_k_1_1_hash_map.html">HashMap&lt;std::string, MaterialLayoutPushConstant&gt;</a> pushConstants;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> accumulatedPushConstOffset = 0;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    };</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}</div>
 <div class="ttc" id="a_linked_list_8hpp_html"><div class="ttname"><a href="_linked_list_8hpp.html">LinkedList.hpp</a></div></div>
 <div class="ttc" id="a_material_layout_push_constant_8h_html"><div class="ttname"><a href="_material_layout_push_constant_8h.html">MaterialLayoutPushConstant.h</a></div></div>
 <div class="ttc" id="a_material_layout_slot_8h_html"><div class="ttname"><a href="_material_layout_slot_8h.html">MaterialLayoutSlot.h</a></div></div>
@@ -131,8 +140,7 @@ $(document).ready(function(){initNavTree('_material_layout_8h_source.html',''); 
 <div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00023">OSKmacros.h:23</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">OSK::GRAPHICS::MaterialLayout</a></div><div class="ttdoc">El layout de un material determina qué slots pertenecen a ese material.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_8h_source.html#l00013">MaterialLayout.h:13</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html">OSK::HashMap</a></div><div class="ttdoc">Un HashMap representa una colleción que enlaza un valor a otro. Está compuesto internamente por varia...</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00026">HashMap.hpp:26</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_linked_list_html"><div class="ttname"><a href="class_o_s_k_1_1_linked_list.html">OSK::LinkedList&lt; std::string &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_hash_map_html"><div class="ttname"><a href="class_o_s_k_1_1_hash_map.html">OSK::HashMap</a></div><div class="ttdoc">Un HashMap representa una colleción que enlaza un valor a otro. Está compuesto internamente por varia...</div><div class="ttdef"><b>Definition:</b> <a href="_hash_map_8hpp_source.html#l00028">HashMap.hpp:28</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition:</b> <a href="_animation_8h_source.html#l00014">Animation.h:14</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html">OSK::GRAPHICS::MaterialLayoutPushConstant</a></div><div class="ttdoc">Un push constant permite enviar datos a la GPU directamente en la lista de comandos.</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_push_constant_8h_source.html#l00014">MaterialLayoutPushConstant.h:14</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html">OSK::GRAPHICS::MaterialLayoutSlot</a></div><div class="ttdoc">Un MaterialLayoutSlot agrupa varios MaterialLayoutBindings: son una manera de unir bindings que se us...</div><div class="ttdef"><b>Definition:</b> <a href="_material_layout_slot_8h_source.html#l00013">MaterialLayoutSlot.h:13</a></div></div>
@@ -142,7 +150,7 @@ $(document).ready(function(){initNavTree('_material_layout_8h_source.html',''); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_material_layout_8h.html">MaterialLayout.h</a></li>
-    <li class="footer">Generado el Viernes, 18 de Noviembre de 2022 17:22:36 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Miércoles, 21 de Diciembre de 2022 21:33:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

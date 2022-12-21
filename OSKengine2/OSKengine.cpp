@@ -23,7 +23,6 @@
 #include "IGpuMemoryAllocator.h"
 #include "CameraComponent2D.h"
 #include "Sprite.h"
-#include "Transform2D.h"
 #include "Font.h"
 #include "FontLoader.h"
 #include "TerrainComponent.h"
@@ -111,7 +110,7 @@ void Engine::RegisterBuiltinComponents() {
 }
 
 void Engine::RegisterBuiltinSystems() {
-	entityComponentSystem->RegisterSystem<ECS::HybridRenderSystem>();
+	entityComponentSystem->RegisterSystem<ECS::RenderSystem3D>();
 	entityComponentSystem->RegisterSystem<ECS::SkyboxRenderSystem>();
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem2D>();
 	// entityComponentSystem->RegisterSystem<ECS::TerrainRenderSystem>();
@@ -162,7 +161,7 @@ const Version& Engine::GetVersion() {
 }
 
 const std::string& Engine::GetBuild() {
-	static std::string build = "2022.11.18a";
+	static std::string build = "2022.12.21a";
 
 	return build;
 }

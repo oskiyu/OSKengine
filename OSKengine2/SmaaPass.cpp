@@ -24,8 +24,8 @@ void SmaaPass::Create(const Vector2ui& size) {
 		sampler.mipMapMode = GpuImageMipmapMode::NONE;
 		sampler.addressMode = GpuImageAddressMode::EDGE;
 
-		edgeImages[i] = Engine::GetRenderer()->GetAllocator()->CreateImage({ size.X, size.Y, 1 }, GpuImageDimension::d2D, 1, Format::RGBA32_SFLOAT,
-			GpuImageUsage::SAMPLED | GpuImageUsage::SAMPLED_ARRAY | GpuImageUsage::COMPUTE | GpuImageUsage::TRANSFER_SOURCE, GpuSharedMemoryType::GPU_ONLY, 1, sampler).GetPointer();
+		//edgeImages[i] = Engine::GetRenderer()->GetAllocator()->CreateImage({ size.X, size.Y, 1 }, GpuImageDimension::d2D, 1, Format::RGBA32_SFLOAT,
+			//GpuImageUsage::SAMPLED | GpuImageUsage::SAMPLED_ARRAY | GpuImageUsage::COMPUTE | GpuImageUsage::TRANSFER_SOURCE, GpuSharedMemoryType::GPU_ONLY, 1, sampler).GetPointer();
 	}
 
 	// resolveRenderTarget.SetName("SMAA Output");
@@ -39,8 +39,8 @@ void SmaaPass::Resize(const Vector2ui& size) {
 		sampler.mipMapMode = GpuImageMipmapMode::NONE;
 		sampler.addressMode = GpuImageAddressMode::EDGE;
 
-		edgeImages[i] = Engine::GetRenderer()->GetAllocator()->CreateImage({ size.X, size.Y, 1 }, GpuImageDimension::d2D, 1, Format::RGBA32_SFLOAT,
-			GpuImageUsage::SAMPLED | GpuImageUsage::SAMPLED_ARRAY | GpuImageUsage::COMPUTE | GpuImageUsage::TRANSFER_SOURCE, GpuSharedMemoryType::GPU_ONLY, 1, sampler).GetPointer();
+		//edgeImages[i] = Engine::GetRenderer()->GetAllocator()->CreateImage({ size.X, size.Y, 1 }, GpuImageDimension::d2D, 1, Format::RGBA32_SFLOAT,
+			//GpuImageUsage::SAMPLED | GpuImageUsage::SAMPLED_ARRAY | GpuImageUsage::COMPUTE | GpuImageUsage::TRANSFER_SOURCE, GpuSharedMemoryType::GPU_ONLY, 1, sampler).GetPointer();
 	}
 }
 

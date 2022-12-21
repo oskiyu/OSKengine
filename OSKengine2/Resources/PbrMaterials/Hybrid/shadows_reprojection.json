@@ -1,0 +1,12 @@
+{
+    "file_type": "MATERIAL_COMPUTE",
+    "spec_ver": 1,
+    "name": "RayTraced Shadows Reprojection",
+
+    "compute_shader": "Resources/Shaders/VK/RT/Shadows/Denoiser/reprojection.spv",
+    
+    "slots": {
+        "0": "shadows"
+    }
+    
+}

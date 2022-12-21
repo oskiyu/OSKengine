@@ -5,8 +5,9 @@
     "name": "Circuit0",
     "asset_type": "Model3D",
     "raw_asset_path": "Resources/Assets/Models/circuit.glb",
+    "raw_asset_path1": "Resources/Assets/Models/sponza.glb",
 
-    "scale": 1.0,
+    "scale": 0.5,
     "load_textures": false,
     "load_materials": false,
     "rotation_offset": [0, 180, 0]

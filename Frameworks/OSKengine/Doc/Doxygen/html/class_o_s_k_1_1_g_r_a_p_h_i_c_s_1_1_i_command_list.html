@@ -148,8 +148,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:ad7246c4be8141d70827ee91c1686144e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9676cdfe4a2411cb5993f9509a24e3c5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a9676cdfe4a2411cb5993f9509a24e3c5">CopyBufferToImage</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">GpuDataBuffer</a> *source, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *dest, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> layer=0, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> offset=0)=0</td></tr>
 <tr class="separator:a9676cdfe4a2411cb5993f9509a24e3c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68e72a36c4670bb7de7b3fdab6c2bb99"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a68e72a36c4670bb7de7b3fdab6c2bb99">CopyImageToImage</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *source, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *destination, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> numLayers, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> srcStartLayer, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> dstStartLayer, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> srcMipLevel, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> dstMipLevel, <a class="el" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a> copySize=<a class="el" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a>(0u))=0</td></tr>
-<tr class="separator:a68e72a36c4670bb7de7b3fdab6c2bb99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a802fca7b556943136095636d87716866"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a802fca7b556943136095636d87716866">CopyImageToImage</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *source, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *destination, const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_copy_image_info.html">CopyImageInfo</a> &amp;copyInfo)=0</td></tr>
+<tr class="separator:a802fca7b556943136095636d87716866"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78589eeb1aaa3971b96da0d8d3abbf0d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a78589eeb1aaa3971b96da0d8d3abbf0d">RegisterStagingBuffer</a> (<a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">GpuDataBuffer</a> &gt; stagingBuffer)</td></tr>
 <tr class="separator:a78589eeb1aaa3971b96da0d8d3abbf0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7109911a37fcb344856f013eab554da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ab7109911a37fcb344856f013eab554da">DeleteAllStagingBuffers</a> ()</td></tr>
@@ -187,7 +187,7 @@ Atributos protegidos</h2></td></tr>
 <div class="textblock"><p >Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución. La lista es creada por una pool de comandos, y se introduce en una cola de comandos para su ejecución. </p>
 <dl class="section note"><dt>Nota</dt><dd>Los comandos serán ejecutados en orden una vez se envíe la lista a la GPU. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00044">44</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00099">99</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 </div><h2 class="groupheader">Documentación del constructor y destructor</h2>
 <a id="aeeec6b511ff9c19d16c2d52c0f9f6678" name="aeeec6b511ff9c19d16c2d52c0f9f6678"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeeec6b511ff9c19d16c2d52c0f9f6678">&#9670;&nbsp;</a></span>~ICommandList()</h2>
@@ -590,8 +590,8 @@ La lista de comandos debe estar abierta.</dd></dl>
 
 </div>
 </div>
-<a id="a68e72a36c4670bb7de7b3fdab6c2bb99" name="a68e72a36c4670bb7de7b3fdab6c2bb99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a68e72a36c4670bb7de7b3fdab6c2bb99">&#9670;&nbsp;</a></span>CopyImageToImage()</h2>
+<a id="a802fca7b556943136095636d87716866" name="a802fca7b556943136095636d87716866"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a802fca7b556943136095636d87716866">&#9670;&nbsp;</a></span>CopyImageToImage()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -614,38 +614,8 @@ La lista de comandos debe estar abierta.</dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
-          <td class="paramname"><em>numLayers</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
-          <td class="paramname"><em>srcStartLayer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
-          <td class="paramname"><em>dstStartLayer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
-          <td class="paramname"><em>srcMipLevel</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a>&#160;</td>
-          <td class="paramname"><em>dstMipLevel</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a>&#160;</td>
-          <td class="paramname"><em>copySize</em> = <code><a class="el" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a>(0u)</code>&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_copy_image_info.html">CopyImageInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>copyInfo</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -663,29 +633,9 @@ La lista de comandos debe estar abierta.</dd></dl>
 <p>Copia el contenido de una imagen a otra. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">source</td><td>Imagen con los contenidos a copiar.</td></tr>
-    <tr><td class="paramname">destination</td><td>Destino de la copia.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parámetros</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">numLayers</td><td>Número de capas que se van a copiar.</td></tr>
-    <tr><td class="paramname">srcStartLayer</td><td>Capa de origen a partir de la cual se copiará.</td></tr>
-    <tr><td class="paramname">dstStartLayer</td><td>Capa de destino a partir de la cual se escribirá.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parámetros</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">srcMipLevel</td><td>Mip level de la imagen de origen desde el cual se copiará.</td></tr>
-    <tr><td class="paramname">dstMipLevel</td><td>Mip level de la imagen de destino al que se copiará.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parámetros</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">copySize</td><td>Región de la imagen, en píxeles, que se copiará. Por defecto, se copia la imagen entera.</td></tr>
+    <tr><td class="paramname">source</td><td>Imagen con los contenidos a copiar. </td></tr>
+    <tr><td class="paramname">destination</td><td>Destino de la copia. </td></tr>
+    <tr><td class="paramname">copyInfo</td><td>Configuracióon de la copia.</td></tr>
   </table>
   </dd>
 </dl>
@@ -698,10 +648,9 @@ La imagen de destino debe haber sido creada con <a class="el" href="namespace_o_
 La imagen de destino debe tener el layout <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9ac61dfc60317a58b2843ec29f8e3c2359" title="Los contenidos de otra imagen se copiarán a esta.">GpuImageLayout::TRANSFER_DESTINATION</a>. </dd>
 <dd>
 La lista de comandos debe estar abierta.</dd></dl>
-<dl class="section post"><dt>Postcondición</dt><dd>El layout de la imagen después de efectuarse la copia segirá siendo <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9ac61dfc60317a58b2843ec29f8e3c2359" title="Los contenidos de otra imagen se copiarán a esta.">GpuImageLayout::TRANSFER_DESTINATION</a>.</dd></dl>
-<dl class="section warning"><dt>Atención</dt><dd>Si se copia con srcMipLevel != 0 y/o dstMipLevel != 0, se debe establecer un tamaño de la región de copia válido (copySize). </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>El layout de la imagen después de efectuarse la copia segirá siendo <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9ac61dfc60317a58b2843ec29f8e3c2359" title="Los contenidos de otra imagen se copiarán a esta.">GpuImageLayout::TRANSFER_DESTINATION</a>. </dd></dl>
 
-<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a7cb33b674e3c5e14394363190ed7bad0">OSK::GRAPHICS::CommandListDx12</a> y <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#aadf5b8b38327576a65816803cf7fee3c">OSK::GRAPHICS::CommandListVulkan</a>.</p>
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a489d566616ee4dc5d01572bcbaa1c319">OSK::GRAPHICS::CommandListDx12</a> y <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a5acd3a3c6006cdae8c23a77d582aa39a">OSK::GRAPHICS::CommandListVulkan</a>.</p>
 
 </div>
 </div>
@@ -986,7 +935,7 @@ El push constant debe ser compatible con el material enlazado. </dd>
 <dd>
 La lista de comandos debe estar abierta. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00204">204</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00259">259</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1507,7 +1456,7 @@ La lista de comandos debe estar abierta. </dd>
 Debe ejecutarse en un equipo compatible con trazado de rayos. </dd>
 <dd>
 Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Tareas pendientes:</a></b></dt><dd>Implementación en DX12. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Tareas pendientes:</a></b></dt><dd>Implementación en DX12. </dd></dl>
 
 <p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#af3833c51984818038a00e26361a6e92a">OSK::GRAPHICS::CommandListDx12</a> y <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a6afe178a57ad3814de1d5a8d9d35d5b9">OSK::GRAPHICS::CommandListVulkan</a>.</p>
 
@@ -1526,7 +1475,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00379">379</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00420">420</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1550,7 +1499,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00387">387</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00428">428</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1574,7 +1523,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00388">388</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00429">429</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1600,7 +1549,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 
 <p><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html" title="Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la...">Material</a> que está siendo usado en un instante determinado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00385">385</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00426">426</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1640,7 +1589,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00389">389</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00430">430</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1656,7 +1605,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00377">377</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00418">418</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1680,7 +1629,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00391">391</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00432">432</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1696,7 +1645,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00378">378</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00419">419</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1710,7 +1659,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a></li>
-    <li class="footer">Generado el Viernes, 18 de Noviembre de 2022 17:22:37 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Miércoles, 21 de Diciembre de 2022 21:33:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

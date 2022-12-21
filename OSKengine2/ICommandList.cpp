@@ -55,3 +55,65 @@ void ICommandList::_SetSingleTimeUse() {
 TSize ICommandList::GetCommandListIndex() const {
 	return isSingleUse ? 0 : Engine::GetRenderer()->GetCurrentCommandListIndex();
 }
+
+
+CopyImageInfo CopyImageInfo::CreateDefault1D(uint32_t size) {
+	CopyImageInfo output{};
+	output.SetCopySize(size);
+
+	return output;
+}
+
+CopyImageInfo CopyImageInfo::CreateDefault2D(Vector2ui size) {
+	CopyImageInfo output{};
+	output.SetCopySize(size);
+
+	return output;
+}
+
+CopyImageInfo CopyImageInfo::CreateDefault3D(Vector3ui size) {
+	CopyImageInfo output{};
+	output.SetCopySize(size);
+
+	return output;
+}
+
+void CopyImageInfo::SetCopySize(uint32_t size) {
+	copySize = { size, 1u, 1u };
+}
+
+void CopyImageInfo::SetCopySize(Vector2ui size) {
+	copySize = { size.X, size.Y, 1u };
+}
+
+void CopyImageInfo::SetCopySize(Vector3ui size) {
+	copySize = size;
+}
+
+void CopyImageInfo::SetSourceOffset(uint32_t offset) {
+	sourceOffset = { offset, 0, 0 };
+}
+
+void CopyImageInfo::SetSourceOffset(Vector2ui offset) {
+	sourceOffset = { offset.X, offset.Y, 0 };
+}
+
+void CopyImageInfo::SetSourceOffset(Vector3ui offset) {
+	sourceOffset = offset;
+}
+
+void CopyImageInfo::SetDestinationOffset(uint32_t offset) {
+	destinationOffset = { offset, 0, 0 };
+}
+
+void CopyImageInfo::SetDestinationOffset(Vector2ui offset) {
+	destinationOffset = { offset.X, offset.Y, 0 };
+}
+
+void CopyImageInfo::SetDestinationOffset(Vector3ui offset) {
+	destinationOffset = offset;
+}
+
+void CopyImageInfo::SetCopyAllLevels() {
+	numArrayLevels = ALL_ARRAY_LEVELS;
+}

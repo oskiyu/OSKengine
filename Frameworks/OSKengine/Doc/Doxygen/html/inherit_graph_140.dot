@@ -4,9 +4,5 @@ digraph "Representación gráfica de la clase"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="OSK::GRAPHICS::IRenderer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html",tooltip="Proporciona la interfaz de un renderizador."];
-  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node1 [label="OSK::GRAPHICS::RendererDx12",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html",tooltip="Implementación de la interfaz para el renderizador de DirectX 12."];
-  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="OSK::GRAPHICS::RendererVulkan",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html",tooltip="Implementación de la interfaz para el renderizador de Vulkan."];
+  Node0 [label="OSK::GRAPHICS::GpuImageSamplerDesc",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html",tooltip="Establece propiedades básicas sobre el acceso a la imagen."];
 }

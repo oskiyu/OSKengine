@@ -55,7 +55,7 @@ namespace OSK::GRAPHICS {
 		void BindComputePipeline(const IComputePipeline& computePipeline) override;
 
 		void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer, TSize offset) override;
-		void CopyImageToImage(const GpuImage* source, GpuImage* destination, TSize numLayers, TSize srcStartLayer, TSize dstStartLayer, TSize srcMipLevel, TSize dstMipLevel, Vector2ui copySize) override;
+		void CopyImageToImage(const GpuImage* source, GpuImage* destination, const CopyImageInfo& copyInfo) override;
 
 		void BindUniformBufferDx12(TSize index, const GpuUniformBufferDx12* buffer);
 

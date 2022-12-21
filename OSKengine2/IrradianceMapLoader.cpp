@@ -86,7 +86,12 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IAsset** asset)
 
 	// Crear imagen original y llenarla.
 	const Vector3ui size(width, height, 1);
-	UniquePtr<GpuImage> originalImage = Engine::GetRenderer()->GetAllocator()->CreateImage(size, GRAPHICS::GpuImageDimension::d2D, 1, Format::RGBA32_SFLOAT, GRAPHICS::GpuImageUsage::TRANSFER_SOURCE | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION | GRAPHICS::GpuImageUsage::SAMPLED, GRAPHICS::GpuSharedMemoryType::GPU_ONLY, 1).GetPointer();
+	const Vector2ui size2D(width, height);
+
+	const GpuImageUsage imageUsage = GRAPHICS::GpuImageUsage::TRANSFER_SOURCE | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION | GRAPHICS::GpuImageUsage::SAMPLED;
+	GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(size2D, Format::RGBA32_SFLOAT, imageUsage);
+
+	UniquePtr<GpuImage> originalImage = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo).GetPointer();
 
 	OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList().GetPointer();
 	uploadCmdList->Reset();
@@ -120,8 +125,10 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IAsset** asset)
 	OwnedPtr<ICommandList> cmdList = Engine::GetRenderer()->CreateSingleUseCommandList().GetPointer();
 	cmdList->Reset();
 	cmdList->Start();
+
 	GenCubemap(intermediateCubemap.GetPointer(), cmdList.GetPointer());
 	ConvoluteCubemap(finalImage.GetPointer(), cmdList.GetPointer());
+
 	cmdList->Close();
 	Engine::GetRenderer()->SubmitSingleUseCommandList(cmdList.GetPointer());
 
@@ -167,7 +174,10 @@ void IrradianceMapLoader::DrawCubemap(GpuImage* targetCubemap, ICommandList* cmd
 				GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ),
 				GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
-			cmdList->CopyImageToImage(cubemapGenRenderTarget.GetMainColorImage(Engine::GetRenderer()->GetCurrentFrameIndex()), targetCubemap, 1, 0, i, 0, mipLevel, viewport.rectangle.GetRectangleSize());
+			CopyImageInfo copyInfo = CopyImageInfo::CreateDefault2D(viewport.rectangle.GetRectangleSize());
+			copyInfo.destinationArrayLevel = i;
+			copyInfo.destinationMipLevel = mipLevel;
+			cmdList->CopyImageToImage(cubemapGenRenderTarget.GetMainColorImage(Engine::GetRenderer()->GetCurrentFrameIndex()), targetCubemap, copyInfo);
 		}
 	}
 }

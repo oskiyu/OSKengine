@@ -4,5 +4,5 @@ digraph "Representación gráfica de la clase"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="OSK::OwnedPtr\< OSK\l::GRAPHICS::GpuImage \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_owned_ptr.html",tooltip=" "];
+  Node0 [label="OSK::HashMap\< TKey,\l TValue, numBuckets\l \>::Iterator",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_hash_map_1_1_iterator.html",tooltip="Un iterador apunta a una pareja de la colección. Se puede recorrer la colección a través de los itera..."];
 }

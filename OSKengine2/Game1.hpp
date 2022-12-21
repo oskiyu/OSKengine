@@ -105,7 +105,7 @@ using namespace OSK::GRAPHICS;
 Material* pbrColorMaterial = nullptr;
 Material* pbrNormalMaterial = nullptr;
 
-#define OSK_CURRENT_RSYSTEM OSK::ECS::HybridRenderSystem
+#define OSK_CURRENT_RSYSTEM OSK::ECS::RenderSystem3D
 
 class Game1 : public OSK::IGame {
 
@@ -140,12 +140,12 @@ protected:
 		font->LoadSizedFont(22);
 		font->SetMaterial(material2d);
 
-		ASSETS::Model3D* carModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/f1.json", "GLOBAL");
-		ASSETS::Model3D* circuitModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/circuit0.json", "GLOBAL");
+		ASSETS::Model3D* carModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/mclaren.json", "GLOBAL");
+		ASSETS::Model3D* circuitModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/circuit0.json", "GLOBAL"); // f1.json
 
 		topLevelAccelerationStructure = Engine::GetRenderer()->GetAllocator()->CreateTopAccelerationStructure({
 			carModel->GetAccelerationStructure(),
-			//circuitModel->GetAccelerationStructure()
+			circuitModel->GetAccelerationStructure()
 			}).GetPointer();
 
 		DynamicArray<RtInstanceInfo> instancesInfo;
@@ -165,9 +165,9 @@ protected:
 		for (TSize i = 0; i < _countof(rtTargetImage); i++) {
 			GpuImageSamplerDesc sampler{};
 			sampler.mipMapMode = GpuImageMipmapMode::NONE;
-			rtTargetImage[i] = Engine::GetRenderer()->GetAllocator()->CreateImage({ 1920, 1080, 1 }, GpuImageDimension::d2D, 1, Format::RGBA32_SFLOAT,
-				GpuImageUsage::RT_TARGET_IMAGE | GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE, GpuSharedMemoryType::GPU_ONLY, 1, sampler).GetPointer();
-			rtTargetImage[i]->SetDebugName("RtTargetImage [" + std::to_string(i) + "]");
+			//rtTargetImage[i] = Engine::GetRenderer()->GetAllocator()->CreateImage({ 1920, 1080, 1 }, GpuImageDimension::d2D, 1, Format::RGBA32_SFLOAT,
+				//GpuImageUsage::RT_TARGET_IMAGE | GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE, GpuSharedMemoryType::GPU_ONLY, 1, sampler).GetPointer();
+			//rtTargetImage[i]->SetDebugName("RtTargetImage [" + std::to_string(i) + "]");
 		}
 
 		OSK_CURRENT_RSYSTEM* renderSystem = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>();
@@ -178,8 +178,8 @@ protected:
 		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("instanceInfos", instancesInfoBuffer);
 		rtMaterialInstance->GetSlot("rt")->SetAccelerationStructure("topLevelAccelerationStructure", topLevelAccelerationStructure);
 
-		renderSystem->AddBlas(carModel->GetAccelerationStructure());
-		//renderSystem->AddBlas(circuitModel->GetAccelerationStructure());
+		// renderSystem->AddBlas(carModel->GetAccelerationStructure());
+		// renderSystem->AddBlas(circuitModel->GetAccelerationStructure());
 
 		const IGpuUniformBuffer* cameraBuffers[3] {
 			renderSystem->GetCameraBuffer(0),
@@ -192,7 +192,7 @@ protected:
 			rtTargetImage[2]
 		};
 
-		rtMaterialInstance->GetSlot("rt")->SetStorageImages("targetImage", rtImages);
+		// rtMaterialInstance->GetSlot("rt")->SetStorageImages("targetImage", rtImages);
 		rtMaterialInstance->GetSlot("rt")->FlushUpdate();
 		rtMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", cameraBuffers);
 		rtMaterialInstance->GetSlot("global")->FlushUpdate();
@@ -202,37 +202,40 @@ protected:
 
 		cameraObject = Engine::GetEcs()->SpawnObject();
 
-		Engine::GetEcs()->AddComponent<ECS::CameraComponent3D>(cameraObject, {});
+		auto skybox = Engine::GetAssetManager()->Load<ASSETS::CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL");
+
 		auto& cameraTransform = Engine::GetEcs()->AddComponent<ECS::Transform3D>(cameraObject, ECS::Transform3D(cameraObject));
 		cameraTransform.AddPosition({ 0.0f, 0.3f, 0.0f });
-		renderSystem->Initialize(cameraObject, *irradianceMap);
+		Engine::GetEcs()->AddComponent<ECS::CameraComponent3D>(cameraObject, {});
+		renderSystem->Initialize(cameraObject, *irradianceMap, *skybox);
 		Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->SetCamera(cameraObject);
 
 		ECS::Transform3D& transform = Engine::GetEcs()->AddComponent<ECS::Transform3D>(carObject, ECS::Transform3D(carObject));
-		ECS::ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ECS::ModelComponent3D>(carObject, {});
 		
-		cameraTransform.AttachToObject(carObject);
+		ECS::ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ECS::ModelComponent3D>(carObject, {});
+
+		// cameraTransform.AttachToObject(carObject);
 
 		modelComponent->SetModel(carModel);
 		modelComponent->SetMaterial(material);
 		modelComponent->BindTextureForAllMeshes("texture", "albedoTexture", texture);
 		ModelLoader3D::SetupPbrModel(carModel, modelComponent);
-
+		
 		// ECS 2
 		circuitObject = Engine::GetEcs()->SpawnObject();
 
 		auto& transform2 = Engine::GetEcs()->AddComponent<ECS::Transform3D>(circuitObject, ECS::Transform3D(circuitObject));
-		/*auto modelComponent2 = &Engine::GetEcs()->AddComponent<ECS::ModelComponent3D>(circuitObject, {});
+		auto modelComponent2 = &Engine::GetEcs()->AddComponent<ECS::ModelComponent3D>(circuitObject, {});
 
 		modelComponent2->SetModel(circuitModel); // animModel
 		modelComponent2->SetMaterial(material);
 		modelComponent2->BindTextureForAllMeshes("texture", "albedoTexture", texture);
-		ModelLoader3D::SetupPbrModel(circuitModel, modelComponent2);*/
+		ModelLoader3D::SetupPbrModel(circuitModel, modelComponent2);
 		// circuitModel->GetAnimator()->AddActiveAnimation("Idle");
 		// circuitModel->GetAnimator()->AddActiveAnimation("Run");
 
 		// Cubemap
-		Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->SetCubemap(*Engine::GetAssetManager()->Load<ASSETS::CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL"));
+		Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->SetCubemap(*skybox);
 		
 		cameraObject2d = Engine::GetEcs()->SpawnObject();
 		auto& camera2D = Engine::GetEcs()->AddComponent<ECS::CameraComponent2D>(cameraObject2d, {});
@@ -393,9 +396,9 @@ protected:
 		if (OSK::Engine::GetRenderer()->IsRtActive()) {
 			auto commandList = OSK::Engine::GetRenderer()->GetGraphicsCommandList();
 
-			const auto& transformComponent = Engine::GetEcs()->GetComponent<ECS::Transform3D>(carObject);
+			/*const auto& transformComponent = Engine::GetEcs()->GetComponent<ECS::Transform3D>(carObject);
 			auto& modelComponent = Engine::GetEcs()->GetComponent<ECS::ModelComponent3D>(carObject);
-			modelComponent.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent.GetAsMatrix());
+			modelComponent.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent.GetAsMatrix());*/
 		}
 	}
 

@@ -34,6 +34,61 @@ namespace OSK::GRAPHICS {
 		TSize arrayLevel = 0;
 	};
 
+	/// @brief Parámetros para la copia de una imagen a otra
+	/// en la GPU.
+	struct CopyImageInfo {
+
+		static CopyImageInfo CreateDefault1D(uint32_t size);
+		static CopyImageInfo CreateDefault2D(Vector2ui size);
+		static CopyImageInfo CreateDefault3D(Vector3ui size);
+
+		void SetCopySize(uint32_t size);
+		void SetCopySize(Vector2ui size);
+		void SetCopySize(Vector3ui size);
+
+		void SetSourceOffset(uint32_t offset);
+		void SetSourceOffset(Vector2ui offset);
+		void SetSourceOffset(Vector3ui offset);
+
+		void SetDestinationOffset(uint32_t offset);
+		void SetDestinationOffset(Vector2ui offset);
+		void SetDestinationOffset(Vector3ui offset);
+
+		void SetCopyAllLevels();
+
+		/// @brief Localización del área copiada de la imagen
+		/// de origen. Esquina superior izquierda.
+		Vector3ui sourceOffset = 0;
+
+		/// @brief Localización del área copiada de la imagen
+		/// final. Esquina superior izquierda.
+		Vector3ui destinationOffset = 0;
+
+		/// @brief Área copiada.
+		Vector3ui copySize = 0;
+
+
+		/// @brief Capa de origen a partir de la cual se copiará.
+		TIndex sourceArrayLevel = 0;
+
+		/// @brief Capa de destino a partir de la cual se escribirá.
+		TIndex destinationArrayLevel = 0;
+
+		/// @brief Número de capas que se van a copiar.
+		/// Para copiar todas las capas, establecer como ALL_ARRAY_LEVELS.
+		TSize numArrayLevels = 1;
+
+
+		/// @brief Mip level de la imagen de origen desde el cual se copiará.
+		TIndex sourceMipLevel = 0;
+
+		/// @brief Mip level de la imagen de destino al que se copiará.
+		TIndex destinationMipLevel = 0;
+
+		const static TIndex ALL_ARRAY_LEVELS = 0;
+
+	};
+
 	/// @brief Una lista de comandos contiene una serie de comandos que serán
 	/// enviados a la GPU para su ejecución.
 	/// La lista es creada por una pool de comandos, y se introduce
@@ -316,22 +371,11 @@ namespace OSK::GRAPHICS {
 		/// @post El layout de la imagen después de efectuarse la copia segirá siendo GpuImageLayout::TRANSFER_DESTINATION.
 		virtual void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer = 0, TSize offset = 0) = 0;
 
-		/// <summary>
-		/// Copia el contenido de una imagen a otra.
-		/// </summary>
-		/// <param name="source">Imagen con los contenidos a copiar.</param>
-		/// <param name="destination">Destino de la copia.</param>
-		/// 
-		/// <param name="numLayers">Número de capas que se van a copiar.</param>
-		/// <param name="srcStartLayer">Capa de origen a partir de la cual se copiará.</param>
-		/// <param name="dstStartLayer">Capa de destino a partir de la cual se escribirá.</param>
-		/// 
-		/// <param name="srcMipLevel">Mip level de la imagen de origen desde el cual se copiará.</param>
-		/// <param name="dstMipLevel">Mip level de la imagen de destino al que se copiará.</param>
-		/// 
-		/// <param name="copySize">Región de la imagen, en píxeles, que se copiará.
-		/// Por defecto, se copia la imagen entera.</param>
-		/// 
+		/// @brief Copia el contenido de una imagen a otra.
+		/// @param source Imagen con los contenidos a copiar.
+		/// @param destination Destino de la copia.
+		/// @param copyInfo Configuracióon de la copia.
+		///
 		/// @pre La imagen de origen debe haber sido creado con GpuImageUsage::TRANSFER_SOURCE.
 		/// @pre La imagen de origen debe tener el layout GpuImageLayout::TRANSFER_SOURCE.
 		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
@@ -339,10 +383,7 @@ namespace OSK::GRAPHICS {
 		/// @pre La lista de comandos debe estar abierta.
 		/// 
 		/// @post El layout de la imagen después de efectuarse la copia segirá siendo GpuImageLayout::TRANSFER_DESTINATION.
-		/// 
-		/// @warning Si se copia con srcMipLevel != 0 y/o dstMipLevel != 0, se debe establecer un tamaño de la
-		/// región de copia válido (copySize).
-		virtual void CopyImageToImage(const GpuImage* source, GpuImage* destination, TSize numLayers, TSize srcStartLayer, TSize dstStartLayer, TSize srcMipLevel, TSize dstMipLevel, Vector2ui copySize = Vector2ui(0u)) = 0;
+		virtual void CopyImageToImage(const GpuImage* source, GpuImage* destination, const CopyImageInfo& copyInfo) = 0;
 
 		/// <summary>
 		/// Registra un buffer intermedio.

@@ -29,12 +29,19 @@ void ShadowMap::Create(const Vector2ui& imageSize) {
 	GpuImageSamplerDesc depthSampler{};
 	depthSampler.mipMapMode = GpuImageMipmapMode::NONE;
 
-	const Vector3ui shadowmapSize = { imageSize.X, imageSize.Y, 1 };
 	IGpuMemoryAllocator* memAllocator = Engine::GetRenderer()->GetAllocator();
 
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		unusedColorArrayAttachment[i] = memAllocator->CreateImage(shadowmapSize, GpuImageDimension::d2D, 4, Format::RGBA8_UNORM, GpuImageUsage::COLOR | GpuImageUsage::SAMPLED, GpuSharedMemoryType::GPU_ONLY, 1, depthSampler).GetPointer();
-		depthArrayAttachment[i] = memAllocator->CreateImage(shadowmapSize, GpuImageDimension::d2D, 4, Format::D32S8_SFLOAT_SUINT, GpuImageUsage::DEPTH_STENCIL | GpuImageUsage::SAMPLED | GpuImageUsage::SAMPLED_ARRAY, GpuSharedMemoryType::GPU_ONLY, 1, depthSampler).GetPointer();
+		GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(imageSize, Format::RGBA8_UNORM, GpuImageUsage::COLOR | GpuImageUsage::SAMPLED);
+		imageInfo.numLayers = 4;
+		imageInfo.samplerDesc = depthSampler;
+
+		unusedColorArrayAttachment[i] = memAllocator->CreateImage(imageInfo).GetPointer();
+
+		imageInfo.format = Format::D32S8_SFLOAT_SUINT;
+		imageInfo.usage = GpuImageUsage::DEPTH_STENCIL | GpuImageUsage::SAMPLED | GpuImageUsage::SAMPLED_ARRAY;
+
+		depthArrayAttachment[i] = memAllocator->CreateImage(imageInfo).GetPointer();
 	}
 
 	shadowsGenMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_shadows.json");
@@ -161,7 +168,7 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 		const Vector2f minExtent = -maxExtent;
 
 		// 'Cámara' virtual para renderizar el mapa de sombras.
-		const glm::mat4 lightProjection = glm::ortho(minExtent.X, maxExtent.X, maxExtent.Y, minExtent.Y, -200.f * (i + 1), 200.f * (i + 1));
+		const glm::mat4 lightProjection = glm::ortho(minExtent.X, maxExtent.X, maxExtent.Y, minExtent.Y, nearPlane, farPlane);
 		const glm::mat4 lightView = glm::lookAt((frustumCenter - lightDirection).ToGLM(), frustumCenter.ToGLM(), glm::vec3(0.0f, 1.0f, 0.0f));
 
 		bufferContent.matrices[i] = lightProjection * lightView;

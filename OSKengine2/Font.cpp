@@ -83,10 +83,9 @@ void Font::LoadSizedFont(TSize fontSize) {
 	}
 
 	// Creación de la imagen.
-	OwnedPtr<GpuImage> gpuImage = Engine::GetRenderer()->GetAllocator()
-		->CreateImage({ gpuImageSize.X, gpuImageSize.Y, 1 }, GpuImageDimension::d2D, 1,
-			Format::RGBA8_SRGB, GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_SOURCE | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION,
-			GpuSharedMemoryType::GPU_ONLY, 1);
+	GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(gpuImageSize, Format::RGBA8_SRGB, 
+		GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION);
+	OwnedPtr<GpuImage> gpuImage = Engine::GetRenderer()->GetAllocator() ->CreateImage(imageInfo);
 
 
 	instances.InsertMove(fontSize, std::move(FontInstance{}));
@@ -156,9 +155,8 @@ void Font::UnloadSizedFont(TSize size) {
 }
 
 const FontInstance& Font::GetInstance(TSize fontSize) {
-	const auto& it = instances.Find(fontSize);
-	if (!it.IsEmpty())
-		return it.GetValue().second;
+	if (instances.HasValue(fontSize))
+		return instances.Get(fontSize);
 
 	LoadSizedFont(fontSize);
 

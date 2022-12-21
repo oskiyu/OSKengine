@@ -5,8 +5,10 @@ digraph "OSK::GRAPHICS::Animation"
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
   Node1 [label="OSK::GRAPHICS::Animation",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Animación para un modelo 3D."];
-  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" samplers" ,fontname="Helvetica"];
-  Node2 [label="OSK::DynamicArray\<\l OSK::GRAPHICS::AnimationSampler \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html",tooltip=" "];
-  Node3 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" channels" ,fontname="Helvetica"];
-  Node3 [label="OSK::DynamicArray\<\l OSK::GRAPHICS::AnimationChannel \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" skeleton" ,fontname="Helvetica"];
+  Node2 [label="OSK::GRAPHICS::Skeleton",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html",tooltip=" "];
+  Node3 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" samplers" ,fontname="Helvetica"];
+  Node3 [label="OSK::DynamicArray\<\l OSK::GRAPHICS::AnimationSampler \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html",tooltip=" "];
+  Node4 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" channels" ,fontname="Helvetica"];
+  Node4 [label="OSK::DynamicArray\<\l OSK::GRAPHICS::AnimationChannel \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_dynamic_array.html",tooltip=" "];
 }

@@ -26,7 +26,7 @@ namespace OSK::ECS {
 		/// </summary>
 		/// <typeparam name="TComponent">Tipo del componente.</typeparam>
 		template <typename TComponent> void RegisterComponent() {
-			std::string key = TComponent::GetComponentTypeName();
+			const std::string key = TComponent::GetComponentTypeName();
 
 			componentTypes.Insert(key, nextComponentType);
 			componentContainers.Insert(key, new ComponentContainer<TComponent>());
@@ -90,7 +90,7 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Map typename del componente -> contenedor del componente.
 		/// </summary>
-		HashMap<std::string, OwnedPtr<IComponentContainer>> componentContainers;
+		HashMap<std::string, UniquePtr<IComponentContainer>> componentContainers;
 
 		/// <summary>
 		/// Identificador del próximo tipo de componente.

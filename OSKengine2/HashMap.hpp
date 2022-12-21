@@ -1,5 +1,7 @@
 #pragma once
 
+#define OSK_CUSTOM_HASHMAP
+#ifdef OSK_CUSTOM_HASHMAP
 #include "DynamicArray.hpp"
 #include "Pair.hpp"
 #include "ConstexprBitSet.hpp"
@@ -333,6 +335,10 @@ namespace OSK {
 			return end();
 		}
 
+		bool HasValue(const TKey& key) const {
+			return _FindKey(key).found;
+		}
+
 		/// <summary>
 		/// Devuelve el número de parejas almacenadas.
 		/// </summary>
@@ -427,3 +433,173 @@ namespace OSK {
 	};
 
 }
+#else
+
+#include <unordered_map>
+
+#include "Pair.hpp"
+
+namespace OSK {
+
+	template <typename T> size_t Hash(const T& elem) {
+		static std::hash<T> hasher;
+
+		return hasher(elem);
+	}
+
+
+	/// <summary>
+	/// Un HashMap representa una colleción que enlaza un valor a otro.
+	/// Está compuesto internamente por varias colecciones que almacenan los datos.
+	/// 
+	/// @warning No proporciona estabilidad de puntero.
+	/// </summary>
+	/// <typeparam name="TKey">Tipo de valor al que se le enlaza otro.</typeparam>
+	/// <typeparam name="TValue">Tipo de valor enlazado.</typeparam>
+	/// <typeparam name="numBuckets">Número de cubos.</typeparam>
+	/// <typeparam name="TCollection">Tipo de colección de cada cubo.</typeparam>
+	template <typename TKey, typename TValue, TSize numBuckets = 512> class HashMap {
+
+	public:
+
+		/// <summary>
+		/// Construye un hashmap vacío.
+		/// </summary>
+		HashMap() {
+
+		}
+
+		/// <summary>
+		/// Inserta una nueva pareja.
+		/// 
+		/// @note Si la pareja ya existía, se actualiza el segundo valor.
+		/// </summary>
+		/// <param name="key">Valor llave.</param>
+		/// <param name="value">Valor enlazado.</param>
+		void InsertCopy(const TKey& key, const TValue& value) {
+			stdmap[key] = value;
+		}
+
+		/// <summary>
+		/// Inserta una nueva pareja.
+		/// 
+		/// @note Si la pareja ya existía, se actualiza el segundo valor.
+		/// </summary>
+		/// <param name="key">Valor llave.</param>
+		/// <param name="value">Valor enlazado.</param>
+		void Insert(const TKey& key, const TValue& value) {
+			stdmap[key] = value;
+		}
+
+		/// <summary>
+		/// Inserta una nueva pareja.
+		/// 
+		/// @note Si la pareja ya existía, se actualiza el segundo valor.
+		/// </summary>
+		/// <param name="key">Valor llave.</param>
+		/// <param name="value">Valor enlazado.</param>
+		void InsertMove(const TKey& key, TValue&& value) {
+			stdmap[key] = std::move(value);
+		}
+
+		/// <summary>
+		/// Inserta una nueva pareja.
+		/// 
+		/// @note Si la pareja ya existía, se actualiza el segundo valor.
+		/// </summary>
+		/// <param name="key">Valor llave.</param>
+		/// <param name="value">Valor enlazado.</param>
+		void Insert(const TKey& key, TValue&& value) {
+			stdmap[key] = std::move(value);
+		}
+
+		/// <summary>
+		/// Elimina una pareja.
+		/// </summary>
+		/// <param name="key">Valor llave de la pareja.</param>
+		/// 
+		/// @note Si no existe la pareja, no ocurre nada.
+		void Remove(const TKey& key) {
+			stdmap.erase(key);
+		}
+
+		bool HasValue(const TKey& key) const {
+			return stdmap.find(key) != stdmap.end();
+		}
+
+		/// <summary>
+		/// Devuelve el valor enlazado del valor llave dado.
+		/// 
+		/// @pre Debe existir, de lo contrario habrá un error.
+		/// </summary>
+		TValue& Get(const TKey& key) const {
+			return (TValue&)(stdmap.at(key));
+		}
+
+		/// <summary>
+		/// Devuelve una copia del valor enlazado al valor llave dado.
+		/// 
+		/// @pre Debe existir, de lo contrario habrá un error.
+		/// </summary>
+		TValue GetCopy(const TKey& key) const {
+			return stdmap.at(key);
+		}
+
+		/// <summary>
+		/// Comprueba si existe una apreja con el valor llave dado.
+		/// </summary>
+		bool ContainsKey(const TKey& key) const {
+			return stdmap.find(key) != stdmap.end();
+		}
+
+		/// <summary>
+		/// Devuelve el número de parejas almacenadas.
+		/// </summary>
+		TSize GetSize() const {
+			return stdmap.size();
+		}
+
+
+		/// <summary>
+		/// Devuelve un iterador que apunta a la primera pareja.
+		/// 
+		/// @note Si no hay ninguna pareja, devuelve 'end()'.
+		/// </summary>
+		std::unordered_map<TKey, TValue>::const_iterator begin() const {
+			return stdmap.begin();
+		}
+
+
+
+		/// <summary>
+		/// Devuelve un iterador vacío.
+		/// </summary>
+		std::unordered_map<TKey, TValue>::const_iterator end() const {
+			return stdmap.end();
+		}
+		/// <summary>
+		/// Devuelve un iterador que apunta a la primera pareja.
+		/// 
+		/// @note Si no hay ninguna pareja, devuelve 'end()'.
+		/// </summary>
+		std::unordered_map<TKey, TValue>::iterator begin() {
+			return stdmap.begin();
+		}
+
+
+
+		/// <summary>
+		/// Devuelve un iterador vacío.
+		/// </summary>
+		std::unordered_map<TKey, TValue>::iterator end() {
+			return stdmap.end();
+		}
+
+	private:
+
+		std::unordered_map<TKey, TValue> stdmap;
+
+	};
+
+}
+#endif

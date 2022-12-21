@@ -81,7 +81,7 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		ViewUsage GetViewUsage() const;
 
-		bool operator==(const IGpuImageView& other);
+		bool operator==(const IGpuImageView& other) const;
 
 	private:
 

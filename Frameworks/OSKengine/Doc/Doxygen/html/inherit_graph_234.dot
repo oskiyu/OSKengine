@@ -4,5 +4,21 @@ digraph "Representación gráfica de la clase"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="OSK::Pair\< OSK::GRAPHICS\l::GpuBufferMemoryBlockInfo,\l OSK::LinkedList\< OSK::OwnedPtr\l\< OSK::GRAPHICS::IGpuMemoryBlock \> \> \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_o_s_k_1_1_pair.html",tooltip=" "];
+  Node0 [label="OSK::IO::IFullscreenable\lDisplay",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_i_fullscreenable_display.html",tooltip="Interfaz que representa un display que puede alternar entre pantalla completa y modo ventana."];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="OSK::IO::Window",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_window.html",tooltip="Clase que representa una ventana. En esta ventana se renderizará el juego. También se encarga del inp..."];
+  Node6 [label="OSK::IO::IGamepadInput",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_i_gamepad_input.html",tooltip="Interfaz para leer la entrada del usuario a través de uno o varios mandos."];
+  Node6 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="OSK::IO::PcUserInput",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_pc_user_input.html",tooltip="Input para PC (Windows / Linux / Mac)."];
+  Node7 [label="OSK::IO::IKeyboardInput",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html",tooltip="Interfaz para leer la entrada del usuario a través del teclado."];
+  Node7 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="OSK::IO::IMouseInput",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_i_mouse_input.html",tooltip="Interfaz para leer la entrada del usuario a través del ratón."];
+  Node8 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="OSK::IQueryInterface",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_query_interface.html",tooltip="Esta interfaz permite obtener acceso a los métodos de una interfaz en concreto del objeto...."];
+  Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OSK::IO::IDisplay",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_i_display.html",tooltip="Interfaz que representa un display: la pantalla sobre la que se renderiza."];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="OSK::IO::IUserInput",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_i_user_input.html",tooltip="Interfaz para clases que permiten recoger la entrada del usuario."];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
 }

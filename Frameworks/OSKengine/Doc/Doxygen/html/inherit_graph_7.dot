@@ -6,7 +6,7 @@ digraph "Representación gráfica de la clase"
   rankdir="LR";
   Node0 [label="OSK::ASSETS::IMeshLoader",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html",tooltip="Clase base para poder importar un modelo GLTF. Se debe crear una clase hija por cada tipo de vértice ..."];
   Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node1 [label="OSK::ASSETS::AnimMeshLoader",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader.html",tooltip=" "];
+  Node1 [label="OSK::ASSETS::AnimMeshLoader",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader.html",tooltip="Clase auxiliar que permite la carga de modelos 3D animados junto a sus animaciones."];
   Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="OSK::ASSETS::StaticMeshLoader",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html",tooltip=" "];
+  Node2 [label="OSK::ASSETS::StaticMeshLoader",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html",tooltip="Clase auxiliar que permite la carga de modelos 3D estáticos."];
 }

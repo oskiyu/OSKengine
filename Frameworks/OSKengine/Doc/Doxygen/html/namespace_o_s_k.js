@@ -1,6 +1,7 @@
 var namespace_o_s_k =
 [
     [ "ASSETS", "namespace_o_s_k_1_1_a_s_s_e_t_s.html", "namespace_o_s_k_1_1_a_s_s_e_t_s" ],
+    [ "COLLISION", "namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html", "namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n" ],
     [ "ECS", "namespace_o_s_k_1_1_e_c_s.html", "namespace_o_s_k_1_1_e_c_s" ],
     [ "EFTraits", "namespace_o_s_k_1_1_e_f_traits.html", "namespace_o_s_k_1_1_e_f_traits" ],
     [ "GRAPHICS", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s" ],
@@ -17,11 +18,14 @@ var namespace_o_s_k =
     [ "Engine", "class_o_s_k_1_1_engine.html", "class_o_s_k_1_1_engine" ],
     [ "HashMap", "class_o_s_k_1_1_hash_map.html", "class_o_s_k_1_1_hash_map" ],
     [ "IGame", "class_o_s_k_1_1_i_game.html", "class_o_s_k_1_1_i_game" ],
+    [ "IIterable", "class_o_s_k_1_1_i_iterable.html", "class_o_s_k_1_1_i_iterable" ],
+    [ "IIterator", "class_o_s_k_1_1_i_iterator.html", null ],
     [ "IQueryInterface", "class_o_s_k_1_1_i_query_interface.html", "class_o_s_k_1_1_i_query_interface" ],
     [ "LinkedList", "class_o_s_k_1_1_linked_list.html", "class_o_s_k_1_1_linked_list" ],
     [ "OwnedPtr", "class_o_s_k_1_1_owned_ptr.html", "class_o_s_k_1_1_owned_ptr" ],
     [ "Pair", "struct_o_s_k_1_1_pair.html", "struct_o_s_k_1_1_pair" ],
     [ "Quaternion", "class_o_s_k_1_1_quaternion.html", "class_o_s_k_1_1_quaternion" ],
+    [ "Span", "class_o_s_k_1_1_span.html", "class_o_s_k_1_1_span" ],
     [ "UniquePtr", "class_o_s_k_1_1_unique_ptr.html", "class_o_s_k_1_1_unique_ptr" ],
     [ "UniquePtr< T[]>", "class_o_s_k_1_1_unique_ptr_3_01_t_0f_0e_4.html", "class_o_s_k_1_1_unique_ptr_3_01_t_0f_0e_4" ],
     [ "Vector2_t", "class_o_s_k_1_1_vector2__t.html", "class_o_s_k_1_1_vector2__t" ],

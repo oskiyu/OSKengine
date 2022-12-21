@@ -3,8 +3,7 @@
 using namespace OSK::ECS;
 
 ComponentManager::~ComponentManager() {
-	for (auto& i : componentContainers)
-		delete i.second.GetPointer();
+
 }
 
 void ComponentManager::GameObjectDestroyed(GameObjectIndex obj) {

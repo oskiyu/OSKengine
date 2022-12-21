@@ -69,7 +69,7 @@ void SpriteRenderer::Draw(const Sprite& sprite, const TextureCoordinates2D& texC
 	}
 
 	if (rebind)
-		for (const std::string& slotName : previousMaterialInstance->GetLayout()->GetAllSlotNames())
+		for (const auto& [slotName, slot] : previousMaterialInstance->GetLayout()->GetAllSlots())
 			targetCommandList->BindMaterialSlot(previousMaterialInstance->GetSlot(slotName));
 
 	targetCommandList->DrawSingleInstance(6);

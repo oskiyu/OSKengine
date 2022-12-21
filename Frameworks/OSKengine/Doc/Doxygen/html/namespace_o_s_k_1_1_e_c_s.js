@@ -20,9 +20,10 @@ var namespace_o_s_k_1_1_e_c_s =
     [ "TerrainRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_terrain_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_terrain_render_system" ],
     [ "Transform2D", "class_o_s_k_1_1_e_c_s_1_1_transform2_d.html", "class_o_s_k_1_1_e_c_s_1_1_transform2_d" ],
     [ "Transform3D", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html", "class_o_s_k_1_1_e_c_s_1_1_transform3_d" ],
+    [ "IsEcsComponent", "concept_o_s_k_1_1_e_c_s_1_1_is_ecs_component.html", null ],
     [ "ComponentIndex", "namespace_o_s_k_1_1_e_c_s.html#ab5c95debae1feaa2c43ccb5c59171545", null ],
     [ "ComponentType", "namespace_o_s_k_1_1_e_c_s.html#abe66f77f80fc594e988b8d0c01468dd0", null ],
-    [ "GameObjectIndex", "namespace_o_s_k_1_1_e_c_s.html#a23d62d7bd6a58fd7f758079d87df6c71", null ],
+    [ "GameObjectIndex", "namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6", null ],
     [ "Signature", "namespace_o_s_k_1_1_e_c_s.html#a2e882236c9347a28293a4c8988371ad8", null ],
     [ "EMPTY_GAME_OBJECT", "namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81", null ],
     [ "MAX_COMPONENT_TYPES", "namespace_o_s_k_1_1_e_c_s.html#a417cae262226a5518eb4bc6f099de8c6", null ]

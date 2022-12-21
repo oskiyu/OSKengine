@@ -114,20 +114,20 @@ OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorVulkan::CreateBuffer(TSize size, TSize
 	return new GpuDataBuffer(GetNextBufferMemoryBlock(size, usage, sharedType)->GetNextMemorySubblock(size, alignment), size, 0);
 }
 
-OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageSize, GpuImageDimension dimension, TSize numLayers, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, TSize msaaSamples, GpuImageSamplerDesc samplerDesc) {
-	TSize numBytes = GetFormatNumberOfBytes(format);
+OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const GpuImageCreateInfo& info) {
+	TSize numBytes = GetFormatNumberOfBytes(info.format);
 
-	switch (dimension) {
-		case OSK::GRAPHICS::GpuImageDimension::d1D: numBytes *= imageSize.X; break;
-		case OSK::GRAPHICS::GpuImageDimension::d2D: numBytes *= imageSize.X * imageSize.Y; break;
-		case OSK::GRAPHICS::GpuImageDimension::d3D: numBytes *= imageSize.X * imageSize.Y * imageSize.Z; break;
+	switch (info.dimension) {
+		case OSK::GRAPHICS::GpuImageDimension::d1D: numBytes *= info.resolution.X; break;
+		case OSK::GRAPHICS::GpuImageDimension::d2D: numBytes *= info.resolution.X * info.resolution.Y; break;
+		case OSK::GRAPHICS::GpuImageDimension::d3D: numBytes *= info.resolution.X * info.resolution.Y * info.resolution.Z; break;
 	}
 
-	Vector3ui finalImageSize = imageSize;
+	Vector3ui finalImageSize = info.resolution;
 
-	switch (dimension) {
-		case OSK::GRAPHICS::GpuImageDimension::d1D: finalImageSize = { imageSize.X , 1, 1 }; break;
-		case OSK::GRAPHICS::GpuImageDimension::d2D: finalImageSize = { imageSize.X , imageSize.Y, 1 }; break;
+	switch (info.dimension) {
+		case OSK::GRAPHICS::GpuImageDimension::d1D: finalImageSize = { info.resolution.X , 1, 1 }; break;
+		case OSK::GRAPHICS::GpuImageDimension::d2D: finalImageSize = { info.resolution.X , info.resolution.Y, 1 }; break;
 	}
 
 	if (finalImageSize.X == 0)
@@ -137,15 +137,15 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageS
 
 	VkSampler sampler = VK_NULL_HANDLE;
 
-	GpuImageVulkan* output = new GpuImageVulkan(imageSize, dimension, usage, numLayers, format, msaaSamples, samplerDesc);
+	GpuImageVulkan* output = new GpuImageVulkan(info.resolution, info.dimension, info.usage, info.numLayers, info.format, info.msaaSamples, info.samplerDesc);
 
 	TSize numMipLevels = 0;
-	switch (samplerDesc.mipMapMode) {
+	switch (info.samplerDesc.mipMapMode) {
 	case GpuImageMipmapMode::AUTO:
 		numMipLevels = output->GetMipLevels();
 		break;
 	case GpuImageMipmapMode::CUSTOM:
-		numMipLevels = samplerDesc.maxMipLevel;
+		numMipLevels = info.samplerDesc.maxMipLevel;
 		break;
 	case GpuImageMipmapMode::NONE:
 		numMipLevels = 1;
@@ -153,13 +153,13 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVulkan::CreateImage(const Vector3ui& imageS
 	}
 
 	output->CreateVkImage();
-	auto block = GpuMemoryBlockVulkan::CreateNewImageBlock(output, device, sharedType, usage);
+	auto block = GpuMemoryBlockVulkan::CreateNewImageBlock(output, device, info.memoryType, info.usage);
 	output->SetBlock(block.GetPointer());
 
 	imageMemoryBlocks.Insert(block.GetPointer());
 
 	// ------ IMAGE ---------- //
-	output->CreateVkSampler(samplerDesc);
+	output->CreateVkSampler(info.samplerDesc);
 
 	return output;
 }

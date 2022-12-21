@@ -43,11 +43,11 @@ namespace OSK::ECS {
 		}
 
 		const GRAPHICS::RtRenderTarget& GetShadowsIntermediateImage() const {
-			return shadowsBuffer;
+			return raytracedShadowsTarget;
 		}
 
 		const GRAPHICS::RtRenderTarget& GetShadowsImage() const {
-			return shadowsFinalMask;
+			return finalShadowsTarget;
 		}
 
 	private:
@@ -92,21 +92,26 @@ namespace OSK::ECS {
 		GRAPHICS::Material* shadowsMaterial = nullptr;
 		UniquePtr<GRAPHICS::MaterialInstance> shadowsMaterialInstance;
 
-		GRAPHICS::Material* shadowsDenoiseMaterial = nullptr;
-		UniquePtr<GRAPHICS::MaterialInstance> shadowsDenoiseMaterialInstance;
+		GRAPHICS::Material* shadowsReprojectionMaterial = nullptr;
+		UniquePtr<GRAPHICS::MaterialInstance> shadowsReprojectionMaterialInstance;
 
-		GRAPHICS::RtRenderTarget shadowsBuffer;
-		GRAPHICS::ComputeRenderTarget shadowsFinalMask; // final
-		GRAPHICS::ComputeRenderTarget shadowsHistoricalMask; // final del frame anterior
+		GRAPHICS::Material* shadowsAtrousMaterial = nullptr;
+		UniquePtr<GRAPHICS::MaterialInstance> shadowsAtrousMaterialInstance;
+
+		GRAPHICS::RtRenderTarget raytracedShadowsTarget;
+		GRAPHICS::ComputeRenderTarget reprojectedShadowsTarget;
+		GRAPHICS::ComputeRenderTarget finalShadowsTarget;
+
+		GRAPHICS::ComputeRenderTarget historicalShadowsTarget;
 
 		// Resolve
 		GRAPHICS::Material* resolveMaterial = nullptr;
 		UniquePtr<GRAPHICS::MaterialInstance> resolveMaterialInstance;
 
 		// Resources
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> cameraUbos[3]{};
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> previousCameraUbos[3]{};
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> dirLightUbos[3]{};
+		UniquePtr<GRAPHICS::IGpuUniformBuffer> cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GRAPHICS::IGpuUniformBuffer> previousCameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GRAPHICS::IGpuUniformBuffer> dirLightUbos[NUM_RESOURCES_IN_FLIGHT]{};
 
 		// Materiales
 		GRAPHICS::Material* gbufferMaterial = nullptr;

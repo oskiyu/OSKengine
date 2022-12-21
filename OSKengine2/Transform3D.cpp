@@ -125,6 +125,11 @@ void Transform3D::UpdateModel() {
 		childTransforms.Remove(i);
 }
 
+Vector3f Transform3D::TransformPoint(const Vector3f& point) const {
+	const glm::mat4 mat = glm::translate(matrix, point.ToGLM());
+	return Vector3f(mat * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
+}
+
 Vector3f Transform3D::GetPosition() const {
 	return globalPosition;
 }

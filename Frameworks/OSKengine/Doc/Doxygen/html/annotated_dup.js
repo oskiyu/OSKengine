@@ -21,9 +21,23 @@ var annotated_dup =
         [ "Model3D", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d" ],
         [ "ModelLoader3D", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d" ],
         [ "ModelMetadata", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata.html", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata" ],
+        [ "SpecularMapLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map_loader" ],
         [ "StaticMeshLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader" ],
         [ "Texture", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture" ],
         [ "TextureLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader" ]
+      ] ],
+      [ "COLLISION", "namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html", [
+        [ "AxisAlignedBoundingBox", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box" ],
+        [ "Collider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider" ],
+        [ "CollisionInfo", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info" ],
+        [ "ConvexVolume", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume" ],
+        [ "FaceProjection", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection" ],
+        [ "IBottomLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider" ],
+        [ "IRayCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_ray_collider.html", null ],
+        [ "ITopLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider" ],
+        [ "Ray", "struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html", "struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray" ],
+        [ "RayCastResult", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result" ],
+        [ "SphereCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider" ]
       ] ],
       [ "ECS", "namespace_o_s_k_1_1_e_c_s.html", [
         [ "CameraComponent2D", "class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html", "class_o_s_k_1_1_e_c_s_1_1_camera_component2_d" ],
@@ -63,6 +77,7 @@ var annotated_dup =
         [ "CommandQueueVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan" ],
         [ "ComputePipelineDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_compute_pipeline_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_compute_pipeline_dx12" ],
         [ "ComputePipelineVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_compute_pipeline_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_compute_pipeline_vulkan" ],
+        [ "CopyImageInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_copy_image_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_copy_image_info" ],
         [ "DescriptorBlockDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_block_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_block_dx12" ],
         [ "DescriptorDx12", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12" ],
         [ "DescriptorLayoutVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan" ],
@@ -76,6 +91,7 @@ var annotated_dup =
         [ "GpuDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12" ],
         [ "GpuImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image" ],
         [ "GpuImageBarrierInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info" ],
+        [ "GpuImageCreateInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info" ],
         [ "GpuImageDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12" ],
         [ "GpuImageSamplerDesc", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc" ],
         [ "GpuImageViewDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_dx12" ],
@@ -204,11 +220,14 @@ var annotated_dup =
       [ "Engine", "class_o_s_k_1_1_engine.html", "class_o_s_k_1_1_engine" ],
       [ "HashMap", "class_o_s_k_1_1_hash_map.html", "class_o_s_k_1_1_hash_map" ],
       [ "IGame", "class_o_s_k_1_1_i_game.html", "class_o_s_k_1_1_i_game" ],
+      [ "IIterable", "class_o_s_k_1_1_i_iterable.html", "class_o_s_k_1_1_i_iterable" ],
+      [ "IIterator", "class_o_s_k_1_1_i_iterator.html", null ],
       [ "IQueryInterface", "class_o_s_k_1_1_i_query_interface.html", "class_o_s_k_1_1_i_query_interface" ],
       [ "LinkedList", "class_o_s_k_1_1_linked_list.html", "class_o_s_k_1_1_linked_list" ],
       [ "OwnedPtr", "class_o_s_k_1_1_owned_ptr.html", "class_o_s_k_1_1_owned_ptr" ],
       [ "Pair", "struct_o_s_k_1_1_pair.html", "struct_o_s_k_1_1_pair" ],
       [ "Quaternion", "class_o_s_k_1_1_quaternion.html", "class_o_s_k_1_1_quaternion" ],
+      [ "Span", "class_o_s_k_1_1_span.html", "class_o_s_k_1_1_span" ],
       [ "UniquePtr", "class_o_s_k_1_1_unique_ptr.html", "class_o_s_k_1_1_unique_ptr" ],
       [ "UniquePtr< T[]>", "class_o_s_k_1_1_unique_ptr_3_01_t_0f_0e_4.html", "class_o_s_k_1_1_unique_ptr_3_01_t_0f_0e_4" ],
       [ "Vector2_t", "class_o_s_k_1_1_vector2__t.html", "class_o_s_k_1_1_vector2__t" ],
@@ -217,8 +236,7 @@ var annotated_dup =
       [ "Version", "struct_o_s_k_1_1_version.html", "struct_o_s_k_1_1_version" ]
     ] ],
     [ "std", null, [
-      [ "hash< OSK::GRAPHICS::IGpuImageView >", "structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_01_4.html", "structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_01_4" ],
-      [ "hash< OSK::Pair< std::string, std::string > >", "structstd_1_1hash_3_01_o_s_k_1_1_pair_3_01std_1_1string_00_01std_1_1string_01_4_01_4.html", "structstd_1_1hash_3_01_o_s_k_1_1_pair_3_01std_1_1string_00_01std_1_1string_01_4_01_4" ]
+      [ "hash< OSK::GRAPHICS::IGpuImageView >", "structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_01_4.html", "structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_01_4" ]
     ] ],
     [ "SharedPtr", "class_shared_ptr.html", "class_shared_ptr" ]
 ];

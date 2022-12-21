@@ -170,30 +170,27 @@ void CommandListVulkan::CopyBufferToImage(const GpuDataBuffer* source, GpuImage*
 		{ .baseLayer = layer, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 }
 
-void CommandListVulkan::CopyImageToImage(const GpuImage* source, GpuImage* destination, TSize numLayers, TSize srcStartLayer, TSize dstStartLayer, TSize srcMipLevel, TSize dstMipLevel, Vector2ui copySize) {
+void CommandListVulkan::CopyImageToImage(const GpuImage* source, GpuImage* destination, const CopyImageInfo& copyInfo) {
 	VkImageCopy region{};
 
 	region.srcOffset = { 0, 0, 0 };
 	region.dstOffset = { 0, 0, 0 };
 
+	const TSize numLayers = copyInfo.numArrayLevels == CopyImageInfo::ALL_ARRAY_LEVELS ? source->GetNumLayers() : copyInfo.numArrayLevels;
+
 	region.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-	region.srcSubresource.mipLevel = srcMipLevel;
-	region.srcSubresource.baseArrayLayer = srcStartLayer;
+	region.srcSubresource.mipLevel = copyInfo.sourceMipLevel;
+	region.srcSubresource.baseArrayLayer = copyInfo.sourceArrayLevel;
 	region.srcSubresource.layerCount = numLayers;
 
 	region.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-	region.dstSubresource.mipLevel = dstMipLevel;
-	region.dstSubresource.baseArrayLayer = dstStartLayer;
+	region.dstSubresource.mipLevel = copyInfo.destinationMipLevel;
+	region.dstSubresource.baseArrayLayer = copyInfo.destinationArrayLevel;
 	region.dstSubresource.layerCount = numLayers;
 
-	if (copySize.X == 0)
-		copySize.X = destination->GetSize().X;
-	if (copySize.Y == 0)
-		copySize.Y = destination->GetSize().Y;
-
-	region.extent.width = copySize.X;
-	region.extent.height= copySize.Y;
-	region.extent.depth = 1; /// @todo Size.Z
+	region.extent.width = copyInfo.copySize.X;
+	region.extent.height= copyInfo.copySize.Y;
+	region.extent.depth = copyInfo.copySize.Z;
 
 	vkCmdCopyImage(commandBuffers[GetCommandListIndex()],
 		source->As<GpuImageVulkan>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,

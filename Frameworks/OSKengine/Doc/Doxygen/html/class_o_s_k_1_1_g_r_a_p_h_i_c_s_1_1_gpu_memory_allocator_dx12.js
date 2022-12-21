@@ -4,7 +4,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12 =
     [ "CreateBottomAccelerationStructure", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a55a581394f466346223a01aa3c9242a2", null ],
     [ "CreateBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#af246ce5741e7f0ef0a78f2fecc2fb251", null ],
     [ "CreateCubemapImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a5ffe3d30b281dd779e43a430a46447cf", null ],
-    [ "CreateImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#ac45631c638647ca85f056105c856153d", null ],
+    [ "CreateImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a5d7e304a10aae95bdb60b4fff2654626", null ],
     [ "CreateIndexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a9958398421f6574af4c8010899dae040", null ],
     [ "CreateNewBufferBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a82cfd7196603071a5a8b8040b6d44ab1", null ],
     [ "CreateNewBufferMemoryBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a7d3d38d431b4ba39ad83577bce318c5d", null ],

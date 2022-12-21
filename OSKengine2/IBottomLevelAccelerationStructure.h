@@ -15,10 +15,8 @@ namespace OSK::GRAPHICS {
 
 	class ICommandList;
 
-	/// <summary>
-	/// Estructura de aceleración de nivel bajo: contiene la geometría
+	/// @brief Estructura de aceleración de nivel bajo: contiene la geometría
 	/// de un modelo 3D.
-	/// </summary>
 	/// 
 	/// @todo Permitir usar meshes en vez de modelos enteros.
 	/// @todo Implementación en DirectX 12.
@@ -28,10 +26,12 @@ namespace OSK::GRAPHICS {
 
 		OSK_DEFINE_AS(IBottomLevelAccelerationStructure);
 
-		/// <summary>
-		/// Crea la estructura de aceleración con los triangulos definidos
+		/// @brief Crea la estructura de aceleración con los triangulos definidos
 		/// por los vértices y los índices.
-		/// </summary>
+		/// 
+		/// @param vertexBuffer 
+		/// @param indexBuffer 
+		/// @param flags Configuración extra.
 		/// 
 		/// @todo Permitir determinar qué vértices y qué indices a usar, en vez de usar
 		/// todos los vértices y todos los índices dados.

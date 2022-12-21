@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/ConvexVolume.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_convex_volume_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ConvexVolume.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_convex_volume_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// OSKengine by oskiyu</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Copyright (c) 2019-2022 oskiyu. All rights reserved.</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_convex_volume_8h.html">ConvexVolume.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_transform3_d_8h.html">Transform3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_face_projection_8h.html">FaceProjection.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">OSK::COLLISION</a>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a0404ff4c901165b73c42f5d50ac9e766">   12</a></span><span class="keywordtype">void</span> ConvexVolume::AddFace(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;Vector3f&gt;</a>&amp; points) {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> numOldVertices = vertices.GetSize();</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> numNewVertices = points.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90">GetSize</a>();</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">FaceIndices</a> indices = <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a05c1d595ea13dde44703e78c3b186fb5">FaceIndices::CreateReservedArray</a>(numNewVertices);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a0f6b3171fdbde641ab165b26c2e54a8d">TIndex</a> i = 0; i &lt; numNewVertices; i++) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        indices.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a2c1e7bd2efbadf8b163f67c26921ba53">Insert</a>(numOldVertices + i);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        vertices.Insert(points[i]);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    faces.Insert(indices);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#aea33f81c4c0d15dffa19f104428faf7d">   25</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#aea33f81c4c0d15dffa19f104428faf7d">ConvexVolume::OptimizeAxes</a>() {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">if</span> (faces.IsEmpty())</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;FaceIndices&gt;</a> optimizedFaces = {};</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;TIndex&gt;</a> duplicatedIds = {};</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a0f6b3171fdbde641ab165b26c2e54a8d">TIndex</a> i = 0; i &lt; faces.GetSize() - 1; i++) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="comment">// Por cada eje original, comprobamos si hay otros</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="comment">// ejes equivalentes.</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a0f6b3171fdbde641ab165b26c2e54a8d">TIndex</a> j = i + 1; j &lt; faces.GetSize(); j++) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Axis</a> axis1 = GetAxisFromFace(i);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Axis</a> axis2 = GetAxisFromFace(j);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            <span class="keyword">const</span> <span class="keywordtype">bool</span> isSameAxis = axis1 == axis2 || axis1 == -axis2;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <span class="comment">// Si el otro eje es igual, lo marcamos para no añadirlo</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <span class="comment">// a la lista optimizada.</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="keywordflow">if</span> (isSameAxis)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                duplicatedIds.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a2c1e7bd2efbadf8b163f67c26921ba53">Insert</a>(j);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        }</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="comment">// Añadimos las caras que no hayan sido marcadas.</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a0f6b3171fdbde641ab165b26c2e54a8d">TIndex</a> i = 0; i &lt; faces.GetSize(); i++)</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">if</span> (!duplicatedIds.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a09be7ecaff61fd363a4065237faa1efa">ContainsElement</a>(i))</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            optimizedFaces.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a2c1e7bd2efbadf8b163f67c26921ba53">Insert</a>(faces[i]);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    faces = optimizedFaces;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">ConvexVolume::Axis</a> ConvexVolume::GetAxisFromFace(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a0f6b3171fdbde641ab165b26c2e54a8d">TIndex</a> faceId)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">const</span> FaceIndices&amp; faceIndices = faces[faceId];</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> pointA = vertices.At(faceIndices.At(0));</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> pointB = vertices.At(faceIndices.At(1));</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> pointC = vertices.At(faceIndices.At(2));</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> vec1 = pointB - pointA;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> vec2 = pointC - pointA;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">return</span> vec1.<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#a11968baed38c50bb37083845b41efd72">Cross</a>(vec2).<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#aef1702c4230df139c7f0e28cd27bc4a6">GetNormalized</a>();</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">ConvexVolume::Axis</a> ConvexVolume::GetAxisFromFace(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a0f6b3171fdbde641ab165b26c2e54a8d">TIndex</a> faceId, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&amp; transform)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">const</span> <span class="keyword">static</span> glm::vec4 positionMult = { 0.0f, 0.0f, 0.0f, 1.0f };</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">const</span> FaceIndices&amp; faceIndices = faces[faceId];</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> pointA = vertices.At(faceIndices.At(0));</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> pointB = vertices.At(faceIndices.At(1));</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> pointC = vertices.At(faceIndices.At(2));</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> transformedA = transform.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a865f66350d13df8b492abc200ec755d7">TransformPoint</a>(pointA);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> transformedB = transform.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a865f66350d13df8b492abc200ec755d7">TransformPoint</a>(pointB);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> transformedC = transform.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a865f66350d13df8b492abc200ec755d7">TransformPoint</a>(pointC);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> vec1 = transformedB - transformedA;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> vec2 = transformedC - transformedA;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordflow">return</span> vec1.<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#a11968baed38c50bb37083845b41efd72">Cross</a>(vec2).<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#aef1702c4230df139c7f0e28cd27bc4a6">GetNormalized</a>();</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>}</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a92af5d4f2c8b4d68a6e9fd9d523c447f">   89</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a92af5d4f2c8b4d68a6e9fd9d523c447f">ConvexVolume::IsColliding</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html">IBottomLevelCollider</a>&amp; other,</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&amp; thisTransform, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&amp; otherTransform)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">ConvexVolume</a>&amp; otherVolume = (<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">ConvexVolume</a>&amp;)other;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> thisFaceCount = faces.GetSize();</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> otherFaceCount = otherVolume.faces.GetSize();</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keyword">const</span> <span class="keyword">auto</span> transformedVerticesA = GetTransformedVertices(thisTransform);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keyword">const</span> <span class="keyword">auto</span> transformedVerticesB = otherVolume.GetTransformedVertices(otherTransform);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a0f6b3171fdbde641ab165b26c2e54a8d">TIndex</a> i = 0; i &lt; thisFaceCount; i++) {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Axis</a> axis = GetAxisFromFace(i, thisTransform);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html">FaceProjection</a> projA = <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html">FaceProjection</a>(transformedVerticesA, axis);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html">FaceProjection</a> projB = <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html">FaceProjection</a>(transformedVerticesB, axis);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keywordflow">if</span> (!projA.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html#a743bdab979c9ce34375f1761b3907ee0">Overlaps</a>(projB))</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    }</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a0f6b3171fdbde641ab165b26c2e54a8d">TIndex</a> i = 0; i &lt; otherFaceCount; i++) {</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Axis</a> axis = GetAxisFromFace(i, thisTransform);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html">FaceProjection</a> projA = <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html">FaceProjection</a>(transformedVerticesA, axis);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html">FaceProjection</a> projB = <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html">FaceProjection</a>(transformedVerticesB, axis);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">if</span> (!projA.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html#a743bdab979c9ce34375f1761b3907ee0">Overlaps</a>(projB))</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    }</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>}</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;Vector3f&gt;</a> ConvexVolume::GetTransformedVertices(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&amp; transform)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;Vector3f&gt;</a> output;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; vertex : vertices)</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        output.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a2c1e7bd2efbadf8b163f67c26921ba53">Insert</a>(transform.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a865f66350d13df8b492abc200ec755d7">TransformPoint</a>(vertex));</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keywordflow">return</span> output;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>}</div>
+<div class="ttc" id="a_convex_volume_8h_html"><div class="ttname"><a href="_convex_volume_8h.html">ConvexVolume.h</a></div></div>
+<div class="ttc" id="a_face_projection_8h_html"><div class="ttname"><a href="_face_projection_8h.html">FaceProjection.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a0f6b3171fdbde641ab165b26c2e54a8d"><div class="ttname"><a href="_o_s_kmacros_8h.html#a0f6b3171fdbde641ab165b26c2e54a8d">TIndex</a></div><div class="ttdeci">TSize TIndex</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00024">OSKmacros.h:24</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00023">OSKmacros.h:23</a></div></div>
+<div class="ttc" id="a_transform3_d_8h_html"><div class="ttname"><a href="_transform3_d_8h.html">Transform3D.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">OSK::COLLISION::ConvexVolume</a></div><div class="ttdoc">Clase que representa un volúmen convexo para la detección de colisiones detallada.</div><div class="ttdef"><b>Definition:</b> <a href="_convex_volume_8h_source.html#l00015">ConvexVolume.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume_html_a92af5d4f2c8b4d68a6e9fd9d523c447f"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a92af5d4f2c8b4d68a6e9fd9d523c447f">OSK::COLLISION::ConvexVolume::IsColliding</a></div><div class="ttdeci">bool IsColliding(const IBottomLevelCollider &amp;other, const ECS::Transform3D &amp;thisOffset, const ECS::Transform3D &amp;otherOffset) const override</div><div class="ttdoc">Comprueba si este área de colisión está en contacto con otra.</div><div class="ttdef"><b>Definition:</b> <a href="_convex_volume_8cpp_source.html#l00089">ConvexVolume.cpp:89</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume_html_aea33f81c4c0d15dffa19f104428faf7d"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#aea33f81c4c0d15dffa19f104428faf7d">OSK::COLLISION::ConvexVolume::OptimizeAxes</a></div><div class="ttdeci">void OptimizeAxes()</div><div class="ttdoc">Optimiza el proceso de detección de colisiones eliminando ejes duplicados que pueden surgir al regist...</div><div class="ttdef"><b>Definition:</b> <a href="_convex_volume_8cpp_source.html#l00025">ConvexVolume.cpp:25</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html">OSK::COLLISION::FaceProjection</a></div><div class="ttdoc">Proyección de una cara de un poliedro sobre un eje.</div><div class="ttdef"><b>Definition:</b> <a href="_face_projection_8h_source.html#l00016">FaceProjection.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection_html_a743bdab979c9ce34375f1761b3907ee0"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html#a743bdab979c9ce34375f1761b3907ee0">OSK::COLLISION::FaceProjection::Overlaps</a></div><div class="ttdeci">bool Overlaps(FaceProjection other) const</div><div class="ttdef"><b>Definition:</b> <a href="_face_projection_8cpp_source.html#l00020">FaceProjection.cpp:20</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html">OSK::COLLISION::IBottomLevelCollider</a></div><div class="ttdoc">Representa un área de colisión no muy ajustada que permite descartar colisiones de una manera más ráp...</div><div class="ttdef"><b>Definition:</b> <a href="_i_bottom_level_collider_8h_source.html#l00017">IBottomLevelCollider.h:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition:</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a05c1d595ea13dde44703e78c3b186fb5"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a05c1d595ea13dde44703e78c3b186fb5">OSK::DynamicArray&lt; TIndex &gt;::CreateReservedArray</a></div><div class="ttdeci">static DynamicArray CreateReservedArray(TSize reservedSize)</div><div class="ttdoc">Crea un DynamicArray con espacio reservado para el número de elementos dado.</div><div class="ttdef"><b>Definition:</b> <a href="_dynamic_array_8hpp_source.html#l00298">DynamicArray.hpp:298</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a09be7ecaff61fd363a4065237faa1efa"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a09be7ecaff61fd363a4065237faa1efa">OSK::DynamicArray::ContainsElement</a></div><div class="ttdeci">bool ContainsElement(const T &amp;elem) const</div><div class="ttdoc">Comprueba si el elemento está presente en el array.</div><div class="ttdef"><b>Definition:</b> <a href="_dynamic_array_8hpp_source.html#l00594">DynamicArray.hpp:594</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a2c1e7bd2efbadf8b163f67c26921ba53"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a2c1e7bd2efbadf8b163f67c26921ba53">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition:</b> <a href="_dynamic_array_8hpp_source.html#l00373">DynamicArray.hpp:373</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a94d0cbf0543d0c976de674d31b15df90"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">TSize GetSize() const noexcept</div><div class="ttdoc">Devuelve el número de elementos almacenados.</div><div class="ttdef"><b>Definition:</b> <a href="_dynamic_array_8hpp_source.html#l00690">DynamicArray.hpp:690</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">OSK::ECS::Transform3D</a></div><div class="ttdef"><b>Definition:</b> <a href="_transform3_d_8h_source.html#l00010">Transform3D.h:10</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a865f66350d13df8b492abc200ec755d7"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a865f66350d13df8b492abc200ec755d7">OSK::ECS::Transform3D::TransformPoint</a></div><div class="ttdeci">Vector3f TransformPoint(const Vector3f &amp;point) const</div><div class="ttdef"><b>Definition:</b> <a href="_transform3_d_8cpp_source.html#l00128">Transform3D.cpp:128</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html">OSK::Vector3_t&lt; float_t &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_a11968baed38c50bb37083845b41efd72"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#a11968baed38c50bb37083845b41efd72">OSK::Vector3_t::Cross</a></div><div class="ttdeci">Vector3_t Cross(const Vector3_t &amp;vec) const</div><div class="ttdoc">Obtiene el producto vectorial entre este vector y el vector 'vec'.</div><div class="ttdef"><b>Definition:</b> <a href="_vector3_8hpp_source.html#l00271">Vector3.hpp:271</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_aef1702c4230df139c7f0e28cd27bc4a6"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#aef1702c4230df139c7f0e28cd27bc4a6">OSK::Vector3_t::GetNormalized</a></div><div class="ttdeci">Vector3_t GetNormalized() const</div><div class="ttdoc">Devuelve un vector 3D normalizado con la misma dirección que este.</div><div class="ttdef"><b>Definition:</b> <a href="_vector3_8hpp_source.html#l00278">Vector3.hpp:278</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n_html"><div class="ttname"><a href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">OSK::COLLISION</a></div><div class="ttdef"><b>Definition:</b> <a href="_axis_aligned_bounding_box_8h_source.html#l00007">AxisAlignedBoundingBox.h:7</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition:</b> <a href="_camera_component2_d_8h_source.html#l00015">CameraComponent2D.h:15</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_animation_8h_source.html#l00014">Animation.h:14</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_convex_volume_8cpp.html">ConvexVolume.cpp</a></li>
+    <li class="footer">Generado el Miércoles, 21 de Diciembre de 2022 21:33:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -14,7 +14,7 @@ namespace OSK::GRAPHICS {
 
 	class DirectionalLight;
 
-	/// <summary>
+	/// @brief 
 	/// Renderiza un mapa de profundidad de la escena desde el punto de
 	/// vista de una luz direccional.
 	/// 
@@ -27,107 +27,84 @@ namespace OSK::GRAPHICS {
 	///		- Enlazar la instancia de material ShadowMap::GetShadowsMaterialInstance.
 	///		- Renderizar todos los objetos que deban proyectar sombras.
 	///		- Finalizar el renderpass.
-	/// </summary>
 	class OSKAPI_CALL ShadowMap {
 
 	public:
 
-		/// <summary>
-		/// Inicializa el shadow map.
-		/// </summary>
-		/// <param name="imageSize">Resolución de la imagen del shadow map.
-		/// Cuanto más alta, mayor calidad de sombras.</param>
+		/// @brief Inicializa el shadow map.
+		/// @param imageSize Resolución de la imagen del shadow map.
+		/// Cuanto más alta, mayor calidad de sombras.
 		void Create(const Vector2ui& imageSize);
 
-		/// <summary>
-		/// Establece la luz direccional que proyectará las sobras
+
+		/// @brief Establece la luz direccional que proyectará las sobras
 		/// sobre este mapa de sombras.
-		/// </summary>
-		/// <param name="dirLight">Luz direccional que proyectará sombras.</param>
 		/// 
 		/// @pre Debe llamarse después de inicializar el mapa de sombras (ShadowMap::Create).
 		void SetDirectionalLight(const DirectionalLight& dirLight);
 
 
-		/// <summary>
-		/// Establece el near plane del renderizado.
-		/// </summary>
-		/// <param name="nearPlane">Distancia mínima al origen
-		/// de la luz para que sean renderizados.</param>
+		/// @brief Establece el near plane del frustum de renderizado.
+		/// @param nearPlane Distancia mínima al origen
+		/// de la luz para que sean renderizados.
 		/// 
 		/// @note Por defecto, -5.0f.
 		void SetNearPlane(float nearPlane);
 
-		/// <summary>
-		/// Establece el far plane del renderizado.
-		/// </summary>
-		/// <param name="farPlane">Distancia máxima al origen
-		/// de la luz para que sean renderizados.</param>
+		/// @brief Establece el far plane del frustum de renderizado.
+		/// @param farPlane Distancia máxima al origen
+		/// de la luz para que sean renderizados.
 		/// 
 		/// @note Por defecto, 5.0f.
 		void SetFarPlane(float farPlane);
 
-
-		/// <summary>
-		/// Devuelve la imagen del mapa de sombras.
-		/// </summary>
-		/// <param name="index">Índice de la imagen en el swapchain.</param>
-		/// <returns>Mapa de profundidad.</returns>
+				
+		/// @brief Devuelve la imagen del mapa de sombras.
+		/// @param index Índice de la imagen en el swapchain.
+		/// @return Mapa de profundidad.
 		/// 
 		/// @pre Se debe haber inicializado el ShadowMap con ShadowMap::Create.
 		/// @note Devolverá nullptr si no se cumple la precondición.
 		GpuImage* GetShadowImage(TSize index) const;
 		
-		/// <summary>
-		/// Devuelve la imagen de color del mapa de sombras.
+		/// @brief Devuelve la imagen de color del mapa de sombras.
 		/// Para su renderizado.
-		/// </summary>
-		/// <param name="index">Índice de la imagen en el swapchain.</param>
-		/// <returns>Mapa de profundidad.</returns>
-		/// 
-		/// @pre Se debe haber inicializado el ShadowMap con ShadowMap::Create.
-		/// @note Devolverá nullptr si no se cumple la precondición.
+		/// @param index Índice de la imagen en el swapchain.
+		/// @return Mapa de profundidad.
 		GpuImage* GetColorImage(TSize index) const;
 
-
-		/// <summary>
-		/// Devuelve el material usado para la generación de sombras.
-		/// </summary>
+				
+		/// @brief Devuelve el material usado para la generación de sombras.
 		/// 
 		/// @pre Se debe haber inicializado el ShadowMap con ShadowMap::Create.
 		/// @note Devolverá nullptr si no se cumple la precondición.
 		Material* GetShadowsMaterial(ASSETS::ModelType modelType) const;
 
-		/// <summary>
-		/// Devuelve la instancia del material para la generación de sombras.
-		/// </summary>
-		/// 
+		/// @brief Devuelve la instancia del material para la generación de sombras.
+		///
 		/// @note Se debe vincular el slot "global" para poder ser usado correctamente.
 		/// 
 		/// @pre Se debe haber inicializado el ShadowMap con ShadowMap::Create.
 		/// @note Devolverá nullptr si no se cumple la precondición.
 		MaterialInstance* GetShadowsMaterialInstance() const;
 
-		/// <summary>
-		/// Devuelve el uniform buffer que contiene la matriz de
+		/// @brief Devuelve el uniform buffer que contiene la matriz de
 		/// proyección y vista de la luz que proyecta la sombra.
-		/// </summary>
 		/// 
 		/// @pre Se ha llamado a ShadowMap::Create.
 		/// @warning Devuelve nullptr si no se cumple las precondiciones.
 		DynamicArray<GRAPHICS::IGpuUniformBuffer*> GetDirLightMatrixUniformBuffers() const;
 
 
-		/// <summary>
-		/// Establece la cámara de la escena, para poder configurar
+		/// @brief Establece la cámara de la escena, para poder configurar
 		/// los mapas de profundidad de una manera más óptima.
-		/// </summary>
-		/// <param name="cameraObject"></param>
+		/// @param cameraObject Objeto ECS que contiene la cámara.
+		/// 
+		/// @pre cameraObject debe tener asociado un componente de tipo ECS::CameraComponent3D.
 		void SetSceneCamera(ECS::GameObjectIndex cameraObject);
 
-		/// <summary>
-		/// Devuelve el número de mapas de sobras en cascada.
-		/// </summary>
+
+		/// @return Número de mapas de sobras en cascada.
 		TSize GetNumCascades() const;
 
 	private:

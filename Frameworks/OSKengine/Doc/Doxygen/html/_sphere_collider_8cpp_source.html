@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/SphereCollider.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_sphere_collider_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">SphereCollider.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_sphere_collider_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// OSKengine by oskiyu</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Copyright (c) 2019-2022 oskiyu. All rights reserved.</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_sphere_collider_8h.html">SphereCollider.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_axis_aligned_bounding_box_8h.html">AxisAlignedBoundingBox.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">OSK::COLLISION</a>;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#a4ebbd6ce128bedbb2ed6fc2d8cd36f3c">   10</a></span>SphereCollider::SphereCollider(<span class="keywordtype">float</span> radius) {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#ac1fc994c3b9caa0953597288a516b43a">SetRadius</a>(radius);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#ac1fc994c3b9caa0953597288a516b43a">   14</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#ac1fc994c3b9caa0953597288a516b43a">SphereCollider::SetRadius</a>(<span class="keywordtype">float</span> radius) {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    this-&gt;radius = 1.0f;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#a9887f7bc7f2da48dcd96192ac1ba5f38">   18</a></span><span class="keywordtype">float</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#a9887f7bc7f2da48dcd96192ac1ba5f38">SphereCollider::GetRadius</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">return</span> radius;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#abba81dc011324aaa5ea2560002960624">   22</a></span><a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html">RayCastResult</a> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#abba81dc011324aaa5ea2560002960624">SphereCollider::CastRay</a>(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html">Ray</a>&amp; ray, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; center)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="comment">// https://www.lighthouse3d.com/tutorials/maths/ray-sphere-intersection/</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="comment">// ray.origin -&gt; position</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> originsVec = center - ray.<a class="code hl_variable" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#a58f1fd48fd028230b012d6a806f5f65c">origin</a>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="comment">// La esfera está detras del rayo</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">if</span> (ray.<a class="code hl_variable" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#ae3ea42c4c8f72b88ee0b6572e245749d">direction</a>.<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#a79f857bd13e3e7b131fb1c171e38b069">Dot</a>(originsVec))</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#ad8eff9ac6fd771325b1b5307c7ed4e62">RayCastResult::False</a>();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> centerProjectionDistance = ray.<a class="code hl_variable" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#ae3ea42c4c8f72b88ee0b6572e245749d">direction</a>.<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#a79f857bd13e3e7b131fb1c171e38b069">Dot</a>(center);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> centerProjection = ray.<a class="code hl_variable" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#a58f1fd48fd028230b012d6a806f5f65c">origin</a> + ray.<a class="code hl_variable" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#ae3ea42c4c8f72b88ee0b6572e245749d">direction</a> * centerProjectionDistance;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> distance = centerProjection.<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#a4c2665dd5ae8075c0aafd687608b6d64">GetDistanceTo</a>(center);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">if</span> (distance &lt; radius)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#ad8eff9ac6fd771325b1b5307c7ed4e62">RayCastResult::False</a>();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> distanceToIntersection = centerProjection.<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#a4c2665dd5ae8075c0aafd687608b6d64">GetDistanceTo</a>(ray.<a class="code hl_variable" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#a58f1fd48fd028230b012d6a806f5f65c">origin</a>)</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        - glm::sqrt(radius * radius - distance * distance);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#aa21106fa41ea76f379d3fc9fb3533ae0">RayCastResult::True</a>(ray.<a class="code hl_variable" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#a58f1fd48fd028230b012d6a806f5f65c">origin</a> + ray.<a class="code hl_variable" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#ae3ea42c4c8f72b88ee0b6572e245749d">direction</a> * distanceToIntersection);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#a7e765f6a8f26d1fb5376ef682bdd2a4d">   45</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#a7e765f6a8f26d1fb5376ef682bdd2a4d">SphereCollider::IsColliding</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html">ITopLevelCollider</a>&amp; other,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; thisOffset, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; otherOffset)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> box = <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a>*<span class="keyword">&gt;</span>(&amp;other))</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#afa200c3d3d952b95d02bb6ee621bc822">ITopLevelCollider::AabbSphereCollision</a>(*box, *<span class="keyword">this</span>,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            thisOffset, otherOffset);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> sphere = <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a>*<span class="keyword">&gt;</span>(&amp;other))</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae40083a3f72e026516ded2df498b9f06">ITopLevelCollider::SphereSphereCollision</a>(*<span class="keyword">this</span>, *sphere,</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            thisOffset, otherOffset);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
+<div class="ttc" id="a_axis_aligned_bounding_box_8h_html"><div class="ttname"><a href="_axis_aligned_bounding_box_8h.html">AxisAlignedBoundingBox.h</a></div></div>
+<div class="ttc" id="a_sphere_collider_8h_html"><div class="ttname"><a href="_sphere_collider_8h.html">SphereCollider.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">OSK::COLLISION::AxisAlignedBoundingBox</a></div><div class="ttdoc">Un área de colisión de alto nivel representado por una caja tridimensional.</div><div class="ttdef"><b>Definition:</b> <a href="_axis_aligned_bounding_box_8h_source.html#l00017">AxisAlignedBoundingBox.h:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html">OSK::COLLISION::ITopLevelCollider</a></div><div class="ttdoc">Representa un área de colisión no muy ajustada que permite descartar colisiones de una manera más ráp...</div><div class="ttdef"><b>Definition:</b> <a href="_i_top_level_collider_8h_source.html#l00019">ITopLevelCollider.h:19</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider_html_ae40083a3f72e026516ded2df498b9f06"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae40083a3f72e026516ded2df498b9f06">OSK::COLLISION::ITopLevelCollider::SphereSphereCollision</a></div><div class="ttdeci">static bool SphereSphereCollision(const SphereCollider &amp;first, const SphereCollider &amp;other, const Vector3f &amp;thisOffset, const Vector3f &amp;otherOffset)</div><div class="ttdef"><b>Definition:</b> <a href="_i_top_level_collider_8cpp_source.html#l00032">ITopLevelCollider.cpp:32</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider_html_afa200c3d3d952b95d02bb6ee621bc822"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#afa200c3d3d952b95d02bb6ee621bc822">OSK::COLLISION::ITopLevelCollider::AabbSphereCollision</a></div><div class="ttdeci">static bool AabbSphereCollision(const AxisAlignedBoundingBox &amp;first, const SphereCollider &amp;other, const Vector3f &amp;thisOffset, const Vector3f &amp;otherOffset)</div><div class="ttdef"><b>Definition:</b> <a href="_i_top_level_collider_8cpp_source.html#l00019">ITopLevelCollider.cpp:19</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html">OSK::COLLISION::RayCastResult</a></div><div class="ttdef"><b>Definition:</b> <a href="_ray_cast_result_8h_source.html#l00010">RayCastResult.h:10</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result_html_aa21106fa41ea76f379d3fc9fb3533ae0"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#aa21106fa41ea76f379d3fc9fb3533ae0">OSK::COLLISION::RayCastResult::True</a></div><div class="ttdeci">static RayCastResult True(const Vector3f &amp;intersection)</div><div class="ttdef"><b>Definition:</b> <a href="_ray_cast_result_8h_source.html#l00018">RayCastResult.h:18</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result_html_ad8eff9ac6fd771325b1b5307c7ed4e62"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#ad8eff9ac6fd771325b1b5307c7ed4e62">OSK::COLLISION::RayCastResult::False</a></div><div class="ttdeci">static RayCastResult False()</div><div class="ttdef"><b>Definition:</b> <a href="_ray_cast_result_8h_source.html#l00014">RayCastResult.h:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">OSK::COLLISION::SphereCollider</a></div><div class="ttdoc">Un área de colisión de alto nivel representado por una esfera.</div><div class="ttdef"><b>Definition:</b> <a href="_sphere_collider_8h_source.html#l00013">SphereCollider.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider_html_a7e765f6a8f26d1fb5376ef682bdd2a4d"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#a7e765f6a8f26d1fb5376ef682bdd2a4d">OSK::COLLISION::SphereCollider::IsColliding</a></div><div class="ttdeci">bool IsColliding(const ITopLevelCollider &amp;other, const Vector3f &amp;thisOffset, const Vector3f &amp;otherOffset) const override</div><div class="ttdoc">Comprueba si este área de colisión está en contacto con otra.</div><div class="ttdef"><b>Definition:</b> <a href="_sphere_collider_8cpp_source.html#l00045">SphereCollider.cpp:45</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider_html_a9887f7bc7f2da48dcd96192ac1ba5f38"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#a9887f7bc7f2da48dcd96192ac1ba5f38">OSK::COLLISION::SphereCollider::GetRadius</a></div><div class="ttdeci">float GetRadius() const</div><div class="ttdef"><b>Definition:</b> <a href="_sphere_collider_8cpp_source.html#l00018">SphereCollider.cpp:18</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider_html_abba81dc011324aaa5ea2560002960624"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#abba81dc011324aaa5ea2560002960624">OSK::COLLISION::SphereCollider::CastRay</a></div><div class="ttdeci">RayCastResult CastRay(const Ray &amp;ray, const Vector3f &amp;position) const override</div><div class="ttdoc">Calcula la intersección entre un rayo y el collider.</div><div class="ttdef"><b>Definition:</b> <a href="_sphere_collider_8cpp_source.html#l00022">SphereCollider.cpp:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider_html_ac1fc994c3b9caa0953597288a516b43a"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#ac1fc994c3b9caa0953597288a516b43a">OSK::COLLISION::SphereCollider::SetRadius</a></div><div class="ttdeci">void SetRadius(float radius)</div><div class="ttdef"><b>Definition:</b> <a href="_sphere_collider_8cpp_source.html#l00014">SphereCollider.cpp:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html">OSK::Vector3_t&lt; float_t &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_a4c2665dd5ae8075c0aafd687608b6d64"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#a4c2665dd5ae8075c0aafd687608b6d64">OSK::Vector3_t::GetDistanceTo</a></div><div class="ttdeci">T GetDistanceTo(const Vector3_t &amp;vec) const</div><div class="ttdoc">Obtiene la distancia entre la posición representada por este vector y por el vector 'vec'.</div><div class="ttdef"><b>Definition:</b> <a href="_vector3_8hpp_source.html#l00225">Vector3.hpp:225</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_a79f857bd13e3e7b131fb1c171e38b069"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#a79f857bd13e3e7b131fb1c171e38b069">OSK::Vector3_t::Dot</a></div><div class="ttdeci">T Dot(const Vector3_t &amp;vec) const</div><div class="ttdoc">Obtiene el producto escalar entre este vector y el vector 'vec'.</div><div class="ttdef"><b>Definition:</b> <a href="_vector3_8hpp_source.html#l00248">Vector3.hpp:248</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n_html"><div class="ttname"><a href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">OSK::COLLISION</a></div><div class="ttdef"><b>Definition:</b> <a href="_axis_aligned_bounding_box_8h_source.html#l00007">AxisAlignedBoundingBox.h:7</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition:</b> <a href="_animation_8h_source.html#l00014">Animation.h:14</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_html"><div class="ttname"><a href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html">OSK::COLLISION::Ray</a></div><div class="ttdoc">Representa un rayo lanzado en el mundo que puede colisionar con colliders.</div><div class="ttdef"><b>Definition:</b> <a href="_ray_8h_source.html#l00012">Ray.h:12</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_html_a58f1fd48fd028230b012d6a806f5f65c"><div class="ttname"><a href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#a58f1fd48fd028230b012d6a806f5f65c">OSK::COLLISION::Ray::origin</a></div><div class="ttdeci">Vector3f origin</div><div class="ttdoc">Posición del mundo desde el que se origina el rayo.</div><div class="ttdef"><b>Definition:</b> <a href="_ray_8h_source.html#l00015">Ray.h:15</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_html_ae3ea42c4c8f72b88ee0b6572e245749d"><div class="ttname"><a href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#ae3ea42c4c8f72b88ee0b6572e245749d">OSK::COLLISION::Ray::direction</a></div><div class="ttdeci">Vector3f direction</div><div class="ttdoc">Dirección del rayo.</div><div class="ttdef"><b>Definition:</b> <a href="_ray_8h_source.html#l00018">Ray.h:18</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_sphere_collider_8cpp.html">SphereCollider.cpp</a></li>
+    <li class="footer">Generado el Miércoles, 21 de Diciembre de 2022 21:33:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

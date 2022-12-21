@@ -24,9 +24,10 @@ void RenderTargetAttachment::Initialize(const RenderTargetAttachmentInfo& info, 
 	this->info = info;
 	
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		images[i] = Engine::GetRenderer()->GetAllocator()->CreateImage(
-			{ resolution.X, resolution.Y, 1 }, GpuImageDimension::d2D, 1, info.format,
-			info.usage, GpuSharedMemoryType::GPU_ONLY, 1, info.sampler).GetPointer();
+		GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(resolution, info.format, info.usage);
+		imageInfo.samplerDesc = info.sampler;
+
+		images[i] = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo).GetPointer();
 		
 		images[i]->SetDebugName(info.name + "[" + std::to_string(i) + "]");
 	}

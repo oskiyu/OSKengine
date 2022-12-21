@@ -493,6 +493,27 @@
     <Filter Include="Archivos de origen\OSKengine\ECS\Builtin\RenderSystems">
       <UniqueIdentifier>{74ab1726-ef10-4114-ab5d-7e97136d5794}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Collision">
+      <UniqueIdentifier>{15537a07-f4fa-44b3-8093-cccfdd8766aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Collision\TopLevel">
+      <UniqueIdentifier>{434e068d-f909-4fa2-9ea8-be560c5b2125}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Collision">
+      <UniqueIdentifier>{0a4594d3-f7da-456a-a086-a3770e28ed05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Collision\TopLevel">
+      <UniqueIdentifier>{887ec4fe-7e2e-445b-82ca-a7e28b8b205d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Collision\BottomLevel">
+      <UniqueIdentifier>{9d2cbddc-adf1-4888-a3f7-b5de7dd4e63a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Collision\BottomLevel">
+      <UniqueIdentifier>{f8c323b7-4d9a-4538-8aea-bc1756b112b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\Collision\RayCast">
+      <UniqueIdentifier>{fe364106-e25d-4c9f-830a-b2e5d74af612}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -993,6 +1014,33 @@
     <ClCompile Include="SkyboxRenderSystem.cpp">
       <Filter>Archivos de origen\OSKengine\ECS\Builtin\RenderSystems</Filter>
     </ClCompile>
+    <ClCompile Include="AxisAlignedBoundingBox.cpp">
+      <Filter>Archivos de origen\OSKengine\Collision\TopLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereCollider.cpp">
+      <Filter>Archivos de origen\OSKengine\Collision\TopLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="ITopLevelCollider.cpp">
+      <Filter>Archivos de origen\OSKengine\Collision\TopLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="ConvexVolume.cpp">
+      <Filter>Archivos de origen\OSKengine\Collision\BottomLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="FaceProjection.cpp">
+      <Filter>Archivos de origen\OSKengine\Collision\BottomLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionInfo.cpp">
+      <Filter>Archivos de origen\OSKengine\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Archivos de origen\OSKengine\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="IBottomLevelCollider.cpp">
+      <Filter>Archivos de origen\OSKengine\Collision\BottomLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="SpecularMapLoader.cpp">
+      <Filter>Archivos de origen\OSKengine\Assets\Loaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
@@ -1009,9 +1057,6 @@
     </ClInclude>
     <ClInclude Include="Vector4.hpp">
       <Filter>Archivos de encabezado\OSKengine\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>Archivos de encabezado\OSKengine\IO</Filter>
     </ClInclude>
     <ClInclude Include="OwnedPtr.h">
       <Filter>Archivos de encabezado\OSKengine\Memory</Filter>
@@ -1663,6 +1708,51 @@
     </ClInclude>
     <ClInclude Include="SkyboxRenderSystem.h">
       <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\RenderSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionInfo.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="ITopLevelCollider.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision\TopLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="AxisAlignedBoundingBox.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision\TopLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereCollider.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision\TopLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Archivos de encabezado\OSKengine\IO\Display</Filter>
+    </ClInclude>
+    <ClInclude Include="IBottomLevelCollider.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision\BottomLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="ConvexVolume.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision\BottomLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="FaceProjection.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision\BottomLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision\RayCast</Filter>
+    </ClInclude>
+    <ClInclude Include="IRayCollider.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision\RayCast</Filter>
+    </ClInclude>
+    <ClInclude Include="RayCastResult.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision\RayCast</Filter>
+    </ClInclude>
+    <ClInclude Include="IIterable.h">
+      <Filter>Archivos de encabezado\OSKengine\STD</Filter>
+    </ClInclude>
+    <ClInclude Include="Span.hpp">
+      <Filter>Archivos de encabezado\OSKengine\STD</Filter>
+    </ClInclude>
+    <ClInclude Include="SpecularMapLoader.h">
+      <Filter>Archivos de encabezado\OSKengine\Assets\Loaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

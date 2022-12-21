@@ -15,6 +15,7 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "CommandQueueVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan" ],
     [ "ComputePipelineDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_compute_pipeline_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_compute_pipeline_dx12" ],
     [ "ComputePipelineVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_compute_pipeline_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_compute_pipeline_vulkan" ],
+    [ "CopyImageInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_copy_image_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_copy_image_info" ],
     [ "DescriptorBlockDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_block_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_block_dx12" ],
     [ "DescriptorDx12", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12" ],
     [ "DescriptorLayoutVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan" ],
@@ -28,6 +29,7 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "GpuDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12" ],
     [ "GpuImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image" ],
     [ "GpuImageBarrierInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info" ],
+    [ "GpuImageCreateInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info" ],
     [ "GpuImageDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12" ],
     [ "GpuImageSamplerDesc", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc" ],
     [ "GpuImageViewDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_dx12" ],
@@ -336,6 +338,5 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "GetGpuSharedMemoryTypeVulkan", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ac01ee3f8d8aec2a1bf3a997743189824", null ],
     [ "GetShaderStageVk", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3a50046339fbf8642e14273583cd8118", null ],
     [ "ALL_IMAGE_LAYERS", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a180d96d3f745a60bce6b0ffd5209ce35", null ],
-    [ "ALL_MIP_LEVELS", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af4ec621c557d492c7de3493e2b2bd1a9", null ],
-    [ "NUM_RESOURCES_IN_FLIGHT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a2790b1bb1dbf382ccd86a228f9f2ccbd", null ]
+    [ "ALL_MIP_LEVELS", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af4ec621c557d492c7de3493e2b2bd1a9", null ]
 ];

@@ -97,9 +97,11 @@ DynamicArray<OwnedPtr<GpuImage>> IMeshLoader::LoadImages() {
 	for (TSize i = 0; i < gltfModel.images.size(); i++) {
 		const tinygltf::Image& originalImage = gltfModel.images[i];
 
-		auto image = Engine::GetRenderer()->GetAllocator()->CreateImage({ (unsigned int)originalImage.width, (unsigned int)originalImage.height, 1 },
-			GpuImageDimension::d2D, 1, Format::RGBA8_UNORM, GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED,
-			GpuSharedMemoryType::GPU_ONLY, true);
+		auto image = Engine::GetRenderer()->GetAllocator()->CreateImage(GpuImageCreateInfo::CreateDefault2D(
+			{ (unsigned int)originalImage.width, (unsigned int)originalImage.height },
+			Format::RGBA8_UNORM,
+			GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED)
+		);
 
 		OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList();
 		uploadCmdList->Reset();

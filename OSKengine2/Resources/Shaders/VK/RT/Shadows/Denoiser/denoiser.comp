@@ -4,55 +4,65 @@
 
 layout (local_size_x = 8, local_size_y = 8) in;
 
-layout (set = 0, binding = 0) uniform sampler2D raytracedShadowsImg;
+layout (set = 0, binding = 0) uniform sampler2D reprojectedImg;
 
 layout (set = 0, binding = 1, rgba32f) uniform writeonly image2D denoisedShadowsImg;
-layout (set = 0, binding = 2) uniform sampler2D historicalImg;
-layout (set = 0, binding = 3) uniform sampler2D velocityImg;
 
-layout (set = 0, binding = 4) uniform sampler2D currentPositionImg;
-layout (set = 0, binding = 5) uniform sampler2D historicalPositionImg;
+layout (set = 0, binding = 2) uniform sampler2D currentPositionImg;
+layout (set = 0, binding = 3) uniform sampler2D historicalPositionImg;
 
-layout (set = 0, binding = 6) uniform sampler2D currentNormalImg;
-layout (set = 0, binding = 7) uniform sampler2D historicalNormalImg;
-
-layout (push_constant) uniform Info {
-    vec2 resolution;
-} frameInfo;
-
-
-// Número de frames tope para la convergencia.
-// Mayor da mejores resultados.
-const float NUM_TEMPORAL_SAMPLES = 100.0;
-
-const float gaussianKernel[5] = float[5](1, 4, 6, 4, 1);
+layout (set = 0, binding = 4) uniform sampler2D currentNormalImg;
+layout (set = 0, binding = 5) uniform sampler2D historicalNormalImg;
 
 
 
-// 5x5 Gaussian-Blur
-float GaussianBlur(ivec2 coords) {
-    float shadow = 0.0;
+// Obtiene la varianza en las coordenadas dadas,
+// usando un Gaussian Blur 3x3.
+float GetVariance(ivec2 coords) {
+    float sum = 0;
+    float count = 0.0;
 
-    const int radius = 2;
-    for (int yy = -radius; yy <= radius; yy++) {
-        for (int xx = -radius; xx <= radius; xx++) {
-            float k = gaussianKernel[xx + radius] * gaussianKernel[yy + radius] / 256.0;
-            
-            shadow += texelFetch(raytracedShadowsImg, coords + ivec2(xx, yy), 0).r * k;
-        }
+    const float kernel[2][2] = {
+        { 1.0 / 4.0, 1.0 / 8.0 },
+        { 1.0 / 8.0, 1.0 / 16.0 }
+    };
+
+    const int radius = 12;
+    for (int x = -radius; x < radius; x++) {
+        for (int y = -radius; y < radius; y++) {
+            const ivec2 nCoords = coords + ivec2(x, y);
+            const float weight = kernel[abs(x)][abs(y)];
+
+            sum += texelFetch(reprojectedImg, nCoords, 0).a * weight;
+            count += weight;
+        }   
     }
 
-    return shadow;
+    sum /= count;
+
+    return sum + 0.01;
 }
 
-float ATorusBlur(ivec2 coords) {
+// Realiza el filtrado ATrous sobre la imagen reproyectada.
+// Devuelve el valor de la sombra.
+// También recalcula la varianza.
+float ATrousBlur(ivec2 coords, out float varianza) {
     const float kernelWeights[3] = { 1.0, 2.0 / 3.0, 1.0 / 6.0 };
 
-    float shadow = 0.0;
-    float weights = 0.0;
+    const vec2 centerData = texelFetch(reprojectedImg, coords, 0).xz;
+
+    float sumWeights = 1.0;
+
+    const float centerShadow = centerData.x;
+    const float centerVarianza = centerData.y;
+
+    float shadow = centerShadow;
+    varianza = centerVarianza;
 
     const int radius = 2;
     const int numIterations = 3;
+
+    const float varianzaVisibility = 10 * sqrt(max(1e-10, 1e-10 + GetVariance(coords)));
 
     for (int i = 0; i < numIterations; i++) {
         const int step = 1 << i;
@@ -60,132 +70,35 @@ float ATorusBlur(ivec2 coords) {
         for (int x = -radius; x <= radius; x++) {
             for (int y = -radius; y <= radius; y++) {
                 if (i != 0 && x == 0 && y == 0) continue;
-                
+
                 const ivec2 nCoords = coords + ivec2(x * step, y * step);
-                const float weight = kernelWeights[abs(x)] * kernelWeights[abs(y)];
+                const vec2 pixelData = texelFetch(reprojectedImg, nCoords, 0).xz;
+
+                const float pixelShadow = pixelData.x;
+                const float pixelVar = pixelData.y;
                 
-                shadow += texelFetch(raytracedShadowsImg, nCoords, 0).r * weight;
-                weights += weight;
+                const float weight = 
+                    kernelWeights[abs(x)] * kernelWeights[abs(y)]
+                     * (abs(centerShadow - pixelShadow) / varianzaVisibility);
+                
+                // Mayor varianza central = menor peso
+                // Mayor diferencia entre píxeles = mayor peso
+
+                shadow += pixelShadow * weight;
+                varianza += pixelVar * weight * weight;
+                sumWeights += weight;
             }
         }
     }
 
-    return shadow / weights;
+    shadow = shadow / sumWeights;
+    varianza = varianza / (sumWeights * sumWeights);
+
+    return shadow;
 }
 
 float NoBlur(ivec2 coords) {
-    return texelFetch(raytracedShadowsImg, coords, 0).r;
-}
-
-// Calcula la reproyección del píxel.
-// Establece el valor histórico y el número de veces que ha sido actualizado correctamente.
-// Si la reproyección falla, devuelve false y historicalValue y historyLenght valen 0.
-bool Reproject(ivec2 coords, out float historicalValue, out float historyLength) {
-
-    const vec2 imageSize = vec2(imageSize(denoisedShadowsImg));
-    const vec2 pixelCenter = vec2(coords) + vec2(0.5);
-    const vec2 sampledCoords = pixelCenter / vec2(imageSize);
-
-    const vec2 currentMotion = texelFetch(velocityImg, ivec2(coords), 0).rg * frameInfo.resolution;
-    const vec3 currentNormal = texelFetch(historicalNormalImg, coords, 0).xyz;
-    const vec3 currentPosition = texelFetch(historicalPositionImg, coords, 0).xyz;
-
-
-    // +0.5 to account for texel center offset
-    const ivec2 historyCoords = ivec2(vec2(coords) + currentMotion.xy + vec2(0.5));
-    const vec2 historyCoordsFloor = floor(coords.xy) + currentMotion.xy;
-    const vec2 historyTexCoord = coords + currentMotion.xy;
-
-    historicalValue = 0.0;
-
-    bool isSubprojectionValid[4];
-    const ivec2 offsets[4] = { ivec2(0, 0), ivec2(1, 0), ivec2(0, 1), ivec2(1, 1) };
-
-    // check for all 4 taps of the bilinear filter for validity
-    bool valid = false;
-    for (int i = 0; i < 4; i++) {
-        ivec2 nCoords = ivec2(historyCoordsFloor) + offsets[i];
-
-        const vec4 gbufferPositionData = texelFetch(currentPositionImg, coords, 0);
-        const vec4 gbufferNormalData = texelFetch(currentNormalImg, coords, 0);
-        const vec4 historicalPositionData = texelFetch(historicalPositionImg, coords, 0);
-        const vec4 historicalNormalData = texelFetch(historicalNormalImg, coords, 0);
-
-        isSubprojectionValid[i] = SamePlaneOcclussionCheck(gbufferPositionData.xyz, historicalPositionData.xyz, gbufferNormalData.xyz)
-                               && NormalOcclussionCheck(gbufferNormalData.xyz, historicalNormalData.xyz)
-                               && nCoords.x < imageSize.x && nCoords.y < imageSize.y;
-
-        valid = valid || isSubprojectionValid[i];
-    }
-
-    if (valid) {
-        float sumWeights = 0;
-
-        const float x = fract(historyCoordsFloor.x);
-        const float y = fract(historyCoordsFloor.y);
-
-        // bilinear weights
-        float weights[4] = { (1 - x) * (1 - y),
-                       x * (1 - y),
-                       (1 - x) * y,
-                       x * y };
-
-        // perform the actual bilinear interpolation
-        for (int i = 0; i < 4; i++)  {
-            ivec2 nCoords = ivec2(historyCoordsFloor) + offsets[i];
-
-            if (isSubprojectionValid[i]) {
-                historicalValue += weights[i] * texelFetch(historicalImg, nCoords, 0).r;
-                sumWeights += weights[i];
-            }
-        }
-
-        // redistribute weights in case not all taps were used
-        valid = sumWeights >= 0.01;
-        historicalValue = valid ? historicalValue / sumWeights : 0.0;
-    }
-
-    /* if (!valid) // perform cross-bilateral filter in the hope to find some suitable samples somewhere
-    {
-        float cnt = 0.0;
-
-        // this code performs a binary descision for each tap of the cross-bilateral filter
-        const int radius = 1;
-        for (int yy = -radius; yy <= radius; yy++) {
-            for (int xx = -radius; xx <= radius; xx++) {
-                ivec2 p = history_coord + ivec2(xx, yy);
-
-                vec4  sample_g_buffer_2 = texelFetch(sampler_prev_gbuffer_2, p, g_buffer_mip);
-                vec4  sample_g_buffer_3 = texelFetch(sampler_prev_gbuffer_3, p, g_buffer_mip);
-                float sample_depth      = texelFetch(sampler_prev_gbuffer_depth, p, g_buffer_mip).r;
-
-                vec3  history_normal  = octohedral_to_direction(sample_g_buffer_2.xy);
-                float history_mesh_id = sample_g_buffer_3.z;
-                vec3  history_pos     = world_position_from_depth(history_tex_coord, sample_depth, view_proj_inverse);
-
-                if (is_reprojection_valid(history_coord, current_pos, history_pos, current_normal, history_normal, current_mesh_id, history_mesh_id, ivec2(image_dim)))
-                {
-                    history_color += texelFetch(sampler_history_output, p, 0).r;       
-                    cnt += 1.0;
-                }
-            }
-        }
-        if (cnt > 0)
-        {
-            valid = true;
-            history_color /= cnt;
-        }
-    }*/
-
-    if (valid) {
-        historyLength = texelFetch(historicalImg, historyCoords, 0).g;
-    }    
-    else {
-        historicalValue = 0.0;
-        historyLength  = 0.0;
-    }
-
-    return valid;
+    return texelFetch(reprojectedImg, coords, 0).r;
 }
 
 void main() {
@@ -194,21 +107,11 @@ void main() {
     if (coords.x > imageSize(denoisedShadowsImg).x || coords.y > imageSize(denoisedShadowsImg).y)
         return;
 
-  
-    // Número de frames acumulados en el píxel + 1.0
-    float historyLength = 0.0;
-
-    float newShadowWeight = 1.0;
-    float historicalShadow = 0.0;
-
-    Reproject(coords, historicalShadow, historyLength);
-    historyLength++;
-
-    newShadowWeight = 1.0 / historyLength;
-    historyLength = min(historyLength, NUM_TEMPORAL_SAMPLES);
-
-    const float newShadows = ATorusBlur(coords);
+    float varianza = 0.0;
+    const float shadow = ATrousBlur(coords, varianza);
     
-    imageStore(denoisedShadowsImg, coords, vec4(mix(historicalShadow, newShadows, newShadowWeight), historyLength, 0, 0));
-    // imageStore(denoisedShadowsImg, coords, vec4(screenSpaceMotion, historicalMotion));
+    const float historyLength = texelFetch(reprojectedImg, coords, 0).y;
+    
+    imageStore(denoisedShadowsImg, coords, vec4(shadow, historyLength, varianza, 0.0));
+    //imageStore(denoisedShadowsImg, coords, vec4(varianza, historyLength, varianza, 0.0));
 }

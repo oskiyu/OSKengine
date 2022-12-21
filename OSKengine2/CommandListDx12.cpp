@@ -100,26 +100,26 @@ void CommandListDx12::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* d
 	commandList->CopyTextureRegion(&copyDest, 0, 0, 0, &copySource, nullptr);
 }
 
-void CommandListDx12::CopyImageToImage(const GpuImage* source, GpuImage* destination, TSize numLayers, TSize srcStartLayer, TSize dstStartLayer, TSize srcMipLevel, TSize dstMipLevel, Vector2ui copySize) {
+void CommandListDx12::CopyImageToImage(const GpuImage* source, GpuImage* destination, const CopyImageInfo& copyInfo) {
 	D3D12_TEXTURE_COPY_LOCATION copyDest{};
 	copyDest.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX;
-	copyDest.SubresourceIndex = dstStartLayer;
+	copyDest.SubresourceIndex = copyInfo.destinationArrayLevel;
 	copyDest.pResource = destination->GetBuffer()->As<GpuMemorySubblockDx12>()->GetResource();
 
 	D3D12_TEXTURE_COPY_LOCATION copySource{};
 	copySource.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX;
-	copySource.SubresourceIndex = srcStartLayer;
+	copySource.SubresourceIndex = copyInfo.sourceArrayLevel;
 	copySource.pResource = source->GetBuffer()->As<GpuMemorySubblockDx12>()->GetResource();
 	
 	D3D12_BOX copyRegion{};
 	copyRegion.left = 0;
-	copyRegion.right = copySize.X;
+	copyRegion.right = copyInfo.copySize.X;
 	copyRegion.top = 0;
-	copyRegion.bottom = copySize.Y;
+	copyRegion.bottom = copyInfo.copySize.Y;
 	copyRegion.back = 1;
 	copyRegion.front = 0;
 
-	commandList->CopyTextureRegion(&copyDest, 0, 0, 0, &copySource, &copyRegion);
+	commandList->CopyTextureRegion(&copyDest, copyInfo.destinationOffset.X, copyInfo.destinationOffset.Y, copyInfo.destinationOffset.Z, &copySource, &copyRegion);
 }
 
 void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color) {

@@ -108,6 +108,10 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a343330ef7779d2a749de566f0c86c780"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87a6fa44ca0503a6a3546480dd8fc34e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_color.html#a87a6fa44ca0503a6a3546480dd8fc34e">operator*</a> (float value) const</td></tr>
 <tr class="separator:a87a6fa44ca0503a6a3546480dd8fc34e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ab037dee3e61e41f181d7568905679e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_color.html#a3ab037dee3e61e41f181d7568905679e">operator+</a> (const <a class="el" href="class_o_s_k_1_1_color.html">Color</a> &amp;other) const</td></tr>
+<tr class="separator:a3ab037dee3e61e41f181d7568905679e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a244cbf4d2ed0d3dc8f02af1517a64510"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_color.html#a244cbf4d2ed0d3dc8f02af1517a64510">operator+=</a> (const <a class="el" href="class_o_s_k_1_1_color.html">Color</a> &amp;other)</td></tr>
+<tr class="separator:a244cbf4d2ed0d3dc8f02af1517a64510"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65fed942039b8d530bd679befb359b79"><td class="memItemLeft" align="right" valign="top">glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_color.html#a65fed942039b8d530bd679befb359b79">ToGlm</a> () const</td></tr>
 <tr class="separator:a65fed942039b8d530bd679befb359b79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6bc35a63ca7229bfbebe24ffdfa0ec07"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_color.html#a6bc35a63ca7229bfbebe24ffdfa0ec07">Update</a> (float r, float g, float b)</td></tr>
@@ -320,7 +324,7 @@ Atributos públicos</h2></td></tr>
 <p><a class="el" href="class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA.">Color</a> negro. (0.0f, 0.0f, 0.0f) </p>
 <dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA.">Color</a> negro.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_color_8cpp_source.html#l00049">49</a> del archivo <a class="el" href="_color_8cpp_source.html">Color.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_color_8cpp_source.html#l00053">53</a> del archivo <a class="el" href="_color_8cpp_source.html">Color.cpp</a>.</p>
 
 </div>
 </div>
@@ -350,7 +354,7 @@ Atributos públicos</h2></td></tr>
 <p><a class="el" href="class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA.">Color</a> azul. (0.0f, 1.0f, 1.0f). </p>
 <dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA.">Color</a> azul.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_color_8cpp_source.html#l00057">57</a> del archivo <a class="el" href="_color_8cpp_source.html">Color.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_color_8cpp_source.html#l00061">61</a> del archivo <a class="el" href="_color_8cpp_source.html">Color.cpp</a>.</p>
 
 </div>
 </div>
@@ -384,6 +388,72 @@ Atributos públicos</h2></td></tr>
 
 </div>
 </div>
+<a id="a3ab037dee3e61e41f181d7568905679e" name="a3ab037dee3e61e41f181d7568905679e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ab037dee3e61e41f181d7568905679e">&#9670;&nbsp;</a></span>operator+()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_color.html">Color</a> OSK::Color::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_color.html">Color</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Suma aditiva del color. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>Otro color. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA.">Color</a> + <a class="el" href="class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA.">Color</a>. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_color_8cpp_source.html#l00037">37</a> del archivo <a class="el" href="_color_8cpp_source.html">Color.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a244cbf4d2ed0d3dc8f02af1517a64510" name="a244cbf4d2ed0d3dc8f02af1517a64510"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a244cbf4d2ed0d3dc8f02af1517a64510">&#9670;&nbsp;</a></span>operator+=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OSK::Color::operator+= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_color.html">Color</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Suma aditiva del color. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>Otro color. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA.">Color</a> + <a class="el" href="class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA.">Color</a>. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_color_8hpp_source.html#l00063">63</a> del archivo <a class="el" href="_color_8hpp_source.html">Color.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a2c4dfac553bd2308f3a4e7b867058b06" name="a2c4dfac553bd2308f3a4e7b867058b06"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2c4dfac553bd2308f3a4e7b867058b06">&#9670;&nbsp;</a></span>PURPLE()</h2>
 
@@ -410,7 +480,7 @@ Atributos públicos</h2></td></tr>
 <p><a class="el" href="class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA.">Color</a> morado. (1.0f, 0.0f, 1.0f). </p>
 <dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA.">Color</a> morado.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_color_8cpp_source.html#l00061">61</a> del archivo <a class="el" href="_color_8cpp_source.html">Color.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_color_8cpp_source.html#l00065">65</a> del archivo <a class="el" href="_color_8cpp_source.html">Color.cpp</a>.</p>
 
 </div>
 </div>
@@ -440,7 +510,7 @@ Atributos públicos</h2></td></tr>
 <p><a class="el" href="class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA.">Color</a> rojo. (1.0f, 0.0f, 0.0f). </p>
 <dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA.">Color</a> rojo.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_color_8cpp_source.html#l00065">65</a> del archivo <a class="el" href="_color_8cpp_source.html">Color.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_color_8cpp_source.html#l00069">69</a> del archivo <a class="el" href="_color_8cpp_source.html">Color.cpp</a>.</p>
 
 </div>
 </div>
@@ -462,7 +532,7 @@ Atributos públicos</h2></td></tr>
 <p>Devuelve un glm::vec4 con los valores de este color. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Devuelve el color en GLM.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_color_8cpp_source.html#l00037">37</a> del archivo <a class="el" href="_color_8cpp_source.html">Color.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_color_8cpp_source.html#l00041">41</a> del archivo <a class="el" href="_color_8cpp_source.html">Color.cpp</a>.</p>
 
 </div>
 </div>
@@ -508,7 +578,7 @@ Atributos públicos</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_color_8cpp_source.html#l00041">41</a> del archivo <a class="el" href="_color_8cpp_source.html">Color.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_color_8cpp_source.html#l00045">45</a> del archivo <a class="el" href="_color_8cpp_source.html">Color.cpp</a>.</p>
 
 </div>
 </div>
@@ -538,7 +608,7 @@ Atributos públicos</h2></td></tr>
 <p><a class="el" href="class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA.">Color</a> blanco. (1.0f). </p>
 <dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA.">Color</a> blanco.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_color_8cpp_source.html#l00053">53</a> del archivo <a class="el" href="_color_8cpp_source.html">Color.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_color_8cpp_source.html#l00057">57</a> del archivo <a class="el" href="_color_8cpp_source.html">Color.cpp</a>.</p>
 
 </div>
 </div>
@@ -568,7 +638,7 @@ Atributos públicos</h2></td></tr>
 <p><a class="el" href="class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA.">Color</a> amarillo. (1.0f, 1.0f, 0.0f). </p>
 <dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA.">Color</a> amarillo.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_color_8cpp_source.html#l00069">69</a> del archivo <a class="el" href="_color_8cpp_source.html">Color.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_color_8cpp_source.html#l00073">73</a> del archivo <a class="el" href="_color_8cpp_source.html">Color.cpp</a>.</p>
 
 </div>
 </div>
@@ -587,7 +657,7 @@ Atributos públicos</h2></td></tr>
 
 <p>Representa la opacidad del color. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_color_8hpp_source.html#l00087">87</a> del archivo <a class="el" href="_color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_color_8hpp_source.html#l00099">99</a> del archivo <a class="el" href="_color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -605,7 +675,7 @@ Atributos públicos</h2></td></tr>
 
 <p>Representa la intensidad del color azul. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_color_8hpp_source.html#l00082">82</a> del archivo <a class="el" href="_color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_color_8hpp_source.html#l00094">94</a> del archivo <a class="el" href="_color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -623,7 +693,7 @@ Atributos públicos</h2></td></tr>
 
 <p>Representa la intensidad del color verde. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_color_8hpp_source.html#l00077">77</a> del archivo <a class="el" href="_color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_color_8hpp_source.html#l00089">89</a> del archivo <a class="el" href="_color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -641,7 +711,7 @@ Atributos públicos</h2></td></tr>
 
 <p>Representa la intensidad del color rojo. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_color_8hpp_source.html#l00072">72</a> del archivo <a class="el" href="_color_8hpp_source.html">Color.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_color_8hpp_source.html#l00084">84</a> del archivo <a class="el" href="_color_8hpp_source.html">Color.hpp</a>.</p>
 
 </div>
 </div>
@@ -655,7 +725,7 @@ Atributos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_color.html">Color</a></li>
-    <li class="footer">Generado el Viernes, 18 de Noviembre de 2022 17:22:37 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Miércoles, 21 de Diciembre de 2022 21:33:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

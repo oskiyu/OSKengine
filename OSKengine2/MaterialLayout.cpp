@@ -5,7 +5,6 @@ using namespace OSK::GRAPHICS;
 
 void MaterialLayout::AddSlot(const MaterialLayoutSlot& slot) {
 	slots.Insert(slot.name, slot);
-	slotNames.Push(slot.name);
 }
 
 void MaterialLayout::AddPushConstant(MaterialLayoutPushConstant pushConstant) {
@@ -23,10 +22,18 @@ MaterialLayoutPushConstant& MaterialLayout::GetPushConstant(const std::string& n
 	return pushConstants.Get(name);
 }
 
-const LinkedList<std::string>& MaterialLayout::GetAllSlotNames() const {
-	return slotNames;
+const MaterialLayout::MaterialSlotsIterable& MaterialLayout::GetAllSlots() const {
+	return slots;
 }
 
-const HashMap<std::string, MaterialLayoutPushConstant>& MaterialLayout::GetAllPushConstants() const {
+const MaterialLayout::PushConstantsIterable& MaterialLayout::GetAllPushConstants() const {
+	return pushConstants;
+}
+
+MaterialLayout::MaterialSlotsIterable& MaterialLayout::GetAllSlots() {
+	return slots;
+}
+
+MaterialLayout::PushConstantsIterable& MaterialLayout::GetAllPushConstants() {
 	return pushConstants;
 }
