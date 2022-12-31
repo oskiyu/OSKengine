@@ -757,6 +757,7 @@ void RendererVulkan::SetupDebugFunctions(VkDevice instance) {
 	pvkSetDebugUtilsObjectTagEXT = reinterpret_cast<PFN_vkSetDebugUtilsObjectTagEXT>(vkGetDeviceProcAddr(instance, "vkSetDebugUtilsObjectTagEXT"));
 	pvkCmdDebugMarkerBeginEXT = reinterpret_cast<PFN_vkCmdDebugMarkerBeginEXT>(vkGetDeviceProcAddr(instance, "vkCmdDebugMarkerBeginEXT"));
 	pvkCmdInsertDebugUtilsLabelEXT = reinterpret_cast<PFN_vkCmdInsertDebugUtilsLabelEXT>(vkGetDeviceProcAddr(instance, "vkCmdInsertDebugUtilsLabelEXT"));
+	pvkCmdBeginDebugUtilsLabelEXT = reinterpret_cast<PFN_vkCmdBeginDebugUtilsLabelEXT>(vkGetDeviceProcAddr(instance, "vkCmdBeginDebugUtilsLabelEXT"));
 	pvkCmdEndDebugUtilsLabelEXT = reinterpret_cast<PFN_vkCmdEndDebugUtilsLabelEXT>(vkGetDeviceProcAddr(instance, "vkCmdEndDebugUtilsLabelEXT"));
 }
 
@@ -806,6 +807,7 @@ PFN_vkSetDebugUtilsObjectNameEXT RendererVulkan::pvkSetDebugUtilsObjectNameEXT =
 PFN_vkSetDebugUtilsObjectTagEXT RendererVulkan::pvkSetDebugUtilsObjectTagEXT = nullptr;
 PFN_vkCmdDebugMarkerBeginEXT RendererVulkan::pvkCmdDebugMarkerBeginEXT = nullptr;
 PFN_vkCmdInsertDebugUtilsLabelEXT RendererVulkan::pvkCmdInsertDebugUtilsLabelEXT = nullptr;
+PFN_vkCmdBeginDebugUtilsLabelEXT RendererVulkan::pvkCmdBeginDebugUtilsLabelEXT = nullptr;
 PFN_vkCmdEndDebugUtilsLabelEXT RendererVulkan::pvkCmdEndDebugUtilsLabelEXT = nullptr;
 
 PFN_vkCmdBeginRendering RendererVulkan::pvkCmdBeginRendering = nullptr;

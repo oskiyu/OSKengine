@@ -32,6 +32,7 @@
 #include "PbrDeferredRenderSystem.h"
 #include "SkyboxRenderSystem.h"
 #include "PcUserInput.h"
+#include "SpecularMapLoader.h"
 
 #include <GLFW/glfw3.h>
 #include "FileIO.h"
@@ -97,6 +98,7 @@ void Engine::RegisterBuiltinAssets() {
 	assetManager->RegisterLoader<ASSETS::CubemapTextureLoader>();
 	assetManager->RegisterLoader<ASSETS::FontLoader>();
 	assetManager->RegisterLoader<ASSETS::IrradianceMapLoader>();
+	assetManager->RegisterLoader<ASSETS::SpecularMapLoader>();
 }
 
 void Engine::RegisterBuiltinComponents() {
@@ -161,7 +163,7 @@ const Version& Engine::GetVersion() {
 }
 
 const std::string& Engine::GetBuild() {
-	static std::string build = "2022.12.21a";
+	static std::string build = "2022.12.31a";
 
 	return build;
 }

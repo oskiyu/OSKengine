@@ -21,6 +21,7 @@
 #include "CameraComponent3D.h"
 #include "Model3D.h"
 #include "Texture.h"
+#include "SpecularMap.h"
 
 using namespace OSK;
 using namespace OSK::ECS;
@@ -40,7 +41,7 @@ RenderSystem3D::RenderSystem3D() {// Signature del sistema
 
 	// Directional light por defecto
 	const Vector3f direction = Vector3f(1.0f, -3.f, 0.0f).GetNormalized();
-	dirLight.directionAndIntensity = Vector4f(direction.X, direction.Y, direction.Z, 1.2f);
+	dirLight.directionAndIntensity = Vector4f(direction.X, direction.Y, direction.Z, 1.0f);
 	dirLight.color = Color(255 / 255.f, 253 / 255.f, 225 / 255.f);
 
 	// Material del terreno
@@ -73,14 +74,16 @@ RenderSystem3D::RenderSystem3D() {// Signature del sistema
 	sceneMaterialInstance->GetSlot("global")->SetGpuImages("dirLightShadowMap", _shadowsMaps, SampledChannel::DEPTH, SampledArrayType::ARRAY);
 }
 
-void RenderSystem3D::Initialize(GameObjectIndex camera, const IrradianceMap& irradianceMap, const ASSETS::CubemapTexture& skybox) {
+void RenderSystem3D::Initialize(GameObjectIndex camera, const IrradianceMap& irradianceMap, const SpecularMap& specularMap, const ASSETS::CubemapTexture& skybox) {
 	cameraObject = camera;
 
 	sceneMaterialInstance->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage());
-	//sceneMaterialInstance->GetSlot("global")->SetGpuImage("skybox", skybox.GetGpuImage());
+	sceneMaterialInstance->GetSlot("global")->SetGpuImage("specularMap", specularMap.GetCubemapImage());
+	sceneMaterialInstance->GetSlot("global")->SetGpuImage("specularLut", specularMap.GetLookUpTable());
 	sceneMaterialInstance->GetSlot("global")->FlushUpdate();
 
 	terrain.GetMaterialInstance()->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage());
+	//terrain.GetMaterialInstance()->GetSlot("global")->SetGpuImage("specularMap", specularMap.GetGpuImage());
 	terrain.GetMaterialInstance()->GetSlot("global")->FlushUpdate();
 
 	shadowMap.SetSceneCamera(camera);

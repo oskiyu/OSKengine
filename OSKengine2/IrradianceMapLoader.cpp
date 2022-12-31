@@ -130,7 +130,7 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IAsset** asset)
 	ConvoluteCubemap(finalImage.GetPointer(), cmdList.GetPointer());
 
 	cmdList->Close();
-	Engine::GetRenderer()->SubmitSingleUseCommandList(cmdList.GetPointer());
+	Engine::GetRenderer()->SubmitSingleUseCommandList(cmdList);
 
 	output->_SetGpuImage(finalImage);
 	output->_SetOriginalCubemap(intermediateCubemap);

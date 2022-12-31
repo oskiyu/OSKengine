@@ -7,9 +7,11 @@ layout (location = 0) out vec4 outColor;
 
 layout (set = 0, binding = 0) uniform samplerCube image;
 
-layout (push_constant) uniform Roughness {
+layout (push_constant) uniform Info {
+    mat4 cameraProj;
+    mat4 cameraView;
     float roughness;
-} roughness;
+} info;
 
 const float PI = 3.14159265359;
 
@@ -17,16 +19,17 @@ const float PI = 3.14159265359;
 vec2 Hammersley(uint i, uint N);
 vec3 ImportanceSampleGGX(vec2 random, vec3 normal, float roughness) {
     const float roughtness2 = roughness * roughness;
+    const float roughtness4 = roughtness2 * roughtness2;
 
     // Coordenadas esféricas
     const float phi = 2.0 * PI * random.x;
-    const float cosTheta = sqrt((1.0 - random.y) / (1.0 + (roughtness2 * roughtness2 - 1.0) * random.y));
-    const float sinTheta = sqrt(1.0 * cosTheta * cosTheta);
+    const float cosTheta = sqrt((1.0 - random.y) / (1.0 + (roughtness4 - 1.0) * random.y));
+    const float sinTheta = sqrt(1.0 - cosTheta * cosTheta);
 
     // A coordenadas cartesianas
     const vec3 H = vec3(
         cos(phi) * sinTheta,
-        sin(phi) * cosTheta,
+        sin(phi) * sinTheta,
         cosTheta
     );
 
@@ -35,7 +38,7 @@ vec3 ImportanceSampleGGX(vec2 random, vec3 normal, float roughness) {
     const vec3 tangent = normalize(cross(up, normal));
     const vec3 bitangent = cross(normal, tangent);
 
-    const vec3 sampleCoords = tangent * H.x + bitangent * H.y +normal * H.z;
+    const vec3 sampleCoords = tangent * H.x + bitangent * H.y + normal * H.z;
 
     return normalize(sampleCoords);
 }
@@ -52,7 +55,7 @@ void main() {
 
     for (uint i = 0; i < numSamples; i++) {
         const vec2 random = Hammersley(i, numSamples);
-        const vec3 H = ImportanceSampleGGX(random, normal, roughness.roughness);
+        const vec3 H = ImportanceSampleGGX(random, normal, info.roughness);
         const vec3 L = normalize(2.0 * dot(H, normal) * H - normal);
 
         const float weight = max(dot(normal, L), 0.0);

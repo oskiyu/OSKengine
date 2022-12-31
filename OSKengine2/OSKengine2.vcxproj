@@ -191,6 +191,7 @@
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="SkyboxRenderSystem.cpp" />
     <ClCompile Include="SmaaPass.cpp" />
+    <ClCompile Include="SpecularMap.cpp" />
     <ClCompile Include="SpecularMapLoader.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="SpirvToHlsl.cpp" />
@@ -421,6 +422,7 @@
     <ClInclude Include="SkyboxRenderSystem.h" />
     <ClInclude Include="SmaaPass.h" />
     <ClInclude Include="Span.hpp" />
+    <ClInclude Include="SpecularMap.h" />
     <ClInclude Include="SpecularMapLoader.h" />
     <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="SpirvToHlsl.h" />

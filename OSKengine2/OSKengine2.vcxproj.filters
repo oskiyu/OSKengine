@@ -1041,6 +1041,9 @@
     <ClCompile Include="SpecularMapLoader.cpp">
       <Filter>Archivos de origen\OSKengine\Assets\Loaders</Filter>
     </ClCompile>
+    <ClCompile Include="SpecularMap.cpp">
+      <Filter>Archivos de origen\OSKengine\Assets\Loaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
@@ -1753,6 +1756,9 @@
     </ClInclude>
     <ClInclude Include="SpecularMapLoader.h">
       <Filter>Archivos de encabezado\OSKengine\Assets\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="SpecularMap.h">
+      <Filter>Archivos de encabezado\OSKengine\Assets\Builtin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

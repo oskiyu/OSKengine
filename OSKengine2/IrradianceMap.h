@@ -5,14 +5,12 @@
 #include "IGpuImage.h"
 
 namespace OSK::ASSETS {
-
-	/// <summary>
-	/// Un irradiance map es un cubemap que contiene información
+		
+	/// @brief Un irradiance map es un cubemap que contiene información
 	/// sobre el color de la luz procedente de la escena.
 	/// 
 	/// Se puede usar para darle un color más realista a los
 	/// modelos 3D de una escena.
-	/// </summary>
 	class OSKAPI_CALL IrradianceMap : public IAsset {
 
 	public:
@@ -21,34 +19,29 @@ namespace OSK::ASSETS {
 
 		OSK_ASSET_TYPE_REG("OSK::IrradianceMap");
 
-		/// <summary> Devuelve la imagen con el irradiance map. </summary>
-		/// 
-		/// @note Es un cubemap.
+		/// @brief Devuelve la imagen con el irradiance map.
+		/// @return Es un cubemap.
 		GRAPHICS::GpuImage* GetGpuImage() const;
 
-		/// <summary>
-		/// Devuelve el cubemap a partir del que se 
+		/// @return Devuelve el cubemap a partir del que se 
 		/// creó el irradiance map.
-		/// </summary>
 		GRAPHICS::GpuImage* GetOriginalCubemap() const;
 
 
-		/// <summary> Establece la imagen que contiene el irradiance map. </summary>
-		/// <param name="image">Irradiance map generado.</param>
+		/// @brief Establece la imagen que contiene el irradiance map.
+		/// @param image Irradiance map generado.
 		void _SetGpuImage(OwnedPtr<GRAPHICS::GpuImage> image);
 
-		/// <summary> 
-		/// Establece la imagen que contiene el cubemap original sobre 
+		/// @brief Establece la imagen que contiene el cubemap original sobre 
 		/// el que se genera el irradiance map. 
-		/// </summary>
-		/// <param name="image">Irradiance map generado.</param>
+		/// @param image Cubemap original.
 		void _SetOriginalCubemap(OwnedPtr<GRAPHICS::GpuImage> image);
 
 	private:
 
-		/// <summary> Irradiance map ya generado. </summary>
+		/// @brief Irradiance map ya generado.
 		UniquePtr<GRAPHICS::GpuImage> gpuImage;
-		/// <summary> Cubemap original sobre el que se genera el irradiance map. </summary>
+		/// @brief Irradiance map ya generado.
 		UniquePtr<GRAPHICS::GpuImage> originalCubemap;
 
 	};

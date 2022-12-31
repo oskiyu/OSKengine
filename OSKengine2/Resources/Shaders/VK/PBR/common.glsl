@@ -45,6 +45,10 @@ float GeometrySmith(vec3 normal, vec3 view, vec3 L, float roughness) {
     return ggx1 * ggx2;
 }
 
+vec3 FresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness) {
+    return F0 + (max(vec3(1.1 - roughness), F0) - F0) * pow(clamp(1.0 - cosTheta, 0.01, 1.0), 5.0);
+}   
+
 vec3 GetRadiance(vec3 F0, vec3 direction, vec3 view, vec3 normal, vec3 lightColor, vec3 albedoColor, float roughnessFactor, float metallicFactor) {
     vec3 L = -direction;
     vec3 H = normalize(view + L);

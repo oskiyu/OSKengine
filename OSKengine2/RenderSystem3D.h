@@ -13,6 +13,7 @@ namespace OSK::GRAPHICS {
 
 namespace OSK::ASSETS {
 	class IrradianceMap;
+	class SpecularMap;
 	class CubemapTexture;
 	class Texture;
 	enum class ModelType;
@@ -37,7 +38,7 @@ namespace OSK::ECS {
 
 		RenderSystem3D();
 
-		void Initialize(ECS::GameObjectIndex cameraObject, const ASSETS::IrradianceMap& irradianceMap, const ASSETS::CubemapTexture& skybox);
+		void Initialize(ECS::GameObjectIndex cameraObject, const ASSETS::IrradianceMap& irradianceMap, const ASSETS::SpecularMap& specularMap, const ASSETS::CubemapTexture& skybox);
 
 		void InitializeTerrain(const Vector2ui& resolution, const ASSETS::Texture& heightMap, const ASSETS::Texture& texture);
 

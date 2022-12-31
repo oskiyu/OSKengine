@@ -143,16 +143,14 @@ namespace OSK::GRAPHICS {
 		/// @post Los subrecursos especificados por imageInfo estarán en el nuevo layout.
 		virtual void SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageBarrierInfo& prevImageInfo = {}) = 0;
 
-		/// <summary>
-		/// Establece un barrier que sincroniza la ejecución de comandos.
+		/// @brief Establece un barrier que sincroniza la ejecución de comandos.
 		/// Cambia el layout de la imagen.
-		/// </summary>
-		/// <param name="image">Imagen a la que se le cambiará el layout.</param>
-		/// <param name="nextLayout">Nuevo layout.</param>
-		/// <param name="previous">Stage previo.</param>
-		/// <param name="next">Stage siguiente.</param>
-		/// <param name="imageInfo">Información sobre que subrecursos de la imagen serán afectados.</param>
-		/// <param name="nextImageInfo"></param>
+		/// 
+		/// @param image Imagen a la que se le cambiará el layout.
+		/// @param nextLayout Nuevo layout.
+		/// @param previous Stage previo.
+		/// @param next Stage siguiente.
+		/// @param prevImageInfo Información sobre que subrecursos de la imagen serán afectados.
 		/// 
 		/// @note Se debe cambiar el layout de la imagen antes de ejecutar un comando sobre ella,
 		/// si su layout actual no coincide con el necesario.
@@ -163,22 +161,36 @@ namespace OSK::GRAPHICS {
 		void SetGpuImageBarrier(GpuImage* image, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageBarrierInfo& prevImageInfo = {});
 
 
-		/// <summary>
-		/// Comienza el renderizado a un render target.
-		/// </summary>
-		/// <param name="color">Color con el que limpiará la imagen.</param>
+		/// @brief Comienza el renderizado a un render target.
+		/// @param renderTarget Render target sobre el que se renderizará.
+		/// @param color Color con el que limpiará la imagen.
 		/// 
-		/// @note Se limpiará la imagen con color negro.
+		/// @note Por defecto, se limpiará la imagen con color negro.
+		/// @note Se encarga de establecer el layout de las imágenes de color y de profundidad.
 		/// 
 		/// @pre No debe haber ningún renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
-		void BeginGraphicsRenderpass(RenderTarget* renderpass, const Color& color = Color::BLACK());
+		/// 
+		/// @post Las imágenes de color se encontrarán en GpuImageLayout::COLOR_ATTACHMENT.
+		/// @post La imagen de prfundidad se encontrarán en GpuImageLayout::DEPTH_STENCIL_TARGET.
+		void BeginGraphicsRenderpass(RenderTarget* renderTarget, const Color& color = Color::BLACK());
 
+		/// @brief Comienza el renderizado a las imágenes dadas.
+		/// @param colorImages Imágenes de color sobre las que se renderizará.
+		/// @param depthImage Imagen de profundidad.
+		/// @param color Color con el que limpiará la imagen.
+		/// 
+		/// @note Por defecto, se limpiará la imagen con color negro.
+		/// @note Se encarga de establecer el layout de las imágenes de color y de profundidad.
+		/// 
+		/// @pre No debe haber ningún renderpass activo.
+		/// @pre La lista de comandos debe estar abierta.
+		/// 
+		/// @post Las imágenes de color se encontrarán en GpuImageLayout::COLOR_ATTACHMENT.
+		/// @post La imagen de prfundidad se encontrarán en GpuImageLayout::DEPTH_STENCIL_TARGET.
 		virtual void BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color = Color::BLACK()) = 0;
 
-		/// <summary>
-		/// Finaliza el renderizado a un render target.
-		/// </summary>
+		/// @brief Finaliza el renderizado a un render target.
 		/// 
 		/// @pre Debe haber un renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
@@ -202,9 +214,7 @@ namespace OSK::GRAPHICS {
 		/// con el que se vaya a renderizar usando este material.
 		virtual void BindMaterial(Material* material) = 0;
 
-		/// <summary>
-		/// Establece el vertex buffer que se va a usar en los próximos renderizados.
-		/// </summary>
+		/// @brief Establece el vertex buffer que se va a usar en los próximos renderizados.
 		/// 
 		/// @note Los materiales que se usen después de este comando deben tener
 		/// el mismo tipo de vértice.
@@ -213,9 +223,7 @@ namespace OSK::GRAPHICS {
 		/// @pre La lista de comandos debe estar abierta.
 		virtual void BindVertexBuffer(const IGpuVertexBuffer* buffer) = 0;
 
-		/// <summary>
-		/// Establece el index buffer que se va a usar en los próximos renderizados.
-		/// </summary>
+		/// @brief Establece el index buffer que se va a usar en los próximos renderizados.
 		/// 
 		/// @pre Debe haber un renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
@@ -406,6 +414,10 @@ namespace OSK::GRAPHICS {
 		void DeleteAllStagingBuffers();
 
 		void _SetSingleTimeUse();
+
+		// virtual void AddSimpleDebugMarker(const std::string& mark, const Color& color) = 0;
+		// virtual void StartDebugMarker(const std::string& mark, const Color& color) = 0;
+		// virtual void EndDebugMarker() = 0;
 
 		TSize GetCommandListIndex() const;
 

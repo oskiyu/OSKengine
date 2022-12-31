@@ -8,6 +8,7 @@ layout (location = 0) out vec3 outPosition;
 layout (push_constant) uniform Info {
     mat4 cameraProj;
     mat4 cameraView;
+    float roughness;
 } info;
 
 void main() {

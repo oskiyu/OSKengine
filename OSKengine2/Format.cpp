@@ -22,6 +22,12 @@ DXGI_FORMAT OSK::GRAPHICS::GetFormatDx12(Format format) {
 		case Format::RGBA32_SFLOAT:
 			return DXGI_FORMAT_R32G32B32A32_FLOAT;
 
+		case Format::RG16_SFLOAT:
+			return DXGI_FORMAT_R16G16_FLOAT;
+
+		case Format::RG32_SFLOAT:
+			return DXGI_FORMAT_R32G32_FLOAT;
+
 		case Format::BGRA8_SRGB:
 			return DXGI_FORMAT_B8G8R8A8_UNORM_SRGB;
 
@@ -57,10 +63,10 @@ VkFormat OSK::GRAPHICS::GetFormatVulkan(Format format) {
 	case Format::BGRA8_SRGB:
 		return VK_FORMAT_B8G8R8A8_UNORM;
 
-	case Format::RG16:
+	case Format::RG16_SFLOAT:
 		return VK_FORMAT_R16G16_SFLOAT;
 
-	case Format::RG32:
+	case Format::RG32_SFLOAT:
 		return VK_FORMAT_R32G32_SFLOAT;
 
 	case Format::D32_SFLOAT:
@@ -83,20 +89,26 @@ unsigned int OSK::GRAPHICS::GetFormatNumberOfBytes(Format format) {
 		case Format::RGBA8_UNORM:
 		case Format::RGBA8_SRGB:
 		case Format::BGRA8_SRGB:
-			return 4;
+			return 8 * 4 / 8;
 
 		case Format::RGBA16_SFLOAT:
-			return 4 * 2;
+			return 16 * 4 / 8;
+
+		case Format::RG16_SFLOAT:
+			return 16 * 2 / 8;
+
+		case Format::RG32_SFLOAT:
+			return 32 * 2 / 8;
 
 		case Format::RGBA32_SFLOAT:
-			return 4 * 4;
+			return 32 * 4 / 8;
 
 		case Format::D32_SFLOAT:
 		case Format::D24S8_SFLOAT_SUINT:
-			return 4;
+			return 32 / 8;
 
 		case Format::D32S8_SFLOAT_SUINT:
-			return 5;
+			return (32 + 8) / 8;
 
 	}
 
@@ -126,6 +138,10 @@ template <> std::string OSK::ToString<OSK::GRAPHICS::Format>(const OSK::GRAPHICS
 		return "RGBA16_SFLOAT";
 	case OSK::GRAPHICS::Format::RGBA32_SFLOAT:
 		return "RGBA32_SFLOAT";
+	case OSK::GRAPHICS::Format::RG16_SFLOAT:
+		return "RG16_SFLOAT";
+	case OSK::GRAPHICS::Format::RG32_SFLOAT:
+		return "RG32_SFLOAT";
 
 	default:
 		return "UNKNOWN";
@@ -140,7 +156,9 @@ OSK::GRAPHICS::Format OSK::GRAPHICS::GetFormatFromString(const std::string& form
 		Format::BGRA8_SRGB,
 		Format::D32S8_SFLOAT_SUINT,
 		Format::D24S8_SFLOAT_SUINT,
-		Format::D32_SFLOAT
+		Format::D32_SFLOAT,
+		Format::RG16_SFLOAT,
+		Format::RG32_SFLOAT,
 	};
 
 	for (TSize i = 0; i < _countof(formats); i++)

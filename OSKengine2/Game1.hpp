@@ -72,6 +72,7 @@
 #include "PbrDeferredRenderSystem.h"
 #include "ModelLoader3D.h"
 #include "IrradianceMap.h"
+#include "SpecularMap.h"
 
 #include "FxaaPass.h"
 #include "ToneMapping.h"
@@ -126,7 +127,8 @@ protected:
 	}
 
 	void OnCreate() override {
-		auto irradianceMap = Engine::GetAssetManager()->Load<ASSETS::IrradianceMap>("Resources/Assets/IBL/irradiance0.json", "GLOBAL");
+		auto specularMap = Engine::GetAssetManager()->Load<ASSETS::SpecularMap>("Resources/Assets/IBL/irradiance0.json", "GLOBAL");
+		auto irradianceMap = Engine::GetAssetManager()->Load<ASSETS::IrradianceMap>("Resources/Assets/IBL/specular0.json", "GLOBAL");
 		auto animModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/animmodel.json", "GLOBAL");
 		
 		// Material load
@@ -143,10 +145,10 @@ protected:
 		ASSETS::Model3D* carModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/mclaren.json", "GLOBAL");
 		ASSETS::Model3D* circuitModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/circuit0.json", "GLOBAL"); // f1.json
 
-		topLevelAccelerationStructure = Engine::GetRenderer()->GetAllocator()->CreateTopAccelerationStructure({
+		/*topLevelAccelerationStructure = Engine::GetRenderer()->GetAllocator()->CreateTopAccelerationStructure({
 			carModel->GetAccelerationStructure(),
 			circuitModel->GetAccelerationStructure()
-			}).GetPointer();
+			}).GetPointer();*/
 
 		DynamicArray<RtInstanceInfo> instancesInfo;
 		instancesInfo.Insert({
@@ -171,13 +173,13 @@ protected:
 		}
 
 		OSK_CURRENT_RSYSTEM* renderSystem = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>();
-		rtMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rt.json");
+		/*rtMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rt.json");
 		rtMaterialInstance = rtMaterial->CreateInstance().GetPointer();
 		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("vertices", carModel->GetVertexBuffer());
 		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("indices", carModel->GetIndexBuffer());
 		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("instanceInfos", instancesInfoBuffer);
 		rtMaterialInstance->GetSlot("rt")->SetAccelerationStructure("topLevelAccelerationStructure", topLevelAccelerationStructure);
-
+		*/
 		// renderSystem->AddBlas(carModel->GetAccelerationStructure());
 		// renderSystem->AddBlas(circuitModel->GetAccelerationStructure());
 
@@ -193,9 +195,9 @@ protected:
 		};
 
 		// rtMaterialInstance->GetSlot("rt")->SetStorageImages("targetImage", rtImages);
-		rtMaterialInstance->GetSlot("rt")->FlushUpdate();
-		rtMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", cameraBuffers);
-		rtMaterialInstance->GetSlot("global")->FlushUpdate();
+		//rtMaterialInstance->GetSlot("rt")->FlushUpdate();
+		//rtMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", cameraBuffers);
+		//rtMaterialInstance->GetSlot("global")->FlushUpdate();
 
 		// ECS
 		carObject = Engine::GetEcs()->SpawnObject();
@@ -207,7 +209,7 @@ protected:
 		auto& cameraTransform = Engine::GetEcs()->AddComponent<ECS::Transform3D>(cameraObject, ECS::Transform3D(cameraObject));
 		cameraTransform.AddPosition({ 0.0f, 0.3f, 0.0f });
 		Engine::GetEcs()->AddComponent<ECS::CameraComponent3D>(cameraObject, {});
-		renderSystem->Initialize(cameraObject, *irradianceMap, *skybox);
+		renderSystem->Initialize(cameraObject, *irradianceMap, *specularMap, *skybox);
 		Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->SetCamera(cameraObject);
 
 		ECS::Transform3D& transform = Engine::GetEcs()->AddComponent<ECS::Transform3D>(carObject, ECS::Transform3D(carObject));
@@ -501,7 +503,6 @@ private:
 	RenderTarget preEffectsRenderTarget;
 	UniquePtr<BloomPass> bloomPass;
 	UniquePtr<FxaaPass> fxaaPass;
-	UniquePtr<SmaaPass> smaaPass;
 	UniquePtr<ToneMappingPass> toneMappingPass;
 
 	UniquePtr<IGpuStorageBuffer> exposureBuffers[3];

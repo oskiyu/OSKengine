@@ -25,7 +25,8 @@ layout (set = 0, binding = 2) uniform DirLight {
 
 layout (set = 0, binding = 3) uniform samplerCube irradianceMap;
 layout (set = 0, binding = 4) uniform sampler2DArray dirLightShadowMap;
-layout (set = 0, binding = 5) uniform samplerCube skyboxImg;
+layout (set = 0, binding = 5) uniform samplerCube specularMap;
+layout (set = 0, binding = 6) uniform sampler2D specularLut;
 
 layout (set = 1, binding = 0) uniform sampler2D albedoTexture;
 // layout (set = 0, binding = 1) uniform sampler2D metallicTexture;
@@ -66,11 +67,22 @@ void main() {
     const vec3 irradiance = texture(irradianceMap, normal).rgb;
     vec3 ambient = albedo * kD * irradiance;
 
-    ambient = mix(ambient, dirLight.color.rgb  / 255.0, 0.5);
+    const float maxSpecularLod = 5 - 1;
+    const vec3 F = FresnelSchlickRoughness(max(dot(normal, view), 0.0), F0, roughnessFactor);
+    const vec3 prefilteredSpecularColor = textureLod(specularMap, reflectVec, roughnessFactor * maxSpecularLod).rgb;
+    const vec2 lut = textureLod(specularLut, vec2(max(dot(normal, view), roughnessFactor)), 0).rg;
+    const vec3 specular = prefilteredSpecularColor * (F * lut.x + lut.y);
+    vec3 color = ambient * (dirLight.directionAndIntensity.w * 0.25) + accummulatedRadiance * 1.25 + specular * 0.45;
+    // vec3 color = ambient * (dirLight.directionAndIntensity.w * 0.5) + accummulatedRadiance * 1.25 + specular * 0.5;
+    // vec3 color = ambient + accummulatedRadiance + specular;
+    
+    // vec3 color = vec3(lut.y);
 
-    // vec3 color = ambient * (dirLight.directionAndIntensity.w * 0.25) + accummulatedRadiance * 1.25;
-    vec3 color = ambient * (dirLight.directionAndIntensity.w * 0.5) + accummulatedRadiance * 1.25;
-    // vec3 color = ambient + accummulatedRadiance;
+    color = vec3(
+        max(color.r, 0.01),
+        max(color.g, 0.01),
+        max(color.b, 0.01)
+    );
 
     outColor = vec4(color, 1.0);
 }
