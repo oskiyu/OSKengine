@@ -1,21 +1,23 @@
 #version 460
 
-layout (local_size_x = 4, local_size_y = 4) in;
+#include "config.glsl"
+
+layout (local_size_x = LOCAL_SIZE_X, local_size_y = LOCAL_SIZE_Y, local_size_z = 1) in;
 
 layout (set = 0, binding = 0) uniform sampler2D inputImg;
-layout (set = 0, binding = 1, rgba32f) uniform image2D outputImg;
+layout (set = 0, binding = 1, FORMAT) uniform image2D outputImg;
 
-layout (push_constant) uniform Info{
+layout (push_constant) uniform Info {
     vec4 infos;
 } info;
 
+shared vec4 sharedMemory[LOCAL_SIZE_X + 2 + 2][LOCAL_SIZE_Y + 2 + 2];
 // A B C
 // D E F
 // G H I
 void main() {
     vec4 color = vec4(0);
 
-    const vec2 previousResolution = info.infos.xy;
     const vec2 nextResolution = info.infos.zw;
 
     const vec2 currentCoords = vec2(gl_GlobalInvocationID.xy);
@@ -23,10 +25,48 @@ void main() {
     if (currentCoords.x > nextResolution.x || currentCoords.y > nextResolution.y)
         return;
     
-    const vec2 previousCoordinates = currentCoords * 0.5 + 0.5; //(previousResolution / nextResolution) * currentCoords;
-
-    const float radius = 2;
+    const int radius = 2;
     const vec2 sourcePixelSize = 1.0 / textureSize(inputImg, 0);
+
+#ifdef USE_SHARED_MEMORY
+
+    const int numSquaresAxisX = (LOCAL_SIZE_X + 4) / 2;
+    const int numSquaresAxisY = (LOCAL_SIZE_Y + 4) / 2;
+
+    if (gl_LocalInvocationID.x < numSquaresAxisX && gl_LocalInvocationID.y < numSquaresAxisY) {
+        const ivec2 workgroupCoordinates = ivec2(gl_WorkGroupID.xy) * ivec2(LOCAL_SIZE_X, LOCAL_SIZE_Y);
+        const ivec2 threadCoordinates = ivec2(gl_LocalInvocationID.xy);
+        
+        const ivec2 previousCoordinates = workgroupCoordinates + threadCoordinates * ivec2(2, 2) - ivec2(2, 2);
+        const ivec2 squareCoordinates = threadCoordinates * ivec2(2, 2) - ivec2(2, 2);
+
+        for (int x = 0; x < 2; x++) {
+            for (int y = 0; y < 2; y++) {
+                const vec2 previousCoordinates = (vec2(previousCoordinates) + vec2(x, y)) * 0.5 + 0.5;
+                sharedMemory[squareCoordinates.x + x + 2][squareCoordinates.y + y + 2] = texture(inputImg, previousCoordinates * sourcePixelSize);
+            }
+        }
+    }
+
+    barrier();
+
+    const ivec2 sharedCoords = ivec2(gl_LocalInvocationID.xy) + ivec2(2, 2);
+
+    color += sharedMemory[sharedCoords.x + 0 * radius][sharedCoords.y + 0 * radius] * 4;
+        
+    color += sharedMemory[sharedCoords.x - 1 * radius][sharedCoords.y + 0 * radius] * 2;
+    color += sharedMemory[sharedCoords.x + 1 * radius][sharedCoords.y + 0 * radius] * 2;
+    color += sharedMemory[sharedCoords.x + 0 * radius][sharedCoords.y - 1 * radius] * 2;
+    color += sharedMemory[sharedCoords.x + 0 * radius][sharedCoords.y + 1 * radius] * 2;
+
+    color += sharedMemory[sharedCoords.x + 1 * radius][sharedCoords.y + 1 * radius] * 1;
+    color += sharedMemory[sharedCoords.x - 1 * radius][sharedCoords.y + 1 * radius] * 1;
+    color += sharedMemory[sharedCoords.x - 1 * radius][sharedCoords.y - 1 * radius] * 1;
+    color += sharedMemory[sharedCoords.x + 1 * radius][sharedCoords.y - 1 * radius] * 1;
+
+    color /= 16.0;
+#else
+    const vec2 previousCoordinates = currentCoords * 0.5 + 0.5; //(previousResolution / nextResolution) * currentCoords;
 
     color += texture(inputImg, (previousCoordinates + vec2( 0,  0) * radius) * sourcePixelSize) * 4;
     
@@ -42,6 +82,7 @@ void main() {
     color += texture(inputImg, (previousCoordinates + vec2( 1, -1) * radius) * sourcePixelSize) * 1;
 
     color /= 16.0;
+#endif
 
     imageStore(outputImg, ivec2(currentCoords.xy), color);
 }

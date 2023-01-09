@@ -436,6 +436,36 @@ void CommandListVulkan::SetDebugName(const std::string& name) {
 	}
 }
 
+void CommandListVulkan::AddDebugMarker(const std::string& mark, const Color& color) {
+	VkDebugUtilsLabelEXT label{};
+	label.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT;
+	label.pLabelName = mark.c_str();
+	label.color[0] = color.Red;
+	label.color[1] = color.Green;
+	label.color[2] = color.Blue;
+	label.color[3] = color.Alpha;
+	label.pNext = nullptr;
+
+	RendererVulkan::pvkCmdInsertDebugUtilsLabelEXT(commandBuffers[GetCommandListIndex()], &label);
+}
+
+void CommandListVulkan::StartDebugSection(const std::string& mark, const Color& color) {
+	VkDebugUtilsLabelEXT label{};
+	label.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT;
+	label.pLabelName = mark.c_str();
+	label.color[0] = color.Red;
+	label.color[1] = color.Green;
+	label.color[2] = color.Blue;
+	label.color[3] = color.Alpha;
+	label.pNext = nullptr;
+
+	RendererVulkan::pvkCmdBeginDebugUtilsLabelEXT(commandBuffers[GetCommandListIndex()], &label);
+}
+
+void CommandListVulkan::EndDebugSection() {
+	RendererVulkan::pvkCmdEndDebugUtilsLabelEXT(commandBuffers[GetCommandListIndex()]);
+}
+
 
 VkPipelineStageFlagBits CommandListVulkan::GetPipelineStage(GpuBarrierStage stage) const {
 	switch (stage) {

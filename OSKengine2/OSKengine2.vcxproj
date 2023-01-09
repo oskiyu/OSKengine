@@ -53,6 +53,7 @@
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="AxisAlignedBoundingBox.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="ColliderRenderer.cpp" />
     <ClCompile Include="CollisionInfo.cpp" />
     <ClCompile Include="ComputePipelineDx12.cpp" />
     <ClCompile Include="ComputePipelineVulkan.cpp" />
@@ -237,6 +238,7 @@
     <ClInclude Include="CameraComponent2D.h" />
     <ClInclude Include="CameraComponent3D.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="ColliderRenderer.h" />
     <ClInclude Include="CollisionInfo.h" />
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="CommandListDx12.h" />

@@ -114,7 +114,7 @@ void RenderSystem3D::InitializeTerrain(const Vector2ui& resolution, const Textur
 }
 
 void RenderSystem3D::CreateTargetImage(const Vector2ui& size) {
-	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA32_SFLOAT, .name = "RenderSystem3D Target" };
+	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA16_SFLOAT, .name = "RenderSystem3D Target" };
 	RenderTargetAttachmentInfo depthInfo{ .format = Format::D32S8_SFLOAT_SUINT, .name = "RenderSystem3D Depth" };
 	renderTarget.Create(size, { colorInfo }, depthInfo);
 }
@@ -133,6 +133,8 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 		.rectangle = { 0u, 0u, shadowMap.GetColorImage(0)->GetSize().X, shadowMap.GetColorImage(0)->GetSize().Y }
 	};
 
+	commandList->StartDebugSection("Shadows", Color::BLACK());
+
 	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(resourceIndex), GpuImageLayout::DEPTH_STENCIL_TARGET,
 		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_START, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH | SampledChannel::STENCIL });
@@ -141,6 +143,9 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 	commandList->SetScissor(viewport.rectangle);
 
 	for (TSize i = 0; i < shadowMap.GetNumCascades(); i++) {
+
+		commandList->StartDebugSection("Cascade " + std::to_string(i), Color::BLACK());
+
 		RenderPassImageInfo colorInfo{};
 		colorInfo.arrayLevel = i;
 		colorInfo.targetImage = shadowMap.GetColorImage(resourceIndex);
@@ -151,26 +156,40 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 
 		commandList->BeginGraphicsRenderpass({ colorInfo }, depthInfo, { 1.0f, 1.0f, 1.0f, 1.0f });
 
+		commandList->StartDebugSection("Static Meshes", Color::BLACK());
+
 		commandList->BindMaterial(shadowMap.GetShadowsMaterial(ModelType::STATIC_MESH));
 		commandList->BindMaterialSlot(shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
 
 		ShadowsRenderLoop(ModelType::STATIC_MESH, commandList, i);
 
+		commandList->EndDebugSection();
+
+		commandList->StartDebugSection("Animated Models", Color::BLACK());
+
 		commandList->BindMaterial(shadowMap.GetShadowsMaterial(ModelType::ANIMATED_MODEL));
 		commandList->BindMaterialSlot(shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
 		ShadowsRenderLoop(ModelType::ANIMATED_MODEL, commandList, i);
 
+		commandList->EndDebugSection();
+
 		commandList->EndGraphicsRenderpass();
+
+		commandList->EndDebugSection();
 	}
 
 	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(resourceIndex), GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_END, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH |SampledChannel::STENCIL });
+
+	commandList->EndDebugSection();
 }
 
 void RenderSystem3D::RenderScene(ICommandList* commandList) {
 	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	
+	commandList->StartDebugSection("PBR Direct", Color::RED());
+
 	commandList->SetGpuImageBarrier(renderTarget.GetMainColorImage(resourceIndex), GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
@@ -178,13 +197,19 @@ void RenderSystem3D::RenderScene(ICommandList* commandList) {
 	commandList->BeginGraphicsRenderpass(&renderTarget, Color::BLACK() * 0.0f);
 	SetupViewport(commandList);
 
+	commandList->StartDebugSection("Static Meshes", Color::RED());
 	SceneRenderLoop(ModelType::STATIC_MESH, commandList);
+	commandList->EndDebugSection();
+
+	commandList->StartDebugSection("Animated Models", Color::RED());
 	SceneRenderLoop(ModelType::ANIMATED_MODEL, commandList);
+	commandList->EndDebugSection();
 
 	if (terrain.GetVertexBuffer() != nullptr)
 		RenderTerrain(commandList);
 	
 	commandList->EndGraphicsRenderpass();
+	commandList->EndDebugSection();
 }
 
 void RenderSystem3D::SceneRenderLoop(ModelType modelType, ICommandList* commandList) {

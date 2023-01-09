@@ -4,8 +4,8 @@
 
 layout (local_size_x = 8, local_size_y = 8) in;
 
-layout (set = 0, binding = 0, rgba32f) uniform readonly image2D sceneImage;
-layout (set = 0, binding = 1, rgba32f) uniform writeonly image2D finalImage;
+layout (set = 0, binding = 0) uniform sampler2D sceneImage;
+layout (set = 0, binding = 1, rgba16f) uniform writeonly image2D finalImage;
 
 layout (set = 1, binding = 0) buffer ExposureInfo {
     float exposure;
@@ -129,7 +129,7 @@ vec3 CustomColor(vec3 color) {
 }
 
 void main() {
-    const vec3 hdrColor = imageLoad(sceneImage, ivec2(gl_GlobalInvocationID)).rgb * gamma.exposure;
+    const vec3 hdrColor = texelFetch(sceneImage, ivec2(gl_GlobalInvocationID), 0).rgb * gamma.exposure;
 
     // const vec3 toneMapped = vec3(1.0) - exp(-hdrColor * gamma.exposure);
     const vec3 toneMapped = LearnOpenGLColor(hdrColor);

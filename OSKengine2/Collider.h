@@ -11,6 +11,8 @@
 #include "CollisionInfo.h"
 #include "OwnedPtr.h"
 
+#include "Component.h"
+
 namespace OSK::ECS {
 	class Transform3D;
 }
@@ -27,6 +29,8 @@ namespace OSK::COLLISION {
 	class OSKAPI_CALL Collider {
 
 	public:
+
+		OSK_COMPONENT("OSK::Collider");
 
 		/// @brief Establece el volumen de nivel alto.
 		void SetTopLevelCollider(OwnedPtr<ITopLevelCollider> collider);

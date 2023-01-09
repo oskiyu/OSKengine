@@ -73,6 +73,10 @@ namespace OSK::GRAPHICS {
 
 		void SetDebugName(const std::string& name) override;
 
+		void AddDebugMarker(const std::string& mark, const Color& color) override;
+		void StartDebugSection(const std::string& mark, const Color& color) override;
+		void EndDebugSection() override;
+
 	private:
 
 		ComPtr<ID3D12GraphicsCommandList> commandList;

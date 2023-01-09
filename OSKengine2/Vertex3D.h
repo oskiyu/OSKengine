@@ -31,4 +31,10 @@ namespace OSK::GRAPHICS {
 		Vector4f boneWeights;
 	};
 
+	struct VertexCollisionDebug3D {
+		OSK_VERTEX_TYPE_REG("OSK::VertexCollisionDebug3D");
+
+		Vector3f position;
+	};
+
 }

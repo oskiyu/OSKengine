@@ -20,9 +20,10 @@ void ToneMappingPass::Create(const Vector2ui& size) {
 void ToneMappingPass::Execute(ICommandList* computeCmdList) {
 	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
+	computeCmdList->StartDebugSection("Tone Mapping", Color::PURPLE());
+
 	computeCmdList->SetGpuImageBarrier(resolveRenderTarget.GetTargetImage(resourceIndex), GpuImageLayout::GENERAL,
-		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE),
-		{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
 
 	computeCmdList->BindMaterial(postProcessingMaterial);
 	computeCmdList->BindMaterialSlot(postProcessingMaterialInstance->GetSlot("texture"));
@@ -39,8 +40,9 @@ void ToneMappingPass::Execute(ICommandList* computeCmdList) {
 	computeCmdList->DispatchCompute(dispatchRes);
 
 	computeCmdList->SetGpuImageBarrier(resolveRenderTarget.GetTargetImage(resourceIndex), GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
-		{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
+
+	computeCmdList->EndDebugSection();
 }
 
 void ToneMappingPass::SetExposure(float exposure) {

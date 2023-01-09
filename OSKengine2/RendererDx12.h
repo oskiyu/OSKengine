@@ -65,7 +65,7 @@ namespace OSK::GRAPHICS {
 		/// Se usa para crear cosas de dx12.
 		/// </summary>
 		ComPtr<IDXGIFactory4> factory;
-		ComPtr<ID3D12Debug> debugConsole;
+		ComPtr<ID3D12Debug3> debugConsole;
 
 		ID3D12InfoQueue1* debugMessageQueue = nullptr;
 

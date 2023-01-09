@@ -19,31 +19,27 @@ namespace OSK::GRAPHICS {
 	struct PipelineCreateInfo;
 	enum class MaterialType;
 
-	/// <summary>
-	/// Clase que se encarga de cargar y manejar los materiales.
+
+	/// @brief Clase que se encarga de cargar y manejar los materiales.
 	/// Un material define el comportamiento del renderizador con un objeto en concreto.
-	/// </summary>
 	class OSKAPI_CALL MaterialSystem {
 
 	public:
 
 		~MaterialSystem();
 
-		/// <summary>
-		/// Carga un material.
+		/// @brief Carga un material.
 		/// 
 		/// Los materiales son cacheados: sólo se cargan una vez.
-		/// </summary>
-		/// <param name="path">Ruta al archivo del material (.json).</param>
+		/// @param path Ruta al archivo del material (.json).
+		/// @return Material definido por el archivo.
 		Material* LoadMaterial(const std::string& path);
 
-		/// <summary>
-		/// Registra un nuevo tipo de vértice, para que puedan crearse 
+		/// @brief Registra un nuevo tipo de vértice, para que puedan crearse 
 		/// materiales para él.
+		/// @tparam T Clase del tipo de vértice.
 		/// 
-		/// @warning La clase 'T' debe tener implementado OSK_REG_VERTEX_TYPE de manera correcta.
-		/// </summary>
-		/// <typeparam name="T">Tipo de vértice.</typeparam>
+		/// @pre La clase 'T' debe tener implementado OSK_REG_VERTEX_TYPE de manera correcta.
 		template <typename T> void RegisterVertexType() {
 			vertexTypesTable.Insert(T::GetVertexTypeName(), T::GetVertexInfo());
 		}

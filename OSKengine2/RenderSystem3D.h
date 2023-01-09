@@ -23,13 +23,11 @@ namespace OSK::ECS {
 
 	class CameraComponent3D;
 
-	/// <summary>
-	/// Sistema que se encarga del renderizado de modelos 3D de los objetos.
+	/// @brief Sistema que se encarga del renderizado de modelos 3D de los objetos.
 	/// 
 	/// Signature:
 	/// - ModelComponent3D.
 	/// - Transform3D.
-	/// </summary>
 	class OSKAPI_CALL RenderSystem3D : public IRenderSystem {
 
 	public:
@@ -38,7 +36,7 @@ namespace OSK::ECS {
 
 		RenderSystem3D();
 
-		void Initialize(ECS::GameObjectIndex cameraObject, const ASSETS::IrradianceMap& irradianceMap, const ASSETS::SpecularMap& specularMap, const ASSETS::CubemapTexture& skybox);
+		void Initialize(GameObjectIndex cameraObject, const ASSETS::IrradianceMap& irradianceMap, const ASSETS::SpecularMap& specularMap, const ASSETS::CubemapTexture& skybox);
 
 		void InitializeTerrain(const Vector2ui& resolution, const ASSETS::Texture& heightMap, const ASSETS::Texture& texture);
 

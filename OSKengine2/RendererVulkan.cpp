@@ -122,7 +122,7 @@ void RendererVulkan::Initialize(const std::string& appName, const Version& versi
 		SetupDebugLogging();
 	CreateSurface(display);
 	ChooseGpu();
-	if (AreValidationLayersAvailable())
+	//if (AreValidationLayersAvailable())
 		SetupDebugFunctions(currentGpu->As<GpuVulkan>()->GetLogicalDevice());
 
 	CreateCommandQueues();

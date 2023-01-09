@@ -15,7 +15,7 @@ void AxisAlignedBoundingBox::SetSize(const Vector3f& size) {
 	this->size = size;
 }
 
-const Vector3f& AxisAlignedBoundingBox::GetSize() {
+const Vector3f& AxisAlignedBoundingBox::GetSize() const {
 	return size;
 }
 

@@ -1,3 +1,9 @@
+cbuffer SPIRV_CROSS_RootConstant_info : register(b0, space1)
+{
+    row_major float4x4 info_cameraProj : packoffset(c0);
+    row_major float4x4 info_cameraView : packoffset(c4);
+    float info_roughness : packoffset(c8);
+};
 TextureCube<float4> image : register(t0, space0);
 SamplerState _image_sampler : register(s0, space0);
 
@@ -14,26 +20,64 @@ struct SPIRV_Cross_Output
     float4 outColor : SV_Target0;
 };
 
+float RadicalInverse_VdC(inout uint bits)
+{
+    bits = (bits << 16u) | (bits >> 16u);
+    bits = ((bits & 1431655765u) << 1u) | ((bits & 2863311530u) >> 1u);
+    bits = ((bits & 858993459u) << 2u) | ((bits & 3435973836u) >> 2u);
+    bits = ((bits & 252645135u) << 4u) | ((bits & 4042322160u) >> 4u);
+    bits = ((bits & 16711935u) << 8u) | ((bits & 4278255360u) >> 8u);
+    return float(bits) * 2.3283064365386962890625e-10f;
+}
+
+float2 Hammersley(uint i, uint N)
+{
+    uint param = i;
+    float _272 = RadicalInverse_VdC(param);
+    return float2(float(i) / float(N), _272);
+}
+
+float3 ImportanceSampleGGX(float2 random, float3 normal, float roughness)
+{
+    float roughtness2 = roughness * roughness;
+    float roughtness4 = roughtness2 * roughtness2;
+    float phi = 6.283185482025146484375f * random.x;
+    float cosTheta = sqrt((1.0f - random.y) / (1.0f + ((roughtness4 - 1.0f) * random.y)));
+    float sinTheta = sqrt(1.0f - (cosTheta * cosTheta));
+    float3 H = float3(cos(phi) * sinTheta, sin(phi) * sinTheta, cosTheta);
+    bool3 _86 = (abs(normal.z) < 0.999000012874603271484375f).xxx;
+    float3 up = float3(_86.x ? float3(0.0f, 0.0f, 1.0f).x : float3(1.0f, 0.0f, 0.0f).x, _86.y ? float3(0.0f, 0.0f, 1.0f).y : float3(1.0f, 0.0f, 0.0f).y, _86.z ? float3(0.0f, 0.0f, 1.0f).z : float3(1.0f, 0.0f, 0.0f).z);
+    float3 tangent = normalize(cross(up, normal));
+    float3 bitangent = cross(normal, tangent);
+    float3 sampleCoords = ((tangent * H.x) + (bitangent * H.y)) + (normal * H.z);
+    return normalize(sampleCoords);
+}
+
 void frag_main()
 {
     float3 pos = float3(inPosition.x, -inPosition.y, inPosition.z);
     float3 normal = normalize(pos);
-    float3 right = normalize(cross(float3(0.0f, 1.0f, 0.0f), normal));
-    float3 up = normalize(cross(right, normal));
-    float3 accumulatedIrradiance = 0.0f.xxx;
-    float numSamples = 0.0f;
-    for (float phi = 0.0f; phi < 6.283185482025146484375f; phi += 0.07500000298023223876953125f)
+    float3 color = 0.0f.xxx;
+    float sumWeight = 0.0f;
+    for (uint i = 0u; i < 1024u; i++)
     {
-        for (float theta = 0.0f; theta < 1.57079637050628662109375f; theta += 0.07500000298023223876953125f)
+        uint param = i;
+        uint param_1 = 1024u;
+        float2 random = Hammersley(param, param_1);
+        float2 param_2 = random;
+        float3 param_3 = normal;
+        float param_4 = info_roughness;
+        float3 H = ImportanceSampleGGX(param_2, param_3, param_4);
+        float3 L = normalize((H * (2.0f * dot(H, normal))) - normal);
+        float weight = max(dot(normal, L), 0.0f);
+        if (weight > 0.0f)
         {
-            float3 tangent = float3(sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta));
-            float3 sampleVec = ((right * tangent.x) + (up * tangent.y)) + (normal * tangent.z);
-            accumulatedIrradiance += ((image.Sample(_image_sampler, sampleVec).xyz * cos(theta)) * sin(theta));
-            numSamples += 1.0f;
+            color += (image.Sample(_image_sampler, L).xyz * weight);
+            sumWeight += weight;
         }
     }
-    accumulatedIrradiance = (accumulatedIrradiance * 3.1415927410125732421875f) * (1.0f / numSamples);
-    outColor = float4(accumulatedIrradiance, 1.0f);
+    float3 totalColor = color / sumWeight.xxx;
+    outColor = float4(totalColor, 1.0f);
 }
 
 SPIRV_Cross_Output main(SPIRV_Cross_Input stage_input)

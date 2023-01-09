@@ -64,7 +64,7 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 		+ std::to_string(GetVersion().parche) + ".");
 	logger->InfoLog("	Build " + GetBuild() + ".");
 
-	nlohmann::json engineConfig = nlohmann::json::parse(OSK::IO::FileIO::ReadFromFile("engine_config.json"));
+	const nlohmann::json engineConfig = nlohmann::json::parse(OSK::IO::FileIO::ReadFromFile("engine_config.json"));
 	const bool requestRayTracing = engineConfig.contains("use_rt") && engineConfig["use_rt"] == 1;
 
 	switch (type) {
@@ -122,6 +122,7 @@ void Engine::RegisterBuiltinVertices() {
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::Vertex2D>();
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::Vertex3D>();
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::VertexAnim3D>();
+	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::VertexCollisionDebug3D>();
 }
 
 IO::Logger* Engine::GetLogger() {
@@ -156,14 +157,14 @@ float Engine::GetCurrentTime() {
 	return static_cast<float>(glfwGetTime());
 }
 
-const Version& Engine::GetVersion() {
+Version Engine::GetVersion() {
 	static Version version{ 0, 0, 0 };
 
 	return version;
 }
 
 const std::string& Engine::GetBuild() {
-	static std::string build = "2022.12.31a";
+	static std::string build = "2023.01.01a";
 
 	return build;
 }

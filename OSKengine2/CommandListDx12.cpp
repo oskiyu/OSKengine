@@ -384,3 +384,7 @@ void CommandListDx12::SetScissor(const Vector4ui& scissor) {
 void CommandListDx12::SetDebugName(const std::string& name) {
 	commandList->SetName(StringToWideString(name).c_str());
 }
+
+void CommandListDx12::AddDebugMarker(const std::string& mark, const Color& color) {}
+void CommandListDx12::StartDebugSection(const std::string& mark, const Color& color) {}
+void CommandListDx12::EndDebugSection() {}

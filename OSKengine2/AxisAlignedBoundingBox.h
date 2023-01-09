@@ -30,7 +30,7 @@ namespace OSK::COLLISION {
 
 		/// @return Tamaño total (la mitad hacia cada dirección
 		/// desde el centro).
-		const Vector3f& GetSize();
+		const Vector3f& GetSize() const;
 
 
 		bool IsColliding(const ITopLevelCollider& other,

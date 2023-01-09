@@ -415,9 +415,22 @@ namespace OSK::GRAPHICS {
 
 		void _SetSingleTimeUse();
 
-		// virtual void AddSimpleDebugMarker(const std::string& mark, const Color& color) = 0;
-		// virtual void StartDebugMarker(const std::string& mark, const Color& color) = 0;
-		// virtual void EndDebugMarker() = 0;
+
+
+		/// @brief Añade un marcador en la lista de comandos que podrá ser vista
+		/// en un software de debbuging.
+		/// @param mark Título del marcador.
+		/// @param color Color del marcador.
+		virtual void AddDebugMarker(const std::string& mark, const Color& color) = 0;
+
+		/// @brief Comienza una sección de la lista de comandos que quedará marcada.
+		/// @param mark Título de la marca.
+		/// @param color Color de la marca.
+		virtual void StartDebugSection(const std::string& mark, const Color& color) = 0;
+
+		/// @brief Finaliza la sección actualmente marcada.
+		virtual void EndDebugSection() = 0;
+
 
 		TSize GetCommandListIndex() const;
 

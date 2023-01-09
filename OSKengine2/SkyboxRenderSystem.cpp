@@ -34,7 +34,7 @@ SkyboxRenderSystem::SkyboxRenderSystem() {
 }
 
 void SkyboxRenderSystem::CreateTargetImage(const Vector2ui& size) {
-	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA32_SFLOAT , .name = "Skybox Render Target" };
+	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA16_SFLOAT , .name = "Skybox Render Target" };
 	RenderTargetAttachmentInfo depthInfo{ .format = Format::D32S8_SFLOAT_SUINT , .name = "Skybox Depth" };
 	renderTarget.Create(size, { colorInfo }, depthInfo);
 }
@@ -62,6 +62,8 @@ void SkyboxRenderSystem::Render(ICommandList* commandList) {
 	cameraUbos[resourceIndex]->Write(camera.GetViewMatrix(cameraTransform));
 	cameraUbos[resourceIndex]->Unmap();
 
+	commandList->StartDebugSection("Skybox Rendering", Color::RED());
+
 	commandList->BeginGraphicsRenderpass(&renderTarget, Color::BLACK() * 0.0f);
 	commandList->BindMaterial(skyboxMaterial);
 	commandList->BindMaterialSlot(skyboxMaterialInstance->GetSlot("camera"));
@@ -71,4 +73,6 @@ void SkyboxRenderSystem::Render(ICommandList* commandList) {
 	commandList->PushMaterialConstants("brightness", 1.0f);
 	commandList->DrawSingleInstance(cubemapModel->GetIndexCount());
 	commandList->EndGraphicsRenderpass();
+
+	commandList->EndDebugSection();
 }

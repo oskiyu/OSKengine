@@ -1,6 +1,6 @@
 INFO: Iniciando OSKengine.
 INFO: 	Version: 0.0.0.
-INFO: 	Build 2022.12.21a.
+INFO: 	Build 2023.01.01a.
 INFO: Versión de vulkan: 1.3.224
 INFO: GPU elegida: NVIDIA GeForce RTX 2060
 INFO: 	Adquiridas las imágenes del swapchain.
@@ -30,5 +30,17 @@ INFO: Nodo cargado: R.Tibia índice: 15 parent: 16
 INFO: Nodo cargado: R.Pie índice: 14 parent: 15
 INFO: Animación cargada: Idle
 INFO: Animación cargada: Run
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
+INFO: 	Adquiridas las imágenes del swapchain.
+INFO: 	Adquiridas las views del swapchain.
+INFO: Creado correctamente el swapchain.
 INFO: Cerrado el log.
 

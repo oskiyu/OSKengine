@@ -1,5 +1,7 @@
 #version 460
 
+#include "config.glsl"
+
 // 4:4 = 2.80ms
 // 8:8 = 2.30ms <-
 // 16:16 = 2.69ms
@@ -7,11 +9,11 @@
 
 // 2.81ms / 2.75ms -> 1.2ms
 
-layout (local_size_x = 4, local_size_y = 4) in;
+layout (local_size_x = LOCAL_SIZE_X, local_size_y = LOCAL_SIZE_Y) in;
 
 layout (set = 0, binding = 0) uniform sampler2D bloomImg;
 layout (set = 0, binding = 1) uniform sampler2D sceneImg;
-layout (set = 0, binding = 2, rgba32f) uniform image2D outputImg;
+layout (set = 0, binding = 2, FORMAT) uniform image2D outputImg;
 
 layout (push_constant) uniform Info {
     vec4 infos;

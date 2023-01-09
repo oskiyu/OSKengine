@@ -64,3 +64,14 @@ const VertexInfo VertexAnim3D::GetVertexInfo() {
 
 	return info;
 }
+
+const VertexInfo VertexCollisionDebug3D::GetVertexInfo() {
+	VertexInfo info{};
+
+	info.entries.Insert({
+		sizeof(VertexCollisionDebug3D::position),
+		VertexInfo::Entry::Type::FLOAT,
+		"POSITION" });
+
+	return info;
+}

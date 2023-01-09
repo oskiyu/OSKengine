@@ -34,9 +34,8 @@ namespace OSK {
 		class EntityComponentSystem;
 	}
 
-	/// <summary>
-	/// Clase principal de OSKengine.
-	/// </summary>
+
+	/// @brief Clase principal de OSKengine.
 	class OSKAPI_CALL Engine {
 
 	public:
@@ -90,9 +89,9 @@ namespace OSK {
 		/// @warning Será nullptr hasta que no se llame a Engine::Create.
 		static IO::InputManager* GetInputManager();
 
-		/// <summary> Devuelve la versión del motor. </summary>
-		const static Version& GetVersion();
-		/// <summary> Devuelve la build del motor, en formato aaaa.mm.dd.n </summary>
+		/// @return Devuelve la versión del motor. 
+		static Version GetVersion();
+		/// @return Devuelve la build del motor, en formato aaaa.mm.dd.n
 		const static std::string& GetBuild();
 
 		static void RegisterBuiltinAssets();

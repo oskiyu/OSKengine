@@ -123,7 +123,7 @@ protected:
 	}
 
 	void SetupEngine() override {
-		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetDisplay(), PresentMode::VSYNC_ON);
+		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetDisplay(), PresentMode::VSYNC_ON_TRIPLE_BUFFER);
 	}
 
 	void OnCreate() override {
@@ -256,7 +256,7 @@ protected:
 		RenderTargetAttachmentInfo textDepthInfo{ .format = Format::D32S8_SFLOAT_SUINT };
 		textRenderTarget.Create(Engine::GetDisplay()->GetResolution(), { textColorInfo }, textDepthInfo);
 
-		RenderTargetAttachmentInfo preEffectsColorInfo{ .format = Format::RGBA32_SFLOAT, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE };
+		RenderTargetAttachmentInfo preEffectsColorInfo{ .format = Format::RGBA16_SFLOAT, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE };
 		RenderTargetAttachmentInfo preEffectsDepthInfo{ .format = Format::D32S8_SFLOAT_SUINT };
 		preEffectsRenderTarget.Create(Engine::GetDisplay()->GetResolution(), { preEffectsColorInfo }, preEffectsDepthInfo);
 		
@@ -426,6 +426,7 @@ protected:
 		graphicsCommandList->SetScissor(windowRec);
 
 		// Render text
+		frameBuildCommandList->StartDebugSection("Text Rendering", Color::BLUE());
 		graphicsCommandList->BeginGraphicsRenderpass(&textRenderTarget, Color::BLACK() * 0.0f);
 		spriteRenderer.Begin();
 		spriteRenderer.DrawString(*font, 30, "OSKengine build " + Engine::GetBuild(), Vector2f{ 20.0f, 30.0f }, Vector2f{ 1.0f }, 0.0f, Color::WHITE());
@@ -433,10 +434,13 @@ protected:
 
 		spriteRenderer.End();
 		graphicsCommandList->EndGraphicsRenderpass();
+		frameBuildCommandList->EndDebugSection();
 
 		// Full-screen rendering
 		//
 		// Pre-Effects
+		frameBuildCommandList->StartDebugSection("Pre-Effects Frame build", Color(0, 1, 0));
+
 		graphicsCommandList->BindVertexBuffer(Sprite::globalVertexBuffer);
 		graphicsCommandList->BindIndexBuffer(Sprite::globalIndexBuffer);
 
@@ -451,12 +455,16 @@ protected:
 
 		graphicsCommandList->EndGraphicsRenderpass();
 
+		frameBuildCommandList->EndDebugSection();
+
 		// Post-processing effects:
 		fxaaPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
 		bloomPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
 		toneMappingPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
 
 		// Frame build:
+		frameBuildCommandList->StartDebugSection("Final Frame build", Color(0, 1, 0));
+
 		frameBuildCommandList->BindVertexBuffer(Sprite::globalVertexBuffer);
 		frameBuildCommandList->BindIndexBuffer(Sprite::globalIndexBuffer);
 
@@ -473,6 +481,8 @@ protected:
 		frameBuildCommandList->DrawSingleInstance(6);
 
 		frameBuildCommandList->EndGraphicsRenderpass();
+
+		frameBuildCommandList->EndDebugSection();
 	}
 
 	void SetupPostProcessingChain() {

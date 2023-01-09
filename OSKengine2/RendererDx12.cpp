@@ -78,6 +78,7 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 
 	if (useDebugConsole) {
 		debugConsole->EnableDebugLayer();
+		debugConsole->SetEnableGPUBasedValidation(true);
 
 		auto result = CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&factory));
 		OSK_CHECK(SUCCEEDED(result), "No se ha podido crear las capas de validación.");
@@ -189,7 +190,7 @@ void RendererDx12::ChooseGpu() {
 			continue;
 
 		// decidir con bAdapterFound si es este adaptador el que queramos 
-		auto isValid = D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_0, _uuidof(ID3D12Device), nullptr);
+		auto isValid = D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_1, _uuidof(ID3D12Device), nullptr);
 		if (SUCCEEDED(isValid)) {
 			Engine::GetLogger()->InfoLog("GPU elegida: " + std::string(CW2A(description.Description)));
 
@@ -199,8 +200,8 @@ void RendererDx12::ChooseGpu() {
 
 	OSK_ASSERT(found, "No se ha encontrado ninguna GPU compatible con DirectX 12");
 
-	ComPtr<ID3D12Device1> device;
-	D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_0, IID_PPV_ARGS(&device));
+	ComPtr<ID3D12Device5> device;
+	D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_1, IID_PPV_ARGS(&device));
 		
 	currentGpu->As<GpuDx12>()->SetAdapter(adapter);
 	currentGpu->As<GpuDx12>()->SetDevice(device);
