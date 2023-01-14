@@ -3,6 +3,7 @@
 #include "AxisAlignedBoundingBox.h"
 
 #include "SphereCollider.h"
+#include "Assert.h"
 
 using namespace OSK;
 using namespace OSK::COLLISION;
@@ -19,6 +20,20 @@ const Vector3f& AxisAlignedBoundingBox::GetSize() const {
 	return size;
 }
 
+bool AxisAlignedBoundingBox::ContainsPoint(const Vector3f& thisOffset, const Vector3f& point) const {
+	const Vector3f min = GetMin(thisOffset);
+	const Vector3f max = GetMax(thisOffset);
+
+	return
+		point.X > min.X && point.X < max.X &&
+		point.Y > min.Y && point.Y < max.Y &&
+		point.Z > min.Z && point.Z < max.Z;
+}
+
+RayCastResult AxisAlignedBoundingBox::CastRay(const Ray& ray, const Vector3f& position) const {
+	OSK_ASSERT(false, "No implementado.");
+}
+
 bool AxisAlignedBoundingBox::IsColliding(const ITopLevelCollider& other,
 	const Vector3f& thisOffset, const Vector3f& otherOffset) const {
 
@@ -32,9 +47,9 @@ bool AxisAlignedBoundingBox::IsColliding(const ITopLevelCollider& other,
 }
 
 Vector3f AxisAlignedBoundingBox::GetMin(const Vector3f& position) const {
-	return position - size * 0.5f;
+	return position - size;
 }
 
 Vector3f AxisAlignedBoundingBox::GetMax(const Vector3f& position) const {
-	return position + size * 0.5f;
+	return position + size;
 }

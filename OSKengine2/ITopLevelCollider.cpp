@@ -11,6 +11,12 @@ using namespace OSK::COLLISION;
 bool ITopLevelCollider::AabbAabbCollision(const AxisAlignedBoundingBox& first, const AxisAlignedBoundingBox& other,
 	const Vector3f& positionA, const Vector3f& positionB) {
 
+	const Vector3f firstMin = first.GetMin(positionA);
+	const Vector3f firstMax = first.GetMax(positionA);
+
+	const Vector3f secondMin = other.GetMin(positionA);
+	const Vector3f secondMax = other.GetMax(positionA);
+
 	return positionA.X <= other.GetMax(positionB).X && first.GetMax(positionA).X >= positionB.X
 		&& positionA.Y <= other.GetMax(positionB).Y && first.GetMax(positionA).Y >= positionB.Y
 		&& positionA.Z <= other.GetMax(positionB).Z && first.GetMax(positionA).Z >= positionB.Z;
@@ -26,7 +32,7 @@ bool ITopLevelCollider::AabbSphereCollision(const AxisAlignedBoundingBox& box, c
 		glm::max(positionA.Z, glm::min(positionB.Z, box.GetMax(positionA).Z))
 	};
 
-	return sphere.ContainsPoint(point);
+	return sphere.ContainsPoint(positionA, point);
 }
 
 bool ITopLevelCollider::SphereSphereCollision(const SphereCollider& first, const SphereCollider& other,
@@ -34,8 +40,8 @@ bool ITopLevelCollider::SphereSphereCollision(const SphereCollider& first, const
 
 	const float distance2 = positionA.GetDistanceTo2(positionB);
 
-	const float radiusA2 = first.GetRadius() * first.GetRadius();
-	const float radiusB2 = other.GetRadius() * other.GetRadius();
+	const float maxRadius = glm::max(first.GetRadius(), other.GetRadius());
+	const float maxRadius2 = maxRadius * maxRadius;
 
-	return distance2 < radiusA2 + radiusB2;
+	return distance2 < maxRadius2;
 }

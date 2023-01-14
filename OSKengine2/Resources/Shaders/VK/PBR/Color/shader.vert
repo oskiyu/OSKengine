@@ -29,10 +29,6 @@ layout (push_constant) uniform Model {
     vec4 materialInfos;
 } pushConstants;
 
-layout (set = 4, binding = 0) uniform sampler2D images[];
-layout (set = 4, binding = 1) uniform sampler2D images2[5];
-
-
 void main() {
     outColor = inColor;
     outNormal = normalize(mat3(transpose(inverse(pushConstants.modelMatrix))) * inNormal);

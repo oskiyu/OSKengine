@@ -31,7 +31,7 @@ namespace OSK::COLLISION {
 		virtual bool IsColliding(const ITopLevelCollider& other,
 			const Vector3f& thisOffset, const Vector3f& otherOffset) const = 0;
 
-		virtual bool ContainsPoint(const Vector3f& point) const = 0;
+		virtual bool ContainsPoint(const Vector3f& thisOffset, const Vector3f& point) const = 0;
 
 		/// @brief Calcula la intersección entre un rayo y el collider.
 		/// @param ray Rayo.

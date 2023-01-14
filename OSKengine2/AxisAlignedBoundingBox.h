@@ -12,27 +12,26 @@ namespace OSK::COLLISION {
 	/// Esta caja está alineada con los ejes X, Y y Z; y no puede
 	/// ser rotada.
 	/// 
-	/// Por defecto, tiene tamaño ("diámetro") 1 
-	/// (0.5 a cada lado desde el centro).
-	class OSKAPI_CALL AxisAlignedBoundingBox : ITopLevelCollider {
+	/// Por defecto, tiene tamaño ("radio") 0.5.
+	class OSKAPI_CALL AxisAlignedBoundingBox : public ITopLevelCollider {
 
 	public:
 		
 		/// @brief Caja con tamaño 1.
 		AxisAlignedBoundingBox() = default;
-		/// @param size Tamaño total (la mitad hacia cada dirección
-		/// desde el centro).
+		/// @param size Radio (distancia desde el centro hasta cada lado).
 		AxisAlignedBoundingBox(const Vector3f& size);
 
-		/// @param size Tamaño total (la mitad hacia cada dirección
-		/// desde el centro).
+		/// @param size Radio total (distancia desde el centro hasta cada lado).
 		void SetSize(const Vector3f& size);
 
 		/// @return Tamaño total (la mitad hacia cada dirección
 		/// desde el centro).
 		const Vector3f& GetSize() const;
 
-
+		/// @todo Implementación. 
+		RayCastResult CastRay(const Ray& ray, const Vector3f& position) const override;
+		bool ContainsPoint(const Vector3f& thisOffset, const Vector3f& point) const override;
 		bool IsColliding(const ITopLevelCollider& other,
 			const Vector3f& thisOffset, const Vector3f& otherOffset) const override;
 

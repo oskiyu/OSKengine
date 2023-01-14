@@ -30,17 +30,5 @@ INFO: Nodo cargado: R.Tibia índice: 15 parent: 16
 INFO: Nodo cargado: R.Pie índice: 14 parent: 15
 INFO: Animación cargada: Idle
 INFO: Animación cargada: Run
-INFO: 	Adquiridas las imágenes del swapchain.
-INFO: 	Adquiridas las views del swapchain.
-INFO: Creado correctamente el swapchain.
-INFO: 	Adquiridas las imágenes del swapchain.
-INFO: 	Adquiridas las views del swapchain.
-INFO: Creado correctamente el swapchain.
-INFO: 	Adquiridas las imágenes del swapchain.
-INFO: 	Adquiridas las views del swapchain.
-INFO: Creado correctamente el swapchain.
-INFO: 	Adquiridas las imágenes del swapchain.
-INFO: 	Adquiridas las views del swapchain.
-INFO: Creado correctamente el swapchain.
 INFO: Cerrado el log.
 

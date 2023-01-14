@@ -12,11 +12,15 @@ SphereCollider::SphereCollider(float radius) {
 }
 
 void SphereCollider::SetRadius(float radius) {
-	this->radius = 1.0f;
+	this->radius = radius;
 }
 
 float SphereCollider::GetRadius() const {
 	return radius;
+}
+
+bool SphereCollider::ContainsPoint(const Vector3f& thisOffset, const Vector3f& point) const {
+	return point.GetDistanceTo(thisOffset) <= radius;
 }
 
 RayCastResult SphereCollider::CastRay(const Ray& ray, const Vector3f& center) const {
@@ -47,7 +51,7 @@ bool SphereCollider::IsColliding(const ITopLevelCollider& other,
 
 	if (auto box = dynamic_cast<const AxisAlignedBoundingBox*>(&other))
 		return ITopLevelCollider::AabbSphereCollision(*box, *this,
-			thisOffset, otherOffset);
+			otherOffset, thisOffset);
 
 	if (auto sphere = dynamic_cast<const SphereCollider*>(&other))
 		return ITopLevelCollider::SphereSphereCollision(*this, *sphere,
