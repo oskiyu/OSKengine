@@ -127,6 +127,7 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "Vertex2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d" ],
     [ "Vertex3D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d" ],
     [ "VertexAnim3D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d" ],
+    [ "VertexCollisionDebug3D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_collision_debug3_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_collision_debug3_d" ],
     [ "VertexInfo", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info" ],
     [ "Viewport", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport" ],
     [ "Bone", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4f5b85b215c02279051f4041a44b512c", null ],
@@ -143,8 +144,8 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
       [ "RGBA16_SFLOAT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8ac822761144be33230ff41357a5cb22ca", null ],
       [ "RGBA32_SFLOAT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8ab90166b94483824b0f67dbb9ae2feef3", null ],
       [ "BGRA8_SRGB", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8af4a701ac1b36032e705eb34a8283e7e8", null ],
-      [ "RG16", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8a2b66caa416f0a28686ade3fc30ab223a", null ],
-      [ "RG32", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8aa8725115efc714421823b7397f9c130c", null ],
+      [ "RG16_SFLOAT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8a7e3f6c3f14c5e6300767a4b15a079bb1", null ],
+      [ "RG32_SFLOAT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8a6dd97240246dafddd10a64ee50bc1c02", null ],
       [ "D32S8_SFLOAT_SUINT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8a369fdc4770e12435c7f86a893edbcb06", null ],
       [ "D24S8_SFLOAT_SUINT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8ae7ae944f2e4ea995e572c26d22196850", null ],
       [ "D32_SFLOAT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8a23a4ce33815655871d103d3071d91072", null ]

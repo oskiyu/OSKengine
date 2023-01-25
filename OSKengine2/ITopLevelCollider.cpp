@@ -38,10 +38,17 @@ bool ITopLevelCollider::AabbSphereCollision(const AxisAlignedBoundingBox& box, c
 bool ITopLevelCollider::SphereSphereCollision(const SphereCollider& first, const SphereCollider& other,
 	const Vector3f& positionA, const Vector3f& positionB) {
 
+	// Optimización: elevamos al cuadrado toda la inecuación para
+	// así evitar un cálculo de raíz cuadrada, que es mas lento que
+	// calcular un número al cuadrado.
+	//
+	// distance < radioA + radioB
+	//
+	// distance^2 < (radioA + radioB)^2
 	const float distance2 = positionA.GetDistanceTo2(positionB);
 
-	const float maxRadius = glm::max(first.GetRadius(), other.GetRadius());
-	const float maxRadius2 = maxRadius * maxRadius;
+	const float sumRadius = first.GetRadius() + other.GetRadius();
+	const float sumRadius2 = sumRadius * sumRadius;
 
-	return distance2 < maxRadius2;
+	return distance2 < sumRadius2;
 }

@@ -15,6 +15,7 @@ var searchData=
   ['vertex2d_12',['Vertex2D',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html',1,'OSK::GRAPHICS']]],
   ['vertex3d_13',['Vertex3D',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d.html',1,'OSK::GRAPHICS']]],
   ['vertexanim3d_14',['VertexAnim3D',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html',1,'OSK::GRAPHICS']]],
-  ['vertexinfo_15',['VertexInfo',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html',1,'OSK::GRAPHICS']]],
-  ['viewport_16',['Viewport',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html',1,'OSK::GRAPHICS']]]
+  ['vertexcollisiondebug3d_15',['VertexCollisionDebug3D',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_collision_debug3_d.html',1,'OSK::GRAPHICS']]],
+  ['vertexinfo_16',['VertexInfo',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html',1,'OSK::GRAPHICS']]],
+  ['viewport_17',['Viewport',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html',1,'OSK::GRAPHICS']]]
 ];

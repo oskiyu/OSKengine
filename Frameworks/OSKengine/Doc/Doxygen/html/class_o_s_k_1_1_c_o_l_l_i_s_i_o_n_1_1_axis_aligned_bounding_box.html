@@ -87,6 +87,7 @@ $(document).ready(function(){initNavTree('class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="#pro-static-methods">Métodos protegidos estáticos</a> &#124;
 <a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box-members.html">Lista de todos los miembros</a>  </div>
   <div class="headertitle"><div class="title">Referencia de la Clase OSK::COLLISION::AxisAlignedBoundingBox</div></div>
 </div><!--header-->
@@ -102,21 +103,36 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:af6ec16d1ff9275a6d32236591f381460"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae00ef70ed4bb09c07e04c8c61cfe1d7c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#ae00ef70ed4bb09c07e04c8c61cfe1d7c">SetSize</a> (const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;size)</td></tr>
 <tr class="separator:ae00ef70ed4bb09c07e04c8c61cfe1d7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af52a94e82718982fa83ee09e2cb7040b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#af52a94e82718982fa83ee09e2cb7040b">GetSize</a> ()</td></tr>
-<tr class="separator:af52a94e82718982fa83ee09e2cb7040b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf879822dbd753923c17e6a93e3651c6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#aaf879822dbd753923c17e6a93e3651c6">GetSize</a> () const</td></tr>
+<tr class="separator:aaf879822dbd753923c17e6a93e3651c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f45362f129a8612e39e2049f4ecf00f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html">RayCastResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a3f45362f129a8612e39e2049f4ecf00f">CastRay</a> (const <a class="el" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html">Ray</a> &amp;ray, const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;position) const override</td></tr>
+<tr class="separator:a3f45362f129a8612e39e2049f4ecf00f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21937aedd8b2afec7212b2eade367795"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a21937aedd8b2afec7212b2eade367795">ContainsPoint</a> (const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;thisOffset, const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;point) const override</td></tr>
+<tr class="separator:a21937aedd8b2afec7212b2eade367795"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4030859ddc948bc4f2aeebfc0557ed6f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a4030859ddc948bc4f2aeebfc0557ed6f">IsColliding</a> (const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html">ITopLevelCollider</a> &amp;other, const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;thisOffset, const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;otherOffset) const override</td></tr>
 <tr class="separator:a4030859ddc948bc4f2aeebfc0557ed6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abaf5c61a369ea7ca1169daf9680a0b4a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#abaf5c61a369ea7ca1169daf9680a0b4a">GetMin</a> (const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;position) const</td></tr>
 <tr class="separator:abaf5c61a369ea7ca1169daf9680a0b4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8938f6d987669818a7e0cd48340e2be2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a8938f6d987669818a7e0cd48340e2be2">GetMax</a> (const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;position) const</td></tr>
 <tr class="separator:a8938f6d987669818a7e0cd48340e2be2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00e8239b01b8eeff8cbdcff1b4b0a3e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#a00e8239b01b8eeff8cbdcff1b4b0a3e2">OSK_DEFINE_AS</a> (<a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html">ITopLevelCollider</a>)</td></tr>
+<tr class="separator:a00e8239b01b8eeff8cbdcff1b4b0a3e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
+Métodos protegidos estáticos</h2></td></tr>
+<tr class="memitem:a4a779d02fd2a7b2e8563fb0d2f680409"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#a4a779d02fd2a7b2e8563fb0d2f680409">AabbAabbCollision</a> (const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a> &amp;first, const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a> &amp;other, const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;thisOffset, const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;otherOffset)</td></tr>
+<tr class="separator:a4a779d02fd2a7b2e8563fb0d2f680409"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa200c3d3d952b95d02bb6ee621bc822"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#afa200c3d3d952b95d02bb6ee621bc822">AabbSphereCollision</a> (const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a> &amp;first, const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a> &amp;other, const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;thisOffset, const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;otherOffset)</td></tr>
+<tr class="separator:afa200c3d3d952b95d02bb6ee621bc822"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae40083a3f72e026516ded2df498b9f06"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae40083a3f72e026516ded2df498b9f06">SphereSphereCollision</a> (const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a> &amp;first, const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a> &amp;other, const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;thisOffset, const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;otherOffset)</td></tr>
+<tr class="separator:ae40083a3f72e026516ded2df498b9f06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p >Un área de colisión de alto nivel representado por una caja tridimensional. </p>
 <p >Esta caja está alineada con los ejes X, Y y Z; y no puede ser rotada.</p>
-<p >Por defecto, tiene tamaño ("diámetro") 1 (0.5 a cada lado desde el centro). </p>
+<p >Por defecto, tiene tamaño ("radio") 0.5. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8h_source.html#l00017">17</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8h_source.html">AxisAlignedBoundingBox.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8h_source.html#l00016">16</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8h_source.html">AxisAlignedBoundingBox.h</a>.</p>
 </div><h2 class="groupheader">Documentación del constructor y destructor</h2>
 <a id="ab52e3f971fc7904c6d4bd24bf4ea2738" name="ab52e3f971fc7904c6d4bd24bf4ea2738"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab52e3f971fc7904c6d4bd24bf4ea2738">&#9670;&nbsp;</a></span>AxisAlignedBoundingBox() <span class="overload">[1/2]</span></h2>
@@ -162,16 +178,197 @@ Métodos públicos</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">size</td><td>Tamaño total (la mitad hacia cada dirección desde el centro). </td></tr>
+    <tr><td class="paramname">size</td><td>Radio (distancia desde el centro hasta cada lado). </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00010">10</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00011">11</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Documentación de las funciones miembro</h2>
+<a id="a4a779d02fd2a7b2e8563fb0d2f680409" name="a4a779d02fd2a7b2e8563fb0d2f680409"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a779d02fd2a7b2e8563fb0d2f680409">&#9670;&nbsp;</a></span>AabbAabbCollision()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ITopLevelCollider::AabbAabbCollision </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a> &amp;&#160;</td>
+          <td class="paramname"><em>first</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;&#160;</td>
+          <td class="paramname"><em>thisOffset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;&#160;</td>
+          <td class="paramname"><em>otherOffset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_top_level_collider_8cpp_source.html#l00011">11</a> del archivo <a class="el" href="_i_top_level_collider_8cpp_source.html">ITopLevelCollider.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afa200c3d3d952b95d02bb6ee621bc822" name="afa200c3d3d952b95d02bb6ee621bc822"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa200c3d3d952b95d02bb6ee621bc822">&#9670;&nbsp;</a></span>AabbSphereCollision()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ITopLevelCollider::AabbSphereCollision </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a> &amp;&#160;</td>
+          <td class="paramname"><em>first</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;&#160;</td>
+          <td class="paramname"><em>thisOffset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;&#160;</td>
+          <td class="paramname"><em>otherOffset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_top_level_collider_8cpp_source.html#l00025">25</a> del archivo <a class="el" href="_i_top_level_collider_8cpp_source.html">ITopLevelCollider.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3f45362f129a8612e39e2049f4ecf00f" name="a3f45362f129a8612e39e2049f4ecf00f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f45362f129a8612e39e2049f4ecf00f">&#9670;&nbsp;</a></span>CastRay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html">RayCastResult</a> AxisAlignedBoundingBox::CastRay </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html">Ray</a> &amp;&#160;</td>
+          <td class="paramname"><em>ray</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;&#160;</td>
+          <td class="paramname"><em>position</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Tareas pendientes:</a></b></dt><dd>Implementación. </dd></dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#a7a1bc77df2859c56c1bb797ea8abeaa0">OSK::COLLISION::ITopLevelCollider</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00033">33</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a21937aedd8b2afec7212b2eade367795" name="a21937aedd8b2afec7212b2eade367795"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21937aedd8b2afec7212b2eade367795">&#9670;&nbsp;</a></span>ContainsPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool AxisAlignedBoundingBox::ContainsPoint </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;&#160;</td>
+          <td class="paramname"><em>thisOffset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;&#160;</td>
+          <td class="paramname"><em>point</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#a9ebb1d095f589a705bf7b9644c70e3aa">OSK::COLLISION::ITopLevelCollider</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00023">23</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a8938f6d987669818a7e0cd48340e2be2" name="a8938f6d987669818a7e0cd48340e2be2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8938f6d987669818a7e0cd48340e2be2">&#9670;&nbsp;</a></span>GetMax()</h2>
 
@@ -195,7 +392,7 @@ Métodos públicos</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>Esquina máxima: posición del vértice con las coordenadas más grandes. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00038">38</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00053">53</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -222,12 +419,12 @@ Métodos públicos</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>Esquina mínima: posición del vértice con las coordenadas más pequeñas. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00034">34</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00049">49</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
 
 </div>
 </div>
-<a id="af52a94e82718982fa83ee09e2cb7040b" name="af52a94e82718982fa83ee09e2cb7040b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af52a94e82718982fa83ee09e2cb7040b">&#9670;&nbsp;</a></span>GetSize()</h2>
+<a id="aaf879822dbd753923c17e6a93e3651c6" name="aaf879822dbd753923c17e6a93e3651c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf879822dbd753923c17e6a93e3651c6">&#9670;&nbsp;</a></span>GetSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -236,13 +433,13 @@ Métodos públicos</h2></td></tr>
           <td class="memname">const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp; AxisAlignedBoundingBox::GetSize </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Tamaño total (la mitad hacia cada dirección desde el centro). </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00018">18</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00019">19</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -298,7 +495,33 @@ Métodos públicos</h2></td></tr>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#aa50c6d9fdca233d60ff452c9bad557dd">OSK::COLLISION::ITopLevelCollider</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00022">22</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00037">37</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a00e8239b01b8eeff8cbdcff1b4b0a3e2" name="a00e8239b01b8eeff8cbdcff1b4b0a3e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00e8239b01b8eeff8cbdcff1b4b0a3e2">&#9670;&nbsp;</a></span>OSK_DEFINE_AS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::COLLISION::ITopLevelCollider::OSK_DEFINE_AS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html">ITopLevelCollider</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -319,12 +542,62 @@ Métodos públicos</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">size</td><td>Tamaño total (la mitad hacia cada dirección desde el centro). </td></tr>
+    <tr><td class="paramname">size</td><td>Radio total (distancia desde el centro hasta cada lado). </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00014">14</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00015">15</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae40083a3f72e026516ded2df498b9f06" name="ae40083a3f72e026516ded2df498b9f06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae40083a3f72e026516ded2df498b9f06">&#9670;&nbsp;</a></span>SphereSphereCollision()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ITopLevelCollider::SphereSphereCollision </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a> &amp;&#160;</td>
+          <td class="paramname"><em>first</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;&#160;</td>
+          <td class="paramname"><em>thisOffset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;&#160;</td>
+          <td class="paramname"><em>otherOffset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_top_level_collider_8cpp_source.html#l00038">38</a> del archivo <a class="el" href="_i_top_level_collider_8cpp_source.html">ITopLevelCollider.cpp</a>.</p>
 
 </div>
 </div>
@@ -338,7 +611,7 @@ Métodos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">COLLISION</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a></li>
-    <li class="footer">Generado el Miércoles, 21 de Diciembre de 2022 21:33:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Martes, 17 de Enero de 2023 19:07:42 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

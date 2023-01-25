@@ -1,25 +1,28 @@
 #pragma once
 
 #include "OSKmacros.h"
-#include <type_traits>
+#include "CommandQueueSupport.h"
 
 namespace OSK::GRAPHICS {
 
-	/// <summary>
-	/// Una cola de comandos almacena todas las listas de comandos que se envían a la GPU.
-	/// 
-	/// @note Esta interfaz no implementa ningún código, se debe usar una instancia de
-	/// CommandQueueVulkan o CommandQueueDx12.
-	/// </summary>
+	
+	/// @brief Representa un puerto de entrada para los comandos
+	/// de la GPU.
 	class OSKAPI_CALL ICommandQueue {
 
 	public:
 
 		virtual ~ICommandQueue() = default;
 
-		template <typename T> T* As() const requires std::is_base_of_v<ICommandQueue, T> {
-			return (T*)this;
-		}
+		OSK_DEFINE_AS(ICommandQueue);
+
+	protected:
+
+		inline ICommandQueue(CommandQueueSupport support) : supportType(support) {}
+
+	private:
+
+		CommandQueueSupport supportType;
 
 	};
 

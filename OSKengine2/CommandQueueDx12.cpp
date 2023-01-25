@@ -7,6 +7,10 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 using namespace Microsoft::WRL;
 
+CommandQueueDx12::CommandQueueDx12(CommandQueueSupport support) : ICommandQueue(support) {
+
+}
+
 void CommandQueueDx12::SetCommandQueue(const ComPtr<ID3D12CommandQueue>& commandQueue) {
 	this->commandQueue = ComPtr<ID3D12CommandQueue>(commandQueue);
 }

@@ -58,6 +58,7 @@
     <ClCompile Include="ComputePipelineDx12.cpp" />
     <ClCompile Include="ComputePipelineVulkan.cpp" />
     <ClCompile Include="ConvexVolume.cpp" />
+    <ClCompile Include="Data.cpp" />
     <ClCompile Include="DescriptorDx12.cpp" />
     <ClCompile Include="FaceProjection.cpp" />
     <ClCompile Include="Field.cpp" />
@@ -247,6 +248,7 @@
     <ClInclude Include="CommandPoolDx12.h" />
     <ClInclude Include="CommandPoolVulkan.h" />
     <ClInclude Include="CommandQueueDx12.h" />
+    <ClInclude Include="CommandQueueSupport.h" />
     <ClInclude Include="CommandQueueVulkan.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentContainer.h" />
@@ -258,6 +260,7 @@
     <ClInclude Include="CubemapTexture.h" />
     <ClInclude Include="CubemapTextureLoader.h" />
     <ClInclude Include="Data.h" />
+    <ClInclude Include="DataType.h" />
     <ClInclude Include="DescriptorDx12.h" />
     <ClInclude Include="DescriptorLayoutVulkan.h" />
     <ClInclude Include="DescriptorPoolVulkan.h" />
@@ -273,6 +276,7 @@
     <ClInclude Include="HybridRenderSystem.h" />
     <ClInclude Include="IBottomLevelCollider.h" />
     <ClInclude Include="IComputePipeline.h" />
+    <ClInclude Include="IDataElement.h" />
     <ClInclude Include="IDisplay.h" />
     <ClInclude Include="IFullscreenableDisplay.h" />
     <ClInclude Include="IGamepadInput.h" />
@@ -290,6 +294,7 @@
     <ClInclude Include="IrradianceMapLoader.h" />
     <ClInclude Include="IGpuStorageBuffer.h" />
     <ClInclude Include="ISerializable.h" />
+    <ClInclude Include="ISerializer.h" />
     <ClInclude Include="ITopLevelCollider.h" />
     <ClInclude Include="IUserInput.h" />
     <ClInclude Include="Lights.h" />

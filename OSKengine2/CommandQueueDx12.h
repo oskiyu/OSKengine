@@ -21,6 +21,8 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		CommandQueueDx12(CommandQueueSupport support);
+
 		void SetCommandQueue(const ComPtr<ID3D12CommandQueue>& commandQueue);
 		ID3D12CommandQueue* GetCommandQueue() const;
 

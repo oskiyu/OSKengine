@@ -21,6 +21,7 @@ var annotated_dup =
         [ "Model3D", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d" ],
         [ "ModelLoader3D", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d" ],
         [ "ModelMetadata", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata.html", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata" ],
+        [ "SpecularMap", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map" ],
         [ "SpecularMapLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map_loader" ],
         [ "StaticMeshLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader" ],
         [ "Texture", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture" ],
@@ -42,6 +43,7 @@ var annotated_dup =
       [ "ECS", "namespace_o_s_k_1_1_e_c_s.html", [
         [ "CameraComponent2D", "class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html", "class_o_s_k_1_1_e_c_s_1_1_camera_component2_d" ],
         [ "CameraComponent3D", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d" ],
+        [ "ColliderRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_collider_render_system" ],
         [ "ComponentContainer", "class_o_s_k_1_1_e_c_s_1_1_component_container.html", "class_o_s_k_1_1_e_c_s_1_1_component_container" ],
         [ "ComponentManager", "class_o_s_k_1_1_e_c_s_1_1_component_manager.html", "class_o_s_k_1_1_e_c_s_1_1_component_manager" ],
         [ "EntityComponentSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system" ],
@@ -189,6 +191,7 @@ var annotated_dup =
         [ "Vertex2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d" ],
         [ "Vertex3D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d" ],
         [ "VertexAnim3D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d" ],
+        [ "VertexCollisionDebug3D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_collision_debug3_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_collision_debug3_d" ],
         [ "VertexInfo", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info" ],
         [ "Viewport", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport" ]
       ] ],
@@ -208,6 +211,14 @@ var annotated_dup =
         [ "MouseState", "class_o_s_k_1_1_i_o_1_1_mouse_state.html", "class_o_s_k_1_1_i_o_1_1_mouse_state" ],
         [ "PcUserInput", "class_o_s_k_1_1_i_o_1_1_pc_user_input.html", "class_o_s_k_1_1_i_o_1_1_pc_user_input" ],
         [ "Window", "class_o_s_k_1_1_i_o_1_1_window.html", "class_o_s_k_1_1_i_o_1_1_window" ]
+      ] ],
+      [ "PERSISTENCE", "namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html", [
+        [ "DataNode", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node.html", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node" ],
+        [ "FieldWrapper", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_field_wrapper.html", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_field_wrapper" ],
+        [ "IDataElement", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element.html", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element" ],
+        [ "IFieldWrapper", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_field_wrapper.html", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_field_wrapper" ],
+        [ "ISerializable", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_serializable.html", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_serializable" ],
+        [ "ISerializer", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_serializer.html", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_serializer" ]
       ] ],
       [ "UI", "namespace_o_s_k_1_1_u_i.html", [
         [ "UiElement", "class_o_s_k_1_1_u_i_1_1_ui_element.html", "class_o_s_k_1_1_u_i_1_1_ui_element" ],

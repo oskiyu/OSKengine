@@ -1,8 +1,9 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12 =
 [
     [ "_SetSingleTimeUse", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a91dd0015d5deefbbcbc1abacdb6be2c6", null ],
+    [ "AddDebugMarker", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#ab5703eb5b03057acfbb5743b9261e415", null ],
     [ "BeginGraphicsRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#ae3c08439df0f986e7a2e30e50f13bc91", null ],
-    [ "BeginGraphicsRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#ae3d1fda12c227f4b1782a16c2dca7f5c", null ],
+    [ "BeginGraphicsRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#af0927aa0a3b0584ca95d973e86f80585", null ],
     [ "BindComputePipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#aad3dd1ccf00cad575469cb2a77371184", null ],
     [ "BindIndexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a75ba4f8260802186c96698f7f5e913a3", null ],
     [ "BindMaterial", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#adba475156d7a3e34acb0823206907e79", null ],
@@ -16,6 +17,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12 =
     [ "DispatchCompute", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#aaaa724e9334b0281d5a72c5eec838e1b", null ],
     [ "DrawSingleInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a8dba675ac31600b4c0bbab76b22c0f8d", null ],
     [ "DrawSingleMesh", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a7f68fd5258093b3d128dbf7f80bc53c1", null ],
+    [ "EndDebugSection", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a20ddea8b3c20254fb1429b14b8043653", null ],
     [ "EndGraphicsRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a6999a57609ee570303603bcf846a7eff", null ],
     [ "GetCommandList", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a621a55a5d29e7e84795a49f1793052db", null ],
     [ "GetCommandListIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a2737fdfdca1c275d18f54cbb326dbc0d", null ],
@@ -34,6 +36,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12 =
     [ "SetScissor", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#afe28fc16ef6b00db3c43868bd3c46183", null ],
     [ "SetViewport", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a1087b08b918688640e1ab66ea43ed5ff", null ],
     [ "Start", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#aa1cb8f548c08c6d2105f99ceda562582", null ],
+    [ "StartDebugSection", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a0de10c4938a1635d09b6b98a9c58c6ea", null ],
     [ "TraceRays", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#af3833c51984818038a00e26361a6e92a", null ],
     [ "compute", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a382ca275252b4bce5983fd3a3101d885", null ],
     [ "currentColorImages", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a02c47b88c3dc12edf97b63bf9cfaf1e1", null ],

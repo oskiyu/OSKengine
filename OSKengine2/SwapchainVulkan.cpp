@@ -13,6 +13,7 @@
 #include "GpuImageDimensions.h"
 #include "GpuImageUsage.h"
 #include "PresentMode.h"
+#include "CommandQueueVulkan.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -77,14 +78,16 @@ void SwapchainVulkan::Create(PresentMode mode, Format format, const GpuVulkan& d
 	createInfo.imageArrayLayers = 1;
 	createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
 
-	//Colas.
-	//Cómo se maneja el swapchain.
-	const QueueFamilyIndices indices = device.GetQueueFamilyIndices(device.GetSurface());
-	const uint32_t queueFamilyIndices[] = { indices.graphicsFamily.value(), indices.presentFamily.value() };
-	if (indices.graphicsFamily != indices.presentFamily) {
+	// Colas.
+	// Cómo se maneja el swapchain.
+	const auto graphicsIndex = Engine::GetRenderer()->GetGraphicsCommandQueue()->As<CommandQueueVulkan>()->GetFamilyIndex();
+	const auto presentIndex = Engine::GetRenderer()->GetPresentCommandQueue()->As<CommandQueueVulkan>()->GetFamilyIndex();
+	DynamicArray<uint32_t> indices = { graphicsIndex , presentIndex };
+
+	if (graphicsIndex != presentIndex) {
 		createInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
 		createInfo.queueFamilyIndexCount = 2;
-		createInfo.pQueueFamilyIndices = queueFamilyIndices;
+		createInfo.pQueueFamilyIndices = indices.GetData();
 	}
 	else {
 		createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
@@ -92,12 +95,12 @@ void SwapchainVulkan::Create(PresentMode mode, Format format, const GpuVulkan& d
 		createInfo.pQueueFamilyIndices = nullptr;
 	}
 	createInfo.preTransform = info.swapchainSupportDetails.surfaceCapabilities.currentTransform;
-	createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR; //¿Debería mostrarse lo que hay detrás de la ventana?
+	createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR; // ¿Debería mostrarse lo que hay detrás de la ventana?
 	createInfo.presentMode = presentMode;
-	createInfo.clipped = VK_TRUE; //Si hay algo tapando la ventana, no se renderiza.
+	createInfo.clipped = VK_TRUE; // Si hay algo tapando la ventana, no se renderiza.
 	createInfo.oldSwapchain = nullptr;
 
-	//Crearlo y error-handling.
+	// Crearlo y error-handling.
 	VkResult result = vkCreateSwapchainKHR(device.GetLogicalDevice(), &createInfo, nullptr, &swapchain);
 	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear el swapchain. Code: " + std::to_string(result));
 

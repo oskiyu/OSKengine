@@ -16,17 +16,21 @@ static DynamicArray<const char*> gpuExtensions = {
 	VK_KHR_SWAPCHAIN_EXTENSION_NAME
 };
 
+GpuVulkan::GpuVulkan(VkPhysicalDevice gpu, VkSurfaceKHR surface) : physicalDevice(gpu), surface(surface) {
+	info = Info::Get(gpu, surface);
+}
+
 GpuVulkan::~GpuVulkan() {
 	Close();
 }
 
 OwnedPtr<ICommandPool> GpuVulkan::CreateGraphicsCommandPool() {
-	QueueFamilyIndices indices = GetQueueFamilyIndices(surface);
+	const QueueFamiles families = GetQueueFamilyIndices();
+	const QueueFamily family = families.GetFamilies(CommandQueueSupport::GRAPHICS | CommandQueueSupport::COMPUTE | CommandQueueSupport::PRESENTATION).At(0);
 
-	//Para la graphics q.
 	VkCommandPoolCreateInfo poolInfo{};
 	poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
-	poolInfo.queueFamilyIndex = indices.graphicsFamily.value();
+	poolInfo.queueFamilyIndex = family.familyIndex;
 	poolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
 
 	VkCommandPool commandPool = VK_NULL_HANDLE;
@@ -41,12 +45,14 @@ OwnedPtr<ICommandPool> GpuVulkan::CreateGraphicsCommandPool() {
 }
 
 OwnedPtr<ICommandPool> GpuVulkan::CreateComputeCommandPool() {
-	QueueFamilyIndices indices = GetQueueFamilyIndices(surface);
+	const QueueFamiles families = GetQueueFamilyIndices();
+	const QueueFamily family = families.GetFamilies(CommandQueueSupport::GRAPHICS | CommandQueueSupport::COMPUTE | CommandQueueSupport::PRESENTATION).At(0);
 
-	//Para la compute q.
+	// @todo check por si no se puede usar una cola única.
+
 	VkCommandPoolCreateInfo poolInfo{};
 	poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
-	poolInfo.queueFamilyIndex = indices.computeFamily.value();
+	poolInfo.queueFamilyIndex = family.familyIndex;
 	poolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
 
 	VkCommandPool commandPool = VK_NULL_HANDLE;
@@ -71,25 +77,22 @@ void GpuVulkan::Close() {
 	}
 }
 
-void GpuVulkan::SetPhysicalDevice(VkPhysicalDevice gpu) {
-	physicalDevice = gpu;
-}
-
 VkPhysicalDevice GpuVulkan::GetPhysicalDevice() const {
 	return physicalDevice;
 }
 
-void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
-	auto queueFamilyIndices = GetQueueFamilyIndices(surface);
+void GpuVulkan::CreateLogicalDevice() {
+	const QueueFamiles queueFamilies = GetQueueFamilyIndices();
+	std::set<uint32_t> uniqueQueueFamilies;
 
-	DynamicArray<VkDeviceQueueCreateInfo> createInfos;
-	std::set<uint32_t> uniqueQueueFamilies = {
-		queueFamilyIndices.graphicsFamily.value(),
-		queueFamilyIndices.presentFamily.value(),
-		queueFamilyIndices.computeFamily.value()
-	};
+	const QueueFamily graphicsAndComputeFamily = queueFamilies.GetFamilies(CommandQueueSupport::GRAPHICS | CommandQueueSupport::COMPUTE).At(0);
+	uniqueQueueFamilies.insert(graphicsAndComputeFamily.familyIndex);
 
+	if (!EFTraits::HasFlag(graphicsAndComputeFamily.support, CommandQueueSupport::PRESENTATION))
+		uniqueQueueFamilies.insert(queueFamilies.GetFamilies(CommandQueueSupport::PRESENTATION)[0].familyIndex);
+	
 	// Creación de las colas.
+	DynamicArray<VkDeviceQueueCreateInfo> createInfos;
 	float_t qPriority = 1.0f;
 	for (auto& qFamily : uniqueQueueFamilies) {
 		VkDeviceQueueCreateInfo qCreateInfo{};
@@ -111,9 +114,6 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 
 	DynamicArray<VkExtensionProperties> extensionProperties = GetAvailableExtensions(physicalDevice);
 	
-	//for (const auto& ext : extensionProperties)
-	//	Engine::GetLogger()->DebugLog("		Extensión: " + std::string(ext.extensionName));
-
 	// RT
 	if (info.IsRtCompatible()) {
 		gpuExtensions.Insert(VK_KHR_ACCELERATION_STRUCTURE_EXTENSION_NAME);
@@ -127,11 +127,6 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 		gpuExtensions.Insert(VK_KHR_SHADER_FLOAT_CONTROLS_EXTENSION_NAME);
 	}
 
-#ifdef OSK_DEBUG
-	// gpuExtensions.Insert(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
-	// gpuExtensions.Insert(VK_EXT_DEBUG_MARKER_EXTENSION_NAME);
-#endif // OSK_DEBUG
-
 	// Crear el logical device.
 	VkDeviceCreateInfo createInfo{};
 	createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
@@ -142,9 +137,9 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 	createInfo.ppEnabledExtensionNames = gpuExtensions.GetData();
 	
 	createInfo.pEnabledFeatures = nullptr;
-	createInfo.pNext = &info.features2;
-	info.features2.features = features;
-	info.features2.pNext = &info.dynamicRenderingFeatures;
+	createInfo.pNext = &info.extendedFeatures;
+	info.extendedFeatures.features = features;
+	info.extendedFeatures.pNext = &info.dynamicRenderingFeatures;
 
 	info.dynamicRenderingFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES;
 	info.dynamicRenderingFeatures.dynamicRendering = VK_TRUE;
@@ -178,57 +173,61 @@ void GpuVulkan::CreateLogicalDevice(VkSurfaceKHR surface) {
 
 	// Error-handling.
 	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear el logical device.");
-
-	this->surface = surface;
 }
 
 VkDevice GpuVulkan::GetLogicalDevice() const {
 	return logicalDevice;
 }
 
-void GpuVulkan::SetInfo(const Info& info) {
-	this->info = info;
-}
-
 const GpuVulkan::Info& GpuVulkan::GetInfo() const {
 	return info;
 }
 
-QueueFamilyIndices GpuVulkan::GetQueueFamilyIndices(VkSurfaceKHR surface) const {
-	QueueFamilyIndices indices{};
+QueueFamiles GpuVulkan::GetQueueFamilyIndices() const {
+	QueueFamiles output{};
 
-	// Número de colas.
+	// Número de familias.
 	uint32_t queueFamilyCount = 0;
 	vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &queueFamilyCount, nullptr);
 
-	// Obtener las colas.
+	// Obtener las familias.
 	auto queueFamilies = DynamicArray<VkQueueFamilyProperties>::CreateResizedArray(queueFamilyCount);
 
 	vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &queueFamilyCount, queueFamilies.GetData());
 
 	// Comprobar el soporte de distintos tipos de cola.
-	int i = 0;
+	int familyIndex = 0;
 	for (const auto& q : queueFamilies) {
+		QueueFamily family{};
+		family.familyIndex = familyIndex;
+		family.numQueues = q.queueCount;
+
 		if (q.queueFlags & VK_QUEUE_GRAPHICS_BIT)
-			indices.graphicsFamily = i;
+			family.support |= CommandQueueSupport::GRAPHICS;
+
+		if (q.queueFlags & VK_QUEUE_COMPUTE_BIT)
+			family.support |= CommandQueueSupport::COMPUTE;
+
+		if (q.queueFlags & VK_QUEUE_TRANSFER_BIT)
+			family.support |= CommandQueueSupport::TRANSFER;
+
+		// Según el spec, si una familia soporta tanto GRAPHICS como COMPUTE, también debe soportar transfer, aunque no esté especificado explícitamente en el struct.
+		if (EFTraits::HasFlag(family.support, CommandQueueSupport::COMPUTE) && EFTraits::HasFlag(family.support, CommandQueueSupport::GRAPHICS))
+			family.support |= CommandQueueSupport::TRANSFER;
 
 		// Soporte para presentación.
 		VkBool32 presentSupport = false;
-		vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, i, surface, &presentSupport);
+		vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, familyIndex, surface, &presentSupport);
 
 		if (presentSupport)
-			indices.presentFamily = i;
+			family.support |= CommandQueueSupport::PRESENTATION;
 
-		if (q.queueFlags & VK_QUEUE_COMPUTE_BIT)
-			indices.computeFamily = i;
+		output.families.Insert(family);
 
-		if (indices.IsComplete())
-			break;
-
-		i++;
+		familyIndex++;
 	}
 
-	return indices;
+	return output;
 }
 
 OwnedPtr<ISyncDevice> GpuVulkan::CreateSyncDevice() {
@@ -261,9 +260,9 @@ GpuVulkan::Info GpuVulkan::Info::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface)
 	vkGetPhysicalDeviceProperties2(gpu, &gpuProperties2);
 	
 	// Featrues
-	info.features2.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2;
-	info.features2.features = info.features;
-	info.features2.pNext = &info.rtPipelineFeatures;
+	info.extendedFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2;
+	info.extendedFeatures.features = info.features;
+	info.extendedFeatures.pNext = &info.rtPipelineFeatures;
 
 	info.rtPipelineFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR;
 	info.rtPipelineFeatures.pNext = &info.rtAccelerationStructuresFeatures;
@@ -282,7 +281,7 @@ GpuVulkan::Info GpuVulkan::Info::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface)
 	info.bindlessTexturesSets.runtimeDescriptorArray = VK_TRUE;
 	info.bindlessTexturesSets.descriptorBindingPartiallyBound = VK_TRUE;
 
-	vkGetPhysicalDeviceFeatures2(gpu, &info.features2);
+	vkGetPhysicalDeviceFeatures2(gpu, &info.extendedFeatures);
 
 	// Comprobar soporte de swapchain.
 	bool swapchainSupported = false;
@@ -318,6 +317,8 @@ GpuVulkan::Info GpuVulkan::Info::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface)
 
 	vkGetPhysicalDeviceSurfacePresentModesKHR(gpu, surface, &formatCount, shapchainSupport.presentModes.GetData());
 
+	vkGetPhysicalDeviceMemoryProperties(gpu, &info.memoryProperties);
+
 	info.swapchainSupportDetails = shapchainSupport;
 	
 	VkSampleCountFlags counts = info.properties.limits.framebufferColorSampleCounts & info.properties.limits.framebufferDepthSampleCounts;
@@ -348,8 +349,11 @@ DynamicArray<VkExtensionProperties> GpuVulkan::GetAvailableExtensions(VkPhysical
 bool GpuVulkan::Info::IsRtCompatible() const {
 	const auto availableExtensions = GpuVulkan::GetAvailableExtensions(physicalDevice);
 
-	return (rtPipelineFeatures.rayTracingPipeline != 0) && (rtAccelerationStructuresFeatures.accelerationStructure != 0)
-		&& (bindlessTexturesSets.descriptorBindingPartiallyBound == VK_TRUE) && (bindlessTexturesSets.runtimeDescriptorArray == VK_TRUE)
+	return (rtPipelineFeatures.rayTracingPipeline != 0) 
+		&& (rtAccelerationStructuresFeatures.accelerationStructure != 0)
+		&& (bindlessTexturesSets.descriptorBindingPartiallyBound == VK_TRUE) 
+		&& (bindlessTexturesSets.runtimeDescriptorArray == VK_TRUE)
+		
 		&& GpuVulkan::IsExtensionPresent(VK_KHR_ACCELERATION_STRUCTURE_EXTENSION_NAME, availableExtensions)
 		&& GpuVulkan::IsExtensionPresent(VK_KHR_RAY_TRACING_PIPELINE_EXTENSION_NAME, availableExtensions)
 		&& GpuVulkan::IsExtensionPresent(VK_KHR_BUFFER_DEVICE_ADDRESS_EXTENSION_NAME, availableExtensions)

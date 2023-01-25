@@ -323,57 +323,58 @@ void RendererVulkan::CreateSurface(const IO::IDisplay& display) {
 }
 
 void RendererVulkan::ChooseGpu() {
-	currentGpu = new GpuVulkan;
-
 	// --------------- Physical ----------------- //
 
-	//Obtiene el número de GPUs disponibles.
+	// Obtiene el número de GPUs disponibles.
 	uint32_t count = 0;
 	vkEnumeratePhysicalDevices(instance, &count, nullptr);
 
 	OSK_ASSERT(count != 0, "No hay ninguna GPU compatible con Vulkan.");
 
-	//Obtiene las GPUs.
+	// Obtiene los handlers de las GPUs.
 	auto devices = DynamicArray<VkPhysicalDevice>::CreateResizedArray(count);
 	vkEnumeratePhysicalDevices(instance, &count, devices.GetData());
 
-	//Comprobar la compatibilidad de las GPUs.
-	//Obtener una GPU compatible.
+	// Comprobar la compatibilidad de las GPUs.
+	// Obtener una GPU compatible.
 	DynamicArray<GpuVulkan::Info> gpus;
-	for (const auto& gpu : devices) {
-		auto info = GpuVulkan::Info::Get(gpu, surface);
+	for (const VkPhysicalDevice gpu : devices) {
+		const GpuVulkan::Info info = GpuVulkan::Info::Get(gpu, surface);
 
 		if (info.isSuitable)
-				gpus.Insert(info);
+			gpus.Insert(info);
 	}
 
 	OSK_ASSERT(!gpus.IsEmpty(), "No hay una GPU compatible.");
 
 	VkPhysicalDevice gpu = devices[0];
 	GpuVulkan::Info info = gpus[0];
-	vkGetPhysicalDeviceMemoryProperties(gpu, &info.memoryProperties);
-
-	OSK_ASSERT(gpu != VK_NULL_HANDLE, "No hay ninguna GPU compatible con Vulkan.");
 
 	Engine::GetLogger()->InfoLog("GPU elegida: " + std::string(info.properties.deviceName));
 
-	currentGpu->As<GpuVulkan>()->SetPhysicalDevice(gpu);
-	currentGpu->As<GpuVulkan>()->SetInfo(info);
-
-	currentGpu->As<GpuVulkan>()->CreateLogicalDevice(surface);
+	currentGpu = new GpuVulkan(gpu, surface);
+	currentGpu->As<GpuVulkan>()->CreateLogicalDevice();
 }
 
 void RendererVulkan::CreateCommandQueues() {
-	graphicsQueue = new CommandQueueVulkan;
-	presentQueue = new CommandQueueVulkan;
-	computeQueue = new CommandQueueVulkan;
-
-	const QueueFamilyIndices queueFamilyIndices = currentGpu->As<GpuVulkan>()->GetQueueFamilyIndices(surface);
+	const QueueFamiles queueFamilies = currentGpu->As<GpuVulkan>()->GetQueueFamilyIndices();
 
 	// Obtener las colas.
-	graphicsQueue->As<CommandQueueVulkan>()->Create(queueFamilyIndices.graphicsFamily.value(), *currentGpu->As<GpuVulkan>());
-	presentQueue->As<CommandQueueVulkan>()->Create(queueFamilyIndices.presentFamily.value(), *currentGpu->As<GpuVulkan>());
-	computeQueue->As<CommandQueueVulkan>()->Create(queueFamilyIndices.computeFamily.value(), *currentGpu->As<GpuVulkan>());
+	
+	// Preferir cola única para comandos y gráficos.
+	// Según el spec, si hay al menos una familia de comandos gráficos, también debe soportar computación y transfer.
+	const QueueFamily graphicsAndComputeFamily = queueFamilies.GetFamilies(CommandQueueSupport::GRAPHICS | CommandQueueSupport::COMPUTE).At(0);
+	graphicsQueue = new CommandQueueVulkan(graphicsAndComputeFamily.support, graphicsAndComputeFamily.familyIndex, 0, *currentGpu->As<GpuVulkan>());
+	computeQueue = new CommandQueueVulkan(graphicsAndComputeFamily.support, graphicsAndComputeFamily.familyIndex, 0, *currentGpu->As<GpuVulkan>());
+
+	// La cola de presentación puede ser distinta.
+	if (EFTraits::HasFlag(graphicsAndComputeFamily.support, CommandQueueSupport::PRESENTATION)) {
+		presentQueue = new CommandQueueVulkan(graphicsAndComputeFamily.support, graphicsAndComputeFamily.familyIndex, 0, *currentGpu->As<GpuVulkan>());
+	}
+	else {
+		const QueueFamily presentFamily = queueFamilies.GetFamilies(CommandQueueSupport::PRESENTATION).At(0);
+		presentQueue = new CommandQueueVulkan(presentFamily.support, presentFamily.familyIndex, 0, *currentGpu->As<GpuVulkan>());
+	}
 
 	if (graphicsQueue->As<CommandQueueVulkan>()->GetQueueIndex() == computeQueue->As<CommandQueueVulkan>()->GetQueueIndex())
 		singleCommandQueue = true;

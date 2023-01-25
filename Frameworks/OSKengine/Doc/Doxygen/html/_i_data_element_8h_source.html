@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Fichero Fuente OSKengine2/IDataElement.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="awesome-css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="card_low.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_i_data_element_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">IDataElement.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_i_data_element_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kmacros_8h.html">OSKmacros.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_data_type_8h.html">DataType.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html">OSK::PERSISTENCE</a> {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element.html">    9</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element.html">IDataElement</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element.html#a3f32f6a37eedeef26fa057727631f783">   13</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element.html#a3f32f6a37eedeef26fa057727631f783">OSK_DEFINE_AS</a>(<a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element.html">IDataElement</a>);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element.html#a45aad50529c7664320e5d7bbfe93a24e">   14</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element.html#a45aad50529c7664320e5d7bbfe93a24e">OSK_DISABLE_COPY</a>(<a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element.html">IDataElement</a>);</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element.html#abfba3b1ac23351d6d322c3e670edd9df">   19</a></span>        <span class="keyword">inline</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#ae6073a4f7f297469290c0f16b48677f5">DataType</a> <a class="code hl_function" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element.html#abfba3b1ac23351d6d322c3e670edd9df">GetDataType</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>            <span class="keywordflow">return</span> type;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        }</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element.html#a5c729ec1b34cf191e1e5aa8f9e9fd0a4">   29</a></span>        <span class="keyword">inline</span> <a class="code hl_function" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element.html#a5c729ec1b34cf191e1e5aa8f9e9fd0a4">IDataElement</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#ae6073a4f7f297469290c0f16b48677f5">DataType</a> type) : type(type) { }</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#ae6073a4f7f297469290c0f16b48677f5">DataType</a> type = <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#ae6073a4f7f297469290c0f16b48677f5a696b031073e74bf2cb98e5ef201d4aa3">DataType::UNKNOWN</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    };</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
+<div class="ttc" id="a_data_type_8h_html"><div class="ttname"><a href="_data_type_8h.html">DataType.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element_html"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element.html">OSK::PERSISTENCE::IDataElement</a></div><div class="ttdoc">Clase base para cualquier dato almacenado en un nodo de persistencia.</div><div class="ttdef"><b>Definition:</b> <a href="_i_data_element_8h_source.html#l00009">IDataElement.h:9</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element_html_a3f32f6a37eedeef26fa057727631f783"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element.html#a3f32f6a37eedeef26fa057727631f783">OSK::PERSISTENCE::IDataElement::OSK_DEFINE_AS</a></div><div class="ttdeci">OSK_DEFINE_AS(IDataElement)</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element_html_a45aad50529c7664320e5d7bbfe93a24e"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element.html#a45aad50529c7664320e5d7bbfe93a24e">OSK::PERSISTENCE::IDataElement::OSK_DISABLE_COPY</a></div><div class="ttdeci">OSK_DISABLE_COPY(IDataElement)</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element_html_a5c729ec1b34cf191e1e5aa8f9e9fd0a4"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element.html#a5c729ec1b34cf191e1e5aa8f9e9fd0a4">OSK::PERSISTENCE::IDataElement::IDataElement</a></div><div class="ttdeci">IDataElement(DataType type)</div><div class="ttdoc">Crea el elemento. Se debe especificar el tipo de dato de la clase ahijada. El tipo de dato no puede s...</div><div class="ttdef"><b>Definition:</b> <a href="_i_data_element_8h_source.html#l00029">IDataElement.h:29</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element_html_abfba3b1ac23351d6d322c3e670edd9df"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_data_element.html#abfba3b1ac23351d6d322c3e670edd9df">OSK::PERSISTENCE::IDataElement::GetDataType</a></div><div class="ttdeci">DataType GetDataType() const</div><div class="ttdoc">Tipo de dato. Puede ser un wrapper de un atributo o un nodo hijo.</div><div class="ttdef"><b>Definition:</b> <a href="_i_data_element_8h_source.html#l00019">IDataElement.h:19</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html">OSK::PERSISTENCE</a></div><div class="ttdef"><b>Definition:</b> <a href="_data_8h_source.html#l00009">Data.h:9</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_ae6073a4f7f297469290c0f16b48677f5"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#ae6073a4f7f297469290c0f16b48677f5">OSK::PERSISTENCE::DataType</a></div><div class="ttdeci">DataType</div><div class="ttdef"><b>Definition:</b> <a href="_data_type_8h_source.html#l00005">DataType.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_ae6073a4f7f297469290c0f16b48677f5a696b031073e74bf2cb98e5ef201d4aa3"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#ae6073a4f7f297469290c0f16b48677f5a696b031073e74bf2cb98e5ef201d4aa3">OSK::PERSISTENCE::DataType::UNKNOWN</a></div><div class="ttdeci">@ UNKNOWN</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_i_data_element_8h.html">IDataElement.h</a></li>
+    <li class="footer">Generado el Martes, 17 de Enero de 2023 19:07:42 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

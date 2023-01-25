@@ -221,7 +221,7 @@ void RendererDx12::ChooseGpu() {
 }
 
 void RendererDx12::CreateCommandQueues() {
-	graphicsQueue = new CommandQueueDx12;
+	//graphicsQueue = new CommandQueueDx12;
 
 	ComPtr<ID3D12CommandQueue> commandQ;
 

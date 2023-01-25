@@ -2,115 +2,23 @@
 // Copyright (c) 2019-2023 oskiyu. All rights reserved.
 #pragma once
 
-#include "DynamicArray.hpp"
-#include "HashMap.hpp"
-#include <string>
+#include "Data.h"
 
-namespace OSK {
-
-	enum class FieldType {
-		STRING,
-		FLOAT,
-		ID
-	};
+namespace OSK::PERSISTENCE {
 
 
-	enum class ContainerType {
-		SINGLE,
-		LIST
-	};
-
-	/// @brief Interfaz para un wrapper de un atributo.
-	class IFieldWrapper {
-
-		/// @brief Tipo de atributo.
-		/// @return Tipo de atributo. 
-		virtual FieldType GetFieldType() const = 0;
-
-	};
-
-	/// @brief Wrapper para un atributo.
-	/// @tparam TDataType Tipo de dato.
-	template <typename TDataType>
-	class SingleFieldWrapper : public IFieldWrapper {
+	/// @brief Interfaz para una clase que puede ser serializada.
+	class OSKAPI_CALL ISerializable {
 
 	public:
 
-		inline TDataType& GetRef() { return data; }
+		/// @brief Crea un nodo con los datos de la clase.
+		/// @return Nodo con los datos de la clase.
+		virtual DataNode Serialize() const = 0;
 
-		inline const TDataType& Get() const { return data; }
-
-	private:
-
-		TDataType data;
-
-	};
-
-	/// @brief Wrapper para un atributo.
-	/// @tparam TDataType Tipo de dato.
-	template <typename TDataType>
-	class ListFieldWrapper : public IFieldWrapper {
-
-	public:
-
-		inline DynamicArray<TDataType>& GetRef() { return data; }
-
-		inline const DynamicArray<TDataType>& Get() const { return data; }
-
-	private:
-
-		DynamicArray<TDataType> data;
-
-	};
-
-	using StringFieldWrapper = SingleFieldWrapper<std::string>;
-	using IntFieldWrapper = SingleFieldWrapper<int>;
-	using FloatFieldWrapper = SingleFieldWrapper<float>;
-
-	using StringListFieldWrapper = ListFieldWrapper<std::string>;
-	using IntListFieldWrapper = ListFieldWrapper<int>;
-	using FloatListFieldWrapper = ListFieldWrapper<float>;
-
-	class Data {
-		 
-	public:
-
-		void SetField(const std::string& key, const IFieldWrapper& field) {
-			fields.Insert(key, field);
-		}
-
-		const IFieldWrapper& GetField(const std::string& key) const {
-			return fields.Get(key);
-		}
-
-	private:
-
-		HashMap<std::string, IFieldWrapper> fields;
-
-	};
-
-	class ISerializable {
-
-	public:
-
-		virtual Data Serialize() const = 0;
-
-	};
-
-	class ISerializer {
-
-	public:
-
-		virtual void Serialize(const Data& data, const std::string& path) = 0;
-
-	};
-
-	class IDeserializer {
-
-	public:
-
-		virtual Data Deserialize(const std::string& path) const = 0;
-
+		/// @brief Construye la clase a partir de un nodo.
+		/// @param node Nodo con los datos deserializados de la clase.
+		virtual void Deserialize(const DataNode& node) = 0;
 	};
 
 }

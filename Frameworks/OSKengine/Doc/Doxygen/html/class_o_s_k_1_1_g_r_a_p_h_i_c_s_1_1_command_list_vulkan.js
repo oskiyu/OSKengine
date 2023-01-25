@@ -1,8 +1,9 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan =
 [
     [ "_SetSingleTimeUse", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a91dd0015d5deefbbcbc1abacdb6be2c6", null ],
+    [ "AddDebugMarker", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#ab0711173eb8aab24eedd7342950e713e", null ],
     [ "BeginGraphicsRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a36463a2d55487caea98937b62e0aad4e", null ],
-    [ "BeginGraphicsRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#ae3d1fda12c227f4b1782a16c2dca7f5c", null ],
+    [ "BeginGraphicsRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#af0927aa0a3b0584ca95d973e86f80585", null ],
     [ "BindComputePipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a80d86d0909d168a2c902ec52dfcc3fec", null ],
     [ "BindIndexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#acad28fb9832c44c1a6ebb54f2b42b823", null ],
     [ "BindMaterial", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#abdd3f97dcc528a642f9b3a8a87df9b3e", null ],
@@ -16,6 +17,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan =
     [ "DispatchCompute", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a1e31ae5edb7c1a3f5068895d8b72ea9b", null ],
     [ "DrawSingleInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#add1d8f754b1d5f40fe1b260273eeda55", null ],
     [ "DrawSingleMesh", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#abfc3b99e96d222ef8cca93bf6115188b", null ],
+    [ "EndDebugSection", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a91e1045800704a634055f133f6ae2327", null ],
     [ "EndGraphicsRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a8f85702fa62ebde5ded546961cc59e5e", null ],
     [ "GetCommandBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a248746c7ba1e62cb1c4ec1debcb28d42", null ],
     [ "GetCommandBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a222a24c9f23c317f07799ba7cb492595", null ],
@@ -32,6 +34,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan =
     [ "SetScissor", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a82ca90db1cc8623fbc779933b7579f85", null ],
     [ "SetViewport", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#af3f4a2ed06a7939d6de69a834e688416", null ],
     [ "Start", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#acc710c0c469ac3d93546fda95fbc315e", null ],
+    [ "StartDebugSection", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a5df55df4a4a5fa5fd192c383db7ea089", null ],
     [ "TraceRays", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a6afe178a57ad3814de1d5a8d9d35d5b9", null ],
     [ "compute", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a382ca275252b4bce5983fd3a3101d885", null ],
     [ "currentColorImages", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a02c47b88c3dc12edf97b63bf9cfaf1e1", null ],

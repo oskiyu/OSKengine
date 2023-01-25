@@ -28,11 +28,12 @@ var searchData=
   ['hashmap_3c_20std_3a_3astring_2c_20osk_3a_3auniqueptr_3c_20osk_3a_3aecs_3a_3aicomponentcontainer_20_3e_20_3e_25',['HashMap&lt; std::string, OSK::UniquePtr&lt; OSK::ECS::IComponentContainer &gt; &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
   ['hashmap_3c_20std_3a_3astring_2c_20osk_3a_3auniqueptr_3c_20osk_3a_3aecs_3a_3aisystem_20_3e_20_3e_26',['HashMap&lt; std::string, OSK::UniquePtr&lt; OSK::ECS::ISystem &gt; &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
   ['hashmap_3c_20std_3a_3astring_2c_20osk_3a_3auniqueptr_3c_20osk_3a_3agraphics_3a_3aimaterialslot_20_3e_20_3e_27',['HashMap&lt; std::string, OSK::UniquePtr&lt; OSK::GRAPHICS::IMaterialSlot &gt; &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
-  ['hashmap_3c_20std_3a_3astring_2c_20tindex_20_3e_28',['HashMap&lt; std::string, TIndex &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
-  ['hashmap_3c_20std_3a_3astring_2c_20tsize_20_3e_29',['HashMap&lt; std::string, TSize &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
-  ['hashmap_3c_20tindex_2c_20osk_3a_3agraphics_3a_3ameshnode_20_3e_30',['HashMap&lt; TIndex, OSK::GRAPHICS::MeshNode &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
-  ['hashmap_3c_20tsize_2c_20osk_3a_3aassets_3a_3afontinstance_20_3e_31',['HashMap&lt; TSize, OSK::ASSETS::FontInstance &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
-  ['hashmap_3c_20tsize_2c_20tsize_20_3e_32',['HashMap&lt; TSize, TSize &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
-  ['hlslruntimecompiler_33',['HlslRuntimeCompiler',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler.html',1,'OSK::GRAPHICS']]],
-  ['hybridrendersystem_34',['HybridRenderSystem',['../class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html',1,'OSK::ECS']]]
+  ['hashmap_3c_20std_3a_3astring_2c_20osk_3a_3auniqueptr_3c_20osk_3a_3apersistence_3a_3aidataelement_20_3e_20_3e_28',['HashMap&lt; std::string, OSK::UniquePtr&lt; OSK::PERSISTENCE::IDataElement &gt; &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
+  ['hashmap_3c_20std_3a_3astring_2c_20tindex_20_3e_29',['HashMap&lt; std::string, TIndex &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
+  ['hashmap_3c_20std_3a_3astring_2c_20tsize_20_3e_30',['HashMap&lt; std::string, TSize &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
+  ['hashmap_3c_20tindex_2c_20osk_3a_3agraphics_3a_3ameshnode_20_3e_31',['HashMap&lt; TIndex, OSK::GRAPHICS::MeshNode &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
+  ['hashmap_3c_20tsize_2c_20osk_3a_3aassets_3a_3afontinstance_20_3e_32',['HashMap&lt; TSize, OSK::ASSETS::FontInstance &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
+  ['hashmap_3c_20tsize_2c_20tsize_20_3e_33',['HashMap&lt; TSize, TSize &gt;',['../class_o_s_k_1_1_hash_map.html',1,'OSK']]],
+  ['hlslruntimecompiler_34',['HlslRuntimeCompiler',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler.html',1,'OSK::GRAPHICS']]],
+  ['hybridrendersystem_35',['HybridRenderSystem',['../class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html',1,'OSK::ECS']]]
 ];

@@ -23,7 +23,8 @@ void OSK::RuntimeAssertIsTrueFunction(bool condition, const std::string& msg, co
 		Engine::GetLogger()->Save();
 
 #ifdef _WIN64
-		auto widestring = StringToWideString(message);
+		// Muestra una ventanita de error.
+		const std::wstring widestring = StringToWideString(message);
 		MessageBox(NULL, widestring.c_str(), NULL, MB_OK | MB_ICONERROR);
 #endif // _WIN64
 

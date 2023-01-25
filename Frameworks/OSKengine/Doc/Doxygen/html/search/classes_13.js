@@ -50,8 +50,9 @@ var searchData=
   ['uniqueptr_3c_20osk_3a_3aio_3a_3ainputmanager_20_3e_47',['UniquePtr&lt; OSK::IO::InputManager &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
   ['uniqueptr_3c_20osk_3a_3aio_3a_3aiuserinput_20_3e_48',['UniquePtr&lt; OSK::IO::IUserInput &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
   ['uniqueptr_3c_20osk_3a_3aio_3a_3alogger_20_3e_49',['UniquePtr&lt; OSK::IO::Logger &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
-  ['uniqueptr_3c_20t_5b_5d_3e_50',['UniquePtr&lt; T[]&gt;',['../class_o_s_k_1_1_unique_ptr_3_01_t_0f_0e_4.html',1,'OSK']]],
-  ['uniqueptr_3c_20vkdescriptorbufferinfo_20_3e_51',['UniquePtr&lt; VkDescriptorBufferInfo &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
-  ['uniqueptr_3c_20vkdescriptorimageinfo_20_3e_52',['UniquePtr&lt; VkDescriptorImageInfo &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
-  ['uniqueptr_3c_20vkwritedescriptorsetaccelerationstructurekhr_20_3e_53',['UniquePtr&lt; VkWriteDescriptorSetAccelerationStructureKHR &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]]
+  ['uniqueptr_3c_20osk_3a_3apersistence_3a_3aidataelement_20_3e_50',['UniquePtr&lt; OSK::PERSISTENCE::IDataElement &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
+  ['uniqueptr_3c_20t_5b_5d_3e_51',['UniquePtr&lt; T[]&gt;',['../class_o_s_k_1_1_unique_ptr_3_01_t_0f_0e_4.html',1,'OSK']]],
+  ['uniqueptr_3c_20vkdescriptorbufferinfo_20_3e_52',['UniquePtr&lt; VkDescriptorBufferInfo &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
+  ['uniqueptr_3c_20vkdescriptorimageinfo_20_3e_53',['UniquePtr&lt; VkDescriptorImageInfo &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]],
+  ['uniqueptr_3c_20vkwritedescriptorsetaccelerationstructurekhr_20_3e_54',['UniquePtr&lt; VkWriteDescriptorSetAccelerationStructureKHR &gt;',['../class_o_s_k_1_1_unique_ptr.html',1,'OSK']]]
 ];

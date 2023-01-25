@@ -1056,6 +1056,9 @@
     <ClCompile Include="Field.cpp">
       <Filter>Archivos de origen\OSKengine\Persistence</Filter>
     </ClCompile>
+    <ClCompile Include="Data.cpp">
+      <Filter>Archivos de origen\OSKengine\Persistence</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
@@ -1783,6 +1786,18 @@
     </ClInclude>
     <ClInclude Include="Data.h">
       <Filter>Archivos de encabezado\OSKengine\Persistence</Filter>
+    </ClInclude>
+    <ClInclude Include="IDataElement.h">
+      <Filter>Archivos de encabezado\OSKengine\Persistence</Filter>
+    </ClInclude>
+    <ClInclude Include="DataType.h">
+      <Filter>Archivos de encabezado\OSKengine\Persistence</Filter>
+    </ClInclude>
+    <ClInclude Include="ISerializer.h">
+      <Filter>Archivos de encabezado\OSKengine\Persistence</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandQueueSupport.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\Queue</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

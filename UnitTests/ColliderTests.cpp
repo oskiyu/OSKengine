@@ -47,7 +47,7 @@ public:
 		const AabbCollider b = AabbCollider(Vector3f(1.0f));
 
 		const Vector3f aPos = Vector3f(0.0f, 0.0f, 0.0f);
-		const Vector3f bPos = Vector3f(0.0f, 0.0f, 0.9f);
+		const Vector3f bPos = Vector3f(0.0f, 0.0f, 1.9f);
 
 		Assert::IsTrue(a.IsColliding(b, aPos, bPos));
 	}
@@ -58,7 +58,7 @@ public:
 		const AabbCollider b = AabbCollider(Vector3f(1.0f));
 
 		const Vector3f aPos = Vector3f(0.0f, 0.0f, 0.0f);
-		const Vector3f bPos = Vector3f(0.0f, 0.0f, 1.01f);
+		const Vector3f bPos = Vector3f(0.0f, 0.0f, 2.01f);
 
 		Assert::IsFalse(a.IsColliding(b, aPos, bPos), L"Debería ser false");
 	}
@@ -82,7 +82,7 @@ public:
 		const Vector3f aPos = Vector3f(0.0f);
 		const Vector3f bPos = Vector3f(1.01f);
 
-		Assert::IsFalse(a.IsColliding(b, aPos, bPos), L"Debería ser false");
+		Assert::IsFalse(a.IsColliding(b, aPos, bPos), L"Deba ser false");
 	}
 
 };

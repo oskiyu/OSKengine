@@ -2,6 +2,7 @@ var namespace_o_s_k_1_1_e_c_s =
 [
     [ "CameraComponent2D", "class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html", "class_o_s_k_1_1_e_c_s_1_1_camera_component2_d" ],
     [ "CameraComponent3D", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d" ],
+    [ "ColliderRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_collider_render_system" ],
     [ "ComponentContainer", "class_o_s_k_1_1_e_c_s_1_1_component_container.html", "class_o_s_k_1_1_e_c_s_1_1_component_container" ],
     [ "ComponentManager", "class_o_s_k_1_1_e_c_s_1_1_component_manager.html", "class_o_s_k_1_1_e_c_s_1_1_component_manager" ],
     [ "EntityComponentSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system" ],

@@ -5,27 +5,12 @@
 using namespace OSK;
 using namespace OSK::PERSISTENCE;
 
-FieldType SingleFieldWrapper<std::string>::GetFieldType() const {
-	return FieldType::STRING;
-}
+#define OSK_DEFINE_FIELD_WRAPPER(type, datatype) \
+FieldWrapper<type>::FieldWrapper() : IFieldWrapper(datatype) { } \
+FieldWrapper<type>::FieldWrapper(const type & data) : IFieldWrapper(datatype) { \
+	this->data.Insert(data); \
+} \
 
-FieldType SingleFieldWrapper<int>::GetFieldType() const {
-	return FieldType::INT;
-}
-
-FieldType SingleFieldWrapper<float>::GetFieldType() const {
-	return FieldType::FLOAT;
-}
-
-
-FieldType ListFieldWrapper<std::string>::GetFieldType() const {
-	return FieldType::STRING;
-}
-
-FieldType ListFieldWrapper<int>::GetFieldType() const {
-	return FieldType::INT;
-}
-
-FieldType ListFieldWrapper<float>::GetFieldType() const {
-	return FieldType::FLOAT;
-}
+OSK_DEFINE_FIELD_WRAPPER(std::string, DataType::STRING);
+OSK_DEFINE_FIELD_WRAPPER(int, DataType::INT);
+OSK_DEFINE_FIELD_WRAPPER(float, DataType::FLOAT);

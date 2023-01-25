@@ -3,75 +3,72 @@
 #pragma once
 
 #include "DynamicArray.hpp"
+#include "IDataElement.h"
 
 namespace OSK::PERSISTENCE {
 
-	/// @brief Tipo de dato que se puede almacenar en un FieldWrapper.
-	enum class FieldType {
-		STRING,
-		INT,
-		FLOAT,
-		ECS_ID
-	};
-
-	/// @brief Tipo de contenedor que se puede almacenar en un FieldWrapper.
-	enum class ContainerType {
-		/// @brief Se almacena un único valor.
-		SINGLE,
-		/// @brief Se almacena una lista de valores.
-		LIST
-	};
-
-
 	/// @brief Interfaz para un wrapper de un atributo.
-	class IFieldWrapper {
+	class OSKAPI_CALL IFieldWrapper : public IDataElement {
 
-		/// @brief Tipo de atributo.
-		/// @return Tipo de atributo. 
-		virtual FieldType GetFieldType() const = 0;
+	protected:
 
-		/// @brief Tipo de contenedor.
-		/// @return Tipo de contenedor. 
-		virtual ContainerType GetContainerType() const = 0;
+		inline IFieldWrapper(DataType type) : IDataElement(type) { }
 
 	};
 
 
 	/// @brief Wrapper para un atributo.
+	/// Puede contener una lista de atributos del mismo tipo,
+	/// se debe comprobar la cantidad de elementos.
+	/// 
 	/// @tparam TDataType Tipo de dato.
 	template <typename TDataType>
-	class SingleFieldWrapper : public IFieldWrapper {
+	class FieldWrapper : public IFieldWrapper {
 
 	public:
 
-		FieldType GetFieldType() const override;
-		ContainerType GetContainerType() const override {
-			return ContainerType::SINGLE;
+		/// @brief FieldWrapper vacío.
+		FieldWrapper();
+		/// @brief FieldWrapper con un único elemento.
+		FieldWrapper(const TDataType& data);
+
+
+		/// @brief Añade un valor a la lista.
+		/// @param data Valor.
+		inline void AddValue(const TDataType& data) {
+			this->data.Insert(data);
+		}
+		
+		/// @brief Actualiza el valor en el índice dado.
+		/// @param index Índice dentro de la lista. Debe apuntar a un
+		/// índice en el que hay un elemento guardado.
+		/// @param data Valor.
+		/// 
+		/// @pre El índice debe apuntar a un índice en el que 
+		/// hay un elemento guardado.
+		inline void SetValue(TIndex index, const TDataType& data) {
+			this->data.At(index) = data;
 		}
 
-		inline const TDataType& Get() const { return data; }
-		inline TDataType& GetRef() { return data; }
+		/// @brief Obtiene el valor en el índice dado.
+		/// @param index Índice dentro de la lista.
+		/// @return Valor.
+		/// 
+		/// @pre El índice debe ser < a GetFieldCount().
+		inline const TDataType& Get(TIndex index) const { return data.At(index); }
 
-	private:
+		/// @brief Obtiene el valor en el índice dado.
+		/// @param index Índice dentro de la lista.
+		/// @return Valor.
+		/// 
+		/// @pre El índice debe ser < a GetFieldCount().
+		inline TDataType& GetRef(TIndex index) { return data.At(index); }
 
-		TDataType data;
-
-	};
-
-	/// @brief Wrapper para un atributo.
-	/// @tparam TDataType Tipo de dato.
-	template <typename TDataType>
-	class ListFieldWrapper : public IFieldWrapper {
-
-	public:
-
-		FieldType GetFieldType() const override;
-		ContainerType GetContainerType() const override {
-			return ContainerType::LIST;
+		/// @brief Devuelve el número de valores en la lista.
+		/// @return Número de valores almacenados.
+		inline TSize GetFieldCount() const {
+			return data.GetSize();
 		}
-
-		inline const DynamicArray<TDataType>& Get() const { return data; }
-		inline DynamicArray<TDataType>& GetRef() { return data; }
 
 	private:
 
@@ -79,12 +76,8 @@ namespace OSK::PERSISTENCE {
 
 	};
 
-	template class SingleFieldWrapper<std::string>;
-	template class SingleFieldWrapper<int>;
-	template class SingleFieldWrapper<float>;
-
-	template class ListFieldWrapper<std::string>;
-	template class ListFieldWrapper<int>;
-	template class ListFieldWrapper<float>;
+	template class FieldWrapper<std::string>;
+	template class FieldWrapper<int>;
+	template class FieldWrapper<float>;
 
 }

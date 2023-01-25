@@ -50,7 +50,7 @@ void CommandListVulkan::Start() {
 	const VkCommandBufferBeginInfo beginInfo {
 		VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO,
 		NULL,
-		0, 
+		0, // flags
 		NULL
 	};
 

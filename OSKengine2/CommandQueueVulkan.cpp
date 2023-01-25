@@ -6,15 +6,20 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-void CommandQueueVulkan::Create(TSize nativeQueueIndex, const GpuVulkan& gpu) {
-	vkGetDeviceQueue(gpu.GetLogicalDevice(), nativeQueueIndex, 0, &queue);
-	queueIndex = nativeQueueIndex;
+CommandQueueVulkan::CommandQueueVulkan(CommandQueueSupport support, TIndex familyIndex, TIndex inFamilyIndex, const GpuVulkan& gpu)
+	: ICommandQueue(support), familyIndex(familyIndex), inFamilyIndex(inFamilyIndex) {
+
+	vkGetDeviceQueue(gpu.GetLogicalDevice(), familyIndex, inFamilyIndex, &queue);
 }
 
 VkQueue CommandQueueVulkan::GetQueue() const {
 	return queue;
 }
 
-uint32_t CommandQueueVulkan::GetQueueIndex() const {
-	return queueIndex;
+TIndex CommandQueueVulkan::GetQueueIndex() const {
+	return inFamilyIndex;
+}
+
+TIndex CommandQueueVulkan::GetFamilyIndex() const {
+	return familyIndex;
 }

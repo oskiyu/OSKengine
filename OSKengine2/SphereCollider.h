@@ -9,7 +9,7 @@ namespace OSK::COLLISION {
 	/// @brief Un área de colisión de alto nivel representado
 	/// por una esfera.
 	/// 
-	/// POr defecto, tiene radio 1.
+	/// Por defecto, tiene radio 1.
 	class OSKAPI_CALL SphereCollider : public ITopLevelCollider {
 
 	public:

@@ -10,6 +10,7 @@ var namespace_o_s_k =
     [ "MEMORY", "namespace_o_s_k_1_1_m_e_m_o_r_y.html", [
       [ "MemorySwap", "namespace_o_s_k_1_1_m_e_m_o_r_y.html#a35e3458f3c005afe03cc0655371008e5", null ]
     ] ],
+    [ "PERSISTENCE", "namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html", "namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e" ],
     [ "UI", "namespace_o_s_k_1_1_u_i.html", "namespace_o_s_k_1_1_u_i" ],
     [ "BitSet", "class_o_s_k_1_1_bit_set.html", "class_o_s_k_1_1_bit_set" ],
     [ "Color", "class_o_s_k_1_1_color.html", "class_o_s_k_1_1_color" ],

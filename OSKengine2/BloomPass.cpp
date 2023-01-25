@@ -34,7 +34,7 @@ void BloomPass::Create(const Vector2ui& size) {
 	intermediateInfo.sampler = GpuImageSamplerDesc::CreateDefault();
 	intermediateInfo.sampler.filteringType = GpuImageFilteringType::LIENAR;
 	intermediateInfo.sampler.addressMode = GpuImageAddressMode::EDGE;
-	intermediateInfo.usage = GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED;
+	intermediateInfo.usage = GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_DESTINATION;
 	intermediateInfo.name = "Bloom Target 0";
 	bloomIntermediateTargets[0].Create(size, intermediateInfo);
 
@@ -163,14 +163,16 @@ void BloomPass::Execute(ICommandList* computeCmdList) {
 	CopyImageInfo copyInfo = CopyImageInfo::CreateDefault2D(imgSize);
 	computeCmdList->CopyImageToImage(inputImages[resourceIndex], bloomIntermediateTargets[firstSource].GetTargetImage(resourceIndex), copyInfo);
 
-	computeCmdList->SetGpuImageBarrier(bloomIntermediateTargets[firstSource].GetTargetImage(resourceIndex), GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
+
 	computeCmdList->SetGpuImageBarrier(inputImages[resourceIndex], GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ));
 
+	// Source = read
+	computeCmdList->SetGpuImageBarrier(bloomIntermediateTargets[firstSource].GetTargetImage(resourceIndex), GpuImageLayout::SAMPLED,
+		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
 	// Target = write
 	computeCmdList->SetGpuImageBarrier(bloomIntermediateTargets[firstDestination].GetTargetImage(resourceIndex), GpuImageLayout::GENERAL,
-		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ));
+		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
 
 
 	computeCmdList->StartDebugSection("Downscale", Color::PURPLE());
