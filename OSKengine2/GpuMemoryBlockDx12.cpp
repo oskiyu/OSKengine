@@ -85,7 +85,3 @@ OwnedPtr<IGpuMemorySubblock> GpuMemoryBlockDx12::CreateNewMemorySubblock(TSize s
 	OSK_ASSERT(false, "No se puede crear subbloque para el uso de memoria dado.");
 	return nullptr;
 }
-
-void GpuMemoryBlockDx12::Free() {
-	memory->Release();
-}

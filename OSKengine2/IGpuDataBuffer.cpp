@@ -1,5 +1,6 @@
 #include "IGpuDataBuffer.h"
 
+#include "IGpuMemoryBlock.h"
 #include "IGpuMemorySubblock.h"
 
 using namespace OSK;
@@ -11,11 +12,11 @@ GpuDataBuffer::GpuDataBuffer(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TS
 }
 
 GpuDataBuffer::~GpuDataBuffer() {
-
+	buffer->GetOwnerBlock()->RemoveSubblock(buffer);
 }
 
 IGpuMemorySubblock* GpuDataBuffer::GetMemorySubblock() const {
-	return buffer.GetPointer();
+	return buffer;
 }
 
 IGpuMemoryBlock* GpuDataBuffer::GetMemoryBlock() const {

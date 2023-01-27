@@ -16,11 +16,11 @@ IGpuMemorySubblock::~IGpuMemorySubblock() {
 	ownerBlock->RemoveSubblock(this);
 }
 
-IGpuMemorySubblock::TSize IGpuMemorySubblock::GetAllocatedSize() const {
+TSize IGpuMemorySubblock::GetAllocatedSize() const {
 	return reservedSize;
 }
 
-IGpuMemorySubblock::TSize IGpuMemorySubblock::GetOffsetFromBlock() const {
+TSize IGpuMemorySubblock::GetOffsetFromBlock() const {
 	return totalOffsetFromBlock;
 }
 

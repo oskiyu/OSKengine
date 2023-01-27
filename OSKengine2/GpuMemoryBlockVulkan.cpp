@@ -18,7 +18,18 @@ using namespace OSK::GRAPHICS;
 
 
 GpuMemoryBlockVulkan::~GpuMemoryBlockVulkan() {
-	Free();
+	// Eliminamos todos los subbloques.
+	subblocks.Free();
+
+	if (buffer != VK_NULL_HANDLE) {
+		vkDestroyBuffer(device->As<GpuVulkan>()->GetLogicalDevice(), buffer, nullptr);
+		buffer = VK_NULL_HANDLE;
+	}
+
+	if (memory != VK_NULL_HANDLE) {
+		vkFreeMemory(device->As<GpuVulkan>()->GetLogicalDevice(), memory, nullptr);
+		memory = VK_NULL_HANDLE;
+	}
 }
 
 OwnedPtr<GpuMemoryBlockVulkan> GpuMemoryBlockVulkan::CreateNewBufferBlock(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage) {
@@ -30,6 +41,7 @@ OwnedPtr<GpuMemoryBlockVulkan> GpuMemoryBlockVulkan::CreateNewImageBlock(GpuImag
 
 GpuMemoryBlockVulkan::GpuMemoryBlockVulkan(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage)
 	: IGpuMemoryBlock(reservedSize, device, type, GpuMemoryUsage::BUFFER) {
+
 	VkBufferCreateInfo bufferInfo{};
 	bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
 	bufferInfo.size = reservedSize;
@@ -78,26 +90,6 @@ GpuMemoryBlockVulkan::GpuMemoryBlockVulkan(GpuImage* image, IGpu* device, GpuIma
 	OSK_ASSERT(result == VK_SUCCESS, "No se pudo reservar memoria para la imagen");
 
 	vkBindImageMemory(device->As<GpuVulkan>()->GetLogicalDevice(), image->As<GpuImageVulkan>()->GetVkImage(), memory, 0);
-}
-
-void GpuMemoryBlockVulkan::Free() {
-	while (!subblocks.IsEmpty())
-		delete subblocks.At(0);
-
-	subblocks.Free();
-
-	if (buffer != VK_NULL_HANDLE) {
-		vkDestroyBuffer(device->As<GpuVulkan>()->GetLogicalDevice(), buffer, nullptr);
-
-		buffer = VK_NULL_HANDLE;
-	}
-
-	if (memory != VK_NULL_HANDLE) {
-		vkFreeMemory(device->As<GpuVulkan>()->GetLogicalDevice(), memory, nullptr);
-
-		memory = VK_NULL_HANDLE;
-	}
-
 }
 
 VkDeviceMemory GpuMemoryBlockVulkan::GetVulkanMemory() const {

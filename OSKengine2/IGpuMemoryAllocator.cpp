@@ -25,31 +25,39 @@ IGpuMemoryAllocator::IGpuMemoryAllocator(IGpu* device) : device(device) {
 }
 
 IGpuMemoryAllocator::~IGpuMemoryAllocator() {
-	for (auto& list : bufferMemoryBlocks)
-		for (auto& block : list.second)
-			delete block.GetPointer();
-
-	for (auto& i : imageMemoryBlocks)
-		delete i.GetPointer();
-}
-
-void IGpuMemoryAllocator::RemoveImageBlock(IGpuMemoryBlock* iblock) {
-	imageMemoryBlocks.Remove(OwnedPtr(iblock));
-	}
-
-void IGpuMemoryAllocator::Free() {
-	for (auto& list : bufferMemoryBlocks) {
-		for (auto& i : list.second)
-			i->Free();
-
-		list.second.Free();
-	}
-
-	for (auto i : imageMemoryBlocks)
-		i->Free();
-
+	bufferMemoryBlocks.Free();
 	imageMemoryBlocks.Free();
 }
+
+void IGpuMemoryAllocator::RemoveMemoryBlock(IGpuMemoryBlock* iblock) {
+	std::optional<TIndex> index;
+	for (TIndex i = 0; i < imageMemoryBlocks.GetSize(); i++) {
+		if (imageMemoryBlocks[i].GetPointer() == iblock) {
+			index = i;
+			break;
+		}
+	}
+
+	if (index.has_value()) {
+		imageMemoryBlocks.RemoveAt(index.value());
+		return;
+	}
+
+	for (auto& list : bufferMemoryBlocks) {
+		for (TIndex i = 0; i < list.GetSize(); i++) {
+			if (list[i].GetPointer() == iblock) {
+				index = i;
+				break;
+			}
+		}
+
+		if (index.has_value()) {
+			imageMemoryBlocks.RemoveAt(index.value());
+			return;
+		}
+	}
+}
+
 OwnedPtr<GpuImage> IGpuMemoryAllocator::CreateCubemapImage(const Vector2ui& faceSize, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, GpuImageSamplerDesc samplerDesc) {
 	if (!EFTraits::HasFlag(usage, GpuImageUsage::CUBEMAP))
 		EFTraits::AddFlag(&usage, GpuImageUsage::CUBEMAP);
@@ -65,13 +73,15 @@ OwnedPtr<GpuImage> IGpuMemoryAllocator::CreateCubemapImage(const Vector2ui& face
 IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
 	// Miramos todas las listas de bloques para comprobar si hay alguna que
 	// tiene bloques con las características necesarias.
-	for (auto& [blockInfo, list] : bufferMemoryBlocks) {
-		if (blockInfo.usage == usage && blockInfo.sharedType == sharedType) {
-			for (auto& i : list)
-				if (i->GetAvailableSpace() >= size)
-					return i.GetPointer();
+	for (TIndex i = 0; i < bufferMemoryBlocksInfo.GetSize(); i++) {
+		const auto& blockInfo = bufferMemoryBlocksInfo[i];
 
-			break;
+		// TODO: permitir reutilización.
+		if (blockInfo.usage == usage && blockInfo.sharedType == sharedType) {
+			for (const auto& block : bufferMemoryBlocks[i]) {
+				if (block->GetAvailableSpace() >= size)
+					return block.GetPointer();
+			}
 		}
 	}
 
@@ -87,13 +97,9 @@ IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(TSize size, GpuBu
 	// Engine::GetLogger()->InfoLog("	Uso: " + ToString(usage)); @bug ???
 	// Engine::GetLogger()->InfoLog("	Tamaño: " + std::to_string(size));
 
-	LinkedList<OwnedPtr<IGpuMemoryBlock>> list;
-	list.Insert(OwnedPtr<IGpuMemoryBlock>(newBlock.GetPointer()));
-
-	bufferMemoryBlocks.Insert(Pair{
-		GpuBufferMemoryBlockInfo{size, usage, sharedType },
-		list
-		});
+	bufferMemoryBlocksInfo.Insert(GpuBufferMemoryBlockInfo{ size, usage, sharedType });
+	bufferMemoryBlocks.Insert({  });
+	bufferMemoryBlocks.Peek().Insert(newBlock.GetPointer());
 
 	return newBlock.GetPointer();
 }

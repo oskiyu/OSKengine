@@ -18,7 +18,7 @@ void GpuMemorySubblockVulkan::MapMemory() {
 }
 
 void GpuMemorySubblockVulkan::MapMemory(TSize size, TSize offset) {
-	vkMapMemory(ownerBlock->GetDevice()->As<GpuVulkan>()->GetLogicalDevice(),
+	vkMapMemory(ownerBlock->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
 		ownerBlock->As<GpuMemoryBlockVulkan>()->GetVulkanMemory(),
 		totalOffsetFromBlock + offset,
 		size,
@@ -43,7 +43,7 @@ void GpuMemorySubblockVulkan::Unmap() {
 	if (!isMapped)
 		return;
 
-	vkUnmapMemory(ownerBlock->GetDevice()->As<GpuVulkan>()->GetLogicalDevice(),
+	vkUnmapMemory(ownerBlock->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
 		ownerBlock->As<GpuMemoryBlockVulkan>()->GetVulkanMemory());
 
 	isMapped = false;

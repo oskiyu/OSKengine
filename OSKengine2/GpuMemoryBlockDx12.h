@@ -19,14 +19,16 @@ namespace OSK::GRAPHICS {
 
 	public:
 		
+		~GpuMemoryBlockDx12() {
+			memory->Release();
+		}
+
 		static OwnedPtr<GpuMemoryBlockDx12> CreateNewBufferBlock(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage);
 		static OwnedPtr<GpuMemoryBlockDx12> CreateNewImageBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage, TSize numLayers);
 
 		ComPtr<ID3D12Heap>& GetMemory() {
 			return memory;
 		}
-
-		void Free() override;
 
 	private:
 

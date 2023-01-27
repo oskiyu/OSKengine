@@ -550,9 +550,9 @@ namespace OSK {
 			OSK_ASSERT(HasBeenInitialized(), "DynamicArray: tried to remove element from an uninitialized array.");
 #endif // _DEBUG
 
-			At(index).~T();
+			data[index].~T();
 
-			memmove(&data[index], &data[index + 1], size - index);
+			memmove(&data[index], &data[index + 1], sizeof(T) * (size - (index + 1)));
 
 			size--;
 		}

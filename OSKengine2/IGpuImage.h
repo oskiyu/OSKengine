@@ -33,7 +33,7 @@ namespace OSK::GRAPHICS {
 	public:
 
 		GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples, GpuImageSamplerDesc samplerDesc);
-		virtual ~GpuImage();
+		virtual ~GpuImage() override;
 
 		void _SetPhysicalSize(const Vector3ui& size);
 
@@ -117,7 +117,7 @@ namespace OSK::GRAPHICS {
 
 		mutable HashMap<IGpuImageView, UniquePtr<IGpuImageView>> views;
 
-		UniquePtr<IGpuMemoryBlock> block;
+		IGpuMemoryBlock* block = nullptr;
 		IGpuMemorySubblock* buffer = nullptr;
 
 		Vector3ui size = 0;

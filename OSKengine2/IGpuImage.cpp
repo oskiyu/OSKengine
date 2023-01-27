@@ -35,8 +35,7 @@ GpuImage::~GpuImage() {
 	if (buffer)
 		block->RemoveSubblock(buffer);
 
-	Engine::GetRenderer()->GetAllocator()->RemoveImageBlock(block.GetPointer());
-	block.Delete();
+	Engine::GetRenderer()->GetAllocator()->RemoveMemoryBlock(block);
 }
 
 void GpuImage::SetBlock(OwnedPtr<IGpuMemoryBlock> block) {
@@ -83,7 +82,7 @@ Format GpuImage::GetFormat() const {
 }
 
 IGpuMemoryBlock* GpuImage::GetMemory() const {
-	return block.GetPointer();
+	return block;
 }
 
 IGpuMemorySubblock* GpuImage::GetBuffer() const {

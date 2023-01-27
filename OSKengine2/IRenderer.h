@@ -16,7 +16,9 @@
 #include "RenderTarget.h"
 #include "MaterialSystem.h"
 #include "PresentMode.h"
+
 #include "IGpuImage.h"
+#include "IGpuDataBuffer.h"
 
 // Camera 2D para renderizar a la pantalla
 #include "CameraComponent2D.h"

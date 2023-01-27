@@ -119,7 +119,7 @@ namespace OSK::GRAPHICS {
 
 	protected:
 
-		UniquePtr<IGpuMemorySubblock> buffer;
+		IGpuMemorySubblock* buffer = nullptr;
 
 	private:
 

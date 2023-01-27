@@ -258,7 +258,8 @@ protected:
 
 		RenderTargetAttachmentInfo preEffectsColorInfo{ .format = Format::RGBA16_SFLOAT, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE };
 		RenderTargetAttachmentInfo preEffectsDepthInfo{ .format = Format::D32S8_SFLOAT_SUINT };
-		preEffectsRenderTarget.Create(Engine::GetDisplay()->GetResolution(), { preEffectsColorInfo }, preEffectsDepthInfo);
+		preEffectsRenderTarget = new RenderTarget();
+		preEffectsRenderTarget->Create(Engine::GetDisplay()->GetResolution(), { preEffectsColorInfo }, preEffectsDepthInfo);
 		
 
 		fxaaPass = new FxaaPass();
@@ -444,7 +445,7 @@ protected:
 		graphicsCommandList->BindVertexBuffer(Sprite::globalVertexBuffer);
 		graphicsCommandList->BindIndexBuffer(Sprite::globalIndexBuffer);
 
-		graphicsCommandList->BeginGraphicsRenderpass(&preEffectsRenderTarget);
+		graphicsCommandList->BeginGraphicsRenderpass(preEffectsRenderTarget.GetPointer());
 		graphicsCommandList->BindMaterial(Engine::GetRenderer()->GetFullscreenRenderingMaterial());
 
 		graphicsCommandList->BindMaterialSlot(Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->GetRenderTarget().GetFullscreenSpriteMaterialSlot());
@@ -486,7 +487,7 @@ protected:
 	}
 
 	void SetupPostProcessingChain() {
-		fxaaPass->SetInput(preEffectsRenderTarget, IPostProcessPass::InputType::SAMPLER);
+		fxaaPass->SetInput(preEffectsRenderTarget.GetValue(), IPostProcessPass::InputType::SAMPLER);
 		bloomPass->SetInput(fxaaPass->GetOutput(), IPostProcessPass::InputType::SAMPLER);
 		toneMappingPass->SetInput(bloomPass->GetOutput(), IPostProcessPass::InputType::SAMPLER);
 
@@ -496,7 +497,7 @@ protected:
 	}
 
 	void OnWindowResize(const Vector2ui& size) {
-		preEffectsRenderTarget.Resize(size);
+		preEffectsRenderTarget->Resize(size);
 		fxaaPass->Resize(size);
 		bloomPass->Resize(size);
 		toneMappingPass->Resize(size);
@@ -505,12 +506,20 @@ protected:
 	}
 
 	void OnExit() override {
+		bloomPass.Delete();
+		fxaaPass.Delete();
+		toneMappingPass.Delete();
 
+		for (TIndex i = 0; i < _countof(exposureBuffers); i++)
+			exposureBuffers[i].Delete();
+
+		preEffectsRenderTarget.Delete();
 	}
 
 private:
 
-	RenderTarget preEffectsRenderTarget;
+	UniquePtr<RenderTarget> preEffectsRenderTarget;
+
 	UniquePtr<BloomPass> bloomPass;
 	UniquePtr<FxaaPass> fxaaPass;
 	UniquePtr<ToneMappingPass> toneMappingPass;

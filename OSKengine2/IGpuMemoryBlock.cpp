@@ -12,11 +12,11 @@ void IGpuMemoryBlock::RemoveSubblock(IGpuMemorySubblock* subblock) {
 	subblocks.Remove(subblock);
 }
 
-IGpuMemoryBlock::TSize IGpuMemoryBlock::GetAllocatedSize() const {
+TSize IGpuMemoryBlock::GetAllocatedSize() const {
 	return totalSize;
 }
 
-IGpuMemoryBlock::TSize IGpuMemoryBlock::GetAvailableSpace() const {
+TSize IGpuMemoryBlock::GetAvailableSpace() const {
 	return availableSpace;
 }
 
@@ -65,8 +65,4 @@ IGpuMemorySubblock* IGpuMemoryBlock::GetNextMemorySubblock(TSize size, TSize ali
 	currentOffset += size + extraOffset;
 
 	return output;
-}
-
-IGpu* IGpuMemoryBlock::GetDevice() const {
-	return device;
 }

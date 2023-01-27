@@ -16,7 +16,6 @@ namespace OSK::GRAPHICS {
 	public:
 
 		~GpuMemoryBlockVulkan();
-		void Free() override;
 
 		static OwnedPtr<GpuMemoryBlockVulkan> CreateNewBufferBlock(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage);
 		static OwnedPtr<GpuMemoryBlockVulkan> CreateNewImageBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage);
@@ -34,18 +33,11 @@ namespace OSK::GRAPHICS {
 		static VkMemoryAllocateFlags GetMemoryAllocateFlags(GpuBufferUsage usage);
 		static uint32_t GetMemoryType(uint32_t memoryTypeFilter, GpuVulkan* device, GpuSharedMemoryType type);
 
-		/// <summary>
-		/// Memoria del bloque.
-		/// </summary>
+		
+		/// @brief Memoria del bloque.
 		VkDeviceMemory memory = VK_NULL_HANDLE;
 
-		/// <summary>
-		/// Buffer único.
-		/// Puede no ser usado.
-		/// 
-		/// Cada subbloque debe tener su propio buffer,
-		/// pero se puede configurar para que exista un único buffer por bloque.
-		/// </summary>
+		/// @brief Buffer del bloque (puede no ser usado).
 		VkBuffer buffer = VK_NULL_HANDLE;
 
 	};

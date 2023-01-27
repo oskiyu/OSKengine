@@ -19,8 +19,6 @@ namespace OSK {
 	/// <typeparam name="T">Tipo del puntero.</typeparam>
 	template <typename T> /*requires std::is_destructible_v<T>*/ class UniquePtr {
 
-#define OSK_STD_UP_DELETE(ptr) if (ptr) delete(ptr);
-
 	public:
 
 		/// <summary>
@@ -39,15 +37,20 @@ namespace OSK {
 		/// </summary>
 		/// <param name="data">Puntero original.</param>
 		void operator=(T* data) {
-			OSK_STD_UP_DELETE(pointer)
-				pointer = data;
+			if (pointer)
+				delete pointer;
+			
+			pointer = data;
 		}
 
 		/// <summary>
 		/// Destruye el puntero, eliminándolo.
 		/// <summary/>
 		~UniquePtr() {
-			OSK_STD_UP_DELETE(pointer)
+			if (pointer) {
+				delete pointer;
+				pointer = nullptr;
+			}
 		}
 
 		inline UniquePtr(const UniquePtr&) = delete;
@@ -87,9 +90,10 @@ namespace OSK {
 		/// </summary>
 		/// <param name="newValue">Nuevo valor.</param>
 		void SetNewValue(T* newValue) {
-			OSK_STD_UP_DELETE(pointer)
+			if (pointer)
+				delete pointer;
 
-				pointer = newValue;
+			pointer = newValue;
 		}
 
 		/// <summary>
@@ -136,7 +140,9 @@ namespace OSK {
 		/// Elimina el puntero.
 		/// </summary>
 		inline void Delete() {
-			OSK_STD_UP_DELETE(pointer);
+			if (pointer)
+				delete pointer;
+
 			pointer = nullptr;
 		}
 
@@ -162,7 +168,7 @@ namespace OSK {
 		/// Puntero.
 		/// </summary>
 		T* pointer = nullptr;
-#undef OSK_STD_UP_DELETE
+
 	};
 
 	/// <summary>

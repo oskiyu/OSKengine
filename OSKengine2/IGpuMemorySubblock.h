@@ -7,8 +7,7 @@ namespace OSK::GRAPHICS {
 
 	class IGpuMemoryBlock;
 
-	/// <summary>
-	/// Representa una región de memoria dedicada a un único recurso.
+	/// @brief Representa una región de memoria dedicada a un único recurso.
 	/// 
 	/// Puede escribirse información sobre la GPU a través del subbloque.
 	/// Para poder escribir, primero es necesario mapear la memoria necesaria,
@@ -20,48 +19,74 @@ namespace OSK::GRAPHICS {
 	/// escribirá con un offset, para no sobreescribir la información antes
 	/// escrita.
 	/// - WriteOffset: ignora el cursor interno.
-	/// </summary>
 	class OSKAPI_CALL IGpuMemorySubblock {
 
 	public:
 
-		typedef unsigned int TSize;
-
 		virtual ~IGpuMemorySubblock();
 
-		/// <summary>
-		/// Mapea toda la memoria del subbloque.
-		/// </summary>
+		OSK_DEFINE_AS(IGpuMemorySubblock);
+		
+		
+		/// @brief Mapea toda la memoria del subbloque, para poder escribirse.
+		/// @pre El tipo de memoria debe ser GPU_AND_CPU.
+		/// @pre No debe haber ninguna región de memoria mapeada.
+		/// @post Se podrá escribir en la zona mapeada.
 		virtual void MapMemory() = 0;
-		/// <summary>
-		/// Mapea la zona dada.
-		/// </summary>
-		/// <param name="size">Tamaño de la zona.</param>
-		/// <param name="offset">Offset respecto al inicio del subbloque.</param>
+		
+		/// @brief Mapea la zona dada.
+		/// @param size Tamaño de la zona, en bytes.
+		/// @param offset Offset respecto al inicio del subbloque, en bytes.
+		/// 
+		/// @pre El tipo de memoria debe ser GPU_AND_CPU.
+		/// @pre La región indicada debe estar dentro de los límites de este subbloque.
+		/// @pre No debe haber ninguna región de memoria mapeada.
+		/// 
+		/// @post Se podrá escribir en la zona mapeada.
 		virtual void MapMemory(TSize size, TSize offset) = 0;
 
-		/// <summary>
-		/// Escribe información en la GPU.
-		/// </summary>
+
+		/// @brief Escribe información en la región de memoria.
+		/// Usa el cursor interno, por lo que sucesivas llamdas a esta función
+		/// no se sobreescribirán, sino que escribirán una después de otra.
+		/// 
+		/// @param data Datos a escribir.
+		/// @param size Tamaño de los datos, en bytes.
+		/// 
+		/// @pre La memoria debe haber sido mapeada antes.
+		/// @pre Toda la información escrita debe escribirse sobre una zona de memoria
+		/// completamente mapeada.
 		virtual void Write(const void* data, TSize size) = 0;
-		/// <summary>
-		/// Escribe información en la GPU, con un offset.
-		/// </summary>
+		
+		/// @brief Escribe información en la región de memoria.
+		/// No usa el cursor interno
+		/// @param data Datos a escribir.
+		/// @param size Tamaño de los datos, en bytes.
+		/// @param offset Offset a partir del que se comienza a escribir.
+		/// Respecto al inicio del subbloque.
+		/// 
+		/// @pre La memoria debe haber sido mapeada antes.
+		/// @pre Toda la información escrita debe escribirse sobre una zona de memoria
+		/// completamente mapeada.
 		virtual void WriteOffset(const void* data, TSize size, TSize offset) = 0;
 
-		/// <summary>
-		/// Desmapea el subbloque.
+
+		/// @brief Desmapea el subbloque.
 		/// Debe llamarse al terminar de escribir.
-		/// </summary>
+		/// 
+		/// @pre Debe haber alguna región de memoria mapeada.
+		/// @post Ya no se podrá escribir en la memoria al no ser que se vuelva a mapear.
 		virtual void Unmap() = 0;
 
+
+		/// @brief Establece el cursor interno en la posición dada.
+		/// @param position Offset, en bytes, respecto al inicio del subbloque.
 		void SetCursor(TSize position);
+
+		/// @brief Establece el cursor a su posición inicial (al principio del subbloque).
 		void ResetCursor();
 
-		template <typename T> T* As() const requires std::is_base_of_v<IGpuMemorySubblock, T> {
-			return (T*)this;
-		}
-
+ 
 		IGpuMemoryBlock* GetOwnerBlock() const;
 
 		TSize GetAllocatedSize() const;
