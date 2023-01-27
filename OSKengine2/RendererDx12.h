@@ -67,7 +67,7 @@ namespace OSK::GRAPHICS {
 		ComPtr<IDXGIFactory4> factory;
 		ComPtr<ID3D12Debug3> debugConsole;
 
-		ID3D12InfoQueue1* debugMessageQueue = nullptr;
+		// ID3D12InfoQueue1* debugMessageQueue = nullptr;
 
 	};
 

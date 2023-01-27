@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Español (España, alfabetización internacional) resources
+// Espaï¿½ol (Espaï¿½a, alfabetizaciï¿½n internacional) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ESN)
 LANGUAGE LANG_SPANISH, SUBLANG_SPANISH_MODERN
@@ -91,15 +91,8 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-GLFW_ICON               ICON                    "C:\\Users\\Oscar\\source\\repos\\OSKengine\\OSKengine2\\Resources\\Icons\\GLFW_ICON.ico"
 
-IDI_ICON1               ICON                    "F:\\Users\\óscar\\Documents\\OSCAR\\OSK\\OSKengine\\icons\\OSKengine_icon_lowres_64.ico"
-
-IDI_ICON2               ICON                    "F:\\Users\\óscar\\Documents\\OSCAR\\OSK\\OSKengine\\icons\\OSKengine_icon_lowres_48.ico"
-
-IDI_ICON3               ICON                    "F:\\Users\\óscar\\Documents\\OSCAR\\OSK\\OSKengine\\icons\\OSKengine_icon_lowres_16.ico"
-
-#endif    // Español (España, alfabetización internacional) resources
+#endif    // Espaï¿½ol (Espaï¿½a, alfabetizaciï¿½n internacional) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

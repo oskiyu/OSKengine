@@ -1,9 +1,9 @@
 # OSKengine 
 ![alt text](./Marca/card.png?raw=true)
 
-**NOTE: this project is still in early development, and may be unstable.**
+**NOTE: this project is still in early development and may be unstable.**
 
-**OSKengine** is a general purpose 3D game engine.
+**OSKengine** is a general-purpose 3D game engine.
 
 # Main features & design philosophy
 
@@ -16,10 +16,10 @@ The main features can be checked in [my website](https://oskiyu.github.io/). Som
     - HDR bloom.
     - 3D animation support.
     - FXAA.
-    - Tesselation & ray-tracing support.
+    - Tessellation & ray-tracing support.
 - Extensive and detailed API documentation (in Spanish).
 
-**OSKengine** has been designed following a modular design philosophy that allows for great customisation from the developer's side. You can read more about the design decissions taken and implementation details [here](./philosophy.md).
+**OSKengine** has been designed following a modular design philosophy that allows for great customization from the developer's side. You can read more about the design decisions taken and implementation details [here](./philosophy.md).
 
 # Build Instructions
 
@@ -29,7 +29,7 @@ This project is being developed in *Visual Studio 2022* and all dependencies are
 2. Build using the `Release x64` build configuration.
 3. Run.
 
-The only prerequesite is having a GPU with `Vulkan 1.3` support, as well as support for the `VK_KHR_dynamic_rendering` extension.
+The only prerequisite is having a GPU with `Vulkan 1.3` support, as well as support for the `VK_KHR_dynamic_rendering` extension.
 
 # Project Structure
 

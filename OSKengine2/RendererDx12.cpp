@@ -211,8 +211,8 @@ void RendererDx12::ChooseGpu() {
 		HRESULT result = device->QueryInterface(IID_ID3D12InfoQueue, (LPVOID*)&infoQueue1);
 
 		if (SUCCEEDED(result)) {
-			result = device->QueryInterface(IID_ID3D12InfoQueue1, (LPVOID*)&debugMessageQueue);
-			debugMessageQueue->RegisterMessageCallback(RendererDx12::DebugCallback, D3D12_MESSAGE_CALLBACK_FLAG_NONE, nullptr, NULL);
+			// result = device->QueryInterface(IID_ID3D12InfoQueue1, (LPVOID*)&debugMessageQueue);
+			// debugMessageQueue->RegisterMessageCallback(RendererDx12::DebugCallback, D3D12_MESSAGE_CALLBACK_FLAG_NONE, nullptr, NULL);
 		}
 		else {
 			Engine::GetLogger()->InfoLog("NO se ha podido establecer el callback de mensajes de log.");
