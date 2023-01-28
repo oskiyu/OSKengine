@@ -199,6 +199,11 @@ namespace OSK {
 
 		}
 
+		~HashMap() {
+			for (TIndex i = 0; i < numBuckets; i++)
+				buckets[i].Free();
+		}
+
 		/// <summary>
 		/// Inserta una nueva pareja.
 		/// 

@@ -113,6 +113,10 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	HlslRuntimeCompiler::InitializeComponents();
 }
 
+void RendererDx12::WaitForCompletion() {
+
+}
+
 void RendererDx12::Close() {
 	isOpen = false;
 }

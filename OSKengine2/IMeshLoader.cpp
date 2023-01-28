@@ -102,6 +102,7 @@ DynamicArray<OwnedPtr<GpuImage>> IMeshLoader::LoadImages() {
 			Format::RGBA8_UNORM,
 			GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED)
 		);
+		image->SetDebugName("Mesh texture " + std::to_string(i));
 
 		OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList();
 		uploadCmdList->Reset();

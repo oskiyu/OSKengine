@@ -92,7 +92,6 @@ OSK::GRAPHICS::SpriteRenderer spriteRenderer;
 OSK::GRAPHICS::ITopLevelAccelerationStructure* topLevelAccelerationStructure = nullptr;
 OSK::GRAPHICS::IGpuStorageBuffer* instancesInfoBuffer = nullptr;
 
-OSK::GRAPHICS::RenderTarget textRenderTarget;
 
 struct RtInstanceInfo {
 	TSize vertexOffset = 0; // In bytes
@@ -252,12 +251,13 @@ protected:
 		// Terrain
 		// renderSystem->InitializeTerrain({ 10u }, *Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/heightmap0.json", "GLOBAL"), *Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/terrain0.json", "GLOBAL"));
 
-		RenderTargetAttachmentInfo textColorInfo{ .format = Format::RGBA8_UNORM, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE };
-		RenderTargetAttachmentInfo textDepthInfo{ .format = Format::D32S8_SFLOAT_SUINT };
-		textRenderTarget.Create(Engine::GetDisplay()->GetResolution(), { textColorInfo }, textDepthInfo);
+		RenderTargetAttachmentInfo textColorInfo{ .format = Format::RGBA8_UNORM, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE, .name = "Text Color Target" };
+		RenderTargetAttachmentInfo textDepthInfo{ .format = Format::D32S8_SFLOAT_SUINT , .name = "Text Depth Target" };
+		textRenderTarget = new RenderTarget();
+		textRenderTarget->Create(Engine::GetDisplay()->GetResolution(), { textColorInfo }, textDepthInfo);
 
-		RenderTargetAttachmentInfo preEffectsColorInfo{ .format = Format::RGBA16_SFLOAT, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE };
-		RenderTargetAttachmentInfo preEffectsDepthInfo{ .format = Format::D32S8_SFLOAT_SUINT };
+		RenderTargetAttachmentInfo preEffectsColorInfo{ .format = Format::RGBA16_SFLOAT, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE, .name = "Pre-Effects Color Target" };
+		RenderTargetAttachmentInfo preEffectsDepthInfo{ .format = Format::D32S8_SFLOAT_SUINT, .name = "Pre-Effects Depth Target" };
 		preEffectsRenderTarget = new RenderTarget();
 		preEffectsRenderTarget->Create(Engine::GetDisplay()->GetResolution(), { preEffectsColorInfo }, preEffectsDepthInfo);
 		
@@ -285,7 +285,7 @@ protected:
 
 		toneMappingPass->SetExposureBuffers(epxBuffers);
 
-		Engine::GetRenderer()->RegisterRenderTarget(&textRenderTarget);
+		Engine::GetRenderer()->RegisterRenderTarget(textRenderTarget.GetPointer());
 	}
 
 	void RegisterSystems() override {
@@ -428,7 +428,7 @@ protected:
 
 		// Render text
 		frameBuildCommandList->StartDebugSection("Text Rendering", Color::BLUE());
-		graphicsCommandList->BeginGraphicsRenderpass(&textRenderTarget, Color::BLACK() * 0.0f);
+		graphicsCommandList->BeginGraphicsRenderpass(textRenderTarget.GetPointer(), Color::BLACK() * 0.0f);
 		spriteRenderer.Begin();
 		spriteRenderer.DrawString(*font, 30, "OSKengine build " + Engine::GetBuild(), Vector2f{ 20.0f, 30.0f }, Vector2f{ 1.0f }, 0.0f, Color::WHITE());
 		spriteRenderer.DrawString(*font, 30, "FPS " + std::to_string(GetFps()), Vector2f{ 20.0f, 60.0f }, Vector2f{ 1.0f }, 0.0f, Color::WHITE());
@@ -478,7 +478,7 @@ protected:
 		frameBuildCommandList->BindMaterialSlot(toneMappingPass->GetOutput().GetFullscreenSpriteMaterialSlot());
 		frameBuildCommandList->DrawSingleInstance(6);
 
-		frameBuildCommandList->BindMaterialSlot(textRenderTarget.GetFullscreenSpriteMaterialSlot());
+		frameBuildCommandList->BindMaterialSlot(textRenderTarget->GetFullscreenSpriteMaterialSlot());
 		frameBuildCommandList->DrawSingleInstance(6);
 
 		frameBuildCommandList->EndGraphicsRenderpass();
@@ -514,11 +514,13 @@ protected:
 			exposureBuffers[i].Delete();
 
 		preEffectsRenderTarget.Delete();
+		textRenderTarget.Delete();
 	}
 
 private:
 
 	UniquePtr<RenderTarget> preEffectsRenderTarget;
+	UniquePtr<RenderTarget> textRenderTarget;
 
 	UniquePtr<BloomPass> bloomPass;
 	UniquePtr<FxaaPass> fxaaPass;

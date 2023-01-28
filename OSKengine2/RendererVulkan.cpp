@@ -169,7 +169,18 @@ OwnedPtr<IComputePipeline> RendererVulkan::_CreateComputePipeline(const Pipeline
 	return pipeline;
 }
 
+void RendererVulkan::WaitForCompletion() {
+	const VkDevice device = currentGpu->As<GpuVulkan>()->GetLogicalDevice();
+
+	// Esperar a que termine la ejecución de todos los comandos.
+	vkDeviceWaitIdle(device);
+}
+
 void RendererVulkan::Close() {
+	const VkDevice device = currentGpu->As<GpuVulkan>()->GetLogicalDevice();
+
+	WaitForCompletion();
+
 	syncDevice.Delete();
 	swapchain.Delete();
 
@@ -184,6 +195,16 @@ void RendererVulkan::Close() {
 	gpuMemoryAllocator.Delete();
 
 	vkDestroySurfaceKHR(instance, surface, nullptr);
+
+	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+		vkDestroyFence(device, fullyRenderedFences[i], nullptr);
+
+		vkDestroySemaphore(device, imageAvailableSemaphores[i], nullptr);
+		vkDestroySemaphore(device, preComputeFinishedSemaphores[i], nullptr);
+		vkDestroySemaphore(device, renderFinishedSemaphores[i], nullptr);
+		vkDestroySemaphore(device, postComputeFinishedSemaphores[i], nullptr);
+		vkDestroySemaphore(device, frameBuildSemaphores[i], nullptr);
+	}
 
 	currentGpu.Delete();
 

@@ -111,8 +111,8 @@ MaterialSystem* IRenderer::GetMaterialSystem() const {
 }
 
 void IRenderer::CreateMainRenderpass() {
-	RenderTargetAttachmentInfo colorInfo{ .format = swapchain->GetColorFormat() };
-	RenderTargetAttachmentInfo depthInfo{ .format = Format::D32S8_SFLOAT_SUINT };
+	RenderTargetAttachmentInfo colorInfo{ .format = swapchain->GetColorFormat(), .name = "Final Color Target" };
+	RenderTargetAttachmentInfo depthInfo{ .format = Format::D32S8_SFLOAT_SUINT, .name = "Final Depth Target" };
 	finalRenderTarget = new RenderTarget;
 	finalRenderTarget->CreateAsFinal({ swapchain->GetImage(0)->GetSize().X, swapchain->GetImage(0)->GetSize().Y },
 		{ colorInfo }, depthInfo);

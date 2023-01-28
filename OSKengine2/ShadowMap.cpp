@@ -37,11 +37,13 @@ void ShadowMap::Create(const Vector2ui& imageSize) {
 		imageInfo.samplerDesc = depthSampler;
 
 		unusedColorArrayAttachment[i] = memAllocator->CreateImage(imageInfo).GetPointer();
+		unusedColorArrayAttachment[i]->SetDebugName("Shadow Map [" + std::to_string(i) + "] Unused Attachment");
 
 		imageInfo.format = Format::D32S8_SFLOAT_SUINT;
 		imageInfo.usage = GpuImageUsage::DEPTH_STENCIL | GpuImageUsage::SAMPLED | GpuImageUsage::SAMPLED_ARRAY;
 
 		depthArrayAttachment[i] = memAllocator->CreateImage(imageInfo).GetPointer();
+		depthArrayAttachment[i]->SetDebugName("Shadow Map [" + std::to_string(i) + "] Depth");
 	}
 
 	shadowsGenMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_shadows.json");

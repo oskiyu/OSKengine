@@ -84,12 +84,14 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 }
 
 void Engine::Close() {
+	renderer->WaitForCompletion();
+
 	entityComponentSystem.Delete();
 	assetManager.Delete();
-	renderer.Delete();
 	display.Delete();
-	logger.Delete();
 	inputManager.Delete();
+	renderer.Delete();
+	logger.Delete();
 }
 
 void Engine::RegisterBuiltinAssets() {

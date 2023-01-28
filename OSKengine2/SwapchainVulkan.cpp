@@ -32,11 +32,16 @@ VkPresentModeKHR GetPresentModeVk(PresentMode mode) {
 }
 
 SwapchainVulkan::~SwapchainVulkan() {
-	vkDestroySwapchainKHR(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
-		swapchain, nullptr);
+	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
 
-	for (auto& i : images)
-		i->As<GpuImageVulkan>()->_SetVkImage(VK_NULL_HANDLE);
+	vkDestroySwapchainKHR(device, swapchain, nullptr);
+
+	for (auto& i : images) {
+		GpuImageVulkan* image = i->As<GpuImageVulkan>();
+
+		vkDestroyImageView(device, image->GetSwapchainView(), nullptr);
+		image->_SetVkImage(VK_NULL_HANDLE);
+	}
 }
 
 void SwapchainVulkan::Create(PresentMode mode, Format format, const GpuVulkan& device, const IO::IDisplay& display) {

@@ -44,6 +44,8 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		virtual ~IGpuImageView() = default;
+
 		IGpuImageView(SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage);
 
 		OSK_DEFINE_AS(IGpuImageView);

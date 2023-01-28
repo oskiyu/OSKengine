@@ -49,8 +49,7 @@ PolygonMode GetPolygonMode(const std::string& type) {
 
 
 MaterialSystem::~MaterialSystem() {
-	for (TSize i = 0; i < materials.GetSize(); i++)
-		delete materials[i].GetPointer();
+
 }
 
 void MaterialSystem::LoadMaterialV0(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info) {

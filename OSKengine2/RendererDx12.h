@@ -23,13 +23,13 @@ namespace OSK::GRAPHICS {
 
 		RendererDx12(bool requestRayTracing);
 		~RendererDx12();
-
 		void Initialize(const std::string& appName, const Version& version, const IO::IDisplay& display, PresentMode mode) override;
 		void Close() override;
 		void HandleResize() override;
 
 		void PresentFrame() override;
 		void SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) override;
+		void WaitForCompletion() override;
 
 		OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexInfo) override;
 		OwnedPtr<IRaytracingPipeline> _CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexTypeName) override;

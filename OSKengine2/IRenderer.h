@@ -83,6 +83,11 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		virtual void PresentFrame() = 0;
 
+		/// @brief Hace que el hilo actual espere a que se hayan ejecutado
+		/// todos los comandos.
+		/// Para su uso antes del cleanup.
+		virtual void WaitForCompletion() = 0;
+
 #pragma region Getters
 
 		ICommandList* GetPreComputeCommandList() const;

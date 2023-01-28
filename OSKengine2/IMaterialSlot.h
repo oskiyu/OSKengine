@@ -3,6 +3,7 @@
 #include "OSKmacros.h"
 #include "GpuImageUsage.h"
 #include <string>
+#include "IGpuObject.h"
 
 namespace OSK::ASSETS {
 	class Texture;
@@ -23,15 +24,13 @@ namespace OSK::GRAPHICS {
 	/// @warning Establecer los recursos mediante Set<...> no actualizará los recursos que realmente se enviarán a los shaders,
 	/// debe llamarse explícitamente a FlushUpdate().
 	/// </summary>
-	class OSKAPI_CALL IMaterialSlot {
+	class OSKAPI_CALL IMaterialSlot : public IGpuObject {
 
 	public:
 
 		virtual ~IMaterialSlot() = default;
 
-		template <typename T> T* As() const requires std::is_base_of_v<IMaterialSlot, T> {
-			return (T*)this;
-		}
+		OSK_DEFINE_AS(IMaterialSlot);
 
 		/// <summary>
 		/// Establece el UNIFORM BUFFER que será asignado al binding con el nombre dado.
@@ -161,7 +160,7 @@ namespace OSK::GRAPHICS {
 		virtual void FlushUpdate() = 0;
 
 		std::string GetName() const;
-
+		
 	protected:
 
 		IMaterialSlot(const MaterialLayout* layout, const std::string& name);

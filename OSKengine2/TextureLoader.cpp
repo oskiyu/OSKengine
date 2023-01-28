@@ -63,6 +63,7 @@ void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	const Vector2ui size(width, height);
 	const auto imageInfo = GpuImageCreateInfo::CreateDefault2D(size, imageFormat, GRAPHICS::GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_SOURCE | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION);
 	auto image = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo);
+	image->SetDebugName(assetInfo["name"]);
 
 	OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList();
 	uploadCmdList->Reset();

@@ -91,3 +91,7 @@ const DynamicArray<Pair<TSize, const IGpuStorageBuffer*>>& MaterialSlotDx12::Get
 const DynamicArray<Pair<TSize, const GpuImageDx12*>>& MaterialSlotDx12::GetStorageImages() const {
 	return storageImages;
 }
+
+void MaterialSlotDx12::SetDebugName(const std::string& name) {
+	OSK_ASSERT(false, "No implementado.");
+}

@@ -49,7 +49,7 @@ const MaterialLayout* Material::GetLayout() const {
 	return layout.GetPointer();
 }
 
-const IGraphicsPipeline* Material::GetGraphicsPipeline(const PipelineKey& key) {
+const IGraphicsPipeline* Material::GetGraphicsPipeline(const PipelineKey& key) const {
 	for (TSize i = 0; i < graphicsPipelines.GetSize(); i++) {
 		const PipelineKey& iKey = graphicsPipelinesKeys[i];
 
@@ -72,8 +72,10 @@ const IGraphicsPipeline* Material::GetGraphicsPipeline(const PipelineKey& key) {
 	}
 
 	// Crear nuevo pipeline compatible.
-	pipelineInfo.formats = key;
-	OwnedPtr<IGraphicsPipeline> output = Engine::GetRenderer()->_CreateGraphicsPipeline(pipelineInfo, *GetLayout(), vertexInfo);
+	PipelineCreateInfo newInfo = pipelineInfo; 
+	newInfo.formats = key;
+
+	OwnedPtr<IGraphicsPipeline> output = Engine::GetRenderer()->_CreateGraphicsPipeline(newInfo, *GetLayout(), vertexInfo);
 	output->SetDebugName(name);
 
 	graphicsPipelines.Insert(output.GetPointer());

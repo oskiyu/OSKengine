@@ -86,7 +86,7 @@ void Font::LoadSizedFont(TSize fontSize) {
 	GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(gpuImageSize, Format::RGBA8_SRGB, 
 		GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION);
 	OwnedPtr<GpuImage> gpuImage = Engine::GetRenderer()->GetAllocator() ->CreateImage(imageInfo);
-
+	gpuImage->SetDebugName("Font " + GetName() + "size: " + std::to_string(fontSize));
 
 	instances.InsertMove(fontSize, std::move(FontInstance{}));
 	FontInstance& instance = instances.Get(fontSize);

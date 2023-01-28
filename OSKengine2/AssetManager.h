@@ -6,6 +6,7 @@
 #include "OSKmacros.h"
 #include "LinkedList.hpp"
 #include "SharedPtr.hpp"
+#include "UniquePtr.hpp"
 #include "IAssetLoader.h"
 #include "IAsset.h"
 
@@ -71,7 +72,7 @@ namespace OSK::ASSETS {
 
 		HashMap<std::string, IAsset*> assetsTable;
 		HashMap<std::string, DynamicArray<SharedPtr<IAsset>>> assetsPerLifetime;
-		HashMap<std::string, IAssetLoader*> loaders;
+		HashMap<std::string, UniquePtr<IAssetLoader>> loaders;
 
 	};
 

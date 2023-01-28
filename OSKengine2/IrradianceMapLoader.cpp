@@ -51,8 +51,8 @@ IrradianceMapLoader::IrradianceMapLoader() {
 	cubemapGenMaterialInstance = cubemapGenMaterial->CreateInstance().GetPointer();
 	cubemapConvolutionMaterialInstance = cubemapConvolutionMaterial->CreateInstance().GetPointer();
 
-	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA32_SFLOAT, .usage = GpuImageUsage::TRANSFER_SOURCE };
-	RenderTargetAttachmentInfo depthInfo{ .format = Format::D32S8_SFLOAT_SUINT };
+	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA32_SFLOAT, .usage = GpuImageUsage::TRANSFER_SOURCE, .name = "Irradiance Map Color Target"};
+	RenderTargetAttachmentInfo depthInfo{ .format = Format::D32S8_SFLOAT_SUINT , .name = "Irradiance Map Depth Target" };
 	cubemapGenRenderTarget.Create(irradianceLayerSize, { colorInfo }, depthInfo);
 
 	cubemapModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/cube.json", "OSK::IrradianceMapLoader");
@@ -92,6 +92,7 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IAsset** asset)
 	GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(size2D, Format::RGBA32_SFLOAT, imageUsage);
 
 	UniquePtr<GpuImage> originalImage = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo).GetPointer();
+	originalImage->SetDebugName("Irradiance Map Original Image");
 
 	OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList().GetPointer();
 	uploadCmdList->Reset();

@@ -34,6 +34,8 @@ namespace OSK::GRAPHICS {
 		const DynamicArray<Pair<TSize, const IGpuStorageBuffer*>>& GetStorageBuffers() const;
 		const DynamicArray<Pair<TSize, const GpuImageDx12*>>& GetStorageImages() const;
 
+		void SetDebugName(const std::string& name) override;
+
 	private:
 
 		DynamicArray<Pair<TSize, const GpuUniformBufferDx12*>> buffers;

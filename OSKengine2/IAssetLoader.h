@@ -25,6 +25,8 @@ namespace OSK::ASSETS {
 
 	public:
 
+		virtual ~IAssetLoader() = default;
+
 		/// <summary> Carga el asset. </summary>
 		/// <param name="assetFilePath">Ruta del archivo .json que describe el asset.</param>
 		/// <param name="asset">Puntero al puntero del asset a cargar.</param>

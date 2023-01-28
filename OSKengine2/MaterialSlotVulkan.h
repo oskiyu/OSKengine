@@ -34,6 +34,8 @@ namespace OSK::GRAPHICS {
 
 		VkDescriptorSet GetDescriptorSet(TSize index) const;
 
+		void SetDebugName(const std::string& name) override;
+
 	private:
 
 		HashMap<std::string, TSize> bindingsLocations;

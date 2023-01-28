@@ -3,8 +3,10 @@
 #include "OSKmacros.h"
 
 #include "LinkedList.hpp"
+#include "DynamicArray.hpp"
 #include "HashMap.hpp"
 #include "OwnedPtr.h"
+#include "UniquePtr.hpp"
 #include "VertexInfo.h"
 
 #include <string>
@@ -49,7 +51,7 @@ namespace OSK::GRAPHICS {
 		void LoadMaterialV0(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info);
 		void LoadMaterialV1(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info, MaterialType type);
 
-		LinkedList<OwnedPtr<Material>> materials;
+		DynamicArray<UniquePtr<Material>> materials;
 		HashMap<std::string, Material*> materialsTable;
 		HashMap<std::string, VertexInfo> vertexTypesTable;
 		DynamicArray<const IRenderpass*> registeredRenderpasses;

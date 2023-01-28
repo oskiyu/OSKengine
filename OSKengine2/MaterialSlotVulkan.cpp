@@ -26,7 +26,7 @@ inline VkDevice GetDevice() {
 MaterialSlotVulkan::MaterialSlotVulkan(const std::string& name, const MaterialLayout* layout)
 	: IMaterialSlot(layout, name) {
 
-	TSize swapchainCount = Engine::GetRenderer()->GetSwapchainImagesCount();
+	const TSize swapchainCount = Engine::GetRenderer()->GetSwapchainImagesCount();
 
 	descriptorSets.Resize(swapchainCount);
 	bindings.Resize(3);
@@ -44,6 +44,8 @@ MaterialSlotVulkan::MaterialSlotVulkan(const std::string& name, const MaterialLa
 
 	VkResult result = vkAllocateDescriptorSets(GetDevice(), &allocInfo, descriptorSets.GetData());
 	OSK_ASSERT(result == VK_SUCCESS, "Error al crear descriptor sets.");
+
+	SetDebugName(name);
 }
 
 MaterialSlotVulkan::~MaterialSlotVulkan() {
@@ -265,4 +267,22 @@ void MaterialSlotVulkan::FlushUpdate() {
 
 VkDescriptorSet MaterialSlotVulkan::GetDescriptorSet(TSize index) const {
 	return descriptorSets[index];
+}
+
+void MaterialSlotVulkan::SetDebugName(const std::string& name) {
+	VkDebugUtilsObjectNameInfoEXT nameInfo{};
+	nameInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT;
+	nameInfo.objectType = VK_OBJECT_TYPE_DESCRIPTOR_SET;
+	nameInfo.pNext = nullptr;
+
+	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
+
+	nameInfo.pObjectName = name.c_str();
+
+	for (TIndex i = 0; i < descriptorSets.GetSize(); i++) {
+		nameInfo.objectHandle = (uint64_t)descriptorSets[i];
+
+		if (RendererVulkan::pvkSetDebugUtilsObjectNameEXT != nullptr)
+			RendererVulkan::pvkSetDebugUtilsObjectNameEXT(logicalDevice, &nameInfo);
+	}
 }

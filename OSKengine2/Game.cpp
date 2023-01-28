@@ -120,6 +120,8 @@ void IGame::Run() {
 		deltaTime = endTime - startTime;
 	}
 
+	Engine::GetRenderer()->WaitForCompletion();
+
 	OnExit();
 
 	Engine::Close();
