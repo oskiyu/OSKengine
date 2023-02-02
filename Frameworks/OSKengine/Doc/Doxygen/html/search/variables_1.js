@@ -14,7 +14,8 @@ var searchData=
   ['boneindices_11',['boneIndices',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html#a3d6e01f3c68242e9dfa8db6698d4a57b',1,'OSK::GRAPHICS::VertexAnim3D']]],
   ['bonesids_12',['bonesIds',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a36b72f60726fb78f92b01ce07619ffcf',1,'OSK::GRAPHICS::AnimationSkin']]],
   ['boneweights_13',['boneWeights',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html#a18dcb8301cfac29965206b88745d867d',1,'OSK::GRAPHICS::VertexAnim3D']]],
-  ['buffer_14',['buffer',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#ab023c0b5ce84a83d886f3dcb8c7f3dce',1,'OSK::GRAPHICS::GpuMemoryBlockDx12::buffer()'],['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a461883dff4d2ff0f0957d9f5a40991aa',1,'OSK::GRAPHICS::GpuDataBuffer::buffer()']]],
-  ['buffermemoryblocks_15',['bufferMemoryBlocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#abd4e4fe493da63688ae1dfebcdcb2f8b',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
-  ['bytecode_16',['bytecode',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html#a1dbb2aca29ef242c6a9c8efdeb04265e',1,'OSK::GRAPHICS::ShaderStageDx12']]]
+  ['buffer_14',['buffer',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#ab023c0b5ce84a83d886f3dcb8c7f3dce',1,'OSK::GRAPHICS::GpuMemoryBlockDx12::buffer()'],['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html#a6d228566cb35a95bc803f35d5590cb3e',1,'OSK::GRAPHICS::GpuDataBuffer::buffer()']]],
+  ['buffermemoryblocks_15',['bufferMemoryBlocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a8c63090eab5d64c093fe10e09b07d303',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
+  ['buffermemoryblocksinfo_16',['bufferMemoryBlocksInfo',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a0937f3dc39365976fe1cec02aec91b02',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
+  ['bytecode_17',['bytecode',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html#a1dbb2aca29ef242c6a9c8efdeb04265e',1,'OSK::GRAPHICS::ShaderStageDx12']]]
 ];

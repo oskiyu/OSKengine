@@ -14,6 +14,8 @@ namespace OSK::GRAPHICS {
 
 		OSK_DEFINE_AS(IGpuStorageBuffer);
 
+		virtual ~IGpuStorageBuffer() = default;
+
 	protected:
 
 		IGpuStorageBuffer(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment);

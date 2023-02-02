@@ -2,11 +2,12 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot =
 [
     [ "~IMaterialSlot", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a49409314a65d27a7043557d85626cb8b", null ],
     [ "IMaterialSlot", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#adbb0631957189108acba37897877c3a3", null ],
-    [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#af2d37e6bc927e323f076e07508455f28", null ],
     [ "FlushUpdate", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a71d6977bf0f937b5086a32ca8af9d3b3", null ],
     [ "GetName", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#ad1aa678ef234df2f183df6778df24ec1", null ],
+    [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#ab30032f172e8c5956f56b0d63694ad63", null ],
     [ "SetAccelerationStructure", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#aa528e548afe9c55625777b5be06db7f9", null ],
     [ "SetAccelerationStructures", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a7fac55ce6d7b7c2826678bba4cdcec5d", null ],
+    [ "SetDebugName", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a4ced0b9bf575c7801e54f046604eee10", null ],
     [ "SetGpuImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a5e2359e7cd0c026983bce50b75c96f8b", null ],
     [ "SetGpuImages", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a697cdef3d31ed21fde3b92a3732fbd6c", null ],
     [ "SetStorageBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a655f5c3de1170cd5f93242577db1a3db", null ],

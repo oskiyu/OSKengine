@@ -122,8 +122,8 @@ Atributos públicos</h2></td></tr>
 <tr class="separator:a0cf036d8fe1322bb8bfdf2db8e6e7636"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40be907a7d15190e9e91faa6e0f86851"><td class="memItemLeft" align="right" valign="top">VkPhysicalDeviceMemoryProperties&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a40be907a7d15190e9e91faa6e0f86851">memoryProperties</a> {}</td></tr>
 <tr class="separator:a40be907a7d15190e9e91faa6e0f86851"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bb70e63d6caa1080c4301d385d604db"><td class="memItemLeft" align="right" valign="top">VkPhysicalDeviceFeatures2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a8bb70e63d6caa1080c4301d385d604db">features2</a> {}</td></tr>
-<tr class="separator:a8bb70e63d6caa1080c4301d385d604db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ac5ae024c2689f6126edac1df92c8cd"><td class="memItemLeft" align="right" valign="top">VkPhysicalDeviceFeatures2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a0ac5ae024c2689f6126edac1df92c8cd">extendedFeatures</a> {}</td></tr>
+<tr class="separator:a0ac5ae024c2689f6126edac1df92c8cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a609fc8205d62efa53d1cc5e7fa9d5689"><td class="memItemLeft" align="right" valign="top">VkPhysicalDeviceRayTracingPipelinePropertiesKHR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a609fc8205d62efa53d1cc5e7fa9d5689">rtPipelineProperties</a> {}</td></tr>
 <tr class="separator:a609fc8205d62efa53d1cc5e7fa9d5689"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c58bb1872672211be3da7233d865a8b"><td class="memItemLeft" align="right" valign="top">VkPhysicalDeviceRayTracingPipelineFeaturesKHR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a5c58bb1872672211be3da7233d865a8b">rtPipelineFeatures</a> {}</td></tr>
@@ -148,9 +148,9 @@ Atributos públicos</h2></td></tr>
 <tr class="separator:a975a54587aefeafb6140df57d4b60aee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
-<div class="textblock"><p >Información interna de una GPU. </p>
+<div class="textblock"><p >Información de las capacidades y características de una GPU en concreto. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00021">21</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00018">18</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
 </div><h2 class="groupheader">Documentación de las funciones miembro</h2>
 <a id="a77ab9645500c9751b7a2ae37f61410fa" name="a77ab9645500c9751b7a2ae37f61410fa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a77ab9645500c9751b7a2ae37f61410fa">&#9670;&nbsp;</a></span>Get()</h2>
@@ -187,8 +187,16 @@ Atributos públicos</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Obtiene la información relevante de una GPU en concreto. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gpu</td><td>Handler de la GPU. </td></tr>
+    <tr><td class="paramname">surface</td><td>Superficie sobre la que se va a renderizar. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Información. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8cpp_source.html#l00240">240</a> del archivo <a class="el" href="_gpu_vulkan_8cpp_source.html">GpuVulkan.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8cpp_source.html#l00239">239</a> del archivo <a class="el" href="_gpu_vulkan_8cpp_source.html">GpuVulkan.cpp</a>.</p>
 
 </div>
 </div>
@@ -207,7 +215,10 @@ Atributos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8cpp_source.html#l00348">348</a> del archivo <a class="el" href="_gpu_vulkan_8cpp_source.html">GpuVulkan.cpp</a>.</p>
+<p>Comprueba si esta GPU puede renderizar trazado de rayos. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>True si soporta trazado de rayos. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8cpp_source.html#l00349">349</a> del archivo <a class="el" href="_gpu_vulkan_8cpp_source.html">GpuVulkan.cpp</a>.</p>
 
 </div>
 </div>
@@ -224,7 +235,9 @@ Atributos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00071">71</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
+<p>Características soportadas en descriptor sets. Incluye poder actualizar un descriptor set mientras se usa y tener descriptor sets de un tamaño indeterminado. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00082">82</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
 
 </div>
 </div>
@@ -240,7 +253,27 @@ Atributos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00073">73</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
+<p>Contiene información sobre si soporta el renderizado sin usar render passes. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00086">86</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
+
+</div>
+</div>
+<a id="a0ac5ae024c2689f6126edac1df92c8cd" name="a0ac5ae024c2689f6126edac1df92c8cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ac5ae024c2689f6126edac1df92c8cd">&#9670;&nbsp;</a></span>extendedFeatures</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkPhysicalDeviceFeatures2 OSK::GRAPHICS::GpuVulkan::Info::extendedFeatures {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Estructura que contiene las propiedades básicas de la GPU. TYambién funciona como el primer nodo de una lista enlazada con más propiedades específicas de la GPU. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00063">63</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
 
 </div>
 </div>
@@ -256,25 +289,9 @@ Atributos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Cosas que soporta. </p>
+<p>Información sobre el soporte de características básicas. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00053">53</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
-
-</div>
-</div>
-<a id="a8bb70e63d6caa1080c4301d385d604db" name="a8bb70e63d6caa1080c4301d385d604db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8bb70e63d6caa1080c4301d385d604db">&#9670;&nbsp;</a></span>features2</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">VkPhysicalDeviceFeatures2 OSK::GRAPHICS::GpuVulkan::Info::features2 {}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00065">65</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00050">50</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
 
 </div>
 </div>
@@ -292,7 +309,7 @@ Atributos públicos</h2></td></tr>
 
 <p>True si puede usarse en OSKengine. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00085">85</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00098">98</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
 
 </div>
 </div>
@@ -310,7 +327,7 @@ Atributos públicos</h2></td></tr>
 
 <p>Máximo nivel de MSAA disponible. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00058">58</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00053">53</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
 
 </div>
 </div>
@@ -326,9 +343,9 @@ Atributos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Información de las memorias disponibles en la GPU. </p>
+<p>Información de las heap de memoria disponibles en la GPU. Incluye tipo, propiedades, tamaño, etc... </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00063">63</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00057">57</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
 
 </div>
 </div>
@@ -346,7 +363,7 @@ Atributos públicos</h2></td></tr>
 
 <p>Alineamiento mínimo para dynamic ubos. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00080">80</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00095">95</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
 
 </div>
 </div>
@@ -362,7 +379,9 @@ Atributos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00097">97</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
+<p>Handler de la GPU. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00112">112</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
 
 </div>
 </div>
@@ -378,9 +397,14 @@ Atributos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Propiedades físicas. </p>
+<p>Propiedades básicas de la GPU. Incluye: </p>
+<ul>
+<li>Información sobre los drivers.</li>
+<li>Nombre de la tarjeta y fabricante.</li>
+<li>Límites, incluyendo tamalo máximo de imagen soportado, tamaño máximo de buffer que se puede crear, número máximo de descriptor sets, etc... </li>
+</ul>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00048">48</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00047">47</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
 
 </div>
 </div>
@@ -396,7 +420,9 @@ Atributos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00068">68</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
+<p>Características soportadas de las estructuras de aceleración. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00071">71</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
 
 </div>
 </div>
@@ -412,7 +438,9 @@ Atributos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00069">69</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
+<p>Propiedades soportadas de las estructuras de aceleración. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00073">73</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
 
 </div>
 </div>
@@ -428,7 +456,9 @@ Atributos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00070">70</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
+<p>Propiedades sobre la capacidad para obtener la dirección de memoria de un buffer en la GPU. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00077">77</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
 
 </div>
 </div>
@@ -444,7 +474,9 @@ Atributos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00067">67</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
+<p>Características soportadas de trazado derayos. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00068">68</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
 
 </div>
 </div>
@@ -459,6 +491,8 @@ Atributos públicos</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Propiedades y límites de los pipelines de trazado de rayos. </p>
 
 <p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00066">66</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
 
@@ -478,7 +512,7 @@ Atributos públicos</h2></td></tr>
 
 <p>Detalles del swapchain. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00090">90</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vulkan_8h_source.html#l00101">101</a> del archivo <a class="el" href="_gpu_vulkan_8h_source.html">GpuVulkan.h</a>.</p>
 
 </div>
 </div>
@@ -492,7 +526,7 @@ Atributos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html">GpuVulkan</a></li><li class="navelem"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html">Info</a></li>
-    <li class="footer">Generado el Martes, 17 de Enero de 2023 19:07:42 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 2 de Febrero de 2023 14:41:23 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

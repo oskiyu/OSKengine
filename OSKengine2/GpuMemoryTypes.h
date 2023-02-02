@@ -99,7 +99,9 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Se usara como buffer de lectura y escritura en shaders.
 		/// </summary>
-		STORAGE_BUFFER = 256
+		STORAGE_BUFFER = 256,
+
+		UPLOAD_ONLY = 512
 
 	};
 

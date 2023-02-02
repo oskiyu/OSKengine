@@ -106,7 +106,7 @@ OwnedPtr<IGpuStorageBuffer> GpuMemoryAllocatorVulkan::CreateStorageBuffer(TSize 
 
 OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorVulkan::CreateStagingBuffer(TSize size) {
 	return new GpuDataBuffer(GetNextBufferMemoryBlock(size,
-		GpuBufferUsage::TRANSFER_SOURCE,
+		GpuBufferUsage::TRANSFER_SOURCE | GpuBufferUsage::UPLOAD_ONLY,
 		GpuSharedMemoryType::GPU_AND_CPU)->GetNextMemorySubblock(size, device->As<GpuVulkan>()->GetInfo().properties.limits.minStorageBufferOffsetAlignment), size, 0);
 }
 

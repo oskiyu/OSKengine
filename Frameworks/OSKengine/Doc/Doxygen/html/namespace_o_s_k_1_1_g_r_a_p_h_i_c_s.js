@@ -99,7 +99,8 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "PipelineLayoutVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan" ],
     [ "PointLight", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_point_light.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_point_light" ],
     [ "PushConst2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_push_const2_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_push_const2_d" ],
-    [ "QueueFamilyIndices", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices" ],
+    [ "QueueFamiles", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_familes.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_familes" ],
+    [ "QueueFamily", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family" ],
     [ "RaytracingPipelineVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_raytracing_pipeline_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_raytracing_pipeline_vulkan" ],
     [ "RendererDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12" ],
     [ "RendererVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan" ],
@@ -133,6 +134,12 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "Bone", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4f5b85b215c02279051f4041a44b512c", null ],
     [ "ComputeRenderTarget", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#afd24b20e15d7e1eb9c7fa8355cc1177d", null ],
     [ "TIndexSize", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a05f5134cdcc67a7889c57e39aa2f25ae", null ],
+    [ "CommandQueueSupport", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5f64f8e9fdfc352ed3026326a325b62", [
+      [ "GRAPHICS", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5f64f8e9fdfc352ed3026326a325b62a6f49448c79d7d58c6e60cf7129b84d1c", null ],
+      [ "COMPUTE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5f64f8e9fdfc352ed3026326a325b62aac404d7ce6ca5862e9b8a2641fbafd90", null ],
+      [ "TRANSFER", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5f64f8e9fdfc352ed3026326a325b62aeb5ddb3b6096fb90ff720d9c3e2a6628", null ],
+      [ "PRESENTATION", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5f64f8e9fdfc352ed3026326a325b62a740819a7dc6b0b1a8a7fa0c871d9b878", null ]
+    ] ],
     [ "DepthTestingType", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027dd", [
       [ "NONE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027ddab50339a10e1de285ac99d4c3990b8693", null ],
       [ "READ", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027dda3466fab4975481651940ed328aa990e4", null ],
@@ -188,7 +195,8 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
       [ "RT_ACCELERATION_STRUCTURE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7fa56da21e70ea85d8efa9392d6fd11f2ee", null ],
       [ "RT_SHADER_BINDING_TABLE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7faf4723b84fe089b99fa8bd437f42b0167", null ],
       [ "RT_ACCELERATION_STRUCTURE_BUILDING", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7fa10395d241b657a656306f94cbfb24021", null ],
-      [ "STORAGE_BUFFER", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7faa486db75420308f63af20d85e2b6489d", null ]
+      [ "STORAGE_BUFFER", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7faa486db75420308f63af20d85e2b6489d", null ],
+      [ "UPLOAD_ONLY", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7fa5f26ec9a42a626092bb3c25908b6659f", null ]
     ] ],
     [ "GpuImageAddressMode", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ac1b7e80a6459c1c2dcff1fb7b4784ea2", [
       [ "REPEAT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ac1b7e80a6459c1c2dcff1fb7b4784ea2a5be68175be14dfaa080165456c2e9555", null ],

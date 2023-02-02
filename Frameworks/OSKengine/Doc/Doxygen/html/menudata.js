@@ -63,6 +63,7 @@ var menudata={children:[
 {text:"typedefs",url:"namespacemembers_type.html"},
 {text:"Enumeraciones",url:"namespacemembers_enum.html",children:[
 {text:"b",url:"namespacemembers_enum.html#index_b"},
+{text:"c",url:"namespacemembers_enum.html#index_c"},
 {text:"d",url:"namespacemembers_enum.html#index_d"},
 {text:"f",url:"namespacemembers_enum.html#index_f"},
 {text:"g",url:"namespacemembers_enum.html#index_g"},

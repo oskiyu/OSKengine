@@ -15,8 +15,7 @@ var searchData=
   ['graphics_12',['graphics',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a97c317674cf2dc1bcf5e0cd3a5b5d6e9',1,'OSK::GRAPHICS::ICommandList']]],
   ['graphicscommandlist_13',['graphicsCommandList',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a34603566a0187941cbff752e587db881',1,'OSK::GRAPHICS::IRenderer']]],
   ['graphicscommandpool_14',['graphicsCommandPool',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#acad78f090fc5cf8a54762d863452b419',1,'OSK::GRAPHICS::IRenderer']]],
-  ['graphicsfamily_15',['graphicsFamily',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices.html#ae8e20f4bbff29ba441b5a03e9cc37829',1,'OSK::GRAPHICS::QueueFamilyIndices']]],
-  ['graphicsqueue_16',['graphicsQueue',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ada7ad73436c32df92625b7af4e708e17',1,'OSK::GRAPHICS::IRenderer']]],
-  ['green_17',['Green',['../class_o_s_k_1_1_color.html#ab90f8ead6ff695ca66208644b351855c',1,'OSK::Color']]],
-  ['growthfactortype_18',['growthFactorType',['../class_o_s_k_1_1_dynamic_array.html#a4a18937b8a6017fc9b8d86a9e8a592c3',1,'OSK::DynamicArray']]]
+  ['graphicsqueue_15',['graphicsQueue',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ada7ad73436c32df92625b7af4e708e17',1,'OSK::GRAPHICS::IRenderer']]],
+  ['green_16',['Green',['../class_o_s_k_1_1_color.html#ab90f8ead6ff695ca66208644b351855c',1,'OSK::Color']]],
+  ['growthfactortype_17',['growthFactorType',['../class_o_s_k_1_1_dynamic_array.html#a4a18937b8a6017fc9b8d86a9e8a592c3',1,'OSK::DynamicArray']]]
 ];

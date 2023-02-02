@@ -3,7 +3,7 @@ var searchData=
   ['ignoredvalidationlayersmessages_0',['ignoredValidationLayersMessages',['../_renderer_vulkan_8cpp.html#a55a695b28a84ed1f97e74bd6da006e6c',1,'RendererVulkan.cpp']]],
   ['image_1',['image',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#a5bc616e3014ce0290c984a4810f19448',1,'OSK::ASSETS::FontInstance::image()'],['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#a2deac1d14e91d4af154cb09d563c7973',1,'OSK::GRAPHICS::GpuMemoryBlockDx12::image()']]],
   ['imagecount_2',['imageCount',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a85599f1e213f7ebdf66b6d5cd2a8fd14',1,'OSK::GRAPHICS::ISwapchain']]],
-  ['imagememoryblocks_3',['imageMemoryBlocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a942def028b7a723f67c4bca4ced25a30',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
+  ['imagememoryblocks_3',['imageMemoryBlocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#adea5c2b2553cca1f72cda208e8846775',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
   ['images_4',['images',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#af4b44c935f04512a891cd9daf8dfec8e',1,'OSK::GRAPHICS::ISwapchain']]],
   ['implicitresizehandling_5',['implicitResizeHandling',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a8a9bd673e93ebce0a7e60a8133f51de7',1,'OSK::GRAPHICS::IRenderer']]],
   ['indices_6',['indices',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a959ef8e127e315b6c0c8c36a84e6668b',1,'OSK::ASSETS::IMeshLoader']]],

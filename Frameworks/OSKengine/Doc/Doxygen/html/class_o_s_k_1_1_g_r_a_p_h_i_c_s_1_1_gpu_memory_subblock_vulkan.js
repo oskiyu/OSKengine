@@ -1,13 +1,12 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan =
 [
-    [ "TSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html#a46fc43555030fbe208abc7db8c36673d", null ],
     [ "GpuMemorySubblockVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html#aff3ce20390f9318c09bd5c42426e19c0", null ],
-    [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html#a184a8433d5967eea3dd00fd988d3dff2", null ],
-    [ "GetAllocatedSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html#a98060a86b121f0940cde38c36eca822f", null ],
-    [ "GetOffsetFromBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html#aaa35c7cacfe1d64bebe648bd0f34791c", null ],
+    [ "GetAllocatedSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html#a5079c199bc618901527aea58db31ca4c", null ],
+    [ "GetOffsetFromBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html#a24a7670782e3ab4b9978e11fb8621409", null ],
     [ "GetOwnerBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html#aa93fb9b1213377fa3e4187569872671e", null ],
     [ "MapMemory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html#ac90084b41f1c46c05d9da2437b1429e1", null ],
     [ "MapMemory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html#ac5e50296e9912015ed5316c84ed5284a", null ],
+    [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html#a278b5f1e6372082695abc7c092e17d10", null ],
     [ "ResetCursor", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html#a2b8d413326c2a32941e244f447583e58", null ],
     [ "SetCursor", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html#ab857e1d8dd5f5dfe65370d44799cb5d2", null ],
     [ "Unmap", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vulkan.html#ac811cc7ceba6d38d77e8289e0ce0d6e9", null ],

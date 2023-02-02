@@ -9,5 +9,6 @@ var searchData=
   ['numarraylevels_6',['numArrayLevels',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_copy_image_info.html#aa809457b9f5c660f5cdff1c08fccd047',1,'OSK::GRAPHICS::CopyImageInfo']]],
   ['numlayers_7',['numLayers',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a7d622d573c1207bd01789dc7481c4ae7',1,'OSK::GRAPHICS::GpuImageBarrierInfo::numLayers()'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a37975b08ec22f791496d0ed7b427a1c4',1,'OSK::GRAPHICS::GpuImageCreateInfo::numLayers()']]],
   ['nummiplevels_8',['numMipLevels',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a1ef0b0902e0694136e2c9063127bab88',1,'OSK::GRAPHICS::GpuImageBarrierInfo']]],
-  ['numpointlights_9',['numPointLights',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_lights_buffer_struct.html#a0bfe37ca7f4663cec069c65a29073097',1,'OSK::GRAPHICS::LightsBufferStruct']]]
+  ['numpointlights_9',['numPointLights',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_lights_buffer_struct.html#a0bfe37ca7f4663cec069c65a29073097',1,'OSK::GRAPHICS::LightsBufferStruct']]],
+  ['numqueues_10',['numQueues',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family.html#aa873a2f61e5560297ffc3dc9a7794550',1,'OSK::GRAPHICS::QueueFamily']]]
 ];

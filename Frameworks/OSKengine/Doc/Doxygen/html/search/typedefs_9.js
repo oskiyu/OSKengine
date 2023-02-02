@@ -7,5 +7,5 @@ var searchData=
   ['tindexsize_4',['TIndexSize',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a05f5134cdcc67a7889c57e39aa2f25ae',1,'OSK::GRAPHICS']]],
   ['tinterfaceuuid_5',['TInterfaceUuid',['../_o_s_kmacros_8h.html#af408bd83a39d07fd2d37ecbc5e2fbf15',1,'OSKmacros.h']]],
   ['tpair_6',['TPair',['../class_o_s_k_1_1_hash_map.html#a848e29a51804d0f08d1bb77d01535afb',1,'OSK::HashMap']]],
-  ['tsize_7',['TSize',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a6a0d2f6c5928204bd7707bf8d4324e9b',1,'OSK::GRAPHICS::IGpuMemoryBlock::TSize()'],['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a46fc43555030fbe208abc7db8c36673d',1,'OSK::GRAPHICS::IGpuMemorySubblock::TSize()'],['../class_o_s_k_1_1_linked_list.html#a7585498d30ebf2f03fee951aa257983d',1,'OSK::LinkedList::TSize()'],['../_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a',1,'TSize():&#160;OSKmacros.h']]]
+  ['tsize_7',['TSize',['../class_o_s_k_1_1_linked_list.html#a7585498d30ebf2f03fee951aa257983d',1,'OSK::LinkedList::TSize()'],['../_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a',1,'TSize():&#160;OSKmacros.h']]]
 ];

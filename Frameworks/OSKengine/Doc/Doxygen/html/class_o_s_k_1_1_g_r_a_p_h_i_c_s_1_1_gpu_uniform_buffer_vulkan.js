@@ -14,5 +14,5 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_vulkan =
     [ "Write", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_vulkan.html#a3adde058f79922199f3c6971c899b227", null ],
     [ "Write", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_vulkan.html#aadfb37dc25b557c76dc43a3de3667d18", null ],
     [ "WriteOffset", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_vulkan.html#ac8e57fa1d9a9e692b7320fd0a8dd5cd0", null ],
-    [ "buffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_vulkan.html#a461883dff4d2ff0f0957d9f5a40991aa", null ]
+    [ "buffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_vulkan.html#a6d228566cb35a95bc803f35d5590cb3e", null ]
 ];

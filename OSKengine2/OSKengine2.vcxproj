@@ -265,6 +265,9 @@
     <ClInclude Include="DescriptorLayoutVulkan.h" />
     <ClInclude Include="DescriptorPoolVulkan.h" />
     <ClInclude Include="Doc__MaterialJson.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="EventContainer.h" />
+    <ClInclude Include="EventManager.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="FxaaPass.h" />
     <ClInclude Include="GBuffer.h" />
@@ -278,6 +281,7 @@
     <ClInclude Include="IComputePipeline.h" />
     <ClInclude Include="IDataElement.h" />
     <ClInclude Include="IDisplay.h" />
+    <ClInclude Include="IEventContainer.h" />
     <ClInclude Include="IFullscreenableDisplay.h" />
     <ClInclude Include="IGamepadInput.h" />
     <ClInclude Include="IGpuObject.h" />

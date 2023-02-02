@@ -4,6 +4,7 @@ var class_o_s_k_1_1_hash_map =
     [ "TBucket", "class_o_s_k_1_1_hash_map.html#a7163ff908417c24b4a10af69359cbcb8", null ],
     [ "TPair", "class_o_s_k_1_1_hash_map.html#a848e29a51804d0f08d1bb77d01535afb", null ],
     [ "HashMap", "class_o_s_k_1_1_hash_map.html#a1b900e1951d84831fbb7d21437797759", null ],
+    [ "~HashMap", "class_o_s_k_1_1_hash_map.html#a0964dd5c1155edd112badd6b014037de", null ],
     [ "begin", "class_o_s_k_1_1_hash_map.html#a58f1f3d8277b3a7409ea6c95bfc83b18", null ],
     [ "ContainsKey", "class_o_s_k_1_1_hash_map.html#a63c8ed49b0b6dcccd30aee2c74c8e1df", null ],
     [ "end", "class_o_s_k_1_1_hash_map.html#a0e08b4430ff64194bd6f8a0209a00449", null ],

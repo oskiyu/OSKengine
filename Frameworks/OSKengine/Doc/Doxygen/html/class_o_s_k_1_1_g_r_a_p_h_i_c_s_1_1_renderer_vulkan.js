@@ -51,6 +51,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan =
     [ "UploadCubemapImageToGpu", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a127f65d1c173f1578a180f70b9cc0942", null ],
     [ "UploadImageToGpu", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a84c879978d05eb6e5ac7828dd115ab5d", null ],
     [ "UploadLayeredImageToGpu", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a0dea54038eea4c0f8c0a7013ab6adac7", null ],
+    [ "WaitForCompletion", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#ab836da70e7c7488bcab7490f0ce6e5ec", null ],
     [ "computeCommandPool", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a76bddfef891f966b5d0001cc5063986f", null ],
     [ "computeQueue", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a05fc17f5d2cbaa3895f5d3a626107e47", null ],
     [ "currentGpu", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a2928763ae4948a9de9bafad902fd9696", null ],

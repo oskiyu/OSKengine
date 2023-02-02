@@ -186,6 +186,9 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		void RemoveMemoryBlock(IGpuMemoryBlock* block);
 
+		/// @brief Libera toda la memoria usada para subir recursos.
+		void FreeStagingMemory();
+
 	protected:
 
 		virtual OwnedPtr<IGpuMemoryBlock> CreateNewBufferBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) = 0;

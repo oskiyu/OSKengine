@@ -15,14 +15,15 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12 =
     [ "CreateUniformBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a3af5fa17cdbe30e7ed249dec9b4bdaf0", null ],
     [ "CreateVertexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#abef0fcbc0dade8bdf27d14959313fa51", null ],
     [ "CreateVertexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a905e6e7e678e2d8112c9f830cebf3448", null ],
-    [ "Free", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a7d91b7ebc0b4e537cf8a77366abdd505", null ],
+    [ "FreeStagingMemory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#af41e891d6c39de6dd5fc95e7b9fe8eba", null ],
     [ "GetDescriptor", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a6e6ca51985913b36e836dbaa552079b3", null ],
     [ "GetNextBufferMemoryBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a688b3d07de2ec4181441bb0c220aaa49", null ],
     [ "GetNextBufferMemorySubblock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#ab409ca931f6491adc73e78ac3b5aa019", null ],
     [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#aa89880ddaadfee627c68f7c4cb6d5d30", null ],
-    [ "RemoveImageBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a6b7676a476f7cd0db5f9b4634ef0c852", null ],
-    [ "bufferMemoryBlocks", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#abd4e4fe493da63688ae1dfebcdcb2f8b", null ],
+    [ "RemoveMemoryBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#acec87689e0c7f1f801b04fe724f9d269", null ],
+    [ "bufferMemoryBlocks", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a8c63090eab5d64c093fe10e09b07d303", null ],
+    [ "bufferMemoryBlocksInfo", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a0937f3dc39365976fe1cec02aec91b02", null ],
     [ "descriptorBlocks", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#aea7ebb41550d7df62c8f796bb36962f4", null ],
     [ "device", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a8f655b1e1884b8285b6d90b3d8f94e98", null ],
-    [ "imageMemoryBlocks", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a942def028b7a723f67c4bca4ced25a30", null ]
+    [ "imageMemoryBlocks", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#adea5c2b2553cca1f72cda208e8846775", null ]
 ];

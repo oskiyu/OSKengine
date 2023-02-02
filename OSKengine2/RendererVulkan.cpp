@@ -595,6 +595,7 @@ void RendererVulkan::PresentFrame() {
 	for (TSize i = 0; i < singleTimeCommandLists.GetSize(); i++)
 		singleTimeCommandLists.At(i)->DeleteAllStagingBuffers();
 	singleTimeCommandLists.Free();
+	GetAllocator()->FreeStagingMemory();
 
 	//
 

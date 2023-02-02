@@ -11,6 +11,7 @@ EntityComponentSystem::EntityComponentSystem() {
 	systemManager = new SystemManager;
 	componentManager = new ComponentManager;
 	gameObjectManager = new GameObjectManager;
+	eventManager = new EventManager;
 }
 
 void EntityComponentSystem::OnTick(TDeltaTime deltaTime) {
@@ -23,6 +24,10 @@ GameObjectIndex EntityComponentSystem::SpawnObject() {
 
 void EntityComponentSystem::DestroyObject(GameObjectIndex* obj) {
 	gameObjectManager->DestroyGameObject(obj);
+}
+
+void EntityComponentSystem::EndFrame() {
+	eventManager->_ClearQueues();
 }
 
 const DynamicArray<IRenderSystem*>& EntityComponentSystem::GetRenderSystems() const {

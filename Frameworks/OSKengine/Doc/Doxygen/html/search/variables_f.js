@@ -13,7 +13,7 @@ var searchData=
   ['resizecallbacks_10',['resizeCallbacks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a094df08d451deaab468fffe79dfb689a',1,'OSK::GRAPHICS::IRenderer']]],
   ['resolution_11',['resolution',['../class_o_s_k_1_1_i_o_1_1_i_display.html#a0087d89a72a5d4faa930924ac33d68f7',1,'OSK::IO::IDisplay::resolution()'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a8092753c9ee6afb0d2d436bd67022090',1,'OSK::GRAPHICS::GpuImageCreateInfo::resolution()']]],
   ['resolverendertarget_12',['resolveRenderTarget',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a395b387f29e345e76f4a147516b21098',1,'OSK::GRAPHICS::IPostProcessPass']]],
-  ['reusablesubblocks_13',['reusableSubblocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a152182de55cd4f7b16f86505db4276cf',1,'OSK::GRAPHICS::IGpuMemoryBlock']]],
+  ['reusablesubblocks_13',['reusableSubblocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#afb0a469af9d65724ffe513423dd32482',1,'OSK::GRAPHICS::IGpuMemoryBlock']]],
   ['rootindex_14',['rootIndex',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a9ceba33776014bb6cc1d749c329e4347',1,'OSK::GRAPHICS::AnimationSkin']]],
   ['rotation_15',['rotation',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node.html#a9b72d3ea552bae1e2d4c36e18c788cbe',1,'OSK::GRAPHICS::MeshNode']]],
   ['roughnessfactor_16',['roughnessFactor',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_material_info.html#a1ae21f4c1ea7f1467316d148e5aa8508',1,'OSK::ASSETS::GltfMaterialInfo::roughnessFactor()'],['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata.html#adf1f5296d70e715244afe02580fee46e',1,'OSK::ASSETS::MeshMetadata::roughnessFactor()']]],

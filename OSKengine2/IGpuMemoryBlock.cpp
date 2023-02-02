@@ -2,6 +2,9 @@
 
 #include "IGpuMemorySubblock.h"
 
+#include "OSKengine.h"
+#include "Logger.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -10,6 +13,7 @@ IGpuMemoryBlock::IGpuMemoryBlock(TSize reservedSize, IGpu* device, GpuSharedMemo
 
 void IGpuMemoryBlock::RemoveSubblock(IGpuMemorySubblock* subblock) {
 	subblocks.Remove(subblock);
+	// Engine::GetLogger()->InfoLog("Subbloque quitado.");
 }
 
 TSize IGpuMemoryBlock::GetAllocatedSize() const {

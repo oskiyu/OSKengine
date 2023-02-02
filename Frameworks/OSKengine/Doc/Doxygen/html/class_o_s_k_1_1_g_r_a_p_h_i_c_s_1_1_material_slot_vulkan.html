@@ -125,10 +125,10 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a355547aa767341b813007c2f31cedff4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0370974b377df66ebabfac1c3cbea3ea"><td class="memItemLeft" align="right" valign="top">VkDescriptorSet&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a0370974b377df66ebabfac1c3cbea3ea">GetDescriptorSet</a> (<a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> index) const</td></tr>
 <tr class="separator:a0370974b377df66ebabfac1c3cbea3ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2d37e6bc927e323f076e07508455f28"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; <br />
-requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html">IMaterialSlot</a>, T&gt;</td></tr>
-<tr class="memitem:af2d37e6bc927e323f076e07508455f28"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#af2d37e6bc927e323f076e07508455f28">As</a> () const</td></tr>
-<tr class="separator:af2d37e6bc927e323f076e07508455f28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7b698ae644547d0c7701372b856a6c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#aa7b698ae644547d0c7701372b856a6c3">SetDebugName</a> (const std::string &amp;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a92532b4b6b8a32041dbacf144af8340f">name</a>) override</td></tr>
+<tr class="separator:aa7b698ae644547d0c7701372b856a6c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab30032f172e8c5956f56b0d63694ad63"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#ab30032f172e8c5956f56b0d63694ad63">OSK_DEFINE_AS</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html">IMaterialSlot</a>)</td></tr>
+<tr class="separator:ab30032f172e8c5956f56b0d63694ad63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6e515a4922e8e2230646cd4bcacf157"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#ab6e515a4922e8e2230646cd4bcacf157">SetTexture</a> (const std::string &amp;binding, const <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">ASSETS::Texture</a> *texture, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9d">SampledChannel</a> channel=<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9da04bd834032febb3fda8c6936ee140949">SampledChannel::COLOR</a>)</td></tr>
 <tr class="separator:ab6e515a4922e8e2230646cd4bcacf157"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7836df224731b5288824c3ec064f773f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a7836df224731b5288824c3ec064f773f">SetTextures</a> (const std::string &amp;binding, const <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">ASSETS::Texture</a> *texture[<a class="el" href="_o_s_kmacros_8h.html#ace2d8d7ffe07c4a5b8791f83994ad52f">NUM_RESOURCES_IN_FLIGHT</a>], <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9d">SampledChannel</a> channel=<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9da04bd834032febb3fda8c6936ee140949">SampledChannel::COLOR</a>)</td></tr>
@@ -192,41 +192,11 @@ Atributos protegidos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00049">49</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00051">51</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Documentación de las funciones miembro</h2>
-<a id="af2d37e6bc927e323f076e07508455f28" name="af2d37e6bc927e323f076e07508455f28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2d37e6bc927e323f076e07508455f28">&#9670;&nbsp;</a></span>As()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; <br />
-requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html">IMaterialSlot</a>, T&gt;</div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">T * OSK::GRAPHICS::IMaterialSlot::As </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_i_material_slot_8h_source.html#l00032">32</a> del archivo <a class="el" href="_i_material_slot_8h_source.html">IMaterialSlot.h</a>.</p>
-
-</div>
-</div>
 <a id="a355547aa767341b813007c2f31cedff4" name="a355547aa767341b813007c2f31cedff4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a355547aa767341b813007c2f31cedff4">&#9670;&nbsp;</a></span>FlushUpdate()</h2>
 
@@ -254,7 +224,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a71d6977bf0f937b5086a32ca8af9d3b3">OSK::GRAPHICS::IMaterialSlot</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00261">261</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00263">263</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
 
 </div>
 </div>
@@ -274,7 +244,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00266">266</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00268">268</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
 
 </div>
 </div>
@@ -302,6 +272,32 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </div><div class="memdoc">
 
 <p class="definition">Definición en la línea <a class="el" href="_i_material_slot_8cpp_source.html#l00025">25</a> del archivo <a class="el" href="_i_material_slot_8cpp_source.html">IMaterialSlot.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab30032f172e8c5956f56b0d63694ad63" name="ab30032f172e8c5956f56b0d63694ad63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab30032f172e8c5956f56b0d63694ad63">&#9670;&nbsp;</a></span>OSK_DEFINE_AS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::GRAPHICS::IMaterialSlot::OSK_DEFINE_AS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html">IMaterialSlot</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -344,7 +340,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#aa528e548afe9c55625777b5be06db7f9">OSK::GRAPHICS::IMaterialSlot</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00222">222</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00224">224</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
 
 </div>
 </div>
@@ -395,7 +391,39 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a7fac55ce6d7b7c2826678bba4cdcec5d">OSK::GRAPHICS::IMaterialSlot</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00230">230</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00232">232</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa7b698ae644547d0c7701372b856a6c3" name="aa7b698ae644547d0c7701372b856a6c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7b698ae644547d0c7701372b856a6c3">&#9670;&nbsp;</a></span>SetDebugName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MaterialSlotVulkan::SetDebugName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Establece un nombre que lo identifique. Para debug. </p>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_object.html#a4ced0b9bf575c7801e54f046604eee10">OSK::GRAPHICS::IGpuObject</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00272">272</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
 
 </div>
 </div>
@@ -462,7 +490,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a5e2359e7cd0c026983bce50b75c96f8b">OSK::GRAPHICS::IMaterialSlot</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00140">140</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00142">142</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
 
 </div>
 </div>
@@ -531,7 +559,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a697cdef3d31ed21fde3b92a3732fbd6c">OSK::GRAPHICS::IMaterialSlot</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00148">148</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00150">150</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
 
 </div>
 </div>
@@ -574,7 +602,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a655f5c3de1170cd5f93242577db1a3db">OSK::GRAPHICS::IMaterialSlot</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00097">97</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00099">99</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
 
 </div>
 </div>
@@ -625,7 +653,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#ae088fb79ea614823d3e137d49e079304">OSK::GRAPHICS::IMaterialSlot</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00105">105</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00107">107</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
 
 </div>
 </div>
@@ -680,7 +708,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a44593d8fec98014804bc7c979171fac6">OSK::GRAPHICS::IMaterialSlot</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00181">181</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00183">183</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
 
 </div>
 </div>
@@ -743,7 +771,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#ade20b6caf66addc900d9a36b34742801">OSK::GRAPHICS::IMaterialSlot</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00189">189</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00191">191</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
 
 </div>
 </div>
@@ -900,7 +928,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a7c5f7ce083cf1d96b5eedf0d68ee870e">OSK::GRAPHICS::IMaterialSlot</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00054">54</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00056">56</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
 
 </div>
 </div>
@@ -951,7 +979,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a02e51bf654ce78b7cce5e27a07fb4f1a">OSK::GRAPHICS::IMaterialSlot</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00062">62</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_slot_vulkan_8cpp_source.html#l00064">64</a> del archivo <a class="el" href="_material_slot_vulkan_8cpp_source.html">MaterialSlotVulkan.cpp</a>.</p>
 
 </div>
 </div>
@@ -976,7 +1004,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_material_slot_8h_source.html#l00169">169</a> del archivo <a class="el" href="_i_material_slot_8h_source.html">IMaterialSlot.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_material_slot_8h_source.html#l00168">168</a> del archivo <a class="el" href="_i_material_slot_8h_source.html">IMaterialSlot.h</a>.</p>
 
 </div>
 </div>
@@ -1000,7 +1028,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_material_slot_8h_source.html#l00170">170</a> del archivo <a class="el" href="_i_material_slot_8h_source.html">IMaterialSlot.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_material_slot_8h_source.html#l00169">169</a> del archivo <a class="el" href="_i_material_slot_8h_source.html">IMaterialSlot.h</a>.</p>
 
 </div>
 </div>
@@ -1014,7 +1042,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html">MaterialSlotVulkan</a></li>
-    <li class="footer">Generado el Martes, 17 de Enero de 2023 19:07:42 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 2 de Febrero de 2023 14:41:23 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

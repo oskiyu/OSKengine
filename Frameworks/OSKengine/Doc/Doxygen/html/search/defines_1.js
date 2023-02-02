@@ -13,12 +13,13 @@ var searchData=
   ['osk_5fdefine_5ffield_5fwrapper_10',['OSK_DEFINE_FIELD_WRAPPER',['../_field_8cpp.html#aacc827074f920b107e78115410848bdb',1,'Field.cpp']]],
   ['osk_5fdefine_5fiuuid_11',['OSK_DEFINE_IUUID',['../_o_s_kmacros_8h.html#ae5034a2411685f3051a088309c6621e0',1,'OSKmacros.h']]],
   ['osk_5fdisable_5fcopy_12',['OSK_DISABLE_COPY',['../_o_s_kmacros_8h.html#aebcc973f4db4a26ea3d60325d769741f',1,'OSKmacros.h']]],
-  ['osk_5fflags_13',['OSK_FLAGS',['../_enum_flags_8hpp.html#a300a0bab085bddd0e2bd3cbb15bb68b6',1,'EnumFlags.hpp']]],
-  ['osk_5fiuuid_14',['OSK_IUUID',['../_o_s_kmacros_8h.html#ab50df35cdc0a6fe9356e3dcaaf670f16',1,'OSKmacros.h']]],
-  ['osk_5fnodiscard_15',['OSK_NODISCARD',['../_o_s_kmacros_8h.html#a0b474619a247da5962d555753c6299b4',1,'OSKmacros.h']]],
-  ['osk_5fshadows_5fcustom_16',['OSK_SHADOWS_CUSTOM',['../_shadow_map_8cpp.html#a2047cf0e8dfd816e4a1ec5b1a8a3fc29',1,'ShadowMap.cpp']]],
-  ['osk_5fstd_5fup_5fdelete_17',['OSK_STD_UP_DELETE',['../_unique_ptr_8hpp.html#a39380e99c3ed7ce667fc96eb6d18b6f4',1,'OSK_STD_UP_DELETE():&#160;UniquePtr.hpp'],['../_unique_ptr_8hpp.html#a39380e99c3ed7ce667fc96eb6d18b6f4',1,'OSK_STD_UP_DELETE():&#160;UniquePtr.hpp']]],
-  ['osk_5fsystem_18',['OSK_SYSTEM',['../_i_system_8h.html#a8f8e44bc705ee82b3070d63d8d702148',1,'ISystem.h']]],
-  ['osk_5fvertex_5ftype_5freg_19',['OSK_VERTEX_TYPE_REG',['../_vertex_8h.html#a2d42dd56efd9f0344ccb4d46c42f4138',1,'Vertex.h']]],
-  ['oskapi_5fcall_20',['OSKAPI_CALL',['../_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c',1,'OSKmacros.h']]]
+  ['osk_5fevent_13',['OSK_EVENT',['../_event_8h.html#aeea61bebb3009e929f03cc10352d7c8e',1,'Event.h']]],
+  ['osk_5fflags_14',['OSK_FLAGS',['../_enum_flags_8hpp.html#a300a0bab085bddd0e2bd3cbb15bb68b6',1,'EnumFlags.hpp']]],
+  ['osk_5fiuuid_15',['OSK_IUUID',['../_o_s_kmacros_8h.html#ab50df35cdc0a6fe9356e3dcaaf670f16',1,'OSKmacros.h']]],
+  ['osk_5fnodiscard_16',['OSK_NODISCARD',['../_o_s_kmacros_8h.html#a0b474619a247da5962d555753c6299b4',1,'OSKmacros.h']]],
+  ['osk_5fshadows_5fcustom_17',['OSK_SHADOWS_CUSTOM',['../_shadow_map_8cpp.html#a2047cf0e8dfd816e4a1ec5b1a8a3fc29',1,'ShadowMap.cpp']]],
+  ['osk_5fstd_5fup_5fdelete_18',['OSK_STD_UP_DELETE',['../_unique_ptr_8hpp.html#a39380e99c3ed7ce667fc96eb6d18b6f4',1,'UniquePtr.hpp']]],
+  ['osk_5fsystem_19',['OSK_SYSTEM',['../_i_system_8h.html#a8f8e44bc705ee82b3070d63d8d702148',1,'ISystem.h']]],
+  ['osk_5fvertex_5ftype_5freg_20',['OSK_VERTEX_TYPE_REG',['../_vertex_8h.html#a2d42dd56efd9f0344ccb4d46c42f4138',1,'Vertex.h']]],
+  ['oskapi_5fcall_21',['OSKAPI_CALL',['../_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c',1,'OSKmacros.h']]]
 ];

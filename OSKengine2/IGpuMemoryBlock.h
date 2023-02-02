@@ -68,6 +68,8 @@ namespace OSK::GRAPHICS {
 		/// @return Gpu en la que reside el bloque.
 		inline IGpu* GetGpu() const { return device; }
 
+		bool IsUnused() const { return subblocks .IsEmpty(); }
+
 	protected:
 
 		/// @brief Reserva un bloque de memoria con el tamaño dado.

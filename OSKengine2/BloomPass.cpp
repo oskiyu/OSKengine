@@ -34,7 +34,7 @@ void BloomPass::Create(const Vector2ui& size) {
 	intermediateInfo.sampler = GpuImageSamplerDesc::CreateDefault();
 	intermediateInfo.sampler.filteringType = GpuImageFilteringType::LIENAR;
 	intermediateInfo.sampler.addressMode = GpuImageAddressMode::EDGE;
-	intermediateInfo.usage = GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_DESTINATION;
+	intermediateInfo.usage = GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION;
 	intermediateInfo.name = "Bloom Target 0";
 	bloomIntermediateTargets[0].Create(size, intermediateInfo);
 
@@ -44,7 +44,7 @@ void BloomPass::Create(const Vector2ui& size) {
 	RenderTargetAttachmentInfo resolveInfo{};
 	resolveInfo.format = Format::RGBA16_SFLOAT;
 	resolveInfo.name = "Bloom Output";
-	resolveInfo.usage = GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED;
+	resolveInfo.usage = GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED;
 	resolveRenderTarget.Create(size, resolveInfo);
 }
 
@@ -57,8 +57,8 @@ void BloomPass::Resize(const Vector2ui& size) {
 
 void BloomPass::SetupMaterialInstances() {
 	for (TIndex target = 0; target < 2; target++) {
-		TIndex source = target;
-		TIndex destination = (target + 1) % 2;
+		const TIndex source = target;
+		const TIndex destination = (target + 1) % 2;
 
 		const GpuImage* sourceImages[NUM_RESOURCES_IN_FLIGHT]{};
 		for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)

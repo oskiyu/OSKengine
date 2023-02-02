@@ -10,27 +10,22 @@ namespace OSK::GRAPHICS {
 }
 
 namespace OSK::ECS{
-
-	/// <summary>
-	/// Un sistema se encarga de ejecutar lógica con los datos de los componentes.
+		
+	/// @brief Un sistema se encarga de ejecutar lógica con los datos de los componentes.
 	/// Los componentes no son más que colecciones de datos: la lógica está en
 	/// los sistemas.
 	/// 
 	/// @note Cada sistema tiene un Signature, que indica qué componentes debe tener un GameObject
 	/// para ser procesado por el sistema.
-	/// 
 	/// @warning Para que una clase pueda ser usada como sistema, debe tener implementado OSK_SYSTEM(className).
 	/// Este debe ser un identificador único: no pueden haber dos tipos de sistemas con el mismo className.
-	/// </summary>
 	class OSKAPI_CALL ISystem {
 
 	public:
 
 		virtual ~ISystem() = default;
 
-		/// <summary>
-		/// Función que se ejecuta al crearse el sistema.
-		/// </summary>
+		/// @brief Función que se ejecuta al crearse el sistema.
 		virtual void OnCreate();
 
 		/// <summary>

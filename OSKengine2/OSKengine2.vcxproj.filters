@@ -520,6 +520,9 @@
     <Filter Include="Archivos de origen\OSKengine\Persistence">
       <UniqueIdentifier>{37872b12-c12c-42c9-9717-a9fb4bfb2dc4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\ECS\Event">
+      <UniqueIdentifier>{40f0ab9a-208f-4198-9076-55751af8b092}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -1798,6 +1801,18 @@
     </ClInclude>
     <ClInclude Include="CommandQueueSupport.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\Queue</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="EventContainer.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="IEventContainer.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,6 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer =
 [
+    [ "~IGpuUniformBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html#acfd3e3555cdaeb181332c7d8d325450b", null ],
     [ "IGpuUniformBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html#a41a4b017264b5fac7ff348ff9dcf6f75", null ],
     [ "GetAlignment", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html#ac873fedc6e58f364fb6a08e4bdf009fd", null ],
     [ "GetMemoryBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html#a43f298eb4cdf029351a103d159c4abf8", null ],
@@ -14,5 +15,5 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer =
     [ "Write", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html#a3adde058f79922199f3c6971c899b227", null ],
     [ "Write", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html#aadfb37dc25b557c76dc43a3de3667d18", null ],
     [ "WriteOffset", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html#ac8e57fa1d9a9e692b7320fd0a8dd5cd0", null ],
-    [ "buffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html#a461883dff4d2ff0f0957d9f5a40991aa", null ]
+    [ "buffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html#a6d228566cb35a95bc803f35d5590cb3e", null ]
 ];

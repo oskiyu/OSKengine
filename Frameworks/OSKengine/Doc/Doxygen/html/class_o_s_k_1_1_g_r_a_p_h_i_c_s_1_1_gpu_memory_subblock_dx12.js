@@ -1,14 +1,13 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12 =
 [
-    [ "TSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a46fc43555030fbe208abc7db8c36673d", null ],
     [ "GpuMemorySubblockDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#ab262f3cf588bc8a62239046eb8afd29c", null ],
-    [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a184a8433d5967eea3dd00fd988d3dff2", null ],
-    [ "GetAllocatedSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a98060a86b121f0940cde38c36eca822f", null ],
-    [ "GetOffsetFromBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aaa35c7cacfe1d64bebe648bd0f34791c", null ],
+    [ "GetAllocatedSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a5079c199bc618901527aea58db31ca4c", null ],
+    [ "GetOffsetFromBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a24a7670782e3ab4b9978e11fb8621409", null ],
     [ "GetOwnerBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aa93fb9b1213377fa3e4187569872671e", null ],
     [ "GetResource", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aeed70f548ec527591047d3bcb3764c0e", null ],
     [ "MapMemory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aa198c6e76ed5686635f6bdaad954ec7c", null ],
     [ "MapMemory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#ab9be318d467bafb83fd8fc25847b73e6", null ],
+    [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a278b5f1e6372082695abc7c092e17d10", null ],
     [ "ResetCursor", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a2b8d413326c2a32941e244f447583e58", null ],
     [ "SetCursor", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#ab857e1d8dd5f5dfe65370d44799cb5d2", null ],
     [ "Unmap", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a799dcd79180dce0f84b9200488e6aa82", null ],

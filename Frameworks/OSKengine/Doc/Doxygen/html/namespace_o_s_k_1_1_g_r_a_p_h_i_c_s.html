@@ -295,7 +295,9 @@ Clases</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_push_const2_d.html">PushConst2D</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_indices.html">QueueFamilyIndices</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_familes.html">QueueFamiles</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family.html">QueueFamily</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_raytracing_pipeline_vulkan.html">RaytracingPipelineVulkan</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -369,6 +371,12 @@ typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumeraciones</h2></td></tr>
+<tr class="memitem:ae5f64f8e9fdfc352ed3026326a325b62"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5f64f8e9fdfc352ed3026326a325b62">CommandQueueSupport</a> { <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5f64f8e9fdfc352ed3026326a325b62a6f49448c79d7d58c6e60cf7129b84d1c">GRAPHICS</a>
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5f64f8e9fdfc352ed3026326a325b62aac404d7ce6ca5862e9b8a2641fbafd90">COMPUTE</a>
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5f64f8e9fdfc352ed3026326a325b62aeb5ddb3b6096fb90ff720d9c3e2a6628">TRANSFER</a>
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5f64f8e9fdfc352ed3026326a325b62a740819a7dc6b0b1a8a7fa0c871d9b878">PRESENTATION</a>
+ }</td></tr>
+<tr class="separator:ae5f64f8e9fdfc352ed3026326a325b62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac59f9d056e083c0b49ea768f974e3e8"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> { <br />
 &#160;&#160;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8a909cc8c5cc8fe4f16bec84a291aadbdb">RGBA8_UNORM</a>
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8ae5a76309919d3c679c642c13125eb930">RGBA8_SRGB</a>
@@ -507,6 +515,7 @@ Enumeraciones</h2></td></tr>
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7fa10395d241b657a656306f94cbfb24021">RT_ACCELERATION_STRUCTURE_BUILDING</a> = 128
 , <br />
 &#160;&#160;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7faa486db75420308f63af20d85e2b6489d">STORAGE_BUFFER</a> = 256
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7fa5f26ec9a42a626092bb3c25908b6659f">UPLOAD_ONLY</a> = 512
 <br />
  }</td></tr>
 <tr class="separator:ad8b871b506bab7c4021326a1a10bbc7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -687,6 +696,42 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Documentación de las enumeraciones</h2>
+<a id="ae5f64f8e9fdfc352ed3026326a325b62" name="ae5f64f8e9fdfc352ed3026326a325b62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5f64f8e9fdfc352ed3026326a325b62">&#9670;&nbsp;</a></span>CommandQueueSupport</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5f64f8e9fdfc352ed3026326a325b62">OSK::GRAPHICS::CommandQueueSupport</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Tipos de comandos que puede soportar una cola de comandos. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="ae5f64f8e9fdfc352ed3026326a325b62a6f49448c79d7d58c6e60cf7129b84d1c" name="ae5f64f8e9fdfc352ed3026326a325b62a6f49448c79d7d58c6e60cf7129b84d1c"></a>GRAPHICS&#160;</td><td class="fielddoc"><p >Comandos gráficos. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae5f64f8e9fdfc352ed3026326a325b62aac404d7ce6ca5862e9b8a2641fbafd90" name="ae5f64f8e9fdfc352ed3026326a325b62aac404d7ce6ca5862e9b8a2641fbafd90"></a>COMPUTE&#160;</td><td class="fielddoc"><p >Comandos de computación geneérica. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae5f64f8e9fdfc352ed3026326a325b62aeb5ddb3b6096fb90ff720d9c3e2a6628" name="ae5f64f8e9fdfc352ed3026326a325b62aeb5ddb3b6096fb90ff720d9c3e2a6628"></a>TRANSFER&#160;</td><td class="fielddoc"><p >Comandos de transferencia de recursos. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae5f64f8e9fdfc352ed3026326a325b62a740819a7dc6b0b1a8a7fa0c871d9b878" name="ae5f64f8e9fdfc352ed3026326a325b62a740819a7dc6b0b1a8a7fa0c871d9b878"></a>PRESENTATION&#160;</td><td class="fielddoc"><p >Comandos de presentación en pantalla. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="_command_queue_support_8h_source.html#l00009">9</a> del archivo <a class="el" href="_command_queue_support_8h_source.html">CommandQueueSupport.h</a>.</p>
+
+</div>
+</div>
 <a id="a9f540971911df275819dd542e32027dd" name="a9f540971911df275819dd542e32027dd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9f540971911df275819dd542e32027dd">&#9670;&nbsp;</a></span>DepthTestingType</h2>
 
@@ -854,7 +899,7 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="a5c67a4dab480f62eb6083332acdcb8c7a7e72dc7ff3c335fd2bf5fbfc66f2d2d9" name="a5c67a4dab480f62eb6083332acdcb8c7a7e72dc7ff3c335fd2bf5fbfc66f2d2d9"></a>RT_AS_BUILD&#160;</td><td class="fielddoc"><p >Construcción de estructuras de aceleración. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a5c67a4dab480f62eb6083332acdcb8c7a5b39c8b553c821e7cddc6da64b5bd2ee" name="a5c67a4dab480f62eb6083332acdcb8c7a5b39c8b553c821e7cddc6da64b5bd2ee"></a>DEFAULT&#160;</td><td class="fielddoc"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Tareas pendientes:</a></b></dt><dd>Documentación. </dd></dl>
+<tr><td class="fieldname"><a id="a5c67a4dab480f62eb6083332acdcb8c7a5b39c8b553c821e7cddc6da64b5bd2ee" name="a5c67a4dab480f62eb6083332acdcb8c7a5b39c8b553c821e7cddc6da64b5bd2ee"></a>DEFAULT&#160;</td><td class="fielddoc"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Tareas pendientes:</a></b></dt><dd>Documentación. </dd></dl>
 </td></tr>
 </table>
 
@@ -904,6 +949,7 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="ad8b871b506bab7c4021326a1a10bbc7faa486db75420308f63af20d85e2b6489d" name="ad8b871b506bab7c4021326a1a10bbc7faa486db75420308f63af20d85e2b6489d"></a>STORAGE_BUFFER&#160;</td><td class="fielddoc"><p >Se usara como buffer de lectura y escritura en shaders. </p>
 </td></tr>
+<tr><td class="fieldname"><a id="ad8b871b506bab7c4021326a1a10bbc7fa5f26ec9a42a626092bb3c25908b6659f" name="ad8b871b506bab7c4021326a1a10bbc7fa5f26ec9a42a626092bb3c25908b6659f"></a>UPLOAD_ONLY&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 <p class="definition">Definición en la línea <a class="el" href="_gpu_memory_types_8h_source.html#l00049">49</a> del archivo <a class="el" href="_gpu_memory_types_8h_source.html">GpuMemoryTypes.h</a>.</p>
@@ -2109,7 +2155,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li>
-    <li class="footer">Generado el Martes, 17 de Enero de 2023 19:07:42 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 2 de Febrero de 2023 14:41:23 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

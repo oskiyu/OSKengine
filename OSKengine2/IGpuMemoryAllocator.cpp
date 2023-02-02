@@ -58,6 +58,29 @@ void IGpuMemoryAllocator::RemoveMemoryBlock(IGpuMemoryBlock* iblock) {
 	}
 }
 
+void IGpuMemoryAllocator::FreeStagingMemory() {
+	for (TIndex i = 0; i < bufferMemoryBlocksInfo.GetSize(); i++) {
+		const auto& info = bufferMemoryBlocksInfo[i];
+
+		if (info.sharedType == GpuSharedMemoryType::GPU_AND_CPU
+			&& EFTraits::HasFlag(info.usage, GpuBufferUsage::UPLOAD_ONLY)) {
+			
+			DynamicArray<TIndex> freeableIndices{};
+
+			for (TIndex b = 0; b < bufferMemoryBlocks[i].GetSize(); b++) {
+				const auto block = bufferMemoryBlocks[i][b].GetPointer();
+
+				if (block->IsUnused())
+					freeableIndices.Insert(b);
+			}
+
+			if (!freeableIndices.IsEmpty())
+				for (TIndex b = freeableIndices.GetSize() - 1; b > 0; b--)
+					bufferMemoryBlocks[i].RemoveAt(b);
+		}
+	}
+}
+
 OwnedPtr<GpuImage> IGpuMemoryAllocator::CreateCubemapImage(const Vector2ui& faceSize, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, GpuImageSamplerDesc samplerDesc) {
 	if (!EFTraits::HasFlag(usage, GpuImageUsage::CUBEMAP))
 		EFTraits::AddFlag(&usage, GpuImageUsage::CUBEMAP);

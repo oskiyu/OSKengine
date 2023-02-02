@@ -434,9 +434,9 @@ $(document).ready(function(){initNavTree('_dynamic_array_8hpp_source.html',''); 
 <div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>            <a class="code hl_define" href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a>(<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef">HasBeenInitialized</a>(), <span class="stringliteral">&quot;DynamicArray: tried to remove element from an uninitialized array.&quot;</span>);</div>
 <div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span><span class="preprocessor">#endif </span><span class="comment">// _DEBUG</span></div>
 <div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span> </div>
-<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>            <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a9691f5eaf46654d59525c6c342d69cbb">At</a>(index).~T();</div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>            data[index].~T();</div>
 <div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span> </div>
-<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>            memmove(&amp;data[index], &amp;data[index + 1], size - index);</div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>            memmove(&amp;data[index], &amp;data[index + 1], <span class="keyword">sizeof</span>(T) * (size - (index + 1)));</div>
 <div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span> </div>
 <div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>            size--;</div>
 <div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>        }</div>
@@ -665,7 +665,7 @@ $(document).ready(function(){initNavTree('_dynamic_array_8hpp_source.html',''); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_dynamic_array_8hpp.html">DynamicArray.hpp</a></li>
-    <li class="footer">Generado el Martes, 17 de Enero de 2023 19:07:42 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 2 de Febrero de 2023 14:41:23 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

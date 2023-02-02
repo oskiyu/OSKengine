@@ -1,7 +1,7 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image =
 [
     [ "GpuImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#acb43f72ece7d5d5c1444414f32664913", null ],
-    [ "~GpuImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a78533120a067d3edce5dd7cfd86f2285", null ],
+    [ "~GpuImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ab16bd72ad08c771a3cc118a707da3d05", null ],
     [ "_SetPhysicalSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ad23f506b8bdde8faac2dac9d6a86f7e7", null ],
     [ "As", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a6bc3268b57ede5f9f0541b20d12dfea0", null ],
     [ "CreateView", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a52b0c9170bac73a8e525244e071396ec", null ],

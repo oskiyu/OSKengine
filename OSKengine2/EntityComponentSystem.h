@@ -5,6 +5,7 @@
 #include "ComponentManager.h"
 #include "GameObjectManager.h"
 #include "SystemManager.h"
+#include "EventManager.h"
 #include "ISystem.h"
 #include "IRenderSystem.h"
 #include "Assert.h"
@@ -33,10 +34,11 @@ namespace OSK::ECS {
 	/// @note Toda operación que el juego quiera hacer sobre el ECS debe hacerse a través de
 	/// esta clase.
 	/// @note Esta clase es dueña de los sistemas.
-	class EntityComponentSystem {
+	class EntityComponentSystem final {
 
 	public:
 
+		/// @brief Inicializa todos los managers.
 		EntityComponentSystem();
 
 		/// @brief Ejecuta la lógica OnTick de todos los sistemas registrados.
@@ -44,6 +46,7 @@ namespace OSK::ECS {
 		/// última ejecución de esta función.
 		void OnTick(TDeltaTime deltaTime);
 
+#pragma region Components
 
 		/// @brief Registra un tipo de componente.
 		/// @tparam TComponent Tipo del componente.
@@ -54,7 +57,6 @@ namespace OSK::ECS {
 		void RegisterComponent() {
 			componentManager->RegisterComponent<TComponent>();
 		}
-
 
 		/// @brief Añade el componente dado al objeto.
 		/// @tparam TComponent Tipo del componente.
@@ -115,8 +117,7 @@ namespace OSK::ECS {
 				componentManager->GetComponentType<TComponent>()
 			);
 		}
-
-		
+				
 		/// @brief Elimina el componente del objeto.
 		/// @tparam TComponent Tipo del componente.
 		/// @param obj Objeto al que se va a quitar el componente.
@@ -159,9 +160,13 @@ namespace OSK::ECS {
 			return componentManager->GetComponentType<TComponent>();
 		}
 
-		/// <summary>
-		/// Registra y almacena un nuevo sistema del tipo dado.
-		/// </summary>
+#pragma endregion
+
+#pragma region System
+
+		/// @brief Registra y almacena un nuevo sistema del tipo dado.
+		/// @tparam TSystem Tipo de sistema.
+		/// @return Sistema creado.
 		template <typename TSystem> TSystem* RegisterSystem() {
 			TSystem* output = systemManager->RegisterSystem<TSystem>();
 
@@ -174,9 +179,8 @@ namespace OSK::ECS {
 			return output;
 		}
 
-		/// <summary>
-		/// Elimina un sistema.
-		/// </summary>
+		/// @brief Elimina un sistema.
+		/// @tparam TSystem Tipo de sistema.
 		/// 
 		/// @note Si el sistema no está registrado, no ocurre nada.
 		template <typename TSystem> void RemoveSystem() {
@@ -187,31 +191,78 @@ namespace OSK::ECS {
 			systemManager->RemoveSystem<TSystem>();
 		}
 
-		/// <summary>
-		/// Devuelve la instancia almacenada del sistema del tipo dado.
-		/// </summary>
+		/// @brief Devuelve la instancia almacenada del sistema del tipo dado.
+		/// @tparam TSystem Tipo de sistema.
+		/// @return Sistema.
+		/// 
+		/// @pre El sistema debe haber sido previamente registrado con RegisterSystem.
 		template <typename TSystem> TSystem* GetSystem() const {
 			return systemManager->GetSystem<TSystem>();
 		}
 
-		/// <summary>
-		/// Spawnea un nuevo objeto, y devuelve su ID.
-		///
+#pragma endregion
+
+#pragma region Event
+
+		/// @brief Registra un tipo de evento.
+		/// Los venetos deben registrarse así para poder ser manejados
+		/// por ECS.
+		/// @tparam TEvent Tipo de evento.
+		/// 
+		/// @pre TEvent debe cumplir IsEcsEvent<TEvent>.
+		template <typename TEvent> requires IsEcsEvent<TEvent>
+		void RegisterEventType() {
+			eventManager->RegisterEventType<TEvent>();
+		}
+
+		/// @brief Publica un evento, de tal manera que puede ser
+		/// procesado por los sistemas consumidores.
+		/// @tparam TEvent Tipo de evento.
+		/// @param event Evento.
+		/// 
+		/// @pre TEvent debe cumplir IsEcsEvent<TEvent>.
+		/// @pre TEvent debe haber sido registrado con RegisterEventType.
+		template <typename TEvent> requires IsEcsEvent<TEvent>
+		void PublishEvent(const TEvent& event) {
+			eventManager->PublishEvent(event);
+		}
+
+		/// @brief Obtiene la cola con todos los eventos de un tipo
+		/// que se han producido en un frame.
+		/// @tparam TEvent Tipo de evento.
+		/// @return Cola con todos los eventos. Puede ser una cola vacía si
+		/// no se ha producido ningún evento en el frame.
+		/// 
+		/// @pre TEvent debe cumplir IsEcsEvent<TEvent>.
+		/// @pre TEvent debe haber sido registrado con RegisterEventType.
+		template <typename TEvent> requires IsEcsEvent<TEvent>
+		const DynamicArray<TEvent>& GetEventQueue() const {
+			return eventManager->GetEventQueue<TEvent>();
+		}
+
+#pragma endregion
+
+
+		/// @brief Crea un nuevo objeto vacío y devuelve su ID.
+		/// @return ID del nuevo objeto.
+		/// 
 		/// @warning ECS NO ES DUEÑO DEL OBJETO, el juego es el encargado
 		/// de eliminarlo mediante DestroyObject().
-		/// </summary>
 		GameObjectIndex OSKAPI_CALL SpawnObject();
 
-		/// <summary>
-		/// Elimina un objeto.
+		/// @brief Elimina un objeto.
+		/// @param obj Referencia al ID.
 		///
 		/// @note Su ID cambia a 0 para indicar que ya no es una ID válida.
-		/// </summary>
 		void OSKAPI_CALL DestroyObject(GameObjectIndex* obj);
 
-		/// <summary>
-		/// Devuelve los render systems registrados.
-		/// </summary>
+		/// @brief Finaliza el frame.
+		/// Debe llamarse una vez al finalizar el frame.
+		void OSKAPI_CALL EndFrame();
+
+
+		/// @brief Devuelve los render systems registrados.
+		/// @return Render systems registrados.
 		const OSKAPI_CALL DynamicArray<IRenderSystem*>& GetRenderSystems() const;
 
 	private:
@@ -219,10 +270,8 @@ namespace OSK::ECS {
 		UniquePtr<SystemManager> systemManager;
 		UniquePtr<ComponentManager> componentManager;
 		UniquePtr<GameObjectManager> gameObjectManager;
+		UniquePtr<EventManager> eventManager;
 
-		/// <summary>
-		/// @todo Pointer stability safety
-		/// </summary>
 		DynamicArray<IRenderSystem*> renderSystems;
 
 	};

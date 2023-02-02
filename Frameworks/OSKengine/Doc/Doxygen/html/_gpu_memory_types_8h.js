@@ -9,7 +9,8 @@ var _gpu_memory_types_8h =
       [ "RT_ACCELERATION_STRUCTURE", "_gpu_memory_types_8h.html#ad8b871b506bab7c4021326a1a10bbc7fa56da21e70ea85d8efa9392d6fd11f2ee", null ],
       [ "RT_SHADER_BINDING_TABLE", "_gpu_memory_types_8h.html#ad8b871b506bab7c4021326a1a10bbc7faf4723b84fe089b99fa8bd437f42b0167", null ],
       [ "RT_ACCELERATION_STRUCTURE_BUILDING", "_gpu_memory_types_8h.html#ad8b871b506bab7c4021326a1a10bbc7fa10395d241b657a656306f94cbfb24021", null ],
-      [ "STORAGE_BUFFER", "_gpu_memory_types_8h.html#ad8b871b506bab7c4021326a1a10bbc7faa486db75420308f63af20d85e2b6489d", null ]
+      [ "STORAGE_BUFFER", "_gpu_memory_types_8h.html#ad8b871b506bab7c4021326a1a10bbc7faa486db75420308f63af20d85e2b6489d", null ],
+      [ "UPLOAD_ONLY", "_gpu_memory_types_8h.html#ad8b871b506bab7c4021326a1a10bbc7fa5f26ec9a42a626092bb3c25908b6659f", null ]
     ] ],
     [ "GpuMemoryUsage", "_gpu_memory_types_8h.html#ae5e58e16d9268fde60c3eae698b225ec", [
       [ "BUFFER", "_gpu_memory_types_8h.html#ae5e58e16d9268fde60c3eae698b225eca17de626bcae5109bb2f7a66dfc4a8a1d", null ],
