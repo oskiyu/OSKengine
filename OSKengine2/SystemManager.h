@@ -6,6 +6,10 @@
 #include "GameObject.h"
 #include "Component.h"
 
+#include "IPureSystem.h"
+#include "IConsumerSystem.h"
+#include "IProducerSystem.h"
+
 #include <string>
 
 namespace OSK::GRAPHICS {
@@ -14,45 +18,75 @@ namespace OSK::GRAPHICS {
 
 namespace OSK::ECS {
 
-	class ISystem;
-
-	/// <summary>
-	/// El SystemManager se encarga de almacenar y manejar los sistemas del juego.
+	/// @brief El SystemManager se encarga de almacenar y manejar los sistemas del juego.
 	/// Es el encargado de llamar a las funciones OnTick de los sistemas, además
 	/// de introducir y eliminar de los sistemas a los GameObjects que cada sistema
 	/// vaya a procesar.
 	/// 
 	/// @note Dueño de los sistemas.
-	/// </summary>
 	class OSKAPI_CALL SystemManager {
 
 	public:
 
-		/// <summary>
-		/// Ejecuta la lógica OnTickd de todos los sistemas.
-		/// </summary>
+		/// @brief Ejecuta la lógica OnTick de todos los sistemas.
+		/// @param deltaTime Tiempo, en segundos, que ha pasado desde el último frame.
 		void OnTick(TDeltaTime deltaTime);
 
-		/// <summary>
-		/// Elimina el GameObject de todos los sistemas.
-		/// </summary>
+		/// @brief Elimina el GameObject de todos los sistemas.
+		/// @param obj Objeto eliminado.
 		void GameObjectDestroyed(GameObjectIndex obj);
 
-		/// <summary>
-		/// Añade o elimina el objeto de los sistemas, según sea conveniente
+		
+		/// @brief Añade o elimina el objeto de los sistemas, según sea conveniente
 		/// dependiendo del nuevo signature.
-		/// </summary>
-		/// <param name="obj">Objeto cuyo signature ha cambiado.</param>
-		/// <param name="signature">Nuevo signature del objeto.</param>
+		/// @param obj Objeto cuyo signature ha cambiado.
+		/// @param signature Nuevo signature del objeto.
 		void GameObjectSignatureChanged(GameObjectIndex obj, const Signature& signature);
 
-		/// <summary>
-		/// Crea y almacena un nuevo sistema.
-		/// </summary>
-		template <typename TSystem> TSystem* RegisterSystem() {
+
+		template <typename TSystem> requires IsProducerSystem<TSystem>
+		TSystem* RegisterProducerSystem() {
 			TSystem* sistema = new TSystem;
 
-			sistemas.Insert(TSystem::GetSystemName(), (ISystem*)sistema);
+			producers.Insert(TSystem::GetSystemName(), (IProducerSystem*)sistema);
+
+			return sistema;
+		}
+
+		template <typename TSystem> requires IsConsumerSystem<TSystem>
+		TSystem* RegisterConsumerSystem() {
+			TSystem* sistema = new TSystem;
+
+			consumers.Insert(TSystem::GetSystemName(), (IConsumerSystem*)sistema);
+
+			return sistema;
+		}
+
+		template <typename TSystem> requires IsPureSystem<TSystem>
+		TSystem* RegisterPureSystem() {
+			TSystem* sistema = new TSystem;
+
+			systems.Insert(TSystem::GetSystemName(), (IPureSystem*)sistema);
+
+			return sistema;
+		}
+
+		template <typename TSystem> requires IsEcsSystem<TSystem>
+		TSystem* RegisterSystem() {
+			TSystem* sistema = new TSystem;
+			const std::string key = TSystem::GetSystemName();
+
+			if constexpr (IsProducerSystem<TSystem>) {
+				producers.Insert(key, (IPureSystem*)sistema);
+			}
+
+			if constexpr (IsConsumerSystem<TSystem>) {
+				consumers.Insert(key, (IPureSystem*)sistema);
+			}
+
+			if constexpr (IsPureSystem<TSystem>) {
+				systems.Insert(key, (IPureSystem*)sistema);
+			}
 
 			return sistema;
 		}
@@ -64,27 +98,62 @@ namespace OSK::ECS {
 		/// @note Si el sistema no está registrado, no ocurre nada.
 		/// 
 		/// @bug No llama a ISystem::OnRemove().
-		template <typename TSystem> void RemoveSystem() {
-			sistemas.Remove(TSystem::GetSystemName());
+		template <typename TSystem> requires IsEcsSystem<TSystem> 
+		void RemoveSystem() {
+			if constexpr (IsProducerSystem<TSystem>) {
+				producers.Remove(TSystem::GetSystemName());
+			}
+
+			if constexpr (IsConsumerSystem<TSystem>) {
+				consumers.Remove(TSystem::GetSystemName());
+			}
+
+			if constexpr (IsPureSystem<TSystem>) {
+				systems.Remove(TSystem::GetSystemName());
+			}
 		}
 
 		/// <summary>
 		/// Devuelve la instancia del sistema dado.
 		/// </summary>
-		template <typename TSystem> TSystem* GetSystem() const {
-			return (TSystem*)sistemas.Get(TSystem::GetSystemName()).GetPointer();
+		template <typename TSystem> requires IsEcsSystem<TSystem>
+		TSystem* GetSystem() const {
+			if constexpr (IsProducerSystem<TSystem>) {
+				return (TSystem*)producers.Get(TSystem::GetSystemName()).GetPointer();
+			}
+
+			if constexpr (IsConsumerSystem<TSystem>) {
+				return (TSystem*)consumers.Get(TSystem::GetSystemName()).GetPointer();
+			}
+
+			if constexpr (IsPureSystem<TSystem>) {
+				return (TSystem*)systems.Get(TSystem::GetSystemName()).GetPointer();
+			}
 		}
 
 		/// <summary>
 		/// Comprueba si un sistema dado está registrado.
 		/// </summary>
 		template <typename TSystem> bool ContainsSystem() const {
-			return sistemas.ContainsKey(TSystem::GetSystemName());
+			const std::string key = TSystem::GetSystemName();
+			if constexpr (IsProducerSystem<TSystem>) {
+				return producers.ContainsKey(key);
+			}
+
+			if constexpr (IsConsumerSystem<TSystem>) {
+				return consumers.ContainsKey(key);
+			}
+
+			if constexpr (IsPureSystem<TSystem>) {
+				return systems.ContainsKey(key);
+			}
 		}
 
 	private:
 
-		HashMap<std::string, UniquePtr<ISystem>> sistemas;
+		HashMap<std::string, UniquePtr<IProducerSystem>> producers;
+		HashMap<std::string, UniquePtr<IConsumerSystem>> consumers;
+		HashMap<std::string, UniquePtr<IPureSystem>> systems;
 
 	};
 

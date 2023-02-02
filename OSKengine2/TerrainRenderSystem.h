@@ -4,7 +4,7 @@
 
 namespace OSK::ECS {
 
-	class OSKAPI_CALL TerrainRenderSystem : public ISystem {
+	class OSKAPI_CALL TerrainRenderSystem : public IPureSystem {
 
 	public:
 

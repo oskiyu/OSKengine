@@ -28,60 +28,27 @@ namespace OSK::ECS{
 		/// @brief Función que se ejecuta al crearse el sistema.
 		virtual void OnCreate();
 
-		/// <summary>
-		/// Función que se ejecuta una vez por frame.
-		/// 
-		/// La lógica en la mayoría de sistemas estará implementada
-		/// en este método.
-		/// </summary>
-		/// <param name="deltaTime"></param>
-		virtual void OnTick(TDeltaTime deltaTime);
-
-		/// <summary>
-		/// Función que se ejecuta al destruirse el sistema.
-		/// </summary>
+		/// @brief Función que se ejecuta al destruirse el sistema.
 		virtual void OnRemove();
 
 
-		/// <summary>
-		/// Función que se ejecuta cuando un GameObject entra en la lista
-		/// de objetos procesables por el sistema.
-		/// </summary>
-		virtual void OnObjectAdded(GameObjectIndex obj);
-
-		/// <summary>
-		/// Función que se ejecuta cuando un GameObject sale de la lista
-		/// de objetos procesables por el sistema.
-		/// </summary>
-		virtual void OnObjectRemoved(GameObjectIndex obj);
-
-
-		/// <summary>
-		/// Devuelve el signature del sistema, indicando qué componentes
-		/// necesita.
-		/// </summary>
-		const Signature& GetSignature() const;
-
-		/// <summary>
-		/// Añade un objeto a la lista de objetos procesables.
-		/// </summary>
-		void AddObject(GameObjectIndex obj);
-
-		/// <summary>
-		/// Elimina un objeto de la lista de objetos procesables.
-		/// </summary>
-		void RemoveObject(GameObjectIndex obj);
+		/// @brief Función que se ejecuta una vez por frame.
+		/// La lógica en la mayoría de sistemas estará implementada
+		/// en este método.
+		/// @param deltaTime Número de segundos que han pasado desde
+		/// la anterior ejecución.
+		virtual void OnTick(TDeltaTime deltaTime);
 
 	protected:
 
-		void SetSignature(const Signature& signature);
-		const DynamicArray<GameObjectIndex>& GetObjects();
+		ISystem() = default;
 
-	private:
+	};
 
-		DynamicArray<GameObjectIndex> processedObjects;
-		Signature signature;
 
+	template<typename TSystem>
+	concept IsEcsSystem = requires (TSystem) {
+			{TSystem::GetSystemName()};
 	};
 
 }

@@ -127,6 +127,7 @@
     <ClCompile Include="IGpuStorageBuffer.cpp" />
     <ClCompile Include="IGraphicsPipeline.cpp" />
     <ClCompile Include="IInputListener.cpp" />
+    <ClCompile Include="IIteratorSystem.cpp" />
     <ClCompile Include="IKeyboardInput.cpp" />
     <ClCompile Include="IMaterialSlot.cpp" />
     <ClCompile Include="IMeshLoader.cpp" />
@@ -136,6 +137,8 @@
     <ClCompile Include="IPipelineLayout.cpp" />
     <ClCompile Include="IPipelineVulkan.cpp" />
     <ClCompile Include="IPostProcessPass.cpp" />
+    <ClCompile Include="IProducerSystem.cpp" />
+    <ClCompile Include="IPureSystem.cpp" />
     <ClCompile Include="IRaytracingPipeline.cpp" />
     <ClCompile Include="IRenderSystem.cpp" />
     <ClCompile Include="IrradianceMap.cpp" />
@@ -279,6 +282,7 @@
     <ClInclude Include="HybridRenderSystem.h" />
     <ClInclude Include="IBottomLevelCollider.h" />
     <ClInclude Include="IComputePipeline.h" />
+    <ClInclude Include="IConsumerSystem.h" />
     <ClInclude Include="IDataElement.h" />
     <ClInclude Include="IDisplay.h" />
     <ClInclude Include="IEventContainer.h" />
@@ -287,11 +291,13 @@
     <ClInclude Include="IGpuObject.h" />
     <ClInclude Include="IGpuImageView.h" />
     <ClInclude Include="IIterable.h" />
+    <ClInclude Include="IIteratorSystem.h" />
     <ClInclude Include="IKeyboardInput.h" />
     <ClInclude Include="IMeshLoader.h" />
     <ClInclude Include="IMouseInput.h" />
     <ClInclude Include="IPipelineDx12.h" />
     <ClInclude Include="IPostProcessPass.h" />
+    <ClInclude Include="IProducerSystem.h" />
     <ClInclude Include="IQueryInterface.h" />
     <ClInclude Include="IRayCollider.h" />
     <ClInclude Include="IrradianceMap.h" />
@@ -409,6 +415,7 @@
     <ClInclude Include="Pair.hpp" />
     <ClInclude Include="PipelineCreateInfo.h" />
     <ClInclude Include="PresentMode.h" />
+    <ClInclude Include="IPureSystem.h" />
     <ClInclude Include="PushConst2D.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="QueueFamilyIndices.h" />

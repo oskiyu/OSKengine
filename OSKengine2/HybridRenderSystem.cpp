@@ -21,7 +21,7 @@ HybridRenderSystem::HybridRenderSystem() {
 	Signature signature{};
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<Transform3D>());
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<ModelComponent3D>());
-	SetSignature(signature);
+	_SetSignature(signature);
 
 	// Directional light por defecto
 	const Vector3f direction = Vector3f(1.0f, -3.f, 0.0f).GetNormalized();

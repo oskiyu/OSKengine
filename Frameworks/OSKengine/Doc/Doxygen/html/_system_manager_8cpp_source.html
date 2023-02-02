@@ -95,29 +95,45 @@ $(document).ready(function(){initNavTree('_system_manager_8cpp_source.html','');
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a>;</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a79813ae895035ff2df8f47239b9003bb">    7</a></span><span class="keywordtype">void</span> SystemManager::OnTick(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime) {</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; i : sistemas)</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>        i.second-&gt;OnTick(deltaTime);</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>}</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#adeba4513a1ca0154da78f72d2bb3c408">   12</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#adeba4513a1ca0154da78f72d2bb3c408">SystemManager::GameObjectDestroyed</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">GameObjectIndex</a> obj) {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; i : sistemas)</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        i.second-&gt;RemoveObject(obj);</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a74ebffeb57090187fe5add293d79ca67">   17</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a74ebffeb57090187fe5add293d79ca67">SystemManager::GameObjectSignatureChanged</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">GameObjectIndex</a> obj, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_constexpr_bit_set.html">Signature</a>&amp; signature) {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; i : sistemas) {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordflow">if</span> (i.second-&gt;GetSignature().IsCompatible(signature))</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>            i.second-&gt;AddObject(obj);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            i.second-&gt;RemoveObject(obj);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    }</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; [name, system] : producers)</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>        system-&gt;OnTick(deltaTime);</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; [name, system] : consumers)</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        system-&gt;OnTick(deltaTime);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; [name, system] : systems)</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        system-&gt;OnTick(deltaTime);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#adeba4513a1ca0154da78f72d2bb3c408">   18</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#adeba4513a1ca0154da78f72d2bb3c408">SystemManager::GameObjectDestroyed</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">GameObjectIndex</a> obj) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; [name, system] : producers)</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        system-&gt;_RemoveObject(obj);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; [name, system] : systems)</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        system-&gt;_RemoveObject(obj);</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a74ebffeb57090187fe5add293d79ca67">   26</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a74ebffeb57090187fe5add293d79ca67">SystemManager::GameObjectSignatureChanged</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">GameObjectIndex</a> obj, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_constexpr_bit_set.html">Signature</a>&amp; signature) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; [name, system] : producers) {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordflow">if</span> (system-&gt;GetSignature().IsCompatible(signature))</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            system-&gt;_AddObject(obj);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            system-&gt;_RemoveObject(obj);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; [name, system] : systems) {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordflow">if</span> (system-&gt;GetSignature().IsCompatible(signature))</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            system-&gt;_AddObject(obj);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            system-&gt;_RemoveObject(obj);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
 <div class="ttc" id="a_i_system_8h_html"><div class="ttname"><a href="_i_system_8h.html">ISystem.h</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_ad05d5eacc527d5b61240124daf13b33b"><div class="ttname"><a href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a></div><div class="ttdeci">float TDeltaTime</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00025">OSKmacros.h:25</a></div></div>
 <div class="ttc" id="a_system_manager_8h_html"><div class="ttname"><a href="_system_manager_8h.html">SystemManager.h</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html">OSK::ConstexprBitSet&lt; MAX_COMPONENT_TYPES &gt;</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_system_manager_html_a74ebffeb57090187fe5add293d79ca67"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a74ebffeb57090187fe5add293d79ca67">OSK::ECS::SystemManager::GameObjectSignatureChanged</a></div><div class="ttdeci">void GameObjectSignatureChanged(GameObjectIndex obj, const Signature &amp;signature)</div><div class="ttdoc">Añade o elimina el objeto de los sistemas, según sea conveniente dependiendo del nuevo signature.</div><div class="ttdef"><b>Definition:</b> <a href="_system_manager_8cpp_source.html#l00017">SystemManager.cpp:17</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_system_manager_html_adeba4513a1ca0154da78f72d2bb3c408"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#adeba4513a1ca0154da78f72d2bb3c408">OSK::ECS::SystemManager::GameObjectDestroyed</a></div><div class="ttdeci">void GameObjectDestroyed(GameObjectIndex obj)</div><div class="ttdoc">Elimina el GameObject de todos los sistemas.</div><div class="ttdef"><b>Definition:</b> <a href="_system_manager_8cpp_source.html#l00012">SystemManager.cpp:12</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_system_manager_html_a74ebffeb57090187fe5add293d79ca67"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a74ebffeb57090187fe5add293d79ca67">OSK::ECS::SystemManager::GameObjectSignatureChanged</a></div><div class="ttdeci">void GameObjectSignatureChanged(GameObjectIndex obj, const Signature &amp;signature)</div><div class="ttdoc">Añade o elimina el objeto de los sistemas, según sea conveniente dependiendo del nuevo signature.</div><div class="ttdef"><b>Definition:</b> <a href="_system_manager_8cpp_source.html#l00026">SystemManager.cpp:26</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_system_manager_html_adeba4513a1ca0154da78f72d2bb3c408"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#adeba4513a1ca0154da78f72d2bb3c408">OSK::ECS::SystemManager::GameObjectDestroyed</a></div><div class="ttdeci">void GameObjectDestroyed(GameObjectIndex obj)</div><div class="ttdoc">Elimina el GameObject de todos los sistemas.</div><div class="ttdef"><b>Definition:</b> <a href="_system_manager_8cpp_source.html#l00018">SystemManager.cpp:18</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition:</b> <a href="_camera_component2_d_8h_source.html#l00015">CameraComponent2D.h:15</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a99c18565dd4a06fe73e18b7f987584f6"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">OSK::ECS::GameObjectIndex</a></div><div class="ttdeci">TIndex GameObjectIndex</div><div class="ttdoc">Identificador único para un Game Object.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00019">GameObject.h:19</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -126,7 +142,7 @@ $(document).ready(function(){initNavTree('_system_manager_8cpp_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_system_manager_8cpp.html">SystemManager.cpp</a></li>
-    <li class="footer">Generado el Jueves, 2 de Febrero de 2023 14:41:23 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 2 de Febrero de 2023 18:24:43 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

@@ -35,7 +35,7 @@ PbrDeferredRenderSystem::PbrDeferredRenderSystem() {
 	Signature signature{};
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<Transform3D>());
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<ModelComponent3D>());
-	SetSignature(signature);
+	_SetSignature(signature);
 
 	// Mapa de sombras
 	shadowMap.Create({ 4096u });

@@ -96,8 +96,10 @@ var hierarchy =
     [ "OSK::DynamicArray< Pair< std::string, OSK::UI::UiElement * > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< Pair< std::string, OSK::UniquePtr< OSK::ASSETS::IAssetLoader > > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< Pair< std::string, OSK::UniquePtr< OSK::ECS::IComponentContainer > > >", "class_o_s_k_1_1_dynamic_array.html", null ],
+    [ "OSK::DynamicArray< Pair< std::string, OSK::UniquePtr< OSK::ECS::IConsumerSystem > > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< Pair< std::string, OSK::UniquePtr< OSK::ECS::IEventContainer > > >", "class_o_s_k_1_1_dynamic_array.html", null ],
-    [ "OSK::DynamicArray< Pair< std::string, OSK::UniquePtr< OSK::ECS::ISystem > > >", "class_o_s_k_1_1_dynamic_array.html", null ],
+    [ "OSK::DynamicArray< Pair< std::string, OSK::UniquePtr< OSK::ECS::IProducerSystem > > >", "class_o_s_k_1_1_dynamic_array.html", null ],
+    [ "OSK::DynamicArray< Pair< std::string, OSK::UniquePtr< OSK::ECS::IPureSystem > > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< Pair< std::string, OSK::UniquePtr< OSK::GRAPHICS::IMaterialSlot > > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< Pair< std::string, OSK::UniquePtr< OSK::PERSISTENCE::IDataElement > > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< Pair< std::string, TIndex > >", "class_o_s_k_1_1_dynamic_array.html", null ],
@@ -185,8 +187,10 @@ var hierarchy =
     [ "OSK::HashMap< std::string, OSK::UI::UiElement * >", "class_o_s_k_1_1_hash_map.html", null ],
     [ "OSK::HashMap< std::string, OSK::UniquePtr< OSK::ASSETS::IAssetLoader > >", "class_o_s_k_1_1_hash_map.html", null ],
     [ "OSK::HashMap< std::string, OSK::UniquePtr< OSK::ECS::IComponentContainer > >", "class_o_s_k_1_1_hash_map.html", null ],
+    [ "OSK::HashMap< std::string, OSK::UniquePtr< OSK::ECS::IConsumerSystem > >", "class_o_s_k_1_1_hash_map.html", null ],
     [ "OSK::HashMap< std::string, OSK::UniquePtr< OSK::ECS::IEventContainer > >", "class_o_s_k_1_1_hash_map.html", null ],
-    [ "OSK::HashMap< std::string, OSK::UniquePtr< OSK::ECS::ISystem > >", "class_o_s_k_1_1_hash_map.html", null ],
+    [ "OSK::HashMap< std::string, OSK::UniquePtr< OSK::ECS::IProducerSystem > >", "class_o_s_k_1_1_hash_map.html", null ],
+    [ "OSK::HashMap< std::string, OSK::UniquePtr< OSK::ECS::IPureSystem > >", "class_o_s_k_1_1_hash_map.html", null ],
     [ "OSK::HashMap< std::string, OSK::UniquePtr< OSK::GRAPHICS::IMaterialSlot > >", "class_o_s_k_1_1_hash_map.html", null ],
     [ "OSK::HashMap< std::string, OSK::UniquePtr< OSK::PERSISTENCE::IDataElement > >", "class_o_s_k_1_1_hash_map.html", null ],
     [ "OSK::HashMap< std::string, TIndex >", "class_o_s_k_1_1_hash_map.html", null ],
@@ -356,15 +360,23 @@ var hierarchy =
       [ "OSK::GRAPHICS::SyncDeviceVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html", null ]
     ] ],
     [ "OSK::ECS::ISystem", "class_o_s_k_1_1_e_c_s_1_1_i_system.html", [
-      [ "OSK::ECS::IRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_i_render_system.html", [
-        [ "OSK::ECS::ColliderRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html", null ],
-        [ "OSK::ECS::HybridRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html", null ],
-        [ "OSK::ECS::PbrDeferredRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html", null ],
-        [ "OSK::ECS::RenderSystem2D", "class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html", null ],
-        [ "OSK::ECS::RenderSystem3D", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html", null ],
-        [ "OSK::ECS::SkyboxRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html", null ]
+      [ "OSK::ECS::IConsumerSystem", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html", [
+        [ "OSK::ECS::ConsumerSystem< TEvent >", "class_o_s_k_1_1_e_c_s_1_1_consumer_system.html", null ]
       ] ],
-      [ "OSK::ECS::TerrainRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_terrain_render_system.html", null ]
+      [ "OSK::ECS::IIteratorSystem", "class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html", [
+        [ "OSK::ECS::IProducerSystem", "class_o_s_k_1_1_e_c_s_1_1_i_producer_system.html", null ],
+        [ "OSK::ECS::IPureSystem", "class_o_s_k_1_1_e_c_s_1_1_i_pure_system.html", [
+          [ "OSK::ECS::IRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_i_render_system.html", [
+            [ "OSK::ECS::ColliderRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html", null ],
+            [ "OSK::ECS::HybridRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html", null ],
+            [ "OSK::ECS::PbrDeferredRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html", null ],
+            [ "OSK::ECS::RenderSystem2D", "class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html", null ],
+            [ "OSK::ECS::RenderSystem3D", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html", null ],
+            [ "OSK::ECS::SkyboxRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html", null ]
+          ] ],
+          [ "OSK::ECS::TerrainRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_terrain_render_system.html", null ]
+        ] ]
+      ] ]
     ] ],
     [ "OSK::DynamicArray< T >::Iterator", "class_o_s_k_1_1_dynamic_array_1_1_iterator.html", null ],
     [ "OSK::HashMap< TKey, TValue, numBuckets >::Iterator", "class_o_s_k_1_1_hash_map_1_1_iterator.html", null ],
@@ -421,8 +433,10 @@ var hierarchy =
     [ "OSK::Pair< std::string, OSK::UI::UiElement * >", "struct_o_s_k_1_1_pair.html", null ],
     [ "OSK::Pair< std::string, OSK::UniquePtr< OSK::ASSETS::IAssetLoader > >", "struct_o_s_k_1_1_pair.html", null ],
     [ "OSK::Pair< std::string, OSK::UniquePtr< OSK::ECS::IComponentContainer > >", "struct_o_s_k_1_1_pair.html", null ],
+    [ "OSK::Pair< std::string, OSK::UniquePtr< OSK::ECS::IConsumerSystem > >", "struct_o_s_k_1_1_pair.html", null ],
     [ "OSK::Pair< std::string, OSK::UniquePtr< OSK::ECS::IEventContainer > >", "struct_o_s_k_1_1_pair.html", null ],
-    [ "OSK::Pair< std::string, OSK::UniquePtr< OSK::ECS::ISystem > >", "struct_o_s_k_1_1_pair.html", null ],
+    [ "OSK::Pair< std::string, OSK::UniquePtr< OSK::ECS::IProducerSystem > >", "struct_o_s_k_1_1_pair.html", null ],
+    [ "OSK::Pair< std::string, OSK::UniquePtr< OSK::ECS::IPureSystem > >", "struct_o_s_k_1_1_pair.html", null ],
     [ "OSK::Pair< std::string, OSK::UniquePtr< OSK::GRAPHICS::IMaterialSlot > >", "struct_o_s_k_1_1_pair.html", null ],
     [ "OSK::Pair< std::string, OSK::UniquePtr< OSK::PERSISTENCE::IDataElement > >", "struct_o_s_k_1_1_pair.html", null ],
     [ "OSK::Pair< std::string, TIndex >", "struct_o_s_k_1_1_pair.html", null ],
@@ -478,8 +492,10 @@ var hierarchy =
     [ "OSK::UniquePtr< OSK::ECS::EventManager >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::ECS::GameObjectManager >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::ECS::IComponentContainer >", "class_o_s_k_1_1_unique_ptr.html", null ],
+    [ "OSK::UniquePtr< OSK::ECS::IConsumerSystem >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::ECS::IEventContainer >", "class_o_s_k_1_1_unique_ptr.html", null ],
-    [ "OSK::UniquePtr< OSK::ECS::ISystem >", "class_o_s_k_1_1_unique_ptr.html", null ],
+    [ "OSK::UniquePtr< OSK::ECS::IProducerSystem >", "class_o_s_k_1_1_unique_ptr.html", null ],
+    [ "OSK::UniquePtr< OSK::ECS::IPureSystem >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::ECS::SystemManager >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::Animator >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::DescriptorLayoutVulkan >", "class_o_s_k_1_1_unique_ptr.html", null ],

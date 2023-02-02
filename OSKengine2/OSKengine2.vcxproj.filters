@@ -1062,6 +1062,15 @@
     <ClCompile Include="Data.cpp">
       <Filter>Archivos de origen\OSKengine\Persistence</Filter>
     </ClCompile>
+    <ClCompile Include="IIteratorSystem.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="IPureSystem.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="IProducerSystem.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
@@ -1813,6 +1822,18 @@
     </ClInclude>
     <ClInclude Include="EventManager.h">
       <Filter>Archivos de encabezado\OSKengine\ECS\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="IIteratorSystem.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="IConsumerSystem.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="IPureSystem.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="IProducerSystem.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

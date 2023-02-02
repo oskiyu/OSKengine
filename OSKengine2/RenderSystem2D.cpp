@@ -21,7 +21,7 @@ RenderSystem2D::RenderSystem2D() {
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<Transform2D>());
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<Sprite>());
 
-	SetSignature(signature);
+	_SetSignature(signature);
 }
 
 void RenderSystem2D::Render(ICommandList* commandList) {

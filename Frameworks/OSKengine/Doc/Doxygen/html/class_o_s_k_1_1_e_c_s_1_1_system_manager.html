@@ -102,15 +102,30 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:adeba4513a1ca0154da78f72d2bb3c408"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74ebffeb57090187fe5add293d79ca67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a74ebffeb57090187fe5add293d79ca67">GameObjectSignatureChanged</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">GameObjectIndex</a> obj, const <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a2e882236c9347a28293a4c8988371ad8">Signature</a> &amp;signature)</td></tr>
 <tr class="separator:a74ebffeb57090187fe5add293d79ca67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0124e76a79fab63c57a4245b681c676"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; </td></tr>
-<tr class="memitem:ad0124e76a79fab63c57a4245b681c676"><td class="memTemplItemLeft" align="right" valign="top">TSystem *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#ad0124e76a79fab63c57a4245b681c676">RegisterSystem</a> ()</td></tr>
-<tr class="separator:ad0124e76a79fab63c57a4245b681c676"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa92c71eeef785c567ee3044bdf12ac4e"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; </td></tr>
-<tr class="memitem:aa92c71eeef785c567ee3044bdf12ac4e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#aa92c71eeef785c567ee3044bdf12ac4e">RemoveSystem</a> ()</td></tr>
-<tr class="separator:aa92c71eeef785c567ee3044bdf12ac4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66cf743efc50ce26d675ce7b9aa7fc07"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; </td></tr>
-<tr class="memitem:a66cf743efc50ce26d675ce7b9aa7fc07"><td class="memTemplItemLeft" align="right" valign="top">TSystem *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a66cf743efc50ce26d675ce7b9aa7fc07">GetSystem</a> () const</td></tr>
-<tr class="separator:a66cf743efc50ce26d675ce7b9aa7fc07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e27e62eb97a60f20a00f10d8b7b4cab"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; <br />
+requires IsProducerSystem&lt;TSystem&gt;</td></tr>
+<tr class="memitem:a4e27e62eb97a60f20a00f10d8b7b4cab"><td class="memTemplItemLeft" align="right" valign="top">TSystem *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a4e27e62eb97a60f20a00f10d8b7b4cab">RegisterProducerSystem</a> ()</td></tr>
+<tr class="separator:a4e27e62eb97a60f20a00f10d8b7b4cab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cdeb13afc7e96849965b81d000e62cd"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; <br />
+requires IsConsumerSystem&lt;TSystem&gt;</td></tr>
+<tr class="memitem:a3cdeb13afc7e96849965b81d000e62cd"><td class="memTemplItemLeft" align="right" valign="top">TSystem *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a3cdeb13afc7e96849965b81d000e62cd">RegisterConsumerSystem</a> ()</td></tr>
+<tr class="separator:a3cdeb13afc7e96849965b81d000e62cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee42e67f30fadd0c94787a2918efa908"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; <br />
+requires IsPureSystem&lt;TSystem&gt;</td></tr>
+<tr class="memitem:aee42e67f30fadd0c94787a2918efa908"><td class="memTemplItemLeft" align="right" valign="top">TSystem *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#aee42e67f30fadd0c94787a2918efa908">RegisterPureSystem</a> ()</td></tr>
+<tr class="separator:aee42e67f30fadd0c94787a2918efa908"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa87571b77f6dfe454ee367023f7f8fc6"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; <br />
+requires IsEcsSystem&lt;TSystem&gt;</td></tr>
+<tr class="memitem:aa87571b77f6dfe454ee367023f7f8fc6"><td class="memTemplItemLeft" align="right" valign="top">TSystem *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#aa87571b77f6dfe454ee367023f7f8fc6">RegisterSystem</a> ()</td></tr>
+<tr class="separator:aa87571b77f6dfe454ee367023f7f8fc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fb325594bcd65b490abec1254d2d3c9"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; <br />
+requires IsEcsSystem&lt;TSystem&gt;</td></tr>
+<tr class="memitem:a3fb325594bcd65b490abec1254d2d3c9"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a3fb325594bcd65b490abec1254d2d3c9">RemoveSystem</a> ()</td></tr>
+<tr class="separator:a3fb325594bcd65b490abec1254d2d3c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45bb0db29cce77d1bc206059de47e8a8"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; <br />
+requires IsEcsSystem&lt;TSystem&gt;</td></tr>
+<tr class="memitem:a45bb0db29cce77d1bc206059de47e8a8"><td class="memTemplItemLeft" align="right" valign="top">TSystem *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a45bb0db29cce77d1bc206059de47e8a8">GetSystem</a> () const</td></tr>
+<tr class="separator:a45bb0db29cce77d1bc206059de47e8a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68f4be9244de796b67148379177b9f82"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; </td></tr>
 <tr class="memitem:a68f4be9244de796b67148379177b9f82"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a68f4be9244de796b67148379177b9f82">ContainsSystem</a> () const</td></tr>
 <tr class="separator:a68f4be9244de796b67148379177b9f82"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -148,7 +163,7 @@ template&lt;typename TSystem &gt; </div>
 
 <p>Comprueba si un sistema dado está registrado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00081">81</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00137">137</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
 
 </div>
 </div>
@@ -169,8 +184,14 @@ template&lt;typename TSystem &gt; </div>
 </div><div class="memdoc">
 
 <p>Elimina el GameObject de todos los sistemas. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>Objeto eliminado. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_system_manager_8cpp_source.html#l00012">12</a> del archivo <a class="el" href="_system_manager_8cpp_source.html">SystemManager.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8cpp_source.html#l00018">18</a> del archivo <a class="el" href="_system_manager_8cpp_source.html">SystemManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -203,23 +224,24 @@ template&lt;typename TSystem &gt; </div>
 <p>Añade o elimina el objeto de los sistemas, según sea conveniente dependiendo del nuevo signature. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">obj</td><td>Objeto cuyo signature ha cambiado.</td></tr>
-    <tr><td class="paramname">signature</td><td>Nuevo signature del objeto.</td></tr>
+    <tr><td class="paramname">obj</td><td>Objeto cuyo signature ha cambiado. </td></tr>
+    <tr><td class="paramname">signature</td><td>Nuevo signature del objeto. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_system_manager_8cpp_source.html#l00017">17</a> del archivo <a class="el" href="_system_manager_8cpp_source.html">SystemManager.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8cpp_source.html#l00026">26</a> del archivo <a class="el" href="_system_manager_8cpp_source.html">SystemManager.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a66cf743efc50ce26d675ce7b9aa7fc07" name="a66cf743efc50ce26d675ce7b9aa7fc07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66cf743efc50ce26d675ce7b9aa7fc07">&#9670;&nbsp;</a></span>GetSystem()</h2>
+<a id="a45bb0db29cce77d1bc206059de47e8a8" name="a45bb0db29cce77d1bc206059de47e8a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45bb0db29cce77d1bc206059de47e8a8">&#9670;&nbsp;</a></span>GetSystem()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TSystem &gt; </div>
+template&lt;typename TSystem &gt; <br />
+requires IsEcsSystem&lt;TSystem&gt;</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -240,7 +262,7 @@ template&lt;typename TSystem &gt; </div>
 
 <p>Devuelve la instancia del sistema dado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00074">74</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00120">120</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
 
 </div>
 </div>
@@ -260,19 +282,116 @@ template&lt;typename TSystem &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Ejecuta la lógica OnTickd de todos los sistemas. </p>
+<p>Ejecuta la lógica OnTick de todos los sistemas. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">deltaTime</td><td>Tiempo, en segundos, que ha pasado desde el último frame. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_system_manager_8cpp_source.html#l00007">7</a> del archivo <a class="el" href="_system_manager_8cpp_source.html">SystemManager.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ad0124e76a79fab63c57a4245b681c676" name="ad0124e76a79fab63c57a4245b681c676"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0124e76a79fab63c57a4245b681c676">&#9670;&nbsp;</a></span>RegisterSystem()</h2>
+<a id="a3cdeb13afc7e96849965b81d000e62cd" name="a3cdeb13afc7e96849965b81d000e62cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cdeb13afc7e96849965b81d000e62cd">&#9670;&nbsp;</a></span>RegisterConsumerSystem()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TSystem &gt; </div>
+template&lt;typename TSystem &gt; <br />
+requires IsConsumerSystem&lt;TSystem&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TSystem * OSK::ECS::SystemManager::RegisterConsumerSystem </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00057">57</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
+
+</div>
+</div>
+<a id="a4e27e62eb97a60f20a00f10d8b7b4cab" name="a4e27e62eb97a60f20a00f10d8b7b4cab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e27e62eb97a60f20a00f10d8b7b4cab">&#9670;&nbsp;</a></span>RegisterProducerSystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TSystem &gt; <br />
+requires IsProducerSystem&lt;TSystem&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TSystem * OSK::ECS::SystemManager::RegisterProducerSystem </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00048">48</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
+
+</div>
+</div>
+<a id="aee42e67f30fadd0c94787a2918efa908" name="aee42e67f30fadd0c94787a2918efa908"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee42e67f30fadd0c94787a2918efa908">&#9670;&nbsp;</a></span>RegisterPureSystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TSystem &gt; <br />
+requires IsPureSystem&lt;TSystem&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TSystem * OSK::ECS::SystemManager::RegisterPureSystem </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00066">66</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
+
+</div>
+</div>
+<a id="aa87571b77f6dfe454ee367023f7f8fc6" name="aa87571b77f6dfe454ee367023f7f8fc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa87571b77f6dfe454ee367023f7f8fc6">&#9670;&nbsp;</a></span>RegisterSystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TSystem &gt; <br />
+requires IsEcsSystem&lt;TSystem&gt;</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -291,19 +410,18 @@ template&lt;typename TSystem &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Crea y almacena un nuevo sistema. </p>
-
-<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00052">52</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00075">75</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
 
 </div>
 </div>
-<a id="aa92c71eeef785c567ee3044bdf12ac4e" name="aa92c71eeef785c567ee3044bdf12ac4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa92c71eeef785c567ee3044bdf12ac4e">&#9670;&nbsp;</a></span>RemoveSystem()</h2>
+<a id="a3fb325594bcd65b490abec1254d2d3c9" name="a3fb325594bcd65b490abec1254d2d3c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fb325594bcd65b490abec1254d2d3c9">&#9670;&nbsp;</a></span>RemoveSystem()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TSystem &gt; </div>
+template&lt;typename TSystem &gt; <br />
+requires IsEcsSystem&lt;TSystem&gt;</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -326,7 +444,7 @@ template&lt;typename TSystem &gt; </div>
 <dl class="section note"><dt>Nota</dt><dd>Si el sistema no está registrado, no ocurre nada.</dd></dl>
 <dl class="bug"><dt><b><a class="el" href="bug.html#_bug000004">Bug:</a></b></dt><dd>No llama a <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a43e7608ce2a31c9c13b42cf4ce6eb0ef" title="Función que se ejecuta al destruirse el sistema.">ISystem::OnRemove()</a>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00067">67</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00102">102</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
 
 </div>
 </div>
@@ -340,7 +458,7 @@ template&lt;typename TSystem &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html">SystemManager</a></li>
-    <li class="footer">Generado el Jueves, 2 de Febrero de 2023 14:41:23 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 2 de Febrero de 2023 18:24:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

@@ -25,7 +25,7 @@ ColliderRenderSystem::ColliderRenderSystem() {
 	Signature signature{};
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<Transform3D>());
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<Collider>());
-	SetSignature(signature);
+	_SetSignature(signature);
 
 	// Material load
 	material = Engine::GetRenderer()->GetMaterialSystem()

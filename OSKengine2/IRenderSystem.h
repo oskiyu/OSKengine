@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ISystem.h"
+#include "IPureSystem.h"
 
 #include "Vector2.hpp"
 #include "UniquePtr.hpp"
@@ -18,7 +18,7 @@ namespace OSK::ECS {
 	/// 
 	/// Cada sistema de renderizado renderizará en una imagen propia
 	/// (IRenderSystem::GetSystemTargetImage).
-	class OSKAPI_CALL IRenderSystem : public ISystem {
+	class OSKAPI_CALL IRenderSystem : public IPureSystem {
 
 	public:
 

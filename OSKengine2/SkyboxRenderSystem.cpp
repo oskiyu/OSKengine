@@ -16,7 +16,7 @@ using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 SkyboxRenderSystem::SkyboxRenderSystem() {
-	SetSignature({});
+	_SetSignature({});
 
 	skyboxMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/skybox_material.json");
 	skyboxMaterialInstance = skyboxMaterial->CreateInstance().GetPointer();

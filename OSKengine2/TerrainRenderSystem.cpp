@@ -18,7 +18,7 @@ TerrainRenderSystem::TerrainRenderSystem() {
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<Transform3D>());
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<TerrainComponent>());
 
-	SetSignature(signature);
+	_SetSignature(signature);
 }
 
 void TerrainRenderSystem::Render(ICommandList* commandList) {
