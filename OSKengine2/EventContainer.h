@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Event.h"
+#include "IEventContainer.h"
 #include "DynamicArray.hpp"
 
 namespace OSK::ECS {
@@ -10,7 +11,7 @@ namespace OSK::ECS {
 	/// 
 	/// @pre TEvent debe cumplir IsEcsEvent<TEvent>.
 	template <typename TEvent> requires IsEcsEvent<TEvent>
-	class OSKAPI_CALL EventContainer final {
+	class OSKAPI_CALL EventContainer final : public IEventContainer {
 
 	public:
 

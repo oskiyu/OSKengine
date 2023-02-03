@@ -523,6 +523,15 @@
     <Filter Include="Archivos de encabezado\OSKengine\ECS\Event">
       <UniqueIdentifier>{40f0ab9a-208f-4198-9076-55751af8b092}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\ECS\Builtin\Collision">
+      <UniqueIdentifier>{deebe141-8504-4f1f-bbbe-52199ad2aeee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\ECS\Builtin\Collision">
+      <UniqueIdentifier>{59681ed8-0a37-4b69-8d6a-19d701f7184a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\Collision\RayCast">
+      <UniqueIdentifier>{36ea34f1-1020-4343-8342-39c5aa35d263}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -1070,6 +1079,12 @@
     </ClCompile>
     <ClCompile Include="IProducerSystem.cpp">
       <Filter>Archivos de origen\OSKengine\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionSystem.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="RayCastResult.cpp">
+      <Filter>Archivos de origen\OSKengine\Collision\RayCast</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1834,6 +1849,15 @@
     </ClInclude>
     <ClInclude Include="IProducerSystem.h">
       <Filter>Archivos de encabezado\OSKengine\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionEvent.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionSystem.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsResolver.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

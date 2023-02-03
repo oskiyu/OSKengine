@@ -12,9 +12,6 @@
         "0": "global"
     },
 
-    "polygon_mode": "LINE",
-    "config": {
-        "cull_mode": "none"
-    }
+    "polygon_mode": "LINE"
     
 }

@@ -40,8 +40,8 @@ namespace OSK::ECS {
 			requires IsEcsEvent<TEvent>
 		void PublishEvent(const TEvent& event) {
 			EventContainer<TEvent>* container =
-				reinterpret_cast<EventContainer<TEvent>*>(
-					containers.Get(TEvent::GetEventName()));
+				(EventContainer<TEvent>*)(
+					containers.Get(TEvent::GetEventName()).GetPointer());
 
 			container->PublishEvent(event);
 		}
@@ -57,9 +57,10 @@ namespace OSK::ECS {
 		template <typename TEvent>
 			requires IsEcsEvent<TEvent>
 		const DynamicArray<TEvent>& GetEventQueue() const {
-			EventContainer<TEvent>* container =
-				reinterpret_cast<EventContainer<TEvent>*>(
-					containers.Get(TEvent::GetEventName()));
+			OSK_ASSERT(containers.ContainsKey(TEvent::GetEventName()), "El evento " + TEvent::GetEventName() + " no está registrado.");
+
+			const EventContainer<TEvent>* container =
+				(const EventContainer<TEvent>*)containers.Get(TEvent::GetEventName()).GetPointer();
 
 			return container->GetEventQueue();
 		}
@@ -73,7 +74,7 @@ namespace OSK::ECS {
 
 	private:
 
-		/// @brief 
+		/// @brief Contenedores.
 		HashMap<std::string, UniquePtr<IEventContainer>> containers;
 
 	};

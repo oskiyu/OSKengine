@@ -15,6 +15,12 @@
 #include "SphereCollider.h"
 #include "ConvexVolume.h"
 
+#include "OSKengine.h"
+#include "EntityComponentSystem.h"
+#include "CollisionEvent.h"
+
+#include <set>
+
 using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::ASSETS;
@@ -33,8 +39,8 @@ ColliderRenderSystem::ColliderRenderSystem() {
 	materialInstance = material->CreateInstance().GetPointer();
 
 	// Asset load
-	cubeModel = Engine::GetAssetManager()->Load<Model3D>("", "ColliderRenderSystem");
-	sphereModel = Engine::GetAssetManager()->Load<Model3D>("", "ColliderRenderSystem");
+	cubeModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/Colliders/cube.json", "ColliderRenderSystem");
+	sphereModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/Colliders/sphere.json", "ColliderRenderSystem");
 
 	// Material setup
 	const IGpuUniformBuffer* _cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
@@ -45,7 +51,7 @@ ColliderRenderSystem::ColliderRenderSystem() {
 		_cameraUbos[i] = cameraUbos[i].GetPointer();
 	}
 
-	materialInstance->GetSlot("global")->SetUniformBuffers("Camera", _cameraUbos);
+	materialInstance->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
 	materialInstance->GetSlot("global")->FlushUpdate();
 }
 
@@ -60,6 +66,9 @@ void ColliderRenderSystem::CreateTargetImage(const Vector2ui& size) {
 }
 
 void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
+	if (cameraObject == EMPTY_GAME_OBJECT)
+		return;
+
 	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	const CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(cameraObject);
@@ -82,34 +91,48 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), 
 		GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE));
 
+	// "polygon_mode": "LINE",
+
 	commandList->BeginGraphicsRenderpass(&renderTarget, Color::BLACK() * 0.0f);
 	SetupViewport(commandList);
+
+	commandList->StartDebugSection("Collision Render", Color::RED());
 
 	commandList->BindMaterial(material);
 	commandList->BindMaterialSlot(materialInstance->GetSlot("global"));
 
+	const auto& eventQueue = Engine::GetEcs()->GetEventQueue<CollisionEvent>();
+	std::set<GameObjectIndex> collisionObjects;
+	for (const CollisionEvent ev : eventQueue) {
+		collisionObjects.insert(ev.firstEntity);
+		collisionObjects.insert(ev.secondEntity);
+	}
+
 	for (GameObjectIndex gameObject : GetObjects()) {
-		Transform3D transform = Engine::GetEcs()->GetComponent<Transform3D>(gameObject);
-		// transform.SetRotation(Quaternion::CreateFromEulerAngles(0.0f));
+		Transform3D topLevelTransform = Engine::GetEcs()->GetComponent<Transform3D>(gameObject);
+		topLevelTransform.SetRotation({});
 
 		const Collider& collider = Engine::GetEcs()->GetComponent<Collider>(gameObject);
 		const ITopLevelCollider* topLevelCollider = collider.GetTopLevelCollider();
 
-		renderInfo.color = Color::RED();
+		if (collisionObjects.contains(gameObject))
+			renderInfo.color = Color::RED();
+		else
+			renderInfo.color = Color::YELLOW();
 
-		commandList->PushMaterialConstants("Model", renderInfo);
-
-		if (auto* box = reinterpret_cast<const AxisAlignedBoundingBox*>(topLevelCollider)) {
-			transform.SetScale(box->GetSize());
-			renderInfo.modelMatrix = transform.GetAsMatrix();
+		if (auto* box = dynamic_cast<const AxisAlignedBoundingBox*>(topLevelCollider)) {
+			topLevelTransform.SetScale(box->GetSize());
+			renderInfo.modelMatrix = topLevelTransform.GetAsMatrix();
+			commandList->PushMaterialConstants("pushConstants", renderInfo);
 
 			commandList->BindVertexBuffer(cubeModel->GetVertexBuffer());
 			commandList->BindIndexBuffer(cubeModel->GetIndexBuffer());
 			commandList->DrawSingleInstance(cubeModel->GetIndexCount());
 		} else
-		if (auto* sphere = reinterpret_cast<const SphereCollider*>(topLevelCollider)) {
-			transform.SetScale(sphere->GetRadius());
-			renderInfo.modelMatrix = transform.GetAsMatrix();
+		if (auto* sphere = dynamic_cast<const SphereCollider*>(topLevelCollider)) {
+			topLevelTransform.SetScale(sphere->GetRadius());
+			renderInfo.modelMatrix = topLevelTransform.GetAsMatrix();
+			commandList->PushMaterialConstants("pushConstants", renderInfo);
 
 			commandList->BindVertexBuffer(sphereModel->GetVertexBuffer());
 			commandList->BindIndexBuffer(sphereModel->GetIndexBuffer());
@@ -123,6 +146,8 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 			// const ConvexVolume*;
 		}
 	}
+
+	commandList->EndDebugSection();
 
 	commandList->EndGraphicsRenderpass();
 }

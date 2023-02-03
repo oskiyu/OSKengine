@@ -32,6 +32,7 @@ bool AxisAlignedBoundingBox::ContainsPoint(const Vector3f& thisOffset, const Vec
 
 RayCastResult AxisAlignedBoundingBox::CastRay(const Ray& ray, const Vector3f& position) const {
 	OSK_ASSERT(false, "No implementado.");
+	return RayCastResult::False();
 }
 
 bool AxisAlignedBoundingBox::IsColliding(const ITopLevelCollider& other,
@@ -47,9 +48,9 @@ bool AxisAlignedBoundingBox::IsColliding(const ITopLevelCollider& other,
 }
 
 Vector3f AxisAlignedBoundingBox::GetMin(const Vector3f& position) const {
-	return position - size;
+	return position - size * 0.5f;
 }
 
 Vector3f AxisAlignedBoundingBox::GetMax(const Vector3f& position) const {
-	return position + size;
+	return position + size * 0.5f;
 }

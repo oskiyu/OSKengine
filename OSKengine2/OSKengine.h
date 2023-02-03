@@ -97,6 +97,7 @@ namespace OSK {
 		static void RegisterBuiltinAssets();
 		static void RegisterBuiltinComponents();
 		static void RegisterBuiltinSystems();
+		static void RegisterBuiltinEvents();
 		static void RegisterBuiltinVertices();
 
 	private:

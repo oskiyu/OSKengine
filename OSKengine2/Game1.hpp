@@ -61,6 +61,8 @@
 #include "Lights.h"
 #include "SkyboxRenderSystem.h"
 #include "IGpuStorageBuffer.h"
+#include "Collider.h"
+#include "AxisAlignedBoundingBox.h"
 
 #include "Math.h"
 
@@ -78,6 +80,9 @@
 #include "ToneMapping.h"
 #include "BloomPass.h"
 #include "SmaaPass.h"
+
+#include "ColliderRenderer.h"
+#include "SphereCollider.h"
 
 OSK::GRAPHICS::Material* rtMaterial = nullptr;
 OSK::GRAPHICS::MaterialInstance* rtMaterialInstance = nullptr;
@@ -122,7 +127,7 @@ protected:
 	}
 
 	void SetupEngine() override {
-		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetDisplay(), PresentMode::VSYNC_ON_TRIPLE_BUFFER);
+		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetDisplay(), PresentMode::VSYNC_ON);
 	}
 
 	void OnCreate() override {
@@ -210,9 +215,12 @@ protected:
 		Engine::GetEcs()->AddComponent<ECS::CameraComponent3D>(cameraObject, {});
 		renderSystem->Initialize(cameraObject, *irradianceMap, *specularMap, *skybox);
 		Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->SetCamera(cameraObject);
+		Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>()->Initialize(cameraObject);
 
 		ECS::Transform3D& transform = Engine::GetEcs()->AddComponent<ECS::Transform3D>(carObject, ECS::Transform3D(carObject));
 		
+		auto& collider = Engine::GetEcs()->AddComponent<COLLISION::Collider>(carObject, {});
+		collider.SetTopLevelCollider(new COLLISION::SphereCollider(0.45f));
 		ECS::ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ECS::ModelComponent3D>(carObject, {});
 
 		// cameraTransform.AttachToObject(carObject);
@@ -222,6 +230,12 @@ protected:
 		modelComponent->BindTextureForAllMeshes("texture", "albedoTexture", texture);
 		ModelLoader3D::SetupPbrModel(carModel, modelComponent);
 		
+		// Collision 2
+		ECS::GameObjectIndex secondObject = Engine::GetEcs()->SpawnObject();
+		auto& collider2 = Engine::GetEcs()->AddComponent<COLLISION::Collider>(secondObject, {});
+		collider2.SetTopLevelCollider(new COLLISION::AxisAlignedBoundingBox(0.45f));
+		Engine::GetEcs()->AddComponent<ECS::Transform3D>(secondObject, ECS::Transform3D{ secondObject });
+
 		// ECS 2
 		circuitObject = Engine::GetEcs()->SpawnObject();
 
@@ -290,6 +304,8 @@ protected:
 
 	void RegisterSystems() override {
 		Engine::GetEcs()->RemoveSystem<ECS::RenderSystem2D>();
+
+		Engine::GetEcs()->RegisterSystem<ECS::ColliderRenderSystem>();
 	}
 
 	void OnTick(TDeltaTime deltaTime) override {
@@ -480,6 +496,11 @@ protected:
 
 		frameBuildCommandList->BindMaterialSlot(textRenderTarget->GetFullscreenSpriteMaterialSlot());
 		frameBuildCommandList->DrawSingleInstance(6);
+
+		if (auto colliderRenderSystem = Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>()) {
+			frameBuildCommandList->BindMaterialSlot(colliderRenderSystem->GetRenderTarget().GetFullscreenSpriteMaterialSlot());
+			frameBuildCommandList->DrawSingleInstance(6);
+		}
 
 		frameBuildCommandList->EndGraphicsRenderpass();
 

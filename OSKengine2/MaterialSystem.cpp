@@ -87,9 +87,6 @@ void MaterialSystem::LoadMaterialV0(MaterialLayout* layout, const nlohmann::json
 		layout->AddPushConstant(pushConst);
 	}
 
-	if (materialInfo.contains("polygon_mode"))
-		info->polygonMode = GetPolygonMode(materialInfo["polygon_mode"]);
-
 	// Shader file.
 	{
 		nlohmann::json shaderInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(shaderFilePath));
@@ -512,6 +509,9 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 		if (materialInfo["config"].contains("disable_alpha_blending"))
 			info.useAlphaBlending = false;
 	}
+
+	if (materialInfo.contains("polygon_mode"))
+		info.polygonMode = GetPolygonMode(materialInfo["polygon_mode"]);
 
 	auto output = new Material(info, layout, vertexType, type);
 	output->SetName(materialInfo["name"]);

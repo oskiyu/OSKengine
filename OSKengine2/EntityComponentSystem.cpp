@@ -18,12 +18,20 @@ void EntityComponentSystem::OnTick(TDeltaTime deltaTime) {
 	systemManager->OnTick(deltaTime);
 }
 
+void EntityComponentSystem::_ClearEventQueues() {
+	eventManager->_ClearQueues();
+}
+
 GameObjectIndex EntityComponentSystem::SpawnObject() {
 	return gameObjectManager->CreateGameObject();
 }
 
 void EntityComponentSystem::DestroyObject(GameObjectIndex* obj) {
 	gameObjectManager->DestroyGameObject(obj);
+}
+
+bool EntityComponentSystem::IsGameObjectAlive(GameObjectIndex obj) const {
+	return gameObjectManager->IsGameObjectAlive(obj);
 }
 
 void EntityComponentSystem::EndFrame() {

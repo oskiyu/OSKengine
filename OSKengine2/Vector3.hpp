@@ -223,9 +223,9 @@ namespace OSK {
 		/// Obtiene la distancia entre la posición representada por este vector y por el vector 'vec'.
 		/// </summary>
 		T GetDistanceTo(const Vector3_t& vec) const {
-			T dx = X - vec.X;
-			T dy = Y - vec.Y;
-			T dz = Z - vec.Z;
+			const T dx = X - vec.X;
+			const T dy = Y - vec.Y;
+			const T dz = Z - vec.Z;
 
 			return glm::sqrt(dx * dx + dy * dy + dz * dz);
 		}

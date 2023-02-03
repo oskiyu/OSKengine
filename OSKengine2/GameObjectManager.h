@@ -39,6 +39,11 @@ namespace OSK::ECS {
 		/// </summary>
 		Signature GetSignature(GameObjectIndex obj);
 
+		/// @brief Comprueba si un objeto está activo.
+		/// @param obj ID del objeto.
+		/// @return True si está activo, false si se eliminó.
+		bool IsGameObjectAlive(GameObjectIndex obj) const;
+
 	private:
 
 		/// <summary>

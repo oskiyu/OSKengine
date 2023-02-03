@@ -77,11 +77,11 @@ namespace OSK::ECS {
 			const std::string key = TSystem::GetSystemName();
 
 			if constexpr (IsProducerSystem<TSystem>) {
-				producers.Insert(key, (IPureSystem*)sistema);
+				producers.Insert(key, (IProducerSystem*)sistema);
 			}
 
 			if constexpr (IsConsumerSystem<TSystem>) {
-				consumers.Insert(key, (IPureSystem*)sistema);
+				consumers.Insert(key, (IConsumerSystem*)sistema);
 			}
 
 			if constexpr (IsPureSystem<TSystem>) {

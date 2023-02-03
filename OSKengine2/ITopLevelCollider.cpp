@@ -23,16 +23,16 @@ bool ITopLevelCollider::AabbAabbCollision(const AxisAlignedBoundingBox& first, c
 }
 
 bool ITopLevelCollider::AabbSphereCollision(const AxisAlignedBoundingBox& box, const SphereCollider& sphere,
-	const Vector3f& positionA, const Vector3f& positionB) {
+	const Vector3f& boxPos, const Vector3f& spherePos) {
 
 	// Punto de la caja más cercano a la esfera.
 	const Vector3f point = {
-		glm::max(positionA.X, glm::min(positionB.X, box.GetMax(positionA).X)),
-		glm::max(positionA.Y, glm::min(positionB.Y, box.GetMax(positionA).Y)),
-		glm::max(positionA.Z, glm::min(positionB.Z, box.GetMax(positionA).Z))
+		glm::max(box.GetMin(boxPos).X, glm::min(spherePos.X, box.GetMax(boxPos).X)),
+		glm::max(box.GetMin(boxPos).Y, glm::min(spherePos.Y, box.GetMax(boxPos).Y)),
+		glm::max(box.GetMin(boxPos).Z, glm::min(spherePos.Z, box.GetMax(boxPos).Z))
 	};
 
-	return sphere.ContainsPoint(positionA, point);
+	return sphere.ContainsPoint(spherePos, point);
 }
 
 bool ITopLevelCollider::SphereSphereCollision(const SphereCollider& first, const SphereCollider& other,

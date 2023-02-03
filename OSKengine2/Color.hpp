@@ -134,6 +134,10 @@ namespace OSK {
 		/// <returns>Color amarillo.</returns>
 		static Color YELLOW();
 
+		/// @brief Color verde. (0.0f, 1.0f, 0.0f).
+		/// @return Color verde. (0.0f, 1.0f, 0.0f).
+		static Color GREEN();
+
 	};
 
 }

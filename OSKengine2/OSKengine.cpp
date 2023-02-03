@@ -33,6 +33,9 @@
 #include "SkyboxRenderSystem.h"
 #include "PcUserInput.h"
 #include "SpecularMapLoader.h"
+#include "Collider.h"
+#include "CollisionEvent.h"
+#include "CollisionSystem.h"
 
 #include <GLFW/glfw3.h>
 #include "FileIO.h"
@@ -111,13 +114,19 @@ void Engine::RegisterBuiltinComponents() {
 	entityComponentSystem->RegisterComponent<ECS::CameraComponent2D>();
 	entityComponentSystem->RegisterComponent<ECS::Transform2D>();
 	entityComponentSystem->RegisterComponent<ECS::TerrainComponent>();
+	entityComponentSystem->RegisterComponent<COLLISION::Collider>();
 }
 
 void Engine::RegisterBuiltinSystems() {
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem3D>();
 	entityComponentSystem->RegisterSystem<ECS::SkyboxRenderSystem>();
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem2D>();
+	entityComponentSystem->RegisterSystem<ECS::CollisionSystem>();
 	// entityComponentSystem->RegisterSystem<ECS::TerrainRenderSystem>();
+}
+
+void Engine::RegisterBuiltinEvents() {
+	entityComponentSystem->RegisterEventType<ECS::CollisionEvent>();
 }
 
 void Engine::RegisterBuiltinVertices() {
@@ -166,7 +175,7 @@ Version Engine::GetVersion() {
 }
 
 const std::string& Engine::GetBuild() {
-	static std::string build = "2023.02.02a";
+	static std::string build = "2023.02.03a";
 
 	return build;
 }

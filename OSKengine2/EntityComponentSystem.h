@@ -240,6 +240,10 @@ namespace OSK::ECS {
 			return eventManager->GetEventQueue<TEvent>();
 		}
 
+		/// @brief Vacía todas las colas de eventos.
+		/// Debe llamarse al terminar el frame.
+		void _ClearEventQueues();
+
 #pragma endregion
 
 
@@ -260,6 +264,10 @@ namespace OSK::ECS {
 		/// Debe llamarse una vez al finalizar el frame.
 		void OSKAPI_CALL EndFrame();
 
+		/// @brief Comprueba si un objeto está activo.
+		/// @param obj ID del objeto.
+		/// @return True si está activo, false si se eliminó.
+		bool OSKAPI_CALL IsGameObjectAlive(GameObjectIndex obj) const;
 
 		/// @brief Devuelve los render systems registrados.
 		/// @return Render systems registrados.

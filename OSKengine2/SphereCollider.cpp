@@ -20,7 +20,7 @@ float SphereCollider::GetRadius() const {
 }
 
 bool SphereCollider::ContainsPoint(const Vector3f& thisOffset, const Vector3f& point) const {
-	return point.GetDistanceTo(thisOffset) <= radius;
+	return point.GetDistanceTo(thisOffset) < radius;
 }
 
 RayCastResult SphereCollider::CastRay(const Ray& ray, const Vector3f& center) const {

@@ -36,3 +36,13 @@ Signature GameObjectManager::GetSignature(GameObjectIndex obj) {
 	OSK_ASSERT(obj > 0, "Se ha intentado acceder a un objeto inválido.");
 	return signatures[obj - 1];
 }
+
+bool GameObjectManager::IsGameObjectAlive(GameObjectIndex obj) const {
+	if (obj >= nextIndex)
+		return true;
+
+	if (freeObjectIndices.ContainsElement(obj))
+		return true;
+
+	return false;
+}

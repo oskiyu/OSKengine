@@ -74,4 +74,8 @@ namespace OSK {
 		return Color(1.0f, 1.0f, 0.0f);
 	}
 
+	Color Color::GREEN() {
+		return Color(0.0f, 1.0f, 0.0f);
+	}
+
 }

@@ -64,6 +64,7 @@ void IGame::Run() {
 	Engine::RegisterBuiltinAssets();
 	Engine::RegisterBuiltinComponents();
 	Engine::RegisterBuiltinSystems();
+	Engine::RegisterBuiltinEvents();
 
 	OSK::DynamicArray<OSK::GRAPHICS::Vertex2D> vertices2d = {
 		{ { 0, 0 }, { 0, 0 } },
@@ -105,6 +106,8 @@ void IGame::Run() {
 			i->Render(Engine::GetRenderer()->GetGraphicsCommandList());
 
 		BuildFrame();
+
+		Engine::GetEcs()->_ClearEventQueues();
 
 		Engine::GetRenderer()->PresentFrame();
 
