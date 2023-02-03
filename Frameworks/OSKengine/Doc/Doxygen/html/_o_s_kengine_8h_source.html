@@ -162,21 +162,22 @@ $(document).ready(function(){initNavTree('_o_s_kengine_8h_source.html',''); init
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> RegisterBuiltinAssets();</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> RegisterBuiltinComponents();</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> RegisterBuiltinSystems();</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> RegisterBuiltinVertices();</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IO::Logger&gt;</a> logger;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IO::IDisplay&gt;</a> display;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GRAPHICS::IRenderer&gt;</a> renderer;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ASSETS::AssetManager&gt;</a> assetManager;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ECS::EntityComponentSystem&gt;</a> entityComponentSystem;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IO::IUserInput&gt;</a> input;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IO::InputManager&gt;</a> inputManager;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    };</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> RegisterBuiltinEvents();</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> RegisterBuiltinVertices();</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IO::Logger&gt;</a> logger;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IO::IDisplay&gt;</a> display;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GRAPHICS::IRenderer&gt;</a> renderer;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ASSETS::AssetManager&gt;</a> assetManager;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ECS::EntityComponentSystem&gt;</a> entityComponentSystem;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IO::IUserInput&gt;</a> input;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IO::InputManager&gt;</a> inputManager;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    };</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
 <div class="ttc" id="a_asset_manager_8h_html"><div class="ttname"><a href="_asset_manager_8h.html">AssetManager.h</a></div></div>
 <div class="ttc" id="a_entity_component_system_8h_html"><div class="ttname"><a href="_entity_component_system_8h.html">EntityComponentSystem.h</a></div></div>
 <div class="ttc" id="a_i_display_8h_html"><div class="ttname"><a href="_i_display_8h.html">IDisplay.h</a></div></div>
@@ -212,7 +213,7 @@ $(document).ready(function(){initNavTree('_o_s_kengine_8h_source.html',''); init
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_o_s_kengine_8h.html">OSKengine.h</a></li>
-    <li class="footer">Generado el Jueves, 2 de Febrero de 2023 18:24:43 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Viernes, 3 de Febrero de 2023 15:20:01 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

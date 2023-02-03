@@ -149,12 +149,16 @@ requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent
 requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent&gt;</td></tr>
 <tr class="memitem:ae45654ecdc519b6dcc4e63af3945a2b5"><td class="memTemplItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; TEvent &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae45654ecdc519b6dcc4e63af3945a2b5">GetEventQueue</a> () const</td></tr>
 <tr class="separator:ae45654ecdc519b6dcc4e63af3945a2b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25da30b9eed66da4eef4a1bc233679d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a25da30b9eed66da4eef4a1bc233679d3">_ClearEventQueues</a> ()</td></tr>
+<tr class="separator:a25da30b9eed66da4eef4a1bc233679d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fdd1a158a10e388946a2c3e0ddf1eb5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">GameObjectIndex</a> <a class="el" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a8fdd1a158a10e388946a2c3e0ddf1eb5">SpawnObject</a> ()</td></tr>
 <tr class="separator:a8fdd1a158a10e388946a2c3e0ddf1eb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae529c5094ca66a4eacc5da0a028eaa52"><td class="memItemLeft" align="right" valign="top">void <a class="el" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae529c5094ca66a4eacc5da0a028eaa52">DestroyObject</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">GameObjectIndex</a> *obj)</td></tr>
 <tr class="separator:ae529c5094ca66a4eacc5da0a028eaa52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad830c20ac2f44ce2cefffda62814c4a2"><td class="memItemLeft" align="right" valign="top">void <a class="el" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ad830c20ac2f44ce2cefffda62814c4a2">EndFrame</a> ()</td></tr>
 <tr class="separator:ad830c20ac2f44ce2cefffda62814c4a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab8512a19f26e2beefe570ab3ea04207"><td class="memItemLeft" align="right" valign="top">bool <a class="el" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#aab8512a19f26e2beefe570ab3ea04207">IsGameObjectAlive</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">GameObjectIndex</a> obj) const</td></tr>
+<tr class="separator:aab8512a19f26e2beefe570ab3ea04207"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15609b984e64143136dcca658f7c1f1a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html">IRenderSystem</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a15609b984e64143136dcca658f7c1f1a">GetRenderSystems</a> () const</td></tr>
 <tr class="separator:a15609b984e64143136dcca658f7c1f1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -205,6 +209,27 @@ Esta clase es dueña de los sistemas. </dd></dl>
 </div>
 </div>
 <h2 class="groupheader">Documentación de las funciones miembro</h2>
+<a id="a25da30b9eed66da4eef4a1bc233679d3" name="a25da30b9eed66da4eef4a1bc233679d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25da30b9eed66da4eef4a1bc233679d3">&#9670;&nbsp;</a></span>_ClearEventQueues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EntityComponentSystem::_ClearEventQueues </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vacía todas las colas de eventos. Debe llamarse al terminar el frame. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00021">21</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a3e461b045fbb69f6ed6362f9c3e3cb98" name="a3e461b045fbb69f6ed6362f9c3e3cb98"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3e461b045fbb69f6ed6362f9c3e3cb98">&#9670;&nbsp;</a></span>AddComponent() <span class="overload">[1/2]</span></h2>
 
@@ -358,7 +383,7 @@ requires IsEcsComponent&lt;TComponent&gt;</div>
 </dl>
 <dl class="section note"><dt>Nota</dt><dd>Su ID cambia a 0 para indicar que ya no es una ID válida. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00025">25</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00029">29</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -379,7 +404,7 @@ requires IsEcsComponent&lt;TComponent&gt;</div>
 
 <p>Finaliza el frame. Debe llamarse una vez al finalizar el frame. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00029">29</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00037">37</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -535,7 +560,7 @@ TEvent debe haber sido registrado con RegisterEventType. </dd></dl>
 <p>Devuelve los render systems registrados. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Render systems registrados. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00033">33</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00041">41</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -575,6 +600,35 @@ template&lt;typename TSystem &gt; </div>
 <dl class="section pre"><dt>Precondición</dt><dd>El sistema debe haber sido previamente registrado con RegisterSystem. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8h_source.html#l00199">199</a> del archivo <a class="el" href="_entity_component_system_8h_source.html">EntityComponentSystem.h</a>.</p>
+
+</div>
+</div>
+<a id="aab8512a19f26e2beefe570ab3ea04207" name="aab8512a19f26e2beefe570ab3ea04207"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab8512a19f26e2beefe570ab3ea04207">&#9670;&nbsp;</a></span>IsGameObjectAlive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool EntityComponentSystem::IsGameObjectAlive </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">GameObjectIndex</a>&#160;</td>
+          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Comprueba si un objeto está activo. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>ID del objeto. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si está activo, false si se eliminó. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00033">33</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -926,7 +980,7 @@ template&lt;typename TSystem &gt; </div>
 <dl class="section return"><dt>Devuelve</dt><dd>ID del nuevo objeto.</dd></dl>
 <dl class="section warning"><dt>Atención</dt><dd><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a> NO ES DUEÑO DEL OBJETO, el juego es el encargado de eliminarlo mediante <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae529c5094ca66a4eacc5da0a028eaa52" title="Elimina un objeto.">DestroyObject()</a>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00021">21</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00025">25</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -940,7 +994,7 @@ template&lt;typename TSystem &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">EntityComponentSystem</a></li>
-    <li class="footer">Generado el Jueves, 2 de Febrero de 2023 18:24:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Viernes, 3 de Febrero de 2023 15:20:02 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

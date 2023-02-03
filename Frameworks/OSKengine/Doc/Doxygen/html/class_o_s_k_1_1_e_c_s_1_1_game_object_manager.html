@@ -104,6 +104,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:ae80647837d7ffa1fb4550834121f231d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b2db9bfc09ced4fcb12343d18db6d6d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a2e882236c9347a28293a4c8988371ad8">Signature</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_game_object_manager.html#a4b2db9bfc09ced4fcb12343d18db6d6d">GetSignature</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">GameObjectIndex</a> obj)</td></tr>
 <tr class="separator:a4b2db9bfc09ced4fcb12343d18db6d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21e5449937b40602f7eb4a8927b73934"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_game_object_manager.html#a21e5449937b40602f7eb4a8927b73934">IsGameObjectAlive</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">GameObjectIndex</a> obj) const</td></tr>
+<tr class="separator:a21e5449937b40602f7eb4a8927b73934"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p >Se encarga de registrar y eliminar GameObjects. </p>
@@ -183,6 +185,35 @@ Métodos públicos</h2></td></tr>
 
 </div>
 </div>
+<a id="a21e5449937b40602f7eb4a8927b73934" name="a21e5449937b40602f7eb4a8927b73934"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21e5449937b40602f7eb4a8927b73934">&#9670;&nbsp;</a></span>IsGameObjectAlive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool GameObjectManager::IsGameObjectAlive </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">GameObjectIndex</a>&#160;</td>
+          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Comprueba si un objeto está activo. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>ID del objeto. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si está activo, false si se eliminó. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_game_object_manager_8cpp_source.html#l00040">40</a> del archivo <a class="el" href="_game_object_manager_8cpp_source.html">GameObjectManager.cpp</a>.</p>
+
+</div>
+</div>
 <a id="ae80647837d7ffa1fb4550834121f231d" name="ae80647837d7ffa1fb4550834121f231d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae80647837d7ffa1fb4550834121f231d">&#9670;&nbsp;</a></span>SetSignature()</h2>
 
@@ -225,7 +256,7 @@ Métodos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_game_object_manager.html">GameObjectManager</a></li>
-    <li class="footer">Generado el Jueves, 2 de Febrero de 2023 18:24:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Viernes, 3 de Febrero de 2023 15:20:02 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

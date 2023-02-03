@@ -1,6 +1,7 @@
 var class_o_s_k_1_1_e_c_s_1_1_entity_component_system =
 [
     [ "EntityComponentSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#acd92280893189d6862ff1044f13a58e5", null ],
+    [ "_ClearEventQueues", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a25da30b9eed66da4eef4a1bc233679d3", null ],
     [ "AddComponent", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a3e461b045fbb69f6ed6362f9c3e3cb98", null ],
     [ "AddComponent", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a00d016bdbec0284078bb0bdf0c2d7419", null ],
     [ "DestroyObject", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae529c5094ca66a4eacc5da0a028eaa52", null ],
@@ -10,6 +11,7 @@ var class_o_s_k_1_1_e_c_s_1_1_entity_component_system =
     [ "GetEventQueue", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae45654ecdc519b6dcc4e63af3945a2b5", null ],
     [ "GetRenderSystems", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a15609b984e64143136dcca658f7c1f1a", null ],
     [ "GetSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a706590589270cf5d5aa1747915ba67f9", null ],
+    [ "IsGameObjectAlive", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#aab8512a19f26e2beefe570ab3ea04207", null ],
     [ "ObjectHasComponent", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a433fc2a7434470f4fbc01d62c32f535c", null ],
     [ "OnTick", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a5a836db0967b2e872e8d66b379bb0728", null ],
     [ "PublishEvent", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a2772cc0a8ea3a3ace7aa0e933101d1f5", null ],

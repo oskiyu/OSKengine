@@ -10,6 +10,7 @@ var hierarchy =
     [ "OSK::ECS::CameraComponent2D", "class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html", null ],
     [ "OSK::ECS::CameraComponent3D", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html", null ],
     [ "OSK::COLLISION::Collider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html", null ],
+    [ "OSK::ECS::CollisionEvent", "struct_o_s_k_1_1_e_c_s_1_1_collision_event.html", null ],
     [ "OSK::COLLISION::CollisionInfo", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html", null ],
     [ "OSK::Color", "class_o_s_k_1_1_color.html", null ],
     [ "OSK::ECS::ComponentManager", "class_o_s_k_1_1_e_c_s_1_1_component_manager.html", null ],
@@ -127,7 +128,6 @@ var hierarchy =
     [ "OSK::Engine", "class_o_s_k_1_1_engine.html", null ],
     [ "OSK::ECS::EntityComponentSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html", null ],
     [ "OSK::GRAPHICS::VertexInfo::Entry", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry.html", null ],
-    [ "OSK::ECS::EventContainer< TEvent >", "class_o_s_k_1_1_e_c_s_1_1_event_container.html", null ],
     [ "OSK::ECS::EventManager", "class_o_s_k_1_1_e_c_s_1_1_event_manager.html", null ],
     [ "OSK::COLLISION::FaceProjection", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html", null ],
     [ "OSK::IO::FileIO", "class_o_s_k_1_1_i_o_1_1_file_i_o.html", null ],
@@ -239,7 +239,9 @@ var hierarchy =
         [ "OSK::PERSISTENCE::FieldWrapper< TDataType >", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_field_wrapper.html", null ]
       ] ]
     ] ],
-    [ "OSK::ECS::IEventContainer", "class_o_s_k_1_1_e_c_s_1_1_i_event_container.html", null ],
+    [ "OSK::ECS::IEventContainer", "class_o_s_k_1_1_e_c_s_1_1_i_event_container.html", [
+      [ "OSK::ECS::EventContainer< TEvent >", "class_o_s_k_1_1_e_c_s_1_1_event_container.html", null ]
+    ] ],
     [ "OSK::IO::IFullscreenableDisplay", "class_o_s_k_1_1_i_o_1_1_i_fullscreenable_display.html", [
       [ "OSK::IO::Window", "class_o_s_k_1_1_i_o_1_1_window.html", null ]
     ] ],
@@ -361,10 +363,15 @@ var hierarchy =
     ] ],
     [ "OSK::ECS::ISystem", "class_o_s_k_1_1_e_c_s_1_1_i_system.html", [
       [ "OSK::ECS::IConsumerSystem", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html", [
+        [ "OSK::ECS::ConsumerSystem< CollisionEvent >", "class_o_s_k_1_1_e_c_s_1_1_consumer_system.html", [
+          [ "OSK::ECS::PhysicsResolver", "class_o_s_k_1_1_e_c_s_1_1_physics_resolver.html", null ]
+        ] ],
         [ "OSK::ECS::ConsumerSystem< TEvent >", "class_o_s_k_1_1_e_c_s_1_1_consumer_system.html", null ]
       ] ],
       [ "OSK::ECS::IIteratorSystem", "class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html", [
-        [ "OSK::ECS::IProducerSystem", "class_o_s_k_1_1_e_c_s_1_1_i_producer_system.html", null ],
+        [ "OSK::ECS::IProducerSystem", "class_o_s_k_1_1_e_c_s_1_1_i_producer_system.html", [
+          [ "OSK::ECS::CollisionSystem", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html", null ]
+        ] ],
         [ "OSK::ECS::IPureSystem", "class_o_s_k_1_1_e_c_s_1_1_i_pure_system.html", [
           [ "OSK::ECS::IRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_i_render_system.html", [
             [ "OSK::ECS::ColliderRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html", null ],

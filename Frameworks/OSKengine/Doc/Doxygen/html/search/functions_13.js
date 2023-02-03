@@ -4,8 +4,8 @@ var searchData=
   ['texture_1',['Texture',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a73989d7926a60a99f29dff7726127638',1,'OSK::ASSETS::Texture']]],
   ['toeulerangles_2',['ToEulerAngles',['../class_o_s_k_1_1_quaternion.html#a7ca39363e99e03a9feacca9c5691ce51',1,'OSK::Quaternion']]],
   ['togglefullscreen_3',['ToggleFullscreen',['../class_o_s_k_1_1_i_o_1_1_i_fullscreenable_display.html#ada2ca7e7ef05f2d60ca7b3bbf5f5ce0a',1,'OSK::IO::IFullscreenableDisplay']]],
-  ['toglm_4',['ToGLM',['../class_o_s_k_1_1_vector2__t.html#ade20b67c6f24bf59cbcf88d8d24ef1f2',1,'OSK::Vector2_t::ToGLM()'],['../class_o_s_k_1_1_vector3__t.html#acb2737aa41e9e488c3e93a30fcedfb1c',1,'OSK::Vector3_t::ToGLM()'],['../class_o_s_k_1_1_vector4__t.html#a112f4b73019853c6fb2c672ffdd58a58',1,'OSK::Vector4_t::ToGLM()']]],
-  ['toglm_5',['ToGlm',['../class_o_s_k_1_1_color.html#a65fed942039b8d530bd679befb359b79',1,'OSK::Color::ToGlm()'],['../class_o_s_k_1_1_quaternion.html#ac88cc76e26ff73c65e593e6273c8f4e9',1,'OSK::Quaternion::ToGlm()']]],
+  ['toglm_4',['ToGlm',['../class_o_s_k_1_1_color.html#a65fed942039b8d530bd679befb359b79',1,'OSK::Color::ToGlm()'],['../class_o_s_k_1_1_quaternion.html#ac88cc76e26ff73c65e593e6273c8f4e9',1,'OSK::Quaternion::ToGlm()']]],
+  ['toglm_5',['ToGLM',['../class_o_s_k_1_1_vector2__t.html#ade20b67c6f24bf59cbcf88d8d24ef1f2',1,'OSK::Vector2_t::ToGLM()'],['../class_o_s_k_1_1_vector3__t.html#acb2737aa41e9e488c3e93a30fcedfb1c',1,'OSK::Vector3_t::ToGLM()'],['../class_o_s_k_1_1_vector4__t.html#a112f4b73019853c6fb2c672ffdd58a58',1,'OSK::Vector4_t::ToGLM()']]],
   ['toglm_5ft_6',['ToGLM_T',['../class_o_s_k_1_1_vector2__t.html#ad79da48627156a366d71b9b9a378949b',1,'OSK::Vector2_t::ToGLM_T()'],['../class_o_s_k_1_1_vector3__t.html#a665d2986cf914434933863bf0b4c8095',1,'OSK::Vector3_t::ToGLM_T()'],['../class_o_s_k_1_1_vector4__t.html#ac3153a72cbc0e891f630aa4f376ff381',1,'OSK::Vector4_t::ToGLM_T()']]],
   ['tomat4_7',['ToMat4',['../class_o_s_k_1_1_quaternion.html#a5ab0ea79fd870ee2e32b836c2c4f5525',1,'OSK::Quaternion']]],
   ['toplevelonly_8',['TopLevelOnly',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html#a8f016453c25cfe96884fca55a111b73e',1,'OSK::COLLISION::CollisionInfo']]],
@@ -29,5 +29,5 @@ var searchData=
   ['transform2d_26',['Transform2D',['../class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#a9da50f666bba0e2e276bffd09619674d',1,'OSK::ECS::Transform2D::Transform2D(ECS::GameObjectIndex owner)'],['../class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#a38a6a50ae71b6f219065c229eb464235',1,'OSK::ECS::Transform2D::Transform2D(ECS::GameObjectIndex owner, const Vector2 &amp;position, const Vector2 &amp;scale, float rotation)']]],
   ['transform3d_27',['Transform3D',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a10c838b2e1e87925aaca154cc34ca18a',1,'OSK::ECS::Transform3D']]],
   ['transformpoint_28',['TransformPoint',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a865f66350d13df8b492abc200ec755d7',1,'OSK::ECS::Transform3D']]],
-  ['true_29',['True',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html#afa9f3c93c9740fde8c2e015a65ef1ee2',1,'OSK::COLLISION::CollisionInfo::True()'],['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#aa21106fa41ea76f379d3fc9fb3533ae0',1,'OSK::COLLISION::RayCastResult::True()']]]
+  ['true_29',['True',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html#afa9f3c93c9740fde8c2e015a65ef1ee2',1,'OSK::COLLISION::CollisionInfo::True()'],['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#af5a1d21af8f25ced4f86d61872e3ec34',1,'OSK::COLLISION::RayCastResult::True()']]]
 ];

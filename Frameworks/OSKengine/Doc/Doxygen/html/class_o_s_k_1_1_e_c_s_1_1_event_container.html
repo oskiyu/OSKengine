@@ -115,7 +115,7 @@ class OSK::ECS::EventContainer&lt; TEvent &gt;</div><p >Contiene la cola de even
 </dl>
 <dl class="section pre"><dt>Precondición</dt><dd>TEvent debe cumplir IsEcsEvent&lt;TEvent&gt;. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_event_container_8h_source.html#l00013">13</a> del archivo <a class="el" href="_event_container_8h_source.html">EventContainer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_event_container_8h_source.html#l00014">14</a> del archivo <a class="el" href="_event_container_8h_source.html">EventContainer.h</a>.</p>
 </div><h2 class="groupheader">Documentación de las funciones miembro</h2>
 <a id="a136c484e396525fbfe5e28135a7aa3a7" name="a136c484e396525fbfe5e28135a7aa3a7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a136c484e396525fbfe5e28135a7aa3a7">&#9670;&nbsp;</a></span>_ClearQueue()</h2>
@@ -137,12 +137,16 @@ template&lt;typename TEvent &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_event_container_8h_source.html#l00017">17</a> del archivo <a class="el" href="_event_container_8h_source.html">EventContainer.h</a>.</p>
+<p>Elimina todos los eventos de la cola. Debe ser llamado al final de cada frame. </p>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_event_container.html#a58d492e50c45ed25fae8e9ce5afbfe69">OSK::ECS::IEventContainer</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_event_container_8h_source.html#l00018">18</a> del archivo <a class="el" href="_event_container_8h_source.html">EventContainer.h</a>.</p>
 
 </div>
 </div>
@@ -174,7 +178,7 @@ template&lt;typename TEvent &gt; </div>
 <p>Obtiene la cola con todos los eventos del frame actual. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Cola con los eventos del frame actual. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_event_container_8h_source.html#l00029">29</a> del archivo <a class="el" href="_event_container_8h_source.html">EventContainer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_event_container_8h_source.html#l00030">30</a> del archivo <a class="el" href="_event_container_8h_source.html">EventContainer.h</a>.</p>
 
 </div>
 </div>
@@ -212,7 +216,7 @@ template&lt;typename TEvent &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_event_container_8h_source.html#l00023">23</a> del archivo <a class="el" href="_event_container_8h_source.html">EventContainer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_event_container_8h_source.html#l00024">24</a> del archivo <a class="el" href="_event_container_8h_source.html">EventContainer.h</a>.</p>
 
 </div>
 </div>
@@ -225,7 +229,7 @@ template&lt;typename TEvent &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_event_container.html">EventContainer</a></li>
-    <li class="footer">Generado el Jueves, 2 de Febrero de 2023 18:24:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Viernes, 3 de Febrero de 2023 15:20:02 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>
