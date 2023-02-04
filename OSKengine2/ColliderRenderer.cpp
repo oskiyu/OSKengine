@@ -18,6 +18,9 @@
 #include "OSKengine.h"
 #include "EntityComponentSystem.h"
 #include "CollisionEvent.h"
+#include "Vertex3D.h"
+
+#include "IGpuMemoryAllocator.h"
 
 #include <set>
 
@@ -36,6 +39,8 @@ ColliderRenderSystem::ColliderRenderSystem() {
 	// Material load
 	material = Engine::GetRenderer()->GetMaterialSystem()
 		->LoadMaterial("Resources/Materials/Collision/collision_material.json");
+	lowLevelMaterial = Engine::GetRenderer()->GetMaterialSystem()
+		->LoadMaterial("Resources/Materials/Collision/lowlevel_collision_material.json");
 	materialInstance = material->CreateInstance().GetPointer();
 
 	// Asset load
@@ -98,8 +103,6 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 
 	commandList->StartDebugSection("Collision Render", Color::RED());
 
-	commandList->BindMaterial(material);
-	commandList->BindMaterialSlot(materialInstance->GetSlot("global"));
 
 	const auto& eventQueue = Engine::GetEcs()->GetEventQueue<CollisionEvent>();
 	std::set<GameObjectIndex> collisionObjects;
@@ -109,16 +112,20 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 	}
 
 	for (GameObjectIndex gameObject : GetObjects()) {
-		Transform3D topLevelTransform = Engine::GetEcs()->GetComponent<Transform3D>(gameObject);
+		commandList->BindMaterial(material);
+		commandList->BindMaterialSlot(materialInstance->GetSlot("global"));
+
+		const Transform3D& originalTransform = Engine::GetEcs()->GetComponent<Transform3D>(gameObject);
+		Transform3D topLevelTransform = originalTransform;
 		topLevelTransform.SetRotation({});
 
 		const Collider& collider = Engine::GetEcs()->GetComponent<Collider>(gameObject);
 		const ITopLevelCollider* topLevelCollider = collider.GetTopLevelCollider();
 
 		if (collisionObjects.contains(gameObject))
-			renderInfo.color = Color::RED();
+			renderInfo.color = Color::RED() * 0.75f;
 		else
-			renderInfo.color = Color::YELLOW();
+			renderInfo.color = Color::YELLOW() * 0.75f;
 
 		if (auto* box = dynamic_cast<const AxisAlignedBoundingBox*>(topLevelCollider)) {
 			topLevelTransform.SetScale(box->GetSize());
@@ -139,15 +146,76 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 			commandList->DrawSingleInstance(sphereModel->GetIndexCount());
 		}
 
-		for (TIndex i = 0; i < collider.GetBottomLevelCollidersCount(); i++) {
-			// TODO
-			
-			// const IBottomLevelCollider* bottomLevelCollider = collider.GetBottomLevelCollider(i);
-			// const ConvexVolume*;
+		if (bottomLevelVertexBuffers.ContainsKey(gameObject)) {
+			const auto& vertexBuffers = bottomLevelVertexBuffers.Get(gameObject);
+			const auto& indexBuffers = bottomLevelIndexBuffers.Get(gameObject);
+
+			if (collisionObjects.contains(gameObject))
+				renderInfo.color = Color::RED();
+			else
+				renderInfo.color = Color::YELLOW();
+
+			renderInfo.modelMatrix = originalTransform.GetAsMatrix();
+			commandList->PushMaterialConstants("pushConstants", renderInfo);
+
+			commandList->BindMaterial(lowLevelMaterial);
+			for (TIndex i = 0; i < vertexBuffers.GetSize(); i++) {
+				commandList->BindVertexBuffer(vertexBuffers[i].GetPointer());
+				commandList->BindIndexBuffer(indexBuffers[i].GetPointer());
+				commandList->DrawSingleInstance(indexBuffers[i]->GetNumIndices());
+			}
 		}
 	}
 
 	commandList->EndDebugSection();
 
 	commandList->EndGraphicsRenderpass();
+}
+
+void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
+	const Collider& collider = Engine::GetEcs()->GetComponent<Collider>(obj);
+
+	DynamicArray<OwnedPtr<IGpuVertexBuffer>> vertexBuffers;
+	DynamicArray<OwnedPtr<IGpuIndexBuffer>> indexBuffers;
+
+	if (bottomLevelVertexBuffers.ContainsKey(obj)) {
+		bottomLevelVertexBuffers.Get(obj).Empty();
+		bottomLevelIndexBuffers.Get(obj).Empty();
+	}
+
+	for (TIndex c = 0; c < collider.GetBottomLevelCollidersCount(); c++) {
+		const auto& blc = *collider.GetBottomLevelCollider(c)->As<ConvexVolume>();
+
+		DynamicArray<Vertex3D> vertices;
+		for (const auto& cVertex : blc.GetLocalSpaceVertices()) {
+			vertices.Insert(Vertex3D{
+				.position = cVertex,
+				.normal = 0.0f,
+				.color = Color::WHITE(),
+				.texCoords = 0.0f
+				});
+		}
+
+		DynamicArray<TIndexSize> indices;
+		for (const auto& face : blc.GetFaceIndices()) {
+			for (const auto index : face)
+				indices.Insert(index);
+
+			indices.Insert(face[0]);
+		}
+
+		vertexBuffers.Insert(Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(vertices, Vertex3D::GetVertexInfo()).GetPointer());
+		indexBuffers.Insert(Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices).GetPointer());
+	}
+
+	if (!bottomLevelVertexBuffers.ContainsKey(obj)) {
+		bottomLevelVertexBuffers.Insert(obj, {});
+		bottomLevelIndexBuffers.Insert(obj, {});
+	}
+
+	for (const auto& v : vertexBuffers)
+		bottomLevelVertexBuffers.Get(obj).Insert(v.GetPointer());
+
+	for (const auto& i : indexBuffers)
+		bottomLevelIndexBuffers.Get(obj).Insert(i.GetPointer());
 }

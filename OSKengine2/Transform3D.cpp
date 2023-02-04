@@ -5,6 +5,7 @@
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <gtx/quaternion.hpp>
+#include <gtx/string_cast.hpp>
 
 using namespace OSK;
 using namespace OSK::ECS;
@@ -100,16 +101,16 @@ void Transform3D::UpdateModel() {
 		globalRotation = localRotation.ToMat4();
 	}
 
-	//Posición local.
+	// Posición local.
 	matrix = glm::translate(matrix, localPosition.ToGLM());
 
-	//Escala local.
+	// Escala local.
 	matrix = glm::scale(matrix, localScale.ToGLM());
 
-	//Rotación local.
+	// Rotación local.
 	matrix = matrix * localRotation.ToMat4();
 
-	//Obtener posición final.
+	// Obtener posición final.
 	globalPosition = Vector3f(matrix * glm::vec4(0, 0, 0, 1));
 
 	DynamicArray<GameObjectIndex> childrenToRemove;
@@ -126,8 +127,10 @@ void Transform3D::UpdateModel() {
 }
 
 Vector3f Transform3D::TransformPoint(const Vector3f& point) const {
-	const glm::mat4 mat = glm::translate(matrix, point.ToGLM());
-	return Vector3f(mat * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
+	const glm::vec4 p = { point.X, point.Y, point.Z, 1.0f };
+	const glm::vec4 transformedPoint = matrix * p;
+
+	return Vector3f(glm::vec3(transformedPoint));
 }
 
 Vector3f Transform3D::GetPosition() const {

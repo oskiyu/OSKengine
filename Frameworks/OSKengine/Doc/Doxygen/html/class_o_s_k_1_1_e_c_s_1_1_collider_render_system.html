@@ -108,6 +108,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a3bd266045fe3b5cc44ab5ddc426c3c0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab651ddfe0d893a0a61b2e8cf4b9892c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html#ab651ddfe0d893a0a61b2e8cf4b9892c0">Render</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a> *commandList) override</td></tr>
 <tr class="separator:ab651ddfe0d893a0a61b2e8cf4b9892c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f6fdb2c63fb9e662f106acbfb118d6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html#a7f6fdb2c63fb9e662f106acbfb118d6e">SetupBottomLevelModel</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">GameObjectIndex</a> obj)</td></tr>
+<tr class="separator:a7f6fdb2c63fb9e662f106acbfb118d6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab99fd447d1c640bcc003dc5713768b6c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#ab99fd447d1c640bcc003dc5713768b6c">OnCreate</a> () override</td></tr>
 <tr class="separator:ab99fd447d1c640bcc003dc5713768b6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73d2840e29adafef2ccface8fbd76303"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a73d2840e29adafef2ccface8fbd76303">Resize</a> (const <a class="el" href="namespace_o_s_k.html#a29c2aa145248042c8045d1329efa4770">Vector2ui</a> &amp;resolution)</td></tr>
@@ -144,8 +146,10 @@ Atributos protegidos</h2></td></tr>
 <tr class="separator:a8e9d568865c3d41fbec6afd49acb3cfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
-<div class="textblock">
-<p class="definition">Definición en la línea <a class="el" href="_collider_renderer_8h_source.html#l00018">18</a> del archivo <a class="el" href="_collider_renderer_8h_source.html">ColliderRenderer.h</a>.</p>
+<div class="textblock"><p >Sistema de renderizado que renderiza los colliders de todas las entidades. </p>
+<dl class="section note"><dt>Nota</dt><dd>Para que los bottom level colliders se renderizen correctamente, cada entidad debe registrarse en el sistema mediante SetupBottomLevelModel. En caso contrario, sólamente se renderizará su collider de alto nivel. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_collider_renderer_8h_source.html#l00028">28</a> del archivo <a class="el" href="_collider_renderer_8h_source.html">ColliderRenderer.h</a>.</p>
 </div><h2 class="groupheader">Documentación del constructor y destructor</h2>
 <a id="aad8d7efec955a6fe13394d6f62afed6a" name="aad8d7efec955a6fe13394d6f62afed6a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aad8d7efec955a6fe13394d6f62afed6a">&#9670;&nbsp;</a></span>ColliderRenderSystem()</h2>
@@ -162,7 +166,7 @@ Atributos protegidos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_collider_renderer_8cpp_source.html#l00030">30</a> del archivo <a class="el" href="_collider_renderer_8cpp_source.html">ColliderRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_collider_renderer_8cpp_source.html#l00033">33</a> del archivo <a class="el" href="_collider_renderer_8cpp_source.html">ColliderRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -304,7 +308,7 @@ Atributos protegidos</h2></td></tr>
 
 <p>Reimplementado de <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#af963cc4b47d5d60b0b33473e3c7f3c75">OSK::ECS::IRenderSystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_collider_renderer_8cpp_source.html#l00062">62</a> del archivo <a class="el" href="_collider_renderer_8cpp_source.html">ColliderRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_collider_renderer_8cpp_source.html#l00067">67</a> del archivo <a class="el" href="_collider_renderer_8cpp_source.html">ColliderRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -409,7 +413,16 @@ Atributos protegidos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_collider_renderer_8cpp_source.html#l00058">58</a> del archivo <a class="el" href="_collider_renderer_8cpp_source.html">ColliderRenderer.cpp</a>.</p>
+<p>Establece la cámara de renderizado. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cameraObject</td><td>Objeto con la cámara.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>La entidad debe contener un componente de cámara 3D. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_collider_renderer_8cpp_source.html#l00063">63</a> del archivo <a class="el" href="_collider_renderer_8cpp_source.html">ColliderRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -632,7 +645,7 @@ Atributos protegidos</h2></td></tr>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a09d5e15f08aeff1cac75da8bada0f48d">OSK::ECS::IRenderSystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_collider_renderer_8cpp_source.html#l00068">68</a> del archivo <a class="el" href="_collider_renderer_8cpp_source.html">ColliderRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_collider_renderer_8cpp_source.html#l00073">73</a> del archivo <a class="el" href="_collider_renderer_8cpp_source.html">ColliderRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -674,6 +687,35 @@ Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. <
 <p>Reimplementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html#a2eb6d660649865e576fb7f25fcffc8b0">OSK::ECS::HybridRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#aaece8432a7dd1a62b67b1c76b707c211">OSK::ECS::PbrDeferredRenderSystem</a> y <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a69771f412015a908acba9b67a4dc99bd">OSK::ECS::RenderSystem3D</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00026">26</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7f6fdb2c63fb9e662f106acbfb118d6e" name="a7f6fdb2c63fb9e662f106acbfb118d6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f6fdb2c63fb9e662f106acbfb118d6e">&#9670;&nbsp;</a></span>SetupBottomLevelModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ColliderRenderSystem::SetupBottomLevelModel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">GameObjectIndex</a>&#160;</td>
+          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Registra la entidad para que se renderizen sus colliders de bajo nivel. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>Entidad.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>La entidad debe tener un componente de colisión. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_collider_renderer_8cpp_source.html#l00175">175</a> del archivo <a class="el" href="_collider_renderer_8cpp_source.html">ColliderRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -743,7 +785,7 @@ Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. <
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html">ColliderRenderSystem</a></li>
-    <li class="footer">Generado el Viernes, 3 de Febrero de 2023 15:20:02 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Sábado, 4 de Febrero de 2023 19:22:01 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

@@ -36,9 +36,10 @@ void ConvexVolume::OptimizeAxes() {
 
 		for (TIndex j = i + 1; j < faces.GetSize(); j++) {
 
-			const Axis axis1 = GetAxisFromFace(i);
-			const Axis axis2 = GetAxisFromFace(j);
+			const Axis axis1 = GetLocalSpaceAxis(i);
+			const Axis axis2 = GetLocalSpaceAxis(j);
 
+			// @todo epsilon?
 			const bool isSameAxis = axis1 == axis2 || axis1 == -axis2;
 
 			// Si el otro eje es igual, lo marcamos para no añadirlo
@@ -56,8 +57,9 @@ void ConvexVolume::OptimizeAxes() {
 	faces = optimizedFaces;
 }
 
-ConvexVolume::Axis ConvexVolume::GetAxisFromFace(TIndex faceId) const {
+ConvexVolume::Axis ConvexVolume::GetLocalSpaceAxis(TIndex faceId) const {
 	const FaceIndices& faceIndices = faces[faceId];
+
 	const Vector3f pointA = vertices.At(faceIndices.At(0));
 	const Vector3f pointB = vertices.At(faceIndices.At(1));
 	const Vector3f pointC = vertices.At(faceIndices.At(2));
@@ -68,10 +70,9 @@ ConvexVolume::Axis ConvexVolume::GetAxisFromFace(TIndex faceId) const {
 	return vec1.Cross(vec2).GetNormalized();
 }
 
-ConvexVolume::Axis ConvexVolume::GetAxisFromFace(TIndex faceId, const Transform3D& transform) const {
-	const static glm::vec4 positionMult = { 0.0f, 0.0f, 0.0f, 1.0f };
-
+ConvexVolume::Axis ConvexVolume::GetWorldSpaceAxis(TIndex faceId, const Transform3D& transform) const {
 	const FaceIndices& faceIndices = faces[faceId];
+
 	const Vector3f pointA = vertices.At(faceIndices.At(0));
 	const Vector3f pointB = vertices.At(faceIndices.At(1));
 	const Vector3f pointC = vertices.At(faceIndices.At(2));
@@ -91,14 +92,17 @@ bool ConvexVolume::IsColliding(const IBottomLevelCollider& other,
 
 	const ConvexVolume& otherVolume = (const ConvexVolume&)other;
 
-	const TSize thisFaceCount = faces.GetSize();
+	// Número de caras (y por lo tanto, de ejes) de ambos colliders.
+	const TSize thisFaceCount = this->faces.GetSize();
 	const TSize otherFaceCount = otherVolume.faces.GetSize();
 
-	const auto transformedVerticesA = GetTransformedVertices(thisTransform);
-	const auto transformedVerticesB = otherVolume.GetTransformedVertices(otherTransform);
+	// Vértices en world-space de cada collider.
+	const auto transformedVerticesA = this->GetWorldSpaceVertices(thisTransform);
+	const auto transformedVerticesB = otherVolume.GetWorldSpaceVertices(otherTransform);
 
+	// Comprobamos los ejes de este collider.
 	for (TIndex i = 0; i < thisFaceCount; i++) {
-		const Axis axis = GetAxisFromFace(i, thisTransform);
+		const Axis axis = this->GetWorldSpaceAxis(i, thisTransform);
 
 		const FaceProjection projA = FaceProjection(transformedVerticesA, axis);
 		const FaceProjection projB = FaceProjection(transformedVerticesB, axis);
@@ -107,8 +111,9 @@ bool ConvexVolume::IsColliding(const IBottomLevelCollider& other,
 			return false;
 	}
 
+	// Comprobamos los ejes del otro collider.
 	for (TIndex i = 0; i < otherFaceCount; i++) {
-		const Axis axis = GetAxisFromFace(i, thisTransform);
+		const Axis axis = otherVolume.GetWorldSpaceAxis(i, otherTransform);
 
 		const FaceProjection projA = FaceProjection(transformedVerticesA, axis);
 		const FaceProjection projB = FaceProjection(transformedVerticesB, axis);
@@ -120,11 +125,24 @@ bool ConvexVolume::IsColliding(const IBottomLevelCollider& other,
 	return true;
 }
 
-DynamicArray<Vector3f> ConvexVolume::GetTransformedVertices(const Transform3D& transform) const {
+bool ConvexVolume::ContainsPoint(const Vector3f& point) const {
+	OSK_ASSERT(false, "No implementado");
+	return false;
+}
+
+DynamicArray<Vector3f> ConvexVolume::GetWorldSpaceVertices(const Transform3D& transform) const {
 	DynamicArray<Vector3f> output;
 
 	for (const auto& vertex : vertices)
 		output.Insert(transform.TransformPoint(vertex));
 
 	return output;
+}
+
+const DynamicArray<Vector3f>& ConvexVolume::GetLocalSpaceVertices() const {
+	return vertices;
+}
+
+const DynamicArray<ConvexVolume::FaceIndices> ConvexVolume::GetFaceIndices() const {
+	return faces;
 }

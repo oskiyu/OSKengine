@@ -46,8 +46,12 @@ void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* 
 	// Información básica del input del pipeline.
 	VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo{};
 	inputAssemblyInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
-	if (info.tesselationControlPath == "")
-		inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+	if (info.tesselationControlPath == "") {
+		if (info.polygonMode == PolygonMode::LINE)
+			inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_LINE_STRIP;
+		else
+			inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+	}
 	else
 		inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_PATCH_LIST;
 	inputAssemblyInfo.primitiveRestartEnable = VK_FALSE;

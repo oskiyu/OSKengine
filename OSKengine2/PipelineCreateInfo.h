@@ -13,13 +13,16 @@ namespace OSK::GRAPHICS {
 	enum class PolygonMode {
 
 		/// <summary>
-		/// Se renderizan los polígonos enteros.
+		/// Se renderizan los triángulos enteros.
 		/// </summary>
-		FILL,
+		TRIANGLE_FILL,
 
 		/// <summary>
-		/// Se renderizan los bordes.
+		/// Se renderizan los bordes de los triángulos.
 		/// </summary>
+		TRIANGLE_WIDEFRAME,
+
+		/// @brief Se renderizan líneas rectas.
 		LINE
 
 	};

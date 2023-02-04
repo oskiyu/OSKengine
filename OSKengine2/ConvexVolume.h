@@ -14,11 +14,21 @@ namespace OSK::COLLISION {
 	/// colisiones detallada.
 	class OSKAPI_CALL ConvexVolume final : public IBottomLevelCollider {
 
+	public:
+
+		/// @brief Una lista que contiene los índices de los vértices
+		/// de una cara.
+		/// 
+		/// Cada índice representa un vértice almacenado en la lista de vértices
+		/// del collider.
 		using FaceIndices = DynamicArray<TIndex>;
+
+		/// @brief Eje.
 		using Axis = Vector3f;
 
 	public:
 
+		ConvexVolume() = default;
 		~ConvexVolume() = default;
 
 		/// @brief Añade una cara al poliedro.
@@ -34,6 +44,22 @@ namespace OSK::COLLISION {
 		bool IsColliding(const IBottomLevelCollider& other,
 			const ECS::Transform3D& thisOffset, const ECS::Transform3D& otherOffset) const override;
 
+		bool ContainsPoint(const Vector3f& point) const override;
+
+
+		/// @brief Devuelve una lista con todos los vértices del collider.
+		/// Estos vértices están en espacio local, por lo no se encuentran 
+		/// transformados de acuerdo a la entidad que posee el collider.
+		/// @return Todos los vértices del collider, en espacio local.
+		const DynamicArray<Vector3f>& GetLocalSpaceVertices() const;
+
+		/// @brief Devuelve una lista que contiene una lista de índices por cada
+		/// cara del collider.
+		/// @return Lista con todos los índices de cada cara.
+		/// 
+		/// @see FaceIndices
+		const DynamicArray<FaceIndices> GetFaceIndices() const;
+
 	private:
 
 		/// @brief Obtiene el eje definido por los puntos de la cara indicada.
@@ -46,7 +72,7 @@ namespace OSK::COLLISION {
 		/// 
 		/// @pre El índice debe apuntar a una cara válida que no haya sido purgada
 		/// por el proceso de optimización.
-		Axis GetAxisFromFace(TIndex faceId) const;
+		Axis GetLocalSpaceAxis(TIndex faceId) const;
 
 		/// @brief Obtiene un eje transformado definido por los puntos de la cara indicada.
 		/// Se usa para la comprobación de colisiones.
@@ -58,9 +84,14 @@ namespace OSK::COLLISION {
 		/// 
 		/// @pre El índice debe apuntar a una cara válida que no haya sido purgada
 		/// por el proceso de optimización.
-		Axis GetAxisFromFace(TIndex faceId, const ECS::Transform3D& transform) const;
+		Axis GetWorldSpaceAxis(TIndex faceId, const ECS::Transform3D& transform) const;
 
-		DynamicArray<Vector3f> GetTransformedVertices(const ECS::Transform3D& transform) const;
+		/// @brief Obtiene una lista con todos los vértices del collider transformados
+		/// a world-space.
+		/// @param transform Transform de este collider.
+		/// @return Lista con los vértices en world-space.
+		DynamicArray<Vector3f> GetWorldSpaceVertices(const ECS::Transform3D& transform) const;
+
 
 		DynamicArray<FaceIndices> faces;
 		DynamicArray<Vector3f> vertices;

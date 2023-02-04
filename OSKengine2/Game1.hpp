@@ -83,6 +83,7 @@
 
 #include "ColliderRenderer.h"
 #include "SphereCollider.h"
+#include "ConvexVolume.h"
 
 OSK::GRAPHICS::Material* rtMaterial = nullptr;
 OSK::GRAPHICS::MaterialInstance* rtMaterialInstance = nullptr;
@@ -117,6 +118,9 @@ class Game1 : public OSK::IGame {
 protected:
 
 	void CreateWindow() override {
+		ECS::Transform3D transform{ 0 };
+		const auto final = transform.TransformPoint({ -.2f, .2f, -.2f });
+
 		Engine::GetDisplay()->Create({ 1280u, 720u }, "OSKengine");
 
 		IO::IMouseInput* mouseInput = nullptr;
@@ -221,6 +225,54 @@ protected:
 		
 		auto& collider = Engine::GetEcs()->AddComponent<COLLISION::Collider>(carObject, {});
 		collider.SetTopLevelCollider(new COLLISION::SphereCollider(0.45f));
+
+		OwnedPtr<COLLISION::ConvexVolume> convexVolume = new COLLISION::ConvexVolume;
+		const float width = 0.15f;
+		const float length = 0.35f;
+		const float height = 0.17f;
+		{convexVolume->AddFace({
+			{ -width, height, -length },
+			{ -width, height, length },
+			{ width, height, length },
+			{ width, height, -length }
+			});
+		convexVolume->AddFace({
+			{ -width, 0, -length },
+			{ -width, 0, length },
+			{ width, 0, length },
+			{ width, 0, -length }
+			});
+
+		// Lateral
+		convexVolume->AddFace({
+			{ -width, height, -length },
+			{ -width, height, length },
+			{ -width, 0, length },
+			{ -width, 0, -length }
+			});
+		convexVolume->AddFace({
+			{ width, height, -length },
+			{ width, height, length },
+			{ width, 0, length },
+			{ width, 0, -length }
+			});
+
+		// Front/back
+		convexVolume->AddFace({
+			{ -width, height, length },
+			{ width, height, length },
+			{ width, 0, length },
+			{ -width, 0, length }
+			});
+		convexVolume->AddFace({
+			{ -width, height, -length },
+			{ width, height, -length },
+			{ width, 0, -length },
+			{ -width, 0, -length }
+			}); }
+		collider.AddBottomLevelCollider(convexVolume.GetPointer());
+		Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>()->SetupBottomLevelModel(carObject);
+
 		ECS::ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ECS::ModelComponent3D>(carObject, {});
 
 		// cameraTransform.AttachToObject(carObject);
@@ -235,6 +287,51 @@ protected:
 		auto& collider2 = Engine::GetEcs()->AddComponent<COLLISION::Collider>(secondObject, {});
 		collider2.SetTopLevelCollider(new COLLISION::AxisAlignedBoundingBox(0.45f));
 		Engine::GetEcs()->AddComponent<ECS::Transform3D>(secondObject, ECS::Transform3D{ secondObject });
+		OwnedPtr<COLLISION::ConvexVolume> convexVolume2 = new COLLISION::ConvexVolume;
+		const float volume2size = 0.2f;
+		{convexVolume2->AddFace({
+			{ -volume2size, volume2size, -volume2size },
+			{ -volume2size, volume2size, volume2size },
+			{ volume2size, volume2size, volume2size },
+			{ volume2size, volume2size, -volume2size }
+			});
+		convexVolume2->AddFace({
+			{ -volume2size, 0, -volume2size },
+			{ -volume2size, 0, volume2size },
+			{ volume2size, 0, volume2size },
+			{ volume2size, 0, -volume2size }
+			});
+
+		// Lateral
+		convexVolume2->AddFace({
+			{ -volume2size, volume2size, -volume2size },
+			{ -volume2size, volume2size, volume2size },
+			{ -volume2size, 0, volume2size },
+			{ -volume2size, 0, -volume2size }
+			});
+		convexVolume2->AddFace({
+			{ volume2size, volume2size, -volume2size },
+			{ volume2size, volume2size, volume2size },
+			{ volume2size, 0, volume2size },
+			{ volume2size, 0, -volume2size }
+			});
+
+		// Front/back
+		convexVolume2->AddFace({
+			{ -volume2size, volume2size, volume2size },
+			{ volume2size, volume2size, volume2size },
+			{ volume2size, 0, volume2size },
+			{ -volume2size, 0, volume2size }
+			});
+		convexVolume2->AddFace({
+			{ -volume2size, volume2size, -volume2size },
+			{ volume2size, volume2size, -volume2size },
+			{ volume2size, 0, -volume2size },
+			{ -volume2size, 0, -volume2size }
+			}); }
+
+		collider2.AddBottomLevelCollider(convexVolume2.GetPointer());
+		Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>()->SetupBottomLevelModel(secondObject);
 
 		// ECS 2
 		circuitObject = Engine::GetEcs()->SpawnObject();

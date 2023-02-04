@@ -12,6 +12,6 @@
         "0": "global"
     },
 
-    "polygon_mode": "LINE"
+    "polygon_mode": "TRIANGLE_WIDEFRAME"
     
 }

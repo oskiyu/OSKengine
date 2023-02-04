@@ -25,10 +25,10 @@ CollisionInfo Collider::GetCollisionInfo(const Collider& other, const Transform3
 	const Vector3f thisPosition = thisTransform.GetPosition();
 	const Vector3f otherPosition = otherTransform.GetPosition();
 
-	if (!topLevelCollider->IsColliding(*otherTopLevel, thisPosition, otherPosition))
+	if (!this->topLevelCollider->IsColliding(*otherTopLevel, thisPosition, otherPosition))
 		return CollisionInfo::False();
 
-	for (const auto& bottomLevelA : bottomLevelColliders)
+	for (const auto& bottomLevelA : this->bottomLevelColliders)
 		for (const auto& bottomLevelB : other.bottomLevelColliders)
 			if (bottomLevelA->IsColliding(*bottomLevelB.GetPointer(), thisTransform, otherTransform))
 				return CollisionInfo::True();

@@ -95,8 +95,9 @@ VkPipelineColorBlendAttachmentState IPipelineVulkan::GetColorBlendInfo(const Pip
 
 VkPolygonMode IPipelineVulkan::GetPolygonMode(PolygonMode mode) const {
 	switch (mode) {
-	case PolygonMode::FILL:
+	case PolygonMode::TRIANGLE_FILL:
 		return VK_POLYGON_MODE_FILL;
+	case PolygonMode::TRIANGLE_WIDEFRAME:
 	case PolygonMode::LINE:
 		return VK_POLYGON_MODE_LINE;
 	default:

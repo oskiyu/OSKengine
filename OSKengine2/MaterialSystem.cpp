@@ -41,10 +41,12 @@ ShaderStage GetShaderStage(const std::string& type) {
 }
 
 PolygonMode GetPolygonMode(const std::string& type) {
-	if (type == "LINE")
+	if (type == "TRIANGLE_WIDEFRAME")
+		return PolygonMode::TRIANGLE_WIDEFRAME;
+	else if (type == "LINE")
 		return PolygonMode::LINE;
 	else
-		return PolygonMode::FILL;
+		return PolygonMode::TRIANGLE_FILL;
 }
 
 

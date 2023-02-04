@@ -25,7 +25,7 @@ var searchData=
   ['addresizecallback_22',['AddResizeCallback',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ae132981b28209658bcc2ca90fef26a54',1,'OSK::GRAPHICS::IRenderer']]],
   ['addressmode_23',['addressMode',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html#a5a47105ae69b63f01f5aea2ce71ac1ef',1,'OSK::GRAPHICS::GpuImageSamplerDesc']]],
   ['addrotation_24',['AddRotation',['../class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#af00c1ff614688e5186afc380bd165b5d',1,'OSK::ECS::Transform2D']]],
-  ['addscale_25',['AddScale',['../class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#af8c561f0e22ce9c48a188e5210af5ec8',1,'OSK::ECS::Transform2D::AddScale()'],['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a519e0f71ada3555dd2af7f429e0e5d3f',1,'OSK::ECS::Transform3D::AddScale()']]],
+  ['addscale_25',['AddScale',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a519e0f71ada3555dd2af7f429e0e5d3f',1,'OSK::ECS::Transform3D::AddScale()'],['../class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#af8c561f0e22ce9c48a188e5210af5ec8',1,'OSK::ECS::Transform2D::AddScale()']]],
   ['addslot_26',['AddSlot',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#ab5ca4f05ed6d7cea3b81d9ee94f6350a',1,'OSK::GRAPHICS::MaterialLayout']]],
   ['addvalue_27',['AddValue',['../class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_field_wrapper.html#a51b952e7b8816496470e0db61dc258b4',1,'OSK::PERSISTENCE::FieldWrapper']]],
   ['advance_28',['advance',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html#a24b4974e31f9aec959aa2d321b65d6a8',1,'OSK::ASSETS::FontCharacter']]],
@@ -73,7 +73,8 @@ var searchData=
   ['auto_70',['AUTO',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b3d3107477f334f9d9d85a64c930c8aae1f2d5134ed2543d38a0de9751cf75d9',1,'OSK::GRAPHICS']]],
   ['availablespace_71',['availableSpace',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a71872852ab858a95c9af96ab49e1ec2a',1,'OSK::GRAPHICS::IGpuMemoryBlock']]],
   ['await_72',['Await',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_dx12.html#a8b3c61106d57eab128423c0ad9014826',1,'OSK::GRAPHICS::SyncDeviceDx12']]],
-  ['axisalignedboundingbox_73',['AxisAlignedBoundingBox',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#ab52e3f971fc7904c6d4bd24bf4ea2738',1,'OSK::COLLISION::AxisAlignedBoundingBox::AxisAlignedBoundingBox()=default'],['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#af6ec16d1ff9275a6d32236591f381460',1,'OSK::COLLISION::AxisAlignedBoundingBox::AxisAlignedBoundingBox(const Vector3f &amp;size)'],['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html',1,'OSK::COLLISION::AxisAlignedBoundingBox']]],
-  ['axisalignedboundingbox_2ecpp_74',['AxisAlignedBoundingBox.cpp',['../_axis_aligned_bounding_box_8cpp.html',1,'']]],
-  ['axisalignedboundingbox_2eh_75',['AxisAlignedBoundingBox.h',['../_axis_aligned_bounding_box_8h.html',1,'']]]
+  ['axis_73',['Axis',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#af303773368792a8a22456da5f8210ebc',1,'OSK::COLLISION::ConvexVolume']]],
+  ['axisalignedboundingbox_74',['AxisAlignedBoundingBox',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#ab52e3f971fc7904c6d4bd24bf4ea2738',1,'OSK::COLLISION::AxisAlignedBoundingBox::AxisAlignedBoundingBox()=default'],['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#af6ec16d1ff9275a6d32236591f381460',1,'OSK::COLLISION::AxisAlignedBoundingBox::AxisAlignedBoundingBox(const Vector3f &amp;size)'],['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html',1,'OSK::COLLISION::AxisAlignedBoundingBox']]],
+  ['axisalignedboundingbox_2ecpp_75',['AxisAlignedBoundingBox.cpp',['../_axis_aligned_bounding_box_8cpp.html',1,'']]],
+  ['axisalignedboundingbox_2eh_76',['AxisAlignedBoundingBox.h',['../_axis_aligned_bounding_box_8h.html',1,'']]]
 ];

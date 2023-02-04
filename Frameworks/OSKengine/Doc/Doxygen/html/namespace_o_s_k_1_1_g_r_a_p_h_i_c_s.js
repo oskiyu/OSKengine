@@ -265,7 +265,8 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
       [ "COUNTERCLOCKWISE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad6329cdca67793d3a3ffec0de1fab44cab437c6ed212434e8984c403374fe494c", null ]
     ] ],
     [ "PolygonMode", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8", [
-      [ "FILL", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8ae8225b11842409df543692aebed34fd1", null ],
+      [ "TRIANGLE_FILL", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8a37a03466f46f1fb13dadb80faea6b24c", null ],
+      [ "TRIANGLE_WIDEFRAME", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8a38b916d2838bbcd3eb17dde43c251b83", null ],
       [ "LINE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8a17b8ef2c330f1430e00c9de5469fc7e7", null ]
     ] ],
     [ "PresentMode", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab", [

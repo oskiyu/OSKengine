@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['signature_0',['Signature',['../namespace_o_s_k_1_1_e_c_s.html#a2e882236c9347a28293a4c8988371ad8',1,'OSK::ECS']]]
+  ['queue_0',['Queue',['../namespace_o_s_k.html#a0188d155693310732a0d1a5b5ce0f0a5',1,'OSK']]]
 ];

@@ -64,7 +64,9 @@ var hierarchy =
     [ "OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::GpuDataBuffer > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::GpuImage > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::ICommandList > >", "class_o_s_k_1_1_dynamic_array.html", null ],
+    [ "OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::IGpuIndexBuffer > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::IGpuMemoryBlock > >", "class_o_s_k_1_1_dynamic_array.html", null ],
+    [ "OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::IGpuVertexBuffer > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::IGraphicsPipeline > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::Material > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::MaterialInstance > >", "class_o_s_k_1_1_dynamic_array.html", null ],
@@ -78,6 +80,8 @@ var hierarchy =
     [ "OSK::DynamicArray< Pair< D3D12_DESCRIPTOR_HEAP_TYPE, OSK::DynamicArray< OSK::GRAPHICS::DescriptorBlockDx12 > > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< Pair< GameObjectIndex, ComponentIndex > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< Pair< GameObjectIndex, glm::mat4 > >", "class_o_s_k_1_1_dynamic_array.html", null ],
+    [ "OSK::DynamicArray< Pair< GameObjectIndex, OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::IGpuIndexBuffer > > > >", "class_o_s_k_1_1_dynamic_array.html", null ],
+    [ "OSK::DynamicArray< Pair< GameObjectIndex, OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::IGpuVertexBuffer > > > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< Pair< OSK::GRAPHICS::IGpuImageView, OSK::UniquePtr< OSK::GRAPHICS::IGpuImageView > > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< Pair< std::string, ComponentType > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< Pair< std::string, const OSK::ASSETS::Texture * > >", "class_o_s_k_1_1_dynamic_array.html", null ],
@@ -168,6 +172,8 @@ var hierarchy =
     [ "OSK::HashMap< D3D12_DESCRIPTOR_HEAP_TYPE, OSK::DynamicArray< OSK::GRAPHICS::DescriptorBlockDx12 > >", "class_o_s_k_1_1_hash_map.html", null ],
     [ "OSK::HashMap< GameObjectIndex, ComponentIndex >", "class_o_s_k_1_1_hash_map.html", null ],
     [ "OSK::HashMap< GameObjectIndex, glm::mat4 >", "class_o_s_k_1_1_hash_map.html", null ],
+    [ "OSK::HashMap< GameObjectIndex, OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::IGpuIndexBuffer > > >", "class_o_s_k_1_1_hash_map.html", null ],
+    [ "OSK::HashMap< GameObjectIndex, OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::IGpuVertexBuffer > > >", "class_o_s_k_1_1_hash_map.html", null ],
     [ "OSK::HashMap< OSK::GRAPHICS::IGpuImageView, OSK::UniquePtr< OSK::GRAPHICS::IGpuImageView > >", "class_o_s_k_1_1_hash_map.html", null ],
     [ "OSK::HashMap< std::string, ComponentType >", "class_o_s_k_1_1_hash_map.html", null ],
     [ "OSK::HashMap< std::string, const OSK::ASSETS::Texture * >", "class_o_s_k_1_1_hash_map.html", null ],
@@ -217,6 +223,9 @@ var hierarchy =
     ] ],
     [ "OSK::GRAPHICS::IBottomLevelAccelerationStructure", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html", [
       [ "OSK::GRAPHICS::BottomLevelAccelerationStructureVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vulkan.html", null ]
+    ] ],
+    [ "OSK::COLLISION::IBottomLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html", [
+      [ "OSK::COLLISION::ConvexVolume", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html", null ]
     ] ],
     [ "OSK::GRAPHICS::ICommandPool", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html", [
       [ "OSK::GRAPHICS::CommandPoolDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12.html", null ],
@@ -333,9 +342,6 @@ var hierarchy =
       ] ]
     ] ],
     [ "OSK::COLLISION::IRayCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_ray_collider.html", [
-      [ "OSK::COLLISION::IBottomLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html", [
-        [ "OSK::COLLISION::ConvexVolume", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html", null ]
-      ] ],
       [ "OSK::COLLISION::ITopLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html", [
         [ "OSK::COLLISION::AxisAlignedBoundingBox", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html", null ],
         [ "OSK::COLLISION::SphereCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html", null ]
@@ -421,6 +427,8 @@ var hierarchy =
     [ "OSK::Pair< D3D12_DESCRIPTOR_HEAP_TYPE, OSK::DynamicArray< OSK::GRAPHICS::DescriptorBlockDx12 > >", "struct_o_s_k_1_1_pair.html", null ],
     [ "OSK::Pair< GameObjectIndex, ComponentIndex >", "struct_o_s_k_1_1_pair.html", null ],
     [ "OSK::Pair< GameObjectIndex, glm::mat4 >", "struct_o_s_k_1_1_pair.html", null ],
+    [ "OSK::Pair< GameObjectIndex, OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::IGpuIndexBuffer > > >", "struct_o_s_k_1_1_pair.html", null ],
+    [ "OSK::Pair< GameObjectIndex, OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::IGpuVertexBuffer > > >", "struct_o_s_k_1_1_pair.html", null ],
     [ "OSK::Pair< OSK::GRAPHICS::IGpuImageView, OSK::UniquePtr< OSK::GRAPHICS::IGpuImageView > >", "struct_o_s_k_1_1_pair.html", null ],
     [ "OSK::Pair< std::string, ComponentType >", "struct_o_s_k_1_1_pair.html", null ],
     [ "OSK::Pair< std::string, const OSK::ASSETS::Texture * >", "struct_o_s_k_1_1_pair.html", null ],

@@ -217,8 +217,10 @@ D3D12_CULL_MODE GraphicsPipelineDx12::GetCullMode(PolygonCullMode mode) const {
 
 D3D12_FILL_MODE GraphicsPipelineDx12::GetFillMode(PolygonMode mode) const {
 	switch (mode) {
-	case PolygonMode::FILL:
+	case PolygonMode::TRIANGLE_FILL:
 		return D3D12_FILL_MODE_SOLID;
+	case PolygonMode::TRIANGLE_WIDEFRAME:
+		return D3D12_FILL_MODE_WIREFRAME;
 	case PolygonMode::LINE:
 		return D3D12_FILL_MODE_WIREFRAME;
 	default:

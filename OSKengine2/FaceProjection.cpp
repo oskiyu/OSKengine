@@ -9,16 +9,13 @@ FaceProjection::FaceProjection(const DynamicArray<Vector3f>& vertices, Vector3f 
 	for (const auto& vertex : vertices) {
 		const float vertexProjection = axis.Dot(vertex);
 
-		if (vertexProjection < min)
-			min = vertexProjection;
-
-		if (vertexProjection > max)
-			max = vertexProjection;
+		min = glm::min(vertexProjection, min);
+		max = glm::max(vertexProjection, max);
 	}
 }
 
 bool FaceProjection::Overlaps(FaceProjection other) const {
-	return max > other.min && min < other.max;
+	return this->max > other.min && this->min < other.max;
 }
 
 float FaceProjection::GetOverlap(FaceProjection other) const {

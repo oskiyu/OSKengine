@@ -17,6 +17,7 @@ var class_o_s_k_1_1_e_c_s_1_1_collider_render_system =
     [ "OSK_SYSTEM", "class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html#a820650c3e9cfab1305e495841d9f2a89", null ],
     [ "Render", "class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html#ab651ddfe0d893a0a61b2e8cf4b9892c0", null ],
     [ "Resize", "class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html#a73d2840e29adafef2ccface8fbd76303", null ],
+    [ "SetupBottomLevelModel", "class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html#a7f6fdb2c63fb9e662f106acbfb118d6e", null ],
     [ "SetupViewport", "class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html#ae3c3f809429c0eb238b4b5a58e4a756a", null ],
     [ "renderTarget", "class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html#a8e9d568865c3d41fbec6afd49acb3cfa", null ]
 ];

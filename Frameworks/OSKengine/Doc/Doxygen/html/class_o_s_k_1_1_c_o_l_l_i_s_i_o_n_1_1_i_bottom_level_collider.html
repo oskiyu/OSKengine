@@ -100,17 +100,13 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:ad020d1b44b7d7665ea86cf1badfd67ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6eda8ff8ca88b4247601e9d1b13a7939"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html#a6eda8ff8ca88b4247601e9d1b13a7939">OSK_DEFINE_AS</a> (<a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html">IBottomLevelCollider</a>)</td></tr>
 <tr class="separator:a6eda8ff8ca88b4247601e9d1b13a7939"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02473a9d291e0c798bc36e5d3843bb53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html#a02473a9d291e0c798bc36e5d3843bb53">SetTransformOffset</a> (const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a> &amp;offset)</td></tr>
-<tr class="separator:a02473a9d291e0c798bc36e5d3843bb53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afee713e1ed6376675b460c80d377dd46"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html#afee713e1ed6376675b460c80d377dd46">GetTransformOffset</a> () const</td></tr>
-<tr class="separator:afee713e1ed6376675b460c80d377dd46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64028e1a96f26fdd1fb3154ddbbce6b9"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html#a64028e1a96f26fdd1fb3154ddbbce6b9">IsColliding</a> (const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html">IBottomLevelCollider</a> &amp;other, const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a> &amp;transformA, const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a> &amp;transformB) const =0</td></tr>
 <tr class="separator:a64028e1a96f26fdd1fb3154ddbbce6b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ee7950a95b070687dc8960436f1b7c6"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html#a0ee7950a95b070687dc8960436f1b7c6">ContainsPoint</a> (const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;point) const =0</td></tr>
 <tr class="separator:a0ee7950a95b070687dc8960436f1b7c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
-<div class="textblock"><p >Representa un área de colisión no muy ajustada que permite descartar colisiones de una manera más rápida. </p>
+<div class="textblock"><p >Representa un área de colisión muy ajustada que permite detectar colisiones. </p>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_bottom_level_collider_8h_source.html#l00017">17</a> del archivo <a class="el" href="_i_bottom_level_collider_8h_source.html">IBottomLevelCollider.h</a>.</p>
 </div><h2 class="groupheader">Documentación del constructor y destructor</h2>
@@ -164,24 +160,7 @@ Métodos públicos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="afee713e1ed6376675b460c80d377dd46" name="afee713e1ed6376675b460c80d377dd46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afee713e1ed6376675b460c80d377dd46">&#9670;&nbsp;</a></span>GetTransformOffset()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a> &amp; IBottomLevelCollider::GetTransformOffset </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_i_bottom_level_collider_8cpp_source.html#l00013">13</a> del archivo <a class="el" href="_i_bottom_level_collider_8cpp_source.html">IBottomLevelCollider.cpp</a>.</p>
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a0367c0e40c455bd81fc6fc54243f3051">OSK::COLLISION::ConvexVolume</a>.</p>
 
 </div>
 </div>
@@ -257,29 +236,8 @@ Métodos públicos</h2></td></tr>
 
 </div>
 </div>
-<a id="a02473a9d291e0c798bc36e5d3843bb53" name="a02473a9d291e0c798bc36e5d3843bb53"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02473a9d291e0c798bc36e5d3843bb53">&#9670;&nbsp;</a></span>SetTransformOffset()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IBottomLevelCollider::SetTransformOffset </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a> &amp;&#160;</td>
-          <td class="paramname"><em>offset</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_i_bottom_level_collider_8cpp_source.html#l00009">9</a> del archivo <a class="el" href="_i_bottom_level_collider_8cpp_source.html">IBottomLevelCollider.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>La documentación para esta clase fue generada a partir de los siguientes ficheros:<ul>
+<hr/>La documentación para esta clase fue generada a partir del siguiente fichero:<ul>
 <li>OSKengine2/<a class="el" href="_i_bottom_level_collider_8h_source.html">IBottomLevelCollider.h</a></li>
-<li>OSKengine2/<a class="el" href="_i_bottom_level_collider_8cpp_source.html">IBottomLevelCollider.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -287,7 +245,7 @@ Métodos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">COLLISION</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html">IBottomLevelCollider</a></li>
-    <li class="footer">Generado el Viernes, 3 de Febrero de 2023 15:20:02 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Sábado, 4 de Febrero de 2023 19:22:01 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

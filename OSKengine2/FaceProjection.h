@@ -39,7 +39,7 @@ namespace OSK::COLLISION {
 	private:
 
 		float min = std::numeric_limits<float>::max();
-		float max = std::numeric_limits<float>::min();
+		float max = std::numeric_limits<float>::lowest();
 
 	};
 

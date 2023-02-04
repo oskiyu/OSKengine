@@ -12,18 +12,15 @@ namespace OSK::COLLISION {
 	class Collider;
 
 
-	/// @brief Representa un área de colisión no muy ajustada
-	/// que permite descartar colisiones de una manera más rápida.
-	class OSKAPI_CALL IBottomLevelCollider : public IRayCollider {
+	/// @brief Representa un área de colisión muy ajustada
+	/// que permite detectar colisiones.
+	class OSKAPI_CALL IBottomLevelCollider {
 
 	public:
 
 		virtual ~IBottomLevelCollider() = default;
+
 		OSK_DEFINE_AS(IBottomLevelCollider);
-
-
-		void SetTransformOffset(const ECS::Transform3D& offset);
-		const ECS::Transform3D& GetTransformOffset() const;
 
 
 		/// @brief Comprueba si este área de colisión está en contacto
@@ -35,12 +32,6 @@ namespace OSK::COLLISION {
 			const ECS::Transform3D& transformA, const ECS::Transform3D& transformB) const = 0;
 
 		virtual bool ContainsPoint(const Vector3f& point) const = 0;
-
-	protected:
-
-	private:
-
-		ECS::Transform3D transformOffset;
 
 	};
 
