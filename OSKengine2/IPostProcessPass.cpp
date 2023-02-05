@@ -11,7 +11,7 @@ using namespace OSK::GRAPHICS;
 void IPostProcessPass::Create(const Vector2ui& size) {
 	RenderTargetAttachmentInfo info{};
 	info.format = Format::RGBA16_SFLOAT;
-	info.usage = GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED;
+	info.usage = GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_SOURCE;
 	info.sampler = GpuImageSamplerDesc::CreateDefault();
 	resolveRenderTarget.Create(size, info);
 	

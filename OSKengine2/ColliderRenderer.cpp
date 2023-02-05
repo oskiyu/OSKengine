@@ -65,7 +65,7 @@ void ColliderRenderSystem::Initialize(GameObjectIndex camera) {
 }
 
 void ColliderRenderSystem::CreateTargetImage(const Vector2ui& size) {
-	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA32_SFLOAT, .name = "Collider Render System Target" };
+	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA8_SRGB, .name = "Collider Render System Target" };
 	RenderTargetAttachmentInfo depthInfo{ .format = Format::D32S8_SFLOAT_SUINT, .name = "Collider Render System Depth" };
 	renderTarget.Create(size, { colorInfo }, depthInfo);
 }
@@ -85,28 +85,27 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 	cameraUbos[resourceIndex]->Write(cameraTransform.GetPosition());
 	cameraUbos[resourceIndex]->Unmap();
 
-	// Render
+	// Información por cada entidad.
 	struct RenderInfo {
 		glm::mat4 modelMatrix;
 		Color color;
-	} renderInfo;
+	} renderInfo {};
 
 	commandList->SetGpuImageBarrier(renderTarget.GetMainColorImage(resourceIndex), 
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), 
 		GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE));
 
-	// "polygon_mode": "LINE",
-
 	commandList->BeginGraphicsRenderpass(&renderTarget, Color::BLACK() * 0.0f);
 	SetupViewport(commandList);
 
 	commandList->StartDebugSection("Collision Render", Color::RED());
 
-
+	// Obtenemos todas las entidades que están colisionando,
+	// para poder cambiarles de color.
 	const auto& eventQueue = Engine::GetEcs()->GetEventQueue<CollisionEvent>();
 	std::set<GameObjectIndex> collisionObjects;
-	for (const CollisionEvent ev : eventQueue) {
+	for (const CollisionEvent& ev : eventQueue) {
 		collisionObjects.insert(ev.firstEntity);
 		collisionObjects.insert(ev.secondEntity);
 	}
@@ -172,42 +171,66 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 	commandList->EndGraphicsRenderpass();
 }
 
+void ColliderRenderSystem::OnObjectAdded(GameObjectIndex obj) {
+	SetupBottomLevelModel(obj);
+}
+
+void ColliderRenderSystem::OnObjectRemoved(GameObjectIndex obj) {
+	if (bottomLevelVertexBuffers.ContainsKey(obj)) {
+		bottomLevelVertexBuffers.Get(obj).Empty();
+		bottomLevelIndexBuffers.Get(obj).Empty();
+	}
+}
+
 void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
 	const Collider& collider = Engine::GetEcs()->GetComponent<Collider>(obj);
-
-	DynamicArray<OwnedPtr<IGpuVertexBuffer>> vertexBuffers;
-	DynamicArray<OwnedPtr<IGpuIndexBuffer>> indexBuffers;
-
+	
 	if (bottomLevelVertexBuffers.ContainsKey(obj)) {
 		bottomLevelVertexBuffers.Get(obj).Empty();
 		bottomLevelIndexBuffers.Get(obj).Empty();
 	}
 
+	// Listas con los vertex e index buffers de la entidad.
+	// Cada ConvexVolume tendrá uno.
+	DynamicArray<OwnedPtr<IGpuVertexBuffer>> vertexBuffers;
+	DynamicArray<OwnedPtr<IGpuIndexBuffer>> indexBuffers;
+
+	
 	for (TIndex c = 0; c < collider.GetBottomLevelCollidersCount(); c++) {
 		const auto& blc = *collider.GetBottomLevelCollider(c)->As<ConvexVolume>();
 
+		// "Convertimos" los vértices del collider
+		// en vértices de renderizado.
 		DynamicArray<Vertex3D> vertices;
-		for (const auto& cVertex : blc.GetLocalSpaceVertices()) {
-			vertices.Insert(Vertex3D{
-				.position = cVertex,
-				.normal = 0.0f,
-				.color = Color::WHITE(),
-				.texCoords = 0.0f
-				});
+		for (const auto& cVertex : blc.GetLocalSpaceVertices()){
+			Vertex3D vertex{};
+
+			vertex.position = cVertex;
+			vertex.normal = 0.0f;
+			vertex.color = Color::WHITE();
+			vertex.texCoords = 0.0f;
+
+			vertices.Insert(vertex);
 		}
 
+		// Índices de vértices.
 		DynamicArray<TIndexSize> indices;
 		for (const auto& face : blc.GetFaceIndices()) {
 			for (const auto index : face)
 				indices.Insert(index);
 
+			// Re-añadimos el último vértice de la geometría,
+			// para "cerrar" el polígono, creando una
+			// línea entre el primer y el último vértice.
 			indices.Insert(face[0]);
 		}
 
+		// Creamos los buffers.
 		vertexBuffers.Insert(Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(vertices, Vertex3D::GetVertexInfo()).GetPointer());
 		indexBuffers.Insert(Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices).GetPointer());
 	}
 
+	// Si no existían las listas, las introducimos primero.
 	if (!bottomLevelVertexBuffers.ContainsKey(obj)) {
 		bottomLevelVertexBuffers.Insert(obj, {});
 		bottomLevelIndexBuffers.Insert(obj, {});

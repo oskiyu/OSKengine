@@ -327,7 +327,7 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize
 		}
 	}
 
-	Engine::GetLogger()->InfoLog("Nodo cargado: " + animNode.name + " índice: " + std::to_string(animNode.thisIndex) + " parent: " + std::to_string(animNode.parentIndex));
+	// Engine::GetLogger()->InfoLog("Nodo cargado: " + animNode.name + " índice: " + std::to_string(animNode.thisIndex) + " parent: " + std::to_string(animNode.parentIndex));
 
 	for (TSize i = 0; i < node.children.size(); i++) {
 		ProcessNode(gltfModel.nodes[node.children[i]], node.children[i], nodeId);
@@ -425,7 +425,7 @@ void AnimMeshLoader::LoadAnimations() {
 			}
 		}
 
-		Engine::GetLogger()->InfoLog("Animación cargada: " + animation.name);
+		// Engine::GetLogger()->InfoLog("Animación cargada: " + animation.name);
 		tempAnimator._AddAnimation(animation);
 	}
 
@@ -458,7 +458,7 @@ void AnimMeshLoader::LoadSkins() {
 			memcpy(skin.inverseMatrices.GetData(), &buffer.data[accessor.byteOffset + bufferView.byteOffset], matricesSize);
 		}
 
-		Engine::GetLogger()->InfoLog("Skin cargada: " + skin.name + ", root: " + std::to_string(skin.rootIndex));
+		// Engine::GetLogger()->InfoLog("Skin cargada: " + skin.name + ", root: " + std::to_string(skin.rootIndex));
 		tempAnimator._AddSkin(std::move(skin));
 		if (skinId == 0)
 			tempAnimator.SetActiveSkin(gltfSkin.name);

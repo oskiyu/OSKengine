@@ -135,9 +135,9 @@ void BloomPass::DownscaleBloom(GRAPHICS::ICommandList* computeCmdList, Vector2f*
 
 void BloomPass::UpscaleBloom(GRAPHICS::ICommandList* computeCmdList, Vector2f* res) {
 	computeCmdList->BindMaterial(upscaleMaterial);
-	for (TSize i = numPasses; i > 0; i--) {
+	for (TSize i = 0; i < numPasses; i++) {
 		const TIndex source = (firstSource + i) % 2;
-		const TIndex destination = (firstDestination + i + 1) % 2;
+		const TIndex destination = (firstDestination + i) % 2;
 		
 		ExecuteSinglePass(computeCmdList, *res, *res * 2.0f, source, destination);
 
@@ -169,7 +169,7 @@ void BloomPass::Execute(ICommandList* computeCmdList) {
 
 	// Source = read
 	computeCmdList->SetGpuImageBarrier(bloomIntermediateTargets[firstSource].GetTargetImage(resourceIndex), GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
+		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ));
 	// Target = write
 	computeCmdList->SetGpuImageBarrier(bloomIntermediateTargets[firstDestination].GetTargetImage(resourceIndex), GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
@@ -190,9 +190,9 @@ void BloomPass::Execute(ICommandList* computeCmdList) {
 	computeCmdList->StartDebugSection("Resolve", Color::PURPLE());
 
 	computeCmdList->SetGpuImageBarrier(bloomIntermediateTargets[lastSource].GetTargetImage(resourceIndex), GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ));
-	computeCmdList->SetGpuImageBarrier(bloomIntermediateTargets[lastDestination].GetTargetImage(resourceIndex), GpuImageLayout::GENERAL,
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
+		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ));
+	computeCmdList->SetGpuImageBarrier(bloomIntermediateTargets[lastDestination].GetTargetImage(resourceIndex), GpuImageLayout::SAMPLED,
+		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
 
 	computeCmdList->SetGpuImageBarrier(resolveRenderTarget.GetTargetImage(resourceIndex), GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE));

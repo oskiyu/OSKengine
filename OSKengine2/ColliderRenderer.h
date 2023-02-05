@@ -42,6 +42,9 @@ namespace OSK::ECS {
 		void CreateTargetImage(const Vector2ui& size) override;
 		void Render(GRAPHICS::ICommandList* commandList) override;
 
+		void OnObjectAdded(GameObjectIndex obj) override;
+		void OnObjectRemoved(GameObjectIndex obj) override;
+
 		/// @brief Registra la entidad para que se renderizen sus
 		/// colliders de bajo nivel.
 		/// @param obj Entidad.
