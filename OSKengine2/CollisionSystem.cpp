@@ -37,8 +37,10 @@ void CollisionSystem::OnTick(TDeltaTime deltaTime) {
 			const auto& secondCollider = Engine::GetEcs()->GetComponent<COLLISION::Collider>(secondObject);
 			const auto& secondTransform = Engine::GetEcs()->GetComponent<Transform3D>(secondObject);
 
-			if (firstCollider.GetCollisionInfo(secondCollider, firstTransform, secondTransform).IsColliding())
-				Engine::GetEcs()->PublishEvent<CollisionEvent>({ firstObject, secondObject });
+			const auto collisionInfo = firstCollider.GetCollisionInfo(secondCollider, firstTransform, secondTransform);
+
+			if (collisionInfo.IsColliding())
+				Engine::GetEcs()->PublishEvent<CollisionEvent>({ firstObject, secondObject, collisionInfo.GetDetailedInfo() });
 		}
 	}
 }

@@ -87,7 +87,7 @@ ConvexVolume::Axis ConvexVolume::GetWorldSpaceAxis(TIndex faceId, const Transfor
 	return vec1.Cross(vec2).GetNormalized();
 }
 
-bool ConvexVolume::IsColliding(const IBottomLevelCollider& other,
+DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider& other,
 	const Transform3D& thisTransform, const Transform3D& otherTransform) const {
 
 	const ConvexVolume& otherVolume = (const ConvexVolume&)other;
@@ -100,6 +100,14 @@ bool ConvexVolume::IsColliding(const IBottomLevelCollider& other,
 	const auto transformedVerticesA = this->GetWorldSpaceVertices(thisTransform);
 	const auto transformedVerticesB = otherVolume.GetWorldSpaceVertices(otherTransform);
 
+	// Vector mínimo que se debe aplicar para separar las entidades,
+	// de tal manera que dejen de estar en colisión.
+
+	Vector3f mtv = 0.0f;
+
+	// Overlap del mtv.
+	float minimumOverlap = std::numeric_limits<float>::max();
+
 	// Comprobamos los ejes de este collider.
 	for (TIndex i = 0; i < thisFaceCount; i++) {
 		const Axis axis = this->GetWorldSpaceAxis(i, thisTransform);
@@ -108,7 +116,13 @@ bool ConvexVolume::IsColliding(const IBottomLevelCollider& other,
 		const FaceProjection projB = FaceProjection(transformedVerticesB, axis);
 
 		if (!projA.Overlaps(projB))
-			return false;
+			return DetailedCollisionInfo::False();
+
+		const float overlap = projA.GetOverlap(projB);
+		if (glm::abs(overlap) < glm::abs(minimumOverlap)) {
+			minimumOverlap = overlap;
+			mtv = axis;
+		}
 	}
 
 	// Comprobamos los ejes del otro collider.
@@ -119,10 +133,16 @@ bool ConvexVolume::IsColliding(const IBottomLevelCollider& other,
 		const FaceProjection projB = FaceProjection(transformedVerticesB, axis);
 
 		if (!projA.Overlaps(projB))
-			return false;
+			return DetailedCollisionInfo::False();
+
+		const float overlap = projA.GetOverlap(projB);
+		if (glm::abs(overlap) < glm::abs(minimumOverlap)) {
+			minimumOverlap = overlap;
+			mtv = axis;
+		}
 	}
 
-	return true;
+	return DetailedCollisionInfo::True(mtv.GetNormalized() * minimumOverlap);
 }
 
 bool ConvexVolume::ContainsPoint(const Vector3f& point) const {

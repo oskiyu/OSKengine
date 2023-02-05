@@ -6,6 +6,7 @@
 #include "Vector3.hpp"
 #include "IRayCollider.h"
 #include "Transform3D.h"
+#include "DetailedCollisionInfo.h"
 
 namespace OSK::COLLISION {
 
@@ -24,11 +25,12 @@ namespace OSK::COLLISION {
 
 
 		/// @brief Comprueba si este área de colisión está en contacto
-		/// con otra.
+		/// con otra, y devuelve la información detallada resultante.
 		/// @param other Otra área de colisión de nivel bajo.
 		/// @param thisOffset Posición de este collider.
 		/// @param otherOffset Posición del segundo collider.
-		virtual bool IsColliding(const IBottomLevelCollider& other,
+		/// @return Información detallada de la colisión.
+		virtual DetailedCollisionInfo GetCollisionInfo(const IBottomLevelCollider& other,
 			const ECS::Transform3D& transformA, const ECS::Transform3D& transformB) const = 0;
 
 		virtual bool ContainsPoint(const Vector3f& point) const = 0;

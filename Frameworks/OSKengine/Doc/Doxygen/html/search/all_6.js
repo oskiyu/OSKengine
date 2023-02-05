@@ -30,7 +30,7 @@ var searchData=
   ['faceprojection_27',['FaceProjection',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html#ad0ea04b34b24bb05aa0332567d7e76f8',1,'OSK::COLLISION::FaceProjection::FaceProjection()'],['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html',1,'OSK::COLLISION::FaceProjection']]],
   ['faceprojection_2ecpp_28',['FaceProjection.cpp',['../_face_projection_8cpp.html',1,'']]],
   ['faceprojection_2eh_29',['FaceProjection.h',['../_face_projection_8h.html',1,'']]],
-  ['false_30',['False',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html#ab94185e6a609862e1a4719be4f39a775',1,'OSK::COLLISION::CollisionInfo::False()'],['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#af10022f2f38d51befdf03b1e9394b2b6',1,'OSK::COLLISION::RayCastResult::False()']]],
+  ['false_30',['False',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html#ab94185e6a609862e1a4719be4f39a775',1,'OSK::COLLISION::CollisionInfo::False()'],['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html#a5040fbf8d807f3d0a708a923dcbe5e8c',1,'OSK::COLLISION::DetailedCollisionInfo::False()'],['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#af10022f2f38d51befdf03b1e9394b2b6',1,'OSK::COLLISION::RayCastResult::False()']]],
   ['families_31',['families',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_familes.html#a00bf730c0222769c834c9a76a0ecae37',1,'OSK::GRAPHICS::QueueFamiles']]],
   ['familyindex_32',['familyIndex',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family.html#adb0bee968fddc285c8c6a1f069d5ffb3',1,'OSK::GRAPHICS::QueueFamily']]],
   ['fast_5fbuild_33',['FAST_BUILD',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a84d581108aac32ea8bf5a139abafb864a8f43d2d9234f74c301bb1cb64f947505',1,'OSK::GRAPHICS']]],

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['faceprojection_0',['FaceProjection',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html#ad0ea04b34b24bb05aa0332567d7e76f8',1,'OSK::COLLISION::FaceProjection']]],
-  ['false_1',['False',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html#ab94185e6a609862e1a4719be4f39a775',1,'OSK::COLLISION::CollisionInfo::False()'],['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#af10022f2f38d51befdf03b1e9394b2b6',1,'OSK::COLLISION::RayCastResult::False()']]],
+  ['false_1',['False',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html#ab94185e6a609862e1a4719be4f39a775',1,'OSK::COLLISION::CollisionInfo::False()'],['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html#a5040fbf8d807f3d0a708a923dcbe5e8c',1,'OSK::COLLISION::DetailedCollisionInfo::False()'],['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#af10022f2f38d51befdf03b1e9394b2b6',1,'OSK::COLLISION::RayCastResult::False()']]],
   ['fieldwrapper_2',['FieldWrapper',['../class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_field_wrapper.html#ada8b82597ff964b29b9ae2537638a235',1,'OSK::PERSISTENCE::FieldWrapper::FieldWrapper()'],['../class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_field_wrapper.html#ae0f6e0d803cc20f665e73b9ce64cec74',1,'OSK::PERSISTENCE::FieldWrapper::FieldWrapper(const TDataType &amp;data)']]],
   ['fileexists_3',['FileExists',['../class_o_s_k_1_1_i_o_1_1_file_i_o.html#ac7fe213b79ce97b178a7e27f7216a2f4',1,'OSK::IO::FileIO']]],
   ['fillresourcedesc_4',['FillResourceDesc',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#a26e66a10adf1b6f4c22c9b8a7f162b5f',1,'OSK::GRAPHICS::GpuImageDx12']]],

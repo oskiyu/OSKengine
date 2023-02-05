@@ -36,6 +36,9 @@
 #include "Collider.h"
 #include "CollisionEvent.h"
 #include "CollisionSystem.h"
+#include "PhysicsSystem.h"
+#include "PhysicsComponent.h"
+#include "PhysicsResolver.h"
 
 #include <GLFW/glfw3.h>
 #include "FileIO.h"
@@ -115,6 +118,7 @@ void Engine::RegisterBuiltinComponents() {
 	entityComponentSystem->RegisterComponent<ECS::Transform2D>();
 	entityComponentSystem->RegisterComponent<ECS::TerrainComponent>();
 	entityComponentSystem->RegisterComponent<COLLISION::Collider>();
+	entityComponentSystem->RegisterComponent<ECS::PhysicsComponent>();
 }
 
 void Engine::RegisterBuiltinSystems() {
@@ -122,6 +126,8 @@ void Engine::RegisterBuiltinSystems() {
 	entityComponentSystem->RegisterSystem<ECS::SkyboxRenderSystem>();
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem2D>();
 	entityComponentSystem->RegisterSystem<ECS::CollisionSystem>();
+	entityComponentSystem->RegisterSystem<ECS::PhysicsSystem>();
+	entityComponentSystem->RegisterSystem<ECS::PhysicsResolver>();
 	// entityComponentSystem->RegisterSystem<ECS::TerrainRenderSystem>();
 }
 

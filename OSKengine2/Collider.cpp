@@ -28,10 +28,14 @@ CollisionInfo Collider::GetCollisionInfo(const Collider& other, const Transform3
 	if (!this->topLevelCollider->IsColliding(*otherTopLevel, thisPosition, otherPosition))
 		return CollisionInfo::False();
 
-	for (const auto& bottomLevelA : this->bottomLevelColliders)
-		for (const auto& bottomLevelB : other.bottomLevelColliders)
-			if (bottomLevelA->IsColliding(*bottomLevelB.GetPointer(), thisTransform, otherTransform))
-				return CollisionInfo::True();
+	for (const auto& bottomLevelA : this->bottomLevelColliders) {
+		for (const auto& bottomLevelB : other.bottomLevelColliders) {
+
+			const auto collisionInfo = bottomLevelA->GetCollisionInfo(*bottomLevelB.GetPointer(), thisTransform, otherTransform);
+			if (collisionInfo.IsColliding())
+				return CollisionInfo::True(collisionInfo);
+		}
+	}
 
 	return CollisionInfo::TopLevelOnly();
 }

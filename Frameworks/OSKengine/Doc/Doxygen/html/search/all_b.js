@@ -33,5 +33,6 @@ var searchData=
   ['keypad_5fequal_30',['KEYPAD_EQUAL',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea480a19a2c02c47d566fb11471f091b6c',1,'OSK::IO']]],
   ['keypad_5fmultiply_31',['KEYPAD_MULTIPLY',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea2e6edb38f454ce4d1903cb0353e2394c',1,'OSK::IO']]],
   ['keypad_5fsubstract_32',['KEYPAD_SUBSTRACT',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ead3d53f7667b07f3bd9db31f4453240db',1,'OSK::IO']]],
-  ['keystate_33',['KeyState',['../namespace_o_s_k_1_1_i_o.html#a78afb37a98c122d12c3a1a38aba9e56e',1,'OSK::IO']]]
+  ['keystate_33',['KeyState',['../namespace_o_s_k_1_1_i_o.html#a78afb37a98c122d12c3a1a38aba9e56e',1,'OSK::IO']]],
+  ['kilograms_34',['Kilograms',['../class_o_s_k_1_1_kilograms.html#aef2cdf4475423c28037cbe98cefad8d1',1,'OSK::Kilograms::Kilograms()'],['../class_o_s_k_1_1_kilograms.html',1,'OSK::Kilograms']]]
 ];

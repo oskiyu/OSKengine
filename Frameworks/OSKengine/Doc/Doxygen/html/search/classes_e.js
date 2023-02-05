@@ -44,11 +44,13 @@ var searchData=
   ['pair_3c_20tsize_2c_20tsize_20_3e_41',['Pair&lt; TSize, TSize &gt;',['../struct_o_s_k_1_1_pair.html',1,'OSK']]],
   ['pbrdeferredrendersystem_42',['PbrDeferredRenderSystem',['../class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html',1,'OSK::ECS']]],
   ['pcuserinput_43',['PcUserInput',['../class_o_s_k_1_1_i_o_1_1_pc_user_input.html',1,'OSK::IO']]],
-  ['physicsresolver_44',['PhysicsResolver',['../class_o_s_k_1_1_e_c_s_1_1_physics_resolver.html',1,'OSK::ECS']]],
-  ['pipelinecreateinfo_45',['PipelineCreateInfo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html',1,'OSK::GRAPHICS']]],
-  ['pipelinelayoutdx12_46',['PipelineLayoutDx12',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12.html',1,'OSK::GRAPHICS']]],
-  ['pipelinelayoutvulkan_47',['PipelineLayoutVulkan',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan.html',1,'OSK::GRAPHICS']]],
-  ['pointlight_48',['PointLight',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_point_light.html',1,'OSK::GRAPHICS']]],
-  ['previousdisplaystate_49',['PreviousDisplayState',['../struct_o_s_k_1_1_i_o_1_1_i_fullscreenable_display_1_1_previous_display_state.html',1,'OSK::IO::IFullscreenableDisplay']]],
-  ['pushconst2d_50',['PushConst2D',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_push_const2_d.html',1,'OSK::GRAPHICS']]]
+  ['physicscomponent_44',['PhysicsComponent',['../class_o_s_k_1_1_e_c_s_1_1_physics_component.html',1,'OSK::ECS']]],
+  ['physicsresolver_45',['PhysicsResolver',['../class_o_s_k_1_1_e_c_s_1_1_physics_resolver.html',1,'OSK::ECS']]],
+  ['physicssystem_46',['PhysicsSystem',['../class_o_s_k_1_1_e_c_s_1_1_physics_system.html',1,'OSK::ECS']]],
+  ['pipelinecreateinfo_47',['PipelineCreateInfo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html',1,'OSK::GRAPHICS']]],
+  ['pipelinelayoutdx12_48',['PipelineLayoutDx12',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12.html',1,'OSK::GRAPHICS']]],
+  ['pipelinelayoutvulkan_49',['PipelineLayoutVulkan',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan.html',1,'OSK::GRAPHICS']]],
+  ['pointlight_50',['PointLight',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_point_light.html',1,'OSK::GRAPHICS']]],
+  ['previousdisplaystate_51',['PreviousDisplayState',['../struct_o_s_k_1_1_i_o_1_1_i_fullscreenable_display_1_1_previous_display_state.html',1,'OSK::IO::IFullscreenableDisplay']]],
+  ['pushconst2d_52',['PushConst2D',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_push_const2_d.html',1,'OSK::GRAPHICS']]]
 ];

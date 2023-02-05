@@ -3,6 +3,7 @@
 #pragma once
 
 #include "OSKmacros.h"
+#include "DetailedCollisionInfo.h"
 
 namespace OSK::COLLISION {
 
@@ -21,12 +22,44 @@ namespace OSK::COLLISION {
 		/// sí que colisionan.
 		static CollisionInfo TopLevelOnly();
 
+		/// @brief Collision info para el caso en el que
+		/// sí que hay colisión.
+		/// @param info Información detallada de la colisión.
 		/// @return Collision info para el caso en el que
 		/// sí que hay colisión.
-		static CollisionInfo True();
+		static CollisionInfo True(const DetailedCollisionInfo& info);
 
+
+		/// @brief Devuelve true si hay una colisión entre las entidades,
+		/// esto es, si existe una colisión entre los colliders de bajo
+		/// nivel.
+		/// 
+		/// @return True si hay colisión entre las dos entidades.
+		/// 
+		/// @remark Si devuelve true, entoncces IsTopLevelColliding también es true.
+		/// @remark Si devuelve false, IsTopLevelColliding puede ser true o false.
 		bool IsColliding() const;
+
+		/// @brief Devuelve true si hay una colisión entre los colliders de alto
+		/// nivel de las dos entidades.
+		/// Que haya colisión entre los colliders de alto nivel no implica que
+		/// haya una colisión entre las entidades, habrá que comprobarlo con IsColliding.
+		/// 
+		/// @return True si hay una colisión entre los colliders de alto
+		/// nivel de las dos entidades.
+		/// 
+		/// @remark Si es true, entonces IsColliding será true o false, dependiendo de cada caso.
+		/// @remark Si es false, IsColliding es falso también.
 		bool IsTopLevelColliding() const;
+
+
+		/// @brief Devvuelve información detallada sobre la colisión,
+		/// en caso de que haya.
+		/// @return Información detallada.
+		/// 
+		/// @pre IsColliding debe devolver true. De lo contrario
+		/// la información devuelta es inválida.
+		const DetailedCollisionInfo& GetDetailedInfo() const;
 
 	private:
 
@@ -34,6 +67,8 @@ namespace OSK::COLLISION {
 
 		bool isColliding = false;
 		bool isTopLevelColliding = false;
+
+		DetailedCollisionInfo detailedInfo;
 
 	};
 

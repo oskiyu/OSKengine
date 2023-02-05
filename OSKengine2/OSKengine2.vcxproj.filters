@@ -532,6 +532,12 @@
     <Filter Include="Archivos de origen\OSKengine\Collision\RayCast">
       <UniqueIdentifier>{36ea34f1-1020-4343-8342-39c5aa35d263}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\OSKengine\ECS\Builtin\Physics">
+      <UniqueIdentifier>{24456cbb-4e18-4405-b083-e4dfab60e4e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\OSKengine\ECS\Builtin\Physics">
+      <UniqueIdentifier>{60db7b1c-a24a-4e04-b721-1dcfb9a0892b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -1085,6 +1091,15 @@
     </ClCompile>
     <ClCompile Include="RayCastResult.cpp">
       <Filter>Archivos de origen\OSKengine\Collision\RayCast</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsSystem.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="DetailedCollisionInfo.cpp">
+      <Filter>Archivos de origen\OSKengine\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsResolver.cpp">
+      <Filter>Archivos de origen\OSKengine\ECS\Builtin\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1857,7 +1872,19 @@
       <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Collision</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsResolver.h">
-      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Collision</Filter>
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsComponent.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Units.hpp">
+      <Filter>Archivos de encabezado\OSKengine\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsSystem.h">
+      <Filter>Archivos de encabezado\OSKengine\ECS\Builtin\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="DetailedCollisionInfo.h">
+      <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

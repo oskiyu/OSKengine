@@ -18,8 +18,11 @@ CollisionInfo CollisionInfo::TopLevelOnly() {
 	return CollisionInfo(false, true);
 }
 
-CollisionInfo CollisionInfo::True() {
-	return CollisionInfo(true, true);
+CollisionInfo CollisionInfo::True(const DetailedCollisionInfo& dInfo) {
+	CollisionInfo info(true, true);
+	info.detailedInfo = dInfo;
+
+	return info;
 }
 
 bool CollisionInfo::IsColliding() const {
@@ -28,4 +31,8 @@ bool CollisionInfo::IsColliding() const {
 
 bool CollisionInfo::IsTopLevelColliding() const {
 	return isTopLevelColliding;
+}
+
+const DetailedCollisionInfo& CollisionInfo::GetDetailedInfo() const {
+	return detailedInfo;
 }

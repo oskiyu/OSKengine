@@ -22,6 +22,7 @@ var namespace_o_s_k =
     [ "IIterable", "class_o_s_k_1_1_i_iterable.html", "class_o_s_k_1_1_i_iterable" ],
     [ "IIterator", "class_o_s_k_1_1_i_iterator.html", null ],
     [ "IQueryInterface", "class_o_s_k_1_1_i_query_interface.html", "class_o_s_k_1_1_i_query_interface" ],
+    [ "Kilograms", "class_o_s_k_1_1_kilograms.html", "class_o_s_k_1_1_kilograms" ],
     [ "LinkedList", "class_o_s_k_1_1_linked_list.html", "class_o_s_k_1_1_linked_list" ],
     [ "OwnedPtr", "class_o_s_k_1_1_owned_ptr.html", "class_o_s_k_1_1_owned_ptr" ],
     [ "Pair", "struct_o_s_k_1_1_pair.html", "struct_o_s_k_1_1_pair" ],

@@ -112,8 +112,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a0404ff4c901165b73c42f5d50ac9e766"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea33f81c4c0d15dffa19f104428faf7d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#aea33f81c4c0d15dffa19f104428faf7d">OptimizeAxes</a> ()</td></tr>
 <tr class="separator:aea33f81c4c0d15dffa19f104428faf7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92af5d4f2c8b4d68a6e9fd9d523c447f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a92af5d4f2c8b4d68a6e9fd9d523c447f">IsColliding</a> (const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html">IBottomLevelCollider</a> &amp;other, const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a> &amp;thisOffset, const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a> &amp;otherOffset) const override</td></tr>
-<tr class="separator:a92af5d4f2c8b4d68a6e9fd9d523c447f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e37261185215968c74a849422c1d622"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html">DetailedCollisionInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a3e37261185215968c74a849422c1d622">GetCollisionInfo</a> (const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html">IBottomLevelCollider</a> &amp;other, const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a> &amp;thisOffset, const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a> &amp;otherOffset) const override</td></tr>
+<tr class="separator:a3e37261185215968c74a849422c1d622"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0367c0e40c455bd81fc6fc54243f3051"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a0367c0e40c455bd81fc6fc54243f3051">ContainsPoint</a> (const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;point) const override</td></tr>
 <tr class="separator:a0367c0e40c455bd81fc6fc54243f3051"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1586ce5c05049f9534a0c46275956f1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#aa1586ce5c05049f9534a0c46275956f1">GetLocalSpaceVertices</a> () const</td></tr>
@@ -272,57 +272,12 @@ Métodos públicos</h2></td></tr>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html#a0ee7950a95b070687dc8960436f1b7c6">OSK::COLLISION::IBottomLevelCollider</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00128">128</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00148">148</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ae37e505b0ebe2af3e29f60fece864d55" name="ae37e505b0ebe2af3e29f60fece864d55"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae37e505b0ebe2af3e29f60fece864d55">&#9670;&nbsp;</a></span>GetFaceIndices()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a6b7fd52bd41e94876126116c92757361">ConvexVolume::FaceIndices</a> &gt; ConvexVolume::GetFaceIndices </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Devuelve una lista que contiene una lista de índices por cada cara del collider. </p>
-<dl class="section return"><dt>Devuelve</dt><dd>Lista con todos los índices de cada cara.</dd></dl>
-<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a6b7fd52bd41e94876126116c92757361" title="Una lista que contiene los índices de los vértices de una cara.">FaceIndices</a> </dd></dl>
-
-<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00146">146</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa1586ce5c05049f9534a0c46275956f1" name="aa1586ce5c05049f9534a0c46275956f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1586ce5c05049f9534a0c46275956f1">&#9670;&nbsp;</a></span>GetLocalSpaceVertices()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &gt; &amp; ConvexVolume::GetLocalSpaceVertices </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Devuelve una lista con todos los vértices del collider. Estos vértices están en espacio local, por lo no se encuentran transformados de acuerdo a la entidad que posee el collider. </p>
-<dl class="section return"><dt>Devuelve</dt><dd>Todos los vértices del collider, en espacio local. </dd></dl>
-
-<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00142">142</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a92af5d4f2c8b4d68a6e9fd9d523c447f" name="a92af5d4f2c8b4d68a6e9fd9d523c447f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92af5d4f2c8b4d68a6e9fd9d523c447f">&#9670;&nbsp;</a></span>IsColliding()</h2>
+<a id="a3e37261185215968c74a849422c1d622" name="a3e37261185215968c74a849422c1d622"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e37261185215968c74a849422c1d622">&#9670;&nbsp;</a></span>GetCollisionInfo()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -331,7 +286,7 @@ Métodos públicos</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool ConvexVolume::IsColliding </td>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html">DetailedCollisionInfo</a> ConvexVolume::GetCollisionInfo </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html">IBottomLevelCollider</a> &amp;&#160;</td>
           <td class="paramname"><em>other</em>, </td>
@@ -361,7 +316,7 @@ Métodos públicos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Comprueba si este área de colisión está en contacto con otra. </p>
+<p>Comprueba si este área de colisión está en contacto con otra, y devuelve la información detallada resultante. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">other</td><td>Otra área de colisión de nivel bajo. </td></tr>
@@ -370,10 +325,56 @@ Métodos públicos</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Información detallada de la colisión. </dd></dl>
 
-<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html#a64028e1a96f26fdd1fb3154ddbbce6b9">OSK::COLLISION::IBottomLevelCollider</a>.</p>
+<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html#ac741ed7befd12b1fcc254ad9f9ac0c97">OSK::COLLISION::IBottomLevelCollider</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00090">90</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae37e505b0ebe2af3e29f60fece864d55" name="ae37e505b0ebe2af3e29f60fece864d55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae37e505b0ebe2af3e29f60fece864d55">&#9670;&nbsp;</a></span>GetFaceIndices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a6b7fd52bd41e94876126116c92757361">ConvexVolume::FaceIndices</a> &gt; ConvexVolume::GetFaceIndices </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Devuelve una lista que contiene una lista de índices por cada cara del collider. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>Lista con todos los índices de cada cara.</dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a6b7fd52bd41e94876126116c92757361" title="Una lista que contiene los índices de los vértices de una cara.">FaceIndices</a> </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00166">166</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa1586ce5c05049f9534a0c46275956f1" name="aa1586ce5c05049f9534a0c46275956f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1586ce5c05049f9534a0c46275956f1">&#9670;&nbsp;</a></span>GetLocalSpaceVertices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &gt; &amp; ConvexVolume::GetLocalSpaceVertices </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Devuelve una lista con todos los vértices del collider. Estos vértices están en espacio local, por lo no se encuentran transformados de acuerdo a la entidad que posee el collider. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>Todos los vértices del collider, en espacio local. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00162">162</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
 
 </div>
 </div>
@@ -434,7 +435,7 @@ Métodos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">COLLISION</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">ConvexVolume</a></li>
-    <li class="footer">Generado el Sábado, 4 de Febrero de 2023 19:22:01 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Domingo, 5 de Febrero de 2023 16:14:55 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

@@ -61,6 +61,7 @@
     <ClCompile Include="ConvexVolume.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="DescriptorDx12.cpp" />
+    <ClCompile Include="DetailedCollisionInfo.cpp" />
     <ClCompile Include="FaceProjection.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="FxaaPass.cpp" />
@@ -159,6 +160,8 @@
     <ClCompile Include="ModelLoader3D.cpp" />
     <ClCompile Include="PbrDeferredRenderSystem.cpp" />
     <ClCompile Include="PcUserInput.cpp" />
+    <ClCompile Include="PhysicsResolver.cpp" />
+    <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="PipelineLayoutDx12.cpp" />
     <ClCompile Include="PipelineLayoutVulkan.cpp" />
     <ClCompile Include="GraphicsPipelineVulkan.cpp" />
@@ -271,6 +274,7 @@
     <ClInclude Include="DescriptorDx12.h" />
     <ClInclude Include="DescriptorLayoutVulkan.h" />
     <ClInclude Include="DescriptorPoolVulkan.h" />
+    <ClInclude Include="DetailedCollisionInfo.h" />
     <ClInclude Include="Doc__MaterialJson.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventContainer.h" />
@@ -388,7 +392,9 @@
     <ClInclude Include="IPipelineVulkan.h" />
     <ClInclude Include="PbrDeferredRenderSystem.h" />
     <ClInclude Include="PcUserInput.h" />
+    <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsResolver.h" />
+    <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="PipelineLayoutDx12.h" />
     <ClInclude Include="PipelineLayoutVulkan.h" />
     <ClInclude Include="GraphicsPipelineVulkan.h" />
@@ -475,6 +481,7 @@
     <ClInclude Include="UiElement.h" />
     <ClInclude Include="UiRenderer.h" />
     <ClInclude Include="UniquePtr.hpp" />
+    <ClInclude Include="Units.hpp" />
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector3.hpp" />
     <ClInclude Include="Vector4.hpp" />

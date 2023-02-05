@@ -84,6 +84,7 @@
 #include "ColliderRenderer.h"
 #include "SphereCollider.h"
 #include "ConvexVolume.h"
+#include "PhysicsComponent.h"
 
 OSK::GRAPHICS::Material* rtMaterial = nullptr;
 OSK::GRAPHICS::MaterialInstance* rtMaterialInstance = nullptr;
@@ -223,6 +224,7 @@ protected:
 
 		ECS::Transform3D& transform = Engine::GetEcs()->AddComponent<ECS::Transform3D>(carObject, ECS::Transform3D(carObject));
 		
+		Engine::GetEcs()->AddComponent<ECS::PhysicsComponent>(carObject, {});
 		auto& collider = Engine::GetEcs()->AddComponent<COLLISION::Collider>(carObject, {});
 		collider.SetTopLevelCollider(new COLLISION::SphereCollider(0.45f));
 
@@ -285,15 +287,16 @@ protected:
 		// Collision 2
 		ECS::GameObjectIndex secondObject = Engine::GetEcs()->SpawnObject();
 		auto& collider2 = Engine::GetEcs()->AddComponent<COLLISION::Collider>(secondObject, {});
-		collider2.SetTopLevelCollider(new COLLISION::AxisAlignedBoundingBox(0.45f));
-		Engine::GetEcs()->AddComponent<ECS::Transform3D>(secondObject, ECS::Transform3D{ secondObject });
+		collider2.SetTopLevelCollider(new COLLISION::AxisAlignedBoundingBox(0.95f));
+		auto& transformc2 = Engine::GetEcs()->AddComponent<ECS::Transform3D>(secondObject, ECS::Transform3D{ secondObject });
+		transformc2.AddPosition({ 0.5f, 0.0f, 0.0f });
 		OwnedPtr<COLLISION::ConvexVolume> convexVolume2 = new COLLISION::ConvexVolume;
 		const float volume2size = 0.2f;
 		{convexVolume2->AddFace({
-			{ -volume2size, volume2size, -volume2size },
-			{ -volume2size, volume2size, volume2size },
-			{ volume2size, volume2size, volume2size },
-			{ volume2size, volume2size, -volume2size }
+			{ -volume2size, volume2size * 2, -volume2size },
+			{ -volume2size, volume2size * 2, volume2size },
+			{ volume2size, volume2size * 2, volume2size },
+			{ volume2size, volume2size * 2, -volume2size }
 			});
 		convexVolume2->AddFace({
 			{ -volume2size, 0, -volume2size },
@@ -304,28 +307,28 @@ protected:
 
 		// Lateral
 		convexVolume2->AddFace({
-			{ -volume2size, volume2size, -volume2size },
-			{ -volume2size, volume2size, volume2size },
+			{ -volume2size, volume2size * 2, -volume2size },
+			{ -volume2size, volume2size * 2, volume2size },
 			{ -volume2size, 0, volume2size },
 			{ -volume2size, 0, -volume2size }
 			});
 		convexVolume2->AddFace({
-			{ volume2size, volume2size, -volume2size },
-			{ volume2size, volume2size, volume2size },
+			{ volume2size, volume2size * 2, -volume2size },
+			{ volume2size, volume2size * 2, volume2size },
 			{ volume2size, 0, volume2size },
 			{ volume2size, 0, -volume2size }
 			});
 
 		// Front/back
 		convexVolume2->AddFace({
-			{ -volume2size, volume2size, volume2size },
-			{ volume2size, volume2size, volume2size },
+			{ -volume2size, volume2size * 2.0f, volume2size },
+			{ volume2size, volume2size * 2.0f, volume2size },
 			{ volume2size, 0, volume2size },
 			{ -volume2size, 0, volume2size }
 			});
 		convexVolume2->AddFace({
-			{ -volume2size, volume2size, -volume2size },
-			{ volume2size, volume2size, -volume2size },
+			{ -volume2size, volume2size * 2.0f, -volume2size },
+			{ volume2size, volume2size * 2.0f, -volume2size },
 			{ volume2size, 0, -volume2size },
 			{ -volume2size, 0, -volume2size }
 			}); }

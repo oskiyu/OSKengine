@@ -41,11 +41,12 @@ namespace OSK::COLLISION {
 		/// caras paralelas.
 		void OptimizeAxes();
 
-		bool IsColliding(const IBottomLevelCollider& other,
+
+		DetailedCollisionInfo GetCollisionInfo(const IBottomLevelCollider& other,
 			const ECS::Transform3D& thisOffset, const ECS::Transform3D& otherOffset) const override;
 
 		bool ContainsPoint(const Vector3f& point) const override;
-
+				
 
 		/// @brief Devuelve una lista con todos los vértices del collider.
 		/// Estos vértices están en espacio local, por lo no se encuentran 

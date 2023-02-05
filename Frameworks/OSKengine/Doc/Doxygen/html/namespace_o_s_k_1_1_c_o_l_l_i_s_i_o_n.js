@@ -4,6 +4,7 @@ var namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n =
     [ "Collider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider" ],
     [ "CollisionInfo", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info" ],
     [ "ConvexVolume", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume" ],
+    [ "DetailedCollisionInfo", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info" ],
     [ "FaceProjection", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection" ],
     [ "IBottomLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider" ],
     [ "IRayCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_ray_collider.html", null ],

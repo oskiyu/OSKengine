@@ -22,6 +22,7 @@ var hierarchy =
     [ "OSK::GRAPHICS::DescriptorDx12", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12.html", null ],
     [ "OSK::GRAPHICS::DescriptorLayoutVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_layout_vulkan.html", null ],
     [ "OSK::GRAPHICS::DescriptorPoolVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_pool_vulkan.html", null ],
+    [ "OSK::COLLISION::DetailedCollisionInfo", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html", null ],
     [ "OSK::GRAPHICS::DirectionalLight", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_directional_light.html", null ],
     [ "OSK::DynamicArray< T >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< const IRenderpass * >", "class_o_s_k_1_1_dynamic_array.html", null ],
@@ -369,10 +370,8 @@ var hierarchy =
     ] ],
     [ "OSK::ECS::ISystem", "class_o_s_k_1_1_e_c_s_1_1_i_system.html", [
       [ "OSK::ECS::IConsumerSystem", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html", [
-        [ "OSK::ECS::ConsumerSystem< CollisionEvent >", "class_o_s_k_1_1_e_c_s_1_1_consumer_system.html", [
-          [ "OSK::ECS::PhysicsResolver", "class_o_s_k_1_1_e_c_s_1_1_physics_resolver.html", null ]
-        ] ],
-        [ "OSK::ECS::ConsumerSystem< TEvent >", "class_o_s_k_1_1_e_c_s_1_1_consumer_system.html", null ]
+        [ "OSK::ECS::ConsumerSystem< TEvent >", "class_o_s_k_1_1_e_c_s_1_1_consumer_system.html", null ],
+        [ "OSK::ECS::PhysicsResolver", "class_o_s_k_1_1_e_c_s_1_1_physics_resolver.html", null ]
       ] ],
       [ "OSK::ECS::IIteratorSystem", "class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html", [
         [ "OSK::ECS::IProducerSystem", "class_o_s_k_1_1_e_c_s_1_1_i_producer_system.html", [
@@ -387,6 +386,7 @@ var hierarchy =
             [ "OSK::ECS::RenderSystem3D", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html", null ],
             [ "OSK::ECS::SkyboxRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html", null ]
           ] ],
+          [ "OSK::ECS::PhysicsSystem", "class_o_s_k_1_1_e_c_s_1_1_physics_system.html", null ],
           [ "OSK::ECS::TerrainRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_terrain_render_system.html", null ]
         ] ]
       ] ]
@@ -398,6 +398,7 @@ var hierarchy =
       [ "OSK::GRAPHICS::TopLevelAccelerationStructureVulkan", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan.html", null ]
     ] ],
     [ "OSK::IO::KeyboardState", "class_o_s_k_1_1_i_o_1_1_keyboard_state.html", null ],
+    [ "OSK::Kilograms", "class_o_s_k_1_1_kilograms.html", null ],
     [ "OSK::GRAPHICS::LightsBufferStruct", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_lights_buffer_struct.html", null ],
     [ "OSK::LinkedList< T >", "class_o_s_k_1_1_linked_list.html", null ],
     [ "OSK::LinkedList< OSK::UniquePtr< OSK::UI::UiElement > >", "class_o_s_k_1_1_linked_list.html", null ],
@@ -463,6 +464,7 @@ var hierarchy =
     [ "OSK::Pair< TSize, const OSK::GRAPHICS::IGpuStorageBuffer * >", "struct_o_s_k_1_1_pair.html", null ],
     [ "OSK::Pair< TSize, OSK::ASSETS::FontInstance >", "struct_o_s_k_1_1_pair.html", null ],
     [ "OSK::Pair< TSize, TSize >", "struct_o_s_k_1_1_pair.html", null ],
+    [ "OSK::ECS::PhysicsComponent", "class_o_s_k_1_1_e_c_s_1_1_physics_component.html", null ],
     [ "OSK::GRAPHICS::PipelineCreateInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html", null ],
     [ "OSK::GRAPHICS::PointLight", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_point_light.html", null ],
     [ "OSK::IO::IFullscreenableDisplay::PreviousDisplayState", "struct_o_s_k_1_1_i_o_1_1_i_fullscreenable_display_1_1_previous_display_state.html", null ],
