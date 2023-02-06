@@ -16,82 +16,113 @@
 
 namespace OSK::GRAPHICS {
 
-	/// <summary>
-	/// Render target para el renderizado de imágenes desde shaders de rasterización.
-	/// </summary>
+	
+	/// @brief Render target para el renderizado de imágenes desde shaders de rasterizado.
 	class OSKAPI_CALL RenderTarget {
 
 	public:
 
-		/// <summary> Crea el render target con la información dada, para su uso como sampler. </summary>
-		/// <param name="targetSize">Resolución, en píxeles.</param>
-		/// <param name="colorInfos">Información de las imagenes de color.</param>
-		/// <param name="depthInfo">Información de la imagen de profundidad.</param>
+		/// @brief Crea el render target con la información dada, para su uso como render target
+		/// en shaders de fragmentos.
+		/// @param targetSize Resolución, en píxeles.
+		/// @param colorInfos Información de las imágenes finales de color.
+		/// @param depthInfo Información de la imagen de profundidad.
+		/// 
+		/// @pre Debe haber información para al menos una imagen de color.
+		/// 
+		/// @post El render target podrá usarse como renderpass para shaders de fragmentos.
+		/// 
+		/// @note Pueden incluirse varias imágenes de color objetivo.
+		/// @note Cada imagen objetivo de color es independiente y puede tener formatos y usos distintos al resto
+		/// de imágenes objetivo.
 		void Create(const Vector2ui& targetSize, DynamicArray<RenderTargetAttachmentInfo> colorInfos, RenderTargetAttachmentInfo depthInfo);
 
-		/// <summary> Crea el render target con la información dada, para su uso como imagen final de presentación. </summary>
-		/// <param name="targetSize">Resolución, en píxeles.</param>
-		/// <param name="colorInfo">Información de la imagen de color.</param>
-		/// <param name="depthInfo">Información de la imagen de profundidad.</param>
+		/// @brief Crea el render target con la información dada, para su uso como imagen final de presentación.
+		/// @param targetSize Resolución, en píxeles
+		/// @param colorInfo Información de la imagen de color.
+		/// @param depthInfo Información de la imagen de profundidad.
+		/// 
+		/// @post El render target podrá usarse como renderpass para shaders de fragmentos.
+		/// 
+		/// @note Para uso interno, no usar en producción.
 		void CreateAsFinal(const Vector2ui& targetSize, RenderTargetAttachmentInfo colorInfo, RenderTargetAttachmentInfo depthInfo);
 
 
-		/// <summary>
-		/// Cambia de tamaño las imágenes de renderizado, tanto las de color
+		/// @brief Cambia de tamaño las imágenes de renderizado, tanto las de color
 		/// como las de profundidad.
-		/// </summary>
-		/// <param name="targetSize">Nueva resolución de las imágenes de renderizado.</param>
+		/// @param targetSize Nueva resolución de las imágenes de renderizado.
+		/// 
+		/// @pre El render target debe haber sido correctamente creado mediante
+		/// RenderTarget::Create o RenderTarget::CreateAsFinal.
+		/// 
+		/// @warning Esta función destruye las imágenes anteriores, por lo que si una instancia de material
+		/// referenciaba estas imágenes, se deberá actualizar con las nuevas imágenes.
 		void Resize(const Vector2ui& targetSize);
 
 
-		/// <summary> Devuelve la imagen de renderizado en los índices dados. </summary>
-		/// <param name="colorImageIndex">Índice del target.</param>
-		/// <param name="resourceIndex">Índice del frame.</param>
+		/// @brief Devuelve la imagen de renderizado en los índices dados.
+		/// @param colorImageIndex Índice de la imagen objetivo de color.
+		/// @param resourceIndex Índice del frame.
+		/// @return Puntero no nulo a la imagen.
+		/// 
+		/// @pre Este render target debe de haberse inicializado previamente con 
+		/// RenderTarget::Create o RenderTarget::CreateAsFinal.
 		/// @pre colorImageIndex debe apuntar a un target existente (colorImageIndex < RenderTarget::GetNumColorTargets).
-		/// @pre colorImageIndex debe apuntar a un target existente (colorImageIndex < RenderTarget::GetNumColorTargets).
+		/// @pre resourceIndex debe estar entre 0 y NUM_RESOURCES_IN_FLIGHT 
+		/// (0 <= resourceIndex < NUM_RESOURCES_IN_FLIGHT).
+		/// 
+		/// @throws std::runtime_error si se incumple la precondición.
 		GpuImage* GetColorImage(TIndex colorImageIndex, TIndex resourceIndex) const;
 
-		/// <summary> Devuelve la imagen de renderizado principal (índice 0). </summary>
-		/// <param name="resourceIndex">Índice del frame.</param>
+		/// @brief Devuelve la imagen de renderizado principal (índice 0).
+		/// @param resourceIndex Índice del frame.
+		/// @return Puntero no nulo a la imagen.
+		/// 
 		/// @pre Debe de haberse inicializado con RenderTarget::Create o RenderTarget::CreateAsFinal.
+		/// 
+		/// @throws std::runtime_error si se incumple la precondición.
 		GpuImage* GetMainColorImage(TIndex resourceIndex) const;
 
-		/// <summary> Devuelve la imagen de profundidad. </summary>
-		/// <param name="resourceIndex">Índice del frame.</param>
+		/// @brief Devuelve la imagen de profundidad.
+		/// @param resourceIndex Índice del frame.
+		/// @return Puntero no nulo a la imagen.
+		/// 
 		/// @pre Debe de haberse inicializado con RenderTarget::Create o RenderTarget::CreateAsFinal.
+		/// @pre resourceIndex debe estar entre 0 y NUM_RESOURCES_IN_FLIGHT 
+		/// (0 <= resourceIndex < NUM_RESOURCES_IN_FLIGHT).
 		GpuImage* GetDepthImage(TIndex resourceIndex) const;
 
 
-		/// <returns>
-		/// Número de targets de color.
-		/// Será 0 si no se ha inicializado.
-		/// Será al menos 1 si se ha inicializado.
-		/// </returns>
+		/// @brief Número de targets de color.
+		/// @return Número de imágenes objetivo de color.
+		/// 
+		/// @remark Será 0 si no se ha inicializado.
+		/// @remark Será al menos 1 si se ha inicializado.
 		TSize GetNumColorTargets() const;
 
-		/// <summary> Resolución de las imágenes, en píxeles. </summary>
+		/// @brief Devuelve la resolución de todas las imágenes, en píxeles.
+		/// @return Resolución del render target.
+		/// 
+		/// @pre Debe haberse inicializado correctamente.
 		Vector2ui GetSize() const;
 
 
-		/// <summary>
-		/// Devuelve el material instance para el renderizado a pantalla completa usando
+		/// @brief Devuelve el material instance para el renderizado a pantalla completa usando
 		/// el material IRenderer::GetFullscreenRenderingMaterial().
-		/// </summary>
-		/// <returns>Nullptr si no ha sido inicializado.</returns>
+		/// @return Nullptr si no ha sido inicializado, no nulo en caso contrario.
 		MaterialInstance* GetFullscreenSpriteMaterialInstance() const;
 
-		/// <summary>
-		/// Devuelve el material slot requerido para el renderizado a pantalla completa usando
+		/// @brief Devuelve el material slot requerido para el renderizado a pantalla completa usando
 		/// el material IRenderer::GetFullscreenRenderingMaterial().
-		/// </summary>
-		/// <pre>Debe haberse inicializado.</pre>
+		/// @return Puntero no nulo.
+		/// 
+		/// @pre Debe haberse inicializado correctamente.
 		IMaterialSlot* GetFullscreenSpriteMaterialSlot() const;
 
 
-		/// <summary>
-		/// Devuelve el tipo de render target (intermedio para ser usado
+		/// @brief Devuelve el tipo de render target (intermedio para ser usado
 		/// con el sprite, o final para ser renderizado en la propia pantalla).
-		/// </summary>
+		/// @return Tipo de render target.
 		RenderpassType GetRenderTargetType() const;
 
 	private:

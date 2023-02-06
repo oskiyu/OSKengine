@@ -24,7 +24,8 @@ void RenderTarget::Create(const Vector2ui& targetSize, DynamicArray<RenderTarget
 
 	targetType = RenderpassType::INTERMEDIATE;
 
-	fullscreenSpriteMaterialInstance = Engine::GetRenderer()->GetFullscreenRenderingMaterial()->CreateInstance().GetPointer();
+	fullscreenSpriteMaterialInstance = Engine::GetRenderer()
+		->GetFullscreenRenderingMaterial()->CreateInstance().GetPointer();
 	SetupSpriteMaterial();
 }
 
@@ -37,7 +38,8 @@ void RenderTarget::CreateAsFinal(const Vector2ui& targetSize, RenderTargetAttach
 
 	targetType = RenderpassType::FINAL;
 
-	fullscreenSpriteMaterialInstance = Engine::GetRenderer()->GetFullscreenRenderingMaterial()->CreateInstance().GetPointer();
+	fullscreenSpriteMaterialInstance = Engine::GetRenderer()
+		->GetFullscreenRenderingMaterial()->CreateInstance().GetPointer();
 	SetupSpriteMaterial();
 }
 
@@ -59,8 +61,10 @@ void RenderTarget::Resize(const Vector2ui& targetSize) {
 }
 
 GpuImage* RenderTarget::GetColorImage(TIndex colorImageIndex, TIndex resourceIndex) const {
-	OSK_ASSERT(resourceIndex < NUM_RESOURCES_IN_FLIGHT, "El índice de la imagen debe estar entre 0 y " + std::to_string(NUM_RESOURCES_IN_FLIGHT - 1));
-	OSK_ASSERT(colorImageIndex < colorAttachments.GetSize(), "Sólo hay " + std::to_string(colorAttachments.GetSize()) + " imágenes de color.");
+	OSK_ASSERT(resourceIndex < NUM_RESOURCES_IN_FLIGHT, 
+		"El índice de la imagen debe estar entre 0 y " + std::to_string(NUM_RESOURCES_IN_FLIGHT - 1));
+	OSK_ASSERT(colorImageIndex < colorAttachments.GetSize(), 
+		"Sólo hay " + std::to_string(colorAttachments.GetSize()) + " imágenes de color.");
 
 	return colorAttachments[colorImageIndex].GetImage(resourceIndex);
 }
@@ -70,7 +74,8 @@ GpuImage* RenderTarget::GetMainColorImage(TIndex resourceIndex) const {
 }
 
 GpuImage* RenderTarget::GetDepthImage(TIndex index) const {
-	OSK_ASSERT(index < NUM_RESOURCES_IN_FLIGHT, "El índice de la imagen debe estar entre 0 y " + std::to_string(NUM_RESOURCES_IN_FLIGHT - 1));
+	OSK_ASSERT(index < NUM_RESOURCES_IN_FLIGHT, 
+		"El índice de la imagen debe estar entre 0 y " + std::to_string(NUM_RESOURCES_IN_FLIGHT - 1));
 
 	return depthAttachment.GetImage(index);
 }

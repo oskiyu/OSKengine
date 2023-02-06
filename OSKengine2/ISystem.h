@@ -39,9 +39,35 @@ namespace OSK::ECS{
 		/// la anterior ejecución.
 		virtual void OnTick(TDeltaTime deltaTime);
 
+
+		/// @brief Activa el sistema, con lo que se ejecutará
+		/// cada frame.
+		void Activate();
+
+		/// @brief Desactiva el sistema, con lo que dejará de ejecutarse.
+		void Deactivate();
+
+		/// @brief Establece si el sistema debe ejecutarse o no.
+		/// @param isActive True si debe ejecutarse, false en caso contrario.
+		void SetActivationStatus(bool isActive);
+
+		/// @brief Cambia entre activado/desactivado.
+		void ToggleActivationStatus();
+
+
+		/// @brief Permite saber si un sistema está activo, es decir,
+		/// si un sistema se ejcutará cada frame o no.
+		/// @return True si está activo, false en caso contrario.
+		bool IsActive() const;
+
 	protected:
 
 		ISystem() = default;
+
+	private:
+
+		/// @brief Representa si un sistema debe ejecutarse o no.
+		bool isActive = true;
 
 	};
 

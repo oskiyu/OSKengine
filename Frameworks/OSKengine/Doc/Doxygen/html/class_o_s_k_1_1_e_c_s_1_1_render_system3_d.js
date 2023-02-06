@@ -4,7 +4,9 @@ var class_o_s_k_1_1_e_c_s_1_1_render_system3_d =
     [ "_AddObject", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a3d0156b5098e283a1c7ffa2b9cc6337a", null ],
     [ "_RemoveObject", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a4b70e54251c33543c0cff980ef36e644", null ],
     [ "_SetSignature", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a4fdd39a45a60a3921398d8fe68884a99", null ],
+    [ "Activate", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#ad45cabb31dc788fbc37feaed82fd99d8", null ],
     [ "CreateTargetImage", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a5f61471f90f9586b0b24be7bd0226bf3", null ],
+    [ "Deactivate", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a2d6aa3dc12aa77cc9109b920ddca4225", null ],
     [ "GetCameraBuffer", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a5bb2ad19ab9a76425b6e488df05eed6b", null ],
     [ "GetObjects", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a4f8bb0d589c4a77154d11eef16e2e79f", null ],
     [ "GetRenderTarget", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a7ead258d11d094f960bed0b7da407d85", null ],
@@ -12,6 +14,7 @@ var class_o_s_k_1_1_e_c_s_1_1_render_system3_d =
     [ "GetSignature", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#ae112bd30755ef771c25dc2d620fb6295", null ],
     [ "Initialize", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#adfff58ade8d8264a127811bc05fc5e3c", null ],
     [ "InitializeTerrain", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a890108dd7d405eb602d0d80fefefdada", null ],
+    [ "IsActive", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#acdd2816796e17bd727d7ee4d10e11aed", null ],
     [ "OnCreate", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#ab99fd447d1c640bcc003dc5713768b6c", null ],
     [ "OnObjectAdded", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#af380b55facabf814ca48fef44cae116b", null ],
     [ "OnObjectRemoved", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a95c8a52cae15f1ea27c6bed80c8708c3", null ],
@@ -20,6 +23,8 @@ var class_o_s_k_1_1_e_c_s_1_1_render_system3_d =
     [ "OSK_SYSTEM", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a493b2f75e14d1d63509e90df7edd326e", null ],
     [ "Render", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a0f6ecaafe704974730190d0b7f274b1a", null ],
     [ "Resize", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a69771f412015a908acba9b67a4dc99bd", null ],
+    [ "SetActivationStatus", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a97458cf11d6b977bad992387a2d67297", null ],
     [ "SetupViewport", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#ae3c3f809429c0eb238b4b5a58e4a756a", null ],
+    [ "ToggleActivationStatus", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a01bbb5166a33e4484f42fcc6f03494b4", null ],
     [ "renderTarget", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a8e9d568865c3d41fbec6afd49acb3cfa", null ]
 ];

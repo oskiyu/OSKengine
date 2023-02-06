@@ -112,7 +112,7 @@ Métodos públicos</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p >Render target para el renderizado de imágenes desde shaders de trazado de rayos / computación. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_rt_render_target_8h_source.html#l00017">17</a> del archivo <a class="el" href="_rt_render_target_8h_source.html">RtRenderTarget.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_rt_render_target_8h_source.html#l00015">15</a> del archivo <a class="el" href="_rt_render_target_8h_source.html">RtRenderTarget.h</a>.</p>
 </div><h2 class="groupheader">Documentación de las funciones miembro</h2>
 <a id="a8d063702a876073400d65376ad29757b" name="a8d063702a876073400d65376ad29757b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8d063702a876073400d65376ad29757b">&#9670;&nbsp;</a></span>Create()</h2>
@@ -148,6 +148,7 @@ Métodos públicos</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section post"><dt>Postcondición</dt><dd>El render target podrá usarse como storage image.</dd></dl>
 <dl class="section note"><dt>Nota</dt><dd>La imagen tendrá al menos <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaaac404d7ce6ca5862e9b8a2641fbafd90" title="Usado en shaders de computación.">GpuImageUsage::COMPUTE</a> | <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa5d0791856a3081df75c6093017a61a36" title="Se usará como read-only desde los shaders.">GpuImageUsage::SAMPLED</a>. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_rt_render_target_8cpp_source.html#l00011">11</a> del archivo <a class="el" href="_rt_render_target_8cpp_source.html">RtRenderTarget.cpp</a>.</p>
@@ -170,7 +171,7 @@ Métodos públicos</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Devuelve el material instance para el renderizado a pantalla completa usando el material <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a32302de219063bdb551ab8200cb122a1">IRenderer::GetFullscreenRenderingMaterial()</a>. </p>
-<dl class="section return"><dt>Devuelve</dt><dd>Nullptr si no ha sido inicializado.</dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Nullptr si no ha sido inicializado, no nulo en caso contrario. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_rt_render_target_8cpp_source.html#l00032">32</a> del archivo <a class="el" href="_rt_render_target_8cpp_source.html">RtRenderTarget.cpp</a>.</p>
 
@@ -192,7 +193,9 @@ Métodos públicos</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Devuelve el material slot requerido para el renderizado a pantalla completa usando el material <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a32302de219063bdb551ab8200cb122a1">IRenderer::GetFullscreenRenderingMaterial()</a>. </p>
-<pre>Debe haberse inicializado.</pre> 
+<dl class="section return"><dt>Devuelve</dt><dd>Puntero no nulo.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>Debe haberse inicializado correctamente. </dd></dl>
+
 <p class="definition">Definición en la línea <a class="el" href="_rt_render_target_8cpp_source.html#l00036">36</a> del archivo <a class="el" href="_rt_render_target_8cpp_source.html">RtRenderTarget.cpp</a>.</p>
 
 </div>
@@ -212,7 +215,8 @@ Métodos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Resolución de las imágenes, en píxeles. </p>
+<p>Resolución de la imagen, en píxeles. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>Resolución de la imagen, en píxeles. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_rt_render_target_8cpp_source.html#l00028">28</a> del archivo <a class="el" href="_rt_render_target_8cpp_source.html">RtRenderTarget.cpp</a>.</p>
 
@@ -241,8 +245,8 @@ Métodos públicos</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Devuelve</dt><dd>Nullptr si el render target no fue inicializado. </dd></dl>
-<dl class="section pre"><dt>Precondición</dt><dd>index &lt; NUM_RESOURCES_IN_FLIGHT </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Puntero no nulo si fue correctamente inicializado. Nullptr si el render target no fue inicializado.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>index debe estar entre 0 y NUM_RESOURCES_IN_FLIGHT (0 &lt;= index &lt; NUM_RESOURCES_IN_FLIGHT). </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_rt_render_target_8cpp_source.html#l00024">24</a> del archivo <a class="el" href="_rt_render_target_8cpp_source.html">RtRenderTarget.cpp</a>.</p>
 
@@ -272,7 +276,15 @@ Métodos públicos</h2></td></tr>
   </dd>
 </dl>
 <dl class="section warning"><dt>Atención</dt><dd>Dejará en un estado inválido cualquier material slot en el que se use esta imagen. <br  />
- </dd></dl>
+</dd></dl>
+<p>Cambia de tamaño la imagen de renderizado. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">targetSize</td><td>Nueva resolución de la imagen de renderizado.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El render target debe haber sido correctamente creado mediante <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a007f8e24640c79100c7df4414ba39380" title="Crea el render target con la información dada, para su uso como render target en shaders de fragmento...">RenderTarget::Create</a> o <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a5035d069a723b632b751f07dbe0a5d64" title="Crea el render target con la información dada, para su uso como imagen final de presentación.">RenderTarget::CreateAsFinal</a>.</dd></dl>
+<dl class="section warning"><dt>Atención</dt><dd>Esta función destruye las imágenes anteriores, por lo que si una instancia de material referenciaba estas imágenes, se deberá actualizar con las nuevas imágenes. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_rt_render_target_8cpp_source.html#l00019">19</a> del archivo <a class="el" href="_rt_render_target_8cpp_source.html">RtRenderTarget.cpp</a>.</p>
 
@@ -288,7 +300,7 @@ Métodos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html">RtRenderTarget</a></li>
-    <li class="footer">Generado el Domingo, 5 de Febrero de 2023 16:14:55 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Lunes, 6 de Febrero de 2023 13:51:51 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

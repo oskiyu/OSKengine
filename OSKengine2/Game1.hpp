@@ -86,18 +86,11 @@
 #include "ConvexVolume.h"
 #include "PhysicsComponent.h"
 
-OSK::GRAPHICS::Material* rtMaterial = nullptr;
-OSK::GRAPHICS::MaterialInstance* rtMaterialInstance = nullptr;
-OSK::GRAPHICS::GpuImage* rtTargetImage[3]{};
-
 OSK::GRAPHICS::Material* material = nullptr;
 OSK::GRAPHICS::Material* material2d = nullptr;
 OSK::GRAPHICS::Material* materialRenderTarget = nullptr;
 
 OSK::GRAPHICS::SpriteRenderer spriteRenderer;
-
-OSK::GRAPHICS::ITopLevelAccelerationStructure* topLevelAccelerationStructure = nullptr;
-OSK::GRAPHICS::IGpuStorageBuffer* instancesInfoBuffer = nullptr;
 
 
 struct RtInstanceInfo {
@@ -105,12 +98,11 @@ struct RtInstanceInfo {
 	TSize indexOffset = 0; // In bytes
 };
 
-// PBR
 using namespace OSK;
+using namespace OSK::ECS;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
-Material* pbrColorMaterial = nullptr;
-Material* pbrNormalMaterial = nullptr;
+using namespace OSK::COLLISION;
 
 #define OSK_CURRENT_RSYSTEM OSK::ECS::RenderSystem3D
 
@@ -119,25 +111,22 @@ class Game1 : public OSK::IGame {
 protected:
 
 	void CreateWindow() override {
-		ECS::Transform3D transform{ 0 };
-		const auto final = transform.TransformPoint({ -.2f, .2f, -.2f });
-
 		Engine::GetDisplay()->Create({ 1280u, 720u }, "OSKengine");
 
 		IO::IMouseInput* mouseInput = nullptr;
 		Engine::GetInput()->QueryInterface(IUUID::IMouseInput, (void**)&mouseInput);
 
-		mouseInput->SetReturnMode(IO::MouseReturnMode::ALWAYS_RETURN);
-		mouseInput->SetMotionMode(IO::MouseMotionMode::RAW);
+		if (mouseInput) {
+			mouseInput->SetReturnMode(IO::MouseReturnMode::ALWAYS_RETURN);
+			mouseInput->SetMotionMode(IO::MouseMotionMode::RAW);
+		}
 	}
 
 	void SetupEngine() override {
-		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetDisplay(), PresentMode::VSYNC_ON);
+		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetDisplay(), PresentMode::VSYNC_ON_TRIPLE_BUFFER);
 	}
 
 	void OnCreate() override {
-		auto specularMap = Engine::GetAssetManager()->Load<ASSETS::SpecularMap>("Resources/Assets/IBL/irradiance0.json", "GLOBAL");
-		auto irradianceMap = Engine::GetAssetManager()->Load<ASSETS::IrradianceMap>("Resources/Assets/IBL/specular0.json", "GLOBAL");
 		auto animModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/animmodel.json", "GLOBAL");
 		
 		// Material load
@@ -145,261 +134,28 @@ protected:
 		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json");
 		materialRenderTarget = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rendertarget.json");
 
-		texture = Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/texture0.json", "GLOBAL");
+		SpawnCamera();
+		SpawnCamera2D();
 
+		SetupRenderSystems();
+				
+		SpawnCar();
+		SpawnCircuit();
+		SpawnSecondCollider();
+
+		SetupRenderTargets();
+		SetupPostProcessingChain();
+		
+		spriteRenderer.SetCommandList(Engine::GetRenderer()->GetGraphicsCommandList());
+
+		// Font loading
 		font = Engine::GetAssetManager()->Load<ASSETS::Font>("Resources/Assets/font0.json", "GLOBAL");
 		font->LoadSizedFont(22);
 		font->SetMaterial(material2d);
 
-		ASSETS::Model3D* carModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/mclaren.json", "GLOBAL");
-		ASSETS::Model3D* circuitModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/circuit0.json", "GLOBAL"); // f1.json
-
-		/*topLevelAccelerationStructure = Engine::GetRenderer()->GetAllocator()->CreateTopAccelerationStructure({
-			carModel->GetAccelerationStructure(),
-			circuitModel->GetAccelerationStructure()
-			}).GetPointer();*/
-
-		DynamicArray<RtInstanceInfo> instancesInfo;
-		instancesInfo.Insert({
-			carModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - carModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock(),
-			carModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - carModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock()
-			});
-		//instancesInfo.Insert({ 
-			//circuitModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - circuitModel->GetVertexBuffer()->GetMemorySubblock()->GetOffsetFromBlock(),
-			//circuitModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock() - circuitModel->GetIndexBuffer()->GetMemorySubblock()->GetOffsetFromBlock()
-			//});
-		instancesInfoBuffer = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(RtInstanceInfo) * 4).GetPointer();
-		instancesInfoBuffer->MapMemory();
-		instancesInfoBuffer->Write(instancesInfo.GetData(), instancesInfo.GetSize() * sizeof(RtInstanceInfo));
-		instancesInfoBuffer->Unmap();/**/
-
-		for (TSize i = 0; i < _countof(rtTargetImage); i++) {
-			GpuImageSamplerDesc sampler{};
-			sampler.mipMapMode = GpuImageMipmapMode::NONE;
-			//rtTargetImage[i] = Engine::GetRenderer()->GetAllocator()->CreateImage({ 1920, 1080, 1 }, GpuImageDimension::d2D, 1, Format::RGBA32_SFLOAT,
-				//GpuImageUsage::RT_TARGET_IMAGE | GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE, GpuSharedMemoryType::GPU_ONLY, 1, sampler).GetPointer();
-			//rtTargetImage[i]->SetDebugName("RtTargetImage [" + std::to_string(i) + "]");
-		}
-
-		OSK_CURRENT_RSYSTEM* renderSystem = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>();
-		/*rtMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rt.json");
-		rtMaterialInstance = rtMaterial->CreateInstance().GetPointer();
-		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("vertices", carModel->GetVertexBuffer());
-		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("indices", carModel->GetIndexBuffer());
-		rtMaterialInstance->GetSlot("rt")->SetStorageBuffer("instanceInfos", instancesInfoBuffer);
-		rtMaterialInstance->GetSlot("rt")->SetAccelerationStructure("topLevelAccelerationStructure", topLevelAccelerationStructure);
-		*/
-		// renderSystem->AddBlas(carModel->GetAccelerationStructure());
-		// renderSystem->AddBlas(circuitModel->GetAccelerationStructure());
-
-		const IGpuUniformBuffer* cameraBuffers[3] {
-			renderSystem->GetCameraBuffer(0),
-			renderSystem->GetCameraBuffer(1),
-			renderSystem->GetCameraBuffer(2)
-		};
-		const GpuImage* rtImages[3] {
-			rtTargetImage[0],
-			rtTargetImage[1],
-			rtTargetImage[2]
-		};
-
-		// rtMaterialInstance->GetSlot("rt")->SetStorageImages("targetImage", rtImages);
-		//rtMaterialInstance->GetSlot("rt")->FlushUpdate();
-		//rtMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", cameraBuffers);
-		//rtMaterialInstance->GetSlot("global")->FlushUpdate();
-
-		// ECS
-		carObject = Engine::GetEcs()->SpawnObject();
-
-		cameraObject = Engine::GetEcs()->SpawnObject();
-
-		auto skybox = Engine::GetAssetManager()->Load<ASSETS::CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL");
-
-		auto& cameraTransform = Engine::GetEcs()->AddComponent<ECS::Transform3D>(cameraObject, ECS::Transform3D(cameraObject));
-		cameraTransform.AddPosition({ 0.0f, 0.3f, 0.0f });
-		Engine::GetEcs()->AddComponent<ECS::CameraComponent3D>(cameraObject, {});
-		renderSystem->Initialize(cameraObject, *irradianceMap, *specularMap, *skybox);
-		Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->SetCamera(cameraObject);
-		Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>()->Initialize(cameraObject);
-
-		ECS::Transform3D& transform = Engine::GetEcs()->AddComponent<ECS::Transform3D>(carObject, ECS::Transform3D(carObject));
-		
-		Engine::GetEcs()->AddComponent<ECS::PhysicsComponent>(carObject, {});
-		auto& collider = Engine::GetEcs()->AddComponent<COLLISION::Collider>(carObject, {});
-		collider.SetTopLevelCollider(new COLLISION::SphereCollider(0.45f));
-
-		OwnedPtr<COLLISION::ConvexVolume> convexVolume = new COLLISION::ConvexVolume;
-		const float width = 0.15f;
-		const float length = 0.35f;
-		const float height = 0.17f;
-		{convexVolume->AddFace({
-			{ -width, height, -length },
-			{ -width, height, length },
-			{ width, height, length },
-			{ width, height, -length }
-			});
-		convexVolume->AddFace({
-			{ -width, 0, -length },
-			{ -width, 0, length },
-			{ width, 0, length },
-			{ width, 0, -length }
-			});
-
-		// Lateral
-		convexVolume->AddFace({
-			{ -width, height, -length },
-			{ -width, height, length },
-			{ -width, 0, length },
-			{ -width, 0, -length }
-			});
-		convexVolume->AddFace({
-			{ width, height, -length },
-			{ width, height, length },
-			{ width, 0, length },
-			{ width, 0, -length }
-			});
-
-		// Front/back
-		convexVolume->AddFace({
-			{ -width, height, length },
-			{ width, height, length },
-			{ width, 0, length },
-			{ -width, 0, length }
-			});
-		convexVolume->AddFace({
-			{ -width, height, -length },
-			{ width, height, -length },
-			{ width, 0, -length },
-			{ -width, 0, -length }
-			}); }
-		collider.AddBottomLevelCollider(convexVolume.GetPointer());
-		Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>()->SetupBottomLevelModel(carObject);
-
-		ECS::ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ECS::ModelComponent3D>(carObject, {});
-
-		// cameraTransform.AttachToObject(carObject);
-
-		modelComponent->SetModel(carModel);
-		modelComponent->SetMaterial(material);
-		modelComponent->BindTextureForAllMeshes("texture", "albedoTexture", texture);
-		ModelLoader3D::SetupPbrModel(carModel, modelComponent);
-		
-		// Collision 2
-		ECS::GameObjectIndex secondObject = Engine::GetEcs()->SpawnObject();
-		auto& collider2 = Engine::GetEcs()->AddComponent<COLLISION::Collider>(secondObject, {});
-		collider2.SetTopLevelCollider(new COLLISION::AxisAlignedBoundingBox(0.95f));
-		auto& transformc2 = Engine::GetEcs()->AddComponent<ECS::Transform3D>(secondObject, ECS::Transform3D{ secondObject });
-		transformc2.AddPosition({ 0.5f, 0.0f, 0.0f });
-		OwnedPtr<COLLISION::ConvexVolume> convexVolume2 = new COLLISION::ConvexVolume;
-		const float volume2size = 0.2f;
-		{convexVolume2->AddFace({
-			{ -volume2size, volume2size * 2, -volume2size },
-			{ -volume2size, volume2size * 2, volume2size },
-			{ volume2size, volume2size * 2, volume2size },
-			{ volume2size, volume2size * 2, -volume2size }
-			});
-		convexVolume2->AddFace({
-			{ -volume2size, 0, -volume2size },
-			{ -volume2size, 0, volume2size },
-			{ volume2size, 0, volume2size },
-			{ volume2size, 0, -volume2size }
-			});
-
-		// Lateral
-		convexVolume2->AddFace({
-			{ -volume2size, volume2size * 2, -volume2size },
-			{ -volume2size, volume2size * 2, volume2size },
-			{ -volume2size, 0, volume2size },
-			{ -volume2size, 0, -volume2size }
-			});
-		convexVolume2->AddFace({
-			{ volume2size, volume2size * 2, -volume2size },
-			{ volume2size, volume2size * 2, volume2size },
-			{ volume2size, 0, volume2size },
-			{ volume2size, 0, -volume2size }
-			});
-
-		// Front/back
-		convexVolume2->AddFace({
-			{ -volume2size, volume2size * 2.0f, volume2size },
-			{ volume2size, volume2size * 2.0f, volume2size },
-			{ volume2size, 0, volume2size },
-			{ -volume2size, 0, volume2size }
-			});
-		convexVolume2->AddFace({
-			{ -volume2size, volume2size * 2.0f, -volume2size },
-			{ volume2size, volume2size * 2.0f, -volume2size },
-			{ volume2size, 0, -volume2size },
-			{ -volume2size, 0, -volume2size }
-			}); }
-
-		collider2.AddBottomLevelCollider(convexVolume2.GetPointer());
-		Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>()->SetupBottomLevelModel(secondObject);
-
-		// ECS 2
-		circuitObject = Engine::GetEcs()->SpawnObject();
-
-		auto& transform2 = Engine::GetEcs()->AddComponent<ECS::Transform3D>(circuitObject, ECS::Transform3D(circuitObject));
-		auto modelComponent2 = &Engine::GetEcs()->AddComponent<ECS::ModelComponent3D>(circuitObject, {});
-
-		modelComponent2->SetModel(circuitModel); // animModel
-		modelComponent2->SetMaterial(material);
-		modelComponent2->BindTextureForAllMeshes("texture", "albedoTexture", texture);
-		ModelLoader3D::SetupPbrModel(circuitModel, modelComponent2);
-		// circuitModel->GetAnimator()->AddActiveAnimation("Idle");
-		// circuitModel->GetAnimator()->AddActiveAnimation("Run");
-
-		// Cubemap
-		Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->SetCubemap(*skybox);
-		
-		cameraObject2d = Engine::GetEcs()->SpawnObject();
-		auto& camera2D = Engine::GetEcs()->AddComponent<ECS::CameraComponent2D>(cameraObject2d, {});
-		Engine::GetEcs()->AddComponent<ECS::Transform2D>(cameraObject2d, { cameraObject2d });
-		camera2D.LinkToDisplay(Engine::GetDisplay());
-
-		spriteRenderer.SetCommandList(Engine::GetRenderer()->GetGraphicsCommandList());
-
-		font->GetInstance(30).sprite->GetMaterialInstance()->GetSlot("global")->SetUniformBuffer("camera", camera2D.GetUniformBuffer());
+		font->GetInstance(30).sprite->GetMaterialInstance()->GetSlot("global")->SetUniformBuffer("camera", 
+			Engine::GetEcs()->GetComponent<CameraComponent2D>(cameraObject2d).GetUniformBuffer());
 		font->GetInstance(30).sprite->GetMaterialInstance()->GetSlot("global")->FlushUpdate();
-
-		// Terrain
-		// renderSystem->InitializeTerrain({ 10u }, *Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/heightmap0.json", "GLOBAL"), *Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/terrain0.json", "GLOBAL"));
-
-		RenderTargetAttachmentInfo textColorInfo{ .format = Format::RGBA8_UNORM, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE, .name = "Text Color Target" };
-		RenderTargetAttachmentInfo textDepthInfo{ .format = Format::D32S8_SFLOAT_SUINT , .name = "Text Depth Target" };
-		textRenderTarget = new RenderTarget();
-		textRenderTarget->Create(Engine::GetDisplay()->GetResolution(), { textColorInfo }, textDepthInfo);
-
-		RenderTargetAttachmentInfo preEffectsColorInfo{ .format = Format::RGBA16_SFLOAT, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE, .name = "Pre-Effects Color Target" };
-		RenderTargetAttachmentInfo preEffectsDepthInfo{ .format = Format::D32S8_SFLOAT_SUINT, .name = "Pre-Effects Depth Target" };
-		preEffectsRenderTarget = new RenderTarget();
-		preEffectsRenderTarget->Create(Engine::GetDisplay()->GetResolution(), { preEffectsColorInfo }, preEffectsDepthInfo);
-		
-
-		fxaaPass = new FxaaPass();
-		fxaaPass->Create(Engine::GetDisplay()->GetResolution());
-
-		bloomPass = new BloomPass();
-		bloomPass->Create(Engine::GetDisplay()->GetResolution());
-
-		toneMappingPass = new ToneMappingPass();
-		toneMappingPass->Create(Engine::GetDisplay()->GetResolution());
-
-		SetupPostProcessingChain();
-
-		const IGpuStorageBuffer* epxBuffers[3]{};
-		for (TSize i = 0; i < _countof(exposureBuffers); i++) {
-			exposureBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(float)).GetPointer();
-			epxBuffers[i] = exposureBuffers[i].GetPointer();
-
-			exposureBuffers[i]->MapMemory();
-			exposureBuffers[i]->Write(toneMappingPass->GetExposure());
-			exposureBuffers[i]->Unmap();
-		}
-
-		toneMappingPass->SetExposureBuffers(epxBuffers);
-
-		Engine::GetRenderer()->RegisterRenderTarget(textRenderTarget.GetPointer());
 	}
 
 	void RegisterSystems() override {
@@ -409,116 +165,165 @@ protected:
 	}
 
 	void OnTick(TDeltaTime deltaTime) override {
-		ECS::CameraComponent3D& camera = Engine::GetEcs()->GetComponent<ECS::CameraComponent3D>(cameraObject);
-		ECS::Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<ECS::Transform3D>(cameraObject);
-
-		float forwardMovement = 0.0f;
-		float rightMovement = 0.0f;
-
 		const IO::IKeyboardInput* keyboard = nullptr;
 		const IO::IGamepadInput* gamepad = nullptr;
 		const IO::IMouseInput* mouse = nullptr;
 
+		// Obtenemos las interfaces necesarias
 		Engine::GetInput()->QueryInterface(IUUID::IKeyboardInput, (void**)&keyboard);
 		Engine::GetInput()->QueryInterface(IUUID::IGamepadInput, (void**)&gamepad);
 		Engine::GetInput()->QueryInterface(IUUID::IMouseInput, (void**)&mouse);
 
-		if (keyboard->IsKeyUp(IO::Key::F1)) {
-			toneMappingPass->SetExposure(toneMappingPass->GetExposure() - deltaTime * 2);
-			for (TSize i = 0; i < _countof(exposureBuffers); i++) {
-				exposureBuffers[i]->MapMemory();
-				exposureBuffers[i]->Write(toneMappingPass->GetExposure());
-				exposureBuffers[i]->Unmap();
+
+		CameraComponent3D& camera = Engine::GetEcs()->GetComponent<ECS::CameraComponent3D>(cameraObject);
+		Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<ECS::Transform3D>(cameraObject);
+
+		// Movimiento de la cámara en este frame
+		float cameraForwardMovement = 0.0f;
+		float cameraRightMovement = 0.0f;
+		Vector2f cameraRotation = 0.0f;
+
+		// Velocidad actual del coche
+		static float currentCarSpeed = 0.0f;
+		// Cambio de velocidad en este frame
+		float carSpeedDiff = 0.0f;
+
+
+		// Si disponemos de teclado...
+		if (keyboard) {
+
+			// Exit
+			if (keyboard->IsKeyDown(IO::Key::ESCAPE))
+				this->Exit();
+			if (keyboard->IsKeyDown(IO::Key::P))
+				this->Exit();
+
+			// Fullscreen
+			if (keyboard->IsKeyStroked(IO::Key::F11)) {
+				IO::IFullscreenableDisplay* display = nullptr;
+				Engine::GetDisplay()->QueryInterface(OSK_IUUID(IO::IFullscreenableDisplay), (void**)&display);
+
+				if (display)
+					display->ToggleFullscreen();
+			}
+
+#pragma region Exposición y gamma
+
+			// Exposición (~brillo) de la escena
+			const bool increaseExposure = keyboard->IsKeyDown(IO::Key::F1);
+			const bool decreaseExposure = keyboard->IsKeyDown(IO::Key::F2);
+
+			const bool exposureChanged = increaseExposure || decreaseExposure;
+
+			if (increaseExposure)
+				toneMappingPass->SetExposure(toneMappingPass->GetExposure() - deltaTime * 2);
+
+			if (decreaseExposure)
+				toneMappingPass->SetExposure(toneMappingPass->GetExposure() + deltaTime * 2);
+
+			if (exposureChanged) {
+				for (TSize i = 0; i < _countof(exposureBuffers); i++) {
+					exposureBuffers[i]->MapMemory();
+					exposureBuffers[i]->Write(toneMappingPass->GetExposure());
+					exposureBuffers[i]->Unmap();
+				}
+			}
+
+			// Gamma de la escena
+			if (keyboard->IsKeyDown(IO::Key::J))
+				toneMappingPass->SetGamma(toneMappingPass->GetGamma() - deltaTime * 2);
+			if (keyboard->IsKeyDown(IO::Key::K))
+				toneMappingPass->SetGamma(toneMappingPass->GetGamma() + deltaTime * 2);
+
+#pragma endregion
+
+			// Configuración gráfica
+			//
+			// Bloom
+			if (keyboard->IsKeyReleased(IO::Key::B)) {
+				config.useBloom = !config.useBloom;
+				SetupPostProcessingChain();
+			}
+			
+
+			// Activar / desactivar renderizado de colliders
+			if (keyboard->IsKeyReleased(IO::Key::C))
+				Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>()->ToggleActivationStatus();
+
+			// Movimiento de la cámara
+			if (keyboard->IsKeyDown(IO::Key::W))
+				cameraForwardMovement += 0.7f;
+			if (keyboard->IsKeyDown(IO::Key::S))
+				cameraForwardMovement -= 0.7f;
+			if (keyboard->IsKeyDown(IO::Key::A))
+				cameraRightMovement -= 0.7f;
+			if (keyboard->IsKeyDown(IO::Key::D))
+				cameraRightMovement += 0.7f;
+
+			if (keyboard->IsKeyDown(IO::Key::LEFT_SHIFT)) {
+				cameraForwardMovement *= 0.3f;
+				cameraRightMovement *= 0.3f;
+			}
+
+
+			// Movimiento del coche
+			
+			Transform3D& carTransform = Engine::GetEcs()->GetComponent<Transform3D>(carObject);
+
+			// Rotación
+			if (keyboard->IsKeyDown(IO::Key::LEFT))
+				carTransform.RotateWorldSpace(deltaTime * 2, { 0, 1, 0 });
+			if (keyboard->IsKeyDown(IO::Key::RIGHT))
+				carTransform.RotateWorldSpace(deltaTime * 2, { 0, -1, 0 });
+
+			// Aceleración / deceleración
+			if (keyboard->IsKeyDown(IO::Key::UP))
+				carSpeedDiff += 0.5f * deltaTime;
+			if (keyboard->IsKeyDown(IO::Key::DOWN))
+				carSpeedDiff -= 0.5f * deltaTime;
+
+			carSpeedDiff = glm::clamp(carSpeedDiff, -1.0f, 7.0f);
+		}
+		
+
+		if (mouse) {
+			cameraRotation = {
+				(float)(mouse->GetMouseState().GetPosition().X - mouse->GetPreviousMouseState().GetPosition().X),
+				(float)(mouse->GetMouseState().GetPosition().Y - mouse->GetPreviousMouseState().GetPosition().Y)
+			};
+		}
+
+
+		if (gamepad) {
+			const IO::GamepadState& gamepadState = gamepad->GetGamepadState(0);
+			if (gamepadState.IsConnected()) {
+				cameraForwardMovement -= gamepadState.GetAxisState(IO::GamepadAxis::LEFT_Y);
+
+				cameraRightMovement += gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
+
+				cameraRotation.X += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_X);
+				cameraRotation.Y += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_Y);
 			}
 		}
-		if (keyboard->IsKeyUp(IO::Key::F2)) {
-			toneMappingPass->SetExposure(toneMappingPass->GetExposure() + deltaTime * 2);
-			for (TSize i = 0; i < _countof(exposureBuffers); i++) {
-				exposureBuffers[i]->MapMemory();
-				exposureBuffers[i]->Write(toneMappingPass->GetExposure());
-				exposureBuffers[i]->Unmap();
-			}
-		}
+		
 
-		if (keyboard->IsKeyUp(IO::Key::J))
-			toneMappingPass->SetGamma(toneMappingPass->GetGamma() - deltaTime * 2);
-		if (keyboard->IsKeyUp(IO::Key::K))
-			toneMappingPass->SetGamma(toneMappingPass->GetGamma() + deltaTime * 2);
+		// Aplicación de movimiento y rotación del coche
+		currentCarSpeed += carSpeedDiff;
 
-		if (keyboard->IsKeyDown(IO::Key::W))
-			forwardMovement += 0.7f;
-		if (keyboard->IsKeyDown(IO::Key::S))
-			forwardMovement -= 0.7f;
-		if (keyboard->IsKeyDown(IO::Key::A))
-			rightMovement -= 0.7f;
-		if (keyboard->IsKeyDown(IO::Key::D))
-			rightMovement += 0.7f;
-
-		Vector2f cameraRotation = {
-			(float)(mouse->GetMouseState().GetPosition().X - mouse->GetPreviousMouseState().GetPosition().X),
-			(float)(mouse->GetMouseState().GetPosition().Y - mouse->GetPreviousMouseState().GetPosition().Y)
-		};
-
-		const IO::GamepadState& gamepadState = gamepad->GetGamepadState(0);
-		if (gamepadState.IsConnected()) {
-			forwardMovement -= gamepadState.GetAxisState(IO::GamepadAxis::LEFT_Y);
-
-			rightMovement += gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
-
-			cameraRotation.X += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_X);
-			cameraRotation.Y += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_Y);
-		}
-
-		if (keyboard->IsKeyDown(IO::Key::LEFT_SHIFT)) {
-			forwardMovement *= 0.3f;
-			rightMovement *= 0.3f;
-		}
-
-		// Car
-		static float carSpeed = 0.0f;
-		float speedDiff = 0.0f;
-		auto& carTransform = Engine::GetEcs()->GetComponent<ECS::Transform3D>(carObject);
-		if (keyboard->IsKeyDown(IO::Key::UP))
-			speedDiff += 0.5f * deltaTime;
-		if (keyboard->IsKeyDown(IO::Key::DOWN))
-			speedDiff -= 0.5f * deltaTime;
-		carSpeed += speedDiff;
-		carSpeed = OSK::MATH::Clamp(carSpeed, -1.0f, 7.0f);
-		carTransform.AddPosition(carTransform.GetForwardVector() * deltaTime * carSpeed);
-		if (keyboard->IsKeyDown(IO::Key::LEFT))
-			carTransform.RotateWorldSpace(deltaTime * 2, { 0, 1, 0 });
-		if (keyboard->IsKeyDown(IO::Key::RIGHT))
-			carTransform.RotateWorldSpace(deltaTime * 2, { 0, -1, 0 });
-
-		if (keyboard->IsKeyStroked(IO::Key::F11)) {
-			IO::IFullscreenableDisplay* display = nullptr;
-			Engine::GetDisplay()->QueryInterface(OSK_IUUID(IO::IFullscreenableDisplay), (void**)&display);
-
-			display->ToggleFullscreen();
-		}
-
-		if (keyboard->IsKeyDown(IO::Key::ESCAPE))
-			this->Exit();
-		if (keyboard->IsKeyDown(IO::Key::P))
-			this->Exit();
-
+		Transform3D& carTransform = Engine::GetEcs()->GetComponent<Transform3D>(carObject);
+		carTransform.AddPosition(carTransform.GetForwardVector() * deltaTime * currentCarSpeed);
+		
+		
+		// Aplicación de movimiento y rotación de la cámara
 		camera.Rotate(cameraRotation.X, cameraRotation.Y);
 
-		cameraTransform.AddPosition(cameraTransform.GetForwardVector().GetNormalized() * forwardMovement * deltaTime);
-		cameraTransform.AddPosition(cameraTransform.GetRightVector().GetNormalized() * rightMovement * deltaTime);
+		cameraTransform.AddPosition(cameraTransform.GetForwardVector().GetNormalized() * cameraForwardMovement * deltaTime);
+		cameraTransform.AddPosition(cameraTransform.GetRightVector().GetNormalized() * cameraRightMovement * deltaTime);
 		camera.UpdateTransform(&cameraTransform);
 
-		Engine::GetEcs()->GetComponent<ECS::CameraComponent2D>(cameraObject2d).UpdateUniformBuffer(
-			Engine::GetEcs()->GetComponent<ECS::Transform2D>(cameraObject2d)
+		Engine::GetEcs()->GetComponent<CameraComponent2D>(cameraObject2d).UpdateUniformBuffer(
+			Engine::GetEcs()->GetComponent<Transform2D>(cameraObject2d)
 		);
-
-		if (OSK::Engine::GetRenderer()->IsRtActive()) {
-			auto commandList = OSK::Engine::GetRenderer()->GetGraphicsCommandList();
-
-			/*const auto& transformComponent = Engine::GetEcs()->GetComponent<ECS::Transform3D>(carObject);
-			auto& modelComponent = Engine::GetEcs()->GetComponent<ECS::ModelComponent3D>(carObject);
-			modelComponent.GetModel()->GetAccelerationStructure()->SetMatrix(transformComponent.GetAsMatrix());*/
-		}
 	}
 
 	void BuildFrame() override {
@@ -576,7 +381,8 @@ protected:
 
 		// Post-processing effects:
 		fxaaPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
-		bloomPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
+		if (config.useBloom)
+			bloomPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
 		toneMappingPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
 
 		// Frame build:
@@ -598,8 +404,10 @@ protected:
 		frameBuildCommandList->DrawSingleInstance(6);
 
 		if (auto colliderRenderSystem = Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>()) {
-			frameBuildCommandList->BindMaterialSlot(colliderRenderSystem->GetRenderTarget().GetFullscreenSpriteMaterialSlot());
-			frameBuildCommandList->DrawSingleInstance(6);
+			if (colliderRenderSystem->IsActive()) {
+				frameBuildCommandList->BindMaterialSlot(colliderRenderSystem->GetRenderTarget().GetFullscreenSpriteMaterialSlot());
+				frameBuildCommandList->DrawSingleInstance(6);
+			}
 		}
 
 		frameBuildCommandList->EndGraphicsRenderpass();
@@ -607,16 +415,7 @@ protected:
 		frameBuildCommandList->EndDebugSection();
 	}
 
-	void SetupPostProcessingChain() {
-		fxaaPass->SetInput(preEffectsRenderTarget.GetValue(), IPostProcessPass::InputType::SAMPLER);
-		bloomPass->SetInput(fxaaPass->GetOutput(), IPostProcessPass::InputType::SAMPLER);
-		toneMappingPass->SetInput(bloomPass->GetOutput(), IPostProcessPass::InputType::SAMPLER);
-
-		fxaaPass->UpdateMaterialInstance();
-		bloomPass->UpdateMaterialInstance();
-		toneMappingPass->UpdateMaterialInstance();
-	}
-
+	
 	void OnWindowResize(const Vector2ui& size) {
 		preEffectsRenderTarget->Resize(size);
 		fxaaPass->Resize(size);
@@ -640,6 +439,262 @@ protected:
 
 private:
 
+	void SetupRenderTargets() {
+		// Text
+		RenderTargetAttachmentInfo textColorInfo{ .format = Format::RGBA8_UNORM, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE, .name = "Text Color Target" };
+		RenderTargetAttachmentInfo textDepthInfo{ .format = Format::D32S8_SFLOAT_SUINT , .name = "Text Depth Target" };
+		textRenderTarget = new RenderTarget();
+		textRenderTarget->Create(Engine::GetDisplay()->GetResolution(), { textColorInfo }, textDepthInfo);
+
+		// Pre effects scene
+		RenderTargetAttachmentInfo preEffectsColorInfo{ .format = Format::RGBA16_SFLOAT, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE, .name = "Pre-Effects Color Target" };
+		RenderTargetAttachmentInfo preEffectsDepthInfo{ .format = Format::D32S8_SFLOAT_SUINT, .name = "Pre-Effects Depth Target" };
+		preEffectsRenderTarget = new RenderTarget();
+		preEffectsRenderTarget->Create(Engine::GetDisplay()->GetResolution(), { preEffectsColorInfo }, preEffectsDepthInfo);
+
+		Engine::GetRenderer()->RegisterRenderTarget(textRenderTarget.GetPointer());
+	}
+
+	void SetupPostProcessingChain() {
+		// Inicializaciones
+		if (!fxaaPass.HasValue()) {
+			fxaaPass = new FxaaPass();
+			fxaaPass->Create(Engine::GetDisplay()->GetResolution());
+		}
+
+		if (!bloomPass.HasValue()) {
+			bloomPass = new BloomPass();
+			bloomPass->Create(Engine::GetDisplay()->GetResolution());
+		}
+
+		if (!toneMappingPass.HasValue()) {
+			toneMappingPass = new ToneMappingPass();
+			toneMappingPass->Create(Engine::GetDisplay()->GetResolution());
+
+			const IGpuStorageBuffer* epxBuffers[3]{};
+			for (TSize i = 0; i < _countof(exposureBuffers); i++) {
+				exposureBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(float)).GetPointer();
+				epxBuffers[i] = exposureBuffers[i].GetPointer();
+
+				exposureBuffers[i]->MapMemory();
+				exposureBuffers[i]->Write(toneMappingPass->GetExposure());
+				exposureBuffers[i]->Unmap();
+			}
+
+			toneMappingPass->SetExposureBuffers(epxBuffers);
+		}
+
+		fxaaPass->SetInput(preEffectsRenderTarget.GetValue(), IPostProcessPass::InputType::SAMPLER);
+		if (config.useBloom) {
+			toneMappingPass->SetInput(bloomPass->GetOutput(), IPostProcessPass::InputType::SAMPLER);
+			bloomPass->SetInput(fxaaPass->GetOutput(), IPostProcessPass::InputType::SAMPLER);
+		}
+		else {
+			toneMappingPass->SetInput(fxaaPass->GetOutput(), IPostProcessPass::InputType::SAMPLER);
+		}
+
+		fxaaPass->UpdateMaterialInstance();
+		if (config.useBloom)
+			bloomPass->UpdateMaterialInstance();
+		toneMappingPass->UpdateMaterialInstance();
+	}
+
+	void SetupRenderSystems() {
+		const CubemapTexture* skyboxTexture = Engine::GetAssetManager()->Load<CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL");
+		const SpecularMap* specularMap = Engine::GetAssetManager()->Load<SpecularMap>("Resources/Assets/IBL/irradiance0.json", "GLOBAL");
+		const IrradianceMap* irradianceMap = Engine::GetAssetManager()->Load<IrradianceMap>("Resources/Assets/IBL/specular0.json", "GLOBAL");
+
+		// PBR Render System
+		OSK_CURRENT_RSYSTEM* renderSystem = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>();
+		renderSystem->Initialize(cameraObject, *irradianceMap, *specularMap, *skyboxTexture);
+
+		// Skybox Render System
+		Engine::GetEcs()->GetSystem<SkyboxRenderSystem>()->SetCamera(cameraObject);
+		Engine::GetEcs()->GetSystem<SkyboxRenderSystem>()->SetCubemap(*skyboxTexture);
+
+		// Collider Render System
+		Engine::GetEcs()->GetSystem<ColliderRenderSystem>()->Initialize(cameraObject);
+
+	}
+
+	void SpawnCamera() {
+		cameraObject = Engine::GetEcs()->SpawnObject();
+
+		Transform3D* cameraTransform = &Engine::GetEcs()->AddComponent<Transform3D>(cameraObject, Transform3D(cameraObject));
+		cameraTransform->AddPosition({ 0.0f, 0.3f, 0.0f });
+
+		Engine::GetEcs()->AddComponent<CameraComponent3D>(cameraObject, {});
+	}
+
+	void SpawnCamera2D() {
+		cameraObject2d = Engine::GetEcs()->SpawnObject();
+
+		CameraComponent2D* camera2D = &Engine::GetEcs()->AddComponent<CameraComponent2D>(cameraObject2d, {});
+		camera2D->LinkToDisplay(Engine::GetDisplay());
+
+		Engine::GetEcs()->AddComponent<Transform2D>(cameraObject2d, Transform2D(cameraObject2d));
+	}
+
+	void SpawnCar() {
+		carObject = Engine::GetEcs()->SpawnObject();
+
+		// Setup del transform
+		Transform3D& transform = Engine::GetEcs()->AddComponent<Transform3D>(carObject, ECS::Transform3D(carObject));
+
+		// Setup de físicas
+		Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject, {});
+
+		// Setup de colisiones
+		Collider collider{};
+
+		OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume;
+		{
+			const float width = 0.15f;
+			const float length = 0.35f;
+			const float height = 0.17f;
+			{convexVolume->AddFace({
+				{ -width, height, -length },
+				{ -width, height, length },
+				{ width, height, length },
+				{ width, height, -length }
+				});
+			convexVolume->AddFace({
+				{ -width, 0, -length },
+				{ -width, 0, length },
+				{ width, 0, length },
+				{ width, 0, -length }
+				});
+
+			// Lateral
+			convexVolume->AddFace({
+				{ -width, height, -length },
+				{ -width, height, length },
+				{ -width, 0, length },
+				{ -width, 0, -length }
+				});
+			convexVolume->AddFace({
+				{ width, height, -length },
+				{ width, height, length },
+				{ width, 0, length },
+				{ width, 0, -length }
+				});
+
+			// Front/back
+			convexVolume->AddFace({
+				{ -width, height, length },
+				{ width, height, length },
+				{ width, 0, length },
+				{ -width, 0, length }
+				});
+			convexVolume->AddFace({
+				{ -width, height, -length },
+				{ width, height, -length },
+				{ width, 0, -length },
+				{ -width, 0, -length }
+				}); }
+		}
+
+		collider.SetTopLevelCollider(new SphereCollider(0.45f));
+		collider.AddBottomLevelCollider(convexVolume.GetPointer());
+
+		Engine::GetEcs()->AddComponent<Collider>(carObject, std::move(collider));
+
+		// Setup del modelo 3D
+		Model3D* carModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/mclaren.json", "GLOBAL");
+		const Texture* defaultTexture = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/texture0.json", "GLOBAL");
+
+		ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(carObject, {});
+
+		modelComponent->SetModel(carModel);
+		modelComponent->SetMaterial(material);
+		modelComponent->BindTextureForAllMeshes("texture", "albedoTexture", defaultTexture);
+		ModelLoader3D::SetupPbrModel(*carModel, modelComponent);
+	}
+
+	void SpawnCircuit() {
+		circuitObject = Engine::GetEcs()->SpawnObject();
+
+		// Transform
+		Transform3D* transform = &Engine::GetEcs()->AddComponent<Transform3D>(circuitObject, Transform3D(circuitObject));
+
+		// Modelo 3D
+		Model3D* circuitModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/circuit0.json", "GLOBAL");
+		const Texture* defaultTexture = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/texture0.json", "GLOBAL");
+
+		ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(circuitObject, {});
+
+		modelComponent->SetModel(circuitModel); // animModel
+		modelComponent->SetMaterial(material);
+		modelComponent->BindTextureForAllMeshes("texture", "albedoTexture", defaultTexture);
+		ModelLoader3D::SetupPbrModel(*circuitModel, modelComponent);
+	}
+
+	void SpawnSecondCollider() {
+		const GameObjectIndex secondObject = Engine::GetEcs()->SpawnObject();
+
+		// Transform
+		Transform3D* transform = &Engine::GetEcs()->AddComponent<Transform3D>(secondObject, Transform3D(secondObject));
+		transform->AddPosition({ 0.5f, 0.0f, 0.0f });
+
+		// Collider
+		Collider collider{};
+
+		OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume;
+		{
+			const float volume2size = 0.2f;
+			convexVolume->AddFace({
+				{ -volume2size, volume2size * 2, -volume2size },
+				{ -volume2size, volume2size * 2, volume2size },
+				{ volume2size, volume2size * 2, volume2size },
+				{ volume2size, volume2size * 2, -volume2size }
+				});
+			convexVolume->AddFace({
+				{ -volume2size, 0, -volume2size },
+				{ -volume2size, 0, volume2size },
+				{ volume2size, 0, volume2size },
+				{ volume2size, 0, -volume2size }
+				});
+
+		// Lateral
+			convexVolume->AddFace({
+				{ -volume2size, volume2size * 2, -volume2size },
+				{ -volume2size, volume2size * 2, volume2size },
+				{ -volume2size, 0, volume2size },
+				{ -volume2size, 0, -volume2size }
+				});
+			convexVolume->AddFace({
+				{ volume2size, volume2size * 2, -volume2size },
+				{ volume2size, volume2size * 2, volume2size },
+				{ volume2size, 0, volume2size },
+				{ volume2size, 0, -volume2size }
+				});
+
+		// Front/back
+			convexVolume->AddFace({
+				{ -volume2size, volume2size * 2.0f, volume2size },
+				{ volume2size, volume2size * 2.0f, volume2size },
+				{ volume2size, 0, volume2size },
+				{ -volume2size, 0, volume2size }
+				});
+			convexVolume->AddFace({
+				{ -volume2size, volume2size * 2.0f, -volume2size },
+				{ volume2size, volume2size * 2.0f, -volume2size },
+				{ volume2size, 0, -volume2size },
+				{ -volume2size, 0, -volume2size }
+				}); 
+		}
+
+		collider.SetTopLevelCollider(new AxisAlignedBoundingBox(0.95f));
+		collider.AddBottomLevelCollider(convexVolume.GetPointer());
+
+		Engine::GetEcs()->AddComponent<Collider>(secondObject, std::move(collider));
+	}
+
+	struct Config {
+		bool useFxaa = true;
+		bool useBloom = true;
+	} config;
+
 	UniquePtr<RenderTarget> preEffectsRenderTarget;
 	UniquePtr<RenderTarget> textRenderTarget;
 
@@ -654,11 +709,7 @@ private:
 	ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
 	ECS::GameObjectIndex cameraObject2d = ECS::EMPTY_GAME_OBJECT;
 
-	ASSETS::Texture* texture = nullptr;
 	ASSETS::Font* font = nullptr;
-
-	UI::UiRenderer uiRenderer;
-	UniquePtr<UI::UiElement> mainUi;
 
 };
 

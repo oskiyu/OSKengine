@@ -92,9 +92,9 @@ namespace OSK::GRAPHICS {
 
 		bool AreValidationLayersAvailable() const;
 
-		VkInstance instance;
-		VkSurfaceKHR surface;
-		VkDebugUtilsMessengerEXT debugConsole;
+		VkInstance instance = VK_NULL_HANDLE;
+		VkSurfaceKHR surface = VK_NULL_HANDLE;
+		VkDebugUtilsMessengerEXT debugConsole = VK_NULL_HANDLE;
 
 		// Sync
 		DynamicArray<VkSemaphore> imageAvailableSemaphores;

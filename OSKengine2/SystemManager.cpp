@@ -6,13 +6,16 @@ using namespace OSK::ECS;
 
 void SystemManager::OnTick(TDeltaTime deltaTime) {
 	for (auto& [name, system] : producers)
-		system->OnTick(deltaTime);
+		if (system->IsActive())
+			system->OnTick(deltaTime);
 
 	for (auto& [name, system] : consumers)
-		system->OnTick(deltaTime);
+		if (system->IsActive())
+			system->OnTick(deltaTime);
 
 	for (auto& [name, system] : systems)
-		system->OnTick(deltaTime);
+		if (system->IsActive())
+			system->OnTick(deltaTime);
 }
 
 void SystemManager::GameObjectDestroyed(GameObjectIndex obj) {

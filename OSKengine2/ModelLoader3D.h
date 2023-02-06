@@ -24,9 +24,8 @@ namespace OSK::ASSETS {
 		/// del motor.
 		/// </summary>
 		/// 
-		/// @pre model no debe ser null.
 		/// @pre component no debe ser null.
-		static void SetupPbrModel(Model3D* model, ECS::ModelComponent3D* component);
+		static void SetupPbrModel(const Model3D& model, ECS::ModelComponent3D* component);
 
 	};
 

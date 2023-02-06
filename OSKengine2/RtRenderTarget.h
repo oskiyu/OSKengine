@@ -4,16 +4,14 @@
 #include "Vector2.hpp"
 
 #include "RenderTargetAttachmentInfo.h"
+#include "MaterialInstance.h"
 
 namespace OSK::GRAPHICS {
 
-	class MaterialInstance;
 	class IMaterialSlot;
 
-	/// <summary>
-	/// Render target para el renderizado de imágenes desde shaders de trazado
+	/// @brief Render target para el renderizado de imágenes desde shaders de trazado
 	/// de rayos / computación.
-	/// </summary>
 	class OSKAPI_CALL RtRenderTarget {
 
 	public:
@@ -21,6 +19,8 @@ namespace OSK::GRAPHICS {
 		/// @brief Crea el render target con la información dada.
 		/// @param targetSize Resolución, en píxeles.
 		/// @param attachmentInfo Información de la imagen que se va a generar.
+		/// 
+		/// @post El render target podrá usarse como storage image.
 		/// 
 		/// @note La imagen tendrá al menos GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED.
 		void Create(const Vector2ui& targetSize, RenderTargetAttachmentInfo attachmentInfo);
@@ -30,32 +30,43 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @warning Dejará en un estado inválido cualquier material slot en el que se use
 		/// esta imagen. 
+		
+		/// @brief Cambia de tamaño la imagen de renderizado.
+		/// @param targetSize Nueva resolución de la imagen de renderizado.
+		/// 
+		/// @pre El render target debe haber sido correctamente creado mediante
+		/// RenderTarget::Create o RenderTarget::CreateAsFinal.
+		/// 
+		/// @warning Esta función destruye las imágenes anteriores, por lo que si una instancia de material
+		/// referenciaba estas imágenes, se deberá actualizar con las nuevas imágenes.
 		void Resize(const Vector2ui& targetSize);
 
 
 		/// @brief Devuelve la imagen de renderizado en el índice de recursos dado.
 		/// @param index Índice del frame.
-		/// @return Nullptr si el render target no fue inicializado.
-		/// @pre index < NUM_RESOURCES_IN_FLIGHT
+		/// @return Puntero no nulo si fue correctamente inicializado. 
+		/// Nullptr si el render target no fue inicializado.
+		/// 
+		/// @pre index debe estar entre 0 y NUM_RESOURCES_IN_FLIGHT 
+		/// (0 <= index < NUM_RESOURCES_IN_FLIGHT).
 		GpuImage* GetTargetImage(TSize index) const;
 
 
-		/// <summary>
-		/// Devuelve el material instance para el renderizado a pantalla completa usando
+		/// @brief Devuelve el material instance para el renderizado a pantalla completa usando
 		/// el material IRenderer::GetFullscreenRenderingMaterial().
-		/// </summary>
-		/// <returns>Nullptr si no ha sido inicializado.</returns>
+		/// @return Nullptr si no ha sido inicializado, no nulo en caso contrario.
 		MaterialInstance* GetFullscreenSpriteMaterialInstance() const;
 
-		/// <summary>
-		/// Devuelve el material slot requerido para el renderizado a pantalla completa usando
+		/// @brief Devuelve el material slot requerido para el renderizado a pantalla completa usando
 		/// el material IRenderer::GetFullscreenRenderingMaterial().
-		/// </summary>
-		/// <pre>Debe haberse inicializado.</pre>
+		/// @return Puntero no nulo.
+		/// 
+		/// @pre Debe haberse inicializado correctamente.
 		IMaterialSlot* GetFullscreenSpriteMaterialSlot() const;
 
 
-		/// <summary> Resolución de las imágenes, en píxeles. </summary>
+		/// @brief Resolución de la imagen, en píxeles.
+		/// @return Resolución de la imagen, en píxeles.
 		Vector2ui GetSize() const;
 
 	private:
@@ -68,10 +79,9 @@ namespace OSK::GRAPHICS {
 
 	};
 
-	/// <summary>
-	/// Render target para el renderizado de imágenes desde shaders de trazado
+
+	/// @brief Render target para el renderizado de imágenes desde shaders de trazado
 	/// de rayos / computación.
-	/// </summary>
 	using ComputeRenderTarget = RtRenderTarget;
 
 }

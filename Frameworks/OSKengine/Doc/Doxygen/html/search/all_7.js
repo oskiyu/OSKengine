@@ -451,8 +451,8 @@ var searchData=
   ['graphicspipelinevulkan_2eh_448',['GraphicsPipelineVulkan.h',['../_graphics_pipeline_vulkan_8h.html',1,'']]],
   ['graphicsqueue_449',['graphicsQueue',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ada7ad73436c32df92625b7af4e708e17',1,'OSK::GRAPHICS::IRenderer']]],
   ['grave_5faccent_450',['GRAVE_ACCENT',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea1547ad05c44be2cc614be32159bf666b',1,'OSK::IO']]],
-  ['green_451',['GREEN',['../class_o_s_k_1_1_color.html#acdfc9e21f10b8a37c38790c6ebcfb21d',1,'OSK::Color']]],
-  ['green_452',['Green',['../class_o_s_k_1_1_color.html#ab90f8ead6ff695ca66208644b351855c',1,'OSK::Color']]],
+  ['green_451',['Green',['../class_o_s_k_1_1_color.html#ab90f8ead6ff695ca66208644b351855c',1,'OSK::Color']]],
+  ['green_452',['GREEN',['../class_o_s_k_1_1_color.html#acdfc9e21f10b8a37c38790c6ebcfb21d',1,'OSK::Color']]],
   ['growthfactortype_453',['growthFactorType',['../class_o_s_k_1_1_dynamic_array.html#a4a18937b8a6017fc9b8d86a9e8a592c3',1,'OSK::DynamicArray']]],
   ['growthfactortype_454',['GrowthFactorType',['../namespace_o_s_k.html#abaa28774128d414c059ee31f2759d274',1,'OSK']]]
 ];

@@ -120,9 +120,9 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a750d6e17c94bf48a22414b9d1fc4cce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
-<div class="textblock"><p >Render target para el renderizado de imágenes desde shaders de rasterización. </p>
+<div class="textblock"><p >Render target para el renderizado de imágenes desde shaders de rasterizado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8h_source.html#l00022">22</a> del archivo <a class="el" href="_render_target_8h_source.html">RenderTarget.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8h_source.html#l00021">21</a> del archivo <a class="el" href="_render_target_8h_source.html">RenderTarget.h</a>.</p>
 </div><h2 class="groupheader">Documentación de las funciones miembro</h2>
 <a id="a007f8e24640c79100c7df4414ba39380" name="a007f8e24640c79100c7df4414ba39380"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a007f8e24640c79100c7df4414ba39380">&#9670;&nbsp;</a></span>Create()</h2>
@@ -156,15 +156,20 @@ Métodos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Crea el render target con la información dada, para su uso como sampler. </p>
+<p>Crea el render target con la información dada, para su uso como render target en shaders de fragmentos. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">targetSize</td><td>Resolución, en píxeles.</td></tr>
-    <tr><td class="paramname">colorInfos</td><td>Información de las imagenes de color.</td></tr>
+    <tr><td class="paramname">targetSize</td><td>Resolución, en píxeles. </td></tr>
+    <tr><td class="paramname">colorInfos</td><td>Información de las imágenes finales de color. </td></tr>
     <tr><td class="paramname">depthInfo</td><td>Información de la imagen de profundidad.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section pre"><dt>Precondición</dt><dd>Debe haber información para al menos una imagen de color.</dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>El render target podrá usarse como renderpass para shaders de fragmentos.</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Pueden incluirse varias imágenes de color objetivo. </dd>
+<dd>
+Cada imagen objetivo de color es independiente y puede tener formatos y usos distintos al resto de imágenes objetivo. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00015">15</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
@@ -205,14 +210,16 @@ Métodos públicos</h2></td></tr>
 <p>Crea el render target con la información dada, para su uso como imagen final de presentación. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">targetSize</td><td>Resolución, en píxeles.</td></tr>
-    <tr><td class="paramname">colorInfo</td><td>Información de la imagen de color.</td></tr>
+    <tr><td class="paramname">targetSize</td><td>Resolución, en píxeles </td></tr>
+    <tr><td class="paramname">colorInfo</td><td>Información de la imagen de color. </td></tr>
     <tr><td class="paramname">depthInfo</td><td>Información de la imagen de profundidad.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section post"><dt>Postcondición</dt><dd>El render target podrá usarse como renderpass para shaders de fragmentos.</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Para uso interno, no usar en producción. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00032">32</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -245,16 +252,25 @@ Métodos públicos</h2></td></tr>
 <p>Devuelve la imagen de renderizado en los índices dados. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">colorImageIndex</td><td>Índice del target.</td></tr>
-    <tr><td class="paramname">resourceIndex</td><td>Índice del frame.</td></tr>
+    <tr><td class="paramname">colorImageIndex</td><td>Índice de la imagen objetivo de color. </td></tr>
+    <tr><td class="paramname">resourceIndex</td><td>Índice del frame. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondición</dt><dd>colorImageIndex debe apuntar a un target existente (colorImageIndex &lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#afd3aafc81082329531ea639e23be0f8c">RenderTarget::GetNumColorTargets</a>). </dd>
+<dl class="section return"><dt>Devuelve</dt><dd>Puntero no nulo a la imagen.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>Este render target debe de haberse inicializado previamente con <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a007f8e24640c79100c7df4414ba39380" title="Crea el render target con la información dada, para su uso como render target en shaders de fragmento...">RenderTarget::Create</a> o <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a5035d069a723b632b751f07dbe0a5d64" title="Crea el render target con la información dada, para su uso como imagen final de presentación.">RenderTarget::CreateAsFinal</a>. </dd>
 <dd>
-colorImageIndex debe apuntar a un target existente (colorImageIndex &lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#afd3aafc81082329531ea639e23be0f8c">RenderTarget::GetNumColorTargets</a>). </dd></dl>
+colorImageIndex debe apuntar a un target existente (colorImageIndex &lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#afd3aafc81082329531ea639e23be0f8c" title="Número de targets de color.">RenderTarget::GetNumColorTargets</a>). </dd>
+<dd>
+resourceIndex debe estar entre 0 y NUM_RESOURCES_IN_FLIGHT (0 &lt;= resourceIndex &lt; NUM_RESOURCES_IN_FLIGHT).</dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>si se incumple la precondición. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00061">61</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00063">63</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -277,13 +293,16 @@ colorImageIndex debe apuntar a un target existente (colorImageIndex &lt; <a clas
 <p>Devuelve la imagen de profundidad. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">resourceIndex</td><td>Índice del frame.</td></tr>
+    <tr><td class="paramname">resourceIndex</td><td>Índice del frame. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondición</dt><dd>Debe de haberse inicializado con <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a007f8e24640c79100c7df4414ba39380" title="Crea el render target con la información dada, para su uso como sampler.">RenderTarget::Create</a> o <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a5035d069a723b632b751f07dbe0a5d64" title="Crea el render target con la información dada, para su uso como imagen final de presentación.">RenderTarget::CreateAsFinal</a>. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Puntero no nulo a la imagen.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>Debe de haberse inicializado con <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a007f8e24640c79100c7df4414ba39380" title="Crea el render target con la información dada, para su uso como render target en shaders de fragmento...">RenderTarget::Create</a> o <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a5035d069a723b632b751f07dbe0a5d64" title="Crea el render target con la información dada, para su uso como imagen final de presentación.">RenderTarget::CreateAsFinal</a>. </dd>
+<dd>
+resourceIndex debe estar entre 0 y NUM_RESOURCES_IN_FLIGHT (0 &lt;= resourceIndex &lt; NUM_RESOURCES_IN_FLIGHT). </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00072">72</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00076">76</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -303,9 +322,9 @@ colorImageIndex debe apuntar a un target existente (colorImageIndex &lt; <a clas
 </div><div class="memdoc">
 
 <p>Devuelve el material instance para el renderizado a pantalla completa usando el material <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a32302de219063bdb551ab8200cb122a1">IRenderer::GetFullscreenRenderingMaterial()</a>. </p>
-<dl class="section return"><dt>Devuelve</dt><dd>Nullptr si no ha sido inicializado.</dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Nullptr si no ha sido inicializado, no nulo en caso contrario. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00090">90</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00095">95</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -325,8 +344,10 @@ colorImageIndex debe apuntar a un target existente (colorImageIndex &lt; <a clas
 </div><div class="memdoc">
 
 <p>Devuelve el material slot requerido para el renderizado a pantalla completa usando el material <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a32302de219063bdb551ab8200cb122a1">IRenderer::GetFullscreenRenderingMaterial()</a>. </p>
-<pre>Debe haberse inicializado.</pre> 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00094">94</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<dl class="section return"><dt>Devuelve</dt><dd>Puntero no nulo.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>Debe haberse inicializado correctamente. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00099">99</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -349,13 +370,20 @@ colorImageIndex debe apuntar a un target existente (colorImageIndex &lt; <a clas
 <p>Devuelve la imagen de renderizado principal (índice 0). </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">resourceIndex</td><td>Índice del frame.</td></tr>
+    <tr><td class="paramname">resourceIndex</td><td>Índice del frame. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondición</dt><dd>Debe de haberse inicializado con <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a007f8e24640c79100c7df4414ba39380" title="Crea el render target con la información dada, para su uso como sampler.">RenderTarget::Create</a> o <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a5035d069a723b632b751f07dbe0a5d64" title="Crea el render target con la información dada, para su uso como imagen final de presentación.">RenderTarget::CreateAsFinal</a>. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Puntero no nulo a la imagen.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>Debe de haberse inicializado con <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a007f8e24640c79100c7df4414ba39380" title="Crea el render target con la información dada, para su uso como render target en shaders de fragmento...">RenderTarget::Create</a> o <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a5035d069a723b632b751f07dbe0a5d64" title="Crea el render target con la información dada, para su uso como imagen final de presentación.">RenderTarget::CreateAsFinal</a>.</dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>si se incumple la precondición. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00068">68</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00072">72</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -373,9 +401,14 @@ colorImageIndex debe apuntar a un target existente (colorImageIndex &lt; <a clas
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Devuelve</dt><dd>Número de targets de color. Será 0 si no se ha inicializado. Será al menos 1 si se ha inicializado. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00086">86</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p>Número de targets de color. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>Número de imágenes objetivo de color.</dd></dl>
+<dl class="section remark"><dt>Comentarios</dt><dd>Será 0 si no se ha inicializado. </dd>
+<dd>
+Será al menos 1 si se ha inicializado. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00091">91</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -395,8 +428,9 @@ colorImageIndex debe apuntar a un target existente (colorImageIndex &lt; <a clas
 </div><div class="memdoc">
 
 <p>Devuelve el tipo de render target (intermedio para ser usado con el sprite, o final para ser renderizado en la propia pantalla). </p>
+<dl class="section return"><dt>Devuelve</dt><dd>Tipo de render target. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00082">82</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00087">87</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -415,9 +449,11 @@ colorImageIndex debe apuntar a un target existente (colorImageIndex &lt; <a clas
       </table>
 </div><div class="memdoc">
 
-<p>Resolución de las imágenes, en píxeles. </p>
+<p>Devuelve la resolución de todas las imágenes, en píxeles. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>Resolución del render target.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>Debe haberse inicializado correctamente. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00078">78</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00083">83</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -444,8 +480,10 @@ colorImageIndex debe apuntar a un target existente (colorImageIndex &lt; <a clas
   </table>
   </dd>
 </dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El render target debe haber sido correctamente creado mediante <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a007f8e24640c79100c7df4414ba39380" title="Crea el render target con la información dada, para su uso como render target en shaders de fragmento...">RenderTarget::Create</a> o <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html#a5035d069a723b632b751f07dbe0a5d64" title="Crea el render target con la información dada, para su uso como imagen final de presentación.">RenderTarget::CreateAsFinal</a>.</dd></dl>
+<dl class="section warning"><dt>Atención</dt><dd>Esta función destruye las imágenes anteriores, por lo que si una instancia de material referenciaba estas imágenes, se deberá actualizar con las nuevas imágenes. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00053">53</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_render_target_8cpp_source.html#l00055">55</a> del archivo <a class="el" href="_render_target_8cpp_source.html">RenderTarget.cpp</a>.</p>
 
 </div>
 </div>
@@ -459,7 +497,7 @@ colorImageIndex debe apuntar a un target existente (colorImageIndex &lt; <a clas
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">RenderTarget</a></li>
-    <li class="footer">Generado el Domingo, 5 de Febrero de 2023 16:14:55 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Lunes, 6 de Febrero de 2023 13:51:51 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

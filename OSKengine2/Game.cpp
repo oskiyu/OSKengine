@@ -103,7 +103,8 @@ void IGame::Run() {
 		Engine::GetEcs()->OnTick(deltaTime);
 		OnTick(deltaTime);
 		for (auto i : Engine::GetEcs()->GetRenderSystems())
-			i->Render(Engine::GetRenderer()->GetGraphicsCommandList());
+			if (i->IsActive())
+				i->Render(Engine::GetRenderer()->GetGraphicsCommandList());
 
 		BuildFrame();
 
