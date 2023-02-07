@@ -25,7 +25,7 @@ void main() {
     const vec4 originalColor = texelFetch(sceneImg, ivec2(currentCoords.xy), 0);
     const vec4 bloomColor = texelFetch(bloomImg, ivec2(currentCoords.xy), 0);
     
-    const float ratio = 0.055;
+    const float ratio = 0.085; // 0.055
     const vec4 color = mix(originalColor, bloomColor, ratio);
     
     imageStore(outputImg, ivec2(currentCoords.xy), vec4(color.rgb, 1.0));

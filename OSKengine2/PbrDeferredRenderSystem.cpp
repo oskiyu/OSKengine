@@ -23,6 +23,7 @@
 #include "IrradianceMap.h"
 #include "PushConst2D.h"
 #include "SpriteRenderer.h"
+#include "SpecularMap.h"
 
 using namespace OSK;
 using namespace OSK::ECS;
@@ -77,14 +78,16 @@ PbrDeferredRenderSystem::PbrDeferredRenderSystem() {
 	globalGbufferMaterialInstance = gbufferMaterial->CreateInstance().GetPointer();
 
 	globalGbufferMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
+	globalGbufferMaterialInstance->GetSlot("global")->SetUniformBuffers("previousCamera", _cameraUbos); /// @todo Previous camera
 	globalGbufferMaterialInstance->GetSlot("global")->FlushUpdate();
 }
 
-void PbrDeferredRenderSystem::Initialize(GameObjectIndex camera, const ASSETS::IrradianceMap& irradianceMap) {
+void PbrDeferredRenderSystem::Initialize(GameObjectIndex camera, const ASSETS::IrradianceMap& irradianceMap, const ASSETS::SpecularMap& specularMap) {
 	cameraObject = camera;
 
-	resolveMaterialInstance->GetSlot("global")->SetUniformBuffer("camera2D", Engine::GetRenderer()->GetRenderTargetsCamera().GetUniformBuffer());
 	resolveMaterialInstance->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage());
+	resolveMaterialInstance->GetSlot("global")->SetGpuImage("specularMap", specularMap.GetCubemapImage());
+	resolveMaterialInstance->GetSlot("global")->SetGpuImage("specularLut", specularMap.GetLookUpTable());
 	resolveMaterialInstance->GetSlot("global")->FlushUpdate();
 
 	shadowMap.SetSceneCamera(camera);
@@ -112,12 +115,12 @@ void PbrDeferredRenderSystem::CreateTargetImage(const Vector2ui& size) {
 
 	// Imagen final.
 	RenderTargetAttachmentInfo colorAttachment{};
-	colorAttachment.format = Format::RGBA32_SFLOAT;
+	colorAttachment.format = Format::RGBA16_SFLOAT;
 	colorAttachment.name = "Deferred Target";
 
 	RenderTargetAttachmentInfo depthAttachment{};
-	colorAttachment.format = Format::D32S8_SFLOAT_SUINT;
-	colorAttachment.name = "Deferred Target Depth";
+	depthAttachment.format = Format::D32S8_SFLOAT_SUINT;
+	depthAttachment.name = "Deferred Target Depth";
 	renderTarget.Create(size, { colorAttachment }, depthAttachment);
 
 	UpdateResolveMaterial();
@@ -160,6 +163,8 @@ void PbrDeferredRenderSystem::GenerateShadows(ICommandList* commandList) {
 		.rectangle = { 0u, 0u, shadowMap.GetColorImage(0)->GetSize().X, shadowMap.GetColorImage(0)->GetSize().Y }
 	};
 
+	commandList->StartDebugSection("Shadows", Color::BLACK());
+
 	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(resourceIndex), GpuImageLayout::DEPTH_STENCIL_TARGET,
 		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_START, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH | SampledChannel::STENCIL });
@@ -168,6 +173,8 @@ void PbrDeferredRenderSystem::GenerateShadows(ICommandList* commandList) {
 	commandList->SetScissor(viewport.rectangle);
 
 	for (TSize i = 0; i < shadowMap.GetNumCascades(); i++) {
+		commandList->StartDebugSection("Cascade " + std::to_string(i), Color::BLACK());
+
 		RenderPassImageInfo colorInfo{};
 		colorInfo.arrayLevel = i;
 		colorInfo.targetImage = shadowMap.GetColorImage(resourceIndex);
@@ -188,17 +195,23 @@ void PbrDeferredRenderSystem::GenerateShadows(ICommandList* commandList) {
 		ShadowsRenderLoop(ModelType::ANIMATED_MODEL, commandList, i);
 
 		commandList->EndGraphicsRenderpass();
+
+		commandList->EndDebugSection();
 	}
 
 	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(resourceIndex), GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_END, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
+		GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_END, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE), 
+		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
 		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH | SampledChannel::STENCIL });
+	commandList->EndDebugSection();
 }
 
 void PbrDeferredRenderSystem::GBufferRenderLoop(GRAPHICS::ICommandList* commandList, ASSETS::ModelType modelType) {
 	IGpuVertexBuffer* previousVertexBuffer = nullptr;
 	IGpuIndexBuffer* previousIndexBuffer = nullptr;
-	
+
+	commandList->StartDebugSection("PBR GBuffer", Color::RED());
+
 	for (GameObjectIndex obj : GetObjects()) {
 		const ModelComponent3D& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
 		const Transform3D& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
@@ -247,6 +260,8 @@ void PbrDeferredRenderSystem::GBufferRenderLoop(GRAPHICS::ICommandList* commandL
 			commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
 		}
 	}
+
+	commandList->EndDebugSection();
 }
 
 void PbrDeferredRenderSystem::ShadowsRenderLoop(ModelType modelType, ICommandList* commandList, TSize cascadeIndex) {
@@ -304,6 +319,8 @@ void PbrDeferredRenderSystem::RenderGBuffer(ICommandList* commandList) {
 }
 
 void PbrDeferredRenderSystem::Resolve(ICommandList* cmdList) {
+	cmdList->StartDebugSection("PBR Resolve", Color::RED());
+
 	cmdList->BeginGraphicsRenderpass(&renderTarget, Color::BLACK() * 0.0f);
 	SetupViewport(cmdList);
 
@@ -314,15 +331,11 @@ void PbrDeferredRenderSystem::Resolve(ICommandList* cmdList) {
 	cmdList->BindMaterialSlot(resolveMaterialInstance->GetSlot("global"));
 	cmdList->BindMaterialSlot(resolveMaterialInstance->GetSlot("gbuffer"));
 
-	PushConst2D pushConstants{};
-	pushConstants.color = Color::WHITE();
-	//pushConstants.matrix = renderTarget.GetSpriteTransform().GetAsMatrix();
-	pushConstants.texCoords = { -1.0f, -1.0f, 1.0f, 1.0f };
-	cmdList->PushMaterialConstants("sprite", pushConstants);
-
 	cmdList->DrawSingleInstance(6);
 
 	cmdList->EndGraphicsRenderpass();
+
+	cmdList->EndDebugSection();
 }
 
 void PbrDeferredRenderSystem::OnTick(TDeltaTime deltaTime) {

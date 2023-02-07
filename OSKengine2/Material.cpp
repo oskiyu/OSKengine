@@ -14,18 +14,7 @@ Material::Material(const PipelineCreateInfo& pipelineInfo, OwnedPtr<MaterialLayo
 
 	this->layout = layout.GetPointer();
 
-	switch (materialType) {
-
-	case MaterialType::RAYTRACING:
-		if (Engine::GetRenderer()->IsRtActive())
-			rtPipeline = Engine::GetRenderer()->_CreateRaytracingPipeline(pipelineInfo, layout.GetValue(), vertexInfo).GetPointer();
-		break;
-
-	case MaterialType::COMPUTE:
-		computePipeline = Engine::GetRenderer()->_CreateComputePipeline(pipelineInfo, layout.GetValue()).GetPointer();
-	
-	}
-
+	InitializePipelines();
 }
 
 void Material::SetName(const std::string& name) {
@@ -90,4 +79,37 @@ const IRaytracingPipeline* Material::GetRaytracingPipeline() const {
 
 const IComputePipeline* Material::GetComputePipeline() const {
 	return computePipeline.GetPointer();
+}
+
+void Material::InitializePipelines() {
+	switch (materialType) {
+	case MaterialType::RAYTRACING:
+		if (Engine::GetRenderer()->IsRtActive())
+			rtPipeline = Engine::GetRenderer()->_CreateRaytracingPipeline(pipelineInfo, layout.GetValue(), vertexInfo).GetPointer();
+		break;
+
+	case MaterialType::COMPUTE:
+		computePipeline = Engine::GetRenderer()->_CreateComputePipeline(pipelineInfo, layout.GetValue()).GetPointer();
+	}
+}
+
+void Material::_Reload() {
+	switch (materialType) {
+
+	case MaterialType::GRAPHICS:
+		// Basta con limpiar el caché para que se
+		// generen nuevos pipelines.
+		graphicsPipelines.Empty();
+		graphicsPipelinesKeys.Empty();
+		break;
+
+	case MaterialType::RAYTRACING:
+	case MaterialType::COMPUTE:
+		rtPipeline.Delete();
+		computePipeline.Delete();
+
+		InitializePipelines();
+
+		break;
+	}
 }

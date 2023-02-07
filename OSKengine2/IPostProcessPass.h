@@ -10,17 +10,22 @@ namespace OSK::GRAPHICS {
 	class ICommandList;
 	class RenderTarget;
 
-	/// <summary>
-	/// Clase base que permite ejecutar pases de efectos de postprocesamiento.
+
+	/// @brief Clase base que permite ejecutar pases de efectos de postprocesamiento.
 	/// 
 	/// Su instancia de material contiene un slot "texture" con dos entradas:
 	/// - "sceneImage": imágen de entrada.
 	/// - "finalImage": imágen de salida.
-	/// </summary>
 	class OSKAPI_CALL IPostProcessPass {
 
 	public:
 
+		/// @brief Define cómo va a acceder el efecto
+		/// de post-procesado a su imágen de entrada.
+		/// 
+		/// @deprecated En un futuro se eliminará la posibilidad de elegir
+		/// el tipo de acceso, y los efectos de post-procesado
+		/// deberán acceder a su imagen de entrada como un SAMPLER.
 		enum class InputType {
 			STORAGE_IMAGE,
 			SAMPLER
@@ -29,11 +34,11 @@ namespace OSK::GRAPHICS {
 
 		virtual ~IPostProcessPass() = default;
 
-		/// <summary>
-		/// Crea el render target de salida.
-		/// Se puede sobreescribir para crear recursos intermedios.
-		/// </summary>
-		/// <param name="size">Tamaño de la imagen final.</param>
+		
+		/// @brief Crea el render target de salida.
+		/// Se puede sobreescribir por efectos de post-procesado específicos
+		/// para crear recursos intermedios.
+		/// @param size Resolución (tanto de entrada como de salida).
 		virtual void Create(const Vector2ui& size);
 
 		/// <summary>

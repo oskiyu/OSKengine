@@ -213,7 +213,7 @@ $(document).ready(function(){initNavTree('_game1_8hpp_source.html',''); initResi
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    }</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_i_game.html#a3fff81bfbca1fc25efa8a10f2318d46b">SetupEngine</a>()<span class="keyword"> override </span>{</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#afd8e117f227f8083cfe8de2a0fb9c72d">Initialize</a>(<span class="stringliteral">&quot;Game&quot;</span>, {}, *<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a81e2e2c3d9ab78f3ff07281bd2b6aef8">Engine::GetDisplay</a>(), PresentMode::VSYNC_ON_TRIPLE_BUFFER);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#afd8e117f227f8083cfe8de2a0fb9c72d">Initialize</a>(<span class="stringliteral">&quot;Game&quot;</span>, {}, *<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a81e2e2c3d9ab78f3ff07281bd2b6aef8">Engine::GetDisplay</a>(), PresentMode::VSYNC_ON);</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    }</div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_i_game.html#ab00e969b9d69316da10501747d0fdebe">OnCreate</a>()<span class="keyword"> override </span>{</div>
@@ -583,227 +583,229 @@ $(document).ready(function(){initNavTree('_game1_8hpp_source.html',''); initResi
 <div class="line"><a id="l00493" name="l00493"></a><span class="lineno">  493</span>            toneMappingPass-&gt;SetInput(fxaaPass-&gt;GetOutput(), IPostProcessPass::InputType::SAMPLER);</div>
 <div class="line"><a id="l00494" name="l00494"></a><span class="lineno">  494</span>        }</div>
 <div class="line"><a id="l00495" name="l00495"></a><span class="lineno">  495</span> </div>
-<div class="line"><a id="l00496" name="l00496"></a><span class="lineno">  496</span>        fxaaPass-&gt;UpdateMaterialInstance();</div>
-<div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span>        <span class="keywordflow">if</span> (config.useBloom)</div>
-<div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span>            bloomPass-&gt;UpdateMaterialInstance();</div>
-<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span>        toneMappingPass-&gt;UpdateMaterialInstance();</div>
-<div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span>    }</div>
-<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span> </div>
-<div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span>    <span class="keywordtype">void</span> SetupRenderSystems() {</div>
-<div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html">CubemapTexture</a>* skyboxTexture = Engine::GetAssetManager()-&gt;Load&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html">CubemapTexture</a>&gt;(<span class="stringliteral">&quot;Resources/Assets/skybox0.json&quot;</span>, <span class="stringliteral">&quot;GLOBAL&quot;</span>);</div>
-<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html">SpecularMap</a>* specularMap = Engine::GetAssetManager()-&gt;Load&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html">SpecularMap</a>&gt;(<span class="stringliteral">&quot;Resources/Assets/IBL/irradiance0.json&quot;</span>, <span class="stringliteral">&quot;GLOBAL&quot;</span>);</div>
-<div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html">IrradianceMap</a>* irradianceMap = Engine::GetAssetManager()-&gt;Load&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html">IrradianceMap</a>&gt;(<span class="stringliteral">&quot;Resources/Assets/IBL/specular0.json&quot;</span>, <span class="stringliteral">&quot;GLOBAL&quot;</span>);</div>
-<div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span> </div>
-<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>        <span class="comment">// PBR Render System</span></div>
-<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>        OSK_CURRENT_RSYSTEM* renderSystem = Engine::GetEcs()-&gt;GetSystem&lt;OSK_CURRENT_RSYSTEM&gt;();</div>
-<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>        renderSystem-&gt;Initialize(cameraObject, *irradianceMap, *specularMap, *skyboxTexture);</div>
-<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span> </div>
-<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>        <span class="comment">// Skybox Render System</span></div>
-<div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>        Engine::GetEcs()-&gt;GetSystem&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html">SkyboxRenderSystem</a>&gt;()-&gt;SetCamera(cameraObject);</div>
-<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>        Engine::GetEcs()-&gt;GetSystem&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html">SkyboxRenderSystem</a>&gt;()-&gt;SetCubemap(*skyboxTexture);</div>
-<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span> </div>
-<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>        <span class="comment">// Collider Render System</span></div>
-<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>        Engine::GetEcs()-&gt;GetSystem&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html">ColliderRenderSystem</a>&gt;()-&gt;Initialize(cameraObject);</div>
-<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span> </div>
-<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>    }</div>
+<div class="line"><a id="l00496" name="l00496"></a><span class="lineno">  496</span>        Engine::GetRenderer()-&gt;WaitForCompletion();</div>
+<div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span> </div>
+<div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span>        fxaaPass-&gt;UpdateMaterialInstance();</div>
+<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span>        <span class="keywordflow">if</span> (config.useBloom)</div>
+<div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span>            bloomPass-&gt;UpdateMaterialInstance();</div>
+<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>        toneMappingPass-&gt;UpdateMaterialInstance();</div>
+<div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span>    }</div>
+<div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span> </div>
+<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span>    <span class="keywordtype">void</span> SetupRenderSystems() {</div>
+<div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html">CubemapTexture</a>* skyboxTexture = Engine::GetAssetManager()-&gt;Load&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html">CubemapTexture</a>&gt;(<span class="stringliteral">&quot;Resources/Assets/skybox0.json&quot;</span>, <span class="stringliteral">&quot;GLOBAL&quot;</span>);</div>
+<div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html">SpecularMap</a>* specularMap = Engine::GetAssetManager()-&gt;Load&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html">SpecularMap</a>&gt;(<span class="stringliteral">&quot;Resources/Assets/IBL/irradiance0.json&quot;</span>, <span class="stringliteral">&quot;GLOBAL&quot;</span>);</div>
+<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html">IrradianceMap</a>* irradianceMap = Engine::GetAssetManager()-&gt;Load&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html">IrradianceMap</a>&gt;(<span class="stringliteral">&quot;Resources/Assets/IBL/specular0.json&quot;</span>, <span class="stringliteral">&quot;GLOBAL&quot;</span>);</div>
+<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span> </div>
+<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>        <span class="comment">// PBR Render System</span></div>
+<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>        OSK_CURRENT_RSYSTEM* renderSystem = Engine::GetEcs()-&gt;GetSystem&lt;OSK_CURRENT_RSYSTEM&gt;();</div>
+<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>        renderSystem-&gt;Initialize(cameraObject, *irradianceMap, *specularMap, *skyboxTexture);</div>
+<div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span> </div>
+<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>        <span class="comment">// Skybox Render System</span></div>
+<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>        Engine::GetEcs()-&gt;GetSystem&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html">SkyboxRenderSystem</a>&gt;()-&gt;SetCamera(cameraObject);</div>
+<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>        Engine::GetEcs()-&gt;GetSystem&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html">SkyboxRenderSystem</a>&gt;()-&gt;SetCubemap(*skyboxTexture);</div>
+<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span> </div>
+<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>        <span class="comment">// Collider Render System</span></div>
+<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>        Engine::GetEcs()-&gt;GetSystem&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html">ColliderRenderSystem</a>&gt;()-&gt;Initialize(cameraObject);</div>
 <div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span> </div>
-<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>    <span class="keywordtype">void</span> SpawnCamera() {</div>
-<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>        cameraObject = Engine::GetEcs()-&gt;SpawnObject();</div>
-<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span> </div>
-<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>* cameraTransform = &amp;Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&gt;(cameraObject, <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>(cameraObject));</div>
-<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>        cameraTransform-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a84e7319dbca0666f6194bd7da931644a">AddPosition</a>({ 0.0f, 0.3f, 0.0f });</div>
-<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span> </div>
-<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>        Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html">CameraComponent3D</a>&gt;(cameraObject, {});</div>
-<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>    }</div>
-<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span> </div>
-<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>    <span class="keywordtype">void</span> SpawnCamera2D() {</div>
-<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>        cameraObject2d = Engine::GetEcs()-&gt;SpawnObject();</div>
-<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span> </div>
-<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html">CameraComponent2D</a>* camera2D = &amp;Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html">CameraComponent2D</a>&gt;(cameraObject2d, {});</div>
-<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>        camera2D-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#afbecc6e1d8107b76924d323da82e6008">LinkToDisplay</a>(Engine::GetDisplay());</div>
-<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span> </div>
-<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>        Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">Transform2D</a>&gt;(cameraObject2d, <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">Transform2D</a>(cameraObject2d));</div>
-<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>    }</div>
-<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span> </div>
-<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>    <span class="keywordtype">void</span> SpawnCar() {</div>
-<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>        carObject = Engine::GetEcs()-&gt;SpawnObject();</div>
-<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span> </div>
-<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>        <span class="comment">// Setup del transform</span></div>
-<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&amp; transform = Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&gt;(carObject, <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a>(carObject));</div>
-<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span> </div>
-<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>        <span class="comment">// Setup de físicas</span></div>
-<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>        Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html">PhysicsComponent</a>&gt;(carObject, {});</div>
-<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span> </div>
-<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>        <span class="comment">// Setup de colisiones</span></div>
-<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>        <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html">Collider</a> collider{};</div>
-<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span> </div>
-<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ConvexVolume&gt;</a> convexVolume = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">ConvexVolume</a>;</div>
-<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>        {</div>
-<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>            <span class="keyword">const</span> <span class="keywordtype">float</span> width = 0.15f;</div>
-<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>            <span class="keyword">const</span> <span class="keywordtype">float</span> length = 0.35f;</div>
-<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>            <span class="keyword">const</span> <span class="keywordtype">float</span> height = 0.17f;</div>
-<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>            {convexVolume-&gt;AddFace({</div>
-<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>                { -width, height, -length },</div>
-<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>                { -width, height, length },</div>
-<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>                { width, height, length },</div>
-<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>                { width, height, -length }</div>
-<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>                });</div>
-<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>            convexVolume-&gt;AddFace({</div>
-<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>                { -width, 0, -length },</div>
-<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>                { -width, 0, length },</div>
-<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>                { width, 0, length },</div>
-<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>                { width, 0, -length }</div>
-<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>                });</div>
-<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span> </div>
-<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>            <span class="comment">// Lateral</span></div>
-<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>            convexVolume-&gt;AddFace({</div>
-<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>                { -width, height, -length },</div>
-<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>                { -width, height, length },</div>
-<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>                { -width, 0, length },</div>
-<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>                { -width, 0, -length }</div>
-<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>                });</div>
-<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>            convexVolume-&gt;AddFace({</div>
-<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>                { width, height, -length },</div>
-<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>                { width, height, length },</div>
-<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>                { width, 0, length },</div>
-<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>                { width, 0, -length }</div>
-<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>                });</div>
-<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span> </div>
-<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>            <span class="comment">// Front/back</span></div>
-<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>            convexVolume-&gt;AddFace({</div>
-<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>                { -width, height, length },</div>
-<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>                { width, height, length },</div>
-<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>                { width, 0, length },</div>
-<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>                { -width, 0, length }</div>
-<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>                });</div>
-<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>            convexVolume-&gt;AddFace({</div>
-<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>                { -width, height, -length },</div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>                { width, height, -length },</div>
-<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>                { width, 0, -length },</div>
-<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>                { -width, 0, -length }</div>
-<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>                }); }</div>
-<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>        }</div>
-<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span> </div>
-<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>        collider.SetTopLevelCollider(<span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a>(0.45f));</div>
-<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>        collider.AddBottomLevelCollider(convexVolume.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>());</div>
-<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span> </div>
-<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>        Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html">Collider</a>&gt;(carObject, std::move(collider));</div>
+<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>    }</div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span> </div>
+<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>    <span class="keywordtype">void</span> SpawnCamera() {</div>
+<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>        cameraObject = Engine::GetEcs()-&gt;SpawnObject();</div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span> </div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>* cameraTransform = &amp;Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&gt;(cameraObject, <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>(cameraObject));</div>
+<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>        cameraTransform-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a84e7319dbca0666f6194bd7da931644a">AddPosition</a>({ 0.0f, 0.3f, 0.0f });</div>
+<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span> </div>
+<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span>        Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html">CameraComponent3D</a>&gt;(cameraObject, {});</div>
+<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>    }</div>
+<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span> </div>
+<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>    <span class="keywordtype">void</span> SpawnCamera2D() {</div>
+<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>        cameraObject2d = Engine::GetEcs()-&gt;SpawnObject();</div>
+<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span> </div>
+<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html">CameraComponent2D</a>* camera2D = &amp;Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html">CameraComponent2D</a>&gt;(cameraObject2d, {});</div>
+<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>        camera2D-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#afbecc6e1d8107b76924d323da82e6008">LinkToDisplay</a>(Engine::GetDisplay());</div>
+<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span> </div>
+<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>        Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">Transform2D</a>&gt;(cameraObject2d, <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">Transform2D</a>(cameraObject2d));</div>
+<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>    }</div>
+<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span> </div>
+<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>    <span class="keywordtype">void</span> SpawnCar() {</div>
+<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>        carObject = Engine::GetEcs()-&gt;SpawnObject();</div>
+<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span> </div>
+<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>        <span class="comment">// Setup del transform</span></div>
+<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&amp; transform = Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&gt;(carObject, <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a>(carObject));</div>
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span> </div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>        <span class="comment">// Setup de físicas</span></div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>        Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html">PhysicsComponent</a>&gt;(carObject, {});</div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span> </div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>        <span class="comment">// Setup de colisiones</span></div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>        <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html">Collider</a> collider{};</div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span> </div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ConvexVolume&gt;</a> convexVolume = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">ConvexVolume</a>;</div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>        {</div>
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>            <span class="keyword">const</span> <span class="keywordtype">float</span> width = 0.15f;</div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>            <span class="keyword">const</span> <span class="keywordtype">float</span> length = 0.35f;</div>
+<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>            <span class="keyword">const</span> <span class="keywordtype">float</span> height = 0.17f;</div>
+<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>            {convexVolume-&gt;AddFace({</div>
+<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>                { -width, height, -length },</div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>                { -width, height, length },</div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>                { width, height, length },</div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>                { width, height, -length }</div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>                });</div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>            convexVolume-&gt;AddFace({</div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>                { -width, 0, -length },</div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>                { -width, 0, length },</div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>                { width, 0, length },</div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>                { width, 0, -length }</div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>                });</div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span> </div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>            <span class="comment">// Lateral</span></div>
+<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>            convexVolume-&gt;AddFace({</div>
+<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>                { -width, height, -length },</div>
+<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>                { -width, height, length },</div>
+<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>                { -width, 0, length },</div>
+<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>                { -width, 0, -length }</div>
+<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>                });</div>
+<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>            convexVolume-&gt;AddFace({</div>
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>                { width, height, -length },</div>
+<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>                { width, height, length },</div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>                { width, 0, length },</div>
+<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>                { width, 0, -length }</div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>                });</div>
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span> </div>
+<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>            <span class="comment">// Front/back</span></div>
+<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>            convexVolume-&gt;AddFace({</div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>                { -width, height, length },</div>
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>                { width, height, length },</div>
+<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>                { width, 0, length },</div>
+<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>                { -width, 0, length }</div>
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>                });</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>            convexVolume-&gt;AddFace({</div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>                { -width, height, -length },</div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>                { width, height, -length },</div>
+<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>                { width, 0, -length },</div>
+<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>                { -width, 0, -length }</div>
+<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>                }); }</div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>        }</div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span> </div>
+<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>        collider.SetTopLevelCollider(<span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a>(0.45f));</div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>        collider.AddBottomLevelCollider(convexVolume.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>());</div>
 <div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span> </div>
-<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>        <span class="comment">// Setup del modelo 3D</span></div>
-<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">Model3D</a>* carModel = Engine::GetAssetManager()-&gt;Load&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">Model3D</a>&gt;(<span class="stringliteral">&quot;Resources/Assets/mclaren.json&quot;</span>, <span class="stringliteral">&quot;GLOBAL&quot;</span>);</div>
-<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">Texture</a>* defaultTexture = Engine::GetAssetManager()-&gt;Load&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">Texture</a>&gt;(<span class="stringliteral">&quot;Resources/Assets/texture0.json&quot;</span>, <span class="stringliteral">&quot;GLOBAL&quot;</span>);</div>
-<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span> </div>
-<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html">ModelComponent3D</a>* modelComponent = &amp;Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html">ModelComponent3D</a>&gt;(carObject, {});</div>
+<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>        Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html">Collider</a>&gt;(carObject, std::move(collider));</div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span> </div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>        <span class="comment">// Setup del modelo 3D</span></div>
+<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">Model3D</a>* carModel = Engine::GetAssetManager()-&gt;Load&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">Model3D</a>&gt;(<span class="stringliteral">&quot;Resources/Assets/mclaren.json&quot;</span>, <span class="stringliteral">&quot;GLOBAL&quot;</span>);</div>
+<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">Texture</a>* defaultTexture = Engine::GetAssetManager()-&gt;Load&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">Texture</a>&gt;(<span class="stringliteral">&quot;Resources/Assets/texture0.json&quot;</span>, <span class="stringliteral">&quot;GLOBAL&quot;</span>);</div>
 <div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span> </div>
-<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>        modelComponent-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#af7f59fbb8292ffa10abf7effb21f10c8">SetModel</a>(carModel);</div>
-<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>        modelComponent-&gt;SetMaterial(material);</div>
-<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>        modelComponent-&gt;BindTextureForAllMeshes(<span class="stringliteral">&quot;texture&quot;</span>, <span class="stringliteral">&quot;albedoTexture&quot;</span>, defaultTexture);</div>
-<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>        ModelLoader3D::SetupPbrModel(*carModel, modelComponent);</div>
-<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>    }</div>
-<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span> </div>
-<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>    <span class="keywordtype">void</span> SpawnCircuit() {</div>
-<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>        circuitObject = Engine::GetEcs()-&gt;SpawnObject();</div>
-<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span> </div>
-<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>        <span class="comment">// Transform</span></div>
-<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>* transform = &amp;Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&gt;(circuitObject, <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>(circuitObject));</div>
-<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span> </div>
-<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>        <span class="comment">// Modelo 3D</span></div>
-<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">Model3D</a>* circuitModel = Engine::GetAssetManager()-&gt;Load&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">Model3D</a>&gt;(<span class="stringliteral">&quot;Resources/Assets/circuit0.json&quot;</span>, <span class="stringliteral">&quot;GLOBAL&quot;</span>);</div>
-<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">Texture</a>* defaultTexture = Engine::GetAssetManager()-&gt;Load&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">Texture</a>&gt;(<span class="stringliteral">&quot;Resources/Assets/texture0.json&quot;</span>, <span class="stringliteral">&quot;GLOBAL&quot;</span>);</div>
-<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span> </div>
-<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html">ModelComponent3D</a>* modelComponent = &amp;Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html">ModelComponent3D</a>&gt;(circuitObject, {});</div>
+<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html">ModelComponent3D</a>* modelComponent = &amp;Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html">ModelComponent3D</a>&gt;(carObject, {});</div>
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span> </div>
+<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>        modelComponent-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#af7f59fbb8292ffa10abf7effb21f10c8">SetModel</a>(carModel);</div>
+<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>        modelComponent-&gt;SetMaterial(material);</div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>        modelComponent-&gt;BindTextureForAllMeshes(<span class="stringliteral">&quot;texture&quot;</span>, <span class="stringliteral">&quot;albedoTexture&quot;</span>, defaultTexture);</div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>        ModelLoader3D::SetupPbrModel(*carModel, modelComponent);</div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>    }</div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span> </div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>    <span class="keywordtype">void</span> SpawnCircuit() {</div>
+<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>        circuitObject = Engine::GetEcs()-&gt;SpawnObject();</div>
+<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span> </div>
+<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span>        <span class="comment">// Transform</span></div>
+<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>* transform = &amp;Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&gt;(circuitObject, <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>(circuitObject));</div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span> </div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>        <span class="comment">// Modelo 3D</span></div>
+<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">Model3D</a>* circuitModel = Engine::GetAssetManager()-&gt;Load&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">Model3D</a>&gt;(<span class="stringliteral">&quot;Resources/Assets/circuit0.json&quot;</span>, <span class="stringliteral">&quot;GLOBAL&quot;</span>);</div>
+<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">Texture</a>* defaultTexture = Engine::GetAssetManager()-&gt;Load&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">Texture</a>&gt;(<span class="stringliteral">&quot;Resources/Assets/texture0.json&quot;</span>, <span class="stringliteral">&quot;GLOBAL&quot;</span>);</div>
 <div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span> </div>
-<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>        modelComponent-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#af7f59fbb8292ffa10abf7effb21f10c8">SetModel</a>(circuitModel); <span class="comment">// animModel</span></div>
-<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>        modelComponent-&gt;SetMaterial(material);</div>
-<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>        modelComponent-&gt;BindTextureForAllMeshes(<span class="stringliteral">&quot;texture&quot;</span>, <span class="stringliteral">&quot;albedoTexture&quot;</span>, defaultTexture);</div>
-<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>        ModelLoader3D::SetupPbrModel(*circuitModel, modelComponent);</div>
-<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>    }</div>
-<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span> </div>
-<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>    <span class="keywordtype">void</span> SpawnSecondCollider() {</div>
-<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">GameObjectIndex</a> secondObject = Engine::GetEcs()-&gt;SpawnObject();</div>
-<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span> </div>
-<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>        <span class="comment">// Transform</span></div>
-<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>* transform = &amp;Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&gt;(secondObject, <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>(secondObject));</div>
-<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>        transform-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a84e7319dbca0666f6194bd7da931644a">AddPosition</a>({ 0.5f, 0.0f, 0.0f });</div>
-<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span> </div>
-<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>        <span class="comment">// Collider</span></div>
-<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>        <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html">Collider</a> collider{};</div>
-<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span> </div>
-<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ConvexVolume&gt;</a> convexVolume = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">ConvexVolume</a>;</div>
-<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>        {</div>
-<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span>            <span class="keyword">const</span> <span class="keywordtype">float</span> volume2size = 0.2f;</div>
-<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>            convexVolume-&gt;AddFace({</div>
-<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>                { -volume2size, volume2size * 2, -volume2size },</div>
-<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>                { -volume2size, volume2size * 2, volume2size },</div>
-<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>                { volume2size, volume2size * 2, volume2size },</div>
-<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>                { volume2size, volume2size * 2, -volume2size }</div>
-<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>                });</div>
-<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>            convexVolume-&gt;AddFace({</div>
-<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>                { -volume2size, 0, -volume2size },</div>
-<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>                { -volume2size, 0, volume2size },</div>
-<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>                { volume2size, 0, volume2size },</div>
-<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>                { volume2size, 0, -volume2size }</div>
-<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>                });</div>
-<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span> </div>
-<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>        <span class="comment">// Lateral</span></div>
-<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>            convexVolume-&gt;AddFace({</div>
-<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>                { -volume2size, volume2size * 2, -volume2size },</div>
-<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>                { -volume2size, volume2size * 2, volume2size },</div>
-<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>                { -volume2size, 0, volume2size },</div>
-<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>                { -volume2size, 0, -volume2size }</div>
-<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>                });</div>
-<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>            convexVolume-&gt;AddFace({</div>
-<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>                { volume2size, volume2size * 2, -volume2size },</div>
-<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>                { volume2size, volume2size * 2, volume2size },</div>
-<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>                { volume2size, 0, volume2size },</div>
-<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>                { volume2size, 0, -volume2size }</div>
-<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>                });</div>
-<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span> </div>
-<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>        <span class="comment">// Front/back</span></div>
-<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span>            convexVolume-&gt;AddFace({</div>
-<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span>                { -volume2size, volume2size * 2.0f, volume2size },</div>
-<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span>                { volume2size, volume2size * 2.0f, volume2size },</div>
-<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>                { volume2size, 0, volume2size },</div>
-<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span>                { -volume2size, 0, volume2size }</div>
-<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>                });</div>
-<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span>            convexVolume-&gt;AddFace({</div>
-<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>                { -volume2size, volume2size * 2.0f, -volume2size },</div>
-<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>                { volume2size, volume2size * 2.0f, -volume2size },</div>
-<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>                { volume2size, 0, -volume2size },</div>
-<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>                { -volume2size, 0, -volume2size }</div>
-<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span>                }); </div>
-<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>        }</div>
-<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span> </div>
-<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>        collider.SetTopLevelCollider(<span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a>(0.95f));</div>
-<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>        collider.AddBottomLevelCollider(convexVolume.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>());</div>
-<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span> </div>
-<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>        Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html">Collider</a>&gt;(secondObject, std::move(collider));</div>
-<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>    }</div>
-<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span> </div>
-<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>    <span class="keyword">struct </span>Config {</div>
-<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>        <span class="keywordtype">bool</span> useFxaa = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>        <span class="keywordtype">bool</span> useBloom = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>    } config;</div>
-<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span> </div>
-<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>    <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;RenderTarget&gt;</a> preEffectsRenderTarget;</div>
-<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>    <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;RenderTarget&gt;</a> textRenderTarget;</div>
-<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span> </div>
-<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>    <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;BloomPass&gt;</a> bloomPass;</div>
-<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>    <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;FxaaPass&gt;</a> fxaaPass;</div>
-<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>    <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ToneMappingPass&gt;</a> toneMappingPass;</div>
-<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span> </div>
-<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>    <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IGpuStorageBuffer&gt;</a> exposureBuffers[3];</div>
+<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html">ModelComponent3D</a>* modelComponent = &amp;Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html">ModelComponent3D</a>&gt;(circuitObject, {});</div>
+<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span> </div>
+<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>        modelComponent-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#af7f59fbb8292ffa10abf7effb21f10c8">SetModel</a>(circuitModel); <span class="comment">// animModel</span></div>
+<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>        modelComponent-&gt;SetMaterial(material);</div>
+<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>        modelComponent-&gt;BindTextureForAllMeshes(<span class="stringliteral">&quot;texture&quot;</span>, <span class="stringliteral">&quot;albedoTexture&quot;</span>, defaultTexture);</div>
+<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span>        ModelLoader3D::SetupPbrModel(*circuitModel, modelComponent);</div>
+<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>    }</div>
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span> </div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>    <span class="keywordtype">void</span> SpawnSecondCollider() {</div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">GameObjectIndex</a> secondObject = Engine::GetEcs()-&gt;SpawnObject();</div>
+<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span> </div>
+<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>        <span class="comment">// Transform</span></div>
+<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>* transform = &amp;Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&gt;(secondObject, <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>(secondObject));</div>
+<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>        transform-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a84e7319dbca0666f6194bd7da931644a">AddPosition</a>({ 0.5f, 0.0f, 0.0f });</div>
+<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span> </div>
+<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span>        <span class="comment">// Collider</span></div>
+<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>        <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html">Collider</a> collider{};</div>
+<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span> </div>
+<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ConvexVolume&gt;</a> convexVolume = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">ConvexVolume</a>;</div>
+<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>        {</div>
+<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>            <span class="keyword">const</span> <span class="keywordtype">float</span> volume2size = 0.2f;</div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>            convexVolume-&gt;AddFace({</div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>                { -volume2size, volume2size * 2, -volume2size },</div>
+<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>                { -volume2size, volume2size * 2, volume2size },</div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>                { volume2size, volume2size * 2, volume2size },</div>
+<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>                { volume2size, volume2size * 2, -volume2size }</div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>                });</div>
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>            convexVolume-&gt;AddFace({</div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>                { -volume2size, 0, -volume2size },</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>                { -volume2size, 0, volume2size },</div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>                { volume2size, 0, volume2size },</div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>                { volume2size, 0, -volume2size }</div>
+<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>                });</div>
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span> </div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>        <span class="comment">// Lateral</span></div>
+<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>            convexVolume-&gt;AddFace({</div>
+<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>                { -volume2size, volume2size * 2, -volume2size },</div>
+<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>                { -volume2size, volume2size * 2, volume2size },</div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>                { -volume2size, 0, volume2size },</div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>                { -volume2size, 0, -volume2size }</div>
+<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>                });</div>
+<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>            convexVolume-&gt;AddFace({</div>
+<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>                { volume2size, volume2size * 2, -volume2size },</div>
+<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>                { volume2size, volume2size * 2, volume2size },</div>
+<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>                { volume2size, 0, volume2size },</div>
+<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span>                { volume2size, 0, -volume2size }</div>
+<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>                });</div>
+<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span> </div>
+<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span>        <span class="comment">// Front/back</span></div>
+<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span>            convexVolume-&gt;AddFace({</div>
+<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>                { -volume2size, volume2size * 2.0f, volume2size },</div>
+<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span>                { volume2size, volume2size * 2.0f, volume2size },</div>
+<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>                { volume2size, 0, volume2size },</div>
+<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span>                { -volume2size, 0, volume2size }</div>
+<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>                });</div>
+<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>            convexVolume-&gt;AddFace({</div>
+<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>                { -volume2size, volume2size * 2.0f, -volume2size },</div>
+<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>                { volume2size, volume2size * 2.0f, -volume2size },</div>
+<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span>                { volume2size, 0, -volume2size },</div>
+<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>                { -volume2size, 0, -volume2size }</div>
+<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span>                }); </div>
+<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>        }</div>
+<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span> </div>
+<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>        collider.SetTopLevelCollider(<span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a>(0.95f));</div>
+<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>        collider.AddBottomLevelCollider(convexVolume.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>());</div>
+<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span> </div>
+<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>        Engine::GetEcs()-&gt;AddComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html">Collider</a>&gt;(secondObject, std::move(collider));</div>
+<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>    }</div>
+<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span> </div>
+<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>    <span class="keyword">struct </span>Config {</div>
+<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>        <span class="keywordtype">bool</span> useFxaa = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>        <span class="keywordtype">bool</span> useBloom = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>    } config;</div>
+<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span> </div>
+<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>    <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;RenderTarget&gt;</a> preEffectsRenderTarget;</div>
+<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>    <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;RenderTarget&gt;</a> textRenderTarget;</div>
+<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span> </div>
+<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>    <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;BloomPass&gt;</a> bloomPass;</div>
+<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>    <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;FxaaPass&gt;</a> fxaaPass;</div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>    <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ToneMappingPass&gt;</a> toneMappingPass;</div>
 <div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span> </div>
-<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>    <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">ECS::GameObjectIndex</a> carObject = <a class="code hl_variable" href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">ECS::EMPTY_GAME_OBJECT</a>;</div>
-<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>    <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">ECS::GameObjectIndex</a> circuitObject = <a class="code hl_variable" href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">ECS::EMPTY_GAME_OBJECT</a>;</div>
-<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>    <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">ECS::GameObjectIndex</a> cameraObject = <a class="code hl_variable" href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">ECS::EMPTY_GAME_OBJECT</a>;</div>
-<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>    <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">ECS::GameObjectIndex</a> cameraObject2d = <a class="code hl_variable" href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">ECS::EMPTY_GAME_OBJECT</a>;</div>
-<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span> </div>
-<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>    <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html">ASSETS::Font</a>* font = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>    <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IGpuStorageBuffer&gt;</a> exposureBuffers[3];</div>
+<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span> </div>
+<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>    <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">ECS::GameObjectIndex</a> carObject = <a class="code hl_variable" href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">ECS::EMPTY_GAME_OBJECT</a>;</div>
+<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>    <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">ECS::GameObjectIndex</a> circuitObject = <a class="code hl_variable" href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">ECS::EMPTY_GAME_OBJECT</a>;</div>
+<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>    <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">ECS::GameObjectIndex</a> cameraObject = <a class="code hl_variable" href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">ECS::EMPTY_GAME_OBJECT</a>;</div>
+<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>    <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a99c18565dd4a06fe73e18b7f987584f6">ECS::GameObjectIndex</a> cameraObject2d = <a class="code hl_variable" href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">ECS::EMPTY_GAME_OBJECT</a>;</div>
 <div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span> </div>
-<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>};</div>
+<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>    <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html">ASSETS::Font</a>* font = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span> </div>
-<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>};</div>
+<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span> </div>
+<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="a_asset_manager_8h_html"><div class="ttname"><a href="_asset_manager_8h.html">AssetManager.h</a></div></div>
 <div class="ttc" id="a_axis_aligned_bounding_box_8h_html"><div class="ttname"><a href="_axis_aligned_bounding_box_8h.html">AxisAlignedBoundingBox.h</a></div></div>
 <div class="ttc" id="a_bloom_pass_8h_html"><div class="ttname"><a href="_bloom_pass_8h.html">BloomPass.h</a></div></div>
@@ -975,7 +977,7 @@ $(document).ready(function(){initNavTree('_game1_8hpp_source.html',''); initResi
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_game1_8hpp.html">Game1.hpp</a></li>
-    <li class="footer">Generado el Lunes, 6 de Febrero de 2023 13:51:50 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Lunes, 6 de Febrero de 2023 17:42:41 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

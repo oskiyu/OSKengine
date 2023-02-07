@@ -1610,9 +1610,6 @@
     <ClInclude Include="Lights.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\PBR</Filter>
     </ClInclude>
-    <ClInclude Include="Doc__MaterialJson.h">
-      <Filter>Doc</Filter>
-    </ClInclude>
     <ClInclude Include="IrradianceMap.h">
       <Filter>Archivos de encabezado\OSKengine\Assets\Builtin</Filter>
     </ClInclude>
@@ -1927,5 +1924,11 @@
   <ItemGroup>
     <None Include="OSKengine2.licenseheader" />
     <None Include="OSKengine22.licenseheader" />
+    <None Include="Doc\json files.dox">
+      <Filter>Doc</Filter>
+    </None>
+    <None Include="Doc\mainpage.dox">
+      <Filter>Doc</Filter>
+    </None>
   </ItemGroup>
 </Project>

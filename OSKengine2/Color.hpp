@@ -59,7 +59,6 @@ namespace OSK {
 
 		/// @brief Suma aditiva del color.
 		/// @param other Otro color.
-		/// @return Color + Color.
 		void operator+=(const Color& other) {
 			*this = *this + other;
 		}

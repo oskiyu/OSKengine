@@ -84,8 +84,9 @@ namespace OSK::GRAPHICS {
 		virtual void PresentFrame() = 0;
 
 		/// @brief Hace que el hilo actual espere a que se hayan ejecutado
-		/// todos los comandos.
-		/// Para su uso antes del cleanup.
+		/// todos los comandos en la GPU.
+		/// Necesario si se van a eliminar recursos que puede que todavía
+		/// estén en uso.
 		virtual void WaitForCompletion() = 0;
 
 #pragma region Getters

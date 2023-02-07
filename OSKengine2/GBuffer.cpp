@@ -8,9 +8,9 @@ using namespace OSK::GRAPHICS;
 
 void GBuffer::Create(const Vector2ui& resolution, GpuImageSamplerDesc sampler, GpuImageUsage usage) {
 	DynamicArray<RenderTargetAttachmentInfo> colorAttachments{};
-	colorAttachments.Insert({ .format = Format::RGBA32_SFLOAT, .usage = usage, .sampler = sampler, .name = "GBuffer Position" });
+	colorAttachments.Insert({ .format = Format::RGBA16_SFLOAT, .usage = usage, .sampler = sampler, .name = "GBuffer Position" });
 	colorAttachments.Insert({ .format = Format::RGBA8_UNORM,   .usage = usage, .sampler = sampler, .name = "GBuffer Color" });
-	colorAttachments.Insert({ .format = Format::RGBA32_SFLOAT, .usage = usage, .sampler = sampler, .name = "GBuffer Normal" });
+	colorAttachments.Insert({ .format = Format::RGBA16_SFLOAT, .usage = usage, .sampler = sampler, .name = "GBuffer Normal" });
 	colorAttachments.Insert({ .format = Format::RGBA16_SFLOAT, .usage = usage, .sampler = sampler, .name = "GBuffer Motion" });
 	
 	renderTarget.Create(resolution, colorAttachments, { .format = Format::D32S8_SFLOAT_SUINT, .usage = GpuImageUsage::DEPTH_STENCIL, .sampler = sampler });

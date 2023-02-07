@@ -1,7 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"_gpu_memory_types_8h.html#a518773a9d0f6ce2fb4bdcdf2a669d05c":[7,0,0,151,6],
-"_gpu_memory_types_8h.html#a7fd330a6b06eb8e5b331d9a379bb86d8":[7,0,0,151,5],
 "_gpu_memory_types_8h.html#a85a830e82585f3a565d1f097491042ce":[7,0,0,151,2],
 "_gpu_memory_types_8h.html#a85a830e82585f3a565d1f097491042cea096f8c31942629a91cc086cbda5f5465":[7,0,0,151,2,0],
 "_gpu_memory_types_8h.html#a85a830e82585f3a565d1f097491042cea95c8166e4f408834884bbe57fef928f6":[7,0,0,151,2,1],
@@ -249,5 +247,7 @@ var NAVTREEINDEX2 =
 "_i_render_system_8h_source.html":[7,0,0,261],
 "_i_renderer_8h.html":[7,0,0,259],
 "_i_renderer_8h_source.html":[7,0,0,259],
-"_i_rt_shader_table_8h.html":[7,0,0,266]
+"_i_rt_shader_table_8h.html":[7,0,0,266],
+"_i_rt_shader_table_8h_source.html":[7,0,0,266],
+"_i_serializable_8h.html":[7,0,0,267]
 };

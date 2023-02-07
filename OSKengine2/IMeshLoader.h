@@ -98,7 +98,7 @@ namespace OSK::ASSETS {
 		/// <summary> Carga el modelo 3D. </summary>
 		/// 
 		/// <param name="rawAssetPath">Dirección del archivo .glb.</param>
-		/// <param name="globalScale">Escala aplicada al modelo.</param>
+		/// <param name="modelTransform">Transform aplicado al modelo.</param>
 		void Load(const std::string& rawAssetPath, const glm::mat4& modelTransform);
 
 		/// <summary> Configura el modelo 3D. </summary>

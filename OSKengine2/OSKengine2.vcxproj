@@ -275,7 +275,6 @@
     <ClInclude Include="DescriptorLayoutVulkan.h" />
     <ClInclude Include="DescriptorPoolVulkan.h" />
     <ClInclude Include="DetailedCollisionInfo.h" />
-    <ClInclude Include="Doc__MaterialJson.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventContainer.h" />
     <ClInclude Include="EventManager.h" />
@@ -510,6 +509,8 @@
     <Image Include="Resources\OSKengine_icon_lowres_64.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Doc\json files.dox" />
+    <None Include="Doc\mainpage.dox" />
     <None Include="OSKengine2.licenseheader" />
     <None Include="OSKengine22.licenseheader" />
   </ItemGroup>

@@ -1,5 +1,6 @@
 var dir_fde17fe5c09f5d2327636debe0843594 =
 [
+    [ "Doc", "dir_eb55512fafc906d3a83353cb1e32ba7d.html", null ],
     [ "Animation.cpp", "_animation_8cpp.html", null ],
     [ "Animation.h", "_animation_8h.html", "_animation_8h" ],
     [ "AnimationChannel.h", "_animation_channel_8h.html", "_animation_channel_8h" ],
@@ -77,7 +78,6 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "DescriptorPoolVulkan.h", "_descriptor_pool_vulkan_8h.html", "_descriptor_pool_vulkan_8h" ],
     [ "DetailedCollisionInfo.cpp", "_detailed_collision_info_8cpp.html", null ],
     [ "DetailedCollisionInfo.h", "_detailed_collision_info_8h.html", "_detailed_collision_info_8h" ],
-    [ "Doc__MaterialJson.h", "_doc_____material_json_8h.html", null ],
     [ "DynamicArray.hpp", "_dynamic_array_8hpp.html", "_dynamic_array_8hpp" ],
     [ "EntityComponentSystem.cpp", "_entity_component_system_8cpp.html", null ],
     [ "EntityComponentSystem.h", "_entity_component_system_8h.html", "_entity_component_system_8h" ],

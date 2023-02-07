@@ -104,7 +104,13 @@ using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 using namespace OSK::COLLISION;
 
+#if defined(OSK_USE_FORWARD_RENDERER)
 #define OSK_CURRENT_RSYSTEM OSK::ECS::RenderSystem3D
+#elif defined(OSK_USE_DEFERRED_RENDERER)
+#define OSK_CURRENT_RSYSTEM OSK::ECS::PbrDeferredRenderSystem
+#elif defined(OSK_USE_HYBRID_RENDERER)
+#define OSK_CURRENT_RSYSTEM OSK::ECS::HybridRenderSystem
+#endif
 
 class Game1 : public OSK::IGame {
 
@@ -123,7 +129,7 @@ protected:
 	}
 
 	void SetupEngine() override {
-		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetDisplay(), PresentMode::VSYNC_ON_TRIPLE_BUFFER);
+		Engine::GetRenderer()->Initialize("Game", {}, *Engine::GetDisplay(), PresentMode::VSYNC_ON);
 	}
 
 	void OnCreate() override {
@@ -245,10 +251,14 @@ protected:
 				SetupPostProcessingChain();
 			}
 			
-
 			// Activar / desactivar renderizado de colliders
 			if (keyboard->IsKeyReleased(IO::Key::C))
 				Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>()->ToggleActivationStatus();
+
+			// Recarga de shaders
+			if (keyboard->IsKeyReleased(IO::Key::R))
+				Engine::GetRenderer()->GetMaterialSystem()->ReloadAllMaterials();
+
 
 			// Movimiento de la cámara
 			if (keyboard->IsKeyDown(IO::Key::W))
@@ -493,6 +503,8 @@ private:
 			toneMappingPass->SetInput(fxaaPass->GetOutput(), IPostProcessPass::InputType::SAMPLER);
 		}
 
+		Engine::GetRenderer()->WaitForCompletion();
+
 		fxaaPass->UpdateMaterialInstance();
 		if (config.useBloom)
 			bloomPass->UpdateMaterialInstance();
@@ -506,7 +518,7 @@ private:
 
 		// PBR Render System
 		OSK_CURRENT_RSYSTEM* renderSystem = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>();
-		renderSystem->Initialize(cameraObject, *irradianceMap, *specularMap, *skyboxTexture);
+		renderSystem->Initialize(cameraObject, *irradianceMap, *specularMap);
 
 		// Skybox Render System
 		Engine::GetEcs()->GetSystem<SkyboxRenderSystem>()->SetCamera(cameraObject);

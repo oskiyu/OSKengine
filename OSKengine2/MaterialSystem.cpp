@@ -9,6 +9,8 @@
 #include "IRenderer.h"
 #include "RenderApiType.h"
 
+#include "IRenderer.h"
+
 #include <spirv_cross/spirv_glsl.hpp>
 
 using namespace OSK;
@@ -444,8 +446,8 @@ void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json
 }
 
 Material* MaterialSystem::LoadMaterial(const std::string& path) {
-	if (materialsTable.ContainsKey(path))
-		return materialsTable.Get(path);
+	if (materialsPathTable.ContainsKey(path))
+		return materialsPathTable.Get(path);
 
 	MaterialLayout* layout = new MaterialLayout;
 
@@ -520,7 +522,31 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 
 	materials.Insert(output);
 
-	materialsTable.Insert(path, output);
+	materialsPathTable.Insert(path, output);
+	materialsNameTable.Insert(materialInfo["name"], output);
 
 	return output;
+}
+
+Material* MaterialSystem::GetMaterialByName(const std::string& name) const {
+	OSK_ASSERT(materialsNameTable.ContainsKey(name), "El material " + name + " no está cargado.");
+	return materialsNameTable.Get(name);
+}
+
+void MaterialSystem::ReloadMaterialByPath(const std::string& path) {
+	OSK_ASSERT(materialsPathTable.ContainsKey(path), "El material " + path + " no está cargado.");
+	Engine::GetRenderer()->WaitForCompletion();
+	LoadMaterial(path)->_Reload();
+}
+
+void MaterialSystem::ReloadMaterialByName(const std::string& name) {
+	OSK_ASSERT(materialsNameTable.ContainsKey(name), "El material " + name + " no está cargado.");
+	Engine::GetRenderer()->WaitForCompletion();
+	GetMaterialByName(name)->_Reload();
+}
+
+void MaterialSystem::ReloadAllMaterials() {
+	Engine::GetRenderer()->WaitForCompletion();
+	for (auto& m : materials)
+		m->_Reload();
 }

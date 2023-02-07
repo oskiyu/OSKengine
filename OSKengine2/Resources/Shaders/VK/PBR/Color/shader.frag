@@ -72,10 +72,30 @@ void main() {
     const vec3 prefilteredSpecularColor = textureLod(specularMap, reflectVec, roughnessFactor * maxSpecularLod).rgb;
     const vec2 lut = textureLod(specularLut, vec2(max(dot(normal, view), roughnessFactor)), 0).rg;
     const vec3 specular = prefilteredSpecularColor * (F * lut.x + lut.y);
-    vec3 color = ambient * (dirLight.directionAndIntensity.w * 0.25) + accummulatedRadiance * 1.25 + specular * 0.45;
+
     // vec3 color = ambient * (dirLight.directionAndIntensity.w * 0.5) + accummulatedRadiance * 1.25 + specular * 0.5;
     // vec3 color = ambient + accummulatedRadiance + specular;
     
+//#define NATURAL
+
+#ifdef NATURAL
+    const float ambientRatio = 0.25;
+    const float radianceRatio = 1.0;
+    const float specularRatio = 0.65;
+#elif CUSTOM
+    const float ambientRatio = 0.25;
+    const float radianceRatio = 1.25;
+    const float specularRatio = 0.45;
+#else
+    const float ambientRatio = 0.25;
+    const float radianceRatio = 1.25;
+    const float specularRatio = 0.45;
+#endif
+
+    vec3 color = ambient * (dirLight.directionAndIntensity.w * ambientRatio) 
+                + accummulatedRadiance * radianceRatio 
+                + specular * specularRatio;
+
     // vec3 color = vec3(lut.y);
 
     color = vec3(

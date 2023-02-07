@@ -34,7 +34,7 @@ void IMeshLoader::Load(const std::string& rawAssetPath, const glm::mat4& modelTr
 	for (TSize i = 0; i < scene.nodes.size(); i++)
 		ProcessNode(gltfModel.nodes[scene.nodes[i]], scene.nodes[i], std::numeric_limits<TIndex>::max());
 
-	SmoothNormals();
+	// SmoothNormals();
 }
 
 void IMeshLoader::SetupModel(Model3D* model) {

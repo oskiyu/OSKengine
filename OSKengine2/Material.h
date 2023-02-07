@@ -78,7 +78,15 @@ namespace OSK::GRAPHICS {
 		/// @return Tipo de material.
 		MaterialType GetMaterialType() const;
 
+
+		/// @brief Recarga los shaders del material.
+		/// @warning No usar directamente, hacerlo mediante MaterialSystem.
+		void _Reload();
+
 	private:
+
+		/// @brief Inicializa los pipelines.
+		void InitializePipelines();
 
 		/// @brief Información para la generación de los graphics pipelines.
 		PipelineCreateInfo pipelineInfo{};

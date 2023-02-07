@@ -26,13 +26,30 @@ var NAVTREE =
 [
   [ "OSKengine", "index.html", [
     [ "Archivos JSON", "jsonfiles.html", [
-      [ "Material", "jsonfiles.html#Material", [
-        [ "Spec V0", "jsonfiles.html#specv0", null ]
+      [ "Archivo de material", "jsonfiles.html#MaterialFile", [
+        [ "Spec V1", "jsonfiles.html#specv1", [
+          [ "Configuración adicional", "jsonfiles.html#configv1", null ],
+          [ "Tipos de material.", "jsonfiles.html#materialtypeV1", null ],
+          [ "Modo de renderizado de polígonos.", "jsonfiles.html#polygonmodeV1", null ],
+          [ "Modo de depth testing.", "jsonfiles.html#depthtestingV1", null ],
+          [ "Modo de culling.", "jsonfiles.html#cullingV1", null ]
+        ] ],
+        [ "Spec V0", "jsonfiles.html#specv0", [
+          [ "Layout", "jsonfiles.html#layoutv0", null ],
+          [ "Push Constant", "jsonfiles.html#pushconstv0", null ],
+          [ "Slot", "jsonfiles.html#slotv0", null ],
+          [ "Binding", "jsonfiles.html#bindingv0", null ],
+          [ "Configuración adicional", "jsonfiles.html#configv0", null ],
+          [ "Tipos de material.", "jsonfiles.html#materialtypeV0", null ],
+          [ "Modo de renderizado de polígonos.", "jsonfiles.html#polygonmodeV0", null ],
+          [ "Modo de depth testing.", "jsonfiles.html#depthtestingV0", null ],
+          [ "Modo de culling.", "jsonfiles.html#cullingV0", null ]
+        ] ]
       ] ]
     ] ],
     [ "Lista de tareas pendientes", "todo.html", null ],
-    [ "Lista de bugs", "bug.html", null ],
     [ "Lista de obsoletos", "deprecated.html", null ],
+    [ "Lista de bugs", "bug.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Lista de 'namespaces'", "namespaces.html", "namespaces_dup" ],
       [ "Miembros del Namespace ", "namespacemembers.html", [
@@ -74,39 +91,39 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_anim_mesh_loader_8cpp.html",
-"_font_loader_8h.html",
-"_gpu_memory_types_8h.html#a518773a9d0f6ce2fb4bdcdf2a669d05c",
-"_i_rt_shader_table_8h_source.html",
-"_model3_d_8h.html#abe608719d1d14e6e8f0c485348f82b46a0fcc90da4811c877ba9f9c12f7d60bc9",
-"_skeleton_8cpp.html",
-"class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#a9fea40ef67c601641f513646dd79277d",
-"class_o_s_k_1_1_bit_set.html#a3f0833e81de5d6a323a40d33c912b11b",
-"class_o_s_k_1_1_dynamic_array.html#a6a81b35ca13e217d3cc8d5c42bf44c38",
-"class_o_s_k_1_1_e_c_s_1_1_consumer_system.html#ab66937b130814e6f06f3d76648dd0fb6",
-"class_o_s_k_1_1_e_c_s_1_1_i_pure_system.html#a43e7608ce2a31c9c13b42cf4ce6eb0ef",
-"class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#a8e9d568865c3d41fbec6afd49acb3cfa",
-"class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a16601a1c74629f0c493e00df8f3a8309",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#aea8a55a6c79006ab5107789609a56726",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_fxaa_pass.html#a5755b9283180f003c9d77fbebebfb322",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vulkan.html#adeb74d90a1d6255f9fc7cbc906b135de",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#a2003b58e4ba53da3f0adf7e8d52eed97",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12.html#ac8e57fa1d9a9e692b7320fd0a8dd5cd0",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a4ced0b9bf575c7801e54f046604eee10",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#ade0f4cfb99ac4d5653f80064e83a78e2",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan.html#a434315b6b8e53a7718cb29835d3627c4",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a50f5c0b2bfc7bd549c9501322331c0cf",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_raytracing_pipeline_vulkan.html#a7da64952ed199b2d82b9ead6e4fbb528",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a1a5083ac960d4ce379683f35f66c993e",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#a8954aa80ca2d38b483e4952563dc376a",
-"class_o_s_k_1_1_hash_map.html#a9840da146cc95d82bc7c505334db32a4",
-"class_o_s_k_1_1_i_o_1_1_i_user_input.html#a4a8f191fb973a7070d6b2df052c2cfee",
-"class_o_s_k_1_1_linked_list.html#af702b793b58be5ff25e3e2c92fb3ee4d",
-"class_o_s_k_1_1_unique_ptr_3_01_t_0f_0e_4.html#a660f8a75ddfbf4f1f6a59b011481a357",
-"class_shared_ptr.html",
-"namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a36849b56fb8ca2a551ef010d857bea90",
-"namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eaf62243e85cb79aa6e7b5b4226e7eaf8e",
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_copy_image_info.html#aa2c7dc0adb20b82e360f6a7163756de0",
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#acfe51d79edebcbe9e45e8f9586d05c10"
+"_format_8cpp.html",
+"_gpu_memory_types_8h.html#a85a830e82585f3a565d1f097491042ce",
+"_i_serializable_8h_source.html",
+"_model3_d_8h.html#abe608719d1d14e6e8f0c485348f82b46afe6f99ef1ec99efbdc19a9786cf1facc",
+"_skeleton_8h.html",
+"class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#aa0e593888f6bcd143de4f9eb5a912f44",
+"class_o_s_k_1_1_bit_set.html#a59621429db3fecb6163c5b2f80ba6543",
+"class_o_s_k_1_1_dynamic_array.html#a712ee677ebccc400ea7623d3ec966e4e",
+"class_o_s_k_1_1_e_c_s_1_1_consumer_system.html#ab930c2b93f5aa3a63fcbacb8cb18b259",
+"class_o_s_k_1_1_e_c_s_1_1_i_pure_system.html#a4b70e54251c33543c0cff980ef36e644",
+"class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#a95c8a52cae15f1ea27c6bed80c8708c3",
+"class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a1d98e03821dbb441e045582fb65d55a4",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#af0927aa0a3b0584ca95d973e86f80585",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_fxaa_pass.html#a73cbe34a14cf42fdf6f4c708f8983872",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#a2deac1d14e91d4af154cb09d563c7973",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_uniform_buffer_dx12.html#ad840df8503683709868410d65c93207a",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a4f744548e824c36b684f4d35bd1b90b2",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#adfe42ab34135cb8dcf5adc7cffb44d96",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan.html#a4b808c2d306123a3873ed5ae703b5d92",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a5936949da83e48f3f0f337d1459e5989",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_raytracing_pipeline_vulkan.html#a8869f410d6c8cd06729ef34051111770",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a21af846b7072ce67ae57ab6ed4c24111",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#a91112ec134b0c78e5d35cadf7bc58566",
+"class_o_s_k_1_1_hash_map.html#aa9668747767e3460d66b72e4e2f9edd1",
+"class_o_s_k_1_1_i_o_1_1_i_user_input.html#a96e28be0f3cec3a83c161d417162288f",
+"class_o_s_k_1_1_linked_list.html#afb559cdbc1b8386d76344457f2fb2216",
+"class_o_s_k_1_1_unique_ptr_3_01_t_0f_0e_4.html#a69d37bafb4e291b5667cb0b38546a2a9",
+"class_shared_ptr.html#a2dcf552f178a35b82d6eb7e85a377ffd",
+"namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3001155dae3ee09f282cdc4e21196fdda66eb578ef321c4ad6ff674bd3e9209d6",
+"namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eaddf133566f544b297f2f84874c283589",
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_copy_image_info.html#a4f8438be9a71de1ad445e72e5575f5fc",
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a4c3aff625b37077df47c3b631db00301"
 ];
 
 var SYNCONMSG = 'click en deshabilitar sincronización';

@@ -36,7 +36,7 @@ namespace OSK::ECS {
 
 		RenderSystem3D();
 
-		void Initialize(GameObjectIndex cameraObject, const ASSETS::IrradianceMap& irradianceMap, const ASSETS::SpecularMap& specularMap, const ASSETS::CubemapTexture& skybox);
+		void Initialize(GameObjectIndex cameraObject, const ASSETS::IrradianceMap& irradianceMap, const ASSETS::SpecularMap& specularMap);
 
 		void InitializeTerrain(const Vector2ui& resolution, const ASSETS::Texture& heightMap, const ASSETS::Texture& texture);
 

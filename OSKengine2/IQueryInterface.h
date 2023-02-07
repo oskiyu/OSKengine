@@ -31,7 +31,7 @@ namespace OSK {
 		virtual void QueryInterface(TInterfaceUuid interfaceUuid, void** ptr) const = 0;
 
 		/// @brief Permite obtener un puntero para la interfaz dada.
-		/// @param interfaceUuid UUID de la interfaz.
+		/// @param uuid UUID de la interfaz.
 		/// @param ptr Puntero a sobreescribir. Será nullptr si la clase
 		/// no implementa la interfad indicada.
 		inline void QueryInterface(IUUID uuid, void** ptr) const {

@@ -278,15 +278,18 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Crea un buffer genérico con las características dadas. </p>
+<p>Crea un buffer genérico de memoria en la GPU con las características dadas. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">size</td><td>Tamaño del buffer, en bytes.</td></tr>
-    <tr><td class="paramname">usage</td><td>Uso que se le dará al buffer.</td></tr>
-    <tr><td class="paramname">sharedType</td><td>Configura si se accederá únicamente desde la GPU, o si también se accederá desde la CPU.</td></tr>
+    <tr><td class="paramname">size</td><td>Tamaño del buffer, en bytes. </td></tr>
+    <tr><td class="paramname">alignment</td><td>Alineamiento del buffer respecto al inicio del bloque. </td></tr>
+    <tr><td class="paramname">usage</td><td>Uso que se le dará al buffer. </td></tr>
+    <tr><td class="paramname">sharedType</td><td>Tipo de memoria que se alojará. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Devuelve</dt><dd><br  />
+ </dd></dl>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#aa30f9572c0af149d0072bc69d3eb09d3">OSK::GRAPHICS::IGpuMemoryAllocator</a>.</p>
 
@@ -874,13 +877,18 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Devuelve un bloque con las características dadas. </p>
-<p >Si no hay ningún bloque con tamaño suficiente, se crea uno nuevo. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">size</td><td>Tamaño libre necesitado.</td></tr>
+    <tr><td class="paramname">size</td><td>Tamaño míniimo del bloque, en bytes. </td></tr>
+    <tr><td class="paramname">usage</td><td>Uso que se le dará a la memoria. </td></tr>
+    <tr><td class="paramname">sharedType</td><td>Tipo de memoria. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Bloque con, al menos, el tamaño dado.</dd></dl>
+<dl class="section remark"><dt>Comentarios</dt><dd>Es posible que el tamaño del bloque sea mayor al indicado en size. </dd>
+<dd>
+Si no hay ningún bloque con tamaño suficiente, se crea uno nuevo. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8cpp_source.html#l00096">96</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8cpp_source.html">IGpuMemoryAllocator.cpp</a>.</p>
 
@@ -927,13 +935,15 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Devuelve un subbloque con las características dadas. </p>
-<p >Si no hay ningún subbloque con tamaño suficiente, se crea uno nuevo. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">size</td><td>Tamaño libre necesitado.</td></tr>
+    <tr><td class="paramname">size</td><td>Tamaño del subbloque, en bytes. </td></tr>
+    <tr><td class="paramname">usage</td><td>Uso que se le dará a la memoria. </td></tr>
+    <tr><td class="paramname">sharedType</td><td>Tipo de memoria. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Bloque con el tamaño dado. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8cpp_source.html#l00130">130</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8cpp_source.html">IGpuMemoryAllocator.cpp</a>.</p>
 
@@ -1016,7 +1026,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00215">215</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00216">216</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
 
 </div>
 </div>
@@ -1042,7 +1052,7 @@ template&lt;typename T &gt; </div>
 
 <p>Información de los bloques. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00214">214</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00215">215</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
 
 </div>
 </div>
@@ -1090,7 +1100,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00219">219</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00220">220</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
 
 </div>
 </div>
@@ -1114,7 +1124,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00217">217</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_allocator_8h_source.html#l00218">218</a> del archivo <a class="el" href="_i_gpu_memory_allocator_8h_source.html">IGpuMemoryAllocator.h</a>.</p>
 
 </div>
 </div>
@@ -1155,7 +1165,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html">GpuMemoryAllocatorDx12</a></li>
-    <li class="footer">Generado el Lunes, 6 de Febrero de 2023 13:51:50 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Lunes, 6 de Febrero de 2023 17:42:41 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

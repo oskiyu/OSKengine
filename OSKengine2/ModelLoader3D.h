@@ -18,11 +18,12 @@ namespace OSK::ASSETS {
 
 		void Load(const std::string& assetFilePath, IAsset** asset) override;
 
-		/// <summary>
-		/// Configura los material instances del modelo para que sean
+
+		/// @brief Configura los material instances del modelo para que sean
 		/// compatibles con los sistemas de renderizado 3D por defecto
 		/// del motor.
-		/// </summary>
+		/// @param model Modelo original.
+		/// @param component Componente del modelo 3D a configurar.
 		/// 
 		/// @pre component no debe ser null.
 		static void SetupPbrModel(const Model3D& model, ECS::ModelComponent3D* component);

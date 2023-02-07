@@ -130,8 +130,6 @@ void SwapchainVulkan::AcquireImages(unsigned int sizeX, unsigned int sizeY) {
 		images[i]->As<GpuImageVulkan>()->_SetVkImage(tempImages[i]);
 
 	delete[] tempImages;
-
-	Engine::GetLogger()->InfoLog("	Adquiridas las imágenes del swapchain.");
 }
 
 void SwapchainVulkan::AcquireViews() {
@@ -162,8 +160,6 @@ void SwapchainVulkan::AcquireViews() {
 	}
 
 	delete[] tempViews;
-
-	Engine::GetLogger()->InfoLog("	Adquiridas las views del swapchain.");
 }
 
 VkSwapchainKHR SwapchainVulkan::GetSwapchain() const {

@@ -79,7 +79,7 @@ namespace OSK::ECS {
 		/// <summary> Bindea la textura a todos los meshes. </summary>
 		/// <param name="slot">Slot de la textura.</param>
 		/// <param name="binding">Binding de la textura.</param>
-		/// <param name="texture">Textura.</param>
+		/// <param name="image">Imagen.</param>
 		/// 
 		/// @note Se guardará información, de tal manera que si se añaden más meshes
 		/// después de haber llamado a la función, se bindearán a ellos también.
@@ -92,7 +92,7 @@ namespace OSK::ECS {
 		/// </summary>
 		/// <param name="slot">Slot del buffer.</param>
 		/// <param name="binding">Binding del buffer.</param>
-		/// <param name="texture">Textura.</param>
+		/// <param name="buffer">Buffer.</param>
 		/// 
 		/// @note Se guardará información, de tal manera que si se añaden más meshes
 		/// después de haber llamado a la función, se bindearán a ellos también.

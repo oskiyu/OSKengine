@@ -33,8 +33,10 @@ namespace OSK::COLLISION {
 
 		virtual bool ContainsPoint(const Vector3f& thisOffset, const Vector3f& point) const = 0;
 
+
 		/// @brief Calcula la intersección entre un rayo y el collider.
 		/// @param ray Rayo.
+		/// @param position Posición de este collider.
 		/// @return Resultado de la intersección.
 		virtual RayCastResult CastRay(const Ray& ray, const Vector3f& position) const = 0;
 

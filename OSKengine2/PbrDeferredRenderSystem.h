@@ -8,6 +8,7 @@
 
 namespace OSK::ASSETS {
 	class IrradianceMap;
+	class SpecularMap;
 }
 
 namespace OSK::ECS {
@@ -25,7 +26,7 @@ namespace OSK::ECS {
 
 		PbrDeferredRenderSystem();
 
-		void Initialize(ECS::GameObjectIndex cameraObject, const ASSETS::IrradianceMap& irradianceMap);
+		void Initialize(ECS::GameObjectIndex cameraObject, const ASSETS::IrradianceMap& irradianceMap, const ASSETS::SpecularMap& specularMap);
 
 		void CreateTargetImage(const Vector2ui& size) override;
 		void Resize(const Vector2ui& size) override;

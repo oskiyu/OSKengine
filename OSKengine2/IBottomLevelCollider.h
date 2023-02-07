@@ -26,9 +26,11 @@ namespace OSK::COLLISION {
 
 		/// @brief Comprueba si este área de colisión está en contacto
 		/// con otra, y devuelve la información detallada resultante.
+		/// 
 		/// @param other Otra área de colisión de nivel bajo.
-		/// @param thisOffset Posición de este collider.
-		/// @param otherOffset Posición del segundo collider.
+		/// @param transformA Transform de este collider.
+		/// @param transformB Transform del otro collider.
+		/// 
 		/// @return Información detallada de la colisión.
 		virtual DetailedCollisionInfo GetCollisionInfo(const IBottomLevelCollider& other,
 			const ECS::Transform3D& transformA, const ECS::Transform3D& transformB) const = 0;

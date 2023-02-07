@@ -37,6 +37,14 @@ namespace OSK::GRAPHICS {
 		/// @return Material definido por el archivo.
 		Material* LoadMaterial(const std::string& path);
 
+		/// @brief Devuelve el material cargado con el nombre dado.
+		/// @param name Nombre del material.
+		/// @return Material.
+		/// 
+		/// @pre El material debe haber sido previamente cargado con LoadMaterial.
+		Material* GetMaterialByName(const std::string& name) const;
+
+
 		/// @brief Registra un nuevo tipo de vértice, para que puedan crearse 
 		/// materiales para él.
 		/// @tparam T Clase del tipo de vértice.
@@ -46,13 +54,30 @@ namespace OSK::GRAPHICS {
 			vertexTypesTable.Insert(T::GetVertexTypeName(), T::GetVertexInfo());
 		}
 
+
+		/// @brief Recarga el material indicado.
+		/// @param path Ruta del material.
+		/// 
+		/// @pre El material indicado debe haber sido previamente cargado.
+		void ReloadMaterialByPath(const std::string& path);
+
+		/// @brief Recarga el material indicado. 
+		/// @param name Nombre del material.
+		/// 
+		/// @pre El material indicado debe haber sido previamente cargado.
+		void ReloadMaterialByName(const std::string& name);
+
+		/// @brief Recarga todos los materiales.
+		void ReloadAllMaterials();
+
 	private:
 
 		void LoadMaterialV0(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info);
 		void LoadMaterialV1(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info, MaterialType type);
 
 		DynamicArray<UniquePtr<Material>> materials;
-		HashMap<std::string, Material*> materialsTable;
+		HashMap<std::string, Material*> materialsPathTable;
+		HashMap<std::string, Material*> materialsNameTable;
 		HashMap<std::string, VertexInfo> vertexTypesTable;
 		DynamicArray<const IRenderpass*> registeredRenderpasses;
 

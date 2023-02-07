@@ -21,18 +21,18 @@ namespace OSK::ECS {
 
 		OSK_COMPONENT("OSK::Transform2D");
 
-		/// <summary>
-		/// Transform por defecto.
-		/// </summary>
+
+		/// @brief Transform por defecto.
+		/// @param owner ID de la entidad que posee este transform.
 		Transform2D(ECS::GameObjectIndex owner);
 
-		/// <summary>
-		/// Crea el transform.
-		/// </summary>
-		/// <param name="position">Posición en el mundo.</param>
-		/// <param name="scale">Escala en el mundo.</param>
-		/// <param name="rotation">Rotación en el mundo.</param>
+		/// @brief Crea el transform.
+		/// @param owner ID de la entidad que posee este transform.
+		/// @param position Posición en el mundo.
+		/// @param scale Escala en el mundo.
+		/// @param rotation Rotación en el mundo.
 		Transform2D(ECS::GameObjectIndex owner, const Vector2& position, const Vector2& scale, float rotation);
+
 
 		/// <summary>
 		/// Establece la posición.

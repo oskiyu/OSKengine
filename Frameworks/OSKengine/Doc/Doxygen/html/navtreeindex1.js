@@ -1,7 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"_font_loader_8h.html":[7,0,0,97],
-"_font_loader_8h_source.html":[7,0,0,97],
 "_format_8cpp.html":[7,0,0,98],
 "_format_8cpp.html#a467894bfa43b16a19e668181f40b1d2d":[7,0,0,98,0],
 "_format_8cpp_source.html":[7,0,0,98],
@@ -249,5 +247,7 @@ var NAVTREEINDEX1 =
 "_gpu_memory_types_8cpp.html#aa5619ca7979866ca4dcea6c4a1322767":[7,0,0,150,1],
 "_gpu_memory_types_8cpp_source.html":[7,0,0,150],
 "_gpu_memory_types_8h.html":[7,0,0,151],
-"_gpu_memory_types_8h.html#a26246c67682e4ffc5d48120e0ca522a2":[7,0,0,151,3]
+"_gpu_memory_types_8h.html#a26246c67682e4ffc5d48120e0ca522a2":[7,0,0,151,3],
+"_gpu_memory_types_8h.html#a518773a9d0f6ce2fb4bdcdf2a669d05c":[7,0,0,151,6],
+"_gpu_memory_types_8h.html#a7fd330a6b06eb8e5b331d9a379bb86d8":[7,0,0,151,5]
 };

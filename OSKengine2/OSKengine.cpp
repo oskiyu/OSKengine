@@ -122,7 +122,17 @@ void Engine::RegisterBuiltinComponents() {
 }
 
 void Engine::RegisterBuiltinSystems() {
+#ifdef OSK_USE_FORWARD_RENDERER
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem3D>();
+#elif defined(OSK_USE_DEFERRED_RENDERER)
+	entityComponentSystem->RegisterSystem<ECS::PbrDeferredRenderSystem>();
+#elif defined(OSK_USE_HYBRID_RENDERER)
+	entityComponentSystem->RegisterSystem<ECS::HybridRenderSystem>();
+#elif OSK_NO_DEFAULT_RENDERER
+#else 
+#error No hay un renderizador por defecto
+#endif
+
 	entityComponentSystem->RegisterSystem<ECS::SkyboxRenderSystem>();
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem2D>();
 	entityComponentSystem->RegisterSystem<ECS::CollisionSystem>();
@@ -181,7 +191,7 @@ Version Engine::GetVersion() {
 }
 
 const std::string& Engine::GetBuild() {
-	static std::string build = "2023.02.06a";
+	static std::string build = "2023.02.07a";
 
 	return build;
 }

@@ -162,12 +162,15 @@ Atributos protegidos</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Define cómo va a acceder el efecto de post-procesado a su imágen de entrada. </p>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000002">Obsoleto:</a></b></dt><dd>En un futuro se eliminará la posibilidad de elegir el tipo de acceso, y los efectos de post-procesado deberán acceder a su imagen de entrada como un SAMPLER. </dd></dl>
 <table class="fieldtable">
 <tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a96bf7489b9b90da1c5f3943906ad54e5a17a99bfdcbe59e8209f17c4da5de6ff9" name="a96bf7489b9b90da1c5f3943906ad54e5a17a99bfdcbe59e8209f17c4da5de6ff9"></a>STORAGE_IMAGE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a96bf7489b9b90da1c5f3943906ad54e5aaa4fc1f642950410dd11d691fe974cca" name="a96bf7489b9b90da1c5f3943906ad54e5aaa4fc1f642950410dd11d691fe974cca"></a>SAMPLER&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8h_source.html#l00024">24</a> del archivo <a class="el" href="_i_post_process_pass_8h_source.html">IPostProcessPass.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8h_source.html#l00029">29</a> del archivo <a class="el" href="_i_post_process_pass_8h_source.html">IPostProcessPass.h</a>.</p>
 
 </div>
 </div>
@@ -196,10 +199,10 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Crea el render target de salida. Se puede sobreescribir para crear recursos intermedios. </p>
+<p>Crea el render target de salida. Se puede sobreescribir por efectos de post-procesado específicos para crear recursos intermedios. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">size</td><td>Tamaño de la imagen final.</td></tr>
+    <tr><td class="paramname">size</td><td>Resolución (tanto de entrada como de salida). </td></tr>
   </table>
   </dd>
 </dl>
@@ -512,7 +515,7 @@ computeCmdList debe ser una lista de comandos de computación. </dd></dl>
 </div><div class="memdoc">
 
 <p>Actualiza la instancia de material. Se debe llamar después de haber creado/recreado el pass y después de haber establecido las imágenes de entrada. </p>
-<dl class="section pre"><dt>Precondición</dt><dd>Debe haberse creado el pase con <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a92aa17faa014d558ac7cc79eb982c03c" title="Crea el render target de salida. Se puede sobreescribir para crear recursos intermedios.">IPostProcessPass::Create</a>. </dd>
+<dl class="section pre"><dt>Precondición</dt><dd>Debe haberse creado el pase con <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a92aa17faa014d558ac7cc79eb982c03c" title="Crea el render target de salida. Se puede sobreescribir por efectos de post-procesado específicos par...">IPostProcessPass::Create</a>. </dd>
 <dd>
 Debe llamarse desapués de cambiar de tamaño el pase con <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a5755b9283180f003c9d77fbebebfb322" title="Cambia de tamaño el render target de salida. Se puede sobreescribir para crear recursos intermedios.">IPostProcessPass::Resize</a>. </dd>
 <dd>
@@ -547,7 +550,7 @@ Si las imágenes de entrada han sido invalidadas, se deben establecer de nuevo c
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8h_source.html#l00117">117</a> del archivo <a class="el" href="_i_post_process_pass_8h_source.html">IPostProcessPass.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8h_source.html#l00122">122</a> del archivo <a class="el" href="_i_post_process_pass_8h_source.html">IPostProcessPass.h</a>.</p>
 
 </div>
 </div>
@@ -571,7 +574,7 @@ Si las imágenes de entrada han sido invalidadas, se deben establecer de nuevo c
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8h_source.html#l00112">112</a> del archivo <a class="el" href="_i_post_process_pass_8h_source.html">IPostProcessPass.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8h_source.html#l00117">117</a> del archivo <a class="el" href="_i_post_process_pass_8h_source.html">IPostProcessPass.h</a>.</p>
 
 </div>
 </div>
@@ -595,7 +598,7 @@ Si las imágenes de entrada han sido invalidadas, se deben establecer de nuevo c
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8h_source.html#l00113">113</a> del archivo <a class="el" href="_i_post_process_pass_8h_source.html">IPostProcessPass.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8h_source.html#l00118">118</a> del archivo <a class="el" href="_i_post_process_pass_8h_source.html">IPostProcessPass.h</a>.</p>
 
 </div>
 </div>
@@ -619,7 +622,7 @@ Si las imágenes de entrada han sido invalidadas, se deben establecer de nuevo c
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8h_source.html#l00115">115</a> del archivo <a class="el" href="_i_post_process_pass_8h_source.html">IPostProcessPass.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_post_process_pass_8h_source.html#l00120">120</a> del archivo <a class="el" href="_i_post_process_pass_8h_source.html">IPostProcessPass.h</a>.</p>
 
 </div>
 </div>
@@ -633,7 +636,7 @@ Si las imágenes de entrada han sido invalidadas, se deben establecer de nuevo c
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_smaa_pass.html">SmaaPass</a></li>
-    <li class="footer">Generado el Lunes, 6 de Febrero de 2023 13:51:51 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Lunes, 6 de Febrero de 2023 17:42:41 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

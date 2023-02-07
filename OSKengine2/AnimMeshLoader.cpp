@@ -173,7 +173,7 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize
 				VertexAnim3D vertex{};
 				vertex.position = glm::vec3(nodeMatrix * vertexPosition);
 
-				const Vector3f originalNormal = Vector3f{
+				vertex.normal = Vector3f{
 					normalsBuffer[v * 3 + 0],
 					normalsBuffer[v * 3 + 1],
 					normalsBuffer[v * 3 + 2]

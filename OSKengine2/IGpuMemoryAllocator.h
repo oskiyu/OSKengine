@@ -157,13 +157,12 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		virtual OwnedPtr<GpuDataBuffer> CreateStagingBuffer(TSize size) = 0;
 
-		/// <summary>
-		/// Crea un buffer genérico con las características dadas.
-		/// </summary>
-		/// <param name="size">Tamaño del buffer, en bytes.</param>
-		/// <param name="usage">Uso que se le dará al buffer.</param>
-		/// <param name="sharedType">Configura si se accederá únicamente desde la GPU, o si también
-		/// se accederá desde la CPU.</param>
+		/// @brief Crea un buffer genérico de memoria en la GPU con las características dadas.
+		/// @param size Tamaño del buffer, en bytes.
+		/// @param alignment Alineamiento del buffer respecto al inicio del bloque.
+		/// @param usage Uso que se le dará al buffer.
+		/// @param sharedType Tipo de memoria que se alojará.
+		/// @return 
 		virtual OwnedPtr<GpuDataBuffer> CreateBuffer(TSize size, TSize alignment, GpuBufferUsage usage, GpuSharedMemoryType sharedType) = 0;
 
 		/// <summary>
@@ -194,20 +193,22 @@ namespace OSK::GRAPHICS {
 		virtual OwnedPtr<IGpuMemoryBlock> CreateNewBufferBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) = 0;
 		virtual OwnedPtr<IGpuMemoryBlock> CreateNewImageBlock(GpuImage* image, GpuImageUsage usage, GpuSharedMemoryType sharedType) = 0;
 
-		/// <summary>
-		/// Devuelve un bloque con las características dadas.
+		/// @brief Devuelve un bloque con las características dadas.
 		/// 
-		/// Si no hay ningún bloque con tamaño suficiente, se crea uno nuevo.
-		/// </summary>
-		/// <param name="size">Tamaño libre necesitado.</param>
+		/// @param size Tamaño míniimo del bloque, en bytes.
+		/// @param usage Uso que se le dará a la memoria.
+		/// @param sharedType Tipo de memoria.
+		/// @return Bloque con, al menos, el tamaño dado.
+		/// 
+		/// @remark Es posible que el tamaño del bloque sea mayor al indicado en size.
+		/// @remark Si no hay ningún bloque con tamaño suficiente, se crea uno nuevo.
 		IGpuMemoryBlock* GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType);
 
-		/// <summary>
-		/// Devuelve un subbloque con las características dadas.
-		/// 
-		/// Si no hay ningún subbloque con tamaño suficiente, se crea uno nuevo.
-		/// </summary>
-		/// <param name="size">Tamaño libre necesitado.</param>
+		/// @brief Devuelve un subbloque con las características dadas.
+		/// @param size Tamaño del subbloque, en bytes.
+		/// @param usage Uso que se le dará a la memoria.
+		/// @param sharedType Tipo de memoria.
+		/// @return Bloque con el tamaño dado.
 		IGpuMemorySubblock* GetNextBufferMemorySubblock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType);
 
 		/// @brief Información de los bloques.
